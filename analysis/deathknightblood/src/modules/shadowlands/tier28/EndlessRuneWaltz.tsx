@@ -1,3 +1,4 @@
+import { t, Trans } from '@lingui/macro';
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -8,10 +9,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 class EndlessRuneWaltz extends Analyzer {
   constructor(options: Options) {
     super(options);
-    if (!this.selectedCombatant.has2Piece()) {
-      this.active = false;
-      return;
-    }
+    this.active = this.selectedCombatant.has2Piece();
   }
 
   get stackTimes() {
@@ -47,15 +45,20 @@ class EndlessRuneWaltz extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.ITEMS}
         size="flexible"
-        tooltip={<>{formatPercentage(this.drwUptime)}% Dancing Rune Weapon Uptime</>}
+        tooltip={t({
+          id: 'deathknight.blood.endlessRuneWaltz.statistic.tooltip',
+          message: `${formatPercentage(this.drwUptime)}% Dancing Rune Weapon Uptime`,
+        })}
         dropdown={
           <>
             <table className="table table-condensed">
               <thead>
                 <tr>
-                  <th>Cast</th>
-                  <th>Time (s)</th>
-                  <th>Max Stacks</th>
+                  <Trans id="deathknight.blood.endlessRuneWaltz.statistic.headers">
+                    <th>Cast</th>
+                    <th>Time (s)</th>
+                    <th>Max Stacks</th>
+                  </Trans>
                 </tr>
               </thead>
               <tbody>
@@ -72,9 +75,9 @@ class EndlessRuneWaltz extends Analyzer {
         }
       >
         <BoringSpellValueText spellId={SPELLS.ENDLESS_RUNE_WALTZ.id}>
-          <>
+          <Trans id="deathknight.blood.endlessRuneWaltz.statistic">
             {formatPercentage(this.avgStr)} % <small>Average Strength</small>
-          </>
+          </Trans>
         </BoringSpellValueText>
       </Statistic>
     );

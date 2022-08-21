@@ -1,9 +1,10 @@
+import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import Events from 'parser/core/Events';
+import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -22,9 +23,12 @@ class Hemostasis extends Analyzer {
   damage = 0;
   heal = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HEMOSTASIS_TALENT.id);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.DEATH_STRIKE_HEAL),
       this.onHeal,
@@ -35,15 +39,15 @@ class Hemostasis extends Analyzer {
     );
   }
 
-  onHeal(event) {
+  onHeal(event: HealEvent) {
     if (this.buffStack > 0) {
       this.heal += calculateEffectiveHealing(event, PERCENT_BUFF * this.buffStack);
     }
   }
 
-  onDamage(event) {
-    const spellID = event.ability.guid;
-    if (spellID === SPELLS.DEATH_STRIKE.id) {
+  onDamage(event: DamageEvent) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.DEATH_STRIKE.id) {
       if (this.buffStack > 0) {
         this.buffedDeathStrikes += 1;
         this.usedBuffs += this.buffStack;
@@ -54,7 +58,7 @@ class Hemostasis extends Analyzer {
       this.unbuffedDeathStrikes += 1;
     }
 
-    if (spellID === SPELLS.BLOOD_BOIL.id) {
+    if (spellId === SPELLS.BLOOD_BOIL.id) {
       if (this.buffStack === MAX_BUFF_STACKS) {
         this.wastedBuffs += 1;
       } else {
@@ -75,18 +79,18 @@ class Hemostasis extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={
-          <>
+          <Trans id="deathknight.blood.hemostasis.statistic.tooltip">
             Resulting in {formatNumber(this.damage)} additional damage and {formatNumber(this.heal)}{' '}
             additional healing.
             <br />
             You gained {this.gainedBuffs} and wasted {this.wastedBuffs} stacks.
-          </>
+          </Trans>
         }
       >
         <BoringSpellValueText spellId={SPELLS.HEMOSTASIS_TALENT.id}>
-          <>
+          <Trans id="deathknight.blood.hemostasis.statistic">
             {formatPercentage(this.averageIncrease)} % <small>average DS increase</small>
-          </>
+          </Trans>
         </BoringSpellValueText>
       </Statistic>
     );

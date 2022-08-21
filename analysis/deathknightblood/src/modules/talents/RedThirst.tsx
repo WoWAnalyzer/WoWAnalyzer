@@ -1,8 +1,9 @@
+import { Trans } from '@lingui/macro';
 import { formatPercentage, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import UptimeIcon from 'interface/icons/Uptime';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -15,18 +16,25 @@ class RedThirst extends Analyzer {
     runicPowerTracker: RunicPowerTracker,
   };
 
+  protected runicPowerTracker!: RunicPowerTracker;
+
   casts = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.RED_THIRST_TALENT.id);
+
+    if (!this.active) {
+      return;
+    }
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VAMPIRIC_BLOOD),
       this.onCast,
     );
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     this.casts += 1;
   }
 
@@ -53,18 +61,18 @@ class RedThirst extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={
-          <>
+          <Trans id="deathknight.blood.redThirst.statistic.tooltip">
             {formatNumber(this.reduction)} sec total effective reduction and{' '}
             {formatNumber(this.wastedReduction)} sec ({formatPercentage(this.wastedPercent)}%)
             wasted reduction.
-          </>
+          </Trans>
         }
       >
         <BoringSpellValueText spellId={SPELLS.RED_THIRST_TALENT.id}>
-          <>
+          <Trans id="deathknight.blood.redThirst.statistic">
             <UptimeIcon /> {formatNumber(this.averageReduction)} sec{' '}
             <small>average reduction</small>
-          </>
+          </Trans>
         </BoringSpellValueText>
       </Statistic>
     );

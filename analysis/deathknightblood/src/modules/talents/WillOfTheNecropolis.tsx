@@ -1,7 +1,8 @@
+import { Trans } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { AbsorbedEvent, DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -18,9 +19,14 @@ class WillOfTheNecropolis extends Analyzer {
   goodAbsorbCount = 0;
   nextEvent = false;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.WILL_OF_THE_NECROPOLIS_TALENT.id);
+
+    if (!this.active) {
+      return;
+    }
+
     this.addEventListener(
       Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.WILL_OF_THE_NECROPOLIS_TALENT),
       this.onAbsorbed,
@@ -28,7 +34,7 @@ class WillOfTheNecropolis extends Analyzer {
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
   }
 
-  onAbsorbed(event) {
+  onAbsorbed(event: AbsorbedEvent) {
     this.totalWotnAbsorbed += event.amount;
     this.currentWotnAbsorbed = event.amount;
     this.activated += 1;
@@ -36,15 +42,17 @@ class WillOfTheNecropolis extends Analyzer {
     this.nextEvent = true;
   }
 
-  onDamageTaken(event) {
-    const playerHealth = event.maxHitPoints;
-    const absorbToHealthPercent = this.currentWotnAbsorbed / playerHealth;
+  onDamageTaken(event: DamageEvent) {
     const spellId = event.ability.guid;
     if (spellId !== this.spellDamageId || this.nextEvent === false) {
       return;
     }
     this.nextEvent = false;
-    this.playerHealth = event.maxHitPoints;
+    if (!event.maxHitPoints) {
+      return;
+    }
+    const playerHealth = event.maxHitPoints;
+    const absorbToHealthPercent = this.currentWotnAbsorbed / playerHealth;
     if (absorbToHealthPercent > MINIMUM_ABSORB_THRESHOLD) {
       this.goodAbsorbCount += 1;
     }
@@ -57,18 +65,16 @@ class WillOfTheNecropolis extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={
-          <>
+          <Trans id="deathknight.blood.willOfTheNecropolis.statistic.tooltip">
             <strong>Total Damage Absorbed: </strong> {formatNumber(this.totalWotnAbsorbed)} <br />
             <strong>Activated: </strong> {this.activated}
             <br />
             <strong>Absorbed 5% Max Health or more count: </strong> {this.goodAbsorbCount}
-          </>
+          </Trans>
         }
       >
         <BoringSpellValueText spellId={SPELLS.WILL_OF_THE_NECROPOLIS_TALENT.id}>
-          <>
-            <ItemHealingDone amount={this.totalWotnAbsorbed} />
-          </>
+          <ItemHealingDone amount={this.totalWotnAbsorbed} />
         </BoringSpellValueText>
       </Statistic>
     );

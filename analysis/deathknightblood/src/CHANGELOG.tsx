@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Adoraci, joshinator, Yajinni, Zeboot, LeoZhekov, TrellinXp, Pendragon, Tialyss } from 'CONTRIBUTORS';
+import { Adoraci, joshinator, Yajinni, Zeboot, LeoZhekov, TrellinXp, Pendragon, Tialyss, Chizu } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 8, 21), 'Rewrote all modules to Typescript', Chizu),
   change(date(2022, 4, 26), <>Added <SpellLink id={SPELLS.WITHERING_PLAGUE.id} /> and <SpellLink id={SPELLS.ETERNAL_HUNGER.id} />.</>, Tialyss),
   change(date(2022, 4, 25), <>More accurate rune cooldown tracking for <SpellLink id={SPELLS.CRIMSON_RUNE_WEAPON_BUFF.id} /> and CDR for <SpellLink id={SPELLS.BLOOD_TAP_TALENT.id} />.</>, Tialyss),
   change(date(2022, 4, 6), <>Added <SpellLink id={SPELLS.ENDLESS_RUNE_WALTZ.id} /> and updated <SpellLink id={SPELLS.DEATHS_DUE.id}/> module for <SpellLink id={SPELLS.RAMPANT_TRANSFERENCE.id}/> </>, Tialyss),

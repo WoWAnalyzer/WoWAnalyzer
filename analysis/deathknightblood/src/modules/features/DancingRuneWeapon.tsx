@@ -1,12 +1,13 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { Fragment } from 'react';
 
 const ALLOWED_CASTS_DURING_DRW = [
   SPELLS.DEATH_STRIKE.id,
@@ -22,38 +23,42 @@ class DancingRuneWeapon extends Analyzer {
     abilities: Abilities,
   };
 
-  castsDuringDRW = [];
+  protected spellUsable!: SpellUsable;
+  protected abilities!: Abilities;
 
-  DD_ABILITY = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id)
+  castsDuringDRW: number[] = [];
+
+  DD_ABILITY: Spell = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id)
     ? SPELLS.DEATHS_DUE
     : SPELLS.DEATH_AND_DECAY;
 
-  constructor(options) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.DANCING_RUNE_WEAPON_BUFF.id)) {
       return;
     }
+
+    const ability = this.abilities.getAbility(event.ability.guid);
 
     //push all casts during DRW that were on the GCD in array
     if (
       event.ability.guid !== SPELLS.RAISE_ALLY.id && //probably usefull to rezz someone even if it's a personal DPS-loss
       event.ability.guid !== SPELLS.DANCING_RUNE_WEAPON.id && //because you get the DRW buff before the cast event since BFA
-      this.abilities.getAbility(event.ability.guid) !== undefined &&
-      this.abilities.getAbility(event.ability.guid).gcd
+      ability?.gcd
     ) {
       this.castsDuringDRW.push(event.ability.guid);
     }
   }
 
   get goodDRWCasts() {
-    return this.castsDuringDRW.filter((val, index) => ALLOWED_CASTS_DURING_DRW.includes(val));
+    return this.castsDuringDRW.filter((spellId) => ALLOWED_CASTS_DURING_DRW.includes(spellId));
   }
 
-  get SuggestionThresholds() {
+  get suggestionThresholds(): NumberThreshold {
     return {
       actual: this.goodDRWCasts.length / this.castsDuringDRW.length,
       isLessThan: {
@@ -61,29 +66,35 @@ class DancingRuneWeapon extends Analyzer {
         average: 0.9,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  spellLinks(id, index) {
-    if (id === SPELLS.CONSUMPTION_TALENT.id) {
+  spellLinks(spellId: number, index: number) {
+    if (spellId === SPELLS.CONSUMPTION_TALENT.id) {
       return (
-        <Fragment key={id}>
-          and (if in AoE)
-          <SpellLink id={id} />
-        </Fragment>
+        <>
+          <Trans id="deathknight.blood.drw.spellLinks.consumption">
+            and (if in AoE)
+            <SpellLink id={spellId} />
+          </Trans>
+        </>
       );
     } else if (index + 2 === ALLOWED_CASTS_DURING_DRW.length) {
       return (
-        <Fragment key={id}>
-          <SpellLink id={id} />{' '}
-        </Fragment>
+        <>
+          <Trans id="deathknight.blood.drw.spellLinks.last">
+            <SpellLink id={spellId} />{' '}
+          </Trans>
+        </>
       );
     } else {
       return (
-        <Fragment key={id}>
-          <SpellLink id={id} />,{' '}
-        </Fragment>
+        <>
+          <Trans id="deathknight.blood.drw.spellLinks.default">
+            <SpellLink id={spellId} />,{' '}
+          </Trans>
+        </>
       );
     }
   }
@@ -91,29 +102,37 @@ class DancingRuneWeapon extends Analyzer {
   get goodDRWSpells() {
     return (
       <div>
-        Try and prioritize {ALLOWED_CASTS_DURING_DRW.map((id, index) => this.spellLinks(id, index))}
+        <Trans id="deathknight.blood.drw.suggestion.goodDrwSpells">
+          Try and prioritize{' '}
+          {ALLOWED_CASTS_DURING_DRW.map((id, index) => this.spellLinks(id, index))}
+        </Trans>
       </div>
     );
   }
 
-  suggestions(when) {
-    when(this.SuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <>
+        <Trans id="deathknight.blood.drw.suggestion.suggestion">
           Avoid casting spells during <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> that don't
           benefit from the copies such as <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> and{' '}
           <SpellLink id={this.DD_ABILITY.id} />. Check the cooldown-tab below for more detailed
           breakdown.{this.goodDRWSpells}
-        </>,
+        </Trans>,
       )
         .icon(SPELLS.DANCING_RUNE_WEAPON.icon)
         .actual(
           t({
-            id: 'deathknight.blood.suggestions.dancingRuneWeapon.numberCasts',
+            id: 'deathknight.blood.drw.suggestion.actual',
             message: `${this.goodDRWCasts.length} out of ${this.castsDuringDRW.length} casts during DRW were good`,
           }),
         )
-        .recommended(`${this.castsDuringDRW.length} recommended`),
+        .recommended(
+          t({
+            id: 'deathknight.blood.drw.suggestion.recommended',
+            message: `${this.castsDuringDRW.length} recommended`,
+          }),
+        ),
     );
   }
 }

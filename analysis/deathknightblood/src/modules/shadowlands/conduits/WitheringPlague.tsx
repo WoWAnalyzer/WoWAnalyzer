@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -112,17 +113,15 @@ class WitheringPlague extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={
-          <>
+          <Trans id="deathknight.blood.witheringPlague.statistic.tooltip">
             {formatNumber((this.missedDamage / this.owner.fightDuration) * 1000)} potential DPS
             missed when casting <br /> <SpellLink id={SPELLS.HEART_STRIKE.id} /> on targets without{' '}
             <SpellLink id={SPELLS.BLOOD_PLAGUE.id} />.
-          </>
+          </Trans>
         }
       >
         <ConduitSpellText spellId={SPELLS.WITHERING_PLAGUE.id} rank={this.conduitRank}>
-          <>
-            <ItemDamageDone amount={this.addedDamage} />
-          </>
+          <ItemDamageDone amount={this.addedDamage} />
         </ConduitSpellText>
       </Statistic>
     );

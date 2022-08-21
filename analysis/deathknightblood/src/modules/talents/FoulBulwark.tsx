@@ -1,6 +1,7 @@
+import { Trans } from '@lingui/macro';
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -15,8 +16,10 @@ class FoulBulwark extends Analyzer {
     boneShieldTimesByStacks: BoneShieldTimesByStacks,
   };
 
-  constructor(...args) {
-    super(...args);
+  protected boneShieldTimesByStacks!: BoneShieldTimesByStacks;
+
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FOUL_BULWARK_TALENT.id);
   }
 
@@ -40,18 +43,21 @@ class FoulBulwark extends Analyzer {
           <table className="table table-condensed">
             <thead>
               <tr>
-                <th>HP-bonus</th>
-                <th>Time (s)</th>
-                <th>Time (%)</th>
+                <Trans id="deathknight.blood.foulBulwark.statistic.headers">
+                  <th>HP-bonus</th>
+                  <th>Time (s)</th>
+                  <th>Time (%)</th>
+                </Trans>
               </tr>
             </thead>
             <tbody>
-              {this.boneShieldTimesByStack.map((e, i) => (
+              {this.boneShieldTimesByStack.map((stacks, i) => (
                 <tr key={i}>
                   <th>{(i * HP_PER_BONE_SHIELD_STACK * 100).toFixed(0)}%</th>
-                  <td>{formatDuration(e.reduce((a, b) => a + b, 0))}</td>
+                  <td>{formatDuration(stacks.reduce((a, b) => a + b, 0))}</td>
                   <td>
-                    {formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%
+                    {formatPercentage(stacks.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}
+                    %
                   </td>
                 </tr>
               ))}
@@ -60,7 +66,9 @@ class FoulBulwark extends Analyzer {
         }
       >
         <BoringSpellValueText spellId={SPELLS.FOUL_BULWARK_TALENT.id}>
-          {this.averageFoulBullwark}% <small>average buff</small>
+          <Trans id="deathknight.blood.foulBulwark.statistic">
+            {this.averageFoulBullwark}% <small>average buff</small>
+          </Trans>
         </BoringSpellValueText>
       </Statistic>
     );

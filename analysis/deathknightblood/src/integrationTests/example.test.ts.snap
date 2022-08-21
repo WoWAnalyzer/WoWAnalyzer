@@ -104,22 +104,25 @@ Array [
     "details": null,
     "icon": "spell_mage_altertime",
     "importance": "regular",
-    "issue": <React.Fragment>
-      While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes. You can reduce downtime by casting ranged/filler abilities like 
-      <ForwardRef
-        id={206931}
-      />
-       or
-       
-      <ForwardRef
-        id={50842}
-      />
-    </React.Fragment>,
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ForwardRef
+            id={206931}
+          />,
+          "1": <ForwardRef
+            id={50842}
+          />,
+        }
+      }
+      id="deathknight.blood.alwaysBeCasting.suggestion.suggestion"
+      message="While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes. You can reduce downtime by casting ranged/filler abilities like <0/> or <1/>"
+    />,
     "spell": undefined,
     "stat": <React.Fragment>
-      {"id":"deathknight.blood.suggestions.alwaysBeCasting.downtime","message":"{0}% downtime","values":{"0":"32.89"}}
+      {"id":"deathknight.blood.alwaysBeCasting.suggestion.actual","message":"{0}% downtime","values":{"0":"32.89"}}
        (
-      &lt;20.00% is recommended
+      {"id":"shared.suggestion.recommended.lessThanPercent","message":"&lt;{0}% is recommended","values":{"0":"20.00"}}
       )
     </React.Fragment>,
   },
@@ -179,21 +182,21 @@ exports[`Blood Death Knight integration test: example log BloodPlagueUptime matc
         <div
           className="value"
         >
-          <svg
-            className="icon"
-            viewBox="10 10 80 80"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
-            />
-          </svg>
-           
-          95.49
-          % 
-          <small>
-            uptime
-          </small>
+          <trans
+            components={
+              Object {
+                "0": <Icon />,
+                "1": <small />,
+              }
+            }
+            id="deathknight.blood.bloodPlague.statistic"
+            message="<0/> {0}% <1>uptime</1>"
+            values={
+              Object {
+                "0": "95.49",
+              }
+            }
+          />
         </div>
       </div>
     </div>
@@ -241,13 +244,21 @@ exports[`Blood Death Knight integration test: example log Blooddrinker matches t
         <div
           className="value"
         >
-          1
-           / 
-          4
-           
-          <small>
-            Channels cancelled early
-          </small>
+          <trans
+            components={
+              Object {
+                "0": <small />,
+              }
+            }
+            id="deathknight.blood.blooddrinker.statistic"
+            message="{0} / {1} <0>Channels cancelled early</0>"
+            values={
+              Object {
+                "0": 1,
+                "1": 4,
+              }
+            }
+          />
         </div>
       </div>
     </div>
@@ -395,21 +406,21 @@ exports[`Blood Death Knight integration test: example log BoneShield matches the
         <div
           className="value"
         >
-          <svg
-            className="icon"
-            viewBox="10 10 80 80"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
-            />
-          </svg>
-           
-          96.21
-          % 
-          <small>
-            uptime
-          </small>
+          <trans
+            components={
+              Object {
+                "0": <Icon />,
+                "1": <small />,
+              }
+            }
+            id="deathknight.blood.boneShield.statistic"
+            message="<0/> {0}% <1>uptime</1>"
+            values={
+              Object {
+                "0": "96.21",
+              }
+            }
+          />
         </div>
       </div>
       <div
@@ -3523,7 +3534,7 @@ Array [
         message="Try to cast <0/> more often."
       />
        
-      Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.
+      {"id":"deathknight.blood.abilities.extraSuggestion.defensiveCd","message":"Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks."}
     </React.Fragment>,
     "spell": 48792,
     "stat": <React.Fragment>
@@ -3568,7 +3579,7 @@ Array [
         message="Try to cast <0/> more often."
       />
        
-      Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.
+      {"id":"deathknight.blood.abilities.extraSuggestion.defensiveCd","message":"Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks."}
     </React.Fragment>,
     "spell": 55233,
     "stat": <React.Fragment>
@@ -3613,7 +3624,7 @@ Array [
         message="Try to cast <0/> more often."
       />
        
-      Should be casting it so you have at least one recharging.
+      {"id":"deathknight.blood.abilities.extraSuggestion.bloodBoil","message":"Should be casting it so you have at least one recharging."}
     </React.Fragment>,
     "spell": 50842,
     "stat": <React.Fragment>
@@ -3658,7 +3669,7 @@ Array [
         message="Try to cast <0/> more often."
       />
        
-      Mostly used as a dps CD. Should be almost casted on CD. Good to use when you're running to the boss or can't melee them.
+      {"id":"deathknight.blood.abilities.extraSuggestion.blooddrinker","message":"Mostly used as a dps CD. Should be almost casted on CD. Good to use when you're running to the boss or can't melee them."}
     </React.Fragment>,
     "spell": 206931,
     "stat": <React.Fragment>
@@ -3703,7 +3714,7 @@ Array [
         message="Try to cast <0/> more often."
       />
        
-      Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.
+      {"id":"deathknight.blood.abilities.extraSuggestion.defensiveCd","message":"Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks."}
     </React.Fragment>,
     "spell": 48707,
     "stat": <React.Fragment>
@@ -3748,7 +3759,7 @@ Array [
         message="Try to cast <0/> more often."
       />
        
-      Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.
+      {"id":"deathknight.blood.abilities.extraSuggestion.defensiveCd","message":"Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks."}
     </React.Fragment>,
     "spell": 194679,
     "stat": <React.Fragment>
@@ -3819,11 +3830,20 @@ exports[`Blood Death Knight integration test: example log CrimsonScourge matches
         <div
           className="value"
         >
-          33.33
-           % 
-          <small>
-            procs wasted
-          </small>
+          <trans
+            components={
+              Object {
+                "0": <small />,
+              }
+            }
+            id="deathknight.blood.crimsonScourge.statistic"
+            message="{0} % <0>procs wasted</0>"
+            values={
+              Object {
+                "0": "33.33",
+              }
+            }
+          />
         </div>
       </div>
     </div>
@@ -3854,18 +3874,22 @@ Array [
     "details": null,
     "icon": "ability_warrior_bloodnova",
     "importance": "major",
-    "issue": <React.Fragment>
-      You had unspent 
-      <ForwardRef
-        id={81141}
-      />
-       procs. Make sure you always use them.
-    </React.Fragment>,
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ForwardRef
+            id={81141}
+          />,
+        }
+      }
+      id="deathknight.blood.crimsonScourge.suggestion.suggestion"
+      message="You had unspent <0/> procs. Make sure you always use them."
+    />,
     "spell": undefined,
     "stat": <React.Fragment>
-      {"id":"deathknight.blood.suggestions.crimsonScourge.procsWasted","message":"{0}% Crimson Scourge procs wasted","values":{"0":"33.33"}}
+      {"id":"deathknight.blood.crimsonScourge.suggestion.actual","message":"{0}% Crimson Scourge procs wasted","values":{"0":"33.33"}}
        (
-      &lt;5.00% is recommended
+      {"id":"shared.suggestion.recommended.lessThanPercent","message":"&lt;{0}% is recommended","values":{"0":"5.00"}}
       )
     </React.Fragment>,
   },
@@ -4259,11 +4283,20 @@ exports[`Blood Death Knight integration test: example log Hemostasis matches the
         <div
           className="value"
         >
-          11.20
-           % 
-          <small>
-            average DS increase
-          </small>
+          <trans
+            components={
+              Object {
+                "0": <small />,
+              }
+            }
+            id="deathknight.blood.hemostasis.statistic"
+            message="{0} % <0>average DS increase</0>"
+            values={
+              Object {
+                "0": "11.20",
+              }
+            }
+          />
         </div>
       </div>
     </div>
@@ -4328,13 +4361,21 @@ exports[`Blood Death Knight integration test: example log MarrowrendUsage matche
         <div
           className="value"
         >
-          0
-           / 
-          10
-           
-          <small>
-            bad casts
-          </small>
+          <trans
+            components={
+              Object {
+                "0": <small />,
+              }
+            }
+            id="deathknight.blood.marrowrendUsage.statistic"
+            message="{0} / {1} <0>bad casts</0>"
+            values={
+              Object {
+                "0": 0,
+                "1": 10,
+              }
+            }
+          />
         </div>
       </div>
     </div>
@@ -4399,13 +4440,21 @@ exports[`Blood Death Knight integration test: example log Ossuary matches the st
         <div
           className="value"
         >
-          3
-           / 
-          20
-           
-          <small>
-            Death Strikes without Ossuary
-          </small>
+          <trans
+            components={
+              Object {
+                "0": <small />,
+              }
+            }
+            id="deathknight.blood.ossuary.statistic"
+            message="{0} / {1} <0>Death Strikes without Ossuary</0>"
+            values={
+              Object {
+                "0": 3,
+                "1": 20,
+              }
+            }
+          />
         </div>
       </div>
     </div>
@@ -4436,12 +4485,25 @@ Array [
     "details": null,
     "icon": "ability_deathknight_brittlebones",
     "importance": "regular",
-    "issue": "Your Ossuary usage can be improved. Avoid casting Death Strike while not having Ossuary up as you lose Runic Power by doing so.",
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ForwardRef
+            id={219788}
+          />,
+          "1": <ForwardRef
+            id={49998}
+          />,
+        }
+      }
+      id="deathknight.blood.ossuary.suggestion.suggestion"
+      message="Your <0/> usage can be improved. Avoid casting <1/> while not having Ossuary up as you lose Runic Power by doing so."
+    />,
     "spell": undefined,
     "stat": <React.Fragment>
-      {"id":"deathknight.blood.suggestions.ossuary.efficiency","message":"{0}% Ossuary efficiency","values":{"0":"85.00"}}
+      {"id":"deathknight.blood.ossuary.suggestion.actual","message":"{0}% Ossuary efficiency","values":{"0":"85.00"}}
        (
-      100.00% is recommended
+      {"id":"deathknight.blood.ossuary.suggestion.recommended","message":"{0}% is recommended","values":{"0":"100.00"}}
       )
     </React.Fragment>,
   },
@@ -4715,7 +4777,7 @@ exports[`Blood Death Knight integration test: example log RunicPowerDetails matc
             1.70 %
           </div>
           <small>
-            Runic Power wasted
+            {"id":"deathknight.blood.runicPowerDetails.statistic.label","message":"Runic Power wasted"}
           </small>
         </div>
       </div>
@@ -5170,7 +5232,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
         <div
           className="flex-main name"
         >
-          Use your short cooldowns
+          {"id":"deathknight.blood.checklist.useShortCd","message":"Use your short cooldowns"}
         </div>
         <div
           className="flex-sub perf"
@@ -5240,7 +5302,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
           <div
             className="col-md-12"
           >
-            These should generally always be recharging to maximize efficiency.
+            {"id":"deathknight.blood.checklist.useShortCd.desc","message":"These should generally always be recharging to maximize efficiency."}
           </div>
         </div>
         <div
@@ -5409,7 +5471,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
         <div
           className="flex-main name"
         >
-          Do not overcap your resources
+          {"id":"deathknight.blood.checklist.dontCapResources","message":"Do not overcap your resources"}
         </div>
         <div
           className="flex-sub perf"
@@ -5479,7 +5541,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
           <div
             className="col-md-12"
           >
-            Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities. Try to spend Runic Power before reaching the maximum amount and always keep atleast 3 Runes on cooldown to avoid wasting resources.
+            {"id":"deathknight.blood.checklist.dontCapResources.desc","message":"Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities. Try to spend Runic Power before reaching the maximum amount and always keep atleast 3 Runes on cooldown to avoid wasting resources."}
           </div>
         </div>
         <div
@@ -5494,7 +5556,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Runic Power Efficiency
+                {"id":"deathknight.blood.checklist.dontCapResources.rpEfficiency","message":"Runic Power Efficiency"}
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5554,7 +5616,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Rune Efficiency
+                {"id":"deathknight.blood.checklist.dontCapResources.runeEfficiency","message":"Rune Efficiency"}
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5614,21 +5676,17 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                <a
-                  className="spell-link-text"
-                  href="https://wowhead.com/spell=195182"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_marrowrend.jpg"
-                  />
-                   
-                  Marrowrend
-                </a>
-                 Efficiency
+                <trans
+                  components={
+                    Object {
+                      "0": <ForwardRef
+                        id={195182}
+                      />,
+                    }
+                  }
+                  id="deathknight.blood.checklist.dontCapResources.marrowrendEfficiency"
+                  message="<0/> Efficiency"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5688,21 +5746,17 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                <a
-                  className="spell-link-text"
-                  href="https://wowhead.com/spell=195292"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_deathscaress.jpg"
-                  />
-                   
-                  Death's Caress
-                </a>
-                 Efficiency
+                <trans
+                  components={
+                    Object {
+                      "0": <ForwardRef
+                        id={195292}
+                      />,
+                    }
+                  }
+                  id="deathknight.blood.checklist.dontCapResources.deathsCaressEfficiency"
+                  message="<0/> Efficiency"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5770,7 +5824,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
         <div
           className="flex-main name"
         >
-          Use your offensive cooldowns
+          {"id":"deathknight.blood.checklist.offensiveCd","message":"Use your offensive cooldowns"}
         </div>
         <div
           className="flex-sub perf"
@@ -5840,7 +5894,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
           <div
             className="col-md-12"
           >
-            You should aim to use these cooldowns as often as you can to maximize your damage output unless you are saving them for their defensive value.
+            {"id":"deathknight.blood.checklist.offensiveCd.desc","message":"You should aim to use these cooldowns as often as you can to maximize your damage output unless you are saving them for their defensive value."}
           </div>
         </div>
         <div
@@ -5928,21 +5982,17 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                <a
-                  className="spell-link-text"
-                  href="https://wowhead.com/spell=194844"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/achievement_boss_lordmarrowgar.jpg"
-                  />
-                   
-                  Bonestorm
-                </a>
-                 Efficiency
+                <trans
+                  components={
+                    Object {
+                      "0": <ForwardRef
+                        id={194844}
+                      />,
+                    }
+                  }
+                  id="deathknight.blood.checklist.offensiveCd.bonestorm"
+                  message="<0/> Efficiency"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6010,7 +6060,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
         <div
           className="flex-main name"
         >
-          Maintain your buffs and debuffs
+          {"id":"deathknight.blood.checklist.buffsDebuffs","message":"Maintain your buffs and debuffs"}
         </div>
         <div
           className="flex-sub perf"
@@ -6080,7 +6130,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
           <div
             className="col-md-12"
           >
-            It is important to maintain these as they contribute a large amount to your DPS and HPS.
+            {"id":"deathknight.blood.checklist.buffsDebuffs.desc","message":"It is important to maintain these as they contribute a large amount to your DPS and HPS."}
           </div>
         </div>
         <div
@@ -6095,21 +6145,17 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                <a
-                  className="spell-link-text"
-                  href="https://wowhead.com/spell=55078"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_bloodplague.jpg"
-                  />
-                   
-                  Blood Plague
-                </a>
-                 Uptime
+                <trans
+                  components={
+                    Object {
+                      "0": <ForwardRef
+                        id={55078}
+                      />,
+                    }
+                  }
+                  id="deathknight.blood.checklist.buffsDebuffs.bloodPlague"
+                  message="<0/> Uptime"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6169,21 +6215,17 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                <a
-                  className="spell-link-text"
-                  href="https://wowhead.com/spell=195181"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_boneshield.jpg"
-                  />
-                   
-                  Bone Shield
-                </a>
-                 Uptime
+                <trans
+                  components={
+                    Object {
+                      "0": <ForwardRef
+                        id={195181}
+                      />,
+                    }
+                  }
+                  id="deathknight.blood.checklist.buffsDebuffs.boneShield"
+                  message="<0/> Uptime"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6243,21 +6285,17 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                <a
-                  className="spell-link-text"
-                  href="https://wowhead.com/spell=219788"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_brittlebones.jpg"
-                  />
-                   
-                  Ossuary
-                </a>
-                 Efficiency
+                <trans
+                  components={
+                    Object {
+                      "0": <ForwardRef
+                        id={219788}
+                      />,
+                    }
+                  }
+                  id="deathknight.blood.checklist.buffsDebuffs.ossuary"
+                  message="<0/> Efficiency"
+                />
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -6325,7 +6363,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
         <div
           className="flex-main name"
         >
-          Use your defensive cooldowns
+          {"id":"deathknight.blood.checklist.defensives","message":"Use your defensive cooldowns"}
         </div>
         <div
           className="flex-sub perf"
@@ -6395,7 +6433,7 @@ exports[`Blood Death Knight integration test: example log matches the checklist 
           <div
             className="col-md-12"
           >
-            Use these to block damage spikes and keep damage smooth to reduce external healing required.
+            {"id":"deathknight.blood.checklist.defensives.desc","message":"Use these to block damage spikes and keep damage smooth to reduce external healing required."}
           </div>
         </div>
         <div

@@ -1,9 +1,10 @@
+import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ResourceChangeEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -60,7 +61,7 @@ class BrynadaorsMight extends Analyzer {
     return this.runicPowerWasted / this.runicPowerGained;
   }
 
-  get efficiencySuggestionThresholds() {
+  get efficiencySuggestionThresholds(): NumberThreshold {
     return {
       actual: this.rpWastePercentage,
       isGreaterThan: {
@@ -75,18 +76,27 @@ class BrynadaorsMight extends Analyzer {
   suggestions(when: When) {
     when(this.efficiencySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <span>
-          Avoid being Runic Power capped at all times, you wasted {this.runicPowerWasted} PR by
-          being RP capped.
-        </span>,
+        t({
+          id: 'deathknight.blood.bryndaorsMight.suggestion.suggestion',
+          message: `Avoid being Runic Power capped at all times, you wasted ${this.runicPowerWasted} PR by
+          being RP capped`,
+        }),
       )
         .icon(SPELLS.BRYNDAORS_MIGHT.icon)
         .actual(
-          `You wasted ${formatPercentage(actual)}% of RP from ${
-            SPELLS.BRYNDAORS_MIGHT.name
-          } by being RP capped.`,
+          t({
+            id: 'deathknight.blood.bryndaorsMight.suggestion.actual',
+            message: `You wasted ${formatPercentage(actual)}% of RP from ${
+              SPELLS.BRYNDAORS_MIGHT.name
+            } by being RP capped.`,
+          }),
         )
-        .recommended(`${formatPercentage(recommended)}% is recommended`),
+        .recommended(
+          t({
+            id: 'deathknight.blood.bryndaorsMight.suggestion.recommended',
+            message: `${formatPercentage(recommended)}% is recommended`,
+          }),
+        ),
     );
   }
 
@@ -96,7 +106,7 @@ class BrynadaorsMight extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         size="flexible"
         tooltip={
-          <>
+          <Trans id="deathknight.blood.bryndaorsMight.statistic.tooltip">
             <strong>{this.brynadaorsTriggered}</strong> of your {SPELLS.DEATH_STRIKE.name}s
             triggered {SPELLS.BRYNDAORS_MIGHT.name} while{' '}
             <strong>
@@ -105,13 +115,13 @@ class BrynadaorsMight extends Analyzer {
             .<br />
             <strong>RP wasted: </strong> {this.runicPowerWasted} (
             {formatPercentage(this.rpWastePercentage)} %)
-          </>
+          </Trans>
         }
       >
         <BoringSpellValueText spellId={SPELLS.BRYNDAORS_MIGHT.id}>
-          <>
+          <Trans id="deathknight.blood.bryndaorsMight.statistic">
             {this.runicPowerGained} <small>RP gained</small>
-          </>
+          </Trans>
         </BoringSpellValueText>
       </Statistic>
     );

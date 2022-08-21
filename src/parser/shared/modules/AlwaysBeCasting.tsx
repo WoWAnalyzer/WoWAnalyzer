@@ -4,7 +4,7 @@ import { Icon } from 'interface';
 import { Tooltip } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { EndChannelEvent, EventType, GlobalCooldownEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import Haste from 'parser/shared/modules/Haste';
 import Channeling from 'parser/shared/normalizers/Channeling';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -187,7 +187,7 @@ class AlwaysBeCasting extends Analyzer {
     );
   }
 
-  get downtimeSuggestionThresholds() {
+  get downtimeSuggestionThresholds(): NumberThreshold {
     return {
       actual: this.downtimePercentage,
       isGreaterThan: {
