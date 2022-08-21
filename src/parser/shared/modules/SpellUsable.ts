@@ -1,3 +1,4 @@
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -7,6 +8,7 @@ import Events, {
   ChangeHasteEvent,
   EventType,
   FightEndEvent,
+  FilterCooldownInfoEvent,
   MaxChargesDecreasedEvent,
   MaxChargesIncreasedEvent,
   UpdateSpellUsableEvent,
@@ -68,6 +70,7 @@ class SpellUsable extends Analyzer {
 
     this.addEventListener(Events.any, this.onEvent);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(Events.prefiltercd.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.ChangeHaste, this.onChangeHaste);
     this.addEventListener(Events.fightend, this.onFightEnd);
     this.addEventListener(Events.MaxChargesIncreased, this.onMaxChargesIncreased);
@@ -233,9 +236,12 @@ class SpellUsable extends Analyzer {
             '\n' +
             'Current Time: ' +
             triggeringEvent.timestamp +
+            ' (' +
+            this.owner.formatTimestamp(triggeringEvent.timestamp, 3) +
+            ')' +
             '\n' +
             'CooldownInfo object before update: ' +
-            cdInfo +
+            JSON.stringify(cdInfo) +
             '\n',
         );
       }
@@ -412,8 +418,8 @@ class SpellUsable extends Analyzer {
       const changeRate = newRate / oldRate;
       this._globalModRate = newRate;
 
-      Object.values(this._currentCooldowns).forEach((cdInfo) => {
-        this._handleChangeRate(cdInfo, timestamp, changeRate);
+      Object.entries(this._currentCooldowns).forEach(([spellId, cdInfo]) => {
+        this._handleChangeRate(Number(spellId), cdInfo, timestamp, changeRate);
       });
     } else {
       const ids: number[] = typeof spellId === 'number' ? [spellId] : spellId;
@@ -426,7 +432,7 @@ class SpellUsable extends Analyzer {
 
         const cdInfo = this._currentCooldowns[cdSpellId];
         if (cdInfo) {
-          this._handleChangeRate(cdInfo, timestamp, changeRate);
+          this._handleChangeRate(cdSpellId, cdInfo, timestamp, changeRate);
         }
       });
     }
@@ -469,26 +475,36 @@ class SpellUsable extends Analyzer {
 
     Object.entries(this._currentCooldowns).forEach(([spellId, cdInfo]) => {
       if (cdInfo.expectedEnd <= currentTimestamp) {
-        this.endCooldown(Number(spellId), currentTimestamp, true);
+        this.endCooldown(Number(spellId), cdInfo.expectedEnd, true);
       }
     });
   }
 
   /** On every cast, we need to start the spell's cooldown if it has one */
-  protected onCast(event: CastEvent) {
+  protected onCast(event: CastEvent | FilterCooldownInfoEvent) {
     this.beginCooldown(event);
   }
 
   /** On every change in haste, we need to check each active cooldown to see if the
    *  remaining time needs to be adjusted (if the cooldown scales with haste) */
   protected onChangeHaste(event: ChangeHasteEvent) {
+    DEBUG &&
+      console.log(
+        'Haste changed from ' +
+          formatPercentage(event.oldHaste) +
+          ' to ' +
+          formatPercentage(event.newHaste) +
+          ' @ ' +
+          this.owner.formatTimestamp(event.timestamp, 1) +
+          ' - updating cooldowns',
+      );
     Object.entries(this._currentCooldowns).forEach(([spellId, cdInfo]) => {
       const orignalDuration = cdInfo.expectedDuration;
-      const newDuration = this._getExpectedCooldown(Number(spellId));
+      const newDuration = this._getExpectedCooldown(Number(spellId), true);
       if (orignalDuration !== newDuration) {
-        // no adjustment required if CD didn't change
+        // only need to adjust if CD changed
         const changeRate = orignalDuration / newDuration;
-        this._handleChangeRate(cdInfo, event.timestamp, changeRate);
+        this._handleChangeRate(Number(spellId), cdInfo, event.timestamp, changeRate);
       }
     });
   }
@@ -512,7 +528,7 @@ class SpellUsable extends Analyzer {
     }
   }
 
-  /** On fight end, close out each cooldown at its expected end time TODO who actually needs this? */
+  /** On fight end, close out each cooldown at its expected end time */
   protected onFightEnd(event: FightEndEvent) {
     Object.entries(this._currentCooldowns).forEach(([spellId, cdInfo]) => {
       // does an end cooldown rather than restore charge ... FIXME will this matter?
@@ -537,6 +553,7 @@ class SpellUsable extends Analyzer {
 
   /**
    * Gets a spell's current cooldown rate or 'modRate'.
+   * @param canonicalSpellId the spell ID to check (MUST be the ability's primary ID)
    */
   private _getSpellModRate(canonicalSpellId: number): number {
     return this._globalModRate * (this._spellModRates[canonicalSpellId] || 1);
@@ -544,10 +561,16 @@ class SpellUsable extends Analyzer {
 
   /**
    * Gets a spell's expected cooldown at the current time, including modRate.
+   * @param canonicalSpellId the spell ID to check (MUST be the ability's primary ID)
+   * @param forceCheckAbilites iff true, cooldown will be pulled from Abilities even if there
+   *     is a cached value in cdInfo
    */
-  private _getExpectedCooldown(canonicalSpellId: number): number {
+  private _getExpectedCooldown(
+    canonicalSpellId: number,
+    forceCheckAbilites: boolean = false,
+  ): number {
     const cdInfo = this._currentCooldowns[canonicalSpellId];
-    if (cdInfo) {
+    if (cdInfo && !forceCheckAbilites) {
       // cdInfo always kept up to date
       return cdInfo.expectedDuration;
     } else {
@@ -563,15 +586,35 @@ class SpellUsable extends Analyzer {
    * Updates cdInfo's expectedDuration and expectedEnd fields to account for a change in
    * the cooldown's rate. This calculation is the same for modRate and haste changes.
    */
-  private _handleChangeRate(cdInfo: CooldownInfo, timestamp: number, changeRate: number) {
+  private _handleChangeRate(
+    spellId: number,
+    cdInfo: CooldownInfo,
+    timestamp: number,
+    changeRate: number,
+  ) {
     // assumes expectedEnd is still after timestamp!
     const timeLeft = cdInfo.expectedEnd - timestamp;
     const percentageLeft = timeLeft / cdInfo.expectedDuration;
-    const newExpectedDuration = cdInfo.expectedDuration * changeRate;
+    const newExpectedDuration = cdInfo.expectedDuration / changeRate;
     const newTimeLeft = newExpectedDuration * percentageLeft;
+    const newExpectedEnd = timestamp + newTimeLeft;
+
+    DEBUG &&
+      console.log(
+        'Cooldown changed for active CD ' +
+          spellName(spellId) +
+          ' - old CD: ' +
+          cdInfo.expectedDuration +
+          ' - new CD: ' +
+          newExpectedDuration +
+          ' / old expectedEnd: ' +
+          this.owner.formatTimestamp(cdInfo.expectedEnd, 1) +
+          ' - new expectedEnd: ' +
+          this.owner.formatTimestamp(newExpectedEnd, 1),
+      );
 
     cdInfo.expectedDuration = newExpectedDuration;
-    cdInfo.expectedEnd = timestamp + newTimeLeft;
+    cdInfo.expectedEnd = newExpectedEnd;
   }
 
   /**
@@ -644,7 +687,10 @@ class SpellUsable extends Analyzer {
       __fabricated: true,
     };
 
-    DEBUG && console.log(updateType + ' on ' + spellName(spellId));
+    DEBUG &&
+      console.log(
+        updateType + ' on ' + spellName(spellId) + ' @ ' + this.owner.formatTimestamp(timestamp, 1),
+      );
 
     this.eventEmitter.fabricateEvent(event);
   }
