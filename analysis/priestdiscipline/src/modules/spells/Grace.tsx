@@ -1,7 +1,7 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import PRIEST_SPELLS from 'common/SPELLS/priest';
-import PRIEST_TALENTS from 'common/SPELLS/talents/priest';
+import { default as PRIEST_TALENTS } from 'common/TALENTS/priest';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
