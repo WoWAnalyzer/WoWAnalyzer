@@ -7,6 +7,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Auras';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
 import STAT from 'parser/shared/modules/features/STAT';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -50,7 +51,7 @@ class OverchargedAnimaBattery extends Analyzer {
 
     (options.abilities as Abilities).add({
       spell: SPELLS.OVERCHARGED_ANIMA_BATTERY_BUFF.id,
-      category: Abilities.SPELL_CATEGORIES.ITEMS,
+      category: SPELL_CATEGORY.ITEMS,
       cooldown: 90,
       gcd: null,
       castEfficiency: {

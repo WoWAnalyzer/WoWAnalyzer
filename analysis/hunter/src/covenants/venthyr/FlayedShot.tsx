@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, DamageEvent, RefreshBuffEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import {
   binomialCDF,
   expectedProcCount,
@@ -58,7 +59,7 @@ class FlayedShot extends Analyzer {
 
     (options.abilities as Abilities).add({
       spell: SPELLS.FLAYED_SHOT.id,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      category: SPELL_CATEGORY.ROTATIONAL,
       cooldown: 30,
       gcd: {
         base: 1500,

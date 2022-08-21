@@ -2,6 +2,7 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Auras';
 import { ThresholdStyle } from 'parser/core/ParseResults';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
@@ -48,7 +49,7 @@ class Potion extends Analyzer {
     }
     (options.abilities as Abilities).add({
       spell: this.static.spells,
-      category: Abilities.SPELL_CATEGORIES.CONSUMABLE,
+      category: SPELL_CATEGORY.CONSUMABLE,
       cooldown: this.static.cooldown,
       castEfficiency: {
         suggestion: false,

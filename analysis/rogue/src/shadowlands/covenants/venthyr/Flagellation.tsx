@@ -6,6 +6,7 @@ import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import { ThresholdStyle } from 'parser/core/ParseResults';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -37,7 +38,7 @@ class Flagellation extends Analyzer {
     if (this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id)) {
       (options.abilities as Abilities).add({
         spell: SPELLS.FLAGELLATION.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: this.cooldown,
         gcd: {
           base: 1000,

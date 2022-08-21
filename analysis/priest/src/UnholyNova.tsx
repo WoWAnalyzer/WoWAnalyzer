@@ -7,6 +7,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -80,7 +81,7 @@ class UnholyNova extends Analyzer {
           };
     (options.abilities as Abilities).add({
       spell: SPELLS.UNHOLY_NOVA.id,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      category: SPELL_CATEGORY.COOLDOWNS,
       cooldown: 60,
       enabled: true,
       gcd: {

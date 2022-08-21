@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { FightEndEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -40,7 +41,7 @@ class SoulReaper extends ExecuteHelper {
 
     (options.abilities as Abilities).add({
       spell: SPELLS.SOUL_REAPER_TALENT.id,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      category: SPELL_CATEGORY.ROTATIONAL,
       cooldown: 6,
       gcd: {
         base: 1500,
