@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
 import { formatNumber, formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS/talents/warrior';
+import { default as WARRIOR_TALENTS } from 'common/TALENTS/warrior';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import { Tooltip } from 'interface';
@@ -33,7 +33,7 @@ class DefensiveStance extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DEFENSIVE_STANCE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(WARRIOR_TALENTS.DEFENSIVE_STANCE_TALENT.id);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._onDamageTaken);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this._onDamageDealt);
   }
@@ -53,7 +53,7 @@ class DefensiveStance extends Analyzer {
   }
 
   _onDamageTaken(event) {
-    if (this.selectedCombatant.hasBuff(SPELLS.DEFENSIVE_STANCE_TALENT.id)) {
+    if (this.selectedCombatant.hasBuff(WARRIOR_TALENTS.DEFENSIVE_STANCE_TALENT.id)) {
       const preMitigatedDefensiveStance =
         (event.amount + event.absorbed) / (1 - DEFENSIVE_STANCE_DR);
       this.totalDamageMitigated += preMitigatedDefensiveStance * DEFENSIVE_STANCE_DR;
@@ -61,7 +61,7 @@ class DefensiveStance extends Analyzer {
   }
 
   _onDamageDealt(event) {
-    if (this.selectedCombatant.hasBuff(SPELLS.DEFENSIVE_STANCE_TALENT.id)) {
+    if (this.selectedCombatant.hasBuff(WARRIOR_TALENTS.DEFENSIVE_STANCE_TALENT.id)) {
       const damageDone = event.amount / (1 - DEFENSIVE_STANCE_DL);
       this.totalDamageLost += damageDone * DEFENSIVE_STANCE_DL;
     }
@@ -96,7 +96,7 @@ class DefensiveStance extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE(5)}
-        icon={<SpellIcon id={SPELLS.DEFENSIVE_STANCE_TALENT.id} />}
+        icon={<SpellIcon id={WARRIOR_TALENTS.DEFENSIVE_STANCE_TALENT.id} />}
         value={`≈${formatNumber(this.drps)} DRPS, ${formatNumber(this.dlps)} DLPS`}
         label="Damage reduced & lost"
         tooltip={
@@ -122,7 +122,7 @@ class DefensiveStance extends Analyzer {
         suggest(
           'While Defensive Stance was up, your damage done was reduced by more than the damage you mitigated. Ensure that you are only using Defensive Stance when you are about to take a lot of damage and that you cancel it quickly to minimize the time spent dealing less damage.',
         )
-          .icon(SPELLS.DEFENSIVE_STANCE_TALENT.icon)
+          .icon(WARRIOR_TALENTS.DEFENSIVE_STANCE_TALENT.icon)
           .actual(
             t({
               id: 'warrior.arms.suggestions.defensiveStance',
@@ -141,10 +141,10 @@ class DefensiveStance extends Analyzer {
         suggest(
           <>
             {' '}
-            You never used <SpellLink id={SPELLS.DEFENSIVE_STANCE_TALENT.id} />. Try to use it to
-            reduce incoming damage or use another talent that would be more useful.{' '}
+            You never used <SpellLink id={WARRIOR_TALENTS.DEFENSIVE_STANCE_TALENT.id} />. Try to use
+            it to reduce incoming damage or use another talent that would be more useful.{' '}
           </>,
-        ).icon(SPELLS.DEFENSIVE_STANCE_TALENT.icon),
+        ).icon(WARRIOR_TALENTS.DEFENSIVE_STANCE_TALENT.icon),
       );
   }
 }
