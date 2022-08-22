@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
+import DH_TALENTS from 'common/SPELLS/talents/demonhunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
@@ -14,6 +15,26 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  * Example Report: https://www.warcraftlogs.com/reports/4GR2pwAYW8KtgFJn/#fight=6&source=18
  */
 class DemonBlades extends Analyzer {
+  furyGain = 0;
+  furyWaste = 0;
+  damage = 0;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(DH_TALENTS.DEMON_BLADES_TALENT.id);
+    if (!this.active) {
+      return;
+    }
+    this.addEventListener(
+      Events.resourcechange.by(SELECTED_PLAYER).spell(DH_SPELLS.DEMON_BLADES_FURY),
+      this.onEnergizeEvent,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(DH_SPELLS.DEMON_BLADES_FURY),
+      this.onDamageEvent,
+    );
+  }
+
   get furyPerMin() {
     return ((this.furyGain - this.furyWaste) / (this.owner.fightDuration / 60000)).toFixed(2);
   }
@@ -28,26 +49,6 @@ class DemonBlades extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  furyGain = 0;
-  furyWaste = 0;
-  damage = 0;
-
-  constructor(options: Options) {
-    super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DEMON_BLADES_TALENT.id);
-    if (!this.active) {
-      return;
-    }
-    this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.DEMON_BLADES_FURY),
-      this.onEnergizeEvent,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEMON_BLADES_FURY),
-      this.onDamageEvent,
-    );
   }
 
   onEnergizeEvent(event: ResourceChangeEvent) {
@@ -65,10 +66,10 @@ class DemonBlades extends Analyzer {
         <>
           {' '}
           Be mindful of your Fury levels and spend it before capping your Fury due to{' '}
-          <SpellLink id={SPELLS.DEMON_BLADES_TALENT.id} />.
+          <SpellLink id={DH_TALENTS.DEMON_BLADES_TALENT.id} />.
         </>,
       )
-        .icon(SPELLS.DEMON_BLADES_TALENT.icon)
+        .icon(DH_TALENTS.DEMON_BLADES_TALENT.icon)
         .actual(
           t({
             id: 'demonhunter.havoc.suggestions.demonBlades.furyWasted',
@@ -98,7 +99,7 @@ class DemonBlades extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.DEMON_BLADES_TALENT.id}>
+        <BoringSpellValueText spellId={DH_TALENTS.DEMON_BLADES_TALENT.id}>
           <>
             {this.furyPerMin} <small>Fury per min</small> <br />
             {this.owner.formatItemDamageDone(this.damage)}

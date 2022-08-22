@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import DH_COVENANTS from 'common/SPELLS/shadowlands/covenants/demonhunter';
+import DH_LEGENDARIES from 'common/SPELLS/shadowlands/legendaries/demonhunter';
 import { SpellLink } from 'interface';
 import VersatilityIcon from 'interface/icons/Versatility';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -35,22 +36,22 @@ export default class BlindFaith extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.BLIND_FAITH);
+    this.active = this.selectedCombatant.hasLegendary(DH_LEGENDARIES.BLIND_FAITH);
 
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLIND_FAITH_BUFF),
+      Events.applybuff.by(SELECTED_PLAYER).spell(DH_COVENANTS.BLIND_FAITH_BUFF),
       this.onBlindFaithGain,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BLIND_FAITH_BUFF),
+      Events.removebuff.by(SELECTED_PLAYER).spell(DH_COVENANTS.BLIND_FAITH_BUFF),
       this.onBlindFaithLoss,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLIND_FAITH_BUFF),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(DH_COVENANTS.BLIND_FAITH_BUFF),
       this.onBlindFaithGain,
     );
     this.addEventListener(EventType.ConsumeSoulFragments, this.onSoulFragmentsConsumed);
@@ -138,11 +139,11 @@ export default class BlindFaith extends Analyzer {
             id: 'demonhunter.vengeance.suggestions.blindFaith.suggest.a',
             message: 'Try to consume more Soul Fragments during your',
           })}{' '}
-          <SpellLink id={SPELLS.BLIND_FAITH_BUFF.id} />{' '}
+          <SpellLink id={DH_COVENANTS.BLIND_FAITH_BUFF.id} />{' '}
           {t({ id: 'demonhunter.vengeance.suggestions.blindFaith.suggest.b', message: 'windows.' })}
         </>,
       )
-        .icon(SPELLS.BLIND_FAITH_BUFF.icon)
+        .icon(DH_COVENANTS.BLIND_FAITH_BUFF.icon)
         .actual(
           t({
             id: 'demonhunter.vengeance.suggestions.blindFaith.actual',
@@ -165,7 +166,7 @@ export default class BlindFaith extends Analyzer {
 
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
-        <BoringSpellValueText spellId={SPELLS.BLIND_FAITH.id}>
+        <BoringSpellValueText spellId={DH_LEGENDARIES.BLIND_FAITH.id}>
           <>
             <VersatilityIcon /> {avg}% average Versatility <small>per Elysian Decree.</small>
           </>

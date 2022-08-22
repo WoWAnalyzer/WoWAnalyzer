@@ -79,6 +79,7 @@ class Checklist extends BaseModule {
   protected demonicAppetite!: DemonicAppetite;
   protected demonBlades!: DemonBlades;
   protected furyDetails!: FuryDetails;
+
   //endregion
 
   render() {

@@ -1,4 +1,5 @@
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
+import DH_TALENTS from 'common/SPELLS/talents/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyDebuffEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -14,12 +15,12 @@ class MasterOfTheGlaives extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_OF_THE_GLAIVE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(DH_TALENTS.MASTER_OF_THE_GLAIVE_TALENT.id);
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.MASTER_OF_THE_GLAIVE_DEBUFF),
+      Events.applydebuff.by(SELECTED_PLAYER).spell(DH_SPELLS.MASTER_OF_THE_GLAIVE_DEBUFF),
       this.countingSlows,
     );
   }
@@ -31,7 +32,7 @@ class MasterOfTheGlaives extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
-        <BoringSpellValueText spellId={SPELLS.MASTER_OF_THE_GLAIVE_TALENT.id}>
+        <BoringSpellValueText spellId={DH_TALENTS.MASTER_OF_THE_GLAIVE_TALENT.id}>
           <>
             {this.slows} <small>slows provided</small>
           </>

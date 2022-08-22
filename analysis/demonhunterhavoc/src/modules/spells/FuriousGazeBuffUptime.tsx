@@ -1,5 +1,5 @@
 import { formatDuration, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -12,11 +12,13 @@ example report: https://www.warcraftlogs.com/reports/wRG4vfCyMQVn9A6x#fight=8&ty
 
 class FuriousGazeBuffUptime extends Analyzer {
   get buffUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.FURIOUS_GAZE.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(DH_SPELLS.FURIOUS_GAZE.id) / this.owner.fightDuration
+    );
   }
 
   get buffDuration() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.FURIOUS_GAZE.id);
+    return this.selectedCombatant.getBuffUptime(DH_SPELLS.FURIOUS_GAZE.id);
   }
 
   statistic() {
@@ -26,7 +28,7 @@ class FuriousGazeBuffUptime extends Analyzer {
         size="flexible"
         tooltip={`The Furious Gaze buff total uptime was ${formatDuration(this.buffDuration)}.`}
       >
-        <BoringSpellValueText spellId={SPELLS.FURIOUS_GAZE.id}>
+        <BoringSpellValueText spellId={DH_SPELLS.FURIOUS_GAZE.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>uptime</small>
           </>

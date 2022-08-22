@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import DH_CONDUITS from 'common/SPELLS/shadowlands/conduits/demonhunter';
+import DH_COVENANTS from 'common/SPELLS/shadowlands/covenants/demonhunter';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/EventSubscriber';
@@ -15,16 +16,16 @@ export default class RepeatDecree extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.REPEAT_DECREE.id);
+    this.active = this.selectedCombatant.hasConduitBySpellID(DH_CONDUITS.REPEAT_DECREE.id);
 
     if (!this.active) {
       return;
     }
 
-    this.rank = this.selectedCombatant.conduitRankBySpellID(SPELLS.REPEAT_DECREE.id);
+    this.rank = this.selectedCombatant.conduitRankBySpellID(DH_CONDUITS.REPEAT_DECREE.id);
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ELYSIAN_DECREE_REPEAT_DECREE_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(DH_COVENANTS.ELYSIAN_DECREE_REPEAT_DECREE_DAMAGE),
       this.onDamage,
     );
   }
@@ -47,7 +48,7 @@ export default class RepeatDecree extends Analyzer {
           </>
         }
       >
-        <ConduitSpellText spellId={SPELLS.REPEAT_DECREE.id} rank={this.rank}>
+        <ConduitSpellText spellId={DH_CONDUITS.REPEAT_DECREE.id} rank={this.rank}>
           <ItemDamageDone amount={this.damage} />
         </ConduitSpellText>
       </Statistic>

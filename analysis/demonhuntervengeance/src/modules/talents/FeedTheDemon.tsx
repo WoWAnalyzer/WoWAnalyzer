@@ -1,5 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
+import DH_TALENTS from 'common/SPELLS/talents/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -25,9 +26,9 @@ class FeedTheDemon extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(DH_TALENTS.FEED_THE_DEMON_TALENT.id);
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CONSUME_SOUL_VDH),
+      Events.heal.by(SELECTED_PLAYER).spell(DH_SPELLS.CONSUME_SOUL_VDH),
       this.onHeal,
     );
   }
@@ -49,7 +50,7 @@ class FeedTheDemon extends Analyzer {
   }
 
   get averageReduction() {
-    const casts = this.abilityTracker.getAbility(SPELLS.DEMON_SPIKES.id).casts;
+    const casts = this.abilityTracker.getAbility(DH_SPELLS.DEMON_SPIKES.id).casts;
     return this.reduction / casts || 0;
   }
 
@@ -58,11 +59,11 @@ class FeedTheDemon extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
-    if (!this.spellUsable.isOnCooldown(SPELLS.DEMON_SPIKES.id)) {
+    if (!this.spellUsable.isOnCooldown(DH_SPELLS.DEMON_SPIKES.id)) {
       this.totalCooldownReductionWasted += COOLDOWN_REDUCTION_MS;
     } else {
       const effectiveReduction = this.spellUsable.reduceCooldown(
-        SPELLS.DEMON_SPIKES.id,
+        DH_SPELLS.DEMON_SPIKES.id,
         COOLDOWN_REDUCTION_MS,
       );
       this.totalCooldownReduction += effectiveReduction;
@@ -85,7 +86,7 @@ class FeedTheDemon extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.FEED_THE_DEMON_TALENT.id}>
+        <BoringSpellValueText spellId={DH_TALENTS.FEED_THE_DEMON_TALENT.id}>
           {formatNumber(this.averageReduction)} sec average reduction
         </BoringSpellValueText>
       </Statistic>

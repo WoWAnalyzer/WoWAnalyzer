@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
+import DH_TALENTS from 'common/SPELLS/talents/demonhunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -26,8 +27,8 @@ class SoulCleaveSoulsConsumed extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active =
-      this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) &&
-      !this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
+      this.selectedCombatant.hasTalent(DH_TALENTS.SPIRIT_BOMB_TALENT.id) &&
+      !this.selectedCombatant.hasTalent(DH_TALENTS.FEED_THE_DEMON_TALENT.id);
   }
 
   get suggestionThresholdsEfficiency(): NumberThreshold {
@@ -51,13 +52,13 @@ class SoulCleaveSoulsConsumed extends Analyzer {
     when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should avoid consuming souls with <SpellLink id={SPELLS.SOUL_CLEAVE.id} /> and instead
-          try to consume them only with <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> for the
-          increased dps. Your talent choices suggests your going for a balanced approch versus a
-          defensive one with <SpellLink id={SPELLS.FEED_THE_DEMON_TALENT.id} />.
+          You should avoid consuming souls with <SpellLink id={DH_SPELLS.SOUL_CLEAVE.id} /> and
+          instead try to consume them only with <SpellLink id={DH_TALENTS.SPIRIT_BOMB_TALENT.id} />{' '}
+          for the increased dps. Your talent choices suggests your going for a balanced approch
+          versus a defensive one with <SpellLink id={DH_TALENTS.FEED_THE_DEMON_TALENT.id} />.
         </>,
       )
-        .icon(SPELLS.SOUL_CLEAVE.icon)
+        .icon(DH_SPELLS.SOUL_CLEAVE.icon)
         .actual(
           t({
             id: 'demonhunter.vengeance.suggestions.soulCleave.soulsConsumed',

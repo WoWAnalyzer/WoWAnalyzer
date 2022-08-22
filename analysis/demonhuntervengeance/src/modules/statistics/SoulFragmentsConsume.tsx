@@ -1,4 +1,5 @@
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
+import DH_TALENTS from 'common/SPELLS/talents/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, ChangeBuffStackEvent, Event, EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
@@ -37,11 +38,15 @@ class SoulFragmentsConsume extends Analyzer {
     this.addEventListener(
       Events.cast
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.SPIRIT_BOMB_TALENT, SPELLS.SOUL_CLEAVE, SPELLS.SOUL_BARRIER_TALENT]),
+        .spell([
+          DH_TALENTS.SPIRIT_BOMB_TALENT,
+          DH_SPELLS.SOUL_CLEAVE,
+          DH_TALENTS.SOUL_BARRIER_TALENT,
+        ]),
       this.onCast,
     );
     this.addEventListener(
-      Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SOUL_FRAGMENT_STACK),
+      Events.changebuffstack.by(SELECTED_PLAYER).spell(DH_SPELLS.SOUL_FRAGMENT_STACK),
       this.onChangeBuffStack,
     );
   }
@@ -89,10 +94,10 @@ class SoulFragmentsConsume extends Analyzer {
   }
 
   soulCleaveSouls() {
-    if (this.soulsConsumedBySpell[SPELLS.SOUL_CLEAVE.id] === undefined) {
+    if (this.soulsConsumedBySpell[DH_SPELLS.SOUL_CLEAVE.id] === undefined) {
       return 0;
     }
-    return this.soulsConsumedBySpell[SPELLS.SOUL_CLEAVE.id].souls;
+    return this.soulsConsumedBySpell[DH_SPELLS.SOUL_CLEAVE.id].souls;
   }
 
   statistic() {
@@ -130,7 +135,7 @@ class SoulFragmentsConsume extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SOUL_FRAGMENT_STACK.id}>
+        <BoringSpellValueText spellId={DH_SPELLS.SOUL_FRAGMENT_STACK.id}>
           <>
             {this.soulFragmentsTracker.soulsSpent} <small>Souls</small>
           </>

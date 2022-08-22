@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
+import DH_TALENTS from 'common/SPELLS/talents/demonhunter';
 import { SpellLink } from 'interface';
 import Uptime from 'interface/icons/Uptime';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -21,11 +22,11 @@ class VoidReaverDebuff extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.VOID_REAVER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(DH_TALENTS.VOID_REAVER_TALENT.id);
   }
 
   get uptime() {
-    return this.enemies.getBuffUptime(SPELLS.VOID_REAVER_DEBUFF.id) / this.owner.fightDuration;
+    return this.enemies.getBuffUptime(DH_SPELLS.VOID_REAVER_DEBUFF.id) / this.owner.fightDuration;
   }
 
   get uptimeSuggestionThresholds(): NumberThreshold {
@@ -44,10 +45,10 @@ class VoidReaverDebuff extends Analyzer {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.VOID_REAVER_DEBUFF.id} /> uptime can be improved.
+          Your <SpellLink id={DH_SPELLS.VOID_REAVER_DEBUFF.id} /> uptime can be improved.
         </>,
       )
-        .icon(SPELLS.VOID_REAVER_TALENT.icon)
+        .icon(DH_TALENTS.VOID_REAVER_TALENT.icon)
         .actual(
           t({
             id: 'demonhunter.vengeance.suggestions.voidReaver.uptime',
@@ -65,7 +66,7 @@ class VoidReaverDebuff extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
       >
-        <BoringSpellValueText spellId={SPELLS.VOID_REAVER_TALENT.id}>
+        <BoringSpellValueText spellId={DH_TALENTS.VOID_REAVER_TALENT.id}>
           <Uptime /> {formatPercentage(this.uptime)}% <small>Uptime</small>
         </BoringSpellValueText>
       </Statistic>

@@ -1,4 +1,5 @@
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
+import DH_TALENTS from 'common/SPELLS/talents/demonhunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
@@ -7,6 +8,39 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 //Example data for bad cast https://wowanalyzer.com/report/g4Pja6pLHnmQtbvk/32-Normal+Sun+King's+Salvation+-+Kill+(10:14)/Zyg/standard
 //For Blade dance and Death Sweep
 class BladeDance extends Analyzer {
+  badCast = 0;
+  hitCount = 0;
+  firstHitTimeStamp: number = 0;
+  strikeTime: number = 1000;
+  lastCastEvent?: CastEvent;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = !(
+      this.selectedCombatant.hasTalent(DH_TALENTS.TRAIL_OF_RUIN_TALENT.id) ||
+      this.selectedCombatant.hasTalent(DH_TALENTS.FIRST_BLOOD_TALENT.id)
+    );
+    if (!this.active) {
+      return;
+    }
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([DH_SPELLS.DEATH_SWEEP, DH_SPELLS.BLADE_DANCE]),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([
+          DH_SPELLS.DEATH_SWEEP_DAMAGE,
+          DH_SPELLS.BLADE_DANCE_DAMAGE,
+          DH_SPELLS.BLADE_DANCE_DAMAGE_LAST_HIT,
+          DH_SPELLS.DEATH_SWEEP_DAMAGE_LAST_HIT,
+        ]),
+      this.onDamage,
+    );
+    this.addEventListener(Events.fightend, this.onFightEnd);
+  }
+
   get suggestionThresholds() {
     return {
       actual: this.badCast,
@@ -17,39 +51,6 @@ class BladeDance extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  badCast = 0;
-  hitCount = 0;
-  firstHitTimeStamp: number = 0;
-  strikeTime: number = 1000;
-  lastCastEvent?: CastEvent;
-
-  constructor(options: Options) {
-    super(options);
-    this.active = !(
-      this.selectedCombatant.hasTalent(SPELLS.TRAIL_OF_RUIN_TALENT) ||
-      this.selectedCombatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT)
-    );
-    if (!this.active) {
-      return;
-    }
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.DEATH_SWEEP, SPELLS.BLADE_DANCE]),
-      this.onCast,
-    );
-    this.addEventListener(
-      Events.damage
-        .by(SELECTED_PLAYER)
-        .spell([
-          SPELLS.DEATH_SWEEP_DAMAGE,
-          SPELLS.BLADE_DANCE_DAMAGE,
-          SPELLS.BLADE_DANCE_DAMAGE_LAST_HIT,
-          SPELLS.DEATH_SWEEP_DAMAGE_LAST_HIT,
-        ]),
-      this.onDamage,
-    );
-    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   onCast(event: CastEvent) {
@@ -98,13 +99,13 @@ class BladeDance extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should not cast <SpellLink id={SPELLS.BLADE_DANCE.id} /> or{' '}
-          <SpellLink id={SPELLS.DEATH_SWEEP.id} /> on single target when you are not using{' '}
-          <SpellLink id={SPELLS.FIRST_BLOOD_TALENT.id} /> or{' '}
-          <SpellLink id={SPELLS.TRAIL_OF_RUIN_TALENT.id} /> as a talent.
+          You should not cast <SpellLink id={DH_SPELLS.BLADE_DANCE.id} /> or{' '}
+          <SpellLink id={DH_SPELLS.DEATH_SWEEP.id} /> on single target when you are not using{' '}
+          <SpellLink id={DH_TALENTS.FIRST_BLOOD_TALENT.id} /> or{' '}
+          <SpellLink id={DH_TALENTS.TRAIL_OF_RUIN_TALENT.id} /> as a talent.
         </>,
       )
-        .icon(SPELLS.BLADE_DANCE.icon)
+        .icon(DH_SPELLS.BLADE_DANCE.icon)
         .actual(<>{actual} bad casts</>)
         .recommended(`No bad casts is recommended.`),
     );

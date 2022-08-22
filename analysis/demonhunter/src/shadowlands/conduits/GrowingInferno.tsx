@@ -1,5 +1,6 @@
 import { formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
+import DH_CONDUITS from 'common/SPELLS/shadowlands/conduits/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -24,16 +25,19 @@ class GrowingInferno extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.GROWING_INFERNO.id);
+    this.active = this.selectedCombatant.hasConduitBySpellID(DH_CONDUITS.GROWING_INFERNO.id);
     if (!this.active) {
       return;
     }
 
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.GROWING_INFERNO.id);
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(DH_CONDUITS.GROWING_INFERNO.id);
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.IMMOLATION_AURA_INITIAL_HIT_DAMAGE, SPELLS.IMMOLATION_AURA_BUFF_DAMAGE]),
+        .spell([
+          DH_SPELLS.IMMOLATION_AURA_INITIAL_HIT_DAMAGE,
+          DH_SPELLS.IMMOLATION_AURA_BUFF_DAMAGE,
+        ]),
       this.onDamage,
     );
   }
@@ -54,7 +58,7 @@ class GrowingInferno extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={<>Total damage of Immolation Aura {formatThousands(this.ImmolationDamage)}</>}
       >
-        <ConduitSpellText spellId={SPELLS.GROWING_INFERNO.id} rank={this.conduitRank}>
+        <ConduitSpellText spellId={DH_CONDUITS.GROWING_INFERNO.id} rank={this.conduitRank}>
           <>
             <ItemDamageDone amount={this.addedDamage} />
           </>

@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
+import DH_TALENTS from 'common/SPELLS/talents/demonhunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffStackEvent } from 'parser/core/Events';
@@ -22,21 +23,21 @@ class ShearFracture extends Analyzer {
   wastedSoulsPerCast = 0;
   soulFragmentBuffFadeTimeStamp = 0;
   lastCastEvent?: CastEvent;
-  cast = SPELLS.SHEAR;
+  cast = DH_SPELLS.SHEAR;
 
   constructor(options: Options) {
     super(options);
 
-    if (this.selectedCombatant.hasTalent(SPELLS.FRACTURE_TALENT.id)) {
-      this.cast = SPELLS.FRACTURE_TALENT;
+    if (this.selectedCombatant.hasTalent(DH_TALENTS.FRACTURE_TALENT.id)) {
+      this.cast = DH_TALENTS.FRACTURE_TALENT;
     }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.cast), this.onCast);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SOUL_FRAGMENT),
+      Events.cast.by(SELECTED_PLAYER).spell(DH_SPELLS.SOUL_FRAGMENT),
       this.onSoulFragmentCast,
     );
     this.addEventListener(
-      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SOUL_FRAGMENT_STACK),
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(DH_SPELLS.SOUL_FRAGMENT_STACK),
       this.onSoulFragmentBuffFade,
     );
   }

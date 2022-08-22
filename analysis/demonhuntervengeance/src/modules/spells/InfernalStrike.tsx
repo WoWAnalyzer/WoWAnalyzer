@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 
@@ -22,7 +22,7 @@ class InfernalStrike extends Analyzer {
     */
 
     this.addEventListener(
-      Events.cast.spell(SPELLS.INFERNAL_STRIKE).by(SELECTED_PLAYER),
+      Events.cast.spell(DH_SPELLS.INFERNAL_STRIKE).by(SELECTED_PLAYER),
       this.onCast,
     );
   }
