@@ -1,3 +1,4 @@
+import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
@@ -17,9 +18,6 @@ class HypothermicPresence extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HYPOTHERMIC_PRESENCE_TALENT.id);
-    if (!this.active) {
-      return;
-    }
   }
 
   statistic() {
@@ -27,8 +25,11 @@ class HypothermicPresence extends Analyzer {
       <Statistic position={STATISTIC_ORDER.OPTIONAL(50)} size="flexible">
         <BoringSpellValue
           spellId={SPELLS.HYPOTHERMIC_PRESENCE_TALENT.id}
-          value={`${this.runicPowerTracker.totalHypothermicPresenceReduction}`}
-          label="Runic Power saved"
+          value={this.runicPowerTracker.totalHypothermicPresenceReduction}
+          label={t({
+            id: 'deathknight.frost.hypothermicPresence.statistic',
+            message: 'Runic Power saved',
+          })}
         />
       </Statistic>
     );

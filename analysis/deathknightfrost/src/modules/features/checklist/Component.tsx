@@ -1,3 +1,4 @@
+import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
@@ -21,9 +22,12 @@ const FrostDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
   return (
     <Checklist>
       <Rule
-        name="Use cooldowns as often as possible"
+        name={t({
+          id: 'deathknight.frost.checklist.useCds',
+          message: 'Use cooldowns as often as possible',
+        })}
         description={
-          <>
+          <Trans id="deathknight.frost.checklist.useCds.desc">
             You should aim to use your cooldowns as often as you can to maximize your damage output.{' '}
             <a
               href="https://www.wowhead.com/frost-death-knight-rotation-guide#cooldown-usage"
@@ -32,7 +36,7 @@ const FrostDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
             >
               More info.
             </a>
-          </>
+          </Trans>
         }
       >
         <AbilityRequirement spell={SPELLS.PILLAR_OF_FROST.id} />
@@ -46,34 +50,62 @@ const FrostDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         )}
       </Rule>
       <Rule
-        name="Try to avoid being inactive for a large portion of the fight"
+        name={t({
+          id: 'deathknight.frost.checklist.stayActive',
+          message: 'Try to avoid being inactive for a large portion of the fight',
+        })}
         description={
-          <>
+          <Trans id="deathknight.frost.checklist.stayActive.desc">
             While some downtime is inevitable in fights with movement, you should aim to reduce
             downtime to prevent capping Runes. In a worst case scenario, you can cast{' '}
             <SpellLink id={SPELLS.HOWLING_BLAST.id} /> to prevent Rune capping
-          </>
+          </Trans>
         }
       >
-        <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
+        <Requirement
+          name={t({ id: 'deathknight.frost.checklist.stayActive.downtime', message: 'Downtime' })}
+          thresholds={thresholds.downtimeSuggestionThresholds}
+        />
       </Rule>
       <Rule
-        name="Avoid capping Runes"
-        description="Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  You can have up to three runes recharging at once.  You want to dump runes whenever you have 4 or more runes to make sure none are wasted"
+        name={t({
+          id: 'deathknight.frost.checklist.avoidCappingRunes',
+          message: 'Avoid capping Runes',
+        })}
+        description={t({
+          id: 'deathknight.frost.checklist.avoidCappingRunes.desc',
+          message:
+            'Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  You can have up to three runes recharging at once.  You want to dump runes whenever you have 4 or more runes to make sure none are wasted',
+        })}
       >
-        <Requirement name="Rune Efficiency" thresholds={thresholds.runeEfficiency} />
+        <Requirement
+          name={t({
+            id: 'deathknight.frost.checklist.avoidCappingRunes.efficiency',
+            message: 'Rune Efficiency',
+          })}
+          thresholds={thresholds.runeEfficiency}
+        />
       </Rule>
       <Rule
-        name="Avoid capping Runic Power"
+        name={t({
+          id: 'deathknight.frost.checklist.avoidCappingRp',
+          message: 'Avoid capping Runic Power',
+        })}
         description={
-          <>
+          <Trans id="deathknight.frost.checklist.avoidCappingRp.desc">
             Death Knights are a resource based class, relying on Runes and Runic Power to cast core
             abilities. Cast <SpellLink id={SPELLS.FROST_STRIKE_CAST.id} /> when you have 73+ Runic
             Power to avoid overcapping.
-          </>
+          </Trans>
         }
       >
-        <Requirement name="Runic Power Efficiency" thresholds={thresholds.runicPowerEfficiency} />
+        <Requirement
+          name={t({
+            id: 'deathknight.frost.checklist.avoidCappingRp.efficiency',
+            message: 'Runic Power Efficiency',
+          })}
+          thresholds={thresholds.runicPowerEfficiency}
+        />
       </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>

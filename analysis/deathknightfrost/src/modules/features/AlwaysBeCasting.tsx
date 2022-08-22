@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -21,21 +21,26 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   suggestions(when: When) {
     when(this.downtimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <>
+        <Trans id="deathknight.frost.alwaysBeCasting.suggestion.suggestion">
           Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the
           boss unless due to mechanics. If you do have to move, try casting filler spells, such as{' '}
           <SpellLink id={SPELLS.HOWLING_BLAST.id} /> or{' '}
           <SpellLink id={SPELLS.REMORSELESS_WINTER.id} />.
-        </>,
+        </Trans>,
       )
         .icon('spell_mage_altertime')
         .actual(
           t({
-            id: 'deathknight.frost.suggestions.alwaysBeCasting',
+            id: 'deathknight.frost.alwaysBeCasting.suggestion.actual',
             message: `${formatPercentage(actual)}% downtime`,
           }),
         )
-        .recommended(`<${formatPercentage(recommended)}% is recommended`),
+        .recommended(
+          t({
+            id: 'deathknight.frost.alwaysBeCasting.suggestion.recommended',
+            message: `<${formatPercentage(recommended)}% is recommended`,
+          }),
+        ),
     );
   }
 }

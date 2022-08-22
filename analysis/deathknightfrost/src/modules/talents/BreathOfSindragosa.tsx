@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
@@ -59,7 +59,7 @@ class BreathOfSindragosa extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <>
+        <Trans id="deathknight.frost.breathOfSindragosa.suggestion.suggestion">
           {' '}
           You are not getting good uptime from your{' '}
           <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> casts. A good cast is one that
@@ -68,22 +68,31 @@ class BreathOfSindragosa extends Analyzer {
           use <SpellLink id={SPELLS.EMPOWER_RUNE_WEAPON.id} /> within a few seconds of casting
           Breath of Sindragosa. Pay close attention to your Runic Power and make sure you are not
           overcapping. {this.tickingOnFinishedString}
-        </>,
+        </Trans>,
       )
         .icon(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.icon)
         .actual(
           t({
-            id: 'deathknight.frost.suggestions.breathOfSindragosa.uptime',
+            id: 'deathknight.frost.breathOfSindragosa.suggestion.actual',
             message: `You averaged ${this.averageDuration.toFixed(1)} seconds of uptime per cast`,
           }),
         )
-        .recommended(`>${recommended} seconds is recommended`),
+        .recommended(
+          t({
+            id: 'deathknight.frost.breathOfSindragosa.suggestion.recommended',
+            message: `>${recommended} seconds is recommended`,
+          }),
+        ),
     );
   }
 
   get tickingOnFinishedString() {
     return this.breathActive
-      ? 'Your final cast was not counted in the average since it was still ticking when the fight ended'
+      ? t({
+          id: 'deathknight.frost.breathOfSindragosa.suggestion.tickingOnFinished',
+          message:
+            'Your final cast was not counted in the average since it was still ticking when the fight ended',
+        })
       : '';
   }
 
@@ -107,18 +116,21 @@ class BreathOfSindragosa extends Analyzer {
   statistic() {
     return (
       <Statistic
-        tooltip={`You cast Breath of Sindragosa ${this.casts} times for a combined total of ${(
-          this.totalDuration / 1000
-        ).toFixed(1)} seconds.  ${this.badCasts} casts were under 25 seconds.  ${
-          this.tickingOnFinishedString
-        }`}
+        tooltip={t({
+          id: 'deathknight.frost.breathOfSindragosa.statistic.tooltip',
+          message: `You cast Breath of Sindragosa ${this.casts} times for a combined total of ${(
+            this.totalDuration / 1000
+          ).toFixed(1)} seconds.  ${this.badCasts} casts were under 25 seconds.  ${
+            this.tickingOnFinishedString
+          }`,
+        })}
         position={STATISTIC_ORDER.CORE(60)}
         size="flexible"
       >
         <BoringSpellValueText spellId={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id}>
-          <>
+          <Trans id="deathknight.frost.breathOfSindragosa.statistic">
             {this.averageDuration.toFixed(1)}s <small>average duration</small>
-          </>
+          </Trans>
         </BoringSpellValueText>
       </Statistic>
     );

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -101,23 +101,28 @@ class RimeEfficiency extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <>
+        <Trans id="deathknight.frost.rimeEfficiency.suggestion.suggestion">
           {' '}
           You are wasting <SpellLink id={SPELLS.RIME.id} /> procs. You should be casting{' '}
           <SpellLink id={SPELLS.HOWLING_BLAST.id} /> as soon as possible when you have a Rime proc
           to avoid wasting it.
-        </>,
+        </Trans>,
       )
         .icon(SPELLS.RIME.icon)
         .actual(
           t({
-            id: 'deathknight.frost.suggestions.rime.wastedProcs',
+            id: 'deathknight.frost.rimeEfficiency.suggestion.actual',
             message: `${formatPercentage(
               this.wastedProcRate,
             )}% of Rime procs were either refreshed and lost or expired without being used`,
           }),
         )
-        .recommended(`<${recommended} is recommended`),
+        .recommended(
+          t({
+            id: 'deathknight.frost.rimeEfficiency.suggestion.recommended',
+            message: `<${recommended} is recommended`,
+          }),
+        ),
     );
   }
 
@@ -126,18 +131,21 @@ class RimeEfficiency extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(5)}
         size="flexible"
-        tooltip={`You wasted ${this.totalWastedProcs} out of ${
-          this.rimeProcs
-        } Rime procs (${formatPercentage(this.wastedProcRate)}%).  ${
-          this.expiredRimeProcs
-        } procs expired without being used and ${
-          this.refreshedRimeProcs
-        } procs were overwritten by new procs.`}
+        tooltip={t({
+          id: 'deathknight.frost.rimeEfficiency.statistic.tooltip',
+          message: `You wasted ${this.totalWastedProcs} out of ${
+            this.rimeProcs
+          } Rime procs (${formatPercentage(this.wastedProcRate)}%). ${
+            this.expiredRimeProcs
+          } procs expired without being used and ${
+            this.refreshedRimeProcs
+          } procs were overwritten by new procs.`,
+        })}
       >
         <BoringSpellValueText spellId={SPELLS.RIME.id}>
-          <>
+          <Trans id="deathknight.frost.rimeEfficiency.statistic">
             {formatPercentage(this.efficiency)} % <small>efficiency</small>
-          </>
+          </Trans>
         </BoringSpellValueText>
       </Statistic>
     );

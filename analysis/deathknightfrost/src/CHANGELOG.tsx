@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Adoraci, joshinator, Khazak, LeoZhekov, Putro, Pendragon, darkpsy3934 } from 'CONTRIBUTORS';
+import { Adoraci, joshinator, Khazak, LeoZhekov, Putro, Pendragon, darkpsy3934, Chizu } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 8, 22), 'Translated strings with lingui', Chizu),
   change(date(2022, 3, 2), 'Remove improperly applied partial support tag', Khazak),
   change(date(2021, 11, 5), 'Verified 9.1.5 patch changes and bumped support to 9.1.5', darkpsy3934),
   change(date(2021, 8, 19), <> Added <SpellLink id ={SPELLS.DEATHS_DUE.id}/> module </>, Pendragon),

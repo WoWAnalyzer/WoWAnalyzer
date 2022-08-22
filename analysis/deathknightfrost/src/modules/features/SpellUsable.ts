@@ -20,10 +20,6 @@ const ICECAP_ABILITIES = [
 ];
 
 class SpellUsable extends CoreSpellUsable {
-  static dependencies = {
-    ...CoreSpellUsable.dependencies,
-  };
-
   lastCritTime: number = -2000;
   hasIcecap: boolean;
 

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -78,20 +78,25 @@ class Frostscythe extends Analyzer {
   suggestions(when: When) {
     when(this.efficencyThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <>
+        <Trans id="deathknight.frost.frostscythe.suggestion.suggestion">
           Your <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} /> efficiency can be improved. Only cast
           Frostscythe if you have a <SpellLink id={SPELLS.KILLING_MACHINE.id} icon /> proc or you
           can hit 2+ targets.
-        </>,
+        </Trans>,
       )
         .icon(SPELLS.FROSTSCYTHE_TALENT.icon)
         .actual(
           t({
-            id: 'deathknight.frost.frostScythe.efficiency',
+            id: 'deathknight.frost.frostscythe.suggestion.actual',
             message: `${formatPercentage(actual)}% Frostscythe efficiency`,
           }),
         )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+        .recommended(
+          t({
+            id: 'deathknight.frost.frostscythe.suggestion.recommended',
+            message: `>${formatPercentage(recommended)}% is recommended`,
+          }),
+        ),
     );
   }
 
@@ -100,12 +105,18 @@ class Frostscythe extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        tooltip={`A good cast is one where you either hit 1+ targets with a Killing Machine buff or you hit 2+ targets.  You had ${this.goodCasts} / ${this.casts} good casts`}
+        tooltip={
+          <Trans id="deathknight.frost.frostscythe.statistic.tooltip">
+            A good cast is one where you either hit 1+ targets with a{' '}
+            <SpellLink id={SPELLS.KILLING_MACHINE.id} /> buff or you hit 2+ targets. You had $
+            {this.goodCasts} / ${this.casts} good casts
+          </Trans>
+        }
       >
         <BoringSpellValueText spellId={SPELLS.FROSTSCYTHE_TALENT.id}>
-          <>
+          <Trans id="deathknight.frost.frostscythe.statistic">
             {formatPercentage(this.efficiency)} % <small>efficiency</small>
-          </>
+          </Trans>
         </BoringSpellValueText>
       </Statistic>
     );

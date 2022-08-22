@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -14,7 +14,6 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { Fragment } from 'react';
 
 const LAG_BUFFER_MS = 100;
 const BUFF_DURATION_MS = 10000;
@@ -108,25 +107,30 @@ class KillingMachineEfficiency extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <Fragment>
+        <Trans id="deathknight.frost.killingMachine.suggestion.suggestion">
           {' '}
           You wasted <SpellLink id={SPELLS.KILLING_MACHINE.id} /> procs. You should be casting{' '}
           <SpellLink id={SPELLS.OBLITERATE_CAST.id} /> or{' '}
           <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} /> within 1 or 2 GCDs of gaining a Killing
           Machine proc to avoid wasting it. See one of the guides on the About tab for more
           information on when another ability takes precedence over spending Killing Machine
-        </Fragment>,
+        </Trans>,
       )
         .icon(SPELLS.KILLING_MACHINE.icon)
         .actual(
           t({
-            id: 'deathknight.frost.suggestions.killingMachine.wasted',
+            id: 'deathknight.frost.killingMachine.suggestion.actual',
             message: `${formatPercentage(
               this.wastedProcRate,
             )}% of Killing Machine procs were either refreshed and lost or expired without being used`,
           }),
         )
-        .recommended(`<${formatPercentage(1 - recommended)}% is recommended`),
+        .recommended(
+          t({
+            id: 'deathknight.frost.killingMachine.suggestion.recommended',
+            message: `<${formatPercentage(1 - recommended)}% is recommended`,
+          }),
+        ),
     );
   }
 
@@ -136,18 +140,18 @@ class KillingMachineEfficiency extends Analyzer {
         position={STATISTIC_ORDER.CORE(5)}
         size="flexible"
         tooltip={
-          <>
+          <Trans id="deathknight.frost.killingMachine.statistic.tooltip">
             You wasted {this.totalWastedProcs} out of {this.totalProcs} Killing Machine procs (
             {formatPercentage(this.wastedProcRate)}%). <br />
             {this.expiredKMProcs} procs expired without being used and {this.refreshedKMProcs} procs
             were overwritten by new procs.
-          </>
+          </Trans>
         }
       >
         <BoringSpellValueText spellId={SPELLS.KILLING_MACHINE.id}>
-          <>
+          <Trans id="deathknight.frost.killingMachine.statistic">
             {formatPercentage(this.efficiency)} % <small>efficiency</small>
-          </>
+          </Trans>
         </BoringSpellValueText>
       </Statistic>
     );

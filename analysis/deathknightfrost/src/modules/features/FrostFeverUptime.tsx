@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -26,21 +26,26 @@ class FrostFeverUptime extends Analyzer {
       .isLessThan(0.95)
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
-          <span>
+          <Trans id="deathknight.frost.frostFever.suggestion.suggestion">
             Your <SpellLink id={SPELLS.FROST_FEVER.id} /> uptime can be improved. Try to pay
             attention to when Frost Fever is about to fall off the priority target, using{' '}
             <SpellLink id={SPELLS.HOWLING_BLAST.id} /> to refresh Frost Fever. Using a debuff
             tracker can help.
-          </span>,
+          </Trans>,
         )
           .icon(SPELLS.FROST_FEVER.icon)
           .actual(
             t({
-              id: 'deathknight.frost.suggestions.frostFever.uptime',
+              id: 'deathknight.frost.frostFever.suggestion.actual',
               message: `${formatPercentage(actual)}% Frost Fever uptime`,
             }),
           )
-          .recommended(`>${formatPercentage(recommended)}% is recommended`)
+          .recommended(
+            t({
+              id: 'deathknight.frost.frostFever.suggestion.recommended',
+              message: `>${formatPercentage(recommended)}% is recommended`,
+            }),
+          )
           .regular(recommended - 0.05)
           .major(recommended - 0.15),
       );

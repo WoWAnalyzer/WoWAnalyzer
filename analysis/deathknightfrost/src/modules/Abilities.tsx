@@ -1,3 +1,4 @@
+import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
@@ -19,7 +20,10 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
-          extraSuggestion: 'You should aim to use this off CD.',
+          extraSuggestion: t({
+            id: 'deathknight.frost.abilities.extraSuggestions.pillarOfFrost',
+            message: 'You should aim to use this off CD.',
+          }),
         },
         timelineSortIndex: 0,
       },
@@ -33,11 +37,11 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.8,
           extraSuggestion: (
-            <>
+            <Trans id="deathknight.frost.abilities.extraSuggestions.empowerRuneWeapon">
               You should use this with every{' '}
               <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> if it is talented. Otherwise
               use it with <SpellLink id={SPELLS.PILLAR_OF_FROST.id} />.
-            </>
+            </Trans>
           ),
         },
         timelineSortIndex: 1,
@@ -65,8 +69,11 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          extraSuggestion:
-            'You should only save this if there is a mechanic you will need to deal with in the next 30 seconds or if you need to save it for a particular phase',
+          extraSuggestion: t({
+            id: 'deathknight.frost.abilities.extraSuggestions.breathOfSindragosa',
+            message:
+              'You should only save this if there is a mechanic you will need to deal with in the next 30 seconds or if you need to save it for a particular phase',
+          }),
         },
         timelineSortIndex: 2,
       },
@@ -81,11 +88,11 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
           extraSuggestion: (
-            <>
+            <Trans id="deathknight.frost.abilities.extraSuggestions.frostwyrmsFury">
               Although you normally want to use this off CD, you can save it to line it up with{' '}
               <SpellLink id={SPELLS.PILLAR_OF_FROST.id} icon />. You can also hold it if you know
               there will be an opportunity to hit more than one enemy in the next 30 seconds.
-            </>
+            </Trans>
           ),
         },
       },

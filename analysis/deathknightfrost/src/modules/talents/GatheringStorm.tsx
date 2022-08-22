@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -114,11 +115,11 @@ class GatheringStorm extends Analyzer {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
         <BoringSpellValueText spellId={SPELLS.GATHERING_STORM_TALENT.id}>
-          <>
+          <Trans id="deathknight.frost.gatheringStorm.statistic">
             <ItemDamageDone amount={this.bonusDamage} /> <br />
             <UptimeIcon /> {this.averageExtension.toFixed(1)}{' '}
             <small>average seconds extended </small>
-          </>
+          </Trans>
         </BoringSpellValueText>
       </Statistic>
     );
