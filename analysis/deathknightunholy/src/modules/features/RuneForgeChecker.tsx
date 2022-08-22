@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { Options } from 'parser/core/Analyzer';
@@ -15,61 +16,61 @@ class UnholyRuneForgeChecker extends RuneForgeChecker {
         forge: SPELLS.RUNE_OF_THE_STONESKIN_GARGOYLE,
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
-          <>
+          <Trans id="deathknight.unholy.runeforgeChecker.stoneskinGargoyle">
             <SpellLink id={SPELLS.RUNE_OF_THE_STONESKIN_GARGOYLE.id} /> is a survivability runeforge
             at the cost of damage and healing. Use{' '}
             <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> instead
-          </>
+          </Trans>
         ),
       },
       {
         forge: SPELLS.RUNE_OF_RAZORICE,
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
-          <>
+          <Trans id="deathknight.unholy.runeforgeChecker.razorice">
             Don't use <SpellLink id={SPELLS.RUNE_OF_RAZORICE.id} /> as Unholy Death Knight, use{' '}
             <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> instead.
-          </>
+          </Trans>
         ),
       },
       {
         forge: SPELLS.RUNE_OF_SANGUINATION,
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
-          <>
+          <Trans id="deathknight.unholy.runeforgeChecker.sanguination">
             Don't use <SpellLink id={SPELLS.RUNE_OF_SANGUINATION.id} /> as Unholy Death Knight, use{' '}
             <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> instead.
-          </>
+          </Trans>
         ),
       },
       {
         forge: SPELLS.RUNE_OF_APOCALYPSE,
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
-          <>
+          <Trans id="deathknight.unholy.runeforgeChecker.apocalypse">
             Don't use <SpellLink id={SPELLS.RUNE_OF_APOCALYPSE.id} /> as Unholy Death Knight, use{' '}
             <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> instead.
-          </>
+          </Trans>
         ),
       },
       {
         forge: SPELLS.RUNE_OF_UNENDING_THIRST,
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
-          <>
+          <Trans id="deathknight.unholy.runeforgeChecker.unendingThirst">
             Don't use <SpellLink id={SPELLS.RUNE_OF_UNENDING_THIRST.id} /> as Unholy Death Knight,
             use <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> instead.
-          </>
+          </Trans>
         ),
       },
       {
         forge: SPELLS.RUNE_OF_SPELLWARDING,
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
-          <>
+          <Trans id="deathknight.unholy.runeforgeChecker.spellwarding">
             Don't use <SpellLink id={SPELLS.RUNE_OF_SPELLWARDING.id} /> as Unholy Death Knight, use{' '}
             <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> instead.
-          </>
+          </Trans>
         ),
       },
     ];

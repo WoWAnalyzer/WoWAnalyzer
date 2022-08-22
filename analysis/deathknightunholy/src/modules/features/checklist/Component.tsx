@@ -1,29 +1,33 @@
+import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
+import {
+  AbilityRequirementProps,
+  ChecklistProps,
+} from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import PropTypes from 'prop-types';
 
-const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) => {
-  const AbilityRequirement = (props) => (
+const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
 
   return (
     <Checklist>
       <Rule
-        name="Use cooldowns as often as possible"
+        name={t({
+          id: 'deathknight.unholy.checklist.useCds',
+          message: 'Use cooldowns as often as possible',
+        })}
         description={
-          <>
+          <Trans id="deathknight.unholy.checklist.useCds.desc">
             You should aim to use your cooldowns as often as you can to maximize your damage output.
             <a
               href="https://www.wowhead.com/unholy-death-knight-rotation-guide#cooldown-usage"
@@ -32,7 +36,7 @@ const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) =
             >
               More info.
             </a>
-          </>
+          </Trans>
         }
       >
         <AbilityRequirement spell={SPELLS.APOCALYPSE.id} />
@@ -57,45 +61,64 @@ const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) =
         )}
       </Rule>
       <Rule
-        name="Try to avoid being inactive for a large portion of the fight"
-        description={
-          <>
-            While some downtime is inevitable in fights with movement, you should aim to reduce
-            downtime to prevent capping Runes.
-          </>
-        }
+        name={t({
+          id: 'deathknight.unholy.checklist.stayActive',
+          message: 'Try to avoid being inactive for a large portion of the fight',
+        })}
+        description={t({
+          id: 'deathknight.unholy.checklist.stayActive.desc',
+          message:
+            'While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes',
+        })}
       >
-        <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
+        <Requirement
+          name={t({ id: 'deathknight.unholy.checklist.stayActive.downtime', message: 'Downtime' })}
+          thresholds={thresholds.downtimeSuggestionThresholds}
+        />
       </Rule>
       <Rule
-        name="Avoid capping Runes"
-        description="Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  You can have up to three runes recharging at once.  You want to dump runes whenever you have 4 or more runes to make sure none are wasted"
+        name={t({
+          id: 'deathknight.unholy.checklist.avoidCappingRunes',
+          message: 'Avoid capping Runes',
+        })}
+        description={t({
+          id: 'deathknight.unholy.checklist.avoidCappingRunes.desc',
+          message:
+            'Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  You can have up to three runes recharging at once.  You want to dump runes whenever you have 4 or more runes to make sure none are wasted',
+        })}
       >
-        <Requirement name="Rune Efficiency" thresholds={thresholds.runeEfficiency} />
+        <Requirement
+          name={t({
+            id: 'deathknight.unholy.checklist.avoidCappingRunes.efficiency',
+            message: 'Rune Efficiency',
+          })}
+          thresholds={thresholds.runeEfficiency}
+        />
       </Rule>
       <Rule
-        name="Avoid capping Runic Power"
+        name={t({
+          id: 'deathknight.unholy.checklist.avoidCappingRp',
+          message: 'Avoid capping Runic Power',
+        })}
         description={
-          <>
+          <Trans id="deathknight.unholy.checklist.avoidCappingRp.desc">
             Death Knights are a resource based class, relying on Runes and Runic Power to cast core
             abilities. Cast <SpellLink id={SPELLS.DEATH_COIL.id} /> when you have 80 or more Runic
             Power to avoid overcapping.
-          </>
+          </Trans>
         }
       >
-        <Requirement name="Runic Power Efficiency" thresholds={thresholds.runicPowerEfficiency} />
+        <Requirement
+          name={t({
+            id: 'deathknight.unholy.checklist.avoidCappingRp.efficiency',
+            message: 'Runic Power Efficiency',
+          })}
+          thresholds={thresholds.runicPowerEfficiency}
+        />
       </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-UnholyDeathKnightChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default UnholyDeathKnightChecklist;

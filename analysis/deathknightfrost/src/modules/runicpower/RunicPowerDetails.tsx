@@ -96,7 +96,7 @@ class RunicPowerDetails extends Analyzer {
 
   tab() {
     return {
-      title: 'Runic Power usage',
+      title: t({ id: 'deathknight.frost.runicPower.tab', message: 'Runic Power usage' }),
       url: 'runic-power-usage',
       render: () => (
         <Panel>

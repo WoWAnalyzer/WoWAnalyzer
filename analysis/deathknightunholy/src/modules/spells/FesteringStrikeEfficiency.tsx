@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -68,37 +68,45 @@ class FesteringStrikeEfficiency extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <>
+        <Trans id="deathknight.unholy.festeringStrike.suggestion.suggestion">
           You are casting <SpellLink id={SPELLS.FESTERING_STRIKE.id} /> too often. When spending
           runes remember to cast <SpellLink id={SPELLS.SCOURGE_STRIKE.id} /> instead on targets with
           more than three stacks of <SpellLink id={SPELLS.FESTERING_WOUND.id} />
-        </>,
+        </Trans>,
       )
         .icon(SPELLS.FESTERING_STRIKE.icon)
         .actual(
           t({
-            id: 'deathknight.unholy.suggestions.festeringStrikes.efficiency',
+            id: 'deathknight.unholy.festeringStrike.suggestion.actual',
             message: `${formatPercentage(
               actual,
             )}% of Festering Strikes did not risk overcapping Festering Wounds`,
           }),
         )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+        .recommended(
+          t({
+            id: 'deathknight.unholy.festeringStrike.suggestion.recommended',
+            message: `>${formatPercentage(recommended)}% is recommended`,
+          }),
+        ),
     );
   }
 
   statistic() {
     return (
       <Statistic
-        tooltip={`${this.festeringStrikeCastsOverSafeCount} of out ${this.totalFesteringStrikeCasts} Festering Strikes were cast on a target with more than three stacks of Festering Wounds.`}
+        tooltip={t({
+          id: 'deathknight.unholy.festeringStrike.statistic.tooltip',
+          message: `${this.festeringStrikeCastsOverSafeCount} of out ${this.totalFesteringStrikeCasts} Festering Strikes were cast on a target with more than three stacks of Festering Wounds.`,
+        })}
         position={STATISTIC_ORDER.CORE(4)}
         category={STATISTIC_CATEGORY.GENERAL}
         size="flexible"
       >
         <BoringSpellValueText spellId={SPELLS.FESTERING_STRIKE.id}>
-          <>
+          <Trans id="deathknight.unholy.festeringStrike.statistic">
             {formatPercentage(this.strikeEfficiency)}% <small>efficiency</small>
-          </>
+          </Trans>
         </BoringSpellValueText>
       </Statistic>
     );

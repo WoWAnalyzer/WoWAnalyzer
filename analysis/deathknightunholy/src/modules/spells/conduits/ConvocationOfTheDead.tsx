@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import CooldownIcon from 'interface/icons/Cooldown';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -60,10 +61,12 @@ class ConvocationOfTheDead extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
       >
         <ConduitSpellText spellId={SPELLS.CONVOCATION_OF_THE_DEAD.id} rank={this.conduitRank}>
-          <CooldownIcon /> {this.cooldownReduction.toFixed(1)}s <small> of Apocalypse CDR</small>
-          <br />
-          <CooldownIcon /> {this.wastedCooldownReduction.toFixed(1)}s{' '}
-          <small> of wasted Apocalypse CDR</small>
+          <Trans id="deathknight.unholy.convocationOfTheDead.statistic">
+            <CooldownIcon /> {this.cooldownReduction.toFixed(1)}s <small> of Apocalypse CDR</small>
+            <br />
+            <CooldownIcon /> {this.wastedCooldownReduction.toFixed(1)}s{' '}
+            <small> of wasted Apocalypse CDR</small>
+          </Trans>
         </ConduitSpellText>
       </Statistic>
     );

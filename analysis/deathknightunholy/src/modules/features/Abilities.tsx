@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
@@ -102,10 +103,10 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.95,
           extraSuggestion: (
-            <span>
+            <Trans id="deathknight.unholy.abilities.extraSuggestions.apocalypse">
               Making sure to use <SpellLink id={SPELLS.APOCALYPSE.id} /> immediately after it's
               cooldown is up is important, try to plan for it's use as it is coming off cooldown.
-            </span>
+            </Trans>
           ),
         },
       },

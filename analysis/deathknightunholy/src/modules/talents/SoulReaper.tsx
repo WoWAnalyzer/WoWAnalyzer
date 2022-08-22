@@ -1,3 +1,4 @@
+import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { FightEndEvent } from 'parser/core/Events';
@@ -50,8 +51,11 @@ class SoulReaper extends ExecuteHelper {
         suggestion: true,
         recommendedEfficiency: 0.85,
         maxCasts: () => this.maxCasts,
-        extraSuggestion:
-          ' (This module only starts tracking possible casts once you damage a target with 35% or less health)',
+        extraSuggestion: t({
+          id: 'deathknight.unholy.soulReaper.extraSuggestion',
+          message:
+            ' (This module only starts tracking possible casts once you damage a target with 35% or less health)',
+        }),
       },
     });
   }
@@ -69,9 +73,7 @@ class SoulReaper extends ExecuteHelper {
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spellId={SPELLS.SOUL_REAPER_TALENT.id}>
-          <>
-            <ItemDamageDone amount={this.damage} />
-          </>
+          <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>
     );

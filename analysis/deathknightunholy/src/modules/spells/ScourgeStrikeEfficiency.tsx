@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
@@ -70,37 +70,45 @@ class ScourgeStrikeEfficiency extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <>
+        <Trans id="deathknight.unholy.scourgeStrike.suggestion.suggestion">
           You are casting <SpellLink id={this.activeSpell.id} /> too often. When spending runes
           remember to cast <SpellLink id={this.activeSpell.id} /> instead on targets with no stacks
           of <SpellLink id={this.activeSpell.id} />
-        </>,
+        </Trans>,
       )
         .icon(this.activeSpell.icon)
         .actual(
           t({
-            id: 'deathknight.unholy.suggestions.scourgeStrike.efficiency',
+            id: 'deathknight.unholy.scourgeStrike.suggestion.actual',
             message: `${formatPercentage(actual)}% of ${
               this.activeSpell.name
             } were used with Wounds on the target`,
           }),
         )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+        .recommended(
+          t({
+            id: 'deathknight.unholy.scourgeStrike.suggestion.recommended',
+            message: `>${formatPercentage(recommended)}% is recommended`,
+          }),
+        ),
     );
   }
 
   statistic() {
     return (
       <Statistic
-        tooltip={`${this.zeroWoundCasts} out of ${this.totalCasts} ${this.activeSpell.name} were used with no Festering Wounds on the target.`}
+        tooltip={t({
+          id: 'deathknight.unholy.scourgeStrike.statistic.tooltip',
+          message: `${this.zeroWoundCasts} out of ${this.totalCasts} ${this.activeSpell.name} were used with no Festering Wounds on the target.`,
+        })}
         position={STATISTIC_ORDER.CORE(3)}
         category={STATISTIC_CATEGORY.GENERAL}
         size="flexible"
       >
         <BoringSpellValueText spellId={SPELLS.SCOURGE_STRIKE.id}>
-          <>
+          <Trans id="deathknight.unholy.scourgeStrike.statistic">
             {formatPercentage(this.strikeEfficiency)}% <small>efficiency</small>
-          </>
+          </Trans>
         </BoringSpellValueText>
       </Statistic>
     );

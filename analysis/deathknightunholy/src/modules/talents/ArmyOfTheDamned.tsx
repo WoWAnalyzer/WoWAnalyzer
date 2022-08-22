@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import CooldownIcon from 'interface/icons/Cooldown';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -68,13 +69,13 @@ class ArmyOfTheDamned extends Analyzer {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
         <BoringSpellValueText spellId={SPELLS.ARMY_OF_THE_DAMNED_TALENT.id}>
-          <>
+          <Trans id="deathknight.unholy.armyOfTheDamned.statistic">
             <CooldownIcon /> {this.totalApocalypseReductionMs / 1000}s{' '}
             <small> of Apocalypse CDR</small>
             <br />
             <CooldownIcon /> {this.totalArmyReductionMs / 1000}s{' '}
             <small> of Army of the Dead CDR</small>
-          </>
+          </Trans>
         </BoringSpellValueText>
       </Statistic>
     );

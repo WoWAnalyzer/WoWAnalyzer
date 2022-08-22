@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -34,13 +34,13 @@ class VirulentPlagueEfficiency extends Analyzer {
 
   protected enemies!: Enemies;
 
-  get Uptime() {
+  get uptime() {
     return this.enemies.getBuffUptime(SPELLS.VIRULENT_PLAGUE.id) / this.owner.fightDuration;
   }
 
-  get UptimeSuggestionThresholds() {
+  get uptimeSuggestionThresholds() {
     return {
-      actual: this.Uptime,
+      actual: this.uptime,
       isLessThan: {
         minor: 0.85,
         average: 0.77,
@@ -50,39 +50,44 @@ class VirulentPlagueEfficiency extends Analyzer {
     };
   }
 
-  get VirulentDuration() {
+  get virulentDuration() {
     return this.selectedCombatant.hasTalent(SPELLS.EBON_FEVER_TALENT.id) ? 13.65 : 27.3;
   }
 
   onRefresh(event: RefreshDebuffEvent) {
     this.targets[encodeTargetString(event.targetID, event.targetInstance)] =
-      event.timestamp + 1000 * this.VirulentDuration;
+      event.timestamp + 1000 * this.virulentDuration;
   }
 
   onApply(event: ApplyDebuffEvent) {
     this.targets[encodeTargetString(event.targetID, event.targetInstance)] =
-      event.timestamp + 1000 * this.VirulentDuration - 1000 * 0.3 * this.VirulentDuration;
+      event.timestamp + 1000 * this.virulentDuration - 1000 * 0.3 * this.virulentDuration;
     //Removing 3.15 seconds when buff is only applied. This is for cases when the target does not benefit from the epidemic effect (Dots spreading to adds not staying by target for instance.)
   }
 
   suggestions(when: When) {
-    when(this.UptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <span>
+        <Trans id="deathknight.unholy.virulentPlague.suggestion.suggestion">
           Your <SpellLink id={SPELLS.VIRULENT_PLAGUE.id} /> uptime can be improved. Try to pay
           attention to when Virulent Plague is about to fall off the priority target, using{' '}
           <SpellLink id={SPELLS.OUTBREAK.id} /> to refresh Virulent Plague. Using a debuff tracker
           can help.
-        </span>,
+        </Trans>,
       )
         .icon(SPELLS.VIRULENT_PLAGUE.icon)
         .actual(
           t({
-            id: 'deathknight.unholy.suggestions.virulentPlague.uptime',
+            id: 'deathknight.unholy.virulentPlague.suggestion.actual',
             message: `${formatPercentage(actual)}% Virulent Plague uptime`,
           }),
         )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+        .recommended(
+          t({
+            id: 'deathknight.unholy.virulentPlague.suggestion.recommended',
+            message: `>${formatPercentage(recommended)}% is recommended`,
+          }),
+        ),
     );
   }
 
@@ -90,9 +95,9 @@ class VirulentPlagueEfficiency extends Analyzer {
     return (
       <Statistic position={STATISTIC_ORDER.CORE(7)} size="flexible">
         <BoringSpellValueText spellId={SPELLS.VIRULENT_PLAGUE.id}>
-          <>
-            <UptimeIcon /> {formatPercentage(this.Uptime)}% <small>uptime</small>
-          </>
+          <Trans id="deathknight.unholy.virulentPlague.statistic">
+            <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
+          </Trans>
         </BoringSpellValueText>
       </Statistic>
     );

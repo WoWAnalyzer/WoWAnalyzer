@@ -51,15 +51,25 @@ class RunicPowerDetails extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`)
+      suggest(
+        t({
+          id: 'deathknight.unholy.runicPower.suggestion.suggestion',
+          message: `You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`,
+        }),
+      )
         .icon('inv_sword_62')
         .actual(
           t({
-            id: 'deathknight.unholy.suggestions.runicPower.wasted',
+            id: 'deathknight.unholy.runicPower.suggestion.actual',
             message: `${formatPercentage(actual)}% wasted`,
           }),
         )
-        .recommended(`<${formatPercentage(recommended)}% is recommended`),
+        .recommended(
+          t({
+            id: 'deathknight.unholy.runicPower.suggestion.recommended',
+            message: `<${formatPercentage(recommended)}% is recommended`,
+          }),
+        ),
     );
   }
 
@@ -68,14 +78,20 @@ class RunicPowerDetails extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(3)}
         size="small"
-        tooltip={`${this.runicPowerTracker.wasted} out of ${
-          this.runicPowerTracker.wasted + this.runicPowerTracker.generated
-        } runic power wasted.`}
+        tooltip={t({
+          id: 'deathknight.unholy.runicPower.statistic.tooltip',
+          message: `${this.runicPowerTracker.wasted} out of ${
+            this.runicPowerTracker.wasted + this.runicPowerTracker.generated
+          } runic power wasted.`,
+        })}
       >
         <BoringResourceValue
           resource={RESOURCE_TYPES.RUNIC_POWER}
           value={`${formatPercentage(this.wastedPercent)} %`}
-          label="Runic Power wasted"
+          label={t({
+            id: 'deathknight.unholy.runicPower.statistic',
+            message: 'Runic Power wasted',
+          })}
         />
       </Statistic>
     );
@@ -83,7 +99,7 @@ class RunicPowerDetails extends Analyzer {
 
   tab() {
     return {
-      title: 'Runic Power usage',
+      title: t({ id: 'deathknight.unholy.runicPower.tab', message: 'Runic Power usage' }),
       url: 'runic-power-usage',
       render: () => (
         <Panel>

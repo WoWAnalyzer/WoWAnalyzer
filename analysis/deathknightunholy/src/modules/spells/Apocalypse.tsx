@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -49,21 +49,26 @@ class Apocalypse extends Analyzer {
       .isLessThan(4)
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
-          <span>
+          <Trans id="deathknight.unholy.apocalypse.suggestion.suggestion">
             You are casting <SpellLink id={SPELLS.APOCALYPSE.id} /> with too few{' '}
             <SpellLink id={SPELLS.FESTERING_WOUND.id} /> on the target. When casting{' '}
             <SpellLink id={SPELLS.APOCALYPSE.id} />, make sure to have at least 4{' '}
             <SpellLink id={SPELLS.FESTERING_WOUND.id} /> on the target.
-          </span>,
+          </Trans>,
         )
           .icon(SPELLS.APOCALYPSE.icon)
           .actual(
             t({
-              id: 'deathknight.unholy.suggestions.apocalypse.efficiency',
+              id: 'deathknight.unholy.apocalypse.suggestion.actual',
               message: `An average ${actual} of Festering Wounds were popped by Apocalypse`,
             }),
           )
-          .recommended(`${recommended} is recommended`)
+          .recommended(
+            t({
+              id: 'deathknight.unholy.apocalypse.suggestion.recommended',
+              message: `${recommended} is recommended`,
+            }),
+          )
           .regular(recommended - 1)
           .major(recommended - 2),
       );
@@ -75,14 +80,17 @@ class Apocalypse extends Analyzer {
     );
     return (
       <Statistic
-        tooltip={`You popped ${this.apocalypseWoundsPopped} wounds with ${this.totalApocalypseCasts} casts of Apocalypse.`}
+        tooltip={t({
+          id: 'deathknight.unholy.apocalypse.statistic.tooltip',
+          message: `You popped ${this.apocalypseWoundsPopped} wounds with ${this.totalApocalypseCasts} casts of Apocalypse.`,
+        })}
         position={STATISTIC_ORDER.CORE(6)}
         size="flexible"
       >
         <BoringSpellValueText spellId={SPELLS.APOCALYPSE.id}>
-          <>
+          <Trans id="deathknight.unholy.apocalypse.statistic">
             {averageWoundsPopped} <small>average Wounds popped</small>
-          </>
+          </Trans>
         </BoringSpellValueText>
       </Statistic>
     );
