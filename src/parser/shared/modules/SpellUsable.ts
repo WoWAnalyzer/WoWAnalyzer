@@ -34,9 +34,9 @@ function spellName(spellId: number) {
 type CooldownInfo = {
   /** Timestamp this cooldown started overall (not the most recent charge) */
   overallStart: number;
-  /** The expected duration of the cooldown based on current conditions */
-  expectedDuration: number;
-  /** The expected end time of the cooldown based on current conditions */
+  /** The duration of the spell's recharge time based on current conditions */
+  currentRechargeDuration: number;
+  /** The expected time of the next recharge based on current conditions */
   expectedEnd: number;
   /** The number of spell charges currently available
    * (for spells without charges this will always be zero) */
@@ -75,7 +75,6 @@ class SpellUsable extends Analyzer {
     this.addEventListener(Events.fightend, this.onFightEnd);
     this.addEventListener(Events.MaxChargesIncreased, this.onMaxChargesIncreased);
     this.addEventListener(Events.MaxChargesDescreased, this.onMaxChargesDecreased);
-    // TODO handle prefilter
   }
 
   /////////////////////////////////////////////////////////////////////////////
@@ -197,7 +196,7 @@ class SpellUsable extends Analyzer {
       const newInfo: CooldownInfo = {
         overallStart: triggeringEvent.timestamp,
         expectedEnd: triggeringEvent.timestamp + expectedCooldownDuration,
-        expectedDuration: expectedCooldownDuration,
+        currentRechargeDuration: expectedCooldownDuration,
         chargesAvailable: maxCharges - 1,
         maxCharges,
       };
@@ -498,7 +497,7 @@ class SpellUsable extends Analyzer {
           ' - updating cooldowns',
       );
     Object.entries(this._currentCooldowns).forEach(([spellId, cdInfo]) => {
-      const orignalDuration = cdInfo.expectedDuration;
+      const orignalDuration = cdInfo.currentRechargeDuration;
       const newDuration = this._getExpectedCooldown(Number(spellId), true);
       if (orignalDuration !== newDuration) {
         // only need to adjust if CD changed
@@ -571,7 +570,7 @@ class SpellUsable extends Analyzer {
     const cdInfo = this._currentCooldowns[canonicalSpellId];
     if (cdInfo && !forceCheckAbilites) {
       // cdInfo always kept up to date
-      return cdInfo.expectedDuration;
+      return cdInfo.currentRechargeDuration;
     } else {
       const unscaledCooldown = this.abilities.getExpectedCooldownDuration(canonicalSpellId);
       // always integer number of milliseconds
@@ -605,21 +604,21 @@ class SpellUsable extends Analyzer {
      * t=2000, expectedEnd=8000  =>  8000 - 2000 = 6000  =>  6000 time remaining
      *
      * Next we use that to calculate the percentage remaining on the cooldown (before rate change):
-     * timeLeft=6000, fullCD=8000  =>  6000 / 8000 = 0.75  =>  75% remaining
+     * timeLeft=6000, rechargeDuration=8000  =>  6000 / 8000 = 0.75  =>  75% remaining
      *
      * Next we calculate the new cooldown after the rate change:
-     * fullCD=8000, changeRate=2  =>  8000 / 2 = 4000  =>  newFullCD=4000
+     * rechargeDuration=8000, changeRate=2  =>  8000 / 2 = 4000  =>  newRechargeDuration=4000
      *
      * Next we use the percent remaining and the new cooldown to get the new time remaining:
-     * newFullCD=4000, percentLeft=0.75  =>  4000 * 0.75 = 3000  =>  newTimeLeft=3000
+     * newRechargeDuration=4000, percentLeft=0.75  =>  4000 * 0.75 = 3000  =>  newTimeLeft=3000
      *
      * Finally we count up from the current timestamp to find the new expected end time:
      * t=2000, newTimeLeft=3000  =>  2000 + 3000 = 5000  =>  newExpectedEnd=5000
      */
     const timeRemaining = cdInfo.expectedEnd - timestamp;
-    const percentageRemaining = timeRemaining / cdInfo.expectedDuration;
-    const newExpectedDuration = cdInfo.expectedDuration / changeRate;
-    const newTimeRemaining = newExpectedDuration * percentageRemaining;
+    const percentageRemaining = timeRemaining / cdInfo.currentRechargeDuration;
+    const newRechargeDuration = cdInfo.currentRechargeDuration / changeRate;
+    const newTimeRemaining = newRechargeDuration * percentageRemaining;
     const newExpectedEnd = timestamp + newTimeRemaining;
 
     DEBUG &&
@@ -627,16 +626,16 @@ class SpellUsable extends Analyzer {
         'Cooldown changed for active CD ' +
           spellName(spellId) +
           ' - old CD: ' +
-          cdInfo.expectedDuration +
+          cdInfo.currentRechargeDuration +
           ' - new CD: ' +
-          newExpectedDuration +
+          newRechargeDuration +
           ' / old expectedEnd: ' +
           this.owner.formatTimestamp(cdInfo.expectedEnd, 1) +
           ' - new expectedEnd: ' +
           this.owner.formatTimestamp(newExpectedEnd, 1),
       );
 
-    cdInfo.expectedDuration = newExpectedDuration;
+    cdInfo.currentRechargeDuration = newRechargeDuration;
     cdInfo.expectedEnd = newExpectedEnd;
   }
 
@@ -664,7 +663,7 @@ class SpellUsable extends Analyzer {
       );
       return;
     }
-    cdInfo.expectedDuration = expectedCooldownDuration;
+    cdInfo.currentRechargeDuration = expectedCooldownDuration;
     cdInfo.expectedEnd = timestamp + expectedCooldownDuration - carryoverCdr;
   }
 
@@ -699,7 +698,7 @@ class SpellUsable extends Analyzer {
       maxCharges: info.maxCharges,
       overallStartTimestamp: info.overallStart,
       expectedRechargeTimestamp: info.expectedEnd,
-      expectedRechargeDuration: info.expectedDuration,
+      expectedRechargeDuration: info.currentRechargeDuration,
       // timeWaitingOnGCD filled in by another modules
 
       sourceID: this.owner.selectedCombatant.id,
