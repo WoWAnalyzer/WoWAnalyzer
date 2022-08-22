@@ -223,7 +223,7 @@ class SpellUsable extends Analyzer {
       // end cooldown and begin cooldown to represent what happened
       const remainingCooldown = cdInfo.expectedEnd - triggeringEvent.timestamp;
       if (remainingCooldown > COOLDOWN_LAG_MARGIN) {
-        console.warn(
+        console.error(
           'Cooldown error - ' +
             spellName(cdSpellId) +
             ' ID=' +
@@ -470,7 +470,6 @@ class SpellUsable extends Analyzer {
 
   /** On every event, we need to check if an existing tracked cooldown has expired */
   protected onEvent(event: AnyEvent) {
-    // TODO handle FilterCooldownInfo?
     const currentTimestamp = event.timestamp;
 
     Object.entries(this._currentCooldowns).forEach(([spellId, cdInfo]) => {
@@ -585,6 +584,7 @@ class SpellUsable extends Analyzer {
   /**
    * Updates cdInfo's expectedDuration and expectedEnd fields to account for a change in
    * the cooldown's rate. This calculation is the same for modRate and haste changes.
+   * Calculations assume CD's expectedEnd is still after the timestamp.
    */
   private _handleChangeRate(
     spellId: number,
@@ -592,12 +592,35 @@ class SpellUsable extends Analyzer {
     timestamp: number,
     changeRate: number,
   ) {
-    // assumes expectedEnd is still after timestamp!
-    const timeLeft = cdInfo.expectedEnd - timestamp;
-    const percentageLeft = timeLeft / cdInfo.expectedDuration;
+    /*
+     * All changes in cooldown recharge rate keep the cooldown's percentage progress.
+     * (The below calculations could be done with one fewer line, but it's kept this way
+     * to make the connection to percentage cooldown progress as clear as possible)
+     *
+     * For example, consider a spell that on cast has a cooldown of 8000ms.
+     * at t=0, fullCD = 8000, expectedEnd = 8000
+     * at t=2000, cooldown rate is doubled (changeRate = 2)
+     *
+     * First we calculate the time remaining on the cooldown (before rate change):
+     * t=2000, expectedEnd=8000  =>  8000 - 2000 = 6000  =>  6000 time remaining
+     *
+     * Next we use that to calculate the percentage remaining on the cooldown (before rate change):
+     * timeLeft=6000, fullCD=8000  =>  6000 / 8000 = 0.75  =>  75% remaining
+     *
+     * Next we calculate the new cooldown after the rate change:
+     * fullCD=8000, changeRate=2  =>  8000 / 2 = 4000  =>  newFullCD=4000
+     *
+     * Next we use the percent remaining and the new cooldown to get the new time remaining:
+     * newFullCD=4000, percentLeft=0.75  =>  4000 * 0.75 = 3000  =>  newTimeLeft=3000
+     *
+     * Finally we count up from the current timestamp to find the new expected end time:
+     * t=2000, newTimeLeft=3000  =>  2000 + 3000 = 5000  =>  newExpectedEnd=5000
+     */
+    const timeRemaining = cdInfo.expectedEnd - timestamp;
+    const percentageRemaining = timeRemaining / cdInfo.expectedDuration;
     const newExpectedDuration = cdInfo.expectedDuration / changeRate;
-    const newTimeLeft = newExpectedDuration * percentageLeft;
-    const newExpectedEnd = timestamp + newTimeLeft;
+    const newTimeRemaining = newExpectedDuration * percentageRemaining;
+    const newExpectedEnd = timestamp + newTimeRemaining;
 
     DEBUG &&
       console.log(

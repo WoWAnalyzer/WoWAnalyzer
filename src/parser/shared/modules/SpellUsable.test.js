@@ -160,36 +160,6 @@ describe('core/Modules/SpellUsable', () => {
       const reduction = module.reduceCooldown(SPELLS.FAKE_SPELL.id, 5000);
       expect(reduction).toBe(5000);
     });
-    it('reduceCooldown on a spell not on cooldown throws', () => {
-      // We throw instead of returning something like null so that implementers *have* to take this into consideration.
-      expect(() => {
-        module.reduceCooldown(SPELLS.FAKE_SPELL.id, 1500);
-      }).toThrow();
-    });
-    it('refreshing a cooldown sets the remaining time back to full', () => {
-      triggerCast(SPELLS.FAKE_SPELL.id);
-      parser.currentTimestamp = 5000;
-
-      module.refreshCooldown(SPELLS.FAKE_SPELL.id, {
-        timestamp: 5000,
-      });
-
-      expect(module.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(7500);
-    });
-    it('refreshCooldown on a spell not on cooldown throws', () => {
-      // We throw instead of returning something like null so that implementers *have* to take this into consideration.
-      expect(() => {
-        module.refreshCooldown(SPELLS.FAKE_SPELL.id, {
-          timestamp: 5000,
-        });
-      }).toThrow();
-    });
-    it('endCooldown on a spell not on cooldown throws', () => {
-      // We throw instead of returning something like null so that implementers *have* to take this into consideration.
-      expect(() => {
-        module.endCooldown(SPELLS.FAKE_SPELL.id);
-      }).toThrow();
-    });
     it('cooldownRemaining on a spell not on cooldown returns 0', () => {
       expect(module.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(0);
     });
@@ -212,27 +182,22 @@ describe('core/Modules/SpellUsable', () => {
           name: SPELLS.FAKE_SPELL.name,
         },
         timestamp: 0,
-        start: 0,
-        expectedDuration: 7500,
-        totalReductionTime: 0,
+
         updateType: UpdateSpellUsableType.BeginCooldown,
         isOnCooldown: true,
         isAvailable: false,
         chargesAvailable: 0,
-        chargesOnCooldown: 1,
-        cooldownTriggerEvent: {
-          ability: {
-            guid: SPELLS.FAKE_SPELL.id,
-          },
-          timestamp: 0,
-          type: EventType.Cast,
-        },
         maxCharges: 1,
-        name: undefined,
-        timePassed: 0,
+
+        overallStartTimestamp: 0,
+        expectedRechargeTimestamp: 7500,
+        expectedRechargeDuration: 7500,
+
         sourceID: parser.playerId,
+        sourceIsFriendly: true,
         targetID: parser.playerId,
         targetIsFriendly: true,
+
         __fabricated: true,
       });
     });
@@ -252,28 +217,22 @@ describe('core/Modules/SpellUsable', () => {
             name: SPELLS.FAKE_SPELL.name,
           },
           timestamp: 0,
-          start: 0,
-          end: 0,
-          expectedDuration: 7500,
-          totalReductionTime: 0,
+
           updateType: UpdateSpellUsableType.EndCooldown,
           isOnCooldown: false,
           isAvailable: true,
           chargesAvailable: 1,
-          chargesOnCooldown: 1,
-          cooldownTriggerEvent: {
-            ability: {
-              guid: SPELLS.FAKE_SPELL.id,
-            },
-            timestamp: 0,
-            type: EventType.Cast,
-          },
           maxCharges: 1,
-          name: undefined,
-          timePassed: undefined,
+
+          overallStartTimestamp: 0,
+          expectedRechargeTimestamp: 0, // for an endcooldown this value always matches the timestamp
+          expectedRechargeDuration: 7500,
+
           sourceID: parser.playerId,
+          sourceIsFriendly: true,
           targetID: parser.playerId,
           targetIsFriendly: true,
+
           __fabricated: true,
         });
       }
@@ -287,27 +246,22 @@ describe('core/Modules/SpellUsable', () => {
             name: SPELLS.FAKE_SPELL.name,
           },
           timestamp: 0,
-          start: 0,
-          expectedDuration: 7500,
-          totalReductionTime: 0,
+
           updateType: UpdateSpellUsableType.BeginCooldown,
           isOnCooldown: true,
           isAvailable: false,
           chargesAvailable: 0,
-          name: undefined,
-          chargesOnCooldown: 1,
-          cooldownTriggerEvent: {
-            ability: {
-              guid: SPELLS.FAKE_SPELL.id,
-            },
-            timestamp: 0,
-            type: EventType.Cast,
-          },
           maxCharges: 1,
-          timePassed: 0,
+
+          overallStartTimestamp: 0,
+          expectedRechargeTimestamp: 7500,
+          expectedRechargeDuration: 7500,
+
           sourceID: parser.playerId,
+          sourceIsFriendly: true,
           targetID: parser.playerId,
           targetIsFriendly: true,
+
           __fabricated: true,
         });
       }
@@ -328,27 +282,22 @@ describe('core/Modules/SpellUsable', () => {
           name: SPELLS.FAKE_SPELL.name,
         },
         timestamp: 0,
-        start: 0,
-        expectedDuration: 7500,
-        totalReductionTime: 0,
+
         updateType: UpdateSpellUsableType.UseCharge,
         isOnCooldown: true,
         isAvailable: false,
         chargesAvailable: 0,
-        chargesOnCooldown: 2,
-        cooldownTriggerEvent: {
-          ability: {
-            guid: SPELLS.FAKE_SPELL.id,
-          },
-          timestamp: 0,
-          type: EventType.Cast,
-        },
         maxCharges: 2,
-        name: undefined,
-        timePassed: 0,
+
+        overallStartTimestamp: 0,
+        expectedRechargeTimestamp: 7500,
+        expectedRechargeDuration: 7500,
+
         sourceID: parser.playerId,
+        sourceIsFriendly: true,
         targetID: parser.playerId,
         targetIsFriendly: true,
+
         __fabricated: true,
       });
     });
@@ -369,33 +318,26 @@ describe('core/Modules/SpellUsable', () => {
           name: SPELLS.FAKE_SPELL.name,
         },
         timestamp: 7500, // it should be simulated at the time of expiry
-        start: 0,
-        end: 7500,
-        expectedDuration: 7500,
-        totalReductionTime: 0,
+
         updateType: UpdateSpellUsableType.EndCooldown,
         isOnCooldown: false,
         isAvailable: true,
         chargesAvailable: 1,
-        chargesOnCooldown: 1,
-        cooldownTriggerEvent: {
-          ability: {
-            guid: SPELLS.FAKE_SPELL.id,
-          },
-          timestamp: 0,
-          type: EventType.Cast,
-        },
-        timePassed: undefined,
         maxCharges: 1,
-        name: undefined,
+
+        overallStartTimestamp: 0,
+        expectedRechargeTimestamp: 7500,
+        expectedRechargeDuration: 7500,
+
         sourceID: parser.playerId,
+        sourceIsFriendly: true,
         targetID: parser.playerId,
         targetIsFriendly: true,
+
         __fabricated: true,
       });
     });
-    it("a spell having a charge restored while there's still another charge recharging, triggers an `updatespellusable` event indicating the charge being available again and another `updatespellusable` event to indicate the cooldown starting to recharge the next charge", () => {
-      // We want begincooldown -> endcooldown to really be about spells going on cooldown to be as simple as possible, so adding/restoring charges are handled differently. Since all events we fire are with type `updatespellusable` this only matters for the `trigger` property which might not even be used much as the other properties of the event should give enough information.
+    it("a spell having a charge restored while there's still another charge recharging, triggers an `updatespellusable` event indicating the charge being available again", () => {
       abilitiesMock.getMaxCharges = jest.fn(() => 2);
       triggerCast(SPELLS.FAKE_SPELL.id);
       triggerCast(SPELLS.FAKE_SPELL.id);
@@ -403,76 +345,34 @@ describe('core/Modules/SpellUsable', () => {
       eventEmitter.fabricateEvent = jest.fn();
       triggerTestEvent();
 
-      expect(eventEmitter.fabricateEvent).toHaveBeenCalledTimes(2);
-      {
-        const call = eventEmitter.fabricateEvent.mock.calls[0];
-        expect(call[0]).toEqual({
-          type: EventType.UpdateSpellUsable,
-          ability: {
-            abilityIcon: SPELLS.FAKE_SPELL.icon,
-            guid: SPELLS.FAKE_SPELL.id,
-            name: SPELLS.FAKE_SPELL.name,
-          },
-          timestamp: 7500, // it should be simulated at the time of expiry
-          start: 0,
-          expectedDuration: 7500,
-          totalReductionTime: 0,
-          updateType: UpdateSpellUsableType.RestoreCharge,
-          isOnCooldown: true,
-          isAvailable: true,
-          chargesAvailable: 1,
-          chargesOnCooldown: 1,
-          cooldownTriggerEvent: {
-            ability: {
-              guid: SPELLS.FAKE_SPELL.id,
-            },
-            timestamp: 0,
-            type: EventType.Cast,
-          },
-          maxCharges: 2,
-          name: undefined,
-          timePassed: 7500,
-          sourceID: parser.playerId,
-          targetID: parser.playerId,
-          targetIsFriendly: true,
-          __fabricated: true,
-        });
-      }
-      {
-        // TODO remove once behavior is matched
-        const call = eventEmitter.fabricateEvent.mock.calls[1];
-        expect(call[0]).toEqual({
-          type: EventType.UpdateSpellUsable,
-          ability: {
-            abilityIcon: SPELLS.FAKE_SPELL.icon,
-            guid: SPELLS.FAKE_SPELL.id,
-            name: SPELLS.FAKE_SPELL.name,
-          },
-          timestamp: 7500, // it should be simulated at the time of expiry
-          start: 7500,
-          expectedDuration: 7500,
-          totalReductionTime: 0,
-          updateType: EventType.RefreshCooldown,
-          isOnCooldown: true,
-          isAvailable: true,
-          chargesAvailable: 1,
-          chargesOnCooldown: 1,
-          cooldownTriggerEvent: {
-            ability: {
-              guid: SPELLS.FAKE_SPELL.id,
-            },
-            timestamp: 0,
-            type: EventType.Cast,
-          },
-          maxCharges: 2,
-          name: undefined,
-          timePassed: 0,
-          sourceID: parser.playerId,
-          targetID: parser.playerId,
-          targetIsFriendly: true,
-          __fabricated: true,
-        });
-      }
+      expect(eventEmitter.fabricateEvent).toHaveBeenCalledTimes(1);
+      const call = eventEmitter.fabricateEvent.mock.calls[0];
+      expect(call[0]).toEqual({
+        type: EventType.UpdateSpellUsable,
+        ability: {
+          abilityIcon: SPELLS.FAKE_SPELL.icon,
+          guid: SPELLS.FAKE_SPELL.id,
+          name: SPELLS.FAKE_SPELL.name,
+        },
+        timestamp: 7500, // it should be simulated at the time of expiry
+
+        updateType: UpdateSpellUsableType.RestoreCharge,
+        isOnCooldown: true,
+        isAvailable: true,
+        chargesAvailable: 1,
+        maxCharges: 2,
+
+        overallStartTimestamp: 0,
+        expectedRechargeTimestamp: 15000,
+        expectedRechargeDuration: 7500,
+
+        sourceID: parser.playerId,
+        sourceIsFriendly: true,
+        targetID: parser.playerId,
+        targetIsFriendly: true,
+
+        __fabricated: true,
+      });
     });
   });
 
@@ -497,20 +397,21 @@ describe('core/Modules/SpellUsable', () => {
       // New expected cooldown is `1000 + (6000 * (1 - (1000 / 7500)))=8800`, but we already spent 1000ms on cooldown, so what's remaining is 7800.
       expect(module.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(7800);
     });
-    it('CDRs are static and unaffected by Haste changes', () => {
-      triggerCast(SPELLS.FAKE_SPELL.id); // cooldown is now 7500
-      module.reduceCooldown(SPELLS.FAKE_SPELL.id, 1500); // cooldown is now 6000
-      abilitiesMock.getExpectedCooldownDuration = jest.fn(() => 9000);
+    it('CDRs are applied at the current haste, cooldown scales based on percent completed', () => {
+      // cooldown is 7500
+      triggerCast(SPELLS.FAKE_SPELL.id); // expected end is 7500
+      module.reduceCooldown(SPELLS.FAKE_SPELL.id, 1500); // expected end is now 6000
+
+      // at t=2000, change haste so new cooldown is 9000
       parser.currentTimestamp = 2000;
+      abilitiesMock.getExpectedCooldownDuration = jest.fn(() => 9000);
       triggerHasteChange();
 
-      // Total expected cooldown:
-      // cd progress = time passed / old CD duration before CDRs
-      // new CD = timePassed + (100% - cd progress) * new CD with new Haste - sum CDRs
-      // new CD = 2000 + (1 - 2000 / 7500) * 9000 - 1500
-      // Remaining: total - 2000 (since current timestamp is 2000).
-      // If this returns 6000 the CDR is applied before the Haste adjusting and therefore invalid.
-      expect(module.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(5100);
+      // Calculate the new cooldown remaining:
+      // t=2000, currExpectedEnd=6000 => currTimeRemaining=4000
+      // currCd (before change) = 7500 => percentRemaining = 4000 / 7500 = ~53.3%
+      // percentRemaining * newCd = newTimeRemaining => 0.533 * 9000 = 4800
+      expect(module.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(4800);
     });
   });
 });
