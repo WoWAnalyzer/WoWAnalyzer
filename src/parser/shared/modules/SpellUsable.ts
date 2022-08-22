@@ -410,45 +410,29 @@ class SpellUsable extends Analyzer {
     rateMultiplier: number,
     timestamp: number = this.owner.currentTimestamp,
   ) {
-    let oldRate, newRate;
     if (typeof spellId === 'string') {
       // ALL
-      oldRate = this._globalModRate;
-      newRate = oldRate * rateMultiplier;
-      const changeRate = newRate / oldRate;
-      this._globalModRate = newRate;
+      const oldRate = this._globalModRate;
+      this._globalModRate = oldRate * rateMultiplier;
 
       Object.entries(this._currentCooldowns).forEach(([spellId, cdInfo]) => {
-        this._handleChangeRate(Number(spellId), cdInfo, timestamp, changeRate);
+        this._handleChangeRate(Number(spellId), cdInfo, timestamp, rateMultiplier);
       });
     } else {
       const ids: number[] = typeof spellId === 'number' ? [spellId] : spellId;
       ids.forEach((id) => {
         const cdSpellId = this._getCanonicalId(id);
-        oldRate = this._spellModRates[cdSpellId] || 1;
-        newRate = oldRate * rateMultiplier;
-        const changeRate = newRate / oldRate;
-        this._spellModRates[cdSpellId] = newRate;
+        const oldRate = this._spellModRates[cdSpellId] || 1;
+        this._spellModRates[cdSpellId] = oldRate * rateMultiplier;
 
         const cdInfo = this._currentCooldowns[cdSpellId];
         if (cdInfo) {
-          this._handleChangeRate(cdSpellId, cdInfo, timestamp, changeRate);
+          this._handleChangeRate(cdSpellId, cdInfo, timestamp, rateMultiplier);
         }
       });
     }
 
-    DEBUG &&
-      console.log(
-        'Applied modRate to ' +
-          spellId +
-          ' of ' +
-          rateMultiplier +
-          ' - ' +
-          'oldRate:' +
-          oldRate +
-          ' newRate:' +
-          newRate,
-      );
+    DEBUG && console.log('Applied modRate to ' + spellId + ' of ' + rateMultiplier);
   }
 
   /**
