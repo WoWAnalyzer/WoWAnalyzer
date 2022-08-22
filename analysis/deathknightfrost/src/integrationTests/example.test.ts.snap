@@ -104,24 +104,25 @@ Array [
     "details": null,
     "icon": "spell_mage_altertime",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics. If you do have to move, try casting filler spells, such as
-       
-      <ForwardRef
-        id={49184}
-      />
-       or
-       
-      <ForwardRef
-        id={196770}
-      />
-      .
-    </React.Fragment>,
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ForwardRef
+            id={49184}
+          />,
+          "1": <ForwardRef
+            id={196770}
+          />,
+        }
+      }
+      id="deathknight.frost.alwaysBeCasting.suggestion.suggestion"
+      message="Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the boss unless due to mechanics. If you do have to move, try casting filler spells, such as <0/> or <1/>."
+    />,
     "spell": undefined,
     "stat": <React.Fragment>
-      {"id":"deathknight.frost.suggestions.alwaysBeCasting","message":"{0}% downtime","values":{"0":"47.93"}}
+      {"id":"deathknight.frost.alwaysBeCasting.suggestion.actual","message":"{0}% downtime","values":{"0":"47.93"}}
        (
-      &lt;30.00% is recommended
+      {"id":"deathknight.frost.alwaysBeCasting.suggestion.recommended","message":"&lt;{0}% is recommended","values":{"0":"30.00"}}
       )
     </React.Fragment>,
   },
@@ -181,11 +182,20 @@ exports[`Frost Death Knight integration test: example log BreathOfSindragosa mat
         <div
           className="value"
         >
-          14.1
-          s 
-          <small>
-            average duration
-          </small>
+          <trans
+            components={
+              Object {
+                "0": <small />,
+              }
+            }
+            id="deathknight.frost.breathOfSindragosa.statistic"
+            message="{0}s <0>average duration</0>"
+            values={
+              Object {
+                "0": "14.1",
+              }
+            }
+          />
         </div>
       </div>
     </div>
@@ -216,25 +226,30 @@ Array [
     "details": null,
     "icon": "spell_deathknight_breathofsindragosa",
     "importance": "major",
-    "issue": <React.Fragment>
-       
-      You are not getting good uptime from your
-       
-      <ForwardRef
-        id={152279}
-      />
-       casts. A good cast is one that lasts 25 seconds or more. To ensure a good duration, make sure you have 70+ Runic Power pooled and have less than 4 Runes available before you start the cast. Also make sure to use 
-      <ForwardRef
-        id={47568}
-      />
-       within a few seconds of casting Breath of Sindragosa. Pay close attention to your Runic Power and make sure you are not overcapping. 
-      
-    </React.Fragment>,
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ForwardRef
+            id={152279}
+          />,
+          "1": <ForwardRef
+            id={47568}
+          />,
+        }
+      }
+      id="deathknight.frost.breathOfSindragosa.suggestion.suggestion"
+      message="You are not getting good uptime from your <0/> casts. A good cast is one that lasts 25 seconds or more. To ensure a good duration, make sure you have 70+ Runic Power pooled and have less than 4 Runes available before you start the cast. Also make sure to use <1/> within a few seconds of casting Breath of Sindragosa. Pay close attention to your Runic Power and make sure you are not overcapping. {0}"
+      values={
+        Object {
+          "0": "",
+        }
+      }
+    />,
     "spell": undefined,
     "stat": <React.Fragment>
-      {"id":"deathknight.frost.suggestions.breathOfSindragosa.uptime","message":"You averaged {0} seconds of uptime per cast","values":{"0":"14.1"}}
+      {"id":"deathknight.frost.breathOfSindragosa.suggestion.actual","message":"You averaged {0} seconds of uptime per cast","values":{"0":"14.1"}}
        (
-      &gt;25 seconds is recommended
+      {"id":"deathknight.frost.breathOfSindragosa.suggestion.recommended","message":"&gt;{recommended} seconds is recommended","values":{"recommended":25}}
       )
     </React.Fragment>,
   },
@@ -3563,7 +3578,7 @@ Array [
         message="Try to cast <0/> more often."
       />
        
-      You should only save this if there is a mechanic you will need to deal with in the next 30 seconds or if you need to save it for a particular phase
+      {"id":"deathknight.frost.abilities.extraSuggestions.breathOfSindragosa","message":"You should only save this if there is a mechanic you will need to deal with in the next 30 seconds or if you need to save it for a particular phase"}
     </React.Fragment>,
     "spell": 152279,
     "stat": <React.Fragment>
@@ -3608,15 +3623,18 @@ Array [
         message="Try to cast <0/> more often."
       />
        
-      <React.Fragment>
-        Although you normally want to use this off CD, you can save it to line it up with
-         
-        <ForwardRef
-          icon={true}
-          id={51271}
-        />
-        . You can also hold it if you know there will be an opportunity to hit more than one enemy in the next 30 seconds.
-      </React.Fragment>
+      <Trans
+        components={
+          Object {
+            "0": <ForwardRef
+              icon={true}
+              id={51271}
+            />,
+          }
+        }
+        id="deathknight.frost.abilities.extraSuggestions.frostwyrmsFury"
+        message="Although you normally want to use this off CD, you can save it to line it up with <0/>. You can also hold it if you know there will be an opportunity to hit more than one enemy in the next 30 seconds."
+      />
     </React.Fragment>,
     "spell": 279302,
     "stat": <React.Fragment>
@@ -4094,23 +4112,25 @@ Array [
     "details": null,
     "icon": "spell_deathknight_frostfever",
     "importance": "minor",
-    "issue": <span>
-      Your 
-      <ForwardRef
-        id={55095}
-      />
-       uptime can be improved. Try to pay attention to when Frost Fever is about to fall off the priority target, using
-       
-      <ForwardRef
-        id={49184}
-      />
-       to refresh Frost Fever. Using a debuff tracker can help.
-    </span>,
+    "issue": <Trans
+      components={
+        Object {
+          "0": <ForwardRef
+            id={55095}
+          />,
+          "1": <ForwardRef
+            id={49184}
+          />,
+        }
+      }
+      id="deathknight.frost.frostFever.suggestion.suggestion"
+      message="Your <0/> uptime can be improved. Try to pay attention to when Frost Fever is about to fall off the priority target, using <1/> to refresh Frost Fever. Using a debuff tracker can help."
+    />,
     "spell": undefined,
     "stat": <React.Fragment>
-      {"id":"deathknight.frost.suggestions.frostFever.uptime","message":"{0}% Frost Fever uptime","values":{"0":"90.95"}}
+      {"id":"deathknight.frost.frostFever.suggestion.actual","message":"{0}% Frost Fever uptime","values":{"0":"90.95"}}
        (
-      &gt;95.00% is recommended
+      {"id":"deathknight.frost.frostFever.suggestion.recommended","message":"&gt;{0}% is recommended","values":{"0":"95.00"}}
       )
     </React.Fragment>,
   },
@@ -4157,11 +4177,20 @@ exports[`Frost Death Knight integration test: example log Frostscythe matches th
         <div
           className="value"
         >
-          0.00
-           % 
-          <small>
-            efficiency
-          </small>
+          <trans
+            components={
+              Object {
+                "0": <small />,
+              }
+            }
+            id="deathknight.frost.frostscythe.statistic"
+            message="{0} % <0>efficiency</0>"
+            values={
+              Object {
+                "0": "0.00",
+              }
+            }
+          />
         </div>
       </div>
     </div>
@@ -4226,36 +4255,25 @@ exports[`Frost Death Knight integration test: example log GatheringStorm matches
         <div
           className="value"
         >
-          <img
-            alt="Damage"
-            className="icon"
-            src="/img/sword.png"
+          <trans
+            components={
+              Object {
+                "0": <ItemDamageDone
+                  amount={21671.760368114858}
+                />,
+                "1": <br />,
+                "2": <Icon />,
+                "3": <small />,
+              }
+            }
+            id="deathknight.frost.gatheringStorm.statistic"
+            message="<0/> <1/><2/> {0} <3>average seconds extended </3>"
+            values={
+              Object {
+                "0": "3.7",
+              }
+            }
           />
-           
-          153
-           DPS
-           
-          <small>
-            0.83
-             % of total
-          </small>
-           
-          <br />
-          <svg
-            className="icon"
-            viewBox="10 10 80 80"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
-            />
-          </svg>
-           
-          3.7
-           
-          <small>
-            average seconds extended 
-          </small>
         </div>
       </div>
     </div>
@@ -4303,11 +4321,20 @@ exports[`Frost Death Knight integration test: example log HardHowlingBlastCasts 
         <div
           className="value"
         >
-          2
-           
-          <small>
-            casts without Rime proc
-          </small>
+          <trans
+            components={
+              Object {
+                "0": <small />,
+              }
+            }
+            id="deathknight.frost.hardHowlingBlasts.statistic"
+            message="{0} <0>casts without Rime proc</0>"
+            values={
+              Object {
+                "0": 2,
+              }
+            }
+          />
         </div>
       </div>
     </div>
@@ -4372,11 +4399,20 @@ exports[`Frost Death Knight integration test: example log KillingMachineEfficien
         <div
           className="value"
         >
-          100.00
-           % 
-          <small>
-            efficiency
-          </small>
+          <trans
+            components={
+              Object {
+                "0": <small />,
+              }
+            }
+            id="deathknight.frost.killingMachine.statistic"
+            message="{0} % <0>efficiency</0>"
+            values={
+              Object {
+                "0": "100.00",
+              }
+            }
+          />
         </div>
       </div>
     </div>
@@ -4464,11 +4500,20 @@ exports[`Frost Death Knight integration test: example log RimeEfficiency matches
         <div
           className="value"
         >
-          100.00
-           % 
-          <small>
-            efficiency
-          </small>
+          <trans
+            components={
+              Object {
+                "0": <small />,
+              }
+            }
+            id="deathknight.frost.rimeEfficiency.statistic"
+            message="{0} % <0>efficiency</0>"
+            values={
+              Object {
+                "0": "100.00",
+              }
+            }
+          />
         </div>
       </div>
     </div>
@@ -4737,7 +4782,7 @@ exports[`Frost Death Knight integration test: example log RunicPowerDetails matc
             4.29 %
           </div>
           <small>
-            Runic Power wasted
+            {"id":"deathknight.frost.runicPower.statistic","message":"Runic Power wasted"}
           </small>
         </div>
       </div>
@@ -5157,7 +5202,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
         <div
           className="flex-main name"
         >
-          Use cooldowns as often as possible
+          {"id":"deathknight.frost.checklist.useCds","message":"Use cooldowns as often as possible"}
         </div>
         <div
           className="flex-sub perf"
@@ -5227,15 +5272,19 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
           <div
             className="col-md-12"
           >
-            You should aim to use your cooldowns as often as you can to maximize your damage output.
-             
-            <a
-              href="https://www.wowhead.com/frost-death-knight-rotation-guide#cooldown-usage"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              More info.
-            </a>
+            <trans
+              components={
+                Object {
+                  "0": <a
+                    href="https://www.wowhead.com/frost-death-knight-rotation-guide#cooldown-usage"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  />,
+                }
+              }
+              id="deathknight.frost.checklist.useCds.desc"
+              message="You should aim to use your cooldowns as often as you can to maximize your damage output. <0>More info.</0>"
+            />
           </div>
         </div>
         <div
@@ -5477,7 +5526,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
         <div
           className="flex-main name"
         >
-          Try to avoid being inactive for a large portion of the fight
+          {"id":"deathknight.frost.checklist.stayActive","message":"Try to avoid being inactive for a large portion of the fight"}
         </div>
         <div
           className="flex-sub perf"
@@ -5547,23 +5596,17 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
           <div
             className="col-md-12"
           >
-            While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes. In a worst case scenario, you can cast
-             
-            <a
-              className="spell-link-text"
-              href="https://wowhead.com/spell=49184"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/spell_frost_arcticwinds.jpg"
-              />
-               
-              Howling Blast
-            </a>
-             to prevent Rune capping
+            <trans
+              components={
+                Object {
+                  "0": <ForwardRef
+                    id={49184}
+                  />,
+                }
+              }
+              id="deathknight.frost.checklist.stayActive.desc"
+              message="While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes. In a worst case scenario, you can cast <0/> to prevent Rune capping"
+            />
           </div>
         </div>
         <div
@@ -5578,7 +5621,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Downtime
+                {"id":"deathknight.frost.checklist.stayActive.downtime","message":"Downtime"}
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5646,7 +5689,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
         <div
           className="flex-main name"
         >
-          Avoid capping Runes
+          {"id":"deathknight.frost.checklist.avoidCappingRunes","message":"Avoid capping Runes"}
         </div>
         <div
           className="flex-sub perf"
@@ -5716,7 +5759,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
           <div
             className="col-md-12"
           >
-            Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  You can have up to three runes recharging at once.  You want to dump runes whenever you have 4 or more runes to make sure none are wasted
+            {"id":"deathknight.frost.checklist.avoidCappingRunes.desc","message":"Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities.  You can have up to three runes recharging at once.  You want to dump runes whenever you have 4 or more runes to make sure none are wasted"}
           </div>
         </div>
         <div
@@ -5731,7 +5774,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Rune Efficiency
+                {"id":"deathknight.frost.checklist.avoidCappingRunes.efficiency","message":"Rune Efficiency"}
               </div>
               <div
                 className="flex-sub content-middle text-muted"
@@ -5799,7 +5842,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
         <div
           className="flex-main name"
         >
-          Avoid capping Runic Power
+          {"id":"deathknight.frost.checklist.avoidCappingRp","message":"Avoid capping Runic Power"}
         </div>
         <div
           className="flex-sub perf"
@@ -5869,22 +5912,17 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
           <div
             className="col-md-12"
           >
-            Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities. Cast 
-            <a
-              className="spell-link-text"
-              href="https://wowhead.com/spell=49143"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_empowerruneblade2.jpg"
-              />
-               
-              Frost Strike
-            </a>
-             when you have 73+ Runic Power to avoid overcapping.
+            <trans
+              components={
+                Object {
+                  "0": <ForwardRef
+                    id={49143}
+                  />,
+                }
+              }
+              id="deathknight.frost.checklist.avoidCappingRp.desc"
+              message="Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities. Cast <0/> when you have 73+ Runic Power to avoid overcapping."
+            />
           </div>
         </div>
         <div
@@ -5899,7 +5937,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               <div
                 className="flex-main"
               >
-                Runic Power Efficiency
+                {"id":"deathknight.frost.checklist.avoidCappingRp.efficiency","message":"Runic Power Efficiency"}
               </div>
               <div
                 className="flex-sub content-middle text-muted"
