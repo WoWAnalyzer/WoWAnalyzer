@@ -6,9 +6,15 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../constants';
 import { TrackedPaladinAbility } from '../core/PaladinAbilityTracker';
 
 class Abilities extends CoreAbilities {
+  constructor(...args: ConstructorParameters<typeof CoreAbilities>) {
+    super(...args);
+    this.abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
+  }
+
   spellbook(): Array<SpellbookAbility<TrackedPaladinAbility>> {
     const combatant = this.selectedCombatant;
     const hasSanctifiedWrath = combatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT_HOLY.id);

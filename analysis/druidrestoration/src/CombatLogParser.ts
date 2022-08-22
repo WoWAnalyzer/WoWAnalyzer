@@ -9,7 +9,6 @@ import ActiveDruidForm from '@wowanalyzer/druid/src/core/ActiveDruidForm';
 import DraughtOfDeepFocus from '@wowanalyzer/druid/src/shadowlands/DraughtOfDeepFocus';
 import RavenousFrenzy from '@wowanalyzer/druid/src/shadowlands/RavenousFrenzy';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import Guide from './Guide';
 import Abilities from './modules/Abilities';
 import HotAttributor from './modules/core/hottracking/HotAttributor';
@@ -65,8 +64,6 @@ import SwiftmendNormalizer from './normalizers/SwiftmendNormalizer';
 import TreeOfLifeNormalizer from './normalizers/TreeOfLifeNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
-  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
-
   static specModules = {
     // Normalizers
     clearcastingNormalizer: ClearcastingNormalizer,

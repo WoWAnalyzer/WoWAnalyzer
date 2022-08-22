@@ -30,6 +30,7 @@ class Abilities extends Module {
 
   abilities: Ability[] = [];
   activeAbilities: Ability[] = [];
+  abilitiesAffectedByHealingIncreases: number[] = [];
 
   constructor(args: Options) {
     super(args);
@@ -165,6 +166,10 @@ class Abilities extends Module {
   getTimelineSortIndex(spellId: number) {
     const ability = this.getAbility(spellId);
     return ability ? ability.timelineSortIndex : undefined;
+  }
+
+  getAffectedByHealingIncreases(spellId: number) {
+    return this.abilitiesAffectedByHealingIncreases.includes(spellId);
   }
 }
 

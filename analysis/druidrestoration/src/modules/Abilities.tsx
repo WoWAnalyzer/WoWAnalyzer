@@ -5,7 +5,14 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 import CoreAbilities from '@wowanalyzer/druid/src/core/Abilities';
 
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../constants';
+
 class Abilities extends CoreAbilities {
+  constructor(...args: ConstructorParameters<typeof CoreAbilities>) {
+    super(...args);
+    this.abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
+  }
+
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [

@@ -13,7 +13,6 @@ import {
   VanquishersHammer,
 } from '@wowanalyzer/paladin';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import BeaconHealingDone from './modules/beacons/BeaconHealingDone';
 import BeaconHealSource from './modules/beacons/BeaconHealSource';
 import BeaconTargets from './modules/beacons/BeaconTargets';
@@ -35,6 +34,7 @@ import Overhealing from './modules/features/Overhealing';
 import MightOfTheMountain from './modules/racials/MightOfTheMountain';
 import UntemperedDedication from './modules/shadowlands/conduits/UntemperedDedication';
 import VanquishersHammerAnalysis from './modules/shadowlands/covenants/VanquishersHammerAnalysis';
+import { DrapeOfShame } from './modules/shadowlands/items/DrapeOfShame';
 import MaraadsCastRatio from './modules/shadowlands/legendaries/MaraadsCastRatio';
 import MaraadsOverheal from './modules/shadowlands/legendaries/MaraadsOverheal';
 import ShockBarrier from './modules/shadowlands/legendaries/ShockBarrier';
@@ -53,8 +53,6 @@ import BeaconOfVirtueNormalizer from './normalizers/BeaconOfVirtue';
 import LightOfDawnNormalizer from './normalizers/LightOfDawn';
 
 class CombatLogParser extends CoreCombatLogParser {
-  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
-
   static specModules = {
     // Normalizers
     lightOfDawnNormalizer: LightOfDawnNormalizer,
@@ -125,6 +123,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Tier Sets
     Tier28FourSet: Tier28FourSet,
+
+    // Items
+    drapeOfShame: DrapeOfShame,
   };
 }
 

@@ -1,35 +1,36 @@
 import SPELLS from 'common/SPELLS';
-import { Options } from 'parser/core/Analyzer';
 import Events, { BeaconHealEvent, HealEvent } from 'parser/core/Events';
-import BaseMightOfTheMountain, {
-  CRIT_EFFECT,
-} from 'parser/shared/modules/racials/dwarf/MightOfTheMountain';
+import {
+  DrapeOfShame as BaseDrapeOfShame,
+  DRAPE_OF_SHAME_CRIT_EFFECT,
+} from 'parser/shadowlands/modules/items/DrapeOfShame';
 
-import { getBeaconSpellFactor } from '../../constants';
-import BeaconHealSource from '../beacons/BeaconHealSource';
+import { getBeaconSpellFactor } from '../../../constants';
+import BeaconHealSource from '../../beacons/BeaconHealSource';
 
-class MightOfTheMountain extends BaseMightOfTheMountain {
+export class DrapeOfShame extends BaseDrapeOfShame {
   static dependencies = {
-    ...BaseMightOfTheMountain.dependencies,
+    ...BaseDrapeOfShame.dependencies,
     // We use its "beacontransfer" event
     beaconHealSource: BeaconHealSource,
   };
 
   protected beaconHealSource!: BeaconHealSource;
 
-  constructor(options: Options) {
-    super(options);
+  constructor(...args: ConstructorParameters<typeof BaseDrapeOfShame>) {
+    super(...args);
     this.addEventListener(Events.beacontransfer, this.onBeaconTransfer);
   }
 
-  onHeal(event: HealEvent) {
+  onHeal = (event: HealEvent) => {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.BEACON_OF_LIGHT_HEAL.id) {
       return;
     }
     super.onHeal(event);
-  }
-  onBeaconTransfer(event: BeaconHealEvent) {
+  };
+
+  onBeaconTransfer = (event: BeaconHealEvent) => {
     if (!this.isApplicableHeal(event.originalHeal)) {
       return;
     }
@@ -40,13 +41,13 @@ class MightOfTheMountain extends BaseMightOfTheMountain {
 
     const contribution = this.critEffectBonus.getHealingContribution(
       event.originalHeal,
-      CRIT_EFFECT,
+      DRAPE_OF_SHAME_CRIT_EFFECT,
     );
     const beaconFactor = getBeaconSpellFactor(spellId, this.selectedCombatant);
     if (beaconFactor == null) {
       const origAbility = event.originalHeal.ability;
       console.warn(
-        `MightOfTheMountain encountered a BeaconHealEvent triggered by ` +
+        `DrapeOfShame encountered a BeaconHealEvent triggered by ` +
           `${origAbility.name} (${origAbility.guid}) with no beacon spell factor configured`,
       );
       return;
@@ -56,9 +57,7 @@ class MightOfTheMountain extends BaseMightOfTheMountain {
       (contribution.effectiveHealing + contribution.overhealing) * beaconFactor;
     const beaconEffectiveHealing = Math.max(0, beaconRawContribution - (event.overheal || 0));
 
-    this.healing += beaconEffectiveHealing;
+    this.effectiveHealing += beaconEffectiveHealing;
     this.overhealing += beaconRawContribution - beaconEffectiveHealing;
-  }
+  };
 }
-
-export default MightOfTheMountain;
