@@ -17,7 +17,7 @@ import Events, {
 import Abilities from 'parser/core/modules/Abilities';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 
-const DEBUG = true;
+const DEBUG = false;
 
 /** Margin in milliseconds beyond which we log errors if numbers don't line up */
 export const COOLDOWN_LAG_MARGIN = 150;
@@ -385,7 +385,8 @@ class SpellUsable extends Analyzer {
           reductionMs +
           ' (effective:' +
           effectiveReductionMs +
-          ')',
+          ') @ ' +
+          this.owner.formatTimestamp(timestamp, 1),
       );
 
     return effectiveReductionMs;
@@ -709,10 +710,20 @@ class SpellUsable extends Analyzer {
       __fabricated: true,
     };
 
-    DEBUG &&
-      console.log(
-        updateType + ' on ' + spellName(spellId) + ' @ ' + this.owner.formatTimestamp(timestamp, 1),
-      );
+    if (DEBUG) {
+      let logLine =
+        updateType + ' on ' + spellName(spellId) + ' @ ' + this.owner.formatTimestamp(timestamp, 1);
+      if (
+        updateType === UpdateSpellUsableType.RestoreCharge ||
+        updateType === UpdateSpellUsableType.UseCharge
+      ) {
+        logLine += ' (' + info.chargesAvailable + ' of ' + info.maxCharges + ' charges remaining)';
+      }
+      if (updateType === UpdateSpellUsableType.BeginCooldown) {
+        logLine += ' (current recharge duration: ' + info.currentRechargeDuration + 'ms)';
+      }
+      console.log(logLine);
+    }
 
     this.eventEmitter.fabricateEvent(event);
   }
