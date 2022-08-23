@@ -246,7 +246,8 @@ class SpellUsable extends Analyzer {
       }
 
       // trigger an end cooldown and then immediately a begin cooldown
-      this.endCooldown(cdSpellId, triggeringEvent.timestamp);
+      // we're treating this as a missed natural CD expiration, so pass true to 'reset cooldown'
+      this.endCooldown(cdSpellId, triggeringEvent.timestamp, true);
       this.beginCooldown(triggeringEvent, spellId);
     }
   }
@@ -263,7 +264,8 @@ class SpellUsable extends Analyzer {
    *     This field is only relevant for spells with more than one charge.
    *     iff true, a charge will be added and cooldown progress will be set back to zero.
    *     iff false, a charge will be added and cooldown progress will be retained.
-   *     Most 'restore charge' effects do not reset the cooldown, hence the default to false.
+   *     'Restore charge' effects typically do not reset the cooldown (pass false to this field),
+   *     while natural cooldown expiration and effects do (pass true to this field).
    * @param {boolean} restoreAllCharges if all charges should be restored rather than just one.
    *     This field is only relevant for spells with more than one charge.
    *     Most 'restore charge' effects restore only one charge, hence the default to false.
