@@ -1960,7 +1960,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "47.71438429787018%",
+                      "width": "47.71445502255723%",
                     }
                   }
                 />
@@ -4426,7 +4426,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               39
-              /89
+              /86
                casts
             </td>
             <td
@@ -4444,7 +4444,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "43.5504947626317%",
+                      "width": "45.0437861561273%",
                     }
                   }
                 />
@@ -4459,7 +4459,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              43.55%
+              45.04%
             </td>
             <td
               style={
