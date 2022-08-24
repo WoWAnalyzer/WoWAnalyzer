@@ -790,6 +790,10 @@ export interface UpdateSpellUsableEvent extends Event<EventType.UpdateSpellUsabl
    *  for this ability, and if this is a BeginCooldown it will be the same as this event's timestamp.
    *  Note this is the overall beginning, *not* the beginning of the most recent charge's cooldown. */
   overallStartTimestamp: number;
+  /** The timestamp the cooldown of this charge began - always the timestamp of the most recent
+   *  BeginCooldown or RestoreCharge for this ability. If this is a BeginCooldown it will be the
+   *  same as the event's timestamp. */
+  chargeStartTimestamp: number;
   /** The timestamp the next charge is expected to be restored, based on current conditions.
    *  For a spell without charges, this is the expected time of the cooldown's end. (for an
    *  EndCooldown updateType, it will be the actual time of the cooldown's end - this event's timestamp)

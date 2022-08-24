@@ -34,6 +34,8 @@ function spellName(spellId: number) {
 type CooldownInfo = {
   /** Timestamp this cooldown started overall (not the most recent charge) */
   overallStart: number;
+  /** Timestamp the most recent charge started cooling down */
+  chargeStart: number;
   /** The duration of the spell's recharge time based on current conditions */
   currentRechargeDuration: number;
   /** The expected time of the next recharge based on current conditions */
@@ -195,6 +197,7 @@ class SpellUsable extends Analyzer {
 
       const newInfo: CooldownInfo = {
         overallStart: triggeringEvent.timestamp,
+        chargeStart: triggeringEvent.timestamp,
         expectedEnd: triggeringEvent.timestamp + expectedCooldownDuration,
         currentRechargeDuration: expectedCooldownDuration,
         chargesAvailable: maxCharges - 1,
@@ -318,6 +321,8 @@ class SpellUsable extends Analyzer {
         timestamp,
         cdInfo,
       );
+      // restore charge event needs to point to previous chargeStart, then we can update
+      cdInfo.chargeStart = timestamp;
     }
   }
 
@@ -683,6 +688,7 @@ class SpellUsable extends Analyzer {
       isAvailable: info.chargesAvailable > 0,
       chargesAvailable: info.chargesAvailable,
       maxCharges: info.maxCharges,
+      chargeStartTimestamp: info.chargeStart,
       overallStartTimestamp: info.overallStart,
       expectedRechargeTimestamp: info.expectedEnd,
       expectedRechargeDuration: info.currentRechargeDuration,

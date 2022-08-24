@@ -190,6 +190,7 @@ describe('core/Modules/SpellUsable', () => {
         maxCharges: 1,
 
         overallStartTimestamp: 0,
+        chargeStartTimestamp: 0,
         expectedRechargeTimestamp: 7500,
         expectedRechargeDuration: 7500,
 
@@ -225,6 +226,7 @@ describe('core/Modules/SpellUsable', () => {
           maxCharges: 1,
 
           overallStartTimestamp: 0,
+          chargeStartTimestamp: 0,
           expectedRechargeTimestamp: 0, // for an endcooldown this value always matches the timestamp
           expectedRechargeDuration: 7500,
 
@@ -254,6 +256,7 @@ describe('core/Modules/SpellUsable', () => {
           maxCharges: 1,
 
           overallStartTimestamp: 0,
+          chargeStartTimestamp: 0,
           expectedRechargeTimestamp: 7500,
           expectedRechargeDuration: 7500,
 
@@ -290,6 +293,7 @@ describe('core/Modules/SpellUsable', () => {
         maxCharges: 2,
 
         overallStartTimestamp: 0,
+        chargeStartTimestamp: 0,
         expectedRechargeTimestamp: 7500,
         expectedRechargeDuration: 7500,
 
@@ -326,6 +330,7 @@ describe('core/Modules/SpellUsable', () => {
         maxCharges: 1,
 
         overallStartTimestamp: 0,
+        chargeStartTimestamp: 0,
         expectedRechargeTimestamp: 7500,
         expectedRechargeDuration: 7500,
 
@@ -363,6 +368,7 @@ describe('core/Modules/SpellUsable', () => {
         maxCharges: 2,
 
         overallStartTimestamp: 0,
+        chargeStartTimestamp: 0,
         expectedRechargeTimestamp: 15000,
         expectedRechargeDuration: 7500,
 

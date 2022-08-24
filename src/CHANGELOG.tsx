@@ -62,6 +62,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 8, 23), "Fixed a bug where the timeline's cooldown tooltips weren't showing properly", Sref),
   change(date(2022, 8, 22), "Overhauled cooldown tracker, fixed a bug in the cooldown interactions between CDR and haste changes, and added preliminary support for cooldown rate changes", Sref),
   change(date(2022, 8, 19), <>Convert Abilities.SPELL_CATEGORIES to SPELL_CATEGORY enum.</>, Vetyst),
   change(date(2022, 8, 18), "Updated lint-staged to newest version", Putro),
