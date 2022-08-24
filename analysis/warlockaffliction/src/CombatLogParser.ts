@@ -7,12 +7,12 @@ import {
   WarlockMissingDotApplyDebuffPrePull,
   GrimoireOfSacrifice,
   DemonicCirclesCreated,
+  SoulRot,
+  ScouringTitheUptime,
+  DecimatingBolt,
 } from '@wowanalyzer/warlock';
 
 import GlobalCooldown from './modules/core/GlobalCooldown';
-import DecimatingBolt from './modules/covenants/DecimatingBolt';
-import ScouringTitheUptime from './modules/covenants/ScouringTithe';
-import SoulRot from './modules/covenants/SoulRot';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/Checklist/Module';
