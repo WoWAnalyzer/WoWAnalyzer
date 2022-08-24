@@ -13,7 +13,7 @@ import {
   UpdateSpellUsableEvent,
   UpdateSpellUsableType,
 } from 'parser/core/Events';
-import { PureComponent, Fragment } from 'react';
+import { Fragment, PureComponent } from 'react';
 
 const PREPHASE_BUFFER = 1000; //ms a prephase event gets displayed before the phase start
 
@@ -45,8 +45,10 @@ class Lane extends PureComponent<Props> {
               {this.renderRecharge(event)}
             </Fragment>
           );
-        } else {
+        } else if (event.updateType === UpdateSpellUsableType.EndCooldown) {
           return this.renderCooldown(event);
+        } else {
+          return null;
         }
       case EventType.ApplyBuff:
         if (this.props.castableBuff === event.ability.guid) {
@@ -87,11 +89,11 @@ class Lane extends PureComponent<Props> {
   renderCooldown(event: UpdateSpellUsableEvent) {
     //let pre phase events be displayed one second tick before the phase
     const left = this.getOffsetLeft(
-      Math.max(this.props.fightStartTimestamp - PREPHASE_BUFFER, event.overallStartTimestamp),
+      Math.max(this.props.fightStartTimestamp - PREPHASE_BUFFER, event.chargeStartTimestamp),
     );
     const width =
       ((Math.min(this.props.fightEndTimestamp, event.timestamp) -
-        Math.max(this.props.fightStartTimestamp - PREPHASE_BUFFER, event.overallStartTimestamp)) /
+        Math.max(this.props.fightStartTimestamp - PREPHASE_BUFFER, event.chargeStartTimestamp)) /
         1000) *
       this.props.secondWidth;
     return (
@@ -100,7 +102,7 @@ class Lane extends PureComponent<Props> {
         content={
           <Trans id="interface.report.results.timeline.lane.tooltip.eventOrAbilityCooldown">
             {event.ability.name} cooldown:{' '}
-            {((event.timestamp - event.overallStartTimestamp) / 1000).toFixed(1)}s
+            {((event.timestamp - event.chargeStartTimestamp) / 1000).toFixed(1)}s
           </Trans>
         }
       >
