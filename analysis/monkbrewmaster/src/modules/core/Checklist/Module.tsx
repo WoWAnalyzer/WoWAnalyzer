@@ -14,6 +14,7 @@ import Component from './Component';
 
 export default class Checklist extends BaseChecklist {
   static dependencies = {
+    ...BaseChecklist.dependencies,
     combatants: Combatants,
     castEfficiency: CastEfficiency,
     prep: PreparationRuleAnalyzer,

@@ -1,4 +1,6 @@
-const covenants = {
+import { spellIndexableList } from '../../Spell';
+
+const covenants = spellIndexableList({
   //Kyrian
   SCOURING_TITHE: {
     id: 312321,
@@ -51,5 +53,5 @@ const covenants = {
     name: 'Soul Rot',
     icon: 'ability_ardenweald_warlock',
   },
-} as const;
+});
 export default covenants;

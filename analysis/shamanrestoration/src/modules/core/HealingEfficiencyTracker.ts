@@ -18,6 +18,7 @@ import RestorationAbilityTracker from './RestorationAbilityTracker';
 
 class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
   static dependencies = {
+    ...CoreHealingEfficiencyTracker.dependencies,
     manaTracker: ManaTracker,
     abilityTracker: RestorationAbilityTracker,
     healingDone: HealingDone,

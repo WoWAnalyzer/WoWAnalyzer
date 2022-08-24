@@ -22,7 +22,7 @@ class SpellUsable extends CoreSpellUsable {
     super.onCast(event);
   }
 
-  beginCooldown(spellId: number, cooldownTriggerEvent: CastEvent | DamageEvent) {
+  beginCooldown(triggerEvent: CastEvent | DamageEvent, spellId: number) {
     if (
       spellId === SPELLS.RAPID_FIRE.id &&
       this.selectedCombatant.hasLegendary(SPELLS.SURGING_SHOTS_EFFECT)
@@ -31,14 +31,13 @@ class SpellUsable extends CoreSpellUsable {
         this.rapidFireResets += 1;
         this.endCooldown(
           spellId,
-          undefined,
           this.lastPotentialTriggerForRapidFireReset
             ? this.lastPotentialTriggerForRapidFireReset.timestamp
             : undefined,
         );
       }
     }
-    super.beginCooldown(spellId, cooldownTriggerEvent);
+    super.beginCooldown(triggerEvent, spellId);
   }
 }
 

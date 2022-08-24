@@ -4,7 +4,7 @@ import { Abelito75, Adoraci, acornellier, Khadaj, niseko, Zeboot, carglass, Hana
 import { SpellLink } from 'interface';
 
 export default [
-  change(date(2022, 8, 10), <>Implemented current version of <SpellLink id={SPELLS.BINDING_HEALS_TALENT}/>.</>, Vetyst),
+  change(date(2022, 8, 10), <>Implemented current version of <SpellLink id={SPELLS.BINDING_HEALS_TALENT.id}/>.</>, Vetyst),
   change(date(2022, 7, 19), <>Remove GCD trigger from <SpellLink id={SPELLS.FADE.id} />.</>, Vetyst),
   change(date(2022, 5, 19), <>Fixed Always be Healing.</>, Abelito75),
   change(date(2022, 5, 4), <>Implemented <SpellLink id={SPELLS.TRANSLUCENT_IMAGE.id} /> damage reduction values.</>, Hana),

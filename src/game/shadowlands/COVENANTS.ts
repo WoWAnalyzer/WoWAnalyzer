@@ -1,10 +1,7 @@
-import indexById from 'common/indexById';
+import indexById, { asIndexableList } from 'common/indexById';
 import { Covenant } from 'parser/core/Events';
 
-const COVENANTS: {
-  [key: string]: Covenant;
-  [id: number]: Covenant;
-} = {
+const COVENANTS = asIndexableList<Covenant>()({
   KYRIAN: {
     name: 'Kyrian',
     description:
@@ -37,8 +34,9 @@ const COVENANTS: {
     spellID: 321078,
     icon: 'ui_sigil_necrolord',
   },
-};
-export default indexById(COVENANTS);
+});
+
+export default indexById<Covenant, typeof COVENANTS>(COVENANTS);
 
 export function getCovenantById(id: number): Covenant | undefined {
   switch (id) {

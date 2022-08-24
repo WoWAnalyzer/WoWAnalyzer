@@ -36,7 +36,7 @@ const lowRankSpellsPet = (spells: LowRankSpells) =>
                 </Trans>
               ),
               importance: SuggestionImportance.Regular,
-              icon: (SPELLS[primarySpellId] || SPELLS[spellId])?.icon,
+              icon: (SPELLS[Number(primarySpellId)] || SPELLS[spellId])?.icon,
             })),
       );
     }),

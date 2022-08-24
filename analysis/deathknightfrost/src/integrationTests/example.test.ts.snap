@@ -4610,7 +4610,7 @@ exports[`Frost Death Knight integration test: example log RuneTracker matches th
           className="flex-main value"
         >
           <div>
-            33.55 %
+            33.66 %
           </div>
           <small>
             {"id":"deathknight.shared.runeTracker.statistic.value","message":"Runes overcapped"}
@@ -4669,7 +4669,7 @@ Array [
       message="You overcapped {0}% of your runes. Try to always have at least 3 runes on cooldown."
       values={
         Object {
-          "0": "33.55",
+          "0": "33.66",
         }
       }
     />,
@@ -4680,7 +4680,7 @@ Array [
         message="{0}% runes overcapped"
         values={
           Object {
-            "0": "33.55",
+            "0": "33.66",
           }
         }
       />
@@ -5659,7 +5659,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "31.6102817653286%",
+                  "width": "31.557386660229575%",
                 }
               }
             />
@@ -5752,7 +5752,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                   }
                 >
                    
-                  66.45%
+                  66.34%
                    
                    
                 </div>
@@ -5774,7 +5774,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "31.6102817653286%",
+                        "width": "31.557386660229575%",
                       }
                     }
                   />

@@ -1,5 +1,7 @@
 // Spells such as on use casts or buffs triggered by items from any dungeon
-const dungeonItemSpells = {
+import { spellIndexableList } from '../../Spell';
+
+const dungeonItemSpells = spellIndexableList({
   //De Other Side
   INSCRUTABLE_QUANTUM_DEVICE_CAST: {
     id: 330323,
@@ -160,6 +162,6 @@ const dungeonItemSpells = {
     name: 'Unbound Changeling',
     icon: 'inv_pet_spectralporcupineblue',
   },
-} as const;
+});
 
 export default dungeonItemSpells;

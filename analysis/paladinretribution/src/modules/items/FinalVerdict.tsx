@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 class FinalVerdict extends Analyzer {
@@ -29,7 +30,7 @@ class FinalVerdict extends Analyzer {
     );
     options.abilities.add({
       spell: SPELLS.FINAL_VERDICT_FINISHER.id,
-      category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+      category: SPELL_CATEGORY.ROTATIONAL,
       gcd: {
         base: 1500,
       },

@@ -4,6 +4,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, DamageEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Auras';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import BoringItemValueText from 'parser/ui/BoringItemValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -36,7 +37,7 @@ class CodexOfTheFirstTechnique extends Analyzer {
 
     (options.abilities as Abilities).add({
       spell: SPELLS.CODEX_OF_THE_FIRST_TECHNIQUE_HEALING.id,
-      category: Abilities.SPELL_CATEGORIES.ITEMS,
+      category: SPELL_CATEGORY.ITEMS,
       gcd: null,
     });
     this.addEventListener(

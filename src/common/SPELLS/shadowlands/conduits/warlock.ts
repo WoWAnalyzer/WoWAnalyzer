@@ -1,4 +1,6 @@
-const conduits = {
+import { spellIndexableList } from '../../Spell';
+
+const conduits = spellIndexableList({
   //Affliction
   WITHERING_BOLT: {
     id: 339576,
@@ -123,5 +125,5 @@ const conduits = {
     name: 'Soul Eater',
     icon: 'ability_ardenweald_warlock',
   },
-} as const;
+});
 export default conduits;

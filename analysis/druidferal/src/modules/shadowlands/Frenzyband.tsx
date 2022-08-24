@@ -8,9 +8,10 @@ import Events, {
   ApplyDebuffEvent,
   CastEvent,
   DamageEvent,
-  Event,
   EventType,
   RefreshDebuffEvent,
+  UpdateSpellUsableEvent,
+  UpdateSpellUsableType,
 } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -79,7 +80,7 @@ class Frenzyband extends Analyzer {
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.cdSpell), this.onCdUse);
     this.addEventListener(
-      new EventFilter(EventType.EndCooldown).by(SELECTED_PLAYER).spell(this.cdSpell),
+      new EventFilter(EventType.UpdateSpellUsable).by(SELECTED_PLAYER).spell(this.cdSpell),
       this.onCdAvailable,
     );
   }
@@ -109,8 +110,10 @@ class Frenzyband extends Analyzer {
     this.currCastCdReduced = 0;
   }
 
-  onCdAvailable(event: Event<EventType.EndCooldown>) {
-    this.timestampAvailable = event.timestamp;
+  onCdAvailable(event: UpdateSpellUsableEvent) {
+    if (event.updateType === UpdateSpellUsableType.EndCooldown) {
+      this.timestampAvailable = event.timestamp;
+    }
   }
 
   get totalDotDamage() {

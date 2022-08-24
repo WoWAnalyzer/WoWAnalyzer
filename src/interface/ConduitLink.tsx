@@ -1,3 +1,4 @@
+import Spell from 'common/SPELLS/Spell';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import PropTypes from 'prop-types';
 import { ComponentProps } from 'react';
@@ -16,6 +17,9 @@ interface Context {
  * Must have parser context.
  */
 const ConduitLink = ({ id, ...rest }: Props, { parser: { selectedCombatant } }: Context) => {
+  if (typeof id === 'object') {
+    id = (id as Spell).id;
+  }
   const rank = selectedCombatant.conduitRankBySpellID(id);
 
   return <SpellLink id={id} rank={rank} {...rest} />;

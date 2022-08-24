@@ -12,16 +12,16 @@ class SpellUsable extends CoreSpellUsable {
     );
   }
   onDispel(event: DispelEvent) {
-    super.beginCooldown(event.ability.guid, event);
+    super.beginCooldown(event);
   }
 
-  beginCooldown(spellId: number, cooldownTriggerEvent: DispelEvent) {
+  beginCooldown(cooldownTriggerEvent: DispelEvent, spellId: number) {
     // Essentially having the purify spirit cast not be able to trigger the cooldown, the dispel event does it instead.
     if (spellId === SPELLS.PURIFY_SPIRIT.id) {
       return;
     }
 
-    super.beginCooldown(spellId, cooldownTriggerEvent);
+    super.beginCooldown(cooldownTriggerEvent, spellId);
   }
 }
 

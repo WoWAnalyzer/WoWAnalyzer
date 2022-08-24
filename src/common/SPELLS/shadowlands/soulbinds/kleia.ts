@@ -1,4 +1,6 @@
-const soulbindPowers = {
+import { spellIndexableList } from '../../Spell';
+
+const soulbindPowers = spellIndexableList({
   VALIANT_STRIKES: {
     id: 330943,
     name: 'Valiant Strikes',
@@ -39,5 +41,5 @@ const soulbindPowers = {
     name: 'Resonant Accolades',
     icon: 'spell_holy_mindvision',
   },
-} as const;
+});
 export default soulbindPowers;

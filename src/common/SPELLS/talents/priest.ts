@@ -1,7 +1,7 @@
 // Generated file, changes will be overwritten!
-import { SpellList } from '../Spell';
+import { spellIndexableList } from '../Spell';
 
-const talents: SpellList = {
+const talents = spellIndexableList({
   //Shared
   CASTIGATION_TALENT: { id: 193134, name: 'Castigation', icon: 'spell_holy_searinglightpriest' },
   BODY_AND_SOUL_TALENT: { id: 64129, name: 'Body and Soul', icon: 'spell_holy_symbolofhope' },
@@ -181,5 +181,6 @@ const talents: SpellList = {
     name: 'Twist of Fate',
     icon: 'spell_shadow_mindtwisting',
   },
-};
+});
+
 export default talents;

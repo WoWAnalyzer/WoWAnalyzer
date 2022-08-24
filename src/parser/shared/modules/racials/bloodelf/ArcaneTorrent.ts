@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 class ArcaneTorrent extends Analyzer {
   static dependencies = {
@@ -44,7 +45,7 @@ class ArcaneTorrent extends Analyzer {
         SPELLS.ARCANE_TORRENT_FOCUS.id,
         SPELLS.ARCANE_TORRENT_FURY.id,
       ],
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      category: SPELL_CATEGORY.COOLDOWNS,
       cooldown: 120,
       gcd: {
         base: this.gcd,

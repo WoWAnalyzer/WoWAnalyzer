@@ -822,7 +822,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               45
-              /46
+              /47
                casts
             </td>
             <td
@@ -840,7 +840,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "101.15892574422082%",
+                      "width": "95.07362152841046%",
                     }
                   }
                 />
@@ -855,7 +855,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              101.16%
+              95.07%
             </td>
             <td
               style={
@@ -7863,7 +7863,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  101.16%
+                  95.07%
                    
                    
                 </div>

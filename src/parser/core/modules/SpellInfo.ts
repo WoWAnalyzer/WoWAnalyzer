@@ -1,4 +1,4 @@
-import SPELLS, { registerSpell } from 'common/SPELLS';
+import { maybeGetSpell, registerSpell } from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { Ability, AnyEvent } from 'parser/core/Events';
 
@@ -22,7 +22,7 @@ class SpellInfo extends Analyzer {
   }
 
   addSpellInfo(ability: Omit<Ability, 'type'>) {
-    if (SPELLS.maybeGet(ability.guid) || !ability.name || !ability.abilityIcon) {
+    if (maybeGetSpell(ability.guid) || !ability.name || !ability.abilityIcon) {
       return;
     }
 

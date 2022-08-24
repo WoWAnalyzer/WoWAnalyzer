@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -8,7 +9,7 @@ class Abilities extends CoreAbilities {
       // Rotational Spells
       {
         spell: SPELLS.RENEWING_MIST.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 9,
         charges: 2,
         gcd: {
@@ -21,7 +22,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SOOTHING_MIST.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1000,
         },
@@ -31,7 +32,7 @@ class Abilities extends CoreAbilities {
       // Cooldowns
       {
         spell: SPELLS.THUNDER_FOCUS_TEA.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
         castEfficiency: {
           suggestion: true,
@@ -40,7 +41,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.MANA_TEA_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         enabled: combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id),
         castEfficiency: {
@@ -50,7 +51,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CHI_BURST_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
         enabled: combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
         castEfficiency: {
@@ -63,7 +64,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CHI_WAVE_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 15,
         enabled: combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
         castEfficiency: {
@@ -76,7 +77,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.LIFE_COCOON.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         castEfficiency: {
           suggestion: true,
@@ -85,7 +86,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.REVIVAL.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: {
           base: 1500,
@@ -94,7 +95,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         enabled: !combatant.hasTalent(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id),
         cooldown: 180,
         gcd: {
@@ -107,7 +108,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id),
         cooldown: 180,
         gcd: {
@@ -122,7 +123,7 @@ class Abilities extends CoreAbilities {
       // Other Spell Casting Metrics
       {
         spell: SPELLS.ENVELOPING_MIST.id,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
         },
@@ -130,7 +131,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.VIVIFY.id,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
         },
@@ -138,7 +139,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ESSENCE_FONT.id,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
         },
@@ -148,7 +149,7 @@ class Abilities extends CoreAbilities {
 
       {
         spell: SPELLS.REFRESHING_JADE_WIND_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
         enabled: combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id),
         gcd: {
           base: 1500,
@@ -157,7 +158,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
         enabled: combatant.hasTalent(SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id),
         gcd: {
           base: 1500,
@@ -167,7 +168,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.EXPEL_HARM.id,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1000,
         },
@@ -178,33 +179,33 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DIFFUSE_MAGIC_TALENT.id,
         buffSpellId: SPELLS.DIFFUSE_MAGIC_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 90,
         enabled: combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT.id),
       },
       {
         spell: SPELLS.DAMPEN_HARM_TALENT.id,
         buffSpellId: SPELLS.DAMPEN_HARM_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id),
       },
       {
         spell: SPELLS.FORTIFYING_BREW.id,
         buffSpellId: SPELLS.FORTIFYING_BREW.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 180,
       },
       {
         spell: SPELLS.HEALING_ELIXIR_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         charges: 2,
         cooldown: 30,
         enabled: combatant.hasTalent(SPELLS.HEALING_ELIXIR_TALENT.id),
       },
       {
         spell: SPELLS.DETOX.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 8,
         gcd: {
           base: 1500,
@@ -212,7 +213,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.PARALYSIS.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -220,7 +221,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RING_OF_PEACE_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.RING_OF_PEACE_TALENT.id),
         gcd: {
@@ -230,7 +231,7 @@ class Abilities extends CoreAbilities {
 
       {
         spell: SPELLS.LEG_SWEEP.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: combatant.hasTalent(SPELLS.TIGER_TAIL_SWEEP_TALENT.id) ? 50 : 60,
         gcd: {
           base: 1500,
@@ -239,21 +240,21 @@ class Abilities extends CoreAbilities {
 
       {
         spell: SPELLS.ROLL.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         charges: combatant.hasTalent(SPELLS.CELERITY_TALENT.id) ? 3 : 2,
         cooldown: combatant.hasTalent(SPELLS.CELERITY_TALENT.id) ? 15 : 20,
         enabled: !combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT.id),
       },
       {
         spell: SPELLS.CHI_TORPEDO_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         charges: 2,
         cooldown: 20,
         enabled: combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT.id),
       },
       {
         spell: SPELLS.TIGERS_LUST_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
           static: 1500,
@@ -262,7 +263,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.TRANSCENDENCE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 10,
         gcd: {
           base: 1500,
@@ -270,7 +271,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.TRANSCENDENCE_TRANSFER.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
         gcd: {
           base: 1500,
@@ -280,7 +281,7 @@ class Abilities extends CoreAbilities {
       // Damage Spells
       {
         spell: SPELLS.TIGER_PALM.id,
-        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         gcd: {
           base: 1500,
         },
@@ -288,7 +289,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLACKOUT_KICK.id,
-        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         cooldown: (haste: number) => 3 / (1 + haste),
         gcd: {
           base: 1500,
@@ -297,7 +298,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RISING_SUN_KICK.id,
-        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         cooldown: (haste: number) => 12 / (1 + haste),
         gcd: {
           base: 1500,
@@ -309,7 +310,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SPINNING_CRANE_KICK.id,
-        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         gcd: {
           base: 1500,
         },
@@ -317,7 +318,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CRACKLING_JADE_LIGHTNING.id,
-        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         gcd: {
           base: 1500,
         },

@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 /**
  * @property {Abilities} abilities
@@ -27,7 +28,7 @@ class Berserking extends Analyzer {
 
     this.abilities.add({
       spell: SPELLS.BERSERKING.id,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      category: SPELL_CATEGORY.COOLDOWNS,
       cooldown: 180,
       gcd: null,
       timelineSortIndex: 35,

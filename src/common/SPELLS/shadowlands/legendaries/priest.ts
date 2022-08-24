@@ -1,6 +1,4 @@
-import { LegendarySpell, SpellList } from 'common/SPELLS/Spell';
-
-const legendaries: SpellList<LegendarySpell> = {
+const legendaries = {
   //region Discipline
   // https://www.warcraftlogs.com/reports/khGwRjZaqWvYbK3m#fight=33&type=healing&source=137
   THE_PENITENT_ONE: {

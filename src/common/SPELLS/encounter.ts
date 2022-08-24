@@ -1,4 +1,5 @@
-//TODO Add interesting encounter spells for Castle Nathria
-const spells = {} as const;
+import { spellIndexableList } from './Spell';
+
+const spells = spellIndexableList({});
 
 export default spells;

@@ -187,7 +187,8 @@ class Flourish extends Analyzer {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={SPELLS.FLOURISH_TALENT} /> ({formatNumber(castTotalHealing)} healing)
+              <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> ({formatNumber(castTotalHealing)}{' '}
+              healing)
             </>
           );
 
@@ -195,7 +196,7 @@ class Flourish extends Analyzer {
           checklistItems.push({
             label: (
               <>
-                <SpellLink id={SPELLS.WILD_GROWTH} /> ramp
+                <SpellLink id={SPELLS.WILD_GROWTH.id} /> ramp
               </>
             ),
             result: <PassFailCheckmark pass={cast.wgsOnCast > 0} />,
@@ -204,7 +205,7 @@ class Flourish extends Analyzer {
           checklistItems.push({
             label: (
               <>
-                <SpellLink id={SPELLS.REJUVENATION} /> ramp
+                <SpellLink id={SPELLS.REJUVENATION.id} /> ramp
               </>
             ),
             result: <PassFailCheckmark pass={cast.rejuvsOnCast > 0} />,
@@ -214,14 +215,14 @@ class Flourish extends Analyzer {
             checklistItems.push({
               label: (
                 <>
-                  Don't clip existing <SpellLink id={SPELLS.FLOURISH_TALENT} />{' '}
+                  Don't clip existing <SpellLink id={SPELLS.FLOURISH_TALENT.id} />{' '}
                   <Tooltip
                     hoverable
                     content={
                       <>
                         <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> can proc{' '}
-                        <SpellLink id={SPELLS.FLOURISH_TALENT} />. After Convoking, always check to
-                        see if you get a proc before Flourishing. If you got a proc, you need to
+                        <SpellLink id={SPELLS.FLOURISH_TALENT.id} />. After Convoking, always check
+                        to see if you get a proc before Flourishing. If you got a proc, you need to
                         wait before Flourishing so you don't overwrite the buff and lose a lot of
                         duration. If you got an{' '}
                         <i className="glyphicon glyphicon-remove fail-mark" /> here, it means you

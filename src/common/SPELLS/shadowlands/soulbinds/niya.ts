@@ -1,4 +1,6 @@
-const soulbindPowers = {
+import { spellIndexableList } from '../../Spell';
+
+const soulbindPowers = spellIndexableList({
   GROVE_INVIGORATION: {
     id: 322721,
     name: 'Grove Invigoration',
@@ -10,5 +12,5 @@ const soulbindPowers = {
     name: 'Redirected Anima',
     icon: 'ability_druid_manatree',
   },
-} as const;
+});
 export default soulbindPowers;

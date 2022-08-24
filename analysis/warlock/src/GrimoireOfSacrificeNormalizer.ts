@@ -16,7 +16,7 @@ class GrimoireOfSacrificeNormalizer extends EventsNormalizer {
       if (
         (event.type === EventType.ApplyBuff || event.type === EventType.RemoveBuff) &&
         event.ability &&
-        event.ability.guid === SPELLS.GRIMOIRE_OF_SACRIFICE_BUFF
+        event.ability.guid === SPELLS.GRIMOIRE_OF_SACRIFICE_BUFF.id
       ) {
         // first GoSac event is applybuff or removebuff, ignore the rest, return events as they are
         break;

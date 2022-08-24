@@ -1,12 +1,12 @@
-import SPELLS from 'common/SPELLS';
+import { maybeGetSpell } from 'common/SPELLS';
 import Combatant from 'parser/core/Combatant';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 
-import { AnyEvent } from '../Events';
 import Abilities from './Abilities';
 
 export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = TrackedAbility> {
@@ -24,16 +24,18 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    */
   name?: string;
   /**
-   * REQUIRED The name of the category to place this spell in, you should
-   * usually use the SPELL_CATEGORIES enum for these values.
+   * REQUIRED The category of a spell eg Rotational or Defensive.
+   * Use {@link SPELL_CATEGORY} for the value.
    */
-  category: string;
+  category: SPELL_CATEGORY;
   /**
-   * The cooldown of a spell at the time of the cast, this can be a function
-   * for more complicated calls or even to check for buffs. Parameters
-   * provided: `hastePercentage`, `selectedCombatant`
+   * The cooldown of a spell at the time of the cast. Unlike most other durations in WoWA,
+   * this is in *seconds, NOT milliseconds*. This can be the direct number, or it can be a function
+   * for cooldowns that scale with haste, and can also branch based on combatantinfo.
+   * @param haste the player's haste at the time of spell cast, as a proportion of
+   *   normal casting speed (20% haste will be passed as 1.20).
    */
-  cooldown?: ((haste: number, trigger?: AnyEvent) => number) | number;
+  cooldown?: ((haste: number) => number) | number;
   /**
    * NYI, do not use
    */
@@ -178,10 +180,12 @@ class Ability {
      */
     name: PropTypes.string,
     /**
-     * REQUIRED The name of the category to place this spell in, you should
-     * usually use the SPELL_CATEGORIES enum for these values.
+     * REQUIRED The category of a spell eg Rotational or Defensive.
+     * Use {@link SPELL_CATEGORY} for the value.
      */
-    category: PropTypes.string.isRequired,
+    category: PropTypes.oneOf(
+      Object.values(SPELL_CATEGORY).filter((category) => typeof category === 'number'),
+    ).isRequired,
     /**
      * The cooldown of a spell at the time of the cast, this can be a function
      * for more complicated calls or even to check for buffs. Parameters
@@ -304,7 +308,7 @@ class Ability {
 
   spell!: SpellbookAbility['spell'];
   primaryOverride: number | undefined;
-  get primarySpell() {
+  get primarySpell(): number {
     if (this.spell instanceof Array) {
       return this.spell[this.primaryOverride || 0];
     } else {
@@ -317,7 +321,7 @@ class Ability {
     if (this._name) {
       return this._name;
     }
-    return SPELLS.maybeGet(this.primarySpell)?.name;
+    return maybeGetSpell(this.primarySpell)?.name;
   }
   set name(value) {
     this._name = value;
@@ -334,13 +338,13 @@ class Ability {
   get cooldown() {
     return this.getCooldown(this.owner?.haste.current || 0);
   }
-  getCooldown(haste: number, cooldownTriggerEvent?: AnyEvent) {
+  getCooldown(haste: number) {
     if (this._cooldown === undefined) {
       // Most abilities will always be active and don't provide this prop at all
       return 0;
     }
     if (typeof this._cooldown === 'function') {
-      return this._cooldown.call(null, haste, cooldownTriggerEvent);
+      return this._cooldown.call(null, haste);
     }
 
     return this._cooldown;

@@ -1,7 +1,8 @@
-import SPELLS from 'common/SPELLS';
+import { maybeGetSpell } from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import Analyzer from 'parser/core/Analyzer';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
@@ -52,7 +53,7 @@ class HealingEfficiencyTracker extends Analyzer {
 
   getSpellStats(spellId: number, healingSpellIds: number[] | null = null) {
     let spellInfo: SpellInfoDetails = {
-      spell: SPELLS.maybeGet(spellId),
+      spell: maybeGetSpell(spellId)!,
       casts: 0,
       healingHits: 0,
       healingDone: 0,
@@ -148,7 +149,7 @@ class HealingEfficiencyTracker extends Analyzer {
     for (const rawAbility of this.abilities.abilities) {
       const ability = (rawAbility as unknown) as SpellbookAbility;
 
-      if (ability.category === 'Cooldown' && !includeCooldowns) {
+      if (ability.category === SPELL_CATEGORY.COOLDOWNS && !includeCooldowns) {
         continue;
       }
 

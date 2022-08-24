@@ -358,7 +358,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
               }
             >
               38
-              /43
+              /48
                casts
             </td>
             <td
@@ -375,8 +375,8 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "80.48559772591133%",
+                      "backgroundColor": "#70b570",
+                      "width": "85.11141433785276%",
                     }
                   }
                 />
@@ -391,7 +391,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              80.49%
+              85.11%
             </td>
             <td
               style={
@@ -400,12 +400,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   "width": "25%",
                 }
               }
-            >
-              <trans
-                id="shared.castEfficiency.canBeImproved"
-                message="Can be improved."
-              />
-            </td>
+            />
           </tr>
           <tr>
             <td
@@ -563,7 +558,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "89.24401457321305%",
+                      "width": "88.89082237961019%",
                     }
                   }
                 />
@@ -578,7 +573,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              89.24%
+              88.89%
             </td>
             <td
               style={
@@ -2367,7 +2362,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "8.629624192601291%",
+                      "width": "8.629561778695866%",
                     }
                   }
                 />
@@ -4280,51 +4275,6 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
 
 exports[`Shadow Priest integration test: example log CastEfficiency matches the suggestions snapshot 1`] = `
 Array [
-  Object {
-    "details": null,
-    "icon": undefined,
-    "importance": "minor",
-    "issue": <React.Fragment>
-      <Trans
-        components={
-          Object {
-            "0": <ForwardRef
-              id={8092}
-            />,
-          }
-        }
-        id="shared.modules.castEfficiency.suggest"
-        message="Try to cast <0/> more often."
-      />
-       
-      
-    </React.Fragment>,
-    "spell": 8092,
-    "stat": <React.Fragment>
-      <Trans
-        id="shared.modules.castEfficiency.actual"
-        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
-            "0": 38,
-            "1": 43,
-            "2": "80",
-          }
-        }
-      />
-       (
-      <Trans
-        id="shared.modules.castEfficiency.recommended"
-        message=">{0}% is recommended"
-        values={
-          Object {
-            "0": "85",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
   Object {
     "details": null,
     "icon": undefined,
@@ -6540,7 +6490,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "81.73681617091391%",
+                  "width": "87.77%",
                 }
               }
             />
@@ -6750,7 +6700,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  80.49%
+                  85.11%
                    
                    
                 </div>
@@ -6770,9 +6720,9 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "69.83408085456956%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -6969,7 +6919,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  89.24%
+                  88.89%
                    
                    
                 </div>

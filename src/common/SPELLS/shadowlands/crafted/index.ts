@@ -1,7 +1,8 @@
+import { spellIndexableList } from '../../Spell';
 import ITEMS from './items';
 
-const itemSpells = {
+const itemSpells = spellIndexableList({
   ...ITEMS,
-} as const;
+});
 
 export default itemSpells;
