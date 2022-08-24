@@ -308,7 +308,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "53.294153961538896%",
+                      "width": "52.98513627945722%",
                     }
                   }
                 />
@@ -323,7 +323,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              53.29%
+              52.99%
             </td>
             <td
               style={
@@ -5378,7 +5378,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "23.66260435892327%",
+                  "width": "23.52540050807901%",
                 }
               }
             />
@@ -5516,7 +5516,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  53.29%
+                  52.99%
                    
                    
                 </div>
@@ -5538,7 +5538,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "23.66260435892327%",
+                        "width": "23.52540050807901%",
                       }
                     }
                   />

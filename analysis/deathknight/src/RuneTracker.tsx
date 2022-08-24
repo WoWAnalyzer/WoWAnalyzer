@@ -2,15 +2,16 @@ import { t, Trans } from '@lingui/macro';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   CastEvent,
-  EventType,
-  RemoveBuffEvent,
   ResourceChangeEvent,
+  RemoveBuffEvent,
   UpdateSpellUsableEvent,
+  UpdateSpellUsableType,
 } from 'parser/core/Events';
+import { Options } from 'parser/core/Module';
 import Abilities from 'parser/core/modules/Abilities';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
@@ -144,12 +145,15 @@ class RuneTracker extends ResourceTracker {
   onUpdateSpellUsable(event: UpdateSpellUsableEvent) {
     //track when a rune comes off cooldown
     let change = 0;
-    if (event.trigger === EventType.EndCooldown || event.trigger === EventType.RestoreCharge) {
+    if (
+      event.updateType === UpdateSpellUsableType.EndCooldown ||
+      event.updateType === UpdateSpellUsableType.RestoreCharge
+    ) {
       //gained a rune
       change += 1;
     } else if (
-      event.trigger === EventType.BeginCooldown ||
-      event.trigger === EventType.AddCooldownCharge
+      event.updateType === UpdateSpellUsableType.BeginCooldown ||
+      event.updateType === UpdateSpellUsableType.UseCharge
     ) {
       //spent a rune
       change -= 1;
@@ -225,16 +229,13 @@ class RuneTracker extends ResourceTracker {
     if (!this.spellUsable.isOnCooldown(runeId)) {
       return;
     }
-    const expectedCooldown = this.abilities.getExpectedCooldownDuration(
-      runeId,
-      this.spellUsable.cooldownTriggerEvent(runeId),
-    );
+    const expectedCooldown = this.abilities.getExpectedCooldownDuration(runeId);
     this.spellUsable.reduceCooldown(runeId, expectedCooldown || 0);
   }
 
   startCooldown(event: CastEvent) {
     const runeId = this.shortestCooldown;
-    this.spellUsable.beginCooldown(runeId, event);
+    this.spellUsable.beginCooldown(event, runeId);
   }
 
   get shortestCooldown(): number {
@@ -277,10 +278,7 @@ class RuneTracker extends ResourceTracker {
     }
     const chargesOnCooldown = 2 - this.spellUsable.chargesAvailable(spellId);
     const cooldownRemaining = this.spellUsable.cooldownRemaining(spellId);
-    const fullChargeCooldown = this.abilities.getExpectedCooldownDuration(
-      spellId,
-      this.spellUsable.cooldownTriggerEvent(spellId),
-    );
+    const fullChargeCooldown = this.abilities.getExpectedCooldownDuration(spellId);
     return (chargesOnCooldown - 1) * fullChargeCooldown! + cooldownRemaining;
   }
 

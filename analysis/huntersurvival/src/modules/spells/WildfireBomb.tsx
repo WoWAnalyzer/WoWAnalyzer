@@ -100,7 +100,7 @@ class WildfireBomb extends Analyzer {
   onDamage(event: DamageEvent) {
     if (this.casts === 0) {
       this.casts += 1;
-      this.spellUsable.beginCooldown(SPELLS.WILDFIRE_BOMB.id, event);
+      this.spellUsable.beginCooldown(event, SPELLS.WILDFIRE_BOMB.id);
     }
     this.targetsHit += 1;
     const enemy = this.enemies.getEntity(event);

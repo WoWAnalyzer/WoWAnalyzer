@@ -2,34 +2,43 @@ import { Trans } from '@lingui/macro';
 import Icon from 'interface/Icon';
 import SpellLink from 'interface/SpellLink';
 import Tooltip from 'interface/Tooltip';
-import { EventType } from 'parser/core/Events';
-import PropTypes from 'prop-types';
+import {
+  AbilityEvent,
+  AnyEvent,
+  ApplyBuffEvent,
+  CastEvent,
+  EventType,
+  FilterCooldownInfoEvent,
+  RemoveBuffEvent,
+  UpdateSpellUsableEvent,
+  UpdateSpellUsableType,
+} from 'parser/core/Events';
 import { PureComponent, Fragment } from 'react';
 
 const PREPHASE_BUFFER = 1000; //ms a prephase event gets displayed before the phase start
 
-class Lane extends PureComponent {
-  static propTypes = {
-    children: PropTypes.arrayOf(PropTypes.object).isRequired,
-    fightStartTimestamp: PropTypes.number.isRequired,
-    fightEndTimestamp: PropTypes.number.isRequired,
-    secondWidth: PropTypes.number.isRequired,
-    castableBuff: PropTypes.number,
-    style: PropTypes.object,
-  };
+type Props = {
+  children: AnyEvent[];
+  fightStartTimestamp: number;
+  fightEndTimestamp: number;
+  secondWidth: number;
+  castableBuff?: number;
+  style?: React.CSSProperties;
+};
 
-  getOffsetLeft(timestamp) {
+class Lane extends PureComponent<Props> {
+  getOffsetLeft(timestamp: number) {
     return ((timestamp - this.props.fightStartTimestamp) / 1000) * this.props.secondWidth;
   }
 
-  lastApplyBuff = null;
-  renderEvent(event) {
+  lastApplyBuff: ApplyBuffEvent | null = null;
+  renderEvent(event: AnyEvent) {
     switch (event.type) {
       case EventType.FilterCooldownInfo:
       case EventType.Cast:
         return this.renderCast(event);
       case EventType.UpdateSpellUsable:
-        if (event.trigger === EventType.RestoreCharge) {
+        if (event.updateType === UpdateSpellUsableType.RestoreCharge) {
           return (
             <Fragment key={`restorecharge-${event.timestamp}`}>
               {this.renderCooldown(event)}
@@ -53,7 +62,8 @@ class Lane extends PureComponent {
         return null;
     }
   }
-  renderCast(event) {
+
+  renderCast(event: CastEvent | FilterCooldownInfoEvent) {
     //let pre phase events be displayed one second tick before the phase
     const left = this.getOffsetLeft(
       Math.max(this.props.fightStartTimestamp - PREPHASE_BUFFER, event.timestamp),
@@ -73,14 +83,15 @@ class Lane extends PureComponent {
       </SpellLink>
     );
   }
-  renderCooldown(event) {
+
+  renderCooldown(event: UpdateSpellUsableEvent) {
     //let pre phase events be displayed one second tick before the phase
     const left = this.getOffsetLeft(
-      Math.max(this.props.fightStartTimestamp - PREPHASE_BUFFER, event.start),
+      Math.max(this.props.fightStartTimestamp - PREPHASE_BUFFER, event.overallStartTimestamp),
     );
     const width =
       ((Math.min(this.props.fightEndTimestamp, event.timestamp) -
-        Math.max(this.props.fightStartTimestamp - PREPHASE_BUFFER, event.start)) /
+        Math.max(this.props.fightStartTimestamp - PREPHASE_BUFFER, event.overallStartTimestamp)) /
         1000) *
       this.props.secondWidth;
     return (
@@ -88,8 +99,8 @@ class Lane extends PureComponent {
         key={`cooldown-${left}`}
         content={
           <Trans id="interface.report.results.timeline.lane.tooltip.eventOrAbilityCooldown">
-            {event.name || event.ability.name} cooldown:{' '}
-            {((event.timestamp - event.start) / 1000).toFixed(1)}s
+            {event.ability.name} cooldown:{' '}
+            {((event.timestamp - event.overallStartTimestamp) / 1000).toFixed(1)}s
           </Trans>
         }
       >
@@ -104,7 +115,8 @@ class Lane extends PureComponent {
       </Tooltip>
     );
   }
-  renderRecharge(event) {
+
+  renderRecharge(event: UpdateSpellUsableEvent) {
     if (event.timestamp > this.props.fightEndTimestamp) {
       return null;
     }
@@ -127,8 +139,9 @@ class Lane extends PureComponent {
       </Tooltip>
     );
   }
-  renderCastableWindow(event) {
-    const start = this.lastApplyBuff?.timestamp || this.fightStartTimestamp;
+
+  renderCastableWindow(event: RemoveBuffEvent) {
+    const start = this.lastApplyBuff?.timestamp || this.props.fightStartTimestamp;
     const end = event.timestamp;
 
     return (
@@ -156,7 +169,8 @@ class Lane extends PureComponent {
   render() {
     const { children, style } = this.props;
 
-    const ability = children[0].ability;
+    // FIXME the previous JS version of this assumed ability was available - fix types somehow?
+    const ability = (children[0] as AbilityEvent<any>).ability;
     if (children[0].type === EventType.FilterCooldownInfo || children[0].type === EventType.Cast) {
       //if first cast happened before phase
       const nextChildren = children.slice(1, children.length); //all children following the first cast
@@ -165,9 +179,11 @@ class Lane extends PureComponent {
           (e) => e.type === EventType.Cast || e.type === EventType.FilterCooldownInfo,
         ) + 1; //add 1 since we're searching through the events FOLLOWING the initial cast
       const nextCD = nextChildren.find(
-        (e) => e.type === EventType.UpdateSpellUsable && e.trigger === 'endcooldown',
+        (e) =>
+          e.type === EventType.UpdateSpellUsable &&
+          e.updateType === UpdateSpellUsableType.EndCooldown,
       ); //find next end CD event
-      if (nextCD && nextCD.end < this.props.fightStartTimestamp - PREPHASE_BUFFER) {
+      if (nextCD && nextCD.timestamp < this.props.fightStartTimestamp - PREPHASE_BUFFER) {
         //if cooldown ended before the phase (including buffer), remove it to avoid visual overlaps
         children.splice(0, nextCast || children.length); //remove events before the next cast, remove all if there is no next cast to clean up the list
       }

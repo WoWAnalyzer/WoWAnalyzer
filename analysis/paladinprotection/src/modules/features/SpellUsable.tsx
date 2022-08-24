@@ -1,9 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { Options } from 'parser/core/Analyzer';
 import { CastEvent, EventType, FreeCastEvent } from 'parser/core/Events';
-import CoreSpellUsable, {
-  INVALID_COOLDOWN_CONFIG_LAG_MARGIN,
-} from 'parser/shared/modules/SpellUsable';
+import CoreSpellUsable, { COOLDOWN_LAG_MARGIN } from 'parser/shared/modules/SpellUsable';
 
 import GrandCrusader from '../core/GrandCrusader';
 
@@ -20,8 +18,11 @@ class SpellUsable extends CoreSpellUsable {
     this._hasCJ = this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id);
   }
 
-  beginCooldown(spellId: number, cooldownTriggerEvent: CastEvent | FreeCastEvent) {
-    if (cooldownTriggerEvent.type === EventType.FreeCast) {
+  beginCooldown(
+    triggeringEvent: CastEvent | FreeCastEvent,
+    spellId: number = triggeringEvent.ability.guid,
+  ) {
+    if (triggeringEvent.type === EventType.FreeCast) {
       // ignore the event
       return;
     }
@@ -33,12 +34,12 @@ class SpellUsable extends CoreSpellUsable {
     if (
       validSpell &&
       !this.isAvailable(spellId) &&
-      this.cooldownRemaining(spellId) > INVALID_COOLDOWN_CONFIG_LAG_MARGIN
+      this.cooldownRemaining(spellId) > COOLDOWN_LAG_MARGIN
     ) {
-      this.gc.triggerInferredReset(this, cooldownTriggerEvent);
+      this.gc.triggerInferredReset(this, triggeringEvent);
     }
 
-    super.beginCooldown(spellId, cooldownTriggerEvent);
+    super.beginCooldown(triggeringEvent, spellId);
   }
 }
 

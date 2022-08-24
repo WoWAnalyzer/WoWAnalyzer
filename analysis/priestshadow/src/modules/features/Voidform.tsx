@@ -29,9 +29,8 @@ class Voidform extends Analyzer {
 
   enterVoidform(event: ApplyBuffEvent) {
     this.abilities.increaseMaxCharges(event, SPELLS.MIND_BLAST.id, 1);
-
     if (this.spellUsable.isOnCooldown(SPELLS.MIND_BLAST.id)) {
-      this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, true);
+      this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, false, true);
     }
   }
 

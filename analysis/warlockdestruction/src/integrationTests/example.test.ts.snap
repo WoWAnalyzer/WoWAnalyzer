@@ -572,7 +572,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "101.71469865551714%",
+                      "width": "98.388655463786%",
                     }
                   }
                 />
@@ -587,7 +587,7 @@ exports[`Destruction Warlock integration test: example log CastEfficiency matche
                 }
               }
             >
-              101.71%
+              98.39%
             </td>
             <td
               style={

@@ -44,7 +44,7 @@ class SpellUsable extends CoreSpellUsable {
     }
 
     if (!this.isOnCooldown(SPELLS.ARMY_OF_THE_DEAD.id)) {
-      this.beginCooldown(SPELLS.ARMY_OF_THE_DEAD.id, event);
+      this.beginCooldown(event, SPELLS.ARMY_OF_THE_DEAD.id);
     }
   }
 

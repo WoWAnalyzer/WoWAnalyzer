@@ -64,7 +64,7 @@ class SecretsOfTheUnblinkingVigil extends Analyzer {
 
   applyOrRefreshSecretsBuff(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (this.spellUsable.isOnCooldown(SPELLS.AIMED_SHOT.id)) {
-      this.spellUsable.endCooldown(SPELLS.AIMED_SHOT.id, false, event.timestamp);
+      this.spellUsable.endCooldown(SPELLS.AIMED_SHOT.id, event.timestamp);
       this.aimedShotRefunds += 1;
     }
     this.totalPossibleAimedShotRefunds += 1;

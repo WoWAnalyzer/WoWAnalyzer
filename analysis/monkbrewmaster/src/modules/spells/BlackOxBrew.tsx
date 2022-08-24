@@ -54,10 +54,7 @@ class BlackOxBrew extends Analyzer {
     const cd = this.spellUsable.cooldownRemaining(spellId);
     this.cdr[spellId] += cd;
 
-    const expectedCooldown = this.abilities.getExpectedCooldownDuration(
-      spellId,
-      this.spellUsable.cooldownTriggerEvent(spellId),
-    );
+    const expectedCooldown = this.abilities.getExpectedCooldownDuration(spellId);
     if (expectedCooldown) {
       const wastedCDR = expectedCooldown - cd;
       this.wastedCDR[spellId] += wastedCDR;
@@ -70,7 +67,7 @@ class BlackOxBrew extends Analyzer {
     const spellId = SPELLS.PURIFYING_BREW.id;
     while (this.spellUsable.isOnCooldown(spellId)) {
       this._trackCdr(spellId);
-      this.spellUsable.endCooldown(spellId, false);
+      this.spellUsable.endCooldown(spellId);
     }
   }
 
@@ -78,7 +75,7 @@ class BlackOxBrew extends Analyzer {
     const spellId = SPELLS.CELESTIAL_BREW.id;
     if (this.spellUsable.isOnCooldown(spellId)) {
       this._trackCdr(spellId);
-      this.spellUsable.endCooldown(spellId, false);
+      this.spellUsable.endCooldown(spellId);
     } else {
       this.wastedCDR[spellId] += this.abilities.getExpectedCooldownDuration(spellId) || 0;
     }

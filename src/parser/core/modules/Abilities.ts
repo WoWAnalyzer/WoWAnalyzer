@@ -86,21 +86,25 @@ class Abilities extends Module {
     return index;
   }
 
-  /**
-   * Returns the expected cooldown (in milliseconds) of the given spellId at the current timestamp (or undefined if there is no such spellInfo)
-   */
-  getExpectedCooldownDuration(spellId: number, cooldownTriggerEvent?: AnyEvent) {
-    const ability = this.getAbility(spellId);
-    return ability
-      ? Math.round(ability.getCooldown(this.haste.current, cooldownTriggerEvent) * 1000)
-      : undefined;
+  _getFromSelfOrId(abilityOrSpellId: number | Ability): Ability | undefined {
+    return typeof abilityOrSpellId === 'number'
+      ? this.getAbility(abilityOrSpellId)
+      : abilityOrSpellId;
   }
 
   /**
-   * Returns the max charges of the given spellId, or 1 if the spell doesn't have charges (or undefined if there is no such spellInfo)
+   * Returns the expected cooldown (in milliseconds) of the given ability or ID at the current timestamp (or undefined if there is no such spellInfo)
    */
-  getMaxCharges(spellId: number) {
-    const ability = this.getAbility(spellId);
+  getExpectedCooldownDuration(abilityOrSpellId: number | Ability): number | undefined {
+    const ability = this._getFromSelfOrId(abilityOrSpellId);
+    return ability ? Math.round(ability.getCooldown(this.haste.current) * 1000) : undefined;
+  }
+
+  /**
+   * Returns the max charges of the given ability or ID, or 1 if the spell doesn't have charges (or undefined if there is no such spellInfo)
+   */
+  getMaxCharges(abilityOrSpellId: number | Ability): number | undefined {
+    const ability = this._getFromSelfOrId(abilityOrSpellId);
     return ability ? ability.charges || 1 : undefined;
   }
 

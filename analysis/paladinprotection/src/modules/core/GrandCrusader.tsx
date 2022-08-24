@@ -69,12 +69,7 @@ class GrandCrusader extends Analyzer {
   resetCooldowns(spellUsable: SpellUsable, event: CastEvent | DamageEvent) {
     // reset AS cd
     if (spellUsable.isOnCooldown(SPELLS.AVENGERS_SHIELD.id)) {
-      spellUsable.endCooldown(
-        SPELLS.AVENGERS_SHIELD.id,
-        false,
-        this._lastResetSource?.timestamp,
-        0,
-      );
+      spellUsable.endCooldown(SPELLS.AVENGERS_SHIELD.id, this._lastResetSource?.timestamp);
     }
 
     // reset Judgment CD if the CJ talent is selected
@@ -87,7 +82,6 @@ class GrandCrusader extends Analyzer {
       // isn't too far off
       const ecd: number | undefined = this.abilities.getExpectedCooldownDuration(
         SPELLS.JUDGMENT_CAST_PROTECTION.id,
-        this._lastResetSource,
       );
       if (ecd !== undefined) {
         spellUsable.reduceCooldown(

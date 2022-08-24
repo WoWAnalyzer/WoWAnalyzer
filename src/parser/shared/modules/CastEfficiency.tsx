@@ -10,7 +10,7 @@ import CastEfficiencyComponent from 'parser/ui/CastEfficiency';
 import Panel from 'parser/ui/Panel';
 
 import Combatant from '../../core/Combatant';
-import { EventType, UpdateSpellUsableEvent } from '../../core/Events';
+import { EventType, UpdateSpellUsableEvent, UpdateSpellUsableType } from '../../core/Events';
 import Ability, { SpellbookAbility } from '../../core/modules/Ability';
 import AbilityTracker from './AbilityTracker';
 
@@ -73,30 +73,24 @@ class CastEfficiency extends Analyzer {
         (event): event is UpdateSpellUsableEvent => event.type === EventType.UpdateSpellUsable,
       )
       .reduce((acc, event) => {
-        if (event.trigger === EventType.BeginCooldown) {
+        if (event.updateType === UpdateSpellUsableType.BeginCooldown) {
           lastRechargeTimestamp = event.timestamp;
           return acc;
-        } else if (event.trigger === EventType.EndCooldown) {
+        } else if (event.updateType === UpdateSpellUsableType.EndCooldown) {
           //limit by start time in case of pre phase events
           recharges += 1;
+          const timeSinceLastRecharge = event.timestamp - (lastRechargeTimestamp || 0);
           lastRechargeTimestamp = undefined;
           // this is just event.timePassed except `endcooldown` events
           // don't have `timePassed` filled in.
-          return acc + event.timestamp - event.start;
+          return acc + timeSinceLastRecharge;
           // This might cause oddness if we add anything that externally refreshes charges, but so far nothing does
-        } else if (event.trigger === EventType.RestoreCharge) {
+        } else if (event.updateType === UpdateSpellUsableType.RestoreCharge) {
           //limit by start time in case of pre phase events
           recharges += 1;
-          let timePassed = event.timePassed;
-          if (timePassed === undefined) {
-            // This should never happen...
-            if (process.env.NODE_ENV === 'development') {
-              throw new Error('timePassed not set on restorecharge updatespellusable event');
-            }
-            timePassed = 0;
-          }
+          const timeSinceLastRecharge = event.timestamp - (lastRechargeTimestamp || 0);
           lastRechargeTimestamp = event.timestamp;
-          return acc + timePassed;
+          return acc + timeSinceLastRecharge;
         } else {
           return acc;
         }

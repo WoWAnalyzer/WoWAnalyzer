@@ -49,7 +49,7 @@ class SteelTrap extends Analyzer {
   onDamage(event: DamageEvent) {
     if (this.casts === 0) {
       this.casts += 1;
-      this.spellUsable.beginCooldown(SPELLS.STEEL_TRAP_TALENT.id, event);
+      this.spellUsable.beginCooldown(event, SPELLS.STEEL_TRAP_TALENT.id);
     }
     this.damage += event.amount + (event.absorbed || 0);
   }

@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { Options } from 'parser/core/Analyzer';
-import { AnyEvent, CastEvent } from 'parser/core/Events';
+import { AbilityEvent, CastEvent } from 'parser/core/Events';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
@@ -38,12 +38,11 @@ class SpellUsable extends CoreSpellUsable {
     }
   }
 
-  beginCooldown(spellId: number, cooldownTriggerEvent: AnyEvent) {
+  beginCooldown(cooldownTriggerEvent: AbilityEvent<any>, spellId: number) {
     if (spellId === SPELLS.SHIELD_SLAM.id) {
       if (this.isOnCooldown(spellId)) {
         this.endCooldown(
           spellId,
-          undefined,
           this.lastPotentialTriggerForShieldSlam
             ? this.lastPotentialTriggerForShieldSlam.timestamp
             : undefined,
@@ -51,7 +50,7 @@ class SpellUsable extends CoreSpellUsable {
       }
     }
 
-    super.beginCooldown(spellId, cooldownTriggerEvent);
+    super.beginCooldown(cooldownTriggerEvent, spellId);
   }
 }
 

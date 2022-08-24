@@ -2,9 +2,13 @@ import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { UpdateSpellUsableEvent, CastEvent } from 'parser/core/Events';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, {
+  CastEvent,
+  UpdateSpellUsableEvent,
+  UpdateSpellUsableType,
+} from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 class PhoenixFlames extends Analyzer {
@@ -30,7 +34,7 @@ class PhoenixFlames extends Analyzer {
   }
 
   onCooldownUpdate(event: UpdateSpellUsableEvent) {
-    if (event.trigger !== 'endcooldown') {
+    if (event.updateType !== UpdateSpellUsableType.EndCooldown) {
       return;
     }
     this.chargesCapped = true;

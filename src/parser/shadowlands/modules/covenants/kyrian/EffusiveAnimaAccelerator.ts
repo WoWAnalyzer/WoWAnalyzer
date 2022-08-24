@@ -84,7 +84,7 @@ class EffusiveAnimaAccelerator extends Analyzer {
       return;
     }
     const [lastCast, applications] = this.casts[this.casts.length - 1];
-    const baseCd = this.abilities.getExpectedCooldownDuration(lastCast.ability.guid, lastCast);
+    const baseCd = this.abilities.getExpectedCooldownDuration(lastCast.ability.guid);
     if (baseCd == null) {
       debug && this.warn('no cd for', lastCast.ability.name);
       return;
