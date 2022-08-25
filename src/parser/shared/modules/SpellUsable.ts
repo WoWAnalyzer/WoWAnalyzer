@@ -393,7 +393,10 @@ class SpellUsable extends Analyzer {
           ' (effective:' +
           effectiveReductionMs +
           ') @ ' +
-          this.owner.formatTimestamp(timestamp, 1),
+          this.owner.formatTimestamp(timestamp, 1) +
+          ' (t=' +
+          timestamp +
+          ')',
       );
 
     return effectiveReductionMs;
@@ -486,6 +489,9 @@ class SpellUsable extends Analyzer {
           formatPercentage(event.newHaste) +
           ' @ ' +
           this.owner.formatTimestamp(event.timestamp, 1) +
+          ' (t=' +
+          event.timestamp +
+          ')' +
           ' - updating cooldowns',
       );
     Object.entries(this._currentCooldowns).forEach(([spellId, cdInfo]) => {
@@ -610,7 +616,7 @@ class SpellUsable extends Analyzer {
     const timeRemaining = cdInfo.expectedEnd - timestamp;
     const percentageRemaining = timeRemaining / cdInfo.currentRechargeDuration;
     const newRechargeDuration = cdInfo.currentRechargeDuration / changeRate;
-    const newTimeRemaining = newRechargeDuration * percentageRemaining;
+    const newTimeRemaining = Math.round(newRechargeDuration * percentageRemaining);
     const newExpectedEnd = timestamp + newTimeRemaining;
 
     DEBUG &&
@@ -623,8 +629,14 @@ class SpellUsable extends Analyzer {
           newRechargeDuration +
           ' / old expectedEnd: ' +
           this.owner.formatTimestamp(cdInfo.expectedEnd, 1) +
+          ' (t=' +
+          cdInfo.expectedEnd +
+          ')' +
           ' - new expectedEnd: ' +
-          this.owner.formatTimestamp(newExpectedEnd, 1),
+          this.owner.formatTimestamp(newExpectedEnd, 1) +
+          ' (t=' +
+          newExpectedEnd +
+          ')',
       );
 
     cdInfo.currentRechargeDuration = newRechargeDuration;
@@ -708,7 +720,10 @@ class SpellUsable extends Analyzer {
         ' on ' +
         spellName(canonicalSpellId) +
         ' @ ' +
-        this.owner.formatTimestamp(timestamp, 1);
+        this.owner.formatTimestamp(timestamp, 1) +
+        ' (t=' +
+        timestamp +
+        ')';
       if (
         updateType === UpdateSpellUsableType.RestoreCharge ||
         updateType === UpdateSpellUsableType.UseCharge

@@ -59,7 +59,8 @@ class CooldownHistory extends Analyzer {
       : mostRecent.chargesAvailable;
   }
 
-  /** Gets the most recent UpdateSpellUsableEvent for this spell before the given timestamp */
+  /** Gets the most recent UpdateSpellUsableEvent for this spell before the given timestamp,
+   *  or undefined if there is no such event */
   private _getMostRecentUpdateSpellUsableBeforeTimestamp(
     spellId: number,
     timestamp: number,
@@ -68,11 +69,27 @@ class CooldownHistory extends Analyzer {
     if (!history) {
       return undefined;
     }
+
+    // all the UpdateSpellUsable events for this spell, in time order
     const usuHistory = history.filter(
       (event): event is UpdateSpellUsableEvent => event.type === EventType.UpdateSpellUsable,
     );
-    const mostRecentIndex = usuHistory.findIndex((event) => event.timestamp > timestamp);
-    return mostRecentIndex <= 0 ? undefined : usuHistory[mostRecentIndex - 1];
+    if (usuHistory.length === 0) {
+      return undefined;
+    }
+
+    // get index of the first UpdateSpellUsable event *after* the given timestamp
+    const firstIndexAfter = usuHistory.findIndex((event) => event.timestamp > timestamp);
+    if (firstIndexAfter === -1) {
+      // all events are before, therefore the last event is the most recent before
+      return usuHistory[usuHistory.length - 1];
+    } else if (firstIndexAfter === 0) {
+      // all events are after, therefore there are no events before
+      return undefined;
+    } else {
+      // the event one before this index is 'the most recent before'
+      return usuHistory[firstIndexAfter - 1];
+    }
   }
 }
 
