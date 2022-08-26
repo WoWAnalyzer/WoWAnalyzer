@@ -59,6 +59,8 @@ class CooldownHistory extends Analyzer {
       : mostRecent.chargesAvailable;
   }
 
+  // TODO accurate cooldownRemaining not possible from events alone - find a way around this?
+
   /** Gets the most recent UpdateSpellUsableEvent for this spell before the given timestamp,
    *  or undefined if there is no such event */
   private _getMostRecentUpdateSpellUsableBeforeTimestamp(
