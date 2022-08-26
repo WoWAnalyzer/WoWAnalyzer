@@ -193,11 +193,11 @@ class ShadowEmbrace extends Analyzer {
     const uptimes = this.stackedUptime;
     return (
       <Statistic
-        category={STATISTIC_CATEGORY.GENERAL}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >
-        <BoringSpellValueText spellId={SPELLS.SHADOW_EMBRACE.id}>
+        <BoringSpellValueText spellId={SPELLS.SHADOW_EMBRACE_TALENT.id}>
           {formatPercentage(this.totalUptimePercentage)} %{' '}
           <TooltipElement
             content={

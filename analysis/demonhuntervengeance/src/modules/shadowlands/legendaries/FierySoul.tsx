@@ -18,9 +18,8 @@ class FierySoul extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
-  protected spellUsable!: SpellUsable;
-
   totalCooldownReduction = 0;
+  protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {
     super(options);

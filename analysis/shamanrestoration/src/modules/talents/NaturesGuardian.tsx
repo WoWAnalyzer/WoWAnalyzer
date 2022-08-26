@@ -54,17 +54,11 @@ class NaturesGuardian extends Analyzer {
     this.healing += event.amount + (event.absorbed || 0);
   }
 
-  get feeding() {
-    return this.cooldownThroughputTracker.getIndirectHealing(SPELLS.NATURES_GUARDIAN_HEAL.id);
-  }
-
   subStatistic() {
     return (
       <StatisticListBoxItem
         title={<SpellLink id={SPELLS.NATURES_GUARDIAN_TALENT.id} />}
-        value={`${formatPercentage(
-          this.owner.getPercentageOfTotalHealingDone(this.healing + this.feeding),
-        )} %`}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );
   }

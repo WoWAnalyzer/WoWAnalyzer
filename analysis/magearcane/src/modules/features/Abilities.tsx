@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 import { WINTERS_PROTECTION_REDUCTION_SEC, FLOW_OF_TIME_REDUCTION_SEC } from '@wowanalyzer/mage';
 
@@ -11,7 +12,7 @@ class Abilities extends CoreAbilities {
       // Rotational spells
       {
         spell: SPELLS.ARCANE_BLAST.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -19,7 +20,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FROSTBOLT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -27,27 +28,27 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FIRE_BLAST.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: null,
         cooldown: (haste: any) => 12 / (1 + haste),
       },
       {
         spell: SPELLS.ARCANE_MISSILES.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.ARCANE_BARRAGE.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.ARCANE_EXPLOSION.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -58,7 +59,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.TOUCH_OF_THE_MAGI.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 45,
         gcd: {
           base: 1500,
@@ -66,7 +67,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SUPERNOVA_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -79,7 +80,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.NETHER_TEMPEST_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -87,7 +88,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ARCANE_ORB_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
@@ -104,13 +105,13 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.TIME_WARP.id,
         buffSpellId: SPELLS.TIME_WARP.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 300,
       },
       {
         spell: SPELLS.ARCANE_FAMILIAR_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
         },
@@ -120,7 +121,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ARCANE_POWER.id,
         buffSpellId: SPELLS.ARCANE_POWER.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 120,
         castEfficiency: {
@@ -131,7 +132,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.EVOCATION.id,
         buffSpellId: SPELLS.EVOCATION.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
         },
@@ -144,7 +145,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PRESENCE_OF_MIND.id,
         buffSpellId: SPELLS.PRESENCE_OF_MIND.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 60,
         castEfficiency: {
@@ -155,7 +156,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RUNE_OF_POWER_TALENT.id,
         buffSpellId: SPELLS.RUNE_OF_POWER_BUFF.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
         },
@@ -168,7 +169,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RADIANT_SPARK.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
         },
@@ -181,7 +182,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DEATHBORNE.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
         },
@@ -194,7 +195,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.MIRRORS_OF_TORMENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
         },
@@ -207,7 +208,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SHIFTING_POWER.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
         },
@@ -223,7 +224,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PRISMATIC_BARRIER.id,
         buffSpellId: SPELLS.PRISMATIC_BARRIER.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         gcd: {
           base: 1500,
         },
@@ -238,14 +239,14 @@ class Abilities extends CoreAbilities {
               combatant.conduitRankBySpellID(SPELLS.WINTERS_PROTECTION.id)
             ]
           : 240,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.MIRROR_IMAGE.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         gcd: {
           base: 1500,
         },
@@ -255,14 +256,14 @@ class Abilities extends CoreAbilities {
       //Utility
       {
         spell: SPELLS.ARCANE_INTELLECT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.FROST_NOVA.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -271,14 +272,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SLOW.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.BLINK.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -289,7 +290,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SHIMMER_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: null,
         cooldown: combatant.hasConduitBySpellID(SPELLS.FLOW_OF_TIME.id)
           ? 25 - FLOW_OF_TIME_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FLOW_OF_TIME.id)]
@@ -299,13 +300,13 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.COUNTERSPELL.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: null,
         cooldown: 24,
       },
       {
         spell: SPELLS.REMOVE_CURSE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -314,21 +315,21 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SLOW_FALL.id,
         buffSpellId: SPELLS.SLOW_FALL.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.SPELL_STEAL.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        spell: SPELLS.SPELLSTEAL.id,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.FOCUS_MAGIC_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -336,7 +337,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ALTER_TIME.id,
         buffSpellId: SPELLS.ALTER_TIME_BUFF.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -344,7 +345,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.GREATER_INVISIBILITY.id,
         buffSpellId: SPELLS.GREATER_INVISIBILITY_BUFF.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -367,7 +368,7 @@ class Abilities extends CoreAbilities {
           SPELLS.POLYMORPH_DIREHORN.id,
           SPELLS.POLYMORPH_MAWRAT.id,
         ],
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },

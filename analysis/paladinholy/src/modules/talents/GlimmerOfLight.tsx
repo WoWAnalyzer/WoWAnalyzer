@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { formatNumber } from 'common/format';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -15,10 +14,12 @@ import Events, {
   RemoveDebuffEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'parser/ui/TraitStatisticBox';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import BeaconHealSource from '../beacons/BeaconHealSource';
 
@@ -98,6 +99,7 @@ class GlimmerOfLight extends Analyzer {
   onApplyBuff(event: ApplyBuffEvent | ApplyDebuffEvent) {
     this.glimmerBuffs.unshift(event);
   }
+
   onRemoveBuff(event: RemoveBuffEvent | RemoveDebuffEvent) {
     this.glimmerBuffs = this.glimmerBuffs.filter((buff) => buff.targetID !== event.targetID);
   }
@@ -157,19 +159,10 @@ class GlimmerOfLight extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         category={STATISTIC_CATEGORY.TALENTS}
-        trait={SPELLS.GLIMMER_OF_LIGHT_TALENT.id}
-        value={
-          <>
-            <ItemHealingDone amount={this.totalHealing} />
-            <br />
-            <ItemDamageDone amount={this.damage} />
-            <br />
-            {this.hitsPerCast.toFixed(1)} Triggers/Cast
-          </>
-        }
+        size="flexible"
         tooltip={
           <>
             Total healing done: <b>{formatNumber(this.totalHealing)}</b>
@@ -198,9 +191,13 @@ class GlimmerOfLight extends Analyzer {
             <br />
           </>
         }
-        icon={undefined}
-        label={undefined}
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.GLIMMER_OF_LIGHT_TALENT.id}>
+          <ItemHealingDone amount={this.totalHealing} /> <br />
+          <ItemDamageDone amount={this.damage} /> <br />
+          {this.hitsPerCast.toFixed(1)} Triggers/Cast
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 

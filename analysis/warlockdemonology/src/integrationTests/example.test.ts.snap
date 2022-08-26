@@ -308,7 +308,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "53.294153961538896%",
+                      "width": "52.98513627945722%",
                     }
                   }
                 />
@@ -323,7 +323,7 @@ exports[`Demonology Warlock integration test: example log CastEfficiency matches
                 }
               }
             >
-              53.29%
+              52.99%
             </td>
             <td
               style={
@@ -3954,6 +3954,55 @@ exports[`Demonology Warlock integration test: example log DemonicCalling matches
 </div>
 `;
 
+exports[`Demonology Warlock integration test: example log DemonicCirclesCreated matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={1000}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            className="spell-link-text"
+            href="https://wowhead.com/spell=48018"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Demonic Circle Summon"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demoniccirclesummon.jpg"
+            />
+          </a>
+           
+          <a
+            className="spell-link-text"
+            href="https://wowhead.com/spell=48018"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Demonic Circle Summon
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          0
+           Demonic Circle(s) created
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Demonology Warlock integration test: example log DemonicConsumption matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -5329,7 +5378,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "23.66260435892327%",
+                  "width": "23.52540050807901%",
                 }
               }
             />
@@ -5467,7 +5516,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                   }
                 >
                    
-                  53.29%
+                  52.99%
                    
                    
                 </div>
@@ -5489,7 +5538,7 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "23.66260435892327%",
+                        "width": "23.52540050807901%",
                       }
                     }
                   />
@@ -6816,7 +6865,8 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <trans
-                  id="All weapons enhanced (oils/stones)"
+                  id="shared.modules.features.checklist.allWeaponsEnhanced"
+                  message="All weapons enhanced (oils/stones)"
                 />
               </div>
               <div
@@ -6879,7 +6929,8 @@ exports[`Demonology Warlock integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <trans
-                  id="Using high quality weapon enhancements"
+                  id="shared.modules.features.checklist.highQualityWeaponEnhancements"
+                  message="Using high quality weapon enhancements"
                 />
               </div>
               <div

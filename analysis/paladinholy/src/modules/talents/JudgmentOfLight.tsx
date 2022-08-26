@@ -2,8 +2,10 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 const JUDGEMENT_HEALS = 25;
 
@@ -43,13 +45,11 @@ class JudgmentOfLight extends Analyzer {
   statistic() {
     this.wasted += JUDGEMENT_HEALS - this.counter;
     return (
-      <TalentStatisticBox
-        talent={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id}
-        position={STATISTIC_ORDER.CORE(10)}
-        value={`${formatNumber(this.wasted)} Wasted Stacks`}
-        label="Judgment Of Light"
-        icon={undefined}
-      />
+      <Statistic position={STATISTIC_ORDER.CORE(10)} category={STATISTIC_CATEGORY.TALENTS}>
+        <BoringSpellValueText spellId={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id}>
+          {formatNumber(this.wasted)} Wasted Stacks
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

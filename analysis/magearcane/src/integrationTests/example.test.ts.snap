@@ -3980,7 +3980,7 @@ exports[`Arcane Mage integration test: example log CastEfficiency matches the st
                   }
                 />
                  
-                Spell Steal
+                Spellsteal
               </a>
             </td>
             <td
@@ -8233,7 +8233,8 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                 className="flex-main"
               >
                 <trans
-                  id="All weapons enhanced (oils/stones)"
+                  id="shared.modules.features.checklist.allWeaponsEnhanced"
+                  message="All weapons enhanced (oils/stones)"
                 />
               </div>
               <div
@@ -8296,7 +8297,8 @@ exports[`Arcane Mage integration test: example log matches the checklist snapsho
                 className="flex-main"
               >
                 <trans
-                  id="Using high quality weapon enhancements"
+                  id="shared.modules.features.checklist.highQualityWeaponEnhancements"
+                  message="Using high quality weapon enhancements"
                 />
               </div>
               <div

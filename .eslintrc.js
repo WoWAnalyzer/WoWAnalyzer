@@ -3,7 +3,9 @@ const CI = Boolean(process.env.CI);
 
 module.exports = {
   extends: ['@martijnhols/eslint-config', 'plugin:react/jsx-runtime'],
+  plugins: ['wowanalyzer'],
   rules: {
+    'wowanalyzer/module-spread-parent-dependencies': 'error',
     'no-use-before-define': 'off',
     'import/order': [
       // This is an annoying code style rule that can be fixed automatically.

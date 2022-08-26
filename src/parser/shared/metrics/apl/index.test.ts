@@ -6,6 +6,7 @@ import {
   AnyEvent,
   ApplyBuffEvent,
   RemoveBuffEvent,
+  UpdateSpellUsableType,
 } from 'parser/core/Events';
 
 import { buffPresent } from './conditions';
@@ -54,7 +55,7 @@ const cast = (timestamp: number, cooldown: number, spell: Spell): AnyEvent[] => 
           timestamp,
           ability: ability(spell),
           type: EventType.UpdateSpellUsable,
-          trigger: EventType.BeginCooldown,
+          updateType: UpdateSpellUsableType.BeginCooldown,
           isOnCooldown: true,
           isAvailable: false,
           chargesAvailable: 0,
@@ -72,7 +73,7 @@ const cast = (timestamp: number, cooldown: number, spell: Spell): AnyEvent[] => 
           timestamp: timestamp + cooldown - 1,
           ability: ability(spell),
           type: EventType.UpdateSpellUsable,
-          trigger: EventType.EndCooldown,
+          updateType: UpdateSpellUsableType.EndCooldown,
           isOnCooldown: false,
           isAvailable: true,
           chargesAvailable: 1,

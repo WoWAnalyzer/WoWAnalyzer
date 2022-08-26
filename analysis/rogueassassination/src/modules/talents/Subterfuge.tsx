@@ -15,6 +15,7 @@ import StealthCasts from './StealthCasts';
 
 class Subterfuge extends StealthCasts {
   static dependencies = {
+    ...StealthCasts.dependencies,
     garroteSnapshot: GarroteSnapshot,
   };
 

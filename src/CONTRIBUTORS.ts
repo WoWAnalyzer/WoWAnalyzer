@@ -1893,3 +1893,24 @@ export const kate: Contributor = {
   nickname: 'kate',
   github: 'renanthera',
 };
+
+export const Lucky0604: Contributor = {
+  nickname: 'Lucky',
+  github: 'lucky0604',
+  avatar: avatar('lucky0604.png'),
+  discord: 'Lucky0604#8966',
+};
+
+export const ToppleTheNun: Contributor = {
+  nickname: 'ToppleTheNun',
+  github: 'ToppleTheNun',
+  avatar: avatar('ToppleTheNun-avatar.jpg'),
+  discord: 'ToppleTheNun#6969',
+  mains: [
+    {
+      name: 'Sigilweaver',
+      spec: SPECS.HAVOC_DEMON_HUNTER,
+      link: 'https://worldofwarcraft.com/en-us/character/us/thrall/Sigilweaver',
+    },
+  ],
+};

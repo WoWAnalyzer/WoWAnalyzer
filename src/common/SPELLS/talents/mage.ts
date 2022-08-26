@@ -1,7 +1,7 @@
 // Generated file, changes will be overwritten!
-import { SpellList } from '../Spell';
+import { spellIndexableList } from '../Spell';
 
-const talents: SpellList = {
+const talents = spellIndexableList({
   //Shared
   SHIMMER_TALENT: { id: 212653, name: 'Shimmer', icon: 'spell_arcane_massdispel', manaCost: 1000 },
   INCANTERS_FLOW_TALENT: {
@@ -88,7 +88,7 @@ const talents: SpellList = {
   EBONBOLT_TALENT: { id: 257537, name: 'Ebonbolt', icon: 'artifactability_frostmage_ebonbolt' },
   FRIGID_WINDS_TALENT: { id: 235224, name: 'Frigid Winds', icon: 'ability_mage_deepfreeze' },
   FREEZING_RAIN_TALENT: { id: 270233, name: 'Freezing Rain', icon: 'spell_frost_frozenorb' },
-  SPLITTING_ICE_TALENT: { id: 56377, name: 'Splitting Ice', icon: 'spell_frost_ice-shards' },
+  SPLITTING_ICE_TALENT: { id: 56377, name: 'Splitting Ice', icon: 'spell_frost_iceshards' },
   COMET_STORM_TALENT: {
     id: 153595,
     name: 'Comet Storm',
@@ -153,5 +153,6 @@ const talents: SpellList = {
     name: 'Enlightened',
     icon: 'ability_socererking_arcanefortification',
   },
-};
+});
+
 export default talents;

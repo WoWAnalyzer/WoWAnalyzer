@@ -1,15 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { Spec } from 'game/SPECS';
 import { Race } from 'parser/core/Combatant';
+import PhaseConfig from 'parser/core/PhaseConfig';
 
-export interface PhaseConfig {
-  name: string;
-  key: string;
-  difficulties: number[];
-  filter?: unknown;
-  multiple?: boolean;
-  instance?: number;
-}
 interface EncounterConfig {
   vantusRuneBuffId?: number;
   softMitigationChecks?: {

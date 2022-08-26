@@ -41,10 +41,6 @@ class Analyzer extends EventSubscriber {
   statistic(): React.ReactNode {
     return undefined;
   }
-  /**
-   * @deprecated Set the `position` property on the Statistic component instead.
-   */
-  statisticOrder?: number = undefined;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   suggestions(when: When): Suggestion[] | void {}

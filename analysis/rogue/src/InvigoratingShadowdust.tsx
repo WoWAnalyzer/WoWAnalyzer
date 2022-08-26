@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import { SpellList } from 'common/SPELLS/Spell';
+import Spell from 'common/SPELLS/Spell';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -24,19 +24,19 @@ class InvigoratingShadowdust extends Analyzer {
     spellUsable: SpellUsable,
   };
   cooldownReduction: number = 15000; // 15 seconds
-  cooldowns: SpellList[] = [];
+  cooldowns: Spell[] = [];
   protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {
     super(options);
     switch (this.selectedCombatant.specId) {
-      case SPECS.ASSASSINATION_ROGUE:
+      case SPECS.ASSASSINATION_ROGUE.id:
         this.cooldowns = ASSASSINATION_ABILITY_COOLDOWNS;
         break;
-      case SPECS.OUTLAW_ROGUE:
+      case SPECS.OUTLAW_ROGUE.id:
         this.cooldowns = OUTLAW_ABILITY_COOLDOWNS;
         break;
-      case SPECS.SUBTLETY_ROGUE:
+      case SPECS.SUBTLETY_ROGUE.id:
         this.cooldowns = SUBTLETY_ABILITY_COOLDOWNS;
         break;
       default:
@@ -47,8 +47,7 @@ class InvigoratingShadowdust extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    this.cooldowns.map((cooldown, index) => {
-      const { id } = cooldown[index];
+    this.cooldowns.map(({ id }, index) => {
       if (!this.spellUsable.isOnCooldown(id)) {
         // eslint-disable-next-line array-callback-return
         return;

@@ -16,7 +16,7 @@ class SpellUsable extends CoreSpellUsable {
 
     if (this.isNewPenanceCast(event.timestamp)) {
       this._previousPenanceTimestamp = event.timestamp;
-      this.beginCooldown(SPELLS.PENANCE.id, event);
+      this.beginCooldown(event, SPELLS.PENANCE.id);
     }
   }
 

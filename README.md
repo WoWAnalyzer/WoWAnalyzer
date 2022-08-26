@@ -33,7 +33,7 @@ Once all that's done you're ready to fire up the development server! Just run th
 
 <table align="center">
   <tr>
-    <td align="center" width="150"><img src="https://www.docker.com/sites/default/files/mono_horizontal_large.png" alt="Docker"></td>
+    <td align="center" width="150"><img src="https://www.docker.com/wp-content/uploads/2022/03/horizontal-logo-monochromatic-white.png" alt="Docker"></td>
     <td>Alternatively <b>there's a Docker container available</b> so you don't have to install any software other than Git (and your IDE with its dependencies which likely includes Node.js). Follow the above steps, skipping all `yarn` commands, and then fire up the Docker container with <code>docker-compose up dev</code> (first start might take a few minutes). Just like the regular development environment it will automatically recompile your code and refresh your browser whenever you make changes to the code so long as it is running. The app will be available at <a href="http://localhost:3000/">http://localhost:3000/</a>.</td>
   </tr>
 </table>

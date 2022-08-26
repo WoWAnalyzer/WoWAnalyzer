@@ -1,4 +1,3 @@
-import { ItemList } from 'common/ITEMS/Item';
 import safeMerge from 'common/safeMerge';
 
 import DeOtherSide from './deotherside';
@@ -12,7 +11,7 @@ import Tazavesh from './tazavesh';
 import TheatorOfPain from './theaterofpain';
 import Thorgast from './thorgast';
 
-const items: ItemList = safeMerge(
+const items = safeMerge(
   DeOtherSide,
   HallsOfAtonement,
   MistsOfTirnaScithe,

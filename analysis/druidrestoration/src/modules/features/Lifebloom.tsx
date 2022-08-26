@@ -3,6 +3,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
+import { SubSection } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
@@ -70,14 +71,17 @@ class Lifebloom extends Analyzer {
     this.activeLifeblooms -= 1;
   }
 
+  /** The time at least one lifebloom was active */
   get oneLifebloomUptime() {
     return this._getTotalUptime(this.lifebloomUptimes);
   }
 
+  /** The percent of the encounter at least one lifebloom was active */
   get oneLifebloomUptimePercent() {
     return this.oneLifebloomUptime / this.owner.fightDuration;
   }
 
+  /** The time at two lifeblooms were active */
   get twoLifebloomUptime() {
     return this._getTotalUptime(this.dtlUptimes);
   }
@@ -89,7 +93,70 @@ class Lifebloom extends Analyzer {
     );
   }
 
+  /** The time a lifebloom was active on the selected player */
+  get selfLifebloomUptime(): number {
+    return (
+      this.selectedCombatant.getBuffUptime(
+        SPELLS.LIFEBLOOM_HOT_HEAL.id,
+        this.selectedCombatant.id,
+      ) +
+      this.selectedCombatant.getBuffUptime(
+        SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id,
+        this.selectedCombatant.id,
+      )
+    );
+  }
+
+  /** The time a lifebloom was active on someone other than the selected player */
+  get othersLifebloomUptime(): number {
+    const summedTotalLifebloomUptime = Object.values(this.combatants.players).reduce(
+      (uptime, player) =>
+        uptime +
+        player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id, this.selectedCombatant.id) +
+        player.getBuffUptime(SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id, this.selectedCombatant.id),
+      0,
+    );
+    return summedTotalLifebloomUptime - this.selfLifebloomUptime;
+  }
+
   // TODO suggestion for two lifebloom uptime with DTL
+
+  /** Guide subsection describing the proper usage of Lifebloom */
+  get guideSubsection(): JSX.Element {
+    return (
+      <SubSection>
+        <p>
+          <b>
+            <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} />
+          </b>{' '}
+          can only be active on one target at time and provides similar throughput to Rejuvenation.
+          However, it causes <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> procs and so is a big
+          benefit to your mana efficiency . It should always be active on a target - the tank is
+          usually a safe bet.
+        </p>
+        {this.selectedCombatant.hasTalent(SPELLS.PHOTOSYNTHESIS_TALENT) && (
+          <p>
+            Because you took{' '}
+            <strong>
+              <SpellLink id={SPELLS.PHOTOSYNTHESIS_TALENT.id} />
+            </strong>
+            , high uptime is particularly important. Typically the Lifebloom-on-self effect is most
+            powerful.
+            <br />
+            Total Uptime on{' '}
+            <strong>
+              Self: {formatPercentage(this.selfLifebloomUptime / this.owner.fightDuration, 1)}%
+            </strong>{' '}
+            / on{' '}
+            <strong>
+              Others: {formatPercentage(this.othersLifebloomUptime / this.owner.fightDuration, 1)}%
+            </strong>
+          </p>
+        )}
+        {this.subStatistic()}
+      </SubSection>
+    );
+  }
 
   get suggestionThresholds() {
     return {

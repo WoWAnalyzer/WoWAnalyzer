@@ -17,6 +17,9 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2022, 7, 10), <>Improve display of <SpellLink id={SPELLS.PURIFYING_BREW.id} /> in guide and add warning about <code>/sit</code> use with <SpellLink id={SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id} />.</>, emallson),
+  change(date(2022, 6, 28), <>Squash a couple of bugs in the new overview page.</>, emallson),
+  change(date(2022, 6, 27), <>Added prototype "guide"-style overview page.</>, emallson),
   change(date(2022, 6, 6), <>Fixed tracking of <SpellLink id={SPELLS.SCALDING_BREW.id} /> damage</>, nullDozzer),
   change(date(2022, 5, 3), <>Added a Dampen Harm stat. </>, kate),
   change(date(2022, 5, 1), <>Add <SpellLink id={SPELLS.INVOKERS_DELIGHT_BUFF.id} /> to timeline. </>, nullDozzer),

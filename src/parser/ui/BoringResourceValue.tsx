@@ -8,6 +8,7 @@ import './BoringValue.scss';
 
 interface Resource {
   id: number;
+  [others: string]: any;
 }
 
 type Props = {

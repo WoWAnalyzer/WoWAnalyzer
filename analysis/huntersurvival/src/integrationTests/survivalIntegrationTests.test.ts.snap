@@ -499,7 +499,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "81.80329122923857%",
+                      "width": "81.80329698108658%",
                     }
                   }
                 />
@@ -863,7 +863,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "104.00131397174961%",
+                      "width": "97.54807773672574%",
                     }
                   }
                 />
@@ -878,7 +878,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
                 }
               }
             >
-              104.00%
+              97.55%
             </td>
             <td
               style={
@@ -5880,7 +5880,7 @@ exports[`Survival Hunter integration test: Multi Target matches the checklist sn
                   }
                 >
                    
-                  104.00%
+                  97.55%
                    
                    
                 </div>
@@ -6330,7 +6330,8 @@ exports[`Survival Hunter integration test: Multi Target matches the checklist sn
                 className="flex-main"
               >
                 <trans
-                  id="All weapons enhanced (oils/stones)"
+                  id="shared.modules.features.checklist.allWeaponsEnhanced"
+                  message="All weapons enhanced (oils/stones)"
                 />
               </div>
               <div
@@ -6393,7 +6394,8 @@ exports[`Survival Hunter integration test: Multi Target matches the checklist sn
                 className="flex-main"
               >
                 <trans
-                  id="Using high quality weapon enhancements"
+                  id="shared.modules.features.checklist.highQualityWeaponEnhancements"
+                  message="Using high quality weapon enhancements"
                 />
               </div>
               <div
@@ -7353,7 +7355,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "70.32668487677108%",
+                      "width": "70.31631272815461%",
                     }
                   }
                 />
@@ -7368,7 +7370,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                 }
               }
             >
-              70.33%
+              70.32%
             </td>
             <td
               style={
@@ -7699,7 +7701,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
               }
             >
               10
-              /31
+              /32
                casts
             </td>
             <td
@@ -7717,7 +7719,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "103.88798904603671%",
+                      "width": "99.98630754587808%",
                     }
                   }
                 />
@@ -7732,7 +7734,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                 }
               }
             >
-              103.89%
+              99.99%
             </td>
             <td
               style={
@@ -12616,7 +12618,7 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
                   }
                 >
                    
-                  70.33%
+                  70.32%
                    
                    
                 </div>
@@ -12762,7 +12764,7 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
                   }
                 >
                    
-                  103.89%
+                  99.99%
                    
                    
                 </div>
@@ -13530,7 +13532,8 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
                 className="flex-main"
               >
                 <trans
-                  id="All weapons enhanced (oils/stones)"
+                  id="shared.modules.features.checklist.allWeaponsEnhanced"
+                  message="All weapons enhanced (oils/stones)"
                 />
               </div>
               <div
@@ -13593,7 +13596,8 @@ exports[`Survival Hunter integration test: Single Target matches the checklist s
                 className="flex-main"
               >
                 <trans
-                  id="Using high quality weapon enhancements"
+                  id="shared.modules.features.checklist.highQualityWeaponEnhancements"
+                  message="Using high quality weapon enhancements"
                 />
               </div>
               <div

@@ -2,10 +2,13 @@ import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
+import Uptime from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 class MarkOfBlood extends Analyzer {
   static dependencies = {
@@ -53,12 +56,15 @@ class MarkOfBlood extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.MARK_OF_BLOOD_TALENT.id}
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={`${formatPercentage(this.uptime)} %`}
-        label="Mark Of Blood Uptime"
-      />
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+      >
+        <BoringSpellValueText spellId={SPELLS.MARK_OF_BLOOD_TALENT.id}>
+          <Uptime /> {formatPercentage(this.uptime)}% <small>Uptime</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

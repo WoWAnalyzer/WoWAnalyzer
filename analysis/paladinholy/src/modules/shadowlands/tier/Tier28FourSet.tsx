@@ -57,7 +57,7 @@ class Tier28FourSet extends Analyzer {
   wingsCast(event: CastEvent) {
     if (this.spellUsable.isOnCooldown(this.spellToReduce.id)) {
       this.spellUsable.endCooldown(this.spellToReduce.id);
-      this.spellUsable.beginCooldown(this.spellToReduce.id, event);
+      this.spellUsable.beginCooldown(event, this.spellToReduce.id);
     }
     this.WingsCasts += 1;
   }

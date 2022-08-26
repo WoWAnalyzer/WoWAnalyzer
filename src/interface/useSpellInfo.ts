@@ -1,5 +1,5 @@
 import makeApiUrl from 'common/makeApiUrl';
-import SPELLS from 'common/SPELLS';
+import SPELLS, { maybeGetSpell } from 'common/SPELLS';
 import { useEffect } from 'react';
 import useSWR from 'swr';
 
@@ -8,7 +8,7 @@ const fetcher = (...args: Parameters<typeof fetch>) => fetch(...args).then((res)
 const useSpellInfo = (spellId: number) => {
   const { data, error } = useSWR(makeApiUrl(`spell/${spellId}`), {
     fetcher,
-    isPaused: () => SPELLS.maybeGet(spellId) !== undefined,
+    isPaused: () => maybeGetSpell(spellId) !== undefined,
   });
 
   if (error) {
@@ -21,7 +21,7 @@ const useSpellInfo = (spellId: number) => {
     }
   }, [data, spellId]);
 
-  return SPELLS.maybeGet(spellId) ?? data;
+  return maybeGetSpell(spellId) ?? data;
 };
 
 export default useSpellInfo;

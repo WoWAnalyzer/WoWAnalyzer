@@ -1,10 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import CoreBuffs from 'parser/core/modules/Buffs';
+import CoreAuras from 'parser/core/modules/Auras';
 
-class Buffs extends CoreBuffs {
-  buffs() {
+class Buffs extends CoreAuras {
+  auras() {
     const combatant = this.selectedCombatant;
 
     // This should include ALL buffs that can be applied by your spec.

@@ -1,13 +1,19 @@
 import SPELLS from 'common/SPELLS';
+import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
+import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
-import { AbilityRequirementProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
+import {
+  AbilityRequirementProps,
+  ChecklistProps,
+} from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 
-const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }: any) => {
+const EnhancementShamanChecklist = (props: ChecklistProps & AplRuleProps) => {
+  const { combatant, castEfficiency, thresholds } = props;
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       isMaxCasts
@@ -48,18 +54,26 @@ const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }: a
         }
       >
         <AbilityRequirement spell={SPELLS.FERAL_SPIRIT.id} />
-        <AbilityRequirement spell={SPELLS.EARTH_ELEMENTAL.id} />
         {combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id) && (
           <AbilityRequirement spell={SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id} />
+        )}
+        {combatant.hasCovenant(COVENANTS.KYRIAN.id) && (
+          <AbilityRequirement spell={SPELLS.VESPER_TOTEM.id} />
+        )}
+        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
+          <AbilityRequirement spell={SPELLS.PRIMORDIAL_WAVE_CAST.id} />
+        )}
+        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+          <AbilityRequirement spell={SPELLS.FAE_TRANSFUSION.id} />
+        )}
+        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
+          <AbilityRequirement spell={SPELLS.CHAIN_HARVEST.id} />
         )}
         {combatant.hasTalent(SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id) && (
           <AbilityRequirement spell={SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id} />
         )}
         {combatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.EARTHEN_SPIKE_TALENT.id} />
-        )}
-        {combatant.hasTalent(SPELLS.SUNDERING_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.SUNDERING_TALENT.id} />
         )}
       </Rule>
       <Rule
@@ -87,6 +101,19 @@ const EnhancementShamanChecklist = ({ castEfficiency, combatant, thresholds }: a
         <Requirement name={<> <SpellLink id={SPELLS.LIGHTNING_SHIELD.id} /> uptime</>} thresholds={thresholds.lightningShieldUptime} />
         TODO: ADD LASHING FLAMES UPTIME IF TALENTED
       </Rule> */}
+
+      <AplRule
+        {...props}
+        name="Single Target APL checker (beta)"
+        cooldowns={[
+          SPELLS.FERAL_SPIRIT,
+          SPELLS.ASCENDANCE_TALENT_ENHANCEMENT,
+          SPELLS.VESPER_TOTEM,
+          SPELLS.PRIMORDIAL_WAVE_CAST,
+          SPELLS.FAE_TRANSFUSION,
+          SPELLS.CHAIN_HARVEST,
+        ]}
+      />
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );

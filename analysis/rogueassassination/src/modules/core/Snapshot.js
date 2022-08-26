@@ -64,8 +64,12 @@ class Snapshot extends Analyzer {
   }
 
   // extending class should fill these in:
+  // TODO: convert to TS
+  /** @type {number} */
   static spellCastId = null;
+  /** @type {number} */
   static debuffId = null;
+  /** @type {string} */
   static spellIcon = null;
   stateByTarget = {};
   lastDoTCastEvent;

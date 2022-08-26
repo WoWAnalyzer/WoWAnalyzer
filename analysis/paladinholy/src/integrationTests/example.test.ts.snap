@@ -293,19 +293,15 @@ exports[`Holy Paladin integration test: example log AvengingCrusader matches the
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="TALENTS"
+    className="panel statistic flexible "
+    position={1000}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -346,6 +342,7 @@ exports[`Holy Paladin integration test: example log AvengingCrusader matches the
             18.75
             % of total
           </small>
+           
           <br />
           18.75
           % Crit Rate
@@ -1963,7 +1960,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "47.71438429787018%",
+                      "width": "47.71445502255723%",
                     }
                   }
                 />
@@ -4429,7 +4426,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
               }
             >
               39
-              /89
+              /86
                casts
             </td>
             <td
@@ -4447,7 +4444,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "43.5504947626317%",
+                      "width": "45.0437861561273%",
                     }
                   }
                 />
@@ -4462,7 +4459,7 @@ exports[`Holy Paladin integration test: example log CastEfficiency matches the s
                 }
               }
             >
-              43.55%
+              45.04%
             </td>
             <td
               style={
@@ -5486,7 +5483,7 @@ exports[`Holy Paladin integration test: example log DirectBeaconHealing matches 
                     }
                   }
                 >
-                  13
+                  11
                   %
                 </div>
               </div>
@@ -6272,13 +6269,23 @@ Array [
         <thead>
           <tr>
             <th>
-              Ability
+              <trans
+                id="shared.resourceBreakdown.ability"
+                message="Ability"
+              />
             </th>
             <th
               colSpan={2}
             >
-              Holy Power
-               generated
+              <trans
+                id="shared.resourceBreakdown.generatedHeader"
+                message="{resourceName} generated"
+                values={
+                  Object {
+                    "resourceName": "Holy Power",
+                  }
+                }
+              />
             </th>
             <th
               colSpan={2}
@@ -6290,8 +6297,15 @@ Array [
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Holy Power
-                 wasted
+                <trans
+                  id="shared.resourceBreakdown.wastedHeader"
+                  message="{resourceName} wasted"
+                  values={
+                    Object {
+                      "resourceName": "Holy Power",
+                    }
+                  }
+                />
               </dfn>
             </th>
           </tr>
@@ -6301,7 +6315,10 @@ Array [
             className="poor"
           >
             <td>
-              Total
+              <trans
+                id="shared.resourceBreakdown.total"
+                message="Total"
+              />
             </td>
             <td
               style={
@@ -6336,18 +6353,31 @@ Array [
         <thead>
           <tr>
             <th>
-              Ability
+              <trans
+                id="shared.resourceBreakdown.ability"
+                message="Ability"
+              />
             </th>
             <th
               colSpan={2}
             >
-              Holy Power
-               spent
+              <trans
+                id="shared.resourceBreakdown.spentHeader"
+                message="{resourceName} spent"
+                values={
+                  Object {
+                    "resourceName": "Holy Power",
+                  }
+                }
+              />
             </th>
             <th
               colSpan={2}
             >
-              Casts
+              <trans
+                id="shared.resourceBreakdown.castsHeader"
+                message="Casts"
+              />
             </th>
           </tr>
         </thead>
@@ -6356,7 +6386,10 @@ Array [
             className="poor"
           >
             <td>
-              Total
+              <trans
+                id="shared.resourceBreakdown.total"
+                message="Total"
+              />
             </td>
             <td
               style={
@@ -6458,19 +6491,15 @@ exports[`Holy Paladin integration test: example log JudgmentOfLight matches the 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="TALENTS"
+    className="panel statistic standard "
+    position={10}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -6486,12 +6515,20 @@ exports[`Holy Paladin integration test: example log JudgmentOfLight matches the 
             />
           </a>
            
-          Judgment Of Light
+          <a
+            className="spell-link-text"
+            href="https://wowhead.com/spell=183778"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Judgment of Light
+          </a>
         </label>
         <div
           className="value"
         >
-          115 Wasted Stacks
+          115
+           Wasted Stacks
         </div>
       </div>
     </div>
@@ -10201,7 +10238,7 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                   }
                 >
                    
-                  9.46%
+                  9.26%
                    
                    
                 </div>
@@ -11276,7 +11313,8 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <trans
-                  id="All weapons enhanced (oils/stones)"
+                  id="shared.modules.features.checklist.allWeaponsEnhanced"
+                  message="All weapons enhanced (oils/stones)"
                 />
               </div>
               <div
@@ -11339,7 +11377,8 @@ exports[`Holy Paladin integration test: example log matches the checklist snapsh
                 className="flex-main"
               >
                 <trans
-                  id="Using high quality weapon enhancements"
+                  id="shared.modules.features.checklist.highQualityWeaponEnhancements"
+                  message="Using high quality weapon enhancements"
                 />
               </div>
               <div

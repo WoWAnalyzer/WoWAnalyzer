@@ -24,7 +24,6 @@ class IntoTheFray extends Analyzer {
   buffStacks: number[][];
   lastStacks = 0;
   lastUpdate = this.owner.fight.start_time;
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 
   constructor(options: Options) {
     super(options);

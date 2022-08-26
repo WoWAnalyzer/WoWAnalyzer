@@ -1,12 +1,13 @@
 
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Abelito75, Adoraci, Khadaj, Sharrq, Zeboot, Pink, Hana } from 'CONTRIBUTORS';
+import { Abelito75, Adoraci, Khadaj, Sharrq, Zeboot, Pink, Hana, Vetyst } from 'CONTRIBUTORS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
 
 export default [
+  change(date(2022, 8, 9), <>Implemented <SpellLink id={SPELLS.DARK_THOUGHTS.id} /> and <SpellLink id={SPELLS.VOIDFORM.id} /> max charge changes.</>, Vetyst),
   change(date(2022, 5, 4), <>Implemented <SpellLink id={SPELLS.TRANSLUCENT_IMAGE.id} /> damage reduction values.</>, Hana),
   change(date(2021, 10, 21), <>Updated <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> to TypeScript.</>, Adoraci),
   change(date(2021, 10, 19), <>Fixed <SpellLink id={SPELLS.DISSONANT_ECHOES.id} />, <SpellLink id={SPELLS.DARK_THOUGHTS.id} />, and <SpellLink id={SPELLS.UNFURLING_DARKNESS_TALENT.id} /> proc usage calculation.</>, Adoraci),

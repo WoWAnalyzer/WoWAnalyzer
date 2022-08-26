@@ -1,5 +1,7 @@
 // Spells such as on use casts or buffs triggered by items from any dungeon
-const dungeonItemSpells = {
+import { spellIndexableList } from '../../Spell';
+
+const dungeonItemSpells = spellIndexableList({
   //De Other Side
   INSCRUTABLE_QUANTUM_DEVICE_CAST: {
     id: 330323,
@@ -139,6 +141,27 @@ const dungeonItemSpells = {
     name: 'Blood Barrier',
     icon: 'inv_misc_scales_stonyorange',
   },
-} as const;
+  // Mists of Tirna Scithe
+  UNBOUND_CHANGELING_ALL_BUFF: {
+    id: 330764,
+    name: 'Unbound Changeling',
+    icon: 'spell_animaardenweald_nova',
+  },
+  UNBOUND_CHANGELING_CRIT_BUFF: {
+    id: 330730,
+    name: 'Unbound Changeling',
+    icon: 'inv_pet_spectralporcupinered',
+  },
+  UNBOUND_CHANGELING_HASTE_BUFF: {
+    id: 330131,
+    name: 'Unbound Changeling',
+    icon: 'inv_pet_spectralporcupinegreen',
+  },
+  UNBOUND_CHANGELING_MASTERY_BUFF: {
+    id: 330729,
+    name: 'Unbound Changeling',
+    icon: 'inv_pet_spectralporcupineblue',
+  },
+});
 
 export default dungeonItemSpells;

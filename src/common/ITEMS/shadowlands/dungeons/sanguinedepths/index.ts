@@ -6,9 +6,9 @@
  *   quality: number,
  * },
  */
-import { ItemList } from 'common/ITEMS/Item';
+import { itemIndexableList } from 'common/ITEMS/Item';
 
-const items: ItemList = {
+const items = itemIndexableList({
   //region Kryxis the Voracious
   //endregion
   //region Executor Tarvold
@@ -37,5 +37,5 @@ const items: ItemList = {
     icon: 'inv_trinket_revendreth_01_gold',
   },
   //endregion
-};
+});
 export default items;

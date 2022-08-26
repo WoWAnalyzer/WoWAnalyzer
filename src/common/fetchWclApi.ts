@@ -4,7 +4,13 @@ import { AnyEvent } from 'parser/core/Events';
 
 import { QueryParams } from './makeApiUrl';
 import makeWclApiUrl from './makeWclApiUrl';
-import { WclOptions, WCLResponseJSON, WCLFightsResponse, WCLEventsResponse } from './WCL_TYPES';
+import {
+  WclTable,
+  WclOptions,
+  WCLResponseJSON,
+  WCLFightsResponse,
+  WCLEventsResponse,
+} from './WCL_TYPES';
 
 export class ApiDownError extends ExtendableError {}
 export class LogNotFoundError extends ExtendableError {}
@@ -233,4 +239,23 @@ export async function fetchEvents(
 }
 export function fetchCombatants(code: string, start: number, end: number) {
   return fetchEvents(code, start, end, undefined, 'type="combatantinfo"');
+}
+
+/**
+ * Fetch a WCL table. These are not often useful for what we do because they
+ * don't provide events, but sometimes the aggregations include behaviors that
+ * we want to mimic (like Threat including active tanking time).
+ */
+export async function fetchTable<T extends WCLResponseJSON>(
+  reportCode: string,
+  fightStart: number,
+  fightEnd: number,
+  tableName: WclTable,
+  sourceId?: number,
+): Promise<T> {
+  return fetchWcl(`report/tables/${tableName}/${reportCode}`, {
+    start: fightStart,
+    end: fightEnd,
+    sourceid: sourceId,
+  });
 }

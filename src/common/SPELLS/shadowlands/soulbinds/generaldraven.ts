@@ -1,4 +1,6 @@
-const soulbindPowers = {
+import { spellIndexableList } from '../../Spell';
+
+const soulbindPowers = spellIndexableList({
   SERVICE_IN_STONE: {
     id: 340159,
     name: 'Service In Stone',
@@ -29,6 +31,11 @@ const soulbindPowers = {
     name: 'Hold Your Ground',
     icon: 'achievement_bg_killxenemies_generalsroom',
   },
+  HOLD_YOUR_GROUND_TRAIT: {
+    id: 332754,
+    name: 'Hold Your Ground',
+    icon: 'achievement_bg_killxenemies_generalsroom',
+  },
   SUPERIOR_TACTICS: {
     id: 332753,
     name: 'Superior Tactics',
@@ -39,5 +46,15 @@ const soulbindPowers = {
     name: 'Built For War',
     icon: 'ability_warrior_intensifyrage',
   },
-} as const;
+  BATTLEFIELD_PRESENCE: {
+    id: 352858,
+    name: 'Battlefield Presence',
+    icon: 'achievement_bg_3flagcap_nodeaths',
+  },
+  BATTLEFIELD_PRESENCE_TRAIT: {
+    id: 352417,
+    name: 'Battlefield Presence',
+    icon: 'achievement_bg_3flagcap_nodeaths',
+  },
+});
 export default soulbindPowers;

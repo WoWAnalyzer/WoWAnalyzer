@@ -47,6 +47,7 @@ class Haste extends Analyzer {
     [SPELLS.IN_FOR_THE_KILL_TALENT_BUFF.id]: 0.1,
     [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
     [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
+    [SPELLS.FURIOUS_GAZE.id]: 0.15, // Havoc DH haste buff from fully channeling a cast of Eye Beam
     [SPELLS.DARK_SOUL_MISERY_TALENT.id]: 0.3,
     [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
     [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
@@ -88,6 +89,10 @@ class Haste extends Analyzer {
 
     //region Monk
     [SPELLS.INVOKERS_DELIGHT_BUFF.id]: 0.33,
+    //endregion
+
+    //region Shaman
+    [SPELLS.ELEMENTAL_BLAST_HASTE.id]: 0.03,
     //endregion
   };
 

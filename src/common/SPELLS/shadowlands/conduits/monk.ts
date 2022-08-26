@@ -1,4 +1,6 @@
-const conduits = {
+import { spellIndexableList } from '../../Spell';
+
+const conduits = spellIndexableList({
   //Potency
   //generic
   STRIKE_WITH_CLARITY: {
@@ -141,5 +143,5 @@ const conduits = {
     name: 'Evasive Stride',
     icon: 'ability_monk_uplift',
   },
-} as const;
+});
 export default conduits;

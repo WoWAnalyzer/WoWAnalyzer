@@ -3,8 +3,11 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events from 'parser/core/Events';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentStatisticBox from 'parser/ui/TalentStatisticBox';
 
 class RapidDecomposition extends Analyzer {
   bpDamage = 0;
@@ -35,10 +38,10 @@ class RapidDecomposition extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.RAPID_DECOMPOSITION_TALENT.id}
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL(2)}
-        value={this.owner.formatItemDamageDone(this.totalDamage)}
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
         tooltip={
           <>
             <strong>Blood Plague:</strong> {this.owner.formatItemDamageDone(this.bpDamage)}
@@ -52,7 +55,11 @@ class RapidDecomposition extends Analyzer {
             {this.owner.formatItemDamageDone(this.dndDamage)}
           </>
         }
-      />
+      >
+        <BoringSpellValueText spellId={SPELLS.RAPID_DECOMPOSITION_TALENT.id}>
+          <ItemDamageDone amount={this.totalDamage} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

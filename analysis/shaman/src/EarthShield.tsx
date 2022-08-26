@@ -96,11 +96,6 @@ class EarthShield extends Analyzer {
     }
   }
 
-  // gets overriden by the rshaman module
-  getFeeding() {
-    return 0;
-  }
-
   statistic() {
     return (
       <StatisticBox
@@ -118,7 +113,7 @@ class EarthShield extends Analyzer {
           <div>
             <UptimeIcon /> {formatPercentage(this.uptimePercent)}% <small>uptime</small>
             <br />
-            <ItemHealingDone amount={this.healing + this.buffHealing + this.getFeeding()} />
+            <ItemHealingDone amount={this.healing + this.buffHealing} />
           </div>
         }
       />

@@ -5,7 +5,7 @@ import WeaponEnhancementChecker from 'parser/tbc/modules/items/WeaponEnhancement
 
 import BaseCombatLogParser, { DependenciesDefinition } from '../core/CombatLogParser';
 import Abilities from '../core/modules/Abilities';
-import Buffs from '../core/modules/Buffs';
+import Auras from '../core/modules/Auras';
 import SpellTimeWaitingOnGlobalCooldown from '../shared/enhancers/SpellTimeWaitingOnGlobalCooldown';
 import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import AbilityTracker from '../shared/modules/AbilityTracker';
@@ -80,7 +80,7 @@ class CombatLogParser extends BaseCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     filteredActiveTime: FilteredActiveTime,
     abilities: Abilities,
-    buffs: Buffs,
+    buffs: Auras,
     abilitiesMissing: AbilitiesMissing,
     castEfficiency: CastEfficiency,
     spellUsable: SpellUsable,

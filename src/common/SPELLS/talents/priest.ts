@@ -1,7 +1,7 @@
 // Generated file, changes will be overwritten!
-import { SpellList } from '../Spell';
+import { spellIndexableList } from '../Spell';
 
-const talents: SpellList = {
+const talents = spellIndexableList({
   //Shared
   CASTIGATION_TALENT: { id: 193134, name: 'Castigation', icon: 'spell_holy_searinglightpriest' },
   BODY_AND_SOUL_TALENT: { id: 64129, name: 'Body and Soul', icon: 'spell_holy_symbolofhope' },
@@ -36,7 +36,7 @@ const talents: SpellList = {
     id: 314867,
     name: 'Shadow Covenant',
     icon: 'spell_shadow_summonvoidwalker',
-    manaCost: 2500,
+    manaCost: 2250,
   },
   BENEDICTION_TALENT: { id: 193157, name: 'Benediction', icon: 'spell_monk_diffusemagic' },
   DIVINE_STAR_TALENT: {
@@ -57,9 +57,9 @@ const talents: SpellList = {
   //Holy
   //Level 15: Enlightenment || Trail of Light || Renewed Faith
   //Level 25: Angel's Mercy || Body and Soul || Angelic Feather
-  //Level 30: Cosmic Ripple || Guardian Angel || Afterlife
+  //Level 30: Binding Heals || Guardian Angel || Afterlife
   //Level 35: Psychic Voice || Censure || Shining Force
-  //Level 40: Surge of Light || Binding Heal || Prayer Circle
+  //Level 40: Surge of Light || Cosmic Ripple || Prayer Circle
   //Level 45: Benediction || Divine Star || Halo
   //Level 50: Light of the Naaru || Apotheosis || Holy Word: Salvation
   ENLIGHTENMENT_TALENT: { id: 193155, name: 'Enlightenment', icon: 'spell_arcane_mindmastery' },
@@ -70,7 +70,7 @@ const talents: SpellList = {
   },
   RENEWED_FAITH_TALENT: { id: 341997, name: 'Renewed Faith', icon: 'ability_pvp_innerrenewal' },
   ANGELS_MERCY_TALENT: { id: 238100, name: "Angel's Mercy", icon: 'spell_holy_testoffaith' },
-  COSMIC_RIPPLE_TALENT: { id: 238136, name: 'Cosmic Ripple', icon: 'spell_holy_summonlightwell' },
+  BINDING_HEALS_TALENT: { id: 368275, name: 'Binding Heals', icon: 'spell_holy_blindingheal' },
   GUARDIAN_ANGEL_TALENT: {
     id: 200209,
     name: 'Guardian Angel',
@@ -79,12 +79,7 @@ const talents: SpellList = {
   AFTERLIFE_TALENT: { id: 196707, name: 'Afterlife', icon: 'inv_enchant_essencemagiclarge' },
   CENSURE_TALENT: { id: 200199, name: 'Censure', icon: 'spell_holy_eyeforaneye' },
   SURGE_OF_LIGHT_TALENT: { id: 109186, name: 'Surge of Light', icon: 'spell_holy_surgeoflight' },
-  BINDING_HEAL_TALENT: {
-    id: 32546,
-    name: 'Binding Heal',
-    icon: 'spell_holy_blindingheal',
-    manaCost: 1700,
-  },
+  COSMIC_RIPPLE_TALENT: { id: 238136, name: 'Cosmic Ripple', icon: 'spell_holy_summonlightwell' },
   PRAYER_CIRCLE_TALENT: { id: 321377, name: 'Prayer Circle', icon: 'spell_paladin_divinecircle' },
   LIGHT_OF_THE_NAARU_TALENT: { id: 196985, name: 'Light of the Naaru', icon: 'inv_pet_naaru' },
   APOTHEOSIS_TALENT: { id: 200183, name: 'Apotheosis', icon: 'ability_priest_ascension' },
@@ -139,7 +134,7 @@ const talents: SpellList = {
   SHADOW_CRASH_TALENT: { id: 205385, name: 'Shadow Crash', icon: 'spell_shadow_shadowfury' },
   DAMNATION_TALENT: { id: 341374, name: 'Damnation', icon: 'ability_warlock_eradication' },
   VOID_TORRENT_TALENT: { id: 263165, name: 'Void Torrent', icon: 'spell_priest_voidsear' },
-  ANCIENT_MADNESS_TALENT: { id: 341240, name: 'Ancient Madness', icon: 'spell_priest_void_flay' },
+  ANCIENT_MADNESS_TALENT: { id: 341240, name: 'Ancient Madness', icon: 'spell_priest_void-flay' },
   HUNGERING_VOID_TALENT: {
     id: 345218,
     name: 'Hungering Void',
@@ -186,5 +181,6 @@ const talents: SpellList = {
     name: 'Twist of Fate',
     icon: 'spell_shadow_mindtwisting',
   },
-};
+});
+
 export default talents;

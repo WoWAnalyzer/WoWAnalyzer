@@ -118,9 +118,9 @@ Object.keys(conduitItemInfo).forEach((itemInfoKey, idx) => {
 fs.writeFileSync('fullConduitInfo.json', `{\n${fullOutput}}`);
 
 fs.writeFileSync(
-  'conduitSpells.js',
+  'conduitSpells.ts',
   `// Generated file, changes will be overwritten!\n// Feel free to copy what you need from this file, as this is not indexed by anything else in the codebase.
-export default {\n${jsSpellOutput}};`,
+export default {\n${jsSpellOutput}} as const;`,
 );
 
 fs.writeFileSync(

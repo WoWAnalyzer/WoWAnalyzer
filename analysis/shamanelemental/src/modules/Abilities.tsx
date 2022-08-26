@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -10,21 +11,21 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.LAVA_BURST.id,
         charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT_ELEMENTAL.id) ? 2 : 1,
         cooldown: (haste) => 8 / (1 + haste),
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.LIGHTNING_BOLT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.LIQUID_MAGMA_TOTEM_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
@@ -37,25 +38,25 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CHAIN_LIGHTNING.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE, // 2 / (1 + haste)
+        category: SPELL_CATEGORY.ROTATIONAL_AOE, // 2 / (1 + haste)
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.LAVA_BEAM.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
       },
       {
         spell: SPELLS.EARTHQUAKE.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.ELEMENTAL_BLAST_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id),
         cooldown: 12,
         gcd: {
@@ -68,7 +69,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: {
           base: 1500,
@@ -81,7 +82,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FIRE_ELEMENTAL.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60 * 2.5,
         gcd: {
           base: 1500,
@@ -99,7 +100,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.STORMKEEPER_TALENT_ELEMENTAL.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -112,7 +113,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.STORM_ELEMENTAL_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60 * 2.5,
         enabled: combatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id),
         damageSpellIds: [SPELLS.WIND_GUST.id, SPELLS.EYE_OF_THE_STORM.id, SPELLS.CALL_LIGHTNING.id],
@@ -124,7 +125,7 @@ class Abilities extends CoreAbilities {
 
       {
         spell: SPELLS.FLAME_SHOCK.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 6,
         gcd: {
           base: 1500,
@@ -132,14 +133,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FROST_SHOCK.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.ICEFURY_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -152,14 +153,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.EARTH_SHOCK.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.CAPACITOR_TOTEM.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -169,11 +170,11 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ASTRAL_SHIFT.id,
         buffSpellId: SPELLS.ASTRAL_SHIFT.id,
         cooldown: 90,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
       },
       {
         spell: SPELLS.THUNDERSTORM.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1000,
         },
@@ -181,20 +182,20 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.TREMOR_TOTEM.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.WIND_SHEAR.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 12,
         gcd: null,
       },
       {
         spell: SPELLS.STATIC_DISCHARGE_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30,
         castEfficiency: {
           suggestion: true,
@@ -207,7 +208,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ECHOING_SHOCK_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30,
         castEfficiency: {
           suggestion: true,
@@ -220,15 +221,15 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLOODLUST.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
       },
       {
         spell: SPELLS.HEROISM.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
       },
       {
         spell: SPELLS.REINCARNATION.id,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
       },
     ];
   }

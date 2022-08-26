@@ -11,10 +11,38 @@ import Suggestions from './Suggestions';
 interface Props {
   checklist?: React.ReactNode;
   issues: Array<Issue | Suggestion>;
+  guide?: React.FC;
 }
 
-const Overview = ({ checklist, issues }: Props) => {
+const PrototypeSwitcher = ({
+  guideMode,
+  setGuideMode,
+  defaultGuide,
+}: {
+  guideMode: boolean;
+  setGuideMode: (value: boolean) => void;
+  defaultGuide: boolean;
+}) => (
+  <a style={{ justifySelf: 'end' }} href="#prototype" onClick={() => setGuideMode(!guideMode)}>
+    {defaultGuide
+      ? guideMode
+        ? 'View Old Version'
+        : 'Return to Guide View'
+      : guideMode
+      ? 'Return to Normal View'
+      : 'View Prototype'}
+  </a>
+);
+
+const Overview = ({ guide: GuideComponent, checklist, issues }: Props) => {
   const config = useConfig();
+
+  const sessionGuideSetting = window.sessionStorage?.getItem('guideMode');
+  const configGuideSetting = Boolean(config.guideDefault);
+  const initialGuideSetting =
+    sessionGuideSetting === null ? configGuideSetting : Boolean(sessionGuideSetting);
+
+  const [guideMode, setGuideMode] = React.useState(initialGuideSetting);
 
   let alert: ReactNode = null;
   if (config.pages?.overview?.text) {
@@ -31,8 +59,29 @@ const Overview = ({ checklist, issues }: Props) => {
     );
   }
 
-  return (
-    <div className="container">
+  const setMode = React.useCallback((value: boolean) => {
+    window.sessionStorage.setItem('guideMode', value.toString());
+    setGuideMode(value);
+  }, []);
+
+  return guideMode && GuideComponent ? (
+    <div className="container" style={{ display: 'grid' }}>
+      <PrototypeSwitcher
+        defaultGuide={configGuideSetting}
+        guideMode={guideMode}
+        setGuideMode={setMode}
+      />
+      <GuideComponent />
+    </div>
+  ) : (
+    <div className="container" style={{ display: 'grid' }}>
+      {GuideComponent && (
+        <PrototypeSwitcher
+          defaultGuide={configGuideSetting}
+          guideMode={guideMode}
+          setGuideMode={setMode}
+        />
+      )}
       {alert}
 
       {config.pages?.overview?.hideChecklist !== true && <Checklist>{checklist}</Checklist>}

@@ -31,20 +31,11 @@ class Ascendance extends Analyzer {
     this.healing += event.amount + (event.absorbed || 0);
   }
 
-  get feeding() {
-    return (
-      this.cooldownThroughputTracker.getIndirectHealing(SPELLS.ASCENDANCE_HEAL.id) +
-      this.cooldownThroughputTracker.getIndirectHealing(SPELLS.ASCENDANCE_INITIAL_HEAL.id)
-    );
-  }
-
   subStatistic() {
     return (
       <StatisticListBoxItem
         title={<SpellLink id={SPELLS.ASCENDANCE_TALENT_RESTORATION.id} />}
-        value={`${formatPercentage(
-          this.owner.getPercentageOfTotalHealingDone(this.healing + this.feeding),
-        )} %`}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );
   }

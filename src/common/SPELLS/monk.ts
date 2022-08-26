@@ -3,7 +3,10 @@
  * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
-const spells = {
+
+import { spellIndexableList } from './Spell';
+
+const spells = spellIndexableList({
   // Shared
   MYSTIC_TOUCH: {
     id: 8647,
@@ -209,6 +212,68 @@ const spells = {
     id: 364266,
     name: 'Primordial Mending',
     icon: 'inv_relics_totemofrage',
+  },
+
+  // Talents
+  CHI_BURST_TALENT_DAMAGE: {
+    id: 148135,
+    name: 'Chi Burst',
+    icon: 'spell_arcane_arcanetorrent',
+  },
+  CHI_WAVE_TALENT_DAMAGE: {
+    id: 132467,
+    name: 'Chi Wave',
+    icon: 'ability_monk_chiwave',
+  },
+  CHI_BURST_HEAL: {
+    id: 130654,
+    name: 'Chi Burst',
+    icon: 'spell_arcane_arcanetorrent',
+  },
+  LIFECYCLES_VIVIFY_BUFF: {
+    id: 197916,
+    name: 'Lifecycles (Vivify)',
+    icon: 'ability_monk_uplift',
+  },
+  LIFECYCLES_ENVELOPING_MIST_BUFF: {
+    id: 197919,
+    name: 'Lifecycles (Enveloping Mist)',
+    icon: 'spell_monk_envelopingmist',
+  },
+  SPIRIT_OF_THE_CRANE_BUFF: {
+    id: 210803,
+    name: 'Spirit of the Crane',
+    icon: 'monk_stance_redcrane',
+  },
+  SOOTHING_MIST_STATUE: {
+    id: 198533,
+    name: 'Soothing Mist',
+    icon: 'ability_monk_soothingmists',
+  },
+  REFRESHING_JADE_WIND_HEAL: {
+    id: 162530,
+    name: 'Refreshing Jade Wind',
+    icon: 'ability_monk_rushingjadewind',
+  },
+  INVOKE_CHIJI_THE_RED_CRANE_BUFF: {
+    id: 343820,
+    name: 'Invoke Chi-Ji, the Red Crane',
+    icon: 'monk_stance_redcrane',
+  },
+  GUST_OF_MISTS_CHIJI: {
+    id: 343819,
+    name: 'Gust of Mists',
+    icon: 'monk_stance_redcrane',
+  },
+  RISING_MIST_HEAL: {
+    id: 274912,
+    name: 'Rising Mist',
+    icon: 'ability_monk_effuse',
+  },
+  WHIRLING_DRAGON_PUNCH_TALENT_TICK: {
+    id: 158221,
+    name: 'Whirling Dragon Punch',
+    icon: 'ability_monk_hurricanestrike',
   },
 
   // Brewmaster
@@ -612,5 +677,6 @@ const spells = {
     name: 'Primordial Power',
     icon: 'inv_relics_totemofrage',
   },
-} as const;
+});
+
 export default spells;

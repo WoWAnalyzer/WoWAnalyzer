@@ -91,6 +91,7 @@ import Mastery from '../core/Mastery';
  */
 class StatWeights extends BaseHealerStatValues {
   static dependencies = {
+    ...BaseHealerStatValues.dependencies,
     combatants: Combatants,
     critEffectBonus: CritEffectBonus,
     statTracker: StatTracker,

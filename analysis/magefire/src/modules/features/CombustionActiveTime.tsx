@@ -39,28 +39,24 @@ class CombustionActiveTime extends Analyzer {
     this.addEventListener(Events.fightend, this.onFinished);
   }
 
-  onCombustionRemoved(event: RemoveBuffEvent) {
-    const buffApplied = this.eventHistory.last(
+  private recordCombustionEnd(event: RemoveBuffEvent | FightEndEvent) {
+    const applyBuffs = this.eventHistory.last(
       1,
       undefined,
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
-    )[0].timestamp;
+    );
+    const buffApplied = applyBuffs[0]?.timestamp ?? this.owner.fight.start_time;
     const uptime = this.filteredActiveTime.getActiveTime(buffApplied, event.timestamp);
     this.combustionCasts[buffApplied] = uptime / (event.timestamp - buffApplied);
     this.activeTime += uptime;
   }
 
+  onCombustionRemoved(event: RemoveBuffEvent) {
+    this.recordCombustionEnd(event);
+  }
+
   onFinished(event: FightEndEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id)) {
-      const buffApplied = this.eventHistory.last(
-        1,
-        undefined,
-        Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
-      )[0].timestamp;
-      const uptime = this.filteredActiveTime.getActiveTime(buffApplied, event.timestamp);
-      this.combustionCasts[buffApplied] = uptime / (event.timestamp - buffApplied);
-      this.activeTime += uptime;
-    }
+    this.recordCombustionEnd(event);
   }
 
   get buffUptime() {

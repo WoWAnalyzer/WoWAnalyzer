@@ -6,40 +6,50 @@
  *   quality: number,
  * },
  */
-import { ItemList } from 'common/ITEMS/Item';
+import { itemIndexableList } from 'common/ITEMS/Item';
 
-const items: ItemList = {
-  //Vigilant Guardian
+const items = itemIndexableList({
+  //region Vigilant Guardian
   //endregion
-  //Skolex, the Insatiable Ravener
+  //region Skolex, the Insatiable Ravener
   //endregion
-  //Artificier Xy'mox
+  //region Artificier Xy'mox
+  CACHE_OF_ACQUIRED_TREASURES: {
+    id: 188265,
+    name: 'Cache of Acquired Treasures',
+    icon: 'achievement_general_stayclassy',
+  },
   //endregion
-  //Halondrus the Reclaimer
+  //region Halondrus the Reclaimer
   //endregion
-  //Dausegne, the Fallen Oracle
+  //region Dausegne, the Fallen Oracle
   //endregion
   EARTHBREAKERS_IMPACT: {
     id: 188264,
     name: "Earthbreaker's Impact",
     icon: 'spell_nature_earthquake',
   },
-  //Prototype Pantheon
+  //region Prototype Pantheon
   THE_FIRST_SIGIL: {
     id: 188271,
     name: 'The First Sigil',
     icon: 'inv_legendary_sigilofwisdom',
   },
   //endregion
-  //Lihuvim, Principle Architect
+  //region Lihuvim, Principle Architect
   //endregion
-  //Anduin Wrynn
+  //region Anduin Wrynn
   //endregion
-  //Lords of Dread
+  //region Lords of Dread
   //endregion
-  //Rygelon
+  //region Rygelon
   //endregion
-  //The Jailer
+  //region The Jailer
+  SCARS_OF_FRATERNAL_STRIFE: {
+    id: 188253,
+    name: 'Scars of Fraternal Strife',
+    icon: 'ability_domination_rune13',
+  },
   //endregion
-};
+});
 export default items;

@@ -12,6 +12,7 @@ import Events, {
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import Combatants from 'parser/shared/modules/Combatants';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemManaGained from 'parser/ui/ItemManaGained';
@@ -71,7 +72,7 @@ class FaeGuardians extends Analyzer {
           };
     (options.abilities as Abilities).add({
       spell: SPELLS.FAE_GUARDIANS.id,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      category: SPELL_CATEGORY.COOLDOWNS,
       cooldown: 90,
       enabled: true,
       gcd: {

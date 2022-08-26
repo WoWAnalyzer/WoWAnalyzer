@@ -3,7 +3,8 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, DamageEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import Buffs from 'parser/core/modules/Buffs';
+import Buffs from 'parser/core/modules/Auras';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringItemValueText from 'parser/ui/BoringItemValueText';
@@ -43,7 +44,7 @@ class BloodSplatteredScale extends Analyzer {
 
     (options.abilities as Abilities).add({
       spell: SPELLS.BLOOD_SPATTERED_SCALE_DAMAGE.id,
-      category: Abilities.SPELL_CATEGORIES.ITEMS,
+      category: SPELL_CATEGORY.ITEMS,
       gcd: null,
       cooldown: 120,
       castEfficiency: {

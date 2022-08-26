@@ -13,6 +13,7 @@ const EVANGELISM_ADDED_DURATION = 6000;
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static dependencies = {
+    ...CoreCooldownThroughputTracker.dependencies,
     atonementModule: Atonement,
     eventHistory: EventHistory,
   };

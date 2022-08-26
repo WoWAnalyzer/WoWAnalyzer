@@ -48,8 +48,8 @@ class IgnorePainExpired extends Analyzer {
         category={STATISTIC_CATEGORY.GENERAL}
         tooltip={
           <>
-            When <SpellLink id={SPELLS.IGNORE_PAIN} /> expires you lose all the remaining shield it
-            had. This gives you an idea of how much you lost. <br />
+            When <SpellLink id={SPELLS.IGNORE_PAIN.id} /> expires you lose all the remaining shield
+            it had. This gives you an idea of how much you lost. <br />
             Total Ignore Pain Gained: {formatNumber(
               this.ignorePainTracker.totalIgnorePainGained,
             )}{' '}

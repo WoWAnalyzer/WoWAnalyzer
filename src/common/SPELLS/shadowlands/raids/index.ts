@@ -1,7 +1,7 @@
-import safeMerge from 'common/safeMerge';
-
+import safeMerge from '../../../safeMerge';
 import CastleNathria from './castlenathria';
 import SanctumOfDomination from './sanctumofdomination';
 import SepulcherOfTheFirstOnes from './sepulcherofthefirstones';
 
-export default safeMerge(CastleNathria, SanctumOfDomination, SepulcherOfTheFirstOnes);
+const raidSpells = safeMerge(CastleNathria, SanctumOfDomination, SepulcherOfTheFirstOnes);
+export default raidSpells;

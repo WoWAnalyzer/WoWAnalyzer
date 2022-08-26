@@ -1,6 +1,4 @@
-import { LegendarySpell, SpellList } from 'common/SPELLS/Spell';
-
-const legendaries: SpellList<LegendarySpell> = {
+const legendaries = {
   //region Havoc
   CHAOS_THEORY: {
     id: 337551,
@@ -68,10 +66,10 @@ const legendaries: SpellList<LegendarySpell> = {
     icon: 'artifactability_havocdemonhunter_anguishofthedeceiver',
     bonusID: 7041,
   },
-  FEL_DEVESTATION_DAMAGE: {
+  FEL_DEVASTATION_DAMAGE: {
     //The damage spell that the demon is doing from Collective Anguish legendary
     id: 346503,
-    name: 'Fel Devestation',
+    name: 'Fel Devastation',
     icon: 'ability_demonhunter_feldevastation',
   },
   DARKEST_HOUR: {
@@ -97,6 +95,11 @@ const legendaries: SpellList<LegendarySpell> = {
     name: 'Blind Faith',
     icon: 'ability_bastion_demonhunter',
     bonusID: 7699,
+  },
+  AGONY_GAZE: {
+    id: 355886,
+    name: 'Agony Gaze',
+    icon: 'ability_revendreth_demonhunter',
   },
   //endregion
 } as const;

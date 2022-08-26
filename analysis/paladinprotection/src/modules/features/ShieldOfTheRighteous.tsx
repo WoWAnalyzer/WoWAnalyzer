@@ -71,6 +71,7 @@ class ShieldOfTheRighteous extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(10)}
         icon={<SpellIcon id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} />}
         value={`${formatPercentage(this.sotrHits / this.totalHits)}%`}
         label="Physical Hits Mitigated"
@@ -100,7 +101,6 @@ class ShieldOfTheRighteous extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 
 export default ShieldOfTheRighteous;

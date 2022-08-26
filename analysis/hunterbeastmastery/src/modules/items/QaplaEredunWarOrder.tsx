@@ -64,7 +64,7 @@ class QaplaEredunWarOrder extends Analyzer {
     const killCommandIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND_CAST_BM.id);
     this.barbedShotCasts += 1;
     if (killCommandIsOnCooldown) {
-      this.spellUsable.endCooldown(SPELLS.KILL_COMMAND_CAST_BM.id, false, event.timestamp);
+      this.spellUsable.endCooldown(SPELLS.KILL_COMMAND_CAST_BM.id, event.timestamp);
       this.killCommandResets += 1;
     } else {
       this.wastedCasts += 1;

@@ -15,6 +15,7 @@ import {
   DampenHarm,
 } from '@wowanalyzer/monk';
 
+import Guide from './Guide';
 import Abilities from './modules/Abilities';
 import AplCheck from './modules/core/AplCheck';
 import BrewCDR from './modules/core/BrewCDR';
@@ -28,6 +29,9 @@ import Stagger from './modules/core/Stagger';
 import StaggerFabricator from './modules/core/StaggerFabricator';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import StaggerPoolGraph from './modules/features/StaggerPoolGraph';
+import { InvokeNiuzao } from './modules/problems/InvokeNiuzao';
+import { StompOrderNormalizer } from './modules/problems/InvokeNiuzao/normalizer';
+import PurifyingBrewProblems from './modules/problems/PurifyingBrew';
 import CelestialEffervescence from './modules/shadowlands/conduits/CelestialEffervescence';
 import EvasiveStride from './modules/shadowlands/conduits/EvasiveStride';
 import ScaldingBrew from './modules/shadowlands/conduits/ScaldingBrew';
@@ -118,7 +122,14 @@ class CombatLogParser extends CoreCombatLogParser {
     koth: KegOfTheHeavens,
 
     apl: AplCheck,
+
+    /// Problem/Guide stuff
+    purifyProblems: PurifyingBrewProblems,
+    invokeNiuzao: InvokeNiuzao,
+    stompOrder: StompOrderNormalizer,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;

@@ -10,6 +10,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
+import { SPELL_COLORS } from '../../constants';
+
 const debug = false;
 
 //TODO clean up and make easier to add triggers
@@ -106,25 +108,25 @@ class ThunderFocusTea extends Analyzer {
   renderCastRatioChart() {
     const items = [
       {
-        color: '#00b159',
+        color: SPELL_COLORS.VIVIFY,
         label: 'Vivify',
         spellId: SPELLS.VIVIFY.id,
         value: this.castsTftViv,
       },
       {
-        color: '#db00db',
+        color: SPELL_COLORS.RENEWING_MIST,
         label: 'Renewing Mist',
         spellId: SPELLS.RENEWING_MIST.id,
         value: this.castsTftRem,
       },
       {
-        color: '#f37735',
+        color: SPELL_COLORS.ENVELOPING_MIST,
         label: 'Enveloping Mists',
         spellId: SPELLS.ENVELOPING_MIST.id,
         value: this.castsTftEnm,
       },
       {
-        color: '#ffc425',
+        color: SPELL_COLORS.RISING_SUN_KICK,
         label: 'Rising Sun Kick',
         spellId: SPELLS.RISING_SUN_KICK.id,
         value: this.castsTftRsk,

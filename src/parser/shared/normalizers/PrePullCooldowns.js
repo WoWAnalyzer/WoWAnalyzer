@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import Abilities from 'parser/core/modules/Abilities';
-import Buffs from 'parser/core/modules/Buffs';
+import Buffs from 'parser/core/modules/Auras';
 
 import ApplyBuff from './ApplyBuff';
 
@@ -19,7 +19,7 @@ const debug = false;
  * the right type of event (begincast + cast vs only a cast).
  *
  * @property {Abilities} abilities
- * @property {Buffs} buffs
+ * @property {Auras} buffs
  * @property {ApplyBuff} applyBuff
  */
 class PrePullCooldowns extends EventsNormalizer {
@@ -33,6 +33,7 @@ class PrePullCooldowns extends EventsNormalizer {
    * spellbook with static values.
    */
   static dependencies = {
+    ...EventsNormalizer.dependencies,
     abilities: Abilities,
     buffs: Buffs,
     applyBuff: ApplyBuff, // we need fabricated events for untracked prepull applied buffs
@@ -57,7 +58,7 @@ class PrePullCooldowns extends EventsNormalizer {
       });
     };
 
-    this.buffs.activeBuffs.forEach((buff) => {
+    this.buffs.activeAuras.forEach((buff) => {
       if (buff.spellId instanceof Array) {
         // Add each buff separate to make usage easier
         buff.spellId.forEach((spellId) => {

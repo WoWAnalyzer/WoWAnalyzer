@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import { maybeGetSpell } from 'common/SPELLS';
 import {
   AnyEvent,
   ApplyBuffEvent,
@@ -143,7 +143,7 @@ class ApplyBuff extends EventsNormalizer {
             return;
           }
 
-          const spell = SPELLS.maybeGet(spellId);
+          const spell = maybeGetSpell(spellId);
 
           debug &&
             console.warn(

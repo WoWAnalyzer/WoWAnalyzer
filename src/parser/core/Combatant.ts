@@ -1,6 +1,6 @@
 import { Enchant } from 'common/ITEMS/Item';
 import { T28_TIER_GEAR_IDS, TIER_BY_CLASSES } from 'common/ITEMS/shadowlands';
-import SPELLS from 'common/SPELLS';
+import { maybeGetSpell } from 'common/SPELLS';
 import { LegendarySpell } from 'common/SPELLS/Spell';
 import { getClassBySpecId } from 'game/CLASSES';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
@@ -48,6 +48,7 @@ class Combatant extends Entity {
   get specId() {
     return this._combatantInfo.specID;
   }
+
   get player() {
     return this._combatantInfo.player;
   }
@@ -272,7 +273,23 @@ class Combatant extends Entity {
   _gearItemsBySlotId: { [key: number]: Item } = {};
 
   _parseGear(gear: Item[]) {
+    const equipedSets: number[][] = [];
+
+    gear
+      .filter((item) => item.setID !== undefined)
+      .forEach((item) => {
+        if (equipedSets[item.setID || 0] === undefined) {
+          equipedSets[item.setID || 0] = [];
+        }
+
+        equipedSets[item.setID || 0].push(item.id);
+      });
+
     gear.forEach((item, index) => {
+      if (item.setID !== undefined && equipedSets[item.setID] !== undefined) {
+        item.setItemIDs = equipedSets[item.setID];
+      }
+
       this._gearItemsBySlotId[index] = item;
     });
   }
@@ -500,6 +517,7 @@ class Combatant extends Entity {
     }
     return this.tierPieces.filter((gear) => gear?.setID === setId).length >= 4;
   }
+
   // endregion
 
   _parsePrepullBuffs(buffs: Buff[]) {
@@ -509,7 +527,7 @@ class Combatant extends Entity {
     // combatantinfo too (or better yet, make a new normalizer for that).
     const timestamp = this.owner.fight.start_time;
     buffs.forEach((buff) => {
-      const spell = SPELLS.maybeGet(buff.ability);
+      const spell = maybeGetSpell(buff.ability);
 
       this.applyBuff({
         type: EventType.ApplyBuff,
@@ -517,7 +535,7 @@ class Combatant extends Entity {
         ability: {
           abilityIcon: buff.icon.replace('.jpg', ''),
           guid: buff.ability,
-          name: spell ? spell.name : undefined,
+          name: spell?.name || '',
           type: 0,
         },
         sourceID: buff.source,

@@ -1,5 +1,3 @@
-import { ItemList } from 'common/ITEMS/Item';
-
 /**
  * NAME: {
  *   id: number,
@@ -7,5 +5,7 @@ import { ItemList } from 'common/ITEMS/Item';
  *   icon: string,
  * },
  */
-const items: ItemList = {};
+import { itemIndexableList } from 'common/ITEMS/Item';
+
+const items = itemIndexableList({});
 export default items;

@@ -127,18 +127,44 @@ class StatTracker extends Analyzer {
     // region Trinkets
     [SPELLS.BLOOD_WALTZ_HASTE_BUFF.id]: {
       itemId: ITEMS.MACABRE_SHEET_MUSIC.id,
-      haste: (_, item) => calculateSecondaryStatDefault(213, 95, item.itemLevel),
+      haste: (_, item) => calculateSecondaryStatDefault(278, 123, item.itemLevel),
     },
     [SPELLS.OLD_WARRIORS_SOUL_HASTE.id]: {
       itemId: ITEMS.OLD_WARRIORS_SOUL.id,
-      haste: (_, item) => calculateSecondaryStatDefault(246, 43, item.itemLevel),
+      haste: (_, item) => calculateSecondaryStatDefault(246, 38, item.itemLevel),
     },
     [SPELLS.THE_FIRST_SIGIL.id]: {
       itemId: ITEMS.THE_FIRST_SIGIL.id,
       versatility: (_, item) => calculateSecondaryStatDefault(226, 1037, item.itemLevel),
     },
+    [SPELLS.CACHE_OF_ACQUIRED_TREASURES_ACQUIRED_SWORD_BUFF.id]: {
+      itemId: ITEMS.CACHE_OF_ACQUIRED_TREASURES.id,
+      haste: (_, item) => calculateSecondaryStatDefault(226, 75, item.itemLevel),
+    },
 
-    //endregion
+    [SPELLS.UNBOUND_CHANGELING_ALL_BUFF.id]: {
+      itemId: ITEMS.UNBOUND_CHANGELING.id,
+      //bonusId: 6915,
+      crit: (_, item) => calculateSecondaryStatDefault(158, 75, item.itemLevel),
+      haste: (_, item) => calculateSecondaryStatDefault(158, 75, item.itemLevel),
+      mastery: (_, item) => calculateSecondaryStatDefault(158, 75, item.itemLevel),
+    },
+    [SPELLS.UNBOUND_CHANGELING_CRIT_BUFF.id]: {
+      itemId: ITEMS.UNBOUND_CHANGELING.id,
+      //bonusId: 6916,
+      crit: (_, item) => calculateSecondaryStatDefault(158, 180, item.itemLevel),
+    },
+    [SPELLS.UNBOUND_CHANGELING_HASTE_BUFF.id]: {
+      itemId: ITEMS.UNBOUND_CHANGELING.id,
+      //bonusId: 6917,
+      haste: (_, item) => calculateSecondaryStatDefault(158, 180, item.itemLevel),
+    },
+    [SPELLS.UNBOUND_CHANGELING_MASTERY_BUFF.id]: {
+      itemId: ITEMS.UNBOUND_CHANGELING.id,
+      //bonusId: 6918,
+      mastery: (_, item) => calculateSecondaryStatDefault(158, 180, item.itemLevel),
+    },
+    // endregion
 
     // region Racials
     // Mag'har Orc
@@ -146,7 +172,6 @@ class StatTracker extends Analyzer {
     [SPELLS.ZEAL_OF_THE_BURNING_BLADE.id]: { haste: 125 },
     [SPELLS.FEROCITY_OF_THE_FROSTWOLF.id]: { mastery: 125 },
     [SPELLS.MIGHT_OF_THE_BLACKROCK.id]: { versatility: 125 },
-
     // endregion
   };
 

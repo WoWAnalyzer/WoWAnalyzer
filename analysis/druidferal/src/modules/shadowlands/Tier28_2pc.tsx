@@ -3,7 +3,13 @@ import Spell from 'common/SPELLS/Spell';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventFilter from 'parser/core/EventFilter';
-import Events, { CastEvent, DamageEvent, Event, EventType } from 'parser/core/Events';
+import Events, {
+  CastEvent,
+  DamageEvent,
+  EventType,
+  UpdateSpellUsableEvent,
+  UpdateSpellUsableType,
+} from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -59,7 +65,7 @@ class Tier28_2pc extends Analyzer {
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.cdSpell), this.onCdUse);
     this.addEventListener(
-      new EventFilter(EventType.EndCooldown).by(SELECTED_PLAYER).spell(this.cdSpell),
+      new EventFilter(EventType.UpdateSpellUsable).by(SELECTED_PLAYER).spell(this.cdSpell),
       this.onCdAvailable,
     );
   }
@@ -92,8 +98,10 @@ class Tier28_2pc extends Analyzer {
     this.currCastCdReduced = 0;
   }
 
-  onCdAvailable(event: Event<EventType.EndCooldown>) {
-    this.timestampAvailable = event.timestamp;
+  onCdAvailable(event: UpdateSpellUsableEvent) {
+    if (event.updateType === UpdateSpellUsableType.EndCooldown) {
+      this.timestampAvailable = event.timestamp;
+    }
   }
 
   statistic() {

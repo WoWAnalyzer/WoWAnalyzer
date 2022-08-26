@@ -1,14 +1,19 @@
-import { Panel } from 'interface';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 
-import { SpiritWolf, StaticCharge, AstralShift } from '@wowanalyzer/shaman';
+import {
+  AstralShift,
+  ChainHarvest,
+  ElementalConduit,
+  SpiritWolf,
+  StaticCharge,
+  TumblingWaves,
+} from '@wowanalyzer/shaman';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
-import Feeding from './Feeding';
 import Abilities from './modules/Abilities';
 import HealingDone from './modules/core/HealingDone';
 import HealingEfficiencyDetails from './modules/core/HealingEfficiencyDetails';
@@ -21,7 +26,6 @@ import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import SpellUsable from './modules/features/SpellUsable';
-import StatValues from './modules/features/StatValues';
 import TidalWaves from './modules/features/TidalWaves';
 // Talents
 import EmbraceOfEarth from './modules/shadowlands/conduits/EmbraceOfEarth';
@@ -31,7 +35,6 @@ import SwirlingCurrents from './modules/shadowlands/conduits/SwirlingCurrents';
 import EarthenHarmony from './modules/shadowlands/legendaries/EarthenHarmony';
 import JonatsNaturalFocus from './modules/shadowlands/legendaries/JonatsNaturalFocus';
 import PrimalTideCore from './modules/shadowlands/legendaries/PrimalTideCore';
-import ChainHarvest from './modules/shadowlands/spells/ChainHarvest';
 import PrimordialWave from './modules/shadowlands/spells/PrimordialWave';
 import ChainHeal from './modules/spells/ChainHeal';
 import EarthShield from './modules/spells/EarthShield'; // technically shared
@@ -68,7 +71,9 @@ import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
 import RiptideNormalizer from './normalizers/RiptideNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
-  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
+  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES.map(
+    (spell) => spell.id,
+  );
 
   static specModules = {
     lowHealthHealing: LowHealthHealing,
@@ -92,7 +97,6 @@ class CombatLogParser extends CoreCombatLogParser {
     castBehavior: CastBehavior,
     checklist: Checklist,
     spellUsable: SpellUsable,
-    statValues: StatValues,
 
     // Talents
     torrent: Torrent,
@@ -138,35 +142,18 @@ class CombatLogParser extends CoreCombatLogParser {
     heavyRainfall: HeavyRainfall,
     swirlingCurrents: SwirlingCurrents,
     naturesFocus: NaturesFocus,
+    tumblingWaves: TumblingWaves,
 
     // Legendaries
     primalTideCore: PrimalTideCore,
     jonatsNaturalFocus: JonatsNaturalFocus,
     earthenHarmony: EarthenHarmony,
+    elementalConduit: ElementalConduit,
 
     // Covenants
     chainHarvest: ChainHarvest,
     primordialWave: PrimordialWave,
   };
-
-  generateResults(options: any) {
-    const results = super.generateResults(options);
-
-    results.tabs = [
-      ...results.tabs,
-      {
-        title: 'Feeding',
-        url: 'feeding',
-        render: () => (
-          <Panel style={{ padding: 0 }}>
-            <Feeding cooldownThroughputTracker={this.getModule(CooldownThroughputTracker)} />
-          </Panel>
-        ),
-      },
-    ];
-
-    return results;
-  }
 }
 
 export default CombatLogParser;

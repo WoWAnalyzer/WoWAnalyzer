@@ -2,6 +2,8 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
+import Haste from 'parser/shared/modules/Haste';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -10,6 +12,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const HOT_HAND = {
   INCREASE: 1.0,
+  MOD_RATE: 4.0,
 };
 
 /**
@@ -21,6 +24,13 @@ const HOT_HAND = {
  *
  */
 class HotHand extends Analyzer {
+  static dependencies = {
+    spellUsable: SpellUsable,
+    haste: Haste,
+  };
+  protected spellUsable!: SpellUsable;
+  protected haste!: Haste;
+
   protected buffedLavaLashDamage: number = 0;
 
   constructor(options: Options) {
@@ -29,9 +39,35 @@ class HotHand extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.HOT_HAND_TALENT.id);
 
     this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
+      this.applyHotHand,
+    );
+
+    // Very unlikely to happen but it does.
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
+      this.applyHotHand,
+    );
+
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
+      this.removeHotHand,
+    );
+
+    this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LAVA_LASH),
       this.onLavaLashDamage,
     );
+  }
+
+  applyHotHand() {
+    // on application both resets the CD and applies a mod rate
+    this.spellUsable.endCooldown(SPELLS.LAVA_LASH.id);
+    this.spellUsable.applyCooldownRateChange(SPELLS.LAVA_LASH.id, HOT_HAND.MOD_RATE);
+  }
+
+  removeHotHand() {
+    this.spellUsable.removeCooldownRateChange(SPELLS.LAVA_LASH.id, HOT_HAND.MOD_RATE);
   }
 
   onLavaLashDamage(event: DamageEvent) {
