@@ -1354,7 +1354,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "56.34985558843786%",
+                      "width": "56.349838345884365%",
                     }
                   }
                 />
@@ -1626,7 +1626,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target CastEfficiency matc
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "94.35744154280184%",
+                      "width": "94.35742167432828%",
                     }
                   }
                 />
@@ -6226,7 +6226,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "81.70160782533922%",
+                  "width": "81.70160577470696%",
                 }
               }
             />
@@ -6362,7 +6362,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "26.80643130135687%",
+                        "width": "26.806423098827846%",
                       }
                     }
                   />
@@ -7133,7 +7133,7 @@ exports[`Beast Mastery Hunter integration test: Multi Target matches the checkli
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "30.184175713685025%",
+                        "width": "30.18496362406972%",
                       }
                     }
                   />
@@ -10938,7 +10938,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "88.47250067022232%",
+                      "width": "88.47235865382673%",
                     }
                   }
                 />
@@ -11205,7 +11205,7 @@ exports[`Beast Mastery Hunter integration test: Single Target CastEfficiency mat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "101.06920718763853%",
+                      "width": "101.06888122189727%",
                     }
                   }
                 />
@@ -16645,7 +16645,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "76.3012713202996%",
+                  "width": "76.30264288519741%",
                 }
               }
             />
@@ -16780,7 +16780,7 @@ exports[`Beast Mastery Hunter integration test: Single Target matches the checkl
                       Object {
                         "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "64.85635660149799%",
+                        "width": "64.86321442598711%",
                       }
                     }
                   />

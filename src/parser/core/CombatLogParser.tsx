@@ -50,6 +50,7 @@ import AbilityTracker from '../shared/modules/AbilityTracker';
 import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
 import CastEfficiency from '../shared/modules/CastEfficiency';
 import Combatants from '../shared/modules/Combatants';
+import CooldownHistory from '../shared/modules/CooldownHistory';
 import DeathTracker from '../shared/modules/DeathTracker';
 import DispelTracker from '../shared/modules/DispelTracker';
 import DistanceMoved from '../shared/modules/DistanceMoved';
@@ -185,6 +186,7 @@ class CombatLogParser {
     CastEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
     spellHistory: SpellHistory,
+    cooldownHistory: CooldownHistory,
     globalCooldown: GlobalCooldown,
     manaValues: ManaValues,
     vantusRune: VantusRune,

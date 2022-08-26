@@ -11,6 +11,7 @@ import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import AbilityTracker from '../shared/modules/AbilityTracker';
 import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
 import CastEfficiency from '../shared/modules/CastEfficiency';
+import CooldownHistory from '../shared/modules/CooldownHistory';
 import DeathRecapTracker from '../shared/modules/DeathRecapTracker';
 import DeathTracker from '../shared/modules/DeathTracker';
 import DispelTracker from '../shared/modules/DispelTracker';
@@ -85,6 +86,7 @@ class CombatLogParser extends BaseCombatLogParser {
     castEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
     spellHistory: SpellHistory,
+    cooldownHistory: CooldownHistory,
     globalCooldown: GlobalCooldown,
     manaValues: ManaValues,
     vantusRune: VantusRune,

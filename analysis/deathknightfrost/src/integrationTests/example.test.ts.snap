@@ -5659,7 +5659,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "31.557386660229575%",
+                  "width": "31.557498645310673%",
                 }
               }
             />
@@ -5774,7 +5774,7 @@ exports[`Frost Death Knight integration test: example log matches the checklist 
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "31.557386660229575%",
+                        "width": "31.557498645310673%",
                       }
                     }
                   />

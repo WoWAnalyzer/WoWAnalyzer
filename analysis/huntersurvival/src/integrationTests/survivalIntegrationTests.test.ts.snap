@@ -499,7 +499,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "81.80329698108658%",
+                      "width": "81.80329122923857%",
                     }
                   }
                 />
@@ -863,7 +863,7 @@ exports[`Survival Hunter integration test: Multi Target CastEfficiency matches t
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "97.54807773672574%",
+                      "width": "97.54800271794156%",
                     }
                   }
                 />
@@ -7355,7 +7355,7 @@ exports[`Survival Hunter integration test: Single Target CastEfficiency matches 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "70.31631272815461%",
+                      "width": "70.31646309410148%",
                     }
                   }
                 />

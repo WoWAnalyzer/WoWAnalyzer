@@ -276,7 +276,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "54.156058200060805%",
+                      "width": "54.156028897461226%",
                     }
                   }
                 />
@@ -373,7 +373,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "54.10953484132364%",
+                      "width": "54.1094401272184%",
                     }
                   }
                 />
@@ -657,7 +657,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "86.48968519097%",
+                      "width": "86.48987781318525%",
                     }
                   }
                 />

@@ -840,7 +840,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "95.07362152841046%",
+                      "width": "95.0735888633444%",
                     }
                   }
                 />
