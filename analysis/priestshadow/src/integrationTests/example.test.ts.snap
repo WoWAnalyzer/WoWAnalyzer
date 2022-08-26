@@ -376,7 +376,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "85.11141433785276%",
+                      "width": "85.11139774859288%",
                     }
                   }
                 />
@@ -558,7 +558,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "88.89082237961019%",
+                      "width": "88.89036059360487%",
                     }
                   }
                 />
@@ -2362,7 +2362,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "8.629561778695866%",
+                      "width": "8.629624192601291%",
                     }
                   }
                 />
