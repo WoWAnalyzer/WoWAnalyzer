@@ -28,23 +28,7 @@ import RACIALS from './racials';
 import ROGUE from './rogue';
 import SHADOWLANDS from './shadowlands';
 import SHAMAN from './shaman';
-<<<<<<< HEAD
 import Spell, { Enchant } from './Spell';
-import TALENTS_DEATH_KNIGHT from './talents/deathknight';
-import TALENTS_DEMON_HUNTER from './talents/demonhunter';
-import TALENTS_DRUID from './talents/druid';
-import TALENTS_HUNTER from './talents/hunter';
-import TALENTS_MAGE from './talents/mage';
-import TALENTS_MONK from './talents/monk';
-import TALENTS_PALADIN from './talents/paladin';
-import TALENTS_PRIEST from './talents/priest';
-import TALENTS_ROGUE from './talents/rogue';
-import TALENTS_SHAMAN from './talents/shaman';
-import TALENTS_WARLOCK from './talents/warlock';
-import TALENTS_WARRIOR from './talents/warrior';
-=======
-import Spell from './Spell';
->>>>>>> aa095153ca (Remove common/SPELLS/talents folder since the new one exists in common/TALENTS)
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
 
