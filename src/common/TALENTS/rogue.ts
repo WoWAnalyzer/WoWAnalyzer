@@ -402,19 +402,19 @@ const talents = createTalentList({
     icon: 'ability_rogue_garrote',
     maxRanks: 1,
   },
-  SERRATED_BONE_SPIKE_ASSASSINATION_TALENT: {
-    id: 385424,
-    name: 'Serrated Bone Spike',
-    icon: 'ability_maldraxxus_rogue',
-    maxRanks: 1,
-    energyCost: 15,
-  },
   SEPSIS_ASSASSINATION_TALENT: {
     id: 385408,
     name: 'Sepsis',
     icon: 'ability_ardenweald_rogue',
     maxRanks: 1,
     energyCost: 25,
+  },
+  SERRATED_BONE_SPIKE_ASSASSINATION_TALENT: {
+    id: 385424,
+    name: 'Serrated Bone Spike',
+    icon: 'ability_maldraxxus_rogue',
+    maxRanks: 1,
+    energyCost: 15,
   },
   ZOLDYCK_RECIPE_ASSASSINATION_TALENT: {
     id: 381798,
@@ -650,19 +650,19 @@ const talents = createTalentList({
     icon: 'inv_weapon_shortblade_15',
     maxRanks: 2,
   },
-  GHOSTLY_STRIKE_OUTLAW_TALENT: {
-    id: 196937,
-    name: 'Ghostly Strike',
-    icon: 'ability_creature_cursed_02',
-    maxRanks: 1,
-    energyCost: 30,
-  },
   SEPSIS_OUTLAW_TALENT: {
     id: 385408,
     name: 'Sepsis',
     icon: 'ability_ardenweald_rogue',
     maxRanks: 1,
     energyCost: 25,
+  },
+  GHOSTLY_STRIKE_OUTLAW_TALENT: {
+    id: 196937,
+    name: 'Ghostly Strike',
+    icon: 'ability_creature_cursed_02',
+    maxRanks: 1,
+    energyCost: 30,
   },
   BLADE_RUSH_OUTLAW_TALENT: {
     id: 271877,
@@ -676,18 +676,18 @@ const talents = createTalentList({
     icon: 'ability_rogue_restlessblades',
     maxRanks: 1,
   },
+  KILLING_SPREE_OUTLAW_TALENT: {
+    id: 51690,
+    name: 'Killing Spree',
+    icon: 'ability_rogue_murderspree',
+    maxRanks: 1,
+  },
   DREADBLADES_OUTLAW_TALENT: {
     id: 343142,
     name: 'Dreadblades',
     icon: 'inv_sword_1h_artifactskywall_d_01dual',
     maxRanks: 1,
     energyCost: 30,
-  },
-  KILLING_SPREE_OUTLAW_TALENT: {
-    id: 51690,
-    name: 'Killing Spree',
-    icon: 'ability_rogue_murderspree',
-    maxRanks: 1,
   },
   PRECISE_CUTS_NYI_OUTLAW_TALENT: {
     id: 381985,

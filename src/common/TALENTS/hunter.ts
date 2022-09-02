@@ -83,22 +83,22 @@ const talents = createTalentList({
     icon: 'ability_druid_galewinds',
     maxRanks: 2,
   },
-  HUNTERS_AGILITY_TALENT: {
+  HUNTERS_AGILITY_NYI_TALENT: {
     id: 384799,
-    name: "Hunter's Agility",
+    name: "Hunter's Agility (NYI)",
     icon: 'rogue_burstofspeed',
     maxRanks: 2,
-  },
-  NATURES_ENDURANCE_TALENT: {
-    id: 388042,
-    name: "Nature's Endurance",
-    icon: 'spell_nature_protectionformnature',
-    maxRanks: 1,
   },
   LONE_SURVIVOR_TALENT: {
     id: 388039,
     name: 'Lone Survivor',
     icon: 'ability_hunter_huntervswild',
+    maxRanks: 1,
+  },
+  NATURES_ENDURANCE_TALENT: {
+    id: 388042,
+    name: "Nature's Endurance",
+    icon: 'spell_nature_protectionformnature',
     maxRanks: 1,
   },
   CAMOUFLAGE_TALENT: {
@@ -120,23 +120,23 @@ const talents = createTalentList({
     icon: 'hunter_pvp_vipersting',
     maxRanks: 1,
   },
+  INTIMIDATION_TALENT: { id: 19577, name: 'Intimidation', icon: 'ability_devour', maxRanks: 1 },
   HI_EXPLOSIVE_TRAP_TALENT: {
     id: 236776,
     name: 'Hi-Explosive Trap',
     icon: 'spell_fire_selfdestruct',
     maxRanks: 1,
   },
-  INTIMIDATION_TALENT: { id: 19577, name: 'Intimidation', icon: 'ability_devour', maxRanks: 1 },
-  BINDING_SHOT_TALENT: {
-    id: 109248,
-    name: 'Binding Shot',
-    icon: 'spell_shaman_bindelemental',
-    maxRanks: 1,
-  },
   SCATTER_SHOT_TALENT: {
     id: 213691,
     name: 'Scatter Shot',
     icon: 'ability_golemstormbolt',
+    maxRanks: 1,
+  },
+  BINDING_SHOT_TALENT: {
+    id: 109248,
+    name: 'Binding Shot',
+    icon: 'spell_shaman_bindelemental',
     maxRanks: 1,
   },
   IMPROVED_TRAPS_TALENT: {
@@ -187,16 +187,16 @@ const talents = createTalentList({
     icon: 'ability_hunter_mastermarksman',
     maxRanks: 2,
   },
-  SENTINELS_WISDOM_NYI_TALENT: {
-    id: 388057,
-    name: "Sentinel's Wisdom (NYI)",
-    icon: 'ability_hunter_pet_owl',
-    maxRanks: 1,
-  },
   SENTINELS_PERCEPTION_NYI_TALENT: {
     id: 388056,
     name: "Sentinel's Perception (NYI)",
     icon: 'spell_nature_sentinal',
+    maxRanks: 1,
+  },
+  SENTINELS_WISDOM_NYI_TALENT: {
+    id: 388057,
+    name: "Sentinel's Wisdom (NYI)",
+    icon: 'ability_hunter_pet_owl',
     maxRanks: 1,
   },
   IMPROVED_KILL_COMMAND_TALENT: {
@@ -211,19 +211,11 @@ const talents = createTalentList({
     icon: 'ability_hunter_blackicetrap',
     maxRanks: 2,
   },
-  BARRAGE_TALENT: {
-    id: 120360,
-    name: 'Barrage',
-    icon: 'ability_hunter_rapidregeneration',
-    maxRanks: 1,
-    focusCost: 60,
-  },
-  EXPLOSIVE_SHOT_TALENT: {
-    id: 212431,
-    name: 'Explosive Shot',
-    icon: 'ability_hunter_explosiveshot',
-    maxRanks: 1,
-    focusCost: 20,
+  ARCTIC_BOLA_TALENT: {
+    id: 390231,
+    name: 'Arctic Bola',
+    icon: 'inv_engineering_90_bola',
+    maxRanks: 2,
   },
   SERPENT_STING_TALENT: {
     id: 271788,
@@ -232,16 +224,16 @@ const talents = createTalentList({
     maxRanks: 1,
     focusCost: 10,
   },
-  ALPHA_PREDATOR_TALENT: {
-    id: 269737,
-    name: 'Alpha Predator',
-    icon: 'spell_druid_savagery',
-    maxRanks: 1,
-  },
   KILLER_INSTINCT_TALENT: {
     id: 273887,
     name: 'Killer Instinct',
     icon: 'ability_hunter_killcommand',
+    maxRanks: 1,
+  },
+  ALPHA_PREDATOR_TALENT: {
+    id: 269737,
+    name: 'Alpha Predator',
+    icon: 'spell_druid_savagery',
     maxRanks: 1,
   },
   STEEL_TRAP_TALENT: {
@@ -250,25 +242,45 @@ const talents = createTalentList({
     icon: 'ability_hunter_steeltrap',
     maxRanks: 1,
   },
-  DEATH_CHAKRAM_TALENT: {
-    id: 375891,
-    name: 'Death Chakram',
-    icon: 'ability_maldraxxus_hunter',
-    maxRanks: 1,
-  },
   STAMPEDE_TALENT: {
     id: 201430,
     name: 'Stampede',
     icon: 'ability_hunter_bestialdiscipline',
     maxRanks: 1,
   },
-  HYDRAS_BITE_TALENT: { id: 260241, name: "Hydra's Bite", icon: 'inv_hydrasbite', maxRanks: 1 },
+  DEATH_CHAKRAM_TALENT: {
+    id: 375891,
+    name: 'Death Chakram',
+    icon: 'ability_maldraxxus_hunter',
+    maxRanks: 1,
+  },
+  EXPLOSIVE_SHOT_TALENT: {
+    id: 212431,
+    name: 'Explosive Shot',
+    icon: 'ability_hunter_explosiveshot',
+    maxRanks: 1,
+    focusCost: 20,
+  },
+  BARRAGE_TALENT: {
+    id: 120360,
+    name: 'Barrage',
+    icon: 'ability_hunter_rapidregeneration',
+    maxRanks: 1,
+    focusCost: 60,
+  },
+  SERRATED_SHOTS_TALENT: {
+    id: 389882,
+    name: 'Serrated Shots',
+    icon: 'ability_skeer_bloodletting',
+    maxRanks: 2,
+  },
   LATENT_POISON_INJECTORS_TALENT: {
     id: 378014,
     name: 'Latent Poison Injectors',
     icon: 'ability_poisonarrow',
     maxRanks: 1,
   },
+  HYDRAS_BITE_TALENT: { id: 260241, name: "Hydra's Bite", icon: 'inv_hydrasbite', maxRanks: 1 },
   MUZZLE_TALENT: { id: 187707, name: 'Muzzle', icon: 'ability_hunter_negate', maxRanks: 1 },
 
   //Marksmanship
@@ -283,7 +295,7 @@ const talents = createTalentList({
     id: 321293,
     name: 'Crack Shot',
     icon: 'ability_hunter_focusfire',
-    maxRanks: 2,
+    maxRanks: 1,
   },
   IMPROVED_STEADY_SHOT_MARKSMANSHIP_TALENT: {
     id: 321018,
@@ -340,16 +352,16 @@ const talents = createTalentList({
     icon: 'ability_hunter_zenarchery',
     maxRanks: 2,
   },
-  SURGING_SHOTS_MARKSMANSHIP_TALENT: {
-    id: 336867,
-    name: 'Surging Shots',
-    icon: 'ability_hunter_resistanceisfutile',
-    maxRanks: 1,
-  },
   LETHAL_SHOTS_MARKSMANSHIP_TALENT: {
     id: 260393,
     name: 'Lethal Shots',
     icon: 'ability_hunter_longshots',
+    maxRanks: 1,
+  },
+  SURGING_SHOTS_MARKSMANSHIP_TALENT: {
+    id: 391559,
+    name: 'Surging Shots',
+    icon: 'ability_hunter_resistanceisfutile',
     maxRanks: 1,
   },
   DEATHBLOW_MARKSMANSHIP_TALENT: {
@@ -438,16 +450,16 @@ const talents = createTalentList({
     icon: 'ability_hunter_wildquiver',
     maxRanks: 1,
   },
-  LIGHT_AMMO_NYI_MARKSMANSHIP_TALENT: {
-    id: 378913,
-    name: 'Light Ammo (NYI)',
-    icon: 'ships_ability_armorpiercingammo',
+  HEAVY_AMMO_MARKSMANSHIP_TALENT: {
+    id: 378910,
+    name: 'Heavy Ammo',
+    icon: 'inv_ammo_bullet_04',
     maxRanks: 1,
   },
-  HEAVY_AMMO_NYI_MARKSMANSHIP_TALENT: {
-    id: 378910,
-    name: 'Heavy Ammo (NYI)',
-    icon: 'inv_ammo_bullet_04',
+  LIGHT_AMMO_MARKSMANSHIP_TALENT: {
+    id: 378913,
+    name: 'Light Ammo',
+    icon: 'ships_ability_armorpiercingammo',
     maxRanks: 1,
   },
   TRUESHOT_MARKSMANSHIP_TALENT: {
@@ -480,10 +492,10 @@ const talents = createTalentList({
     icon: 'ability_hunter_aimedshot',
     maxRanks: 2,
   },
-  CALLING_THE_SHOTS_MARKSMANSHIP_TALENT: {
-    id: 260404,
-    name: 'Calling the Shots',
-    icon: 'ability_hunter_assassinate',
+  EAGLETALONS_TRUE_FOCUS_MARKSMANSHIP_TALENT: {
+    id: 389449,
+    name: "Eagletalon's True Focus",
+    icon: 'ability_hunter_aspectoftheironhawk',
     maxRanks: 2,
   },
   WAILING_ARROW_MARKSMANSHIP_TALENT: {
@@ -505,16 +517,28 @@ const talents = createTalentList({
     icon: 'spell_hunter_exoticmunitions_incendiary',
     maxRanks: 1,
   },
+  CALLING_THE_SHOTS_MARKSMANSHIP_TALENT: {
+    id: 260404,
+    name: 'Calling the Shots',
+    icon: 'ability_hunter_assassinate',
+    maxRanks: 1,
+  },
   UNERRING_VISION_MARKSMANSHIP_TALENT: {
     id: 386878,
     name: 'Unerring Vision',
     icon: 'spell_hunter_exoticmunitions_frozen',
     maxRanks: 1,
   },
-  EAGLETALONS_TRUE_FOCUS_MARKSMANSHIP_TALENT: {
-    id: 336849,
-    name: "Eagletalon's True Focus",
-    icon: 'ability_hunter_aspectoftheironhawk',
+  WINDRUNNERS_BARRAGE_MARKSMANSHIP_TALENT: {
+    id: 389866,
+    name: "Windrunner's Barrage",
+    icon: 'inv_ammo_arrow_06',
+    maxRanks: 1,
+  },
+  READINESS_MARKSMANSHIP_TALENT: {
+    id: 389865,
+    name: 'Readiness',
+    icon: 'ability_hunter_readiness',
     maxRanks: 1,
   },
   WINDRUNNERS_GUIDANCE_MARKSMANSHIP_TALENT: {
@@ -525,11 +549,12 @@ const talents = createTalentList({
   },
 
   //Beast Mastery
-  BARBED_SHOT_BEAST_MASTERY_TALENT: {
-    id: 217200,
-    name: 'Barbed Shot',
-    icon: 'ability_hunter_barbedshot',
+  COBRA_SHOT_BEAST_MASTERY_TALENT: {
+    id: 193455,
+    name: 'Cobra Shot',
+    icon: 'ability_hunter_cobrashot',
     maxRanks: 1,
+    focusCost: 35,
   },
   PACK_TACTICS_BEAST_MASTERY_TALENT: {
     id: 321014,
@@ -544,23 +569,16 @@ const talents = createTalentList({
     maxRanks: 1,
     focusCost: 40,
   },
-  COBRA_SHOT_BEAST_MASTERY_TALENT: {
-    id: 193455,
-    name: 'Cobra Shot',
-    icon: 'ability_hunter_cobrashot',
+  BARBED_SHOT_BEAST_MASTERY_TALENT: {
+    id: 217200,
+    name: 'Barbed Shot',
+    icon: 'ability_hunter_barbedshot',
     maxRanks: 1,
-    focusCost: 35,
   },
   ASPECT_OF_THE_BEAST_BEAST_MASTERY_TALENT: {
     id: 191384,
     name: 'Aspect of the Beast',
     icon: 'ability_deathwing_assualtaspects',
-    maxRanks: 2,
-  },
-  LOADED_QUIVER_BEAST_MASTERY_TALENT: {
-    id: 378023,
-    name: 'Loaded Quiver',
-    icon: 'ability_hunter_efficiency_brown',
     maxRanks: 1,
   },
   KINDRED_SPIRITS_BEAST_MASTERY_TALENT: {
@@ -593,16 +611,16 @@ const talents = createTalentList({
     icon: 'ability_physical_taunt',
     maxRanks: 2,
   },
-  FLAMEWAKERS_COBRA_STING_BEAST_MASTERY_TALENT: {
-    id: 378750,
-    name: "Flamewaker's Cobra Sting",
-    icon: 'ability_hunter_cobrashot',
-    maxRanks: 2,
-  },
   SHARP_BARBS_BEAST_MASTERY_TALENT: {
     id: 378205,
     name: 'Sharp Barbs',
     icon: 'ability_hunter_laceration',
+    maxRanks: 2,
+  },
+  FLAMEWAKERS_COBRA_STING_BEAST_MASTERY_TALENT: {
+    id: 378750,
+    name: "Flamewaker's Cobra Sting",
+    icon: 'ability_hunter_cobrashot',
     maxRanks: 2,
   },
   THRILL_OF_THE_HUNT_BEAST_MASTERY_TALENT: {
@@ -617,18 +635,18 @@ const talents = createTalentList({
     icon: 'spell_druid_bloodythrash',
     maxRanks: 1,
   },
-  BLOODSHED_BEAST_MASTERY_TALENT: {
-    id: 321530,
-    name: 'Bloodshed',
-    icon: 'ability_druid_primaltenacity',
-    maxRanks: 1,
-  },
   A_MURDER_OF_CROWS_BEAST_MASTERY_TALENT: {
     id: 131894,
     name: 'A Murder of Crows',
     icon: 'ability_hunter_murderofcrows',
     maxRanks: 1,
     focusCost: 30,
+  },
+  BLOODSHED_BEAST_MASTERY_TALENT: {
+    id: 321530,
+    name: 'Bloodshed',
+    icon: 'ability_druid_primaltenacity',
+    maxRanks: 1,
   },
   COBRA_SENSES_BEAST_MASTERY_TALENT: {
     id: 378244,
@@ -648,17 +666,17 @@ const talents = createTalentList({
     icon: 'ability_druid_ferociousbite',
     maxRanks: 1,
   },
-  WILD_CALL_BEAST_MASTERY_TALENT: {
-    id: 185789,
-    name: 'Wild Call',
-    icon: 'ability_hunter_masterscall',
+  QAPLA_EREDUN_WAR_ORDER_BEAST_MASTERY_TALENT: {
+    id: 336830,
+    name: "Qa'pla, Eredun War Order",
+    icon: 'ability_hunter_barbedshot',
     maxRanks: 2,
   },
   IN_FOR_THE_KILL_BEAST_MASTERY_TALENT: {
     id: 378210,
     name: 'In for the Kill',
     icon: 'ability_hunter_assassinate',
-    maxRanks: 2,
+    maxRanks: 1,
   },
   STOMP_BEAST_MASTERY_TALENT: {
     id: 199530,
@@ -666,17 +684,23 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_thunderstruck',
     maxRanks: 2,
   },
+  BARBED_WRATH_BEAST_MASTERY_TALENT: {
+    id: 231548,
+    name: 'Barbed Wrath',
+    icon: 'ability_druid_ferociousbite',
+    maxRanks: 1,
+  },
+  WILD_CALL_BEAST_MASTERY_TALENT: {
+    id: 185789,
+    name: 'Wild Call',
+    icon: 'ability_hunter_masterscall',
+    maxRanks: 1,
+  },
   ASPECT_OF_THE_WILD_BEAST_MASTERY_TALENT: {
     id: 193530,
     name: 'Aspect of the Wild',
     icon: 'spell_nature_protectionformnature',
     maxRanks: 1,
-  },
-  ONE_WITH_THE_PACK_BEAST_MASTERY_TALENT: {
-    id: 199528,
-    name: 'One with the Pack',
-    icon: 'icon_upgradestone_beast_uncommon',
-    maxRanks: 2,
   },
   DIRE_COMMAND_BEAST_MASTERY_TALENT: {
     id: 378743,
@@ -690,21 +714,27 @@ const talents = createTalentList({
     icon: 'spell_shadow_lifedrain',
     maxRanks: 2,
   },
-  BARBED_WRATH_BEAST_MASTERY_TALENT: {
-    id: 231548,
-    name: 'Barbed Wrath',
-    icon: 'ability_druid_ferociousbite',
+  ONE_WITH_THE_PACK_BEAST_MASTERY_TALENT: {
+    id: 199528,
+    name: 'One with the Pack',
+    icon: 'icon_upgradestone_beast_uncommon',
     maxRanks: 2,
   },
-  QAPLA_EREDUN_WAR_ORDER_BEAST_MASTERY_TALENT: {
-    id: 336830,
-    name: "Qa'pla, Eredun War Order",
-    icon: 'ability_hunter_barbedshot',
-    maxRanks: 2,
+  MASTER_HANDLER_BEAST_MASTERY_TALENT: {
+    id: 389654,
+    name: 'Master Handler',
+    icon: 'ability_hunter_beastwithin',
+    maxRanks: 1,
   },
-  PACK_RESILIENCE_BEAST_MASTERY_TALENT: {
+  SNAKE_BITE_BEAST_MASTERY_TALENT: {
+    id: 389660,
+    name: 'Snake Bite',
+    icon: 'inv_waepon_bow_zulgrub_d_01',
+    maxRanks: 1,
+  },
+  DIRE_FRENZY_BEAST_MASTERY_TALENT: {
     id: 385810,
-    name: 'Pack Resilience',
+    name: 'Dire Frenzy',
     icon: 'ability_hunter_huntervswild',
     maxRanks: 2,
   },
@@ -715,10 +745,10 @@ const talents = createTalentList({
     maxRanks: 1,
     focusCost: 15,
   },
-  BLOODY_FRENZY_BEAST_MASTERY_TALENT: {
-    id: 378739,
-    name: 'Bloody Frenzy',
-    icon: 'ability_racial_cannibalize',
+  BRUTAL_COMPANION_BEAST_MASTERY_TALENT: {
+    id: 386870,
+    name: 'Brutal Companion',
+    icon: 'ability_druid_rake',
     maxRanks: 1,
   },
   CALL_OF_THE_WILD_BEAST_MASTERY_TALENT: {
@@ -733,22 +763,28 @@ const talents = createTalentList({
     icon: 'ability_hunter_sickem',
     maxRanks: 1,
   },
-  RYLAKSTALKERS_PIERCING_FANGS_BEAST_MASTERY_TALENT: {
-    id: 336844,
-    name: "Rylakstalker's Piercing Fangs",
-    icon: 'inv_misc_monsterfang_02',
-    maxRanks: 1,
-  },
   KILLER_COBRA_BEAST_MASTERY_TALENT: {
     id: 199532,
     name: 'Killer Cobra',
     icon: 'ability_hunter_snaketrap',
     maxRanks: 1,
   },
+  RYLAKSTALKERS_PIERCING_FANGS_BEAST_MASTERY_TALENT: {
+    id: 336844,
+    name: "Rylakstalker's Piercing Fangs",
+    icon: 'inv_misc_monsterfang_02',
+    maxRanks: 1,
+  },
   WILD_INSTINCTS_BEAST_MASTERY_TALENT: {
     id: 378442,
     name: 'Wild Instincts',
     icon: 'ability_hunter_beastwithin',
+    maxRanks: 1,
+  },
+  BLOODY_FRENZY_BEAST_MASTERY_TALENT: {
+    id: 378739,
+    name: 'Bloody Frenzy',
+    icon: 'ability_racial_cannibalize',
     maxRanks: 1,
   },
 
@@ -826,19 +862,19 @@ const talents = createTalentList({
     icon: 'ability_bossmannoroth_glaivethrust',
     maxRanks: 1,
   },
-  BUTCHERY_SURVIVAL_TALENT: {
-    id: 212436,
-    name: 'Butchery',
-    icon: 'ability_butcher_cleave',
-    maxRanks: 1,
-    focusCost: 30,
-  },
   CARVE_SURVIVAL_TALENT: {
     id: 187708,
     name: 'Carve',
     icon: 'ability_hunter_carve',
     maxRanks: 1,
     focusCost: 35,
+  },
+  BUTCHERY_SURVIVAL_TALENT: {
+    id: 212436,
+    name: 'Butchery',
+    icon: 'ability_butcher_cleave',
+    maxRanks: 1,
+    focusCost: 30,
   },
   MONGOOSE_BITE_SURVIVAL_TALENT: {
     id: 259387,
@@ -919,9 +955,9 @@ const talents = createTalentList({
     icon: 'ability_hunter_fervor',
     maxRanks: 1,
   },
-  COORDINATED_ASSAULT_NYI_SURVIVAL_TALENT: {
+  COORDINATED_ASSAULT_SURVIVAL_TALENT: {
     id: 360952,
-    name: 'Coordinated Assault (NYI)',
+    name: 'Coordinated Assault',
     icon: 'inv__coordinatedassault',
     maxRanks: 1,
   },
@@ -943,9 +979,9 @@ const talents = createTalentList({
     icon: 'ability_hunter_thrillofthehunt',
     maxRanks: 2,
   },
-  DEADLY_DUO_NYI_SURVIVAL_TALENT: {
+  COORDINATED_KILL_SURVIVAL_TALENT: {
     id: 385739,
-    name: 'Deadly Duo (NYI)',
+    name: 'Coordinated Kill',
     icon: 'ability_hunter_pet_goto',
     maxRanks: 2,
   },
@@ -955,9 +991,9 @@ const talents = createTalentList({
     icon: 'inv_misc_bomb_05',
     maxRanks: 2,
   },
-  SPEARHEAD_NYI_SURVIVAL_TALENT: {
+  SPEARHEAD_SURVIVAL_TALENT: {
     id: 360966,
-    name: 'Spearhead (NYI)',
+    name: 'Spearhead',
     icon: 'ability_hunter_spearhead',
     maxRanks: 1,
   },
@@ -973,9 +1009,15 @@ const talents = createTalentList({
     icon: 'spell_hunter_aspectofthehawk',
     maxRanks: 1,
   },
-  COORDINATED_KILL_NYI_SURVIVAL_TALENT: {
+  BOMBARDIER_SURVIVAL_TALENT: {
+    id: 389880,
+    name: 'Bombardier',
+    icon: 'inv_eng_bombfire',
+    maxRanks: 1,
+  },
+  DEADLY_DUO_SURVIVAL_TALENT: {
     id: 378962,
-    name: 'Coordinated Kill (NYI)',
+    name: 'Deadly Duo',
     icon: 'ability_hunter_separationanxiety',
     maxRanks: 2,
   },
