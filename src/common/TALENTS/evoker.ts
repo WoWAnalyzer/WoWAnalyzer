@@ -74,16 +74,16 @@ const talents = createTalentList({
   },
   QUELL_TALENT: { id: 351338, name: 'Quell', icon: 'ability_evoker_quell', maxRanks: 1 },
   RECALL_TALENT: { id: 371806, name: 'Recall', icon: 'ability_evoker_recall', maxRanks: 1 },
-  CLOBBERING_SWEEP_TALENT: {
-    id: 375443,
-    name: 'Clobbering Sweep',
-    icon: 'ability_racial_tailswipe',
-    maxRanks: 1,
-  },
   HEAVY_WINGBEATS_TALENT: {
     id: 368838,
     name: 'Heavy Wingbeats',
     icon: 'ability_racial_wingbuffet',
+    maxRanks: 1,
+  },
+  CLOBBERING_SWEEP_TALENT: {
+    id: 375443,
+    name: 'Clobbering Sweep',
+    icon: 'ability_racial_tailswipe',
     maxRanks: 1,
   },
   TAILWIND_TALENT: { id: 375556, name: 'Tailwind', icon: 'ability_skyreach_wind', maxRanks: 1 },
@@ -252,13 +252,13 @@ const talents = createTalentList({
     icon: 'ability_skyreach_shielded',
     maxRanks: 1,
   },
+  PYREXIA_TALENT: { id: 375574, name: 'Pyrexia', icon: 'spell_fire_incinerate', maxRanks: 1 },
   FIRE_WITHIN_TALENT: {
     id: 375577,
     name: 'Fire Within',
     icon: 'item_sparkofragnoros',
     maxRanks: 1,
   },
-  PYREXIA_TALENT: { id: 375574, name: 'Pyrexia', icon: 'spell_fire_incinerate', maxRanks: 1 },
   TERROR_OF_THE_SKIES_TALENT: {
     id: 371032,
     name: 'Terror of the Skies',
@@ -299,16 +299,16 @@ const talents = createTalentList({
     icon: 'ability_evoker_pyre',
     maxRanks: 1,
   },
-  INNER_RADIANCE_DEVASTATION_TALENT: {
-    id: 386405,
-    name: 'Inner Radiance',
-    icon: 'spell_holy_spellwarding',
-    maxRanks: 1,
-  },
   IMPOSING_PRESENCE_DEVASTATION_TALENT: {
     id: 371016,
     name: 'Imposing Presence',
     icon: 'ability_evoker_quell',
+    maxRanks: 1,
+  },
+  INNER_RADIANCE_DEVASTATION_TALENT: {
+    id: 386405,
+    name: 'Inner Radiance',
+    icon: 'spell_holy_spellwarding',
     maxRanks: 1,
   },
   ETERNITY_SURGE_DEVASTATION_TALENT: {
@@ -347,16 +347,16 @@ const talents = createTalentList({
     icon: 'ability_evoker_disintegrate',
     maxRanks: 2,
   },
-  ENGULFING_BLAZE_DEVASTATION_TALENT: {
-    id: 370837,
-    name: 'Engulfing Blaze',
-    icon: 'inv_inscription_pigment_ruby',
-    maxRanks: 1,
-  },
   RUBY_EMBERS_DEVASTATION_TALENT: {
     id: 365937,
     name: 'Ruby Embers',
     icon: 'inv_tradeskillitem_lessersorcerersfire',
+    maxRanks: 1,
+  },
+  ENGULFING_BLAZE_DEVASTATION_TALENT: {
+    id: 370837,
+    name: 'Engulfing Blaze',
+    icon: 'inv_inscription_pigment_ruby',
     maxRanks: 1,
   },
   ANIMOSITY_DEVASTATION_TALENT: {
@@ -401,16 +401,16 @@ const talents = createTalentList({
     icon: 'spell_arcane_arcanetorrent',
     maxRanks: 1,
   },
-  CAUSALITY_DEVASTATION_TALENT: {
-    id: 375777,
-    name: 'Causality',
-    icon: 'spell_azerite_essence_16',
-    maxRanks: 1,
-  },
   CONTINUUM_DEVASTATION_TALENT: {
     id: 369375,
     name: 'Continuum',
     icon: 'ability_socererking_arcanewrath',
+    maxRanks: 1,
+  },
+  CAUSALITY_DEVASTATION_TALENT: {
+    id: 375777,
+    name: 'Causality',
+    icon: 'spell_azerite_essence_16',
     maxRanks: 1,
   },
   CATALYZE_DEVASTATION_TALENT: {
@@ -461,16 +461,16 @@ const talents = createTalentList({
     icon: 'spell_shaman_shockinglava',
     maxRanks: 1,
   },
-  ARCANE_VIGOR_DEVASTATION_TALENT: {
-    id: 386342,
-    name: 'Arcane Vigor',
-    icon: 'spell_arcane_arcane01',
-    maxRanks: 1,
-  },
   FOCUSING_IRIS_DEVASTATION_TALENT: {
     id: 386336,
     name: 'Focusing Iris',
     icon: 'spell_mage_temporalshield',
+    maxRanks: 1,
+  },
+  ARCANE_VIGOR_DEVASTATION_TALENT: {
+    id: 386342,
+    name: 'Arcane Vigor',
+    icon: 'spell_arcane_arcane01',
     maxRanks: 1,
   },
   BURNOUT_DEVASTATION_TALENT: {
@@ -497,16 +497,16 @@ const talents = createTalentList({
     icon: 'ability_evoker_powernexus2',
     maxRanks: 2,
   },
-  EVERBURNING_FLAME_DEVASTATION_TALENT: {
-    id: 370819,
-    name: 'Everburning Flame',
-    icon: 'spell_fire_burnout',
-    maxRanks: 1,
-  },
   FEED_THE_FLAMES_DEVASTATION_TALENT: {
     id: 369846,
     name: 'Feed the Flames',
     icon: 'mace_1h_blacksmithing_d_04_icon',
+    maxRanks: 1,
+  },
+  EVERBURNING_FLAME_DEVASTATION_TALENT: {
+    id: 370819,
+    name: 'Everburning Flame',
+    icon: 'spell_fire_burnout',
     maxRanks: 1,
   },
   CASCADING_POWER_DEVASTATION_TALENT: {
@@ -589,16 +589,16 @@ const talents = createTalentList({
     icon: 'ability_evoker_green_01',
     maxRanks: 1,
   },
-  SPIRITUAL_CLARITY_PRESERVATION_TALENT: {
-    id: 376150,
-    name: 'Spiritual Clarity',
-    icon: 'ability_evoker_spiritbloom',
-    maxRanks: 1,
-  },
   EMPATH_PRESERVATION_TALENT: {
     id: 376138,
     name: 'Empath',
     icon: 'ability_evoker_powernexus2',
+    maxRanks: 1,
+  },
+  SPIRITUAL_CLARITY_PRESERVATION_TALENT: {
+    id: 376150,
+    name: 'Spiritual Clarity',
+    icon: 'ability_evoker_spiritbloom',
     maxRanks: 1,
   },
   FLUTTERING_SEEDLINGS_PRESERVATION_TALENT: {
@@ -619,16 +619,16 @@ const talents = createTalentList({
     icon: 'inv_belt_armor_waistoftime_d_01',
     maxRanks: 1,
   },
-  JUST_IN_TIME_PRESERVATION_TALENT: {
-    id: 376204,
-    name: 'Just in Time',
-    icon: 'inv_offhand_1h_artifactsilverhand_d_01',
-    maxRanks: 1,
-  },
   DELAY_HARM_PRESERVATION_TALENT: {
     id: 376207,
     name: 'Delay Harm',
     icon: 'ability_racial_magicalresistance',
+    maxRanks: 1,
+  },
+  JUST_IN_TIME_PRESERVATION_TALENT: {
+    id: 376204,
+    name: 'Just in Time',
+    icon: 'inv_offhand_1h_artifactsilverhand_d_01',
     maxRanks: 1,
   },
   TEMPORAL_ANOMALY_PRESERVATION_TALENT: {
@@ -636,18 +636,18 @@ const talents = createTalentList({
     name: 'Temporal Anomaly',
     icon: 'ability_evoker_temporalanomaly',
     maxRanks: 1,
-    manaCost: 1100,
-  },
-  FLOW_STATE_PRESERVATION_TALENT: {
-    id: 377086,
-    name: 'Flow State',
-    icon: 'trade_enchanting_greatermysteriousessence',
-    maxRanks: 1,
+    manaCost: 700,
   },
   DREAMWALKER_PRESERVATION_TALENT: {
     id: 377082,
     name: 'Dreamwalker',
     icon: 'ability_hunter_onewithnature',
+    maxRanks: 1,
+  },
+  RUSH_OF_VITALITY_PRESERVATION_TALENT: {
+    id: 377086,
+    name: 'Rush of Vitality',
+    icon: 'trade_enchanting_greatermysteriousessence',
     maxRanks: 1,
   },
   EXHILARATING_BURST_PRESERVATION_TALENT: {
@@ -674,11 +674,17 @@ const talents = createTalentList({
     icon: 'ability_evoker_innatemagic4',
     maxRanks: 2,
   },
-  RESONATING_SPHERE_PRESERVATION_TALENT: {
+  FLOW_STATE_PRESERVATION_TALENT: {
     id: 385696,
+    name: 'Flow State',
+    icon: 'ability_evoker_timespiral',
+    maxRanks: 2,
+  },
+  RESONATING_SPHERE_PRESERVATION_TALENT: {
+    id: 376236,
     name: 'Resonating Sphere',
     icon: 'ability_evoker_bronze_01',
-    maxRanks: 2,
+    maxRanks: 1,
   },
   NOZDORMUS_TEACHINGS_PRESERVATION_TALENT: {
     id: 376237,
@@ -686,16 +692,10 @@ const talents = createTalentList({
     icon: 'inv_misc_head_dragon_bronze',
     maxRanks: 1,
   },
-  TEMPORAL_DISRUPTION_PRESERVATION_TALENT: {
-    id: 376236,
-    name: 'Temporal Disruption',
-    icon: 'spell_holy_borrowedtime',
-    maxRanks: 1,
-  },
   LIFEBIND_PRESERVATION_TALENT: {
     id: 373270,
     name: 'Lifebind',
-    icon: 'ability_evoker_hovergreen',
+    icon: 'ability_evoker_hoverred',
     maxRanks: 1,
   },
   CALL_OF_YSERA_PRESERVATION_TALENT: { id: 373834, name: 'Call of Ysera', icon: '', maxRanks: 1 },
@@ -729,16 +729,16 @@ const talents = createTalentList({
     icon: 'ability_evoker_fontofmagic',
     maxRanks: 1,
   },
-  TEMPORAL_ARTIFICER_PRESERVATION_TALENT: {
-    id: 381922,
-    name: 'Temporal Artificer',
-    icon: 'ability_evoker_rewind',
-    maxRanks: 1,
-  },
   BORROWED_TIME_PRESERVATION_TALENT: {
     id: 376210,
     name: 'Borrowed Time',
     icon: 'ability_bossmagistrix_timewarp2',
+    maxRanks: 1,
+  },
+  TEMPORAL_ARTIFICER_PRESERVATION_TALENT: {
+    id: 381922,
+    name: 'Temporal Artificer',
+    icon: 'ability_evoker_rewind',
     maxRanks: 1,
   },
   ENERGY_LOOP_PRESERVATION_TALENT: {

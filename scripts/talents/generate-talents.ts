@@ -17,7 +17,7 @@ import {
   ResourceTypes,
 } from './talent-tree-types';
 
-const WOW_BUILD_NUMBER = '10.0.0.45141';
+const WOW_BUILD_NUMBER = '10.0.0.45335';
 const TALENT_DATA_URL = 'https://www.raidbots.com/static/data/beta/new-talent-trees.json';
 const SPELLPOWER_DATA_URL = `https://wow.tools/dbc/api/export/?name=spellpower&build=${WOW_BUILD_NUMBER}`;
 

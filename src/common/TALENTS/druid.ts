@@ -108,16 +108,16 @@ const talents = createTalentList({
   },
   SKULL_BASH_TALENT: { id: 106839, name: 'Skull Bash', icon: 'inv_bone_skull_04', maxRanks: 1 },
   THICK_HIDE_TALENT: { id: 16931, name: 'Thick Hide', icon: 'inv_misc_pelt_bear_03', maxRanks: 2 },
-  TIGER_DASH_TALENT: {
-    id: 252216,
-    name: 'Tiger Dash',
-    icon: 'ability_druid_dash_orange',
-    maxRanks: 1,
-  },
   WILD_CHARGE_TALENT: {
     id: 102401,
     name: 'Wild Charge',
     icon: 'spell_druid_wildcharge',
+    maxRanks: 1,
+  },
+  TIGER_DASH_TALENT: {
+    id: 252216,
+    name: 'Tiger Dash',
+    icon: 'ability_druid_dash_orange',
     maxRanks: 1,
   },
   NEW_RESTO_PASSIVE_NNF_TALENT: {
@@ -191,13 +191,13 @@ const talents = createTalentList({
     icon: 'ability_mage_firestarter',
     maxRanks: 1,
   },
-  MIGHTY_BASH_TALENT: { id: 5211, name: 'Mighty Bash', icon: 'ability_druid_bash', maxRanks: 1 },
   INCAPACITATING_ROAR_TALENT: {
     id: 99,
     name: 'Incapacitating Roar',
     icon: 'ability_druid_demoralizingroar',
     maxRanks: 1,
   },
+  MIGHTY_BASH_TALENT: { id: 5211, name: 'Mighty Bash', icon: 'ability_druid_bash', maxRanks: 1 },
   URSINE_VIGOR_TALENT: {
     id: 377842,
     name: 'Ursine Vigor',
@@ -216,16 +216,16 @@ const talents = createTalentList({
     icon: 'spell_nature_rejuvenation',
     maxRanks: 1,
   },
-  URSOLS_VORTEX_TALENT: {
-    id: 102793,
-    name: "Ursol's Vortex",
-    icon: 'spell_druid_ursolsvortex',
-    maxRanks: 1,
-  },
   MASS_ENTANGLEMENT_TALENT: {
     id: 102359,
     name: 'Mass Entanglement',
     icon: 'spell_druid_massentanglement',
+    maxRanks: 1,
+  },
+  URSOLS_VORTEX_TALENT: {
+    id: 102793,
+    name: "Ursol's Vortex",
+    icon: 'spell_druid_ursolsvortex',
     maxRanks: 1,
   },
   WELL_HONED_INSTINCTS_TALENT: {
@@ -258,14 +258,14 @@ const talents = createTalentList({
 
   //Feral
   TIGERS_FURY_FERAL_TALENT: {
-    id: 5217,
+    id: 231055,
     name: "Tiger's Fury",
     icon: 'ability_mount_jungletiger',
-    maxRanks: 1,
+    maxRanks: 3,
   },
-  MAX_ENERGY_FERAL_TALENT: {
+  TIRELESS_ENERGY_FERAL_TALENT: {
     id: 383352,
-    name: '[Max Energy]',
+    name: 'Tireless Energy',
     icon: 'spell_chargepositive',
     maxRanks: 3,
   },
@@ -274,12 +274,6 @@ const talents = createTalentList({
     name: 'Omen of Clarity',
     icon: 'spell_nature_crystalball',
     maxRanks: 1,
-  },
-  IMPROVED_TIGERS_FURY_FERAL_TALENT: {
-    id: 231055,
-    name: "Improved Tiger's Fury",
-    icon: 'ability_mount_jungletiger',
-    maxRanks: 3,
   },
   IMPROVED_SHRED_FERAL_TALENT: {
     id: 343232,
@@ -293,16 +287,16 @@ const talents = createTalentList({
     icon: 'spell_druid_thrash',
     maxRanks: 1,
   },
-  SABERTOOTH_FERAL_TALENT: {
-    id: 202031,
-    name: 'Sabertooth',
-    icon: 'inv_misc_monsterfang_01',
-    maxRanks: 1,
-  },
   PREDATOR_FERAL_TALENT: {
     id: 202021,
     name: 'Predator',
     icon: 'ability_hunter_catlikereflexes',
+    maxRanks: 1,
+  },
+  SABERTOOTH_FERAL_TALENT: {
+    id: 202031,
+    name: 'Sabertooth',
+    icon: 'inv_misc_monsterfang_01',
     maxRanks: 1,
   },
   IMPROVED_PROWL_NEEDS_POINTS_SCALING_FERAL_TALENT: {
@@ -323,12 +317,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_catlikereflexes',
     maxRanks: 3,
   },
-  BERSERK_RELENTLESSNESS_FERAL_TALENT: {
-    id: 343223,
-    name: 'Berserk: Relentlessness',
-    icon: 'ability_druid_berserk',
-    maxRanks: 1,
-  },
+  BERSERK_FERAL_TALENT: { id: 343223, name: 'Berserk', icon: 'ability_druid_berserk', maxRanks: 1 },
   TASTE_FOR_BLOOD_FERAL_TALENT: {
     id: 384665,
     name: 'Taste for Blood',
@@ -416,18 +405,18 @@ const talents = createTalentList({
     icon: 'ability_druid_berserk',
     maxRanks: 1,
   },
-  BLOODTALONS_FERAL_TALENT: {
-    id: 319439,
-    name: 'Bloodtalons',
-    icon: 'spell_druid_bloodythrash',
-    maxRanks: 1,
-  },
   FERAL_FRENZY_FERAL_TALENT: {
     id: 274837,
     name: 'Feral Frenzy',
     icon: 'ability_druid_rake',
     maxRanks: 1,
     energyCost: 25,
+  },
+  BLOODTALONS_FERAL_TALENT: {
+    id: 319439,
+    name: 'Bloodtalons',
+    icon: 'spell_druid_bloodythrash',
+    maxRanks: 1,
   },
   ADAPTIVE_SWARM_FERAL_TALENT: {
     id: 325727,
@@ -436,16 +425,16 @@ const talents = createTalentList({
     maxRanks: 1,
     manaCost: 500,
   },
-  CONVOKE_THE_SPIRITS_FERAL_TALENT: {
-    id: 323764,
-    name: 'Convoke the Spirits',
-    icon: 'ability_ardenweald_druid',
-    maxRanks: 1,
-  },
   INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT: {
     id: 102543,
     name: 'Incarnation: Avatar of Ashamane',
     icon: 'spell_druid_incarnation',
+    maxRanks: 1,
+  },
+  CONVOKE_THE_SPIRITS_FERAL_TALENT: {
+    id: 323764,
+    name: 'Convoke the Spirits',
+    icon: 'ability_ardenweald_druid',
     maxRanks: 1,
   },
   SOUL_OF_THE_FOREST_FERAL_TALENT: {
@@ -454,16 +443,16 @@ const talents = createTalentList({
     icon: 'ability_druid_manatree',
     maxRanks: 1,
   },
-  APEX_PREDATORS_CRAVING_FERAL_TALENT: {
-    id: 339139,
-    name: "Apex Predator's Craving",
-    icon: 'ability_druid_primaltenacity',
-    maxRanks: 1,
-  },
   DRAUGHT_OF_DEEP_FOCUS_FERAL_TALENT: {
     id: 338658,
     name: 'Draught of Deep Focus',
     icon: 'trade_alchemy_dpotion_d12',
+    maxRanks: 1,
+  },
+  APEX_PREDATORS_CRAVING_FERAL_TALENT: {
+    id: 339139,
+    name: "Apex Predator's Craving",
+    icon: 'ability_druid_primaltenacity',
     maxRanks: 1,
   },
   UNBRIDLED_SWARM_FERAL_TALENT: {
@@ -586,12 +575,6 @@ const talents = createTalentList({
     icon: 'inv_misc_herb_liferoot_stem',
     maxRanks: 2,
   },
-  ABUNDANCE_RESTORATION_TALENT: {
-    id: 207383,
-    name: 'Abundance',
-    icon: 'ability_druid_empoweredrejuvination',
-    maxRanks: 1,
-  },
   CENARION_WARD_RESTORATION_TALENT: {
     id: 102351,
     name: 'Cenarion Ward',
@@ -599,11 +582,23 @@ const talents = createTalentList({
     maxRanks: 1,
     manaCost: 900,
   },
+  ABUNDANCE_RESTORATION_TALENT: {
+    id: 207383,
+    name: 'Abundance',
+    icon: 'ability_druid_empoweredrejuvination',
+    maxRanks: 1,
+  },
   STONEBARK_RESTORATION_TALENT: {
     id: 197061,
     name: 'Stonebark',
     icon: 'spell_druid_ironbark',
     maxRanks: 2,
+  },
+  SPRING_BLOSSOMS_RESTORATION_TALENT: {
+    id: 207385,
+    name: 'Spring Blossoms',
+    icon: 'inv_misc_trailofflowers',
+    maxRanks: 1,
   },
   OVERGROWTH_RESTORATION_TALENT: {
     id: 203651,
@@ -611,12 +606,6 @@ const talents = createTalentList({
     icon: 'ability_druid_overgrowth',
     maxRanks: 1,
     manaCost: 1200,
-  },
-  SPRING_BLOSSOMS_RESTORATION_TALENT: {
-    id: 207385,
-    name: 'Spring Blossoms',
-    icon: 'inv_misc_trailofflowers',
-    maxRanks: 1,
   },
   RAMPANT_GROWTH_RESTORATION_TALENT: {
     id: 278515,
@@ -655,16 +644,16 @@ const talents = createTalentList({
     maxRanks: 1,
     manaCost: 500,
   },
-  CONVOKE_THE_SPIRITS_RESTORATION_TALENT: {
-    id: 323764,
-    name: 'Convoke the Spirits',
-    icon: 'ability_ardenweald_druid',
-    maxRanks: 1,
-  },
   INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT: {
     id: 33891,
     name: 'Incarnation: Tree of Life',
     icon: 'ability_druid_improvedtreeform',
+    maxRanks: 1,
+  },
+  CONVOKE_THE_SPIRITS_RESTORATION_TALENT: {
+    id: 323764,
+    name: 'Convoke the Spirits',
+    icon: 'ability_ardenweald_druid',
     maxRanks: 1,
   },
   IMPROVED_INNERVATE_RESTORATION_TALENT: {
@@ -679,16 +668,16 @@ const talents = createTalentList({
     icon: 'ability_druid_cyclone',
     maxRanks: 2,
   },
-  THE_DARK_TITANS_LESSON_RESTORATION_TALENT: {
-    id: 338831,
-    name: "The Dark Titan's Lesson",
-    icon: 'spell_druid_germination_rejuvenation',
-    maxRanks: 1,
-  },
   PHOTOSYNTHESIS_RESTORATION_TALENT: {
     id: 274902,
     name: 'Photosynthesis',
     icon: 'spell_lifegivingseed',
+    maxRanks: 1,
+  },
+  THE_DARK_TITANS_LESSON_RESTORATION_TALENT: {
+    id: 338831,
+    name: "The Dark Titan's Lesson",
+    icon: 'spell_druid_germination_rejuvenation',
     maxRanks: 1,
   },
   UNBRIDLED_SWARM_RESTORATION_TALENT: {
@@ -703,16 +692,16 @@ const talents = createTalentList({
     icon: 'spell_progenitor_orb2',
     maxRanks: 1,
   },
-  VERDANT_INFUSION_RESTORATION_TALENT: {
-    id: 338829,
-    name: 'Verdant Infusion',
-    icon: 'inv_relics_totemoflife',
-    maxRanks: 1,
-  },
   FLOURISH_RESTORATION_TALENT: {
     id: 197721,
     name: 'Flourish',
     icon: 'spell_druid_wildburst',
+    maxRanks: 1,
+  },
+  VERDANT_INFUSION_RESTORATION_TALENT: {
+    id: 338829,
+    name: 'Verdant Infusion',
+    icon: 'inv_relics_totemoflife',
     maxRanks: 1,
   },
   VISION_OF_UNENDING_GROWTH_RESTORATION_TALENT: {
@@ -838,16 +827,16 @@ const talents = createTalentList({
     icon: 'spell_nature_natureguardian',
     maxRanks: 1,
   },
-  BLESSING_OF_ANSHE_BALANCE_TALENT: {
-    id: 202739,
-    name: "Blessing of An'she",
-    icon: 'spell_priest_divinestar_holy',
-    maxRanks: 1,
-  },
   BLESSING_OF_ELUNE_BALANCE_TALENT: {
     id: 202737,
     name: 'Blessing of Elune',
     icon: 'achievement_worldevent_lunar',
+    maxRanks: 1,
+  },
+  BLESSING_OF_ANSHE_BALANCE_TALENT: {
+    id: 202739,
+    name: "Blessing of An'she",
+    icon: 'spell_priest_divinestar_holy',
     maxRanks: 1,
   },
   SOUL_OF_THE_FOREST_BALANCE_TALENT: {
@@ -898,16 +887,16 @@ const talents = createTalentList({
     icon: 'spell_animaardenweald_groundstate',
     maxRanks: 2,
   },
-  CONVOKE_THE_SPIRITS_BALANCE_TALENT: {
-    id: 323764,
-    name: 'Convoke the Spirits',
-    icon: 'ability_ardenweald_druid',
-    maxRanks: 1,
-  },
   INCARNATION_CHOSEN_OF_ELUNE_BALANCE_TALENT: {
     id: 102560,
     name: 'Incarnation: Chosen of Elune',
     icon: 'spell_druid_incarnation',
+    maxRanks: 1,
+  },
+  CONVOKE_THE_SPIRITS_BALANCE_TALENT: {
+    id: 323764,
+    name: 'Convoke the Spirits',
+    icon: 'ability_ardenweald_druid',
     maxRanks: 1,
   },
   CIRCLE_OF_LIFE_AND_DEATH_BALANCE_TALENT: {
@@ -915,6 +904,12 @@ const talents = createTalentList({
     name: 'Circle of Life and Death',
     icon: 'ability_druid_cyclone',
     maxRanks: 2,
+  },
+  SYZYGY_BALANCE_TALENT: {
+    id: 390378,
+    name: 'Syzygy',
+    icon: 'ability_druid_cresentburn',
+    maxRanks: 1,
   },
   PRIMORDIAL_ARCANIC_PULSAR_BALANCE_TALENT: {
     id: 338668,
@@ -969,16 +964,16 @@ const talents = createTalentList({
     icon: 'ability_druid_tigersroar',
     maxRanks: 1,
   },
-  BRAMBLES_GUARDIAN_TALENT: {
-    id: 203953,
-    name: 'Brambles',
-    icon: 'inv_misc_thornnecklace',
-    maxRanks: 1,
-  },
   BRISTLING_FUR_GUARDIAN_TALENT: {
     id: 155835,
     name: 'Bristling Fur',
     icon: 'spell_druid_bristlingfur',
+    maxRanks: 1,
+  },
+  BRAMBLES_GUARDIAN_TALENT: {
+    id: 203953,
+    name: 'Brambles',
+    icon: 'inv_misc_thornnecklace',
     maxRanks: 1,
   },
   URSINE_ADEPT_GUARDIAN_TALENT: {
@@ -1131,16 +1126,16 @@ const talents = createTalentList({
     icon: 'ability_druid_enrage',
     maxRanks: 2,
   },
-  DREAM_OF_CENARIUS_GUARDIAN_TALENT: {
-    id: 372119,
-    name: 'Dream of Cenarius',
-    icon: 'ability_druid_dreamstate',
-    maxRanks: 1,
-  },
   URSOCS_FURY_GUARDIAN_TALENT: {
     id: 377210,
     name: "Ursoc's Fury",
     icon: 'achievement_emeraldnightmare_ursoc',
+    maxRanks: 1,
+  },
+  DREAM_OF_CENARIUS_GUARDIAN_TALENT: {
+    id: 372119,
+    name: 'Dream of Cenarius',
+    icon: 'ability_druid_dreamstate',
     maxRanks: 1,
   },
   PULVERIZE_GUARDIAN_TALENT: {
@@ -1149,22 +1144,16 @@ const talents = createTalentList({
     icon: 'spell_druid_malfurionstenacity',
     maxRanks: 1,
   },
-  CONVOKE_THE_SPIRITS_GUARDIAN_TALENT: {
-    id: 337433,
-    name: 'Convoke the Spirits',
-    icon: 'ability_ardenweald_druid',
-    maxRanks: 1,
-  },
   INCARNATION_GUARDIAN_OF_URSOC_GUARDIAN_TALENT: {
     id: 102558,
     name: 'Incarnation: Guardian of Ursoc',
     icon: 'spell_druid_incarnation',
     maxRanks: 1,
   },
-  SOUL_OF_THE_FOREST_GUARDIAN_TALENT: {
-    id: 158477,
-    name: 'Soul of the Forest',
-    icon: 'ability_druid_manatree',
+  CONVOKE_THE_SPIRITS_GUARDIAN_TALENT: {
+    id: 337433,
+    name: 'Convoke the Spirits',
+    icon: 'ability_ardenweald_druid',
     maxRanks: 1,
   },
   BLOOD_FRENZY_GUARDIAN_TALENT: {
@@ -1173,10 +1162,10 @@ const talents = createTalentList({
     icon: 'ability_druid_primaltenacity',
     maxRanks: 1,
   },
-  GUARDIAN_OF_ELUNE_GUARDIAN_TALENT: {
-    id: 155578,
-    name: 'Guardian of Elune',
-    icon: 'spell_druid_guardianofelune',
+  SOUL_OF_THE_FOREST_GUARDIAN_TALENT: {
+    id: 158477,
+    name: 'Soul of the Forest',
+    icon: 'ability_druid_manatree',
     maxRanks: 1,
   },
   AFTER_THE_WILDFIRE_GUARDIAN_TALENT: {
@@ -1185,16 +1174,22 @@ const talents = createTalentList({
     icon: 'spell_nature_naturetouchgrow',
     maxRanks: 1,
   },
-  UNTAMED_SAVAGERY_GUARDIAN_TALENT: {
-    id: 372943,
-    name: 'Untamed Savagery',
-    icon: 'spell_druid_bloodythrash',
+  GUARDIAN_OF_ELUNE_GUARDIAN_TALENT: {
+    id: 155578,
+    name: 'Guardian of Elune',
+    icon: 'spell_druid_guardianofelune',
     maxRanks: 1,
   },
   REND_AND_TEAR_GUARDIAN_TALENT: {
     id: 204053,
     name: 'Rend and Tear',
     icon: 'ability_druid_swipe',
+    maxRanks: 1,
+  },
+  UNTAMED_SAVAGERY_GUARDIAN_TALENT: {
+    id: 372943,
+    name: 'Untamed Savagery',
+    icon: 'spell_druid_bloodythrash',
     maxRanks: 1,
   },
   RAGE_OF_THE_SLEEPER_GUARDIAN_TALENT: {
