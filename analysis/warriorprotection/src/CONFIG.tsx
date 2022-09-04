@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import { Abelito75 } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
@@ -11,7 +10,7 @@ import CHANGELOG from './CHANGELOG';
 
 const CONFIG: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
-  contributors: [Abelito75],
+  contributors: [],
   expansion: Expansion.Shadowlands,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '9.2.7',
@@ -30,8 +29,7 @@ const CONFIG: Config = {
       <a href="https://discord.gg/0pYY7932lTH4FHW6" target="_blank" rel="noopener noreferrer">
         Skyhold
       </a>{' '}
-      discord server. You can also contact me directly on Discord (Abelito75#0001). Thanks and I
-      hope you continue to enjoy the tool!
+      discord server. Thanks and I hope you continue to enjoy the tool!
       <AlertWarning>
         Because resets of <SpellLink id={SPELLS.SHIELD_SLAM.id} />{' '}
         <TooltipElement content="The combatlog does not contain any events for random cooldown resets.">
