@@ -62,7 +62,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
             Your cooldowns are an important contributor to your healing throughput. Try to get in as
             many efficient casts as the fight allows.{' '}
             <a
-              href="https://www.peakofserenity.com/bfa/mistweaver/guide/"
+              href="https://www.peakofserenity.com/sl/mistweaver/pve-guide/"
               target="_blank"
               rel="noopener noreferrer"
             >
