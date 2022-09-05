@@ -1,6 +1,4 @@
-import { legendarySpellIndexableList } from 'common/SPELLS/Spell';
-
-const legendaries = legendarySpellIndexableList({
+const legendaries = {
   //region Havoc
   CHAOS_THEORY: {
     id: 337551,
@@ -104,6 +102,6 @@ const legendaries = legendarySpellIndexableList({
     icon: 'ability_revendreth_demonhunter',
   },
   //endregion
-});
+} as const;
 
 export default legendaries;
