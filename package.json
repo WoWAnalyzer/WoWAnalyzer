@@ -90,7 +90,7 @@
     "test": "react-app-rewired test",
     "test:interface": "yarn test --testPathIgnorePatterns \"integrationTests|/src\\/parser/\"",
     "test:parser": "yarn test ./src/parser --testPathIgnorePatterns integrationTests",
-    "test:integration": "yarn test integrationTests",
+    "test:integration": "yarn test integrationTests --passWithNoTests",
     "typecheck": "tsc",
     "lint": "yarn --silent lint:code && yarn --silent lint:rest",
     "lint:code": "yarn --silent lint:code:specific \"**/*.{js,jsx,ts,tsx}\"",
