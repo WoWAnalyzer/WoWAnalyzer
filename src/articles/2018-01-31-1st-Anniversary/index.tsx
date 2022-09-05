@@ -136,9 +136,8 @@ const Article = (props: ArticleProps) => {
         </a>{' '}
         in mind the project quickly went through a lot of minor versions during this month. Among
         other things the need for users to enter their own WCL API key was removed, URL routing was
-        added (so you can directly link to a log) and a{' '}
-        <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime display (which improves a Holy
-        Paladin's mastery effectiveness so was related) was added.
+        added (so you can directly link to a log) and a Rule of Law uptime display (which improves a
+        Holy Paladin's mastery effectiveness so was related) was added.
       </Item>
 
       <Item
@@ -444,19 +443,17 @@ const Article = (props: ArticleProps) => {
         <Image source={RestoShaman} description="Initial Restoration Shaman" />
         <br />
         <Contributor {...CONTRIBUTORS.Versaya} /> also added the unique <b>feeding</b> tab. This
-        shows the healing done by spells that feed into{' '}
-        <SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} /> while it was up.
+        shows the healing done by spells that feed into Cloudburst Totem while it was up.
         <br />
         <br />
         <Image source={RestoShamanFeeding} description="The feeding tab" />
         <br />
         The spec had contributions from a couple of other contributors.{' '}
-        <Contributor {...CONTRIBUTORS.aryu} /> added the very interesting{' '}
-        <SpellLink id={SPELLS.ANCESTRAL_VIGOR_TALENT.id} /> metric that shows amount of lives saved.{' '}
-        <Contributor {...CONTRIBUTORS.Anomoly} /> migrated the spec to the new WoWAnalyzer version
-        so that it would become easier to maintain and added T21 2 set and 4 set.{' '}
-        <Contributor {...CONTRIBUTORS.Hartra344} /> later took over as maintainer of the spec and
-        implemented the checklist as well as a bunch of other features.
+        <Contributor {...CONTRIBUTORS.aryu} /> added the very interesting Ancestral Vigor metric
+        that shows amount of lives saved. <Contributor {...CONTRIBUTORS.Anomoly} /> migrated the
+        spec to the new WoWAnalyzer version so that it would become easier to maintain and added T21
+        2 set and 4 set. <Contributor {...CONTRIBUTORS.Hartra344} /> later took over as maintainer
+        of the spec and implemented the checklist as well as a bunch of other features.
       </Item>
 
       <Item title="Continuous deployment (and our first server)" date="2 Jun">
@@ -548,9 +545,8 @@ const Article = (props: ArticleProps) => {
       <Item title="Elemental Shaman" date="4 Jun">
         <SpecIcon spec={SPECS.ELEMENTAL_SHAMAN} />
         The initial version of Elemental Shaman was added by <Contributor {...CONTRIBUTORS.fasib} />
-        . This included cast efficiency, the cooldown tab only included{' '}
-        <SpellLink id={SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id} /> (if specced) and Stormkeeper, and
-        introduced two new things: a procs tab and a Maelstrom tab.
+        . This included cast efficiency, the cooldown tab only included Ascendance (if specced) and
+        Stormkeeper, and introduced two new things: a procs tab and a Maelstrom tab.
         <br />
         <br />
         <Image
@@ -592,10 +588,9 @@ const Article = (props: ArticleProps) => {
         <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/469">
           contributed a couple of simple fixes
         </a>{' '}
-        for Elemental Shamans using <SpellLink id={SPELLS.STORM_ELEMENTAL_TALENT.id} />.{' '}
-        <Contributor {...CONTRIBUTORS.HawkCorrigan} /> migrated Elemental Shaman's code to a new
-        version of WoWAnalyzer and implemented a bunch of things such as T21,{' '}
-        <ItemLink id={ITEMS.THE_DECEIVERS_BLOOD_PACT.id} /> and others.
+        for Elemental Shamans using Storm Elemental. <Contributor {...CONTRIBUTORS.HawkCorrigan} />{' '}
+        migrated Elemental Shaman's code to a new version of WoWAnalyzer and implemented a bunch of
+        things such as T21, <ItemLink id={ITEMS.THE_DECEIVERS_BLOOD_PACT.id} /> and others.
       </Item>
 
       <Item title="Warcraft Logs API proxy" date="15 Jun">
@@ -697,9 +692,8 @@ const Article = (props: ArticleProps) => {
         to provide better basic support before <Contributor {...CONTRIBUTORS.Juko8} /> took over
         contributorship at 10 October 2017 and contributed most of what we have today. Some other
         minor contributions were done by <Contributor {...CONTRIBUTORS.Coryn} /> who added an{' '}
-        <SpellLink id={SPELLS.ENERGIZING_ELIXIR_TALENT.id} /> analyzer, and{' '}
-        <Contributor {...CONTRIBUTORS.Talby} /> who contributed a few minor miscellaneous
-        improvements.
+        Energizing Elixir analyzer, and <Contributor {...CONTRIBUTORS.Talby} /> who contributed a
+        few minor miscellaneous improvements.
       </Item>
 
       <Item title="Guardian Druid 🐻" date="7 Aug">
@@ -898,9 +892,8 @@ const Article = (props: ArticleProps) => {
         <blockquote>
           I have healed for most of my time in WoW and played priest since WotLK. Legion is the
           first expansion which I started raiding on a higher level (previous ones were just PvP)
-          and found Shadow to be pretty fun. But when they nerfed{' '}
-          <SpellLink id={SPELLS.SURRENDER_TO_MADNESS_TALENT.id} />, I went back to healing my fellow
-          teammates and just had Shadow as an offspec.
+          and found Shadow to be pretty fun. But when they nerfed Surrender to Madness, I went back
+          to healing my fellow teammates and just had Shadow as an offspec.
           <br />
           <br />
           When I found out about this project and that it was coded in ES6, I thought it would be a

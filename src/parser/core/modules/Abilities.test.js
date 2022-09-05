@@ -30,9 +30,6 @@ describe('core/modules/Abilities', () => {
           spell: SPELLS.LIGHT_OF_DAWN_CAST.id,
         },
         holyShock,
-        {
-          spell: SPELLS.RULE_OF_LAW_TALENT.id,
-        },
       ]);
 
       const ability = module.getAbility(SPELLS.HOLY_SHOCK_CAST.id);
