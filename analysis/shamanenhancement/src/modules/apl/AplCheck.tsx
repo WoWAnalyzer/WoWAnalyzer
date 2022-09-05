@@ -3,10 +3,12 @@ import { suggestion } from 'parser/core/Analyzer';
 import aplCheck, { build } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import {
+  and,
   buffPresent,
   buffStacks,
   debuffMissing,
   debuffPresent,
+  hasTalent,
 } from 'parser/shared/metrics/apl/conditions';
 
 /**
@@ -31,7 +33,7 @@ export const apl = build([
   },
   {
     spell: SPELLS.STORMSTRIKE_CAST,
-    condition: buffPresent(SPELLS.STORMBRINGER_BUFF),
+    condition: and(hasTalent(SPELLS.STORMFLURRY_TALENT), buffPresent(SPELLS.STORMBRINGER_BUFF)),
   },
   {
     spell: SPELLS.LIGHTNING_BOLT,
