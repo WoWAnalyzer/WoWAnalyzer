@@ -5,7 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
-  change(date(2022, 8, 14), <>Added tracker for <SpellLink id={SPELLS.DECIMATING_BOLT_HIT.id}/></>, Tyndi),
+  change(date(2022, 8, 24), <>Added tracker for <SpellLink id={SPELLS.DECIMATING_BOLT_HIT.id}/></>, Tyndi),
   change(date(2022, 8, 10), <>Made <SpellLink id={SPELLS.SHADOW_EMBRACE_TALENT.id}/> a talent and properly hid modules when not selected</>, Tyndi),
   change(date(2022, 7, 22), <>Add tracker for number of <SpellLink id={SPELLS.DEMONIC_CIRCLE_SUMMON.id} /> created.</>, ToppleTheNun),
   change(date(2021, 9,  28), <>Updated <SpellLink id={SPELLS.SHADOW_EMBRACE_TALENT.id}/> suggestions and  <SpellLink id={SPELLS.SUMMON_DARKGLARE.id}/> cooldown, </>, Pirrang),
