@@ -19,7 +19,6 @@ import {
   DampenHarm,
 } from '@wowanalyzer/monk';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import HotTrackerMW from './modules/core/HotTrackerMW';
 import Abilities from './modules/features/Abilities';
@@ -76,8 +75,6 @@ import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
-  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
-
   static specModules = {
     // Normalizer
     hotApplicationNormalizer: HotApplicationNormalizer,

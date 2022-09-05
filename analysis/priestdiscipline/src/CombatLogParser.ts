@@ -14,7 +14,6 @@ import {
   UnholyNova,
 } from '@wowanalyzer/priest';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import Abilities from './modules/Abilities';
 import AbilityTracker from './modules/core/AbilityTracker';
 import AtonementAnalyzer from './modules/core/AtonementAnalyzer';
@@ -63,8 +62,6 @@ import ManifestedTwilightNormalizer from './normalizers/ManifestedTwilightNormal
 import PowerWordRadianceNormalizer from './normalizers/PowerWordRadianceNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
-  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
-
   static specModules = {
     // Normalizers
     atonementSuccessiveDamage: AtonementSuccessiveDamageNormalizer,

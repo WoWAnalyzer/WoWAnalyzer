@@ -1,11 +1,12 @@
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import RACES from 'game/RACES';
 import ROLES from 'game/ROLES';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import CombatLogParser from 'parser/core/CombatLogParser';
 import Events, { DamageEvent, EventType, HealEvent } from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
 import CritEffectBonus, { ValidEvents } from 'parser/shared/modules/helpers/CritEffectBonus';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -16,12 +17,15 @@ export const CRIT_EFFECT = 0.02;
 class MightOfTheMountain extends Analyzer {
   static dependencies = {
     critEffectBonus: CritEffectBonus,
+    abilities: Abilities,
   };
 
   protected critEffectBonus!: CritEffectBonus;
+  protected abilities!: Abilities;
 
   damage = 0;
   healing = 0;
+  overhealing = 0;
 
   constructor(options: Options) {
     super(options);
@@ -36,9 +40,7 @@ class MightOfTheMountain extends Analyzer {
   }
 
   isApplicableHeal(event: HealEvent) {
-    const abilities = CombatLogParser.abilitiesAffectedByHealingIncreases;
-    if (abilities.length > 0 && !abilities.includes(event.ability.guid)) {
-      // When this isn't configured, assume everything is affected
+    if (!this.abilities.getAffectedByHealingIncreases(event.ability.guid)) {
       return false;
     }
     if (event.hitType !== HIT_TYPES.CRIT) {
@@ -46,12 +48,8 @@ class MightOfTheMountain extends Analyzer {
     }
     return true;
   }
+
   isApplicableDamage(event: DamageEvent) {
-    const abilities = CombatLogParser.abilitiesAffectedByDamageIncreases;
-    if (abilities.length > 0 && !abilities.includes(event.ability.guid)) {
-      // When this isn't configured, assume everything is affected
-      return false;
-    }
     if (event.hitType !== HIT_TYPES.CRIT) {
       return false;
     }
@@ -75,36 +73,27 @@ class MightOfTheMountain extends Analyzer {
       return;
     }
 
-    const amount = event.amount;
-    const absorbed = event.absorbed || 0;
-    const overheal = event.overheal || 0;
-    const raw = amount + absorbed + overheal;
-    const rawNormalPart = raw / this.critEffectBonus.getBonus(event);
-    const rawContribution = rawNormalPart * CRIT_EFFECT;
-
-    const effectiveHealing = Math.max(0, rawContribution - overheal);
-
-    this.healing += effectiveHealing;
+    const contribution = this.critEffectBonus.getHealingContribution(event, CRIT_EFFECT);
+    this.healing += contribution.effectiveHealing;
+    this.overhealing += contribution.overhealing;
   }
   onDamage(event: DamageEvent) {
     if (!this.isApplicableDamage(event)) {
       return;
     }
 
-    const amount = event.amount;
-    const absorbed = event.absorbed || 0;
-    const raw = amount + absorbed;
-    const rawNormalPart = raw / this.critEffectBonus.getBonus(event);
-    const rawContribution = rawNormalPart * CRIT_EFFECT;
-
-    this.damage += rawContribution;
+    this.damage += this.critEffectBonus.getDamageContribution(event, CRIT_EFFECT);
   }
 
   statistic() {
     let value;
+    let overhealing;
     switch (this.selectedCombatant.spec?.role) {
       case ROLES.HEALER:
         value = <ItemHealingDone amount={this.healing} />;
+        overhealing = (
+          <li>Overhealing: {formatNumber(this.owner.getPerSecond(this.overhealing))} HPS</li>
+        );
         break;
       case ROLES.DPS.MELEE:
       case ROLES.DPS.RANGED:
@@ -118,6 +107,9 @@ class MightOfTheMountain extends Analyzer {
             <ItemDamageDone amount={this.damage} />
           </>
         );
+        overhealing = (
+          <li>Overhealing: {formatNumber(this.owner.getPerSecond(this.overhealing))} HPS</li>
+        );
         break;
     }
 
@@ -128,8 +120,11 @@ class MightOfTheMountain extends Analyzer {
         label="Dwarf crit racial"
         tooltip={
           <>
-            The racial contributed {this.owner.formatItemDamageDone(this.damage)} and{' '}
-            {this.owner.formatItemHealingDone(this.healing)}.
+            <ul>
+              <li>Damage: {this.owner.formatItemDamageDone(this.damage)}</li>
+              <li>Healing: {this.owner.formatItemHealingDone(this.healing)}</li>
+              {overhealing}
+            </ul>
           </>
         }
       />

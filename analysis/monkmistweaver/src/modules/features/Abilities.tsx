@@ -2,7 +2,14 @@ import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../constants';
+
 class Abilities extends CoreAbilities {
+  constructor(...args: ConstructorParameters<typeof CoreAbilities>) {
+    super(...args);
+    this.abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
+  }
+
   spellbook() {
     const combatant = this.selectedCombatant;
     return [

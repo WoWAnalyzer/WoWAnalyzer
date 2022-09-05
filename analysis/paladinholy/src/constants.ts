@@ -11,6 +11,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.HOLY_PRISM_HEAL.id,
   SPELLS.HOLY_PRISM_HEAL_DIRECT.id,
   SPELLS.AURA_OF_MERCY_HEAL.id,
+  SPELLS.GLIMMER_OF_LIGHT_HEAL_TALENT.id,
   // While the following spells don't double dip in healing increases, they gain the same percentual bonus from the transfer
   SPELLS.BEACON_OF_LIGHT_HEAL.id,
   SPELLS.LEECH.id,
