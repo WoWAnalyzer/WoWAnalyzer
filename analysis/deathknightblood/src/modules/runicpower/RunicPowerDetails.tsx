@@ -3,6 +3,7 @@ import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
@@ -15,6 +16,8 @@ class RunicPowerDetails extends Analyzer {
     runicPowerTracker: RunicPowerTracker,
   };
 
+  protected runicPowerTracker!: RunicPowerTracker;
+
   get wastedPercent() {
     return (
       this.runicPowerTracker.wasted /
@@ -22,7 +25,7 @@ class RunicPowerDetails extends Analyzer {
     );
   }
 
-  get efficiencySuggestionThresholds() {
+  get efficiencySuggestionThresholds(): NumberThreshold {
     return {
       actual: 1 - this.wastedPercent,
       isLessThan: {
@@ -30,11 +33,11 @@ class RunicPowerDetails extends Analyzer {
         average: 0.9,
         major: 0.85,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  get suggestionThresholds() {
+  get suggestionThresholds(): NumberThreshold {
     return {
       actual: this.wastedPercent,
       isGreaterThan: {
@@ -42,21 +45,31 @@ class RunicPowerDetails extends Analyzer {
         average: 0.1,
         major: 0.15,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`)
+      suggest(
+        t({
+          id: 'deathknight.blood.runicPowerDetails.suggestion.suggestion',
+          message: `You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`,
+        }),
+      )
         .icon('inv_sword_62')
         .actual(
           t({
-            id: 'deathknight.blood.suggestions.runicPower.wasted',
+            id: 'deathknight.blood.runicPowerDetails.suggestion.actual',
             message: `${formatPercentage(actual)}% wasted`,
           }),
         )
-        .recommended(`<${formatPercentage(recommended)}% is recommended`),
+        .recommended(
+          t({
+            id: 'shared.suggestion.recommended.lessThanPercent',
+            message: `<${formatPercentage(recommended)}% is recommended`,
+          }),
+        ),
     );
   }
 
@@ -65,14 +78,20 @@ class RunicPowerDetails extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(3)}
         size="small"
-        tooltip={`${this.runicPowerTracker.wasted} out of ${
-          this.runicPowerTracker.wasted + this.runicPowerTracker.generated
-        } runic power wasted.`}
+        tooltip={t({
+          id: 'deathknight.blood.runicPowerDetails.statistic.tooltip',
+          message: `${this.runicPowerTracker.wasted} out of ${
+            this.runicPowerTracker.wasted + this.runicPowerTracker.generated
+          } Runic Power wasted.`,
+        })}
       >
         <BoringResourceValue
           resource={RESOURCE_TYPES.RUNIC_POWER}
           value={`${formatPercentage(this.wastedPercent)} %`}
-          label="Runic Power wasted"
+          label={t({
+            id: 'deathknight.blood.runicPowerDetails.statistic.label',
+            message: 'Runic Power wasted',
+          })}
         />
       </Statistic>
     );

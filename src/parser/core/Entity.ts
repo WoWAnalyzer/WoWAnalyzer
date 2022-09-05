@@ -156,7 +156,10 @@ class Entity {
    * @param {number|null} sourceID - source ID the buff must have come from, or any source if null.
    * @returns {array} - Time (in ms) the specified buff has been active at each stack count.
    */
-  getStackBuffUptimes(spellId: number, sourceID: number | null = null) {
+  getStackBuffUptimes(
+    spellId: number,
+    sourceID: number | null = null,
+  ): { [stack: number]: number } {
     const stackUptimes: { [key: number]: number } = { 0: this.owner.fightDuration };
     this.getBuffHistory(spellId, sourceID).forEach((buff, idx, arr) => {
       let startTime: number;

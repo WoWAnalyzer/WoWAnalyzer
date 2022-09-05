@@ -1,29 +1,36 @@
+import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
+import {
+  AbilityRequirementProps,
+  ChecklistProps,
+} from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import PropTypes from 'prop-types';
 
-const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) => {
-  const AbilityRequirement = (props) => (
+const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
     />
   );
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
 
   return (
     <Checklist>
       <Rule
-        name="Use your short cooldowns"
-        description="These should generally always be recharging to maximize efficiency."
+        name={t({
+          id: 'deathknight.blood.checklist.useShortCd',
+          message: 'Use your short cooldowns',
+        })}
+        description={t({
+          id: 'deathknight.blood.checklist.useShortCd.desc',
+          message: 'These should generally always be recharging to maximize efficiency.',
+        })}
       >
         <AbilityRequirement spell={SPELLS.BLOOD_BOIL.id} />
         {combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id) &&
@@ -39,49 +46,75 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) =>
         {combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id) && (
           <Requirement
             name={
-              <>
+              <Trans id="deathknight.blood.checklist.useShortCd.crimsonScourge">
                 <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs spent
-              </>
+              </Trans>
             }
             thresholds={thresholds.crimsonScourge}
           />
         )}
       </Rule>
       <Rule
-        name="Do not overcap your resources"
-        description="Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities. Try to spend Runic Power before reaching the maximum amount and always keep atleast 3 Runes on cooldown to avoid wasting resources."
+        name={t({
+          id: 'deathknight.blood.checklist.dontCapResources',
+          message: 'Do not overcap your resources',
+        })}
+        description={t({
+          id: 'deathknight.blood.checklist.dontCapResources.desc',
+          message:
+            'Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities. Try to spend Runic Power before reaching the maximum amount and always keep atleast 3 Runes on cooldown to avoid wasting resources.',
+        })}
       >
-        <Requirement name="Runic Power Efficiency" thresholds={thresholds.runicPower} />
-        <Requirement name="Rune Efficiency" thresholds={thresholds.runes} />
+        <Requirement
+          name={t({
+            id: 'deathknight.blood.checklist.dontCapResources.rpEfficiency',
+            message: 'Runic Power Efficiency',
+          })}
+          thresholds={thresholds.runicPower}
+        />
+        <Requirement
+          name={t({
+            id: 'deathknight.blood.checklist.dontCapResources.runeEfficiency',
+            message: 'Rune Efficiency',
+          })}
+          thresholds={thresholds.runes}
+        />
         <Requirement
           name={
-            <>
+            <Trans id="deathknight.blood.checklist.dontCapResources.marrowrendEfficiency">
               <SpellLink id={SPELLS.MARROWREND.id} /> Efficiency
-            </>
+            </Trans>
           }
           thresholds={thresholds.marrowrend}
         />
         <Requirement
           name={
-            <>
+            <Trans id="deathknight.blood.checklist.dontCapResources.deathsCaressEfficiency">
               <SpellLink id={SPELLS.DEATHS_CARESS.id} /> Efficiency
-            </>
+            </Trans>
           }
           thresholds={thresholds.deathsCaress}
         />
       </Rule>
 
       <Rule
-        name="Use your offensive cooldowns"
-        description="You should aim to use these cooldowns as often as you can to maximize your damage output unless you are saving them for their defensive value."
+        name={t({
+          id: 'deathknight.blood.checklist.offensiveCd',
+          message: 'Use your offensive cooldowns',
+        })}
+        description={t({
+          id: 'deathknight.blood.checklist.offensiveCd.desc',
+          message:
+            'You should aim to use these cooldowns as often as you can to maximize your damage output unless you are saving them for their defensive value.',
+        })}
       >
         <AbilityRequirement spell={SPELLS.DANCING_RUNE_WEAPON.id} />
         {combatant.hasTalent(SPELLS.CONSUMPTION_TALENT.id) && (
           <Requirement
             name={
-              <>
+              <Trans id="deathknight.blood.checklist.offensiveCd.consumption">
                 Possible <SpellLink id={SPELLS.CONSUMPTION_TALENT.id} /> Hits
-              </>
+              </Trans>
             }
             thresholds={thresholds.consumption}
           />
@@ -89,56 +122,70 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) =>
         {combatant.hasTalent(SPELLS.BONESTORM_TALENT.id) && (
           <Requirement
             name={
-              <>
+              <Trans id="deathknight.blood.checklist.offensiveCd.bonestorm">
                 <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> Efficiency
-              </>
+              </Trans>
             }
             thresholds={thresholds.bonestorm}
           />
         )}
       </Rule>
       <Rule
-        name="Maintain your buffs and debuffs"
-        description="It is important to maintain these as they contribute a large amount to your DPS and HPS."
+        name={t({
+          id: 'deathknight.blood.checklist.buffsDebuffs',
+          message: 'Maintain your buffs and debuffs',
+        })}
+        description={t({
+          id: 'deathknight.blood.checklist.buffsDebuffs.desc',
+          message:
+            'It is important to maintain these as they contribute a large amount to your DPS and HPS.',
+        })}
       >
         <Requirement
           name={
-            <>
+            <Trans id="deathknight.blood.checklist.buffsDebuffs.bloodPlague">
               <SpellLink id={SPELLS.BLOOD_PLAGUE.id} /> Uptime
-            </>
+            </Trans>
           }
           thresholds={thresholds.bloodPlague}
         />
         {combatant.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT.id) && (
           <Requirement
             name={
-              <>
+              <Trans id="deathknight.blood.checklist.buffsDebuffs.markOfBlood">
                 <SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id} /> Uptime
-              </>
+              </Trans>
             }
             thresholds={thresholds.markOfBlood}
           />
         )}
         <Requirement
           name={
-            <>
+            <Trans id="deathknight.blood.checklist.buffsDebuffs.boneShield">
               <SpellLink id={SPELLS.BONE_SHIELD.id} /> Uptime
-            </>
+            </Trans>
           }
           thresholds={thresholds.boneShield}
         />
         <Requirement
           name={
-            <>
+            <Trans id="deathknight.blood.checklist.buffsDebuffs.ossuary">
               <SpellLink id={SPELLS.OSSUARY.id} /> Efficiency
-            </>
+            </Trans>
           }
           thresholds={thresholds.ossuary}
         />
       </Rule>
       <Rule
-        name="Use your defensive cooldowns"
-        description="Use these to block damage spikes and keep damage smooth to reduce external healing required."
+        name={t({
+          id: 'deathknight.blood.checklist.defensives',
+          message: 'Use your defensive cooldowns',
+        })}
+        description={t({
+          id: 'deathknight.blood.checklist.defensives.desc',
+          message:
+            'Use these to block damage spikes and keep damage smooth to reduce external healing required.',
+        })}
       >
         <AbilityRequirement spell={SPELLS.VAMPIRIC_BLOOD.id} />
         <AbilityRequirement spell={SPELLS.ICEBOUND_FORTITUDE.id} />
@@ -153,15 +200,6 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) =>
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-BloodDeathKnightChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-    hasCovenant: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default BloodDeathKnightChecklist;

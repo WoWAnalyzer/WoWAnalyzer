@@ -1,11 +1,13 @@
+import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 class Abilities extends CoreAbilities {
-  spellbook() {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
       {
@@ -16,8 +18,11 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion:
-            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
+          extraSuggestion: t({
+            id: 'deathknight.blood.abilities.extraSuggestion.defensiveCd',
+            message:
+              'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
+          }),
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         timelineSortIndex: 10,
@@ -30,8 +35,11 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion:
-            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
+          extraSuggestion: t({
+            id: 'deathknight.blood.abilities.extraSuggestion.defensiveCd',
+            message:
+              'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
+          }),
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         timelineSortIndex: 10,
@@ -47,7 +55,10 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
-          extraSuggestion: 'Should be casting it so you have at least one recharging.',
+          extraSuggestion: t({
+            id: 'deathknight.blood.abilities.extraSuggestion.bloodBoil',
+            message: 'Should be casting it so you have at least one recharging.',
+          }),
         },
         timelineSortIndex: 4,
       },
@@ -72,7 +83,10 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          extraSuggestion: 'Should be used as an opener and used on CD for the dps boost.',
+          extraSuggestion: t({
+            id: 'deathknight.blood.abilities.extraSuggestion.dancingRuneWeapon',
+            message: 'Should be used as an opener and used on CD for the dps boost.',
+          }),
         },
         timelineSortIndex: 9,
       },
@@ -87,8 +101,10 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          extraSuggestion:
-            "Mostly used as a dps CD. Should be almost casted on CD. Good to use when you're running to the boss or can't melee them.",
+          extraSuggestion: t({
+            id: 'deathknight.blood.abilities.extraSuggestion.blooddrinker',
+            message: `Mostly used as a dps CD. Should be almost casted on CD. Good to use when you're running to the boss or can't melee them.`,
+          }),
         },
         timelineSortIndex: 6,
       },
@@ -162,8 +178,11 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion:
-            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
+          extraSuggestion: t({
+            id: 'deathknight.blood.abilities.extraSuggestion.defensiveCd',
+            message:
+              'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
+          }),
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         timelineSortIndex: 10,
@@ -269,8 +288,11 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion:
-            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
+          extraSuggestion: t({
+            id: 'deathknight.blood.abilities.extraSuggestion.defensiveCd',
+            message:
+              'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
+          }),
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         timelineSortIndex: 10,
@@ -284,8 +306,11 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion:
-            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
+          extraSuggestion: t({
+            id: 'deathknight.blood.abilities.extraSuggestion.defensiveCd',
+            message:
+              'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
+          }),
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         timelineSortIndex: 10,
@@ -299,7 +324,10 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion: 'Use to generate extra runes at opportune times.',
+          extraSuggestion: t({
+            id: 'deathknight.blood.abilities.extraSuggestion.bloodTap',
+            message: 'Use to generate extra runes at opportune times.',
+          }),
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         timelineSortIndex: 10,

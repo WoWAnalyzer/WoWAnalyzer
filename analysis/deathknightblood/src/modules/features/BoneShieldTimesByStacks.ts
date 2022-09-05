@@ -1,12 +1,21 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EventType } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  CastEvent,
+  EventType,
+  FightEndEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+} from 'parser/core/Events';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const MAX_BONE_SHIELD_STACKS = 10;
 const BONE_SHIELD_DURATION_MS = 30 * 1000;
-
+const DRW_COOLDOWN_REDUCTION_MS = 5000;
+const BLOOD_TAP_COOLDOWN_REDUCTION_MS = 2000;
 /**
  boneShieldTimesByStacks() returns an array with the durations of each BS charge
  */
@@ -15,7 +24,10 @@ class BoneShieldStacksBySeconds extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  boneShieldStacks = [];
+  protected spellUsable!: SpellUsable;
+
+  // TODO:
+  boneShieldStacks: number[][] = [];
   lastBoneShieldStack = 0;
   lastBoneShieldUpdate = this.owner.fight.start_time;
   boneShieldApplied = 0;
@@ -23,8 +35,8 @@ class BoneShieldStacksBySeconds extends Analyzer {
   totalDRWCooldownReduction = 0;
   totalDRWCooldownReductionWasted = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.boneShieldStacks = Array.from({ length: MAX_BONE_SHIELD_STACKS + 1 }, (x) => []);
 
     this.addEventListener(
@@ -46,16 +58,19 @@ class BoneShieldStacksBySeconds extends Analyzer {
     this.addEventListener(Events.fightend, this.handleStacks);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MARROWREND),
-      this.trackApplication,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DANCING_RUNE_WEAPON),
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.MARROWREND, SPELLS.DANCING_RUNE_WEAPON]),
       this.trackApplication,
     );
   }
 
-  handleStacks(event) {
+  handleStacks(
+    event:
+      | ApplyBuffEvent
+      | ApplyBuffStackEvent
+      | RemoveBuffEvent
+      | RemoveBuffStackEvent
+      | FightEndEvent,
+  ) {
     this.boneShieldStacks[this.lastBoneShieldStack].push(
       event.timestamp - this.lastBoneShieldUpdate,
     );
@@ -72,11 +87,11 @@ class BoneShieldStacksBySeconds extends Analyzer {
     this.lastBoneShieldStack = currentStacks(event);
   }
 
-  trackApplication(event) {
+  trackApplication(event: CastEvent) {
     // Can't track this with buff applied events in case the player
     // refreshes at 10 stacks.
-    const isMarrow = event.ability.guid === SPELLS.MARROWREND.spellID;
-    const isDRW = event.ability.guid === SPELLS.DANCING_RUNE_WEAPON.spellID;
+    const isMarrow = event.ability.guid === SPELLS.MARROWREND.id;
+    const isDRW = event.ability.guid === SPELLS.DANCING_RUNE_WEAPON.id;
     const hasCRW = this.selectedCombatant.hasLegendary(SPELLS.CRIMSON_RUNE_WEAPON);
 
     if (isMarrow || (isDRW && hasCRW)) {
@@ -84,12 +99,16 @@ class BoneShieldStacksBySeconds extends Analyzer {
     }
   }
 
-  didExpire(event) {
+  didExpire(
+    event:
+      | ApplyBuffEvent
+      | ApplyBuffStackEvent
+      | RemoveBuffEvent
+      | RemoveBuffStackEvent
+      | FightEndEvent,
+  ) {
     const sinceApplication = event.timestamp - this.boneShieldApplied;
-    if (sinceApplication >= BONE_SHIELD_DURATION_MS) {
-      return true;
-    }
-    return false;
+    return sinceApplication >= BONE_SHIELD_DURATION_MS;
   }
 
   get boneShieldTimesByStacks() {
@@ -98,21 +117,20 @@ class BoneShieldStacksBySeconds extends Analyzer {
 
   get averageBoneShieldStacks() {
     let avgStacks = 0;
-    this.boneShieldStacks.forEach((elem, index) => {
-      avgStacks += (elem.reduce((a, b) => a + b, 0) / this.owner.fightDuration) * index;
+    this.boneShieldStacks.forEach((durations, index) => {
+      avgStacks += (durations.reduce((a, b) => a + b, 0) / this.owner.fightDuration) * index;
     });
     return avgStacks;
   }
 
-  reduceDRWCooldown(stackDiff) {
+  reduceDRWCooldown(stackDiff: number) {
     if (!this.selectedCombatant.hasLegendary(SPELLS.CRIMSON_RUNE_WEAPON)) {
       return;
     }
     if (stackDiff >= 0) {
       return;
     }
-    const COOLDOWN_REDUCTION_MS = 5000;
-    const reduction = -stackDiff * COOLDOWN_REDUCTION_MS;
+    const reduction = -stackDiff * DRW_COOLDOWN_REDUCTION_MS;
     const reducedSpellID = SPELLS.DANCING_RUNE_WEAPON.id;
     if (!this.spellUsable.isOnCooldown(reducedSpellID)) {
       this.totalDRWCooldownReductionWasted += reduction;
@@ -123,15 +141,14 @@ class BoneShieldStacksBySeconds extends Analyzer {
     }
   }
 
-  reduceBloodTapCooldown(stackDiff) {
+  reduceBloodTapCooldown(stackDiff: number) {
     if (!this.selectedCombatant.hasTalent(SPELLS.BLOOD_TAP_TALENT)) {
       return;
     }
     if (stackDiff >= 0) {
       return;
     }
-    const COOLDOWN_REDUCTION_MS = 2000;
-    const reduction = -stackDiff * COOLDOWN_REDUCTION_MS;
+    const reduction = -stackDiff * BLOOD_TAP_COOLDOWN_REDUCTION_MS;
     const reducedSpellID = SPELLS.BLOOD_TAP_TALENT.id;
     if (this.spellUsable.isOnCooldown(reducedSpellID)) {
       this.spellUsable.reduceCooldown(reducedSpellID, reduction);

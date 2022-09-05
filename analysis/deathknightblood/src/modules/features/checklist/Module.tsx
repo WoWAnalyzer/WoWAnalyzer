@@ -39,6 +39,22 @@ class Checklist extends BaseChecklist {
     runeTracker: RuneTracker,
   };
 
+  protected combatants!: Combatants;
+  protected castEfficiency!: CastEfficiency;
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected bloodplagueUptime!: BloodPlagueUptime;
+  protected boneShield!: BoneShield;
+  protected ossuary!: Ossuary;
+  protected deathsCaress!: DeathsCaress;
+  protected bonestorm!: BoneStorm;
+  protected consumption!: Consumption;
+  protected markOfBloodUptime!: MarkOfBloodUptime;
+  protected crimsonScourge!: CrimsonScourge;
+  protected marrowrendUsage!: MarrowrendUsage;
+  protected runicPowerDetails!: RunicPowerDetails;
+  protected runeTracker!: RuneTracker;
+
   render() {
     return (
       <Component

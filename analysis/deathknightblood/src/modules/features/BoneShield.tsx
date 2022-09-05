@@ -1,8 +1,10 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -16,6 +18,9 @@ class BoneShield extends Analyzer {
     boneShieldTimesByStacks: BoneShieldTimesByStacks,
   };
 
+  protected statTracker!: StatTracker;
+  protected boneShieldTimesByStacks!: BoneShieldTimesByStacks;
+
   get boneShieldTimesByStack() {
     return this.boneShieldTimesByStacks.boneShieldTimesByStacks;
   }
@@ -24,7 +29,7 @@ class BoneShield extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.BONE_SHIELD.id) / this.owner.fightDuration;
   }
 
-  get uptimeSuggestionThresholds() {
+  get uptimeSuggestionThresholds(): NumberThreshold {
     return {
       actual: this.uptime,
       isLessThan: {
@@ -32,21 +37,31 @@ class BoneShield extends Analyzer {
         average: 0.9,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest('Your Bone Shield uptime can be improved. Try to keep it up at all times.')
+      suggest(
+        <Trans id="deathknight.blood.boneShield.suggestion.suggestion">
+          Your <SpellLink id={SPELLS.BONE_SHIELD.id} /> uptime can be improved. Try to keep it up at
+          all times.
+        </Trans>,
+      )
         .icon(SPELLS.BONE_SHIELD.icon)
         .actual(
           t({
-            id: 'deathknight.blood.suggestions.boneShield.uptime',
+            id: 'deathknight.blood.boneShield.suggestion.actual',
             message: `${formatPercentage(actual)}% Bone Shield uptime`,
           }),
         )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+        .recommended(
+          t({
+            id: 'shared.suggestion.recommended.moreThanPercent',
+            message: `>${formatPercentage(recommended)}% is recommended`,
+          }),
+        ),
     );
   }
 
@@ -60,18 +75,23 @@ class BoneShield extends Analyzer {
             <table className="table table-condensed">
               <thead>
                 <tr>
-                  <th>Stacks</th>
-                  <th>Time (s)</th>
-                  <th>Time (%)</th>
+                  <Trans id="deathknight.blood.boneShield.statistic.header">
+                    <th>Stacks</th>
+                    <th>Time (s)</th>
+                    <th>Time (%)</th>
+                  </Trans>
                 </tr>
               </thead>
               <tbody>
-                {Object.values(this.boneShieldTimesByStack).map((e, i) => (
-                  <tr key={i}>
-                    <th>{i}</th>
-                    <td>{formatDuration(e.reduce((a, b) => a + b, 0))}</td>
+                {Object.values(this.boneShieldTimesByStack).map((times, stacks) => (
+                  <tr key={stacks}>
+                    <th>{stacks}</th>
+                    <td>{formatDuration(times.reduce((a, b) => a + b, 0))}</td>
                     <td>
-                      {formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%
+                      {formatPercentage(
+                        times.reduce((a, b) => a + b, 0) / this.owner.fightDuration,
+                      )}
+                      %
                     </td>
                   </tr>
                 ))}
@@ -81,9 +101,9 @@ class BoneShield extends Analyzer {
         }
       >
         <BoringSpellValueText spellId={SPELLS.BONE_SHIELD.id}>
-          <>
+          <Trans id="deathknight.blood.boneShield.statistic">
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
-          </>
+          </Trans>
         </BoringSpellValueText>
       </Statistic>
     );

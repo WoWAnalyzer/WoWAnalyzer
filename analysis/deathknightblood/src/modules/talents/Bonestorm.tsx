@@ -1,10 +1,11 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { formatPercentage, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -15,12 +16,17 @@ const SUGGESTED_MIN_TARGETS_FOR_BONESTORM = 1.5;
 const SUGGESTED_RUNIC_POWER_SPENT = 100;
 
 class Bonestorm extends Analyzer {
-  bsCasts = [];
+  bsCasts: Array<{ cost: number; hits: number[] }> = [];
   totalBonestormDamage = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BONESTORM_TALENT.id);
+
+    if (!this.active) {
+      return;
+    }
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BONESTORM_TALENT),
       this.onCast,
@@ -31,7 +37,7 @@ class Bonestorm extends Analyzer {
     );
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     const resource = event.classResources?.find(
       (resource) => resource.type === RESOURCE_TYPES.RUNIC_POWER.id,
     );
@@ -45,7 +51,7 @@ class Bonestorm extends Analyzer {
     });
   }
 
-  onDamage(event) {
+  onDamage(event: DamageEvent) {
     if (this.bsCasts.length === 0) {
       // to account for prepull-cheese, assuming 100RP because I dont know how much RP was spend prepull
       this.bsCasts.push({
@@ -61,10 +67,10 @@ class Bonestorm extends Analyzer {
 
   get goodBonestormCasts() {
     if (this.selectedCombatant.has2Piece()) {
-      return this.bsCasts.filter((val) => val.cost / 10 === SUGGESTED_RUNIC_POWER_SPENT).length;
+      return this.bsCasts.filter((cast) => cast.cost / 10 === SUGGESTED_RUNIC_POWER_SPENT).length;
     } else {
       return this.bsCasts.filter(
-        (val) => val.hits.length / (val.cost / 100) >= SUGGESTED_MIN_TARGETS_FOR_BONESTORM,
+        (cast) => cast.hits.length / (cast.cost / 100) >= SUGGESTED_MIN_TARGETS_FOR_BONESTORM,
       ).length;
     }
   }
@@ -73,7 +79,7 @@ class Bonestorm extends Analyzer {
     return this.bsCasts.length;
   }
 
-  get suggestionThresholds() {
+  get suggestionThresholds(): NumberThreshold {
     return {
       actual: this.goodBonestormCasts / this.totalBonestormCasts,
       isLessThan: {
@@ -81,74 +87,84 @@ class Bonestorm extends Analyzer {
         average: 0.8,
         major: 0.6,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     if (this.selectedCombatant.has2Piece()) {
       when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
-          <>
+          <Trans id="deathknight.blood.bonestorm.suggestion.2p.suggestion">
             Try to cast <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> only when you have 100 or more
             Runic Power. The main purpose of <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> once you
             have 2-piece is to quickly spend Runic Power on a high Damage Per Execution Time (DPET)
             ability.
-          </>,
+          </Trans>,
         )
           .icon(SPELLS.BONESTORM_TALENT.icon)
           .actual(
             t({
-              id: 'deathknight.blood.suggestions.boneStorm.inneficientValue',
+              id: 'deathknight.blood.bonestorm.suggestion.2p.actual',
               message: `${formatPercentage(
                 actual,
               )}% casts spent ${SUGGESTED_RUNIC_POWER_SPENT} Runic Power`,
             }),
           )
-          .recommended(`${formatPercentage(recommended)}% is recommended`),
+          .recommended(
+            t({
+              id: 'deathknight.blood.bonestorm.suggestion.2p.recommended',
+              message: `${formatPercentage(recommended)}% is recommended`,
+            }),
+          ),
       );
     } else {
       when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
-          <>
+          <Trans id="deathknight.blood.bonestorm.suggestion.suggestion">
             Try to cast <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> only if you can reliable hit 2
             or more targets to maximize the damage and healing. Casting{' '}
             <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> with only one target in range is only a
             minor DPS gain (~10 DPS) at the cost of pooling Runic Power, use{' '}
             <SpellLink id={SPELLS.DEATH_STRIKE.id} /> instead.
-          </>,
+          </Trans>,
         )
           .icon(SPELLS.BONESTORM_TALENT.icon)
           .actual(
             t({
-              id: 'deathknight.blood.suggestions.boneStorm.notEnoughTargets',
+              id: 'deathknight.blood.bonestorm.suggestion.actual',
               message: `${formatPercentage(
                 actual,
               )}% casts hit ${SUGGESTED_MIN_TARGETS_FOR_BONESTORM} or more targets`,
             }),
           )
-          .recommended(`${formatPercentage(recommended)}%is recommended`),
+          .recommended(
+            t({
+              id: 'deathknight.blood.bonestorm.suggestion.recommended',
+              message: `${formatPercentage(recommended)}% is recommended`,
+            }),
+          ),
       );
     }
   }
 
   get bonestormTooltip() {
-    const tooltipRows = [];
-    this.bsCasts.forEach((cast, index) => {
+    return this.bsCasts.map((cast, index) => {
       const avgDamage = formatNumber(cast.hits.reduce((a, b) => a + b, 0) / cast.hits.length || 0);
       const totalDamage = formatNumber(cast.hits.reduce((a, b) => a + b, 0));
-      const avgHits = formatNumber((cast.hits.length / cast.cost) * 100 || 0, 1);
+      const avgHits = Number(((cast.hits.length / cast.cost) * 100 || 0).toFixed(1));
       const rpCost = formatNumber(cast.cost / 10);
 
-      tooltipRows.push(
-        <div id={index}>
-          Cast #{index + 1} (for {rpCost} RP) hit an average of {avgHits} target
-          {avgHits <= 1 ? '' : 's'} for {avgDamage} per hit. ({totalDamage} total)
-          <br />
-        </div>,
+      return (
+        <Trans id="deathknight.blood.bonestorm.tooltipRow" key={index}>
+          <div>
+            Cast #{index + 1} (for {rpCost} RP) hit an average of {avgHits} target
+            {avgHits <= 1 ? '' : 's'} for {avgDamage} per hit. ({totalDamage} total)
+            <br />
+          </div>
+        </Trans>
       );
     });
-    return tooltipRows;
   }
 
   statistic() {

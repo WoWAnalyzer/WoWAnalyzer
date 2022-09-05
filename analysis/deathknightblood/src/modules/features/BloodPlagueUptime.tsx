@@ -1,8 +1,10 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -13,11 +15,13 @@ class BloodPlagueUptime extends Analyzer {
     enemies: Enemies,
   };
 
+  protected enemies!: Enemies;
+
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.BLOOD_PLAGUE.id) / this.owner.fightDuration;
   }
 
-  get uptimeSuggestionThresholds() {
+  get uptimeSuggestionThresholds(): NumberThreshold {
     return {
       actual: this.uptime,
       isLessThan: {
@@ -25,23 +29,31 @@ class BloodPlagueUptime extends Analyzer {
         average: 0.9,
         major: 0.8,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        'Your Blood Plague uptime can be improved. Keeping Blood Boil on cooldown should keep it up at all times.',
+        <Trans id="deathknight.blood.bloodPlague.suggestion.suggestion">
+          Your <SpellLink id={SPELLS.BLOOD_PLAGUE.id} /> uptime can be improved. Keeping{' '}
+          <SpellLink id={SPELLS.BLOOD_BOIL.id} /> on cooldown should keep it up at all times.
+        </Trans>,
       )
         .icon(SPELLS.BLOOD_PLAGUE.icon)
         .actual(
           t({
-            id: 'deathknight.blood.suggestions.bloodPlague.uptime',
+            id: 'deathknight.blood.bloodPlague.suggestion.actual',
             message: `${formatPercentage(actual)}% Blood Plague uptime`,
           }),
         )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+        .recommended(
+          t({
+            id: 'shared.suggestion.recommended.moreThanPercent',
+            message: `>${formatPercentage(recommended)}% is recommended`,
+          }),
+        ),
     );
   }
 
@@ -49,9 +61,9 @@ class BloodPlagueUptime extends Analyzer {
     return (
       <Statistic size="small" position={STATISTIC_ORDER.CORE(2)}>
         <BoringSpellValueText spellId={SPELLS.BLOOD_PLAGUE.id}>
-          <>
+          <Trans id="deathknight.blood.bloodPlague.statistic">
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
-          </>
+          </Trans>
         </BoringSpellValueText>
       </Statistic>
     );
