@@ -258,7 +258,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               25
-              /44
+              /47
                casts
             </td>
             <td
@@ -276,7 +276,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "57.22591826466149%",
+                      "width": "54.156028897461226%",
                     }
                   }
                 />
@@ -291,7 +291,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              57.23%
+              54.16%
             </td>
             <td
               style={
@@ -452,7 +452,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
               }
             >
               11
-              /60
+              /83
                casts
             </td>
             <td
@@ -470,7 +470,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                   style={
                     Object {
                       "backgroundColor": "#ff8000",
-                      "width": "18.511755807829484%",
+                      "width": "13.361659305640968%",
                     }
                   }
                 />
@@ -485,7 +485,7 @@ exports[`Protection Paladin integration test: example log CastEfficiency matches
                 }
               }
             >
-              18.51%
+              13.36%
             </td>
             <td
               style={
@@ -2906,8 +2906,8 @@ Array [
         values={
           Object {
             "0": 11,
-            "1": 60,
-            "2": "19",
+            "1": 83,
+            "2": "13",
           }
         }
       />
@@ -3799,13 +3799,23 @@ Array [
         <thead>
           <tr>
             <th>
-              Ability
+              <trans
+                id="shared.resourceBreakdown.ability"
+                message="Ability"
+              />
             </th>
             <th
               colSpan={2}
             >
-              Holy Power
-               generated
+              <trans
+                id="shared.resourceBreakdown.generatedHeader"
+                message="{resourceName} generated"
+                values={
+                  Object {
+                    "resourceName": "Holy Power",
+                  }
+                }
+              />
             </th>
             <th
               colSpan={2}
@@ -3817,8 +3827,15 @@ Array [
                 onTouchStart={[Function]}
                 style={Object {}}
               >
-                Holy Power
-                 wasted
+                <trans
+                  id="shared.resourceBreakdown.wastedHeader"
+                  message="{resourceName} wasted"
+                  values={
+                    Object {
+                      "resourceName": "Holy Power",
+                    }
+                  }
+                />
               </dfn>
             </th>
           </tr>
@@ -3828,7 +3845,10 @@ Array [
             className="poor"
           >
             <td>
-              Total
+              <trans
+                id="shared.resourceBreakdown.total"
+                message="Total"
+              />
             </td>
             <td
               style={
@@ -4145,18 +4165,31 @@ Array [
         <thead>
           <tr>
             <th>
-              Ability
+              <trans
+                id="shared.resourceBreakdown.ability"
+                message="Ability"
+              />
             </th>
             <th
               colSpan={2}
             >
-              Holy Power
-               spent
+              <trans
+                id="shared.resourceBreakdown.spentHeader"
+                message="{resourceName} spent"
+                values={
+                  Object {
+                    "resourceName": "Holy Power",
+                  }
+                }
+              />
             </th>
             <th
               colSpan={2}
             >
-              Casts
+              <trans
+                id="shared.resourceBreakdown.castsHeader"
+                message="Casts"
+              />
             </th>
           </tr>
         </thead>
@@ -4165,7 +4198,10 @@ Array [
             className="poor"
           >
             <td>
-              Total
+              <trans
+                id="shared.resourceBreakdown.total"
+                message="Total"
+              />
             </td>
             <td
               style={
@@ -5912,7 +5948,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "69.29438316278039%",
+                  "width": "69.83724030563755%",
                 }
               }
             />
@@ -6363,7 +6399,7 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                   }
                 >
                    
-                  88.89%
+                  92.31%
                    
                    
                 </div>
@@ -6383,9 +6419,9 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "96.19999999999997%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -7060,7 +7096,8 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <trans
-                  id="All weapons enhanced (oils/stones)"
+                  id="shared.modules.features.checklist.allWeaponsEnhanced"
+                  message="All weapons enhanced (oils/stones)"
                 />
               </div>
               <div
@@ -7123,7 +7160,8 @@ exports[`Protection Paladin integration test: example log matches the checklist 
                 className="flex-main"
               >
                 <trans
-                  id="Using high quality weapon enhancements"
+                  id="shared.modules.features.checklist.highQualityWeaponEnhancements"
+                  message="Using high quality weapon enhancements"
                 />
               </div>
               <div

@@ -10,7 +10,7 @@ import Events, {
   GlobalCooldownEvent,
 } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { INVALID_COOLDOWN_CONFIG_LAG_MARGIN } from 'parser/shared/modules/SpellUsable';
+import { COOLDOWN_LAG_MARGIN } from 'parser/shared/modules/SpellUsable';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -55,17 +55,14 @@ export default class SepulcherTierSet extends Analyzer {
     }
 
     // force it even without checking for a damage event if we have an impossible gcd
-    if (this.remainingGcd(event) > INVALID_COOLDOWN_CONFIG_LAG_MARGIN) {
+    if (this.remainingGcd(event) > COOLDOWN_LAG_MARGIN) {
       return true;
     }
 
     const triggerOffset = Math.abs(event.timestamp - (this.lastTriggerEvent?.timestamp ?? 0));
     const damageOffset = Math.abs(event.timestamp - (this.lastDamageEvent?.timestamp ?? 0));
 
-    return (
-      triggerOffset >= 3000 - INVALID_COOLDOWN_CONFIG_LAG_MARGIN &&
-      damageOffset < INVALID_COOLDOWN_CONFIG_LAG_MARGIN
-    );
+    return triggerOffset >= 3000 - COOLDOWN_LAG_MARGIN && damageOffset < COOLDOWN_LAG_MARGIN;
   }
 
   public triggerInferredProc(event: CastEvent) {

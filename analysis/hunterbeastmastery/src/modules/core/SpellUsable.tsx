@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import { CastEvent, DamageEvent } from 'parser/core/Events';
+import { AbilityEvent, CastEvent } from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
 class SpellUsable extends CoreSpellUsable {
@@ -19,19 +19,18 @@ class SpellUsable extends CoreSpellUsable {
     }
   }
 
-  beginCooldown(spellId: number, cooldownTriggerEvent: CastEvent | DamageEvent) {
+  beginCooldown(triggerEvent: AbilityEvent<any>, spellId: number) {
     if (spellId === SPELLS.BARBED_SHOT.id) {
       if (this.isOnCooldown(spellId)) {
         this.endCooldown(
           spellId,
-          undefined,
           this.lastPotentialTriggerForBarbedShotReset
             ? this.lastPotentialTriggerForBarbedShotReset.timestamp
             : undefined,
         );
       }
     }
-    super.beginCooldown(spellId, cooldownTriggerEvent);
+    super.beginCooldown(triggerEvent, spellId);
   }
 }
 

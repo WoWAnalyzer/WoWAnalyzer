@@ -13,6 +13,9 @@ import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
 
 const DAMAGE_MULTIPLIER = 0.2;
 
+const MOD_RATE = 2;
+const MOD_RATE_ABILITIES = [SPELLS.FISTS_OF_FURY_CAST.id, SPELLS.RISING_SUN_KICK.id];
+
 /**
  * Tracks damage increase and cooldown reduction from
  * [Serenity](https://www.wowhead.com/spell=152173/serenity).
@@ -35,14 +38,6 @@ class Serenity extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SERENITY_TALENT.id);
 
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK),
-      this.onRSK,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_CAST),
-      this.onFoF,
-    );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SERENITY_TALENT),
       this.onSerenityStart,
@@ -74,34 +69,12 @@ class Serenity extends Analyzer {
     }
   }
 
-  onRSK() {
-    if (this.selectedCombatant.hasBuff(SPELLS.SERENITY_TALENT.id)) {
-      this._reduceRSK();
-    }
-  }
-
-  onFoF() {
-    if (this.selectedCombatant.hasBuff(SPELLS.SERENITY_TALENT.id)) {
-      this._reduceFoF();
-    }
-  }
-
   onSerenityStart() {
-    this._reduceRSK();
-    this._reduceFoF();
+    this.spellUsable.applyCooldownRateChange(MOD_RATE_ABILITIES, MOD_RATE);
   }
 
   onSerenityEnd() {
-    if (this.spellUsable.isOnCooldown(SPELLS.RISING_SUN_KICK.id)) {
-      const cooldownExtension = this.spellUsable.cooldownRemaining(SPELLS.RISING_SUN_KICK.id);
-      this.spellUsable.extendCooldown(SPELLS.RISING_SUN_KICK.id, cooldownExtension);
-      this.effectiveRisingSunKickReductionMs -= cooldownExtension;
-    }
-    if (this.spellUsable.isOnCooldown(SPELLS.FISTS_OF_FURY_CAST.id)) {
-      const cooldownExtension = this.spellUsable.cooldownRemaining(SPELLS.FISTS_OF_FURY_CAST.id);
-      this.spellUsable.extendCooldown(SPELLS.FISTS_OF_FURY_CAST.id, cooldownExtension);
-      this.effectiveFistsOfFuryReductionMs -= cooldownExtension;
-    }
+    this.spellUsable.removeCooldownRateChange(MOD_RATE_ABILITIES, MOD_RATE);
   }
 
   onAffectedDamage(event: DamageEvent) {

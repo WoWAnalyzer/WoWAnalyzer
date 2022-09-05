@@ -1,9 +1,12 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Adoraci, Sharrq } from 'CONTRIBUTORS';
+import { emallson, Adoraci, Sharrq } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
+// prettier-ignore
 export default [
+  change(date(2022, 8, 8), <>Fix crash when time is filtered to include the end of <SpellLink id={SPELLS.COMBUSTION.id} /> but not the start.</>, emallson),
+  change(date(2022, 8, 8), <>Updated the cooldown reduction for <SpellLink id={SPELLS.KINDLING_TALENT.id} />.</>, emallson),
   change(date(2022, 5, 21), <>Added the <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> cooldown reduction from <SpellLink id={SPELLS.SINFUL_DELIGHT.id} />.</>, Sharrq),
   change(date(2022, 5, 21), <>Removed the suggestion and associated checks for casting <SpellLink id={SPELLS.COMBUSTION.id} /> during <SpellLink id={SPELLS.FIRESTARTER_TALENT.id} />.</>, Sharrq),
   change(date(2022, 5, 21), <>Removed <SpellLink id={SPELLS.MIRROR_IMAGE.id} /> from the Throughput Cooldowns list.</>, Sharrq),

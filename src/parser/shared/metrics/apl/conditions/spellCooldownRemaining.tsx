@@ -5,9 +5,6 @@ import { UpdateSpellUsableEvent, EventType } from 'parser/core/Events';
 import { Condition, tenseAlt } from '../index';
 import { formatTimestampRange, Range } from './util';
 
-export const cooldownEnd = (event: UpdateSpellUsableEvent): number =>
-  event.expectedDuration + event.start;
-
 export default function spellCooldownRemaining(
   spell: Spell,
   range: Range,
@@ -27,7 +24,7 @@ export default function spellCooldownRemaining(
         //spell hasn't been cast yet, so it can't have any cooldown remaining so only atMost can be true
         return Boolean(range.atMost && !range.atLeast);
       }
-      const cdRemaining = cooldownEnd(state) - event.timestamp;
+      const cdRemaining = state.expectedRechargeTimestamp - event.timestamp;
       return cdRemaining >= (range.atLeast || 0) && (!range.atMost || cdRemaining <= range.atMost);
     },
     describe: (tense) => (

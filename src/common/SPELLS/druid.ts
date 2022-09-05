@@ -4,7 +4,9 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-const spells = {
+import { spellIndexableList } from './Spell';
+
+const spells = spellIndexableList({
   // Shared
   HIBERNATE: {
     id: 2637,
@@ -166,12 +168,14 @@ const spells = {
 
   // Spells / Buffs
   TRANQUILITY_CAST: {
+    // this ID is the initial cast and the 'channel buff'
     id: 740,
     name: 'Tranquility',
     icon: 'spell_nature_tranquility',
     manaCost: 1840,
   },
   TRANQUILITY_HEAL: {
+    // this ID is the direct heal, the HoT heal, the HoT buff, and the 'tick cast'
     id: 157982,
     name: 'Tranquility',
     icon: 'spell_nature_tranquility',
@@ -941,6 +945,6 @@ const spells = {
     name: 'Sudden Ambush',
     icon: 'ability_hunter_catlikereflexes',
   },
-} as const;
+});
 
 export default spells;

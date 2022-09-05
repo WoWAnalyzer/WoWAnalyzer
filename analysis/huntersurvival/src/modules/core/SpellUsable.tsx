@@ -15,10 +15,12 @@ class SpellUsable extends CoreSpellUsable {
   lastPotentialTriggerForBombReset: CastEvent | null = null;
   bombResets = 0;
 
+  raptorMongooseVariantsIds = RAPTOR_MONGOOSE_VARIANTS.map((spell) => spell.id);
+
   onCast(event: CastEvent) {
     const spell = event.ability;
     if (this.selectedCombatant.hasLegendary(SPELLS.RYLAKSTALKERS_CONFOUNDING_STRIKES_EFFECT)) {
-      if (RAPTOR_MONGOOSE_VARIANTS.includes(spell)) {
+      if (this.raptorMongooseVariantsIds.includes(spell.guid)) {
         this.lastPotentialTriggerForBombReset = event;
       } else if (spell.guid === SPELLS.WILDFIRE_BOMB.id) {
         this.lastPotentialTriggerForBombReset = null;
@@ -27,7 +29,7 @@ class SpellUsable extends CoreSpellUsable {
     super.onCast(event);
   }
 
-  beginCooldown(spellId: number, cooldownTriggerEvent: CastEvent | DamageEvent) {
+  beginCooldown(triggerEvent: CastEvent | DamageEvent, spellId: number) {
     if (
       SURVIVAL_BOMB_TYPES.includes(spellId) &&
       this.selectedCombatant.hasLegendary(SPELLS.RYLAKSTALKERS_CONFOUNDING_STRIKES_EFFECT)
@@ -36,14 +38,13 @@ class SpellUsable extends CoreSpellUsable {
         this.bombResets += 1;
         this.endCooldown(
           spellId,
-          false,
           this.lastPotentialTriggerForBombReset
             ? this.lastPotentialTriggerForBombReset.timestamp
             : undefined,
         );
       }
     }
-    super.beginCooldown(spellId, cooldownTriggerEvent);
+    super.beginCooldown(triggerEvent, spellId);
   }
 }
 

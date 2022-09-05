@@ -1,11 +1,11 @@
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
-import CoreBuffs from 'parser/core/modules/Buffs';
+import CoreAuras from 'parser/core/modules/Auras';
 
 import * as SPELL_EFFECTS from '../SPELL_EFFECTS';
 import * as SPELLS from '../SPELLS';
 
-class Buffs extends CoreBuffs {
-  buffs() {
+class Buffs extends CoreAuras {
+  auras() {
     return [
       {
         spellId: SPELL_EFFECTS.CLEARCASTING,

@@ -14,7 +14,6 @@ import {
 } from '@wowanalyzer/priest';
 import AbilityTracker from '@wowanalyzer/priest-holy/src/modules/core/AbilityTracker';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import Abilities from './modules/Abilities';
 import Checklist from './modules/checklist/Module';
 import EchoOfLightMastery from './modules/core/EchoOfLightMastery';
@@ -50,8 +49,6 @@ import SpiritOfRedemption from './modules/spells/SpiritOfRedemption';
 import Talents from './modules/talents';
 
 class CombatLogParser extends CoreCombatLogParser {
-  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
-
   static specModules = {
     spellManaCost: SpellManaCost,
     abilities: Abilities,
@@ -111,7 +108,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     SurgeOfLight: Talents.t75.SurgeOfLight,
     PrayerCircle: Talents.t75.PrayerCircle,
-    BindingHeal: Talents.t75.BindingHeal,
+    BindingHeals: Talents.t75.BindingHeals,
 
     Halo: Talents.t90.Halo,
     Benediction: Talents.t90.Benediction,

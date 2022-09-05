@@ -132,7 +132,6 @@ class AimedShot extends Analyzer {
   onCast(event: CastEvent) {
     const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(
       SPELLS.AIMED_SHOT.id,
-      event,
     );
     if (expectedCooldownDuration) {
       this.totalCooldown += expectedCooldownDuration;

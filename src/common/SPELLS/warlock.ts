@@ -4,7 +4,9 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-const spells = {
+import { spellIndexableList } from './Spell';
+
+const spells = spellIndexableList({
   // -------------
   // Shared spells
   // -------------
@@ -250,11 +252,6 @@ const spells = {
     id: 316099,
     name: 'Unstable Affliction',
     icon: 'spell_shadow_unstableaffliction_3',
-  },
-  SHADOW_EMBRACE: {
-    id: 32388,
-    name: 'Shadow Embrace',
-    icon: 'spell_shadow_shadowembrace',
   },
   MALEFIC_RAPTURE: {
     id: 324536,
@@ -720,6 +717,6 @@ const spells = {
     name: 'Channel Demonfire',
     icon: 'spell_fire_ragnaros_lavaboltgreen',
   },
-} as const;
+});
 
 export default spells;

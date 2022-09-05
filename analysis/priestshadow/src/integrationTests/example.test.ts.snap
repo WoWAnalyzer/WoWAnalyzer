@@ -34,7 +34,7 @@ exports[`Shadow Priest integration test: example log AlwaysBeCasting matches the
         <div
           className="value"
         >
-          1.23 %
+          1.19 %
         </div>
         <div
           style={
@@ -53,7 +53,7 @@ exports[`Shadow Priest integration test: example log AlwaysBeCasting matches the
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "98.76859133327429%",
+                  "width": "98.81088977470861%",
                 }
               }
             >
@@ -375,8 +375,8 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   className="flex-sub performance-bar"
                   style={
                     Object {
-                      "backgroundColor": "#ff8000",
-                      "width": "79.90954430262384%",
+                      "backgroundColor": "#70b570",
+                      "width": "85.11139774859288%",
                     }
                   }
                 />
@@ -391,7 +391,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              79.91%
+              85.11%
             </td>
             <td
               style={
@@ -400,12 +400,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   "width": "25%",
                 }
               }
-            >
-              <trans
-                id="shared.castEfficiency.canBeImproved"
-                message="Can be improved."
-              />
-            </td>
+            />
           </tr>
           <tr>
             <td
@@ -563,7 +558,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "88.8489897507073%",
+                      "width": "88.89036059360487%",
                     }
                   }
                 />
@@ -578,7 +573,7 @@ exports[`Shadow Priest integration test: example log CastEfficiency matches the 
                 }
               }
             >
-              88.85%
+              88.89%
             </td>
             <td
               style={
@@ -4289,51 +4284,6 @@ Array [
         components={
           Object {
             "0": <ForwardRef
-              id={8092}
-            />,
-          }
-        }
-        id="shared.modules.castEfficiency.suggest"
-        message="Try to cast <0/> more often."
-      />
-       
-      
-    </React.Fragment>,
-    "spell": 8092,
-    "stat": <React.Fragment>
-      <Trans
-        id="shared.modules.castEfficiency.actual"
-        message="{0} out of {1} possible casts. You kept it on cooldown {2}% of the time."
-        values={
-          Object {
-            "0": 38,
-            "1": 48,
-            "2": "80",
-          }
-        }
-      />
-       (
-      <Trans
-        id="shared.modules.castEfficiency.recommended"
-        message=">{0}% is recommended"
-        values={
-          Object {
-            "0": "85",
-          }
-        }
-      />
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
-    "icon": undefined,
-    "importance": "regular",
-    "issue": <React.Fragment>
-      <Trans
-        components={
-          Object {
-            "0": <ForwardRef
               id={32379}
             />,
           }
@@ -6540,7 +6490,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "81.0297565055475%",
+                  "width": "87.77%",
                 }
               }
             />
@@ -6750,7 +6700,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  79.91%
+                  85.11%
                    
                    
                 </div>
@@ -6770,9 +6720,9 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "66.29878252773744%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -6969,7 +6919,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  88.85%
+                  88.89%
                    
                    
                 </div>
@@ -7753,7 +7703,7 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                   }
                 >
                    
-                  1.23%
+                  1.19%
                    
                    
                 </div>
@@ -8020,7 +7970,8 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                 className="flex-main"
               >
                 <trans
-                  id="All weapons enhanced (oils/stones)"
+                  id="shared.modules.features.checklist.allWeaponsEnhanced"
+                  message="All weapons enhanced (oils/stones)"
                 />
               </div>
               <div
@@ -8083,7 +8034,8 @@ exports[`Shadow Priest integration test: example log matches the checklist snaps
                 className="flex-main"
               >
                 <trans
-                  id="Using high quality weapon enhancements"
+                  id="shared.modules.features.checklist.highQualityWeaponEnhancements"
+                  message="Using high quality weapon enhancements"
                 />
               </div>
               <div

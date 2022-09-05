@@ -23,7 +23,6 @@ class HeavyRepercussions extends Analyzer {
 
   sbExtended = 0;
   sbCasts = 0;
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 
   constructor(options: Options) {
     super(options);

@@ -1,6 +1,6 @@
-import { ItemList } from 'common/ITEMS/Item';
+import { itemIndexableList } from 'common/ITEMS/Item';
 
-const items: ItemList = {
+const items = itemIndexableList({
   //region Assassination
   //endregion
   //region Outlaw
@@ -9,5 +9,5 @@ const items: ItemList = {
   //endregion
   //region Shared
   //endregion
-};
+});
 export default items;

@@ -13,6 +13,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { PHOTO_INCREASED_RATE } from '../../constants';
 import { isFromExpiringLifebloom } from '../../normalizers/CastLinkNormalizer';
+import Lifebloom from '../features/Lifebloom';
 
 const PHOTOSYNTHESIS_HOT_INCREASE = 0.2;
 // Spring blossoms double dips, confirmed by Bastas
@@ -26,9 +27,11 @@ const PHOTOSYNTHESIS_SB_INCREASE = 0.44;
 class Photosynthesis extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    lifebloom: Lifebloom,
   };
 
   protected combatants!: Combatants;
+  protected lifebloom!: Lifebloom;
 
   /** Total healing from randomly procced blooms */
   extraBloomHealing = 0;
@@ -96,33 +99,6 @@ class Photosynthesis extends Analyzer {
     return this.owner.getPercentageOfTotalHealingDone(this.totalHealing);
   }
 
-  get selfLifebloomUptime(): number {
-    return (
-      this.selectedCombatant.getBuffUptime(
-        SPELLS.LIFEBLOOM_HOT_HEAL.id,
-        this.selectedCombatant.id,
-      ) +
-      this.selectedCombatant.getBuffUptime(
-        SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id,
-        this.selectedCombatant.id,
-      )
-    );
-  }
-
-  get totalLifebloomUptime(): number {
-    return Object.values(this.combatants.players).reduce(
-      (uptime, player) =>
-        uptime +
-        player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id) +
-        player.getBuffUptime(SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id),
-      0,
-    );
-  }
-
-  get othersLifebloomUptime(): number {
-    return this.totalLifebloomUptime - this.selfLifebloomUptime;
-  }
-
   statistic() {
     return (
       <Statistic
@@ -133,7 +109,7 @@ class Photosynthesis extends Analyzer {
           <>
             Your Lifebloom was active on others{' '}
             <strong>
-              {formatPercentage(this.othersLifebloomUptime / this.owner.fightDuration)}%
+              {formatPercentage(this.lifebloom.othersLifebloomUptime / this.owner.fightDuration)}%
             </strong>{' '}
             of the time:
             <ul>
@@ -152,7 +128,7 @@ class Photosynthesis extends Analyzer {
             </ul>
             Your Lifebloom was active on yourself{' '}
             <strong>
-              {formatPercentage(this.selfLifebloomUptime / this.owner.fightDuration)}%
+              {formatPercentage(this.lifebloom.selfLifebloomUptime / this.owner.fightDuration)}%
             </strong>{' '}
             of the time:
             <ul>

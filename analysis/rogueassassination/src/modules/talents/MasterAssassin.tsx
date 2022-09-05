@@ -27,6 +27,7 @@ const GOOD_OPENER_CASTS = [...GOOD_MASTER_ASSASSIN_ABILITIES, SPELLS.GARROTE.id,
 
 class MasterAssassin extends StealthCasts {
   static dependencies = {
+    ...StealthCasts.dependencies,
     statTracker: StatTracker,
   };
 

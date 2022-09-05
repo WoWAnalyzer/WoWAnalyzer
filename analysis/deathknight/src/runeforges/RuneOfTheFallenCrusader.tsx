@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -55,18 +56,18 @@ class RuneOfTheFallenCrusader extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         tooltip={
-          <>
+          <Trans id="deathknight.shared.runeOfTheFallenCrusader.statistic.tooltip">
             <strong>Uptime: </strong> {formatPercentage(this.uptime)}% <br />
             <strong>Healing: </strong> {formatNumber(this.healing)} <br />
             <strong>Overhealing: </strong> {formatNumber(this.overhealing)} (
             {formatPercentage(this.overhealPercentage)} %) <br />
-          </>
+          </Trans>
         }
       >
         <BoringSpellValueText spellId={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id}>
-          <>
+          <Trans id="deathknight.shared.runeOfTheFallenCrusader.statistic">
             {formatPercentage(this.averageStrength)} % <small>average Strength</small>
-          </>
+          </Trans>
         </BoringSpellValueText>
       </Statistic>
     );

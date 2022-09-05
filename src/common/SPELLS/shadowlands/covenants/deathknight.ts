@@ -1,4 +1,6 @@
-const covenants = {
+import { spellIndexableList } from '../../Spell';
+
+const covenants = spellIndexableList({
   //region Kyrian
   SHACKLE_THE_UNWORTHY: {
     id: 312202,
@@ -76,5 +78,5 @@ const covenants = {
   },
 
   //endregion
-} as const;
+});
 export default covenants;

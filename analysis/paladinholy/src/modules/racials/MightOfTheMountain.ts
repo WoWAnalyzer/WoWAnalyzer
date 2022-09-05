@@ -5,6 +5,7 @@ import BaseMightOfTheMountain, {
   CRIT_EFFECT,
 } from 'parser/shared/modules/racials/dwarf/MightOfTheMountain';
 
+import { getBeaconSpellFactor } from '../../constants';
 import BeaconHealSource from '../beacons/BeaconHealSource';
 
 class MightOfTheMountain extends BaseMightOfTheMountain {
@@ -37,16 +38,26 @@ class MightOfTheMountain extends BaseMightOfTheMountain {
       return;
     }
 
-    const amount = event.amount;
-    const absorbed = event.absorbed || 0;
-    const overheal = event.overheal || 0;
-    const raw = amount + absorbed + overheal;
-    const rawNormalPart = raw / this.critEffectBonus.getBonus(event.originalHeal);
-    const rawDrapeHealing = rawNormalPart * CRIT_EFFECT;
+    const contribution = this.critEffectBonus.getHealingContribution(
+      event.originalHeal,
+      CRIT_EFFECT,
+    );
+    const beaconFactor = getBeaconSpellFactor(spellId, this.selectedCombatant);
+    if (beaconFactor == null) {
+      const origAbility = event.originalHeal.ability;
+      console.warn(
+        `MightOfTheMountain encountered a BeaconHealEvent triggered by ` +
+          `${origAbility.name} (${origAbility.guid}) with no beacon spell factor configured`,
+      );
+      return;
+    }
 
-    const effectiveHealing = Math.max(0, rawDrapeHealing - overheal);
+    const beaconRawContribution =
+      (contribution.effectiveHealing + contribution.overhealing) * beaconFactor;
+    const beaconEffectiveHealing = Math.max(0, beaconRawContribution - (event.overheal || 0));
 
-    this.healing += effectiveHealing;
+    this.healing += beaconEffectiveHealing;
+    this.overhealing += beaconRawContribution - beaconEffectiveHealing;
   }
 }
 

@@ -1,5 +1,6 @@
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 import lowRankSpells from '../lowRankSpells';
 import * as SPELLS from '../SPELLS';
@@ -9,7 +10,7 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.ARCANE_BLAST,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
           minimum: 750, // 0.75 seconds or 1 second?
@@ -17,7 +18,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ARCANE_EXPLOSION,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
           minimum: 1000, // is it actually 1 second for arcane explosion in classic?
@@ -25,14 +26,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.FROSTBOLT, ...lowRankSpells[SPELLS.FROSTBOLT]],
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1500, // haste interaction not accounted for
         },
       },
       {
         spell: [SPELLS.FIRE_BLAST, ...lowRankSpells[SPELLS.FIRE_BLAST]],
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
         cooldown: 8,
         gcd: {
           static: 1500, // haste interaction not accounted for
@@ -40,7 +41,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ARCANE_POWER,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: null,
         castEfficiency: {
@@ -50,7 +51,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ICY_VEINS,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: null,
         castEfficiency: {
@@ -60,13 +61,13 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.PRESENCE_OF_MIND,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: null,
       },
       {
         spell: SPELLS.COLD_SNAP,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 480,
         gcd: {
           static: 1500,
@@ -74,21 +75,21 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.MAGE_ARMOR, ...lowRankSpells[SPELLS.MAGE_ARMOR]],
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           static: 1500,
         },
       },
       {
         spell: SPELLS.MOLTEN_ARMOR,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           static: 1500,
         },
       },
       {
         spell: SPELLS.EVOCATION,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 480,
         gcd: {
           static: 1500,
@@ -96,20 +97,20 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.REMOVE_CURSE,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           static: 1500,
         },
       },
       {
         spell: SPELLS.BADGE_ICON,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 120,
       },
       {
         spell: SPELLS.MANA_EMERALD,
-        category: Abilities.SPELL_CATEGORIES.CONSUMABLE,
+        category: SPELL_CATEGORY.CONSUMABLE,
         gcd: null,
         cooldown: 120,
       },

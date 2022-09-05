@@ -1,32 +1,32 @@
 // Generated file, changes will be overwritten!
-import { SpellList } from '../Spell';
+import { spellIndexableList } from '../Spell';
 
-const talents: SpellList = {
+const talents = spellIndexableList({
   //Shared
   LIGHTS_HAMMER_TALENT: {
     id: 114158,
     name: "Light's Hammer",
     icon: 'spell_paladin_lightshammer',
-    manaCost: 9000,
+    manaCost: 1800,
   },
   HOLY_PRISM_TALENT: {
     id: 114165,
     name: 'Holy Prism',
     icon: 'spell_paladin_holyprism',
-    manaCost: 6500,
+    manaCost: 1300,
   },
   FIST_OF_JUSTICE_TALENT: { id: 234299, name: 'Fist of Justice', icon: 'spell_holy_fistofjustice' },
   REPENTANCE_TALENT: {
     id: 20066,
     name: 'Repentance',
     icon: 'spell_holy_prayerofhealing',
-    manaCost: 3000,
+    manaCost: 600,
   },
   BLINDING_LIGHT_TALENT: {
     id: 115750,
     name: 'Blinding Light',
     icon: 'ability_paladin_blindinglight',
-    manaCost: 3000,
+    manaCost: 600,
   },
   UNBREAKABLE_SPIRIT_TALENT: {
     id: 114154,
@@ -65,7 +65,7 @@ const talents: SpellList = {
     id: 223306,
     name: 'Bestow Faith',
     icon: 'ability_paladin_blessedmending',
-    manaCost: 3000,
+    manaCost: 600,
   },
   SAVED_BY_THE_LIGHT_TALENT: {
     id: 157047,
@@ -77,7 +77,7 @@ const talents: SpellList = {
     id: 216331,
     name: 'Avenging Crusader',
     icon: 'ability_paladin_veneration',
-    manaCost: 25000,
+    manaCost: 5000,
   },
   AWAKENING_TALENT: { id: 248033, name: 'Awakening', icon: 'inv_helm_plate_raidpaladin_n_01' },
   GLIMMER_OF_LIGHT_TALENT: {
@@ -89,13 +89,13 @@ const talents: SpellList = {
     id: 156910,
     name: 'Beacon of Faith',
     icon: 'ability_paladin_beaconsoflight',
-    manaCost: 1563,
+    manaCost: 313,
   },
   BEACON_OF_VIRTUE_TALENT: {
     id: 200025,
     name: 'Beacon of Virtue',
     icon: 'ability_paladin_beaconofinsight',
-    manaCost: 5000,
+    manaCost: 1000,
   },
   SANCTIFIED_WRATH_TALENT_HOLY: {
     id: 53376,
@@ -120,16 +120,12 @@ const talents: SpellList = {
     name: "Crusader's Judgment",
     icon: 'ability_paladin_enlightenedjudgements',
   },
-  MOMENT_OF_GLORY_TALENT: {
-    id: 327193,
-    name: 'Moment of Glory',
-    icon: 'ability_paladin_veneration',
-  },
+  MOMENT_OF_GLORY_TALENT: { id: 327193, name: 'Moment of Glory', icon: 'spell_holy_aspiration' },
   BLESSING_OF_SPELLWARDING_TALENT: {
     id: 204018,
     name: 'Blessing of Spellwarding',
     icon: 'spell_holy_blessingofprotection',
-    manaCost: 7500,
+    manaCost: 1500,
   },
   HAND_OF_THE_PROTECTOR_TALENT: {
     id: 315924,
@@ -147,7 +143,6 @@ const talents: SpellList = {
     icon: 'ability_paladin_shieldofthetemplar',
   },
   FINAL_STAND_TALENT: { id: 204077, name: 'Final Stand', icon: 'spell_holy_crusade' },
-  FINAL_STAND_CAST: { id: 204079, name: 'Final Stand', icon: 'spell_holy_crusade' },
   SANCTIFIED_WRATH_TALENT_PROTECTION: {
     id: 171648,
     name: 'Sanctified Wrath',
@@ -217,5 +212,6 @@ const talents: SpellList = {
     name: 'Sanctified Wrath',
     icon: 'ability_paladin_judgementsofthejust',
   },
-};
+});
+
 export default talents;

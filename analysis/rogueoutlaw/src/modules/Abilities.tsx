@@ -5,6 +5,7 @@ import Combatant from 'parser/core/Combatant';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -17,47 +18,47 @@ class Abilities extends CoreAbilities {
       // // Base class resource
       {
         spell: SPELLS.COMBO_POINT.id,
-        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+        category: SPELL_CATEGORY.HIDDEN,
       },
       // Rotational
       {
         spell: SPELLS.AMBUSH.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: standardGcd,
         },
       },
       {
         spell: SPELLS.DISPATCH.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: standardGcd,
         },
       },
       {
         spell: SPELLS.ROLL_THE_BONES.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: standardGcd,
         },
       },
       {
         spell: SPELLS.SLICE_AND_DICE.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: standardGcd,
         },
       },
       {
         spell: SPELLS.SINISTER_STRIKE.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: standardGcd,
         },
       },
       {
         spell: SPELLS.MARKED_FOR_DEATH_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 60,
         gcd: null,
         castEfficiency: {
@@ -67,7 +68,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.GHOSTLY_STRIKE_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 35,
         gcd: {
           static: standardGcd,
@@ -80,7 +81,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BETWEEN_THE_EYES.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 45,
         gcd: {
           static: standardGcd,
@@ -88,7 +89,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.PISTOL_SHOT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: standardGcd,
         },
@@ -96,7 +97,7 @@ class Abilities extends CoreAbilities {
       // Rotational (AOE)
       {
         spell: SPELLS.BLADE_FLURRY.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 30,
         gcd: {
           static: standardGcd,
@@ -105,7 +106,7 @@ class Abilities extends CoreAbilities {
       // Cooldowns
       {
         spell: SPELLS.DREADBLADES_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: {
           static: standardGcd,
@@ -119,7 +120,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ADRENALINE_RUSH.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
@@ -129,7 +130,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLADE_RUSH_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 45,
         gcd: {
           static: standardGcd,
@@ -147,7 +148,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.KILLING_SPREE_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         gcd: {
           static: standardGcd,
@@ -166,13 +167,13 @@ class Abilities extends CoreAbilities {
       // Defensive
       {
         spell: SPELLS.CLOAK_OF_SHADOWS.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120,
         gcd: null,
       },
       {
         spell: SPELLS.CRIMSON_VIAL.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 30,
         gcd: {
           base: 1000, // Adrenaline Rush doesn't decrease this, but Haste does
@@ -180,7 +181,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FEINT.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         buffSpellId: SPELLS.FEINT.id,
         cooldown: 15,
         gcd: {
@@ -189,7 +190,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RIPOSTE.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         buffSpellId: SPELLS.RIPOSTE.id,
         cooldown: 120,
         gcd: null,
@@ -197,17 +198,17 @@ class Abilities extends CoreAbilities {
       // Others
       {
         spell: SPELLS.PICK_LOCK.id,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
       },
       {
         spell: SPELLS.PICK_POCKET.id,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
         // While this actually has a 0.5s CD, it shows up weird in the Abilities tab if we set that
       },
       // Utility
       {
         spell: SPELLS.VANISH.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 120,
         gcd: null,
         castEfficiency: {
@@ -225,37 +226,37 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.GRAPPLING_HOOK.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 60 - (combatant.hasTalent(SPELLS.RETRACTABLE_HOOK_TALENT.id) ? 30 : 0),
         gcd: null,
       },
       {
         spell: SPELLS.SPRINT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
         gcd: null,
       },
       {
         spell: SPELLS.TRICKS_OF_THE_TRADE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: null,
       },
       {
         spell: SPELLS.STEALTH.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 2,
         gcd: null,
       },
       {
         spell: SPELLS.KICK.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 15,
         gcd: null,
       },
       {
         spell: SPELLS.BLIND.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 120 - (combatant.hasTalent(SPELLS.BLINDING_POWDER_TALENT.id) ? 30 : 0),
         gcd: {
           static: standardGcd,
@@ -263,14 +264,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CHEAP_SHOT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           static: standardGcd,
         },
       },
       {
         spell: SPELLS.DISTRACT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
           static: standardGcd,
@@ -278,7 +279,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.GOUGE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 15,
         gcd: {
           static: standardGcd,
@@ -286,7 +287,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SHROUD_OF_CONCEALMENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 6 * 60,
         gcd: {
           base: 1000,
@@ -294,12 +295,12 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SAP.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
       },
       // Covenant Abilities
       {
         spell: SPELLS.SERRATED_BONE_SPIKE.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
         charges: combatant.hasLegendary(SPELLS.DEATHSPIKE) ? 5 : 3,
         cooldown: 30,
@@ -309,7 +310,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SEPSIS.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
         cooldown: 90,
         gcd: {
@@ -321,7 +322,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ECHOING_REPRIMAND.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
         gcd: {
           static: standardGcd,
@@ -329,7 +330,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FLAGELLATION.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
         gcd: {
           static: standardGcd,

@@ -1,7 +1,7 @@
 // Generated file, changes will be overwritten!
-import { SpellList } from '../Spell';
+import { spellIndexableList } from '../Spell';
 
-const talents: SpellList = {
+const talents = spellIndexableList({
   //Shared
   ELEMENTAL_BLAST_TALENT: {
     id: 117014,
@@ -26,6 +26,12 @@ const talents: SpellList = {
     id: 192077,
     name: 'Wind Rush Totem',
     icon: 'ability_shaman_windwalktotem',
+  },
+  CLOUDBURST_TOTEM_TALENT: {
+    id: 157153,
+    name: 'Cloudburst Totem',
+    icon: 'ability_shaman_condensationtotem',
+    manaCost: 860,
   },
   ECHO_OF_THE_ELEMENTS_TALENT_SHARED: {
     id: 108283,
@@ -86,12 +92,6 @@ const talents: SpellList = {
   },
   FLASH_FLOOD_TALENT: { id: 280614, name: 'Flash Flood', icon: 'spell_frost_summonwaterelemental' },
   DOWNPOUR_TALENT: { id: 207778, name: 'Downpour', icon: 'ability_mage_waterjet', manaCost: 1500 },
-  CLOUDBURST_TOTEM_TALENT: {
-    id: 157153,
-    name: 'Cloudburst Totem',
-    icon: 'ability_shaman_condensationtotem',
-    manaCost: 860,
-  },
   HIGH_TIDE_TALENT: { id: 157154, name: 'High Tide', icon: 'spell_shaman_hightide', manaCost: 100 },
   WELLSPRING_TALENT: {
     id: 197995,
@@ -141,7 +141,7 @@ const talents: SpellList = {
     id: 333974,
     name: 'Fire Nova',
     icon: 'spell_shaman_improvedfirenova',
-    manaCost: 550,
+    manaCost: 100,
   },
   FERAL_LUNGE_TALENT: { id: 196884, name: 'Feral Lunge', icon: 'spell_beastmaster_wolf' },
   CRASHING_STORM_TALENT: {
@@ -243,5 +243,6 @@ const talents: SpellList = {
     name: 'Stormkeeper',
     icon: 'ability_thunderking_lightningwhip',
   },
-};
+});
+
 export default talents;

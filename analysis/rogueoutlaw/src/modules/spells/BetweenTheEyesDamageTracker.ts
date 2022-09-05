@@ -6,6 +6,7 @@ import SpellManaCost from '../../../../../src/parser/shared/modules/SpellManaCos
 
 class BetweenTheEyesDamageTracker extends FilteredDamageTracker {
   static dependencies = {
+    ...FilteredDamageTracker.dependencies,
     spellUsable: SpellUsable,
     spellManaCost: SpellManaCost,
   };

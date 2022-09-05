@@ -1,66 +1,21 @@
-import { t } from '@lingui/macro';
 import Module, { Options } from 'parser/core/Module';
+import EventEmitter from 'parser/core/modules/EventEmitter';
 import Haste from 'parser/shared/modules/Haste';
 
 import AbilityTracker from '../../shared/modules/AbilityTracker';
-import { AnyEvent } from '../Events';
+import { AnyEvent, EventType } from '../Events';
 import Ability, { SpellbookAbility } from './Ability';
 
 class Abilities extends Module {
   static dependencies = {
     abilityTracker: AbilityTracker,
+    eventEmitter: EventEmitter,
     haste: Haste,
   };
   abilityTracker!: AbilityTracker;
+  eventEmitter!: EventEmitter;
   haste!: Haste;
 
-  // TODO - Enum?
-  static SPELL_CATEGORIES = {
-    ROTATIONAL: t({
-      id: 'core.abilities.spellCategories.rotational',
-      message: `Rotational Spell`,
-    }),
-    ROTATIONAL_AOE: t({
-      id: 'core.abilities.spellCategories.rotationalAoe',
-      message: `Spell (AOE)`,
-    }),
-    ITEMS: t({
-      id: 'core.abilities.spellCategories.items',
-      message: `Item`,
-    }),
-    COOLDOWNS: t({
-      id: 'core.abilities.spellCategories.cooldowns',
-      message: `Cooldown`,
-    }),
-    DEFENSIVE: t({
-      id: 'core.abilities.spellCategories.defensive',
-      message: `Defensive Cooldown`,
-    }),
-    SEMI_DEFENSIVE: t({
-      id: 'core.abilities.spellCategories.semiDefensive',
-      message: `Offensive & Defensive Cooldown`,
-    }),
-    OTHERS: t({
-      id: 'core.abilities.spellCategories.others',
-      message: `Spell`,
-    }),
-    UTILITY: t({
-      id: 'core.abilities.spellCategories.utility',
-      message: `Utility`,
-    }),
-    HEALER_DAMAGING_SPELL: t({
-      id: 'core.abilities.spellCategories.healerDamagingSpell',
-      message: `Damaging Spell`,
-    }),
-    CONSUMABLE: t({
-      id: 'core.abilities.spellCategories.consumable',
-      message: `Consumable`,
-    }),
-    HIDDEN: t({
-      id: 'core.abilities.spellCategories.hidden',
-      message: `Hidden`,
-    }),
-  };
   static ABILITY_CLASS = Ability;
 
   /**
@@ -75,10 +30,13 @@ class Abilities extends Module {
 
   abilities: Ability[] = [];
   activeAbilities: Ability[] = [];
+  abilitiesAffectedByHealingIncreases: number[] = [];
+
   constructor(args: Options) {
     super(args);
     this.loadSpellbook(this.spellbook());
   }
+
   loadSpellbook(spellbook: SpellbookAbility[]) {
     // Abilities subtypes may want to construct a particular subtype of Ability
     const abilityClass = (this.constructor as typeof Abilities).ABILITY_CLASS;
@@ -117,22 +75,93 @@ class Abilities extends Module {
     return ability;
   }
 
-  /**
-   * Returns the expected cooldown (in milliseconds) of the given spellId at the current timestamp (or undefined if there is no such spellInfo)
-   */
-  getExpectedCooldownDuration(spellId: number, cooldownTriggerEvent?: AnyEvent) {
-    const ability = this.getAbility(spellId);
-    return ability
-      ? Math.round(ability.getCooldown(this.haste.current, cooldownTriggerEvent) * 1000)
-      : undefined;
+  getAbilityIndex(spellId: number) {
+    const index = this.activeAbilities.findIndex((ability) => {
+      if (ability.spell instanceof Array) {
+        return ability.spell.includes(spellId);
+      } else {
+        return ability.spell === spellId;
+      }
+    });
+
+    return index;
+  }
+
+  _getFromSelfOrId(abilityOrSpellId: number | Ability): Ability | undefined {
+    return typeof abilityOrSpellId === 'number'
+      ? this.getAbility(abilityOrSpellId)
+      : abilityOrSpellId;
   }
 
   /**
-   * Returns the max charges of the given spellId, or 1 if the spell doesn't have charges (or undefined if there is no such spellInfo)
+   * Returns the expected cooldown (in milliseconds) of the given ability or ID at the current timestamp (or undefined if there is no such spellInfo)
    */
-  getMaxCharges(spellId: number) {
-    const ability = this.getAbility(spellId);
+  getExpectedCooldownDuration(abilityOrSpellId: number | Ability): number | undefined {
+    const ability = this._getFromSelfOrId(abilityOrSpellId);
+    return ability ? Math.round(ability.getCooldown(this.haste.current) * 1000) : undefined;
+  }
+
+  /**
+   * Returns the max charges of the given ability or ID, or 1 if the spell doesn't have charges (or undefined if there is no such spellInfo)
+   */
+  getMaxCharges(abilityOrSpellId: number | Ability): number | undefined {
+    const ability = this._getFromSelfOrId(abilityOrSpellId);
     return ability ? ability.charges || 1 : undefined;
+  }
+
+  protected updateMaxCharges(spellId: number, maxCharges: number) {
+    const abilityIndex = this.getAbilityIndex(spellId);
+
+    if (abilityIndex === -1) {
+      return;
+    }
+
+    // The amount of charges should never drop below 1.
+    if (maxCharges < 1) {
+      maxCharges = 1;
+    }
+
+    this.activeAbilities[abilityIndex].charges = maxCharges;
+  }
+
+  increaseMaxCharges(event: AnyEvent, spellId: number, increaseBy: number) {
+    const currentCharges = this.getMaxCharges(spellId);
+
+    if (currentCharges === undefined) {
+      return;
+    }
+
+    this.updateMaxCharges(spellId, currentCharges + increaseBy);
+
+    this.eventEmitter.fabricateEvent(
+      {
+        type: EventType.MaxChargesIncreased,
+        timestamp: event.timestamp,
+        spellId: spellId,
+        by: increaseBy,
+      },
+      event,
+    );
+  }
+
+  decreaseMaxCharges(event: AnyEvent, spellId: number, decreaseBy: number) {
+    const currentCharges = this.getMaxCharges(spellId);
+
+    if (currentCharges === undefined) {
+      return;
+    }
+
+    this.updateMaxCharges(spellId, currentCharges - decreaseBy);
+
+    this.eventEmitter.fabricateEvent(
+      {
+        type: EventType.MaxChargesDecreased,
+        timestamp: event.timestamp,
+        spellId: spellId,
+        by: decreaseBy,
+      },
+      event,
+    );
   }
 
   /**
@@ -141,6 +170,10 @@ class Abilities extends Module {
   getTimelineSortIndex(spellId: number) {
     const ability = this.getAbility(spellId);
     return ability ? ability.timelineSortIndex : undefined;
+  }
+
+  getAffectedByHealingIncreases(spellId: number) {
+    return this.abilitiesAffectedByHealingIncreases.includes(spellId);
   }
 }
 

@@ -12,7 +12,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const HOT_HAND = {
   INCREASE: 1.0,
-  SNAPBACK_MULTIPLIER: 3.0,
+  MOD_RATE: 4.0,
 };
 
 /**
@@ -40,18 +40,18 @@ class HotHand extends Analyzer {
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
-      this.resetLavaLashCD,
+      this.applyHotHand,
     );
 
     // Very unlikely to happen but it does.
     this.addEventListener(
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
-      this.resetLavaLashCD,
+      this.applyHotHand,
     );
 
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
-      this.snapLavaLashCDBack,
+      this.removeHotHand,
     );
 
     this.addEventListener(
@@ -60,18 +60,14 @@ class HotHand extends Analyzer {
     );
   }
 
-  resetLavaLashCD() {
-    if (this.spellUsable.isOnCooldown(SPELLS.LAVA_LASH.id)) {
-      this.spellUsable.endCooldown(SPELLS.LAVA_LASH.id);
-    }
+  applyHotHand() {
+    // on application both resets the CD and applies a mod rate
+    this.spellUsable.endCooldown(SPELLS.LAVA_LASH.id);
+    this.spellUsable.applyCooldownRateChange(SPELLS.LAVA_LASH.id, HOT_HAND.MOD_RATE);
   }
 
-  snapLavaLashCDBack() {
-    if (this.spellUsable.isOnCooldown(SPELLS.LAVA_LASH.id)) {
-      const increaseRemainingCD =
-        this.spellUsable.cooldownRemaining(SPELLS.LAVA_LASH.id) * HOT_HAND.SNAPBACK_MULTIPLIER;
-      this.spellUsable.extendCooldown(SPELLS.LAVA_LASH.id, increaseRemainingCD);
-    }
+  removeHotHand() {
+    this.spellUsable.removeCooldownRateChange(SPELLS.LAVA_LASH.id, HOT_HAND.MOD_RATE);
   }
 
   onLavaLashDamage(event: DamageEvent) {

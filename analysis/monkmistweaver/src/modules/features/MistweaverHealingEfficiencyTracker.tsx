@@ -20,6 +20,7 @@ import RefreshingJadeWind from '../talents/RefreshingJadeWind';
 
 class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
+    ...HealingEfficiencyTracker.dependencies,
     manaTracker: ManaTracker,
     abilityTracker: AbilityTracker,
     healingDone: HealingDone,

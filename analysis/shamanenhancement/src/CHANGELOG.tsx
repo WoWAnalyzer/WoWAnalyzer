@@ -5,9 +5,14 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 8, 22), <>Make <SpellLink id={SPELLS.STORMBRINGER.id} /> a priority only if you have <SpellLink id={SPELLS.STORMFLURRY_TALENT.id} /> talented.</>, Vetyst),
+  change(date(2022, 8, 16), <>Implement an initial version of the Single Target APL checker.</>, Vetyst),
+  change(date(2022, 8, 15), <>Bump version to 9.2.7 but still marked as partial.</>, Vetyst),
+  change(date(2022, 8, 15), <>Track haste gained from <SpellLink id={SPELLS.ELEMENTAL_BLAST.id} />.</>, Vetyst),
+  change(date(2022, 8, 17), <>Track bad/missed <SpellLink id={SPELLS.SUNDERING_TALENT.id} /> casts.</>, Vetyst),
   change(date(2022, 7, 22), <>Properly reduce the cooldown of <SpellLink id={SPELLS.CHAIN_HARVEST.id} /> combined with <SpellLink id={SPELLS.ELEMENTAL_CONDUIT.id}/> legendary effect.</>, Vetyst),
   change(date(2022, 7, 22), <>Separate Stormstrike and Windstrike cooldowns.</>, Vetyst),
-  change(date(2022, 7, 22), <>Reset cooldown of <SpellLink id={SPELLS.PRIMORDIAL_WAVE_CAST.id} /> when <SpellLink id={SPELLS.TUMBLING_WAVES_CONDUIT} /> procs.</>, Vetyst),
+  change(date(2022, 7, 22), <>Reset cooldown of <SpellLink id={SPELLS.PRIMORDIAL_WAVE_CAST.id} /> when <SpellLink id={SPELLS.TUMBLING_WAVES_CONDUIT.id} /> procs.</>, Vetyst),
   change(date(2022, 7, 22), <>Show covenant abilities on offensive cooldowns checklist.</>, Vetyst),
   change(date(2022, 7, 22), <>Add suggestion for the <SpellLink id={SPELLS.ELEMENTAL_SPIRITS_TALENT.id} /> talent while wearing T28 4 set.</>, Vetyst),
   change(date(2022, 7, 22), <>Remove <SpellLink id={SPELLS.EARTH_ELEMENTAL.id} />  as suggested offensive cooldown.</>, Vetyst),

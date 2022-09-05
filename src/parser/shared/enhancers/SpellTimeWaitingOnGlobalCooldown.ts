@@ -1,5 +1,9 @@
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import Events, { EventType, GlobalCooldownEvent, UpdateSpellUsableEvent } from 'parser/core/Events';
+import Events, {
+  GlobalCooldownEvent,
+  UpdateSpellUsableEvent,
+  UpdateSpellUsableType,
+} from 'parser/core/Events';
 
 import SpellUsable from '../modules/SpellUsable';
 
@@ -25,11 +29,11 @@ class SpellTimeWaitingOnGlobalCooldown extends Analyzer {
       return;
     }
     const resetBufferMS = RESET_BUFFER_PERCENT * this.lastGlobalCooldown.duration;
-    const earlyByMS = event.start + event.expectedDuration - event.timestamp;
+    const earlyByMS = event.expectedRechargeTimestamp - event.timestamp;
     // check if the ability was reset early. If the reset was less than a percentage of the GCD don't consider it as a reset.
     // check if the reset happened as a result of the previous cast
     if (
-      event.trigger === EventType.EndCooldown &&
+      event.updateType === UpdateSpellUsableType.EndCooldown &&
       resetBufferMS < earlyByMS &&
       event.timestamp < this.lastGlobalCooldown.timestamp + GCD_MATCH_BUFFER_MS
     ) {

@@ -1,7 +1,12 @@
 import './CooldownBar.scss';
 import { formatDuration } from 'common/format';
 import { SpellIcon, Tooltip } from 'interface';
-import { AnyEvent, EventType, UpdateSpellUsableEvent } from 'parser/core/Events';
+import {
+  AnyEvent,
+  EventType,
+  UpdateSpellUsableEvent,
+  UpdateSpellUsableType,
+} from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 
 type Props = {
@@ -16,18 +21,33 @@ type Props = {
   highlightGaps?: boolean;
 };
 
-function CooldownBar({ spellId, events, info, highlightGaps, ...others }: Props): JSX.Element {
+/**
+ *
+ * @param spellId
+ * @param events
+ * @param info
+ * @param highlightGaps
+ * @param others
+ * @constructor
+ */
+export function CooldownBar({
+  spellId,
+  events,
+  info,
+  highlightGaps,
+  ...others
+}: Props): JSX.Element {
   const ability = info.abilities.find(
     (a) => a.spell === spellId || (Array.isArray(a.spell) && a.spell.includes(spellId)),
   );
   const abilityCdMs = (ability ? ability.cooldown : 0) * 1000;
-  const abilityName = ability ? ability.name : 'Unknown Ability';
+  const abilityName = ability?.name || 'Unknown Ability';
   let lastAvailable = info.fightStart;
   const endCooldowns: UpdateSpellUsableEvent[] = events.filter(
     (event): event is UpdateSpellUsableEvent =>
       IsUpdateSpellUsable(event) &&
       event.ability.guid === spellId &&
-      event.trigger === EventType.EndCooldown,
+      event.updateType === UpdateSpellUsableType.EndCooldown,
   );
   return (
     <div className="cooldown-bar" {...others}>
@@ -48,7 +68,7 @@ function CooldownBar({ spellId, events, info, highlightGaps, ...others }: Props)
       )}
       {endCooldowns.map((cd, ix) => {
         // end cooldown events can be placed after fight end, so we need to clip the bars
-        const end = cd.end === undefined || cd.end > info.fightEnd ? info.fightEnd : cd.end;
+        const end = cd.timestamp > info.fightEnd ? info.fightEnd : cd.timestamp;
         const currLastAvailable = lastAvailable;
         lastAvailable = end;
         // render the last period of availablility and also this cooldown
@@ -59,7 +79,7 @@ function CooldownBar({ spellId, events, info, highlightGaps, ...others }: Props)
               abilityName={abilityName}
               abilityCdMs={abilityCdMs}
               startTimestamp={currLastAvailable}
-              endTimestamp={cd.start}
+              endTimestamp={cd.overallStartTimestamp}
               info={info}
               highlightGaps={highlightGaps}
               type="available"
@@ -69,7 +89,7 @@ function CooldownBar({ spellId, events, info, highlightGaps, ...others }: Props)
               abilityId={spellId}
               abilityName={abilityName}
               abilityCdMs={abilityCdMs}
-              startTimestamp={cd.start}
+              startTimestamp={cd.overallStartTimestamp}
               endTimestamp={end}
               info={info}
               highlightGaps={highlightGaps}
@@ -168,5 +188,3 @@ function timestampOrFightTerminus(timestamp: number, info: Info): string {
 function IsUpdateSpellUsable(event: AnyEvent): event is UpdateSpellUsableEvent {
   return event.type === EventType.UpdateSpellUsable;
 }
-
-export default CooldownBar;

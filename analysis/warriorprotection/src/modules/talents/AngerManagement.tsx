@@ -21,7 +21,6 @@ class AngerManagement extends Analyzer {
   totalRageSpend = 0;
   wastedReduction: { [spellId: number]: number } = {};
   effectiveReduction: { [spellId: number]: number } = {};
-  statisticOrder = STATISTIC_ORDER.CORE(4);
   protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {

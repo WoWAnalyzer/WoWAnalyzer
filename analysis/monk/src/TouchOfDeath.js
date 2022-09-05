@@ -3,6 +3,7 @@ import SPECS from 'game/SPECS';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 
 class TouchOfDeath extends ExecuteHelper {
@@ -25,7 +26,7 @@ class TouchOfDeath extends ExecuteHelper {
 
     options.abilities.add({
       spell: SPELLS.TOUCH_OF_DEATH.id,
-      category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      category: SPELL_CATEGORY.COOLDOWNS,
       cooldown: this.selectedCombatant.hasLegendary(SPELLS.FATAL_TOUCH) ? 60 : 180,
       gcd:
         this.selectedCombatant.specId === SPECS.MISTWEAVER_MONK ? { base: 1500 } : { static: 1000 },

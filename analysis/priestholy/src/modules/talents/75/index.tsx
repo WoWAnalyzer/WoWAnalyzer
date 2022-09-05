@@ -1,5 +1,5 @@
-import BindingHeal from './BindingHeal';
+import BindingHeals from './BindingHeals';
 import PrayerCircle from './PrayerCircle';
 import SurgeOfLight from './SurgeOfLight';
 
-export { BindingHeal, PrayerCircle, SurgeOfLight };
+export { BindingHeals, PrayerCircle, SurgeOfLight };

@@ -1,5 +1,5 @@
 import Spell from 'common/SPELLS/Spell';
-import { PhaseConfig } from 'game/raids';
+import PhaseConfig from 'parser/core/PhaseConfig';
 import * as React from 'react';
 
 import EventFilter from './EventFilter';
@@ -42,6 +42,7 @@ export enum EventType {
   ExtraAttacks = 'extraattacks',
   OrbGenerated = 'orb-generated',
   Create = 'create',
+  Spellsteal = 'spellsteal',
 
   // Fabricated:
   Event = 'event', // everything
@@ -56,11 +57,8 @@ export enum EventType {
   BeaconTransferFailed = 'beacontransferfailed',
   ChangeStats = 'changestats',
   ChangeHaste = 'changehaste',
-  BeginCooldown = 'begincooldown',
-  AddCooldownCharge = 'addcooldowncharge',
-  RefreshCooldown = 'refreshcooldown',
-  EndCooldown = 'endcooldown',
-  RestoreCharge = 'restorecharge',
+  MaxChargesIncreased = 'maxchargesincreased',
+  MaxChargesDecreased = 'maxchargesdecreased',
   Health = 'health',
   Adds = 'adds',
   Dispel = 'dispel',
@@ -156,6 +154,7 @@ type MappedEventTypes = {
   [EventType.AuraBroken]: AuraBrokenEvent;
   [EventType.ExtraAttacks]: ExtraAttacksEvent;
   [EventType.Create]: CreateEvent;
+  [EventType.Spellsteal]: SpellstealEvent;
 
   // Fabricated:
   [EventType.FightEnd]: FightEndEvent;
@@ -164,6 +163,8 @@ type MappedEventTypes = {
   [EventType.BeginChannel]: BeginChannelEvent;
   [EventType.EndChannel]: EndChannelEvent;
   [EventType.UpdateSpellUsable]: UpdateSpellUsableEvent;
+  [EventType.MaxChargesIncreased]: MaxChargesIncreasedEvent;
+  [EventType.MaxChargesDecreased]: MaxChargesDecreasedEvent;
   [EventType.ChangeStats]: ChangeStatsEvent;
   [EventType.SpendResource]: SpendResourceEvent;
   [EventType.FeedHeal]: FeedHealEvent;
@@ -773,29 +774,88 @@ export interface FightEndEvent extends Event<EventType.FightEnd> {
 }
 
 export interface UpdateSpellUsableEvent extends Event<EventType.UpdateSpellUsable> {
-  ability: Omit<Ability, 'type'>;
-  name?: string;
-  trigger:
-    | EventType.BeginCooldown
-    | EventType.EndCooldown
-    | EventType.RefreshCooldown
-    | EventType.AddCooldownCharge
-    | EventType.RestoreCharge;
+  ability: Omit<Ability, 'type'>; // TODO should be able to get full ability
+  /** The kind of update to spell usability this represents. */
+  updateType: UpdateSpellUsableType;
+  /** If the spell is on cooldown *after* the event */
   isOnCooldown: boolean;
+  /** If the spell is available *after* the event */
   isAvailable: boolean;
+  /** How many charges are available *after* the event */
   chargesAvailable: number;
+  /** The maximum number of charges for the spell */
   maxCharges: number;
-  timePassed?: number;
-  sourceID: number;
-  targetID: number;
-  targetIsFriendly: boolean;
-  start: number;
-  end?: number;
-  expectedDuration: number;
-  totalReductionTime: number;
 
-  // Added by SpellHistory
+  /** The timestamp this cooldown began - always the timestamp of the most recent BeginCooldown
+   *  for this ability, and if this is a BeginCooldown it will be the same as this event's timestamp.
+   *  Note this is the overall beginning, *not* the beginning of the most recent charge's cooldown. */
+  overallStartTimestamp: number;
+  /** The timestamp the cooldown of this charge began - always the timestamp of the most recent
+   *  BeginCooldown or RestoreCharge for this ability. If this is a BeginCooldown it will be the
+   *  same as the event's timestamp. */
+  chargeStartTimestamp: number;
+  /** The timestamp the next charge is expected to be restored, based on current conditions.
+   *  For a spell without charges, this is the expected time of the cooldown's end. (for an
+   *  EndCooldown updateType, it will be the actual time of the cooldown's end - this event's timestamp)
+   *  Expectation is based on the current haste / modRate / buffs - for dynamic cooldowns
+   *  the actual recharge time may be earlier *or* later. */
+  expectedRechargeTimestamp: number;
+  /** The expected time it will take for a full charge to recover, based on current conditions.
+   *  This is *not* the time from the current timestamp expected, but the time from charge start
+   *  to finish. Expectation is based on the current haste / modRate / buffs - for dynamic cooldowns
+   *  the actual recharge time may be earlier *or* later. */
+  expectedRechargeDuration: number;
+
+  /** The time after an ability's cooldown ends that the player has to wait in GCD before
+   *  being able to cast the spell. Useful for making the spell utilization numbers more fair
+   *  when a GCD spell resets another spell's cooldown.
+   *  Only filled in for EndCooldown updateType. */
   timeWaitingOnGCD?: number;
+
+  /** In practice will always be the selected player - included to make filtering easier */
+  sourceID: number;
+  /** In practice will always be true - included to make filtering easier */
+  sourceIsFriendly: boolean;
+  /** In practice will always be the selected player - included to make filtering easier */
+  targetID: number;
+  /** In practice will always be true - included to make filtering easier */
+  targetIsFriendly: boolean;
+
+  __fabricated: true;
+}
+
+/**
+ * The reasons for an UpdateSpellUsableEvent.
+ */
+export enum UpdateSpellUsableType {
+  /** The spell wasn't on cooldown but now is (the first charge was used) */
+  BeginCooldown = 'BeginCooldown',
+  /** The spell was on cooldown but now isn't (the last charge was restored) */
+  EndCooldown = 'EndCooldown',
+  /** A charge beyond the first was used (spell was on cooldown and still is).
+   *  When the first charge is used, it will be indicated with a BeginCooldown type
+   *  *instead of* this type. Spells without charges will never have an update with this type. */
+  UseCharge = 'UseCharge',
+  /** A charge before the last was restored (spell was on cooldown and still is).
+   *  When the last charge is restored, it will be indicated with an EndCooldown type
+   *  *instead of* this type. Spells without charges will never have an update with this type. */
+  RestoreCharge = 'RestoreCharge',
+}
+
+export interface MaxChargesIncreasedEvent extends Event<EventType.MaxChargesIncreased> {
+  /** The ID of the spell that's changing FIXME ability event instead? */
+  spellId: number;
+  /** The number of charges we're increasing by */
+  by: number;
+
+  __fabricated: true;
+}
+
+export interface MaxChargesDecreasedEvent extends Event<EventType.MaxChargesDecreased> {
+  /** The ID of the spell that's changing FIXME ability event instead? */
+  spellId: number;
+  /** The number of charges we're decreasing by */
+  by: number;
 
   __fabricated: true;
 }
@@ -865,6 +925,18 @@ export interface CreateEvent extends Event<EventType.Create> {
   target: CastTarget;
 }
 
+export interface SpellstealEvent extends Event<EventType.Spellsteal> {
+  ability: Ability;
+  extraAbility: Ability;
+  fight: number;
+  isBuff: boolean;
+  sourceID: number;
+  sourceIsFriendly: boolean;
+  targetID: number;
+  targetInstance: number;
+  targetIsFriendly: boolean;
+}
+
 export type PhaseEvent = BasePhaseEvent<EventType.PhaseStart | EventType.PhaseEnd>;
 
 export type PhaseStartEvent = BasePhaseEvent<EventType.PhaseStart>;
@@ -882,6 +954,13 @@ export interface Item {
   temporaryEnchant?: number;
   gems?: Gem[];
   setID?: number;
+
+  /**
+   * Added while parsing gear of the combatant if item is part of a set.
+   * Contains all equiped items ids that have the same @setID
+   * Used for wowhead tooltip.
+   */
+  setItemIDs?: number[];
 }
 
 export interface Gem {
@@ -1216,6 +1295,12 @@ const Events = {
   get UpdateSpellUsable() {
     return new EventFilter(EventType.UpdateSpellUsable);
   },
+  get MaxChargesIncreased() {
+    return new EventFilter(EventType.MaxChargesIncreased);
+  },
+  get MaxChargesDescreased() {
+    return new EventFilter(EventType.MaxChargesDecreased);
+  },
   get BeginChannel() {
     return new EventFilter(EventType.BeginChannel);
   },
@@ -1248,6 +1333,9 @@ const Events = {
   },
   get create() {
     return new EventFilter(EventType.Create);
+  },
+  get spellsteal() {
+    return new EventFilter(EventType.Spellsteal);
   },
 };
 

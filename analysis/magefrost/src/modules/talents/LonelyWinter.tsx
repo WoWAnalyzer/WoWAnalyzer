@@ -39,7 +39,7 @@ class LonelyWinter extends Analyzer {
       totalDamage += spellBonus;
       return (
         <li key={spellId}>
-          Bonus <strong>{SPELLS[spellId].name}</strong> damage: {formatNumber(spellBonus)}
+          Bonus <strong>{SPELLS[Number(spellId)].name}</strong> damage: {formatNumber(spellBonus)}
         </li>
       );
     });

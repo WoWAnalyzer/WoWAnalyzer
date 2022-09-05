@@ -4,7 +4,9 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-const spells = {
+import { spellIndexableList } from './Spell';
+
+const spells = spellIndexableList({
   // Common Spells
   GLIDE: {
     id: 131347,
@@ -313,6 +315,11 @@ const spells = {
     name: 'Eye Beam',
     icon: 'ability_demonhunter_eyebeam',
   },
+  FURIOUS_GAZE: {
+    id: 343312,
+    name: 'Furious Gaze',
+    icon: 'spell_warlock_soulburn',
+  },
   FURY_OF_THE_ILLIDARI: {
     id: 201467,
     name: 'Fury of the Illidari',
@@ -396,56 +403,6 @@ const spells = {
     name: 'Chaos Cleave',
     icon: 'inv_weapon_shortblade_62',
   },
-  NEMESIS_DEMON: {
-    id: 208579,
-    name: 'Nemesis',
-    icon: 'spell_shadow_demonicfortitude',
-  },
-  NEMESIS_HUMANOID: {
-    id: 208605,
-    name: 'Nemesis',
-    icon: 'inv_misc_head_human_01',
-  },
-  NEMESIS_ABERRATION: {
-    id: 208607,
-    name: 'Nemesis',
-    icon: 'ability_shawaterelemental_swirl',
-  },
-  NEMESIS_BEAST: {
-    id: 208608,
-    name: 'Nemesis',
-    icon: 'inv_misc_head_tiger_01',
-  },
-  NEMESIS_CRITTER: {
-    id: 208609,
-    name: 'Nemesis',
-    icon: 'inv_pet_mouse',
-  },
-  NEMESIS_DRAGONKIN: {
-    id: 208610,
-    name: 'Nemesis',
-    icon: 'inv_misc_head_dragon_green',
-  },
-  NEMESIS_ELEMENTAL: {
-    id: 208611,
-    name: 'Nemesis',
-    icon: 'spell_fire_elemental_totem',
-  },
-  NEMESIS_GIANT: {
-    id: 208612,
-    name: 'Nemesis',
-    icon: 'achievement_dungeon_ulduarraid_icegiant_01',
-  },
-  NEMESIS_MECHANICAL: {
-    id: 208613,
-    name: 'Nemesis',
-    icon: 'inv_pet_mechanicalbearcub',
-  },
-  NEMESIS_UNDEAD: {
-    id: 208614,
-    name: 'Nemesis',
-    icon: 'spell_holy_senseundead',
-  },
   MOMENTUM_BUFF: {
     id: 208628,
     name: 'Momentum',
@@ -481,6 +438,6 @@ const spells = {
     name: 'Unbound Chaos',
     icon: 'artifactability_vengeancedemonhunter_painbringer',
   },
-} as const;
+});
 
 export default spells;

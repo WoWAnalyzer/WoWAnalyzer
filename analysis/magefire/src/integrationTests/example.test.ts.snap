@@ -822,7 +822,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
               }
             >
               45
-              /46
+              /47
                casts
             </td>
             <td
@@ -840,7 +840,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   style={
                     Object {
                       "backgroundColor": "#70b570",
-                      "width": "101.15892574422082%",
+                      "width": "95.0735888633444%",
                     }
                   }
                 />
@@ -855,7 +855,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                 }
               }
             >
-              101.16%
+              95.07%
             </td>
             <td
               style={
@@ -2643,7 +2643,7 @@ exports[`Fire Mage integration test: example log CastEfficiency matches the stat
                   }
                 />
                  
-                Spell Steal
+                Spellsteal
               </a>
             </td>
             <td
@@ -3590,7 +3590,7 @@ exports[`Fire Mage integration test: example log CombustionActiveTime matches th
         <div
           className="value"
         >
-          87.05
+          110.58
           % 
           <small>
             Combustion Active Time
@@ -3643,48 +3643,6 @@ exports[`Fire Mage integration test: example log CombustionActiveTime matches th
     </div>
   </div>
 </div>
-`;
-
-exports[`Fire Mage integration test: example log CombustionActiveTime matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_fire_sealoffire",
-    "importance": "regular",
-    "issue": <React.Fragment>
-      You spent 
-      10
-       seconds (
-      3
-      s per cast) not casting anything while
-       
-      <ForwardRef
-        id={190319}
-      />
-       was active. Because a large portion of your damage comes from Combustion, you should ensure that you are getting the most out of it every time it is cast. While sometimes this is out of your control (you got targeted by a mechanic at the worst possible time), you should try to minimize that risk by casting
-       
-      <ForwardRef
-        id={190319}
-      />
-       when you are at a low risk of being interrupted or when the target is vulnerable.
-    </React.Fragment>,
-    "spell": undefined,
-    "stat": <React.Fragment>
-      <Trans
-        id="mage.frost.suggestions.combustion.combustionActiveTime"
-        message="{0}% Active Time during Combustion"
-        values={
-          Object {
-            "0": "87.05",
-          }
-        }
-      />
-       (
-      95.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
 `;
 
 exports[`Fire Mage integration test: example log CombustionCasts matches the statistic snapshot 1`] = `
@@ -6344,7 +6302,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "82.07726058211462%",
+                  "width": "88.25398708540243%",
                 }
               }
             />
@@ -6919,7 +6877,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  87.05%
+                  110.58%
                    
                    
                 </div>
@@ -6939,9 +6897,9 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "56.76291447698527%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -7905,7 +7863,7 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                   }
                 >
                    
-                  101.16%
+                  95.07%
                    
                    
                 </div>
@@ -8844,7 +8802,8 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                 className="flex-main"
               >
                 <trans
-                  id="All weapons enhanced (oils/stones)"
+                  id="shared.modules.features.checklist.allWeaponsEnhanced"
+                  message="All weapons enhanced (oils/stones)"
                 />
               </div>
               <div
@@ -8907,7 +8866,8 @@ exports[`Fire Mage integration test: example log matches the checklist snapshot 
                 className="flex-main"
               >
                 <trans
-                  id="Using high quality weapon enhancements"
+                  id="shared.modules.features.checklist.highQualityWeaponEnhancements"
+                  message="Using high quality weapon enhancements"
                 />
               </div>
               <div

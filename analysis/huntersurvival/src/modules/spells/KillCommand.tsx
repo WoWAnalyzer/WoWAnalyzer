@@ -57,7 +57,6 @@ class KillCommand extends Analyzer {
     const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(event.ability.guid);
     const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(
       SPELLS.KILL_COMMAND_CAST_SV.id,
-      this.spellUsable.cooldownTriggerEvent(SPELLS.KILL_COMMAND_CAST_SV.id),
     );
     if (expectedCooldownDuration) {
       this.spellUsable.reduceCooldown(

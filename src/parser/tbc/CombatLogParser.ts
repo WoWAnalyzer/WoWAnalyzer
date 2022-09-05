@@ -5,12 +5,13 @@ import WeaponEnhancementChecker from 'parser/tbc/modules/items/WeaponEnhancement
 
 import BaseCombatLogParser, { DependenciesDefinition } from '../core/CombatLogParser';
 import Abilities from '../core/modules/Abilities';
-import Buffs from '../core/modules/Buffs';
+import Auras from '../core/modules/Auras';
 import SpellTimeWaitingOnGlobalCooldown from '../shared/enhancers/SpellTimeWaitingOnGlobalCooldown';
 import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import AbilityTracker from '../shared/modules/AbilityTracker';
 import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
 import CastEfficiency from '../shared/modules/CastEfficiency';
+import CooldownHistory from '../shared/modules/CooldownHistory';
 import DeathRecapTracker from '../shared/modules/DeathRecapTracker';
 import DeathTracker from '../shared/modules/DeathTracker';
 import DispelTracker from '../shared/modules/DispelTracker';
@@ -80,11 +81,12 @@ class CombatLogParser extends BaseCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     filteredActiveTime: FilteredActiveTime,
     abilities: Abilities,
-    buffs: Buffs,
+    buffs: Auras,
     abilitiesMissing: AbilitiesMissing,
     castEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
     spellHistory: SpellHistory,
+    cooldownHistory: CooldownHistory,
     globalCooldown: GlobalCooldown,
     manaValues: ManaValues,
     vantusRune: VantusRune,

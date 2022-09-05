@@ -1,7 +1,9 @@
+import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
+
 import { RuneTracker as BaseRuneTracker } from '@wowanalyzer/deathknight';
 
 class RuneTracker extends BaseRuneTracker {
-  get suggestionThresholds() {
+  get suggestionThresholds(): NumberThreshold {
     return {
       actual: 1 - this.runeEfficiency,
       isGreaterThan: {
@@ -9,11 +11,11 @@ class RuneTracker extends BaseRuneTracker {
         average: 0.25,
         major: 0.35,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  get suggestionThresholdsEfficiency() {
+  get suggestionThresholdsEfficiency(): NumberThreshold {
     return {
       actual: this.runeEfficiency,
       isLessThan: {
@@ -21,7 +23,7 @@ class RuneTracker extends BaseRuneTracker {
         average: 0.75,
         major: 0.65,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 }

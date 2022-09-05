@@ -1,4 +1,6 @@
-const conduits = {
+import { spellIndexableList } from '../../Spell';
+
+const conduits = spellIndexableList({
   //region Kyrian
   //endregion
   //region Necrolord
@@ -17,5 +19,5 @@ const conduits = {
     name: 'Untempered Dedication',
     icon: 'achievement_admiral_of_the_light',
   },
-} as const;
+});
 export default conduits;

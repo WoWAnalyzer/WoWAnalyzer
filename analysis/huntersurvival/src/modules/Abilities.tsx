@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 import {
   BORN_TO_BE_WILD_CD_REDUCTION,
@@ -17,7 +18,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.KILL_COMMAND_CAST_SV.id,
         buffSpellId: SPELLS.FLANKERS_ADVANTAGE.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         charges: combatant.hasTalent(SPELLS.ALPHA_PREDATOR_TALENT.id) ? 2 : 1,
         cooldown: (haste) => hastedCooldown(6, haste),
         gcd: {
@@ -31,7 +32,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.RAPTOR_STRIKE.id, SPELLS.RAPTOR_STRIKE_AOTE.id],
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         enabled: !combatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id),
         gcd: {
           base: 1500,
@@ -40,7 +41,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.WILDFIRE_BOMB.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         enabled: !combatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id),
         charges: combatant.hasTalent(SPELLS.GUERRILLA_TACTICS_TALENT.id) ? 2 : 1,
         cooldown: (haste) => hastedCooldown(18, haste),
@@ -55,7 +56,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SERPENT_STING_SV.id,
         buffSpellId: SPELLS.VIPERS_VENOM_BUFF.id, //to show users of the Vipers Venom talent when they were casting Serpent Sting with Viper's Venom active in the timeline
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -63,7 +64,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CARVE.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         enabled: !combatant.hasTalent(SPELLS.BUTCHERY_TALENT.id),
         cooldown: (haste) => 6 / (1 + haste),
         gcd: {
@@ -73,7 +74,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.COORDINATED_ASSAULT.id,
         buffSpellId: SPELLS.COORDINATED_ASSAULT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown:
           120 *
           (1 -
@@ -95,7 +96,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.MONGOOSE_BITE_TALENT.id, SPELLS.MONGOOSE_BITE_TALENT_AOTE.id],
         buffSpellId: SPELLS.MONGOOSE_FURY.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id),
         gcd: {
           base: 1500,
@@ -104,7 +105,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.STEEL_TRAP_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.STEEL_TRAP_TALENT.id),
         cooldown: 30,
         gcd: {
@@ -117,7 +118,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.FLANKING_STRIKE_TALENT.id, SPELLS.FLANKING_STRIKE_PLAYER.id],
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.FLANKING_STRIKE_TALENT.id),
         cooldown: 30,
         gcd: {
@@ -136,7 +137,7 @@ class Abilities extends CoreAbilities {
           SPELLS.WILDFIRE_INFUSION_TALENT.id,
         ],
         shownSpell: SPELLS.WILDFIRE_INFUSION_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id),
         charges: combatant.hasTalent(SPELLS.GUERRILLA_TACTICS_TALENT.id) ? 2 : 1,
         cooldown: (haste) => hastedCooldown(18, haste),
@@ -151,7 +152,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CHAKRAMS_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.CHAKRAMS_TALENT.id),
         cooldown: 20,
         gcd: {
@@ -164,7 +165,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BUTCHERY_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         enabled: combatant.hasTalent(SPELLS.BUTCHERY_TALENT.id),
         charges: 3,
         cooldown: (haste) => hastedCooldown(9, haste),
@@ -178,7 +179,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CAMOUFLAGE_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
         enabled: combatant.hasTalent(SPELLS.CAMOUFLAGE_TALENT.id),
         gcd: {
@@ -190,7 +191,7 @@ class Abilities extends CoreAbilities {
       //region Defensives
       {
         spell: SPELLS.EXHILARATION.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
         cooldown: 120,
         gcd: {
@@ -199,7 +200,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SURVIVAL_OF_THE_FITTEST.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
         cooldown: 180,
         gcd: {
@@ -209,7 +210,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASPECT_OF_THE_TURTLE.id,
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
         cooldown:
           (180 -
@@ -235,7 +236,7 @@ class Abilities extends CoreAbilities {
       //region Utility
       {
         spell: SPELLS.ASPECT_OF_THE_EAGLE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown:
           90 *
           (1 -
@@ -252,7 +253,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown:
           180 *
           (1 -
@@ -269,7 +270,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HARPOON.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 20,
         gcd: {
           static: 0,
@@ -277,7 +278,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.MUZZLE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 15,
         gcd: {
           static: 0,
@@ -285,7 +286,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DISENGAGE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 20,
         gcd: {
           static: 0,
@@ -293,7 +294,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FREEZING_TRAP.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 25,
         gcd: {
           base: 1500,
@@ -301,7 +302,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.TAR_TRAP.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 25,
         gcd: {
           base: 1500,
@@ -313,7 +314,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FLARE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 20,
         gcd: {
           base: 1500,
@@ -325,14 +326,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.WING_CLIP.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.MISDIRECTION.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
           static: 0,
@@ -340,7 +341,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HUNTERS_MARK.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1000,
         },
@@ -351,7 +352,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.PRIMAL_RAGE_1.id, SPELLS.PRIMAL_RAGE_2.id],
         buffSpellId: [SPELLS.PRIMAL_RAGE_1.id, SPELLS.PRIMAL_RAGE_2.id],
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 360,
         gcd: {
           static: 0,
@@ -360,7 +361,7 @@ class Abilities extends CoreAbilities {
 
       {
         spell: SPELLS.MASTERS_CALL.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
         gcd: {
           static: 0,
@@ -374,21 +375,21 @@ class Abilities extends CoreAbilities {
           SPELLS.CALL_PET_4.id,
           SPELLS.CALL_PET_5.id,
         ],
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.DISMISS_PET.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.INTIMIDATION.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -396,7 +397,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.MEND_PET.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 10,
         gcd: {
           base: 1500,

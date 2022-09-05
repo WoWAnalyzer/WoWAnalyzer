@@ -75,7 +75,9 @@ class SolaceVsShieldDiscipline extends Analyzer {
               <div className="solace-number">{formatThousands(this.solaceCasts * 700)}</div>
 
               <small>
-                <Trans>Mana restored from Solace</Trans>
+                <Trans id="priest.discipline.statistics.solace.manaRestored">
+                  Mana restored from Solace
+                </Trans>
               </small>
             </div>
           </div>
@@ -86,7 +88,9 @@ class SolaceVsShieldDiscipline extends Analyzer {
             <div id="solace-info">
               {formatThousands(this.consumedShields * 250)}
               <small>
-                <Trans>Shield Discipline potential return</Trans>
+                <Trans id="priest.discipline.statistics.solace.shieldDisciplinePotential">
+                  Shield Discipline potential return
+                </Trans>
               </small>
             </div>
           </div>

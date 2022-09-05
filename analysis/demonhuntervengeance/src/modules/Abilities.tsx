@@ -3,8 +3,12 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
-import { FEL_DEFENDER_COOLDOWN_REDUCTION } from '@wowanalyzer/demonhunter';
+import {
+  FEL_DEFENDER_COOLDOWN_REDUCTION,
+  INCREASED_SCRUTINY_SCALING,
+} from '@wowanalyzer/demonhunter';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -13,7 +17,7 @@ class Abilities extends CoreAbilities {
       // Rotation
       {
         spell: SPELLS.IMMOLATION_AURA.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 15 / (1 + haste),
         gcd: {
           base: 1500,
@@ -36,7 +40,7 @@ class Abilities extends CoreAbilities {
             ? SPELLS.FRACTURE_TALENT.id
             : SPELLS.SHEAR.id,
         ],
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) ? (haste) => 4.5 / (1 + haste) : 0,
         charges: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) ? 2 : 0,
         castEfficiency: {
@@ -51,7 +55,7 @@ class Abilities extends CoreAbilities {
       // Defensive / Healing
       {
         spell: SPELLS.SOUL_CLEAVE.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
@@ -60,7 +64,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.METAMORPHOSIS_TANK.id,
         buffSpellId: SPELLS.METAMORPHOSIS_TANK.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
@@ -71,7 +75,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FIERY_BRAND.id,
         buffSpellId: SPELLS.FIERY_BRAND_DEBUFF.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -85,7 +89,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DEMON_SPIKES.id,
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: (haste) => 20 / (1 + haste),
         charges: 2,
         isDefensive: true,
@@ -94,7 +98,7 @@ class Abilities extends CoreAbilities {
       // Talents
       {
         spell: SPELLS.SIGIL_OF_CHAINS_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(SPELLS.SIGIL_OF_CHAINS_TALENT.id),
         cooldown: 90,
         gcd: {
@@ -104,7 +108,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SPIRIT_BOMB_TALENT.id,
         buffSpellId: SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -113,7 +117,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SOUL_BARRIER_TALENT.id,
         buffSpellId: SPELLS.SOUL_BARRIER_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.SOUL_BARRIER_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -127,7 +131,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FELBLADE_TALENT.id,
         enabled: combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 15 / (1 + haste),
         gcd: {
           base: 1500,
@@ -140,7 +144,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FEL_DEVASTATION.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: combatant.hasConduitBySpellID(SPELLS.FEL_DEFENDER.id)
           ? 60 -
             FEL_DEFENDER_COOLDOWN_REDUCTION[combatant.conduitRankBySpellID(SPELLS.FEL_DEFENDER.id)]
@@ -159,7 +163,7 @@ class Abilities extends CoreAbilities {
       // Sigils
       {
         spell: [SPELLS.SIGIL_OF_SILENCE_CONCENTRATED.id, SPELLS.SIGIL_OF_SILENCE_QUICKENED.id],
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 60 * (1 - (combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
         gcd: {
           base: 1500,
@@ -167,7 +171,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.SIGIL_OF_MISERY_CONCENTRATED.id, SPELLS.SIGIL_OF_MISERY_QUICKENED.id],
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 60 * (1 - (combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
         gcd: {
           base: 1500,
@@ -176,7 +180,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id, SPELLS.SIGIL_OF_FLAME_QUICKENED.id],
         buffSpellId: SPELLS.SIGIL_OF_FLAME_DEBUFF.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 30 * (1 - (combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
         gcd: {
           base: 1500,
@@ -206,7 +210,7 @@ class Abilities extends CoreAbilities {
       // Utility
       {
         spell: SPELLS.INFERNAL_STRIKE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: combatant.hasTalent(SPELLS.ABYSSAL_STRIKE_TALENT.id) ? 12 : 20,
         charges: 2,
         enabled: false, // TODO: change this to true, when infernal strike logging is working, see infernalstrike module for more details.
@@ -214,7 +218,7 @@ class Abilities extends CoreAbilities {
 
       {
         spell: SPELLS.IMPRISON.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 15,
         gcd: {
           base: 1500,
@@ -222,12 +226,12 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.TORMENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 8,
       },
       {
         spell: SPELLS.CONSUME_MAGIC.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 10,
         gcd: {
           base: 1500,
@@ -235,12 +239,12 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DISRUPT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 15,
       },
       {
         spell: SPELLS.THROW_GLAIVE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: (haste) => 3 / (1 + haste),
         gcd: {
           base: 1500,
@@ -248,21 +252,21 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.GLIDE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: null,
       },
 
       // Misc
       {
         spell: SPELLS.SOUL_FRAGMENT.id,
-        category: Abilities.SPELL_CATEGORIES.HIDDEN,
+        category: SPELL_CATEGORY.HIDDEN,
         gcd: null,
       },
 
       // Covenant (move these if needed)
       {
         spell: [SPELLS.ELYSIAN_DECREE.id, SPELLS.ELYSIAN_DECREE_REPEAT_DECREE.id],
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 60 * (1 - (combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
         gcd: {
           base: 1500,
@@ -275,25 +279,19 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SINFUL_BRAND.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: combatant.hasConduitBySpellID(SPELLS.INCREASED_SCRUTINY.id)
+          ? 45 -
+            INCREASED_SCRUTINY_SCALING[combatant.conduitRankBySpellID(SPELLS.INCREASED_SCRUTINY.id)]
+          : 45,
         gcd: {
           base: 1500,
         },
         enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
       },
       {
-        spell: SPELLS.FODDER_TO_THE_FLAME.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-      },
-      {
         spell: SPELLS.THE_HUNT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 90,
         gcd: {
           base: 1500,

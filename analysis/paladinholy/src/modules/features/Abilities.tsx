@@ -4,17 +4,24 @@ import { SpellLink } from 'interface';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../constants';
 import { TrackedPaladinAbility } from '../core/PaladinAbilityTracker';
 
 class Abilities extends CoreAbilities {
+  constructor(...args: ConstructorParameters<typeof CoreAbilities>) {
+    super(...args);
+    this.abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
+  }
+
   spellbook(): Array<SpellbookAbility<TrackedPaladinAbility>> {
     const combatant = this.selectedCombatant;
     const hasSanctifiedWrath = combatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT_HOLY.id);
     return [
       {
         spell: [SPELLS.HOLY_SHOCK_CAST.id, SPELLS.HOLY_SHOCK_HEAL.id],
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => {
           const swCdr = hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.5 : 0;
           return (7.5 / (1 + haste)) * (1 - swCdr);
@@ -36,7 +43,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.LIGHT_OF_DAWN_CAST.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -44,7 +51,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.JUDGMENT_CAST_HOLY.id, SPELLS.JUDGMENT_CAST.id],
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => {
           const cdr = combatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id) ? 0.3 : 0;
           return (12 / (1 + haste)) * (1 - cdr);
@@ -68,7 +75,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BESTOW_FAITH_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 12,
         gcd: {
           base: 1500,
@@ -89,7 +96,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.LIGHTS_HAMMER_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -99,7 +106,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BEACON_OF_VIRTUE_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 15,
         gcd: {
           base: 1500,
@@ -109,7 +116,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CRUSADER_STRIKE.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => {
           const cdr = combatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id) ? 0.3 : 0;
           return (6 / (1 + haste)) * (1 - cdr);
@@ -134,7 +141,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HOLY_PRISM_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 20,
         gcd: {
           base: 1500,
@@ -145,7 +152,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RULE_OF_LAW_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
         gcd: undefined,
         charges: 2,
@@ -154,7 +161,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DIVINE_PROTECTION.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60 * (1 - (combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.3 : 0)),
         gcd: undefined,
         castEfficiency: {
@@ -167,7 +174,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DIVINE_SHIELD.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown:
           5 * 60 * (1 - (combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.3 : 0)),
         gcd: {
@@ -178,7 +185,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HOLY_AVENGER_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
@@ -188,7 +195,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.AVENGING_WRATH.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         castEfficiency: {
           suggestion: true,
@@ -198,7 +205,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.AVENGING_CRUSADER_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         castEfficiency: {
           suggestion: true,
@@ -208,7 +215,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.AURA_MASTERY.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: {
           base: 1500,
@@ -221,14 +228,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLESSING_OF_SACRIFICE.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         gcd: undefined,
         timelineSortIndex: 101,
       },
       {
         spell: SPELLS.LAY_ON_HANDS.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 600 * (1 - (combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.3 : 0)),
         gcd: undefined,
         castEfficiency: {
@@ -240,7 +247,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.LIGHT_OF_THE_MARTYR.id,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
         },
@@ -248,7 +255,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FLASH_OF_LIGHT.id,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
         channel: (haste) => 1.5 / (1 + haste),
         gcd: {
           base: 1500,
@@ -261,7 +268,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FLASH_OF_LIGHT.id,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
         channel: (haste) => 1.5 / (1 + haste),
         gcd: {
           base: 1500,
@@ -274,7 +281,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HOLY_LIGHT.id,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
         },
@@ -286,7 +293,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HOLY_LIGHT.id,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
         },
@@ -298,7 +305,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.WORD_OF_GLORY.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -306,7 +313,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DIVINE_STEED.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         charges: combatant.hasTalent(SPELLS.CAVALIER_TALENT.id) ? 2 : 1,
         cooldown: 45,
         gcd: {
@@ -317,7 +324,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CLEANSE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 8,
         gcd: {
           base: 1500,
@@ -327,7 +334,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLESSING_OF_FREEDOM.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 25,
         gcd: {
           base: 1500,
@@ -337,7 +344,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLESSING_OF_PROTECTION.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 5 * 60,
         gcd: {
           base: 1500,
@@ -347,7 +354,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -356,7 +363,7 @@ class Abilities extends CoreAbilities {
       {
         // The primary beacon cast is registered as BEACON_OF_LIGHT_CAST_AND_BUFF
         spell: [SPELLS.BEACON_OF_FAITH_TALENT.id, SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id],
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
@@ -365,7 +372,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CRUSADER_STRIKE.id,
-        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         cooldown: (haste) => {
           const cdr = combatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id) ? 0.3 : 0;
           return (6 / (1 + haste)) * (1 - cdr);
@@ -379,7 +386,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CONSECRATION_CAST.id,
-        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         cooldown: (haste) => 4.5 / (1 + haste),
         timelineSortIndex: 51,
         gcd: {
@@ -388,12 +395,12 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS.id,
-        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         timelineSortIndex: 52,
       },
       {
         spell: SPELLS.BLINDING_LIGHT_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 90,
         timelineSortIndex: 104,
         enabled: combatant.hasTalent(SPELLS.BLINDING_LIGHT_TALENT.id),
@@ -403,7 +410,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HAMMER_OF_JUSTICE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
         timelineSortIndex: 105,
         gcd: {
@@ -412,7 +419,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HAND_OF_RECKONING.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 8,
         gcd: undefined,
         timelineSortIndex: 106,
@@ -420,7 +427,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SERAPHIM_TALENT.id,
         buffSpellId: SPELLS.SERAPHIM_TALENT.id,
-        category: Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE,
+        category: SPELL_CATEGORY.SEMI_DEFENSIVE,
         cooldown: 45,
         gcd: {
           base: 1500,

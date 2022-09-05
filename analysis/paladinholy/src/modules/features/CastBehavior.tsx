@@ -9,13 +9,16 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticGroup from 'parser/ui/StatisticGroup';
 
 import PaladinAbilityTracker from '../core/PaladinAbilityTracker';
+import MaraadsCastRatio from '../shadowlands/legendaries/MaraadsCastRatio';
 
 class CastBehavior extends Analyzer {
   static dependencies = {
     abilityTracker: PaladinAbilityTracker,
+    maraadsCastRatio: MaraadsCastRatio,
   };
 
   protected abilityTracker!: PaladinAbilityTracker;
+  protected maraadsCastRatio!: MaraadsCastRatio;
 
   get iolProcsPerHolyShockCrit() {
     return 1;
@@ -89,29 +92,36 @@ class CastBehavior extends Analyzer {
     const lightOfTheMartyrHeals = lightOfTheMartyr.casts || 0;
     const fillerFlashOfLights = flashOfLightHeals - iolFlashOfLights;
     const fillerHolyLights = holyLightHeals - iolHolyLights;
+    const fillerLightOfTheMartyrHeals = this.maraadsCastRatio.active
+      ? this.maraadsCastRatio.unbuffedCasts
+      : lightOfTheMartyrHeals;
 
-    const items = [
-      {
-        color: '#FFFDE7',
-        label: SPELLS.FLASH_OF_LIGHT.name,
-        spellId: SPELLS.FLASH_OF_LIGHT.id,
-        value: fillerFlashOfLights,
-      },
-      {
-        color: '#F57C00',
-        label: SPELLS.HOLY_LIGHT.name,
-        spellId: SPELLS.HOLY_LIGHT.id,
-        value: fillerHolyLights,
-      },
-      {
-        color: '#A93226',
-        label: SPELLS.LIGHT_OF_THE_MARTYR.name,
-        spellId: SPELLS.LIGHT_OF_THE_MARTYR.id,
-        value: lightOfTheMartyrHeals,
-      },
-    ];
+    if (fillerFlashOfLights + fillerHolyLights + fillerLightOfTheMartyrHeals > 0) {
+      const items = [
+        {
+          color: '#FFFDE7',
+          label: SPELLS.FLASH_OF_LIGHT.name,
+          spellId: SPELLS.FLASH_OF_LIGHT.id,
+          value: fillerFlashOfLights,
+        },
+        {
+          color: '#F57C00',
+          label: SPELLS.HOLY_LIGHT.name,
+          spellId: SPELLS.HOLY_LIGHT.id,
+          value: fillerHolyLights,
+        },
+        {
+          color: '#A93226',
+          label: SPELLS.LIGHT_OF_THE_MARTYR.name,
+          spellId: SPELLS.LIGHT_OF_THE_MARTYR.id,
+          value: fillerLightOfTheMartyrHeals,
+        },
+      ];
 
-    return <DonutChart items={items} />;
+      return <DonutChart items={items} />;
+    } else {
+      return <div className="value">0 Filler Casts</div>;
+    }
   }
 
   statistic() {

@@ -1,8 +1,8 @@
 import { formatNumber } from 'common/format';
 import ITEMS from 'common/ITEMS';
+import Item from 'common/ITEMS/Item';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { TrackedBuffEvent } from 'parser/core/Entity';
-import { Item } from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';

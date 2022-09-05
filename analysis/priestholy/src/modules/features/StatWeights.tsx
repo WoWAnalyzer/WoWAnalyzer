@@ -10,6 +10,7 @@ import PRIEST_HEAL_INFO from './StatValuesSpellInfo';
 
 class StatWeights extends BaseHealerStatValues {
   static dependencies = {
+    ...BaseHealerStatValues.dependencies,
     combatants: Combatants,
     critEffectBonus: CritEffectBonus,
     statTracker: StatTracker,

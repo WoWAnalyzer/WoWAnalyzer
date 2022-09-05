@@ -54,13 +54,40 @@ import {
   Tialyss,
   Lucky0604,
   ToppleTheNun,
-  Vetyst
+  Vetyst,
+  Chizu
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 8, 25), "Added support for querying cooldown status at any point in the fight", Sref),
+  change(date(2022, 8, 23), "Fixed a bug where the timeline's cooldown tooltips weren't showing properly", Sref),
+  change(date(2022, 8, 22), "Overhauled cooldown tracker, fixed a bug in the cooldown interactions between CDR and haste changes, and added preliminary support for cooldown rate changes", Sref),
+  change(date(2022, 8, 19), <>Convert Abilities.SPELL_CATEGORIES to SPELL_CATEGORY enum.</>, Vetyst),
+  change(date(2022, 8, 18), "Updated lint-staged to newest version", Putro),
+  change(date(2022, 8, 18), 'Resolve calculating the average item level if no gear is equipped.', Vetyst),
+  change(date(2022, 8, 17), <>Bumped version to indicate 9.2.5 is supported.</>, Vetyst),
+  change(date(2022, 8, 16), 'Rewrote spells and items to typescript', Chizu),
+  change(date(2022, 8, 15), 'Added eslint rule that requires spreading parent module dependencies', Chizu),
+  change(date(2022, 8, 14), 'Add soulbinds to character page.', ToppleTheNun),
+  change(date(2022, 8, 14), 'Updated core Death Knight modules to Typescript', Chizu),
+  change(date(2022, 8, 14), 'Improve boss phase typing.', ToppleTheNun),
+  change(date(2022, 8, 14), 'Add spell and item data for missing Sanctum of Domination items.', ToppleTheNun),
+  change(date(2022, 8, 13), 'Updated translations of core DK modules', Chizu),
+  change(date(2022, 8, 12), 'Update patch information in order to warn that a report is from an earlier patch.', Vetyst),
+  change(date(2022, 8, 12), 'Remove deprecated statisticOrder property on all Analyzers.', Vetyst),
+  change(date(2022, 8, 9), 'Add support for tracking debuffs on timeline.', ToppleTheNun),
+  change(date(2022, 8, 9), <>Add the ability to change max charges of a spell such as <SpellLink id={SPELLS.MIND_BLAST.id}/> combined with <SpellLink id={SPELLS.VOIDFORM.id}/> and <SpellLink id={SPELLS.DARK_THOUGHTS.id} />.</>, Vetyst),
+  change(date(2022, 8, 9), <>Regenerated talents for season 4.</>, Vetyst),
+  change(date(2022, 8, 9), <>Tracking stats for all versions of <ItemLink id={ITEMS.UNBOUND_CHANGELING.id}/>.</>, Vetyst),
+  change(date(2022, 8, 8), 'Apply season 4 trinket nerfs.', Vetyst),
+  change(date(2022, 8, 8), 'Display equiped set pieces on tooltip.', Vetyst),
+  change(date(2022, 8, 7), 'Update Buff tracking to TypeScript.', ToppleTheNun),
+  change(date(2022, 8, 4), <>Add support for <ItemLink id={ITEMS.CACHE_OF_ACQUIRED_TREASURES.id}/>.</>, ToppleTheNun),
+  change(date(2022, 8, 3), <>Add spellsteal event for Mage's <SpellLink id={SPELLS.SPELLSTEAL.id} />.</>, Vetyst),
+  change(date(2022, 7, 26), 'Updated translations and corrected some translation values in various places', Putro),
   change(date(2022, 7, 22), 'Show Death Knight Runeforge enchants on character overview.', Vetyst),
   change(date(2022, 7, 22), 'Add create event for handling spells like Demonic Circle.', ToppleTheNun),
   change(date(2022, 7, 21), 'Reflect the quality of an item through the border of gear shown on the character tab.', Vetyst),

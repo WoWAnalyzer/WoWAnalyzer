@@ -1,4 +1,6 @@
-const conduits = {
+import { spellIndexableList } from '../../Spell';
+
+const conduits = spellIndexableList({
   //Havoc Potency
   DANCING_WITH_FATE: {
     id: 339228,
@@ -82,5 +84,5 @@ const conduits = {
     name: 'Ravenous Consumption',
     icon: 'inv_lightforgedmatrixability_shroudofarchaneechoes',
   },
-} as const;
+});
 export default conduits;

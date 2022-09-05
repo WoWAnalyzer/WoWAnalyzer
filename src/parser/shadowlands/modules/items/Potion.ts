@@ -1,7 +1,8 @@
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
-import Buffs from 'parser/core/modules/Buffs';
+import Buffs from 'parser/core/modules/Auras';
 import { ThresholdStyle } from 'parser/core/ParseResults';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
@@ -12,7 +13,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
  * All potions have a 5 minute cooldown.
  *
  * @property {Abilities} abilities
- * @property {Buffs} buffs
+ * @property {Auras} buffs
  * @property {SpellUsable} spellUsable
  * @property {AbilityTracker} abilityTracker
  */
@@ -48,7 +49,7 @@ class Potion extends Analyzer {
     }
     (options.abilities as Abilities).add({
       spell: this.static.spells,
-      category: Abilities.SPELL_CATEGORIES.CONSUMABLE,
+      category: SPELL_CATEGORY.CONSUMABLE,
       cooldown: this.static.cooldown,
       castEfficiency: {
         suggestion: false,

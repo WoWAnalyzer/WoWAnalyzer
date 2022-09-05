@@ -50,7 +50,7 @@ class Chakrams extends Analyzer {
   onDamage(event: DamageEvent) {
     if (this.casts === 0) {
       this.casts += 1;
-      this.spellUsable.beginCooldown(SPELLS.CHAKRAMS_TALENT.id, event);
+      this.spellUsable.beginCooldown(event, SPELLS.CHAKRAMS_TALENT.id);
     }
     const damageTarget: string = encodeTargetString(event.targetID, event.targetInstance);
     if (!this.uniqueTargets.includes(damageTarget)) {

@@ -14,6 +14,7 @@ import HolyWordSalvation from '@wowanalyzer/priest-holy/src/modules/talents/100/
 
 class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
+    ...HealingEfficiencyTracker.dependencies,
     manaTracker: ManaTracker,
     abilityTracker: AbilityTracker,
     healingDone: HealingDone,

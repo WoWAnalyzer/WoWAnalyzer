@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -33,7 +34,9 @@ class Superstrain extends Analyzer {
     }
 
     if (
-      [SPECS.BLOOD_DEATH_KNIGHT, SPECS.UNHOLY_DEATH_KNIGHT].includes(this.selectedCombatant.spec)
+      [SPECS.BLOOD_DEATH_KNIGHT.id, SPECS.UNHOLY_DEATH_KNIGHT.id].includes(
+        this.selectedCombatant.specId,
+      )
     ) {
       this.addEventListener(Events.resourcechange, this._onFrostFeverEnergize);
     }
@@ -68,7 +71,7 @@ class Superstrain extends Analyzer {
       );
     }
 
-    if (this.selectedCombatant.spec === SPECS.FROST_DEATH_KNIGH) {
+    if (this.selectedCombatant.spec === SPECS.FROST_DEATH_KNIGHT) {
       this.addEventListener(
         Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VIRULENT_PLAGUE),
         this._onVirulentPlagueDamage,
@@ -138,7 +141,7 @@ class Superstrain extends Analyzer {
     );
   }
 
-  get rpSpenderName() {
+  get rpSpenderName(): string {
     if (this.selectedCombatant.spec === SPECS.BLOOD_DEATH_KNIGHT) {
       return SPELLS.DEATH_STRIKE.name;
     }
@@ -147,7 +150,7 @@ class Superstrain extends Analyzer {
       return SPELLS.DEATH_COIL.name;
     }
 
-    return SPELLS.FROST_STRIKE.name;
+    return SPELLS.FROST_STRIKE_CAST.name;
   }
 
   statistic() {
@@ -159,36 +162,36 @@ class Superstrain extends Analyzer {
           <>
             {this.frostFeverTotalRP > 0 && (
               <>
-                <strong>Runic Power:</strong> {this.frostFeverRPGained} RP gained (
-                {this.frostFeverRPWasted} wasted)
+                <Trans id="deathknight.shared.legendaries.superstrain.frostFever.rp">
+                  <strong>Runic Power:</strong> {this.frostFeverRPGained} RP gained (
+                  {this.frostFeverRPWasted} wasted)
+                </Trans>
                 <br />
-              </>
-            )}
-            {this.frostFeverTotalRP > 0 && (
-              <>
-                <strong>Runic Power Damage:</strong> {formatNumber(this.rpBonusDamage)} damage (
-                {this.rpSpenderName} does an average of {formatNumber(this.rpSpenderAverageDamage)}{' '}
-                damage)
-                <br />
+                <Trans id="deathknight.shared.legendaries.superstrain.frostFever.rpDamage">
+                  <strong>Runic Power Damage:</strong> {formatNumber(this.rpBonusDamage)} damage (
+                  {this.rpSpenderName} does an average of{' '}
+                  {formatNumber(this.rpSpenderAverageDamage)} damage)
+                  <br />
+                </Trans>
               </>
             )}
             {this.frostFeverDamage > 0 && (
-              <>
+              <Trans id="deathknight.shared.legendaries.superstrain.frostFever.damage">
                 <strong>Frost Fever:</strong> {formatNumber(this.frostFeverDamage)} damage
                 <br />
-              </>
+              </Trans>
             )}
             {this.bloodPlagueDamage > 0 && (
-              <>
+              <Trans id="deathknight.shared.legendaries.superstrain.bloodPlagueDamage">
                 <strong>Blood Plague:</strong> {formatNumber(this.bloodPlagueDamage)} damage
                 <br />
-              </>
+              </Trans>
             )}
             {this.virulentPlagueDamage > 0 && (
-              <>
+              <Trans id="deathknight.shared.legendaries.superstrain.virulentPlagueDamage">
                 <strong>Virulent Plague:</strong> {formatNumber(this.virulentPlagueDamage)} damage
                 <br />
-              </>
+              </Trans>
             )}
           </>
         }

@@ -17,7 +17,7 @@ class Punish extends Analyzer {
     enemies: Enemies,
   };
   bonusDmg: number = 0;
-  statisticOrder = STATISTIC_ORDER.CORE(5);
+
   protected enemies!: Enemies;
 
   constructor(options: Options) {
