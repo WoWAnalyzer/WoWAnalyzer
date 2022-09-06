@@ -1,6 +1,6 @@
-import isAtonement from 'analysis/retail/priest-discipline/modules/core/isAtonement';
-import AtonementDamageSource from 'analysis/retail/priest-discipline/modules/features/AtonementDamageSource';
-import ItemInsanityGained from 'analysis/retail/priest-shadow/interface/ItemInsanityGained';
+import isAtonement from 'analysis/retail/priest/discipline/modules/core/isAtonement';
+import AtonementDamageSource from 'analysis/retail/priest/discipline/modules/features/AtonementDamageSource';
+import ItemInsanityGained from 'analysis/retail/priest/shadow/interface/ItemInsanityGained';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';

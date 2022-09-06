@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { STAMPEDE_POTENTIAL_HITS } from 'analysis/retail/hunter-beastmastery/constants';
+import { STAMPEDE_POTENTIAL_HITS } from 'analysis/retail/hunter/beastmastery/constants';
 import { formatMilliseconds, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';

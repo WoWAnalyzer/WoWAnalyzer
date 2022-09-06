@@ -1,5 +1,5 @@
-import { SV_KILL_COMMAND_FOCUS_GAIN } from 'analysis/retail/hunter-survival/constants';
 import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared';
+import { SV_KILL_COMMAND_FOCUS_GAIN } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';

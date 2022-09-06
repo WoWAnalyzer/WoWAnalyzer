@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { QAPLA_BARBED_SHOT_DMG_INCREASE } from 'analysis/retail/hunter-beastmastery/constants';
+import { QAPLA_BARBED_SHOT_DMG_INCREASE } from 'analysis/retail/hunter/beastmastery/constants';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';

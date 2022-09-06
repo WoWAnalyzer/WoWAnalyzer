@@ -5,7 +5,7 @@ import {
   incomingDamage,
   staggerAbsorbed,
   staggerTicks,
-} from 'analysis/retail/monk-brewmaster/test-fixtures/SimpleFight';
+} from 'analysis/retail/monk/brewmaster/test-fixtures/SimpleFight';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import DamageTaken from './DamageTaken';

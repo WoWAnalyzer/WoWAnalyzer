@@ -1,4 +1,4 @@
-import { FEROCIOUS_APPETITE_ASPECT_REDUCTION } from 'analysis/retail/hunter-beastmastery/constants';
+import { FEROCIOUS_APPETITE_ASPECT_REDUCTION } from 'analysis/retail/hunter/beastmastery/constants';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

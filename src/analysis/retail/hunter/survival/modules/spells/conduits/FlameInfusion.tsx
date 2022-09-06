@@ -1,7 +1,7 @@
 import {
   AFFECTED_BY_GUERRILLA_TACTICS,
   FLAME_INFUSION_WFB_DAMAGE_INCREASE,
-} from 'analysis/retail/hunter-survival/constants';
+} from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';

@@ -1,5 +1,5 @@
-import { LIST_OF_FOCUS_SPENDERS_SV } from 'analysis/retail/hunter-survival/constants';
 import { FocusUsage as SharedHunterFocusUsage } from 'analysis/retail/hunter/shared';
+import { LIST_OF_FOCUS_SPENDERS_SV } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 

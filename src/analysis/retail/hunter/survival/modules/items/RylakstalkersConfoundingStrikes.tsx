@@ -1,8 +1,8 @@
 import {
   RAPTOR_MONGOOSE_VARIANTS,
   RYLAKSTALKERS_CONFOUNDING_STRIKES_RESET_CHANCE,
-} from 'analysis/retail/hunter-survival/constants';
-import SpellUsable from 'analysis/retail/hunter-survival/modules/core/SpellUsable';
+} from 'analysis/retail/hunter/survival/constants';
+import SpellUsable from 'analysis/retail/hunter/survival/modules/core/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';

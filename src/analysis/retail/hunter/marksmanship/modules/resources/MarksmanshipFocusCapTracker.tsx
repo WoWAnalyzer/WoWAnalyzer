@@ -1,4 +1,4 @@
-import { TRUESHOT_FOCUS_INCREASE } from 'analysis/retail/hunter-marksmanship/constants';
+import { TRUESHOT_FOCUS_INCREASE } from 'analysis/retail/hunter/marksmanship/constants';
 import { FocusCapTracker, HUNTER_BASE_FOCUS_REGEN } from 'analysis/retail/hunter/shared';
 import SPELLS from 'common/SPELLS';
 

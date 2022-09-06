@@ -1,8 +1,8 @@
 import {
   DEAD_EYE_AIMED_SHOT_RECHARGE_INCREASE,
   TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE,
-} from 'analysis/retail/hunter-marksmanship/constants';
-import DeadEye from 'analysis/retail/hunter-marksmanship/modules/talents/DeadEye';
+} from 'analysis/retail/hunter/marksmanship/constants';
+import DeadEye from 'analysis/retail/hunter/marksmanship/modules/talents/DeadEye';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {

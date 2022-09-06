@@ -1,7 +1,7 @@
 import {
   RAPTOR_MONGOOSE_VARIANTS,
   SURVIVAL_BOMB_TYPES,
-} from 'analysis/retail/hunter-survival/constants';
+} from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
 import { CastEvent, DamageEvent } from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';

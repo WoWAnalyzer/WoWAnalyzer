@@ -2,7 +2,7 @@ import {
   EarlyFinish,
   incomingDamage,
   SimpleFight,
-} from 'analysis/retail/monk-brewmaster/test-fixtures/SimpleFight';
+} from 'analysis/retail/monk/brewmaster/test-fixtures/SimpleFight';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 import FightEnd from 'parser/shared/normalizers/FightEnd';

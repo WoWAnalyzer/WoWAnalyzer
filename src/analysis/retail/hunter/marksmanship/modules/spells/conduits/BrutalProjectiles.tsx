@@ -2,7 +2,7 @@ import {
   BRUTAL_PROJECTILES_DOUBLE_TAP_RAMP_CAP,
   BRUTAL_PROJECTILES_RAMP_CAP,
   BRUTAL_PROJECTILES_RAMP_DAMAGE,
-} from 'analysis/retail/hunter-marksmanship/constants';
+} from 'analysis/retail/hunter/marksmanship/constants';
 import { ONE_SECOND_IN_MS } from 'analysis/retail/hunter/shared';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

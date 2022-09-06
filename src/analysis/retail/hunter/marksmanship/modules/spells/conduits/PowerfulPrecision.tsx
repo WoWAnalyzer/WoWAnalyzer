@@ -1,8 +1,8 @@
 import {
   POWERFUL_PRECISION_DAMAGE_INCREASE,
   PRECISE_SHOTS_MODIFIER,
-} from 'analysis/retail/hunter-marksmanship/constants';
-import PreciseShots from 'analysis/retail/hunter-marksmanship/modules/spells/PreciseShots';
+} from 'analysis/retail/hunter/marksmanship/constants';
+import PreciseShots from 'analysis/retail/hunter/marksmanship/modules/spells/PreciseShots';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';

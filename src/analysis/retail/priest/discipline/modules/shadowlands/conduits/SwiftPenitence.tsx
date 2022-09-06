@@ -1,8 +1,8 @@
-import { SWIFT_PENITENCE_INCREASE } from 'analysis/retail/priest-discipline/constants';
+import { SWIFT_PENITENCE_INCREASE } from 'analysis/retail/priest/discipline/constants';
 import {
   IsPenanceHealEvent,
   IsPenanceDamageEvent,
-} from 'analysis/retail/priest-discipline/modules/spells/Helper';
+} from 'analysis/retail/priest/discipline/modules/spells/Helper';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';

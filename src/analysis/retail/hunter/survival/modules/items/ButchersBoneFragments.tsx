@@ -1,4 +1,4 @@
-import { BUTCHERS_BONE_FRAGMENTS_DMG_AMP } from 'analysis/retail/hunter-survival/constants';
+import { BUTCHERS_BONE_FRAGMENTS_DMG_AMP } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';

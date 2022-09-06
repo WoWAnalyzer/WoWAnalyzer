@@ -1,4 +1,4 @@
-import ItemInsanityGained from 'analysis/retail/priest-shadow/interface/ItemInsanityGained';
+import ItemInsanityGained from 'analysis/retail/priest/shadow/interface/ItemInsanityGained';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';

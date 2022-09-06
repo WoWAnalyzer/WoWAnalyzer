@@ -1,4 +1,4 @@
-import { ONE_WITH_THE_BEAST_DAMAGE_INCREASE } from 'analysis/retail/hunter-beastmastery/constants';
+import { ONE_WITH_THE_BEAST_DAMAGE_INCREASE } from 'analysis/retail/hunter/beastmastery/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';

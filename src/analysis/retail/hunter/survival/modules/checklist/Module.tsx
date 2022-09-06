@@ -1,4 +1,4 @@
-import Component from 'analysis/retail/hunter-survival/modules/checklist/Component';
+import Component from 'analysis/retail/hunter/survival/modules/checklist/Component';
 import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';

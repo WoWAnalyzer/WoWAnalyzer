@@ -1,4 +1,4 @@
-import AbilityTracker from 'analysis/retail/priest-shadow/modules/core/AbilityTracker';
+import AbilityTracker from 'analysis/retail/priest/shadow/modules/core/AbilityTracker';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Insanity from 'interface/icons/Insanity';

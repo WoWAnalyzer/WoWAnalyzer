@@ -2,7 +2,7 @@ import {
   ARCANE_SHOT_MAX_TRAVEL_TIME,
   PRECISE_SHOTS_ASSUMED_PROCS,
   PRECISE_SHOTS_MODIFIER,
-} from 'analysis/retail/hunter-marksmanship/constants';
+} from 'analysis/retail/hunter/marksmanship/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';

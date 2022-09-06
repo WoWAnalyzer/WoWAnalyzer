@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import { CTS_CDR_MS } from 'analysis/retail/hunter-marksmanship/constants';
+import { CTS_CDR_MS } from 'analysis/retail/hunter/marksmanship/constants';
 import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';

@@ -1,4 +1,4 @@
-import SpiritOfRedemption from 'analysis/retail/priest-holy/modules/spells/SpiritOfRedemption';
+import SpiritOfRedemption from 'analysis/retail/priest/holy/modules/spells/SpiritOfRedemption';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';

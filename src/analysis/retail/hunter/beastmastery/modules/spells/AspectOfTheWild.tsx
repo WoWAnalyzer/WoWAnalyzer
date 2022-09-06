@@ -1,5 +1,5 @@
-import { ASPECT_OF_THE_WILD_FOCUS } from 'analysis/retail/hunter-beastmastery/constants';
-import SpellUsable from 'analysis/retail/hunter-beastmastery/modules/core/SpellUsable';
+import { ASPECT_OF_THE_WILD_FOCUS } from 'analysis/retail/hunter/beastmastery/constants';
+import SpellUsable from 'analysis/retail/hunter/beastmastery/modules/core/SpellUsable';
 import { NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'analysis/retail/hunter/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';

@@ -1,4 +1,4 @@
-import { BLOODLETTING_BARBED_DOT_INCREASE } from 'analysis/retail/hunter-beastmastery/constants';
+import { BLOODLETTING_BARBED_DOT_INCREASE } from 'analysis/retail/hunter/beastmastery/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';

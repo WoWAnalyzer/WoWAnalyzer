@@ -1,4 +1,4 @@
-import AtonementDamageSource from 'analysis/retail/priest-discipline/modules/features/AtonementDamageSource';
+import AtonementDamageSource from 'analysis/retail/priest/discipline/modules/features/AtonementDamageSource';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import COVENANTS from 'game/shadowlands/COVENANTS';

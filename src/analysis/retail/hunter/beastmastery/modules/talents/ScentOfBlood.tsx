@@ -1,4 +1,4 @@
-import { SCENT_OF_BLOOD_BARBED_SHOT_RECHARGE } from 'analysis/retail/hunter-beastmastery/constants';
+import { SCENT_OF_BLOOD_BARBED_SHOT_RECHARGE } from 'analysis/retail/hunter/beastmastery/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';

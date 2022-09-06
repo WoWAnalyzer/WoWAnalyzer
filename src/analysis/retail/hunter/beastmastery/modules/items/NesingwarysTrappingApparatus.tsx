@@ -1,5 +1,5 @@
-import AspectOfTheWild from 'analysis/retail/hunter-beastmastery/modules/spells/AspectOfTheWild';
-import BarbedShot from 'analysis/retail/hunter-beastmastery/modules/spells/BarbedShot';
+import AspectOfTheWild from 'analysis/retail/hunter/beastmastery/modules/spells/AspectOfTheWild';
+import BarbedShot from 'analysis/retail/hunter/beastmastery/modules/spells/BarbedShot';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';

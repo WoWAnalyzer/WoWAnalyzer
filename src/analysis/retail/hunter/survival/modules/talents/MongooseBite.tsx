@@ -3,7 +3,7 @@ import {
   MONGOOSE_BITE_MAX_STACKS,
   MONGOOSE_BITE_MAX_TRAVEL_TIME,
   RAPTOR_MONGOOSE_VARIANTS,
-} from 'analysis/retail/hunter-survival/constants';
+} from 'analysis/retail/hunter/survival/constants';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';

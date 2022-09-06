@@ -1,4 +1,4 @@
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'analysis/retail/shaman-restoration/constants';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from 'analysis/retail/shaman/restoration/constants';
 import SPELLS from 'common/SPELLS';
 
 export const HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD = [...ABILITIES_AFFECTED_BY_HEALING_INCREASES];

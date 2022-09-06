@@ -1,4 +1,4 @@
-import { POWER_WORD_SHIELD_ATONEMENT_DUR } from 'analysis/retail/priest-discipline/constants';
+import { POWER_WORD_SHIELD_ATONEMENT_DUR } from 'analysis/retail/priest/discipline/constants';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

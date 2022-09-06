@@ -3,7 +3,7 @@ import {
   damageTaken,
   buffsRefreshed,
   casts,
-} from 'analysis/retail/druid-guardian/test-fixtures/SimpleFight';
+} from 'analysis/retail/druid/guardian/test-fixtures/SimpleFight';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import Gore from './Gore';

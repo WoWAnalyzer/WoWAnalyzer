@@ -1,4 +1,4 @@
-import { COORDINATED_ASSAULT_DMG_MOD } from 'analysis/retail/hunter-survival/constants';
+import { COORDINATED_ASSAULT_DMG_MOD } from 'analysis/retail/hunter/survival/constants';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import UptimeIcon from 'interface/icons/Uptime';

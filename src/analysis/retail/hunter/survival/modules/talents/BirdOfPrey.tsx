@@ -1,9 +1,9 @@
 import { t } from '@lingui/macro';
+import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared';
 import {
   BOP_CA_EXTENSION_PER_CAST,
   RAPTOR_MONGOOSE_VARIANTS,
-} from 'analysis/retail/hunter-survival/constants';
-import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared';
+} from 'analysis/retail/hunter/survival/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';

@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
-import { BUTCHERY_CARVE_MAX_TARGETS_HIT } from 'analysis/retail/hunter-survival/constants';
 import { ONE_SECOND_IN_MS } from 'analysis/retail/hunter/shared';
+import { BUTCHERY_CARVE_MAX_TARGETS_HIT } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';

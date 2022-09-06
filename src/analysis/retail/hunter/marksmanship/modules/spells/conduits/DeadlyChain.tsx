@@ -1,7 +1,7 @@
 import {
   DEADLY_CHAIN_TRICKSHOTS_DAMAGE_INCREASE,
   TRICK_SHOTS_BASELINE_DAMAGE,
-} from 'analysis/retail/hunter-marksmanship/constants';
+} from 'analysis/retail/hunter/marksmanship/constants';
 import { ONE_SECOND_IN_MS } from 'analysis/retail/hunter/shared';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

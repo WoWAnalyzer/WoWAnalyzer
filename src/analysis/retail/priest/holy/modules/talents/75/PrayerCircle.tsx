@@ -1,5 +1,5 @@
-import Abilities from 'analysis/retail/priest-holy/modules/Abilities';
-import AbilityTracker from 'analysis/retail/priest-holy/modules/core/AbilityTracker';
+import Abilities from 'analysis/retail/priest/holy/modules/Abilities';
+import AbilityTracker from 'analysis/retail/priest/holy/modules/core/AbilityTracker';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';

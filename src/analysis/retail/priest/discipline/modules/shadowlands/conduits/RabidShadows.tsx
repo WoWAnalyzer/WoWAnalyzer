@@ -1,4 +1,4 @@
-import { RABID_SHADOWS_INCREASE } from 'analysis/retail/priest-discipline/constants';
+import { RABID_SHADOWS_INCREASE } from 'analysis/retail/priest/discipline/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';

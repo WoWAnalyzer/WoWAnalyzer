@@ -1,4 +1,4 @@
-import { STRENGTH_OF_THE_PACK_DAMAGE_MODIFIER } from 'analysis/retail/hunter-survival/constants';
+import { STRENGTH_OF_THE_PACK_DAMAGE_MODIFIER } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';

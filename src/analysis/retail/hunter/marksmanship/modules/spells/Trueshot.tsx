@@ -1,7 +1,7 @@
-import { TRUESHOT_FOCUS_INCREASE } from 'analysis/retail/hunter-marksmanship/constants';
-import MarksmanshipFocusCapTracker from 'analysis/retail/hunter-marksmanship/modules/resources/MarksmanshipFocusCapTracker';
-import RapidFire from 'analysis/retail/hunter-marksmanship/modules/spells/RapidFire';
-import SteadyShot from 'analysis/retail/hunter-marksmanship/modules/spells/SteadyShot';
+import { TRUESHOT_FOCUS_INCREASE } from 'analysis/retail/hunter/marksmanship/constants';
+import MarksmanshipFocusCapTracker from 'analysis/retail/hunter/marksmanship/modules/resources/MarksmanshipFocusCapTracker';
+import RapidFire from 'analysis/retail/hunter/marksmanship/modules/spells/RapidFire';
+import SteadyShot from 'analysis/retail/hunter/marksmanship/modules/spells/SteadyShot';
 import { HUNTER_BASE_FOCUS_MAX, MS_BUFFER_100 } from 'analysis/retail/hunter/shared';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';

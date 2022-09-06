@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import AbilityTracker from 'analysis/retail/priest-shadow/modules/core/AbilityTracker';
+import AbilityTracker from 'analysis/retail/priest/shadow/modules/core/AbilityTracker';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';

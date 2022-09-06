@@ -1,4 +1,4 @@
-import { ECHOING_CALL_INCREASED_WILD_CALL_CHANCE } from 'analysis/retail/hunter-beastmastery/constants';
+import { ECHOING_CALL_INCREASED_WILD_CALL_CHANCE } from 'analysis/retail/hunter/beastmastery/constants';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

@@ -2,7 +2,7 @@ import {
   damageTaken,
   buffsApplied,
   SimpleFight,
-} from 'analysis/retail/druid-guardian/test-fixtures/SimpleFight';
+} from 'analysis/retail/druid/guardian/test-fixtures/SimpleFight';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 
 import GuardianOfElune from './GuardianOfElune';

@@ -1,4 +1,4 @@
-import KillCommand from 'analysis/retail/hunter-survival/modules/spells/KillCommand';
+import KillCommand from 'analysis/retail/hunter/survival/modules/spells/KillCommand';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';

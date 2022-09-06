@@ -1,7 +1,7 @@
 import {
   EAGLETALONS_TRUE_FOCUS_COST_REDUCTION,
   EAGLETALONS_TRUE_FOCUS_TRUESHOT_DURATION_INCREASE,
-} from 'analysis/retail/hunter-marksmanship/constants';
+} from 'analysis/retail/hunter/marksmanship/constants';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';

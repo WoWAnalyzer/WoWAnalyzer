@@ -2,7 +2,7 @@ import {
   POWER_WORD_RADIANCE_ATONEMENT_DUR,
   POWER_WORD_SHIELD_ATONEMENT_DUR,
   SHADOW_MEND_ATONEMENT_DUR,
-} from 'analysis/retail/priest-discipline/constants';
+} from 'analysis/retail/priest/discipline/constants';
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';

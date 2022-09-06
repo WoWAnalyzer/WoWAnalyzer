@@ -1,9 +1,9 @@
-import PreciseShots from 'analysis/retail/hunter-marksmanship/modules/spells/PreciseShots';
-import CallingTheShots from 'analysis/retail/hunter-marksmanship/modules/talents/CallingTheShots';
-import DeadEye from 'analysis/retail/hunter-marksmanship/modules/talents/DeadEye';
-import LethalShots from 'analysis/retail/hunter-marksmanship/modules/talents/LethalShots';
-import SerpentSting from 'analysis/retail/hunter-marksmanship/modules/talents/SerpentSting';
-import SteadyFocus from 'analysis/retail/hunter-marksmanship/modules/talents/SteadyFocus';
+import PreciseShots from 'analysis/retail/hunter/marksmanship/modules/spells/PreciseShots';
+import CallingTheShots from 'analysis/retail/hunter/marksmanship/modules/talents/CallingTheShots';
+import DeadEye from 'analysis/retail/hunter/marksmanship/modules/talents/DeadEye';
+import LethalShots from 'analysis/retail/hunter/marksmanship/modules/talents/LethalShots';
+import SerpentSting from 'analysis/retail/hunter/marksmanship/modules/talents/SerpentSting';
+import SteadyFocus from 'analysis/retail/hunter/marksmanship/modules/talents/SteadyFocus';
 import { FocusDetails, FocusCapTracker, CancelledCasts } from 'analysis/retail/hunter/shared';
 import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';

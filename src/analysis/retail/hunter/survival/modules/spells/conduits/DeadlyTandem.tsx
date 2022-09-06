@@ -1,7 +1,7 @@
 import {
   COORDINATED_ASSAULT_BASELINE_DURATION,
   DEADLY_TANDEM_CA_DURATION_INCREASE,
-} from 'analysis/retail/hunter-survival/constants';
+} from 'analysis/retail/hunter/survival/constants';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

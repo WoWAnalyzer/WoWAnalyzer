@@ -1,9 +1,9 @@
+import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared';
 import {
   RAPTOR_MONGOOSE_VARIANTS,
   TIP_DAMAGE_INCREASE,
   TIP_MAX_STACKS,
-} from 'analysis/retail/hunter-survival/constants';
-import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared';
+} from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';

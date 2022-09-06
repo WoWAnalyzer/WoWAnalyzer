@@ -1,4 +1,4 @@
-import { DIRE_COMMAND_PROC_CHANCE } from 'analysis/retail/hunter-beastmastery/constants';
+import { DIRE_COMMAND_PROC_CHANCE } from 'analysis/retail/hunter/beastmastery/constants';
 import { DIRE_BEAST_HASTE_PERCENT } from 'analysis/retail/hunter/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';

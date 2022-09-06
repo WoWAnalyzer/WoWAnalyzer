@@ -1,7 +1,7 @@
 import {
   CRIT_PER_THRILL_STACK,
   MAX_THRILL_STACKS,
-} from 'analysis/retail/hunter-beastmastery/constants';
+} from 'analysis/retail/hunter/beastmastery/constants';
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import CriticalStrike from 'interface/icons/CriticalStrike';

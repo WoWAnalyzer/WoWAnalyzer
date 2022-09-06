@@ -4,7 +4,7 @@ import {
   LONE_WOLF_RAMP_INTERVAL_MS,
   MAX_LONE_WOLF_MODIFIER,
   START_LONE_WOLF_MODIFIER,
-} from 'analysis/retail/hunter-marksmanship/constants';
+} from 'analysis/retail/hunter/marksmanship/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';

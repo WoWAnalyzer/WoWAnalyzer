@@ -1,4 +1,4 @@
-import { TALBADARS_STRATAGEM_INCREASE } from 'analysis/retail/priest-shadow/constants';
+import { TALBADARS_STRATAGEM_INCREASE } from 'analysis/retail/priest/shadow/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';

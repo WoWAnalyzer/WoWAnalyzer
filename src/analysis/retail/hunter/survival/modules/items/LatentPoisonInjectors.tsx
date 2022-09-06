@@ -1,7 +1,7 @@
 import {
   LATENT_POISON_INJECOTRS_MAX_STACKS,
   RAPTOR_MONGOOSE_VARIANTS,
-} from 'analysis/retail/hunter-survival/constants';
+} from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyDebuffEvent, ApplyDebuffStackEvent, DamageEvent } from 'parser/core/Events';

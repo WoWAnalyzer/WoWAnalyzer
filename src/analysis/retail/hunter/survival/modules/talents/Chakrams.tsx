@@ -1,4 +1,4 @@
-import { SURVIVAL_CHAKRAM_TYPES } from 'analysis/retail/hunter-survival/constants';
+import { SURVIVAL_CHAKRAM_TYPES } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';

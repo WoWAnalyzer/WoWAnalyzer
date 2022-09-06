@@ -1,5 +1,5 @@
-import { SV_KILL_COMMAND_FOCUS_GAIN } from 'analysis/retail/hunter-survival/constants';
 import { NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'analysis/retail/hunter/shared';
+import { SV_KILL_COMMAND_FOCUS_GAIN } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, ResourceChangeEvent } from 'parser/core/Events';

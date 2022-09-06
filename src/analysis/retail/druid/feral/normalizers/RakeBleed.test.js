@@ -1,4 +1,4 @@
-import RakeBleed from 'analysis/retail/druid-feral/normalizers/RakeBleed';
+import RakeBleed from 'analysis/retail/druid/feral/normalizers/RakeBleed';
 import SPELLS from 'common/SPELLS';
 import { EventType } from 'parser/core/Events';
 

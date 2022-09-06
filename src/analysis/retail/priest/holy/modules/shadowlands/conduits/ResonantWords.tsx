@@ -1,4 +1,4 @@
-import { RESONANT_WORDS_RANKS } from 'analysis/retail/priest-holy/constants';
+import { RESONANT_WORDS_RANKS } from 'analysis/retail/priest/holy/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';

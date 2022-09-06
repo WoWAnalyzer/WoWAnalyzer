@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { HAUNTING_APPARITIONS_DAMAGE_INCREASE } from 'analysis/retail/priest-shadow/constants';
+import { HAUNTING_APPARITIONS_DAMAGE_INCREASE } from 'analysis/retail/priest/shadow/constants';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';

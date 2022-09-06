@@ -1,7 +1,7 @@
 import {
   FLAMEWAKERS_PROC_CHANCE,
   KILL_COMMAND_BM_FOCUS_COST,
-} from 'analysis/retail/hunter-beastmastery/constants';
+} from 'analysis/retail/hunter/beastmastery/constants';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

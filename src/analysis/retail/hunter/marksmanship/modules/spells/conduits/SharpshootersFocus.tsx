@@ -1,7 +1,7 @@
 import {
   SHARPSHOOTERS_FOCUS_INCREASE_TRUESHOT_DURATION,
   TRUESHOT_DURATION_BASELINE,
-} from 'analysis/retail/hunter-marksmanship/constants';
+} from 'analysis/retail/hunter/marksmanship/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {

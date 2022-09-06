@@ -4,7 +4,7 @@ import {
   BARBED_SHOT_REGEN,
   BEAST_MASTERY_SPELLS_WITHOUT_WASTE,
   CHIM_REGEN,
-} from 'analysis/retail/hunter-beastmastery/constants';
+} from 'analysis/retail/hunter/beastmastery/constants';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';

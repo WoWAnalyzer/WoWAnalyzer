@@ -3,7 +3,7 @@ import {
   ARCANE_SHOT_MAX_TRAVEL_TIME,
   LETHAL_SHOTS_CHANCE,
   LETHAL_SHOTS_REDUCTION,
-} from 'analysis/retail/hunter-marksmanship/constants';
+} from 'analysis/retail/hunter/marksmanship/constants';
 import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';

@@ -1,5 +1,5 @@
 import { t, Trans } from '@lingui/macro';
-import { DISSONANT_ECHOES_DAMAGE_INCREASE } from 'analysis/retail/priest-shadow/constants';
+import { DISSONANT_ECHOES_DAMAGE_INCREASE } from 'analysis/retail/priest/shadow/constants';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';

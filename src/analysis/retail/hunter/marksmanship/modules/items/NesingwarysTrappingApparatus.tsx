@@ -1,5 +1,5 @@
-import RapidFire from 'analysis/retail/hunter-marksmanship/modules/spells/RapidFire';
-import SteadyShot from 'analysis/retail/hunter-marksmanship/modules/spells/SteadyShot';
+import RapidFire from 'analysis/retail/hunter/marksmanship/modules/spells/RapidFire';
+import SteadyShot from 'analysis/retail/hunter/marksmanship/modules/spells/SteadyShot';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';

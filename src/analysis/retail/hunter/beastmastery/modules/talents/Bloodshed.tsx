@@ -1,4 +1,4 @@
-import { BLOODSHED_DAMAGE_AMP } from 'analysis/retail/hunter-beastmastery/constants';
+import { BLOODSHED_DAMAGE_AMP } from 'analysis/retail/hunter/beastmastery/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';

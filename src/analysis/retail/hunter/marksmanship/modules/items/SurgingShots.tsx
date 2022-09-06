@@ -1,8 +1,8 @@
 import {
   SURGING_SHOTS_DAMAGE_INCREASE,
   SURGING_SHOTS_RESET_CHANCE,
-} from 'analysis/retail/hunter-marksmanship/constants';
-import SpellUsable from 'analysis/retail/hunter-marksmanship/modules/core/SpellUsable';
+} from 'analysis/retail/hunter/marksmanship/constants';
+import SpellUsable from 'analysis/retail/hunter/marksmanship/modules/core/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

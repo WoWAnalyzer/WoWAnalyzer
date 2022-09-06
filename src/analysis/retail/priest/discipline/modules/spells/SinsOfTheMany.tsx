@@ -1,6 +1,6 @@
 import AtonementAnalyzer, {
   AtonementAnalyzerEvent,
-} from 'analysis/retail/priest-discipline/modules/core/AtonementAnalyzer';
+} from 'analysis/retail/priest/discipline/modules/core/AtonementAnalyzer';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';

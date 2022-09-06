@@ -1,4 +1,4 @@
-import { HYDRAS_BITE_DOT_MODIFIER } from 'analysis/retail/hunter-survival/constants';
+import { HYDRAS_BITE_DOT_MODIFIER } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';

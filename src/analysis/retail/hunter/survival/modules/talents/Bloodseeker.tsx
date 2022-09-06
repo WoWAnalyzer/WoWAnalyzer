@@ -1,5 +1,5 @@
-import { BLOODSEEKER_ATTACK_SPEED_GAIN } from 'analysis/retail/hunter-survival/constants';
 import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared';
+import { BLOODSEEKER_ATTACK_SPEED_GAIN } from 'analysis/retail/hunter/survival/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';

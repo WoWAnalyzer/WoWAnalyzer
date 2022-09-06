@@ -1,4 +1,4 @@
-import SpellUsable from 'analysis/retail/priest-holy/modules/features/SpellUsable';
+import SpellUsable from 'analysis/retail/priest/holy/modules/features/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';

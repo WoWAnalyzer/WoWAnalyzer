@@ -1,4 +1,4 @@
-import SinsOfTheMany from 'analysis/retail/priest-discipline/modules/spells/SinsOfTheMany';
+import SinsOfTheMany from 'analysis/retail/priest/discipline/modules/spells/SinsOfTheMany';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 import { ATONEMENT_COEFFICIENT, PENANCE_COEFFICIENCT, SMITE_COEFFICIENT } from './constants';

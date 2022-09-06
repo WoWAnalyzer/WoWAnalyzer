@@ -1,6 +1,6 @@
-import HolyWordChastise from 'analysis/retail/priest-holy/modules/spells/holyword/HolyWordChastise';
-import HolyWordSanctify from 'analysis/retail/priest-holy/modules/spells/holyword/HolyWordSanctify';
-import HolyWordSerenity from 'analysis/retail/priest-holy/modules/spells/holyword/HolyWordSerenity';
+import HolyWordChastise from 'analysis/retail/priest/holy/modules/spells/holyword/HolyWordChastise';
+import HolyWordSanctify from 'analysis/retail/priest/holy/modules/spells/holyword/HolyWordSanctify';
+import HolyWordSerenity from 'analysis/retail/priest/holy/modules/spells/holyword/HolyWordSerenity';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';

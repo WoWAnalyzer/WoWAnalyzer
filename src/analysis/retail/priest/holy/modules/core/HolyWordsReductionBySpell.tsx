@@ -1,7 +1,7 @@
-import HolyWordChastise from 'analysis/retail/priest-holy/modules/spells/holyword/HolyWordChastise';
-import HolyWordSalvation from 'analysis/retail/priest-holy/modules/spells/holyword/HolyWordSalvation';
-import HolyWordSanctify from 'analysis/retail/priest-holy/modules/spells/holyword/HolyWordSanctify';
-import HolyWordSerenity from 'analysis/retail/priest-holy/modules/spells/holyword/HolyWordSerenity';
+import HolyWordChastise from 'analysis/retail/priest/holy/modules/spells/holyword/HolyWordChastise';
+import HolyWordSalvation from 'analysis/retail/priest/holy/modules/spells/holyword/HolyWordSalvation';
+import HolyWordSanctify from 'analysis/retail/priest/holy/modules/spells/holyword/HolyWordSanctify';
+import HolyWordSerenity from 'analysis/retail/priest/holy/modules/spells/holyword/HolyWordSerenity';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';

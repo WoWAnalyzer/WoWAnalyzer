@@ -1,4 +1,4 @@
-import AbilityTracker from 'analysis/retail/priest-holy/modules/core/AbilityTracker';
+import AbilityTracker from 'analysis/retail/priest/holy/modules/core/AbilityTracker';
 import {
   BoonOfTheAscended,
   FaeGuardians,

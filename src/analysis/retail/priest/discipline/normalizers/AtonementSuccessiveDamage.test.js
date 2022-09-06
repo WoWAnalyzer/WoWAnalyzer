@@ -4,7 +4,7 @@ import {
   DamagingEvent1,
   DamagingEvent2,
   thisPlayer,
-} from 'analysis/retail/priest-discipline/test-fixtures/TestingEvents';
+} from 'analysis/retail/priest/discipline/test-fixtures/TestingEvents';
 
 // import AtonementSuccessiveDamage from './AtonementSuccessiveDamage';
 const AtonementSuccessiveDamage = {};

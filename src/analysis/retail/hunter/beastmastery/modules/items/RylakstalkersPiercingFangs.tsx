@@ -1,4 +1,4 @@
-import { RYLAKSTALKERS_PIERCING_FANGS_CRIT_DMG_INCREASE } from 'analysis/retail/hunter-beastmastery/constants';
+import { RYLAKSTALKERS_PIERCING_FANGS_CRIT_DMG_INCREASE } from 'analysis/retail/hunter/beastmastery/constants';
 import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';

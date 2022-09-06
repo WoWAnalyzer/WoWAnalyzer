@@ -1,4 +1,4 @@
-import Renew from 'analysis/retail/priest-holy/modules/spells/Renew';
+import Renew from 'analysis/retail/priest/holy/modules/spells/Renew';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';

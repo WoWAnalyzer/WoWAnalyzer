@@ -1,7 +1,7 @@
 import {
   RAPID_FIRE_FOCUS_PER_TICK,
   TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE,
-} from 'analysis/retail/hunter-marksmanship/constants';
+} from 'analysis/retail/hunter/marksmanship/constants';
 import { MS_BUFFER_100, NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'analysis/retail/hunter/shared';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

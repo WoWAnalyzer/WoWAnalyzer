@@ -3,7 +3,7 @@ import {
   STREAMLINE_AIMED_SHOT_CAST_SPEED_UP,
   STREAMLINE_RAPID_FIRE_DAMAGE_INCREASE,
   TRUESHOT_AIMED_SHOT_CAST_TIME_SPEED_UP,
-} from 'analysis/retail/hunter-marksmanship/constants';
+} from 'analysis/retail/hunter/marksmanship/constants';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

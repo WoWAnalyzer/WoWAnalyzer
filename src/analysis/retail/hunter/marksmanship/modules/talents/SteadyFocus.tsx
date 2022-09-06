@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { STEADY_FOCUS_HASTE_PERCENT } from 'analysis/retail/hunter-marksmanship/constants';
+import { STEADY_FOCUS_HASTE_PERCENT } from 'analysis/retail/hunter/marksmanship/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';

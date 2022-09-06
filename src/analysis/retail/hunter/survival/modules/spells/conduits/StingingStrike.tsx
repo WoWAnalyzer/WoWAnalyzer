@@ -1,7 +1,7 @@
 import {
   RAPTOR_MONGOOSE_VARIANTS,
   STINGING_STRIKE_RS_MB_DMG_INCREASE,
-} from 'analysis/retail/hunter-survival/constants';
+} from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';

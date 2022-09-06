@@ -1,6 +1,6 @@
 import AtonementAnalyzer, {
   AtonementAnalyzerEvent,
-} from 'analysis/retail/priest-discipline/modules/core/AtonementAnalyzer';
+} from 'analysis/retail/priest/discipline/modules/core/AtonementAnalyzer';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {

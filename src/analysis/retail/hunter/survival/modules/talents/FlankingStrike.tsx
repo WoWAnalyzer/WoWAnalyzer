@@ -1,4 +1,4 @@
-import { FLANKING_STRIKE_FOCUS_GAIN } from 'analysis/retail/hunter-survival/constants';
+import { FLANKING_STRIKE_FOCUS_GAIN } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';

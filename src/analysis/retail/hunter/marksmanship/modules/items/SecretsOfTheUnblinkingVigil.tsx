@@ -1,7 +1,7 @@
 import {
   AIMED_SHOT_FOCUS_COST,
   SECRETS_UNBLINKING_PROC_CHANCE,
-} from 'analysis/retail/hunter-marksmanship/constants';
+} from 'analysis/retail/hunter/marksmanship/constants';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';

@@ -1,4 +1,4 @@
-import { VIPERS_VENOM_DAMAGE_MODIFIER } from 'analysis/retail/hunter-survival/constants';
+import { VIPERS_VENOM_DAMAGE_MODIFIER } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';

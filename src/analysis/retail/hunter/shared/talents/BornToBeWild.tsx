@@ -1,4 +1,4 @@
-import { BASELINE_AOTE_CD } from 'analysis/retail/hunter-survival/constants';
+import { BASELINE_AOTE_CD } from 'analysis/retail/hunter/survival/constants';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';

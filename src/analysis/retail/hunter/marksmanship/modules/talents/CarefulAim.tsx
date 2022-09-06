@@ -1,4 +1,4 @@
-import { CA_MODIFIER, CAREFUL_AIM_THRESHOLD } from 'analysis/retail/hunter-marksmanship/constants';
+import { CA_MODIFIER, CAREFUL_AIM_THRESHOLD } from 'analysis/retail/hunter/marksmanship/constants';
 import { abbreviateBossNames } from 'common/abbreviateLongNames';
 import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';

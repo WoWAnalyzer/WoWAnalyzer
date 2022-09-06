@@ -1,4 +1,4 @@
-import AtonementHealingDone from 'analysis/retail/priest-discipline/modules/features/AtonementHealingDone';
+import AtonementHealingDone from 'analysis/retail/priest/discipline/modules/features/AtonementHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { Icon } from 'interface';

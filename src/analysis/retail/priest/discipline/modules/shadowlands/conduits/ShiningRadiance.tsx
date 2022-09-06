@@ -1,4 +1,4 @@
-import { SHINING_RADIANCE_INCREASE } from 'analysis/retail/priest-discipline/constants';
+import { SHINING_RADIANCE_INCREASE } from 'analysis/retail/priest/discipline/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';

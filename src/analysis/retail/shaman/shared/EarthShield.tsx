@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { EMBRACE_OF_EARTH_RANKS } from 'analysis/retail/shaman-restoration/constants';
+import { EMBRACE_OF_EARTH_RANKS } from 'analysis/retail/shaman/restoration/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';

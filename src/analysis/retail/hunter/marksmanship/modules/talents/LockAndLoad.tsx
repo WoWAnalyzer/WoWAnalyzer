@@ -1,4 +1,4 @@
-import { LNL_PROC_CHANCE } from 'analysis/retail/hunter-marksmanship/constants';
+import { LNL_PROC_CHANCE } from 'analysis/retail/hunter/marksmanship/constants';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';

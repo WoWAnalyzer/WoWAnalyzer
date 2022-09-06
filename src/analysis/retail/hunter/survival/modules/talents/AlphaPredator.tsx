@@ -1,4 +1,4 @@
-import { ALPHA_DAMAGE_KC_MODIFIER } from 'analysis/retail/hunter-survival/constants';
+import { ALPHA_DAMAGE_KC_MODIFIER } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';

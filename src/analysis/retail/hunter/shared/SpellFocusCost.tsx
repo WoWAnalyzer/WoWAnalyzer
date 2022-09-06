@@ -1,5 +1,5 @@
-import { LNL_COST_MULTIPLIER } from 'analysis/retail/hunter-marksmanship/constants';
-import { VIPERS_VENOM_COST_MULTIPLIER } from 'analysis/retail/hunter-survival/constants';
+import { LNL_COST_MULTIPLIER } from 'analysis/retail/hunter/marksmanship/constants';
+import { VIPERS_VENOM_COST_MULTIPLIER } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';

@@ -1,5 +1,5 @@
-import PrayerOfMending from 'analysis/retail/priest-holy/modules/spells/PrayerOfMending';
-import Renew from 'analysis/retail/priest-holy/modules/spells/Renew';
+import PrayerOfMending from 'analysis/retail/priest/holy/modules/spells/PrayerOfMending';
+import Renew from 'analysis/retail/priest/holy/modules/spells/Renew';
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

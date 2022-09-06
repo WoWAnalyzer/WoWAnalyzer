@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import {
   SERPENT_STING_SV_BASE_DURATION,
   SERPENT_STING_SV_PANDEMIC,
-} from 'analysis/retail/hunter-survival/constants';
+} from 'analysis/retail/hunter/survival/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';

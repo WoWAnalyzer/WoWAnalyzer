@@ -1,7 +1,7 @@
 import {
   IsPenanceDamageEvent,
   IsPenanceHealEvent,
-} from 'analysis/retail/priest-discipline/modules/spells/Helper';
+} from 'analysis/retail/priest/discipline/modules/spells/Helper';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';

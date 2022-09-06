@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import GlobalCooldown from 'analysis/retail/hunter-beastmastery/modules/core/GlobalCooldown';
+import GlobalCooldown from 'analysis/retail/hunter/beastmastery/modules/core/GlobalCooldown';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
