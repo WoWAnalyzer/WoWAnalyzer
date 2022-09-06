@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import DH_COVENANTS from 'common/SPELLS/shadowlands/covenants/demonhunter';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -20,9 +20,14 @@ class SinfulBrandUptime extends Analyzer {
   };
   protected enemies!: Enemies;
 
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
+  }
+
   get suggestionThresholds() {
     const sinfulBrandUptime =
-      this.enemies.getBuffUptime(SPELLS.SINFUL_BRAND.id) / this.owner.fightDuration;
+      this.enemies.getBuffUptime(DH_COVENANTS.SINFUL_BRAND.id) / this.owner.fightDuration;
     return {
       actual: sinfulBrandUptime,
       isLessThan: {
@@ -34,20 +39,19 @@ class SinfulBrandUptime extends Analyzer {
     };
   }
 
-  constructor(options: Options) {
-    super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
+  get uptimeHistory() {
+    return this.enemies.getDebuffHistory(DH_COVENANTS.SINFUL_BRAND.id);
   }
 
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.SINFUL_BRAND.id} /> uptime can be improved. Try to pay more
-          attention to your Sinful Brand on the boss, perhaps use some debuff tracker.
+          Your <SpellLink id={DH_COVENANTS.SINFUL_BRAND.id} /> uptime can be improved. Try to pay
+          more attention to your Sinful Brand on the boss, perhaps use some debuff tracker.
         </>,
       )
-        .icon(SPELLS.SINFUL_BRAND.icon)
+        .icon(DH_COVENANTS.SINFUL_BRAND.icon)
         .actual(
           t({
             id: 'demonhunter.havoc.suggestions.sinfulBrand.uptime',
@@ -58,13 +62,9 @@ class SinfulBrandUptime extends Analyzer {
     );
   }
 
-  get uptimeHistory() {
-    return this.enemies.getDebuffHistory(SPELLS.SINFUL_BRAND.id);
-  }
-
   subStatistic() {
     return uptimeBarSubStatistic(this.owner.fight, {
-      spells: [SPELLS.SINFUL_BRAND],
+      spells: [DH_COVENANTS.SINFUL_BRAND],
       uptimes: this.uptimeHistory,
       color: BAR_COLOR,
     });

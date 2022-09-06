@@ -1,5 +1,5 @@
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import DH_LEGENDARIES from 'common/SPELLS/shadowlands/legendaries/demonhunter';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -11,7 +11,7 @@ class ChaosTheory extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.CHAOS_THEORY);
+    this.active = this.selectedCombatant.hasLegendary(DH_LEGENDARIES.CHAOS_THEORY);
     if (!this.active) {
       return;
     }
@@ -19,14 +19,15 @@ class ChaosTheory extends Analyzer {
 
   get buffUptime() {
     return (
-      this.selectedCombatant.getBuffUptime(SPELLS.CHAOTIC_BLADES.id) / this.owner.fightDuration
+      this.selectedCombatant.getBuffUptime(DH_LEGENDARIES.CHAOTIC_BLADES.id) /
+      this.owner.fightDuration
     );
   }
 
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
-        <BoringSpellValueText spellId={SPELLS.CHAOS_THEORY.id}>
+        <BoringSpellValueText spellId={DH_LEGENDARIES.CHAOS_THEORY.id}>
           <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>Buff uptime</small>
         </BoringSpellValueText>
       </Statistic>

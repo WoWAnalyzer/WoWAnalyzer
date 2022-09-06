@@ -1,5 +1,5 @@
 import { formatDuration, formatPercentage, formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -15,13 +15,14 @@ class ImmolationAura extends Analyzer {
   protected abilityTracker!: AbilityTracker;
 
   statistic() {
-    const immolationAuraUptime = this.selectedCombatant.getBuffUptime(SPELLS.IMMOLATION_AURA.id);
+    const immolationAuraUptime = this.selectedCombatant.getBuffUptime(DH_SPELLS.IMMOLATION_AURA.id);
 
     const immolationAuraUptimePercentage = immolationAuraUptime / this.owner.fightDuration;
 
     this.immolationAuraDamage =
-      this.abilityTracker.getAbility(SPELLS.IMMOLATION_AURA_INITIAL_HIT_DAMAGE.id).damageEffective +
-      this.abilityTracker.getAbility(SPELLS.IMMOLATION_AURA.id).damageEffective;
+      this.abilityTracker.getAbility(DH_SPELLS.IMMOLATION_AURA_INITIAL_HIT_DAMAGE.id)
+        .damageEffective +
+      this.abilityTracker.getAbility(DH_SPELLS.IMMOLATION_AURA.id).damageEffective;
 
     return (
       <Statistic
@@ -34,7 +35,7 @@ class ImmolationAura extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.IMMOLATION_AURA.id}>
+        <BoringSpellValueText spellId={DH_SPELLS.IMMOLATION_AURA.id}>
           <>
             <UptimeIcon /> {formatPercentage(immolationAuraUptimePercentage)}% <small>uptime</small>
           </>

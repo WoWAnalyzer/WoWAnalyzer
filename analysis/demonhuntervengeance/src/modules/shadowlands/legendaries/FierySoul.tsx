@@ -1,4 +1,5 @@
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
+import DH_LEGENDARIES from 'common/SPELLS/shadowlands/legendaries/demonhunter';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -23,7 +24,7 @@ class FierySoul extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.FIERY_SOUL);
+    this.active = this.selectedCombatant.hasLegendary(DH_LEGENDARIES.FIERY_SOUL);
     if (!this.active) {
       return;
     }
@@ -32,13 +33,13 @@ class FierySoul extends Analyzer {
   }
 
   onSoulFragmentsConsumed(event: ConsumeSoulFragmentsEvent) {
-    if (event.spellId !== SPELLS.SOUL_CLEAVE.id) {
+    if (event.spellId !== DH_SPELLS.SOUL_CLEAVE.id) {
       return;
     }
 
-    if (this.spellUsable.isOnCooldown(SPELLS.FIERY_BRAND.id)) {
+    if (this.spellUsable.isOnCooldown(DH_SPELLS.FIERY_BRAND.id)) {
       this.totalCooldownReduction += this.spellUsable.reduceCooldown(
-        SPELLS.FIERY_BRAND.id,
+        DH_SPELLS.FIERY_BRAND.id,
         event.numberofSoulFragmentsConsumed * COOLDOWN_REDUCTION,
       );
     }
@@ -47,7 +48,7 @@ class FierySoul extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
-        <BoringSpellValueText spellId={SPELLS.FIERY_SOUL.id}>
+        <BoringSpellValueText spellId={DH_LEGENDARIES.FIERY_SOUL.id}>
           <>
             {Math.floor(this.totalCooldownReduction / 1000)}s{' '}
             <small>of Fiery Brand cooldown reduction</small>

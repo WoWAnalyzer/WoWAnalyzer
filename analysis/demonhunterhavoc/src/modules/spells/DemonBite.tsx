@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
+import DH_TALENTS from 'common/SPELLS/talents/demonhunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
@@ -13,6 +14,25 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  * Example Report: https://www.warcraftlogs.com/reports/KGJgZPxanBX82LzV/#fight=4&source=20
  */
 class DemonBite extends Analyzer {
+  furyGain = 0;
+  furyWaste = 0;
+  damage = 0;
+
+  constructor(options: Options) {
+    super(options);
+    //The Demon Blades talent replaces the ability Demon Bite if picked
+    this.active = !this.selectedCombatant.hasTalent(DH_TALENTS.DEMON_BLADES_TALENT.id);
+
+    this.addEventListener(
+      Events.resourcechange.by(SELECTED_PLAYER).spell(DH_SPELLS.DEMONS_BITE),
+      this.onEnergizeEvent,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(DH_SPELLS.DEMONS_BITE),
+      this.onDamageEvent,
+    );
+  }
+
   get furyPerMin() {
     return ((this.furyGain - this.furyWaste) / (this.owner.fightDuration / 60000)).toFixed(2);
   }
@@ -29,25 +49,6 @@ class DemonBite extends Analyzer {
     };
   }
 
-  furyGain = 0;
-  furyWaste = 0;
-  damage = 0;
-
-  constructor(options: Options) {
-    super(options);
-    //The Demon Blades talent replaces the ability Demon Bite if picked
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.DEMON_BLADES_TALENT.id);
-
-    this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.DEMONS_BITE),
-      this.onEnergizeEvent,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEMONS_BITE),
-      this.onDamageEvent,
-    );
-  }
-
   onEnergizeEvent(event: ResourceChangeEvent) {
     this.furyGain += event.resourceChange;
     this.furyWaste += event.waste;
@@ -62,10 +63,10 @@ class DemonBite extends Analyzer {
       suggest(
         <>
           {' '}
-          Try not to cast <SpellLink id={SPELLS.DEMONS_BITE.id} /> when close to max Fury.
+          Try not to cast <SpellLink id={DH_SPELLS.DEMONS_BITE.id} /> when close to max Fury.
         </>,
       )
-        .icon(SPELLS.DEMONS_BITE.icon)
+        .icon(DH_SPELLS.DEMONS_BITE.icon)
         .actual(
           t({
             id: 'demonhunter.havoc.suggestions.demonsBite.furyWasted',
@@ -94,7 +95,7 @@ class DemonBite extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.DEMONS_BITE.id}>
+        <BoringSpellValueText spellId={DH_SPELLS.DEMONS_BITE.id}>
           <>
             {this.furyPerMin} <small>Fury per min</small> <br />
             {this.owner.formatItemDamageDone(this.damage)}

@@ -1,4 +1,5 @@
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
+import DH_CONDUITS from 'common/SPELLS/shadowlands/conduits/demonhunter';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -25,16 +26,18 @@ class FelDefender extends Analyzer {
   conduitRank: number = 0;
   abilityCasts: number = 0;
   cdrAbility =
-    this.selectedCombatant.spec === SPECS.HAVOC_DEMON_HUNTER ? SPELLS.BLUR : SPELLS.FEL_DEVASTATION;
+    this.selectedCombatant.spec === SPECS.HAVOC_DEMON_HUNTER
+      ? DH_SPELLS.BLUR
+      : DH_SPELLS.FEL_DEVASTATION;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.FEL_DEFENDER.id);
+    this.active = this.selectedCombatant.hasConduitBySpellID(DH_CONDUITS.FEL_DEFENDER.id);
     if (!this.active) {
       return;
     }
 
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.FEL_DEFENDER.id);
+    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(DH_CONDUITS.FEL_DEFENDER.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.cdrAbility), this.onCast);
   }
 
@@ -55,7 +58,7 @@ class FelDefender extends Analyzer {
           </>
         }
       >
-        <ConduitSpellText spellId={SPELLS.FEL_DEFENDER.id} rank={this.conduitRank}>
+        <ConduitSpellText spellId={DH_CONDUITS.FEL_DEFENDER.id} rank={this.conduitRank}>
           {this.abilityCasts} Cast(s)
         </ConduitSpellText>
       </Statistic>

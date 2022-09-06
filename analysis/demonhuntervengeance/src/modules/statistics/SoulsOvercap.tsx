@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
+import DH_TALENTS from 'common/SPELLS/talents/demonhunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -29,8 +30,8 @@ class SoulsOvercap extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active =
-      this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) &&
-      !this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
+      this.selectedCombatant.hasTalent(DH_TALENTS.SPIRIT_BOMB_TALENT.id) &&
+      !this.selectedCombatant.hasTalent(DH_TALENTS.FEED_THE_DEMON_TALENT.id);
   }
 
   get suggestionThresholdsEfficiency(): NumberThreshold {
@@ -53,12 +54,12 @@ class SoulsOvercap extends Analyzer {
     when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are generating <SpellLink id={SPELLS.SOUL_FRAGMENT.id} />s when you are already at 5
-          souls. These are auto consumed. You are missing out on the extra damage consuming them
-          with <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> provides.
+          You are generating <SpellLink id={DH_SPELLS.SOUL_FRAGMENT.id} />s when you are already at
+          5 souls. These are auto consumed. You are missing out on the extra damage consuming them
+          with <SpellLink id={DH_TALENTS.SPIRIT_BOMB_TALENT.id} /> provides.
         </>,
       )
-        .icon(SPELLS.SOUL_FRAGMENT.icon)
+        .icon(DH_SPELLS.SOUL_FRAGMENT.icon)
         .actual(
           t({
             id: 'demonhunter.vengeance.suggestions.souls.wasted',
@@ -90,7 +91,7 @@ class SoulsOvercap extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SOUL_FRAGMENT.id}>
+        <BoringSpellValueText spellId={DH_SPELLS.SOUL_FRAGMENT.id}>
           <>
             {formatPercentage(this.wastePerGenerated())}% <small>souls over cap</small>
           </>

@@ -103,4 +103,5 @@ const legendaries = {
   },
   //endregion
 } as const;
+
 export default legendaries;

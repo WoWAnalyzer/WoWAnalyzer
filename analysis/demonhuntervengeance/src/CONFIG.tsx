@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
 import { Geeii, ToppleTheNun, TurianSniper, xepheris, Yajinni } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
@@ -33,10 +33,9 @@ export default {
       efficiency. This might seem silly and simple to analyze, but it's actually one of the most
       important things for us Vengeance Demon Hunters. As you also might have noticed, the Vengeance
       spec uses a leather armor, which gives us less armor than plate users and making us more
-      vulnerable to physical damage. But we also have the <SpellLink
-        id={SPELLS.DEMON_SPIKES.id}
-      />{' '}
-      and <SpellLink id={SPELLS.METAMORPHOSIS_TANK.id} /> to help mitigating this extra incoming
+      vulnerable to physical damage. But we also have the{' '}
+      <SpellLink id={DH_SPELLS.DEMON_SPIKES.id} /> and{' '}
+      <SpellLink id={DH_SPELLS.METAMORPHOSIS_TANK.id} /> to help mitigating this extra incoming
       damage.
       <br />
       <br />

@@ -1,4 +1,5 @@
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
+import DH_TALENTS from 'common/SPELLS/talents/demonhunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';
 import { CastEvent } from 'parser/core/Events';
@@ -23,12 +24,12 @@ class FuryTracker extends ResourceTracker {
 
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
-    const blindFuryId = SPELLS.BLIND_FURY_TALENT.id;
+    const blindFuryId = DH_TALENTS.BLIND_FURY_TALENT.id;
     const classResource = event.classResources?.[0];
     //TODO: Account for Eye Beam clipping
     // Blind Fury resource gain does not have an energize event so it is handled here
     if (
-      spellId === SPELLS.EYE_BEAM.id &&
+      spellId === DH_SPELLS.EYE_BEAM.id &&
       this.selectedCombatant.hasTalent(blindFuryId) &&
       classResource
     ) {

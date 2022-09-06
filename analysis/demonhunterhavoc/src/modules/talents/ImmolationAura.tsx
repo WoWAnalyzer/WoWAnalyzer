@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
+import DH_TALENTS from 'common/SPELLS/talents/demonhunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
@@ -14,11 +15,31 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
  */
 
 const IMMOLATION_AURA = [
-  SPELLS.IMMOLATION_AURA_INITIAL_HIT_DAMAGE,
-  SPELLS.IMMOLATION_AURA_BUFF_DAMAGE,
+  DH_SPELLS.IMMOLATION_AURA_INITIAL_HIT_DAMAGE,
+  DH_SPELLS.IMMOLATION_AURA_BUFF_DAMAGE,
 ];
 
 class ImmolationAura extends Analyzer {
+  furyGain = 0;
+  furyWaste = 0;
+  damage = 0;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(DH_TALENTS.BURNING_HATRED_TALENT.id);
+    if (!this.active) {
+      return;
+    }
+    this.addEventListener(
+      Events.resourcechange.by(SELECTED_PLAYER).spell(IMMOLATION_AURA),
+      this.onEnergizeEvent,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(IMMOLATION_AURA),
+      this.onDamageEvent,
+    );
+  }
+
   get furyPerMin() {
     return ((this.furyGain - this.furyWaste) / (this.owner.fightDuration / 60000)).toFixed(2);
   }
@@ -35,26 +56,6 @@ class ImmolationAura extends Analyzer {
     };
   }
 
-  furyGain = 0;
-  furyWaste = 0;
-  damage = 0;
-
-  constructor(options: Options) {
-    super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BURNING_HATRED_TALENT.id);
-    if (!this.active) {
-      return;
-    }
-    this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(IMMOLATION_AURA),
-      this.onEnergizeEvent,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(IMMOLATION_AURA),
-      this.onDamageEvent,
-    );
-  }
-
   onEnergizeEvent(event: ResourceChangeEvent) {
     this.furyGain += event.resourceChange;
     this.furyWaste += event.waste;
@@ -69,10 +70,10 @@ class ImmolationAura extends Analyzer {
       suggest(
         <>
           {' '}
-          Avoid casting <SpellLink id={SPELLS.IMMOLATION_AURA.id} /> when close to max Fury.
+          Avoid casting <SpellLink id={DH_SPELLS.IMMOLATION_AURA.id} /> when close to max Fury.
         </>,
       )
-        .icon(SPELLS.IMMOLATION_AURA.icon)
+        .icon(DH_SPELLS.IMMOLATION_AURA.icon)
         .actual(
           t({
             id: 'demonhunter.havoc.suggestions.immolationAura.furyWasted',
@@ -101,7 +102,7 @@ class ImmolationAura extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.IMMOLATION_AURA.id}>
+        <BoringSpellValueText spellId={DH_SPELLS.IMMOLATION_AURA.id}>
           <>
             {this.furyPerMin} <small>Fury per min </small>
             <br />

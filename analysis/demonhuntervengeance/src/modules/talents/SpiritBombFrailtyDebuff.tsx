@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatDuration, formatPercentage, formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
+import DH_TALENTS from 'common/SPELLS/talents/demonhunter';
 import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -23,12 +24,12 @@ class SpiritBombFrailtyDebuff extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(DH_TALENTS.SPIRIT_BOMB_TALENT.id);
   }
 
   get uptime() {
     return (
-      this.enemies.getBuffUptime(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id) / this.owner.fightDuration
+      this.enemies.getBuffUptime(DH_SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id) / this.owner.fightDuration
     );
   }
 
@@ -48,11 +49,11 @@ class SpiritBombFrailtyDebuff extends Analyzer {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> uptime can be improved. This
-          is easy to maintain and an important source of healing.
+          Your <SpellLink id={DH_SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> uptime can be improved.
+          This is easy to maintain and an important source of healing.
         </>,
       )
-        .icon(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.icon)
+        .icon(DH_SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.icon)
         .actual(
           t({
             id: 'demonhunter.vengeance.spiritBombFrailtyBuff.uptime',
@@ -64,8 +65,8 @@ class SpiritBombFrailtyDebuff extends Analyzer {
   }
 
   statistic() {
-    const spiritBombUptime = this.enemies.getBuffUptime(SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id);
-    const spiritBombDamage = this.abilityTracker.getAbility(SPELLS.SPIRIT_BOMB_DAMAGE.id)
+    const spiritBombUptime = this.enemies.getBuffUptime(DH_SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id);
+    const spiritBombDamage = this.abilityTracker.getAbility(DH_SPELLS.SPIRIT_BOMB_DAMAGE.id)
       .damageEffective;
 
     return (
@@ -80,7 +81,7 @@ class SpiritBombFrailtyDebuff extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SPIRIT_BOMB_TALENT.id}>
+        <BoringSpellValueText spellId={DH_TALENTS.SPIRIT_BOMB_TALENT.id}>
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
         </BoringSpellValueText>
       </Statistic>
