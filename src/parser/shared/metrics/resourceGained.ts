@@ -51,4 +51,4 @@ export const sumResourceGainedBySpell = (
 ) =>
   Object.values(resourcesGained)
     .map((obj) => obj[resourceId]?.[spellId] || 0)
-    .reduce((a, b) => a + b);
+    .reduce((a, b) => a + b, 0);
