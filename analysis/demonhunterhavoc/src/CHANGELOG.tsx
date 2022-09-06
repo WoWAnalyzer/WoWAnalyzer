@@ -9,6 +9,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2022, 9, 5), <>Fix <SpellLink id={DH_TALENTS.ESSENCE_BREAK_TALENT.id} /> not supporting <SpellLink id={DH_SPELLS.BLADE_DANCE.id} /> and <SpellLink id={DH_SPELLS.DEATH_SWEEP.id} />.</>, ToppleTheNun),
   change(date(2022, 8, 22), 'Migrate to class/spec specific spell setup.', ToppleTheNun),
   change(date(2022, 8, 12), <>Add support for <SpellLink id={DH_COVENANTS.FODDER_TO_THE_FLAME_DAMAGE.id} />.</>, ToppleTheNun),
   change(date(2022, 7, 25), <>Add tracker for <SpellLink id={DH_SPELLS.FURIOUS_GAZE.id} />.</>, ToppleTheNun),
