@@ -761,7 +761,7 @@ const SPECS: {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 362980,
-    masteryCoefficient: 1, // TODO: Correct Coefficient
+    masteryCoefficient: 2.5,
     ranking: {
       class: 13,
       spec: 1,
@@ -781,7 +781,7 @@ const SPECS: {
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 363510,
-    masteryCoefficient: 1, // TODO: Correct Coefficient
+    masteryCoefficient: 1.8,
     ranking: {
       class: 13,
       spec: 2,
