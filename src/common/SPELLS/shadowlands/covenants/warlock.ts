@@ -31,10 +31,25 @@ const covenants = spellIndexableList({
     name: 'Decimating Bolt',
     icon: 'ability_maldraxxus_warlock',
   },
+  DECIMATING_BOLT_HIT: {
+    id: 327059,
+    name: 'Decimating Bolt',
+    icon: 'ability_maldraxxus_warlock',
+  },
+  DECIMATING_BOLT_BUFF: {
+    id: 325299,
+    name: 'Decimating Bolt',
+    icon: 'ability_maldraxxus_warlock',
+  },
 
   //Night Fae
   SOUL_ROT: {
     id: 325640,
+    name: 'Soul Rot',
+    icon: 'ability_ardenweald_warlock',
+  },
+  SOUL_ROT_BUFF: {
+    id: 331623,
     name: 'Soul Rot',
     icon: 'ability_ardenweald_warlock',
   },

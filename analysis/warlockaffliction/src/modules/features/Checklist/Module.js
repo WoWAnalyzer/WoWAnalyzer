@@ -3,7 +3,8 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
-import ScouringTitheUptime from '../../covenants/ScouringTithe';
+import ScouringTitheUptime from '@wowanalyzer/warlock/src/shadowlands/covenants/ScouringTithe';
+
 import SoulShardDetails from '../../soulshards/SoulShardDetails';
 import SoulShardTracker from '../../soulshards/SoulShardTracker';
 import Haunt from '../../talents/Haunt';
