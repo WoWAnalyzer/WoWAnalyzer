@@ -59,6 +59,23 @@ export async function readCsvFromUrl(url: string) {
   return res;
 }
 
+export function printTalentConstExports(talentObj: ITalentObjectByClass[string]) {
+  if (!talentObj) {
+    return "\n//Class doesn't exist in data yet\n";
+  }
+  return Object.entries(talentObj)
+    .map(([specName, specTalents]) => {
+      const header = `\n  //region ${specName}`;
+      const footer = '\n  //endregion';
+      const talents = Object.keys(specTalents)
+        .map((talent) => `export const ${talent}: Talent = ${JSON.stringify(specTalents[talent])};`)
+        .join('\n');
+
+      return [header, talents, footer].join('\n');
+    })
+    .join('\n');
+}
+
 export function printTalents(talentObj: ITalentObjectByClass[string]) {
   if (!talentObj) {
     return "\n//Class doesn't exist in data yet\n";
@@ -67,7 +84,7 @@ export function printTalents(talentObj: ITalentObjectByClass[string]) {
     .map(([specName, specTalents]) => {
       const header = `\n  //${specName}`;
       const talents = Object.keys(specTalents)
-        .map((talent) => `${talent}: ${JSON.stringify(specTalents[talent])},`)
+        .map((talent) => `${talent},`)
         .join('\n');
 
       return [header, talents].join('\n');

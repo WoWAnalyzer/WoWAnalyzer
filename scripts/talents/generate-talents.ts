@@ -5,6 +5,7 @@ import {
   createTalentKey,
   csvToObject,
   findResourceCost,
+  printTalentConstExports,
   printTalents,
   readCsvFromUrl,
   readJsonFromUrl,
@@ -126,7 +127,9 @@ async function generateTalents() {
     fs.writeFileSync(
       `./src/common/TALENTS/${lowerCasedClassName}.ts`,
       `// Generated file, changes will eventually be overwritten!
-import { createTalentList } from './types';
+import { createTalentList, Talent } from './types';
+
+${printTalentConstExports(talentObjectByClass[lowerCasedClassName])}
 
 const talents = createTalentList({${printTalents(talentObjectByClass[lowerCasedClassName])}
   });
