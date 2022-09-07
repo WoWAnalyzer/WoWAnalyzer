@@ -1,4 +1,5 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
@@ -44,22 +45,19 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
           combatant.hasLegendary(SPELLS.RAZELIKHS_DEFILEMENT)
         ) && <AbilityRequirement spell={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} />}
         <AbilityRequirement spell={SPELLS.FEL_DEVASTATION.id} />
-        {combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.FRACTURE_TALENT.id} />
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_VENGEANCE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.FRACTURE_VENGEANCE_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.FELBLADE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.FELBLADE_TALENT.id} />
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id} />
         )}
-        {combatant.hasCovenant(COVENANTS.KYRIAN.id) && (
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_VENGEANCE_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.ELYSIAN_DECREE.id} />
         )}
-        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
-          <AbilityRequirement spell={SPELLS.SINFUL_BRAND.id} />
-        )}
-        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
-          <AbilityRequirement spell={SPELLS.FODDER_TO_THE_FLAME.id} />
-        )}
-        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+        {/*{combatant.hasTalent(TALENTS_DEMON_HUNTER.FODDER_TO_THE_FLAME_VENGEANCE_TALENT.id) && (*/}
+        {/*  <AbilityRequirement spell={SPELLS.FODDER_TO_THE_FLAME.id} />*/}
+        {/*)}*/}
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.THE_HUNT.id} />
         )}
       </Rule>
@@ -89,19 +87,20 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
           }
           thresholds={thresholds.demonSpikes}
         />
-        {combatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) &&
-          !combatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id) &&
+          !combatant.hasTalent(TALENTS_DEMON_HUNTER.FEED_THE_DEMON_VENGEANCE_TALENT.id) && (
             <Requirement
               name={
                 <>
-                  <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> casted at 4+ souls
+                  <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id} /> casted at
+                  4+ souls
                 </>
               }
               thresholds={thresholds.spiritBombSoulsConsume}
             />
           )}
-        {!combatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id) &&
-          combatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) && (
+        {!combatant.hasTalent(TALENTS_DEMON_HUNTER.FEED_THE_DEMON_VENGEANCE_TALENT.id) &&
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id) && (
             <Requirement
               name={
                 <>
@@ -111,8 +110,8 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
               thresholds={thresholds.soulCleaveSoulsConsumed}
             />
           )}
-        {combatant.hasTalent(SPELLS.SOUL_BARRIER_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.SOUL_BARRIER_TALENT.id} />
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT.id} />
         )}
       </Rule>
 
@@ -136,8 +135,8 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
         <AbilityRequirement spell={SPELLS.FIERY_BRAND.id} />
       </Rule>
 
-      {(combatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) ||
-        combatant.hasTalent(SPELLS.VOID_REAVER_TALENT.id)) && (
+      {(combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id) ||
+        combatant.hasTalent(TALENTS_DEMON_HUNTER.VOID_REAVER_VENGEANCE_TALENT.id)) && (
         <Rule
           name="Maintain your buffs and debuffs"
           description={
@@ -155,7 +154,7 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
             </>
           }
         >
-          {combatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) && (
+          {combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id) && (
             <Requirement
               name={
                 <>
@@ -165,11 +164,12 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
               thresholds={thresholds.spiritBombFrailtyDebuff}
             />
           )}
-          {combatant.hasTalent(SPELLS.VOID_REAVER_TALENT.id) && (
+          {combatant.hasTalent(TALENTS_DEMON_HUNTER.VOID_REAVER_VENGEANCE_TALENT.id) && (
             <Requirement
               name={
                 <>
-                  <SpellLink id={SPELLS.VOID_REAVER_TALENT.id} /> debuff uptime
+                  <SpellLink id={TALENTS_DEMON_HUNTER.VOID_REAVER_VENGEANCE_TALENT.id} /> debuff
+                  uptime
                 </>
               }
               thresholds={thresholds.voidReaverDebuff}
@@ -194,7 +194,7 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
           />
         )}
 
-        {!combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) && (
+        {!combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_VENGEANCE_TALENT.id) && (
           <Requirement
             name={
               <>
@@ -205,11 +205,11 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
           />
         )}
 
-        {combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_VENGEANCE_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.FRACTURE_TALENT.id} /> bad casts
+                <SpellLink id={TALENTS_DEMON_HUNTER.FRACTURE_VENGEANCE_TALENT.id} /> bad casts
               </>
             }
             thresholds={thresholds.shearFracture}

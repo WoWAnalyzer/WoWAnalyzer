@@ -1,4 +1,5 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, ChangeBuffStackEvent, Event, EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
@@ -37,7 +38,11 @@ class SoulFragmentsConsume extends Analyzer {
     this.addEventListener(
       Events.cast
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.SPIRIT_BOMB_TALENT, SPELLS.SOUL_CLEAVE, SPELLS.SOUL_BARRIER_TALENT]),
+        .spell([
+          TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT,
+          SPELLS.SOUL_CLEAVE,
+          TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT,
+        ]),
       this.onCast,
     );
     this.addEventListener(

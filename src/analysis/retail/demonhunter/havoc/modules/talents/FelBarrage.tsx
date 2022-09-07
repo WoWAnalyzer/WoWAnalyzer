@@ -1,5 +1,6 @@
 import { formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
@@ -14,6 +15,28 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  */
 
 class FelBarrage extends Analyzer {
+  damage = 0;
+  casts = 0;
+  badCasts = 0;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_DEMON_HUNTER.FEL_BARRAGE_HAVOC_TALENT.id,
+    );
+    if (!this.active) {
+      return;
+    }
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEL_BARRAGE_DAMAGE),
+      this.felBarrage,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.FEL_BARRAGE_HAVOC_TALENT),
+      this.felBarrageCasts,
+    );
+  }
+
   get suggestionThresholds() {
     return {
       actual: this.badCasts,
@@ -24,26 +47,6 @@ class FelBarrage extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  damage = 0;
-  casts = 0;
-  badCasts = 0;
-
-  constructor(options: Options) {
-    super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FEL_BARRAGE_TALENT.id);
-    if (!this.active) {
-      return;
-    }
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEL_BARRAGE_DAMAGE),
-      this.felBarrage,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FEL_BARRAGE_TALENT),
-      this.felBarrageCasts,
-    );
   }
 
   felBarrage(event: DamageEvent) {
@@ -64,18 +67,18 @@ class FelBarrage extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+    when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
       suggest(
         <>
-          Try to cast <SpellLink id={SPELLS.FEL_BARRAGE_TALENT.id} /> during{' '}
+          Try to cast <SpellLink id={TALENTS_DEMON_HUNTER.FEL_BARRAGE_HAVOC_TALENT.id} /> during{' '}
           <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />.
         </>,
       )
-        .icon(SPELLS.FEL_BARRAGE_TALENT.icon)
+        .icon(TALENTS_DEMON_HUNTER.FEL_BARRAGE_HAVOC_TALENT.icon)
         .actual(
           <>
-            {actual} bad <SpellLink id={SPELLS.FEL_BARRAGE_TALENT.id} /> casts without{' '}
-            <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />.
+            {actual} bad <SpellLink id={TALENTS_DEMON_HUNTER.FEL_BARRAGE_HAVOC_TALENT.id} /> casts
+            without <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />.
           </>,
         )
         .recommended(`No bad casts is recommended.`),
@@ -97,7 +100,7 @@ class FelBarrage extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.FEL_BARRAGE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.FEL_BARRAGE_HAVOC_TALENT.id}>
           <>
             {this.badCasts}{' '}
             <small>

@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatDuration, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -14,6 +15,11 @@ example report: https://www.warcraftlogs.com/reports/1HRhNZa2cCkgK9AV/#fight=48&
 * */
 
 class Momentum extends Analyzer {
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_HAVOC_TALENT.id);
+  }
+
   get buffUptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.MOMENTUM_BUFF.id) / this.owner.fightDuration;
   }
@@ -34,20 +40,16 @@ class Momentum extends Analyzer {
     };
   }
 
-  constructor(options: Options) {
-    super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.MOMENTUM_TALENT.id);
-  }
-
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
           {' '}
-          Maintain the <SpellLink id={SPELLS.MOMENTUM_TALENT.id} /> buff to maximize damage.
+          Maintain the <SpellLink id={TALENTS_DEMON_HUNTER.MOMENTUM_HAVOC_TALENT.id} /> buff to
+          maximize damage.
         </>,
       )
-        .icon(SPELLS.MOMENTUM_TALENT.icon)
+        .icon(TALENTS_DEMON_HUNTER.MOMENTUM_HAVOC_TALENT.icon)
         .actual(
           t({
             id: 'demonhunter.havoc.suggestions.momentum.uptime',
@@ -65,7 +67,7 @@ class Momentum extends Analyzer {
         size="flexible"
         tooltip={`The Momentum buff total uptime was ${formatDuration(this.buffDuration)}.`}
       >
-        <BoringSpellValueText spellId={SPELLS.MOMENTUM_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.MOMENTUM_HAVOC_TALENT.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>uptime</small>
           </>

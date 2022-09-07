@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -18,7 +18,7 @@ class Netherwalk extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.NETHERWALK_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.NETHERWALK_HAVOC_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -26,7 +26,7 @@ class Netherwalk extends Analyzer {
   }
 
   onNetherwalkCast(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.NETHERWALK_TALENT.id)) {
+    if (!this.selectedCombatant.hasBuff(TALENTS_DEMON_HUNTER.NETHERWALK_HAVOC_TALENT.id)) {
       return;
     }
     this.damageImmuned.push({
@@ -62,7 +62,7 @@ class Netherwalk extends Analyzer {
           )
         }
       >
-        <BoringSpellValueText spellId={SPELLS.NETHERWALK_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.NETHERWALK_HAVOC_TALENT.id}>
           <>
             {this.damageImmuned.length} <small>spells immuned</small>
           </>

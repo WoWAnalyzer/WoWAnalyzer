@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ResourceChangeEvent } from 'parser/core/Events';
@@ -19,14 +20,14 @@ class CycleOfHatred extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
-
-  protected spellUsable!: SpellUsable;
-
   totalCooldownReduction = 0;
+  protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.CYCLE_OF_HATRED_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_DEMON_HUNTER.CYCLE_OF_HATRED_HAVOC_TALENT.id,
+    );
     if (!this.active) {
       return;
     }
@@ -36,7 +37,7 @@ class CycleOfHatred extends Analyzer {
     );
   }
 
-  onEnergizeEvent(event: ResourceChangeEvent) {
+  onEnergizeEvent(_: ResourceChangeEvent) {
     if (!this.spellUsable.isOnCooldown(SPELLS.EYE_BEAM.id)) {
       return;
     }
@@ -54,7 +55,7 @@ class CycleOfHatred extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.CYCLE_OF_HATRED_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.CYCLE_OF_HATRED_HAVOC_TALENT.id}>
           <>
             {formatNumber(this.totalCooldownReduction / 1000)} sec{' '}
             <small>

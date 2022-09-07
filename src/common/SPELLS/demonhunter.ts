@@ -438,6 +438,154 @@ const spells = spellIndexableList({
     name: 'Unbound Chaos',
     icon: 'artifactability_vengeancedemonhunter_painbringer',
   },
+
+  //region SHADOWLANDS COVENANT
+  ELYSIAN_DECREE: {
+    id: 327839,
+    name: 'Elysian Decree',
+    icon: 'ability_bastion_demonhunter',
+  },
+  ELYSIAN_DECREE_REPEAT_DECREE: {
+    id: 306830,
+    name: 'Elysian Decree',
+    icon: 'ability_bastion_demonhunter',
+  },
+  ELYSIAN_DECREE_REPEAT_DECREE_DAMAGE: {
+    id: 339894,
+    name: 'Elysian Decree',
+    icon: 'ability_bastion_demonhunter',
+  },
+  ELYSIAN_DECREE_DAMAGE: {
+    id: 307046,
+    name: 'Elysian Decree',
+    icon: 'ability_bastion_demonhunter',
+  },
+  BLIND_FAITH_BUFF: {
+    id: 355894,
+    name: 'Blind Faith',
+    icon: 'ability_bastion_demonhunter',
+  },
+  FODDER_TO_THE_FLAME: {
+    id: 350570,
+    name: 'Fodder to the Flame',
+    icon: 'ability_maldraxxus_demonhunter',
+  },
+  FODDER_TO_THE_FLAME_DAMAGE: {
+    id: 350631,
+    name: 'Fodder to the Flame',
+    icon: 'ability_maldraxxus_demonhunter',
+  },
+  THE_HUNT: {
+    id: 323639,
+    name: 'The Hunt',
+    icon: 'ability_ardenweald_demonhunter',
+  },
+  THE_HUNT_CHARGE: {
+    id: 323802,
+    name: 'The Hunt',
+    icon: 'ability_ardenweald_demonhunter',
+  },
+  THE_HUNT_DOT: {
+    id: 345335,
+    name: 'The Hunt',
+    icon: 'ability_ardenweald_demonhunter',
+  },
+  THE_HUNT_HEAL: {
+    id: 345423,
+    name: 'The Hunt',
+    icon: 'ability_ardenweald_demonhunter',
+  },
+  SINFUL_BRAND: {
+    id: 317009,
+    name: 'Sinful Brand',
+    icon: 'ability_revendreth_demonhunter',
+  },
+  //endregion
+
+  //region SHADOWLANDS LEGENDARIES
+  CHAOS_THEORY: {
+    id: 337551,
+    name: 'Chaos Theory',
+    icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
+  },
+  CHAOTIC_BLADES: {
+    //Buff from Chaos Theory legendary
+    id: 337567,
+    name: 'Chaotic Blades',
+    icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
+  },
+  BURNING_WOUND: {
+    id: 346279,
+    name: 'Burning Wound',
+    icon: 'spell_fire_felhellfire',
+  },
+  DARKER_NATURE: {
+    id: 346264,
+    name: 'Darker Nature',
+    icon: 'ability_demonhunter_eyebeam',
+  },
+  ERRATIC_FEL_CORE: {
+    id: 337685,
+    name: 'Erratic Fel Core',
+    icon: 'inv_archaeology_70_crystallineeyeofundravius',
+  },
+  FEL_FLAME_FORTIFICATION: {
+    id: 337545,
+    name: 'Fel Flame Fortification',
+    icon: 'spell_fire_felfire',
+  },
+  FIERY_SOUL: {
+    id: 337547,
+    name: 'Fiery Soul',
+    icon: 'inv__felbarrage',
+  },
+  RAZELIKHS_DEFILEMENT: {
+    id: 337544,
+    name: "Razelikh's Defilement",
+    icon: 'ability_demonhunter_concentratedsigils',
+  },
+  SPIRIT_OF_THE_DARKNESS_FLAME: {
+    id: 337541,
+    name: 'Spirit of the Darkness Flame',
+    icon: 'inv_misc_head_dragon_blue_nightmare',
+  },
+  COLLECTIVE_ANGUISH: {
+    id: 337504,
+    name: 'Collective Anguish',
+    icon: 'artifactability_havocdemonhunter_anguishofthedeceiver',
+  },
+  FEL_DEVASTATION_DAMAGE: {
+    //The damage spell that the demon is doing from Collective Anguish legendary
+    id: 346503,
+    name: 'Fel Devastation',
+    icon: 'ability_demonhunter_feldevastation',
+  },
+  DARKEST_HOUR: {
+    id: 337539,
+    name: 'Darkest Hour',
+    icon: 'ability_demonhunter_darkness',
+  },
+  DARKGLARE_BOON: {
+    id: 337534,
+    name: 'Darkglare Boon',
+    icon: 'inv_jewelry_necklace_53',
+  },
+  FEL_BOMBARDMENT: {
+    id: 337775,
+    name: 'Fel Bombardment',
+    icon: 'inv_misc_head_dragon_blue_nightmare',
+  },
+  BLIND_FAITH: {
+    id: 355893,
+    name: 'Blind Faith',
+    icon: 'ability_bastion_demonhunter',
+  },
+  AGONY_GAZE: {
+    id: 355886,
+    name: 'Agony Gaze',
+    icon: 'ability_revendreth_demonhunter',
+  },
+  //endregion
 });
 
 export default spells;

@@ -1,4 +1,5 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -15,20 +16,9 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 const META_BUFF_DURATION_EYEBEAM = 10000;
 
 class Demonic extends Analyzer {
-  get suggestionThresholds() {
-    return {
-      actual: this.badCasts,
-      isGreaterThan: {
-        minor: 0,
-        average: 0,
-        major: 1,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
   talentsCheck =
-    this.selectedCombatant.hasTalent(SPELLS.TRAIL_OF_RUIN_TALENT) ||
-    this.selectedCombatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT);
+    this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_HAVOC_TALENT.id) ||
+    this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FIRST_BLOOD_HAVOC_TALENT.id);
   eyeBeamCasts = 0;
   goodDeathSweep = 0;
   eyeBeamTimeStamp: number = 0;
@@ -37,7 +27,7 @@ class Demonic extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DEMONIC_TALENT_HAVOC.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.DEMONIC_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -49,6 +39,18 @@ class Demonic extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATH_SWEEP),
       this.onDeathSweepCast,
     );
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.badCasts,
+      isGreaterThan: {
+        minor: 0,
+        average: 0,
+        major: 1,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
   }
 
   onEyeBeamCast(event: CastEvent) {
@@ -84,17 +86,17 @@ class Demonic extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+    when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
       suggest(
         <>
           Try to have <SpellLink id={SPELLS.BLADE_DANCE.id} /> almost off cooldown before casting{' '}
           <SpellLink id={SPELLS.EYE_BEAM.id} />. This will allow for two casts of{' '}
           <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the{' '}
           <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> buff you get from the{' '}
-          <SpellLink id={SPELLS.DEMONIC_TALENT_HAVOC.id} /> talent.
+          <SpellLink id={TALENTS_DEMON_HUNTER.DEMONIC_TALENT.id} /> talent.
         </>,
       )
-        .icon(SPELLS.DEMONIC_TALENT_HAVOC.icon)
+        .icon(TALENTS_DEMON_HUNTER.DEMONIC_TALENT.icon)
         .actual(
           <>
             {actual} time(s) during <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />{' '}
@@ -108,7 +110,7 @@ class Demonic extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.GENERAL} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.DEMONIC_TALENT_HAVOC.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.DEMONIC_TALENT.id}>
           <>
             {this.badCasts} <small>Bad casts</small>
           </>

@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatDuration, formatPercentage, formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -23,7 +24,9 @@ class SpiritBombFrailtyDebuff extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id,
+    );
   }
 
   get uptime() {
@@ -80,7 +83,7 @@ class SpiritBombFrailtyDebuff extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SPIRIT_BOMB_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id}>
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
         </BoringSpellValueText>
       </Statistic>
