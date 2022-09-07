@@ -1,5 +1,6 @@
 import { formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { ESSENCE_BREAK_HAVOC_TALENT } from 'common/TALENTS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -18,6 +19,10 @@ const DAMAGE_SPELLS = [
   SPELLS.CHAOS_STRIKE_OH_DAMAGE,
   SPELLS.ANNIHILATION_MH_DAMAGE,
   SPELLS.ANNIHILATION_OH_DAMAGE,
+  SPELLS.BLADE_DANCE_DAMAGE,
+  SPELLS.BLADE_DANCE_DAMAGE_LAST_HIT,
+  SPELLS.DEATH_SWEEP_DAMAGE,
+  SPELLS.DEATH_SWEEP_DAMAGE_LAST_HIT,
 ];
 const DAMAGE_INCREASE = 0.4;
 
@@ -25,14 +30,12 @@ class EssenceBreak extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
-
-  protected enemies!: Enemies;
-
   extraDamage = 0;
+  protected enemies!: Enemies;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ESSENCE_BREAK_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(ESSENCE_BREAK_HAVOC_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(DAMAGE_SPELLS), this.damage);
   }
 
@@ -56,7 +59,7 @@ class EssenceBreak extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`${formatThousands(this.extraDamage)} total damage`}
       >
-        <BoringSpellValueText spellId={SPELLS.ESSENCE_BREAK_TALENT.id}>
+        <BoringSpellValueText spellId={ESSENCE_BREAK_HAVOC_TALENT.id}>
           {this.owner.formatItemDamageDone(this.extraDamage)}
         </BoringSpellValueText>
       </Statistic>

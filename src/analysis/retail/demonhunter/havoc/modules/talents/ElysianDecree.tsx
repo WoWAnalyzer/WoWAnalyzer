@@ -1,6 +1,6 @@
 import { formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { ELYSIAN_DECREE_HAVOC_TALENT } from 'common/TALENTS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -10,7 +10,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 /**
- * Kyrian - Elysian Decree
+ * Elysian Decree
  */
 class ElysianDecree extends Analyzer {
   damage = 0;
@@ -18,7 +18,7 @@ class ElysianDecree extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
+    this.active = this.selectedCombatant.hasTalent(ELYSIAN_DECREE_HAVOC_TALENT.id);
 
     if (!this.active) {
       return;

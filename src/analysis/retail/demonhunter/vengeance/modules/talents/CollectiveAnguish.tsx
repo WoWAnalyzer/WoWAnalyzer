@@ -1,48 +1,40 @@
 import { formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { COLLECTIVE_ANGUISH_VENGEANCE_TALENT } from 'common/TALENTS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-/**
- * Venthyr - Sinful Brand
- */
-class SinfulBrand extends Analyzer {
+class CollectiveAnguish extends Analyzer {
   damage = 0;
 
   constructor(options: Options) {
     super(options);
-
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
-
+    this.active = this.selectedCombatant.hasTalent(COLLECTIVE_ANGUISH_VENGEANCE_TALENT);
     if (!this.active) {
       return;
     }
-
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SINFUL_BRAND),
-      this.onDamage,
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EYE_BEAM_DAMAGE),
+      this.onDamageEvent,
     );
   }
 
-  onDamage(event: DamageEvent) {
+  onDamageEvent(event: DamageEvent) {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE()}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.ITEMS}
         tooltip={<>{formatThousands(this.damage)} Total damage</>}
       >
-        <BoringSpellValueText spellId={SPELLS.SINFUL_BRAND.id}>
+        <BoringSpellValueText spellId={COLLECTIVE_ANGUISH_VENGEANCE_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>
@@ -50,4 +42,4 @@ class SinfulBrand extends Analyzer {
   }
 }
 
-export default SinfulBrand;
+export default CollectiveAnguish;

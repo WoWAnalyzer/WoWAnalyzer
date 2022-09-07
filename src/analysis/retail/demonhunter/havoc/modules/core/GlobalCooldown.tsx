@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
 import { CastEvent } from 'parser/core/Events';
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 

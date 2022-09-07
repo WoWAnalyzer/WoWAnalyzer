@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { FRACTURE_VENGEANCE_TALENT } from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffStackEvent } from 'parser/core/Events';
@@ -27,8 +28,8 @@ class ShearFracture extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    if (this.selectedCombatant.hasTalent(SPELLS.FRACTURE_TALENT.id)) {
-      this.cast = SPELLS.FRACTURE_TALENT;
+    if (this.selectedCombatant.hasTalent(FRACTURE_VENGEANCE_TALENT.id)) {
+      this.cast = FRACTURE_VENGEANCE_TALENT;
     }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.cast), this.onCast);
     this.addEventListener(

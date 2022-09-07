@@ -1,10 +1,11 @@
-import { SHATTERED_RESTORATION_SCALING } from 'analysis/retail/demonhunter/shared';
+import { SHATTERED_RESTORATION_SCALING } from 'analysis/retail/demonhunter/shared/constants';
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { SHATTERED_RESTORATION_TALENT } from 'common/TALENTS/demonhunter';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/EventSubscriber';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -17,13 +18,12 @@ export default class ShatteredRestoration extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.SHATTERED_RESTORATION.id);
-
+    this.active = this.selectedCombatant.hasTalent(SHATTERED_RESTORATION_TALENT);
     if (!this.active) {
       return;
     }
 
-    this.rank = this.selectedCombatant.conduitRankBySpellID(SPELLS.SHATTERED_RESTORATION.id);
+    this.rank = this.selectedCombatant.conduitRankBySpellID(SHATTERED_RESTORATION_TALENT.id);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CONSUME_SOUL_VDH),
@@ -52,9 +52,9 @@ export default class ShatteredRestoration extends Analyzer {
           </>
         }
       >
-        <ConduitSpellText spellId={SPELLS.SHATTERED_RESTORATION.id} rank={this.rank}>
+        <BoringSpellValueText spellId={SHATTERED_RESTORATION_TALENT.id}>
           <ItemHealingDone amount={effectiveHealing} />
-        </ConduitSpellText>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

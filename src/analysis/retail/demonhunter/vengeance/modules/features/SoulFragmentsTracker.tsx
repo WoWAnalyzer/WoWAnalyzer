@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ChangeBuffStackEvent } from 'parser/core/Events';
 

@@ -14,6 +14,11 @@ import FuryTracker from './FuryTracker';
 const furyIcon = 'ability_demonhunter_eyebeam';
 
 class FuryDetails extends Analyzer {
+  static dependencies = {
+    furyTracker: FuryTracker,
+  };
+  protected furyTracker!: FuryTracker;
+
   get wastedFuryPercent() {
     return this.furyTracker.wasted / (this.furyTracker.wasted + this.furyTracker.generated);
   }
@@ -29,12 +34,6 @@ class FuryDetails extends Analyzer {
       style: ThresholdStyle.PERCENTAGE,
     };
   }
-
-  static dependencies = {
-    furyTracker: FuryTracker,
-  };
-
-  protected furyTracker!: FuryTracker;
 
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>

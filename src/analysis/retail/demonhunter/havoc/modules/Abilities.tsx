@@ -1,9 +1,19 @@
+import SPELLS from 'common/SPELLS/demonhunter';
 import {
-  FEL_DEFENDER_COOLDOWN_REDUCTION,
-  INCREASED_SCRUTINY_SCALING,
-} from 'analysis/retail/demonhunter/shared';
-import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
+  DEMON_BLADES_HAVOC_TALENT,
+  ELYSIAN_DECREE_HAVOC_TALENT,
+  ESSENCE_BREAK_HAVOC_TALENT,
+  FEL_BARRAGE_HAVOC_TALENT,
+  FEL_ERUPTION_HAVOC_TALENT,
+  FELBLADE_TALENT,
+  FIRST_BLOOD_HAVOC_TALENT,
+  GLAIVE_TEMPEST_HAVOC_TALENT,
+  MOMENTUM_HAVOC_TALENT,
+  NETHERWALK_HAVOC_TALENT,
+  THE_HUNT_TALENT,
+  TRAIL_OF_RUIN_HAVOC_TALENT,
+  UNLEASHED_POWER_TALENT,
+} from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
@@ -16,7 +26,7 @@ class Abilities extends CoreAbilities {
       //Rotation Spells
       {
         spell: SPELLS.DEMONS_BITE.id,
-        enabled: !combatant.hasTalent(SPELLS.DEMON_BLADES_TALENT.id),
+        enabled: !combatant.hasTalent(DEMON_BLADES_HAVOC_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -38,7 +48,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.BLADE_DANCE.id, SPELLS.DEATH_SWEEP.id],
-        category: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id)
+        category: combatant.hasTalent(FIRST_BLOOD_HAVOC_TALENT.id)
           ? SPELL_CATEGORY.ROTATIONAL
           : SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: (haste) =>
@@ -52,14 +62,14 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion:
-            combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) ||
-            combatant.hasTalent(SPELLS.TRAIL_OF_RUIN_TALENT.id),
+            combatant.hasTalent(FIRST_BLOOD_HAVOC_TALENT.id) ||
+            combatant.hasTalent(TRAIL_OF_RUIN_HAVOC_TALENT.id),
           recommendedEfficiency: 0.95,
           extraSuggestion: (
             <>
               This should be part of your single target rotation due to using{' '}
-              <SpellLink id={SPELLS.FIRST_BLOOD_TALENT.id} /> or{' '}
-              <SpellLink id={SPELLS.TRAIL_OF_RUIN_TALENT.id} />. This includes the{' '}
+              <SpellLink id={FIRST_BLOOD_HAVOC_TALENT.id} /> or{' '}
+              <SpellLink id={TRAIL_OF_RUIN_HAVOC_TALENT.id} />. This includes the{' '}
               <SpellLink id={SPELLS.DEATH_SWEEP.id} /> casts since they are the same ability and
               share their cooldowns.
             </>
@@ -67,10 +77,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FELBLADE_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
+        spell: FELBLADE_TALENT.id,
+        enabled: combatant.hasTalent(FELBLADE_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL,
-        // Felblade cooldown can be reset by Demon Bite. But it's CD reset is not any event, so can't track if it resets or not.
+        // Felblade cooldown can be reset by Demon Bite. But its CD reset is not any event, so can't track if it resets or not.
         cooldown: (haste) => 15 / (1 + haste),
         gcd: {
           base: 1500,
@@ -99,8 +109,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ESSENCE_BREAK_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.ESSENCE_BREAK_TALENT.id),
+        spell: ESSENCE_BREAK_HAVOC_TALENT.id,
+        enabled: combatant.hasTalent(ESSENCE_BREAK_HAVOC_TALENT.id),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 20,
         gcd: {
@@ -113,6 +123,8 @@ class Abilities extends CoreAbilities {
             <>
               Pool your Fury before hand to maximizing casting{' '}
               <SpellLink id={SPELLS.CHAOS_STRIKE.id} /> / <SpellLink id={SPELLS.ANNIHILATION.id} />{' '}
+              /
+              <SpellLink id={SPELLS.BLADE_DANCE.id} /> / <SpellLink id={SPELLS.DEATH_SWEEP.id} />{' '}
               during its buff window.
             </>
           ),
@@ -130,7 +142,7 @@ class Abilities extends CoreAbilities {
       //Movement
       {
         spell: SPELLS.FEL_RUSH_CAST.id, //Becomes a rotational ability with the Momentum talent
-        category: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id)
+        category: combatant.hasTalent(MOMENTUM_HAVOC_TALENT.id)
           ? SPELL_CATEGORY.ROTATIONAL
           : SPELL_CATEGORY.UTILITY,
         charges: 2,
@@ -139,30 +151,29 @@ class Abilities extends CoreAbilities {
           static: 250,
         },
         castEfficiency: {
-          suggestion: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id),
+          suggestion: combatant.hasTalent(MOMENTUM_HAVOC_TALENT.id),
           recommendedEfficiency: 0.95,
           extraSuggestion: (
             <>
-              Use it to keep your <SpellLink id={SPELLS.MOMENTUM_TALENT.id} /> buff going.
+              Use it to keep your <SpellLink id={MOMENTUM_HAVOC_TALENT.id} /> buff going.
             </>
           ),
         },
       },
       {
         spell: SPELLS.VENGEFUL_RETREAT.id, //Becomes a rotational ability with the Momentum talent
-        category: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id)
+        category: combatant.hasTalent(MOMENTUM_HAVOC_TALENT.id)
           ? SPELL_CATEGORY.ROTATIONAL
           : SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) ? 20 : 25,
+        cooldown: combatant.hasTalent(MOMENTUM_HAVOC_TALENT.id) ? 20 : 25,
         // Not actually on the GCD but blocks all spells during its animation for 1 second. The issue is you can follow up any ability on the GCD with Vengeful Retreat, so it can still cause overlap.
         gcd: null,
         castEfficiency: {
-          suggestion: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id),
+          suggestion: combatant.hasTalent(MOMENTUM_HAVOC_TALENT.id),
           recommendedEfficiency: 0.95,
           extraSuggestion: (
             <>
-              Use it to generate Fury due to the <SpellLink id={SPELLS.MOMENTUM_TALENT.id} />{' '}
-              talent.
+              Use it to generate Fury due to the <SpellLink id={MOMENTUM_HAVOC_TALENT.id} /> talent.
             </>
           ),
         },
@@ -176,8 +187,8 @@ class Abilities extends CoreAbilities {
 
       // CC, interupts, and utility
       {
-        spell: SPELLS.FEL_ERUPTION_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.FEL_ERUPTION_TALENT.id),
+        spell: FEL_ERUPTION_HAVOC_TALENT.id,
+        enabled: combatant.hasTalent(FEL_ERUPTION_HAVOC_TALENT.id),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
@@ -187,7 +198,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHAOS_NOVA.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(SPELLS.UNLEASHED_POWER_TALENT.id) ? 40 : 60,
+        cooldown: combatant.hasTalent(UNLEASHED_POWER_TALENT.id) ? 40 : 60,
         gcd: {
           base: 1500,
         },
@@ -238,20 +249,19 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+          suggestion: true,
           recommendedEfficiency: 0.95,
           extraSuggestion: (
             <>
               The only times you should delay casting <SpellLink id={SPELLS.EYE_BEAM.id} /> is when
-              you're expecting adds to spawn soon or your <SpellLink id={SPELLS.SINFUL_BRAND.id} />{' '}
-              is about to fall off.
+              you're expecting adds to spawn soon.
             </>
           ),
         },
       },
       {
-        spell: SPELLS.FEL_BARRAGE_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.FEL_BARRAGE_TALENT.id),
+        spell: FEL_BARRAGE_HAVOC_TALENT.id,
+        enabled: combatant.hasTalent(FEL_BARRAGE_HAVOC_TALENT.id),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         gcd: {
@@ -264,8 +274,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.GLAIVE_TEMPEST_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.GLAIVE_TEMPEST_TALENT.id),
+        spell: GLAIVE_TEMPEST_HAVOC_TALENT.id,
+        enabled: combatant.hasTalent(GLAIVE_TEMPEST_HAVOC_TALENT.id),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: (haste) => 20 / (1 + haste),
         gcd: {
@@ -277,7 +287,7 @@ class Abilities extends CoreAbilities {
           extraSuggestion: (
             <>
               The only time you should delay casting{' '}
-              <SpellLink id={SPELLS.GLAIVE_TEMPEST_TALENT.id} /> is when you're expecting adds to
+              <SpellLink id={GLAIVE_TEMPEST_HAVOC_TALENT.id} /> is when you're expecting adds to
               spawn soon.
             </>
           ),
@@ -285,28 +295,8 @@ class Abilities extends CoreAbilities {
       },
       //Covenant
       {
-        spell: SPELLS.SINFUL_BRAND.id,
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: combatant.hasConduitBySpellID(SPELLS.INCREASED_SCRUTINY.id)
-          ? 45 -
-            INCREASED_SCRUTINY_SCALING[combatant.conduitRankBySpellID(SPELLS.INCREASED_SCRUTINY.id)]
-          : 45,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          // You should only cast Sinful Brand if your primary target does
-          // not already have it applied if you're using the legendary,
-          // as otherwise it overwrites it.
-          suggestion: !combatant.hasLegendary(SPELLS.AGONY_GAZE),
-          recommendedEfficiency: 0.95,
-          extraSuggestion: `This should be part of your single target rotation.`,
-        },
-      },
-      {
         spell: [SPELLS.ELYSIAN_DECREE.id, SPELLS.ELYSIAN_DECREE_REPEAT_DECREE.id],
-        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        enabled: combatant.hasTalent(ELYSIAN_DECREE_HAVOC_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         gcd: {
@@ -317,15 +307,16 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
           extraSuggestion: (
             <>
-              The only time you should delay casting <SpellLink id={SPELLS.ELYSIAN_DECREE.id} /> is
-              when you're expecting adds to spawn soon.
+              The only time you should delay casting{' '}
+              <SpellLink id={ELYSIAN_DECREE_HAVOC_TALENT.id} /> is when you're expecting adds to
+              spawn soon.
             </>
           ),
         },
       },
       {
         spell: SPELLS.THE_HUNT.id,
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        enabled: combatant.hasTalent(THE_HUNT_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: {
@@ -341,30 +332,6 @@ class Abilities extends CoreAbilities {
             </>
           ),
         },
-      },
-      {
-        spell: SPELLS.DOOR_OF_SHADOWS.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
-      },
-      {
-        spell: SPELLS.FLESHCRAFT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-      },
-      {
-        spell: SPELLS.SOULSHAPE.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },
       // Big DPS Cooldowns
       {
@@ -384,10 +351,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLUR.id,
         buffSpellId: SPELLS.BLUR.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasConduitBySpellID(SPELLS.FEL_DEFENDER.id)
-          ? 60 -
-            FEL_DEFENDER_COOLDOWN_REDUCTION[combatant.conduitRankBySpellID(SPELLS.FEL_DEFENDER.id)]
-          : 60,
+        cooldown: 60,
       },
       {
         spell: SPELLS.DARKNESS.id,
@@ -399,8 +363,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.NETHERWALK_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.NETHERWALK_TALENT.id),
+        spell: NETHERWALK_HAVOC_TALENT.id,
+        enabled: combatant.hasTalent(NETHERWALK_HAVOC_TALENT.id),
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 180,
         gcd: {

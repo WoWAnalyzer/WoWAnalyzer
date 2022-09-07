@@ -1,4 +1,5 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { FELBLADE_TALENT } from 'common/TALENTS/demonhunter';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
 
@@ -21,9 +22,9 @@ class Buffs extends CoreAuras {
         triggeredBySpellId: SPELLS.IMMOLATION_AURA.id,
       },
       {
-        spellId: SPELLS.FELBLADE_TALENT.id,
+        spellId: FELBLADE_TALENT.id,
         timelineHighlight: false,
-        triggeredBySpellId: SPELLS.FELBLADE_TALENT.id,
+        triggeredBySpellId: FELBLADE_TALENT.id,
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),

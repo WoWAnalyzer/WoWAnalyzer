@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
 import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
 import { EventType } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';

@@ -1,5 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { FEAST_OF_SOULS_VENGEANCE_TALENT } from 'common/TALENTS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -15,7 +16,7 @@ class FeastOfSouls extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FEAST_OF_SOULS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(FEAST_OF_SOULS_VENGEANCE_TALENT.id);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FEAST_OF_SOULS_HEAL),
       this.onHeal,
@@ -45,7 +46,7 @@ class FeastOfSouls extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.FEAST_OF_SOULS_TALENT.id}>
+        <BoringSpellValueText spellId={FEAST_OF_SOULS_VENGEANCE_TALENT.id}>
           <ItemHealingDone amount={this.heal} />
         </BoringSpellValueText>
       </Statistic>

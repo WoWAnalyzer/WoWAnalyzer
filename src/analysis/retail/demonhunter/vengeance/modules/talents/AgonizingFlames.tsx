@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { AGONIZING_FLAMES_VENGEANCE_TALENT } from 'common/TALENTS/demonhunter';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/EventSubscriber';
@@ -16,7 +17,7 @@ export default class AgonizingFlames extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.AGONIZING_FLAMES_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(AGONIZING_FLAMES_VENGEANCE_TALENT.id);
 
     if (!this.active) {
       return;
@@ -65,7 +66,7 @@ export default class AgonizingFlames extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.AGONIZING_FLAMES_TALENT.id}>
+        <BoringSpellValueText spellId={AGONIZING_FLAMES_VENGEANCE_TALENT.id}>
           <ItemDamageDone amount={this.extendedImmolationAuraDamage} />
         </BoringSpellValueText>
       </Statistic>

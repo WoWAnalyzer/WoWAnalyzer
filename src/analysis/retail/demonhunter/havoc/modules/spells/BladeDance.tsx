@@ -1,4 +1,5 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { FIRST_BLOOD_HAVOC_TALENT, TRAIL_OF_RUIN_HAVOC_TALENT } from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, FightEndEvent } from 'parser/core/Events';
@@ -7,18 +8,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 //Example data for bad cast https://wowanalyzer.com/report/g4Pja6pLHnmQtbvk/32-Normal+Sun+King's+Salvation+-+Kill+(10:14)/Zyg/standard
 //For Blade dance and Death Sweep
 class BladeDance extends Analyzer {
-  get suggestionThresholds() {
-    return {
-      actual: this.badCast,
-      isGreaterThan: {
-        minor: 1,
-        average: 2,
-        major: 3,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
   badCast = 0;
   hitCount = 0;
   firstHitTimeStamp: number = 0;
@@ -28,8 +17,8 @@ class BladeDance extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = !(
-      this.selectedCombatant.hasTalent(SPELLS.TRAIL_OF_RUIN_TALENT) ||
-      this.selectedCombatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT)
+      this.selectedCombatant.hasTalent(TRAIL_OF_RUIN_HAVOC_TALENT) ||
+      this.selectedCombatant.hasTalent(FIRST_BLOOD_HAVOC_TALENT)
     );
     if (!this.active) {
       return;
@@ -52,6 +41,18 @@ class BladeDance extends Analyzer {
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
+  get suggestionThresholds() {
+    return {
+      actual: this.badCast,
+      isGreaterThan: {
+        minor: 1,
+        average: 2,
+        major: 3,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
   onCast(event: CastEvent) {
     this.lastCastEvent = event;
   }
@@ -67,20 +68,34 @@ class BladeDance extends Analyzer {
 
     if (hitTimeStamp > this.firstHitTimeStamp + this.strikeTime) {
       //New Strike
-      if (this.hitCount < 5 && this.hitCount > 1) {
-        //chech if last strike was bad
-        this.badCast += 1;
-        this.lastCastEvent.meta = this.lastCastEvent.meta || {};
-        this.lastCastEvent.meta.isInefficientCast = true;
-        this.lastCastEvent.meta.inefficientCastReason = 'Bad cast on single target';
-      }
+      this.checkIfLastCastIsBad();
       this.firstHitTimeStamp = hitTimeStamp; //Timestamp for first hit in strike
       this.hitCount = 0;
     }
     this.hitCount += 1;
   }
 
-  onFightEnd(event: FightEndEvent) {
+  onFightEnd(_: FightEndEvent) {
+    this.checkIfLastCastIsBad();
+  }
+
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
+      suggest(
+        <>
+          You should not cast <SpellLink id={SPELLS.BLADE_DANCE.id} /> or{' '}
+          <SpellLink id={SPELLS.DEATH_SWEEP.id} /> on single target when you are not using{' '}
+          <SpellLink id={FIRST_BLOOD_HAVOC_TALENT.id} /> or{' '}
+          <SpellLink id={TRAIL_OF_RUIN_HAVOC_TALENT.id} /> as a talent.
+        </>,
+      )
+        .icon(SPELLS.BLADE_DANCE.icon)
+        .actual(<>{actual} bad casts</>)
+        .recommended(`No bad casts is recommended.`),
+    );
+  }
+
+  private checkIfLastCastIsBad() {
     if (!this.lastCastEvent) {
       return;
     }
@@ -92,22 +107,6 @@ class BladeDance extends Analyzer {
       this.lastCastEvent.meta.isInefficientCast = true;
       this.lastCastEvent.meta.inefficientCastReason = 'Bad cast on single target';
     }
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You should not cast <SpellLink id={SPELLS.BLADE_DANCE.id} /> or{' '}
-          <SpellLink id={SPELLS.DEATH_SWEEP.id} /> on single target when you are not using{' '}
-          <SpellLink id={SPELLS.FIRST_BLOOD_TALENT.id} /> or{' '}
-          <SpellLink id={SPELLS.TRAIL_OF_RUIN_TALENT.id} /> as a talent.
-        </>,
-      )
-        .icon(SPELLS.BLADE_DANCE.icon)
-        .actual(<>{actual} bad casts</>)
-        .recommended(`No bad casts is recommended.`),
-    );
   }
 }
 

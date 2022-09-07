@@ -1,8 +1,15 @@
+import SPELLS from 'common/SPELLS/demonhunter';
 import {
-  FEL_DEFENDER_COOLDOWN_REDUCTION,
-  INCREASED_SCRUTINY_SCALING,
-} from 'analysis/retail/demonhunter/shared';
-import SPELLS from 'common/SPELLS';
+  ELYSIAN_DECREE_VENGEANCE_TALENT,
+  FALLOUT_VENGEANCE_TALENT,
+  FELBLADE_TALENT,
+  FRACTURE_VENGEANCE_TALENT,
+  QUICKENED_SIGILS_TALENT,
+  SIGIL_OF_CHAINS_VENGEANCE_TALENT,
+  SOUL_BARRIER_VENGEANCE_TALENT,
+  SPIRIT_BOMB_VENGEANCE_TALENT,
+  THE_HUNT_TALENT,
+} from 'common/TALENTS/demonhunter';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
@@ -27,23 +34,25 @@ class Abilities extends CoreAbilities {
           extraSuggestion: (
             <>
               This is a great Fury filler spell. Try to always cast it on cooldown, specially when
-              using the <SpellLink id={SPELLS.FALLOUT_TALENT.id} /> talent in order to maximize your{' '}
-              <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> generation.
+              using the <SpellLink id={FALLOUT_VENGEANCE_TALENT.id} /> talent in order to maximize
+              your <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> generation.
             </>
           ),
         },
       },
       {
         spell: [
-          combatant.hasTalent(SPELLS.FRACTURE_TALENT.id)
-            ? SPELLS.FRACTURE_TALENT.id
+          combatant.hasTalent(FRACTURE_VENGEANCE_TALENT.id)
+            ? FRACTURE_VENGEANCE_TALENT.id
             : SPELLS.SHEAR.id,
         ],
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) ? (haste) => 4.5 / (1 + haste) : 0,
-        charges: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id) ? 2 : 0,
+        cooldown: combatant.hasTalent(FRACTURE_VENGEANCE_TALENT.id)
+          ? (haste) => 4.5 / (1 + haste)
+          : 0,
+        charges: combatant.hasTalent(FRACTURE_VENGEANCE_TALENT.id) ? 2 : 0,
         castEfficiency: {
-          suggestion: combatant.hasTalent(SPELLS.FRACTURE_TALENT.id),
+          suggestion: combatant.hasTalent(FRACTURE_VENGEANCE_TALENT.id),
           recommendedEfficiency: 0.9,
         },
         gcd: {
@@ -96,16 +105,16 @@ class Abilities extends CoreAbilities {
 
       // Talents
       {
-        spell: SPELLS.SIGIL_OF_CHAINS_TALENT.id,
+        spell: SIGIL_OF_CHAINS_VENGEANCE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.SIGIL_OF_CHAINS_TALENT.id),
+        enabled: combatant.hasTalent(SIGIL_OF_CHAINS_VENGEANCE_TALENT.id),
         cooldown: 90,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.SPIRIT_BOMB_TALENT.id,
+        spell: SPIRIT_BOMB_VENGEANCE_TALENT.id,
         buffSpellId: SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
@@ -113,9 +122,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SOUL_BARRIER_TALENT.id,
-        buffSpellId: SPELLS.SOUL_BARRIER_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.SOUL_BARRIER_TALENT.id),
+        spell: SOUL_BARRIER_VENGEANCE_TALENT.id,
+        buffSpellId: SOUL_BARRIER_VENGEANCE_TALENT.id,
+        enabled: combatant.hasTalent(SOUL_BARRIER_VENGEANCE_TALENT.id),
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 30,
         gcd: {
@@ -128,8 +137,8 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
       },
       {
-        spell: SPELLS.FELBLADE_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
+        spell: FELBLADE_TALENT.id,
+        enabled: combatant.hasTalent(FELBLADE_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 15 / (1 + haste),
         gcd: {
@@ -144,10 +153,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FEL_DEVASTATION.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: combatant.hasConduitBySpellID(SPELLS.FEL_DEFENDER.id)
-          ? 60 -
-            FEL_DEFENDER_COOLDOWN_REDUCTION[combatant.conduitRankBySpellID(SPELLS.FEL_DEFENDER.id)]
-          : 60,
+        cooldown: 60,
         gcd: {
           base: 1500,
         },
@@ -163,7 +169,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.SIGIL_OF_SILENCE_CONCENTRATED.id, SPELLS.SIGIL_OF_SILENCE_QUICKENED.id],
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60 * (1 - (combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
+        cooldown: 60 * (1 - (combatant.hasTalent(QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
         gcd: {
           base: 1500,
         },
@@ -171,7 +177,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.SIGIL_OF_MISERY_CONCENTRATED.id, SPELLS.SIGIL_OF_MISERY_QUICKENED.id],
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60 * (1 - (combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
+        cooldown: 60 * (1 - (combatant.hasTalent(QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
         gcd: {
           base: 1500,
         },
@@ -180,7 +186,7 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id, SPELLS.SIGIL_OF_FLAME_QUICKENED.id],
         buffSpellId: SPELLS.SIGIL_OF_FLAME_DEBUFF.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 30 * (1 - (combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
+        cooldown: 30 * (1 - (combatant.hasTalent(QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
         gcd: {
           base: 1500,
         },
@@ -194,15 +200,7 @@ class Abilities extends CoreAbilities {
             combatant.hasLegendary(SPELLS.RAZELIKHS_DEFILEMENT)
           ),
           recommendedEfficiency: 0.9,
-          extraSuggestion: combatant.hasTalent(SPELLS.ABYSSAL_STRIKE_TALENT.id) ? (
-            <>
-              Line this up with <SpellLink id={SPELLS.INFERNAL_STRIKE.id} /> to double stack{' '}
-              <SpellLink id={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} /> because of the{' '}
-              <SpellLink id={SPELLS.ABYSSAL_STRIKE_TALENT.id} /> talent.
-            </>
-          ) : (
-            `Cast on cooldown for a dps increase.`
-          ),
+          extraSuggestion: `Cast on cooldown for a dps increase.`,
         },
       },
 
@@ -210,7 +208,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.INFERNAL_STRIKE.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(SPELLS.ABYSSAL_STRIKE_TALENT.id) ? 12 : 20,
+        cooldown: 20,
         charges: 2,
         enabled: false, // TODO: change this to true, when infernal strike logging is working, see infernalstrike module for more details.
       },
@@ -266,27 +264,15 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.ELYSIAN_DECREE.id, SPELLS.ELYSIAN_DECREE_REPEAT_DECREE.id],
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 60 * (1 - (combatant.hasTalent(SPELLS.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
+        cooldown: 60 * (1 - (combatant.hasTalent(QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        enabled: combatant.hasTalent(ELYSIAN_DECREE_VENGEANCE_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-      },
-      {
-        spell: SPELLS.SINFUL_BRAND.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: combatant.hasConduitBySpellID(SPELLS.INCREASED_SCRUTINY.id)
-          ? 45 -
-            INCREASED_SCRUTINY_SCALING[combatant.conduitRankBySpellID(SPELLS.INCREASED_SCRUTINY.id)]
-          : 45,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
       },
       {
         spell: SPELLS.THE_HUNT.id,
@@ -295,7 +281,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        enabled: combatant.hasTalent(THE_HUNT_TALENT),
       },
     ];
   }

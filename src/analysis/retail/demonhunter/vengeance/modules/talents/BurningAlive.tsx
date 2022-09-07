@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { BURNING_ALIVE_VENGEANCE_TALENT } from 'common/TALENTS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -14,7 +15,7 @@ class BurningAlive extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BURNING_ALIVE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(BURNING_ALIVE_VENGEANCE_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FIERY_BRAND_DOT),
       this.onDamage,
@@ -39,7 +40,7 @@ class BurningAlive extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.BURNING_ALIVE_TALENT.id}>
+        <BoringSpellValueText spellId={BURNING_ALIVE_VENGEANCE_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

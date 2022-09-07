@@ -1,4 +1,5 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { BLIND_FURY_HAVOC_TALENT } from 'common/TALENTS/demonhunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';
 import { CastEvent } from 'parser/core/Events';
@@ -23,7 +24,7 @@ class FuryTracker extends ResourceTracker {
 
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
-    const blindFuryId = SPELLS.BLIND_FURY_TALENT.id;
+    const blindFuryId = BLIND_FURY_HAVOC_TALENT.id;
     const classResource = event.classResources?.[0];
     //TODO: Account for Eye Beam clipping
     // Blind Fury resource gain does not have an energize event so it is handled here

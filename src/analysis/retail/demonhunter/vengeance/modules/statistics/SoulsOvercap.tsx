@@ -1,6 +1,10 @@
 import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import {
+  FEED_THE_DEMON_VENGEANCE_TALENT,
+  SPIRIT_BOMB_VENGEANCE_TALENT,
+} from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -29,8 +33,8 @@ class SoulsOvercap extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active =
-      this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) &&
-      !this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
+      this.selectedCombatant.hasTalent(SPIRIT_BOMB_VENGEANCE_TALENT.id) &&
+      !this.selectedCombatant.hasTalent(FEED_THE_DEMON_VENGEANCE_TALENT.id);
   }
 
   get suggestionThresholdsEfficiency(): NumberThreshold {
@@ -55,7 +59,7 @@ class SoulsOvercap extends Analyzer {
         <>
           You are generating <SpellLink id={SPELLS.SOUL_FRAGMENT.id} />s when you are already at 5
           souls. These are auto consumed. You are missing out on the extra damage consuming them
-          with <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> provides.
+          with <SpellLink id={SPIRIT_BOMB_VENGEANCE_TALENT.id} /> provides.
         </>,
       )
         .icon(SPELLS.SOUL_FRAGMENT.icon)

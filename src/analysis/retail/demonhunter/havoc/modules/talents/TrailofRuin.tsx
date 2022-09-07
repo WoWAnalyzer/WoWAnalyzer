@@ -1,5 +1,6 @@
 import { formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { TRAIL_OF_RUIN_HAVOC_TALENT } from 'common/TALENTS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -15,7 +16,7 @@ class TrailofRuin extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.TRAIL_OF_RUIN_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TRAIL_OF_RUIN_HAVOC_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -36,7 +37,7 @@ class TrailofRuin extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`${formatThousands(this.damage)} Total damage`}
       >
-        <BoringSpellValueText spellId={SPELLS.TRAIL_OF_RUIN_TALENT.id}>
+        <BoringSpellValueText spellId={TRAIL_OF_RUIN_HAVOC_TALENT.id}>
           {this.owner.formatItemDamageDone(this.damage)}
         </BoringSpellValueText>
       </Statistic>

@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { FELBLADE_TALENT, THE_HUNT_TALENT } from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -27,9 +28,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           <>
             Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay
             between casting spells. Even if you have to move, use your movement spells like{' '}
-            <SpellLink id={SPELLS.FEL_RUSH_CAST.id} />,{' '}
-            <SpellLink id={SPELLS.FELBLADE_TALENT.id} icon />, or{' '}
-            <SpellLink id={SPELLS.VENGEFUL_RETREAT.id} icon /> to quickly get back to the boss.
+            <SpellLink id={SPELLS.FEL_RUSH_CAST.id} />, <SpellLink id={FELBLADE_TALENT.id} icon />,{' '}
+            <SpellLink id={THE_HUNT_TALENT.id} icon />
+            or <SpellLink id={SPELLS.VENGEFUL_RETREAT.id} icon /> to quickly get back to the boss.
           </>,
         )
           .icon('spell_mage_altertime')

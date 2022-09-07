@@ -1,5 +1,5 @@
 import { formatDuration, formatPercentage, formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';

@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import { FEL_ERUPTION_HAVOC_TALENT } from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
@@ -12,6 +12,25 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
  */
 
 class FelEruption extends Analyzer {
+  casts = 0;
+  stuns = 0;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(FEL_ERUPTION_HAVOC_TALENT);
+    if (!this.active) {
+      return;
+    }
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(FEL_ERUPTION_HAVOC_TALENT),
+      this.countingCasts,
+    );
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(FEL_ERUPTION_HAVOC_TALENT),
+      this.countingStuns,
+    );
+  }
+
   get badCasts() {
     return this.casts - this.stuns;
   }
@@ -28,45 +47,26 @@ class FelEruption extends Analyzer {
     };
   }
 
-  casts = 0;
-  stuns = 0;
-
-  constructor(options: Options) {
-    super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FEL_ERUPTION_TALENT.id);
-    if (!this.active) {
-      return;
-    }
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FEL_ERUPTION_TALENT),
-      this.countingCasts,
-    );
-    this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.FEL_ERUPTION_TALENT),
-      this.countingStuns,
-    );
-  }
-
-  countingCasts(event: CastEvent) {
+  countingCasts(_: CastEvent) {
     this.casts += 1;
   }
 
-  countingStuns(event: ApplyDebuffEvent) {
+  countingStuns(_: ApplyDebuffEvent) {
     this.stuns += 1;
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+    when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
       suggest(
         <>
-          Try to cast <SpellLink id={SPELLS.FEL_ERUPTION_TALENT.id} /> only for its stun. It's not
+          Try to cast <SpellLink id={FEL_ERUPTION_HAVOC_TALENT.id} /> only for its stun. It's not
           worth casting for its damage since it's a DPS loss.
         </>,
       )
-        .icon(SPELLS.FEL_ERUPTION_TALENT.icon)
+        .icon(FEL_ERUPTION_HAVOC_TALENT.icon)
         .actual(
           <>
-            {actual} bad <SpellLink id={SPELLS.FEL_ERUPTION_TALENT.id} /> casts that didn't stun the
+            {actual} bad <SpellLink id={FEL_ERUPTION_HAVOC_TALENT.id} /> casts that didn't stun the
             target{' '}
           </>,
         )
@@ -87,7 +87,7 @@ class FelEruption extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.FEL_ERUPTION_TALENT.id}>
+        <BoringSpellValueText spellId={FEL_ERUPTION_HAVOC_TALENT.id}>
           <>
             {this.badCasts} <small>bad casts that didn't stun the target</small>{' '}
           </>

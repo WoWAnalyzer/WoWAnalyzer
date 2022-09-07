@@ -1,5 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { FEED_THE_DEMON_VENGEANCE_TALENT } from 'common/TALENTS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -25,7 +26,7 @@ class FeedTheDemon extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(FEED_THE_DEMON_VENGEANCE_TALENT.id);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CONSUME_SOUL_VDH),
       this.onHeal,
@@ -57,7 +58,7 @@ class FeedTheDemon extends Analyzer {
     return this.wastedReduction / (this.wastedReduction + this.reduction);
   }
 
-  onHeal(event: HealEvent) {
+  onHeal(_: HealEvent) {
     if (!this.spellUsable.isOnCooldown(SPELLS.DEMON_SPIKES.id)) {
       this.totalCooldownReductionWasted += COOLDOWN_REDUCTION_MS;
     } else {
@@ -85,7 +86,7 @@ class FeedTheDemon extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.FEED_THE_DEMON_TALENT.id}>
+        <BoringSpellValueText spellId={FEED_THE_DEMON_VENGEANCE_TALENT.id}>
           {formatNumber(this.averageReduction)} sec average reduction
         </BoringSpellValueText>
       </Statistic>

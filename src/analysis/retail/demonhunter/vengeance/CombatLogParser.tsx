@@ -1,12 +1,5 @@
-import {
-  ElysianDecree,
-  FelDefender,
-  FodderToTheFlame,
-  GrowingInferno,
-  RepeatDecree,
-  SinfulBrand,
-  TheHunt,
-} from 'analysis/retail/demonhunter/shared';
+import { TheHunt } from 'analysis/retail/demonhunter/shared';
+import ShatteredRestoration from 'analysis/retail/demonhunter/shared/modules/talents/ShatteredRestoration';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import Abilities from './modules/Abilities';
@@ -17,9 +10,6 @@ import MitigationCheck from './modules/features/MitigationCheck';
 import SoulFragmentsTracker from './modules/features/SoulFragmentsTracker';
 import FuryDetails from './modules/fury/FuryDetails';
 import FuryTracker from './modules/fury/FuryTracker';
-import ShatteredRestoration from './modules/shadowlands/conduits/ShatteredRestoration';
-import BlindFaith from './modules/shadowlands/legendaries/BlindFaith';
-import FierySoul from './modules/shadowlands/legendaries/FierySoul';
 import DemonSpikes from './modules/spells/DemonSpikes';
 import ImmolationAura from './modules/spells/ImmolationAura';
 import InfernalStrike from './modules/spells/InfernalStrike';
@@ -30,6 +20,7 @@ import SoulFragmentsConsume from './modules/statistics/SoulFragmentsConsume';
 import SoulsOvercap from './modules/statistics/SoulsOvercap';
 import AgonizingFlames from './modules/talents/AgonizingFlames';
 import BurningAlive from './modules/talents/BurningAlive';
+import ElysianDecree from './modules/talents/ElysianDecree';
 import FeastOfSouls from './modules/talents/FeastOfSouls';
 import FeedTheDemon from './modules/talents/FeedTheDemon';
 import SoulBarrier from './modules/talents/SoulBarrier';
@@ -62,6 +53,9 @@ class CombatLogParser extends CoreCombatLogParser {
     feastOfSouls: FeastOfSouls,
     agonizingFlames: AgonizingFlames,
     shearFracture: ShearFracture,
+    shatteredRestoration: ShatteredRestoration,
+    theHunt: TheHunt,
+    elysianDecree: ElysianDecree,
 
     // Spell
     immolationAura: ImmolationAura,
@@ -74,22 +68,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Stats
     soulsOvercap: SoulsOvercap,
     soulFragmentsConsume: SoulFragmentsConsume,
-
-    // Covenants
-    sinfulBrand: SinfulBrand,
-    theHunt: TheHunt,
-    elysianDecree: ElysianDecree,
-    fodderToTheFlame: FodderToTheFlame,
-
-    // Conduits
-    felDefender: FelDefender,
-    shatteredRestoration: ShatteredRestoration,
-
-    // Legendaries
-    fierySoul: FierySoul,
-    blindFaith: BlindFaith,
-    growingInferno: GrowingInferno,
-    repeatDecree: RepeatDecree,
   };
 }
 
