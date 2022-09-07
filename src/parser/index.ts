@@ -1,109 +1,109 @@
-import BloodDeathKnight from '@wowanalyzer/deathknight-blood';
-import FrostDeathKnight from '@wowanalyzer/deathknight-frost';
-import UnholyDeathKnight from '@wowanalyzer/deathknight-unholy';
-import HavocDemonHunter from '@wowanalyzer/demonhunter-havoc';
-import VengeanceDemonHunter from '@wowanalyzer/demonhunter-vengeance';
-import BalanceDruid from '@wowanalyzer/druid-balance';
-import FeralDruid from '@wowanalyzer/druid-feral';
-import GuardianDruid from '@wowanalyzer/druid-guardian';
-import RestoDruid from '@wowanalyzer/druid-restoration';
-import BeastMasteryHunter from '@wowanalyzer/hunter-beastmastery';
-import MarksmanshipHunter from '@wowanalyzer/hunter-marksmanship';
-import SurvivalHunter from '@wowanalyzer/hunter-survival';
-import ArcaneMage from '@wowanalyzer/mage-arcane';
-import FireMage from '@wowanalyzer/mage-fire';
-import FrostMage from '@wowanalyzer/mage-frost';
-import BrewmasterMonk from '@wowanalyzer/monk-brewmaster';
-import MistweaverMonk from '@wowanalyzer/monk-mistweaver';
-import WindwalkerMonk from '@wowanalyzer/monk-windwalker';
-import HolyPaladin from '@wowanalyzer/paladin-holy';
-import ProtectionPaladin from '@wowanalyzer/paladin-protection';
-import RetributionPaladin from '@wowanalyzer/paladin-retribution';
-import DisciplinePriest from '@wowanalyzer/priest-discipline';
-import HolyPriest from '@wowanalyzer/priest-holy';
-import ShadowPriest from '@wowanalyzer/priest-shadow';
-import AssassinationRogue from '@wowanalyzer/rogue-assassination';
-import OutlawRogue from '@wowanalyzer/rogue-outlaw';
-import SubtletyRogue from '@wowanalyzer/rogue-subtlety';
-import ElementalShaman from '@wowanalyzer/shaman-elemental';
-import EnhancementShaman from '@wowanalyzer/shaman-enhancement';
-import RestorationShaman from '@wowanalyzer/shaman-restoration';
-import TbcDruid from '@wowanalyzer/tbc-druid';
-import TbcHunter from '@wowanalyzer/tbc-hunter';
-import TbcMage from '@wowanalyzer/tbc-mage';
-import TbcPaladin from '@wowanalyzer/tbc-paladin';
-import TbcPriest from '@wowanalyzer/tbc-priest';
-import TbcRogue from '@wowanalyzer/tbc-rogue';
-import TbcShaman from '@wowanalyzer/tbc-shaman';
-import TbcWarlock from '@wowanalyzer/tbc-warlock';
-import TbcWarrior from '@wowanalyzer/tbc-warrior';
-import AfflictionWarlock from '@wowanalyzer/warlock-affliction';
-import DemonologyWarlock from '@wowanalyzer/warlock-demonology';
-import DestructionWarlock from '@wowanalyzer/warlock-destruction';
-import ArmsWarrior from '@wowanalyzer/warrior-arms';
-import FuryWarrior from '@wowanalyzer/warrior-fury';
-import ProtectionWarrior from '@wowanalyzer/warrior-protection';
+// import BloodDeathKnight from 'analysis/retail/deathknight/blood';
+// import FrostDeathKnight from 'analysis/retail/deathknight/frost';
+// import UnholyDeathKnight from 'analysis/retail/deathknight/unholy';
+// import HavocDemonHunter from 'analysis/retail/demonhunter/havoc';
+// import VengeanceDemonHunter from 'analysis/retail/demonhunter/vengeance';
+// import BalanceDruid from 'analysis/retail/druid/balance';
+// import FeralDruid from 'analysis/retail/druid/feral';
+// import GuardianDruid from 'analysis/retail/druid/guardian';
+// import RestoDruid from 'analysis/retail/druid/restoration';
+// import BeastMasteryHunter from 'analysis/retail/hunter/beastmastery';
+// import MarksmanshipHunter from 'analysis/retail/hunter/marksmanship';
+// import SurvivalHunter from 'analysis/retail/hunter/survival';
+// import ArcaneMage from 'analysis/retail/mage/arcane';
+// import FireMage from 'analysis/retail/mage/fire';
+// import FrostMage from 'analysis/retail/mage/frost';
+// import BrewmasterMonk from 'analysis/retail/monk/brewmaster';
+// import MistweaverMonk from 'analysis/retail/monk/mistweaver';
+// import WindwalkerMonk from 'analysis/retail/monk/windwalker';
+// import HolyPaladin from 'analysis/retail/paladin/holy';
+// import ProtectionPaladin from 'analysis/retail/paladin/protection';
+// import RetributionPaladin from 'analysis/retail/paladin/retribution';
+// import DisciplinePriest from 'analysis/retail/priest/discipline';
+// import HolyPriest from 'analysis/retail/priest/holy';
+// import ShadowPriest from 'analysis/retail/priest/shadow';
+// import AssassinationRogue from 'analysis/retail/rogue/assassination';
+// import OutlawRogue from 'analysis/retail/rogue/outlaw';
+// import SubtletyRogue from 'analysis/retail/rogue/subtlety';
+// import ElementalShaman from 'analysis/retail/shaman/elemental';
+// import EnhancementShaman from 'analysis/retail/shaman/enhancement';
+// import RestorationShaman from 'analysis/retail/shaman/restoration';
+// import AfflictionWarlock from 'analysis/retail/warlock/affliction';
+// import DemonologyWarlock from 'analysis/retail/warlock/demonology';
+// import DestructionWarlock from 'analysis/retail/warlock/destruction';
+// import ArmsWarrior from 'analysis/retail/warrior/arms';
+// import FuryWarrior from 'analysis/retail/warrior/fury';
+// import ProtectionWarrior from 'analysis/retail/warrior/protection';
+import ClassicDruid from 'analysis/classic/druid';
+import ClassicHunter from 'analysis/classic/hunter';
+import ClassicMage from 'analysis/classic/mage';
+import ClassicPaladin from 'analysis/classic/paladin';
+import ClassicPriest from 'analysis/classic/priest';
+import ClassicRogue from 'analysis/classic/rogue';
+import ClassicShaman from 'analysis/classic/shaman';
+import ClassicWarlock from 'analysis/classic/warlock';
+import ClassicWarrior from 'analysis/classic/warrior';
 
 import Config from './Config';
 
 const configs: Config[] = [
-  BloodDeathKnight,
-  UnholyDeathKnight,
-  FrostDeathKnight,
+  // BloodDeathKnight,
+  // UnholyDeathKnight,
+  // FrostDeathKnight,
 
-  HavocDemonHunter,
-  VengeanceDemonHunter,
+  // HavocDemonHunter,
+  // VengeanceDemonHunter,
 
-  BalanceDruid,
-  FeralDruid,
-  GuardianDruid,
-  RestoDruid,
+  // BalanceDruid,
+  // FeralDruid,
+  // GuardianDruid,
+  // RestoDruid,
 
-  BeastMasteryHunter,
-  MarksmanshipHunter,
-  SurvivalHunter,
+  // BeastMasteryHunter,
+  // MarksmanshipHunter,
+  // SurvivalHunter,
 
-  FrostMage,
-  FireMage,
-  ArcaneMage,
+  // FrostMage,
+  // FireMage,
+  // ArcaneMage,
 
-  BrewmasterMonk,
-  WindwalkerMonk,
-  MistweaverMonk,
+  // BrewmasterMonk,
+  // WindwalkerMonk,
+  // MistweaverMonk,
 
-  HolyPaladin,
-  RetributionPaladin,
-  ProtectionPaladin,
+  // HolyPaladin,
+  // RetributionPaladin,
+  // ProtectionPaladin,
 
-  DisciplinePriest,
-  HolyPriest,
-  ShadowPriest,
+  // DisciplinePriest,
+  // HolyPriest,
+  // ShadowPriest,
 
-  SubtletyRogue,
-  AssassinationRogue,
-  OutlawRogue,
+  // SubtletyRogue,
+  // AssassinationRogue,
+  // OutlawRogue,
 
-  ElementalShaman,
-  EnhancementShaman,
-  RestorationShaman,
+  // ElementalShaman,
+  // EnhancementShaman,
+  // RestorationShaman,
 
-  AfflictionWarlock,
-  DemonologyWarlock,
-  DestructionWarlock,
+  // AfflictionWarlock,
+  // DemonologyWarlock,
+  // DestructionWarlock,
 
-  ProtectionWarrior,
-  ArmsWarrior,
-  FuryWarrior,
+  // ProtectionWarrior,
+  // ArmsWarrior,
+  // FuryWarrior,
 
-  TbcMage,
-  TbcHunter,
-  TbcPriest,
-  TbcDruid,
-  TbcRogue,
-  TbcWarrior,
-  TbcShaman,
-  TbcWarlock,
-  TbcPaladin,
+  ClassicMage,
+  ClassicHunter,
+  ClassicPriest,
+  ClassicDruid,
+  ClassicRogue,
+  ClassicWarrior,
+  ClassicShaman,
+  ClassicWarlock,
+  ClassicPaladin,
 ];
 
 export default configs;

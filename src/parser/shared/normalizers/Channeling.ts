@@ -45,12 +45,9 @@ class Channeling extends EventsNormalizer {
     buffChannelSpec(SPELLS.EVOCATION.id),
     buffChannelSpec(SPELLS.SHIFTING_POWER.id),
     nextCastChannelSpec(SPELLS.ARCANE_MISSILES.id),
-    // Warlock
-    buffChannelSpec(SPELLS.DRAIN_SOUL_TALENT.id),
     // Priest
     buffChannelSpec(SPELLS.DIVINE_HYMN_CAST.id),
     nextCastChannelSpec(SPELLS.PENANCE_CAST.id),
-    buffChannelSpec(SPELLS.VOID_TORRENT_TALENT.id),
     buffChannelSpec(SPELLS.MIND_FLAY.id), // TODO double check ID
     buffChannelSpec(SPELLS.MIND_SEAR.id), // TODO double check ID
     // Rogue
@@ -67,13 +64,8 @@ class Channeling extends EventsNormalizer {
     // Shaman
     // Hunter
     buffChannelSpec(SPELLS.RAPID_FIRE.id),
-    // TODO Barrage - can't find a single log with someone taking the talent...
     // Paladin
-    // Warrior
-    buffChannelSpec(SPELLS.BLADESTORM_TALENT.id),
     buffChannelSpec(SPELLS.BLADESTORM.id),
-    // Death Knight
-    buffChannelSpec(SPELLS.BLOODDRINKER_TALENT.id),
   ];
 
   // registered special case handlers, mapped by guid

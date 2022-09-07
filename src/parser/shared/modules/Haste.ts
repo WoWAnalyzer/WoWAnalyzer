@@ -48,7 +48,6 @@ class Haste extends Analyzer {
     [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
     [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
     [SPELLS.FURIOUS_GAZE.id]: 0.15, // Havoc DH haste buff from fully channeling a cast of Eye Beam
-    [SPELLS.DARK_SOUL_MISERY_TALENT.id]: 0.3,
     [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
     [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
     [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15, // Frost DK
@@ -60,7 +59,6 @@ class Haste extends Analyzer {
       hastePerStack: 0.04,
     },
     [SPELLS.CELESTIAL_ALIGNMENT.id]: 0.1,
-    [SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id]: 0.1,
     [SPELLS.RAVENOUS_FRENZY.id]: {
       hastePerStack: 0.01,
     },
@@ -70,12 +68,6 @@ class Haste extends Analyzer {
     //region Hunter Haste Buffs
     [SPELLS.DIRE_BEAST_BUFF.id]: 0.05,
     [SPELLS.STEADY_FOCUS_BUFF.id]: 0.07,
-    //endregion
-
-    //region Paladin
-    [SPELLS.CRUSADE_TALENT.id]: {
-      hastePerStack: 0.03,
-    },
     //endregion
 
     //region Priest

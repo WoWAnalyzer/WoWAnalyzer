@@ -7,10 +7,7 @@ const spells: number[] = [
    * spell cast was cancelled since these do not interrupt casting.
    */
   SPELLS.FIRE_BLAST.id,
-  SPELLS.SHIMMER_TALENT.id,
-  SPELLS.ICE_FLOES_TALENT.id,
   SPELLS.COMBUSTION.id,
-  SPELLS.SEARING_NIGHTMARE_TALENT.id,
 ];
 
 export default spells;
