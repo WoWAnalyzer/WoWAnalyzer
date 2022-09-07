@@ -2,6 +2,7 @@ import {
   DEATH_KNIGHT_SPECS,
   DEMON_HUNTER_SPECS,
   DRUID_SPECS,
+  EVOKER_SPECS,
   HUNTER_SPECS,
   MAGE_SPECS,
   MONK_SPECS,
@@ -17,6 +18,7 @@ export enum CLASSES {
   DEATH_KNIGHT,
   DEMON_HUNTER,
   DRUID,
+  EVOKER,
   HUNTER,
   MAGE,
   MONK,
@@ -37,6 +39,9 @@ export function getClassBySpecId(specId: number) {
   }
   if (DRUID_SPECS.find((spec) => spec.id === specId)) {
     return CLASSES.DRUID;
+  }
+  if (EVOKER_SPECS.find((spec) => spec.id === specId)) {
+    return CLASSES.EVOKER;
   }
   if (HUNTER_SPECS.find((spec) => spec.id === specId)) {
     return CLASSES.HUNTER;

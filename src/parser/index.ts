@@ -43,6 +43,8 @@ import ClassicRogue from 'analysis/classic/rogue';
 import ClassicShaman from 'analysis/classic/shaman';
 import ClassicWarlock from 'analysis/classic/warlock';
 import ClassicWarrior from 'analysis/classic/warrior';
+import DevastationEvoker from 'analysis/retail/evoker/devastation';
+import PreservationEvoker from 'analysis/retail/evoker/preservation';
 
 import Config from './Config';
 
@@ -58,6 +60,9 @@ const configs: Config[] = [
   // FeralDruid,
   // GuardianDruid,
   // RestoDruid,
+
+  DevastationEvoker,
+  PreservationEvoker,
 
   // BeastMasteryHunter,
   // MarksmanshipHunter,

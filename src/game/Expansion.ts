@@ -8,6 +8,7 @@ enum Expansion {
   Legion = 7,
   BattleForAzeroth = 8,
   Shadowlands = 9,
+  Dragonflight = 10,
 }
 
 export default Expansion;

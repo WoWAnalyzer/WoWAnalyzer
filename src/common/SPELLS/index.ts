@@ -18,6 +18,7 @@ import DEATH_KNIGHT from './deathknight';
 import DEMON_HUNTER from './demonhunter';
 import DRUID from './druid';
 import ENCOUNTER from './encounter';
+import EVOKER from './evoker';
 import HUNTER from './hunter';
 import MAGE from './mage';
 import MONK from './monk';
@@ -39,6 +40,7 @@ const ABILITIES = {
   ...DEATH_KNIGHT,
   ...DEMON_HUNTER,
   ...DRUID,
+  ...EVOKER,
   ...HUNTER,
   ...MAGE,
   ...MONK,
