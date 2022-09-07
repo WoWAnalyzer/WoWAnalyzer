@@ -7,9 +7,10 @@ import RaidHealthChart from './RaidHealthChart';
 const CLASS_CHART_LINE_COLORS = {
   DeathKnight: 'rgba(196, 31, 59, 0.6)',
   Druid: 'rgba(255, 125, 10, 0.6)',
+  Evoker: 'rgba(51, 147, 127, 0.6)',
   Hunter: 'rgba(171, 212, 115, 0.6)',
   Mage: 'rgba(105, 204, 240, 0.6)',
-  Monk: 'rgba(45, 155, 120, 0.6)',
+  Monk: 'rgba(0, 255, 152, 0.6)',
   Paladin: 'rgba(245, 140, 186, 0.6)',
   Priest: 'rgba(255, 255, 255, 0.6)',
   Rogue: 'rgba(255, 245, 105, 0.6)',

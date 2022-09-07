@@ -1,7 +1,7 @@
-import indexById, { asIndexableList } from 'common/indexById';
+import indexById, { asRestrictedTable } from 'common/indexById';
 import { Soulbind } from 'parser/core/Events';
 
-const SOULBINDS = asIndexableList<Soulbind>()({
+const SOULBINDS = asRestrictedTable<Soulbind>()({
   NIYA: {
     name: 'Niya',
     id: 1,

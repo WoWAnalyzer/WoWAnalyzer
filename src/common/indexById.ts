@@ -30,7 +30,10 @@ const indexById = <ValueT extends BaseIndexableObj, Map extends RestrictedTable<
   return indexedByNameAndId;
 };
 
-export const asIndexableList = <T extends BaseIndexableObj>() => <E>(
+/**
+ * Assert that `value` is a `RestrictedTable<T, E>` where `T` is fixed and `E` is inferred.
+ */
+export const asRestrictedTable = <T extends BaseIndexableObj>() => <E>(
   value: RestrictedTable<T, E>,
 ): RestrictedTable<T, E> => value;
 

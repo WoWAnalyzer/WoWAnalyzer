@@ -1,4 +1,4 @@
-import { asIndexableList } from '../indexById';
+import { asRestrictedTable } from '../indexById';
 
 export default interface Spell {
   id: number;
@@ -45,5 +45,5 @@ export interface SpellList<T extends Spell = Spell> {
   [key: string | number]: T;
 }
 
-export const spellIndexableList = asIndexableList<Spell>();
-export const enchantIndexableList = asIndexableList<Enchant>();
+export const spellIndexableList = asRestrictedTable<Spell>();
+export const enchantIndexableList = asRestrictedTable<Enchant>();

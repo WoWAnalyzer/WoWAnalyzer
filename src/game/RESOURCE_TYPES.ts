@@ -1,4 +1,4 @@
-import indexById, { asIndexableList } from 'common/indexById';
+import indexById, { asRestrictedTable } from 'common/indexById';
 import { ClassResources } from 'parser/core/Events';
 
 export interface Resource {
@@ -8,9 +8,9 @@ export interface Resource {
   url: string;
 }
 
-const RESOURCE_TYPES = asIndexableList<Resource>()({
+const RESOURCE_TYPES = asRestrictedTable<Resource>()({
   MANA: {
-    // Paladin, Priest, Shaman, Mage, Warlock, Monk, Druid
+    // Paladin, Priest, Shaman, Mage, Warlock, Monk, Druid, Evoker
     id: 0,
     name: 'Mana',
     icon: 'inv_elemental_mote_mana',
@@ -129,6 +129,13 @@ const RESOURCE_TYPES = asIndexableList<Resource>()({
     name: 'Pain',
     icon: 'ability_demonhunter_demonspikes',
     url: 'pain',
+  },
+  ESSENCE: {
+    // Evoker
+    id: 19,
+    name: 'Essence',
+    icon: 'trade_engineering',
+    url: 'essence',
   },
 });
 

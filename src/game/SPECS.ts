@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import indexById, { asIndexableList } from 'common/indexById';
+import indexById, { asRestrictedTable } from 'common/indexById';
 
 import PRIMARY_STATS from './PRIMARY_STATS';
 import ROLES from './ROLES';
@@ -23,7 +23,7 @@ export interface Spec {
   };
 }
 
-const specIndexableList = asIndexableList<Spec>();
+const specIndexableList = asRestrictedTable<Spec>();
 
 const SPECS = specIndexableList({
   ARCANE_MAGE: {
@@ -219,7 +219,7 @@ const SPECS = specIndexableList({
     }),
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
-    masterySpellId: 77492,
+    masterySpellId: 326085,
     masteryCoefficient: 1.1,
     ranking: {
       class: 2,
@@ -746,6 +746,46 @@ const SPECS = specIndexableList({
       spec: 2,
     },
   },
+  DEVASTATION_EVOKER: {
+    id: 1467,
+    index: 36,
+    className: t({
+      id: 'specs.evoker',
+      message: `Evoker`,
+    }),
+    specName: t({
+      id: 'specs.devastation',
+      message: 'Devastation',
+    }),
+    role: ROLES.DPS.RANGED,
+    primaryStat: PRIMARY_STATS.INTELLECT,
+    masterySpellId: 362980,
+    masteryCoefficient: 2.5,
+    ranking: {
+      class: 13,
+      spec: 1,
+    },
+  },
+  PRESERVATION_EVOKER: {
+    id: 1468,
+    index: 37,
+    className: t({
+      id: 'specs.evoker',
+      message: `Evoker`,
+    }),
+    specName: t({
+      id: 'specs.preservation',
+      message: 'Preservation',
+    }),
+    role: ROLES.HEALER,
+    primaryStat: PRIMARY_STATS.INTELLECT,
+    masterySpellId: 363510,
+    masteryCoefficient: 1.8,
+    ranking: {
+      class: 13,
+      spec: 2,
+    },
+  },
 });
 
 export const DEATH_KNIGHT_SPECS: Spec[] = [
@@ -760,6 +800,7 @@ export const DRUID_SPECS: Spec[] = [
   SPECS.GUARDIAN_DRUID,
   SPECS.RESTORATION_DRUID,
 ];
+export const EVOKER_SPECS: Spec[] = [SPECS.DEVASTATION_EVOKER, SPECS.PRESERVATION_EVOKER];
 export const HUNTER_SPECS: Spec[] = [
   SPECS.SURVIVAL_HUNTER,
   SPECS.BEAST_MASTERY_HUNTER,

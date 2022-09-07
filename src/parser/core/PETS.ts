@@ -1,4 +1,4 @@
-import indexById, { asIndexableList } from 'common/indexById';
+import indexById, { asRestrictedTable } from 'common/indexById';
 
 interface Pet {
   id: number;
@@ -7,7 +7,7 @@ interface Pet {
 }
 
 // TODO: Refactor this away: you should make a spec specific PETS file in your spec folder
-const PETS = asIndexableList<Pet>()({
+const PETS = asRestrictedTable<Pet>()({
   // TODO: revise Warlock pets
   WILDIMP_ON_DREADSTALKER: {
     id: 99737,

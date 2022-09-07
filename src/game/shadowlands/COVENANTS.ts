@@ -1,7 +1,7 @@
-import indexById, { asIndexableList } from 'common/indexById';
+import indexById, { asRestrictedTable } from 'common/indexById';
 import { Covenant } from 'parser/core/Events';
 
-const COVENANTS = asIndexableList<Covenant>()({
+const COVENANTS = asRestrictedTable<Covenant>()({
   KYRIAN: {
     name: 'Kyrian',
     description:
