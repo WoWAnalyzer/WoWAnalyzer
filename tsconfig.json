@@ -36,6 +36,8 @@
     "src/analysis/retail/druid/guardian",
     "src/analysis/retail/druid/restoration",
     "src/analysis/retail/druid/shared",
+    "src/analysis/retail/evoker/devastation",
+    "src/analysis/retail/evoker/preservation",
     "src/analysis/retail/hunter/beastmastery",
     "src/analysis/retail/hunter/marksmanship",
     "src/analysis/retail/hunter/shared",
