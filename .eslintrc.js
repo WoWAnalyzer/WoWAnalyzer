@@ -3,8 +3,10 @@ const CI = Boolean(process.env.CI);
 
 module.exports = {
   extends: ['@martijnhols/eslint-config', 'plugin:react/jsx-runtime'],
-  plugins: ['wowanalyzer'],
+  plugins: ['wowanalyzer', 'progress'],
   rules: {
+    'progress/activate': 1,
+    'prettier/prettier': 0,
     'wowanalyzer/module-spread-parent-dependencies': 'error',
     'no-use-before-define': 'off',
     'import/order': [
