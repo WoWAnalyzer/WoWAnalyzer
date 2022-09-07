@@ -1,3 +1,5 @@
+import { asRestrictedTable } from 'common/indexById';
+
 import Spell from '../SPELLS/Spell';
 
 enum ClassNodeType {
@@ -19,6 +21,4 @@ export interface Talent extends Spell {
   spellType?: EntryType;
 }
 
-export function createTalentList<T extends Record<string, Talent>>(v: T): T {
-  return v;
-}
+export const createTalentList = asRestrictedTable<Talent>();

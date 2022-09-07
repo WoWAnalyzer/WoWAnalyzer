@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import indexById, { asIndexableList } from 'common/indexById';
+import indexById, { asRestrictedTable } from 'common/indexById';
 
 import PRIMARY_STATS from './PRIMARY_STATS';
 import ROLES from './ROLES';
@@ -23,7 +23,7 @@ export interface Spec {
   };
 }
 
-const specIndexableList = asIndexableList<Spec>();
+const specIndexableList = asRestrictedTable<Spec>();
 
 const SPECS = specIndexableList({
   ARCANE_MAGE: {

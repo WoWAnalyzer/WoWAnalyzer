@@ -1,4 +1,4 @@
-import { asIndexableList } from 'common/indexById';
+import { asRestrictedTable } from 'common/indexById';
 
 export default interface Item {
   id: number;
@@ -14,5 +14,5 @@ export interface ItemList<T extends Item = Item> {
   [key: string]: T;
 }
 
-export const itemIndexableList = asIndexableList<Item>();
-export const enchantIndexableList = asIndexableList<Enchant>();
+export const itemIndexableList = asRestrictedTable<Item>();
+export const enchantIndexableList = asRestrictedTable<Enchant>();

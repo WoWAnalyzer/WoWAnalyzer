@@ -1,4 +1,4 @@
-import indexById, { asIndexableList } from 'common/indexById';
+import indexById, { asRestrictedTable } from 'common/indexById';
 import { ClassResources } from 'parser/core/Events';
 
 export interface Resource {
@@ -8,7 +8,7 @@ export interface Resource {
   url: string;
 }
 
-const RESOURCE_TYPES = asIndexableList<Resource>()({
+const RESOURCE_TYPES = asRestrictedTable<Resource>()({
   MANA: {
     // Paladin, Priest, Shaman, Mage, Warlock, Monk, Druid, Evoker
     id: 0,
