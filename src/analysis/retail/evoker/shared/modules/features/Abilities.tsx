@@ -1,6 +1,9 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/evoker';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
+// TODO: this mixes preservation talents in but not devastation talents
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
@@ -8,7 +11,7 @@ class Abilities extends CoreAbilities {
       //region Rotational Spells
       {
         spell: SPELLS.LIVING_FLAME.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 0,
         gcd: {
           base: 1500,
@@ -16,7 +19,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DISINTEGRATE.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 0,
         gcd: {
           base: 1500,
@@ -24,70 +27,72 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DISINTEGRATE.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 0,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.REVERSION.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        spell: TALENTS.REVERSION_PRESERVATION_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 9,
         charges: 1,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.REVERSION.id),
+        enabled: combatant.hasTalent(TALENTS.REVERSION_PRESERVATION_TALENT.id),
       },
       {
-        spell: SPELLS.DREAM_BREATH.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        spell: TALENTS.DREAM_BREATH_PRESERVATION_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.DREAM_BREATH_PRESERVATION_TALENT.id),
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 25,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.ECHO.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        spell: TALENTS.ECHO_PRESERVATION_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.ECHO_PRESERVATION_TALENT.id),
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 0,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.TIME_DILATION.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        spell: TALENTS.TIME_DILATION_PRESERVATION_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 60,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.TIME_DILATION.id),
+        enabled: combatant.hasTalent(TALENTS.TIME_DILATION_PRESERVATION_TALENT.id),
       },
       {
-        spell: SPELLS.SPIRITBLOSSOM.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        spell: TALENTS.SPIRITBLOOM_PRESERVATION_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 30,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.SPIRITBLOSSOM.id),
+        enabled: combatant.hasTalent(TALENTS.SPIRITBLOOM_PRESERVATION_TALENT.id),
       },
       {
-        spell: SPELLS.TEMPORAL_ANOMALY.id,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        spell: TALENTS.TEMPORAL_ANOMALY_PRESERVATION_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 6,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.TEMPORAL_ANOMALY.id),
+        enabled: combatant.hasTalent(TALENTS.TEMPORAL_ANOMALY_PRESERVATION_TALENT.id),
       },
       //endregion
       //region Damage Spells
       {
         spell: SPELLS.FIRE_BREATH.id,
-        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         cooldown: 30,
         gcd: {
           base: 500,
@@ -95,7 +100,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.AZURE_STRIKE.id,
-        category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
+        category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         cooldown: 0,
         gcd: {
           base: 1500,
@@ -105,157 +110,148 @@ class Abilities extends CoreAbilities {
       //region Cooldowns
       {
         spell: SPELLS.DEEP_BREATH.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.REWIND.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        spell: TALENTS.REWIND_PRESERVATION_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 240,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.REWIND.id),
+        enabled: combatant.hasTalent(TALENTS.REWIND_PRESERVATION_TALENT.id),
       },
       {
-        spell: SPELLS.EMERALD_COMMUNION.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        spell: TALENTS.EMERALD_COMMUNION_PRESERVATION_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.EMERALD_COMMUNION.id),
+        enabled: combatant.hasTalent(TALENTS.EMERALD_COMMUNION_PRESERVATION_TALENT.id),
       },
       {
-        spell: SPELLS.DREAM_FLIGHT.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        spell: TALENTS.DREAM_FLIGHT_PRESERVATION_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.DREAM_FLIGHT.id),
+        enabled: combatant.hasTalent(TALENTS.DREAM_FLIGHT_PRESERVATION_TALENT.id),
       },
       {
-        spell: SPELLS.EMERALD_COMMUNION.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.EMERALD_COMMUNION.id),
-      },
-      {
-        spell: SPELLS.LANDSLIDE.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        spell: TALENTS.LANDSLIDE_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.LANDSLIDE.id),
+        enabled: combatant.hasTalent(TALENTS.LANDSLIDE_TALENT.id),
       },
       {
-        spell: SPELLS.OBSIDIAN_SCALES.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        spell: TALENTS.OBSIDIAN_SCALES_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 150,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.OBSIDIAN_SCALES.id),
+        enabled: combatant.hasTalent(TALENTS.OBSIDIAN_SCALES_TALENT.id),
       },
       {
-        spell: SPELLS.RESCUE.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        spell: TALENTS.RESCUE_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 24,
-        enabled: combatant.hasTalent(SPELLS.RESCUE.id),
+        enabled: combatant.hasTalent(TALENTS.RESCUE_TALENT.id),
       },
       {
-        spell: SPELLS.CAUTERIZING_FLAME.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        spell: TALENTS.CAUTERIZING_FLAME_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
-        enabled: combatant.hasTalent(SPELLS.CAUTERIZING_FLAME.id),
+        enabled: combatant.hasTalent(TALENTS.CAUTERIZING_FLAME_TALENT.id),
       },
       {
-        spell: SPELLS.TIP_THE_SCALES.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        spell: TALENTS.TIP_THE_SCALES_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
-        enabled: combatant.hasTalent(SPELLS.TIP_THE_SCALES.id),
+        enabled: combatant.hasTalent(TALENTS.TIP_THE_SCALES_TALENT.id),
       },
       {
-        spell: SPELLS.RENEWING_BLAZE.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        spell: TALENTS.RENEWING_BLAZE_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
-        enabled: combatant.hasTalent(SPELLS.RENEWING_BLAZE.id),
+        enabled: combatant.hasTalent(TALENTS.RENEWING_BLAZE_TALENT.id),
       },
       {
-        spell: SPELLS.ZEPHYR.id,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        spell: TALENTS.ZEPHYR_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
-        enabled: combatant.hasTalent(SPELLS.ZEPHYR.id),
+        enabled: combatant.hasTalent(TALENTS.ZEPHYR_TALENT.id),
       },
       //endregion
       //region Utility
       {
-        spell: SPELLS.EXPUNGE.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        spell: TALENTS.EXPUNGE_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 8,
-        enabled: combatant.hasTalent(SPELLS.EXPUNGE.id),
+        enabled: combatant.hasTalent(TALENTS.EXPUNGE_TALENT.id),
       },
       {
-        spell: SPELLS.SLEEP_WALK.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        spell: TALENTS.SLEEP_WALK_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 15,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.SLEEP_WALK.id),
+        enabled: combatant.hasTalent(TALENTS.SLEEP_WALK_TALENT.id),
       },
       {
-        spell: SPELLS.QUELL.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        spell: TALENTS.QUELL_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 40,
-        enabled: combatant.hasTalent(SPELLS.QUELL.id),
+        enabled: combatant.hasTalent(TALENTS.QUELL_TALENT.id),
       },
       {
-        spell: SPELLS.UNRAVEL.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        spell: TALENTS.UNRAVEL_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 9,
-        enabled: combatant.hasTalent(SPELLS.UNRAVEL.id),
+        enabled: combatant.hasTalent(TALENTS.UNRAVEL_TALENT.id),
       },
       {
-        spell: SPELLS.OPPRESSING_ROAR.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        spell: TALENTS.OPPRESSING_ROAR_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 120,
-        enabled: combatant.hasTalent(SPELLS.OPPRESSING_ROAR.id),
+        enabled: combatant.hasTalent(TALENTS.OPPRESSING_ROAR_TALENT.id),
       },
       {
-        spell: SPELLS.FLY_WITH_ME.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        spell: TALENTS.FLY_WITH_ME_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
-        enabled: combatant.hasTalent(SPELLS.FLY_WITH_ME.id),
+        enabled: combatant.hasTalent(TALENTS.FLY_WITH_ME_TALENT.id),
       },
       {
-        spell: SPELLS.TIME_SPIRAL.id,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        spell: TALENTS.TIME_SPIRAL_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 120,
-        enabled: combatant.hasTalent(SPELLS.TIME_SPIRAL.id),
+        enabled: combatant.hasTalent(TALENTS.TIME_SPIRAL_TALENT.id),
       },
       //endregion
       //region Other
       {
         spell: SPELLS.BLESSING_OF_THE_BRONZE.id,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        category: SPELL_CATEGORY.OTHERS,
         cooldown: 15,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.SOURCE_OF_MAGIC.id,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        enabled: combatant.hasTalent(SPELLS.SOURCE_OF_MAGIC.id),
+        spell: TALENTS.SOURCE_OF_MAGIC_TALENT.id,
+        category: SPELL_CATEGORY.OTHERS,
+        enabled: combatant.hasTalent(TALENTS.SOURCE_OF_MAGIC_TALENT.id),
       },
       //endregion
     ];
