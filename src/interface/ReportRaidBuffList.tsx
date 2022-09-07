@@ -33,7 +33,6 @@ const AVAILABLE_RAID_BUFFS = new Map<number, Array<Class | object>>([
   [SPELLS.REVIVAL.id, [SPECS.MISTWEAVER_MONK]],
   [SPELLS.POWER_WORD_BARRIER_CAST.id, [SPECS.DISCIPLINE_PRIEST]],
   [SPELLS.DIVINE_HYMN_CAST.id, [SPECS.HOLY_PRIEST]],
-  [SPELLS.HOLY_WORD_SALVATION_TALENT.id, [SPECS.HOLY_PRIEST]],
   [SPELLS.TRANQUILITY_CAST.id, [SPECS.RESTORATION_DRUID]],
 ]);
 
@@ -48,7 +47,7 @@ const getCompositionBreakdown = (combatants: CombatantInfoEvent[]) => {
     if (!spec) {
       return map;
     }
-    const className = spec.className;
+    const className = spec.className as Class;
 
     AVAILABLE_RAID_BUFFS.forEach((providedBy, spellId) => {
       if (providedBy.includes(className) || providedBy.includes(spec)) {

@@ -29,39 +29,11 @@ import RACIALS from './racials';
 import ROGUE from './rogue';
 import SHADOWLANDS from './shadowlands';
 import SHAMAN from './shaman';
-import Spell from './Spell';
-import TALENTS_DEATH_KNIGHT from './talents/deathknight';
-import TALENTS_DEMON_HUNTER from './talents/demonhunter';
-import TALENTS_DRUID from './talents/druid';
-import TALENTS_EVOKER from './talents/evoker';
-import TALENTS_HUNTER from './talents/hunter';
-import TALENTS_MAGE from './talents/mage';
-import TALENTS_MONK from './talents/monk';
-import TALENTS_PALADIN from './talents/paladin';
-import TALENTS_PRIEST from './talents/priest';
-import TALENTS_ROGUE from './talents/rogue';
-import TALENTS_SHAMAN from './talents/shaman';
-import TALENTS_WARLOCK from './talents/warlock';
-import TALENTS_WARRIOR from './talents/warrior';
+import Spell, { Enchant } from './Spell';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
 
 const ABILITIES = {
-  // Talents are auto generated
-  ...TALENTS_DEATH_KNIGHT,
-  ...TALENTS_DEMON_HUNTER,
-  ...TALENTS_DRUID,
-  ...TALENTS_EVOKER,
-  ...TALENTS_HUNTER,
-  ...TALENTS_MAGE,
-  ...TALENTS_MONK,
-  ...TALENTS_PALADIN,
-  ...TALENTS_PRIEST,
-  ...TALENTS_ROGUE,
-  ...TALENTS_SHAMAN,
-  ...TALENTS_WARLOCK,
-  ...TALENTS_WARRIOR,
-  // Talents can be overwritten with custom spell objects
   ...OTHERS,
   ...ENCOUNTER,
   ...RACIALS,
@@ -81,16 +53,18 @@ const ABILITIES = {
   ...SHADOWLANDS,
 } as const;
 
+// type SpellCollection = SpellList & {
+//   maybeGet: (key: string | number | undefined) => Spell | undefined;
+// };
 // If you remove this indexById you can see what spells are undefined.
 // But you'll get a lot of other errors.
 // We should type indexById properly some day to make this standard.
 // And then fix all those errors.
 // Which will prevent bugs.
-const InternalSpellTable = indexById(ABILITIES);
+const InternalSpellTable = indexById<Spell | Enchant, typeof ABILITIES>(ABILITIES);
 // assignment is used here to avoid potential performance pitfalls when
 // compiling the spread operator on large objects.
-InternalSpellTable.maybeGet = (key: string | number | undefined): Spell | undefined =>
-  key ? InternalSpellTable[key] : undefined;
+// InternalSpellTable.maybeGet = (key) => (key ? InternalSpellTable[key] : undefined);
 
 const SPELLS = new Proxy(InternalSpellTable, {
   get(target, prop, receiver) {
@@ -117,6 +91,8 @@ const SPELLS = new Proxy(InternalSpellTable, {
 });
 
 export default SPELLS;
+export const maybeGetSpell = (key: string | number | undefined): Spell | undefined =>
+  key ? InternalSpellTable[key as any] : undefined;
 
 export const registerSpell = (id: number, name: string, icon: string) => {
   if (InternalSpellTable[id]) {

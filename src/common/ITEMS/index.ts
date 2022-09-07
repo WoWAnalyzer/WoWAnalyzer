@@ -1,5 +1,3 @@
-import { ItemList } from 'common/ITEMS/Item';
-
 import indexById from '../indexById';
 import safeMerge from '../safeMerge';
 import DEATH_KNIGHT from './deathknight';
@@ -7,6 +5,7 @@ import DEMON_HUNTER from './demonhunter';
 import DRUID from './druid';
 import EVOKER from './evoker';
 import HUNTER from './hunter';
+import Item, { Enchant } from './Item';
 import MAGE from './mage';
 import MONK from './monk';
 import OTHERS from './others';
@@ -18,7 +17,7 @@ import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
 
-const ITEMS: ItemList = {
+const ITEMS = {
   //Class items
   ...safeMerge(
     DEATH_KNIGHT,
@@ -39,4 +38,4 @@ const ITEMS: ItemList = {
   ...safeMerge(OTHERS, SHADOWLANDS),
 };
 
-export default indexById(ITEMS);
+export default indexById<Item | Enchant, typeof ITEMS>(ITEMS);

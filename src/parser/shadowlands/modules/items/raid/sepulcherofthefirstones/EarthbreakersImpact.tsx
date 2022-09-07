@@ -6,7 +6,8 @@ import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, Item } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import Buffs from 'parser/core/modules/Buffs';
+import Buffs from 'parser/core/modules/Auras';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import BoringItemValueText from 'parser/ui/BoringItemValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -135,7 +136,7 @@ class EarthbreakersImpact extends Analyzer {
     // Add the cast as an ability to track cooldown and usage in timeline
     options.abilities.add({
       spell: CAST.id,
-      category: Abilities.SPELL_CATEGORIES.ITEMS,
+      category: SPELL_CATEGORY.ITEMS,
       cooldown: COOLDOWN_SECONDS,
       gcd: null,
       castEfficiency: {

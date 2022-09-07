@@ -1,7 +1,7 @@
 import { getAlertComponent } from 'interface/Alert';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import Abilities from 'parser/core/modules/Abilities';
-import Buffs from 'parser/core/modules/Buffs';
+import Buffs from 'parser/core/modules/Auras';
 import DistanceMoved from 'parser/shared/modules/DistanceMoved';
 import { ReactNode } from 'react';
 
@@ -46,7 +46,7 @@ const TimelineTab = ({ parser }: Props) => {
       <Component
         parser={parser}
         abilities={parser.getModule(Abilities)}
-        buffs={parser.getModule(Buffs)}
+        auras={parser.getModule(Buffs)}
         movement={parser.getModule(DistanceMoved).instances}
         config={parser.config.timeline}
       />

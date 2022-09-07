@@ -185,7 +185,7 @@ class CharacterStats extends PureComponent<Props, { expanded?: boolean }> {
             >
               <div className="col-xs-2 text-right">
                 <SpellIcon
-                  id={this.getTertiarySpell(stat)}
+                  id={this.getTertiarySpell(stat)!}
                   style={{ height: '2em', borderRadius: 2, marginTop: '0.5em' }}
                 />
               </div>

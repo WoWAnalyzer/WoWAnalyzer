@@ -1,10 +1,21 @@
-const conduits = {
+import { spellIndexableList } from '../../Spell';
+
+const conduits = spellIndexableList({
   //region Kyrian
 
   //endregion
 
   //region Necrolord
-
+  TUMBLING_WAVES_CONDUIT: {
+    id: 339186,
+    name: 'Tumbling Waves',
+    icon: 'spell_animamaldraxxus_wave',
+  },
+  TUMBLING_WAVES_BUFF: {
+    id: 339187,
+    name: 'Tumbling Waves',
+    icon: 'spell_animamaldraxxus_wave',
+  },
   //endregion
 
   //region Night Fae
@@ -50,5 +61,5 @@ const conduits = {
     name: 'Swirling Currents',
     icon: 'spell_holy_serendipity',
   },
-} as const;
+});
 export default conduits;

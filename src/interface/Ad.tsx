@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import './Ad.scss';
+import styles from './Ad.module.scss';
 import usePremium from './usePremium';
 
 export enum Location {
@@ -22,6 +22,8 @@ const Ad = ({ style, location }: Props) => {
   const pageLoc = useLocation();
   const premium = usePremium();
 
+  const [showBackground, setShowBackground] = useState(window.adScriptFailed);
+
   useEffect(() => {
     if (!premium) {
       refreshAds();
@@ -30,26 +32,38 @@ const Ad = ({ style, location }: Props) => {
     }
   }, [location, pageLoc.pathname, premium]);
 
+  const initObserver = useCallback((node: HTMLDivElement | null) => {
+    if (!node) {
+      return;
+    }
+
+    const observer = new MutationObserver((mutationList) => {
+      const target = mutationList[0].target;
+      const hasDisplayNone = window.getComputedStyle(target as Element).display === 'none';
+      setShowBackground(hasDisplayNone || !target.hasChildNodes());
+    });
+
+    observer.observe(node, {
+      attributes: true,
+      childList: true,
+      attributeFilter: ['style'],
+    });
+  }, []);
+
   if (premium) {
     return null;
   }
 
   return (
-    <div
-      id={selectorId}
-      className="display-ad text-center"
+    <Link
+      to="/premium"
       style={{ minHeight: 250, ...style }}
-      data-pw-desk={adType}
-      data-pw-mobi={adType}
+      className={`${styles.outer_container} ${
+        showBackground ? styles.show_background : ''
+      } text-center`}
     >
-      <Link to="/premium">
-        <img
-          src="/img/ad-fallback.jpg"
-          alt="WoWAnalyzer Premium - Did we help? Support us and unlock cool perks."
-          style={{ maxWidth: '100%' }}
-        />
-      </Link>
-    </div>
+      <div ref={initObserver} id={selectorId} data-pw-desk={adType} data-pw-mobi={adType} />
+    </Link>
   );
 };
 
@@ -59,6 +73,7 @@ declare global {
   interface Window {
     tyche?: any;
     refreshAds?: () => void;
+    adScriptFailed?: boolean;
   }
 }
 

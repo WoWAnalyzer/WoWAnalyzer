@@ -1,4 +1,3 @@
-import { ItemList } from 'common/ITEMS/Item';
 import safeMerge from 'common/safeMerge';
 
 import DEATH_KNIGHT from './deathknight';
@@ -14,7 +13,7 @@ import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
 
-const legendaries: ItemList = safeMerge(
+const legendaries = safeMerge(
   DEATH_KNIGHT,
   DEMON_HUNTER,
   DRUID,

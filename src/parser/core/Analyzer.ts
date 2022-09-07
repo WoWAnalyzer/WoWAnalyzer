@@ -41,10 +41,6 @@ class Analyzer extends EventSubscriber {
   statistic(): React.ReactNode {
     return undefined;
   }
-  /**
-   * @deprecated Set the `position` property on the Statistic component instead.
-   */
-  statisticOrder?: number = undefined;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   suggestions(when: When): Suggestion[] | void {}
@@ -59,7 +55,7 @@ export default Analyzer;
 
 type ConstructedDependency<T> = T extends new (options: Options) => infer R ? R : never;
 
-type InjectedDependencies<Deps extends Dependencies> = {
+export type InjectedDependencies<Deps extends Dependencies> = {
   [Key in keyof Deps]: ConstructedDependency<Deps[Key]>;
 };
 

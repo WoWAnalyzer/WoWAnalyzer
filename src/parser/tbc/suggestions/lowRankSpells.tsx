@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import SPELLS from 'common/SPELLS';
+import { maybeGetSpell } from 'common/SPELLS';
 import { TooltipElement } from 'interface';
 import SpellLink from 'interface/SpellLink';
 import { suggestion } from 'parser/core/Analyzer';
@@ -33,7 +33,7 @@ const lowRankSpells = (spells: LowRankSpells, whitelist: LowRankSpells = []) =>
               </TooltipElement>
             ),
             importance: SuggestionImportance.Regular,
-            icon: (SPELLS.maybeGet(primarySpellId) || SPELLS.maybeGet(spellId))?.icon,
+            icon: (maybeGetSpell(primarySpellId) || maybeGetSpell(spellId))?.icon,
           })),
     );
   });

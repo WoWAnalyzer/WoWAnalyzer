@@ -6,9 +6,9 @@
  *   quality: number,
  * },
  */
-import { ItemList } from 'common/ITEMS/Item';
+import { itemIndexableList } from 'common/ITEMS/Item';
 
-const items: ItemList = {
+const items = itemIndexableList({
   BLOOD_SPATTERED_SCALE: {
     id: 179331,
     name: 'Blood-Spattered Scale',
@@ -34,5 +34,5 @@ const items: ItemList = {
     name: 'Shadowgrasp Totem',
     icon: 'inv_alchemy_83_alchemiststone02',
   },
-};
+});
 export default items;

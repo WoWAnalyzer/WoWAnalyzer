@@ -1,4 +1,6 @@
-const covenants = {
+import { spellIndexableList } from '../../Spell';
+
+const covenants = spellIndexableList({
   //region Kyrian
   RESONATING_ARROW: {
     id: 308491,
@@ -75,5 +77,5 @@ const covenants = {
     icon: 'ability_hunter_assassinate2',
   },
   //endregion
-} as const;
+});
 export default covenants;

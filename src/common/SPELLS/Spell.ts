@@ -1,3 +1,5 @@
+import { asIndexableList } from '../indexById';
+
 export default interface Spell {
   id: number;
   name: string;
@@ -21,10 +23,14 @@ export default interface Spell {
   holyPowerCost?: number;
   //Priest
   insanityCost?: number;
+  // Shaman
+  maelstromCost?: number;
   //Warlock
   soulShardsCost?: number;
   //Warrior
   rageCost?: number;
+  //Evoker
+  essenceCost?: number;
 }
 
 export interface LegendarySpell extends Spell {
@@ -36,5 +42,8 @@ export interface Enchant extends Spell {
 }
 
 export interface SpellList<T extends Spell = Spell> {
-  [key: string]: T;
+  [key: string | number]: T;
 }
+
+export const spellIndexableList = asIndexableList<Spell>();
+export const enchantIndexableList = asIndexableList<Enchant>();

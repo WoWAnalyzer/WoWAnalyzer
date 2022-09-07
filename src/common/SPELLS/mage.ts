@@ -4,7 +4,9 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-const spells = {
+import { spellIndexableList } from './Spell';
+
+const spells = spellIndexableList({
   //General
   FROST_NOVA: {
     id: 122,
@@ -31,9 +33,9 @@ const spells = {
     name: 'Ice Block',
     icon: 'spell_frost_frost',
   },
-  SPELL_STEAL: {
+  SPELLSTEAL: {
     id: 30449,
-    name: 'Spell Steal',
+    name: 'Spellsteal',
     icon: 'spell_arcane_arcane02',
   },
   INVISIBILITY: {
@@ -552,5 +554,6 @@ const spells = {
     name: 'Arcane Orb',
     icon: 'spell_mage_arcaneorb',
   },
-} as const;
+});
+
 export default spells;

@@ -1,4 +1,6 @@
-const conduits = {
+import { spellIndexableList } from '../../Spell';
+
+const conduits = spellIndexableList({
   //Balance
   STELLAR_INSPIRATION: {
     id: 340720,
@@ -150,5 +152,5 @@ const conduits = {
     name: 'Endless Thirst',
     icon: 'ability_revendreth_druid',
   },
-} as const;
+});
 export default conduits;

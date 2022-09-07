@@ -16,12 +16,12 @@ export function spellFractionalCharges(
       if (event.type === EventType.UpdateSpellUsable && event.ability.guid === spell.id) {
         return {
           chargesAvailable: event.chargesAvailable,
-          expectedDuration: event.expectedDuration,
-          start: event.start,
+          expectedDuration: event.expectedRechargeDuration,
+          expectedEnd: event.expectedRechargeTimestamp,
         };
       }
       if (event.type === EventType.GlobalCooldown && event.ability.guid === spell.id && state) {
-        const timeTillOffCd = state.expectedDuration + state.start - event.timestamp;
+        const timeTillOffCd = state.expectedEnd - event.timestamp;
         const fractional = (state.expectedDuration - timeTillOffCd) / state.expectedDuration;
         return { ...state, chargesAvailable: state.chargesAvailable + fractional };
       }

@@ -4,7 +4,9 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-const spells = {
+import { spellIndexableList } from './Spell';
+
+const spells = spellIndexableList({
   // Defensive general spells
   FEINT: {
     id: 1966,
@@ -583,6 +585,6 @@ const spells = {
     name: 'Tornado Trigger',
     icon: 'inv_ammo_bullet_06',
   },
-} as const;
+});
 
 export default spells;

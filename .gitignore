@@ -8,10 +8,7 @@
 /build
 
 # scripts
-/scripts/conduits/data/
-raidbotsConduitsInfo.json
-soulbindconduititem.json
-soulbindconduitrank.json
+/scripts/talents/*.json
 
 # misc
 .DS_Store
@@ -55,3 +52,5 @@ temp
 # Coverage Reports 
 coverage/*
 !coverage/lcov.info
+
+.log

@@ -1,4 +1,4 @@
-import indexById from 'common/indexById';
+import indexById, { asIndexableList } from 'common/indexById';
 import { ClassResources } from 'parser/core/Events';
 
 export interface Resource {
@@ -8,7 +8,7 @@ export interface Resource {
   url: string;
 }
 
-const RESOURCE_TYPES: { [key: string]: Resource } = {
+const RESOURCE_TYPES = asIndexableList<Resource>()({
   MANA: {
     // Paladin, Priest, Shaman, Mage, Warlock, Monk, Druid, Evoker
     id: 0,
@@ -137,8 +137,9 @@ const RESOURCE_TYPES: { [key: string]: Resource } = {
     icon: 'trade_engineering',
     url: 'essence',
   },
-};
-export default indexById(RESOURCE_TYPES);
+});
+
+export default indexById<Resource, typeof RESOURCE_TYPES>(RESOURCE_TYPES);
 
 export function getResource(classResources: ClassResources[] | undefined, type: number) {
   if (!classResources) {

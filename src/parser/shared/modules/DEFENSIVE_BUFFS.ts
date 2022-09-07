@@ -36,10 +36,6 @@ const DEFENSIVE_BUFFS = [
   {
     spell: SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id,
   },
-  //Arms Warrior
-  {
-    spell: SPELLS.DEFENSIVE_STANCE_TALENT.id,
-  },
   //Arms & Fury Warrior
   {
     spell: SPELLS.RALLYING_CRY_BUFF.id,

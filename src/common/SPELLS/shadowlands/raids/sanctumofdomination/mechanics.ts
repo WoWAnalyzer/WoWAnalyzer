@@ -1,4 +1,6 @@
-export default {
+import { spellIndexableList } from '../../../Spell';
+
+export default spellIndexableList({
   // Group by boss (with comments)
   //The Tarragrue
   //Eye of the Jailer
@@ -55,4 +57,4 @@ export default {
     name: 'Banshee Wail',
     icon: 'spell_shadow_soulleech_3',
   },
-};
+});

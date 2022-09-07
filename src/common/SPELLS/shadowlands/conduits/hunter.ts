@@ -1,4 +1,6 @@
-const conduits = {
+import { spellIndexableList } from '../../Spell';
+
+const conduits = spellIndexableList({
   //region Kyrian
   ENFEEBLED_MARK_CONDUIT: {
     id: 339018,
@@ -167,5 +169,5 @@ const conduits = {
     icon: 'ability_ironmaidens_swirlingvortex',
   },
   //endregion
-} as const;
+});
 export default conduits;

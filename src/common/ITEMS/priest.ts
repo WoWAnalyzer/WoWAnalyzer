@@ -1,6 +1,6 @@
-import { ItemList } from 'common/ITEMS/Item';
+import { itemIndexableList } from 'common/ITEMS/Item';
 
-const items: ItemList = {
+const items = itemIndexableList({
   //region Discipline
 
   //endregion
@@ -20,5 +20,5 @@ const items: ItemList = {
     icon: 'inv_glyph_minorpriest',
   },
   //endregion
-};
+});
 export default items;

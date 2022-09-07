@@ -1,6 +1,6 @@
-import { ItemList } from 'common/ITEMS/Item';
+import { itemIndexableList } from 'common/ITEMS/Item';
 
-const items: ItemList = {
+const items = itemIndexableList({
   //region Beast Mastery
   //endregion
   //region Marksmanship
@@ -14,5 +14,5 @@ const items: ItemList = {
     icon: 'inv_bow_1h_sylvanasshadowlands_d_01',
   },
   //endregion
-};
+});
 export default items;

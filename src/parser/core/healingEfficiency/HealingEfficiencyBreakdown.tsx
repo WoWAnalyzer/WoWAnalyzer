@@ -6,12 +6,10 @@ import PerformanceBar from 'parser/ui/PerformanceBar';
 import { Component } from 'react';
 import Toggle from 'react-toggle';
 
-import HolyPriestHealingEfficiencyTracker from '@wowanalyzer/priest-holy/src/modules/features/HolyPriestHealingEfficiencyTracker';
-
 import HealingEfficiencyTracker, { SpellInfoDetails } from './HealingEfficiencyTracker';
 
-export interface Props {
-  tracker: HealingEfficiencyTracker | HolyPriestHealingEfficiencyTracker;
+export interface Props<T extends HealingEfficiencyTracker = HealingEfficiencyTracker> {
+  tracker: T;
 }
 export interface State {
   showHealing: boolean;

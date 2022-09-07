@@ -1,20 +1,14 @@
-import { Trans } from '@lingui/macro';
-import { formatDuration } from 'common/format';
-import makeWclUrl from 'common/makeWclUrl';
 import DragScroll from 'interface/DragScroll';
-import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import CombatLogParser from 'parser/core/CombatLogParser';
-import { EventType } from 'parser/core/Events';
+import { EventType, UpdateSpellUsableType } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import BuffsModule from 'parser/core/modules/Buffs';
-import DistanceMoved from 'parser/shared/modules/DistanceMoved';
+import AurasModule from 'parser/core/modules/Auras';
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
-import { Link } from 'react-router-dom';
 
 import './Timeline.scss';
-import Buffs from './Buffs';
+import Auras from './Auras';
 import Casts, { isApplicableEvent } from './Casts';
 import Cooldowns from './Cooldowns';
 import TimeIndicators from './TimeIndicators';
@@ -22,7 +16,7 @@ import TimeIndicators from './TimeIndicators';
 class Timeline extends PureComponent {
   static propTypes = {
     abilities: PropTypes.instanceOf(Abilities).isRequired,
-    buffs: PropTypes.instanceOf(BuffsModule).isRequired,
+    auras: PropTypes.instanceOf(AurasModule).isRequired,
     movement: PropTypes.arrayOf(
       PropTypes.shape({
         start: PropTypes.number,
@@ -109,11 +103,14 @@ class Timeline extends PureComponent {
     return true;
   }
   isApplicableUpdateSpellUsableEvent(event) {
-    if (event.trigger !== EventType.EndCooldown && event.trigger !== EventType.RestoreCharge) {
+    if (
+      event.updateType !== UpdateSpellUsableType.EndCooldown &&
+      event.updateType !== UpdateSpellUsableType.RestoreCharge
+    ) {
       // begincooldown is unnecessary since endcooldown includes the start time
       return false;
     }
-    if (event.trigger === EventType.RestoreCharge && event.timestamp < this.start) {
+    if (event.updateType === UpdateSpellUsableType.RestoreCharge && event.timestamp < this.start) {
       //ignore restore charge events if they happen before the phase
       return false;
     }
@@ -165,7 +162,7 @@ class Timeline extends PureComponent {
   }
 
   render() {
-    const { parser, abilities, buffs, movement } = this.props;
+    const { parser, abilities, auras, movement } = this.props;
 
     const skipInterval = Math.ceil(40 / this.secondWidth);
 
@@ -199,11 +196,11 @@ class Timeline extends PureComponent {
               '--cast-bars': castEvents.length,
             }}
           >
-            <Buffs
+            <Auras
               start={this.start}
               secondWidth={this.secondWidth}
               parser={parser}
-              buffs={buffs}
+              auras={auras}
             />
             <TimeIndicators
               seconds={this.seconds}

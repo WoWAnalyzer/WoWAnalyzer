@@ -6,14 +6,14 @@
  *   quality: number,
  * },
  */
-import { ItemList } from 'common/ITEMS/Item';
+import { itemIndexableList } from 'common/ITEMS/Item';
 
-const items: ItemList = {
+const items = itemIndexableList({
   //region Ingra Maloch
   UNBOUND_CHANGELING: {
     id: 178708,
     name: 'Unbound Changeling',
-    icon: 'inv_misc_questionmark',
+    icon: 'inv_pet_spectralporcupinered',
   },
   //endregion
   MISTCALLER_OCARINA: {
@@ -25,5 +25,5 @@ const items: ItemList = {
   //endregion
   //region Tred'ova
   //endregion
-};
+});
 export default items;

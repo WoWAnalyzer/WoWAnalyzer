@@ -1,4 +1,6 @@
-const covenants = {
+import { spellIndexableList } from '../../Spell';
+
+const covenants = spellIndexableList({
   //region Kyrian
   DIVINE_TOLL: {
     id: 304971,
@@ -65,5 +67,5 @@ const covenants = {
     icon: 'ability_revendreth_paladin',
   },
   //endregion
-} as const;
+});
 export default covenants;
