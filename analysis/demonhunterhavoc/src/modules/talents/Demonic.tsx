@@ -1,4 +1,5 @@
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
+import DH_TALENTS from 'common/SPELLS/talents/demonhunter';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -15,6 +16,31 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 const META_BUFF_DURATION_EYEBEAM = 10000;
 
 class Demonic extends Analyzer {
+  talentsCheck =
+    this.selectedCombatant.hasTalent(DH_TALENTS.TRAIL_OF_RUIN_TALENT.id) ||
+    this.selectedCombatant.hasTalent(DH_TALENTS.FIRST_BLOOD_TALENT.id);
+  eyeBeamCasts = 0;
+  goodDeathSweep = 0;
+  eyeBeamTimeStamp: number = 0;
+  deathsweepsInMetaCounter: number = 0;
+  badCasts = 0;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(DH_TALENTS.DEMONIC_TALENT_HAVOC.id);
+    if (!this.active) {
+      return;
+    }
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(DH_SPELLS.EYE_BEAM),
+      this.onEyeBeamCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(DH_SPELLS.DEATH_SWEEP),
+      this.onDeathSweepCast,
+    );
+  }
+
   get suggestionThresholds() {
     return {
       actual: this.badCasts,
@@ -26,34 +52,10 @@ class Demonic extends Analyzer {
       style: ThresholdStyle.NUMBER,
     };
   }
-  talentsCheck =
-    this.selectedCombatant.hasTalent(SPELLS.TRAIL_OF_RUIN_TALENT) ||
-    this.selectedCombatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT);
-  eyeBeamCasts = 0;
-  goodDeathSweep = 0;
-  eyeBeamTimeStamp: number = 0;
-  deathsweepsInMetaCounter: number = 0;
-  badCasts = 0;
-
-  constructor(options: Options) {
-    super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DEMONIC_TALENT_HAVOC.id);
-    if (!this.active) {
-      return;
-    }
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EYE_BEAM),
-      this.onEyeBeamCast,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATH_SWEEP),
-      this.onDeathSweepCast,
-    );
-  }
 
   onEyeBeamCast(event: CastEvent) {
     const hasMetaBuff = this.selectedCombatant.hasBuff(
-      SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
+      DH_SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
       event.timestamp - 1000,
     );
 
@@ -87,18 +89,18 @@ class Demonic extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to have <SpellLink id={SPELLS.BLADE_DANCE.id} /> almost off cooldown before casting{' '}
-          <SpellLink id={SPELLS.EYE_BEAM.id} />. This will allow for two casts of{' '}
-          <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the{' '}
-          <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> buff you get from the{' '}
-          <SpellLink id={SPELLS.DEMONIC_TALENT_HAVOC.id} /> talent.
+          Try to have <SpellLink id={DH_SPELLS.BLADE_DANCE.id} /> almost off cooldown before casting{' '}
+          <SpellLink id={DH_SPELLS.EYE_BEAM.id} />. This will allow for two casts of{' '}
+          <SpellLink id={DH_SPELLS.DEATH_SWEEP.id} /> during the{' '}
+          <SpellLink id={DH_SPELLS.METAMORPHOSIS_HAVOC.id} /> buff you get from the{' '}
+          <SpellLink id={DH_TALENTS.DEMONIC_TALENT_HAVOC.id} /> talent.
         </>,
       )
-        .icon(SPELLS.DEMONIC_TALENT_HAVOC.icon)
+        .icon(DH_TALENTS.DEMONIC_TALENT_HAVOC.icon)
         .actual(
           <>
-            {actual} time(s) during <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />{' '}
-            <SpellLink id={SPELLS.DEATH_SWEEP.id} /> wasn't casted twice.
+            {actual} time(s) during <SpellLink id={DH_SPELLS.METAMORPHOSIS_HAVOC.id} />{' '}
+            <SpellLink id={DH_SPELLS.DEATH_SWEEP.id} /> wasn't casted twice.
           </>,
         )
         .recommended(`No bad casts is recommended.`),
@@ -108,7 +110,7 @@ class Demonic extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.GENERAL} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.DEMONIC_TALENT_HAVOC.id}>
+        <BoringSpellValueText spellId={DH_TALENTS.DEMONIC_TALENT_HAVOC.id}>
           <>
             {this.badCasts} <small>Bad casts</small>
           </>

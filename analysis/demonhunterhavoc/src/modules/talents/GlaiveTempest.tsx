@@ -1,5 +1,6 @@
 import { formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
+import DH_TALENTS from 'common/SPELLS/talents/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -12,12 +13,12 @@ class GlaiveTempest extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.GLAIVE_TEMPEST_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(DH_TALENTS.GLAIVE_TEMPEST_TALENT.id);
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLAIVE_TEMPEST_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(DH_SPELLS.GLAIVE_TEMPEST_DAMAGE),
       this.onDamageEvent,
     );
   }
@@ -39,7 +40,7 @@ class GlaiveTempest extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.GLAIVE_TEMPEST_TALENT.id}>
+        <BoringSpellValueText spellId={DH_TALENTS.GLAIVE_TEMPEST_TALENT.id}>
           <>{this.owner.formatItemDamageDone(this.damage)}</>
         </BoringSpellValueText>
       </Statistic>

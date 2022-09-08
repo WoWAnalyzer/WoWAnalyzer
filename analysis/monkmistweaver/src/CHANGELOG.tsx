@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Abelito75, Anomoly, Moonrabbit, Putro, Tyndi, Vohrr, Trevor, kate, nullDozzer } from 'CONTRIBUTORS';
+import { emallson, Abelito75, Anomoly, Moonrabbit, Putro, Tyndi, Vohrr, Trevor, kate, nullDozzer } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 9, 4), <>Updated guide link in checklist.</>, emallson),
   change(date(2022, 7, 6), <>Created a set color scheme for each spell. A spell's color should remain the same across all infographs.</>, Abelito75),
   change(date(2022, 7, 6), <>Average Renewing Mists during Mana Tea no longer depends on vivify being cast.</>, Abelito75),
   change(date(2022, 6, 11), <>Added a Renewing Mist Graph that shows vivify casts.</>, Abelito75),

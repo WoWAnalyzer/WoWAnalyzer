@@ -1,13 +1,13 @@
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
 import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
 import { EventType } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
 const EVENT_ORDERS: EventOrder[] = [
   {
-    beforeEventId: SPELLS.EYE_BEAM.id,
+    beforeEventId: DH_SPELLS.EYE_BEAM.id,
     beforeEventType: EventType.ApplyBuff,
-    afterEventId: SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
+    afterEventId: DH_SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
     afterEventType: EventType.ApplyBuff,
     bufferMs: 50,
   },

@@ -32,7 +32,7 @@ class DotUptimeStatisticBox extends Analyzer {
         {this.corruptionUptime.subStatistic()}
         {this.unstableAfflictionUptime.subStatistic()}
         {this.siphonLifeUptime.active && this.siphonLifeUptime.subStatistic()}
-        {this.shadowEmbraceUptime.subStatistic()}
+        {this.shadowEmbraceUptime.active && this.shadowEmbraceUptime.subStatistic()}
         {this.hauntUptime.active && this.hauntUptime.subStatistic()}
       </StatisticBar>
     );

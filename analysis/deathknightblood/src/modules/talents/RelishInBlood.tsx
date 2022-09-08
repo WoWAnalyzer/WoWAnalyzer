@@ -1,10 +1,10 @@
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ResourceChangeEvent, HealEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -19,6 +19,10 @@ class RelishInBlood extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.RELISH_IN_BLOOD_TALENT.id);
+
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(Events.resourcechange.spell(SPELLS.RELISH_IN_BLOOD), this._relishBuffed);
     this.addEventListener(
@@ -51,7 +55,7 @@ class RelishInBlood extends Analyzer {
     return this.runicPowerWasted / this.runicPowerGained;
   }
 
-  get efficiencySuggestionThresholds() {
+  get efficiencySuggestionThresholds(): NumberThreshold {
     return {
       actual: this.rpWastePercentage,
       isGreaterThan: {
@@ -66,21 +70,27 @@ class RelishInBlood extends Analyzer {
   suggestions(when: When) {
     when(this.efficiencySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <span>
-          Avoid being Runic Power capped at all times, you wasted {this.runicPowerWasted} PR by
-          being RP capped.
-        </span>,
+        t({
+          id: 'deathknight.blood.relishInBlood.suggestion.suggestion',
+          message: `Avoid being Runic Power capped at all times, you wasted ${this.runicPowerWasted} PR by
+          being RP capped`,
+        }),
       )
         .icon(SPELLS.RELISH_IN_BLOOD_TALENT.icon)
         .actual(
           t({
-            id: 'deathknight.suggestions.hysteria.efficiency',
+            id: 'deathknight.blood.relishInBlood.suggestion.actual',
             message: `You wasted ${formatPercentage(actual)}% of RP from ${
               SPELLS.RELISH_IN_BLOOD_TALENT.name
             } by being RP capped.`,
           }),
         )
-        .recommended(`${formatPercentage(recommended)}% is recommended`),
+        .recommended(
+          t({
+            id: 'deathknight.blood.relishInBlood.suggestion.recommended',
+            message: `${formatPercentage(recommended)}% is recommended`,
+          }),
+        ),
     );
   }
 
@@ -91,20 +101,20 @@ class RelishInBlood extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={
-          <>
+          <Trans id="deathknight.blood.relishInBlood.statistic.tooltip">
             <strong>RP wasted: </strong> {this.runicPowerWasted} (
             {formatPercentage(this.rpWastePercentage)} %)
             <br />
             <strong>Healing: </strong> {formatNumber(this.healing)} <br />
             <strong>Overhealing: </strong> {formatNumber(this.overhealing)} (
             {formatPercentage(this.overhealPercentage)} %) <br />
-          </>
+          </Trans>
         }
       >
         <BoringSpellValueText spellId={SPELLS.RELISH_IN_BLOOD_TALENT.id}>
-          <>
+          <Trans id="deathknight.blood.relishInBlood.statistic">
             {this.runicPowerGained} <small>RP gained</small>
-          </>
+          </Trans>
         </BoringSpellValueText>
       </Statistic>
     );

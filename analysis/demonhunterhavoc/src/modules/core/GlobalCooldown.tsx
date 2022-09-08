@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
 import { CastEvent } from 'parser/core/Events';
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
@@ -7,7 +7,7 @@ import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
  */
 class GlobalCooldown extends CoreGlobalCooldown {
   onCast(event: CastEvent) {
-    if (event.ability.guid === SPELLS.EYE_BEAM.id) {
+    if (event.ability.guid === DH_SPELLS.EYE_BEAM.id) {
       // This GCD gets handled by the `beginchannel` event
       return;
     }

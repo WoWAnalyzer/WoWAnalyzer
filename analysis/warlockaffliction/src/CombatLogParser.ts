@@ -7,10 +7,12 @@ import {
   WarlockMissingDotApplyDebuffPrePull,
   GrimoireOfSacrifice,
   DemonicCirclesCreated,
+  SoulRot,
+  ScouringTitheUptime,
+  DecimatingBolt,
 } from '@wowanalyzer/warlock';
 
 import GlobalCooldown from './modules/core/GlobalCooldown';
-import ScouringTitheUptime from './modules/covenants/ScouringTithe';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/Checklist/Module';
@@ -72,6 +74,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Covenants
     scouringTithe: ScouringTitheUptime,
+    decimatingBolt: DecimatingBolt,
+    soulRot: SoulRot,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

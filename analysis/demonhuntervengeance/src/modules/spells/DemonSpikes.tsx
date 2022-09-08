@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
 import SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -50,12 +50,12 @@ class DemonSpikes extends Analyzer {
     if (event.ability.type !== SCHOOLS.ids.PHYSICAL) {
       return;
     }
-    if (this.selectedCombatant.hasBuff(SPELLS.DEMON_SPIKES_BUFF.id, event.timestamp)) {
+    if (this.selectedCombatant.hasBuff(DH_SPELLS.DEMON_SPIKES_BUFF.id, event.timestamp)) {
       this.hitsWithDS += 1;
     } else {
       this.hitsWithoutDS += 1;
 
-      const isAvailable = this.spellUsable.isAvailable(SPELLS.DEMON_SPIKES.id);
+      const isAvailable = this.spellUsable.isAvailable(DH_SPELLS.DEMON_SPIKES.id);
       if (isAvailable) {
         this.hitsWithDSOffCD += 1;
       }
@@ -67,12 +67,12 @@ class DemonSpikes extends Analyzer {
       suggest(
         <>
           {' '}
-          Cast <SpellLink id={SPELLS.DEMON_SPIKES.id} /> more regularly while actively tanking the
-          boss or when they use a big phsyical attack. You missed having it up for{' '}
+          Cast <SpellLink id={DH_SPELLS.DEMON_SPIKES.id} /> more regularly while actively tanking
+          the boss or when they use a big phsyical attack. You missed having it up for{' '}
           {formatPercentage(this.hitsWithDSOffCDPercent)}% of physical hits.
         </>,
       )
-        .icon(SPELLS.DEMON_SPIKES.icon)
+        .icon(DH_SPELLS.DEMON_SPIKES.icon)
         .actual(
           t({
             id: 'demonhunter.vengeance.suggestions.demonSpikes.unmitgatedHits',
@@ -84,7 +84,7 @@ class DemonSpikes extends Analyzer {
   }
 
   statistic() {
-    const demonSpikesUptime = this.selectedCombatant.getBuffUptime(SPELLS.DEMON_SPIKES_BUFF.id);
+    const demonSpikesUptime = this.selectedCombatant.getBuffUptime(DH_SPELLS.DEMON_SPIKES_BUFF.id);
 
     const demonSpikesUptimePercentage = demonSpikesUptime / this.owner.fightDuration;
 
@@ -118,7 +118,7 @@ class DemonSpikes extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.DEMON_SPIKES.id}>
+        <BoringSpellValueText spellId={DH_SPELLS.DEMON_SPIKES.id}>
           <>
             {this.mitigatedUptime}% <small>hits mitigated</small>
           </>

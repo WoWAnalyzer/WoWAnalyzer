@@ -1,5 +1,5 @@
 import { formatDuration, formatPercentage, formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyDebuffEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -26,7 +26,7 @@ class SigilOfFlame extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SIGIL_OF_FLAME_DEBUFF),
+      Events.applydebuff.by(SELECTED_PLAYER).spell(DH_SPELLS.SIGIL_OF_FLAME_DEBUFF),
       this.onApplyDebuff,
     );
   }
@@ -49,9 +49,9 @@ class SigilOfFlame extends Analyzer {
   }
 
   statistic() {
-    const sigilOfFlameUptime = this.enemies.getBuffUptime(SPELLS.SIGIL_OF_FLAME_DEBUFF.id);
+    const sigilOfFlameUptime = this.enemies.getBuffUptime(DH_SPELLS.SIGIL_OF_FLAME_DEBUFF.id);
     const sigilOfFlameUptimePercentage = sigilOfFlameUptime / this.owner.fightDuration;
-    const sigilOfFlameDamage = this.abilityTracker.getAbility(SPELLS.SIGIL_OF_FLAME_DEBUFF.id)
+    const sigilOfFlameDamage = this.abilityTracker.getAbility(DH_SPELLS.SIGIL_OF_FLAME_DEBUFF.id)
       .damageEffective;
 
     return (
@@ -69,7 +69,7 @@ class SigilOfFlame extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id}>
+        <BoringSpellValueText spellId={DH_SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id}>
           <>
             {this.successfulStack} <small>times</small>
           </>

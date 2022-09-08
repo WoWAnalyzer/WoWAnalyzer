@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ChangeBuffStackEvent } from 'parser/core/Events';
 
@@ -17,7 +17,7 @@ class SoulFragmentsTracker extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.SOUL_FRAGMENT_STACK),
+      Events.changebuffstack.by(SELECTED_PLAYER).spell(DH_SPELLS.SOUL_FRAGMENT_STACK),
       this.onChangeBuffStack,
     );
   }

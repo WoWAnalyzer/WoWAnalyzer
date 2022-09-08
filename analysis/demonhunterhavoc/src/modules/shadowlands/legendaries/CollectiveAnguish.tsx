@@ -1,5 +1,5 @@
 import { formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import DH_LEGENDARIES from 'common/SPELLS/shadowlands/legendaries/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -12,12 +12,12 @@ class CollectiveAnguish extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.COLLECTIVE_ANGUISH);
+    this.active = this.selectedCombatant.hasLegendary(DH_LEGENDARIES.COLLECTIVE_ANGUISH);
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEL_DEVASTATION_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(DH_LEGENDARIES.FEL_DEVASTATION_DAMAGE),
       this.onDamageEvent,
     );
   }
@@ -33,7 +33,7 @@ class CollectiveAnguish extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={<>{formatThousands(this.damage)} Total damage</>}
       >
-        <BoringSpellValueText spellId={SPELLS.COLLECTIVE_ANGUISH.id}>
+        <BoringSpellValueText spellId={DH_LEGENDARIES.COLLECTIVE_ANGUISH.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

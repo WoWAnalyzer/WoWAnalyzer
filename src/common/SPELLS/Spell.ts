@@ -44,4 +44,5 @@ export interface SpellList<T extends Spell = Spell> {
 }
 
 export const spellIndexableList = asIndexableList<Spell>();
+export const legendarySpellIndexableList = asIndexableList<LegendarySpell>();
 export const enchantIndexableList = asIndexableList<Enchant>();

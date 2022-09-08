@@ -1,4 +1,5 @@
-import { spellIndexableList } from '../../Spell';
+import { legendarySpellIndexableList } from 'common/SPELLS/Spell';
+
 import DEATH_KNIGHT from './deathknight';
 import DEMON_HUNTER from './demonhunter';
 import DRUID from './druid';
@@ -12,7 +13,7 @@ import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
 
-const legendaries = spellIndexableList({
+const legendaries = legendarySpellIndexableList({
   ...DEATH_KNIGHT,
   ...DEMON_HUNTER,
   ...DRUID,

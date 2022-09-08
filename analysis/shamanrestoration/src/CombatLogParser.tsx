@@ -13,7 +13,6 @@ import {
   TumblingWaves,
 } from '@wowanalyzer/shaman';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 import Abilities from './modules/Abilities';
 import HealingDone from './modules/core/HealingDone';
 import HealingEfficiencyDetails from './modules/core/HealingEfficiencyDetails';
@@ -71,10 +70,6 @@ import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
 import RiptideNormalizer from './normalizers/RiptideNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
-  static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES.map(
-    (spell) => spell.id,
-  );
-
   static specModules = {
     lowHealthHealing: LowHealthHealing,
     healingDone: HealingDone,

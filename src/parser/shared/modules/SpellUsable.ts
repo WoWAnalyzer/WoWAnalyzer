@@ -393,7 +393,10 @@ class SpellUsable extends Analyzer {
           ' (effective:' +
           effectiveReductionMs +
           ') @ ' +
-          this.owner.formatTimestamp(timestamp, 1),
+          this.owner.formatTimestamp(timestamp, 1) +
+          ' (t=' +
+          timestamp +
+          ')',
       );
 
     return effectiveReductionMs;
@@ -486,6 +489,9 @@ class SpellUsable extends Analyzer {
           formatPercentage(event.newHaste) +
           ' @ ' +
           this.owner.formatTimestamp(event.timestamp, 1) +
+          ' (t=' +
+          event.timestamp +
+          ')' +
           ' - updating cooldowns',
       );
     Object.entries(this._currentCooldowns).forEach(([spellId, cdInfo]) => {
@@ -610,7 +616,7 @@ class SpellUsable extends Analyzer {
     const timeRemaining = cdInfo.expectedEnd - timestamp;
     const percentageRemaining = timeRemaining / cdInfo.currentRechargeDuration;
     const newRechargeDuration = cdInfo.currentRechargeDuration / changeRate;
-    const newTimeRemaining = newRechargeDuration * percentageRemaining;
+    const newTimeRemaining = Math.round(newRechargeDuration * percentageRemaining);
     const newExpectedEnd = timestamp + newTimeRemaining;
 
     DEBUG &&
@@ -623,8 +629,14 @@ class SpellUsable extends Analyzer {
           newRechargeDuration +
           ' / old expectedEnd: ' +
           this.owner.formatTimestamp(cdInfo.expectedEnd, 1) +
+          ' (t=' +
+          cdInfo.expectedEnd +
+          ')' +
           ' - new expectedEnd: ' +
-          this.owner.formatTimestamp(newExpectedEnd, 1),
+          this.owner.formatTimestamp(newExpectedEnd, 1) +
+          ' (t=' +
+          newExpectedEnd +
+          ')',
       );
 
     cdInfo.currentRechargeDuration = newRechargeDuration;
@@ -660,26 +672,26 @@ class SpellUsable extends Analyzer {
   }
 
   /**
-   * Fabricates an UpdateSpellUsableEvent and inserts it into the events stream
+   * Fabricates an UpdateSpellUsableEvent and inserts it into the events stream.
    * @param {UpdateSpellUsableType} updateType the type of update this is
-   * @param {number} spellId the ID of the fabricated event
-   * @param {number} timestamp the timestamp of the fabricated event
+   * @param {number} canonicalSpellId the spell's canonical ID
+   * @param {number} timestamp the timestamp of the update
    * @param {CooldownInfo} info the cooldown info object pertaining to this spell
    *     (after the appropriate updates have been calculated)
    */
   private _fabricateUpdateSpellUsableEvent(
     updateType: UpdateSpellUsableType,
-    spellId: number,
+    canonicalSpellId: number,
     timestamp: number,
     info: CooldownInfo,
   ) {
-    const spell = SPELLS[spellId];
+    const spell = SPELLS[canonicalSpellId];
 
     const event: UpdateSpellUsableEvent = {
       type: EventType.UpdateSpellUsable,
       timestamp,
       ability: {
-        guid: spellId,
+        guid: canonicalSpellId,
         name: spell.name ?? '',
         abilityIcon: spell.icon ?? '',
       },
@@ -704,7 +716,14 @@ class SpellUsable extends Analyzer {
 
     if (DEBUG) {
       let logLine =
-        updateType + ' on ' + spellName(spellId) + ' @ ' + this.owner.formatTimestamp(timestamp, 1);
+        updateType +
+        ' on ' +
+        spellName(canonicalSpellId) +
+        ' @ ' +
+        this.owner.formatTimestamp(timestamp, 1) +
+        ' (t=' +
+        timestamp +
+        ')';
       if (
         updateType === UpdateSpellUsableType.RestoreCharge ||
         updateType === UpdateSpellUsableType.UseCharge

@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
+import DH_CONDUITS from 'common/SPELLS/shadowlands/conduits/demonhunter';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/EventSubscriber';
@@ -18,16 +19,16 @@ export default class ShatteredRestoration extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.SHATTERED_RESTORATION.id);
+    this.active = this.selectedCombatant.hasConduitBySpellID(DH_CONDUITS.SHATTERED_RESTORATION.id);
 
     if (!this.active) {
       return;
     }
 
-    this.rank = this.selectedCombatant.conduitRankBySpellID(SPELLS.SHATTERED_RESTORATION.id);
+    this.rank = this.selectedCombatant.conduitRankBySpellID(DH_CONDUITS.SHATTERED_RESTORATION.id);
 
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CONSUME_SOUL_VDH),
+      Events.heal.by(SELECTED_PLAYER).spell(DH_SPELLS.CONSUME_SOUL_VDH),
       this.onHeal,
     );
   }
@@ -53,7 +54,7 @@ export default class ShatteredRestoration extends Analyzer {
           </>
         }
       >
-        <ConduitSpellText spellId={SPELLS.SHATTERED_RESTORATION.id} rank={this.rank}>
+        <ConduitSpellText spellId={DH_CONDUITS.SHATTERED_RESTORATION.id} rank={this.rank}>
           <ItemHealingDone amount={effectiveHealing} />
         </ConduitSpellText>
       </Statistic>

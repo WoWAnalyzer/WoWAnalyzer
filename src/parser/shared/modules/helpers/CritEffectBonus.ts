@@ -1,5 +1,5 @@
 import Analyzer from 'parser/core/Analyzer';
-import { AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
+import { AbsorbedEvent, DamageEvent, EventType, HealEvent } from 'parser/core/Events';
 
 import { HealerStatWeightEvents } from '../features/BaseHealerStatValues';
 
@@ -19,6 +19,34 @@ class CritEffectBonus extends Analyzer {
       ) => hook(critEffectModifier, event),
       CritEffectBonus.BASE_CRIT_EFFECT_MOD,
     );
+  }
+
+  private rawContribution(event: DamageEvent | HealEvent, critEffect: number): number {
+    const amount = event.amount;
+    const absorbed = event.absorbed || 0;
+    const overheal = event.type === EventType.Heal ? event.overheal || 0 : 0;
+    const raw = amount + absorbed + overheal;
+    const rawNormalPart = raw / this.getBonus(event);
+
+    return rawNormalPart * critEffect;
+  }
+
+  getDamageContribution(event: DamageEvent, critEffect: number): number {
+    return this.rawContribution(event, critEffect);
+  }
+
+  getHealingContribution(
+    event: HealEvent,
+    critEffect: number,
+  ): { effectiveHealing: number; overhealing: number } {
+    const overheal = event.overheal || 0;
+    const rawContribution = this.rawContribution(event, critEffect);
+    const effectiveHealing = Math.max(0, rawContribution - overheal);
+
+    return {
+      effectiveHealing,
+      overhealing: rawContribution - effectiveHealing,
+    };
   }
 }
 

@@ -42,7 +42,9 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds, sha
         <DotUptime id={SPELLS.AGONY.id} thresholds={thresholds.agony} />
         <DotUptime id={SPELLS.CORRUPTION_CAST.id} thresholds={thresholds.corruption} />
         <DotUptime id={SPELLS.UNSTABLE_AFFLICTION.id} thresholds={thresholds.unstableAffliction} />
-        <DotUptime id={SPELLS.SHADOW_EMBRACE_TALENT.id} thresholds={thresholds.shadowEmbrace} />
+        {combatant.hasTalent(SPELLS.SHADOW_EMBRACE_TALENT.id) && (
+          <DotUptime id={SPELLS.SHADOW_EMBRACE_TALENT.id} thresholds={thresholds.shadowEmbrace} />
+        )}
         {combatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id) && (
           <DotUptime id={SPELLS.SIPHON_LIFE_TALENT.id} thresholds={thresholds.siphonLife} />
         )}

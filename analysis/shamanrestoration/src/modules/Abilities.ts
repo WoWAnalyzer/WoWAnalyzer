@@ -6,11 +6,19 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../constants';
 import { TrackedRestoShamanAbility } from './core/RestorationAbilityTracker';
 
 const totemGCD = 1000;
 
 class Abilities extends CoreAbilities {
+  constructor(...args: ConstructorParameters<typeof CoreAbilities>) {
+    super(...args);
+    this.abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES.map(
+      (spell) => spell.id,
+    );
+  }
+
   spellbook(): Array<SpellbookAbility<TrackedRestoShamanAbility>> {
     const combatant = this.selectedCombatant;
     return [

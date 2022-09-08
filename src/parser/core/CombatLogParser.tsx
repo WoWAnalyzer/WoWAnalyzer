@@ -31,6 +31,7 @@ import Config from '../Config';
 import AugmentRuneChecker from '../shadowlands/modules/items/AugmentRuneChecker';
 import CombatPotion from '../shadowlands/modules/items/CombatPotion';
 import DarkmoonDeckVoracity from '../shadowlands/modules/items/crafted/DarkmoonDeckVoracity';
+import { DrapeOfShame } from '../shadowlands/modules/items/DrapeOfShame';
 import CodexOfTheFirstTechnique from '../shadowlands/modules/items/dungeons/CodexOfTheFirstTechnique';
 import InscrutableQuantumDevice from '../shadowlands/modules/items/dungeons/InscrutableQuantumDevice';
 import OverchargedAnimaBattery from '../shadowlands/modules/items/dungeons/OverchargedAnimaBattery';
@@ -50,6 +51,7 @@ import AbilityTracker from '../shared/modules/AbilityTracker';
 import AlwaysBeCasting from '../shared/modules/AlwaysBeCasting';
 import CastEfficiency from '../shared/modules/CastEfficiency';
 import Combatants from '../shared/modules/Combatants';
+import CooldownHistory from '../shared/modules/CooldownHistory';
 import DeathTracker from '../shared/modules/DeathTracker';
 import DispelTracker from '../shared/modules/DispelTracker';
 import DistanceMoved from '../shared/modules/DistanceMoved';
@@ -135,11 +137,6 @@ export interface Player {
 }
 
 class CombatLogParser {
-  /** @deprecated Move this kind of info to the Abilities config */
-  static abilitiesAffectedByHealingIncreases: number[] = [];
-  /** @deprecated Move this kind of info to the Abilities config */
-  static abilitiesAffectedByDamageIncreases: number[] = [];
-
   static internalModules: DependenciesDefinition = {
     fightEndNormalizer: FightEndNormalizer,
     eventEmitter: EventEmitter,
@@ -185,6 +182,7 @@ class CombatLogParser {
     CastEfficiency: CastEfficiency,
     spellUsable: SpellUsable,
     spellHistory: SpellHistory,
+    cooldownHistory: CooldownHistory,
     globalCooldown: GlobalCooldown,
     manaValues: ManaValues,
     vantusRune: VantusRune,
@@ -217,6 +215,7 @@ class CombatLogParser {
     bloodFury: BloodFury,
 
     // Items:
+    drapeOfShame: DrapeOfShame,
 
     // Enchants
     ascendedVigor: AscendedVigor,
