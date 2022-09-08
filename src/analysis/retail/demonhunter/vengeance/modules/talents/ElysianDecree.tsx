@@ -1,6 +1,6 @@
 import { formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -10,22 +10,26 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 /**
- * Venthyr - Sinful Brand
+ * Elysian Decree
  */
-class SinfulBrand extends Analyzer {
+class ElysianDecree extends Analyzer {
   damage = 0;
 
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_VENGEANCE_TALENT.id,
+    );
 
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SINFUL_BRAND),
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.ELYSIAN_DECREE_DAMAGE, SPELLS.ELYSIAN_DECREE_REPEAT_DECREE_DAMAGE]),
       this.onDamage,
     );
   }
@@ -42,7 +46,7 @@ class SinfulBrand extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={<>{formatThousands(this.damage)} Total damage</>}
       >
-        <BoringSpellValueText spellId={SPELLS.SINFUL_BRAND.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_VENGEANCE_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>
@@ -50,4 +54,4 @@ class SinfulBrand extends Analyzer {
   }
 }
 
-export default SinfulBrand;
+export default ElysianDecree;

@@ -1,10 +1,10 @@
+import Felblade from 'analysis/retail/demonhunter/shared/modules/talents/Felblade';
 import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseModule from 'parser/shared/modules/features/Checklist/Module';
 import ManaValues from 'parser/shared/modules/ManaValues';
 
-import SinfulBrandUptime from '../covenants/SinfulBrandUptime';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import FuryDetails from '../resourcetracker/FuryDetails';
 import DemonBite from '../spells/DemonBite';
@@ -13,7 +13,6 @@ import DemonBlades from '../talents/DemonBlades';
 import Demonic from '../talents/Demonic';
 import DemonicAppetite from '../talents/DemonicAppetite';
 import FelBarrage from '../talents/FelBarrage';
-import Felblade from '../talents/Felblade';
 import FelEruption from '../talents/FelEruption';
 import ImmolationAura from '../talents/ImmolationAura';
 import Momentum from '../talents/Momentum';
@@ -40,7 +39,6 @@ class Checklist extends BaseModule {
 
     // Maintain buffs/debuffs
     momentum: Momentum,
-    sinfulBrandUptime: SinfulBrandUptime,
 
     // Manage your fury properly
     demonBite: DemonBite,
@@ -71,7 +69,6 @@ class Checklist extends BaseModule {
 
   //region BuffsDebuffs
   protected momentum!: Momentum;
-  protected sinfulBrandUptime!: SinfulBrandUptime;
   //endregion
 
   //region Resources
@@ -79,6 +76,7 @@ class Checklist extends BaseModule {
   protected demonicAppetite!: DemonicAppetite;
   protected demonBlades!: DemonBlades;
   protected furyDetails!: FuryDetails;
+
   //endregion
 
   render() {
@@ -103,7 +101,6 @@ class Checklist extends BaseModule {
 
           // Maintain buffs/debuffs
           momentumBuffUptime: this.momentum.suggestionThresholds,
-          sinfulBrandUptime: this.sinfulBrandUptime.suggestionThresholds,
 
           // Use your offensive cool downs
 

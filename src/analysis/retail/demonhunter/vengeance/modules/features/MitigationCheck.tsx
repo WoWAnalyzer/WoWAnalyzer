@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
 import { Options } from 'parser/core/Analyzer';
 import CoreMitigationCheck from 'parser/shared/modules/MitigationCheck';
 

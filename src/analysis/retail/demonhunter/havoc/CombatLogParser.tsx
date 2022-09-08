@@ -1,12 +1,6 @@
-import {
-  ElysianDecree,
-  FelDefender,
-  FodderToTheFlame,
-  GrowingInferno,
-  RepeatDecree,
-  SinfulBrand,
-  TheHunt,
-} from 'analysis/retail/demonhunter/shared';
+import { TheHunt } from 'analysis/retail/demonhunter/shared';
+import Felblade from 'analysis/retail/demonhunter/shared/modules/talents/Felblade';
+import ShatteredRestoration from 'analysis/retail/demonhunter/shared/modules/talents/ShatteredRestoration';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
@@ -15,26 +9,23 @@ import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
 import GlobalCooldown from './modules/core/GlobalCooldown';
-import SinfulBrandUptime from './modules/covenants/SinfulBrandUptime';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import DotUptimes from './modules/features/DotUptimes';
 import FuryDetails from './modules/resourcetracker/FuryDetails';
 import FuryTracker from './modules/resourcetracker/FuryTracker';
-import ChaosTheory from './modules/shadowlands/legendaries/ChaosTheory';
-import CollectiveAnguish from './modules/shadowlands/legendaries/CollectiveAnguish';
 import BladeDance from './modules/spells/BladeDance';
 import DemonBite from './modules/spells/DemonBite';
 import FuriousGazeBuffUptime from './modules/spells/FuriousGazeBuffUptime';
 import MetaBuffUptime from './modules/spells/MetaBuffUptime';
 import BlindFury from './modules/talents/BlindFury';
+import ChaosTheory from './modules/talents/ChaosTheory';
 import CycleOfHatred from './modules/talents/CycleOfHatred';
 import DemonBlades from './modules/talents/DemonBlades';
 import Demonic from './modules/talents/Demonic';
 import DemonicAppetite from './modules/talents/DemonicAppetite';
+import ElysianDecree from './modules/talents/ElysianDecree';
 import EssenceBreak from './modules/talents/EssenceBreak';
 import FelBarrage from './modules/talents/FelBarrage';
-import Felblade from './modules/talents/Felblade';
 import FelEruption from './modules/talents/FelEruption';
 import GlaiveTempest from './modules/talents/GlaiveTempest';
 import ImmolationAura from './modules/talents/ImmolationAura';
@@ -61,10 +52,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
 
-    // DoTs
-    sinfulBrandUptime: SinfulBrandUptime,
-    dotUptimes: DotUptimes,
-
     // Spells
     demonBite: DemonBite,
     metaBuffUptime: MetaBuffUptime,
@@ -87,28 +74,17 @@ class CombatLogParser extends CoreCombatLogParser {
     cycleOfHatred: CycleOfHatred,
     demonic: Demonic,
     glaiveTempest: GlaiveTempest,
+    theHunt: TheHunt,
+    chaosTheory: ChaosTheory,
+    shatteredRestoration: ShatteredRestoration,
+    elysianDecree: ElysianDecree,
 
-    //Resources
+    // Resources
     furyTracker: FuryTracker,
     furyDetails: FuryDetails,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
-
-    //Legendaries
-    collectiveAnguish: CollectiveAnguish,
-    chaosTheory: ChaosTheory,
-
-    //Covenants
-    sinfulBrand: SinfulBrand,
-    theHunt: TheHunt,
-    elysianDecree: ElysianDecree,
-    fodderToTheFlame: FodderToTheFlame,
-
-    //Conduits
-    growingInferno: GrowingInferno,
-    felDefender: FelDefender,
-    repeatDecree: RepeatDecree,
   };
 }
 

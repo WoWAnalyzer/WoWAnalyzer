@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
@@ -14,6 +15,26 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
  * Example Report: https://www.warcraftlogs.com/reports/1HRhNZa2cCkgK9AV#fight=48&type=summary&source=10
  */
 class Felblade extends Analyzer {
+  furyGain = 0;
+  furyWaste = 0;
+  damage = 0;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id);
+    if (!this.active) {
+      return;
+    }
+    this.addEventListener(
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.FELBLADE_DAMAGE),
+      this.onEnergizeEvent,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FELBLADE_DAMAGE),
+      this.onDamageEvent,
+    );
+  }
+
   get furyPerMin() {
     return ((this.furyGain - this.furyWaste) / (this.owner.fightDuration / 60000)).toFixed(2);
   }
@@ -30,26 +51,6 @@ class Felblade extends Analyzer {
     };
   }
 
-  furyGain = 0;
-  furyWaste = 0;
-  damage = 0;
-
-  constructor(options: Options) {
-    super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FELBLADE_TALENT.id);
-    if (!this.active) {
-      return;
-    }
-    this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.FELBLADE_DAMAGE),
-      this.onEnergizeEvent,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FELBLADE_DAMAGE),
-      this.onDamageEvent,
-    );
-  }
-
   onEnergizeEvent(event: ResourceChangeEvent) {
     this.furyGain += event.resourceChange;
     this.furyWaste += event.waste;
@@ -64,11 +65,11 @@ class Felblade extends Analyzer {
       suggest(
         <>
           {' '}
-          Avoid casting <SpellLink id={SPELLS.FELBLADE_TALENT.id} /> close to Fury cap and cast
-          abilities regularly to avoid accidently capping your fury.
+          Avoid casting <SpellLink id={TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id} /> close to Fury cap
+          and cast abilities regularly to avoid accidently capping your fury.
         </>,
       )
-        .icon(SPELLS.FELBLADE_TALENT.icon)
+        .icon(TALENTS_DEMON_HUNTER.FELBLADE_TALENT.icon)
         .actual(
           t({
             id: 'demonhunter.havoc.suggestions.felBlade.furyWasted',
@@ -97,7 +98,7 @@ class Felblade extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.FELBLADE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id}>
           <>
             {this.furyPerMin} <small>Fury per min</small>
             <br />

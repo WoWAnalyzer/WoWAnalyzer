@@ -1,5 +1,5 @@
-import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -40,17 +40,23 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
         {combatant.hasTalent(SPELLS.IMMOLATION_AURA.id) && (
           <AbilityRequirement spell={SPELLS.IMMOLATION_AURA.id} />
         )}
-        {combatant.hasTalent(SPELLS.FELBLADE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.FELBLADE_TALENT.id} />
-        )}
-        {combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FIRST_BLOOD_HAVOC_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.BLADE_DANCE.id} />
         )}
-        {combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.FEL_RUSH_CAST.id} />
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_HAVOC_TALENT.id) && (
+          <>
+            <AbilityRequirement spell={SPELLS.FEL_RUSH_CAST.id} />
+            <AbilityRequirement spell={SPELLS.VENGEFUL_RETREAT.id} />
+          </>
         )}
-        {combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.VENGEFUL_RETREAT.id} />
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id} />
+        )}
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_VENGEANCE_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.ELYSIAN_DECREE.id} />
+        )}
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.THE_HUNT.id} />
         )}
       </Rule>
 
@@ -69,41 +75,41 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           </>
         }
       >
-        {combatant.hasTalent(SPELLS.BLIND_FURY_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.BLIND_FURY_HAVOC_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.BLIND_FURY_TALENT.id} /> bad casts
+                <SpellLink id={TALENTS_DEMON_HUNTER.BLIND_FURY_HAVOC_TALENT.id} /> bad casts
               </>
             }
             thresholds={thresholds.blindFuryBadCasts}
           />
         )}
-        {combatant.hasTalent(SPELLS.DEMONIC_TALENT_HAVOC.id) && (
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.DEMONIC_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.DEMONIC_TALENT_HAVOC.id} /> bad casts
+                <SpellLink id={TALENTS_DEMON_HUNTER.DEMONIC_TALENT.id} /> bad casts
               </>
             }
             thresholds={thresholds.demonicBadCasts}
           />
         )}
-        {combatant.hasTalent(SPELLS.FEL_ERUPTION_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_ERUPTION_HAVOC_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.FEL_ERUPTION_TALENT.id} /> bad casts
+                <SpellLink id={TALENTS_DEMON_HUNTER.FEL_ERUPTION_HAVOC_TALENT.id} /> bad casts
               </>
             }
             thresholds={thresholds.felEruptionBadCasts}
           />
         )}
-        {combatant.hasTalent(SPELLS.FEL_BARRAGE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_BARRAGE_HAVOC_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.FEL_BARRAGE_TALENT.id} /> bad casts
+                <SpellLink id={TALENTS_DEMON_HUNTER.FEL_BARRAGE_HAVOC_TALENT.id} /> bad casts
               </>
             }
             thresholds={thresholds.felBarrageBadCasts}
@@ -126,24 +132,14 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           </>
         }
       >
-        {combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_HAVOC_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.MOMENTUM_TALENT.id} /> buff uptime
+                <SpellLink id={TALENTS_DEMON_HUNTER.MOMENTUM_HAVOC_TALENT.id} /> buff uptime
               </>
             }
             thresholds={thresholds.momentumBuffUptime}
-          />
-        )}
-        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={SPELLS.SINFUL_BRAND.id} /> debuff uptime
-              </>
-            }
-            thresholds={thresholds.sinfulBrandUptime}
           />
         )}
       </Rule>
@@ -166,11 +162,11 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
       >
         <AbilityRequirement spell={SPELLS.METAMORPHOSIS_HAVOC.id} />
         <AbilityRequirement spell={SPELLS.EYE_BEAM.id} />
-        {combatant.hasTalent(SPELLS.FEL_BARRAGE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.FEL_BARRAGE_TALENT.id} />
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_BARRAGE_HAVOC_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.FEL_BARRAGE_HAVOC_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.ESSENCE_BREAK_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.ESSENCE_BREAK_TALENT.id} />
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.ESSENCE_BREAK_HAVOC_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_HAVOC_TALENT.id} />
         )}
       </Rule>
 
@@ -209,31 +205,31 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
             thresholds={thresholds.immolationAuraEfficiency}
           />
         )}
-        {combatant.hasTalent(SPELLS.FELBLADE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.FELBLADE_TALENT.id} /> Fury wasted
+                <SpellLink id={TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id} /> Fury wasted
               </>
             }
             thresholds={thresholds.felbladeEfficiency}
           />
         )}
-        {combatant.hasTalent(SPELLS.DEMONIC_APPETITE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.DEMONIC_APPETITE_HAVOC_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.DEMONIC_APPETITE_TALENT.id} /> Fury wasted
+                <SpellLink id={TALENTS_DEMON_HUNTER.DEMONIC_APPETITE_HAVOC_TALENT.id} /> Fury wasted
               </>
             }
             thresholds={thresholds.demonicAppetiteEfficiency}
           />
         )}
-        {combatant.hasTalent(SPELLS.DEMON_BLADES_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.DEMON_BLADES_HAVOC_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.DEMON_BLADES_TALENT.id} /> Fury wasted
+                <SpellLink id={TALENTS_DEMON_HUNTER.DEMON_BLADES_HAVOC_TALENT.id} /> Fury wasted
               </>
             }
             thresholds={thresholds.demonBladesEfficiency}

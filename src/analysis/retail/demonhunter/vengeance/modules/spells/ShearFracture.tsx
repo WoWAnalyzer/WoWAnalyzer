@@ -1,5 +1,8 @@
 import { t } from '@lingui/macro';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import Spell from 'common/SPELLS/Spell';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
+import { Talent } from 'common/TALENTS/types';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffStackEvent } from 'parser/core/Events';
@@ -22,13 +25,13 @@ class ShearFracture extends Analyzer {
   wastedSoulsPerCast = 0;
   soulFragmentBuffFadeTimeStamp = 0;
   lastCastEvent?: CastEvent;
-  cast = SPELLS.SHEAR;
+  cast: Spell | Talent = SPELLS.SHEAR;
 
   constructor(options: Options) {
     super(options);
 
-    if (this.selectedCombatant.hasTalent(SPELLS.FRACTURE_TALENT.id)) {
-      this.cast = SPELLS.FRACTURE_TALENT;
+    if (this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_VENGEANCE_TALENT.id)) {
+      this.cast = TALENTS_DEMON_HUNTER.FRACTURE_VENGEANCE_TALENT;
     }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.cast), this.onCast);
     this.addEventListener(

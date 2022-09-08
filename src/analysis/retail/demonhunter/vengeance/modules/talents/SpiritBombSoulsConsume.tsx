@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, ChangeBuffStackEvent } from 'parser/core/Events';
@@ -16,7 +17,7 @@ class SpiritBombSoulsConsume extends Analyzer {
   castTimestamp = 0;
   castSoulsConsumed = 0;
   cast = 0;
-  soulsConsumedByAmount = Array.from({ length: 6 }, (x) => 0);
+  soulsConsumedByAmount = Array.from({ length: 6 }, () => 0);
 
   /* Feed The Demon talent is taken in defensive builds. In those cases you want to generate and consume souls as quickly
    as possible. So how you consume your souls down matter. If you dont take that talent your taking a more balanced
@@ -27,10 +28,10 @@ class SpiritBombSoulsConsume extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active =
-      this.selectedCombatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) &&
-      !this.selectedCombatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id);
+      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id) &&
+      !this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FEED_THE_DEMON_VENGEANCE_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_BOMB_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT),
       this.onCast,
     );
     this.addEventListener(
@@ -100,10 +101,11 @@ class SpiritBombSoulsConsume extends Analyzer {
     when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to cast <SpellLink id={SPELLS.SPIRIT_BOMB_TALENT.id} /> at 4 or 5 souls.
+          Try to cast <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id} /> at 4
+          or 5 souls.
         </>,
       )
-        .icon(SPELLS.SPIRIT_BOMB_TALENT.icon)
+        .icon(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.icon)
         .actual(
           t({
             id: 'demonhunter.vengeance.suggestions.spiritBomb.soulsConsumed',
@@ -141,7 +143,7 @@ class SpiritBombSoulsConsume extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SPIRIT_BOMB_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id}>
           {formatPercentage(this.percentGoodCasts)}% <small>good casts</small>
         </BoringSpellValueText>
       </Statistic>

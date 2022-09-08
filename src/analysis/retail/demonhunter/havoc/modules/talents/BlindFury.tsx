@@ -1,5 +1,6 @@
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -10,12 +11,26 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-/**
- * Example Report: https://www.warcraftlogs.com/reports/KGJgZPxanBX82LzV/#fight=4&source=20
- */
+const BASE_MAX_FURY = 100;
 const MAX_FURY = 120;
 
 class BlindFury extends Analyzer {
+  maxFury = BASE_MAX_FURY;
+  gained = 0;
+  badCast = 0;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.BLIND_FURY_HAVOC_TALENT.id);
+    if (!this.active) {
+      return;
+    }
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EYE_BEAM),
+      this.onEyeBeamsCast,
+    );
+  }
+
   get furyPerMin() {
     return (this.gained / (this.owner.fightDuration / 60000)).toFixed(2);
   }
@@ -30,21 +45,6 @@ class BlindFury extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
-  }
-
-  gained = 0;
-  badCast = 0;
-
-  constructor(options: Options) {
-    super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BLIND_FURY_TALENT.id);
-    if (!this.active) {
-      return;
-    }
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EYE_BEAM),
-      this.onEyeBeamsCast,
-    );
   }
 
   onEyeBeamsCast(event: CastEvent) {
@@ -65,11 +65,11 @@ class BlindFury extends Analyzer {
       suggest(
         <>
           Cast <SpellLink id={SPELLS.EYE_BEAM.id} /> with 50 or less Fury when you take the{' '}
-          <SpellLink id={SPELLS.BLIND_FURY_TALENT.id} /> talent to minimize Fury waste and maximize
-          DPS.
+          <SpellLink id={TALENTS_DEMON_HUNTER.BLIND_FURY_HAVOC_TALENT.id} /> talent to minimize Fury
+          waste and maximize DPS.
         </>,
       )
-        .icon(SPELLS.BLIND_FURY_TALENT.icon)
+        .icon(TALENTS_DEMON_HUNTER.BLIND_FURY_HAVOC_TALENT.icon)
         .actual(
           <>
             {actual} bad <SpellLink id={SPELLS.EYE_BEAM.id} /> casts above 50 Fury.{' '}
@@ -97,7 +97,7 @@ class BlindFury extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.BLIND_FURY_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.BLIND_FURY_HAVOC_TALENT.id}>
           <>
             {this.badCast}{' '}
             <small>

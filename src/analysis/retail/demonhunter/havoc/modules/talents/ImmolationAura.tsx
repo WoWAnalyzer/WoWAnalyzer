@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
@@ -19,6 +20,28 @@ const IMMOLATION_AURA = [
 ];
 
 class ImmolationAura extends Analyzer {
+  furyGain = 0;
+  furyWaste = 0;
+  damage = 0;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_DEMON_HUNTER.BURNING_HATRED_HAVOC_TALENT.id,
+    );
+    if (!this.active) {
+      return;
+    }
+    this.addEventListener(
+      Events.resourcechange.by(SELECTED_PLAYER).spell(IMMOLATION_AURA),
+      this.onResourceChangeEvent,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(IMMOLATION_AURA),
+      this.onDamageEvent,
+    );
+  }
+
   get furyPerMin() {
     return ((this.furyGain - this.furyWaste) / (this.owner.fightDuration / 60000)).toFixed(2);
   }
@@ -35,27 +58,7 @@ class ImmolationAura extends Analyzer {
     };
   }
 
-  furyGain = 0;
-  furyWaste = 0;
-  damage = 0;
-
-  constructor(options: Options) {
-    super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BURNING_HATRED_TALENT.id);
-    if (!this.active) {
-      return;
-    }
-    this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(IMMOLATION_AURA),
-      this.onEnergizeEvent,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(IMMOLATION_AURA),
-      this.onDamageEvent,
-    );
-  }
-
-  onEnergizeEvent(event: ResourceChangeEvent) {
+  onResourceChangeEvent(event: ResourceChangeEvent) {
     this.furyGain += event.resourceChange;
     this.furyWaste += event.waste;
   }
