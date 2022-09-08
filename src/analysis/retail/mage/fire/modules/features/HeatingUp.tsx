@@ -1,6 +1,9 @@
 import { Trans } from '@lingui/macro';
-import StandardChecks from 'analysis/retail/mage/shared/StandardChecks';
-import { FIRESTARTER_THRESHOLD, SEARING_TOUCH_THRESHOLD } from 'analysis/retail/mage/shared';
+import {
+  FIRESTARTER_THRESHOLD,
+  SEARING_TOUCH_THRESHOLD,
+  SharedCode,
+} from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -14,15 +17,15 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class HeatingUp extends Analyzer {
   static dependencies = {
-    standardChecks: StandardChecks,
+    sharedCode: SharedCode,
   };
-  protected standardChecks!: StandardChecks;
+  protected sharedCode!: SharedCode;
 
   hasFirestarter: boolean = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
   hasSearingTouch: boolean = this.selectedCombatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id);
 
   phoenixFlamesDuringHotStreak = () =>
-    this.standardChecks.countEventsByBuff(
+    this.sharedCode.countEventsByBuff(
       true,
       SPELLS.HOT_STREAK,
       EventType.Cast,
@@ -30,15 +33,10 @@ class HeatingUp extends Analyzer {
     );
 
   fireBlastDuringHotStreak = () =>
-    this.standardChecks.countEventsByBuff(
-      true,
-      SPELLS.HOT_STREAK,
-      EventType.Cast,
-      SPELLS.FIRE_BLAST,
-    );
+    this.sharedCode.countEventsByBuff(true, SPELLS.HOT_STREAK, EventType.Cast, SPELLS.FIRE_BLAST);
 
   fireBlastWithoutHeatingUp = () => {
-    let casts = this.standardChecks.getEventsByBuff(
+    let casts = this.sharedCode.getEventsByBuff(
       false,
       SPELLS.HEATING_UP,
       EventType.Cast,
@@ -53,7 +51,7 @@ class HeatingUp extends Analyzer {
     //Filter out events where the player has Searing Touch and the target is under 30% health
     //Filter out events where the player has Firestarter and the target is over 90% health
     casts = casts.filter((cast) => {
-      const targetHealth = this.standardChecks.getTargetHealth(cast);
+      const targetHealth = this.sharedCode.getTargetHealth(cast);
       if (this.hasFirestarter) {
         return targetHealth && targetHealth < FIRESTARTER_THRESHOLD;
       } else if (this.hasSearingTouch) {
@@ -65,7 +63,7 @@ class HeatingUp extends Analyzer {
 
     //Filter out events where the player is Venthyr and Mirrors of Torment is currently being cast
     casts = casts.filter((cast) => {
-      const lastEvent = this.standardChecks.getEvents(
+      const lastEvent = this.sharedCode.getEvents(
         true,
         EventType.BeginCast,
         undefined,
@@ -91,7 +89,7 @@ class HeatingUp extends Analyzer {
       actual:
         1 -
         (this.fireBlastWithoutHeatingUp() + this.fireBlastDuringHotStreak()) /
-          this.standardChecks.countEvents(EventType.Cast, SPELLS.FIRE_BLAST),
+          this.sharedCode.countEvents(EventType.Cast, SPELLS.FIRE_BLAST),
       isLessThan: {
         minor: 0.95,
         average: 0.9,
@@ -106,7 +104,7 @@ class HeatingUp extends Analyzer {
       actual:
         1 -
         this.phoenixFlamesDuringHotStreak() /
-          this.standardChecks.countEvents(EventType.Cast, SPELLS.PHOENIX_FLAMES),
+          this.sharedCode.countEvents(EventType.Cast, SPELLS.PHOENIX_FLAMES),
       isLessThan: {
         minor: 0.95,
         average: 0.9,

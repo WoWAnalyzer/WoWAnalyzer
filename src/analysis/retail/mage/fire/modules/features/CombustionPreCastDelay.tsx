@@ -6,7 +6,7 @@ import Analyzer from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
-import { StandardChecks } from '@wowanalyzer/mage';
+import { SharedCode } from '@wowanalyzer/mage';
 
 const COMBUSTION_PRE_CASTS = [
   SPELLS.FIREBALL,
@@ -18,17 +18,17 @@ const COMBUSTION_PRE_CASTS = [
 
 class CombustionPreCastDelay extends Analyzer {
   static dependencies = {
-    standardChecks: StandardChecks,
+    sharedCode: SharedCode,
   };
-  protected standardChecks!: StandardChecks;
+  protected sharedCode!: SharedCode;
 
   // prettier-ignore
   preCastDelay = () => {
-    const combustCasts = this.standardChecks.getEvents(true, EventType.Cast, SPELLS.COMBUSTION);
+    const combustCasts = this.sharedCode.getEvents(true, EventType.Cast, SPELLS.COMBUSTION);
     const combustionCasts: number[] = [];
 
     combustCasts.forEach(cast => {
-      const preCastBegin = this.standardChecks.getEvents(true, EventType.BeginCast, COMBUSTION_PRE_CASTS, 1, cast.timestamp)[0]
+      const preCastBegin = this.sharedCode.getEvents(true, EventType.BeginCast, COMBUSTION_PRE_CASTS, 1, cast.timestamp)[0]
       if (preCastBegin && preCastBegin.castEvent) {
         const castDelay = preCastBegin.castEvent.timestamp > cast.timestamp ? preCastBegin.castEvent.timestamp - cast.timestamp : 0
         combustionCasts[cast.timestamp] = castDelay
@@ -48,7 +48,7 @@ class CombustionPreCastDelay extends Analyzer {
   get combustionCastDelayThresholds() {
     return {
       actual:
-        this.totalDelay / this.standardChecks.countEvents(EventType.Cast, SPELLS.COMBUSTION) / 1000,
+        this.totalDelay / this.sharedCode.countEvents(EventType.Cast, SPELLS.COMBUSTION) / 1000,
       isGreaterThan: {
         minor: 0.7,
         average: 1,

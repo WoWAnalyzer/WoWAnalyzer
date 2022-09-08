@@ -12,7 +12,7 @@ import {
   ShiftingPower,
   SiphonedMalice,
   TempestBarrier,
-  StandardChecks,
+  SharedCode,
 } from 'analysis/retail/mage/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -63,7 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Checklist
     checklist: Checklist,
     buffs: Buffs,
-    standardChecks: StandardChecks,
+    sharedCode: SharedCode,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
