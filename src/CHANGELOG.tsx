@@ -63,6 +63,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2022, 9, 8), 'Bump supported versions of classic and retail.', ToppleTheNun),
   change(date(2022, 9, 8), 'Add support for Dragonflight talent detection.', emallson),
   change(date(2022, 8, 28), 'Add capability of auto-generating talents for Dragonflight based on gamedata', Putro),
   change(date(2022, 8, 25), "Added support for querying cooldown status at any point in the fight", Sref),

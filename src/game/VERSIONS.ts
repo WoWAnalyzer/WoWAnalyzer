@@ -21,6 +21,6 @@ export const wclGameVersionToExpansion = (gameVersion: number): Expansion => {
     case 3:
       return Expansion.WrathOfTheLichKing;
     default:
-      return Expansion.Shadowlands;
+      return Expansion.Dragonflight;
   }
 };
