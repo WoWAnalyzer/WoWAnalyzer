@@ -1,8 +1,6 @@
 // import BloodDeathKnight from 'analysis/retail/deathknight/blood';
 // import FrostDeathKnight from 'analysis/retail/deathknight/frost';
 // import UnholyDeathKnight from 'analysis/retail/deathknight/unholy';
-// import HavocDemonHunter from 'analysis/retail/demonhunter/havoc';
-// import VengeanceDemonHunter from 'analysis/retail/demonhunter/vengeance';
 // import BalanceDruid from 'analysis/retail/druid/balance';
 // import FeralDruid from 'analysis/retail/druid/feral';
 // import GuardianDruid from 'analysis/retail/druid/guardian';
@@ -43,6 +41,8 @@ import ClassicRogue from 'analysis/classic/rogue';
 import ClassicShaman from 'analysis/classic/shaman';
 import ClassicWarlock from 'analysis/classic/warlock';
 import ClassicWarrior from 'analysis/classic/warrior';
+import HavocDemonHunter from 'analysis/retail/demonhunter/havoc';
+import VengeanceDemonHunter from 'analysis/retail/demonhunter/vengeance';
 import DevastationEvoker from 'analysis/retail/evoker/devastation';
 import PreservationEvoker from 'analysis/retail/evoker/preservation';
 
@@ -53,8 +53,8 @@ const configs: Config[] = [
   // UnholyDeathKnight,
   // FrostDeathKnight,
 
-  // HavocDemonHunter,
-  // VengeanceDemonHunter,
+  HavocDemonHunter,
+  VengeanceDemonHunter,
 
   // BalanceDruid,
   // FeralDruid,
