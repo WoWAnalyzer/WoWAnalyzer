@@ -13,4 +13,4 @@ enum Expansion {
 
 export default Expansion;
 
-export const RETAIL_EXPANSION = Expansion.Shadowlands;
+export const RETAIL_EXPANSION = Expansion.Dragonflight;
