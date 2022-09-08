@@ -48,9 +48,9 @@ const PriestChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPro
           </>
         }
       >
-        {combatant.talents[0] >= 11 && <AbilityRequirement spell={SPELLS.INNER_FOCUS} />}
-        {combatant.talents[0] >= 31 && <AbilityRequirement spell={SPELLS.POWER_INFUSION} />}
-        {combatant.talents[0] >= 41 && <AbilityRequirement spell={SPELLS.PAIN_SUPPRESSION} />}
+        {combatant.talentPoints[0] >= 11 && <AbilityRequirement spell={SPELLS.INNER_FOCUS} />}
+        {combatant.talentPoints[0] >= 31 && <AbilityRequirement spell={SPELLS.POWER_INFUSION} />}
+        {combatant.talentPoints[0] >= 41 && <AbilityRequirement spell={SPELLS.PAIN_SUPPRESSION} />}
         <AbilityRequirement spell={SPELLS.SHADOW_FIEND} />
       </Rule>
       <Rule

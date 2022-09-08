@@ -15,7 +15,7 @@ class PowerInfusion extends Analyzer {
   }
 
   get hasPowerInfusion(): boolean {
-    return this.selectedCombatant.talents[0] >= 31;
+    return this.selectedCombatant.talentPoints[0] >= 31;
   }
 }
 
