@@ -77,6 +77,7 @@ export default [
   change(date(2022, 9, 10), 'Show Dragonflight talents on character page if able to detect them.', ToppleTheNun),
   change(date(2022, 9, 8), 'Bump supported versions of classic and retail.', ToppleTheNun),
   change(date(2022, 9, 8), 'Add support for Dragonflight talent detection.', emallson),
+  change(date(2022, 9, 7), "Added the beginnings of a Shared Code system to make spec maintenance easier.", Sharrq),
   change(date(2022, 8, 28), 'Add capability of auto-generating talents for Dragonflight based on gamedata', Putro),
   change(date(2022, 8, 25), "Added support for querying cooldown status at any point in the fight", Sref),
   change(date(2022, 8, 23), "Fixed a bug where the timeline's cooldown tooltips weren't showing properly", Sref),
