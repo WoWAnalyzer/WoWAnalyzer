@@ -19,7 +19,7 @@ const PlayerGearHeader = ({ player, averageIlvl }: Props) => (
     </div>
     <div>
       {player.race && player.race.name} {player.player.type}{' '}
-      {player.owner.config.expansion !== RETAIL_EXPANSION && `(${player.talents.join('/')})`}
+      {player.owner.config.expansion !== RETAIL_EXPANSION && `(${player.talentPoints.join('/')})`}
     </div>
     <div>
       <b>Average ilvl:</b> {Math.round(averageIlvl)}

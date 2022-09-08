@@ -16,7 +16,7 @@ class CircleOfHealing extends Analyzer {
   protected abilityTracker!: AbilityTracker;
 
   get cohEnabled() {
-    return this.selectedCombatant.talents[1] >= 41;
+    return this.selectedCombatant.talentPoints[1] >= 41;
   }
 
   get castCount() {

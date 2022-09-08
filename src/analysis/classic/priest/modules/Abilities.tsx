@@ -278,12 +278,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: this.selectedCombatant.talents[1] >= 41,
+        enabled: this.selectedCombatant.talentPoints[1] >= 41,
       },
       {
         spell: SPELLS.INNER_FOCUS,
         category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: this.selectedCombatant.talents[0] >= 11,
+        enabled: this.selectedCombatant.talentPoints[0] >= 11,
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
@@ -303,7 +303,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.85,
           extraSuggestion: 'You should aim to use this off CD.',
         },
-        enabled: this.selectedCombatant.talents[0] >= 31,
+        enabled: this.selectedCombatant.talentPoints[0] >= 31,
       },
       {
         spell: SPELLS.PAIN_SUPPRESSION,
@@ -311,7 +311,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: this.selectedCombatant.talents[0] >= 41,
+        enabled: this.selectedCombatant.talentPoints[0] >= 41,
       },
       {
         spell: [SPELLS.MIND_FLAY, ...lowRankSpells[SPELLS.MIND_FLAY]],
@@ -319,7 +319,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: this.selectedCombatant.talents[2] >= 11,
+        enabled: this.selectedCombatant.talentPoints[2] >= 11,
       },
       {
         spell: SPELLS.SILENCE,
@@ -334,7 +334,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: this.selectedCombatant.talents[2] >= 21,
+        enabled: this.selectedCombatant.talentPoints[2] >= 21,
       },
       {
         spell: SPELLS.SHADOW_FORM,
@@ -342,7 +342,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: this.selectedCombatant.talents[2] >= 41,
+        enabled: this.selectedCombatant.talentPoints[2] >= 41,
       },
       {
         spell: SPELLS.SYMBOL_OF_HOPE,

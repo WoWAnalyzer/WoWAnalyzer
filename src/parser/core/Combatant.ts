@@ -16,6 +16,7 @@ import {
   EventType,
   Item,
   SoulbindTrait,
+  TalentEntry,
 } from 'parser/core/Events';
 
 import Entity from './Entity';
@@ -108,6 +109,7 @@ class Combatant extends Entity {
     };
 
     this._parseTalents(combatantInfo.talents);
+    this._importTalentTree(combatantInfo.talentTree);
     this._parseGear(combatantInfo.gear);
     this._parsePrepullBuffs(combatantInfo.auras);
     this._parseCovenant(combatantInfo.covenantID);
@@ -120,22 +122,35 @@ class Combatant extends Entity {
   _talentsByRow: Set<number> = new Set<number>();
 
   _parseTalents(talents: Spell[]) {
-    talents.forEach(({ id }, index: number) => {
+    talents?.forEach(({ id }) => {
       this._talentsByRow.add(id);
     });
   }
 
-  get talents() {
-    return Object.values(this._talentsByRow);
+  private treeTalentsBySpellId: Map<number, TalentEntry> = new Map();
+  private _importTalentTree(talents: TalentEntry[]) {
+    talents?.forEach((talent) => {
+      this.treeTalentsBySpellId.set(talent.spellID, talent);
+    });
   }
 
   hasTalent(spell: number | Spell) {
-    let spellId = spell;
-    const spellObj = spell as Spell;
-    if (spellObj.id) {
-      spellId = spellObj.id;
+    const spellId = typeof spell === 'number' ? spell : spell.id;
+    return this.treeTalentsBySpellId.has(spellId) || this._talentsByRow.has(spellId);
+  }
+
+  /**
+   * The number of points spent in each tree.
+   *
+   * Result is empty for expansions after Wrath.
+   */
+  get talentPoints(): number[] {
+    const expansion = this._combatantInfo.expansion;
+    if (expansion === 'tbc' || expansion === 'wotlk') {
+      return Object.values(this._talentsByRow);
+    } else {
+      return [];
     }
-    return this._talentsByRow.has(spellId as number);
   }
 
   // endregion

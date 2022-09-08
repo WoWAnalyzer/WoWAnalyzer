@@ -1009,9 +1009,22 @@ export interface Conduit {
   icon: string;
 }
 
+/**
+ * A talent entry from the log.
+ *
+ * Note: this is *different* from the Talent type for spells.
+ */
+export interface TalentEntry {
+  id: number;
+  nodeID: number;
+  spellID: number;
+  rank: number;
+  icon?: string;
+}
+
 export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
   player: PlayerInfo;
-  expansion: 'tbc' | 'shadowlands' | string;
+  expansion: 'wotlk' | 'tbc' | 'shadowlands' | 'dragonflight' | string;
   pin: string;
   sourceID: number;
   gear: Item[];
@@ -1039,7 +1052,8 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
   versatilityDamageDone: number;
   versatilityHealingDone: number;
   versatilityDamageReduction: number;
-  talents: [Spell, Spell, Spell, Spell, Spell, Spell, Spell];
+  talentTree: TalentEntry[];
+  talents: Spell[];
   pvpTalents: Spell[];
   covenantID: number;
   soulbindID: number;
