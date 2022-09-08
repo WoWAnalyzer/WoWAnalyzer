@@ -95,7 +95,7 @@
     "typecheck": "tsc",
     "lint": "eslint --format stylish --max-warnings 0 --cache .",
     "lint:fix": "yarn lint --fix",
-    "extract": "lingui extract --overwrite --clean && yarn lint:rest:specific:fix \"src/localization/*/*.json\"",
+    "extract": "lingui extract --overwrite --clean",
     "script": "set NODE_ENV=development&&babel-node",
     "postinstall": "patch-package"
   },
