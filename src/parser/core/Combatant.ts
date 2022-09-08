@@ -119,11 +119,11 @@ class Combatant extends Entity {
   }
 
   // region Talents
-  _talentsByRow: Set<number> = new Set<number>();
+  _talentPointsBySpec: Set<number> = new Set<number>();
 
   _parseTalents(talents: Spell[]) {
     talents?.forEach(({ id }) => {
-      this._talentsByRow.add(id);
+      this._talentPointsBySpec.add(id);
     });
   }
 
@@ -136,7 +136,7 @@ class Combatant extends Entity {
 
   hasTalent(spell: number | Spell) {
     const spellId = typeof spell === 'number' ? spell : spell.id;
-    return this.treeTalentsBySpellId.has(spellId) || this._talentsByRow.has(spellId);
+    return this.treeTalentsBySpellId.has(spellId);
   }
 
   /**
@@ -147,7 +147,7 @@ class Combatant extends Entity {
   get talentPoints(): number[] {
     const expansion = this._combatantInfo.expansion;
     if (expansion === 'tbc' || expansion === 'wotlk') {
-      return Object.values(this._talentsByRow);
+      return Object.values(this._talentPointsBySpec);
     } else {
       return [];
     }
