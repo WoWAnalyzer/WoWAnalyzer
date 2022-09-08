@@ -21,7 +21,7 @@ import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-class StandardChecks extends Analyzer {
+class SharedCode extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     spellUsable: SpellUsable,
@@ -65,28 +65,6 @@ class StandardChecks extends Analyzer {
    */
   getPreCast(event: AnyEvent, preCastSpell?: SpellInfo | SpellInfo[]) {
     return this.getEvents(true, EventType.Cast, preCastSpell, 1, event.timestamp, 250)[0];
-  }
-
-  /**
-   * @param buffActive filters based on whether the buff is active or inactive (true for active, false for inactive)
-   * @param buff the spell object for the buff
-   * @returns an array containing each unique spell cast and the number of times it was cast
-   */
-  castBreakdownByBuff(buffActive: boolean, buff: SpellInfo) {
-    const castEvents = buffActive
-      ? this.getEventsByBuff(true, buff, EventType.Cast)
-      : this.getEventsByBuff(false, buff, EventType.Cast);
-    const castArray: number[][] = [];
-    castEvents &&
-      castEvents.forEach((c: CastEvent) => {
-        const index = castArray.findIndex((arr) => arr.includes(c.ability.guid));
-        if (index !== -1) {
-          castArray[index][1] += 1;
-        } else {
-          castArray.push([c.ability.guid, 1]);
-        }
-      });
-    return castArray;
   }
 
   /**
@@ -250,4 +228,4 @@ class StandardChecks extends Analyzer {
   }
 }
 
-export default StandardChecks;
+export default SharedCode;

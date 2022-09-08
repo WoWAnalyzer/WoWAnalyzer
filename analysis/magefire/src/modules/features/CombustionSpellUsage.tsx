@@ -6,31 +6,31 @@ import Analyzer from 'parser/core/Analyzer';
 import { EventType, CastEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
-import StandardChecks from '@wowanalyzer/mage/src/StandardChecks';
+import { SharedCode } from '@wowanalyzer/mage';
 
 class CombustionSpellUsage extends Analyzer {
   static dependencies = {
-    standardChecks: StandardChecks,
+    sharedCode: SharedCode,
   };
-  protected standardChecks!: StandardChecks;
+  protected sharedCode!: SharedCode;
 
   // prettier-ignore
   fireballCastsDuringCombustion = () => {
     
-    const casts = this.standardChecks.getEventsByBuff(true, SPELLS.COMBUSTION, EventType.Cast, SPELLS.FIREBALL);
+    const casts = this.sharedCode.getEventsByBuff(true, SPELLS.COMBUSTION, EventType.Cast, SPELLS.FIREBALL);
 
     //If the Begin Cast event was before Combustion started, then disregard it.
     const fireballCasts = casts.filter((e: CastEvent) => {
-      const beginCast = this.standardChecks.getEvents(true, EventType.BeginCast, SPELLS.FIREBALL, 1, e.timestamp)[0];
+      const beginCast = this.sharedCode.getEvents(true, EventType.BeginCast, SPELLS.FIREBALL, 1, e.timestamp)[0];
       return beginCast ? this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id, beginCast.timestamp) : false;
     });
     const tooltip = `This Fireball was cast during Combustion. Since Combustion has a short duration, you are better off using your instant abilities to get as many instant/free Pyroblasts as possible. If you run out of instant abilities, cast Scorch instead since it has a shorter cast time.`;
-    fireballCasts && this.standardChecks.highlightInefficientCast(fireballCasts, tooltip);
+    fireballCasts && this.sharedCode.highlightInefficientCast(fireballCasts, tooltip);
     return fireballCasts.length;
   }
 
   get fireballBeginCasts() {
-    return this.standardChecks.countEventsByBuff(
+    return this.sharedCode.countEventsByBuff(
       true,
       SPELLS.COMBUSTION,
       EventType.BeginCast,
@@ -42,7 +42,7 @@ class CombustionSpellUsage extends Analyzer {
     return {
       actual:
         this.fireballCastsDuringCombustion() /
-        this.standardChecks.countEvents(EventType.Cast, SPELLS.COMBUSTION),
+        this.sharedCode.countEvents(EventType.Cast, SPELLS.COMBUSTION),
       isGreaterThan: {
         minor: 0,
         average: 0.5,

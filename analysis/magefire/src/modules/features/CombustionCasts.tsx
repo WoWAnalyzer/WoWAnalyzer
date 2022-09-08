@@ -7,13 +7,13 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import StandardChecks from '@wowanalyzer/mage/src/StandardChecks';
+import { SharedCode } from '@wowanalyzer/mage';
 
 class CombustionCasts extends Analyzer {
   static dependencies = {
-    standardChecks: StandardChecks,
+    sharedCode: SharedCode,
   };
-  protected standardChecks!: StandardChecks;
+  protected sharedCode!: SharedCode;
 
   statistic() {
     return (
@@ -47,7 +47,7 @@ class CombustionCasts extends Analyzer {
                     <small>% of Total Combust Casts</small>
                   </td>
                 </tr>
-                {this.standardChecks
+                {this.sharedCode
                   .castBreakdownByBuff(true, SPELLS.COMBUSTION)
                   .sort((a, b) => b[1] - a[1])
                   .map((spell) => (
@@ -59,7 +59,7 @@ class CombustionCasts extends Analyzer {
                       <td style={{ textAlign: 'center' }}>
                         {formatPercentage(
                           spell[1] /
-                            this.standardChecks.countEventsByBuff(
+                            this.sharedCode.countEventsByBuff(
                               true,
                               SPELLS.COMBUSTION,
                               EventType.Cast,
