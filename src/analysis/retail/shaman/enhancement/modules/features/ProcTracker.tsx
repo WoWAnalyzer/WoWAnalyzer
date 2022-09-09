@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 import { Panel } from 'interface';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
@@ -8,7 +8,7 @@ import CooldownOverview from 'parser/ui/CooldownOverview';
 class ProcTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     {
-      spell: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id,
+      spell: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];

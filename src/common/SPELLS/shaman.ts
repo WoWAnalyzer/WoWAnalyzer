@@ -7,21 +7,11 @@
 import { spellIndexableList } from './Spell';
 
 const spells = spellIndexableList({
-  ASTRAL_SHIFT: {
-    id: 108271,
-    name: 'Astral Shift',
-    icon: 'ability_shaman_astralshift',
-  },
   PURIFY_SPIRIT: {
     id: 77130,
     name: 'Purify Spirit',
     icon: 'ability_shaman_cleansespirit',
     manaCost: 650,
-  },
-  WIND_SHEAR: {
-    id: 57994,
-    name: 'Wind Shear',
-    icon: 'spell_nature_cyclone',
   },
   EARTHBIND_TOTEM: {
     id: 2484,
@@ -33,12 +23,6 @@ const spells = spellIndexableList({
     id: 262417,
     name: 'Resonance Totem',
     icon: 'spell_nature_stoneskintotem',
-  },
-  PURGE: {
-    id: 370,
-    name: 'Purge',
-    icon: 'spell_nature_purge',
-    manaCost: 800, // enh/ele cost is higher
   },
   FAR_SIGHT: {
     id: 6196,
@@ -65,12 +49,6 @@ const spells = spellIndexableList({
     name: "Nature's Guardian",
     icon: 'spell_nature_natureguardian',
   },
-  TREMOR_TOTEM: {
-    id: 8143,
-    name: 'Tremor Totem',
-    icon: 'spell_nature_tremortotem',
-    manaCost: 230,
-  },
   SPIRIT_WOLF_BUFF: {
     id: 260881,
     name: 'Spirit Wolf',
@@ -80,23 +58,6 @@ const spells = spellIndexableList({
     id: 379,
     name: 'Earth Shield',
     icon: 'spell_nature_skinofearth',
-  },
-  CAPACITOR_TOTEM: {
-    id: 192058,
-    name: 'Capacitor Totem',
-    icon: 'spell_nature_brilliance',
-    manaCost: 1000,
-  },
-  EARTH_ELEMENTAL: {
-    id: 198103,
-    name: 'Earth Elemental',
-    icon: 'spell_nature_earthelemental_totem',
-  },
-  CLEANSE_SPIRIT: {
-    id: 51886,
-    name: 'Cleanse Spirit',
-    icon: 'ability_shaman_cleansespirit',
-    manaCost: 650,
   },
   LIGHTNING_SHIELD: {
     id: 192106,
@@ -110,12 +71,6 @@ const spells = spellIndexableList({
     icon: 'spell_nature_lightningshield',
     manaCost: 150,
   },
-  FROST_SHOCK: {
-    id: 196840,
-    name: 'Frost Shock',
-    icon: 'spell_frost_frostshock',
-    manaCost: 100,
-  },
   PRIMAL_STRIKE: {
     id: 73899,
     name: 'Primal Strike',
@@ -128,11 +83,6 @@ const spells = spellIndexableList({
     icon: 'spell_nature_reincarnation',
   },
   // Hex and its variations
-  HEX: {
-    id: 51514,
-    name: 'Hex',
-    icon: 'spell_shaman_hex',
-  },
   HEX_RAPTOR: {
     id: 210873,
     name: 'Hex',
@@ -189,12 +139,6 @@ const spells = spellIndexableList({
     id: 8042,
     name: 'Earth Shock',
     icon: 'spell_nature_earthshock',
-  },
-  LAVA_BURST: {
-    id: 51505,
-    name: 'Lava Burst',
-    icon: 'spell_shaman_lavaburst',
-    manaCost: 250,
   },
   LAVA_BURST_DAMAGE: {
     id: 285452,
@@ -271,12 +215,6 @@ const spells = spellIndexableList({
     id: 170379,
     name: 'Earthen Rage Damage',
     icon: 'ability_earthen_pillar',
-  },
-  CHAIN_LIGHTNING: {
-    id: 188443,
-    name: 'Chain Lightning',
-    icon: 'spell_nature_chainlightning',
-    manaCost: 100,
   },
   CHAIN_LIGHTNING_INSTANT: {
     id: 195897,
@@ -388,11 +326,6 @@ const spells = spellIndexableList({
     name: 'Unlimited Power Buff',
     icon: 'ability_shaman_ascendance',
   },
-  THUNDERSTORM: {
-    icon: 'spell_shaman_thunderstorm',
-    id: 51490,
-    name: 'Thunderstorm',
-  },
   // Elemental Pet Spells
   WIND_GUST: {
     id: 157331,
@@ -430,17 +363,6 @@ const spells = spellIndexableList({
     icon: 'spell_fire_immolation',
   },
   // Enhancement Shaman
-  CRASH_LIGHTNING: {
-    id: 187874,
-    name: 'Crash Lightning',
-    icon: 'spell_shaman_crashlightning',
-    manaCost: 550,
-  },
-  FERAL_SPIRIT: {
-    id: 51533,
-    name: 'Feral Spirit',
-    icon: 'spell_shaman_feralspirit',
-  },
   FERAL_SPIRIT_LIGHTNING_TIER: {
     id: 363933,
     name: 'Feral Spirit',
@@ -480,12 +402,6 @@ const spells = spellIndexableList({
     id: 224127,
     name: 'Crackling Surge',
     icon: 'spell_beastmaster_wolf',
-  },
-  STORMSTRIKE_CAST: {
-    id: 17364,
-    name: 'Stormstrike',
-    icon: 'ability_shaman_stormstrike',
-    manaCost: 200,
   },
   STORMSTRIKE_DAMAGE: {
     id: 32175,
@@ -532,11 +448,6 @@ const spells = spellIndexableList({
     id: 204945,
     name: 'Doom Winds',
     icon: 'inv_mace_1h_artifactdoomhammer_d_01',
-  },
-  STORMBRINGER: {
-    id: 201845,
-    name: 'Stormbringer',
-    icon: 'spell_nature_stormreach',
   },
   STORMBRINGER_BUFF: {
     id: 201846,
@@ -590,11 +501,6 @@ const spells = spellIndexableList({
     name: 'Reincarnation',
     icon: 'spell_shaman_improvedreincarnation',
   },
-  SPIRIT_WALK: {
-    id: 58875,
-    name: 'Spirit Walk',
-    icon: 'ability_tracking',
-  },
   WINDLASH: {
     id: 114089,
     name: 'Windlash',
@@ -614,12 +520,6 @@ const spells = spellIndexableList({
     id: 25504,
     name: 'Windfury Attack',
     icon: 'spell_shaman_unleashweapon_wind',
-  },
-  WINDFURY_TOTEM: {
-    id: 8512,
-    name: 'Windfury Totem',
-    icon: 'spell_nature_windfury',
-    manaCost: 1200,
   },
   WINDFURY_TOTEM_BUFF: {
     id: 327942,
@@ -687,12 +587,6 @@ const spells = spellIndexableList({
     icon: 'spell_fire_playingwithfire',
   },
   // Restoration Shaman
-  CHAIN_HEAL: {
-    id: 1064,
-    name: 'Chain Heal',
-    icon: 'spell_nature_healingwavegreater',
-    manaCost: 3000,
-  },
   HEALING_WAVE: {
     id: 77472,
     name: 'Healing Wave',
@@ -726,12 +620,6 @@ const spells = spellIndexableList({
     id: 73921,
     name: 'Healing Rain',
     icon: 'spell_nature_giftofthewaterspirit',
-  },
-  HEALING_STREAM_TOTEM_CAST: {
-    id: 5394,
-    name: 'Healing Stream Totem',
-    icon: 'inv_spear_04',
-    manaCost: 900,
   },
   HEALING_STREAM_TOTEM_HEAL: {
     id: 52042,
@@ -805,12 +693,6 @@ const spells = spellIndexableList({
     id: 207400,
     name: 'Ancestral Vigor',
     icon: 'spell_shaman_blessingoftheeternals',
-  },
-  SPIRITWALKERS_GRACE: {
-    id: 79206,
-    name: "Spiritwalker's Grace",
-    icon: 'spell_shaman_spiritwalkersgrace',
-    manaCost: 1410,
   },
   WELLSPRING_HEAL: {
     id: 197997,

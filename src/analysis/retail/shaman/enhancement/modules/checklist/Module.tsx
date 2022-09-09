@@ -4,7 +4,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
 import { apl, check as aplCheck } from '../apl/AplCheck';
-import WindfuryTotem from '../core/WindfuryTotem';
+import WindfuryTotem from '../talents/WindfuryTotem';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import Component from './Component';
 // import Hailstorm from '../talents/Hailstorm';

@@ -1,4 +1,4 @@
-import { Vetyst, Vonn } from 'CONTRIBUTORS';
+import { Vonn, Vetyst } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import { AlertWarning } from 'interface';
@@ -8,8 +8,8 @@ import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
   contributors: [Vonn, Vetyst],
-  expansion: Expansion.Shadowlands,
-  patchCompatibility: '9.2.7',
+  expansion: Expansion.Dragonflight,
+  patchCompatibility: null,
   isPartial: true,
   description: (
     <>
@@ -23,7 +23,7 @@ const config: Config = {
       GitHub repo.
     </>
   ),
-  exampleReport: '/report/hG4KwrcdqA2QpyHg/1-Mythic+Vigilant+Guardian+-+Kill+(3:53)/Zugra/standard',
+  exampleReport: '',
 
   spec: SPECS.ENHANCEMENT_SHAMAN,
   changelog: CHANGELOG,

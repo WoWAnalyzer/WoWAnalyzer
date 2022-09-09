@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
@@ -13,7 +13,9 @@ class Tier28FourSet extends Analyzer {
 
   get threshold() {
     return {
-      actual: this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_SPIRITS_TALENT.id),
+      actual: this.selectedCombatant.hasTalent(
+        TALENTS_SHAMAN.ELEMENTAL_SPIRITS_ENHANCEMENT_TALENT.id,
+      ),
       isEqual: false,
       style: ThresholdStyle.BOOLEAN,
     };
@@ -23,11 +25,12 @@ class Tier28FourSet extends Analyzer {
     when(this.threshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          It is strongly adviced to select the <SpellLink id={SPELLS.ELEMENTAL_SPIRITS_TALENT.id} />{' '}
-          talent while wearing the T28 tier 4 piece set.
+          It is strongly adviced to select the{' '}
+          <SpellLink id={TALENTS_SHAMAN.ELEMENTAL_SPIRITS_ENHANCEMENT_TALENT.id} /> talent while
+          wearing the T28 tier 4 piece set.
         </>,
       )
-        .icon(SPELLS.ELEMENTAL_SPIRITS_TALENT.icon)
+        .icon(TALENTS_SHAMAN.ELEMENTAL_SPIRITS_ENHANCEMENT_TALENT.icon)
         .staticImportance(ISSUE_IMPORTANCE.MINOR),
     );
   }

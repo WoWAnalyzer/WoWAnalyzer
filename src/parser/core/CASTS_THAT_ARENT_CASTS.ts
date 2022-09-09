@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 const spells: number[] = [
   /**
@@ -22,7 +23,7 @@ const spells: number[] = [
   SPELLS.DIVINE_HYMN_HEAL.id, //The heal component of divine hymn
   SPELLS.CHARGE_2.id, // The damage component of charge
   SPELLS.CLOUDBURST_TOTEM_RECALL.id, // Cloudburst reactivation
-  SPELLS.SPIRITWALKERS_GRACE.id,
+  TALENTS_SHAMAN.SPIRITWALKERS_GRACE_TALENT.id,
   //endregion
 
   //region Consumables

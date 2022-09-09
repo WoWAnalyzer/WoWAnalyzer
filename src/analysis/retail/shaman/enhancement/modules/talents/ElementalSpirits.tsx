@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
@@ -15,7 +16,14 @@ class ElementalSpirits extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_SPIRITS_TALENT);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_SHAMAN.ELEMENTAL_SPIRITS_ENHANCEMENT_TALENT.id,
+    );
+
+    if (!this.active) {
+      return;
+    }
+
     if (!this.active) {
       return;
     }
@@ -78,7 +86,7 @@ class ElementalSpirits extends Analyzer {
       <Statistic position={STATISTIC_ORDER.OPTIONAL()} category={STATISTIC_CATEGORY.TALENTS}>
         <div className="pad">
           <label>
-            <SpellLink id={SPELLS.ELEMENTAL_SPIRITS_TALENT.id} /> distribution
+            <SpellLink id={TALENTS_SHAMAN.ELEMENTAL_SPIRITS_ENHANCEMENT_TALENT.id} /> distribution
           </label>
           {this.elementalSpiritsDonut()}
         </div>

@@ -6,6 +6,7 @@ import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 const FERAL_SPIRIT_SPELLS = [
   SPELLS.FERAL_SPIRIT_LIGHTNING_TIER,
@@ -44,7 +45,7 @@ class Tier28TwoSet extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
       >
         <BoringSpellValue
-          spellId={SPELLS.FERAL_SPIRIT.id}
+          spellId={TALENTS_SHAMAN.FERAL_SPIRIT_ENHANCEMENT_TALENT.id}
           value={formatNumber(this.feralSpiritsGained)}
           label="Feral Spirits gained from tier set bonus"
         />

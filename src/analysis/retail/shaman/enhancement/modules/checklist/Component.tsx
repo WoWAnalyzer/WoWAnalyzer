@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
@@ -30,8 +31,9 @@ const EnhancementShamanChecklist = (props: ChecklistProps & AplRuleProps) => {
           <>
             You should try to avoid doing nothing during the fight. If you have to move, try casting
             something instant with range like <SpellLink id={SPELLS.FLAME_SHOCK.id} />,{' '}
-            <SpellLink id={SPELLS.FROST_SHOCK.id} />, or an instant{' '}
-            <SpellLink id={SPELLS.LIGHTNING_BOLT.id} />/<SpellLink id={SPELLS.CHAIN_LIGHTNING.id} />
+            <SpellLink id={TALENTS_SHAMAN.FROST_SHOCK_TALENT.id} />, or an instant{' '}
+            <SpellLink id={SPELLS.LIGHTNING_BOLT.id} />/
+            <SpellLink id={TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT.id} />
           </>
         }
       >
@@ -53,9 +55,9 @@ const EnhancementShamanChecklist = (props: ChecklistProps & AplRuleProps) => {
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.FERAL_SPIRIT.id} />
-        {combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id) && (
-          <AbilityRequirement spell={SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id} />
+        <AbilityRequirement spell={TALENTS_SHAMAN.FERAL_SPIRIT_ENHANCEMENT_TALENT.id} />
+        {combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id} />
         )}
         {combatant.hasCovenant(COVENANTS.KYRIAN.id) && (
           <AbilityRequirement spell={SPELLS.VESPER_TOTEM.id} />
@@ -68,12 +70,6 @@ const EnhancementShamanChecklist = (props: ChecklistProps & AplRuleProps) => {
         )}
         {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
           <AbilityRequirement spell={SPELLS.CHAIN_HARVEST.id} />
-        )}
-        {combatant.hasTalent(SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id) && (
-          <AbilityRequirement spell={SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id} />
-        )}
-        {combatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.EARTHEN_SPIKE_TALENT.id} />
         )}
       </Rule>
       <Rule
@@ -106,8 +102,9 @@ const EnhancementShamanChecklist = (props: ChecklistProps & AplRuleProps) => {
         {...props}
         name="Single Target APL checker (beta)"
         cooldowns={[
-          SPELLS.FERAL_SPIRIT,
-          SPELLS.ASCENDANCE_TALENT_ENHANCEMENT,
+          // TODO: Enable talent as spell
+          // TALENTS_SHAMAN.FERAL_SPIRIT_ENHANCEMENT_TALENT,
+          // TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT,
           SPELLS.VESPER_TOTEM,
           SPELLS.PRIMORDIAL_WAVE_CAST,
           SPELLS.FAE_TRANSFUSION,

@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -32,7 +33,13 @@ class ElementalAssault extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_ASSAULT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_SHAMAN.ELEMENTAL_ASSAULT_ENHANCEMENT_TALENT.id,
+    );
+
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(STORMSTRIKE_DAMAGE_SPELLS),
@@ -61,7 +68,7 @@ class ElementalAssault extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
       >
-        <BoringSpellValueText spellId={SPELLS.ELEMENTAL_ASSAULT_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_SHAMAN.ELEMENTAL_ASSAULT_ENHANCEMENT_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damageGained} />
             <br />
