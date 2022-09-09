@@ -11,7 +11,7 @@
 // import ArcaneMage from 'analysis/retail/mage/arcane';
 // import FireMage from 'analysis/retail/mage/fire';
 // import FrostMage from 'analysis/retail/mage/frost';
-// import BrewmasterMonk from 'analysis/retail/monk/brewmaster';
+import BrewmasterMonk from 'analysis/retail/monk/brewmaster';
 // import MistweaverMonk from 'analysis/retail/monk/mistweaver';
 // import WindwalkerMonk from 'analysis/retail/monk/windwalker';
 // import HolyPaladin from 'analysis/retail/paladin/holy';
@@ -72,7 +72,7 @@ const configs: Config[] = [
   // FireMage,
   // ArcaneMage,
 
-  // BrewmasterMonk,
+  BrewmasterMonk,
   // WindwalkerMonk,
   // MistweaverMonk,
 

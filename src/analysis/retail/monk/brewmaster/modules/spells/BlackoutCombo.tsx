@@ -1,11 +1,12 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/monk';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { AnyEvent, CastEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -31,11 +32,11 @@ class BlackoutCombo extends Analyzer {
   blackoutComboConsumed = 0;
   blackoutComboBuffs = 0;
   lastBlackoutComboCast = 0;
-  spellsBOCWasUsedOn = {};
+  spellsBOCWasUsedOn: Record<number, number> = {};
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BLACKOUT_COMBO_TALENT.id);
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(talents.BLACKOUT_COMBO_BREWMASTER_TALENT.id);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF),
       this.onApplyBuff,
@@ -50,19 +51,19 @@ class BlackoutCombo extends Analyzer {
     );
   }
 
-  onApplyBuff(event) {
+  onApplyBuff(event: AnyEvent) {
     debug && console.log('Blackout combo applied');
     this.blackoutComboBuffs += 1;
     this.lastBlackoutComboCast = event.timestamp;
   }
 
-  onRefreshBuff(event) {
+  onRefreshBuff(event: AnyEvent) {
     debug && console.log('Blackout combo refreshed');
     this.blackoutComboBuffs += 1;
     this.lastBlackoutComboCast = event.timestamp;
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     // BOC should be up
     if (
@@ -78,7 +79,7 @@ class BlackoutCombo extends Analyzer {
     this.lastBlackoutComboCast = 0;
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     const wastedPerc =
       (this.blackoutComboBuffs - this.blackoutComboConsumed) / this.blackoutComboBuffs;
 
@@ -99,7 +100,7 @@ class BlackoutCombo extends Analyzer {
               message: `${formatPercentage(actual)}% unused`,
             }),
           )
-          .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
+          .recommended(`${formatPercentage(recommended)}% or less is recommended`)
           .regular(recommended + 0.1)
           .major(recommended + 0.2),
       );
@@ -121,6 +122,7 @@ class BlackoutCombo extends Analyzer {
             Blackout combo buff usage:
             <ul>
               {Object.keys(this.spellsBOCWasUsedOn)
+                .map(Number)
                 .sort((a, b) => this.spellsBOCWasUsedOn[b] - this.spellsBOCWasUsedOn[a])
                 .map((type) => (
                   <li key={type}>

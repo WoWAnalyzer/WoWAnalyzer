@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/monk';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
@@ -10,7 +11,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { WALK_WITH_THE_OX_DAMAGE_INCREASE } from '../../../constants';
+import { WALK_WITH_THE_OX_DAMAGE_INCREASE } from '../../constants';
 
 const COOLDOWN_REDUCTION = 500;
 
@@ -42,7 +43,7 @@ export default class WalkWithTheOx extends Analyzer {
       this.reduceCooldown,
     );
     this.addEventListener(
-      Events.cast.spell(SPELLS.KEG_SMASH).by(SELECTED_PLAYER),
+      Events.cast.spell(talents.KEG_SMASH_BREWMASTER_TALENT).by(SELECTED_PLAYER),
       this.reduceCooldown,
     );
     // SCK generates 1 shuffle application per tick of the channel that hits at
@@ -66,9 +67,9 @@ export default class WalkWithTheOx extends Analyzer {
   }
 
   private reduceCooldown() {
-    if (this.spellUsable.isOnCooldown(SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id)) {
+    if (this.spellUsable.isOnCooldown(talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id)) {
       const cdr = this.spellUsable.reduceCooldown(
-        SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id,
+        talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id,
         COOLDOWN_REDUCTION,
       );
       this.effCdr += cdr;

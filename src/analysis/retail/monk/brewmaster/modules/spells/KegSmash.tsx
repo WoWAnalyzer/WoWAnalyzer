@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import talents from 'common/TALENTS/monk';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
 
 import SharedBrews from '../core/SharedBrews';
 import BlackoutCombo from './BlackoutCombo';
@@ -14,6 +15,9 @@ class KegSmash extends Analyzer {
     brews: SharedBrews,
   };
 
+  protected brews!: SharedBrews;
+  protected boc!: BlackoutCombo;
+
   totalCasts = 0;
   bocHits = 0;
 
@@ -24,7 +28,7 @@ class KegSmash extends Analyzer {
 
   _bocBuffActive = false;
 
-  constructor(options) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF),
@@ -38,18 +42,18 @@ class KegSmash extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF),
       this.onLoseBOC,
     );
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KEG_SMASH), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(talents.KEG_SMASH_BREWMASTER_TALENT), this.onCast);
   }
 
-  onGainBOC(event) {
+  onGainBOC() {
     this._bocBuffActive = true;
   }
 
-  onLoseBOC(event) {
+  onLoseBOC() {
     this._bocBuffActive = false;
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     this.totalCasts += 1;
 
     const actualReduction = this.brews.reduceCooldown(KEG_SMASH_REDUCTION);

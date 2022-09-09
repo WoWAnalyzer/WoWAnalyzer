@@ -46,7 +46,6 @@ class Abilities extends Module {
 
   /**
    * Add an ability to the list of active abilities.
-   * @param {object} options An object with all the properties and their values that gets passed to the Ability class.
    */
   add(options: SpellbookAbility) {
     const ability = new Ability(this, options);
@@ -56,10 +55,8 @@ class Abilities extends Module {
 
   /**
    * Returns the first ACTIVE spellInfo with the given spellId (or undefined if there is no such spellInfo)
-   *
-   * @return {Ability}
    */
-  getAbility(spellId: number) {
+  getAbility(spellId: number): Ability | undefined {
     const ability = this.activeAbilities.find((ability) => {
       if (ability.spell instanceof Array) {
         return ability.spell.includes(spellId);

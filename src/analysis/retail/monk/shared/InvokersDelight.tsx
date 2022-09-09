@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/monk';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Buffs from 'parser/core/modules/Auras';
 
@@ -11,7 +12,7 @@ class InvokersDelight extends Analyzer {
   constructor(options: Options & { buffs: Buffs }) {
     super(options);
 
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.INVOKERS_DELIGHT);
+    this.active = this.selectedCombatant.hasTalent(talents.INVOKERS_DELIGHT_WINDWALKER_TALENT) || this.selectedCombatant.hasTalent(talents.INVOKERS_DELIGHT_MISTWEAVER_TALENT);
     if (!this.active) {
       return;
     }
@@ -20,10 +21,9 @@ class InvokersDelight extends Analyzer {
       spellId: SPELLS.INVOKERS_DELIGHT_BUFF.id,
       timelineHighlight: true,
       triggeredBySpellId: [
-        SPELLS.INVOKE_XUEN_THE_WHITE_TIGER.id,
-        SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id,
-        SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id,
-        SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
+        talents.INVOKE_XUEN_THE_WHITE_TIGER_WINDWALKER_TALENT.id,
+        talents.INVOKE_CHI_JI_THE_RED_CRANE_MISTWEAVER_TALENT.id,
+        talents.INVOKE_YULON_THE_JADE_SERPENT_MISTWEAVER_TALENT.id,
       ],
     });
 

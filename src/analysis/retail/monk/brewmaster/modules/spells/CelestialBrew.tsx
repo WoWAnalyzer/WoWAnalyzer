@@ -1,5 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -38,17 +39,19 @@ class CelestialBrew extends Analyzer {
   constructor(options: Options) {
     super(options);
 
+    this.active = this.selectedCombatant.hasTalent(talents.CELESTIAL_BREW_BREWMASTER_TALENT);
+
     this._absorbs = [];
 
     this.addEventListener(
-      Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.CELESTIAL_BREW),
+      Events.absorbed.by(SELECTED_PLAYER).spell(talents.CELESTIAL_BREW_BREWMASTER_TALENT),
       this._cbAbsorb,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CELESTIAL_BREW),
+      Events.cast.by(SELECTED_PLAYER).spell(talents.CELESTIAL_BREW_BREWMASTER_TALENT),
       this._resetAbsorb,
     );
-    this.addEventListener(Events.removebuff.spell(SPELLS.CELESTIAL_BREW), this._expireAbsorb);
+    this.addEventListener(Events.removebuff.spell(talents.CELESTIAL_BREW_BREWMASTER_TALENT), this._expireAbsorb);
     this.addEventListener(
       Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.PURIFIED_CHI),
       this._purifiedChiApplied,
@@ -90,11 +93,11 @@ class CelestialBrew extends Analyzer {
     when(this.goodCastSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should try to use <SpellLink id={SPELLS.CELESTIAL_BREW.id} /> when most or all of the
+          You should try to use <SpellLink id={talents.CELESTIAL_BREW_BREWMASTER_TALENT.id} /> when most or all of the
           absorb will be consumed.
         </>,
       )
-        .icon(SPELLS.CELESTIAL_BREW.icon)
+        .icon(talents.CELESTIAL_BREW_BREWMASTER_TALENT.icon)
         .actual(
           `${formatPercentage(actual)}% of your absorbs expired with more than 25% remaining.`,
         )
@@ -197,7 +200,7 @@ class CelestialBrew extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellIcon id={SPELLS.CELESTIAL_BREW.id} /> Avg. Absorb per Celestial Brew
+              <SpellIcon id={talents.CELESTIAL_BREW_BREWMASTER_TALENT.id} /> Avg. Absorb per Celestial Brew
             </>
           }
         >

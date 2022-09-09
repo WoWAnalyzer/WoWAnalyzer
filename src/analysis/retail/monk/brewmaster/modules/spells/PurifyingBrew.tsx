@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/monk';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -133,11 +134,11 @@ class PurifyingBrew extends Analyzer {
     when(this.purifyDelaySuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should delay your <SpellLink id={SPELLS.PURIFYING_BREW.id} /> cast as little as
+          You should delay your <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> cast as little as
           possible after being hit to maximize its effectiveness.
         </>,
       )
-        .icon(SPELLS.PURIFYING_BREW.icon)
+        .icon(talents.PURIFYING_BREW_BREWMASTER_TALENT.icon)
         .actual(
           t({
             id: 'monk.brewmaster.suggestions.purifyingBrew.avgdelay',
@@ -207,7 +208,7 @@ class PurifyingBrew extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellIcon id={SPELLS.PURIFYING_BREW.id} /> Avg. Mitigation per Purifying Brew
+              <SpellIcon id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> Avg. Mitigation per Purifying Brew
             </>
           }
         >
@@ -228,9 +229,9 @@ class PurifyingBrew extends Analyzer {
 
   private _addstagger(event: AddStaggerEvent) {
     this._lastHit = event;
-    this._msTilPurify = this.spells.isAvailable(SPELLS.PURIFYING_BREW.id)
+    this._msTilPurify = this.spells.isAvailable(talents.PURIFYING_BREW_BREWMASTER_TALENT.id)
       ? 0
-      : this.spells.cooldownRemaining(SPELLS.PURIFYING_BREW.id);
+      : this.spells.cooldownRemaining(talents.PURIFYING_BREW_BREWMASTER_TALENT.id);
   }
 
   private _removestagger(event: RemoveStaggerEvent) {
@@ -254,7 +255,7 @@ class PurifyingBrew extends Analyzer {
     }
 
     // tracking purification
-    if (!event.trigger!.ability || event.trigger!.ability.guid !== SPELLS.PURIFYING_BREW.id) {
+    if (!event.trigger!.ability || event.trigger!.ability.guid !== talents.PURIFYING_BREW_BREWMASTER_TALENT.id) {
       // reset this, if we lost heavy stagger then death or another ability took us out of heavy stagger
       this._heavyStaggerDropped = false;
       return;

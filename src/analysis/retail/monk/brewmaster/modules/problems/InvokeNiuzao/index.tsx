@@ -1,5 +1,6 @@
 import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/monk';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { AlertWarning, ControlledExpandable, SpellLink, Tooltip } from 'interface';
 import { GuideProps, PassFailBar, Section, SectionHeader, SubSection } from 'interface/guide';
@@ -17,17 +18,17 @@ import { InvokeNiuzaoSummaryChart } from './chart';
 export { InvokeNiuzao } from './analyzer';
 
 const NIUZAO_BUFF_ID_TO_CAST = {
-  [SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id]: SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id,
+  [talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id]: talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id,
   [SPELLS.CTA_INVOKE_NIUZAO_BUFF.id]: SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id,
 };
 
 const MAX_STOMPS = {
-  [SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id]: 5,
+  [talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id]: 5,
   [SPELLS.CTA_INVOKE_NIUZAO_BUFF.id]: 3,
 };
 
 const TARGET_PURIFIES = {
-  [SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id]: 6,
+  [talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id]: 6,
   [SPELLS.CTA_INVOKE_NIUZAO_BUFF.id]: 4,
 };
 
@@ -112,7 +113,7 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
                 </tr>
                 <tr>
                   <td>
-                    Started with 1+ <SpellLink id={SPELLS.PURIFYING_BREW.id} /> Charge
+                    Started with 1+ <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> Charge
                   </td>
                   <td>
                     <PassFailCheckmark pass={cast.purifyingAtCast.charges >= 1} />
@@ -144,7 +145,7 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
                 </tr>
                 <tr>
                   <td>
-                    Used <SpellLink id={SPELLS.PURIFYING_BREW.id} /> to Buff{' '}
+                    Used <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> to Buff{' '}
                     <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />
                   </td>
                   <td>
@@ -194,7 +195,7 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
                 </tr>
                 <tr>
                   <td>
-                    Possible <SpellLink id={SPELLS.PURIFYING_BREW.id} /> Casts
+                    Possible <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> Casts
                   </td>
                   <td className="pass-fail-counts">
                     {formatNumber(cast.purifies.length)} /{' '}
@@ -246,7 +247,7 @@ export function InvokeNiuzaoSection({
   module: InvokeNiuzao;
 }): JSX.Element {
   const efficiency = castEfficiency.getCastEfficiencyForSpellId(
-    SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id,
+    talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id,
   )!;
 
   const wooEfficiency = castEfficiency.getCastEfficiencyForSpellId(
@@ -256,40 +257,40 @@ export function InvokeNiuzaoSection({
   return (
     <Section title="Invoke Niuzao, the Black Ox">
       <p>
-        <SpellLink id={SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id} /> is one of the most powerful damage
+        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} /> is one of the most powerful damage
         cooldowns in the game&mdash;and one of the most dangerous. Using this ability, we can
         efficiently turn massive amounts of damage taken into massive amounts of damage dealt.
       </p>
       <p>
-        The level 58 upgrade to this ability causes <SpellLink id={SPELLS.PURIFYING_BREW.id} /> to
+        The level 58 upgrade to this ability causes <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} /> to
         add 25% of the purified damage to the next <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />{' '}
         within 6 seconds. Niuzao casts <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> when he is
         summoned, and then every 5 seconds after that, for a total of 5
         <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />s per{' '}
-        <SpellLink id={SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id} />.
-        {info.combatant.hasCovenant(COVENANTS.KYRIAN.id) && (
+        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} />.
+        {info.combatant.hasTalent(talents.CALL_TO_ARMS_BREWMASTER_TALENT) && (
           <>
             {' '}
-            A cast of <SpellLink id={SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id} /> will trigger 3{' '}
+            A cast of <SpellLink id={talents.WEAPONS_OF_ORDER_BREWMASTER_TALENT.id} /> will trigger 3{' '}
             <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />
             s&mdash;though this Niuzao has some issues hitting bosses with large models.
           </>
         )}{' '}
-        Casting <SpellLink id={SPELLS.PURIFYING_BREW.id} /> prior to summoning Niuzao will
+        Casting <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> prior to summoning Niuzao will
         contribute to the damage of the first <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />.
       </p>
       <p>
         Unlike most damage cooldowns, it is frequently correct to sacrifice a cast of{' '}
-        <SpellLink id={SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id} /> in order to get a better cast later.
+        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} /> in order to get a better cast later.
         This is because <em>so much</em> of the damage of this cooldown is tied up in using{' '}
-        <SpellLink id={SPELLS.PURIFYING_BREW.id} /> to convert damage taken into damage dealt that a
+        <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> to convert damage taken into damage dealt that a
         single <em>great</em> cast can be worth more than multiple mediocre casts.
       </p>
       <table className="hits-list">
         <tbody>
           <tr>
             <td>
-              <SpellLink id={SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id} /> casts
+              <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} /> casts
             </td>
 
             <td className="pass-fail-counts">

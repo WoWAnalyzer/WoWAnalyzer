@@ -1,9 +1,11 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies, {
   encodeEventSourceString,
   encodeTargetString,
@@ -13,6 +15,8 @@ import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
 const DEBUG_ABILITIES = false;
 
 class BreathOfFire extends Analyzer {
+  protected enemies!: Enemies;
+
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.BREATH_OF_FIRE_DEBUFF.id) / this.owner.fightDuration;
   }
@@ -30,7 +34,7 @@ class BreathOfFire extends Analyzer {
         average: 0.6,
         major: 0.5,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -40,12 +44,12 @@ class BreathOfFire extends Analyzer {
   hitsWithBoF = 0;
   hitsWithoutBoF = 0;
 
-  constructor(options) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
   }
 
-  onDamageTaken(event) {
+  onDamageTaken(event: DamageEvent) {
     if (event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
       return;
     }
@@ -67,15 +71,15 @@ class BreathOfFire extends Analyzer {
     }
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> usage can be improved. The associated
+          Your <SpellLink id={talents.BREATH_OF_FIRE_BREWMASTER_TALENT.id} /> usage can be improved. The associated
           debuff is a key part of our damage mitigation.
         </>,
       )
-        .icon(SPELLS.BREATH_OF_FIRE.icon)
+        .icon(talents.BREATH_OF_FIRE_BREWMASTER_TALENT.icon)
         .actual(
           t({
             id: 'monk.brewmaster.suggestions.breathOfFire.hitsMitigated',

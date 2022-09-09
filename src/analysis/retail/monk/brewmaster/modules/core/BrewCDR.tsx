@@ -7,6 +7,7 @@ import Events, { ChangeHasteEvent, EventType } from 'parser/core/Events';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import talents from 'common/TALENTS/monk';
 
 import Abilities from '../Abilities';
 import BlackOxBrew from '../spells/BlackOxBrew';
@@ -48,7 +49,7 @@ class BrewCDR extends Analyzer {
     // ...and TP...
     totalCDR += this.tp.cdr;
     // ...and BoB...
-    totalCDR += this.bob.cdr[SPELLS.PURIFYING_BREW.id];
+    totalCDR += this.bob.cdr[talents.PURIFYING_BREW_BREWMASTER_TALENT.id];
     return totalCDR;
   }
 
@@ -57,7 +58,7 @@ class BrewCDR extends Analyzer {
       this.ks.wastedCDR +
       this.ks.wastedBocCDR +
       this.tp.wastedCDR +
-      this.bob.wastedCDR[SPELLS.PURIFYING_BREW.id] +
+      this.bob.wastedCDR[talents.PURIFYING_BREW_BREWMASTER_TALENT.id] +
       this.totalCDR
     );
   }
@@ -86,7 +87,7 @@ class BrewCDR extends Analyzer {
   }
 
   get avgCooldown() {
-    const ability = this.abilities.getAbility(SPELLS.PURIFYING_BREW.id)!;
+    const ability = this.abilities.getAbility(talents.PURIFYING_BREW_BREWMASTER_TALENT.id)!;
     return ability.getCooldown(this.meanHaste);
   }
 
@@ -119,9 +120,15 @@ class BrewCDR extends Analyzer {
               {this.bob.active && (
                 <li>
                   {this.bob.casts} Black Ox Brew casts —{' '}
-                  <strong>{(this.bob.cdr[SPELLS.PURIFYING_BREW.id] / 1000).toFixed(2)}s</strong> (
                   <strong>
-                    {(this.bob.wastedCDR[SPELLS.PURIFYING_BREW.id] / 1000).toFixed(2)}s
+                    {(this.bob.cdr[talents.PURIFYING_BREW_BREWMASTER_TALENT.id] / 1000).toFixed(2)}s
+                  </strong>{' '}
+                  (
+                  <strong>
+                    {(
+                      this.bob.wastedCDR[talents.PURIFYING_BREW_BREWMASTER_TALENT.id] / 1000
+                    ).toFixed(2)}
+                    s
                   </strong>{' '}
                   wasted)
                 </li>

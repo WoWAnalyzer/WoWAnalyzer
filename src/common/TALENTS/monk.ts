@@ -242,6 +242,12 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   PURIFYING_BREW_BREWMASTER_TALENT: {
+    id: 119582,
+    name: 'Purifying Brew',
+    icon: 'inv_misc_beer_06',
+    maxRanks: 1,
+  },
+  PURIFYING_BREW_RANK_2_BREWMASTER_TALENT: {
     id: 343743,
     name: 'Purifying Brew',
     icon: 'inv_misc_beer_06',
@@ -392,8 +398,14 @@ const talents = createTalentList({
     icon: 'ability_creature_cursed_04',
     maxRanks: 1,
   },
-  INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT: {
+  INVOKE_NIUZAO_THE_BLACK_OX_RANK_2_BREWMASTER_TALENT: {
     id: 322740,
+    name: 'Invoke Niuzao, the Black Ox',
+    icon: 'spell_monk_brewmaster_spec',
+    maxRanks: 1,
+  },
+  INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT: {
+    id: 132578,
     name: 'Invoke Niuzao, the Black Ox',
     icon: 'spell_monk_brewmaster_spec',
     maxRanks: 1,

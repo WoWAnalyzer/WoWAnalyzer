@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/monk';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { DamageEvent, EventType, RemoveStaggerEvent } from 'parser/core/Events';
 import BaseChart, { defaultConfig } from 'parser/ui/BaseChart';
@@ -65,7 +66,7 @@ export function InvokeNiuzaoSummaryChart({
       .filter(
         (event) =>
           event.type === EventType.RemoveStagger &&
-          event.trigger?.ability.guid === SPELLS.PURIFYING_BREW.id,
+          event.trigger?.ability.guid === talents.PURIFYING_BREW_BREWMASTER_TALENT.id,
       )
       .map((e) => {
         const event = e as RemoveStaggerEvent;

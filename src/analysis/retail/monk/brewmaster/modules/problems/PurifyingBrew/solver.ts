@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/monk';
 import { AddStaggerEvent, EventType, RemoveStaggerEvent } from 'parser/core/Events';
 
 import type { TrackedStaggerData } from './analyzer';
@@ -182,7 +182,7 @@ export function potentialStaggerEvents(
   return events.map(({ type, amount, timestamp, trigger }) => {
     if (
       type === EventType.RemoveStagger &&
-      (trigger === undefined || trigger.ability.guid === SPELLS.PURIFYING_BREW.id)
+      (trigger === undefined || trigger.ability.guid === talents.PURIFYING_BREW_BREWMASTER_TALENT.id)
     ) {
       staggerPool -= staggerPool / 2;
     } else if (type === EventType.RemoveStagger) {

@@ -1,12 +1,12 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 // the buff events all use this spell
-export const RUSHING_JADE_WIND_BUFF = SPELLS.RUSHING_JADE_WIND;
+export const RUSHING_JADE_WIND_BUFF = talents.RUSHING_JADE_WIND_BREWMASTER_TALENT;
 
 class RushingJadeWind extends Analyzer {
   get uptimeThreshold() {
@@ -27,30 +27,27 @@ class RushingJadeWind extends Analyzer {
     );
   }
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.RUSHING_JADE_WIND.id);
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(talents.RUSHING_JADE_WIND_BREWMASTER_TALENT.id);
   }
 
-  // using a suggestion rather than a checklist item for this as RJW is
-
-  // purely offensive
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You had low uptime on <SpellLink id={SPELLS.RUSHING_JADE_WIND.id} />. Try to maintain 100%
+          You had low uptime on <SpellLink id={talents.RUSHING_JADE_WIND_BREWMASTER_TALENT.id} />. Try to maintain 100%
           uptime by refreshing the buff before it drops.
         </>,
       )
-        .icon(SPELLS.RUSHING_JADE_WIND.icon)
+        .icon(talents.RUSHING_JADE_WIND_BREWMASTER_TALENT.icon)
         .actual(
           t({
             id: 'monk.brewmaster.suggestions.rushingJadeWind.uptime',
             message: `${formatPercentage(actual)}% uptime`,
           }),
         )
-        .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`),
+        .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }
 }

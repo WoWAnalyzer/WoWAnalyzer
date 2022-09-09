@@ -11,19 +11,27 @@ import {
   hasLegendary,
   hasConduit,
   optional,
+  hasTalent,
 } from 'parser/shared/metrics/apl/conditions';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
+import talents from 'common/TALENTS/monk';
 
 export const apl = build([
   SPELLS.BONEDUST_BREW_CAST,
-  { spell: SPELLS.KEG_SMASH, condition: buffPresent(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL) },
-  { spell: SPELLS.BREATH_OF_FIRE, condition: hasLegendary(SPELLS.CHARRED_PASSIONS) },
   {
-    spell: SPELLS.KEG_SMASH,
+    spell: talents.KEG_SMASH_BREWMASTER_TALENT,
+    condition: buffPresent(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL),
+  },
+  {
+    spell: talents.BREATH_OF_FIRE_BREWMASTER_TALENT,
+    condition: hasLegendary(SPELLS.CHARRED_PASSIONS),
+  },
+  {
+    spell: talents.KEG_SMASH_BREWMASTER_TALENT,
     condition: cnd.describe(
       cnd.and(
-        hasLegendary(SPELLS.STORMSTOUTS_LAST_KEG),
-        cnd.spellFractionalCharges(SPELLS.KEG_SMASH, { atLeast: 1.5 }),
+        hasTalent(talents.STORMSTOUTS_LAST_KEG_BREWMASTER_TALENT),
+        cnd.spellFractionalCharges(talents.KEG_SMASH_BREWMASTER_TALENT, { atLeast: 1.5 }),
       ),
       (tense) => (
         <>
@@ -34,23 +42,22 @@ export const apl = build([
     ),
   },
   {
-    spell: SPELLS.KEG_SMASH,
+    spell: talents.KEG_SMASH_BREWMASTER_TALENT,
     condition: cnd.describe(cnd.not(cnd.hasLegendary(SPELLS.STORMSTOUTS_LAST_KEG)), () => ''),
   },
   SPELLS.BLACKOUT_KICK_BRM,
-  SPELLS.KEG_SMASH,
-  SPELLS.FAELINE_STOMP_CAST,
-  SPELLS.BREATH_OF_FIRE,
+  talents.KEG_SMASH_BREWMASTER_TALENT,
+  talents.BREATH_OF_FIRE_BREWMASTER_TALENT,
   {
-    spell: SPELLS.RUSHING_JADE_WIND_TALENT,
-    condition: buffMissing(SPELLS.RUSHING_JADE_WIND_TALENT, {
+    spell: talents.RUSHING_JADE_WIND_BREWMASTER_TALENT,
+    condition: buffMissing(talents.RUSHING_JADE_WIND_BREWMASTER_TALENT, {
       timeRemaining: 2000,
       duration: 6000,
     }),
   },
   { spell: SPELLS.SPINNING_CRANE_KICK_BRM, condition: buffPresent(SPELLS.CHARRED_PASSIONS_BUFF) },
-  SPELLS.CHI_WAVE_TALENT,
-  SPELLS.CHI_BURST_TALENT,
+  talents.CHI_WAVE_TALENT,
+  talents.CHI_BURST_TALENT,
   {
     spell: SPELLS.SPINNING_CRANE_KICK_BRM,
     condition: targetsHit(
@@ -69,9 +76,10 @@ export const apl = build([
       <>
         It is worthwhile to cast <SpellLink id={SPELLS.SPINNING_CRANE_KICK_BRM.id} /> over{' '}
         <SpellLink id={SPELLS.TIGER_PALM.id} /> when using this conduit <em>if</em> doing so would
-        get you an extra cast of <SpellLink id={SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id} /> that lines
-        up with incoming damage. We cannot check this automatically, and be warned that it is a
-        small defensive loss due to the loss of Brew cooldown reduction.
+        get you an extra cast of{' '}
+        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} /> that lines up
+        with incoming damage. We cannot check this automatically, and be warned that it is a small
+        defensive loss due to the loss of Brew cooldown reduction.
       </>,
     ),
   },
