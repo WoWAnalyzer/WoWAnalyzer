@@ -1,5 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
@@ -30,22 +31,22 @@ function isConditional(spell: ConditionalSpell | SpellInfo): spell is Conditiona
 }
 
 const BETTER_SPELLS: Array<SpellInfo | ConditionalSpell> = [
-  SPELLS.KEG_SMASH,
+  talents.KEG_SMASH_BREWMASTER_TALENT,
   SPELLS.BLACKOUT_KICK_BRM,
-  SPELLS.BREATH_OF_FIRE,
+  talents.BREATH_OF_FIRE_BREWMASTER_TALENT,
   {
-    spell: SPELLS.RUSHING_JADE_WIND,
+    spell: talents.BREATH_OF_FIRE_BREWMASTER_TALENT,
     when: (combatant: Combatant) =>
-      combatant.hasTalent(SPELLS.RUSHING_JADE_WIND.id) &&
-      !combatant.hasBuff(SPELLS.RUSHING_JADE_WIND.id),
+      combatant.hasTalent(talents.BREATH_OF_FIRE_BREWMASTER_TALENT.id) &&
+      !combatant.hasBuff(talents.BREATH_OF_FIRE_BREWMASTER_TALENT.id),
   },
   {
-    spell: SPELLS.CHI_BURST_TALENT,
-    when: (combatant: Combatant) => combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
+    spell: talents.CHI_BURST_TALENT,
+    when: (combatant: Combatant) => combatant.hasTalent(talents.CHI_BURST_TALENT.id),
   },
   {
-    spell: SPELLS.CHI_WAVE_TALENT,
-    when: (combatant: Combatant) => combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
+    spell: talents.CHI_WAVE_TALENT,
+    when: (combatant: Combatant) => combatant.hasTalent(talents.CHI_WAVE_TALENT.id),
   },
 ];
 
@@ -196,7 +197,7 @@ class TigerPalm extends Analyzer {
         <>
           <SpellLink id={SPELLS.TIGER_PALM.id} /> is your lowest priority ability. You should avoid
           casting it when you have other damaging abilities like{' '}
-          <SpellLink id={SPELLS.KEG_SMASH.id} /> or <SpellLink id={SPELLS.BLACKOUT_KICK_BRM.id} />{' '}
+          <SpellLink id={talents.KEG_SMASH_BREWMASTER_TALENT.id} /> or <SpellLink id={SPELLS.BLACKOUT_KICK_BRM.id} />{' '}
           available.
         </>,
       )

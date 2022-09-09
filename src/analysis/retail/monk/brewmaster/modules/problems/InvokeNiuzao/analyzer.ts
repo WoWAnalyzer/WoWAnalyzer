@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/monk';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
@@ -17,8 +18,8 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 const RECENT_PURIFY_WINDOW = 6000;
 
 const NIUZAO_PET_BUFF_IDS = new Set([
-  SPELLS.CTA_INVOKE_NIUZAO_BUFF.id, // real niuzao
-  SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id, // cta niuzao
+  SPELLS.CTA_INVOKE_NIUZAO_BUFF.id, // cta niuzao
+  talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id, // real niuzao
 ]);
 
 export type NiuzaoCastData = {
@@ -95,7 +96,7 @@ export class InvokeNiuzao extends Analyzer {
   }
 
   private removeStagger(event: RemoveStaggerEvent) {
-    if (event.trigger?.ability.guid !== SPELLS.PURIFYING_BREW.id) {
+    if (event.trigger?.ability.guid !== talents.PURIFYING_BREW_BREWMASTER_TALENT.id) {
       return;
     }
 
@@ -197,8 +198,8 @@ export class InvokeNiuzao extends Analyzer {
       stomps: [],
       relevantHits: [],
       purifyingAtCast: {
-        charges: this.spellUsable.chargesAvailable(SPELLS.PURIFYING_BREW.id),
-        cooldown: this.spellUsable.cooldownRemaining(SPELLS.PURIFYING_BREW.id),
+        charges: this.spellUsable.chargesAvailable(talents.PURIFYING_BREW_BREWMASTER_TALENT.id),
+        cooldown: this.spellUsable.cooldownRemaining(talents.PURIFYING_BREW_BREWMASTER_TALENT.id),
       },
       startEvent: summonEvent,
       sitDetected: false,

@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/monk';
 import EventOrderNormalizer from 'parser/core/EventOrderNormalizer';
 import { EventOrder } from 'parser/core/EventOrderNormalizer';
 import { EventType } from 'parser/core/Events';
@@ -7,7 +8,7 @@ import { Options } from 'parser/core/Module';
 import { GIFT_OF_THE_OX_SPELL_IDS } from '../constants';
 
 const CelestialFortuneHealOrder: EventOrder = {
-  beforeEventId: SPELLS.EXPEL_HARM.id,
+  beforeEventId: talents.EXPEL_HARM_TALENT.id,
   beforeEventType: EventType.Cast,
   afterEventId: SPELLS.CELESTIAL_FORTUNE_HEAL.id,
   afterEventType: EventType.Heal,
@@ -17,9 +18,9 @@ const CelestialFortuneHealOrder: EventOrder = {
 };
 
 const ExpelHarmHealOrder: EventOrder = {
-  beforeEventId: SPELLS.EXPEL_HARM.id,
+  beforeEventId: talents.EXPEL_HARM_TALENT.id,
   beforeEventType: EventType.Cast,
-  afterEventId: SPELLS.EXPEL_HARM.id,
+  afterEventId: talents.EXPEL_HARM_TALENT.id,
   afterEventType: EventType.Heal,
   bufferMs: 50,
   anyTarget: true,
@@ -27,7 +28,7 @@ const ExpelHarmHealOrder: EventOrder = {
 };
 
 const GiftOxOrder: EventOrder = {
-  beforeEventId: SPELLS.EXPEL_HARM.id,
+  beforeEventId: talents.EXPEL_HARM_TALENT.id,
   beforeEventType: EventType.Cast,
   afterEventId: GIFT_OF_THE_OX_SPELL_IDS,
   afterEventType: EventType.Heal,

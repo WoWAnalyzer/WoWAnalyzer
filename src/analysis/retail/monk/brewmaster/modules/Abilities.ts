@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import talents from 'common/TALENTS/monk';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -9,11 +10,11 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational Spells
       {
-        spell: SPELLS.KEG_SMASH.id,
+        spell: talents.KEG_SMASH_BREWMASTER_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 8 / (1 + haste),
         charges: combatant.hasLegendary(SPELLS.STORMSTOUTS_LAST_KEG) ? 2 : 1,
-        damageSpellIds: [SPELLS.KEG_SMASH.id],
+        damageSpellIds: [talents.KEG_SMASH_BREWMASTER_TALENT.id],
         castEfficiency: {
           suggestion: true,
         },
@@ -33,7 +34,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.BREATH_OF_FIRE.id,
+        spell: talents.BREATH_OF_FIRE_BREWMASTER_TALENT.id,
         isDefensive: true,
         buffSpellId: SPELLS.BREATH_OF_FIRE_DEBUFF.id,
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -50,20 +51,20 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.RUSHING_JADE_WIND_TALENT.id,
+        spell: talents.RUSHING_JADE_WIND_BREWMASTER_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 6 / (1 + haste),
-        enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT.id),
-        buffSpellId: SPELLS.RUSHING_JADE_WIND_TALENT.id,
+        enabled: combatant.hasTalent(talents.RUSHING_JADE_WIND_BREWMASTER_TALENT.id),
+        buffSpellId: talents.RUSHING_JADE_WIND_BREWMASTER_TALENT.id,
         gcd: {
           static: 1000,
         },
       },
       {
-        spell: SPELLS.CHI_BURST_TALENT.id,
+        spell: talents.CHI_BURST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30,
-        enabled: combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
+        enabled: combatant.hasTalent(talents.CHI_BURST_TALENT.id),
         castEfficiency: {
           suggestion: true,
         },
@@ -72,10 +73,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.CHI_WAVE_TALENT.id,
+        spell: talents.CHI_WAVE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 15,
-        enabled: combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
+        enabled: combatant.hasTalent(talents.CHI_WAVE_TALENT.id),
         castEfficiency: {
           suggestion: true,
         },
@@ -100,7 +101,7 @@ class Abilities extends CoreAbilities {
       },
       // Cooldowns
       {
-        spell: SPELLS.INVOKE_NIUZAO_THE_BLACK_OX.id,
+        spell: talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: {
@@ -108,11 +109,11 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.PURIFYING_BREW.id,
+        spell: talents.PURIFYING_BREW_BREWMASTER_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: (haste) =>
-          (combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT) ? 16 : 20) / (1 + haste),
-        charges: 2,
+          (combatant.hasTalent(talents.LIGHT_BREWING_BREWMASTER_TALENT) ? 16 : 20) / (1 + haste),
+        charges: combatant.hasTalent(talents.PURIFYING_BREW_RANK_2_BREWMASTER_TALENT) ? 2 : 1,
         gcd: null,
         castEfficiency: {
           suggestion: true,
@@ -120,9 +121,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.CELESTIAL_BREW.id,
+        spell: talents.CELESTIAL_BREW_BREWMASTER_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(SPELLS.LIGHT_BREWING_TALENT) ? 48 : 60,
+        cooldown: combatant.hasTalent(talents.CELESTIAL_BREW_BREWMASTER_TALENT) ? 48 : 60,
         gcd: {
           base: 1000,
         },
@@ -132,18 +133,18 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.BLACK_OX_BREW_TALENT.id,
+        spell: talents.BLACK_OX_BREW_BREWMASTER_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120,
         castEfficiency: {
           suggestion: false,
           recommendedEfficiency: 0.7,
         },
-        enabled: combatant.hasTalent(SPELLS.BLACK_OX_BREW_TALENT.id),
+        enabled: combatant.hasTalent(talents.BLACK_OX_BREW_BREWMASTER_TALENT.id),
         gcd: null,
       },
       {
-        spell: SPELLS.EXPEL_HARM.id,
+        spell: talents.EXPEL_HARM_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 5,
         gcd: {
@@ -151,64 +152,69 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FORTIFYING_BREW_BRM.id,
+        spell: talents.FORTIFYING_BREW_TALENT.id,
         buffSpellId: SPELLS.FORTIFYING_BREW_BRM_BUFF.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 420,
         gcd: null,
       },
       {
-        spell: SPELLS.HEALING_ELIXIR_TALENT.id,
+        spell: talents.HEALING_ELIXIR_BREWMASTER_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
-        enabled: combatant.hasTalent(SPELLS.HEALING_ELIXIR_TALENT.id),
+        enabled: combatant.hasTalent(talents.HEALING_ELIXIR_BREWMASTER_TALENT.id),
         gcd: null,
       },
       {
-        spell: SPELLS.DAMPEN_HARM_TALENT.id,
-        buffSpellId: SPELLS.DAMPEN_HARM_TALENT.id,
+        spell: talents.DAMPEN_HARM_TALENT.id,
+        buffSpellId: talents.DAMPEN_HARM_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120,
-        enabled: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id),
+        enabled: combatant.hasTalent(talents.DAMPEN_HARM_TALENT.id),
         gcd: null,
       },
       {
-        spell: SPELLS.ZEN_MEDITATION.id,
-        buffSpellId: SPELLS.ZEN_MEDITATION.id,
+        spell: talents.ZEN_MEDITATION_BREWMASTER_TALENT.id,
+        buffSpellId: talents.ZEN_MEDITATION_BREWMASTER_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 300,
+        cooldown: combatant.hasTalent(talents.FUNDAMENTAL_OBSERVATION_BREWMASTER_TALENT)
+          ? 225
+          : 300,
         gcd: null,
       },
       // Utility
       {
-        spell: SPELLS.RING_OF_PEACE_TALENT.id,
+        spell: talents.RING_OF_PEACE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.RING_OF_PEACE_TALENT.id),
+        enabled: combatant.hasTalent(talents.RING_OF_PEACE_TALENT.id),
         gcd: {
           // This was tested in-game (in Legion): it does NOT have a static GCD but a base GCD of 1sec and scales with Haste
           base: 1500,
         },
       },
       {
-        spell: SPELLS.CHI_TORPEDO_TALENT.id,
+        spell: talents.CHI_TORPEDO_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT.id),
+        enabled: combatant.hasTalent(talents.CHI_TORPEDO_TALENT.id),
         cooldown: 20,
-        charges: 2,
+        charges: 1 + Number(combatant.hasTalent(talents.ROLL_TALENT)),
         // Both Roll and Chi Torpedo don't actually have a GCD but block all spells during its animation for about the same duration, so maybe time it in-game and mark it as channeling instead? The issue is you can follow up any ability on the GCD with chi torpedo/roll, so it can still cause overlap.
         gcd: null,
       },
       {
         spell: SPELLS.ROLL.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: !combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT.id),
-        cooldown: combatant.hasTalent(SPELLS.CELERITY_TALENT.id) ? 15 : 20,
-        charges: combatant.hasTalent(SPELLS.CELERITY_TALENT.id) ? 3 : 2,
+        enabled: !combatant.hasTalent(talents.CHI_TORPEDO_TALENT.id),
+        cooldown: combatant.hasTalent(talents.CELERITY_TALENT.id) ? 15 : 20,
+        charges:
+          1 +
+          Number(combatant.hasTalent(talents.CELERITY_TALENT.id)) +
+          Number(combatant.hasTalent(talents.ROLL_TALENT)),
         // Both Roll and Chi Torpedo don't actually have a GCD but block all spells during its animation for about the same duration, so maybe time it in-game and mark it as channeling instead? The issue is you can follow up any ability on the GCD with chi torpedo/roll, so it can still cause overlap.
         gcd: null,
       },
       {
-        spell: SPELLS.TRANSCENDENCE.id,
+        spell: talents.TRANSCENDENCE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           static: 1000,
@@ -223,15 +229,15 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SUMMON_BLACK_OX_STATUE_TALENT.id,
+        spell: talents.SUMMON_BLACK_OX_STATUE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.SUMMON_BLACK_OX_STATUE_TALENT.id),
+        enabled: combatant.hasTalent(talents.SUMMON_BLACK_OX_STATUE_TALENT.id),
         gcd: {
           static: 1000,
         },
       },
       {
-        spell: SPELLS.PARALYSIS.id,
+        spell: talents.PARALYSIS_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
         gcd: {
@@ -241,7 +247,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LEG_SWEEP.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(SPELLS.TIGER_TAIL_SWEEP_TALENT.id) ? 50 : 60,
+        cooldown: combatant.hasTalent(talents.TIGER_TAIL_SWEEP_TALENT.id) ? 50 : 60,
         gcd: {
           static: 1000,
         },
@@ -253,7 +259,7 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
-        spell: SPELLS.SPEAR_HAND_STRIKE.id,
+        spell: talents.SPEAR_HAND_STRIKE_TALENT.id,
         cooldown: 15,
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
@@ -276,9 +282,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.TIGERS_LUST_TALENT.id,
+        spell: talents.TIGERS_LUST_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.TIGERS_LUST_TALENT.id),
+        enabled: combatant.hasTalent(talents.TIGERS_LUST_TALENT.id),
         cooldown: 30,
         gcd: {
           static: 1000,

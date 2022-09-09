@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/monk';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AddStaggerEvent,
@@ -50,7 +51,10 @@ class StaggerFabricator extends Analyzer {
     //count as uninitialized if fight didn't start at actual fight start time (aka phase)
     this._initialized = (this.owner.fight.offset_time || 0) === 0;
 
-    this.addEventListener(Events.cast.spell(SPELLS.PURIFYING_BREW), this._pbCast);
+    this.addEventListener(
+      Events.cast.spell(talents.PURIFYING_BREW_BREWMASTER_TALENT),
+      this._pbCast,
+    );
     this.addEventListener(Events.absorbed, this._absorb);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._damage);
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this._death);

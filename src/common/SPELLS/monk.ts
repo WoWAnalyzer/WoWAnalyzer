@@ -28,16 +28,6 @@ const spells = spellIndexableList({
     name: 'Crackling Jade Lightning',
     icon: 'ability_monk_cracklingjadelightning',
   },
-  FORTIFYING_BREW: {
-    id: 243435,
-    name: 'Fortifying Brew',
-    icon: 'ability_monk_fortifyingelixir',
-  },
-  PARALYSIS: {
-    id: 115078,
-    name: 'Paralysis',
-    icon: 'ability_monk_paralysis',
-  },
   RISING_SUN_KICK: {
     id: 107428,
     name: 'Rising Sun Kick',
@@ -48,11 +38,6 @@ const spells = spellIndexableList({
     id: 109132,
     name: 'Roll',
     icon: 'ability_monk_roll',
-  },
-  SPEAR_HAND_STRIKE: {
-    id: 116705,
-    name: 'Spear Hand Strike',
-    icon: 'ability_monk_spearhand',
   },
   SPINNING_CRANE_KICK: {
     id: 101546,
@@ -74,11 +59,6 @@ const spells = spellIndexableList({
     id: 322109,
     name: 'Touch of Death',
     icon: 'ability_monk_touchofdeath',
-  },
-  TRANSCENDENCE: {
-    id: 101643,
-    name: 'Transcendence',
-    icon: 'monk_ability_transcendence',
   },
   TRANSCENDENCE_TRANSFER: {
     id: 119996,
@@ -277,11 +257,6 @@ const spells = spellIndexableList({
   },
 
   // Brewmaster
-  INVOKE_NIUZAO_THE_BLACK_OX: {
-    id: 132578,
-    name: 'Invoke Niuzao, the Black Ox',
-    icon: 'spell_monk_brewmaster_spec',
-  },
   NIUZAO_STOMP_DAMAGE: {
     id: 227291,
     name: 'Stomp',
@@ -307,30 +282,10 @@ const spells = spellIndexableList({
     name: 'Eye of the Tiger',
     icon: 'ability_druid_primalprecision',
   },
-  KEG_SMASH: {
-    id: 121253,
-    name: 'Keg Smash',
-    icon: 'achievement_brewery_2',
-  },
-  PURIFYING_BREW: {
-    id: 119582,
-    name: 'Purifying Brew',
-    icon: 'inv_misc_beer_06',
-  },
   PURIFIED_CHI: {
     id: 325092,
     name: 'Purified Chi',
     icon: 'inv_misc_beer_06',
-  },
-  CELESTIAL_BREW: {
-    id: 322507,
-    name: 'Celestial Brew',
-    icon: 'ability_monk_ironskinbrew',
-  },
-  BREATH_OF_FIRE: {
-    id: 115181,
-    name: 'Breath of Fire',
-    icon: 'ability_monk_breathoffire',
   },
   BREATH_OF_FIRE_DEBUFF: {
     id: 123725,
@@ -382,16 +337,6 @@ const spells = spellIndexableList({
     name: 'Expel Harm',
     icon: 'ability_monk_expelharm',
   },
-  RUSHING_JADE_WIND: {
-    id: 148187,
-    name: 'Rushing Jade Wind',
-    icon: 'ability_monk_rushingjadewind',
-  },
-  EXPEL_HARM: {
-    id: 322101,
-    name: 'Expel Harm',
-    icon: 'ability_monk_expelharm',
-  },
   PROVOKE: {
     id: 115546,
     name: 'Provoke',
@@ -401,11 +346,6 @@ const spells = spellIndexableList({
     id: 227686,
     name: 'Hot Blooded',
     icon: 'ability_monk_breathoffire',
-  },
-  ZEN_MEDITATION: {
-    id: 115176,
-    name: 'Zen Meditation',
-    icon: 'ability_monk_zenmeditation',
   },
   XUENS_BATTLEGEAR_2_PIECE_BUFF_BRM: {
     id: 242255,

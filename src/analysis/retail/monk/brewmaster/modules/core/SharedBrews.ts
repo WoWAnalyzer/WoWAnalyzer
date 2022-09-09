@@ -1,14 +1,14 @@
-import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/monk';
 import Analyzer from 'parser/core/Analyzer';
 import SpellHistory from 'parser/shared/modules/SpellHistory';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const BREWS = [
-  SPELLS.BONEDUST_BREW_CAST,
-  SPELLS.BLACK_OX_BREW_TALENT,
-  SPELLS.FORTIFYING_BREW_BRM,
-  SPELLS.CELESTIAL_BREW,
-  SPELLS.PURIFYING_BREW,
+  talents.BONEDUST_BREW_BREWMASTER_TALENT,
+  talents.BLACK_OX_BREW_BREWMASTER_TALENT,
+  talents.FORTIFYING_BREW_TALENT,
+  talents.CELESTIAL_BREW_BREWMASTER_TALENT,
+  talents.PURIFYING_BREW_BREWMASTER_TALENT,
 ];
 
 class SharedBrews extends Analyzer {

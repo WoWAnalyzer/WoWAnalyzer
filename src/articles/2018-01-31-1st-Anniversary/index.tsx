@@ -1,5 +1,6 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import * as CONTRIBUTORS from 'CONTRIBUTORS';
 import SPECS, { Spec } from 'game/SPECS';
 import { ItemLink } from 'interface';
@@ -873,7 +874,7 @@ const Article = (props: ArticleProps) => {
         maintainer of this spec. Initially, he wanted to use WoWAnalyzer as a platform for
         understanding the difficult-to-manually-analyze effectiveness of the{' '}
         <SpellLink id={SPELLS.STAGGER.id} /> and Ironskin /{' '}
-        <SpellLink id={SPELLS.PURIFYING_BREW.id} /> system. New Brewmasters often come to the{' '}
+        <SpellLink id={TALENTS_MONK.PURIFYING_BREW_BREWMASTER_TALENT.id} /> system. New Brewmasters often come to the{' '}
         <code>#brew_questions</code> channel with questions about Brew usage and Stagger, but actual
         performance on the spec can be very time-intensive both to explain and to analyze. To help
         address this, he's added statistics and suggestions that help explain why common issues

@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
 import { Panel } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -281,7 +282,10 @@ class StaggerPoolGraph extends Analyzer {
   }
 
   _removestagger(event: RemoveStaggerEvent) {
-    if (event.trigger!.ability && event.trigger!.ability.guid === SPELLS.PURIFYING_BREW.id) {
+    if (
+      event.trigger!.ability &&
+      event.trigger!.ability.guid === talents.PURIFYING_BREW_BREWMASTER_TALENT.id
+    ) {
       // record the *previous* timestamp for purification. this will
       // make the purifies line up with peaks in the plot, instead of
       // showing up *after* peaks
@@ -321,9 +325,10 @@ class StaggerPoolGraph extends Analyzer {
             <>
               Damage you take is placed into a <em>pool</em> by <SpellLink id={SPELLS.STAGGER.id} />
               . This damage is then removed by the damage-over-time component of{' '}
-              <SpellLink id={SPELLS.STAGGER.id} /> or by <SpellLink id={SPELLS.PURIFYING_BREW.id} />{' '}
-              (or other sources of purification). This plot shows the amount of damage pooled over
-              the course of the fight.
+              <SpellLink id={SPELLS.STAGGER.id} /> or by{' '}
+              <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> (or other sources of
+              purification). This plot shows the amount of damage pooled over the course of the
+              fight.
             </>
           }
         >

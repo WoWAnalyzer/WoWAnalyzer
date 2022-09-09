@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/monk';
 import type { Problem } from 'interface/guide/ProblemList';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
@@ -126,8 +127,8 @@ export default class PurifyingBrewProblems extends Analyzer {
     this._amountStaggered += event.amount;
     this.hitStack.push({
       event,
-      purifyCharges: this.spellUsable.chargesAvailable(SPELLS.PURIFYING_BREW.id),
-      remainingPurifyCooldown: this.spellUsable.cooldownRemaining(SPELLS.PURIFYING_BREW.id),
+      purifyCharges: this.spellUsable.chargesAvailable(talents.PURIFYING_BREW_BREWMASTER_TALENT.id),
+      remainingPurifyCooldown: this.spellUsable.cooldownRemaining(talents.PURIFYING_BREW_BREWMASTER_TALENT.id),
     });
   }
 
@@ -141,7 +142,7 @@ export default class PurifyingBrewProblems extends Analyzer {
   private unpurifiedHits: TrackedStaggerData[] = [];
   public readonly purifies: PurifyData[] = [];
   private removeStagger(event: RemoveStaggerEvent) {
-    if (event.trigger?.ability.guid !== SPELLS.PURIFYING_BREW.id) {
+    if (event.trigger?.ability.guid !== talents.PURIFYING_BREW_BREWMASTER_TALENT.id) {
       this.hitStack.push({ event });
       return;
     }
@@ -170,9 +171,9 @@ export default class PurifyingBrewProblems extends Analyzer {
         purify: event,
       });
     } else if (
-      !this.spellUsable.isOnCooldown(SPELLS.PURIFYING_BREW.id) ||
+      !this.spellUsable.isOnCooldown(talents.PURIFYING_BREW_BREWMASTER_TALENT.id) ||
       // this happens *after* the PB cast is applied in spellUsable, so mentally add a charge
-      this.spellUsable.cooldownRemaining(SPELLS.PURIFYING_BREW.id) <= CAP_CUTOFF
+      this.spellUsable.cooldownRemaining(talents.PURIFYING_BREW_BREWMASTER_TALENT.id) <= CAP_CUTOFF
     ) {
       this.purifies.push({
         purified,
@@ -269,7 +270,7 @@ export default class PurifyingBrewProblems extends Analyzer {
   }
 
   get castEfficiency(): AbilityCastEfficiency {
-    return this.castEff.getCastEfficiencyForSpellId(SPELLS.PURIFYING_BREW.id)!;
+    return this.castEff.getCastEfficiencyForSpellId(talents.PURIFYING_BREW_BREWMASTER_TALENT.id)!;
   }
 
   get reasonCounts(): Record<PurifyReason, number> {

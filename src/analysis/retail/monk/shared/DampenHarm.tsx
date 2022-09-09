@@ -1,5 +1,6 @@
 import { formatNumber, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/monk';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   DamageEvent,
@@ -19,7 +20,7 @@ class DampenHarm extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    if (!this.selectedCombatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(talents.DAMPEN_HARM_TALENT.id)) {
       this.active = false;
       return;
     }
@@ -34,7 +35,7 @@ class DampenHarm extends Analyzer {
     if (event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
       return;
     }
-    if (!this.selectedCombatant.hasBuff(SPELLS.DAMPEN_HARM_TALENT.id)) {
+    if (!this.selectedCombatant.hasBuff(talents.DAMPEN_HARM_TALENT.id)) {
       return;
     }
     const maxHP = event.maxHitPoints || this.currentMaxHP;
@@ -68,7 +69,7 @@ class DampenHarm extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.DAMPEN_HARM_TALENT.id}>
+        <BoringSpellValueText spellId={talents.DAMPEN_HARM_TALENT.id}>
           {formatNumber(this.hitsReduced)} hits were reduced for a total of{' '}
           {formatThousands(this.damageReduced)} damage reduced.
         </BoringSpellValueText>

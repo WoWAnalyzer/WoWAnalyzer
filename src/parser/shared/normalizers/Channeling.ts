@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import {
   AnyEvent,
@@ -54,7 +55,7 @@ class Channeling extends EventsNormalizer {
     // Druid
     buffChannelSpec(SPELLS.CONVOKE_SPIRITS.id),
     // Monk
-    buffChannelSpec(SPELLS.ZEN_MEDITATION.id),
+    buffChannelSpec(TALENTS_MONK.ZEN_MEDITATION_BREWMASTER_TALENT.id),
     buffChannelSpec(SPELLS.ESSENCE_FONT.id),
     buffChannelSpec(SPELLS.SOOTHING_MIST.id),
     buffChannelSpec(SPELLS.CRACKLING_JADE_LIGHTNING.id),

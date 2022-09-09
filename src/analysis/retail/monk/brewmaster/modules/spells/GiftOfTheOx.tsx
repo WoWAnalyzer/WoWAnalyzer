@@ -1,8 +1,8 @@
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/monk';
 import { SpellIcon } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, Event, EventType, HealEvent } from 'parser/core/Events';
 import { calculatePrimaryStat } from 'parser/core/stats';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringValue from 'parser/ui/BoringValueText';
@@ -10,7 +10,6 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { BASE_AGI, GIFT_OF_THE_OX_SPELLS } from '../../constants';
-import { GOTOX_GENERATED_EVENT } from '../../normalizers/GiftOfTheOx';
 
 const WDPS_BASE_ILVL = 310;
 const WDPS_310_AGI_POLEARM = 122.8;
@@ -30,6 +29,8 @@ export default class GiftOfTheOx extends Analyzer {
     stats: StatTracker,
   };
 
+  protected stats!: StatTracker;
+
   totalHealing = 0;
   agiBonusHealing = 0;
   wdpsBonusHealing = 0;
@@ -44,13 +45,15 @@ export default class GiftOfTheOx extends Analyzer {
   expelHarmOrbsConsumed = 0;
   expelHarmOverhealing = 0;
 
-  _lastEHTimestamp = null;
+  _lastEHTimestamp: number | null = null;
 
-  constructor(...args) {
-    super(...args);
-    this.addEventListener(GOTOX_GENERATED_EVENT, this._orbGenerated);
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(talents.GIFT_OF_THE_OX_BREWMASTER_TALENT);
+
+    this.addEventListener(EventType.OrbGenerated, this._orbGenerated);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EXPEL_HARM),
+      Events.cast.by(SELECTED_PLAYER).spell(talents.EXPEL_HARM_TALENT),
       this._expelCast,
     );
     this.addEventListener(
@@ -65,16 +68,16 @@ export default class GiftOfTheOx extends Analyzer {
     );
   }
 
-  _orbGenerated(event) {
+  _orbGenerated(event: Event<EventType.OrbGenerated>) {
     this.orbsGenerated += 1;
   }
 
-  _expelCast(event) {
+  _expelCast(event: CastEvent) {
     this.expelHarmCasts += 1;
     this._lastEHTimestamp = event.timestamp;
   }
 
-  _gotoxHeal(event) {
+  _gotoxHeal(event: HealEvent) {
     this.orbsConsumed += 1;
     const amount = event.amount + (event.absorbed || 0);
     this.totalHealing += amount;

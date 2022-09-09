@@ -19,6 +19,7 @@ import { color, normalizeTimestampTransform, POINT_SIZE, timeAxis } from './modu
 import { InvokeNiuzaoSection } from './modules/problems/InvokeNiuzao';
 import { PurifySection } from './modules/problems/PurifyingBrew';
 import Shuffle, { TrackedHit } from './modules/spells/Shuffle';
+import talents from 'common/TALENTS/monk';
 
 type TimelineEntry = {
   value: boolean;
@@ -480,8 +481,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
               is Staggered.
             </li>
             <li>
-              Using <SpellLink id={SPELLS.PURIFYING_BREW.id} /> to keep the damage dealt by{' '}
-              <SpellLink id={SPELLS.STAGGER.id} /> from getting too high.
+              Using <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> to keep the
+              damage dealt by <SpellLink id={SPELLS.STAGGER.id} /> from getting too high.
             </li>
           </ul>
         </p>

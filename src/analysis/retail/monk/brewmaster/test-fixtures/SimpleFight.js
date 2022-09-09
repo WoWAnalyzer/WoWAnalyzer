@@ -1,3 +1,4 @@
+import talents from 'common/TALENTS/monk';
 import SPELLS from 'common/SPELLS';
 import { EventType } from 'parser/core/Events';
 
@@ -229,7 +230,7 @@ export const casts = [
     sourceID: thisPlayer,
     targetid: thisPlayer,
     timestamp: 8200,
-    ability: { guid: SPELLS.PURIFYING_BREW.id },
+    ability: { guid: talents.PURIFYING_BREW_BREWMASTER_TALENT.id },
   },
 ];
 
@@ -246,14 +247,14 @@ export const dpsCasts = [
     sourceID: thisPlayer,
     targetid: enemy,
     timestamp: 4500,
-    ability: { guid: SPELLS.KEG_SMASH.id },
+    ability: { guid: talents.KEG_SMASH_BREWMASTER_TALENT.id },
   },
   {
     type: EventType.Cast,
     sourceID: thisPlayer,
     targetid: enemy,
     timestamp: 4700,
-    ability: { guid: SPELLS.KEG_SMASH.id },
+    ability: { guid: talents.KEG_SMASH_BREWMASTER_TALENT.id },
   },
   {
     type: EventType.Cast,
@@ -281,7 +282,7 @@ export const dpsCasts = [
     sourceID: thisPlayer,
     targetid: enemy,
     timestamp: 9700,
-    ability: { guid: SPELLS.BREATH_OF_FIRE.id },
+    ability: { guid: talents.BREATH_OF_FIRE_BREWMASTER_TALENT.id },
   },
 ];
 
