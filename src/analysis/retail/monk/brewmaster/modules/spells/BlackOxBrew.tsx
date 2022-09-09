@@ -1,6 +1,5 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -15,7 +14,8 @@ class BlackOxBrew extends Analyzer {
     return {
       actual:
         this.wastedCDR[talents.PURIFYING_BREW_BREWMASTER_TALENT.id] /
-        (this.cdr[talents.PURIFYING_BREW_BREWMASTER_TALENT.id] + this.wastedCDR[talents.PURIFYING_BREW_BREWMASTER_TALENT.id]),
+        (this.cdr[talents.PURIFYING_BREW_BREWMASTER_TALENT.id] +
+          this.wastedCDR[talents.PURIFYING_BREW_BREWMASTER_TALENT.id]),
       isGreaterThan: {
         minor: 0.1,
         average: 0.2,

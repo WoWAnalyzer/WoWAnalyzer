@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/monk';
 
 import RushingJadeWind from './RushingJadeWind';
 
@@ -7,7 +7,7 @@ const talentlessCombatant = {
 };
 
 const talentedCombatant = {
-  hasTalent: (id) => id === SPELLS.RUSHING_JADE_WIND.id,
+  hasTalent: (id) => id === talents.RUSHING_JADE_WIND_BREWMASTER_TALENT.id,
 };
 const parser = {
   byPlayer: () => true,

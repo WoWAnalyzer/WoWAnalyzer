@@ -6,10 +6,7 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import Enemies, {
-  encodeEventSourceString,
-  encodeTargetString,
-} from 'parser/shared/modules/Enemies';
+import Enemies, { encodeEventSourceString } from 'parser/shared/modules/Enemies';
 import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
 
 const DEBUG_ABILITIES = false;
@@ -75,8 +72,8 @@ class BreathOfFire extends Analyzer {
     when(this.suggestionThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={talents.BREATH_OF_FIRE_BREWMASTER_TALENT.id} /> usage can be improved. The associated
-          debuff is a key part of our damage mitigation.
+          Your <SpellLink id={talents.BREATH_OF_FIRE_BREWMASTER_TALENT.id} /> usage can be improved.
+          The associated debuff is a key part of our damage mitigation.
         </>,
       )
         .icon(talents.BREATH_OF_FIRE_BREWMASTER_TALENT.icon)
