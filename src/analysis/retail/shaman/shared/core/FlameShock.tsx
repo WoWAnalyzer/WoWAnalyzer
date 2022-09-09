@@ -13,6 +13,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 class FlameShock extends EarlyDotRefreshesAnalyzer {
   static dependencies = {
@@ -68,7 +69,7 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LAVA_BURST),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.LAVA_BURST_TALENT),
       this.onDamage,
     );
   }
@@ -103,10 +104,11 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
         suggest(
           <span>
             Make sure to apply <SpellLink id={SPELLS.FLAME_SHOCK.id} /> to your target, so your{' '}
-            <SpellLink id={SPELLS.LAVA_BURST.id} /> is guaranteed to critically strike.
+            <SpellLink id={TALENTS_SHAMAN.LAVA_BURST_TALENT.id} /> is guaranteed to critically
+            strike.
           </span>,
         )
-          .icon(SPELLS.LAVA_BURST.icon)
+          .icon(TALENTS_SHAMAN.LAVA_BURST_TALENT.icon)
           .actual(
             t({
               id: 'shaman.elemental.suggestions.flameShock.efficiency',

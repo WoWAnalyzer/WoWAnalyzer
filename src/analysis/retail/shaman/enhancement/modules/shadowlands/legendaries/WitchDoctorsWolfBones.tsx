@@ -13,6 +13,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 class WitchDoctorsWolfBones extends Analyzer {
   static dependencies = {
@@ -58,8 +59,12 @@ class WitchDoctorsWolfBones extends Analyzer {
       this.hasApplyBuffInThisTimestamp = true;
     }
 
-    if (this.spellUsable.isOnCooldown(SPELLS.FERAL_SPIRIT.id)) {
-      this.spellUsable.reduceCooldown(SPELLS.FERAL_SPIRIT.id, 2000, event.timestamp);
+    if (this.spellUsable.isOnCooldown(TALENTS_SHAMAN.FERAL_SPIRIT_ENHANCEMENT_TALENT.id)) {
+      this.spellUsable.reduceCooldown(
+        TALENTS_SHAMAN.FERAL_SPIRIT_ENHANCEMENT_TALENT.id,
+        2000,
+        event.timestamp,
+      );
       this.totalCdrGained += 2000;
     } else {
       this.totalCdrWasted += 2000;

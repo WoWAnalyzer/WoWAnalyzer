@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -16,7 +17,11 @@ class StaticCharge extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.STATIC_CHARGE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.STATIC_CHARGE_TALENT.id);
+
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(
       Events.applydebuff.by(SELECTED_PLAYER_PET).spell(SPELLS.STATIC_CHARGE_DEBUFF),
@@ -25,12 +30,14 @@ class StaticCharge extends Analyzer {
   }
 
   stunApplication() {
-    const cooldownRemaining = this.spellUsable.cooldownRemaining(SPELLS.CAPACITOR_TOTEM.id);
+    const cooldownRemaining = this.spellUsable.cooldownRemaining(
+      TALENTS_SHAMAN.CAPACITOR_TOTEM_TALENT.id,
+    );
     if (cooldownRemaining <= minimumCooldown) {
       return;
     }
 
-    this.spellUsable.reduceCooldown(SPELLS.CAPACITOR_TOTEM.id, stunReduction);
+    this.spellUsable.reduceCooldown(TALENTS_SHAMAN.CAPACITOR_TOTEM_TALENT.id, stunReduction);
   }
 }
 

@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -22,7 +23,13 @@ class CrashingStorm extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.CRASHING_STORM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_SHAMAN.CRASHING_STORMS_ENHANCEMENT_TALENT.id,
+    );
+
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CRASHING_STORM_DAMAGE),
@@ -41,7 +48,7 @@ class CrashingStorm extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.CRASHING_STORM_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_SHAMAN.CRASHING_STORMS_ENHANCEMENT_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damageGained} />
           </>

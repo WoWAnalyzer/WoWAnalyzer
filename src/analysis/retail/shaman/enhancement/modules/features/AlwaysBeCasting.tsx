@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   position = STATISTIC_ORDER.CORE(1);
@@ -33,8 +34,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
             Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay
             between casting spells. Even if you have to move, try casting something instant with
             range like <SpellLink id={SPELLS.FLAME_SHOCK.id} />,{' '}
-            <SpellLink id={SPELLS.FROST_SHOCK.id} />, or instant{' '}
-            <SpellLink id={SPELLS.LIGHTNING_BOLT.id} />/<SpellLink id={SPELLS.CHAIN_LIGHTNING.id} />
+            <SpellLink id={TALENTS_SHAMAN.FROST_SHOCK_TALENT.id} />, or instant{' '}
+            <SpellLink id={SPELLS.LIGHTNING_BOLT.id} />/
+            <SpellLink id={TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT.id} />
           </span>,
         )
           .icon('spell_mage_altertime')
@@ -56,8 +58,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
             Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay
             between casting spells. Even if you have to move, try casting something instant with
             range like <SpellLink id={SPELLS.FLAME_SHOCK.id} />,{' '}
-            <SpellLink id={SPELLS.FROST_SHOCK.id} />, or instant{' '}
-            <SpellLink id={SPELLS.LIGHTNING_BOLT.id} />/<SpellLink id={SPELLS.CHAIN_LIGHTNING.id} />
+            <SpellLink id={TALENTS_SHAMAN.FROST_SHOCK_TALENT.id} />, or instant{' '}
+            <SpellLink id={SPELLS.LIGHTNING_BOLT.id} />/
+            <SpellLink id={TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT.id} />
           </span>,
         )
           .icon('spell_mage_altertime')

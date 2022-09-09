@@ -1,5 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
@@ -14,11 +15,20 @@ class ElementalBlast extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
+
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id) ||
+      this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_ENHANCEMENT_TALENT.id);
+
+    if (!this.active) {
+      return;
+    }
+
     this.addEventListener(
       Events.removebuff.to(SELECTED_PLAYER).spell(ELEMENTAL_BLAST_BUFFS),
       this.onRemoveBuff,
     );
+
     this.addEventListener(
       Events.applybuff.to(SELECTED_PLAYER).spell(ELEMENTAL_BLAST_BUFFS),
       this.onApplyBuff,
@@ -68,7 +78,7 @@ class ElementalBlast extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
-        icon={<SpellIcon id={SPELLS.ELEMENTAL_BLAST_TALENT.id} />}
+        icon={<SpellIcon id={TALENTS_SHAMAN.ELEMENTAL_BLAST_ENHANCEMENT_TALENT.id} />}
         value={`${formatPercentage(this.elementalBlastUptime)} %`}
         label="Uptime"
         tooltip={

@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
 
@@ -8,7 +9,7 @@ class Buffs extends CoreAuras {
 
     return [
       {
-        spellId: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id,
+        spellId: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id,
         timelineHighlight: true,
       },
       {
@@ -29,22 +30,17 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.HOT_HAND_BUFF.id,
-        enabled: combatant.hasTalent(SPELLS.HOT_HAND_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.HOT_HAND_ENHANCEMENT_TALENT.id),
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.HAILSTORM_BUFF.id,
-        enabled: combatant.hasTalent(SPELLS.HAILSTORM_TALENT.id),
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id,
-        triggeredBySpellId: SPELLS.STORMKEEPER_TALENT_ENHANCEMENT.id,
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.HAILSTORM_ENHANCEMENT_TALENT.id),
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.WINDFURY_TOTEM_BUFF.id,
-        triggeredBySpellId: SPELLS.WINDFURY_TOTEM.id,
+        triggeredBySpellId: TALENTS_SHAMAN.WINDFURY_TOTEM_ENHANCEMENT_TALENT.id,
         timelineHighlight: true,
       },
     ];

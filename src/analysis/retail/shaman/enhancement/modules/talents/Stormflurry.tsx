@@ -1,5 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -39,7 +40,13 @@ class Stormflurry extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.STORMFLURRY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_SHAMAN.STORMFLURRY_ENHANCEMENT_TALENT.id,
+    );
+
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(STORMSTRIKE_DAMAGE_SPELLS),
@@ -81,12 +88,12 @@ class Stormflurry extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={`You had ${this.extraHits} extra Stormstrike${
-          this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT)
+          this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id)
             ? `/Windstrike`
             : ``
         } hits (+${formatPercentage(this.extraHits / this.totalStormstrikeCasts)}%).`}
       >
-        <BoringSpellValueText spellId={SPELLS.STORMFLURRY_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_SHAMAN.STORMFLURRY_ENHANCEMENT_TALENT.id}>
           <>
             <ItemDamageDone amount={this.extraDamage} />
             <br />

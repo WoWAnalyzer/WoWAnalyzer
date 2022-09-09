@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -29,10 +30,14 @@ class IceStrike extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ICE_STRIKE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ICE_STRIKE_ENHANCEMENT_TALENT.id);
+
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ICE_STRIKE_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.ICE_STRIKE_ENHANCEMENT_TALENT),
       this.onIceStrikeDamage,
     );
   }
@@ -60,7 +65,7 @@ class IceStrike extends Analyzer {
           shockCooldownReducedInSeconds,
         )} seconds.`}
       >
-        <BoringSpellValueText spellId={SPELLS.ICE_STRIKE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_SHAMAN.ICE_STRIKE_ENHANCEMENT_TALENT.id}>
           <>
             {formatNumber(shockCooldownReducedInSeconds / this.casts)}s{' '}
             <small> avg. Shock Cooldown Reduction</small>

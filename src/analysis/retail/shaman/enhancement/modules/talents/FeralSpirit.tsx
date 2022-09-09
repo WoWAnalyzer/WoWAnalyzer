@@ -6,6 +6,7 @@ import ResourceGenerated from 'parser/ui/ResourceGenerated';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 const FERAL_SPIRIT = {
   INITIAL_MAELSTROM_WEAPON_GAIN: 1,
@@ -20,8 +21,16 @@ class FeralSpirit extends Analyzer {
   constructor(options: Options) {
     super(options);
 
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_SHAMAN.FERAL_SPIRIT_ENHANCEMENT_TALENT.id,
+    );
+
+    if (!this.active) {
+      return;
+    }
+
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FERAL_SPIRIT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.FERAL_SPIRIT_ENHANCEMENT_TALENT),
       this.onFeralSpiritCast,
     );
   }
@@ -43,7 +52,7 @@ class FeralSpirit extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.GENERAL}
       >
-        <BoringSpellValueText spellId={SPELLS.FERAL_SPIRIT.id}>
+        <BoringSpellValueText spellId={TALENTS_SHAMAN.FERAL_SPIRIT_ENHANCEMENT_TALENT.id}>
           <>
             <ResourceGenerated
               amount={this.maelstromWeaponGained}

@@ -15,16 +15,18 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { Intervals } from './Intervals';
+import { Intervals } from '../core/Intervals';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 const MAX_STACKS = 10;
 const MAX_STACKS_SPENT_PER_CAST = 5;
 const MAELSTROM_WEAPON_SPENDERS: Spell[] = [
-  SPELLS.CHAIN_HEAL,
-  SPELLS.CHAIN_LIGHTNING,
   SPELLS.HEALING_SURGE,
   SPELLS.LIGHTNING_BOLT,
-  SPELLS.ELEMENTAL_BLAST_TALENT,
+  // TODO: Enable talent as spell
+  // TALENTS_SHAMAN.CHAIN_HEAL_TALENT,
+  // TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT,
+  // TALENTS_SHAMAN.ELEMENTAL_BLAST_ENHANCEMENT_TALENT,
 ];
 const debug = false;
 
@@ -38,12 +40,16 @@ class MaelstromWeapon extends Analyzer {
   protected lastTimestamp = 0;
   protected hasApplyBuffInThisTimestamp = false;
 
-  protected cappedIntervals: Intervals;
+  protected cappedIntervals: Intervals = new Intervals();
 
   constructor(options: Options) {
     super(options);
 
-    this.cappedIntervals = new Intervals();
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.MAELSTROM_WEAPON_TALENT.id);
+
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),

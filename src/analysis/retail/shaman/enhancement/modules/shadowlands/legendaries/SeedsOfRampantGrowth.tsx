@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 class SeedsOfRampantGrowth extends Analyzer {
   static dependencies = {
@@ -26,8 +27,12 @@ class SeedsOfRampantGrowth extends Analyzer {
   }
 
   reduceFeralSpiritCooldown(event: ApplyBuffStackEvent | ApplyBuffEvent) {
-    if (this.spellUsable.isOnCooldown(SPELLS.FERAL_SPIRIT.id)) {
-      this.spellUsable.reduceCooldown(SPELLS.FERAL_SPIRIT.id, 9000, event.timestamp);
+    if (this.spellUsable.isOnCooldown(TALENTS_SHAMAN.FERAL_SPIRIT_ENHANCEMENT_TALENT.id)) {
+      this.spellUsable.reduceCooldown(
+        TALENTS_SHAMAN.FERAL_SPIRIT_ENHANCEMENT_TALENT.id,
+        9000,
+        event.timestamp,
+      );
     }
   }
 }

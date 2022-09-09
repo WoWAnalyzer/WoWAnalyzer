@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -15,7 +16,12 @@ class SpiritWolf extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_WOLF_TALENT.id);
+
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.SPIRIT_WOLF_TALENT.id);
+
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.damageTaken);
   }
@@ -43,7 +49,7 @@ class SpiritWolf extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(45)}
         category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.SPIRIT_WOLF_TALENT.id} />}
+        icon={<SpellIcon id={TALENTS_SHAMAN.SPIRIT_WOLF_TALENT.id} />}
         value={`≈${formatNumber(this.totalDrps)} DRPS`}
         label={<Trans id="shaman.shared.damageReduced.label">Estimated damage reduced</Trans>}
         tooltip={
@@ -52,8 +58,8 @@ class SpiritWolf extends Analyzer {
             <br />
             This is the lowest possible value. This value is pretty accurate for this log if you are
             looking at the actual gain over not having{' '}
-            <SpellLink id={SPELLS.SPIRIT_WOLF_TALENT.id} /> bonus at all, but the gain may end up
-            higher when taking interactions with other damage reductions into account.
+            <SpellLink id={TALENTS_SHAMAN.SPIRIT_WOLF_TALENT.id} /> bonus at all, but the gain may
+            end up higher when taking interactions with other damage reductions into account.
           </Trans>
         }
       />

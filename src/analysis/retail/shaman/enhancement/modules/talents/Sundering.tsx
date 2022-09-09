@@ -1,6 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
@@ -38,15 +38,19 @@ class Sundering extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SUNDERING_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.SUNDERING_ENHANCEMENT_TALENT.id);
+
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUNDERING_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.SUNDERING_ENHANCEMENT_TALENT),
       this.onCast,
     );
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SUNDERING_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.SUNDERING_ENHANCEMENT_TALENT),
       this.onDamage,
     );
 
@@ -105,7 +109,7 @@ class Sundering extends Analyzer {
         }
         size="flexible"
       >
-        <BoringSpellValueText spellId={SPELLS.SUNDERING_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_SHAMAN.SUNDERING_ENHANCEMENT_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damageGained} />
             <br />
@@ -141,10 +145,10 @@ class Sundering extends Analyzer {
       suggest(
         <Trans id="shaman.enhancement.suggestions.sundering.suggest">
           Consider the amount of enemies in the direction you're facing when casting{' '}
-          <SpellLink id={SPELLS.SUNDERING_TALENT.id} /> to avoid missing it.
+          <SpellLink id={TALENTS_SHAMAN.SUNDERING_ENHANCEMENT_TALENT.id} /> to avoid missing it.
         </Trans>,
       )
-        .icon(SPELLS.SUNDERING_TALENT.icon)
+        .icon(TALENTS_SHAMAN.SUNDERING_ENHANCEMENT_TALENT.icon)
         .actual(
           <Trans id="shaman.enhancement.suggestions.sundering.actual">
             You missed {formatPercentage(actual)}% of cast(s)

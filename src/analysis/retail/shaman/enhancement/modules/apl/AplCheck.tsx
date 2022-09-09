@@ -1,58 +1,52 @@
-import SPELLS from 'common/SPELLS';
 import { suggestion } from 'parser/core/Analyzer';
 import aplCheck, { build } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
-import {
-  and,
-  buffPresent,
-  buffStacks,
-  debuffMissing,
-  debuffPresent,
-  hasTalent,
-} from 'parser/shared/metrics/apl/conditions';
+// import SPELLS from 'common/SPELLS';
+// import { and, buffPresent, buffStacks, debuffMissing, hasTalent } from 'parser/shared/metrics/apl/conditions';
+// import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 /**
  * Based on https://www.icy-veins.com/wow/enhancement-shaman-pve-dps-guide
  */
 export const apl = build([
-  {
-    spell: SPELLS.LAVA_LASH,
-    condition: buffPresent(SPELLS.HOT_HAND_BUFF),
-  },
-  {
-    spell: SPELLS.FLAME_SHOCK,
-    condition: debuffMissing(SPELLS.FLAME_SHOCK),
-  },
-  {
-    spell: SPELLS.FROST_SHOCK,
-    condition: buffStacks(SPELLS.HAILSTORM_TALENT, { atLeast: 1 }),
-  },
-  {
-    spell: SPELLS.ELEMENTAL_BLAST_TALENT,
-    condition: buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 5 }),
-  },
-  {
-    spell: SPELLS.STORMSTRIKE_CAST,
-    condition: and(hasTalent(SPELLS.STORMFLURRY_TALENT), buffPresent(SPELLS.STORMBRINGER_BUFF)),
-  },
-  {
-    spell: SPELLS.LIGHTNING_BOLT,
-    condition: buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 10 }),
-  },
-  SPELLS.STORMSTRIKE_CAST,
-  SPELLS.LAVA_LASH,
-  SPELLS.SUNDERING_TALENT,
-  {
-    spell: SPELLS.LIGHTNING_BOLT,
-    condition: buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 5 }),
-  },
-  SPELLS.FROST_SHOCK,
-  SPELLS.CRASH_LIGHTNING,
-  SPELLS.ICE_STRIKE_TALENT,
-  {
-    spell: SPELLS.FIRE_NOVA_TALENT,
-    condition: debuffPresent(SPELLS.FLAME_SHOCK),
-  },
+  // {
+  //   spell: TALENTS_SHAMAN.LAVA_LASH_ENHANCEMENT_TALENT,
+  //   condition: buffPresent(SPELLS.HOT_HAND_BUFF),
+  // },
+  // {
+  //   spell: SPELLS.FLAME_SHOCK,
+  //   condition: debuffMissing(SPELLS.FLAME_SHOCK),
+  // },
+  // {
+  //   spell: TALENTS_SHAMAN.FROST_SHOCK_TALENT,
+  //   condition: buffStacks(TALENTS_SHAMAN.HAILSTORM_ENHANCEMENT_TALENT, { atLeast: 1 }),
+  // },
+  // {
+  //   spell: TALENTS_SHAMAN.ELEMENTAL_BLAST_ENHANCEMENT_TALENT,
+  //   condition: buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 5 }),
+  // },
+  // {
+  //   spell: TALENTS_SHAMAN.STORMSTRIKE_ENHANCEMENT_TALENT,
+  //   condition: and(hasTalent(TALENTS_SHAMAN.STORMFLURRY_ENHANCEMENT_TALENT), buffPresent(SPELLS.STORMBRINGER_BUFF)),
+  // },
+  // {
+  //   spell: SPELLS.LIGHTNING_BOLT,
+  //   condition: buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 10 }),
+  // },
+  // TALENTS_SHAMAN.STORMSTRIKE_ENHANCEMENT_TALENT,
+  // TALENTS_SHAMAN.LAVA_LASH_ENHANCEMENT_TALENT,
+  // TALENTS_SHAMAN.SUNDERING_ENHANCEMENT_TALENT,
+  // {
+  //   spell: SPELLS.LIGHTNING_BOLT,
+  //   condition: buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 5 }),
+  // },
+  // TALENTS_SHAMAN.FROST_SHOCK_TALENT,
+  // TALENTS_SHAMAN.CRASH_LIGHTNING_ENHANCEMENT_TALENT,
+  // TALENTS_SHAMAN.ICE_STRIKE_ENHANCEMENT_TALENT,
+  // {
+  //   spell: TALENTS_SHAMAN.FIRE_NOVA_ENHANCEMENT_TALENT,
+  //   condition: debuffPresent(SPELLS.FLAME_SHOCK),
+  // },
 ]);
 
 export const check = aplCheck(apl);

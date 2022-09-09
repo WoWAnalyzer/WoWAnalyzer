@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
-import { EMBRACE_OF_EARTH_RANKS } from 'analysis/retail/shaman/restoration/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -14,7 +14,7 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
-import { HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD } from './constants';
+import { HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD } from '../constants';
 
 export const EARTHSHIELD_HEALING_INCREASE = 0.2;
 
@@ -33,16 +33,22 @@ class EarthShield extends Analyzer {
   constructor(options: Options) {
     super(options);
     const isRsham = this.selectedCombatant.specId === SPECS.RESTORATION_SHAMAN.id;
-    this.active = isRsham || this.selectedCombatant.hasTalent(SPELLS.EARTH_SHIELD_TALENT.id);
+    this.active =
+      isRsham || this.selectedCombatant.hasTalent(TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id);
+
+    if (!this.active) {
+      return;
+    }
 
     if (isRsham) {
       this.category = STATISTIC_CATEGORY.GENERAL;
     }
-
-    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.EMBRACE_OF_EARTH.id);
-    if (conduitRank) {
-      this.earthShieldHealingIncrease += EMBRACE_OF_EARTH_RANKS[conduitRank] / 100;
-    }
+    // TODO: Update for dragonflight
+    // const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.EMBRACE_OF_EARTH.id);
+    //
+    // if (conduitRank) {
+    //   this.earthShieldHealingIncrease += EMBRACE_OF_EARTH_RANKS[conduitRank] / 100;
+    // }
 
     // event listener for direct heals when taking damage with earth shield
     this.addEventListener(
@@ -63,7 +69,7 @@ class EarthShield extends Analyzer {
   get uptime() {
     return Object.values(this.combatants.players).reduce(
       (uptime, player) =>
-        uptime + player.getBuffUptime(SPELLS.EARTH_SHIELD_TALENT.id, this.owner.playerId),
+        uptime + player.getBuffUptime(TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id, this.owner.playerId),
       0,
     );
   }
@@ -90,7 +96,7 @@ class EarthShield extends Analyzer {
 
   onEarthShieldAmpSpellHeal(event: HealEvent) {
     const combatant = this.combatants.getEntity(event);
-    if (combatant && combatant.hasBuff(SPELLS.EARTH_SHIELD_TALENT.id, event.timestamp)) {
+    if (combatant && combatant.hasBuff(TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id, event.timestamp)) {
       this.buffHealing += calculateEffectiveHealing(event, this.earthShieldHealingIncrease);
     }
   }
@@ -98,7 +104,7 @@ class EarthShield extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        label={<SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} />}
+        label={<SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} />}
         category={this.category}
         position={STATISTIC_ORDER.OPTIONAL(45)}
         tooltip={

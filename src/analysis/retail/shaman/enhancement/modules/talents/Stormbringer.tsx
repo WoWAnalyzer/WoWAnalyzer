@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS/shaman';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -25,6 +26,14 @@ class Stormbringer extends Analyzer {
   constructor(options: Options) {
     super(options);
 
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_SHAMAN.STORMBRINGER_ENHANCEMENT_TALENT.id,
+    );
+
+    if (!this.active) {
+      return;
+    }
+
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.STORMBRINGER_BUFF),
       this.onStormbringerApplied,
@@ -47,8 +56,8 @@ class Stormbringer extends Analyzer {
   }
 
   onStormbringerApplied() {
-    if (this.spellUsable.isOnCooldown(SPELLS.STORMSTRIKE_CAST.id)) {
-      this.spellUsable.endCooldown(SPELLS.STORMSTRIKE_CAST.id);
+    if (this.spellUsable.isOnCooldown(TALENTS_SHAMAN.STORMSTRIKE_ENHANCEMENT_TALENT.id)) {
+      this.spellUsable.endCooldown(TALENTS_SHAMAN.STORMSTRIKE_ENHANCEMENT_TALENT.id);
     }
 
     if (this.spellUsable.isOnCooldown(SPELLS.WINDSTRIKE_CAST.id)) {
@@ -77,7 +86,7 @@ class Stormbringer extends Analyzer {
         size="small"
         category={STATISTIC_CATEGORY.GENERAL}
       >
-        <BoringSpellValueText spellId={SPELLS.STORMBRINGER.id}>
+        <BoringSpellValueText spellId={TALENTS_SHAMAN.STORMBRINGER_ENHANCEMENT_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damageGained} />
           </>
