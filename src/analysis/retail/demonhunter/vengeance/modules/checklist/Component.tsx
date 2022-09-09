@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -40,11 +39,19 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
         }
       >
         <AbilityRequirement spell={SPELLS.IMMOLATION_AURA.id} />
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.SIGIL_OF_FLAME_PRECISE.id} />
+        )}
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} />
+        )}
         {!(
-          combatant.hasCovenant(COVENANTS.KYRIAN.id) &&
-          combatant.hasLegendary(SPELLS.RAZELIKHS_DEFILEMENT)
-        ) && <AbilityRequirement spell={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} />}
-        <AbilityRequirement spell={SPELLS.FEL_DEVASTATION.id} />
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT.id) ||
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id)
+        ) && <AbilityRequirement spell={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id} />}
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_VENGEANCE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_VENGEANCE_TALENT.id} />
+        )}
         {combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_VENGEANCE_TALENT.id) && (
           <AbilityRequirement spell={TALENTS_DEMON_HUNTER.FRACTURE_VENGEANCE_TALENT.id} />
         )}
@@ -59,6 +66,16 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
         {/*)}*/}
         {combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.THE_HUNT.id} />
+        )}
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.RETALIATION_VENGEANCE_TALENT.id) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={SPELLS.DEMON_SPIKES.id} />
+              </>
+            }
+            thresholds={thresholds.demonSpikes}
+          />
         )}
       </Rule>
 
@@ -87,6 +104,16 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
           }
           thresholds={thresholds.demonSpikes}
         />
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.BLUR_TALENT.id) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={TALENTS_DEMON_HUNTER.BLUR_TALENT.id} />
+              </>
+            }
+            thresholds={thresholds.blur}
+          />
+        )}
         {combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id) &&
           !combatant.hasTalent(TALENTS_DEMON_HUNTER.FEED_THE_DEMON_VENGEANCE_TALENT.id) && (
             <Requirement
@@ -132,51 +159,59 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
         }
       >
         <AbilityRequirement spell={SPELLS.METAMORPHOSIS_TANK.id} />
-        <AbilityRequirement spell={SPELLS.FIERY_BRAND.id} />
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FIERY_BRAND_VENGEANCE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_VENGEANCE_TALENT.id} />
+        )}
       </Rule>
 
-      {(combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id) ||
-        combatant.hasTalent(TALENTS_DEMON_HUNTER.VOID_REAVER_VENGEANCE_TALENT.id)) && (
-        <Rule
-          name="Maintain your buffs and debuffs"
-          description={
-            <>
-              It is important to maintain these as they contribute a large amount to your DPS and
-              HPS.
-              <br />
-              <a
-                href="https://www.wowhead.com/vengeance-demon-hunter-rotation-guide#rotation-priority-list"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                More info.
-              </a>
-            </>
-          }
-        >
-          {combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id) && (
-            <Requirement
-              name={
-                <>
-                  <SpellLink id={SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id} /> debuff uptime
-                </>
-              }
-              thresholds={thresholds.spiritBombFrailtyDebuff}
-            />
-          )}
-          {combatant.hasTalent(TALENTS_DEMON_HUNTER.VOID_REAVER_VENGEANCE_TALENT.id) && (
-            <Requirement
-              name={
-                <>
-                  <SpellLink id={TALENTS_DEMON_HUNTER.VOID_REAVER_VENGEANCE_TALENT.id} /> debuff
-                  uptime
-                </>
-              }
-              thresholds={thresholds.voidReaverDebuff}
-            />
-          )}
-        </Rule>
-      )}
+      <Rule
+        name="Maintain your buffs and debuffs"
+        description={
+          <>
+            It is important to maintain these as they contribute a large amount to your DPS and HPS.
+            <br />
+            <a
+              href="https://www.wowhead.com/vengeance-demon-hunter-rotation-guide#rotation-priority-list"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              More info.
+            </a>
+          </>
+        }
+      >
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FRAILTY_VENGEANCE_TALENT.id) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={SPELLS.FRAILTY.id} /> debuff uptime
+              </>
+            }
+            thresholds={thresholds.frailtyDebuff}
+          />
+        )}
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.VOID_REAVER_VENGEANCE_TALENT.id) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={TALENTS_DEMON_HUNTER.VOID_REAVER_VENGEANCE_TALENT.id} /> debuff
+                uptime
+              </>
+            }
+            thresholds={thresholds.voidReaverDebuff}
+          />
+        )}
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.PAINBRINGER_VENGEANCE_TALENT.id) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={TALENTS_DEMON_HUNTER.PAINBRINGER_VENGEANCE_TALENT.id} /> buff uptime
+              </>
+            }
+            thresholds={thresholds.painbringerBuff}
+          />
+        )}
+      </Rule>
 
       <Rule
         name="Manage your resources properly"

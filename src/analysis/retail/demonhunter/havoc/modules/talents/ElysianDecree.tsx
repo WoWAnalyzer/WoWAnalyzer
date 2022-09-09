@@ -27,9 +27,7 @@ class ElysianDecree extends Analyzer {
     }
 
     this.addEventListener(
-      Events.damage
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.ELYSIAN_DECREE_DAMAGE, SPELLS.ELYSIAN_DECREE_REPEAT_DECREE_DAMAGE]),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ELYSIAN_DECREE_DAMAGE),
       this.onDamage,
     );
   }

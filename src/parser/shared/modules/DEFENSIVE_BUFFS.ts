@@ -32,10 +32,6 @@ const DEFENSIVE_BUFFS = [
   {
     spell: SPELLS.SHROUD_OF_PURGATORY.id,
   },
-  //Vengence Demon Hunter
-  {
-    spell: SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id,
-  },
   //Arms & Fury Warrior
   {
     spell: SPELLS.RALLYING_CRY_BUFF.id,

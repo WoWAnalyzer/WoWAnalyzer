@@ -33,6 +33,8 @@ import MasterOfTheGlaives from './modules/talents/MasterOfTheGlaives';
 import Momentum from './modules/talents/Momentum';
 import Netherwalk from './modules/talents/Netherwalk';
 import TrailofRuin from './modules/talents/TrailofRuin';
+import TacticalRetreat from './modules/talents/TacticalRetreat';
+import Initiative from './modules/talents/Initiative';
 import EyeBeam from './normalizers/EyeBeam';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -78,6 +80,8 @@ class CombatLogParser extends CoreCombatLogParser {
     chaosTheory: ChaosTheory,
     shatteredRestoration: ShatteredRestoration,
     elysianDecree: ElysianDecree,
+    tacticalRetreat: TacticalRetreat,
+    initiative: Initiative,
 
     // Resources
     furyTracker: FuryTracker,
