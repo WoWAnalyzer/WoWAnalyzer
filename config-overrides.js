@@ -1,4 +1,4 @@
-const { override, babelInclude } = require('customize-cra');
+const { override, babelInclude, addBabelPlugin } = require('customize-cra');
 const path = require('path');
 
 const disablePlugins = (plugins) => (config) => ({
@@ -22,6 +22,7 @@ const fixLingui = () => (config) => {
 };
 
 module.exports = override(
+  addBabelPlugin('@emotion'),
   babelInclude([path.resolve('./src')]),
   fixLingui(),
   // customize-cra's disableEsLint disables the rules, but disabling the entire
