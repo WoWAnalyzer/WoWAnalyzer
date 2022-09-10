@@ -50,15 +50,81 @@ export interface Condition<T> {
   tooltip?: () => ReactChild | undefined;
 }
 export type StateFor<T> = T extends (...args: any[]) => Condition<infer R> ? R : never;
+
+/**
+ * What kind of thing is being "targeted" by this APL rule. Usually, this is Spell, which means that you want them to cast a particular spell.
+ * Sometimes, you will use SpellList instead, which means cast any of a list of spells.
+ */
+enum TargetType {
+  /**
+   * Cast the specified spell.
+   */
+  Spell,
+  /**
+   * Cast *any of* the specified spells.
+   */
+  SpellList,
+}
+
+type SpellTarget = {
+  type: TargetType.Spell;
+  target: Spell;
+};
+
+type SpellListTarget = {
+  type: TargetType.SpellList;
+  target: Spell[];
+};
+
+export type AplTarget = SpellTarget | SpellListTarget;
+
+export type InternalRule = {
+  spell: AplTarget;
+  condition?: Condition<any>;
+};
+
 export interface ConditionalRule {
-  spell: Spell;
+  spell: Spell | Spell[];
   condition: Condition<any>;
 }
-export type Rule = Spell | ConditionalRule;
+
+export type Rule = Spell | Spell[] | ConditionalRule;
 
 export interface Apl {
   conditions?: Array<Condition<any>>;
-  rules: Rule[];
+  rules: InternalRule[];
+}
+
+/**
+ * Convert an external rule to an internal rule.
+ *
+ * Internal rules have a more rigid format to make the rest of the code easier to maintain.
+ */
+function internalizeRule(rule: Rule): InternalRule {
+  if ('condition' in rule) {
+    // conditional rule
+    const { spell } = internalizeRule(rule.spell);
+
+    return { ...rule, spell };
+  } else {
+    if (Array.isArray(rule)) {
+      // spell list
+      return {
+        spell: {
+          type: TargetType.SpellList,
+          target: rule,
+        },
+      };
+    } else {
+      // spell object, not a list
+      return {
+        spell: {
+          type: TargetType.Spell,
+          target: rule,
+        },
+      };
+    }
+  }
 }
 
 /**
@@ -77,7 +143,9 @@ export function build(rules: Rule[]): Apl {
     }, {});
   const conditions = Object.values<Condition<any>>(conditionMap);
 
-  return { rules, conditions };
+  const internalRules = rules.map(internalizeRule);
+
+  return { rules: internalRules, conditions };
 }
 
 export enum ResultKind {
@@ -88,8 +156,11 @@ export enum ResultKind {
 export interface Violation {
   kind: ResultKind.Violation;
   actualCast: AplTriggerEvent;
-  expectedCast: Spell;
-  rule: Rule;
+  /**
+   * The list of spells that could have been cast to satisfy the rule. Does not include spells that were on cooldown.
+   */
+  expectedCast: Spell[];
+  rule: InternalRule;
 }
 
 type ConditionState = { [key: string]: any };
@@ -97,7 +168,7 @@ type AbilityState = { [spellId: number]: UpdateSpellUsableEvent };
 
 export interface Success {
   kind: ResultKind.Success;
-  rule: Rule;
+  rule: InternalRule;
   actualCast: AplTriggerEvent;
 }
 
@@ -135,7 +206,8 @@ function updateState(apl: Apl, oldState: ConditionState, event: AnyEvent): Condi
 export function tenseAlt<T>(tense: Tense | undefined, a: T, b: T): T {
   return tense === Tense.Present ? a : b;
 }
-export const spell = (rule: Rule): Spell => ('spell' in rule ? rule.spell : rule);
+export const spells = (rule: InternalRule): Spell[] =>
+  rule.spell.type === TargetType.SpellList ? rule.spell.target : [rule.spell.target];
 
 export function lookaheadSlice(
   events: AnyEvent[],
@@ -163,33 +235,47 @@ export function lookaheadSlice(
  * 2. The condition for the rule is validated *or* the rule is unconditional.
  *
  * Note that if a spell is cast that we think is unavailable, we'll assume our data is stale and apply the rule anyway.
+ *
+ * @returns false when no spells are available. Otherwise, the list of available spells.
  **/
 function ruleApplies(
-  rule: Rule,
+  rule: InternalRule,
   abilities: Set<number>,
   result: CheckState,
   events: AnyEvent[],
   eventIndex: number,
-): boolean {
+): Spell[] | false {
   const event = events[eventIndex];
   if (event.type !== EventType.Cast && event.type !== EventType.BeginChannel) {
     console.error('attempted to apply APL rule to non-cast event, ignoring', event);
     return false;
   }
-  return (
-    abilities.has(spell(rule).id) &&
-    (spell(rule).id === event.ability.guid ||
-      result.abilityState[spell(rule).id] === undefined ||
-      result.abilityState[spell(rule).id].isAvailable) &&
-    (!('condition' in rule) ||
-      rule.condition.validate(
+  const availableSpells = spells(rule).filter(
+    (spell) =>
+      abilities.has(spell.id) &&
+      (spell.id === event.ability.guid ||
+        result.abilityState[spell.id] === undefined ||
+        result.abilityState[spell.id].isAvailable) &&
+      (rule.condition?.validate(
         result.conditionState[rule.condition.key],
         event,
-        rule.spell,
+        spell,
         lookaheadSlice(events, eventIndex, rule.condition.lookahead),
-      ))
+      ) ??
+        true),
   );
+
+  if (availableSpells.length === 0) {
+    return false;
+  }
+
+  return availableSpells;
 }
+
+type ApplicableRule = {
+  rule: InternalRule;
+  availableSpells: Spell[];
+};
 
 /**
  * Find the first applicable rule. See also: `ruleApplies`
@@ -200,10 +286,11 @@ function applicableRule(
   result: CheckState,
   events: AnyEvent[],
   eventIndex: number,
-): Rule | undefined {
+): ApplicableRule | undefined {
   for (const rule of apl.rules) {
-    if (ruleApplies(rule, abilities, result, events, eventIndex)) {
-      return rule;
+    const availableSpells = ruleApplies(rule, abilities, result, events, eventIndex);
+    if (availableSpells !== false) {
+      return { rule, availableSpells };
     }
   }
 }
@@ -244,7 +331,10 @@ const aplCheck = (apl: Apl) =>
           typeof ability.spell === 'number' ? [ability.spell] : ability.spell,
         ),
     );
-    const applicableSpells = new Set(apl.rules.map((rule) => spell(rule).id));
+    const applicableSpells = new Set(
+      apl.rules.flatMap((rule) => spells(rule)).map((spell) => spell.id),
+    );
+
     return events.reduce<CheckState>(
       (result, event, eventIndex) => {
         if (
@@ -253,21 +343,26 @@ const aplCheck = (apl: Apl) =>
               event.ability.guid !== result.mostRecentBeginCast?.ability.guid)) &&
           applicableSpells.has(event.ability.guid)
         ) {
-          const rule = applicableRule(apl, abilities, result, events, eventIndex);
-          if (rule) {
+          const applicable = applicableRule(apl, abilities, result, events, eventIndex);
+          if (applicable) {
+            const { rule, availableSpells } = applicable;
+
             if (
-              result.abilityState[spell(rule).id] !== undefined &&
-              !result.abilityState[spell(rule).id].isAvailable &&
+              spells(rule).some(
+                (spell) =>
+                  result.abilityState[spell.id] !== undefined &&
+                  !result.abilityState[spell.id].isAvailable,
+              ) &&
               process.env.NODE_ENV === 'development'
             ) {
               console.warn(
                 'inconsistent ability state in APL checker:',
-                result.abilityState[spell(rule).id],
+                spells(rule).map((spell) => result.abilityState[spell.id]),
                 rule,
                 event,
               );
             }
-            if (spell(rule).id === event.ability.guid) {
+            if (spells(rule).some((spell) => spell.id === event.ability.guid)) {
               // the player cast the correct spell
               result.successes.push({ rule, actualCast: event, kind: ResultKind.Success });
             } else if (
@@ -278,7 +373,7 @@ const aplCheck = (apl: Apl) =>
               result.violations.push({
                 kind: ResultKind.Violation,
                 rule,
-                expectedCast: spell(rule),
+                expectedCast: availableSpells,
                 actualCast: event,
               });
             }
