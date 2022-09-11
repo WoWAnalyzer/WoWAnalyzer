@@ -616,6 +616,7 @@
   "interface.report.supportChecker.specPartialSupportDetails": "",
   "interface.report.supportChecker.tooltip.khadgarApproves": "Кадгар одобряет Вашу решимость",
   "interface.report.supportChecker.unmaintained": "",
+  "interface.report.talents.parseFailed": "",
   "interface.reportSelecter.reportSelecter.button": "Анализировать",
   "interface.reportSelecter.reportSelecter.placeholder": "https://www.warcraftlogs.com/reports/<report code>",
   "interface.reportSelecter.reportSelecter.tooltip.supportedLinks": "Поддерживаемые ссылки:<0/><1><2>https://www.warcraftlogs.com/reports/<report code></2><3>https://www.warcraftlogs.com/character/<region>/<realm>/<name></3><4>https://worldofwarcraft.com/<language-code>/character/<realm>/<name></4><5>https://www.wowchina.com/<language-code>/character/<realm>/<name></5></1>",

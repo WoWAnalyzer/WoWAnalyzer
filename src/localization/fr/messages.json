@@ -616,6 +616,7 @@
   "interface.report.supportChecker.specPartialSupportDetails": "",
   "interface.report.supportChecker.tooltip.khadgarApproves": "",
   "interface.report.supportChecker.unmaintained": "",
+  "interface.report.talents.parseFailed": "",
   "interface.reportSelecter.reportSelecter.button": "Analyser",
   "interface.reportSelecter.reportSelecter.placeholder": "https://www.warcraftlogs.com/reports/<code du rapport>",
   "interface.reportSelecter.reportSelecter.tooltip.supportedLinks": "",

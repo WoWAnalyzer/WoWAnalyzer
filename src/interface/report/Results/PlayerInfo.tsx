@@ -12,20 +12,8 @@ import PlayerInfoGems from './PlayerInfoGems';
 import PlayerInfoSoulbinds from './PlayerInfoSoulbinds';
 import PlayerInfoTalents from './PlayerInfoTalents';
 
-function _parseTalents(talents: TalentsType[]): number[] {
-  return talents.reduce(
-    (talentsByRow: number[], talent: TalentsType) => talentsByRow.concat(talent.id),
-    [],
-  );
-}
-
 function _parseGear(gear: Item[]) {
   return gear.reduce((gearItemsBySlotId: Item[], item: Item) => gearItemsBySlotId.concat(item), []);
-}
-
-interface TalentsType {
-  icon: string;
-  id: number;
 }
 
 interface Props {
@@ -35,7 +23,7 @@ interface Props {
 const PlayerInfo = ({ combatant }: Props) => {
   const isRetail = combatant.owner.config.expansion === RETAIL_EXPANSION;
   const gear: Item[] = _parseGear(combatant._combatantInfo.gear);
-  const talents: number[] = _parseTalents(combatant._combatantInfo.talents);
+  const talents = combatant._combatantInfo.talentTree;
   const averageIlvl = getAverageItemLevel(gear);
   const conduits = combatant._combatantInfo.conduits;
   const soulbinds = combatant._combatantInfo.soulbindTraits;
