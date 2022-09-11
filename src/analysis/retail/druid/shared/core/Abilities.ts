@@ -5,6 +5,7 @@ import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import { TALENTS_DRUID as TALENTS } from 'common/TALENTS/druid';
 
 export const druidGcd = (c: Combatant) => (c.hasBuff(SPELLS.CAT_FORM.id) ? 1000 : 1500);
 
@@ -87,7 +88,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: druidGcd,
         },
-        enabled: combatant.hasTalent(SPELLS.HEART_OF_THE_WILD_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.HEART_OF_THE_WILD_TALENT.id),
         castEfficiency: {
           suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,

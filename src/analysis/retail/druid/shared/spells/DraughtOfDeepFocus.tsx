@@ -10,11 +10,13 @@ import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { TALENTS_DRUID as TALENTS } from 'common/TALENTS/druid';
 
 const BUFFED_DOTS = [SPELLS.RIP, SPELLS.RAKE_BLEED, SPELLS.MOONFIRE_FERAL, SPELLS.MOONFIRE_DEBUFF];
 
 const DDF_BOOST = 0.4;
 
+// TODO so far this is removed in Dragonflight - leaving it around until we're sure
 /**
  * **Draught of Deep Focus**
  * Runecarving Legendary
@@ -115,7 +117,7 @@ class DraughtOfDeepFocus extends Analyzer {
               {Object.values(this.ddfDotsOnById)
                 .filter(
                   (dot) =>
-                    this.selectedCombatant.hasTalent(SPELLS.LUNAR_INSPIRATION_TALENT.id) ||
+                    this.selectedCombatant.hasTalent(TALENTS.LUNAR_INSPIRATION_FERAL_TALENT) ||
                     dot.spell.id !== SPELLS.MOONFIRE_FERAL.id,
                 )
                 .map((dot) => (
