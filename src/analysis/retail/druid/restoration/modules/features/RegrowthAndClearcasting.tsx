@@ -15,6 +15,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { PerformanceBoxRow } from 'parser/ui/PerformanceBoxRow';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 /** Health percent below which we consider a heal to be 'triage' */
 const TRIAGE_THRESHOLD = 0.5;
@@ -65,7 +66,9 @@ class RegrowthAndClearcasting extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.hasAbundance = this.selectedCombatant.hasTalent(SPELLS.ABUNDANCE_TALENT);
+    this.hasAbundance = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.ABUNDANCE_RESTORATION_TALENT,
+    );
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING_BUFF),
@@ -228,8 +231,8 @@ class RegrowthAndClearcasting extends Analyzer {
         <SpellLink id={SPELLS.REGROWTH.id} /> is very mana inefficient and should only be cast when
         free due to <SpellLink id={SPELLS.INNERVATE.id} /> or{' '}
         <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} />, cheap due to {ABUNDANCE_EXCEPTION_STACKS}+{' '}
-        <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} /> stacks, or to save a low health target. When
-        triaging low health targets, you should use
+        <SpellLink id={TALENTS_DRUID.ABUNDANCE_RESTORATION_TALENT.id} /> stacks, or to save a low
+        health target. When triaging low health targets, you should use
         <SpellLink id={SPELLS.SWIFTMEND.id} /> or <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} />{' '}
         first before resorting to Regrowth.
       </>
@@ -238,7 +241,9 @@ class RegrowthAndClearcasting extends Analyzer {
 
   /** Guide subsection describing the proper usage of Regrowth */
   get guideSubsection(): JSX.Element {
-    const hasAbundance = this.selectedCombatant.hasTalent(SPELLS.ABUNDANCE_TALENT);
+    const hasAbundance = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.ABUNDANCE_RESTORATION_TALENT,
+    );
     const castPerfBoxes = this.castRegrowthLog.map((rgCast) => {
       let message = '';
       if (rgCast.reason === 'innervate') {
@@ -272,11 +277,12 @@ class RegrowthAndClearcasting extends Analyzer {
           <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} />{' '}
           {hasAbundance && (
             <>
-              or cheap due to <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} />. Even with{' '}
-              <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} /> you still shouldn't cast Regrowth during
-              your ramp. Wait until after you <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> or{' '}
-              <SpellLink id={SPELLS.FLOURISH_TALENT.id} />, then you can fill with high-stack
-              Regrowth casts.
+              or cheap due to <SpellLink id={TALENTS_DRUID.ABUNDANCE_RESTORATION_TALENT.id} />. Even
+              with <SpellLink id={TALENTS_DRUID.ABUNDANCE_RESTORATION_TALENT.id} /> you still
+              shouldn't cast Regrowth during your ramp. Wait until after you{' '}
+              <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> or{' '}
+              <SpellLink id={TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id} />, then you can fill
+              with high-stack Regrowth casts.
             </>
           )}
         </p>
@@ -337,7 +343,7 @@ class RegrowthAndClearcasting extends Analyzer {
             {this.hasAbundance && (
               <>
                 cheap due to {ABUNDANCE_EXCEPTION_STACKS}+{' '}
-                <SpellLink id={SPELLS.ABUNDANCE_TALENT.id} /> stacks,
+                <SpellLink id={TALENTS_DRUID.ABUNDANCE_RESTORATION_TALENT.id} /> stacks,
               </>
             )}{' '}
             or to save a low health target.
