@@ -10,7 +10,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import HotTrackerRestoDruid from '../../core/hottracking/HotTrackerRestoDruid';
+import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 const HOT_EXTENSION = 10_000;
 
@@ -23,7 +24,7 @@ const HOT_ID_CONSUME_ORDER = [
 
 /**
  * **Verdant Infusion**
- * Runecarving Legendary
+ * Spec Talent Tier 8
  *
  * Swiftmend no longer consumes a heal over time effect,
  * and extends the duration of your heal over time effects on the target by 10 sec.
@@ -42,7 +43,9 @@ class VerdantInfusion extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.VERDANT_INFUSION);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.VERDANT_INFUSION_RESTORATION_TALENT,
+    );
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SWIFTMEND),
@@ -95,8 +98,8 @@ class VerdantInfusion extends Analyzer {
         tooltip={
           <>
             This is the sum of the healing attributable to the HoT extensions caused by casting
-            Swiftmend with the Verdant Infusion legendary. This number also accounts for the benefit
-            of not consuming a HoT.
+            Swiftmend with the Verdant Infusion talent. This number also accounts for the benefit of
+            not consuming a HoT.
             <br />
             <br />
             Over <strong>{this.casts} Swiftmends</strong>, you averaged{' '}

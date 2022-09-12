@@ -1,7 +1,6 @@
 import { ConvokeSpirits } from 'analysis/retail/druid/shared';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink, Tooltip } from 'interface';
 import { PassFailCheckmark } from 'interface/guide';
 import InformationIcon from 'interface/icons/Information';
@@ -15,10 +14,14 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { CooldownExpandable, CooldownExpandableItem } from '../../../Guide';
-import { isFromHardcast } from '../../../normalizers/CastLinkNormalizer';
-import HotTrackerRestoDruid from '../../core/hottracking/HotTrackerRestoDruid';
-import { MutableAmount } from '../../talents/Flourish';
+import {
+  CooldownExpandable,
+  CooldownExpandableItem,
+} from 'analysis/retail/druid/restoration/Guide';
+import { isFromHardcast } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
+import { MutableAmount } from 'analysis/retail/druid/restoration/modules/spells/Flourish';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 const CONVOKED_HOTS = [
   SPELLS.REJUVENATION,
@@ -56,7 +59,6 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(CONVOKED_HOTS),
@@ -70,9 +72,9 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
       Events.heal.by(SELECTED_PLAYER).spell(CONVOKED_DIRECT_HEALS),
       this.onRestoDirectHeal,
     );
-    this.selectedCombatant.hasTalent(SPELLS.FLOURISH_TALENT) &&
+    this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_RESTORATION_TALENT) &&
       this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLOURISH_TALENT),
+        Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DRUID.FLOURISH_RESTORATION_TALENT),
         this.onFlourishCast,
       );
 
@@ -175,6 +177,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
     return this.restoConvokeTracker.filter((cast) => cast.nsAttribution.healing !== 0).length;
   }
 
+  // TODO update text for DF
   /** Guide fragment showing a breakdown of each Convoke cast */
   get guideCastBreakdown() {
     return (
@@ -183,9 +186,9 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
           <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />
         </strong>{' '}
         is a powerful but somewhat random burst of healing with a decent chance of proccing{' '}
-        <SpellLink id={SPELLS.FLOURISH_TALENT.id} />. Its short cooldown and random nature mean its
-        best used as it becomes available. Lightly ramping for a Convoke is still worthwhile in case
-        it procs Flourish.
+        <SpellLink id={TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id} />. Its short cooldown and
+        random nature mean its best used as it becomes available. Lightly ramping for a Convoke is
+        still worthwhile in case it procs Flourish.
         <p />
         {this.convokeTracker.map((cast, ix) => {
           const restoCast = this.restoConvokeTracker[ix];
@@ -219,20 +222,20 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
             result: <PassFailCheckmark pass={restoCast.rejuvsOnCast > 0} />,
             details: <>({restoCast.rejuvsOnCast} HoTs active)</>,
           });
-          this.selectedCombatant.hasTalent(SPELLS.FLOURISH_TALENT.id) &&
+          this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id) &&
             checklistItems.push({
               label: (
                 <>
-                  Avoid <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> clip{' '}
+                  Avoid <SpellLink id={TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id} /> clip{' '}
                   <Tooltip
                     hoverable
                     content={
                       <>
                         When casting <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> and{' '}
-                        <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> together, the Convoke should
-                        ALWAYS go first. This is both because the Convoke could proc Flourish and
-                        cause you to clip your hardcast's buff, and also because Convoke produces a
-                        lot of HoTs which Flourish could extend. If you got an{' '}
+                        <SpellLink id={TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id} /> together,
+                        the Convoke should ALWAYS go first. This is both because the Convoke could
+                        proc Flourish and cause you to clip your hardcast's buff, and also because
+                        Convoke produces a lot of HoTs which Flourish could extend. If you got an{' '}
                         <i className="glyphicon glyphicon-remove fail-mark" /> here, it means you
                         cast Flourish before this Convoke.
                       </>

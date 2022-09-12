@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -11,7 +10,9 @@ import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Che
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PropTypes from 'prop-types';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
+// TODO remove in favor of Guide (once UI for this figured out)
 const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
@@ -93,19 +94,21 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }: Ch
           </>
         }
       >
-        {combatant.hasTalent(SPELLS.CENARION_WARD_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.CENARION_WARD_TALENT.id} />
+        {combatant.hasTalent(TALENTS_DRUID.CENARION_WARD_RESTORATION_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_DRUID.CENARION_WARD_RESTORATION_TALENT.id} />
         )}
-        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
+        {combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_RESTORATION_TALENT) && (
           <AbilityRequirement spell={SPELLS.ADAPTIVE_SWARM.id} />
         )}
-        {combatant.hasTalent(SPELLS.FLOURISH_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.FLOURISH_TALENT.id} />
+        {combatant.hasTalent(TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} />
+        {combatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id) && (
+          <AbilityRequirement
+            spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id}
+          />
         )}
-        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+        {combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_RESTORATION_TALENT) && (
           <AbilityRequirement spell={SPELLS.CONVOKE_SPIRITS.id} />
         )}
         <AbilityRequirement spell={SPELLS.TRANQUILITY_CAST.id} />
@@ -252,11 +255,12 @@ const RestorationDruidChecklist = ({ combatant, castEfficiency, thresholds }: Ch
             or it's a bad Efflorescence fight and you'd be better off with a different talent`}
           />
         )}
-        {combatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> throughput
+                <SpellLink id={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id} />{' '}
+                throughput
               </>
             }
             thresholds={thresholds.treeOfLifePercent}

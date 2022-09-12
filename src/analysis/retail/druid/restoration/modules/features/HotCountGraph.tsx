@@ -1,12 +1,12 @@
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import SpellLink from 'interface/SpellLink';
 import Events from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import BuffCountGraph, { GraphedSpellSpec } from 'parser/shared/modules/BuffCountGraph';
 import Panel from 'parser/ui/Panel';
 
-import ConvokeSpiritsResto from '../../modules/shadowlands/covenants/ConvokeSpiritsResto';
+import ConvokeSpiritsResto from 'analysis/retail/druid/restoration/modules/spells/ConvokeSpiritsResto';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 const CONVOKE_SPEC_NAME = 'Convoke';
 const CONVOKE_WITH_FLOURISH_SPEC_NAME = 'Convoke w/ Flourish';
@@ -20,7 +20,7 @@ class HotCountGraph extends BuffCountGraph {
 
   constructor(options: Options) {
     super(options);
-    if (this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_RESTORATION_TALENT)) {
       this.addEventListener(Events.fightend, this.onFightEndConvokeCount);
     }
   }
@@ -32,10 +32,10 @@ class HotCountGraph extends BuffCountGraph {
       color: '#a010a0',
     });
     buffSpecs.push({ spells: SPELLS.WILD_GROWTH, color: '#20b020' });
-    if (this.selectedCombatant.hasTalent(SPELLS.CENARION_WARD_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.CENARION_WARD_RESTORATION_TALENT)) {
       buffSpecs.push({ spells: SPELLS.CENARION_WARD_HEAL, color: '#44ffcc' });
     }
-    if (this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_RESTORATION_TALENT)) {
       buffSpecs.push({
         spells: [SPELLS.ADAPTIVE_SWARM_HEAL, SPELLS.ADAPTIVE_SWARM_DAMAGE],
         color: '#cc7722',
@@ -47,12 +47,13 @@ class HotCountGraph extends BuffCountGraph {
   castRuleSpecs(): GraphedSpellSpec[] {
     const castSpecs: GraphedSpellSpec[] = [];
     castSpecs.push({ spells: SPELLS.TRANQUILITY_CAST, color: '#bbbbbb' });
-    if (this.selectedCombatant.hasTalent(SPELLS.FLOURISH_TALENT)) {
-      castSpecs.push({ spells: SPELLS.FLOURISH_TALENT, color: '#ddbb33' });
+    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_RESTORATION_TALENT)) {
+      castSpecs.push({ spells: TALENTS_DRUID.FLOURISH_RESTORATION_TALENT, color: '#ddbb33' });
     }
-    if (this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_RESTORATION_TALENT)) {
       // these custom specs will get filled in manually from Convoke module data
       castSpecs.push({ name: 'Convoke', spells: [], color: '#2222bb' });
+      // TODO for DF, Flourish convoke only possible with additional talent - update for this
       castSpecs.push({ name: 'Convoke w/ Flourish', spells: [], color: '#22aacc' });
     }
     return castSpecs;
@@ -61,7 +62,7 @@ class HotCountGraph extends BuffCountGraph {
   onFightEndConvokeCount() {
     this.convokeSpirits.convokeTracker.forEach((cast) => {
       // show different color rule line depending on if Convoke procced Flourish
-      if (cast.spellIdToCasts[SPELLS.FLOURISH_TALENT.id]) {
+      if (cast.spellIdToCasts[TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id]) {
         this.addRuleLine(CONVOKE_WITH_FLOURISH_SPEC_NAME, cast.timestamp);
       } else {
         this.addRuleLine(CONVOKE_SPEC_NAME, cast.timestamp);
@@ -80,7 +81,7 @@ class HotCountGraph extends BuffCountGraph {
             can help you evaluate how effective you were at 'ramping' before using your cooldowns.
             Having a <SpellLink id={SPELLS.WILD_GROWTH.id} /> and several{' '}
             <SpellLink id={SPELLS.REJUVENATION.id} /> out before casting{' '}
-            <SpellLink id={SPELLS.FLOURISH_TALENT.id} /> or{' '}
+            <SpellLink id={TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id} /> or{' '}
             <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> can drastically increase their
             effectiveness. Even ramping before <SpellLink id={SPELLS.TRANQUILITY_CAST.id} /> can be
             helpful because the additional mastery stacks will boost the direct healing.

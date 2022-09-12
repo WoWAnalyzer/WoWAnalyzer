@@ -11,16 +11,19 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { PHOTO_INCREASED_RATE } from '../../constants';
-import { isFromExpiringLifebloom } from '../../normalizers/CastLinkNormalizer';
-import Lifebloom from '../features/Lifebloom';
+import { PHOTO_INCREASED_RATE } from 'analysis/retail/druid/restoration/constants';
+import { isFromExpiringLifebloom } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import Lifebloom from 'analysis/retail/druid/restoration/modules/features/Lifebloom';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 const PHOTOSYNTHESIS_HOT_INCREASE = 0.2;
 // Spring blossoms double dips, confirmed by Bastas
 const PHOTOSYNTHESIS_SB_INCREASE = 0.44;
 
 /**
- * Photosynthesis (Talent) :
+ * **Photosynthesis**
+ * Spec Talent Tier 10
+ *
  * While your Lifebloom is on yourself, your periodic heals heal 20% faster.
  * While your Lifebloom is on an ally, your periodic heals on them have a 5% chance to cause it to bloom.
  */
@@ -43,7 +46,7 @@ class Photosynthesis extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.PHOTOSYNTHESIS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.PHOTOSYNTHESIS_RESTORATION_TALENT);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(PHOTO_INCREASED_RATE),
@@ -72,7 +75,7 @@ class Photosynthesis extends Analyzer {
         this.selectedCombatant.id,
       ) ||
       this.selectedCombatant.hasBuff(
-        SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id,
+        SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id,
         null,
         0,
         0,
@@ -145,7 +148,7 @@ class Photosynthesis extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.PHOTOSYNTHESIS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.PHOTOSYNTHESIS_RESTORATION_TALENT.id}>
           <ItemPercentHealingDone amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

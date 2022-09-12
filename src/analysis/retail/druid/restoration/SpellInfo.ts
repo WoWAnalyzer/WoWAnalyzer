@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_DRUID as TALENTS } from 'common/TALENTS';
 import { ListOfHealerSpellInfo } from 'parser/shared/modules/features/BaseHealerStatValues';
 
 /*
@@ -25,6 +26,7 @@ const DEFAULT_INFO = {
   vers: true,
 };
 
+// TODO check new ones to add in DF - including mastery stack ones!
 export const DRUID_HEAL_INFO: ListOfHealerSpellInfo = {
   [SPELLS.REJUVENATION.id]: {
     int: true,
@@ -108,7 +110,7 @@ export const DRUID_HEAL_INFO: ListOfHealerSpellInfo = {
     masteryStack: true,
     vers: true,
   },
-  [SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id]: {
+  [SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id]: {
     int: true,
     crit: true,
     hasteHpm: true,
@@ -182,7 +184,7 @@ export const DRUID_HEAL_INFO: ListOfHealerSpellInfo = {
     masteryStack: false,
     vers: false,
   },
-  [SPELLS.RENEWAL_TALENT.id]: {
+  [TALENTS.RENEWAL_TALENT.id]: {
     int: false,
     crit: false,
     hasteHpm: false,
@@ -190,15 +192,6 @@ export const DRUID_HEAL_INFO: ListOfHealerSpellInfo = {
     mastery: false,
     masteryStack: false,
     vers: false,
-  },
-  [SPELLS.RENEWING_BLOOM.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: true, // TODO double check this
-    hasteHpct: false,
-    mastery: true,
-    masteryStack: true,
-    vers: true,
   },
 };
 

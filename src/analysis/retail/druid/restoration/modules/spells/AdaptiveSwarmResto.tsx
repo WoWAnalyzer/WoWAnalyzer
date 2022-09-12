@@ -1,15 +1,13 @@
 import { AdaptiveSwarm } from 'analysis/retail/druid/shared';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
-import { Options } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import Mastery from '../../core/Mastery';
+import Mastery from 'analysis/retail/druid/restoration/modules/core/Mastery';
 
 /**
  * Resto's display module for Adaptive Swarm.
@@ -21,11 +19,6 @@ class AdaptiveSwarmResto extends AdaptiveSwarm {
   };
 
   protected mastery!: Mastery;
-
-  constructor(options: Options) {
-    super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
-  }
 
   get masteryHealing() {
     return this.mastery.getMasteryHealing(SPELLS.ADAPTIVE_SWARM_HEAL.id);

@@ -6,8 +6,16 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import Mastery from '../core/Mastery';
+import Mastery from 'analysis/retail/druid/restoration/modules/core/Mastery';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
+/**
+ * **Cenarion Ward**
+ * Spec Talent Tier 4
+ *
+ * Protects a friendly target for 30 sec.
+ * Any damage taken will consume the ward and heal the target for (X% of Spell power) over 8 sec.
+ */
 class CenarionWard extends Analyzer {
   static dependencies = {
     mastery: Mastery,
@@ -17,8 +25,7 @@ class CenarionWard extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const hasCenarionWard = this.selectedCombatant.hasTalent(SPELLS.CENARION_WARD_TALENT.id);
-    this.active = hasCenarionWard;
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.CENARION_WARD_RESTORATION_TALENT);
   }
 
   statistic() {
@@ -46,7 +53,7 @@ class CenarionWard extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.CENARION_WARD_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.CENARION_WARD_RESTORATION_TALENT.id}>
           <ItemPercentHealingDone amount={totalHealing} />
           <br />
         </BoringSpellValueText>

@@ -5,8 +5,9 @@ import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
 
 import { LIFEBLOOM_BUFFS, REJUVENATION_BUFFS } from '../../../constants';
 import { isFromHardcast, isFromOvergrowth } from '../../../normalizers/CastLinkNormalizer';
-import ConvokeSpiritsResto from '../../shadowlands/covenants/ConvokeSpiritsResto';
+import ConvokeSpiritsResto from 'analysis/retail/druid/restoration/modules/spells/ConvokeSpiritsResto';
 import HotTrackerRestoDruid from '../hottracking/HotTrackerRestoDruid';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 /** Maximum time buffer between a hardcast and applybuff to allow attribution */
 const BUFFER_MS = 150;
@@ -14,11 +15,11 @@ const BUFFER_MS = 150;
 const DEBUG = false;
 
 /**
- * Many Resto HoTs can be applied from multiple different sources including talents, legendaries,
- * and of course hardcasts. In order to attribute where a HoT came from we have to keep all the
+ * Many Resto HoTs can be applied from multiple different sources including talents and hardcasts.
+ * In order to attribute where a HoT came from we have to keep all the
  * possibilities in mind. This analyzer centralizes that process.
  *
- * This modules functioning relies on normalizers that ensure:
+ * This module's functioning relies on normalizers that ensure:
  * * HoT's applybuff/refreshbuff will always link to the cast that caused it (if present)
  */
 class HotAttributor extends Analyzer {
@@ -31,34 +32,31 @@ class HotAttributor extends Analyzer {
   convokeSpirits!: ConvokeSpiritsResto;
 
   hasOvergrowth: boolean;
-  hasMemoryOfTheMotherTree: boolean;
-  hasVisionOfUnendingGrowth: boolean;
-  hasLycarasFleetingGlimpse: boolean;
+  hasPowerOfTheArchdruid: boolean;
+  hasUnendingGrowth: boolean;
 
   // track hardcast attributions for mana effic tracking
   rejuvHardcastAttrib = HotTracker.getNewAttribution('Rejuvenation Hardcast');
   regrowthHardcastAttrib = HotTracker.getNewAttribution('Regrowth Hardcast');
   wgHardcastAttrib = HotTracker.getNewAttribution('Wild Growth Hardcast');
   lbHardcastAttrib = HotTracker.getNewAttribution('Lifebloom Hardcast');
-  // track various talent / legendary attributions
+  // track various talent attributions
   overgrowthAttrib = HotTracker.getNewAttribution('Overgrowth');
-  memoryOfTheMotherTreeAttrib = HotTracker.getNewAttribution('Memory of the Mother Tree');
-  visionOfUnendingGrowthAttrib = HotTracker.getNewAttribution('Vision of Unending Growth');
+  powerOfTheArchdruid = HotTracker.getNewAttribution('PowerOfTheArchdruid');
+  unendingGrowthAttrib = HotTracker.getNewAttribution('Unending Growth');
   // Convoke handled separately in Resto Convoke module
-  lycarasFleetingGlimpseAttrib = HotTracker.getNewAttribution("Lycara's Fleeting Glimpse");
 
   constructor(options: Options) {
     super(options);
 
-    this.hasOvergrowth = this.selectedCombatant.hasTalent(SPELLS.OVERGROWTH_TALENT.id);
-    this.hasMemoryOfTheMotherTree = this.selectedCombatant.hasLegendary(
-      SPELLS.MEMORY_OF_THE_MOTHER_TREE_ITEM,
+    this.hasOvergrowth = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.OVERGROWTH_RESTORATION_TALENT,
     );
-    this.hasVisionOfUnendingGrowth = this.selectedCombatant.hasLegendary(
-      SPELLS.VISION_OF_UNENDING_GROWTH,
+    this.hasPowerOfTheArchdruid = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_RESTORATION_TALENT,
     );
-    this.hasLycarasFleetingGlimpse = this.selectedCombatant.hasLegendary(
-      SPELLS.LYCARAS_FLEETING_GLIMPSE,
+    this.hasUnendingGrowth = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.UNENDING_GROWTH_RESTORATION_TALENT,
     );
 
     this.addEventListener(
@@ -110,18 +108,18 @@ class HotAttributor extends Analyzer {
       this.hotTracker.addAttributionFromApply(this.overgrowthAttrib, event);
       this._logAttrib(event, this.overgrowthAttrib);
     } else if (
-      this.hasMemoryOfTheMotherTree &&
+      this.hasPowerOfTheArchdruid &&
       this.selectedCombatant.hasBuff(
         SPELLS.MEMORY_OF_THE_MOTHER_TREE.id,
         event.timestamp,
         BUFFER_MS,
       )
     ) {
-      this.hotTracker.addAttributionFromApply(this.memoryOfTheMotherTreeAttrib, event);
-      this._logAttrib(event, this.memoryOfTheMotherTreeAttrib);
-    } else if (this.hasVisionOfUnendingGrowth) {
-      this.hotTracker.addAttributionFromApply(this.visionOfUnendingGrowthAttrib, event);
-      this._logAttrib(event, this.visionOfUnendingGrowthAttrib);
+      this.hotTracker.addAttributionFromApply(this.powerOfTheArchdruid, event);
+      this._logAttrib(event, this.powerOfTheArchdruid);
+    } else if (this.hasUnendingGrowth) {
+      this.hotTracker.addAttributionFromApply(this.unendingGrowthAttrib, event);
+      this._logAttrib(event, this.unendingGrowthAttrib);
     } else {
       this._logAttrib(event, undefined);
     }
@@ -138,15 +136,15 @@ class HotAttributor extends Analyzer {
       this.hotTracker.addAttributionFromApply(this.overgrowthAttrib, event);
       this._logAttrib(event, this.overgrowthAttrib);
     } else if (
-      this.hasMemoryOfTheMotherTree &&
+      this.hasPowerOfTheArchdruid &&
       this.selectedCombatant.hasBuff(
         SPELLS.MEMORY_OF_THE_MOTHER_TREE.id,
         event.timestamp,
         BUFFER_MS,
       )
     ) {
-      this.hotTracker.addAttributionFromApply(this.memoryOfTheMotherTreeAttrib, event);
-      this._logAttrib(event, this.memoryOfTheMotherTreeAttrib);
+      this.hotTracker.addAttributionFromApply(this.powerOfTheArchdruid, event);
+      this._logAttrib(event, this.powerOfTheArchdruid);
     } else {
       this._logAttrib(event, undefined);
     }
@@ -159,14 +157,14 @@ class HotAttributor extends Analyzer {
       !event.tick &&
       !isFromHardcast(event) &&
       !(this.convokeSpirits.active && this.convokeSpirits.isConvoking()) &&
-      this.hasMemoryOfTheMotherTree &&
+      this.hasPowerOfTheArchdruid &&
       this.selectedCombatant.hasBuff(
         SPELLS.MEMORY_OF_THE_MOTHER_TREE.id,
         event.timestamp,
         BUFFER_MS,
       )
     ) {
-      this.memoryOfTheMotherTreeAttrib.healing += event.amount + (event.absorbed || 0);
+      this.powerOfTheArchdruid.healing += event.amount + (event.absorbed || 0);
     } else if (isFromHardcast(event)) {
       this.regrowthHardcastAttrib.healing += event.amount + (event.absorbed || 0);
     }
@@ -183,9 +181,6 @@ class HotAttributor extends Analyzer {
     } else if (isFromOvergrowth(event)) {
       this.hotTracker.addAttributionFromApply(this.overgrowthAttrib, event);
       this._logAttrib(event, this.overgrowthAttrib);
-    } else if (this.hasLycarasFleetingGlimpse) {
-      this.hotTracker.addAttributionFromApply(this.lycarasFleetingGlimpseAttrib, event);
-      this._logAttrib(event, this.lycarasFleetingGlimpseAttrib);
     } else {
       this._logAttrib(event, undefined);
     }
