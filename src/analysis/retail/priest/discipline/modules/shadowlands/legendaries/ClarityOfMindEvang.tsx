@@ -9,7 +9,7 @@ import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../../core/AtonementAnalyzer';
 
 const CLARITY_EXTENSION_DURATION = 6000;
@@ -31,7 +31,7 @@ class ClarityOfMindEvang extends Analyzer {
 
     this.active =
       this.selectedCombatant.hasLegendary(SPELLS.CLARITY_OF_MIND) &&
-      this.selectedCombatant.hasTalent(SPELLS.EVANGELISM_TALENT);
+      this.selectedCombatant.hasTalent(TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT);
 
     if (!this.active) {
       return;
@@ -43,7 +43,7 @@ class ClarityOfMindEvang extends Analyzer {
       this.checkRapture,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EVANGELISM_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT),
       this.checkEvang,
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAPTURE), this.applyRapture);
@@ -119,7 +119,7 @@ class ClarityOfMindEvang extends Analyzer {
             due to <SpellLink id={SPELLS.CLARITY_OF_MIND.id} />
             's atonement exenstion, it is not counted by the module as with proper play, it is not
             reccomended to begin a ramp over 15 seconds before pressing{' '}
-            <SpellLink id={SPELLS.EVANGELISM_TALENT.id} />.
+            <SpellLink id={TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT.id} />.
           </>
         }
       >

@@ -8,7 +8,7 @@ import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import { SHADOW_MEND_ATONEMENT_DUR } from '../../../constants';
 import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../../core/AtonementAnalyzer';
 // import CombatLogParser from 'parser/core/CombatLogParser';
@@ -41,7 +41,7 @@ class ManifestedTwilight extends Analyzer {
     );
 
     this.addEventListener(
-      Events.cast.spell(SPELLS.EVANGELISM_TALENT).by(SELECTED_PLAYER),
+      Events.cast.spell(TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT).by(SELECTED_PLAYER),
       this.onEvang,
     );
 

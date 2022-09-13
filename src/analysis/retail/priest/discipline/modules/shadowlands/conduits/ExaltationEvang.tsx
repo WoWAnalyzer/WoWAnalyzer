@@ -8,7 +8,7 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
+import { TALENTS_PRIEST } from 'common/TALENTS';
 const EXALTATION_RANK_ONE = 5;
 const RAPTURE_DURATION_MS = 8000;
 const EXALTATION_EXTENSION_MS = 1000;
@@ -31,7 +31,10 @@ class ExaltationEvang extends Analyzer {
 
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.EXALTATION.id);
 
-    if (!this.conduitRank || !this.selectedCombatant.hasTalent(SPELLS.EVANGELISM_TALENT)) {
+    if (
+      !this.conduitRank ||
+      !this.selectedCombatant.hasTalent(TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT)
+    ) {
       this.active = false;
       return;
     }

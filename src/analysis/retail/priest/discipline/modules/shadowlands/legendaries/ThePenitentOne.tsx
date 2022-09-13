@@ -8,7 +8,7 @@ import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../../core/AtonementAnalyzer';
 
 // Mutating the events from years ago, just unlucky
@@ -33,7 +33,11 @@ class ThePenitentOne extends Analyzer {
       return;
     }
 
-    this.expectedBolts = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id) ? 4 : 3;
+    this.expectedBolts = this.selectedCombatant.hasTalent(
+      TALENTS_PRIEST.CASTIGATION_DISCIPLINE_TALENT.id,
+    )
+      ? 4
+      : 3;
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtone);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_HEAL), this.onHeal);
     this.addEventListener(
