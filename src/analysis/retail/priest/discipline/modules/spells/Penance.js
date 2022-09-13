@@ -63,7 +63,7 @@ class Penance extends Analyzer {
         tooltip={
           <>
             Each <SpellLink id={SPELLS.PENANCE.id} /> cast has 3 bolts (4 if you're using{' '}
-            <SpellLink id={SPELLS.CASTIGATION_TALENT.id} />
+            <SpellLink id={TALENTS_PRIEST.CASTIGATION_DISCIPLINE_TALENT.id} />
             ). You should try to let this channel finish as much as possible. You channeled Penance{' '}
             {this._casts} times.
           </>
