@@ -26,7 +26,7 @@ class Reforestation extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has4Piece();
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.REFORESTATION_RESTORATION_TALENT);
   }
 
   statistic() {

@@ -249,7 +249,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
               ),
               result: <PassFailCheckmark pass={!restoCast.recentlyFlourished} />,
             });
-          this.selectedCombatant.has4Piece() &&
+          this.selectedCombatant.hasTalent(TALENTS_DRUID.REFORESTATION_RESTORATION_TALENT) &&
             checklistItems.push({
               label: (
                 <>
@@ -259,10 +259,10 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
                     content={
                       <>
                         <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />
-                        's power is greatly increased when in Tree of Life form. With the 4 piece
-                        set bonus <SpellLink id={SPELLS.RESTO_DRUID_TIER_28_4P_SET_BONUS.id} />, you
-                        can reasonably get a proc about once every minute, so it is recommended to
-                        sync your procs with Convoke.
+                        's power is greatly increased when in Tree of Life form. With the{' '}
+                        <SpellLink id={TALENTS_DRUID.REFORESTATION_RESTORATION_TALENT.id} /> talent,
+                        you can reasonably get a proc about once every minute, so it is recommended
+                        to sync your procs with Convoke.
                       </>
                     }
                   >

@@ -41,8 +41,8 @@ class Swiftmend extends Analyzer {
   hasVi: boolean;
   /** If player has Soul of the Forest, so we can track justification of casts */
   hasSotf: boolean;
-  /** If player has Ephemeral Incarnation, so we can track justification of casts */
-  hasEi: boolean;
+  /** If player has Reforestation, so we can track justification of casts */
+  hasReforestation: boolean;
   /** Number of procs player has from Swiftmend (between VI, SotF, and EI) */
   numProcs: number;
   /** Info about each Swiftmend cast */
@@ -57,8 +57,10 @@ class Swiftmend extends Analyzer {
     this.hasSotf = this.selectedCombatant.hasTalent(
       TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT,
     );
-    this.hasEi = this.selectedCombatant.has4Piece();
-    this.numProcs = (this.hasVi ? 1 : 0) + (this.hasSotf ? 1 : 0) + (this.hasEi ? 1 : 0);
+    this.hasReforestation = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.REFORESTATION_RESTORATION_TALENT,
+    );
+    this.numProcs = (this.hasVi ? 1 : 0) + (this.hasSotf ? 1 : 0) + (this.hasReforestation ? 1 : 0);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SWIFTMEND),
@@ -217,7 +219,7 @@ class Swiftmend extends Analyzer {
               &nbsp;
             </>
           )}
-          {this.hasEi && (
+          {this.hasReforestation && (
             <>
               <SpellLink id={SPELLS.RESTO_DRUID_TIER_28_4P_SET_BONUS.id} /> (the Tier 4pc)&nbsp;
             </>
