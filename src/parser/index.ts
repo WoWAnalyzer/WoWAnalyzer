@@ -17,7 +17,7 @@ import BrewmasterMonk from 'analysis/retail/monk/brewmaster';
 // import HolyPaladin from 'analysis/retail/paladin/holy';
 // import ProtectionPaladin from 'analysis/retail/paladin/protection';
 // import RetributionPaladin from 'analysis/retail/paladin/retribution';
-// import DisciplinePriest from 'analysis/retail/priest/discipline';
+import DisciplinePriest from 'analysis/retail/priest/discipline';
 // import HolyPriest from 'analysis/retail/priest/holy';
 // import ShadowPriest from 'analysis/retail/priest/shadow';
 // import AssassinationRogue from 'analysis/retail/rogue/assassination';
@@ -80,7 +80,7 @@ const configs: Config[] = [
   // RetributionPaladin,
   // ProtectionPaladin,
 
-  // DisciplinePriest,
+  DisciplinePriest,
   // HolyPriest,
   // ShadowPriest,
 
