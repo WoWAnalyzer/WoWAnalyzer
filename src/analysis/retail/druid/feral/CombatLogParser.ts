@@ -1,6 +1,6 @@
-import ActiveDruidForm from 'analysis/retail/druid/core/ActiveDruidForm';
-import DraughtOfDeepFocus from 'analysis/retail/druid/shadowlands/DraughtOfDeepFocus';
-import RavenousFrenzy from 'analysis/retail/druid/shadowlands/RavenousFrenzy';
+import ActiveDruidForm from 'analysis/retail/druid/shared/core/ActiveDruidForm';
+import DraughtOfDeepFocus from 'analysis/retail/druid/shared/spells/DraughtOfDeepFocus';
+import RavenousFrenzy from 'analysis/retail/druid/shared/spells/RavenousFrenzy';
 import { SinfulHysteria } from 'analysis/retail/druid/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
