@@ -5,7 +5,7 @@ import SpellLink from 'interface/SpellLink';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
-  change(date(2022, 9, 12), <>Initial updates for Dragonflight Talent system.</>, Sref),
+  change(date(2022, 9, 13), <>Initial updates for Dragonflight Talent system.</>, Sref),
   change(date(2022, 8, 4), <>Updated and made default new Guide-style overview page!</>, Sref),
   change(date(2022, 7, 16), <>Added prototype "guide"-style overview page. Press 'View Prototype' on the top-right of the Overview tab to activate.</>, Sref),
   change(date(2022, 7, 6), <>Bumped version to indicate 9.2.5 is supported.</>, Sref),
