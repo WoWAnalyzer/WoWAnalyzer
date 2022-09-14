@@ -40,7 +40,7 @@ export default class CharredWarblades extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            This shows the extra hps that the conduit provides.
+            This shows the extra hps that the talent provides.
             <br />
             <strong>Total extra healing:</strong> {formatNumber(this.heal)}
           </>
