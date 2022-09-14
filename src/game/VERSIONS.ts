@@ -11,7 +11,8 @@ export default VERSIONS;
 export const WCL_GAME_VERSIONS: Partial<{ [expansion in Expansion]: number }> = {
   [Expansion.Dragonflight]: 1,
   [Expansion.Vanilla]: 2,
-  [Expansion.WrathOfTheLichKing]: 3,
+  [Expansion.TheBurningCrusade]: 3,
+  [Expansion.WrathOfTheLichKing]: 4,
 };
 
 export const wclGameVersionToExpansion = (gameVersion: number): Expansion => {
@@ -19,6 +20,8 @@ export const wclGameVersionToExpansion = (gameVersion: number): Expansion => {
     case 2:
       return Expansion.Vanilla;
     case 3:
+      return Expansion.TheBurningCrusade;
+    case 4:
       return Expansion.WrathOfTheLichKing;
     default:
       return Expansion.Dragonflight;
