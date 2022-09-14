@@ -19,6 +19,7 @@ import CircleOfHealing from './modules/spells/CircleOfHealing';
 import PrayerOfHealing from './modules/spells/PrayerOfHealing';
 import PrayerOfMending from './modules/spells/PrayerOfMending';
 import Shadowfiend from './modules/spells/Shadowfiend';
+import Rapture from "./modules/spells/Rapture";
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -41,6 +42,7 @@ class CombatLogParser extends BaseCombatLogParser {
     prayerOfMending: PrayerOfMending,
     circleOfHealing: CircleOfHealing,
     prayerOfHealing: PrayerOfHealing,
+    rapture: Rapture,
 
     checklist: Checklist,
 
