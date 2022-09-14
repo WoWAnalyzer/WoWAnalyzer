@@ -5,6 +5,17 @@
  */
 
 const spells = {
+  // Preservation Spells
+  DREAM_BREATH: {
+    id: 355941,
+    name: 'Dream Breath',
+    icon: 'ability_evoker_dreambreath',
+  },
+  RENEWING_BREATH: {
+    id: 381923,
+    name: 'Renewing Breath',
+    icon: 'ability_evoker_dreambreath',
+  },
   // Shared
   BLESSING_OF_THE_BRONZE: {
     id: 364342,
