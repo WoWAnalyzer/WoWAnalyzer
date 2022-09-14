@@ -1,3 +1,5 @@
+// TODO many of these became talents in DF: check for renames and for possible ID changes, then move to overall spells list
+
 const legendaries = {
   //region Balance
   BALANCE_OF_ALL_THINGS_ITEM: {
@@ -70,13 +72,6 @@ const legendaries = {
     name: "The Dark Titan's Lesson",
     icon: 'spell_druid_germination_rejuvenation',
     bonusID: 7097,
-  },
-  LIFEBLOOM_DTL_HOT_HEAL: {
-    // with The Dark Titan's Lesson legendary, BOTH lifeblooms will have this ID
-    id: 188550,
-    name: 'Lifebloom',
-    icon: 'inv_misc_herb_felblossom',
-    manaCost: 800,
   },
   MEMORY_OF_THE_MOTHER_TREE_ITEM: {
     id: 339064,

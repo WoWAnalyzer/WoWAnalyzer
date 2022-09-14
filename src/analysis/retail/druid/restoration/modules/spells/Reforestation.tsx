@@ -1,20 +1,23 @@
 import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import { Options } from 'parser/core/Module';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
+import { SpellLink } from 'interface';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import TreeOfLife from '../../../modules/talents/TreeOfLife';
+import TreeOfLife from 'analysis/retail/druid/restoration/modules/spells/TreeOfLife';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 /**
- * Resto Druid Tier 28 - 4pc - Ephemeral Incarnation
+ * **Reforestation**
+ * Spec Talent Tier 10
+ *
  * Every 3 casts of Swiftmend grants you Incarnation: Tree of Life for 9 sec.
  */
-class Tier28_4pc extends Analyzer {
+class Reforestation extends Analyzer {
   static dependencies = {
     treeOfLife: TreeOfLife,
   };
@@ -23,7 +26,7 @@ class Tier28_4pc extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has4Piece();
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.REFORESTATION_RESTORATION_TALENT);
   }
 
   statistic() {
@@ -34,16 +37,16 @@ class Tier28_4pc extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            This is the healing caused by the Tree of Life procs from the{' '}
-            <strong>Tier 28 4-piece set bonus</strong>. The healing amount is the sum of all
-            benefits from gaining Tree of Life form, which are listed below
+            This is the healing caused by the Tree of Life procs from{' '}
+            <SpellLink id={TALENTS_DRUID.REFORESTATION_RESTORATION_TALENT.id} />. The healing amount
+            is the sum of all benefits from gaining Tree of Life form, which are listed below
             <ul>
               <li>
                 Overall Increased Healing:{' '}
                 <strong>
                   {formatPercentage(
                     this.owner.getPercentageOfTotalHealingDone(
-                      this.treeOfLife.t28_4pc.allBoostHealing,
+                      this.treeOfLife.reforestation.allBoostHealing,
                     ),
                   )}
                   %
@@ -54,7 +57,7 @@ class Tier28_4pc extends Analyzer {
                 <strong>
                   {formatPercentage(
                     this.owner.getPercentageOfTotalHealingDone(
-                      this.treeOfLife.t28_4pc.rejuvBoostHealing,
+                      this.treeOfLife.reforestation.rejuvBoostHealing,
                     ),
                   )}
                   %
@@ -63,14 +66,14 @@ class Tier28_4pc extends Analyzer {
               <li>
                 Rejuv Mana Saved:{' '}
                 <strong>
-                  {formatNumber(this.treeOfLife._getManaSaved(this.treeOfLife.t28_4pc))}
+                  {formatNumber(this.treeOfLife._getManaSaved(this.treeOfLife.reforestation))}
                 </strong>{' '}
                 (assuming mana used to fill with Rejuvs:{' '}
                 <strong>
                   ≈
                   {formatPercentage(
                     this.owner.getPercentageOfTotalHealingDone(
-                      this.treeOfLife._getManaSavedHealing(this.treeOfLife.t28_4pc),
+                      this.treeOfLife._getManaSavedHealing(this.treeOfLife.reforestation),
                     ),
                   )}
                   %
@@ -82,7 +85,7 @@ class Tier28_4pc extends Analyzer {
                 <strong>
                   {formatPercentage(
                     this.owner.getPercentageOfTotalHealingDone(
-                      this.treeOfLife.t28_4pc.extraWgsAttribution.healing,
+                      this.treeOfLife.reforestation.extraWgsAttribution.healing,
                     ),
                   )}
                   %
@@ -92,9 +95,9 @@ class Tier28_4pc extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.RESTO_DRUID_TIER_28_4P_SET_BONUS.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.REFORESTATION_RESTORATION_TALENT.id}>
           <ItemPercentHealingDone
-            amount={this.treeOfLife._getTotalHealing(this.treeOfLife.t28_4pc)}
+            amount={this.treeOfLife._getTotalHealing(this.treeOfLife.reforestation)}
           />
           <br />
         </BoringSpellValueText>
@@ -103,4 +106,4 @@ class Tier28_4pc extends Analyzer {
   }
 }
 
-export default Tier28_4pc;
+export default Reforestation;

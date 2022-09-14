@@ -4,7 +4,7 @@
 // import BalanceDruid from 'analysis/retail/druid/balance';
 // import FeralDruid from 'analysis/retail/druid/feral';
 // import GuardianDruid from 'analysis/retail/druid/guardian';
-// import RestoDruid from 'analysis/retail/druid/restoration';
+import RestoDruid from 'analysis/retail/druid/restoration';
 // import BeastMasteryHunter from 'analysis/retail/hunter/beastmastery';
 // import MarksmanshipHunter from 'analysis/retail/hunter/marksmanship';
 // import SurvivalHunter from 'analysis/retail/hunter/survival';
@@ -59,7 +59,7 @@ const configs: Config[] = [
   // BalanceDruid,
   // FeralDruid,
   // GuardianDruid,
-  // RestoDruid,
+  RestoDruid,
 
   DevastationEvoker,
   PreservationEvoker,

@@ -10,8 +10,16 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import Mastery from '../core/Mastery';
+import Mastery from 'analysis/retail/druid/restoration/modules/core/Mastery';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
+/**
+ * **Cultivation**
+ * Spec Talent Tier 6
+ *
+ * When Rejuvenation heals a target below 60% health, it applies Cultivation to the target,
+ * healing them for (X% of Spell power) over 6 sec.
+ */
 class Cultivation extends Analyzer {
   static dependencies = {
     mastery: Mastery,
@@ -21,8 +29,7 @@ class Cultivation extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const hasCultivation = this.selectedCombatant.hasTalent(SPELLS.CULTIVATION_TALENT.id);
-    this.active = hasCultivation;
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.CULTIVATION_RESTORATION_TALENT);
   }
 
   get directHealing() {
@@ -94,7 +101,7 @@ class Cultivation extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.CULTIVATION_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.CULTIVATION_RESTORATION_TALENT.id}>
           <ItemPercentHealingDone amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

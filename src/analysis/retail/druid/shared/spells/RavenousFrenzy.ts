@@ -3,6 +3,7 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Buffs from 'parser/core/modules/Auras';
 
+// TODO so far this is removed in Dragonflight - leaving it around until we're sure
 /**
  * This module handles common things for Ravenous Frenzy
  *

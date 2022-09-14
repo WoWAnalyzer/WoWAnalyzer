@@ -10,8 +10,15 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import Mastery from '../core/Mastery';
+import Mastery from 'analysis/retail/druid/restoration/modules/core/Mastery';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
+/**
+ * **Spring Blossoms**
+ * Spec Talent Tier 8
+ *
+ * Each target healed by Efflorescence is healed for an additional (X% of Spell power) over 6 sec.
+ */
 class SpringBlossoms extends Analyzer {
   get directPercent() {
     return this.owner.getPercentageOfTotalHealingDone(
@@ -61,7 +68,9 @@ class SpringBlossoms extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SPRING_BLOSSOMS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.SPRING_BLOSSOMS_RESTORATION_TALENT,
+    );
   }
 
   statistic() {
@@ -85,7 +94,7 @@ class SpringBlossoms extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SPRING_BLOSSOMS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.SPRING_BLOSSOMS_RESTORATION_TALENT.id}>
           <ItemPercentHealingDone amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

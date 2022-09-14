@@ -7,13 +7,18 @@ import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 const MS_BUFFER = 200;
 const ABUNDANCE_MANA_REDUCTION = 0.06;
 const ABUNDANCE_INCREASED_CRIT = 0.06;
 
-/*
-  For each Rejuvenation you have active, Regrowth's cost is reduced by 6% and critical effect chance is increased by 6%.
+/**
+ * **Abundance**
+ * Spec Talent Tier 4
+ *
+ * For each Rejuvenation you have active,
+ * Regrowth's cost is reduced by 6% and critical effect chance is increased by 6%.
  */
 class Abundance extends Analyzer {
   manaSavings: number[] = [];
@@ -23,7 +28,7 @@ class Abundance extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ABUNDANCE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.ABUNDANCE_RESTORATION_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -94,7 +99,8 @@ class Abundance extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellIcon id={SPELLS.ABUNDANCE_TALENT.id} /> Average Abundance stacks
+              <SpellIcon id={TALENTS_DRUID.ABUNDANCE_RESTORATION_TALENT.id} /> Average Abundance
+              stacks
             </>
           }
         >

@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_DRUID as TALENTS } from 'common/TALENTS';
 import { AnyEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
@@ -24,7 +25,7 @@ class TreeOfLifeNormalizer extends EventsNormalizer {
 
       if (
         event.type === EventType.Cast &&
-        event.ability.guid === SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id
+        event.ability.guid === TALENTS.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id
       ) {
         const castTimestamp = event.timestamp;
 

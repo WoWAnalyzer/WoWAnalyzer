@@ -4,9 +4,9 @@ import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import ManaValues from 'parser/shared/modules/ManaValues';
 
-import Cultivation from '../../talents/Cultivation';
-import SpringBlossoms from '../../talents/SpringBlossoms';
-import TreeOfLife from '../../talents/TreeOfLife';
+import Cultivation from 'analysis/retail/druid/restoration/modules/spells/Cultivation';
+import SpringBlossoms from 'analysis/retail/druid/restoration/modules/spells/SpringBlossoms';
+import TreeOfLife from 'analysis/retail/druid/restoration/modules/spells/TreeOfLife';
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import Efflorescence from '../Efflorescence';
 import Innervate from '../Innervate';

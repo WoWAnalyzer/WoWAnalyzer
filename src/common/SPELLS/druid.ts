@@ -220,6 +220,13 @@ const spells = spellIndexableList({
     icon: 'inv_misc_herb_felblossom',
     manaCost: 800,
   },
+  LIFEBLOOM_UNDERGROWTH_HOT_HEAL: {
+    // with the Undergrowth talent, BOTH lifeblooms will have this ID TODO double check this is true in DF (it's how DTL worked)
+    id: 188550,
+    name: 'Lifebloom',
+    icon: 'inv_misc_herb_felblossom',
+    manaCost: 800,
+  },
   LIFEBLOOM_BLOOM_HEAL: {
     id: 33778,
     name: 'Lifebloom',

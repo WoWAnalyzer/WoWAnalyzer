@@ -31,8 +31,6 @@
     "src/analysis/retail/druid/balance",
     "src/analysis/retail/druid/feral",
     "src/analysis/retail/druid/guardian",
-    "src/analysis/retail/druid/restoration",
-    "src/analysis/retail/druid/shared",
     "src/analysis/retail/hunter/beastmastery",
     "src/analysis/retail/hunter/marksmanship",
     "src/analysis/retail/hunter/shared",

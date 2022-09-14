@@ -5,11 +5,13 @@ import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import { TALENTS_DRUID as TALENTS } from 'common/TALENTS/druid';
 
 export const druidGcd = (c: Combatant) => (c.hasBuff(SPELLS.CAT_FORM.id) ? 1000 : 1500);
 
+// TODO actually make this base abilites plus class tree stuff? will need category solution
 /**
- * Fully shared Druid abilites should go here
+ * Base Druid abilites and talents from the class tree.
  */
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -87,7 +89,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: druidGcd,
         },
-        enabled: combatant.hasTalent(SPELLS.HEART_OF_THE_WILD_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.HEART_OF_THE_WILD_TALENT.id),
         castEfficiency: {
           suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,
@@ -110,5 +112,21 @@ class Abilities extends CoreAbilities {
     ];
   }
 }
+
+// function categoryBySpec(combatant: Combatant,
+//     balanceCategory: SPELL_CATEGORY,
+//     feralCategory: SPELL_CATEGORY,
+//     guardianCategory: SPELL_CATEGORY,
+//     restoCategory: SPELL_CATEGORY): SPELL_CATEGORY {
+//   if (combatant.specId === SPECS.BALANCE_DRUID.id) {
+//     return balanceCategory;
+//   } else if (combatant.specId === SPECS.FERAL_DRUID.id) {
+//     return feralCategory;
+//   } else if (combatant.specId === SPECS.GUARDIAN_DRUID.id) {
+//     return guardianCategory;
+//   } else {
+//     return restoCategory;
+//   }
+// }
 
 export default Abilities;

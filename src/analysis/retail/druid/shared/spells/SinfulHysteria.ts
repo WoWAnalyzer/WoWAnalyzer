@@ -7,6 +7,7 @@ const RAVENOUS_FRENZY_HASTE_PER_STACK = 0.01;
 
 const DEBUG = false;
 
+// TODO so far this is removed in Dragonflight - leaving it around until we're sure
 /**
  * **Sinful Hysteria**
  * Runecarving Legendary - Venthyr

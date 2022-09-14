@@ -108,7 +108,7 @@ class HotTrackerRestoDruid extends HotTracker {
         tickPeriod: 1000,
       },
       {
-        spell: SPELLS.LIFEBLOOM_DTL_HOT_HEAL,
+        spell: SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL,
         duration: 15000,
         tickPeriod: 1000,
       },

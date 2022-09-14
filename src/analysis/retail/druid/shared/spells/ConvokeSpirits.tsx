@@ -1,6 +1,5 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -17,7 +16,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import * as React from 'react';
+import { TALENTS_DRUID, TALENTS_DRUID as TALENTS } from 'common/TALENTS/druid';
 
 import ActiveDruidForm, { DruidForm } from '../core/ActiveDruidForm';
 
@@ -36,9 +35,9 @@ export const CONVOKE_BUFF_SPELLS = [
   SPELLS.REGROWTH,
   SPELLS.IRONFUR,
   SPELLS.TIGERS_FURY,
-  SPELLS.FERAL_FRENZY_TALENT,
+  TALENTS.FERAL_FRENZY_FERAL_TALENT,
   SPELLS.WILD_GROWTH,
-  SPELLS.FLOURISH_TALENT,
+  TALENTS.FLOURISH_RESTORATION_TALENT,
   SPELLS.STARFALL_CAST, // apparently this is also the ID for the buff
 ];
 /** All convokable spells that 'hit' with a debuff application */
@@ -60,7 +59,7 @@ export const CONVOKE_DAMAGE_SPELLS = [
   SPELLS.FEROCIOUS_BITE,
   SPELLS.SHRED,
   SPELLS.MANGLE_BEAR,
-  SPELLS.PULVERIZE_TALENT,
+  TALENTS.PULVERIZE_GUARDIAN_TALENT,
 ];
 /** Convokable spells that do direct damage (and possible also a DoT portion) - for damage tallying */
 export const CONVOKE_DIRECT_DAMAGE_SPELLS = [
@@ -89,9 +88,7 @@ export const SPELL_IDS_WITH_AOE = [
 ];
 
 const SPELLS_CAST = 16;
-const SPELLS_CAST_RESTO = 12;
-const CS_SPELLS_CAST = 12;
-const CS_SPELLS_CAST_RESTO = 9;
+const SPELLS_CAST_RESTO = 12; // TODO in DF might be 16 for resto too, double check later in beta
 
 const AOE_BUFFER_MS = 100;
 const AFTER_CHANNEL_BUFFER_MS = 50;
@@ -136,15 +133,16 @@ class ConvokeSpirits extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_BALANCE_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_FERAL_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_GUARDIAN_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_RESTORATION_TALENT);
 
-    this.spellsPerCast = this.selectedCombatant.hasLegendary(SPELLS.CELESTIAL_SPIRITS)
-      ? this.selectedCombatant.specId === SPECS.RESTORATION_DRUID.id
-        ? CS_SPELLS_CAST_RESTO
-        : CS_SPELLS_CAST
-      : this.selectedCombatant.specId === SPECS.RESTORATION_DRUID.id
-      ? SPELLS_CAST_RESTO
-      : SPELLS_CAST;
+    this.spellsPerCast =
+      this.selectedCombatant.specId === SPECS.RESTORATION_DRUID.id
+        ? SPELLS_CAST_RESTO
+        : SPELLS_CAST;
 
     // watch for convokes
     this.addEventListener(
@@ -200,11 +198,11 @@ class ConvokeSpirits extends Analyzer {
       this.onFeralFrenzyDamage,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FERAL_FRENZY_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.FERAL_FRENZY_FERAL_TALENT),
       this.onGainFeralFrenzy,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FERAL_FRENZY_TALENT),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS.FERAL_FRENZY_FERAL_TALENT),
       this.onGainFeralFrenzy,
     );
     this.addEventListener(

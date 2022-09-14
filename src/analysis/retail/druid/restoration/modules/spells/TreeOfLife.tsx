@@ -21,10 +21,11 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS } from '../../constants';
-import HotTrackerRestoDruid from '../../modules/core/hottracking/HotTrackerRestoDruid';
-import Rejuvenation from '../../modules/features/Rejuvenation';
-import { isFromHardcast } from '../../normalizers/CastLinkNormalizer';
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS } from 'analysis/retail/druid/restoration/constants';
+import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
+import Rejuvenation from 'analysis/retail/druid/restoration/modules/features/Rejuvenation';
+import { isFromHardcast } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 const ALL_BOOST = 0.15;
 const ALL_MULT = 1.15;
@@ -41,12 +42,15 @@ const BUFFER = 500;
 // we correct for this by dividing out the all boost before calcing either the rejuv boost or the wg increase
 
 /**
- * Incarnation: Tree of Life -
+ * **Incarnation: Tree of Life**
+ * Spec Talent Tier 8
+ *
  * Shapeshift into the Tree of Life, increasing healing done by 15%, increasing armor by 120%,
  * and granting protection from Polymorph effects.
  * Functionality of Rejuvenation, Wild Growth, Regrowth, and Entangling Roots is enhanced.
+ * Lasts 30 sec. You may shapeshift in and out of this form for its duration.
  *
- * Tree of Life bonuses:
+ * Tree of Life healing bonuses:
  *  - ALL: +15% healing
  *  - Rejuv: +50% healing and -30% mana
  *  - Regrowth: instant
@@ -73,26 +77,26 @@ class TreeOfLife extends Analyzer {
     rejuvManaSaved: 0,
     extraWgsAttribution: HotTrackerRestoDruid.getNewAttribution('ToL Hardcast: Extra WGs'),
   };
-  t28_4pc: TolAccumulator = {
+  reforestation: TolAccumulator = {
     allBoostHealing: 0,
     rejuvBoostHealing: 0,
     rejuvManaSaved: 0,
-    extraWgsAttribution: HotTrackerRestoDruid.getNewAttribution('ToL from T28 4pc: Extra WGs'),
+    extraWgsAttribution: HotTrackerRestoDruid.getNewAttribution(
+      'ToL from Reforestation: Extra WGs',
+    ),
   };
 
   constructor(options: Options) {
     super(options);
-
-    // FIXME so far on PTR, no bonus ID shows if player has T28 4pc set or not, which procs ToL
-    //       We'll start with this module always active and then disable parts depending on
-    //       the state of accumulators afterwards
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS),
       this.onBoostedHeal,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT),
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT),
       this.onHardcastTol,
     );
     this.addEventListener(
@@ -115,10 +119,13 @@ class TreeOfLife extends Analyzer {
     this.addEventListener(Events.fightend, this.checkActive);
   }
 
+  // TODO better way of handling this now that both are talents in DF?
   checkActive() {
     // only stay active for suggestion / stat if player actually has Talent -
     // we need this to calc to check for 4pc, which is why we don't check active at the start
-    this.active = this.selectedCombatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT,
+    );
   }
 
   onHardcastTol(event: CastEvent) {
@@ -135,17 +142,21 @@ class TreeOfLife extends Analyzer {
    * Gets the tracking accumulator for the current ToL, if there is one
    */
   _getAccumulator(event: Event<any>) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
+    if (
+      !this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id)
+    ) {
       return null; // ToL isn't active, no accumulator
-    } else if (!this.selectedCombatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT)) {
-      return this.t28_4pc; // player doesn't have the ToL talent so this must be from the set 4pc
+    } else if (
+      !this.selectedCombatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT)
+    ) {
+      return this.reforestation; // player doesn't have the ToL talent so this must be from the set 4pc
     } else if (
       this.lastHardcastTimestamp !== null &&
       this.lastHardcastTimestamp + TOL_DURATION + BUFFER >= event.timestamp
     ) {
       return this.hardcast; // player hardcast ToL within buff duration, so this is a hardcast
     } else {
-      return this.t28_4pc; // player didn't hardcast within buff duration, so this is the set 4pc
+      return this.reforestation; // player didn't hardcast within buff duration, so this is the set 4pc
     }
   }
 
@@ -222,7 +233,7 @@ class TreeOfLife extends Analyzer {
     return (
       <>
         <strong>
-          <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} />
+          <SpellLink id={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id} />
         </strong>{' '}
         is a longer, lower-impact cooldown. It should be planned around periods of high sustained
         healing.
@@ -237,11 +248,12 @@ class TreeOfLife extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} /> is not providing you
-          much throughput. You may want to plan your CD usage better or pick another talent.
+          Your <SpellLink id={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id} /> is
+          not providing you much throughput. You may want to plan your CD usage better or pick
+          another talent.
         </>,
       )
-        .icon(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.icon)
+        .icon(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.icon)
         .actual(
           t({
             id: 'druid.restoration.suggestions.treeOfLife.efficiency',
@@ -309,7 +321,9 @@ class TreeOfLife extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id}>
+        <BoringSpellValueText
+          spellId={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id}
+        >
           <ItemPercentHealingDone amount={this._getTotalHealing(this.hardcast)} />
           <br />
         </BoringSpellValueText>

@@ -12,6 +12,7 @@ import {
   RefreshBuffEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 const CAST_BUFFER_MS = 65;
 const TRANQ_CHANNEL_BUFFER_MS = 10_000;
@@ -46,7 +47,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: FROM_HARDCAST,
     reverseLinkRelation: APPLIED_HEAL,
-    linkingEventId: [SPELLS.LIFEBLOOM_HOT_HEAL.id, SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id],
+    linkingEventId: [SPELLS.LIFEBLOOM_HOT_HEAL.id, SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.LIFEBLOOM_HOT_HEAL.id,
     referencedEventType: EventType.Cast,
@@ -76,20 +77,20 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: FROM_HARDCAST,
-    linkingEventId: SPELLS.FLOURISH_TALENT.id,
+    linkingEventId: TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id,
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: SPELLS.FLOURISH_TALENT.id,
+    referencedEventId: TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
   },
   {
-    // for discerning hardcasts from T28 4pc procs
+    // for discerning hardcasts from reforestation procs
     linkRelation: FROM_HARDCAST,
     linkingEventId: SPELLS.INCARNATION_TOL_ALLOWED.id,
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id,
+    referencedEventId: TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
@@ -104,10 +105,10 @@ const EVENT_LINKS: EventLink[] = [
       SPELLS.REGROWTH.id,
       SPELLS.WILD_GROWTH.id,
       SPELLS.LIFEBLOOM_HOT_HEAL.id,
-      SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id,
+      SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id,
     ],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: SPELLS.OVERGROWTH_TALENT.id,
+    referencedEventId: TALENTS_DRUID.OVERGROWTH_RESTORATION_TALENT.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
@@ -116,7 +117,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: FROM_EXPIRING_LIFEBLOOM,
     linkingEventId: SPELLS.LIFEBLOOM_BLOOM_HEAL.id,
     linkingEventType: EventType.Heal,
-    referencedEventId: [SPELLS.LIFEBLOOM_HOT_HEAL.id, SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id],
+    referencedEventId: [SPELLS.LIFEBLOOM_HOT_HEAL.id, SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id],
     referencedEventType: [EventType.RefreshBuff, EventType.RemoveBuff],
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,

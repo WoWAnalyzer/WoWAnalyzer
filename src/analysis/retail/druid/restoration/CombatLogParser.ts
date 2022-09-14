@@ -1,7 +1,4 @@
-import ActiveDruidForm from 'analysis/retail/druid/core/ActiveDruidForm';
-import DraughtOfDeepFocus from 'analysis/retail/druid/shadowlands/DraughtOfDeepFocus';
-import RavenousFrenzy from 'analysis/retail/druid/shadowlands/RavenousFrenzy';
-import { SinfulHysteria } from 'analysis/retail/druid/shared';
+import ActiveDruidForm from 'analysis/retail/druid/shared/core/ActiveDruidForm';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
@@ -28,33 +25,24 @@ import RegrowthAndClearcasting from './modules/features/RegrowthAndClearcasting'
 import Rejuvenation from './modules/features/Rejuvenation';
 import RestoDruidHealingEfficiencyDetails from './modules/features/RestoDruidHealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEfficiencyTracker';
-import StatWeights from './modules/features/StatWeights';
 import Swiftmend from './modules/features/Swiftmend';
 import Tranquility from './modules/features/Tranquility';
 import WildGrowth from './modules/features/WildGrowth';
-import AdaptiveArmorFragment from './modules/shadowlands/conduits/AdaptiveArmorFragment';
-import ConfluxOfElementsResto from './modules/shadowlands/conduits/ConfluxOfElementsResto';
-import EvolvedSwarmResto from './modules/shadowlands/conduits/EvolvedSwarmResto';
-import FieldOfBlossomsResto from './modules/shadowlands/conduits/FieldOfBlossomsResto';
-import FlashOfClarity from './modules/shadowlands/conduits/FlashOfClarity';
-import GroveInvigorationResto from './modules/shadowlands/conduits/GroveInvigorationResto';
-import AdaptiveSwarmResto from './modules/shadowlands/covenants/AdaptiveSwarmResto';
-import ConvokeSpiritsResto from './modules/shadowlands/covenants/ConvokeSpiritsResto';
-import KindredSpiritsResto from './modules/shadowlands/covenants/KindredSpiritsResto';
-import Tier28_2pc from './modules/shadowlands/items/Tier28_2pc';
-import Tier28_4pc from './modules/shadowlands/items/Tier28_4pc';
-import LycarasFleetingGlimpseResto from './modules/shadowlands/legendaries/LycarasFleetingGlimpseResto';
-import MemoryoftheMotherTree from './modules/shadowlands/legendaries/MemoryoftheMotherTree';
-import VerdantInfusion from './modules/shadowlands/legendaries/VerdantInfusion';
-import VisionOfUnendingGrowrth from './modules/shadowlands/legendaries/VisionOfUnendingGrowth';
-import Abundance from './modules/talents/Abundance';
-import CenarionWard from './modules/talents/CenarionWard';
-import Cultivation from './modules/talents/Cultivation';
-import Flourish from './modules/talents/Flourish';
-import Photosynthesis from './modules/talents/Photosynthesis';
-import SoulOfTheForest from './modules/talents/SoulOfTheForest';
-import SpringBlossoms from './modules/talents/SpringBlossoms';
-import TreeOfLife from './modules/talents/TreeOfLife';
+import FlashOfClarity from 'analysis/retail/druid/restoration/modules/spells/FlashOfClarity';
+import AdaptiveSwarmResto from 'analysis/retail/druid/restoration/modules/spells/AdaptiveSwarmResto';
+import ConvokeSpiritsResto from 'analysis/retail/druid/restoration/modules/spells/ConvokeSpiritsResto';
+import Reforestation from 'analysis/retail/druid/restoration/modules/spells/Reforestation';
+import PowerOfTheArchdruid from 'analysis/retail/druid/restoration/modules/spells/PowerOfTheArchdruid';
+import VerdantInfusion from 'analysis/retail/druid/restoration/modules/spells/VerdantInfusion';
+import UnendingGrowth from 'analysis/retail/druid/restoration/modules/spells/UnendingGrowth';
+import Abundance from 'analysis/retail/druid/restoration/modules/spells/Abundance';
+import CenarionWard from 'analysis/retail/druid/restoration/modules/spells/CenarionWard';
+import Cultivation from 'analysis/retail/druid/restoration/modules/spells/Cultivation';
+import Flourish from 'analysis/retail/druid/restoration/modules/spells/Flourish';
+import Photosynthesis from 'analysis/retail/druid/restoration/modules/spells/Photosynthesis';
+import SoulOfTheForest from 'analysis/retail/druid/restoration/modules/spells/SoulOfTheForest';
+import SpringBlossoms from 'analysis/retail/druid/restoration/modules/spells/SpringBlossoms';
+import TreeOfLife from 'analysis/retail/druid/restoration/modules/spells/TreeOfLife';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
@@ -88,7 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hotTracker: HotTrackerRestoDruid,
     hotAttributor: HotAttributor,
 
-    // Features
+    // Spells TODO redo this organization
     lowHealthHealing: LowHealthHealing,
     alwaysBeCasting: AlwaysBeCasting,
     averageHots: AverageHots,
@@ -107,50 +95,24 @@ class CombatLogParser extends CoreCombatLogParser {
     swiftmend: Swiftmend,
     hotCountGraph: HotCountGraph,
     tranquility: Tranquility,
-
-    // Talents
     soulOfTheForest: SoulOfTheForest,
     treeOfLife: TreeOfLife,
     photosynthesis: Photosynthesis,
     flourish: Flourish,
     cenarionWard: CenarionWard,
     abundance: Abundance,
-
-    //stat weights
-    statWeights: StatWeights,
+    convokeSpirits: ConvokeSpiritsResto,
+    adaptiveSwarm: AdaptiveSwarmResto,
+    flashOfClarity: FlashOfClarity,
+    unendingGrowrth: UnendingGrowth,
+    memoryoftheMotherTree: PowerOfTheArchdruid,
+    verdantInfusion: VerdantInfusion,
+    reforestation: Reforestation,
 
     // Mana Tab
     manaTracker: ManaTracker,
     hpmDetails: RestoDruidHealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
-
-    // Covenants
-    convokeSpirits: ConvokeSpiritsResto,
-    adaptiveSwarm: AdaptiveSwarmResto,
-    kindredSpirits: KindredSpiritsResto,
-    sinfulHysteria: SinfulHysteria,
-    ravenousFrenzy: RavenousFrenzy,
-
-    // Conduits
-    // Potency
-    flashOfClarity: FlashOfClarity,
-    evolvedSwarmResto: EvolvedSwarmResto,
-    confluxOfElementsResto: ConfluxOfElementsResto,
-    adaptiveArmorFragment: AdaptiveArmorFragment,
-    // Soulbind
-    groveInvigoration: GroveInvigorationResto,
-    fieldOfBlossoms: FieldOfBlossomsResto,
-
-    //legos
-    visionOfUnendingGrowrth: VisionOfUnendingGrowrth,
-    memoryoftheMotherTree: MemoryoftheMotherTree,
-    verdantInfusion: VerdantInfusion,
-    lycarasFleetingGlimpse: LycarasFleetingGlimpseResto,
-    draughtOfDeepFocus: DraughtOfDeepFocus,
-
-    // sets
-    tier28_2pc: Tier28_2pc,
-    tier28_4pc: Tier28_4pc,
   };
 
   static guide = Guide;

@@ -1,7 +1,5 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
-import { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -22,11 +20,6 @@ class AdaptiveSwarmDamageDealer extends AdaptiveSwarm {
   };
 
   enemies!: Enemies;
-
-  constructor(options: Options) {
-    super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
-  }
 
   get damageUptimeHistory() {
     return this.enemies.getDebuffHistory(SPELLS.ADAPTIVE_SWARM_DAMAGE.id);
