@@ -16,6 +16,8 @@ const spells = {
     name: 'Renewing Breath',
     icon: 'ability_evoker_dreambreath',
   },
+  SPIRITBLOOM: {},
+  SPIRITBLOOM_SPLIT: {},
   // Shared
   BLESSING_OF_THE_BRONZE: {
     id: 364342,

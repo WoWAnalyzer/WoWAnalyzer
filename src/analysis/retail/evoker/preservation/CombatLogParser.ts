@@ -5,7 +5,7 @@ import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart'
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 
 import Abilities from './modules/Abilities';
-import DreamBreath from './modules/features/DreamBreath';
+import DreamBreath from './modules/talents/DreamBreath';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
