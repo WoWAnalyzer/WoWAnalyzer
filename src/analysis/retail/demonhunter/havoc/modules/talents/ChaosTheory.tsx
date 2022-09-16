@@ -22,7 +22,7 @@ class ChaosTheory extends Analyzer {
 
   get buffUptime() {
     return (
-      this.selectedCombatant.getBuffUptime(SPELLS.CHAOTIC_BLADES.id) / this.owner.fightDuration
+      this.selectedCombatant.getBuffUptime(SPELLS.CHAOS_THEORY_BUFF.id) / this.owner.fightDuration
     );
   }
 

@@ -418,10 +418,10 @@ const talents = createTalentList({
     icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
     maxRanks: 2,
   },
-  RELENTLESS_ONSLAUGHT_HAVOC_TALENT: {
-    id: 389977,
-    name: 'Relentless Onslaught',
-    icon: 'ability_demonhunter_soulcleave2',
+  GROWING_INFERNO_HAVOC_TALENT: {
+    id: 390158,
+    name: 'Growing Inferno',
+    icon: 'spell_fel_incinerate',
     maxRanks: 2,
   },
   TACTICAL_RETREAT_HAVOC_TALENT: {
@@ -430,10 +430,10 @@ const talents = createTalentList({
     icon: 'ability_demonhunter_vengefulretreat2',
     maxRanks: 1,
   },
-  CHAOS_THEORY_HAVOC_TALENT: {
-    id: 389687,
-    name: 'Chaos Theory',
-    icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
+  ISOLATED_PREY_HAVOC_TALENT: {
+    id: 388113,
+    name: 'Isolated Prey',
+    icon: 'spell_shadow_shadesofdarkness',
     maxRanks: 1,
   },
   CHAOTIC_TRANSFORMATION_HAVOC_TALENT: {
@@ -442,15 +442,15 @@ const talents = createTalentList({
     icon: 'ability_demonhunter_glide',
     maxRanks: 1,
   },
-  GROWING_INFERNO_HAVOC_TALENT: {
-    id: 390158,
-    name: 'Growing Inferno',
-    icon: 'spell_fel_incinerate',
+  RELENTLESS_ONSLAUGHT_HAVOC_TALENT: {
+    id: 389977,
+    name: 'Relentless Onslaught',
+    icon: 'ability_demonhunter_soulcleave2',
     maxRanks: 1,
   },
-  BURNING_WOUND_NYI_HAVOC_TALENT: {
-    id: 390274,
-    name: 'Burning Wound [NYI]',
+  BURNING_WOUND_HAVOC_TALENT: {
+    id: 391189,
+    name: 'Burning Wound',
     icon: 'spell_fire_felhellfire',
     maxRanks: 1,
   },
@@ -460,10 +460,10 @@ const talents = createTalentList({
     icon: 'ability_foundryraid_demolition',
     maxRanks: 1,
   },
-  ISOLATED_PREY_HAVOC_TALENT: {
-    id: 388113,
-    name: 'Isolated Prey',
-    icon: 'spell_shadow_shadesofdarkness',
+  CHAOS_THEORY_HAVOC_TALENT: {
+    id: 389687,
+    name: 'Chaos Theory',
+    icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
     maxRanks: 1,
   },
   RESTLESS_HUNTER_HAVOC_TALENT: {
@@ -484,6 +484,18 @@ const talents = createTalentList({
     icon: 'inv_glaive_1h_npc_c_02',
     maxRanks: 1,
   },
+  RAGEFIRE_HAVOC_TALENT: {
+    id: 388107,
+    name: 'Ragefire',
+    icon: 'spell_fire_fireballgreen',
+    maxRanks: 1,
+  },
+  KNOW_YOUR_ENEMY_HAVOC_TALENT: {
+    id: 388118,
+    name: 'Know Your Enemy',
+    icon: 'ability_demonhunter_eyeofleotheras',
+    maxRanks: 2,
+  },
   GLAIVE_TEMPEST_HAVOC_TALENT: {
     id: 342817,
     name: 'Glaive Tempest',
@@ -497,23 +509,17 @@ const talents = createTalentList({
     icon: 'inv_felbarrage',
     maxRanks: 1,
   },
-  KNOW_YOUR_ENEMY_HAVOC_TALENT: {
-    id: 388118,
-    name: 'Know Your Enemy',
-    icon: 'ability_demonhunter_eyeofleotheras',
-    maxRanks: 2,
-  },
-  RAGEFIRE_HAVOC_TALENT: {
-    id: 388107,
-    name: 'Ragefire',
-    icon: 'spell_fire_fireballgreen',
-    maxRanks: 1,
-  },
   CYCLE_OF_HATRED_HAVOC_TALENT: {
     id: 258887,
     name: 'Cycle of Hatred',
     icon: 'ability_ironmaidens_whirlofblood',
     maxRanks: 2,
+  },
+  FODDER_TO_THE_FLAME_HAVOC_TALENT: {
+    id: 391429,
+    name: 'Fodder to the Flame',
+    icon: 'ability_maldraxxus_demonhunter',
+    maxRanks: 1,
   },
   ELYSIAN_DECREE_HAVOC_TALENT: {
     id: 390163,
@@ -584,10 +590,16 @@ const talents = createTalentList({
     icon: 'ability_demonhunter_demonspikes',
     maxRanks: 1,
   },
-  SOUL_FURNACE_VENGEANCE_TALENT: {
-    id: 391165,
-    name: 'Soul Furnace',
-    icon: 'ability_demonhunter_soulcleave4',
+  SHEAR_FURY_VENGEANCE_TALENT: {
+    id: 389997,
+    name: 'Shear Fury',
+    icon: 'ability_demonhunter_hatefulstrike',
+    maxRanks: 1,
+  },
+  FRACTURE_VENGEANCE_TALENT: {
+    id: 263642,
+    name: 'Fracture',
+    icon: 'ability_creature_felsunder',
     maxRanks: 1,
   },
   PERFECTLY_BALANCED_GLAIVE_VENGEANCE_TALENT: {
@@ -602,10 +614,10 @@ const talents = createTalentList({
     icon: 'spell_fire_felflamering',
     maxRanks: 1,
   },
-  BURNING_BLOOD_VENGEANCE_TALENT: {
-    id: 390213,
-    name: 'Burning Blood',
-    icon: 'ability_demonhunter_immolation',
+  ABYSSAL_HASTE_VENGEANCE_TALENT: {
+    id: 389724,
+    name: 'Abyssal Haste',
+    icon: 'spell_warlock_summonabyssal',
     maxRanks: 1,
   },
   FEL_FLAME_FORTIFICATION_VENGEANCE_TALENT: {
@@ -614,22 +626,16 @@ const talents = createTalentList({
     icon: 'spell_fire_felfire',
     maxRanks: 1,
   },
+  SOUL_FURNACE_VENGEANCE_TALENT: {
+    id: 391165,
+    name: 'Soul Furnace',
+    icon: 'ability_demonhunter_soulcleave4',
+    maxRanks: 1,
+  },
   FEAST_OF_SOULS_VENGEANCE_TALENT: {
     id: 207697,
     name: 'Feast of Souls',
     icon: 'spell_shadow_soulleech',
-    maxRanks: 1,
-  },
-  SHEAR_FURY_VENGEANCE_TALENT: {
-    id: 389997,
-    name: 'Shear Fury',
-    icon: 'ability_demonhunter_hatefulstrike',
-    maxRanks: 1,
-  },
-  FRACTURE_VENGEANCE_TALENT: {
-    id: 263642,
-    name: 'Fracture',
-    icon: 'ability_creature_felsunder',
     maxRanks: 1,
   },
   CHAINS_OF_ANGER_VENGEANCE_TALENT: {
@@ -660,6 +666,12 @@ const talents = createTalentList({
     id: 320341,
     name: 'Bulk Extraction',
     icon: 'spell_shadow_shadesofdarkness',
+    maxRanks: 1,
+  },
+  BURNING_BLOOD_VENGEANCE_TALENT: {
+    id: 390213,
+    name: 'Burning Blood',
+    icon: 'ability_demonhunter_immolation',
     maxRanks: 1,
   },
   VOID_REAVER_VENGEANCE_TALENT: {
@@ -711,10 +723,10 @@ const talents = createTalentList({
     icon: 'inv_jewelry_necklace_53',
     maxRanks: 2,
   },
-  CYCLE_OF_BINDING_VENGEANCE_TALENT: {
-    id: 389718,
-    name: 'Cycle of Binding',
-    icon: 'ability_demonhunter_sigilofinquisition',
+  FIERY_DEMISE_VENGEANCE_TALENT: {
+    id: 389220,
+    name: 'Fiery Demise',
+    icon: 'ability_demonhunter_fierybrand',
     maxRanks: 2,
   },
   SIGIL_OF_CHAINS_VENGEANCE_TALENT: {
@@ -747,10 +759,10 @@ const talents = createTalentList({
     icon: 'spell_fire_elementaldevastation',
     maxRanks: 1,
   },
-  FIERY_DEMISE_VENGEANCE_TALENT: {
-    id: 389220,
-    name: 'Fiery Demise',
-    icon: 'ability_demonhunter_fierybrand',
+  CYCLE_OF_BINDING_VENGEANCE_TALENT: {
+    id: 389718,
+    name: 'Cycle of Binding',
+    icon: 'ability_demonhunter_sigilofinquisition',
     maxRanks: 1,
   },
   VULNERABILITY_VENGEANCE_TALENT: {

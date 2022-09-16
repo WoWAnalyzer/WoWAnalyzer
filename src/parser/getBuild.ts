@@ -18,7 +18,9 @@ export default function getBuild(
 ): Build | null {
   if (
     !config?.builds ||
-    (config.expansion !== Expansion.Vanilla && config.expansion !== Expansion.TheBurningCrusade)
+    (config.expansion !== Expansion.Vanilla &&
+      config.expansion !== Expansion.TheBurningCrusade &&
+      config.expansion !== Expansion.WrathOfTheLichKing)
   ) {
     return null;
   }

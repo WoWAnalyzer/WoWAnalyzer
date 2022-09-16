@@ -19,3 +19,5 @@ export const VULNERABILITY_SCALING = [0, 0.04, 0.08];
 export const FEED_THE_DEMON_SCALING = [0, 0.25, 0.5];
 
 export const CHARRED_FLESH_SCALING = [0, 0.25, 0.5];
+
+export const FIERY_DEMISE_SCALING = [0, 0.15, 0.3];

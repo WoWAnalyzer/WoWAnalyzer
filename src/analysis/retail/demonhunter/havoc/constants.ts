@@ -12,7 +12,7 @@ export const SERRATED_GLAIVE_SCALING = [0, 0.1, 0.2];
 
 export const RELENTLESS_ONSLAUGHT_SCALING = [0, 0.06, 0.12];
 
-export const KNOW_YOUR_ENEMY_SCALING = [0, 0.5, 0.5];
+export const KNOW_YOUR_ENEMY_SCALING = [0, 0.5, 1.0];
 
 export const CYCLE_OF_HATRED_SCALING = [0, 0.5, 1];
 

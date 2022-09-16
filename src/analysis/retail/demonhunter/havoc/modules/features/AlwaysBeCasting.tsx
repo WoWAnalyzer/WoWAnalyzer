@@ -31,7 +31,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
             <SpellLink id={SPELLS.FEL_RUSH_CAST.id} />,{' '}
             <SpellLink id={TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id} icon />,{' '}
             <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id} icon />
-            or <SpellLink id={SPELLS.VENGEFUL_RETREAT.id} icon /> to quickly get back to the boss.
+            or <SpellLink id={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT.id} icon /> to quickly
+            get back to the boss.
           </>,
         )
           .icon('spell_mage_altertime')

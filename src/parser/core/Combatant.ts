@@ -143,10 +143,9 @@ class Combatant extends Entity {
 
   /** Returns the number of points the combatant has in the specified talent. If the talent
    *  hasn't been picked at all, this will be zero. */
-  pointsInTalent(spell: number | Spell): number {
+  getTalentRank(spell: number | Spell) {
     const spellId = typeof spell === 'number' ? spell : spell.id;
-    const entry = this.treeTalentsBySpellId.get(spellId);
-    return entry ? entry.rank : 0;
+    return this.treeTalentsBySpellId.get(spellId)?.rank ?? 0;
   }
 
   /**

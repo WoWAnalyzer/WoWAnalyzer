@@ -24,6 +24,9 @@ class DemonBite extends Analyzer {
     this.active = !this.selectedCombatant.hasTalent(
       TALENTS_DEMON_HUNTER.DEMON_BLADES_HAVOC_TALENT.id,
     );
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(
       Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.DEMONS_BITE),

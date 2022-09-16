@@ -1,10 +1,10 @@
 import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import { PITCH_BLACK_SCALING } from 'analysis/retail/demonhunter/shared';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -61,7 +61,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.METAMORPHOSIS_TANK.id,
-        buffSpellId: SPELLS.METAMORPHOSIS_TANK.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 180,
         castEfficiency: {
@@ -71,10 +70,12 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
       },
       {
-        spell: SPELLS.FIERY_BRAND.id,
-        buffSpellId: SPELLS.FIERY_BRAND_DEBUFF.id,
+        spell: TALENTS_DEMON_HUNTER.FIERY_BRAND_VENGEANCE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 60,
+        charges:
+          1 +
+          (combatant.hasTalent(TALENTS_DEMON_HUNTER.DOWN_IN_FLAMES_VENGEANCE_TALENT.id) ? 1 : 0),
         gcd: {
           base: 1500,
         },
@@ -90,7 +91,30 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: (haste) => 20 / (1 + haste),
         charges: 2,
+        castEfficiency: {
+          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.RETALIATION_VENGEANCE_TALENT.id),
+          recommendedEfficiency: 0.5,
+        },
         isDefensive: true,
+      },
+      {
+        spell: TALENTS_DEMON_HUNTER.BLUR_TALENT.id,
+        buffSpellId: TALENTS_DEMON_HUNTER.BLUR_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.BLUR_TALENT.id),
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: 60,
+      },
+      {
+        spell: TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id,
+        buffSpellId: TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.BLUR_TALENT.id),
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown:
+          300 -
+          PITCH_BLACK_SCALING[combatant.getTalentRank(TALENTS_DEMON_HUNTER.PITCH_BLACK_TALENT.id)],
+        gcd: {
+          base: 1500,
+        },
       },
 
       // Talents
@@ -105,7 +129,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id,
-        buffSpellId: SPELLS.FRAILTY_SPIRIT_BOMB_DEBUFF.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -113,7 +136,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT.id,
-        buffSpellId: TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT.id),
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 30,
@@ -141,7 +163,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FEL_DEVASTATION.id,
+        spell: TALENTS_DEMON_HUNTER.FEL_DEVASTATION_VENGEANCE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 60,
         gcd: {
@@ -154,10 +176,38 @@ class Abilities extends CoreAbilities {
         },
         isDefensive: true,
       },
+      {
+        spell: SPELLS.ELYSIAN_DECREE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown:
+          60 *
+          (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_VENGEANCE_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: SPELLS.THE_HUNT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 90,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id),
+      },
 
       // Sigils
       {
-        spell: [SPELLS.SIGIL_OF_SILENCE_CONCENTRATED.id, SPELLS.SIGIL_OF_SILENCE_QUICKENED.id],
+        spell: [
+          SPELLS.SIGIL_OF_SILENCE_CONCENTRATED.id,
+          TALENTS_DEMON_HUNTER.SIGIL_OF_SILENCE_TALENT.id,
+          SPELLS.SIGIL_OF_SILENCE_PRECISE.id,
+        ],
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
           60 *
@@ -167,7 +217,11 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.SIGIL_OF_MISERY_CONCENTRATED.id, SPELLS.SIGIL_OF_MISERY_QUICKENED.id],
+        spell: [
+          SPELLS.SIGIL_OF_MISERY_CONCENTRATED.id,
+          TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT.id,
+          SPELLS.SIGIL_OF_MISERY_PRECISE.id,
+        ],
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
           60 *
@@ -175,10 +229,18 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.MISERY_IN_DEFEAT_TALENT.id),
+          recommendedEfficiency: 0.9,
+          extraSuggestion: `Cast on cooldown for a dps increase.`,
+        },
       },
       {
-        spell: [SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id, SPELLS.SIGIL_OF_FLAME_QUICKENED.id],
-        buffSpellId: SPELLS.SIGIL_OF_FLAME_DEBUFF.id,
+        spell: [
+          SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id,
+          TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id,
+          SPELLS.SIGIL_OF_FLAME_PRECISE.id,
+        ],
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown:
           30 *
@@ -186,15 +248,8 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !(
-          combatant.hasCovenant(COVENANTS.KYRIAN.id) &&
-          combatant.hasLegendary(SPELLS.RAZELIKHS_DEFILEMENT)
-        ),
         castEfficiency: {
-          suggestion: !(
-            combatant.hasCovenant(COVENANTS.KYRIAN.id) &&
-            combatant.hasLegendary(SPELLS.RAZELIKHS_DEFILEMENT)
-          ),
+          suggestion: true,
           recommendedEfficiency: 0.9,
           extraSuggestion: `Cast on cooldown for a dps increase.`,
         },
@@ -205,12 +260,11 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.INFERNAL_STRIKE.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 20,
-        charges: 2,
+        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.HOT_FEET_TALENT.id) ? 1 : 0),
         enabled: false, // TODO: change this to true, when infernal strike logging is working, see infernalstrike module for more details.
       },
-
       {
-        spell: SPELLS.IMPRISON.id,
+        spell: TALENTS_DEMON_HUNTER.IMPRISON_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 15,
         gcd: {
@@ -254,32 +308,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SOUL_FRAGMENT.id,
         category: SPELL_CATEGORY.HIDDEN,
         gcd: null,
-      },
-
-      // Covenant (move these if needed)
-      {
-        spell: [SPELLS.ELYSIAN_DECREE.id, SPELLS.ELYSIAN_DECREE_REPEAT_DECREE.id],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown:
-          60 *
-          (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_VENGEANCE_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      },
-      {
-        spell: SPELLS.THE_HUNT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 90,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id),
       },
     ];
   }

@@ -63,7 +63,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
   currentMaxResource() {
     return (
       BASE_ENERGY_MAX +
-      this.selectedCombatant.pointsInTalent(TALENTS_DRUID.TIRELESS_ENERGY_FERAL_TALENT) *
+      this.selectedCombatant.getTalentRank(TALENTS_DRUID.TIRELESS_ENERGY_FERAL_TALENT) *
         TIRELESS_ENERGY_ADD
     );
   }

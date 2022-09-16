@@ -32,7 +32,7 @@ class Demonic extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EYE_BEAM),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT),
       this.onEyeBeamCast,
     );
     this.addEventListener(
@@ -90,8 +90,8 @@ class Demonic extends Analyzer {
       suggest(
         <>
           Try to have <SpellLink id={SPELLS.BLADE_DANCE.id} /> almost off cooldown before casting{' '}
-          <SpellLink id={SPELLS.EYE_BEAM.id} />. This will allow for two casts of{' '}
-          <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the{' '}
+          <SpellLink id={TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id} />. This will allow for two
+          casts of <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the{' '}
           <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> buff you get from the{' '}
           <SpellLink id={TALENTS_DEMON_HUNTER.DEMONIC_TALENT.id} /> talent.
         </>,
