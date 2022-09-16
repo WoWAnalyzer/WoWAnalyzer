@@ -3,18 +3,26 @@ import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ResourceChangeEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { CYCLE_OF_HATRED_SCALING } from 'analysis/retail/demonhunter/havoc/constants';
 
 /*
   example report: https://www.warcraftlogs.com/reports/QxHJ9MTtmVYNXPLd/#fight=1&source=2
  */
 
-const COOLDOWN_REDUCTION_MS = 3000;
+const MS_IN_SECOND = 1000;
+const TRIGGER_SPELLS = [
+  SPELLS.CHAOS_STRIKE,
+  SPELLS.ANNIHILATION,
+  SPELLS.BLADE_DANCE,
+  SPELLS.DEATH_SWEEP,
+  TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_HAVOC_TALENT,
+];
 
 class CycleOfHatred extends Analyzer {
   static dependencies = {
@@ -31,19 +39,19 @@ class CycleOfHatred extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.CHAOS_STRIKE_ENERGIZE),
-      this.onEnergizeEvent,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(TRIGGER_SPELLS), this.onCastEvent);
   }
 
-  onEnergizeEvent(_: ResourceChangeEvent) {
-    if (!this.spellUsable.isOnCooldown(SPELLS.EYE_BEAM.id)) {
+  onCastEvent(_: CastEvent) {
+    if (!this.spellUsable.isOnCooldown(TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id)) {
       return;
     }
     const effectiveReduction = this.spellUsable.reduceCooldown(
-      SPELLS.EYE_BEAM.id,
-      COOLDOWN_REDUCTION_MS,
+      TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id,
+      MS_IN_SECOND *
+        CYCLE_OF_HATRED_SCALING[
+          this.selectedCombatant.getTalentRank(TALENTS_DEMON_HUNTER.CYCLE_OF_HATRED_HAVOC_TALENT.id)
+        ],
     );
     this.totalCooldownReduction += effectiveReduction;
   }
@@ -59,7 +67,8 @@ class CycleOfHatred extends Analyzer {
           <>
             {formatNumber(this.totalCooldownReduction / 1000)} sec{' '}
             <small>
-              total <SpellIcon id={SPELLS.EYE_BEAM.id} /> Eye Beam cooldown reduction
+              total <SpellIcon id={TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id} /> Eye Beam
+              cooldown reduction
             </small>
           </>
         </BoringSpellValueText>

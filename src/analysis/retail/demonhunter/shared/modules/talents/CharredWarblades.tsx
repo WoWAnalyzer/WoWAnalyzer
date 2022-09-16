@@ -1,4 +1,3 @@
-import { SHATTERED_RESTORATION_SCALING } from 'analysis/retail/demonhunter/shared/constants';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
@@ -10,7 +9,7 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-export default class ShatteredRestoration extends Analyzer {
+export default class CharredWarblades extends Analyzer {
   heal = 0;
   factor = 0;
   rank = 0;
@@ -18,18 +17,14 @@ export default class ShatteredRestoration extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.SHATTERED_RESTORATION_TALENT.id,
+      TALENTS_DEMON_HUNTER.CHARRED_WARBLADES_TALENT.id,
     );
     if (!this.active) {
       return;
     }
 
-    this.rank = this.selectedCombatant.getTalentRank(
-      TALENTS_DEMON_HUNTER.SHATTERED_RESTORATION_TALENT.id,
-    );
-
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CONSUME_SOUL_VDH),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHARRED_WARBLADES),
       this.onHeal,
     );
   }
@@ -39,9 +34,6 @@ export default class ShatteredRestoration extends Analyzer {
   }
 
   statistic() {
-    const effectiveHealing =
-      this.heal - (this.heal / (100 + SHATTERED_RESTORATION_SCALING[this.rank])) * 100;
-
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
@@ -50,12 +42,12 @@ export default class ShatteredRestoration extends Analyzer {
           <>
             This shows the extra hps that the talent provides.
             <br />
-            <strong>Total extra healing:</strong> {formatNumber(effectiveHealing)}
+            <strong>Total extra healing:</strong> {formatNumber(this.heal)}
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.SHATTERED_RESTORATION_TALENT.id}>
-          <ItemHealingDone amount={effectiveHealing} />
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.CHARRED_WARBLADES_TALENT.id}>
+          <ItemHealingDone amount={this.heal} />
         </BoringSpellValueText>
       </Statistic>
     );

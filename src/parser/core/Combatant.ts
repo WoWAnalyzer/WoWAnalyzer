@@ -139,6 +139,11 @@ class Combatant extends Entity {
     return this.treeTalentsBySpellId.has(spellId);
   }
 
+  getTalentRank(spell: number | Spell) {
+    const spellId = typeof spell === 'number' ? spell : spell.id;
+    return this.treeTalentsBySpellId.get(spellId)?.rank ?? 0;
+  }
+
   /**
    * The number of points spent in each tree.
    *

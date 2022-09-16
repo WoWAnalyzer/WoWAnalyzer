@@ -2,10 +2,11 @@ import SPELLS from 'common/SPELLS/demonhunter';
 import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
 import { EventType } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 
 const EVENT_ORDERS: EventOrder[] = [
   {
-    beforeEventId: SPELLS.EYE_BEAM.id,
+    beforeEventId: TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id,
     beforeEventType: EventType.ApplyBuff,
     afterEventId: SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
     afterEventType: EventType.ApplyBuff,
