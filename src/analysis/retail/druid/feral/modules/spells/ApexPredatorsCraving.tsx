@@ -16,10 +16,12 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import ConvokeSpiritsFeral from './ConvokeSpiritsFeral';
+import ConvokeSpiritsFeral from 'analysis/retail/druid/feral/modules/spells/ConvokeSpiritsFeral';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 const BUFFER_MS = 50;
 
+// TODO also track the splash due to Feral Frenzy from free bites (and the Sabertooth rip boost??)
 /**
  * **Apex Predator's Craving**
  * Runecarving Legendary
@@ -49,9 +51,10 @@ class ApexPredatorsCraving extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.APEX_PREDATORS_CRAVING);
-
-    this.hasSotf = this.selectedCombatant.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_FERAL.id);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.APEX_PREDATORS_CRAVING_FERAL_TALENT,
+    );
+    this.hasSotf = this.selectedCombatant.hasTalent(TALENTS_DRUID.SOUL_OF_THE_FOREST_FERAL_TALENT);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.APEX_PREDATORS_CRAVING_BUFF),

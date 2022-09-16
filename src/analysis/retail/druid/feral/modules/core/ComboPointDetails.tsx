@@ -7,8 +7,8 @@ import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import ResourceBreakdown from './ComboPointBreakdown';
-import ComboPointTracker from './ComboPointTracker';
+import ResourceBreakdown from 'analysis/retail/druid/feral/modules/core/ComboPointBreakdown';
+import ComboPointTracker from 'analysis/retail/druid/feral/modules/core/ComboPointTracker';
 
 class ComboPointDetails extends Analyzer {
   static dependencies = {

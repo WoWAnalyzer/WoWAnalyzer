@@ -2,7 +2,9 @@ import SPELLS from 'common/SPELLS';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
+// TODO probably should move past this for DF...
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
@@ -11,11 +13,11 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
-      spell: SPELLS.FERAL_FRENZY_TALENT.id,
+      spell: TALENTS_DRUID.FERAL_FRENZY_FERAL_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
-      spell: SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id,
+      spell: TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {

@@ -8,9 +8,18 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 
-import { RAKE_BASE_DURATION } from '../../constants';
-import { getHardcast, isFromHardcast } from '../../normalizers/CastLinkNormalizer';
-import Snapshots, { hasSpec, PROWL_SPEC, SnapshotSpec, TIGERS_FURY_SPEC } from '../core/Snapshots';
+import { RAKE_BASE_DURATION } from 'analysis/retail/druid/feral/constants';
+import {
+  getHardcast,
+  isFromHardcast,
+} from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
+import Snapshots, {
+  hasSpec,
+  PROWL_SPEC,
+  SnapshotSpec,
+  TIGERS_FURY_SPEC,
+} from 'analysis/retail/druid/feral/modules/core/Snapshots';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 const MAX_RAKE_PROWL_DOWNGRADE_TIME = 2000;
 
@@ -100,7 +109,7 @@ class RakeUptimeAndSnapshots extends Snapshots {
 
   get tigersFurySnapshotThresholds() {
     // rake is often used for proccing BT, so harder to maintain snapshots
-    const breakpoints = this.selectedCombatant.hasTalent(SPELLS.BLOODTALONS_TALENT)
+    const breakpoints = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT)
       ? { minor: 0.6, average: 0.45, major: 0.3 }
       : { minor: 0.85, average: 0.6, major: 0.4 };
     return {
@@ -156,11 +165,12 @@ class RakeUptimeAndSnapshots extends Snapshots {
           <br />
           Still, 100% snapshot uptime isn't practically possible and the impact of this is
           relatively minor - don't screw up your rotation just to get better snapshotting.
-          {this.selectedCombatant.hasTalent(SPELLS.BLOODTALONS_TALENT) && (
+          {this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT) && (
             <>
               {' '}
-              This is especcially true with <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> - Raking
-              to gain a proc takes precedence over good snapshots.
+              This is especcially true with{' '}
+              <SpellLink id={TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id} /> - Raking to gain a proc
+              takes precedence over good snapshots.
             </>
           )}
         </>,

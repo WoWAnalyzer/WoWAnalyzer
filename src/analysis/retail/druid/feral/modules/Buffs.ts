@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 class Buffs extends CoreAuras {
   auras() {
@@ -12,19 +13,8 @@ class Buffs extends CoreAuras {
       // rotational
       {
         spellId: SPELLS.BLOODTALONS_BUFF.id,
-        enabled: combatant.hasTalent(SPELLS.BLOODTALONS_TALENT),
+        enabled: combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT),
         triggeredBySpellId: [SPELLS.REGROWTH.id, SPELLS.ENTANGLING_ROOTS.id],
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.PREDATORY_SWIFTNESS.id,
-        // only important for rotation when using Bloodtalons, but always available
-        timelineHighlight: combatant.hasTalent(SPELLS.BLOODTALONS_TALENT),
-      },
-      {
-        spellId: SPELLS.SAVAGE_ROAR_TALENT.id,
-        triggeredBySpellId: SPELLS.SAVAGE_ROAR_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.SAVAGE_ROAR_TALENT),
         timelineHighlight: true,
       },
 
@@ -60,13 +50,13 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.BERSERK.id,
         triggeredBySpellId: SPELLS.BERSERK.id,
-        enabled: !combatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT),
+        enabled: !combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT),
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id,
-        triggeredBySpellId: SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT),
+        spellId: TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id,
+        triggeredBySpellId: TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT),
         timelineHighlight: true,
       },
       {
@@ -79,10 +69,6 @@ class Buffs extends CoreAuras {
         // it could be useful to see when the combatant is out of cat form, but filling the timeline with a nearly constant buff would add too much noise
         spellId: SPELLS.CAT_FORM.id,
         triggeredBySpellId: SPELLS.CAT_FORM.id,
-      },
-      {
-        spellId: SPELLS.MOONKIN_FORM_AFFINITY.id,
-        enabled: combatant.hasTalent(SPELLS.BALANCE_AFFINITY_TALENT_SHARED),
       },
       {
         spellId: SPELLS.TREANT_FORM.id,
@@ -100,12 +86,12 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.DASH.id,
         triggeredBySpellId: SPELLS.DASH.id,
-        enabled: !combatant.hasTalent(SPELLS.TIGER_DASH_TALENT),
+        enabled: !combatant.hasTalent(TALENTS_DRUID.TIGER_DASH_TALENT),
       },
       {
-        spellId: SPELLS.TIGER_DASH_TALENT.id,
-        triggeredBySpellId: SPELLS.TIGER_DASH_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.TIGER_DASH_TALENT),
+        spellId: TALENTS_DRUID.TIGER_DASH_TALENT.id,
+        triggeredBySpellId: TALENTS_DRUID.TIGER_DASH_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.TIGER_DASH_TALENT),
       },
       {
         spellId: SPELLS.STAMPEDING_ROAR_CAT.id,
@@ -123,12 +109,12 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.REJUVENATION.id,
         triggeredBySpellId: SPELLS.REJUVENATION.id,
-        enabled: combatant.hasTalent(SPELLS.RESTORATION_AFFINITY_TALENT),
+        enabled: combatant.hasTalent(TALENTS_DRUID.REJUVENATION_TALENT),
       },
       {
         spellId: SPELLS.WILD_GROWTH.id,
         triggeredBySpellId: SPELLS.WILD_GROWTH.id,
-        enabled: combatant.hasTalent(SPELLS.RESTORATION_AFFINITY_TALENT),
+        enabled: combatant.hasTalent(TALENTS_DRUID.WILD_GROWTH_TALENT),
       },
     ];
   }

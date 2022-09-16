@@ -2,8 +2,8 @@ import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink, TooltipElement } from 'interface';
-import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyDebuffEvent, DamageEvent, RefreshDebuffEvent } from 'parser/core/Events';
+import { Options } from 'parser/core/Analyzer';
+import { ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
@@ -13,11 +13,18 @@ import {
   PRIMAL_WRATH_RIP_DURATION_PER_CP,
   RIP_DURATION_BASE,
   RIP_DURATION_PER_CP,
-  SABERTOOTH_EXTEND_PER_CP,
-} from '../../constants';
-import { getHardcast, getPrimalWrath } from '../../normalizers/CastLinkNormalizer';
-import getComboPointsFromEvent from '../core/getComboPointsFromEvent';
-import Snapshots, { BLOODTALONS_SPEC, SnapshotSpec, TIGERS_FURY_SPEC } from '../core/Snapshots';
+} from 'analysis/retail/druid/feral/constants';
+import {
+  getHardcast,
+  getPrimalWrath,
+} from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
+import getComboPointsFromEvent from 'analysis/retail/druid/feral/modules/core/getComboPointsFromEvent';
+import Snapshots, {
+  BLOODTALONS_SPEC,
+  SnapshotSpec,
+  TIGERS_FURY_SPEC,
+} from 'analysis/retail/druid/feral/modules/core/Snapshots';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 class RipUptimeAndSnapshots extends Snapshots {
   static dependencies = {
@@ -31,14 +38,6 @@ class RipUptimeAndSnapshots extends Snapshots {
 
   constructor(options: Options) {
     super(SPELLS.RIP, SPELLS.RIP, [TIGERS_FURY_SPEC, BLOODTALONS_SPEC], options);
-
-    // apply the Rip extension if player has Sabertooth
-    if (this.selectedCombatant.hasTalent(SPELLS.SABERTOOTH_TALENT)) {
-      this.addEventListener(
-        Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEROCIOUS_BITE),
-        this.onSabertoothFb,
-      );
-    }
   }
 
   getDotExpectedDuration(event: ApplyDebuffEvent | RefreshDebuffEvent): number {
@@ -93,20 +92,6 @@ class RipUptimeAndSnapshots extends Snapshots {
     }
   }
 
-  onSabertoothFb(event: DamageEvent) {
-    const uptimesOnTarget = this.getUptimesForTarget(event);
-    // if there is an active Rip on target, extend it
-    if (
-      uptimesOnTarget.length > 0 &&
-      uptimesOnTarget[uptimesOnTarget.length - 1].end === undefined
-    ) {
-      const fromHardcast = getHardcast(event);
-      // convoked FB acts as though used 5 CPs
-      const cpsUsed = fromHardcast ? getComboPointsFromEvent(fromHardcast) : 5;
-      uptimesOnTarget[uptimesOnTarget.length - 1].expectedEnd += SABERTOOTH_EXTEND_PER_CP * cpsUsed;
-    }
-  }
-
   get uptimePercent() {
     return this.getTotalDotUptime() / this.owner.fightDuration;
   }
@@ -132,10 +117,7 @@ class RipUptimeAndSnapshots extends Snapshots {
   }
 
   get tigersFurySnapshotThresholds() {
-    // With Sabertooth, should be easy to push a TF Rip through the whole encounter
-    const breakpoints = this.selectedCombatant.hasTalent(SPELLS.SABERTOOTH_TALENT)
-      ? { minor: 0.95, average: 0.8, major: 0.6 }
-      : { minor: 0.85, average: 0.6, major: 0.4 };
+    const breakpoints = { minor: 0.85, average: 0.6, major: 0.4 };
     return {
       actual: this.percentWithTigerFury,
       isLessThan: breakpoints,
@@ -176,16 +158,9 @@ class RipUptimeAndSnapshots extends Snapshots {
           <TooltipElement content="The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.">
             pandemic window
           </TooltipElement>
-          , don't wait for it to wear off.
-          {!this.selectedCombatant.hasTalent(SPELLS.SABERTOOTH_TALENT.id) ? (
-            <>
-              {' '}
-              Avoid spending combo points on <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> if{' '}
-              <SpellLink id={SPELLS.RIP.id} /> will need refreshing soon.
-            </>
-          ) : (
-            <></>
-          )}
+          , don't wait for it to wear off. Avoid spending combo points on{' '}
+          <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> if <SpellLink id={SPELLS.RIP.id} /> will need
+          refreshing soon.
         </>,
       )
         .icon(SPELLS.RIP.icon)
@@ -225,15 +200,6 @@ class RipUptimeAndSnapshots extends Snapshots {
           the trick is to target your Rip refreshes to occur during Tiger's Fury. It can be
           acceptable to refresh a little early or late to accomplish this, but not more than a few
           seconds in either direction.
-          {this.selectedCombatant.hasTalent(SPELLS.SABERTOOTH_TALENT) && (
-            <>
-              <br />
-              <br />
-              Because you have <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} />, 100% snapshot uptime
-              should be possible by extending Rips duration such that you can always match a hard
-              refresh to a Tiger's Fury cast.
-            </>
-          )}
         </>,
       )
         .icon(SPELLS.RIP.icon)
@@ -241,16 +207,16 @@ class RipUptimeAndSnapshots extends Snapshots {
         .recommended(`>${formatPercentage(recommended, 1)}% is recommended`),
     );
     // TODO move this to bloodtalons module?
-    if (this.selectedCombatant.hasTalent(SPELLS.BLOODTALONS_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT)) {
       when(this.bloodTalonsSnapshotThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
           <>
             Try to always empower your <SpellLink id={SPELLS.RIP.id} /> with{' '}
-            <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} />. Bloodtalons buffs Rip for its full
-            duration, and you should always have a proc available when refreshing Rip.
+            <SpellLink id={TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id} />. Bloodtalons buffs Rip for
+            its full duration, and you should always have a proc available when refreshing Rip.
           </>,
         )
-          .icon(SPELLS.BLOODTALONS_TALENT.icon)
+          .icon(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.icon)
           .actual(`${formatPercentage(actual, 1)}% of Rip uptime had Bloodtalons snapshot`)
           .recommended(`>${formatPercentage(recommended, 1)}% is recommended`),
       );
