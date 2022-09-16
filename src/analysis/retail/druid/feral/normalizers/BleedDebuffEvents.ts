@@ -27,7 +27,7 @@ const CAST_DEBUFF_PAIRS = [
     multipleDebuffs: true,
   },
 ];
-// TODO - DEPCRECATED, replace with EventLinkNormalizer
+// TODO - DEPCRECATED, replace with EventLinkNormalizer - try to get this out for Dragonflight! (what still relies on it?)
 class BleedDebuffEvents extends EventsNormalizer {
   /**
    * When analyzing the effect of a cast event it's often necessary to know about what debuff application that cast

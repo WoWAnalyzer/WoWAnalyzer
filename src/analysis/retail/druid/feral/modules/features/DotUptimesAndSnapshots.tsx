@@ -3,10 +3,10 @@ import Analyzer from 'parser/core/Analyzer';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import UptimeMultiBarStatistic from 'parser/ui/UptimeMultiBarStatistic';
 
-import RakeUptimeAndSnapshots from '../bleeds/RakeUptimeAndSnapshots';
-import RipUptimeAndSnapshots from '../bleeds/RipUptimeAndSnapshots';
-import AdaptiveSwarmFeral from '../shadowlands/AdaptiveSwarmFeral';
-import MoonfireUptimeAndSnapshots from '../talents/MoonfireUptimeAndSnapshots';
+import RakeUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/features/RakeUptimeAndSnapshots';
+import RipUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/features/RipUptimeAndSnapshots';
+import AdaptiveSwarmFeral from 'analysis/retail/druid/feral/modules/spells/AdaptiveSwarmFeral';
+import MoonfireUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/features/MoonfireUptimeAndSnapshots';
 
 /**
  * Wide statistics box for tracking the most important Feral DoT uptimes

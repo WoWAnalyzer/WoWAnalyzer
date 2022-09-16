@@ -6,7 +6,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
-import ConvokeSpiritsFeral from '../../modules/shadowlands/ConvokeSpiritsFeral';
+import ConvokeSpiritsFeral from 'analysis/retail/druid/feral/modules/spells/ConvokeSpiritsFeral';
 
 class TigersFuryEnergy extends Analyzer {
   static dependencies = {

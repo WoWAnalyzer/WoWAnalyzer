@@ -17,18 +17,31 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { FINISHERS } from '../../constants';
-import { getComboPointsSpent } from '../../modules/core/ResourceFromEvent';
-import ConvokeSpiritsFeral from '../../modules/shadowlands/ConvokeSpiritsFeral';
+import { cdSpell, FINISHERS } from 'analysis/retail/druid/feral/constants';
+import { getComboPointsSpent } from 'analysis/retail/druid/feral/modules/core/ResourceFromEvent';
+import ConvokeSpiritsFeral from 'analysis/retail/druid/feral/modules/spells/ConvokeSpiritsFeral';
+import { TALENTS_DRUID } from 'common/TALENTS';
+import { formatNumber, formatPercentage } from 'common/format';
 
 const BERSERK_CDR_MS = 700;
 const CONVOKE_BITE_CPS = 5;
 
+// TODO update to point to talent for DF
 /**
- * Feral Druid Tier 28 - 2pc - Heart of the Lion
- * Each combo point spent reduces the cooldown of Incarnation: King of the Jungle / Berserk by 0.7 sec.
+ * This tracks the two 'upgrade' talents for Berserk.
+ *
+ * **Berserk: Heart of the Lion**
+ * Spec Talent Tier 7
+ *
+ * Each combo point spent reduces the cooldown of Berserk (or Incarnation) by 0.5 seconds.
+ *
+ * **Berserk: Frenzy**
+ * Spec Talent Tier 7
+ *
+ * During Berserk (or Incarnation) your combo-point generating abilites bleed the target for
+ * an additional 150% of their damage over 8 seconds.
  */
-class Tier28_2pc extends Analyzer {
+class BerserkBoosts extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
     abilityTracker: AbilityTracker,
@@ -39,6 +52,12 @@ class Tier28_2pc extends Analyzer {
   protected abilityTracker!: AbilityTracker;
   protected convokeSpiritsFeral!: ConvokeSpiritsFeral;
 
+  /** If player has the Berserk: Heart of the Lion talent */
+  hasHeartOfTheLion: boolean;
+  /** If player has the Berserk: Frenzy talent */
+  hasFrenzy: boolean;
+  /** If player has both the above talents */
+  hasBoth: boolean;
   /** Either Berserk or Incarnation depending on talent */
   cdSpell: Spell;
   /** The total raw amount the CD was reduced */
@@ -53,11 +72,15 @@ class Tier28_2pc extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has2Piece();
 
-    this.cdSpell = this.selectedCombatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id)
-      ? SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT
-      : SPELLS.BERSERK;
+    this.hasHeartOfTheLion = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_FERAL_TALENT,
+    );
+    this.hasFrenzy = this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_FRENZY_FERAL_TALENT);
+    this.hasBoth = this.hasHeartOfTheLion && this.hasFrenzy;
+    this.active = this.hasHeartOfTheLion || this.hasFrenzy;
+
+    this.cdSpell = cdSpell(this.selectedCombatant);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(FINISHERS), this.onFinisher);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEROCIOUS_BITE),
@@ -104,33 +127,39 @@ class Tier28_2pc extends Analyzer {
     }
   }
 
+  // TODO will this be the same damage ID in DF?
+  get totalDotDamage() {
+    return this.abilityTracker.getAbility(SPELLS.FRENZIED_ASSAULT.id).damageEffective;
+  }
+
+  // TODO probably want to update this display, but talents might change more in DF beta so gonna wait
   statistic() {
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(20)}
         size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
-        tooltip={
-          <>
-            This is the effect granted by the <strong>Tier 28 2-piece set bonus</strong>.
-            <br />
-            <br />
-            The effective CD reduction stat considers only the reduction you used. For example if
-            you spend enough combo points to take 15 seconds off your {this.cdSpell.name} cooldown
-            but then wait 10 seconds after its available to cast, you'll only be credited with 5
-            seconds of effective reduction, or if the fight ended before you could use it at all
-            then you'd be given no credit.
-            <br />
-            <br />
-            The total raw amount you reduced the cooldown was{' '}
-            <strong>{(this.totalRawCdReduced / 1000).toFixed(1)}s</strong>
-          </>
-        }
+        category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.HEART_OF_THE_LION.id}>
+        <BoringSpellValueText spellId={SPELLS.BERSERK.id}>
           <>
-            <SpellIcon id={this.cdSpell.id} /> {(this.totalEffectiveCdReduced / 1000).toFixed(1)}s{' '}
-            <small>eff. CD reduction</small> <br />
+            {this.hasHeartOfTheLion && (
+              <>
+                <SpellIcon id={TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_FERAL_TALENT.id} />{' '}
+                {(this.totalEffectiveCdReduced / 1000).toFixed(1)}s <small>eff. CD reduction</small>
+              </>
+            )}
+            {this.hasBoth && <br />}
+            {this.hasFrenzy && (
+              <>
+                <SpellIcon id={TALENTS_DRUID.BERSERK_FRENZY_FERAL_TALENT.id} />
+                <img src="/img/sword.png" alt="Damage" className="icon" />{' '}
+                {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDotDamage))} %{' '}
+                <small>
+                  {formatNumber((this.totalDotDamage / this.owner.fightDuration) * 1000)} DPS from
+                  DoT
+                </small>
+              </>
+            )}
           </>
         </BoringSpellValueText>
       </Statistic>
@@ -138,4 +167,4 @@ class Tier28_2pc extends Analyzer {
   }
 }
 
-export default Tier28_2pc;
+export default BerserkBoosts;

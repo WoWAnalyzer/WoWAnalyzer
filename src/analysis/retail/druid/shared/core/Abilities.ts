@@ -9,7 +9,6 @@ import { TALENTS_DRUID as TALENTS } from 'common/TALENTS/druid';
 
 export const druidGcd = (c: Combatant) => (c.hasBuff(SPELLS.CAT_FORM.id) ? 1000 : 1500);
 
-// TODO actually make this base abilites plus class tree stuff? will need category solution
 /**
  * Base Druid abilites and talents from the class tree.
  */
@@ -20,7 +19,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CONVOKE_SPIRITS.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: combatant.hasLegendary(SPELLS.CELESTIAL_SPIRITS) ? 60 : 120,
+        cooldown: 120,
         gcd: {
           base: druidGcd,
         },
@@ -30,34 +29,6 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.8,
         },
         timelineSortIndex: 100,
-      },
-      {
-        spell: SPELLS.SOULSHAPE.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: druidGcd,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
-      },
-      {
-        spell: SPELLS.RAVENOUS_FRENZY.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
-        gcd: null,
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-        timelineSortIndex: 100,
-      },
-      {
-        spell: SPELLS.DOOR_OF_SHADOWS.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: druidGcd,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
       },
       {
         spell: SPELLS.ADAPTIVE_SWARM.id,
@@ -70,15 +41,8 @@ class Abilities extends CoreAbilities {
         healSpellIds: [SPELLS.ADAPTIVE_SWARM_HEAL.id],
       },
       {
-        spell: SPELLS.FLESHCRAFT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        gcd: {
-          base: druidGcd,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-      },
-      {
         spell: [
+          // TODO with affinities gone, we need to check these IDs
           SPELLS.HEART_OF_THE_WILD_BALANCE_AFFINITY.id,
           SPELLS.HEART_OF_THE_WILD_FERAL_AFFINITY.id,
           SPELLS.HEART_OF_THE_WILD_GUARDIAN_AFFINITY.id,
@@ -112,21 +76,5 @@ class Abilities extends CoreAbilities {
     ];
   }
 }
-
-// function categoryBySpec(combatant: Combatant,
-//     balanceCategory: SPELL_CATEGORY,
-//     feralCategory: SPELL_CATEGORY,
-//     guardianCategory: SPELL_CATEGORY,
-//     restoCategory: SPELL_CATEGORY): SPELL_CATEGORY {
-//   if (combatant.specId === SPECS.BALANCE_DRUID.id) {
-//     return balanceCategory;
-//   } else if (combatant.specId === SPECS.FERAL_DRUID.id) {
-//     return feralCategory;
-//   } else if (combatant.specId === SPECS.GUARDIAN_DRUID.id) {
-//     return guardianCategory;
-//   } else {
-//     return restoCategory;
-//   }
-// }
 
 export default Abilities;

@@ -4,7 +4,7 @@ import { Options } from 'parser/core/Analyzer';
 import { ClassResources } from 'parser/core/Events';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
-import ConvokeSpiritsFeral from '../../modules/shadowlands/ConvokeSpiritsFeral';
+import ConvokeSpiritsFeral from 'analysis/retail/druid/feral/modules/spells/ConvokeSpiritsFeral';
 
 // Primal Fury may be slightly delayed.
 const PRIMAL_FURY_WINDOW = 50; //ms

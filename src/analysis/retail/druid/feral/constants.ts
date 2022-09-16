@@ -61,8 +61,16 @@ export const FERAL_DRUID_DAMAGE_AURA = 1.12;
 export const INCARNATION_SHRED_DAMAGE = 1.5;
 export const SHRED_SWIPE_BONUS_ON_BLEEDING = 1.2;
 
+/** Returns the Feral Druid's primary cooldown spell, which changes based on talent */
 export function cdSpell(c: Combatant): Spell {
   return c.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT)
     ? TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT
     : SPELLS.BERSERK;
+}
+
+/** Returns the Feral Druid's direct damage AoE builder, which changes based on talent */
+export function directAoeBuilder(c: Combatant): Spell {
+  return c.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_FERAL_TALENT)
+    ? TALENTS_DRUID.BRUTAL_SLASH_FERAL_TALENT
+    : SPELLS.SWIPE_CAT;
 }

@@ -9,6 +9,8 @@ class EnergyDetails extends Analyzer {
     energyTracker: EnergyTracker,
   };
 
+  energyTracker!: EnergyTracker;
+
   tab() {
     return {
       title: 'Energy usage',

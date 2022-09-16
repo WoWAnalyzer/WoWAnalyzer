@@ -8,16 +8,18 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { cdSpell, FINISHERS } from '../../constants';
-import { isFromHardcast } from '../../normalizers/CastLinkNormalizer';
-import ConvokeSpiritsFeral from '../shadowlands/ConvokeSpiritsFeral';
+import { cdSpell, FINISHERS } from 'analysis/retail/druid/feral/constants';
+import { isFromHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
+import ConvokeSpiritsFeral from 'analysis/retail/druid/feral/modules/spells/ConvokeSpiritsFeral';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 const BUFFER_MS = 50;
 
 const DEBUG = true;
 
 /**
- * **Bloodtalons** - Talent lvl 50
+ * **Bloodtalons**
+ * Spec Talent Tier 9
  *
  * When you use 3 different combo point-generating abilities within 4 sec,
  * the damage of your next 2 Rips or Ferocious Bites is increased by 30%.
@@ -27,6 +29,7 @@ const DEBUG = true;
  */
 // TODO also track which builders caused the proc?
 class Bloodtalons2 extends Analyzer {
+  // TODO can I rename this now - where did the other Bloodtalons module go lol?
   static dependencies = {
     convokeSpirits: ConvokeSpiritsFeral,
   };
@@ -76,7 +79,7 @@ class Bloodtalons2 extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BLOODTALONS_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT);
     this.hasApex = this.selectedCombatant.hasLegendary(SPELLS.APEX_PREDATORS_CRAVING);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(FINISHERS), this.onFinisherCast);
@@ -166,7 +169,7 @@ class Bloodtalons2 extends Analyzer {
   _isBerserkOrIncarn(): boolean {
     return (
       this.selectedCombatant.hasBuff(SPELLS.BERSERK.id) ||
-      this.selectedCombatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id)
+      this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id)
     );
   }
 
@@ -205,13 +208,13 @@ class Bloodtalons2 extends Analyzer {
       suggest(
         <>
           You are casting <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> without{' '}
-          <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} />. With only a few exceptions, you should be
-          able to buff each of your Bites with Bloodtalons.
+          <SpellLink id={TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id} />. With only a few exceptions,
+          you should be able to buff each of your Bites with Bloodtalons.
           <br />
           <br />
           The exceptions are: you have <SpellLink id={SPELLS.BERSERK.id} /> or{' '}
-          <SpellLink id={SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id} /> active and don't have
-          enough combo builders between finishers to proc Bloodtalons, or your{' '}
+          <SpellLink id={TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id} /> active and
+          don't have enough combo builders between finishers to proc Bloodtalons, or your{' '}
           <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> consumed Bloodtalons before your finisher
           {this.hasApex && (
             <>
@@ -222,7 +225,7 @@ class Bloodtalons2 extends Analyzer {
           . These exceptions are accounted for by the below statistic.
         </>,
       )
-        .icon(SPELLS.BLOODTALONS_TALENT.icon)
+        .icon(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.icon)
         .actual(`${formatPercentage(actual, 1)}% correct Bloodtalon Ferocious Bites.`)
         .recommended(`${formatPercentage(recommended, 0)}% is recommended`),
     );
@@ -276,7 +279,7 @@ class Bloodtalons2 extends Analyzer {
         size="flexible"
         position={STATISTIC_ORDER.CORE(40)}
       >
-        <BoringSpellValueText spellId={SPELLS.BLOODTALONS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id}>
           <>
             <SpellIcon id={SPELLS.FEROCIOUS_BITE.id} /> {this.bitesWithBt} / {this.totalBites}{' '}
             <small>buffed</small>

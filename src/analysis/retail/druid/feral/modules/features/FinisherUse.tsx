@@ -9,8 +9,8 @@ import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
-import { FINISHERS, MAX_CPS } from '../../constants';
-import getComboPointsFromEvent from '../core/getComboPointsFromEvent';
+import { FINISHERS, MAX_CPS } from 'analysis/retail/druid/feral/constants';
+import getComboPointsFromEvent from 'analysis/retail/druid/feral/modules/core/getComboPointsFromEvent';
 
 /**
  * Although all finishers are most efficient at 5 combo points, in some situations use at fewer combo points
@@ -19,7 +19,6 @@ import getComboPointsFromEvent from '../core/getComboPointsFromEvent';
  * Situations where <5 combo point use of an ability is fine:
  *  Fresh Rip on a target which doesn't yet have it.
  *  [NYI] Maim on a target where the stun is effective and useful.
- *  [NYI] Possibly when using Savage Roar? Will need theorycrafting.
  */
 class FinisherUse extends Analyzer {
   totalFinishers = 0;

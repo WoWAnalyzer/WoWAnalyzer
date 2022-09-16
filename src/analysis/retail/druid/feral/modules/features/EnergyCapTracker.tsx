@@ -7,43 +7,49 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticBox from 'parser/ui/StatisticBox';
+import { Options } from 'parser/core/Module';
 
 import SpellEnergyCost from './SpellEnergyCost';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
-const BASE_ENERGY_REGEN = 11;
+const BASE_ENERGY_REGEN = 11; // TODO 11 instead of 10 due to a baked in bonus from BFA ... double check still active for DF
 const BASE_ENERGY_MAX = 100;
-const MOMENT_OF_CLARITY_MAX_ADDITION = 30;
-const BERSERK_MAX_ADDITION = 50;
-
+const TIRELESS_ENERGY_ADD = 30;
 const RESOURCE_REFUND_ON_MISS = 0.8;
 
 /**
- * Sets up RegenResourceCapTracker to accurately track the regenerating energy of a Feral druid.
- * Taking into account the effect of buffs, talents, and items on the energy cost of abilities,
- * the maximum energy amount, and the regeneration rate.
- * Note that some cost reduction effects are already accounted for in the log.
+ * Energy Regen / Cap tracker for Feral.
  *
  * No need to override getReducedDrain:
  * Reduced drain cost from Berserk/Incarnation on Ferocious Bite is already applied in the log.
  */
-// TODO change over energy cap tracker to per minute?
 class EnergyCapTracker extends RegenResourceCapTracker {
   static dependencies = {
     ...RegenResourceCapTracker.dependencies,
     // Needed for the `resourceCost` prop of events
     spellResourceCost: SpellEnergyCost,
   };
+
   static resourceType = RESOURCE_TYPES.ENERGY;
   static baseRegenRate = BASE_ENERGY_REGEN;
   static isRegenHasted = true;
   static cumulativeEventWindow = 400;
-  static buffsChangeMax = [SPELLS.BERSERK.id, SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id];
   static resourceRefundOnMiss = RESOURCE_REFUND_ON_MISS;
   static exemptFromRefund = [
     SPELLS.THRASH_FERAL.id,
     SPELLS.SWIPE_CAT.id,
-    SPELLS.BRUTAL_SLASH_TALENT.id,
+    TALENTS_DRUID.BRUTAL_SLASH_FERAL_TALENT.id,
   ];
+
+  maxEnergy: number;
+
+  constructor(options: Options) {
+    super(options);
+    this.maxEnergy =
+      BASE_ENERGY_MAX +
+      this.selectedCombatant.pointsInTalent(TALENTS_DRUID.TIRELESS_ENERGY_FERAL_TALENT) *
+        TIRELESS_ENERGY_ADD;
+  }
 
   get percentNotCapped() {
     return (this.naturalRegen - this.missedRegen) / this.naturalRegen;
@@ -66,19 +72,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
   }
 
   currentMaxResource() {
-    let max = BASE_ENERGY_MAX;
-    if (this.selectedCombatant.hasTalent(SPELLS.MOMENT_OF_CLARITY_TALENT.id)) {
-      max += MOMENT_OF_CLARITY_MAX_ADDITION;
-    }
-    if (
-      this.combatantHasBuffActive(SPELLS.BERSERK.id) ||
-      this.combatantHasBuffActive(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id)
-    ) {
-      // combatantHasBuffActive is used so that if the buff faded at this timestamp it will not count.
-      max += BERSERK_MAX_ADDITION;
-    }
-    // What should be x.5 becomes x in-game.
-    return Math.floor(max);
+    return this.maxEnergy;
   }
 
   suggestions(when: When) {

@@ -4,6 +4,7 @@ import { TooltipElement } from 'interface';
 import PropTypes from 'prop-types';
 import { Component } from 'react';
 
+// TODO convert to TS and update for DF?
 // Copied from core breakdown, but with support for 'max CP casts' in spenders display
 class ResourceBreakdown extends Component {
   static propTypes = {
