@@ -5,6 +5,7 @@ import { Adoraci, Abelito75, Zeboot, LeoZhekov, Tora, Xcessiv, Tiboonn, Sref } f
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 9, 16), <>Initial updates for Dragonflight Talent system.</>, Sref),
   change(date(2022, 7, 6), <>Bumped version to indicate 9.2.5 is supported.</>, Sref),
   change(date(2022, 6, 19), <>Widened <SpellLink id={SPELLS.CONVOKE_SPIRITS.id}/> statistic for better viewing, and added per-cast damage number.</>, Sref),
   change(date(2022, 6, 16), <>Added <SpellLink id={SPELLS.RAVENOUS_FRENZY.id}/> to Timeline.</>, Sref),
