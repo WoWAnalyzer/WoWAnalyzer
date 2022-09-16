@@ -7,7 +7,6 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticBox from 'parser/ui/StatisticBox';
-import { Options } from 'parser/core/Module';
 
 import SpellEnergyCost from './SpellEnergyCost';
 import { TALENTS_DRUID } from 'common/TALENTS';
@@ -41,16 +40,6 @@ class EnergyCapTracker extends RegenResourceCapTracker {
     TALENTS_DRUID.BRUTAL_SLASH_FERAL_TALENT.id,
   ];
 
-  maxEnergy: number;
-
-  constructor(options: Options) {
-    super(options);
-    this.maxEnergy =
-      BASE_ENERGY_MAX +
-      this.selectedCombatant.pointsInTalent(TALENTS_DRUID.TIRELESS_ENERGY_FERAL_TALENT) *
-        TIRELESS_ENERGY_ADD;
-  }
-
   get percentNotCapped() {
     return (this.naturalRegen - this.missedRegen) / this.naturalRegen;
   }
@@ -72,7 +61,11 @@ class EnergyCapTracker extends RegenResourceCapTracker {
   }
 
   currentMaxResource() {
-    return this.maxEnergy;
+    return (
+      BASE_ENERGY_MAX +
+      this.selectedCombatant.pointsInTalent(TALENTS_DRUID.TIRELESS_ENERGY_FERAL_TALENT) *
+        TIRELESS_ENERGY_ADD
+    );
   }
 
   suggestions(when: When) {

@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -98,7 +97,7 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           thresholds={thresholds.moonfireUptime}
         />
       )}
-      {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_FERAL_TALENT) && (
         <UptimeRequirement
           spell={SPELLS.ADAPTIVE_SWARM_DAMAGE.id}
           thresholds={thresholds.adaptiveSwarmUptime}
@@ -377,10 +376,7 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         <CastEfficiencyRequirement spell={TALENTS_DRUID.FERAL_FRENZY_FERAL_TALENT.id} />
       )}
       {combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_FERAL_TALENT) && (
-        <CastEfficiencyRequirement spell={SPELLS.CONVOKE_SPIRITS.id} />
-      )}
-      {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
-        <CastEfficiencyRequirement spell={SPELLS.RAVENOUS_FRENZY.id} />
+        <CastEfficiencyRequirement spell={TALENTS_DRUID.CONVOKE_THE_SPIRITS_FERAL_TALENT.id} />
       )}
       {combatant.hasTalent(TALENTS_DRUID.HEART_OF_THE_WILD_TALENT.id) && (
         <CastEfficiencyRequirement

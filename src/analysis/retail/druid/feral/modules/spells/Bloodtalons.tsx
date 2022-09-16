@@ -80,7 +80,9 @@ class Bloodtalons2 extends Analyzer {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT);
-    this.hasApex = this.selectedCombatant.hasLegendary(SPELLS.APEX_PREDATORS_CRAVING);
+    this.hasApex = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.APEX_PREDATORS_CRAVING_FERAL_TALENT,
+    );
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(FINISHERS), this.onFinisherCast);
     this.addEventListener(

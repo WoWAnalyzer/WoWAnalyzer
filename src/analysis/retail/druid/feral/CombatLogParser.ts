@@ -20,22 +20,16 @@ import EnergyDetails from './modules/features/EnergyDetails';
 import EnergyTracker from './modules/features/EnergyTracker';
 import SpellEnergyCost from './modules/features/SpellEnergyCost';
 import SpellUsable from './modules/features/SpellUsable';
-import Shadowmeld from './modules/racials/Shadowmeld';
 import AdaptiveSwarmFeral from 'analysis/retail/druid/feral/modules/spells/AdaptiveSwarmFeral';
 import ApexPredatorsCraving from 'analysis/retail/druid/feral/modules/spells/ApexPredatorsCraving';
 import ConvokeSpiritsFeral from 'analysis/retail/druid/feral/modules/spells/ConvokeSpiritsFeral';
 import BerserkBoosts from './modules/spells/BerserkBoosts';
 import FerociousBite from './modules/spells/FerociousBite';
 import HitCountAoE from './modules/spells/HitCountAoE';
-import PredatorySwiftness from './modules/spells/PredatorySwiftness';
 import TigersFuryEnergy from './modules/spells/TigersFuryEnergy';
 import Bloodtalons from 'analysis/retail/druid/feral/modules/spells/Bloodtalons';
 import MoonfireUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/features/MoonfireUptimeAndSnapshots';
-import Predator from './modules/talents/Predator';
-import SavageRoar from './modules/talents/SavageRoar';
-import BleedDebuffEvents from './normalizers/BleedDebuffEvents';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
-import ComboPointsFromAoE from './normalizers/ComboPointsFromAoE';
 import FerociousBiteDrainLinkNormalizer from './normalizers/FerociousBiteDrainLinkNormalizer';
 import RakeBleed from './normalizers/RakeBleed';
 
@@ -43,10 +37,8 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizers
     rakeBleed: RakeBleed,
-    bleedDebuffEvents: BleedDebuffEvents,
     castLinkNormalizer: CastLinkNormalizer,
     ferociousBiteDrainLinkNormalizer: FerociousBiteDrainLinkNormalizer,
-    comboPointsFromAoE: ComboPointsFromAoE,
 
     // Core
     activeDruidForm: ActiveDruidForm,
@@ -70,15 +62,11 @@ class CombatLogParser extends CoreCombatLogParser {
     ripUptime: RipUptimeAndSnapshots,
 
     // spells
-    predatorySwiftness: PredatorySwiftness,
     tigersFuryEnergy: TigersFuryEnergy,
     hitCountAoe: HitCountAoE,
-    shadowmeld: Shadowmeld,
 
     // talents
     moonfireUptime: MoonfireUptimeAndSnapshots,
-    savageRoar: SavageRoar,
-    predator: Predator,
     bloodtalons: Bloodtalons,
 
     // resources
@@ -94,8 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
     adaptiveSwarm: AdaptiveSwarmFeral,
     sinfulHysteria: SinfulHysteria,
     ravenousFrenzy: RavenousFrenzy,
-    tier28_2pc: BerserkBoosts,
-    tier28_4pc: Tier28_4pc,
+    berserkBoosts: BerserkBoosts,
   };
 }
 
