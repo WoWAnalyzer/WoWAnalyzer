@@ -72,7 +72,11 @@ const config: Config = {
 
         SPELLS.PRAYER_OF_HEALING,
         ...lowRankSpells[SPELLS.PRAYER_OF_HEALING],
+        SPELLS.PENANCE_HEALING,
+        ...lowRankSpells[SPELLS.PENANCE_HEALING],
+
       ],
+      [SPELLS.PAIN_SUPPRESSION, SPELLS.GUARDIAN_SPIRIT],
       [
         SPELLS.SHOOT,
         SPELLS.SMITE,
@@ -85,6 +89,8 @@ const config: Config = {
         ...lowRankSpells[SPELLS.MIND_BLAST],
         SPELLS.HOLY_FIRE,
         ...lowRankSpells[SPELLS.HOLY_FIRE],
+        SPELLS.PENANCE_DAMAGE,
+        ...lowRankSpells[SPELLS.PENANCE_DAMAGE],
       ],
       [SPELLS.SHADOW_FIEND, SPELLS.RESTORE_MANA],
     ],
