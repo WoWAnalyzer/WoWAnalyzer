@@ -147,7 +147,7 @@ class Combatant extends Entity {
   get talentPoints(): number[] {
     const expansion = this._combatantInfo.expansion;
     if (expansion === 'tbc' || expansion === 'wotlk') {
-      return Object.values(this._talentPointsBySpec);
+      return [...this._talentPointsBySpec];
     } else {
       return [];
     }
