@@ -13,6 +13,33 @@ interface RaptureEvent {
   shieldEvents: RemoveBuffEvent[];
 }
 
+const RaptureTable = ({ raptureEvents, combatants }: { raptureEvents: { [key: number]: RaptureEvent }, combatants: Combatants }) => {
+  return <table className="table table-condensed" style={{ backgroundColor: '#161513' }}>
+    <thead>
+      <tr>
+        <th>
+          Rapture #
+        </th>
+        <th>
+          Targets
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {Object.values(raptureEvents).map((raptureEvent: RaptureEvent, raptureIndex) => {
+        return <tr key={`rap-${raptureIndex}`}>
+          <td>{raptureIndex}</td>
+          <td>
+            {raptureEvent.shieldEvents.map((shieldEvent: RemoveBuffEvent, shieldIndex) => {
+              return <div key={`shld-${raptureIndex}-${shieldIndex}`}>{combatants.players[shieldEvent.targetID].name}</div>;
+            })}
+          </td>
+        </tr>;
+      })}
+    </tbody>
+  </table>;
+};
+
 class Rapture extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -70,35 +97,6 @@ class Rapture extends Analyzer {
     this.shieldPopEvents.push(event);
   }
 
-  RaptureTable({ raptureEvents, combatants }: { raptureEvents: { [key: number]: RaptureEvent }, combatants: Combatants }) {
-
-    return <table className="table table-condensed" style={{ backgroundColor: '#161513' }}>
-      <thead>
-        <tr>
-          <th>
-            Rapture #
-          </th>
-          <th>
-            Targets
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {Object.values(raptureEvents).map((raptureEvent: RaptureEvent, raptureIndex) => {
-          return <tr key={`rap-${raptureIndex}`}>
-            <td>{raptureIndex}</td>
-            <td>
-              {raptureEvent.shieldEvents.map((shieldEvent: RemoveBuffEvent, shieldIndex) => {
-                return <div key={`shld-${raptureIndex}-${shieldIndex}`}>{combatants.players[shieldEvent.targetID].name}</div>;
-              })}
-            </td>
-          </tr>;
-        })}
-      </tbody>
-    </table>;
-
-  }
-
   statistic() {
     if (this.raptureTotalCount === 0) {
       return null;
@@ -107,7 +105,7 @@ class Rapture extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`Rapture is your most important mana regenerating tool. It can only proc once every 12 seconds, but it can be triggered by multiple shields popping at the same time. Try and line up the cooldown with large AOE damage to get the most mana back.`}
-        dropdown={<this.RaptureTable raptureEvents={this.raptureEvents} combatants={this.combatants} />}
+        dropdown={<RaptureTable raptureEvents={this.raptureEvents} combatants={this.combatants} />}
       >
         <BoringSpellValueText spellId={SPELLS.RAPTURE_PERSONAL_MANA_REGEN}>
           <ItemManaGained amount={this.manaFromRapture} />
