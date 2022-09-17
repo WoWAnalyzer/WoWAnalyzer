@@ -17,3 +17,5 @@ export const KNOW_YOUR_ENEMY_SCALING = [0, 0.5, 1.0];
 export const CYCLE_OF_HATRED_SCALING = [0, 0.5, 1];
 
 export const SOULREND_SCALING = [0, 0.6, 1.2];
+
+export const GROWING_INFERNO_SCALING = [0, 0.08, 0.15];

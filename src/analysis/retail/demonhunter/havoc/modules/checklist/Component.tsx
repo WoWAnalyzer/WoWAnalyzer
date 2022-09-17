@@ -67,7 +67,10 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           <AbilityRequirement spell={SPELLS.ELYSIAN_DECREE.id} />
         )}
         {combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.THE_HUNT.id} />
+          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id} />
+        )}
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.SOULREND_HAVOC_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.THROW_GLAIVE_HAVOC.id} />
         )}
       </Rule>
 
@@ -208,7 +211,7 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           }
           thresholds={thresholds.demonBiteFury}
         />
-        {combatant.hasTalent(SPELLS.IMMOLATION_AURA.id) && (
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.BURNING_HATRED_HAVOC_TALENT.id) && (
           <Requirement
             name={
               <>

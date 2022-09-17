@@ -6,28 +6,25 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
-class GlaiveTempest extends Analyzer {
+export default class Soulrend extends Analyzer {
   damage = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_HAVOC_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SOULREND_HAVOC_TALENT.id);
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLAIVE_TEMPEST_DAMAGE),
-      this.onDamageEvent,
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SOULREND),
+      this.soulrendDot,
     );
   }
 
-  onDamageEvent(event: DamageEvent) {
-    this.damage += event.amount + (event.absorb || 0);
+  soulrendDot(event: DamageEvent) {
+    this.damage += event.amount;
   }
 
   statistic() {
@@ -35,20 +32,12 @@ class GlaiveTempest extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        position={STATISTIC_ORDER.OPTIONAL(3)}
-        tooltip={
-          <>
-            {formatThousands(this.damage)} Total damage
-            <br />
-          </>
-        }
+        tooltip={`${formatThousands(this.damage)} Total damage`}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_HAVOC_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.SOULREND_HAVOC_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>
     );
   }
 }
-
-export default GlaiveTempest;

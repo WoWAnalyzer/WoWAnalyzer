@@ -1,11 +1,27 @@
 import SPELLS from 'common/SPELLS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
+import Combatant from 'parser/core/Combatant';
+import { ABYSSAL_HASTE_SCALING } from 'analysis/retail/demonhunter/vengeance/constants';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
+import { ERRATIC_FELHEART_SCALING } from 'analysis/retail/demonhunter/shared';
+
+export function getInfernalStrikeCooldown(combatant: Combatant) {
+  const baseCooldown = 20;
+  const abyssalHasteReduction =
+    ABYSSAL_HASTE_SCALING[
+      combatant.getTalentRank(TALENTS_DEMON_HUNTER.ABYSSAL_HASTE_VENGEANCE_TALENT)
+    ];
+  const erraticFelheartReduction =
+    ERRATIC_FELHEART_SCALING[combatant.getTalentRank(TALENTS_DEMON_HUNTER.ERRATIC_FELHEART_TALENT)];
+  const flatReduced = baseCooldown - abyssalHasteReduction;
+  return flatReduced - flatReduced * erraticFelheartReduction;
+}
 
 /*  When considering Infernal Strike, it is worth tracking how much time is spent overcapped on charges.
     Unless you are in a fight that requires quick back-to-back movement uses, it is best to use a charge of this before,
     or shortly after gaining a second use. */
-class InfernalStrike extends Analyzer {
+export default class InfernalStrike extends Analyzer {
   infernalCasts = 0;
   infernalCharges = 2;
   lastCastTimestamp = 0;
@@ -17,7 +33,7 @@ class InfernalStrike extends Analyzer {
     super(options);
     /* TODO: Continue to monitor this if the logging ever gets fixed. Until then, this module won't work
 
-        As of 7/20/2022 logging for infernal strikes is broken. Casts aren't recorded at all.
+        As of 9/24/2022 logging for infernal strikes is broken. Casts aren't recorded at all.
         Damage events are triggered, but this doesn't capture using the ability for mobility
     */
 
@@ -63,5 +79,3 @@ class InfernalStrike extends Analyzer {
     this.infernalCharges -= 1;
   }
 }
-
-export default InfernalStrike;
