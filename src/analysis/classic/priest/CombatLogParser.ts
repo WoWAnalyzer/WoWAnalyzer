@@ -19,10 +19,17 @@ import CircleOfHealing from './modules/spells/CircleOfHealing';
 import PrayerOfHealing from './modules/spells/PrayerOfHealing';
 import PrayerOfMending from './modules/spells/PrayerOfMending';
 import Shadowfiend from './modules/spells/Shadowfiend';
-import Rapture from "./modules/spells/Rapture";
+import Rapture from './modules/spells/Rapture';
+import Penance from './modules/spells/Penance';
+import PenanceNormalizer from './modules/normalizers/PenanceNormalizer';
+import PainSuppression from 'analysis/classic/priest/modules/spells/PainSuppression';
+import DivineSpiritRaidBuff from 'analysis/classic/priest/modules/spells/DivineSpiritRaidBuff';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
+    // Normalizers
+    penanceNormalizer: PenanceNormalizer,
+
     abilities: Abilities,
     spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
@@ -43,6 +50,9 @@ class CombatLogParser extends BaseCombatLogParser {
     circleOfHealing: CircleOfHealing,
     prayerOfHealing: PrayerOfHealing,
     rapture: Rapture,
+    penance: Penance,
+    painSuppression: PainSuppression,
+    divineSpiritRaidBuff: DivineSpiritRaidBuff,
 
     checklist: Checklist,
 
