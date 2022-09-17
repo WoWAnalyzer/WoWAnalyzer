@@ -6,6 +6,7 @@ import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 const TWIN_MOONS_BONUS_DAMAGE = 0.1;
 
@@ -24,7 +25,7 @@ class TwinMoons extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.TWIN_MOONS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.TWIN_MOONS_BALANCE_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MOONFIRE_DEBUFF),
       this.onDamage,
@@ -53,7 +54,7 @@ class TwinMoons extends Analyzer {
           this.moonfireCasts
         } casts. This talent added ${formatNumber(this.perSecond)} DPS to your Moonfire.`}
       >
-        <BoringSpellValueText spellId={SPELLS.TWIN_MOONS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.TWIN_MOONS_BALANCE_TALENT.id}>
           <>
             {formatPercentage(this.percentTwoHits)} % <small>double hits</small>
             <br />

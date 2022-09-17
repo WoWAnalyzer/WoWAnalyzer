@@ -6,6 +6,7 @@ const ECLIPSE_HASTE_MULT = 0.85;
 /**
  * Eclipse reduces the cast time (and GCD) of the effected filler by 15%
  */
+// FIXME Eclipse being changed in DF - still up in the air if we still need something like this
 class GlobalCooldown extends CoreGlobalCooldown {
   getGlobalCooldownDuration(spellId: number) {
     const gcd = super.getGlobalCooldownDuration(spellId);
