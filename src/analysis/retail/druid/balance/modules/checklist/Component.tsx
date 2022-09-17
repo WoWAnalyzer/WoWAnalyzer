@@ -7,7 +7,6 @@ import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PropTypes from 'prop-types';
 
-import { cooldownAbility } from 'analysis/retail/druid/balance/constants';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
@@ -154,18 +153,18 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
   );
 
   // FIXME this is basically deactivated - will need to be replaced in Guide
-  const resourceRule = (
-    <Rule
-      name="Do not overcap your resources"
-      description={
-        <>
-          While you sometimes cannot avoid overcapping, you should try to avoid overcapping your
-          Astral Power. You should never overcap Astral Power during{' '}
-          <SpellLink id={SPELLS.ECLIPSE.id} /> or <SpellLink id={cooldownAbility(combatant).id} />.
-        </>
-      }
-    ></Rule>
-  );
+  // const resourceRule = (
+  //   <Rule
+  //     name="Do not overcap your resources"
+  //     description={
+  //       <>
+  //         While you sometimes cannot avoid overcapping, you should try to avoid overcapping your
+  //         Astral Power. You should never overcap Astral Power during{' '}
+  //         <SpellLink id={SPELLS.ECLIPSE.id} /> or <SpellLink id={cooldownAbility(combatant).id} />.
+  //       </>
+  //     }
+  //   ></Rule>
+  // );
 
   const cooldownsRule = (
     <Rule
@@ -217,7 +216,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
       {alwaysBeCastingRule}
       {dotRule}
       {eclipseRule}
-      {resourceRule}
+      {/*{resourceRule}*/}
       {cooldownsRule}
       {supportRule}
       <PreparationRule thresholds={thresholds} />
