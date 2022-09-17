@@ -4,17 +4,17 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseModule from 'parser/shared/modules/features/Checklist/Module';
 
-import FillerUsage from '../../features/FillerUsage';
-import AstralPowerDetails from '../../resourcetracker/AstralPowerDetails';
-import StellarFlareUptime from '../../talents/StellarFlareUptime';
-import AlwaysBeCasting from '../AlwaysBeCasting';
-import CancelledCasts from '../CancelledCasts';
-import EarlyDotRefreshes from '../EarlyDotRefreshes';
-import EarlyDotRefreshesInstants from '../EarlyDotRefreshesInstants';
-import MoonfireUptime from '../MoonfireUptime';
-import Starsurge from '../Starsurge';
-import SunfireUptime from '../SunfireUptime';
-import Component from './Component';
+import FillerUsage from 'analysis/retail/druid/balance/modules/features/FillerUsage';
+import AstralPowerDetails from 'analysis/retail/druid/balance/modules/features/AstralPowerDetails';
+import StellarFlareUptime from 'analysis/retail/druid/balance/modules/spells/StellarFlareUptime';
+import AlwaysBeCasting from 'analysis/retail/druid/balance/modules/features/AlwaysBeCasting';
+import CancelledCasts from 'analysis/retail/druid/balance/modules/features/CancelledCasts';
+import EarlyDotRefreshes from 'analysis/retail/druid/balance/modules/features/EarlyDotRefreshes';
+import EarlyDotRefreshesInstants from 'analysis/retail/druid/balance/modules/features/EarlyDotRefreshesInstants';
+import MoonfireUptime from 'analysis/retail/druid/balance/modules/spells/MoonfireUptime';
+import Starsurge from 'analysis/retail/druid/balance/modules/spells/Starsurge';
+import SunfireUptime from 'analysis/retail/druid/balance/modules/spells/SunfireUptime';
+import Component from 'analysis/retail/druid/balance/modules/checklist/Component';
 
 class Checklist extends BaseModule {
   static dependencies = {
@@ -65,8 +65,6 @@ class Checklist extends BaseModule {
           moonfireRefresh: this.earlyDotRefreshesInstants.suggestionThresholdsMoonfireEfficiency,
           sunfireRefresh: this.earlyDotRefreshesInstants.suggestionThresholdsSunfireEfficiency,
           stellarFlareRefresh: this.earlyDotRefreshes.suggestionThresholdsStellarFlareEfficiency,
-          astralPowerEfficiency: this.astralPowerDetails.suggestionThresholds,
-          astralPowerEfficiencyEclipse: this.astralPowerDetails.suggestionThresholdsEclipse,
           adaptiveSwarmUptime: this.adaptiveSwarm.suggestionThresholds,
           fillerUsage: this.fillerUsage.goodCastSuggestionThresholds,
           starsurgeUsage: this.starsurge.goodCastSuggestionThresholds,

@@ -3,6 +3,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';
 import { CastEvent, ResourceChangeEvent } from 'parser/core/Events';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 const WARRIOR_OF_ELUNE_MULTIPLIER = 0.4;
 
@@ -17,7 +18,7 @@ class AstralPowerTracker extends ResourceTracker {
     const spellId = event.ability.guid;
     if (
       spellId !== SPELLS.STARFIRE.id ||
-      !this.selectedCombatant.hasBuff(SPELLS.WARRIOR_OF_ELUNE_TALENT.id)
+      !this.selectedCombatant.hasBuff(TALENTS_DRUID.WARRIOR_OF_ELUNE_BALANCE_TALENT.id)
     ) {
       super.onEnergize(event);
       return;
@@ -33,7 +34,7 @@ class AstralPowerTracker extends ResourceTracker {
     const eluneGain = eluneRaw - eluneWaste;
     this._applyBuilder(spellId, baseGain, baseWaste, this.getResource(event));
     this._applyBuilder(
-      SPELLS.WARRIOR_OF_ELUNE_TALENT.id,
+      TALENTS_DRUID.WARRIOR_OF_ELUNE_BALANCE_TALENT.id,
       eluneGain,
       eluneWaste,
       this.getResource(event),

@@ -14,6 +14,7 @@ import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 const MAX_STACKS = 3;
 const HASTE_PER_STACK = 4;
@@ -33,7 +34,7 @@ class Starlord extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.STARLORD_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.STARLORD_BALANCE_TALENT.id);
     this.buffStacks = Array.from({ length: MAX_STACKS + 1 }, (x) => [0]);
 
     this.addEventListener(
@@ -102,7 +103,7 @@ class Starlord extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.STARLORD_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.STARLORD_BALANCE_TALENT.id}>
           <>
             <HasteIcon /> {this.averageHaste} % <small>average haste gained</small>
           </>

@@ -6,6 +6,7 @@ import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 const STARFALL_BONUS_DAMAGE = 0.15;
 const STARFALL_BONUS_SECONDS = 2;
@@ -28,7 +29,7 @@ class StellarDrift extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.STELLAR_DRIFT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.STELLAR_DRIFT_BALANCE_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.STARFALL), this.onDamage);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STARFALL_CAST), this.onCast);
   }
@@ -52,7 +53,7 @@ class StellarDrift extends Analyzer {
           this.gainedUptime
         } seconds of additional uptime.`}
       >
-        <BoringSpellValueText spellId={SPELLS.STELLAR_DRIFT_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.STELLAR_DRIFT_BALANCE_TALENT.id}>
           <>
             {formatPercentage(this.damagePercent)} % <small>of total damage</small>
             <br />

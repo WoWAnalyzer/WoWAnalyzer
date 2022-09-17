@@ -3,9 +3,9 @@ import Analyzer from 'parser/core/Analyzer';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import UptimeMultiBarStatistic from 'parser/ui/UptimeMultiBarStatistic';
 
-import MoonfireUptime from '../features/MoonfireUptime';
-import SunfireUptime from '../features/SunfireUptime';
-import StellarFlareUptime from '../talents/StellarFlareUptime';
+import MoonfireUptime from 'analysis/retail/druid/balance/modules/spells/MoonfireUptime';
+import SunfireUptime from 'analysis/retail/druid/balance/modules/spells/SunfireUptime';
+import StellarFlareUptime from 'analysis/retail/druid/balance/modules/spells/StellarFlareUptime';
 
 /**
  * Wide statistics box for tracking the most important Balance DoT uptimes

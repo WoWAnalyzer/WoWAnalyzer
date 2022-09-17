@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -8,7 +7,7 @@ import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PropTypes from 'prop-types';
 
-import { cooldownAbility } from '../../../constants';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) => {
   const AbilityRequirement = (props: any) => (
@@ -90,27 +89,27 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         }
         thresholds={thresholds.sunfireRefresh}
       />
-      {combatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT.id) && (
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> uptime
+              <SpellLink id={TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT.id} /> uptime
             </>
           }
           thresholds={thresholds.stellarFlareUptime}
         />
       )}
-      {combatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT.id) && (
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.STELLAR_FLARE_TALENT.id} /> good refreshes
+              <SpellLink id={TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT.id} /> good refreshes
             </>
           }
           thresholds={thresholds.stellarFlareRefresh}
         />
       )}
-      {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_BALANCE_TALENT) && (
         <Requirement
           name={
             <>
@@ -153,24 +152,19 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
     </Rule>
   );
 
-  const resourceRule = (
-    <Rule
-      name="Do not overcap your resources"
-      description={
-        <>
-          While you sometimes cannot avoid overcapping, you should try to avoid overcapping your
-          Astral Power. You should never overcap Astral Power during{' '}
-          <SpellLink id={SPELLS.ECLIPSE.id} /> or <SpellLink id={cooldownAbility(combatant).id} />.
-        </>
-      }
-    >
-      <Requirement name="Astral Power efficiency" thresholds={thresholds.astralPowerEfficiency} />
-      <Requirement
-        name="Astral Power efficiency during Eclipse"
-        thresholds={thresholds.astralPowerEfficiencyEclipse}
-      />
-    </Rule>
-  );
+  // FIXME this is basically deactivated - will need to be replaced in Guide
+  // const resourceRule = (
+  //   <Rule
+  //     name="Do not overcap your resources"
+  //     description={
+  //       <>
+  //         While you sometimes cannot avoid overcapping, you should try to avoid overcapping your
+  //         Astral Power. You should never overcap Astral Power during{' '}
+  //         <SpellLink id={SPELLS.ECLIPSE.id} /> or <SpellLink id={cooldownAbility(combatant).id} />.
+  //       </>
+  //     }
+  //   ></Rule>
+  // );
 
   const cooldownsRule = (
     <Rule
@@ -179,28 +173,25 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         frequently as possible throughout a fight. A cooldown should be held on to only if a priority
         DPS phase is coming soon. Holding cooldowns too long will hurt your DPS."
     >
-      {combatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id) ? (
-        <AbilityRequirement spell={SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id} />
+      {combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_BALANCE_TALENT.id) ? (
+        <AbilityRequirement spell={TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_BALANCE_TALENT.id} />
       ) : (
         <AbilityRequirement spell={SPELLS.CELESTIAL_ALIGNMENT.id} />
       )}
-      {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_BALANCE_TALENT) && (
         <AbilityRequirement spell={SPELLS.CONVOKE_SPIRITS.id} />
       )}
-      {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
-        <AbilityRequirement spell={SPELLS.RAVENOUS_FRENZY.id} />
+      {combatant.hasTalent(TALENTS_DRUID.FORCE_OF_NATURE_BALANCE_TALENT.id) && (
+        <AbilityRequirement spell={TALENTS_DRUID.FORCE_OF_NATURE_BALANCE_TALENT.id} />
       )}
-      {combatant.hasTalent(SPELLS.FORCE_OF_NATURE_TALENT.id) && (
-        <AbilityRequirement spell={SPELLS.FORCE_OF_NATURE_TALENT.id} />
+      {combatant.hasTalent(TALENTS_DRUID.WARRIOR_OF_ELUNE_BALANCE_TALENT.id) && (
+        <AbilityRequirement spell={TALENTS_DRUID.WARRIOR_OF_ELUNE_BALANCE_TALENT.id} />
       )}
-      {combatant.hasTalent(SPELLS.WARRIOR_OF_ELUNE_TALENT.id) && (
-        <AbilityRequirement spell={SPELLS.WARRIOR_OF_ELUNE_TALENT.id} />
+      {combatant.hasTalent(TALENTS_DRUID.FURY_OF_ELUNE_BALANCE_TALENT.id) && (
+        <AbilityRequirement spell={TALENTS_DRUID.FURY_OF_ELUNE_BALANCE_TALENT.id} />
       )}
-      {combatant.hasTalent(SPELLS.FURY_OF_ELUNE_TALENT.id) && (
-        <AbilityRequirement spell={SPELLS.FURY_OF_ELUNE_TALENT.id} />
-      )}
-      {combatant.hasTalent(SPELLS.NEW_MOON_TALENT.id) && (
-        <AbilityRequirement spell={SPELLS.NEW_MOON_TALENT.id} />
+      {combatant.hasTalent(TALENTS_DRUID.NEW_MOON_BALANCE_TALENT.id) && (
+        <AbilityRequirement spell={TALENTS_DRUID.NEW_MOON_BALANCE_TALENT.id} />
       )}
     </Rule>
   );
@@ -214,8 +205,8 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
     >
       <AbilityRequirement spell={SPELLS.INNERVATE.id} />
       <AbilityRequirement spell={SPELLS.BARKSKIN.id} />
-      {combatant.hasTalent(SPELLS.RENEWAL_TALENT.id) && (
-        <AbilityRequirement spell={SPELLS.RENEWAL_TALENT.id} />
+      {combatant.hasTalent(TALENTS_DRUID.RENEWAL_TALENT.id) && (
+        <AbilityRequirement spell={TALENTS_DRUID.RENEWAL_TALENT.id} />
       )}
     </Rule>
   );
@@ -225,7 +216,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
       {alwaysBeCastingRule}
       {dotRule}
       {eclipseRule}
-      {resourceRule}
+      {/*{resourceRule}*/}
       {cooldownsRule}
       {supportRule}
       <PreparationRule thresholds={thresholds} />
