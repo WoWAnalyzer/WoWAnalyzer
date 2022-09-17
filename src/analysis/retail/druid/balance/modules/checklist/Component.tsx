@@ -153,6 +153,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
     </Rule>
   );
 
+  // FIXME this is basically deactivated - will need to be replaced in Guide
   const resourceRule = (
     <Rule
       name="Do not overcap your resources"
@@ -163,13 +164,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
           <SpellLink id={SPELLS.ECLIPSE.id} /> or <SpellLink id={cooldownAbility(combatant).id} />.
         </>
       }
-    >
-      <Requirement name="Astral Power efficiency" thresholds={thresholds.astralPowerEfficiency} />
-      <Requirement
-        name="Astral Power efficiency during Eclipse"
-        thresholds={thresholds.astralPowerEfficiencyEclipse}
-      />
-    </Rule>
+    ></Rule>
   );
 
   const cooldownsRule = (
