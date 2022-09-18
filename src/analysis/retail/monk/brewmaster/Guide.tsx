@@ -20,6 +20,7 @@ import { InvokeNiuzaoSection } from './modules/problems/InvokeNiuzao';
 import { PurifySection } from './modules/problems/PurifyingBrew';
 import Shuffle, { TrackedHit } from './modules/spells/Shuffle';
 import talents from 'common/TALENTS/monk';
+import { AplSection } from './modules/core/AplCheck';
 
 type TimelineEntry = {
   value: boolean;
@@ -511,6 +512,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         </SubSection>
         <PurifySection module={modules.purifyProblems} events={events} info={info} />
       </Section>
+      <AplSection />
       <InvokeNiuzaoSection
         events={events}
         info={info}

@@ -1,8 +1,9 @@
+import { useMemo } from 'react';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { suggestion } from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
-import aplCheck, { build, tenseAlt } from 'parser/shared/metrics/apl';
+import aplCheck, { build, CheckResult, tenseAlt } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import {
   targetsHit,
@@ -15,6 +16,7 @@ import {
 } from 'parser/shared/metrics/apl/conditions';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 import talents from 'common/TALENTS/monk';
+import { Section, useEvents, useInfo } from 'interface/guide';
 
 export const apl = build([
   SPELLS.BONEDUST_BREW_CAST,
@@ -45,8 +47,7 @@ export const apl = build([
     spell: talents.KEG_SMASH_BREWMASTER_TALENT,
     condition: cnd.describe(cnd.not(cnd.hasLegendary(SPELLS.STORMSTOUTS_LAST_KEG)), () => ''),
   },
-  SPELLS.BLACKOUT_KICK_BRM,
-  talents.KEG_SMASH_BREWMASTER_TALENT,
+  [SPELLS.BLACKOUT_KICK_BRM, talents.KEG_SMASH_BREWMASTER_TALENT],
   talents.BREATH_OF_FIRE_BREWMASTER_TALENT,
   {
     spell: talents.RUSHING_JADE_WIND_BREWMASTER_TALENT,
@@ -94,3 +95,22 @@ export default suggestion((events, info) => {
 
   return undefined;
 });
+
+export function AplSection(): JSX.Element | null {
+  const events = useEvents();
+  const info = useInfo();
+
+  const { successes, violations } = useMemo(() => info ? check(events, info) : {} as Partial<CheckResult>, [events, info]);
+
+  if (!info) {
+    return null;
+  }
+
+
+  return (
+    <Section title="Rotation">
+      Brewmaster Monk uses a <em>priority list</em> for determining which of your offensive
+      abilities to cast. <section>TODO BETTER TEXT</section>
+    </Section>
+  );
+}

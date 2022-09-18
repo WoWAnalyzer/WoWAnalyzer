@@ -1,6 +1,6 @@
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import { Boss, findByBossId } from 'game/raids';
-import Guide, { GuideContainer } from 'interface/guide';
+import Guide, { GuideContainer, GuideContext } from 'interface/guide';
 import { ModulesOf } from 'interface/guide';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import {
@@ -728,7 +728,9 @@ class CombatLogParser {
     const Component = ctor.guide;
     return () => (
       <GuideContainer>
-        <Component {...props} />
+        <GuideContext.Provider value={props}>
+          <Component {...props} />
+        </GuideContext.Provider>
       </GuideContainer>
     );
   }
