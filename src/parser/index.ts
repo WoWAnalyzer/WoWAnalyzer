@@ -1,10 +1,10 @@
 // import BloodDeathKnight from 'analysis/retail/deathknight/blood';
 // import FrostDeathKnight from 'analysis/retail/deathknight/frost';
 // import UnholyDeathKnight from 'analysis/retail/deathknight/unholy';
-// import BalanceDruid from 'analysis/retail/druid/balance';
-// import FeralDruid from 'analysis/retail/druid/feral';
+import BalanceDruid from 'analysis/retail/druid/balance';
+import FeralDruid from 'analysis/retail/druid/feral';
 // import GuardianDruid from 'analysis/retail/druid/guardian';
-// import RestoDruid from 'analysis/retail/druid/restoration';
+import RestoDruid from 'analysis/retail/druid/restoration';
 // import BeastMasteryHunter from 'analysis/retail/hunter/beastmastery';
 // import MarksmanshipHunter from 'analysis/retail/hunter/marksmanship';
 // import SurvivalHunter from 'analysis/retail/hunter/survival';
@@ -56,10 +56,10 @@ const configs: Config[] = [
   HavocDemonHunter,
   VengeanceDemonHunter,
 
-  // BalanceDruid,
-  // FeralDruid,
+  BalanceDruid,
+  FeralDruid,
   // GuardianDruid,
-  // RestoDruid,
+  RestoDruid,
 
   DevastationEvoker,
   PreservationEvoker,

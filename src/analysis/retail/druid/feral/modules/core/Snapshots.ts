@@ -20,6 +20,7 @@ import {
   PROWL_RAKE_DAMAGE_BONUS,
   TIGERS_FURY_DAMAGE_BONUS,
 } from '../../constants';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 /** Buffer in ms to use when determining if a buff was present when a DoT was applied */
 const BUFF_DROP_BUFFER = 60;
@@ -49,7 +50,11 @@ export const PROWL_SPEC: StaticSnapshotSpec = {
   },
   isActive: (_) => true,
   isPresent: (c, timestamp) =>
-    c.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id, timestamp, BUFF_DROP_BUFFER) ||
+    c.hasBuff(
+      TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id,
+      timestamp,
+      BUFF_DROP_BUFFER,
+    ) ||
     c.hasBuff(SPELLS.BERSERK.id, timestamp, BUFF_DROP_BUFFER) ||
     c.hasBuff(SPELLS.PROWL.id, timestamp, BUFF_DROP_BUFFER) ||
     c.hasBuff(SPELLS.PROWL_INCARNATION.id, timestamp, BUFF_DROP_BUFFER) ||
@@ -61,8 +66,8 @@ export const PROWL_SPEC: StaticSnapshotSpec = {
 
 export const BLOODTALONS_SPEC: StaticSnapshotSpec = {
   name: 'Bloodtalons',
-  spellFunc: (_) => [SPELLS.BLOODTALONS_TALENT],
-  isActive: (c) => c.hasTalent(SPELLS.BLOODTALONS_TALENT),
+  spellFunc: (_) => [TALENTS_DRUID.BLOODTALONS_FERAL_TALENT],
+  isActive: (c) => c.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT),
   isPresent: (c, timestamp) => c.hasBuff(SPELLS.BLOODTALONS_BUFF.id, timestamp, BUFF_DROP_BUFFER),
   displayColor: '#dd0022',
   boostStrength: BLOODTALONS_DAMAGE_BONUS,

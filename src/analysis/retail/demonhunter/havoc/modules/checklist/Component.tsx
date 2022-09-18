@@ -44,14 +44,25 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           <AbilityRequirement spell={SPELLS.BLADE_DANCE.id} />
         )}
         {combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_HAVOC_TALENT.id) && (
-          <>
-            <AbilityRequirement spell={SPELLS.FEL_RUSH_CAST.id} />
-            <AbilityRequirement spell={SPELLS.VENGEFUL_RETREAT.id} />
-          </>
+          <AbilityRequirement spell={SPELLS.FEL_RUSH_CAST.id} />
         )}
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_HAVOC_TALENT.id) &&
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT.id) && (
+            <AbilityRequirement spell={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT.id} />
+          )}
         {combatant.hasTalent(TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id) && (
           <AbilityRequirement spell={TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id} />
         )}
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.SIGIL_OF_FLAME_PRECISE.id} />
+        )}
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} />
+        )}
+        {!(
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT.id) ||
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id)
+        ) && <AbilityRequirement spell={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id} />}
         {combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_VENGEANCE_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.ELYSIAN_DECREE.id} />
         )}
@@ -161,7 +172,9 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
         }
       >
         <AbilityRequirement spell={SPELLS.METAMORPHOSIS_HAVOC.id} />
-        <AbilityRequirement spell={SPELLS.EYE_BEAM.id} />
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id} />
+        )}
         {combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_BARRAGE_HAVOC_TALENT.id) && (
           <AbilityRequirement spell={TALENTS_DEMON_HUNTER.FEL_BARRAGE_HAVOC_TALENT.id} />
         )}

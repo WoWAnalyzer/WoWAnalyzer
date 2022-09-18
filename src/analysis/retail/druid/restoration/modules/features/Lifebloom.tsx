@@ -10,10 +10,11 @@ import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
-const LIFEBLOOM_HOTS: Spell[] = [SPELLS.LIFEBLOOM_HOT_HEAL, SPELLS.LIFEBLOOM_DTL_HOT_HEAL];
+const LIFEBLOOM_HOTS: Spell[] = [SPELLS.LIFEBLOOM_HOT_HEAL, SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL];
 const LB_COLOR = '#00bb44';
-const DTL_COLOR = '#dd5500';
+const UNDERGROWTH_COLOR = '#dd5500';
 
 class Lifebloom extends Analyzer {
   static dependencies = {
@@ -22,18 +23,20 @@ class Lifebloom extends Analyzer {
 
   protected combatants!: Combatants;
 
-  /** true iff player has Dark Titan's Lesson legendary equipped */
-  hasDTL = false;
+  /** true iff player has the Undergrowth talent */
+  hasUndergrowth = false;
   /** the number of lifeblooms the player currently has active */
   activeLifeblooms: number = 0;
   /** list of time periods when at least one lifebloom was active */
   lifebloomUptimes: OpenTimePeriod[] = [];
   /** list of time periods when at least two lifeblooms were active */
-  dtlUptimes: OpenTimePeriod[] = [];
+  undergrowthUptimes: OpenTimePeriod[] = [];
 
   constructor(options: Options) {
     super(options);
-    this.hasDTL = this.selectedCombatant.hasLegendary(SPELLS.THE_DARK_TITANS_LESSON);
+    this.hasUndergrowth = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.UNDERGROWTH_RESTORATION_TALENT,
+    );
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(LIFEBLOOM_HOTS),
@@ -51,7 +54,7 @@ class Lifebloom extends Analyzer {
       this.lifebloomUptimes.push({ start: event.timestamp });
     } else if (this.activeLifeblooms === 1) {
       // LBS 1 -> 2
-      this.dtlUptimes.push({ start: event.timestamp });
+      this.undergrowthUptimes.push({ start: event.timestamp });
     }
     this.activeLifeblooms += 1;
   }
@@ -64,8 +67,8 @@ class Lifebloom extends Analyzer {
       }
     } else if (this.activeLifeblooms === 2) {
       // LBS 2 -> 1
-      if (this.dtlUptimes.length > 0) {
-        this.dtlUptimes[this.dtlUptimes.length - 1].end = event.timestamp;
+      if (this.undergrowthUptimes.length > 0) {
+        this.undergrowthUptimes[this.undergrowthUptimes.length - 1].end = event.timestamp;
       }
     }
     this.activeLifeblooms -= 1;
@@ -83,7 +86,7 @@ class Lifebloom extends Analyzer {
 
   /** The time at two lifeblooms were active */
   get twoLifebloomUptime() {
-    return this._getTotalUptime(this.dtlUptimes);
+    return this._getTotalUptime(this.undergrowthUptimes);
   }
 
   _getTotalUptime(uptimes: OpenTimePeriod[]) {
@@ -101,7 +104,7 @@ class Lifebloom extends Analyzer {
         this.selectedCombatant.id,
       ) +
       this.selectedCombatant.getBuffUptime(
-        SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id,
+        SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id,
         this.selectedCombatant.id,
       )
     );
@@ -113,7 +116,7 @@ class Lifebloom extends Analyzer {
       (uptime, player) =>
         uptime +
         player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id, this.selectedCombatant.id) +
-        player.getBuffUptime(SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id, this.selectedCombatant.id),
+        player.getBuffUptime(SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id, this.selectedCombatant.id),
       0,
     );
     return summedTotalLifebloomUptime - this.selfLifebloomUptime;
@@ -134,11 +137,11 @@ class Lifebloom extends Analyzer {
           benefit to your mana efficiency . It should always be active on a target - the tank is
           usually a safe bet.
         </p>
-        {this.selectedCombatant.hasTalent(SPELLS.PHOTOSYNTHESIS_TALENT) && (
+        {this.selectedCombatant.hasTalent(TALENTS_DRUID.PHOTOSYNTHESIS_RESTORATION_TALENT) && (
           <p>
             Because you took{' '}
             <strong>
-              <SpellLink id={SPELLS.PHOTOSYNTHESIS_TALENT.id} />
+              <SpellLink id={TALENTS_DRUID.PHOTOSYNTHESIS_RESTORATION_TALENT.id} />
             </strong>
             , high uptime is particularly important. Typically the Lifebloom-on-self effect is most
             powerful.
@@ -175,10 +178,10 @@ class Lifebloom extends Analyzer {
       suggest(
         <>
           Your <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime can be improved.{' '}
-          {this.hasDTL ? (
+          {this.hasUndergrowth ? (
             <>
-              High uptime is particularly important for taking advantage of your equipped{' '}
-              <SpellLink id={SPELLS.THE_DARK_TITANS_LESSON.id} />
+              High uptime is particularly important for taking advantage of{' '}
+              <SpellLink id={TALENTS_DRUID.UNDERGROWTH_RESTORATION_TALENT.id} />
             </>
           ) : (
             ''
@@ -198,11 +201,11 @@ class Lifebloom extends Analyzer {
 
   subStatistic() {
     const subBars = [];
-    if (this.hasDTL) {
+    if (this.hasUndergrowth) {
       subBars.push({
-        spells: [SPELLS.THE_DARK_TITANS_LESSON],
-        uptimes: mergeTimePeriods(this.dtlUptimes, this.owner.currentTimestamp),
-        color: DTL_COLOR,
+        spells: [TALENTS_DRUID.UNDERGROWTH_RESTORATION_TALENT],
+        uptimes: mergeTimePeriods(this.undergrowthUptimes, this.owner.currentTimestamp),
+        color: UNDERGROWTH_COLOR,
       });
     }
 

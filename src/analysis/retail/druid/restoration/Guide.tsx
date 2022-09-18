@@ -1,11 +1,11 @@
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { ControlledExpandable, SpellLink } from 'interface';
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import { CooldownBar } from 'parser/ui/CooldownBar';
 import { useState } from 'react';
 
 import CombatLogParser from './CombatLogParser';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -18,10 +18,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.efflorescence.guideSubsection}
         <SubSection>
           {modules.swiftmend.guideFragment}
-          {info.combatant.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION) &&
+          {info.combatant.hasTalent(TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT) &&
             modules.soulOfTheForest.guideFragment}
         </SubSection>
-        {info.combatant.hasTalent(SPELLS.CENARION_WARD_TALENT) && (
+        {info.combatant.hasTalent(TALENTS_DRUID.CENARION_WARD_RESTORATION_TALENT) && (
           <CenarionWardSubsection modules={modules} events={events} info={info} />
         )}
       </Section>
@@ -49,7 +49,7 @@ function CenarionWardSubsection({ modules, events, info }: GuideProps<typeof Com
     <SubSection>
       <p>
         <b>
-          <SpellLink id={SPELLS.CENARION_WARD_TALENT.id} />
+          <SpellLink id={TALENTS_DRUID.CENARION_WARD_RESTORATION_TALENT.id} />
         </b>{' '}
         is a talented HoT on a short cooldown. It is extremely powerful and efficient and should be
         cast virtually on cooldown. A tank is usually the best target.
@@ -57,7 +57,7 @@ function CenarionWardSubsection({ modules, events, info }: GuideProps<typeof Com
       <strong>Cenarion Ward usage and cooldown</strong>
       <div className="flex-main chart" style={{ padding: 5 }}>
         <CooldownBar
-          spellId={SPELLS.CENARION_WARD_TALENT.id}
+          spellId={TALENTS_DRUID.CENARION_WARD_RESTORATION_TALENT.id}
           events={events}
           info={info}
           highlightGaps
@@ -86,7 +86,7 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       you waited to use them again. Grey segments show when the spell was available, yellow segments
       show when the spell was cooling down. Red segments highlight times when you could have fit a
       whole extra use of the cooldown.
-      {info.combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+      {info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_RESTORATION_TALENT) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={SPELLS.CONVOKE_SPIRITS.id}
@@ -96,20 +96,20 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
           />
         </div>
       )}
-      {info.combatant.hasTalent(SPELLS.FLOURISH_TALENT.id) && (
+      {info.combatant.hasTalent(TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
-            spellId={SPELLS.FLOURISH_TALENT.id}
+            spellId={TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id}
             events={events}
             info={info}
             highlightGaps
           />
         </div>
       )}
-      {info.combatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) && (
+      {info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
-            spellId={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id}
+            spellId={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id}
             events={events}
             info={info}
             highlightGaps
@@ -140,10 +140,11 @@ function CooldownBreakdownSubsection({
     <SubSection>
       <strong>Spell Breakdowns</strong>
       <p />
-      {info.combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) &&
+      {info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_RESTORATION_TALENT) &&
         modules.convokeSpirits.guideCastBreakdown}
-      {info.combatant.hasTalent(SPELLS.FLOURISH_TALENT.id) && modules.flourish.guideCastBreakdown}
-      {info.combatant.hasTalent(SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id) &&
+      {info.combatant.hasTalent(TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id) &&
+        modules.flourish.guideCastBreakdown}
+      {info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id) &&
         modules.treeOfLife.guideCastBreakdown}
       {modules.tranquility.guideCastBreakdown}
       {modules.innervate.guideCastBreakdown}

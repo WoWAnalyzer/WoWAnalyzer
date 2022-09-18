@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
 import { EventType } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
+import { TALENTS_DRUID as TALENTS } from 'common/TALENTS';
 
 const BUFFER_MS = 20;
 
@@ -31,7 +32,7 @@ const EVENT_ORDERS: EventOrder[] = [
   {
     beforeEventId: [SPELLS.WILD_GROWTH.id, SPELLS.REGROWTH.id],
     beforeEventType: EventType.ApplyBuff,
-    afterEventId: [SPELLS.CONVOKE_SPIRITS.id, SPELLS.FLOURISH_TALENT.id],
+    afterEventId: [SPELLS.CONVOKE_SPIRITS.id, TALENTS.FLOURISH_RESTORATION_TALENT.id],
     afterEventType: [EventType.ApplyBuff, EventType.RefreshBuff], // Convoke and Flourish are handled on buff application
     anyTarget: true,
     bufferMs: BUFFER_MS,

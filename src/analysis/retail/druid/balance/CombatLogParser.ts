@@ -1,5 +1,4 @@
-import ActiveDruidForm from 'analysis/retail/druid/core/ActiveDruidForm';
-import RavenousFrenzy from 'analysis/retail/druid/shadowlands/RavenousFrenzy';
+import ActiveDruidForm from 'analysis/retail/druid/shared/core/ActiveDruidForm';
 import { AdaptiveSwarmDamageDealer, SinfulHysteria } from 'analysis/retail/druid/shared';
 import MainCombatLogParser from 'parser/core/CombatLogParser';
 import Channeling from 'parser/shared/normalizers/Channeling';
@@ -7,26 +6,25 @@ import Channeling from 'parser/shared/normalizers/Channeling';
 import Abilities from './modules/Abilities';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import BalanceOfAllThingsOpener from './modules/features/BalanceOfAllThingsOpener';
-import Buffs from './modules/features/Buffs';
+import Buffs from 'analysis/retail/druid/balance/modules/core/Buffs';
 import CancelledCasts from './modules/features/CancelledCasts';
-import Checklist from './modules/features/Checklist/Module';
-import ConvokeSpiritsBalance from './modules/features/ConvokeSpiritsBalance';
+import Checklist from './modules/checklist/Module';
+import ConvokeSpiritsBalance from 'analysis/retail/druid/balance/modules/spells/ConvokeSpiritsBalance';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import DotUptimes from './modules/features/DotUptimes';
 import EarlyDotRefreshes from './modules/features/EarlyDotRefreshes';
 import EarlyDotRefreshesInstants from './modules/features/EarlyDotRefreshesInstants';
 import FillerUsage from './modules/features/FillerUsage';
-import MoonfireUptime from './modules/features/MoonfireUptime';
-import Starsurge from './modules/features/Starsurge';
-import SunfireUptime from './modules/features/SunfireUptime';
-import AstralPowerDetails from './modules/resourcetracker/AstralPowerDetails';
-import AstralPowerTracker from './modules/resourcetracker/AstralPowerTracker';
-import SoulOfTheForest from './modules/talents/SoulOfTheForest';
-import Starlord from './modules/talents/Starlord';
-import StellarDrift from './modules/talents/StellarDrift';
-import StellarFlareUptime from './modules/talents/StellarFlareUptime';
-import TwinMoons from './modules/talents/TwinMoons';
+import MoonfireUptime from 'analysis/retail/druid/balance/modules/spells/MoonfireUptime';
+import Starsurge from 'analysis/retail/druid/balance/modules/spells/Starsurge';
+import SunfireUptime from 'analysis/retail/druid/balance/modules/spells/SunfireUptime';
+import AstralPowerDetails from 'analysis/retail/druid/balance/modules/features/AstralPowerDetails';
+import AstralPowerTracker from 'analysis/retail/druid/balance/modules/features/AstralPowerTracker';
+import SoulOfTheForest from 'analysis/retail/druid/balance/modules/spells/SoulOfTheForest';
+import Starlord from 'analysis/retail/druid/balance/modules/spells/Starlord';
+import StellarDrift from 'analysis/retail/druid/balance/modules/spells/StellarDrift';
+import StellarFlareUptime from 'analysis/retail/druid/balance/modules/spells/StellarFlareUptime';
+import TwinMoons from 'analysis/retail/druid/balance/modules/spells/TwinMoons';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -48,7 +46,6 @@ class CombatLogParser extends MainCombatLogParser {
     starsurge: Starsurge,
     earlyDotRefreshes: EarlyDotRefreshes,
     earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
-    balanceOfAllThingsOpener: BalanceOfAllThingsOpener,
     buffs: Buffs,
     dotUptimes: DotUptimes,
     //Talents
@@ -61,7 +58,6 @@ class CombatLogParser extends MainCombatLogParser {
     convokeSpiritsBalance: ConvokeSpiritsBalance,
     adaptiveSwarm: AdaptiveSwarmDamageDealer,
     sinfulHysteria: SinfulHysteria,
-    ravenousFrenzy: RavenousFrenzy,
 
     //Resources
     astralPowerTracker: AstralPowerTracker,

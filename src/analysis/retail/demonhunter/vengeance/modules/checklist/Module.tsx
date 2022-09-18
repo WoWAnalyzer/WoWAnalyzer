@@ -2,6 +2,7 @@ import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checkli
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseModule from 'parser/shared/modules/features/Checklist/Module';
+import Blur from 'analysis/retail/demonhunter/shared/modules/talents/Blur';
 
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import FuryDetails from '../fury/FuryDetails';
@@ -10,10 +11,11 @@ import ShearFracture from '../spells/ShearFracture';
 import SoulCleaveSoulsConsumed from '../spells/SoulCleaveSoulsConsumed';
 import SoulsOvercap from '../statistics/SoulsOvercap';
 import SoulBarrier from '../talents/SoulBarrier';
-import SpiritBombFrailtyDebuff from '../talents/SpiritBombFrailtyDebuff';
+import FrailtyDebuff from '../talents/FrailtyDebuff';
 import SpiritBombSoulsConsume from '../talents/SpiritBombSoulsConsume';
 import VoidReaverDebuff from '../talents/VoidReaverDebuff';
 import Component from './Component';
+import PainbringerBuff from '../talents/PainbringerBuff';
 
 class Checklist extends BaseModule {
   static dependencies = {
@@ -24,10 +26,12 @@ class Checklist extends BaseModule {
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
 
     // Buffs-Debuffs
-    spiritBombFrailtyDebuff: SpiritBombFrailtyDebuff,
+    painbringerBuff: PainbringerBuff,
+    frailtyDebuff: FrailtyDebuff,
     voidReaverDebuff: VoidReaverDebuff,
 
     // Talents
+    blur: Blur,
     spiritBombSoulsConsume: SpiritBombSoulsConsume,
     soulBarrier: SoulBarrier,
 
@@ -49,11 +53,13 @@ class Checklist extends BaseModule {
   //endregion
 
   //region Buffs and Debuffs
-  protected spiritBombFrailtyDebuff!: SpiritBombFrailtyDebuff;
+  protected painbringerBuff!: PainbringerBuff;
+  protected frailtyDebuff!: FrailtyDebuff;
   protected voidReaverDebuff!: VoidReaverDebuff;
   //endregion
 
   //region Talents
+  protected blur!: Blur;
   protected spiritBombSoulsConsume!: SpiritBombSoulsConsume;
   protected soulBarrier!: SoulBarrier;
   //endregion
@@ -79,12 +85,14 @@ class Checklist extends BaseModule {
           ...this.preparationRuleAnalyzer.thresholds,
 
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
-          spiritBombFrailtyDebuff: this.spiritBombFrailtyDebuff.uptimeSuggestionThresholds,
+          painbringerBuff: this.painbringerBuff.uptimeSuggestionThresholds,
+          frailtyDebuff: this.frailtyDebuff.uptimeSuggestionThresholds,
           voidReaverDebuff: this.voidReaverDebuff.uptimeSuggestionThresholds,
           spiritBombSoulsConsume: this.spiritBombSoulsConsume.suggestionThresholdsEfficiency,
           soulBarrier: this.soulBarrier.suggestionThresholdsEfficiency,
           soulCleaveSoulsConsumed: this.soulCleaveSoulsConsumed.suggestionThresholdsEfficiency,
           demonSpikes: this.demonSpikes.suggestionThresholdsEfficiency,
+          blur: this.blur.uptimeSuggestionThresholds,
           furyDetails: this.furyDetails.suggestionThresholds,
           soulsOvercap: this.soulsOvercap.suggestionThresholdsEfficiency,
           shearFracture: this.shearFracture.wastedCasts,

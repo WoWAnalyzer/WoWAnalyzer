@@ -10,6 +10,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { getHitCount } from '../../normalizers/CastLinkNormalizer';
+import { TALENTS_DRUID } from 'common/TALENTS';
+import { directAoeBuilder } from 'analysis/retail/druid/feral/constants';
 
 /**
  * Tracks the number of targets hit by Feral's AoE abilities.
@@ -24,13 +26,9 @@ class HitCountAoE extends Analyzer {
 
     // populate with spells that apply to this encounter, depending on talents
     this.aoeSpells.push(SPELLS.THRASH_FERAL);
-    this.aoeSpells.push(
-      this.selectedCombatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id)
-        ? SPELLS.BRUTAL_SLASH_TALENT
-        : SPELLS.SWIPE_CAT,
-    );
-    if (this.selectedCombatant.hasTalent(SPELLS.PRIMAL_WRATH_TALENT.id)) {
-      this.aoeSpells.push(SPELLS.PRIMAL_WRATH_TALENT);
+    this.aoeSpells.push(directAoeBuilder(this.selectedCombatant));
+    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT.id)) {
+      this.aoeSpells.push(TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT);
     }
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.aoeSpells), this.onAoeCast);
@@ -93,14 +91,8 @@ class HitCountAoE extends Analyzer {
     return this.spellAoeTrackers[SPELLS.THRASH_FERAL.id].zeroHitCasts;
   }
 
-  get swipeOrBrs() {
-    return this.selectedCombatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id)
-      ? SPELLS.BRUTAL_SLASH_TALENT
-      : SPELLS.SWIPE_CAT;
-  }
-
   get swipeOrBrsZeroHits() {
-    return this.spellAoeTrackers[this.swipeOrBrs.id].zeroHitCasts;
+    return this.spellAoeTrackers[directAoeBuilder(this.selectedCombatant).id].zeroHitCasts;
   }
 
   get zeroHitsPerMinute() {
@@ -136,7 +128,8 @@ class HitCountAoE extends Analyzer {
           {this.thrashZeroHits > 0 && this.swipeOrBrsZeroHits > 0 && ` and `}
           {this.swipeOrBrsZeroHits > 0 && (
             <>
-              {this.swipeOrBrsZeroHits} <SpellLink id={this.swipeOrBrs.id} />
+              {this.swipeOrBrsZeroHits}{' '}
+              <SpellLink id={directAoeBuilder(this.selectedCombatant).id} />
             </>
           )}
           .

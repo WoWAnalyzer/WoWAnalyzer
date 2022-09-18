@@ -4,6 +4,7 @@ import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import { PITCH_BLACK_SCALING } from 'analysis/retail/demonhunter/shared';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -79,9 +80,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.IMMOLATION_AURA.id,
         // IMMOLATION_AURA is the ID for cast and the buff. But damage is done from IMMOLATION_AURA_INITIAL_HIT_DAMAGE and IMMOLATION_AURA_BUFF_DAMAGE
-        buffSpellId: SPELLS.IMMOLATION_AURA.id,
+        spell: SPELLS.IMMOLATION_AURA.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 30 / (1 + haste),
         gcd: {
@@ -131,7 +131,7 @@ class Abilities extends CoreAbilities {
         category: combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_HAVOC_TALENT.id)
           ? SPELL_CATEGORY.ROTATIONAL
           : SPELL_CATEGORY.UTILITY,
-        charges: 2,
+        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.HOT_FEET_TALENT.id) ? 1 : 0),
         cooldown: 10,
         gcd: {
           static: 250,
@@ -148,20 +148,22 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.VENGEFUL_RETREAT.id, //Becomes a rotational ability with the Momentum talent
+        spell: TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT.id, // Becomes a rotational ability with the Momentum talent
         category: combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_HAVOC_TALENT.id)
           ? SPELL_CATEGORY.ROTATIONAL
           : SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_HAVOC_TALENT.id) ? 20 : 25,
+        cooldown: combatant.hasTalent(TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_HAVOC_TALENT.id)
+          ? 20
+          : 25,
         // Not actually on the GCD but blocks all spells during its animation for 1 second. The issue is you can follow up any ability on the GCD with Vengeful Retreat, so it can still cause overlap.
         gcd: null,
         castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_HAVOC_TALENT.id),
+          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_HAVOC_TALENT.id),
           recommendedEfficiency: 0.95,
           extraSuggestion: (
             <>
               Use it to generate Fury due to the{' '}
-              <SpellLink id={TALENTS_DEMON_HUNTER.MOMENTUM_HAVOC_TALENT.id} /> talent.
+              <SpellLink id={TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_HAVOC_TALENT.id} /> talent.
             </>
           ),
         },
@@ -171,6 +173,60 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 1.5,
         gcd: null,
+      },
+
+      // Sigils
+      {
+        spell: [
+          SPELLS.SIGIL_OF_SILENCE_CONCENTRATED.id,
+          TALENTS_DEMON_HUNTER.SIGIL_OF_SILENCE_TALENT.id,
+          SPELLS.SIGIL_OF_SILENCE_PRECISE.id,
+        ],
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown:
+          60 *
+          (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: [
+          SPELLS.SIGIL_OF_MISERY_CONCENTRATED.id,
+          TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT.id,
+          SPELLS.SIGIL_OF_MISERY_PRECISE.id,
+        ],
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown:
+          60 *
+          (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.MISERY_IN_DEFEAT_TALENT.id),
+          recommendedEfficiency: 0.9,
+          extraSuggestion: `Cast on cooldown for a dps increase.`,
+        },
+      },
+      {
+        spell: [
+          SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id,
+          TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id,
+          SPELLS.SIGIL_OF_FLAME_PRECISE.id,
+        ],
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        cooldown:
+          30 *
+          (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          extraSuggestion: `Cast on cooldown for a dps increase.`,
+        },
       },
 
       // CC, interupts, and utility
@@ -184,7 +240,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.CHAOS_NOVA.id,
+        spell: TALENTS_DEMON_HUNTER.CHAOS_NOVA_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: combatant.hasTalent(TALENTS_DEMON_HUNTER.UNLEASHED_POWER_TALENT.id) ? 40 : 60,
         gcd: {
@@ -212,7 +268,7 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
-        spell: SPELLS.IMPRISON.id,
+        spell: TALENTS_DEMON_HUNTER.IMPRISON_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
         gcd: {
@@ -230,7 +286,7 @@ class Abilities extends CoreAbilities {
 
       // DPS Cooldowns
       {
-        spell: SPELLS.EYE_BEAM.id,
+        spell: TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
         gcd: {
@@ -241,8 +297,9 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.95,
           extraSuggestion: (
             <>
-              The only times you should delay casting <SpellLink id={SPELLS.EYE_BEAM.id} /> is when
-              you're expecting adds to spawn soon.
+              The only times you should delay casting{' '}
+              <SpellLink id={TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id} /> is when you're
+              expecting adds to spawn soon.
             </>
           ),
         },
@@ -283,7 +340,7 @@ class Abilities extends CoreAbilities {
       },
       //Covenant
       {
-        spell: [SPELLS.ELYSIAN_DECREE.id, SPELLS.ELYSIAN_DECREE_REPEAT_DECREE.id],
+        spell: SPELLS.ELYSIAN_DECREE.id,
         enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_HAVOC_TALENT.id),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
@@ -325,7 +382,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.METAMORPHOSIS_HAVOC.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        buffSpellId: SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
         cooldown: 300,
         gcd: null, // Logs track the "landing" spell which is not on GCD
         castEfficiency: {
@@ -336,16 +392,18 @@ class Abilities extends CoreAbilities {
 
       // Defensives
       {
-        spell: SPELLS.BLUR.id,
-        buffSpellId: SPELLS.BLUR.id,
+        spell: TALENTS_DEMON_HUNTER.BLUR_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.BLUR_TALENT.id),
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 60,
       },
       {
-        spell: SPELLS.DARKNESS.id,
-        buffSpellId: SPELLS.DARKNESS.id,
+        spell: TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.BLUR_TALENT.id),
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 180,
+        cooldown:
+          300 -
+          PITCH_BLACK_SCALING[combatant.getTalentRank(TALENTS_DEMON_HUNTER.PITCH_BLACK_TALENT.id)],
         gcd: {
           base: 1500,
         },

@@ -27,9 +27,7 @@ class ElysianDecree extends Analyzer {
     }
 
     this.addEventListener(
-      Events.damage
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.ELYSIAN_DECREE_DAMAGE, SPELLS.ELYSIAN_DECREE_REPEAT_DECREE_DAMAGE]),
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ELYSIAN_DECREE_DAMAGE]),
       this.onDamage,
     );
   }
@@ -43,7 +41,7 @@ class ElysianDecree extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={<>{formatThousands(this.damage)} Total damage</>}
       >
         <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_VENGEANCE_TALENT.id}>

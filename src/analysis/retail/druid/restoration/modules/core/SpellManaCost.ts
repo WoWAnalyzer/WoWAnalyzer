@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { CastEvent } from 'parser/core/Events';
 import CoreSpellManaCost from 'parser/shared/modules/SpellManaCost';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 const MS_BUFFER = 200;
 const ABUNDANCE_MANA_REDUCTION = 0.06;
@@ -30,7 +31,7 @@ class SpellManaCost extends CoreSpellManaCost {
     // Mana is not adjusted for ToL
     if (
       this.selectedCombatant.hasBuff(
-        SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id,
+        TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id,
         event.timestamp,
         0,
         0,

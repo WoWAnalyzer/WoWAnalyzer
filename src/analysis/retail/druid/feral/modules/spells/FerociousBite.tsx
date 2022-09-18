@@ -7,10 +7,12 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 import { getAdditionalEnergyUsed } from '../../normalizers/FerociousBiteDrainLinkNormalizer';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 const FB_BASE_COST = 25;
 const MAX_FB_DRAIN = 25;
 
+// TODO advice here needs to be revisted when playstyle for DF stabilizes
 /**
  * Tracks Ferocious Bite usage for analysis, including some legendary and talent interactions.
  */
@@ -23,7 +25,7 @@ class FerociousBite extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.hasSotf = this.selectedCombatant.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_FERAL);
+    this.hasSotf = this.selectedCombatant.hasTalent(TALENTS_DRUID.SOUL_OF_THE_FOREST_FERAL_TALENT);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FEROCIOUS_BITE),
@@ -39,7 +41,9 @@ class FerociousBite extends Analyzer {
     if (
       this.hasSotf &&
       (this.selectedCombatant.hasBuff(SPELLS.BERSERK.id) ||
-        this.selectedCombatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id))
+        this.selectedCombatant.hasBuff(
+          TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id,
+        ))
     ) {
       return; // using less than full bonus with SotF during Zerk is acceptable in order to maximize finishers used
     }
@@ -77,8 +81,10 @@ class FerociousBite extends Analyzer {
   }
 
   suggestions(when: When) {
-    const hasSotf = this.selectedCombatant.hasTalent(SPELLS.SOUL_OF_THE_FOREST_TALENT_FERAL);
-    const hasApex = this.selectedCombatant.hasLegendary(SPELLS.APEX_PREDATORS_CRAVING);
+    const hasSotf = this.selectedCombatant.hasTalent(TALENTS_DRUID.SOUL_OF_THE_FOREST_FERAL_TALENT);
+    const hasApex = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.APEX_PREDATORS_CRAVING_FERAL_TALENT,
+    );
     let exceptions = 0;
     if (hasSotf) {
       exceptions += 1;
@@ -108,15 +114,16 @@ class FerociousBite extends Analyzer {
           )}
           {hasSotf && (
             <>
-              because you have <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_FERAL.id} />, during{' '}
-              <SpellLink id={SPELLS.BERSERK.id} /> it is acceptable to cast at minimum energy in
-              order to maximize the number of bites cast
+              because you have <SpellLink id={TALENTS_DRUID.SOUL_OF_THE_FOREST_FERAL_TALENT.id} />,
+              during <SpellLink id={SPELLS.BERSERK.id} /> it is acceptable to cast at minimum energy
+              in order to maximize the number of bites cast
               {hasApex ? ', and ' : '. '}
             </>
           )}
           {hasApex && (
             <>
-              because you have <SpellLink id={SPELLS.APEX_PREDATORS_CRAVING.id} /> your free bite
+              because you have{' '}
+              <SpellLink id={TALENTS_DRUID.APEX_PREDATORS_CRAVING_FERAL_TALENT.id} /> your free bite
               procs don't need extra energy because they always count as though they used the extra
               energy.
             </>
