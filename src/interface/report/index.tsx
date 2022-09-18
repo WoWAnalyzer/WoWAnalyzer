@@ -13,7 +13,7 @@ import { useCallback, useState } from 'react';
 import BOSS_PHASES_STATE from './BOSS_PHASES_STATE';
 import ConfigContext from './ConfigContext';
 import EVENT_PARSING_STATE from './EVENT_PARSING_STATE';
-import ExpansionContext from './ExpansionContext';
+import { ExpansionContextProvider } from './ExpansionContext';
 import FightSelection from './FightSelection';
 import useBossPhaseEvents from './hooks/useBossPhaseEvents';
 import useCharacterProfile from './hooks/useCharacterProfile';
@@ -189,7 +189,7 @@ const Report = () => (
     <ErrorBoundary>
       <ReportLoader>
         {(report, refreshReport) => (
-          <ExpansionContext.Provider gameVersion={report.gameVersion}>
+          <ExpansionContextProvider gameVersion={report.gameVersion}>
             <PatchChecker report={report}>
               <FightSelection report={report} refreshReport={refreshReport}>
                 {(fight) => (
@@ -221,7 +221,7 @@ const Report = () => (
                 )}
               </FightSelection>
             </PatchChecker>
-          </ExpansionContext.Provider>
+          </ExpansionContextProvider>
         )}
       </ReportLoader>
     </ErrorBoundary>

@@ -56,7 +56,9 @@ class PainSuppression extends Analyzer {
   }
 
   statistic() {
-    this.active = this.totalCasts > 0;
+    if (this.totalCasts === 0) {
+      return null;
+    }
 
     return (
       <LazyLoadStatisticBox

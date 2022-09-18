@@ -133,7 +133,6 @@ class Penance extends Analyzer {
   }
 
   statistic() {
-
     if (this.castCount === 0) {
       return null;
     }
