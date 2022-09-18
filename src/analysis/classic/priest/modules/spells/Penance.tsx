@@ -1,7 +1,7 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import * as SPELLS from 'analysis/classic/priest/SPELLS';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Events, { BeginCastEvent, BeginChannelEvent, CastEvent, DamageEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { BeginChannelEvent, CastEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -15,7 +15,6 @@ const NEW_PENANCE_TIMEOUT = 5000;
 
 const PenanceTable = ({ penanceLogs, combatants, enemies }: { penanceLogs: PenanceLog[], combatants: Combatants, enemies: Enemies }) => {
   const isHealing = (log: PenanceLog) => log.penanceHealEvents.length > 0;
-  const isDamage = (log: PenanceLog) => log.penanceDamageEvents.length > 0;
 
   const penanceTarget = (log: PenanceLog) => {
     if (isHealing(log)) {
@@ -140,7 +139,7 @@ class Penance extends Analyzer {
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={`Rapture is your most important mana regenerating tool. It can only proc once every 12 seconds, but it can be triggered by multiple shields popping at the same time. Try and line up the cooldown with large AOE damage to get the most mana back.`}
+        tooltip="Rapture is your most important mana regenerating tool. It can only proc once every 12 seconds, but it can be triggered by multiple shields popping at the same time. Try and line up the cooldown with large AOE damage to get the most mana back."
         dropdown={<PenanceTable penanceLogs={this.penanceLogs} combatants={this.combatants} enemies={this.enemies} />}
       >
         <BoringSpellValueText spellId={SPELLS.PENANCE_HEALING}>

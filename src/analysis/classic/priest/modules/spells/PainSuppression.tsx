@@ -1,6 +1,6 @@
 import fetchWcl from 'common/fetchWclApi';
 import { formatNumber } from 'common/format';
-import { WCLDamageTaken, WCLDamageTakenTableResponse, WCLHealing, WCLHealingTableResponse } from 'common/WCL_TYPES';
+import { WCLDamageTaken, WCLDamageTakenTableResponse } from 'common/WCL_TYPES';
 import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
