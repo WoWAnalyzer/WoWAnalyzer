@@ -1,13 +1,20 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
+import { Attribution } from 'parser/shared/modules/HotTracker';
+import {
+  getDirectHeal,
+  getHardcast,
+} from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import { buffedByClearcast } from 'analysis/retail/druid/restoration/normalizers/ClearcastingNormalizer';
 
 const REGROWTH_BOOST = 0.3;
 
@@ -18,8 +25,13 @@ const REGROWTH_BOOST = 0.3;
  * Clearcast Regrowths heal for an additional 30%.
  */
 class FlashOfClarity extends Analyzer {
-  healing = 0;
-  targetsWithClearCastingRegrowth: number[] = [];
+  static dependencies = {
+    hotTracker: HotTrackerRestoDruid,
+  };
+  protected hotTracker!: HotTrackerRestoDruid;
+
+  hotBoostAttribution: Attribution = HotTrackerRestoDruid.getNewAttribution('FoC Regrowth');
+  directBoostHealing: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -28,37 +40,31 @@ class FlashOfClarity extends Analyzer {
       TALENTS_DRUID.FLASH_OF_CLARITY_RESTORATION_TALENT,
     );
 
-    if (!this.active) {
-      return;
-    }
-
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH),
-      this.checkIfClearCasting,
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH),
+      this.onRegrowthApply,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH),
-      this.normalizeBoost,
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH),
+      this.onRegrowthApply,
     );
   }
 
-  checkIfClearCasting(event: CastEvent) {
-    const targetID = event.targetID;
-    if (!targetID) {
-      return;
+  onRegrowthApply(event: ApplyBuffEvent | RefreshBuffEvent) {
+    const hardcast = getHardcast(event);
+    if (!hardcast || !buffedByClearcast(hardcast)) {
+      return; // only apply boost to casts that actually buffed by clearcast
     }
 
-    if (this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id)) {
-      this.targetsWithClearCastingRegrowth[targetID] = targetID;
-    } else if (this.targetsWithClearCastingRegrowth[targetID]) {
-      delete this.targetsWithClearCastingRegrowth[targetID];
+    this.hotTracker.addBoostFromApply(this.hotBoostAttribution, REGROWTH_BOOST, event);
+    const directHeal = getDirectHeal(hardcast);
+    if (directHeal) {
+      this.directBoostHealing += calculateEffectiveHealing(directHeal, REGROWTH_BOOST);
     }
   }
 
-  normalizeBoost(event: HealEvent) {
-    if (this.targetsWithClearCastingRegrowth[event.targetID]) {
-      this.healing += calculateEffectiveHealing(event, REGROWTH_BOOST);
-    }
+  get totalHealing(): number {
+    return this.directBoostHealing + this.hotBoostAttribution.healing;
   }
 
   statistic() {
@@ -69,7 +75,7 @@ class FlashOfClarity extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
       >
         <BoringSpellValueText spellId={SPELLS.FLASH_OF_CLARITY.id}>
-          <ItemPercentHealingDone amount={this.healing} />
+          <ItemPercentHealingDone amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>
       </Statistic>

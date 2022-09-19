@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
@@ -11,7 +10,6 @@ import Events, {
   RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import { RefreshInfo } from 'parser/shared/modules/HotTracker';
@@ -20,9 +18,9 @@ import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { isFromHardcast } from '../../normalizers/CastLinkNormalizer';
-import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
-import Mastery from '../core/Mastery';
+import { isFromHardcast } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
+import Mastery from 'analysis/retail/druid/restoration/modules/core/Mastery';
 
 const debug = false;
 
@@ -219,41 +217,6 @@ class Rejuvenation extends Analyzer {
         <br />
         <GradiatedPerformanceBar good={goodRejuvs} ok={highOverhealRejuvs} bad={clippedRejuvs} />
       </SubSection>
-    );
-  }
-
-  get timeLostThreshold() {
-    return {
-      actual: this.timeLostInSecondsPerMinute,
-      isGreaterThan: {
-        minor: 0,
-        average: 4,
-        major: 9,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.timeLostThreshold).addSuggestion((suggest) =>
-      suggest(
-        <>
-          Don't refresh <SpellLink id={SPELLS.REJUVENATION.id} /> if it's not within pandemic time
-          frame (4.5s left on buff).
-        </>,
-      )
-        .icon(SPELLS.REJUVENATION.icon)
-        .actual(
-          t({
-            id: 'druid.restoration.suggestions.rejuvenation.wastedSeconds',
-            message: `You refreshed early ${
-              this.earlyRefreshments
-            } times which made you waste ${this.timeLostInSeconds.toFixed(
-              2,
-            )} seconds of rejuvenation.`,
-          }),
-        )
-        .recommended(`0 seconds lost is recommended`),
     );
   }
 

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
@@ -6,7 +5,6 @@ import { SubSection } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ClosedTimePeriod, mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import UptimeStackBar from 'parser/ui/UptimeStackBar';
 
 const DURATION_MS = 30000;
@@ -26,6 +24,7 @@ class Efflorescence extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    // TODO disable this when player doesn't take talent, or leave active with a message "you should really take Efflo" .. ?
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EFFLORESCENCE_CAST),
       this.onCast,
@@ -81,7 +80,8 @@ class Efflorescence extends Analyzer {
     let prev: EffloTime | undefined = undefined;
     this.effloTimes.forEach((et) => {
       if (prev && !et.start) {
-        // TODO this is slightly too generous to 'zero ticks' because it reaches back an unhasted tick duration
+        // this is slightly too generous to 'zero ticks' because it reaches back an unhasted tick duration,
+        // but it should be close enough that this is preferable to trying to do something more complicated.
         const prevTime = Math.max(prev.timestamp, et.timestamp - TICK_MS);
         stackTimePeriods.push({ start: prevTime, end: et.timestamp, stacks: et.targets });
       }
@@ -125,40 +125,6 @@ class Efflorescence extends Analyzer {
         </p>
         {this.subStatistic()}
       </SubSection>
-    );
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.weightedUptimePercent,
-      isLessThan: {
-        minor: 0.85,
-        average: 0.6,
-        major: 0.4,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          Your effective <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} /> uptime can be improved.
-          Effective uptime is weighted based on the number of players actually being healed by it,
-          so remember that your Efflorescence must be active <strong>and</strong> players must be
-          standing on it. Your raw uptime was{' '}
-          <strong>{formatPercentage(this.uptimePercent, 1)}%</strong>.
-        </span>,
-      )
-        .icon(SPELLS.EFFLORESCENCE_CAST.icon)
-        .actual(
-          t({
-            id: 'druid.restoration.efflorescence.uptime',
-            message: `${formatPercentage(actual, 1)}% effective uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended, 1)}% is recommended`),
     );
   }
 

@@ -12,6 +12,7 @@ import { DRUID_HEAL_INFO, getSpellInfo } from '../../SpellInfo';
 
 const DEBUG = false;
 
+// TODO handle the new DF talent that makes LB count as more than one stack
 /**
  * Resto Druid's "Mastery: Harmony" -
  * Your healing is increased by X% for each of your Restoration heal over time effects on the target.

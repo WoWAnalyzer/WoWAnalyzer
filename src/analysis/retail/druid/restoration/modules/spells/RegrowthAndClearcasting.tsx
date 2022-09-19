@@ -1,21 +1,20 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
-import { SpellLink } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import { SubSection } from 'interface/guide';
 import CheckmarkIcon from 'interface/icons/Checkmark';
 import CrossIcon from 'interface/icons/Cross';
 import HealthIcon from 'interface/icons/Health';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { PerformanceBoxRow } from 'parser/ui/PerformanceBoxRow';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import { getDirectHeal } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import { buffedByClearcast } from 'analysis/retail/druid/restoration/normalizers/ClearcastingNormalizer';
 
 /** Health percent below which we consider a heal to be 'triage' */
 const TRIAGE_THRESHOLD = 0.5;
@@ -26,10 +25,6 @@ const ABUNDANCE_EXCEPTION_STACKS = 4;
 
 /**
  * Tracks stats relating to Regrowth and the Clearcasting proc
- *
- * This modules functioning relies on normalizers that ensure:
- * * Regrowth cast will always come before Clearcasting fade
- * * Regrowth cast will always come before Regrowth initial heal
  */
 class RegrowthAndClearcasting extends Analyzer {
   /** total clearcasting procs */
@@ -49,15 +44,10 @@ class RegrowthAndClearcasting extends Analyzer {
   ccRegrowths = 0;
   /** regrowth hardcasts that were cheap enough to be efficient due to abundance */
   abundanceRegrowths = 0;
-  /** full price regrowth casts 'in the air' - waiting for heal event to categorize as triage or bad */
-  pendingFullPriceRegrowths = 0;
   /** full price regrowth hardcasts that were on low health targets */
   triageRegrowths = 0;
   /** full price regrowth hardcasts on healthy targets */
   badRegrowths = 0;
-
-  /** the most recent regrowth hardcast, or undefined if the last cast was 'accounted for' */
-  lastRegrowthCast: CastEvent | undefined = undefined;
 
   castRegrowthLog: RegrowthCast[] = [];
 
@@ -83,26 +73,20 @@ class RegrowthAndClearcasting extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH),
       this.onCastRegrowth,
     );
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH),
-      this.onHealRegrowth,
-    );
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  onApplyClearcast(event: ApplyBuffEvent) {
+  onApplyClearcast() {
     this.totalClearcasts += 1;
   }
 
-  onRefreshClearcast(event: RefreshBuffEvent) {
+  onRefreshClearcast() {
     this.totalClearcasts += 1;
     this.overwrittenClearcasts += 1;
   }
 
   onCastRegrowth(event: CastEvent) {
-    this.lastRegrowthCast = event;
     this.totalRegrowths += 1;
-    this.pendingFullPriceRegrowths = 0;
     if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
       this.innervateRegrowths += 1;
       this._pushToCastLog(event, 'innervate');
@@ -112,7 +96,7 @@ class RegrowthAndClearcasting extends Analyzer {
     ) {
       this.nsRegrowths += 1;
       this._pushToCastLog(event, 'ns');
-    } else if (this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id)) {
+    } else if (buffedByClearcast(event)) {
       this.ccRegrowths += 1;
       this._pushToCastLog(event, 'clearcast');
     } else if (
@@ -121,39 +105,26 @@ class RegrowthAndClearcasting extends Analyzer {
       this.abundanceRegrowths += 1;
       this._pushToCastLog(event, 'abundance');
     } else {
-      // whether this is a triage regrowth or bad regrowth can't be determined until the heal event
-      this.pendingFullPriceRegrowths = 1;
+      // use the heal event to determine if this Regrowth was triage (saving low health player)
+      const regrowthHeal = getDirectHeal(event);
+      if (regrowthHeal !== undefined) {
+        // heals absorbs not technically part of player heal percent,
+        // but they're important to remove so we'll include it
+        const effectiveHealing = regrowthHeal.amount + (regrowthHeal.absorbed || 0);
+        const hitPointsBeforeHeal = regrowthHeal.hitPoints - effectiveHealing;
+        const healthPercentage = hitPointsBeforeHeal / regrowthHeal.maxHitPoints;
+        if (healthPercentage < TRIAGE_THRESHOLD) {
+          this.triageRegrowths += 1;
+          this._pushToCastLog(event, 'triage');
+        } else {
+          this.badRegrowths += 1;
+          this._pushToCastLog(event, 'bad');
+        }
+      } else {
+        // shouldn't happen, but just in case something weird is going on
+        console.warn("Regrowth cast couldn't be matched to a heal", event);
+      }
     }
-  }
-
-  onHealRegrowth(event: HealEvent) {
-    // only consider if there is a pending full price regrowth
-    // and initial heal that can be tied back to a hardcast
-    if (
-      this.pendingFullPriceRegrowths === 0 ||
-      event.tick ||
-      this.lastRegrowthCast === undefined ||
-      this.lastRegrowthCast.timestamp + MS_BUFFER < event.timestamp ||
-      this.lastRegrowthCast.targetID !== event.targetID
-    ) {
-      return;
-    }
-
-    // technically the amount absorbed shouldn't be counted when calculating health before heal,
-    // but because heal absorbs are important to remove we'll consider this legit triage
-    const effectiveHealing = event.amount + (event.absorbed || 0);
-    const hitPointsBeforeHeal = event.hitPoints - effectiveHealing;
-    const healthPercentage = hitPointsBeforeHeal / event.maxHitPoints;
-
-    if (healthPercentage < TRIAGE_THRESHOLD) {
-      this.triageRegrowths += 1;
-      this._pushToCastLog(event, 'triage');
-    } else {
-      this.badRegrowths += 1;
-      this._pushToCastLog(event, 'bad');
-    }
-    this.pendingFullPriceRegrowths = 0;
-    this.lastRegrowthCast = undefined;
   }
 
   onFightEnd() {
@@ -185,6 +156,7 @@ class RegrowthAndClearcasting extends Analyzer {
     return this.totalClearcasts - this.usedClearcasts;
   }
 
+  /** Percentage of gained clearcasts that were used */
   get clearcastUtilPercent() {
     // return 100% when no clearcasts to avoid suggestion
     // clearcast still active at end shouldn't be counted in util, hence the subtraction from total
@@ -193,50 +165,8 @@ class RegrowthAndClearcasting extends Analyzer {
       : this.usedClearcasts / (this.totalClearcasts - this.endingClearcasts);
   }
 
-  get badRegrowthsPerMinute() {
-    return this.badRegrowths / (this.owner.fightDuration / 60000);
-  }
-
   get freeRegrowths() {
     return this.innervateRegrowths + this.ccRegrowths + this.nsRegrowths;
-  }
-
-  get clearcastingUtilSuggestionThresholds() {
-    return {
-      actual: this.clearcastUtilPercent,
-      isLessThan: {
-        minor: 0.9,
-        average: 0.5,
-        major: 0.25,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  get badRegrowthsSuggestionThresholds() {
-    return {
-      actual: this.badRegrowthsPerMinute,
-      isGreaterThan: {
-        minor: 0,
-        average: 1,
-        major: 3,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
-  get regrowthInnefficiencyWarning() {
-    return (
-      <>
-        <SpellLink id={SPELLS.REGROWTH.id} /> is very mana inefficient and should only be cast when
-        free due to <SpellLink id={SPELLS.INNERVATE.id} /> or{' '}
-        <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} />, cheap due to {ABUNDANCE_EXCEPTION_STACKS}+{' '}
-        <SpellLink id={TALENTS_DRUID.ABUNDANCE_RESTORATION_TALENT.id} /> stacks, or to save a low
-        health target. When triaging low health targets, you should use
-        <SpellLink id={SPELLS.SWIFTMEND.id} /> or <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} />{' '}
-        first before resorting to Regrowth.
-      </>
-    );
   }
 
   /** Guide subsection describing the proper usage of Regrowth */
@@ -294,38 +224,6 @@ class RegrowthAndClearcasting extends Analyzer {
         </small>
         <PerformanceBoxRow values={castPerfBoxes} />
       </SubSection>
-    );
-  }
-
-  suggestions(when: When) {
-    when(this.clearcastingUtilSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Use your <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> before they get overwritten or
-          expire.
-        </>,
-      )
-        .icon(SPELLS.CLEARCASTING_BUFF.icon)
-        .actual(
-          t({
-            id: 'druid.restoration.suggestions.clearcasting.wastedProcs',
-            message: `You missed ${this.wastedClearcasts} out of ${
-              this.totalClearcasts
-            } (${formatPercentage(1 - this.clearcastUtilPercent, 0)}%) of your free regrowth procs`,
-          }),
-        )
-        .recommended(`<${formatPercentage(1 - recommended, 1)}% is recommended`),
-    );
-    when(this.badRegrowthsSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(this.regrowthInnefficiencyWarning)
-        .icon(SPELLS.REGROWTH.icon)
-        .actual(
-          t({
-            id: 'druid.restoration.suggestions.clearcasting.efficiency',
-            message: `You cast ${this.badRegrowthsPerMinute.toFixed(1)} bad Regrowths per minute.`,
-          }),
-        )
-        .recommended(`${recommended.toFixed(1)} CPM is recommended`),
     );
   }
 

@@ -11,6 +11,10 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 const CONVOKE_SPEC_NAME = 'Convoke';
 const CONVOKE_WITH_FLOURISH_SPEC_NAME = 'Convoke w/ Flourish';
 
+/**
+ * Graph showing player's HoTs out over an encounter, with CD usage superimposed on top.
+ * Useful for visualizing player "HoT ramps".
+ */
 class HotCountGraph extends BuffCountGraph {
   static dependencies = {
     ...BuffCountGraph.dependencies,

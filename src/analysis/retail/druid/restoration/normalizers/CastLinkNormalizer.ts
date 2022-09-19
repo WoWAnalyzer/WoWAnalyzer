@@ -151,22 +151,43 @@ class CastLinkNormalizer extends EventLinkNormalizer {
   }
 }
 
+/** Returns true iff the given buff application or heal can be matched back to a hardcast */
 export function isFromHardcast(event: AbilityEvent<any>): boolean {
   return HasRelatedEvent(event, FROM_HARDCAST);
 }
 
+/** Returns the hardcast event that caused this buff or heal, if there is one */
+export function getHardcast(event: AbilityEvent<any>): CastEvent | undefined {
+  return GetRelatedEvents(event, FROM_HARDCAST)
+    .filter((e): e is CastEvent => e.type === EventType.Cast)
+    .pop();
+}
+
+/** Returns true iff the given buff application can be matched to an Overgrowth cast */
 export function isFromOvergrowth(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
   return HasRelatedEvent(event, FROM_OVERGROWTH);
 }
 
+/** Returns the buff application and direct heal events caused by the given hardcast */
 export function getHeals(event: CastEvent): AnyEvent[] {
   return GetRelatedEvents(event, APPLIED_HEAL);
 }
 
+/** Returns the direct heal event caused by this hardcast, if there is one */
+export function getDirectHeal(event: CastEvent): HealEvent | undefined {
+  return getHeals(event)
+    .filter((e): e is HealEvent => e.type === EventType.Heal)
+    .pop();
+}
+
+/** Returns true iff the given bloom heal can be linked to the refresh or removal of a lifebloom
+ *  buff - used to differentiate from a Photosynthesis proc */
 export function isFromExpiringLifebloom(event: HealEvent): boolean {
   return HasRelatedEvent(event, FROM_EXPIRING_LIFEBLOOM);
 }
 
+/** Gets the tranquility "tick cast" events caused by channeling the given Tranquility w/
+ *  cast ID `TRANQUILITY_CAST`. */
 export function getTranquilityTicks(event: CastEvent): AnyEvent[] {
   return GetRelatedEvents(event, CAUSED_TICK);
 }

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
@@ -7,14 +6,17 @@ import { PassFailCheckmark } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { CooldownExpandable, CooldownExpandableItem } from '../../Guide';
+import {
+  CooldownExpandable,
+  CooldownExpandableItem,
+} from 'analysis/retail/druid/restoration/Guide';
 
+// TODO these mana values will probably need to be updated?
 export const GREED_INNERVATE = 9000;
 export const SMART_INNERVATE = GREED_INNERVATE / 2;
 
@@ -28,25 +30,26 @@ class Innervate extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.trackCastsDuringInnervate);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INNERVATE),
-      this.handleInnervateCasts,
+      this.onInnervate,
     );
   }
 
-  trackCastsDuringInnervate(event: CastEvent) {
+  onCast(event: CastEvent) {
+    // only interested in casts that cost mana
     const manaEvent = event.rawResourceCost;
     if (manaEvent === undefined) {
       return;
     }
 
-    // don't count innervate because its kind of implied
+    // Innervate cast already handled in `onInnervate`
     if (event.ability.guid === SPELLS.INNERVATE.id) {
       return;
     }
 
-    //okay what did we actually do in innervate
+    // If it's during Innervate, tally the casts that happened
     if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
       if (!CASTS_THAT_ARENT_CASTS.includes(event.ability.guid) && this.castTrackers.length > 0) {
         // we want to at least keep track of all abilites during the innervate, not just ones that cost mana
@@ -64,7 +67,7 @@ class Innervate extends Analyzer {
     }
   }
 
-  handleInnervateCasts(event: CastEvent) {
+  onInnervate(event: CastEvent) {
     this.reduction = 0.5;
     this.casts += 1;
 
@@ -83,48 +86,11 @@ class Innervate extends Analyzer {
     }
   }
 
-  get selfCastThresholds() {
-    return {
-      actual: this.castsOnYourself,
-      isGreaterThan: {
-        minor: 0,
-        average: 0,
-        major: 0,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
   get manaSavedPerInnervate() {
     if (this.casts === 0) {
       return 0;
     }
     return this.manaSaved / this.casts;
-  }
-
-  // tldr they could cheese this threshold if they just cast on self the whole time so we scale it for that
-  get realManaSavedThreshold() {
-    if (this.casts === 0) {
-      return SMART_INNERVATE;
-    }
-    return (
-      (this.castsOnYourself * GREED_INNERVATE +
-        (this.casts - this.castsOnYourself) * SMART_INNERVATE) /
-      this.casts
-    );
-  }
-
-  get manaSavedThresholds() {
-    const minor = this.realManaSavedThreshold;
-    return {
-      actual: this.manaSavedPerInnervate,
-      isLessThan: {
-        minor: minor,
-        average: minor * 0.8,
-        major: minor * 0.6,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
   }
 
   get guideCastBreakdown() {
@@ -205,44 +171,6 @@ class Innervate extends Analyzer {
         })}
         <p />
       </>
-    );
-  }
-
-  suggestions(when: When) {
-    when(this.selfCastThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You should aim to cast <SpellLink id={SPELLS.INNERVATE.id} /> on your allies to maximize
-          the amount of mana saved over the raid.
-        </>,
-      )
-        .icon(SPELLS.INNERVATE.icon)
-        .actual(
-          `${this.castsOnYourself} ${t({
-            id: 'druid.resto.suggestions.innervate.selfCasts',
-            message: `time(s) you casted innervate on yourself`,
-          })}`,
-        )
-        .recommended(`0 self casts are recommended.`),
-    );
-
-    when(this.manaSavedThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your mana spent during <SpellLink id={SPELLS.INNERVATE.id} /> can be improved. Aim to cast{' '}
-          <SpellLink id={SPELLS.EFFLORESCENCE_HEAL.id} /> and{' '}
-          <SpellLink id={SPELLS.WILD_GROWTH.id} /> during this window while filling the remaining
-          gcds with <SpellLink id={SPELLS.REJUVENATION.id} />.
-        </>,
-      )
-        .icon(SPELLS.INNERVATE.icon)
-        .actual(
-          `${formatNumber(this.manaSavedPerInnervate)} ${t({
-            id: 'druid.resto.suggestions.innervate.avgManaSaved',
-            message: `average mana saved per Innervate cast`,
-          })}`,
-        )
-        .recommended(`${(recommended / 1000).toFixed(0)}k average mana saved is recommended`),
     );
   }
 

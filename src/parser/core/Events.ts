@@ -257,12 +257,16 @@ export function HasHitpoints<T extends EventType>(event: Event<T>): event is Hit
   return (event as HitpointsEvent<T>).hitPoints !== undefined;
 }
 
+/** Gets the events related to the given event with the given relation (key). Events will not
+ *  by default have any relations, you must add them with an {@link EventLinkNormalizer}. */
 export function GetRelatedEvents(event: AnyEvent, relation: string): AnyEvent[] {
   return event._linkedEvents === undefined
     ? []
     : event._linkedEvents.filter((le) => le.relation === relation).map((le) => le.event);
 }
 
+/** Returns true iff the given event has a relation with the given relation (key). Events will not
+ *  by default have any relations, you must add them with an {@link EventLinkNormalizer}. */
 export function HasRelatedEvent(event: AnyEvent, relation: string): boolean {
   return (
     event._linkedEvents !== undefined &&
@@ -270,6 +274,8 @@ export function HasRelatedEvent(event: AnyEvent, relation: string): boolean {
   );
 }
 
+/** Adds a relation between events using the `_linkedEvents` field.
+ *  This should not be done manually, use {@link EventLinkNormalizer} */
 export function AddRelatedEvent(event: AnyEvent, relation: string, relatedEvent: AnyEvent): void {
   if (event._linkedEvents === undefined) {
     event._linkedEvents = [];

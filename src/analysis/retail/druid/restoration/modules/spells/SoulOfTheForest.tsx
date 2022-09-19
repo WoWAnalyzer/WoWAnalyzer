@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -12,7 +11,6 @@ import Events, {
   RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import { PerformanceBoxRow } from 'parser/ui/PerformanceBoxRow';
@@ -267,15 +265,6 @@ class SoulOfTheForest extends Analyzer {
     return this.rejuvTotalUses + this.regrowthTotalUses + this.wgTotalUses;
   }
 
-  get totalHardcastUses() {
-    return this.rejuvHardcastUses + this.regrowthHardcastUses + this.wgHardcastUses;
-  }
-
-  /** Percent of hardcast consumes that were with WG - for suggest */
-  get wgUsagePercent() {
-    return this.wgHardcastUses / this.totalHardcastUses;
-  }
-
   get totalHealing() {
     return (
       this.sotfWgInfo.attribution.healing +
@@ -325,45 +314,6 @@ class SoulOfTheForest extends Analyzer {
           <PerformanceBoxRow values={castPerfBoxes} />
         </p>
       </>
-    );
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.wgUsagePercent,
-      isLessThan: {
-        minor: 0.8,
-        average: 0.7,
-        major: 0.6,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You did not consume all of your{' '}
-          <SpellLink id={TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT.id} /> buffs with{' '}
-          <SpellLink id={SPELLS.WILD_GROWTH.id} />. Try to use{' '}
-          <SpellLink id={SPELLS.WILD_GROWTH.id} /> every time you get a{' '}
-          <SpellLink id={TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT.id} /> buff.
-          {this.convokeSpirits.active &&
-            ` This stat considers only the buffs consumed by hardcasts (it does not consider buffs consumed during Convoke)`}
-        </>,
-      )
-        .icon(TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT.icon)
-        .actual(
-          t({
-            id: 'druid.restoration.suggestions.soulOfTheForest.efficiency',
-            message: `Wild growth consumed ${formatPercentage(
-              this.wgUsagePercent,
-              1,
-            )}% of the buffs.`,
-          }),
-        )
-        .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }
 

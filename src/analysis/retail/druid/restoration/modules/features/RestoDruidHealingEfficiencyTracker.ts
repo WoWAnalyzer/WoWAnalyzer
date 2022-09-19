@@ -10,9 +10,10 @@ import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
 import HotAttributor from '../../modules/core/hottracking/HotAttributor';
 import Abilities from '../Abilities';
-import RegrowthAndClearcasting from '../features/RegrowthAndClearcasting';
-import Swiftmend from '../features/Swiftmend';
+import RegrowthAndClearcasting from 'analysis/retail/druid/restoration/modules/spells/RegrowthAndClearcasting';
+import Swiftmend from 'analysis/retail/druid/restoration/modules/spells/Swiftmend';
 
+/** Resto Druid exetension of HealingEfficiencyTracker */
 class RestoDruidHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
     ...HealingEfficiencyTracker.dependencies,

@@ -13,7 +13,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { PHOTO_INCREASED_RATE } from 'analysis/retail/druid/restoration/constants';
 import { isFromExpiringLifebloom } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
-import Lifebloom from 'analysis/retail/druid/restoration/modules/features/Lifebloom';
+import Lifebloom from 'analysis/retail/druid/restoration/modules/spells/Lifebloom';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 const PHOTOSYNTHESIS_HOT_INCREASE = 0.2;

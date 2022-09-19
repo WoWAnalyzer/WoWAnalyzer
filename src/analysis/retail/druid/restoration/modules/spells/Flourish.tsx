@@ -1,5 +1,4 @@
-import { t } from '@lingui/macro';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink, Tooltip } from 'interface';
 import { PassFailCheckmark } from 'interface/guide';
@@ -7,7 +6,6 @@ import InformationIcon from 'interface/icons/Information';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { ApplyBuffEvent, EventType, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -96,22 +94,6 @@ class Flourish extends Analyzer {
 
   get healingPerCast() {
     return this.casts === 0 ? 0 : this.totalHealing / this.casts;
-  }
-
-  get percentWgsExtended() {
-    return this.casts === 0 ? 0 : this.wgsExtended / this.casts;
-  }
-
-  get wildGrowthSuggestionThresholds() {
-    return {
-      actual: this.percentWgsExtended,
-      isLessThan: {
-        minor: 1.0,
-        average: 0.75,
-        major: 0.5,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
   }
 
   onIncreasedRateHeal(event: HealEvent) {
@@ -252,29 +234,6 @@ class Flourish extends Analyzer {
         })}
         <p />
       </>
-    );
-  }
-
-  suggestions(when: When) {
-    if (this.hardcastCount === 0) {
-      return;
-    }
-
-    when(this.wildGrowthSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink id={TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id} /> should always aim to
-          extend a <SpellLink id={SPELLS.WILD_GROWTH.id} />
-        </>,
-      )
-        .icon(TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.icon)
-        .actual(
-          t({
-            id: 'druid.restoration.suggestions.flourish.wildGrowthExtended',
-            message: `${formatPercentage(this.wgsExtended / this.hardcastCount, 0)}% WGs extended.`,
-          }),
-        )
-        .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }
 

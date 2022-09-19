@@ -7,6 +7,7 @@ import HealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEffic
 import Panel from 'parser/ui/Panel';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
+/** Display module for healing efficiency data */
 class RestoDruidHealingEfficiencyDetails extends HealingEfficiencyDetails {
   static dependencies = {
     ...HealingEfficiencyDetails.dependencies,

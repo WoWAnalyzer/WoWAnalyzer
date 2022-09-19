@@ -11,7 +11,42 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 
 // TODO maximum links per event (prevent cast linking with too many)
-// TODO easier specification
+/**
+ * The specification of an event link to apply.
+ * By default, the linking event adds the referenced event to its _linkedEvents, but not vice versa.
+ * By default, the linked events must have the same timestamp, source, and target.
+ */
+export type EventLink = {
+  /** REQUIRED The key string used to describe the relationship between the events */
+  linkRelation: string;
+  /** REQUIRED The ability id or ids of the event that is adding link(s)
+   * Null will match ANY event ID and should be reserved for special event types */
+  linkingEventId: null | number | number[];
+  /** REQUIRED The type or types of the event that is adding link(s) */
+  linkingEventType: EventType | EventType[];
+  /** REQUIRED The ability id or ids of the event that is being referenced
+   * Null will match ANY event ID and should be reserved for special event types */
+  referencedEventId: null | number | number[];
+  /** REQUIRED The type or types of the event that is being referenced */
+  referencedEventType: EventType | EventType[];
+  /** The maximum allowed timestamp difference *forward in time from the linking event to the
+   * referenced event* in order for a link to be made. Defaults to 0 ms when omitted. */
+  forwardBufferMs?: number;
+  /** The maximum allowed timestamp difference *backward in time from the linking event to the
+   * referenced event* in order for a link to be made. Defaults to 0 ms when omitted. */
+  backwardBufferMs?: number;
+  /** Iff true, the two events may be linked even with different sources.
+   * In most cases this should be false, and will default to false when omitted */
+  anySource?: boolean;
+  /** Iff true, the two events may be linked even with different targets.
+   * In most cases this should be false, and will default to false when omitted */
+  anyTarget?: boolean;
+  /** Iff defined, links will also be added from the referenced event to the linking event using this relation. */
+  reverseLinkRelation?: string;
+  /** Iff defined, this predicate will also be called with the candidate events and iff false no link will be made */
+  additionalCondition?: (linkingEvent: AnyEvent, referencedEvent: AnyEvent) => boolean;
+};
+
 /**
  * An event normalizer that uses an Event's _linkedEvents field to indicate an association
  * between events. The meaning of this association is context sensitive and should be clearly
@@ -125,41 +160,5 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
     return events;
   }
 }
-
-/**
- * The specification of an event link to apply.
- * By default, the linking event adds the referenced event to its _linkedEvents, but not vice versa.
- * By default, the linked events must have the same timestamp, source, and target.
- */
-export type EventLink = {
-  /** REQUIRED The relation with which to add the link */
-  linkRelation: string;
-  /** REQUIRED The ability id or ids of the event that is adding link(s)
-   * Null will match ANY event ID and should be reserved for special event types */
-  linkingEventId: null | number | number[];
-  /** REQUIRED The type or types of the event that is adding link(s) */
-  linkingEventType: EventType | EventType[];
-  /** REQUIRED The ability id or ids of the event that is being referenced
-   * Null will match ANY event ID and should be reserved for special event types */
-  referencedEventId: null | number | number[];
-  /** REQUIRED The type or types of the event that is being referenced */
-  referencedEventType: EventType | EventType[];
-  /** The maximum allowed timestamp difference *forward in time from the linking event to the
-   * referenced event* in order for a link to be made. Defaults to 0 ms when omitted. */
-  forwardBufferMs?: number;
-  /** The maximum allowed timestamp difference *backward in time from the linking event to the
-   * referenced event* in order for a link to be made. Defaults to 0 ms when omitted. */
-  backwardBufferMs?: number;
-  /** Iff true, the two events may be linked even with different sources.
-   * In most cases this should be false, and will default to false when omitted */
-  anySource?: boolean;
-  /** Iff true, the two events may be linked even with different targets.
-   * In most cases this should be false, and will default to false when omitted */
-  anyTarget?: boolean;
-  /** Iff defined, links will also be added from the referenced event to the linking event using this relation. */
-  reverseLinkRelation?: string;
-  /** Iff defined, this predicate will also be called with the candidate events and iff false no link will be made */
-  additionalCondition?: (linkingEvent: AnyEvent, referencedEvent: AnyEvent) => boolean;
-};
 
 export default EventLinkNormalizer;

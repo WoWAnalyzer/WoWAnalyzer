@@ -1,9 +1,5 @@
-import { t } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -42,42 +38,6 @@ class Cultivation extends Analyzer {
 
   get totalHealing() {
     return this.directHealing + this.masteryHealing;
-  }
-
-  get totalPercent() {
-    return this.owner.getPercentageOfTotalHealingDone(this.totalHealing);
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.totalPercent,
-      isLessThan: {
-        minor: 0.06,
-        average: 0.045,
-        major: 0.03,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your healing from <SpellLink id={SPELLS.CULTIVATION.id} /> could be improved. You may have
-          too many healers or doing easy content, thus having low cultivation proc rate. You may
-          considering selecting another talent.
-        </>,
-      )
-        .icon(SPELLS.CULTIVATION.icon)
-        .actual(
-          t({
-            id: 'druid.restoration.suggestions.cultivation.notOptimal',
-            message: `${formatPercentage(this.totalPercent)}% healing`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   statistic() {

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
@@ -7,7 +6,6 @@ import { SubSection } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import { TALENTS_DRUID } from 'common/TALENTS';
@@ -16,6 +14,10 @@ const LIFEBLOOM_HOTS: Spell[] = [SPELLS.LIFEBLOOM_HOT_HEAL, SPELLS.LIFEBLOOM_UND
 const LB_COLOR = '#00bb44';
 const UNDERGROWTH_COLOR = '#dd5500';
 
+/**
+ * Components related to Lifebloom and Lifebloom's uptime.
+ * Includes uptime tracking for Undergrowth talent (allows 2 LB up at once)
+ */
 class Lifebloom extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -79,11 +81,6 @@ class Lifebloom extends Analyzer {
     return this._getTotalUptime(this.lifebloomUptimes);
   }
 
-  /** The percent of the encounter at least one lifebloom was active */
-  get oneLifebloomUptimePercent() {
-    return this.oneLifebloomUptime / this.owner.fightDuration;
-  }
-
   /** The time at two lifeblooms were active */
   get twoLifebloomUptime() {
     return this._getTotalUptime(this.undergrowthUptimes);
@@ -122,8 +119,6 @@ class Lifebloom extends Analyzer {
     return summedTotalLifebloomUptime - this.selfLifebloomUptime;
   }
 
-  // TODO suggestion for two lifebloom uptime with DTL
-
   /** Guide subsection describing the proper usage of Lifebloom */
   get guideSubsection(): JSX.Element {
     return (
@@ -158,44 +153,6 @@ class Lifebloom extends Analyzer {
         )}
         {this.subStatistic()}
       </SubSection>
-    );
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.oneLifebloomUptimePercent,
-      isLessThan: {
-        minor: 0.8,
-        average: 0.6,
-        major: 0.4,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} /> uptime can be improved.{' '}
-          {this.hasUndergrowth ? (
-            <>
-              High uptime is particularly important for taking advantage of{' '}
-              <SpellLink id={TALENTS_DRUID.UNDERGROWTH_RESTORATION_TALENT.id} />
-            </>
-          ) : (
-            ''
-          )}
-        </>,
-      )
-        .icon(SPELLS.LIFEBLOOM_HOT_HEAL.icon)
-        .actual(
-          t({
-            id: 'druid.restoration.suggestions.lifebloom.uptime',
-            message: `${formatPercentage(this.oneLifebloomUptimePercent)}% uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }
 

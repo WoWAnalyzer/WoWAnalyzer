@@ -23,7 +23,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS } from 'analysis/retail/druid/restoration/constants';
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
-import Rejuvenation from 'analysis/retail/druid/restoration/modules/features/Rejuvenation';
+import Rejuvenation from 'analysis/retail/druid/restoration/modules/spells/Rejuvenation';
 import { isFromHardcast } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
