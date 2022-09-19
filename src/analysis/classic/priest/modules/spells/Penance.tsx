@@ -139,7 +139,6 @@ class Penance extends Analyzer {
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip="Rapture is your most important mana regenerating tool. It can only proc once every 12 seconds, but it can be triggered by multiple shields popping at the same time. Try and line up the cooldown with large AOE damage to get the most mana back."
         dropdown={<PenanceTable penanceLogs={this.penanceLogs} combatants={this.combatants} enemies={this.enemies} />}
       >
         <BoringSpellValueText spellId={SPELLS.PENANCE_HEALING}>
