@@ -1,6 +1,6 @@
 import { SpellLink } from 'interface';
 
-import type { Tense, CheckResult, InternalRule } from './index';
+import type { Tense, CheckResult, InternalRule, Violation } from './index';
 
 export function ConditionDescription({
   tense,
@@ -29,6 +29,21 @@ export function ConditionDescription({
   );
 }
 
+export function InefficientCastAnnotation({ violation }: { violation: Violation }) {
+  return (
+    <>
+      {violation.expectedCast.map((spell, index) => (
+        <>
+          {index > 0 ? ' and ' : ''}
+          <SpellLink key={spell.id} id={spell.id} />
+        </>
+      ))}{' '}
+      {violation.expectedCast.length > 1 ? 'were' : 'was'} available and higher priority
+      <ConditionDescription rule={violation.rule} />.
+    </>
+  );
+}
+
 /**
  * Annotate a list of APL violations on the timeline.
  *
@@ -39,18 +54,7 @@ export default function annotateTimeline(violations: CheckResult['violations']) 
   for (const violation of violations) {
     violation.actualCast.meta = {
       isInefficientCast: true,
-      inefficientCastReason: (
-        <>
-          {violation.expectedCast.map((spell, index) => (
-            <>
-              {index > 0 ? ' and ' : ''}
-              <SpellLink key={spell.id} id={spell.id} />
-            </>
-          ))}{' '}
-          {violation.expectedCast.length > 1 ? 'were' : 'was'} available and higher priority
-          <ConditionDescription rule={violation.rule} />.
-        </>
-      ),
+      inefficientCastReason: <InefficientCastAnnotation violation={violation} />,
     };
   }
 }

@@ -172,11 +172,11 @@ export const Section = ({ children, title }: React.PropsWithChildren<{ title: st
   );
 };
 
-type GuideContext = Omit<GuideProps<any>, 'info'> & {
+type GuideContextValue = Omit<GuideProps<any>, 'info'> & {
   info?: GuideProps<any>['info'];
 };
 
-export const GuideContext = React.createContext<GuideContext>({
+export const GuideContext = React.createContext<GuideContextValue>({
   modules: {},
   events: [],
 });
@@ -184,14 +184,14 @@ export const GuideContext = React.createContext<GuideContext>({
 /**
  * Get the player `Info` object from within a Guide section.
  */
-export function useInfo(): GuideContext['info'] {
+export function useInfo(): GuideContextValue['info'] {
   return useContext(GuideContext).info;
 }
 
 /**
  * Get the event list from within a Guide section.
  */
-export function useEvents(): GuideContext['events'] {
+export function useEvents(): GuideContextValue['events'] {
   return useContext(GuideContext).events;
 }
 

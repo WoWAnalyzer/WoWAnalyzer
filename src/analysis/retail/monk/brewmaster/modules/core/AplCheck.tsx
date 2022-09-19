@@ -3,8 +3,8 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { suggestion } from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
-import aplCheck, { build, CheckResult, tenseAlt } from 'parser/shared/metrics/apl';
-import annotateTimeline from 'parser/shared/metrics/apl/annotate';
+import aplCheck, { Apl, build, CheckResult, tenseAlt, Violation } from 'parser/shared/metrics/apl';
+import annotateTimeline, { InefficientCastAnnotation } from 'parser/shared/metrics/apl/annotate';
 import {
   targetsHit,
   buffPresent,
@@ -17,6 +17,9 @@ import {
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 import talents from 'common/TALENTS/monk';
 import { Section, useEvents, useInfo } from 'interface/guide';
+import { RuleDescription } from 'parser/shared/metrics/apl/ChecklistRule';
+import styled from '@emotion/styled';
+import Casts, { isApplicableEvent } from 'interface/report/Results/Timeline/Casts';
 
 export const apl = build([
   SPELLS.BONEDUST_BREW_CAST,
@@ -96,21 +99,155 @@ export default suggestion((events, info) => {
   return undefined;
 });
 
+const EmbeddedTimelineContainer = styled.div<{ width?: number }>`
+  .spell-timeline {
+    position: relative;
+  }
+
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  background: #222;
+  width: ${(props) => (props.width ? `${props.width}px` : '325px')};
+`;
+
+function ViolationTimeline({
+  violation,
+  replaceWithExpected,
+  result: { violations: allViolations },
+}: {
+  violation: Violation;
+  replaceWithExpected?: boolean;
+  result: CheckResult;
+}): JSX.Element {
+  const events = useEvents();
+  const info = useInfo();
+
+  const windowStart = violation.actualCast.timestamp - 5000;
+  const windowEnd = violation.actualCast.timestamp + 5000;
+
+  let relevantEvents = events
+    .filter(({ timestamp }) => timestamp >= windowStart && timestamp <= windowEnd)
+    .filter(isApplicableEvent(info?.playerId ?? 0));
+
+  if (replaceWithExpected) {
+    const spell = violation.expectedCast[0];
+    const ability = {
+      guid: spell.id,
+      name: spell.name,
+      abilityIcon: spell.icon,
+      type: -1,
+    };
+
+    const newEventProps = {
+      ability,
+      meta: {
+        isEnhancedCast: true,
+        enhancedCastReason: <RuleDescription rule={violation.rule} />,
+      },
+    };
+    relevantEvents = relevantEvents.map((event) => {
+      if (event === violation.actualCast) {
+        return { ...event, ...newEventProps };
+      }
+
+      if ('meta' in event) {
+        const otherViolation = allViolations.find((violation) => violation.actualCast === event);
+        if (otherViolation && otherViolation.expectedCast.includes(spell)) {
+          if (otherViolation.expectedCast.length === 1) {
+            // no other spells that we could cast, just remove the annotation
+            // it is possible that there could be another rule that we should
+            // apply, but we don't know of it at this point.
+            return { ...event, meta: undefined };
+          } else {
+            return {
+              ...event,
+              meta: {
+                ...event.meta,
+                inefficientCastReason: (
+                  <InefficientCastAnnotation
+                    violation={{
+                      ...otherViolation,
+                      expectedCast: otherViolation.expectedCast.filter(
+                        (otherSpell) => otherSpell !== spell,
+                      ),
+                    }}
+                  />
+                ),
+              },
+            };
+          }
+        }
+      }
+
+      return event;
+    });
+  }
+
+  return (
+    <>
+      <EmbeddedTimelineContainer>
+        <div className="spell-timeline">
+          <Casts
+            start={Math.max(windowStart, relevantEvents[0].timestamp)}
+            movement={undefined}
+            secondWidth={60}
+            events={relevantEvents}
+          />
+        </div>
+      </EmbeddedTimelineContainer>
+    </>
+  );
+}
+
+const AplRuleList = styled.ol`
+  padding-left: 0;
+`;
+
+/**
+ * Produce a summary of the APL itself. This is just an un-annotated reference.
+ */
+function AplSummary({ apl, results }: { apl: Apl; results: CheckResult }): JSX.Element | null {
+  return (
+    <AplRuleList>
+      {apl.rules
+        .filter(
+          (rule) =>
+            results.successes.some((suc) => suc.rule === rule) ||
+            results.violations.some((v) => v.rule === rule),
+        )
+        .map((rule, index) => (
+          <li key={index}>
+            <RuleDescription rule={rule} />
+          </li>
+        ))}
+    </AplRuleList>
+  );
+}
+
 export function AplSection(): JSX.Element | null {
   const events = useEvents();
   const info = useInfo();
 
-  const { successes, violations } = useMemo(() => info ? check(events, info) : {} as Partial<CheckResult>, [events, info]);
+  const result: CheckResult | undefined = useMemo(() => (info ? check(events, info) : undefined), [
+    events,
+    info,
+  ]);
 
-  if (!info) {
+  if (!info || !result) {
     return null;
   }
-
 
   return (
     <Section title="Rotation">
       Brewmaster Monk uses a <em>priority list</em> for determining which of your offensive
       abilities to cast. <section>TODO BETTER TEXT</section>
+      <AplSummary apl={apl} results={result} />
+      {result.violations.length > 0 && (
+        <>
+          <ViolationTimeline result={result} violation={result.violations[0]} />
+          <ViolationTimeline replaceWithExpected result={result} violation={result.violations[0]} />
+        </>
+      )}
     </Section>
   );
 }

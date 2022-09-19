@@ -131,6 +131,21 @@ function CooldownList({ castEfficiency, cooldowns }: Pick<Props, 'castEfficiency
   );
 }
 
+export function RuleDescription({ rule }: { rule: AplRule }): JSX.Element {
+  return (
+    <>
+      Cast{' '}
+      {spells(rule).map((spell, index) => (
+        <>
+          {index > 0 ? ' or ' : ''}
+          <SpellLink id={spell.id} />
+        </>
+      ))}
+      <ConditionDescription prefix="when" rule={rule} tense={Tense.Present} />
+    </>
+  );
+}
+
 export default function ChecklistRule(props: Props) {
   return (
     <Rule
@@ -156,14 +171,7 @@ export default function ChecklistRule(props: Props) {
                   key={ix}
                   name={
                     <>
-                      <strong>{ix + 1}.</strong> Cast{' '}
-                      {spells(rule).map((spell, index) => (
-                        <>
-                          {index > 0 ? ' or ' : ''}
-                          <SpellLink id={spell.id} />
-                        </>
-                      ))}
-                      <ConditionDescription prefix="when" rule={rule} tense={Tense.Present} />
+                      <strong>{ix}.</strong> <RuleDescription rule={rule} />
                     </>
                   }
                   thresholds={thresh}
