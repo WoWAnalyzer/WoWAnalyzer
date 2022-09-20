@@ -3,8 +3,21 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { suggestion } from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
-import aplCheck, { Apl, build, CheckResult, tenseAlt, Violation } from 'parser/shared/metrics/apl';
-import annotateTimeline, { InefficientCastAnnotation } from 'parser/shared/metrics/apl/annotate';
+import aplCheck, {
+  Apl,
+  build,
+  CheckResult,
+  InternalRule,
+  spells,
+  TargetType,
+  Tense,
+  tenseAlt,
+  Violation,
+} from 'parser/shared/metrics/apl';
+import annotateTimeline, {
+  ConditionDescription,
+  InefficientCastAnnotation,
+} from 'parser/shared/metrics/apl/annotate';
 import {
   targetsHit,
   buffPresent,
@@ -17,9 +30,10 @@ import {
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 import talents from 'common/TALENTS/monk';
 import { Section, useEvents, useInfo } from 'interface/guide';
-import { RuleDescription } from 'parser/shared/metrics/apl/ChecklistRule';
+import { RuleDescription, RuleSpellsDescription } from 'parser/shared/metrics/apl/ChecklistRule';
 import styled from '@emotion/styled';
 import Casts, { isApplicableEvent } from 'interface/report/Results/Timeline/Casts';
+import { Trans } from '@lingui/macro';
 
 export const apl = build([
   SPELLS.BONEDUST_BREW_CAST,
@@ -203,15 +217,164 @@ const AplRuleList = styled.ol`
   padding-left: 0;
 `;
 
+type ClaimData<T> = {
+  claims: Set<Violation>;
+  data: T;
+};
+
+type ViolationExplainer<T> = {
+  claim: (apl: Apl, result: CheckResult) => Array<ClaimData<T>>;
+  render: (claim: ClaimData<T>, apl: Apl, result: CheckResult) => JSX.Element;
+};
+
+type AplViolationExplainers = Record<string, ViolationExplainer<any>>;
+
+/**
+ * Useful default for filtering out spurious / low value explanations. Requires that at least 10 violations are claimed, and at least 40% of rule-related events were violations.
+ */
+const defaultClaimFilter = (
+  result: CheckResult,
+  rule: InternalRule,
+  claims: Set<Violation>,
+): boolean => {
+  const successes = result.successes.filter((suc) => suc.rule === rule).length;
+
+  return claims.size > 10 && claims.size / (successes + claims.size) > 0.4;
+};
+
+const overcastFillers: ViolationExplainer<InternalRule> = {
+  claim: (apl, result) => {
+    // only look for unconditional rules targeting a single spell.
+    const unconditionalRules = apl.rules.filter(
+      (rule) => rule.condition === undefined && rule.spell.type === TargetType.Spell,
+    );
+    const claimsByRule: Map<InternalRule, Set<Violation>> = new Map();
+
+    result.violations.forEach((violation) => {
+      const actualSpellId = violation.actualCast.ability.guid;
+      const fillerRule = unconditionalRules.find((rule) =>
+        spells(rule).some((spell) => spell.id === actualSpellId),
+      );
+      if (fillerRule) {
+        const claims = claimsByRule.get(fillerRule) ?? new Set();
+        claims.add(violation);
+        if (!claimsByRule.has(fillerRule)) {
+          claimsByRule.set(fillerRule, claims);
+        }
+      }
+    });
+
+    return Array.from(claimsByRule.entries())
+      .filter(([rule, claims]) => defaultClaimFilter(result, rule, claims))
+      .map(([rule, claims]) => ({ claims, data: rule }));
+  },
+  render: (claim) => (
+    <Trans id="guide.apl.overcastFillers">
+      You frequently cast <SpellLink id={spells(claim.data)[0].id} /> when more important spells
+      were available.
+    </Trans>
+  ),
+};
+
+const droppedRule: ViolationExplainer<InternalRule> = {
+  claim: (apl, result) => {
+    const claimsByRule: Map<InternalRule, Set<Violation>> = new Map();
+
+    result.violations.forEach((violation) => {
+      const claims = claimsByRule.get(violation.rule) ?? new Set();
+      claims.add(violation);
+
+      if (!claimsByRule.has(violation.rule)) {
+        claimsByRule.set(violation.rule, claims);
+      }
+    });
+
+    return Array.from(claimsByRule.entries())
+      .filter(([rule, claims]) => defaultClaimFilter(result, rule, claims))
+      .map(([rule, claims]) => ({ claims, data: rule }));
+  },
+  render: (claim) => (
+    <Trans id="guide.apl.droppedRule">
+      You frequently skipped casting <RuleSpellsDescription rule={claim.data} />{' '}
+      <ConditionDescription prefix="when" rule={claim.data} tense={Tense.Past} /> in your rotation.
+    </Trans>
+  ),
+};
+
+const defaultExplainers: AplViolationExplainers = {
+  overcastFillers,
+  droppedRule,
+};
+
+function AplViolationExplanations({
+  apl,
+  result,
+  explainers,
+}: {
+  apl: Apl;
+  result: CheckResult;
+  explainers: AplViolationExplainers;
+}): JSX.Element {
+  const claims = Object.entries(explainers)
+    .flatMap(([key, { claim }]) =>
+      claim(apl, result).map((res): [string, ClaimData<any>] => [key, res]),
+    )
+    .sort(([, resA], [, resB]) => resA.claims.size - resB.claims.size);
+
+  const unclaimedViolations = new Set(result.violations);
+
+  let remainingClaimData = claims.map(([key, claimData]): [
+    string,
+    ClaimData<any>,
+    Set<Violation>,
+  ] => [key, claimData, new Set(claimData.claims)]);
+
+  const appliedClaims = [];
+
+  // very inefficient approach, performance hinges on claim list being short
+  while (remainingClaimData.length > 0) {
+    const [key, claimData, remainingClaims] = remainingClaimData.pop()!;
+    for (const violation of remainingClaims) {
+      unclaimedViolations.delete(violation);
+    }
+    appliedClaims.push(explainers[key].render(claimData, apl, result));
+
+    remainingClaimData = remainingClaimData
+      .map((datum) => {
+        for (const violation of remainingClaims) {
+          datum[2].delete(violation);
+        }
+        return datum;
+      })
+      .filter(([, , otherClaims]) => otherClaims.size > 10)
+      .sort(([, , setA], [, , setB]) => setA.size - setB.size);
+  }
+
+  return (
+    <ul>
+      {appliedClaims.map((result, ix) => (
+        <li key={ix}>{result}</li>
+      ))}
+    </ul>
+  );
+}
+
 /**
  * Produce a summary of the APL itself. This is just an un-annotated reference.
  */
 function AplSummary({ apl, results }: { apl: Apl; results: CheckResult }): JSX.Element | null {
+  const castSpells = new Set(
+    results.successes
+      .map((suc) => suc.actualCast.ability.guid)
+      .concat(results.violations.map((v) => v.actualCast.ability.guid)),
+  );
   return (
     <AplRuleList>
       {apl.rules
         .filter(
           (rule) =>
+            (rule.condition === undefined &&
+              spells(rule).some((spell) => castSpells.has(spell.id))) ||
             results.successes.some((suc) => suc.rule === rule) ||
             results.violations.some((v) => v.rule === rule),
         )
@@ -248,6 +411,7 @@ export function AplSection(): JSX.Element | null {
           <ViolationTimeline replaceWithExpected result={result} violation={result.violations[0]} />
         </>
       )}
+      <AplViolationExplanations apl={apl} result={result} explainers={defaultExplainers} />
     </Section>
   );
 }

@@ -131,16 +131,23 @@ function CooldownList({ castEfficiency, cooldowns }: Pick<Props, 'castEfficiency
   );
 }
 
-export function RuleDescription({ rule }: { rule: AplRule }): JSX.Element {
+export function RuleSpellsDescription({ rule }: { rule: AplRule }): JSX.Element {
   return (
     <>
-      Cast{' '}
       {spells(rule).map((spell, index) => (
         <>
           {index > 0 ? ' or ' : ''}
           <SpellLink id={spell.id} />
         </>
       ))}
+    </>
+  );
+}
+
+export function RuleDescription({ rule }: { rule: AplRule }): JSX.Element {
+  return (
+    <>
+      Cast <RuleSpellsDescription rule={rule} />{' '}
       <ConditionDescription prefix="when" rule={rule} tense={Tense.Present} />
     </>
   );

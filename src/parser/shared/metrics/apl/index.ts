@@ -55,7 +55,7 @@ export type StateFor<T> = T extends (...args: any[]) => Condition<infer R> ? R :
  * What kind of thing is being "targeted" by this APL rule. Usually, this is Spell, which means that you want them to cast a particular spell.
  * Sometimes, you will use SpellList instead, which means cast any of a list of spells.
  */
-enum TargetType {
+export enum TargetType {
   /**
    * Cast the specified spell.
    */
