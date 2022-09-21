@@ -114,6 +114,10 @@ export default suggestion((events, info) => {
 const EmbeddedTimelineContainer = styled.div<{ secondWidth?: number; secondsShown?: number }>`
   .spell-timeline {
     position: relative;
+
+    .casts {
+      box-shadow: unset;
+    }
   }
 
   padding: 1rem 2rem;
