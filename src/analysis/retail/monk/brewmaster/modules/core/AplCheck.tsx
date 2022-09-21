@@ -39,7 +39,7 @@ export const apl = build([
   SPELLS.BONEDUST_BREW_CAST,
   {
     spell: talents.KEG_SMASH_BREWMASTER_TALENT,
-    condition: buffPresent(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL),
+    condition: buffPresent(talents.WEAPONS_OF_ORDER_BREWMASTER_TALENT),
   },
   {
     spell: talents.BREATH_OF_FIRE_BREWMASTER_TALENT,
@@ -60,10 +60,7 @@ export const apl = build([
       ),
     ),
   },
-  {
-    spell: talents.KEG_SMASH_BREWMASTER_TALENT,
-    condition: cnd.describe(cnd.not(cnd.hasLegendary(SPELLS.STORMSTOUTS_LAST_KEG)), () => ''),
-  },
+  talents.RISING_SUN_KICK_TALENT,
   [SPELLS.BLACKOUT_KICK_BRM, talents.KEG_SMASH_BREWMASTER_TALENT],
   talents.BREATH_OF_FIRE_BREWMASTER_TALENT,
   {

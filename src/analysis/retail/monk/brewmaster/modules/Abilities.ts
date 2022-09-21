@@ -44,6 +44,20 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: talents.RISING_SUN_KICK_TALENT.id,
+        // TEMPORARY
+        enabled: true,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: (haste) => 10 / (1 + haste),
+        gcd: {
+          static: 1000,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+      },
+      {
         spell: SPELLS.TIGER_PALM.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
@@ -144,7 +158,7 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
-        spell: talents.EXPEL_HARM_TALENT.id,
+        spell: SPELLS.EXPEL_HARM.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 5,
         gcd: {
@@ -235,6 +249,15 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
+      },
+      {
+        spell: talents.SUMMON_WHITE_TIGER_STATUE_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        enabled: combatant.hasTalent(talents.SUMMON_WHITE_TIGER_STATUE_TALENT.id),
+        gcd: {
+          static: 1000,
+        },
+        cooldown: 120,
       },
       {
         spell: talents.PARALYSIS_TALENT.id,

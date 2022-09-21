@@ -33,7 +33,7 @@ export default [
   change(
     date(2021, 5, 23),
     <>
-      Reworked <SpellLink id={talents.EXPEL_HARM_TALENT.id}>Expel Harm</SpellLink> Normalizer to support
+      Reworked <SpellLink id={SPELLS.EXPEL_HARM.id}>Expel Harm</SpellLink> Normalizer to support
       attracted <SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id}>Gift of the Ox Orbs</SpellLink>{' '}
     </>,
     carglass,
