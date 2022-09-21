@@ -1,8 +1,8 @@
-import { useMemo } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { suggestion } from 'parser/core/Analyzer';
-import { EventType } from 'parser/core/Events';
+import { AnyEvent, EventType, HasAbility } from 'parser/core/Events';
 import aplCheck, {
   Apl,
   build,
@@ -22,7 +22,6 @@ import {
   targetsHit,
   buffPresent,
   buffMissing,
-  hasLegendary,
   hasConduit,
   optional,
   hasTalent,
@@ -34,6 +33,8 @@ import { RuleDescription, RuleSpellsDescription } from 'parser/shared/metrics/ap
 import styled from '@emotion/styled';
 import Casts, { isApplicableEvent } from 'interface/report/Results/Timeline/Casts';
 import { Trans } from '@lingui/macro';
+import React from 'react';
+import ProblemList, { ProblemRendererProps } from 'interface/guide/ProblemList';
 
 export const apl = build([
   SPELLS.BONEDUST_BREW_CAST,
@@ -43,7 +44,7 @@ export const apl = build([
   },
   {
     spell: talents.BREATH_OF_FIRE_BREWMASTER_TALENT,
-    condition: hasLegendary(SPELLS.CHARRED_PASSIONS),
+    condition: hasTalent(talents.CHARRED_PASSIONS_BREWMASTER_TALENT),
   },
   {
     spell: talents.KEG_SMASH_BREWMASTER_TALENT,
@@ -110,7 +111,7 @@ export default suggestion((events, info) => {
   return undefined;
 });
 
-const EmbeddedTimelineContainer = styled.div<{ width?: number }>`
+const EmbeddedTimelineContainer = styled.div<{ secondWidth?: number; secondsShown?: number }>`
   .spell-timeline {
     position: relative;
   }
@@ -118,27 +119,36 @@ const EmbeddedTimelineContainer = styled.div<{ width?: number }>`
   padding: 1rem 2rem;
   border-radius: 0.5rem;
   background: #222;
-  width: ${(props) => (props.width ? `${props.width}px` : '325px')};
+
+  box-sizing: content-box;
+  width: ${(props) => {
+    const width = (props.secondWidth ?? 60) * (props.secondsShown ?? 10);
+    return `${width}px`;
+  }};
 `;
 
+/**
+ * Show the cast timeline around a violation. Optionally rewrite the timeline
+ * to cast the expected spell instead.
+ *
+ * The rewriting needs a LOT of work before its 100% accurate as to what you
+ * should do. However, it is generally going to be better to do this
+ * replacement than change nothing.
+ */
 function ViolationTimeline({
   violation,
+  events,
   replaceWithExpected,
   result: { violations: allViolations },
 }: {
+  events: AnyEvent[];
   violation: Violation;
   replaceWithExpected?: boolean;
   result: CheckResult;
 }): JSX.Element {
-  const events = useEvents();
   const info = useInfo();
 
-  const windowStart = violation.actualCast.timestamp - 5000;
-  const windowEnd = violation.actualCast.timestamp + 5000;
-
-  let relevantEvents = events
-    .filter(({ timestamp }) => timestamp >= windowStart && timestamp <= windowEnd)
-    .filter(isApplicableEvent(info?.playerId ?? 0));
+  let relevantEvents = events.filter(isApplicableEvent(info?.playerId ?? 0));
 
   if (replaceWithExpected) {
     const spell = violation.expectedCast[0];
@@ -149,6 +159,15 @@ function ViolationTimeline({
       type: -1,
     };
 
+    // find the event at which we should start shifting things backward
+    const shiftEvent = relevantEvents.find(
+      (event) =>
+        event.timestamp > violation.actualCast.timestamp &&
+        HasAbility(event) &&
+        event.ability.guid === spell.id,
+    );
+    let shiftOffset = -1;
+
     const newEventProps = {
       ability,
       meta: {
@@ -156,50 +175,62 @@ function ViolationTimeline({
         enhancedCastReason: <RuleDescription rule={violation.rule} />,
       },
     };
-    relevantEvents = relevantEvents.map((event) => {
-      if (event === violation.actualCast) {
-        return { ...event, ...newEventProps };
-      }
+    relevantEvents = relevantEvents
+      .filter((event) => !HasAbility(event) || event.ability.guid !== spell.id)
+      .map((event) => {
+        if (event === violation.actualCast) {
+          return { ...event, ...newEventProps };
+        }
 
-      if ('meta' in event) {
-        const otherViolation = allViolations.find((violation) => violation.actualCast === event);
-        if (otherViolation && otherViolation.expectedCast.includes(spell)) {
-          if (otherViolation.expectedCast.length === 1) {
-            // no other spells that we could cast, just remove the annotation
-            // it is possible that there could be another rule that we should
-            // apply, but we don't know of it at this point.
-            return { ...event, meta: undefined };
-          } else {
-            return {
-              ...event,
-              meta: {
-                ...event.meta,
-                inefficientCastReason: (
-                  <InefficientCastAnnotation
-                    violation={{
-                      ...otherViolation,
-                      expectedCast: otherViolation.expectedCast.filter(
-                        (otherSpell) => otherSpell !== spell,
-                      ),
-                    }}
-                  />
-                ),
-              },
-            };
+        let timestamp = event.timestamp;
+        // potentially shift the event back to make up for moving the ability cast
+        if (shiftEvent && timestamp > shiftEvent.timestamp) {
+          if (shiftOffset === -1) {
+            shiftOffset = timestamp - shiftEvent.timestamp;
+          }
+          timestamp -= shiftOffset;
+        }
+
+        if ('meta' in event && event.timestamp > violation.actualCast.timestamp) {
+          const otherViolation = allViolations.find((violation) => violation.actualCast === event);
+          if (otherViolation && otherViolation.expectedCast.includes(spell)) {
+            if (otherViolation.expectedCast.length === 1) {
+              // no other spells that we could cast, just remove the annotation
+              // it is possible that there could be another rule that we should
+              // apply, but we don't know of it at this point.
+              return { ...event, timestamp, meta: undefined };
+            } else {
+              return {
+                ...event,
+                timestamp,
+                meta: {
+                  ...event.meta,
+                  inefficientCastReason: (
+                    <InefficientCastAnnotation
+                      violation={{
+                        ...otherViolation,
+                        expectedCast: otherViolation.expectedCast.filter(
+                          (otherSpell) => otherSpell !== spell,
+                        ),
+                      }}
+                    />
+                  ),
+                },
+              };
+            }
           }
         }
-      }
 
-      return event;
-    });
+        return { ...event, timestamp };
+      });
   }
 
   return (
     <>
-      <EmbeddedTimelineContainer>
+      <EmbeddedTimelineContainer secondWidth={60} secondsShown={10}>
         <div className="spell-timeline">
           <Casts
-            start={Math.max(windowStart, relevantEvents[0].timestamp)}
+            start={relevantEvents[0].timestamp}
             movement={undefined}
             secondWidth={60}
             events={relevantEvents}
@@ -221,10 +252,24 @@ type ClaimData<T> = {
 
 type ViolationExplainer<T> = {
   claim: (apl: Apl, result: CheckResult) => Array<ClaimData<T>>;
+  /**
+   * Render an explanation of the overall claims made.
+   */
   render: (claim: ClaimData<T>, apl: Apl, result: CheckResult) => JSX.Element;
+  /**
+   * Render a description of an individual violation. What was done wrong? What should be done differently?
+   */
+  describer?: (props: {
+    apl: Apl;
+    violation: Violation;
+    result: CheckResult;
+  }) => JSX.Element | null;
 };
 
 type AplViolationExplainers = Record<string, ViolationExplainer<any>>;
+
+const minClaimCount = (result: CheckResult): number =>
+  Math.min(10, Math.floor((result.successes.length + result.violations.length) / 20));
 
 /**
  * Useful default for filtering out spurious / low value explanations. Requires that at least 10 violations are claimed, and at least 40% of rule-related events were violations.
@@ -236,7 +281,7 @@ const defaultClaimFilter = (
 ): boolean => {
   const successes = result.successes.filter((suc) => suc.rule === rule).length;
 
-  return claims.size > 10 && claims.size / (successes + claims.size) > 0.4;
+  return claims.size > minClaimCount(result) && claims.size / (successes + claims.size) > 0.4;
 };
 
 const overcastFillers: ViolationExplainer<InternalRule> = {
@@ -274,7 +319,7 @@ const overcastFillers: ViolationExplainer<InternalRule> = {
 };
 
 const droppedRule: ViolationExplainer<InternalRule> = {
-  claim: (apl, result) => {
+  claim: (_apl, result) => {
     const claimsByRule: Map<InternalRule, Set<Violation>> = new Map();
 
     result.violations.forEach((violation) => {
@@ -296,12 +341,74 @@ const droppedRule: ViolationExplainer<InternalRule> = {
       <ConditionDescription prefix="when" rule={claim.data} tense={Tense.Past} /> in your rotation.
     </Trans>
   ),
+  describer: ({ violation }) => (
+    <Trans id="guide.apl.droppedRule.describer">
+      <SpellLink id={violation.expectedCast[0].id} /> is higher priority than{' '}
+      <SpellLink id={violation.actualCast.ability.guid} /> in your rotation.
+    </Trans>
+  ),
 };
 
 const defaultExplainers: AplViolationExplainers = {
   overcastFillers,
   droppedRule,
 };
+
+const EmbedContainer = styled.div`
+  background: #222;
+  border-radius: 0.5em;
+  padding: 1em 1.5em;
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  align-content: center;
+  align-items: center;
+`;
+
+const ShowMeButton = styled.button`
+  appearance: none;
+  background: #333;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  border: none;
+  box-shadow: 1px 1px 3px #111;
+
+  &:hover {
+    filter: brightness(120%);
+  }
+`;
+
+type SelectedExplanation<T> = {
+  describer: ViolationExplainer<T>['describer'];
+  claimData: ClaimData<T>;
+};
+
+const ExplanationSelectionContext = React.createContext<
+  (selection: SelectedExplanation<any>) => void
+>(() => undefined);
+
+function AplViolationExplanation<T = any>({
+  claimData,
+  describer,
+  children,
+}: {
+  claimData: ClaimData<T>;
+  describer?: ViolationExplainer<T>['describer'];
+  children: React.ReactChild;
+}): JSX.Element {
+  const setSelection = useContext(ExplanationSelectionContext);
+
+  return (
+    <EmbedContainer>
+      <div>{children}</div>
+      <ShowMeButton onClick={() => setSelection?.({ describer, claimData })}>Show Me!</ShowMeButton>
+    </EmbedContainer>
+  );
+}
+
+const ExplanationList = styled.ul`
+  list-style: none;
+  padding-left: 0;
+`;
 
 function AplViolationExplanations({
   apl,
@@ -334,7 +441,12 @@ function AplViolationExplanations({
     for (const violation of remainingClaims) {
       unclaimedViolations.delete(violation);
     }
-    appliedClaims.push(explainers[key].render(claimData, apl, result));
+    const explanation = explainers[key].render(claimData, apl, result);
+    appliedClaims.push(
+      <AplViolationExplanation claimData={claimData} describer={explainers[key].describer}>
+        {explanation}
+      </AplViolationExplanation>,
+    );
 
     remainingClaimData = remainingClaimData
       .map((datum) => {
@@ -343,16 +455,16 @@ function AplViolationExplanations({
         }
         return datum;
       })
-      .filter(([, , otherClaims]) => otherClaims.size > 10)
+      .filter(([, , otherClaims]) => otherClaims.size > minClaimCount(result))
       .sort(([, , setA], [, , setB]) => setA.size - setB.size);
   }
 
   return (
-    <ul>
+    <ExplanationList>
       {appliedClaims.map((result, ix) => (
         <li key={ix}>{result}</li>
       ))}
-    </ul>
+    </ExplanationList>
   );
 }
 
@@ -384,9 +496,72 @@ function AplSummary({ apl, results }: { apl: Apl; results: CheckResult }): JSX.E
   );
 }
 
+function ViolationProblemList<T = any>({
+  describer: DescribeViolation,
+  claimData,
+  apl,
+  result,
+}: SelectedExplanation<T> & { result: CheckResult; apl: Apl }): JSX.Element | null {
+  const events = useEvents();
+  const info = useInfo();
+
+  const renderer = useMemo(
+    () => (props: ProblemRendererProps<Violation>) => (
+      <div>
+        <p>Here's what you did:</p>
+        <ViolationTimeline violation={props.problem.data} events={props.events} result={result} />
+        <p>This should look more like:</p>
+        <ViolationTimeline
+          violation={props.problem.data}
+          events={props.events}
+          result={result}
+          replaceWithExpected
+        />
+        {DescribeViolation && (
+          <DescribeViolation violation={props.problem.data} result={result} apl={apl} />
+        )}
+      </div>
+    ),
+    [DescribeViolation, result, apl],
+  );
+
+  if (!info) {
+    return null;
+  }
+
+  const problems = Array.from(claimData.claims).map((violation) => ({
+    range: {
+      start: violation.actualCast.timestamp,
+      end: violation.actualCast.timestamp,
+    },
+    context: 5000,
+    data: violation,
+  }));
+
+  return (
+    <ProblemList
+      events={events}
+      info={info}
+      renderer={renderer}
+      problems={problems}
+      label="Example"
+    />
+  );
+}
+
+const AplViolationContainer = styled.div`
+  display: grid;
+  grid-template-columns: minmax(auto, 50%) minmax(650px, max-content);
+  grid-gap: 2rem;
+`;
+
 export function AplSection(): JSX.Element | null {
   const events = useEvents();
   const info = useInfo();
+
+  const [selectedExplanation, setSelectedExplanation] = useState<
+    SelectedExplanation<any> | undefined
+  >(undefined);
 
   const result: CheckResult | undefined = useMemo(() => (info ? check(events, info) : undefined), [
     events,
@@ -398,17 +573,18 @@ export function AplSection(): JSX.Element | null {
   }
 
   return (
-    <Section title="Rotation">
-      Brewmaster Monk uses a <em>priority list</em> for determining which of your offensive
-      abilities to cast. <section>TODO BETTER TEXT</section>
-      <AplSummary apl={apl} results={result} />
-      {result.violations.length > 0 && (
-        <>
-          <ViolationTimeline result={result} violation={result.violations[0]} />
-          <ViolationTimeline replaceWithExpected result={result} violation={result.violations[0]} />
-        </>
-      )}
-      <AplViolationExplanations apl={apl} result={result} explainers={defaultExplainers} />
-    </Section>
+    <ExplanationSelectionContext.Provider value={setSelectedExplanation}>
+      <Section title="Rotation">
+        Brewmaster Monk uses a <em>priority list</em> for determining which of your offensive
+        abilities to cast. <section>TODO BETTER TEXT</section>
+        <AplSummary apl={apl} results={result} />
+        <AplViolationContainer>
+          <AplViolationExplanations apl={apl} result={result} explainers={defaultExplainers} />
+          {selectedExplanation && (
+            <ViolationProblemList {...selectedExplanation} result={result} apl={apl} />
+          )}
+        </AplViolationContainer>
+      </Section>
+    </ExplanationSelectionContext.Provider>
   );
 }

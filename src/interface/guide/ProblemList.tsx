@@ -201,11 +201,13 @@ export default function ProblemList<T>({
   problems,
   events,
   info,
+  label,
 }: {
   problems: Array<Problem<T>>;
   events: AnyEvent[];
   renderer: ProblemRenderer<T>;
   info: Info;
+  label?: string;
 }) {
   const sortedProblems = useMemo(
     () => problems.sort((a, b) => (b.severity ?? 0) - (a.severity ?? 0)),
@@ -230,7 +232,7 @@ export default function ProblemList<T>({
     <div className="problem-list-container">
       <header>
         <span>
-          Problem Point {problemIndex + 1} of {sortedProblems.length}
+          {label ?? 'Problem Point'} {problemIndex + 1} of {sortedProblems.length}
         </span>
         <div className="btn-group">
           <button
