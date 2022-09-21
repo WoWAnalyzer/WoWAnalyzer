@@ -55,6 +55,7 @@ class HotTrackerRestoDruid extends HotTracker {
         return; // must give a mastery stack and not be the current heal
       }
 
+      // TODO handle multi-stack LB here
       const tracker = trackersOnTarget[nid];
       const otherAttributions = this._getActiveAttributions(tracker);
       // attribute to the other HoT the healing it caused here due to its mastery stack
