@@ -6,9 +6,10 @@ import { ItemLink, SpellLink } from 'interface';
 import Icon from 'interface/Icon';
 import { makePlainUrl } from 'interface/makeAnalyzerUrl';
 import SpellIcon from 'interface/SpellIcon';
-import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
+import { Item } from 'parser/core/Events';
+import Spell from 'common/SPELLS/Spell';
 
 const TRINKET_SLOTS = [GEAR_SLOTS.TRINKET1, GEAR_SLOTS.TRINKET2];
 
@@ -20,30 +21,44 @@ const styles = {
   },
 };
 
-class CharacterParsesList extends PureComponent {
-  static propTypes = {
-    parses: PropTypes.array.isRequired,
-    class: PropTypes.string.isRequired,
-    metric: PropTypes.string.isRequired,
-  };
+export interface Parse {
+  name: string;
+  spec: string;
+  difficulty: number;
+  report_code: string;
+  report_fight: number;
+  historical_percent: number;
+  persecondamount: number;
+  start_time: number;
+  character_name: string;
+  talents: Spell[];
+  gear: Item[];
+  legendaryEffects: Spell[];
+  advanced: boolean;
+}
 
-  constructor(props) {
+interface CharacterParsesListProps {
+  parses: Parse[];
+  class: string;
+  metric: string;
+}
+
+class CharacterParsesList extends PureComponent<CharacterParsesListProps> {
+  constructor(props: CharacterParsesListProps) {
     super(props);
     this.renderLegendaryEffect = this.renderLegendaryEffect.bind(this);
     this.renderItem = this.renderItem.bind(this);
   }
 
-  iconPath(specName) {
+  iconPath(specName: string) {
     return `/specs/${this.props.class.replace(' ', '')}-${specName.replace(' ', '')}.jpg`;
   }
 
-  itemFilter(item, index) {
+  itemFilter(item: Item, index: number) {
     return TRINKET_SLOTS.includes(index);
   }
-  renderLegendaryEffect(
-    /** @type {{ name: string, id: number, icon: string }} */
-    { id, icon },
-  ) {
+
+  renderLegendaryEffect({ id, icon }: { name: string; id: number; icon: string }) {
     return (
       <SpellLink key={id} id={id} icon={false}>
         <Icon
@@ -56,9 +71,9 @@ class CharacterParsesList extends PureComponent {
       </SpellLink>
     );
   }
-  renderItem(item) {
+  renderItem(item: Item) {
     return (
-      <ItemLink key={item.id} id={item.id} className={item.quality} icon={false}>
+      <ItemLink key={item.id} id={item.id} className={item.quality.toString()} icon={false}>
         <Icon
           icon={item.icon}
           style={{
@@ -69,7 +84,8 @@ class CharacterParsesList extends PureComponent {
       </ItemLink>
     );
   }
-  formatPerformance(elem) {
+
+  formatPerformance(elem: Parse) {
     const { metric } = this.props;
     return `${formatNumber(elem.persecondamount)} ${metric.toLocaleUpperCase()} (${formatPercentage(
       elem.historical_percent / 100,
@@ -84,7 +100,7 @@ class CharacterParsesList extends PureComponent {
         {parses.map((elem) => {
           const url = makePlainUrl(
             elem.report_code,
-            elem.report_fight,
+            elem.report_fight.toString(),
             elem.difficulty + ' ' + elem.name,
             elem.advanced ? elem.character_name : '',
           );

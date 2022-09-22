@@ -1,6 +1,7 @@
 import REALMS from 'game/REALMS';
 
 import makeUrl from './makeUrl';
+import { isSupportedRegion } from 'common/regions';
 
 export interface QueryParams {
   [key: string]: string | number | boolean | undefined;
@@ -22,7 +23,7 @@ export function makeCharacterApiUrl(
   if (characterId) {
     parts.push(characterId.toString());
   }
-  if (region && realm && name) {
+  if (isSupportedRegion(region) && realm && name) {
     const realmSlug = REALMS[region as 'EU' | 'US' | 'KR' | 'TW']?.find(
       (item) => item.name === realm,
     )?.slug;
