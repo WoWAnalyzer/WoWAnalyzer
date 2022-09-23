@@ -9,12 +9,12 @@ import HotAttributor from 'analysis/retail/druid/restoration/modules/core/hottra
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 /**
- * **Unending Growth**
+ * **Luxuriant Soil**
  * Spec Talent Tier 9 - 2 Points
  *
  * Rejuvenation healing has a 1%/2% chance to create a new Rejuvenation on a nearby target.
  */
-class UnendingGrowth extends Analyzer {
+class LuxuriantSoil extends Analyzer {
   static dependencies = {
     hotAttributor: HotAttributor,
   };
@@ -23,13 +23,11 @@ class UnendingGrowth extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.UNENDING_GROWTH_RESTORATION_TALENT,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.LUXURIANT_SOIL_RESTORATION_TALENT);
   }
 
   get procs() {
-    return this.hotAttributor.unendingGrowthAttrib.procs;
+    return this.hotAttributor.luxuriantSoilAttrib.procs;
   }
 
   get procsPerMinute() {
@@ -37,7 +35,7 @@ class UnendingGrowth extends Analyzer {
   }
 
   get healing() {
-    return this.hotAttributor.unendingGrowthAttrib.healing;
+    return this.hotAttributor.luxuriantSoilAttrib.healing;
   }
 
   statistic() {
@@ -61,7 +59,7 @@ class UnendingGrowth extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.UNENDING_GROWTH_RESTORATION_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.LUXURIANT_SOIL_RESTORATION_TALENT.id}>
           <ItemPercentHealingDone amount={this.healing} />
           <br />
         </BoringSpellValueText>
@@ -70,4 +68,4 @@ class UnendingGrowth extends Analyzer {
   }
 }
 
-export default UnendingGrowth;
+export default LuxuriantSoil;

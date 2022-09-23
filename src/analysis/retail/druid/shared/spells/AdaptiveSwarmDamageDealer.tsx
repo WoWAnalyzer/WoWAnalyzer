@@ -42,7 +42,7 @@ class AdaptiveSwarmDamageDealer extends AdaptiveSwarm {
       <Statistic
         size="flexible"
         position={STATISTIC_ORDER.CORE(0)}
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             This is the sum of the direct damage from Adaptive Swarm and the damage enabled by its

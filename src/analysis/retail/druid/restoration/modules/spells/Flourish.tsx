@@ -57,10 +57,9 @@ class Flourish extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    // With the enhancing talent (name TBD), Convoke the Spirits can cast a Flourish even if the player isn't talented for it
     this.active =
       this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_RESTORATION_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS_DRUID.INVIGORATE_RESTORATION_TALENT); // TODO double check this is the correct talent
+      this.selectedCombatant.hasTalent(TALENTS_DRUID.CENARIUS_GUIDANCE_RESTORATION_TALENT);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(FLOURISH_INCREASED_RATE),

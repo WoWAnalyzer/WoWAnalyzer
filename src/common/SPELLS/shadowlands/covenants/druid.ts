@@ -77,19 +77,19 @@ const covenants = spellIndexableList({
   //endregion
 
   //region Necrolord
-  ADAPTIVE_SWARM: {
+  ADAPTIVE_SWARM_SHADOWLANDS: {
     // cast
     id: 325727,
     name: 'Adaptive Swarm',
     icon: 'ability_maldraxxus_druid',
   },
-  ADAPTIVE_SWARM_HEAL: {
+  ADAPTIVE_SWARM_HEAL_SHADOWLANDS: {
     // buff, heal
     id: 325748,
     name: 'Adaptive Swarm',
     icon: 'ability_maldraxxus_druid',
   },
-  ADAPTIVE_SWARM_DAMAGE: {
+  ADAPTIVE_SWARM_DAMAGE_SHADOWLANDS: {
     // debuff, damage
     id: 325733,
     name: 'Adaptive Swarm',
@@ -98,7 +98,7 @@ const covenants = spellIndexableList({
   //endregion
 
   //region Night Fae
-  CONVOKE_SPIRITS: {
+  CONVOKE_SPIRITS_SHADOWLANDS: {
     id: 323764,
     name: 'Convoke the Spirits',
     icon: 'ability_ardenweald_druid',

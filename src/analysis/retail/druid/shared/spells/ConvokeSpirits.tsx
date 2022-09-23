@@ -387,7 +387,7 @@ class ConvokeSpirits extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={this.baseTooltip}
         dropdown={this.baseTable}
       >

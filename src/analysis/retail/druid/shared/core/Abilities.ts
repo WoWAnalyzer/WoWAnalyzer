@@ -8,9 +8,6 @@ import { hastedCooldown } from 'common/hastedCooldown';
 
 export const druidGcd = (c: Combatant) => (c.hasBuff(SPELLS.CAT_FORM.id) ? 1000 : 1500);
 
-// TODO Rotational on General tree: Shred, FB, Rake, Thrash, Rip, Swipe, Maul,
-//             Rejuvenation, Swiftmend, Regrowth, Wild Growth, Wrath, Starfire, Starsurge,
-//             Sunfire
 /**
  * NON-ROTATIONAL abilities from base spell list and from class talent tree are here.
  *

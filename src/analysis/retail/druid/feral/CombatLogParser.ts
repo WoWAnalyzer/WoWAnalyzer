@@ -1,7 +1,6 @@
 import ActiveDruidForm from 'analysis/retail/druid/shared/core/ActiveDruidForm';
 import DraughtOfDeepFocus from 'analysis/retail/druid/shared/spells/DraughtOfDeepFocus';
 import RavenousFrenzy from 'analysis/retail/druid/shared/spells/RavenousFrenzy';
-import { SinfulHysteria } from 'analysis/retail/druid/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import Abilities from './modules/Abilities';
@@ -68,21 +67,17 @@ class CombatLogParser extends CoreCombatLogParser {
     // talents
     moonfireUptime: MoonfireUptimeAndSnapshots,
     bloodtalons: Bloodtalons,
+    apexPredatorsCraving: ApexPredatorsCraving,
+    convokeSpirits: ConvokeSpiritsFeral,
+    draughtOfDeepFocus: DraughtOfDeepFocus,
+    adaptiveSwarm: AdaptiveSwarmFeral,
+    ravenousFrenzy: RavenousFrenzy,
+    berserkBoosts: BerserkBoosts,
 
     // resources
     comboPointTracker: ComboPointTracker,
     comboPointDetails: ComboPointDetails,
     finisherUse: FinisherUse,
-
-    // shadowlands
-    apexPredatorsCraving: ApexPredatorsCraving,
-    convokeSpirits: ConvokeSpiritsFeral,
-    draughtOfDeepFocus: DraughtOfDeepFocus,
-    frenzyband: BerserkBoosts,
-    adaptiveSwarm: AdaptiveSwarmFeral,
-    sinfulHysteria: SinfulHysteria,
-    ravenousFrenzy: RavenousFrenzy,
-    berserkBoosts: BerserkBoosts,
   };
 }
 

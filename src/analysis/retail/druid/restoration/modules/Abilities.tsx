@@ -7,6 +7,7 @@ import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../constants';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { hastedCooldown } from 'common/hastedCooldown';
 
+// TODO add missing talents
 class Abilities extends CoreAbilities {
   constructor(...args: ConstructorParameters<typeof CoreAbilities>) {
     super(...args);
@@ -16,32 +17,7 @@ class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
-      {
-        spell: SPELLS.TRANQUILITY_CAST.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.TRANQUILITY_RESTORATION_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: combatant.hasTalent(TALENTS_DRUID.INNER_PEACE_RESTORATION_TALENT.id) ? 120 : 180,
-        gcd: {
-          base: 1500,
-        },
-        healSpellIds: [SPELLS.TRANQUILITY_HEAL.id],
-      },
-      {
-        spell: SPELLS.NATURES_SWIFTNESS.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.NATURES_SWIFTNESS_RESTORATION_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown:
-          60 - combatant.getTalentRank(TALENTS_DRUID.READY_FOR_ANYTHING_RESTORATION_TALENT) * 12,
-        gcd: null,
-      },
-      {
-        spell: SPELLS.IRONBARK.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.IRONBARK_RESTORATION_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown:
-          90 - combatant.getTalentRank(TALENTS_DRUID.IMPROVED_IRONBARK_RESTORATION_TALENT) * 20,
-        gcd: null,
-      },
+      // Rotational
       {
         spell: TALENTS_DRUID.CENARION_WARD_RESTORATION_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_DRUID.CENARION_WARD_RESTORATION_TALENT.id),
@@ -51,15 +27,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         healSpellIds: [SPELLS.CENARION_WARD_HEAL.id],
-      },
-      {
-        spell: TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
-        gcd: {
-          base: 1500,
-        },
       },
       {
         spell: SPELLS.WILD_GROWTH.id,
@@ -95,15 +62,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id),
-        cooldown: 180,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.SWIFTMEND.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 15,
@@ -130,14 +88,89 @@ class Abilities extends CoreAbilities {
         healSpellIds: [SPELLS.LIFEBLOOM_BLOOM_HEAL.id],
       },
       {
+        spell: SPELLS.ADAPTIVE_SWARM.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_RESTORATION_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 25,
+        gcd: {
+          base: 1500,
+        },
+      },
+      // Cooldowns
+      {
+        spell: SPELLS.TRANQUILITY_CAST.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.TRANQUILITY_RESTORATION_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: combatant.hasTalent(TALENTS_DRUID.INNER_PEACE_RESTORATION_TALENT.id) ? 120 : 180,
+        gcd: {
+          base: 1500,
+        },
+        healSpellIds: [SPELLS.TRANQUILITY_HEAL.id],
+      },
+      {
+        spell: SPELLS.NATURES_SWIFTNESS.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.NATURES_SWIFTNESS_RESTORATION_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown:
+          60 - combatant.getTalentRank(TALENTS_DRUID.PASSING_SEASONS_RESTORATION_TALENT) * 12,
+        gcd: null,
+      },
+      {
         spell: TALENTS_DRUID.OVERGROWTH_RESTORATION_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_DRUID.OVERGROWTH_RESTORATION_TALENT.id),
-        category: SPELL_CATEGORY.ROTATIONAL,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         gcd: {
           base: 1500,
         },
       },
+      {
+        spell: TALENTS_DRUID.INVIGORATE_RESTORATION_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.INVIGORATE_RESTORATION_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 45,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.IRONBARK.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.IRONBARK_RESTORATION_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown:
+          90 - combatant.getTalentRank(TALENTS_DRUID.IMPROVED_IRONBARK_RESTORATION_TALENT) * 20,
+        gcd: null,
+      },
+      {
+        spell: TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.FLOURISH_RESTORATION_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 90,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 180,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.CONVOKE_SPIRITS.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_RESTORATION_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: combatant.hasTalent(TALENTS_DRUID.CENARIUS_GUIDANCE_RESTORATION_TALENT)
+          ? 60
+          : 120,
+        gcd: {
+          base: 1500,
+        },
+      },
+      // Utility
       {
         spell: SPELLS.NATURES_CURE.id,
         category: SPELL_CATEGORY.OTHERS,

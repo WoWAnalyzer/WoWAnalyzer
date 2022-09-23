@@ -111,6 +111,12 @@ const spells = spellIndexableList({
     name: 'Heart of the Wild',
     icon: 'spell_holy_blessingofagility',
   },
+  CONVOKE_SPIRITS: {
+    // this is the ID for each spec's talent as well - this ID is used for the Cast and the Buff
+    id: 391528,
+    name: 'Convoke the Spirits',
+    icon: 'ability_ardenweald_druid',
+  },
 
   // shared items / conduits
 
@@ -812,12 +818,14 @@ const spells = spellIndexableList({
     name: 'Thrash',
     icon: 'spell_druid_thrash',
   },
+  // this is the spell for the cast and the buff
   BERSERK: {
     id: 106951,
     name: 'Berserk',
     icon: 'ability_druid_berserk',
   },
-  BERSERK_BUFF: {
+  // this is the spell for the combo point refund (anything else?)
+  BERSERK_ENERGIZE: {
     id: 343216,
     name: 'Berserk',
     icon: 'ability_druid_berserk',
@@ -934,15 +942,27 @@ const spells = spellIndexableList({
     name: 'Apex Predator',
     icon: 'ability_druid_primaltenacity',
   },
-  FRENZIED_ASSAULT: {
-    // DoT procced by Frenzyband legendary
+  // DoT procced by Frenzyband legendary
+  FRENZIED_ASSAULT_SHADOWLANDS: {
     id: 340056,
     name: 'Frenzied Assault',
     icon: 'ability_deathwing_bloodcorruption_earth',
   },
-  APEX_PREDATORS_CRAVING_BUFF: {
+  // DoT procced by the "Berserk: Frenzy" talent
+  FRENZIED_ASSAULT: {
+    id: 391140,
+    name: 'Frenzied Assault',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+  },
+  APEX_PREDATORS_CRAVING_BUFF_SHADOWLANDS: {
     // Buff procced by Apex Predator's Craving legendary
     id: 339140,
+    name: "Apex Predator's Craving",
+    icon: 'ability_druid_primaltenacity',
+  },
+  APEX_PREDATORS_CRAVING_BUFF: {
+    // Buff procced by Apex Predator's Craving talent
+    id: 391882,
     name: "Apex Predator's Craving",
     icon: 'ability_druid_primaltenacity',
   },
@@ -951,6 +971,24 @@ const spells = spellIndexableList({
     id: 340698,
     name: 'Sudden Ambush',
     icon: 'ability_hunter_catlikereflexes',
+  },
+  ADAPTIVE_SWARM: {
+    // cast
+    id: 391888,
+    name: 'Adaptive Swarm',
+    icon: 'ability_maldraxxus_druid',
+  },
+  ADAPTIVE_SWARM_HEAL: {
+    // buff, heal
+    id: 391891,
+    name: 'Adaptive Swarm',
+    icon: 'ability_maldraxxus_druid',
+  },
+  ADAPTIVE_SWARM_DAMAGE: {
+    // debuff, damage
+    id: 391889,
+    name: 'Adaptive Swarm',
+    icon: 'ability_maldraxxus_druid',
   },
 });
 

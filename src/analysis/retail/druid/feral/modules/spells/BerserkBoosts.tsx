@@ -127,7 +127,6 @@ class BerserkBoosts extends Analyzer {
     }
   }
 
-  // TODO will this be the same damage ID in DF?
   get totalDotDamage() {
     return this.abilityTracker.getAbility(SPELLS.FRENZIED_ASSAULT.id).damageEffective;
   }
@@ -151,12 +150,11 @@ class BerserkBoosts extends Analyzer {
             {this.hasBoth && <br />}
             {this.hasFrenzy && (
               <>
-                <SpellIcon id={TALENTS_DRUID.BERSERK_FRENZY_FERAL_TALENT.id} />
+                <SpellIcon id={SPELLS.FRENZIED_ASSAULT.id} />{' '}
                 <img src="/img/sword.png" alt="Damage" className="icon" />{' '}
                 {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDotDamage))} %{' '}
                 <small>
-                  {formatNumber((this.totalDotDamage / this.owner.fightDuration) * 1000)} DPS from
-                  DoT
+                  {formatNumber((this.totalDotDamage / this.owner.fightDuration) * 1000)} DPS
                 </small>
               </>
             )}

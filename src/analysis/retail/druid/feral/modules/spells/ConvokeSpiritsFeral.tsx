@@ -18,7 +18,7 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
         wide
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             <strong>
