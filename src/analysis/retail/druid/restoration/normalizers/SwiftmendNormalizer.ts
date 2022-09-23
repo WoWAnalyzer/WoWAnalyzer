@@ -9,6 +9,7 @@ import {
   HasAbility,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 const REMOVE_BUFFER_MS = 50;
 
@@ -33,6 +34,10 @@ const EVENT_LINKS: EventLink[] = [
 class SwiftmendNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, EVENT_LINKS);
+    // with VI, Swiftmend doesn't remove HoTs - disable this to avoid false positives
+    this.active = !this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.VERDANT_INFUSION_RESTORATION_TALENT,
+    );
   }
 }
 

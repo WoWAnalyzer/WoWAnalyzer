@@ -3,9 +3,12 @@ import Analyzer from 'parser/core/Analyzer';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import UptimeMultiBarStatistic from 'parser/ui/UptimeMultiBarStatistic';
 
-import Efflorescence from './Efflorescence';
-import Lifebloom from './Lifebloom';
+import Efflorescence from 'analysis/retail/druid/restoration/modules/spells/Efflorescence';
+import Lifebloom from 'analysis/retail/druid/restoration/modules/spells/Lifebloom';
 
+/**
+ * Holder box for displaying lifebloom and efflo uptime together
+ */
 class LifebloomAndEffloUptime extends Analyzer {
   static dependencies = {
     lifebloom: Lifebloom,

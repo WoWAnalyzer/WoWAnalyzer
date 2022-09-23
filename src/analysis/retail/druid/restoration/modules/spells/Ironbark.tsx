@@ -15,6 +15,8 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 const IRONBARK_BASE_DR = 0.2;
 const IRONBARK_HOT_BOOST = 0.2;
 
+// TODO the healing increase during Ironbark is now part of a separate talent, Stonebark.
+//      Need to properly handle that, and probably also handle Regenrative Heartwood.
 /**
  * Ironbark -
  * The target's skin becomes as tough as Ironwood, reducing damage taken by 20%
@@ -64,6 +66,9 @@ class Ironbark extends Analyzer {
     }
   }
 
+  /** We need the damage taken by the target during Ironbark in order to calculate the damage
+   *  reduction, which isn't present in the main event stream we have. This forms and sends the
+   *  required custom query */
   loadDamageTakenDuringIronbark() {
     fetchWcl(`report/tables/damage-taken/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,

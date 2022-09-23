@@ -132,7 +132,7 @@ abstract class HotTracker extends Analyzer {
    * Provides an attribution for a HoT application. All healing done by the HoT will be tallied
    * to the given attribution object.
    *
-   * Typically this will be added at the same time the HoT is applied. In order for an Attribution
+   * Typically, this will be added at the same time the HoT is applied. In order for an Attribution
    * to be addable, the Tracker for the given HoT must already be present. This means the module
    * adding this attribution MUST come after HotTracker in the processing order.
    *

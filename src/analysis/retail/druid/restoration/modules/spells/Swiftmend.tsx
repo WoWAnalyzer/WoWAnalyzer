@@ -1,14 +1,17 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, EventType, HealEvent } from 'parser/core/Events';
+import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import { PerformanceBoxRow } from 'parser/ui/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
-import { getHeals, isFromHardcast } from '../../normalizers/CastLinkNormalizer';
-import { getRemovedHot } from '../../normalizers/SwiftmendNormalizer';
-import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
+import {
+  getDirectHeal,
+  isFromHardcast,
+} from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import { getRemovedHot } from 'analysis/retail/druid/restoration/normalizers/SwiftmendNormalizer';
+import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 const DEBUG = true;
@@ -43,7 +46,7 @@ class Swiftmend extends Analyzer {
   hasSotf: boolean;
   /** If player has Reforestation, so we can track justification of casts */
   hasReforestation: boolean;
-  /** Number of procs player has from Swiftmend (between VI, SotF, and EI) */
+  /** Number of procs player has from Swiftmend (between VI, SotF, and Reforestation) */
   numProcs: number;
   /** Info about each Swiftmend cast */
   swiftmendCastInfo: CastInfo[] = [];
@@ -80,15 +83,14 @@ class Swiftmend extends Analyzer {
 
   onSwiftmendCast(event: CastEvent) {
     const timestamp = event.timestamp;
-    const linkedHeals = getHeals(event);
+    const directHeal = getDirectHeal(event);
     let targetHealthPercent = undefined;
-    if (linkedHeals.length > 0 && linkedHeals[0].type === EventType.Heal) {
+    if (directHeal) {
       // technically the amount absorbed shouldn't be counted when calculating health before heal,
       // but because heal absorbs are important to remove we'll consider this legit triage
-      const healEvent = linkedHeals[0];
-      const effectiveHealing = healEvent.amount + (healEvent.absorbed || 0);
-      const hitPointsBeforeHeal = healEvent.hitPoints - effectiveHealing;
-      targetHealthPercent = hitPointsBeforeHeal / healEvent.maxHitPoints;
+      const effectiveHealing = directHeal.amount + (directHeal.absorbed || 0);
+      const hitPointsBeforeHeal = directHeal.hitPoints - effectiveHealing;
+      targetHealthPercent = hitPointsBeforeHeal / directHeal.maxHitPoints;
     }
     const targetName = this.combatants.getEntity(event)?.name;
 

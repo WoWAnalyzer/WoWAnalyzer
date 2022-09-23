@@ -24,7 +24,7 @@ const BUFFER_MS = 50;
 // TODO also track the splash due to Feral Frenzy from free bites (and the Sabertooth rip boost??)
 /**
  * **Apex Predator's Craving**
- * Runecarving Legendary
+ * Spec Talent
  *
  * Rip damage has a 4% chance to make your next Ferocious Bite free and deal the maximum damage.
  */
@@ -131,7 +131,7 @@ class ApexPredatorsCraving extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             This is the damage done by the free <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> procced

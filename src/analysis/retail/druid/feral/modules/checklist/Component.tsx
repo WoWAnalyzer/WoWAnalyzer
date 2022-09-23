@@ -378,11 +378,6 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
       {combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_FERAL_TALENT) && (
         <CastEfficiencyRequirement spell={TALENTS_DRUID.CONVOKE_THE_SPIRITS_FERAL_TALENT.id} />
       )}
-      {combatant.hasTalent(TALENTS_DRUID.HEART_OF_THE_WILD_TALENT.id) && (
-        <CastEfficiencyRequirement
-          spell={TALENTS_DRUID.HEART_OF_THE_WILD_TALENT.id}
-        /> /* TODO double check this ID! */
-      )}
       {combatant.race === RACES.NightElf && (
         <Requirement
           name={<SpellLink id={SPELLS.SHADOWMELD.id} />}

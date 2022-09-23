@@ -1,11 +1,9 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
 import { SubSection } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AnyEvent, CastEvent, EventType, HealEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import BoringValue from 'parser/ui/BoringValueText';
@@ -13,7 +11,7 @@ import { PerformanceBoxRow } from 'parser/ui/PerformanceBoxRow';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { getHeals } from '../../normalizers/CastLinkNormalizer';
+import { getHeals } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 
 /** Number of targets WG must effectively heal in order to be efficient */
 const RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD = 3;
@@ -127,61 +125,12 @@ class WildGrowth extends Analyzer {
     });
   }
 
-  get effectiveCasts() {
-    return this.totalCasts - this.ineffectiveCasts;
-  }
-
   get averageEffectiveHits() {
     return this.totalEffectiveHits / this.totalCasts || 0;
   }
 
-  // different from totalCasts because this doesn't consider tallying - used only for ratio vs rejuv
-  get actualWgCasts() {
-    return this.abilityTracker.getAbility(SPELLS.WILD_GROWTH.id).casts || 0;
-  }
-
   get actualRejuvCasts() {
     return this.abilityTracker.getAbility(SPELLS.REJUVENATION.id).casts || 0;
-  }
-
-  get wgsPerRejuv() {
-    return this.actualWgCasts / this.actualRejuvCasts || 0;
-  }
-
-  get percentIneffectiveCasts() {
-    return this.ineffectiveCasts / this.totalCasts || 0;
-  }
-
-  get percentTooFewTargetCasts() {
-    return this.tooFewHitsCasts / this.totalCasts || 0;
-  }
-
-  get percentTooMuchOverhealCasts() {
-    return this.tooMuchOverhealCasts / this.totalCasts || 0;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.wgsPerRejuv,
-      isLessThan: {
-        minor: 0.12,
-        average: 0.08,
-        major: 0.03,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  get suggestionPercentIneffectiveCastsThresholds() {
-    return {
-      actual: this.percentIneffectiveCasts,
-      isGreaterThan: {
-        minor: 0.0,
-        average: 0.15,
-        major: 0.35,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
   }
 
   /** Guide subsection describing the proper usage of Wild Growth */
@@ -212,51 +161,6 @@ class WildGrowth extends Analyzer {
         </small>
         <PerformanceBoxRow values={castPerfBoxes} />
       </SubSection>
-    );
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionPercentIneffectiveCastsThresholds).addSuggestion((suggest) =>
-      suggest(
-        <>
-          You sometimes hit too few injured targets with your{' '}
-          <SpellLink id={SPELLS.WILD_GROWTH.id} /> casts. Wild Growth is not mana efficient when
-          hitting few targets, you should only cast it when you can hit at least{' '}
-          {RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD} wounded targets. Make sure you are not casting
-          on a primary target isolated from the raid, as it can only hit targets within 30 yds of
-          the primary. Make sure you are not pre-casting on targets before they are hurt, as Wild
-          Growth is a brief HoT and most of its healing is frontloaded.
-        </>,
-      )
-        .icon(SPELLS.WILD_GROWTH.icon)
-        .actual(
-          t({
-            id: 'druid.restoration.suggestions.wildgrowth.tooFewTargets',
-            message: `${formatPercentage(
-              this.percentIneffectiveCasts,
-              0,
-            )}% of your casts were effective on fewer than ${RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD} targets.`,
-          }),
-        )
-        .recommended(
-          `never casting on fewer than ${RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD} wounded targets is recommended`,
-        ),
-    );
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink id={SPELLS.WILD_GROWTH.id} /> to rejuv ratio can be improved, try to cast
-          more wild growths if possible as it is usually more efficient.
-        </>,
-      )
-        .icon(SPELLS.WILD_GROWTH.icon)
-        .actual(
-          t({
-            id: 'druid.restoration.suggestions.wildgrowth.rejuvenationRatio',
-            message: `${this.actualWgCasts} WGs / ${this.actualRejuvCasts} rejuvs`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }
 

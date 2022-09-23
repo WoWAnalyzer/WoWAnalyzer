@@ -9,9 +9,12 @@ import HealingValue from 'parser/shared/modules/HealingValue';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 import { DRUID_HEAL_INFO, getSpellInfo } from '../../SpellInfo';
+import { TALENTS_DRUID } from 'common/TALENTS';
+import SPELLS from 'common/SPELLS';
 
 const DEBUG = false;
 
+// TODO - LB extra stack handling is very "special case-y", better way to do it? Mapping of stacks?
 /**
  * Resto Druid's "Mastery: Harmony" -
  * Your healing is increased by X% for each of your Restoration heal over time effects on the target.
@@ -40,8 +43,20 @@ class Mastery extends Analyzer {
   // Tracks healing attributable to mastery buffs
   buffAttributions: MasteryAttributionsByBuff = {};
 
+  /** Number of extra stacks Lifebloom gives due to the talent */
+  extraLbStacks: number;
+  /** spellId of Lifebloom (changes based on if Undergrowth is picked) */
+  lbBuffId: number;
+
   constructor(options: Options) {
     super(options);
+
+    this.extraLbStacks = this.selectedCombatant.getTalentRank(
+      TALENTS_DRUID.HARMONIOUS_BLOOMING_RESTORATION_TALENT,
+    );
+    this.lbBuffId = this.selectedCombatant.hasTalent(TALENTS_DRUID.UNDERGROWTH_RESTORATION_TALENT)
+      ? SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id
+      : SPELLS.LIFEBLOOM_HOT_HEAL.id;
 
     // inits spellAttributions with an entry for each HoT that works with Mastery
     Object.entries(DRUID_HEAL_INFO).forEach(([guid, buff]: [string, HealerSpellInfo]) => {
@@ -207,7 +222,9 @@ class Mastery extends Analyzer {
    * Returns the number of Mastery boosting HoTs the Druid currently has on the given Entity target.
    */
   getHotCount(target: Entity): number {
-    return this.getHotsOn(target).length;
+    const hotsOn = this.getHotsOn(target);
+    const extraStacks = hotsOn.includes(this.lbBuffId) ? this.extraLbStacks : 0;
+    return hotsOn.length + extraStacks;
   }
 
   /**
@@ -218,10 +235,11 @@ class Mastery extends Analyzer {
    */
   _tallyMasteryBenefit(hotId: number, healId: number, amount: number): void {
     const hotMastery = this.spellAttributions[hotId].mastery;
+    const adjustedAmount = hotId === this.lbBuffId ? amount * (1 + this.extraLbStacks) : amount;
     if (hotMastery[healId]) {
-      hotMastery[healId] += amount;
+      hotMastery[healId] += adjustedAmount;
     } else {
-      hotMastery[healId] = amount;
+      hotMastery[healId] = adjustedAmount;
     }
   }
 

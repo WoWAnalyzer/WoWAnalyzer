@@ -6,14 +6,17 @@ import InformationIcon from 'interface/icons/Information';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 
-import { CooldownExpandable, CooldownExpandableItem } from '../../Guide';
-import { getTranquilityTicks } from '../../normalizers/CastLinkNormalizer';
-import HotTrackerRestoDruid from '../core/hottracking/HotTrackerRestoDruid';
+import {
+  CooldownExpandable,
+  CooldownExpandableItem,
+} from 'analysis/retail/druid/restoration/Guide';
+import { getTranquilityTicks } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
 
 export const MAX_TRANQ_TICKS = 5;
 
 /**
- * Tracks stats relating to Wild Growth
+ * Tracks stats relating to Tranquility
  */
 class Tranquility extends Analyzer {
   static dependencies = {

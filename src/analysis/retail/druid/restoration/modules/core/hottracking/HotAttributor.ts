@@ -33,7 +33,7 @@ class HotAttributor extends Analyzer {
 
   hasOvergrowth: boolean;
   hasPowerOfTheArchdruid: boolean;
-  hasUnendingGrowth: boolean;
+  hasLuxuriantSoil: boolean;
 
   // track hardcast attributions for mana effic tracking
   rejuvHardcastAttrib = HotTracker.getNewAttribution('Rejuvenation Hardcast');
@@ -43,7 +43,7 @@ class HotAttributor extends Analyzer {
   // track various talent attributions
   overgrowthAttrib = HotTracker.getNewAttribution('Overgrowth');
   powerOfTheArchdruid = HotTracker.getNewAttribution('PowerOfTheArchdruid');
-  unendingGrowthAttrib = HotTracker.getNewAttribution('Unending Growth');
+  luxuriantSoilAttrib = HotTracker.getNewAttribution('LuxuriantSoil');
   // Convoke handled separately in Resto Convoke module
 
   constructor(options: Options) {
@@ -55,8 +55,8 @@ class HotAttributor extends Analyzer {
     this.hasPowerOfTheArchdruid = this.selectedCombatant.hasTalent(
       TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_RESTORATION_TALENT,
     );
-    this.hasUnendingGrowth = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.UNENDING_GROWTH_RESTORATION_TALENT,
+    this.hasLuxuriantSoil = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.LUXURIANT_SOIL_RESTORATION_TALENT,
     );
 
     this.addEventListener(
@@ -117,9 +117,9 @@ class HotAttributor extends Analyzer {
     ) {
       this.hotTracker.addAttributionFromApply(this.powerOfTheArchdruid, event);
       this._logAttrib(event, this.powerOfTheArchdruid);
-    } else if (this.hasUnendingGrowth) {
-      this.hotTracker.addAttributionFromApply(this.unendingGrowthAttrib, event);
-      this._logAttrib(event, this.unendingGrowthAttrib);
+    } else if (this.hasLuxuriantSoil) {
+      this.hotTracker.addAttributionFromApply(this.luxuriantSoilAttrib, event);
+      this._logAttrib(event, this.luxuriantSoilAttrib);
     } else {
       this._logAttrib(event, undefined);
     }

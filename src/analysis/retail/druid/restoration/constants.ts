@@ -28,7 +28,6 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.SPRING_BLOSSOMS.id,
   // The following spells don't double dip in healing increases.
   SPELLS.LEECH.id,
-  //TODO - blazyb double check if any non resto druid spells scales with healing increases.
 ];
 
 export const ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS = [
@@ -49,7 +48,6 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS = [
   SPELLS.RENEWING_BLOOM,
   // The following spells don't double dip in healing increases.
   SPELLS.LEECH,
-  //TODO - blazyb double check if any non resto druid spells scales with healing increases.
 ];
 
 // HoTs that get rate increased by Flourish
