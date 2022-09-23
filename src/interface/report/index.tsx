@@ -13,6 +13,7 @@ import { useCallback, useState } from 'react';
 import BOSS_PHASES_STATE from './BOSS_PHASES_STATE';
 import ConfigContext from './ConfigContext';
 import EVENT_PARSING_STATE from './EVENT_PARSING_STATE';
+import { ExpansionContextProvider } from './ExpansionContext';
 import FightSelection from './FightSelection';
 import useBossPhaseEvents from './hooks/useBossPhaseEvents';
 import useCharacterProfile from './hooks/useCharacterProfile';
@@ -188,37 +189,39 @@ const Report = () => (
     <ErrorBoundary>
       <ReportLoader>
         {(report, refreshReport) => (
-          <PatchChecker report={report}>
-            <FightSelection report={report} refreshReport={refreshReport}>
-              {(fight) => (
-                <PlayerLoader report={report} fight={fight}>
-                  {(player, combatant, combatants) => (
-                    <ConfigContext.Provider
-                      value={getConfig(
-                        wclGameVersionToExpansion(report.gameVersion),
-                        combatant.specID,
-                        player.type,
-                      )}
-                    >
-                      <SupportChecker report={report} fight={fight} player={player}>
-                        <ConfigContext.Consumer>
-                          {(config) => (
-                            <ResultsLoader
-                              config={config!}
-                              report={report}
-                              fight={fight}
-                              player={player}
-                              combatants={combatants}
-                            />
-                          )}
-                        </ConfigContext.Consumer>
-                      </SupportChecker>
-                    </ConfigContext.Provider>
-                  )}
-                </PlayerLoader>
-              )}
-            </FightSelection>
-          </PatchChecker>
+          <ExpansionContextProvider gameVersion={report.gameVersion}>
+            <PatchChecker report={report}>
+              <FightSelection report={report} refreshReport={refreshReport}>
+                {(fight) => (
+                  <PlayerLoader report={report} fight={fight}>
+                    {(player, combatant, combatants) => (
+                      <ConfigContext.Provider
+                        value={getConfig(
+                          wclGameVersionToExpansion(report.gameVersion),
+                          combatant.specID,
+                          player.type,
+                        )}
+                      >
+                        <SupportChecker report={report} fight={fight} player={player}>
+                          <ConfigContext.Consumer>
+                            {(config) => (
+                              <ResultsLoader
+                                config={config!}
+                                report={report}
+                                fight={fight}
+                                player={player}
+                                combatants={combatants}
+                              />
+                            )}
+                          </ConfigContext.Consumer>
+                        </SupportChecker>
+                      </ConfigContext.Provider>
+                    )}
+                  </PlayerLoader>
+                )}
+              </FightSelection>
+            </PatchChecker>
+          </ExpansionContextProvider>
         )}
       </ReportLoader>
     </ErrorBoundary>

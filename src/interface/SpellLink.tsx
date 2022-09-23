@@ -32,7 +32,7 @@ const SpellLink = React.forwardRef<HTMLAnchorElement, Props>(
             <SpellIcon id={spellId} noLink style={iconStyle} alt="" />{' '}
           </>
         )}
-        {children || (spell ? spell.name : `Unknown spell: ${spellId}`)}
+        {children || (spell?.name ? spell.name : `Unknown spell: ${spellId}`)}
       </a>
     );
   },

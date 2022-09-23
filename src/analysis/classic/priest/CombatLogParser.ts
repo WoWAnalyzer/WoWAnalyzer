@@ -19,9 +19,21 @@ import CircleOfHealing from './modules/spells/CircleOfHealing';
 import PrayerOfHealing from './modules/spells/PrayerOfHealing';
 import PrayerOfMending from './modules/spells/PrayerOfMending';
 import Shadowfiend from './modules/spells/Shadowfiend';
+import Rapture from './modules/spells/Rapture';
+import Penance from './modules/spells/Penance';
+import PenanceNormalizer from './modules/normalizers/PenanceNormalizer';
+import PainSuppression from 'analysis/classic/priest/modules/spells/PainSuppression';
+import DivineSpiritRaidBuff from 'analysis/classic/priest/modules/spells/DivineSpiritRaidBuff';
+import DivineAegis from 'analysis/classic/priest/modules/spells/DivineAegis';
+import RenewedHope from 'analysis/classic/priest/modules/spells/RenewedHope';
+import SoulWarding from 'analysis/classic/priest/modules/spells/SoulWarding';
+import ReflectiveShield from 'analysis/classic/priest/modules/spells/ReflectiveShield';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
+    // Normalizers
+    penanceNormalizer: PenanceNormalizer,
+
     abilities: Abilities,
     spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
@@ -41,9 +53,16 @@ class CombatLogParser extends BaseCombatLogParser {
     prayerOfMending: PrayerOfMending,
     circleOfHealing: CircleOfHealing,
     prayerOfHealing: PrayerOfHealing,
+    rapture: Rapture,
+    penance: Penance,
+    painSuppression: PainSuppression,
+    divineSpiritRaidBuff: DivineSpiritRaidBuff,
+    divineAegis: DivineAegis,
+    renewedHope: RenewedHope,
+    soulWarding: SoulWarding,
+    reflectiveShield: ReflectiveShield,
 
     checklist: Checklist,
-
     lowRankSpells: lowRankSpellsSuggestion(lowRankSpells, whitelist),
   };
 }
