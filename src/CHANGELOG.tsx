@@ -64,6 +64,7 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 9, 10), 'Update known patch versions for Dragonflight.', ToppleTheNun),
   change(date(2022, 9, 10), 'Show Dragonflight talents on character page if able to detect them.', ToppleTheNun),
   change(date(2022, 9, 8), 'Bump supported versions of classic and retail.', ToppleTheNun),
   change(date(2022, 9, 8), 'Add support for Dragonflight talent detection.', emallson),
