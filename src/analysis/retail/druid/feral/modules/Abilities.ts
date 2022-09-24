@@ -2,7 +2,6 @@ import CoreAbilities, { druidGcd } from 'analysis/retail/druid/shared/core/Abili
 import SPELLS from 'common/SPELLS';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import Combatant from 'parser/core/Combatant';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 
 class Abilities extends CoreAbilities {
@@ -187,53 +186,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 30,
       },
       {
-        spell: SPELLS.ENTANGLING_ROOTS.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: druidGcd,
-        },
-        timelineSortIndex: 31,
-      },
-      {
-        spell: SPELLS.MAIM.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 20,
-        gcd: {
-          static: 1000,
-        },
-        timelineSortIndex: 32,
-        primaryCoefficient: 0.092, // damage per combo point
-      },
-      {
-        spell: SPELLS.DASH.id,
-        category: SPELL_CATEGORY.UTILITY,
-        enabled: !combatant.hasTalent(TALENTS_DRUID.TIGER_DASH_TALENT.id),
-        cooldown: 120,
-        gcd: {
-          static: (combatant: Combatant) => (combatant.hasBuff(SPELLS.CAT_FORM.id) ? 0 : 1500),
-        },
-        isDefensive: true,
-        timelineSortIndex: 43,
-      },
-      {
-        spell: TALENTS_DRUID.TIGER_DASH_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS_DRUID.TIGER_DASH_TALENT.id),
-        cooldown: 45,
-        gcd: {
-          static: (combatant: Combatant) => (combatant.hasBuff(SPELLS.CAT_FORM.id) ? 0 : 1500),
-        },
-        isDefensive: true,
-        timelineSortIndex: 43,
-      },
-      {
-        spell: [SPELLS.SKULL_BASH.id, SPELLS.SKULL_BASH_FERAL.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: null,
-        cooldown: 15,
-        timelineSortIndex: 33,
-      },
-      {
         spell: [SPELLS.PROWL.id, SPELLS.PROWL_INCARNATION.id],
         category: SPELL_CATEGORY.UTILITY,
         // 6 second cooldown, but triggered by leaving stealth not by using Prowl.
@@ -258,73 +210,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 40,
       },
       {
-        spell: SPELLS.REBIRTH.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-        // 10 minute cooldown usually, but shares the group-wide charge system during raid bosses and M+
-        timelineSortIndex: 60,
-      },
-      {
-        spell: TALENTS_DRUID.MIGHTY_BASH_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS_DRUID.MIGHTY_BASH_TALENT.id),
-        cooldown: 50,
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 34,
-      },
-      {
-        spell: TALENTS_DRUID.MASS_ENTANGLEMENT_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS_DRUID.MASS_ENTANGLEMENT_TALENT.id),
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 34,
-      },
-      {
-        spell: SPELLS.TYPHOON.id,
-        category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS_DRUID.TYPHOON_TALENT),
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 35,
-      },
-      {
-        spell: SPELLS.HIBERNATE.id,
-        category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS_DRUID.HIBERNATE_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 36,
-      },
-      {
-        spell: SPELLS.SOOTHE.id,
-        category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS_DRUID.SOOTHE_TALENT),
-        cooldown: 10,
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 37,
-      },
-      {
-        spell: TALENTS_DRUID.RENEWAL_TALENT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        enabled: combatant.hasTalent(TALENTS_DRUID.RENEWAL_TALENT.id),
-        cooldown: 90,
-        gcd: null,
-        isDefensive: true,
-        timelineSortIndex: 42,
-      },
-      {
         spell: [
           SPELLS.WILD_CHARGE_TALENT.id, // TODO rename ? Is this the caster form version?
           SPELLS.WILD_CHARGE_MOONKIN.id,
@@ -339,23 +224,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 42,
       },
       {
-        spell: SPELLS.BEAR_FORM.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        gcd: {
-          base: 1500,
-        },
-        isDefensive: true,
-        timelineSortIndex: 51,
-      },
-      {
-        spell: SPELLS.CAT_FORM.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 50,
-      },
-      {
         spell: SPELLS.MOONKIN_FORM_AFFINITY.id, // with no affinity any more, is this correct?
         category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(TALENTS_DRUID.MOONKIN_FORM_TALENT),
@@ -363,28 +231,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         timelineSortIndex: 54,
-      },
-      {
-        spell: SPELLS.TRAVEL_FORM.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 52,
-      },
-      {
-        spell: SPELLS.STAG_FORM.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-        timelineSortIndex: 53,
-      },
-      {
-        spell: SPELLS.GROWL.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: null,
-        cooldown: 8,
       },
       {
         spell: SPELLS.MANGLE_BEAR.id,
@@ -409,15 +255,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-      },
-      {
-        spell: SPELLS.REMOVE_CORRUPTION.id,
-        category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS_DRUID.REMOVE_CORRUPTION_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        // 8 second cooldown if it removed something, no cooldown otherwise
       },
       {
         // cannot be cast when player is in combat
@@ -467,23 +304,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 500,
         },
-      },
-      {
-        spell: SPELLS.IRONFUR.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        enabled: combatant.hasTalent(TALENTS_DRUID.IRONFUR_TALENT),
-        gcd: null,
-        cooldown: 0.5,
-      },
-      {
-        spell: SPELLS.FRENZIED_REGENERATION.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        enabled: combatant.hasTalent(TALENTS_DRUID.FRENZIED_REGENERATION_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        // unlike Guardian's version doesn't have charges
-        cooldown: (haste: number) => 36 / (1 + haste),
       },
       {
         spell: SPELLS.REJUVENATION.id,
