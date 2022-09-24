@@ -4516,7 +4516,7 @@ exports[`Fire Mage integration test: example log HeatingUp matches the statistic
             />
           </a>
            
-          87
+          96
           %
            
           <small>
@@ -4564,52 +4564,6 @@ exports[`Fire Mage integration test: example log HeatingUp matches the statistic
     </div>
   </div>
 </div>
-`;
-
-exports[`Fire Mage integration test: example log HeatingUp matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_fire_fireball",
-    "importance": "regular",
-    "issue": <React.Fragment>
-      You cast 
-      <ForwardRef
-        id={108853}
-      />
-       
-      0
-       times while 
-      <ForwardRef
-        id={48108}
-      />
-       was active and
-       
-      6
-       times while you didnt have
-       
-      <ForwardRef
-        id={48107}
-      />
-      . Make sure that you are only using Fire Blast to convert Heating Up into Hot Streak or if you are going to cap on charges.
-    </React.Fragment>,
-    "spell": undefined,
-    "stat": <React.Fragment>
-      <Trans
-        id="mage.fire.suggestions.heatingUp.fireBlastUtilization"
-        message="{0}% Utilization"
-        values={
-          Object {
-            "0": "86.67",
-          }
-        }
-      />
-       (
-      &lt;95.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
 `;
 
 exports[`Fire Mage integration test: example log HotStreak matches the statistic snapshot 1`] = `
