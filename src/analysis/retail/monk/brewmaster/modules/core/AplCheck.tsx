@@ -34,7 +34,7 @@ import styled from '@emotion/styled';
 import Casts, { isApplicableEvent } from 'interface/report/Results/Timeline/Casts';
 import { Trans } from '@lingui/macro';
 import React from 'react';
-import ProblemList, { ProblemRendererProps } from 'interface/guide/ProblemList';
+import ProblemList, { Problem, ProblemRendererProps } from 'interface/guide/ProblemList';
 
 export const apl = build([
   SPELLS.BONEDUST_BREW_CAST,
@@ -231,7 +231,7 @@ function ViolationTimeline({
 
   return (
     <>
-      <EmbeddedTimelineContainer secondWidth={60} secondsShown={10}>
+      <EmbeddedTimelineContainer secondWidth={60} secondsShown={12}>
         <div className="spell-timeline">
           <Casts
             start={relevantEvents[0].timestamp}
@@ -342,13 +342,13 @@ const droppedRule: ViolationExplainer<InternalRule> = {
   render: (claim) => (
     <Trans id="guide.apl.droppedRule">
       You frequently skipped casting <RuleSpellsDescription rule={claim.data} />{' '}
-      <ConditionDescription prefix="when" rule={claim.data} tense={Tense.Past} /> in your rotation.
+      <ConditionDescription prefix="when" rule={claim.data} tense={Tense.Past} />
     </Trans>
   ),
   describer: ({ violation }) => (
     <Trans id="guide.apl.droppedRule.describer">
       <SpellLink id={violation.expectedCast[0].id} /> is higher priority than{' '}
-      <SpellLink id={violation.actualCast.ability.guid} /> in your rotation.
+      <SpellLink id={violation.actualCast.ability.guid} />
     </Trans>
   ),
 };
@@ -412,6 +412,14 @@ function AplViolationExplanation<T = any>({
 const ExplanationList = styled.ul`
   list-style: none;
   padding-left: 0;
+
+  li {
+    margin-top: 1rem;
+
+    &:first-of-type {
+      margin-top: initial;
+    }
+  }
 `;
 
 function AplViolationExplanations({
@@ -500,6 +508,14 @@ function AplSummary({ apl, results }: { apl: Apl; results: CheckResult }): JSX.E
   );
 }
 
+const AplViolationTimelineContainer = styled.div``;
+
+const ViolationProblemContainer = styled.div`
+  display: grid;
+  grid-template-columns: auto max-content;
+  grid-gap: 1rem;
+`;
+
 function ViolationProblemList<T = any>({
   describer: DescribeViolation,
   claimData,
@@ -511,20 +527,24 @@ function ViolationProblemList<T = any>({
 
   const renderer = useMemo(
     () => (props: ProblemRendererProps<Violation>) => (
-      <div>
-        <p>Here's what you did:</p>
-        <ViolationTimeline violation={props.problem.data} events={props.events} result={result} />
-        <p>This should look more like:</p>
-        <ViolationTimeline
-          violation={props.problem.data}
-          events={props.events}
-          result={result}
-          replaceWithExpected
-        />
+      <ViolationProblemContainer>
         {DescribeViolation && (
-          <DescribeViolation violation={props.problem.data} result={result} apl={apl} />
+          <div>
+            <DescribeViolation violation={props.problem.data} result={result} apl={apl} />
+          </div>
         )}
-      </div>
+        <div>
+          <p>Here's what you did:</p>
+          <ViolationTimeline violation={props.problem.data} events={props.events} result={result} />
+          <p>This should look more like:</p>
+          <ViolationTimeline
+            violation={props.problem.data}
+            events={props.events}
+            result={result}
+            replaceWithExpected
+          />
+        </div>
+      </ViolationProblemContainer>
     ),
     [DescribeViolation, result, apl],
   );
@@ -533,30 +553,51 @@ function ViolationProblemList<T = any>({
     return null;
   }
 
-  const problems = Array.from(claimData.claims).map((violation) => ({
-    range: {
-      start: violation.actualCast.timestamp,
-      end: violation.actualCast.timestamp,
-    },
-    context: 5000,
-    data: violation,
-  }));
+  const problems = Array.from(claimData.claims).map(
+    (violation): Problem<Violation> => ({
+      range: {
+        start: violation.actualCast.timestamp,
+        end: violation.actualCast.timestamp,
+      },
+      context: {
+        before: 5000,
+        after: 7000,
+      },
+      data: violation,
+    }),
+  );
 
   return (
-    <ProblemList
-      events={events}
-      info={info}
-      renderer={renderer}
-      problems={problems}
-      label="Example"
-    />
+    <AplViolationTimelineContainer>
+      <ProblemList
+        events={events}
+        info={info}
+        renderer={renderer}
+        problems={problems}
+        label="Example"
+      />
+    </AplViolationTimelineContainer>
   );
 }
 
-const AplViolationContainer = styled.div`
+const AplViolationContainer = styled.div``;
+
+const AplLayout = styled.div`
   display: grid;
-  grid-template-columns: minmax(auto, 50%) minmax(650px, max-content);
+  grid-template-areas: 'summary problems' 'timeline timeline';
   grid-gap: 2rem;
+
+  ${AplRuleList} {
+    grid-area: summary;
+  }
+
+  ${AplViolationContainer} {
+    grid-area: problems;
+  }
+
+  ${AplViolationTimelineContainer} {
+    grid-area: timeline;
+  }
 `;
 
 export function AplSection(): JSX.Element | null {
@@ -581,13 +622,15 @@ export function AplSection(): JSX.Element | null {
       <Section title="Rotation">
         Brewmaster Monk uses a <em>priority list</em> for determining which of your offensive
         abilities to cast. <section>TODO BETTER TEXT</section>
-        <AplSummary apl={apl} results={result} />
-        <AplViolationContainer>
-          <AplViolationExplanations apl={apl} result={result} explainers={defaultExplainers} />
+        <AplLayout>
+          <AplSummary apl={apl} results={result} />
+          <AplViolationContainer>
+            <AplViolationExplanations apl={apl} result={result} explainers={defaultExplainers} />
+          </AplViolationContainer>
           {selectedExplanation && (
             <ViolationProblemList {...selectedExplanation} result={result} apl={apl} />
           )}
-        </AplViolationContainer>
+        </AplLayout>
       </Section>
     </ExplanationSelectionContext.Provider>
   );
