@@ -172,7 +172,7 @@ export interface Success {
   actualCast: AplTriggerEvent;
 }
 
-interface CheckState {
+export interface CheckState {
   successes: Success[];
   violations: Violation[];
   conditionState: ConditionState;
@@ -234,7 +234,7 @@ export function lookaheadSlice(
  * 1. The spell the rule governs is available, and
  * 2. The condition for the rule is validated *or* the rule is unconditional.
  *
- * Note that if a spell is cast that we think is unavailable, we'll assume our data is stale and apply the rule anyway.
+ * Note that if a spell is cast that we think is unavailable, we'll assume our data is stale and apply the rule anyway unless `requireCooldownAvailable` is true.
  *
  * @returns false when no spells are available. Otherwise, the list of available spells.
  **/
@@ -244,6 +244,7 @@ function ruleApplies(
   result: CheckState,
   events: AnyEvent[],
   eventIndex: number,
+  requireCooldownAvailable: boolean = false,
 ): Spell[] | false {
   const event = events[eventIndex];
   if (event.type !== EventType.Cast && event.type !== EventType.BeginChannel) {
@@ -253,7 +254,7 @@ function ruleApplies(
   const availableSpells = spells(rule).filter(
     (spell) =>
       abilities.has(spell.id) &&
-      (spell.id === event.ability.guid ||
+      ((!requireCooldownAvailable && spell.id === event.ability.guid) ||
         result.abilityState[spell.id] === undefined ||
         result.abilityState[spell.id].isAvailable) &&
       (rule.condition?.validate(
@@ -280,15 +281,23 @@ type ApplicableRule = {
 /**
  * Find the first applicable rule. See also: `ruleApplies`
  **/
-function applicableRule(
+export function applicableRule(
   apl: Apl,
   abilities: Set<number>,
   result: CheckState,
   events: AnyEvent[],
   eventIndex: number,
+  requireCooldownAvailable: boolean = false,
 ): ApplicableRule | undefined {
   for (const rule of apl.rules) {
-    const availableSpells = ruleApplies(rule, abilities, result, events, eventIndex);
+    const availableSpells = ruleApplies(
+      rule,
+      abilities,
+      result,
+      events,
+      eventIndex,
+      requireCooldownAvailable,
+    );
     if (availableSpells !== false) {
       return { rule, availableSpells };
     }
@@ -300,6 +309,52 @@ function updateAbilities(state: AbilityState, event: AnyEvent): AbilityState {
     state[event.ability.guid] = event;
   }
   return state;
+}
+
+/**
+ * Whether the APL applies to the given event. APL condition state is updated
+ * on every event, this only determines if the rule checking needs to apply.
+ */
+export function aplProcessesEvent(
+  event: AnyEvent,
+  result: CheckState,
+  applicableSpells: Set<number>,
+): event is BeginChannelEvent | CastEvent {
+  return (
+    (event.type === EventType.BeginChannel ||
+      (event.type === EventType.Cast &&
+        event.ability.guid !== result.mostRecentBeginCast?.ability.guid)) &&
+    applicableSpells.has(event.ability.guid)
+  );
+}
+
+export function knownSpells(
+  apl: Apl,
+  info: PlayerInfo,
+): { abilities: Set<number>; applicableSpells: Set<number> } {
+  const abilities = new Set(
+    info.abilities
+      .filter((ability) => ability.enabled)
+      .flatMap((ability) => (typeof ability.spell === 'number' ? [ability.spell] : ability.spell)),
+  );
+  const applicableSpells = new Set(
+    apl.rules.flatMap((rule) => spells(rule)).map((spell) => spell.id),
+  );
+
+  return { abilities, applicableSpells };
+}
+
+export function updateCheckState(result: CheckState, apl: Apl, event: AnyEvent): CheckState {
+  if (event.type === EventType.BeginChannel) {
+    result.mostRecentBeginCast = event;
+  } else if (event.type === EventType.EndChannel) {
+    result.mostRecentBeginCast = undefined;
+  }
+
+  result.abilityState = updateAbilities(result.abilityState, event);
+  result.conditionState = updateState(apl, result.conditionState, event);
+
+  return result;
 }
 
 const aplCheck = (apl: Apl) =>
@@ -324,25 +379,11 @@ const aplCheck = (apl: Apl) =>
     });
 
     // rules for spells that aren't known are automatically ignored
-    const abilities = new Set(
-      info.abilities
-        .filter((ability) => ability.enabled)
-        .flatMap((ability) =>
-          typeof ability.spell === 'number' ? [ability.spell] : ability.spell,
-        ),
-    );
-    const applicableSpells = new Set(
-      apl.rules.flatMap((rule) => spells(rule)).map((spell) => spell.id),
-    );
+    const { abilities, applicableSpells } = knownSpells(apl, info);
 
     return events.reduce<CheckState>(
       (result, event, eventIndex) => {
-        if (
-          (event.type === EventType.BeginChannel ||
-            (event.type === EventType.Cast &&
-              event.ability.guid !== result.mostRecentBeginCast?.ability.guid)) &&
-          applicableSpells.has(event.ability.guid)
-        ) {
+        if (aplProcessesEvent(event, result, applicableSpells)) {
           const applicable = applicableRule(apl, abilities, result, events, eventIndex);
           if (applicable) {
             const { rule, availableSpells } = applicable;
@@ -380,16 +421,7 @@ const aplCheck = (apl: Apl) =>
           }
         }
 
-        if (event.type === EventType.BeginChannel) {
-          result.mostRecentBeginCast = event;
-        } else if (event.type === EventType.EndChannel) {
-          result.mostRecentBeginCast = undefined;
-        }
-
-        result.abilityState = updateAbilities(result.abilityState, event);
-        result.conditionState = updateState(apl, result.conditionState, event);
-
-        return result;
+        return updateCheckState(result, apl, event);
       },
       { successes: [], violations: [], abilityState: {}, conditionState: initState(apl, info) },
     );

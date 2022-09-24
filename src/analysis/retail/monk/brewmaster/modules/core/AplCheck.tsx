@@ -2,7 +2,7 @@ import { useContext, useMemo, useState } from 'react';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { suggestion } from 'parser/core/Analyzer';
-import { AnyEvent, EventType, HasAbility } from 'parser/core/Events';
+import { AnyEvent, EventType } from 'parser/core/Events';
 import aplCheck, {
   Apl,
   build,
@@ -14,10 +14,7 @@ import aplCheck, {
   tenseAlt,
   Violation,
 } from 'parser/shared/metrics/apl';
-import annotateTimeline, {
-  ConditionDescription,
-  InefficientCastAnnotation,
-} from 'parser/shared/metrics/apl/annotate';
+import annotateTimeline, { ConditionDescription } from 'parser/shared/metrics/apl/annotate';
 import {
   targetsHit,
   buffPresent,
@@ -35,6 +32,7 @@ import Casts, { isApplicableEvent } from 'interface/report/Results/Timeline/Cast
 import { Trans } from '@lingui/macro';
 import React from 'react';
 import ProblemList, { Problem, ProblemRendererProps } from 'interface/guide/ProblemList';
+import rewrite from 'parser/shared/metrics/apl/rewrite';
 
 export const apl = build([
   SPELLS.BONEDUST_BREW_CAST,
@@ -143,91 +141,32 @@ function ViolationTimeline({
   violation,
   events,
   replaceWithExpected,
-  result: { violations: allViolations },
+  rewriteDuration,
+  apl,
 }: {
   events: AnyEvent[];
   violation: Violation;
   replaceWithExpected?: boolean;
-  result: CheckResult;
-}): JSX.Element {
+  rewriteDuration?: number;
+  apl: Apl;
+}): JSX.Element | null {
   const info = useInfo();
+  const allEvents = useEvents();
 
-  let relevantEvents = events.filter(isApplicableEvent(info?.playerId ?? 0));
+  if (!info) {
+    return null;
+  }
+
+  let relevantEvents = events;
 
   if (replaceWithExpected) {
-    const spell = violation.expectedCast[0];
-    const ability = {
-      guid: spell.id,
-      name: spell.name,
-      abilityIcon: spell.icon,
-      type: -1,
-    };
-
-    // find the event at which we should start shifting things backward
-    const shiftEvent = relevantEvents.find(
-      (event) =>
-        event.timestamp > violation.actualCast.timestamp &&
-        HasAbility(event) &&
-        event.ability.guid === spell.id,
-    );
-    let shiftOffset = -1;
-
-    const newEventProps = {
-      ability,
-      meta: {
-        isEnhancedCast: true,
-        enhancedCastReason: <RuleDescription rule={violation.rule} />,
-      },
-    };
-    relevantEvents = relevantEvents
-      .filter((event) => !HasAbility(event) || event.ability.guid !== spell.id)
-      .map((event) => {
-        if (event === violation.actualCast) {
-          return { ...event, ...newEventProps };
-        }
-
-        let timestamp = event.timestamp;
-        // potentially shift the event back to make up for moving the ability cast
-        if (shiftEvent && timestamp > shiftEvent.timestamp) {
-          if (shiftOffset === -1) {
-            shiftOffset = timestamp - shiftEvent.timestamp;
-          }
-          timestamp -= shiftOffset;
-        }
-
-        if ('meta' in event && event.timestamp > violation.actualCast.timestamp) {
-          const otherViolation = allViolations.find((violation) => violation.actualCast === event);
-          if (otherViolation && otherViolation.expectedCast.includes(spell)) {
-            if (otherViolation.expectedCast.length === 1) {
-              // no other spells that we could cast, just remove the annotation
-              // it is possible that there could be another rule that we should
-              // apply, but we don't know of it at this point.
-              return { ...event, timestamp, meta: undefined };
-            } else {
-              return {
-                ...event,
-                timestamp,
-                meta: {
-                  ...event.meta,
-                  inefficientCastReason: (
-                    <InefficientCastAnnotation
-                      violation={{
-                        ...otherViolation,
-                        expectedCast: otherViolation.expectedCast.filter(
-                          (otherSpell) => otherSpell !== spell,
-                        ),
-                      }}
-                    />
-                  ),
-                },
-              };
-            }
-          }
-        }
-
-        return { ...event, timestamp };
-      });
+    const splitIndex = events.findIndex((event) => event === violation.actualCast);
+    relevantEvents = events
+      .slice(0, splitIndex)
+      .concat(rewrite(apl, allEvents, info, violation.actualCast, rewriteDuration ?? 5000));
   }
+
+  relevantEvents = relevantEvents.filter(isApplicableEvent(info?.playerId ?? 0));
 
   return (
     <>
@@ -535,12 +474,17 @@ function ViolationProblemList<T = any>({
         )}
         <div>
           <p>Here's what you did:</p>
-          <ViolationTimeline violation={props.problem.data} events={props.events} result={result} />
+          <ViolationTimeline violation={props.problem.data} events={props.events} apl={apl} />
           <p>This should look more like:</p>
           <ViolationTimeline
             violation={props.problem.data}
             events={props.events}
-            result={result}
+            apl={apl}
+            rewriteDuration={
+              typeof props.problem.context === 'number'
+                ? props.problem.context
+                : props.problem.context?.after
+            }
             replaceWithExpected
           />
         </div>
