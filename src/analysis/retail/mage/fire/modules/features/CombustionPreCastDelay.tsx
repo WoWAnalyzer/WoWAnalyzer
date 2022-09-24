@@ -5,8 +5,7 @@ import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-
-import { SharedCode } from '@wowanalyzer/mage';
+import EventHistory from 'parser/shared/modules/EventHistory';
 
 const COMBUSTION_PRE_CASTS = [
   SPELLS.FIREBALL,
@@ -18,17 +17,17 @@ const COMBUSTION_PRE_CASTS = [
 
 class CombustionPreCastDelay extends Analyzer {
   static dependencies = {
-    sharedCode: SharedCode,
+    eventHistory: EventHistory,
   };
-  protected sharedCode!: SharedCode;
+  protected eventHistory!: EventHistory;
 
   // prettier-ignore
   preCastDelay = () => {
-    const combustCasts = this.sharedCode.getEvents(true, EventType.Cast, SPELLS.COMBUSTION);
+    const combustCasts = this.eventHistory.getEvents(EventType.Cast, { searchBackwards: true, spell: SPELLS.COMBUSTION });
     const combustionCasts: number[] = [];
 
     combustCasts.forEach(cast => {
-      const preCastBegin = this.sharedCode.getEvents(true, EventType.BeginCast, COMBUSTION_PRE_CASTS, 1, cast.timestamp)[0]
+      const preCastBegin = this.eventHistory.getEvents(EventType.BeginCast, { searchBackwards: true, spell: COMBUSTION_PRE_CASTS, count: 1, startTimestamp: cast.timestamp })[0]
       if (preCastBegin && preCastBegin.castEvent) {
         const castDelay = preCastBegin.castEvent.timestamp > cast.timestamp ? preCastBegin.castEvent.timestamp - cast.timestamp : 0
         combustionCasts[cast.timestamp] = castDelay
@@ -48,7 +47,12 @@ class CombustionPreCastDelay extends Analyzer {
   get combustionCastDelayThresholds() {
     return {
       actual:
-        this.totalDelay / this.sharedCode.countEvents(EventType.Cast, SPELLS.COMBUSTION) / 1000,
+        this.totalDelay /
+        (this.eventHistory.getEvents(EventType.Cast, {
+          searchBackwards: true,
+          spell: SPELLS.COMBUSTION,
+        }).length || 0) /
+        1000,
       isGreaterThan: {
         minor: 0.7,
         average: 1,

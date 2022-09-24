@@ -10,8 +10,8 @@ class SharedCode extends CoreSharedCode {
    */
   castBreakdownByBuff(buffActive: boolean, buff: SpellInfo) {
     const castEvents = buffActive
-      ? this.getEventsByBuff(true, buff, EventType.Cast)
-      : this.getEventsByBuff(false, buff, EventType.Cast);
+      ? this.eventHistory.getEventsWithBuff(buff, EventType.Cast)
+      : this.eventHistory.getEventsWithBuff(buff, EventType.Cast);
     const castArray: number[][] = [];
     castEvents &&
       castEvents.forEach((c: CastEvent) => {

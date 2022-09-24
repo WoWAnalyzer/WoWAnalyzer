@@ -1,7 +1,21 @@
-import EventFilter from 'parser/core/EventFilter';
-import { AnyEvent, EventType, MappedEvent } from 'parser/core/Events';
+import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
+import EventFilter, {
+  SELECTED_PLAYER,
+  SELECTED_PLAYER_PET,
+  SpellInfo,
+} from 'parser/core/EventFilter';
+import { HasAbility, AnyEvent, EventType, MappedEvent } from 'parser/core/Events';
 import Module from 'parser/core/Module';
 import EventEmitter from 'parser/core/modules/EventEmitter';
+
+type EventSearchOptions = {
+  searchBackwards?: boolean;
+  spell?: SpellInfo | SpellInfo[];
+  count?: number;
+  startTimestamp?: number;
+  duration?: number;
+  includePets?: boolean;
+};
 
 class EventHistory extends Module {
   /**
@@ -181,6 +195,76 @@ class EventHistory extends Module {
       history = history.slice(count);
     }
     return history as E[];
+  }
+
+  /**
+   * @param searchBackwards specify whether you want to search for events forwards or backwards from a particular timestamp (true for backwards, false for forwards. Default is backwards).
+   * @param eventType the event type to get (i.e. 'cast', 'begincast', EventType.Cast, EventType.BeginCast). Use EventType.Event for all events.
+   * @param spell the specific spell (or an array of spells) you are searching for. Leave undefined for all spells.
+   * @param count the number of events to get. Leave undefined for no limit.
+   * @param startTimestamp the timestamp to start searching from. Searches search backwards from the startTimestamp. Leave undefined for the end of the fight
+   * @param duration the amount of time in milliseconds to search. Leave undefined for no limit.
+   * @returns an array of events that meet the provided criteria
+   */
+  getEvents<ET extends EventType>(
+    eventType: ET,
+    {
+      searchBackwards,
+      spell,
+      count,
+      startTimestamp,
+      duration,
+      includePets,
+    }: EventSearchOptions = {},
+  ): Array<MappedEvent<ET>> {
+    const source = includePets ? SELECTED_PLAYER | SELECTED_PLAYER_PET : SELECTED_PLAYER;
+    const eventFilter = spell
+      ? new EventFilter(eventType).by(source).spell(spell)
+      : new EventFilter(eventType).by(source);
+    const events = searchBackwards
+      ? this.last(count, duration, eventFilter, startTimestamp)
+      : this.next(count, duration, eventFilter, startTimestamp);
+
+    const filteredEvents = events.filter((e) =>
+      HasAbility(e) ? !CASTS_THAT_ARENT_CASTS.includes(e.ability.guid) : true,
+    );
+    return filteredEvents;
+  }
+
+  /**
+   * @param buff the spell object for the buff
+   * @param eventType the type of event that you want to search for. i.e. EventType.Cast, EventType.BeginCast, etc. Use EventType.Event for all events.
+   * @param spell an optional spell object to search. Omit or leave undefined to count all events
+   * @returns an array of events that match the provided criteria
+   */
+  getEventsWithBuff<ET extends EventType>(
+    buff: SpellInfo,
+    eventType: ET,
+    spell?: SpellInfo | SpellInfo[],
+  ): Array<MappedEvent<ET>> {
+    const events = this.getEvents(eventType, { searchBackwards: true, spell: spell });
+    const filteredEvents = events.filter((e) =>
+      this.selectedCombatant.hasBuff(buff.id, e.timestamp - 1),
+    );
+    return filteredEvents;
+  }
+
+  /**
+   * @param buff the spell object for the buff
+   * @param eventType the type of event that you want to search for. i.e. EventType.Cast, EventType.BeginCast, etc. Use EventType.Event for all events.
+   * @param spell an optional spell object to search. Omit or leave undefined to count all events
+   * @returns an array of events that match the provided criteria
+   */
+  getEventsWithoutBuff<ET extends EventType>(
+    buff: SpellInfo,
+    eventType: ET,
+    spell?: SpellInfo | SpellInfo[],
+  ): Array<MappedEvent<ET>> {
+    const events = this.getEvents(eventType, { searchBackwards: true, spell: spell });
+    const filteredEvents = events.filter(
+      (e) => !this.selectedCombatant.hasBuff(buff.id, e.timestamp - 1),
+    );
+    return filteredEvents;
   }
 }
 

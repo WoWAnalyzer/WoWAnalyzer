@@ -6,11 +6,13 @@ import {
 } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { SpellIcon } from 'interface';
+import { SpellLink, SpellIcon } from 'interface';
+import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
 import Analyzer from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import CooldownHistory from 'parser/shared/modules/CooldownHistory';
+import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -18,38 +20,43 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 class HeatingUp extends Analyzer {
   static dependencies = {
     sharedCode: SharedCode,
+    cooldownHistory: CooldownHistory,
+    eventHistory: EventHistory,
   };
   protected sharedCode!: SharedCode;
+  protected cooldownHistory!: CooldownHistory;
+  protected eventHistory!: EventHistory;
 
   hasFirestarter: boolean = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
   hasSearingTouch: boolean = this.selectedCombatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id);
+  hasFlameOn: boolean = this.selectedCombatant.hasTalent(SPELLS.FLAME_ON_TALENT.id);
 
   phoenixFlamesDuringHotStreak = () =>
-    this.sharedCode.countEventsByBuff(
-      true,
-      SPELLS.HOT_STREAK,
-      EventType.Cast,
-      SPELLS.PHOENIX_FLAMES,
-    );
+    this.eventHistory.getEventsWithBuff(SPELLS.HOT_STREAK, EventType.Cast, SPELLS.PHOENIX_FLAMES)
+      .length || 0;
 
   fireBlastDuringHotStreak = () =>
-    this.sharedCode.countEventsByBuff(true, SPELLS.HOT_STREAK, EventType.Cast, SPELLS.FIRE_BLAST);
+    this.eventHistory.getEventsWithBuff(SPELLS.HOT_STREAK, EventType.Cast, SPELLS.FIRE_BLAST)
+      .length || 0;
 
   fireBlastWithoutHeatingUp = () => {
-    let casts = this.sharedCode.getEventsByBuff(
-      false,
+    let casts = this.eventHistory.getEventsWithoutBuff(
       SPELLS.HEATING_UP,
       EventType.Cast,
       SPELLS.FIRE_BLAST,
     );
 
-    //Filter out events where Combustion was active
+    //If Hot Streak was active, filter it out (this is tracked separately)
+    casts = casts.filter(
+      (cast) => !this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id, cast.timestamp),
+    );
+
+    //If Combustion was active, filter it out
     casts = casts.filter(
       (cast) => !this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id, cast.timestamp),
     );
 
-    //Filter out events where the player has Searing Touch and the target is under 30% health
-    //Filter out events where the player has Firestarter and the target is over 90% health
+    //If Firestarter or Searing Touch was active, filter it out
     casts = casts.filter((cast) => {
       const targetHealth = this.sharedCode.getTargetHealth(cast);
       if (this.hasFirestarter) {
@@ -61,18 +68,29 @@ class HeatingUp extends Analyzer {
       }
     });
 
-    //Filter out events where the player is Venthyr and Mirrors of Torment is currently being cast
+    //If the player was capped on charges, filter it out
     casts = casts.filter((cast) => {
-      const lastEvent = this.sharedCode.getEvents(
-        true,
-        EventType.BeginCast,
-        undefined,
-        1,
-        cast.timestamp,
-        1000,
-      )[0];
+      const maxCharges = this.hasFlameOn ? 3 : 2;
+      const charges = this.cooldownHistory.chargesAvailable(SPELLS.FIRE_BLAST.id, cast.timestamp);
+      return charges !== maxCharges;
+    });
+
+    //If the player was casting Mirrors of Torment, filter it out
+    casts = casts.filter((cast) => {
+      const lastEvent = this.eventHistory.getEvents(EventType.BeginCast, {
+        searchBackwards: true,
+        count: 1,
+        startTimestamp: cast.timestamp,
+        duration: 1000,
+      })[0];
       return !lastEvent || lastEvent.ability.guid !== SPELLS.MIRRORS_OF_TORMENT.id;
     });
+
+    //Highlight bad casts
+    const tooltip =
+      'This Fire Blast was cast without Heating Up, Combustion, Searing Touch, or Firestarter active.';
+    casts.forEach((cast) => highlightInefficientCast(cast, tooltip));
+
     return casts.length;
   };
 
@@ -84,12 +102,20 @@ class HeatingUp extends Analyzer {
     );
   }
 
+  get totalFireBlasts() {
+    return (
+      this.eventHistory.getEvents(EventType.Cast, {
+        searchBackwards: true,
+        spell: SPELLS.FIRE_BLAST,
+      }).length || 0
+    );
+  }
+
   get fireBlastUtilSuggestionThresholds() {
     return {
       actual:
         1 -
-        (this.fireBlastWithoutHeatingUp() + this.fireBlastDuringHotStreak()) /
-          this.sharedCode.countEvents(EventType.Cast, SPELLS.FIRE_BLAST),
+        (this.fireBlastWithoutHeatingUp() + this.fireBlastDuringHotStreak()) / this.totalFireBlasts,
       isLessThan: {
         minor: 0.95,
         average: 0.9,
@@ -103,8 +129,11 @@ class HeatingUp extends Analyzer {
     return {
       actual:
         1 -
-        this.phoenixFlamesDuringHotStreak() /
-          this.sharedCode.countEvents(EventType.Cast, SPELLS.PHOENIX_FLAMES),
+          this.phoenixFlamesDuringHotStreak() /
+            this.eventHistory.getEvents(EventType.Cast, {
+              searchBackwards: true,
+              spell: SPELLS.PHOENIX_FLAMES,
+            }).length || 0,
       isLessThan: {
         minor: 0.95,
         average: 0.9,

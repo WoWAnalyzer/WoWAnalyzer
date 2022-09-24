@@ -2,39 +2,37 @@ import { Trans } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
+import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
 import Analyzer from 'parser/core/Analyzer';
 import { EventType, CastEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-
-import { SharedCode } from '@wowanalyzer/mage';
+import EventHistory from 'parser/shared/modules/EventHistory';
 
 class CombustionSpellUsage extends Analyzer {
   static dependencies = {
-    sharedCode: SharedCode,
+    eventHistory: EventHistory,
   };
-  protected sharedCode!: SharedCode;
+  protected eventHistory!: EventHistory;
 
   // prettier-ignore
   fireballCastsDuringCombustion = () => {
     
-    const casts = this.sharedCode.getEventsByBuff(true, SPELLS.COMBUSTION, EventType.Cast, SPELLS.FIREBALL);
+    const casts = this.eventHistory.getEventsWithBuff(SPELLS.COMBUSTION, EventType.Cast, SPELLS.FIREBALL);
 
     //If the Begin Cast event was before Combustion started, then disregard it.
     const fireballCasts = casts.filter((e: CastEvent) => {
-      const beginCast = this.sharedCode.getEvents(true, EventType.BeginCast, SPELLS.FIREBALL, 1, e.timestamp)[0];
+      const beginCast = this.eventHistory.getEvents(EventType.BeginCast, { searchBackwards: true, spell: SPELLS.FIREBALL, count: 1, startTimestamp: e.timestamp })[0];
       return beginCast ? this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id, beginCast.timestamp) : false;
     });
     const tooltip = `This Fireball was cast during Combustion. Since Combustion has a short duration, you are better off using your instant abilities to get as many instant/free Pyroblasts as possible. If you run out of instant abilities, cast Scorch instead since it has a shorter cast time.`;
-    fireballCasts && this.sharedCode.highlightInefficientCast(fireballCasts, tooltip);
+    fireballCasts && highlightInefficientCast(fireballCasts, tooltip);
     return fireballCasts.length;
   }
 
   get fireballBeginCasts() {
-    return this.sharedCode.countEventsByBuff(
-      true,
-      SPELLS.COMBUSTION,
-      EventType.BeginCast,
-      SPELLS.FIREBALL,
+    return (
+      this.eventHistory.getEventsWithBuff(SPELLS.COMBUSTION, EventType.BeginCast, SPELLS.FIREBALL)
+        .length || 0
     );
   }
 
@@ -42,7 +40,10 @@ class CombustionSpellUsage extends Analyzer {
     return {
       actual:
         this.fireballCastsDuringCombustion() /
-        this.sharedCode.countEvents(EventType.Cast, SPELLS.COMBUSTION),
+          this.eventHistory.getEvents(EventType.Cast, {
+            searchBackwards: true,
+            spell: SPELLS.COMBUSTION,
+          }).length || 0,
       isGreaterThan: {
         minor: 0,
         average: 0.5,
