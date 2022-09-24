@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { RemoveBuffEvent, CastEvent } from 'parser/core/Events';
@@ -17,7 +18,9 @@ class SolaceVsShieldDiscipline extends Analyzer {
   solaceCasts = 0;
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.POWER_WORD_SOLACE_TALENT);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_PRIEST.POWER_WORD_SOLACE_DISCIPLINE_TALENT,
+    );
     if (!this.active) {
       return;
     }
@@ -26,7 +29,7 @@ class SolaceVsShieldDiscipline extends Analyzer {
       this.onRemoveBuff,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_SOLACE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.POWER_WORD_SOLACE_DISCIPLINE_TALENT),
       this.onSolaceCast,
     );
   }
@@ -50,9 +53,9 @@ class SolaceVsShieldDiscipline extends Analyzer {
         category={STATISTIC_CATEGORY.GENERAL}
         tooltip={
           <>
-            The value for <SpellLink id={SPELLS.POWER_WORD_SOLACE_TALENT.id} /> also includes the
-            mana cost of one <SpellLink id={SPELLS.SMITE.id} /> as it is assumed that this is what
-            the cast would be replaced by when using Shield Discipline.
+            The value for <SpellLink id={TALENTS_PRIEST.POWER_WORD_SOLACE_DISCIPLINE_TALENT.id} />{' '}
+            also includes the mana cost of one <SpellLink id={SPELLS.SMITE.id} /> as it is assumed
+            that this is what the cast would be replaced by when using Shield Discipline.
           </>
         }
       >
@@ -61,15 +64,15 @@ class SolaceVsShieldDiscipline extends Analyzer {
             <>
               {' '}
               <h6>
-                <SpellLink id={SPELLS.POWER_WORD_SOLACE_TALENT.id} /> vs{' '}
-                <SpellLink id={SPELLS.SHIELD_DISCIPLINE_TALENT.id} />
+                <SpellLink id={TALENTS_PRIEST.POWER_WORD_SOLACE_DISCIPLINE_TALENT.id} /> vs{' '}
+                <SpellLink id={TALENTS_PRIEST.SHIELD_DISCIPLINE_DISCIPLINE_TALENT.id} />
               </h6>
             </>
           }
         >
           <div className="flex solace-value">
             <div className="flex-sub icon" id="solace-talent-icon">
-              <SpellIcon id={SPELLS.POWER_WORD_SOLACE_TALENT.id} />
+              <SpellIcon id={TALENTS_PRIEST.POWER_WORD_SOLACE_DISCIPLINE_TALENT.id} />
             </div>
             <div id="solace-info">
               <div className="solace-number">{formatThousands(this.solaceCasts * 700)}</div>
@@ -83,7 +86,7 @@ class SolaceVsShieldDiscipline extends Analyzer {
           </div>
           <div className="flex solace-value">
             <div className="flex-sub icon" id="solace-talent-icon">
-              <SpellIcon id={SPELLS.SHIELD_DISCIPLINE_TALENT.id} />
+              <SpellIcon id={TALENTS_PRIEST.SHIELD_DISCIPLINE_DISCIPLINE_TALENT.id} />
             </div>
             <div id="solace-info">
               {formatThousands(this.consumedShields * 250)}

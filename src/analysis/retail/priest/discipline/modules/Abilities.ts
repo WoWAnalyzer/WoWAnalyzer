@@ -3,7 +3,7 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../constants';
 
 class Abilities extends CoreAbilities {
@@ -36,13 +36,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.EVANGELISM_TALENT.id,
+        spell: TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.EVANGELISM_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT.id),
         castEfficiency: {
           suggestion: true,
         },
@@ -56,37 +56,37 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SCHISM_TALENT.id,
+        spell: TALENTS_PRIEST.SCHISM_DISCIPLINE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 24,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.SCHISM_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_PRIEST.SCHISM_DISCIPLINE_TALENT.id),
         castEfficiency: {
           suggestion: true,
         },
       },
       {
-        spell: SPELLS.POWER_WORD_SOLACE_TALENT.id,
+        spell: TALENTS_PRIEST.POWER_WORD_SOLACE_DISCIPLINE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 15 / (1 + haste),
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.POWER_WORD_SOLACE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_PRIEST.POWER_WORD_SOLACE_DISCIPLINE_TALENT.id),
         castEfficiency: {
           suggestion: true,
         },
       },
       {
-        spell: SPELLS.DIVINE_STAR_TALENT.id,
+        spell: TALENTS_PRIEST.DIVINE_STAR_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 15,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.DIVINE_STAR_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_PRIEST.DIVINE_STAR_TALENT.id),
         castEfficiency: {
           suggestion: true,
         },
@@ -105,13 +105,13 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell: SPELLS.MINDBENDER_TALENT_SHARED.id,
+        spell: TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHARED.id),
+        enabled: combatant.hasTalent(TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT.id),
         castEfficiency: {
           suggestion: true,
         },
@@ -123,7 +123,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHARED.id),
+        enabled: !combatant.hasTalent(TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT.id),
         castEfficiency: {
           suggestion: true,
         },
@@ -134,10 +134,6 @@ class Abilities extends CoreAbilities {
         cooldown: 90,
         gcd: {
           base: 1500,
-        },
-        enabled: !combatant.hasTalent(SPELLS.SPIRIT_SHELL_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
         },
       },
       {
@@ -183,23 +179,14 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell: SPELLS.ANGELIC_FEATHER_TALENT.id,
+        spell: TALENTS_PRIEST.ANGELIC_FEATHER_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 20,
         charges: 3,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.ANGELIC_FEATHER_TALENT.id),
-      },
-      {
-        spell: SPELLS.SHINING_FORCE_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.SHINING_FORCE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_PRIEST.ANGELIC_FEATHER_TALENT.id),
       },
       {
         spell: SPELLS.FADE.id,
@@ -214,7 +201,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MIND_CONTROL.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(SPELLS.DOMINANT_MIND_TALENT.id) ? 120 : 0,
+        cooldown: combatant.hasTalent(TALENTS_PRIEST.DOMINANT_MIND_TALENT.id) ? 120 : 0,
       },
       {
         spell: SPELLS.MASS_DISPEL.id,
@@ -249,7 +236,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PSYCHIC_SCREAM.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60 - (combatant.hasTalent(SPELLS.PSYCHIC_VOICE_TALENT.id) ? 30 : 0),
+        cooldown: 60 - (combatant.hasTalent(TALENTS_PRIEST.PSYCHIC_VOICE_TALENT.id) ? 30 : 0),
       },
       {
         spell: SPELLS.SHADOW_MEND.id,
@@ -259,7 +246,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SHADOW_COVENANT_TALENT.id,
+        spell: TALENTS_PRIEST.SHADOW_COVENANT_DISCIPLINE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
@@ -268,7 +255,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        enabled: combatant.hasTalent(SPELLS.SHADOW_COVENANT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_PRIEST.SHADOW_COVENANT_DISCIPLINE_TALENT.id),
       },
       {
         spell: SPELLS.LEVITATE.id,
@@ -306,18 +293,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
-        },
-      },
-      {
-        spell: SPELLS.SPIRIT_SHELL_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.SPIRIT_SHELL_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
         },
       },
       {

@@ -2,7 +2,6 @@ import AtonementAnalyzer, {
   AtonementAnalyzerEvent,
 } from 'analysis/retail/priest/discipline/modules/core/AtonementAnalyzer';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -13,7 +12,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import Atonement from './Atonement';
 
 const SINS_OF_THE_MANY_FLOOR_BONUS = 0.03;
@@ -38,7 +37,9 @@ class SinsOfTheMany extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SINS_OF_THE_MANY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_PRIEST.SINS_OF_THE_MANY_DISCIPLINE_TALENT.id,
+    );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onDamage);
 
@@ -90,7 +91,7 @@ class SinsOfTheMany extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SINS_OF_THE_MANY_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_PRIEST.SINS_OF_THE_MANY_DISCIPLINE_TALENT.id}>
           <ItemHealingDone amount={this.bonusHealing} /> <br />
           <ItemDamageDone amount={this.bonusDamage} />
         </BoringSpellValueText>

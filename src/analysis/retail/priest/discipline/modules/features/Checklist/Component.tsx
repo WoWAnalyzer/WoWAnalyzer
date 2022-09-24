@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 // import ITEMS from 'common/ITEMS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
@@ -42,17 +43,17 @@ const DisciplinePriestChecklist = ({
         }
       >
         <AbilityRequirement spell={SPELLS.PENANCE_CAST.id} />
-        {combatant.hasTalent(SPELLS.SCHISM_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.SCHISM_TALENT.id} />
+        {combatant.hasTalent(TALENTS_PRIEST.SCHISM_DISCIPLINE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_PRIEST.SCHISM_DISCIPLINE_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.POWER_WORD_SOLACE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.POWER_WORD_SOLACE_TALENT.id} />
+        {combatant.hasTalent(TALENTS_PRIEST.POWER_WORD_SOLACE_DISCIPLINE_TALENT) && (
+          <AbilityRequirement spell={TALENTS_PRIEST.POWER_WORD_SOLACE_DISCIPLINE_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.DIVINE_STAR_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.DIVINE_STAR_TALENT.id} />
+        {combatant.hasTalent(TALENTS_PRIEST.DIVINE_STAR_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_PRIEST.DIVINE_STAR_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.SHADOW_COVENANT_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.SHADOW_COVENANT_TALENT.id} />
+        {combatant.hasTalent(TALENTS_PRIEST.SHADOW_COVENANT_DISCIPLINE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_PRIEST.SHADOW_COVENANT_DISCIPLINE_TALENT.id} />
         )}
       </Rule>
 
@@ -66,20 +67,17 @@ const DisciplinePriestChecklist = ({
           </>
         }
       >
-        {!combatant.hasTalent(SPELLS.SPIRIT_SHELL_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.RAPTURE.id} />
-        )}
-        {!combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHARED.id) && (
+        {!combatant.hasTalent(TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.SHADOWFIEND.id} />
         )}
-        {combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHARED.id) && (
-          <AbilityRequirement spell={SPELLS.MINDBENDER_TALENT_SHARED.id} />
+        {combatant.hasTalent(TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT.id} />
         )}
         {combatant.hasTalent(SPELLS.HALO_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.HALO_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.EVANGELISM_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.EVANGELISM_TALENT.id} />
+        {combatant.hasTalent(TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT.id} />
         )}
         {/* We can't detect race, so disable this when it has never been cast. */}
         {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA1.id) && (

@@ -6,7 +6,7 @@ import Analyzer from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
-
+import { TALENTS_PRIEST } from 'common/TALENTS';
 const LENIENCE_DR = 0.03;
 
 class Lenience extends Analyzer {
@@ -14,7 +14,7 @@ class Lenience extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.LENIENCE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.LENIENCE_DISCIPLINE_TALENT.id);
   }
 
   get damageReducedDuringLenience() {
@@ -41,7 +41,7 @@ class Lenience extends Analyzer {
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
-        icon={<SpellIcon id={SPELLS.LENIENCE_TALENT.id} />}
+        icon={<SpellIcon id={TALENTS_PRIEST.LENIENCE_DISCIPLINE_TALENT.id} />}
         value={`>=${formatNumber((this.damageReducedDuringLenience / fightDuration) * 1000)} DRPS`}
         label="Damage reduced"
         tooltip={`The estimated damage reduced by Lenience's damage reduction was ${formatThousands(

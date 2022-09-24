@@ -6,7 +6,7 @@ import Events from 'parser/core/Events';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
+import { TALENTS_PRIEST } from 'common/TALENTS';
 class Penance extends Analyzer {
   _boltCount = 0; // which bolt of the cast it is - for other modules
   _casts = 0;
@@ -17,7 +17,11 @@ class Penance extends Analyzer {
 
   constructor(options) {
     super(options);
-    this._defaultBolts = this.selectedCombatant.hasTalent(SPELLS.CASTIGATION_TALENT.id) ? 4 : 3;
+    this._defaultBolts = this.selectedCombatant.hasTalent(
+      TALENTS_PRIEST.CASTIGATION_DISCIPLINE_TALENT.id,
+    )
+      ? 4
+      : 3;
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_CAST), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PENANCE), this.onDamage);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_HEAL), this.onHeal);
@@ -59,7 +63,7 @@ class Penance extends Analyzer {
         tooltip={
           <>
             Each <SpellLink id={SPELLS.PENANCE.id} /> cast has 3 bolts (4 if you're using{' '}
-            <SpellLink id={SPELLS.CASTIGATION_TALENT.id} />
+            <SpellLink id={TALENTS_PRIEST.CASTIGATION_DISCIPLINE_TALENT.id} />
             ). You should try to let this channel finish as much as possible. You channeled Penance{' '}
             {this._casts} times.
           </>
