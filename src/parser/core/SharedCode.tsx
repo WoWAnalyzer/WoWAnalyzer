@@ -1,21 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
-import EventFilter, {
-  SELECTED_PLAYER,
-  SELECTED_PLAYER_PET,
-  SpellInfo,
-} from 'parser/core/EventFilter';
-import {
-  HasAbility,
-  HasTarget,
-  HasHitpoints,
-  EventType,
-  CastEvent,
-  BeginChannelEvent,
-  MappedEvent,
-  AnyEvent,
-} from 'parser/core/Events';
+import { SpellInfo } from 'parser/core/EventFilter';
+import { HasTarget, HasHitpoints, EventType, CastEvent, AnyEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import EventHistory from 'parser/shared/modules/EventHistory';
@@ -38,24 +24,13 @@ class SharedCode extends Analyzer {
    * @returns a true/false of whether the precast was a hardcast or not
    */
   isHardcast(cast: CastEvent) {
-    const beginCast = this.getEvents(
-      true,
-      EventType.BeginCast,
-      SPELLS[cast.ability.guid],
-      1,
-      cast.timestamp,
-    )[0];
+    const beginCast = this.eventHistory.getEvents(EventType.BeginCast, {
+      searchBackwards: true,
+      spell: SPELLS[cast.ability.guid],
+      count: 1,
+      startTimestamp: cast.timestamp,
+    })[0];
     return cast.timestamp - beginCast.timestamp > 50;
-  }
-
-  /**
-   * @param event the event you want to get the pre cast for
-   * @param preCastSpell The spell object of the specific spell (or an array of spells) you want to check for
-   * @returns a true/false of whether the precast was found or not.
-   */
-  checkPreCast(event: AnyEvent, preCastSpell: SpellInfo | SpellInfo[]) {
-    const preCast = this.getPreCast(event, preCastSpell);
-    return preCast ? true : false;
   }
 
   /**
@@ -64,53 +39,13 @@ class SharedCode extends Analyzer {
    * @returns the event for the precast spell, or undefined if none was found.
    */
   getPreCast(event: AnyEvent, preCastSpell?: SpellInfo | SpellInfo[]) {
-    return this.getEvents(true, EventType.Cast, preCastSpell, 1, event.timestamp, 250)[0];
-  }
-
-  /**
-   * @param eventType The type of event you want to count. i.e. EventType.Cast, EventType.BeginCast, etc. Use EventType.Event for all events.
-   * @param spell the spell you want to count casts for.
-   * @returns the number of events found
-   */
-  countEvents(eventType: EventType, spell: SpellInfo) {
-    const events = this.getEvents(true, eventType, spell);
-    return events.length;
-  }
-
-  /**
-   * @param buffActive filters based on whether the buff is active or inactive (true for active, false for inactive)
-   * @param buff the spell object for the buff
-   * @param eventType the type of event that you want to search for. i.e. EventType.Cast, EventType.BeginCast, etc. Use EventType.Event for all events.
-   * @param cast an optional cast spell object to count. Omit or leave undefined to count all casts
-   * @returns the number of events found
-   */
-  countEventsByBuff(buffActive: boolean, buff: SpellInfo, eventType: EventType, cast?: SpellInfo) {
-    const events = buffActive
-      ? this.getEventsByBuff(true, buff, eventType, cast)
-      : this.getEventsByBuff(false, buff, eventType, cast);
-    return events.length;
-  }
-
-  /**
-   * @param buffActive filters based on whether the buff is active or inactive (true for active, false for inactive)
-   * @param buff the spell object for the buff
-   * @param eventType the type of event that you want to search for. i.e. EventType.Cast, EventType.BeginCast, etc. Use EventType.Event for all events.
-   * @param spell an optional spell object to search. Omit or leave undefined to count all events
-   * @returns an array of events that match the provided criteria
-   */
-  getEventsByBuff<ET extends EventType>(
-    buffActive: boolean,
-    buff: SpellInfo,
-    eventType: ET,
-    spell?: SpellInfo | SpellInfo[],
-  ): Array<MappedEvent<ET>> {
-    const events = this.getEvents(true, eventType, spell);
-    const filteredEvents = events.filter((e) =>
-      buffActive
-        ? this.selectedCombatant.hasBuff(buff.id, e.timestamp - 1)
-        : !this.selectedCombatant.hasBuff(buff.id, e.timestamp + 1),
-    );
-    return filteredEvents;
+    return this.eventHistory.getEvents(EventType.Cast, {
+      searchBackwards: true,
+      spell: preCastSpell,
+      count: 1,
+      startTimestamp: event.timestamp + 1,
+      duration: 250,
+    })[0];
   }
 
   /**
@@ -119,29 +54,22 @@ class SharedCode extends Analyzer {
    * @returns an array of remove buff events that had expired
    */
   getExpiredProcs(buff: SpellInfo, spenderSpell: SpellInfo | SpellInfo[]) {
-    const events = this.getEvents(true, EventType.RemoveBuff, buff);
+    const events = this.eventHistory.getEvents(EventType.RemoveBuff, {
+      searchBackwards: true,
+      spell: buff,
+    });
 
     const filteredEvents = events.filter((e) => {
-      const castEvent = this.getEvents(
-        true,
-        EventType.Cast,
-        spenderSpell,
-        1,
-        e.timestamp + 1,
-        250,
-      )[0];
+      const castEvent = this.eventHistory.getEvents(EventType.Cast, {
+        searchBackwards: true,
+        spell: spenderSpell,
+        count: 1,
+        startTimestamp: e.timestamp + 1,
+        duration: 250,
+      })[0];
       return !castEvent;
     });
     return filteredEvents;
-  }
-
-  /**
-   * @param buff the spell object for the proc's buff.
-   * @param spenderSpell the spell object (or an array of spell objects) that are used to spend the proc.
-   * @returns a numeric count of expired procs
-   */
-  countExpiredProcs(buff: SpellInfo, spenderSpell: SpellInfo | SpellInfo[]) {
-    return this.getExpiredProcs(buff, spenderSpell).length;
   }
 
   /**
@@ -149,81 +77,27 @@ class SharedCode extends Analyzer {
    * @returns the target's health percentage (in decimal, i.e. 0.75 = 75%)
    */
   getTargetHealth(event: AnyEvent) {
-    const target =
-      (event.type === EventType.Cast || event.type === EventType.BeginCast) && HasTarget(event)
-        ? encodeTargetString(event.targetID, event.targetInstance)
-        : undefined;
-    const damageEvents = this.getEvents(false, EventType.Damage, undefined, event.timestamp, 5000);
-    if (!damageEvents) {
-      return;
+    if (!HasTarget(event)) {
+      return undefined;
     }
 
-    let relevantEvent;
-    if (target) {
-      relevantEvent = damageEvents.find(
-        (e) => HasTarget(e) && target === encodeTargetString(e.targetID, e.targetInstance),
-      );
-    } else {
-      relevantEvent = damageEvents[0];
+    const target = encodeTargetString(event.targetID, event.targetInstance);
+    const damageEvents = this.eventHistory.getEvents(EventType.Damage, {
+      searchBackwards: false,
+      startTimestamp: event.timestamp,
+    });
+    if (!damageEvents) {
+      return undefined;
     }
+
+    const relevantEvent = damageEvents.find(
+      (e) => target && target === encodeTargetString(e.targetID, e.targetInstance),
+    );
 
     if (relevantEvent && HasHitpoints(relevantEvent)) {
       return relevantEvent.hitPoints / relevantEvent.maxHitPoints;
     } else {
       return undefined;
-    }
-  }
-
-  /**
-   * @param searchBackwards specify whether you want to search for events forwards or backwards from a particular timestamp (true for backwards, false for forwards. Default is backwards).
-   * @param eventType the event type to get (i.e. 'cast', 'begincast', EventType.Cast, EventType.BeginCast). Use EventType.Event for all events.
-   * @param spell the specific spell (or an array of spells) you are searching for. Leave undefined for all spells.
-   * @param count the number of events to get. Leave undefined for no limit.
-   * @param startTimestamp the timestamp to start searching from. Searches search backwards from the startTimestamp. Leave undefined for the end of the fight
-   * @param duration the amount of time in milliseconds to search. Leave undefined for no limit.
-   * @returns an array of events that meet the provided criteria
-   */
-  getEvents<ET extends EventType>(
-    searchBackwards: boolean = true,
-    eventType: ET,
-    spell?: SpellInfo | SpellInfo[],
-    count?: number,
-    startTimestamp: number = this.owner.fight.end_time,
-    duration?: number,
-    includePets: boolean = false,
-  ): Array<MappedEvent<ET>> {
-    const source = includePets ? SELECTED_PLAYER | SELECTED_PLAYER_PET : SELECTED_PLAYER;
-    const eventFilter = spell
-      ? new EventFilter(eventType).by(source).spell(spell)
-      : new EventFilter(eventType).by(source);
-    const events = searchBackwards
-      ? this.eventHistory.last(count, duration, eventFilter, startTimestamp)
-      : this.eventHistory.next(count, duration, eventFilter, startTimestamp);
-
-    const filteredEvents = events.filter((e) =>
-      HasAbility(e) ? !CASTS_THAT_ARENT_CASTS.includes(e.ability.guid) : true,
-    );
-    return filteredEvents;
-  }
-
-  /**
-   * @param event the event you want to mark inefficient. Must be a Cast or BeginCast event.
-   * @param tooltip the text you want displayed in the tooltip.
-   */
-  highlightInefficientCast(
-    event: CastEvent | BeginChannelEvent | CastEvent[] | BeginChannelEvent[],
-    tooltip: string,
-  ) {
-    if (Array.isArray(event)) {
-      event.forEach((e) => {
-        e.meta = e.meta || {};
-        e.meta.isInefficientCast = true;
-        e.meta.inefficientCastReason = tooltip;
-      });
-    } else {
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = tooltip;
     }
   }
 }

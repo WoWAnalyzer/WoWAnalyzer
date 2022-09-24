@@ -3,10 +3,12 @@ import { formatPercentage, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellLink } from 'interface';
+import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
 import Analyzer from 'parser/core/Analyzer';
 import { EventType, HasTarget } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
+import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -24,7 +26,9 @@ const PROC_BUFFER = 200;
 class HotStreak extends Analyzer {
   static dependencies = {
     sharedCode: SharedCode,
+    eventHistory: EventHistory,
   };
+  protected eventHistory!: EventHistory;
   protected sharedCode!: SharedCode;
 
   hasPyroclasm: boolean = this.selectedCombatant.hasTalent(SPELLS.PYROCLASM_TALENT.id);
@@ -34,12 +38,16 @@ class HotStreak extends Analyzer {
   hasPyromaniac: boolean = this.selectedCombatant.hasTalent(SPELLS.PYROMANIAC_TALENT.id);
 
   expiredProcs = () =>
-    this.sharedCode.countExpiredProcs(SPELLS.HOT_STREAK, [SPELLS.PYROBLAST, SPELLS.FLAMESTRIKE]);
+    this.sharedCode.getExpiredProcs(SPELLS.HOT_STREAK, [SPELLS.PYROBLAST, SPELLS.FLAMESTRIKE])
+      .length || 0;
 
   // prettier-ignore
   missingHotStreakPreCast = () => {
-    let hotStreakRemovals = this.sharedCode.getEvents(true, EventType.RemoveBuff, SPELLS.HOT_STREAK);
-    hotStreakRemovals = hotStreakRemovals.filter(hs => !this.sharedCode.checkPreCast(hs, SPELLS.FIREBALL));
+    let hotStreakRemovals = this.eventHistory.getEvents(EventType.RemoveBuff, { searchBackwards: true, spell: SPELLS.HOT_STREAK });
+    hotStreakRemovals = hotStreakRemovals.filter(hs => !this.sharedCode.getPreCast(hs, SPELLS.FIREBALL));
+    
+    //If Hot Streak was used on Flamestrike, filter it out
+    hotStreakRemovals = hotStreakRemovals.filter(hs => !this.sharedCode.getPreCast(hs, SPELLS.FLAMESTRIKE));
 
     //If Combustion or Firestorm was active, filter it out
     hotStreakRemovals = hotStreakRemovals.filter(hs => {
@@ -50,13 +58,14 @@ class HotStreak extends Analyzer {
 
     //If Combustion ended less than 3 seconds ago, filter it out
     hotStreakRemovals = hotStreakRemovals.filter(hs => {
-      const combustionEnded = this.sharedCode.getEvents(true, EventType.RemoveBuff, SPELLS.COMBUSTION, 1, hs.timestamp)[0];
+      const combustionEnded = this.eventHistory.getEvents(EventType.RemoveBuff, { searchBackwards: true, spell: SPELLS.COMBUSTION, count: 1, startTimestamp: hs.timestamp })[0];
       return !combustionEnded || hs.timestamp - combustionEnded.timestamp > COMBUSTION_END_BUFFER;
     })
 
     //If Firestarter or Searing Touch was active, filter it out
     hotStreakRemovals = hotStreakRemovals.filter(hs => {
-      const targetHealth = this.sharedCode.getTargetHealth(hs);
+      const preCast = this.sharedCode.getPreCast(hs);
+      const targetHealth = this.sharedCode.getTargetHealth(preCast);
       if (this.hasFirestarter) {
         return targetHealth && targetHealth < FIRESTARTER_THRESHOLD;
       } else if (this.hasSearingTouch) {
@@ -68,15 +77,23 @@ class HotStreak extends Analyzer {
 
     //If Pyroclasm was removed within 200ms of the Hot Streak being removed then they probably precast a hard cast Pyroblast, so filter it out
     hotStreakRemovals = hotStreakRemovals.filter(hs => {
-      const pyroclasmRemoved = this.sharedCode.getEvents(true, EventType.RemoveBuff, SPELLS.PYROCLASM_BUFF, 1, hs.timestamp, PROC_BUFFER);
+      const pyroclasmRemoved = this.eventHistory.getEvents(EventType.RemoveBuff, { searchBackwards: true, spell: SPELLS.PYROCLASM_BUFF, count: 1, startTimestamp: hs.timestamp, duration: PROC_BUFFER });
       return !this.hasPyroclasm || !pyroclasmRemoved;
     })
+
+    //Highlight bad casts on timeline
+    const tooltip = `This Pyroblast was cast using Hot Streak, but did not have a Fireball pre-cast in front of it.`
+    hotStreakRemovals.forEach((cast) => {
+      const pyroCast = this.eventHistory.getEvents(EventType.Cast, { searchBackwards: true, spell: SPELLS.PYROBLAST, count: 1, startTimestamp: cast.timestamp, duration: 250 })
+      highlightInefficientCast(pyroCast, tooltip)
+    })
+
     return hotStreakRemovals.length
   }
 
   // prettier-ignore
   wastedCrits = () => {
-    let events = this.sharedCode.getEventsByBuff(true, SPELLS.HOT_STREAK, EventType.Damage, FIRE_DIRECT_DAMAGE_SPELLS);
+    let events = this.eventHistory.getEventsWithBuff(SPELLS.HOT_STREAK, EventType.Damage, FIRE_DIRECT_DAMAGE_SPELLS);
 
     //Filter it out if they were using their Hot Streak at the exact same time that Scorch was cast.
     //There is a small grace period and Scorch has no travel time, so this makes it look like the Scorch cast was wasted when it wasnt.
@@ -87,7 +104,7 @@ class HotStreak extends Analyzer {
 
     //Filter out Phoenix Flames cleaves
     events = events.filter(e => {
-      const cast = this.sharedCode.getEvents(true, EventType.Cast, SPELLS[e.ability.guid], 1, e.timestamp, 5000)[0];
+      const cast = this.eventHistory.getEvents(EventType.Cast, { searchBackwards: true, spell: SPELLS[e.ability.guid], count: 1, startTimestamp: e.timestamp, duration: 5000 })[0];
       if (cast && HasTarget(cast)) {
         const castTarget = encodeTargetString(cast.targetID, cast.targetInstance);
         return castTarget === encodeTargetString(e.targetID, e.targetInstance);
@@ -97,21 +114,26 @@ class HotStreak extends Analyzer {
 
     //If the player got a Pyromaniac proc, then dont count it as a wasted proc because there is nothing they could have done to prevent the crit from being wasted.
     events = events.filter((e) => {
-      const pyromaniacProc = this.sharedCode.getEvents(true, EventType.RemoveBuff, SPELLS.HOT_STREAK, 1, e.timestamp, 250)[0];
+      const pyromaniacProc = this.eventHistory.getEvents(EventType.RemoveBuff, { searchBackwards: true, spell: SPELLS.HOT_STREAK, count: 1, startTimestamp: e.timestamp, duration: 250 })[0];
       return !this.hasPyromaniac || !pyromaniacProc;
     });
 
     //Highlight Timeline
     events.forEach((e) => {
-      const cast = this.sharedCode.getEvents(true, EventType.Cast, SPELLS[e.ability.guid], 1, e.timestamp, 5000)[0];
+      const cast = this.eventHistory.getEvents(EventType.Cast, { searchBackwards: true, spell: SPELLS[e.ability.guid], count: 1, startTimestamp: e.timestamp, duration: 5000 })[0];
       const tooltip = 'This cast crit while you already had Hot Streak and could have contributed towards your next Heating Up or Hot Streak. To avoid this, make sure you use your Hot Streak procs as soon as possible.';
-      cast && this.sharedCode.highlightInefficientCast(cast, tooltip);
+      cast && highlightInefficientCast(cast, tooltip);
     });
     return events.length;
   };
 
   get totalHotStreakProcs() {
-    return this.sharedCode.countEvents(EventType.ApplyBuff, SPELLS.HOT_STREAK);
+    return (
+      this.eventHistory.getEvents(EventType.ApplyBuff, {
+        searchBackwards: true,
+        spell: SPELLS.HOT_STREAK,
+      }).length || 0
+    );
   }
 
   get hotStreakUtilizationThresholds() {
@@ -128,10 +150,7 @@ class HotStreak extends Analyzer {
 
   get castBeforeHotStreakThresholds() {
     return {
-      actual:
-        1 -
-        this.missingHotStreakPreCast() /
-          this.sharedCode.countEvents(EventType.ApplyBuff, SPELLS.HOT_STREAK),
+      actual: 1 - this.missingHotStreakPreCast() / this.totalHotStreakProcs,
       isLessThan: {
         minor: 0.85,
         average: 0.75,

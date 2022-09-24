@@ -47,6 +47,26 @@ export const isApplicableEvent = (parser: CombatLogParser) => (event: AnyEvent) 
       return false;
   }
 };
+/**
+ * @param event the event you want to mark inefficient. Must be a Cast or BeginCast event.
+ * @param tooltip the text you want displayed in the tooltip.
+ */
+export const highlightInefficientCast = (
+  event: CastEvent | BeginChannelEvent | CastEvent[] | BeginChannelEvent[],
+  tooltip: string,
+) => {
+  if (Array.isArray(event)) {
+    event.forEach((e) => {
+      e.meta = e.meta || {};
+      e.meta.isInefficientCast = true;
+      e.meta.inefficientCastReason = tooltip;
+    });
+  } else {
+    event.meta = event.meta || {};
+    event.meta.isInefficientCast = true;
+    event.meta.inefficientCastReason = tooltip;
+  }
+};
 
 type MovementInstance = { start: number; end: number; distance: number };
 interface Props extends HTMLAttributes<HTMLDivElement> {

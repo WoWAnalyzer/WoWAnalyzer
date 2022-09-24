@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
+import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -12,8 +13,10 @@ import { SharedCode } from '@wowanalyzer/mage';
 class CombustionCasts extends Analyzer {
   static dependencies = {
     sharedCode: SharedCode,
+    eventHistory: EventHistory,
   };
   protected sharedCode!: SharedCode;
+  protected eventHistory!: EventHistory;
 
   statistic() {
     return (
@@ -59,11 +62,8 @@ class CombustionCasts extends Analyzer {
                       <td style={{ textAlign: 'center' }}>
                         {formatPercentage(
                           spell[1] /
-                            this.sharedCode.countEventsByBuff(
-                              true,
-                              SPELLS.COMBUSTION,
-                              EventType.Cast,
-                            ),
+                            this.eventHistory.getEventsWithBuff(SPELLS.COMBUSTION, EventType.Cast)
+                              .length || 0,
                         )}
                         %
                       </td>
