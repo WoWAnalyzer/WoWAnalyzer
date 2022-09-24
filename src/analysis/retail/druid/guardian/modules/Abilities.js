@@ -153,13 +153,6 @@ class Abilities extends CoreAbilities {
       },
       // Cooldowns
       {
-        spell: SPELLS.BARKSKIN.id,
-        buffSpellId: SPELLS.BARKSKIN.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 90 - 90 / 3 : 90,
-        timelineSortIndex: 9,
-      },
-      {
         spell: SPELLS.SURVIVAL_INSTINCTS.id,
         buffSpellId: SPELLS.SURVIVAL_INSTINCTS.id,
         category: SPELL_CATEGORY.DEFENSIVE,
@@ -192,25 +185,6 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 9,
       },
       {
-        spell: SPELLS.IRONFUR.id,
-        buffSpellId: SPELLS.IRONFUR.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        gcd: null,
-        cooldown: 0.5,
-        timelineSortIndex: 7,
-      },
-      {
-        spell: SPELLS.FRENZIED_REGENERATION.id,
-        buffSpellId: SPELLS.FRENZIED_REGENERATION.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: (haste) => hastedCooldown(36, haste),
-        charges: 2,
-        timelineSortIndex: 8,
-      },
-      {
         spell: SPELLS.PULVERIZE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         enabled: combatant.hasTalent(SPELLS.PULVERIZE_TALENT.id),
@@ -234,71 +208,8 @@ class Abilities extends CoreAbilities {
       },
       // Raid utility
       {
-        spell: SPELLS.STAMPEDING_ROAR_BEAR.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.GROWL.id,
-        category: SPELL_CATEGORY.UTILITY,
-      },
-      {
         spell: SPELLS.SKULL_BASH.id,
         category: SPELL_CATEGORY.UTILITY,
-      },
-      {
-        spell: SPELLS.BEAR_FORM.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.CAT_FORM.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.TRAVEL_FORM.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.MOONKIN_FORM.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.REBIRTH.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.INCAPACITATING_ROAR.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.TYPHOON.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
       },
       {
         spell: SPELLS.MASS_ENTANGLEMENT_TALENT.id,
@@ -332,36 +243,11 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
       },
       {
-        spell: SPELLS.DASH.id,
-        buffSpellId: SPELLS.DASH.id,
-        category: SPELL_CATEGORY.UTILITY,
-        enabled: !combatant.hasTalent(SPELLS.TIGER_DASH_TALENT.id),
-        cooldown: 180,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.TIGER_DASH_TALENT.id,
         buffSpellId: SPELLS.TIGER_DASH_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.TIGER_DASH_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.HIBERNATE.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.SOOTHE.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 10,
         gcd: {
           base: 1500,
         },

@@ -180,13 +180,6 @@ class Abilities extends CoreAbilities {
         },
         // TODO CD only triggers when dispel happens
       },
-      {
-        spell: SPELLS.REBIRTH.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-      },
       //Damage Dealing
       {
         spell: SPELLS.WRATH.id,

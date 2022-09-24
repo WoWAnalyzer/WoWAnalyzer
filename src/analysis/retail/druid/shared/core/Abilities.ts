@@ -179,6 +179,13 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      {
+        spell: SPELLS.REBIRTH.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
       // Cat/Bear stuff
       {
         spell: SPELLS.FRENZIED_REGENERATION.id,
