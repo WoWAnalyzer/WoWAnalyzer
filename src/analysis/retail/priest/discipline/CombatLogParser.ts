@@ -3,7 +3,6 @@ import {
   DesperatePrayer,
   FaeGuardians,
   ShadowfiendNormalizer,
-  TranslucentImage,
   TwinsOfTheSunPriestess,
   UnholyNova,
 } from 'analysis/retail/priest/shared';
@@ -30,19 +29,7 @@ import PowerWordBarrier from './modules/features/PowerWordBarrier';
 import PowerWordShieldWasted from './modules/features/PowerWordShieldWasted';
 import PurgeTheWicked from './modules/features/PurgeTheWicked';
 import SolaceVsShieldDiscipline from './modules/features/SolaceVsShieldDiscipline';
-import ExaltationEvang from './modules/shadowlands/conduits/ExaltationEvang';
-import RabidShadows from './modules/shadowlands/conduits/RabidShadows';
-import ShatteredPerceptions from './modules/shadowlands/conduits/ShatteredPerceptions';
-import ShiningRadiance from './modules/shadowlands/conduits/ShiningRadiance';
 
-import Mindgames from './modules/shadowlands/covenant/Mindgames';
-import ClarityOfMindEvang from './modules/shadowlands/legendaries/ClarityOfMindEvang';
-import ShadowWordManipulation from './modules/shadowlands/legendaries/ShadowWordManipulation';
-import ThePenitentOne from './modules/shadowlands/legendaries/ThePenitentOne';
-import BattlefieldPresence from './modules/shadowlands/soulbinds/BattleFieldPresence';
-import HoldYourGround from './modules/shadowlands/soulbinds/HoldYourGround';
-import SoothingShade from './modules/shadowlands/soulbinds/SoothingShade';
-import ManifestedTwilight from './modules/shadowlands/tier/ManifestedTwilight';
 import Atonement from './modules/spells/Atonement';
 import Castigation from './modules/spells/Castigation';
 import Contrition from './modules/spells/Contrition';
@@ -108,28 +95,12 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Covenants
     unholyNova: UnholyNova,
-    mindgames: Mindgames,
     boonOfTheAscended: BoonOfTheAscended,
     faeGuardians: FaeGuardians,
-    SoothingShade: SoothingShade,
 
     // Conduits
-    shiningRadiance: ShiningRadiance,
-    exaltationEvang: ExaltationEvang,
-    shatteredPerceptions: ShatteredPerceptions,
-    translucentImage: TranslucentImage,
-    RabidShadows: RabidShadows,
-    holdYourGround: HoldYourGround,
-    battlefieldPresence: BattlefieldPresence,
-
     // Legendaries
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
-    thePenitentOne: ThePenitentOne,
-    clarityOfMindEvang: ClarityOfMindEvang,
-    shadowWordManipulation: ShadowWordManipulation,
-
-    // Items
-    manifestedTwilight: ManifestedTwilight,
   };
 }
 

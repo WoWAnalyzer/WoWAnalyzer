@@ -615,13 +615,24 @@ const talents = createTalentList({
     icon: 'spell_priest_burningwill',
     maxRanks: 1,
   },
-  SHADOWFLAME_PRISM_DISCIPLINE_TALENT: {
+  INESCAPABLE_TORMENT_DISCIPLINE_TALENT: {
     id: 373427,
-    name: 'Shadowflame Prism',
-    icon: 'inv_jewelcrafting_shadowsongamethyst_02',
+    name: 'Shadowflame Fissure',
+    icon: 'spell-shadow-chilltouch',
     maxRanks: 1,
   },
-
+  INESCAPABLE_TORMENT_RIFT_DISCIPLINE_TALENT: {
+    id: 373441,
+    name: 'Shadowflame Fissure',
+    icon: 'spell-shadow-chilltouch',
+    maxRanks: 1,
+  },
+  INESCAPABLE_TORMENT_DAMAGE_DISCIPLINE_TALENT: {
+    id: 373442,
+    name: 'Shadowflame Fissure',
+    icon: 'spell-shadow-chilltouch',
+    maxRanks: 1,
+  },
   //Shadow
   DEVOURING_PLAGUE_SHADOW_TALENT: {
     id: 335467,
