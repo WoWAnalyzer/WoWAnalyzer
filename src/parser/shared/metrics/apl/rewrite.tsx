@@ -128,6 +128,7 @@ export default function rewrite(
         return process(state, { ...event, meta: undefined });
       } else {
         // TODO: handle resources like energy/rage
+        // TODO: handle haste changes---there are haste events that we can key off of
         // incorrect spell, generate a new event. we just pick the first among available spells to cast
         const spell = availableSpells[0];
         const ability = info.abilities.find(abilityMatches(spell.id));

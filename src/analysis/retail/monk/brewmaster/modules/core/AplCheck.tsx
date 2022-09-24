@@ -302,6 +302,7 @@ const EmbedContainer = styled.div`
   border-radius: 0.5em;
   padding: 1em 1.5em;
   display: grid;
+  grid-gap: 2rem;
   grid-template-columns: 1fr max-content;
   align-content: center;
   align-items: center;
