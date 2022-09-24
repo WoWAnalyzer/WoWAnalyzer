@@ -2,9 +2,10 @@ import DocumentTitle from 'interface/DocumentTitle';
 import NavigationBar from 'interface/NavigationBar';
 
 import CharacterParses from './CharacterParses';
+import { Region } from 'common/regions';
 
 interface CharacterPageProps {
-  region: string;
+  region: Region;
   realm: string;
   name: string;
 }

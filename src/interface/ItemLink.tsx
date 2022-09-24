@@ -1,12 +1,12 @@
 import getItemQualityLabel from 'common/getItemQualityLabel';
 import ITEMS from 'common/ITEMS';
 import TooltipProvider from 'interface/TooltipProvider';
-import { useEffect, useState } from 'react';
+import { AnchorHTMLAttributes, useEffect, useState } from 'react';
 import * as React from 'react';
 
 import ItemIcon from './ItemIcon';
 
-interface Props {
+interface Props extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'id'> {
   id: number;
   children?: React.ReactNode;
   details?: {

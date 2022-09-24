@@ -1,8 +1,7 @@
-import { i18n } from '@lingui/core';
-import { Trans, defineMessage } from '@lingui/macro';
+import { i18n, MessageDescriptor } from '@lingui/core';
+import { defineMessage, Trans } from '@lingui/macro';
 import { captureException } from 'common/errorLogger';
 import fetchWcl, { CharacterNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
-import ITEMS from 'common/ITEMS';
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
 import retryingPromise from 'common/retryingPromise';
 import DIFFICULTIES, { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
@@ -14,13 +13,15 @@ import ArmoryIcon from 'interface/icons/Armory';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
 import REPORT_HISTORY_TYPES from 'interface/REPORT_HISTORY_TYPES';
-import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { WCLParse, WCLParsesResponse } from 'common/WCL_TYPES';
+import { isDefined } from 'common/typeGuards';
+import { isSupportedRegion } from 'common/regions';
 
 import './CharacterParses.scss';
-import ParsesList from './CharacterParsesList';
+import ParsesList, { Parse } from './CharacterParsesList';
 
 const loadRealms = () =>
   retryingPromise(() => import('game/REALMS').then((exports) => exports.default));
@@ -35,7 +36,6 @@ const ORDER_BY = {
 };
 const DEFAULT_ZONE = 29; // DEFAULT_ZONE changed from 28 to 29 folowing the 9.2 patch.
 const BOSS_DEFAULT_ALL_BOSSES = 0;
-const TRINKET_SLOTS = [12, 13];
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';
 const ERRORS = {
   CHARACTER_NOT_FOUND: defineMessage({
@@ -68,15 +68,40 @@ const ERRORS = {
   }),
 };
 
-class CharacterParses extends Component {
-  static propTypes = {
-    region: PropTypes.string.isRequired,
-    realm: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    appendReportHistory: PropTypes.func.isRequired,
-  };
+interface CharacterParsesProps {
+  region: string;
+  realm: string;
+  name: string;
+  appendReportHistory: typeof appendReportHistory;
+}
 
-  constructor(props) {
+interface Player {
+  name: string;
+  realm: string;
+  region: string;
+  class: string;
+}
+
+interface CharacterParsesState {
+  specs: string[];
+  class: string;
+  activeSpec: string[];
+  activeDifficultyIds: number[];
+  activeZoneID: number;
+  activeEncounter: string | number;
+  sortBy: number;
+  metric: string;
+  image: string | null;
+  avatarImage: string | null;
+  parses: Parse[];
+  isLoading: boolean;
+  error: MessageDescriptor | null;
+  errorMessage: string | null;
+  realmSlug: string | null;
+}
+
+class CharacterParses extends Component<CharacterParsesProps, CharacterParsesState> {
+  constructor(props: CharacterParsesProps) {
     super(props);
     this.state = {
       specs: [],
@@ -110,11 +135,11 @@ class CharacterParses extends Component {
     this.fetchBattleNetInfo();
   }
 
-  iconPath(specName) {
+  iconPath(specName: string) {
     return `/specs/${this.state.class.replace(' ', '')}-${specName.replace(' ', '')}.jpg`;
   }
 
-  appendHistory(player) {
+  appendHistory(player: Player) {
     this.props.appendReportHistory({
       code: `${player.name}-${player.realm}-${player.region}`,
       end: Date.now(),
@@ -126,7 +151,7 @@ class CharacterParses extends Component {
     });
   }
 
-  updateZoneMetricBoss(zone, metric, boss) {
+  updateZoneMetricBoss(zone: number, metric: string, boss: number | string) {
     this.setState(
       {
         activeZoneID: zone,
@@ -139,7 +164,7 @@ class CharacterParses extends Component {
     );
   }
 
-  updateDifficulty(diff) {
+  updateDifficulty(diff: number) {
     let newDiff = this.state.activeDifficultyIds;
     if (newDiff.includes(diff)) {
       newDiff = newDiff.filter((elem) => elem !== diff);
@@ -152,7 +177,7 @@ class CharacterParses extends Component {
     });
   }
 
-  updateSpec(spec) {
+  updateSpec(spec: string) {
     let newSpec = this.state.activeSpec;
     if (newSpec.includes(spec)) {
       newSpec = newSpec.filter((elem) => elem !== spec);
@@ -188,8 +213,8 @@ class CharacterParses extends Component {
     return filteredParses.slice(0, RENDER_LIMIT);
   }
 
-  changeParseStructure(rawParses) {
-    const parses = rawParses.map((elem) => ({
+  changeParseStructure(rawParses: WCLParse[]) {
+    const parses = rawParses.map<Parse>((elem) => ({
       name: elem.encounterName,
       spec: elem.spec.replace(' ', ''),
       difficulty: elem.difficulty,
@@ -216,7 +241,7 @@ class CharacterParses extends Component {
   }
 
   get zoneBosses() {
-    return ZONES.find((zone) => zone.id === this.state.activeZoneID).encounters;
+    return ZONES.find((zone) => zone.id === this.state.activeZoneID)?.encounters;
   }
 
   async fetchBattleNetInfo() {
@@ -235,7 +260,7 @@ class CharacterParses extends Component {
       return;
     }
     // fetch character image and active spec from battle-net
-    const response = await fetch(makeCharacterApiUrl(null, region, realm, name));
+    const response = await fetch(makeCharacterApiUrl(undefined, region, realm, name));
     if (response.status === 500) {
       this.setState({
         isLoading: false,
@@ -284,6 +309,12 @@ class CharacterParses extends Component {
   }
 
   async findRealm() {
+    if (!isSupportedRegion(this.props.region)) {
+      console.warn(
+        `Region is not supported: ${this.props.region}. This generally indicates a bug.`,
+      );
+      return null;
+    }
     const realms = await loadRealms();
     // Use the slug from REALMS when available, otherwise try realm-prop and fail
     // TODO: Can we make this return results more reliably?
@@ -319,15 +350,18 @@ class CharacterParses extends Component {
     const urlEncodedName = encodeURIComponent(this.props.name);
     const urlEncodedRealm = encodeURIComponent(realm);
 
-    return fetchWcl(`parses/character/${urlEncodedName}/${urlEncodedRealm}/${this.props.region}`, {
-      includeCombatantInfo: true,
-      metric: this.state.metric,
-      zone: this.state.activeZoneID,
-      timeframe: 'historical',
-      _: refresh ? Number(new Date()) : undefined,
-      // Always refresh since requiring a manual refresh is unclear and unfriendly to users and they cache hits are low anyway
-      // _: +new Date(), // disabled due to Uldir raid release hitting cap all the time
-    })
+    return fetchWcl<WCLParsesResponse>(
+      `parses/character/${urlEncodedName}/${urlEncodedRealm}/${this.props.region}`,
+      {
+        includeCombatantInfo: true,
+        metric: this.state.metric,
+        zone: this.state.activeZoneID,
+        timeframe: 'historical',
+        _: refresh ? Number(new Date()) : undefined,
+        // Always refresh since requiring a manual refresh is unclear and unfriendly to users and they cache hits are low anyway
+        // _: +new Date(), // disabled due to Uldir raid release hitting cap all the time
+      },
+    )
       .then((rawParses) => {
         if (rawParses.length === 0) {
           this.setState({
@@ -337,17 +371,11 @@ class CharacterParses extends Component {
           });
           return;
         }
-        if (rawParses.hidden) {
-          this.setState({
-            isLoading: false,
-            error: ERRORS.CHARACTER_HIDDEN,
-          });
-          return;
-        }
+        // hidden isn't a value on the parse response
 
         if (this.state.class !== '') {
           //only update parses when class was already parsed (since its only a metric/raid change)
-          const parses = this.changeParseStructure(rawParses, this.state.class);
+          const parses = this.changeParseStructure(rawParses);
           this.setState({
             parses: parses,
             error: null,
@@ -361,9 +389,10 @@ class CharacterParses extends Component {
           .filter((e) => e.className === charClass)
           // eslint-disable-next-line no-restricted-syntax
           .filter((item, index, self) => self.indexOf(item) === index)
-          .map((e) => e.specName);
+          .map((e) => e.specName)
+          .filter(isDefined);
 
-        const parses = this.changeParseStructure(rawParses, charClass);
+        const parses = this.changeParseStructure(rawParses);
 
         this.appendHistory({
           name: this.props.name,
@@ -572,7 +601,7 @@ class CharacterParses extends Component {
             </div>
             <div className="player">
               <div className="avatar">
-                <img src={this.state.avatarImage} alt="" />
+                {this.state.avatarImage && <img src={this.state.avatarImage} alt="" />}
               </div>
               <div className="details">
                 <h2>
@@ -613,11 +642,10 @@ class CharacterParses extends Component {
                     className="form-control"
                     value={this.state.activeEncounter}
                     onChange={(e) => this.setState({ activeEncounter: e.target.value })}
+                    defaultValue={BOSS_DEFAULT_ALL_BOSSES}
                   >
-                    <option value={BOSS_DEFAULT_ALL_BOSSES} defaultValue>
-                      All bosses
-                    </option>
-                    {this.zoneBosses.map((e) => (
+                    <option value={BOSS_DEFAULT_ALL_BOSSES}>All bosses</option>
+                    {this.zoneBosses?.map((e) => (
                       <option key={e.id} value={e.name}>
                         {e.name}
                       </option>
@@ -636,10 +664,9 @@ class CharacterParses extends Component {
                         this.state.activeEncounter,
                       )
                     }
+                    defaultValue="dps"
                   >
-                    <option defaultValue value="dps">
-                      DPS
-                    </option>
+                    <option value="dps">DPS</option>
                     <option value="hps">HPS</option>
                   </select>
                 </li>
@@ -649,10 +676,9 @@ class CharacterParses extends Component {
                     className="form-control"
                     value={this.state.sortBy}
                     onChange={(e) => this.setState({ sortBy: Number(e.target.value) })}
+                    defaultValue={ORDER_BY.DATE}
                   >
-                    <option defaultValue value={ORDER_BY.DATE}>
-                      Date
-                    </option>
+                    <option value={ORDER_BY.DATE}>Date</option>
                     <option value={ORDER_BY.DPS}>DPS / HPS</option>
                     <option value={ORDER_BY.PERCENTILE}>Percentile</option>
                   </select>
