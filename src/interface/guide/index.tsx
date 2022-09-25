@@ -275,10 +275,18 @@ export const SubSection = ({
  * For an example, see the Brewmaster `PurifyReasonBreakdown` component, which
  * sets `.fail-bar` to be transparent.
  */
-export function PassFailBar({ pass, total }: { pass: number; total: number }) {
+export function PassFailBar({
+  pass,
+  total,
+  className,
+}: {
+  pass: number;
+  total: number;
+  className?: string;
+}) {
   const perf = Math.min(pass / total, 1);
   return (
-    <div className="pass-fail-bar-container">
+    <div className={`pass-fail-bar-container ${className ?? ''}`}>
       <div className="pass-bar" style={{ minWidth: `${perf * 100}%` }} />
       {perf < 1 && <div className="fail-bar" style={{ minWidth: `${(1 - perf) * 100}%` }} />}
     </div>

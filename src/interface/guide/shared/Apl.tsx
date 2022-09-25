@@ -1,6 +1,6 @@
 import { useContext, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
-import { useEvents, useInfo } from 'interface/guide';
+import { PassFailBar, useEvents, useInfo } from 'interface/guide';
 import { RuleDescription, RuleSpellsDescription } from 'parser/shared/metrics/apl/ChecklistRule';
 import Casts, { isApplicableEvent } from 'interface/report/Results/Timeline/Casts';
 import { Trans } from '@lingui/macro';
@@ -18,6 +18,7 @@ import aplCheck, {
 } from 'parser/shared/metrics/apl';
 import { SpellLink } from 'interface';
 import { ConditionDescription } from 'parser/shared/metrics/apl/annotate';
+import { formatPercentage } from 'common/format';
 
 const EmbeddedTimelineContainer = styled.div<{ secondWidth?: number; secondsShown?: number }>`
   .spell-timeline {
@@ -242,20 +243,45 @@ const ExplanationSelectionContext = React.createContext<
   (selection: SelectedExplanation<any>) => void
 >(() => undefined);
 
+const ClaimCountBar = styled(PassFailBar)`
+  .pass-bar {
+    background-color: hsl(348.9, 69.5%, 39.8%);
+  }
+
+  .fail-bar {
+    background-color: hsl(0, 0%, 20%);
+  }
+`;
+
+const ClaimCountDescription = styled.div`
+  display: grid;
+  grid-template-columns: max-content auto;
+  grid-gap: 1rem;
+  align-items: start;
+`;
+
 function AplViolationExplanation<T = any>({
   claimData,
   describer,
   children,
+  totalViolations,
 }: {
   claimData: ClaimData<T>;
   describer?: ViolationExplainer<T>['describer'];
   children: React.ReactChild;
+  totalViolations: number;
 }): JSX.Element {
   const setSelection = useContext(ExplanationSelectionContext);
 
   return (
     <EmbedContainer>
-      <div>{children}</div>
+      <div>
+        {children}
+        <ClaimCountDescription>
+          <small>{formatPercentage(claimData.claims.size / totalViolations, 0)}% of mistakes</small>{' '}
+          <ClaimCountBar pass={claimData.claims.size} total={totalViolations} />
+        </ClaimCountDescription>
+      </div>
       <ShowMeButton onClick={() => setSelection?.({ describer, claimData })}>Show Me!</ShowMeButton>
     </EmbedContainer>
   );
@@ -307,7 +333,11 @@ function AplViolationExplanations({
     }
     const explanation = explainers[key].render(claimData, apl, result);
     appliedClaims.push(
-      <AplViolationExplanation claimData={claimData} describer={explainers[key].describer}>
+      <AplViolationExplanation
+        claimData={claimData}
+        describer={explainers[key].describer}
+        totalViolations={result.violations.length}
+      >
         {explanation}
       </AplViolationExplanation>,
     );

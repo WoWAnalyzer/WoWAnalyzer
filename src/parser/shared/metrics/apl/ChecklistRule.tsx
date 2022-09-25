@@ -147,7 +147,8 @@ export function RuleSpellsDescription({ rule }: { rule: AplRule }): JSX.Element 
 export function RuleDescription({ rule }: { rule: AplRule }): JSX.Element {
   return (
     <>
-      Cast <RuleSpellsDescription rule={rule} />{' '}
+      Cast <RuleSpellsDescription rule={rule} />
+      {rule.condition ? ' ' : ''}
       <ConditionDescription prefix="when" rule={rule} tense={Tense.Present} />
     </>
   );
