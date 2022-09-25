@@ -32,7 +32,6 @@ import Casts, { isApplicableEvent } from 'interface/report/Results/Timeline/Cast
 import { Trans } from '@lingui/macro';
 import React from 'react';
 import ProblemList, { Problem, ProblemRendererProps } from 'interface/guide/ProblemList';
-import rewrite from 'parser/shared/metrics/apl/rewrite';
 
 export const apl = build([
   SPELLS.BONEDUST_BREW_CAST,
@@ -130,43 +129,23 @@ const EmbeddedTimelineContainer = styled.div<{ secondWidth?: number; secondsShow
 `;
 
 /**
- * Show the cast timeline around a violation. Optionally rewrite the timeline
- * to cast the expected spell instead.
- *
- * The rewriting needs a LOT of work before its 100% accurate as to what you
- * should do. However, it is generally going to be better to do this
- * replacement than change nothing.
+ * Show the cast timeline around a violation.
  */
 function ViolationTimeline({
-  violation,
   events,
-  replaceWithExpected,
-  rewriteDuration,
-  apl,
 }: {
   events: AnyEvent[];
   violation: Violation;
   replaceWithExpected?: boolean;
-  rewriteDuration?: number;
   apl: Apl;
 }): JSX.Element | null {
   const info = useInfo();
-  const allEvents = useEvents();
 
   if (!info) {
     return null;
   }
 
-  let relevantEvents = events;
-
-  if (replaceWithExpected) {
-    const splitIndex = events.findIndex((event) => event === violation.actualCast);
-    relevantEvents = events
-      .slice(0, splitIndex)
-      .concat(rewrite(apl, allEvents, info, violation.actualCast, rewriteDuration ?? 5000));
-  }
-
-  relevantEvents = relevantEvents.filter(isApplicableEvent(info?.playerId ?? 0));
+  const relevantEvents = events.filter(isApplicableEvent(info?.playerId ?? 0));
 
   return (
     <>
@@ -476,18 +455,6 @@ function ViolationProblemList<T = any>({
         <div>
           <p>Here's what you did:</p>
           <ViolationTimeline violation={props.problem.data} events={props.events} apl={apl} />
-          <p>This should look more like:</p>
-          <ViolationTimeline
-            violation={props.problem.data}
-            events={props.events}
-            apl={apl}
-            rewriteDuration={
-              typeof props.problem.context === 'number'
-                ? props.problem.context
-                : props.problem.context?.after
-            }
-            replaceWithExpected
-          />
         </div>
       </ViolationProblemContainer>
     ),
