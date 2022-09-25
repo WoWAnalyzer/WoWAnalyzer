@@ -43,11 +43,14 @@ const EmbeddedTimelineContainer = styled.div<{ secondWidth?: number; secondsShow
  * Show the cast timeline around a violation.
  */
 function ViolationTimeline({
+  violation,
   events,
+  apl,
+  results,
 }: {
   events: AnyEvent[];
   violation: Violation;
-  replaceWithExpected?: boolean;
+  results: CheckResult;
   apl: Apl;
 }): JSX.Element | null {
   const info = useInfo();
@@ -56,7 +59,19 @@ function ViolationTimeline({
     return null;
   }
 
-  const relevantEvents = events.filter(isApplicableEvent(info?.playerId ?? 0));
+  const relevantEvents = events.filter(isApplicableEvent(info?.playerId ?? 0)).map((event) =>
+    event === violation.actualCast
+      ? {
+          ...event,
+          meta: {
+            isEnhancedCast: true,
+            enhancedCastReason: (
+              <AplRules apl={apl} results={results} highlightRule={violation.rule} />
+            ),
+          },
+        }
+      : event,
+  );
 
   return (
     <>
@@ -175,10 +190,17 @@ const droppedRule: ViolationExplainer<InternalRule> = {
     </Trans>
   ),
   describer: ({ violation }) => (
-    <Trans id="guide.apl.droppedRule.describer">
-      <SpellLink id={violation.expectedCast[0].id} /> is higher priority than{' '}
-      <SpellLink id={violation.actualCast.ability.guid} />
-    </Trans>
+    <>
+      {violation.rule.condition ? (
+        <>
+          <ConditionDescription prefix="When" rule={violation.rule} tense={Tense.Present} />, you{' '}
+        </>
+      ) : (
+        'You '
+      )}
+      should cast <SpellLink id={violation.expectedCast[0].id} /> instead of{' '}
+      <SpellLink id={violation.actualCast.ability.guid} />.
+    </>
   ),
 };
 
@@ -310,40 +332,90 @@ function AplViolationExplanations({
   );
 }
 
-const AplSummarySection = styled.div`
-  & > header {
-    font-weight: bold;
-  }
+const AplSubsectionHeader = styled.header`
+  font-weight: bold;
 `;
 
-/**
- * Produce a summary of the APL itself. This is just an un-annotated reference.
- */
-function AplSummary({ apl, results }: { apl: Apl; results: CheckResult }): JSX.Element | null {
+const AplListItem = styled.li<{ highlighted?: boolean; muted?: boolean }>`
+  opacity: ${(props) => (props.muted ? 0.5 : 1)};
+
+  ${(props) =>
+    !props.highlighted
+      ? ''
+      : `
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: -1.5rem;
+
+    &::before {
+      content: '\\e080';
+      font-family: 'Glyphicons Halflings';
+      color: #fab700;
+      margin-right: 0.5rem;
+      font-size: 10px;
+    }
+
+    &::after {
+      content: '\\e079';
+      font-family: 'Glyphicons Halflings';
+      color: #fab700;
+      margin-left: 0.5rem;
+      font-size: 10px;
+    }
+  `}
+`;
+
+function AplRules({
+  apl,
+  results,
+  highlightRule,
+}: {
+  apl: Apl;
+  results: CheckResult;
+  highlightRule?: InternalRule;
+}): JSX.Element {
   const castSpells = new Set(
     results.successes
       .map((suc) => suc.actualCast.ability.guid)
       .concat(results.violations.map((v) => v.actualCast.ability.guid)),
   );
+
+  const rules = apl.rules.filter(
+    (rule) =>
+      (rule.condition === undefined && spells(rule).some((spell) => castSpells.has(spell.id))) ||
+      results.successes.some((suc) => suc.rule === rule) ||
+      results.violations.some((v) => v.rule === rule),
+  );
+
+  const highlightIndex = useMemo(() => highlightRule && rules.indexOf(highlightRule), [
+    rules,
+    highlightRule,
+  ]);
+
   return (
-    <AplSummarySection>
-      <header>Priority List</header>
-      <AplRuleList>
-        {apl.rules
-          .filter(
-            (rule) =>
-              (rule.condition === undefined &&
-                spells(rule).some((spell) => castSpells.has(spell.id))) ||
-              results.successes.some((suc) => suc.rule === rule) ||
-              results.violations.some((v) => v.rule === rule),
-          )
-          .map((rule, index) => (
-            <li key={index}>
-              <RuleDescription rule={rule} />
-            </li>
-          ))}
-      </AplRuleList>
-    </AplSummarySection>
+    <AplRuleList>
+      {rules.map((rule, index) => (
+        <AplListItem
+          key={index}
+          highlighted={rule === highlightRule}
+          muted={index < (highlightIndex ?? 0)}
+        >
+          <RuleDescription rule={rule} />
+        </AplListItem>
+      ))}
+    </AplRuleList>
+  );
+}
+
+/**
+ * Produce a summary of the APL itself. This is just an un-annotated reference.
+ */
+function AplSummary({ apl, results }: { apl: Apl; results: CheckResult }): JSX.Element | null {
+  return (
+    <div>
+      <AplSubsectionHeader>Priority List</AplSubsectionHeader>
+      <AplRules apl={apl} results={results} />
+    </div>
   );
 }
 
@@ -373,8 +445,12 @@ function ViolationProblemList<T = any>({
           </div>
         )}
         <div>
-          <p>Here's what you did:</p>
-          <ViolationTimeline violation={props.problem.data} events={props.events} apl={apl} />
+          <ViolationTimeline
+            violation={props.problem.data}
+            events={props.events}
+            results={result}
+            apl={apl}
+          />
         </div>
       </ViolationProblemContainer>
     ),
@@ -417,6 +493,7 @@ const AplViolationContainer = styled.div``;
 const AplLayout = styled.div`
   display: grid;
   grid-template-areas: 'summary problems' 'timeline timeline';
+  grid-template-columns: auto 1fr;
   grid-gap: 2rem;
 
   ${AplRuleList} {
@@ -435,9 +512,14 @@ const AplLayout = styled.div`
 export type AplSectionProps = {
   checker: ReturnType<typeof aplCheck>;
   apl: Apl;
+  violationExplainers?: AplViolationExplainers;
 };
 
-export function AplSectionData({ checker, apl }: AplSectionProps): JSX.Element | null {
+export function AplSectionData({
+  checker,
+  apl,
+  violationExplainers,
+}: AplSectionProps): JSX.Element | null {
   const events = useEvents();
   const info = useInfo();
 
@@ -459,7 +541,12 @@ export function AplSectionData({ checker, apl }: AplSectionProps): JSX.Element |
       <AplLayout>
         <AplSummary apl={apl} results={result} />
         <AplViolationContainer>
-          <AplViolationExplanations apl={apl} result={result} explainers={defaultExplainers} />
+          <AplSubsectionHeader>Most Common Problems</AplSubsectionHeader>
+          <AplViolationExplanations
+            apl={apl}
+            result={result}
+            explainers={violationExplainers ?? defaultExplainers}
+          />
         </AplViolationContainer>
         {selectedExplanation && (
           <ViolationProblemList {...selectedExplanation} result={result} apl={apl} />
