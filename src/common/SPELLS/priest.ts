@@ -306,7 +306,7 @@ const spells = spellIndexableList({
     icon: 'ability_priest_savinggrace',
   },
   TWIST_OF_FATE_BUFF: {
-    id: 123254,
+    id: 390978,
     name: 'Twist of Fate',
     icon: 'spell_shadow_mindtwisting',
   },

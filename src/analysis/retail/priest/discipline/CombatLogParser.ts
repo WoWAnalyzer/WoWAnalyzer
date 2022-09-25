@@ -5,6 +5,7 @@ import {
   ShadowfiendNormalizer,
   TwinsOfTheSunPriestess,
   UnholyNova,
+  TwistOfFate,
 } from 'analysis/retail/priest/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
@@ -39,7 +40,6 @@ import Lenience from './modules/spells/Lenience';
 import Penance from './modules/spells/Penance';
 import Schism from './modules/spells/Schism';
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
-import TwistOfFate from './modules/spells/TwistOfFate';
 import AtonementSuccessiveDamageNormalizer from './normalizers/AtonementSuccessiveDamage';
 import ManifestedTwilightNormalizer from './normalizers/ManifestedTwilightNormalizer';
 import PowerWordRadianceNormalizer from './normalizers/PowerWordRadianceNormalizer';
