@@ -1,6 +1,5 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import { SubSection } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -9,8 +8,8 @@ import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
 import Combatants from 'parser/shared/modules/Combatants';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import { LIFEBLOOM_BUFFS } from 'analysis/retail/druid/restoration/constants';
 
-const LIFEBLOOM_HOTS: Spell[] = [SPELLS.LIFEBLOOM_HOT_HEAL, SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL];
 const LB_COLOR = '#00bb44';
 const UNDERGROWTH_COLOR = '#dd5500';
 
@@ -41,11 +40,11 @@ class Lifebloom extends Analyzer {
     );
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(LIFEBLOOM_HOTS),
+      Events.applybuff.by(SELECTED_PLAYER).spell(LIFEBLOOM_BUFFS),
       this.onApplyLifebloom,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(LIFEBLOOM_HOTS),
+      Events.removebuff.by(SELECTED_PLAYER).spell(LIFEBLOOM_BUFFS),
       this.onRemoveLifebloom,
     );
   }

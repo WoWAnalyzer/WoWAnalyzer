@@ -72,9 +72,9 @@ class FlashOfClarity extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.FLASH_OF_CLARITY.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.FLASH_OF_CLARITY_RESTORATION_TALENT.id}>
           <ItemPercentHealingDone amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

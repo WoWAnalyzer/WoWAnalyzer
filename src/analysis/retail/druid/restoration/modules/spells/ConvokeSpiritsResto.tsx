@@ -288,7 +288,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
         wide
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             {this.baseTooltip}
@@ -358,7 +358,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.CONVOKE_SPIRITS.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.CONVOKE_THE_SPIRITS_RESTORATION_TALENT.id}>
           <ItemPercentHealingDone approximate amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

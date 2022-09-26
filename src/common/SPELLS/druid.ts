@@ -387,6 +387,24 @@ const spells = spellIndexableList({
     name: 'Grove Tending',
     icon: 'inv_relics_idolofrejuvenation',
   },
+  // buff and heal from Regenerative Heartwood talent
+  REGENERATIVE_HEARTWOOD: {
+    id: 392117,
+    name: 'Regenerative Heartwood',
+    icon: 'ability_druid_manatree',
+  },
+  // heal from Embrace of the Dream talent
+  EMBRACE_OF_THE_DREAM: {
+    id: 392147,
+    name: 'Embrace of the Dream',
+    icon: 'ability_druid_healinginstincts',
+  },
+  // heal from Verdancy talent
+  VERDANCY: {
+    id: 392329,
+    name: 'Verdancy',
+    icon: 'inv_10_herb_seed_magiccolor5',
+  },
   // Sets/Items:
   ASTRAL_HARMONY: {
     // 2pc T19

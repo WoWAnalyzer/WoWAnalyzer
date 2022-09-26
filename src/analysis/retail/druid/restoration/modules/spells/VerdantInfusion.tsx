@@ -94,7 +94,7 @@ class VerdantInfusion extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             This is the sum of the healing attributable to the HoT extensions caused by casting
