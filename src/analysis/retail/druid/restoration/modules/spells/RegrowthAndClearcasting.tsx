@@ -209,10 +209,8 @@ class RegrowthAndClearcasting extends Analyzer {
             <>
               or cheap due to <SpellLink id={TALENTS_DRUID.ABUNDANCE_RESTORATION_TALENT.id} />. Even
               with <SpellLink id={TALENTS_DRUID.ABUNDANCE_RESTORATION_TALENT.id} /> you still
-              shouldn't cast Regrowth during your ramp. Wait until after you{' '}
-              <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> or{' '}
-              <SpellLink id={TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id} />, then you can fill
-              with high-stack Regrowth casts.
+              shouldn't cast Regrowth during your ramp. When your ramp is finished and your
+              cooldowns are rolling, then you can fill with high-stack Regrowth casts.
             </>
           )}
         </p>

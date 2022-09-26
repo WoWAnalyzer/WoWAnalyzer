@@ -177,18 +177,33 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
     return this.restoConvokeTracker.filter((cast) => cast.nsAttribution.healing !== 0).length;
   }
 
-  // TODO update text for DF
   /** Guide fragment showing a breakdown of each Convoke cast */
   get guideCastBreakdown() {
+    const hasCenariusGuidance = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.CENARIUS_GUIDANCE_RESTORATION_TALENT,
+    );
+    const hasFlourish = this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_RESTORATION_TALENT);
+    const hasReforestation = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.REFORESTATION_RESTORATION_TALENT,
+    );
+
     return (
       <>
         <strong>
           <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />
         </strong>{' '}
-        is a powerful but somewhat random burst of healing with a decent chance of proccing{' '}
-        <SpellLink id={TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id} />. Its short cooldown and
-        random nature mean its best used as it becomes available. Lightly ramping for a Convoke is
-        still worthwhile in case it procs Flourish.
+        is a powerful but somewhat random burst of healing.{' '}
+        {hasCenariusGuidance && (
+          <>
+            Due to <SpellLink id={TALENTS_DRUID.CENARIUS_GUIDANCE_RESTORATION_TALENT.id} />, it also
+            has a decent chance of proccing{' '}
+            <SpellLink id={TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id} />.
+          </>
+        )}{' '}
+        Its short cooldown and random nature mean its best used as it becomes available. The amount
+        of direct healing it provides{' '}
+        {hasCenariusGuidance && 'and possiblity of proccing Flourish '}means lightly ramping for a
+        Convoke is still worthwhile.
         <p />
         {this.convokeTracker.map((cast, ix) => {
           const restoCast = this.restoConvokeTracker[ix];
@@ -222,7 +237,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
             result: <PassFailCheckmark pass={restoCast.rejuvsOnCast > 0} />,
             details: <>({restoCast.rejuvsOnCast} HoTs active)</>,
           });
-          this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id) &&
+          hasFlourish &&
             checklistItems.push({
               label: (
                 <>
@@ -249,11 +264,11 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
               ),
               result: <PassFailCheckmark pass={!restoCast.recentlyFlourished} />,
             });
-          this.selectedCombatant.hasTalent(TALENTS_DRUID.REFORESTATION_RESTORATION_TALENT) &&
+          hasReforestation &&
             checklistItems.push({
               label: (
                 <>
-                  Sync with <SpellLink id={SPELLS.RESTO_DRUID_TIER_28_4P_SET_BONUS.id} />{' '}
+                  Sync with <SpellLink id={TALENTS_DRUID.REFORESTATION_RESTORATION_TALENT.id} />{' '}
                   <Tooltip
                     hoverable
                     content={
@@ -283,6 +298,9 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
   }
 
   statistic() {
+    const hasCenariusGuidance = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.CENARIUS_GUIDANCE_RESTORATION_TALENT,
+    );
     return (
       <Statistic
         wide
@@ -294,8 +312,9 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
             {this.baseTooltip}
             <br />
             <br />
-            Healing amount is attributed by tracking the healing spells cast by Convoke, including
-            possible Flourish casts. This amount includes mastery benefit from the proceed HoTs.
+            Healing amount is attributed by tracking the healing spells cast by Convoke
+            {hasCenariusGuidance && ', including possible Flourish casts'}. This amount includes
+            mastery benefit from the proceed HoTs.
             {this.totalNsConvokeHealing !== 0 && (
               <>
                 <br />

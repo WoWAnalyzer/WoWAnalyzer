@@ -3,12 +3,13 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { SubSection } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
 import Combatants from 'parser/shared/modules/Combatants';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { LIFEBLOOM_BUFFS } from 'analysis/retail/druid/restoration/constants';
+import { causedBloom } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 
 const LB_COLOR = '#00bb44';
 const UNDERGROWTH_COLOR = '#dd5500';
@@ -33,6 +34,9 @@ class Lifebloom extends Analyzer {
   /** list of time periods when at least two lifeblooms were active */
   undergrowthUptimes: OpenTimePeriod[] = [];
 
+  possibleNaturalBlooms: number = 0;
+  actualNaturalBlooms: number = 0;
+
   constructor(options: Options) {
     super(options);
     this.hasUndergrowth = this.selectedCombatant.hasTalent(
@@ -46,6 +50,14 @@ class Lifebloom extends Analyzer {
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(LIFEBLOOM_BUFFS),
       this.onRemoveLifebloom,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(LIFEBLOOM_BUFFS),
+      this.onPossibleBloomTrigger,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(LIFEBLOOM_BUFFS),
+      this.onPossibleBloomTrigger,
     );
   }
 
@@ -73,6 +85,13 @@ class Lifebloom extends Analyzer {
       }
     }
     this.activeLifeblooms -= 1;
+  }
+
+  onPossibleBloomTrigger(event: RemoveBuffEvent | RefreshBuffEvent) {
+    this.possibleNaturalBlooms += 1;
+    if (causedBloom(event)) {
+      this.actualNaturalBlooms += 1;
+    }
   }
 
   /** The time at least one lifebloom was active */
@@ -120,34 +139,82 @@ class Lifebloom extends Analyzer {
 
   /** Guide subsection describing the proper usage of Lifebloom */
   get guideSubsection(): JSX.Element {
+    const hasPhoto = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.PHOTOSYNTHESIS_RESTORATION_TALENT,
+    );
+    const hasUndergrowth = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.UNDERGROWTH_RESTORATION_TALENT,
+    );
+    const hasVerdancy = this.selectedCombatant.hasTalent(TALENTS_DRUID.VERDANCY_RESTORATION_TALENT);
+    const selfUptimePercent = this.selfLifebloomUptime / this.owner.fightDuration;
+    const othersUptimePercent = this.othersLifebloomUptime / this.owner.fightDuration;
     return (
       <SubSection>
         <p>
           <b>
             <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} />
           </b>{' '}
-          can only be active on one target at time and provides similar throughput to Rejuvenation.
-          However, it causes <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> procs and so is a big
-          benefit to your mana efficiency . It should always be active on a target - the tank is
-          usually a safe bet.
+          can only be active on {hasUndergrowth ? 'two targets' : 'one target'} at a time{' '}
+          {hasUndergrowth && (
+            <>
+              (due to <SpellLink id={TALENTS_DRUID.UNDERGROWTH_RESTORATION_TALENT.id} />)
+            </>
+          )}{' '}
+          and provides similar throughput to Rejuvenation. However, it causes{' '}
+          <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> procs and so is a big benefit to your mana
+          efficiency. It should always be active on a target - the tank is usually a safe bet.
         </p>
-        {this.selectedCombatant.hasTalent(TALENTS_DRUID.PHOTOSYNTHESIS_RESTORATION_TALENT) && (
+        {hasVerdancy && (
+          <p>
+            Because you took{' '}
+            <strong>
+              <SpellLink id={TALENTS_DRUID.VERDANCY_RESTORATION_TALENT.id} />
+            </strong>
+            , you should take extra care to allow your Lifeblooms to bloom. Refreshing lifebloom
+            early or swapping targets before the existing Lifebloom has completed both will cause
+            the bloom to be skipped - avoid doing this.
+            <br />
+            <strong>
+              Lifebloom casts that bloomed:{' '}
+              {formatPercentage(this.actualNaturalBlooms / this.possibleNaturalBlooms, 1)}%
+            </strong>
+          </p>
+        )}
+        {hasPhoto && (
           <p>
             Because you took{' '}
             <strong>
               <SpellLink id={TALENTS_DRUID.PHOTOSYNTHESIS_RESTORATION_TALENT.id} />
             </strong>
             , high uptime is particularly important. Typically the Lifebloom-on-self effect is most
-            powerful.
+            powerful{' '}
+            {hasVerdancy && (
+              <>
+                but because you took <SpellLink id={TALENTS_DRUID.VERDANCY_RESTORATION_TALENT.id} />
+                , the extra blooms from the 'on-others' effect will also be very powerful
+              </>
+            )}
+            .
+            {hasUndergrowth && (
+              <>
+                {' '}
+                Remember that <SpellLink
+                  id={TALENTS_DRUID.UNDERGROWTH_RESTORATION_TALENT.id}
+                />{' '}
+                allows two lifeblooms, and both will benefit!
+              </>
+            )}
             <br />
-            Total Uptime on{' '}
-            <strong>
-              Self: {formatPercentage(this.selfLifebloomUptime / this.owner.fightDuration, 1)}%
-            </strong>{' '}
-            / on{' '}
-            <strong>
-              Others: {formatPercentage(this.othersLifebloomUptime / this.owner.fightDuration, 1)}%
-            </strong>
+            Total Uptime on <strong>Self: {formatPercentage(selfUptimePercent, 1)}%</strong> / on{' '}
+            <strong>Others: {formatPercentage(othersUptimePercent, 1)}%</strong>
+            {selfUptimePercent + othersUptimePercent > 1 && (
+              <>
+                {' '}
+                <small>
+                  (value can sum to greater than 100% due to multiple lifeblooms being active)
+                </small>
+              </>
+            )}
           </p>
         )}
         {this.subStatistic()}
