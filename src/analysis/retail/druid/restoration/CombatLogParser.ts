@@ -47,6 +47,11 @@ import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
 import SoulOfTheForestLinkNormalizer from './normalizers/SoulOfTheForestLinkNormalizer';
 import SwiftmendNormalizer from './normalizers/SwiftmendNormalizer';
 import TreeOfLifeNormalizer from './normalizers/TreeOfLifeNormalizer';
+import GroveTending from 'analysis/retail/druid/restoration/modules/spells/GroveTending';
+import HarmoniusBlooming from 'analysis/retail/druid/restoration/modules/spells/HarmoniusBlooming';
+import Verdancy from 'analysis/retail/druid/restoration/modules/spells/Verdancy';
+import Regenesis from 'analysis/retail/druid/restoration/modules/spells/Regenesis';
+import NurturingDormancy from 'analysis/retail/druid/restoration/modules/spells/Nurturing Dormancy';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -58,6 +63,8 @@ class CombatLogParser extends CoreCombatLogParser {
     swiftmendNormazlier: SwiftmendNormalizer,
 
     // Core
+    hotTracker: HotTrackerRestoDruid,
+    hotAttributor: HotAttributor,
     mastery: Mastery,
     spellManaCost: SpellManaCost,
     activeDruidForm: ActiveDruidForm,
@@ -66,11 +73,7 @@ class CombatLogParser extends CoreCombatLogParser {
     manaLevelChart: ManaLevelChart,
     manaUsageChart: ManaUsageChart,
 
-    // Hot Tracking
-    hotTracker: HotTrackerRestoDruid,
-    hotAttributor: HotAttributor,
-
-    // Spells TODO redo this organization
+    // Spells
     lowHealthHealing: LowHealthHealing,
     alwaysBeCasting: AlwaysBeCasting,
     averageHots: AverageHots,
@@ -83,8 +86,9 @@ class CombatLogParser extends CoreCombatLogParser {
     innervate: Innervate,
     springBlossoms: SpringBlossoms,
     cultivation: Cultivation,
+    groveTending: GroveTending,
     ironbark: Ironbark,
-    prematureRejuvenations: Rejuvenation,
+    rejuvenation: Rejuvenation,
     lifebloomAndEffloUptime: LifebloomAndEffloUptime,
     swiftmend: Swiftmend,
     hotCountGraph: HotCountGraph,
@@ -102,6 +106,10 @@ class CombatLogParser extends CoreCombatLogParser {
     memoryoftheMotherTree: PowerOfTheArchdruid,
     verdantInfusion: VerdantInfusion,
     reforestation: Reforestation,
+    harmoniusBlooming: HarmoniusBlooming,
+    verdancy: Verdancy,
+    regenesis: Regenesis,
+    nurturingDormancy: NurturingDormancy,
 
     // Mana Tab
     manaTracker: ManaTracker,

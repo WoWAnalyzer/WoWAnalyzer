@@ -33,8 +33,8 @@ class AdaptiveSwarmResto extends AdaptiveSwarm {
     return (
       <Statistic
         size="flexible"
-        position={STATISTIC_ORDER.CORE(0)}
-        category={STATISTIC_CATEGORY.COVENANTS}
+        position={STATISTIC_ORDER.OPTIONAL(8)} // number based on talent row
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             This is the sum of the direct healing from Adaptive Swarm, the healing enabled by its

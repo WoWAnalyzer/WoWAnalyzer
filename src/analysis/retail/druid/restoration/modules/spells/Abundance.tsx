@@ -82,7 +82,7 @@ class Abundance extends Analyzer {
 
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(15)}
+        position={STATISTIC_ORDER.OPTIONAL(4)} // number based on talent row
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={

@@ -205,19 +205,20 @@ class StatTracker extends Analyzer {
     [SPELLS.MOUNTAINEER.id]: { versatility: 1.01 },
   };
 
-  //Values taken from https://github.com/simulationcraft/simc/blob/shadowlands/engine/dbc/generated/sc_scale_data.inc
+  //Values taken from https://github.com/simulationcraft/simc/blob/dragonflight/engine/dbc/generated/sc_scale_data.inc
   statBaselineRatingPerPercent = {
     /** Secondaries */
-    [STAT.CRITICAL_STRIKE]: 35,
-    [STAT.HASTE]: 33,
-    [STAT.MASTERY]: 35,
-    [STAT.VERSATILITY]: 40,
+    [STAT.CRITICAL_STRIKE]: 220,
+    [STAT.HASTE]: 210,
+    [STAT.MASTERY]: 220,
+    [STAT.VERSATILITY]: 250,
     /** Tertiaries */
-    [STAT.AVOIDANCE]: 14,
-    [STAT.LEECH]: 21,
-    [STAT.SPEED]: 10,
+    [STAT.AVOIDANCE]: 88,
+    [STAT.LEECH]: 132,
+    [STAT.SPEED]: 62,
   };
 
+  // TODO these values are in updated SIMC for Dragonflight, but I don't know how to derive them - still need to update
   /** Secondary stat scaling thresholds
    * Taken from https://raw.githubusercontent.com/simulationcraft/simc/shadowlands/engine/dbc/generated/item_scaling.inc
    * Search for 21024 in the first column for secondary stat scaling
@@ -234,6 +235,7 @@ class StatTracker extends Analyzer {
     { base: 2, scaled: 1.26, penaltyAboveThis: 1 },
   ];
 
+  // TODO these values are in updated SIMC for Dragonflight, but I don't know how to derive them - still need to update
   /** Tertiary stat scaling thresholds
    * Taken from https://raw.githubusercontent.com/simulationcraft/simc/shadowlands/engine/dbc/generated/item_scaling.inc
    * Search for 21025 in the first column for tertiary stat scaling

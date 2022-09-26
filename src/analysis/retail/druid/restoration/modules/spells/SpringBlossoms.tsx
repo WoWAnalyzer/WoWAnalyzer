@@ -45,7 +45,7 @@ class SpringBlossoms extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        position={STATISTIC_ORDER.OPTIONAL(45)}
+        position={STATISTIC_ORDER.OPTIONAL(8)} // number based on talent row
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>

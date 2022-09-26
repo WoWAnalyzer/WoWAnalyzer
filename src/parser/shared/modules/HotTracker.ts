@@ -238,6 +238,7 @@ abstract class HotTracker extends Analyzer {
     }
 
     attribution.procs += 1;
+    attribution.totalExtension += finalAmount;
     const existingExtension = hot.extensions.find(
       (extension) => extension.attribution.name === attribution.name,
     );

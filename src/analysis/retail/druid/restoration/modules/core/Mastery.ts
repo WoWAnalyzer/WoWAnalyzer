@@ -3,14 +3,16 @@ import Entity from 'parser/core/Entity';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { AbsorbedEvent, FightEndEvent, HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import { HealerSpellInfo } from 'parser/shared/modules/features/BaseHealerStatValues';
 import STAT from 'parser/shared/modules/features/STAT';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
-import { DRUID_HEAL_INFO, getSpellInfo } from '../../SpellInfo';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
+import {
+  ABILITIES_AFFECTED_BY_HEALING_INCREASES,
+  MASTERY_STACK_BUFF_IDS,
+} from 'analysis/retail/druid/restoration/constants';
 
 const DEBUG = false;
 
@@ -59,10 +61,8 @@ class Mastery extends Analyzer {
       : SPELLS.LIFEBLOOM_HOT_HEAL.id;
 
     // inits spellAttributions with an entry for each HoT that works with Mastery
-    Object.entries(DRUID_HEAL_INFO).forEach(([guid, buff]: [string, HealerSpellInfo]) => {
-      if (buff.masteryStack) {
-        this.spellAttributions[Number(guid)] = new MasterySpellAttribution();
-      }
+    MASTERY_STACK_BUFF_IDS.forEach((id) => {
+      this.spellAttributions[id] = new MasterySpellAttribution();
     });
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
@@ -85,7 +85,7 @@ class Mastery extends Analyzer {
       this.spellAttributions[spellId].direct += healVal.effective;
     }
 
-    if (getSpellInfo(spellId).mastery) {
+    if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       const hotsOn = this.getHotsOn(target);
       const numHotsOn = hotsOn.length;
       const decomposedHeal = this._decompHeal(healVal, numHotsOn);
@@ -215,7 +215,7 @@ class Mastery extends Analyzer {
     return target
       .activeBuffs()
       .map((buffObj) => buffObj.ability.guid)
-      .filter((buffId) => getSpellInfo(buffId).masteryStack);
+      .filter((buffId) => MASTERY_STACK_BUFF_IDS.includes(buffId));
   }
 
   /**

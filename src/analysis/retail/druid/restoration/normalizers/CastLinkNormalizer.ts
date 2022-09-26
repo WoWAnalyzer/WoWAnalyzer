@@ -10,6 +10,7 @@ import {
   HasRelatedEvent,
   HealEvent,
   RefreshBuffEvent,
+  RemoveBuffEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import { TALENTS_DRUID } from 'common/TALENTS';
@@ -21,6 +22,7 @@ export const APPLIED_HEAL = 'AppliedHeal';
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_OVERGROWTH = 'FromOvergrowth';
 export const FROM_EXPIRING_LIFEBLOOM = 'FromExpiringLifebloom';
+export const CAUSED_BLOOM = 'CausedBloom';
 export const CAUSED_TICK = 'CausedTick';
 
 const EVENT_LINKS: EventLink[] = [
@@ -115,6 +117,7 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: FROM_EXPIRING_LIFEBLOOM,
+    reverseLinkRelation: CAUSED_BLOOM,
     linkingEventId: SPELLS.LIFEBLOOM_BLOOM_HEAL.id,
     linkingEventType: EventType.Heal,
     referencedEventId: [SPELLS.LIFEBLOOM_HOT_HEAL.id, SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id],
@@ -184,6 +187,11 @@ export function getDirectHeal(event: CastEvent): HealEvent | undefined {
  *  buff - used to differentiate from a Photosynthesis proc */
 export function isFromExpiringLifebloom(event: HealEvent): boolean {
   return HasRelatedEvent(event, FROM_EXPIRING_LIFEBLOOM);
+}
+
+/** Returns true iff the bloom expiration caused a bloom to proc */
+export function causedBloom(event: RemoveBuffEvent | RefreshBuffEvent): boolean {
+  return HasRelatedEvent(event, CAUSED_BLOOM);
 }
 
 /** Gets the tranquility "tick cast" events caused by channeling the given Tranquility w/

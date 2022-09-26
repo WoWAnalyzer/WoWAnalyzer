@@ -72,9 +72,9 @@ class PowerOfTheArchdruid extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(13)}
+        position={STATISTIC_ORDER.OPTIONAL(10)} // number based on talent row
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             This is the healing attributable to the rejuvenations and regrowths spawned by the Power
