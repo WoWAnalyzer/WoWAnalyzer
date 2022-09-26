@@ -214,7 +214,7 @@ class StatTracker extends Analyzer {
     [STAT.VERSATILITY]: 250,
     /** Tertiaries */
     [STAT.AVOIDANCE]: 88,
-    [STAT.LEECH]: 132, // FIXME this is a guess based on patterns, the data isn't there yet
+    [STAT.LEECH]: 132,
     [STAT.SPEED]: 62,
   };
 

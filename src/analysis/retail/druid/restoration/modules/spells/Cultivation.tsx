@@ -43,7 +43,7 @@ class Cultivation extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(40)}
+        position={STATISTIC_ORDER.OPTIONAL(6)} // number based on talent row
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={

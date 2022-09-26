@@ -286,7 +286,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
     return (
       <Statistic
         wide
-        position={STATISTIC_ORDER.CORE()}
+        position={STATISTIC_ORDER.OPTIONAL(8)} // number based on talent row
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={

@@ -33,7 +33,7 @@ class AdaptiveSwarmResto extends AdaptiveSwarm {
     return (
       <Statistic
         size="flexible"
-        position={STATISTIC_ORDER.CORE(0)}
+        position={STATISTIC_ORDER.OPTIONAL(8)} // number based on talent row
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>

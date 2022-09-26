@@ -11,7 +11,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   return (
     <>
       <Section title="Core Spells">
-        {modules.prematureRejuvenations.guideSubsection}
+        {modules.rejuvenation.guideSubsection}
         {modules.wildGrowth.guideSubsection}
         {modules.regrowthAndClearcasting.guideSubsection}
         {modules.lifebloom.guideSubsection}

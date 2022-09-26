@@ -177,7 +177,7 @@ class Innervate extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(25)}
+        position={STATISTIC_ORDER.OPTIONAL(25)} // chosen for fixed ordering of general stats
         size="flexible"
         category={STATISTIC_CATEGORY.GENERAL}
       >

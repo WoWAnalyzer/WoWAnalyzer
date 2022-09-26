@@ -103,7 +103,7 @@ class Ironbark extends Analyzer {
     if (this.ironbarkCount > 0) {
       return (
         <Statistic
-          position={STATISTIC_ORDER.CORE(20)}
+          position={STATISTIC_ORDER.OPTIONAL(5)} // number based on talent row
           size="flexible"
           tooltip={
             <>

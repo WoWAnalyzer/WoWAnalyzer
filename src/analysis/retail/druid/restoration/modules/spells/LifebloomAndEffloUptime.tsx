@@ -25,7 +25,7 @@ class LifebloomAndEffloUptime extends Analyzer {
             <UptimeIcon /> Uptimes
           </>
         }
-        position={STATISTIC_ORDER.CORE(9.5)}
+        position={STATISTIC_ORDER.CORE(9.5)} // chosen for fixed ordering of general stats
       >
         {this.lifebloom.subStatistic()}
         {this.efflorescence.subStatistic()}

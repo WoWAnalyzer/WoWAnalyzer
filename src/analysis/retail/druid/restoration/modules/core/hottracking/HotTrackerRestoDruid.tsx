@@ -148,6 +148,11 @@ class HotTrackerRestoDruid extends HotTracker {
         duration: 8000,
         tickPeriod: 1000,
       },
+      {
+        spell: SPELLS.GROVE_TENDING,
+        duration: 9000,
+        tickPeriod: 3000,
+      },
     ];
   }
 }

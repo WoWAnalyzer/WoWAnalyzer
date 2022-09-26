@@ -231,7 +231,7 @@ class RegrowthAndClearcasting extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        position={STATISTIC_ORDER.CORE(20)}
+        position={STATISTIC_ORDER.CORE(20)} // chosen for fixed ordering of general stats
         tooltip={
           <>
             <SpellLink id={SPELLS.REGROWTH.id} /> is mana inefficient relative to{' '}
