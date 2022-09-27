@@ -94,7 +94,7 @@ export type ProblemRendererProps<T> = {
  */
 export type ProblemRenderer<T> = (props: ProblemRendererProps<T>) => JSX.Element;
 
-function NoProblem() {
+export function NoProblem() {
   return (
     <div className="problem-list-container no-problems">
       <span>

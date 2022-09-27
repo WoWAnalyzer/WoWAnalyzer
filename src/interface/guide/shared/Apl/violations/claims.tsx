@@ -16,25 +16,29 @@ import {
 import { ConditionDescription } from 'parser/shared/metrics/apl/annotate';
 import Enemies from 'parser/shared/modules/Enemies';
 
-export type ClaimData<T> = {
+export type AplProblemData<T> = {
   claims: Set<Violation>;
   data: T;
 };
 
 export type ViolationExplainer<T> = {
-  claim: (apl: Apl, result: CheckResult) => Array<ClaimData<T>>;
+  /**
+   * Examine the results of the APL check and produce a list of problems, each
+   * of which claims some of the detected mistakes.
+   */
+  claim: (apl: Apl, result: CheckResult) => Array<AplProblemData<T>>;
   /**
    * Render an explanation of the overall claims made.
    *
    * This is what shows in the "Most Common Problems" section of the guide.
    */
-  render: (claim: ClaimData<T>, apl: Apl, result: CheckResult) => JSX.Element;
+  render: (problem: AplProblemData<T>, apl: Apl, result: CheckResult) => JSX.Element;
   /**
    * Render a description of an individual violation. What was done wrong? What should be done differently?
    *
    * This is what shows next to the timeline in the guide.
    */
-  describer: (props: { apl: Apl; violation: Violation; result: CheckResult }) => JSX.Element | null;
+  describe: (props: { apl: Apl; violation: Violation; result: CheckResult }) => JSX.Element | null;
 };
 
 export type AplViolationExplainers = Record<string, ViolationExplainer<any>>;
@@ -142,7 +146,7 @@ const overcastFillers: ViolationExplainer<InternalRule> = {
       were available.
     </Trans>
   ),
-  describer: ({ violation }) => (
+  describe: ({ violation }) => (
     <>
       <p>
         <ActualCastDescription event={violation.actualCast} />
@@ -216,7 +220,7 @@ const droppedRule: ViolationExplainer<{ rule: InternalRule; spell: Spell }> = {
       .
     </Trans>
   ),
-  describer: ({ violation }) => (
+  describe: ({ violation }) => (
     <>
       <p>
         <ActualCastDescription event={violation.actualCast} />

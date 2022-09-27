@@ -1,12 +1,17 @@
 import styled from '@emotion/styled';
 import { formatPercentage } from 'common/format';
 import { PassFailBar, useEvents, useInfo } from 'interface/guide';
-import ProblemList, { Problem, ProblemRendererProps } from 'interface/guide/ProblemList';
+import ProblemList, { NoProblem, Problem, ProblemRendererProps } from 'interface/guide/ProblemList';
 import { Apl, CheckResult, Violation } from 'parser/shared/metrics/apl';
 import React, { useMemo } from 'react';
 import { useContext } from 'react';
 import { ViolationTimeline } from '../timeline';
-import { AplViolationExplainers, ClaimData, minClaimCount, ViolationExplainer } from './claims';
+import {
+  AplViolationExplainers,
+  AplProblemData,
+  minClaimCount,
+  ViolationExplainer,
+} from './claims';
 import deduplicate, { DEDUP_WINDOW } from './deduplication';
 
 const EmbedContainer = styled.div`
@@ -34,8 +39,8 @@ const ShowMeButton = styled.button`
 `;
 
 export type SelectedExplanation<T> = {
-  describer: ViolationExplainer<T>['describer'];
-  claimData: ClaimData<T>;
+  describer: ViolationExplainer<T>['describe'];
+  claimData: AplProblemData<T>;
 };
 
 export const ExplanationSelectionContext = React.createContext<
@@ -65,8 +70,8 @@ function AplViolationExplanation<T = any>({
   children,
   totalViolations,
 }: {
-  claimData: ClaimData<T>;
-  describer: ViolationExplainer<T>['describer'];
+  claimData: AplProblemData<T>;
+  describer: ViolationExplainer<T>['describe'];
   children: React.ReactChild;
   totalViolations: number;
 }): JSX.Element {
@@ -99,6 +104,29 @@ const ExplanationList = styled.ul`
   }
 `;
 
+/**
+ * Show a list of problem explanations.
+ *
+ * Must be wrapped in `ExplanationSelectionContext` for the "Show Me!" buttons
+ * to work.
+ *
+ * ## Technical Details
+ *
+ * The list of problems is constructed by applying the `claims` method from
+ * each problem explainer, then doing (essentially) the following:
+ *
+ * 1. Add an explanation of the most common problem (defined as # of remaining
+ *    claimed mistakes) to the list.
+ * 2. Remove mistakes that were claimed by that problem from all other problem
+ *    explanations.
+ * 3. Repeat until no problems remain with at least `minClaimCount` mistakes
+ *    remaining.
+ *
+ * This list is then rendered in the order they were added.
+ *
+ * The implementation is not particularly efficient, but performance shouldn't
+ * be an issue since the number of problems should be small.
+ */
 export function AplViolationExplanations({
   apl,
   result,
@@ -110,7 +138,7 @@ export function AplViolationExplanations({
 }): JSX.Element {
   const claims = Object.entries(explainers)
     .flatMap(([key, { claim }]) =>
-      claim(apl, result).map((res): [string, ClaimData<any>] => [key, res]),
+      claim(apl, result).map((res): [string, AplProblemData<any>] => [key, res]),
     )
     .sort(([, resA], [, resB]) => resA.claims.size - resB.claims.size);
 
@@ -118,7 +146,7 @@ export function AplViolationExplanations({
 
   let remainingClaimData = claims.map(([key, claimData]): [
     string,
-    ClaimData<any>,
+    AplProblemData<any>,
     Set<Violation>,
   ] => [key, claimData, new Set(claimData.claims)]);
 
@@ -134,7 +162,7 @@ export function AplViolationExplanations({
     appliedClaims.push(
       <AplViolationExplanation
         claimData={claimData}
-        describer={explainers[key].describer}
+        describer={explainers[key].describe}
         totalViolations={result.violations.length}
       >
         {explanation}
@@ -150,6 +178,10 @@ export function AplViolationExplanations({
       })
       .filter(([, , otherClaims]) => otherClaims.size > minClaimCount(result))
       .sort(([, , setA], [, , setB]) => setA.size - setB.size);
+  }
+
+  if (appliedClaims.length === 0) {
+    return <NoProblem />;
   }
 
   return (
