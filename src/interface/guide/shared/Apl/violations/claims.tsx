@@ -1,5 +1,8 @@
 import { Trans } from '@lingui/macro';
 import { SpellLink } from 'interface';
+import { useAnalyzer, useInfo } from 'interface/guide';
+import TooltipProvider from 'interface/TooltipProvider';
+import { AnyEvent } from 'parser/core/Events';
 import {
   Apl,
   CheckResult,
@@ -11,6 +14,7 @@ import {
 } from 'parser/shared/metrics/apl';
 import { ConditionDescription } from 'parser/shared/metrics/apl/annotate';
 import { RuleSpellsDescription } from 'parser/shared/metrics/apl/ChecklistRule';
+import Enemies from 'parser/shared/modules/Enemies';
 
 export type ClaimData<T> = {
   claims: Set<Violation>;
@@ -21,16 +25,16 @@ export type ViolationExplainer<T> = {
   claim: (apl: Apl, result: CheckResult) => Array<ClaimData<T>>;
   /**
    * Render an explanation of the overall claims made.
+   *
+   * This is what shows in the "Most Common Problems" section of the guide.
    */
   render: (claim: ClaimData<T>, apl: Apl, result: CheckResult) => JSX.Element;
   /**
    * Render a description of an individual violation. What was done wrong? What should be done differently?
+   *
+   * This is what shows next to the timeline in the guide.
    */
-  describer?: (props: {
-    apl: Apl;
-    violation: Violation;
-    result: CheckResult;
-  }) => JSX.Element | null;
+  describer: (props: { apl: Apl; violation: Violation; result: CheckResult }) => JSX.Element | null;
 };
 
 export type AplViolationExplainers = Record<string, ViolationExplainer<any>>;
@@ -51,11 +55,66 @@ const defaultClaimFilter = (
   return claims.size > minClaimCount(result) && claims.size / (successes + claims.size) > 0.4;
 };
 
+function TargetName({ event }: { event: AnyEvent }) {
+  const combatants = useAnalyzer(Enemies);
+
+  if (!combatants) {
+    return null;
+  }
+
+  const enemy = combatants.getEntity(event);
+
+  if (!enemy) {
+    return <span className="spell-link-text">Unknown</span>;
+  }
+
+  return <a href={TooltipProvider.npc(enemy.guid)}>{enemy.name}</a>;
+}
+
+function EventTimestamp({ event }: { event: AnyEvent }) {
+  const info = useInfo();
+
+  if (!info) {
+    return null;
+  }
+
+  const relTime = (event.timestamp - info.fightStart) / 1000;
+
+  const minutes = Math.floor(relTime / 60);
+  const seconds = Math.round(relTime % 60);
+
+  return (
+    <strong>
+      {minutes > 0 ? `${minutes}m ` : ''}
+      {seconds}s
+    </strong>
+  );
+}
+
+const ActualCastDescription = ({ event }: { event: Violation['actualCast'] }) => (
+  <>
+    At <EventTimestamp event={event} /> into the fight, you cast{' '}
+    <SpellLink id={event.ability.guid} />
+    {event.targetID && (
+      <>
+        {' '}
+        on <TargetName event={event} />
+      </>
+    )}
+    .
+  </>
+);
+
 const overcastFillers: ViolationExplainer<InternalRule> = {
   claim: (apl, result) => {
-    // only look for unconditional rules targeting a single spell.
+    // only look for unconditional rules targeting a single spell in the bottom 3rd of the APL
+    //
+    // this code has filler-specific text, so we don't want to accidentally grab spells at the top of the APL
     const unconditionalRules = apl.rules.filter(
-      (rule) => rule.condition === undefined && rule.spell.type === TargetType.Spell,
+      (rule, index) =>
+        rule.condition === undefined &&
+        rule.spell.type === TargetType.Spell &&
+        index > (2 * apl.rules.length) / 3,
     );
     const claimsByRule: Map<InternalRule, Set<Violation>> = new Map();
 
@@ -82,6 +141,17 @@ const overcastFillers: ViolationExplainer<InternalRule> = {
       You frequently cast <SpellLink id={spells(claim.data)[0].id} /> when more important spells
       were available.
     </Trans>
+  ),
+  describer: ({ violation }) => (
+    <>
+      <p>
+        <ActualCastDescription event={violation.actualCast} />
+      </p>
+      <p>
+        This is a low-priority filler spell. You should instead cast a higher-priority spell like{' '}
+        <SpellLink id={violation.expectedCast[0].id} />.
+      </p>
+    </>
   ),
 };
 
@@ -110,15 +180,19 @@ const droppedRule: ViolationExplainer<InternalRule> = {
   ),
   describer: ({ violation }) => (
     <>
-      {violation.rule.condition ? (
-        <>
-          <ConditionDescription prefix="When" rule={violation.rule} tense={Tense.Present} />, you{' '}
-        </>
-      ) : (
-        'You '
-      )}
-      should cast <SpellLink id={violation.expectedCast[0].id} /> instead of{' '}
-      <SpellLink id={violation.actualCast.ability.guid} />.
+      <p>
+        <ActualCastDescription event={violation.actualCast} />
+      </p>
+      <p>
+        {violation.rule.condition ? (
+          <>
+            <ConditionDescription prefix="Since" rule={violation.rule} tense={Tense.Past} />, you{' '}
+          </>
+        ) : (
+          'You '
+        )}
+        should instead have cast <SpellLink id={violation.expectedCast[0].id} />.
+      </p>
     </>
   ),
 };

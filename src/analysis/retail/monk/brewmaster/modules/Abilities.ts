@@ -45,7 +45,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: talents.RISING_SUN_KICK_TALENT.id,
-        // TEMPORARY
         enabled: combatant.hasTalent(talents.RISING_SUN_KICK_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 10 / (1 + haste),

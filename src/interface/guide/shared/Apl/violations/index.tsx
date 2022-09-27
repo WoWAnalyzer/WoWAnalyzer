@@ -66,7 +66,7 @@ function AplViolationExplanation<T = any>({
   totalViolations,
 }: {
   claimData: ClaimData<T>;
-  describer?: ViolationExplainer<T>['describer'];
+  describer: ViolationExplainer<T>['describer'];
   children: React.ReactChild;
   totalViolations: number;
 }): JSX.Element {

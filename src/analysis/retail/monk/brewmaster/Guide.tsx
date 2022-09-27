@@ -520,8 +520,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           improves your damage by prioritizing high-damage, high-impact spells like{' '}
           <SpellLink id={talents.RISING_SUN_KICK_TALENT.id} /> and{' '}
           <SpellLink id={talents.KEG_SMASH_BREWMASTER_TALENT.id} /> over low-priority "filler"
-          spells like <SpellLink id={SPELLS.TIGER_PALM.id} /> or{' '}
-          <SpellLink id={SPELLS.SPINNING_CRANE_KICK_BRM.id} />.
+          spells like <SpellLink id={SPELLS.TIGER_PALM.id} />.
         </p>
         <AplSectionData checker={AplCheck.check} apl={AplCheck.apl} />
       </Section>
