@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro';
+import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import { useAnalyzer, useInfo } from 'interface/guide';
 import TooltipProvider from 'interface/TooltipProvider';
@@ -13,7 +14,6 @@ import {
   Violation,
 } from 'parser/shared/metrics/apl';
 import { ConditionDescription } from 'parser/shared/metrics/apl/annotate';
-import { RuleSpellsDescription } from 'parser/shared/metrics/apl/ChecklistRule';
 import Enemies from 'parser/shared/modules/Enemies';
 
 export type ClaimData<T> = {
@@ -155,7 +155,7 @@ const overcastFillers: ViolationExplainer<InternalRule> = {
   ),
 };
 
-const droppedRule: ViolationExplainer<InternalRule> = {
+const droppedRule: ViolationExplainer<{ rule: InternalRule; spell: Spell }> = {
   claim: (_apl, result) => {
     const claimsByRule: Map<InternalRule, Set<Violation>> = new Map();
 
@@ -168,14 +168,52 @@ const droppedRule: ViolationExplainer<InternalRule> = {
       }
     });
 
-    return Array.from(claimsByRule.entries())
-      .filter(([rule, claims]) => defaultClaimFilter(result, rule, claims))
-      .map(([rule, claims]) => ({ claims, data: rule }));
+    return (
+      Array.from(claimsByRule.entries())
+        // this mess separates multi-spell rules into their constituent spells so that the results are more specific.
+        // e.g. the "Cast Blackout Kick or Keg Smash" rule gets split into:
+        //
+        // - You frequently skipped casting Blackout Kick
+        // - You frequently skipped casting Keg Smash
+        //
+        // but each gets considered independently, so if you're good at casting Keg
+        // Smash but not Blackout Kick, you only see Blackout Kick
+        .flatMap(([rule, claims]) => {
+          if (rule.spell.type === TargetType.Spell) {
+            return [{ rule, claims, spell: rule.spell.target }];
+          } else {
+            const bySpell: Map<number, Set<Violation>> = new Map();
+            for (const claim of claims) {
+              for (const spell of claim.expectedCast) {
+                const targetSet = bySpell.get(spell.id) ?? new Set();
+                targetSet.add(claim);
+                if (!bySpell.has(spell.id)) {
+                  bySpell.set(spell.id, targetSet);
+                }
+              }
+            }
+
+            return Array.from(bySpell.entries()).map(([spellId, claims]) => ({
+              rule,
+              claims,
+              spell: (rule.spell.target as Spell[]).find((spell) => spell.id === spellId)!,
+            }));
+          }
+        })
+        .filter(({ rule, claims }) => defaultClaimFilter(result, rule, claims))
+        .map(({ rule, spell, claims }) => ({ claims, data: { rule, spell } }))
+    );
   },
   render: (claim) => (
     <Trans id="guide.apl.droppedRule">
-      You frequently skipped casting <RuleSpellsDescription rule={claim.data} />{' '}
-      <ConditionDescription prefix="when" rule={claim.data} tense={Tense.Past} />
+      You frequently skipped casting <SpellLink id={claim.data.spell.id} />
+      {claim.data.rule.condition && (
+        <>
+          {' '}
+          <ConditionDescription prefix="when" rule={claim.data.rule} tense={Tense.Past} />
+        </>
+      )}
+      .
     </Trans>
   ),
   describer: ({ violation }) => (
