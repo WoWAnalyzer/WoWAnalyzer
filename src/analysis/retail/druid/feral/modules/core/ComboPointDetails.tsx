@@ -7,8 +7,8 @@ import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import ResourceBreakdown from 'analysis/retail/druid/feral/modules/core/ComboPointBreakdown';
 import ComboPointTracker from 'analysis/retail/druid/feral/modules/core/ComboPointTracker';
+import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 
 class ComboPointDetails extends Analyzer {
   static dependencies = {
@@ -79,7 +79,7 @@ class ComboPointDetails extends Analyzer {
       url: 'combo-points',
       render: () => (
         <Panel>
-          <ResourceBreakdown tracker={this.comboPointTracker} showSpenders />
+          <ResourceBreakdown tracker={this.comboPointTracker} showSpenders showMaxSpenders />
         </Panel>
       ),
     };
