@@ -32,6 +32,5 @@ export default [
   change(date(2020, 10, 18), 'Converted legacy listeners to new event filters', Zeboot),
   change(date(2020, 10, 10), <>Implementation of <SpellLink id={SPELLS.BOON_OF_THE_ASCENDED.id} />.</>, Ogofo),
   change(date(2020, 10, 2), <>Converting all disc modules to Typescript.</>, Khadaj),
-  change(date(2020, 10, 2), <>Implementation of <SpellLink id={SPELLS.MINDGAMES.id} /></>, Oratio),
   change(date(2020, 9, 30), <>Shadowlands Clean up.</>, Oratio),
 ];

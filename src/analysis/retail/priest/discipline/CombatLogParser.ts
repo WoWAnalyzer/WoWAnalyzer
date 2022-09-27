@@ -30,7 +30,7 @@ import PowerWordBarrier from './modules/features/PowerWordBarrier';
 import PowerWordShieldWasted from './modules/features/PowerWordShieldWasted';
 import PurgeTheWicked from './modules/features/PurgeTheWicked';
 import SolaceVsShieldDiscipline from './modules/features/SolaceVsShieldDiscipline';
-
+import Mindgames from 'analysis/retail/priest/discipline/modules/spells/Mindgames';
 import Atonement from './modules/spells/Atonement';
 import Castigation from './modules/spells/Castigation';
 import Contrition from './modules/spells/Contrition';
@@ -92,6 +92,7 @@ class CombatLogParser extends CoreCombatLogParser {
     grace: Grace,
     sinsOfTheMany: SinsOfTheMany,
     schism: Schism,
+    mindgames: Mindgames,
 
     // Covenants
     unholyNova: UnholyNova,

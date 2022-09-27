@@ -48,6 +48,21 @@ const spells = spellIndexableList({
     icon: 'spell_holy_mindsooth',
     manaCost: 500,
   },
+  MINDGAMES_HEAL: {
+    id: 375904,
+    name: 'Mindgames',
+    icon: 'ability_revendreth_priest',
+  },
+  MINDGAMES_ABSORB: {
+    id: 375902,
+    name: 'Mindgames',
+    icon: 'ability_revendreth_priest',
+  },
+  MINDGAMES_HEAL_REVERSAL: {
+    id: 375903,
+    name: 'Mindgames',
+    icon: 'ability_revendreth_priest',
+  },
   // Discipline Priest:
   GRACE: {
     id: 271534,
@@ -252,46 +267,6 @@ const spells = spellIndexableList({
     id: 281469,
     name: 'Contrition',
     icon: 'ability_priest_savinggrace',
-  },
-  DISC_PRIEST_T19_2SET_BONUS_BUFF: {
-    id: 211556,
-    name: 'T19 2 Set Bonus',
-    icon: 'spell_holy_powerwordshield',
-  },
-  DISC_PRIEST_T19_4SET_BONUS_BUFF: {
-    id: 211563,
-    name: 'T19 4 Set Bonus',
-    icon: 'spell_holy_powerwordshield',
-  },
-  DISC_PRIEST_T20_2SET_BONUS_PASSIVE: {
-    id: 242268,
-    name: 'T20 2 Set Bonus',
-    icon: 'spell_holy_penance',
-  },
-  DISC_PRIEST_T20_4SET_BONUS_PASSIVE: {
-    id: 242269,
-    name: 'T20 4 Set Bonus',
-    icon: 'spell_holy_penance',
-  },
-  DISC_PRIEST_T20_4SET_BONUS_BUFF: {
-    id: 246519,
-    name: 'T20 4 Set Bonus',
-    icon: 'spell_holy_penance',
-  },
-  DISC_PRIEST_T21_2SET_BONUS_PASSIVE: {
-    id: 251843,
-    name: 'T21 2 Set Bonus',
-    icon: 'ability_priest_ascension',
-  },
-  DISC_PRIEST_T21_4SET_BONUS_PASSIVE: {
-    id: 251844,
-    name: 'T21 4 Set Bonus',
-    icon: 'spell_holy_searinglightpriest',
-  },
-  DISC_PRIEST_T21_4SET_BONUS_BUFF: {
-    id: 252848,
-    name: 'T21 4 Set Buff',
-    icon: 'spell_holy_searinglightpriest',
   },
 
   MANIFESTED_TWILIGHT_BUFF_2P: {

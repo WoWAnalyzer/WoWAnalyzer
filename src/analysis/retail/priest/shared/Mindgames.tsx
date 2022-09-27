@@ -3,6 +3,7 @@ import AtonementDamageSource from 'analysis/retail/priest/discipline/modules/fea
 import ItemInsanityGained from 'analysis/retail/priest/shadow/interface/ItemInsanityGained';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
@@ -76,7 +77,7 @@ class Mindgames extends Analyzer {
             majorIssueEfficiency: 0.4,
           };
     (options.abilities as Abilities).add({
-      spell: SPELLS.MINDGAMES.id,
+      spell: TALENTS_PRIEST.MINDGAMES_TALENT.id,
       category: SPELL_CATEGORY.ROTATIONAL,
       cooldown: 45,
       enabled: true,
@@ -95,13 +96,19 @@ class Mindgames extends Analyzer {
       Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.MINDGAMES_HEAL),
       this.onEnergize,
     );
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MINDGAMES), this.onDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.MINDGAMES_TALENT),
+      this.onDamage,
+    );
   }
 
   onHeal(event: HealEvent) {
     if (isAtonement(event) && this.atonementDamageSource) {
       const atonenementDamageEvent = this.atonementDamageSource.event;
-      if (!atonenementDamageEvent || atonenementDamageEvent.ability.guid !== SPELLS.MINDGAMES.id) {
+      if (
+        !atonenementDamageEvent ||
+        atonenementDamageEvent.ability.guid !== TALENTS_PRIEST.MINDGAMES_TALENT.id
+      ) {
         return;
       }
 
@@ -165,7 +172,7 @@ class Mindgames extends Analyzer {
         }
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spellId={SPELLS.MINDGAMES.id}>
+        <BoringSpellValueText spellId={TALENTS_PRIEST.MINDGAMES_TALENT.id}>
           <>
             <ItemDamageDone amount={this.totalDamage} />
             <br />
