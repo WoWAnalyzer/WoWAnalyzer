@@ -1,13 +1,10 @@
-import { useContext, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
-import { PassFailBar, useEvents, useInfo } from 'interface/guide';
-import { RuleDescription, RuleSpellsDescription } from 'parser/shared/metrics/apl/ChecklistRule';
-import Casts, { isApplicableEvent } from 'interface/report/Results/Timeline/Casts';
 import { Trans } from '@lingui/macro';
-import React from 'react';
+import { formatPercentage } from 'common/format';
+import { SpellLink } from 'interface';
+import { PassFailBar, useEvents, useInfo } from 'interface/guide';
 import ProblemList, { Problem, ProblemRendererProps } from 'interface/guide/ProblemList';
-import { AnyEvent } from 'parser/core/Events';
-import aplCheck, {
+import {
   spells,
   Apl,
   CheckResult,
@@ -16,90 +13,18 @@ import aplCheck, {
   Violation,
   Tense,
 } from 'parser/shared/metrics/apl';
-import { SpellLink } from 'interface';
 import { ConditionDescription } from 'parser/shared/metrics/apl/annotate';
-import { formatPercentage } from 'common/format';
+import { RuleSpellsDescription } from 'parser/shared/metrics/apl/ChecklistRule';
+import React, { useMemo } from 'react';
+import { useContext } from 'react';
+import { ViolationTimeline } from './timeline';
 
-const EmbeddedTimelineContainer = styled.div<{ secondWidth?: number; secondsShown?: number }>`
-  .spell-timeline {
-    position: relative;
-
-    .casts {
-      box-shadow: unset;
-    }
-  }
-
-  padding: 1rem 2rem;
-  border-radius: 0.5rem;
-  background: #222;
-
-  box-sizing: content-box;
-  width: ${(props) => {
-    const width = (props.secondWidth ?? 60) * (props.secondsShown ?? 10);
-    return `${width}px`;
-  }};
-`;
-
-/**
- * Show the cast timeline around a violation.
- */
-function ViolationTimeline({
-  violation,
-  events,
-  apl,
-  results,
-}: {
-  events: AnyEvent[];
-  violation: Violation;
-  results: CheckResult;
-  apl: Apl;
-}): JSX.Element | null {
-  const info = useInfo();
-
-  if (!info) {
-    return null;
-  }
-
-  const relevantEvents = events.filter(isApplicableEvent(info?.playerId ?? 0)).map((event) =>
-    event === violation.actualCast
-      ? {
-          ...event,
-          meta: {
-            isEnhancedCast: true,
-            enhancedCastReason: (
-              <AplRules apl={apl} results={results} highlightRule={violation.rule} />
-            ),
-          },
-        }
-      : event,
-  );
-
-  return (
-    <>
-      <EmbeddedTimelineContainer secondWidth={60} secondsShown={12}>
-        <div className="spell-timeline">
-          <Casts
-            start={relevantEvents[0].timestamp}
-            movement={undefined}
-            secondWidth={60}
-            events={relevantEvents}
-          />
-        </div>
-      </EmbeddedTimelineContainer>
-    </>
-  );
-}
-
-const AplRuleList = styled.ol`
-  padding-left: 1.5rem;
-`;
-
-type ClaimData<T> = {
+export type ClaimData<T> = {
   claims: Set<Violation>;
   data: T;
 };
 
-type ViolationExplainer<T> = {
+export type ViolationExplainer<T> = {
   claim: (apl: Apl, result: CheckResult) => Array<ClaimData<T>>;
   /**
    * Render an explanation of the overall claims made.
@@ -115,7 +40,7 @@ type ViolationExplainer<T> = {
   }) => JSX.Element | null;
 };
 
-type AplViolationExplainers = Record<string, ViolationExplainer<any>>;
+export type AplViolationExplainers = Record<string, ViolationExplainer<any>>;
 
 const minClaimCount = (result: CheckResult): number =>
   Math.min(10, Math.floor((result.successes.length + result.violations.length) / 20));
@@ -205,7 +130,7 @@ const droppedRule: ViolationExplainer<InternalRule> = {
   ),
 };
 
-const defaultExplainers: AplViolationExplainers = {
+export const defaultExplainers: AplViolationExplainers = {
   overcastFillers,
   droppedRule,
 };
@@ -234,12 +159,12 @@ const ShowMeButton = styled.button`
   }
 `;
 
-type SelectedExplanation<T> = {
+export type SelectedExplanation<T> = {
   describer: ViolationExplainer<T>['describer'];
   claimData: ClaimData<T>;
 };
 
-const ExplanationSelectionContext = React.createContext<
+export const ExplanationSelectionContext = React.createContext<
   (selection: SelectedExplanation<any>) => void
 >(() => undefined);
 
@@ -300,7 +225,7 @@ const ExplanationList = styled.ul`
   }
 `;
 
-function AplViolationExplanations({
+export function AplViolationExplanations({
   apl,
   result,
   explainers,
@@ -362,94 +287,7 @@ function AplViolationExplanations({
   );
 }
 
-const AplSubsectionHeader = styled.header`
-  font-weight: bold;
-`;
-
-const AplListItem = styled.li<{ highlighted?: boolean; muted?: boolean }>`
-  opacity: ${(props) => (props.muted ? 0.5 : 1)};
-
-  ${(props) =>
-    !props.highlighted
-      ? ''
-      : `
-    list-style-type: none;
-    padding-left: 0;
-    margin-left: -1.5rem;
-
-    &::before {
-      content: '\\e080';
-      font-family: 'Glyphicons Halflings';
-      color: #fab700;
-      margin-right: 0.5rem;
-      font-size: 10px;
-    }
-
-    &::after {
-      content: '\\e079';
-      font-family: 'Glyphicons Halflings';
-      color: #fab700;
-      margin-left: 0.5rem;
-      font-size: 10px;
-    }
-  `}
-`;
-
-function AplRules({
-  apl,
-  results,
-  highlightRule,
-}: {
-  apl: Apl;
-  results: CheckResult;
-  highlightRule?: InternalRule;
-}): JSX.Element {
-  const castSpells = new Set(
-    results.successes
-      .map((suc) => suc.actualCast.ability.guid)
-      .concat(results.violations.map((v) => v.actualCast.ability.guid)),
-  );
-
-  const rules = apl.rules.filter(
-    (rule) =>
-      (rule.condition === undefined && spells(rule).some((spell) => castSpells.has(spell.id))) ||
-      results.successes.some((suc) => suc.rule === rule) ||
-      results.violations.some((v) => v.rule === rule),
-  );
-
-  const highlightIndex = useMemo(() => highlightRule && rules.indexOf(highlightRule), [
-    rules,
-    highlightRule,
-  ]);
-
-  return (
-    <AplRuleList>
-      {rules.map((rule, index) => (
-        <AplListItem
-          key={index}
-          highlighted={rule === highlightRule}
-          muted={index < (highlightIndex ?? 0)}
-        >
-          <RuleDescription rule={rule} />
-        </AplListItem>
-      ))}
-    </AplRuleList>
-  );
-}
-
-/**
- * Produce a summary of the APL itself. This is just an un-annotated reference.
- */
-function AplSummary({ apl, results }: { apl: Apl; results: CheckResult }): JSX.Element | null {
-  return (
-    <div>
-      <AplSubsectionHeader>Priority List</AplSubsectionHeader>
-      <AplRules apl={apl} results={results} />
-    </div>
-  );
-}
-
-const AplViolationTimelineContainer = styled.div``;
+export const AplViolationTimelineContainer = styled.div``;
 
 const ViolationProblemContainer = styled.div`
   display: grid;
@@ -457,7 +295,7 @@ const ViolationProblemContainer = styled.div`
   grid-gap: 1rem;
 `;
 
-function ViolationProblemList<T = any>({
+export default function ViolationProblemList<T = any>({
   describer: DescribeViolation,
   claimData,
   apl,
@@ -515,73 +353,5 @@ function ViolationProblemList<T = any>({
         label="Example"
       />
     </AplViolationTimelineContainer>
-  );
-}
-
-const AplViolationContainer = styled.div``;
-
-const AplLayout = styled.div`
-  display: grid;
-  grid-template-areas: 'summary problems' 'timeline timeline';
-  grid-template-columns: auto 1fr;
-  grid-gap: 2rem;
-
-  ${AplRuleList} {
-    grid-area: summary;
-  }
-
-  ${AplViolationContainer} {
-    grid-area: problems;
-  }
-
-  ${AplViolationTimelineContainer} {
-    grid-area: timeline;
-  }
-`;
-
-export type AplSectionProps = {
-  checker: ReturnType<typeof aplCheck>;
-  apl: Apl;
-  violationExplainers?: AplViolationExplainers;
-};
-
-export function AplSectionData({
-  checker,
-  apl,
-  violationExplainers,
-}: AplSectionProps): JSX.Element | null {
-  const events = useEvents();
-  const info = useInfo();
-
-  const [selectedExplanation, setSelectedExplanation] = useState<
-    SelectedExplanation<any> | undefined
-  >(undefined);
-
-  const result: CheckResult | undefined = useMemo(
-    () => (info ? checker(events, info) : undefined),
-    [events, info, checker],
-  );
-
-  if (!info || !result) {
-    return null;
-  }
-
-  return (
-    <ExplanationSelectionContext.Provider value={setSelectedExplanation}>
-      <AplLayout>
-        <AplSummary apl={apl} results={result} />
-        <AplViolationContainer>
-          <AplSubsectionHeader>Most Common Problems</AplSubsectionHeader>
-          <AplViolationExplanations
-            apl={apl}
-            result={result}
-            explainers={violationExplainers ?? defaultExplainers}
-          />
-        </AplViolationContainer>
-        {selectedExplanation && (
-          <ViolationProblemList {...selectedExplanation} result={result} apl={apl} />
-        )}
-      </AplLayout>
-    </ExplanationSelectionContext.Provider>
   );
 }
