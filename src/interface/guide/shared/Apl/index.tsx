@@ -5,13 +5,12 @@ import aplCheck, { Apl, CheckResult } from 'parser/shared/metrics/apl';
 
 import AplRules, { AplRuleList } from './rules';
 import ViolationProblemList, {
-  AplViolationExplainers,
   AplViolationExplanations,
   AplViolationTimelineContainer,
-  defaultExplainers,
   ExplanationSelectionContext,
   SelectedExplanation,
 } from './violations';
+import { AplViolationExplainers, defaultExplainers } from './violations/claims';
 
 const AplSubsectionHeader = styled.header`
   font-weight: bold;

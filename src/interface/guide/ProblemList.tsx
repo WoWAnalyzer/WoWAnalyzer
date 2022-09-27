@@ -1,6 +1,6 @@
 import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 /**
    Wrapper type used to deliver problem data and context information to the
@@ -215,6 +215,8 @@ export default function ProblemList<T>({
   );
   const [problemIndex, setProblemIndex] = useState(0);
   const problem = sortedProblems[problemIndex];
+
+  useEffect(() => setProblemIndex(0), [problems]);
 
   if (!problem) {
     return <NoProblem />;
