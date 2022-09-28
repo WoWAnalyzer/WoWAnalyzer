@@ -7,7 +7,7 @@ import Events, { HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import StatisticBox from 'parser/ui/StatisticBox';
-
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import { calculateOverhealing, OffensivePenanceBoltEstimation } from '../../SpellCalculations';
 import Penance from './Penance';
 
@@ -24,7 +24,7 @@ class Contrition extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.CONTRITION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CONTRITION_DISCIPLINE_TALENT.id);
     this.penanceBoltEstimation = OffensivePenanceBoltEstimation(this.statTracker);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell([SPELLS.CONTRITION_HEAL, SPELLS.PENANCE_HEAL]),
@@ -71,7 +71,7 @@ class Contrition extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.CONTRITION_TALENT.id} />}
+        icon={<SpellIcon id={TALENTS_PRIEST.CONTRITION_DISCIPLINE_TALENT.id} />}
         value={`${formatNumber((healing / this.owner.fightDuration) * 1000)} HPS`}
         label={
           <TooltipElement

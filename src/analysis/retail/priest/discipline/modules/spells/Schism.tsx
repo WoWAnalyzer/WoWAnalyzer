@@ -2,9 +2,9 @@ import AtonementAnalyzer, {
   AtonementAnalyzerEvent,
 } from 'analysis/retail/priest/discipline/modules/core/AtonementAnalyzer';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -33,7 +33,7 @@ class Schism extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SCHISM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.SCHISM_DISCIPLINE_TALENT.id);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtonement);
@@ -45,12 +45,12 @@ class Schism extends Analyzer {
       return;
     }
     const target = this.enemies.getEntity(damageEvent);
-    if (!target?.hasBuff(SPELLS.SCHISM_TALENT.id)) {
+    if (!target?.hasBuff(TALENTS_PRIEST.SCHISM_DISCIPLINE_TALENT.id)) {
       return;
     }
 
     // Schism isn't buffed by itself, so requires a different path
-    if (damageEvent.ability.guid === SPELLS.SCHISM_TALENT.id) {
+    if (damageEvent.ability.guid === TALENTS_PRIEST.SCHISM_DISCIPLINE_TALENT.id) {
       this.healing += healEvent.amount;
     }
 
@@ -65,11 +65,11 @@ class Schism extends Analyzer {
     const spellId = event.ability.guid;
     const target = this.enemies.getEntity(event);
 
-    if (spellId === SPELLS.SCHISM_TALENT.id) {
+    if (spellId === TALENTS_PRIEST.SCHISM_DISCIPLINE_TALENT.id) {
       this.directDamage += event.amount + (event.absorbed || 0);
       return;
     }
-    if (target?.hasBuff(SPELLS.SCHISM_TALENT.id)) {
+    if (target?.hasBuff(TALENTS_PRIEST.SCHISM_DISCIPLINE_TALENT.id)) {
       return;
     }
 
@@ -97,7 +97,7 @@ class Schism extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SCHISM_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_PRIEST.SCHISM_DISCIPLINE_TALENT.id}>
           <ItemHealingDone amount={this.healing} /> <br />
           <ItemDamageDone amount={this.directDamage + this.damageFromBuff} />
         </BoringSpellValueText>

@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { CastEvent } from 'parser/core/Events';
 import { SuggestionFactory, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
-
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import SuggestionThresholds from '../../SuggestionThresholds';
 
 const debug = false;
@@ -19,14 +19,14 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.POWER_WORD_RADIANCE.id,
     SPELLS.SHADOW_MEND.id,
     SPELLS.HALO_TALENT.id,
-    SPELLS.DIVINE_STAR_TALENT.id,
+    TALENTS_PRIEST.DIVINE_STAR_TALENT.id,
     SPELLS.MASS_DISPEL.id,
     SPELLS.DISPEL_MAGIC.id,
     SPELLS.POWER_WORD_BARRIER_CAST.id,
     SPELLS.PURIFY.id,
-    SPELLS.POWER_WORD_SOLACE_TALENT.id,
-    SPELLS.SHADOW_COVENANT_TALENT.id,
-    SPELLS.EVANGELISM_TALENT.id,
+    TALENTS_PRIEST.POWER_WORD_SOLACE_DISCIPLINE_TALENT.id,
+    TALENTS_PRIEST.SHADOW_COVENANT_DISCIPLINE_TALENT.id,
+    TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT.id,
   ];
 
   lastPenanceStartTimestamp: number = 0;

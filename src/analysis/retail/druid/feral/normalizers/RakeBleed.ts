@@ -24,6 +24,7 @@ const EVENT_ORDERS: EventOrder[] = [
   },
 ];
 
+// TODO use cast link normalizer instead for DF
 /**
  * When used from stealth SPELLS.RAKE cast event often appears after the SPELLS.RAKE_BLEED
  * applydebuff event that it causes. (Possibly this misordering has something to do with Rake

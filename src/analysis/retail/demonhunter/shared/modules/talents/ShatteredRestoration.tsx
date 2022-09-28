@@ -9,7 +9,6 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 export default class ShatteredRestoration extends Analyzer {
   heal = 0;
@@ -25,7 +24,7 @@ export default class ShatteredRestoration extends Analyzer {
       return;
     }
 
-    this.rank = this.selectedCombatant.conduitRankBySpellID(
+    this.rank = this.selectedCombatant.getTalentRank(
       TALENTS_DEMON_HUNTER.SHATTERED_RESTORATION_TALENT.id,
     );
 
@@ -45,12 +44,11 @@ export default class ShatteredRestoration extends Analyzer {
 
     return (
       <Statistic
-        category={STATISTIC_CATEGORY.COVENANTS}
-        position={STATISTIC_ORDER.CORE(9)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={
           <>
-            This shows the extra hps that the conduit provides.
+            This shows the extra hps that the talent provides.
             <br />
             <strong>Total extra healing:</strong> {formatNumber(effectiveHealing)}
           </>

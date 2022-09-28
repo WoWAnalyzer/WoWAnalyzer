@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';
@@ -29,7 +28,7 @@ class FuryTracker extends ResourceTracker {
     //TODO: Account for Eye Beam clipping
     // Blind Fury resource gain does not have an energize event so it is handled here
     if (
-      spellId === SPELLS.EYE_BEAM.id &&
+      spellId === TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id &&
       this.selectedCombatant.hasTalent(blindFuryId) &&
       classResource
     ) {

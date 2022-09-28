@@ -4,6 +4,7 @@ import {
   SHADOW_MEND_ATONEMENT_DUR,
 } from 'analysis/retail/priest/discipline/constants';
 import { formatThousands } from 'common/format';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -34,7 +35,7 @@ class AtonementApplicatorBreakdown extends Analyzer {
     super(options);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EVANGELISM_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT),
       this.handleEvangelismCasts,
     );
     this.addEventListener(

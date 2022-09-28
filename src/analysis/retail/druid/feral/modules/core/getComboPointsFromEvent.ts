@@ -3,7 +3,7 @@ import { CastEvent } from 'parser/core/Events';
 
 const debug = false;
 
-// TODO deprecated, switch to ResourceFromEvent
+// TODO deprecated, switch to ResourceFromEvent - remove for DF!
 export default function getComboPointsFromEvent(event: CastEvent): number {
   if (!event || !event.classResources) {
     debug && console.warn('castEvent is null or without a classResources property.');

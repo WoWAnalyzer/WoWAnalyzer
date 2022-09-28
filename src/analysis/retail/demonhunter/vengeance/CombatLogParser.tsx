@@ -1,8 +1,14 @@
-import { TheHunt } from 'analysis/retail/demonhunter/shared';
-import ShatteredRestoration from 'analysis/retail/demonhunter/shared/modules/talents/ShatteredRestoration';
+import {
+  Felblade,
+  TheHunt,
+  ShatteredRestoration,
+  CharredWarblades,
+} from 'analysis/retail/demonhunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import Blur from 'analysis/retail/demonhunter/shared/modules/talents/Blur';
 
 import Abilities from './modules/Abilities';
+import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -24,9 +30,10 @@ import ElysianDecree from './modules/talents/ElysianDecree';
 import FeastOfSouls from './modules/talents/FeastOfSouls';
 import FeedTheDemon from './modules/talents/FeedTheDemon';
 import SoulBarrier from './modules/talents/SoulBarrier';
-import SpiritBombFrailtyDebuff from './modules/talents/SpiritBombFrailtyDebuff';
+import FrailtyDebuff from './modules/talents/FrailtyDebuff';
 import SpiritBombSoulsConsume from './modules/talents/SpiritBombSoulsConsume';
 import VoidReaverDebuff from './modules/talents/VoidReaverDebuff';
+import PainbringerBuff from './modules/talents/PainbringerBuff';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -36,6 +43,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
+    buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
     soulFragmentsTracker: SoulFragmentsTracker,
     checklist: Checklist,
@@ -45,7 +53,9 @@ class CombatLogParser extends CoreCombatLogParser {
     furyDetails: FuryDetails,
 
     // Talents
-    SpiritBombFrailtyDebuff: SpiritBombFrailtyDebuff,
+    blur: Blur,
+    painbringer: PainbringerBuff,
+    frailtyDebuff: FrailtyDebuff,
     soulBarrier: SoulBarrier,
     spiritBombSoulsConsume: SpiritBombSoulsConsume,
     feedTheDemon: FeedTheDemon,
@@ -56,6 +66,8 @@ class CombatLogParser extends CoreCombatLogParser {
     shatteredRestoration: ShatteredRestoration,
     theHunt: TheHunt,
     elysianDecree: ElysianDecree,
+    felblade: Felblade,
+    charredWarblades: CharredWarblades,
 
     // Spell
     immolationAura: ImmolationAura,

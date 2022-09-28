@@ -9,7 +9,10 @@ import HotTracker, {
 } from 'parser/shared/modules/HotTracker';
 
 import Mastery from '../../../modules/core/Mastery';
-import { getSpellInfo } from '../../../SpellInfo';
+import {
+  ABILITIES_AFFECTED_BY_HEALING_INCREASES,
+  MASTERY_STACK_BUFF_IDS,
+} from 'analysis/retail/druid/restoration/constants';
 
 class HotTrackerRestoDruid extends HotTracker {
   static dependencies = {
@@ -31,7 +34,7 @@ class HotTrackerRestoDruid extends HotTracker {
   onHeal(event: HealEvent) {
     // find if spell benefits from mastery and if there are other HoTs possibly boosting it on the same target
     const spellId = event.ability.guid;
-    if (!getSpellInfo(spellId).mastery) {
+    if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       return;
     }
     const targetId = event.targetID;
@@ -51,10 +54,11 @@ class HotTrackerRestoDruid extends HotTracker {
     const ourAttributions = this._getActiveAttributions(ourTracker);
     Object.keys(trackersOnTarget).forEach((id) => {
       const nid = Number(id);
-      if (spellId === nid || !getSpellInfo(nid).masteryStack) {
+      if (spellId === nid || !MASTERY_STACK_BUFF_IDS.includes(nid)) {
         return; // must give a mastery stack and not be the current heal
       }
 
+      // TODO handle multi-stack LB here
       const tracker = trackersOnTarget[nid];
       const otherAttributions = this._getActiveAttributions(tracker);
       // attribute to the other HoT the healing it caused here due to its mastery stack
@@ -108,7 +112,7 @@ class HotTrackerRestoDruid extends HotTracker {
         tickPeriod: 1000,
       },
       {
-        spell: SPELLS.LIFEBLOOM_DTL_HOT_HEAL,
+        spell: SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL,
         duration: 15000,
         tickPeriod: 1000,
       },
@@ -143,6 +147,11 @@ class HotTrackerRestoDruid extends HotTracker {
         spell: SPELLS.RENEWING_BLOOM,
         duration: 8000,
         tickPeriod: 1000,
+      },
+      {
+        spell: SPELLS.GROVE_TENDING,
+        duration: 9000,
+        tickPeriod: 3000,
       },
     ];
   }

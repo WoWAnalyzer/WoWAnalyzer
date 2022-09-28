@@ -36,17 +36,7 @@ interface Config {
   /**
    * The WoW client patch this spec is compatible with.
    */
-  patchCompatibility:
-    | null
-    | '9.0.1'
-    | '9.0.2'
-    | '9.0.5'
-    | '9.1.0'
-    | '9.1.5'
-    | '9.2.0'
-    | '9.2.5'
-    | '9.2.7'
-    | string;
+  patchCompatibility: null | '10.0.0' | '10.0.2' | string;
   /**
    * Whether support for the spec is only partial and some important elements
    * are still missing. Note: you do not need to support every possible

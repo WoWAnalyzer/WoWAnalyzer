@@ -15,3 +15,5 @@ export const INFERNAL_ARMOR_SCALING = [0, 10, 20];
 export const EXTENDED_SIGILS_SCALING = [0, 1, 2];
 
 export const ERRATIC_FELHEART_SCALING = [0, 15, 30];
+
+export const PITCH_BLACK_SCALING = [0, 120];

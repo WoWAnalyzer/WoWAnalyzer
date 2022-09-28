@@ -12,7 +12,6 @@ import StatisticBox from 'parser/ui/StatisticBox';
 
 import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
 import isAtonement from '../core/isAtonement';
-import { SpiritShellEvent } from '../core/SpiritShell';
 
 // Use the priest spell list to whitelist abilities
 const PRIEST_WHITELIST: number[] = Object.values({
@@ -49,7 +48,7 @@ class Grace extends Analyzer {
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtone);
   }
 
-  getGraceHealing(event: HealEvent | AbsorbedEvent | SpiritShellEvent) {
+  getGraceHealing(event: HealEvent | AbsorbedEvent) {
     const currentMastery = this.statTracker.currentMasteryPercentage;
     const masteryContribution = calculateEffectiveHealing(event, currentMastery);
     return masteryContribution;

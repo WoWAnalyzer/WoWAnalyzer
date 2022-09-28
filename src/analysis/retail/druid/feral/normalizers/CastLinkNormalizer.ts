@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_DRUID } from 'common/TALENTS';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
   AnyEvent,
@@ -33,7 +34,7 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: HIT_TARGET,
     linkingEventId: SPELLS.RIP.id,
     linkingEventType: [EventType.ApplyDebuff, EventType.RefreshDebuff],
-    referencedEventId: SPELLS.PRIMAL_WRATH_TALENT.id,
+    referencedEventId: TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
@@ -78,9 +79,9 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: FROM_HARDCAST,
     reverseLinkRelation: HIT_TARGET,
-    linkingEventId: SPELLS.BRUTAL_SLASH_TALENT.id,
+    linkingEventId: TALENTS_DRUID.BRUTAL_SLASH_FERAL_TALENT.id,
     linkingEventType: EventType.Damage,
-    referencedEventId: SPELLS.BRUTAL_SLASH_TALENT.id,
+    referencedEventId: TALENTS_DRUID.BRUTAL_SLASH_FERAL_TALENT.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,

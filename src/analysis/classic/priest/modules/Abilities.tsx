@@ -193,7 +193,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.FADE, ...lowRankSpells[SPELLS.FADE]],
+        spell: [SPELLS.FADE],
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           static: 1500,

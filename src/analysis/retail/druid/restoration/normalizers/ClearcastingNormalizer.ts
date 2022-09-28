@@ -1,24 +1,39 @@
 import SPELLS from 'common/SPELLS';
-import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
-import { EventType } from 'parser/core/Events';
+import { CastEvent, EventType, HasRelatedEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
+import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 
-const EVENT_ORDERS: EventOrder[] = [
+const BUFFER_MS = 50;
+const BUFFED_REGROWTH = 'BuffedRegrowth';
+const BUFFED_BY_CLEARCAST = 'BuffedByClearcast';
+
+const EVENT_LINKS: EventLink[] = [
   {
-    beforeEventId: SPELLS.REGROWTH.id,
-    beforeEventType: EventType.Cast,
-    afterEventId: SPELLS.CLEARCASTING_BUFF.id,
-    afterEventType: EventType.RemoveBuff,
-    bufferMs: 50,
+    linkRelation: BUFFED_REGROWTH,
+    reverseLinkRelation: BUFFED_BY_CLEARCAST,
+    linkingEventId: SPELLS.CLEARCASTING_BUFF.id,
+    linkingEventType: EventType.RemoveBuff,
+    referencedEventId: SPELLS.REGROWTH.id,
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: BUFFER_MS,
+    backwardBufferMs: BUFFER_MS,
     anyTarget: true,
   },
 ];
 
-// Clearcasting buff fades before the regrowth cast event that consumed it shows up.
-// This swaps the order so the buff always fades AFTER the regrowth cast event.
-class ClearcastingNormalizer extends EventOrderNormalizer {
+/** Links Clearcast fade to the Regrowth it buffed */
+class ClearcastingNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
-    super(options, EVENT_ORDERS);
+    super(options, EVENT_LINKS);
   }
 }
+
+export function buffedRegrowth(event: RemoveBuffEvent): boolean {
+  return HasRelatedEvent(event, BUFFED_REGROWTH);
+}
+
+export function buffedByClearcast(event: CastEvent): boolean {
+  return HasRelatedEvent(event, BUFFED_BY_CLEARCAST);
+}
+
 export default ClearcastingNormalizer;

@@ -16,10 +16,8 @@ import EventEmitter from 'parser/core/modules/EventEmitter';
 import { ATONEMENT_DAMAGE_SOURCES } from '../../constants';
 import AtonementApplicationSource from '../features/AtonementApplicationSource';
 import isAtonement from './isAtonement';
-import { SpiritShellEvent, SpiritShellApplied } from './SpiritShell';
 
 export enum SourceProvenance {
-  SpiritShell = 'SpiritShell',
   Atonement = 'Atonement',
 }
 
@@ -27,12 +25,12 @@ export interface AtonementAnalyzerEvent extends Event<EventType.Atonement> {
   // The ID of the unit that case the spell, typically the player
   sourceID?: number;
   // The healing event caused by the damage
-  healEvent: HealEvent | SpiritShellEvent;
+  healEvent: HealEvent;
   // The damage event that caused the healing
   damageEvent?: DamageEvent;
   // The details about the Atonement buff that caused the heal
   buffDetails?: BuffWithSource;
-  // The source of the healing, either SpiritShell or regular Atonement
+  // The source of the healing, Atonement
   provenance: SourceProvenance;
   // The target ID of the unit being healed
   targetID?: number;
@@ -86,7 +84,6 @@ export default class AtonementAnalyzer extends Analyzer {
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._processAtonement);
     this.addEventListener(Events.damage, this._processAtonementDamageSource);
-    this.addEventListener(SpiritShellApplied, this._processSpiritShell);
 
     /**
      * Track successful atonement applicator casts
@@ -157,28 +154,6 @@ export default class AtonementAnalyzer extends Analyzer {
       ...damageEvent,
       type: AtonementAnalyzer.atonementDamageSourceFilter.eventType,
     });
-  }
-
-  _processSpiritShell(spiritShellEvent: SpiritShellEvent) {
-    const buffDetails = this.targetBuffSourceMap.get(spiritShellEvent.targetID);
-
-    if (!buffDetails) {
-      return;
-    }
-
-    const evt: AtonementAnalyzerEvent = {
-      timestamp: spiritShellEvent.timestamp,
-      targetID: spiritShellEvent.targetID,
-      healEvent: spiritShellEvent,
-      damageEvent: this.atonementSource,
-      sourceID: spiritShellEvent.sourceEvent.sourceID,
-      provenance: SourceProvenance.SpiritShell,
-      type: AtonementAnalyzer.atonementEventFilter.eventType,
-      buffDetails,
-      expirationDelta: buffDetails.baseExpirationTimestamp - spiritShellEvent.timestamp,
-    };
-
-    this.eventEmitter.fabricateEvent(evt);
   }
 
   /**

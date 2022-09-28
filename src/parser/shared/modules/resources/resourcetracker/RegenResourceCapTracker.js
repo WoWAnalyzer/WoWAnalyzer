@@ -551,7 +551,7 @@ class RegenResourceCapTracker extends Analyzer {
       return eventResource.max;
     }
     // when neither source provides a value just use the existing
-    return this.regenState.max;
+    return this.regenState.max; // FIXME this fallback actually causes a crash when called from constructor, because its called befopre regenState is set
   }
 
   /**

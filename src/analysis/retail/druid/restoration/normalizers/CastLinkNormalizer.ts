@@ -10,8 +10,10 @@ import {
   HasRelatedEvent,
   HealEvent,
   RefreshBuffEvent,
+  RemoveBuffEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 const CAST_BUFFER_MS = 65;
 const TRANQ_CHANNEL_BUFFER_MS = 10_000;
@@ -20,6 +22,7 @@ export const APPLIED_HEAL = 'AppliedHeal';
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_OVERGROWTH = 'FromOvergrowth';
 export const FROM_EXPIRING_LIFEBLOOM = 'FromExpiringLifebloom';
+export const CAUSED_BLOOM = 'CausedBloom';
 export const CAUSED_TICK = 'CausedTick';
 
 const EVENT_LINKS: EventLink[] = [
@@ -46,7 +49,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: FROM_HARDCAST,
     reverseLinkRelation: APPLIED_HEAL,
-    linkingEventId: [SPELLS.LIFEBLOOM_HOT_HEAL.id, SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id],
+    linkingEventId: [SPELLS.LIFEBLOOM_HOT_HEAL.id, SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.LIFEBLOOM_HOT_HEAL.id,
     referencedEventType: EventType.Cast,
@@ -76,20 +79,20 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: FROM_HARDCAST,
-    linkingEventId: SPELLS.FLOURISH_TALENT.id,
+    linkingEventId: TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id,
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: SPELLS.FLOURISH_TALENT.id,
+    referencedEventId: TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
   },
   {
-    // for discerning hardcasts from T28 4pc procs
+    // for discerning hardcasts from reforestation procs
     linkRelation: FROM_HARDCAST,
     linkingEventId: SPELLS.INCARNATION_TOL_ALLOWED.id,
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id,
+    referencedEventId: TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
@@ -104,19 +107,20 @@ const EVENT_LINKS: EventLink[] = [
       SPELLS.REGROWTH.id,
       SPELLS.WILD_GROWTH.id,
       SPELLS.LIFEBLOOM_HOT_HEAL.id,
-      SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id,
+      SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id,
     ],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: SPELLS.OVERGROWTH_TALENT.id,
+    referencedEventId: TALENTS_DRUID.OVERGROWTH_RESTORATION_TALENT.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
     linkRelation: FROM_EXPIRING_LIFEBLOOM,
+    reverseLinkRelation: CAUSED_BLOOM,
     linkingEventId: SPELLS.LIFEBLOOM_BLOOM_HEAL.id,
     linkingEventType: EventType.Heal,
-    referencedEventId: [SPELLS.LIFEBLOOM_HOT_HEAL.id, SPELLS.LIFEBLOOM_DTL_HOT_HEAL.id],
+    referencedEventId: [SPELLS.LIFEBLOOM_HOT_HEAL.id, SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id],
     referencedEventType: [EventType.RefreshBuff, EventType.RemoveBuff],
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
@@ -150,22 +154,48 @@ class CastLinkNormalizer extends EventLinkNormalizer {
   }
 }
 
+/** Returns true iff the given buff application or heal can be matched back to a hardcast */
 export function isFromHardcast(event: AbilityEvent<any>): boolean {
   return HasRelatedEvent(event, FROM_HARDCAST);
 }
 
+/** Returns the hardcast event that caused this buff or heal, if there is one */
+export function getHardcast(event: AbilityEvent<any>): CastEvent | undefined {
+  return GetRelatedEvents(event, FROM_HARDCAST)
+    .filter((e): e is CastEvent => e.type === EventType.Cast)
+    .pop();
+}
+
+/** Returns true iff the given buff application can be matched to an Overgrowth cast */
 export function isFromOvergrowth(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
   return HasRelatedEvent(event, FROM_OVERGROWTH);
 }
 
+/** Returns the buff application and direct heal events caused by the given hardcast */
 export function getHeals(event: CastEvent): AnyEvent[] {
   return GetRelatedEvents(event, APPLIED_HEAL);
 }
 
+/** Returns the direct heal event caused by this hardcast, if there is one */
+export function getDirectHeal(event: CastEvent): HealEvent | undefined {
+  return getHeals(event)
+    .filter((e): e is HealEvent => e.type === EventType.Heal)
+    .pop();
+}
+
+/** Returns true iff the given bloom heal can be linked to the refresh or removal of a lifebloom
+ *  buff - used to differentiate from a Photosynthesis proc */
 export function isFromExpiringLifebloom(event: HealEvent): boolean {
   return HasRelatedEvent(event, FROM_EXPIRING_LIFEBLOOM);
 }
 
+/** Returns true iff the bloom expiration caused a bloom to proc */
+export function causedBloom(event: RemoveBuffEvent | RefreshBuffEvent): boolean {
+  return HasRelatedEvent(event, CAUSED_BLOOM);
+}
+
+/** Gets the tranquility "tick cast" events caused by channeling the given Tranquility w/
+ *  cast ID `TRANQUILITY_CAST`. */
 export function getTranquilityTicks(event: CastEvent): AnyEvent[] {
   return GetRelatedEvents(event, CAUSED_TICK);
 }

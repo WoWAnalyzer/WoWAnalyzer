@@ -134,9 +134,18 @@ class Combatant extends Entity {
     });
   }
 
-  hasTalent(spell: number | Spell) {
+  /** Returns true iff this combatant has the specified talent. Will be true for any number of
+   *  points in the talent, even when not the maximum number of points. */
+  hasTalent(spell: number | Spell): boolean {
     const spellId = typeof spell === 'number' ? spell : spell.id;
     return this.treeTalentsBySpellId.has(spellId);
+  }
+
+  /** Returns the number of points the combatant has in the specified talent. If the talent
+   *  hasn't been picked at all, this will be zero. */
+  getTalentRank(spell: number | Spell) {
+    const spellId = typeof spell === 'number' ? spell : spell.id;
+    return this.treeTalentsBySpellId.get(spellId)?.rank ?? 0;
   }
 
   /**
@@ -147,7 +156,7 @@ class Combatant extends Entity {
   get talentPoints(): number[] {
     const expansion = this._combatantInfo.expansion;
     if (expansion === 'tbc' || expansion === 'wotlk') {
-      return Object.values(this._talentPointsBySpec);
+      return [...this._talentPointsBySpec];
     } else {
       return [];
     }

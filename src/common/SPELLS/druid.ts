@@ -7,7 +7,9 @@
 import { spellIndexableList } from './Spell';
 
 const spells = spellIndexableList({
-  // Shared
+  /////////////////////////////////////////////////////////////////////////////
+  // SHARED
+  //
   HIBERNATE: {
     id: 2637,
     name: 'Hibernate',
@@ -68,9 +70,6 @@ const spells = spellIndexableList({
     name: 'Wild Charge',
     icon: 'spell_druid_wildcharge',
   },
-
-  //shared talent spells
-
   WILD_CHARGE_MOONKIN: {
     id: 102383,
     name: 'Wild Charge',
@@ -111,11 +110,30 @@ const spells = spellIndexableList({
     name: 'Heart of the Wild',
     icon: 'spell_holy_blessingofagility',
   },
-
-  // shared items / conduits
-
-  //Affinity Spells
-  //Moonkin-Balance
+  CONVOKE_SPIRITS: {
+    // this is the ID for each spec's talent as well - this ID is used for the Cast and the Buff
+    id: 391528,
+    name: 'Convoke the Spirits',
+    icon: 'ability_ardenweald_druid',
+  },
+  // cast from Adaptive Swarm talent
+  ADAPTIVE_SWARM: {
+    id: 391888,
+    name: 'Adaptive Swarm',
+    icon: 'ability_maldraxxus_druid',
+  },
+  // heal and buff from Adaptive Swarm talent
+  ADAPTIVE_SWARM_HEAL: {
+    id: 391891,
+    name: 'Adaptive Swarm',
+    icon: 'ability_maldraxxus_druid',
+  },
+  // damage and debuff from Adaptive Swarm talent
+  ADAPTIVE_SWARM_DAMAGE: {
+    id: 391889,
+    name: 'Adaptive Swarm',
+    icon: 'ability_maldraxxus_druid',
+  },
   //The moonkin form granted by Balance Affinity
   MOONKIN_FORM_AFFINITY: {
     id: 197625,
@@ -140,33 +158,72 @@ const spells = spellIndexableList({
     name: 'Sunfire',
     icon: 'ability_mage_firestarter',
   },
-  //Guardian Affinity Spells
-  //Ironfur gained from affinity has same spell ID as the Guardian spell
-  //Thick Hide gained from affinity has same spell ID as the Guardian spell
-  //Thrash gained from affinity has same spell ID as the Guardian spell
-  //Granted by Guardian affinity
   FRENZIED_REGENERATION: {
     id: 22842,
     name: 'Frenzied Regeneration',
     icon: 'ability_bullrush',
   },
+  BEAR_FORM: {
+    id: 5487,
+    name: 'Bear Form',
+    icon: 'ability_racial_bearform',
+  },
+  CAT_FORM: {
+    id: 768,
+    name: 'Cat Form',
+    icon: 'ability_druid_catform',
+  },
+  DASH: {
+    id: 1850,
+    name: 'Dash',
+    icon: 'ability_druid_dash',
+  },
+  STAG_FORM: {
+    id: 210053,
+    name: 'Stag Form',
+    icon: 'inv_stagform',
+  },
+  TRAVEL_FORM: {
+    id: 783,
+    name: 'Travel Form',
+    icon: 'ability_druid_travelform',
+  },
+  SHRED: {
+    id: 5221,
+    name: 'Shred',
+    icon: 'spell_shadow_vampiricaura',
+  },
+  WRATH: {
+    id: 5176,
+    name: 'Wrath',
+    icon: 'spell_nature_wrathv2',
+  },
+  URSOLS_VORTEX: {
+    id: 102793,
+    name: "Ursol's Vortex",
+    icon: 'spell_druid_ursolsvortex',
+  },
+  MOONKIN_FORM: {
+    id: 24858,
+    name: 'Moonkin Form',
+    icon: 'spell_nature_forceofnature',
+  },
+  // TODO Nature's Vigil healing probably has different ID, need log to see it
+  // damage from Nature's Vigil talent
+  NATURES_VIGIL_DAMAGE: {
+    id: 124991,
+    name: "Nature's Vigil",
+    icon: 'achievement_zone_feralas',
+  },
 
-  //Feral Affinity Spells
-  //Rake gain from affinity has the same spell id as the Feral Spell
-  //Rip gain from affinity has the same spell id as the Feral Spell
-  //Ferocious Bite gain from affinity has the same spell id as the Feral Spell
-  //Swipe (Named SWIPE_CAT)  gain from affinity has the same spell id as the Feral Spell
-
-  // RESTO DRUID //
-
-  // Mastery
+  /////////////////////////////////////////////////////////////////////////////
+  // RESTO
+  //
   MASTERY_HARMONY: {
     id: 77495,
     name: 'Mastery: Harmony',
     icon: 'spell_nature_healingway',
   },
-
-  // Spells / Buffs
   TRANQUILITY_CAST: {
     // this ID is the initial cast and the 'channel buff'
     id: 740,
@@ -220,6 +277,13 @@ const spells = spellIndexableList({
     icon: 'inv_misc_herb_felblossom',
     manaCost: 800,
   },
+  LIFEBLOOM_UNDERGROWTH_HOT_HEAL: {
+    // with the Undergrowth talent, BOTH lifeblooms will have this ID
+    id: 188550,
+    name: 'Lifebloom',
+    icon: 'inv_misc_herb_felblossom',
+    manaCost: 800,
+  },
   LIFEBLOOM_BLOOM_HEAL: {
     id: 33778,
     name: 'Lifebloom',
@@ -258,55 +322,10 @@ const spells = spellIndexableList({
     name: 'Abundance',
     icon: 'ability_druid_empoweredrejuvination',
   },
-  BEAR_FORM: {
-    id: 5487,
-    name: 'Bear Form',
-    icon: 'ability_racial_bearform',
-  },
-  CAT_FORM: {
-    id: 768,
-    name: 'Cat Form',
-    icon: 'ability_druid_catform',
-  },
-  DASH: {
-    id: 1850,
-    name: 'Dash',
-    icon: 'ability_druid_dash',
-  },
   NATURES_CURE: {
     id: 88423,
     name: "Nature's Cure",
     icon: 'ability_shaman_cleansespirit',
-  },
-  STAG_FORM: {
-    id: 210053,
-    name: 'Stag Form',
-    icon: 'inv_stagform',
-  },
-  TRAVEL_FORM: {
-    id: 783,
-    name: 'Travel Form',
-    icon: 'ability_druid_travelform',
-  },
-  SHRED: {
-    id: 5221,
-    name: 'Shred',
-    icon: 'spell_shadow_vampiricaura',
-  },
-  WRATH: {
-    id: 5176,
-    name: 'Wrath',
-    icon: 'spell_nature_wrathv2',
-  },
-  URSOLS_VORTEX: {
-    id: 102793,
-    name: "Ursol's Vortex",
-    icon: 'spell_druid_ursolsvortex',
-  },
-  MOONKIN_FORM: {
-    id: 24858,
-    name: 'Moonkin Form',
-    icon: 'spell_nature_forceofnature',
   },
   REJUVENATION_GERMINATION: {
     id: 155777,
@@ -362,10 +381,31 @@ const spells = spellIndexableList({
     name: "Nature's Swiftness",
     icon: 'spell_nature_ravenform',
   },
-
+  // buff and heal from Grove Tending talent
+  GROVE_TENDING: {
+    id: 383193,
+    name: 'Grove Tending',
+    icon: 'inv_relics_idolofrejuvenation',
+  },
+  // buff and heal from Regenerative Heartwood talent
+  REGENERATIVE_HEARTWOOD: {
+    id: 392117,
+    name: 'Regenerative Heartwood',
+    icon: 'ability_druid_manatree',
+  },
+  // heal from Embrace of the Dream talent
+  EMBRACE_OF_THE_DREAM: {
+    id: 392147,
+    name: 'Embrace of the Dream',
+    icon: 'ability_druid_healinginstincts',
+  },
+  // heal from Verdancy talent
+  VERDANCY: {
+    id: 392329,
+    name: 'Verdancy',
+    icon: 'inv_10_herb_seed_magiccolor5',
+  },
   // Sets/Items:
-  // Hidden buffs that indicate set is equipped:
-  // Visible procs produced by set/item:
   ASTRAL_HARMONY: {
     // 2pc T19
     id: 232378,
@@ -373,13 +413,13 @@ const spells = spellIndexableList({
     icon: 'talentspec_druid_restoration',
   },
   RESTO_DRUID_TIER_28_2P_SET_BONUS: {
-    // presence of this buff indicates player has 2pc equipped FIXME not yet on PTR?
+    // presence of this buff indicates player has 2pc equipped
     id: 364365,
     name: 'Renewing Bloom',
     icon: 'spell_unused',
   },
   RESTO_DRUID_TIER_28_4P_SET_BONUS: {
-    // presence of this buff indicates player has 4pc equipped FIXME not yet on PTR?
+    // presence of this buff indicates player has 4pc equipped
     id: 363495,
     name: 'Ephemeral Incarnation',
     icon: 'spell_progenitor_orb2',
@@ -390,15 +430,15 @@ const spells = spellIndexableList({
     name: 'Renewing Bloom',
     icon: 'spell_unused',
   },
-  // Traits:
   NATURES_ESSENCE_TRAIT: {
     id: 189787,
     name: "Nature's Essence",
     icon: 'ability_druid_flourish',
   },
 
-  // GUARDIAN //
-  // passive for all Guardian druids and any druid with Guardian Affinity
+  /////////////////////////////////////////////////////////////////////////////
+  // GUARDIAN / BEAR
+  //
   THICK_HIDE: {
     id: 16931,
     name: 'Thick Hide',
@@ -613,8 +653,10 @@ const spells = spellIndexableList({
     name: "Mastery: Nature's Guardian",
     icon: 'spell_druid_primaltenacity',
   },
-  // Moonkin
-  // passive for all Balance druids and any druid with Balance Affinity
+
+  /////////////////////////////////////////////////////////////////////////////
+  // BALANCE / MOONKIN
+  //
   ASTRAL_INFLUENCE: {
     id: 197524,
     name: 'Astral Influence',
@@ -650,8 +692,6 @@ const spells = spellIndexableList({
     name: 'Starlord',
     icon: 'spell_shaman_measuredinsight',
   },
-  // MOONFIRE = MOONFIRE_BEAR
-  // MOONFIRE_CAST = MOONFIRE
   STARFALL: {
     id: 191037,
     name: 'Starfall',
@@ -735,7 +775,9 @@ const spells = spellIndexableList({
     icon: 'ability_druid_dreamstate',
   },
 
-  // FERAL //
+  /////////////////////////////////////////////////////////////////////////////
+  // FERAL / CAT
+  //
   SWIPE_CAT: {
     id: 106785,
     name: 'Swipe',
@@ -750,12 +792,6 @@ const spells = spellIndexableList({
     id: 1079,
     name: 'Rip',
     icon: 'ability_ghoulfrenzy',
-  },
-  RAKE: {
-    // the cast and DIRECT damage
-    id: 1822,
-    name: 'Rake',
-    icon: 'ability_druid_disembowel',
   },
   TIGERS_FURY: {
     id: 5217,
@@ -783,14 +819,20 @@ const spells = spellIndexableList({
     name: 'Maim',
     icon: 'ability_druid_mangle',
   },
+  // Rake's cast and DIRECT damage
+  RAKE: {
+    id: 1822,
+    name: 'Rake',
+    icon: 'ability_druid_disembowel',
+  },
+  // Rake's debuff and DOT damage
   RAKE_BLEED: {
-    // the debuff and DOT damage
     id: 155722,
     name: 'Rake',
     icon: 'ability_druid_disembowel',
   },
+  // Rake's stun debuff when used from stealth
   RAKE_STUN: {
-    // the stun when used from stealth
     id: 163505,
     name: 'Rake',
     icon: 'ability_druid_disembowel',
@@ -805,12 +847,14 @@ const spells = spellIndexableList({
     name: 'Thrash',
     icon: 'spell_druid_thrash',
   },
+  // this is the spell for the cast and the buff
   BERSERK: {
     id: 106951,
     name: 'Berserk',
     icon: 'ability_druid_berserk',
   },
-  BERSERK_BUFF: {
+  // this is the spell for the combo point refund (anything else?)
+  BERSERK_ENERGIZE: {
     id: 343216,
     name: 'Berserk',
     icon: 'ability_druid_berserk',
@@ -868,7 +912,66 @@ const spells = spellIndexableList({
     name: 'Soul of the Forest',
     icon: 'ability_druid_manatree',
   },
-
+  // resourcechange from Primal Claws talent
+  PRIMAL_CLAWS: {
+    id: 393617,
+    name: 'Primal Claws',
+    icon: 'ability_druid_rake',
+  },
+  // buff from Sabertooth talent
+  SABERTOOTH: {
+    id: 391722,
+    name: 'Sabertooth',
+    icon: 'inv_misc_monsterfang_01',
+  },
+  // debuff/bleed from Tear talent
+  TEAR: {
+    id: 391356,
+    name: 'Tear',
+    icon: 'artifactability_feraldruid_ashamanesbite',
+  },
+  // damage from Tear Open Wounds talent
+  TEAR_OPEN_WOUNDS: {
+    id: 391786,
+    name: 'Tear Open Wounds',
+    icon: 'artifactability_feraldruid_ashamanesbite',
+  },
+  // damage from Rampant Ferocity talent
+  RAMPANT_FEROCITY: {
+    id: 391710,
+    name: 'Rampant Ferocity',
+    icon: 'ability_druid_primaltenacity',
+  },
+  // buff from Sudden Ambush talent
+  SUDDEN_AMBUSH_BUFF: {
+    id: 391974,
+    name: 'Sudden Ambush',
+    icon: 'ability_hunter_catlikereflexes',
+  },
+  // damage from Berserk: Frenzy talent
+  FRENZIED_ASSAULT: {
+    id: 391140,
+    name: 'Frenzied Assault',
+    icon: 'ability_deathwing_bloodcorruption_earth',
+  },
+  // Buff procced by Apex Predator's Craving talent
+  APEX_PREDATORS_CRAVING_BUFF: {
+    id: 391882,
+    name: "Apex Predator's Craving",
+    icon: 'ability_druid_primaltenacity',
+  },
+  // buff from Frantic Momentum talent
+  FRANTIC_MOMENTUM: {
+    id: 391876,
+    name: 'Frantic Momentum',
+    icon: 'spell_druid_savagery',
+  },
+  // resourcechange from Cat's Curiosity
+  CATS_CURIOSITY: {
+    id: 339145,
+    name: "Cat's Curiosity",
+    icon: 'inv_jewelcrafting_gem_30',
+  },
   // feral legion tier sets
   FERAL_DRUID_T19_2SET_BONUS_BUFF: {
     id: 211140,
@@ -927,19 +1030,19 @@ const spells = spellIndexableList({
     name: 'Apex Predator',
     icon: 'ability_druid_primaltenacity',
   },
-  FRENZIED_ASSAULT: {
-    // DoT procced by Frenzyband legendary
+  // DoT procced by Frenzyband legendary
+  FRENZIED_ASSAULT_SHADOWLANDS: {
     id: 340056,
     name: 'Frenzied Assault',
     icon: 'ability_deathwing_bloodcorruption_earth',
   },
-  APEX_PREDATORS_CRAVING_BUFF: {
-    // Buff procced by Apex Predator's Craving legendary
+  // Buff procced by Apex Predator's Craving legendary
+  APEX_PREDATORS_CRAVING_BUFF_SHADOWLANDS: {
     id: 339140,
     name: "Apex Predator's Craving",
     icon: 'ability_druid_primaltenacity',
   },
-  SUDDEN_AMBUSH_BUFF: {
+  SUDDEN_AMBUSH_BUFF_SHADOWLANDS: {
     // Buff procced by Sudden Ambush conduit
     id: 340698,
     name: 'Sudden Ambush',

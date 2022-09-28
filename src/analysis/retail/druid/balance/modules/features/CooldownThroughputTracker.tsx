@@ -2,12 +2,13 @@ import SPELLS from 'common/SPELLS';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id,
+      spell: TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_BALANCE_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {

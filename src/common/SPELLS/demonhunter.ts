@@ -7,7 +7,7 @@
 import { spellIndexableList } from './Spell';
 
 const spells = spellIndexableList({
-  // Common Spells
+  //region Shared
   GLIDE: {
     id: 131347,
     name: 'Glide',
@@ -23,31 +23,69 @@ const spells = spellIndexableList({
     name: 'Felblade',
     icon: 'ability_demonhunter_felblade',
   },
+  CHAOS_BRAND: {
+    id: 281242,
+    name: 'Chaos Brand',
+    icon: 'ability_demonhunter_empowerwards',
+  },
+  // Sigil of Flame, Misery, and Silence have different spell ids depending on
+  // if you take the [Concentrated Sigils], [Quickened Sigils], or [Precise Sigils] talents
+  SIGIL_OF_FLAME_CONCENTRATED: {
+    id: 204513,
+    name: 'Sigil of Flame',
+    icon: 'ability_demonhunter_sigilofinquisition',
+  },
+  SIGIL_OF_MISERY_CONCENTRATED: {
+    id: 202140,
+    name: 'Sigil of Misery',
+    icon: 'ability_demonhunter_sigilofmisery',
+  },
+  SIGIL_OF_SILENCE_CONCENTRATED: {
+    id: 207682,
+    name: 'Sigil of Silence',
+    icon: 'ability_demonhunter_sigilofsilence',
+  },
+  SIGIL_OF_FLAME_PRECISE: {
+    id: 389810,
+    name: 'Sigil of Flame',
+    icon: 'ability_demonhunter_sigilofinquisition',
+  },
+  SIGIL_OF_MISERY_PRECISE: {
+    id: 389813,
+    name: 'Sigil of Misery',
+    icon: 'ability_demonhunter_sigilofmisery',
+  },
+  SIGIL_OF_SILENCE_PRECISE: {
+    id: 389809,
+    name: 'Sigil of Silence',
+    icon: 'ability_demonhunter_sigilofsilence',
+  },
+  SIGIL_OF_FLAME_DEBUFF: {
+    id: 204598,
+    name: 'Sigil of Flame',
+    icon: 'ability_demonhunter_sigilofinquisition',
+  },
+  CHARRED_WARBLADES: {
+    id: 213011,
+    name: 'Charred Warblades',
+    icon: 'ability_demonhunter_fierybrand',
+  },
+  BLUR_BUFF: {
+    id: 212800,
+    name: 'Blur',
+    icon: 'ability_demonhunter_blur',
+  },
+  //endregion
 
-  // Vengeance
+  //region Vengeance
   // Passive:
   DEMONIC_WARDS: {
     id: 207014,
     name: 'Demonic Wards',
     icon: 'inv_belt_leather_demonhunter_a_01',
   },
-  SEVER: {
-    id: 235964,
-    name: 'Sever',
-    icon: 'ability_demonhunter_manabreak',
-  },
-  CHAOS_BRAND: {
-    id: 281242,
-    name: 'Chaos Brand',
-    icon: 'ability_demonhunter_empowerwards',
-  },
 
   // Abilities:
-  FEL_DEVASTATION: {
-    id: 212084,
-    name: 'Fel Devastation',
-    icon: 'ability_demonhunter_feldevastation',
-  },
   FRACTURE_MAIN_HAND: {
     id: 225919,
     name: 'Fracture(Main Hand)',
@@ -83,43 +121,6 @@ const spells = spellIndexableList({
     name: 'Void Reaver Debuff',
     icon: 'spell_shadow_demonicempathy',
   },
-  //Sigil of Flame, Misery, and Silence have different spell ids depending on
-  //if you take the [Concentrated Sigils] or [Quickened Sigils] talents
-  SIGIL_OF_FLAME_CONCENTRATED: {
-    id: 204513,
-    name: 'Sigil of Flame',
-    icon: 'ability_demonhunter_sigilofinquisition',
-  },
-  SIGIL_OF_MISERY_CONCENTRATED: {
-    id: 202140,
-    name: 'Sigil of Misery',
-    icon: 'ability_demonhunter_sigilofmisery',
-  },
-  SIGIL_OF_SILENCE_CONCENTRATED: {
-    id: 207682,
-    name: 'Sigil of Silence',
-    icon: 'ability_demonhunter_sigilofsilence',
-  },
-  SIGIL_OF_FLAME_QUICKENED: {
-    id: 204596,
-    name: 'Sigil of Flame',
-    icon: 'ability_demonhunter_sigilofinquisition',
-  },
-  SIGIL_OF_MISERY_QUICKENED: {
-    id: 207684,
-    name: 'Sigil of Misery',
-    icon: 'ability_demonhunter_sigilofmisery',
-  },
-  SIGIL_OF_SILENCE_QUICKENED: {
-    id: 202137,
-    name: 'Sigil of Silence',
-    icon: 'ability_demonhunter_sigilofsilence',
-  },
-  SIGIL_OF_FLAME_DEBUFF: {
-    id: 204598,
-    name: 'Sigil of Flame',
-    icon: 'ability_demonhunter_sigilofinquisition',
-  },
   DEMON_SPIKES: {
     id: 203720,
     name: 'Demon Spikes',
@@ -130,10 +131,10 @@ const spells = spellIndexableList({
     name: 'Demon Spikes',
     icon: 'ability_demonhunter_demonspikes',
   },
-  FIERY_BRAND: {
-    id: 204021,
-    name: 'Fiery Brand',
-    icon: 'ability_demonhunter_fierybrand',
+  DEMON_SPIKES_DAMAGE: {
+    id: 391159,
+    name: 'Demon Spikes',
+    icon: 'ability_demonhunter_demonspikes2',
   },
   FIERY_BRAND_DEBUFF: {
     id: 207744,
@@ -165,6 +166,11 @@ const spells = spellIndexableList({
     name: 'Immolation Aura Second Strike',
     icon: 'ability_demonhunter_immolation',
   },
+  INFERNAL_ARMOR: {
+    id: 320344,
+    name: 'Infernal Armor',
+    icon: 'ability_demonhunter_immolation',
+  },
   INFERNAL_STRIKE: {
     id: 189110,
     name: 'Infernal Strike',
@@ -179,11 +185,6 @@ const spells = spellIndexableList({
     id: 185245,
     name: 'Torment',
     icon: 'ability_demonhunter_torment',
-  },
-  IMPRISON: {
-    id: 217832,
-    name: 'Imprison',
-    icon: 'ability_demonhunter_imprison',
   },
   SPECTRAL_SIGHT: {
     id: 188501,
@@ -206,7 +207,7 @@ const spells = spellIndexableList({
     name: 'Consume Soul',
     icon: 'ability_warlock_improvedsoulleech',
   },
-  FRAILTY_SPIRIT_BOMB_DEBUFF: {
+  FRAILTY: {
     id: 247456,
     name: 'Frailty',
     icon: 'inv_icon_shadowcouncilorb_purple',
@@ -216,8 +217,19 @@ const spells = spellIndexableList({
     name: 'Spirit Bomb',
     icon: 'inv_icon_shadowcouncilorb_purple',
   },
+  COLLECTIVE_ANGUISH: {
+    id: 391058,
+    name: 'Collective Anguish',
+    icon: 'artifactability_havocdemonhunter_anguishofthedeceiver',
+  },
+  PAINBRINGER_BUFF: {
+    id: 212988,
+    name: 'Painbringer',
+    icon: 'artifactability_vengeancedemonhunter_painbringer',
+  },
+  //endregion
 
-  // Havoc
+  //region Havoc
   //spells
   DEMONS_BITE: {
     id: 162243,
@@ -305,11 +317,6 @@ const spells = spellIndexableList({
     name: 'Throw Glaive',
     icon: 'ability_demonhunter_throwglaive',
   },
-  EYE_BEAM: {
-    id: 198013,
-    name: 'Eye Beam',
-    icon: 'ability_demonhunter_eyebeam',
-  },
   EYE_BEAM_DAMAGE: {
     id: 198030,
     name: 'Eye Beam',
@@ -319,11 +326,6 @@ const spells = spellIndexableList({
     id: 343312,
     name: 'Furious Gaze',
     icon: 'spell_warlock_soulburn',
-  },
-  FURY_OF_THE_ILLIDARI: {
-    id: 201467,
-    name: 'Fury of the Illidari',
-    icon: 'inv_glaive_1h_artifactazgalor_d_01',
   },
   CONSUME_MAGIC: {
     id: 278326,
@@ -340,11 +342,6 @@ const spells = spellIndexableList({
     name: 'Consume Magic',
     icon: 'ability_demonhunter_consumemagic',
   },
-  VENGEFUL_RETREAT: {
-    id: 198793,
-    name: 'Vengeful Retreat',
-    icon: 'ability_demonhunter_vengefulretreat2',
-  },
   METAMORPHOSIS_HAVOC_BUFF: {
     id: 162264,
     name: 'Metamorphosis',
@@ -354,21 +351,6 @@ const spells = spellIndexableList({
     id: 200166,
     name: 'Metamorphosis',
     icon: 'ability_demonhunter_metamorphasisdps',
-  },
-  BLUR: {
-    id: 198589,
-    name: 'Blur',
-    icon: 'ability_demonhunter_blur',
-  },
-  DARKNESS: {
-    id: 196718,
-    name: 'Darkness',
-    icon: 'ability_demonhunter_darkness',
-  },
-  CHAOS_NOVA: {
-    id: 179057,
-    name: 'Chaos Nova',
-    icon: 'spell_fire_felfirenova',
   },
   DEMON_BLADES_FURY: {
     id: 203796,
@@ -380,16 +362,6 @@ const spells = spellIndexableList({
     name: 'Blade Dance',
     icon: 'ability_demonhunter_bladedance',
   },
-  PREPARED_FURY: {
-    id: 203650,
-    name: 'Prepared',
-    icon: 'ability_demonhunter_vengefulretreat',
-  },
-  DECEIVERS_FURY_FURY: {
-    id: 202120,
-    name: "Deceiver's Fury",
-    icon: 'ability_demonhunter_blur',
-  },
 
   // Havoc Talents
   DEMONIC_APPETITE_FURY: {
@@ -397,11 +369,6 @@ const spells = spellIndexableList({
     id: 210041,
     name: 'Demonic Appetite',
     icon: 'spell_misc_zandalari_council_soulswap',
-  },
-  CHAOS_CLEAVE_DAMAGE: {
-    id: 236237,
-    name: 'Chaos Cleave',
-    icon: 'inv_weapon_shortblade_62',
   },
   MOMENTUM_BUFF: {
     id: 208628,
@@ -438,31 +405,14 @@ const spells = spellIndexableList({
     name: 'Unbound Chaos',
     icon: 'artifactability_vengeancedemonhunter_painbringer',
   },
-
-  //region SHADOWLANDS COVENANT
   ELYSIAN_DECREE: {
     id: 327839,
-    name: 'Elysian Decree',
-    icon: 'ability_bastion_demonhunter',
-  },
-  ELYSIAN_DECREE_REPEAT_DECREE: {
-    id: 306830,
-    name: 'Elysian Decree',
-    icon: 'ability_bastion_demonhunter',
-  },
-  ELYSIAN_DECREE_REPEAT_DECREE_DAMAGE: {
-    id: 339894,
     name: 'Elysian Decree',
     icon: 'ability_bastion_demonhunter',
   },
   ELYSIAN_DECREE_DAMAGE: {
     id: 307046,
     name: 'Elysian Decree',
-    icon: 'ability_bastion_demonhunter',
-  },
-  BLIND_FAITH_BUFF: {
-    id: 355894,
-    name: 'Blind Faith',
     icon: 'ability_bastion_demonhunter',
   },
   FODDER_TO_THE_FLAME: {
@@ -495,22 +445,13 @@ const spells = spellIndexableList({
     name: 'The Hunt',
     icon: 'ability_ardenweald_demonhunter',
   },
-  SINFUL_BRAND: {
-    id: 317009,
-    name: 'Sinful Brand',
-    icon: 'ability_revendreth_demonhunter',
-  },
-  //endregion
-
-  //region SHADOWLANDS LEGENDARIES
   CHAOS_THEORY: {
     id: 337551,
     name: 'Chaos Theory',
     icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
   },
-  CHAOTIC_BLADES: {
-    //Buff from Chaos Theory legendary
-    id: 337567,
+  CHAOS_THEORY_BUFF: {
+    id: 390195,
     name: 'Chaotic Blades',
     icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
   },
@@ -519,71 +460,20 @@ const spells = spellIndexableList({
     name: 'Burning Wound',
     icon: 'spell_fire_felhellfire',
   },
-  DARKER_NATURE: {
-    id: 346264,
-    name: 'Darker Nature',
-    icon: 'ability_demonhunter_eyebeam',
-  },
-  ERRATIC_FEL_CORE: {
-    id: 337685,
-    name: 'Erratic Fel Core',
-    icon: 'inv_archaeology_70_crystallineeyeofundravius',
-  },
-  FEL_FLAME_FORTIFICATION: {
-    id: 337545,
-    name: 'Fel Flame Fortification',
-    icon: 'spell_fire_felfire',
-  },
-  FIERY_SOUL: {
-    id: 337547,
-    name: 'Fiery Soul',
-    icon: 'inv__felbarrage',
-  },
-  RAZELIKHS_DEFILEMENT: {
-    id: 337544,
-    name: "Razelikh's Defilement",
-    icon: 'ability_demonhunter_concentratedsigils',
-  },
-  SPIRIT_OF_THE_DARKNESS_FLAME: {
-    id: 337541,
-    name: 'Spirit of the Darkness Flame',
-    icon: 'inv_misc_head_dragon_blue_nightmare',
-  },
-  COLLECTIVE_ANGUISH: {
-    id: 337504,
-    name: 'Collective Anguish',
-    icon: 'artifactability_havocdemonhunter_anguishofthedeceiver',
-  },
-  FEL_DEVASTATION_DAMAGE: {
-    //The damage spell that the demon is doing from Collective Anguish legendary
-    id: 346503,
-    name: 'Fel Devastation',
-    icon: 'ability_demonhunter_feldevastation',
-  },
-  DARKEST_HOUR: {
-    id: 337539,
-    name: 'Darkest Hour',
-    icon: 'ability_demonhunter_darkness',
-  },
-  DARKGLARE_BOON: {
-    id: 337534,
-    name: 'Darkglare Boon',
-    icon: 'inv_jewelry_necklace_53',
-  },
   FEL_BOMBARDMENT: {
     id: 337775,
     name: 'Fel Bombardment',
     icon: 'inv_misc_head_dragon_blue_nightmare',
   },
-  BLIND_FAITH: {
-    id: 355893,
-    name: 'Blind Faith',
-    icon: 'ability_bastion_demonhunter',
+  TACTICAL_RETREAT_BUFF: {
+    id: 389890,
+    name: 'Tactical Retreat',
+    icon: 'ability_demonhunter_vengefulretreat2',
   },
-  AGONY_GAZE: {
-    id: 355886,
-    name: 'Agony Gaze',
-    icon: 'ability_revendreth_demonhunter',
+  INITIATIVE_BUFF: {
+    id: 391215,
+    name: 'Initiative',
+    icon: 'ability_rogue_surpriseattack',
   },
   //endregion
 });

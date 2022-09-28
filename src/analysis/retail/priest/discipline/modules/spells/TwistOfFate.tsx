@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
@@ -21,7 +22,7 @@ class TwistOfFate extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.TWIST_OF_FATE_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorb);
@@ -63,12 +64,12 @@ class TwistOfFate extends Analyzer {
         suggest(
           <span>
             Consider picking a different talent than{' '}
-            <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id} />. Castigation will give a
+            <SpellLink id={TALENTS_PRIEST.TWIST_OF_FATE_TALENT.id} />. Castigation will give a
             consistent 3-5% increase and Schism provides a significant DPS increase if more healing
             is not needed.
           </span>,
         )
-          .icon(SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.icon)
+          .icon(TALENTS_PRIEST.TWIST_OF_FATE_TALENT.icon)
           .actual(
             t({
               id: 'priest.discipline.suggestions.twistOfFate.efficiency',
@@ -93,7 +94,7 @@ class TwistOfFate extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id} />}
+        icon={<SpellIcon id={TALENTS_PRIEST.TWIST_OF_FATE_TALENT.id} />}
         value={this.owner.formatItemHealingDone(healing)}
         label={
           <TooltipElement

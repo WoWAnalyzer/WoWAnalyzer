@@ -1,12 +1,11 @@
 import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import StatisticBox from 'parser/ui/StatisticBox';
-
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import isAtonement from '../core/isAtonement';
 import Atonement from './Atonement';
 
@@ -22,9 +21,9 @@ class Evangelism extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.EVANGELISM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EVANGELISM_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT),
       this.onCast,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
@@ -82,7 +81,7 @@ class Evangelism extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.EVANGELISM_TALENT.id} />}
+        icon={<SpellIcon id={TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT.id} />}
         value={`${formatNumber(
           (evangelismStatistics.reduce((total, c) => total + c.healing, 0) /
             this.owner.fightDuration) *

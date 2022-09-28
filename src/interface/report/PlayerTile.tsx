@@ -1,7 +1,7 @@
 import getAverageItemLevel from 'game/getAverageItemLevel';
 import { getClassName } from 'game/ROLES';
 import { getCovenantById } from 'game/shadowlands/COVENANTS';
-import { fetchCharacter, SUPPORTED_REGIONS } from 'interface/actions/characters';
+import { fetchCharacter } from 'interface/actions/characters';
 import Icon from 'interface/Icon';
 import { RootState } from 'interface/reducers';
 import { getCharacterById } from 'interface/selectors/characters';
@@ -13,6 +13,7 @@ import getBuild from 'parser/getBuild';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { isSupportedRegion } from 'common/regions';
 
 interface Props {
   player: Player;
@@ -28,7 +29,7 @@ const PlayerTile = ({ player, makeUrl, config }: Props) => {
 
   useEffect(() => {
     const load = async () => {
-      if (!player.region || !player.server || !SUPPORTED_REGIONS.includes(player.region)) {
+      if (!player.region || !player.server || !isSupportedRegion(player.region)) {
         return null;
       }
 

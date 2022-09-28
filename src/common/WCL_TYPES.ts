@@ -1,5 +1,6 @@
-import { AnyEvent, CastEvent, DeathEvent } from 'parser/core/Events';
+import { AnyEvent, CastEvent, DeathEvent, Item } from 'parser/core/Events';
 import { WCLReport } from 'parser/core/Report';
+import Spell from 'common/SPELLS/Spell';
 
 export interface WCLGuildReport {
   id: string;
@@ -133,6 +134,37 @@ export interface WCLThreatTableResponse {
   threat: WCLThreatEntry[];
 }
 
+export interface WCLParse {
+  encounterID: number;
+  encounterName: string;
+  class: string;
+  spec: string;
+  rank: number;
+  outOf: number;
+  duration: number;
+  startTime: number;
+  reportID: string;
+  fightID: number;
+  difficulty: number;
+  characterID: number;
+  characterName: string;
+  server: string;
+  percentile: number;
+  ilvlKeyOrPatch: number;
+  covenantID: number;
+  soulbindID: number;
+  // this will be replaced with the new talent system eventually
+  talents: Spell[];
+  gear: Item[];
+  soulbindPowers: Spell[];
+  conduitPowers: Spell[];
+  legendaryEffects: Spell[];
+  total: number;
+  estimated: boolean;
+}
+
+export type WCLParsesResponse = WCLParse[];
+
 export type WCLResponseJSON =
   | WCLGuildReportsResponse
   | WCLFightsResponse
@@ -142,7 +174,8 @@ export type WCLResponseJSON =
   | WCLRankingsResponse
   | WCLBossResources
   | WCLDamageDoneTableResponse
-  | WCLThreatTableResponse;
+  | WCLThreatTableResponse
+  | WCLParsesResponse;
 
 export interface WclOptions {
   timeout: number;
