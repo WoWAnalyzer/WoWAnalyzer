@@ -43,6 +43,7 @@ import SinsOfTheMany from './modules/spells/SinsOfTheMany';
 import AtonementSuccessiveDamageNormalizer from './normalizers/AtonementSuccessiveDamage';
 import ManifestedTwilightNormalizer from './normalizers/ManifestedTwilightNormalizer';
 import PowerWordRadianceNormalizer from './normalizers/PowerWordRadianceNormalizer';
+import HarshDiscipline from './modules/spells/HarshDiscipline';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -93,6 +94,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sinsOfTheMany: SinsOfTheMany,
     schism: Schism,
     mindgames: Mindgames,
+    harshDiscipline: HarshDiscipline,
 
     // Covenants
     unholyNova: UnholyNova,

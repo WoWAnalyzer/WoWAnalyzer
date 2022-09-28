@@ -88,6 +88,11 @@ const spells = spellIndexableList({
     icon: 'spell_holy_penance',
     manaCost: 800,
   },
+  HARSH_DISCIPLINE_BUFF: {
+    id: 373183,
+    name: 'Harsh Discipline',
+    icon: 'ability_paladin_handoflight',
+  },
   POWER_WORD_SHIELD: {
     id: 17,
     name: 'Power Word: Shield',

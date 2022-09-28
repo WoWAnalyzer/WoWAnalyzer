@@ -48,7 +48,6 @@ class Mindgames extends Analyzer {
 
   onHeal(event: HealEvent) {
     const spellId = event.ability.guid;
-    console.log(SPELLS.MINDGAMES_HEAL.id);
     if (spellId === SPELLS.MINDGAMES_HEAL.id) {
       this.directHealing += event.amount + (event.absorbed || 0);
       return;
