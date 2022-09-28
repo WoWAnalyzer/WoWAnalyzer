@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import styled from '@emotion/styled';
-import { useEvents, useInfo } from 'interface/guide';
+import { PassFailBar, useEvents, useInfo } from 'interface/guide';
 import aplCheck, { Apl, CheckResult } from 'parser/shared/metrics/apl';
 
 import AplRules, { AplRuleList } from './rules';
@@ -11,9 +11,25 @@ import ViolationProblemList, {
   SelectedExplanation,
 } from './violations';
 import { AplViolationExplainers, defaultExplainers } from './violations/claims';
+import { formatPercentage } from 'common/format';
 
 const AplSubsectionHeader = styled.header`
   font-weight: bold;
+`;
+
+const AplSummaryTable = styled.table`
+  td {
+    padding-right: 1rem;
+    width: 99%;
+  }
+
+  td:last-child {
+    min-width: 10em;
+  }
+`;
+
+const ValueData = styled.td`
+  text-align: right;
 `;
 
 /**
@@ -24,6 +40,34 @@ function AplSummary({ apl, results }: { apl: Apl; results: CheckResult }): JSX.E
     <div>
       <AplSubsectionHeader>Priority List</AplSubsectionHeader>
       <AplRules apl={apl} results={results} />
+      <AplSubsectionHeader>Details</AplSubsectionHeader>
+      <AplSummaryTable>
+        <tbody>
+          <tr>
+            <td>Accuracy</td>
+            <ValueData>
+              {formatPercentage(
+                results.successes.length / (results.successes.length + results.violations.length),
+                1,
+              )}
+              %
+            </ValueData>
+            <td>
+              <PassFailBar
+                pass={results.successes.length}
+                total={results.successes.length + results.violations.length}
+                passTooltip={`Correct Uses: ${results.successes.length}`}
+                failTooltip={`Incorrect Uses: ${results.violations.length}`}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Total Abilities Used</td>
+            <ValueData>{results.successes.length + results.violations.length}</ValueData>
+            <td />
+          </tr>
+        </tbody>
+      </AplSummaryTable>
     </div>
   );
 }

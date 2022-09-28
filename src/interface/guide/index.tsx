@@ -279,16 +279,26 @@ export function PassFailBar({
   pass,
   total,
   className,
+  passTooltip,
+  failTooltip,
 }: {
   pass: number;
   total: number;
   className?: string;
+  passTooltip?: string;
+  failTooltip?: string;
 }) {
   const perf = Math.min(pass / total, 1);
   return (
     <div className={`pass-fail-bar-container ${className ?? ''}`}>
-      <div className="pass-bar" style={{ minWidth: `${perf * 100}%` }} />
-      {perf < 1 && <div className="fail-bar" style={{ minWidth: `${(1 - perf) * 100}%` }} />}
+      <div className="pass-bar" title={passTooltip} style={{ minWidth: `${perf * 100}%` }} />
+      {perf < 1 && (
+        <div
+          className="fail-bar"
+          title={failTooltip}
+          style={{ minWidth: `${(1 - perf) * 100}%` }}
+        />
+      )}
     </div>
   );
 }
