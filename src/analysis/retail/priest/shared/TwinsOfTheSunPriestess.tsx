@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
@@ -19,9 +20,11 @@ class TwinsOfTheSunPriestess extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.TWINS_OF_THE_SUN_PRIESTESS);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_PRIEST.TWINS_OF_THE_SUN_PRIESTESS_TALENT.id,
+    );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.POWER_INFUSION),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.POWER_INFUSION_TALENT),
       this.onCast,
     );
   }
