@@ -20,9 +20,12 @@ class LivingFlame extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIVING_FLAME), this.onHeal);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LIVING_FLAME),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIVING_FLAME_HEAL),
+      this.onHeal,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LIVING_FLAME_DAMAGE),
       this.onDamage,
     );
   }
@@ -42,7 +45,7 @@ class LivingFlame extends Analyzer {
         position={STATISTIC_ORDER.CORE(1)}
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.LIVING_FLAME.id}>
+        <BoringSpellValueText spellId={SPELLS.LIVING_FLAME_DAMAGE.id}>
           <ItemPercentHealingDone amount={this.livingFlameHealing} />
           <ItemPercentHealingDone amount={this.livingFlameDamage} />
         </BoringSpellValueText>

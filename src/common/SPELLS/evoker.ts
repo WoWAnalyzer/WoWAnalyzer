@@ -19,12 +19,12 @@ const spells = {
   SPIRITBLOOM: {
     id: 355999,
     name: 'Spiritbloom',
-    icon: '',
+    icon: 'ability_evoker_spiritbloom2',
   },
   SPIRITBLOOM_SPLIT: {
     id: 355998,
     name: 'Spiritbloom',
-    icon: '',
+    icon: 'ability_evoker_spiritbloom2',
   },
   // Shared
   BLESSING_OF_THE_BRONZE: {
@@ -32,8 +32,13 @@ const spells = {
     name: 'Blessing of the Bronze',
     icon: 'ability_evoker_blessingofthebronze',
   },
-  LIVING_FLAME: {
+  LIVING_FLAME_DAMAGE: {
     id: 361469,
+    name: 'Living Flame',
+    icon: 'ability_evoker_livingflame',
+  },
+  LIVING_FLAME_HEAL: {
+    id: 361509,
     name: 'Living Flame',
     icon: 'ability_evoker_livingflame',
   },

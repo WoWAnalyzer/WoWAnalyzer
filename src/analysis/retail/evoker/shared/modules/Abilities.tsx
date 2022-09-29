@@ -10,7 +10,7 @@ class Abilities extends CoreAbilities {
     return [
       //region Rotational Spells
       {
-        spell: SPELLS.LIVING_FLAME.id,
+        spell: SPELLS.LIVING_FLAME_HEAL.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 0,
         gcd: {
@@ -33,6 +33,14 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         gcd: {
           base: 500,
+        },
+      },
+      {
+        spell: SPELLS.LIVING_FLAME_DAMAGE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 0,
+        gcd: {
+          base: 1500,
         },
       },
       {
