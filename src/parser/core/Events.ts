@@ -201,10 +201,18 @@ export interface Ability {
   abilityIcon: string;
 }
 
+/** The state of the TARGET'S resource. Each ClassResources refers to a specific resource.
+ *  Events typically will have an array of these objects, one object per resource.
+ *  All the player's resources are not guaranteed to show! Only the ones changing. */
 export interface ClassResources {
+  /** The amount of the resource the target has.
+   *  Can be before or after the event depending on event... TODO document which and when */
   amount: number;
+  /** The maximum amount of resource the target can have */
   max: number;
+  /** The type of resource this is for (see {@link RESOURCE_TYPES} */
   type: number;
+  /** The amount of resource being spent in this event (only spenders will fill this) */
   cost?: number;
 }
 
@@ -223,6 +231,12 @@ export enum Class {
   Shaman = 'Shaman',
   Warrior = 'Warrior',
   Warlock = 'Warlock',
+}
+
+/** Mapping for numbers in the resourceActor field */
+export enum ResourceActor {
+  Source = 1,
+  Target = 2,
 }
 
 export type AbilityEvent<T extends string> = Event<T> & { ability: Ability };
@@ -455,7 +469,7 @@ export interface HealEvent extends Event<EventType.Heal> {
   /** If the event is a tick of a HoT or HoT like object */
   tick?: boolean;
   resourceActor: number;
-  /** A list of resource that changed when this event happened */
+  /** A list of resources on the TARGET */
   classResources: ClassResources[];
   /** Hit points of the target AFTER the heal is done if you want hp before you need to do (hitpoints - amount) */
   hitPoints: number;
@@ -666,7 +680,10 @@ export interface ResourceChangeEvent extends Event<EventType.ResourceChange> {
   /** The amount of wasted resource gain (overcapped). */
   waste: number;
   otherResourceChange: number; // defaults to 0?
-  resourceActor: number; // 1 = source, 2 = target? used for classResources/hitpoints/etc, not resourceChange fields I think
+  /** Shows whether the source or the target is being referred to by
+   *  the classResources, hitPoints, etc. See {@link ResourceActor}. */
+  resourceActor: number;
+  /** A list of resources on either the source or target, depending on resourceActor choice. */
   classResources: ClassResources[];
   hitPoints: number;
   maxHitPoints: number;
@@ -689,7 +706,10 @@ export interface DrainEvent extends Event<EventType.Drain> {
   resourceChange: number;
   resourceChangeType: number;
   otherResourceChange: number;
+  /** Shows whether the source or the target is being referred to by
+   *  the classResources, hitPoints, etc. See {@link ResourceActor}. */
   resourceActor: number;
+  /** A list of resources on either the source or target, depending on resourceActor choice. */
   classResources: ClassResources[];
   hitPoints: number;
   maxHitPoints: number;
@@ -915,7 +935,6 @@ export interface BasePhaseEvent<T extends string> extends Event<T> {
 
 export interface SpendResourceEvent extends Event<EventType.SpendResource> {
   sourceID: number;
-  targetID?: number;
   resourceChange: number;
   resourceChangeType: number;
   ability: Ability;

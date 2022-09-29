@@ -35,7 +35,7 @@ class RageTracker extends ResourceTracker {
   }
 
   onDamage(event: DamageEvent) {
-    this.processInvisibleEnergize(SPELLS.RAGE_AUTO_ATTACKS.id, RAGE_PER_MELEE_HIT);
+    this.processInvisibleEnergize(SPELLS.RAGE_AUTO_ATTACKS.id, RAGE_PER_MELEE_HIT, event.timestamp);
   }
 
   onDamageTaken(event: DamageEvent) {
@@ -44,7 +44,11 @@ class RageTracker extends ResourceTracker {
     }
 
     if (event.timestamp - this.lastMeleeTaken >= RAGE_GEN_FROM_MELEE_HIT_ICD) {
-      this.processInvisibleEnergize(SPELLS.RAGE_DAMAGE_TAKEN.id, RAGE_PER_MELEE_HIT_TAKEN);
+      this.processInvisibleEnergize(
+        SPELLS.RAGE_DAMAGE_TAKEN.id,
+        RAGE_PER_MELEE_HIT_TAKEN,
+        event.timestamp,
+      );
       this.lastMeleeTaken = event.timestamp;
     }
   }

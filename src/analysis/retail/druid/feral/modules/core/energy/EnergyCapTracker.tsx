@@ -8,7 +8,7 @@ import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetra
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatisticBox from 'parser/ui/StatisticBox';
 
-import SpellEnergyCost from './SpellEnergyCost';
+import SpellEnergyCost from 'analysis/retail/druid/feral/modules/core/energy/SpellEnergyCost';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 const BASE_ENERGY_REGEN = 11; // TODO 11 instead of 10 due to a baked in bonus from BFA ... double check still active for DF

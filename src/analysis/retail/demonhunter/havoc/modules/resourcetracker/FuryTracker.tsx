@@ -37,7 +37,7 @@ class FuryTracker extends ResourceTracker {
         this.waste = 0;
       }
       const AMOUNT = classResource.max - classResource.amount + this.waste;
-      this.processInvisibleEnergize(blindFuryId, AMOUNT);
+      this.processInvisibleEnergize(blindFuryId, AMOUNT, event.timestamp);
     }
     super.onCast(event);
   }

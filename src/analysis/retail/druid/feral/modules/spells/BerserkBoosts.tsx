@@ -18,10 +18,11 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { cdSpell, FINISHERS } from 'analysis/retail/druid/feral/constants';
-import { getComboPointsSpent } from 'analysis/retail/druid/feral/modules/core/ResourceFromEvent';
 import ConvokeSpiritsFeral from 'analysis/retail/druid/feral/modules/spells/ConvokeSpiritsFeral';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { formatNumber, formatPercentage } from 'common/format';
+import getResourceSpent from 'parser/core/getResourceSpent';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 const BERSERK_CDR_MS = 700;
 const CONVOKE_BITE_CPS = 5;
@@ -95,7 +96,7 @@ class BerserkBoosts extends Analyzer {
 
   onFinisher(event: CastEvent) {
     if (this.spellUsable.isOnCooldown(this.cdSpell.id)) {
-      this._tallyReduction(getComboPointsSpent(event));
+      this._tallyReduction(getResourceSpent(event, RESOURCE_TYPES.COMBO_POINTS));
     }
   }
 

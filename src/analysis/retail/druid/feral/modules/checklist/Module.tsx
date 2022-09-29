@@ -5,14 +5,14 @@ import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
 import RakeUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/features/RakeUptimeAndSnapshots';
 import RipUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/features/RipUptimeAndSnapshots';
-import ComboPointDetails from 'analysis/retail/druid/feral/modules/core/ComboPointDetails';
+import ComboPointDetails from 'analysis/retail/druid/feral/modules/core/combopoints/ComboPointDetails';
 import FinisherUse from 'analysis/retail/druid/feral/modules/features/FinisherUse';
 import AdaptiveSwarmFeral from 'analysis/retail/druid/feral/modules/spells/AdaptiveSwarmFeral';
 import FerociousBite from 'analysis/retail/druid/feral/modules/spells/FerociousBite';
 import TigersFuryEnergy from 'analysis/retail/druid/feral/modules/spells/TigersFuryEnergy';
 import Bloodtalons from 'analysis/retail/druid/feral/modules/spells/Bloodtalons';
 import MoonfireUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/features/MoonfireUptimeAndSnapshots';
-import EnergyCapTracker from 'analysis/retail/druid/feral/modules/features/EnergyCapTracker';
+import EnergyCapTracker from 'analysis/retail/druid/feral/modules/core/energy/EnergyCapTracker';
 import Component from 'analysis/retail/druid/feral/modules/checklist/Component';
 
 class Checklist extends BaseChecklist {

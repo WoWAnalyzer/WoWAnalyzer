@@ -69,19 +69,13 @@ class SoulShardTracker extends ResourceTracker {
 
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
+    const eventResource = this.getResource(event);
     if (spellId === SPELLS.SOUL_FIRE_TALENT.id) {
-      this.processInvisibleEnergize(spellId, 4);
+      this.processInvisibleEnergize(spellId, 4, event.timestamp);
     } else if (spellId === SPELLS.INCINERATE.id) {
       // Incinerate generates 2 fragments on cast (and another one if it crits, handled further down)
-      this.processInvisibleEnergize(spellId, 2);
-    } else if (this.shouldProcessCastEvent(event)) {
-      const eventResource = this.getResource(event);
-
-      if (!eventResource) {
-        debug && console.error('Event resource is undefined.');
-        return;
-      }
-
+      this.processInvisibleEnergize(spellId, 2, event.timestamp);
+    } else if (eventResource) {
       // eventResource.amount has correct amount of fragments *before* the cast
       // if this is larger than the fragments currently tracked, then some random fragment generation must have happened since last cast till this cast
       debug &&
@@ -105,6 +99,7 @@ class SoulShardTracker extends ResourceTracker {
           this.processInvisibleEnergize(
             SPELLS.IMMOLATE_DEBUFF.id,
             Math.min(missingFragments, this.immolateCrits),
+            event.timestamp,
           );
         } else {
           const distribution = this._getRandomFragmentDistribution(
@@ -118,10 +113,18 @@ class SoulShardTracker extends ResourceTracker {
             console.log(`Adding ${actualImmolate} to Immolate, ${actualRain} to Rain of Fire`);
           if (actualImmolate > 0) {
             // so we don't get "empty" energizes, meaning 0 generated, 0 wasted but still 1 cast
-            this.processInvisibleEnergize(SPELLS.IMMOLATE_DEBUFF.id, actualImmolate);
+            this.processInvisibleEnergize(
+              SPELLS.IMMOLATE_DEBUFF.id,
+              actualImmolate,
+              event.timestamp,
+            );
           }
           if (actualRain > 0) {
-            this.processInvisibleEnergize(SPELLS.RAIN_OF_FIRE_DAMAGE.id, actualRain);
+            this.processInvisibleEnergize(
+              SPELLS.RAIN_OF_FIRE_DAMAGE.id,
+              actualRain,
+              event.timestamp,
+            );
           }
         }
       }
@@ -140,7 +143,7 @@ class SoulShardTracker extends ResourceTracker {
     // (but it's a lot worse without it, so I decided to go with the lesser of two evils since this way of generating fragments isn't tied to any kind of event)
     const timestamp = (event && event.timestamp) || this.owner.currentTimestamp;
     if (this._hasInfernal(timestamp) && this._infernalTicked(timestamp)) {
-      this.processInvisibleEnergize(SPELLS.SUMMON_INFERNAL.id, 1);
+      this.processInvisibleEnergize(SPELLS.SUMMON_INFERNAL.id, 1, event.timestamp);
       this.lastInfernalTick = timestamp;
     }
   }
@@ -153,7 +156,7 @@ class SoulShardTracker extends ResourceTracker {
     }
 
     if (DAMAGE_GENERATORS[spellId] && DAMAGE_GENERATORS[spellId](event) > 0) {
-      this.processInvisibleEnergize(spellId, DAMAGE_GENERATORS[spellId](event));
+      this.processInvisibleEnergize(spellId, DAMAGE_GENERATORS[spellId](event), event.timestamp);
     }
 
     if (spellId === SPELLS.IMMOLATE_DEBUFF.id && event.hitType === HIT_TYPES.CRIT) {
@@ -179,10 +182,18 @@ class SoulShardTracker extends ResourceTracker {
         `At the end of fight, missing ${missingFragments} fragments, redistributed ${distribution.immolate} to Immolate, ${distribution.rainOfFire} to Rain of Fire`,
       );
     // with all the other balancing, it shouldn't probably be possible to give more shards than is the maximum
-    this.processInvisibleEnergize(SPELLS.IMMOLATE_DEBUFF.id, distribution.immolate);
+    this.processInvisibleEnergize(
+      SPELLS.IMMOLATE_DEBUFF.id,
+      distribution.immolate,
+      this.owner.currentTimestamp,
+    );
     if (this.hasInferno) {
       // makes no sense to even show this if the player doesn't have Inferno
-      this.processInvisibleEnergize(SPELLS.RAIN_OF_FIRE_DAMAGE.id, distribution.rainOfFire);
+      this.processInvisibleEnergize(
+        SPELLS.RAIN_OF_FIRE_DAMAGE.id,
+        distribution.rainOfFire,
+        this.owner.currentTimestamp,
+      );
     }
   }
 
@@ -194,7 +205,7 @@ class SoulShardTracker extends ResourceTracker {
     timestamp?: number,
   ) {
     const beforeBuilder = this.current % 10;
-    super._applyBuilder(spellId, gain, waste, resource, timestamp);
+    super._applyBuilder(spellId, gain, waste, timestamp, resource);
     const afterBuilder = this.current % 10;
     // for trait Chaos Shards we need to know when we generated a full Shard
     // can be either to full shard (39 => 40, beforebuilder = 9, afterBuilder = 0)

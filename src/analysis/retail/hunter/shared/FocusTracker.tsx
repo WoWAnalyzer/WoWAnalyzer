@@ -57,7 +57,7 @@ class FocusTracker extends ResourceTracker {
       gain = event.resourceChange - waste;
     }
 
-    this._applyBuilder(spellId, gain, waste, this.getResource(event), event.timestamp);
+    this._applyBuilder(spellId, gain, waste, event.timestamp, this.getResource(event));
   }
 
   //We're not interested in the fabricated events that are created prepull, as these tend to add focus costs things such as potion usage, Bestial Wrath, Trueshot or the likes whereas these don't cost focus.
