@@ -42,11 +42,11 @@ class PowerOfTheArchdruid extends Analyzer {
       this.onCastWildGrowth,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MEMORY_OF_THE_MOTHER_TREE),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.POWER_OF_THE_ARCHDRUID),
       this.onApply,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.MEMORY_OF_THE_MOTHER_TREE),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.POWER_OF_THE_ARCHDRUID),
       this.onApply,
     );
   }

@@ -405,6 +405,12 @@ const spells = spellIndexableList({
     name: 'Verdancy',
     icon: 'inv_10_herb_seed_magiccolor5',
   },
+  // buff from Power of the Archdruid talent
+  POWER_OF_THE_ARCHDRUID: {
+    id: 392303,
+    name: 'Power of the Archdruid',
+    icon: 'spell_druid_rampantgrowth',
+  },
   // Sets/Items:
   ASTRAL_HARMONY: {
     // 2pc T19
