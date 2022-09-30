@@ -92,7 +92,7 @@ class NaturesVigil extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        position={STATISTIC_ORDER.OPTIONAL(8)} // number based on talent row
+        position={STATISTIC_ORDER.OPTIONAL(0)} // number based on talent row
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
