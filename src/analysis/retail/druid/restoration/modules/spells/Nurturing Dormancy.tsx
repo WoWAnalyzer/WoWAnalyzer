@@ -12,15 +12,15 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import { SpellLink } from 'interface';
 
-const EXTENSION_AMOUNT = 3000;
+const EXTENSION_AMOUNT = 2000;
 const MAX_PROCS = 3;
 
 /**
  * **Nurturing Dormancy**
  * Spec Talent
  *
- * When your Rejuvenation heals a full health target, its duration is increased by 3 sec, up to a
- * maximum total increase of 9 sec per cast.
+ * When your Rejuvenation heals a full health target, its duration is increased by 2 sec, up to a
+ * maximum total increase of 6 sec per cast.
  */
 class NurturingDormancy extends Analyzer {
   static dependencies = {

@@ -5,6 +5,7 @@ import {
   ShadowfiendNormalizer,
   TwinsOfTheSunPriestess,
   UnholyNova,
+  TwistOfFate,
 } from 'analysis/retail/priest/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
@@ -29,7 +30,7 @@ import PowerWordBarrier from './modules/features/PowerWordBarrier';
 import PowerWordShieldWasted from './modules/features/PowerWordShieldWasted';
 import PurgeTheWicked from './modules/features/PurgeTheWicked';
 import SolaceVsShieldDiscipline from './modules/features/SolaceVsShieldDiscipline';
-
+import Mindgames from 'analysis/retail/priest/discipline/modules/spells/Mindgames';
 import Atonement from './modules/spells/Atonement';
 import Castigation from './modules/spells/Castigation';
 import Contrition from './modules/spells/Contrition';
@@ -39,10 +40,10 @@ import Lenience from './modules/spells/Lenience';
 import Penance from './modules/spells/Penance';
 import Schism from './modules/spells/Schism';
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
-import TwistOfFate from './modules/spells/TwistOfFate';
 import AtonementSuccessiveDamageNormalizer from './normalizers/AtonementSuccessiveDamage';
 import ManifestedTwilightNormalizer from './normalizers/ManifestedTwilightNormalizer';
 import PowerWordRadianceNormalizer from './normalizers/PowerWordRadianceNormalizer';
+import HarshDiscipline from './modules/spells/HarshDiscipline';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -92,6 +93,8 @@ class CombatLogParser extends CoreCombatLogParser {
     grace: Grace,
     sinsOfTheMany: SinsOfTheMany,
     schism: Schism,
+    mindgames: Mindgames,
+    harshDiscipline: HarshDiscipline,
 
     // Covenants
     unholyNova: UnholyNova,

@@ -109,11 +109,7 @@ class HotAttributor extends Analyzer {
       this._logAttrib(event, this.overgrowthAttrib);
     } else if (
       this.hasPowerOfTheArchdruid &&
-      this.selectedCombatant.hasBuff(
-        SPELLS.MEMORY_OF_THE_MOTHER_TREE.id,
-        event.timestamp,
-        BUFFER_MS,
-      )
+      this.selectedCombatant.hasBuff(SPELLS.POWER_OF_THE_ARCHDRUID.id, event.timestamp, BUFFER_MS)
     ) {
       this.hotTracker.addAttributionFromApply(this.powerOfTheArchdruid, event);
       this._logAttrib(event, this.powerOfTheArchdruid);
@@ -137,11 +133,7 @@ class HotAttributor extends Analyzer {
       this._logAttrib(event, this.overgrowthAttrib);
     } else if (
       this.hasPowerOfTheArchdruid &&
-      this.selectedCombatant.hasBuff(
-        SPELLS.MEMORY_OF_THE_MOTHER_TREE.id,
-        event.timestamp,
-        BUFFER_MS,
-      )
+      this.selectedCombatant.hasBuff(SPELLS.POWER_OF_THE_ARCHDRUID.id, event.timestamp, BUFFER_MS)
     ) {
       this.hotTracker.addAttributionFromApply(this.powerOfTheArchdruid, event);
       this._logAttrib(event, this.powerOfTheArchdruid);
@@ -158,11 +150,7 @@ class HotAttributor extends Analyzer {
       !isFromHardcast(event) &&
       !(this.convokeSpirits.active && this.convokeSpirits.isConvoking()) &&
       this.hasPowerOfTheArchdruid &&
-      this.selectedCombatant.hasBuff(
-        SPELLS.MEMORY_OF_THE_MOTHER_TREE.id,
-        event.timestamp,
-        BUFFER_MS,
-      )
+      this.selectedCombatant.hasBuff(SPELLS.POWER_OF_THE_ARCHDRUID.id, event.timestamp, BUFFER_MS)
     ) {
       this.powerOfTheArchdruid.healing += event.amount + (event.absorbed || 0);
     } else if (isFromHardcast(event)) {

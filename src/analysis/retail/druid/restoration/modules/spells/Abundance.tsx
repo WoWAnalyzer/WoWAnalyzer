@@ -10,15 +10,15 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 const MS_BUFFER = 200;
-const ABUNDANCE_MANA_REDUCTION = 0.06;
-const ABUNDANCE_INCREASED_CRIT = 0.06;
+const ABUNDANCE_MANA_REDUCTION = 0.05;
+const ABUNDANCE_INCREASED_CRIT = 0.05;
 
 /**
  * **Abundance**
  * Spec Talent Tier 4
  *
  * For each Rejuvenation you have active,
- * Regrowth's cost is reduced by 6% and critical effect chance is increased by 6%.
+ * Regrowth's cost is reduced by 5% and critical effect chance is increased by 5%.
  */
 class Abundance extends Analyzer {
   manaSavings: number[] = [];
