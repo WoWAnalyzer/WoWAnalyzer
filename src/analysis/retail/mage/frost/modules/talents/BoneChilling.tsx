@@ -1,5 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -22,8 +23,8 @@ const AFFECTED_SPELLS = [
   SPELLS.FROST_NOVA,
   SPELLS.EBONBOLT_DAMAGE,
   SPELLS.CONE_OF_COLD,
-  SPELLS.RAY_OF_FROST_TALENT,
-  SPELLS.ICE_NOVA_TALENT,
+  TALENTS.RAY_OF_FROST_FROST_TALENT,
+  TALENTS.ICE_NOVA_TALENT,
   SPELLS.WATERBOLT,
 ];
 
@@ -32,7 +33,7 @@ class BoneChilling extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BONE_CHILLING_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BONE_CHILLING_FROST_TALENT.id);
     if (this.active) {
       this.addEventListener(
         Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(AFFECTED_SPELLS),
@@ -64,7 +65,7 @@ class BoneChilling extends Analyzer {
         size="flexible"
         tooltip={`Total damage increase: ${formatNumber(this.totalDamage)}`}
       >
-        <BoringSpellValueText spellId={SPELLS.BONE_CHILLING_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.BONE_CHILLING_FROST_TALENT.id}>
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Buff uptime</small>
           <br />
           {this.owner.formatItemDamageDone(this.totalDamage)}

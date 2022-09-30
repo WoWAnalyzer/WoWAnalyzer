@@ -3,13 +3,10 @@ import {
   CancelledCasts,
   DivertedEnergy,
   ElementalBarrier,
-  FocusMagic,
   GroundingSurge,
-  IreOfTheAscended,
   MirrorImage,
   RuneOfPower,
   ShiftingPower,
-  SiphonedMalice,
   TempestBarrier,
 } from 'analysis/retail/mage/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
@@ -29,12 +26,8 @@ import IcyVeins from './modules/features/IcyVeins';
 import MunchedProcs from './modules/features/MunchedProcs';
 import WaterElemental from './modules/features/WaterElemental';
 import WintersChill from './modules/features/WintersChill';
-import ColdFront from './modules/items/ColdFront';
-import GlacialFragments from './modules/items/GlacialFragments';
-import IceBite from './modules/items/IceBite';
-import IcyPropulsion from './modules/items/IcyPropulsion';
-import ShiveringCore from './modules/items/ShiveringCore';
-import UnrelentingCold from './modules/items/UnrelentingCold';
+import ColdFront from './modules/talents/ColdFront';
+import IcyPropulsion from './modules/talents/IcyPropulsion';
 import BoneChilling from './modules/talents/BoneChilling';
 import CometStorm from './modules/talents/CometStorm';
 import GlacialSpike from './modules/talents/GlacialSpike';
@@ -69,34 +62,21 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     boneChilling: BoneChilling,
     lonelyWinter: LonelyWinter,
-    focusMagic: FocusMagic,
     runeOfPower: RuneOfPower,
     splittingIce: SplittingIce,
     thermalVoid: ThermalVoid,
     glacialSpike: GlacialSpike,
     cometStorm: CometStorm,
+    icyPropulsion: IcyPropulsion,
+    divertedEnergy: DivertedEnergy,
+    groundingSurge: GroundingSurge,
+    tempestBarrier: TempestBarrier,
+    shiftingPower: ShiftingPower,
+    coldFront: ColdFront,
 
     // Cooldowns
     frozenOrb: FrozenOrb,
     coldSnap: ColdSnap,
-
-    //Legendaries
-    coldFront: ColdFront,
-    glacialFragments: GlacialFragments,
-
-    //Covenants
-    shiftingPower: ShiftingPower,
-
-    //Conduits
-    iceBite: IceBite,
-    icyPropulsion: IcyPropulsion,
-    shiveringCore: ShiveringCore,
-    unrelentingCold: UnrelentingCold,
-    divertedEnergy: DivertedEnergy,
-    groundingSurge: GroundingSurge,
-    ireOfTheAscended: IreOfTheAscended,
-    tempestBarrier: TempestBarrier,
-    siphonedMalice: SiphonedMalice,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

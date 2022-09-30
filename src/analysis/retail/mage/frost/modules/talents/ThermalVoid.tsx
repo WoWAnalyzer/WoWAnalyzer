@@ -1,5 +1,6 @@
 import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { TrackedBuffEvent } from 'parser/core/Entity';
@@ -16,7 +17,7 @@ const BASE_DURATION = 20_000;
 class ThermalVoid extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.THERMAL_VOID_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.THERMAL_VOID_FROST_TALENT.id);
   }
 
   statistic() {
@@ -71,7 +72,7 @@ class ThermalVoid extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.THERMAL_VOID_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.THERMAL_VOID_FROST_TALENT.id}>
           <>
             <SpellIcon id={SPELLS.ICY_VEINS.id} /> +{formatNumber(totalIncrease / 1000)} seconds
           </>

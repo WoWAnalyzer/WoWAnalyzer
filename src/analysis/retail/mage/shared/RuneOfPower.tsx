@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -37,13 +38,13 @@ class RuneOfPower extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    if (this.selectedCombatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id)) {
       this.hasROP = true;
       this.addEventListener(
         Events.cast
           .by(SELECTED_PLAYER)
           .spell([
-            SPELLS.RUNE_OF_POWER_TALENT,
+            TALENTS.RUNE_OF_POWER_TALENT,
             SPELLS.COMBUSTION,
             SPELLS.ICY_VEINS,
             SPELLS.ARCANE_POWER,
@@ -53,7 +54,7 @@ class RuneOfPower extends Analyzer {
       this.addEventListener(
         Events.summon
           .by(SELECTED_PLAYER)
-          .spell([SPELLS.RUNE_OF_POWER_AUTOCAST, SPELLS.RUNE_OF_POWER_TALENT]),
+          .spell([SPELLS.RUNE_OF_POWER_AUTOCAST, TALENTS.RUNE_OF_POWER_TALENT]),
         this.onRune,
       );
       this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
@@ -123,13 +124,12 @@ class RuneOfPower extends Analyzer {
           suggest(
             <>
               It is highly recommended to talent into{' '}
-              <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> when playing this spec. While it can
-              take some practice to master, when played correctly it outputs substantially more DPS
-              than <SpellLink id={SPELLS.INCANTERS_FLOW_TALENT.id} /> or{' '}
-              <SpellLink id={SPELLS.FOCUS_MAGIC_TALENT.id} />.
+              <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> when playing this spec. While it
+              can take some practice to master, when played correctly it outputs substantially more
+              DPS than <SpellLink id={TALENTS.INCANTERS_FLOW_TALENT.id} /> or.
             </>,
           )
-            .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
+            .icon(TALENTS.RUNE_OF_POWER_TALENT.icon)
             .staticImportance(SUGGESTION_IMPORTANCE.REGULAR),
         );
       return;
@@ -142,15 +142,15 @@ class RuneOfPower extends Analyzer {
     when(this.overlappedRunesThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> or an ability that
-          automatically casts <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> (Like{' '}
+          You cast <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> or an ability that
+          automatically casts <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> (Like{' '}
           <SpellLink id={SPELLS.ICY_VEINS.id} />, <SpellLink id={SPELLS.COMBUSTION.id} />, or{' '}
           <SpellLink id={SPELLS.ARCANE_POWER.id} />) while you still had a Rune down. Make sure you
-          are not overlapping your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> so you can get
+          are not overlapping your <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> so you can get
           the most out of the damage buff that it provides.
         </>,
       )
-        .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
+        .icon(TALENTS.RUNE_OF_POWER_TALENT.icon)
         .actual(`${formatNumber(actual)} overlapped runes`)
         .recommended(`${formatNumber(recommended)} is recommended`),
     );
@@ -159,12 +159,12 @@ class RuneOfPower extends Analyzer {
       when(this.roundedSecondsSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
           <>
-            You sometimes aren't standing in your <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} />{' '}
+            You sometimes aren't standing in your <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} />{' '}
             for its full duration. Try to only use it when you know you won't have to move for the
             duration of the effect.
           </>,
         )
-          .icon(SPELLS.RUNE_OF_POWER_TALENT.icon)
+          .icon(TALENTS.RUNE_OF_POWER_TALENT.icon)
           .actual(
             <Trans id="mage.shared.suggestions.runeOfPower.utilization">
               Average {this.roundedSecondsPerCast.toFixed(1)}s standing in each Rune of Power
@@ -191,7 +191,7 @@ class RuneOfPower extends Analyzer {
             </>
           }
         >
-          <BoringSpellValueText spellId={SPELLS.RUNE_OF_POWER_TALENT.id}>
+          <BoringSpellValueText spellId={TALENTS.RUNE_OF_POWER_TALENT.id}>
             <>
               {formatPercentage(this.damagePercent, 0)}%{' '}
               <small>Damage added by Rune of Power</small>
