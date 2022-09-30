@@ -18,43 +18,12 @@ type EventSearchOptions = {
 };
 
 class EventHistory extends Module {
-  /**
-   * @param count the maximum number of events to return, or null for no limit
-   * @param maxTime the maximum number of milliseconds to look back, or null for no limit
-   * @param filterDef an optional EventFilter to apply to all events
-   * @param fromTimestamp an optional timestamp to start searching from
-   * @returns the last `count` events that match the given filters, with the oldest events first
-   */
-  public last<ET extends EventType, E extends MappedEvent<ET>>(
-    count?: number,
+  protected buildFilter<ET extends EventType, E extends AnyEvent>(
+    initialFilter: (event: E) => boolean,
     maxTime?: number,
     filterDef?: EventFilter<ET>,
-    fromTimestamp?: number,
-  ): E[] {
-    let filter = (event: AnyEvent) => true;
-
-    if (fromTimestamp) {
-      const prevFilter = filter;
-      filter = (event) => {
-        if (!event.timestamp || event.timestamp > fromTimestamp) {
-          return false;
-        }
-        return prevFilter(event);
-      };
-    }
-
-    if (maxTime) {
-      const minTime = fromTimestamp
-        ? fromTimestamp - maxTime
-        : this.owner.currentTimestamp - maxTime;
-      const prevFilter = filter;
-      filter = (event) => {
-        if (!event.timestamp || event.timestamp < minTime) {
-          return false;
-        }
-        return prevFilter(event);
-      };
-    }
+  ) {
+    let filter = initialFilter;
 
     if (filterDef) {
       const ee: EventEmitter = this.owner.getModule(EventEmitter);
@@ -103,6 +72,49 @@ class EventHistory extends Module {
         };
       }
     }
+
+    return filter;
+  }
+
+  /**
+   * @param count the maximum number of events to return, or null for no limit
+   * @param maxTime the maximum number of milliseconds to look back, or null for no limit
+   * @param filterDef an optional EventFilter to apply to all events
+   * @param fromTimestamp an optional timestamp to start searching from
+   * @returns the last `count` events that match the given filters, with the oldest events first
+   */
+  public last<ET extends EventType, E extends MappedEvent<ET>>(
+    count?: number,
+    maxTime?: number,
+    filterDef?: EventFilter<ET>,
+    fromTimestamp?: number,
+  ): E[] {
+    let filter = (event: AnyEvent) => true;
+
+    if (fromTimestamp) {
+      const prevFilter = filter;
+      filter = (event) => {
+        if (!event.timestamp || event.timestamp > fromTimestamp) {
+          return false;
+        }
+        return prevFilter(event);
+      };
+    }
+
+    if (maxTime) {
+      const minTime = fromTimestamp
+        ? fromTimestamp - maxTime
+        : this.owner.currentTimestamp - maxTime;
+      const prevFilter = filter;
+      filter = (event) => {
+        if (!event.timestamp || event.timestamp < minTime) {
+          return false;
+        }
+        return prevFilter(event);
+      };
+    }
+
+    filter = this.buildFilter(filter, maxTime, filterDef);
 
     let history = this.owner.eventHistory.filter((event) => filter(event));
     if (count && count < history.length) {
@@ -142,53 +154,7 @@ class EventHistory extends Module {
       };
     }
 
-    if (filterDef) {
-      const ee: EventEmitter = this.owner.getModule(EventEmitter);
-      const prevFilter = filter;
-      filter = (event) => {
-        if (event.type !== filterDef.eventType) {
-          return false;
-        }
-        return prevFilter(event);
-      };
-      const filterTo = filterDef.getTo();
-      if (filterTo) {
-        const prevFilter = filter;
-        const toFilter = ee.createToCheck(filterTo);
-        if (toFilter) {
-          filter = (event) => {
-            if (!toFilter(event)) {
-              return false;
-            }
-            return prevFilter(event);
-          };
-        }
-      }
-      const filterBy = filterDef.getBy();
-      if (filterBy) {
-        const prevFilter = filter;
-        const byFilter = ee.createByCheck(filterBy);
-        if (byFilter) {
-          filter = (event) => {
-            if (!byFilter(event)) {
-              return false;
-            }
-            return prevFilter(event);
-          };
-        }
-      }
-      const filterSpell = filterDef.getSpell();
-      if (filterSpell) {
-        const prevFilter = filter;
-        const spellFilter = ee.createSpellCheck(filterSpell);
-        filter = (event) => {
-          if (!spellFilter(event)) {
-            return false;
-          }
-          return prevFilter(event);
-        };
-      }
-    }
+    filter = this.buildFilter(filter, maxTime, filterDef);
 
     let history = this.owner.eventHistory.filter((event) => filter(event));
     if (count && count < history.length) {
