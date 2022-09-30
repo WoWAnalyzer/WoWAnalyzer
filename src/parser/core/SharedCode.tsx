@@ -78,7 +78,7 @@ class SharedCode extends Analyzer {
    */
   getTargetHealth(event: AnyEvent) {
     if (!HasTarget(event)) {
-      return undefined;
+      return;
     }
 
     const target = encodeTargetString(event.targetID, event.targetInstance);
@@ -87,7 +87,7 @@ class SharedCode extends Analyzer {
       startTimestamp: event.timestamp,
     });
     if (!damageEvents) {
-      return undefined;
+      return;
     }
 
     const relevantEvent = damageEvents.find(
@@ -97,7 +97,7 @@ class SharedCode extends Analyzer {
     if (relevantEvent && HasHitpoints(relevantEvent)) {
       return relevantEvent.hitPoints / relevantEvent.maxHitPoints;
     } else {
-      return undefined;
+      return;
     }
   }
 }
