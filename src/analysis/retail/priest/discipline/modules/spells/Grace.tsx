@@ -1,7 +1,7 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import PRIEST_SPELLS from 'common/SPELLS/priest';
-import { default as PRIEST_TALENTS } from 'common/TALENTS/priest';
+import { default as PRIEST_TALENTS, TALENTS_PRIEST } from 'common/TALENTS/priest';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -18,7 +18,7 @@ const PRIEST_WHITELIST: number[] = Object.values({
   ...PRIEST_SPELLS,
   ...PRIEST_TALENTS,
 })
-  .concat([SPELLS.MINDGAMES, SPELLS.MINDGAMES_HEAL, SPELLS.MINDGAMES_ABSORB])
+  .concat([TALENTS_PRIEST.MINDGAMES_TALENT, SPELLS.MINDGAMES_HEAL, SPELLS.MINDGAMES_ABSORB])
   .map((ability) => ability.id);
 
 class Grace extends Analyzer {

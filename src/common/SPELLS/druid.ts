@@ -209,7 +209,7 @@ const spells = spellIndexableList({
     icon: 'spell_nature_forceofnature',
   },
   // TODO Nature's Vigil healing probably has different ID, need log to see it
-  // damage from Nature's Vigil talent
+  // damage from Nature's Vigil talent (cast and buff are the talent ID)
   NATURES_VIGIL_DAMAGE: {
     id: 124991,
     name: "Nature's Vigil",
@@ -404,6 +404,12 @@ const spells = spellIndexableList({
     id: 392329,
     name: 'Verdancy',
     icon: 'inv_10_herb_seed_magiccolor5',
+  },
+  // buff from Power of the Archdruid talent
+  POWER_OF_THE_ARCHDRUID: {
+    id: 392303,
+    name: 'Power of the Archdruid',
+    icon: 'spell_druid_rampantgrowth',
   },
   // Sets/Items:
   ASTRAL_HARMONY: {

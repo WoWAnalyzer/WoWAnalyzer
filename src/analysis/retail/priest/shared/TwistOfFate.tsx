@@ -1,27 +1,29 @@
-import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { SpellIcon } from 'interface';
-import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import { SuggestionFactory, When } from 'parser/core/ParseResults';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import StatisticBox from 'parser/ui/StatisticBox';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../../constants';
-
-const TWIST_OF_FATE_HEALING_INCREASE = 0.2;
+import { DISCIPLINE_ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../discipline/constants';
+// The holy abilities can be imported once their talents are complete
+// import { HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../holy/constants'
 
 class TwistOfFate extends Analyzer {
   healing = 0;
   damage = 0;
+  twistOfFateIncrease = 0;
 
   constructor(options: Options) {
     super(options);
+    this.twistOfFateIncrease =
+      this.selectedCombatant.getTalentRank(TALENTS_PRIEST.TWIST_OF_FATE_TALENT.id) * 0.05;
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.TWIST_OF_FATE_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
@@ -29,7 +31,7 @@ class TwistOfFate extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.TWIST_OF_FATE_BUFF_DISCIPLINE.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.TWIST_OF_FATE_BUFF.id, event.timestamp)) {
       return;
     }
 
@@ -47,39 +49,15 @@ class TwistOfFate extends Analyzer {
 
   parseHeal(event: HealEvent | AbsorbedEvent) {
     const spellId = event.ability.guid;
-    if (!ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
+    // TODO : Holy abilities need to go here
+    if (!DISCIPLINE_ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       return;
     }
-    if (!this.selectedCombatant.hasBuff(SPELLS.TWIST_OF_FATE_BUFF_DISCIPLINE.id, event.timestamp)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.TWIST_OF_FATE_BUFF.id, event.timestamp)) {
       return;
     }
 
-    this.healing += calculateEffectiveHealing(event, TWIST_OF_FATE_HEALING_INCREASE);
-  }
-
-  suggestions(when: When) {
-    when(this.owner.getPercentageOfTotalHealingDone(this.healing))
-      .isLessThan(0.05)
-      .addSuggestion((suggest: SuggestionFactory, actual: number, recommended: number) =>
-        suggest(
-          <span>
-            Consider picking a different talent than{' '}
-            <SpellLink id={TALENTS_PRIEST.TWIST_OF_FATE_TALENT.id} />. Castigation will give a
-            consistent 3-5% increase and Schism provides a significant DPS increase if more healing
-            is not needed.
-          </span>,
-        )
-          .icon(TALENTS_PRIEST.TWIST_OF_FATE_TALENT.icon)
-          .actual(
-            t({
-              id: 'priest.discipline.suggestions.twistOfFate.efficiency',
-              message: `${formatPercentage(actual)}% of total healing`,
-            }),
-          )
-          .recommended(`>${formatPercentage(recommended)}% is recommended.`)
-          .regular(0.045)
-          .major(0.025),
-      );
+    this.healing += calculateEffectiveHealing(event, this.twistOfFateIncrease);
   }
 
   statistic() {
@@ -95,7 +73,13 @@ class TwistOfFate extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={TALENTS_PRIEST.TWIST_OF_FATE_TALENT.id} />}
-        value={this.owner.formatItemHealingDone(healing)}
+        value={
+          <>
+            <ItemDamageDone amount={this.damage} />
+            <br />
+            <ItemHealingDone amount={this.healing} />
+          </>
+        }
         label={
           <TooltipElement
             content={`The effective healing contributed by Twist of Fate was ${formatPercentage(
@@ -106,7 +90,7 @@ class TwistOfFate extends Analyzer {
               tofDamage,
             )}% of total damage); the healing gain of this damage was included in the shown numbers.`}
           >
-            Twist of Fate Healing
+            Twist of Fate
           </TooltipElement>
         }
       />

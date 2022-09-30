@@ -4,12 +4,12 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TALENTS_PRIEST } from 'common/TALENTS';
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../constants';
+import { DISCIPLINE_ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../constants';
 
 class Abilities extends CoreAbilities {
   constructor(...args: ConstructorParameters<typeof CoreAbilities>) {
     super(...args);
-    this.abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
+    this.abilitiesAffectedByHealingIncreases = DISCIPLINE_ABILITIES_AFFECTED_BY_HEALING_INCREASES;
   }
 
   spellbook(): SpellbookAbility[] {
