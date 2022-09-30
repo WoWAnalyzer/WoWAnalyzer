@@ -61,12 +61,6 @@ class NaturesVigil extends Analyzer {
   onStHeal(event: HealEvent) {
     if (this.selectedCombatant.hasBuff(TALENTS_DRUID.NATURES_VIGIL_TALENT.id)) {
       const spellId = event.ability.guid;
-      // if (spellId === SPELLS.REJUVENATION_GERMINATION.id) {
-      //   spellId = SPELLS.REJUVENATION.id;
-      // } else if (spellId === SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id || spellId === SPELLS.LIFEBLOOM_BLOOM_HEAL.id) {
-      //   spellId = SPELLS.LIFEBLOOM_HOT_HEAL.id;
-      // }
-
       const rawHealing = event.amount + (event.absorbed || 0) + (event.overheal || 0);
       const entry = this.stHealingDuringNv[spellId];
       if (entry) {
