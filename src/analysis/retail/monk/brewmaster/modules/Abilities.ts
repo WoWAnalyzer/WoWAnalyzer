@@ -3,6 +3,7 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import talents from 'common/TALENTS/monk';
+import { Range } from 'parser/shared/metrics/apl/range';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -21,6 +22,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
+        range: 15,
       },
       {
         spell: SPELLS.BLACKOUT_KICK_BRM.id,
@@ -32,6 +34,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
+        range: Range.Melee,
       },
       {
         spell: talents.BREATH_OF_FIRE_BREWMASTER_TALENT.id,
@@ -55,6 +58,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.8,
         },
+        range: Range.Melee,
       },
       {
         spell: SPELLS.TIGER_PALM.id,
@@ -62,6 +66,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
+        range: Range.Melee,
       },
       {
         spell: talents.RUSHING_JADE_WIND_BREWMASTER_TALENT.id,
@@ -279,6 +284,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 8,
         gcd: null,
+        range: 30,
       },
       {
         spell: talents.SPEAR_HAND_STRIKE_TALENT.id,

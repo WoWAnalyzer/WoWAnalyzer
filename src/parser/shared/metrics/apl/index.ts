@@ -9,6 +9,7 @@ import {
 } from 'parser/core/Events';
 import metric, { Info } from 'parser/core/metric';
 import { ReactChild } from 'react';
+import { initLocationState, LocationState, isInRange, updateLocationState } from './range';
 
 export type PlayerInfo = Pick<Info, 'playerId' | 'combatant' | 'abilities'>;
 export enum Tense {
@@ -178,6 +179,7 @@ export interface CheckState {
   conditionState: ConditionState;
   abilityState: AbilityState;
   mostRecentBeginCast?: BeginChannelEvent;
+  locationState: LocationState;
 }
 
 export type CheckResult = Pick<CheckState, 'successes' | 'violations'>;
@@ -251,20 +253,43 @@ function ruleApplies(
     console.error('attempted to apply APL rule to non-cast event, ignoring', event);
     return false;
   }
-  const availableSpells = spells(rule).filter(
-    (spell) =>
-      abilities.has(spell.id) &&
-      ((!requireCooldownAvailable && spell.id === event.ability.guid) ||
-        result.abilityState[spell.id] === undefined ||
-        result.abilityState[spell.id].isAvailable) &&
-      (rule.condition?.validate(
+  const availableSpells = spells(rule).filter((spell) => {
+    // whether the spell is in the player's spellbook according to the Abilities module
+    const spellIsKnown = abilities.has(spell.id);
+    // true if `spell` is actually what was cast---normally this bypasses restrictions that come from our internal cooldown tracking and range checking
+    const spellIsCast = spell.id === event.ability.guid;
+    const spellCooldownAvailable =
+      result.abilityState[spell.id] === undefined || result.abilityState[spell.id].isAvailable;
+    const spellInRange = isInRange(result.locationState, event, spell);
+
+    if (requireCooldownAvailable && !spellCooldownAvailable) {
+      // the cooldown is required to be available according to internal data, but it isn't
+      //
+      // this is used by tooling that generates APL data.
+      return false;
+    }
+
+    if (spellIsCast && !spellInRange) {
+      console.warn(
+        `APL: Spell was cast but we thought it was out of range: ${spell.id} (${spell.name})`,
+        event,
+      );
+    }
+
+    const conditionSatisfied =
+      rule.condition?.validate(
         result.conditionState[rule.condition.key],
         event,
         spell,
         lookaheadSlice(events, eventIndex, rule.condition.lookahead),
-      ) ??
-        true),
-  );
+      ) ?? true;
+
+    return (
+      spellIsKnown &&
+      (spellIsCast || (spellCooldownAvailable && spellInRange)) &&
+      conditionSatisfied
+    );
+  });
 
   if (availableSpells.length === 0) {
     return false;
@@ -353,6 +378,7 @@ export function updateCheckState(result: CheckState, apl: Apl, event: AnyEvent):
 
   result.abilityState = updateAbilities(result.abilityState, event);
   result.conditionState = updateState(apl, result.conditionState, event);
+  result.locationState = updateLocationState(result.locationState, event);
 
   return result;
 }
@@ -389,7 +415,7 @@ const aplCheck = (apl: Apl) =>
             const { rule, availableSpells } = applicable;
 
             if (
-              spells(rule).some(
+              spells(rule).every(
                 (spell) =>
                   result.abilityState[spell.id] !== undefined &&
                   !result.abilityState[spell.id].isAvailable,
@@ -423,7 +449,13 @@ const aplCheck = (apl: Apl) =>
 
         return updateCheckState(result, apl, event);
       },
-      { successes: [], violations: [], abilityState: {}, conditionState: initState(apl, info) },
+      {
+        successes: [],
+        violations: [],
+        abilityState: {},
+        conditionState: initState(apl, info),
+        locationState: initLocationState(info),
+      },
     );
   });
 
