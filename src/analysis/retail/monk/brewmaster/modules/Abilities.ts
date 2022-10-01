@@ -126,7 +126,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: (haste) =>
           (combatant.hasTalent(talents.LIGHT_BREWING_BREWMASTER_TALENT) ? 16 : 20) / (1 + haste),
-        charges: combatant.hasTalent(talents.PURIFYING_BREW_RANK_2_BREWMASTER_TALENT) ? 2 : 1,
+        charges: combatant.hasTalent(talents.IMPROVED_PURIFYING_BREW_BREWMASTER_TALENT) ? 2 : 1,
         gcd: null,
         castEfficiency: {
           suggestion: true,
@@ -210,7 +210,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(talents.CHI_TORPEDO_TALENT.id),
         cooldown: 20,
-        charges: 1 + Number(combatant.hasTalent(talents.ROLL_TALENT)),
+        charges: 1 + Number(combatant.hasTalent(talents.IMPROVED_ROLL_TALENT)),
         // Both Roll and Chi Torpedo don't actually have a GCD but block all spells during its animation for about the same duration, so maybe time it in-game and mark it as channeling instead? The issue is you can follow up any ability on the GCD with chi torpedo/roll, so it can still cause overlap.
         gcd: null,
       },
@@ -222,7 +222,7 @@ class Abilities extends CoreAbilities {
         charges:
           1 +
           Number(combatant.hasTalent(talents.CELERITY_TALENT.id)) +
-          Number(combatant.hasTalent(talents.ROLL_TALENT)),
+          Number(combatant.hasTalent(talents.IMPROVED_ROLL_TALENT)),
         // Both Roll and Chi Torpedo don't actually have a GCD but block all spells during its animation for about the same duration, so maybe time it in-game and mark it as channeling instead? The issue is you can follow up any ability on the GCD with chi torpedo/roll, so it can still cause overlap.
         gcd: null,
       },

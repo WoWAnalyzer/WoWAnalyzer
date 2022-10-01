@@ -21,6 +21,7 @@ export const apl = build([
     spell: talents.KEG_SMASH_BREWMASTER_TALENT,
     condition: buffPresent(talents.WEAPONS_OF_ORDER_BREWMASTER_TALENT),
   },
+  talents.RISING_SUN_KICK_TALENT,
   {
     spell: talents.BREATH_OF_FIRE_BREWMASTER_TALENT,
     condition: hasTalent(talents.CHARRED_PASSIONS_BREWMASTER_TALENT),
@@ -40,7 +41,6 @@ export const apl = build([
       ),
     ),
   },
-  talents.RISING_SUN_KICK_TALENT,
   [SPELLS.BLACKOUT_KICK_BRM, talents.KEG_SMASH_BREWMASTER_TALENT],
   talents.BREATH_OF_FIRE_BREWMASTER_TALENT,
   {
