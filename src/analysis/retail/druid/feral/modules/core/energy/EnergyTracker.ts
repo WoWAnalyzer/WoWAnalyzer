@@ -9,7 +9,6 @@ const TE_ENERGY_PER_RANK = 30;
 const BASE_REGEN = 11;
 const TE_REGEN_MULT_PER_RANK = 0.1;
 
-// TODO impl refund tracking on miss/parry
 class EnergyTracker extends ResourceTracker {
   constructor(options: Options) {
     super(options);
@@ -20,6 +19,13 @@ class EnergyTracker extends ResourceTracker {
     const teRank = this.selectedCombatant.getTalentRank(TALENTS_DRUID.TIRELESS_ENERGY_FERAL_TALENT);
     this.maxResource = BASE_MAX_ENERGY + TE_ENERGY_PER_RANK * teRank;
     this.baseRegenRate = BASE_REGEN * (1 + TE_REGEN_MULT_PER_RANK * teRank);
+
+    this.refundOnMiss = true;
+    this.refundBlacklist = [
+      TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT.id,
+      SPELLS.SWIPE_CAT.id,
+      SPELLS.THRASH_FERAL.id,
+    ];
   }
 }
 

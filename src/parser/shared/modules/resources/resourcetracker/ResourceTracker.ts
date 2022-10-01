@@ -15,6 +15,7 @@ import Events, {
 } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Haste from 'parser/shared/modules/Haste';
+import HIT_TYPES from 'game/HIT_TYPES';
 
 /**
  * The time buffer in milliseconds within which resource updates should be combined
@@ -35,6 +36,9 @@ import Haste from 'parser/shared/modules/Haste';
  * current energy is now 90, but in fact the true answer is 65.
  */
 const MULTI_UPDATE_BUFFER_MS = 300;
+
+/** hitType values that indicate an ability did not connect */
+const REFUND_HIT_TYPES = [HIT_TYPES.MISS, HIT_TYPES.DODGE, HIT_TYPES.PARRY];
 
 /** Data for a builder ability (one that generates resource) */
 export type BuilderObj = {
@@ -80,14 +84,20 @@ type ResourceUpdate = {
 };
 
 type ResourceUpdateType =
-  /** A heal or damage event's classResources, or to mark hitting max resources */
-  | 'update'
   /** Player spent resource, as shown in a cast's classResources */
   | 'spend'
   /** Player drained resource, as shown in a DrainEvent */
   | 'drain'
   /** Player gained resource, as shown in a ChangeResourceEvent */
-  | 'gain';
+  | 'gain'
+  /** Resource capped due to natural regeneration */
+  | 'regenCap'
+  /** Regeneration rate changed */
+  | 'rateChange'
+  /** The fight ended */
+  | 'fightEnd'
+  /** A resource refund due to an ability miss */
+  | 'refund';
 
 const DEBUG = false;
 
@@ -122,6 +132,17 @@ class ResourceTracker extends Analyzer {
   /** If the resource's regeneration is effected by haste. Override according to your spec */
   isRegenHasted = true;
 
+  /** Some specs get partial resource refunds when a damaging ability fails to connect.
+   *  Implementer should override this to true if that's the case for their spec/resource */
+  refundOnMiss = false;
+  /** The portion of resource that is refunded. This is the usual amount - override with something
+   *  different if needed */
+  refundOnMissAmount = 0.8;
+  /** Some abilities (like AoE abilities) don't provide a refund when they don't connect.
+   *  Override this with spellIds that don't refund. It's fine to leave this empty
+   *  if refundOnMiss is being left as false. */
+  refundBlacklist: number[] = [];
+
   // END override values
 
   /** Time ordered list of resource updates */
@@ -131,6 +152,9 @@ class ResourceTracker extends Analyzer {
   /** Tracked spenders, indexed by spellId */
   spendersObj: { [index: number]: SpenderObj } = {};
 
+  /** Info about the last spender so we can apply a refund if it misses */
+  lastSpenderInfo?: { timestamp: number; amount: number; spellId: number };
+
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.resourcechange.to(SELECTED_PLAYER), this.onEnergize);
@@ -138,7 +162,7 @@ class ResourceTracker extends Analyzer {
     this.addEventListener(Events.drain.to(SELECTED_PLAYER), this.onDrain);
     this.addEventListener(Events.ChangeHaste.to(SELECTED_PLAYER), this.onChangeHaste);
     this.addEventListener(Events.fightend, this.onFightEnd);
-    // TODO refund on miss handled by implementer?
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
   /** Manually adds a spell to the list of builder abilites.
@@ -210,15 +234,29 @@ class ResourceTracker extends Analyzer {
     this._resourceUpdate('drain', resource?.amount, resource?.max, event.resourceChange);
   }
 
+  onDamage(event: DamageEvent) {
+    if (
+      this.refundOnMiss &&
+      !this.refundBlacklist.includes(event.ability.guid) &&
+      !event.tick &&
+      REFUND_HIT_TYPES.includes(event.hitType) &&
+      this.lastSpenderInfo &&
+      this.lastSpenderInfo.timestamp + MULTI_UPDATE_BUFFER_MS >= event.timestamp
+    ) {
+      const refund = this.refundOnMissAmount * this.lastSpenderInfo.amount;
+      this._resourceUpdate('refund', undefined, undefined, refund);
+    }
+  }
+
   onChangeHaste() {
     if (this.baseRegenRate > 0 && this.isRegenHasted) {
-      this._resourceUpdate('update');
+      this._resourceUpdate('rateChange');
     }
   }
 
   onFightEnd() {
     if (this.baseRegenRate > 0) {
-      this._resourceUpdate('update');
+      this._resourceUpdate('fightEnd');
     }
   }
 
@@ -286,6 +324,12 @@ class ResourceTracker extends Analyzer {
     resource?: ClassResources,
   ) {
     const spellId = event.ability.guid;
+
+    this.lastSpenderInfo = {
+      timestamp: event.timestamp,
+      amount: spent,
+      spellId: event.ability.guid,
+    };
 
     if (!this.spendersObj[spellId]) {
       this.initSpenderAbility(spellId);
@@ -366,7 +410,7 @@ class ResourceTracker extends Analyzer {
         const capTimestamp =
           prevUpdate.timestamp + ((max - prevUpdate.current) / prevUpdate.rate) * 1000;
         this.logAndPushUpdate({
-          type: 'update',
+          type: 'regenCap',
           timestamp: capTimestamp,
           change: 0,
           current: max,
@@ -408,9 +452,11 @@ class ResourceTracker extends Analyzer {
     if (DEBUG) {
       let diffReport = '';
       if (calculatedBeforeAmount !== undefined && reportedBeforeAmount !== undefined) {
-        diffReport = ` - calcAmount:${calculatedBeforeAmount} reportedAmount:${reportedBeforeAmount} diff:${
-          reportedBeforeAmount - calculatedBeforeAmount
-        } withinBuffer:${withinMultiUpdateBuffer}`;
+        diffReport = ` - calcAmount:${calculatedBeforeAmount} reportedAmount:${reportedBeforeAmount} withinBuffer:${withinMultiUpdateBuffer} ${
+          !withinMultiUpdateBuffer
+            ? ` unaccountedDiff:${reportedBeforeAmount - calculatedBeforeAmount}`
+            : ''
+        }`;
       }
       console.log(
         'Update for ' +
