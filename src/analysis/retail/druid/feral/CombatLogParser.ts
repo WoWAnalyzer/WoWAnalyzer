@@ -14,7 +14,6 @@ import DotUptimesAndSnapshots from 'analysis/retail/druid/feral/modules/features
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import EnergyCapTracker from 'analysis/retail/druid/feral/modules/core/energy/EnergyCapTracker';
 import EnergyDetails from 'analysis/retail/druid/feral/modules/core/energy/EnergyDetails';
 import EnergyTracker from 'analysis/retail/druid/feral/modules/core/energy/EnergyTracker';
 import SpellEnergyCost from 'analysis/retail/druid/feral/modules/core/energy/SpellEnergyCost';
@@ -52,7 +51,6 @@ class CombatLogParser extends CoreCombatLogParser {
     dotUptimesAndSnapshots: DotUptimesAndSnapshots,
     ferociousBite: FerociousBite,
     spellUsable: SpellUsable,
-    energyCapTracker: EnergyCapTracker,
     energyTracker: EnergyTracker,
     energyDetails: EnergyDetails,
     checklist: Checklist,

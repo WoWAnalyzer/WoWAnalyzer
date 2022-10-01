@@ -95,8 +95,8 @@ function BuildersSubsection({ modules, events, info }: GuideProps<typeof CombatL
         </ul>
       </p>
       TODO ORGANIZE THIS BETTER AND PROVIDE MORE TEXT / CONTEXT - EXPLANATION OF BT AND SNAPSHOTTING
-      {modules.rakeUptime.subStatistic()}
-      {hasLi && modules.moonfireUptime.subStatistic()}
+      {/*{modules.rakeUptime.subStatistic()}*/}
+      {/*{hasLi && modules.moonfireUptime.subStatistic()}*/}
       TODO SOMETHING FOR SHRED AND SWIPE?
     </SubSection>
   );
@@ -148,7 +148,7 @@ function SpendersSubsection({ modules, events, info }: GuideProps<typeof CombatL
         </ul>
       </p>
       TODO ORGANIZE THIS BETTER AND PROVIDE MORE TEXT / CONTEXT - EXPLANATION OF BT AND SNAPSHOTTING
-      {modules.ripUptime.subStatistic()}
+      {/*{modules.ripUptime.subStatistic()}*/}
       TODO SOMETHING FOR FEROCIOUS BITE?
     </SubSection>
   );

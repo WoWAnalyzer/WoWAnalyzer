@@ -12,7 +12,6 @@ import FerociousBite from 'analysis/retail/druid/feral/modules/spells/FerociousB
 import TigersFuryEnergy from 'analysis/retail/druid/feral/modules/spells/TigersFuryEnergy';
 import Bloodtalons from 'analysis/retail/druid/feral/modules/spells/Bloodtalons';
 import MoonfireUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/features/MoonfireUptimeAndSnapshots';
-import EnergyCapTracker from 'analysis/retail/druid/feral/modules/core/energy/EnergyCapTracker';
 import Component from 'analysis/retail/druid/feral/modules/checklist/Component';
 
 class Checklist extends BaseChecklist {
@@ -28,7 +27,6 @@ class Checklist extends BaseChecklist {
     comboPointDetails: ComboPointDetails,
     ripUptime: RipUptimeAndSnapshots,
     ferociousBite: FerociousBite,
-    energyCapTracker: EnergyCapTracker,
     bloodtalons: Bloodtalons,
     tigersFuryEnergy: TigersFuryEnergy,
     finisherUse: FinisherUse,
@@ -44,7 +42,6 @@ class Checklist extends BaseChecklist {
   protected comboPointDetails!: ComboPointDetails;
   protected ripUptime!: RipUptimeAndSnapshots;
   protected ferociousBite!: FerociousBite;
-  protected energyCapTracker!: EnergyCapTracker;
   protected bloodtalons!: Bloodtalons;
   protected tigersFuryEnergy!: TigersFuryEnergy;
   protected finisherUse!: FinisherUse;
@@ -79,7 +76,6 @@ class Checklist extends BaseChecklist {
           // (Apex bite usage ??? or just a suggestion?)
 
           // spend your resources
-          energyCapped: this.energyCapTracker.suggestionThresholds,
           tigersFuryEnergy: this.tigersFuryEnergy.suggestionThresholds,
           comboPointsWaste: this.comboPointDetails.wastingSuggestionThresholds,
 

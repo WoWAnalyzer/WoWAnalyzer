@@ -284,55 +284,6 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
     </Rule>
   );
 
-  /** Spend your Resources
-   🗵 Natural energy overcap
-   🗵 TF energy overcap
-   🗵 CP overcap
-   */
-  const resourcesRule = (
-    <Rule
-      name="Spend your resources"
-      description={
-        <>
-          Your actions are limited by energy and combo points, so it is wasteful to allow yourself
-          to go overcap on either of them. "Pooling" energy is often valuable as it gives you more
-          leeway to react to fight mechanics, but you should never do so at the expense of letting
-          uptimes drop or going overcap.
-        </>
-      }
-    >
-      <Requirement
-        name={<>Natural Energy Overcap</>}
-        thresholds={thresholds.energyCapped}
-        tooltip="This is the percentage of your natural energy regeneration that you wasted.
-            Any time spent at maximum energy wastes potential regeneration.
-            Some energy overcap can happen due to periods of extremely high regeneration
-            or due to being forced off target by fight mechanics. Please use your knowledge of the
-            fight when weighing the importance of this metric."
-      />
-      <Requirement
-        name={
-          <>
-            Energy Overcap from <SpellLink id={SPELLS.TIGERS_FURY.id} />
-          </>
-        }
-        thresholds={thresholds.tigersFuryEnergy}
-        tooltip="Remember that Tiger's Fury generates instant energy which should not be wasted.
-            Plan for it coming off cooldown by spending down your energy. The displayed waste
-            is only from hardcast Tiger's Fury. Procs from Convoke the Spirits are not counted here
-            because waste from them is generally unavoidable."
-      />
-      <Requirement
-        name={<>Combo Point Overcap (per minute)</>}
-        thresholds={thresholds.comboPointsWaste}
-        tooltip="Your finishing moves are much more powerful than your combo builders. When at
-          max CPs you should always use a finisher over a combo builder. This stat does not include
-          the accidental overcap due to getting a crit when at 4 CPs or due to generating too many
-          CPs during Convoke the Spirits, as this is unavoidable."
-      />
-    </Rule>
-  );
-
   /**Use your cooldowns
    🗵 Cast efficiency of Berserk (or Incarnation)
    🗵 Cast efficiency of Tiger's Fury
@@ -393,7 +344,6 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
     <Checklist>
       {maintainYourDotsRule}
       {finishersRule}
-      {resourcesRule}
       {cooldownsRule}
       {snapshotYourDotsRule}
       <PreparationRule thresholds={thresholds} />
