@@ -1914,3 +1914,16 @@ export const ToppleTheNun: Contributor = {
     },
   ],
 };
+
+export const Listefano: Contributor = {
+  nickname: 'Listefano',
+  github: 'listefano',
+  discord: 'Listefano | Stefan#8789',
+  mains: [
+    {
+      name: 'Listefano',
+      spec: SPECS.FURY_WARRIOR,
+      link: 'https://worldofwarcraft.com/en-us/character/eu/malfurion/Listefano',
+    },
+  ],
+};

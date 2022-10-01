@@ -1,5 +1,6 @@
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/warrior';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -16,7 +17,7 @@ class Warpaint extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.WARPAINT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.WARPAINT_FURY_TALENT.id);
 
     if (!this.active) {
       return;
@@ -55,7 +56,7 @@ class Warpaint extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.WARPAINT_TALENT.id}>
+        <BoringSpellValueText spellId={talents.WARPAINT_FURY_TALENT.id}>
           <>
             {formatPercentage(this.damageMitigatedPercent)}% <small>damage mitigated</small>
           </>
