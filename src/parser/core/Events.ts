@@ -468,7 +468,7 @@ export interface HealEvent extends Event<EventType.Heal> {
   overheal?: number;
   /** If the event is a tick of a HoT or HoT like object */
   tick?: boolean;
-  resourceActor: number;
+  resourceActor: ResourceActor;
   /** A list of resources on the TARGET */
   classResources: ClassResources[];
   /** Hit points of the target AFTER the heal is done if you want hp before you need to do (hitpoints - amount) */
@@ -682,7 +682,7 @@ export interface ResourceChangeEvent extends Event<EventType.ResourceChange> {
   otherResourceChange: number; // defaults to 0?
   /** Shows whether the source or the target is being referred to by
    *  the classResources, hitPoints, etc. See {@link ResourceActor}. */
-  resourceActor: number;
+  resourceActor: ResourceActor;
   /** A list of resources on either the source or target, depending on resourceActor choice. */
   classResources: ClassResources[];
   hitPoints: number;
@@ -708,7 +708,7 @@ export interface DrainEvent extends Event<EventType.Drain> {
   otherResourceChange: number;
   /** Shows whether the source or the target is being referred to by
    *  the classResources, hitPoints, etc. See {@link ResourceActor}. */
-  resourceActor: number;
+  resourceActor: ResourceActor;
   /** A list of resources on either the source or target, depending on resourceActor choice. */
   classResources: ClassResources[];
   hitPoints: number;
