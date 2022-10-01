@@ -21,10 +21,6 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.RECKLESSNESS.id,
         timelineHighlight: true,
       },
-      {
-        spellId: SPELLS.SIEGEBREAKER_TALENT.id,
-        timelineHighlight: true,
-      },
     ];
   }
 }

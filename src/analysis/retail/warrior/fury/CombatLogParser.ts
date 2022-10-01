@@ -11,22 +11,14 @@ import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
 import EnrageNormalizer from './modules/normalizers/Enrage';
-import MercilessBonegrinder from './modules/shadowlands/conduits/MercilessBonegrinder';
-import AncientAftershock from './modules/shadowlands/covenants/AncientAftershock';
-import SpearOfBastion from './modules/shadowlands/covenants/SpearOfBastion';
-import Deathmaker from './modules/shadowlands/legendaries/Deathmaker';
-import NaturesFury from './modules/shadowlands/legendaries/NaturesFury';
-import SignetOfTormentedKings from './modules/shadowlands/legendaries/SignetOfTormentedKings';
+import SpearOfBastion from './modules/talents/SpearOfBastion';
 import MissedRampage from './modules/spells/MissedRampage';
 import Recklessness from './modules/spells/Recklessness';
 import WhirlWind from './modules/spells/Whirlwind';
 import AngerManagement from './modules/talents/AngerManagement';
-import Bladestorm from './modules/talents/Bladestorm';
-import DragonRoar from './modules/talents/DragonRoar';
 import ImpendingVicory from './modules/talents/ImpendingVictory';
 import MeatCleaver from './modules/talents/MeatCleaver';
 import RecklessAbandon from './modules/talents/RecklessAbandon';
-import Siegebreaker from './modules/talents/Siegebreaker';
 import SuddenDeath from './modules/talents/SuddenDeath';
 import Warpaint from './modules/talents/Warpaint';
 
@@ -52,22 +44,12 @@ class CombatLogParser extends CoreCombatLogParser {
     recklessness: Recklessness,
 
     angerManagement: AngerManagement,
-    bladestorm: Bladestorm,
-    dragonRoar: DragonRoar,
     impendingVictory: ImpendingVicory,
     meatCleaver: MeatCleaver,
     recklessAbandon: RecklessAbandon,
-    siegebreaker: Siegebreaker,
     suddenDeath: SuddenDeath,
     warpaint: Warpaint,
-
-    // Shadowlands
-    signetofTormentedKings: SignetOfTormentedKings,
-    mercilessBonegrinder: MercilessBonegrinder,
-    naturesFury: NaturesFury,
-    deathMaker: Deathmaker,
     spearofBastion: SpearOfBastion,
-    ancientAftershock: AncientAftershock,
   };
 }
 
