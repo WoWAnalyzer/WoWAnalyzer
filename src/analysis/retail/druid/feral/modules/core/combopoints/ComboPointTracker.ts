@@ -40,11 +40,11 @@ class ComboPointTracker extends ResourceTracker {
     spellId: number,
     gain: number,
     waste: number,
+    timestamp: number,
     resource?: ClassResources,
-    timestamp?: number,
   ) {
     const isMaxBefore = this.current === this.maxResource;
-    super._applyBuilder(spellId, gain, waste, resource, timestamp);
+    super._applyBuilder(spellId, gain, waste, timestamp, resource);
     const isMaxAfter = this.current === this.maxResource;
 
     if (!isMaxBefore && isMaxAfter) {

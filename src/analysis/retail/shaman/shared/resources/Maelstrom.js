@@ -21,6 +21,7 @@ const Maelstrom = (props) => {
 
   const rawData = [];
 
+  // TODO update for new format
   props.tracker.resourceUpdates.forEach((item) => {
     const secIntoFight = Math.floor((item.timestamp - start) / 1000);
     rawData.push({ kind: 'Maelstrom', x: secIntoFight, y: item.current });

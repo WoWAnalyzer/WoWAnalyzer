@@ -33,9 +33,9 @@ class HarmoniusBlooming extends Analyzer {
 
   /**
    * The healing due only to the extra stacks from the talent.
-   * Healing due to all the stacks is
+   * Healing due to all the stacks is already added by the Mastery module,
+   * so here we simply do the math to get the portion from only the extra stacks.
    */
-
   get extraStacksHealing() {
     const totalMasteryHealing =
       this.mastery.getMasteryHealing(SPELLS.LIFEBLOOM_HOT_HEAL.id) +

@@ -32,11 +32,12 @@ class AstralPowerTracker extends ResourceTracker {
     const baseWaste = event.waste - eluneWaste;
     const baseGain = gain - eluneRaw - baseWaste;
     const eluneGain = eluneRaw - eluneWaste;
-    this._applyBuilder(spellId, baseGain, baseWaste, this.getResource(event));
+    this._applyBuilder(spellId, baseGain, baseWaste, event.timestamp, this.getResource(event));
     this._applyBuilder(
       TALENTS_DRUID.WARRIOR_OF_ELUNE_BALANCE_TALENT.id,
       eluneGain,
       eluneWaste,
+      event.timestamp,
       this.getResource(event),
     );
   }

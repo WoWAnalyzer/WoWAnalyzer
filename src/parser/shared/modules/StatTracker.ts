@@ -208,10 +208,10 @@ class StatTracker extends Analyzer {
   //Values taken from https://github.com/simulationcraft/simc/blob/dragonflight/engine/dbc/generated/sc_scale_data.inc
   statBaselineRatingPerPercent = {
     /** Secondaries */
-    [STAT.CRITICAL_STRIKE]: 220,
-    [STAT.HASTE]: 210,
-    [STAT.MASTERY]: 220,
-    [STAT.VERSATILITY]: 250,
+    [STAT.CRITICAL_STRIKE]: 170,
+    [STAT.HASTE]: 180,
+    [STAT.MASTERY]: 180,
+    [STAT.VERSATILITY]: 205,
     /** Tertiaries */
     [STAT.AVOIDANCE]: 88,
     [STAT.LEECH]: 132,

@@ -10,7 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import { FINISHERS, MAX_CPS } from 'analysis/retail/druid/feral/constants';
-import getComboPointsFromEvent from 'analysis/retail/druid/feral/modules/core/getComboPointsFromEvent';
+import getResourceSpent from 'parser/core/getResourceSpent';
 
 /**
  * Although all finishers are most efficient at 5 combo points, in some situations use at fewer combo points
@@ -35,7 +35,7 @@ class FinisherUse extends Analyzer {
   onFinisher(event: CastEvent) {
     this.totalFinishers += 1;
 
-    const combo = getComboPointsFromEvent(event);
+    const combo = getResourceSpent(event, RESOURCE_TYPES.COMBO_POINTS);
     if (!combo || combo === MAX_CPS) {
       // either full combo points (therefore not a problem) used or something went wrong and couldn't get combo information
       return;

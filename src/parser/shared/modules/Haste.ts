@@ -62,7 +62,7 @@ class Haste extends Analyzer {
     [SPELLS.RAVENOUS_FRENZY.id]: {
       hastePerStack: 0.01,
     },
-    // Sinful Hysteria legendary has to be handled dynamically in a different module
+    [SPELLS.FRANTIC_MOMENTUM.id]: 0.1, // TODO check for possible tuning updates
     //endregion
 
     //region Hunter Haste Buffs
