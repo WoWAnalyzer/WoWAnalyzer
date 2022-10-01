@@ -1,3 +1,36 @@
+/**
+ * Range checking code for the APL tools.
+ *
+ * Some notes:
+ *
+ * - The overall philosophy here is to assume that the player is in range
+ *   whenever they can be, and let other code (like ABC, or some melee uptime
+ *   code) deal with analyzing whether they could've been in range more than
+ *   they were. Being out of range is thus *not* treated as a mistake by this
+ *   code.
+ *
+ * - The ability to cast a spell in WoW depends on the spell's range being
+ *   greater than the distance to the edge of the target's hitbox. That is:
+ *   `range >= distance - hitbox`, or `range + hitbox >= distance`.
+ *
+ * - Boss hitboxes vary widely in size. Some are very small (Sylvanas, Anduin),
+ *   and some are ENORMOUS (The Jailer, Ragnaros, basically any Dragon-type
+ *   boss). This module tries to pick a hitbox that is relatively accurate
+ *   quickly, and then uses a small (1.5m) margin of error to try to handle
+ *   small differences in our estimate vs the real value. This *usually* picks
+ *   up the actual hitbox within the first handful of events, at least for melee DPS.
+ *
+ * - Hitbox detection relies heavily on using a small number of manual
+ *   `range` entries in a spec's Abilities module to give known-good ranges. For
+ *   melee, the auto-attack range is included by default but this obviously
+ *   doesn't apply to ranged DPS. Adding a single filler or opener spell should
+ *   be enough for it to pick up the hitbox size very quickly.
+ *
+ * - This could very well become a standalone functional analyzer later. Almost
+ *   all the pieces are here.
+ *
+ * @module
+ */
 import Spell from 'common/SPELLS/Spell';
 import ROLES from 'game/ROLES';
 import SPECS from 'game/SPECS';

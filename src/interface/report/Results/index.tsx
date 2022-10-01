@@ -142,7 +142,7 @@ class Results extends React.PureComponent<Props, State> {
         TooltipProvider.baseUrl = 'https://tbc.wowhead.com/';
         break;
       default:
-        TooltipProvider.baseUrl = 'https://wowhead.com/beta/';
+        TooltipProvider.baseUrl = 'https://www.wowhead.com/beta/';
         break;
     }
   }
