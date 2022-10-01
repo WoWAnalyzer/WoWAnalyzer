@@ -89,7 +89,7 @@ type ResourceUpdateType =
   /** Player gained resource, as shown in a ChangeResourceEvent */
   | 'gain';
 
-const DEBUG = true;
+const DEBUG = false;
 
 /**
  * This is an 'abstract' implementation of a framework for tracking resource generating/spending.
