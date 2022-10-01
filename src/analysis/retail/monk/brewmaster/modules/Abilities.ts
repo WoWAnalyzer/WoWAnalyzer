@@ -14,7 +14,7 @@ class Abilities extends CoreAbilities {
         spell: talents.KEG_SMASH_BREWMASTER_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 8 / (1 + haste),
-        charges: combatant.hasLegendary(SPELLS.STORMSTOUTS_LAST_KEG) ? 2 : 1,
+        charges: combatant.hasTalent(talents.STORMSTOUTS_LAST_KEG_BREWMASTER_TALENT) ? 2 : 1,
         damageSpellIds: [talents.KEG_SMASH_BREWMASTER_TALENT.id],
         castEfficiency: {
           suggestion: true,
@@ -120,11 +120,26 @@ class Abilities extends CoreAbilities {
       // Cooldowns
       {
         spell: talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id,
+        enabled: combatant.hasTalent(talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: {
           base: 1000,
         },
+      },
+      {
+        spell: talents.WEAPONS_OF_ORDER_BREWMASTER_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 120,
+        gcd: { base: 1000 },
+        enabled: combatant.hasTalent(talents.WEAPONS_OF_ORDER_BREWMASTER_TALENT),
+      },
+      {
+        spell: talents.EXPLODING_KEG_BREWMASTER_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 60,
+        gcd: { static: 1000 },
+        enabled: combatant.hasTalent(talents.EXPLODING_KEG_BREWMASTER_TALENT),
       },
       {
         spell: talents.PURIFYING_BREW_BREWMASTER_TALENT.id,

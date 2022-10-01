@@ -71,7 +71,7 @@ export default [
   change(
     date(2021, 1, 23),
     <>
-      Add wasted cooldown avoided to <SpellLink id={SPELLS.STORMSTOUTS_LAST_KEG.id} /> statistic
+      Add wasted cooldown avoided to <SpellLink id={talents.STORMSTOUTS_LAST_KEG_BREWMASTER_TALENT.id} /> statistic
       tooltip.
     </>,
     emallson,
@@ -79,7 +79,7 @@ export default [
   change(
     date(2021, 1, 18),
     <>
-      Add support for <SpellLink id={SPELLS.STORMSTOUTS_LAST_KEG.id} />.
+      Add support for <SpellLink id={talents.STORMSTOUTS_LAST_KEG_BREWMASTER_TALENT.id} />.
     </>,
     Matardarix,
   ),

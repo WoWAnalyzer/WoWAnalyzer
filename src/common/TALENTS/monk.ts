@@ -783,6 +783,12 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT: {
+    id: 132578,
+    name: 'Invoke Niuzao, the Black Ox',
+    icon: 'spell_monk_brewmaster_spec',
+    maxRanks: 1,
+  },
+  INVOKE_NIUZAO_THE_BLACK_OX_2_BREWMASTER_TALENT: {
     id: 322740,
     name: 'Invoke Niuzao, the Black Ox',
     icon: 'spell_monk_brewmaster_spec',

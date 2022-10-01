@@ -10,12 +10,6 @@ const legendaries = {
     name: 'Charred Passions',
     icon: 'ability_monk_mightyoxkick',
   },
-  STORMSTOUTS_LAST_KEG: {
-    id: 337288,
-    name: "Stormstout's Last Keg",
-    icon: 'achievement_brewery_2',
-    bonusID: 7077,
-  },
   CELESTIAL_INFUSION: {
     id: 337290,
     name: 'Celestial Infusion',
