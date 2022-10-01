@@ -85,7 +85,7 @@ export type LocationState = {
    */
   locations: Record<string, LocationEvent<any>>;
   /**
-   * Record the least hitbox size that could be viable given observed melees.
+   * Record the least hitbox size that could be viable given observed ability usage.
    */
   minHitboxes: Record<string, number>;
 };
