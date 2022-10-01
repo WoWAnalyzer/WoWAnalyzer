@@ -4,46 +4,42 @@ import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import SPECS from 'game/SPECS';
 
-class GlaiveTempest extends Analyzer {
+class CollectiveAnguish extends Analyzer {
   damage = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_HAVOC_TALENT.id,
+      TALENTS_DEMON_HUNTER.COLLECTIVE_ANGUISH_TALENT.id,
     );
     if (!this.active) {
       return;
     }
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLAIVE_TEMPEST_DAMAGE),
-      this.onDamageEvent,
-    );
+    const spell =
+      this.selectedCombatant.specId === SPECS.HAVOC_DEMON_HUNTER.id
+        ? TALENTS_DEMON_HUNTER.FEL_DEVASTATION_VENGEANCE_TALENT
+        : SPELLS.COLLECTIVE_ANGUISH;
+    console.log('Collective Anguish spell', spell);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(spell), this.onDamageEvent);
   }
 
   onDamageEvent(event: DamageEvent) {
-    this.damage += event.amount + (event.absorb || 0);
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   statistic() {
     return (
       <Statistic
         size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
-        position={STATISTIC_ORDER.OPTIONAL(3)}
-        tooltip={
-          <>
-            {formatThousands(this.damage)} Total damage
-            <br />
-          </>
-        }
+        category={STATISTIC_CATEGORY.ITEMS}
+        tooltip={<>{formatThousands(this.damage)} Total damage</>}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_HAVOC_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.COLLECTIVE_ANGUISH_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>
@@ -51,4 +47,4 @@ class GlaiveTempest extends Analyzer {
   }
 }
 
-export default GlaiveTempest;
+export default CollectiveAnguish;

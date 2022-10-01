@@ -10,7 +10,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
  * Example Report: https://www.warcraftlogs.com/reports/QDMVJtvnBz43NZLk/#fight=2&source=1
  */
 
-class MasterOfTheGlaives extends Analyzer {
+class MasterOfTheGlaive extends Analyzer {
   slows = 0;
 
   constructor(options: Options) {
@@ -44,4 +44,4 @@ class MasterOfTheGlaives extends Analyzer {
   }
 }
 
-export default MasterOfTheGlaives;
+export default MasterOfTheGlaive;

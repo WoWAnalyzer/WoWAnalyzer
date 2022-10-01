@@ -7,6 +7,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 
 /*Purpose of this module is to track the sigil of flame debuff and see when 2 of them overlap for a damage increase.
  * This is important for damage and also squeezing extra fire damage during Fiery Brand because of the
@@ -69,7 +70,7 @@ class SigilOfFlame extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id}>
           <>
             {this.successfulStack} <small>times</small>
           </>

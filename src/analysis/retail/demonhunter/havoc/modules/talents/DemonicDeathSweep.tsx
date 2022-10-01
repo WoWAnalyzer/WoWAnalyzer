@@ -8,14 +8,15 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { DEMONIC_DURATION } from 'analysis/retail/demonhunter/shared';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/23dHWCrT18qhaJbz/#fight=1&source=16
  */
 
-const META_BUFF_DURATION_EYEBEAM = 10000;
+const META_BUFF_DURATION_EYEBEAM = DEMONIC_DURATION;
 
-class Demonic extends Analyzer {
+export default class DemonicDeathSweep extends Analyzer {
   talentsCheck =
     this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_HAVOC_TALENT.id) ||
     this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FIRST_BLOOD_HAVOC_TALENT.id);
@@ -119,5 +120,3 @@ class Demonic extends Analyzer {
     );
   }
 }
-
-export default Demonic;

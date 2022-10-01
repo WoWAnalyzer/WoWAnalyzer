@@ -51,11 +51,12 @@ class TheHunt extends Analyzer {
         tooltip={
           <>
             {formatThousands(this.damage)} Total damage
+            <br />
             {formatThousands(this.heal)} Total heal
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.THE_HUNT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
           <br />
           <ItemHealingDone amount={this.heal} />

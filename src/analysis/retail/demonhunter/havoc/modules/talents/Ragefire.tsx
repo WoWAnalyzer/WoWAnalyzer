@@ -4,44 +4,40 @@ import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
-class CollectiveAnguish extends Analyzer {
+export default class Ragefire extends Analyzer {
   damage = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.COLLECTIVE_ANGUISH_VENGEANCE_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.RAGEFIRE_HAVOC_TALENT.id);
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EYE_BEAM_DAMAGE),
-      this.onDamageEvent,
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAGEFIRE),
+      this.ragefireDamage,
     );
   }
 
-  onDamageEvent(event: DamageEvent) {
-    this.damage += event.amount + (event.absorbed || 0);
+  ragefireDamage(event: DamageEvent) {
+    this.damage += event.amount;
   }
 
   statistic() {
     return (
       <Statistic
         size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
-        tooltip={<>{formatThousands(this.damage)} Total damage</>}
+        category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={`${formatThousands(this.damage)} Total damage`}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.COLLECTIVE_ANGUISH_VENGEANCE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.RAGEFIRE_HAVOC_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>
     );
   }
 }
-
-export default CollectiveAnguish;

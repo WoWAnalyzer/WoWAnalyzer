@@ -15,9 +15,6 @@ class ChaosTheory extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(
       TALENTS_DEMON_HUNTER.CHAOS_THEORY_HAVOC_TALENT.id,
     );
-    if (!this.active) {
-      return;
-    }
   }
 
   get buffUptime() {
