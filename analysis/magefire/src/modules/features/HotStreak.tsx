@@ -65,6 +65,10 @@ class HotStreak extends Analyzer {
     //If Firestarter or Searing Touch was active, filter it out
     hotStreakRemovals = hotStreakRemovals.filter(hs => {
       const preCast = this.sharedCode.getPreCast(hs);
+      if (!preCast) {
+        // there is no pre-cast, bail
+        return true;
+      }
       const targetHealth = this.sharedCode.getTargetHealth(preCast);
       if (this.hasFirestarter) {
         return targetHealth && targetHealth < FIRESTARTER_THRESHOLD;
