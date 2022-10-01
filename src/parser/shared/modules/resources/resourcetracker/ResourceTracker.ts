@@ -127,7 +127,8 @@ class ResourceTracker extends Analyzer {
 
   /** Resource's base regeneration rate, in units per second. Leave as 0 for non-regenerating resources.
    *  For regenerating resources, override with the value appropriate to the spec/talents.
-   *  Implementer should also modify this value when non-haste things change the rate */
+   *  If this rate can change for a non-haste reason *during* the encounter,
+   *  use {@link triggerRateChange} in the implementation */
   baseRegenRate = 0;
   /** If the resource's regeneration is effected by haste. Override according to your spec */
   isRegenHasted = true;
@@ -258,6 +259,13 @@ class ResourceTracker extends Analyzer {
     if (this.baseRegenRate > 0) {
       this._resourceUpdate('fightEnd');
     }
+  }
+
+  /** Changes the base resource regeneration rate (before haste) to the given value,
+   *  in resource per second */
+  triggerRateChange(newRate: number) {
+    this.baseRegenRate = newRate;
+    this._resourceUpdate('rateChange');
   }
 
   /**
