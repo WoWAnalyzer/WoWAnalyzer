@@ -10,7 +10,7 @@ import RestoDruid from 'analysis/retail/druid/restoration';
 // import SurvivalHunter from 'analysis/retail/hunter/survival';
 // import ArcaneMage from 'analysis/retail/mage/arcane';
 // import FireMage from 'analysis/retail/mage/fire';
-// import FrostMage from 'analysis/retail/mage/frost';
+import FrostMage from 'analysis/retail/mage/frost';
 import BrewmasterMonk from 'analysis/retail/monk/brewmaster';
 // import MistweaverMonk from 'analysis/retail/monk/mistweaver';
 // import WindwalkerMonk from 'analysis/retail/monk/windwalker';
@@ -68,7 +68,7 @@ const configs: Config[] = [
   // MarksmanshipHunter,
   // SurvivalHunter,
 
-  // FrostMage,
+  FrostMage,
   // FireMage,
   // ArcaneMage,
 
