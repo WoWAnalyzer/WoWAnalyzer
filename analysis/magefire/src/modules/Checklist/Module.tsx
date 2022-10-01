@@ -12,8 +12,6 @@ import CombustionPreCastDelay from '../features/CombustionPreCastDelay';
 import CombustionSpellUsage from '../features/CombustionSpellUsage';
 import HeatingUp from '../features/HeatingUp';
 import HotStreak from '../features/HotStreak';
-import HotStreakPreCasts from '../features/HotStreakPreCasts';
-import HotStreakWastedCrits from '../features/HotStreakWastedCrits';
 import Pyroclasm from '../features/Pyroclasm';
 import ShiftingPowerUsage from '../features/ShiftingPowerUsage';
 import InfernalCascade from '../items/InfernalCascade';
@@ -33,8 +31,6 @@ class Checklist extends BaseChecklist {
     combustionPreCastDelay: CombustionPreCastDelay,
     heatingUp: HeatingUp,
     hotStreak: HotStreak,
-    hotStreakWastedCrits: HotStreakWastedCrits,
-    hotStreakPreCasts: HotStreakPreCasts,
     pyroclasm: Pyroclasm,
     searingTouch: SearingTouch,
     meteor: Meteor,
@@ -56,8 +52,6 @@ class Checklist extends BaseChecklist {
   protected combustionPreCastDelay!: CombustionPreCastDelay;
   protected heatingUp!: HeatingUp;
   protected hotStreak!: HotStreak;
-  protected hotStreakWastedCrits!: HotStreakWastedCrits;
-  protected hotStreakPreCasts!: HotStreakPreCasts;
   protected pyroclasm!: Pyroclasm;
   protected searingTouch!: SearingTouch;
   protected meteor!: Meteor;
@@ -90,8 +84,8 @@ class Checklist extends BaseChecklist {
           fireBlastHeatingUpUsage: this.heatingUp.fireBlastUtilSuggestionThresholds,
           phoenixFlamesHeatingUpUsage: this.heatingUp.phoenixFlamesUtilSuggestionThresholds,
           hotStreakUtilization: this.hotStreak.hotStreakUtilizationThresholds,
-          hotStreakWastedCrits: this.hotStreakWastedCrits.wastedCritsThresholds,
-          hotStreakPreCasts: this.hotStreakPreCasts.castBeforeHotStreakThresholds,
+          hotStreakWastedCrits: this.hotStreak.wastedCritsThresholds,
+          hotStreakPreCasts: this.hotStreak.castBeforeHotStreakThresholds,
           pyroclasmUtilization: this.pyroclasm.procUtilizationThresholds,
           searingTouchUtilization: this.searingTouch.executeSuggestionThreshold,
           meteorEfficiency: this.meteor.meteorEfficiencySuggestionThresholds,
