@@ -9,7 +9,7 @@ import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
   contributors: [xizbow],
-  expansion: Expansion.Shadowlands,
+  expansion: Expansion.Dragonflight,
   patchCompatibility: '9.2.7',
   isPartial: false,
   description: (

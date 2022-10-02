@@ -14,7 +14,7 @@ import RestoDruid from 'analysis/retail/druid/restoration';
 import BrewmasterMonk from 'analysis/retail/monk/brewmaster';
 // import MistweaverMonk from 'analysis/retail/monk/mistweaver';
 // import WindwalkerMonk from 'analysis/retail/monk/windwalker';
-// import HolyPaladin from 'analysis/retail/paladin/holy';
+import HolyPaladin from 'analysis/retail/paladin/holy';
 // import ProtectionPaladin from 'analysis/retail/paladin/protection';
 // import RetributionPaladin from 'analysis/retail/paladin/retribution';
 import DisciplinePriest from 'analysis/retail/priest/discipline';
@@ -76,7 +76,7 @@ const configs: Config[] = [
   // WindwalkerMonk,
   // MistweaverMonk,
 
-  // HolyPaladin,
+  HolyPaladin,
   // RetributionPaladin,
   // ProtectionPaladin,
 
