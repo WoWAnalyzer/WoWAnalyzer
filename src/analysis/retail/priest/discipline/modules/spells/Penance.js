@@ -47,7 +47,7 @@ class Penance extends Analyzer {
   onCast(event) {
     this._casts += 1;
     this._totalExpectedBolts += this._defaultBolts;
-    if (this.selectedCombatant.hasBuff(SPELLS.THE_PENITENT_ONE_BUFF.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.HARSH_DISCIPLINE_BUFF.id)) {
       this._totalExpectedBolts += 3;
     }
 
