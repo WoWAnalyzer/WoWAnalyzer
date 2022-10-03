@@ -326,6 +326,12 @@ const spells = spellIndexableList({
     manaCost: 1350,
   },
 
+  EXPIATION_DAMAGE: {
+    id: 390844,
+    name: 'Expiation',
+    icon: 'spell-shadow-shadowpower',
+  },
+
   // Holy Priest Spells
   GREATER_HEAL: {
     id: 2060,
