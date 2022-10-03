@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -16,7 +17,7 @@ class JudgmentOfLight extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.JUDGMENT_OF_LIGHT_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -46,7 +47,7 @@ class JudgmentOfLight extends Analyzer {
     this.wasted += JUDGEMENT_HEALS - this.counter;
     return (
       <Statistic position={STATISTIC_ORDER.CORE(10)} category={STATISTIC_CATEGORY.TALENTS}>
-        <BoringSpellValueText spellId={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.JUDGMENT_OF_LIGHT_TALENT.id}>
           {formatNumber(this.wasted)} Wasted Stacks
         </BoringSpellValueText>
       </Statistic>

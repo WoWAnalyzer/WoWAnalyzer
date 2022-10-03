@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import Spell from 'common/SPELLS/Spell';
 import SPECS from 'game/SPECS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -21,7 +22,7 @@ class HammerofWrath extends ExecuteHelper {
   static executeOutsideRangeEnablers: Spell[] = [
     SPELLS.AVENGING_WRATH,
     SPELLS.AVENGING_CRUSADER_TALENT,
-    SPELLS.CRUSADE_TALENT,
+    TALENTS.CRUSADE_RETRIBUTION_TALENT,
   ];
   static modifiesDamage: boolean = false;
 

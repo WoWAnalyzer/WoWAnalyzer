@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
@@ -15,7 +15,7 @@ class HolyAvenger extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HOLY_AVENGER_TALENT.id);
 
     if (!this.active) {
       return;
@@ -25,7 +25,7 @@ class HolyAvenger extends Analyzer {
   }
 
   getHolyPower(event: ResourceChangeEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.HOLY_AVENGER_TALENT.id)) {
+    if (!this.selectedCombatant.hasBuff(TALENTS.HOLY_AVENGER_TALENT.id)) {
       return;
     }
 
@@ -59,7 +59,7 @@ class HolyAvenger extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.HOLY_AVENGER_TALENT.id} /> Holy Avenger Holy Power
+              <SpellIcon id={TALENTS.HOLY_AVENGER_TALENT.id} /> Holy Avenger Holy Power
             </>
           }
         >
