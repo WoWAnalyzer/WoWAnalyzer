@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
 
@@ -10,8 +11,8 @@ class Buffs extends CoreAuras {
     // This data can be used by various kinds of modules to improve their results, and modules added in the future may rely on buffs that aren't used today.
     return [
       {
-        spellId: SPELLS.BESTOW_FAITH_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT),
+        spellId: TALENTS.BESTOW_FAITH_HOLY_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.BESTOW_FAITH_HOLY_TALENT),
       },
       {
         spellId: SPELLS.INFUSION_OF_LIGHT.id,
@@ -19,12 +20,12 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.RULE_OF_LAW_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT),
+        spellId: TALENTS.RULE_OF_LAW_HOLY_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.RULE_OF_LAW_HOLY_TALENT),
       },
       {
-        spellId: SPELLS.DIVINE_PURPOSE_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT),
+        spellId: TALENTS.DIVINE_PURPOSE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.DIVINE_PURPOSE_TALENT),
         timelineHighlight: true,
       },
       // Throughput cooldowns
@@ -41,8 +42,8 @@ class Buffs extends CoreAuras {
         triggeredBySpellId: SPELLS.AVENGING_WRATH.id,
       },
       {
-        spellId: SPELLS.HOLY_AVENGER_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT),
+        spellId: TALENTS.HOLY_AVENGER_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.HOLY_AVENGER_TALENT),
         timelineHighlight: true,
       },
       // Beacons
@@ -51,13 +52,13 @@ class Buffs extends CoreAuras {
         // TODO: recommendedUptime: 1.0,
       },
       {
-        spellId: SPELLS.BEACON_OF_FAITH_TALENT.id,
+        spellId: TALENTS.BEACON_OF_FAITH_HOLY_TALENT.id,
         // TODO: recommendedUptime: 1.0,
-        enabled: combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT),
+        enabled: combatant.hasTalent(TALENTS.BEACON_OF_FAITH_HOLY_TALENT),
       },
       {
-        spellId: SPELLS.BEACON_OF_VIRTUE_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT),
+        spellId: TALENTS.BEACON_OF_FAITH_HOLY_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.BEACON_OF_FAITH_HOLY_TALENT),
       },
       // Utility
       {
