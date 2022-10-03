@@ -10,7 +10,7 @@ import RestoDruid from 'analysis/retail/druid/restoration';
 // import SurvivalHunter from 'analysis/retail/hunter/survival';
 // import ArcaneMage from 'analysis/retail/mage/arcane';
 // import FireMage from 'analysis/retail/mage/fire';
-// import FrostMage from 'analysis/retail/mage/frost';
+import FrostMage from 'analysis/retail/mage/frost';
 import BrewmasterMonk from 'analysis/retail/monk/brewmaster';
 // import MistweaverMonk from 'analysis/retail/monk/mistweaver';
 // import WindwalkerMonk from 'analysis/retail/monk/windwalker';
@@ -30,7 +30,7 @@ import EnhancementShaman from 'analysis/retail/shaman/enhancement';
 // import DemonologyWarlock from 'analysis/retail/warlock/demonology';
 // import DestructionWarlock from 'analysis/retail/warlock/destruction';
 // import ArmsWarrior from 'analysis/retail/warrior/arms';
-// import FuryWarrior from 'analysis/retail/warrior/fury';
+import FuryWarrior from 'analysis/retail/warrior/fury';
 // import ProtectionWarrior from 'analysis/retail/warrior/protection';
 import ClassicDruid from 'analysis/classic/druid';
 import ClassicHunter from 'analysis/classic/hunter';
@@ -68,7 +68,7 @@ const configs: Config[] = [
   // MarksmanshipHunter,
   // SurvivalHunter,
 
-  // FrostMage,
+  FrostMage,
   // FireMage,
   // ArcaneMage,
 
@@ -98,7 +98,7 @@ const configs: Config[] = [
 
   // ProtectionWarrior,
   // ArmsWarrior,
-  // FuryWarrior,
+  FuryWarrior,
 
   ClassicMage,
   ClassicHunter,

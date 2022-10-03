@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent, EventType } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
 const BREATH_COST_PER_TICK = 160;
@@ -45,37 +45,9 @@ class RunicPowerTracker extends ResourceTracker {
       return;
     }
 
-    // need to make a fake cast to satisfy TypeScript expecting a cast event in triggerSpendEvent
-    const fakeCast: CastEvent = {
-      type: EventType.Cast,
-      timestamp: event.timestamp,
-      sourceID: event.sourceID!,
-      targetID: event.targetID,
-      ability: event.ability,
-      sourceIsFriendly: event.sourceIsFriendly,
-      targetIsFriendly: event.targetIsFriendly,
-    };
-
     let cost = this.getHypothermicPresenceReduction(BREATH_COST_PER_TICK, event.timestamp);
-
     cost = cost / 10;
-
-    this.spendersObj[SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id].spentByCast.push(cost);
-    if (cost > 0) {
-      this.spendersObj[SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id].spent += cost;
-    }
-
-    this.current -= cost;
-
-    this.resourceUpdates.push({
-      timestamp: event.timestamp,
-      current: this.current,
-      waste: 0,
-      generated: 0,
-      used: cost,
-    });
-
-    this.triggerSpendEvent(cost, fakeCast);
+    this._applySpender(event, cost, this.getResource(event));
 
     this.mostRecentTickTime = event.timestamp;
   }

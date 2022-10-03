@@ -61,11 +61,8 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
         {combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_VENGEANCE_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.ELYSIAN_DECREE.id} />
         )}
-        {/*{combatant.hasTalent(TALENTS_DEMON_HUNTER.FODDER_TO_THE_FLAME_VENGEANCE_TALENT.id) && (*/}
-        {/*  <AbilityRequirement spell={SPELLS.FODDER_TO_THE_FLAME.id} />*/}
-        {/*)}*/}
         {combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.THE_HUNT.id} />
+          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS_DEMON_HUNTER.RETALIATION_VENGEANCE_TALENT.id) && (
           <Requirement
@@ -104,16 +101,6 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
           }
           thresholds={thresholds.demonSpikes}
         />
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.BLUR_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={TALENTS_DEMON_HUNTER.BLUR_TALENT.id} />
-              </>
-            }
-            thresholds={thresholds.blur}
-          />
-        )}
         {combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id) &&
           !combatant.hasTalent(TALENTS_DEMON_HUNTER.FEED_THE_DEMON_VENGEANCE_TALENT.id) && (
             <Requirement
@@ -188,17 +175,6 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
               </>
             }
             thresholds={thresholds.frailtyDebuff}
-          />
-        )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.VOID_REAVER_VENGEANCE_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={TALENTS_DEMON_HUNTER.VOID_REAVER_VENGEANCE_TALENT.id} /> debuff
-                uptime
-              </>
-            }
-            thresholds={thresholds.voidReaverDebuff}
           />
         )}
         {combatant.hasTalent(TALENTS_DEMON_HUNTER.PAINBRINGER_VENGEANCE_TALENT.id) && (

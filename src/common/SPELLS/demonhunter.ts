@@ -45,6 +45,11 @@ const spells = spellIndexableList({
     name: 'Sigil of Silence',
     icon: 'ability_demonhunter_sigilofsilence',
   },
+  SIGIL_OF_CHAINS_CONCENTRATED: {
+    id: 207665,
+    name: 'Sigil of Chains',
+    icon: 'ability_demonhunter_sigilofchains',
+  },
   SIGIL_OF_FLAME_PRECISE: {
     id: 389810,
     name: 'Sigil of Flame',
@@ -60,6 +65,11 @@ const spells = spellIndexableList({
     name: 'Sigil of Silence',
     icon: 'ability_demonhunter_sigilofsilence',
   },
+  SIGIL_OF_CHAINS_PRECISE: {
+    id: 389807,
+    name: 'Sigil of Chains',
+    icon: 'ability_demonhunter_sigilofchains',
+  },
   SIGIL_OF_FLAME_DEBUFF: {
     id: 204598,
     name: 'Sigil of Flame',
@@ -70,10 +80,15 @@ const spells = spellIndexableList({
     name: 'Charred Warblades',
     icon: 'ability_demonhunter_fierybrand',
   },
-  BLUR_BUFF: {
-    id: 212800,
-    name: 'Blur',
-    icon: 'ability_demonhunter_blur',
+  RAGEFIRE: {
+    id: 390197,
+    name: 'Ragefire',
+    icon: 'spell_fire_fireballgreen',
+  },
+  INNER_DEMON: {
+    id: 390137,
+    name: 'Inner Demon',
+    icon: 'spell_deathknight_plaguestrike',
   },
   //endregion
 
@@ -317,11 +332,6 @@ const spells = spellIndexableList({
     name: 'Throw Glaive',
     icon: 'ability_demonhunter_throwglaive',
   },
-  EYE_BEAM_DAMAGE: {
-    id: 198030,
-    name: 'Eye Beam',
-    icon: 'ability_demonhunter_eyebeam',
-  },
   FURIOUS_GAZE: {
     id: 343312,
     name: 'Furious Gaze',
@@ -425,23 +435,18 @@ const spells = spellIndexableList({
     name: 'Fodder to the Flame',
     icon: 'ability_maldraxxus_demonhunter',
   },
-  THE_HUNT: {
-    id: 323639,
-    name: 'The Hunt',
-    icon: 'ability_ardenweald_demonhunter',
-  },
   THE_HUNT_CHARGE: {
-    id: 323802,
+    id: 370966,
     name: 'The Hunt',
     icon: 'ability_ardenweald_demonhunter',
   },
   THE_HUNT_DOT: {
-    id: 345335,
+    id: 370969,
     name: 'The Hunt',
     icon: 'ability_ardenweald_demonhunter',
   },
   THE_HUNT_HEAL: {
-    id: 345423,
+    id: 370971,
     name: 'The Hunt',
     icon: 'ability_ardenweald_demonhunter',
   },
@@ -474,6 +479,21 @@ const spells = spellIndexableList({
     id: 391215,
     name: 'Initiative',
     icon: 'ability_rogue_surpriseattack',
+  },
+  SOULREND: {
+    id: 390181,
+    name: 'Soulrend',
+    icon: 'ability_demonhunter_bloodlet',
+  },
+  BLUR: {
+    id: 198589,
+    name: 'Blur',
+    icon: 'ability_demonhunter_blur',
+  },
+  BLUR_BUFF: {
+    id: 212800,
+    name: 'Blur',
+    icon: 'ability_demonhunter_blur',
   },
   //endregion
 });

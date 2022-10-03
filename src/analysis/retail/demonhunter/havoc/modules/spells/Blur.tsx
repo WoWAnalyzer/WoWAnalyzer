@@ -1,5 +1,4 @@
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
+import Analyzer from 'parser/core/Analyzer';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import { SpellLink } from 'interface';
 import { t } from '@lingui/macro';
@@ -12,17 +11,6 @@ import UptimeIcon from 'interface/icons/Uptime';
 import SPELLS from 'common/SPELLS/demonhunter';
 
 export default class Blur extends Analyzer {
-  static dependencies = {};
-
-  constructor(options: Options) {
-    super(options);
-
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.BLUR_TALENT.id);
-    if (!this.active) {
-      return;
-    }
-  }
-
   get uptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.BLUR_BUFF.id) / this.owner.fightDuration;
   }
@@ -43,11 +31,11 @@ export default class Blur extends Analyzer {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={TALENTS_DEMON_HUNTER.BLUR_TALENT.id} /> uptime can be improved. This
-          is easy to maintain and an important source of damage reduction.
+          Your <SpellLink id={SPELLS.BLUR.id} /> uptime can be improved. This is easy to maintain
+          and an important source of damage reduction.
         </>,
       )
-        .icon(TALENTS_DEMON_HUNTER.BLUR_TALENT.icon)
+        .icon(SPELLS.BLUR.icon)
         .actual(
           t({
             id: 'demonhunter.shared.suggestions.blur.uptime',
@@ -62,11 +50,11 @@ export default class Blur extends Analyzer {
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(5)}
-        category={STATISTIC_CATEGORY.TALENTS}
+        category={STATISTIC_CATEGORY.GENERAL}
         size="flexible"
         tooltip={<>Total uptime was {formatDuration(this.uptime)}.</>}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.BLUR_TALENT.id}>
+        <BoringSpellValueText spellId={SPELLS.BLUR.id}>
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
         </BoringSpellValueText>
       </Statistic>

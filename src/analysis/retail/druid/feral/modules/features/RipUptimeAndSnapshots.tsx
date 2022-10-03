@@ -18,13 +18,14 @@ import {
   getHardcast,
   getPrimalWrath,
 } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
-import getComboPointsFromEvent from 'analysis/retail/druid/feral/modules/core/getComboPointsFromEvent';
 import Snapshots, {
   BLOODTALONS_SPEC,
   SnapshotSpec,
   TIGERS_FURY_SPEC,
 } from 'analysis/retail/druid/feral/modules/core/Snapshots';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import getResourceSpent from 'parser/core/getResourceSpent';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 class RipUptimeAndSnapshots extends Snapshots {
   static dependencies = {
@@ -43,13 +44,17 @@ class RipUptimeAndSnapshots extends Snapshots {
   getDotExpectedDuration(event: ApplyDebuffEvent | RefreshDebuffEvent): number {
     const fromHardcast = getHardcast(event);
     if (fromHardcast) {
-      return RIP_DURATION_BASE + RIP_DURATION_PER_CP * getComboPointsFromEvent(fromHardcast);
+      return (
+        RIP_DURATION_BASE +
+        RIP_DURATION_PER_CP * getResourceSpent(fromHardcast, RESOURCE_TYPES.COMBO_POINTS)
+      );
     }
     const fromPrimalWrath = getPrimalWrath(event);
     if (fromPrimalWrath) {
       return (
         PRIMAL_WRATH_RIP_DURATION_BASE +
-        PRIMAL_WRATH_RIP_DURATION_PER_CP * getComboPointsFromEvent(fromPrimalWrath)
+        PRIMAL_WRATH_RIP_DURATION_PER_CP *
+          getResourceSpent(fromPrimalWrath, RESOURCE_TYPES.COMBO_POINTS)
       );
     }
 

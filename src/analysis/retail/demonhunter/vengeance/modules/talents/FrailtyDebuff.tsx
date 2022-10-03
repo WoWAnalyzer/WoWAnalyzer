@@ -24,7 +24,8 @@ class FrailtyDebuff extends Analyzer {
     this.active =
       this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id) ||
       this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FRAILTY_VENGEANCE_TALENT.id) ||
-      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.VOID_REAVER_VENGEANCE_TALENT.id);
+      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.VOID_REAVER_VENGEANCE_TALENT.id) ||
+      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.THE_WEAK_WILLED_VENGEANCE_TALENT.id);
   }
 
   get uptime() {
@@ -68,7 +69,9 @@ class FrailtyDebuff extends Analyzer {
         position={STATISTIC_ORDER.CORE(5)}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={<>Total uptime was {formatDuration(this.uptime)}.</>}
+        tooltip={
+          <>Total uptime was {formatDuration(this.enemies.getBuffUptime(SPELLS.FRAILTY.id))}.</>
+        }
       >
         <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.FRAILTY_VENGEANCE_TALENT.id}>
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>

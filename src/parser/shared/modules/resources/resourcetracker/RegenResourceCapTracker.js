@@ -50,6 +50,7 @@ const REFUND_SPENDER_WINDOW = 500;
 const HIT_TYPES_THAT_REFUND = [HIT_TYPES.MISS, HIT_TYPES.DODGE, HIT_TYPES.PARRY];
 
 /**
+ * @deprecated see {@link ResourceTracker}
  * @property {EventEmitter} eventEmitter
  * @property {Haste} haste
  * @property {SpellResourceCost} spellResourceCost

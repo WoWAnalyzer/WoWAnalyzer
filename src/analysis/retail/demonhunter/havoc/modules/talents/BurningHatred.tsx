@@ -1,25 +1,20 @@
-import { t } from '@lingui/macro';
-import { formatPercentage, formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS/demonhunter';
-import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import DH_SPELLS from 'common/SPELLS/demonhunter';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import SpellLink from 'interface/SpellLink';
+import { formatPercentage, formatThousands } from 'common/format';
+import { t } from '@lingui/macro';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-
-/**
- * Example Report: https://www.warcraftlogs.com/reports/KGJgZPxanBX82LzV/#fight=4&source=20
- */
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 const IMMOLATION_AURA = [
-  SPELLS.IMMOLATION_AURA_INITIAL_HIT_DAMAGE,
-  SPELLS.IMMOLATION_AURA_BUFF_DAMAGE,
+  DH_SPELLS.IMMOLATION_AURA_INITIAL_HIT_DAMAGE,
+  DH_SPELLS.IMMOLATION_AURA_BUFF_DAMAGE,
 ];
-
-class ImmolationAura extends Analyzer {
+export default class BurningHatred extends Analyzer {
   furyGain = 0;
   furyWaste = 0;
   damage = 0;
@@ -34,7 +29,7 @@ class ImmolationAura extends Analyzer {
     }
     this.addEventListener(
       Events.resourcechange.by(SELECTED_PLAYER).spell(IMMOLATION_AURA),
-      this.onResourceChangeEvent,
+      this.onEnergizeEvent,
     );
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(IMMOLATION_AURA),
@@ -58,7 +53,7 @@ class ImmolationAura extends Analyzer {
     };
   }
 
-  onResourceChangeEvent(event: ResourceChangeEvent) {
+  onEnergizeEvent(event: ResourceChangeEvent) {
     this.furyGain += event.resourceChange;
     this.furyWaste += event.waste;
   }
@@ -72,10 +67,10 @@ class ImmolationAura extends Analyzer {
       suggest(
         <>
           {' '}
-          Avoid casting <SpellLink id={SPELLS.IMMOLATION_AURA.id} /> when close to max Fury.
+          Avoid casting <SpellLink id={DH_SPELLS.IMMOLATION_AURA.id} /> when close to max Fury.
         </>,
       )
-        .icon(SPELLS.IMMOLATION_AURA.icon)
+        .icon(DH_SPELLS.IMMOLATION_AURA.icon)
         .actual(
           t({
             id: 'demonhunter.havoc.suggestions.immolationAura.furyWasted',
@@ -104,16 +99,12 @@ class ImmolationAura extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.IMMOLATION_AURA.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.BURNING_HATRED_HAVOC_TALENT.id}>
           <>
-            {this.furyPerMin} <small>Fury per min </small>
-            <br />
-            {this.owner.formatItemDamageDone(this.damage)}
+            {this.furyPerMin} <small>Fury per min</small>
           </>
         </BoringSpellValueText>
       </Statistic>
     );
   }
 }
-
-export default ImmolationAura;

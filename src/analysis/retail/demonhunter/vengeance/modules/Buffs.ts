@@ -93,11 +93,6 @@ class Buffs extends CoreAuras {
         enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT.id),
       },
       {
-        spellId: TALENTS_DEMON_HUNTER.BLUR_TALENT.id,
-        triggeredBySpellId: TALENTS_DEMON_HUNTER.BLUR_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.BLUR_TALENT.id),
-      },
-      {
         spellId: TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id,
         triggeredBySpellId: TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id),

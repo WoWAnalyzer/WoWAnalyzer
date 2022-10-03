@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/warrior';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -26,7 +27,7 @@ class MeatCleaver extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.MEAT_CLEAVER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.MEAT_CLEAVER_FURY_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -50,7 +51,7 @@ class MeatCleaver extends Analyzer {
 
   get rageGainedByMeatCleaver() {
     return this.whirlwindEvents.reduce((total: number, event) => {
-      const rageGained = event.resourceChange;
+      const rageGained: number = event.resourceChange;
       // WW generates 3 rage on cast (6 during recklessness). Subtract this to get rage gained from hitting targets
       const rageFromHit =
         rageGained - (event.hasRecklessness ? RAGE_GAIN_WW_ON_USE * 2 : RAGE_GAIN_WW_ON_USE);
@@ -105,7 +106,7 @@ class MeatCleaver extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.MEAT_CLEAVER_TALENT.id}>
+        <BoringSpellValueText spellId={talents.MEAT_CLEAVER_FURY_TALENT.id}>
           <>{this.rageGainedByMeatCleaver} rage gained</>
         </BoringSpellValueText>
       </Statistic>

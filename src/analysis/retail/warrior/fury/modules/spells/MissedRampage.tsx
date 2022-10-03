@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/warrior';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -15,9 +16,6 @@ const RAGE_GENERATORS = [
   SPELLS.BLOODTHIRST,
   SPELLS.EXECUTE_FURY,
   SPELLS.WHIRLWIND_FURY_CAST,
-  SPELLS.SIEGEBREAKER_TALENT,
-  SPELLS.DRAGON_ROAR_TALENT,
-  SPELLS.BLADESTORM_TALENT,
 ];
 
 // This whole module is kind of messed up on the theorycrafting level. As of 8.3 there are a lot of times that Rampage isn't the top priority if you have to keep Bloodthirst up for gushing wounds or cast whirlwind before rampage to cleave. TBD in shadowlands
@@ -27,6 +25,7 @@ class MissedRampage extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(talents.RAMPAGE_FURY_TALENT);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([...RAGE_GENERATORS]), this.onCast);
   }
 

@@ -1,6 +1,14 @@
-import { TheHunt } from 'analysis/retail/demonhunter/shared';
-import Felblade from 'analysis/retail/demonhunter/shared/modules/talents/Felblade';
-import ShatteredRestoration from 'analysis/retail/demonhunter/shared/modules/talents/ShatteredRestoration';
+import {
+  CharredWarblades,
+  CollectiveAnguish,
+  Demonic,
+  Felblade,
+  ImmolationAura,
+  MasterOfTheGlaive,
+  ShatteredRestoration,
+  SigilOfFlame,
+  TheHunt,
+} from 'analysis/retail/demonhunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
@@ -15,27 +23,32 @@ import FuryDetails from './modules/resourcetracker/FuryDetails';
 import FuryTracker from './modules/resourcetracker/FuryTracker';
 import BladeDance from './modules/spells/BladeDance';
 import DemonBite from './modules/spells/DemonBite';
-import FuriousGazeBuffUptime from './modules/spells/FuriousGazeBuffUptime';
+import Blur from './modules/spells/Blur';
 import MetaBuffUptime from './modules/spells/MetaBuffUptime';
 import BlindFury from './modules/talents/BlindFury';
+import FuriousGaze from './modules/talents/FuriousGaze';
 import ChaosTheory from './modules/talents/ChaosTheory';
 import CycleOfHatred from './modules/talents/CycleOfHatred';
 import DemonBlades from './modules/talents/DemonBlades';
-import Demonic from './modules/talents/Demonic';
+import DemonicDeathSweep from './modules/talents/DemonicDeathSweep';
 import DemonicAppetite from './modules/talents/DemonicAppetite';
 import ElysianDecree from './modules/talents/ElysianDecree';
 import EssenceBreak from './modules/talents/EssenceBreak';
 import FelBarrage from './modules/talents/FelBarrage';
 import FelEruption from './modules/talents/FelEruption';
 import GlaiveTempest from './modules/talents/GlaiveTempest';
-import ImmolationAura from './modules/talents/ImmolationAura';
-import MasterOfTheGlaives from './modules/talents/MasterOfTheGlaives';
 import Momentum from './modules/talents/Momentum';
 import Netherwalk from './modules/talents/Netherwalk';
 import TrailofRuin from './modules/talents/TrailofRuin';
 import TacticalRetreat from './modules/talents/TacticalRetreat';
 import Initiative from './modules/talents/Initiative';
 import EyeBeam from './normalizers/EyeBeam';
+import Ragefire from './modules/talents/Ragefire';
+import InnerDemon from './modules/talents/InnerDemon';
+import AnyMeansNecessary from './modules/talents/AnyMeansNecessary';
+import Soulrend from './modules/talents/Soulrend';
+import GrowingInferno from './modules/talents/GrowingInferno';
+import BurningHatred from './modules/talents/BurningHatred';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -58,23 +71,24 @@ class CombatLogParser extends CoreCombatLogParser {
     demonBite: DemonBite,
     metaBuffUptime: MetaBuffUptime,
     bladeDance: BladeDance,
-    furiousGazeBuffUptime: FuriousGazeBuffUptime,
+    blur: Blur,
+    immolationAura: ImmolationAura,
 
     //Talents
+    sigilOfFlame: SigilOfFlame,
     felblade: Felblade,
     demonicAppetite: DemonicAppetite,
     blindFury: BlindFury,
     demonBlades: DemonBlades,
-    immolationAura: ImmolationAura,
     trailofRuin: TrailofRuin,
     felBarrage: FelBarrage,
     momentum: Momentum,
     netherwalk: Netherwalk,
     felEruption: FelEruption,
-    masterOfTheGlaives: MasterOfTheGlaives,
+    masterOfTheGlaive: MasterOfTheGlaive,
     essenceBreak: EssenceBreak,
     cycleOfHatred: CycleOfHatred,
-    demonic: Demonic,
+    demonicDeathSweep: DemonicDeathSweep,
     glaiveTempest: GlaiveTempest,
     theHunt: TheHunt,
     chaosTheory: ChaosTheory,
@@ -82,6 +96,16 @@ class CombatLogParser extends CoreCombatLogParser {
     elysianDecree: ElysianDecree,
     tacticalRetreat: TacticalRetreat,
     initiative: Initiative,
+    ragefire: Ragefire,
+    innerDemon: InnerDemon,
+    anyMeansNecessary: AnyMeansNecessary,
+    soulrend: Soulrend,
+    furiousGaze: FuriousGaze,
+    charredWarblades: CharredWarblades,
+    collectiveAnguish: CollectiveAnguish,
+    growingInferno: GrowingInferno,
+    burningHatred: BurningHatred,
+    demonic: Demonic,
 
     // Resources
     furyTracker: FuryTracker,

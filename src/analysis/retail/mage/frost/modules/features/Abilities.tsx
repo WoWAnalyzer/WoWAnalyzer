@@ -3,6 +3,7 @@ import {
   FLOW_OF_TIME_REDUCTION_SEC,
 } from 'analysis/retail/mage/shared';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -53,9 +54,9 @@ class Abilities extends CoreAbilities {
         damageSpellIds: [SPELLS.FLURRY_DAMAGE.id],
       },
       {
-        spell: SPELLS.GLACIAL_SPIKE_TALENT.id,
+        spell: TALENTS.GLACIAL_SPIKE_FROST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.GLACIAL_SPIKE_FROST_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -63,13 +64,13 @@ class Abilities extends CoreAbilities {
         damageSpellIds: [SPELLS.GLACIAL_SPIKE_DAMAGE.id],
       },
       {
-        spell: SPELLS.RAY_OF_FROST_TALENT.id,
+        spell: TALENTS.RAY_OF_FROST_FROST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
         cooldown: 80,
-        enabled: combatant.hasTalent(SPELLS.RAY_OF_FROST_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.RAY_OF_FROST_FROST_TALENT.id),
         castEfficiency: {
           suggestion: true,
         },
@@ -77,13 +78,13 @@ class Abilities extends CoreAbilities {
         //damageSpellIds: [SPELLS.RAY_OF_FROST.id], // needs verification
       },
       {
-        spell: SPELLS.COMET_STORM_TALENT.id,
+        spell: TALENTS.COMET_STORM_FROST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
         cooldown: 30,
-        enabled: combatant.hasTalent(SPELLS.COMET_STORM_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.COMET_STORM_FROST_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -92,13 +93,13 @@ class Abilities extends CoreAbilities {
         damageSpellIds: [SPELLS.COMET_STORM_DAMAGE.id],
       },
       {
-        spell: SPELLS.EBONBOLT_TALENT.id,
+        spell: TALENTS.EBONBOLT_FROST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 45,
-        enabled: combatant.hasTalent(SPELLS.EBONBOLT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.EBONBOLT_FROST_TALENT.id),
         castEfficiency: {
           //If using Glacial Spike, it is recommended to hold Ebonbolt as an emergency proc if GS is available and you dont have a Brain Freeze Proc. Therefore, with good luck, it is possible to go the entire fight without casting Ebonbolt.
-          suggestion: !combatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id),
+          suggestion: !combatant.hasTalent(TALENTS.GLACIAL_SPIKE_FROST_TALENT.id),
           recommendedEfficiency: 0.9,
         },
         timelineSortIndex: 6,
@@ -125,13 +126,13 @@ class Abilities extends CoreAbilities {
         //damageSpellIds: [SPELLS.CONE_OF_COLD.id], // needs verification
       },
       {
-        spell: SPELLS.ICE_NOVA_TALENT.id,
+        spell: TALENTS.ICE_NOVA_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
         cooldown: 25,
-        enabled: combatant.hasTalent(SPELLS.ICE_NOVA_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.ICE_NOVA_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -156,14 +157,14 @@ class Abilities extends CoreAbilities {
         damageSpellIds: [SPELLS.FROZEN_ORB_DAMAGE.id],
       },
       {
-        spell: SPELLS.RUNE_OF_POWER_TALENT.id,
+        spell: TALENTS.RUNE_OF_POWER_TALENT.id,
         buffSpellId: SPELLS.RUNE_OF_POWER_BUFF.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
         },
         cooldown: 45,
-        enabled: combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -284,7 +285,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FROST_NOVA.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
-        charges: combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id) ? 2 : 1,
+        charges: combatant.hasTalent(TALENTS.ICE_WARD_TALENT.id) ? 2 : 1,
       },
       {
         spell: SPELLS.BLINK.id,
@@ -292,20 +293,20 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS.SHIMMER_TALENT.id),
         cooldown: combatant.hasConduitBySpellID(SPELLS.FLOW_OF_TIME.id)
           ? 15 - FLOW_OF_TIME_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FLOW_OF_TIME.id)]
           : 15,
       },
       {
-        spell: SPELLS.SHIMMER_TALENT.id,
+        spell: TALENTS.SHIMMER_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
         cooldown: combatant.hasConduitBySpellID(SPELLS.FLOW_OF_TIME.id)
           ? 25 - FLOW_OF_TIME_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FLOW_OF_TIME.id)]
           : 25,
         charges: 2,
-        enabled: combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SHIMMER_TALENT.id),
       },
       {
         spell: SPELLS.COUNTERSPELL.id,
@@ -331,13 +332,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SPELLSTEAL.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.FOCUS_MAGIC_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
@@ -372,7 +366,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasTalent(SPELLS.LONELY_WINTER_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS.LONELY_WINTER_FROST_TALENT.id),
         cooldown: 30,
       },
       {

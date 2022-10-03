@@ -4,7 +4,12 @@ import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import { PITCH_BLACK_SCALING } from 'analysis/retail/demonhunter/shared';
+import {
+  MASTER_OF_THE_GLAIVE_SCALING,
+  PITCH_BLACK_SCALING,
+} from 'analysis/retail/demonhunter/shared';
+import { getMetamorphosisCooldown } from 'analysis/retail/demonhunter/shared/modules/talents/MetamorphosisCooldown';
+import { getFelRushCooldown } from 'analysis/retail/demonhunter/havoc/modules/spells/FelRush';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -120,8 +125,17 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.THROW_GLAIVE_HAVOC.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 9 / (1 + haste),
+        charges:
+          1 +
+          MASTER_OF_THE_GLAIVE_SCALING[
+            combatant.getTalentRank(TALENTS_DEMON_HUNTER.MASTER_OF_THE_GLAIVE_TALENT)
+          ],
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.SOULREND_HAVOC_TALENT),
+          recommendedEfficiency: 0.95,
         },
       },
 
@@ -132,7 +146,7 @@ class Abilities extends CoreAbilities {
           ? SPELL_CATEGORY.ROTATIONAL
           : SPELL_CATEGORY.UTILITY,
         charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.HOT_FEET_TALENT.id) ? 1 : 0),
-        cooldown: 10,
+        cooldown: getFelRushCooldown(combatant),
         gcd: {
           static: 250,
         },
@@ -288,7 +302,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 30,
+        cooldown: 40,
         gcd: {
           base: 1500,
         },
@@ -360,7 +374,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.THE_HUNT.id,
+        spell: TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
@@ -372,8 +386,9 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.8,
           extraSuggestion: (
             <>
-              The only time you should delay casting <SpellLink id={SPELLS.THE_HUNT.id} /> is when
-              you're expecting adds to spawn soon or for an upcoming haste buff.
+              The only time you should delay casting{' '}
+              <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id} /> is when you're expecting
+              adds to spawn soon.
             </>
           ),
         },
@@ -382,7 +397,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.METAMORPHOSIS_HAVOC.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 300,
+        cooldown: getMetamorphosisCooldown(combatant),
         gcd: null, // Logs track the "landing" spell which is not on GCD
         castEfficiency: {
           suggestion: true,
@@ -392,14 +407,13 @@ class Abilities extends CoreAbilities {
 
       // Defensives
       {
-        spell: TALENTS_DEMON_HUNTER.BLUR_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.BLUR_TALENT.id),
+        spell: SPELLS.BLUR.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 60,
       },
       {
         spell: TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.BLUR_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id),
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown:
           300 -
