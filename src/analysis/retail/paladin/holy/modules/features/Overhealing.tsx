@@ -89,11 +89,11 @@ class Overhealing extends Analyzer {
     when(this.lightOfDawnSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="paladin.holy.modules.overhealing.lightOfDawnSuggestion">
-          Try to avoid overhealing with <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />. Save it for
-          when people are missing health.
+          Try to avoid overhealing with <SpellLink id={TALENTS.LIGHT_OF_DAWN_HOLY_TALENT.id} />.
+          Save it for when people are missing health.
         </Trans>,
       )
-        .icon(SPELLS.LIGHT_OF_DAWN_CAST.icon)
+        .icon(TALENTS.LIGHT_OF_DAWN_HOLY_TALENT.icon)
         .actual(
           t({
             id: 'paladin.holy.modules.overhealing.lightOfDawnSuggestion.actual',
@@ -111,8 +111,8 @@ class Overhealing extends Analyzer {
     when(this.holyShockSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="paladin.holy.modules.overhealing.holyShockSuggestion">
-          Try to avoid overhealing with <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />. Save it for
-          when people are missing health.
+          Try to avoid overhealing with <SpellLink id={TALENTS.HOLY_SHOCK_HOLY_TALENT.id} />. Save
+          it for when people are missing health.
         </Trans>,
       )
         .icon(SPELLS.HOLY_SHOCK_HEAL.icon)
@@ -135,7 +135,7 @@ class Overhealing extends Analyzer {
         <Trans id="paladin.holy.modules.overhealing.flashOfLightSuggestion">
           Try to avoid overhealing with <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />. If Flash of
           Light would overheal it is generally advisable to cast a{' '}
-          <SpellLink id={SPELLS.HOLY_LIGHT.id} /> instead.
+          <SpellLink id={TALENTS.HOLY_LIGHT_HOLY_TALENT.id} /> instead.
         </Trans>,
       )
         .icon(SPELLS.FLASH_OF_LIGHT.icon)

@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import PAL_TALENTS from 'common/TALENTS/paladin';
 
 //saving it as spell-prop as this might be a good place to add further information about the externals (for issue #1083)
 
@@ -10,10 +11,10 @@ const DEFENSIVE_BUFFS = [
     spell: SPELLS.LIFE_COCOON.id,
   },
   {
-    spell: SPELLS.BLESSING_OF_PROTECTION.id,
+    spell: PAL_TALENTS.BLESSING_OF_PROTECTION_TALENT.id,
   },
   {
-    spell: SPELLS.BLESSING_OF_SACRIFICE.id,
+    spell: PAL_TALENTS.BLESSING_OF_SACRIFICE_TALENT.id,
   },
   {
     spell: SPELLS.GUARDIAN_SPIRIT.id,

@@ -15,17 +15,17 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     super(options);
 
     this.HEALING_ABILITIES_ON_GCD.push(SPELLS.FLASH_OF_LIGHT.id);
-    this.HEALING_ABILITIES_ON_GCD.push(SPELLS.HOLY_LIGHT.id);
-    this.HEALING_ABILITIES_ON_GCD.push(SPELLS.HOLY_SHOCK_CAST.id);
-    this.HEALING_ABILITIES_ON_GCD.push(SPELLS.LIGHT_OF_DAWN_CAST.id);
     this.HEALING_ABILITIES_ON_GCD.push(SPELLS.LIGHT_OF_THE_MARTYR.id);
     this.HEALING_ABILITIES_ON_GCD.push(SPELLS.WORD_OF_GLORY.id);
-    this.HEALING_ABILITIES_ON_GCD.push(SPELLS.HAMMER_OF_WRATH.id);
+    this.HEALING_ABILITIES_ON_GCD.push(TALENTS.HOLY_LIGHT_HOLY_TALENT.id);
+    this.HEALING_ABILITIES_ON_GCD.push(TALENTS.HOLY_SHOCK_HOLY_TALENT.id);
+    this.HEALING_ABILITIES_ON_GCD.push(TALENTS.LIGHT_OF_DAWN_HOLY_TALENT.id);
+    this.HEALING_ABILITIES_ON_GCD.push(TALENTS.HAMMER_OF_WRATH_TALENT.id);
     this.HEALING_ABILITIES_ON_GCD.push(TALENTS.BESTOW_FAITH_HOLY_TALENT.id);
     this.HEALING_ABILITIES_ON_GCD.push(TALENTS.HOLY_PRISM_HOLY_TALENT.id);
     this.HEALING_ABILITIES_ON_GCD.push(TALENTS.LIGHTS_HAMMER_HOLY_TALENT.id);
 
-    this.hasAC = this.selectedCombatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id);
+    this.hasAC = this.selectedCombatant.hasTalent(TALENTS.AVENGING_CRUSADER_HOLY_TALENT.id);
 
     if (this.selectedCombatant.hasTalent(TALENTS.CRUSADERS_MIGHT_HOLY_TALENT.id)) {
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.CRUSADER_STRIKE.id);
@@ -40,7 +40,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     const spellId = event.ability.guid;
 
     if (event.type === EventType.GlobalCooldown) {
-      if (spellId === SPELLS.HOLY_SHOCK_CAST.id && !event.trigger?.targetIsFriendly) {
+      if (spellId === TALENTS.HOLY_SHOCK_HOLY_TALENT.id && !event.trigger?.targetIsFriendly) {
         debug &&
           console.log(
             `%cABC: ${event.ability.name} (${spellId}) skipped for healing time; target is not friendly`,
@@ -52,7 +52,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
 
     if (
       this.hasAC &&
-      this.selectedCombatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id, event.timestamp) &&
+      this.selectedCombatant.hasBuff(TALENTS.AVENGING_CRUSADER_HOLY_TALENT.id, event.timestamp) &&
       AVENGING_CRUSADER_SPELLS.includes(spellId)
     ) {
       return true;

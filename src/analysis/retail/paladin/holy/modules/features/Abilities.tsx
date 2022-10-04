@@ -21,7 +21,7 @@ class Abilities extends CoreAbilities {
     const hasSanctifiedWrath = combatant.hasTalent(TALENTS.SANCTIFIED_WRATH_TALENT.id);
     return [
       {
-        spell: [SPELLS.HOLY_SHOCK_CAST.id, SPELLS.HOLY_SHOCK_HEAL.id],
+        spell: TALENTS.HOLY_SHOCK_HOLY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => {
           const swCdr = hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.5 : 0;
@@ -40,21 +40,23 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.8,
         },
         timelineSortIndex: 0,
+        enabled: combatant.hasTalent(TALENTS.HOLY_SHOCK_HOLY_TALENT.id),
         isDefensive: true,
       },
       {
-        spell: SPELLS.LIGHT_OF_DAWN_CAST.id,
+        spell: TALENTS.LIGHT_OF_DAWN_HOLY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
         timelineSortIndex: 1,
+        enabled: combatant.hasTalent(TALENTS.LIGHT_OF_DAWN_HOLY_TALENT.id),
       },
       {
         spell: [SPELLS.JUDGMENT_CAST_HOLY.id, SPELLS.JUDGMENT_CAST.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => {
-          const cdr = combatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id) ? 0.3 : 0;
+          const cdr = combatant.hasBuff(TALENTS.AVENGING_CRUSADER_HOLY_TALENT.id) ? 0.3 : 0;
           return (12 / (1 + haste)) * (1 - cdr);
         },
         gcd: {
@@ -112,7 +114,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CRUSADER_STRIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => {
-          const cdr = combatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id) ? 0.3 : 0;
+          const cdr = combatant.hasBuff(TALENTS.AVENGING_CRUSADER_HOLY_TALENT.id) ? 0.3 : 0;
           return (6 / (1 + haste)) * (1 - cdr);
         },
         charges: 2,
@@ -154,7 +156,10 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.RULE_OF_LAW_HOLY_TALENT.id),
       },
       {
-        spell: SPELLS.DIVINE_PROTECTION.id,
+        spell: [
+          TALENTS.DIVINE_PROTECTION_HOLY_TALENT.id,
+          TALENTS.DIVINE_PROTECTION_RETRIBUTION_TALENT.id,
+        ],
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60 * (1 - (combatant.hasTalent(TALENTS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.3 : 0)),
         gcd: undefined,
@@ -165,6 +170,9 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 45,
         isDefensive: true,
+        enabled:
+          combatant.hasTalent(TALENTS.DIVINE_PROTECTION_HOLY_TALENT.id) ||
+          combatant.hasTalent(TALENTS.DIVINE_PROTECTION_RETRIBUTION_TALENT.id),
       },
       {
         spell: SPELLS.DIVINE_SHIELD.id,
@@ -195,17 +203,17 @@ class Abilities extends CoreAbilities {
           suggestion: true,
         },
         timelineSortIndex: 32,
-        enabled: !combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS.AVENGING_CRUSADER_HOLY_TALENT.id),
       },
       {
-        spell: SPELLS.AVENGING_CRUSADER_TALENT.id,
+        spell: TALENTS.AVENGING_CRUSADER_HOLY_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         castEfficiency: {
           suggestion: true,
         },
         timelineSortIndex: 32,
-        enabled: combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.AVENGING_CRUSADER_HOLY_TALENT.id),
       },
       {
         spell: SPELLS.AURA_MASTERY.id,
@@ -221,14 +229,15 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 34,
       },
       {
-        spell: SPELLS.BLESSING_OF_SACRIFICE.id,
+        spell: TALENTS.BLESSING_OF_SACRIFICE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         gcd: undefined,
         timelineSortIndex: 101,
+        enabled: combatant.hasTalent(TALENTS.BLESSING_OF_SACRIFICE_TALENT.id),
       },
       {
-        spell: SPELLS.LAY_ON_HANDS.id,
+        spell: TALENTS.LAY_ON_HANDS_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 600 * (1 - (combatant.hasTalent(TALENTS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.3 : 0)),
         gcd: undefined,
@@ -238,6 +247,7 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 101,
         isDefensive: true,
+        enabled: combatant.hasTalent(TALENTS.LAY_ON_HANDS_TALENT.id),
       },
       {
         spell: SPELLS.LIGHT_OF_THE_MARTYR.id,
@@ -274,28 +284,30 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: SPELLS.HOLY_LIGHT.id,
+        spell: TALENTS.HOLY_LIGHT_HOLY_TALENT.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
         },
         castEfficiency: {
-          name: `Filler ${SPELLS.HOLY_LIGHT.name}`,
+          name: `Filler ${TALENTS.HOLY_LIGHT_HOLY_TALENT.name}`,
           casts: (castCount) => castCount.casts - (castCount.healingIolHits || 0),
         },
         timelineSortIndex: 2,
+        enabled: combatant.hasTalent(TALENTS.LAY_ON_HANDS_TALENT.id),
       },
       {
-        spell: SPELLS.HOLY_LIGHT.id,
+        spell: TALENTS.HOLY_LIGHT_HOLY_TALENT.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
         },
         castEfficiency: {
-          name: `${SPELLS.INFUSION_OF_LIGHT.name} ${SPELLS.HOLY_LIGHT.name}`,
+          name: `${SPELLS.INFUSION_OF_LIGHT.name} ${TALENTS.HOLY_LIGHT_HOLY_TALENT.name}`,
           casts: (castCount) => castCount.healingIolHits || 0,
         },
         timelineSortIndex: 2,
+        enabled: combatant.hasTalent(TALENTS.HOLY_LIGHT_HOLY_TALENT.id),
       },
       {
         spell: SPELLS.WORD_OF_GLORY.id,
@@ -306,7 +318,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 2,
       },
       {
-        spell: SPELLS.DIVINE_STEED.id,
+        spell: TALENTS.DIVINE_STEED_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         charges: combatant.hasTalent(TALENTS.CAVALIER_TALENT.id) ? 2 : 1,
         cooldown: 45,
@@ -315,6 +327,7 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 44,
         isDefensive: true,
+        enabled: combatant.hasTalent(TALENTS.DIVINE_STEED_TALENT.id),
       },
       {
         spell: SPELLS.CLEANSE.id,
@@ -327,7 +340,7 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
       },
       {
-        spell: SPELLS.BLESSING_OF_FREEDOM.id,
+        spell: TALENTS.BLESSING_OF_FREEDOM_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 25,
         gcd: {
@@ -337,14 +350,30 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
       },
       {
-        spell: SPELLS.BLESSING_OF_PROTECTION.id,
+        spell: TALENTS.BLESSING_OF_PROTECTION_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 5 * 60,
+        cooldown:
+          // Reduces the cooldown of Blessing of Protection by 60
+          60 * (combatant.hasTalent(TALENTS.UNBREAKABLE_SPIRIT_TALENT.id) ? 4 : 5),
         gcd: {
           base: 1500,
         },
         timelineSortIndex: 103,
         isDefensive: true,
+        enabled:
+          combatant.hasTalent(TALENTS.DIVINE_STEED_TALENT.id) &&
+          !combatant.hasTalent(TALENTS.IMPROVED_BLESSING_OF_PROTECTION_TALENT.id),
+      },
+      {
+        spell: TALENTS.IMPROVED_BLESSING_OF_PROTECTION_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 4 * 60,
+        gcd: {
+          base: 1500,
+        },
+        timelineSortIndex: 103,
+        isDefensive: true,
+        enabled: combatant.hasTalent(TALENTS.IMPROVED_BLESSING_OF_PROTECTION_TALENT.id),
       },
       {
         spell: SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id,
@@ -368,7 +397,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CRUSADER_STRIKE.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         cooldown: (haste) => {
-          const cdr = combatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id) ? 0.3 : 0;
+          const cdr = combatant.hasBuff(TALENTS.AVENGING_CRUSADER_HOLY_TALENT.id) ? 0.3 : 0;
           return (6 / (1 + haste)) * (1 - cdr);
         },
         charges: 2,
