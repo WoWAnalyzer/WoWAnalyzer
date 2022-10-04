@@ -16,7 +16,8 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.INFUSION_OF_LIGHT.id,
-        triggeredBySpellId: SPELLS.HOLY_SHOCK_CAST.id,
+        triggeredBySpellId: TALENTS.HOLY_SHOCK_HOLY_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.HOLY_SHOCK_HOLY_TALENT),
         timelineHighlight: true,
       },
       {
@@ -30,14 +31,15 @@ class Buffs extends CoreAuras {
       },
       // Throughput cooldowns
       {
-        spellId: SPELLS.AVENGING_CRUSADER_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT),
+        spellId: TALENTS.AVENGING_CRUSADER_HOLY_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.AVENGING_CRUSADER_HOLY_TALENT),
         timelineHighlight: true,
-        triggeredBySpellId: SPELLS.AVENGING_CRUSADER_TALENT.id,
+        triggeredBySpellId: TALENTS.AVENGING_CRUSADER_HOLY_TALENT.id,
       },
       {
         spellId: SPELLS.AVENGING_WRATH.id,
-        enabled: !combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT),
+        // TODO: check other impacts there may be more enabled now
+        enabled: !combatant.hasTalent(TALENTS.AVENGING_CRUSADER_HOLY_TALENT),
         timelineHighlight: true,
         triggeredBySpellId: SPELLS.AVENGING_WRATH.id,
       },
@@ -68,10 +70,15 @@ class Buffs extends CoreAuras {
           SPELLS.DIVINE_STEED_BUFF_ALT_2.id,
           SPELLS.DIVINE_STEED_BUFF_ALT_3.id,
         ],
-        triggeredBySpellId: SPELLS.DIVINE_STEED.id,
+        triggeredBySpellId: TALENTS.DIVINE_STEED_TALENT.id,
       },
       {
-        spellId: SPELLS.DIVINE_PROTECTION.id,
+        spellId: TALENTS.DIVINE_PROTECTION_HOLY_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.DIVINE_PROTECTION_HOLY_TALENT),
+      },
+      {
+        spellId: TALENTS.DIVINE_PROTECTION_RETRIBUTION_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.DIVINE_PROTECTION_RETRIBUTION_TALENT),
       },
       {
         spellId: SPELLS.DIVINE_SHIELD.id,
@@ -80,13 +87,20 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.AURA_MASTERY.id,
       },
       {
-        spellId: SPELLS.BLESSING_OF_FREEDOM.id,
+        spellId: TALENTS.BLESSING_OF_FREEDOM_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.BLESSING_OF_FREEDOM_TALENT),
       },
       {
-        spellId: SPELLS.BLESSING_OF_PROTECTION.id,
+        spellId: TALENTS.BLESSING_OF_PROTECTION_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.BLESSING_OF_PROTECTION_TALENT),
       },
       {
-        spellId: SPELLS.BLESSING_OF_SACRIFICE.id,
+        spellId: TALENTS.IMPROVED_BLESSING_OF_PROTECTION_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.IMPROVED_BLESSING_OF_PROTECTION_TALENT),
+      },
+      {
+        spellId: TALENTS.BLESSING_OF_SACRIFICE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.BLESSING_OF_SACRIFICE_TALENT),
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
