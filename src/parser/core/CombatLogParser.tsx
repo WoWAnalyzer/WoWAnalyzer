@@ -1,6 +1,6 @@
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import { Boss, findByBossId } from 'game/raids';
-import Guide, { GuideContainer } from 'interface/guide';
+import Guide, { GuideContainer, GuideContext } from 'interface/guide';
 import { ModulesOf } from 'interface/guide';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import {
@@ -13,7 +13,6 @@ import {
   MappedEvent,
 } from 'parser/core/Events';
 import ModuleError from 'parser/core/ModuleError';
-import EffusiveAnimaAccelerator from 'parser/retail/modules/covenants/kyrian/EffusiveAnimaAccelerator';
 import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
 import BloodSpatteredScale from 'parser/retail/modules/items/dungeons/BloodSpatteredScale';
 import AscendedVigor from 'parser/retail/modules/items/enchants/AscendedVigor';
@@ -224,9 +223,6 @@ class CombatLogParser {
 
     // Crafted
     darkmoonDeckVoracity: DarkmoonDeckVoracity,
-
-    // Shadowlands
-    effusiveAnimaAccelerator: EffusiveAnimaAccelerator,
 
     // Dungeons
     inscrutableQuantumDevice: InscrutableQuantumDevice,
@@ -728,7 +724,9 @@ class CombatLogParser {
     const Component = ctor.guide;
     return () => (
       <GuideContainer>
-        <Component {...props} />
+        <GuideContext.Provider value={props}>
+          <Component {...props} />
+        </GuideContext.Provider>
       </GuideContainer>
     );
   }
@@ -745,6 +743,7 @@ class CombatLogParser {
   get info(): Info {
     return {
       abilities: this.getModule(Abilities).abilities,
+      defaultRange: this.getModule(Abilities).defaultRange,
       playerId: this.selectedCombatant.id,
       pets: this.playerPets.filter((pet) => pet.fights.some((fight) => fight.id === this.fight.id)),
       fightStart: this.fight.start_time,

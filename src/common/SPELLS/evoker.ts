@@ -5,14 +5,40 @@
  */
 
 const spells = {
+  // Preservation Spells
+  DREAM_BREATH: {
+    id: 355941,
+    name: 'Dream Breath',
+    icon: 'ability_evoker_dreambreath',
+  },
+  RENEWING_BREATH: {
+    id: 381923,
+    name: 'Renewing Breath',
+    icon: 'ability_evoker_dreambreath',
+  },
+  SPIRITBLOOM: {
+    id: 355999,
+    name: 'Spiritbloom',
+    icon: 'ability_evoker_spiritbloom2',
+  },
+  SPIRITBLOOM_SPLIT: {
+    id: 355998,
+    name: 'Spiritbloom',
+    icon: 'ability_evoker_spiritbloom2',
+  },
   // Shared
   BLESSING_OF_THE_BRONZE: {
     id: 364342,
     name: 'Blessing of the Bronze',
     icon: 'ability_evoker_blessingofthebronze',
   },
-  LIVING_FLAME: {
+  LIVING_FLAME_DAMAGE: {
     id: 361469,
+    name: 'Living Flame',
+    icon: 'ability_evoker_livingflame',
+  },
+  LIVING_FLAME_HEAL: {
+    id: 361509,
     name: 'Living Flame',
     icon: 'ability_evoker_livingflame',
   },

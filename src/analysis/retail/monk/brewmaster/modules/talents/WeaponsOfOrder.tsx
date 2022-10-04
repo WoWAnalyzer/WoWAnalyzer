@@ -1,11 +1,7 @@
-import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
-import COVENANTS from 'game/shadowlands/COVENANTS';
-import SPECS from 'game/SPECS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const BASE_MASTERY_PERCENTAGE = 0.1;
@@ -21,28 +17,16 @@ class WeaponsOfOrder extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
+    this.active = this.selectedCombatant.hasTalent(talents.WEAPONS_OF_ORDER_BREWMASTER_TALENT);
 
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.cast.spell(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL),
+      Events.cast.spell(talents.WEAPONS_OF_ORDER_BREWMASTER_TALENT),
       this._resetCooldown,
     );
-
-    (options.abilities as Abilities).add({
-      spell: SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id,
-      category: SPELL_CATEGORY.COOLDOWNS,
-      cooldown: 120,
-      // WoO is hasted for WW/BrM for whatever fucking reason
-      gcd: this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK ? { base: 1500 } : { base: 1000 },
-      castEfficiency: {
-        suggestion: true,
-        recommendedEfficiency: 0.9,
-      },
-    });
   }
 
   get masteryBuffPercentage() {
