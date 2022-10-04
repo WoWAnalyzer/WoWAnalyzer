@@ -1,8 +1,8 @@
 import { suggestion } from 'parser/core/Analyzer';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
-import BaseCombatLogParser from 'parser/tbc/CombatLogParser';
-import lowRankSpellsSuggestion from 'parser/tbc/suggestions/lowRankSpells';
+import BaseCombatLogParser from 'parser/classic/CombatLogParser';
+import lowRankSpellsSuggestion from 'parser/classic/suggestions/lowRankSpells';
 
 import lowRankSpells from './lowRankSpells';
 import lowRankSpellsPet from './lowRankSpellsPet';

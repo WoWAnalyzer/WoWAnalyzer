@@ -1,7 +1,7 @@
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import BaseCombatLogParser from 'parser/tbc/CombatLogParser';
-import PreparationRuleAnalyzer from 'parser/tbc/modules/features/Checklist/PreparationRuleAnalyzer';
-import lowRankSpellsSuggestion from 'parser/tbc/suggestions/lowRankSpells';
+import BaseCombatLogParser from 'parser/classic/CombatLogParser';
+import PreparationRuleAnalyzer from 'parser/classic/modules/features/Checklist/PreparationRuleAnalyzer';
+import lowRankSpellsSuggestion from 'parser/classic/suggestions/lowRankSpells';
 
 import lowRankSpells, { whitelist } from './lowRankSpells';
 import Abilities from './modules/Abilities';
