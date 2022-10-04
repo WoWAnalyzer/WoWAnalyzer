@@ -747,6 +747,7 @@ class CombatLogParser {
   get info(): Info {
     return {
       abilities: this.getModule(Abilities).abilities,
+      defaultRange: this.getModule(Abilities).defaultRange,
       playerId: this.selectedCombatant.id,
       pets: this.playerPets.filter((pet) => pet.fights.some((fight) => fight.id === this.fight.id)),
       fightStart: this.fight.start_time,

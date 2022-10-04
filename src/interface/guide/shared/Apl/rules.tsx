@@ -11,9 +11,8 @@ const AplListItem = styled.li<{ highlighted?: boolean; muted?: boolean }>`
   opacity: ${(props) => (props.muted ? 0.5 : 1)};
 
   ${(props) =>
-    !props.highlighted
-      ? ''
-      : `
+    props.highlighted &&
+    `
     list-style-type: none;
     padding-left: 0;
     margin-left: -1.5rem;

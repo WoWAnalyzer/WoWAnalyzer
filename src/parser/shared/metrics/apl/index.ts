@@ -11,7 +11,7 @@ import metric, { Info } from 'parser/core/metric';
 import { ReactChild } from 'react';
 import { initLocationState, LocationState, isInRange, updateLocationState } from './range';
 
-export type PlayerInfo = Pick<Info, 'playerId' | 'combatant' | 'abilities'>;
+export type PlayerInfo = Pick<Info, 'playerId' | 'combatant' | 'abilities' | 'defaultRange'>;
 export enum Tense {
   Past,
   Present,

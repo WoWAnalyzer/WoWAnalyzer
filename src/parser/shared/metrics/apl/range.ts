@@ -32,8 +32,6 @@
  * @module
  */
 import Spell from 'common/SPELLS/Spell';
-import ROLES from 'game/ROLES';
-import SPECS from 'game/SPECS';
 import {
   AnyEvent,
   HasAbility,
@@ -46,46 +44,13 @@ import {
 } from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { PlayerInfo } from './index';
+import { AbilityRange } from 'parser/core/modules/Abilities';
 
 const debug = false;
-
-export const Range = {
-  Melee: 5,
-  FullRanged: 40,
-};
-
-const DEFAULT_MELEE_RANGE = Range.Melee;
-const DEFAULT_RANGED_RANGE = Range.FullRanged;
 
 const DEFAULT_HITBOX_SIZE = 0;
 // how far off we're willing to still consider "in range"
 const FUDGE_RANGE = 1.5;
-
-/**
- * Determine the "default range" for a spell based on spec & role information.
- *
- * This is used so that most spells don't require annotations in Abilities.
- */
-export const defaultRange = (info: PlayerInfo): number => {
-  const role = info.combatant.spec?.role;
-  const spec = info.combatant.specId;
-  switch (role) {
-    case ROLES.DPS.MELEE:
-    case ROLES.TANK:
-      return DEFAULT_MELEE_RANGE;
-    case ROLES.DPS.RANGED:
-      return DEFAULT_RANGED_RANGE;
-  }
-
-  // healers are broken down into melee & range specs
-  switch (spec) {
-    case SPECS.MISTWEAVER_MONK.id:
-    case SPECS.HOLY_PALADIN.id:
-      return DEFAULT_MELEE_RANGE;
-    default:
-      return DEFAULT_RANGED_RANGE;
-  }
-};
 
 /**
  * Determine the range of a spell by ID. This uses the selected combatant's
@@ -108,7 +73,7 @@ function spellRange(spellId: number, info: PlayerInfo, explicitOnly?: boolean): 
     return ability?.range;
   }
 
-  return ability?.range ?? defaultRange(info);
+  return ability?.range ?? info.defaultRange;
 }
 
 export type LocationState = {
@@ -174,7 +139,7 @@ function inferHitboxSize(state: LocationState, event: TargettedEvent<any> & Loca
   }
   const range =
     event.ability.guid === 1
-      ? DEFAULT_MELEE_RANGE
+      ? AbilityRange.Melee
       : spellRange(event.ability.guid, state.info, true);
 
   if (!range) {

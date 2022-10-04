@@ -1,9 +1,8 @@
 import SPELLS from 'common/SPELLS';
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities, { AbilityRange } from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import talents from 'common/TALENTS/monk';
-import { Range } from 'parser/shared/metrics/apl/range';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -34,7 +33,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
-        range: Range.Melee,
+        range: AbilityRange.Melee,
       },
       {
         spell: talents.BREATH_OF_FIRE_BREWMASTER_TALENT.id,
@@ -58,7 +57,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.8,
         },
-        range: Range.Melee,
+        range: AbilityRange.Melee,
       },
       {
         spell: SPELLS.TIGER_PALM.id,
@@ -66,7 +65,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
-        range: Range.Melee,
+        range: AbilityRange.Melee,
       },
       {
         spell: talents.RUSHING_JADE_WIND_BREWMASTER_TALENT.id,
