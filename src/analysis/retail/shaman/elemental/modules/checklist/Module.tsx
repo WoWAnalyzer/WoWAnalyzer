@@ -1,5 +1,5 @@
 import { FlameShock } from 'analysis/retail/shaman/shared';
-import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
+import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';

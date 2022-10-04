@@ -1,11 +1,11 @@
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle } from 'parser/core/ParseResults';
-import AugmentRuneChecker from 'parser/shadowlands/modules/items/AugmentRuneChecker';
-import EnchantChecker from 'parser/shadowlands/modules/items/EnchantChecker';
-import FlaskChecker from 'parser/shadowlands/modules/items/FlaskChecker';
-import FoodChecker from 'parser/shadowlands/modules/items/FoodChecker';
-import PotionChecker from 'parser/shadowlands/modules/items/PotionChecker';
-import WeaponEnhancementChecker from 'parser/shadowlands/modules/items/WeaponEnhancementChecker';
+import AugmentRuneChecker from 'parser/retail/modules/items/AugmentRuneChecker';
+import EnchantChecker from 'parser/retail/modules/items/EnchantChecker';
+import FlaskChecker from 'parser/retail/modules/items/FlaskChecker';
+import FoodChecker from 'parser/retail/modules/items/FoodChecker';
+import PotionChecker from 'parser/retail/modules/items/PotionChecker';
+import WeaponEnhancementChecker from 'parser/retail/modules/items/WeaponEnhancementChecker';
 
 class PreparationRuleAnalyzer extends Analyzer {
   static dependencies = {
