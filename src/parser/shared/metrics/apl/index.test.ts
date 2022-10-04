@@ -167,7 +167,7 @@ describe('Basic APL Check', () => {
         {
           kind: ResultKind.Violation,
           actualCast: cast(4000, 0, FILLER)[0],
-          expectedCast: SHORT_CD,
+          expectedCast: [SHORT_CD],
           rule: apl.rules[0],
         },
       ]);
@@ -266,7 +266,7 @@ describe('APL with conditions', () => {
         {
           kind: ResultKind.Violation,
           actualCast: cast(4000, 4000, SHORT_CD)[0],
-          expectedCast: FILLER,
+          expectedCast: [FILLER],
           rule: apl.rules[0],
         },
       ]);
@@ -299,7 +299,7 @@ describe('APL with conditions', () => {
         {
           kind: ResultKind.Violation,
           actualCast: cast(10000, 0, FILLER)[0],
-          expectedCast: SHORT_CD,
+          expectedCast: [SHORT_CD],
           rule: apl.rules[1],
         },
       ]);

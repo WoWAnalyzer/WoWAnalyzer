@@ -20,6 +20,8 @@ import { InvokeNiuzaoSection } from './modules/problems/InvokeNiuzao';
 import { PurifySection } from './modules/problems/PurifyingBrew';
 import Shuffle, { TrackedHit } from './modules/spells/Shuffle';
 import talents from 'common/TALENTS/monk';
+import { AplSectionData } from 'interface/guide/shared/Apl';
+import * as AplCheck from './modules/core/AplCheck';
 
 type TimelineEntry = {
   value: boolean;
@@ -510,6 +512,17 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           </SubSection>
         </SubSection>
         <PurifySection module={modules.purifyProblems} events={events} info={info} />
+      </Section>
+      <Section title="Rotation">
+        <p>
+          The Brewmaster rotation is driven by a <em>priority list</em>. When you are ready to use
+          an ability, you should use the highest-priority ability that is available. Doing this
+          improves your damage by prioritizing high-damage, high-impact spells like{' '}
+          <SpellLink id={talents.RISING_SUN_KICK_TALENT.id} /> and{' '}
+          <SpellLink id={talents.KEG_SMASH_BREWMASTER_TALENT.id} /> over low-priority "filler"
+          spells like <SpellLink id={SPELLS.TIGER_PALM.id} />.
+        </p>
+        <AplSectionData checker={AplCheck.check} apl={AplCheck.apl} />
       </Section>
       <InvokeNiuzaoSection
         events={events}

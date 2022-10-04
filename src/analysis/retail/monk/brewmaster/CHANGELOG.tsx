@@ -18,6 +18,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2022, 9, 27), <>Add Rotation section to the new summary page.</>, emallson),
   change(date(2022, 7, 10), <>Improve display of <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> in guide and add warning about <code>/sit</code> use with <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} />.</>, emallson),
   change(date(2022, 6, 28), <>Squash a couple of bugs in the new overview page.</>, emallson),
   change(date(2022, 6, 27), <>Added prototype "guide"-style overview page.</>, emallson),
@@ -33,7 +34,7 @@ export default [
   change(
     date(2021, 5, 23),
     <>
-      Reworked <SpellLink id={talents.EXPEL_HARM_TALENT.id}>Expel Harm</SpellLink> Normalizer to support
+      Reworked <SpellLink id={SPELLS.EXPEL_HARM.id}>Expel Harm</SpellLink> Normalizer to support
       attracted <SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id}>Gift of the Ox Orbs</SpellLink>{' '}
     </>,
     carglass,
@@ -70,7 +71,7 @@ export default [
   change(
     date(2021, 1, 23),
     <>
-      Add wasted cooldown avoided to <SpellLink id={SPELLS.STORMSTOUTS_LAST_KEG.id} /> statistic
+      Add wasted cooldown avoided to <SpellLink id={talents.STORMSTOUTS_LAST_KEG_BREWMASTER_TALENT.id} /> statistic
       tooltip.
     </>,
     emallson,
@@ -78,7 +79,7 @@ export default [
   change(
     date(2021, 1, 18),
     <>
-      Add support for <SpellLink id={SPELLS.STORMSTOUTS_LAST_KEG.id} />.
+      Add support for <SpellLink id={talents.STORMSTOUTS_LAST_KEG_BREWMASTER_TALENT.id} />.
     </>,
     Matardarix,
   ),

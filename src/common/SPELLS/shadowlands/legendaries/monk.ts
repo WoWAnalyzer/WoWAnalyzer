@@ -1,26 +1,14 @@
 const legendaries = {
   //region Brewmaster
-  CHARRED_PASSIONS: {
-    id: 338138,
-    name: 'Charred Passions',
-    icon: 'ability_monk_mightyoxkick',
-    bonusID: 7076,
-  },
   CHARRED_PASSIONS_BUFF: {
-    id: 338140,
+    id: 386963,
     name: 'Charred Passions',
     icon: 'ability_monk_mightyoxkick',
   },
   CHARRED_PASSIONS_DAMAGE: {
-    id: 338141,
+    id: 386959,
     name: 'Charred Passions',
     icon: 'ability_monk_mightyoxkick',
-  },
-  STORMSTOUTS_LAST_KEG: {
-    id: 337288,
-    name: "Stormstout's Last Keg",
-    icon: 'achievement_brewery_2',
-    bonusID: 7077,
   },
   CELESTIAL_INFUSION: {
     id: 337290,
