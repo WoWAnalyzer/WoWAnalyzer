@@ -1,15 +1,15 @@
 import { Trans } from '@lingui/macro';
-import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
+import Requirement, {
+  RequirementThresholds,
+} from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import PropTypes from 'prop-types';
-import { PureComponent } from 'react';
+import { PureComponent, ReactNode } from 'react';
 
-class PreparationRule extends PureComponent {
-  static propTypes = {
-    children: PropTypes.node,
-    thresholds: PropTypes.object.isRequired,
-  };
-
+interface PreparationRuleProps {
+  children?: ReactNode;
+  thresholds: Record<string, RequirementThresholds>;
+}
+class PreparationRule extends PureComponent<PreparationRuleProps> {
   renderPotionRequirements() {
     const { thresholds } = this.props;
 
