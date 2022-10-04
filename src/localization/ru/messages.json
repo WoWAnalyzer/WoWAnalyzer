@@ -634,6 +634,8 @@
   "interface.search.reportSearch": "",
   "interface.search.searchingFor": "",
   "interface.search.supportedTerms": "Поддерживаемые запросы:<0/><1><2><report code></2><3>https://www.warcraftlogs.com/reports/<report code></3><4>https://www.warcraftlogs.com/character/<region>/<realm>/<name></4><5>https://worldofwarcraft.com/<language-code>/character/<realm>/<name></5></1>",
+  "interface.specList.classic": "",
+  "interface.specList.retail": "",
   "interface.specList.specs": "Специализации",
   "interface.specList.specs.label": "Нажмите на любую специализацию, чтобы увидеть пример анализа.",
   "interface.specListItem.maintainer": "Поддержка:<0/>",

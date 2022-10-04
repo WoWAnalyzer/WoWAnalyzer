@@ -149,6 +149,10 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    * The spell ID that'll forcibly shown on the timeline if set.
    */
   shownSpell?: number;
+  /**
+   * The spell's range.
+   */
+  range?: number;
 }
 
 class Ability {
@@ -240,6 +244,8 @@ class Ability {
   /** @deprecated Use the Buffs module to define your buffs instead. If your spec has no Buffs module, this prop will be used to prefill it. */
   buffSpellId: number | number[] | null = null;
   shownSpell = null;
+
+  readonly range?: number;
 
   /**
    * @param owner

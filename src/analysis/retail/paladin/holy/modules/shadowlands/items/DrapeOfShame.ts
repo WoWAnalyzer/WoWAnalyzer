@@ -3,7 +3,7 @@ import Events, { BeaconHealEvent, HealEvent } from 'parser/core/Events';
 import {
   DrapeOfShame as BaseDrapeOfShame,
   DRAPE_OF_SHAME_CRIT_EFFECT,
-} from 'parser/shadowlands/modules/items/DrapeOfShame';
+} from 'parser/retail/modules/items/DrapeOfShame';
 
 import { getBeaconSpellFactor } from '../../../constants';
 import BeaconHealSource from '../../beacons/BeaconHealSource';

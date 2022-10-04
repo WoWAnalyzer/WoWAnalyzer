@@ -4,7 +4,6 @@ import Icon from 'interface/Icon';
 import SpellLink from 'interface/SpellLink';
 import Tooltip from 'interface/Tooltip';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
-import CombatLogParser from 'parser/core/CombatLogParser';
 import {
   AnyEvent,
   AutoAttackCooldownEvent,
@@ -28,8 +27,9 @@ const isApplicableCastEvent = (event: CastEvent | BeginChannelEvent | FreeCastEv
   }
   return true;
 };
-export const isApplicableEvent = (parser: CombatLogParser) => (event: AnyEvent) => {
-  if (!parser.byPlayer(event)) {
+export const isApplicableEvent = (playerId: number) => (event: AnyEvent) => {
+  // we don't use `HasSource` because not every event has the full SourcedEvent field set
+  if (!('sourceID' in event) || event.sourceID !== playerId) {
     // Ignore pet/boss casts
     return false;
   }

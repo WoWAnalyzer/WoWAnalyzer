@@ -9,8 +9,9 @@ import {
 } from 'parser/core/Events';
 import metric, { Info } from 'parser/core/metric';
 import { ReactChild } from 'react';
+import { initLocationState, LocationState, isInRange, updateLocationState } from './range';
 
-export type PlayerInfo = Pick<Info, 'playerId' | 'combatant' | 'abilities'>;
+export type PlayerInfo = Pick<Info, 'playerId' | 'combatant' | 'abilities' | 'defaultRange'>;
 export enum Tense {
   Past,
   Present,
@@ -50,15 +51,81 @@ export interface Condition<T> {
   tooltip?: () => ReactChild | undefined;
 }
 export type StateFor<T> = T extends (...args: any[]) => Condition<infer R> ? R : never;
+
+/**
+ * What kind of thing is being "targeted" by this APL rule. Usually, this is Spell, which means that you want them to cast a particular spell.
+ * Sometimes, you will use SpellList instead, which means cast any of a list of spells.
+ */
+export enum TargetType {
+  /**
+   * Cast the specified spell.
+   */
+  Spell,
+  /**
+   * Cast *any of* the specified spells.
+   */
+  SpellList,
+}
+
+type SpellTarget = {
+  type: TargetType.Spell;
+  target: Spell;
+};
+
+type SpellListTarget = {
+  type: TargetType.SpellList;
+  target: Spell[];
+};
+
+export type AplTarget = SpellTarget | SpellListTarget;
+
+export type InternalRule = {
+  spell: AplTarget;
+  condition?: Condition<any>;
+};
+
 export interface ConditionalRule {
-  spell: Spell;
+  spell: Spell | Spell[];
   condition: Condition<any>;
 }
-export type Rule = Spell | ConditionalRule;
+
+export type Rule = Spell | Spell[] | ConditionalRule;
 
 export interface Apl {
   conditions?: Array<Condition<any>>;
-  rules: Rule[];
+  rules: InternalRule[];
+}
+
+/**
+ * Convert an external rule to an internal rule.
+ *
+ * Internal rules have a more rigid format to make the rest of the code easier to maintain.
+ */
+function internalizeRule(rule: Rule): InternalRule {
+  if ('condition' in rule) {
+    // conditional rule
+    const { spell } = internalizeRule(rule.spell);
+
+    return { ...rule, spell };
+  } else {
+    if (Array.isArray(rule)) {
+      // spell list
+      return {
+        spell: {
+          type: TargetType.SpellList,
+          target: rule,
+        },
+      };
+    } else {
+      // spell object, not a list
+      return {
+        spell: {
+          type: TargetType.Spell,
+          target: rule,
+        },
+      };
+    }
+  }
 }
 
 /**
@@ -77,7 +144,9 @@ export function build(rules: Rule[]): Apl {
     }, {});
   const conditions = Object.values<Condition<any>>(conditionMap);
 
-  return { rules, conditions };
+  const internalRules = rules.map(internalizeRule);
+
+  return { rules: internalRules, conditions };
 }
 
 export enum ResultKind {
@@ -88,8 +157,11 @@ export enum ResultKind {
 export interface Violation {
   kind: ResultKind.Violation;
   actualCast: AplTriggerEvent;
-  expectedCast: Spell;
-  rule: Rule;
+  /**
+   * The list of spells that could have been cast to satisfy the rule. Does not include spells that were on cooldown.
+   */
+  expectedCast: Spell[];
+  rule: InternalRule;
 }
 
 type ConditionState = { [key: string]: any };
@@ -97,16 +169,17 @@ type AbilityState = { [spellId: number]: UpdateSpellUsableEvent };
 
 export interface Success {
   kind: ResultKind.Success;
-  rule: Rule;
+  rule: InternalRule;
   actualCast: AplTriggerEvent;
 }
 
-interface CheckState {
+export interface CheckState {
   successes: Success[];
   violations: Violation[];
   conditionState: ConditionState;
   abilityState: AbilityState;
   mostRecentBeginCast?: BeginChannelEvent;
+  locationState: LocationState;
 }
 
 export type CheckResult = Pick<CheckState, 'successes' | 'violations'>;
@@ -135,7 +208,8 @@ function updateState(apl: Apl, oldState: ConditionState, event: AnyEvent): Condi
 export function tenseAlt<T>(tense: Tense | undefined, a: T, b: T): T {
   return tense === Tense.Present ? a : b;
 }
-export const spell = (rule: Rule): Spell => ('spell' in rule ? rule.spell : rule);
+export const spells = (rule: InternalRule): Spell[] =>
+  rule.spell.type === TargetType.SpellList ? rule.spell.target : [rule.spell.target];
 
 export function lookaheadSlice(
   events: AnyEvent[],
@@ -162,48 +236,95 @@ export function lookaheadSlice(
  * 1. The spell the rule governs is available, and
  * 2. The condition for the rule is validated *or* the rule is unconditional.
  *
- * Note that if a spell is cast that we think is unavailable, we'll assume our data is stale and apply the rule anyway.
+ * Note that if a spell is cast that we think is unavailable, we'll assume our data is stale and apply the rule anyway unless `requireCooldownAvailable` is true.
+ *
+ * @returns false when no spells are available. Otherwise, the list of available spells.
  **/
 function ruleApplies(
-  rule: Rule,
+  rule: InternalRule,
   abilities: Set<number>,
   result: CheckState,
   events: AnyEvent[],
   eventIndex: number,
-): boolean {
+  requireCooldownAvailable: boolean = false,
+): Spell[] | false {
   const event = events[eventIndex];
   if (event.type !== EventType.Cast && event.type !== EventType.BeginChannel) {
     console.error('attempted to apply APL rule to non-cast event, ignoring', event);
     return false;
   }
-  return (
-    abilities.has(spell(rule).id) &&
-    (spell(rule).id === event.ability.guid ||
-      result.abilityState[spell(rule).id] === undefined ||
-      result.abilityState[spell(rule).id].isAvailable) &&
-    (!('condition' in rule) ||
-      rule.condition.validate(
+  const availableSpells = spells(rule).filter((spell) => {
+    // whether the spell is in the player's spellbook according to the Abilities module
+    const spellIsKnown = abilities.has(spell.id);
+    // true if `spell` is actually what was cast---normally this bypasses restrictions that come from our internal cooldown tracking and range checking
+    const spellIsCast = spell.id === event.ability.guid;
+    const spellCooldownAvailable =
+      result.abilityState[spell.id] === undefined || result.abilityState[spell.id].isAvailable;
+    const spellInRange = isInRange(result.locationState, event, spell);
+
+    if (requireCooldownAvailable && !spellCooldownAvailable) {
+      // the cooldown is required to be available according to internal data, but it isn't
+      //
+      // this is used by tooling that generates APL data.
+      return false;
+    }
+
+    if (spellIsCast && !spellInRange) {
+      console.warn(
+        `APL: Spell was cast but we thought it was out of range: ${spell.id} (${spell.name})`,
+        event,
+      );
+    }
+
+    const conditionSatisfied =
+      rule.condition?.validate(
         result.conditionState[rule.condition.key],
         event,
-        rule.spell,
+        spell,
         lookaheadSlice(events, eventIndex, rule.condition.lookahead),
-      ))
-  );
+      ) ?? true;
+
+    return (
+      spellIsKnown &&
+      (spellIsCast || (spellCooldownAvailable && spellInRange)) &&
+      conditionSatisfied
+    );
+  });
+
+  if (availableSpells.length === 0) {
+    return false;
+  }
+
+  return availableSpells;
 }
+
+type ApplicableRule = {
+  rule: InternalRule;
+  availableSpells: Spell[];
+};
 
 /**
  * Find the first applicable rule. See also: `ruleApplies`
  **/
-function applicableRule(
+export function applicableRule(
   apl: Apl,
   abilities: Set<number>,
   result: CheckState,
   events: AnyEvent[],
   eventIndex: number,
-): Rule | undefined {
+  requireCooldownAvailable: boolean = false,
+): ApplicableRule | undefined {
   for (const rule of apl.rules) {
-    if (ruleApplies(rule, abilities, result, events, eventIndex)) {
-      return rule;
+    const availableSpells = ruleApplies(
+      rule,
+      abilities,
+      result,
+      events,
+      eventIndex,
+      requireCooldownAvailable,
+    );
+    if (availableSpells !== false) {
+      return { rule, availableSpells };
     }
   }
 }
@@ -213,6 +334,53 @@ function updateAbilities(state: AbilityState, event: AnyEvent): AbilityState {
     state[event.ability.guid] = event;
   }
   return state;
+}
+
+/**
+ * Whether the APL applies to the given event. APL condition state is updated
+ * on every event, this only determines if the rule checking needs to apply.
+ */
+export function aplProcessesEvent(
+  event: AnyEvent,
+  result: CheckState,
+  applicableSpells: Set<number>,
+): event is BeginChannelEvent | CastEvent {
+  return (
+    (event.type === EventType.BeginChannel ||
+      (event.type === EventType.Cast &&
+        event.ability.guid !== result.mostRecentBeginCast?.ability.guid)) &&
+    applicableSpells.has(event.ability.guid)
+  );
+}
+
+export function knownSpells(
+  apl: Apl,
+  info: PlayerInfo,
+): { abilities: Set<number>; applicableSpells: Set<number> } {
+  const abilities = new Set(
+    info.abilities
+      .filter((ability) => ability.enabled)
+      .flatMap((ability) => (typeof ability.spell === 'number' ? [ability.spell] : ability.spell)),
+  );
+  const applicableSpells = new Set(
+    apl.rules.flatMap((rule) => spells(rule)).map((spell) => spell.id),
+  );
+
+  return { abilities, applicableSpells };
+}
+
+export function updateCheckState(result: CheckState, apl: Apl, event: AnyEvent): CheckState {
+  if (event.type === EventType.BeginChannel) {
+    result.mostRecentBeginCast = event;
+  } else if (event.type === EventType.EndChannel) {
+    result.mostRecentBeginCast = undefined;
+  }
+
+  result.abilityState = updateAbilities(result.abilityState, event);
+  result.conditionState = updateState(apl, result.conditionState, event);
+  result.locationState = updateLocationState(result.locationState, event);
+
+  return result;
 }
 
 const aplCheck = (apl: Apl) =>
@@ -237,37 +405,31 @@ const aplCheck = (apl: Apl) =>
     });
 
     // rules for spells that aren't known are automatically ignored
-    const abilities = new Set(
-      info.abilities
-        .filter((ability) => ability.enabled)
-        .flatMap((ability) =>
-          typeof ability.spell === 'number' ? [ability.spell] : ability.spell,
-        ),
-    );
-    const applicableSpells = new Set(apl.rules.map((rule) => spell(rule).id));
+    const { abilities, applicableSpells } = knownSpells(apl, info);
+
     return events.reduce<CheckState>(
       (result, event, eventIndex) => {
-        if (
-          (event.type === EventType.BeginChannel ||
-            (event.type === EventType.Cast &&
-              event.ability.guid !== result.mostRecentBeginCast?.ability.guid)) &&
-          applicableSpells.has(event.ability.guid)
-        ) {
-          const rule = applicableRule(apl, abilities, result, events, eventIndex);
-          if (rule) {
+        if (aplProcessesEvent(event, result, applicableSpells)) {
+          const applicable = applicableRule(apl, abilities, result, events, eventIndex);
+          if (applicable) {
+            const { rule, availableSpells } = applicable;
+
             if (
-              result.abilityState[spell(rule).id] !== undefined &&
-              !result.abilityState[spell(rule).id].isAvailable &&
+              spells(rule).every(
+                (spell) =>
+                  result.abilityState[spell.id] !== undefined &&
+                  !result.abilityState[spell.id].isAvailable,
+              ) &&
               process.env.NODE_ENV === 'development'
             ) {
               console.warn(
                 'inconsistent ability state in APL checker:',
-                result.abilityState[spell(rule).id],
+                spells(rule).map((spell) => result.abilityState[spell.id]),
                 rule,
                 event,
               );
             }
-            if (spell(rule).id === event.ability.guid) {
+            if (spells(rule).some((spell) => spell.id === event.ability.guid)) {
               // the player cast the correct spell
               result.successes.push({ rule, actualCast: event, kind: ResultKind.Success });
             } else if (
@@ -278,25 +440,22 @@ const aplCheck = (apl: Apl) =>
               result.violations.push({
                 kind: ResultKind.Violation,
                 rule,
-                expectedCast: spell(rule),
+                expectedCast: availableSpells,
                 actualCast: event,
               });
             }
           }
         }
 
-        if (event.type === EventType.BeginChannel) {
-          result.mostRecentBeginCast = event;
-        } else if (event.type === EventType.EndChannel) {
-          result.mostRecentBeginCast = undefined;
-        }
-
-        result.abilityState = updateAbilities(result.abilityState, event);
-        result.conditionState = updateState(apl, result.conditionState, event);
-
-        return result;
+        return updateCheckState(result, apl, event);
       },
-      { successes: [], violations: [], abilityState: {}, conditionState: initState(apl, info) },
+      {
+        successes: [],
+        violations: [],
+        abilityState: {},
+        conditionState: initState(apl, info),
+        locationState: initLocationState(info),
+      },
     );
   });
 

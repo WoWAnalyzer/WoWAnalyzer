@@ -75,6 +75,11 @@ const spells = spellIndexableList({
     name: 'Detox',
     icon: 'ability_rogue_imrovedrecuperate',
   },
+  EXPEL_HARM: {
+    id: 322101,
+    name: 'Expel Harm',
+    icon: 'ability_monk_expelharm',
+  },
 
   // Mistweaver Monk Spells
   ENVELOPING_MIST: {

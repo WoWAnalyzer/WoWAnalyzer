@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import Potion from 'parser/shadowlands/modules/items/Potion';
+import Potion from 'parser/retail/modules/items/Potion';
 
 /**
  * Tracks combat potion cooldown (DPS, HPS, mana, mitigation).
