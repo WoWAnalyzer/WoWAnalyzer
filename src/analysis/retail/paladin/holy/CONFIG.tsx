@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import { CamClark, xizbow } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
@@ -24,9 +25,9 @@ const config: Config = {
       Avoid having your <SpellLink id={SPELLS.AVENGING_WRATH.id} /> and other cooldowns available
       unused for long periods of time (they're not raid cooldowns, they're required for you to have
       decent throughput and not run OOM) and <b>hit those buttons</b> that have short cooldowns
-      (such as <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> and{' '}
-      <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />
-      ). Ohh and don't cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> unless there's nothing
+      (such as <SpellLink id={TALENTS.HOLY_SHOCK_HOLY_TALENT.id} /> and{' '}
+      <SpellLink id={TALENTS.LIGHT_OF_DAWN_HOLY_TALENT.id} />
+      ). Finally, don't cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> unless there's nothing
       else to cast, or you're playing with <SpellLink id={SPELLS.MARAADS_DYING_BREATH.id} />.
       <br />
       <br />

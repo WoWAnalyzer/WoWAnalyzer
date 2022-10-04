@@ -59,7 +59,7 @@ class GlimmerOfLight extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_SHOCK_CAST),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HOLY_SHOCK_HOLY_TALENT),
       this.onCast,
     );
     this.addEventListener(
@@ -235,8 +235,8 @@ class GlimmerOfLight extends Analyzer {
           <SpellLink id={TALENTS.GLIMMER_OF_LIGHT_HOLY_TALENT.id} />, try to keep as many buffs up
           as possible. Avoid overwritting buffs early, this suggestion does not take priority over
           healing targets with low health. If two targets have similar health pools priorize the
-          target without a glimmer as your <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> will heal
-          all players with active buffs.
+          target without a glimmer as your <SpellLink id={TALENTS.HOLY_SHOCK_HOLY_TALENT.id} /> will
+          heal all players with active buffs.
         </Trans>,
       )
         .icon(TALENTS.GLIMMER_OF_LIGHT_HOLY_TALENT.icon)
