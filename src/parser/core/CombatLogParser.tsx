@@ -13,7 +13,6 @@ import {
   MappedEvent,
 } from 'parser/core/Events';
 import ModuleError from 'parser/core/ModuleError';
-import EffusiveAnimaAccelerator from 'parser/shadowlands/modules/covenants/kyrian/EffusiveAnimaAccelerator';
 import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
 import BloodSpatteredScale from 'parser/shadowlands/modules/items/dungeons/BloodSpatteredScale';
 import AscendedVigor from 'parser/shadowlands/modules/items/enchants/AscendedVigor';
@@ -224,9 +223,6 @@ class CombatLogParser {
 
     // Crafted
     darkmoonDeckVoracity: DarkmoonDeckVoracity,
-
-    // Shadowlands
-    effusiveAnimaAccelerator: EffusiveAnimaAccelerator,
 
     // Dungeons
     inscrutableQuantumDevice: InscrutableQuantumDevice,

@@ -1915,6 +1915,19 @@ export const ToppleTheNun: Contributor = {
   ],
 };
 
+export const CamClark: Contributor = {
+  nickname: 'CamClark',
+  github: 'CamClark',
+  discord: 'Cool_Clarky#9085',
+  mains: [
+    {
+      name: 'CeoJimmy',
+      spec: SPECS.HOLY_PALADIN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/frostmourne/Ceojimmy',
+    },
+  ],
+};
+    
 export const Listefano: Contributor = {
   nickname: 'Listefano',
   github: 'listefano',

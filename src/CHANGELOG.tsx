@@ -64,6 +64,8 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 4), 'Add Blessing of the Bronze as a raid buff.', ToppleTheNun),
+  change(date(2022, 10, 3), 'Convert PreparationRule component to TypeScript.', ToppleTheNun),
   change(date(2022, 10, 2), 'Update Specs page for Dragonflight.', ToppleTheNun),
   change(date(2022, 9, 23), 'Convert Character parses page to TypeScript.', ToppleTheNun),
   change(date(2022, 9, 10), 'Update known patch versions for Dragonflight.', ToppleTheNun),

@@ -14,7 +14,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import * as React from 'react';
 
-import { HOLY_POWER_FINISHERS } from '../../paladinretribution/src/constants';
+import { HOLY_POWER_FINISHERS } from '../retribution/constants';
 
 /**
  * Analyzer to track the extra damage caused by Holy Power abilities after
