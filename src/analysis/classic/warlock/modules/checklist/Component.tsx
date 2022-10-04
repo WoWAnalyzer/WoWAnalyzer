@@ -7,7 +7,7 @@ import {
 } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import PreparationRule from 'parser/tbc/modules/features/Checklist/PreparationRule';
+import PreparationRule from 'parser/classic/modules/features/Checklist/PreparationRule';
 import { Fragment } from 'react';
 
 import { CURSE_OF_AGONY, CURSE_OF_DOOM, CURSE_OF_THE_ELEMENTS } from '../../SPELLS';

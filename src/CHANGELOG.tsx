@@ -64,6 +64,7 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 3), 'Rename TBC parser directory to Classic.', ToppleTheNun),
   change(date(2022, 9, 23), 'Convert Character parses page to TypeScript.', ToppleTheNun),
   change(date(2022, 9, 10), 'Update known patch versions for Dragonflight.', ToppleTheNun),
   change(date(2022, 9, 10), 'Show Dragonflight talents on character page if able to detect them.', ToppleTheNun),

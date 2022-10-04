@@ -2,9 +2,9 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
-import BaseCombatLogParser from 'parser/tbc/CombatLogParser';
-import ManaTracker from 'parser/tbc/modules/resources/ManaTracker';
-import lowRankSpellsSuggestion from 'parser/tbc/suggestions/lowRankSpells';
+import BaseCombatLogParser from 'parser/classic/CombatLogParser';
+import ManaTracker from 'parser/classic/modules/resources/ManaTracker';
+import lowRankSpellsSuggestion from 'parser/classic/suggestions/lowRankSpells';
 
 import lowRankSpells, { whitelist } from './lowRankSpells';
 import Abilities from './modules/Abilities';
