@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
-import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
+import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,

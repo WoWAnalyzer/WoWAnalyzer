@@ -5,7 +5,7 @@ import LethalShots from 'analysis/retail/hunter/marksmanship/modules/talents/Let
 import SerpentSting from 'analysis/retail/hunter/marksmanship/modules/talents/SerpentSting';
 import SteadyFocus from 'analysis/retail/hunter/marksmanship/modules/talents/SteadyFocus';
 import { FocusDetails, FocusCapTracker, CancelledCasts } from 'analysis/retail/hunter/shared';
-import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
+import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
