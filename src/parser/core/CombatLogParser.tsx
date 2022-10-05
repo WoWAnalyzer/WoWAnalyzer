@@ -1,6 +1,6 @@
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import { Boss, findByBossId } from 'game/raids';
-import Guide, { GuideContainer } from 'interface/guide';
+import Guide, { GuideContainer, GuideContext } from 'interface/guide';
 import { ModulesOf } from 'interface/guide';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import {
@@ -13,12 +13,11 @@ import {
   MappedEvent,
 } from 'parser/core/Events';
 import ModuleError from 'parser/core/ModuleError';
-import EffusiveAnimaAccelerator from 'parser/shadowlands/modules/covenants/kyrian/EffusiveAnimaAccelerator';
-import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
-import BloodSpatteredScale from 'parser/shadowlands/modules/items/dungeons/BloodSpatteredScale';
-import AscendedVigor from 'parser/shadowlands/modules/items/enchants/AscendedVigor';
-import PotionChecker from 'parser/shadowlands/modules/items/PotionChecker';
-import WeaponEnhancementChecker from 'parser/shadowlands/modules/items/WeaponEnhancementChecker';
+import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
+import BloodSpatteredScale from 'parser/retail/modules/items/dungeons/BloodSpatteredScale';
+import AscendedVigor from 'parser/retail/modules/items/enchants/AscendedVigor';
+import PotionChecker from 'parser/retail/modules/items/PotionChecker';
+import WeaponEnhancementChecker from 'parser/retail/modules/items/WeaponEnhancementChecker';
 import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
 import EnemiesHealth from 'parser/shared/modules/EnemiesHealth';
 import Haste from 'parser/shared/modules/Haste';
@@ -28,23 +27,23 @@ import EnergizeCompat from 'parser/shared/normalizers/EnergizeCompat';
 import * as React from 'react';
 
 import Config from '../Config';
-import AugmentRuneChecker from '../shadowlands/modules/items/AugmentRuneChecker';
-import CombatPotion from '../shadowlands/modules/items/CombatPotion';
-import DarkmoonDeckVoracity from '../shadowlands/modules/items/crafted/DarkmoonDeckVoracity';
-import { DrapeOfShame } from '../shadowlands/modules/items/DrapeOfShame';
-import CodexOfTheFirstTechnique from '../shadowlands/modules/items/dungeons/CodexOfTheFirstTechnique';
-import InscrutableQuantumDevice from '../shadowlands/modules/items/dungeons/InscrutableQuantumDevice';
-import OverchargedAnimaBattery from '../shadowlands/modules/items/dungeons/OverchargedAnimaBattery';
-import ShadowgraspTotem from '../shadowlands/modules/items/dungeons/ShadowgraspTotem';
-import SoullettingRuby from '../shadowlands/modules/items/dungeons/SoullettingRuby';
-import EnchantChecker from '../shadowlands/modules/items/EnchantChecker';
-import FlaskChecker from '../shadowlands/modules/items/FlaskChecker';
-import FoodChecker from '../shadowlands/modules/items/FoodChecker';
-import HealthPotion from '../shadowlands/modules/items/HealthPotion';
-import Healthstone from '../shadowlands/modules/items/Healthstone';
-import CacheOfAcquiredTreasures from '../shadowlands/modules/items/raid/sepulcherofthefirstones/CacheOfAcquiredTreasures';
-import EarthbreakersImpact from '../shadowlands/modules/items/raid/sepulcherofthefirstones/EarthbreakersImpact';
-import TheFirstSigil from '../shadowlands/modules/items/raid/sepulcherofthefirstones/TheFirstSigil';
+import AugmentRuneChecker from '../retail/modules/items/AugmentRuneChecker';
+import CombatPotion from '../retail/modules/items/CombatPotion';
+import DarkmoonDeckVoracity from '../retail/modules/items/crafted/DarkmoonDeckVoracity';
+import { DrapeOfShame } from '../retail/modules/items/DrapeOfShame';
+import CodexOfTheFirstTechnique from '../retail/modules/items/dungeons/CodexOfTheFirstTechnique';
+import InscrutableQuantumDevice from '../retail/modules/items/dungeons/InscrutableQuantumDevice';
+import OverchargedAnimaBattery from '../retail/modules/items/dungeons/OverchargedAnimaBattery';
+import ShadowgraspTotem from '../retail/modules/items/dungeons/ShadowgraspTotem';
+import SoullettingRuby from '../retail/modules/items/dungeons/SoullettingRuby';
+import EnchantChecker from '../retail/modules/items/EnchantChecker';
+import FlaskChecker from '../retail/modules/items/FlaskChecker';
+import FoodChecker from '../retail/modules/items/FoodChecker';
+import HealthPotion from '../retail/modules/items/HealthPotion';
+import Healthstone from '../retail/modules/items/Healthstone';
+import CacheOfAcquiredTreasures from '../retail/modules/items/raid/sepulcherofthefirstones/CacheOfAcquiredTreasures';
+import EarthbreakersImpact from '../retail/modules/items/raid/sepulcherofthefirstones/EarthbreakersImpact';
+import TheFirstSigil from '../retail/modules/items/raid/sepulcherofthefirstones/TheFirstSigil';
 import SpellTimeWaitingOnGlobalCooldown from '../shared/enhancers/SpellTimeWaitingOnGlobalCooldown';
 import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import AbilityTracker from '../shared/modules/AbilityTracker';
@@ -224,9 +223,6 @@ class CombatLogParser {
 
     // Crafted
     darkmoonDeckVoracity: DarkmoonDeckVoracity,
-
-    // Shadowlands
-    effusiveAnimaAccelerator: EffusiveAnimaAccelerator,
 
     // Dungeons
     inscrutableQuantumDevice: InscrutableQuantumDevice,
@@ -728,7 +724,9 @@ class CombatLogParser {
     const Component = ctor.guide;
     return () => (
       <GuideContainer>
-        <Component {...props} />
+        <GuideContext.Provider value={props}>
+          <Component {...props} />
+        </GuideContext.Provider>
       </GuideContainer>
     );
   }
@@ -745,6 +743,7 @@ class CombatLogParser {
   get info(): Info {
     return {
       abilities: this.getModule(Abilities).abilities,
+      defaultRange: this.getModule(Abilities).defaultRange,
       playerId: this.selectedCombatant.id,
       pets: this.playerPets.filter((pet) => pet.fights.some((fight) => fight.id === this.fight.id)),
       fightStart: this.fight.start_time,

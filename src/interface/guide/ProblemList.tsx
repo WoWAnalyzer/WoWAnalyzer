@@ -1,6 +1,6 @@
 import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 /**
    Wrapper type used to deliver problem data and context information to the
@@ -94,7 +94,7 @@ export type ProblemRendererProps<T> = {
  */
 export type ProblemRenderer<T> = (props: ProblemRendererProps<T>) => JSX.Element;
 
-function NoProblem() {
+export function NoProblem() {
   return (
     <div className="problem-list-container no-problems">
       <span>
@@ -201,11 +201,13 @@ export default function ProblemList<T>({
   problems,
   events,
   info,
+  label,
 }: {
   problems: Array<Problem<T>>;
   events: AnyEvent[];
   renderer: ProblemRenderer<T>;
   info: Info;
+  label?: string;
 }) {
   const sortedProblems = useMemo(
     () => problems.sort((a, b) => (b.severity ?? 0) - (a.severity ?? 0)),
@@ -213,6 +215,8 @@ export default function ProblemList<T>({
   );
   const [problemIndex, setProblemIndex] = useState(0);
   const problem = sortedProblems[problemIndex];
+
+  useEffect(() => setProblemIndex(0), [problems]);
 
   if (!problem) {
     return <NoProblem />;
@@ -230,7 +234,7 @@ export default function ProblemList<T>({
     <div className="problem-list-container">
       <header>
         <span>
-          Problem Point {problemIndex + 1} of {sortedProblems.length}
+          {label ?? 'Problem Point'} {problemIndex + 1} of {sortedProblems.length}
         </span>
         <div className="btn-group">
           <button

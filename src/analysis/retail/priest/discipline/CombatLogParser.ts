@@ -44,7 +44,8 @@ import AtonementSuccessiveDamageNormalizer from './normalizers/AtonementSuccessi
 import ManifestedTwilightNormalizer from './normalizers/ManifestedTwilightNormalizer';
 import PowerWordRadianceNormalizer from './normalizers/PowerWordRadianceNormalizer';
 import HarshDiscipline from './modules/spells/HarshDiscipline';
-
+import EnduringLuminescense from './modules/spells/EnduringLuminescence';
+import Indemnity from './modules/spells/Indemnity';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizers
@@ -82,6 +83,7 @@ class CombatLogParser extends CoreCombatLogParser {
     purgeTheWicked: PurgeTheWicked,
     atonementApplicatorBreakdown: AtonementApplicatorBreakdown,
     solaceVsShieldDiscipline: SolaceVsShieldDiscipline,
+    enduringLuminescense: EnduringLuminescense,
 
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,
@@ -95,6 +97,7 @@ class CombatLogParser extends CoreCombatLogParser {
     schism: Schism,
     mindgames: Mindgames,
     harshDiscipline: HarshDiscipline,
+    Indemnity: Indemnity,
 
     // Covenants
     unholyNova: UnholyNova,

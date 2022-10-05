@@ -1,5 +1,5 @@
 import { Felblade } from 'analysis/retail/demonhunter/shared';
-import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
+import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseModule from 'parser/shared/modules/features/Checklist/Module';

@@ -7,7 +7,7 @@ import Checklist from 'parser/shared/modules/features/Checklist';
 import { ChecklistProps as BackChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import PreparationRule from 'parser/tbc/modules/features/Checklist/PreparationRule';
+import PreparationRule from 'parser/classic/modules/features/Checklist/PreparationRule';
 
 import { Build } from '../../CONFIG';
 import * as SPELLS from '../../SPELLS';

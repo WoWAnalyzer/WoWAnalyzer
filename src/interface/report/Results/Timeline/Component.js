@@ -172,11 +172,11 @@ class Timeline extends PureComponent {
     const castEvents = [
       ...(this.props.config?.separateCastBars.map((spellIds) =>
         parser.eventHistory
-          .filter(isApplicableEvent(parser))
+          .filter(isApplicableEvent(parser.playerId))
           .filter((event) => spellIds.includes(event.ability?.guid)),
       ) || []),
       parser.eventHistory
-        .filter(isApplicableEvent(parser))
+        .filter(isApplicableEvent(parser.playerId))
         .filter((event) => !allSeparatedIds.includes(event.ability?.guid)),
     ];
 

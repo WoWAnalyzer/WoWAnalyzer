@@ -54,6 +54,7 @@ export function buffMissing(
     init: () => null,
     update: (state, event) => {
       switch (event.type) {
+        case EventType.RefreshBuff:
         case EventType.ApplyBuff:
           if (event.ability.guid === spell.id) {
             return {

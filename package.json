@@ -5,6 +5,8 @@
   "license": "AGPL-3.0-or-later",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
     "@lingui/core": "^3.13.0",
     "@lingui/macro": "^3.13.0",
     "@lingui/react": "^3.13.0",
@@ -42,6 +44,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
+    "@emotion/babel-plugin": "^11.10.2",
     "@lingui/cli": "^3.13.0",
     "@lingui/loader": "^3.13.0",
     "@martijnhols/eslint-config": "^5.1.0",
