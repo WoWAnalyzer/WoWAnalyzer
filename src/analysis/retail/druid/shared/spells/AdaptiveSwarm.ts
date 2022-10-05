@@ -54,13 +54,13 @@ const PERIODIC_DAMAGE: SpellInfo[] = [
   SPELLS.SUNFIRE,
   SPELLS.STARFALL,
   SPELLS.THRASH_BEAR_DOT,
-  TALENTS.STELLAR_FLARE_BALANCE_TALENT,
+  TALENTS.STELLAR_FLARE_TALENT,
   SPELLS.SHOOTING_STARS,
   SPELLS.FURY_OF_ELUNE_DAMAGE,
   SPELLS.BRAMBLES_DAMAGE,
-  TALENTS.FERAL_FRENZY_FERAL_TALENT,
+  TALENTS.FERAL_FRENZY_TALENT,
   SPELLS.FERAL_FRENZY_DEBUFF,
-  TALENTS.PRIMAL_WRATH_FERAL_TALENT,
+  TALENTS.PRIMAL_WRATH_TALENT,
   SPELLS.FURY_OF_ELUNE_DAMAGE_4P,
   // deliberately doesn't include Adaptive Swarm itself to avoid double count
 ];
@@ -106,8 +106,8 @@ class AdaptiveSwarm extends Analyzer {
     // TODO update if Guardian gets it too
     this.active =
       this.selectedCombatant.hasTalent(TALENTS.ADAPTIVE_SWARM_BALANCE_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS.ADAPTIVE_SWARM_FERAL_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS.ADAPTIVE_SWARM_RESTORATION_TALENT);
+      this.selectedCombatant.hasTalent(TALENTS.ADAPTIVE_SWARM_SHARED_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.ADAPTIVE_SWARM_SHARED_TALENT);
 
     this._periodicBoost =
       this.selectedCombatant.specId === SPECS.BALANCE_DRUID.id

@@ -17,7 +17,7 @@ example report: https://www.warcraftlogs.com/reports/1HRhNZa2cCkgK9AV/#fight=48&
 class Momentum extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_HAVOC_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_TALENT.id);
   }
 
   get buffUptime() {
@@ -45,11 +45,11 @@ class Momentum extends Analyzer {
       suggest(
         <>
           {' '}
-          Maintain the <SpellLink id={TALENTS_DEMON_HUNTER.MOMENTUM_HAVOC_TALENT.id} /> buff to
-          maximize damage.
+          Maintain the <SpellLink id={TALENTS_DEMON_HUNTER.MOMENTUM_TALENT.id} /> buff to maximize
+          damage.
         </>,
       )
-        .icon(TALENTS_DEMON_HUNTER.MOMENTUM_HAVOC_TALENT.icon)
+        .icon(TALENTS_DEMON_HUNTER.MOMENTUM_TALENT.icon)
         .actual(
           t({
             id: 'demonhunter.havoc.suggestions.momentum.uptime',
@@ -67,7 +67,7 @@ class Momentum extends Analyzer {
         size="flexible"
         tooltip={`The Momentum buff total uptime was ${formatDuration(this.buffDuration)}.`}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.MOMENTUM_HAVOC_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.MOMENTUM_TALENT.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>uptime</small>
           </>

@@ -31,7 +31,7 @@ class SpellManaCost extends CoreSpellManaCost {
     // Mana is not adjusted for ToL
     if (
       this.selectedCombatant.hasBuff(
-        TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id,
+        TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id,
         event.timestamp,
         0,
         0,

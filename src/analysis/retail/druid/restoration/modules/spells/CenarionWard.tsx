@@ -25,7 +25,7 @@ class CenarionWard extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.CENARION_WARD_RESTORATION_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.CENARION_WARD_TALENT);
   }
 
   statistic() {
@@ -53,7 +53,7 @@ class CenarionWard extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.CENARION_WARD_RESTORATION_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.CENARION_WARD_TALENT.id}>
           <ItemPercentHealingDone amount={totalHealing} />
           <br />
         </BoringSpellValueText>

@@ -12,8 +12,7 @@ const BAR_COLOR = '#6699ff';
 class StellarFlareUptime extends Analyzer {
   get suggestionThresholds() {
     const stellarFlareUptime =
-      this.enemies.getBuffUptime(TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT.id) /
-      this.owner.fightDuration;
+      this.enemies.getBuffUptime(TALENTS_DRUID.STELLAR_FLARE_TALENT.id) / this.owner.fightDuration;
     return {
       actual: stellarFlareUptime,
       isLessThan: {
@@ -32,18 +31,18 @@ class StellarFlareUptime extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_TALENT);
   }
 
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT.id} /> uptime can be
-          improved. Try to pay more attention to your Stellar Flare on the boss.
+          Your <SpellLink id={TALENTS_DRUID.STELLAR_FLARE_TALENT.id} /> uptime can be improved. Try
+          to pay more attention to your Stellar Flare on the boss.
         </>,
       )
-        .icon(TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT.icon)
+        .icon(TALENTS_DRUID.STELLAR_FLARE_TALENT.icon)
         .actual(
           t({
             id: 'druid.balance.suggestions.stellarFlare.uptime',
@@ -55,12 +54,12 @@ class StellarFlareUptime extends Analyzer {
   }
 
   get uptimeHistory() {
-    return this.enemies.getDebuffHistory(TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT.id);
+    return this.enemies.getDebuffHistory(TALENTS_DRUID.STELLAR_FLARE_TALENT.id);
   }
 
   subStatistic() {
     return uptimeBarSubStatistic(this.owner.fight, {
-      spells: [TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT],
+      spells: [TALENTS_DRUID.STELLAR_FLARE_TALENT],
       uptimes: this.uptimeHistory,
       color: BAR_COLOR,
     });

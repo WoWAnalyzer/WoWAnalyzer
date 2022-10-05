@@ -33,7 +33,7 @@ import ElementalAssault from './modules/talents/ElementalAssault';
 import SeedsOfRampantGrowth from './modules/shadowlands/legendaries/SeedsOfRampantGrowth';
 import Tier28TwoSet from './modules/shadowlands/tier/Tier28TwoSet';
 import Tier28FourSet from 'analysis/retail/paladin/holy/modules/shadowlands/tier/Tier28FourSet';
-import Stormbringer from './modules/talents/Stormbringer';
+import Stormbringer from './modules/spells/Stormbringer';
 import FeralSpirit from './modules/talents/FeralSpirit';
 import ChainLightning from './modules/talents/ChainLightning';
 import AplCheck from './modules/apl/AplCheck';

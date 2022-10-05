@@ -38,7 +38,7 @@ class AtonementApplicatorBreakdown extends Analyzer {
     super(options);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.EVANGELISM_TALENT),
       this.handleEvangelismCasts,
     );
     this.addEventListener(

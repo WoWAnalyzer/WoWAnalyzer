@@ -49,15 +49,11 @@ class HotAttributor extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.hasOvergrowth = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.OVERGROWTH_RESTORATION_TALENT,
-    );
+    this.hasOvergrowth = this.selectedCombatant.hasTalent(TALENTS_DRUID.OVERGROWTH_TALENT);
     this.hasPowerOfTheArchdruid = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_RESTORATION_TALENT,
+      TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT,
     );
-    this.hasLuxuriantSoil = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.LUXURIANT_SOIL_RESTORATION_TALENT,
-    );
+    this.hasLuxuriantSoil = this.selectedCombatant.hasTalent(TALENTS_DRUID.LUXURIANT_SOIL_TALENT);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(REJUVENATION_BUFFS),

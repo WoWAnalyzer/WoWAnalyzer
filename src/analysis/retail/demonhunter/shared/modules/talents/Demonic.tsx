@@ -22,8 +22,8 @@ export default class Demonic extends Analyzer {
     }
     const spell =
       this.selectedCombatant.specId === SPECS.HAVOC_DEMON_HUNTER.id
-        ? TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT
-        : TALENTS_DEMON_HUNTER.FEL_DEVASTATION_VENGEANCE_TALENT;
+        ? TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT
+        : TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT;
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(spell), this.onDemonicProc);
   }
 

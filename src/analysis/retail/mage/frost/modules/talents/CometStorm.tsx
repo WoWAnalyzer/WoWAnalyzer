@@ -27,9 +27,9 @@ class CometStorm extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.COMET_STORM_FROST_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.COMET_STORM_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.COMET_STORM_FROST_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.COMET_STORM_TALENT),
       this.onCometStormCast,
     );
   }
@@ -64,7 +64,7 @@ class CometStorm extends Analyzer {
   }
 
   get totalCasts() {
-    return this.abilityTracker.getAbility(TALENTS.COMET_STORM_FROST_TALENT.id).casts;
+    return this.abilityTracker.getAbility(TALENTS.COMET_STORM_TALENT.id).casts;
   }
 
   get castUtilization() {
@@ -87,20 +87,20 @@ class CometStorm extends Analyzer {
     when(this.cometStormUtilizationThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You failed to get the most out of your{' '}
-          <SpellLink id={TALENTS.COMET_STORM_FROST_TALENT.id} /> casts {this.badCometStormCast}{' '}
-          times. Because the projectiles from <SpellLink id={TALENTS.COMET_STORM_FROST_TALENT.id} />{' '}
-          no longer remove your stacks of <SpellLink id={SPELLS.WINTERS_CHILL.id} />, you should
-          always cast <SpellLink id={TALENTS.COMET_STORM_FROST_TALENT.id} /> immediately after using
-          your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc on <SpellLink id={SPELLS.FLURRY.id} />
-          . This way there is time for most/all of the comets to hit the target before{' '}
+          You failed to get the most out of your <SpellLink id={TALENTS.COMET_STORM_TALENT.id} />{' '}
+          casts {this.badCometStormCast} times. Because the projectiles from{' '}
+          <SpellLink id={TALENTS.COMET_STORM_TALENT.id} /> no longer remove your stacks of{' '}
+          <SpellLink id={SPELLS.WINTERS_CHILL.id} />, you should always cast{' '}
+          <SpellLink id={TALENTS.COMET_STORM_TALENT.id} /> immediately after using your{' '}
+          <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc on <SpellLink id={SPELLS.FLURRY.id} />.
+          This way there is time for most/all of the comets to hit the target before{' '}
           <SpellLink id={SPELLS.WINTERS_CHILL.id} /> expires. Alternatively, if{' '}
-          <SpellLink id={TALENTS.COMET_STORM_FROST_TALENT.id} /> will hit at least{' '}
+          <SpellLink id={TALENTS.COMET_STORM_TALENT.id} /> will hit at least{' '}
           {COMET_STORM_AOE_MIN_TARGETS} targets, then it is acceptable to use it without{' '}
           <SpellLink id={SPELLS.SHATTER.id} />/<SpellLink id={SPELLS.WINTERS_CHILL.id} />
         </>,
       )
-        .icon(TALENTS.COMET_STORM_FROST_TALENT.icon)
+        .icon(TALENTS.COMET_STORM_TALENT.icon)
         .actual(
           <Trans id="mage.frost.suggestions.cometStorm.castUtilization">
             {formatPercentage(actual)}% Utilization

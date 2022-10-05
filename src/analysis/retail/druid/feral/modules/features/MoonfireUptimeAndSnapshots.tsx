@@ -22,7 +22,7 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
 
   constructor(options: Options) {
     super(SPELLS.MOONFIRE_FERAL, SPELLS.MOONFIRE_FERAL, [TIGERS_FURY_SPEC], options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_FERAL_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_TALENT.id);
   }
 
   getDotExpectedDuration(): number {
@@ -72,7 +72,7 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
 
   get tigersFurySnapshotThresholds() {
     // MF is often used for proccing BT, so harder to maintain snapshots
-    const breakpoints = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT)
+    const breakpoints = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT)
       ? { minor: 0.6, average: 0.45, major: 0.3 }
       : { minor: 0.85, average: 0.6, major: 0.4 };
     return {

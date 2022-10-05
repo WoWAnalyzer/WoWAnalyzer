@@ -26,7 +26,7 @@ class Reforestation extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.REFORESTATION_RESTORATION_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.REFORESTATION_TALENT);
   }
 
   statistic() {
@@ -38,8 +38,8 @@ class Reforestation extends Analyzer {
         tooltip={
           <>
             This is the healing caused by the Tree of Life procs from{' '}
-            <SpellLink id={TALENTS_DRUID.REFORESTATION_RESTORATION_TALENT.id} />. The healing amount
-            is the sum of all benefits from gaining Tree of Life form, which are listed below
+            <SpellLink id={TALENTS_DRUID.REFORESTATION_TALENT.id} />. The healing amount is the sum
+            of all benefits from gaining Tree of Life form, which are listed below
             <ul>
               <li>
                 Overall Increased Healing:{' '}
@@ -95,7 +95,7 @@ class Reforestation extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.REFORESTATION_RESTORATION_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.REFORESTATION_TALENT.id}>
           <ItemPercentHealingDone
             amount={this.treeOfLife._getTotalHealing(this.treeOfLife.reforestation)}
           />

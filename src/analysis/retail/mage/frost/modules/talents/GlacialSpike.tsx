@@ -29,10 +29,10 @@ class GlacialSpike extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_SPIKE_FROST_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT.id);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.GLACIAL_SPIKE_FROST_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.GLACIAL_SPIKE_TALENT),
       this.onGlacialSpikeCast,
     );
     this.addEventListener(
@@ -107,7 +107,7 @@ class GlacialSpike extends Analyzer {
   }
 
   get totalCasts() {
-    return this.abilityTracker.getAbility(TALENTS.GLACIAL_SPIKE_FROST_TALENT.id).casts;
+    return this.abilityTracker.getAbility(TALENTS.GLACIAL_SPIKE_TALENT.id).casts;
   }
 
   get glacialSpikeUtilizationThresholds() {
@@ -126,7 +126,7 @@ class GlacialSpike extends Analyzer {
     when(this.glacialSpikeUtilizationThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={TALENTS.GLACIAL_SPIKE_FROST_TALENT.id} /> without{' '}
+          You cast <SpellLink id={TALENTS.GLACIAL_SPIKE_TALENT.id} /> without{' '}
           <SpellLink id={SPELLS.SHATTER.id} />
           ing it {this.spikeNotShattered} times. Because it is such a potent ability, it is
           important to maximize it's damage by only casting it if the target is
@@ -143,7 +143,7 @@ class GlacialSpike extends Analyzer {
           .
         </>,
       )
-        .icon(TALENTS.GLACIAL_SPIKE_FROST_TALENT.icon)
+        .icon(TALENTS.GLACIAL_SPIKE_TALENT.icon)
         .actual(
           <Trans id="mage.frost.suggestions.glacialSpike.castsWithoutShatter">
             {formatPercentage(actual, 1)}% utilization
@@ -165,7 +165,7 @@ class GlacialSpike extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.GLACIAL_SPIKE_FROST_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.GLACIAL_SPIKE_TALENT.id}>
           {`${formatPercentage(this.utilPercentage, 0)}%`} <small>Cast utilization</small>
         </BoringSpellValueText>
       </Statistic>

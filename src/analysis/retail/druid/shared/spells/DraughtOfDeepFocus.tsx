@@ -117,7 +117,7 @@ class DraughtOfDeepFocus extends Analyzer {
               {Object.values(this.ddfDotsOnById)
                 .filter(
                   (dot) =>
-                    this.selectedCombatant.hasTalent(TALENTS.LUNAR_INSPIRATION_FERAL_TALENT) ||
+                    this.selectedCombatant.hasTalent(TALENTS.LUNAR_INSPIRATION_TALENT) ||
                     dot.spell.id !== SPELLS.MOONFIRE_FERAL.id,
                 )
                 .map((dot) => (

@@ -483,8 +483,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
               is Staggered.
             </li>
             <li>
-              Using <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> to keep the
-              damage dealt by <SpellLink id={SPELLS.STAGGER.id} /> from getting too high.
+              Using <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> to keep the damage dealt by{' '}
+              <SpellLink id={SPELLS.STAGGER.id} /> from getting too high.
             </li>
           </ul>
         </p>
@@ -519,8 +519,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           an ability, you should use the highest-priority ability that is available. Doing this
           improves your damage by prioritizing high-damage, high-impact spells like{' '}
           <SpellLink id={talents.RISING_SUN_KICK_TALENT.id} /> and{' '}
-          <SpellLink id={talents.KEG_SMASH_BREWMASTER_TALENT.id} /> over low-priority "filler"
-          spells like <SpellLink id={SPELLS.TIGER_PALM.id} />.
+          <SpellLink id={talents.KEG_SMASH_TALENT.id} /> over low-priority "filler" spells like{' '}
+          <SpellLink id={SPELLS.TIGER_PALM.id} />.
         </p>
         <AplSectionData checker={AplCheck.check} apl={AplCheck.apl} />
       </Section>

@@ -30,8 +30,8 @@ class SoulsOvercap extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active =
-      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id) &&
-      !this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FEED_THE_DEMON_VENGEANCE_TALENT.id);
+      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id) &&
+      !this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FEED_THE_DEMON_TALENT.id);
   }
 
   get suggestionThresholdsEfficiency(): NumberThreshold {
@@ -56,7 +56,7 @@ class SoulsOvercap extends Analyzer {
         <>
           You are generating <SpellLink id={SPELLS.SOUL_FRAGMENT.id} />s when you are already at 5
           souls. These are auto consumed. You are missing out on the extra damage consuming them
-          with <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id} /> provides.
+          with <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id} /> provides.
         </>,
       )
         .icon(SPELLS.SOUL_FRAGMENT.icon)

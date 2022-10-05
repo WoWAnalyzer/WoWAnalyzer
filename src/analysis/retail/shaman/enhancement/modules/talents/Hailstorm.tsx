@@ -42,7 +42,7 @@ class Hailstorm extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.HAILSTORM_ENHANCEMENT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.HAILSTORM_TALENT.id);
 
     if (!this.active) {
       return;
@@ -170,7 +170,7 @@ class Hailstorm extends Analyzer {
           </ul>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_SHAMAN.HAILSTORM_ENHANCEMENT_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_SHAMAN.HAILSTORM_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} approximate />
             <br />

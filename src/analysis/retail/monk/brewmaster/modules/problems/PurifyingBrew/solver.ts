@@ -182,7 +182,7 @@ export function potentialStaggerEvents(
   return events.map(({ type, amount, timestamp, trigger }) => {
     if (
       type === EventType.RemoveStagger &&
-      (trigger === undefined || trigger.ability.guid === talents.PURIFYING_BREW_BREWMASTER_TALENT.id)
+      (trigger === undefined || trigger.ability.guid === talents.PURIFYING_BREW_TALENT.id)
     ) {
       staggerPool -= staggerPool / 2;
     } else if (type === EventType.RemoveStagger) {

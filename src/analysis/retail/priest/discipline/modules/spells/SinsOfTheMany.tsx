@@ -37,9 +37,7 @@ class SinsOfTheMany extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_PRIEST.SINS_OF_THE_MANY_DISCIPLINE_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.SINS_OF_THE_MANY_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onDamage);
 
@@ -91,7 +89,7 @@ class SinsOfTheMany extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_PRIEST.SINS_OF_THE_MANY_DISCIPLINE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_PRIEST.SINS_OF_THE_MANY_TALENT.id}>
           <ItemHealingDone amount={this.bonusHealing} /> <br />
           <ItemDamageDone amount={this.bonusDamage} />
         </BoringSpellValueText>

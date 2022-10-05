@@ -72,9 +72,9 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
       Events.heal.by(SELECTED_PLAYER).spell(CONVOKED_DIRECT_HEALS),
       this.onRestoDirectHeal,
     );
-    this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_RESTORATION_TALENT) &&
+    this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT) &&
       this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DRUID.FLOURISH_RESTORATION_TALENT),
+        Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DRUID.FLOURISH_TALENT),
         this.onFlourishCast,
       );
 
@@ -180,12 +180,10 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
   /** Guide fragment showing a breakdown of each Convoke cast */
   get guideCastBreakdown() {
     const hasCenariusGuidance = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.CENARIUS_GUIDANCE_RESTORATION_TALENT,
+      TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT,
     );
-    const hasFlourish = this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_RESTORATION_TALENT);
-    const hasReforestation = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.REFORESTATION_RESTORATION_TALENT,
-    );
+    const hasFlourish = this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT);
+    const hasReforestation = this.selectedCombatant.hasTalent(TALENTS_DRUID.REFORESTATION_TALENT);
 
     return (
       <>
@@ -195,9 +193,8 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
         is a powerful but somewhat random burst of healing.{' '}
         {hasCenariusGuidance && (
           <>
-            Due to <SpellLink id={TALENTS_DRUID.CENARIUS_GUIDANCE_RESTORATION_TALENT.id} />, it also
-            has a decent chance of proccing{' '}
-            <SpellLink id={TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id} />.
+            Due to <SpellLink id={TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT.id} />, it also has a
+            decent chance of proccing <SpellLink id={TALENTS_DRUID.FLOURISH_TALENT.id} />.
           </>
         )}{' '}
         Its short cooldown and random nature mean its best used as it becomes available. The amount
@@ -241,16 +238,16 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
             checklistItems.push({
               label: (
                 <>
-                  Avoid <SpellLink id={TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id} /> clip{' '}
+                  Avoid <SpellLink id={TALENTS_DRUID.FLOURISH_TALENT.id} /> clip{' '}
                   <Tooltip
                     hoverable
                     content={
                       <>
                         When casting <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> and{' '}
-                        <SpellLink id={TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id} /> together,
-                        the Convoke should ALWAYS go first. This is both because the Convoke could
-                        proc Flourish and cause you to clip your hardcast's buff, and also because
-                        Convoke produces a lot of HoTs which Flourish could extend. If you got an{' '}
+                        <SpellLink id={TALENTS_DRUID.FLOURISH_TALENT.id} /> together, the Convoke
+                        should ALWAYS go first. This is both because the Convoke could proc Flourish
+                        and cause you to clip your hardcast's buff, and also because Convoke
+                        produces a lot of HoTs which Flourish could extend. If you got an{' '}
                         <i className="glyphicon glyphicon-remove fail-mark" /> here, it means you
                         cast Flourish before this Convoke.
                       </>
@@ -268,16 +265,16 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
             checklistItems.push({
               label: (
                 <>
-                  Sync with <SpellLink id={TALENTS_DRUID.REFORESTATION_RESTORATION_TALENT.id} />{' '}
+                  Sync with <SpellLink id={TALENTS_DRUID.REFORESTATION_TALENT.id} />{' '}
                   <Tooltip
                     hoverable
                     content={
                       <>
                         <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />
                         's power is greatly increased when in Tree of Life form. With the{' '}
-                        <SpellLink id={TALENTS_DRUID.REFORESTATION_RESTORATION_TALENT.id} /> talent,
-                        you can reasonably get a proc about once every minute, so it is recommended
-                        to sync your procs with Convoke.
+                        <SpellLink id={TALENTS_DRUID.REFORESTATION_TALENT.id} /> talent, you can
+                        reasonably get a proc about once every minute, so it is recommended to sync
+                        your procs with Convoke.
                       </>
                     }
                   >
@@ -299,7 +296,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
 
   statistic() {
     const hasCenariusGuidance = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.CENARIUS_GUIDANCE_RESTORATION_TALENT,
+      TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT,
     );
     return (
       <Statistic
@@ -377,7 +374,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.CONVOKE_THE_SPIRITS_RESTORATION_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT.id}>
           <ItemPercentHealingDone approximate amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

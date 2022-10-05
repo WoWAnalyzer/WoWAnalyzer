@@ -51,9 +51,7 @@ class ApexPredatorsCraving extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.APEX_PREDATORS_CRAVING_FERAL_TALENT,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT);
     this.hasSotf = this.selectedCombatant.hasTalent(TALENTS_DRUID.SOUL_OF_THE_FOREST_FERAL_TALENT);
 
     this.addEventListener(

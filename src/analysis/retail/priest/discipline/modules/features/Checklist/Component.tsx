@@ -43,17 +43,17 @@ const DisciplinePriestChecklist = ({
         }
       >
         <AbilityRequirement spell={SPELLS.PENANCE_CAST.id} />
-        {combatant.hasTalent(TALENTS_PRIEST.SCHISM_DISCIPLINE_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS_PRIEST.SCHISM_DISCIPLINE_TALENT.id} />
+        {combatant.hasTalent(TALENTS_PRIEST.SCHISM_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_PRIEST.SCHISM_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS_PRIEST.POWER_WORD_SOLACE_DISCIPLINE_TALENT) && (
-          <AbilityRequirement spell={TALENTS_PRIEST.POWER_WORD_SOLACE_DISCIPLINE_TALENT.id} />
+        {combatant.hasTalent(TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT) && (
+          <AbilityRequirement spell={TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS_PRIEST.DIVINE_STAR_TALENT.id) && (
           <AbilityRequirement spell={TALENTS_PRIEST.DIVINE_STAR_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS_PRIEST.SHADOW_COVENANT_DISCIPLINE_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS_PRIEST.SHADOW_COVENANT_DISCIPLINE_TALENT.id} />
+        {combatant.hasTalent(TALENTS_PRIEST.SHADOW_COVENANT_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_PRIEST.SHADOW_COVENANT_TALENT.id} />
         )}
       </Rule>
 
@@ -76,8 +76,8 @@ const DisciplinePriestChecklist = ({
         {combatant.hasTalent(SPELLS.HALO_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.HALO_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT.id} />
+        {combatant.hasTalent(TALENTS_PRIEST.EVANGELISM_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_PRIEST.EVANGELISM_TALENT.id} />
         )}
         {/* We can't detect race, so disable this when it has never been cast. */}
         {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA1.id) && (

@@ -28,10 +28,10 @@ class SpiritBombSoulsConsume extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active =
-      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id) &&
-      !this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FEED_THE_DEMON_VENGEANCE_TALENT.id);
+      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id) &&
+      !this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FEED_THE_DEMON_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT),
       this.onCast,
     );
     this.addEventListener(
@@ -101,11 +101,10 @@ class SpiritBombSoulsConsume extends Analyzer {
     when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to cast <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id} /> at 4
-          or 5 souls.
+          Try to cast <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id} /> at 4 or 5 souls.
         </>,
       )
-        .icon(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.icon)
+        .icon(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.icon)
         .actual(
           t({
             id: 'demonhunter.vengeance.suggestions.spiritBomb.soulsConsumed',
@@ -143,7 +142,7 @@ class SpiritBombSoulsConsume extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id}>
           {formatPercentage(this.percentGoodCasts)}% <small>good casts</small>
         </BoringSpellValueText>
       </Statistic>

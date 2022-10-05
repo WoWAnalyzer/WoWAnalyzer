@@ -28,7 +28,7 @@ class Indemnity extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.INDEMNITY_DISCIPLINE_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.INDEMNITY_TALENT);
 
     if (!this.active) {
       return;
@@ -40,7 +40,7 @@ class Indemnity extends Analyzer {
       this.onShieldCast,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.EVANGELISM_TALENT),
       this.checkEvang,
     );
   }
@@ -98,7 +98,7 @@ class Indemnity extends Analyzer {
         }
       >
         <>
-          <BoringSpellValueText spellId={TALENTS_PRIEST.INDEMNITY_DISCIPLINE_TALENT.id}>
+          <BoringSpellValueText spellId={TALENTS_PRIEST.INDEMNITY_TALENT.id}>
             <ItemHealingDone amount={this.atonementHealing} /> <br />
           </BoringSpellValueText>
         </>

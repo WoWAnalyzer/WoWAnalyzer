@@ -21,9 +21,7 @@ class DemonBlades extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.DEMON_BLADES_HAVOC_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -68,10 +66,10 @@ class DemonBlades extends Analyzer {
         <>
           {' '}
           Be mindful of your Fury levels and spend it before capping your Fury due to{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.DEMON_BLADES_HAVOC_TALENT.id} />.
+          <SpellLink id={TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT.id} />.
         </>,
       )
-        .icon(TALENTS_DEMON_HUNTER.DEMON_BLADES_HAVOC_TALENT.icon)
+        .icon(TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT.icon)
         .actual(
           t({
             id: 'demonhunter.havoc.suggestions.demonBlades.furyWasted',
@@ -101,7 +99,7 @@ class DemonBlades extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.DEMON_BLADES_HAVOC_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT.id}>
           <>
             {this.furyPerMin} <small>Fury per min</small> <br />
             {this.owner.formatItemDamageDone(this.damage)}

@@ -37,9 +37,7 @@ class NurturingDormancy extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.NURTURING_DORMANCY_RESTORATION_TALENT,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.NURTURING_DORMANCY_TALENT);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(REJUVENATION_BUFFS),
@@ -93,14 +91,13 @@ class NurturingDormancy extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            This is the healing due to{' '}
-            <SpellLink id={TALENTS_DRUID.NURTURING_DORMANCY_RESTORATION_TALENT.id} /> rejuv
-            extensions. Over the course of the encounter, rejuvs were extended a total of{' '}
+            This is the healing due to <SpellLink id={TALENTS_DRUID.NURTURING_DORMANCY_TALENT.id} />{' '}
+            rejuv extensions. Over the course of the encounter, rejuvs were extended a total of{' '}
             <strong>{(this.attribution.totalExtension / 1000).toFixed(1)}s</strong>.
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.NURTURING_DORMANCY_RESTORATION_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.NURTURING_DORMANCY_TALENT.id}>
           <ItemPercentHealingDone amount={this.attribution.healing} />
           <br />
         </BoringSpellValueText>

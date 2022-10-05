@@ -39,9 +39,9 @@ class SoulFragmentsConsume extends Analyzer {
       Events.cast
         .by(SELECTED_PLAYER)
         .spell([
-          TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT,
+          TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT,
           SPELLS.SOUL_CLEAVE,
-          TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT,
+          TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT,
         ]),
       this.onCast,
     );
