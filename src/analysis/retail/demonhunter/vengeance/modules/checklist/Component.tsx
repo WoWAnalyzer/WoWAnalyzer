@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
-import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
+import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,

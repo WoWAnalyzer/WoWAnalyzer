@@ -1,7 +1,7 @@
 import Channeling from 'parser/shared/normalizers/Channeling';
-import FlaskChecker from 'parser/tbc/modules/items/FlaskChecker';
-import FoodChecker from 'parser/tbc/modules/items/FoodChecker';
-import WeaponEnhancementChecker from 'parser/tbc/modules/items/WeaponEnhancementChecker';
+import FlaskChecker from 'parser/classic/modules/items/FlaskChecker';
+import FoodChecker from 'parser/classic/modules/items/FoodChecker';
+import WeaponEnhancementChecker from 'parser/classic/modules/items/WeaponEnhancementChecker';
 
 import BaseCombatLogParser, { DependenciesDefinition } from '../core/CombatLogParser';
 import Abilities from '../core/modules/Abilities';
@@ -38,7 +38,7 @@ import CancelledCastsNormalizer from '../shared/normalizers/CancelledCasts';
 import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
 import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
 import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
-import ManaValues from '../tbc/modules/ManaValues';
+import ManaValues from './modules/ManaValues';
 import PreparationRuleAnalyzer from './modules/features/Checklist/PreparationRuleAnalyzer';
 import CombatPotionChecker from './modules/items/CombatPotionChecker';
 import EnchantChecker from './modules/items/EnchantChecker';

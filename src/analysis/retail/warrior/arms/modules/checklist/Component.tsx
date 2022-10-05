@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 //import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
-import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
+import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {

@@ -16,6 +16,8 @@ const AVAILABLE_RAID_BUFFS = new Map<number, Array<Class | object>>([
   [SPELLS.BATTLE_SHOUT.id, [Class.Warrior]],
   //  Intellect
   [SPELLS.ARCANE_INTELLECT.id, [Class.Mage]],
+  //  Movement CD
+  [SPELLS.BLESSING_OF_THE_BRONZE.id, [Class.Evoker]],
   // Debuffs
   //  Magic vulnerability
   [SPELLS.CHAOS_BRAND.id, [Class.DemonHunter]],

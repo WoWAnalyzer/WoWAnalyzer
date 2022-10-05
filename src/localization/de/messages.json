@@ -634,6 +634,8 @@
   "interface.search.reportSearch": "Report-Suche",
   "interface.search.searchingFor": "Suchen nach",
   "interface.search.supportedTerms": "Unterstützte Suchbegriffe: <0/><1><2><Report-Code></2><3>https://www.warcraftlogs.com/reports/<Report-Code></3><4>https://www.warcraftlogs.com/character/<Region>/<Realm>/<Name></4><5>https://worldofwarcraft.com/<Sprachencode>/character/<Realm>/<Name></5></1>",
+  "interface.specList.classic": "",
+  "interface.specList.retail": "",
   "interface.specList.specs": "Spezialisierungen",
   "interface.specList.specs.label": "Klicke auf irgendeine Spezialisierung, um einen Beispielreport für diese Spezialisierung anzusehen.",
   "interface.specListItem.maintainer": "Gewartet von: {maintainers}",

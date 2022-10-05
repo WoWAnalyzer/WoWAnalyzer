@@ -1,4 +1,4 @@
-import InFightConsumablesChecker from 'parser/tbc/modules/items/InFightConsumablesChecker';
+import InFightConsumablesChecker from 'parser/classic/modules/items/InFightConsumablesChecker';
 
 class HealthPotionChecker extends InFightConsumablesChecker {}
 
