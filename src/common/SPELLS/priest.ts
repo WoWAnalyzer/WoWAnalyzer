@@ -73,20 +73,20 @@ const spells = spellIndexableList({
     id: 47666,
     name: 'Penance',
     icon: 'spell_holy_penance',
-    manaCost: 800,
+    manaCost: 4000,
   },
   PENANCE_HEAL: {
     // Penance on a friendly player
     id: 47750,
     name: 'Penance',
     icon: 'spell_holy_penance',
-    manaCost: 800,
+    manaCost: 4000,
   },
   PENANCE_CAST: {
     id: 47540,
     name: 'Penance',
     icon: 'spell_holy_penance',
-    manaCost: 800,
+    manaCost: 4000,
   },
   HARSH_DISCIPLINE_BUFF: {
     id: 373183,

@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import { xizbow } from 'CONTRIBUTORS';
+import { CamClark, xizbow } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
@@ -8,8 +8,8 @@ import Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [xizbow],
-  expansion: Expansion.Shadowlands,
+  contributors: [xizbow, CamClark],
+  expansion: Expansion.Dragonflight,
   patchCompatibility: '9.2.7',
   isPartial: false,
   description: (

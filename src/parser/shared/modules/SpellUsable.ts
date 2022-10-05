@@ -31,7 +31,7 @@ function spellName(spellId: number) {
  * When a spell finishes coolding down, the CooldownInfo about it is deleted.
  * Spells without charges are considered to effectively have one charge.
  */
-type CooldownInfo = {
+export type CooldownInfo = {
   /** Timestamp this cooldown started overall (not the most recent charge) */
   overallStart: number;
   /** Timestamp the most recent charge started cooling down */
@@ -671,20 +671,13 @@ class SpellUsable extends Analyzer {
     cdInfo.expectedEnd = timestamp + expectedCooldownDuration - carryoverCdr;
   }
 
-  /**
-   * Fabricates an UpdateSpellUsableEvent and inserts it into the events stream.
-   * @param {UpdateSpellUsableType} updateType the type of update this is
-   * @param {number} canonicalSpellId the spell's canonical ID
-   * @param {number} timestamp the timestamp of the update
-   * @param {CooldownInfo} info the cooldown info object pertaining to this spell
-   *     (after the appropriate updates have been calculated)
-   */
-  private _fabricateUpdateSpellUsableEvent(
-    updateType: UpdateSpellUsableType,
+  public static generateUpdateSpellUsableEvent(
     canonicalSpellId: number,
     timestamp: number,
     info: CooldownInfo,
-  ) {
+    updateType: UpdateSpellUsableType,
+    combatantId: number,
+  ): UpdateSpellUsableEvent {
     const spell = SPELLS[canonicalSpellId];
 
     const event: UpdateSpellUsableEvent = {
@@ -706,13 +699,38 @@ class SpellUsable extends Analyzer {
       expectedRechargeDuration: info.currentRechargeDuration,
       // timeWaitingOnGCD filled in by another modules
 
-      sourceID: this.owner.selectedCombatant.id,
+      sourceID: combatantId,
       sourceIsFriendly: true,
-      targetID: this.owner.selectedCombatant.id,
+      targetID: combatantId,
       targetIsFriendly: true,
 
       __fabricated: true,
     };
+
+    return event;
+  }
+
+  /**
+   * Fabricates an UpdateSpellUsableEvent and inserts it into the events stream.
+   * @param {UpdateSpellUsableType} updateType the type of update this is
+   * @param {number} canonicalSpellId the spell's canonical ID
+   * @param {number} timestamp the timestamp of the update
+   * @param {CooldownInfo} info the cooldown info object pertaining to this spell
+   *     (after the appropriate updates have been calculated)
+   */
+  private _fabricateUpdateSpellUsableEvent(
+    updateType: UpdateSpellUsableType,
+    canonicalSpellId: number,
+    timestamp: number,
+    info: CooldownInfo,
+  ) {
+    const event = SpellUsable.generateUpdateSpellUsableEvent(
+      canonicalSpellId,
+      timestamp,
+      info,
+      updateType,
+      this.selectedCombatant.id,
+    );
 
     if (DEBUG) {
       let logLine =

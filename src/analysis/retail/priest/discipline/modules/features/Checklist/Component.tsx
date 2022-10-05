@@ -7,7 +7,7 @@ import { SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
 import { TooltipElement } from 'interface';
 import Combatant from 'parser/core/Combatant';
-import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
+import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import { AbilityRequirementProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';

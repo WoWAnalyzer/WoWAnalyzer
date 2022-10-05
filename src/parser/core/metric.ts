@@ -6,7 +6,9 @@ import { PetInfo } from './Pet';
 export interface Info {
   playerId: number;
   pets: PetInfo[];
+  // TODO: this piece of plucking props from the Abilities module is not ideal
   abilities: Ability[];
+  defaultRange: number;
   fightStart: number;
   fightEnd: number;
   fightDuration: number;

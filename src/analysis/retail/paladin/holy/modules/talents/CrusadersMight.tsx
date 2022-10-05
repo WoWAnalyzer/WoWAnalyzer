@@ -1,5 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -27,7 +28,7 @@ class CrusadersMight extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.CRUSADERS_MIGHT_HOLY_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -50,7 +51,7 @@ class CrusadersMight extends Analyzer {
       const holyShockCooldown =
         7500 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
       if (
-        this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT_HOLY.id) &&
+        this.selectedCombatant.hasTalent(TALENTS.SANCTIFIED_WRATH_TALENT.id) &&
         this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id, event.timestamp)
       ) {
         this.holyShocksCastsLost += 1;
@@ -95,7 +96,7 @@ class CrusadersMight extends Analyzer {
             <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> should be used to reduce the cooldown of
             <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> and should never be cast when{' '}
             <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> is avalible. This is a core component of
-            the <SpellLink id={SPELLS.GLIMMER_OF_LIGHT_TALENT.id} />{' '}
+            the <SpellLink id={TALENTS.GLIMMER_OF_LIGHT_HOLY_TALENT.id} />{' '}
             <a
               href="https://questionablyepic.com/glimmer-of-light/"
               target="_blank"
@@ -133,7 +134,7 @@ class CrusadersMight extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(75)}
-        icon={<SpellIcon id={SPELLS.CRUSADERS_MIGHT_TALENT.id} />}
+        icon={<SpellIcon id={TALENTS.CRUSADERS_MIGHT_HOLY_TALENT.id} />}
         value={
           <>
             {formatSeconds((this.effectiveHolyShockReductionMs / 1000).toFixed(1))}{' '}

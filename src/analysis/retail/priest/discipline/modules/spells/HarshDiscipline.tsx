@@ -1,15 +1,15 @@
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
+import ManaIcon from 'interface/icons/Mana';
 import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
 
 // Mutating the events from years ago, just unlucky
@@ -88,6 +88,12 @@ class HarshDiscipline extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
+            <span>
+              Penance consumed{' '}
+              <SpellLink id={TALENTS_PRIEST.HARSH_DISCIPLINE_DISCIPLINE_TALENT.id} />{' '}
+              {this.harshPenances} times.{' '}
+            </span>
+            <br />
             <strong>Atonement healing:</strong> {formatThousands(this.harshAtonement)}
             <br />
             <strong>Direct healing:</strong> {formatThousands(this.harshDirect)}
@@ -106,7 +112,7 @@ class HarshDiscipline extends Analyzer {
               <br />
             </span>
             <ItemHealingDone amount={this.harshAtonement + this.harshDirect} /> <br />
-            <ItemManaGained amount={manaSaved} />
+            <ManaIcon /> {formatThousands(manaSaved)} mana
           </BoringSpellValueText>
         </>
       </Statistic>

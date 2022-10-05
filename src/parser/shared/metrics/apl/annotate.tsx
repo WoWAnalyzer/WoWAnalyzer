@@ -1,13 +1,13 @@
 import { SpellLink } from 'interface';
 
-import type { Tense, CheckResult, Rule } from './index';
+import type { Tense, CheckResult, InternalRule, Violation } from './index';
 
 export function ConditionDescription({
   tense,
   rule,
   prefix,
 }: {
-  rule: Rule;
+  rule: InternalRule;
   prefix?: string;
   tense?: Tense;
 }) {
@@ -15,7 +15,7 @@ export function ConditionDescription({
     return null;
   }
 
-  const desc = rule.condition.describe(tense);
+  const desc = rule.condition?.describe(tense);
 
   if (!desc || desc === '') {
     return null;
@@ -25,6 +25,21 @@ export function ConditionDescription({
     <>
       {' '}
       {prefix || 'because'} {desc}
+    </>
+  );
+}
+
+export function InefficientCastAnnotation({ violation }: { violation: Violation }) {
+  return (
+    <>
+      {violation.expectedCast.map((spell, index) => (
+        <>
+          {index > 0 ? ' and ' : ''}
+          <SpellLink key={spell.id} id={spell.id} />
+        </>
+      ))}{' '}
+      {violation.expectedCast.length > 1 ? 'were' : 'was'} available and higher priority
+      <ConditionDescription rule={violation.rule} />.
     </>
   );
 }
@@ -39,12 +54,7 @@ export default function annotateTimeline(violations: CheckResult['violations']) 
   for (const violation of violations) {
     violation.actualCast.meta = {
       isInefficientCast: true,
-      inefficientCastReason: (
-        <>
-          <SpellLink id={violation.expectedCast.id} /> was available and higher priority
-          <ConditionDescription rule={violation.rule} />.
-        </>
-      ),
+      inefficientCastReason: <InefficientCastAnnotation violation={violation} />,
     };
   }
 }

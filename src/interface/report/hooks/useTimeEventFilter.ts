@@ -16,7 +16,7 @@ import {
   RemoveDebuffStackEvent,
 } from 'parser/core/Events';
 import Fight, { WCLFight } from 'parser/core/Fight';
-import { COMBAT_POTIONS } from 'parser/shadowlands/modules/items/PotionChecker';
+import { COMBAT_POTIONS } from 'parser/retail/modules/items/PotionChecker';
 import { useEffect, useState } from 'react';
 
 import { EventsParseError } from './useEventParser';
