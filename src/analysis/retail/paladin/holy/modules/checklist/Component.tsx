@@ -331,14 +331,18 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           </Trans>
         }
       >
-        <AbilityRequirement spell={TALENTS.DIVINE_STEED_TALENT.id} />
-        {combatant.hasTalent(TALENTS.DIVINE_STEED_TALENT.id)}
-        <AbilityRequirement spell={TALENTS.DIVINE_PROTECTION_HOLY_TALENT.id} />
-        {combatant.hasTalent(TALENTS.DIVINE_PROTECTION_HOLY_TALENT.id)}
-        <AbilityRequirement spell={TALENTS.BLESSING_OF_SACRIFICE_TALENT.id} />
-        {combatant.hasTalent(TALENTS.BLESSING_OF_SACRIFICE_TALENT.id)}
-        <AbilityRequirement spell={TALENTS.LAY_ON_HANDS_TALENT.id} />
-        {combatant.hasTalent(TALENTS.LAY_ON_HANDS_TALENT.id)}
+        {combatant.hasTalent(TALENTS.DIVINE_STEED_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.DIVINE_STEED_TALENT.id} />
+        )}
+        {combatant.hasTalent(TALENTS.DIVINE_PROTECTION_HOLY_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.DIVINE_PROTECTION_HOLY_TALENT.id} />
+        )}
+        {combatant.hasTalent(TALENTS.BLESSING_OF_SACRIFICE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.BLESSING_OF_SACRIFICE_TALENT.id} />
+        )}
+        {combatant.hasTalent(TALENTS.LAY_ON_HANDS_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.LAY_ON_HANDS_TALENT.id} />
+        )}
       </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>

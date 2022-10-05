@@ -19,6 +19,8 @@ class Abilities extends CoreAbilities {
   spellbook(): Array<SpellbookAbility<TrackedPaladinAbility>> {
     const combatant = this.selectedCombatant;
     const hasSanctifiedWrath = combatant.hasTalent(TALENTS.SANCTIFIED_WRATH_TALENT.id);
+
+    const UNBREAKABLE_SPIRIT_SCALING = [0, 60];
     return [
       {
         spell: TALENTS.HOLY_SHOCK_HOLY_TALENT.id,
@@ -353,8 +355,8 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.BLESSING_OF_PROTECTION_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
-          // Reduces the cooldown of Blessing of Protection by 60
-          60 * (combatant.hasTalent(TALENTS.UNBREAKABLE_SPIRIT_TALENT.id) ? 4 : 5),
+          300 -
+          UNBREAKABLE_SPIRIT_SCALING[combatant.getTalentRank(TALENTS.UNBREAKABLE_SPIRIT_TALENT)],
         gcd: {
           base: 1500,
         },
