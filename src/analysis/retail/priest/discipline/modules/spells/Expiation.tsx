@@ -28,7 +28,11 @@ class Expiation extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.EXPIATION_DISCIPLINE_TALENT.id);
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtonement);
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([
+      SPELLS.EXPIATION_DAMAGE,
+      TALENTS_PRIEST.SHADOW_WORD_DEATH_TALENT,
+      SPELLS.MIND_BLAST
+    ]), this.onDamage);
     this.talentRank = this.selectedCombatant.getTalentRank(
       TALENTS_PRIEST.EXPIATION_DISCIPLINE_TALENT.id,
     );
@@ -60,14 +64,6 @@ class Expiation extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    if (
-      event.ability.guid !== SPELLS.EXPIATION_DAMAGE.id &&
-      event.ability.guid !== TALENTS_PRIEST.SHADOW_WORD_DEATH_TALENT.id &&
-      event.ability.guid !== SPELLS.MIND_BLAST.id
-    ) {
-      return;
-    }
-
     if (event.ability.guid === SPELLS.EXPIATION_DAMAGE.id) {
       this.expiationDamage += event.amount;
     } else {
