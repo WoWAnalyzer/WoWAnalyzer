@@ -8,11 +8,8 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 
-import { RAKE_BASE_DURATION } from 'analysis/retail/druid/feral/constants';
-import {
-  getHardcast,
-  isFromHardcast,
-} from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
+import { getRakeDuration, SNAPSHOT_DOWNGRADE_BUFFER } from 'analysis/retail/druid/feral/constants';
+import { getHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 import Snapshots, {
   hasSpec,
   PROWL_SPEC,
@@ -20,8 +17,10 @@ import Snapshots, {
   TIGERS_FURY_SPEC,
 } from 'analysis/retail/druid/feral/modules/core/Snapshots';
 import { TALENTS_DRUID } from 'common/TALENTS';
-
-const MAX_RAKE_PROWL_DOWNGRADE_TIME = 2000;
+import { proccedBloodtalons } from 'analysis/retail/druid/feral/normalizers/BloodtalonsLinkNormalizer';
+import { SubSection } from 'interface/guide';
+import { PerformanceBoxRow } from 'parser/ui/PerformanceBoxRow';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 class RakeUptimeAndSnapshots extends Snapshots {
   static dependencies = {
@@ -33,16 +32,18 @@ class RakeUptimeAndSnapshots extends Snapshots {
 
   prowlRakeTimeLost: number = 0;
 
+  castLog: RakeCast[] = [];
+
   constructor(options: Options) {
     super(SPELLS.RAKE, SPELLS.RAKE_BLEED, [TIGERS_FURY_SPEC, PROWL_SPEC], options);
   }
 
   getDotExpectedDuration(): number {
-    return RAKE_BASE_DURATION;
+    return getRakeDuration(this.selectedCombatant);
   }
 
   getDotFullDuration(): number {
-    return RAKE_BASE_DURATION;
+    return getRakeDuration(this.selectedCombatant);
   }
 
   getTotalDotUptime(): number {
@@ -58,27 +59,49 @@ class RakeUptimeAndSnapshots extends Snapshots {
     remainingOnPrev: number,
     clipped: number,
   ) {
+    const cast = getHardcast(application);
+    if (!cast) {
+      return; // no handling needed for 'uncontrolled' rakes from DCR or Convoke
+    }
+
+    // log the cast
+    const timestamp = cast.timestamp;
+    const targetName = this.enemies.getEntity(cast)?.name;
+    const proccedBt = proccedBloodtalons(cast);
+    const snapshotNames = snapshots.map((ss) => ss.name);
+    const prevSnapshotNames = prevSnapshots === null ? null : prevSnapshots.map((ss) => ss.name);
+    const wasUnacceptableDowngrade =
+      prevPower > power && remainingOnPrev > SNAPSHOT_DOWNGRADE_BUFFER;
+    const wasUpgrade = prevPower < power;
+    this.castLog.push({
+      timestamp,
+      targetName,
+      proccedBt,
+      remainingOnPrev,
+      clipped,
+      snapshotNames,
+      prevSnapshotNames,
+      wasUnacceptableDowngrade,
+      wasUpgrade,
+    });
+
     // note if player downgrades a Prowl Rake
     if (
       prevSnapshots !== null &&
       hasSpec(prevSnapshots, PROWL_SPEC) &&
-      !hasSpec(snapshots, PROWL_SPEC) &&
-      isFromHardcast(application) // don't count accidental downgrades from Convoke
+      !hasSpec(snapshots, PROWL_SPEC)
     ) {
       this.prowlRakeTimeLost += remainingOnPrev;
-      if (remainingOnPrev >= MAX_RAKE_PROWL_DOWNGRADE_TIME) {
-        const cast = getHardcast(application);
-        if (cast) {
-          cast.meta = {
-            isInefficientCast: true,
-            inefficientCastReason: `This cast overwrote more than ${(
-              MAX_RAKE_PROWL_DOWNGRADE_TIME / 1000
-            ).toFixed(
-              1,
-            )} seconds of Prowl buffed Rake. The damage boost from Prowl (or Shadowmeld or Incarnation) is
-          very large and when your refresh won't be buffed by it you should avoid refreshing until the last moment.`,
-          };
-        }
+      if (remainingOnPrev > SNAPSHOT_DOWNGRADE_BUFFER) {
+        cast.meta = {
+          isInefficientCast: true,
+          inefficientCastReason: `This cast overwrote more than ${(
+            SNAPSHOT_DOWNGRADE_BUFFER / 1000
+          ).toFixed(
+            1,
+          )} seconds of Prowl buffed Rake. The damage boost from Prowl (or Shadowmeld or Incarnation) is
+        very large and when your refresh won't be buffed by it you should avoid refreshing until the last moment.`,
+        };
       }
     }
   }
@@ -93,6 +116,105 @@ class RakeUptimeAndSnapshots extends Snapshots {
 
   get prowlSecondsLostPerMinute() {
     return this.owner.getPerMinute(this.prowlRakeTimeLost / 1000);
+  }
+
+  get guideSubsection(): JSX.Element {
+    const castPerfBoxes = this.castLog.map((cast) => {
+      let value: QualitativePerformance = 'good';
+      if (!cast.proccedBt) {
+        if (cast.wasUnacceptableDowngrade) {
+          value = 'fail';
+        }
+        if (cast.clipped > 0) {
+          value = cast.wasUpgrade ? 'ok' : 'fail';
+        }
+      }
+
+      const tooltip = (
+        <>
+          @ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
+          <strong>{cast.targetName || 'unknown'}</strong>
+          <br />
+          {cast.proccedBt && (
+            <>
+              Used to proc{' '}
+              <strong>
+                <SpellLink id={TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id} />
+              </strong>
+              <br />
+            </>
+          )}
+          {cast.prevSnapshotNames !== null && (
+            <>
+              Refreshed on target w/ {(cast.remainingOnPrev / 1000).toFixed(1)}s remaining{' '}
+              {cast.clipped > 0 && (
+                <>
+                  <strong>- Clipped {(cast.clipped / 1000).toFixed(1)}s!</strong>
+                </>
+              )}
+              <br />
+            </>
+          )}
+          Snapshots:{' '}
+          <strong>
+            {cast.snapshotNames.length === 0 ? 'NONE' : cast.snapshotNames.join(', ')}
+          </strong>
+          <br />
+          {cast.prevSnapshotNames !== null && (
+            <>
+              Prev Snapshots:{' '}
+              <strong>
+                {cast.prevSnapshotNames.length === 0 ? 'NONE' : cast.prevSnapshotNames.join(', ')}
+              </strong>
+            </>
+          )}
+        </>
+      );
+      return {
+        value,
+        tooltip,
+      };
+    });
+    const hasBt = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT);
+    return (
+      <SubSection>
+        <p>
+          <b>
+            <SpellLink id={SPELLS.RAKE.id} />
+          </b>{' '}
+          is your highest damage-per-energy single target builder. Try to keep it active on all
+          targets (except when in a many-target AoE situation). Rake snapshots{' '}
+          <SpellLink id={SPELLS.TIGERS_FURY.id} /> and{' '}
+          <SpellLink id={TALENTS_DRUID.POUNCING_STRIKES_FERAL_TALENT.id} /> - when forced to refresh
+          with a weaker snapshot, try to wait until the last moment in order to overwrite the
+          minimum amount of the stronger DoT.
+          {hasBt && (
+            <>
+              {' '}
+              It's always acceptable to do a sub-optimal Rake cast if needed to proc{' '}
+              <SpellLink id={TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id} />.
+            </>
+          )}
+        </p>
+        <strong>Rake uptime / snapshots</strong>
+        <small> - Try to get as close to 100% as the encounter allows!</small>
+        {this.subStatistic()}
+        <strong>Rake casts</strong>
+        <small>
+          {' '}
+          - Green is a good cast{' '}
+          {hasBt && (
+            <>
+              (or a cast with problems that procced{' '}
+              <SpellLink id={TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id} />)
+            </>
+          )}
+          , Yellow is an ok cast (clipped duration but upgraded snapshot), Red is a bad cast
+          (clipped duration or downgraded snapshot w/ &gt;2s remaining). Mouseover for more details.
+        </small>
+        <PerformanceBoxRow values={castPerfBoxes} />
+      </SubSection>
+    );
   }
 
   get suggestionThresholds() {
@@ -211,5 +333,27 @@ class RakeUptimeAndSnapshots extends Snapshots {
     );
   }
 }
+
+/** Tracking object for each rake cast */
+type RakeCast = {
+  /** Cast's timestamp */
+  timestamp: number;
+  /** Name of cast's target */
+  targetName?: string;
+  /** If the cast was involved in proccing Bloodtalons */
+  proccedBt: boolean;
+  /** Time remaining on previous Rake */
+  remainingOnPrev: number;
+  /** Time clipped from previous Rake */
+  clipped: number;
+  /** Name of snapshots on new cast */
+  snapshotNames: string[];
+  /** Name of snapshots on prev cast (or null for fresh application) */
+  prevSnapshotNames: string[] | null;
+  /** True iff snapshots were downgraded with more than buffer time remaining */
+  wasUnacceptableDowngrade: boolean;
+  /** True iff the snapshot got stronger */
+  wasUpgrade: boolean;
+};
 
 export default RakeUptimeAndSnapshots;

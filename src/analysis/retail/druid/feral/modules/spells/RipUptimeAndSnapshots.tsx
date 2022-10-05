@@ -9,10 +9,10 @@ import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 
 import {
-  PRIMAL_WRATH_RIP_DURATION_BASE,
-  PRIMAL_WRATH_RIP_DURATION_PER_CP,
+  getPrimalWrathDuration,
+  getRipDuration,
+  getRipFullDuration,
   RIP_DURATION_BASE,
-  RIP_DURATION_PER_CP,
 } from 'analysis/retail/druid/feral/constants';
 import {
   getHardcast,
@@ -24,8 +24,6 @@ import Snapshots, {
   TIGERS_FURY_SPEC,
 } from 'analysis/retail/druid/feral/modules/core/Snapshots';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import getResourceSpent from 'parser/core/getResourceSpent';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 class RipUptimeAndSnapshots extends Snapshots {
   static dependencies = {
@@ -44,18 +42,11 @@ class RipUptimeAndSnapshots extends Snapshots {
   getDotExpectedDuration(event: ApplyDebuffEvent | RefreshDebuffEvent): number {
     const fromHardcast = getHardcast(event);
     if (fromHardcast) {
-      return (
-        RIP_DURATION_BASE +
-        RIP_DURATION_PER_CP * getResourceSpent(fromHardcast, RESOURCE_TYPES.COMBO_POINTS)
-      );
+      getRipDuration(fromHardcast, this.selectedCombatant);
     }
     const fromPrimalWrath = getPrimalWrath(event);
     if (fromPrimalWrath) {
-      return (
-        PRIMAL_WRATH_RIP_DURATION_BASE +
-        PRIMAL_WRATH_RIP_DURATION_PER_CP *
-          getResourceSpent(fromPrimalWrath, RESOURCE_TYPES.COMBO_POINTS)
-      );
+      getPrimalWrathDuration(fromPrimalWrath, this.selectedCombatant);
     }
 
     console.warn(
@@ -66,7 +57,7 @@ class RipUptimeAndSnapshots extends Snapshots {
   }
 
   getDotFullDuration(): number {
-    return RIP_DURATION_BASE + 5 * RIP_DURATION_PER_CP;
+    return getRipFullDuration(this.selectedCombatant);
   }
 
   getTotalDotUptime(): number {

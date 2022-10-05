@@ -3,15 +3,15 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
-import RakeUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/features/RakeUptimeAndSnapshots';
-import RipUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/features/RipUptimeAndSnapshots';
+import RakeUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/spells/RakeUptimeAndSnapshots';
+import RipUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/spells/RipUptimeAndSnapshots';
 import ComboPointDetails from 'analysis/retail/druid/feral/modules/core/combopoints/ComboPointDetails';
 import FinisherUse from 'analysis/retail/druid/feral/modules/features/FinisherUse';
 import AdaptiveSwarmFeral from 'analysis/retail/druid/feral/modules/spells/AdaptiveSwarmFeral';
 import FerociousBite from 'analysis/retail/druid/feral/modules/spells/FerociousBite';
 import TigersFuryEnergy from 'analysis/retail/druid/feral/modules/spells/TigersFuryEnergy';
 import Bloodtalons from 'analysis/retail/druid/feral/modules/spells/Bloodtalons';
-import MoonfireUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/features/MoonfireUptimeAndSnapshots';
+import MoonfireUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/spells/MoonfireUptimeAndSnapshots';
 import Component from 'analysis/retail/druid/feral/modules/checklist/Component';
 
 class Checklist extends BaseChecklist {

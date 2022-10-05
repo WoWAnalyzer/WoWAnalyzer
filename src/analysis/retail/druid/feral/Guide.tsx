@@ -3,7 +3,8 @@ import CombatLogParser from 'analysis/retail/druid/feral/CombatLogParser';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { CooldownBar } from 'parser/ui/CooldownBar';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
+import { SpellLink, TooltipElement } from 'interface';
+import { directAoeBuilder } from 'analysis/retail/druid/feral/constants';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -29,10 +30,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           TODO LIST OF SPENDERS w/ LOW CP USAGE
         </SubSection>
       </Section>
-      <Section title="Core Rotation">
-        <BuildersSubsection modules={modules} events={events} info={info} />
-        <SpendersSubsection modules={modules} events={events} info={info} />
-      </Section>
+      <CoreRotationSection modules={modules} events={events} info={info} />
       <Section title="Cooldowns">
         <p>TODO COOLDOWN USAGE DESCRIPTION</p>
         <CooldownGraphSubsection modules={modules} events={events} info={info} />
@@ -41,15 +39,36 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   );
 }
 
-function BuildersSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
+function CoreRotationSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   const hasLi = info.combatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_FERAL_TALENT);
+  const hasBrs = info.combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_FERAL_TALENT);
   const hasDcr = info.combatant.hasTalent(TALENTS_DRUID.DOUBLE_CLAWED_RAKE_FERAL_TALENT);
-  // const hasBt = info.combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT);
+  const hasBt = info.combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT);
+  const hasPw = info.combatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT);
+  const hasApc = info.combatant.hasTalent(TALENTS_DRUID.APEX_PREDATORS_CRAVING_FERAL_TALENT);
+  const hasPc = info.combatant.hasTalent(TALENTS_DRUID.PRIMAL_CLAWS_FERAL_TALENT);
+  const hasAdaptiveSwarm = info.combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_FERAL_TALENT);
+
   return (
-    <SubSection title="Builders">
+    <Section title="Core Rotation">
       <p>
-        Generate combo points with your builder abilites. With your{' '}
-        <strong>current talent build</strong>, your priorities are:
+        Feral's core rotation is performing <strong>builder</strong> abilites up to 5 combo points,
+        then using a <strong>spender</strong> ability. You will have priority lists for each
+        category:
+      </p>
+      <SubSection>
+        <strong>Builders</strong> generate combo points. Due to{' '}
+        <SpellLink id={TALENTS_DRUID.PRIMAL_FURY_TALENT.id} />{' '}
+        {hasPc && (
+          <>
+            {' '}
+            and <SpellLink id={TALENTS_DRUID.PRIMAL_CLAWS_FERAL_TALENT.id} />
+          </>
+        )}
+        , it will take a variable number of abilities to reach 5 CPs - pay attention to how many
+        you've generated!
+        <br />
+        With your <strong>current talent build</strong>, your priorities are:
         <br />
         <strong>Single-Target:</strong>
         <br />
@@ -60,6 +79,11 @@ function BuildersSubsection({ modules, events, info }: GuideProps<typeof CombatL
           {hasLi && (
             <li>
               Maintain <SpellLink id={SPELLS.MOONFIRE_FERAL.id} />
+            </li>
+          )}
+          {hasBrs && (
+            <li>
+              Use <SpellLink id={TALENTS_DRUID.BRUTAL_SLASH_FERAL_TALENT.id} />
             </li>
           )}
           <li>
@@ -81,35 +105,36 @@ function BuildersSubsection({ modules, events, info }: GuideProps<typeof CombatL
             ) : (
               '4 targets'
             )}
-            ) TODO UPDATE NUMBER WHEN SIMS AVAILABLE
+            )
           </li>
           {hasLi && (
             <li>
-              Maintain <SpellLink id={SPELLS.MOONFIRE_FERAL.id} /> (on up to 4 targets) TODO UPDATE
-              NUMBER WHEN SIMS AVAILABLE
+              Maintain <SpellLink id={SPELLS.MOONFIRE_FERAL.id} /> (on up to 4 targets)
             </li>
           )}
           <li>
-            Fill with <SpellLink id={SPELLS.SWIPE_CAT.id} />
+            Fill with <SpellLink id={directAoeBuilder(info.combatant).id} />
           </li>
+          {hasBrs && (
+            <li>
+              Fill with <SpellLink id={SPELLS.SHRED.id} /> if out of Brutal Slash charges
+            </li>
+          )}
         </ul>
-      </p>
-      TODO ORGANIZE THIS BETTER AND PROVIDE MORE TEXT / CONTEXT - EXPLANATION OF BT AND SNAPSHOTTING
-      {modules.rakeUptime.subStatistic()}
-      {hasLi && modules.moonfireUptime.subStatistic()}
-      TODO SOMETHING FOR SHRED AND SWIPE?
-    </SubSection>
-  );
-}
-
-function SpendersSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
-  const hasPw = info.combatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT);
-  const hasApc = info.combatant.hasTalent(TALENTS_DRUID.APEX_PREDATORS_CRAVING_FERAL_TALENT);
-  return (
-    <SubSection title="Spenders">
-      <p>
-        Spend combo points with finisher abilites. With your <strong>current talent build</strong>,
-        your priorities are:
+        {hasBt && (
+          <>
+            <strong>
+              Due to <SpellLink id={TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id} />
+            </strong>
+            , you may use a sub-optimal builder in order to get a proc - the difference will be more
+            than made up for by the damage boost to your spenders.
+          </>
+        )}
+      </SubSection>
+      <SubSection>
+        <strong>Spenders</strong> cost combo points. With the exception of applying your initial{' '}
+        <SpellLink id={SPELLS.RIP.id} />, always wait until max CPs to use - with your{' '}
+        <strong>current talent build</strong>, your priorities are:
         <br />
         <strong>Single-Target:</strong>
         <br />
@@ -146,11 +171,65 @@ function SpendersSubsection({ modules, events, info }: GuideProps<typeof CombatL
             LOGIC WITH RAMPANT FEROCITY??
           </li>
         </ul>
-      </p>
-      TODO ORGANIZE THIS BETTER AND PROVIDE MORE TEXT / CONTEXT - EXPLANATION OF BT AND SNAPSHOTTING
-      {modules.ripUptime.subStatistic()}
-      TODO SOMETHING FOR FEROCIOUS BITE?
-    </SubSection>
+      </SubSection>
+      {modules.rakeUptime.guideSubsection}
+      {hasLi && (
+        <SubSection>
+          <strong>
+            <SpellLink id={SPELLS.MOONFIRE_FERAL.id} />
+          </strong>{' '}
+          - Maintain uptime, preferably with{' '}
+          <TooltipElement content={snapshotTooltip()}>snapshots</TooltipElement>
+          {modules.moonfireUptime.subStatistic()}
+        </SubSection>
+      )}
+      <SubSection>
+        <strong>
+          <SpellLink id={SPELLS.SWIPE_CAT.id} /> and <SpellLink id={SPELLS.THRASH_FERAL.id} />
+        </strong>{' '}
+        - TODO targets hit eval (check for bloodtalons contrib)
+      </SubSection>
+      <SubSection>
+        <strong>
+          <SpellLink id={SPELLS.RIP.id} />
+        </strong>{' '}
+        - Maintain uptime, preferably with{' '}
+        <TooltipElement content={snapshotTooltip()}>snapshots</TooltipElement>
+        {modules.ripUptime.subStatistic()}
+        Per-cast eval (snapshot, don't clip)
+        <br />
+        Primal Wrath targets hit?
+      </SubSection>
+      <SubSection>
+        <strong>
+          <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />
+        </strong>{' '}
+        - TODO eval? Per-cast (snapshot, use full energy)
+        <br />
+        Apex predator usage?
+      </SubSection>
+      {hasAdaptiveSwarm && (
+        <SubSection>
+          <strong>
+            <SpellLink id={TALENTS_DRUID.ADAPTIVE_SWARM_FERAL_TALENT.id} />
+          </strong>{' '}
+          - ???
+          {modules.adaptiveSwarm.subStatistic()}
+        </SubSection>
+      )}
+    </Section>
+  );
+}
+
+function snapshotTooltip() {
+  return (
+    <>
+      Your damage over time abilities 'snapshot' some of your buffs, retaining their damage bonus
+      over the DoTs full duration, even if the buff fades. The buffs that snapshot are{' '}
+      <SpellLink id={TALENTS_DRUID.TIGERS_FURY_FERAL_TALENT.id} />,{' '}
+      <SpellLink id={TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id} />, and{' '}
+      <SpellLink id={TALENTS_DRUID.POUNCING_STRIKES_FERAL_TALENT.id} />
+    </>
   );
 }
 

@@ -27,9 +27,7 @@ const DEBUG = true;
  * This module specifically tracks Ferocious Bite's benefit from Bloodtalons.
  * Rip benefits are handled in RipUptimeAndSnapshots.
  */
-// TODO also track which builders caused the proc?
-class Bloodtalons2 extends Analyzer {
-  // TODO can I rename this now - where did the other Bloodtalons module go lol?
+class Bloodtalons extends Analyzer {
   static dependencies = {
     convokeSpirits: ConvokeSpiritsFeral,
   };
@@ -294,4 +292,4 @@ class Bloodtalons2 extends Analyzer {
   }
 }
 
-export default Bloodtalons2;
+export default Bloodtalons;

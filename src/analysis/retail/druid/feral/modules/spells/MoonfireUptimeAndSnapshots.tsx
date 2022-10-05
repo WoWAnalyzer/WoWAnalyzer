@@ -5,12 +5,12 @@ import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 
-import { MOONFIRE_FERAL_BASE_DURATION } from 'analysis/retail/druid/feral/constants';
 import Snapshots, {
   SnapshotSpec,
   TIGERS_FURY_SPEC,
 } from 'analysis/retail/druid/feral/modules/core/Snapshots';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import { getMoonfireDuration } from 'analysis/retail/druid/feral/constants';
 
 class MoonfireUptimeAndSnapshots extends Snapshots {
   static dependencies = {
@@ -26,11 +26,11 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
   }
 
   getDotExpectedDuration(): number {
-    return MOONFIRE_FERAL_BASE_DURATION;
+    return getMoonfireDuration(this.selectedCombatant);
   }
 
   getDotFullDuration(): number {
-    return MOONFIRE_FERAL_BASE_DURATION;
+    return getMoonfireDuration(this.selectedCombatant);
   }
 
   getTotalDotUptime(): number {

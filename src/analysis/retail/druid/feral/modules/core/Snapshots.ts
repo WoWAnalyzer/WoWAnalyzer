@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
-import RACES from 'game/RACES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
 import Events, {
@@ -15,7 +14,6 @@ import { UptimeBarSpec } from 'parser/ui/UptimeBarSubStatistic';
 
 import {
   BLOODTALONS_DAMAGE_BONUS,
-  cdSpell,
   PANDEMIC_FRACTION,
   PROWL_RAKE_DAMAGE_BONUS,
   TIGERS_FURY_DAMAGE_BONUS,
@@ -35,19 +33,8 @@ export const TIGERS_FURY_SPEC: StaticSnapshotSpec = {
 };
 
 export const PROWL_SPEC: StaticSnapshotSpec = {
-  name: 'Prowl',
-  spellFunc: (c) => {
-    const res = [];
-    res.push(SPELLS.PROWL);
-    res.push(cdSpell(c));
-    if (c.race === RACES.NightElf) {
-      res.push(SPELLS.SHADOWMELD);
-    }
-    if (c.hasConduitBySpellID(SPELLS.SUDDEN_AMBUSH.id)) {
-      res.push(SPELLS.SUDDEN_AMBUSH);
-    }
-    return res;
-  },
+  name: 'Pouncing Strikes',
+  spellFunc: (_) => [TALENTS_DRUID.POUNCING_STRIKES_FERAL_TALENT],
   isActive: (_) => true,
   isPresent: (c, timestamp) =>
     c.hasBuff(
@@ -196,7 +183,7 @@ abstract class Snapshots extends Analyzer {
     const prevPower =
       previousSnapshots === null
         ? 0
-        : previousSnapshots.reduce((acc, ss) => acc * ss.boostStrength, 1);
+        : previousSnapshots.reduce((acc, ss) => acc * (1 + ss.boostStrength), 1);
 
     this.handleApplication(
       event,
