@@ -158,10 +158,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.RULE_OF_LAW_HOLY_TALENT.id),
       },
       {
-        spell: [
-          TALENTS.DIVINE_PROTECTION_HOLY_TALENT.id,
-          TALENTS.DIVINE_PROTECTION_RETRIBUTION_TALENT.id,
-        ],
+        spell: TALENTS.DIVINE_PROTECTION_HOLY_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60 * (1 - (combatant.hasTalent(TALENTS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.3 : 0)),
         gcd: undefined,
@@ -172,9 +169,7 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 45,
         isDefensive: true,
-        enabled:
-          combatant.hasTalent(TALENTS.DIVINE_PROTECTION_HOLY_TALENT.id) ||
-          combatant.hasTalent(TALENTS.DIVINE_PROTECTION_RETRIBUTION_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.DIVINE_PROTECTION_HOLY_TALENT.id),
       },
       {
         spell: SPELLS.DIVINE_SHIELD.id,
