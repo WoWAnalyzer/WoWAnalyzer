@@ -189,17 +189,7 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
         </strong>{' '}
         - TODO targets hit eval (check for bloodtalons contrib)
       </SubSection>
-      <SubSection>
-        <strong>
-          <SpellLink id={SPELLS.RIP.id} />
-        </strong>{' '}
-        - Maintain uptime, preferably with{' '}
-        <TooltipElement content={snapshotTooltip()}>snapshots</TooltipElement>
-        {modules.ripUptime.subStatistic()}
-        Per-cast eval (snapshot, don't clip)
-        <br />
-        Primal Wrath targets hit?
-      </SubSection>
+      {modules.ripUptime.guideSubsection}
       <SubSection>
         <strong>
           <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />

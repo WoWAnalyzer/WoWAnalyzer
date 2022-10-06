@@ -12,7 +12,6 @@ import ComboPointTracker from 'analysis/retail/druid/feral/modules/core/combopoi
 import FinisherUse from 'analysis/retail/druid/feral/modules/features/FinisherUse';
 import DotUptimesAndSnapshots from 'analysis/retail/druid/feral/modules/features/DotUptimesAndSnapshots';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import EnergyDetails from 'analysis/retail/druid/feral/modules/core/energy/EnergyDetails';
 import EnergyTracker from 'analysis/retail/druid/feral/modules/core/energy/EnergyTracker';
@@ -55,7 +54,6 @@ class CombatLogParser extends CoreCombatLogParser {
     spellUsable: SpellUsable,
     energyTracker: EnergyTracker,
     energyDetails: EnergyDetails,
-    checklist: Checklist,
 
     // bleeds
     rakeUptime: RakeUptimeAndSnapshots,

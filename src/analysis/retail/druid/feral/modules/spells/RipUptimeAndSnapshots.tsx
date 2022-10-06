@@ -1,10 +1,6 @@
-import { t } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink, TooltipElement } from 'interface';
 import { Options } from 'parser/core/Analyzer';
 import { ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 
@@ -13,6 +9,7 @@ import {
   getRipDuration,
   getRipFullDuration,
   RIP_DURATION_BASE,
+  SNAPSHOT_DOWNGRADE_BUFFER,
 } from 'analysis/retail/druid/feral/constants';
 import {
   getHardcast,
@@ -24,6 +21,12 @@ import Snapshots, {
   TIGERS_FURY_SPEC,
 } from 'analysis/retail/druid/feral/modules/core/Snapshots';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import getResourceSpent from 'parser/core/getResourceSpent';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { SubSection } from 'interface/guide';
+import { SpellLink } from 'interface';
+import { PerformanceBoxRow } from 'parser/ui/PerformanceBoxRow';
 
 class RipUptimeAndSnapshots extends Snapshots {
   static dependencies = {
@@ -33,7 +36,7 @@ class RipUptimeAndSnapshots extends Snapshots {
 
   protected enemies!: Enemies;
 
-  earlyRefreshTimeLost: number = 0;
+  castLog: RipCast[] = [];
 
   constructor(options: Options) {
     super(SPELLS.RIP, SPELLS.RIP, [TIGERS_FURY_SPEC, BLOODTALONS_SPEC], options);
@@ -73,8 +76,37 @@ class RipUptimeAndSnapshots extends Snapshots {
     remainingOnPrev: number,
     clipped: number,
   ) {
+    const ripCast = getHardcast(application);
+    const pwCast = getPrimalWrath(application);
+    if (ripCast) {
+      // log the cast
+      const timestamp = ripCast.timestamp;
+      const targetName = this.enemies.getEntity(ripCast)?.name;
+      const cpsUsed = getResourceSpent(ripCast, RESOURCE_TYPES.COMBO_POINTS);
+      const snapshotNames = snapshots.map((ss) => ss.name);
+      const prevSnapshotNames = prevSnapshots === null ? null : prevSnapshots.map((ss) => ss.name);
+      const wasUnacceptableDowngrade =
+        prevPower > power && remainingOnPrev > SNAPSHOT_DOWNGRADE_BUFFER;
+      const wasUpgrade = prevPower < power;
+
+      this.castLog.push({
+        timestamp,
+        targetName,
+        cpsUsed,
+        remainingOnPrev,
+        clipped,
+        snapshotNames,
+        prevSnapshotNames,
+        wasUnacceptableDowngrade,
+        wasUpgrade,
+      });
+    } else if (pwCast) {
+      // TODO handle PW cast
+    } else {
+      console.warn("Couldn't find cast linked to Rip application", application);
+    }
+
     if (prevPower >= power && clipped > 0) {
-      this.earlyRefreshTimeLost += clipped;
       const cast = getHardcast(application);
       if (cast) {
         cast.meta = {
@@ -88,135 +120,56 @@ class RipUptimeAndSnapshots extends Snapshots {
     }
   }
 
-  get uptimePercent() {
-    return this.getTotalDotUptime() / this.owner.fightDuration;
+  /** Subsection explaining the use of Rip and providing performance statistics */
+  get guideSubsection(): JSX.Element {
+    const hasPw = this.selectedCombatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT);
+    const hasBt = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT);
+    const castPerfBoxes = this.castLog.map((cast) => {
+      const value: QualitativePerformance = 'good'; // TODO
+      const tooltip = 'GREAT JOB NERD'; // TODO
+      return { value, tooltip };
+    });
+
+    return (
+      <SubSection>
+        <p>
+          <b>
+            <SpellLink id={SPELLS.RIP.id} />
+          </b>{' '}
+          is your highest damage-per-energy single target spender. Try to maintain 100% uptime.{' '}
+          {hasPw ? (
+            <>
+              Use <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT.id} /> to apply it when you
+              can hit more than one target.
+            </>
+          ) : (
+            <>
+              You can even keep it active on multiple targets, though if a fight will frequently
+              have multiple targets consider speccing for{' '}
+              <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT.id} />.
+            </>
+          )}{' '}
+          Don't refresh early, and try to always snapshot <SpellLink id={SPELLS.TIGERS_FURY.id} />
+          {hasBt && (
+            <>
+              {' '}
+              and <SpellLink id={TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id} />
+            </>
+          )}
+          .
+        </p>
+        <strong>Rip uptime / snapshots</strong>
+        <small> - Try to get as close to 100% as the encounter allows!</small>
+        {this.subStatistic()}
+        <strong>Rip casts</strong>
+        <small> - Text goes here lol. Mouseover for more details.</small>
+        <PerformanceBoxRow values={castPerfBoxes} />
+      </SubSection>
+    );
   }
 
   get uptimeHistory() {
     return this.enemies.getDebuffHistory(SPELLS.RIP.id);
-  }
-
-  get earlyRefreshTimeLostSecondsPerMinute() {
-    return this.owner.getPerMinute(this.earlyRefreshTimeLost / 1000);
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.uptimePercent,
-      isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: 0.8,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  get tigersFurySnapshotThresholds() {
-    const breakpoints = { minor: 0.85, average: 0.6, major: 0.4 };
-    return {
-      actual: this.percentWithTigerFury,
-      isLessThan: breakpoints,
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  get bloodTalonsSnapshotThresholds() {
-    return {
-      actual: this.percentWithBloodtalons,
-      isLessThan: {
-        minor: 0.95,
-        average: 0.8,
-        major: 0.6,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  get earlyRefreshThresholds() {
-    return {
-      actual: this.earlyRefreshTimeLostSecondsPerMinute,
-      isGreaterThan: {
-        minor: 0,
-        average: 10,
-        major: 20,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Your <SpellLink id={SPELLS.RIP.id} /> uptime can be improved. You can refresh the DoT once
-          it has reached its{' '}
-          <TooltipElement content="The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.">
-            pandemic window
-          </TooltipElement>
-          , don't wait for it to wear off. Avoid spending combo points on{' '}
-          <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> if <SpellLink id={SPELLS.RIP.id} /> will need
-          refreshing soon.
-        </>,
-      )
-        .icon(SPELLS.RIP.icon)
-        .actual(
-          t({
-            id: 'druid.feral.suggestions.rip.uptime',
-            message: `${formatPercentage(actual)}% uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
-    when(this.earlyRefreshThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try not to refresh <SpellLink id={SPELLS.RIP.id} /> before the last 30% of its duration
-          unless you are upgrading your snapshot. Refreshing before the last 30% causes you to clip
-          duration - you probably should have used
-          <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> instead.
-        </>,
-      )
-        .icon(SPELLS.RIP.icon)
-        .actual(
-          t({
-            id: 'druid.feral.suggestions.ripSnapshot.earlyRefresh',
-            message: `You clipped ${(this.earlyRefreshTimeLost / 1000).toFixed(
-              1,
-            )} seconds of Rip time during the encounter`,
-          }),
-        )
-        .recommended('None is recommended'),
-    );
-    when(this.tigersFurySnapshotThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          Try to maximize the time your <SpellLink id={SPELLS.RIP.id} /> is empowered by{' '}
-          <SpellLink id={SPELLS.TIGERS_FURY.id} />. Tiger's Fury buffs Rip for its full duration,
-          the trick is to target your Rip refreshes to occur during Tiger's Fury. It can be
-          acceptable to refresh a little early or late to accomplish this, but not more than a few
-          seconds in either direction.
-        </>,
-      )
-        .icon(SPELLS.RIP.icon)
-        .actual(`${formatPercentage(actual, 1)}% of Rip uptime had Tiger's Fury snapshot`)
-        .recommended(`>${formatPercentage(recommended, 1)}% is recommended`),
-    );
-    // TODO move this to bloodtalons module?
-    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT)) {
-      when(this.bloodTalonsSnapshotThresholds).addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          <>
-            Try to always empower your <SpellLink id={SPELLS.RIP.id} /> with{' '}
-            <SpellLink id={TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id} />. Bloodtalons buffs Rip for
-            its full duration, and you should always have a proc available when refreshing Rip.
-          </>,
-        )
-          .icon(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.icon)
-          .actual(`${formatPercentage(actual, 1)}% of Rip uptime had Bloodtalons snapshot`)
-          .recommended(`>${formatPercentage(recommended, 1)}% is recommended`),
-      );
-    }
   }
 
   subStatistic() {
@@ -231,5 +184,27 @@ class RipUptimeAndSnapshots extends Snapshots {
     );
   }
 }
+
+/** Tracking object for each Rip cast */
+type RipCast = {
+  /** Cast's timestamp */
+  timestamp: number;
+  /** Name of cast's target */
+  targetName?: string;
+  /** Number of Combo Points consumed */
+  cpsUsed: number;
+  /** Time remaining on previous Rip */
+  remainingOnPrev: number;
+  /** Time clipped from previous Rip */
+  clipped: number;
+  /** Name of snapshots on new cast */
+  snapshotNames: string[];
+  /** Name of snapshots on prev cast (or null for fresh application) */
+  prevSnapshotNames: string[] | null;
+  /** True iff snapshots were downgraded with more than buffer time remaining */
+  wasUnacceptableDowngrade: boolean;
+  /** True iff the snapshot got stronger */
+  wasUpgrade: boolean;
+};
 
 export default RipUptimeAndSnapshots;

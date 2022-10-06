@@ -140,15 +140,10 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_DRUID.CONVOKE_THE_SPIRITS_FERAL_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
+        cooldown: combatant.hasTalent(TALENTS_DRUID.ASHAMANES_GUIDANCE_FERAL_TALENT) ? 60 : 120,
         gcd: {
           base: druidGcd,
         },
-        timelineSortIndex: 22,
       },
       {
         spell: SPELLS.TIGERS_FURY.id,
