@@ -39,20 +39,18 @@ class EnduringLuminescense extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_PRIEST.ENDURING_LUMINESCENCE_DISCIPLINE_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.ENDURING_LUMINESCENCE_TALENT.id);
 
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.EVANGELISM_TALENT),
       this.handleEvangelismCasts,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.POWER_WORD_RADIANCE_DISCIPLINE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT),
       this.storePowerWordRadiancesCastTimestamp,
     );
     this.addEventListener(
@@ -139,7 +137,7 @@ class EnduringLuminescense extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spellId={TALENTS_PRIEST.ENDURING_LUMINESCENCE_DISCIPLINE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_PRIEST.ENDURING_LUMINESCENCE_TALENT.id}>
           <ItemHealingDone amount={total} />
         </BoringSpellValueText>
       </Statistic>

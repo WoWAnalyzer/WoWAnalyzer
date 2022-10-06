@@ -61,10 +61,10 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 7,
       },
       {
-        spell: TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT.id,
-        buffSpellId: TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT.id,
+        spell: TALENTS_DRUID.STELLAR_FLARE_TALENT.id,
+        buffSpellId: TALENTS_DRUID.STELLAR_FLARE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -73,11 +73,11 @@ class Abilities extends CoreAbilities {
 
       // Cooldowns
       {
-        spell: TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_BALANCE_TALENT.id,
-        buffSpellId: TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_BALANCE_TALENT.id,
+        spell: TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id,
+        buffSpellId: TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
-        enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_BALANCE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -89,7 +89,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.CELESTIAL_ALIGNMENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
-        enabled: !combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_BALANCE_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -97,11 +97,11 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 9,
       },
       {
-        spell: TALENTS_DRUID.WARRIOR_OF_ELUNE_BALANCE_TALENT.id,
-        buffSpellId: TALENTS_DRUID.WARRIOR_OF_ELUNE_BALANCE_TALENT.id,
+        spell: TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT.id,
+        buffSpellId: TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 45,
-        enabled: combatant.hasTalent(TALENTS_DRUID.WARRIOR_OF_ELUNE_BALANCE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -109,10 +109,10 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: TALENTS_DRUID.FORCE_OF_NATURE_BALANCE_TALENT.id,
+        spell: TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
-        enabled: combatant.hasTalent(TALENTS_DRUID.FORCE_OF_NATURE_BALANCE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -123,10 +123,10 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: [TALENTS_DRUID.NEW_MOON_BALANCE_TALENT.id, SPELLS.HALF_MOON.id, SPELLS.FULL_MOON.id],
+        spell: [TALENTS_DRUID.NEW_MOON_TALENT.id, SPELLS.HALF_MOON.id, SPELLS.FULL_MOON.id],
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 20,
-        enabled: combatant.hasTalent(TALENTS_DRUID.NEW_MOON_BALANCE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.NEW_MOON_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -138,7 +138,7 @@ class Abilities extends CoreAbilities {
           majorIssueEfficiency: 0.85,
           extraSuggestion: (
             <>
-              Your <SpellLink id={TALENTS_DRUID.NEW_MOON_BALANCE_TALENT.id} />,{' '}
+              Your <SpellLink id={TALENTS_DRUID.NEW_MOON_TALENT.id} />,{' '}
               <SpellLink id={SPELLS.HALF_MOON.id} /> and <SpellLink id={SPELLS.FULL_MOON.id} /> cast
               efficiency can be improved, try keeping yourself at low Moon charges at all times; you
               should (almost) never be at max (3) charges.
@@ -148,11 +148,11 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 11,
       },
       {
-        spell: TALENTS_DRUID.FURY_OF_ELUNE_BALANCE_TALENT.id,
-        buffSpellId: TALENTS_DRUID.FURY_OF_ELUNE_BALANCE_TALENT.id,
+        spell: TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id,
+        buffSpellId: TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
-        enabled: combatant.hasTalent(TALENTS_DRUID.FURY_OF_ELUNE_BALANCE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id),
         gcd: {
           base: 1500,
         },

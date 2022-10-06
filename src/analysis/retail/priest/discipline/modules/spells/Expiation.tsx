@@ -25,17 +25,20 @@ class Expiation extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.EXPIATION_DISCIPLINE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.EXPIATION_TALENT.id);
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtonement);
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([
-      SPELLS.EXPIATION_DAMAGE,
-      TALENTS_PRIEST.SHADOW_WORD_DEATH_TALENT,
-      SPELLS.MIND_BLAST
-    ]), this.onDamage);
-    this.talentRank = this.selectedCombatant.getTalentRank(
-      TALENTS_PRIEST.EXPIATION_DISCIPLINE_TALENT.id,
+    this.addEventListener(
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([
+          SPELLS.EXPIATION_DAMAGE,
+          TALENTS_PRIEST.SHADOW_WORD_DEATH_TALENT,
+          SPELLS.MIND_BLAST,
+        ]),
+      this.onDamage,
     );
+    this.talentRank = this.selectedCombatant.getTalentRank(TALENTS_PRIEST.EXPIATION_TALENT.id);
     this.expiationIncrease = this.talentRank * EXPIATION_RANK_INCREASE;
   }
 
@@ -81,7 +84,7 @@ class Expiation extends Analyzer {
             Healing Breakdown:
             <ul>
               <li>
-                <SpellLink id={TALENTS_PRIEST.EXPIATION_DISCIPLINE_TALENT.id} />:{' '}
+                <SpellLink id={TALENTS_PRIEST.EXPIATION_TALENT.id} />:{' '}
                 {formatNumber(this.expiationHealing)}{' '}
               </li>
               <li>
@@ -99,7 +102,7 @@ class Expiation extends Analyzer {
         }
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spellId={TALENTS_PRIEST.EXPIATION_DISCIPLINE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_PRIEST.EXPIATION_TALENT.id}>
           <>
             <ItemHealingDone amount={totalHealing} /> <br />
             <ItemDamageDone amount={this.bonusDamage + this.expiationDamage} />

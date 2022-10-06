@@ -12,9 +12,7 @@ class ChaosTheory extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.CHAOS_THEORY_HAVOC_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.CHAOS_THEORY_TALENT.id);
   }
 
   get buffUptime() {
@@ -26,7 +24,7 @@ class ChaosTheory extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.CHAOS_THEORY_HAVOC_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.CHAOS_THEORY_TALENT.id}>
           <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>Buff uptime</small>
         </BoringSpellValueText>
       </Statistic>

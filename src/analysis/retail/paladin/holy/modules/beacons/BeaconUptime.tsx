@@ -115,7 +115,7 @@ class BeaconUptime extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = !this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_HOLY_TALENT.id);
+    this.active = !this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -126,14 +126,14 @@ class BeaconUptime extends Analyzer {
     this.addEventListener(Events.fightend, this._endOfFight);
 
     // this is really has divine purpose talent
-    this.hasBoL = this.selectedCombatant.hasTalent(TALENTS.GLIMMER_OF_LIGHT_HOLY_TALENT.id);
+    this.hasBoL = this.selectedCombatant.hasTalent(TALENTS.GLIMMER_OF_LIGHT_TALENT.id);
 
-    this.hasBoF = this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_FAITH_HOLY_TALENT.id);
-    this.hasBoV = this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_HOLY_TALENT.id);
+    this.hasBoF = this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT.id);
+    this.hasBoV = this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT.id);
 
     this.idBoL = SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id;
-    this.idBoF = TALENTS.BEACON_OF_FAITH_HOLY_TALENT.id;
-    this.idBoV = TALENTS.BEACON_OF_VIRTUE_HOLY_TALENT.id;
+    this.idBoF = TALENTS.BEACON_OF_FAITH_TALENT.id;
+    this.idBoV = TALENTS.BEACON_OF_VIRTUE_TALENT.id;
 
     this.BuffEventType = Object.freeze({
       REMOVEBUFF: 0,
@@ -503,7 +503,7 @@ class BeaconUptime extends Analyzer {
         {this.hasBoF && (
           <div>
             <BoringSpellValue
-              spellId={TALENTS.BEACON_OF_FAITH_HOLY_TALENT.id}
+              spellId={TALENTS.BEACON_OF_FAITH_TALENT.id}
               value={`${this.uptimeBoFPerc}%`}
               label={
                 <Trans id="paladin.holy.modules.beacons.beaconUptime.bofUptime">BoF Uptime</Trans>
@@ -518,7 +518,7 @@ class BeaconUptime extends Analyzer {
         {this.hasBoV && (
           <div>
             <BoringSpellValue
-              spellId={TALENTS.BEACON_OF_VIRTUE_HOLY_TALENT.id}
+              spellId={TALENTS.BEACON_OF_VIRTUE_TALENT.id}
               value={`${this.uptimeBoVPerc}%`}
               label={
                 <Trans id="paladin.holy.modules.beacons.beaconUptime.bovUptime">BoV Uptime</Trans>

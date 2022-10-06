@@ -9,7 +9,7 @@ class BeaconTransferFactor extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    if (this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_FAITH_HOLY_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT.id)) {
       this.beaconType = BEACON_TYPES.BEACON_OF_FATH;
     }
   }

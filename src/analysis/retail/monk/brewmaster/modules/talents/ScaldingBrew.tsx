@@ -45,8 +45,14 @@ export default class ScaldingBrew extends Analyzer {
 
     this.mult = BASE_DAMAGE_AMP + (this.rank - 1) * DAMAGE_AMP_PER_RANK;
 
-    this.addEventListener(Events.damage.spell(talents.KEG_SMASH_BREWMASTER_TALENT).by(SELECTED_PLAYER), this.damage);
-    this.addEventListener(Events.cast.spell(talents.KEG_SMASH_BREWMASTER_TALENT).by(SELECTED_PLAYER), this.cast);
+    this.addEventListener(
+      Events.damage.spell(talents.KEG_SMASH_TALENT).by(SELECTED_PLAYER),
+      this.damage,
+    );
+    this.addEventListener(
+      Events.cast.spell(talents.KEG_SMASH_TALENT).by(SELECTED_PLAYER),
+      this.cast,
+    );
   }
 
   private cast(event: CastEvent) {
@@ -60,7 +66,7 @@ export default class ScaldingBrew extends Analyzer {
     }
     if (target.hasBuff(SPELLS.BREATH_OF_FIRE_DEBUFF.id)) {
       this.bonusDamage += calculateEffectiveDamage(event, this.mult);
-    } else if (target.hasBuff(talents.KEG_SMASH_BREWMASTER_TALENT.id, event.timestamp - 100)) {
+    } else if (target.hasBuff(talents.KEG_SMASH_TALENT.id, event.timestamp - 100)) {
       this.missedHits += 1;
 
       if (this.lastCast) {
@@ -69,7 +75,7 @@ export default class ScaldingBrew extends Analyzer {
           inefficientCastReason: (
             <>
               This cast did not benefit from <SpellLink id={SPELLS.SCALDING_BREW.id} /> or freshly
-              apply the <SpellLink id={talents.KEG_SMASH_BREWMASTER_TALENT.id} /> debuff.
+              apply the <SpellLink id={talents.KEG_SMASH_TALENT.id} /> debuff.
             </>
           ),
         };

@@ -17,18 +17,16 @@ class FelEruption extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.FEL_ERUPTION_HAVOC_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.id);
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.FEL_ERUPTION_HAVOC_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT),
       this.countingCasts,
     );
     this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.FEL_ERUPTION_HAVOC_TALENT),
+      Events.applydebuff.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT),
       this.countingStuns,
     );
   }
@@ -61,15 +59,15 @@ class FelEruption extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
       suggest(
         <>
-          Try to cast <SpellLink id={TALENTS_DEMON_HUNTER.FEL_ERUPTION_HAVOC_TALENT.id} /> only for
-          its stun. It's not worth casting for its damage since it's a DPS loss.
+          Try to cast <SpellLink id={TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.id} /> only for its
+          stun. It's not worth casting for its damage since it's a DPS loss.
         </>,
       )
-        .icon(TALENTS_DEMON_HUNTER.FEL_ERUPTION_HAVOC_TALENT.icon)
+        .icon(TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.icon)
         .actual(
           <>
-            {actual} bad <SpellLink id={TALENTS_DEMON_HUNTER.FEL_ERUPTION_HAVOC_TALENT.id} /> casts
-            that didn't stun the target{' '}
+            {actual} bad <SpellLink id={TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.id} /> casts that
+            didn't stun the target{' '}
           </>,
         )
         .recommended('No bad casts are recommended.'),
@@ -89,7 +87,7 @@ class FelEruption extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.FEL_ERUPTION_HAVOC_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.id}>
           <>
             {this.badCasts} <small>bad casts that didn't stun the target</small>{' '}
           </>

@@ -113,8 +113,7 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
                 </tr>
                 <tr>
                   <td>
-                    Started with 1+ <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} />{' '}
-                    Charge
+                    Started with 1+ <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> Charge
                   </td>
                   <td>
                     <PassFailCheckmark pass={cast.purifyingAtCast.charges >= 1} />
@@ -146,7 +145,7 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
                 </tr>
                 <tr>
                   <td>
-                    Used <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> to Buff{' '}
+                    Used <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> to Buff{' '}
                     <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />
                   </td>
                   <td>
@@ -196,7 +195,7 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
                 </tr>
                 <tr>
                   <td>
-                    Possible <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> Casts
+                    Possible <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> Casts
                   </td>
                   <td className="pass-fail-counts">
                     {formatNumber(cast.purifies.length)} /{' '}
@@ -252,7 +251,7 @@ export function InvokeNiuzaoSection({
   );
 
   const wooEfficiency = castEfficiency.getCastEfficiencyForSpellId(
-    talents.WEAPONS_OF_ORDER_BREWMASTER_TALENT.id,
+    talents.WEAPONS_OF_ORDER_TALENT.id,
   );
 
   return (
@@ -271,25 +270,24 @@ export function InvokeNiuzaoSection({
         and then every 5 seconds after that, for a total of 5
         <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />s per{' '}
         <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} />.
-        {info.combatant.hasTalent(talents.CALL_TO_ARMS_BREWMASTER_TALENT) && (
+        {info.combatant.hasTalent(talents.CALL_TO_ARMS_TALENT) && (
           <>
             {' '}
-            A cast of <SpellLink id={talents.WEAPONS_OF_ORDER_BREWMASTER_TALENT.id} /> will trigger
-            3 <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />
+            A cast of <SpellLink id={talents.WEAPONS_OF_ORDER_TALENT.id} /> will trigger 3{' '}
+            <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />
             s&mdash;though this Niuzao has some issues hitting bosses with large models.
           </>
         )}{' '}
-        Casting <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> prior to summoning
-        Niuzao will contribute to the damage of the first{' '}
-        <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />.
+        Casting <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> prior to summoning Niuzao will
+        contribute to the damage of the first <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />.
       </p>
       <p>
         Unlike most damage cooldowns, it is frequently correct to sacrifice a cast of{' '}
         <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} /> in order to get a
         better cast later. This is because <em>so much</em> of the damage of this cooldown is tied
-        up in using <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> to convert damage
-        taken into damage dealt that a single <em>great</em> cast can be worth more than multiple
-        mediocre casts.
+        up in using <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> to convert damage taken into
+        damage dealt that a single <em>great</em> cast can be worth more than multiple mediocre
+        casts.
       </p>
       <table className="hits-list">
         <tbody>

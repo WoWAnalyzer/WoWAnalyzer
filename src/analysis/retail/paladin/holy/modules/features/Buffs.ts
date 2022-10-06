@@ -11,8 +11,8 @@ class Buffs extends CoreAuras {
     // This data can be used by various kinds of modules to improve their results, and modules added in the future may rely on buffs that aren't used today.
     return [
       {
-        spellId: TALENTS.BESTOW_FAITH_HOLY_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.BESTOW_FAITH_HOLY_TALENT),
+        spellId: TALENTS.BESTOW_FAITH_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.BESTOW_FAITH_TALENT),
       },
       {
         spellId: SPELLS.INFUSION_OF_LIGHT.id,
@@ -20,8 +20,8 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: TALENTS.RULE_OF_LAW_HOLY_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.RULE_OF_LAW_HOLY_TALENT),
+        spellId: TALENTS.RULE_OF_LAW_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.RULE_OF_LAW_TALENT),
       },
       {
         spellId: TALENTS.DIVINE_PURPOSE_TALENT.id,
@@ -52,13 +52,13 @@ class Buffs extends CoreAuras {
         // TODO: recommendedUptime: 1.0,
       },
       {
-        spellId: TALENTS.BEACON_OF_FAITH_HOLY_TALENT.id,
+        spellId: TALENTS.BEACON_OF_FAITH_TALENT.id,
         // TODO: recommendedUptime: 1.0,
-        enabled: combatant.hasTalent(TALENTS.BEACON_OF_FAITH_HOLY_TALENT),
+        enabled: combatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT),
       },
       {
-        spellId: TALENTS.BEACON_OF_FAITH_HOLY_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.BEACON_OF_FAITH_HOLY_TALENT),
+        spellId: TALENTS.BEACON_OF_FAITH_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT),
       },
       // Utility
       {

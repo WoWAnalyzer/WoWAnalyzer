@@ -17,7 +17,7 @@ class SpellUsable extends CoreSpellUsable {
 
   constructor(options: Options) {
     super(options);
-    this.hasPredator = this.selectedCombatant.hasTalent(TALENTS_DRUID.PREDATOR_FERAL_TALENT);
+    this.hasPredator = this.selectedCombatant.hasTalent(TALENTS_DRUID.PREDATOR_TALENT);
   }
 
   beginCooldown(triggerEvent: AbilityEvent<any>, spellId: number) {

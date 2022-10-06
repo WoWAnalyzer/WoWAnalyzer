@@ -59,12 +59,8 @@ class WitchDoctorsWolfBones extends Analyzer {
       this.hasApplyBuffInThisTimestamp = true;
     }
 
-    if (this.spellUsable.isOnCooldown(TALENTS_SHAMAN.FERAL_SPIRIT_ENHANCEMENT_TALENT.id)) {
-      this.spellUsable.reduceCooldown(
-        TALENTS_SHAMAN.FERAL_SPIRIT_ENHANCEMENT_TALENT.id,
-        2000,
-        event.timestamp,
-      );
+    if (this.spellUsable.isOnCooldown(TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id)) {
+      this.spellUsable.reduceCooldown(TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id, 2000, event.timestamp);
       this.totalCdrGained += 2000;
     } else {
       this.totalCdrWasted += 2000;

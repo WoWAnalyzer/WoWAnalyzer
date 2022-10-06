@@ -71,7 +71,7 @@ class Overhealing extends Analyzer {
     };
   }
   get bestowFaithOverhealing() {
-    return this.getOverhealingPercentage(TALENTS.BESTOW_FAITH_HOLY_TALENT.id);
+    return this.getOverhealingPercentage(TALENTS.BESTOW_FAITH_TALENT.id);
   }
   get bestowFaithSuggestionThresholds() {
     return {
@@ -156,12 +156,12 @@ class Overhealing extends Analyzer {
     when(this.bestowFaithSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="paladin.holy.modules.overhealing.bestowFaithSuggestion">
-          Try to avoid overhealing with <SpellLink id={TALENTS.BESTOW_FAITH_HOLY_TALENT.id} />. Cast
-          it just before someone is about to take damage and consider casting it on targets other
-          than tanks.
+          Try to avoid overhealing with <SpellLink id={TALENTS.BESTOW_FAITH_TALENT.id} />. Cast it
+          just before someone is about to take damage and consider casting it on targets other than
+          tanks.
         </Trans>,
       )
-        .icon(TALENTS.BESTOW_FAITH_HOLY_TALENT.icon)
+        .icon(TALENTS.BESTOW_FAITH_TALENT.icon)
         .actual(
           t({
             id: 'paladin.holy.modules.overhealing.bestowFaithSuggestion.actual',

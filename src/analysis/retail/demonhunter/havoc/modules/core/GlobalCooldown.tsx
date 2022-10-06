@@ -7,7 +7,7 @@ import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
  */
 class GlobalCooldown extends CoreGlobalCooldown {
   onCast(event: CastEvent) {
-    if (event.ability.guid === TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id) {
+    if (event.ability.guid === TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id) {
       // This GCD gets handled by the `beginchannel` event
       return;
     }

@@ -8,8 +8,8 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 const DOTS = [
   {
     name: 'Stellar Flare',
-    debuffId: TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT.id,
-    castId: TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT.id,
+    debuffId: TALENTS_DRUID.STELLAR_FLARE_TALENT.id,
+    castId: TALENTS_DRUID.STELLAR_FLARE_TALENT.id,
     duration: 24000,
   },
 ];
@@ -21,7 +21,7 @@ const MAJOR_THRESHOLD = 0.6;
 class EarlyDotRefreshes extends EarlyDotRefreshesCore {
   get suggestionThresholdsStellarFlare() {
     return {
-      spell: TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT,
+      spell: TALENTS_DRUID.STELLAR_FLARE_TALENT,
       count: this.casts[DOTS[0].castId].badCasts,
       actual: this.badCastsPercent(DOTS[0].castId),
       isGreaterThan: {
@@ -35,7 +35,7 @@ class EarlyDotRefreshes extends EarlyDotRefreshesCore {
 
   get suggestionThresholdsStellarFlareEfficiency() {
     return {
-      spell: TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT,
+      spell: TALENTS_DRUID.STELLAR_FLARE_TALENT,
       actual: 1 - this.badCastsPercent(DOTS[0].castId),
       isLessThan: {
         minor: MINOR_THRESHOLD,
@@ -50,7 +50,7 @@ class EarlyDotRefreshes extends EarlyDotRefreshesCore {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_TALENT);
   }
 
   suggestions(when: When) {

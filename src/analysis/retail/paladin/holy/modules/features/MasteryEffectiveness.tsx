@@ -145,7 +145,7 @@ class MasteryEffectiveness extends Analyzer {
 
     let distance = this.getPlayerDistance(event);
     const isRuleOfLawActive = this.selectedCombatant.hasBuff(
-      TALENTS.RULE_OF_LAW_HOLY_TALENT.id,
+      TALENTS.RULE_OF_LAW_TALENT.id,
       event.timestamp,
     );
 

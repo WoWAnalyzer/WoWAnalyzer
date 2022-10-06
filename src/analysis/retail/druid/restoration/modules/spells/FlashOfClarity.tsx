@@ -36,9 +36,7 @@ class FlashOfClarity extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.FLASH_OF_CLARITY_RESTORATION_TALENT,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.FLASH_OF_CLARITY_TALENT);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.REGROWTH),
@@ -74,7 +72,7 @@ class FlashOfClarity extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.FLASH_OF_CLARITY_RESTORATION_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.FLASH_OF_CLARITY_TALENT.id}>
           <ItemPercentHealingDone amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

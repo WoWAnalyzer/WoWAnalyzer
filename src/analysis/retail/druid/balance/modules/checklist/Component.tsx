@@ -89,21 +89,21 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         }
         thresholds={thresholds.sunfireRefresh}
       />
-      {combatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_TALENT.id) && (
         <Requirement
           name={
             <>
-              <SpellLink id={TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT.id} /> uptime
+              <SpellLink id={TALENTS_DRUID.STELLAR_FLARE_TALENT.id} /> uptime
             </>
           }
           thresholds={thresholds.stellarFlareUptime}
         />
       )}
-      {combatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_TALENT.id) && (
         <Requirement
           name={
             <>
-              <SpellLink id={TALENTS_DRUID.STELLAR_FLARE_BALANCE_TALENT.id} /> good refreshes
+              <SpellLink id={TALENTS_DRUID.STELLAR_FLARE_TALENT.id} /> good refreshes
             </>
           }
           thresholds={thresholds.stellarFlareRefresh}
@@ -173,25 +173,25 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         frequently as possible throughout a fight. A cooldown should be held on to only if a priority
         DPS phase is coming soon. Holding cooldowns too long will hurt your DPS."
     >
-      {combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_BALANCE_TALENT.id) ? (
-        <AbilityRequirement spell={TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_BALANCE_TALENT.id} />
+      {combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id) ? (
+        <AbilityRequirement spell={TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id} />
       ) : (
         <AbilityRequirement spell={SPELLS.CELESTIAL_ALIGNMENT.id} />
       )}
       {combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_BALANCE_TALENT) && (
         <AbilityRequirement spell={SPELLS.CONVOKE_SPIRITS.id} />
       )}
-      {combatant.hasTalent(TALENTS_DRUID.FORCE_OF_NATURE_BALANCE_TALENT.id) && (
-        <AbilityRequirement spell={TALENTS_DRUID.FORCE_OF_NATURE_BALANCE_TALENT.id} />
+      {combatant.hasTalent(TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id) && (
+        <AbilityRequirement spell={TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id} />
       )}
-      {combatant.hasTalent(TALENTS_DRUID.WARRIOR_OF_ELUNE_BALANCE_TALENT.id) && (
-        <AbilityRequirement spell={TALENTS_DRUID.WARRIOR_OF_ELUNE_BALANCE_TALENT.id} />
+      {combatant.hasTalent(TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT.id) && (
+        <AbilityRequirement spell={TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT.id} />
       )}
-      {combatant.hasTalent(TALENTS_DRUID.FURY_OF_ELUNE_BALANCE_TALENT.id) && (
-        <AbilityRequirement spell={TALENTS_DRUID.FURY_OF_ELUNE_BALANCE_TALENT.id} />
+      {combatant.hasTalent(TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id) && (
+        <AbilityRequirement spell={TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id} />
       )}
-      {combatant.hasTalent(TALENTS_DRUID.NEW_MOON_BALANCE_TALENT.id) && (
-        <AbilityRequirement spell={TALENTS_DRUID.NEW_MOON_BALANCE_TALENT.id} />
+      {combatant.hasTalent(TALENTS_DRUID.NEW_MOON_TALENT.id) && (
+        <AbilityRequirement spell={TALENTS_DRUID.NEW_MOON_TALENT.id} />
       )}
     </Rule>
   );

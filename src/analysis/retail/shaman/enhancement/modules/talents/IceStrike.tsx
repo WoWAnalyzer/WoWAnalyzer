@@ -30,14 +30,14 @@ class IceStrike extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ICE_STRIKE_ENHANCEMENT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ICE_STRIKE_TALENT.id);
 
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.ICE_STRIKE_ENHANCEMENT_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.ICE_STRIKE_TALENT),
       this.onIceStrikeDamage,
     );
   }
@@ -65,7 +65,7 @@ class IceStrike extends Analyzer {
           shockCooldownReducedInSeconds,
         )} seconds.`}
       >
-        <BoringSpellValueText spellId={TALENTS_SHAMAN.ICE_STRIKE_ENHANCEMENT_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_SHAMAN.ICE_STRIKE_TALENT.id}>
           <>
             {formatNumber(shockCooldownReducedInSeconds / this.casts)}s{' '}
             <small> avg. Shock Cooldown Reduction</small>

@@ -79,10 +79,8 @@ class Bloodtalons2 extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT);
-    this.hasApex = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.APEX_PREDATORS_CRAVING_FERAL_TALENT,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT);
+    this.hasApex = this.selectedCombatant.hasTalent(TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(FINISHERS), this.onFinisherCast);
     this.addEventListener(
@@ -171,7 +169,7 @@ class Bloodtalons2 extends Analyzer {
   _isBerserkOrIncarn(): boolean {
     return (
       this.selectedCombatant.hasBuff(SPELLS.BERSERK.id) ||
-      this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id)
+      this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id)
     );
   }
 
@@ -210,13 +208,13 @@ class Bloodtalons2 extends Analyzer {
       suggest(
         <>
           You are casting <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> without{' '}
-          <SpellLink id={TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id} />. With only a few exceptions,
-          you should be able to buff each of your Bites with Bloodtalons.
+          <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />. With only a few exceptions, you
+          should be able to buff each of your Bites with Bloodtalons.
           <br />
           <br />
           The exceptions are: you have <SpellLink id={SPELLS.BERSERK.id} /> or{' '}
-          <SpellLink id={TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id} /> active and
-          don't have enough combo builders between finishers to proc Bloodtalons, or your{' '}
+          <SpellLink id={TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id} /> active and don't
+          have enough combo builders between finishers to proc Bloodtalons, or your{' '}
           <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> consumed Bloodtalons before your finisher
           {this.hasApex && (
             <>
@@ -227,7 +225,7 @@ class Bloodtalons2 extends Analyzer {
           . These exceptions are accounted for by the below statistic.
         </>,
       )
-        .icon(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.icon)
+        .icon(TALENTS_DRUID.BLOODTALONS_TALENT.icon)
         .actual(`${formatPercentage(actual, 1)}% correct Bloodtalon Ferocious Bites.`)
         .recommended(`${formatPercentage(recommended, 0)}% is recommended`),
     );
@@ -281,7 +279,7 @@ class Bloodtalons2 extends Analyzer {
         size="flexible"
         position={STATISTIC_ORDER.CORE(40)}
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.BLOODTALONS_TALENT.id}>
           <>
             <SpellIcon id={SPELLS.FEROCIOUS_BITE.id} /> {this.bitesWithBt} / {this.totalBites}{' '}
             <small>buffed</small>

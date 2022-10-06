@@ -15,9 +15,7 @@ class SpellEnergyCost extends SpellResourceCost {
 
     // no need to check for Clearcasting as the zero cost is already applied in the log
 
-    if (
-      this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id)
-    ) {
+    if (this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id)) {
       debug &&
         console.log(
           `Cost of ${event.ability.name} reduced to ${cost * INCARN_COST_MULT} by Incarnation`,
