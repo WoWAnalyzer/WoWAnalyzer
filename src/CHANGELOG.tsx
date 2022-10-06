@@ -64,6 +64,7 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 5), 'Add Vault of the Incarnates raid information.', ToppleTheNun),
   change(date(2022, 10, 4), 'Add Blessing of the Bronze as a raid buff.', ToppleTheNun),
   change(date(2022, 10, 3), 'Convert PreparationRule component to TypeScript.', ToppleTheNun),
   change(date(2022, 10, 3), 'Rename Shadowlands parser directory to Retail.', ToppleTheNun),
