@@ -57,7 +57,14 @@ const Ad = ({ style, location }: Props) => {
   return (
     <Link
       to="/premium"
-      style={{ minHeight: 250, ...style }}
+      style={{
+        minHeight: 250,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        width: 970,
+        minWidth: 970,
+        ...style,
+      }}
       className={`${styles.outer_container} ${
         showBackground ? styles.show_background : ''
       } text-center`}

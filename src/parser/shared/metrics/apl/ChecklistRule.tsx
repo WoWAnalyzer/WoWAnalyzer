@@ -10,7 +10,7 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import * as React from 'react';
 
 import { ConditionDescription } from './annotate';
-import { Rule as AplRule, Apl, CheckResult, spell, Tense, Violation } from './index';
+import { InternalRule as AplRule, Apl, CheckResult, spells, Tense, Violation } from './index';
 
 interface Props {
   apl: Apl;
@@ -86,7 +86,7 @@ const Tooltip = ({
       </div>
     ) : null;
 
-  const extraText = 'condition' in rule && rule.condition.tooltip && (
+  const extraText = rule.condition?.tooltip && (
     <div style={{ marginTop: '1em' }}>{rule.condition.tooltip()}</div>
   );
 
@@ -131,6 +131,29 @@ function CooldownList({ castEfficiency, cooldowns }: Pick<Props, 'castEfficiency
   );
 }
 
+export function RuleSpellsDescription({ rule }: { rule: AplRule }): JSX.Element {
+  return (
+    <>
+      {spells(rule).map((spell, index) => (
+        <>
+          {index > 0 ? ' or ' : ''}
+          <SpellLink id={spell.id} />
+        </>
+      ))}
+    </>
+  );
+}
+
+export function RuleDescription({ rule }: { rule: AplRule }): JSX.Element {
+  return (
+    <>
+      Cast <RuleSpellsDescription rule={rule} />
+      {rule.condition ? ' ' : ''}
+      <ConditionDescription prefix="when" rule={rule} tense={Tense.Present} />
+    </>
+  );
+}
+
 export default function ChecklistRule(props: Props) {
   return (
     <Rule
@@ -156,8 +179,7 @@ export default function ChecklistRule(props: Props) {
                   key={ix}
                   name={
                     <>
-                      <strong>{ix + 1}.</strong> Cast <SpellLink id={spell(rule).id} />
-                      <ConditionDescription prefix="when" rule={rule} tense={Tense.Present} />
+                      <strong>{ix}.</strong> <RuleDescription rule={rule} />
                     </>
                   }
                   thresholds={thresh}

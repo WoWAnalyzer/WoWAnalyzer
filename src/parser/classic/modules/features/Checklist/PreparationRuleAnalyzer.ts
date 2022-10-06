@@ -1,9 +1,9 @@
 import Analyzer from 'parser/core/Analyzer';
-import CombatPotionChecker from 'parser/tbc/modules/items/CombatPotionChecker';
-import EnchantChecker from 'parser/tbc/modules/items/EnchantChecker';
-import FlaskChecker from 'parser/tbc/modules/items/FlaskChecker';
-import FoodChecker from 'parser/tbc/modules/items/FoodChecker';
-import WeaponEnhancementChecker from 'parser/tbc/modules/items/WeaponEnhancementChecker';
+import CombatPotionChecker from 'parser/classic/modules/items/CombatPotionChecker';
+import EnchantChecker from 'parser/classic/modules/items/EnchantChecker';
+import FlaskChecker from 'parser/classic/modules/items/FlaskChecker';
+import FoodChecker from 'parser/classic/modules/items/FoodChecker';
+import WeaponEnhancementChecker from 'parser/classic/modules/items/WeaponEnhancementChecker';
 
 class PreparationRuleAnalyzer extends Analyzer {
   static dependencies = {

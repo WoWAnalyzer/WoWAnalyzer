@@ -46,6 +46,8 @@ import PowerWordRadianceNormalizer from './normalizers/PowerWordRadianceNormaliz
 import HarshDiscipline from './modules/spells/HarshDiscipline';
 import EnduringLuminescense from './modules/spells/EnduringLuminescence';
 import Indemnity from './modules/spells/Indemnity';
+import Expiation from './modules/spells/Expiation';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizers
@@ -98,6 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
     mindgames: Mindgames,
     harshDiscipline: HarshDiscipline,
     Indemnity: Indemnity,
+    expiation: Expiation,
 
     // Covenants
     unholyNova: UnholyNova,

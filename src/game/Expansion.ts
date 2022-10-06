@@ -13,4 +13,5 @@ enum Expansion {
 
 export default Expansion;
 
+export const CLASSIC_EXPANSION = Expansion.WrathOfTheLichKing;
 export const RETAIL_EXPANSION = Expansion.Dragonflight;
