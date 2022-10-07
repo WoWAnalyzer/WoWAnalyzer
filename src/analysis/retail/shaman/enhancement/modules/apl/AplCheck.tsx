@@ -10,7 +10,7 @@ import annotateTimeline from 'parser/shared/metrics/apl/annotate';
  */
 export const apl = build([
   // {
-  //   spell: TALENTS_SHAMAN.LAVA_LASH_ENHANCEMENT_TALENT,
+  //   spell: TALENTS_SHAMAN.LAVA_LASH_TALENT,
   //   condition: buffPresent(SPELLS.HOT_HAND_BUFF),
   // },
   // {
@@ -19,32 +19,32 @@ export const apl = build([
   // },
   // {
   //   spell: TALENTS_SHAMAN.FROST_SHOCK_TALENT,
-  //   condition: buffStacks(TALENTS_SHAMAN.HAILSTORM_ENHANCEMENT_TALENT, { atLeast: 1 }),
+  //   condition: buffStacks(TALENTS_SHAMAN.HAILSTORM_TALENT, { atLeast: 1 }),
   // },
   // {
   //   spell: TALENTS_SHAMAN.ELEMENTAL_BLAST_ENHANCEMENT_TALENT,
   //   condition: buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 5 }),
   // },
   // {
-  //   spell: TALENTS_SHAMAN.STORMSTRIKE_ENHANCEMENT_TALENT,
-  //   condition: and(hasTalent(TALENTS_SHAMAN.STORMFLURRY_ENHANCEMENT_TALENT), buffPresent(SPELLS.STORMBRINGER_BUFF)),
+  //   spell: TALENTS_SHAMAN.STORMSTRIKE_TALENT,
+  //   condition: and(hasTalent(TALENTS_SHAMAN.STORMFLURRY_TALENT), buffPresent(SPELLS.STORMBRINGER_BUFF)),
   // },
   // {
   //   spell: SPELLS.LIGHTNING_BOLT,
   //   condition: buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 10 }),
   // },
-  // TALENTS_SHAMAN.STORMSTRIKE_ENHANCEMENT_TALENT,
-  // TALENTS_SHAMAN.LAVA_LASH_ENHANCEMENT_TALENT,
-  // TALENTS_SHAMAN.SUNDERING_ENHANCEMENT_TALENT,
+  // TALENTS_SHAMAN.STORMSTRIKE_TALENT,
+  // TALENTS_SHAMAN.LAVA_LASH_TALENT,
+  // TALENTS_SHAMAN.SUNDERING_TALENT,
   // {
   //   spell: SPELLS.LIGHTNING_BOLT,
   //   condition: buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 5 }),
   // },
   // TALENTS_SHAMAN.FROST_SHOCK_TALENT,
-  // TALENTS_SHAMAN.CRASH_LIGHTNING_ENHANCEMENT_TALENT,
-  // TALENTS_SHAMAN.ICE_STRIKE_ENHANCEMENT_TALENT,
+  // TALENTS_SHAMAN.CRASH_LIGHTNING_TALENT,
+  // TALENTS_SHAMAN.ICE_STRIKE_TALENT,
   // {
-  //   spell: TALENTS_SHAMAN.FIRE_NOVA_ENHANCEMENT_TALENT,
+  //   spell: TALENTS_SHAMAN.FIRE_NOVA_TALENT,
   //   condition: debuffPresent(SPELLS.FLAME_SHOCK),
   // },
 ]);

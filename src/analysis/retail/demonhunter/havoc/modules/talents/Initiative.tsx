@@ -13,7 +13,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 export default class Initiative extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.INITIATIVE_HAVOC_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.INITIATIVE_TALENT.id);
   }
 
   get buffUptime() {
@@ -43,11 +43,11 @@ export default class Initiative extends Analyzer {
       suggest(
         <>
           {' '}
-          Maintain the <SpellLink id={TALENTS_DEMON_HUNTER.INITIATIVE_HAVOC_TALENT.id} /> buff to
-          maximize damage.
+          Maintain the <SpellLink id={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT.id} /> buff to maximize
+          damage.
         </>,
       )
-        .icon(TALENTS_DEMON_HUNTER.INITIATIVE_HAVOC_TALENT.icon)
+        .icon(TALENTS_DEMON_HUNTER.INITIATIVE_TALENT.icon)
         .actual(
           t({
             id: 'demonhunter.havoc.suggestions.momentum.uptime',
@@ -65,7 +65,7 @@ export default class Initiative extends Analyzer {
         size="flexible"
         tooltip={`The Initiative buff total uptime was ${formatDuration(this.buffDuration)}.`}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.INITIATIVE_HAVOC_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>uptime</small>
           </>

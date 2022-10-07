@@ -35,13 +35,13 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
 
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (spellId === TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT.id) {
+    if (spellId === TALENTS_PRIEST.EVANGELISM_TALENT.id) {
       // When Evangelism is cast we want to see it in our cooldowns, but since it isn't a buff we can't use the regular `cooldownSpells`.
       const atonedPlayers = this.atonementModule.numAtonementsActive;
 
       this.lastEvangelism = this.addCooldown(
         {
-          spell: TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT.id,
+          spell: TALENTS_PRIEST.EVANGELISM_TALENT.id,
           summary: [
             BUILT_IN_SUMMARY_TYPES.HEALING,
             {

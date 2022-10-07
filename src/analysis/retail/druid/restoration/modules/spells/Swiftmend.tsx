@@ -54,15 +54,11 @@ class Swiftmend extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.hasVi = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.VERDANT_INFUSION_RESTORATION_TALENT,
-    );
+    this.hasVi = this.selectedCombatant.hasTalent(TALENTS_DRUID.VERDANT_INFUSION_TALENT);
     this.hasSotf = this.selectedCombatant.hasTalent(
       TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT,
     );
-    this.hasReforestation = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.REFORESTATION_RESTORATION_TALENT,
-    );
+    this.hasReforestation = this.selectedCombatant.hasTalent(TALENTS_DRUID.REFORESTATION_TALENT);
     this.numProcs = (this.hasVi ? 1 : 0) + (this.hasSotf ? 1 : 0) + (this.hasReforestation ? 1 : 0);
 
     this.addEventListener(

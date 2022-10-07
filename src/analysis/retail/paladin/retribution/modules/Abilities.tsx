@@ -152,12 +152,12 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.JUSTICARS_VENGEANCE_TALENT.id,
+        spell: SPELLS.JUSTICARS_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.JUSTICARS_VENGEANCE_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.JUSTICARS_TALENT.id),
       },
       {
         spell: SPELLS.EYE_FOR_AN_EYE_TALENT.id,

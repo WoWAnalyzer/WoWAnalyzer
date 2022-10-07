@@ -28,7 +28,7 @@ class Regenesis extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.ranks = this.selectedCombatant.getTalentRank(TALENTS_DRUID.REGENESIS_RESTORATION_TALENT);
+    this.ranks = this.selectedCombatant.getTalentRank(TALENTS_DRUID.REGENESIS_TALENT);
     this.active = this.ranks > 0;
 
     this.addEventListener(
@@ -69,7 +69,7 @@ class Regenesis extends Analyzer {
         // tooltip={
         // }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.REGENESIS_RESTORATION_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.REGENESIS_TALENT.id}>
           <ItemPercentHealingDone amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

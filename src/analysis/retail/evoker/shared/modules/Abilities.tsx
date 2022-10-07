@@ -145,10 +145,10 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.OPPRESSING_ROAR_TALENT.id),
       },
       {
-        spell: TALENTS.FLY_WITH_ME_TALENT.id,
+        spell: TALENTS.RESCUE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
-        enabled: combatant.hasTalent(TALENTS.FLY_WITH_ME_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.RESCUE_TALENT.id),
       },
       {
         spell: TALENTS.TIME_SPIRAL_TALENT.id,

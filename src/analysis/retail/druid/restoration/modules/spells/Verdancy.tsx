@@ -29,7 +29,7 @@ class Verdancy extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.VERDANCY_RESTORATION_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.VERDANCY_TALENT);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_BLOOM_HEAL),
@@ -52,9 +52,7 @@ class Verdancy extends Analyzer {
   }
 
   statistic() {
-    const hasPhotosynthesis = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.PHOTOSYNTHESIS_RESTORATION_TALENT,
-    );
+    const hasPhotosynthesis = this.selectedCombatant.hasTalent(TALENTS_DRUID.PHOTOSYNTHESIS_TALENT);
     return (
       <Statistic
         size="flexible"
@@ -76,7 +74,7 @@ class Verdancy extends Analyzer {
                     minute
                   </li>
                   <li>
-                    <SpellLink id={TALENTS_DRUID.PHOTOSYNTHESIS_RESTORATION_TALENT.id} /> Blooms:{' '}
+                    <SpellLink id={TALENTS_DRUID.PHOTOSYNTHESIS_TALENT.id} /> Blooms:{' '}
                     <strong>{this.owner.getPerMinute(this.photoBlooms).toFixed(1)}</strong> per
                     minute
                   </li>
@@ -95,7 +93,7 @@ class Verdancy extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.VERDANCY_RESTORATION_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.VERDANCY_TALENT.id}>
           <ItemPercentHealingDone
             amount={this.abilityTracker.getAbility(SPELLS.VERDANCY.id).healingEffective}
           />

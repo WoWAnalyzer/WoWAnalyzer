@@ -27,7 +27,7 @@ class MeatCleaver extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.MEAT_CLEAVER_FURY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.MEAT_CLEAVER_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -106,7 +106,7 @@ class MeatCleaver extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={talents.MEAT_CLEAVER_FURY_TALENT.id}>
+        <BoringSpellValueText spellId={talents.MEAT_CLEAVER_TALENT.id}>
           <>{this.rageGainedByMeatCleaver} rage gained</>
         </BoringSpellValueText>
       </Statistic>

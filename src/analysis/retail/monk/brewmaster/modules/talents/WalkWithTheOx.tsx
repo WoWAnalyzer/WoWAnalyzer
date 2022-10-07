@@ -43,7 +43,7 @@ export default class WalkWithTheOx extends Analyzer {
       this.reduceCooldown,
     );
     this.addEventListener(
-      Events.cast.spell(talents.KEG_SMASH_BREWMASTER_TALENT).by(SELECTED_PLAYER),
+      Events.cast.spell(talents.KEG_SMASH_TALENT).by(SELECTED_PLAYER),
       this.reduceCooldown,
     );
     // SCK generates 1 shuffle application per tick of the channel that hits at

@@ -287,269 +287,259 @@ const talents = createTalentList({
     icon: 'ability_demonhunter_concentratedsigils',
     maxRanks: 1,
   },
+  FODDER_TO_THE_FLAME_TALENT: {
+    id: 391429,
+    name: 'Fodder to the Flame',
+    icon: 'ability_maldraxxus_demonhunter',
+    maxRanks: 1,
+  },
+  ELYSIAN_DECREE_TALENT: {
+    id: 390163,
+    name: 'Elysian Decree',
+    icon: 'ability_bastion_demonhunter',
+    maxRanks: 1,
+  },
 
   //Vengeance
-  FEL_DEVASTATION_VENGEANCE_TALENT: {
+  FEL_DEVASTATION_TALENT: {
     id: 212084,
     name: 'Fel Devastation',
     icon: 'ability_demonhunter_feldevastation',
     maxRanks: 1,
     furyCost: 50,
   },
-  FRAILTY_VENGEANCE_TALENT: {
+  FRAILTY_TALENT: {
     id: 389958,
     name: 'Frailty',
     icon: 'inv_icon_shadowcouncilorb_purple',
     maxRanks: 1,
   },
-  FIERY_BRAND_VENGEANCE_TALENT: {
+  FIERY_BRAND_TALENT: {
     id: 204021,
     name: 'Fiery Brand',
     icon: 'ability_demonhunter_fierybrand',
     maxRanks: 1,
   },
-  PERFECTLY_BALANCED_GLAIVE_VENGEANCE_TALENT: {
+  PERFECTLY_BALANCED_GLAIVE_TALENT: {
     id: 320387,
     name: 'Perfectly Balanced Glaive',
     icon: 'ability_demonhunter_throwglaive',
     maxRanks: 1,
   },
-  DEFLECTING_SPIKES_VENGEANCE_TALENT: {
+  DEFLECTING_SPIKES_TALENT: {
     id: 321028,
     name: 'Deflecting Spikes',
     icon: 'ability_demonhunter_demonspikes',
     maxRanks: 1,
   },
-  ABYSSAL_HASTE_VENGEANCE_TALENT: {
+  ABYSSAL_HASTE_TALENT: {
     id: 389724,
     name: 'Abyssal Haste',
     icon: 'spell_warlock_summonabyssal',
     maxRanks: 1,
   },
-  SHEAR_FURY_VENGEANCE_TALENT: {
+  SHEAR_FURY_TALENT: {
     id: 389997,
     name: 'Shear Fury',
     icon: 'ability_demonhunter_hatefulstrike',
     maxRanks: 1,
   },
-  FRACTURE_VENGEANCE_TALENT: {
+  FRACTURE_TALENT: {
     id: 263642,
     name: 'Fracture',
     icon: 'ability_creature_felsunder',
     maxRanks: 1,
   },
-  CALCIFIED_SPIKES_VENGEANCE_TALENT: {
+  CALCIFIED_SPIKES_TALENT: {
     id: 389720,
     name: 'Calcified Spikes',
     icon: 'ability_demonhunter_demonspikes',
     maxRanks: 1,
   },
-  ROARING_FIRE_VENGEANCE_TALENT: {
+  ROARING_FIRE_TALENT: {
     id: 391178,
     name: 'Roaring Fire',
     icon: 'spell_fire_felflamering',
     maxRanks: 1,
   },
-  RETALIATION_VENGEANCE_TALENT: {
+  RETALIATION_TALENT: {
     id: 389729,
     name: 'Retaliation',
     icon: 'ability_demonhunter_demonspikes2',
     maxRanks: 1,
   },
-  FEL_FLAME_FORTIFICATION_VENGEANCE_TALENT: {
+  FEL_FLAME_FORTIFICATION_TALENT: {
     id: 389705,
     name: 'Fel Flame Fortification',
     icon: 'spell_fire_felfire',
     maxRanks: 1,
   },
-  SPIRIT_BOMB_VENGEANCE_TALENT: {
+  SPIRIT_BOMB_TALENT: {
     id: 247454,
     name: 'Spirit Bomb',
     icon: 'inv_icon_shadowcouncilorb_purple',
     maxRanks: 1,
     furyCost: 45,
   },
-  FEAST_OF_SOULS_VENGEANCE_TALENT: {
+  FEAST_OF_SOULS_TALENT: {
     id: 207697,
     name: 'Feast of Souls',
     icon: 'spell_shadow_soulleech',
     maxRanks: 1,
   },
-  AGONIZING_FLAMES_VENGEANCE_TALENT: {
+  AGONIZING_FLAMES_TALENT: {
     id: 207548,
     name: 'Agonizing Flames',
     icon: 'achievment_raid_houroftwilight',
     maxRanks: 2,
   },
-  EXTENDED_SPIKES_VENGEANCE_TALENT: {
+  EXTENDED_SPIKES_TALENT: {
     id: 389721,
     name: 'Extended Spikes',
     icon: 'ability_demonhunter_demonspikes',
     maxRanks: 2,
   },
-  BURNING_BLOOD_VENGEANCE_TALENT: {
+  BURNING_BLOOD_TALENT: {
     id: 390213,
     name: 'Burning Blood',
     icon: 'ability_demonhunter_immolation',
     maxRanks: 2,
   },
-  SOUL_BARRIER_VENGEANCE_TALENT: {
-    id: 263648,
-    name: 'Soul Barrier',
-    icon: 'inv_soulbarrier',
-    maxRanks: 1,
-  },
-  BULK_EXTRACTION_VENGEANCE_TALENT: {
+  SOUL_BARRIER_TALENT: { id: 263648, name: 'Soul Barrier', icon: 'inv_soulbarrier', maxRanks: 1 },
+  BULK_EXTRACTION_TALENT: {
     id: 320341,
     name: 'Bulk Extraction',
     icon: 'spell_shadow_shadesofdarkness',
     maxRanks: 1,
   },
-  SIGIL_OF_CHAINS_VENGEANCE_TALENT: {
+  SIGIL_OF_CHAINS_TALENT: {
     id: 202138,
     name: 'Sigil of Chains',
     icon: 'ability_demonhunter_sigilofchains',
     maxRanks: 1,
   },
-  VOID_REAVER_VENGEANCE_TALENT: {
+  VOID_REAVER_TALENT: {
     id: 268175,
     name: 'Void Reaver',
     icon: 'spell_shadow_demonicempathy',
     maxRanks: 1,
   },
-  FALLOUT_VENGEANCE_TALENT: {
-    id: 227174,
-    name: 'Fallout',
-    icon: 'spell_volatilefiregreen',
-    maxRanks: 1,
-  },
-  RUINOUS_BULWARK_VENGEANCE_TALENT: {
+  FALLOUT_TALENT: { id: 227174, name: 'Fallout', icon: 'spell_volatilefiregreen', maxRanks: 1 },
+  RUINOUS_BULWARK_TALENT: {
     id: 326853,
     name: 'Ruinous Bulwark',
     icon: 'ability_demonhunter_feldevastation',
     maxRanks: 1,
   },
-  VOLATILE_FLAMEBLOOD_VENGEANCE_TALENT: {
+  VOLATILE_FLAMEBLOOD_TALENT: {
     id: 390808,
     name: 'Volatile Flameblood',
     icon: 'ability_demonhunter_immolation',
     maxRanks: 1,
   },
-  REVEL_IN_PAIN_VENGEANCE_TALENT: {
+  REVEL_IN_PAIN_TALENT: {
     id: 343014,
     name: 'Revel in Pain',
     icon: 'ability_bossfelmagnaron_handempowered',
     maxRanks: 1,
   },
-  SOUL_FURNACE_VENGEANCE_TALENT: {
+  SOUL_FURNACE_TALENT: {
     id: 391165,
     name: 'Soul Furnace',
     icon: 'ability_demonhunter_soulcleave4',
     maxRanks: 1,
   },
-  PAINBRINGER_VENGEANCE_TALENT: {
+  PAINBRINGER_TALENT: {
     id: 207387,
     name: 'Painbringer',
     icon: 'artifactability_vengeancedemonhunter_painbringer',
     maxRanks: 2,
   },
-  DARKGLARE_BOON_VENGEANCE_TALENT: {
+  DARKGLARE_BOON_TALENT: {
     id: 389708,
     name: 'Darkglare Boon',
     icon: 'inv_jewelry_necklace_53',
     maxRanks: 2,
   },
-  FIERY_DEMISE_VENGEANCE_TALENT: {
+  FIERY_DEMISE_TALENT: {
     id: 389220,
     name: 'Fiery Demise',
     icon: 'ability_demonhunter_fierybrand',
     maxRanks: 2,
   },
-  CHAINS_OF_ANGER_VENGEANCE_TALENT: {
+  CHAINS_OF_ANGER_TALENT: {
     id: 389715,
     name: 'Chains of Anger',
     icon: 'ability_demonhunter_sigilofchains',
     maxRanks: 1,
   },
-  FOCUSED_CLEAVE_VENGEANCE_TALENT: {
+  FOCUSED_CLEAVE_TALENT: {
     id: 343207,
     name: 'Focused Cleave',
     icon: 'ability_demonhunter_soulcleave',
     maxRanks: 1,
   },
-  SOULMONGER_VENGEANCE_TALENT: {
+  SOULMONGER_TALENT: {
     id: 389711,
     name: 'Soulmonger',
     icon: 'ability_demonhunter_shatteredsouls',
     maxRanks: 1,
   },
-  STOKE_THE_FLAMES_VENGEANCE_TALENT: {
+  STOKE_THE_FLAMES_TALENT: {
     id: 393827,
     name: 'Stoke the Flames',
     icon: 'ability_demonhunter_feldevastation',
     maxRanks: 1,
   },
-  BURNING_ALIVE_VENGEANCE_TALENT: {
+  BURNING_ALIVE_TALENT: {
     id: 207739,
     name: 'Burning Alive',
     icon: 'spell_fire_elementaldevastation',
     maxRanks: 1,
   },
-  CYCLE_OF_BINDING_VENGEANCE_TALENT: {
+  CYCLE_OF_BINDING_TALENT: {
     id: 389718,
     name: 'Cycle of Binding',
     icon: 'ability_demonhunter_sigilofinquisition',
     maxRanks: 1,
   },
-  VULNERABILITY_VENGEANCE_TALENT: {
+  VULNERABILITY_TALENT: {
     id: 389976,
     name: 'Vulnerability',
     icon: 'inv_icon_shadowcouncilorb_purple',
     maxRanks: 2,
   },
-  FEED_THE_DEMON_VENGEANCE_TALENT: {
+  FEED_THE_DEMON_TALENT: {
     id: 218612,
     name: 'Feed the Demon',
     icon: 'spell_warlock_demonicempowerment',
     maxRanks: 2,
   },
-  CHARRED_FLESH_VENGEANCE_TALENT: {
+  CHARRED_FLESH_TALENT: {
     id: 336639,
     name: 'Charred Flesh',
     icon: 'ability_warlock_backdraft',
     maxRanks: 2,
   },
-  THE_WEAK_WILLED_VENGEANCE_TALENT: {
+  THE_WEAK_WILLED_TALENT: {
     id: 389985,
     name: 'The Weak-Willed',
     icon: 'inv_icon_shadowcouncilorb_purple',
     maxRanks: 1,
   },
-  SOUL_CARVER_VENGEANCE_TALENT: {
+  SOUL_CARVER_TALENT: {
     id: 207407,
     name: 'Soul Carver',
     icon: 'inv_glaive_1h_artifactaldrochi_d_01',
     maxRanks: 1,
   },
-  LAST_RESORT_VENGEANCE_TALENT: {
+  LAST_RESORT_TALENT: {
     id: 209258,
     name: 'Last Resort',
     icon: 'inv_glaive_1h_artifactaldorchi_d_06',
     maxRanks: 1,
   },
-  FODDER_TO_THE_FLAME_VENGEANCE_TALENT: {
-    id: 391429,
-    name: 'Fodder to the Flame',
-    icon: 'ability_maldraxxus_demonhunter',
-    maxRanks: 1,
-  },
-  ELYSIAN_DECREE_VENGEANCE_TALENT: {
-    id: 390163,
-    name: 'Elysian Decree',
-    icon: 'ability_bastion_demonhunter',
-    maxRanks: 1,
-  },
-  DOWN_IN_FLAMES_VENGEANCE_TALENT: {
+  DOWN_IN_FLAMES_TALENT: {
     id: 389732,
     name: 'Down in Flames',
     icon: 'ability_demonhunter_fierybrand',
@@ -557,274 +547,252 @@ const talents = createTalentList({
   },
 
   //Havoc
-  EYE_BEAM_HAVOC_TALENT: {
+  EYE_BEAM_TALENT: {
     id: 198013,
     name: 'Eye Beam',
     icon: 'ability_demonhunter_eyebeam',
     maxRanks: 1,
     furyCost: 30,
   },
-  IMPROVED_CHAOS_STRIKE_HAVOC_TALENT: {
+  IMPROVED_CHAOS_STRIKE_TALENT: {
     id: 343206,
     name: 'Improved Chaos Strike',
     icon: 'ability_demonhunter_chaosstrike',
     maxRanks: 1,
   },
-  INSATIABLE_HUNGER_HAVOC_TALENT: {
+  INSATIABLE_HUNGER_TALENT: {
     id: 258876,
     name: 'Insatiable Hunger',
     icon: 'ability_rogue_hungerforblood',
     maxRanks: 1,
   },
-  DEMON_BLADES_HAVOC_TALENT: {
+  DEMON_BLADES_TALENT: {
     id: 203555,
     name: 'Demon Blades',
     icon: 'inv_weapon_shortblade_92',
     maxRanks: 1,
   },
-  FELFIRE_HEART_HAVOC_TALENT: {
+  FELFIRE_HEART_TALENT: {
     id: 388109,
     name: 'Felfire Heart',
     icon: 'ability_demonhunter_immolation',
     maxRanks: 1,
   },
-  DEMONIC_APPETITE_HAVOC_TALENT: {
+  DEMONIC_APPETITE_TALENT: {
     id: 206478,
     name: 'Demonic Appetite',
     icon: 'ability_creature_poison_01_purple',
     maxRanks: 1,
   },
-  IMPROVED_FEL_RUSH_HAVOC_TALENT: {
+  IMPROVED_FEL_RUSH_TALENT: {
     id: 343017,
     name: 'Improved Fel Rush',
     icon: 'ability_demonhunter_felrush',
     maxRanks: 1,
   },
-  FIRST_BLOOD_HAVOC_TALENT: {
+  FIRST_BLOOD_TALENT: {
     id: 206416,
     name: 'First Blood',
     icon: 'ability_deathwing_bloodcorruption_death',
     maxRanks: 1,
   },
-  FURIOUS_THROWS_HAVOC_TALENT: {
+  FURIOUS_THROWS_TALENT: {
     id: 393029,
     name: 'Furious Throws',
     icon: 'ability_demonhunter_throwglaive',
     maxRanks: 1,
   },
-  BURNING_HATRED_HAVOC_TALENT: {
+  BURNING_HATRED_TALENT: {
     id: 320374,
     name: 'Burning Hatred',
     icon: 'ability_demonhunter_immolation',
     maxRanks: 1,
   },
-  CRITICAL_CHAOS_HAVOC_TALENT: {
+  CRITICAL_CHAOS_TALENT: {
     id: 320413,
     name: 'Critical Chaos',
     icon: 'ability_demonhunter_chaosstrike',
     maxRanks: 2,
   },
-  MORTAL_DANCE_HAVOC_TALENT: {
+  MORTAL_DANCE_TALENT: {
     id: 328725,
     name: 'Mortal Dance',
     icon: 'ability_demonhunter_vengefulretreat',
     maxRanks: 1,
   },
-  DANCING_WITH_FATE_HAVOC_TALENT: {
+  DANCING_WITH_FATE_TALENT: {
     id: 389978,
     name: 'Dancing with Fate',
     icon: 'inv_polearm_1h_felfireraid_d_02',
     maxRanks: 2,
   },
-  INITIATIVE_HAVOC_TALENT: {
+  INITIATIVE_TALENT: {
     id: 388108,
     name: 'Initiative',
     icon: 'ability_rogue_surpriseattack',
     maxRanks: 1,
   },
-  DESPERATE_INSTINCTS_HAVOC_TALENT: {
+  DESPERATE_INSTINCTS_TALENT: {
     id: 205411,
     name: 'Desperate Instincts',
     icon: 'spell_shadow_manafeed',
     maxRanks: 1,
   },
-  NETHERWALK_HAVOC_TALENT: {
+  NETHERWALK_TALENT: {
     id: 196555,
     name: 'Netherwalk',
     icon: 'spell_warlock_demonsoul',
     maxRanks: 1,
   },
-  CHAOTIC_TRANSFORMATION_HAVOC_TALENT: {
+  CHAOTIC_TRANSFORMATION_TALENT: {
     id: 388112,
     name: 'Chaotic Transformation',
     icon: 'ability_demonhunter_glide',
     maxRanks: 1,
   },
-  FEL_ERUPTION_HAVOC_TALENT: {
+  FEL_ERUPTION_TALENT: {
     id: 211881,
     name: 'Fel Eruption',
     icon: 'ability_bossfellord_felspike',
     maxRanks: 1,
     furyCost: 10,
   },
-  TRAIL_OF_RUIN_HAVOC_TALENT: {
+  TRAIL_OF_RUIN_TALENT: {
     id: 258881,
     name: 'Trail of Ruin',
     icon: 'ability_demonhunter_bladedance',
     maxRanks: 1,
   },
-  UNBOUND_CHAOS_HAVOC_TALENT: {
+  UNBOUND_CHAOS_TALENT: {
     id: 347461,
     name: 'Unbound Chaos',
     icon: 'artifactability_vengeancedemonhunter_painbringer',
     maxRanks: 2,
   },
-  BLIND_FURY_HAVOC_TALENT: {
+  BLIND_FURY_TALENT: {
     id: 203550,
     name: 'Blind Fury',
     icon: 'ability_bosskilrogg_deadeye',
     maxRanks: 2,
   },
-  LOOKS_CAN_KILL_HAVOC_TALENT: {
+  LOOKS_CAN_KILL_TALENT: {
     id: 320415,
     name: 'Looks Can Kill',
     icon: 'ability_demonhunter_eyebeam',
     maxRanks: 1,
   },
-  SERRATED_GLAIVE_HAVOC_TALENT: {
+  SERRATED_GLAIVE_TALENT: {
     id: 390154,
     name: 'Serrated Glaive',
     icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
     maxRanks: 2,
   },
-  GROWING_INFERNO_HAVOC_TALENT: {
+  GROWING_INFERNO_TALENT: {
     id: 390158,
     name: 'Growing Inferno',
     icon: 'spell_fel_incinerate',
     maxRanks: 2,
   },
-  TACTICAL_RETREAT_HAVOC_TALENT: {
+  TACTICAL_RETREAT_TALENT: {
     id: 389688,
     name: 'Tactical Retreat',
     icon: 'ability_demonhunter_vengefulretreat2',
     maxRanks: 1,
   },
-  ISOLATED_PREY_HAVOC_TALENT: {
+  ISOLATED_PREY_TALENT: {
     id: 388113,
     name: 'Isolated Prey',
     icon: 'spell_shadow_shadesofdarkness',
     maxRanks: 1,
   },
-  FURIOUS_GAZE_HAVOC_TALENT: {
+  FURIOUS_GAZE_TALENT: {
     id: 343311,
     name: 'Furious Gaze',
     icon: 'ability_demonhunter_eyebeam',
     maxRanks: 1,
   },
-  RELENTLESS_ONSLAUGHT_HAVOC_TALENT: {
+  RELENTLESS_ONSLAUGHT_TALENT: {
     id: 389977,
     name: 'Relentless Onslaught',
     icon: 'ability_demonhunter_soulcleave2',
     maxRanks: 1,
   },
-  BURNING_WOUND_HAVOC_TALENT: {
+  BURNING_WOUND_TALENT: {
     id: 391189,
     name: 'Burning Wound',
     icon: 'spell_fire_felhellfire',
     maxRanks: 1,
   },
-  MOMENTUM_HAVOC_TALENT: {
+  MOMENTUM_TALENT: {
     id: 206476,
     name: 'Momentum',
     icon: 'ability_foundryraid_demolition',
     maxRanks: 1,
   },
-  CHAOS_THEORY_HAVOC_TALENT: {
+  CHAOS_THEORY_TALENT: {
     id: 389687,
     name: 'Chaos Theory',
     icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
     maxRanks: 1,
   },
-  RESTLESS_HUNTER_HAVOC_TALENT: {
+  RESTLESS_HUNTER_TALENT: {
     id: 390142,
     name: 'Restless Hunter',
     icon: 'ability_demonhunter_doublejump',
     maxRanks: 1,
   },
-  INNER_DEMON_HAVOC_TALENT: {
+  INNER_DEMON_TALENT: {
     id: 389693,
     name: 'Inner Demon',
     icon: 'ability_demonhunter_glide',
     maxRanks: 1,
   },
-  MOARG_BIONICS_HAVOC_TALENT: {
+  MOARG_BIONICS_TALENT: {
     id: 391275,
     name: "Mo'arg Bionics",
     icon: 'ability_demonhunter_throwglaive',
     maxRanks: 1,
   },
-  RAGEFIRE_HAVOC_TALENT: {
-    id: 388107,
-    name: 'Ragefire',
-    icon: 'spell_fire_fireballgreen',
-    maxRanks: 1,
-  },
-  KNOW_YOUR_ENEMY_HAVOC_TALENT: {
+  RAGEFIRE_TALENT: { id: 388107, name: 'Ragefire', icon: 'spell_fire_fireballgreen', maxRanks: 1 },
+  KNOW_YOUR_ENEMY_TALENT: {
     id: 388118,
     name: 'Know Your Enemy',
     icon: 'ability_demonhunter_eyeofleotheras',
     maxRanks: 2,
   },
-  GLAIVE_TEMPEST_HAVOC_TALENT: {
+  GLAIVE_TEMPEST_TALENT: {
     id: 342817,
     name: 'Glaive Tempest',
     icon: 'inv_glaive_1h_artifactazgalor_d_06dual',
     maxRanks: 1,
     furyCost: 30,
   },
-  FEL_BARRAGE_HAVOC_TALENT: {
-    id: 258925,
-    name: 'Fel Barrage',
-    icon: 'inv_felbarrage',
-    maxRanks: 1,
-  },
-  CYCLE_OF_HATRED_HAVOC_TALENT: {
+  FEL_BARRAGE_TALENT: { id: 258925, name: 'Fel Barrage', icon: 'inv_felbarrage', maxRanks: 1 },
+  CYCLE_OF_HATRED_TALENT: {
     id: 258887,
     name: 'Cycle of Hatred',
     icon: 'ability_ironmaidens_whirlofblood',
     maxRanks: 2,
   },
-  FODDER_TO_THE_FLAME_HAVOC_TALENT: {
-    id: 391429,
-    name: 'Fodder to the Flame',
-    icon: 'ability_maldraxxus_demonhunter',
-    maxRanks: 1,
-  },
-  ELYSIAN_DECREE_HAVOC_TALENT: {
-    id: 390163,
-    name: 'Elysian Decree',
-    icon: 'ability_bastion_demonhunter',
-    maxRanks: 1,
-  },
-  SOULREND_HAVOC_TALENT: {
+  SOULREND_TALENT: {
     id: 388106,
     name: 'Soulrend',
     icon: 'ability_demonhunter_bloodlet',
     maxRanks: 2,
   },
-  ESSENCE_BREAK_HAVOC_TALENT: {
+  ESSENCE_BREAK_TALENT: {
     id: 258860,
     name: 'Essence Break',
     icon: 'spell_shadow_ritualofsacrifice',
     maxRanks: 1,
   },
-  SHATTERED_DESTINY_HAVOC_TALENT: {
+  SHATTERED_DESTINY_TALENT: {
     id: 388116,
     name: 'Shattered Destiny',
     icon: 'achievement_boss_triumvirate_darknaaru',
     maxRanks: 1,
   },
-  ANY_MEANS_NECESSARY_HAVOC_TALENT: {
+  ANY_MEANS_NECESSARY_TALENT: {
     id: 388114,
     name: 'Any Means Necessary',
     icon: 'ability_warlock_demonicpower',

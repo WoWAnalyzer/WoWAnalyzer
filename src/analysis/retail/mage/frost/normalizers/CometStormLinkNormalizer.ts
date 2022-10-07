@@ -14,7 +14,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: FROM_HARDCAST,
     linkingEventId: SPELLS.COMET_STORM_DAMAGE.id,
     linkingEventType: EventType.Damage,
-    referencedEventId: TALENTS.COMET_STORM_FROST_TALENT.id,
+    referencedEventId: TALENTS.COMET_STORM_TALENT.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: 0,
     backwardBufferMs: CAST_BUFFER_MS,

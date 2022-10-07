@@ -46,7 +46,7 @@ class Photosynthesis extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.PHOTOSYNTHESIS_RESTORATION_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.PHOTOSYNTHESIS_TALENT);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(PHOTO_INCREASED_RATE),
@@ -148,7 +148,7 @@ class Photosynthesis extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.PHOTOSYNTHESIS_RESTORATION_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.PHOTOSYNTHESIS_TALENT.id}>
           <ItemPercentHealingDone amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

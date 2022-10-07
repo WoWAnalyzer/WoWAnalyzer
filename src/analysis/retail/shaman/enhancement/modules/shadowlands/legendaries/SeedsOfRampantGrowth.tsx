@@ -27,12 +27,8 @@ class SeedsOfRampantGrowth extends Analyzer {
   }
 
   reduceFeralSpiritCooldown(event: ApplyBuffStackEvent | ApplyBuffEvent) {
-    if (this.spellUsable.isOnCooldown(TALENTS_SHAMAN.FERAL_SPIRIT_ENHANCEMENT_TALENT.id)) {
-      this.spellUsable.reduceCooldown(
-        TALENTS_SHAMAN.FERAL_SPIRIT_ENHANCEMENT_TALENT.id,
-        9000,
-        event.timestamp,
-      );
+    if (this.spellUsable.isOnCooldown(TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id)) {
+      this.spellUsable.reduceCooldown(TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id, 9000, event.timestamp);
     }
   }
 }

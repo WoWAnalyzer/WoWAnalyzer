@@ -39,19 +39,22 @@ class CelestialBrew extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(talents.CELESTIAL_BREW_BREWMASTER_TALENT);
+    this.active = this.selectedCombatant.hasTalent(talents.CELESTIAL_BREW_TALENT);
 
     this._absorbs = [];
 
     this.addEventListener(
-      Events.absorbed.by(SELECTED_PLAYER).spell(talents.CELESTIAL_BREW_BREWMASTER_TALENT),
+      Events.absorbed.by(SELECTED_PLAYER).spell(talents.CELESTIAL_BREW_TALENT),
       this._cbAbsorb,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(talents.CELESTIAL_BREW_BREWMASTER_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(talents.CELESTIAL_BREW_TALENT),
       this._resetAbsorb,
     );
-    this.addEventListener(Events.removebuff.spell(talents.CELESTIAL_BREW_BREWMASTER_TALENT), this._expireAbsorb);
+    this.addEventListener(
+      Events.removebuff.spell(talents.CELESTIAL_BREW_TALENT),
+      this._expireAbsorb,
+    );
     this.addEventListener(
       Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.PURIFIED_CHI),
       this._purifiedChiApplied,
@@ -93,11 +96,11 @@ class CelestialBrew extends Analyzer {
     when(this.goodCastSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should try to use <SpellLink id={talents.CELESTIAL_BREW_BREWMASTER_TALENT.id} /> when most or all of the
-          absorb will be consumed.
+          You should try to use <SpellLink id={talents.CELESTIAL_BREW_TALENT.id} /> when most or all
+          of the absorb will be consumed.
         </>,
       )
-        .icon(talents.CELESTIAL_BREW_BREWMASTER_TALENT.icon)
+        .icon(talents.CELESTIAL_BREW_TALENT.icon)
         .actual(
           `${formatPercentage(actual)}% of your absorbs expired with more than 25% remaining.`,
         )
@@ -200,7 +203,7 @@ class CelestialBrew extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellIcon id={talents.CELESTIAL_BREW_BREWMASTER_TALENT.id} /> Avg. Absorb per Celestial Brew
+              <SpellIcon id={talents.CELESTIAL_BREW_TALENT.id} /> Avg. Absorb per Celestial Brew
             </>
           }
         >

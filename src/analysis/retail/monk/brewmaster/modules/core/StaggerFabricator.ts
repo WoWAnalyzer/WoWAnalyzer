@@ -51,10 +51,7 @@ class StaggerFabricator extends Analyzer {
     //count as uninitialized if fight didn't start at actual fight start time (aka phase)
     this._initialized = (this.owner.fight.offset_time || 0) === 0;
 
-    this.addEventListener(
-      Events.cast.spell(talents.PURIFYING_BREW_BREWMASTER_TALENT),
-      this._pbCast,
-    );
+    this.addEventListener(Events.cast.spell(talents.PURIFYING_BREW_TALENT), this._pbCast);
     this.addEventListener(Events.absorbed, this._absorb);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._damage);
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this._death);

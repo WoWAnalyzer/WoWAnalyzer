@@ -10,6 +10,8 @@ export default interface Spell {
   //Demon Hunter
   furyCost?: number;
   painCost?: number;
+  //Druid
+  lunarPowerCost?: number;
   //Feral Druid & Rogue
   energyCost?: number;
   comboPointsCost?: number;

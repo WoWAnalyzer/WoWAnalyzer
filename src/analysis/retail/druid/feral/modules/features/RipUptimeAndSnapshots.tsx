@@ -212,16 +212,16 @@ class RipUptimeAndSnapshots extends Snapshots {
         .recommended(`>${formatPercentage(recommended, 1)}% is recommended`),
     );
     // TODO move this to bloodtalons module?
-    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT)) {
       when(this.bloodTalonsSnapshotThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
           <>
             Try to always empower your <SpellLink id={SPELLS.RIP.id} /> with{' '}
-            <SpellLink id={TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id} />. Bloodtalons buffs Rip for
-            its full duration, and you should always have a proc available when refreshing Rip.
+            <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />. Bloodtalons buffs Rip for its
+            full duration, and you should always have a proc available when refreshing Rip.
           </>,
         )
-          .icon(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.icon)
+          .icon(TALENTS_DRUID.BLOODTALONS_TALENT.icon)
           .actual(`${formatPercentage(actual, 1)}% of Rip uptime had Bloodtalons snapshot`)
           .recommended(`>${formatPercentage(recommended, 1)}% is recommended`),
       );

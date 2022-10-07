@@ -62,22 +62,21 @@ const PurifyProblemDescription = ({ data }: { data: ProblemData }) =>
   data.type === ProblemType.MissedPurify ? (
     <p>
       You missed <strong>{data.data.length} or more</strong> potential casts of{' '}
-      <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> here that could've cleared a
-      total of{' '}
+      <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> here that could've cleared a total of{' '}
       <strong>
         {formatNumber(data.data.map((datum) => datum.amountPurified).reduce((a, b) => a + b))}
       </strong>{' '}
       damage. While this may reduce the value of your later{' '}
-      <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> casts, it is likely to reduce
-      your overall damage intake.
+      <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> casts, it is likely to reduce your overall
+      damage intake.
     </p>
   ) : (
     <p>
-      You cast <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> with low{' '}
+      You cast <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> with low{' '}
       <SpellLink id={SPELLS.STAGGER.id} />, clearing only{' '}
       <strong>{formatNumber(data.data.purify.amount)}</strong> damage. The timing of this cast was
-      not while <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> was almost capped at
-      2 charges, leaving you with no charges available to deal with incoming damage.
+      not while <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> was almost capped at 2 charges,
+      leaving you with no charges available to deal with incoming damage.
     </p>
   );
 
@@ -114,7 +113,7 @@ export function PurifyProblem({
             .filter(
               (event) =>
                 event.type === EventType.RemoveStagger &&
-                event.trigger?.ability.guid === talents.PURIFYING_BREW_BREWMASTER_TALENT.id,
+                event.trigger?.ability.guid === talents.PURIFYING_BREW_TALENT.id,
             )
             .map((event) => ({ ...event, subject: false }))
         : []),
@@ -393,16 +392,15 @@ export function PurifySection({
     <SubSection title="Purifying Brew">
       <p>
         The primary method of removing damage from your <SpellLink id={SPELLS.STAGGER.id} /> pool is
-        casting <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} />. Your goal is
-        twofold:
+        casting <SpellLink id={talents.PURIFYING_BREW_TALENT.id} />. Your goal is twofold:
       </p>
       <ol>
         <li>
-          Don't waste any charges of <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} />
+          Don't waste any charges of <SpellLink id={talents.PURIFYING_BREW_TALENT.id} />
         </li>
         <li>
-          Cast <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> when you have
-          relatively high <SpellLink id={SPELLS.STAGGER.id} />
+          Cast <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> when you have relatively high{' '}
+          <SpellLink id={SPELLS.STAGGER.id} />
         </li>
       </ol>
       <p>
@@ -410,8 +408,8 @@ export function PurifySection({
         <SpellLink id={SPELLS.STAGGER.id} /> level is highly unpredictable. As a result, the most
         reliable way to do this is by{' '}
         <strong>
-          casting <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> immediately after
-          being hit by a large attack.
+          casting <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> immediately after being hit by
+          a large attack.
         </strong>{' '}
         On some fights, "large attack" may mean <em>Melee Attack</em>&mdash;there is not a
         one-size-fits-all guideline across all bosses and difficulties.

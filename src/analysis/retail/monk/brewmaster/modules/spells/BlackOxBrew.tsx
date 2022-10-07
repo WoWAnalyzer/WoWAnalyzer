@@ -13,9 +13,9 @@ class BlackOxBrew extends Analyzer {
   get suggestionThreshold() {
     return {
       actual:
-        this.wastedCDR[talents.PURIFYING_BREW_BREWMASTER_TALENT.id] /
-        (this.cdr[talents.PURIFYING_BREW_BREWMASTER_TALENT.id] +
-          this.wastedCDR[talents.PURIFYING_BREW_BREWMASTER_TALENT.id]),
+        this.wastedCDR[talents.PURIFYING_BREW_TALENT.id] /
+        (this.cdr[talents.PURIFYING_BREW_TALENT.id] +
+          this.wastedCDR[talents.PURIFYING_BREW_TALENT.id]),
       isGreaterThan: {
         minor: 0.1,
         average: 0.2,
@@ -33,20 +33,20 @@ class BlackOxBrew extends Analyzer {
   protected spellUsable!: SpellUsable;
 
   cdr = {
-    [talents.PURIFYING_BREW_BREWMASTER_TALENT.id]: 0,
-    [talents.CELESTIAL_BREW_BREWMASTER_TALENT.id]: 0,
+    [talents.PURIFYING_BREW_TALENT.id]: 0,
+    [talents.CELESTIAL_BREW_TALENT.id]: 0,
   };
   wastedCDR = {
-    [talents.PURIFYING_BREW_BREWMASTER_TALENT.id]: 0,
-    [talents.CELESTIAL_BREW_BREWMASTER_TALENT.id]: 0,
+    [talents.PURIFYING_BREW_TALENT.id]: 0,
+    [talents.CELESTIAL_BREW_TALENT.id]: 0,
   };
   casts = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.BLACK_OX_BREW_BREWMASTER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.BLACK_OX_BREW_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(talents.BLACK_OX_BREW_BREWMASTER_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(talents.BLACK_OX_BREW_TALENT),
       this.onCast,
     );
   }
@@ -65,7 +65,7 @@ class BlackOxBrew extends Analyzer {
   _resetPB() {
     // loop until we've reset all the charges individually, recording
     // the amount of cooldown reduction for each charge.
-    const spellId = talents.PURIFYING_BREW_BREWMASTER_TALENT.id;
+    const spellId = talents.PURIFYING_BREW_TALENT.id;
     while (this.spellUsable.isOnCooldown(spellId)) {
       this._trackCdr(spellId);
       this.spellUsable.endCooldown(spellId);
@@ -73,7 +73,7 @@ class BlackOxBrew extends Analyzer {
   }
 
   _resetCB() {
-    const spellId = talents.BLACK_OX_BREW_BREWMASTER_TALENT.id;
+    const spellId = talents.BLACK_OX_BREW_TALENT.id;
     if (this.spellUsable.isOnCooldown(spellId)) {
       this._trackCdr(spellId);
       this.spellUsable.endCooldown(spellId);
@@ -93,10 +93,10 @@ class BlackOxBrew extends Analyzer {
     when(this.suggestionThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={talents.BLACK_OX_BREW_BREWMASTER_TALENT.id} /> usage can be improved.
+          Your <SpellLink id={talents.BLACK_OX_BREW_TALENT.id} /> usage can be improved.
         </>,
       )
-        .icon(talents.BLACK_OX_BREW_BREWMASTER_TALENT.icon)
+        .icon(talents.BLACK_OX_BREW_TALENT.icon)
         .actual(
           t({
             id: 'monk.brewmaster.suggestions.blackOxBrew.cdrWasted',

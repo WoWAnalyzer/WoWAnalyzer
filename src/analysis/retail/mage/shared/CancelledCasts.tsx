@@ -47,7 +47,7 @@ class CancelledCasts extends CoreCancelledCasts {
     } else if (this.selectedCombatant.specId === SPECS.ARCANE_MAGE.id) {
       extraMovementSpell = (
         <>
-          , and <SpellLink id={TALENTS.SLIPSTREAM_ARCANE_TALENT.id} />
+          , and <SpellLink id={TALENTS.SLIPSTREAM_TALENT.id} />
         </>
       );
     }

@@ -18,8 +18,8 @@ const META_BUFF_DURATION_EYEBEAM = DEMONIC_DURATION;
 
 export default class DemonicDeathSweep extends Analyzer {
   talentsCheck =
-    this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_HAVOC_TALENT.id) ||
-    this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FIRST_BLOOD_HAVOC_TALENT.id);
+    this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_TALENT.id) ||
+    this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FIRST_BLOOD_TALENT.id);
   eyeBeamCasts = 0;
   goodDeathSweep = 0;
   eyeBeamTimeStamp: number = 0;
@@ -33,7 +33,7 @@ export default class DemonicDeathSweep extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT),
       this.onEyeBeamCast,
     );
     this.addEventListener(
@@ -91,8 +91,8 @@ export default class DemonicDeathSweep extends Analyzer {
       suggest(
         <>
           Try to have <SpellLink id={SPELLS.BLADE_DANCE.id} /> almost off cooldown before casting{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id} />. This will allow for two
-          casts of <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the{' '}
+          <SpellLink id={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id} />. This will allow for two casts
+          of <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the{' '}
           <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> buff you get from the{' '}
           <SpellLink id={TALENTS_DEMON_HUNTER.DEMONIC_TALENT.id} /> talent.
         </>,

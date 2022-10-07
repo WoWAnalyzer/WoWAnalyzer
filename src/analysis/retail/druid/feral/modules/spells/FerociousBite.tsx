@@ -41,9 +41,7 @@ class FerociousBite extends Analyzer {
     if (
       this.hasSotf &&
       (this.selectedCombatant.hasBuff(SPELLS.BERSERK.id) ||
-        this.selectedCombatant.hasBuff(
-          TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id,
-        ))
+        this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id))
     ) {
       return; // using less than full bonus with SotF during Zerk is acceptable in order to maximize finishers used
     }
@@ -82,9 +80,7 @@ class FerociousBite extends Analyzer {
 
   suggestions(when: When) {
     const hasSotf = this.selectedCombatant.hasTalent(TALENTS_DRUID.SOUL_OF_THE_FOREST_FERAL_TALENT);
-    const hasApex = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.APEX_PREDATORS_CRAVING_FERAL_TALENT,
-    );
+    const hasApex = this.selectedCombatant.hasTalent(TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT);
     let exceptions = 0;
     if (hasSotf) {
       exceptions += 1;
@@ -122,10 +118,9 @@ class FerociousBite extends Analyzer {
           )}
           {hasApex && (
             <>
-              because you have{' '}
-              <SpellLink id={TALENTS_DRUID.APEX_PREDATORS_CRAVING_FERAL_TALENT.id} /> your free bite
-              procs don't need extra energy because they always count as though they used the extra
-              energy.
+              because you have <SpellLink id={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT.id} />{' '}
+              your free bite procs don't need extra energy because they always count as though they
+              used the extra energy.
             </>
           )}
           {exceptions > 0 && (
