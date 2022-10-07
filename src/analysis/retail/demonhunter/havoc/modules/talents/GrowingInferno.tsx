@@ -17,9 +17,7 @@ export default class GrowingInferno extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.GROWING_INFERNO_HAVOC_TALENT,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.GROWING_INFERNO_TALENT);
     if (!this.active) {
       return;
     }
@@ -41,7 +39,7 @@ export default class GrowingInferno extends Analyzer {
     this.addedDamage += calculateEffectiveDamage(
       event,
       GROWING_INFERNO_SCALING[
-        this.selectedCombatant.getTalentRank(TALENTS_DEMON_HUNTER.GROWING_INFERNO_HAVOC_TALENT)
+        this.selectedCombatant.getTalentRank(TALENTS_DEMON_HUNTER.GROWING_INFERNO_TALENT)
       ],
     );
   }
@@ -54,7 +52,7 @@ export default class GrowingInferno extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={<>Total damage of Immolation Aura {formatThousands(this.totalDamage)}</>}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.GROWING_INFERNO_HAVOC_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.GROWING_INFERNO_TALENT.id}>
           <ItemDamageDone amount={this.addedDamage} />
         </BoringSpellValueText>
       </Statistic>

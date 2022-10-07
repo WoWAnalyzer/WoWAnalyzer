@@ -13,9 +13,7 @@ class WindfuryTotem extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_SHAMAN.WINDFURY_TOTEM_ENHANCEMENT_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT.id);
 
     if (!this.active) {
       return;
@@ -44,7 +42,7 @@ class WindfuryTotem extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.CORE()}>
-        <BoringSpellValueText spellId={TALENTS_SHAMAN.WINDFURY_TOTEM_ENHANCEMENT_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>
@@ -58,9 +56,8 @@ class WindfuryTotem extends Analyzer {
       suggest(
         <>
           Your <SpellLink id={SPELLS.WINDFURY_TOTEM_BUFF.id} /> uptime can be improved. Make sure
-          it's always active. Cast{' '}
-          <SpellLink id={TALENTS_SHAMAN.WINDFURY_TOTEM_ENHANCEMENT_TALENT.id} /> if the buff is
-          about to fall off or if all other spells are on cooldown.
+          it's always active. Cast <SpellLink id={TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT.id} /> if the
+          buff is about to fall off or if all other spells are on cooldown.
         </>,
       )
         .icon(SPELLS.WINDFURY_TOTEM_BUFF.icon)

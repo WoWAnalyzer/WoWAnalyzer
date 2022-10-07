@@ -39,9 +39,7 @@ class Lifebloom extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.hasUndergrowth = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.UNDERGROWTH_RESTORATION_TALENT,
-    );
+    this.hasUndergrowth = this.selectedCombatant.hasTalent(TALENTS_DRUID.UNDERGROWTH_TALENT);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(LIFEBLOOM_BUFFS),
@@ -139,13 +137,9 @@ class Lifebloom extends Analyzer {
 
   /** Guide subsection describing the proper usage of Lifebloom */
   get guideSubsection(): JSX.Element {
-    const hasPhoto = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.PHOTOSYNTHESIS_RESTORATION_TALENT,
-    );
-    const hasUndergrowth = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.UNDERGROWTH_RESTORATION_TALENT,
-    );
-    const hasVerdancy = this.selectedCombatant.hasTalent(TALENTS_DRUID.VERDANCY_RESTORATION_TALENT);
+    const hasPhoto = this.selectedCombatant.hasTalent(TALENTS_DRUID.PHOTOSYNTHESIS_TALENT);
+    const hasUndergrowth = this.selectedCombatant.hasTalent(TALENTS_DRUID.UNDERGROWTH_TALENT);
+    const hasVerdancy = this.selectedCombatant.hasTalent(TALENTS_DRUID.VERDANCY_TALENT);
     const selfUptimePercent = this.selfLifebloomUptime / this.owner.fightDuration;
     const othersUptimePercent = this.othersLifebloomUptime / this.owner.fightDuration;
     return (
@@ -157,7 +151,7 @@ class Lifebloom extends Analyzer {
           can only be active on {hasUndergrowth ? 'two targets' : 'one target'} at a time{' '}
           {hasUndergrowth && (
             <>
-              (due to <SpellLink id={TALENTS_DRUID.UNDERGROWTH_RESTORATION_TALENT.id} />)
+              (due to <SpellLink id={TALENTS_DRUID.UNDERGROWTH_TALENT.id} />)
             </>
           )}{' '}
           and provides similar throughput to Rejuvenation. However, it causes{' '}
@@ -168,7 +162,7 @@ class Lifebloom extends Analyzer {
           <p>
             Because you took{' '}
             <strong>
-              <SpellLink id={TALENTS_DRUID.VERDANCY_RESTORATION_TALENT.id} />
+              <SpellLink id={TALENTS_DRUID.VERDANCY_TALENT.id} />
             </strong>
             , you should take extra care to allow your Lifeblooms to bloom. Refreshing lifebloom
             early or swapping targets before the existing Lifebloom has completed both will cause
@@ -184,24 +178,22 @@ class Lifebloom extends Analyzer {
           <p>
             Because you took{' '}
             <strong>
-              <SpellLink id={TALENTS_DRUID.PHOTOSYNTHESIS_RESTORATION_TALENT.id} />
+              <SpellLink id={TALENTS_DRUID.PHOTOSYNTHESIS_TALENT.id} />
             </strong>
             , high uptime is particularly important. Typically the Lifebloom-on-self effect is most
             powerful{' '}
             {hasVerdancy && (
               <>
-                but because you took <SpellLink id={TALENTS_DRUID.VERDANCY_RESTORATION_TALENT.id} />
-                , the extra blooms from the 'on-others' effect will also be very powerful
+                but because you took <SpellLink id={TALENTS_DRUID.VERDANCY_TALENT.id} />, the extra
+                blooms from the 'on-others' effect will also be very powerful
               </>
             )}
             .
             {hasUndergrowth && (
               <>
                 {' '}
-                Remember that <SpellLink
-                  id={TALENTS_DRUID.UNDERGROWTH_RESTORATION_TALENT.id}
-                />{' '}
-                allows two lifeblooms, and both will benefit!
+                Remember that <SpellLink id={TALENTS_DRUID.UNDERGROWTH_TALENT.id} /> allows two
+                lifeblooms, and both will benefit!
               </>
             )}
             <br />
@@ -226,7 +218,7 @@ class Lifebloom extends Analyzer {
     const subBars = [];
     if (this.hasUndergrowth) {
       subBars.push({
-        spells: [TALENTS_DRUID.UNDERGROWTH_RESTORATION_TALENT],
+        spells: [TALENTS_DRUID.UNDERGROWTH_TALENT],
         uptimes: mergeTimePeriods(this.undergrowthUptimes, this.owner.currentTimestamp),
         color: UNDERGROWTH_COLOR,
       });

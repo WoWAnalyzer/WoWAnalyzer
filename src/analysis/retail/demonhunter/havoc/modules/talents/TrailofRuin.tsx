@@ -16,9 +16,7 @@ class TrailofRuin extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_HAVOC_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -39,7 +37,7 @@ class TrailofRuin extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`${formatThousands(this.damage)} Total damage`}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_HAVOC_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_TALENT.id}>
           {this.owner.formatItemDamageDone(this.damage)}
         </BoringSpellValueText>
       </Statistic>

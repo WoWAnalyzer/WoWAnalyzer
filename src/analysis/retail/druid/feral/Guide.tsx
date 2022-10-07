@@ -40,14 +40,14 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
 }
 
 function CoreRotationSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
-  const hasLi = info.combatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_FERAL_TALENT);
-  const hasBrs = info.combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_FERAL_TALENT);
-  const hasDcr = info.combatant.hasTalent(TALENTS_DRUID.DOUBLE_CLAWED_RAKE_FERAL_TALENT);
-  const hasBt = info.combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT);
-  const hasPw = info.combatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT);
-  const hasApc = info.combatant.hasTalent(TALENTS_DRUID.APEX_PREDATORS_CRAVING_FERAL_TALENT);
-  const hasPc = info.combatant.hasTalent(TALENTS_DRUID.PRIMAL_CLAWS_FERAL_TALENT);
-  const hasAdaptiveSwarm = info.combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_FERAL_TALENT);
+  const hasLi = info.combatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_TALENT);
+  const hasBrs = info.combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT);
+  const hasDcr = info.combatant.hasTalent(TALENTS_DRUID.DOUBLE_CLAWED_RAKE_TALENT);
+  const hasBt = info.combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT);
+  const hasPw = info.combatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_TALENT);
+  const hasApc = info.combatant.hasTalent(TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT);
+  const hasPc = info.combatant.hasTalent(TALENTS_DRUID.PRIMAL_CLAWS_TALENT);
+  const hasAdaptiveSwarm = info.combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT);
 
   return (
     <Section title="Core Rotation">
@@ -62,7 +62,7 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
         {hasPc && (
           <>
             {' '}
-            and <SpellLink id={TALENTS_DRUID.PRIMAL_CLAWS_FERAL_TALENT.id} />
+            and <SpellLink id={TALENTS_DRUID.PRIMAL_CLAWS_TALENT.id} />
           </>
         )}
         , it will take a variable number of abilities to reach 5 CPs - pay attention to how many
@@ -83,7 +83,7 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
           )}
           {hasBrs && (
             <li>
-              Use <SpellLink id={TALENTS_DRUID.BRUTAL_SLASH_FERAL_TALENT.id} />
+              Use <SpellLink id={TALENTS_DRUID.BRUTAL_SLASH_TALENT.id} />
             </li>
           )}
           <li>
@@ -100,7 +100,7 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
             Maintain <SpellLink id={SPELLS.RAKE.id} /> (on up to{' '}
             {hasDcr ? (
               <>
-                8 targets due to <SpellLink id={TALENTS_DRUID.DOUBLE_CLAWED_RAKE_FERAL_TALENT.id} />
+                8 targets due to <SpellLink id={TALENTS_DRUID.DOUBLE_CLAWED_RAKE_TALENT.id} />
               </>
             ) : (
               '4 targets'
@@ -124,7 +124,7 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
         {hasBt && (
           <>
             <strong>
-              Due to <SpellLink id={TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id} />
+              Due to <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />
             </strong>
             , you may use a sub-optimal builder in order to get a proc - the difference will be more
             than made up for by the damage boost to your spenders.
@@ -141,8 +141,8 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
         <ul>
           {hasApc && (
             <li>
-              Consume <SpellLink id={TALENTS_DRUID.APEX_PREDATORS_CRAVING_FERAL_TALENT.id} /> proc
-              (not a true spender because it's free)
+              Consume <SpellLink id={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT.id} /> proc (not a
+              true spender because it's free)
             </li>
           )}
           <li>
@@ -158,12 +158,12 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
           {hasPw ? (
             <li>
               Maintain <SpellLink id={SPELLS.RIP.id} /> with{' '}
-              <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT.id} />
+              <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_TALENT.id} />
             </li>
           ) : (
             <li>
               Maintain <SpellLink id={SPELLS.RIP.id} /> on as many targets as possible (for real AoE
-              you should spec <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT.id} />)
+              you should spec <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_TALENT.id} />)
             </li>
           )}
           <li>
@@ -201,7 +201,7 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
       {hasAdaptiveSwarm && (
         <SubSection>
           <strong>
-            <SpellLink id={TALENTS_DRUID.ADAPTIVE_SWARM_FERAL_TALENT.id} />
+            <SpellLink id={TALENTS_DRUID.ADAPTIVE_SWARM_TALENT.id} />
           </strong>{' '}
           - ???
           {modules.adaptiveSwarm.subStatistic()}
@@ -216,20 +216,18 @@ function snapshotTooltip() {
     <>
       Your damage over time abilities 'snapshot' some of your buffs, retaining their damage bonus
       over the DoTs full duration, even if the buff fades. The buffs that snapshot are{' '}
-      <SpellLink id={TALENTS_DRUID.TIGERS_FURY_FERAL_TALENT.id} />,{' '}
-      <SpellLink id={TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id} />, and{' '}
-      <SpellLink id={TALENTS_DRUID.POUNCING_STRIKES_FERAL_TALENT.id} />
+      <SpellLink id={TALENTS_DRUID.TIGERS_FURY_TALENT.id} />,{' '}
+      <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />, and{' '}
+      <SpellLink id={TALENTS_DRUID.POUNCING_STRIKES_TALENT.id} />
     </>
   );
 }
 
 function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
-  const hasBerserk = info.combatant.hasTalent(TALENTS_DRUID.BERSERK_FERAL_TALENT);
-  const hasIncarn = info.combatant.hasTalent(
-    TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT,
-  );
-  const hasConvoke = info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_FERAL_TALENT);
-  const hasFeralFrenzy = info.combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_FERAL_TALENT);
+  const hasBerserk = info.combatant.hasTalent(TALENTS_DRUID.BERSERK_TALENT);
+  const hasIncarn = info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT);
+  const hasConvoke = info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT);
+  const hasFeralFrenzy = info.combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT);
   return (
     <SubSection>
       <strong>Cooldown Graph</strong> - this graph shows when you used your cooldowns and how long
@@ -247,7 +245,7 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       {hasIncarn && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
-            spellId={TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id}
+            spellId={TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id}
             events={events}
             info={info}
             highlightGaps
@@ -267,7 +265,7 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       {hasFeralFrenzy && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
-            spellId={TALENTS_DRUID.FERAL_FRENZY_FERAL_TALENT.id}
+            spellId={TALENTS_DRUID.FERAL_FRENZY_TALENT.id}
             events={events}
             info={info}
             highlightGaps

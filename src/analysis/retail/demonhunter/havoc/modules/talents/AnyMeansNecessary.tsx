@@ -17,9 +17,9 @@ const SPELLS_CONVERTED: Spell[] = [
   TALENTS_DEMON_HUNTER.THE_HUNT_TALENT,
   SPELLS.THE_HUNT_CHARGE,
   SPELLS.THE_HUNT_DOT,
-  TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_HAVOC_TALENT,
+  TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT,
   // More ED might go here, can't tell because beta/PTR is bugged
-  TALENTS_DEMON_HUNTER.FODDER_TO_THE_FLAME_HAVOC_TALENT,
+  TALENTS_DEMON_HUNTER.FODDER_TO_THE_FLAME_TALENT,
   // More FttF might go here, can't tell because beta/PTR is bugged
 ];
 
@@ -29,7 +29,7 @@ export default class AnyMeansNecessary extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.ANY_MEANS_NECESSARY_HAVOC_TALENT.id,
+      TALENTS_DEMON_HUNTER.ANY_MEANS_NECESSARY_TALENT.id,
     );
     if (!this.active) {
       return;
@@ -51,7 +51,7 @@ export default class AnyMeansNecessary extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`${formatThousands(this.damage)} Total damage`}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.ANY_MEANS_NECESSARY_HAVOC_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.ANY_MEANS_NECESSARY_TALENT.id}>
           <img src="/img/sword.png" alt="Damage" className="icon" />
           {formatNumber((this.damage / this.owner.fightDuration) * 1000)} DPS converted{' '}
           <small>

@@ -65,7 +65,7 @@ export function InvokeNiuzaoSummaryChart({
       .filter(
         (event) =>
           event.type === EventType.RemoveStagger &&
-          event.trigger?.ability.guid === talents.PURIFYING_BREW_BREWMASTER_TALENT.id,
+          event.trigger?.ability.guid === talents.PURIFYING_BREW_TALENT.id,
       )
       .map((e) => {
         const event = e as RemoveStaggerEvent;

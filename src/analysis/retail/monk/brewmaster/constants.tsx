@@ -2,10 +2,10 @@ import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 
 export const BREWS = [
-  talents.PURIFYING_BREW_BREWMASTER_TALENT,
-  talents.FORTIFYING_BREW_TALENT,
-  talents.BLACK_OX_BREW_BREWMASTER_TALENT,
-  talents.CELESTIAL_BREW_BREWMASTER_TALENT.id,
+  talents.PURIFYING_BREW_TALENT,
+  talents.FORTIFYING_BREW_BREWMASTER_TALENT,
+  talents.BLACK_OX_BREW_TALENT,
+  talents.CELESTIAL_BREW_TALENT,
 ];
 
 // Yes there are 7... The cake is a lie (8 really)
@@ -24,10 +24,10 @@ export const GIFT_OF_THE_OX_SPELL_IDS = GIFT_OF_THE_OX_SPELLS.map(({ id }) => id
 
 export const SPELLS_WHICH_REMOVE_BOC = [
   SPELLS.TIGER_PALM,
-  talents.BREATH_OF_FIRE_BREWMASTER_TALENT,
-  talents.KEG_SMASH_BREWMASTER_TALENT,
-  talents.CELESTIAL_BREW_BREWMASTER_TALENT,
-  talents.PURIFYING_BREW_BREWMASTER_TALENT,
+  talents.BREATH_OF_FIRE_TALENT,
+  talents.KEG_SMASH_TALENT,
+  talents.CELESTIAL_BREW_TALENT,
+  talents.PURIFYING_BREW_TALENT,
 ];
 
 export const BASE_AGI = 1468;

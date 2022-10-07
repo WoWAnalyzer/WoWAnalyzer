@@ -26,9 +26,7 @@ class Stormbringer extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_SHAMAN.STORMBRINGER_ENHANCEMENT_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(SPELLS.STORMBRINGER.id);
 
     if (!this.active) {
       return;
@@ -56,8 +54,8 @@ class Stormbringer extends Analyzer {
   }
 
   onStormbringerApplied() {
-    if (this.spellUsable.isOnCooldown(TALENTS_SHAMAN.STORMSTRIKE_ENHANCEMENT_TALENT.id)) {
-      this.spellUsable.endCooldown(TALENTS_SHAMAN.STORMSTRIKE_ENHANCEMENT_TALENT.id);
+    if (this.spellUsable.isOnCooldown(TALENTS_SHAMAN.STORMSTRIKE_TALENT.id)) {
+      this.spellUsable.endCooldown(TALENTS_SHAMAN.STORMSTRIKE_TALENT.id);
     }
 
     if (this.spellUsable.isOnCooldown(SPELLS.WINDSTRIKE_CAST.id)) {
@@ -86,7 +84,7 @@ class Stormbringer extends Analyzer {
         size="small"
         category={STATISTIC_CATEGORY.GENERAL}
       >
-        <BoringSpellValueText spellId={TALENTS_SHAMAN.STORMBRINGER_ENHANCEMENT_TALENT.id}>
+        <BoringSpellValueText spellId={SPELLS.STORMBRINGER.id}>
           <>
             <ItemDamageDone amount={this.damageGained} />
           </>

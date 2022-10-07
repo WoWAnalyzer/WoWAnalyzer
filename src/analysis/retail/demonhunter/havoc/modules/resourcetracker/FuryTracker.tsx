@@ -23,12 +23,12 @@ class FuryTracker extends ResourceTracker {
 
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
-    const blindFuryId = TALENTS_DEMON_HUNTER.BLIND_FURY_HAVOC_TALENT.id;
+    const blindFuryId = TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT.id;
     const classResource = event.classResources?.[0];
     //TODO: Account for Eye Beam clipping
     // Blind Fury resource gain does not have an energize event so it is handled here
     if (
-      spellId === TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id &&
+      spellId === TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id &&
       this.selectedCombatant.hasTalent(blindFuryId) &&
       classResource
     ) {

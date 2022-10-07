@@ -21,7 +21,7 @@ class DreamBreath extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.SPIRITBLOOM_PRESERVATION_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.SPIRITBLOOM_TALENT);
 
     if (!this.active) {
       return;

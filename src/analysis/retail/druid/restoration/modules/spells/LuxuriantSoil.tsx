@@ -23,7 +23,7 @@ class LuxuriantSoil extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.LUXURIANT_SOIL_RESTORATION_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.LUXURIANT_SOIL_TALENT);
   }
 
   get procs() {
@@ -59,7 +59,7 @@ class LuxuriantSoil extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.LUXURIANT_SOIL_RESTORATION_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.LUXURIANT_SOIL_TALENT.id}>
           <ItemPercentHealingDone amount={this.healing} />
           <br />
         </BoringSpellValueText>

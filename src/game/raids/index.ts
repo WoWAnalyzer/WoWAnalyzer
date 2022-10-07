@@ -43,11 +43,13 @@ export interface Dungeon {
 }
 
 const raids = {
-  // Battle for Azeroth
   Dungeons: require('./dungeons').default,
+  // Shadowlands (pre-patch)
   CastleNathria: require('./castlenathria').default, //tier 26
   SanctumOfDomination: require('./sanctumofdomination').default, //tier 27
   SepulcherOfTheFirstOnes: require('./sepulcher').default, //tier 28
+  // Dragonflight
+  VaultOfTheIncarnates: require('./vaultoftheincarnates').default, //tier 29
   // The Burning Cursage
   GruulsLair: require('./gruulslair').default, //tier 4
   MagtheridonsLair: require('./magtheridonslair').default, //tier 4

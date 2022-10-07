@@ -46,7 +46,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MOONFIRE_FERAL.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_FERAL_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_TALENT.id),
         gcd: {
           base: 1000,
         },
@@ -64,9 +64,9 @@ class Abilities extends CoreAbilities {
         primaryCoefficient: 0.055, // initial damage, not DoT damage
       },
       {
-        spell: TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT.id,
+        spell: TALENTS_DRUID.PRIMAL_WRATH_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled: combatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_TALENT.id),
         gcd: {
           static: 1000,
         },
@@ -75,7 +75,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SWIPE_CAT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled: !combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_FERAL_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT.id),
         gcd: {
           static: 1000,
         },
@@ -83,9 +83,9 @@ class Abilities extends CoreAbilities {
         primaryCoefficient: 0.25,
       },
       {
-        spell: TALENTS_DRUID.BRUTAL_SLASH_FERAL_TALENT.id,
+        spell: TALENTS_DRUID.BRUTAL_SLASH_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL, // when taken, still used on single target
-        enabled: combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_FERAL_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT.id),
         cooldown: (haste: number) => 8 / (1 + haste),
         charges: 3,
         castEfficiency: {
@@ -100,7 +100,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SWIPE_BEAR.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled: !combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_FERAL_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -109,10 +109,10 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell: TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id,
+        spell: TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
-        enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -127,7 +127,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BERSERK.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
-        enabled: !combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -138,9 +138,9 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 22,
       },
       {
-        spell: TALENTS_DRUID.CONVOKE_THE_SPIRITS_FERAL_TALENT.id,
+        spell: TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: combatant.hasTalent(TALENTS_DRUID.ASHAMANES_GUIDANCE_FERAL_TALENT) ? 60 : 120,
+        cooldown: combatant.hasTalent(TALENTS_DRUID.ASHAMANES_GUIDANCE_TALENT) ? 60 : 120,
         gcd: {
           base: druidGcd,
         },
@@ -152,17 +152,15 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           // Predator may reset the cooldown very frequently, more often than is useful to use the ability
-          recommendedEfficiency: combatant.hasTalent(TALENTS_DRUID.PREDATOR_FERAL_TALENT.id)
-            ? 0.5
-            : 0.8,
+          recommendedEfficiency: combatant.hasTalent(TALENTS_DRUID.PREDATOR_TALENT.id) ? 0.5 : 0.8,
         },
         gcd: null,
         timelineSortIndex: 20,
       },
       {
-        spell: TALENTS_DRUID.FERAL_FRENZY_FERAL_TALENT.id,
+        spell: TALENTS_DRUID.FERAL_FRENZY_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_FERAL_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT.id),
         cooldown: 45,
         castEfficiency: {
           suggestion: true,

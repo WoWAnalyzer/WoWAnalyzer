@@ -13,7 +13,7 @@ class Buffs extends CoreAuras {
       // rotational
       {
         spellId: SPELLS.BLOODTALONS_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT),
+        enabled: combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT),
         triggeredBySpellId: [SPELLS.REGROWTH.id, SPELLS.ENTANGLING_ROOTS.id],
         timelineHighlight: true,
       },
@@ -50,13 +50,13 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.BERSERK.id,
         triggeredBySpellId: SPELLS.BERSERK.id,
-        enabled: !combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT),
+        enabled: !combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT),
         timelineHighlight: true,
       },
       {
-        spellId: TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id,
-        triggeredBySpellId: TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT),
+        spellId: TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id,
+        triggeredBySpellId: TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT),
         timelineHighlight: true,
       },
       {

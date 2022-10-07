@@ -18,9 +18,7 @@ class ElysianDecree extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_VENGEANCE_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id);
 
     if (!this.active) {
       return;
@@ -44,7 +42,7 @@ class ElysianDecree extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={<>{formatThousands(this.damage)} Total damage</>}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_VENGEANCE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

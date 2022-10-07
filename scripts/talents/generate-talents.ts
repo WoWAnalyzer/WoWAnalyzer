@@ -17,7 +17,7 @@ import {
   ResourceTypes,
 } from './talent-tree-types';
 
-const WOW_BUILD_NUMBER = '10.0.0.45335';
+const WOW_BUILD_NUMBER = '10.0.2.45779';
 const TALENT_DATA_URL = 'https://www.raidbots.com/static/data/beta/new-talent-trees.json';
 const SPELLPOWER_DATA_URL = `https://wow.tools/dbc/api/export/?name=spellpower&build=${WOW_BUILD_NUMBER}`;
 
@@ -55,6 +55,13 @@ async function generateTalents() {
         if (!talentSpell.name || !talentSpell.spellId) {
           return;
         }
+        if (
+          Object.values(talentObjectByClass[className]['Shared']).filter(
+            (entry) => entry.id === talentSpell.spellId,
+          ).length > 0
+        ) {
+          return;
+        }
         const talentKey = createTalentKey(talentSpell.name);
         talentObjectByClass[className]['Shared'][talentKey] = {
           id: talentSpell.spellId,
@@ -87,8 +94,42 @@ async function generateTalents() {
         if (!talentSpell.name || !talentSpell.spellId) {
           return;
         }
-        const talentKey = createTalentKey(talentSpell.name, specTalents.specName);
-        talentObjectByClass[className][specTalents.specName][talentKey] = {
+        let talentKey = createTalentKey(talentSpell.name); //createTalentKey(talentSpell.name, specTalents.specName);
+        let shouldBeShared = false;
+
+        Object.keys(talentObjectByClass[className]).forEach((specKey) => {
+          //First we create a new key for the previously added talent but this time with spec name in it
+          const talentKeyWithSpecName = createTalentKey(talentSpell.name as string, specKey);
+
+          //Has an entry been added to the object under the desired key already?
+          if (talentObjectByClass[className][specKey][talentKey]) {
+            //Is the added entry the same id as the current talent, if yes, then we should consider it a shared talent
+            if (talentObjectByClass[className][specKey][talentKey].id === talentSpell.spellId) {
+              talentObjectByClass[className]['Shared'][talentKey] =
+                talentObjectByClass[className][specKey][talentKey];
+              shouldBeShared = true;
+              delete talentObjectByClass[className][specKey][talentKey];
+            } else {
+              //We want to remove this existing talent as it's keyed without spec name but there are
+              //multiple instances of the talent name, but they have different IDs so they must be different
+              //We assign the previous value to the new key
+              talentObjectByClass[className][specKey][talentKeyWithSpecName] =
+                talentObjectByClass[className][specKey][talentKey];
+
+              //We remove the old entry
+              delete talentObjectByClass[className][specKey][talentKey];
+              //We create a talent key using the specName that we are currenty looking at for use below
+              talentKey = createTalentKey(talentSpell.name as string, specTalents.specName);
+            }
+          }
+          if (talentObjectByClass[className][specKey][talentKeyWithSpecName]) {
+            talentKey = createTalentKey(talentSpell.name as string, specTalents.specName);
+          }
+        });
+
+        talentObjectByClass[className][shouldBeShared ? 'Shared' : specTalents.specName][
+          talentKey
+        ] = {
           id: talentSpell.spellId,
           name: talentSpell.name,
           icon: talentSpell.icon,
@@ -105,9 +146,9 @@ async function generateTalents() {
           const resourceId = parseInt(entryInSpellPowerTable.PowerType);
           const resourceName = ResourceTypes[resourceId];
           const resourceCostKey = `${camalize(resourceName)}Cost` as ResourceCostType;
-          talentObjectByClass[className][specTalents.specName][talentKey][
-            resourceCostKey
-          ] = findResourceCost(
+          talentObjectByClass[className][shouldBeShared ? 'Shared' : specTalents.specName][
+            talentKey
+          ][resourceCostKey] = findResourceCost(
             entryInSpellPowerTable,
             resourceId,
             classes[specTalents.classId].baseMaxResource,
@@ -120,9 +161,6 @@ async function generateTalents() {
   //WRITE TO FILE
   Object.values(classes).forEach((playerClass) => {
     const lowerCasedClassName = playerClass.name.toLowerCase().replace(' ', '');
-    if (lowerCasedClassName === 'druid') {
-      //console.log(printTalents(talentObjectByClass[lowerCasedClassName]));
-    }
     fs.writeFileSync(
       `./src/common/TALENTS/${lowerCasedClassName}.ts`,
       `// Generated file, changes will eventually be overwritten!

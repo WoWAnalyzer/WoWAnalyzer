@@ -75,7 +75,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 20,
       },
       {
-        spell: TALENTS.BESTOW_FAITH_HOLY_TALENT.id,
+        spell: TALENTS.BESTOW_FAITH_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 12,
         gcd: {
@@ -86,27 +86,27 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.7,
         },
         timelineSortIndex: 3,
-        enabled: combatant.hasTalent(TALENTS.BESTOW_FAITH_HOLY_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.BESTOW_FAITH_TALENT.id),
       },
       {
-        spell: TALENTS.LIGHTS_HAMMER_HOLY_TALENT.id,
+        spell: TALENTS.LIGHTS_HAMMER_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 60,
         gcd: {
           base: 1500,
         },
         timelineSortIndex: 3,
-        enabled: combatant.hasTalent(TALENTS.LIGHTS_HAMMER_HOLY_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.LIGHTS_HAMMER_TALENT.id),
       },
       {
-        spell: TALENTS.BEACON_OF_VIRTUE_HOLY_TALENT.id,
+        spell: TALENTS.BEACON_OF_VIRTUE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 15,
         gcd: {
           base: 1500,
         },
         timelineSortIndex: 25,
-        enabled: combatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_HOLY_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT.id),
       },
       {
         spell: SPELLS.CRUSADER_STRIKE.id,
@@ -123,7 +123,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           extraSuggestion: (
             <Trans id="paladin.holy.modules.abilities.crusadersMightTalent">
-              When you are using <SpellLink id={TALENTS.CRUSADERS_MIGHT_HOLY_TALENT.id} /> it is
+              When you are using <SpellLink id={TALENTS.CRUSADERS_MIGHT_TALENT.id} /> it is
               important to use <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> often enough to benefit
               from the talent. Use a different talent if you are unable to.
             </Trans>
@@ -131,27 +131,27 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.35,
         },
         timelineSortIndex: 50,
-        enabled: combatant.hasTalent(TALENTS.CRUSADERS_MIGHT_HOLY_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.CRUSADERS_MIGHT_TALENT.id),
       },
       {
-        spell: TALENTS.HOLY_PRISM_HOLY_TALENT.id,
+        spell: TALENTS.HOLY_PRISM_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 20,
         gcd: {
           base: 1500,
         },
         timelineSortIndex: 4,
-        enabled: combatant.hasTalent(TALENTS.HOLY_PRISM_HOLY_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.HOLY_PRISM_TALENT.id),
         isDefensive: true,
       },
       {
-        spell: TALENTS.RULE_OF_LAW_HOLY_TALENT.id,
+        spell: TALENTS.RULE_OF_LAW_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
         gcd: undefined,
         charges: 2,
         timelineSortIndex: 11,
-        enabled: combatant.hasTalent(TALENTS.RULE_OF_LAW_HOLY_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.RULE_OF_LAW_TALENT.id),
       },
       {
         spell: SPELLS.DIVINE_PROTECTION.id,
@@ -356,13 +356,13 @@ class Abilities extends CoreAbilities {
       },
       {
         // The primary beacon cast is registered as BEACON_OF_LIGHT_CAST_AND_BUFF
-        spell: [TALENTS.BEACON_OF_FAITH_HOLY_TALENT.id, SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id],
+        spell: [TALENTS.BEACON_OF_FAITH_TALENT.id, SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
         timelineSortIndex: 110,
-        enabled: combatant.hasTalent(TALENTS.BEACON_OF_FAITH_HOLY_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT.id),
       },
       {
         spell: SPELLS.CRUSADER_STRIKE.id,
@@ -373,7 +373,7 @@ class Abilities extends CoreAbilities {
         },
         charges: 2,
         timelineSortIndex: 50,
-        enabled: !combatant.hasTalent(TALENTS.CRUSADERS_MIGHT_HOLY_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS.CRUSADERS_MIGHT_TALENT.id),
         gcd: {
           base: 1500,
         },

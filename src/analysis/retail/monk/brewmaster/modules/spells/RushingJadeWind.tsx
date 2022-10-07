@@ -6,7 +6,7 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 // the buff events all use this spell
-export const RUSHING_JADE_WIND_BUFF = talents.RUSHING_JADE_WIND_BREWMASTER_TALENT;
+export const RUSHING_JADE_WIND_BUFF = talents.RUSHING_JADE_WIND_TALENT;
 
 class RushingJadeWind extends Analyzer {
   get uptimeThreshold() {
@@ -29,18 +29,18 @@ class RushingJadeWind extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.RUSHING_JADE_WIND_BREWMASTER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.RUSHING_JADE_WIND_TALENT.id);
   }
 
   suggestions(when: When) {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You had low uptime on <SpellLink id={talents.RUSHING_JADE_WIND_BREWMASTER_TALENT.id} />. Try to maintain 100%
-          uptime by refreshing the buff before it drops.
+          You had low uptime on <SpellLink id={talents.RUSHING_JADE_WIND_TALENT.id} />. Try to
+          maintain 100% uptime by refreshing the buff before it drops.
         </>,
       )
-        .icon(talents.RUSHING_JADE_WIND_BREWMASTER_TALENT.icon)
+        .icon(talents.RUSHING_JADE_WIND_TALENT.icon)
         .actual(
           t({
             id: 'monk.brewmaster.suggestions.rushingJadeWind.uptime',

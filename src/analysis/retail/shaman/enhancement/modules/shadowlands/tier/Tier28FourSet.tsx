@@ -13,9 +13,7 @@ class Tier28FourSet extends Analyzer {
 
   get threshold() {
     return {
-      actual: this.selectedCombatant.hasTalent(
-        TALENTS_SHAMAN.ELEMENTAL_SPIRITS_ENHANCEMENT_TALENT.id,
-      ),
+      actual: this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_SPIRITS_TALENT.id),
       isEqual: false,
       style: ThresholdStyle.BOOLEAN,
     };
@@ -26,11 +24,11 @@ class Tier28FourSet extends Analyzer {
       suggest(
         <>
           It is strongly adviced to select the{' '}
-          <SpellLink id={TALENTS_SHAMAN.ELEMENTAL_SPIRITS_ENHANCEMENT_TALENT.id} /> talent while
-          wearing the T28 tier 4 piece set.
+          <SpellLink id={TALENTS_SHAMAN.ELEMENTAL_SPIRITS_TALENT.id} /> talent while wearing the T28
+          tier 4 piece set.
         </>,
       )
-        .icon(TALENTS_SHAMAN.ELEMENTAL_SPIRITS_ENHANCEMENT_TALENT.icon)
+        .icon(TALENTS_SHAMAN.ELEMENTAL_SPIRITS_TALENT.icon)
         .staticImportance(ISSUE_IMPORTANCE.MINOR),
     );
   }

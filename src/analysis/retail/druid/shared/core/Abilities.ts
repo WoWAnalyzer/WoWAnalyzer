@@ -102,8 +102,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BARKSKIN.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown:
-          60 - combatant.getTalentRank(TALENTS_DRUID.SURVIVAL_OF_THE_FITTEST_GUARDIAN_TALENT) * 9,
+        cooldown: 60 - combatant.getTalentRank(TALENTS_DRUID.SURVIVAL_OF_THE_FITTEST_TALENT) * 9,
         gcd: null,
         isDefensive: true,
       },
@@ -195,7 +194,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        charges: 1 + combatant.getTalentRank(TALENTS_DRUID.INNATE_RESOLVE_GUARDIAN_TALENT),
+        charges: 1 + combatant.getTalentRank(TALENTS_DRUID.INNATE_RESOLVE_TALENT),
         isDefensive: true,
       },
       {

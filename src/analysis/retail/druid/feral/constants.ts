@@ -16,8 +16,8 @@ export const CP_GENERATORS: Spell[] = [
   SPELLS.THRASH_FERAL,
   SPELLS.SWIPE_CAT,
   SPELLS.MOONFIRE_FERAL,
-  TALENTS_DRUID.BRUTAL_SLASH_FERAL_TALENT,
-  TALENTS_DRUID.FERAL_FRENZY_FERAL_TALENT,
+  TALENTS_DRUID.BRUTAL_SLASH_TALENT,
+  TALENTS_DRUID.FERAL_FRENZY_TALENT,
 ];
 
 /** The cast spells for Finishers */
@@ -25,7 +25,7 @@ export const FINISHERS: Spell[] = [
   SPELLS.FEROCIOUS_BITE,
   SPELLS.RIP,
   SPELLS.MAIM,
-  TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT,
+  TALENTS_DRUID.PRIMAL_WRATH_TALENT,
 ];
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -36,16 +36,14 @@ export const CIRCLE_DOT_DURATION_MULT = 0.75;
 /** Gets the multiplier to apply to a DoT's duration depending on if player is using
  *  the 'Circle of Life and Death' talent */
 function getCircleMult(c: Combatant): number {
-  return c.hasTalent(TALENTS_DRUID.CIRCLE_OF_LIFE_AND_DEATH_FERAL_TALENT)
-    ? CIRCLE_DOT_DURATION_MULT
-    : 1;
+  return c.hasTalent(TALENTS_DRUID.CIRCLE_OF_LIFE_AND_DEATH_TALENT) ? CIRCLE_DOT_DURATION_MULT : 1;
 }
 
 export const VEINRIPPER_DURATION_MULT = 1.25;
 /** Gets the multiplier to apply to Rip / Rake / Thrash's duration depending on if player is using
  *  the 'Veinripper' talent */
 function getVeinripperMult(c: Combatant): number {
-  return c.hasTalent(TALENTS_DRUID.VEINRIPPER_FERAL_TALENT) ? VEINRIPPER_DURATION_MULT : 1;
+  return c.hasTalent(TALENTS_DRUID.VEINRIPPER_TALENT) ? VEINRIPPER_DURATION_MULT : 1;
 }
 
 export const RAKE_BASE_DURATION = 15000;
@@ -111,14 +109,14 @@ export const PANDEMIC_FRACTION = 0.3;
 
 /** Returns the Feral Druid's primary cooldown spell, which changes based on talent */
 export function cdSpell(c: Combatant): Spell {
-  return c.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT)
-    ? TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT
+  return c.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT)
+    ? TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT
     : SPELLS.BERSERK;
 }
 
 /** Returns the Feral Druid's direct damage AoE builder, which changes based on talent */
 export function directAoeBuilder(c: Combatant): Spell {
-  return c.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_FERAL_TALENT)
-    ? TALENTS_DRUID.BRUTAL_SLASH_FERAL_TALENT
+  return c.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT)
+    ? TALENTS_DRUID.BRUTAL_SLASH_TALENT
     : SPELLS.SWIPE_CAT;
 }

@@ -122,8 +122,8 @@ class RipUptimeAndSnapshots extends Snapshots {
 
   /** Subsection explaining the use of Rip and providing performance statistics */
   get guideSubsection(): JSX.Element {
-    const hasPw = this.selectedCombatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT);
-    const hasBt = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT);
+    const hasPw = this.selectedCombatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_TALENT);
+    const hasBt = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT);
     const castPerfBoxes = this.castLog.map((cast) => {
       const value: QualitativePerformance = 'good'; // TODO
       const tooltip = 'GREAT JOB NERD'; // TODO
@@ -139,21 +139,21 @@ class RipUptimeAndSnapshots extends Snapshots {
           is your highest damage-per-energy single target spender. Try to maintain 100% uptime.{' '}
           {hasPw ? (
             <>
-              Use <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT.id} /> to apply it when you
-              can hit more than one target.
+              Use <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_TALENT.id} /> to apply it when you can
+              hit more than one target.
             </>
           ) : (
             <>
               You can even keep it active on multiple targets, though if a fight will frequently
               have multiple targets consider speccing for{' '}
-              <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT.id} />.
+              <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_TALENT.id} />.
             </>
           )}{' '}
           Don't refresh early, and try to always snapshot <SpellLink id={SPELLS.TIGERS_FURY.id} />
           {hasBt && (
             <>
               {' '}
-              and <SpellLink id={TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id} />
+              and <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />
             </>
           )}
           .

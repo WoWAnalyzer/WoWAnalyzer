@@ -14,8 +14,8 @@ const GLACIAL_SPIKE_DAMAGE_BONUS = 0.65;
 const SPLITTABLE_CASTS = [
   SPELLS.FROSTBOLT,
   SPELLS.ICE_LANCE,
-  TALENTS.GLACIAL_SPIKE_FROST_TALENT,
-  TALENTS.EBONBOLT_FROST_TALENT,
+  TALENTS.GLACIAL_SPIKE_TALENT,
+  TALENTS.EBONBOLT_TALENT,
 ];
 
 const SPLITTABLE_DAMAGE = [
@@ -36,9 +36,9 @@ class SplittingIce extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SPLITTING_ICE_FROST_TALENT.id);
-    this.hasGlacialSpike = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_SPIKE_FROST_TALENT.id);
-    this.hasEbonbolt = this.selectedCombatant.hasTalent(TALENTS.EBONBOLT_FROST_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SPLITTING_ICE_TALENT.id);
+    this.hasGlacialSpike = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT.id);
+    this.hasEbonbolt = this.selectedCombatant.hasTalent(TALENTS.EBONBOLT_TALENT.id);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPLITTABLE_CASTS), this.onCast);
     this.addEventListener(
@@ -117,7 +117,7 @@ class SplittingIce extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.SPLITTING_ICE_FROST_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.SPLITTING_ICE_TALENT.id}>
           <>
             {this.hasGlacialSpike ? '≈' : ''}
             {formatPercentage(this.damagePercent)}%

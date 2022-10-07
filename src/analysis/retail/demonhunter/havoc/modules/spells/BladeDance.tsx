@@ -17,8 +17,8 @@ class BladeDance extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = !(
-      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_HAVOC_TALENT.id) ||
-      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FIRST_BLOOD_HAVOC_TALENT.id)
+      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_TALENT.id) ||
+      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FIRST_BLOOD_TALENT.id)
     );
     if (!this.active) {
       return;
@@ -85,8 +85,8 @@ class BladeDance extends Analyzer {
         <>
           You should not cast <SpellLink id={SPELLS.BLADE_DANCE.id} /> or{' '}
           <SpellLink id={SPELLS.DEATH_SWEEP.id} /> on single target when you are not using{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.FIRST_BLOOD_HAVOC_TALENT.id} /> or{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_HAVOC_TALENT.id} /> as a talent.
+          <SpellLink id={TALENTS_DEMON_HUNTER.FIRST_BLOOD_TALENT.id} /> or{' '}
+          <SpellLink id={TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_TALENT.id} /> as a talent.
         </>,
       )
         .icon(SPELLS.BLADE_DANCE.icon)

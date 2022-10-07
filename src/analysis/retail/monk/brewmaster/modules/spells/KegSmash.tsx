@@ -42,7 +42,10 @@ class KegSmash extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF),
       this.onLoseBOC,
     );
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(talents.KEG_SMASH_BREWMASTER_TALENT), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(talents.KEG_SMASH_TALENT),
+      this.onCast,
+    );
   }
 
   onGainBOC() {

@@ -8,11 +8,11 @@ const MAX_DELAY = 200;
 /**
  * The Incarnation: Tree of Life talent can show strangely in events.
  *
- * A 'cast' with INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT id shows up on activating the talent,
+ * A 'cast' with INCARNATION_TREE_OF_LIFE_TALENT id shows up on activating the talent,
  * BUT ALSO ON REAQUIRING THE FORM DURING THE BUFF. This can casue Incarnation cast events to show
  * up in places we don't expect, and can throw off tracking and cast efficiency.
  *
- * Incarnation produces two buffs: The INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT id buff tracks
+ * Incarnation produces two buffs: The INCARNATION_TREE_OF_LIFE_TALENT id buff tracks
  * if the player is in Incarnation form (as opposed to the other druid forms),
  * the INCARNATION_TOL_ALLOWED id buff tracks if the player is ALLOWED to assume Incarnation form.
  * This is applied both by a hardcast and by the Reforestation talent. We can discern real casts
@@ -21,7 +21,7 @@ const MAX_DELAY = 200;
  * all others are form reassumption.
  *
  * This Normalizer deletes all the form reassumption CAST events.
- * Form can still be tracked using the INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT buff.
+ * Form can still be tracked using the INCARNATION_TREE_OF_LIFE_TALENT buff.
  */
 class TreeOfLifeNormalizer extends EventsNormalizer {
   normalize(events: AnyEvent[]) {
@@ -31,7 +31,7 @@ class TreeOfLifeNormalizer extends EventsNormalizer {
 
       if (
         event.type === EventType.Cast &&
-        event.ability.guid === TALENTS.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id
+        event.ability.guid === TALENTS.INCARNATION_TREE_OF_LIFE_TALENT.id
       ) {
         const castTimestamp = event.timestamp;
 

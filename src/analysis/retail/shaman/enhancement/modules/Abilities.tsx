@@ -267,9 +267,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_SHAMAN.CALL_OF_THE_ELEMENTS_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.CALL_OF_THE_ELEMENTS_TALENT.id),
         category: SPELL_CATEGORY.OTHERS,
-        cooldown: combatant.hasTalent(TALENTS_SHAMAN.IMPROVED_CALL_OF_THE_ELEMENTS_TALENT.id)
-          ? 120
-          : 180,
+        cooldown: combatant.hasTalent(TALENTS_SHAMAN.CALL_OF_THE_ELEMENTS_TALENT.id) ? 120 : 180,
         gcd: {
           base: 1500,
         },
@@ -323,8 +321,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_SHAMAN.HEALING_STREAM_TOTEM_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.HEALING_STREAM_TOTEM_TALENT.id),
+        spell: TALENTS_SHAMAN.HEALING_STREAM_TOTEM_SHARED_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.HEALING_STREAM_TOTEM_SHARED_TALENT.id),
         category: SPELL_CATEGORY.OTHERS,
         cooldown: 30 - (combatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id) ? 2 : 0),
         charges: 1,
@@ -337,7 +335,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS_SHAMAN.MANA_SPRING_TOTEM_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.HEALING_STREAM_TOTEM_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.MANA_SPRING_TOTEM_TALENT.id),
         category: SPELL_CATEGORY.OTHERS,
         cooldown: 45 - (combatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id) ? 2 : 0),
         gcd: {
@@ -389,8 +387,8 @@ class Abilities extends CoreAbilities {
       // Enhancement talents
 
       {
-        spell: TALENTS_SHAMAN.LAVA_LASH_ENHANCEMENT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.LAVA_LASH_ENHANCEMENT_TALENT.id),
+        spell: TALENTS_SHAMAN.LAVA_LASH_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.LAVA_LASH_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 18,
         // Base line is 18. Reduced by a maximum of 6s with Molten Assault. (3s per rank)
@@ -417,7 +415,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_SHAMAN.FERAL_SPIRIT_ENHANCEMENT_TALENT.id,
+        spell: TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id,
         buffSpellId: [
           //Feral Spirit isn't an actual buff, so we can only show the Elemental
           // Spirits buffs
@@ -426,9 +424,7 @@ class Abilities extends CoreAbilities {
           SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id,
         ],
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_SPIRITS_ENHANCEMENT_TALENT.id)
-          ? 90
-          : 120,
+        cooldown: combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_SPIRITS_TALENT.id) ? 90 : 120,
         gcd: {
           base: 1500,
         },
@@ -450,7 +446,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_SHAMAN.STORMSTRIKE_ENHANCEMENT_TALENT.id,
+        spell: TALENTS_SHAMAN.STORMSTRIKE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 7.5 / (1 + haste),
         gcd: {
@@ -486,7 +482,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_SHAMAN.CRASH_LIGHTNING_ENHANCEMENT_TALENT.id,
+        spell: TALENTS_SHAMAN.CRASH_LIGHTNING_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -494,8 +490,8 @@ class Abilities extends CoreAbilities {
         cooldown: (haste) => 9 / (1 + haste),
       },
       {
-        spell: TALENTS_SHAMAN.FERAL_LUNGE_ENHANCEMENT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.FERAL_LUNGE_ENHANCEMENT_TALENT.id),
+        spell: TALENTS_SHAMAN.FERAL_LUNGE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.FERAL_LUNGE_TALENT.id),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
@@ -503,30 +499,30 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_SHAMAN.SUNDERING_ENHANCEMENT_TALENT.id,
+        spell: TALENTS_SHAMAN.SUNDERING_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.SUNDERING_ENHANCEMENT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.SUNDERING_TALENT.id),
         cooldown: 40,
       },
       {
-        spell: TALENTS_SHAMAN.FIRE_NOVA_ENHANCEMENT_TALENT.id,
+        spell: TALENTS_SHAMAN.FIRE_NOVA_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.FIRE_NOVA_ENHANCEMENT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.FIRE_NOVA_TALENT.id),
         cooldown: (haste) => 15 / (1 + haste),
       },
       {
-        spell: TALENTS_SHAMAN.ICE_STRIKE_ENHANCEMENT_TALENT.id,
+        spell: TALENTS_SHAMAN.ICE_STRIKE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.ICE_STRIKE_ENHANCEMENT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.ICE_STRIKE_TALENT.id),
         cooldown: (haste) => 15 / (1 + haste),
       },
       {
@@ -586,8 +582,8 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell: TALENTS_SHAMAN.WINDFURY_TOTEM_ENHANCEMENT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.WINDFURY_TOTEM_ENHANCEMENT_TALENT.id),
+        spell: TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1000,
