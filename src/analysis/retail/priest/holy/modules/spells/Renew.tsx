@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -48,7 +49,7 @@ class Renew extends Analyzer {
     if (this.selectedCombatant.hasTalent(SPELLS.HOLY_WORD_SALVATION_TALENT.id)) {
       this.salvationActive = true;
     }
-    if (this.selectedCombatant.hasTalent(SPELLS.BENEDICTION_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.BENEDICTION_TALENT.id)) {
       this.benedictionActive = true;
     }
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEW), this.onHeal);

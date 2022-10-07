@@ -643,7 +643,12 @@ const talents = createTalentList({
     icon: 'spell_holy_guardianspirit',
     maxRanks: 1,
   },
-  CENSURE_TALENT: { id: 200199, name: 'Censure', icon: 'spell_holy_eyeforaneye', maxRanks: 1 },
+  CENSURE_TALENT: {
+    id: 200199,
+    name: 'Censure',
+    icon: 'spell_holy_eyeforaneye',
+    maxRanks: 1,
+  },
   BURNING_VEHEMENCE_TALENT: {
     id: 372307,
     name: 'Burning Vehemence',
@@ -873,7 +878,12 @@ const talents = createTalentList({
     icon: 'inv_staff_2h_artifactheartofkure_d_04',
     maxRanks: 1,
   },
-  DIVINE_WORD_TALENT: { id: 372760, name: 'Divine Word', icon: 'spell_priest_chakra', maxRanks: 1 },
+  DIVINE_WORD_TALENT: {
+    id: 372760,
+    name: 'Divine Word',
+    icon: 'spell_priest_chakra',
+    maxRanks: 1,
+  },
   MIRACLE_WORKER_TALENT: {
     id: 235587,
     name: 'Miracle Worker',

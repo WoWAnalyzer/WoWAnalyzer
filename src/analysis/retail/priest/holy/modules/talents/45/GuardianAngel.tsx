@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -21,7 +22,7 @@ class GuardianAngel extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.GUARDIAN_ANGEL_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.GUARDIAN_ANGEL_TALENT.id);
 
     if (!this.active) {
       return;
@@ -81,7 +82,7 @@ class GuardianAngel extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(3)}
       >
-        <BoringSpellValueText spellId={SPELLS.GUARDIAN_ANGEL_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.GUARDIAN_ANGEL_TALENT.id}>
           {this.guardianSpiritRefreshCount} Guardian Spirit resets
           <br />
           {this.guardianSpiritHealCount} Guardian Spirits consumed

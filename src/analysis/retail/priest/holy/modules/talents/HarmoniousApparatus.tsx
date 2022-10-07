@@ -7,6 +7,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TALENTS from 'common/TALENTS/priest';
 
 class HarmoniousApparatus extends Analyzer {
   static dependencies = {
@@ -21,7 +22,7 @@ class HarmoniousApparatus extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.HARMONIOUS_APPARATUS);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HARMONIOUS_APPARATUS_TALENT.id);
   }
 
   get reductionForAllSpells() {

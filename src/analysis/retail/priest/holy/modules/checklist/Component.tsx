@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
@@ -58,7 +59,7 @@ const HolyPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         <AbilityRequirement spell={SPELLS.GUARDIAN_SPIRIT.id} />
         <AbilityRequirement spell={SPELLS.DIVINE_HYMN_CAST.id} />
         <AbilityRequirement spell={SPELLS.DESPERATE_PRAYER.id} />
-        <AbilityRequirement spell={SPELLS.SYMBOL_OF_HOPE.id} />
+        <AbilityRequirement spell={TALENTS.SYMBOL_OF_HOPE_TALENT.id} />
         <AbilityRequirement spell={SPELLS.POWER_INFUSION.id} />
 
         {combatant.hasTalent(SPELLS.HOLY_WORD_SALVATION_TALENT.id) && (

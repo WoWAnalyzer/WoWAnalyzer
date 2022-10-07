@@ -48,6 +48,12 @@ const spells = spellIndexableList({
     icon: 'spell_holy_mindsooth',
     manaCost: 500,
   },
+  MINDGAMES_TALENT: {
+    id: 375901,
+    name: 'Mindgames',
+    icon: 'ability_revendreth_priest',
+    manaCost: 1000,
+  },
   MINDGAMES_HEAL: {
     id: 375904,
     name: 'Mindgames',
@@ -253,6 +259,12 @@ const spells = spellIndexableList({
     name: 'Halo',
     icon: 'ability_priest_halo',
   },
+  DIVINE_STAR_TALENT: {
+    id: 110744,
+    name: 'Divine Star',
+    icon: 'spell_priest_divinestar',
+    manaCost: 1000,
+  },
   DIVINE_STAR_HEAL: {
     id: 110745,
     name: 'Halo',
@@ -338,12 +350,6 @@ const spells = spellIndexableList({
     name: 'Heal',
     icon: 'spell_holy_greaterheal',
     manaCost: 1200,
-  },
-  CIRCLE_OF_HEALING_TALENT: {
-    id: 204883,
-    name: 'Circle of Healing',
-    icon: 'spell_holy_circleofrenewal',
-    manaCost: 1650,
   },
   FLASH_HEAL: {
     id: 2061,
@@ -434,30 +440,7 @@ const spells = spellIndexableList({
     icon: 'spell_holy_searinglight',
     manaCost: 500,
   },
-  HOLY_WORD_CHASTISE: {
-    id: 88625,
-    name: 'Holy Word: Chastise',
-    icon: 'spell_holy_chastise',
-    manaCost: 1000,
-  },
-  HOLY_WORD_CHASTISE_CENSURE_INCAPACITATE: {
-    id: 200196,
-    name: 'Holy Word: Chastise',
-    icon: 'spell_holy_chastise',
-    manaCost: 1000,
-  },
-  HOLY_WORD_CHASTISE_CENSURE_STUN: {
-    id: 200200,
-    name: 'Holy Word: Chastise',
-    icon: 'spell_holy_chastise',
-    manaCost: 1000,
-  },
-  SYMBOL_OF_HOPE: {
-    id: 64901,
-    name: 'Symbol of Hope',
-    icon: 'spell_holy_symbolofhope',
-  },
-  TRAIL_OF_LIGHT_HEAL: {
+  TRAIL_OF_LIGHT_TALENT_HEAL: {
     id: 234946,
     name: 'Trail of Light',
     icon: 'ability_priest_wordsofmeaning',
@@ -491,7 +474,62 @@ const spells = spellIndexableList({
     name: 'Binding Heals',
     icon: 'spell_holy_blindingheal',
   },
-
+  HOLY_WORD_SALVATION_TALENT: {
+    id: 265202,
+    name: 'Holy Word: Salvation',
+    icon: 'ability_priest_archangel',
+    manaCost: 3000,
+  },
+  APOTHEOSIS_TALENT: {
+    id: 200183,
+    name: 'Apotheosis',
+    icon: 'ability_priest_ascension',
+  },
+  DIVINE_WORD_TALENT: {
+    id: 372760,
+    name: 'Divine Word',
+    icon: 'spell_priest_chakra',
+  },
+  LIGHTWELL_TALENT: {
+    id: 372835,
+    name: 'Lightwell',
+    icon: 'spell_holy_summonlightwell',
+    manaCost: 1500,
+  },
+  SYMBOL_OF_HOPE_TALENT: {
+    id: 64901,
+    name: 'Symbol of Hope',
+    icon: 'spell_holy_symbolofhope',
+  },
+  CIRCLE_OF_HEALING_TALENT: {
+    id: 204883,
+    name: 'Circle of Healing',
+    icon: 'spell_holy_circleofrenewal',
+    manaCost: 1650,
+  },
+  HOLY_WORD_CHASTISE_TALENT: {
+    id: 88625,
+    name: 'Holy Word: Chastise',
+    icon: 'spell_holy_chastise',
+    manaCost: 1000,
+  },
+  HOLY_WORD_CHASTISE_CENSURE_TALENT_INCAPACITATE: {
+    id: 200196,
+    name: 'Holy Word: Chastise',
+    icon: 'spell_holy_chastise',
+    manaCost: 1000,
+  },
+  HOLY_WORD_CHASTISE_CENSURE_TALENT_STUN: {
+    id: 200200,
+    name: 'Holy Word: Chastise',
+    icon: 'spell_holy_chastise',
+    manaCost: 1000,
+  },
+  COSMIC_RIPPLE_TALENT: {
+    id: 238136,
+    name: 'Cosmic Ripple',
+    icon: 'spell_holy_summonlightwell',
+  },
   // Shadow Spells
   MIND_BLAST: {
     id: 8092,

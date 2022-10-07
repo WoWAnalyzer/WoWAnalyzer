@@ -1,5 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -18,7 +19,7 @@ class RenewedFaith extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.RENEWED_FAITH_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.RENEWED_FAITH_TALENT.id);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RENEW),
@@ -77,7 +78,7 @@ class RenewedFaith extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(1)}
       >
-        <BoringSpellValueText spellId={SPELLS.RENEWED_FAITH_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.RENEWED_FAITH_TALENT.id}>
           <ItemHealingDone amount={this.effectiveAdditionalHealing} />
         </BoringSpellValueText>
       </Statistic>

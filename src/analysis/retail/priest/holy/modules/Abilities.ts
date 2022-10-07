@@ -1,14 +1,14 @@
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
+import TALENTS from 'common/TALENTS/priest';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../constants';
+import { HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../constants';
 
 class Abilities extends CoreAbilities {
   constructor(...args: ConstructorParameters<typeof CoreAbilities>) {
     super(...args);
-    this.abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
+    this.abilitiesAffectedByHealingIncreases = HOLY_ABILITIES_AFFECTED_BY_HEALING_INCREASES;
   }
 
   spellbook() {
@@ -74,7 +74,7 @@ class Abilities extends CoreAbilities {
         healSpellIds: [SPELLS.DIVINE_HYMN_HEAL.id],
       },
       {
-        spell: SPELLS.SYMBOL_OF_HOPE.id,
+        spell: SPELLS.SYMBOL_OF_HOPE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 300,
         gcd: {
@@ -204,14 +204,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.BINDING_HEALS_TALENT.id,
-        category: SPELL_CATEGORY.OTHERS,
-        enabled: combatant.hasTalent(SPELLS.BINDING_HEALS_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.DISPEL_MAGIC.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
@@ -238,7 +230,7 @@ class Abilities extends CoreAbilities {
         healSpellIds: [SPELLS.HOLY_NOVA_HEAL.id],
       },
       {
-        spell: SPELLS.HOLY_WORD_CHASTISE.id,
+        spell: SPELLS.HOLY_WORD_CHASTISE_TALENT.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         cooldown: 60, // gets reduced by Smite
         gcd: {
@@ -285,7 +277,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PSYCHIC_SCREAM.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(SPELLS.PSYCHIC_VOICE_TALENT.id) ? 30 : 60,
+        cooldown: combatant.hasTalent(TALENTS.PSYCHIC_VOICE_TALENT.id) ? 30 : 60,
         gcd: {
           base: 1500,
         },
@@ -307,20 +299,11 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ANGELIC_FEATHER_TALENT.id,
+        spell: TALENTS.ANGELIC_FEATHER_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         charges: 3,
         cooldown: 20,
-        enabled: combatant.hasTalent(SPELLS.ANGELIC_FEATHER_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.SHINING_FORCE_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 45,
-        enabled: combatant.hasTalent(SPELLS.SHINING_FORCE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.ANGELIC_FEATHER_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -377,12 +360,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-      },
-      {
-        spell: SPELLS.FLESHCRAFT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
     ];
   }

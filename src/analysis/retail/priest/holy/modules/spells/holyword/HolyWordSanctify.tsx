@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import { Options } from 'parser/core/Analyzer';
 
 import HolyWordBase from './HolyWordBase';
@@ -23,7 +24,7 @@ class HolyWordSanctify extends HolyWordBase {
         apotheosisReduction: () =>
           PRAYER_OF_HEALING_SERENDIPITY_REDUCTION * this.apotheosisMultiplier,
       },
-      [SPELLS.BINDING_HEALS_TALENT.id]: {
+      [TALENTS.BINDING_HEALS_TALENT.id]: {
         baseReduction: () => BINDING_HEAL_SERENDIPITY_REDUCTION,
         lightOfTheNaaruReduction: () =>
           BINDING_HEAL_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,

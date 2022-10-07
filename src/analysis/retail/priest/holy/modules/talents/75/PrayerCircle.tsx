@@ -1,6 +1,7 @@
 import Abilities from 'analysis/retail/priest/holy/modules/Abilities';
 import AbilityTracker from 'analysis/retail/priest/holy/modules/core/AbilityTracker';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -24,7 +25,7 @@ class PrayerCircle extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.PRAYER_CIRCLE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.PRAYER_CIRCLE_TALENT.id);
 
     if (this.active) {
       this.addEventListener(
@@ -74,7 +75,7 @@ class PrayerCircle extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(5)}
       >
-        <BoringSpellValueText spellId={SPELLS.PRAYER_CIRCLE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.PRAYER_CIRCLE_TALENT.id}>
           <>{this.buffedCohCasts} Faster PoH's</>
         </BoringSpellValueText>
       </Statistic>

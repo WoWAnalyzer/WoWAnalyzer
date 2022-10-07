@@ -112,7 +112,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.TRAIL_OF_LIGHT_HEAL.id]: {
+  [SPELLS.TRAIL_OF_LIGHT_TALENT_HEAL.id]: {
     int: true,
     crit: true,
     hasteHpm: false,
@@ -138,7 +138,7 @@ export default {
   },
 
   // Talents
-  [SPELLS.BINDING_HEALS_TALENT.id]: {
+  [SPELLS.BINDING_HEALS_TALENT_HEAL.id]: {
     int: true,
     crit: true,
     hasteHpm: false,

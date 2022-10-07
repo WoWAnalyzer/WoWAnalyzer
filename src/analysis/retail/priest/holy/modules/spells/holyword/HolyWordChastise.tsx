@@ -10,7 +10,7 @@ class HolyWordSanctify extends HolyWordBase {
   constructor(options: Options) {
     super(options);
 
-    this.spellId = SPELLS.HOLY_WORD_CHASTISE.id;
+    this.spellId = SPELLS.HOLY_WORD_CHASTISE_TALENT.id;
     this.manaCost = 2000;
     this.serendipityReduction = 4000;
     this.serendipityProccers = {

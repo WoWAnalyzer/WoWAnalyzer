@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -16,7 +17,7 @@ class AngelsMercy extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ANGELS_MERCY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ANGELS_MERCY_TALENT.id);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DESPERATE_PRAYER),
       this.onCast,
@@ -43,7 +44,7 @@ class AngelsMercy extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(2)}
       >
-        <BoringSpellValueText spellId={SPELLS.ANGELS_MERCY_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.ANGELS_MERCY_TALENT.id}>
           {Math.floor(this.desperatePrayerTimeReduced / 1000)}s Cooldown Reduction Used
         </BoringSpellValueText>
       </Statistic>
