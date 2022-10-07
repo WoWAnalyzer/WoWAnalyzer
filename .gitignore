@@ -57,3 +57,5 @@ coverage/*
 !coverage/lcov.info
 
 .log
+.env.local.example
+.env.local.example
