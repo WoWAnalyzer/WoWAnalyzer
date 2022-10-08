@@ -64,6 +64,12 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 5), 'Add Vault of the Incarnates raid information.', ToppleTheNun),
+  change(date(2022, 10, 4), 'Add Blessing of the Bronze as a raid buff.', ToppleTheNun),
+  change(date(2022, 10, 3), 'Convert PreparationRule component to TypeScript.', ToppleTheNun),
+  change(date(2022, 10, 3), 'Rename Shadowlands parser directory to Retail.', ToppleTheNun),
+  change(date(2022, 10, 3), 'Rename TBC parser directory to Classic.', ToppleTheNun),
+  change(date(2022, 10, 2), 'Update Specs page for Dragonflight.', ToppleTheNun),
   change(date(2022, 9, 23), 'Convert Character parses page to TypeScript.', ToppleTheNun),
   change(date(2022, 9, 10), 'Update known patch versions for Dragonflight.', ToppleTheNun),
   change(date(2022, 9, 10), 'Show Dragonflight talents on character page if able to detect them.', ToppleTheNun),
@@ -119,7 +125,7 @@ export default [
   change(date(2022, 5, 13), 'Merged EnemyInstances logic into the standard Enemies file', Putro),
   change(date(2022, 5, 10), <>Add statistics and tracking for <ItemLink id={ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id} />, <ItemLink id={ITEMS.SHADOWGRASP_TOTEM.id} />, and <ItemLink id={ITEMS.SOULLETTING_RUBY.id} /></>, nullDozzer),
   change(date(2022, 5, 9), <>Fix crashing bug in TBC character pages.</>, emallson),
-  change(date(2022, 5, 9), <>Handle "extraattacks" events for things like <SpellLink id={TALENTS_SHAMAN.WINDFURY_TOTEM_ENHANCEMENT_TALENT.id}/></>, nullDozzer),
+  change(date(2022, 5, 9), <>Handle "extraattacks" events for things like <SpellLink id={TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT.id}/></>, nullDozzer),
   change(date(2022, 5, 6), 'Condensed helpful functions into one file.', Abelito75),
   change(date(2022, 5, 5), 'Add support for Ascended Vigor', xepheris),
   change(date(2022, 5, 5), 'Add support for Blood-Spattered Scale and Codex of the First Technique trinkets.', xepheris),

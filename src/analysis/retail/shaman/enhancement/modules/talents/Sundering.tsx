@@ -38,19 +38,19 @@ class Sundering extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.SUNDERING_ENHANCEMENT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.SUNDERING_TALENT.id);
 
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.SUNDERING_ENHANCEMENT_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.SUNDERING_TALENT),
       this.onCast,
     );
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.SUNDERING_ENHANCEMENT_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.SUNDERING_TALENT),
       this.onDamage,
     );
 
@@ -109,7 +109,7 @@ class Sundering extends Analyzer {
         }
         size="flexible"
       >
-        <BoringSpellValueText spellId={TALENTS_SHAMAN.SUNDERING_ENHANCEMENT_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_SHAMAN.SUNDERING_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damageGained} />
             <br />
@@ -145,10 +145,10 @@ class Sundering extends Analyzer {
       suggest(
         <Trans id="shaman.enhancement.suggestions.sundering.suggest">
           Consider the amount of enemies in the direction you're facing when casting{' '}
-          <SpellLink id={TALENTS_SHAMAN.SUNDERING_ENHANCEMENT_TALENT.id} /> to avoid missing it.
+          <SpellLink id={TALENTS_SHAMAN.SUNDERING_TALENT.id} /> to avoid missing it.
         </Trans>,
       )
-        .icon(TALENTS_SHAMAN.SUNDERING_ENHANCEMENT_TALENT.icon)
+        .icon(TALENTS_SHAMAN.SUNDERING_TALENT.icon)
         .actual(
           <Trans id="shaman.enhancement.suggestions.sundering.actual">
             You missed {formatPercentage(actual)}% of cast(s)

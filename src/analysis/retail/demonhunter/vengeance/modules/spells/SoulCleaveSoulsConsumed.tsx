@@ -27,8 +27,8 @@ class SoulCleaveSoulsConsumed extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active =
-      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id) &&
-      !this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FEED_THE_DEMON_VENGEANCE_TALENT.id);
+      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id) &&
+      !this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FEED_THE_DEMON_TALENT.id);
   }
 
   get suggestionThresholdsEfficiency(): NumberThreshold {
@@ -54,9 +54,9 @@ class SoulCleaveSoulsConsumed extends Analyzer {
         <>
           You should avoid consuming souls with <SpellLink id={SPELLS.SOUL_CLEAVE.id} /> and instead
           try to consume them only with{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id} /> for the increased
-          dps. Your talent choices suggests your going for a balanced approch versus a defensive one
-          with <SpellLink id={TALENTS_DEMON_HUNTER.FEED_THE_DEMON_VENGEANCE_TALENT.id} />.
+          <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id} /> for the increased dps. Your
+          talent choices suggests your going for a balanced approch versus a defensive one with{' '}
+          <SpellLink id={TALENTS_DEMON_HUNTER.FEED_THE_DEMON_TALENT.id} />.
         </>,
       )
         .icon(SPELLS.SOUL_CLEAVE.icon)

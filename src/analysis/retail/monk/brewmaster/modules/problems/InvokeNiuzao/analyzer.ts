@@ -96,7 +96,7 @@ export class InvokeNiuzao extends Analyzer {
   }
 
   private removeStagger(event: RemoveStaggerEvent) {
-    if (event.trigger?.ability.guid !== talents.PURIFYING_BREW_BREWMASTER_TALENT.id) {
+    if (event.trigger?.ability.guid !== talents.PURIFYING_BREW_TALENT.id) {
       return;
     }
 
@@ -198,8 +198,8 @@ export class InvokeNiuzao extends Analyzer {
       stomps: [],
       relevantHits: [],
       purifyingAtCast: {
-        charges: this.spellUsable.chargesAvailable(talents.PURIFYING_BREW_BREWMASTER_TALENT.id),
-        cooldown: this.spellUsable.cooldownRemaining(talents.PURIFYING_BREW_BREWMASTER_TALENT.id),
+        charges: this.spellUsable.chargesAvailable(talents.PURIFYING_BREW_TALENT.id),
+        cooldown: this.spellUsable.cooldownRemaining(talents.PURIFYING_BREW_TALENT.id),
       },
       startEvent: summonEvent,
       sitDetected: false,

@@ -16,13 +16,13 @@ class EnergyTracker extends ResourceTracker {
 
     this.initBuilderAbility(SPELLS.TIGERS_FURY.id);
 
-    const teRank = this.selectedCombatant.getTalentRank(TALENTS_DRUID.TIRELESS_ENERGY_FERAL_TALENT);
+    const teRank = this.selectedCombatant.getTalentRank(TALENTS_DRUID.TIRELESS_ENERGY_TALENT);
     this.maxResource = BASE_MAX_ENERGY + TE_ENERGY_PER_RANK * teRank;
     this.baseRegenRate = BASE_REGEN * (1 + TE_REGEN_MULT_PER_RANK * teRank);
 
     this.refundOnMiss = true;
     this.refundBlacklist = [
-      TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT.id,
+      TALENTS_DRUID.PRIMAL_WRATH_TALENT.id,
       SPELLS.SWIPE_CAT.id,
       SPELLS.THRASH_FERAL.id,
     ];

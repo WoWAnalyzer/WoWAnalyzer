@@ -1,5 +1,4 @@
 import { formatDuration } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -35,11 +34,14 @@ class StormstoutsLastKeg extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(talents.STORMSTOUTS_LAST_KEG_BREWMASTER_TALENT);
+    this.active = this.selectedCombatant.hasTalent(talents.STORMSTOUTS_LAST_KEG_TALENT);
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(talents.KEG_SMASH_BREWMASTER_TALENT), this.onDamage);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(talents.KEG_SMASH_BREWMASTER_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(talents.KEG_SMASH_TALENT),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(talents.KEG_SMASH_TALENT),
       this.trackExtraCD,
     );
   }
@@ -65,9 +67,9 @@ class StormstoutsLastKeg extends Analyzer {
   // them "preventing" n wasted casts. As long as players are trying to keep it
   // at 0 charges, this doesn't occur.
   trackExtraCD(_event: CastEvent) {
-    const expectedDuration = this.spellUsable.fullCooldownDuration(talents.KEG_SMASH_BREWMASTER_TALENT.id);
-    const chargesOnCooldown = this.spellUsable.chargesOnCooldown(talents.KEG_SMASH_BREWMASTER_TALENT.id);
-    const remaining = this.spellUsable.cooldownRemaining(talents.KEG_SMASH_BREWMASTER_TALENT.id);
+    const expectedDuration = this.spellUsable.fullCooldownDuration(talents.KEG_SMASH_TALENT.id);
+    const chargesOnCooldown = this.spellUsable.chargesOnCooldown(talents.KEG_SMASH_TALENT.id);
+    const remaining = this.spellUsable.cooldownRemaining(talents.KEG_SMASH_TALENT.id);
     // if we ever get a 3rd charge this will need revisiting
     if (chargesOnCooldown === 1) {
       this.extraCD += remaining;
@@ -77,7 +79,7 @@ class StormstoutsLastKeg extends Analyzer {
   }
 
   avgCooldown() {
-    const ability = this.abilities.getAbility(talents.KEG_SMASH_BREWMASTER_TALENT.id)!;
+    const ability = this.abilities.getAbility(talents.KEG_SMASH_TALENT.id)!;
     return ability.getCooldown(this.brewCdr.meanHaste);
   }
 
@@ -101,7 +103,7 @@ class StormstoutsLastKeg extends Analyzer {
         }
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spellId={SPELLS.STORMSTOUTS_LAST_KEG.id}>
+        <BoringSpellValueText spellId={talents.STORMSTOUTS_LAST_KEG_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

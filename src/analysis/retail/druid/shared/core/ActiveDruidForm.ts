@@ -23,15 +23,11 @@ export default class ActiveDruidForm extends Analyzer {
       this.noformActivated,
     );
     this.addEventListener(
-      Events.applybuff
-        .by(SELECTED_PLAYER)
-        .spell([TALENTS.INCARNATION_CHOSEN_OF_ELUNE_BALANCE_TALENT]),
+      Events.applybuff.by(SELECTED_PLAYER).spell([TALENTS.INCARNATION_CHOSEN_OF_ELUNE_TALENT]),
       this.incarnMoonkinActivated,
     );
     this.addEventListener(
-      Events.removebuff
-        .by(SELECTED_PLAYER)
-        .spell([TALENTS.INCARNATION_CHOSEN_OF_ELUNE_BALANCE_TALENT]),
+      Events.removebuff.by(SELECTED_PLAYER).spell([TALENTS.INCARNATION_CHOSEN_OF_ELUNE_TALENT]),
       this.noformActivated,
     );
 
@@ -45,15 +41,11 @@ export default class ActiveDruidForm extends Analyzer {
       this.noformActivated,
     );
     this.addEventListener(
-      Events.applybuff
-        .by(SELECTED_PLAYER)
-        .spell([TALENTS.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT]),
+      Events.applybuff.by(SELECTED_PLAYER).spell([TALENTS.INCARNATION_AVATAR_OF_ASHAMANE_TALENT]),
       this.incarnCatActivated,
     );
     this.addEventListener(
-      Events.removebuff
-        .by(SELECTED_PLAYER)
-        .spell([TALENTS.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT]),
+      Events.removebuff.by(SELECTED_PLAYER).spell([TALENTS.INCARNATION_AVATAR_OF_ASHAMANE_TALENT]),
       this.noformActivated,
     );
 
@@ -67,29 +59,21 @@ export default class ActiveDruidForm extends Analyzer {
       this.noformActivated,
     );
     this.addEventListener(
-      Events.applybuff
-        .by(SELECTED_PLAYER)
-        .spell([TALENTS.INCARNATION_GUARDIAN_OF_URSOC_GUARDIAN_TALENT]),
+      Events.applybuff.by(SELECTED_PLAYER).spell([TALENTS.INCARNATION_GUARDIAN_OF_URSOC_TALENT]),
       this.incarnBearActivated,
     );
     this.addEventListener(
-      Events.removebuff
-        .by(SELECTED_PLAYER)
-        .spell([TALENTS.INCARNATION_GUARDIAN_OF_URSOC_GUARDIAN_TALENT]),
+      Events.removebuff.by(SELECTED_PLAYER).spell([TALENTS.INCARNATION_GUARDIAN_OF_URSOC_TALENT]),
       this.noformActivated,
     );
 
     //Resto
     this.addEventListener(
-      Events.applybuff
-        .by(SELECTED_PLAYER)
-        .spell([TALENTS.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT]),
+      Events.applybuff.by(SELECTED_PLAYER).spell([TALENTS.INCARNATION_TREE_OF_LIFE_TALENT]),
       this.incarnTOLActivated,
     );
     this.addEventListener(
-      Events.removebuff
-        .by(SELECTED_PLAYER)
-        .spell([TALENTS.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT]),
+      Events.removebuff.by(SELECTED_PLAYER).spell([TALENTS.INCARNATION_TREE_OF_LIFE_TALENT]),
       this.noformActivated,
     );
   }

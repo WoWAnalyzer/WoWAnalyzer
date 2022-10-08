@@ -54,9 +54,9 @@ class Abilities extends CoreAbilities {
         damageSpellIds: [SPELLS.FLURRY_DAMAGE.id],
       },
       {
-        spell: TALENTS.GLACIAL_SPIKE_FROST_TALENT.id,
+        spell: TALENTS.GLACIAL_SPIKE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.GLACIAL_SPIKE_FROST_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -64,13 +64,13 @@ class Abilities extends CoreAbilities {
         damageSpellIds: [SPELLS.GLACIAL_SPIKE_DAMAGE.id],
       },
       {
-        spell: TALENTS.RAY_OF_FROST_FROST_TALENT.id,
+        spell: TALENTS.RAY_OF_FROST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
         cooldown: 80,
-        enabled: combatant.hasTalent(TALENTS.RAY_OF_FROST_FROST_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.RAY_OF_FROST_TALENT.id),
         castEfficiency: {
           suggestion: true,
         },
@@ -78,13 +78,13 @@ class Abilities extends CoreAbilities {
         //damageSpellIds: [SPELLS.RAY_OF_FROST.id], // needs verification
       },
       {
-        spell: TALENTS.COMET_STORM_FROST_TALENT.id,
+        spell: TALENTS.COMET_STORM_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
         cooldown: 30,
-        enabled: combatant.hasTalent(TALENTS.COMET_STORM_FROST_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.COMET_STORM_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -93,13 +93,13 @@ class Abilities extends CoreAbilities {
         damageSpellIds: [SPELLS.COMET_STORM_DAMAGE.id],
       },
       {
-        spell: TALENTS.EBONBOLT_FROST_TALENT.id,
+        spell: TALENTS.EBONBOLT_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 45,
-        enabled: combatant.hasTalent(TALENTS.EBONBOLT_FROST_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.EBONBOLT_TALENT.id),
         castEfficiency: {
           //If using Glacial Spike, it is recommended to hold Ebonbolt as an emergency proc if GS is available and you dont have a Brain Freeze Proc. Therefore, with good luck, it is possible to go the entire fight without casting Ebonbolt.
-          suggestion: !combatant.hasTalent(TALENTS.GLACIAL_SPIKE_FROST_TALENT.id),
+          suggestion: !combatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT.id),
           recommendedEfficiency: 0.9,
         },
         timelineSortIndex: 6,
@@ -366,7 +366,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasTalent(TALENTS.LONELY_WINTER_FROST_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS.LONELY_WINTER_TALENT.id),
         cooldown: 30,
       },
       {

@@ -1,3 +1,5 @@
+import ROLES from 'game/ROLES';
+import SPECS from 'game/SPECS';
 import Module, { Options } from 'parser/core/Module';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Haste from 'parser/shared/modules/Haste';
@@ -5,6 +7,11 @@ import Haste from 'parser/shared/modules/Haste';
 import AbilityTracker from '../../shared/modules/AbilityTracker';
 import { AnyEvent, EventType } from '../Events';
 import Ability, { SpellbookAbility } from './Ability';
+
+export const AbilityRange = {
+  Melee: 5,
+  FullRanged: 40,
+};
 
 class Abilities extends Module {
   static dependencies = {
@@ -26,6 +33,41 @@ class Abilities extends Module {
     // This list will NOT be recomputed during the fight. If a cooldown changes based on something like Haste or a Buff you need to put it in a function.
     // While you can put checks for talents/traits outside of the cooldown prop, you generally should aim to keep everything about a single spell together. In general only move a prop up if you're regularly checking for the same talent/trait in multiple spells.
     return [];
+  }
+
+  /**
+   * Determine the "default range" for a spell based on spec & role
+   * information. Use the `range` property in the spellbook to set custom
+   * ranges for specific abilities.
+   *
+   * This is used so that most spells don't require annotations in Abilities.
+   *
+   * Sub-classes should override this if they have range modifiers like Rogues
+   * or Druids, or have a non-standard range like Evokers.
+   *
+   * This value is NOT updated during the fight, and should NOT be used for
+   * dynamic range increases from buffs.
+   */
+  get defaultRange(): number {
+    const role = this.selectedCombatant.spec?.role;
+    const spec = this.selectedCombatant.specId;
+
+    switch (role) {
+      case ROLES.DPS.MELEE:
+      case ROLES.TANK:
+        return AbilityRange.Melee;
+      case ROLES.DPS.RANGED:
+        return AbilityRange.FullRanged;
+    }
+
+    // healers are broken down into melee & range specs
+    switch (spec) {
+      case SPECS.MISTWEAVER_MONK.id:
+      case SPECS.HOLY_PALADIN.id:
+        return AbilityRange.Melee;
+      default:
+        return AbilityRange.FullRanged;
+    }
   }
 
   abilities: Ability[] = [];

@@ -4,7 +4,7 @@ import TALENTS from 'common/TALENTS/paladin';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
-import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
+import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
@@ -37,12 +37,12 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         description={
           <Trans id="paladin.holy.modules.checklist.usePrimarySpells.description">
             <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />
-            {combatant.hasTalent(TALENTS.BESTOW_FAITH_HOLY_TALENT) ? (
-              <SpellLink id={TALENTS.BESTOW_FAITH_HOLY_TALENT.id} />
+            {combatant.hasTalent(TALENTS.BESTOW_FAITH_TALENT) ? (
+              <SpellLink id={TALENTS.BESTOW_FAITH_TALENT.id} />
             ) : (
               ''
             )}{' '}
-            {combatant.hasTalent(TALENTS.CRUSADERS_MIGHT_HOLY_TALENT) ? (
+            {combatant.hasTalent(TALENTS.CRUSADERS_MIGHT_TALENT) ? (
               <SpellLink id={SPELLS.CRUSADER_STRIKE.id} />
             ) : (
               ''
@@ -71,17 +71,17 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
       >
         <AbilityRequirement spell={SPELLS.HOLY_SHOCK_CAST.id} />
         <AbilityRequirement spell={SPELLS.HAMMER_OF_WRATH.id} />
-        {combatant.hasTalent(TALENTS.BESTOW_FAITH_HOLY_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS.BESTOW_FAITH_HOLY_TALENT.id} />
+        {combatant.hasTalent(TALENTS.BESTOW_FAITH_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.BESTOW_FAITH_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.LIGHTS_HAMMER_HOLY_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS.LIGHTS_HAMMER_HOLY_TALENT.id} />
+        {combatant.hasTalent(TALENTS.LIGHTS_HAMMER_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.LIGHTS_HAMMER_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.CRUSADERS_MIGHT_HOLY_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS.CRUSADERS_MIGHT_HOLY_TALENT.id} />
+        {combatant.hasTalent(TALENTS.CRUSADERS_MIGHT_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.CRUSADERS_MIGHT_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.HOLY_PRISM_HOLY_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS.HOLY_PRISM_HOLY_TALENT.id} />
+        {combatant.hasTalent(TALENTS.HOLY_PRISM_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.HOLY_PRISM_TALENT.id} />
         )}
       </Rule>
       <Rule
@@ -115,8 +115,8 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           <AbilityRequirement spell={TALENTS.HOLY_AVENGER_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.AURA_MASTERY.id} />
-        {combatant.hasTalent(TALENTS.RULE_OF_LAW_HOLY_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS.RULE_OF_LAW_HOLY_TALENT.id} />
+        {combatant.hasTalent(TALENTS.RULE_OF_LAW_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.RULE_OF_LAW_TALENT.id} />
         )}
         {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
           <AbilityRequirement spell={SPELLS.ASHEN_HALLOW.id} />
@@ -189,7 +189,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           </Trans>
         }
       >
-        {!combatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_HOLY_TALENT.id) && (
+        {!combatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT.id) && (
           <Requirement
             name={
               <Trans id="paladin.holy.modules.checklist.beaconOfLightAppliedPrepull">
@@ -203,7 +203,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             thresholds={thresholds.beaconUptimeBoL}
           />
         )}
-        {!combatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_HOLY_TALENT.id) && (
+        {!combatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT.id) && (
           <Requirement
             name={
               <Trans id="paladin.holy.modules.checklist.beaconOfVirtueTalentUptime">
@@ -217,12 +217,12 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             thresholds={thresholds.beaconUptimeBoLUptime}
           />
         )}
-        {combatant.hasTalent(TALENTS.BEACON_OF_FAITH_HOLY_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT.id) && (
           <Requirement
             name={
               <Trans id="paladin.holy.modules.checklist.beaconOfFaithTalentAppliedPrepull">
                 <SpellLink
-                  id={TALENTS.BEACON_OF_FAITH_HOLY_TALENT.id}
+                  id={TALENTS.BEACON_OF_FAITH_TALENT.id}
                   onClick={(e) => e.preventDefault()}
                 />{' '}
                 applied prepull
@@ -231,12 +231,12 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             thresholds={thresholds.beaconUptimeBoF}
           />
         )}
-        {combatant.hasTalent(TALENTS.BEACON_OF_FAITH_HOLY_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT.id) && (
           <Requirement
             name={
               <Trans id="paladin.holy.modules.checklist.beaconOfFaithTalentUptime">
                 <SpellLink
-                  id={TALENTS.BEACON_OF_FAITH_HOLY_TALENT.id}
+                  id={TALENTS.BEACON_OF_FAITH_TALENT.id}
                   onClick={(e) => e.preventDefault()}
                 />{' '}
                 Uptime
@@ -265,8 +265,8 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           <Trans id="paladin.holy.modules.checklist.positionWell.description">
             <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} /> has a big impact on the strength of
             your heals. Try to stay close to the people you are healing to benefit the most from
-            your Mastery. Use <SpellLink id={TALENTS.RULE_OF_LAW_HOLY_TALENT.id} /> when healing
-            people further away.
+            your Mastery. Use <SpellLink id={TALENTS.RULE_OF_LAW_TALENT.id} /> when healing people
+            further away.
           </Trans>
         }
       >

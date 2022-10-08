@@ -15,9 +15,7 @@ class BurningAlive extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.BURNING_ALIVE_VENGEANCE_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.BURNING_ALIVE_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FIERY_BRAND_DOT),
       this.onDamage,
@@ -42,7 +40,7 @@ class BurningAlive extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.BURNING_ALIVE_VENGEANCE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.BURNING_ALIVE_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

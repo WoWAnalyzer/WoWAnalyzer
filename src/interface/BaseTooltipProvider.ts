@@ -29,6 +29,13 @@ class BaseTooltipProvider {
   static refresh(elem: any) {
     throw new Error('NotImplemented');
   }
+
+  static npc(id: number): string {
+    return `${this.baseUrl}${this.npcRelative(id)}`;
+  }
+  static npcRelative(id: number): string {
+    throw new Error('NotImplemented');
+  }
 }
 
 export default BaseTooltipProvider;

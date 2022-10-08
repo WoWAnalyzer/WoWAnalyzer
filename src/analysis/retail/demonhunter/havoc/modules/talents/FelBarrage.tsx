@@ -21,9 +21,7 @@ class FelBarrage extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.FEL_BARRAGE_HAVOC_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -32,7 +30,7 @@ class FelBarrage extends Analyzer {
       this.felBarrage,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.FEL_BARRAGE_HAVOC_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT),
       this.felBarrageCasts,
     );
   }
@@ -70,15 +68,15 @@ class FelBarrage extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
       suggest(
         <>
-          Try to cast <SpellLink id={TALENTS_DEMON_HUNTER.FEL_BARRAGE_HAVOC_TALENT.id} /> during{' '}
+          Try to cast <SpellLink id={TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.id} /> during{' '}
           <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />.
         </>,
       )
-        .icon(TALENTS_DEMON_HUNTER.FEL_BARRAGE_HAVOC_TALENT.icon)
+        .icon(TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.icon)
         .actual(
           <>
-            {actual} bad <SpellLink id={TALENTS_DEMON_HUNTER.FEL_BARRAGE_HAVOC_TALENT.id} /> casts
-            without <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />.
+            {actual} bad <SpellLink id={TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.id} /> casts without{' '}
+            <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />.
           </>,
         )
         .recommended(`No bad casts is recommended.`),
@@ -100,7 +98,7 @@ class FelBarrage extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.FEL_BARRAGE_HAVOC_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.id}>
           <>
             {this.badCasts}{' '}
             <small>

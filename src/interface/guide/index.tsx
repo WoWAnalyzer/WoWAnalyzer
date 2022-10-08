@@ -76,6 +76,8 @@ import type { Options } from 'parser/core/Analyzer';
 import type CombatLogParser from 'parser/core/CombatLogParser';
 import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
+import Module from 'parser/core/Module';
+import React, { useContext, useMemo } from 'react';
 import { useState } from 'react';
 import './Guide.scss';
 
@@ -170,6 +172,70 @@ export const Section = ({ children, title }: React.PropsWithChildren<{ title: st
   );
 };
 
+type GuideContextValue = Omit<GuideProps<any>, 'info'> & {
+  info?: GuideProps<any>['info'];
+};
+
+export const GuideContext = React.createContext<GuideContextValue>({
+  modules: {},
+  events: [],
+});
+
+/**
+ * Get the player `Info` object from within a Guide section.
+ */
+export function useInfo(): GuideContextValue['info'] {
+  return useContext(GuideContext).info;
+}
+
+/**
+ * Get the event list from within a Guide section.
+ */
+export function useEvents(): GuideContextValue['events'] {
+  return useContext(GuideContext).events;
+}
+
+/**
+ * Get an analysis module from within a Guide section.
+ *
+ * # Example
+ *
+ * ```
+ * import BrewCDR from 'analysis/retail/monk/brewmaster/modules/core/BrewCDR';
+ * import PurifyingBrew from 'analysis/retail/monk/brewmaster/modules/spells/PurifyingBrew';
+ *
+ * function MySection() {
+ *   const cdr = useAnalyzer(BrewCDR);
+ *   const pb = useAnalyzer(PurifyingBrew);
+ *    // ...
+ * }
+ *
+ * // ... later, in the Guide component
+ *
+ * function Guide(props) {
+ *   return (
+ *    // ...
+ *    <MySection />
+ *    // ...
+ *   )
+ * }
+ * ```
+ */
+export function useAnalyzer<T extends typeof Module>(moduleType: T): InstanceType<T> | undefined;
+export function useAnalyzer(moduleKey: string): Module | undefined;
+export function useAnalyzer<T extends typeof Module>(value: string | T) {
+  const ctx = useContext(GuideContext);
+  return useMemo(() => {
+    if (typeof value === 'string') {
+      return ctx.modules[value];
+    } else {
+      return Object.values(ctx.modules).find((module) => module instanceof value) as
+        | InstanceType<T>
+        | undefined;
+    }
+  }, [value, ctx]);
+}
+
 /**
  * The overall guide container. You will never need this, it is used by the WoWA
  * core to hold your `Guide` component.
@@ -209,12 +275,30 @@ export const SubSection = ({
  * For an example, see the Brewmaster `PurifyReasonBreakdown` component, which
  * sets `.fail-bar` to be transparent.
  */
-export function PassFailBar({ pass, total }: { pass: number; total: number }) {
+export function PassFailBar({
+  pass,
+  total,
+  className,
+  passTooltip,
+  failTooltip,
+}: {
+  pass: number;
+  total: number;
+  className?: string;
+  passTooltip?: string;
+  failTooltip?: string;
+}) {
   const perf = Math.min(pass / total, 1);
   return (
-    <div className="pass-fail-bar-container">
-      <div className="pass-bar" style={{ minWidth: `${perf * 100}%` }} />
-      {perf < 1 && <div className="fail-bar" style={{ minWidth: `${(1 - perf) * 100}%` }} />}
+    <div className={`pass-fail-bar-container ${className ?? ''}`}>
+      <div className="pass-bar" title={passTooltip} style={{ minWidth: `${perf * 100}%` }} />
+      {perf < 1 && (
+        <div
+          className="fail-bar"
+          title={failTooltip}
+          style={{ minWidth: `${(1 - perf) * 100}%` }}
+        />
+      )}
     </div>
   );
 }

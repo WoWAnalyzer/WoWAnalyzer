@@ -25,9 +25,7 @@ class HarmoniusBlooming extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.ranks = this.selectedCombatant.getTalentRank(
-      TALENTS_DRUID.HARMONIOUS_BLOOMING_RESTORATION_TALENT,
-    );
+    this.ranks = this.selectedCombatant.getTalentRank(TALENTS_DRUID.HARMONIOUS_BLOOMING_TALENT);
     this.active = this.ranks > 0;
   }
 
@@ -57,7 +55,7 @@ class HarmoniusBlooming extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.HARMONIOUS_BLOOMING_RESTORATION_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.HARMONIOUS_BLOOMING_TALENT.id}>
           <ItemPercentHealingDone amount={this.extraStacksHealing} />
           <br />
         </BoringSpellValueText>

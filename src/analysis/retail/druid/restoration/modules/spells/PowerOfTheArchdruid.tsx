@@ -33,9 +33,7 @@ class PowerOfTheArchdruid extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_RESTORATION_TALENT,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH),
@@ -90,7 +88,7 @@ class PowerOfTheArchdruid extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_RESTORATION_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT.id}>
           <ItemPercentHealingDone amount={this.hotAttributor.powerOfTheArchdruid.healing} />
         </BoringSpellValueText>
       </Statistic>

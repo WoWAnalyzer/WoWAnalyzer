@@ -56,9 +56,7 @@ class RegrowthAndClearcasting extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.hasAbundance = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.ABUNDANCE_RESTORATION_TALENT,
-    );
+    this.hasAbundance = this.selectedCombatant.hasTalent(TALENTS_DRUID.ABUNDANCE_TALENT);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING_BUFF),
@@ -171,9 +169,7 @@ class RegrowthAndClearcasting extends Analyzer {
 
   /** Guide subsection describing the proper usage of Regrowth */
   get guideSubsection(): JSX.Element {
-    const hasAbundance = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.ABUNDANCE_RESTORATION_TALENT,
-    );
+    const hasAbundance = this.selectedCombatant.hasTalent(TALENTS_DRUID.ABUNDANCE_TALENT);
     const castPerfBoxes = this.castRegrowthLog.map((rgCast) => {
       let message = '';
       if (rgCast.reason === 'innervate') {
@@ -207,10 +203,10 @@ class RegrowthAndClearcasting extends Analyzer {
           <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} />{' '}
           {hasAbundance && (
             <>
-              or cheap due to <SpellLink id={TALENTS_DRUID.ABUNDANCE_RESTORATION_TALENT.id} />. Even
-              with <SpellLink id={TALENTS_DRUID.ABUNDANCE_RESTORATION_TALENT.id} /> you still
-              shouldn't cast Regrowth during your ramp. When your ramp is finished and your
-              cooldowns are rolling, then you can fill with high-stack Regrowth casts.
+              or cheap due to <SpellLink id={TALENTS_DRUID.ABUNDANCE_TALENT.id} />. Even with{' '}
+              <SpellLink id={TALENTS_DRUID.ABUNDANCE_TALENT.id} /> you still shouldn't cast Regrowth
+              during your ramp. When your ramp is finished and your cooldowns are rolling, then you
+              can fill with high-stack Regrowth casts.
             </>
           )}
         </p>
@@ -239,7 +235,7 @@ class RegrowthAndClearcasting extends Analyzer {
             {this.hasAbundance && (
               <>
                 cheap due to {ABUNDANCE_EXCEPTION_STACKS}+{' '}
-                <SpellLink id={TALENTS_DRUID.ABUNDANCE_RESTORATION_TALENT.id} /> stacks,
+                <SpellLink id={TALENTS_DRUID.ABUNDANCE_TALENT.id} /> stacks,
               </>
             )}{' '}
             or to save a low health target.

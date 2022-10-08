@@ -17,7 +17,7 @@ const BASE_DURATION = 20_000;
 class ThermalVoid extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.THERMAL_VOID_FROST_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.THERMAL_VOID_TALENT.id);
   }
 
   statistic() {
@@ -72,7 +72,7 @@ class ThermalVoid extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.THERMAL_VOID_FROST_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.THERMAL_VOID_TALENT.id}>
           <>
             <SpellIcon id={SPELLS.ICY_VEINS.id} /> +{formatNumber(totalIncrease / 1000)} seconds
           </>

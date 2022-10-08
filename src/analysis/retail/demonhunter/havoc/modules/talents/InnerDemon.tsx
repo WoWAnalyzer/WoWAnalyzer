@@ -13,9 +13,7 @@ export default class InnerDemon extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.INNER_DEMON_HAVOC_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.INNER_DEMON_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -36,7 +34,7 @@ export default class InnerDemon extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`${formatThousands(this.damage)} Total damage`}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.INNER_DEMON_HAVOC_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.INNER_DEMON_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

@@ -17,7 +17,7 @@ class Warpaint extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(talents.WARPAINT_FURY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.WARPAINT_TALENT.id);
 
     if (!this.active) {
       return;
@@ -56,7 +56,7 @@ class Warpaint extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={talents.WARPAINT_FURY_TALENT.id}>
+        <BoringSpellValueText spellId={talents.WARPAINT_TALENT.id}>
           <>
             {formatPercentage(this.damageMitigatedPercent)}% <small>damage mitigated</small>
           </>

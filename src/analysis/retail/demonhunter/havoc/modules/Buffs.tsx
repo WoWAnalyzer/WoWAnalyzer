@@ -62,9 +62,9 @@ class Buffs extends CoreAuras {
           ),
       },
       {
-        spellId: TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_HAVOC_TALENT.id,
+        spellId: TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT.id,
         triggeredBySpellId: TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_HAVOC_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT.id),
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),

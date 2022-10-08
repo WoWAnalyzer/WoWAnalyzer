@@ -10,8 +10,8 @@ export const CP_GENERATORS: Spell[] = [
   SPELLS.THRASH_FERAL,
   SPELLS.SWIPE_CAT,
   SPELLS.MOONFIRE_FERAL,
-  TALENTS_DRUID.BRUTAL_SLASH_FERAL_TALENT,
-  TALENTS_DRUID.FERAL_FRENZY_FERAL_TALENT,
+  TALENTS_DRUID.BRUTAL_SLASH_TALENT,
+  TALENTS_DRUID.FERAL_FRENZY_TALENT,
 ];
 
 /** The cast spells for Finishers */
@@ -19,7 +19,7 @@ export const FINISHERS: Spell[] = [
   SPELLS.FEROCIOUS_BITE,
   SPELLS.RIP,
   SPELLS.MAIM,
-  TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT,
+  TALENTS_DRUID.PRIMAL_WRATH_TALENT,
 ];
 
 export const MAX_CPS = 5;
@@ -63,14 +63,14 @@ export const SHRED_SWIPE_BONUS_ON_BLEEDING = 1.2;
 
 /** Returns the Feral Druid's primary cooldown spell, which changes based on talent */
 export function cdSpell(c: Combatant): Spell {
-  return c.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT)
-    ? TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT
+  return c.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT)
+    ? TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT
     : SPELLS.BERSERK;
 }
 
 /** Returns the Feral Druid's direct damage AoE builder, which changes based on talent */
 export function directAoeBuilder(c: Combatant): Spell {
-  return c.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_FERAL_TALENT)
-    ? TALENTS_DRUID.BRUTAL_SLASH_FERAL_TALENT
+  return c.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT)
+    ? TALENTS_DRUID.BRUTAL_SLASH_TALENT
     : SPELLS.SWIPE_CAT;
 }

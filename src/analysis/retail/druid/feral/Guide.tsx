@@ -42,9 +42,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
 }
 
 function BuildersSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
-  const hasLi = info.combatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_FERAL_TALENT);
-  const hasDcr = info.combatant.hasTalent(TALENTS_DRUID.DOUBLE_CLAWED_RAKE_FERAL_TALENT);
-  // const hasBt = info.combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT);
+  const hasLi = info.combatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_TALENT);
+  const hasDcr = info.combatant.hasTalent(TALENTS_DRUID.DOUBLE_CLAWED_RAKE_TALENT);
+  // const hasBt = info.combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT);
   return (
     <SubSection title="Builders">
       <p>
@@ -76,7 +76,7 @@ function BuildersSubsection({ modules, events, info }: GuideProps<typeof CombatL
             Maintain <SpellLink id={SPELLS.RAKE.id} /> (on up to{' '}
             {hasDcr ? (
               <>
-                8 targets due to <SpellLink id={TALENTS_DRUID.DOUBLE_CLAWED_RAKE_FERAL_TALENT.id} />
+                8 targets due to <SpellLink id={TALENTS_DRUID.DOUBLE_CLAWED_RAKE_TALENT.id} />
               </>
             ) : (
               '4 targets'
@@ -103,8 +103,8 @@ function BuildersSubsection({ modules, events, info }: GuideProps<typeof CombatL
 }
 
 function SpendersSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
-  const hasPw = info.combatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT);
-  const hasApc = info.combatant.hasTalent(TALENTS_DRUID.APEX_PREDATORS_CRAVING_FERAL_TALENT);
+  const hasPw = info.combatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_TALENT);
+  const hasApc = info.combatant.hasTalent(TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT);
   return (
     <SubSection title="Spenders">
       <p>
@@ -116,8 +116,8 @@ function SpendersSubsection({ modules, events, info }: GuideProps<typeof CombatL
         <ul>
           {hasApc && (
             <li>
-              Consume <SpellLink id={TALENTS_DRUID.APEX_PREDATORS_CRAVING_FERAL_TALENT.id} /> proc
-              (not a true spender because it's free)
+              Consume <SpellLink id={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT.id} /> proc (not a
+              true spender because it's free)
             </li>
           )}
           <li>
@@ -133,12 +133,12 @@ function SpendersSubsection({ modules, events, info }: GuideProps<typeof CombatL
           {hasPw ? (
             <li>
               Maintain <SpellLink id={SPELLS.RIP.id} /> with{' '}
-              <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT.id} />
+              <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_TALENT.id} />
             </li>
           ) : (
             <li>
               Maintain <SpellLink id={SPELLS.RIP.id} /> on as many targets as possible (for real AoE
-              you should spec <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT.id} />)
+              you should spec <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_TALENT.id} />)
             </li>
           )}
           <li>
@@ -155,12 +155,10 @@ function SpendersSubsection({ modules, events, info }: GuideProps<typeof CombatL
 }
 
 function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
-  const hasBerserk = info.combatant.hasTalent(TALENTS_DRUID.BERSERK_FERAL_TALENT);
-  const hasIncarn = info.combatant.hasTalent(
-    TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT,
-  );
-  const hasConvoke = info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_FERAL_TALENT);
-  const hasFeralFrenzy = info.combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_FERAL_TALENT);
+  const hasBerserk = info.combatant.hasTalent(TALENTS_DRUID.BERSERK_TALENT);
+  const hasIncarn = info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT);
+  const hasConvoke = info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT);
+  const hasFeralFrenzy = info.combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT);
   return (
     <SubSection>
       <strong>Cooldown Graph</strong> - this graph shows when you used your cooldowns and how long
@@ -178,7 +176,7 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       {hasIncarn && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
-            spellId={TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id}
+            spellId={TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id}
             events={events}
             info={info}
             highlightGaps
@@ -198,7 +196,7 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       {hasFeralFrenzy && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
-            spellId={TALENTS_DRUID.FERAL_FRENZY_FERAL_TALENT.id}
+            spellId={TALENTS_DRUID.FERAL_FRENZY_TALENT.id}
             events={events}
             info={info}
             highlightGaps

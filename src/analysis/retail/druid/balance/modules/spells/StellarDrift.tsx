@@ -29,7 +29,7 @@ class StellarDrift extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.STELLAR_DRIFT_BALANCE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.STELLAR_DRIFT_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.STARFALL), this.onDamage);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STARFALL_CAST), this.onCast);
   }
@@ -53,7 +53,7 @@ class StellarDrift extends Analyzer {
           this.gainedUptime
         } seconds of additional uptime.`}
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.STELLAR_DRIFT_BALANCE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.STELLAR_DRIFT_TALENT.id}>
           <>
             {formatPercentage(this.damagePercent)} % <small>of total damage</small>
             <br />

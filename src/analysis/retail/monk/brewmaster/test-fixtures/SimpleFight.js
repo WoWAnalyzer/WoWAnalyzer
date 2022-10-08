@@ -230,7 +230,7 @@ export const casts = [
     sourceID: thisPlayer,
     targetid: thisPlayer,
     timestamp: 8200,
-    ability: { guid: talents.PURIFYING_BREW_BREWMASTER_TALENT.id },
+    ability: { guid: talents.PURIFYING_BREW_TALENT.id },
   },
 ];
 
@@ -247,14 +247,14 @@ export const dpsCasts = [
     sourceID: thisPlayer,
     targetid: enemy,
     timestamp: 4500,
-    ability: { guid: talents.KEG_SMASH_BREWMASTER_TALENT.id },
+    ability: { guid: talents.KEG_SMASH_TALENT.id },
   },
   {
     type: EventType.Cast,
     sourceID: thisPlayer,
     targetid: enemy,
     timestamp: 4700,
-    ability: { guid: talents.KEG_SMASH_BREWMASTER_TALENT.id },
+    ability: { guid: talents.KEG_SMASH_TALENT.id },
   },
   {
     type: EventType.Cast,
@@ -282,7 +282,7 @@ export const dpsCasts = [
     sourceID: thisPlayer,
     targetid: enemy,
     timestamp: 9700,
-    ability: { guid: talents.BREATH_OF_FIRE_BREWMASTER_TALENT.id },
+    ability: { guid: talents.BREATH_OF_FIRE_TALENT.id },
   },
 ];
 

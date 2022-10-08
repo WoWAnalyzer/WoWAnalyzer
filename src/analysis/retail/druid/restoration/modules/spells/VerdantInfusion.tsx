@@ -43,9 +43,7 @@ class VerdantInfusion extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.VERDANT_INFUSION_RESTORATION_TALENT,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.VERDANT_INFUSION_TALENT);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SWIFTMEND),

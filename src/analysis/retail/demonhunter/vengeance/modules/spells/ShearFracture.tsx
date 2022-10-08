@@ -30,8 +30,8 @@ class ShearFracture extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    if (this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_VENGEANCE_TALENT.id)) {
-      this.cast = TALENTS_DEMON_HUNTER.FRACTURE_VENGEANCE_TALENT;
+    if (this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT.id)) {
+      this.cast = TALENTS_DEMON_HUNTER.FRACTURE_TALENT;
     }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.cast), this.onCast);
     this.addEventListener(

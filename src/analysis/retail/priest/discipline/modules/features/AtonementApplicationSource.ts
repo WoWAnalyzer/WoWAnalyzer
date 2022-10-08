@@ -12,7 +12,7 @@ import Events, { ApplyBuffEvent, HealEvent } from 'parser/core/Events';
 class AtonementApplicationSource extends Analyzer {
   // Spells that apply atonement
   atonementApplicators = new Map<number, number>([
-    [TALENTS_PRIEST.POWER_WORD_RADIANCE_DISCIPLINE_TALENT.id, POWER_WORD_RADIANCE_ATONEMENT_DUR],
+    [TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id, POWER_WORD_RADIANCE_ATONEMENT_DUR],
     [SPELLS.POWER_WORD_SHIELD.id, POWER_WORD_SHIELD_ATONEMENT_DUR],
     [TALENTS_PRIEST.RENEW_TALENT.id, RENEW_ATONEMENT_DUR],
     [SPELLS.FLASH_HEAL.id, FLASH_HEAL_ATONEMENT_DUR],

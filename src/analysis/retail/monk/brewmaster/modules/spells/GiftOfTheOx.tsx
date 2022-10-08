@@ -1,4 +1,5 @@
 import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -49,11 +50,11 @@ export default class GiftOfTheOx extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.GIFT_OF_THE_OX_BREWMASTER_TALENT);
+    this.active = this.selectedCombatant.hasTalent(talents.GIFT_OF_THE_OX_TALENT);
 
     this.addEventListener(EventType.OrbGenerated, this._orbGenerated);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(talents.EXPEL_HARM_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EXPEL_HARM),
       this._expelCast,
     );
     this.addEventListener(

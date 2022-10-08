@@ -255,6 +255,8 @@ export type HitpointsEvent<T extends string> = Event<T> & {
   maxHitPoints: number;
 };
 
+export type LocationEvent<T extends string> = Event<T> & { x: number; y: number };
+
 export function HasAbility<T extends EventType>(event: Event<T>): event is AbilityEvent<T> {
   return (event as AbilityEvent<T>).ability !== undefined;
 }
@@ -269,6 +271,13 @@ export function HasTarget<T extends EventType>(event: Event<T>): event is Target
 
 export function HasHitpoints<T extends EventType>(event: Event<T>): event is HitpointsEvent<T> {
   return (event as HitpointsEvent<T>).hitPoints !== undefined;
+}
+
+export function HasLocation<T extends EventType>(event: Event<T>): event is LocationEvent<T> {
+  const locEvent = event as Partial<LocationEvent<T>>;
+  return (
+    'x' in locEvent && 'y' in locEvent && Number.isFinite(locEvent.x) && Number.isFinite(locEvent.y)
+  );
 }
 
 /** Gets the events related to the given event with the given relation (key). Events will not

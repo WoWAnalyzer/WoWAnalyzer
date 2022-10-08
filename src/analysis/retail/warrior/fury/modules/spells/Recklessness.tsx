@@ -16,7 +16,7 @@ class Recklessness extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(talents.RECKLESSNESS_FURY_TALENT);
+    this.active = this.selectedCombatant.hasTalent(talents.RECKLESSNESS_TALENT);
 
     this.addEventListener(
       Events.resourcechange.by(SELECTED_PLAYER).to(SELECTED_PLAYER),

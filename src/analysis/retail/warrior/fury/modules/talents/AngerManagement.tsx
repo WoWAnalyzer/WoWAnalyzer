@@ -25,7 +25,7 @@ class AngerManagement extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.ANGER_MANAGEMENT_FURY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.ANGER_MANAGEMENT_TALENT.id);
 
     if (!this.active) {
       return;
@@ -63,7 +63,7 @@ class AngerManagement extends Analyzer {
         size="flexible"
         tooltip={`${formatNumber(this.wastedReduction / 1000)}s missed CDR`}
       >
-        <BoringSpellValueText spellId={talents.ANGER_MANAGEMENT_FURY_TALENT.id}>
+        <BoringSpellValueText spellId={talents.ANGER_MANAGEMENT_TALENT.id}>
           <>{formatNumber(this.effectiveReduction / 1000)}s Recklessness CDR</>
         </BoringSpellValueText>
       </Statistic>

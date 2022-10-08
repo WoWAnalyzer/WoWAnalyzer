@@ -35,9 +35,7 @@ class EssenceBreak extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.ESSENCE_BREAK_HAVOC_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(DAMAGE_SPELLS), this.damage);
   }
 
@@ -61,7 +59,7 @@ class EssenceBreak extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`${formatThousands(this.extraDamage)} total damage`}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_HAVOC_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.id}>
           {this.owner.formatItemDamageDone(this.extraDamage)}
         </BoringSpellValueText>
       </Statistic>

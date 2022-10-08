@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
 import { SpellLink } from 'interface';
-import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
+import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
@@ -91,13 +91,13 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
     >
       <UptimeRequirement spell={SPELLS.RIP.id} thresholds={thresholds.ripUptime} />
       <UptimeRequirement spell={SPELLS.RAKE.id} thresholds={thresholds.rakeUptime} />
-      {combatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_FERAL_TALENT.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_TALENT.id) && (
         <UptimeRequirement
           spell={SPELLS.MOONFIRE_FERAL.id}
           thresholds={thresholds.moonfireUptime}
         />
       )}
-      {combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_FERAL_TALENT) && (
+      {combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_SHARED_TALENT) && (
         <UptimeRequirement
           spell={SPELLS.ADAPTIVE_SWARM_DAMAGE.id}
           thresholds={thresholds.adaptiveSwarmUptime}
@@ -128,7 +128,7 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           snapshotting buffs are active.
           <br />
           <br /> The buffs that have this mechanic are <SpellLink id={SPELLS.TIGERS_FURY.id} />,
-          <SpellLink id={TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id} />, and{' '}
+          <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />, and{' '}
           <SpellLink id={SPELLS.PROWL.id} /> (with <SpellLink id={SPELLS.RAKE_BLEED.id} />
           ).
         </>
@@ -145,7 +145,7 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           </>
         }
       />
-      {combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT.id) && (
         <SnapshotRequirement
           spell={SPELLS.RIP.id}
           snapshot={SPELLS.BLOODTALONS_BUFF.id}
@@ -157,12 +157,12 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         snapshot={SPELLS.TIGERS_FURY.id}
         thresholds={thresholds.rakeTfSnapshot}
         tooltip={
-          combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT) ? (
+          combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT) ? (
             <>
               You may have to use Rake to proc{' '}
-              <SpellLink id={TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id} /> and so end up with
-              sub-optimal Tiger's Fury snapshotting. Bloodtalons proccing should take precedence
-              over Tiger's Fury snapshots.
+              <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} /> and so end up with sub-optimal
+              Tiger's Fury snapshotting. Bloodtalons proccing should take precedence over Tiger's
+              Fury snapshots.
             </>
           ) : (
             <>
@@ -172,16 +172,16 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           )
         }
       />
-      {combatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_FERAL_TALENT.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_TALENT.id) && (
         <SnapshotRequirement
           spell={SPELLS.MOONFIRE_FERAL.id}
           snapshot={SPELLS.TIGERS_FURY.id}
           thresholds={thresholds.moonfireTfSnapshot}
           tooltip={
-            combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT) ? (
+            combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT) ? (
               <>
                 You may have to use Moonfire to proc{' '}
-                <SpellLink id={TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id} /> and so end up with
+                <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} /> and so end up with
                 sub-optimal Tiger's Fury snapshotting. Bloodtalons proccing should take precedence
                 over Tiger's Fury snapshots.
               </>
@@ -230,10 +230,9 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           In single target encounters, your finisher priority should be to maintain{' '}
           <SpellLink id={SPELLS.RIP.id} />, and then fill with{' '}
           <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />. In multi-target situations you should use{' '}
-          {combatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT) && (
+          {combatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_TALENT) && (
             <>
-              <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT.id} /> against 3 or more
-              enemies and{' '}
+              <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_TALENT.id} /> against 3 or more enemies and{' '}
             </>
           )}
           <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> on targets that die too quickly for Rip to
@@ -271,7 +270,7 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
             You should only do this when you need to upgrade a snapshot. This statistic only counts
             the times when you clipped without upgrading."
       />
-      {combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT) && (
+      {combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT) && (
         <SnapshotRequirement
           spell={SPELLS.FEROCIOUS_BITE.id}
           snapshot={SPELLS.BLOODTALONS_BUFF.id}
@@ -300,8 +299,8 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         <>
           Aim to use your cooldowns as often as possible, try to prepare to use the ability when you
           see it's nearly ready.{' '}
-          {combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT) ? (
-            <SpellLink id={TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id} />
+          {combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT) ? (
+            <SpellLink id={TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id} />
           ) : (
             <SpellLink id={SPELLS.BERSERK.id} />
           )}{' '}
@@ -314,20 +313,18 @@ const FeralDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         </>
       }
     >
-      {!combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id) && (
+      {!combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id) && (
         <CastEfficiencyRequirement spell={SPELLS.BERSERK.id} />
       )}
-      {combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id) && (
-        <CastEfficiencyRequirement
-          spell={TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id}
-        />
+      {combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id) && (
+        <CastEfficiencyRequirement spell={TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id} />
       )}
       <CastEfficiencyRequirement spell={SPELLS.TIGERS_FURY.id} />
-      {combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_FERAL_TALENT.id) && (
-        <CastEfficiencyRequirement spell={TALENTS_DRUID.FERAL_FRENZY_FERAL_TALENT.id} />
+      {combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT.id) && (
+        <CastEfficiencyRequirement spell={TALENTS_DRUID.FERAL_FRENZY_TALENT.id} />
       )}
-      {combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_FERAL_TALENT) && (
-        <CastEfficiencyRequirement spell={TALENTS_DRUID.CONVOKE_THE_SPIRITS_FERAL_TALENT.id} />
+      {combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT) && (
+        <CastEfficiencyRequirement spell={TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT.id} />
       )}
       {combatant.race === RACES.NightElf && (
         <Requirement

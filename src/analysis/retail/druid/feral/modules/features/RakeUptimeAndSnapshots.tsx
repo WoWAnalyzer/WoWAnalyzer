@@ -109,7 +109,7 @@ class RakeUptimeAndSnapshots extends Snapshots {
 
   get tigersFurySnapshotThresholds() {
     // rake is often used for proccing BT, so harder to maintain snapshots
-    const breakpoints = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT)
+    const breakpoints = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT)
       ? { minor: 0.6, average: 0.45, major: 0.3 }
       : { minor: 0.85, average: 0.6, major: 0.4 };
     return {
@@ -165,12 +165,11 @@ class RakeUptimeAndSnapshots extends Snapshots {
           <br />
           Still, 100% snapshot uptime isn't practically possible and the impact of this is
           relatively minor - don't screw up your rotation just to get better snapshotting.
-          {this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT) && (
+          {this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT) && (
             <>
               {' '}
-              This is especcially true with{' '}
-              <SpellLink id={TALENTS_DRUID.BLOODTALONS_FERAL_TALENT.id} /> - Raking to gain a proc
-              takes precedence over good snapshots.
+              This is especcially true with <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} /> -
+              Raking to gain a proc takes precedence over good snapshots.
             </>
           )}
         </>,
