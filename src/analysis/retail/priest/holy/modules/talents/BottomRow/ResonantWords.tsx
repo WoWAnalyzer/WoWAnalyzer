@@ -3,18 +3,20 @@ import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { RESONANT_WORDS_RANKS } from 'analysis/retail/priest/holy/constants';
+import { formatPercentage } from 'common/format';
 
 // Example Log: /report/da4AL7QPr36btCmV/8-Heroic+Huntsman+Altimor+-+Kill+(5:13)/Daemonlight/standard/statistics
 class ResonantWords extends Analyzer {
   totalResonantWords = 0;
   usedResonantWords = 0;
-  bonusHealing = 0;
+  healingDoneFromTalent = 0;
+  overhealingDoneFromTalent = 0;
   healingMultiplier = RESONANT_WORDS_RANKS[0];
   talentRank: number = 0;
   talentIncrease: number = 0;
@@ -57,8 +59,15 @@ class ResonantWords extends Analyzer {
   onHeal(event: HealEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.RESONANT_WORDS_TALENT_BUFF.id)) {
       this.usedResonantWords += 1;
-      const eventBonusAmount = event.amount - event.amount / (1 + this.healingMultiplier);
-      this.bonusHealing += eventBonusAmount;
+
+      const overhealing = event.overheal != null ? event.overheal : 0;
+      const absorbed = event.absorbed != null ? event.absorbed : 0;
+      const totalHealing = event.amount + overhealing + absorbed;
+
+      const totalhealingFromTalent = totalHealing - totalHealing / (1 + this.healingMultiplier);
+      this.overhealingDoneFromTalent +=
+        overhealing <= totalhealingFromTalent ? overhealing : totalhealingFromTalent;
+      this.healingDoneFromTalent += Math.max(totalhealingFromTalent - overhealing, 0);
     }
   }
 
@@ -67,7 +76,6 @@ class ResonantWords extends Analyzer {
   }
 
   statistic() {
-    //Should have new talent ui that shows points rank={this.talentRank}>
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
@@ -75,12 +83,26 @@ class ResonantWords extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`${this.wastedResonantWords}/${this.totalResonantWords} wasted resonant word buffs.`}
       >
-        <BoringSpellValueText spellId={TALENTS.RESONANT_WORDS_TALENT.id}>
-          <ItemHealingDone amount={this.bonusHealing} />
-        </BoringSpellValueText>
+        <TalentSpellText
+          spellId={TALENTS.RESONANT_WORDS_TALENT.id}
+          maxRanks={TALENTS.RESONANT_WORDS_TALENT.maxRanks}
+        >
+          <ItemHealingDone amount={this.healingDoneFromTalent} />
+          <br />
+          {formatPercentage(
+            this.overhealingDoneFromTalent /
+              (this.healingDoneFromTalent + this.overhealingDoneFromTalent),
+          )}
+          % OH
+        </TalentSpellText>
       </Statistic>
     );
   }
 }
 
+//<BoringSpellValueText spellId={TALENTS.RESONANT_WORDS_TALENT.id}>
+//  <ItemHealingDone amount={this.healingDoneFromTalent} />
+//  <br />
+//  {formatPercentage(this.overhealingDoneFromTalent / (this.healingDoneFromTalent + this.overhealingDoneFromTalent))}% OH
+//</BoringSpellValueText>
 export default ResonantWords;

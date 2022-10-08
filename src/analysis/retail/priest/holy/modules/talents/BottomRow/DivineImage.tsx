@@ -1,4 +1,5 @@
 import { formatNumber, formatPercentage } from 'common/format';
+import TALENTS from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
@@ -23,7 +24,7 @@ class DivineImage extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.DIVINE_IMAGE);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DIVINE_IMAGE_TALENT);
     if (!this.active) {
       return;
     }

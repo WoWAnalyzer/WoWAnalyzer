@@ -81,6 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
     Enlightenment: Talents.MiddleRow.Enlightenment,
     TrailOfLight: Talents.MiddleRow.TrailOfLight,
     RenewedFaith: Talents.TopRow.RenewedFaith,
+    DesperateTimes: Talents.BottomRow.DesperateTimes,
 
     BindingHeals: Talents.Classwide.BindingHeal,
     AngelicFeather: Talents.Classwide.AngelicFeather,
