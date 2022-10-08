@@ -1,5 +1,6 @@
 import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import conduitScaling from 'parser/core/conduitScaling';
@@ -52,8 +53,8 @@ class JadeBond extends Analyzer {
       this.gustProcingSpell,
     );
 
-    if (this.selectedCombatant.hasTalent(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id)) {
-      this.spellToReduce = SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT;
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id)) {
+      this.spellToReduce = TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT;
       this.addEventListener(
         Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUST_OF_MISTS_CHIJI),
         this.normalizeBoost,

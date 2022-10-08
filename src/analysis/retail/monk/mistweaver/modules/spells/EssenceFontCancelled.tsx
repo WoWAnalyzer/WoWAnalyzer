@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, EndChannelEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -31,7 +32,7 @@ class EssenceFontCancelled extends Analyzer {
       Events.EndChannel.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT),
       this.handleEndChannel,
     );
-    this.hasUpwelling = this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
+    this.hasUpwelling = this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT.id);
     this.last_ef = null;
   }
 
