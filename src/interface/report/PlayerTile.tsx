@@ -63,16 +63,6 @@ const PlayerTile = ({ player, makeUrl, config }: Props) => {
   if (covenant !== null) {
     covenantName = getCovenantById(covenant)?.name;
   }
-  console.log(
-    'spec: ' +
-      spec?.className +
-      'config: ' +
-      config +
-      ' missingBuild: ' +
-      missingBuild +
-      ' builds: ' +
-      config?.builds,
-  );
   if (!config || missingBuild) {
     return (
       <span
