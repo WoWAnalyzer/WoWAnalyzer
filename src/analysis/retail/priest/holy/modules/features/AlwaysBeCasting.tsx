@@ -19,6 +19,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.APOTHEOSIS_TALENT.id,
     SPELLS.DIVINE_HYMN_CAST.id,
     SPELLS.HOLY_WORD_SALVATION_TALENT.id,
+    SPELLS.POWER_WORD_LIFE_TALENT.id,
+    SPELLS.POWER_WORD_SHIELD.id,
   ];
 
   suggestions(when: When) {

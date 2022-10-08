@@ -461,13 +461,6 @@ const spells = spellIndexableList({
     name: 'Spirit of Redemption',
     icon: 'inv_enchant_essenceeternallarge',
   },
-  // Items
-  DIVINE_IMAGE: {
-    id: 336401,
-    name: 'Divine Image',
-    icon: 'ability_priest_ascension',
-  },
-
   // Talents
   BINDING_HEALS_TALENT_HEAL: {
     id: 368276,
@@ -530,6 +523,18 @@ const spells = spellIndexableList({
     name: 'Cosmic Ripple',
     icon: 'spell_holy_summonlightwell',
   },
+  POWER_WORD_LIFE_TALENT: {
+    id: 373481,
+    name: 'Power Word: Life',
+    icon: 'ability_priest_holywordlife',
+    manaCost: 0,
+  },
+  DIVINE_IMAGE: {
+    id: 336401,
+    name: 'Divine Image',
+    icon: 'ability_priest_ascension',
+  },
+
   // Shadow Spells
   MIND_BLAST: {
     id: 8092,

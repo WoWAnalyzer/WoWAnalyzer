@@ -2,7 +2,7 @@ import Abilities from 'analysis/retail/priest/holy/modules/Abilities';
 import EchoOfLightMastery from 'analysis/retail/priest/holy/modules/core/EchoOfLightMastery';
 import PrayerOfMending from 'analysis/retail/priest/holy/modules/spells/PrayerOfMending';
 import Renew from 'analysis/retail/priest/holy/modules/spells/Renew';
-import HolyWordSalvation from 'analysis/retail/priest/holy/modules/talents/100/HolyWordSalvation';
+import HolyWordSalvation from 'analysis/retail/priest/holy/modules/talents/BottomRow/HolyWordSalvation';
 import SPELLS from 'common/SPELLS';
 import HealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
