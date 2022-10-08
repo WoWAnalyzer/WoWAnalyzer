@@ -43,8 +43,8 @@ class Tier28FourSet extends Analyzer {
       this.wingsCast,
     );
 
-    if (this.selectedCombatant.hasTalent(TALENTS.AVENGING_CRUSADER_HOLY_TALENT.id)) {
-      this.spellToReduce = TALENTS.AVENGING_CRUSADER_HOLY_TALENT;
+    if (this.selectedCombatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT.id)) {
+      this.spellToReduce = TALENTS.AVENGING_CRUSADER_TALENT;
     }
   }
 

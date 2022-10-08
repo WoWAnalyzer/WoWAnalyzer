@@ -24,13 +24,13 @@ const WINTERS_CHILL_SPENDERS = [
   SPELLS.ICE_LANCE_DAMAGE,
   SPELLS.GLACIAL_SPIKE_DAMAGE,
   TALENTS.ICE_NOVA_TALENT,
-  TALENTS.RAY_OF_FROST_FROST_TALENT,
+  TALENTS.RAY_OF_FROST_TALENT,
 ];
 
 const WINTERS_CHILL_PRECAST_CASTS = [
   SPELLS.FROSTBOLT,
-  TALENTS.EBONBOLT_FROST_TALENT,
-  TALENTS.GLACIAL_SPIKE_FROST_TALENT,
+  TALENTS.EBONBOLT_TALENT,
+  TALENTS.GLACIAL_SPIKE_TALENT,
   SPELLS.RADIANT_SPARK,
 ];
 
@@ -69,8 +69,8 @@ class WintersChill extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.hasGlacialSpike = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_SPIKE_FROST_TALENT.id);
-    this.hasEbonbolt = this.selectedCombatant.hasTalent(TALENTS.EBONBOLT_FROST_TALENT.id);
+    this.hasGlacialSpike = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT.id);
+    this.hasEbonbolt = this.selectedCombatant.hasTalent(TALENTS.EBONBOLT_TALENT.id);
     this.isKyrian = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
     this.isVenthyr = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
 
@@ -244,7 +244,7 @@ class WintersChill extends Analyzer {
           <SpellLink id={SPELLS.FLURRY.id} />, you should ensure that you hit the target with{' '}
           {this.hasGlacialSpike ? (
             <>
-              a <SpellLink id={TALENTS.GLACIAL_SPIKE_FROST_TALENT.id} /> and an{' '}
+              a <SpellLink id={TALENTS.GLACIAL_SPIKE_TALENT.id} /> and an{' '}
               <SpellLink id={SPELLS.ICE_LANCE.id} /> (If Glacial Spike is available), or{' '}
             </>
           ) : (
@@ -274,7 +274,7 @@ class WintersChill extends Analyzer {
           <SpellLink id={SPELLS.FROSTBOLT.id} />{' '}
           {this.hasEbonbolt ? (
             <>
-              or <SpellLink id={TALENTS.EBONBOLT_FROST_TALENT.id} />
+              or <SpellLink id={TALENTS.EBONBOLT_TALENT.id} />
             </>
           ) : (
             ''

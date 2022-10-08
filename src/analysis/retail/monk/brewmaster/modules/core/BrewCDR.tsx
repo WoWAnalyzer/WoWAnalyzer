@@ -49,7 +49,7 @@ class BrewCDR extends Analyzer {
     // ...and TP...
     totalCDR += this.tp.cdr;
     // ...and BoB...
-    totalCDR += this.bob.cdr[talents.PURIFYING_BREW_BREWMASTER_TALENT.id];
+    totalCDR += this.bob.cdr[talents.PURIFYING_BREW_TALENT.id];
     return totalCDR;
   }
 
@@ -58,7 +58,7 @@ class BrewCDR extends Analyzer {
       this.ks.wastedCDR +
       this.ks.wastedBocCDR +
       this.tp.wastedCDR +
-      this.bob.wastedCDR[talents.PURIFYING_BREW_BREWMASTER_TALENT.id] +
+      this.bob.wastedCDR[talents.PURIFYING_BREW_TALENT.id] +
       this.totalCDR
     );
   }
@@ -87,7 +87,7 @@ class BrewCDR extends Analyzer {
   }
 
   get avgCooldown() {
-    const ability = this.abilities.getAbility(talents.PURIFYING_BREW_BREWMASTER_TALENT.id)!;
+    const ability = this.abilities.getAbility(talents.PURIFYING_BREW_TALENT.id)!;
     return ability.getCooldown(this.meanHaste);
   }
 
@@ -121,14 +121,11 @@ class BrewCDR extends Analyzer {
                 <li>
                   {this.bob.casts} Black Ox Brew casts —{' '}
                   <strong>
-                    {(this.bob.cdr[talents.PURIFYING_BREW_BREWMASTER_TALENT.id] / 1000).toFixed(2)}s
+                    {(this.bob.cdr[talents.PURIFYING_BREW_TALENT.id] / 1000).toFixed(2)}s
                   </strong>{' '}
                   (
                   <strong>
-                    {(
-                      this.bob.wastedCDR[talents.PURIFYING_BREW_BREWMASTER_TALENT.id] / 1000
-                    ).toFixed(2)}
-                    s
+                    {(this.bob.wastedCDR[talents.PURIFYING_BREW_TALENT.id] / 1000).toFixed(2)}s
                   </strong>{' '}
                   wasted)
                 </li>

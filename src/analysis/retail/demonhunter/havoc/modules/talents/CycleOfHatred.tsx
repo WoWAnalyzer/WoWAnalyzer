@@ -21,7 +21,7 @@ const TRIGGER_SPELLS = [
   SPELLS.ANNIHILATION,
   SPELLS.BLADE_DANCE,
   SPELLS.DEATH_SWEEP,
-  TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_HAVOC_TALENT,
+  TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_TALENT,
 ];
 
 class CycleOfHatred extends Analyzer {
@@ -33,9 +33,7 @@ class CycleOfHatred extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.CYCLE_OF_HATRED_HAVOC_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.CYCLE_OF_HATRED_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -43,14 +41,14 @@ class CycleOfHatred extends Analyzer {
   }
 
   onCastEvent(_: CastEvent) {
-    if (!this.spellUsable.isOnCooldown(TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id)) {
+    if (!this.spellUsable.isOnCooldown(TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id)) {
       return;
     }
     const effectiveReduction = this.spellUsable.reduceCooldown(
-      TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id,
+      TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id,
       MS_IN_SECOND *
         CYCLE_OF_HATRED_SCALING[
-          this.selectedCombatant.getTalentRank(TALENTS_DEMON_HUNTER.CYCLE_OF_HATRED_HAVOC_TALENT.id)
+          this.selectedCombatant.getTalentRank(TALENTS_DEMON_HUNTER.CYCLE_OF_HATRED_TALENT.id)
         ],
     );
     this.totalCooldownReduction += effectiveReduction;
@@ -63,12 +61,12 @@ class CycleOfHatred extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.CYCLE_OF_HATRED_HAVOC_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.CYCLE_OF_HATRED_TALENT.id}>
           <>
             {formatNumber(this.totalCooldownReduction / 1000)} sec{' '}
             <small>
-              total <SpellIcon id={TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id} /> Eye Beam
-              cooldown reduction
+              total <SpellIcon id={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id} /> Eye Beam cooldown
+              reduction
             </small>
           </>
         </BoringSpellValueText>

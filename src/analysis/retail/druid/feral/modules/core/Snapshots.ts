@@ -51,7 +51,7 @@ export const PROWL_SPEC: StaticSnapshotSpec = {
   isActive: (_) => true,
   isPresent: (c, timestamp) =>
     c.hasBuff(
-      TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_FERAL_TALENT.id,
+      TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id,
       timestamp,
       BUFF_DROP_BUFFER,
     ) ||
@@ -66,8 +66,8 @@ export const PROWL_SPEC: StaticSnapshotSpec = {
 
 export const BLOODTALONS_SPEC: StaticSnapshotSpec = {
   name: 'Bloodtalons',
-  spellFunc: (_) => [TALENTS_DRUID.BLOODTALONS_FERAL_TALENT],
-  isActive: (c) => c.hasTalent(TALENTS_DRUID.BLOODTALONS_FERAL_TALENT),
+  spellFunc: (_) => [TALENTS_DRUID.BLOODTALONS_TALENT],
+  isActive: (c) => c.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT),
   isPresent: (c, timestamp) => c.hasBuff(SPELLS.BLOODTALONS_BUFF.id, timestamp, BUFF_DROP_BUFFER),
   displayColor: '#dd0022',
   boostStrength: BLOODTALONS_DAMAGE_BONUS,

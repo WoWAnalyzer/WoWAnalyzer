@@ -53,7 +53,7 @@ class DirectBeaconHealing extends Analyzer {
 
     this.beaconTransferingAbilities
       .filter((ability) =>
-        [SPELLS.FLASH_OF_LIGHT.id, TALENTS.HOLY_LIGHT_HOLY_TALENT.id].includes(ability),
+        [SPELLS.FLASH_OF_LIGHT.id, TALENTS.HOLY_LIGHT_TALENT.id].includes(ability),
       )
       .forEach((ability) => {
         const castCount = getCastCount(ability);
@@ -72,8 +72,7 @@ class DirectBeaconHealing extends Analyzer {
 
     this.beaconTransferingAbilities
       .filter(
-        (ability) =>
-          ![SPELLS.FLASH_OF_LIGHT.id, TALENTS.HOLY_LIGHT_HOLY_TALENT.id].includes(ability),
+        (ability) => ![SPELLS.FLASH_OF_LIGHT.id, TALENTS.HOLY_LIGHT_TALENT.id].includes(ability),
       )
       .forEach((ability) => {
         const castCount = getCastCount(ability);

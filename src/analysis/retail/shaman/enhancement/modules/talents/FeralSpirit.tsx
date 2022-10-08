@@ -21,16 +21,14 @@ class FeralSpirit extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_SHAMAN.FERAL_SPIRIT_ENHANCEMENT_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id);
 
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.FERAL_SPIRIT_ENHANCEMENT_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.FERAL_SPIRIT_TALENT),
       this.onFeralSpiritCast,
     );
   }
@@ -52,7 +50,7 @@ class FeralSpirit extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.GENERAL}
       >
-        <BoringSpellValueText spellId={TALENTS_SHAMAN.FERAL_SPIRIT_ENHANCEMENT_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id}>
           <>
             <ResourceGenerated
               amount={this.maelstromWeaponGained}

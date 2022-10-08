@@ -15,23 +15,19 @@ export default class DarkglareBoon extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.DARKGLARE_BOON_VENGEANCE_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.DARKGLARE_BOON_TALENT.id);
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.EndChannel.by(SELECTED_PLAYER).spell(
-        TALENTS_DEMON_HUNTER.FEL_DEVASTATION_VENGEANCE_TALENT,
-      ),
+      Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT),
       this.onFelDevastationCast,
     );
   }
 
   onFelDevastationCast(event: EndChannelEvent) {
     this.spellUsable.reduceCooldown(
-      TALENTS_DEMON_HUNTER.FEL_DEVASTATION_VENGEANCE_TALENT.id,
+      TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT.id,
       MINIMUM_CDR,
       event.timestamp,
     );

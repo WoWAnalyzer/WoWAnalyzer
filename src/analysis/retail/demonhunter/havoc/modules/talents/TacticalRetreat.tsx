@@ -13,9 +13,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 export default class TacticalRetreat extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_HAVOC_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT.id);
   }
 
   get buffUptime() {
@@ -46,11 +44,11 @@ export default class TacticalRetreat extends Analyzer {
       suggest(
         <>
           {' '}
-          Maintain the <SpellLink id={TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_HAVOC_TALENT.id} /> buff
-          to maximize damage.
+          Maintain the <SpellLink id={TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT.id} /> buff to
+          maximize damage.
         </>,
       )
-        .icon(TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_HAVOC_TALENT.icon)
+        .icon(TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT.icon)
         .actual(
           t({
             id: 'demonhunter.havoc.suggestions.momentum.uptime',
@@ -68,7 +66,7 @@ export default class TacticalRetreat extends Analyzer {
         size="flexible"
         tooltip={`The Tactical Retreat buff total uptime was ${formatDuration(this.buffDuration)}.`}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_HAVOC_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>uptime</small>
           </>

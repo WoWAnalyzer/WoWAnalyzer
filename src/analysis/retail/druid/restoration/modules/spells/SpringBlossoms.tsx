@@ -24,9 +24,7 @@ class SpringBlossoms extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.SPRING_BLOSSOMS_RESTORATION_TALENT,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.SPRING_BLOSSOMS_TALENT);
   }
 
   get directHealing() {
@@ -62,7 +60,7 @@ class SpringBlossoms extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.SPRING_BLOSSOMS_RESTORATION_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.SPRING_BLOSSOMS_TALENT.id}>
           <ItemPercentHealingDone amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

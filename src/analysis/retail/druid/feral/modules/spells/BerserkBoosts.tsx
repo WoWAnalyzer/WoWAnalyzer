@@ -75,9 +75,9 @@ class BerserkBoosts extends Analyzer {
     super(options);
 
     this.hasHeartOfTheLion = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_FERAL_TALENT,
+      TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT,
     );
-    this.hasFrenzy = this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_FRENZY_FERAL_TALENT);
+    this.hasFrenzy = this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_FRENZY_TALENT);
     this.hasBoth = this.hasHeartOfTheLion && this.hasFrenzy;
     this.active = this.hasHeartOfTheLion || this.hasFrenzy;
 
@@ -144,7 +144,7 @@ class BerserkBoosts extends Analyzer {
           <>
             {this.hasHeartOfTheLion && (
               <>
-                <SpellIcon id={TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_FERAL_TALENT.id} />{' '}
+                <SpellIcon id={TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT.id} />{' '}
                 {(this.totalEffectiveCdReduced / 1000).toFixed(1)}s <small>eff. CD reduction</small>
               </>
             )}

@@ -16,9 +16,7 @@ class HealingPerHolyPower extends Analyzer {
     super(options);
 
     this.addEventListener(
-      Events.cast
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.WORD_OF_GLORY, TALENTS.LIGHT_OF_DAWN_HOLY_TALENT]),
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.WORD_OF_GLORY, TALENTS.LIGHT_OF_DAWN_TALENT]),
       this.castSpender,
     );
     this.addEventListener(

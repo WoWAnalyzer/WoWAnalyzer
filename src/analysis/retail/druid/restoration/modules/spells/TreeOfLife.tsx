@@ -94,9 +94,7 @@ class TreeOfLife extends Analyzer {
       this.onBoostedHeal,
     );
     this.addEventListener(
-      Events.cast
-        .by(SELECTED_PLAYER)
-        .spell(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT),
       this.onHardcastTol,
     );
     this.addEventListener(
@@ -123,9 +121,7 @@ class TreeOfLife extends Analyzer {
   checkActive() {
     // only stay active for suggestion / stat if player actually has Talent -
     // we need this to calc to check for 4pc, which is why we don't check active at the start
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT);
   }
 
   onHardcastTol(event: CastEvent) {
@@ -142,13 +138,9 @@ class TreeOfLife extends Analyzer {
    * Gets the tracking accumulator for the current ToL, if there is one
    */
   _getAccumulator(event: Event<any>) {
-    if (
-      !this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id)
-    ) {
+    if (!this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id)) {
       return null; // ToL isn't active, no accumulator
-    } else if (
-      !this.selectedCombatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT)
-    ) {
+    } else if (!this.selectedCombatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT)) {
       return this.reforestation; // player doesn't have the ToL talent so this must be from the set 4pc
     } else if (
       this.lastHardcastTimestamp !== null &&
@@ -233,7 +225,7 @@ class TreeOfLife extends Analyzer {
     return (
       <>
         <strong>
-          <SpellLink id={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id} />
+          <SpellLink id={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id} />
         </strong>{' '}
         is a longer, lower-impact cooldown. It should be planned around periods of high sustained
         healing.
@@ -248,12 +240,11 @@ class TreeOfLife extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id} /> is
-          not providing you much throughput. You may want to plan your CD usage better or pick
-          another talent.
+          Your <SpellLink id={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id} /> is not providing
+          you much throughput. You may want to plan your CD usage better or pick another talent.
         </>,
       )
-        .icon(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.icon)
+        .icon(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.icon)
         .actual(
           t({
             id: 'druid.restoration.suggestions.treeOfLife.efficiency',
@@ -321,9 +312,7 @@ class TreeOfLife extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText
-          spellId={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_RESTORATION_TALENT.id}
-        >
+        <BoringSpellValueText spellId={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id}>
           <ItemPercentHealingDone amount={this._getTotalHealing(this.hardcast)} />
           <br />
         </BoringSpellValueText>

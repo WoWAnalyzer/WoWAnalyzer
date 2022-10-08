@@ -7,7 +7,7 @@ const talentlessCombatant = {
 };
 
 const talentedCombatant = {
-  hasTalent: (id) => id === talents.RUSHING_JADE_WIND_BREWMASTER_TALENT.id,
+  hasTalent: (id) => id === talents.RUSHING_JADE_WIND_TALENT.id,
 };
 const parser = {
   byPlayer: () => true,

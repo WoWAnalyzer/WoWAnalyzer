@@ -30,17 +30,17 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.HOT_HAND_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.HOT_HAND_ENHANCEMENT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.HOT_HAND_TALENT.id),
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.HAILSTORM_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.HAILSTORM_ENHANCEMENT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.HAILSTORM_TALENT.id),
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.WINDFURY_TOTEM_BUFF.id,
-        triggeredBySpellId: TALENTS_SHAMAN.WINDFURY_TOTEM_ENHANCEMENT_TALENT.id,
+        triggeredBySpellId: TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT.id,
         timelineHighlight: true,
       },
     ];

@@ -34,7 +34,7 @@ class Starlord extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.STARLORD_BALANCE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.STARLORD_TALENT.id);
     this.buffStacks = Array.from({ length: MAX_STACKS + 1 }, (x) => [0]);
 
     this.addEventListener(
@@ -103,7 +103,7 @@ class Starlord extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.STARLORD_BALANCE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.STARLORD_TALENT.id}>
           <>
             <HasteIcon /> {this.averageHaste} % <small>average haste gained</small>
           </>

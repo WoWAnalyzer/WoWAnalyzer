@@ -23,9 +23,7 @@ class CrashingStorm extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_SHAMAN.CRASHING_STORMS_ENHANCEMENT_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.CRASHING_STORMS_TALENT.id);
 
     if (!this.active) {
       return;
@@ -48,7 +46,7 @@ class CrashingStorm extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS_SHAMAN.CRASHING_STORMS_ENHANCEMENT_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_SHAMAN.CRASHING_STORMS_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damageGained} />
           </>

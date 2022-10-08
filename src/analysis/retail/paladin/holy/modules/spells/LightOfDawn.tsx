@@ -17,7 +17,7 @@ class LightOfDawn extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.LIGHT_OF_DAWN_HOLY_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.LIGHT_OF_DAWN_TALENT),
       this.handleCast,
     );
     this.addEventListener(
@@ -40,7 +40,7 @@ class LightOfDawn extends Analyzer {
     return (
       <Statistic position={STATISTIC_ORDER.CORE(60)} size="small">
         <BoringSpellValue
-          spellId={TALENTS.LIGHT_OF_DAWN_HOLY_TALENT.id}
+          spellId={TALENTS.LIGHT_OF_DAWN_TALENT.id}
           value={playersHitPerCast.toFixed(2)}
           label={
             <Trans id="paladin.holy.modules.lightOfDawn.avgHitPerCast">

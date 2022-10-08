@@ -54,9 +54,9 @@ class Mastery extends Analyzer {
     super(options);
 
     this.extraLbStacks = this.selectedCombatant.getTalentRank(
-      TALENTS_DRUID.HARMONIOUS_BLOOMING_RESTORATION_TALENT,
+      TALENTS_DRUID.HARMONIOUS_BLOOMING_TALENT,
     );
-    this.lbBuffId = this.selectedCombatant.hasTalent(TALENTS_DRUID.UNDERGROWTH_RESTORATION_TALENT)
+    this.lbBuffId = this.selectedCombatant.hasTalent(TALENTS_DRUID.UNDERGROWTH_TALENT)
       ? SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id
       : SPELLS.LIFEBLOOM_HOT_HEAL.id;
 

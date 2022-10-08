@@ -36,7 +36,7 @@ class PaladinAbilityTracker extends AbilityTracker {
     const spellId = event.ability.guid;
     const cast = this.getAbility(spellId, event.ability);
 
-    if (spellId === SPELLS.FLASH_OF_LIGHT.id || spellId === TALENTS.HOLY_LIGHT_HOLY_TALENT.id) {
+    if (spellId === SPELLS.FLASH_OF_LIGHT.id || spellId === TALENTS.HOLY_LIGHT_TALENT.id) {
       const hasIol = this.selectedCombatant.hasBuff(
         SPELLS.INFUSION_OF_LIGHT.id,
         event.timestamp,

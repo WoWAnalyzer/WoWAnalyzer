@@ -18,7 +18,7 @@ class AstralPowerTracker extends ResourceTracker {
     const spellId = event.ability.guid;
     if (
       spellId !== SPELLS.STARFIRE.id ||
-      !this.selectedCombatant.hasBuff(TALENTS_DRUID.WARRIOR_OF_ELUNE_BALANCE_TALENT.id)
+      !this.selectedCombatant.hasBuff(TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT.id)
     ) {
       super.onEnergize(event);
       return;
@@ -34,7 +34,7 @@ class AstralPowerTracker extends ResourceTracker {
     const eluneGain = eluneRaw - eluneWaste;
     this._applyBuilder(spellId, baseGain, baseWaste, event.timestamp, this.getResource(event));
     this._applyBuilder(
-      TALENTS_DRUID.WARRIOR_OF_ELUNE_BALANCE_TALENT.id,
+      TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT.id,
       eluneGain,
       eluneWaste,
       event.timestamp,

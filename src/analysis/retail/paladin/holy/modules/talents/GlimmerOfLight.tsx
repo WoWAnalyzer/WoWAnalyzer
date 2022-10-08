@@ -54,12 +54,12 @@ class GlimmerOfLight extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.GLIMMER_OF_LIGHT_HOLY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.GLIMMER_OF_LIGHT_TALENT.id);
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HOLY_SHOCK_HOLY_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HOLY_SHOCK_TALENT),
       this.onCast,
     );
     this.addEventListener(
@@ -91,7 +91,7 @@ class GlimmerOfLight extends Analyzer {
 
   onBeaconTransfer(event: BeaconHealEvent) {
     const spellId = event.originalHeal.ability.guid;
-    if (spellId !== TALENTS.GLIMMER_OF_LIGHT_HOLY_TALENT.id) {
+    if (spellId !== TALENTS.GLIMMER_OF_LIGHT_TALENT.id) {
       return;
     }
     this.healingTransfered += event.amount + (event.absorbed || 0);
@@ -193,7 +193,7 @@ class GlimmerOfLight extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.GLIMMER_OF_LIGHT_HOLY_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.GLIMMER_OF_LIGHT_TALENT.id}>
           <ItemHealingDone amount={this.totalHealing} /> <br />
           <ItemDamageDone amount={this.damage} /> <br />
           {this.hitsPerCast.toFixed(1)} Triggers/Cast
@@ -230,16 +230,15 @@ class GlimmerOfLight extends Analyzer {
     when(this.suggestEarlyRefresh).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="paladin.holy.modules.talents.glimmerOfLight">
-          Your usage of <SpellLink id={TALENTS.GLIMMER_OF_LIGHT_HOLY_TALENT.id} /> can be improved.
-          To maximize the healing/damage done by{' '}
-          <SpellLink id={TALENTS.GLIMMER_OF_LIGHT_HOLY_TALENT.id} />, try to keep as many buffs up
-          as possible. Avoid overwritting buffs early, this suggestion does not take priority over
-          healing targets with low health. If two targets have similar health pools priorize the
-          target without a glimmer as your <SpellLink id={TALENTS.HOLY_SHOCK_HOLY_TALENT.id} /> will
-          heal all players with active buffs.
+          Your usage of <SpellLink id={TALENTS.GLIMMER_OF_LIGHT_TALENT.id} /> can be improved. To
+          maximize the healing/damage done by <SpellLink id={TALENTS.GLIMMER_OF_LIGHT_TALENT.id} />,
+          try to keep as many buffs up as possible. Avoid overwritting buffs early, this suggestion
+          does not take priority over healing targets with low health. If two targets have similar
+          health pools priorize the target without a glimmer as your{' '}
+          <SpellLink id={TALENTS.HOLY_SHOCK_TALENT.id} /> will heal all players with active buffs.
         </Trans>,
       )
-        .icon(TALENTS.GLIMMER_OF_LIGHT_HOLY_TALENT.icon)
+        .icon(TALENTS.GLIMMER_OF_LIGHT_TALENT.icon)
         .actual(
           `Uptime lost to early Glimmer refresh was ${formatPercentage(
             this.earlyGlimmerRefreshLoss,

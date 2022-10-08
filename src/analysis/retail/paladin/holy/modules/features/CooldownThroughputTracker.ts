@@ -16,7 +16,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
     {
-      spell: TALENTS.AVENGING_CRUSADER_HOLY_TALENT.id,
+      spell: TALENTS.AVENGING_CRUSADER_TALENT.id,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,

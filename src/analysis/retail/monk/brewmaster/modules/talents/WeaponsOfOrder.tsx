@@ -17,16 +17,13 @@ class WeaponsOfOrder extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.WEAPONS_OF_ORDER_BREWMASTER_TALENT);
+    this.active = this.selectedCombatant.hasTalent(talents.WEAPONS_OF_ORDER_TALENT);
 
     if (!this.active) {
       return;
     }
 
-    this.addEventListener(
-      Events.cast.spell(talents.WEAPONS_OF_ORDER_BREWMASTER_TALENT),
-      this._resetCooldown,
-    );
+    this.addEventListener(Events.cast.spell(talents.WEAPONS_OF_ORDER_TALENT), this._resetCooldown);
   }
 
   get masteryBuffPercentage() {
@@ -34,7 +31,7 @@ class WeaponsOfOrder extends Analyzer {
   }
 
   protected _resetCooldown(event: CastEvent) {
-    const spell = talents.KEG_SMASH_BREWMASTER_TALENT.id;
+    const spell = talents.KEG_SMASH_TALENT.id;
     if (spell && this.spellUsable.isOnCooldown(spell)) {
       const cd = this.abilities.getExpectedCooldownDuration(spell)!;
       this.spellUsable.reduceCooldown(spell, cd, event.timestamp);

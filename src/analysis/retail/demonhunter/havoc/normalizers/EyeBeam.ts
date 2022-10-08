@@ -6,7 +6,7 @@ import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 
 const EVENT_ORDERS: EventOrder[] = [
   {
-    beforeEventId: TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id,
+    beforeEventId: TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id,
     beforeEventType: EventType.ApplyBuff,
     afterEventId: SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
     afterEventType: EventType.ApplyBuff,
