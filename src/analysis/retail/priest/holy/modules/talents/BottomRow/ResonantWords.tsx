@@ -36,7 +36,7 @@ class ResonantWords extends Analyzer {
     this.healingMultiplier = RESONANT_WORDS_RANKS[this.talentRank];
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FLASH_HEAL), this.onHeal);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GREATER_HEAL), this.onHeal); //Not sure why pvp talent is included
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GREATER_HEAL), this.onHeal);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_CHASTISE_TALENT),
@@ -100,9 +100,4 @@ class ResonantWords extends Analyzer {
   }
 }
 
-//<BoringSpellValueText spellId={TALENTS.RESONANT_WORDS_TALENT.id}>
-//  <ItemHealingDone amount={this.healingDoneFromTalent} />
-//  <br />
-//  {formatPercentage(this.overhealingDoneFromTalent / (this.healingDoneFromTalent + this.overhealingDoneFromTalent))}% OH
-//</BoringSpellValueText>
 export default ResonantWords;

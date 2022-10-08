@@ -15,13 +15,19 @@ class HolyWordSalvation extends HolyWordBase {
     this.serendipityProccers = {
       [SPELLS.HOLY_WORD_SERENITY.id]: {
         baseReduction: () => HOLY_WORD_SERENDIPITY_REDUCTION,
-        lightOfTheNaaruReduction: () => HOLY_WORD_SERENDIPITY_REDUCTION,
+        lightOfTheNaaruReduction: () =>
+          HOLY_WORD_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
         apotheosisReduction: () => HOLY_WORD_SERENDIPITY_REDUCTION,
+        lightOfTheNaaruAndApotheosisReduction: () =>
+          HOLY_WORD_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
       },
       [SPELLS.HOLY_WORD_SANCTIFY.id]: {
         baseReduction: () => HOLY_WORD_SERENDIPITY_REDUCTION,
-        lightOfTheNaaruReduction: () => HOLY_WORD_SERENDIPITY_REDUCTION,
+        lightOfTheNaaruReduction: () =>
+          HOLY_WORD_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
         apotheosisReduction: () => HOLY_WORD_SERENDIPITY_REDUCTION,
+        lightOfTheNaaruAndApotheosisReduction: () =>
+          HOLY_WORD_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
       },
     };
   }

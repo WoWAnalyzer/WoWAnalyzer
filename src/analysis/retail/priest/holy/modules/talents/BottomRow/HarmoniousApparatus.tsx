@@ -21,7 +21,6 @@ class HarmoniousApparatus extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-
     this.active = this.selectedCombatant.hasTalent(TALENTS.HARMONIOUS_APPARATUS_TALENT.id);
   }
 
