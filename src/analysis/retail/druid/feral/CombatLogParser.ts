@@ -1,6 +1,4 @@
 import ActiveDruidForm from 'analysis/retail/druid/shared/core/ActiveDruidForm';
-import DraughtOfDeepFocus from 'analysis/retail/druid/shared/spells/DraughtOfDeepFocus';
-import RavenousFrenzy from 'analysis/retail/druid/shared/spells/RavenousFrenzy';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import Abilities from './modules/Abilities';
@@ -68,9 +66,7 @@ class CombatLogParser extends CoreCombatLogParser {
     bloodtalons: Bloodtalons,
     apexPredatorsCraving: ApexPredatorsCraving,
     convokeSpirits: ConvokeSpiritsFeral,
-    draughtOfDeepFocus: DraughtOfDeepFocus,
     adaptiveSwarm: AdaptiveSwarmFeral,
-    ravenousFrenzy: RavenousFrenzy,
     berserkBoosts: BerserkBoosts,
 
     // resources

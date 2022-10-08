@@ -8,6 +8,7 @@ import {
   getPrimalWrathDuration,
   getRipDuration,
   getRipFullDuration,
+  MAX_CPS,
   RIP_DURATION_BASE,
   SNAPSHOT_DOWNGRADE_BUFFER,
 } from 'analysis/retail/druid/feral/constants';
@@ -17,6 +18,7 @@ import {
 } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 import Snapshots, {
   BLOODTALONS_SPEC,
+  hasSpec,
   SnapshotSpec,
   TIGERS_FURY_SPEC,
 } from 'analysis/retail/druid/feral/modules/core/Snapshots';
@@ -45,11 +47,11 @@ class RipUptimeAndSnapshots extends Snapshots {
   getDotExpectedDuration(event: ApplyDebuffEvent | RefreshDebuffEvent): number {
     const fromHardcast = getHardcast(event);
     if (fromHardcast) {
-      getRipDuration(fromHardcast, this.selectedCombatant);
+      return getRipDuration(fromHardcast, this.selectedCombatant);
     }
     const fromPrimalWrath = getPrimalWrath(event);
     if (fromPrimalWrath) {
-      getPrimalWrathDuration(fromPrimalWrath, this.selectedCombatant);
+      return getPrimalWrathDuration(fromPrimalWrath, this.selectedCombatant);
     }
 
     console.warn(
@@ -83,8 +85,7 @@ class RipUptimeAndSnapshots extends Snapshots {
       const timestamp = ripCast.timestamp;
       const targetName = this.enemies.getEntity(ripCast)?.name;
       const cpsUsed = getResourceSpent(ripCast, RESOURCE_TYPES.COMBO_POINTS);
-      const snapshotNames = snapshots.map((ss) => ss.name);
-      const prevSnapshotNames = prevSnapshots === null ? null : prevSnapshots.map((ss) => ss.name);
+      const wasNewApplication = prevSnapshots === null;
       const wasUnacceptableDowngrade =
         prevPower > power && remainingOnPrev > SNAPSHOT_DOWNGRADE_BUFFER;
       const wasUpgrade = prevPower < power;
@@ -95,8 +96,8 @@ class RipUptimeAndSnapshots extends Snapshots {
         cpsUsed,
         remainingOnPrev,
         clipped,
-        snapshotNames,
-        prevSnapshotNames,
+        snapshots,
+        wasNewApplication,
         wasUnacceptableDowngrade,
         wasUpgrade,
       });
@@ -124,9 +125,47 @@ class RipUptimeAndSnapshots extends Snapshots {
   get guideSubsection(): JSX.Element {
     const hasPw = this.selectedCombatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_TALENT);
     const hasBt = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT);
-    const castPerfBoxes = this.castLog.map((cast) => {
-      const value: QualitativePerformance = 'good'; // TODO
-      const tooltip = 'GREAT JOB NERD'; // TODO
+    const castPerfBoxes = this.castLog.map((cast, index) => {
+      /** Perf logic:
+       *  < 5 CPs (and not initial cast) -> Red
+       *  Missing BT -> Red
+       *  Missing TF -> Yellow
+       *  Clip Duration (but upgrade Snapshot) -> Yellow
+       *  Clip Duration -> Red
+       *  None of the Above -> Green
+       */
+      let value: QualitativePerformance = 'good';
+      if (cast.cpsUsed < MAX_CPS && index !== 0) {
+        value = 'fail';
+      } else if (hasBt && !hasSpec(cast.snapshots, BLOODTALONS_SPEC)) {
+        value = 'fail';
+      } else if (cast.clipped > 0) {
+        value = cast.wasUpgrade ? 'ok' : 'fail';
+      } else if (!hasSpec(cast.snapshots, TIGERS_FURY_SPEC)) {
+        value = 'ok';
+      }
+      // TODO require TF / BT
+
+      const tooltip = (
+        <>
+          @ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
+          <strong>{cast.targetName || 'unknown'}</strong> using <strong>{cast.cpsUsed} CPs</strong>
+          <br />
+          {!cast.wasNewApplication && (
+            <>
+              Refreshed on target w/ {(cast.remainingOnPrev / 1000).toFixed(1)}s remaining{' '}
+              {cast.clipped > 0 && (
+                <>
+                  <strong>- Clipped {(cast.clipped / 1000).toFixed(1)}s!</strong>
+                </>
+              )}
+              <br />
+            </>
+          )}
+          Snapshots: <strong>{cast.snapshots.map((ss) => ss.name).join(', ')}</strong>
+          <br />
+        </>
+      );
       return { value, tooltip };
     });
 
@@ -162,7 +201,12 @@ class RipUptimeAndSnapshots extends Snapshots {
         <small> - Try to get as close to 100% as the encounter allows!</small>
         {this.subStatistic()}
         <strong>Rip casts</strong>
-        <small> - Text goes here lol. Mouseover for more details.</small>
+        <small>
+          {' '}
+          - Green is a good cast, Yellow is an ok cast (clipped duration but upgraded snapshot or
+          missing Tigers Fury), Red is a bad cast (clipped duration
+          {hasBt && ' or missing Bloodtalons'}). Mouseover for more details.
+        </small>
         <PerformanceBoxRow values={castPerfBoxes} />
       </SubSection>
     );
@@ -197,10 +241,10 @@ type RipCast = {
   remainingOnPrev: number;
   /** Time clipped from previous Rip */
   clipped: number;
-  /** Name of snapshots on new cast */
-  snapshotNames: string[];
-  /** Name of snapshots on prev cast (or null for fresh application) */
-  prevSnapshotNames: string[] | null;
+  /** Snapshots on new cast */
+  snapshots: SnapshotSpec[];
+  /** True iff this was a new application */
+  wasNewApplication: boolean;
   /** True iff snapshots were downgraded with more than buffer time remaining */
   wasUnacceptableDowngrade: boolean;
   /** True iff the snapshot got stronger */

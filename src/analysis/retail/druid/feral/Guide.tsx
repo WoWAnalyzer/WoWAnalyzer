@@ -47,7 +47,7 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
   const hasPw = info.combatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_TALENT);
   const hasApc = info.combatant.hasTalent(TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT);
   const hasPc = info.combatant.hasTalent(TALENTS_DRUID.PRIMAL_CLAWS_TALENT);
-  const hasAdaptiveSwarm = info.combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT);
+  const hasAdaptiveSwarm = info.combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_SHARED_TALENT);
 
   return (
     <Section title="Core Rotation">
@@ -201,7 +201,7 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
       {hasAdaptiveSwarm && (
         <SubSection>
           <strong>
-            <SpellLink id={TALENTS_DRUID.ADAPTIVE_SWARM_TALENT.id} />
+            <SpellLink id={TALENTS_DRUID.ADAPTIVE_SWARM_SHARED_TALENT.id} />
           </strong>{' '}
           - ???
           {modules.adaptiveSwarm.subStatistic()}
