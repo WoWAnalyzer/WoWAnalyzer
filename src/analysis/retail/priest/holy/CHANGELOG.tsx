@@ -111,7 +111,7 @@ export default [
   change(
     date(2020, 12, 9),
     <>
-      Adding <SpellLink id={SPELLS.RESONANT_WORDS.id} /> module
+      Adding <SpellLink id={TALENTS.RESONANT_WORDS_TALENT.id} /> module
     </>,
     Khadaj,
   ),

@@ -534,6 +534,11 @@ const spells = spellIndexableList({
     name: 'Divine Image',
     icon: 'ability_priest_ascension',
   },
+  RESONANT_WORDS_TALENT_BUFF: {
+    id: 372313,
+    name: 'Resonant Words',
+    icon: 'spell_holy_holybolt',
+  },
 
   // Shadow Spells
   MIND_BLAST: {

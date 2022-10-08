@@ -105,6 +105,7 @@ class CombatLogParser extends CoreCombatLogParser {
     LightOfTheNaru: Talents.BottomRow.LightOfTheNaaru,
     HolyWordSalvation: Talents.BottomRow.HolyWordSalvation,
     Apotheosis: Talents.BottomRow.Apotheosis,
+    AnsweredPrayers: Talents.BottomRow.AnsweredPrayers,
 
     harmoniousApparatus: Talents.BottomRow.HarmoniousApparatus,
     divineImage: Talents.BottomRow.DivineImage,
