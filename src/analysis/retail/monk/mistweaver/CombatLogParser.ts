@@ -3,7 +3,6 @@ import {
   FallenOrder,
   FortifyingIngredients,
   GroundingBreath,
-  HarmDenial,
   ImbuedReflections,
   InvokersDelight,
   MysticTouch,
@@ -153,7 +152,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Conduits
     // Endurance
     groundingBreath: GroundingBreath,
-    harmDenial: HarmDenial,
     fortifyingIngredients: FortifyingIngredients,
 
     // Potency
