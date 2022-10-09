@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro';
 import { PHOENIX_FLAMES_MAX_CHARGES } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -26,7 +27,7 @@ class CombustionCharges extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.hasFlameOn = this.selectedCombatant.hasTalent(SPELLS.FLAME_ON_TALENT.id);
+    this.hasFlameOn = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT.id);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
       this.onCombustion,
@@ -124,9 +125,9 @@ class CombustionCharges extends Analyzer {
       suggest(
         <>
           You cast <SpellLink id={SPELLS.COMBUSTION.id} /> {this.lowFireBlastCharges} times with
-          less than {this.selectedCombatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? '2' : '1'}{' '}
+          less than {this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT.id) ? '2' : '1'}{' '}
           charges of <SpellLink id={SPELLS.FIRE_BLAST.id} />. Make sure you are saving at least{' '}
-          {this.selectedCombatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? '2' : '1'} charges while
+          {this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT.id) ? '2' : '1'} charges while
           Combustion is on cooldown so you can get as many <SpellLink id={SPELLS.HOT_STREAK.id} />{' '}
           procs as possible before Combustion ends.
         </>,

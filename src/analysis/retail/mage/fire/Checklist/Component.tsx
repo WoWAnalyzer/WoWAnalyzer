@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
@@ -30,7 +31,7 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             faster so you can continue casting or using <SpellLink id={SPELLS.SCORCH.id} /> while
             you are moving; even phases where the only target is taking 99% reduced damage is an
             opportunity to fish for procs or get cooldown reduction from crits if you are using{' '}
-            <SpellLink id={SPELLS.KINDLING_TALENT.id} />. While some encounters have forced
+            <SpellLink id={TALENTS.KINDLING_TALENT.id} />. While some encounters have forced
             downtime, which WoWAnalyzer does not account for, anything you can do to minimize your
             downtime will help your damage. Additionally, to better contextualize your downtime, we
             recommend comparing your downtime to another Fire Mage that did better than you on the
@@ -90,7 +91,7 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           tooltip="In order to get a head start on your Combustion cooldown, it is recommended to pre-cast an ability (like Fireball) and activate Combustion during that pre-cast. In order to minimize the delay after you activate Combustion, and to prevent losing a GCD during Combustion, it is recommended that you activate Combustion within the last 0.7 seconds of that pre-cast ability. If you do not want to adjust your gameplay or if you cannot accomplish this due to latency, you can tell RaidBots to use a different delay value by entering apl_variable.combustion_cast_remains=value (where value is the delay in seconds ... i.e. 1.1 or 0.9) in the Custom APL section."
           thresholds={thresholds.combustionPreCastDelay}
         />
-        {combatant.hasTalent(SPELLS.METEOR_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.METEOR_TALENT.id) && (
           <Requirement
             name="Meteor Utilization During Combustion"
             thresholds={thresholds.meteorCombustionUtilization}
@@ -121,7 +122,7 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             spells like <SpellLink id={SPELLS.FIRE_BLAST.id} /> which is always guaranteed to crit
             and spells like <SpellLink id={SPELLS.SCORCH.id} /> which are guaranteed to crit when
             the target is below 30% health (If you are using the{' '}
-            <SpellLink id={SPELLS.SEARING_TOUCH_TALENT.id} /> talent). These can be used to force{' '}
+            <SpellLink id={TALENTS.SEARING_TOUCH_TALENT.id} /> talent). These can be used to force{' '}
             <SpellLink id={SPELLS.HOT_STREAK.id} /> procs.
           </>
         }
@@ -179,34 +180,34 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           }
           spell={SPELLS.PHOENIX_FLAMES.id}
         />
-        {combatant.hasTalent(SPELLS.BLAST_WAVE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.BLAST_WAVE_TALENT.id) && (
           <AbilityRequirement
             name={
               <>
-                <SpellLink id={SPELLS.BLAST_WAVE_TALENT.id} /> Cast Efficiency
+                <SpellLink id={TALENTS.BLAST_WAVE_TALENT.id} /> Cast Efficiency
               </>
             }
-            spell={SPELLS.BLAST_WAVE_TALENT.id}
+            spell={TALENTS.BLAST_WAVE_TALENT.id}
           />
         )}
-        {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id) && (
           <AbilityRequirement
             name={
               <>
-                <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> Cast Efficiency
+                <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> Cast Efficiency
               </>
             }
-            spell={SPELLS.RUNE_OF_POWER_TALENT.id}
+            spell={TALENTS.RUNE_OF_POWER_TALENT.id}
           />
         )}
-        {combatant.hasTalent(SPELLS.LIVING_BOMB_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.LIVING_BOMB_TALENT.id) && (
           <AbilityRequirement
             name={
               <>
-                <SpellLink id={SPELLS.LIVING_BOMB_TALENT.id} /> Cast Efficiency
+                <SpellLink id={TALENTS.LIVING_BOMB_TALENT.id} /> Cast Efficiency
               </>
             }
-            spell={SPELLS.LIVING_BOMB_TALENT.id}
+            spell={TALENTS.LIVING_BOMB_TALENT.id}
           />
         )}
         {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
@@ -249,46 +250,46 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             spell={SPELLS.DEATHBORNE.id}
           />
         )}
-        {combatant.hasTalent(SPELLS.METEOR_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.METEOR_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.METEOR_TALENT.id} />
+                <SpellLink id={TALENTS.METEOR_TALENT.id} />
               </>
             }
             thresholds={thresholds.meteorEfficiency}
           />
         )}
-        {combatant.hasTalent(SPELLS.PYROCLASM_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.PYROCLASM_TALENT.id) && (
           <Requirement
             name="Pyroclasm procs used"
             thresholds={thresholds.pyroclasmUtilization}
             tooltip="Pyroclasm has a chance to give you a buff that makes your next non instant Pyroblast deal 225% additional damage. You should ensure that you are using these procs (especially during Combustion) somewhat quickly to ensure you dont waste or overwrite any of these procs."
           />
         )}
-        {combatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT.id) && (
           <Requirement
             name="Spell usage during Searing Touch"
             thresholds={thresholds.searingTouchUtilization}
             tooltip="Searing Touch causes Scorch to deal 150% additional damage and be guaranteed to crit when the target is under 30% health. Therefore it is important that when the target is under 30% health, you cast Scorch instead of Fireball."
           />
         )}
-        {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id) && (
           <Requirement
             name="Average time spent inside Rune of Power"
             thresholds={thresholds.runeOfPowerBuffUptime}
             tooltip="Using Rune of Power effectively means being able to stay within the range of it for it's entire duration. If you are unable to do so or if you frequently have to move out of the range of the buff, then either plan out a more optimal time or place to be using your Rune of Power, or consider taking a different talent instead."
           />
         )}
-        {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id) && (
           <Requirement
             name="Rune of Power overlapped casts"
             thresholds={thresholds.runeOfPowerOverlaps}
             tooltip="Casting your major cooldown (Combustion) automatically drops a Rune of Power at your feet, so you do not need to manually cast it before using Combustion. Because of this you should wait to use Rune of Power until after Combustion ends, or use it far enough before Combustion so that it will end before Combustion is cast to wasting uptime by having your runes overlapped."
           />
         )}
-        {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) &&
-          combatant.hasTalent(SPELLS.METEOR_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id) &&
+          combatant.hasTalent(TALENTS.METEOR_TALENT.id) && (
             <Requirement
               name="Meteor Overall Utilization"
               thresholds={thresholds.meteorUtilization}

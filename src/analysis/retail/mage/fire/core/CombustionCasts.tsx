@@ -1,3 +1,4 @@
+import { SharedCode } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -7,8 +8,6 @@ import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
-import { SharedCode } from '@wowanalyzer/mage';
 
 class CombustionCasts extends Analyzer {
   static dependencies = {

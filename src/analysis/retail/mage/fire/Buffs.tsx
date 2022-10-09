@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
 
@@ -28,7 +29,7 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.RUNE_OF_POWER_BUFF.id,
-        enabled: combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT),
+        enabled: combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT),
         timelineHighlight: true,
       },
       {

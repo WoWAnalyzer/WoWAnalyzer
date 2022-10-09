@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro';
 import { MS_BUFFER_100 } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -22,18 +23,18 @@ class MeteorRune extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const hasMeteor = this.selectedCombatant.hasTalent(SPELLS.METEOR_TALENT.id);
-    const hasRuneOfPower = this.selectedCombatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id);
+    const hasMeteor = this.selectedCombatant.hasTalent(TALENTS.METEOR_TALENT.id);
+    const hasRuneOfPower = this.selectedCombatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id);
     this.active = hasMeteor && hasRuneOfPower;
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.METEOR_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.METEOR_TALENT),
       this.onMeteor,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RUNE_OF_POWER_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.RUNE_OF_POWER_TALENT),
       this.onRune,
     );
   }
@@ -52,7 +53,7 @@ class MeteorRune extends Analyzer {
   }
 
   get totalMeteorCasts() {
-    return this.abilityTracker.getAbility(SPELLS.METEOR_TALENT.id).casts;
+    return this.abilityTracker.getAbility(TALENTS.METEOR_TALENT.id).casts;
   }
 
   get meteorUtilization() {
@@ -75,13 +76,13 @@ class MeteorRune extends Analyzer {
     when(this.meteorUtilSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={SPELLS.METEOR_TALENT.id} /> without{' '}
-          <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> {this.badMeteor} times. In order to get
-          the most out of <SpellLink id={SPELLS.METEOR_TALENT.id} /> you should always cast it while
-          being buffed by <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} />.
+          You cast <SpellLink id={TALENTS.METEOR_TALENT.id} /> without{' '}
+          <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> {this.badMeteor} times. In order to get
+          the most out of <SpellLink id={TALENTS.METEOR_TALENT.id} /> you should always cast it
+          while being buffed by <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} />.
         </>,
       )
-        .icon(SPELLS.METEOR_TALENT.icon)
+        .icon(TALENTS.METEOR_TALENT.icon)
         .actual(
           <Trans id="mage.fire.suggestions.meteor.runeOfPower.utilization">
             {formatPercentage(this.meteorUtilization)}% Utilization`

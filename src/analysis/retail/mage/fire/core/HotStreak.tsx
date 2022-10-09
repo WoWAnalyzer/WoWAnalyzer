@@ -6,8 +6,9 @@ import {
   FIRE_DIRECT_DAMAGE_SPELLS,
   SharedCode,
 } from 'analysis/retail/mage/shared';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellLink } from 'interface';
 import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
@@ -30,11 +31,11 @@ class HotStreak extends Analyzer {
   protected eventHistory!: EventHistory;
   protected sharedCode!: SharedCode;
 
-  hasPyroclasm: boolean = this.selectedCombatant.hasTalent(SPELLS.PYROCLASM_TALENT.id);
-  hasFirestarter: boolean = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
-  hasSearingTouch: boolean = this.selectedCombatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id);
+  hasPyroclasm: boolean = this.selectedCombatant.hasTalent(TALENTS.PYROCLASM_TALENT.id);
+  hasFirestarter: boolean = this.selectedCombatant.hasTalent(TALENTS.FIRESTARTER_TALENT.id);
+  hasSearingTouch: boolean = this.selectedCombatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT.id);
   hasFirestorm: boolean = this.selectedCombatant.hasLegendary(SPELLS.FIRESTORM);
-  hasPyromaniac: boolean = this.selectedCombatant.hasTalent(SPELLS.PYROMANIAC_TALENT.id);
+  hasPyromaniac: boolean = this.selectedCombatant.hasTalent(TALENTS.PYROMANIAC_TALENT.id);
 
   expiredProcs = () =>
     this.sharedCode.getExpiredProcs(SPELLS.HOT_STREAK, [SPELLS.PYROBLAST, SPELLS.FLAMESTRIKE])
@@ -64,6 +65,10 @@ class HotStreak extends Analyzer {
     //If Firestarter or Searing Touch was active, filter it out
     hotStreakRemovals = hotStreakRemovals.filter(hs => {
       const preCast = this.sharedCode.getPreCast(hs);
+      if (!preCast) {
+        // there is no pre-cast, bail
+        return true;
+      }
       const targetHealth = this.sharedCode.getTargetHealth(preCast);
       if (this.hasFirestarter) {
         return targetHealth && targetHealth < FIRESTARTER_THRESHOLD;
@@ -199,7 +204,7 @@ class HotStreak extends Analyzer {
           {this.hasPyroclasm ? (
             <>
               {' '}
-              or after using a <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> proc{' '}
+              or after using a <SpellLink id={TALENTS.PYROCLASM_TALENT.id} /> proc{' '}
             </>
           ) : (
             ''

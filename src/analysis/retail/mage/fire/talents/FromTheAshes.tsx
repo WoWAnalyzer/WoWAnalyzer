@@ -1,6 +1,7 @@
 import { FIRE_DIRECT_DAMAGE_SPELLS } from 'analysis/retail/mage/shared';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -21,7 +22,7 @@ class FromTheAshes extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FROM_THE_ASHES_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.FROM_THE_ASHES_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(FIRE_DIRECT_DAMAGE_SPELLS),
       this.onCritDamage,
@@ -49,7 +50,7 @@ class FromTheAshes extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
-        <BoringSpellValueText spellId={SPELLS.FROM_THE_ASHES_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.FROM_THE_ASHES_TALENT.id}>
           <>
             {formatNumber(this.cooldownReductionSeconds)}s{' '}
             <small>Phoenix Flames Cooldown Reduction</small>

@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
@@ -27,11 +28,11 @@ class Meteor extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.METEOR_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.METEOR_TALENT.id);
   }
 
   get totalMeteorCasts() {
-    return this.abilityTracker.getAbility(SPELLS.METEOR_TALENT.id).casts;
+    return this.abilityTracker.getAbility(TALENTS.METEOR_TALENT.id).casts;
   }
 
   get meteorMaxCasts() {
@@ -58,14 +59,14 @@ class Meteor extends Analyzer {
     when(this.meteorEfficiencySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You could have cast <SpellLink id={SPELLS.METEOR_TALENT.id} /> {this.meteorMaxCasts} times
-          during this fight, but you only cast it {this.totalMeteorCasts} times. While you should
-          not cast Meteor on cooldown (since you need to have it available for{' '}
+          You could have cast <SpellLink id={TALENTS.METEOR_TALENT.id} /> {this.meteorMaxCasts}{' '}
+          times during this fight, but you only cast it {this.totalMeteorCasts} times. While you
+          should not cast Meteor on cooldown (since you need to have it available for{' '}
           <SpellLink id={SPELLS.COMBUSTION.id} />
           ), you should be casting it at least once per minute.
         </>,
       )
-        .icon(SPELLS.METEOR_TALENT.icon)
+        .icon(TALENTS.METEOR_TALENT.icon)
         .actual(
           <Trans id="mage.fire.suggestions.meteor.efficiency">
             {formatPercentage(this.meteorCastEfficiency)}% Utilization
@@ -98,7 +99,7 @@ class Meteor extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.METEOR_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.METEOR_TALENT.id}>
           <>
             {formatPercentage(this.meteorCastEfficiency, 0)}%{' '}
             <small>Adjusted Cast Efficiency</small>

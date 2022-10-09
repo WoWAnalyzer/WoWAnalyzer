@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
@@ -23,7 +24,7 @@ class ShiftingPowerUsage extends Analyzer {
     super(options);
     this.active =
       this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id) &&
-      this.selectedCombatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id);
+      this.selectedCombatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIFTING_POWER),
       this.onCast,
@@ -33,7 +34,7 @@ class ShiftingPowerUsage extends Analyzer {
   onCast(event: CastEvent) {
     if (
       !this.spellUsable.isOnCooldown(SPELLS.COMBUSTION.id) ||
-      !this.spellUsable.isOnCooldown(SPELLS.RUNE_OF_POWER_TALENT.id)
+      !this.spellUsable.isOnCooldown(TALENTS.RUNE_OF_POWER_TALENT.id)
     ) {
       this.badUses += 1;
     }
@@ -60,11 +61,11 @@ class ShiftingPowerUsage extends Analyzer {
         <>
           You used <SpellLink id={SPELLS.SHIFTING_POWER.id} /> while some critical abilities (
           <SpellLink id={SPELLS.COMBUSTION.id} /> and{' '}
-          <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} />) were not on cooldown. Since{' '}
+          <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} />) were not on cooldown. Since{' '}
           <SpellLink id={SPELLS.SHIFTING_POWER.id} /> will reduce the cooldown on these spells by a
           decent amount, you want to ensure that you do not cast it unless both{' '}
           <SpellLink id={SPELLS.COMBUSTION.id} /> and{' '}
-          <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> are on cooldown.
+          <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> are on cooldown.
         </>,
       )
         .icon(SPELLS.SHIFTING_POWER.icon)
