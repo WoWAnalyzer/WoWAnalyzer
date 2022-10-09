@@ -4,11 +4,9 @@ import {
   DivertedEnergy,
   ElementalBarrier,
   GroundingSurge,
-  IreOfTheAscended,
   MirrorImage,
   RuneOfPower,
   ShiftingPower,
-  SiphonedMalice,
   TempestBarrier,
 } from 'analysis/retail/mage/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
@@ -91,9 +89,7 @@ class CombatLogParser extends CoreCombatLogParser {
     artificeOfTheArchmage: ArtificeOfTheArchmage,
     divertedEnergy: DivertedEnergy,
     groundingSurge: GroundingSurge,
-    ireOfTheAscended: IreOfTheAscended,
     tempestBarrier: TempestBarrier,
-    siphonedMalice: SiphonedMalice,
   };
 }
 

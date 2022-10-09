@@ -28,7 +28,7 @@ class ArcaneEcho extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ARCANE_ECHO_ARCANE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ARCANE_ECHO_TALENT.id);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_MISSILES),
       this.onMissilesCast,
@@ -93,7 +93,7 @@ class ArcaneEcho extends Analyzer {
         <>
           You failed to cast enough <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> into{' '}
           <SpellLink id={SPELLS.TOUCH_OF_THE_MAGI.id} /> {this.badTouchUses} times. When using{' '}
-          <SpellLink id={TALENTS.ARCANE_ECHO_ARCANE_TALENT.id} /> you should be casting{' '}
+          <SpellLink id={TALENTS.ARCANE_ECHO_TALENT.id} /> you should be casting{' '}
           <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> non-stop (Whether you have{' '}
           <SpellLink id={SPELLS.CLEARCASTING_ARCANE.id} /> procs or not) until the{' '}
           <SpellLink id={SPELLS.TOUCH_OF_THE_MAGI.id} /> debuff is removed from the target.
@@ -122,7 +122,7 @@ class ArcaneEcho extends Analyzer {
             : ''
         } In order to get the most out of Arcane Echo, you should be hard casting Arcane Missiles into Touch of the Magi until the debuff is removed.`}
       >
-        <BoringSpellValueText spellId={TALENTS.ARCANE_ECHO_ARCANE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.ARCANE_ECHO_TALENT.id}>
           <>
             <SpellIcon id={SPELLS.ARCANE_MISSILES.id} /> {formatNumber(this.averageCastsPerTouch)}{' '}
             <small>Average casts per Touch of the Magi</small>

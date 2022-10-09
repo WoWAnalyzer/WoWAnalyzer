@@ -23,9 +23,9 @@ class ArcaneOrb extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ARCANE_ORB_ARCANE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ARCANE_ORB_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_ORB_ARCANE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_ORB_TALENT),
       this.onOrbCast,
     );
     this.addEventListener(
@@ -54,9 +54,7 @@ class ArcaneOrb extends Analyzer {
   }
 
   get averageHitsPerCast() {
-    return (
-      this.totalHits / this.abilityTracker.getAbility(TALENTS.ARCANE_ORB_ARCANE_TALENT.id).casts
-    );
+    return this.totalHits / this.abilityTracker.getAbility(TALENTS.ARCANE_ORB_TALENT.id).casts;
   }
 
   get missedOrbsThresholds() {
@@ -74,13 +72,12 @@ class ArcaneOrb extends Analyzer {
     when(this.missedOrbsThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={TALENTS.ARCANE_ORB_ARCANE_TALENT.id} /> {this.badCasts} times
-          without hitting anything. While it is acceptable to use this ability on Single Target
-          encounters, you need to ensure you are aiming the ability so that it will at least hit one
-          target.
+          You cast <SpellLink id={TALENTS.ARCANE_ORB_TALENT.id} /> {this.badCasts} times without
+          hitting anything. While it is acceptable to use this ability on Single Target encounters,
+          you need to ensure you are aiming the ability so that it will at least hit one target.
         </>,
       )
-        .icon(TALENTS.ARCANE_ORB_ARCANE_TALENT.icon)
+        .icon(TALENTS.ARCANE_ORB_TALENT.icon)
         .actual(
           <Trans id="mage.arcane.suggestions.arcaneOrb.badCasts">
             {formatNumber(this.badCasts)} Missed Orbs
@@ -103,7 +100,7 @@ class ArcaneOrb extends Analyzer {
             : ''
         } Casting Arcane Orb when it will only hit one target is still beneficial and acceptable, but if you can aim it so that it hits multiple enemies then you should.`}
       >
-        <BoringSpellValueText spellId={TALENTS.ARCANE_ORB_ARCANE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.ARCANE_ORB_TALENT.id}>
           <>
             {formatNumber(this.averageHitsPerCast)} <small>Average hits per cast</small>
           </>

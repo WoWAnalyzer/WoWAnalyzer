@@ -143,24 +143,24 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           }
           spell={SPELLS.EVOCATION.id}
         />
-        {combatant.hasTalent(TALENTS.ARCANE_ORB_ARCANE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.ARCANE_ORB_TALENT.id) && (
           <AbilityRequirement
             name={
               <>
-                <SpellLink id={TALENTS.ARCANE_ORB_ARCANE_TALENT.id} /> Cast Efficiency
+                <SpellLink id={TALENTS.ARCANE_ORB_TALENT.id} /> Cast Efficiency
               </>
             }
-            spell={TALENTS.ARCANE_ORB_ARCANE_TALENT.id}
+            spell={TALENTS.ARCANE_ORB_TALENT.id}
           />
         )}
-        {combatant.hasTalent(TALENTS.SUPERNOVA_ARCANE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SUPERNOVA_TALENT.id) && (
           <AbilityRequirement
             name={
               <>
-                <SpellLink id={TALENTS.SUPERNOVA_ARCANE_TALENT.id} /> Cast Efficiency
+                <SpellLink id={TALENTS.SUPERNOVA_TALENT.id} /> Cast Efficiency
               </>
             }
-            spell={TALENTS.SUPERNOVA_ARCANE_TALENT.id}
+            spell={TALENTS.SUPERNOVA_TALENT.id}
           />
         )}
         {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id) && (
@@ -217,21 +217,21 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
             tooltip="Casting your major cooldown (Combustion) automatically drops a Rune of Power at your feet, so you do not need to manually cast it before using Combustion. Because of this you should wait to use Rune of Power until after Combustion ends, or use it far enough before Combustion so that it will end before Combustion is cast to wasting uptime by having your runes overlapped."
           />
         )}
-        {combatant.hasTalent(TALENTS.ARCANE_ECHO_ARCANE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.ARCANE_ECHO_TALENT.id) && (
           <Requirement
             name="Bad Touch of the Magi Uses"
             tooltip="Arcane Echo causes direct damage abilities, like Arcane Missiles, to pulse damage to up to 8 nearby targets. Because of this, you should be non-stop casting Arcane Missiles (whether you have Clearcasting procs or not), into any target with the Touch of the Magi debuff until that debuff is removed."
             thresholds={thresholds.arcaneEchoLowUsage}
           />
         )}
-        {combatant.hasTalent(TALENTS.RULE_OF_THREES_ARCANE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RULE_OF_THREES_TALENT.id) && (
           <Requirement
             name="Rule of Threes Buff Usage"
             tooltip="Rule of Threes gives you a free cast of Arcane Blast when you hit 3 Arcane Charges so you shoud always ensure you are using that free charge before you clear your Arcane Charges with Barrage since there is no negative mana impact to doing so."
             thresholds={thresholds.ruleOfThreesUsage}
           />
         )}
-        {combatant.hasTalent(TALENTS.ARCANE_ORB_ARCANE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.ARCANE_ORB_TALENT.id) && (
           <Requirement
             name="Missed Arcane Orbs"
             tooltip="Arcane Orb is a skillshot which means that it is important for you to aim it properly in order to get the most out of it. Therefore, on single target you should always ensure that the enemy gets hit by it, and if there are multiple enemies then you should do what you can to ensure all or most of them will get hit by the Orb as well."

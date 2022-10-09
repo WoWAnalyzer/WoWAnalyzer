@@ -69,34 +69,34 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.SUPERNOVA_ARCANE_TALENT.id,
+        spell: TALENTS.SUPERNOVA_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
         cooldown: 25,
-        enabled: combatant.hasTalent(TALENTS.SUPERNOVA_ARCANE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SUPERNOVA_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
       },
       {
-        spell: TALENTS.NETHER_TEMPEST_ARCANE_TALENT.id,
+        spell: TALENTS.NETHER_TEMPEST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.NETHER_TEMPEST_ARCANE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.NETHER_TEMPEST_TALENT.id),
       },
       {
-        spell: TALENTS.ARCANE_ORB_ARCANE_TALENT.id,
+        spell: TALENTS.ARCANE_ORB_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
         cooldown: 20,
-        enabled: combatant.hasTalent(TALENTS.ARCANE_ORB_ARCANE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.ARCANE_ORB_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -113,13 +113,13 @@ class Abilities extends CoreAbilities {
         cooldown: 300,
       },
       {
-        spell: TALENTS.ARCANE_FAMILIAR_ARCANE_TALENT.id,
+        spell: TALENTS.ARCANE_FAMILIAR_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
         },
         cooldown: 10,
-        enabled: combatant.hasTalent(TALENTS.ARCANE_FAMILIAR_ARCANE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.ARCANE_FAMILIAR_TALENT.id),
       },
       {
         spell: SPELLS.ARCANE_POWER.id,

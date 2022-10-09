@@ -15,7 +15,7 @@ import { getHitCount } from '../../normalizers/CastLinkNormalizer';
 const CAST_SPELLS = [
   SPELLS.ARCANE_BLAST,
   SPELLS.ARCANE_EXPLOSION,
-  TALENTS.ARCANE_ORB_ARCANE_TALENT,
+  TALENTS.ARCANE_ORB_TALENT,
   SPELLS.ARCANE_BARRAGE,
 ];
 const AOE_TARGET_THRESHOLD = 3;
@@ -107,7 +107,7 @@ class RadiantSpark extends Analyzer {
           casts in before <SpellLink id={SPELLS.RADIANT_SPARK.id} /> ends. Alternatively, if there
           is {AOE_TARGET_THRESHOLD} targets or more, you can use{' '}
           <SpellLink id={SPELLS.ARCANE_EXPLOSION.id} />,{' '}
-          <SpellLink id={TALENTS.ARCANE_ORB_ARCANE_TALENT.id} />, and{' '}
+          <SpellLink id={TALENTS.ARCANE_ORB_TALENT.id} />, and{' '}
           <SpellLink id={SPELLS.ARCANE_BARRAGE.id} /> instead of{' '}
           <SpellLink id={SPELLS.ARCANE_BLAST.id} />.
         </>,
