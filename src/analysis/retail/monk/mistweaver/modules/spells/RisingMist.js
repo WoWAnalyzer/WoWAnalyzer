@@ -215,7 +215,6 @@ class RisingMist extends Analyzer {
           spellId !== SPELLS.ESSENCE_FONT_BUFF.id &&
           this.hotTracker.hots[playerId][spellIdString].attributions.length === 0
         ) {
-          console.log(spellIdString + ' has no attributions');
           return;
         }
         this.hotTracker.addExtension(
