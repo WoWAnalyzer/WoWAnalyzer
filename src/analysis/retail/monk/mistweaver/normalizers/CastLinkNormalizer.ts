@@ -15,7 +15,7 @@ export const APPLIED_HEAL = 'AppliedHeal';
 export const BOUNCED = 'Bounced';
 export const FROM_HARDCAST = 'FromHardcast';
 
-const CAST_BUFFER_MS = 2000;
+const CAST_BUFFER_MS = 150;
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -25,17 +25,29 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.RENEWING_MIST.id,
     referencedEventType: [EventType.Cast],
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: 1500,
+    backwardBufferMs: 1500,
   },
+  // link renewing mist switching targets
   {
     linkRelation: BOUNCED,
     linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
     linkingEventType: [EventType.ApplyBuff],
     referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
+    referencedEventType: [EventType.RemoveBuff],
+    forwardBufferMs: 0,
+    backwardBufferMs: 500,
+    anyTarget: true,
+  },
+  // link renewing mist to when it got applied
+  {
+    linkRelation: BOUNCED,
+    linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
+    linkingEventType: [EventType.RemoveBuff],
+    referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
     referencedEventType: [EventType.ApplyBuff],
-    forwardBufferMs: 5,
-    backwardBufferMs: 5,
+    forwardBufferMs: 0,
+    backwardBufferMs: 250000,
   },
   {
     linkRelation: FROM_HARDCAST,
@@ -76,16 +88,31 @@ class CastLinkNormalizer extends EventLinkNormalizer {
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
 export function isFromHardcast(event: AbilityEvent<any>): boolean {
+  const hardCastRelated = GetRelatedEvents(event, FROM_HARDCAST);
+  if (hardCastRelated.length > 0 && hardCastRelated[0].type === 'cast') {
+    const cast = hardCastRelated[0] as CastEvent;
+    console.log('Found cast for event at ' + event.timestamp + ' for ' + event.ability.name);
+    return cast.ability.name === event.ability.name;
+  }
   if (HasRelatedEvent(event, BOUNCED)) {
     const related = GetRelatedEvents(event, BOUNCED);
-    if (related[0].timestamp > event.timestamp) {
-      return isFromHardcast(related[0] as ApplyBuffEvent);
-    }
-  }
-  const related = GetRelatedEvents(event, FROM_HARDCAST);
-  if (related.length > 0 && related[0].type === 'cast') {
-    const cast = related[0] as CastEvent;
-    return cast.ability.name === event.ability.name;
+    let minEvent = related[0];
+    related.forEach(function (ev) {
+      if (ev.timestamp < minEvent.timestamp) {
+        minEvent = ev;
+      }
+    });
+    console.log(
+      'Recursing on type ' +
+        minEvent.type +
+        ' at ' +
+        minEvent.timestamp +
+        ' for passed type ' +
+        event.type +
+        ' at ' +
+        event.timestamp,
+    );
+    return isFromHardcast(minEvent as ApplyBuffEvent);
   }
   return false;
 }

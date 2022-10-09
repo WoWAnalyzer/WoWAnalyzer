@@ -36,18 +36,21 @@ class HotAttributor extends Analyzer {
 
   onApplyRem(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (event.prepull || isFromHardcast(event)) {
+      console.log(event.ability.name + ' true ' + event.targetID + ' ' + event.timestamp);
       this.hotTracker.addAttributionFromApply(this.REMAttrib, event);
     }
   }
 
   onApplyEnvm(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (event.prepull || isFromHardcast(event)) {
+      console.log(event.ability.name + ' true ' + event.targetID);
       this.hotTracker.addAttributionFromApply(this.envMistAttrib, event);
     }
   }
 
   onApplyEF(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (event.prepull || isFromHardcast(event)) {
+      console.log(event.ability.name + ' true ' + event.targetID);
       this.hotTracker.addAttributionFromApply(this.EFAttrib, event);
     }
   }

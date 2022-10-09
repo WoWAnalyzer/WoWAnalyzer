@@ -357,6 +357,14 @@ class EventsTab extends Component {
                     flexGrow={1}
                   />
                   <Column
+                    dataKey="timestamp"
+                    label="Timestamp"
+                    cellRenderer={({ cellData }) => cellData}
+                    disableSort
+                    width={25}
+                    flexGrow={1}
+                  />
+                  <Column
                     dataKey="type"
                     label="Event"
                     cellRenderer={({ cellData }) => (
