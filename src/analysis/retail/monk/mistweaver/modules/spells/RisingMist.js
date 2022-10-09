@@ -86,6 +86,7 @@ class RisingMist extends Analyzer {
   };
   risingMistCount = 0;
   risingMists = [];
+  remCastGUIDS = Set;
   efsExtended = 0;
   remCount = 0;
   efCount = 0;
@@ -208,6 +209,13 @@ class RisingMist extends Analyzer {
         const spellId = Number(spellIdString);
 
         const attribution = newRisingMist;
+        if (
+          spellId !== SPELLS.ESSENCE_FONT_BUFF.id &&
+          this.hotTracker.hots[playerId][spellIdString].attributions.length === 0
+        ) {
+          console.log(spellIdString + ' has no attributions');
+          return;
+        }
         this.hotTracker.addExtension(
           attribution,
           RISING_MIST_EXTENSION,
@@ -223,7 +231,10 @@ class RisingMist extends Analyzer {
         } else if (spellId === SPELLS.RENEWING_MIST_HEAL.id) {
           foundTarget = true;
           this.remCount += 1;
-        } else if (spellId === SPELLS.ENVELOPING_MIST.id) {
+        } else if (
+          spellId === SPELLS.ENVELOPING_MIST.id ||
+          spellId === SPELLS.ENVELOPING_MIST_TFT
+        ) {
           foundTarget = true;
           this.evmCount += 1;
         }

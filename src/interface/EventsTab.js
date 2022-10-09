@@ -383,6 +383,14 @@ class EventsTab extends Component {
                     flexGrow={1}
                   />
                   <Column
+                    dataKey="targetID"
+                    label="targetId"
+                    cellRenderer={({ cellData }) => cellData}
+                    disableSort
+                    width={50}
+                    flexGrow={1}
+                  />
+                  <Column
                     dataKey="ability"
                     label="Ability"
                     cellRenderer={({ cellData }) => this.renderAbility(cellData)}
