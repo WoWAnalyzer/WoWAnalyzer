@@ -12,6 +12,7 @@ import {
   ShiftingPower,
   SiphonedMalice,
   TempestBarrier,
+  SharedCode,
 } from 'analysis/retail/mage/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -28,8 +29,6 @@ import CombustionSpellUsage from './modules/features/CombustionSpellUsage';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import HeatingUp from './modules/features/HeatingUp';
 import HotStreak from './modules/features/HotStreak';
-import HotStreakPreCasts from './modules/features/HotStreakPreCasts';
-import HotStreakWastedCrits from './modules/features/HotStreakWastedCrits';
 import MirrorsOfTormentUsage from './modules/features/MirrorsOfTormentUsage';
 import PhoenixFlames from './modules/features/PhoenixFlames';
 import Pyroclasm from './modules/features/Pyroclasm';
@@ -64,6 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Checklist
     checklist: Checklist,
     buffs: Buffs,
+    sharedCode: SharedCode,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -71,8 +71,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     cancelledCasts: CancelledCasts,
     hotStreak: HotStreak,
-    hotStreakPreCasts: HotStreakPreCasts,
-    hotStreakWastedCrits: HotStreakWastedCrits,
     combustionCasts: CombustionCasts,
     combustionCharges: CombustionCharges,
     combustionSpellUsage: CombustionSpellUsage,
