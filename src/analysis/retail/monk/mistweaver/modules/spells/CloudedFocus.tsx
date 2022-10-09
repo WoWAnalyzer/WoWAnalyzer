@@ -30,7 +30,7 @@ class CloudedFocus extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.CLOUDED_FOCUS);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.CLOUDED_FOCUS_TALENT);
     if (!this.active) {
       return;
     }
@@ -52,7 +52,9 @@ class CloudedFocus extends Analyzer {
       this.calculateManaEffect,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, SPELLS.ENVELOPING_MIST]),
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.VIVIFY, SPELLS.ENVELOPING_MIST, SPELLS.ENVELOPING_BREATH]),
       this.calculateHealingEffect,
     );
   }
@@ -91,9 +93,9 @@ class CloudedFocus extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.CLOUDED_FOCUS_BUFF.id}>
+        <BoringSpellValueText spellId={TALENTS_MONK.CLOUDED_FOCUS_TALENT.id}>
           <ItemHealingDone amount={this.healingDone} />
           <br />
           <ItemManaGained amount={this.manaSaved} />

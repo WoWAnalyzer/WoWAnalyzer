@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import conduitScaling from 'parser/core/conduitScaling';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -10,7 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { LIFE_COCOON_HEALING_BOOST, NOURISHING_CHI_RANK_ONE } from '../../../constants';
+import { LIFE_COCOON_HEALING_BOOST, NOURISHING_CHI_INC } from '../../constants';
 
 /**
  * HoT Healing during Life cocoon is buffed by x% and this boost lasts for an extra 6 second after cocoon breaks or ends.
@@ -23,19 +23,17 @@ class NourishingChi extends Analyzer {
   };
   healing: number = 0;
   boost: number = 0;
-  conduitRank: number = 0;
   protected combatants!: Combatants;
 
   constructor(options: Options) {
     super(options);
 
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.NOURISHING_CHI.id);
-    if (!this.conduitRank) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.NOURISHING_CHI_TALENT)) {
       this.active = false;
       return;
     }
 
-    this.boost = conduitScaling(NOURISHING_CHI_RANK_ONE, this.conduitRank);
+    this.boost = NOURISHING_CHI_INC;
     this.addEventListener(Events.heal, this.heal);
   }
 
@@ -72,7 +70,7 @@ class NourishingChi extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spellId={SPELLS.NOURISHING_CHI.id}>
           <ItemHealingDone amount={this.healing} />

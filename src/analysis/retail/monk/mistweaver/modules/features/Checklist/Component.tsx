@@ -94,7 +94,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         {combatant.hasTalent(TALENTS_MONK.CHI_WAVE_TALENT.id) && (
           <AbilityRequirement spell={TALENTS_MONK.CHI_WAVE_TALENT.id} />
         )}
-        <AbilityRequirement spell={SPELLS.REVIVAL.id} />
+        <AbilityRequirement spell={TALENTS_MONK.REVIVAL_TALENT.id} />
         {!combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id} />
         )}

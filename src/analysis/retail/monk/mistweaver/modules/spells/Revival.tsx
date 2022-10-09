@@ -1,5 +1,7 @@
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { Talent } from 'common/TALENTS/types';
+import { TALENTS_MONK } from 'common/TALENTS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -9,17 +11,18 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { SPELL_COLORS } from '../../constants';
-import RisingSunRevival from '../shadowlands/conduits/RisingSunRevival';
+import UpliftedSpirits from './UpliftedSpirits';
 
 const BUFFER = 500;
 
 class Revival extends Analyzer {
   static dependencies = {
-    risingSunRevival: RisingSunRevival,
+    upliftedSpirits: UpliftedSpirits,
   };
 
-  protected risingSunRevival!: RisingSunRevival;
+  protected upliftedSpirits!: UpliftedSpirits;
 
+  activeTalent!: Talent;
   revivalDirectHealing: number = 0;
   revivalDirectOverHealing: number = 0;
 
@@ -33,11 +36,32 @@ class Revival extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS_MONK.RESTORAL_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS_MONK.REVIVAL_TALENT);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.REVIVAL), this.revivalCast);
+    if (!this.active) {
+      return;
+    }
+
+    this.activeTalent = this.getRevivalTalent();
 
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REVIVAL),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.REVIVAL_TALENT),
+      this.revivalCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RESTORAL_TALENT),
+      this.revivalCast,
+    );
+
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.REVIVAL_TALENT),
+      this.handleRevivalDirect,
+    );
+
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.RESTORAL_TALENT),
       this.handleRevivalDirect,
     );
 
@@ -50,6 +74,12 @@ class Revival extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.BONEDUST_BREW_GUST_OF_MIST),
       this.handleBDBGustsOfMist,
     );
+  }
+
+  getRevivalTalent() {
+    return this.selectedCombatant.hasTalent(TALENTS_MONK.RESTORAL_TALENT)
+      ? TALENTS_MONK.RESTORAL_TALENT
+      : TALENTS_MONK.REVIVAL_TALENT;
   }
 
   revivalCast(event: CastEvent) {
@@ -81,8 +111,8 @@ class Revival extends Analyzer {
     const items = [
       {
         color: SPELL_COLORS.REVIVAL,
-        label: 'Revival',
-        spellId: SPELLS.REVIVAL.id,
+        label: this.activeTalent.name,
+        spellId: this.activeTalent.id,
         value: this.revivalDirectHealing,
         valueTooltip: formatThousands(this.revivalDirectHealing),
       },
@@ -95,13 +125,13 @@ class Revival extends Analyzer {
       },
     ];
 
-    if (this.selectedCombatant.conduitRankBySpellID(SPELLS.RISING_SUN_REVIVAL.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.UPLIFTED_SPIRITS_TALENT.id)) {
       items.push({
-        color: SPELL_COLORS.RISING_SUN_REVIVAL,
-        label: 'Rising Sun Revival',
-        spellId: SPELLS.RISING_SUN_REVIVAL.id,
-        value: this.risingSunRevival.rsrHealing,
-        valueTooltip: formatThousands(this.risingSunRevival.rsrHealing),
+        color: SPELL_COLORS.UPLIFTED_SPIRITS,
+        label: 'Uplifted Spirits',
+        spellId: TALENTS_MONK.UPLIFTED_SPIRITS_TALENT.id,
+        value: this.upliftedSpirits.usHealing,
+        valueTooltip: formatThousands(this.upliftedSpirits.usHealing),
       });
     }
 
@@ -123,7 +153,7 @@ class Revival extends Analyzer {
       <Statistic position={STATISTIC_ORDER.CORE(20)} size="flexible">
         <div className="pad">
           <label>
-            <SpellLink id={SPELLS.REVIVAL.id}>Revival</SpellLink> breakdown
+            <SpellLink id={this.activeTalent.id}>{this.activeTalent.name}</SpellLink> breakdown
           </label>
           {this.renderRevivalChart()}
         </div>

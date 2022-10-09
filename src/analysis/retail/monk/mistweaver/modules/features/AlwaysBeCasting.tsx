@@ -13,7 +13,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.ESSENCE_FONT.id,
     SPELLS.RENEWING_MIST.id,
     SPELLS.VIVIFY.id,
-    SPELLS.REVIVAL.id,
+    TALENTS_MONK.REVIVAL_TALENT.id,
+    TALENTS_MONK.RESTORAL_TALENT.id,
     TALENTS_MONK.CHI_BURST_TALENT.id,
     TALENTS_MONK.CHI_WAVE_TALENT.id,
     TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id,
@@ -41,7 +42,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       );
       this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.handleChijiDeath);
     }
-    if (this.selectedCombatant.hasLegendary(SPELLS.ANCIENT_TEACHINGS_OF_THE_MONASTERY)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT)) {
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.TIGER_PALM.id);
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK.id);
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK_SECOND.id);

@@ -21,6 +21,7 @@ class ThunderFocusTea extends Analyzer {
   castsTftViv: number = 0;
   castsTftEnm: number = 0;
   castsTftRem: number = 0;
+  castsTftEF: number = 0;
 
   castsTft: number = 0;
   castsUnderTft: number = 0;
@@ -103,6 +104,12 @@ class ThunderFocusTea extends Analyzer {
         this.correctCasts += 1;
         debug && console.log('REM TFT Check ', event.timestamp);
       }
+      if (TALENTS_MONK.ESSENCE_FONT_TALENT.id === spellId) {
+        this.castsUnderTft += 1;
+        this.castsTftEF += 1;
+        this.correctCasts += 1;
+        debug && console.log('REM EF Check ', event.timestamp);
+      }
     }
   }
 
@@ -131,6 +138,12 @@ class ThunderFocusTea extends Analyzer {
         label: 'Rising Sun Kick',
         spellId: SPELLS.RISING_SUN_KICK.id,
         value: this.castsTftRsk,
+      },
+      {
+        color: SPELL_COLORS.ESSENCE_FONT,
+        label: 'Essence Font',
+        spellId: TALENTS_MONK.ESSENCE_FONT_TALENT.id,
+        value: this.castsTftEF,
       },
     ];
 

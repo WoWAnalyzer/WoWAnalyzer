@@ -364,7 +364,7 @@ const talents = createTalentList({
   RESTORAL_TALENT: {
     id: 388615,
     name: 'Restoral',
-    icon: 'spell_monk_revival',
+    icon: 'ability_monk_tigerstyle',
     maxRanks: 1,
     manaCost: 2000,
   },
@@ -390,7 +390,7 @@ const talents = createTalentList({
   UPLIFTED_SPIRITS_TALENT: {
     id: 388551,
     name: 'Uplifted Spirits',
-    icon: 'spell_monk_revival',
+    icon: 'monk_stance_wiseserpent',
     maxRanks: 1,
   },
   FONT_OF_LIFE_TALENT: {
