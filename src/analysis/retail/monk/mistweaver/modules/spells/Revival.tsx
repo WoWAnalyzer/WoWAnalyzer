@@ -9,7 +9,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { SPELL_COLORS } from '../../constants';
-import RisingSunRevival from '../shadowlands/conduits/RisingSunRevival';
+import RisingSunRevival from '../spells/RisingSunRevival';
 
 const BUFFER = 500;
 

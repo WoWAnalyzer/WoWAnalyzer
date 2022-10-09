@@ -10,14 +10,14 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
-import FaelineStompHealing from '../shadowlands/covenant/FaelineStompHealing';
+import FaelineStompHealing from '../spells/FaelineStompHealing';
 import EnvelopingMists from '../spells/EnvelopingMists';
 import EssenceFont from '../spells/EssenceFont';
 import ExpelHarm from '../spells/ExpelHarm';
 import RenewingMist from '../spells/RenewingMist';
 import SoothingMist from '../spells/SoothingMist';
 import Vivify from '../spells/Vivify';
-import RefreshingJadeWind from '../talents/RefreshingJadeWind';
+import RefreshingJadeWind from '../spells/RefreshingJadeWind';
 
 class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
