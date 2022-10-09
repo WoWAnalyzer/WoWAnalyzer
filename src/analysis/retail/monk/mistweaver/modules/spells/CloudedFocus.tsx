@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, {
@@ -29,7 +30,7 @@ class CloudedFocus extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.CLOUDED_FOCUS);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.CLOUDED_FOCUS_TALENT);
     if (!this.active) {
       return;
     }
@@ -51,7 +52,9 @@ class CloudedFocus extends Analyzer {
       this.calculateManaEffect,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, SPELLS.ENVELOPING_MIST]),
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.VIVIFY, SPELLS.ENVELOPING_MIST, SPELLS.ENVELOPING_BREATH]),
       this.calculateHealingEffect,
     );
   }
@@ -62,7 +65,7 @@ class CloudedFocus extends Analyzer {
     }
 
     let cost = event.rawResourceCost ? event.rawResourceCost[0] : 0;
-    if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {
+    if (this.selectedCombatant.hasBuff(TALENTS_MONK.MANA_TEA_TALENT.id)) {
       cost /= 2;
     }
 
@@ -90,9 +93,9 @@ class CloudedFocus extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.CLOUDED_FOCUS_BUFF.id}>
+        <BoringSpellValueText spellId={TALENTS_MONK.CLOUDED_FOCUS_TALENT.id}>
           <ItemHealingDone amount={this.healingDone} />
           <br />
           <ItemManaGained amount={this.manaSaved} />

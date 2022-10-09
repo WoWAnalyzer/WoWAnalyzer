@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -36,7 +37,7 @@ class SpiritOfTheCrane extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.SPIRIT_OF_THE_CRANE_TALENT.id);
 
     if (!this.active) {
       return;
@@ -120,13 +121,13 @@ class SpiritOfTheCrane extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are not utilizing your <SpellLink id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} /> talent
-          as effectively as you could. Make sure you are using any available downtime to use{' '}
+          You are not utilizing your <SpellLink id={TALENTS_MONK.SPIRIT_OF_THE_CRANE_TALENT.id} />{' '}
+          talent as effectively as you could. Make sure you are using any available downtime to use{' '}
           <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> to
           take advantage of this talent.
         </>,
       )
-        .icon(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.icon)
+        .icon(TALENTS_MONK.SPIRIT_OF_THE_CRANE_TALENT.icon)
         .actual(
           `${formatNumber(this.manaReturn)}${t({
             id: 'monk.mistweaver.suggestions.spiritOfTheCrane.manaReturned',
@@ -164,7 +165,7 @@ class SpiritOfTheCrane extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} /> Mana Returned
+              <SpellIcon id={TALENTS_MONK.SPIRIT_OF_THE_CRANE_TALENT.id} /> Mana Returned
             </>
           }
         >

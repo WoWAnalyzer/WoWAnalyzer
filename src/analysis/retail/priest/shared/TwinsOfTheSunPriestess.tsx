@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -58,10 +59,10 @@ class TwinsOfTheSunPriestess extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You had {this.badCasts} bad {castsPlural} of <SpellLink id={SPELLS.POWER_INFUSION.id} />{' '}
-          by using it on yourself. When taking this legendary, make sure to always use it on an
-          ally. By using it on yourself, you lose out on a free{' '}
-          <SpellLink id={SPELLS.POWER_INFUSION.id} /> for a raid member.
+          You had {this.badCasts} bad {castsPlural} of{' '}
+          <SpellLink id={TALENTS.POWER_INFUSION_TALENT.id} /> by using it on yourself. When taking
+          this legendary, make sure to always use it on an ally. By using it on yourself, you lose
+          out on a free <SpellLink id={TALENTS.POWER_INFUSION_TALENT.id} /> for a raid member.
         </>,
       )
         .icon(SPELLS.TWINS_OF_THE_SUN_PRIESTESS.icon)

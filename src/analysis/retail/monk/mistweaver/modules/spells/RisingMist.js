@@ -1,5 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -18,7 +19,7 @@ const debug = false;
 
 const RISING_MIST_EXTENSION = 4000;
 
-const UNAFFECTED_SPELLS = [SPELLS.ENVELOPING_MIST.id];
+const UNAFFECTED_SPELLS = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
 class RisingMist extends Analyzer {
   get averageExtension() {
@@ -108,15 +109,15 @@ class RisingMist extends Analyzer {
 
   constructor(...options) {
     super(...options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.RISING_MIST_TALENT.id);
-    this.evmHealingIncrease = this.selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id)
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id);
+    this.evmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT.id)
       ? 0.4
       : 0.3;
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RISING_SUN_KICK_TALENT),
       this.extendHots,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleVivify);
@@ -154,11 +155,11 @@ class RisingMist extends Analyzer {
     const spellId = event.ability.guid;
     if (
       !this.hotTracker.hots[targetId] ||
-      !this.hotTracker.hots[targetId][SPELLS.ENVELOPING_MIST.id]
+      !this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id]
     ) {
       return;
     }
-    const object = this.hotTracker.hots[targetId][SPELLS.ENVELOPING_MIST.id];
+    const object = this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
     if (UNAFFECTED_SPELLS.includes(spellId)) {
       return;
@@ -283,7 +284,7 @@ class RisingMist extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.RISING_MIST_TALENT.id} /> Healing Contributed
+              <SpellIcon id={TALENTS_MONK.RISING_MIST_TALENT.id} /> Healing Contributed
             </>
           }
         >

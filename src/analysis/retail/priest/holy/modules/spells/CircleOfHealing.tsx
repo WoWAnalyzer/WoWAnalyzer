@@ -1,5 +1,5 @@
 import { formatPercentage, formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -18,11 +18,11 @@ class CircleOfHealing extends Analyzer {
     super(options);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CIRCLE_OF_HEALING_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CIRCLE_OF_HEALING_TALENT),
       this.onCohCast,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CIRCLE_OF_HEALING_TALENT),
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.CIRCLE_OF_HEALING_TALENT),
       this.onCohHeal,
     );
   }
@@ -41,14 +41,14 @@ class CircleOfHealing extends Analyzer {
 
   onCohCast(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.CIRCLE_OF_HEALING_TALENT.id) {
+    if (spellId === TALENTS.CIRCLE_OF_HEALING_TALENT.id) {
       this.circleOfHealingCasts += 1;
     }
   }
 
   onCohHeal(event: HealEvent) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.CIRCLE_OF_HEALING_TALENT.id) {
+    if (spellId === TALENTS.CIRCLE_OF_HEALING_TALENT.id) {
       this.circleOfHealingTargetsHit += 1;
       this.circleOfHealingHealing += event.amount || 0;
       this.circleOfHealingOverhealing += event.overheal || 0;
@@ -72,7 +72,7 @@ class CircleOfHealing extends Analyzer {
         category={STATISTIC_CATEGORY.GENERAL}
         position={STATISTIC_ORDER.OPTIONAL(5)}
       >
-        <BoringSpellValueText spellId={SPELLS.CIRCLE_OF_HEALING_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.CIRCLE_OF_HEALING_TALENT.id}>
           <ItemHealingDone amount={this.circleOfHealingHealing} />
         </BoringSpellValueText>
       </Statistic>

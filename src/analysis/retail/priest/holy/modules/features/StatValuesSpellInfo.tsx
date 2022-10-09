@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 
 /*
  * Fields:
@@ -64,7 +65,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.PRAYER_OF_HEALING.id]: {
+  [TALENTS.PRAYER_OF_HEALING_TALENT.id]: {
     int: true,
     crit: true,
     hasteHpm: false,
@@ -72,7 +73,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.RENEW.id]: {
+  [TALENTS.RENEW_TALENT.id]: {
     int: true,
     crit: true,
     hasteHpm: true,
@@ -80,7 +81,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.HOLY_WORD_SERENITY.id]: {
+  [TALENTS.HOLY_WORD_SERENITY_TALENT.id]: {
     int: true,
     crit: true,
     hasteHpm: false,
@@ -88,7 +89,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.HOLY_WORD_SANCTIFY.id]: {
+  [TALENTS.HOLY_WORD_SANCTIFY_TALENT.id]: {
     int: true,
     crit: true,
     hasteHpm: false,
@@ -146,7 +147,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.CIRCLE_OF_HEALING_TALENT.id]: {
+  [TALENTS.CIRCLE_OF_HEALING_TALENT.id]: {
     int: true,
     crit: true,
     hasteHpm: false,
@@ -154,7 +155,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.HOLY_WORD_SALVATION_TALENT.id]: {
+  [TALENTS.HOLY_WORD_SALVATION_TALENT.id]: {
     int: true,
     crit: true,
     hasteHpm: false,

@@ -43,38 +43,6 @@ const legendaries = {
     name: "Yu'lon's Whisper",
     icon: 'ability_monk_chiexplosion',
   },
-  CLOUDED_FOCUS: {
-    id: 337343,
-    name: 'Clouded Focus',
-    icon: 'ability_monk_soothingmist',
-    bonusID: 7074,
-  },
-  CLOUDED_FOCUS_BUFF: {
-    id: 337476,
-    name: 'Clouded Focus',
-    icon: 'ability_monk_surgingmist',
-  },
-  ANCIENT_TEACHINGS_OF_THE_MONASTERY: {
-    id: 337172,
-    name: 'Ancient Teachings of the Monastery',
-    icon: 'passive_monk_teachingsofmonastery',
-    bonusID: 7075,
-  },
-  ANCIENT_TEACHINGS_OF_THE_MONASTERY_HEAL: {
-    id: 126890,
-    name: 'Ancient Teachings of the Monastery',
-    icon: 'inv_jewelcrafting_jadeserpent',
-  },
-  ANCIENT_TEACHINGS_OF_THE_MONASTERY_CRIT_HEAL: {
-    id: 347572,
-    name: 'Ancient Teachings of the Monastery',
-    icon: 'inv_jewelcrafting_jadeserpent',
-  },
-  ANCIENT_TEACHINGS_OF_THE_MONASTERY_BUFF: {
-    id: 347553,
-    name: 'Ancient Teachings of the Monastery',
-    icon: 'inv_misc_book_07',
-  },
   //endregion
 
   //region Windwalker

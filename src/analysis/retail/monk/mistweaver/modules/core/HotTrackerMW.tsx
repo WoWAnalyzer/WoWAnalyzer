@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { Options } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
 import HotTracker, { HotInfo } from 'parser/shared/modules/HotTracker';
@@ -17,8 +18,8 @@ class HotTrackerMW extends HotTracker {
 
   constructor(options: Options) {
     super(options);
-    this.mistwrapActive = this.owner.selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id);
-    this.upwellingActive = this.owner.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
+    this.mistwrapActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT.id);
+    this.upwellingActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT.id);
   }
 
   // Renewing Mist applies with a longer duration if Thunder Focus Tea is active

@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
@@ -27,12 +28,12 @@ class ManaTea extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT.id);
     if (!this.active) {
       return;
     }
     this.manaPerManaTeaGoal = this.selectedCombatant.hasTalent(
-      SPELLS.REFRESHING_JADE_WIND_TALENT.id,
+      TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id,
     )
       ? 6700
       : 7500;
@@ -40,7 +41,7 @@ class ManaTea extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.handleCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.heal);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.MANA_TEA_TALENT),
       this.applyBuff,
     );
   }
@@ -50,7 +51,7 @@ class ManaTea extends Analyzer {
   }
 
   heal(event: HealEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {
+    if (this.selectedCombatant.hasBuff(TALENTS_MONK.MANA_TEA_TALENT.id)) {
       //if this is in a mana tea window
       this.effectiveHealing += (event.amount || 0) + (event.absorbed || 0);
       this.overhealing += event.overheal || 0;
@@ -67,8 +68,8 @@ class ManaTea extends Analyzer {
     }
 
     if (
-      this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id) &&
-      event.ability.guid !== SPELLS.MANA_TEA_TALENT.id
+      this.selectedCombatant.hasBuff(TALENTS_MONK.MANA_TEA_TALENT.id) &&
+      event.ability.guid !== TALENTS_MONK.MANA_TEA_TALENT.id
     ) {
       //we check both since melee doesn't havea classResource
       if (manaEvent.cost !== undefined) {
@@ -121,15 +122,16 @@ class ManaTea extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your mana spent during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> can be improved. Aim
-          to prioritize as many <SpellLink id={SPELLS.VIVIFY.id} /> casts until the last second of
-          the buff and then cast <SpellLink id={SPELLS.ESSENCE_FONT.id} />.{' '}
+          Your mana spent during <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> can be improved.
+          Aim to prioritize as many <SpellLink id={SPELLS.VIVIFY.id} /> casts until the last second
+          of the buff and then cast <SpellLink id={SPELLS.ESSENCE_FONT.id} />.{' '}
           <SpellLink id={SPELLS.ESSENCE_FONT.id} />
           's mana cost is taken at the beginning of the channel, so you gain the benefit of{' '}
-          <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> even if the channel continues past the buff.
+          <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> even if the channel continues past the
+          buff.
         </>,
       )
-        .icon(SPELLS.MANA_TEA_TALENT.icon)
+        .icon(TALENTS_MONK.MANA_TEA_TALENT.icon)
         .actual(
           `${formatNumber(this.avgMtSaves)}${t({
             id: 'monk.mistweaver.suggestions.manaTea.avgManaSaved',
@@ -141,13 +143,14 @@ class ManaTea extends Analyzer {
     when(this.suggestionThresholdsOverhealing).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your average overhealing was high during your <SpellLink id={SPELLS.MANA_TEA_TALENT.id} />{' '}
-          usage. Consider using <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> during specific boss
-          abilities or general periods of high damage to the raid. Also look to target low health
-          raid members to avoid large amounts of overhealing.
+          Your average overhealing was high during your{' '}
+          <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> usage. Consider using{' '}
+          <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> during specific boss abilities or
+          general periods of high damage to the raid. Also look to target low health raid members to
+          avoid large amounts of overhealing.
         </>,
       )
-        .icon(SPELLS.MANA_TEA_TALENT.icon)
+        .icon(TALENTS_MONK.MANA_TEA_TALENT.icon)
         .actual(
           `${formatPercentage(this.avgOverhealing)}${t({
             id: 'monk.mistweaver.suggestions.manaTea.avgOverHealing',
@@ -182,7 +185,7 @@ class ManaTea extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.MANA_TEA_TALENT.id} /> Average mana saved
+              <SpellIcon id={TALENTS_MONK.MANA_TEA_TALENT.id} /> Average mana saved
             </>
           }
         >

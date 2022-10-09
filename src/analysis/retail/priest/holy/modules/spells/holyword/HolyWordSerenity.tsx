@@ -13,7 +13,7 @@ class HolyWordSerenity extends HolyWordBase {
   constructor(options: Options) {
     super(options);
 
-    this.spellId = SPELLS.HOLY_WORD_SERENITY.id;
+    this.spellId = TALENTS.HOLY_WORD_SERENITY_TALENT.id;
     this.manaCost = 4000;
     this.serendipityProccers = {
       [SPELLS.GREATER_HEAL.id]: {
@@ -37,7 +37,7 @@ class HolyWordSerenity extends HolyWordBase {
     };
 
     if (this.selectedCombatant.hasLegendary(SPELLS.HARMONIOUS_APPARATUS)) {
-      this.serendipityProccers[SPELLS.PRAYER_OF_MENDING_CAST.id] = {
+      this.serendipityProccers[TALENTS.PRAYER_OF_MENDING_TALENT.id] = {
         baseReduction: () => PRAYER_OF_MENDING_SERENDIPITY_REDUCTION,
         lightOfTheNaaruReduction: () =>
           PRAYER_OF_MENDING_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,

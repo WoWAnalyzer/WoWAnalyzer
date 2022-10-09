@@ -1,5 +1,4 @@
 import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
@@ -22,11 +21,11 @@ class RenewedFaith extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS.RENEWED_FAITH_TALENT.id);
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RENEW),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.RENEW_TALENT),
       this.onRenewApplication,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RENEW),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.RENEW_TALENT),
       this.onRenewRemoval,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);

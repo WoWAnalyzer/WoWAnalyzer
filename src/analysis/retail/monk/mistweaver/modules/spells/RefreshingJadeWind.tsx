@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -22,21 +23,21 @@ class RefreshingJadeWind extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id);
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.REFRESHING_JADE_WIND_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT),
       this.rjwBuffApplied,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.REFRESHING_JADE_WIND_TALENT),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT),
       this.rjwBuffRefreshed,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.REFRESHING_JADE_WIND_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT),
       this.rjwBuffRemoved,
     );
     this.addEventListener(
@@ -101,13 +102,13 @@ class RefreshingJadeWind extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are not utilizing your <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} />{' '}
-          effectively. <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> excells when you hit
-          6 targets for the duration of the spell. The easiest way to accomplish this is to stand in
-          melee, but there can be other uses when the raid stacks for various abilities.
+          You are not utilizing your <SpellLink id={TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id} />{' '}
+          effectively. <SpellLink id={TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id} /> excells when
+          you hit 6 targets for the duration of the spell. The easiest way to accomplish this is to
+          stand in melee, but there can be other uses when the raid stacks for various abilities.
         </>,
       )
-        .icon(SPELLS.REFRESHING_JADE_WIND_TALENT.icon)
+        .icon(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.icon)
         .actual(
           `${formatPercentage(this.avgTargetsHitPerRJWPercentage)}${t({
             id: 'monk.mistweaver.suggestions.refreshingJadeWind.avgTargetsHit',

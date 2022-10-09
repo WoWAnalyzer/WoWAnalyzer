@@ -1,5 +1,6 @@
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
@@ -8,7 +9,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { SPELL_COLORS } from '../../../constants';
+import { SPELL_COLORS } from '../../constants';
 
 class AncientTeachingsoftheMonastery extends Analyzer {
   damageSpellToHealing: Map<number, number> = new Map();
@@ -20,7 +21,7 @@ class AncientTeachingsoftheMonastery extends Analyzer {
    */
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.ANCIENT_TEACHINGS_OF_THE_MONASTERY);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT);
     if (!this.active) {
       return;
     }
@@ -29,7 +30,7 @@ class AncientTeachingsoftheMonastery extends Analyzer {
       Events.damage
         .by(SELECTED_PLAYER)
         .spell([
-          SPELLS.RISING_SUN_KICK_SECOND,
+          TALENTS_MONK.RISING_SUN_KICK_TALENT,
           SPELLS.BLACKOUT_KICK,
           SPELLS.BLACKOUT_KICK_TOTM,
           SPELLS.TIGER_PALM,
@@ -37,17 +38,17 @@ class AncientTeachingsoftheMonastery extends Analyzer {
       this.lastDamageEvent,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ANCIENT_TEACHINGS_OF_THE_MONASTERY_HEAL),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ATOTM_HEAL),
       this.calculateEffectiveHealing,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ANCIENT_TEACHINGS_OF_THE_MONASTERY_CRIT_HEAL),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ATOTM_CRIT_HEAL),
       this.calculateEffectiveHealing,
     );
   }
 
   lastDamageEvent(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.ANCIENT_TEACHINGS_OF_THE_MONASTERY_BUFF.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.ATOTM_BUFF.id)) {
       return;
     }
     this.lastDamageSpellID = event.ability.guid;
@@ -108,13 +109,11 @@ class AncientTeachingsoftheMonastery extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <div className="pad">
           <label>
-            <SpellLink id={SPELLS.ANCIENT_TEACHINGS_OF_THE_MONASTERY_HEAL.id}>
-              Ancient Teachings of the Monastery
-            </SpellLink>{' '}
+            <SpellLink id={SPELLS.ATOTM_HEAL.id}>Ancient Teachings of the Monastery</SpellLink>{' '}
             breakdown
           </label>
           {this.renderDonutChart()}

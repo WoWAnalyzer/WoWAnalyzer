@@ -1,8 +1,8 @@
 import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import conduitScaling from 'parser/core/conduitScaling';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -11,8 +11,7 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
-import { JADE_BOND_RANK_ONE } from '../../../constants';
+import { JADE_BOND_INC } from '../../constants';
 
 const JADE_BOND_REDUCTION = 300;
 
@@ -33,13 +32,10 @@ class JadeBond extends Analyzer {
    */
   constructor(options: Options) {
     super(options);
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.JADE_BOND.id);
-    if (!this.conduitRank) {
+    if (!this.selectedCombatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT)) {
       this.active = false;
       return;
     }
-
-    this.healingBoost = conduitScaling(JADE_BOND_RANK_ONE, this.conduitRank);
 
     this.addEventListener(
       Events.heal
@@ -52,8 +48,8 @@ class JadeBond extends Analyzer {
       this.gustProcingSpell,
     );
 
-    if (this.selectedCombatant.hasTalent(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id)) {
-      this.spellToReduce = SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT;
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id)) {
+      this.spellToReduce = TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT;
       this.addEventListener(
         Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUST_OF_MISTS_CHIJI),
         this.normalizeBoost,
@@ -78,7 +74,7 @@ class JadeBond extends Analyzer {
   }
 
   normalizeBoost(event: HealEvent) {
-    this.healing += calculateEffectiveHealing(event, this.healingBoost);
+    this.healing += calculateEffectiveHealing(event, JADE_BOND_INC);
   }
 
   statistic() {
@@ -86,7 +82,7 @@ class JadeBond extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             Effective Cooldown Reduction: {formatDuration(this.cooldownReductionUsed)}
