@@ -6,19 +6,19 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { SpellLink } from 'interface';
-import { ANSWERED_PRAYERS_TRIGGER } from 'analysis/retail/priest/holy/constants';
 
+//Example log: /report/cCKp6qfAM8FZgxHL/2-Heroic+Broodkeeper+Diurna+-+Wipe+2+(1:34)/Mayceia/standard/statistics
 class AnsweredPrayers extends Analyzer {
   prayerHeals = 0;
   healsPerApotheosis = 0;
+  healsPerTrigger = [0, 100, 50];
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.ANSWERED_PRAYERS_TALENT);
-    this.healsPerApotheosis =
-      ANSWERED_PRAYERS_TRIGGER[
-        this.selectedCombatant.getTalentRank(TALENTS.ANSWERED_PRAYERS_TALENT)
-      ];
+    this.healsPerApotheosis = this.healsPerTrigger[
+      this.selectedCombatant.getTalentRank(TALENTS.ANSWERED_PRAYERS_TALENT)
+    ];
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.PRAYER_OF_MENDING_HEAL),
       this.onByPOMHeal,
