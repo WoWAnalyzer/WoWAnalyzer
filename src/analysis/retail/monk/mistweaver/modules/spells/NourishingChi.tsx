@@ -70,7 +70,7 @@ class NourishingChi extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spellId={SPELLS.NOURISHING_CHI.id}>
           <ItemHealingDone amount={this.healing} />

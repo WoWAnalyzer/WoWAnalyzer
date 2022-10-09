@@ -43,17 +43,6 @@ const legendaries = {
     name: "Yu'lon's Whisper",
     icon: 'ability_monk_chiexplosion',
   },
-  CLOUDED_FOCUS: {
-    id: 337343,
-    name: 'Clouded Focus',
-    icon: 'ability_monk_soothingmist',
-    bonusID: 7074,
-  },
-  CLOUDED_FOCUS_BUFF: {
-    id: 337476,
-    name: 'Clouded Focus',
-    icon: 'ability_monk_surgingmist',
-  },
   ANCIENT_TEACHINGS_OF_THE_MONASTERY: {
     id: 337172,
     name: 'Ancient Teachings of the Monastery',

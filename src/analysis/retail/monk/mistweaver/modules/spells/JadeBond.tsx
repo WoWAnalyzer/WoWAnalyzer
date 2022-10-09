@@ -82,7 +82,7 @@ class JadeBond extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             Effective Cooldown Reduction: {formatDuration(this.cooldownReductionUsed)}

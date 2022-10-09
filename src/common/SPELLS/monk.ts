@@ -82,6 +82,11 @@ const spells = spellIndexableList({
   },
 
   // Mistweaver Monk Spells
+  CLOUDED_FOCUS_BUFF: {
+    id: 388048,
+    name: 'Clouded Focus',
+    icon: 'ability_monk_surgingmist',
+  },
   ENVELOPING_MIST: {
     id: 124682,
     name: 'Enveloping Mist',
