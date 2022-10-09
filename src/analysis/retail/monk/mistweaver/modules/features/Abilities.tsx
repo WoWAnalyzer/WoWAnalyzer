@@ -93,7 +93,16 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 17,
       },
       {
-        spell: SPELLS.REVIVAL.id,
+        spell: TALENTS_MONK.REVIVAL_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 180,
+        gcd: {
+          base: 1500,
+        },
+        timelineSortIndex: 18,
+      },
+      {
+        spell: TALENTS_MONK.RESTORAL_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: {

@@ -27,7 +27,7 @@ import HealingEfficiencyTracker from './modules/features/MistweaverHealingEffici
 import REMGraph from './modules/features/REMGraph';
 import JadeBond from './modules/spells/JadeBond';
 import NourishingChi from './modules/spells/NourishingChi';
-import RisingSunRevival from './modules/spells/RisingSunRevival';
+import RisingSunRevival from './modules/spells/UpliftedSpirits';
 import BonedustBrewAverageTargets from './modules/spells/BonedustBrewAverageTargets';
 import FaelineStompHealing from './modules/spells/FaelineStompHealing';
 import AncientTeachingsoftheMonastery from './modules/spells/AncientTeachingsoftheMonastery';

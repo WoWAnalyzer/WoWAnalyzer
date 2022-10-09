@@ -5,7 +5,7 @@ import { Class, CombatantInfoEvent } from 'parser/core/Events';
 import './ReportRaidBuffList.scss';
 
 import ReportRaidBuffListItem from './ReportRaidBuffListItem';
-import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
+import { TALENTS_DEMON_HUNTER, TALENTS_MONK } from 'common/TALENTS';
 
 // eslint-disable-next-line
 const AVAILABLE_RAID_BUFFS = new Map<number, Array<Class | object>>([
@@ -33,7 +33,8 @@ const AVAILABLE_RAID_BUFFS = new Map<number, Array<Class | object>>([
   [SPELLS.AURA_MASTERY.id, [SPECS.HOLY_PALADIN]],
   [SPELLS.SPIRIT_LINK_TOTEM.id, [SPECS.RESTORATION_SHAMAN]],
   [SPELLS.HEALING_TIDE_TOTEM_CAST.id, [SPECS.RESTORATION_SHAMAN]],
-  [SPELLS.REVIVAL.id, [SPECS.MISTWEAVER_MONK]],
+  [TALENTS_MONK.REVIVAL_TALENT.id, [SPECS.MISTWEAVER_MONK]],
+  [TALENTS_MONK.RESTORAL_TALENT.id, [SPECS.MISTWEAVER_MONK]],
   [SPELLS.POWER_WORD_BARRIER_CAST.id, [SPECS.DISCIPLINE_PRIEST]],
   [SPELLS.DIVINE_HYMN_CAST.id, [SPECS.HOLY_PRIEST]],
   [SPELLS.TRANQUILITY_CAST.id, [SPECS.RESTORATION_DRUID]],

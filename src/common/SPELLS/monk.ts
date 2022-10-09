@@ -121,12 +121,6 @@ const spells = spellIndexableList({
     name: 'Renewing Mist',
     icon: 'ability_monk_renewingmists',
   },
-  REVIVAL: {
-    id: 115310,
-    name: 'Revival',
-    icon: 'spell_monk_revival',
-    manaCost: 2187,
-  },
   THUNDER_FOCUS_TEA: {
     id: 116680,
     name: 'Thunder Focus Tea',
@@ -254,6 +248,11 @@ const spells = spellIndexableList({
     id: 274912,
     name: 'Rising Mist',
     icon: 'ability_monk_effuse',
+  },
+  UPLIFTED_SPIRITS_HEAL: {
+    id: 388555,
+    name: 'Uplifted Spirits',
+    icon: 'monk_stance_wiseserpent',
   },
   WHIRLING_DRAGON_PUNCH_TALENT_TICK: {
     id: 158221,
