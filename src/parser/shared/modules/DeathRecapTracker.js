@@ -12,6 +12,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import DeathRecap from './DeathRecap';
 import DEFENSIVE_BUFFS from './DEFENSIVE_BUFFS';
+import { TALENTS_PALADIN } from 'common/TALENTS';
 
 class DeathRecapTracker extends Analyzer {
   deaths = [];
@@ -79,7 +80,7 @@ class DeathRecapTracker extends Analyzer {
         if (!hasBuff) {
           return false;
         }
-        if (e.id === SPELLS.BLESSING_OF_SACRIFICE.id) {
+        if (e.id === TALENTS_PALADIN.BLESSING_OF_SACRIFICE_TALENT.id) {
           return buff.sourceID === this.selectedCombatant.id;
         }
         return true;
