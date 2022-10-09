@@ -1,5 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
@@ -13,8 +14,8 @@ const GLACIAL_SPIKE_DAMAGE_BONUS = 0.65;
 const SPLITTABLE_CASTS = [
   SPELLS.FROSTBOLT,
   SPELLS.ICE_LANCE,
-  SPELLS.GLACIAL_SPIKE_TALENT,
-  SPELLS.EBONBOLT_TALENT,
+  TALENTS.GLACIAL_SPIKE_TALENT,
+  TALENTS.EBONBOLT_TALENT,
 ];
 
 const SPLITTABLE_DAMAGE = [
@@ -35,9 +36,9 @@ class SplittingIce extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
-    this.hasGlacialSpike = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
-    this.hasEbonbolt = this.selectedCombatant.hasTalent(SPELLS.EBONBOLT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SPLITTING_ICE_TALENT.id);
+    this.hasGlacialSpike = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT.id);
+    this.hasEbonbolt = this.selectedCombatant.hasTalent(TALENTS.EBONBOLT_TALENT.id);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPLITTABLE_CASTS), this.onCast);
     this.addEventListener(
@@ -116,7 +117,7 @@ class SplittingIce extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SPLITTING_ICE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.SPLITTING_ICE_TALENT.id}>
           <>
             {this.hasGlacialSpike ? '≈' : ''}
             {formatPercentage(this.damagePercent)}%

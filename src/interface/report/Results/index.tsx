@@ -136,13 +136,13 @@ class Results extends React.PureComponent<Props, State> {
     // Kind of ugly but also very working. We should replace the TooltipProvider class with a context that is used by SpellLink to make this easier to manipulate.
     switch (this.props.report.gameVersion) {
       case 4:
-        TooltipProvider.baseUrl = 'http://www.wowhead.com/wotlk/'
+        TooltipProvider.baseUrl = 'https://www.wowhead.com/wotlk/';
         break;
       case 3:
-        TooltipProvider.baseUrl = 'http://tbc.wowhead.com/';
+        TooltipProvider.baseUrl = 'https://tbc.wowhead.com/';
         break;
       default:
-        TooltipProvider.baseUrl = 'http://wowhead.com/';
+        TooltipProvider.baseUrl = 'https://www.wowhead.com/beta/';
         break;
     }
   }

@@ -15,6 +15,7 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 import InsertableEventsWrapper from 'parser/core/InsertableEventsWrapper';
 import { Options } from 'parser/core/Module';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 
 /**
  * Channels and casts are handled differently in events, and some information is also missing and must be inferred.
@@ -48,7 +49,7 @@ class Channeling extends EventsNormalizer {
     buffChannelSpec(SPELLS.SHIFTING_POWER.id),
     nextCastChannelSpec(SPELLS.ARCANE_MISSILES.id),
     // Priest
-    buffChannelSpec(SPELLS.DIVINE_HYMN_CAST.id),
+    buffChannelSpec(TALENTS_PRIEST.DIVINE_HYMN_TALENT.id),
     nextCastChannelSpec(SPELLS.PENANCE_CAST.id),
     buffChannelSpec(SPELLS.MIND_FLAY.id), // TODO double check ID
     buffChannelSpec(SPELLS.MIND_SEAR.id), // TODO double check ID
@@ -56,13 +57,13 @@ class Channeling extends EventsNormalizer {
     // Druid
     buffChannelSpec(SPELLS.CONVOKE_SPIRITS.id),
     // Monk
-    buffChannelSpec(TALENTS_MONK.ZEN_MEDITATION_BREWMASTER_TALENT.id),
+    buffChannelSpec(TALENTS_MONK.ZEN_MEDITATION_TALENT.id),
     buffChannelSpec(SPELLS.ESSENCE_FONT.id),
     buffChannelSpec(SPELLS.SOOTHING_MIST.id),
     buffChannelSpec(SPELLS.CRACKLING_JADE_LIGHTNING.id),
     buffChannelSpec(SPELLS.FISTS_OF_FURY_CAST.id),
     // Demon Hunter
-    buffChannelSpec(TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id), // TODO special handling because of the two buffs?
+    buffChannelSpec(TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id), // TODO special handling because of the two buffs?
     // Shaman
     // Hunter
     buffChannelSpec(SPELLS.RAPID_FIRE.id),

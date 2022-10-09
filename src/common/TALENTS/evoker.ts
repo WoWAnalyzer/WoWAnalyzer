@@ -35,9 +35,9 @@ const talents = createTalentList({
     icon: 'spell_frost_coldhearted',
     maxRanks: 1,
   },
-  RESCUE_TALENT: {
+  VERDANT_EMBRACE_TALENT: {
     id: 360995,
-    name: 'Rescue',
+    name: 'Verdant Embrace',
     icon: 'ability_evoker_rescue',
     maxRanks: 1,
     manaCost: 300,
@@ -100,9 +100,9 @@ const talents = createTalentList({
     icon: 'ability_hunter_mastertactitian',
     maxRanks: 1,
   },
-  SUFFUSED_WITH_POWER_TALENT: {
+  INSTINCTIVE_ARCANA_TALENT: {
     id: 376164,
-    name: 'Suffused With Power',
+    name: 'Instinctive Arcana',
     icon: 'spell_arcane_studentofmagic',
     maxRanks: 2,
   },
@@ -179,9 +179,9 @@ const talents = createTalentList({
     icon: 'inv_misc_monsterscales_06',
     maxRanks: 1,
   },
-  GROVETENDERS_GIFT_TALENT: {
+  PANACEA_TALENT: {
     id: 387761,
-    name: "Grovetender's Gift",
+    name: 'Panacea',
     icon: 'ability_druid_protectionofthegrove',
     maxRanks: 1,
   },
@@ -210,12 +210,7 @@ const talents = createTalentList({
     icon: 'spell_frost_manarecharge',
     maxRanks: 1,
   },
-  FLY_WITH_ME_TALENT: {
-    id: 370665,
-    name: 'Fly With Me',
-    icon: 'ability_evoker_flywithme',
-    maxRanks: 1,
-  },
+  RESCUE_TALENT: { id: 370665, name: 'Rescue', icon: 'ability_evoker_flywithme', maxRanks: 1 },
   LUSH_GROWTH_TALENT: {
     id: 375561,
     name: 'Lush Growth',
@@ -252,7 +247,12 @@ const talents = createTalentList({
     icon: 'ability_skyreach_shielded',
     maxRanks: 1,
   },
-  PYREXIA_TALENT: { id: 375574, name: 'Pyrexia', icon: 'spell_fire_incinerate', maxRanks: 1 },
+  FOCI_OF_LIFE_TALENT: {
+    id: 375574,
+    name: 'Foci of Life',
+    icon: 'spell_fire_incinerate',
+    maxRanks: 1,
+  },
   FIRE_WITHIN_TALENT: {
     id: 375577,
     name: 'Fire Within',
@@ -272,250 +272,230 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   ZEPHYR_TALENT: { id: 374227, name: 'Zephyr', icon: 'ability_evoker_hoverblack', maxRanks: 1 },
+  ESSENCE_ATTUNEMENT_TALENT: {
+    id: 375722,
+    name: 'Essence Attunement',
+    icon: 'ability_evoker_essenceburststacks',
+    maxRanks: 1,
+  },
+  POWER_NEXUS_TALENT: {
+    id: 369908,
+    name: 'Power Nexus',
+    icon: 'ability_evoker_powernexus',
+    maxRanks: 1,
+  },
+  FONT_OF_MAGIC_TALENT: {
+    id: 375783,
+    name: 'Font of Magic',
+    icon: 'ability_evoker_fontofmagic',
+    maxRanks: 1,
+  },
 
   //Devastation
-  PYRE_DEVASTATION_TALENT: {
+  PYRE_TALENT: {
     id: 357211,
     name: 'Pyre',
     icon: 'ability_evoker_pyre',
     maxRanks: 1,
     essenceCost: 3,
   },
-  RUBY_ESSENCE_BURST_DEVASTATION_TALENT: {
+  RUBY_ESSENCE_BURST_TALENT: {
     id: 376872,
     name: 'Ruby Essence Burst',
     icon: 'ability_evoker_essenceburst4',
     maxRanks: 1,
   },
-  AZURE_ESSENCE_BURST_DEVASTATION_TALENT: {
+  AZURE_ESSENCE_BURST_TALENT: {
     id: 375721,
     name: 'Azure Essence Burst',
     icon: 'ability_evoker_essenceburst2',
     maxRanks: 1,
   },
-  DENSE_ENERGY_DEVASTATION_TALENT: {
+  DENSE_ENERGY_TALENT: {
     id: 370962,
     name: 'Dense Energy',
     icon: 'ability_evoker_pyre',
     maxRanks: 1,
   },
-  IMPOSING_PRESENCE_DEVASTATION_TALENT: {
+  IMPOSING_PRESENCE_TALENT: {
     id: 371016,
     name: 'Imposing Presence',
     icon: 'ability_evoker_quell',
     maxRanks: 1,
   },
-  INNER_RADIANCE_DEVASTATION_TALENT: {
+  INNER_RADIANCE_TALENT: {
     id: 386405,
     name: 'Inner Radiance',
     icon: 'spell_holy_spellwarding',
     maxRanks: 1,
   },
-  ETERNITY_SURGE_DEVASTATION_TALENT: {
+  ETERNITY_SURGE_TALENT: {
     id: 359073,
     name: 'Eternity Surge',
     icon: 'ability_evoker_eternitysurge',
     maxRanks: 1,
   },
-  VOLATILITY_DEVASTATION_TALENT: {
+  VOLATILITY_TALENT: {
     id: 369089,
     name: 'Volatility',
     icon: 'spell_fire_ragnaros_lavabolt',
     maxRanks: 2,
   },
-  POWER_NEXUS_DEVASTATION_TALENT: {
-    id: 369908,
-    name: 'Power Nexus',
-    icon: 'ability_evoker_powernexus',
-    maxRanks: 1,
-  },
-  DRAGONRAGE_DEVASTATION_TALENT: {
+  DRAGONRAGE_TALENT: {
     id: 375087,
     name: 'Dragonrage',
     icon: 'ability_evoker_dragonrage',
     maxRanks: 1,
   },
-  LAY_WASTE_DEVASTATION_TALENT: {
+  LAY_WASTE_TALENT: {
     id: 371034,
     name: 'Lay Waste',
     icon: 'ability_evoker_deepbreath',
     maxRanks: 2,
   },
-  ARCANE_INTENSITY_DEVASTATION_TALENT: {
+  ARCANE_INTENSITY_TALENT: {
     id: 375618,
     name: 'Arcane Intensity',
     icon: 'ability_evoker_disintegrate',
     maxRanks: 2,
   },
-  RUBY_EMBERS_DEVASTATION_TALENT: {
+  RUBY_EMBERS_TALENT: {
     id: 365937,
     name: 'Ruby Embers',
     icon: 'inv_tradeskillitem_lessersorcerersfire',
     maxRanks: 1,
   },
-  ENGULFING_BLAZE_DEVASTATION_TALENT: {
+  ENGULFING_BLAZE_TALENT: {
     id: 370837,
     name: 'Engulfing Blaze',
     icon: 'inv_inscription_pigment_ruby',
     maxRanks: 1,
   },
-  ANIMOSITY_DEVASTATION_TALENT: {
-    id: 375797,
-    name: 'Animosity',
-    icon: 'spell_nature_shamanrage',
-    maxRanks: 1,
-  },
-  ESSENCE_ATTUNEMENT_DEVASTATION_TALENT: {
-    id: 375722,
-    name: 'Essence Attunement',
-    icon: 'ability_evoker_essenceburststacks',
-    maxRanks: 1,
-  },
-  FIRESTORM_DEVASTATION_TALENT: {
+  ANIMOSITY_TALENT: { id: 375797, name: 'Animosity', icon: 'spell_nature_shamanrage', maxRanks: 1 },
+  FIRESTORM_TALENT: {
     id: 368847,
     name: 'Firestorm',
     icon: 'ability_evoker_firestorm',
     maxRanks: 1,
   },
-  HEAT_WAVE_DEVASTATION_TALENT: {
-    id: 375725,
-    name: 'Heat Wave',
-    icon: 'spell_fire_moltenblood',
-    maxRanks: 2,
-  },
-  MIGHT_OF_THE_ASPECTS_DEVASTATION_TALENT: {
+  HEAT_WAVE_TALENT: { id: 375725, name: 'Heat Wave', icon: 'spell_fire_moltenblood', maxRanks: 2 },
+  TITANIC_WRATH_TALENT: {
     id: 386272,
-    name: 'Might of the Aspects',
+    name: 'Titanic Wrath',
     icon: 'spell_fireresistancetotem_01',
     maxRanks: 2,
   },
-  HONED_AGGRESSION_DEVASTATION_TALENT: {
+  HONED_AGGRESSION_TALENT: {
     id: 371038,
     name: 'Honed Aggression',
     icon: 'spell_fire_blueimmolation',
     maxRanks: 2,
   },
-  ETERNITYS_SPAN_DEVASTATION_TALENT: {
+  ETERNITYS_SPAN_TALENT: {
     id: 375757,
     name: "Eternity's Span",
     icon: 'spell_arcane_arcanetorrent',
     maxRanks: 1,
   },
-  CONTINUUM_DEVASTATION_TALENT: {
+  EYE_OF_INFINITY_TALENT: {
     id: 369375,
-    name: 'Continuum',
+    name: 'Eye of Infinity',
     icon: 'ability_socererking_arcanewrath',
     maxRanks: 1,
   },
-  CAUSALITY_DEVASTATION_TALENT: {
+  CAUSALITY_TALENT: {
     id: 375777,
     name: 'Causality',
     icon: 'spell_azerite_essence_16',
     maxRanks: 1,
   },
-  CATALYZE_DEVASTATION_TALENT: {
+  CATALYZE_TALENT: {
     id: 386283,
     name: 'Catalyze',
     icon: 'spell_fire_masterofelements',
     maxRanks: 1,
   },
-  RUIN_DEVASTATION_TALENT: {
-    id: 376888,
-    name: 'Ruin',
-    icon: 'ability_evoker_dragonrage2',
-    maxRanks: 1,
-  },
-  CHARGED_BLAST_DEVASTATION_TALENT: {
+  TYRANNY_TALENT: { id: 376888, name: 'Tyranny', icon: 'ability_evoker_dragonrage2', maxRanks: 1 },
+  CHARGED_BLAST_TALENT: {
     id: 370455,
     name: 'Charged Blast',
     icon: 'spell_arcane_arcanepotency',
     maxRanks: 1,
   },
-  SHATTERING_STAR_DEVASTATION_TALENT: {
+  SHATTERING_STAR_TALENT: {
     id: 370452,
     name: 'Shattering Star',
     icon: 'ability_evoker_chargedblast',
     maxRanks: 1,
   },
-  SNAPFIRE_DEVASTATION_TALENT: {
+  SNAPFIRE_TALENT: {
     id: 370783,
     name: 'Snapfire',
     icon: 'spell_shaman_improvedfirenova',
     maxRanks: 1,
   },
-  FONT_OF_MAGIC_DEVASTATION_TALENT: {
-    id: 375783,
-    name: 'Font of Magic',
-    icon: 'ability_evoker_fontofmagic',
-    maxRanks: 1,
-  },
-  ONYX_LEGACY_DEVASTATION_TALENT: {
+  ONYX_LEGACY_TALENT: {
     id: 386348,
     name: 'Onyx Legacy',
     icon: 'inv_misc_head_dragon_black',
     maxRanks: 1,
   },
-  TYRANNY_DEVASTATION_TALENT: {
+  SPELLWEAVERS_DOMINANCE_TALENT: {
     id: 370845,
-    name: 'Tyranny',
+    name: "Spellweaver's Dominance",
     icon: 'spell_shaman_shockinglava',
     maxRanks: 1,
   },
-  FOCUSING_IRIS_DEVASTATION_TALENT: {
+  FOCUSING_IRIS_TALENT: {
     id: 386336,
     name: 'Focusing Iris',
     icon: 'spell_mage_temporalshield',
     maxRanks: 1,
   },
-  ARCANE_VIGOR_DEVASTATION_TALENT: {
+  ARCANE_VIGOR_TALENT: {
     id: 386342,
     name: 'Arcane Vigor',
     icon: 'spell_arcane_arcane01',
     maxRanks: 1,
   },
-  BURNOUT_DEVASTATION_TALENT: {
-    id: 375801,
-    name: 'Burnout',
-    icon: 'spell_fire_soulburn',
-    maxRanks: 2,
-  },
-  IMMINENT_DESTRUCTION_DEVASTATION_TALENT: {
+  BURNOUT_TALENT: { id: 375801, name: 'Burnout', icon: 'spell_fire_soulburn', maxRanks: 2 },
+  IMMINENT_DESTRUCTION_TALENT: {
     id: 370781,
     name: 'Imminent Destruction',
     icon: 'spell_burningbladeshaman_blazing_radiance',
     maxRanks: 2,
   },
-  SCINTILLATION_DEVASTATION_TALENT: {
+  SCINTILLATION_TALENT: {
     id: 370821,
     name: 'Scintillation',
     icon: 'spell_arcane_arcane03',
     maxRanks: 2,
   },
-  POWER_SWELL_DEVASTATION_TALENT: {
+  POWER_SWELL_TALENT: {
     id: 370839,
     name: 'Power Swell',
     icon: 'ability_evoker_powernexus2',
     maxRanks: 2,
   },
-  FEED_THE_FLAMES_DEVASTATION_TALENT: {
+  FEED_THE_FLAMES_TALENT: {
     id: 369846,
     name: 'Feed the Flames',
     icon: 'mace_1h_blacksmithing_d_04_icon',
     maxRanks: 1,
   },
-  EVERBURNING_FLAME_DEVASTATION_TALENT: {
+  EVERBURNING_FLAME_TALENT: {
     id: 370819,
     name: 'Everburning Flame',
     icon: 'spell_fire_burnout',
     maxRanks: 1,
   },
-  CASCADING_POWER_DEVASTATION_TALENT: {
+  CASCADING_POWER_TALENT: {
     id: 375796,
     name: 'Cascading Power',
     icon: 'ability_evoker_innatemagic2',
     maxRanks: 1,
   },
-  IRIDESCENCE_DEVASTATION_TALENT: {
+  IRIDESCENCE_TALENT: {
     id: 370867,
     name: 'Iridescence',
     icon: 'ability_evoker_powerswell',
@@ -523,268 +503,240 @@ const talents = createTalentList({
   },
 
   //Preservation
-  ECHO_PRESERVATION_TALENT: {
+  ECHO_TALENT: {
     id: 364343,
     name: 'Echo',
     icon: 'ability_evoker_echo',
     maxRanks: 1,
     essenceCost: 2,
   },
-  DREAM_BREATH_PRESERVATION_TALENT: {
+  DREAM_BREATH_TALENT: {
     id: 355936,
     name: 'Dream Breath',
     icon: 'ability_evoker_dreambreath',
     maxRanks: 1,
     manaCost: 400,
   },
-  REVERSION_PRESERVATION_TALENT: {
+  REVERSION_TALENT: {
     id: 366155,
     name: 'Reversion',
     icon: 'ability_evoker_reversion',
     maxRanks: 1,
     manaCost: 200,
   },
-  TEMPORAL_COMPRESSION_PRESERVATION_TALENT: {
+  TEMPORAL_COMPRESSION_TALENT: {
     id: 362874,
     name: 'Temporal Compression',
     icon: 'ability_evoker_rewind2',
     maxRanks: 1,
   },
-  ESSENCE_BURST_PRESERVATION_TALENT: {
+  ESSENCE_BURST_TALENT: {
     id: 369297,
     name: 'Essence Burst',
     icon: 'ability_evoker_essenceburst',
     maxRanks: 1,
   },
-  REWIND_PRESERVATION_TALENT: {
+  REWIND_TALENT: {
     id: 363534,
     name: 'Rewind',
     icon: 'ability_evoker_rewind',
     maxRanks: 1,
     manaCost: 500,
   },
-  SPIRITBLOOM_PRESERVATION_TALENT: {
+  SPIRITBLOOM_TALENT: {
     id: 367226,
     name: 'Spiritbloom',
     icon: 'ability_evoker_spiritbloom2',
     maxRanks: 1,
     manaCost: 300,
   },
-  ESSENCE_ATTUNEMENT_PRESERVATION_TALENT: {
-    id: 375722,
-    name: 'Essence Attunement',
-    icon: 'ability_evoker_essenceburststacks',
-    maxRanks: 1,
-  },
-  TIME_DILATION_PRESERVATION_TALENT: {
+  TIME_DILATION_TALENT: {
     id: 357170,
     name: 'Time Dilation',
     icon: 'ability_evoker_timedilation',
     maxRanks: 1,
     manaCost: 200,
   },
-  EMERALD_COMMUNION_PRESERVATION_TALENT: {
+  EMERALD_COMMUNION_TALENT: {
     id: 370960,
     name: 'Emerald Communion',
     icon: 'ability_evoker_green_01',
     maxRanks: 1,
   },
-  EMPATH_PRESERVATION_TALENT: {
-    id: 376138,
-    name: 'Empath',
-    icon: 'ability_evoker_powernexus2',
-    maxRanks: 1,
-  },
-  SPIRITUAL_CLARITY_PRESERVATION_TALENT: {
+  EMPATH_TALENT: { id: 376138, name: 'Empath', icon: 'ability_evoker_powernexus2', maxRanks: 1 },
+  SPIRITUAL_CLARITY_TALENT: {
     id: 376150,
     name: 'Spiritual Clarity',
     icon: 'ability_evoker_spiritbloom',
     maxRanks: 1,
   },
-  FLUTTERING_SEEDLINGS_PRESERVATION_TALENT: {
+  FLUTTERING_SEEDLINGS_TALENT: {
     id: 359793,
     name: 'Fluttering Seedlings',
     icon: 'inv_herbalism_70_yserallineseed',
     maxRanks: 2,
   },
-  LIFE_GIVERS_FLAME_PRESERVATION_TALENT: {
+  LIFE_GIVERS_FLAME_TALENT: {
     id: 371426,
-    name: "Life Giver's Flame",
+    name: "Life-Giver's Flame",
     icon: 'item_sparkofragnoros',
     maxRanks: 2,
   },
-  GOLDEN_HOUR_PRESERVATION_TALENT: {
+  GOLDEN_HOUR_TALENT: {
     id: 378196,
     name: 'Golden Hour',
     icon: 'inv_belt_armor_waistoftime_d_01',
     maxRanks: 1,
   },
-  DELAY_HARM_PRESERVATION_TALENT: {
+  DELAY_HARM_TALENT: {
     id: 376207,
     name: 'Delay Harm',
     icon: 'ability_racial_magicalresistance',
     maxRanks: 1,
   },
-  JUST_IN_TIME_PRESERVATION_TALENT: {
+  JUST_IN_TIME_TALENT: {
     id: 376204,
     name: 'Just in Time',
     icon: 'inv_offhand_1h_artifactsilverhand_d_01',
     maxRanks: 1,
   },
-  TEMPORAL_ANOMALY_PRESERVATION_TALENT: {
+  TEMPORAL_ANOMALY_TALENT: {
     id: 373861,
     name: 'Temporal Anomaly',
     icon: 'ability_evoker_temporalanomaly',
     maxRanks: 1,
     manaCost: 700,
   },
-  DREAMWALKER_PRESERVATION_TALENT: {
+  DREAMWALKER_TALENT: {
     id: 377082,
     name: 'Dreamwalker',
     icon: 'ability_hunter_onewithnature',
     maxRanks: 1,
   },
-  RUSH_OF_VITALITY_PRESERVATION_TALENT: {
+  RUSH_OF_VITALITY_TALENT: {
     id: 377086,
     name: 'Rush of Vitality',
     icon: 'trade_enchanting_greatermysteriousessence',
     maxRanks: 1,
   },
-  EXHILARATING_BURST_PRESERVATION_TALENT: {
+  EXHILARATING_BURST_TALENT: {
     id: 377100,
     name: 'Exhilarating Burst',
     icon: 'ability_evoker_essenceburst3',
     maxRanks: 2,
   },
-  FIELD_OF_DREAMS_PRESERVATION_TALENT: {
+  FIELD_OF_DREAMS_TALENT: {
     id: 370062,
     name: 'Field of Dreams',
     icon: 'inv_misc_herb_chamlotus',
     maxRanks: 1,
   },
-  LIFEFORCE_MENDER_PRESERVATION_TALENT: {
+  LIFEFORCE_MENDER_TALENT: {
     id: 376179,
     name: 'Lifeforce Mender',
     icon: 'ability_evoker_dragonrage2',
     maxRanks: 3,
   },
-  TIME_LORD_PRESERVATION_TALENT: {
+  TIME_LORD_TALENT: {
     id: 372527,
     name: 'Time Lord',
     icon: 'ability_evoker_innatemagic4',
     maxRanks: 2,
   },
-  FLOW_STATE_PRESERVATION_TALENT: {
+  FLOW_STATE_TALENT: {
     id: 385696,
     name: 'Flow State',
     icon: 'ability_evoker_timespiral',
     maxRanks: 2,
   },
-  RESONATING_SPHERE_PRESERVATION_TALENT: {
+  RESONATING_SPHERE_TALENT: {
     id: 376236,
     name: 'Resonating Sphere',
     icon: 'ability_evoker_bronze_01',
     maxRanks: 1,
   },
-  NOZDORMUS_TEACHINGS_PRESERVATION_TALENT: {
+  NOZDORMUS_TEACHINGS_TALENT: {
     id: 376237,
     name: "Nozdormu's Teachings",
     icon: 'inv_misc_head_dragon_bronze',
     maxRanks: 1,
   },
-  LIFEBIND_PRESERVATION_TALENT: {
-    id: 373270,
-    name: 'Lifebind',
-    icon: 'ability_evoker_hoverred',
-    maxRanks: 1,
-  },
-  CALL_OF_YSERA_PRESERVATION_TALENT: { id: 373834, name: 'Call of Ysera', icon: '', maxRanks: 1 },
-  TIME_KEEPER_PRESERVATION_TALENT: {
+  LIFEBIND_TALENT: { id: 373270, name: 'Lifebind', icon: 'ability_evoker_hoverred', maxRanks: 1 },
+  CALL_OF_YSERA_TALENT: { id: 373834, name: 'Call of Ysera', icon: '', maxRanks: 1 },
+  PUNCTUALITY_TALENT: {
     id: 371270,
-    name: 'Time Keeper',
+    name: 'Punctuality',
     icon: 'inv_offhand_1h_ulduarraid_d_01',
     maxRanks: 1,
   },
-  SACRAL_EMPOWERMENT_PRESERVATION_TALENT: {
+  SPARK_OF_INSIGHT_TALENT: {
     id: 377099,
-    name: 'Sacral Empowerment',
-    icon: 'ability_evoker_essenceburststacks',
+    name: 'Spark of Insight',
+    icon: 'ability_evoker_essenceburst5',
     maxRanks: 1,
   },
-  POWER_NEXUS_PRESERVATION_TALENT: {
-    id: 369908,
-    name: 'Power Nexus',
-    icon: 'ability_evoker_powernexus',
-    maxRanks: 1,
-  },
-  OUROBOROS_PRESERVATION_TALENT: {
+  OUROBOROS_TALENT: {
     id: 381921,
     name: 'Ouroboros',
     icon: 'ability_evoker_innatemagic',
     maxRanks: 1,
   },
-  FONT_OF_MAGIC_PRESERVATION_TALENT: {
-    id: 375783,
-    name: 'Font of Magic',
-    icon: 'ability_evoker_fontofmagic',
-    maxRanks: 1,
-  },
-  BORROWED_TIME_PRESERVATION_TALENT: {
+  ERASURE_TALENT: {
     id: 376210,
-    name: 'Borrowed Time',
+    name: 'Erasure',
     icon: 'ability_bossmagistrix_timewarp2',
     maxRanks: 1,
   },
-  TEMPORAL_ARTIFICER_PRESERVATION_TALENT: {
+  TEMPORAL_ARTIFICER_TALENT: {
     id: 381922,
     name: 'Temporal Artificer',
     icon: 'ability_evoker_rewind',
     maxRanks: 1,
   },
-  ENERGY_LOOP_PRESERVATION_TALENT: {
+  ENERGY_LOOP_TALENT: {
     id: 372233,
     name: 'Energy Loop',
     icon: 'inv_elemental_mote_mana',
     maxRanks: 1,
   },
-  TIME_OF_NEED_PRESERVATION_TALENT: {
+  TIME_OF_NEED_TALENT: {
     id: 368412,
     name: 'Time of Need',
     icon: 'ability_evoker_masterylifebinder_bronze',
     maxRanks: 1,
   },
-  RENEWING_BREATH_PRESERVATION_TALENT: {
+  RENEWING_BREATH_TALENT: {
     id: 371257,
     name: 'Renewing Breath',
     icon: 'ability_evoker_dreambreath',
     maxRanks: 2,
   },
-  GRACE_PERIOD_PRESERVATION_TALENT: {
+  GRACE_PERIOD_TALENT: {
     id: 376239,
     name: 'Grace Period',
     icon: 'ability_evoker_reversion_green',
     maxRanks: 2,
   },
-  TIMELESS_MAGIC_PRESERVATION_TALENT: {
+  TIMELESS_MAGIC_TALENT: {
     id: 376240,
     name: 'Timeless Magic',
     icon: 'inv_artifact_xp05',
     maxRanks: 2,
   },
-  DREAM_FLIGHT_PRESERVATION_TALENT: {
+  DREAM_FLIGHT_TALENT: {
     id: 359816,
     name: 'Dream Flight',
     icon: 'ability_evoker_dreamflight',
     maxRanks: 1,
     manaCost: 400,
   },
-  CYCLE_OF_LIFE_PRESERVATION_TALENT: {
+  CYCLE_OF_LIFE_TALENT: {
     id: 371832,
     name: 'Cycle of Life',
     icon: 'spell_lifegivingseed',
     maxRanks: 1,
   },
-  STASIS_PRESERVATION_TALENT: {
+  STASIS_TALENT: {
     id: 370537,
     name: 'Stasis',
     icon: 'ability_evoker_stasis',

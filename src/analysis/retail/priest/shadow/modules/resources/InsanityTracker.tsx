@@ -33,7 +33,7 @@ class InsanityTracker extends ResourceTracker {
       gain = event.resourceChange - waste;
     }
 
-    this._applyBuilder(spellId, gain, waste, this.getResource(event), event.timestamp);
+    this._applyBuilder(spellId, gain, waste, event.timestamp, this.getResource(event));
   }
 }
 export default InsanityTracker;

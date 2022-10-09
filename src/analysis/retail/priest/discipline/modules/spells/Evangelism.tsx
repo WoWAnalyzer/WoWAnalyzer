@@ -21,9 +21,9 @@ class Evangelism extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.EVANGELISM_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.EVANGELISM_TALENT),
       this.onCast,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
@@ -81,7 +81,7 @@ class Evangelism extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT.id} />}
+        icon={<SpellIcon id={TALENTS_PRIEST.EVANGELISM_TALENT.id} />}
         value={`${formatNumber(
           (evangelismStatistics.reduce((total, c) => total + c.healing, 0) /
             this.owner.fightDuration) *

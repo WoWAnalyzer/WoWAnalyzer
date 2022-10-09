@@ -1,5 +1,6 @@
 import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -20,20 +21,20 @@ import { DIVINE_PURPOSE_CHANCE } from './constants';
 
 const HEALING_HOLY_POWER_SPELLS: Spell[] = [
   SPELLS.WORD_OF_GLORY,
-  SPELLS.LIGHT_OF_DAWN_CAST,
   SPELLS.LIGHT_OF_DAWN_HEAL,
+  TALENTS.LIGHT_OF_DAWN_TALENT,
 ];
 const DAMAGE_HOLY_POWER_SPELLS: Spell[] = [
   SPELLS.SHIELD_OF_THE_RIGHTEOUS,
   SPELLS.TEMPLARS_VERDICT,
   SPELLS.TEMPLARS_VERDICT_DAMAGE,
-  SPELLS.DIVINE_STORM,
   SPELLS.DIVINE_STORM_DAMAGE,
-  SPELLS.EXECUTION_SENTENCE_TALENT,
-  SPELLS.JUSTICARS_VENGEANCE_TALENT,
   SPELLS.FINAL_VERDICT_FINISHER,
+  TALENTS.DIVINE_STORM_TALENT,
+  TALENTS.JUSTICARS_VENGEANCE_TALENT,
+  TALENTS.EXECUTION_SENTENCE_TALENT,
 ];
-const BUFF_HOLY_POWER_SPELLS: Spell[] = [SPELLS.SERAPHIM_TALENT];
+const BUFF_HOLY_POWER_SPELLS: Spell[] = [TALENTS.SERAPHIM_TALENT];
 const ALL_HOLY_POWER_SPELLS: Spell[] = [
   ...HEALING_HOLY_POWER_SPELLS,
   ...DAMAGE_HOLY_POWER_SPELLS,
@@ -62,7 +63,7 @@ class DivinePurpose extends Analyzer {
 
   constructor(args: Options) {
     super(args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DIVINE_PURPOSE_TALENT.id);
 
     if (!this.active) {
       return;
@@ -145,7 +146,7 @@ class DivinePurpose extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.DIVINE_PURPOSE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.DIVINE_PURPOSE_TALENT.id}>
           <ItemDamageDone amount={this.damageDone} /> <br />
           <ItemHealingDone amount={this.healingDone} />
         </BoringSpellValueText>

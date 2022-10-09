@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/warrior';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -24,7 +25,7 @@ class AngerManagement extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ANGER_MANAGEMENT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.ANGER_MANAGEMENT_TALENT.id);
 
     if (!this.active) {
       return;
@@ -62,7 +63,7 @@ class AngerManagement extends Analyzer {
         size="flexible"
         tooltip={`${formatNumber(this.wastedReduction / 1000)}s missed CDR`}
       >
-        <BoringSpellValueText spellId={SPELLS.ANGER_MANAGEMENT_TALENT.id}>
+        <BoringSpellValueText spellId={talents.ANGER_MANAGEMENT_TALENT.id}>
           <>{formatNumber(this.effectiveReduction / 1000)}s Recklessness CDR</>
         </BoringSpellValueText>
       </Statistic>

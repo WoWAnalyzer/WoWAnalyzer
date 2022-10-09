@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro';
 import { SHATTER_DEBUFFS } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
@@ -28,10 +29,10 @@ class GlacialSpike extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT.id);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.GLACIAL_SPIKE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.GLACIAL_SPIKE_TALENT),
       this.onGlacialSpikeCast,
     );
     this.addEventListener(
@@ -106,7 +107,7 @@ class GlacialSpike extends Analyzer {
   }
 
   get totalCasts() {
-    return this.abilityTracker.getAbility(SPELLS.GLACIAL_SPIKE_TALENT.id).casts;
+    return this.abilityTracker.getAbility(TALENTS.GLACIAL_SPIKE_TALENT.id).casts;
   }
 
   get glacialSpikeUtilizationThresholds() {
@@ -125,7 +126,7 @@ class GlacialSpike extends Analyzer {
     when(this.glacialSpikeUtilizationThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> without{' '}
+          You cast <SpellLink id={TALENTS.GLACIAL_SPIKE_TALENT.id} /> without{' '}
           <SpellLink id={SPELLS.SHATTER.id} />
           ing it {this.spikeNotShattered} times. Because it is such a potent ability, it is
           important to maximize it's damage by only casting it if the target is
@@ -142,7 +143,7 @@ class GlacialSpike extends Analyzer {
           .
         </>,
       )
-        .icon(SPELLS.GLACIAL_SPIKE_TALENT.icon)
+        .icon(TALENTS.GLACIAL_SPIKE_TALENT.icon)
         .actual(
           <Trans id="mage.frost.suggestions.glacialSpike.castsWithoutShatter">
             {formatPercentage(actual, 1)}% utilization
@@ -164,7 +165,7 @@ class GlacialSpike extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.GLACIAL_SPIKE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.GLACIAL_SPIKE_TALENT.id}>
           {`${formatPercentage(this.utilPercentage, 0)}%`} <small>Cast utilization</small>
         </BoringSpellValueText>
       </Statistic>

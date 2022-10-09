@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -13,7 +14,7 @@ class PsychicVoice extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.PSYCHIC_VOICE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.PSYCHIC_VOICE_TALENT.id);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PSYCHIC_SCREAM),
       this.onCast,
@@ -39,7 +40,7 @@ class PsychicVoice extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(4)}
       >
-        <BoringSpellValueText spellId={SPELLS.PSYCHIC_VOICE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.PSYCHIC_VOICE_TALENT.id}>
           {this.psychicScreamHits} Targets Feared
         </BoringSpellValueText>
       </Statistic>

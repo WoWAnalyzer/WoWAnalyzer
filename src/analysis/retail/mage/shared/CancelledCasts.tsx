@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import { Options } from 'parser/core/Analyzer';
@@ -14,8 +15,8 @@ class CancelledCasts extends CoreCancelledCasts {
       //Include the spells that you do not want to be tracked and spells that are castable while casting (Like Fire Blast, Combustion, or Shimmer)
       SPELLS.FIRE_BLAST.id,
       SPELLS.COMBUSTION.id,
-      SPELLS.SHIMMER_TALENT.id,
-      SPELLS.ICE_FLOES_TALENT.id,
+      TALENTS.SHIMMER_TALENT.id,
+      TALENTS.ICE_FLOES_TALENT.id,
     ];
   }
 
@@ -40,13 +41,13 @@ class CancelledCasts extends CoreCancelledCasts {
     if (this.selectedCombatant.specId === SPECS.FROST_MAGE.id) {
       extraMovementSpell = (
         <>
-          , and <SpellLink id={SPELLS.ICE_FLOES_TALENT.id} />
+          , and <SpellLink id={TALENTS.ICE_FLOES_TALENT.id} />
         </>
       );
     } else if (this.selectedCombatant.specId === SPECS.ARCANE_MAGE.id) {
       extraMovementSpell = (
         <>
-          , and <SpellLink id={SPELLS.SLIPSTREAM_TALENT.id} />
+          , and <SpellLink id={TALENTS.SLIPSTREAM_TALENT.id} />
         </>
       );
     }
@@ -60,7 +61,7 @@ class CancelledCasts extends CoreCancelledCasts {
           should try to ensure that you are cancelling as few casts as possible by utilizing
           movement abilities such as <SpellLink id={SPELLS.BLINK.id} />
           {joiner}
-          <SpellLink id={SPELLS.SHIMMER_TALENT.id} />
+          <SpellLink id={TALENTS.SHIMMER_TALENT.id} />
           {extraMovementSpell}.
         </>,
       )

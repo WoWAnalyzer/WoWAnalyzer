@@ -11,8 +11,12 @@ import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import StatisticBox from 'parser/ui/StatisticBox';
 import { TALENTS_PRIEST } from 'common/TALENTS';
-import isAtonement from '../core/isAtonement';
 import Penance from './Penance';
+import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
+
+interface DirtyDamageEvent extends DamageEvent {
+  penanceBoltNumber?: number;
+}
 
 class Castigation extends Analyzer {
   static dependencies = {
@@ -26,9 +30,10 @@ class Castigation extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CASTIGATION_DISCIPLINE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CASTIGATION_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtone);
   }
 
   onDamage(event: DamageEvent) {
@@ -58,12 +63,18 @@ class Castigation extends Analyzer {
         this.healing += event.amount;
       }
     }
+  }
 
-    // Offensive Penance Healing
-    if (isAtonement(event)) {
-      if (this._isCastigationBolt) {
-        this.healing += event.amount;
-      }
+  onAtone(event: AtonementAnalyzerEvent) {
+    if (event.damageEvent?.ability.guid !== SPELLS.PENANCE.id) {
+      return;
+    }
+    const { penanceBoltNumber } = event.damageEvent as DirtyDamageEvent;
+    if (penanceBoltNumber !== 3) {
+      return;
+    }
+    if (this._isCastigationBolt) {
+      this.healing += event.healEvent.amount;
     }
   }
 
@@ -73,7 +84,7 @@ class Castigation extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={TALENTS_PRIEST.CASTIGATION_DISCIPLINE_TALENT.id} />}
+        icon={<SpellIcon id={TALENTS_PRIEST.CASTIGATION_TALENT.id} />}
         value={`${formatNumber((healing / this.owner.fightDuration) * 1000)} HPS`}
         label={
           <TooltipElement

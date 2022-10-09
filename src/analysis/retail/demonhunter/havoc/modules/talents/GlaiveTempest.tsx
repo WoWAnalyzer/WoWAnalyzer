@@ -7,15 +7,14 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
 class GlaiveTempest extends Analyzer {
   damage = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_HAVOC_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -42,8 +41,8 @@ class GlaiveTempest extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_HAVOC_TALENT.id}>
-          <>{this.owner.formatItemDamageDone(this.damage)}</>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_TALENT.id}>
+          <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>
     );

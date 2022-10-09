@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -14,17 +15,17 @@ class Censure extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.CENSURE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.CENSURE_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_CHASTISE),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HOLY_WORD_CHASTISE_TALENT),
       this.onCast,
     );
     this.addEventListener(
       Events.applydebuff
         .by(SELECTED_PLAYER)
         .spell([
-          SPELLS.HOLY_WORD_CHASTISE_CENSURE_INCAPACITATE,
-          SPELLS.HOLY_WORD_CHASTISE_CENSURE_STUN,
+          SPELLS.HOLY_WORD_CHASTISE_CENSURE_TALENT_INCAPACITATE,
+          SPELLS.HOLY_WORD_CHASTISE_CENSURE_TALENT_STUN,
         ]),
       this.onApplyDebuff,
     );
@@ -37,10 +38,10 @@ class Censure extends Analyzer {
   onApplyDebuff(event: ApplyDebuffEvent) {
     const spellId = event.ability.guid;
 
-    if (spellId === SPELLS.HOLY_WORD_CHASTISE_CENSURE_INCAPACITATE.id) {
+    if (spellId === SPELLS.HOLY_WORD_CHASTISE_CENSURE_TALENT_INCAPACITATE.id) {
       this.censureIncomp += 1;
     }
-    if (spellId === SPELLS.HOLY_WORD_CHASTISE_CENSURE_STUN.id) {
+    if (spellId === SPELLS.HOLY_WORD_CHASTISE_CENSURE_TALENT_STUN.id) {
       this.censureStuns += 1;
     }
   }
@@ -60,7 +61,7 @@ class Censure extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(4)}
       >
-        <BoringSpellValueText spellId={SPELLS.CENSURE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.CENSURE_TALENT.id}>
           {this.censureStuns + this.censureIncomp} Censure CC(s)
         </BoringSpellValueText>
       </Statistic>

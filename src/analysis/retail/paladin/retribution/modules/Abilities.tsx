@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import { TALENTS_PALADIN } from 'common/TALENTS';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -152,12 +153,12 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.JUSTICARS_VENGEANCE_TALENT.id,
+        spell: SPELLS.JUSTICARS_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.JUSTICARS_VENGEANCE_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.JUSTICARS_TALENT.id),
       },
       {
         spell: SPELLS.EYE_FOR_AN_EYE_TALENT.id,
@@ -279,7 +280,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.BLESSING_OF_SACRIFICE.id,
+        spell: TALENTS_PALADIN.BLESSING_OF_SACRIFICE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 120,
       },

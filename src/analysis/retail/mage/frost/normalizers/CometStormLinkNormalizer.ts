@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { AnyEvent, EventType, GetRelatedEvents } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
@@ -13,7 +14,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: FROM_HARDCAST,
     linkingEventId: SPELLS.COMET_STORM_DAMAGE.id,
     linkingEventType: EventType.Damage,
-    referencedEventId: SPELLS.COMET_STORM_TALENT.id,
+    referencedEventId: TALENTS.COMET_STORM_TALENT.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: 0,
     backwardBufferMs: CAST_BUFFER_MS,

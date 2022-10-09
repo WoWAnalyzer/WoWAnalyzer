@@ -29,30 +29,24 @@ class SoulBarrier extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id);
     this.addEventListener(
-      Events.applybuff
-        .to(SELECTED_PLAYER)
-        .spell(TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT),
+      Events.applybuff.to(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT),
       this.onApplyBuff,
     );
     this.addEventListener(
-      Events.absorbed.to(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT),
+      Events.absorbed.to(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT),
       this.onAbsorb,
     );
     this.addEventListener(
-      Events.removebuff
-        .to(SELECTED_PLAYER)
-        .spell(TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT),
+      Events.removebuff.to(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT),
       this.onRemoveBuff,
     );
   }
 
   get uptime() {
     return (
-      this.selectedCombatant.getBuffUptime(TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT.id) /
+      this.selectedCombatant.getBuffUptime(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id) /
       this.owner.fightDuration
     );
   }
@@ -79,7 +73,7 @@ class SoulBarrier extends Analyzer {
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
-    if (event.ability.guid !== TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT.id) {
+    if (event.ability.guid !== TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id) {
       return;
     }
     this.buffRemoved = event.timestamp;
@@ -91,11 +85,11 @@ class SoulBarrier extends Analyzer {
     when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your uptime with <SpellLink id={TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT.id} />{' '}
-          can be improved.
+          Your uptime with <SpellLink id={TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id} /> can be
+          improved.
         </>,
       )
-        .icon(TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT.icon)
+        .icon(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.icon)
         .actual(
           t({
             id: 'demonhunter.vengeance.suggestions.soulBarrier.uptime',
@@ -125,7 +119,7 @@ class SoulBarrier extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id}>
           <Uptime /> {formatPercentage(this.uptime)}% <small>Uptime</small>
         </BoringSpellValueText>
       </Statistic>

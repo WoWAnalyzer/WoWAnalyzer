@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
-import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
+import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
@@ -55,7 +55,7 @@ const EnhancementShamanChecklist = (props: ChecklistProps & AplRuleProps) => {
           </>
         }
       >
-        <AbilityRequirement spell={TALENTS_SHAMAN.FERAL_SPIRIT_ENHANCEMENT_TALENT.id} />
+        <AbilityRequirement spell={TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id} />
         {combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id) && (
           <AbilityRequirement spell={TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id} />
         )}
@@ -103,7 +103,7 @@ const EnhancementShamanChecklist = (props: ChecklistProps & AplRuleProps) => {
         name="Single Target APL checker (beta)"
         cooldowns={[
           // TODO: Enable talent as spell
-          // TALENTS_SHAMAN.FERAL_SPIRIT_ENHANCEMENT_TALENT,
+          // TALENTS_SHAMAN.FERAL_SPIRIT_TALENT,
           // TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT,
           SPELLS.VESPER_TOTEM,
           SPELLS.PRIMORDIAL_WAVE_CAST,

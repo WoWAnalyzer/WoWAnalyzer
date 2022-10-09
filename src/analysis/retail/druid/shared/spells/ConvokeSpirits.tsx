@@ -35,9 +35,9 @@ export const CONVOKE_BUFF_SPELLS = [
   SPELLS.REGROWTH,
   SPELLS.IRONFUR,
   SPELLS.TIGERS_FURY,
-  TALENTS.FERAL_FRENZY_FERAL_TALENT,
+  TALENTS.FERAL_FRENZY_TALENT,
   SPELLS.WILD_GROWTH,
-  TALENTS.FLOURISH_RESTORATION_TALENT,
+  TALENTS.FLOURISH_TALENT,
   SPELLS.STARFALL_CAST, // apparently this is also the ID for the buff
 ];
 /** All convokable spells that 'hit' with a debuff application */
@@ -59,7 +59,7 @@ export const CONVOKE_DAMAGE_SPELLS = [
   SPELLS.FEROCIOUS_BITE,
   SPELLS.SHRED,
   SPELLS.MANGLE_BEAR,
-  TALENTS.PULVERIZE_GUARDIAN_TALENT,
+  TALENTS.PULVERIZE_TALENT,
 ];
 /** Convokable spells that do direct damage (and possible also a DoT portion) - for damage tallying */
 export const CONVOKE_DIRECT_DAMAGE_SPELLS = [
@@ -85,10 +85,15 @@ export const SPELL_IDS_WITH_AOE = [
   SPELLS.FULL_MOON.id,
   SPELLS.THRASH_BEAR_DOT.id,
   SPELLS.WILD_GROWTH.id,
+  // Rejuv and Regrowth don't normally AoE, but Rampant Growth and PotA procs can make them
+  // hit extra targets - adding them to this list is best way to control for that
+  SPELLS.REJUVENATION.id,
+  SPELLS.REJUVENATION_GERMINATION.id,
+  SPELLS.REGROWTH.id,
 ];
 
 const SPELLS_CAST = 16;
-const SPELLS_CAST_RESTO = 12; // TODO in DF might be 16 for resto too, double check later in beta
+const SPELLS_CAST_RESTO = 12;
 
 const AOE_BUFFER_MS = 100;
 const AFTER_CHANNEL_BUFFER_MS = 50;
@@ -135,9 +140,7 @@ class ConvokeSpirits extends Analyzer {
     super(options);
     this.active =
       this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_BALANCE_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_FERAL_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_GUARDIAN_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_RESTORATION_TALENT);
+      this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT);
 
     this.spellsPerCast =
       this.selectedCombatant.specId === SPECS.RESTORATION_DRUID.id
@@ -198,11 +201,11 @@ class ConvokeSpirits extends Analyzer {
       this.onFeralFrenzyDamage,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.FERAL_FRENZY_FERAL_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.FERAL_FRENZY_TALENT),
       this.onGainFeralFrenzy,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS.FERAL_FRENZY_FERAL_TALENT),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS.FERAL_FRENZY_TALENT),
       this.onGainFeralFrenzy,
     );
     this.addEventListener(

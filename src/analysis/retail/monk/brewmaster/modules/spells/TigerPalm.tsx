@@ -31,14 +31,14 @@ function isConditional(spell: ConditionalSpell | SpellInfo): spell is Conditiona
 }
 
 const BETTER_SPELLS: Array<SpellInfo | ConditionalSpell> = [
-  talents.KEG_SMASH_BREWMASTER_TALENT,
+  talents.KEG_SMASH_TALENT,
   SPELLS.BLACKOUT_KICK_BRM,
-  talents.BREATH_OF_FIRE_BREWMASTER_TALENT,
+  talents.BREATH_OF_FIRE_TALENT,
   {
-    spell: talents.BREATH_OF_FIRE_BREWMASTER_TALENT,
+    spell: talents.BREATH_OF_FIRE_TALENT,
     when: (combatant: Combatant) =>
-      combatant.hasTalent(talents.BREATH_OF_FIRE_BREWMASTER_TALENT.id) &&
-      !combatant.hasBuff(talents.BREATH_OF_FIRE_BREWMASTER_TALENT.id),
+      combatant.hasTalent(talents.BREATH_OF_FIRE_TALENT.id) &&
+      !combatant.hasBuff(talents.BREATH_OF_FIRE_TALENT.id),
   },
   {
     spell: talents.CHI_BURST_TALENT,
@@ -197,8 +197,8 @@ class TigerPalm extends Analyzer {
         <>
           <SpellLink id={SPELLS.TIGER_PALM.id} /> is your lowest priority ability. You should avoid
           casting it when you have other damaging abilities like{' '}
-          <SpellLink id={talents.KEG_SMASH_BREWMASTER_TALENT.id} /> or <SpellLink id={SPELLS.BLACKOUT_KICK_BRM.id} />{' '}
-          available.
+          <SpellLink id={talents.KEG_SMASH_TALENT.id} /> or{' '}
+          <SpellLink id={SPELLS.BLACKOUT_KICK_BRM.id} /> available.
         </>,
       )
         .icon(SPELLS.TIGER_PALM.icon)

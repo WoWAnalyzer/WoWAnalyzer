@@ -1,5 +1,6 @@
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import DonutChart from 'parser/ui/DonutChart';
@@ -93,7 +94,7 @@ class MasteryStats extends Analyzer {
       {
         color: SPELL_COLORS.REVIVAL,
         label: 'Revival',
-        spellId: SPELLS.REVIVAL.id,
+        spellId: TALENTS_MONK.REVIVAL_TALENT.id,
         value: this.revival.gustsHealing,
         valueTooltip: formatThousands(this.revival.gustsHealing),
       },

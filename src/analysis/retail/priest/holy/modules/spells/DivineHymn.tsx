@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { When } from 'parser/core/ParseResults';
@@ -18,7 +19,7 @@ class DivineHymn extends Analyzer {
       this.onHeal,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_HYMN_CAST),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.DIVINE_HYMN_TALENT),
       this.onCast,
     );
   }

@@ -1,6 +1,6 @@
 import { Trans, t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
 import Events, {
@@ -145,7 +145,7 @@ class MasteryEffectiveness extends Analyzer {
 
     let distance = this.getPlayerDistance(event);
     const isRuleOfLawActive = this.selectedCombatant.hasBuff(
-      SPELLS.RULE_OF_LAW_TALENT.id,
+      TALENTS.RULE_OF_LAW_TALENT.id,
       event.timestamp,
     );
 

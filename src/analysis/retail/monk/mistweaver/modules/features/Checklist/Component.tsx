@@ -1,10 +1,11 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
 import { TooltipElement } from 'interface';
-import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
+import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
@@ -37,7 +38,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         }
       >
         <AbilityRequirement spell={SPELLS.RENEWING_MIST.id} />
-        {!combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id) && (
+        {!combatant.hasTalent(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id) && (
           <Requirement
             name={
               <>
@@ -47,7 +48,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
             thresholds={thresholds.vivify}
           />
         )}
-        {combatant.hasTalent(SPELLS.RISING_MIST_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.RISING_SUN_KICK.id} />
         )}
         {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
@@ -72,33 +73,33 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         }
       >
         <AbilityRequirement spell={SPELLS.THUNDER_FOCUS_TEA.id} />
-        {combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.MANA_TEA_TALENT.id} />
+        {combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_MONK.MANA_TEA_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id) &&
-          !combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT.id) &&
+          !combatant.hasTalent(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id) && (
             <Requirement
               name={
                 <>
                   <SpellLink id={SPELLS.RENEWING_MIST.id} /> active during{' '}
-                  <SpellLink id={SPELLS.MANA_TEA_TALENT.id} />
+                  <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} />
                 </>
               }
               thresholds={thresholds.renewingMistDuringManaTea}
             />
           )}
-        {combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.CHI_BURST_TALENT.id} />
+        {combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_MONK.CHI_BURST_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.CHI_WAVE_TALENT.id} />
+        {combatant.hasTalent(TALENTS_MONK.CHI_WAVE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_MONK.CHI_WAVE_TALENT.id} />
         )}
-        <AbilityRequirement spell={SPELLS.REVIVAL.id} />
-        {!combatant.hasTalent(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) && (
+        <AbilityRequirement spell={TALENTS_MONK.REVIVAL_TALENT.id} />
+        {!combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} />
+        {combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.TOUCH_OF_DEATH.id} />
         <Requirement
@@ -120,36 +121,36 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         name="Position yourself well to maximize your most effective spells"
         description={
           <>
-            Effective use of <SpellLink id={SPELLS.ESSENCE_FONT.id} /> has a big impact on your
-            healing. Ensure you stay in melee to maximize the number of targets that can be in range
-            of both <SpellLink id={SPELLS.ESSENCE_FONT.id} /> and other spells such as{' '}
-            <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} />.
+            Effective use of <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> has a big impact
+            on your healing. Ensure you stay in melee to maximize the number of targets that can be
+            in range of both <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> and other spells
+            such as <SpellLink id={TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id} />.
           </>
         }
       >
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.ESSENCE_FONT.id} /> targets hit
+              <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> targets hit
             </>
           }
           thresholds={thresholds.essenceFont}
         />
-        {combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> % targets hit
+                <SpellLink id={TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id} /> % targets hit
               </>
             }
             thresholds={thresholds.refreshingJadeWind}
           />
         )}
-        {combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> targets hit
+                <SpellLink id={TALENTS_MONK.CHI_BURST_TALENT.id} /> targets hit
               </>
             }
             thresholds={thresholds.chiBurst}
@@ -169,53 +170,53 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         name="Pick the right tools for the fight"
         description="The throughput gain of some talents might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly."
       >
-        {combatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_MONK.SPIRIT_OF_THE_CRANE_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} /> mana returned
+                <SpellLink id={TALENTS_MONK.SPIRIT_OF_THE_CRANE_TALENT.id} /> mana returned
               </>
             }
             thresholds={thresholds.spiritOfTheCrane}
           />
         )}
 
-        {combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> mana saved
+                <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> mana saved
               </>
             }
             thresholds={thresholds.manaTea}
           />
         )}
-        {combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> % overhealing
+                <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> % overhealing
               </>
             }
             thresholds={thresholds.manaTeaOverhealing}
           />
         )}
 
-        {combatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_MONK.LIFECYCLES_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.LIFECYCLES_TALENT.id} /> mana saved
+                <SpellLink id={TALENTS_MONK.LIFECYCLES_TALENT.id} /> mana saved
               </>
             }
             thresholds={thresholds.lifecycles}
           />
         )}
-        {combatant.hasTalent(SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> Cast Uptime
+                <SpellLink id={TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> Cast Uptime
               </>
             }
             thresholds={thresholds.jadeSerpentStatue}
@@ -238,7 +239,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.ESSENCE_FONT.id} /> cancelled casts
+              <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> cancelled casts
             </>
           }
           thresholds={thresholds.EssenceFontCancelled}
@@ -279,16 +280,16 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         name="Use your defensive cooldowns effectively"
         description="Make sure you use your personal and defensive cooldowns at appropriate times throughout the fight. While it may not make sense to use these abilities on cooldown, saving them for large damage events is ideal."
       >
-        <AbilityRequirement spell={SPELLS.FORTIFYING_BREW.id} />
+        <AbilityRequirement spell={TALENTS_MONK.FORTIFYING_BREW_SHARED_TALENT.id} />
         <AbilityRequirement spell={SPELLS.LIFE_COCOON.id} />
-        {combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.DIFFUSE_MAGIC_TALENT.id} />
+        {combatant.hasTalent(TALENTS_MONK.DIFFUSE_MAGIC_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_MONK.DIFFUSE_MAGIC_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.DAMPEN_HARM_TALENT.id} />
+        {combatant.hasTalent(TALENTS_MONK.DAMPEN_HARM_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_MONK.DAMPEN_HARM_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.HEALING_ELIXIR_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.HEALING_ELIXIR_TALENT.id} />
+        {combatant.hasTalent(TALENTS_MONK.HEALING_ELIXIR_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_MONK.HEALING_ELIXIR_TALENT.id} />
         )}
       </Rule>
       <Rule

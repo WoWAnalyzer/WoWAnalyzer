@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -45,20 +45,20 @@ class Renew extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    if (this.selectedCombatant.hasTalent(SPELLS.HOLY_WORD_SALVATION_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.HOLY_WORD_SALVATION_TALENT.id)) {
       this.salvationActive = true;
     }
-    if (this.selectedCombatant.hasTalent(SPELLS.BENEDICTION_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.BENEDICTION_TALENT.id)) {
       this.benedictionActive = true;
     }
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEW), this.onHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(TALENTS.RENEW_TALENT), this.onHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RENEW),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.RENEW_TALENT),
       this.onApplyBuff,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RENEW),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS.RENEW_TALENT),
       this.onRefreshBuff,
     );
     this.addEventListener(Events.GlobalCooldown.by(SELECTED_PLAYER), this.onGCD);
@@ -115,10 +115,10 @@ class Renew extends Analyzer {
       // If our last cast was a renew cast, validate that it was used well.
       this.validateRenew(event);
     }
-    if (spellId === SPELLS.RENEW.id) {
+    if (spellId === TALENTS.RENEW_TALENT.id) {
       this.renewsCast += 1;
       this.lastCast = event;
-    } else if (spellId === SPELLS.HOLY_WORD_SALVATION_TALENT.id) {
+    } else if (spellId === TALENTS.HOLY_WORD_SALVATION_TALENT.id) {
       this.lastSalvationCast = event.timestamp;
     }
   }
@@ -143,7 +143,7 @@ class Renew extends Analyzer {
 
   onGCD(event: GlobalCooldownEvent) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.RENEW.id) {
+    if (spellId !== TALENTS.RENEW_TALENT.id) {
       return;
     }
     this.lastGCD = event;
@@ -154,11 +154,15 @@ class Renew extends Analyzer {
     this.lastRenewCast = event.timestamp;
     if (this.lastGCD && this.movedSinceCast(event)) {
       // We are moving, but do we have any other instant cast spells?
-      const sanctifyOnCooldown = this.spellUsable.isOnCooldown(SPELLS.HOLY_WORD_SANCTIFY.id);
-      const serenityOnCooldown = this.spellUsable.isOnCooldown(SPELLS.HOLY_WORD_SERENITY.id);
+      const sanctifyOnCooldown = this.spellUsable.isOnCooldown(
+        TALENTS.HOLY_WORD_SANCTIFY_TALENT.id,
+      );
+      const serenityOnCooldown = this.spellUsable.isOnCooldown(
+        TALENTS.HOLY_WORD_SERENITY_TALENT.id,
+      );
       let cohOnCooldown = true;
-      if (this.selectedCombatant.hasTalent(SPELLS.CIRCLE_OF_HEALING_TALENT.id)) {
-        cohOnCooldown = this.spellUsable.isOnCooldown(SPELLS.CIRCLE_OF_HEALING_TALENT.id);
+      if (this.selectedCombatant.hasTalent(TALENTS.CIRCLE_OF_HEALING_TALENT.id)) {
+        cohOnCooldown = this.spellUsable.isOnCooldown(TALENTS.CIRCLE_OF_HEALING_TALENT.id);
       }
       if (sanctifyOnCooldown && serenityOnCooldown && cohOnCooldown) {
         this.goodRenews += 1;
@@ -190,10 +194,10 @@ class Renew extends Analyzer {
     when(this.badRenewThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should cast <SpellLink id={SPELLS.RENEW.id} /> less.
+          You should cast <SpellLink id={TALENTS.RENEW_TALENT.id} /> less.
         </>,
       )
-        .icon(SPELLS.RENEW.icon)
+        .icon(TALENTS.RENEW_TALENT.icon)
         .actual(
           <>
             You used Renew {this.badRenews} times when another spell would have been more

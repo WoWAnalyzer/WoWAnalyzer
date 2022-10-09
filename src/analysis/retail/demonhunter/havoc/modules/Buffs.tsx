@@ -29,9 +29,8 @@ class Buffs extends CoreAuras {
         triggeredBySpellId: TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id,
       },
       {
-        spellId: TALENTS_DEMON_HUNTER.BLUR_TALENT.id,
-        triggeredBySpellId: TALENTS_DEMON_HUNTER.BLUR_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.BLUR_TALENT.id),
+        spellId: SPELLS.BLUR_BUFF.id,
+        triggeredBySpellId: SPELLS.BLUR.id,
       },
       {
         spellId: TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id,
@@ -63,9 +62,9 @@ class Buffs extends CoreAuras {
           ),
       },
       {
-        spellId: TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_HAVOC_TALENT.id,
+        spellId: TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT.id,
         triggeredBySpellId: TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_HAVOC_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT.id),
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),

@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/warrior';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
@@ -61,19 +62,6 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
       },
-      {
-        spell: SPELLS.SIEGEBREAKER_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-        },
-        enabled: combatant.hasTalent(SPELLS.SIEGEBREAKER_TALENT.id),
-      },
       // Rotational AOE
       {
         spell: SPELLS.WHIRLWIND_FURY_CAST.id,
@@ -81,32 +69,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-      },
-      {
-        spell: SPELLS.DRAGON_ROAR_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 35,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-      },
-      {
-        spell: SPELLS.ANCIENT_AFTERSHOCK.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown:
-          90 -
-          (this.selectedCombatant.hasConduitBySpellID(SPELLS.DESTRUCTIVE_REVERBERATIONS.id)
-            ? 15
-            : 0),
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },
       {
         spell: SPELLS.SPEAR_OF_BASTION.id,
@@ -124,16 +86,16 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasTalent(SPELLS.IMPENDING_VICTORY_TALENT.id),
+        enabled: !combatant.hasTalent(SPELLS.IMPENDING_VICTORY_TALENT_HEAL.id),
       },
       {
-        spell: SPELLS.IMPENDING_VICTORY_TALENT.id,
+        spell: SPELLS.IMPENDING_VICTORY_TALENT_HEAL.id,
         category: SPELL_CATEGORY.OTHERS,
         cooldown: 30,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.IMPENDING_VICTORY_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.IMPENDING_VICTORY_TALENT_HEAL.id),
       },
       // Cooldown
       {
@@ -147,28 +109,6 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.95,
         },
-      },
-      {
-        spell: SPELLS.BLADESTORM_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(SPELLS.BLADESTORM_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-      },
-      {
-        spell: SPELLS.CONQUERORS_BANNER.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
       // Defensive
       {
@@ -203,19 +143,19 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHARGE.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 20 - (combatant.hasTalent(SPELLS.DOUBLE_TIME_TALENT.id) ? 3 : 0),
-        charges: 1 + (combatant.hasTalent(SPELLS.DOUBLE_TIME_TALENT.id) ? 1 : 0),
+        cooldown: 20 - (combatant.hasTalent(talents.DOUBLE_TIME_TALENT.id) ? 3 : 0),
+        charges: 1 + (combatant.hasTalent(talents.DOUBLE_TIME_TALENT.id) ? 1 : 0),
       },
       {
         spell: SPELLS.HEROIC_LEAP.id,
         category: SPELL_CATEGORY.UTILITY,
         buffSpellId: SPELLS.BOUNDING_STRIDE_BUFF.id,
-        cooldown: 45 - (combatant.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 15 : 0),
+        cooldown: 45 - (combatant.hasTalent(talents.BOUNDING_STRIDE_TALENT.id) ? 15 : 0),
         charges: 1,
         gcd: null,
       },
       {
-        spell: SPELLS.STORM_BOLT_TALENT.id,
+        spell: talents.STORM_BOLT_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
@@ -227,7 +167,7 @@ class Abilities extends CoreAbilities {
           extraSuggestion:
             "If you're picking a utility talent over something that increases your mobility or survivability, you better use it.",
         },
-        enabled: combatant.hasTalent(SPELLS.STORM_BOLT_TALENT.id),
+        enabled: combatant.hasTalent(talents.STORM_BOLT_TALENT.id),
       },
       {
         spell: SPELLS.PUMMEL.id,

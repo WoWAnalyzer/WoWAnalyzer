@@ -28,7 +28,7 @@ class Abundance extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.ABUNDANCE_RESTORATION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.ABUNDANCE_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -98,8 +98,7 @@ class Abundance extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellIcon id={TALENTS_DRUID.ABUNDANCE_RESTORATION_TALENT.id} /> Average Abundance
-              stacks
+              <SpellIcon id={TALENTS_DRUID.ABUNDANCE_TALENT.id} /> Average Abundance stacks
             </>
           }
         >

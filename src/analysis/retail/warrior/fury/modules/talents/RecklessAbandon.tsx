@@ -1,5 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/warrior';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -17,7 +18,7 @@ class RecklessAbandon extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.RECKLESS_ABANDON_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.RECKLESSNESS_TALENT.id);
 
     if (!this.active) {
       return;
@@ -77,7 +78,7 @@ class RecklessAbandon extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.RECKLESS_ABANDON_TALENT.id}>
+        <BoringSpellValueText spellId={talents.RECKLESSNESS_TALENT.id}>
           <>{formatNumber(this.instantRageGained)} instant rage</>
         </BoringSpellValueText>
       </Statistic>

@@ -17,9 +17,7 @@ class Penance extends Analyzer {
 
   constructor(options) {
     super(options);
-    this._defaultBolts = this.selectedCombatant.hasTalent(
-      TALENTS_PRIEST.CASTIGATION_DISCIPLINE_TALENT.id,
-    )
+    this._defaultBolts = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CASTIGATION_TALENT.id)
       ? 4
       : 3;
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_CAST), this.onCast);
@@ -47,7 +45,7 @@ class Penance extends Analyzer {
   onCast(event) {
     this._casts += 1;
     this._totalExpectedBolts += this._defaultBolts;
-    if (this.selectedCombatant.hasBuff(SPELLS.THE_PENITENT_ONE_BUFF.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.HARSH_DISCIPLINE_BUFF.id)) {
       this._totalExpectedBolts += 3;
     }
 
@@ -63,7 +61,8 @@ class Penance extends Analyzer {
         tooltip={
           <>
             Each <SpellLink id={SPELLS.PENANCE.id} /> cast has 3 bolts (4 if you're using{' '}
-            <SpellLink id={TALENTS_PRIEST.CASTIGATION_DISCIPLINE_TALENT.id} />
+            <SpellLink id={TALENTS_PRIEST.CASTIGATION_TALENT.id} />, and potentially 3 more if you
+            are using <SpellLink id={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT.id} />
             ). You should try to let this channel finish as much as possible. You channeled Penance{' '}
             {this._casts} times.
           </>

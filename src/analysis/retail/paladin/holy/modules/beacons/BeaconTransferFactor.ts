@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { BeaconTransferFailedEvent, HealEvent } from 'parser/core/Events';
 
@@ -9,7 +9,7 @@ class BeaconTransferFactor extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    if (this.selectedCombatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT.id)) {
       this.beaconType = BEACON_TYPES.BEACON_OF_FATH;
     }
   }

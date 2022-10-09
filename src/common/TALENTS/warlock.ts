@@ -9,16 +9,22 @@ const talents = createTalentList({
     icon: 'spell_shadow_felmending',
     maxRanks: 1,
   },
-  SPELL_LOCK_TALENT: { id: 19647, name: 'Spell Lock', icon: 'spell_shadow_mindrot', maxRanks: 1 },
+  DEMONIC_CIRCLE_TALENT: {
+    id: 268358,
+    name: 'Demonic Circle',
+    icon: 'spell_shadow_demoniccirclesummon',
+    maxRanks: 1,
+    manaCost: 1000,
+  },
   BURNING_RUSH_TALENT: {
     id: 111400,
     name: 'Burning Rush',
     icon: 'ability_deathwing_sealarmorbreachtga',
     maxRanks: 1,
   },
-  QUICK_FIENDS_TALENT: {
+  FEL_PACT_TALENT: {
     id: 386113,
-    name: 'Quick Fiends',
+    name: 'Fel Pact',
     icon: 'spell_shadow_impphaseshift',
     maxRanks: 2,
   },
@@ -29,19 +35,23 @@ const talents = createTalentList({
     maxRanks: 2,
   },
   FEL_ARMOR_TALENT: { id: 386124, name: 'Fel Armor', icon: 'spell_shadow_felarmour', maxRanks: 2 },
-  IMP_STEP_TALENT: { id: 386110, name: 'Imp Step', icon: 'inv_misc_moosehoof_fel', maxRanks: 2 },
+  FIENDISH_STRIDE_TALENT: {
+    id: 386110,
+    name: 'Fiendish Stride',
+    icon: 'inv_misc_moosehoof_fel',
+    maxRanks: 2,
+  },
   CURSES_OF_ENFEEBLEMENT_TALENT: {
     id: 386105,
     name: 'Curses of Enfeeblement',
     icon: 'ability_creature_cursed_02',
     maxRanks: 1,
   },
-  DEMONIC_CIRCLE_TALENT: {
-    id: 48018,
-    name: 'Demonic Circle',
-    icon: 'spell_shadow_demoniccirclesummon',
+  ABYSS_WALKER_TALENT: {
+    id: 389609,
+    name: 'Abyss Walker',
+    icon: 'achievement_explore_argus',
     maxRanks: 1,
-    manaCost: 1000,
   },
   HOWL_OF_TERROR_TALENT: {
     id: 5484,
@@ -74,12 +84,6 @@ const talents = createTalentList({
     icon: 'ability_warlock_demonicpower',
     maxRanks: 1,
   },
-  ABYSS_WALKER_TALENT: {
-    id: 389609,
-    name: 'Abyss Walker',
-    icon: 'achievement_explore_argus',
-    maxRanks: 1,
-  },
   WRATHFUL_MINION_TALENT: {
     id: 386864,
     name: 'Wrathful Minion',
@@ -99,15 +103,15 @@ const talents = createTalentList({
     maxRanks: 1,
     manaCost: 500,
   },
-  FOUL_MOUTH_TALENT: {
+  TEACHINGS_OF_THE_SATYR_TALENT: {
     id: 387972,
-    name: 'Foul Mouth',
+    name: 'Teachings of the Satyr',
     icon: 'spell_shadow_carrionswarm',
     maxRanks: 1,
   },
-  DESPERATE_POWER_TALENT: {
+  DESPERATE_PACT_TALENT: {
     id: 386619,
-    name: 'Desperate Power',
+    name: 'Desperate Pact',
     icon: 'spell_shadow_lifedrain02',
     maxRanks: 2,
   },
@@ -144,9 +148,9 @@ const talents = createTalentList({
     icon: 'spell_shadow_demonictactics',
     maxRanks: 1,
   },
-  DEMONIC_DURABILITY_TALENT: {
+  DARK_ACCORD_TALENT: {
     id: 386659,
-    name: 'Demonic Durability',
+    name: 'Dark Accord',
     icon: 'ability_warlock_improveddemonictactics',
     maxRanks: 1,
   },
@@ -218,9 +222,9 @@ const talents = createTalentList({
     icon: 'warlock_grimoireofsacrifice',
     maxRanks: 2,
   },
-  SOUL_ARMOR_TALENT: {
+  PROFANE_BARGAIN_TALENT: {
     id: 389576,
-    name: 'Soul Armor',
+    name: 'Profane Bargain',
     icon: 'ability_argus_deathfog',
     maxRanks: 2,
   },
@@ -236,12 +240,7 @@ const talents = createTalentList({
     icon: 'ability_warlock_avoidance',
     maxRanks: 2,
   },
-  CLAW_OF_ENDERETH_TALENT: {
-    id: 386689,
-    name: 'Claw of Endereth',
-    icon: 'inv_flaming_splinter',
-    maxRanks: 1,
-  },
+  GRIM_FEAST_TALENT: { id: 386689, name: 'Grim Feast', icon: 'inv_flaming_splinter', maxRanks: 1 },
   SUMMON_SOULKEEPER_TALENT: {
     id: 386244,
     name: 'Summon Soulkeeper',
@@ -261,529 +260,488 @@ const talents = createTalentList({
     maxRanks: 1,
     soulShardsCost: 1,
   },
+  GRIMOIRE_OF_SACRIFICE_TALENT: {
+    id: 108503,
+    name: 'Grimoire of Sacrifice',
+    icon: 'warlock_grimoireofsacrifice',
+    maxRanks: 1,
+  },
+  WILFREDS_SIGIL_OF_SUPERIOR_SUMMONING_TALENT: {
+    id: 337020,
+    name: "Wilfred's Sigil of Superior Summoning",
+    icon: 'spell_warlock_demonicportal_purple',
+    maxRanks: 1,
+  },
 
   //Affliction
-  MALEFIC_RAPTURE_AFFLICTION_TALENT: {
+  MALEFIC_RAPTURE_TALENT: {
     id: 324536,
     name: 'Malefic Rapture',
     icon: 'ability_warlock_everlastingaffliction',
     maxRanks: 1,
     soulShardsCost: 1,
   },
-  UNSTABLE_AFFLICTION_AFFLICTION_TALENT: {
+  UNSTABLE_AFFLICTION_TALENT: {
     id: 316099,
     name: 'Unstable Affliction',
     icon: 'spell_shadow_unstableaffliction_3',
     maxRanks: 1,
     manaCost: 500,
   },
-  SEED_OF_CORRUPTION_AFFLICTION_TALENT: {
+  SEED_OF_CORRUPTION_TALENT: {
     id: 27243,
     name: 'Seed of Corruption',
     icon: 'spell_shadow_seedofdestruction',
     maxRanks: 1,
     soulShardsCost: 1,
   },
-  NIGHTFALL_AFFLICTION_TALENT: {
-    id: 108558,
-    name: 'Nightfall',
-    icon: 'spell_shadow_twilight',
-    maxRanks: 1,
-  },
-  XAVIAN_TEACHINGS_AFFLICTION_TALENT: {
+  NIGHTFALL_TALENT: { id: 108558, name: 'Nightfall', icon: 'spell_shadow_twilight', maxRanks: 1 },
+  XAVIAN_TEACHINGS_TALENT: {
     id: 317031,
     name: 'Xavian Teachings',
     icon: 'spell_shadow_abominationexplosion',
     maxRanks: 1,
   },
-  SOW_THE_SEEDS_AFFLICTION_TALENT: {
+  SOW_THE_SEEDS_TALENT: {
     id: 196226,
     name: 'Sow the Seeds',
     icon: 'spell_shadow_seedofdestruction',
     maxRanks: 1,
   },
-  SHADOW_EMBRACE_AFFLICTION_TALENT: {
+  SHADOW_EMBRACE_TALENT: {
     id: 32388,
     name: 'Shadow Embrace',
     icon: 'spell_shadow_shadowembrace',
     maxRanks: 2,
   },
-  HARVESTER_OF_SOULS_AFFLICTION_TALENT: {
+  HARVESTER_OF_SOULS_TALENT: {
     id: 201424,
     name: 'Harvester of Souls',
     icon: 'warlock_spelldrain',
     maxRanks: 2,
   },
-  WRITHE_IN_AGONY_AFFLICTION_TALENT: {
+  WRITHE_IN_AGONY_TALENT: {
     id: 196102,
     name: 'Writhe in Agony',
     icon: 'spell_shadow_curseofsargeras',
     maxRanks: 2,
   },
-  AGONIZING_CORRUPTION_AFFLICTION_TALENT: {
+  AGONIZING_CORRUPTION_TALENT: {
     id: 386922,
     name: 'Agonizing Corruption',
     icon: 'spell_warlock_darkregeneration',
     maxRanks: 2,
   },
-  DRAIN_SOUL_AFFLICTION_TALENT: {
-    id: 388667,
-    name: 'Drain Soul',
-    icon: 'spell_shadow_haunting',
+  DRAIN_SOUL_TALENT: { id: 388667, name: 'Drain Soul', icon: 'spell_shadow_haunting', maxRanks: 1 },
+  ABSOLUTE_CORRUPTION_TALENT: {
+    id: 196103,
+    name: 'Absolute Corruption',
+    icon: 'ability_bossmannoroth_empoweredmannorothsgaze',
     maxRanks: 1,
   },
-  SIPHON_LIFE_AFFLICTION_TALENT: {
+  SIPHON_LIFE_TALENT: {
     id: 63106,
     name: 'Siphon Life',
     icon: 'spell_shadow_requiem',
     maxRanks: 1,
     manaCost: 500,
   },
-  ABSOLUTE_CORRUPTION_AFFLICTION_TALENT: {
-    id: 196103,
-    name: 'Absolute Corruption',
-    icon: 'ability_bossmannoroth_empoweredmannorothsgaze',
-    maxRanks: 1,
-  },
-  PHANTOM_SINGULARITY_AFFLICTION_TALENT: {
+  PHANTOM_SINGULARITY_TALENT: {
     id: 205179,
     name: 'Phantom Singularity',
     icon: 'inv_enchant_voidsphere',
     maxRanks: 1,
     manaCost: 500,
   },
-  VILE_TAINT_AFFLICTION_TALENT: {
+  VILE_TAINT_TALENT: {
     id: 278350,
     name: 'Vile Taint',
     icon: 'sha_spell_shadow_shadesofdarkness_nightborne',
     maxRanks: 1,
     soulShardsCost: 1,
   },
-  SOUL_TAP_AFFLICTION_TALENT: {
+  SOUL_TAP_TALENT: {
     id: 387073,
     name: 'Soul Tap',
     icon: 'spell_shadow_burningspirit',
     maxRanks: 1,
   },
-  INEVITABLE_DEMISE_AFFLICTION_TALENT: {
+  INEVITABLE_DEMISE_TALENT: {
     id: 334319,
     name: 'Inevitable Demise',
     icon: 'spell_warlock_harvestoflife',
     maxRanks: 2,
   },
-  SOUL_SWAP_AFFLICTION_TALENT: {
+  SOUL_SWAP_TALENT: {
     id: 386951,
     name: 'Soul Swap',
     icon: 'ability_warlock_soulswap',
     maxRanks: 1,
     soulShardsCost: 1,
   },
-  SOUL_FLAME_AFFLICTION_TALENT: {
+  SOUL_FLAME_TALENT: {
     id: 199471,
     name: 'Soul Flame',
     icon: 'ability_argus_soulburst',
     maxRanks: 2,
   },
-  GRIMOIRE_OF_SACRIFICE_AFFLICTION_TALENT: {
-    id: 108503,
-    name: 'Grimoire of Sacrifice',
-    icon: 'warlock_grimoireofsacrifice',
-    maxRanks: 1,
-  },
-  PANDEMIC_INVOCATION_AFFLICTION_TALENT: {
+  PANDEMIC_INVOCATION_TALENT: {
     id: 386759,
     name: 'Pandemic Invocation',
     icon: 'spell_shadow_unsummonbuilding',
     maxRanks: 2,
   },
-  WITHERING_BOLT_AFFLICTION_TALENT: {
+  WITHERING_BOLT_TALENT: {
     id: 386976,
     name: 'Withering Bolt',
     icon: 'spell_shadow_shadowbolt',
     maxRanks: 2,
   },
-  SACROLASHS_DARK_STRIKE_AFFLICTION_TALENT: {
+  SACROLASHS_DARK_STRIKE_TALENT: {
     id: 386986,
     name: "Sacrolash's Dark Strike",
     icon: 'spell_nzinsanity_fearofdeath',
     maxRanks: 2,
   },
-  CREEPING_DEATH_AFFLICTION_TALENT: {
+  CREEPING_DEATH_TALENT: {
     id: 264000,
     name: 'Creeping Death',
     icon: 'ability_creature_cursed_03',
     maxRanks: 1,
   },
-  HAUNT_AFFLICTION_TALENT: {
+  HAUNT_TALENT: {
     id: 48181,
     name: 'Haunt',
     icon: 'ability_warlock_haunt',
     maxRanks: 1,
     manaCost: 1000,
   },
-  SUMMON_DARKGLARE_AFFLICTION_TALENT: {
+  SUMMON_DARKGLARE_TALENT: {
     id: 205180,
     name: 'Summon Darkglare',
     icon: 'inv_beholderwarlock',
     maxRanks: 1,
     manaCost: 1000,
   },
-  SOUL_ROT_AFFLICTION_TALENT: {
+  SOUL_ROT_TALENT: {
     id: 386997,
     name: 'Soul Rot',
     icon: 'ability_ardenweald_warlock',
     maxRanks: 1,
     manaCost: 0,
   },
-  MALEFIC_AFFLICTION_AFFLICTION_TALENT: {
+  MALEFIC_AFFLICTION_TALENT: {
     id: 389761,
     name: 'Malefic Affliction',
     icon: 'spell_shadow_unstableaffliction_3_purple',
     maxRanks: 2,
   },
-  CALAMITOUS_CRESCENDO_AFFLICTION_TALENT: {
+  TORMENTED_CRESCENDO_TALENT: {
     id: 387075,
-    name: 'Calamitous Crescendo',
+    name: 'Tormented Crescendo',
     icon: 'spell_warlock_soulburn',
     maxRanks: 1,
   },
-  SEIZED_VITALITY_AFFLICTION_TALENT: {
+  SEIZED_VITALITY_TALENT: {
     id: 387250,
     name: 'Seized Vitality',
     icon: 'spell_shadow_skull',
     maxRanks: 2,
   },
-  ANTORAN_PLATING_AFFLICTION_TALENT: {
+  MALEVOLENT_VISIONARY_TALENT: {
     id: 387273,
-    name: 'Antoran Plating',
-    icon: 'inv_antorus_grey',
+    name: 'Malevolent Visionary',
+    icon: 'inv_archaeology_70_crystallineeyeofundravius',
     maxRanks: 2,
   },
-  WRATH_OF_CONSUMPTION_AFFLICTION_TALENT: {
+  WRATH_OF_CONSUMPTION_TALENT: {
     id: 387065,
     name: 'Wrath of Consumption',
     icon: 'spell_nature_drowsy',
     maxRanks: 1,
   },
-  SOUL_EATERS_GLUTTONY_AFFLICTION_TALENT: {
+  SOUL_EATERS_GLUTTONY_TALENT: {
     id: 389630,
     name: "Soul-Eater's Gluttony",
     icon: 'ability_bossgorefiend_gorefiendscorruption',
     maxRanks: 2,
   },
-  DOOM_BLOSSOM_AFFLICTION_TALENT: {
+  DOOM_BLOSSOM_TALENT: {
     id: 389764,
     name: 'Doom Blossom',
     icon: 'ability_xavius_corruptingnova',
     maxRanks: 1,
   },
-  DREAD_TOUCH_AFFLICTION_TALENT: {
+  DREAD_TOUCH_TALENT: {
     id: 389775,
     name: 'Dread Touch',
     icon: 'ability_priest_touchofdecay',
     maxRanks: 1,
   },
-  HAUNTED_SOUL_AFFLICTION_TALENT: {
+  HAUNTED_SOUL_TALENT: {
     id: 387301,
     name: 'Haunted Soul',
     icon: 'spell_warlock_soulburn_haunt',
     maxRanks: 1,
   },
-  WILFREDS_SIGIL_OF_SUPERIOR_SUMMONING_AFFLICTION_TALENT: {
-    id: 337020,
-    name: "Wilfred's Sigil of Superior Summoning",
-    icon: 'spell_warlock_demonicportal_purple',
-    maxRanks: 1,
-  },
-  GRIM_REACH_AFFLICTION_TALENT: {
-    id: 389992,
-    name: 'Grim Reach',
-    icon: 'warlock_curse_shadow',
-    maxRanks: 1,
-  },
-  DECAYING_SOUL_SATCHEL_AFFLICTION_TALENT: {
+  GRIM_REACH_TALENT: { id: 389992, name: 'Grim Reach', icon: 'warlock_curse_shadow', maxRanks: 1 },
+  DARK_HARVEST_TALENT: {
     id: 387016,
-    name: 'Decaying Soul Satchel',
+    name: 'Dark Harvest',
     icon: 'spell_misc_zandalari_council_soulswap',
     maxRanks: 1,
   },
 
   //Destruction
-  CHAOS_BOLT_DESTRUCTION_TALENT: {
+  CHAOS_BOLT_TALENT: {
     id: 116858,
     name: 'Chaos Bolt',
     icon: 'ability_warlock_chaosbolt',
     maxRanks: 1,
     soulShardsCost: 2,
   },
-  CONFLAGRATE_DESTRUCTION_TALENT: {
+  CONFLAGRATE_TALENT: {
     id: 17962,
     name: 'Conflagrate',
     icon: 'spell_fire_fireball',
     maxRanks: 1,
     manaCost: 500,
   },
-  REVERSE_ENTROPY_DESTRUCTION_TALENT: {
+  REVERSE_ENTROPY_TALENT: {
     id: 205148,
     name: 'Reverse Entropy',
     icon: 'spell_fire_playingwithfiregreen',
     maxRanks: 1,
   },
-  INTERNAL_COMBUSTION_DESTRUCTION_TALENT: {
+  INTERNAL_COMBUSTION_TALENT: {
     id: 266134,
     name: 'Internal Combustion',
     icon: 'ability_mage_livingbomb',
     maxRanks: 1,
   },
-  RAIN_OF_FIRE_DESTRUCTION_TALENT: {
+  RAIN_OF_FIRE_TALENT: {
     id: 5740,
     name: 'Rain of Fire',
     icon: 'spell_shadow_rainoffire',
     maxRanks: 1,
     soulShardsCost: 3,
   },
-  BACKDRAFT_DESTRUCTION_TALENT: {
+  BACKDRAFT_TALENT: {
     id: 196406,
     name: 'Backdraft',
     icon: 'ability_warlock_backdraft',
     maxRanks: 1,
   },
-  MAYHEM_NYI_DESTRUCTION_TALENT: {
-    id: 387506,
-    name: 'Mayhem [NYI]',
-    icon: 'spell_warlock_demonbolt',
-    maxRanks: 1,
-  },
-  HAVOC_DESTRUCTION_TALENT: {
+  MAYHEM_TALENT: { id: 387506, name: 'Mayhem', icon: 'spell_warlock_demonbolt', maxRanks: 1 },
+  HAVOC_TALENT: {
     id: 80240,
     name: 'Havoc',
     icon: 'ability_warlock_baneofhavoc',
     maxRanks: 1,
     manaCost: 1000,
   },
-  PYROGENICS_DESTRUCTION_TALENT: {
-    id: 387095,
-    name: 'Pyrogenics',
-    icon: 'inv_jewelry_ring_65',
-    maxRanks: 1,
-  },
-  ROARING_BLAZE_DESTRUCTION_TALENT: {
+  PYROGENICS_TALENT: { id: 387095, name: 'Pyrogenics', icon: 'inv_jewelry_ring_65', maxRanks: 1 },
+  ROARING_BLAZE_TALENT: {
     id: 205184,
     name: 'Roaring Blaze',
     icon: 'ability_warlock_inferno',
     maxRanks: 1,
   },
-  IMPROVED_CONFLAGRATE_DESTRUCTION_TALENT: {
+  IMPROVED_CONFLAGRATE_TALENT: {
     id: 231793,
     name: 'Improved Conflagrate',
     icon: 'spell_fire_fireball',
     maxRanks: 1,
   },
-  EXPLOSIVE_POTENTIAL_DESTRUCTION_TALENT: {
+  EXPLOSIVE_POTENTIAL_TALENT: {
     id: 388827,
     name: 'Explosive Potential',
     icon: 'spell_fire_felflamering_red',
     maxRanks: 1,
   },
-  CHANNEL_DEMONFIRE_DESTRUCTION_TALENT: {
+  CHANNEL_DEMONFIRE_TALENT: {
     id: 196447,
     name: 'Channel Demonfire',
     icon: 'spell_fire_ragnaros_lavaboltgreen',
     maxRanks: 1,
     manaCost: 500,
   },
-  PANDEMONIUM_DESTRUCTION_TALENT: {
+  PANDEMONIUM_TALENT: {
     id: 387509,
     name: 'Pandemonium',
     icon: 'ability_ironmaidens_whirlofblood',
     maxRanks: 1,
   },
-  CRY_HAVOC_DESTRUCTION_TALENT: {
+  CRY_HAVOC_TALENT: {
     id: 387522,
     name: 'Cry Havoc',
     icon: 'inv_offhand_1h_artifactskulloferedar_d_05',
     maxRanks: 1,
   },
-  IMPROVED_IMMOLATE_DESTRUCTION_TALENT: {
+  IMPROVED_IMMOLATE_TALENT: {
     id: 387093,
     name: 'Improved Immolate',
     icon: 'spell_fire_immolation',
     maxRanks: 2,
   },
-  INFERNO_DESTRUCTION_TALENT: {
-    id: 270545,
-    name: 'Inferno',
-    icon: 'spell_shadow_rainoffire',
-    maxRanks: 1,
-  },
-  CATACLYSM_DESTRUCTION_TALENT: {
+  INFERNO_TALENT: { id: 270545, name: 'Inferno', icon: 'spell_shadow_rainoffire', maxRanks: 1 },
+  CATACLYSM_TALENT: {
     id: 152108,
     name: 'Cataclysm',
     icon: 'achievement_zone_cataclysm',
     maxRanks: 1,
     manaCost: 500,
   },
-  SOUL_FIRE_DESTRUCTION_TALENT: {
+  SOUL_FIRE_TALENT: {
     id: 6353,
     name: 'Soul Fire',
     icon: 'spell_fire_firebolt',
     maxRanks: 1,
     manaCost: 1000,
   },
-  SHADOWBURN_DESTRUCTION_TALENT: {
+  SHADOWBURN_TALENT: {
     id: 17877,
     name: 'Shadowburn',
     icon: 'spell_shadow_scourgebuild',
     maxRanks: 1,
     soulShardsCost: 1,
   },
-  RAGING_DEMONFIRE_DESTRUCTION_TALENT: {
+  RAGING_DEMONFIRE_TALENT: {
     id: 387166,
     name: 'Raging Demonfire',
     icon: 'spell_fire_ragnaros_lavaboltgreen',
     maxRanks: 2,
   },
-  ROLLING_HAVOC_DESTRUCTION_TALENT: {
+  ROLLING_HAVOC_TALENT: {
     id: 387569,
     name: 'Rolling Havoc',
     icon: 'warlock_pvp_banehavoc',
     maxRanks: 2,
   },
-  BACKLASH_DESTRUCTION_TALENT: {
+  BACKLASH_TALENT: {
     id: 387384,
     name: 'Backlash',
     icon: 'spell_fire_playingwithfire',
     maxRanks: 1,
   },
-  FIRE_AND_BRIMSTONE_DESTRUCTION_TALENT: {
+  FIRE_AND_BRIMSTONE_TALENT: {
     id: 196408,
     name: 'Fire and Brimstone',
     icon: 'ability_warlock_fireandbrimstone',
     maxRanks: 2,
   },
-  DECIMATION_DESTRUCTION_TALENT: {
-    id: 387176,
-    name: 'Decimation',
-    icon: 'spell_fire_firebolt',
-    maxRanks: 1,
-  },
-  CONFLAGRATION_OF_CHAOS_DESTRUCTION_TALENT: {
+  DECIMATION_TALENT: { id: 387176, name: 'Decimation', icon: 'spell_fire_firebolt', maxRanks: 1 },
+  CONFLAGRATION_OF_CHAOS_TALENT: {
     id: 387108,
     name: 'Conflagration of Chaos',
     icon: 'spell_shadow_scourgebuild',
     maxRanks: 2,
   },
-  FLASHPOINT_DESTRUCTION_TALENT: {
+  FLASHPOINT_TALENT: {
     id: 387259,
     name: 'Flashpoint',
     icon: 'spell_fire_moltenblood',
     maxRanks: 2,
   },
-  SCALDING_FLAMES_DESTRUCTION_TALENT: {
+  SCALDING_FLAMES_TALENT: {
     id: 388832,
     name: 'Scalding Flames',
     icon: 'spell_burningsoul',
     maxRanks: 2,
   },
-  RUIN_DESTRUCTION_TALENT: { id: 387103, name: 'Ruin', icon: 'spell_fire_fire', maxRanks: 2 },
-  ERADICATION_DESTRUCTION_TALENT: {
+  RUIN_TALENT: { id: 387103, name: 'Ruin', icon: 'spell_fire_fire', maxRanks: 2 },
+  ERADICATION_TALENT: {
     id: 196412,
     name: 'Eradication',
     icon: 'ability_warlock_eradication',
     maxRanks: 2,
   },
-  ASHEN_REMAINS_DESTRUCTION_TALENT: {
+  ASHEN_REMAINS_TALENT: {
     id: 387252,
     name: 'Ashen Remains',
     icon: 'inv_enchanting_dust',
     maxRanks: 2,
   },
-  GRIMOIRE_OF_SACRIFICE_DESTRUCTION_TALENT: {
-    id: 108503,
-    name: 'Grimoire of Sacrifice',
-    icon: 'warlock_grimoireofsacrifice',
-    maxRanks: 1,
-  },
-  SUMMON_INFERNAL_DESTRUCTION_TALENT: {
+  SUMMON_INFERNAL_TALENT: {
     id: 1122,
     name: 'Summon Infernal',
     icon: 'spell_shadow_summoninfernal',
     maxRanks: 1,
     manaCost: 1000,
   },
-  EMBERS_OF_THE_DIABOLIC_DESTRUCTION_TALENT: {
+  DIABOLIC_EMBERS_TALENT: {
     id: 387173,
-    name: 'Embers of the Diabolic',
+    name: 'Diabolic Embers',
     icon: 'inv_shoulder_robe_raidmage_j_01',
     maxRanks: 1,
   },
-  RITUAL_OF_RUIN_DESTRUCTION_TALENT: {
+  RITUAL_OF_RUIN_TALENT: {
     id: 387156,
     name: 'Ritual of Ruin',
     icon: 'spell_fire_twilightrainoffire',
     maxRanks: 1,
   },
-  CRASHING_CHAOS_DESTRUCTION_TALENT: {
+  CRASHING_CHAOS_TALENT: {
     id: 387355,
     name: 'Crashing Chaos',
     icon: 'inv_infernalmount',
     maxRanks: 2,
   },
-  INFERNAL_BRAND_DESTRUCTION_TALENT: {
+  INFERNAL_BRAND_TALENT: {
     id: 387475,
     name: 'Infernal Brand',
     icon: 'warlock_pvp_burninglegion',
     maxRanks: 2,
   },
-  POWER_OVERWHELMING_DESTRUCTION_TALENT: {
+  POWER_OVERWHELMING_TALENT: {
     id: 387279,
     name: 'Power Overwhelming',
     icon: 'ability_warlock_improvedsoulleech',
     maxRanks: 2,
   },
-  MADNESS_OF_THE_AZJAQIR_DESTRUCTION_TALENT: {
+  MADNESS_OF_THE_AZJAQIR_TALENT: {
     id: 387400,
     name: "Madness of the Azj'Aqir",
     icon: 'inv_eyeofnzothpet',
     maxRanks: 2,
   },
-  MASTER_RITUALIST_DESTRUCTION_TALENT: {
+  MASTER_RITUALIST_TALENT: {
     id: 387165,
     name: 'Master Ritualist',
     icon: 'spell_warlock_focusshadow',
     maxRanks: 2,
   },
-  BURN_TO_ASHES_DESTRUCTION_TALENT: {
+  BURN_TO_ASHES_TALENT: {
     id: 387153,
     name: 'Burn to Ashes',
     icon: 'ability_racial_foregedinflames',
     maxRanks: 2,
   },
-  RAIN_OF_CHAOS_DESTRUCTION_TALENT: {
+  RAIN_OF_CHAOS_TALENT: {
     id: 266086,
     name: 'Rain of Chaos',
     icon: 'spell_fire_felrainoffire',
     maxRanks: 1,
   },
-  WILFREDS_SIGIL_OF_SUPERIOR_SUMMONING_DESTRUCTION_TALENT: {
+  GRAND_WARLOCKS_DESIGN_TALENT: {
     id: 387084,
-    name: "Wilfred's Sigil of Superior Summoning",
+    name: "Grand Warlock's Design",
     icon: 'spell_warlock_demonicportal_purple',
     maxRanks: 1,
   },
-  CHAOS_INCARNATE_DESTRUCTION_TALENT: {
+  CHAOS_INCARNATE_TALENT: {
     id: 387275,
     name: 'Chaos Incarnate',
     icon: 'spell_fire_felflamering',
     maxRanks: 1,
   },
-  DIMENSIONAL_RIFT_DESTRUCTION_TALENT: {
+  DIMENSIONAL_RIFT_TALENT: {
     id: 387976,
     name: 'Dimensional Rift',
     icon: 'spell_warlock_demonicportal_purple',
     maxRanks: 1,
   },
-  AVATAR_OF_DESTRUCTION_DESTRUCTION_TALENT: {
+  AVATAR_OF_DESTRUCTION_TALENT: {
     id: 387159,
     name: 'Avatar of Destruction',
     icon: 'inv_infernalmountblue',
@@ -791,268 +749,262 @@ const talents = createTalentList({
   },
 
   //Demonology
-  CALL_DREADSTALKERS_DEMONOLOGY_TALENT: {
+  CALL_DREADSTALKERS_TALENT: {
     id: 104316,
     name: 'Call Dreadstalkers',
     icon: 'spell_warlock_calldreadstalkers',
     maxRanks: 1,
     soulShardsCost: 2,
   },
-  DEMONBOLT_DEMONOLOGY_TALENT: {
+  DEMONBOLT_TALENT: {
     id: 264178,
     name: 'Demonbolt',
     icon: 'inv__demonbolt',
     maxRanks: 1,
     manaCost: 1000,
   },
-  DREADLASH_DEMONOLOGY_TALENT: {
+  DREADLASH_TALENT: {
     id: 264078,
     name: 'Dreadlash',
     icon: 'spell_shadow_summonvoidwalker',
     maxRanks: 1,
   },
-  FEL_COMMANDO_DEMONOLOGY_TALENT: {
+  ANNIHILAN_TRAINING_TALENT: {
     id: 386174,
-    name: 'Fel Commando',
-    icon: 'spell_warlock_summonwrathguard',
+    name: 'Annihilan Training',
+    icon: 'ability_bossmannoroth_glaivethrust',
     maxRanks: 1,
   },
-  SHADOWS_BITE_DEMONOLOGY_TALENT: {
-    id: 387322,
-    name: "Shadow's Bite",
-    icon: 'spell_shadow_painspike',
+  DEMONIC_KNOWLEDGE_TALENT: {
+    id: 386185,
+    name: 'Demonic Knowledge',
+    icon: 'ability_warlock_improveddemonictactics',
     maxRanks: 1,
   },
-  SUMMON_VILEFIEND_DEMONOLOGY_TALENT: {
+  SUMMON_VILEFIEND_TALENT: {
     id: 264119,
     name: 'Summon Vilefiend',
     icon: 'inv_argusfelstalkermount',
     maxRanks: 1,
     soulShardsCost: 1,
   },
-  SOUL_STRIKE_DEMONOLOGY_TALENT: {
+  SOUL_STRIKE_TALENT: {
     id: 264057,
     name: 'Soul Strike',
     icon: 'inv_polearm_2h_fellord_04',
     maxRanks: 1,
   },
-  BILESCOURGE_BOMBERS_DEMONOLOGY_TALENT: {
+  BILESCOURGE_BOMBERS_TALENT: {
     id: 267211,
     name: 'Bilescourge Bombers',
     icon: 'ability_hunter_pet_bat',
     maxRanks: 1,
     soulShardsCost: 2,
   },
-  DEMONIC_STRENGTH_DEMONOLOGY_TALENT: {
+  DEMONIC_STRENGTH_TALENT: {
     id: 267171,
     name: 'Demonic Strength',
     icon: 'ability_warlock_demonicempowerment',
     maxRanks: 1,
   },
-  FROM_THE_SHADOWS_DEMONOLOGY_TALENT: {
+  FROM_THE_SHADOWS_TALENT: {
     id: 267170,
     name: 'From the Shadows',
     icon: 'spell_warlock_calldreadstalkers',
     maxRanks: 1,
   },
-  IMPLOSION_DEMONOLOGY_TALENT: {
+  IMPLOSION_TALENT: {
     id: 196277,
     name: 'Implosion',
     icon: 'inv_implosion',
     maxRanks: 1,
     manaCost: 1000,
   },
-  BORNE_OF_BLOOD_DEMONOLOGY_TALENT: {
-    id: 386185,
-    name: 'Borne of Blood',
-    icon: 'ability_warlock_improveddemonictactics',
+  SHADOWS_BITE_TALENT: {
+    id: 387322,
+    name: "Shadow's Bite",
+    icon: 'spell_shadow_painspike',
     maxRanks: 1,
   },
-  CARNIVOROUS_STALKERS_DEMONOLOGY_TALENT: {
+  CARNIVOROUS_STALKERS_TALENT: {
     id: 386194,
     name: 'Carnivorous Stalkers',
     icon: 'warlock_pvp_callfelhunter',
     maxRanks: 1,
   },
-  FEL_AND_STEEL_DEMONOLOGY_TALENT: {
+  FEL_AND_STEEL_TALENT: {
     id: 386200,
     name: 'Fel and Steel',
     icon: 'ability_creature_poison_01',
     maxRanks: 1,
   },
-  FEL_MIGHT_DEMONOLOGY_TALENT: {
+  FEL_MIGHT_TALENT: {
     id: 387338,
     name: 'Fel Might',
     icon: 'ability_bossfelmagnaron_hand',
     maxRanks: 1,
   },
-  POWER_SIPHON_DEMONOLOGY_TALENT: {
+  POWER_SIPHON_TALENT: {
     id: 264130,
     name: 'Power Siphon',
     icon: 'ability_warlock_backdraft',
     maxRanks: 1,
   },
-  INNER_DEMONS_DEMONOLOGY_TALENT: {
+  INNER_DEMONS_TALENT: {
     id: 267216,
     name: 'Inner Demons',
     icon: 'ability_warlock_eradication',
     maxRanks: 2,
   },
-  DEMONIC_CALLING_DEMONOLOGY_TALENT: {
+  DEMONIC_CALLING_TALENT: {
     id: 205145,
     name: 'Demonic Calling',
     icon: 'ability_warlock_impoweredimp',
     maxRanks: 2,
   },
-  GRIMOIRE_FELGUARD_DEMONOLOGY_TALENT: {
+  GRIMOIRE_FELGUARD_TALENT: {
     id: 111898,
     name: 'Grimoire: Felguard',
     icon: 'spell_shadow_summonfelguard',
     maxRanks: 1,
     soulShardsCost: 1,
   },
-  BLOODBOUND_IMPS_DEMONOLOGY_TALENT: {
+  BLOODBOUND_IMPS_TALENT: {
     id: 387349,
     name: 'Bloodbound Imps',
     icon: 'inv_misc_skullfel_06',
     maxRanks: 1,
   },
-  GRIM_INQUISITORS_DREAD_CALLING_DEMONOLOGY_TALENT: {
+  DREAD_CALLING_TALENT: {
     id: 387391,
-    name: "Grim Inquisitor's Dread Calling",
+    name: 'Dread Calling',
     icon: 'spell_warlock_calldreadstalkers',
     maxRanks: 1,
   },
-  DOOM_DEMONOLOGY_TALENT: {
+  DOOM_TALENT: {
     id: 603,
     name: 'Doom',
     icon: 'spell_shadow_auraofdarkness',
     maxRanks: 1,
     manaCost: 500,
   },
-  DEMONIC_METEOR_DEMONOLOGY_TALENT: {
+  DEMONIC_METEOR_TALENT: {
     id: 387396,
     name: 'Demonic Meteor',
     icon: 'ability_warlock_handofguldan',
     maxRanks: 1,
   },
-  FEL_SUNDER_DEMONOLOGY_TALENT: {
+  FEL_SUNDER_TALENT: {
     id: 387399,
     name: 'Fel Sunder',
     icon: 'ability_creature_felsunder',
     maxRanks: 1,
   },
-  BALESPIDERS_BURNING_CORE_DEMONOLOGY_TALENT: {
+  FEL_COVENANT_TALENT: {
     id: 387432,
-    name: "Balespider's Burning Core",
-    icon: 'inv_trinket_firelands_02',
+    name: 'Fel Covenant',
+    icon: 'spell_shadow_detectinvisibility',
     maxRanks: 2,
   },
-  IMP_GANG_BOSS_DEMONOLOGY_TALENT: {
+  IMP_GANG_BOSS_TALENT: {
     id: 387445,
     name: 'Imp Gang Boss',
     icon: 'ability_warlock_empoweredimp',
     maxRanks: 2,
   },
-  KAZAAKS_FINAL_CURSE_DEMONOLOGY_TALENT: {
+  KAZAAKS_FINAL_CURSE_TALENT: {
     id: 387483,
     name: "Kazaak's Final Curse",
     icon: 'inv_feldreadravenmount',
     maxRanks: 2,
   },
-  RIPPED_THROUGH_THE_PORTAL_DEMONOLOGY_TALENT: {
+  RIPPED_THROUGH_THE_PORTAL_TALENT: {
     id: 387485,
     name: 'Ripped through the Portal',
     icon: 'spell_shadow_summonfelhunter',
     maxRanks: 2,
   },
-  HOUNDMASTERS_GAMBIT_DEMONOLOGY_TALENT: {
+  HOUNDS_OF_WAR_TALENT: {
     id: 387488,
-    name: "Houndmaster's Gambit",
-    icon: 'achievement_boss_hellfire_fellord',
+    name: 'Hounds of War',
+    icon: 'inv_felstalker_pet',
     maxRanks: 2,
   },
-  NETHER_PORTAL_DEMONOLOGY_TALENT: {
+  NETHER_PORTAL_TALENT: {
     id: 267217,
     name: 'Nether Portal',
     icon: 'inv_netherportal',
     maxRanks: 1,
     soulShardsCost: 1,
   },
-  SUMMON_DEMONIC_TYRANT_DEMONOLOGY_TALENT: {
+  SUMMON_DEMONIC_TYRANT_TALENT: {
     id: 265187,
     name: 'Summon Demonic Tyrant',
     icon: 'inv_summondemonictyrant',
     maxRanks: 1,
     manaCost: 1000,
   },
-  ANTORAN_ARMAMENTS_DEMONOLOGY_TALENT: {
+  ANTORAN_ARMAMENTS_TALENT: {
     id: 387494,
     name: 'Antoran Armaments',
     icon: 'inv_axe_1h_felfireraid_d_01',
     maxRanks: 1,
   },
-  NERZHULS_VOLITION_DEMONOLOGY_TALENT: {
+  NERZHULS_VOLITION_TALENT: {
     id: 387526,
     name: "Ner'zhul's Volition",
     icon: 'achievement_dungeon_shadowmoonhideout',
     maxRanks: 2,
   },
-  STOLEN_POWER_DEMONOLOGY_TALENT: {
+  STOLEN_POWER_TALENT: {
     id: 387602,
     name: 'Stolen Power',
     icon: 'ability_bossfelmagnaron_waveempowered',
     maxRanks: 1,
   },
-  SACRIFICED_SOULS_DEMONOLOGY_TALENT: {
+  SACRIFICED_SOULS_TALENT: {
     id: 267214,
     name: 'Sacrificed Souls',
     icon: 'ability_creature_disease_05',
     maxRanks: 2,
   },
-  SOULBOUND_TYRANT_DEMONOLOGY_TALENT: {
+  SOULBOUND_TYRANT_TALENT: {
     id: 334585,
     name: 'Soulbound Tyrant',
     icon: 'inv_summondemonictyrant',
     maxRanks: 2,
   },
-  FORCES_OF_THE_HORNED_NIGHTMARE_DEMONOLOGY_TALENT: {
+  PACT_OF_THE_IMP_MOTHER_TALENT: {
     id: 387541,
-    name: 'Forces of the Horned Nightmare',
-    icon: 'ability_warlock_handofguldan',
+    name: 'Pact of the Imp Mother',
+    icon: 'inv_archaeology_70_impgenerator',
     maxRanks: 2,
   },
-  THE_EXPENDABLES_DEMONOLOGY_TALENT: {
+  THE_EXPENDABLES_TALENT: {
     id: 387600,
     name: 'The Expendables',
     icon: 'ability_warlock_impoweredimp',
     maxRanks: 1,
   },
-  COMMAND_AURA_DEMONOLOGY_TALENT: {
+  INFERNAL_COMMAND_TALENT: {
     id: 387549,
-    name: 'Command Aura',
+    name: 'Infernal Command',
     icon: 'ability_bossdarkvindicator_auraofcontempt',
     maxRanks: 2,
   },
-  GULDANS_AMBITION_DEMONOLOGY_TALENT: {
+  GULDANS_AMBITION_TALENT: {
     id: 387578,
     name: "Gul'dan's Ambition",
     icon: 'achievement_dungeon_outland_dungeonmaster',
     maxRanks: 1,
   },
-  REIGN_OF_TYRANNY_DEMONOLOGY_TALENT: {
+  REIGN_OF_TYRANNY_TALENT: {
     id: 390173,
     name: 'Reign of Tyranny',
     icon: 'ability_bossdarkvindicator_auraofoppression',
     maxRanks: 1,
   },
-  WILFREDS_SIGIL_OF_SUPERIOR_SUMMONING_DEMONOLOGY_TALENT: {
-    id: 337020,
-    name: "Wilfred's Sigil of Superior Summoning",
-    icon: 'spell_warlock_demonicportal_purple',
-    maxRanks: 1,
-  },
-  GUILLOTINE_DEMONOLOGY_TALENT: {
+  GUILLOTINE_TALENT: {
     id: 386833,
     name: 'Guillotine',
     icon: 'inv_axe_2h_felfireraid_d_01',

@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
@@ -34,9 +34,9 @@ class BeaconTargets extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    if (this.selectedCombatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT.id)) {
       this.maxBeacons = 2;
-    } else if (this.selectedCombatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id)) {
+    } else if (this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT.id)) {
       this.maxBeacons = 4;
     }
 

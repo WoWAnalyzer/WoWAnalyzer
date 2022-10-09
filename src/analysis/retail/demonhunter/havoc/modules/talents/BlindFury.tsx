@@ -20,7 +20,7 @@ class BlindFury extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.BLIND_FURY_HAVOC_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -30,7 +30,7 @@ class BlindFury extends Analyzer {
         this.selectedCombatant.getTalentRank(TALENTS_DEMON_HUNTER.UNRESTRAINED_FURY_TALENT.id)
       ];
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT),
       this.onEyeBeamsCast,
     );
   }
@@ -68,16 +68,16 @@ class BlindFury extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Cast <SpellLink id={TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id} /> with 50 or less Fury
-          when you take the <SpellLink id={TALENTS_DEMON_HUNTER.BLIND_FURY_HAVOC_TALENT.id} />{' '}
-          talent to minimize Fury waste and maximize DPS.
+          Cast <SpellLink id={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id} /> with 50 or less Fury when
+          you take the <SpellLink id={TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT.id} /> talent to
+          minimize Fury waste and maximize DPS.
         </>,
       )
-        .icon(TALENTS_DEMON_HUNTER.BLIND_FURY_HAVOC_TALENT.icon)
+        .icon(TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT.icon)
         .actual(
           <>
-            {actual} bad <SpellLink id={TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id} /> casts
-            above 50 Fury.{' '}
+            {actual} bad <SpellLink id={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id} /> casts above 50
+            Fury.{' '}
           </>,
         )
         .recommended(`${formatPercentage(recommended)}% is recommended.`),
@@ -102,11 +102,11 @@ class BlindFury extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.BLIND_FURY_HAVOC_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT.id}>
           <>
             {this.badCast}{' '}
             <small>
-              bad <SpellLink id={TALENTS_DEMON_HUNTER.EYE_BEAM_HAVOC_TALENT.id} /> casts
+              bad <SpellLink id={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id} /> casts
             </small>
             <br />
             {this.furyPerMin} <small>Fury per min</small>

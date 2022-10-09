@@ -27,8 +27,8 @@ class HitCountAoE extends Analyzer {
     // populate with spells that apply to this encounter, depending on talents
     this.aoeSpells.push(SPELLS.THRASH_FERAL);
     this.aoeSpells.push(directAoeBuilder(this.selectedCombatant));
-    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT.id)) {
-      this.aoeSpells.push(TALENTS_DRUID.PRIMAL_WRATH_FERAL_TALENT);
+    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_TALENT.id)) {
+      this.aoeSpells.push(TALENTS_DRUID.PRIMAL_WRATH_TALENT);
     }
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.aoeSpells), this.onAoeCast);

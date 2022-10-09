@@ -586,6 +586,11 @@ const spells = spellIndexableList({
     name: 'Hot Hand Buff',
     icon: 'spell_fire_playingwithfire',
   },
+  STORMBRINGER: {
+    id: 201845,
+    name: 'Stormbringer',
+    icon: 'spell_nature_stormreach',
+  },
   // Restoration Shaman
   HEALING_WAVE: {
     id: 77472,

@@ -22,26 +22,26 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.FIERY_BRAND_DEBUFF.id,
-        triggeredBySpellId: TALENTS_DEMON_HUNTER.FIERY_BRAND_VENGEANCE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.FIERY_BRAND_VENGEANCE_TALENT.id),
+        triggeredBySpellId: TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.id),
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.FRAILTY.id,
-        triggeredBySpellId: TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id),
+        triggeredBySpellId: TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id),
       },
       {
         spellId: SPELLS.FRAILTY.id,
         triggeredBySpellId: SPELLS.SOUL_CLEAVE.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.VOID_REAVER_VENGEANCE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.VOID_REAVER_TALENT.id),
       },
       {
         spellId: SPELLS.FRAILTY.id,
         triggeredBySpellId: SPELLS.SIGIL_OF_FLAME_PRECISE.id,
         enabled:
           combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id) &&
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.FRAILTY_VENGEANCE_TALENT.id) &&
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.FRAILTY_TALENT.id) &&
           combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT.id),
       },
       {
@@ -49,7 +49,7 @@ class Buffs extends CoreAuras {
         triggeredBySpellId: SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id,
         enabled:
           combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id) &&
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.FRAILTY_VENGEANCE_TALENT.id) &&
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.FRAILTY_TALENT.id) &&
           combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id),
       },
       {
@@ -57,7 +57,7 @@ class Buffs extends CoreAuras {
         triggeredBySpellId: TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id,
         enabled:
           combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id) &&
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.FRAILTY_VENGEANCE_TALENT.id) &&
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.FRAILTY_TALENT.id) &&
           !(
             combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT.id) ||
             combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id)
@@ -88,14 +88,9 @@ class Buffs extends CoreAuras {
           ),
       },
       {
-        spellId: TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT.id,
-        triggeredBySpellId: TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT.id),
-      },
-      {
-        spellId: TALENTS_DEMON_HUNTER.BLUR_TALENT.id,
-        triggeredBySpellId: TALENTS_DEMON_HUNTER.BLUR_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.BLUR_TALENT.id),
+        spellId: TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id,
+        triggeredBySpellId: TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id),
       },
       {
         spellId: TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id,

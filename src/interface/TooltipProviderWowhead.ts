@@ -48,6 +48,10 @@ class TooltipProviderWowhead extends Base {
   static refresh(elem: any) {
     // Doesn't need to refresh because them smarts
   }
+
+  static npcRelative(id: number): string {
+    return `npc=${id}`;
+  }
 }
 
 export default TooltipProviderWowhead;

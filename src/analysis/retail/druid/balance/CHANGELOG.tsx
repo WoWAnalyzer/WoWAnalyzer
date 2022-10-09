@@ -15,7 +15,7 @@ export default [
   change(date(2021, 8, 2), <>Fixed a bug that was causing <SpellLink id={SPELLS.HALF_MOON.id}/> casts to be missed by the analyzer.</>, Sref),
   change(date(2021, 7, 28), <>Fixed incorrect haste number for <SpellLink id={SPELLS.RAVENOUS_FRENZY.id}/>.</>, Sref),
   change(date(2021, 7, 25), <>Added proper haste tracking for <SpellLink id={SPELLS.RAVENOUS_FRENZY.id}/> and <SpellLink id={SPELLS.SINFUL_HYSTERIA.id}/>.</>, Sref),
-  change(date(2021, 7, 10), <>Fixed a bug where <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> usage wasn't being correctly tracked and another where <SpellLink id={TALENTS_DRUID.NEW_MOON_BALANCE_TALENT.id} /> had the wrong cooldown.</>, Sref),
+  change(date(2021, 7, 10), <>Fixed a bug where <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> usage wasn't being correctly tracked and another where <SpellLink id={TALENTS_DRUID.NEW_MOON_TALENT.id} /> had the wrong cooldown.</>, Sref),
   change(date(2021, 6, 30), <>Added missing minor abilities to tracking.</>, Sref),
   change(date(2021, 6, 30), <>Consolidated DoT sections of checklist, and added new <SpellLink id={SPELLS.ECLIPSE.id} /> section.</>, Sref),
   change(date(2021, 6, 26), <>Added myself as a spec maintainer and bumped support level to 'full'. Added checklist items for <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />, <SpellLink id={SPELLS.ADAPTIVE_SWARM.id} />, and <SpellLink id={SPELLS.RAVENOUS_FRENZY.id} /></>, Sref),

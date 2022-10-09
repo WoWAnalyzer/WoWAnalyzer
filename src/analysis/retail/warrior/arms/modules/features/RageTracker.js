@@ -26,9 +26,17 @@ class RageUsage extends ResourceTracker {
 
   onDamage(event) {
     if (event.hitType === HIT_TYPES.CRIT) {
-      this.processInvisibleEnergize(SPELLS.RAGE_AUTO_ATTACKS.id, RAGE_PER_MELEE_HIT * 1.3);
+      this.processInvisibleEnergize(
+        SPELLS.RAGE_AUTO_ATTACKS.id,
+        RAGE_PER_MELEE_HIT * 1.3,
+        event.timestamp,
+      );
     } else if (event.hitType === HIT_TYPES.NORMAL) {
-      this.processInvisibleEnergize(SPELLS.RAGE_AUTO_ATTACKS.id, RAGE_PER_MELEE_HIT);
+      this.processInvisibleEnergize(
+        SPELLS.RAGE_AUTO_ATTACKS.id,
+        RAGE_PER_MELEE_HIT,
+        event.timestamp,
+      );
     }
   }
 }

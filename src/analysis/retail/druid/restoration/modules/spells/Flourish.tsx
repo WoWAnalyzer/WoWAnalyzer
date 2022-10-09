@@ -24,7 +24,8 @@ import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core
 import ConvokeSpiritsResto from 'analysis/retail/druid/restoration/modules/spells/ConvokeSpiritsResto';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
-const FLOURISH_EXTENSION = 8000;
+const HARDCAST_FLOURISH_EXTENSION = 8000;
+const CONVOKE_FLOURISH_EXTENSION = 4000;
 const FLOURISH_HEALING_INCREASE = 1;
 
 // TODO double check advice for DF
@@ -34,6 +35,8 @@ const FLOURISH_HEALING_INCREASE = 1;
  *
  * Extends the duration of all of your heal over time effects on friendly targets within 60 yards by 8 sec,
  * and increases the rate of your heal over time effects by 100% for 8 sec.
+ *
+ * (Flourishes that proc from Convoke the Spirits are half duration)
  */
 class Flourish extends Analyzer {
   static dependencies = {
@@ -58,19 +61,19 @@ class Flourish extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active =
-      this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_RESTORATION_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS_DRUID.CENARIUS_GUIDANCE_RESTORATION_TALENT);
+      this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(FLOURISH_INCREASED_RATE),
       this.onIncreasedRateHeal,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_DRUID.FLOURISH_RESTORATION_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_DRUID.FLOURISH_TALENT),
       this.onFlourishApplyBuff,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS_DRUID.FLOURISH_RESTORATION_TALENT),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS_DRUID.FLOURISH_TALENT),
       this.onFlourishApplyBuff,
     );
   }
@@ -96,10 +99,7 @@ class Flourish extends Analyzer {
   }
 
   onIncreasedRateHeal(event: HealEvent) {
-    if (
-      this.selectedCombatant.hasBuff(TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id) &&
-      event.tick
-    ) {
+    if (this.selectedCombatant.hasBuff(TALENTS_DRUID.FLOURISH_TALENT.id) && event.tick) {
       this.currentRateAttribution.amount += calculateEffectiveHealing(
         event,
         FLOURISH_HEALING_INCREASE,
@@ -134,13 +134,16 @@ class Flourish extends Analyzer {
       });
     }
 
+    const extensionAmount =
+      extensionAttribution === this.convokeSpirits.currentConvokeAttribution
+        ? CONVOKE_FLOURISH_EXTENSION
+        : HARDCAST_FLOURISH_EXTENSION;
     let foundWg = false;
     Object.keys(this.hotTracker.hots).forEach((playerIdString) => {
       const playerId = Number(playerIdString);
       Object.keys(this.hotTracker.hots[playerId]).forEach((spellIdString) => {
         const spellId = Number(spellIdString);
-        this.hotTracker.addExtension(extensionAttribution, FLOURISH_EXTENSION, playerId, spellId);
-
+        this.hotTracker.addExtension(extensionAttribution, extensionAmount, playerId, spellId);
         if (spellId === SPELLS.WILD_GROWTH.id) {
           foundWg = true;
         }
@@ -156,12 +159,12 @@ class Flourish extends Analyzer {
     return (
       <>
         <strong>
-          <SpellLink id={TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id} />
+          <SpellLink id={TALENTS_DRUID.FLOURISH_TALENT.id} />
         </strong>{' '}
         requires a ramp more than any of your other cooldowns, as its power is based almost entirely
         in the HoTs present when you cast it. Cast many Rejuvenations, and then a Wild Growth a few
         seconds before you're ready to Flourish.{' '}
-        {this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_RESTORATION_TALENT) && (
+        {this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT) && (
           <>
             When pairing this with <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />, the Convoke should
             ALWAYS be cast first. This is because the Convoke will produce many HoTs which can be
@@ -176,8 +179,8 @@ class Flourish extends Analyzer {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id} /> (
-              {formatNumber(castTotalHealing)} healing)
+              <SpellLink id={TALENTS_DRUID.FLOURISH_TALENT.id} /> ({formatNumber(castTotalHealing)}{' '}
+              healing)
             </>
           );
 
@@ -200,21 +203,20 @@ class Flourish extends Analyzer {
             result: <PassFailCheckmark pass={cast.rejuvsOnCast > 0} />,
             details: <>({cast.rejuvsOnCast} HoTs active)</>,
           });
-          this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_RESTORATION_TALENT) &&
+          this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT) &&
             checklistItems.push({
               label: (
                 <>
-                  Don't clip existing{' '}
-                  <SpellLink id={TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id} />{' '}
+                  Don't clip existing <SpellLink id={TALENTS_DRUID.FLOURISH_TALENT.id} />{' '}
                   <Tooltip
                     hoverable
                     content={
                       <>
                         <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> can proc{' '}
-                        <SpellLink id={TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id} />. After
-                        Convoking, always check to see if you get a proc before Flourishing. If you
-                        got a proc, you need to wait before Flourishing so you don't overwrite the
-                        buff and lose a lot of duration. If you got an{' '}
+                        <SpellLink id={TALENTS_DRUID.FLOURISH_TALENT.id} />. After Convoking, always
+                        check to see if you get a proc before Flourishing. If you got a proc, you
+                        need to wait before Flourishing so you don't overwrite the buff and lose a
+                        lot of duration. If you got an{' '}
                         <i className="glyphicon glyphicon-remove fail-mark" /> here, it means you
                         overwrote an existing Flourish.
                       </>
@@ -237,7 +239,7 @@ class Flourish extends Analyzer {
   }
 
   statistic() {
-    if (!this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT.id)) {
       return; // module needs to stay active for convoke, but we shouldn't display stat
     }
     return (
@@ -301,7 +303,7 @@ class Flourish extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.FLOURISH_RESTORATION_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.FLOURISH_TALENT.id}>
           <ItemPercentHealingDone approximate amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

@@ -1,5 +1,6 @@
 import { formatMilliseconds, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
@@ -62,7 +63,7 @@ class Haste extends Analyzer {
     [SPELLS.RAVENOUS_FRENZY.id]: {
       hastePerStack: 0.01,
     },
-    // Sinful Hysteria legendary has to be handled dynamically in a different module
+    [SPELLS.FRANTIC_MOMENTUM.id]: 0.1, // TODO check for possible tuning updates
     //endregion
 
     //region Hunter Haste Buffs
@@ -71,7 +72,7 @@ class Haste extends Analyzer {
     //endregion
 
     //region Priest
-    [SPELLS.POWER_INFUSION.id]: 0.25,
+    [TALENTS_PRIEST.POWER_INFUSION_TALENT.id]: 0.25,
     //endregion
 
     //region Mage

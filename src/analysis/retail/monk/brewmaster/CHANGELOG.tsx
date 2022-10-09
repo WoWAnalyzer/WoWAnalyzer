@@ -18,7 +18,8 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
-  change(date(2022, 7, 10), <>Improve display of <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> in guide and add warning about <code>/sit</code> use with <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} />.</>, emallson),
+  change(date(2022, 9, 27), <>Add Rotation section to the new summary page.</>, emallson),
+  change(date(2022, 7, 10), <>Improve display of <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> in guide and add warning about <code>/sit</code> use with <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} />.</>, emallson),
   change(date(2022, 6, 28), <>Squash a couple of bugs in the new overview page.</>, emallson),
   change(date(2022, 6, 27), <>Added prototype "guide"-style overview page.</>, emallson),
   change(date(2022, 6, 6), <>Fixed tracking of <SpellLink id={SPELLS.SCALDING_BREW.id} /> damage</>, nullDozzer),
@@ -26,14 +27,14 @@ export default [
   change(date(2022, 5, 1), <>Add <SpellLink id={SPELLS.INVOKERS_DELIGHT_BUFF.id} /> to timeline. </>, nullDozzer),
   change(date(2022, 4, 16), <>Added a Mystic Touch stat. </>, Abelito75),
   change(date(2022, 3, 23), <>Fix <SpellLink id={SPELLS.STAGGER.id} /> chart that was broken by version bump.</>, emallson),
-  change(date(2022, 2, 5), <>Improve APL handling with multiple charges of <SpellLink id={talents.KEG_SMASH_BREWMASTER_TALENT.id} /></>, emallson),
+  change(date(2022, 2, 5), <>Improve APL handling with multiple charges of <SpellLink id={talents.KEG_SMASH_TALENT.id} /></>, emallson),
   change(date(2021, 11, 6), <>Add AoE condition for <SpellLink id={SPELLS.SPINNING_CRANE_KICK_BRM.id} /> to APL.</>, emallson),
   change(date(2021, 10, 28), <>Bump supported version to 9.1.5.</>, emallson),
   change(date(2021, 10, 16), <>Added APL support.</>, emallson),
   change(
     date(2021, 5, 23),
     <>
-      Reworked <SpellLink id={talents.EXPEL_HARM_TALENT.id}>Expel Harm</SpellLink> Normalizer to support
+      Reworked <SpellLink id={SPELLS.EXPEL_HARM.id}>Expel Harm</SpellLink> Normalizer to support
       attracted <SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id}>Gift of the Ox Orbs</SpellLink>{' '}
     </>,
     carglass,
@@ -41,7 +42,7 @@ export default [
   change(
     date(2021, 3, 12),
     <>
-      Adjusted suggestion threshold for <SpellLink id={talents.CELESTIAL_BREW_BREWMASTER_TALENT.id} /> cast efficiency.
+      Adjusted suggestion threshold for <SpellLink id={talents.CELESTIAL_BREW_TALENT.id} /> cast efficiency.
     </>,
     emallson,
   ),
@@ -70,7 +71,7 @@ export default [
   change(
     date(2021, 1, 23),
     <>
-      Add wasted cooldown avoided to <SpellLink id={SPELLS.STORMSTOUTS_LAST_KEG.id} /> statistic
+      Add wasted cooldown avoided to <SpellLink id={talents.STORMSTOUTS_LAST_KEG_TALENT.id} /> statistic
       tooltip.
     </>,
     emallson,
@@ -78,7 +79,7 @@ export default [
   change(
     date(2021, 1, 18),
     <>
-      Add support for <SpellLink id={SPELLS.STORMSTOUTS_LAST_KEG.id} />.
+      Add support for <SpellLink id={talents.STORMSTOUTS_LAST_KEG_TALENT.id} />.
     </>,
     Matardarix,
   ),
@@ -101,7 +102,7 @@ export default [
   change(
     date(2020, 12, 28),
     <>
-      Bug fixes for <SpellLink id={talents.BLACK_OX_BREW_BREWMASTER_TALENT.id} />.{' '}
+      Bug fixes for <SpellLink id={talents.BLACK_OX_BREW_TALENT.id} />.{' '}
     </>,
     Akhtal,
   ),
@@ -131,7 +132,7 @@ export default [
   change(
     date(2020, 12, 15),
     <>
-      Fix <SpellLink id={talents.LIGHT_BREWING_BREWMASTER_TALENT.id} /> ID
+      Fix <SpellLink id={talents.LIGHT_BREWING_TALENT.id} /> ID
     </>,
     Matardarix,
   ),
@@ -157,7 +158,7 @@ export default [
   change(
     date(2020, 10, 16),
     <>
-      Removed "Inefficient <SpellLink id={talents.PURIFYING_BREW_BREWMASTER_TALENT.id} /> Casts" statistic.
+      Removed "Inefficient <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> Casts" statistic.
     </>,
     emallson,
   ),

@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
@@ -17,7 +18,7 @@ class LonelyWinter extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.LONELY_WINTER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.LONELY_WINTER_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(BUFFED_SPELLS),
       this.onAffectedDamage,
@@ -57,7 +58,7 @@ class LonelyWinter extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.LONELY_WINTER_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.LONELY_WINTER_TALENT.id}>
           {this.owner.formatItemDamageDone(totalDamage)}
         </BoringSpellValueText>
       </Statistic>

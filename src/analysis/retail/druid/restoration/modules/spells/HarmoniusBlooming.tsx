@@ -25,17 +25,15 @@ class HarmoniusBlooming extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.ranks = this.selectedCombatant.getTalentRank(
-      TALENTS_DRUID.HARMONIOUS_BLOOMING_RESTORATION_TALENT,
-    );
+    this.ranks = this.selectedCombatant.getTalentRank(TALENTS_DRUID.HARMONIOUS_BLOOMING_TALENT);
     this.active = this.ranks > 0;
   }
 
   /**
    * The healing due only to the extra stacks from the talent.
-   * Healing due to all the stacks is
+   * Healing due to all the stacks is already added by the Mastery module,
+   * so here we simply do the math to get the portion from only the extra stacks.
    */
-
   get extraStacksHealing() {
     const totalMasteryHealing =
       this.mastery.getMasteryHealing(SPELLS.LIFEBLOOM_HOT_HEAL.id) +
@@ -57,7 +55,7 @@ class HarmoniusBlooming extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.HARMONIOUS_BLOOMING_RESTORATION_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.HARMONIOUS_BLOOMING_TALENT.id}>
           <ItemPercentHealingDone amount={this.extraStacksHealing} />
           <br />
         </BoringSpellValueText>

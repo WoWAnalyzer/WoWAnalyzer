@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage, formatNumber, formatThousands, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import CooldownIcon from 'interface/icons/Cooldown';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -32,7 +33,7 @@ class WaterElemental extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.LONELY_WINTER_TALENT.id);
+    this.active = !this.selectedCombatant.hasTalent(TALENTS.LONELY_WINTER_TALENT.id);
 
     this.addEventListener(
       Events.begincast.by(SELECTED_PLAYER_PET).spell(SPELLS.WATERBOLT),

@@ -36,11 +36,6 @@ const spells = spellIndexableList({
     icon: 'spell_holy_righteousfury',
     manaCost: 300,
   },
-  DIVINE_STEED: {
-    id: 190784,
-    name: 'Divine Steed',
-    icon: 'ability_paladin_divinesteed',
-  },
   DIVINE_STEED_BUFF: {
     id: 221883,
     name: 'Divine Steed',
@@ -69,30 +64,10 @@ const spells = spellIndexableList({
     name: 'Hand of Reckoning',
     icon: 'spell_holy_unyieldingfaith',
   },
-  LAY_ON_HANDS: {
-    id: 633,
-    name: 'Lay on Hands',
-    icon: 'spell_holy_layonhands',
-  },
-  BLESSING_OF_FREEDOM: {
-    id: 1044,
-    name: 'Blessing of Freedom',
-    icon: 'spell_holy_sealofvalor',
-  },
-  BLESSING_OF_PROTECTION: {
-    id: 1022,
-    name: 'Blessing of Protection',
-    icon: 'spell_holy_sealofprotection',
-  },
   HAMMER_OF_JUSTICE: {
     id: 853,
     name: 'Hammer of Justice',
     icon: 'spell_holy_sealofmight',
-  },
-  HAMMER_OF_WRATH: {
-    id: 24275,
-    name: 'Hammer of Wrath',
-    icon: 'spell_paladin_hammerofwrath',
   },
   WORD_OF_GLORY: {
     id: 85673,
@@ -118,11 +93,6 @@ const spells = spellIndexableList({
     id: 465,
     name: 'Devotion Aura',
     icon: 'spell_holy_devotionaura',
-  },
-  TURN_EVIL: {
-    id: 10326,
-    name: 'Turn Evil',
-    icon: 'ability_paladin_turnevil',
   },
   SENSE_UNDEAD: {
     id: 5502,
@@ -153,12 +123,6 @@ const spells = spellIndexableList({
     icon: 'spell_holy_flashheal',
     manaCost: 2200,
   },
-  HOLY_SHOCK_CAST: {
-    id: 20473,
-    name: 'Holy Shock',
-    icon: 'spell_holy_searinglight',
-    manaCost: 1600,
-  },
   HOLY_SHOCK_HEAL: {
     id: 25914,
     name: 'Holy Shock',
@@ -173,17 +137,6 @@ const spells = spellIndexableList({
     id: 225311,
     name: 'Light of Dawn',
     icon: 'spell_paladin_lightofdawn',
-  },
-  LIGHT_OF_DAWN_CAST: {
-    id: 85222,
-    name: 'Light of Dawn',
-    icon: 'spell_paladin_lightofdawn',
-  },
-  HOLY_LIGHT: {
-    id: 82326,
-    name: 'Holy Light',
-    icon: 'spell_holy_surgeoflight',
-    manaCost: 1500,
   },
   LIGHT_OF_THE_MARTYR: {
     id: 183998,
@@ -241,16 +194,6 @@ const spells = spellIndexableList({
     name: 'Aura of Sacrifice',
     icon: 'ability_deathwing_bloodcorruption_earth',
   },
-  DIVINE_PROTECTION: {
-    id: 498,
-    name: 'Divine Protection',
-    icon: 'spell_holy_divineprotection',
-  },
-  BLESSING_OF_SACRIFICE: {
-    id: 6940,
-    name: 'Blessing of Sacrifice',
-    icon: 'spell_holy_sealofsacrifice',
-  },
   INFUSION_OF_LIGHT: {
     id: 54149,
     name: 'Infusion of Light',
@@ -266,11 +209,6 @@ const spells = spellIndexableList({
     id: 210320,
     name: 'Devotion Aura',
     icon: 'spell_holy_devotionaura',
-  },
-  AVENGING_CRUSADER_TALENT: {
-    id: 216331,
-    name: 'Avenging Crusader',
-    icon: 'ability_paladin_veneration',
   },
   AVENGING_CRUSADER_HEAL_NORMAL: {
     id: 216371,
@@ -329,25 +267,10 @@ const spells = spellIndexableList({
     name: "Templar's Verdict",
     icon: 'spell_paladin_templarsverdict',
   },
-  BLADE_OF_JUSTICE: {
-    id: 184575,
-    name: 'Blade of Justice',
-    icon: 'ability_paladin_bladeofjustice',
-  },
   DIVINE_STORM_DAMAGE: {
     id: 224239,
     name: 'Divine Storm',
     icon: 'ability_paladin_divinestorm',
-  },
-  DIVINE_STORM: {
-    id: 53385,
-    name: 'Divine Storm',
-    icon: 'ability_paladin_divinestorm',
-  },
-  SHIELD_OF_VENGEANCE: {
-    id: 184662,
-    name: 'Shield of Vengeance',
-    icon: 'ability_paladin_shieldofthetemplar',
   },
   DIVINE_PURPOSE_BUFF: {
     id: 223819,
@@ -374,11 +297,6 @@ const spells = spellIndexableList({
     name: 'Fires of Justice',
     icon: 'spell_holy_crusaderstrike',
   },
-  ART_OF_WAR: {
-    id: 267344,
-    name: 'Art of War',
-    icon: 'ability_paladin_artofwar',
-  },
   RIGHTEOUS_VERDICT_BUFF: {
     id: 267611,
     name: 'Righteous Verdict',
@@ -394,16 +312,6 @@ const spells = spellIndexableList({
     name: 'Execution Sentence',
     icon: 'spell_paladin_executionsentence',
   },
-  WAKE_OF_ASHES: {
-    id: 255937,
-    name: 'Wake of Ashes',
-    icon: 'inv_sword_2h_artifactashbringerfire_d_03',
-  },
-  HAND_OF_HINDRANCE: {
-    id: 183218,
-    name: 'Hand of Hindrance',
-    icon: 'ability_paladin_handofhindrance',
-  },
   SANCTIFIED_WRATH_DAMAGE: {
     id: 326731,
     name: 'Sanctified Wrath',
@@ -416,31 +324,11 @@ const spells = spellIndexableList({
   },
 
   // Protection
-  ARDENT_DEFENDER: {
-    id: 31850,
-    name: 'Ardent Defender',
-    icon: 'spell_holy_ardentdefender',
-  },
-  AVENGERS_SHIELD: {
-    id: 31935,
-    name: "Avenger's Shield",
-    icon: 'spell_holy_avengersshield',
-  },
-  GUARDIAN_OF_ANCIENT_KINGS: {
-    id: 86659,
-    name: 'Guardian of Ancient Kings',
-    icon: 'spell_holy_heroism',
-  },
   // GoAK has a different spell ID with Glyph of the Queen
   GUARDIAN_OF_ANCIENT_KINGS_QUEEN: {
     id: 212641,
     name: 'Guardian of Ancient Kings',
     icon: 'spell_holy_heroism',
-  },
-  HAMMER_OF_THE_RIGHTEOUS: {
-    id: 53595,
-    name: 'Hammer of the Righteous',
-    icon: 'ability_paladin_hammeroftherighteous',
   },
   LIGHT_OF_THE_PROTECTOR: {
     id: 184092,
@@ -452,27 +340,7 @@ const spells = spellIndexableList({
     name: 'Shield of the Righteous',
     icon: 'ability_paladin_shieldofvengeance',
   },
-  CLEANSE_TOXINS: {
-    id: 213644,
-    name: 'Cleanse Toxins',
-    icon: 'spell_holy_renew',
-  },
-  REBUKE: {
-    id: 96231,
-    name: 'Rebuke',
-    icon: 'spell_holy_rebuke',
-  },
-  GRAND_CRUSADER: {
-    id: 85043,
-    name: 'Grand Crusader',
-    icon: 'inv_helmet_74',
-  },
   //artifact
-  EYE_OF_TYR: {
-    id: 209202,
-    name: 'Eye of Tyr',
-    icon: 'inv_shield_1h_artifactnorgannon_d_01',
-  },
   UNFLINCHING_DEFENSE: {
     id: 209220,
     name: 'Unflinching Defense',
@@ -524,12 +392,6 @@ const spells = spellIndexableList({
     id: 280375,
     name: 'Redoubt',
     icon: 'ability_warrior_shieldguard',
-  },
-  // the shining light buff does not have a proper tooltip. this one does. used in display
-  SHINING_LIGHT_DESC: {
-    id: 321136,
-    name: 'Shining Light',
-    icon: 'ability_paladin_toweroflight',
   },
   // Bonus set tiers
   PROTECTION_PALADIN_T19_2SET_BONUS_BUFF: {

@@ -1,9 +1,10 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
 import { TooltipElement } from 'interface';
-import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
+import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
@@ -32,13 +33,13 @@ const HolyPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.HOLY_WORD_SERENITY.id} />
-        <AbilityRequirement spell={SPELLS.HOLY_WORD_SANCTIFY.id} />
-        <AbilityRequirement spell={SPELLS.PRAYER_OF_MENDING_CAST.id} />
-        <AbilityRequirement spell={SPELLS.CIRCLE_OF_HEALING_TALENT.id} />
+        <AbilityRequirement spell={TALENTS.HOLY_WORD_SERENITY_TALENT.id} />
+        <AbilityRequirement spell={TALENTS.HOLY_WORD_SANCTIFY_TALENT.id} />
+        <AbilityRequirement spell={TALENTS.PRAYER_OF_MENDING_TALENT.id} />
+        <AbilityRequirement spell={TALENTS.CIRCLE_OF_HEALING_TALENT.id} />
 
-        {combatant.hasTalent(SPELLS.DIVINE_STAR_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.DIVINE_STAR_TALENT.id} />
+        {combatant.hasTalent(TALENTS.DIVINE_STAR_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.DIVINE_STAR_TALENT.id} />
         )}
         {combatant.hasTalent(SPELLS.HALO_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.HALO_TALENT.id} />
@@ -51,21 +52,21 @@ const HolyPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           <>
             Cooldowns are an important part of healing, try to use them to counter fight mechanics.
             For example if a boss has burst damage every 3 minutes,{' '}
-            <SpellLink id={SPELLS.DIVINE_HYMN_CAST.id} /> should be used to counter it.
+            <SpellLink id={TALENTS.DIVINE_HYMN_TALENT.id} /> should be used to counter it.
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.GUARDIAN_SPIRIT.id} />
-        <AbilityRequirement spell={SPELLS.DIVINE_HYMN_CAST.id} />
+        <AbilityRequirement spell={TALENTS.GUARDIAN_SPIRIT_TALENT.id} />
+        <AbilityRequirement spell={TALENTS.DIVINE_HYMN_TALENT.id} />
         <AbilityRequirement spell={SPELLS.DESPERATE_PRAYER.id} />
-        <AbilityRequirement spell={SPELLS.SYMBOL_OF_HOPE.id} />
-        <AbilityRequirement spell={SPELLS.POWER_INFUSION.id} />
+        <AbilityRequirement spell={TALENTS.SYMBOL_OF_HOPE_TALENT.id} />
+        <AbilityRequirement spell={TALENTS.POWER_INFUSION_TALENT.id} />
 
-        {combatant.hasTalent(SPELLS.HOLY_WORD_SALVATION_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.HOLY_WORD_SALVATION_TALENT.id} />
+        {combatant.hasTalent(TALENTS.HOLY_WORD_SALVATION_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.HOLY_WORD_SALVATION_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.APOTHEOSIS_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.APOTHEOSIS_TALENT.id} />
+        {combatant.hasTalent(TALENTS.APOTHEOSIS_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.APOTHEOSIS_TALENT.id} />
         )}
 
         {/* We can't detect race, so disable this when it has never been cast. */}

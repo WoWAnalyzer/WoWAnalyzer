@@ -8,7 +8,6 @@ import {
   targetsHit,
   buffPresent,
   buffMissing,
-  hasLegendary,
   hasConduit,
   optional,
   hasTalent,
@@ -19,19 +18,20 @@ import talents from 'common/TALENTS/monk';
 export const apl = build([
   SPELLS.BONEDUST_BREW_CAST,
   {
-    spell: talents.KEG_SMASH_BREWMASTER_TALENT,
-    condition: buffPresent(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL),
+    spell: talents.KEG_SMASH_TALENT,
+    condition: buffPresent(talents.WEAPONS_OF_ORDER_TALENT),
+  },
+  talents.RISING_SUN_KICK_TALENT,
+  {
+    spell: talents.BREATH_OF_FIRE_TALENT,
+    condition: hasTalent(talents.CHARRED_PASSIONS_TALENT),
   },
   {
-    spell: talents.BREATH_OF_FIRE_BREWMASTER_TALENT,
-    condition: hasLegendary(SPELLS.CHARRED_PASSIONS),
-  },
-  {
-    spell: talents.KEG_SMASH_BREWMASTER_TALENT,
+    spell: talents.KEG_SMASH_TALENT,
     condition: cnd.describe(
       cnd.and(
-        hasTalent(talents.STORMSTOUTS_LAST_KEG_BREWMASTER_TALENT),
-        cnd.spellFractionalCharges(talents.KEG_SMASH_BREWMASTER_TALENT, { atLeast: 1.5 }),
+        hasTalent(talents.STORMSTOUTS_LAST_KEG_TALENT),
+        cnd.spellFractionalCharges(talents.KEG_SMASH_TALENT, { atLeast: 1.5 }),
       ),
       (tense) => (
         <>
@@ -41,16 +41,11 @@ export const apl = build([
       ),
     ),
   },
+  [SPELLS.BLACKOUT_KICK_BRM, talents.KEG_SMASH_TALENT],
+  talents.BREATH_OF_FIRE_TALENT,
   {
-    spell: talents.KEG_SMASH_BREWMASTER_TALENT,
-    condition: cnd.describe(cnd.not(cnd.hasLegendary(SPELLS.STORMSTOUTS_LAST_KEG)), () => ''),
-  },
-  SPELLS.BLACKOUT_KICK_BRM,
-  talents.KEG_SMASH_BREWMASTER_TALENT,
-  talents.BREATH_OF_FIRE_BREWMASTER_TALENT,
-  {
-    spell: talents.RUSHING_JADE_WIND_BREWMASTER_TALENT,
-    condition: buffMissing(talents.RUSHING_JADE_WIND_BREWMASTER_TALENT, {
+    spell: talents.RUSHING_JADE_WIND_TALENT,
+    condition: buffMissing(talents.RUSHING_JADE_WIND_TALENT, {
       timeRemaining: 2000,
       duration: 6000,
     }),

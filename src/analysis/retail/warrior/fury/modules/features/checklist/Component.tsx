@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
-import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
+import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
@@ -26,46 +26,6 @@ const FuryWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         name="Use cooldowns effectively"
         description="Your cooldowns are an important contributor to your damage throughput. Try to get in as many efficient casts as the fight allows."
       >
-        {combatant.hasTalent(SPELLS.SIEGEBREAKER_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.SIEGEBREAKER_TALENT.id} />
-        )}
-        {combatant.hasTalent(SPELLS.SIEGEBREAKER_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={SPELLS.RECKLESSNESS.id} /> casts with{' '}
-                <SpellLink id={SPELLS.SIEGEBREAKER_TALENT.id} />{' '}
-              </>
-            }
-            thresholds={thresholds.siegeBreaker}
-          />
-        )}
-        {combatant.hasTalent(SPELLS.BLADESTORM_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.BLADESTORM_TALENT.id} />
-        )}
-        {combatant.hasTalent(SPELLS.BLADESTORM_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={SPELLS.BLADESTORM_TALENT.id} /> casts inside of Enrage{' '}
-              </>
-            }
-            thresholds={thresholds.bladeStorm}
-          />
-        )}
-        {combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.DRAGON_ROAR_TALENT.id} />
-        )}
-        {combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={SPELLS.DRAGON_ROAR_TALENT.id} /> casts inside of Enrage{' '}
-              </>
-            }
-            thresholds={thresholds.dragonRoar}
-          />
-        )}
         <AbilityRequirement spell={SPELLS.RECKLESSNESS.id} />
         <Requirement
           name={

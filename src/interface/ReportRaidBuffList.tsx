@@ -1,11 +1,12 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import SPECS from 'game/SPECS';
 import { Class, CombatantInfoEvent } from 'parser/core/Events';
 
 import './ReportRaidBuffList.scss';
 
 import ReportRaidBuffListItem from './ReportRaidBuffListItem';
-import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
+import { TALENTS_DEMON_HUNTER, TALENTS_MONK } from 'common/TALENTS';
 
 // eslint-disable-next-line
 const AVAILABLE_RAID_BUFFS = new Map<number, Array<Class | object>>([
@@ -16,6 +17,8 @@ const AVAILABLE_RAID_BUFFS = new Map<number, Array<Class | object>>([
   [SPELLS.BATTLE_SHOUT.id, [Class.Warrior]],
   //  Intellect
   [SPELLS.ARCANE_INTELLECT.id, [Class.Mage]],
+  //  Movement CD
+  [SPELLS.BLESSING_OF_THE_BRONZE.id, [Class.Evoker]],
   // Debuffs
   //  Magic vulnerability
   [SPELLS.CHAOS_BRAND.id, [Class.DemonHunter]],
@@ -31,9 +34,10 @@ const AVAILABLE_RAID_BUFFS = new Map<number, Array<Class | object>>([
   [SPELLS.AURA_MASTERY.id, [SPECS.HOLY_PALADIN]],
   [SPELLS.SPIRIT_LINK_TOTEM.id, [SPECS.RESTORATION_SHAMAN]],
   [SPELLS.HEALING_TIDE_TOTEM_CAST.id, [SPECS.RESTORATION_SHAMAN]],
-  [SPELLS.REVIVAL.id, [SPECS.MISTWEAVER_MONK]],
+  [TALENTS_MONK.REVIVAL_TALENT.id, [SPECS.MISTWEAVER_MONK]],
+  [TALENTS_MONK.RESTORAL_TALENT.id, [SPECS.MISTWEAVER_MONK]],
   [SPELLS.POWER_WORD_BARRIER_CAST.id, [SPECS.DISCIPLINE_PRIEST]],
-  [SPELLS.DIVINE_HYMN_CAST.id, [SPECS.HOLY_PRIEST]],
+  [TALENTS_PRIEST.DIVINE_HYMN_TALENT.id, [SPECS.HOLY_PRIEST]],
   [SPELLS.TRANQUILITY_CAST.id, [SPECS.RESTORATION_DRUID]],
 ]);
 

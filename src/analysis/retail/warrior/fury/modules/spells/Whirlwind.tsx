@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/warrior';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
@@ -15,11 +16,7 @@ class Whirlwind extends Analyzer {
     spellUsable: SpellUsable,
     rageTracker: RageTracker,
   };
-  hasDragonsRoar: boolean = false;
-  hasBladeStorm: boolean = false;
   lastCastWW: boolean = false;
-  drWasAvailable: boolean = false; //dragons roar
-  bsWasAvailable: boolean = false; //blade storm
   btWasAvailable: boolean = false; //bloodthirst
   ramWasAvailable: boolean = false; //rampage
   rbWasAvailable: boolean = false; //raging blow
@@ -37,9 +34,7 @@ class Whirlwind extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.hasDragonsRoar = this.selectedCombatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id);
-    this.hasBladeStorm = this.selectedCombatant.hasTalent(SPELLS.BLADESTORM_TALENT.id);
-    this.executeThreshold = this.selectedCombatant.hasTalent(SPELLS.MASSACRE_TALENT_FURY.id)
+    this.executeThreshold = this.selectedCombatant.hasTalent(talents.MASSACRE_FURY_TALENT.id)
       ? 0.35
       : 0.2;
 
@@ -104,13 +99,6 @@ class Whirlwind extends Analyzer {
       ? this.spellUsable.isAvailable(SPELLS.EXECUTE_FURY.id)
       : false;
 
-    this.bsWasAvailable = this.hasBladeStorm
-      ? this.spellUsable.isAvailable(SPELLS.BLADESTORM_TALENT.id)
-      : false;
-    this.drWasAvailable = this.hasDragonsRoar
-      ? this.spellUsable.isAvailable(SPELLS.DRAGON_ROAR_TALENT.id)
-      : false;
-
     this.wasEnraged = this.selectedCombatant.hasBuff(SPELLS.ENRAGE.id);
 
     this.enemiesHitWW = [];
@@ -152,11 +140,6 @@ class Whirlwind extends Analyzer {
     let badCast =
       this.btWasAvailable || this.rbWasAvailable || this.ramWasAvailable || this.exWasAvailable;
 
-    if (this.wasEnraged) {
-      badCast = badCast || (this.hasBladeStorm ? this.bsWasAvailable : false);
-      badCast = badCast || (this.hasDragonsRoar ? this.drWasAvailable : false);
-    }
-
     if (this.enemiesHitWW.length >= 2 && !this.hasWWBuff) {
       badCast = false;
     }
@@ -176,7 +159,7 @@ class Whirlwind extends Analyzer {
           if your other abilities are on cooldown.
         </>,
       )
-        .icon(SPELLS.SIEGEBREAKER_TALENT.icon)
+        .icon(SPELLS.WHIRLWIND.icon)
         .actual(
           t({
             id: 'warrior.fury.suggestions.whirlwind.badCasts',

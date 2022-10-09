@@ -1914,3 +1914,42 @@ export const ToppleTheNun: Contributor = {
     },
   ],
 };
+
+export const CamClark: Contributor = {
+  nickname: 'CamClark',
+  github: 'CamClark',
+  discord: 'Cool_Clarky#9085',
+  mains: [
+    {
+      name: 'CeoJimmy',
+      spec: SPECS.HOLY_PALADIN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/frostmourne/Ceojimmy',
+    },
+  ],
+};
+
+export const Listefano: Contributor = {
+  nickname: 'Listefano',
+  github: 'listefano',
+  discord: 'Listefano | Stefan#8789',
+  mains: [
+    {
+      name: 'Listefano',
+      spec: SPECS.FURY_WARRIOR,
+      link: 'https://worldofwarcraft.com/en-us/character/eu/malfurion/Listefano',
+    },
+  ],
+};
+
+export const Litena: Contributor = {
+  nickname: 'Litena',
+  github: 'emilnormann',
+  discord: 'BooTheGhoster#9666',
+  mains: [
+    {
+      name: 'Listefano',
+      spec: SPECS.HOLY_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/eu/silvermoon/Litena',
+    },
+  ],
+};

@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
-import PreparationRule from 'parser/shadowlands/modules/features/Checklist/PreparationRule';
+import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
@@ -40,21 +41,21 @@ const FrostMageChecklist = ({
       >
         <AbilityRequirement spell={SPELLS.ICY_VEINS.id} />
         <AbilityRequirement spell={SPELLS.FROZEN_ORB.id} />
-        {combatant.hasTalent(SPELLS.EBONBOLT_TALENT.id) &&
-          !combatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id) && (
-            <AbilityRequirement spell={SPELLS.EBONBOLT_TALENT.id} />
+        {combatant.hasTalent(TALENTS.EBONBOLT_TALENT.id) &&
+          !combatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT.id) && (
+            <AbilityRequirement spell={TALENTS.EBONBOLT_TALENT.id} />
           )}
-        {combatant.hasTalent(SPELLS.COMET_STORM_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.COMET_STORM_TALENT.id} />
+        {combatant.hasTalent(TALENTS.COMET_STORM_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.COMET_STORM_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.RUNE_OF_POWER_TALENT.id} />
+        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.RUNE_OF_POWER_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.RAY_OF_FROST_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.RAY_OF_FROST_TALENT.id} />
+        {combatant.hasTalent(TALENTS.RAY_OF_FROST_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.RAY_OF_FROST_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.ICE_NOVA_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.ICE_NOVA_TALENT.id} />
+        {combatant.hasTalent(TALENTS.ICE_NOVA_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.ICE_NOVA_TALENT.id} />
         )}
       </Rule>
       <Rule
@@ -68,8 +69,8 @@ const FrostMageChecklist = ({
             target when you use a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc and makes the
             target act as if it is frozen for a short duration of time. Therefore, you should cast a
             rotational ability like <SpellLink id={SPELLS.FROSTBOLT.id} />,{' '}
-            <SpellLink id={SPELLS.EBONBOLT_TALENT.id} />, or{' '}
-            <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />, followed immediately by the Brain
+            <SpellLink id={TALENTS.EBONBOLT_TALENT.id} />, or{' '}
+            <SpellLink id={TALENTS.GLACIAL_SPIKE_TALENT.id} />, followed immediately by the Brain
             Freeze buffed Flurry and then end with two <SpellLink id={SPELLS.ICE_LANCE.id} />
             s. Against non-boss enemies, you can also utilize other things like{' '}
             <SpellLink id={SPELLS.FROST_NOVA.id} /> or your pet's{' '}
@@ -100,8 +101,8 @@ const FrostMageChecklist = ({
             Additionally, you should try to ensure that you use all of your Fingers of Frost procs
             before you use your <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc, but sometimes this
             is not possible. If you are already casting <SpellLink id={SPELLS.FROSTBOLT.id} />,{' '}
-            <SpellLink id={SPELLS.EBONBOLT_TALENT.id} />, or{' '}
-            <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> and you have both a{' '}
+            <SpellLink id={TALENTS.EBONBOLT_TALENT.id} />, or{' '}
+            <SpellLink id={TALENTS.GLACIAL_SPIKE_TALENT.id} /> and you have both a{' '}
             <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> and a{' '}
             <SpellLink id={SPELLS.FINGERS_OF_FROST.id} /> proc, you should prioritize using the
             Brain Freeze and let the Fingers of Frost proc get wasted.
@@ -127,26 +128,26 @@ const FrostMageChecklist = ({
         name="Use Glacial Spike properly"
         description={
           <>
-            <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> is one of the most impactful talents
+            <SpellLink id={TALENTS.GLACIAL_SPIKE_TALENT.id} /> is one of the most impactful talents
             that you can choose and it plays a large part in your rotation; So you should always
             ensure that you are getting the most out of it, because a large part of your damage will
             come from making sure that you are handling Glacial Spike properly. As a rule, once you
             have Glacial Spike available, you should not cast it unless you have a{' '}
             <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc to use alongside it (
-            <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> {'>'}{' '}
+            <SpellLink id={TALENTS.GLACIAL_SPIKE_TALENT.id} /> {'>'}{' '}
             <SpellLink id={SPELLS.FLURRY.id} /> {'>'}
             <SpellLink id={SPELLS.ICE_LANCE.id} />) or if you also have the{' '}
-            <SpellLink id={SPELLS.SPLITTING_ICE_TALENT.id} /> and the Glacial Spike will hit a
+            <SpellLink id={TALENTS.SPLITTING_ICE_TALENT.id} /> and the Glacial Spike will hit a
             second target. If neither of those are true, then you should continue casting{' '}
             <SpellLink id={SPELLS.FROSTBOLT.id} /> until you have a{' '}
             <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc. If you are consistently in situations
             where you are waiting to get a Brain Freeze proc, then consider taking the{' '}
-            <SpellLink id={SPELLS.EBONBOLT_TALENT.id} /> talent and saving it for when you need to
+            <SpellLink id={TALENTS.EBONBOLT_TALENT.id} /> talent and saving it for when you need to
             generate a proc to use with Glacial Spike.
           </>
         }
       >
-        {combatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT.id) && (
           <Requirement
             name="Glacial Spike utilization"
             thresholds={thresholds.glacialSpikeUtilization}
@@ -157,14 +158,14 @@ const FrostMageChecklist = ({
         name="Use your talents effectively"
         description="Regardless of which talents you select, you should ensure that you are utilizing them properly. If you are having trouble effectively using a particular talent, you should consider taking a different talent that you can utilize properly or focus on effectively using the talents that you have selected."
       >
-        {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id) && (
           <Requirement
             name="Rune of Power uptime"
             thresholds={thresholds.runeOfPowerBuffUptime}
             tooltip="Using Rune of Power effectively means being able to stay within the range of it for it's entire duration. If you are unable to do so or if you frequently have to move out of the range of the buff, consider taking a different talent instead."
           />
         )}
-        {!combatant.hasTalent(SPELLS.LONELY_WINTER_TALENT.id) && (
+        {!combatant.hasTalent(TALENTS.LONELY_WINTER_TALENT.id) && (
           <Requirement
             name="Water Elemental utilization"
             thresholds={thresholds.waterElementalUptime}
@@ -194,7 +195,7 @@ const FrostMageChecklist = ({
         name="Use your damaging abilities effectively (Beta APL Check)"
         apl={apl}
         checkResults={checkResults}
-        cooldowns={[SPELLS.ICY_VEINS, SPELLS.RUNE_OF_POWER_TALENT, SPELLS.MIRRORS_OF_TORMENT]}
+        cooldowns={[SPELLS.ICY_VEINS, TALENTS.RUNE_OF_POWER_TALENT, SPELLS.MIRRORS_OF_TORMENT]}
         castEfficiency={castEfficiency}
       />
       <PreparationRule thresholds={thresholds}>

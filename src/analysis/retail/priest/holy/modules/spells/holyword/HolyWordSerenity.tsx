@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import { Options } from 'parser/core/Analyzer';
 
 import HolyWordBase from './HolyWordBase';
@@ -12,7 +13,7 @@ class HolyWordSerenity extends HolyWordBase {
   constructor(options: Options) {
     super(options);
 
-    this.spellId = SPELLS.HOLY_WORD_SERENITY.id;
+    this.spellId = TALENTS.HOLY_WORD_SERENITY_TALENT.id;
     this.manaCost = 4000;
     this.serendipityProccers = {
       [SPELLS.GREATER_HEAL.id]: {
@@ -27,7 +28,7 @@ class HolyWordSerenity extends HolyWordBase {
           FLASH_HEAL_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
         apotheosisReduction: () => FLASH_HEAL_SERENDIPITY_REDUCTION * this.apotheosisMultiplier,
       },
-      [SPELLS.BINDING_HEALS_TALENT.id]: {
+      [TALENTS.BINDING_HEALS_TALENT.id]: {
         baseReduction: () => BINDING_HEAL_SERENDIPITY_REDUCTION,
         lightOfTheNaaruReduction: () =>
           BINDING_HEAL_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,
@@ -36,7 +37,7 @@ class HolyWordSerenity extends HolyWordBase {
     };
 
     if (this.selectedCombatant.hasLegendary(SPELLS.HARMONIOUS_APPARATUS)) {
-      this.serendipityProccers[SPELLS.PRAYER_OF_MENDING_CAST.id] = {
+      this.serendipityProccers[TALENTS.PRAYER_OF_MENDING_TALENT.id] = {
         baseReduction: () => PRAYER_OF_MENDING_SERENDIPITY_REDUCTION,
         lightOfTheNaaruReduction: () =>
           PRAYER_OF_MENDING_SERENDIPITY_REDUCTION * this.lightOfTheNaruMultiplier,

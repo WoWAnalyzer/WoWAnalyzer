@@ -1,11 +1,15 @@
 import {
-  Felblade,
-  TheHunt,
-  ShatteredRestoration,
   CharredWarblades,
+  CollectiveAnguish,
+  Demonic,
+  Felblade,
+  ImmolationAura,
+  MasterOfTheGlaive,
+  ShatteredRestoration,
+  SigilOfFlame,
+  TheHunt,
 } from 'analysis/retail/demonhunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import Blur from 'analysis/retail/demonhunter/shared/modules/talents/Blur';
 
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
@@ -17,10 +21,8 @@ import SoulFragmentsTracker from './modules/features/SoulFragmentsTracker';
 import FuryDetails from './modules/fury/FuryDetails';
 import FuryTracker from './modules/fury/FuryTracker';
 import DemonSpikes from './modules/spells/DemonSpikes';
-import ImmolationAura from './modules/spells/ImmolationAura';
 import InfernalStrike from './modules/spells/InfernalStrike';
 import ShearFracture from './modules/spells/ShearFracture';
-import SigilOfFlame from './modules/spells/SigilOfFlame';
 import SoulCleaveSoulsConsumed from './modules/spells/SoulCleaveSoulsConsumed';
 import SoulFragmentsConsume from './modules/statistics/SoulFragmentsConsume';
 import SoulsOvercap from './modules/statistics/SoulsOvercap';
@@ -32,8 +34,8 @@ import FeedTheDemon from './modules/talents/FeedTheDemon';
 import SoulBarrier from './modules/talents/SoulBarrier';
 import FrailtyDebuff from './modules/talents/FrailtyDebuff';
 import SpiritBombSoulsConsume from './modules/talents/SpiritBombSoulsConsume';
-import VoidReaverDebuff from './modules/talents/VoidReaverDebuff';
 import PainbringerBuff from './modules/talents/PainbringerBuff';
+import DarkglareBoon from './modules/talents/DarkglareBoon';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -53,7 +55,6 @@ class CombatLogParser extends CoreCombatLogParser {
     furyDetails: FuryDetails,
 
     // Talents
-    blur: Blur,
     painbringer: PainbringerBuff,
     frailtyDebuff: FrailtyDebuff,
     soulBarrier: SoulBarrier,
@@ -68,13 +69,16 @@ class CombatLogParser extends CoreCombatLogParser {
     elysianDecree: ElysianDecree,
     felblade: Felblade,
     charredWarblades: CharredWarblades,
+    masterOfTheGlaive: MasterOfTheGlaive,
+    darkglareBoon: DarkglareBoon,
+    collectiveAnguish: CollectiveAnguish,
+    demonic: Demonic,
 
     // Spell
     immolationAura: ImmolationAura,
     demonSpikes: DemonSpikes,
     sigilOfFlame: SigilOfFlame,
     soulCleaveSoulsConsumed: SoulCleaveSoulsConsumed,
-    voidReaverDebuff: VoidReaverDebuff,
     infernalStrike: InfernalStrike,
 
     // Stats

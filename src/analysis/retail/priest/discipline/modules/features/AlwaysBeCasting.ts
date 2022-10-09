@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import { CastEvent } from 'parser/core/Events';
 import { SuggestionFactory, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
@@ -21,12 +22,12 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.HALO_TALENT.id,
     TALENTS_PRIEST.DIVINE_STAR_TALENT.id,
     SPELLS.MASS_DISPEL.id,
-    SPELLS.DISPEL_MAGIC.id,
+    TALENTS.DISPEL_MAGIC_TALENT.id,
     SPELLS.POWER_WORD_BARRIER_CAST.id,
     SPELLS.PURIFY.id,
-    TALENTS_PRIEST.POWER_WORD_SOLACE_DISCIPLINE_TALENT.id,
-    TALENTS_PRIEST.SHADOW_COVENANT_DISCIPLINE_TALENT.id,
-    TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT.id,
+    TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT.id,
+    TALENTS_PRIEST.SHADOW_COVENANT_TALENT.id,
+    TALENTS_PRIEST.EVANGELISM_TALENT.id,
   ];
 
   lastPenanceStartTimestamp: number = 0;

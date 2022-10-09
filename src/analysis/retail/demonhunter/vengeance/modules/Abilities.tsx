@@ -5,6 +5,8 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { PITCH_BLACK_SCALING } from 'analysis/retail/demonhunter/shared';
+import { getInfernalStrikeCooldown } from 'analysis/retail/demonhunter/vengeance/modules/spells/InfernalStrike';
+import { getMetamorphosisCooldown } from 'analysis/retail/demonhunter/shared/modules/talents/MetamorphosisCooldown';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -24,25 +26,25 @@ class Abilities extends CoreAbilities {
           extraSuggestion: (
             <>
               This is a great Fury filler spell. Try to always cast it on cooldown, specially when
-              using the <SpellLink id={TALENTS_DEMON_HUNTER.FALLOUT_VENGEANCE_TALENT.id} /> talent
-              in order to maximize your <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> generation.
+              using the <SpellLink id={TALENTS_DEMON_HUNTER.FALLOUT_TALENT.id} /> talent in order to
+              maximize your <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> generation.
             </>
           ),
         },
       },
       {
         spell: [
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_VENGEANCE_TALENT.id)
-            ? TALENTS_DEMON_HUNTER.FRACTURE_VENGEANCE_TALENT.id
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT.id)
+            ? TALENTS_DEMON_HUNTER.FRACTURE_TALENT.id
             : SPELLS.SHEAR.id,
         ],
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_VENGEANCE_TALENT.id)
+        cooldown: combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT.id)
           ? (haste) => 4.5 / (1 + haste)
           : 0,
-        charges: combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_VENGEANCE_TALENT.id) ? 2 : 0,
+        charges: combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT.id) ? 2 : 0,
         castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_VENGEANCE_TALENT.id),
+          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT.id),
           recommendedEfficiency: 0.9,
         },
         gcd: {
@@ -62,7 +64,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.METAMORPHOSIS_TANK.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 180,
+        cooldown: getMetamorphosisCooldown(combatant),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
@@ -70,12 +72,10 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
       },
       {
-        spell: TALENTS_DEMON_HUNTER.FIERY_BRAND_VENGEANCE_TALENT.id,
+        spell: TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 60,
-        charges:
-          1 +
-          (combatant.hasTalent(TALENTS_DEMON_HUNTER.DOWN_IN_FLAMES_VENGEANCE_TALENT.id) ? 1 : 0),
+        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.DOWN_IN_FLAMES_TALENT.id) ? 1 : 0),
         gcd: {
           base: 1500,
         },
@@ -92,22 +92,14 @@ class Abilities extends CoreAbilities {
         cooldown: (haste) => 20 / (1 + haste),
         charges: 2,
         castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.RETALIATION_VENGEANCE_TALENT.id),
+          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.RETALIATION_TALENT.id),
           recommendedEfficiency: 0.5,
         },
         isDefensive: true,
       },
       {
-        spell: TALENTS_DEMON_HUNTER.BLUR_TALENT.id,
-        buffSpellId: TALENTS_DEMON_HUNTER.BLUR_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.BLUR_TALENT.id),
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 60,
-      },
-      {
         spell: TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id,
-        buffSpellId: TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.BLUR_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id),
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown:
           300 -
@@ -119,24 +111,28 @@ class Abilities extends CoreAbilities {
 
       // Talents
       {
-        spell: TALENTS_DEMON_HUNTER.SIGIL_OF_CHAINS_VENGEANCE_TALENT.id,
+        spell: [
+          SPELLS.SIGIL_OF_CHAINS_CONCENTRATED.id,
+          TALENTS_DEMON_HUNTER.SIGIL_OF_CHAINS_TALENT.id,
+          SPELLS.SIGIL_OF_CHAINS_PRECISE.id,
+        ],
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_CHAINS_TALENT.id),
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_CHAINS_VENGEANCE_TALENT.id),
         cooldown: 90,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: TALENTS_DEMON_HUNTER.SPIRIT_BOMB_VENGEANCE_TALENT.id,
+        spell: TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_VENGEANCE_TALENT.id),
+        spell: TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id),
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 30,
         gcd: {
@@ -163,7 +159,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_DEMON_HUNTER.FEL_DEVASTATION_VENGEANCE_TALENT.id,
+        spell: TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 60,
         gcd: {
@@ -185,20 +181,38 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_VENGEANCE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
+          extraSuggestion: (
+            <>
+              The only time you should delay casting{' '}
+              <SpellLink id={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id} /> is when you're
+              expecting adds to spawn soon.
+            </>
+          ),
         },
       },
       {
-        spell: SPELLS.THE_HUNT.id,
+        spell: TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 90,
         gcd: {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+          extraSuggestion: (
+            <>
+              The only time you should delay casting{' '}
+              <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id} /> is when you're expecting
+              adds to spawn soon.
+            </>
+          ),
+        },
       },
 
       // Sigils
@@ -208,6 +222,7 @@ class Abilities extends CoreAbilities {
           TALENTS_DEMON_HUNTER.SIGIL_OF_SILENCE_TALENT.id,
           SPELLS.SIGIL_OF_SILENCE_PRECISE.id,
         ],
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_SILENCE_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
           60 *
@@ -222,6 +237,7 @@ class Abilities extends CoreAbilities {
           TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT.id,
           SPELLS.SIGIL_OF_MISERY_PRECISE.id,
         ],
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
           60 *
@@ -259,7 +275,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.INFERNAL_STRIKE.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 20,
+        cooldown: getInfernalStrikeCooldown(combatant),
         charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.HOT_FEET_TALENT.id) ? 1 : 0),
         enabled: false, // TODO: change this to true, when infernal strike logging is working, see infernalstrike module for more details.
       },

@@ -1,6 +1,7 @@
 import { Trans, t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -15,7 +16,7 @@ class Overhealing extends Analyzer {
 
   protected abilityTracker!: AbilityTracker;
 
-  divinePurposeActive = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT.id);
+  divinePurposeActive = this.selectedCombatant.hasTalent(TALENTS.DIVINE_PURPOSE_TALENT.id);
 
   getRawHealing(ability: TrackedAbility) {
     return ability.healingEffective + ability.healingAbsorbed + ability.healingOverheal;
@@ -70,7 +71,7 @@ class Overhealing extends Analyzer {
     };
   }
   get bestowFaithOverhealing() {
-    return this.getOverhealingPercentage(SPELLS.BESTOW_FAITH_TALENT.id);
+    return this.getOverhealingPercentage(TALENTS.BESTOW_FAITH_TALENT.id);
   }
   get bestowFaithSuggestionThresholds() {
     return {
@@ -88,11 +89,11 @@ class Overhealing extends Analyzer {
     when(this.lightOfDawnSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="paladin.holy.modules.overhealing.lightOfDawnSuggestion">
-          Try to avoid overhealing with <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />. Save it for
-          when people are missing health.
+          Try to avoid overhealing with <SpellLink id={TALENTS.LIGHT_OF_DAWN_TALENT.id} />. Save it
+          for when people are missing health.
         </Trans>,
       )
-        .icon(SPELLS.LIGHT_OF_DAWN_CAST.icon)
+        .icon(TALENTS.LIGHT_OF_DAWN_TALENT.icon)
         .actual(
           t({
             id: 'paladin.holy.modules.overhealing.lightOfDawnSuggestion.actual',
@@ -110,7 +111,7 @@ class Overhealing extends Analyzer {
     when(this.holyShockSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="paladin.holy.modules.overhealing.holyShockSuggestion">
-          Try to avoid overhealing with <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />. Save it for
+          Try to avoid overhealing with <SpellLink id={TALENTS.HOLY_SHOCK_TALENT.id} />. Save it for
           when people are missing health.
         </Trans>,
       )
@@ -134,7 +135,7 @@ class Overhealing extends Analyzer {
         <Trans id="paladin.holy.modules.overhealing.flashOfLightSuggestion">
           Try to avoid overhealing with <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />. If Flash of
           Light would overheal it is generally advisable to cast a{' '}
-          <SpellLink id={SPELLS.HOLY_LIGHT.id} /> instead.
+          <SpellLink id={TALENTS.HOLY_LIGHT_TALENT.id} /> instead.
         </Trans>,
       )
         .icon(SPELLS.FLASH_OF_LIGHT.icon)
@@ -155,12 +156,12 @@ class Overhealing extends Analyzer {
     when(this.bestowFaithSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="paladin.holy.modules.overhealing.bestowFaithSuggestion">
-          Try to avoid overhealing with <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} />. Cast it
+          Try to avoid overhealing with <SpellLink id={TALENTS.BESTOW_FAITH_TALENT.id} />. Cast it
           just before someone is about to take damage and consider casting it on targets other than
           tanks.
         </Trans>,
       )
-        .icon(SPELLS.BESTOW_FAITH_TALENT.icon)
+        .icon(TALENTS.BESTOW_FAITH_TALENT.icon)
         .actual(
           t({
             id: 'paladin.holy.modules.overhealing.bestowFaithSuggestion.actual',

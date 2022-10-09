@@ -1,5 +1,5 @@
-import Felblade from 'analysis/retail/demonhunter/shared/modules/talents/Felblade';
-import PreparationRuleAnalyzer from 'parser/shadowlands/modules/features/Checklist/PreparationRuleAnalyzer';
+import { Felblade } from 'analysis/retail/demonhunter/shared';
+import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseModule from 'parser/shared/modules/features/Checklist/Module';
@@ -10,13 +10,13 @@ import FuryDetails from '../resourcetracker/FuryDetails';
 import DemonBite from '../spells/DemonBite';
 import BlindFury from '../talents/BlindFury';
 import DemonBlades from '../talents/DemonBlades';
-import Demonic from '../talents/Demonic';
+import DemonicDeathSweep from '../talents/DemonicDeathSweep';
 import DemonicAppetite from '../talents/DemonicAppetite';
 import FelBarrage from '../talents/FelBarrage';
 import FelEruption from '../talents/FelEruption';
-import ImmolationAura from '../talents/ImmolationAura';
 import Momentum from '../talents/Momentum';
 import Component from './Component';
+import BurningHatred from 'analysis/retail/demonhunter/havoc/modules/talents/BurningHatred';
 
 class Checklist extends BaseModule {
   static dependencies = {
@@ -29,11 +29,11 @@ class Checklist extends BaseModule {
 
     // Short CDs
     felblade: Felblade,
-    immolationAura: ImmolationAura,
+    burningHatred: BurningHatred,
 
     // Don't waste casts
     blindFury: BlindFury,
-    demonic: Demonic,
+    demonicDeathSweep: DemonicDeathSweep,
     felBarrage: FelBarrage,
     felEruption: FelEruption,
 
@@ -57,12 +57,12 @@ class Checklist extends BaseModule {
 
   //region Short CDs
   protected felblade!: Felblade;
-  protected immolationAura!: ImmolationAura;
+  protected burningHatred!: BurningHatred;
   //endregion
 
   //region Talents
   protected blindFury!: BlindFury;
-  protected demonic!: Demonic;
+  protected demonicDeathSweep!: DemonicDeathSweep;
   protected felBarrage!: FelBarrage;
   protected felEruption!: FelEruption;
   //endregion
@@ -76,7 +76,6 @@ class Checklist extends BaseModule {
   protected demonicAppetite!: DemonicAppetite;
   protected demonBlades!: DemonBlades;
   protected furyDetails!: FuryDetails;
-
   //endregion
 
   render() {
@@ -91,11 +90,11 @@ class Checklist extends BaseModule {
 
           // Short CDs
           felbladeEfficiency: this.felblade.suggestionThresholds,
-          immolationAuraEfficiency: this.immolationAura.suggestionThresholds,
+          immolationAuraEfficiency: this.burningHatred.suggestionThresholds,
 
           // Don't waste casts
           blindFuryBadCasts: this.blindFury.suggestionThresholds,
-          demonicBadCasts: this.demonic.suggestionThresholds,
+          demonicBadCasts: this.demonicDeathSweep.suggestionThresholds,
           felBarrageBadCasts: this.felBarrage.suggestionThresholds,
           felEruptionBadCasts: this.felEruption.suggestionThresholds,
 

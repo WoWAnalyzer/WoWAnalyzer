@@ -1,6 +1,7 @@
 import { change, date } from 'common/changelog';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import {
   Abelito75,
   acornellier,
@@ -64,11 +65,19 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 9), 'Fixed an issue where DeathRecapTracker was being disabled by a bad Blessing of Sacrifice ID', Sref),
+  change(date(2022, 10, 5), 'Add Vault of the Incarnates raid information.', ToppleTheNun),
+  change(date(2022, 10, 4), 'Add Blessing of the Bronze as a raid buff.', ToppleTheNun),
+  change(date(2022, 10, 3), 'Convert PreparationRule component to TypeScript.', ToppleTheNun),
+  change(date(2022, 10, 3), 'Rename Shadowlands parser directory to Retail.', ToppleTheNun),
+  change(date(2022, 10, 3), 'Rename TBC parser directory to Classic.', ToppleTheNun),
+  change(date(2022, 10, 2), 'Update Specs page for Dragonflight.', ToppleTheNun),
   change(date(2022, 9, 23), 'Convert Character parses page to TypeScript.', ToppleTheNun),
   change(date(2022, 9, 10), 'Update known patch versions for Dragonflight.', ToppleTheNun),
   change(date(2022, 9, 10), 'Show Dragonflight talents on character page if able to detect them.', ToppleTheNun),
   change(date(2022, 9, 8), 'Bump supported versions of classic and retail.', ToppleTheNun),
   change(date(2022, 9, 8), 'Add support for Dragonflight talent detection.', emallson),
+  change(date(2022, 9, 7), "Added the beginnings of a Shared Code system to make spec maintenance easier.", Sharrq),
   change(date(2022, 8, 28), 'Add capability of auto-generating talents for Dragonflight based on gamedata', Putro),
   change(date(2022, 8, 25), "Added support for querying cooldown status at any point in the fight", Sref),
   change(date(2022, 8, 23), "Fixed a bug where the timeline's cooldown tooltips weren't showing properly", Sref),
@@ -119,7 +128,7 @@ export default [
   change(date(2022, 5, 13), 'Merged EnemyInstances logic into the standard Enemies file', Putro),
   change(date(2022, 5, 10), <>Add statistics and tracking for <ItemLink id={ITEMS.INSCRUTABLE_QUANTUM_DEVICE.id} />, <ItemLink id={ITEMS.SHADOWGRASP_TOTEM.id} />, and <ItemLink id={ITEMS.SOULLETTING_RUBY.id} /></>, nullDozzer),
   change(date(2022, 5, 9), <>Fix crashing bug in TBC character pages.</>, emallson),
-  change(date(2022, 5, 9), <>Handle "extraattacks" events for things like <SpellLink id={TALENTS_SHAMAN.WINDFURY_TOTEM_ENHANCEMENT_TALENT.id}/></>, nullDozzer),
+  change(date(2022, 5, 9), <>Handle "extraattacks" events for things like <SpellLink id={TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT.id}/></>, nullDozzer),
   change(date(2022, 5, 6), 'Condensed helpful functions into one file.', Abelito75),
   change(date(2022, 5, 5), 'Add support for Ascended Vigor', xepheris),
   change(date(2022, 5, 5), 'Add support for Blood-Spattered Scale and Codex of the First Technique trinkets.', xepheris),
@@ -260,7 +269,7 @@ export default [
   change(date(2020, 12, 28), <>Resolved a crash that would occur if the player did not have a weapon equipped.</>, Sharrq),
   change(date(2020, 12, 28), <>Fixed the Changelog dropdown selector displaying incorrectly.</>, Adoraci),
   change(date(2020, 12, 22), <>Re-enabled the QElive button for healers that have it supported.</>, Abelito75),
-  change(date(2020, 12, 22), <>Added support for <ItemLink id={ITEMS.DARKMOON_DECK_VORACITY.id} /> and corrected downtime issues in fights where you had <SpellLink id={SPELLS.POWER_INFUSION.id} />.</>, Putro),
+  change(date(2020, 12, 22), <>Added support for <ItemLink id={ITEMS.DARKMOON_DECK_VORACITY.id} /> and corrected downtime issues in fights where you had <SpellLink id={TALENTS_PRIEST.POWER_INFUSION_TALENT.id} />.</>, Putro),
   change(date(2020, 12, 22), 'Resolved an issue in FilteredActiveTime that was not counting properly, resulting in > 100% active time.', Sharrq),
   change(date(2020, 12, 13), 'Reverted using the browser refresh on fight selection now correctly reloads the report from WCL.', Zerotorescue),
   change(date(2020, 12, 20), 'Removed the last remnants of Azerite across the codebase', Putro),

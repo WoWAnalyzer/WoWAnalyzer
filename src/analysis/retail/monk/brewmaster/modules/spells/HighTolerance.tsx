@@ -17,7 +17,7 @@ export const HIGH_TOLERANCE_HASTE = {
 };
 
 function hasHighTolerance(combatant: Combatant) {
-  return combatant.hasTalent(talents.HIGH_TOLERANCE_BREWMASTER_TALENT.id);
+  return combatant.hasTalent(talents.HIGH_TOLERANCE_TALENT.id);
 }
 
 function hasteFnGenerator(value: number) {
@@ -131,7 +131,7 @@ class HighTolerance extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellIcon id={talents.HIGH_TOLERANCE_BREWMASTER_TALENT.id} /> Avg. Haste from High Tolerance
+              <SpellIcon id={talents.HIGH_TOLERANCE_TALENT.id} /> Avg. Haste from High Tolerance
             </>
           }
         >

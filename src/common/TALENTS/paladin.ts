@@ -77,9 +77,20 @@ const talents = createTalentList({
     id: 376996,
     name: 'Seasoned Warhorse',
     icon: 'spell_nature_swiftness',
-    maxRanks: 2,
+    maxRanks: 1,
   },
-  JUDGMENT_TALENT: { id: 231663, name: 'Judgment', icon: 'spell_holy_righteousfury', maxRanks: 1 },
+  SEAL_OF_THE_TEMPLAR_TALENT: {
+    id: 377016,
+    name: 'Seal of the Templar',
+    icon: 'ability_paladin_artofwar',
+    maxRanks: 1,
+  },
+  GREATER_JUDGMENT_TALENT: {
+    id: 231663,
+    name: 'Greater Judgment',
+    icon: 'spell_holy_righteousfury',
+    maxRanks: 1,
+  },
   HOLY_AEGIS_TALENT: {
     id: 385515,
     name: 'Holy Aegis',
@@ -92,13 +103,19 @@ const talents = createTalentList({
     icon: 'spell_holy_avenginewrath',
     maxRanks: 1,
   },
-  SEAL_OF_THE_TEMPLAR_TALENT: {
-    id: 377016,
-    name: 'Seal of the Templar',
-    icon: 'ability_paladin_artofwar',
+  TURN_EVIL_TALENT: {
+    id: 10326,
+    name: 'Turn Evil',
+    icon: 'ability_paladin_turnevil',
+    maxRanks: 1,
+    manaCost: 1000,
+  },
+  REBUKE_TALENT: {
+    id: 96231,
+    name: 'Rebuke',
+    icon: 'spell_holy_rebuke',
     maxRanks: 1,
   },
-  REBUKE_TALENT: { id: 96231, name: 'Rebuke', icon: 'spell_holy_rebuke', maxRanks: 1 },
   GOLDEN_PATH_TALENT: {
     id: 377128,
     name: 'Golden Path',
@@ -117,13 +134,6 @@ const talents = createTalentList({
     icon: 'spell_holy_sealofsacrifice',
     maxRanks: 1,
     manaCost: 700,
-  },
-  TURN_EVIL_TALENT: {
-    id: 10326,
-    name: 'Turn Evil',
-    icon: 'ability_paladin_turnevil',
-    maxRanks: 1,
-    manaCost: 1000,
   },
   BLESSING_OF_PROTECTION_TALENT: {
     id: 1022,
@@ -144,7 +154,12 @@ const talents = createTalentList({
     icon: 'spell_holy_greaterblessingofsalvation',
     maxRanks: 2,
   },
-  AFTERIMAGE_TALENT: { id: 385414, name: 'Afterimage', icon: 'spell_holy_aspiration', maxRanks: 1 },
+  AFTERIMAGE_TALENT: {
+    id: 385414,
+    name: 'Afterimage',
+    icon: 'spell_holy_aspiration',
+    maxRanks: 1,
+  },
   SACRIFICE_OF_THE_JUST_TALENT: {
     id: 384820,
     name: 'Sacrifice of the Just',
@@ -194,9 +209,9 @@ const talents = createTalentList({
     icon: 'spell_priest_power_word',
     maxRanks: 2,
   },
-  ASPIRATIONS_OF_DIVINITY_TALENT: {
+  ASPIRATION_OF_DIVINITY_TALENT: {
     id: 385416,
-    name: 'Aspirations of Divinity',
+    name: 'Aspiration of Divinity',
     icon: 'spell_holy_fanaticism',
     maxRanks: 2,
   },
@@ -230,9 +245,9 @@ const talents = createTalentList({
     icon: 'spell_paladin_lightofdawn',
     maxRanks: 1,
   },
-  SEAL_OF_MIGHT_NYI_TALENT: {
+  SEAL_OF_MIGHT_TALENT: {
     id: 385450,
-    name: 'Seal of Might [NYI]',
+    name: 'Seal of Might',
     icon: 'spell_holy_sealofwrath',
     maxRanks: 2,
   },
@@ -262,258 +277,282 @@ const talents = createTalentList({
     holyPowerCost: 3,
   },
   SANCTIFIED_WRATH_TALENT: {
-    id: 171648,
+    id: 53376,
     name: 'Sanctified Wrath',
     icon: 'ability_paladin_judgementsofthejust',
     maxRanks: 1,
   },
-  THE_MAD_PARAGON_TALENT: {
+  ZEALOTS_PARAGON_TALENT: {
     id: 391142,
-    name: 'The Mad Paragon',
+    name: "Zealot's Paragon",
     icon: 'ability_paladin_conviction',
     maxRanks: 1,
   },
-
-  //Protection
-  AVENGERS_SHIELD_PROTECTION_TALENT: {
-    id: 31935,
-    name: "Avenger's Shield",
-    icon: 'spell_holy_avengersshield',
-    maxRanks: 1,
-  },
-  HAMMER_OF_THE_RIGHTEOUS_PROTECTION_TALENT: {
-    id: 53595,
-    name: 'Hammer of the Righteous',
-    icon: 'ability_paladin_hammeroftherighteous',
-    maxRanks: 1,
-  },
-  BLESSED_HAMMER_PROTECTION_TALENT: {
-    id: 204019,
-    name: 'Blessed Hammer',
-    icon: 'paladin_retribution',
-    maxRanks: 1,
-  },
-  INNER_LIGHT_PROTECTION_TALENT: {
-    id: 386568,
-    name: 'Inner Light',
-    icon: 'ability_paladin_shieldofvengeance',
-    maxRanks: 1,
-  },
-  REDOUBT_PROTECTION_TALENT: {
-    id: 280373,
-    name: 'Redoubt',
-    icon: 'ability_warrior_shieldguard',
-    maxRanks: 1,
-  },
-  HOLY_SHIELD_PROTECTION_TALENT: {
-    id: 152261,
-    name: 'Holy Shield',
-    icon: 'inv_shield_1h_hyrja_d_01',
-    maxRanks: 1,
-  },
-  GRAND_CRUSADER_PROTECTION_TALENT: {
-    id: 85043,
-    name: 'Grand Crusader',
-    icon: 'inv_helmet_74',
-    maxRanks: 1,
-  },
-  SHINING_LIGHT_PROTECTION_TALENT: {
-    id: 321136,
-    name: 'Shining Light',
-    icon: 'ability_paladin_toweroflight',
-    maxRanks: 1,
-  },
-  CONSECRATED_GROUND_PROTECTION_TALENT: {
+  CONSECRATED_GROUND_TALENT: {
     id: 204054,
     name: 'Consecrated Ground',
     icon: 'ability_paladin_righteousvengeance',
     maxRanks: 1,
   },
-  INSPIRING_VANGUARD_PROTECTION_TALENT: {
-    id: 279387,
-    name: 'Inspiring Vanguard',
-    icon: 'inv_helmet_74',
+  IMPROVED_CLEANSE_TALENT: {
+    id: 393024,
+    name: 'Improved Cleanse',
+    icon: 'spell_holy_purify',
     maxRanks: 1,
   },
-  ARDENT_DEFENDER_PROTECTION_TALENT: {
-    id: 31850,
-    name: 'Ardent Defender',
-    icon: 'spell_holy_ardentdefender',
+  DIVINE_PROTECTION_TALENT: {
+    id: 498,
+    name: 'Divine Protection',
+    icon: 'spell_holy_divineprotection',
     maxRanks: 1,
+    manaCost: 300,
   },
-  FAITH_BARRICADE_PROTECTION_TALENT: {
-    id: 385726,
-    name: 'Faith Barricade',
-    icon: 'ability_paladin_barrieroffaith',
-    maxRanks: 1,
-  },
-  CONSECRATION_IN_FLAME_PROTECTION_TALENT: {
-    id: 379022,
-    name: 'Consecration in Flame',
-    icon: 'spell_fire_sealoffire',
-    maxRanks: 1,
-  },
-  CRUSADERS_RESOLVE_PROTECTION_TALENT: {
-    id: 380188,
-    name: "Crusader's Resolve",
-    icon: 'ability_priest_angelicbulwark',
-    maxRanks: 2,
-  },
-  BULWARK_OF_ORDER_PROTECTION_TALENT: {
-    id: 209389,
-    name: 'Bulwark of Order',
-    icon: 'spell_holy_pureofheart',
-    maxRanks: 2,
-  },
-  LIGHT_OF_THE_TITANS_PROTECTION_TALENT: {
-    id: 378405,
-    name: 'Light of the Titans',
-    icon: 'spell_paladin_lightofdawn',
-    maxRanks: 2,
-  },
-  SANCTUARY_PROTECTION_TALENT: {
-    id: 379021,
-    name: 'Sanctuary',
-    icon: 'spell_holy_innerfire',
-    maxRanks: 2,
-  },
-  TYRS_ENFORCER_PROTECTION_TALENT: {
-    id: 378285,
-    name: "Tyr's Enforcer",
-    icon: 'inv_summerfest_firespirit',
-    maxRanks: 2,
-  },
-  RELENTLESS_INQUISITOR_PROTECTION_TALENT: {
-    id: 383388,
-    name: 'Relentless Inquisitor',
-    icon: 'spell_holy_divinepurpose',
-    maxRanks: 1,
-  },
-  AVENGING_WRATH_MIGHT_PROTECTION_TALENT: {
-    id: 384442,
-    name: 'Avenging Wrath: Might',
-    icon: 'spell_holy_avenginewrath',
-    maxRanks: 1,
-  },
-  SENTINEL_PROTECTION_TALENT: {
-    id: 385438,
-    name: 'Sentinel',
-    icon: 'spell_holy_holynova',
-    maxRanks: 1,
-  },
-  HAND_OF_THE_PROTECTOR_PROTECTION_TALENT: {
-    id: 315924,
-    name: 'Hand of the Protector',
-    icon: 'ability_paladin_blessedhands',
-    maxRanks: 1,
-  },
-  STRENGTH_OF_CONVICTION_PROTECTION_TALENT: {
-    id: 379008,
-    name: 'Strength of Conviction',
-    icon: 'spell_holy_eyeforaneye',
-    maxRanks: 2,
-  },
-  RESOLUTE_DEFENDER_PROTECTION_TALENT: {
-    id: 385422,
-    name: 'Resolute Defender',
-    icon: 'ability_crown_of_the_heavens_icon',
-    maxRanks: 1,
-  },
-  BASTION_OF_LIGHT_PROTECTION_TALENT: {
-    id: 378974,
-    name: 'Bastion of Light',
-    icon: 'paladin_protection',
-    maxRanks: 1,
-  },
-  GUARDIAN_OF_ANCIENT_KINGS_PROTECTION_TALENT: {
-    id: 86659,
-    name: 'Guardian of Ancient Kings',
-    icon: 'spell_holy_heroism',
-    maxRanks: 1,
-  },
-  CRUSADERS_JUDGMENT_PROTECTION_TALENT: {
-    id: 204023,
-    name: "Crusader's Judgment",
-    icon: 'ability_paladin_enlightenedjudgements',
-    maxRanks: 1,
-  },
-  UTHERS_GUARD_PROTECTION_TALENT: {
-    id: 378425,
-    name: "Uther's Guard",
-    icon: 'spell_holy_greaterblessingofsalvation',
-    maxRanks: 1,
-  },
-  FOCUSED_ENMITY_PROTECTION_TALENT: {
-    id: 378845,
-    name: 'Focused Enmity',
-    icon: 'ability_priest_flashoflight',
-    maxRanks: 1,
-  },
-  SOARING_SHIELD_PROTECTION_TALENT: {
-    id: 378457,
-    name: 'Soaring Shield',
-    icon: 'spell_burningbladeshaman_lavaslash',
-    maxRanks: 1,
-  },
-  GIFT_OF_THE_GOLDEN_VALKYR_PROTECTION_TALENT: {
-    id: 378279,
-    name: "Gift of the Golden Val'kyr",
-    icon: 'inv_valkiergoldpet',
-    maxRanks: 2,
-  },
-  EYE_OF_TYR_PROTECTION_TALENT: {
-    id: 209202,
-    name: 'Eye of Tyr',
-    icon: 'inv_shield_1h_artifactnorgannon_d_01',
-    maxRanks: 1,
-  },
-  RIGHTEOUS_PROTECTOR_PROTECTION_TALENT: {
-    id: 204074,
-    name: 'Righteous Protector',
-    icon: 'ability_paladin_shieldofthetemplar',
-    maxRanks: 2,
-  },
-  FAITH_IN_THE_LIGHT_PROTECTION_TALENT: {
-    id: 379043,
-    name: 'Faith in the Light',
-    icon: 'spell_holy_redemption',
-    maxRanks: 2,
-  },
-  FERREN_MARCUSS_STRENGTH_PROTECTION_TALENT: {
-    id: 378762,
-    name: "Ferren Marcus's Strength",
-    icon: 'spell_holy_sealofwrath',
-    maxRanks: 2,
-  },
-  FAITHS_ARMOR_PROTECTION_TALENT: {
-    id: 379017,
-    name: "Faith's Armor",
-    icon: 'ability_paladin_shieldofvengeance',
-    maxRanks: 1,
-  },
-  FINAL_STAND_PROTECTION_TALENT: {
-    id: 204077,
-    name: 'Final Stand',
-    icon: 'spell_holy_crusade',
-    maxRanks: 1,
-  },
-  DIVINE_TOLL_PROTECTION_TALENT: {
+  DIVINE_TOLL_TALENT: {
     id: 375576,
     name: 'Divine Toll',
     icon: 'ability_bastion_paladin',
     maxRanks: 1,
     manaCost: 1500,
   },
-  MOMENT_OF_GLORY_PROTECTION_TALENT: {
+  AVENGING_WRATH_MIGHT_TALENT: {
+    id: 384442,
+    name: 'Avenging Wrath: Might',
+    icon: 'spell_holy_avenginewrath',
+    maxRanks: 1,
+  },
+  RELENTLESS_INQUISITOR_TALENT: {
+    id: 383388,
+    name: 'Relentless Inquisitor',
+    icon: 'spell_holy_divinepurpose',
+    maxRanks: 2,
+  },
+  EMPYREAN_LEGACY_TALENT: {
+    id: 387170,
+    name: 'Empyrean Legacy',
+    icon: 'item_holyspark',
+    maxRanks: 1,
+  },
+
+  //Protection
+  AVENGERS_SHIELD_TALENT: {
+    id: 31935,
+    name: "Avenger's Shield",
+    icon: 'spell_holy_avengersshield',
+    maxRanks: 1,
+  },
+  HAMMER_OF_THE_RIGHTEOUS_TALENT: {
+    id: 53595,
+    name: 'Hammer of the Righteous',
+    icon: 'ability_paladin_hammeroftherighteous',
+    maxRanks: 1,
+  },
+  BLESSED_HAMMER_TALENT: {
+    id: 204019,
+    name: 'Blessed Hammer',
+    icon: 'paladin_retribution',
+    maxRanks: 1,
+  },
+  INNER_LIGHT_TALENT: {
+    id: 386568,
+    name: 'Inner Light',
+    icon: 'ability_paladin_shieldofvengeance',
+    maxRanks: 1,
+  },
+  REDOUBT_TALENT: { id: 280373, name: 'Redoubt', icon: 'ability_warrior_shieldguard', maxRanks: 1 },
+  HOLY_SHIELD_TALENT: {
+    id: 152261,
+    name: 'Holy Shield',
+    icon: 'inv_shield_1h_hyrja_d_01',
+    maxRanks: 1,
+  },
+  GRAND_CRUSADER_TALENT: { id: 85043, name: 'Grand Crusader', icon: 'inv_helmet_74', maxRanks: 1 },
+  SHINING_LIGHT_TALENT: {
+    id: 321136,
+    name: 'Shining Light',
+    icon: 'ability_paladin_toweroflight',
+    maxRanks: 1,
+  },
+  IMPROVED_LAY_ON_HANDS_TALENT: {
+    id: 393027,
+    name: 'Improved Lay on Hands',
+    icon: 'spell_holy_layonhands',
+    maxRanks: 1,
+  },
+  INSPIRING_VANGUARD_TALENT: {
+    id: 393022,
+    name: 'Inspiring Vanguard',
+    icon: 'inv_helmet_74',
+    maxRanks: 1,
+  },
+  ARDENT_DEFENDER_TALENT: {
+    id: 31850,
+    name: 'Ardent Defender',
+    icon: 'spell_holy_ardentdefender',
+    maxRanks: 1,
+  },
+  BARRICADE_OF_FAITH_TALENT: {
+    id: 385726,
+    name: 'Barricade of Faith',
+    icon: 'ability_paladin_barrieroffaith',
+    maxRanks: 1,
+  },
+  CONSECRATION_IN_FLAME_TALENT: {
+    id: 379022,
+    name: 'Consecration in Flame',
+    icon: 'spell_fire_sealoffire',
+    maxRanks: 1,
+  },
+  IMPROVED_HOLY_SHIELD_TALENT: {
+    id: 393030,
+    name: 'Improved Holy Shield',
+    icon: 'inv_shield_1h_hyrja_d_01',
+    maxRanks: 1,
+  },
+  SANCTUARY_TALENT: { id: 379021, name: 'Sanctuary', icon: 'spell_holy_innerfire', maxRanks: 1 },
+  BULWARK_OF_ORDER_TALENT: {
+    id: 209389,
+    name: 'Bulwark of Order',
+    icon: 'spell_holy_pureofheart',
+    maxRanks: 2,
+  },
+  IMPROVED_ARDENT_DEFENDER_TALENT: {
+    id: 393114,
+    name: 'Improved Ardent Defender',
+    icon: 'spell_holy_ardentdefender',
+    maxRanks: 1,
+  },
+  LIGHT_OF_THE_TITANS_TALENT: {
+    id: 378405,
+    name: 'Light of the Titans',
+    icon: 'spell_paladin_lightofdawn',
+    maxRanks: 2,
+  },
+  STRENGTH_IN_ADVERSITY_TALENT: {
+    id: 393071,
+    name: 'Strength in Adversity',
+    icon: 'spell_holy_weaponmastery',
+    maxRanks: 1,
+  },
+  CRUSADERS_RESOLVE_TALENT: {
+    id: 380188,
+    name: "Crusader's Resolve",
+    icon: 'ability_priest_angelicbulwark',
+    maxRanks: 1,
+  },
+  TYRS_ENFORCER_TALENT: {
+    id: 378285,
+    name: "Tyr's Enforcer",
+    icon: 'inv_summerfest_firespirit',
+    maxRanks: 2,
+  },
+  SENTINEL_TALENT: { id: 389539, name: 'Sentinel', icon: 'spell_holy_holynova', maxRanks: 1 },
+  HAND_OF_THE_PROTECTOR_TALENT: {
+    id: 315924,
+    name: 'Hand of the Protector',
+    icon: 'ability_paladin_blessedhands',
+    maxRanks: 1,
+  },
+  STRENGTH_OF_CONVICTION_TALENT: {
+    id: 379008,
+    name: 'Strength of Conviction',
+    icon: 'spell_holy_eyeforaneye',
+    maxRanks: 2,
+  },
+  RESOLUTE_DEFENDER_TALENT: {
+    id: 385422,
+    name: 'Resolute Defender',
+    icon: 'ability_crown_of_the_heavens_icon',
+    maxRanks: 1,
+  },
+  BASTION_OF_LIGHT_TALENT: {
+    id: 378974,
+    name: 'Bastion of Light',
+    icon: 'paladin_protection',
+    maxRanks: 1,
+  },
+  GUARDIAN_OF_ANCIENT_KINGS_TALENT: {
+    id: 86659,
+    name: 'Guardian of Ancient Kings',
+    icon: 'spell_holy_heroism',
+    maxRanks: 1,
+  },
+  CRUSADERS_JUDGMENT_TALENT: {
+    id: 204023,
+    name: "Crusader's Judgment",
+    icon: 'ability_paladin_enlightenedjudgements',
+    maxRanks: 1,
+  },
+  UTHERS_COUNSEL_TALENT: {
+    id: 378425,
+    name: "Uther's Counsel",
+    icon: 'spell_holy_greaterblessingofsalvation',
+    maxRanks: 1,
+  },
+  FOCUSED_ENMITY_TALENT: {
+    id: 378845,
+    name: 'Focused Enmity',
+    icon: 'ability_priest_flashoflight',
+    maxRanks: 1,
+  },
+  SOARING_SHIELD_TALENT: {
+    id: 378457,
+    name: 'Soaring Shield',
+    icon: 'spell_burningbladeshaman_lavaslash',
+    maxRanks: 1,
+  },
+  GIFT_OF_THE_GOLDEN_VALKYR_TALENT: {
+    id: 378279,
+    name: "Gift of the Golden Val'kyr",
+    icon: 'inv_valkiergoldpet',
+    maxRanks: 2,
+  },
+  EYE_OF_TYR_TALENT: {
+    id: 387174,
+    name: 'Eye of Tyr',
+    icon: 'inv_shield_1h_artifactnorgannon_d_01',
+    maxRanks: 1,
+  },
+  RIGHTEOUS_PROTECTOR_TALENT: {
+    id: 204074,
+    name: 'Righteous Protector',
+    icon: 'ability_paladin_shieldofthetemplar',
+    maxRanks: 2,
+  },
+  FAITH_IN_THE_LIGHT_TALENT: {
+    id: 379043,
+    name: 'Faith in the Light',
+    icon: 'spell_holy_redemption',
+    maxRanks: 2,
+  },
+  FERREN_MARCUSS_FERVOR_TALENT: {
+    id: 378762,
+    name: "Ferren Marcus's Fervor",
+    icon: 'spell_holy_sealofwrath',
+    maxRanks: 2,
+  },
+  FAITHS_ARMOR_TALENT: {
+    id: 379017,
+    name: "Faith's Armor",
+    icon: 'ability_paladin_shieldofvengeance',
+    maxRanks: 1,
+  },
+  FINAL_STAND_TALENT: { id: 204077, name: 'Final Stand', icon: 'spell_holy_crusade', maxRanks: 1 },
+  MOMENT_OF_GLORY_TALENT: {
     id: 327193,
     name: 'Moment of Glory',
     icon: 'spell_holy_aspiration',
     maxRanks: 1,
   },
-  BULWARK_OF_RIGHTEOUS_FURY_PROTECTION_TALENT: {
+  BULWARK_OF_RIGHTEOUS_FURY_TALENT: {
     id: 386653,
     name: 'Bulwark of Righteous Fury',
     icon: 'spell_holy_sealofrighteousness',
+    maxRanks: 1,
+  },
+  QUICKENED_INVOCATIONS_TALENT: {
+    id: 379391,
+    name: 'Quickened Invocations',
+    icon: 'spell_holy_pureofheart',
     maxRanks: 1,
   },
   DIVINE_RESONANCE_PROTECTION_TALENT: {
@@ -522,309 +561,250 @@ const talents = createTalentList({
     icon: 'ability_bastion_paladin',
     maxRanks: 1,
   },
-  IMPROVED_SERA__DT_PROTECTION_TALENT: {
-    id: 379391,
-    name: 'Improved Sera & DT',
-    icon: 'spell_holy_pureofheart',
-    maxRanks: 1,
-  },
 
   //Retribution
-  BLADE_OF_JUSTICE_RETRIBUTION_TALENT: {
+  BLADE_OF_JUSTICE_TALENT: {
     id: 184575,
     name: 'Blade of Justice',
     icon: 'ability_paladin_bladeofjustice',
     maxRanks: 1,
   },
-  DIVINE_STORM_RETRIBUTION_TALENT: {
+  DIVINE_STORM_TALENT: {
     id: 53385,
     name: 'Divine Storm',
     icon: 'ability_paladin_divinestorm',
     maxRanks: 1,
     holyPowerCost: 3,
   },
-  ART_OF_WAR_RETRIBUTION_TALENT: {
+  ART_OF_WAR_TALENT: {
     id: 267344,
     name: 'Art of War',
     icon: 'ability_paladin_artofwar',
     maxRanks: 1,
   },
-  TIMELY_JUDGMENT_RETRIBUTION_TALENT: {
+  IMPROVED_JUDGMENT_TALENT: {
     id: 383228,
-    name: 'Timely Judgment',
+    name: 'Improved Judgment',
     icon: 'ability_paladin_judgementofthepure',
     maxRanks: 1,
   },
-  IMPROVED_CRUSADER_STRIKE_RETRIBUTION_TALENT: {
+  IMPROVED_CRUSADER_STRIKE_TALENT: {
     id: 383254,
     name: 'Improved Crusader Strike',
     icon: 'spell_holy_crusaderstrike',
     maxRanks: 1,
   },
-  HOLY_CRUSADER_RETRIBUTION_TALENT: {
+  HOLY_CRUSADER_TALENT: {
     id: 386967,
     name: 'Holy Crusader',
     icon: 'spell_holy_power',
     maxRanks: 1,
   },
-  HOLY_BLADE_RETRIBUTION_TALENT: {
+  HOLY_BLADE_TALENT: {
     id: 383342,
     name: 'Holy Blade',
     icon: 'ability_paladin_lightoftheprotector',
     maxRanks: 1,
   },
-  CONDEMNING_BLADE_RETRIBUTION_TALENT: {
+  BLADE_OF_CONDEMNATION_TALENT: {
     id: 383263,
-    name: 'Condemning Blade',
+    name: 'Blade of Condemnation',
     icon: 'ability_skyreach_spinning_blade',
     maxRanks: 1,
   },
-  ZEAL_RETRIBUTION_TALENT: {
-    id: 269569,
-    name: 'Zeal',
-    icon: 'spell_holy_sealofblood',
-    maxRanks: 1,
-  },
-  SHIELD_OF_VENGEANCE_RETRIBUTION_TALENT: {
+  ZEAL_TALENT: { id: 269569, name: 'Zeal', icon: 'spell_holy_sealofblood', maxRanks: 1 },
+  SHIELD_OF_VENGEANCE_TALENT: {
     id: 184662,
     name: 'Shield of Vengeance',
     icon: 'ability_paladin_shieldofthetemplar',
     maxRanks: 1,
   },
-  DIVINE_PROTECTION_RETRIBUTION_TALENT: {
-    id: 498,
-    name: 'Divine Protection',
-    icon: 'spell_holy_divineprotection',
-    maxRanks: 1,
-    manaCost: 300,
-  },
-  BLADE_OF_WRATH_RETRIBUTION_TALENT: {
+  BLADE_OF_WRATH_TALENT: {
     id: 231832,
     name: 'Blade of Wrath',
     icon: 'ability_paladin_bladeofjustice',
     maxRanks: 1,
   },
-  HIGHLORDS_JUDGMENT_RETRIBUTION_TALENT: {
+  HIGHLORDS_JUDGMENT_TALENT: {
     id: 383271,
     name: "Highlord's Judgment",
     icon: 'spell_holy_righteousfury',
     maxRanks: 2,
   },
-  RIGHTEOUS_VERDICT_RETRIBUTION_TALENT: {
+  RIGHTEOUS_VERDICT_TALENT: {
     id: 267610,
     name: 'Righteous Verdict',
     icon: 'spell_paladin_templarsverdict',
     maxRanks: 1,
   },
-  CALM_BEFORE_THE_STORM_RETRIBUTION_TALENT: {
+  SANCTIFY_TALENT: {
     id: 382536,
-    name: 'Calm Before the Storm',
+    name: 'Sanctify',
     icon: 'achievement_zone_firelands',
     maxRanks: 1,
   },
-  WAKE_OF_ASHES_RETRIBUTION_TALENT: {
+  WAKE_OF_ASHES_TALENT: {
     id: 255937,
     name: 'Wake of Ashes',
     icon: 'inv_sword_2h_artifactashbringerfire_d_03',
     maxRanks: 1,
   },
-  CONSECRATED_BLADE_RETRIBUTION_TALENT: {
+  CONSECRATED_BLADE_TALENT: {
     id: 382275,
     name: 'Consecrated Blade',
     icon: 'ability_mage_firestarter',
     maxRanks: 1,
   },
-  SEAL_OF_WRATH_RETRIBUTION_TALENT: {
+  SEAL_OF_WRATH_TALENT: {
     id: 386901,
     name: 'Seal of Wrath',
     icon: 'ability_paladin_empoweredsealstruth',
     maxRanks: 1,
   },
-  EXPURGATION_RETRIBUTION_TALENT: {
+  EXPURGATION_TALENT: {
     id: 383344,
     name: 'Expurgation',
     icon: 'ability_paladin_bladeofjusticeblue',
     maxRanks: 1,
   },
-  BOUNDLESS_JUDGMENT_RETRIBUTION_TALENT: {
+  BOUNDLESS_JUDGMENT_TALENT: {
     id: 383876,
     name: 'Boundless Judgment',
     icon: 'ability_paladin_judgementofthewise',
     maxRanks: 1,
   },
-  SANCTIFICATION_RETRIBUTION_TALENT: {
+  SANCTIFICATION_TALENT: {
     id: 382430,
     name: 'Sanctification',
     icon: 'spell_holy_surgeoflight',
     maxRanks: 1,
   },
-  INNER_POWER_RETRIBUTION_TALENT: {
+  INNER_GRACE_TALENT: {
     id: 383334,
-    name: 'Inner Power',
+    name: 'Inner Grace',
     icon: 'ability_paladin_toweroflight',
     maxRanks: 1,
   },
-  ASHES_TO_DUST_RETRIBUTION_TALENT: {
+  ASHES_TO_DUST_TALENT: {
     id: 383300,
     name: 'Ashes to Dust',
     icon: 'inv_sword_2h_artifactashbringerpurified_d_02',
     maxRanks: 1,
   },
-  PATH_OF_RUIN_RETRIBUTION_TALENT: {
+  RADIANT_DECREE_TALENT: {
     id: 384052,
-    name: 'Path of Ruin',
+    name: 'Radiant Decree',
     icon: 'inv_sword_2h_artifactashbringerfire_d_02',
     maxRanks: 1,
   },
-  AVENGING_WRATH_MIGHT_RETRIBUTION_TALENT: {
-    id: 384442,
-    name: 'Avenging Wrath: Might',
-    icon: 'spell_holy_avenginewrath',
-    maxRanks: 1,
-  },
-  CRUSADE_RETRIBUTION_TALENT: {
+  CRUSADE_TALENT: {
     id: 384392,
     name: 'Crusade',
     icon: 'ability_paladin_sanctifiedwrath',
     maxRanks: 1,
   },
-  TRUTHS_WAKE_RETRIBUTION_TALENT: {
-    id: 383350,
-    name: "Truth's Wake",
-    icon: 'inv_mace_104',
-    maxRanks: 1,
-  },
-  EMPYREAN_POWER_RETRIBUTION_TALENT: {
+  TRUTHS_WAKE_TALENT: { id: 383350, name: "Truth's Wake", icon: 'inv_mace_104', maxRanks: 1 },
+  EMPYREAN_POWER_TALENT: {
     id: 326732,
     name: 'Empyrean Power',
     icon: 'ability_paladin_sheathoflight',
     maxRanks: 1,
   },
-  FIRES_OF_JUSTICE_RETRIBUTION_TALENT: {
+  FIRES_OF_JUSTICE_TALENT: {
     id: 203316,
     name: 'Fires of Justice',
     icon: 'spell_holy_crusaderstrike',
     maxRanks: 1,
   },
-  SEALED_VERDICT_RETRIBUTION_TALENT: {
+  SEALED_VERDICT_TALENT: {
     id: 387640,
     name: 'Sealed Verdict',
     icon: 'ability_paladin_swiftretribution',
     maxRanks: 2,
   },
-  CONSECRATED_GROUND_RETRIBUTION_TALENT: {
-    id: 204054,
-    name: 'Consecrated Ground',
-    icon: 'ability_paladin_righteousvengeance',
-    maxRanks: 1,
-  },
-  SANCTIFIED_GROUND_RETRIBUTION_TALENT: {
+  SANCTIFIED_GROUND_TALENT: {
     id: 387479,
     name: 'Sanctified Ground',
     icon: 'warrior_talent_icon_skirmisher',
     maxRanks: 1,
   },
-  EXORCISM_RETRIBUTION_TALENT: {
-    id: 383185,
-    name: 'Exorcism',
-    icon: 'spell_holy_excorcism_02',
-    maxRanks: 1,
-  },
-  HAND_OF_HINDRANCE_RETRIBUTION_TALENT: {
+  EXORCISM_TALENT: { id: 383185, name: 'Exorcism', icon: 'spell_holy_excorcism_02', maxRanks: 1 },
+  HAND_OF_HINDRANCE_TALENT: {
     id: 183218,
     name: 'Hand of Hindrance',
     icon: 'ability_paladin_handofhindrance',
     maxRanks: 1,
     manaCost: 1000,
   },
-  SELFLESS_HEALER_RETRIBUTION_TALENT: {
+  SELFLESS_HEALER_TALENT: {
     id: 85804,
     name: 'Selfless Healer',
     icon: 'ability_paladin_gaurdedbythelight',
     maxRanks: 1,
   },
-  HEALING_HANDS_RETRIBUTION_TALENT: {
+  HEALING_HANDS_TALENT: {
     id: 326734,
     name: 'Healing Hands',
     icon: 'ability_paladin_infusionoflight',
     maxRanks: 1,
   },
-  TEMPEST_OF_THE_LIGHTBRINGER_RETRIBUTION_TALENT: {
+  TEMPEST_OF_THE_LIGHTBRINGER_TALENT: {
     id: 383396,
     name: 'Tempest of the Lightbringer',
     icon: 'ability_malkorok_blightofyshaarj_yellow',
     maxRanks: 1,
   },
-  JUSTICARS_VENGEANCE_RETRIBUTION_TALENT: {
+  JUSTICARS_VENGEANCE_TALENT: {
     id: 215661,
     name: "Justicar's Vengeance",
     icon: 'spell_holy_retributionaura',
     maxRanks: 1,
     holyPowerCost: 3,
   },
-  EYE_FOR_AN_EYE_RETRIBUTION_TALENT: {
+  EYE_FOR_AN_EYE_TALENT: {
     id: 205191,
     name: 'Eye for an Eye',
     icon: 'spell_holy_weaponmastery',
     maxRanks: 1,
   },
-  RELENTLESS_INQUISITOR_RETRIBUTION_TALENT: {
-    id: 383388,
-    name: 'Relentless Inquisitor',
-    icon: 'spell_holy_divinepurpose',
-    maxRanks: 2,
-  },
-  ASHES_TO_ASHES_RETRIBUTION_TALENT: {
+  ASHES_TO_ASHES_TALENT: {
     id: 383276,
     name: 'Ashes to Ashes',
     icon: 'inv_artifact_ashes_to_ashes',
     maxRanks: 2,
   },
-  TEMPLARS_VINDICATION_RETRIBUTION_TALENT: {
+  TEMPLARS_VINDICATION_TALENT: {
     id: 383274,
     name: "Templar's Vindication",
     icon: 'ability_priest_evangelism',
     maxRanks: 2,
   },
-  EXECUTION_SENTENCE_RETRIBUTION_TALENT: {
+  EXECUTION_SENTENCE_TALENT: {
     id: 343527,
     name: 'Execution Sentence',
     icon: 'spell_paladin_executionsentence',
     maxRanks: 1,
     holyPowerCost: 3,
   },
-  DIVINE_TOLL_RETRIBUTION_TALENT: {
-    id: 375576,
-    name: 'Divine Toll',
-    icon: 'ability_bastion_paladin',
-    maxRanks: 1,
-    manaCost: 1500,
-  },
-  EMPYREAN_ENDOWMENT_RETRIBUTION_TALENT: {
-    id: 387170,
-    name: 'Empyrean Endowment',
-    icon: 'item_holyspark',
-    maxRanks: 1,
-  },
-  VIRTUOUS_COMMAND_RETRIBUTION_TALENT: {
+  VIRTUOUS_COMMAND_TALENT: {
     id: 383304,
     name: 'Virtuous Command',
     icon: 'spell_holy_sealofvengeance',
     maxRanks: 2,
   },
-  FINAL_VERDICT_RETRIBUTION_TALENT: {
+  FINAL_VERDICT_TALENT: {
     id: 383327,
     name: 'Final Verdict',
     icon: 'spell_paladin_templarsverdict',
     maxRanks: 1,
   },
-  EXECUTIONERS_WILL_RETRIBUTION_TALENT: {
+  EXECUTIONERS_WILL_TALENT: {
     id: 384162,
     name: "Executioner's Will",
     icon: 'inv_helm_plate_raidpaladinmythic_q_01',
     maxRanks: 1,
   },
-  EXECUTIONERS_WRATH_RETRIBUTION_TALENT: {
+  EXECUTIONERS_WRATH_TALENT: {
     id: 387196,
     name: "Executioner's Wrath",
     icon: 'inv_glove_plate_raidpaladinmythic_q_01',
@@ -836,13 +816,13 @@ const talents = createTalentList({
     icon: 'ability_bastion_paladin',
     maxRanks: 1,
   },
-  FINAL_RECKONING_RETRIBUTION_TALENT: {
+  FINAL_RECKONING_TALENT: {
     id: 343721,
     name: 'Final Reckoning',
     icon: 'spell_holy_blessedresillience',
     maxRanks: 1,
   },
-  VANGUARDS_MOMENTUM_RETRIBUTION_TALENT: {
+  VANGUARDS_MOMENTUM_TALENT: {
     id: 383314,
     name: "Vanguard's Momentum",
     icon: 'ability_paladin_speedoflight',
@@ -850,252 +830,237 @@ const talents = createTalentList({
   },
 
   //Holy
-  HOLY_SHOCK_HOLY_TALENT: {
+  HOLY_SHOCK_TALENT: {
     id: 20473,
     name: 'Holy Shock',
     icon: 'spell_holy_searinglight',
     maxRanks: 1,
     manaCost: 1600,
   },
-  HOLY_LIGHT_HOLY_TALENT: {
+  HOLY_LIGHT_TALENT: {
     id: 82326,
     name: 'Holy Light',
     icon: 'spell_holy_surgeoflight',
     maxRanks: 1,
     manaCost: 1500,
   },
-  LIGHT_OF_DAWN_HOLY_TALENT: {
+  LIGHT_OF_DAWN_TALENT: {
     id: 85222,
     name: 'Light of Dawn',
     icon: 'spell_paladin_lightofdawn',
     maxRanks: 1,
     holyPowerCost: 3,
   },
-  ILLUMINATION_HOLY_TALENT: {
+  ILLUMINATION_TALENT: {
     id: 387993,
     name: 'Illumination',
     icon: 'spell_paladin_clarityofpurpose',
     maxRanks: 1,
   },
-  INFUSION_OF_LIGHT_HOLY_TALENT: {
-    id: 53576,
-    name: 'Infusion of Light',
-    icon: 'ability_paladin_infusionoflight',
+  DIVINE_INSIGHT_TALENT: {
+    id: 392914,
+    name: 'Divine Insight',
+    icon: 'spell_holy_pureofheart',
     maxRanks: 1,
   },
-  BESTOW_FAITH_HOLY_TALENT: {
+  UNENDING_LIGHT_TALENT: {
+    id: 387998,
+    name: 'Unending Light',
+    icon: 'spell_holy_holybolt',
+    maxRanks: 1,
+  },
+  BESTOW_FAITH_TALENT: {
     id: 223306,
     name: 'Bestow Faith',
     icon: 'ability_paladin_blessedmending',
     maxRanks: 1,
     manaCost: 600,
   },
-  UNENDING_LIGHT_NYI_HOLY_TALENT: {
-    id: 387998,
-    name: 'Unending Light (NYI)',
-    icon: 'spell_holy_holybolt',
+  MOMENT_OF_COMPASSION_TALENT: {
+    id: 387786,
+    name: 'Moment of Compassion',
+    icon: 'spell_holy_flashheal',
     maxRanks: 1,
   },
-  FOCAL_LIGHT_HOLY_TALENT: {
-    id: 387781,
-    name: 'Focal Light',
-    icon: 'ability_paladin_beaconoflight',
-    maxRanks: 2,
-  },
-  DIVINE_PROTECTION_HOLY_TALENT: {
-    id: 498,
-    name: 'Divine Protection',
-    icon: 'spell_holy_divineprotection',
-    maxRanks: 1,
-    manaCost: 300,
-  },
-  SAVED_BY_THE_LIGHT_HOLY_TALENT: {
-    id: 157047,
-    name: 'Saved by the Light',
-    icon: 'ability_paladin_savedbythelight',
-    maxRanks: 2,
-  },
-  RADIANT_ONSLAUGHT_HOLY_TALENT: {
-    id: 231667,
-    name: 'Radiant Onslaught',
-    icon: 'spell_holy_crusaderstrike',
+  RESPLENDENT_LIGHT_TALENT: {
+    id: 392902,
+    name: 'Resplendent Light',
+    icon: 'ability_priest_voidshift',
     maxRanks: 1,
   },
-  LIGHTS_HAMMER_HOLY_TALENT: {
+  TIRIONS_DEVOTION_TALENT: {
+    id: 392928,
+    name: "Tirion's Devotion",
+    icon: 'spell_holy_holyguidance',
+    maxRanks: 1,
+  },
+  AURA_MASTERY_TALENT: {
+    id: 31821,
+    name: 'Aura Mastery',
+    icon: 'spell_holy_auramastery',
+    maxRanks: 1,
+  },
+  EMPYREAL_WARD_TALENT: {
+    id: 387791,
+    name: 'Empyreal Ward',
+    icon: 'spell_holy_layonhands',
+    maxRanks: 1,
+  },
+  RULE_OF_LAW_TALENT: {
+    id: 214202,
+    name: 'Rule of Law',
+    icon: 'ability_paladin_longarmofthelaw',
+    maxRanks: 1,
+  },
+  DIVINE_FAVOR_TALENT: { id: 210294, name: 'Divine Favor', icon: 'spell_holy_heal', maxRanks: 1 },
+  SHINING_SAVIOR_TALENT: {
+    id: 388005,
+    name: 'Shining Savior',
+    icon: 'ability_paladin_longarmofthelaw',
+    maxRanks: 1,
+  },
+  UNWAVERING_SPIRIT_TALENT: {
+    id: 392911,
+    name: 'Unwavering Spirit',
+    icon: 'spell_holy_fanaticism',
+    maxRanks: 1,
+  },
+  PROTECTION_OF_TYR_TALENT: {
+    id: 200430,
+    name: 'Protection of Tyr',
+    icon: 'spell_holy_auramastery',
+    maxRanks: 1,
+  },
+  IMBUED_INFUSIONS_TALENT: {
+    id: 392961,
+    name: 'Imbued Infusions',
+    icon: 'ability_priest_flashoflight',
+    maxRanks: 1,
+  },
+  LIGHTS_HAMMER_TALENT: {
     id: 114158,
     name: "Light's Hammer",
     icon: 'spell_paladin_lightshammer',
     maxRanks: 1,
     manaCost: 1800,
   },
-  HOLY_PRISM_HOLY_TALENT: {
+  HOLY_PRISM_TALENT: {
     id: 114165,
     name: 'Holy Prism',
     icon: 'spell_paladin_holyprism',
     maxRanks: 1,
     manaCost: 1300,
   },
-  MOMENT_OF_COMPASSION_HOLY_TALENT: {
-    id: 387786,
-    name: 'Moment of Compassion',
-    icon: 'spell_holy_flashheal',
+  SAVED_BY_THE_LIGHT_TALENT: {
+    id: 157047,
+    name: 'Saved by the Light',
+    icon: 'ability_paladin_savedbythelight',
     maxRanks: 1,
   },
-  AURA_MASTERY_HOLY_TALENT: {
-    id: 31821,
-    name: 'Aura Mastery',
-    icon: 'spell_holy_auramastery',
+  RADIANT_ONSLAUGHT_TALENT: {
+    id: 231667,
+    name: 'Radiant Onslaught',
+    icon: 'spell_holy_crusaderstrike',
     maxRanks: 1,
   },
-  TOWER_OF_RADIANCE_HOLY_TALENT: {
+  TOWER_OF_RADIANCE_TALENT: {
     id: 231642,
     name: 'Tower of Radiance',
     icon: 'ability_paladin_beaconoflight',
     maxRanks: 1,
   },
-  SHINING_SAVIOR_HOLY_TALENT: {
-    id: 388005,
-    name: 'Shining Savior',
-    icon: 'ability_paladin_longarmofthelaw',
+  ECHOING_BLESSINGS_TALENT: {
+    id: 387801,
+    name: 'Echoing Blessings',
+    icon: 'achievement_dungeon_heroic_gloryoftheraider',
     maxRanks: 1,
   },
-  LIGHT_OF_THE_MARTYR_HOLY_TALENT: {
+  LIGHT_OF_THE_MARTYR_TALENT: {
     id: 183998,
     name: 'Light of the Martyr',
     icon: 'ability_paladin_lightofthemartyr',
     maxRanks: 1,
     manaCost: 700,
   },
-  EMPYREAL_WARD_HOLY_TALENT: {
-    id: 387791,
-    name: 'Empyreal Ward',
-    icon: 'spell_holy_layonhands',
-    maxRanks: 1,
-  },
-  PROTECTION_OF_TYR_HOLY_TALENT: {
-    id: 200430,
-    name: 'Protection of Tyr',
-    icon: 'spell_holy_auramastery',
-    maxRanks: 2,
-  },
-  RULE_OF_LAW_HOLY_TALENT: {
-    id: 214202,
-    name: 'Rule of Law',
-    icon: 'ability_paladin_longarmofthelaw',
-    maxRanks: 1,
-  },
-  ECHOING_BLESSINGS_HOLY_TALENT: {
-    id: 387801,
-    name: 'Echoing Blessings',
-    icon: 'achievement_dungeon_heroic_gloryoftheraider',
-    maxRanks: 1,
-  },
-  SCINTILLATION_HOLY_TALENT: {
-    id: 387805,
-    name: 'Scintillation',
-    icon: 'achievement_dungeon_heroic_gloryoftheraider',
-    maxRanks: 2,
-  },
-  DIVINE_REVELATIONS_HOLY_TALENT: {
+  DIVINE_REVELATIONS_TALENT: {
     id: 387808,
     name: 'Divine Revelations',
     icon: 'ability_paladin_infusionoflight',
-    maxRanks: 3,
+    maxRanks: 1,
   },
-  SECOND_SUNRISE_HOLY_TALENT: {
+  COMMANDING_LIGHT_TALENT: {
+    id: 387781,
+    name: 'Commanding Light',
+    icon: 'ability_paladin_beaconoflight',
+    maxRanks: 2,
+  },
+  SECOND_SUNRISE_TALENT: {
     id: 200482,
     name: 'Second Sunrise',
     icon: 'spell_paladin_lightofdawn',
     maxRanks: 2,
   },
-  UNTEMPERED_DEDICATION_HOLY_TALENT: {
+  DIVINE_GLIMPSE_TALENT: {
+    id: 387805,
+    name: 'Divine Glimpse',
+    icon: 'achievement_dungeon_heroic_gloryoftheraider',
+    maxRanks: 2,
+  },
+  UNTEMPERED_DEDICATION_TALENT: {
     id: 387814,
     name: 'Untempered Dedication',
     icon: 'achievement_admiral_of_the_light',
     maxRanks: 1,
   },
-  CRUSADERS_MIGHT_HOLY_TALENT: {
-    id: 196926,
-    name: "Crusader's Might",
-    icon: 'ability_paladin_swiftretribution',
-    maxRanks: 2,
-  },
-  BLESSING_OF_SUMMER_HOLY_TALENT: {
-    id: 388007,
-    name: 'Blessing of Summer',
-    icon: 'ability_ardenweald_paladin_summer',
-    maxRanks: 1,
-    manaCost: 500,
-  },
-  GLIMMER_OF_LIGHT_HOLY_TALENT: {
-    id: 325966,
-    name: 'Glimmer of Light',
-    icon: 'ability_paladin_toweroflight',
-    maxRanks: 1,
-  },
-  POWER_OF_THE_SILVER_HAND_HOLY_TALENT: {
-    id: 200474,
-    name: 'Power of the Silver Hand',
-    icon: 'ability_paladin_blessedhands',
-    maxRanks: 1,
-  },
-  BEACON_OF_FAITH_HOLY_TALENT: {
+  BEACON_OF_FAITH_TALENT: {
     id: 156910,
     name: 'Beacon of Faith',
     icon: 'ability_paladin_beaconsoflight',
     maxRanks: 1,
     manaCost: 300,
   },
-  BEACON_OF_VIRTUE_HOLY_TALENT: {
+  BEACON_OF_VIRTUE_TALENT: {
     id: 200025,
     name: 'Beacon of Virtue',
     icon: 'ability_paladin_beaconofinsight',
     maxRanks: 1,
     manaCost: 1000,
   },
-  MARAADS_DYING_BREATH_HOLY_TALENT: {
-    id: 388018,
-    name: "Maraad's Dying Breath",
-    icon: 'paladin_icon_speedoflight',
+  VENERATION_TALENT: {
+    id: 392938,
+    name: 'Veneration',
+    icon: 'ability_crown_of_the_heavens_icon',
     maxRanks: 1,
   },
-  DIVINE_TOLL_HOLY_TALENT: {
-    id: 375576,
-    name: 'Divine Toll',
-    icon: 'ability_bastion_paladin',
-    maxRanks: 1,
-    manaCost: 1500,
-  },
-  BARRIER_OF_FAITH_HOLY_TALENT: {
-    id: 148039,
-    name: 'Barrier of Faith',
-    icon: 'ability_paladin_blessedmending',
-    maxRanks: 1,
-    manaCost: 900,
-  },
-  AVENGING_WRATH_MIGHT_NYI_HOLY_TALENT: {
-    id: 388006,
-    name: 'Avenging Wrath: Might (NYI)',
-    icon: 'spell_holy_avenginewrath',
-    maxRanks: 1,
-  },
-  AVENGING_CRUSADER_HOLY_TALENT: {
-    id: 216331,
-    name: 'Avenging Crusader',
-    icon: 'ability_paladin_veneration',
-    maxRanks: 1,
-    manaCost: 5000,
-  },
-  BREAKING_DAWN_HOLY_TALENT: {
+  BREAKING_DAWN_TALENT: {
     id: 387879,
     name: 'Breaking Dawn',
     icon: 'spell_paladin_lightofdawn',
     maxRanks: 1,
   },
-  TYRS_DELIVERANCE_HOLY_TALENT: {
-    id: 200652,
-    name: "Tyr's Deliverance",
-    icon: 'inv_mace_2h_artifactsilverhand_d_01',
+  AVENGING_CRUSADER_TALENT: {
+    id: 394088,
+    name: 'Avenging Crusader',
+    icon: 'ability_paladin_veneration',
+    maxRanks: 1,
+  },
+  POWER_OF_THE_SILVER_HAND_TALENT: {
+    id: 200474,
+    name: 'Power of the Silver Hand',
+    icon: 'ability_paladin_blessedhands',
+    maxRanks: 1,
+  },
+  BARRIER_OF_FAITH_TALENT: {
+    id: 148039,
+    name: 'Barrier of Faith',
+    icon: 'ability_paladin_barrieroffaith',
+    maxRanks: 1,
+    manaCost: 900,
+  },
+  MARAADS_DYING_BREATH_TALENT: {
+    id: 388018,
+    name: "Maraad's Dying Breath",
+    icon: 'paladin_icon_speedoflight',
     maxRanks: 1,
   },
   DIVINE_RESONANCE_HOLY_TALENT: {
@@ -1104,22 +1069,47 @@ const talents = createTalentList({
     icon: 'ability_bastion_paladin',
     maxRanks: 1,
   },
-  LIADRINS_FURY_UNLEASHED_HOLY_TALENT: {
-    id: 208408,
-    name: "Liadrin's Fury Unleashed",
-    icon: 'ability_warrior_unrelentingassault',
+  CRUSADERS_MIGHT_TALENT: {
+    id: 196926,
+    name: "Crusader's Might",
+    icon: 'ability_paladin_swiftretribution',
     maxRanks: 2,
   },
-  AWAKENING_HOLY_TALENT: {
+  AWAKENING_TALENT: {
     id: 248033,
     name: 'Awakening',
     icon: 'inv_helm_plate_raidpaladin_n_01',
     maxRanks: 2,
   },
-  TYRS_MUNIFICENCE_HOLY_TALENT: {
-    id: 238060,
-    name: "Tyr's Munificence",
+  TYRS_DELIVERANCE_TALENT: {
+    id: 200652,
+    name: "Tyr's Deliverance",
     icon: 'inv_mace_2h_artifactsilverhand_d_01',
+    maxRanks: 1,
+  },
+  GLIMMER_OF_LIGHT_TALENT: {
+    id: 325966,
+    name: 'Glimmer of Light',
+    icon: 'ability_paladin_toweroflight',
+    maxRanks: 1,
+  },
+  BLESSING_OF_SUMMER_TALENT: {
+    id: 388007,
+    name: 'Blessing of Summer',
+    icon: 'ability_ardenweald_paladin_summer',
+    maxRanks: 1,
+    manaCost: 500,
+  },
+  INFLORESCENCE_OF_THE_SUNWELL_TALENT: {
+    id: 392907,
+    name: 'Inflorescence of the Sunwell',
+    icon: 'spell_lfieblood',
+    maxRanks: 1,
+  },
+  BOUNDLESS_SALVATION_TALENT: {
+    id: 392951,
+    name: 'Boundless Salvation',
+    icon: 'ability_paladin_selflesshealer',
     maxRanks: 1,
   },
 });

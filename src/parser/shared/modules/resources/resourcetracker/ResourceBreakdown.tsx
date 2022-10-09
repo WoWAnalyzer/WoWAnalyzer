@@ -4,45 +4,53 @@ import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import { Component } from 'react';
 
-import ResourceTracker, { BuilderObj, SpenderObj } from './ResourceTracker';
+import ResourceTracker from './ResourceTracker';
 
 interface Props {
+  /** Associated tracker module that holds the resource data */
   tracker: ResourceTracker;
+  /** Iff true, there will be a separate section showing resources spent */
   showSpenders: boolean;
+  /** If true, the spenders section will show the number of casts that consumed
+   *  the maxResources. (This is primarily for something like Combo Points) */
+  showMaxSpenders?: boolean;
 }
 
 class ResourceBreakdown extends Component<Props> {
-  prepareGenerated(buildersObj: { [index: number]: BuilderObj }) {
-    return Object.keys(buildersObj)
+  prepareGenerated(tracker: ResourceTracker) {
+    return Object.keys(tracker.buildersObj)
       .map((abilityId) => ({
         abilityId: Number(abilityId),
-        generated: buildersObj[Number(abilityId)].generated,
-        wasted: buildersObj[Number(abilityId)].wasted,
+        generated: tracker.buildersObj[Number(abilityId)].generated,
+        wasted: tracker.buildersObj[Number(abilityId)].wasted,
       }))
       .sort((a, b) => b.generated - a.generated)
       .filter((ability) => ability.generated > 0 || ability.wasted);
   }
 
-  prepareSpent(spendersObj: { [index: number]: SpenderObj }) {
-    return Object.keys(spendersObj)
+  prepareSpent(tracker: ResourceTracker) {
+    return Object.keys(tracker.spendersObj)
       .map((abilityId) => ({
         abilityId: Number(abilityId),
-        spent: spendersObj[Number(abilityId)].spent,
-        casts: spendersObj[Number(abilityId)].casts,
+        spent: tracker.spendersObj[Number(abilityId)].spent,
+        casts: tracker.spendersObj[Number(abilityId)].casts,
+        maxSpendCasts: tracker.spendersObj[Number(abilityId)].spentByCast.filter(
+          (spent) => spent === tracker.maxResource,
+        ).length,
       }))
       .sort((a, b) => b.spent - a.spent)
       .filter((ability) => ability.spent > 0);
   }
 
   render() {
-    const { tracker, showSpenders } = this.props;
+    const { tracker, showSpenders, showMaxSpenders } = this.props;
     const resourceName = tracker.resource.name;
 
-    const generated = this.prepareGenerated(tracker.buildersObj);
-    const spent = this.prepareSpent(tracker.spendersObj);
+    const generated = this.prepareGenerated(tracker);
+    const spent = this.prepareSpent(tracker);
 
     let totalGenerated = tracker.generated;
-    let totalWasted = tracker.wasted;
+    let totalWasted = tracker.gainWaste; // ignoring natural regen waste in this tab
 
     let totalSpent = tracker.spent;
     let totalCasts = tracker.spendersCasts;
@@ -89,7 +97,7 @@ class ResourceBreakdown extends Component<Props> {
               </td>
               <td style={numberColumnStyle}>{tracker.generated.toFixed(0)}</td>
               <td></td>
-              <td style={numberColumnStyle}>{tracker.wasted}</td>
+              <td style={numberColumnStyle}>{tracker.gainWaste}</td>
               <td></td>
             </tr>
             {generated &&
@@ -137,7 +145,11 @@ class ResourceBreakdown extends Component<Props> {
                   <Trans id="shared.resourceBreakdown.spentHeader">{resourceName} spent</Trans>
                 </th>
                 <th colSpan={2}>
-                  <Trans id="shared.resourceBreakdown.castsHeader">Casts</Trans>
+                  {showMaxSpenders ? (
+                    <>Max {resourceName} Casts / Total</>
+                  ) : (
+                    <Trans id="shared.resourceBreakdown.castsHeader">Casts</Trans>
+                  )}
                 </th>
               </tr>
             </thead>
@@ -168,11 +180,19 @@ class ResourceBreakdown extends Component<Props> {
                         style={{ width: `${(ability.spent / totalSpent) * 100}%` }}
                       />
                     </td>
-                    <td style={numberColumnStyle}>
-                      <TooltipElement content={`${formatPercentage(ability.casts / totalCasts)} %`}>
-                        {ability.casts}
-                      </TooltipElement>
-                    </td>
+                    {showMaxSpenders ? (
+                      <td style={numberColumnStyle}>
+                        {ability.maxSpendCasts} / {ability.casts}
+                      </td>
+                    ) : (
+                      <td style={numberColumnStyle}>
+                        <TooltipElement
+                          content={`${formatPercentage(ability.casts / totalCasts)} %`}
+                        >
+                          {ability.casts}
+                        </TooltipElement>
+                      </td>
+                    )}
                     <td style={{ width: '30%' }}>
                       <div
                         className="performance-bar"

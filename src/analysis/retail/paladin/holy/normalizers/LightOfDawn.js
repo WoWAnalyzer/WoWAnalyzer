@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import { EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
@@ -16,7 +17,7 @@ class LightOfDawn extends EventsNormalizer {
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
 
-      if (event.type === EventType.Cast && event.ability.guid === SPELLS.LIGHT_OF_DAWN_CAST.id) {
+      if (event.type === EventType.Cast && event.ability.guid === TALENTS.LIGHT_OF_DAWN_TALENT.id) {
         const castTimestamp = event.timestamp;
 
         // Loop through the event history in reverse to detect if there was a `heal` event on the same player that was the result of this cast and thus misordered

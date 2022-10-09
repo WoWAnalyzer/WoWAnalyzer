@@ -26,9 +26,7 @@ class FeedTheDemon extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.FEED_THE_DEMON_VENGEANCE_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FEED_THE_DEMON_TALENT.id);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CONSUME_SOUL_VDH),
       this.onHeal,
@@ -88,7 +86,7 @@ class FeedTheDemon extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.FEED_THE_DEMON_VENGEANCE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.FEED_THE_DEMON_TALENT.id}>
           {formatNumber(this.averageReduction)} sec average reduction
         </BoringSpellValueText>
       </Statistic>

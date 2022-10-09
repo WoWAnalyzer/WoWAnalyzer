@@ -201,10 +201,18 @@ export interface Ability {
   abilityIcon: string;
 }
 
+/** The state of the TARGET'S resource. Each ClassResources refers to a specific resource.
+ *  Events typically will have an array of these objects, one object per resource.
+ *  All the player's resources are not guaranteed to show! Only the ones changing. */
 export interface ClassResources {
+  /** The amount of the resource the target has.
+   *  Can be before or after the event depending on event... TODO document which and when */
   amount: number;
+  /** The maximum amount of resource the target can have */
   max: number;
+  /** The type of resource this is for (see {@link RESOURCE_TYPES} */
   type: number;
+  /** The amount of resource being spent in this event (only spenders will fill this) */
   cost?: number;
 }
 
@@ -225,6 +233,12 @@ export enum Class {
   Warlock = 'Warlock',
 }
 
+/** Mapping for numbers in the resourceActor field */
+export enum ResourceActor {
+  Source = 1,
+  Target = 2,
+}
+
 export type AbilityEvent<T extends string> = Event<T> & { ability: Ability };
 export type SourcedEvent<T extends string> = Event<T> & {
   sourceID: number;
@@ -241,6 +255,8 @@ export type HitpointsEvent<T extends string> = Event<T> & {
   maxHitPoints: number;
 };
 
+export type LocationEvent<T extends string> = Event<T> & { x: number; y: number };
+
 export function HasAbility<T extends EventType>(event: Event<T>): event is AbilityEvent<T> {
   return (event as AbilityEvent<T>).ability !== undefined;
 }
@@ -255,6 +271,13 @@ export function HasTarget<T extends EventType>(event: Event<T>): event is Target
 
 export function HasHitpoints<T extends EventType>(event: Event<T>): event is HitpointsEvent<T> {
   return (event as HitpointsEvent<T>).hitPoints !== undefined;
+}
+
+export function HasLocation<T extends EventType>(event: Event<T>): event is LocationEvent<T> {
+  const locEvent = event as Partial<LocationEvent<T>>;
+  return (
+    'x' in locEvent && 'y' in locEvent && Number.isFinite(locEvent.x) && Number.isFinite(locEvent.y)
+  );
 }
 
 /** Gets the events related to the given event with the given relation (key). Events will not
@@ -454,8 +477,8 @@ export interface HealEvent extends Event<EventType.Heal> {
   overheal?: number;
   /** If the event is a tick of a HoT or HoT like object */
   tick?: boolean;
-  resourceActor: number;
-  /** A list of resource that changed when this event happened */
+  resourceActor: ResourceActor;
+  /** A list of resources on the TARGET */
   classResources: ClassResources[];
   /** Hit points of the target AFTER the heal is done if you want hp before you need to do (hitpoints - amount) */
   hitPoints: number;
@@ -666,7 +689,10 @@ export interface ResourceChangeEvent extends Event<EventType.ResourceChange> {
   /** The amount of wasted resource gain (overcapped). */
   waste: number;
   otherResourceChange: number; // defaults to 0?
-  resourceActor: number; // 1 = source, 2 = target? used for classResources/hitpoints/etc, not resourceChange fields I think
+  /** Shows whether the source or the target is being referred to by
+   *  the classResources, hitPoints, etc. See {@link ResourceActor}. */
+  resourceActor: ResourceActor;
+  /** A list of resources on either the source or target, depending on resourceActor choice. */
   classResources: ClassResources[];
   hitPoints: number;
   maxHitPoints: number;
@@ -689,7 +715,10 @@ export interface DrainEvent extends Event<EventType.Drain> {
   resourceChange: number;
   resourceChangeType: number;
   otherResourceChange: number;
-  resourceActor: number;
+  /** Shows whether the source or the target is being referred to by
+   *  the classResources, hitPoints, etc. See {@link ResourceActor}. */
+  resourceActor: ResourceActor;
+  /** A list of resources on either the source or target, depending on resourceActor choice. */
   classResources: ClassResources[];
   hitPoints: number;
   maxHitPoints: number;
@@ -915,7 +944,6 @@ export interface BasePhaseEvent<T extends string> extends Event<T> {
 
 export interface SpendResourceEvent extends Event<EventType.SpendResource> {
   sourceID: number;
-  targetID?: number;
   resourceChange: number;
   resourceChangeType: number;
   ability: Ability;

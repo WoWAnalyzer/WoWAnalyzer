@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, ChangeBuffStackEvent, HealEvent } from 'parser/core/Events';
@@ -24,7 +25,7 @@ class SurgeOfLight extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SURGE_OF_LIGHT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_LIGHT_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -71,7 +72,7 @@ class SurgeOfLight extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(5)}
       >
-        <BoringSpellValueText spellId={SPELLS.SURGE_OF_LIGHT_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.SURGE_OF_LIGHT_TALENT.id}>
           <>
             {this.solFlashHeals} free <SpellLink id={SPELLS.FLASH_HEAL.id} /> casts
             <br />

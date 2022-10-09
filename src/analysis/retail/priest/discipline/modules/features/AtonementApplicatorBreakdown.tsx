@@ -1,7 +1,8 @@
 import {
   POWER_WORD_RADIANCE_ATONEMENT_DUR,
   POWER_WORD_SHIELD_ATONEMENT_DUR,
-  SHADOW_MEND_ATONEMENT_DUR,
+  RENEW_ATONEMENT_DUR,
+  FLASH_HEAL_ATONEMENT_DUR,
 } from 'analysis/retail/priest/discipline/constants';
 import { formatThousands } from 'common/format';
 import { TALENTS_PRIEST } from 'common/TALENTS';
@@ -20,13 +21,15 @@ const EVANGELISM_BONUS_MS = 6000;
 const FAIL_SAFE_MS = 300;
 
 class AtonementApplicatorBreakdown extends Analyzer {
-  _shadowmendsCasts = [];
   _powerWordShieldsCasts = [];
+  _RenewsCasts = [];
+  _flashHealsCasts = [];
 
   _castsApplyBuffsMap = new Map(); // Keys = Cast, Values = Atonement buff associated to the cast
   _lastRadianceCastTimestamp = 0; // Setting a dummy timestamp to 0
 
-  _atonementHealingFromShadowMends = 0;
+  _atonementHealingFromRenews = 0;
+  _atonementHealingFromFlashHeals = 0;
   _atonementHealingFromPowerWordRadiances = 0;
   _atonementHealingFromPowerWordShields = 0;
   _prepullApplicatorHealing = 0;
@@ -35,12 +38,16 @@ class AtonementApplicatorBreakdown extends Analyzer {
     super(options);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.EVANGELISM_DISCIPLINE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.EVANGELISM_TALENT),
       this.handleEvangelismCasts,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_MEND),
-      this.storeShadowMendsCasts,
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLASH_HEAL),
+      this.storeFlashHealsCasts,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.RENEW_TALENT),
+      this.storeRenewsCasts,
     );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_SHIELD),
@@ -68,11 +75,21 @@ class AtonementApplicatorBreakdown extends Analyzer {
     );
   }
 
-  storeShadowMendsCasts(event: CastEvent) {
+  storeFlashHealsCasts(event: CastEvent) {
     this._castsApplyBuffsMap.set(
       {
         event: event,
-        applicatorId: SPELLS.SHADOW_MEND.id,
+        applicatorId: SPELLS.FLASH_HEAL.id,
+      },
+      null,
+    );
+  }
+
+  storeRenewsCasts(event: CastEvent) {
+    this._castsApplyBuffsMap.set(
+      {
+        event: event,
+        applicatorId: TALENTS_PRIEST.RENEW_TALENT.id,
       },
       null,
     );
@@ -150,8 +167,10 @@ class AtonementApplicatorBreakdown extends Analyzer {
       duration += POWER_WORD_RADIANCE_ATONEMENT_DUR;
     } else if (cast.applicatorId === SPELLS.POWER_WORD_SHIELD.id) {
       duration += POWER_WORD_SHIELD_ATONEMENT_DUR;
-    } else if (cast.applicatorId === SPELLS.SHADOW_MEND.id) {
-      duration += SHADOW_MEND_ATONEMENT_DUR;
+    } else if (cast.applicatorId === SPELLS.FLASH_HEAL.id) {
+      duration += FLASH_HEAL_ATONEMENT_DUR;
+    } else if (cast.applicatorId === TALENTS_PRIEST.RENEW_TALENT.id) {
+      duration += RENEW_ATONEMENT_DUR;
     }
     return duration + FAIL_SAFE_MS;
   }
@@ -207,8 +226,10 @@ class AtonementApplicatorBreakdown extends Analyzer {
           atonement,
           event,
         );
-      } else if (cast.applicatorId === SPELLS.SHADOW_MEND.id) {
-        this._atonementHealingFromShadowMends += this.assignAtonementHit(cast, atonement, event);
+      } else if (cast.applicatorId === SPELLS.FLASH_HEAL.id) {
+        this._atonementHealingFromFlashHeals += this.assignAtonementHit(cast, atonement, event);
+      } else if (cast.applicatorId === TALENTS_PRIEST.RENEW_TALENT.id) {
+        this._atonementHealingFromRenews += this.assignAtonementHit(cast, atonement, event);
       }
     });
   }
@@ -233,10 +254,17 @@ class AtonementApplicatorBreakdown extends Analyzer {
         ) {
           atonement.extendedByEvangelism = true;
         }
-      } else if (cast.applicatorId === SPELLS.SHADOW_MEND.id) {
+      } else if (cast.applicatorId === TALENTS_PRIEST.RENEW_TALENT.id) {
         if (
           event.timestamp > atonement.applyBuff.timestamp &&
-          event.timestamp < atonement.applyBuff.timestamp + SHADOW_MEND_ATONEMENT_DUR
+          event.timestamp < atonement.applyBuff.timestamp + RENEW_ATONEMENT_DUR
+        ) {
+          atonement.extendedByEvangelism = true;
+        }
+      } else if (cast.applicatorId === SPELLS.FLASH_HEAL.id) {
+        if (
+          event.timestamp > atonement.applyBuff.timestamp &&
+          event.timestamp < atonement.applyBuff.timestamp + FLASH_HEAL_ATONEMENT_DUR
         ) {
           atonement.extendedByEvangelism = true;
         }
@@ -278,11 +306,18 @@ class AtonementApplicatorBreakdown extends Analyzer {
         valueTooltip: formatThousands(this._atonementHealingFromPowerWordRadiances),
       },
       {
-        color: '#772bb5',
-        label: 'Shadow Mend',
-        spellId: SPELLS.SHADOW_MEND.id,
-        value: this._atonementHealingFromShadowMends,
-        valueTooltip: formatThousands(this._atonementHealingFromShadowMends),
+        color: '#0cd368',
+        label: 'Renew',
+        spellId: TALENTS_PRIEST.RENEW_TALENT.id,
+        value: this._atonementHealingFromRenews,
+        valueTooltip: formatThousands(this._atonementHealingFromRenews),
+      },
+      {
+        color: '#fcd45e',
+        label: 'Flash Heal',
+        spellId: SPELLS.FLASH_HEAL.id,
+        value: this._atonementHealingFromFlashHeals,
+        valueTooltip: formatThousands(this._atonementHealingFromFlashHeals),
       },
     ];
 
