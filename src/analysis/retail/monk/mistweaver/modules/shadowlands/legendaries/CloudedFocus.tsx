@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, {
@@ -62,7 +63,7 @@ class CloudedFocus extends Analyzer {
     }
 
     let cost = event.rawResourceCost ? event.rawResourceCost[0] : 0;
-    if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {
+    if (this.selectedCombatant.hasBuff(TALENTS_MONK.MANA_TEA_TALENT.id)) {
       cost /= 2;
     }
 

@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -36,10 +37,10 @@ class EnvelopingBreath extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST),
       this.handleEnvelopingMist,
     );
-    if (this.selectedCombatant.hasTalent(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)) {
       this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.handleChijiDeath);
       this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT),
+        Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT),
         this.handleChijiSummon,
       );
     }

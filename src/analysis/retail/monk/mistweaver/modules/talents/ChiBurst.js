@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
@@ -36,10 +37,10 @@ class ChiBurst extends Analyzer {
 
   constructor(...options) {
     super(...options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.CHI_BURST_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT.id);
     this.raidSize = Object.keys(this.combatants.players).length;
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHI_BURST_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.CHI_BURST_TALENT),
       this.onCast,
     );
     this.addEventListener(
@@ -67,12 +68,12 @@ class ChiBurst extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are not utilizing your <SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> talent as
+          You are not utilizing your <SpellLink id={TALENTS_MONK.CHI_BURST_TALENT.id} /> talent as
           effectively as you should. You should work on both your positioning and aiming of the
           spell. Always aim for the highest concentration of players, which is normally melee.
         </>,
       )
-        .icon(SPELLS.CHI_BURST_TALENT.icon)
+        .icon(TALENTS_MONK.CHI_BURST_TALENT.icon)
         .actual(
           `${this.avgTargetsHitPerCB.toFixed(2)} ${t({
             id: 'monk.mistweaver.suggestions.chiBurst.targetsHit',

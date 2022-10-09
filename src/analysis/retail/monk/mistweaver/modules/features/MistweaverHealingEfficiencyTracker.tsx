@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import HealingEfficiencyTracker, {
   SpellInfoDetails,
 } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
@@ -66,13 +67,13 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       spellInfo = this.getRenewingMistDetails(spellInfo);
     } else if (spellId === SPELLS.VIVIFY.id) {
       spellInfo = this.getVivifyDetails(spellInfo);
-    } else if (spellId === SPELLS.REFRESHING_JADE_WIND_TALENT.id) {
+    } else if (spellId === TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id) {
       spellInfo = this.getRefreshingJadeWindDetails(spellInfo);
     } else if (spellId === SPELLS.RISING_SUN_KICK.id) {
       spellInfo = this.getRisingSunKickDetails(spellInfo);
     } else if (spellId === SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id) {
       spellInfo = this.getYulonDetails(spellInfo);
-    } else if (spellId === SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) {
+    } else if (spellId === TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) {
       spellInfo = this.getChijiDetails(spellInfo);
     } else if (spellId === SPELLS.EXPEL_HARM.id) {
       spellInfo = this.getExpelHarmDetails(spellInfo);

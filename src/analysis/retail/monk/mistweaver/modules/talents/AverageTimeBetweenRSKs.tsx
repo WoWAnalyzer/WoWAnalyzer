@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -17,7 +18,7 @@ class TimeBetweenRSKs extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.RISING_MIST_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id);
     if (!this.active) {
       return;
     }

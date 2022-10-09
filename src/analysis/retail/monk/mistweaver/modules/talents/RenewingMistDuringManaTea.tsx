@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -24,17 +25,17 @@ class RenewingMistDuringManaTea extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT.id);
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.MANA_TEA_TALENT),
       this.manaTeaStart,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.MANA_TEA_TALENT),
       this.manaTeaEnd,
     );
 
@@ -113,11 +114,11 @@ class RenewingMistDuringManaTea extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          During <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> you should have a minimum of two{' '}
+          During <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> you should have a minimum of two{' '}
           <SpellLink id={SPELLS.RENEWING_MIST.id} /> out to maximize your healing during the buff.
         </>,
       )
-        .icon(SPELLS.MANA_TEA_TALENT.icon)
+        .icon(TALENTS_MONK.MANA_TEA_TALENT.icon)
         .actual(
           `${this.avgRemDuringMT.toFixed(2)}${t({
             id: 'monk.mistweaver.suggestions.renewingMistDuringManaTea.avgRenewingMists',
@@ -139,7 +140,7 @@ class RenewingMistDuringManaTea extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.MANA_TEA_TALENT.id} /> Average Renewing Mists
+              <SpellIcon id={TALENTS_MONK.MANA_TEA_TALENT.id} /> Average Renewing Mists
             </>
           }
         >
