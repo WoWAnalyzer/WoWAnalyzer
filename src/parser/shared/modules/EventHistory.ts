@@ -96,6 +96,92 @@ class EventHistory extends Module {
     }
     return history as E[];
   }
+
+  public next<ET extends EventType, E extends MappedEvent<ET>>(
+    count?: number,
+    maxTime?: number,
+    filterDef?: EventFilter<ET>,
+    fromTimestamp?: number,
+  ): E[] {
+    let filter = (event: AnyEvent) => true;
+
+    if (fromTimestamp) {
+      const prevFilter = filter;
+      filter = (event) => {
+        if (!event.timestamp || event.timestamp < fromTimestamp) {
+          return false;
+        }
+        return prevFilter(event);
+      };
+    }
+
+    if (maxTime) {
+      const minTime = fromTimestamp
+        ? fromTimestamp + maxTime
+        : this.owner.currentTimestamp + maxTime;
+      const prevFilter = filter;
+      filter = (event) => {
+        if (!event.timestamp || event.timestamp > minTime) {
+          return false;
+        }
+        return prevFilter(event);
+      };
+    }
+
+    if (filterDef) {
+      const ee: EventEmitter = this.owner.getModule(EventEmitter);
+      const prevFilter = filter;
+      filter = (event) => {
+        if (event.type !== filterDef.eventType) {
+          return false;
+        }
+        return prevFilter(event);
+      };
+      const filterTo = filterDef.getTo();
+      if (filterTo) {
+        const prevFilter = filter;
+        const toFilter = ee.createToCheck(filterTo);
+        if (toFilter) {
+          filter = (event) => {
+            if (!toFilter(event)) {
+              return false;
+            }
+            return prevFilter(event);
+          };
+        }
+      }
+      const filterBy = filterDef.getBy();
+      if (filterBy) {
+        const prevFilter = filter;
+        const byFilter = ee.createByCheck(filterBy);
+        if (byFilter) {
+          filter = (event) => {
+            if (!byFilter(event)) {
+              return false;
+            }
+            return prevFilter(event);
+          };
+        }
+      }
+      const filterSpell = filterDef.getSpell();
+      if (filterSpell) {
+        const prevFilter = filter;
+        const spellFilter = ee.createSpellCheck(filterSpell);
+        filter = (event) => {
+          if (!spellFilter(event)) {
+            return false;
+          }
+          return prevFilter(event);
+        };
+      }
+    }
+
+    let history = this.owner.eventHistory.filter((event) => filter(event));
+    if (count && count < history.length) {
+      history = history.slice(-count);
+    }
+    return history as E[];
+  }
 }
 
 export default EventHistory;
