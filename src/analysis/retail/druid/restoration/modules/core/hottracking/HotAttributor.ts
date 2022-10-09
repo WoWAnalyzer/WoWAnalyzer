@@ -171,7 +171,9 @@ class HotAttributor extends Analyzer {
         this.hotTracker.addAttributionFromApply(this.powerOfTheArchdruidAttrib, event);
         this._logAttrib(event, this.powerOfTheArchdruidAttrib);
       }
-      this.lastConvokeRejuvOrRegrowthBuffTimestamp = event.timestamp;
+      if (!possibleRg) {
+        this.lastConvokeRejuvOrRegrowthBuffTimestamp = event.timestamp;
+      }
       // convoke module adds the attribution for Convoke
       this._logAttrib(event, this.convokeSpirits.currentConvokeAttribution);
     } else if (isFromOvergrowth(event)) {
