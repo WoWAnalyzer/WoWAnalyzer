@@ -111,17 +111,15 @@ class StandardChecks extends Analyzer {
 
     const filteredEvents = events.filter((e) => {
       const castEvent = this.getEvents(
-        false,
+        true,
         EventType.Cast,
         1,
-        e.timestamp,
-        undefined,
+        e.timestamp + 1,
+        250,
         spenderSpell,
       )[0];
-      this.log(castEvent);
       return !castEvent;
     });
-    this.log(filteredEvents.length);
     return filteredEvents;
   }
 
