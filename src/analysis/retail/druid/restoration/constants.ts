@@ -1,5 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
+import Combatant from 'parser/core/Combatant';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 export const REJUVENATION_BUFFS: Spell[] = [SPELLS.REJUVENATION, SPELLS.REJUVENATION_GERMINATION];
 
@@ -7,6 +9,12 @@ export const LIFEBLOOM_BUFFS: Spell[] = [
   SPELLS.LIFEBLOOM_HOT_HEAL,
   SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL,
 ];
+
+export function lifebloomSpell(c: Combatant): Spell {
+  return c.hasTalent(TALENTS_DRUID.UNDERGROWTH_TALENT)
+    ? SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL
+    : SPELLS.LIFEBLOOM_HOT_HEAL;
+}
 
 // TODO double check the entries on this list for Dragonflight
 

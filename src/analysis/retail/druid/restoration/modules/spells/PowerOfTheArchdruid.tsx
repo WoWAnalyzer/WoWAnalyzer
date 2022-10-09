@@ -89,7 +89,7 @@ class PowerOfTheArchdruid extends Analyzer {
         }
       >
         <BoringSpellValueText spellId={TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT.id}>
-          <ItemPercentHealingDone amount={this.hotAttributor.powerOfTheArchdruid.healing} />
+          <ItemPercentHealingDone amount={this.hotAttributor.powerOfTheArchdruidAttrib.healing} />
         </BoringSpellValueText>
       </Statistic>
     );
