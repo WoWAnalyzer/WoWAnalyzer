@@ -10,7 +10,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 // Example Log: https://www.warcraftlogs.com/reports/awmQnfCHrBRY8PAp#fight=53&type=healing&source=79
-class BindingHeal extends Analyzer {
+class BindingHeals extends Analyzer {
   occured = 0;
   selfHealing = 0;
   selfOverhealing = 0;
@@ -63,4 +63,4 @@ class BindingHeal extends Analyzer {
     );
   }
 }
-export default BindingHeal;
+export default BindingHeals;
