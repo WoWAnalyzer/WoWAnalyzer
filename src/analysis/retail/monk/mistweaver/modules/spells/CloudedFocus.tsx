@@ -25,6 +25,7 @@ const BUFF_AMOUNT_PER_STACK = 0.15;
 class CloudedFocus extends Analyzer {
   manaSaved: number = 0;
   healingDone: number = 0;
+  envBreathTicks: number = 0;
 
   stacks: number = 0;
 
@@ -89,6 +90,7 @@ class CloudedFocus extends Analyzer {
   }
 
   statistic() {
+    console.log('env ticks=' + this.envBreathTicks);
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
