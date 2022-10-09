@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -19,7 +20,7 @@ class RuleOfThrees extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.RULE_OF_THREES_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.RULE_OF_THREES_ARCANE_TALENT.id);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BARRAGE),
       this.onBarrageCast,
@@ -63,7 +64,7 @@ class RuleOfThrees extends Analyzer {
           so you should ensure that you use the buff before clearing your charges.
         </>,
       )
-        .icon(SPELLS.RULE_OF_THREES_TALENT.icon)
+        .icon(TALENTS.RULE_OF_THREES_ARCANE_TALENT.icon)
         .actual(
           <Trans id="mage.arcane.suggestions.ruleOfThrees.utilization">
             {formatPercentage(this.utilization)}% Utilization

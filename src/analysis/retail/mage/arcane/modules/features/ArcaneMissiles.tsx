@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -24,7 +25,7 @@ class ArcaneMissiles extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = !this.selectedCombatant.hasLegendary(SPELLS.ARCANE_HARMONY);
-    this.hasArcaneEcho = this.selectedCombatant.hasTalent(SPELLS.ARCANE_ECHO_TALENT.id);
+    this.hasArcaneEcho = this.selectedCombatant.hasTalent(TALENTS.ARCANE_ECHO_ARCANE_TALENT.id);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_MISSILES),
       this.onMissilesCast,
@@ -74,7 +75,7 @@ class ArcaneMissiles extends Analyzer {
           {this.castWithoutClearcasting} times. In order to get the most out of{' '}
           <SpellLink id={SPELLS.ARCANE_MISSILES.id} /> you should only cast it if you have{' '}
           <SpellLink id={SPELLS.CLEARCASTING_ARCANE.id} /> or if you are using{' '}
-          <SpellLink id={SPELLS.ARCANE_ECHO_TALENT.id} /> and the target has{' '}
+          <SpellLink id={TALENTS.ARCANE_ECHO_ARCANE_TALENT.id} /> and the target has{' '}
           <SpellLink id={SPELLS.TOUCH_OF_THE_MAGI.id} />.
         </>,
       )

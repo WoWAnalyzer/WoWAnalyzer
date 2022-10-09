@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
@@ -11,7 +12,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 class ArcaneFamiliar extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ARCANE_FAMILIAR_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ARCANE_FAMILIAR_ARCANE_TALENT.id);
   }
 
   get uptime() {
@@ -37,13 +38,13 @@ class ArcaneFamiliar extends Analyzer {
     when(this.arcaneFamiliarUptimeThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.ARCANE_FAMILIAR_TALENT.id} /> was up for{' '}
+          Your <SpellLink id={TALENTS.ARCANE_FAMILIAR_ARCANE_TALENT.id} /> was up for{' '}
           {formatPercentage(this.uptime)}% of the fight. If your Arcane Familiar dies, make sure you
           recast it. If you are having trouble keeping the Arcane Familiar up for the entire fight,
           consider taking a different talent.
         </>,
       )
-        .icon(SPELLS.ARCANE_FAMILIAR_TALENT.icon)
+        .icon(TALENTS.ARCANE_FAMILIAR_ARCANE_TALENT.icon)
         .actual(
           <Trans id="mage.arcane.suggestions.arcaneFamiliar.uptime">
             {formatPercentage(this.uptime)}% Uptime
@@ -62,7 +63,7 @@ class ArcaneFamiliar extends Analyzer {
           this.uptime,
         )}% of the fight. If your Arcane Familiar dies, make sure you recast it. If you are having trouble keeping the Arcane Familiar up for the entire fight, consider taking a different talent.`}
       >
-        <BoringSpellValueText spellId={SPELLS.ARCANE_FAMILIAR_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.ARCANE_FAMILIAR_ARCANE_TALENT.id}>
           <>
             {formatPercentage(this.uptime, 0)}% <small>Buff uptime</small>
           </>

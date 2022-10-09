@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
@@ -18,7 +19,7 @@ class TimeAnomaly extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.TIME_ANOMALY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.TIME_ANOMALY_TALENT.id);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BARRAGE),
       this.onBarrageCast,
@@ -65,14 +66,14 @@ class TimeAnomaly extends Analyzer {
         <>
           You cast <SpellLink id={SPELLS.ARCANE_BARRAGE.id} /> with greater than 70% mana{' '}
           {this.conservedTooHigh} times. Because of the way{' '}
-          <SpellLink id={SPELLS.TIME_ANOMALY_TALENT.id} /> works, you can randomly gain the{' '}
+          <SpellLink id={TALENTS.TIME_ANOMALY_TALENT.id} /> works, you can randomly gain the{' '}
           <SpellLink id={SPELLS.EVOCATION.id} /> effect causing your mana to rapidly increase. If
           you are conserving your mana too high, this can cause your mana to cap out at 100% which
           is a waste. So if you are using the Time Anomaly talent, you should make sure you conserve
           below 70% mana to help prevent mana capping.
         </>,
       )
-        .icon(SPELLS.TIME_ANOMALY_TALENT.icon)
+        .icon(TALENTS.TIME_ANOMALY_TALENT.icon)
         .actual(
           <Trans id="mage.arcane.suggestions.timeAnomaly.utilization">
             {formatPercentage(this.manaUtilization)}% Utilization

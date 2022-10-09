@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro';
 import { CASTS_PER_RADIANT_SPARK } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -14,7 +15,7 @@ import { getHitCount } from '../../normalizers/CastLinkNormalizer';
 const CAST_SPELLS = [
   SPELLS.ARCANE_BLAST,
   SPELLS.ARCANE_EXPLOSION,
-  SPELLS.ARCANE_ORB_TALENT,
+  TALENTS.ARCANE_ORB_ARCANE_TALENT,
   SPELLS.ARCANE_BARRAGE,
 ];
 const AOE_TARGET_THRESHOLD = 3;
@@ -106,7 +107,7 @@ class RadiantSpark extends Analyzer {
           casts in before <SpellLink id={SPELLS.RADIANT_SPARK.id} /> ends. Alternatively, if there
           is {AOE_TARGET_THRESHOLD} targets or more, you can use{' '}
           <SpellLink id={SPELLS.ARCANE_EXPLOSION.id} />,{' '}
-          <SpellLink id={SPELLS.ARCANE_ORB_TALENT.id} />, and{' '}
+          <SpellLink id={TALENTS.ARCANE_ORB_ARCANE_TALENT.id} />, and{' '}
           <SpellLink id={SPELLS.ARCANE_BARRAGE.id} /> instead of{' '}
           <SpellLink id={SPELLS.ARCANE_BLAST.id} />.
         </>,
