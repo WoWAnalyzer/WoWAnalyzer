@@ -1,5 +1,5 @@
 import ActiveDruidForm from 'analysis/retail/druid/shared/core/ActiveDruidForm';
-import { AdaptiveSwarmDamageDealer, SinfulHysteria } from 'analysis/retail/druid/shared';
+import { AdaptiveSwarmDamageDealer } from 'analysis/retail/druid/shared';
 import MainCombatLogParser from 'parser/core/CombatLogParser';
 import Channeling from 'parser/shared/normalizers/Channeling';
 
@@ -57,7 +57,6 @@ class CombatLogParser extends MainCombatLogParser {
     //Covenants
     convokeSpiritsBalance: ConvokeSpiritsBalance,
     adaptiveSwarm: AdaptiveSwarmDamageDealer,
-    sinfulHysteria: SinfulHysteria,
 
     //Resources
     astralPowerTracker: AstralPowerTracker,

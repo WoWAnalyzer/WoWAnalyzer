@@ -135,8 +135,6 @@ class ConvokeSpirits extends Analyzer {
     super(options);
     this.active =
       this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_BALANCE_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT);
 
     this.spellsPerCast =
