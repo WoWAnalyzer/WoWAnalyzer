@@ -1,9 +1,10 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import HIT_TYPES from 'game/HIT_TYPES';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { Talent } from 'common/TALENTS/types';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { HealEvent, DamageEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -38,13 +39,30 @@ class UpliftedSpirits extends Analyzer {
       ? TALENTS_MONK.REVIVAL_TALENT
       : TALENTS_MONK.RESTORAL_TALENT;
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK),
-      this.rskCast,
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK_SECOND),
+      this.rskHit,
     );
   }
 
-  rskCast(event: CastEvent) {
+  rskHit(event: DamageEvent) {
     // Cooldown Reduction on Revival
+    if (event.hitType !== HIT_TYPES.CRIT) {
+      return;
+    }
+    if (this.spellUsable.isOnCooldown(this.activeTalent.id)) {
+      this.cooldownReductionUsed += this.spellUsable.reduceCooldown(
+        this.activeTalent.id,
+        UPLIFTED_SPIRITS_REDUCTION,
+      );
+    } else {
+      this.cooldownReductionWasted += UPLIFTED_SPIRITS_REDUCTION;
+    }
+  }
+
+  vivifyHit(event: HealEvent) {
+    if (event.hitType !== HIT_TYPES.CRIT) {
+      return;
+    }
     if (this.spellUsable.isOnCooldown(this.activeTalent.id)) {
       this.cooldownReductionUsed += this.spellUsable.reduceCooldown(
         this.activeTalent.id,
