@@ -1,6 +1,7 @@
 import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
+import TALENTS from 'common/TALENTS/paladin';
 import SpellIcon from 'interface/SpellIcon';
 import SpellLink from 'interface/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -12,6 +13,8 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const CDR = 1000;
+
+// todo: refactor file to match tier set bonus in dragonflight
 
 class Tier28FourSet extends Analyzer {
   static dependencies = {
@@ -40,8 +43,8 @@ class Tier28FourSet extends Analyzer {
       this.wingsCast,
     );
 
-    if (this.selectedCombatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id)) {
-      this.spellToReduce = SPELLS.AVENGING_CRUSADER_TALENT;
+    if (this.selectedCombatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT.id)) {
+      this.spellToReduce = TALENTS.AVENGING_CRUSADER_TALENT;
     }
   }
 

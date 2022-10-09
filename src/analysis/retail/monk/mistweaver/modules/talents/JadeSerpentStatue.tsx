@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
@@ -26,7 +27,9 @@ class JadeSerpentStatue extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.id,
+    );
     if (!this.active) {
       return;
     }
@@ -115,13 +118,13 @@ class JadeSerpentStatue extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You selected <SpellLink id={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> as your
+          You selected <SpellLink id={TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> as your
           talent. To gain the most value out of this talent you should have it casting on someone as
           often as possible. The priority should be tanks or any raid member taking heavy damage,
           such as from a specific DOT or boss mechanic.
         </>,
       )
-        .icon(SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.icon)
+        .icon(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.icon)
         .actual(
           `${formatPercentage(actual)}${t({
             id: 'monk.mistweaver.jadeSerpentStatue.uptime',
@@ -142,7 +145,7 @@ class JadeSerpentStatue extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> % Uptime
+              <SpellIcon id={TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> % Uptime
             </>
           }
         >

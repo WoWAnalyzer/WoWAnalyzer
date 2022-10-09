@@ -26,6 +26,8 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
     spell: PropTypes.number.isRequired,
   };
 
+  // TODO: confirm all requirements are correct since 10.X update
+
   return (
     <Checklist>
       <Rule
@@ -36,7 +38,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         }
         description={
           <Trans id="paladin.holy.modules.checklist.usePrimarySpells.description">
-            <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />
+            <SpellLink id={TALENTS.HOLY_SHOCK_TALENT.id} />
             {combatant.hasTalent(TALENTS.BESTOW_FAITH_TALENT) ? (
               <SpellLink id={TALENTS.BESTOW_FAITH_TALENT.id} />
             ) : (
@@ -69,8 +71,8 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           </Trans>
         }
       >
-        <AbilityRequirement spell={SPELLS.HOLY_SHOCK_CAST.id} />
-        <AbilityRequirement spell={SPELLS.HAMMER_OF_WRATH.id} />
+        <AbilityRequirement spell={TALENTS.HOLY_SHOCK_TALENT.id} />
+        <AbilityRequirement spell={TALENTS.HAMMER_OF_WRATH_TALENT.id} />
         {combatant.hasTalent(TALENTS.BESTOW_FAITH_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.BESTOW_FAITH_TALENT.id} />
         )}
@@ -105,11 +107,11 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         }
       >
         {/* Avenging Crusader replaces Avenging Wrath */}
-        {!combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id) && (
+        {!combatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.AVENGING_WRATH.id} />
         )}
-        {combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.AVENGING_CRUSADER_TALENT.id} />
+        {combatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.AVENGING_CRUSADER_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS.HOLY_AVENGER_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.HOLY_AVENGER_TALENT.id} />
@@ -158,7 +160,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         <Requirement
           name={
             <Trans id="paladin.holy.modules.checklist.totalFillerPerMinuteWhileHolyShock">
-              Total filler casts while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was available
+              Total filler casts while <SpellLink id={TALENTS.HOLY_SHOCK_TALENT.id} /> was available
             </Trans>
           }
           thresholds={thresholds.fillerLightOfTheMartyrsInefficientCpm}
@@ -168,13 +170,15 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             <Trans id="paladin.holy.modules.checklist.totalFillerWhileHolyShock">
               Total filler <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />s cast while{' '}
               <span style={{ whiteSpace: 'nowrap' }}>
-                <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />
+                <SpellLink id={TALENTS.HOLY_SHOCK_TALENT.id} />
               </span>{' '}
               was available
             </Trans>
           }
           thresholds={thresholds.fillerFlashOfLight}
         />
+        <AbilityRequirement spell={TALENTS.HOLY_SHOCK_TALENT.id} />
+        {combatant.hasTalent(TALENTS.HOLY_SHOCK_TALENT.id)}
       </Rule>
       <Rule
         name={
@@ -326,10 +330,18 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           </Trans>
         }
       >
-        <AbilityRequirement spell={SPELLS.DIVINE_STEED.id} />
-        <AbilityRequirement spell={SPELLS.DIVINE_PROTECTION.id} />
-        <AbilityRequirement spell={SPELLS.BLESSING_OF_SACRIFICE.id} />
-        <AbilityRequirement spell={SPELLS.LAY_ON_HANDS.id} />
+        {combatant.hasTalent(TALENTS.DIVINE_STEED_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.DIVINE_STEED_TALENT.id} />
+        )}
+        {combatant.hasTalent(TALENTS.DIVINE_PROTECTION_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.DIVINE_PROTECTION_TALENT.id} />
+        )}
+        {combatant.hasTalent(TALENTS.BLESSING_OF_SACRIFICE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.BLESSING_OF_SACRIFICE_TALENT.id} />
+        )}
+        {combatant.hasTalent(TALENTS.LAY_ON_HANDS_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.LAY_ON_HANDS_TALENT.id} />
+        )}
       </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>

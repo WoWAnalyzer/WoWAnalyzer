@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -32,8 +33,8 @@ class ThunderFocusTea extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.ftActive = this.selectedCombatant.hasTalent(SPELLS.FOCUSED_THUNDER_TALENT.id);
-    this.rmActive = this.selectedCombatant.hasTalent(SPELLS.RISING_MIST_TALENT.id);
+    this.ftActive = this.selectedCombatant.hasTalent(TALENTS_MONK.FOCUSED_THUNDER_TALENT.id);
+    this.rmActive = this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.THUNDER_FOCUS_TEA),
       this.tftCast,

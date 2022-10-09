@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -31,7 +32,7 @@ class Lifecycles extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.LIFECYCLES_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -112,11 +113,11 @@ class Lifecycles extends Analyzer {
       suggest(
         <>
           Your current spell usage is not taking full advantage of the{' '}
-          <SpellLink id={SPELLS.LIFECYCLES_TALENT.id} /> talent. You should be trying to alternate
-          the use of these spells as often as possible to take advantage of the buff.
+          <SpellLink id={TALENTS_MONK.LIFECYCLES_TALENT.id} /> talent. You should be trying to
+          alternate the use of these spells as often as possible to take advantage of the buff.
         </>,
       )
-        .icon(SPELLS.LIFECYCLES_TALENT.icon)
+        .icon(TALENTS_MONK.LIFECYCLES_TALENT.icon)
         .actual(
           `${formatNumber(actual)}${t({
             id: 'monk.mistweaver.suggestions.lifecycles.manaSaved',
@@ -158,7 +159,7 @@ class Lifecycles extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={SPELLS.LIFECYCLES_TALENT.id} />
+              <SpellLink id={TALENTS_MONK.LIFECYCLES_TALENT.id} />
             </>
           }
         >
