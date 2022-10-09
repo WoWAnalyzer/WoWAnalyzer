@@ -16,12 +16,12 @@ class HammerofWrath extends ExecuteHelper {
 
   protected abilities!: Abilities;
 
-  static executeSpells: Spell[] = [SPELLS.HAMMER_OF_WRATH];
+  static executeSpells: Spell[] = [TALENTS.HAMMER_OF_WRATH_TALENT];
   static executeSources: number = SELECTED_PLAYER;
   static lowerThreshold: number = 0.2;
   static executeOutsideRangeEnablers: Spell[] = [
     SPELLS.AVENGING_WRATH,
-    SPELLS.AVENGING_CRUSADER_TALENT,
+    TALENTS.AVENGING_CRUSADER_TALENT,
     TALENTS.CRUSADE_TALENT,
   ];
   static modifiesDamage: boolean = false;
@@ -34,7 +34,7 @@ class HammerofWrath extends ExecuteHelper {
 
     //FIXME added reduction from legendary when we can get that info
     (options.abilities as Abilities).add({
-      spell: SPELLS.HAMMER_OF_WRATH.id,
+      spell: TALENTS.HAMMER_OF_WRATH_TALENT.id,
       category: SPELL_CATEGORY.ROTATIONAL,
       cooldown: (haste) => 7.5 / (1 + haste),
       gcd: {
@@ -50,7 +50,7 @@ class HammerofWrath extends ExecuteHelper {
   }
 
   adjustMaxCasts(event: FightEndEvent) {
-    const cooldown = this.abilities.getAbility(SPELLS.HAMMER_OF_WRATH.id)!.cooldown * 1000;
+    const cooldown = this.abilities.getAbility(TALENTS.HAMMER_OF_WRATH_TALENT.id)!.cooldown * 1000;
     super.onFightEnd(event);
     this.maxCasts += Math.ceil(this.totalExecuteDuration / cooldown);
   }

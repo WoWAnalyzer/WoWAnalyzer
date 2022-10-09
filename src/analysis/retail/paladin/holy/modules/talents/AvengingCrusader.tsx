@@ -1,5 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { BeaconHealEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -31,7 +32,7 @@ class AvengingCrusader extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -102,7 +103,7 @@ class AvengingCrusader extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.AVENGING_CRUSADER_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.AVENGING_CRUSADER_TALENT.id}>
           <ItemHealingDone amount={this.totalHealing} /> <br />
           {formatPercentage(this.critRate)}% Crit Rate
         </BoringSpellValueText>

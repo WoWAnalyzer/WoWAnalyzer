@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import { SpellIcon } from 'interface';
 import PlusIcon from 'interface/icons/Plus';
 import UpArrowIcon from 'interface/icons/UpArrow';
@@ -51,7 +52,9 @@ class DirectBeaconHealing extends Analyzer {
     let castsOnBeacon = 0;
 
     this.beaconTransferingAbilities
-      .filter((ability) => [SPELLS.FLASH_OF_LIGHT.id, SPELLS.HOLY_LIGHT.id].includes(ability))
+      .filter((ability) =>
+        [SPELLS.FLASH_OF_LIGHT.id, TALENTS.HOLY_LIGHT_TALENT.id].includes(ability),
+      )
       .forEach((ability) => {
         const castCount = getCastCount(ability);
         casts += castCount.healingHits || 0;
@@ -68,7 +71,9 @@ class DirectBeaconHealing extends Analyzer {
     let castsOnBeacon = 0;
 
     this.beaconTransferingAbilities
-      .filter((ability) => ![SPELLS.FLASH_OF_LIGHT.id, SPELLS.HOLY_LIGHT.id].includes(ability))
+      .filter(
+        (ability) => ![SPELLS.FLASH_OF_LIGHT.id, TALENTS.HOLY_LIGHT_TALENT.id].includes(ability),
+      )
       .forEach((ability) => {
         const castCount = getCastCount(ability);
         casts += castCount.healingHits || 0;

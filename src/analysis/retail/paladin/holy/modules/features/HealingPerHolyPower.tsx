@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
@@ -15,7 +16,7 @@ class HealingPerHolyPower extends Analyzer {
     super(options);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.WORD_OF_GLORY, SPELLS.LIGHT_OF_DAWN_CAST]),
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.WORD_OF_GLORY, TALENTS.LIGHT_OF_DAWN_TALENT]),
       this.castSpender,
     );
     this.addEventListener(
