@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
@@ -212,7 +213,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.DISPEL_MAGIC.id,
+        spell: TALENTS.DISPEL_MAGIC_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
@@ -286,7 +287,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.POWER_INFUSION.id,
+        spell: TALENTS.POWER_INFUSION_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         gcd: null,
@@ -296,7 +297,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SHADOW_WORD_DEATH.id,
+        spell: TALENTS.SHADOW_WORD_DEATH_TALENT.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,

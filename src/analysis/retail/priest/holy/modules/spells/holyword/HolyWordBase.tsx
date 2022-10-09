@@ -53,11 +53,11 @@ class HolyWordBase extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.APOTHEOSIS_TALENT),
       this.onApplyBuff,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.APOTHEOSIS_TALENT),
       this.onRemoveBuff,
     );
   }

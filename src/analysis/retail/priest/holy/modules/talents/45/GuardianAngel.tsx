@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
@@ -28,17 +27,17 @@ class GuardianAngel extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_SPIRIT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.GUARDIAN_SPIRIT_TALENT),
       this._parseGsRemove,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_SPIRIT),
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.GUARDIAN_SPIRIT_TALENT),
       this._parseGsHeal,
     );
   }
 
   get guardianSpiritCastCount() {
-    return this.abilityTracker.getAbility(SPELLS.GUARDIAN_SPIRIT.id).casts;
+    return this.abilityTracker.getAbility(TALENTS.GUARDIAN_SPIRIT_TALENT.id).casts;
   }
 
   get guardianSpiritRefreshCount() {

@@ -29,22 +29,25 @@ class PrayerCircle extends Analyzer {
 
     if (this.active) {
       this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CIRCLE_OF_HEALING_TALENT),
+        Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CIRCLE_OF_HEALING_TALENT),
         this.cohCast,
       );
       this.addEventListener(
-        Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.PRAYER_OF_HEALING),
+        Events.begincast.by(SELECTED_PLAYER).spell(TALENTS.PRAYER_OF_HEALING_TALENT),
         this.startPohCast,
       );
       this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PRAYER_OF_HEALING),
+        Events.cast.by(SELECTED_PLAYER).spell(TALENTS.PRAYER_OF_HEALING_TALENT),
         this.finishPohCast,
       );
     }
   }
 
   get unbuffedCohCasts() {
-    return this.abilityTracker.getAbility(SPELLS.PRAYER_OF_HEALING.id).casts - this.buffedCohCasts;
+    return (
+      this.abilityTracker.getAbility(TALENTS.PRAYER_OF_HEALING_TALENT.id).casts -
+      this.buffedCohCasts
+    );
   }
 
   cohCast(event: CastEvent) {

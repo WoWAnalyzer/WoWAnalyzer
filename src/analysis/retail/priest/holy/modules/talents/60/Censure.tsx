@@ -17,7 +17,7 @@ class Censure extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.CENSURE_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_CHASTISE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HOLY_WORD_CHASTISE_TALENT),
       this.onCast,
     );
     this.addEventListener(

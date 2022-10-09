@@ -1,5 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -17,7 +18,7 @@ class HolyNova extends Analyzer {
   protected abilityTracker!: AbilityTracker;
 
   get casts() {
-    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA.id).casts;
+    return this.abilityTracker.getAbility(TALENTS.HOLY_NOVA_TALENT.id).casts;
   }
 
   get healingHits() {
@@ -40,11 +41,11 @@ class HolyNova extends Analyzer {
   }
 
   get damageHits() {
-    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA.id).damageHits;
+    return this.abilityTracker.getAbility(TALENTS.HOLY_NOVA_TALENT.id).damageHits;
   }
 
   get damageDone() {
-    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA.id).damageEffective;
+    return this.abilityTracker.getAbility(TALENTS.HOLY_NOVA_TALENT.id).damageEffective;
   }
 
   get averageFriendlyTargetsHit() {
@@ -93,7 +94,7 @@ class HolyNova extends Analyzer {
     }
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.HOLY_NOVA.id} />}
+        icon={<SpellIcon id={TALENTS.HOLY_NOVA_TALENT.id} />}
         value={
           <>
             Average Hits:&nbsp;
@@ -129,11 +130,11 @@ class HolyNova extends Analyzer {
     when(this.holyNovaThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should only cast <SpellLink id={SPELLS.HOLY_NOVA.id} /> when you will hit 5 or more
-          targets.
+          You should only cast <SpellLink id={TALENTS.HOLY_NOVA_TALENT.id} /> when you will hit 5 or
+          more targets.
         </>,
       )
-        .icon(SPELLS.HOLY_NOVA.icon)
+        .icon(TALENTS.HOLY_NOVA_TALENT.icon)
         .actual(<>You hit an average of {actual} targets when you cast Holy Nova.</>)
         .recommended(`An average of ${recommended} or more healing hits per cast is recommended.`),
     );

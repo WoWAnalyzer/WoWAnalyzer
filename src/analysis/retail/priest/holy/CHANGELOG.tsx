@@ -119,7 +119,7 @@ export default [
   change(
     date(2020, 11, 30),
     <>
-      Fixing a bug with <SpellLink id={SPELLS.PRAYER_OF_MENDING_CAST.id} /> tracking
+      Fixing a bug with <SpellLink id={TALENTS.PRAYER_OF_MENDING_TALENT.id} /> tracking
     </>,
     Khadaj,
   ),
