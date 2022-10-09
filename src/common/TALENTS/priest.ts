@@ -3,7 +3,13 @@ import { createTalentList } from './types';
 
 const talents = createTalentList({
   //Shared
-  RENEW_TALENT: { id: 139, name: 'Renew', icon: 'spell_holy_renew', maxRanks: 1, manaCost: 500 },
+  RENEW_TALENT: {
+    id: 139,
+    name: 'Renew',
+    icon: 'spell_holy_renew',
+    maxRanks: 1,
+    manaCost: 500,
+  },
   DISPEL_MAGIC_TALENT: {
     id: 528,
     name: 'Dispel Magic',
@@ -643,7 +649,12 @@ const talents = createTalentList({
     icon: 'spell_holy_guardianspirit',
     maxRanks: 1,
   },
-  CENSURE_TALENT: { id: 200199, name: 'Censure', icon: 'spell_holy_eyeforaneye', maxRanks: 1 },
+  CENSURE_TALENT: {
+    id: 200199,
+    name: 'Censure',
+    icon: 'spell_holy_eyeforaneye',
+    maxRanks: 1,
+  },
   BURNING_VEHEMENCE_TALENT: {
     id: 372307,
     name: 'Burning Vehemence',
@@ -786,7 +797,12 @@ const talents = createTalentList({
     icon: 'spell_holy_prayerofmendingtga',
     maxRanks: 2,
   },
-  PONTIFEX_TALENT: { id: 390980, name: 'Pontifex', icon: 'spell_priest_pontifex', maxRanks: 1 },
+  PONTIFEX_TALENT: {
+    id: 390980,
+    name: 'Pontifex',
+    icon: 'spell_priest_pontifex',
+    maxRanks: 1,
+  },
   APOTHEOSIS_TALENT: {
     id: 200183,
     name: 'Apotheosis',
@@ -873,7 +889,12 @@ const talents = createTalentList({
     icon: 'inv_staff_2h_artifactheartofkure_d_04',
     maxRanks: 1,
   },
-  DIVINE_WORD_TALENT: { id: 372760, name: 'Divine Word', icon: 'spell_priest_chakra', maxRanks: 1 },
+  DIVINE_WORD_TALENT: {
+    id: 372760,
+    name: 'Divine Word',
+    icon: 'spell_priest_chakra',
+    maxRanks: 1,
+  },
   MIRACLE_WORKER_TALENT: {
     id: 235587,
     name: 'Miracle Worker',

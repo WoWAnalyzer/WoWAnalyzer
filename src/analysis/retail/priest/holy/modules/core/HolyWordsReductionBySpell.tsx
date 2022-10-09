@@ -4,6 +4,7 @@ import HolyWordSanctify from 'analysis/retail/priest/holy/modules/spells/holywor
 import HolyWordSerenity from 'analysis/retail/priest/holy/modules/spells/holyword/HolyWordSerenity';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -27,9 +28,9 @@ class HolyWordsReductionBySpell extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.lightOfTheNaaruActive = this.selectedCombatant.hasTalent(
-      SPELLS.LIGHT_OF_THE_NAARU_TALENT.id,
+      TALENTS.LIGHT_OF_THE_NAARU_TALENT.id,
     );
-    this.apotheosisActive = this.selectedCombatant.hasTalent(SPELLS.APOTHEOSIS_TALENT.id);
+    this.apotheosisActive = this.selectedCombatant.hasTalent(TALENTS.APOTHEOSIS_TALENT.id);
   }
 
   get totalReduction() {

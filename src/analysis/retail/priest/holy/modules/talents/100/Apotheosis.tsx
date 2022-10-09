@@ -2,7 +2,7 @@ import HolyWordChastise from 'analysis/retail/priest/holy/modules/spells/holywor
 import HolyWordSanctify from 'analysis/retail/priest/holy/modules/spells/holyword/HolyWordSanctify';
 import HolyWordSerenity from 'analysis/retail/priest/holy/modules/spells/holyword/HolyWordSerenity';
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -26,13 +26,13 @@ class Apotheosis extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.APOTHEOSIS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.APOTHEOSIS_TALENT.id);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.APOTHEOSIS_TALENT),
       this.onApplyBuff,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.APOTHEOSIS_TALENT),
       this.onRemoveBuff,
     );
   }
@@ -63,7 +63,7 @@ class Apotheosis extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(7)}
       >
-        <BoringSpellValueText spellId={SPELLS.APOTHEOSIS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.APOTHEOSIS_TALENT.id}>
           <>
             <ItemManaGained
               amount={

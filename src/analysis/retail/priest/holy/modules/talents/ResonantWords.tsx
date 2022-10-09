@@ -1,13 +1,14 @@
-import { RESONANT_WORDS_RANKS } from 'analysis/retail/priest/holy/constants';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { RESONANT_WORDS_RANKS } from 'analysis/retail/priest/holy/constants';
 
 // Example Log: /report/da4AL7QPr36btCmV/8-Heroic+Huntsman+Altimor+-+Kill+(5:13)/Daemonlight/standard/statistics
 class ResonantWords extends Analyzer {
@@ -15,8 +16,8 @@ class ResonantWords extends Analyzer {
   usedResonantWords = 0;
   bonusHealing = 0;
   healingMultiplier = RESONANT_WORDS_RANKS[0];
-  conduitRank: number = 0;
-  conduitIncrease: number = 0;
+  talentRank: number = 0;
+  talentIncrease: number = 0;
 
   get wastedResonantWords() {
     return this.totalResonantWords - this.usedResonantWords;
@@ -25,30 +26,30 @@ class ResonantWords extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.RESONANT_WORDS.id);
-    if (!this.conduitRank) {
+    this.talentRank = this.selectedCombatant.getTalentRank(TALENTS.RESONANT_WORDS_TALENT);
+    if (!this.talentRank) {
       this.active = false;
       return;
     }
-    this.healingMultiplier = RESONANT_WORDS_RANKS[this.conduitRank];
+    this.healingMultiplier = RESONANT_WORDS_RANKS[this.talentRank];
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FLASH_HEAL), this.onHeal);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GREATER_HEAL), this.onHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GREATER_HEAL), this.onHeal); //Not sure why pvp talent is included
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_CHASTISE),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HOLY_WORD_CHASTISE_TALENT),
       this.onHolyWordCast,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_SANCTIFY),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HOLY_WORD_SANCTIFY_TALENT),
       this.onHolyWordCast,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_SERENITY),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HOLY_WORD_SERENITY_TALENT),
       this.onHolyWordCast,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_SALVATION_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HOLY_WORD_SALVATION_TALENT),
       this.onHolyWordCast,
     );
   }
@@ -56,7 +57,7 @@ class ResonantWords extends Analyzer {
   onHeal(event: HealEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.RESONANT_WORDS_BUFF.id)) {
       this.usedResonantWords += 1;
-      const eventBonusAmount = event.amount / (1 + this.healingMultiplier / 100);
+      const eventBonusAmount = event.amount - event.amount / (1 + this.healingMultiplier);
       this.bonusHealing += eventBonusAmount;
     }
   }
@@ -66,16 +67,17 @@ class ResonantWords extends Analyzer {
   }
 
   statistic() {
+    //Should have new talent ui that shows points rank={this.talentRank}>
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`${this.wastedResonantWords}/${this.totalResonantWords} wasted resonant word buffs.`}
       >
-        <ConduitSpellText spellId={SPELLS.RESONANT_WORDS.id} rank={this.conduitRank}>
+        <BoringSpellValueText spellId={SPELLS.RESONANT_WORDS.id}>
           <ItemHealingDone amount={this.bonusHealing} />
-        </ConduitSpellText>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

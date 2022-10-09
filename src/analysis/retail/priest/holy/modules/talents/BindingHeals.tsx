@@ -1,4 +1,5 @@
 import { formatPercentage, formatThousands } from 'common/format';
+import TALENTS from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
@@ -17,7 +18,7 @@ class BindingHeals extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BINDING_HEALS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BINDING_HEALS_TALENT.id);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.BINDING_HEALS_TALENT_HEAL),
@@ -54,12 +55,11 @@ class BindingHeals extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(5)}
       >
-        <BoringSpellValueText spellId={SPELLS.BINDING_HEALS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.BINDING_HEALS_TALENT.id}>
           <ItemHealingDone amount={this.selfHealing} />
         </BoringSpellValueText>
       </Statistic>
     );
   }
 }
-
 export default BindingHeals;

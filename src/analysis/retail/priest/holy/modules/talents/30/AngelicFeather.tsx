@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -13,13 +13,13 @@ class AngelicFeather extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ANGELIC_FEATHER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ANGELIC_FEATHER_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ANGELIC_FEATHER_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ANGELIC_FEATHER_TALENT),
       this.onCast,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ANGELIC_FEATHER_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.ANGELIC_FEATHER_TALENT),
       this.onApplyBuff,
     );
   }
@@ -39,7 +39,7 @@ class AngelicFeather extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(2)}
       >
-        <BoringSpellValueText spellId={SPELLS.ANGELIC_FEATHER_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.ANGELIC_FEATHER_TALENT.id}>
           {this.angelicFeatherCasts} Feather(s) cast
         </BoringSpellValueText>
       </Statistic>

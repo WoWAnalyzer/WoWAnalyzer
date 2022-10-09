@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -23,7 +24,7 @@ class Afterlife extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.AFTERLIFE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.AFTERLIFE_TALENT.id);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_OF_REDEMPTION_BUFF),
       this.onApplyBuff,
@@ -74,7 +75,7 @@ class Afterlife extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(3)}
       >
-        <BoringSpellValueText spellId={SPELLS.AFTERLIFE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.AFTERLIFE_TALENT.id}>
           <ItemHealingDone amount={this.healingInAfterlife} />
         </BoringSpellValueText>
       </Statistic>

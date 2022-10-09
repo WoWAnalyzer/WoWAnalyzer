@@ -1,12 +1,5 @@
 import AbilityTracker from 'analysis/retail/priest/holy/modules/core/AbilityTracker';
-import {
-  BoonOfTheAscended,
-  FaeGuardians,
-  Mindgames,
-  TwinsOfTheSunPriestess,
-  UnholyNova,
-  TranslucentImage,
-} from 'analysis/retail/priest/shared';
+import { Mindgames, TwinsOfTheSunPriestess, TranslucentImage } from 'analysis/retail/priest/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
@@ -29,10 +22,9 @@ import HealingEfficiencyDetails from './modules/features/HolyPriestHealingEffici
 import HealingEfficiencyTracker from './modules/features/HolyPriestHealingEfficiencyTracker';
 import SpellUsable from './modules/features/SpellUsable';
 import StatWeights from './modules/features/StatWeights';
-import ResonantWords from './modules/shadowlands/conduits/ResonantWords';
-import DivineImage from './modules/shadowlands/items/DivineImage';
-import FlashConcentration from './modules/shadowlands/items/FlashConcentration';
-import HarmoniousApparatus from './modules/shadowlands/items/HarmoniousApparatus';
+import ResonantWords from './modules/talents/ResonantWords';
+import DivineImage from './modules/talents/DivineImage';
+import HarmoniousApparatus from './modules/talents/HarmoniousApparatus';
 import CircleOfHealing from './modules/spells/CircleOfHealing';
 import DivineHymn from './modules/spells/DivineHymn';
 import GuardianSpirit from './modules/spells/GuardianSpirit';
@@ -102,41 +94,29 @@ class CombatLogParser extends CoreCombatLogParser {
     CosmicRipple: Talents.t45.CosmicRipple,
 
     Censure: Talents.t60.Censure,
-    ShiningForce: Talents.t60.ShiningForce,
     PsychicVoice: Talents.t60.PsychicVoice,
 
     SurgeOfLight: Talents.t75.SurgeOfLight,
     PrayerCircle: Talents.t75.PrayerCircle,
-    BindingHeals: Talents.t75.BindingHeals,
 
     Halo: Talents.t90.Halo,
     Benediction: Talents.t90.Benediction,
     DivineStar: Talents.t90.DivineStar,
+    mindgames: Mindgames,
 
     LightOfTheNaru: Talents.t100.LightOfTheNaaru,
     HolyWordSalvation: Talents.t100.HolyWordSalvation,
     Apotheosis: Talents.t100.Apotheosis,
 
+    harmoniousApparatus: HarmoniousApparatus,
+    divineImage: DivineImage,
+    twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
+    resonantWords: ResonantWords,
+    TranslucentImage: TranslucentImage,
     // Mana Tab
     manaTracker: ManaTracker,
     hpmDetails: HealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
-
-    // Items
-    harmoniousApparatus: HarmoniousApparatus,
-    divineImage: DivineImage,
-    twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
-    flashConcentration: FlashConcentration,
-
-    // Conduits
-    resonantWords: ResonantWords,
-    TranslucentImage: TranslucentImage,
-
-    // Covenants
-    unholyNova: UnholyNova,
-    mindgames: Mindgames,
-    boonOfTheAscended: BoonOfTheAscended,
-    faeGuardians: FaeGuardians,
   };
 }
 

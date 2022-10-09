@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -25,13 +26,13 @@ class PrayerOfMending extends Analyzer {
     this.addEventListener(
       Events.cast
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.PRAYER_OF_MENDING_CAST, SPELLS.HOLY_WORD_SALVATION_TALENT]),
+        .spell([TALENTS.PRAYER_OF_MENDING_TALENT, TALENTS.HOLY_WORD_SALVATION_TALENT]),
       this.onCast,
     );
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.PRAYER_OF_MENDING_HEAL, SPELLS.HOLY_WORD_SALVATION_TALENT]),
+        .spell([SPELLS.PRAYER_OF_MENDING_HEAL, TALENTS.HOLY_WORD_SALVATION_TALENT]),
       this.onHeal,
     );
     this.addEventListener(
@@ -67,10 +68,10 @@ class PrayerOfMending extends Analyzer {
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
 
-    if (spellId === SPELLS.PRAYER_OF_MENDING_CAST.id) {
+    if (spellId === TALENTS.PRAYER_OF_MENDING_TALENT.id) {
       this.pomCasts += 1;
     }
-    if (spellId === SPELLS.HOLY_WORD_SALVATION_TALENT.id) {
+    if (spellId === TALENTS.HOLY_WORD_SALVATION_TALENT.id) {
       this.lastSalvCastTime = event.timestamp;
       this.salvCasts += 1;
     }
@@ -85,7 +86,7 @@ class PrayerOfMending extends Analyzer {
       this.totalPoMOverhealing += event.overheal || 0;
       this.totalPoMAbsorption += event.absorbed || 0;
     }
-    if (spellId === SPELLS.HOLY_WORD_SALVATION_TALENT.id) {
+    if (spellId === TALENTS.HOLY_WORD_SALVATION_TALENT.id) {
       this.pomTicksFromSalv += 2;
     }
   }

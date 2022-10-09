@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseHealerStatValues from 'parser/shared/modules/features/BaseHealerStatValues';
 import STAT from 'parser/shared/modules/features/STAT';
@@ -21,7 +22,7 @@ class StatWeights extends BaseHealerStatValues {
   protected statTracker!: StatTracker;
 
   _hasteHpm(event: any, healVal: any) {
-    if (event.ability.guid === SPELLS.RENEW.id && !event.tick) {
+    if (event.ability.guid === TALENTS.RENEW_TALENT.id && !event.tick) {
       return 0;
     }
     return super._hasteHpm(event, healVal);
