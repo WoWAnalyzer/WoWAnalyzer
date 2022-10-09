@@ -131,6 +131,21 @@ const spells = spellIndexableList({
     name: 'Thunder Focus Tea',
     icon: 'ability_monk_thunderfocustea',
   },
+  ATOTM_BUFF: {
+    id: 388026,
+    name: 'Ancient Teachings of the Monestary',
+    icon: 'inv_misc_book_07',
+  },
+  ATOTM_HEAL: {
+    id: 388024,
+    name: 'Ancient Teachings of the Monestary',
+    icon: 'inv_jewelcrafting_jadeserpent',
+  },
+  ATOTM_CRIT_HEAL: {
+    id: 388025,
+    name: 'Ancient Teachings of the Monestary',
+    icon: 'inv_jewelcrafting_jadeserpent',
+  },
   VIVIFY: {
     id: 116670,
     name: 'Vivify',
