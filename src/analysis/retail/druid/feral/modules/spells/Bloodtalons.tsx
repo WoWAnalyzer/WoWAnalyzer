@@ -22,7 +22,7 @@ const DEBUG = true;
  * Spec Talent Tier 9
  *
  * When you use 3 different combo point-generating abilities within 4 sec,
- * the damage of your next 2 Rips or Ferocious Bites is increased by 30%.
+ * the damage of your next 2 Rips or Ferocious Bites is increased by 25%.
  * --------------------------------
  * This module specifically tracks Ferocious Bite's benefit from Bloodtalons.
  * Rip benefits are handled in RipUptimeAndSnapshots.

@@ -61,13 +61,15 @@ export const CONVOKE_DAMAGE_SPELLS = [
   SPELLS.MANGLE_BEAR,
   TALENTS.PULVERIZE_TALENT,
 ];
-/** Convokable spells that do direct damage (and possible also a DoT portion) - for damage tallying */
+/** Convokable spells that do direct damage (and possibly also a DoT portion) - for damage tallying */
 export const CONVOKE_DIRECT_DAMAGE_SPELLS = [
   ...CONVOKE_DAMAGE_SPELLS,
   SPELLS.RAKE,
   SPELLS.THRASH_BEAR,
   SPELLS.MOONFIRE_DEBUFF,
   SPELLS.MOONFIRE_FERAL,
+  // shouldn't be shown as a hit because not its own spell, but should still be damage tallied
+  SPELLS.RAMPANT_FEROCITY,
 ];
 /** Convokable spells that have travel time */
 export const SPELLS_WITH_TRAVEL_TIME = [
