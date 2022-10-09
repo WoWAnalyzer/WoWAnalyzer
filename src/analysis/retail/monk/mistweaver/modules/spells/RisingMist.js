@@ -34,7 +34,9 @@ class RisingMist extends Analyzer {
     const array = this.hotTracker.hotHistory;
     let value = 0;
     for (let i = 0; i < array.length; i += 1) {
-      value += array[i].healingAfterOriginalEnd || 0;
+      if (array[i].attributions.length > 0) {
+        value += array[i].healingAfterOriginalEnd || 0;
+      }
     }
     return value;
   }
