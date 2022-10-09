@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -22,7 +22,7 @@ class BonedustBrewAverageTargets extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.BONEDUST_BREW_TALENT);
 
     if (!this.active) {
       return;

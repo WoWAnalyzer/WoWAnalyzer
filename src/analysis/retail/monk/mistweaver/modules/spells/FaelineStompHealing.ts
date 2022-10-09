@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
@@ -19,7 +19,7 @@ class FaelineStompHealing extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT);
 
     if (!this.active) {
       return;
