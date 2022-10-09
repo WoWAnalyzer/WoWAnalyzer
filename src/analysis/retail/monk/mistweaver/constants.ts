@@ -34,11 +34,8 @@ export const TEACHINGS_OF_THE_MONASTERY_DURATION = 20000;
 export const SPIRIT_OF_THE_CRANE_MANA_RETURN = 0.0065;
 export const LIFECYCLES_MANA_REDUCTION_PERCENT = 0.25;
 export const MANA_TEA_DURATION = 10000;
-
-// Rank 1 conduits
-export const NOURISHING_CHI_RANK_ONE = 0.1875;
-export const JADE_BOND_RANK_ONE = 0.0625;
-export const RISING_SUN_REVIVAL = 0.125;
+export const JADE_BOND_INC = 0.4;
+export const NOURISHING_CHI_INC = 0.2;
 
 export const LIFECYCLES_MANA_PERC_REDUCTION = 0.25;
 
