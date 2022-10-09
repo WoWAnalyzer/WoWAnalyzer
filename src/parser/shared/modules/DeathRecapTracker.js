@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import SPELLS from 'common/SPELLS';
 import { TALENTS_PALADIN } from 'common/TALENTS';
 import { Panel } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -13,7 +12,6 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import DeathRecap from './DeathRecap';
 import DEFENSIVE_BUFFS from './DEFENSIVE_BUFFS';
-import { TALENTS_PALADIN } from 'common/TALENTS';
 
 class DeathRecapTracker extends Analyzer {
   deaths = [];
