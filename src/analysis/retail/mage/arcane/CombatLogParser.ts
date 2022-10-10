@@ -4,11 +4,9 @@ import {
   DivertedEnergy,
   ElementalBarrier,
   GroundingSurge,
-  IreOfTheAscended,
   MirrorImage,
   RuneOfPower,
   ShiftingPower,
-  SiphonedMalice,
   TempestBarrier,
 } from 'analysis/retail/mage/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
@@ -26,8 +24,8 @@ import ArcanePowerPreReqs from './modules/features/ArcanePowerPreReqs';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import RadiantSpark from './modules/features/RadiantSpark';
-import ArcaneBombardment from './modules/items/ArcaneBombardment';
-import ArcaneHarmony from './modules/items/ArcaneHarmony';
+import ArcaneBombardment from './modules/talents/ArcaneBombardment';
+import ArcaneHarmony from './modules/talents/ArcaneHarmony';
 import ArcaneProdigy from './modules/items/ArcaneProdigy';
 import ArtificeOfTheArchmage from './modules/items/ArtificeOfTheArchmage';
 import Mana from './modules/ManaChart/Mana';
@@ -91,9 +89,7 @@ class CombatLogParser extends CoreCombatLogParser {
     artificeOfTheArchmage: ArtificeOfTheArchmage,
     divertedEnergy: DivertedEnergy,
     groundingSurge: GroundingSurge,
-    ireOfTheAscended: IreOfTheAscended,
     tempestBarrier: TempestBarrier,
-    siphonedMalice: SiphonedMalice,
   };
 }
 

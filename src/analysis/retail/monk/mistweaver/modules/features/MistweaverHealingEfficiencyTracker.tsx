@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import HealingEfficiencyTracker, {
   SpellInfoDetails,
 } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
@@ -9,14 +10,14 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
-import FaelineStompHealing from '../shadowlands/covenant/FaelineStompHealing';
+import FaelineStompHealing from '../spells/FaelineStompHealing';
 import EnvelopingMists from '../spells/EnvelopingMists';
 import EssenceFont from '../spells/EssenceFont';
 import ExpelHarm from '../spells/ExpelHarm';
 import RenewingMist from '../spells/RenewingMist';
 import SoothingMist from '../spells/SoothingMist';
 import Vivify from '../spells/Vivify';
-import RefreshingJadeWind from '../talents/RefreshingJadeWind';
+import RefreshingJadeWind from '../spells/RefreshingJadeWind';
 
 class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
@@ -66,13 +67,13 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       spellInfo = this.getRenewingMistDetails(spellInfo);
     } else if (spellId === SPELLS.VIVIFY.id) {
       spellInfo = this.getVivifyDetails(spellInfo);
-    } else if (spellId === SPELLS.REFRESHING_JADE_WIND_TALENT.id) {
+    } else if (spellId === TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id) {
       spellInfo = this.getRefreshingJadeWindDetails(spellInfo);
     } else if (spellId === SPELLS.RISING_SUN_KICK.id) {
       spellInfo = this.getRisingSunKickDetails(spellInfo);
     } else if (spellId === SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id) {
       spellInfo = this.getYulonDetails(spellInfo);
-    } else if (spellId === SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) {
+    } else if (spellId === TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) {
       spellInfo = this.getChijiDetails(spellInfo);
     } else if (spellId === SPELLS.EXPEL_HARM.id) {
       spellInfo = this.getExpelHarmDetails(spellInfo);

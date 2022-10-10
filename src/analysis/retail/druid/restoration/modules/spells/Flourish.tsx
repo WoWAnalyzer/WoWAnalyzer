@@ -24,7 +24,8 @@ import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core
 import ConvokeSpiritsResto from 'analysis/retail/druid/restoration/modules/spells/ConvokeSpiritsResto';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
-const FLOURISH_EXTENSION = 8000;
+const HARDCAST_FLOURISH_EXTENSION = 8000;
+const CONVOKE_FLOURISH_EXTENSION = 4000;
 const FLOURISH_HEALING_INCREASE = 1;
 
 // TODO double check advice for DF
@@ -34,6 +35,8 @@ const FLOURISH_HEALING_INCREASE = 1;
  *
  * Extends the duration of all of your heal over time effects on friendly targets within 60 yards by 8 sec,
  * and increases the rate of your heal over time effects by 100% for 8 sec.
+ *
+ * (Flourishes that proc from Convoke the Spirits are half duration)
  */
 class Flourish extends Analyzer {
   static dependencies = {
@@ -131,13 +134,16 @@ class Flourish extends Analyzer {
       });
     }
 
+    const extensionAmount =
+      extensionAttribution === this.convokeSpirits.currentConvokeAttribution
+        ? CONVOKE_FLOURISH_EXTENSION
+        : HARDCAST_FLOURISH_EXTENSION;
     let foundWg = false;
     Object.keys(this.hotTracker.hots).forEach((playerIdString) => {
       const playerId = Number(playerIdString);
       Object.keys(this.hotTracker.hots[playerId]).forEach((spellIdString) => {
         const spellId = Number(spellIdString);
-        this.hotTracker.addExtension(extensionAttribution, FLOURISH_EXTENSION, playerId, spellId);
-
+        this.hotTracker.addExtension(extensionAttribution, extensionAmount, playerId, spellId);
         if (spellId === SPELLS.WILD_GROWTH.id) {
           foundWg = true;
         }

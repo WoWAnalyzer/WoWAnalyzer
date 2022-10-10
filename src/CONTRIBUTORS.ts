@@ -1927,7 +1927,7 @@ export const CamClark: Contributor = {
     },
   ],
 };
-    
+
 export const Listefano: Contributor = {
   nickname: 'Listefano',
   github: 'listefano',
@@ -1937,6 +1937,19 @@ export const Listefano: Contributor = {
       name: 'Listefano',
       spec: SPECS.FURY_WARRIOR,
       link: 'https://worldofwarcraft.com/en-us/character/eu/malfurion/Listefano',
+    },
+  ],
+};
+
+export const Litena: Contributor = {
+  nickname: 'Litena',
+  github: 'emilnormann',
+  discord: 'BooTheGhoster#9666',
+  mains: [
+    {
+      name: 'Listefano',
+      spec: SPECS.HOLY_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/eu/silvermoon/Litena',
     },
   ],
 };

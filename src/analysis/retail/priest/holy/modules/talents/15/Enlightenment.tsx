@@ -1,5 +1,5 @@
 import SpiritOfRedemption from 'analysis/retail/priest/holy/modules/spells/SpiritOfRedemption';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemManaGained from 'parser/ui/ItemManaGained';
@@ -19,7 +19,7 @@ class Enlightenment extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ENLIGHTENMENT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ENLIGHTENMENT_TALENT.id);
   }
 
   get enlightenmentMana() {
@@ -38,7 +38,7 @@ class Enlightenment extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(1)}
       >
-        <BoringSpellValueText spellId={SPELLS.ENLIGHTENMENT_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.ENLIGHTENMENT_TALENT.id}>
           <ItemManaGained amount={this.enlightenmentMana} />
         </BoringSpellValueText>
       </Statistic>

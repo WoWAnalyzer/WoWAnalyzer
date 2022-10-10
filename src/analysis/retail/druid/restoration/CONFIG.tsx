@@ -27,7 +27,7 @@ export default {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/9m8fD3qNLvnWXpwg/59-Heroic+Emberon+-+Kill+(1:22)/Kaelayze/standard', // TODO update this with a raid log once they become available
+  exampleReport: '/report/CpDZB9q7tvFdXPMj/14-Heroic+Terros+-+Kill+(4:21)/69-Taurawolo/standard',
   guideDefault: true,
 
   // Don't change anything below this line;

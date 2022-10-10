@@ -1,5 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -58,10 +59,10 @@ class FillerFlashOfLight extends Analyzer {
       return false;
     }
 
-    const hasHolyShockAvailable = this.spellUsable.isAvailable(SPELLS.HOLY_SHOCK_CAST.id);
+    const hasHolyShockAvailable = this.spellUsable.isAvailable(TALENTS.HOLY_SHOCK_TALENT.id);
     if (!hasHolyShockAvailable) {
       // We can't cast it, but check how long until it comes off cooldown. We should wait instead of casting a filler if it becomes available really soon.
-      const cooldownRemaining = this.spellUsable.cooldownRemaining(SPELLS.HOLY_SHOCK_CAST.id);
+      const cooldownRemaining = this.spellUsable.cooldownRemaining(TALENTS.HOLY_SHOCK_TALENT.id);
       if (cooldownRemaining > HOLY_SHOCK_COOLDOWN_WAIT_TIME) {
         return false;
       }
@@ -107,7 +108,7 @@ class FillerFlashOfLight extends Analyzer {
         <Trans id="paladin.holy.modules.fillerFlashOfLight.suggestion">
           You started casting {this.inefficientCasts.length} filler{' '}
           <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />s while{' '}
-          <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was{' '}
+          <SpellLink id={TALENTS.HOLY_SHOCK_TALENT.id} /> was{' '}
           <TooltipElement
             content={t({
               id: 'paladin.holy.modules.fillerFlashOfLight.suggestion.tooltip',
@@ -120,8 +121,8 @@ class FillerFlashOfLight extends Analyzer {
           {this.inefficientCasts
             .map((event) => this.owner.formatTimestamp(event.timestamp))
             .join(', ')}
-          ). <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> is a much more efficient spell and should
-          be prioritized
+          ). <SpellLink id={TALENTS.HOLY_SHOCK_TALENT.id} /> is a much more efficient spell and
+          should be prioritized
           <TooltipElement
             content={t({
               id: 'paladin.holy.modules.fillerFlashOfLight.suggestion.exceptions',

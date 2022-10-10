@@ -53,6 +53,7 @@ import Verdancy from 'analysis/retail/druid/restoration/modules/spells/Verdancy'
 import Regenesis from 'analysis/retail/druid/restoration/modules/spells/Regenesis';
 import NurturingDormancy from 'analysis/retail/druid/restoration/modules/spells/Nurturing Dormancy';
 import NaturesVigil from 'analysis/retail/druid/restoration/modules/spells/NaturesVigil';
+import RampantGrowth from 'analysis/retail/druid/restoration/modules/spells/RampantGrowth';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -112,6 +113,7 @@ class CombatLogParser extends CoreCombatLogParser {
     regenesis: Regenesis,
     nurturingDormancy: NurturingDormancy,
     naturesVigil: NaturesVigil,
+    rampantGrowth: RampantGrowth,
 
     // Mana Tab
     manaTracker: ManaTracker,

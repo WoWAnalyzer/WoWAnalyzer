@@ -455,7 +455,13 @@ abstract class HotTracker extends Analyzer {
     });
     // tally boost attributions
     hot.boosts.forEach((boost: Boost) => {
-      boost.attribution.healing += calculateEffectiveHealing(event, boost.increase);
+      const boostAtt = boost.attribution;
+      if (hot.attributions.includes(boostAtt)) {
+        // Some effects (like Rampant Growth) can apply both full attributions and boosts
+        // We want to avoid double counting if they overlap
+        return;
+      }
+      boostAtt.healing += calculateEffectiveHealing(event, boost.increase);
     });
     // tally extension attributions
     this._tallyExtensions(hot, event);

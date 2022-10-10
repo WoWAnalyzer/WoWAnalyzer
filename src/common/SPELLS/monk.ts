@@ -82,6 +82,11 @@ const spells = spellIndexableList({
   },
 
   // Mistweaver Monk Spells
+  CLOUDED_FOCUS_BUFF: {
+    id: 388048,
+    name: 'Clouded Focus',
+    icon: 'ability_monk_surgingmist',
+  },
   ENVELOPING_MIST: {
     id: 124682,
     name: 'Enveloping Mist',
@@ -121,16 +126,25 @@ const spells = spellIndexableList({
     name: 'Renewing Mist',
     icon: 'ability_monk_renewingmists',
   },
-  REVIVAL: {
-    id: 115310,
-    name: 'Revival',
-    icon: 'spell_monk_revival',
-    manaCost: 2187,
-  },
   THUNDER_FOCUS_TEA: {
     id: 116680,
     name: 'Thunder Focus Tea',
     icon: 'ability_monk_thunderfocustea',
+  },
+  ATOTM_BUFF: {
+    id: 388026,
+    name: 'Ancient Teachings of the Monestary',
+    icon: 'inv_misc_book_07',
+  },
+  ATOTM_HEAL: {
+    id: 388024,
+    name: 'Ancient Teachings of the Monestary',
+    icon: 'inv_jewelcrafting_jadeserpent',
+  },
+  ATOTM_CRIT_HEAL: {
+    id: 388025,
+    name: 'Ancient Teachings of the Monestary',
+    icon: 'inv_jewelcrafting_jadeserpent',
   },
   VIVIFY: {
     id: 116670,
@@ -254,6 +268,11 @@ const spells = spellIndexableList({
     id: 274912,
     name: 'Rising Mist',
     icon: 'ability_monk_effuse',
+  },
+  UPLIFTED_SPIRITS_HEAL: {
+    id: 388555,
+    name: 'Uplifted Spirits',
+    icon: 'monk_stance_wiseserpent',
   },
   WHIRLING_DRAGON_PUNCH_TALENT_TICK: {
     id: 158221,

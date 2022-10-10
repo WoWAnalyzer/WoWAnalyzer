@@ -8,17 +8,17 @@ import RestoDruid from 'analysis/retail/druid/restoration';
 // import BeastMasteryHunter from 'analysis/retail/hunter/beastmastery';
 // import MarksmanshipHunter from 'analysis/retail/hunter/marksmanship';
 // import SurvivalHunter from 'analysis/retail/hunter/survival';
-// import ArcaneMage from 'analysis/retail/mage/arcane';
-// import FireMage from 'analysis/retail/mage/fire';
+import ArcaneMage from 'analysis/retail/mage/arcane';
+import FireMage from 'analysis/retail/mage/fire';
 import FrostMage from 'analysis/retail/mage/frost';
 import BrewmasterMonk from 'analysis/retail/monk/brewmaster';
-// import MistweaverMonk from 'analysis/retail/monk/mistweaver';
+import MistweaverMonk from 'analysis/retail/monk/mistweaver';
 // import WindwalkerMonk from 'analysis/retail/monk/windwalker';
 import HolyPaladin from 'analysis/retail/paladin/holy';
 // import ProtectionPaladin from 'analysis/retail/paladin/protection';
 // import RetributionPaladin from 'analysis/retail/paladin/retribution';
 import DisciplinePriest from 'analysis/retail/priest/discipline';
-// import HolyPriest from 'analysis/retail/priest/holy';
+import HolyPriest from 'analysis/retail/priest/holy';
 // import ShadowPriest from 'analysis/retail/priest/shadow';
 // import AssassinationRogue from 'analysis/retail/rogue/assassination';
 // import OutlawRogue from 'analysis/retail/rogue/outlaw';
@@ -69,19 +69,19 @@ const configs: Config[] = [
   // SurvivalHunter,
 
   FrostMage,
-  // FireMage,
-  // ArcaneMage,
+  FireMage,
+  ArcaneMage,
 
   BrewmasterMonk,
   // WindwalkerMonk,
-  // MistweaverMonk,
+  MistweaverMonk,
 
   HolyPaladin,
   // RetributionPaladin,
   // ProtectionPaladin,
 
   DisciplinePriest,
-  // HolyPriest,
+  HolyPriest,
   // ShadowPriest,
 
   // SubtletyRogue,

@@ -1,5 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import { Panel } from 'interface';
 import CooldownIcon from 'interface/icons/Cooldown';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
@@ -76,7 +77,7 @@ class CooldownThroughputTracker extends Analyzer {
       ],
     },
     {
-      spell: SPELLS.POWER_INFUSION.id,
+      spell: TALENTS_PRIEST.POWER_INFUSION_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE, BUILT_IN_SUMMARY_TYPES.HEALING],
     },
   ];

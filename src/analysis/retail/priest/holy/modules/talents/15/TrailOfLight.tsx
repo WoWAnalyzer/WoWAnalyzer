@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -15,9 +16,9 @@ class TrailOfLight extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.TRAIL_OF_LIGHT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.TRAIL_OF_LIGHT_TALENT.id);
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.TRAIL_OF_LIGHT_HEAL),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.TRAIL_OF_LIGHT_TALENT_HEAL),
       this.onHeal,
     );
   }
@@ -36,7 +37,7 @@ class TrailOfLight extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(1)}
       >
-        <BoringSpellValueText spellId={SPELLS.TRAIL_OF_LIGHT_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.TRAIL_OF_LIGHT_TALENT.id}>
           <ItemHealingDone amount={this.totalToLHealing} />
         </BoringSpellValueText>
       </Statistic>

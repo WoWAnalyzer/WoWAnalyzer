@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -17,7 +18,7 @@ class DivineStar extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DIVINE_STAR_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DIVINE_STAR_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DIVINE_STAR_HEAL, SPELLS.DIVINE_STAR_DAMAGE]),
       this.onDamage,
@@ -27,7 +28,7 @@ class DivineStar extends Analyzer {
       this.onHeal,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_STAR_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.DIVINE_STAR_TALENT),
       this.onCast,
     );
   }
@@ -54,7 +55,7 @@ class DivineStar extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(6)}
       >
-        <BoringSpellValueText spellId={SPELLS.DIVINE_STAR_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.DIVINE_STAR_TALENT.id}>
           <>
             <ItemHealingDone amount={this.divineStarHealing} />
             <br />

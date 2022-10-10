@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import DonutChart from 'parser/ui/DonutChart';
@@ -29,8 +30,8 @@ class CastBehavior extends Analyzer {
     const getAbility = (spellId: number) => abilityTracker.getAbility(spellId);
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
-    const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);
-    const holyShockCast = getAbility(SPELLS.HOLY_SHOCK_CAST.id);
+    const holyLight = getAbility(TALENTS.HOLY_LIGHT_TALENT.id);
+    const holyShockCast = getAbility(TALENTS.HOLY_SHOCK_TALENT.id);
     const holyShockHeal = getAbility(SPELLS.HOLY_SHOCK_HEAL.id);
     const holyShockDamage = getAbility(SPELLS.HOLY_SHOCK_DAMAGE.id);
 
@@ -54,8 +55,8 @@ class CastBehavior extends Analyzer {
       },
       {
         color: '#F57C00',
-        label: SPELLS.HOLY_LIGHT.name,
-        spellId: SPELLS.HOLY_LIGHT.id,
+        label: TALENTS.HOLY_LIGHT_TALENT.name,
+        spellId: TALENTS.HOLY_LIGHT_TALENT.id,
         value: iolHolyLights,
       },
       {
@@ -81,7 +82,7 @@ class CastBehavior extends Analyzer {
     const getAbility = (spellId: number) => abilityTracker.getAbility(spellId);
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
-    const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);
+    const holyLight = getAbility(TALENTS.HOLY_LIGHT_TALENT.id);
     const lightOfTheMartyr = getAbility(SPELLS.LIGHT_OF_THE_MARTYR.id);
 
     const iolFlashOfLights = flashOfLight.healingIolHits || 0;
@@ -106,8 +107,8 @@ class CastBehavior extends Analyzer {
         },
         {
           color: '#F57C00',
-          label: SPELLS.HOLY_LIGHT.name,
-          spellId: SPELLS.HOLY_LIGHT.id,
+          label: TALENTS.HOLY_LIGHT_TALENT.name,
+          spellId: TALENTS.HOLY_LIGHT_TALENT.id,
           value: fillerHolyLights,
         },
         {

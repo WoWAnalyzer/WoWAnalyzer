@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import { Options } from 'parser/core/Analyzer';
 
 import HolyWordBase from './HolyWordBase';
@@ -10,7 +11,7 @@ class HolyWordSanctify extends HolyWordBase {
   constructor(options: Options) {
     super(options);
 
-    this.spellId = SPELLS.HOLY_WORD_CHASTISE.id;
+    this.spellId = TALENTS.HOLY_WORD_CHASTISE_TALENT.id;
     this.manaCost = 2000;
     this.serendipityReduction = 4000;
     this.serendipityProccers = {
