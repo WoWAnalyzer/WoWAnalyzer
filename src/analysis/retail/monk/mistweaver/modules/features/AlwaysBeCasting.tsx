@@ -3,11 +3,16 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { CastEvent, DeathEvent } from 'parser/core/Events';
+import Events, { CastEvent, DeathEvent, GlobalCooldownEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
+import SoothingMist from '../spells/SoothingMist';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
+  static dependencies = {
+    ...CoreAlwaysBeCastingHealing.dependencies,
+    soothingMist: SoothingMist,
+  };
   HEALING_ABILITIES_ON_GCD: number[] = [
     SPELLS.ENVELOPING_MIST.id,
     SPELLS.ESSENCE_FONT.id,
@@ -28,7 +33,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.FAELINE_STOMP_CAST.id,
     SPELLS.FALLEN_ORDER_CAST.id,
   ];
-
+  protected soothingMist!: SoothingMist;
   constructor(options: Options) {
     super(options);
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
@@ -48,6 +53,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK_SECOND.id);
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.BLACKOUT_KICK.id);
     }
+    //this.addEventListener(Events.GlobalCooldown, this.onGCD);
   }
 
   handleChijiStart(event: CastEvent) {
@@ -70,6 +76,16 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     delete this.HEALING_ABILITIES_ON_GCD[rskSpot];
     delete this.HEALING_ABILITIES_ON_GCD[rskTwoSpot];
     delete this.HEALING_ABILITIES_ON_GCD[bokSpot];
+  }
+
+  //Override onGCD because we do not want to double count vivify/envm GCDs during soothing mist
+  onGCD(event: GlobalCooldownEvent): boolean {
+    const castable = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id, SPELLS.VIVIFY.id];
+    if (castable.includes(event.ability.guid) && this.soothingMist.soomInProgress) {
+      this.activeTime -= event.duration; //
+      return true;
+    }
+    return super.onGCD(event);
   }
 
   get nonHealingTimeSuggestionThresholds() {
