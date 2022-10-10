@@ -6,7 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
-  change(date(2022, 10, 9), <>Fixed uptime calculation for MW</>, Trevor),
+  change(date(2022, 10, 9), <>Added Secret Infusion haste buff and fixed Uplifted Spirits</>, Trevor),
   change(date(2022, 10, 8), <>Added support for existing MW talents</>, Trevor),
   change(date(2022, 9, 4), <>Updated guide link in checklist.</>, emallson),
   change(date(2022, 7, 6), <>Created a set color scheme for each spell. A spell's color should remain the same across all infographs.</>, Abelito75),
