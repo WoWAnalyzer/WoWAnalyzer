@@ -83,7 +83,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     if (castable.includes(event.ability.guid) && this.soothingMist.soomInProgress) {
       // only want to count using SOOM duration and this is counted in super function, so undo the double counting
       this.activeTime -= event.duration;
-      return true;
     }
     return super.onGCD(event);
   }
