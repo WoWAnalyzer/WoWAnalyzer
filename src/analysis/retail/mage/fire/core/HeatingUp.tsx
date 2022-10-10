@@ -6,6 +6,7 @@ import {
 } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink, SpellIcon } from 'interface';
 import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
 import Analyzer from 'parser/core/Analyzer';
@@ -27,9 +28,9 @@ class HeatingUp extends Analyzer {
   protected cooldownHistory!: CooldownHistory;
   protected eventHistory!: EventHistory;
 
-  hasFirestarter: boolean = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
-  hasSearingTouch: boolean = this.selectedCombatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id);
-  hasFlameOn: boolean = this.selectedCombatant.hasTalent(SPELLS.FLAME_ON_TALENT.id);
+  hasFirestarter: boolean = this.selectedCombatant.hasTalent(TALENTS.FIRESTARTER_TALENT.id);
+  hasSearingTouch: boolean = this.selectedCombatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT.id);
+  hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT.id);
 
   phoenixFlamesDuringHotStreak = () =>
     this.eventHistory.getEventsWithBuff(SPELLS.HOT_STREAK, EventType.Cast, SPELLS.PHOENIX_FLAMES)

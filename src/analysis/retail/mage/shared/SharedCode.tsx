@@ -38,14 +38,16 @@ class SharedCode extends Analyzer {
    * @param preCastSpell an optional spell that you want to look for. Leave undefined to get the precast spell regardless of what spell it is.
    * @returns the event for the precast spell, or undefined if none was found.
    */
-  getPreCast(event: AnyEvent, preCastSpell?: SpellInfo | SpellInfo[]) {
-    return this.eventHistory.getEvents(EventType.Cast, {
-      searchBackwards: true,
-      spell: preCastSpell,
-      count: 1,
-      startTimestamp: event.timestamp + 1,
-      duration: 250,
-    })[0];
+  getPreCast(event: AnyEvent, preCastSpell?: SpellInfo | SpellInfo[]): CastEvent | undefined {
+    return this.eventHistory
+      .getEvents(EventType.Cast, {
+        searchBackwards: true,
+        spell: preCastSpell,
+        count: 1,
+        startTimestamp: event.timestamp + 1,
+        duration: 250,
+      })
+      .at(0);
   }
 
   /**

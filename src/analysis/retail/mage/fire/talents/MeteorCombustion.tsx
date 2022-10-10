@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
@@ -28,7 +29,7 @@ class MeteorCombustion extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.METEOR_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.METEOR_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -77,7 +78,7 @@ class MeteorCombustion extends Analyzer {
   }
 
   get totalMeteorCasts() {
-    return this.abilityTracker.getAbility(SPELLS.METEOR_TALENT.id).casts;
+    return this.abilityTracker.getAbility(TALENTS.METEOR_TALENT.id).casts;
   }
 
   get totalCombustionCasts() {
@@ -117,14 +118,14 @@ class MeteorCombustion extends Analyzer {
     when(this.meteorCombustionSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You failed to cast <SpellLink id={SPELLS.METEOR_TALENT.id} /> during{' '}
+          You failed to cast <SpellLink id={TALENTS.METEOR_TALENT.id} /> during{' '}
           <SpellLink id={SPELLS.COMBUSTION.id} /> {this.combustionWithoutMeteor} times. In order to
           make the most of Combustion and <SpellLink id={SPELLS.IGNITE.id} />, you should always
           cast Meteor during Combustion. If Meteor will not come off cooldown before Combustion is
           available, then you should hold Meteor for Combustion.
         </>,
       )
-        .icon(SPELLS.METEOR_TALENT.icon)
+        .icon(TALENTS.METEOR_TALENT.icon)
         .actual(
           <Trans id="mage.fire.suggestions.meteor.combustion.utilization">
             {formatPercentage(this.combustionUtilization)}% Utilization

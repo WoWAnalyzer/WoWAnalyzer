@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro';
 import { SEARING_TOUCH_THRESHOLD, COMBUSTION_END_BUFFER } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
@@ -31,7 +32,7 @@ class SearingTouch extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT.id);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.FIREBALL, SPELLS.SCORCH]),
       this.onCast,
@@ -127,12 +128,12 @@ class SearingTouch extends Analyzer {
           You cast <SpellLink id={SPELLS.FIREBALL.id} /> instead of{' '}
           <SpellLink id={SPELLS.SCORCH.id} /> while the target was under 30% health{' '}
           {this.fireballExecuteCasts} times. When using{' '}
-          <SpellLink id={SPELLS.SEARING_TOUCH_TALENT.id} /> always use Scorch instead of Fireball
+          <SpellLink id={TALENTS.SEARING_TOUCH_TALENT.id} /> always use Scorch instead of Fireball
           when the target is under 30% health since Scorch does 150% damage and is guaranteed to
           crit.
         </>,
       )
-        .icon(SPELLS.SEARING_TOUCH_TALENT.icon)
+        .icon(TALENTS.SEARING_TOUCH_TALENT.icon)
         .actual(
           <Trans id="mage.fire.suggestions.searingTouch.executeCasts">
             {formatPercentage(this.executeUtil)}% Utilization
@@ -146,11 +147,11 @@ class SearingTouch extends Analyzer {
           You cast <SpellLink id={SPELLS.SCORCH.id} /> while the target was over 30% health{' '}
           {this.nonExecuteScorchCasts} times. While this is acceptable when you need to move, you
           should aim to minimize this by limiting your movement and using spells like{' '}
-          <SpellLink id={SPELLS.BLINK.id} /> (or <SpellLink id={SPELLS.SHIMMER_TALENT.id} />) when
+          <SpellLink id={SPELLS.BLINK.id} /> (or <SpellLink id={TALENTS.SHIMMER_TALENT.id} />) when
           possible or by using your instant abilities and procs.
         </>,
       )
-        .icon(SPELLS.SEARING_TOUCH_TALENT.icon)
+        .icon(TALENTS.SEARING_TOUCH_TALENT.icon)
         .actual(
           <Trans id="mage.fire.suggestions.searingTouch.nonExecuteScorchCasts">
             {formatPercentage(this.nonExecuteUtil)}% Utilization
@@ -173,7 +174,7 @@ class SearingTouch extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SEARING_TOUCH_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.SEARING_TOUCH_TALENT.id}>
           <>
             {formatPercentage(this.executeUtil, 0)}% <small>Execute Utilization</small>
           </>

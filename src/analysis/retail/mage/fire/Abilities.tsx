@@ -3,6 +3,7 @@ import {
   FLOW_OF_TIME_REDUCTION_SEC,
 } from 'analysis/retail/mage/shared';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -73,7 +74,7 @@ class Abilities extends CoreAbilities {
             ? 12 / 1.5 / (1 + haste)
             : 12 / (1 + haste),
         charges: 2,
-        enabled: !combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS.FLAME_ON_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -88,20 +89,20 @@ class Abilities extends CoreAbilities {
             ? 10 / 1.5 / (1 + haste)
             : 10 / (1 + haste),
         charges: 3,
-        enabled: combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.FLAME_ON_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
       },
       {
-        spell: SPELLS.METEOR_TALENT.id,
+        spell: TALENTS.METEOR_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
         cooldown: 45,
-        enabled: combatant.hasTalent(SPELLS.METEOR_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.METEOR_TALENT.id),
         castEfficiency: {
           suggestion: false,
         },
@@ -123,22 +124,22 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.LIVING_BOMB_TALENT.id,
+        spell: TALENTS.LIVING_BOMB_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
         cooldown: (haste: any) => 12 / (1 + haste),
-        enabled: combatant.hasTalent(SPELLS.LIVING_BOMB_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.LIVING_BOMB_TALENT.id),
       },
       {
-        spell: SPELLS.BLAST_WAVE_TALENT.id,
+        spell: TALENTS.BLAST_WAVE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
         cooldown: 25,
-        enabled: combatant.hasTalent(SPELLS.BLAST_WAVE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.BLAST_WAVE_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -165,14 +166,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.RUNE_OF_POWER_TALENT.id,
+        spell: TALENTS.RUNE_OF_POWER_TALENT.id,
         buffSpellId: SPELLS.RUNE_OF_POWER_BUFF.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
         },
         cooldown: 45,
-        enabled: combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -279,7 +280,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 30,
-        charges: combatant.hasTalent(SPELLS.ICE_WARD_TALENT.id) ? 2 : 1,
+        charges: combatant.hasTalent(TALENTS.ICE_WARD_TALENT.id) ? 2 : 1,
       },
       {
         spell: SPELLS.BLINK.id,
@@ -287,20 +288,20 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS.SHIMMER_TALENT.id),
         cooldown: combatant.hasConduitBySpellID(SPELLS.FLOW_OF_TIME.id)
           ? 15 - FLOW_OF_TIME_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FLOW_OF_TIME.id)]
           : 15,
       },
       {
-        spell: SPELLS.SHIMMER_TALENT.id,
+        spell: TALENTS.SHIMMER_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
         cooldown: combatant.hasConduitBySpellID(SPELLS.FLOW_OF_TIME.id)
           ? 25 - FLOW_OF_TIME_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FLOW_OF_TIME.id)]
           : 25,
         charges: 2,
-        enabled: combatant.hasTalent(SPELLS.SHIMMER_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SHIMMER_TALENT.id),
       },
       {
         spell: SPELLS.COUNTERSPELL.id,
@@ -326,13 +327,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SPELLSTEAL.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.FOCUS_MAGIC_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,

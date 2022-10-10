@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro';
 import { MS_BUFFER_250, PHOENIX_FLAMES_MAX_CHARGES } from 'analysis/retail/mage/shared';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, {
@@ -40,7 +41,7 @@ class Pyroclasm extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.PYROCLASM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.PYROCLASM_TALENT.id);
     this.addEventListener(
       Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF),
       this.onPyroclasmApplied,
@@ -91,7 +92,9 @@ class Pyroclasm extends Analyzer {
     }
 
     const currentFireBlastCharges = this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id);
-    const maxFireBlastCharges = this.selectedCombatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 3 : 2;
+    const maxFireBlastCharges = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT.id)
+      ? 3
+      : 2;
     const currentPhoenixFlamesCharges = this.spellUsable.chargesAvailable(SPELLS.PHOENIX_FLAMES.id);
     if (
       currentFireBlastCharges === maxFireBlastCharges ||
@@ -190,13 +193,13 @@ class Pyroclasm extends Analyzer {
       suggest(
         <>
           You wasted {formatNumber(this.wastedProcs)} of your{' '}
-          <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> procs. These procs make your hard cast (non
+          <SpellLink id={TALENTS.PYROCLASM_TALENT.id} /> procs. These procs make your hard cast (non
           instant) <SpellLink id={SPELLS.PYROBLAST.id} /> casts deal {DAMAGE_MODIFIER}% extra
           damage, so try and use them as quickly as possible so they do not expire or get
           overwritten.
         </>,
       )
-        .icon(SPELLS.PYROCLASM_TALENT.icon)
+        .icon(TALENTS.PYROCLASM_TALENT.icon)
         .actual(
           <Trans id="mage.fire.suggestions.pyroclasm.wastedProcs">
             {formatPercentage(this.procUtilization)}% utilization
@@ -207,19 +210,19 @@ class Pyroclasm extends Analyzer {
     when(this.pyroclasmCombustionUsage).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You used your <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> proc during{' '}
+          You used your <SpellLink id={TALENTS.PYROCLASM_TALENT.id} /> proc during{' '}
           <SpellLink id={SPELLS.COMBUSTION.id} /> {this.badPyroclasmDuringCombustion} times while
           you were capped or close to capping on <SpellLink id={SPELLS.FIRE_BLAST.id} /> or{' '}
           <SpellLink id={SPELLS.PHOENIX_FLAMES.id} />. While you do want to use your{' '}
-          <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> procs during{' '}
+          <SpellLink id={TALENTS.PYROCLASM_TALENT.id} /> procs during{' '}
           <SpellLink id={SPELLS.COMBUSTION.id} /> if they are available, you should use some of your{' '}
           <SpellLink id={SPELLS.FIRE_BLAST.id} /> and <SpellLink id={SPELLS.PHOENIX_FLAMES.id} />{' '}
           charges first to ensure you are not capping them and therefore wasting them. The only
-          exception to this is if your <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> proc will
+          exception to this is if your <SpellLink id={TALENTS.PYROCLASM_TALENT.id} /> proc will
           expire before you can use your other charges.
         </>,
       )
-        .icon(SPELLS.PYROCLASM_TALENT.icon)
+        .icon(TALENTS.PYROCLASM_TALENT.icon)
         .actual(
           <Trans id="mage.fire.suggestions.pyroclasm.pyroclasmCombustionUsage">
             {formatNumber(actual)} bad uses
@@ -248,7 +251,7 @@ class Pyroclasm extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.PYROCLASM_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.PYROCLASM_TALENT.id}>
           <>
             {formatPercentage(this.procUtilization, 0)}% <small>Proc Utilization</small>
           </>
