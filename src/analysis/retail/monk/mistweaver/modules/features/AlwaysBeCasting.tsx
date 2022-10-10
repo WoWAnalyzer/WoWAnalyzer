@@ -28,7 +28,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.FAELINE_STOMP_CAST.id,
     SPELLS.FALLEN_ORDER_CAST.id,
   ];
-  protected soothingMist!: SoothingMist;
   constructor(options: Options) {
     super(options);
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
