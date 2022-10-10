@@ -12,7 +12,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Abilities from '../../core/modules/Abilities';
 import GlobalCooldown from './GlobalCooldown';
 
-const DEBUG = true;
+const DEBUG = false;
 
 class AlwaysBeCasting extends Analyzer {
   static dependencies = {

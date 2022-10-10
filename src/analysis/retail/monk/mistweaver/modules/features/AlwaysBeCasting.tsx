@@ -3,7 +3,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { CastEvent, DeathEvent, EndChannelEvent } from 'parser/core/Events';
+import Events, { CastEvent, DeathEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 import SoothingMist from '../spells/SoothingMist';
@@ -75,20 +75,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     delete this.HEALING_ABILITIES_ON_GCD[rskSpot];
     delete this.HEALING_ABILITIES_ON_GCD[rskTwoSpot];
     delete this.HEALING_ABILITIES_ON_GCD[bokSpot];
-  }
-
-  //Override onGCD because we do not want to double count vivify/envm GCDs during soothing mist
-  onEndChannel(event: EndChannelEvent): boolean {
-    const castable = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id, SPELLS.VIVIFY.id];
-    if (!super.onEndChannel(event)) {
-      return false;
-    }
-    if (castable.includes(event.ability.guid) && this.soothingMist.soomInProgress) {
-      // only want to count using SOOM duration and this is counted in super function, so undo the double counting
-      this.healingTime -= this._lastGlobalCooldownDuration;
-      this.activeTime -= this._lastGlobalCooldownDuration;
-    }
-    return true;
   }
 
   get nonHealingTimeSuggestionThresholds() {
