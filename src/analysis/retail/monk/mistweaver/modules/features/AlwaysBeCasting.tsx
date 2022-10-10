@@ -81,7 +81,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   onGCD(event: GlobalCooldownEvent): boolean {
     const castable = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id, SPELLS.VIVIFY.id];
     if (castable.includes(event.ability.guid) && this.soothingMist.soomInProgress) {
-      this.activeTime -= event.duration; //
+      // only want to count using SOOM duration and this is counted in super function, so undo the double counting
+      this.activeTime -= event.duration;
       return true;
     }
     return super.onGCD(event);
