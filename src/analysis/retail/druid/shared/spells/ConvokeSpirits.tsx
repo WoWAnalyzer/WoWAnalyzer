@@ -85,10 +85,15 @@ export const SPELL_IDS_WITH_AOE = [
   SPELLS.FULL_MOON.id,
   SPELLS.THRASH_BEAR_DOT.id,
   SPELLS.WILD_GROWTH.id,
+  // Rejuv and Regrowth don't normally AoE, but Rampant Growth and PotA procs can make them
+  // hit extra targets - adding them to this list is best way to control for that
+  SPELLS.REJUVENATION.id,
+  SPELLS.REJUVENATION_GERMINATION.id,
+  SPELLS.REGROWTH.id,
 ];
 
 const SPELLS_CAST = 16;
-const SPELLS_CAST_RESTO = 12; // TODO in DF might be 16 for resto too, double check later in beta
+const SPELLS_CAST_RESTO = 12;
 
 const AOE_BUFFER_MS = 100;
 const AFTER_CHANNEL_BUFFER_MS = 50;
@@ -135,8 +140,6 @@ class ConvokeSpirits extends Analyzer {
     super(options);
     this.active =
       this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_BALANCE_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT);
 
     this.spellsPerCast =

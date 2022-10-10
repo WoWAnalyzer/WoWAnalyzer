@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import { TALENTS_PALADIN } from 'common/TALENTS';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -183,7 +184,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.BLESSING_OF_SPELLWARDING_TALENT.id),
       },
       {
-        spell: SPELLS.BLESSING_OF_SACRIFICE.id,
+        spell: TALENTS_PALADIN.BLESSING_OF_SACRIFICE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 120,
       },

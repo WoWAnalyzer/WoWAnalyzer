@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -11,10 +11,10 @@ class BodyAndSoul extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BODY_AND_SOUL_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BODY_AND_SOUL_TALENT.id);
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BODY_AND_SOUL_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.BODY_AND_SOUL_TALENT),
       this.bodyAndSoulApplied,
     );
   }
@@ -30,7 +30,7 @@ class BodyAndSoul extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(2)}
       >
-        <BoringSpellValueText spellId={SPELLS.BODY_AND_SOUL_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.BODY_AND_SOUL_TALENT.id}>
           {this.buffCount} Speed Buffs
         </BoringSpellValueText>
       </Statistic>

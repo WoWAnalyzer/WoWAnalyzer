@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import SPECS from 'game/SPECS';
 import { Class, CombatantInfoEvent } from 'parser/core/Events';
 
@@ -36,7 +37,7 @@ const AVAILABLE_RAID_BUFFS = new Map<number, Array<Class | object>>([
   [TALENTS_MONK.REVIVAL_TALENT.id, [SPECS.MISTWEAVER_MONK]],
   [TALENTS_MONK.RESTORAL_TALENT.id, [SPECS.MISTWEAVER_MONK]],
   [SPELLS.POWER_WORD_BARRIER_CAST.id, [SPECS.DISCIPLINE_PRIEST]],
-  [SPELLS.DIVINE_HYMN_CAST.id, [SPECS.HOLY_PRIEST]],
+  [TALENTS_PRIEST.DIVINE_HYMN_TALENT.id, [SPECS.HOLY_PRIEST]],
   [SPELLS.TRANQUILITY_CAST.id, [SPECS.RESTORATION_DRUID]],
 ]);
 

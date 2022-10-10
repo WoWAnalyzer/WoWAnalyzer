@@ -907,9 +907,11 @@ const spells = spellIndexableList({
     name: 'Predatory Swiftness',
     icon: 'ability_hunter_pet_cat',
   },
-  JUNGLE_STALKER: {
+  // This buff indicates if the player is ABLE to assume Incarnation: Avatar of Ashamane form.
+  // Actually BEING in the form is indicated by the INCARNATION_AVATAR_OF_ASHAMANE_TALENT id.
+  INCARNATION_AOA_ALLOWED: {
     id: 252071,
-    name: 'Jungle Stalker',
+    name: 'Incarnation: Avatar of Ashamane',
     icon: 'ability_mount_siberiantigermount',
   },
   // effect that shows up in the combat log for energy generated from feral's Soul of the Forest talent.

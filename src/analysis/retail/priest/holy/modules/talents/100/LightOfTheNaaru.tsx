@@ -1,7 +1,7 @@
 import HolyWordChastise from 'analysis/retail/priest/holy/modules/spells/holyword/HolyWordChastise';
 import HolyWordSanctify from 'analysis/retail/priest/holy/modules/spells/holyword/HolyWordSanctify';
 import HolyWordSerenity from 'analysis/retail/priest/holy/modules/spells/holyword/HolyWordSerenity';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -21,7 +21,7 @@ class LightOfTheNaaru extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.LIGHT_OF_THE_NAARU_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.LIGHT_OF_THE_NAARU_TALENT.id);
   }
 
   statistic() {
@@ -40,7 +40,7 @@ class LightOfTheNaaru extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(7)}
       >
-        <BoringSpellValueText spellId={SPELLS.LIGHT_OF_THE_NAARU_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.LIGHT_OF_THE_NAARU_TALENT.id}>
           {Math.ceil(
             (this.sanctify.lightOfTheNaaruCooldownReduction +
               this.serenity.lightOfTheNaaruCooldownReduction +

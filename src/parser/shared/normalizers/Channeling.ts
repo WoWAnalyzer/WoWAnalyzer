@@ -15,6 +15,7 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 import InsertableEventsWrapper from 'parser/core/InsertableEventsWrapper';
 import { Options } from 'parser/core/Module';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 
 /**
  * Channels and casts are handled differently in events, and some information is also missing and must be inferred.
@@ -48,7 +49,7 @@ class Channeling extends EventsNormalizer {
     buffChannelSpec(SPELLS.SHIFTING_POWER.id),
     nextCastChannelSpec(SPELLS.ARCANE_MISSILES.id),
     // Priest
-    buffChannelSpec(SPELLS.DIVINE_HYMN_CAST.id),
+    buffChannelSpec(TALENTS_PRIEST.DIVINE_HYMN_TALENT.id),
     nextCastChannelSpec(SPELLS.PENANCE_CAST.id),
     buffChannelSpec(SPELLS.MIND_FLAY.id), // TODO double check ID
     buffChannelSpec(SPELLS.MIND_SEAR.id), // TODO double check ID

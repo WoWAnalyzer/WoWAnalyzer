@@ -7,6 +7,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TALENTS from 'common/TALENTS/priest';
 
 class HarmoniousApparatus extends Analyzer {
   static dependencies = {
@@ -21,7 +22,7 @@ class HarmoniousApparatus extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.HARMONIOUS_APPARATUS);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HARMONIOUS_APPARATUS_TALENT.id);
   }
 
   get reductionForAllSpells() {
@@ -70,8 +71,8 @@ class HarmoniousApparatus extends Analyzer {
 
   statistic() {
     const totalHealingSpellReduction =
-      this.reductionForSpell(SPELLS.CIRCLE_OF_HEALING_TALENT.id) +
-      this.reductionForSpell(SPELLS.PRAYER_OF_MENDING_CAST.id);
+      this.reductionForSpell(TALENTS.CIRCLE_OF_HEALING_TALENT.id) +
+      this.reductionForSpell(TALENTS.PRAYER_OF_MENDING_TALENT.id);
 
     return (
       <Statistic
@@ -80,11 +81,12 @@ class HarmoniousApparatus extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={
           <>
-            Serenity: {Math.ceil(this.reductionForSpell(SPELLS.CIRCLE_OF_HEALING_TALENT.id) / 1000)}
+            Serenity:{' '}
+            {Math.ceil(this.reductionForSpell(TALENTS.CIRCLE_OF_HEALING_TALENT.id) / 1000)}
             s CDR
             <br />
-            Sanctify: {Math.ceil(this.reductionForSpell(SPELLS.PRAYER_OF_MENDING_CAST.id) / 1000)}s
-            CDR
+            Sanctify:{' '}
+            {Math.ceil(this.reductionForSpell(TALENTS.PRAYER_OF_MENDING_TALENT.id) / 1000)}s CDR
             <br />
             Chastise : {Math.ceil(this.reductionForSpell(SPELLS.HOLY_FIRE.id) / 1000)}s CDR
             <br />

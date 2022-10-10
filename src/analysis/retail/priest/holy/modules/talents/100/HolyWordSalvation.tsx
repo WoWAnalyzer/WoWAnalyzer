@@ -1,7 +1,7 @@
 import PrayerOfMending from 'analysis/retail/priest/holy/modules/spells/PrayerOfMending';
 import Renew from 'analysis/retail/priest/holy/modules/spells/Renew';
 import { formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -25,9 +25,9 @@ class HolyWordSalvation extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.HOLY_WORD_SALVATION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HOLY_WORD_SALVATION_TALENT.id);
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HOLY_WORD_SALVATION_TALENT),
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.HOLY_WORD_SALVATION_TALENT),
       this.onHeal,
     );
   }
@@ -99,7 +99,7 @@ class HolyWordSalvation extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(7)}
       >
-        <BoringSpellValueText spellId={SPELLS.HOLY_WORD_SALVATION_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.HOLY_WORD_SALVATION_TALENT.id}>
           <ItemHealingDone amount={this.totalHealing} />
         </BoringSpellValueText>
       </Statistic>

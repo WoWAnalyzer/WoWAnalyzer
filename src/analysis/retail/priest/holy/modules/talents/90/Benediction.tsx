@@ -1,5 +1,5 @@
 import Renew from 'analysis/retail/priest/holy/modules/spells/Renew';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -16,7 +16,7 @@ class Benediction extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BENEDICTION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BENEDICTION_TALENT.id);
   }
 
   get renewsFromBenediction() {
@@ -36,7 +36,7 @@ class Benediction extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(6)}
       >
-        <BoringSpellValueText spellId={SPELLS.BENEDICTION_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.BENEDICTION_TALENT.id}>
           <ItemHealingDone amount={this.healingFromBenedictionRenews} />
         </BoringSpellValueText>
       </Statistic>

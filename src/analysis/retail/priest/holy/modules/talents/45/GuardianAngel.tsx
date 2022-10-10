@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -21,23 +21,23 @@ class GuardianAngel extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.GUARDIAN_ANGEL_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.GUARDIAN_ANGEL_TALENT.id);
 
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_SPIRIT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.GUARDIAN_SPIRIT_TALENT),
       this._parseGsRemove,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_SPIRIT),
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.GUARDIAN_SPIRIT_TALENT),
       this._parseGsHeal,
     );
   }
 
   get guardianSpiritCastCount() {
-    return this.abilityTracker.getAbility(SPELLS.GUARDIAN_SPIRIT.id).casts;
+    return this.abilityTracker.getAbility(TALENTS.GUARDIAN_SPIRIT_TALENT.id).casts;
   }
 
   get guardianSpiritRefreshCount() {
@@ -81,7 +81,7 @@ class GuardianAngel extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(3)}
       >
-        <BoringSpellValueText spellId={SPELLS.GUARDIAN_ANGEL_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.GUARDIAN_ANGEL_TALENT.id}>
           {this.guardianSpiritRefreshCount} Guardian Spirit resets
           <br />
           {this.guardianSpiritHealCount} Guardian Spirits consumed

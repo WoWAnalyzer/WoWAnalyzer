@@ -95,6 +95,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_MONK.REVIVAL_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
+        enabled: combatant.hasTalent(TALENTS_MONK.REVIVAL_TALENT),
         cooldown: 180,
         gcd: {
           base: 1500,
@@ -104,6 +105,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_MONK.RESTORAL_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
+        enabled: combatant.hasTalent(TALENTS_MONK.RESTORAL_TALENT),
         cooldown: 180,
         gcd: {
           base: 1500,

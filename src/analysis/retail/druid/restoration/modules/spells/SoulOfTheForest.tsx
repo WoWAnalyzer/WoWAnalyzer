@@ -38,7 +38,7 @@ const SOTF_SPELLS = [
 
 const REJUVENATION_HEALING_INCREASE = 2;
 const REGROWTH_HEALING_INCREASE = 2;
-const WILD_GROWTH_HEALING_INCREASE = 0.75;
+const WILD_GROWTH_HEALING_INCREASE = 0.6;
 
 const debug = false;
 
@@ -47,7 +47,7 @@ const debug = false;
  * Spec Talent Tier 6
  *
  * Swiftmend increases the healing of your next Regrowth or Rejuvenation by 200%,
- * or your next Wild Growth by 75%.
+ * or your next Wild Growth by 60%.
  */
 class SoulOfTheForest extends Analyzer {
   static dependencies = {

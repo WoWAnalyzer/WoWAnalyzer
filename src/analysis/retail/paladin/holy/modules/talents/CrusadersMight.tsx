@@ -39,10 +39,10 @@ class CrusadersMight extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    const holyShockisOnCooldown = this.spellUsable.isOnCooldown(SPELLS.HOLY_SHOCK_CAST.id);
+    const holyShockisOnCooldown = this.spellUsable.isOnCooldown(TALENTS.HOLY_SHOCK_TALENT.id);
     if (holyShockisOnCooldown) {
       const reductionMs = this.spellUsable.reduceCooldown(
-        SPELLS.HOLY_SHOCK_CAST.id,
+        TALENTS.HOLY_SHOCK_TALENT.id,
         COOLDOWN_REDUCTION_MS,
       );
       this.effectiveHolyShockReductionMs += reductionMs;
@@ -92,10 +92,10 @@ class CrusadersMight extends Analyzer {
           <Trans id="paladin.holy.modules.talents.crusadersMight.suggestion">
             You cast <SpellLink id={SPELLS.CRUSADER_STRIKE.id} />{' '}
             {this.wastedHolyShockReductionCount} times when
-            <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was off cooldown.{' '}
+            <SpellLink id={TALENTS.HOLY_SHOCK_TALENT.id} /> was off cooldown.{' '}
             <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> should be used to reduce the cooldown of
-            <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> and should never be cast when{' '}
-            <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> is avalible. This is a core component of
+            <SpellLink id={TALENTS.HOLY_SHOCK_TALENT.id} /> and should never be cast when{' '}
+            <SpellLink id={TALENTS.HOLY_SHOCK_TALENT.id} /> is avalible. This is a core component of
             the <SpellLink id={TALENTS.GLIMMER_OF_LIGHT_TALENT.id} />{' '}
             <a
               href="https://questionablyepic.com/glimmer-of-light/"
@@ -107,7 +107,7 @@ class CrusadersMight extends Analyzer {
           </Trans>
         </>,
       )
-        .icon(SPELLS.HOLY_SHOCK_CAST.icon)
+        .icon(TALENTS.HOLY_SHOCK_TALENT.icon)
         .actual(
           t({
             id: 'paladin.holy.modules.talents.crusadersMight.actual',
@@ -139,7 +139,7 @@ class CrusadersMight extends Analyzer {
           <>
             {formatSeconds((this.effectiveHolyShockReductionMs / 1000).toFixed(1))}{' '}
             <SpellIcon
-              id={SPELLS.HOLY_SHOCK_CAST.id}
+              id={TALENTS.HOLY_SHOCK_TALENT.id}
               style={{
                 height: '1.3em',
                 marginTop: '-.1em',

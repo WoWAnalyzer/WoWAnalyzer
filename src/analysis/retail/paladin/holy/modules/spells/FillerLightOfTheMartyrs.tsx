@@ -1,5 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
@@ -33,10 +34,10 @@ class FillerLightOfTheMartyrs extends Analyzer {
   handleCast(event: CastEvent) {
     this.casts += 1;
 
-    const hasHolyShockAvailable = this.spellUsable.isAvailable(SPELLS.HOLY_SHOCK_CAST.id);
+    const hasHolyShockAvailable = this.spellUsable.isAvailable(TALENTS.HOLY_SHOCK_TALENT.id);
     if (!hasHolyShockAvailable) {
       // We can't cast it, but check how long until it comes off cooldown. We should wait instead of casting a filler if it becomes available really soon.
-      const cooldownRemaining = this.spellUsable.cooldownRemaining(SPELLS.HOLY_SHOCK_CAST.id);
+      const cooldownRemaining = this.spellUsable.cooldownRemaining(TALENTS.HOLY_SHOCK_TALENT.id);
       if (cooldownRemaining > HOLY_SHOCK_COOLDOWN_WAIT_TIME) {
         return;
       }
@@ -107,7 +108,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
       suggest(
         <Trans id="paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion">
           You cast {this.inefficientCasts.length} <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />s
-          while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was{' '}
+          while <SpellLink id={TALENTS.HOLY_SHOCK_TALENT.id} /> was{' '}
           <TooltipElement
             content={t({
               id:

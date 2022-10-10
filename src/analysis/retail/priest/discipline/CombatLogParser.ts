@@ -47,6 +47,7 @@ import HarshDiscipline from './modules/spells/HarshDiscipline';
 import EnduringLuminescense from './modules/spells/EnduringLuminescence';
 import Indemnity from './modules/spells/Indemnity';
 import Expiation from './modules/spells/Expiation';
+import AegisOfWrath from './modules/spells/AegisOfWrath';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -101,6 +102,7 @@ class CombatLogParser extends CoreCombatLogParser {
     harshDiscipline: HarshDiscipline,
     Indemnity: Indemnity,
     expiation: Expiation,
+    aegisOfWrath: AegisOfWrath,
 
     // Covenants
     unholyNova: UnholyNova,
