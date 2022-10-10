@@ -43,7 +43,11 @@ const EVENT_LINKS: EventLink[] = [
   // link renewing mist to when it got applied
   {
     linkRelation: BOUNCED,
-    linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
+    linkingEventId: [
+      SPELLS.RENEWING_MIST_HEAL.id,
+      SPELLS.ENVELOPING_MIST.id,
+      SPELLS.ENVELOPING_MIST_TFT.id,
+    ],
     linkingEventType: [EventType.RemoveBuff],
     referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
     referencedEventType: [EventType.ApplyBuff],
@@ -56,8 +60,9 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.ApplyBuff],
     referencedEventId: TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
     referencedEventType: [EventType.Cast],
-    forwardBufferMs: 0,
-    backwardBufferMs: 250000,
+    forwardBufferMs: 500,
+    backwardBufferMs: 500,
+    anyTarget: true,
   },
   {
     linkRelation: FROM_HARDCAST,
@@ -68,16 +73,6 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
-  },
-  {
-    linkRelation: FROM_HARDCAST,
-    reverseLinkRelation: APPLIED_HEAL,
-    linkingEventId: [SPELLS.ESSENCE_FONT_BUFF.id],
-    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: TALENTS_MONK.ESSENCE_FONT_TALENT.id,
-    referencedEventType: EventType.Cast,
-    forwardBufferMs: 10000,
-    backwardBufferMs: 10000,
   },
 ];
 
@@ -99,6 +94,7 @@ class CastLinkNormalizer extends EventLinkNormalizer {
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
 export function isFromHardcast(event: AbilityEvent<any>): boolean {
   if (HasRelatedEvent(event, FROM_RSK)) {
+    console.log('Attributed RSK event at ' + event.timestamp);
     return false;
   }
   const hardCastRelated = GetRelatedEvents(event, FROM_HARDCAST);
