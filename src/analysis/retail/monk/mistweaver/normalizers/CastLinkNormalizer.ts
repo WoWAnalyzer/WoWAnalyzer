@@ -14,6 +14,7 @@ import {
 export const APPLIED_HEAL = 'AppliedHeal';
 export const BOUNCED = 'Bounced';
 export const FROM_HARDCAST = 'FromHardcast';
+export const FROM_RSK = 'FromRSK';
 
 const CAST_BUFFER_MS = 150;
 
@@ -35,7 +36,7 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.ApplyBuff],
     referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
     referencedEventType: [EventType.RemoveBuff],
-    forwardBufferMs: 0,
+    forwardBufferMs: 500,
     backwardBufferMs: 500,
     anyTarget: true,
   },
@@ -46,6 +47,15 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.RemoveBuff],
     referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
     referencedEventType: [EventType.ApplyBuff],
+    forwardBufferMs: 0,
+    backwardBufferMs: 250000,
+  },
+  {
+    linkRelation: FROM_RSK,
+    linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
+    linkingEventType: [EventType.ApplyBuff],
+    referencedEventId: TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
+    referencedEventType: [EventType.Cast],
     forwardBufferMs: 0,
     backwardBufferMs: 250000,
   },
@@ -88,6 +98,9 @@ class CastLinkNormalizer extends EventLinkNormalizer {
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
 export function isFromHardcast(event: AbilityEvent<any>): boolean {
+  if (HasRelatedEvent(event, FROM_RSK)) {
+    return false;
+  }
   const hardCastRelated = GetRelatedEvents(event, FROM_HARDCAST);
   if (hardCastRelated.length > 0 && hardCastRelated[0].type === 'cast') {
     const cast = hardCastRelated[0] as CastEvent;
