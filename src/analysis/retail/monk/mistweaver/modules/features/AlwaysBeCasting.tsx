@@ -53,7 +53,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK_SECOND.id);
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.BLACKOUT_KICK.id);
     }
-    //this.addEventListener(Events.GlobalCooldown, this.onGCD);
   }
 
   handleChijiStart(event: CastEvent) {

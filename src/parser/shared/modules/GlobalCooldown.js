@@ -173,7 +173,6 @@ class GlobalCooldown extends Analyzer {
   }
   _verifyAccuracy(event) {
     if (this.lastGlobalCooldown) {
-      console.log('Current haste ' + this.haste.current);
       const timeSince = event.timestamp - this.lastGlobalCooldown.timestamp;
       const remainingDuration = this.lastGlobalCooldown.duration - timeSince;
       if (remainingDuration > INVALID_GCD_CONFIG_LAG_MARGIN) {
