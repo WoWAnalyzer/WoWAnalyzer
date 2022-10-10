@@ -6,13 +6,8 @@ import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analy
 import Events, { CastEvent, DeathEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
-import SoothingMist from '../spells/SoothingMist';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
-  static dependencies = {
-    ...CoreAlwaysBeCastingHealing.dependencies,
-    soothingMist: SoothingMist,
-  };
   HEALING_ABILITIES_ON_GCD: number[] = [
     SPELLS.ENVELOPING_MIST.id,
     SPELLS.ESSENCE_FONT.id,
