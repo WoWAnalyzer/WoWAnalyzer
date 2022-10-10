@@ -38,6 +38,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
     if (this.countsAsHealingAbility(event)) {
       this.healingTime += event.duration;
     }
+    console.log(event.ability.name + ' channel was ' + event.duration + 'ms');
     return true;
   }
   countsAsHealingAbility(event: GlobalCooldownEvent | EndChannelEvent) {

@@ -137,7 +137,7 @@ class CastEfficiency extends Analyzer {
         return acc;
       }
     }, 0);
-
+    console.log('time spent casting for ' + spellId + ': ' + timeSpentCasting);
     return timeSpentCasting;
   }
 

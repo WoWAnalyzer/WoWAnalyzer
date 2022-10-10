@@ -12,7 +12,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import Abilities from '../../core/modules/Abilities';
 import GlobalCooldown from './GlobalCooldown';
 
-const DEBUG = false;
+const DEBUG = true;
 
 class AlwaysBeCasting extends Analyzer {
   static dependencies = {
@@ -77,10 +77,7 @@ class AlwaysBeCasting extends Analyzer {
 
   onEndChannel(event: EndChannelEvent) {
     // If the channel was shorter than the GCD then use the GCD as active time
-    let amount = event.duration;
-    if (this.globalCooldown.isOnGlobalCooldown(event.ability.guid)) {
-      amount = Math.max(amount, this._lastGlobalCooldownDuration);
-    }
+    const amount = event.duration;
     this.activeTime += amount;
     DEBUG &&
       console.log(
