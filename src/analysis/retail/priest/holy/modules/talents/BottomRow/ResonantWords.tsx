@@ -11,14 +11,16 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { formatPercentage } from 'common/format';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 
+const HEALING_MULTIPLIER_BY_RANK: number[] = [0, 0.25, 0.5];
+
 // Example Log: /report/kVQd4LrBb9RW2h6K/9-Heroic+The+Primal+Council+-+Wipe+5+(5:04)/Delipriest/standard/statistics
 class ResonantWords extends Analyzer {
   totalResonantWords = 0;
   usedResonantWords = 0;
   healingDoneFromTalent = 0;
   overhealingDoneFromTalent = 0;
-  healingMultiplierRanks: number[] = [0, 0.25, 0.5];
-  healingMultiplier = 2;
+  healingMultiplierWhenActive = 0;
+
   talentRank = 0;
 
   get wastedResonantWords() {
@@ -33,7 +35,7 @@ class ResonantWords extends Analyzer {
       this.active = false;
       return;
     }
-    this.healingMultiplier = this.healingMultiplierRanks[this.talentRank];
+    this.healingMultiplierWhenActive = HEALING_MULTIPLIER_BY_RANK[this.talentRank];
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FLASH_HEAL), this.onHeal);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GREATER_HEAL), this.onHeal);
@@ -60,8 +62,14 @@ class ResonantWords extends Analyzer {
     if (this.selectedCombatant.hasBuff(SPELLS.RESONANT_WORDS_TALENT_BUFF.id)) {
       this.usedResonantWords += 1;
 
-      this.healingDoneFromTalent += calculateEffectiveHealing(event, this.healingMultiplier);
-      this.overhealingDoneFromTalent += calculateOverhealing(event, this.healingMultiplier);
+      this.healingDoneFromTalent += calculateEffectiveHealing(
+        event,
+        this.healingMultiplierWhenActive,
+      );
+      this.overhealingDoneFromTalent += calculateOverhealing(
+        event,
+        this.healingMultiplierWhenActive,
+      );
     }
   }
 
