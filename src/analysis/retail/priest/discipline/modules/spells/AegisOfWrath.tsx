@@ -7,10 +7,14 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import PowerWordShield from './PowerWordShield';
 
 class AegisOfWrath extends Analyzer {
-  bonusShielding = 0;
-  decayedShields = 0;
+  static dependencies = {
+    powerWordShield: PowerWordShield,
+  };
+
+  protected powerWordShield!: PowerWordShield;
 
   constructor(options: Options) {
     super(options);
@@ -37,7 +41,7 @@ class AegisOfWrath extends Analyzer {
       >
         <>
           <BoringSpellValueText spellId={TALENTS_PRIEST.AEGIS_OF_WRATH_TALENT.id}>
-            <ItemHealingDone amount={this.bonusShielding} /> <br />
+            <ItemHealingDone amount={this.powerWordShield.aegisValue} /> <br />
           </BoringSpellValueText>
         </>
       </Statistic>

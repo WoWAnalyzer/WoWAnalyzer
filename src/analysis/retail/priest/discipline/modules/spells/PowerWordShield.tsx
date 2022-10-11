@@ -37,6 +37,7 @@ class PowerWordShield extends Analyzer {
   shieldApplications: ShieldInfo[] = [];
   shieldOfAbsolutionValue = 0;
   critCount = 0;
+  pwsValue = 0;
   aegisValue = 0;
   t23pValue = 0;
 
@@ -116,6 +117,7 @@ class PowerWordShield extends Analyzer {
         const basePowerWordShieldAmount = (shieldAmount - shieldOfAbsolutionBonus) / 1.5;
         let totalShielded = shieldApplication.healing; // this is the amount of healing the shield did
 
+        this.pwsValue += basePowerWordShieldAmount;
         totalShielded -= basePowerWordShieldAmount;
         this.t23pValue +=
           totalShielded >= shieldOfAbsolutionBonus ? shieldOfAbsolutionBonus : totalShielded;
