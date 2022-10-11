@@ -139,35 +139,6 @@ const conduits = spellIndexableList({
     icon: 'spell_holy_purify',
   },
   //endregion
-
-  //region Holy Potency Conduits
-  FOCUSED_MENDING: {
-    id: 337914,
-    name: 'Focused Mending',
-    icon: 'achievement_bg_returnxflags_def_wsg',
-  },
-  HOLY_ORATION: {
-    id: 338345,
-    name: 'Holy Oration',
-    icon: 'ability_priest_bindingprayers',
-  },
-  LASTING_SPIRIT: {
-    id: 337811,
-    name: 'Lasting Spirit',
-    icon: 'inv_icon_wing06a',
-  },
-  RESONANT_WORDS: {
-    id: 337947,
-    name: 'Resonant Words',
-    icon: 'spell_holy_holybolt',
-  },
-  RESONANT_WORDS_BUFF: {
-    id: 337948,
-    name: 'Resonant Words',
-    icon: 'spell_holy_holybolt',
-  },
-  //endregion
-
   //region Shadow Potency Conduits
   DISSONANT_ECHOES: {
     id: 338342,

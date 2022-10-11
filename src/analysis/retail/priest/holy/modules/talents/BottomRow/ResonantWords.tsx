@@ -3,21 +3,25 @@ import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { RESONANT_WORDS_RANKS } from 'analysis/retail/priest/holy/constants';
+import { formatPercentage } from 'common/format';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 
-// Example Log: /report/da4AL7QPr36btCmV/8-Heroic+Huntsman+Altimor+-+Kill+(5:13)/Daemonlight/standard/statistics
+const HEALING_MULTIPLIER_BY_RANK: number[] = [0, 0.25, 0.5];
+
+// Example Log: /report/kVQd4LrBb9RW2h6K/9-Heroic+The+Primal+Council+-+Wipe+5+(5:04)/Delipriest/standard/statistics
 class ResonantWords extends Analyzer {
   totalResonantWords = 0;
   usedResonantWords = 0;
-  bonusHealing = 0;
-  healingMultiplier = RESONANT_WORDS_RANKS[0];
-  talentRank: number = 0;
-  talentIncrease: number = 0;
+  healingDoneFromTalent = 0;
+  overhealingDoneFromTalent = 0;
+  healingMultiplierWhenActive = 0;
+
+  talentRank = 0;
 
   get wastedResonantWords() {
     return this.totalResonantWords - this.usedResonantWords;
@@ -31,10 +35,10 @@ class ResonantWords extends Analyzer {
       this.active = false;
       return;
     }
-    this.healingMultiplier = RESONANT_WORDS_RANKS[this.talentRank];
+    this.healingMultiplierWhenActive = HEALING_MULTIPLIER_BY_RANK[this.talentRank];
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FLASH_HEAL), this.onHeal);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GREATER_HEAL), this.onHeal); //Not sure why pvp talent is included
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GREATER_HEAL), this.onHeal);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HOLY_WORD_CHASTISE_TALENT),
@@ -55,10 +59,17 @@ class ResonantWords extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.RESONANT_WORDS_BUFF.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.RESONANT_WORDS_TALENT_BUFF.id)) {
       this.usedResonantWords += 1;
-      const eventBonusAmount = event.amount - event.amount / (1 + this.healingMultiplier);
-      this.bonusHealing += eventBonusAmount;
+
+      this.healingDoneFromTalent += calculateEffectiveHealing(
+        event,
+        this.healingMultiplierWhenActive,
+      );
+      this.overhealingDoneFromTalent += calculateOverhealing(
+        event,
+        this.healingMultiplierWhenActive,
+      );
     }
   }
 
@@ -67,7 +78,6 @@ class ResonantWords extends Analyzer {
   }
 
   statistic() {
-    //Should have new talent ui that shows points rank={this.talentRank}>
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
@@ -75,12 +85,20 @@ class ResonantWords extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`${this.wastedResonantWords}/${this.totalResonantWords} wasted resonant word buffs.`}
       >
-        <BoringSpellValueText spellId={SPELLS.RESONANT_WORDS.id}>
-          <ItemHealingDone amount={this.bonusHealing} />
-        </BoringSpellValueText>
+        <TalentSpellText
+          spellId={TALENTS.RESONANT_WORDS_TALENT.id}
+          maxRanks={TALENTS.RESONANT_WORDS_TALENT.maxRanks}
+        >
+          <ItemHealingDone amount={this.healingDoneFromTalent} />
+          <br />
+          {formatPercentage(
+            this.overhealingDoneFromTalent /
+              (this.healingDoneFromTalent + this.overhealingDoneFromTalent),
+          )}
+          % OH
+        </TalentSpellText>
       </Statistic>
     );
   }
 }
-
 export default ResonantWords;
