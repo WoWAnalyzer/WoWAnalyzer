@@ -96,10 +96,12 @@ class Bloodtalons extends Analyzer {
    * this finisher to be a Ferocious Bite unbuffed by BT */
   exceptionSinceLastFinisher: boolean = false;
 
-  /** Total damage added by Bloodtalons. Does not count opportunity cost losses of sub-optimal builders */
+  /** Total damage added by Bloodtalons  */
   btDamage: number = 0;
-  /** Total damage that would have been added with Lion's Strength instead */
-  lsPotentialDamage: number = 0;
+  /** The damage that could have been boosted by Bloodtalons, before the boost. */
+  totalBoostableDamage: number = 0;
+  /** The damage that was boosted by Bloodtalons, before the boost */
+  baseBoostedDamage: number = 0;
   /** Set of target IDs whose last rip application had BT */
   targetsWithBtRip: Set<string> = new Set<string>();
 
@@ -214,25 +216,23 @@ class Bloodtalons extends Analyzer {
   }
 
   onBtDirect(event: DamageEvent) {
-    this._tallyBtAndLsDamage(event, this._hasBt(event));
+    this._tallyBtDamage(event, this._hasBt(event));
   }
 
   onBtFromRip(event: DamageEvent) {
-    this._tallyBtAndLsDamage(
-      event,
-      this.targetsWithBtRip.has(encodeEventTargetString(event) || ''),
-    );
+    this._tallyBtDamage(event, this.targetsWithBtRip.has(encodeEventTargetString(event) || ''));
   }
 
-  _tallyBtAndLsDamage(event: DamageEvent, benefittedFromBt: boolean) {
+  _tallyBtDamage(event: DamageEvent, benefittedFromBt: boolean) {
     const totalDamage = event.amount + (event.absorbed || 0);
-    let biteForceAdd = 0;
+    let btAdd = 0;
     if (benefittedFromBt) {
-      biteForceAdd = calculateEffectiveDamage(event, BLOODTALONS_DAMAGE_BONUS);
-      this.btDamage += biteForceAdd;
+      btAdd = calculateEffectiveDamage(event, BLOODTALONS_DAMAGE_BONUS);
+      this.btDamage += btAdd;
     }
-    const damageWithoutBt = totalDamage - biteForceAdd;
-    this.lsPotentialDamage += damageWithoutBt * LIONS_STRENGTH_DAMAGE_BONUS;
+    const baseDamage = totalDamage - btAdd;
+    this.totalBoostableDamage += baseDamage;
+    benefittedFromBt && (this.baseBoostedDamage += baseDamage);
   }
 
   onRipApply(event: ApplyDebuffEvent | RefreshDebuffEvent) {
@@ -271,6 +271,11 @@ class Bloodtalons extends Analyzer {
 
   get percentCorrectBites() {
     return this.totalRegularBites === 0 ? 1 : this.correctBites / this.totalRegularBites;
+  }
+
+  /** Percent of boostable damage that actually did benefit from BT */
+  get percentBoosted() {
+    return this.totalBoostableDamage === 0 ? 0 : this.baseBoostedDamage / this.totalBoostableDamage;
   }
 
   get correctFbSuggestionThresholds() {
@@ -366,13 +371,14 @@ class Bloodtalons extends Analyzer {
               {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.btDamage))}%
             </strong>
             <br />
-            Damage added had you picked{' '}
-            <SpellLink id={TALENTS_DRUID.LIONS_STRENGTH_TALENT.id}>
-              BITEFORCE
-            </SpellLink> instead:{' '}
-            <strong>
-              {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.lsPotentialDamage))}%
-            </strong>
+            <br />
+            You applied Bloodtalons to <strong>
+              {formatPercentage(this.percentBoosted, 1)}%
+            </strong>{' '}
+            of the damage that could possibly benefit from it. If this number falls below{' '}
+            {formatPercentage(LIONS_STRENGTH_DAMAGE_BONUS / BLOODTALONS_DAMAGE_BONUS, 0)}%, you
+            would have done more damage had you picked{' '}
+            <SpellLink id={TALENTS_DRUID.LIONS_STRENGTH_TALENT.id}>BITEFORCE</SpellLink> instead.
           </>
         }
         size="flexible"
