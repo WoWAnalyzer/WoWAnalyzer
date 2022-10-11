@@ -13,7 +13,7 @@ class UntemperedDedication extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.UNTEMPERED_DEDICATION_HOLY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.UNTEMPERED_DEDICATION_TALENT.id);
     if (!this.active) {
       return;
     }

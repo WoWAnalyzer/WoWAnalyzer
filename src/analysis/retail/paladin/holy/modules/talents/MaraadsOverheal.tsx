@@ -15,7 +15,7 @@ class MaraadsOverheal extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.MARAADS_DYING_BREATH_HOLY_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.MARAADS_DYING_BREATH_TALENT);
     if (!this.active) {
       return;
     }
