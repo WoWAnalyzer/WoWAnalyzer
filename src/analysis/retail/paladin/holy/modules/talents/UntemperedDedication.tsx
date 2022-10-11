@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import conduits from 'common/SPELLS/shadowlands/conduits';
 import SpellLink from 'interface/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -12,7 +13,7 @@ class UntemperedDedication extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.UNTEMPERED_DEDICATION.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.UNTEMPERED_DEDICATION_HOLY_TALENT.id);
     if (!this.active) {
       return;
     }
