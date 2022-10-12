@@ -110,7 +110,12 @@ const talents = createTalentList({
     maxRanks: 1,
     manaCost: 1000,
   },
-  REBUKE_TALENT: { id: 96231, name: 'Rebuke', icon: 'spell_holy_rebuke', maxRanks: 1 },
+  REBUKE_TALENT: {
+    id: 96231,
+    name: 'Rebuke',
+    icon: 'spell_holy_rebuke',
+    maxRanks: 1,
+  },
   GOLDEN_PATH_TALENT: {
     id: 377128,
     name: 'Golden Path',
@@ -149,7 +154,12 @@ const talents = createTalentList({
     icon: 'spell_holy_greaterblessingofsalvation',
     maxRanks: 2,
   },
-  AFTERIMAGE_TALENT: { id: 385414, name: 'Afterimage', icon: 'spell_holy_aspiration', maxRanks: 1 },
+  AFTERIMAGE_TALENT: {
+    id: 385414,
+    name: 'Afterimage',
+    icon: 'spell_holy_aspiration',
+    maxRanks: 1,
+  },
   SACRIFICE_OF_THE_JUST_TALENT: {
     id: 384820,
     name: 'Sacrifice of the Just',

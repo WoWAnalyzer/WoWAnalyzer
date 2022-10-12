@@ -6,8 +6,10 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { SpellLink } from 'interface';
-import { ANSWERED_PRAYERS_TRIGGER } from 'analysis/retail/priest/holy/constants';
 
+const HEALS_PER_TRIGGER_BY_RANK = [0, 100, 50];
+
+//Example log: /report/cCKp6qfAM8FZgxHL/2-Heroic+Broodkeeper+Diurna+-+Wipe+2+(1:34)/Mayceia/standard/statistics
 class AnsweredPrayers extends Analyzer {
   prayerHeals = 0;
   healsPerApotheosis = 0;
@@ -16,7 +18,7 @@ class AnsweredPrayers extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.ANSWERED_PRAYERS_TALENT);
     this.healsPerApotheosis =
-      ANSWERED_PRAYERS_TRIGGER[
+      HEALS_PER_TRIGGER_BY_RANK[
         this.selectedCombatant.getTalentRank(TALENTS.ANSWERED_PRAYERS_TALENT)
       ];
     this.addEventListener(
@@ -36,10 +38,10 @@ class AnsweredPrayers extends Analyzer {
         tooltip={<>Healing in each Apotheosis can be seen in the 'Cooldowns' tab</>}
       >
         <BoringSpellValueText spellId={TALENTS.ANSWERED_PRAYERS_TALENT.id}>
-          {this.prayerHeals} <SpellLink id={SPELLS.PRAYER_OF_MENDING_CAST.id} /> heals
+          {this.prayerHeals} <SpellLink id={TALENTS.PRAYER_OF_MENDING_TALENT.id} /> heals
           <br />
           {Math.floor(this.prayerHeals / this.healsPerApotheosis) * 8} seconds of{' '}
-          <SpellLink id={SPELLS.APOTHEOSIS_TALENT.id} />
+          <SpellLink id={TALENTS.APOTHEOSIS_TALENT.id} />
         </BoringSpellValueText>
       </Statistic>
     );

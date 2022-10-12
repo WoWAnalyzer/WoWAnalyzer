@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import { CastEvent } from 'parser/core/Events';
 import CoreSpellManaCost from 'parser/shared/modules/SpellManaCost';
 
@@ -15,14 +15,14 @@ class SpellManaCost extends CoreSpellManaCost {
     }
 
     // Apotheosis talent reduces the mana cost of Holy Word spells by 100%
-    if (this.selectedCombatant.hasBuff(SPELLS.APOTHEOSIS_TALENT.id, event.timestamp)) {
+    if (this.selectedCombatant.hasBuff(TALENTS.APOTHEOSIS_TALENT.id, event.timestamp)) {
       const isAbilityAffectedByApotheosis = ABILITIES_AFFECTED_BY_APOTHEOSIS_TALENT.includes(
         spellId,
       );
       if (isAbilityAffectedByApotheosis) {
         debug &&
           console.log(
-            SPELLS.APOTHEOSIS_TALENT.name,
+            TALENTS.APOTHEOSIS_TALENT.name,
             'is active, reducing cost (',
             cost,
             ') by 100%',

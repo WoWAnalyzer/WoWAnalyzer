@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import CoreAuras from 'parser/core/modules/Auras';
@@ -15,24 +16,24 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: [SPELLS.LIFECYCLES_VIVIFY_BUFF.id, SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id],
-        enabled: combatant.hasTalent(SPELLS.LIFECYCLES_TALENT),
+        enabled: combatant.hasTalent(TALENTS_MONK.LIFECYCLES_TALENT),
       },
       {
         spellId: SPELLS.TEACHINGS_OF_THE_MONASTERY.id,
       },
       {
-        spellId: SPELLS.REFRESHING_JADE_WIND_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.REFRESHING_JADE_WIND_TALENT),
+        spellId: TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT),
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id,
-        enabled: combatant.hasTalent(SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT),
+        enabled: combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT),
       },
       // Throughput Cooldown
       {
-        spellId: SPELLS.MANA_TEA_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.MANA_TEA_TALENT),
+        spellId: TALENTS_MONK.MANA_TEA_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT),
         timelineHighlight: true,
       },
 
@@ -55,19 +56,19 @@ class Buffs extends CoreAuras {
 
       // Utility
       {
-        spellId: SPELLS.TIGERS_LUST_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.TIGERS_LUST_TALENT),
+        spellId: TALENTS_MONK.TIGERS_LUST_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_MONK.TIGERS_LUST_TALENT),
       },
       {
-        spellId: SPELLS.DIFFUSE_MAGIC_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT),
+        spellId: TALENTS_MONK.DIFFUSE_MAGIC_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_MONK.DIFFUSE_MAGIC_TALENT),
       },
       {
-        spellId: SPELLS.DAMPEN_HARM_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT),
+        spellId: TALENTS_MONK.DAMPEN_HARM_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_MONK.DAMPEN_HARM_TALENT),
       },
       {
-        spellId: SPELLS.FORTIFYING_BREW.id,
+        spellId: TALENTS_MONK.FORTIFYING_BREW_SHARED_TALENT.id,
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),

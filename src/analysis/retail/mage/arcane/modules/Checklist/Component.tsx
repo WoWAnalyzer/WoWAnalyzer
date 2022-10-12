@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
@@ -142,34 +143,34 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           }
           spell={SPELLS.EVOCATION.id}
         />
-        {combatant.hasTalent(SPELLS.ARCANE_ORB_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.ARCANE_ORB_TALENT.id) && (
           <AbilityRequirement
             name={
               <>
-                <SpellLink id={SPELLS.ARCANE_ORB_TALENT.id} /> Cast Efficiency
+                <SpellLink id={TALENTS.ARCANE_ORB_TALENT.id} /> Cast Efficiency
               </>
             }
-            spell={SPELLS.ARCANE_ORB_TALENT.id}
+            spell={TALENTS.ARCANE_ORB_TALENT.id}
           />
         )}
-        {combatant.hasTalent(SPELLS.SUPERNOVA_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SUPERNOVA_TALENT.id) && (
           <AbilityRequirement
             name={
               <>
-                <SpellLink id={SPELLS.SUPERNOVA_TALENT.id} /> Cast Efficiency
+                <SpellLink id={TALENTS.SUPERNOVA_TALENT.id} /> Cast Efficiency
               </>
             }
-            spell={SPELLS.SUPERNOVA_TALENT.id}
+            spell={TALENTS.SUPERNOVA_TALENT.id}
           />
         )}
-        {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id) && (
           <AbilityRequirement
             name={
               <>
-                <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> Cast Efficiency
+                <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> Cast Efficiency
               </>
             }
-            spell={SPELLS.RUNE_OF_POWER_TALENT.id}
+            spell={TALENTS.RUNE_OF_POWER_TALENT.id}
           />
         )}
         {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
@@ -202,35 +203,35 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
             spell={SPELLS.DEATHBORNE.id}
           />
         )}
-        {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id) && (
           <Requirement
             name="Average time spent inside Rune of Power"
             thresholds={thresholds.runeOfPowerBuffUptime}
             tooltip="Using Rune of Power effectively means being able to stay within the range of it for it's entire duration. If you are unable to do so or if you frequently have to move out of the range of the buff, then either plan out a more optimal time or place to be using your Rune of Power, or consider taking a different talent instead."
           />
         )}
-        {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id) && (
           <Requirement
             name="Rune of Power overlapped casts"
             thresholds={thresholds.runeOfPowerOverlaps}
             tooltip="Casting your major cooldown (Combustion) automatically drops a Rune of Power at your feet, so you do not need to manually cast it before using Combustion. Because of this you should wait to use Rune of Power until after Combustion ends, or use it far enough before Combustion so that it will end before Combustion is cast to wasting uptime by having your runes overlapped."
           />
         )}
-        {combatant.hasTalent(SPELLS.ARCANE_ECHO_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.ARCANE_ECHO_TALENT.id) && (
           <Requirement
             name="Bad Touch of the Magi Uses"
             tooltip="Arcane Echo causes direct damage abilities, like Arcane Missiles, to pulse damage to up to 8 nearby targets. Because of this, you should be non-stop casting Arcane Missiles (whether you have Clearcasting procs or not), into any target with the Touch of the Magi debuff until that debuff is removed."
             thresholds={thresholds.arcaneEchoLowUsage}
           />
         )}
-        {combatant.hasTalent(SPELLS.RULE_OF_THREES_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RULE_OF_THREES_TALENT.id) && (
           <Requirement
             name="Rule of Threes Buff Usage"
             tooltip="Rule of Threes gives you a free cast of Arcane Blast when you hit 3 Arcane Charges so you shoud always ensure you are using that free charge before you clear your Arcane Charges with Barrage since there is no negative mana impact to doing so."
             thresholds={thresholds.ruleOfThreesUsage}
           />
         )}
-        {combatant.hasTalent(SPELLS.ARCANE_ORB_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.ARCANE_ORB_TALENT.id) && (
           <Requirement
             name="Missed Arcane Orbs"
             tooltip="Arcane Orb is a skillshot which means that it is important for you to aim it properly in order to get the most out of it. Therefore, on single target you should always ensure that the enemy gets hit by it, and if there are multiple enemies then you should do what you can to ensure all or most of them will get hit by the Orb as well."
@@ -257,7 +258,7 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
             thresholds={thresholds.arcaneMissilesUtilization}
           />
         )}
-        {combatant.hasTalent(SPELLS.TIME_ANOMALY_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.TIME_ANOMALY_TALENT.id) && (
           <Requirement
             name="Time Anomaly Mana Mgmt."
             thresholds={thresholds.timeAnomalyManaUtilization}

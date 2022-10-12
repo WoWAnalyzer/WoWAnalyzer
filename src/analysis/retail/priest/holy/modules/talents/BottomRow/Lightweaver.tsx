@@ -1,5 +1,5 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffStackEvent, ApplyBuffEvent, HealEvent } from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/';
 import TALENTS from 'common/TALENTS/priest';
 import Statistic from 'parser/ui/Statistic';
@@ -9,9 +9,10 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { SpellLink } from 'interface';
 
-const HEALINGBONUSPERSTACK = 0.15;
-const MAXSTACKS = 2;
+const HEALING_BONUS_PER_STACK = 0.15;
+const MAX_STACKS = 2;
 
+//Example log: /report/kVQd4LrBb9RW2h6K/9-Heroic+The+Primal+Council+-+Wipe+5+(5:04)/Delipriest/standard/statistics
 class Lightweaver extends Analyzer {
   healingDoneFromTalent = 0;
   overhealingDoneFromTalent = 0;
@@ -31,11 +32,11 @@ class Lightweaver extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GREATER_HEAL), this.onHeal);
     this.addEventListener(
       Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.LIGHTWEAVER_TALENT_BUFF),
-      this.onBuffStack,
+      this.onBuff,
     );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.LIGHTWEAVER_TALENT_BUFF),
-      this.onBuffed,
+      this.onBuff,
     );
   }
 
@@ -46,7 +47,7 @@ class Lightweaver extends Analyzer {
       const totalHealing = Event.amount + overhealing + absorbed;
 
       const totalHealingFromTalent =
-        totalHealing - totalHealing / (1 + HEALINGBONUSPERSTACK * this.currentStacks);
+        totalHealing - totalHealing / (1 + HEALING_BONUS_PER_STACK * this.currentStacks);
       this.overhealingDoneFromTalent +=
         overhealing <= totalHealingFromTalent ? overhealing : totalHealingFromTalent;
       this.healingDoneFromTalent += Math.max(totalHealingFromTalent - overhealing, 0);
@@ -58,17 +59,9 @@ class Lightweaver extends Analyzer {
     }
   }
 
-  onBuffed(Event: ApplyBuffEvent) {
+  onBuff() {
     this.totalStacks += 1;
-    if (this.currentStacks < MAXSTACKS) {
-      this.currentStacks += 1;
-    } else {
-      this.overcappedStacks += 1;
-    }
-  }
-  onBuffStack(Event: ApplyBuffStackEvent) {
-    this.totalStacks += 1;
-    if (this.currentStacks < MAXSTACKS) {
+    if (this.currentStacks < MAX_STACKS) {
       this.currentStacks += 1;
     } else {
       this.overcappedStacks += 1;

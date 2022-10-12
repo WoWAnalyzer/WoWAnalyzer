@@ -1,12 +1,7 @@
 import { Trans } from '@lingui/macro';
-import {
-  AP_MANA_THRESHOLD_PERCENT,
-  ARCANE_CHARGE_MAX_STACKS,
-  ARCANE_HARMONY_MAX_STACKS,
-} from 'analysis/retail/mage/shared';
+import { ARCANE_CHARGE_MAX_STACKS, ARCANE_HARMONY_MAX_STACKS } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
@@ -34,7 +29,6 @@ class ArcanePowerPreReqs extends Analyzer {
   protected abilityTracker!: AbilityTracker;
   protected arcaneChargeTracker!: ArcaneChargeTracker;
 
-  hasOverpowered: boolean;
   hasArcaneHarmony: boolean;
   isKyrian: boolean;
 
@@ -48,7 +42,6 @@ class ArcanePowerPreReqs extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.hasOverpowered = this.selectedCombatant.hasTalent(SPELLS.OVERPOWERED_TALENT.id);
     this.hasArcaneHarmony = this.selectedCombatant.hasLegendary(SPELLS.ARCANE_HARMONY);
     this.isKyrian = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
     this.addEventListener(
@@ -58,10 +51,6 @@ class ArcanePowerPreReqs extends Analyzer {
   }
 
   onArcanePower(event: CastEvent) {
-    const manaResource: any =
-      event.classResources &&
-      event.classResources.find((classResource) => classResource.type === RESOURCE_TYPES.MANA.id);
-    const currentManaPercent = manaResource.amount / manaResource.max;
     const touchOfTheMagiCast = this.eventHistory.last(
       1,
       1000,
@@ -76,14 +65,6 @@ class ArcanePowerPreReqs extends Analyzer {
       badCooldownUse = true;
       this.failedChecks += 1;
       this.lowArcaneCharges += 1;
-    }
-
-    //Checks if the player was too low on mana
-    if (!this.hasOverpowered && currentManaPercent < AP_MANA_THRESHOLD_PERCENT) {
-      debug && this.log('Arcane power Cast with Low Mana');
-      badCooldownUse = true;
-      this.failedChecks += 1;
-      this.lowMana += 1;
     }
 
     //Checks if Touch of the Magi was cast immediately before Arcane Power
@@ -182,12 +163,6 @@ class ArcanePowerPreReqs extends Analyzer {
                 before Arcane Power - You failed this {this.missingTouchOfTheMagi} times.
               </>
             </li>
-            {!this.hasOverpowered && (
-              <li>
-                You have more than {formatPercentage(AP_MANA_THRESHOLD_PERCENT)} mana - You failed
-                this {this.lowMana} times.
-              </li>
-            )}
             {this.hasArcaneHarmony && (
               <li>
                 You have {ARCANE_HARMONY_MAX_STACKS} stacks of{' '}
@@ -234,12 +209,6 @@ class ArcanePowerPreReqs extends Analyzer {
                 You cast Touch of the Magi immediately before AP - Missed{' '}
                 {this.missingTouchOfTheMagi} times
               </li>
-              {!this.hasOverpowered && (
-                <li>
-                  You have more than {formatPercentage(AP_MANA_THRESHOLD_PERCENT)} mana - Missed{' '}
-                  {this.lowMana} times
-                </li>
-              )}
               {this.hasArcaneHarmony && (
                 <li>
                   You have {ARCANE_HARMONY_MAX_STACKS} stacks of Arcane Harmony - Missed{' '}

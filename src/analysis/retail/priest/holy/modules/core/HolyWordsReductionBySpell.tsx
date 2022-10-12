@@ -30,7 +30,7 @@ class HolyWordsReductionBySpell extends Analyzer {
     this.lightOfTheNaaruActive = this.selectedCombatant.hasTalent(
       TALENTS.LIGHT_OF_THE_NAARU_TALENT.id,
     );
-    this.apotheosisActive = this.selectedCombatant.hasTalent(SPELLS.APOTHEOSIS_TALENT.id);
+    this.apotheosisActive = this.selectedCombatant.hasTalent(TALENTS.APOTHEOSIS_TALENT.id);
   }
 
   get totalReduction() {

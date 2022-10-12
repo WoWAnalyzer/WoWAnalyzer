@@ -19,7 +19,7 @@ const PROC_PROB = 0.4;
  * Spec Talent Tier 10
  *
  * Wild Growth has a 40% chance to cause your next Rejuvenation or Regrowth
- * to apply to 3 additional allies within 20 yards of the target.
+ * to apply to 2 additional allies within 20 yards of the target.
  */
 class PowerOfTheArchdruid extends Analyzer {
   static dependencies = {
@@ -89,7 +89,7 @@ class PowerOfTheArchdruid extends Analyzer {
         }
       >
         <BoringSpellValueText spellId={TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT.id}>
-          <ItemPercentHealingDone amount={this.hotAttributor.powerOfTheArchdruid.healing} />
+          <ItemPercentHealingDone amount={this.hotAttributor.powerOfTheArchdruidAttrib.healing} />
         </BoringSpellValueText>
       </Statistic>
     );

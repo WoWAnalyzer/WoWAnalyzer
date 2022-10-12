@@ -139,5 +139,37 @@ const conduits = spellIndexableList({
     icon: 'spell_holy_purify',
   },
   //endregion
+  //region Shadow Potency Conduits
+  DISSONANT_ECHOES: {
+    id: 338342,
+    name: 'Dissonant Echoes',
+    icon: 'spell_shadow_shadowpower',
+  },
+  DISSONANT_ECHOES_BUFF: {
+    id: 343144,
+    name: 'Dissonant Echoes',
+    icon: 'spell_shadow_shadowpower',
+  },
+  HAUNTING_APPARITIONS: {
+    id: 338319,
+    name: 'Haunting Apparitions',
+    icon: 'sha_ability_rogue_sturdyrecuperate_nightborne',
+  },
+  MIND_DEVOURER: {
+    id: 338332,
+    name: 'Mind Devourer',
+    icon: 'spell_arcane_mindmastery',
+  },
+  MIND_DEVOURER_BUFF: {
+    id: 338333,
+    name: 'Mind Devourer',
+    icon: 'spell_arcane_mindmastery',
+  },
+  RABID_SHADOWS: {
+    id: 338338,
+    name: 'Rabid Shadows',
+    icon: 'spell_deathknight_gnaw_ghoul',
+  },
+  //endregion
 });
 export default conduits;

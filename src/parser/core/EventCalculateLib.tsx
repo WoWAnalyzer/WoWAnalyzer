@@ -42,6 +42,38 @@ export function calculateEffectiveHealing(
 }
 
 /**
+ * Calculates the overhealing attributable to a percent healing buff.
+ * The bonus healing is considered 'marginal' and will be consumed first when encountering overheal.
+ *
+ * For example, consider an effect that boosts healing by 20%, and we want to attribute overhealing caused by the effect.
+ * We pass an event with raw healing of 1200 and 100 overheal, and we pass the relativeHealIncrease which is 0.20.
+ * The function would calculate 1000 as the healing without the boost and the added healing to be 200, which is equal or higher to the overhealing so 100 would the the overhealing attributable.
+ *
+ * We consider the boosted healing to be the 'last' healing applied, so it is the first thing to be subtracted if we overheal.
+ * This means that the overhealing is the smallest of overhealing and bonus healing from the healing increase
+ * For example, if the 1200 heal was 1150 effective and 50 overheal, we would attribute min(200,50) = 50 healing attributable.
+ * If the 1200 heal was 900 effective and 300 overheal, all of the bonus was overheal and so min(200,300) = 200 healing is attributable.
+ *
+ * @param event a healing event (or heal-like event) that was boosted by an effect
+ * @param relativeHealIncrease the boost's added multiplier (for +20% pass 0.20)
+ * @return the amount of overhealing attributable on the given heal from the given boost
+ */
+export function calculateOverhealing(
+  event: LightWeightHealingEvent,
+  relativeHealIncrease: number,
+): number {
+  const amount = event.amount;
+  const absorbed = event.absorbed || 0;
+  const overheal = event.overheal || 0;
+  const raw = amount + absorbed + overheal;
+  const relativeHealingIncreaseFactor = 1 + relativeHealIncrease;
+  const healingIncrease = raw - raw / relativeHealingIncreaseFactor;
+  const overhealing = Math.min(overheal, healingIncrease);
+
+  return overhealing;
+}
+
+/**
  * Calculates the effective healing attributable to the *last stack* of a stacking percent healing buff.
  * See `calculateEffectiveHealing` first for more info on the calculation and how overheal is handled.
  *

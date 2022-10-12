@@ -70,8 +70,8 @@ class HarmoniousApparatus extends Analyzer {
 
   statistic() {
     const totalHealingSpellReduction =
-      this.reductionForSpell(SPELLS.CIRCLE_OF_HEALING_TALENT.id) +
-      this.reductionForSpell(SPELLS.PRAYER_OF_MENDING_CAST.id);
+      this.reductionForSpell(TALENTS.CIRCLE_OF_HEALING_TALENT.id) +
+      this.reductionForSpell(TALENTS.PRAYER_OF_MENDING_TALENT.id);
 
     return (
       <Statistic
@@ -80,11 +80,12 @@ class HarmoniousApparatus extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={
           <>
-            Serenity: {Math.ceil(this.reductionForSpell(SPELLS.CIRCLE_OF_HEALING_TALENT.id) / 1000)}
+            Serenity:{' '}
+            {Math.ceil(this.reductionForSpell(TALENTS.CIRCLE_OF_HEALING_TALENT.id) / 1000)}
             s CDR
             <br />
-            Sanctify: {Math.ceil(this.reductionForSpell(SPELLS.PRAYER_OF_MENDING_CAST.id) / 1000)}s
-            CDR
+            Sanctify:{' '}
+            {Math.ceil(this.reductionForSpell(TALENTS.PRAYER_OF_MENDING_TALENT.id) / 1000)}s CDR
             <br />
             Chastise : {Math.ceil(this.reductionForSpell(SPELLS.HOLY_FIRE.id) / 1000)}s CDR
             <br />

@@ -50,7 +50,7 @@ class ResourceBreakdown extends Component<Props> {
     const spent = this.prepareSpent(tracker);
 
     let totalGenerated = tracker.generated;
-    let totalWasted = tracker.wasted;
+    let totalWasted = tracker.gainWaste; // ignoring natural regen waste in this tab
 
     let totalSpent = tracker.spent;
     let totalCasts = tracker.spendersCasts;
@@ -97,7 +97,7 @@ class ResourceBreakdown extends Component<Props> {
               </td>
               <td style={numberColumnStyle}>{tracker.generated.toFixed(0)}</td>
               <td></td>
-              <td style={numberColumnStyle}>{tracker.wasted}</td>
+              <td style={numberColumnStyle}>{tracker.gainWaste}</td>
               <td></td>
             </tr>
             {generated &&

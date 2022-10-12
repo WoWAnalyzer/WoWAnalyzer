@@ -1,10 +1,12 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { emallson, Abelito75, Anomoly, Moonrabbit, Putro, Tyndi, Vohrr, Trevor, kate, nullDozzer } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 10, 8), <>Added support for existing MW talents</>, Trevor),
   change(date(2022, 9, 4), <>Updated guide link in checklist.</>, emallson),
   change(date(2022, 7, 6), <>Created a set color scheme for each spell. A spell's color should remain the same across all infographs.</>, Abelito75),
   change(date(2022, 7, 6), <>Average Renewing Mists during Mana Tea no longer depends on vivify being cast.</>, Abelito75),
@@ -88,10 +90,10 @@ export default [
   change(date(2020, 10, 6), <>Updated <SpellLink id={SPELLS.RENEWING_MIST.id} /> to use Event Listeners.</>, Anomoly),
   change(date(2020, 10, 6), <>Added Fallen Order statistic.</>, Abelito75),
   change(date(2020, 10, 6), <>Updated core spec module files to TypeScript.</>, Anomoly),
-  change(date(2020, 10, 6), <>Moved <SpellLink id={SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} /> statistic box to the correct location.</>, Moonrabbit),
+  change(date(2020, 10, 6), <>Moved <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} /> statistic box to the correct location.</>, Moonrabbit),
   change(date(2020, 10, 4), <>Added Expel Harm module and updated relevant files.</>, Vohrr),
   change(date(2020, 10, 4), <>Corrected overhealing a few spells in MistweaverHealingEfficiencyTracker.</>, Vohrr),
-  change(date(2020, 10, 3), <>Updated <SpellLink id={SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} /> statbox to include enveloping breath healing.</>, Vohrr),
+  change(date(2020, 10, 3), <>Updated <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} /> statbox to include enveloping breath healing.</>, Vohrr),
   change(date(2020, 10, 3), <>Added the Clouded Focus legendary.</>, Abelito75),
   change(date(2020, 10, 2), <>Corrected Life Cocoon to track all hots.</>, Moonrabbit),
   change(date(2020, 10, 2), <>Corrected Nourshing Chi to track all hots.</>, Moonrabbit),
@@ -99,7 +101,7 @@ export default [
   change(date(2020, 10, 1), <>Added Statistics for Tear of Morning and Ancient Teachings of the Monastery.</>, Abelito75),
   change(date(2020, 9, 30), <>Integration Tests have been added for Mistweaver.</>, Anomoly),
   change(date(2020, 9, 30), <>Statistic created for the potency conduit Imbued Reflections. </>, Abelito75),
-  change(date(2020, 9, 26), <>Added <SpellLink id={SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id} /> and <SpellLink id={SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} /> to the cooldown tracker.</>, Abelito75),
+  change(date(2020, 9, 26), <>Added <SpellLink id={SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id} /> and <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} /> to the cooldown tracker.</>, Abelito75),
   change(date(2020, 9, 26), <>Added Rising Sun Revival, Jade Bond, and Nourishing Chi.</>, Abelito75),
   change(date(2020, 9, 26), <>Updated Checklist to include Touch of Death, Yu'lon and Chi-ji.</>, Abelito75),
   change(date(2020, 9, 22), <>Updated pieces to the Mistweaver Core for Shadowlands.</>, Tyndi),

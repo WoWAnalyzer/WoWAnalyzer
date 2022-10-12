@@ -3,7 +3,13 @@ import { createTalentList } from './types';
 
 const talents = createTalentList({
   //Shared
-  RENEW_TALENT: { id: 139, name: 'Renew', icon: 'spell_holy_renew', maxRanks: 1, manaCost: 500 },
+  RENEW_TALENT: {
+    id: 139,
+    name: 'Renew',
+    icon: 'spell_holy_renew',
+    maxRanks: 1,
+    manaCost: 500,
+  },
   DISPEL_MAGIC_TALENT: {
     id: 528,
     name: 'Dispel Magic',
@@ -791,7 +797,12 @@ const talents = createTalentList({
     icon: 'spell_holy_prayerofmendingtga',
     maxRanks: 2,
   },
-  PONTIFEX_TALENT: { id: 390980, name: 'Pontifex', icon: 'spell_priest_pontifex', maxRanks: 1 },
+  PONTIFEX_TALENT: {
+    id: 390980,
+    name: 'Pontifex',
+    icon: 'spell_priest_pontifex',
+    maxRanks: 1,
+  },
   APOTHEOSIS_TALENT: {
     id: 200183,
     name: 'Apotheosis',
