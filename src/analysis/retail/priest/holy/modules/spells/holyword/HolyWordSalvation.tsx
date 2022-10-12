@@ -9,7 +9,6 @@ class HolyWordSalvation extends HolyWordBase {
   constructor(options: Options) {
     super(options);
 
-    this.serendipityReduction = 30000;
     this.spellId = TALENTS.HOLY_WORD_SALVATION_TALENT.id;
     this.manaCost = 6000;
     this.serendipityProccers = {

@@ -12,7 +12,6 @@ class HolyWordBase extends Analyzer {
   spellId = 0;
   manaCost = 0;
   baseCooldown = 60000;
-  serendipityReduction = 6000;
   apparatusReduction =
     HARMONIOUS_APPARATUS_REDUCTION_PER_RANK *
     this.selectedCombatant.getTalentRank(TALENTS.HARMONIOUS_APPARATUS_TALENT);
@@ -197,6 +196,7 @@ class HolyWordBase extends Analyzer {
     if (this.lightOfTheNaruActive && this.apotheosisActive) {
       //When both LightOfTheNaaru and Apotheosis is active the total reduction is higher than each reduction individually
       //Here each gets reduction equal to their individual contribution and the additional total reduction is split 50%
+      //Cooldown gained from harmonious apparatus is treated as being base reduction and thus does not gain any from other bonusses
       const totalReduction =
         this.serendipityProccers[spellId].lightOfTheNaaruAndApotheosisReduction() -
         baseReductionAmount;

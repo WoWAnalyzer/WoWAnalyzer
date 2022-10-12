@@ -20,6 +20,8 @@ class HolyWordsReductionBySpell extends Analyzer {
   };
   lightOfTheNaaruActive = false;
   apotheosisActive = false;
+  harmoniousApparatusActive = false;
+
   protected sanctify!: HolyWordSanctify;
   protected serenity!: HolyWordSerenity;
   protected chastise!: HolyWordChastise;
@@ -31,6 +33,9 @@ class HolyWordsReductionBySpell extends Analyzer {
       TALENTS.LIGHT_OF_THE_NAARU_TALENT.id,
     );
     this.apotheosisActive = this.selectedCombatant.hasTalent(TALENTS.APOTHEOSIS_TALENT.id);
+    this.harmoniousApparatusActive = this.selectedCombatant.hasTalent(
+      TALENTS.HARMONIOUS_APPARATUS_TALENT,
+    );
   }
 
   get totalReduction() {
@@ -41,7 +46,30 @@ class HolyWordsReductionBySpell extends Analyzer {
     );
   }
 
-  get reductionBySpell() {
+  get reductionBySpellNonApparatus() {
+    let totalReductionBySpell: { [spellID: string]: { [otherSpellID: string]: number } } = {};
+
+    totalReductionBySpell = this.sumCooldown(
+      totalReductionBySpell,
+      this.sanctify.totalHolyWordReductionPerSpellPerTalent,
+    );
+    totalReductionBySpell = this.sumCooldown(
+      totalReductionBySpell,
+      this.serenity.totalHolyWordReductionPerSpellPerTalent,
+    );
+    totalReductionBySpell = this.sumCooldown(
+      totalReductionBySpell,
+      this.chastise.totalHolyWordReductionPerSpellPerTalent,
+    );
+    totalReductionBySpell = this.sumCooldown(
+      totalReductionBySpell,
+      this.salvation.totalHolyWordReductionPerSpellPerTalent,
+    );
+
+    return totalReductionBySpell;
+  }
+
+  get reductionBySpellApparatus() {
     let totalReductionBySpell: { [spellID: string]: { [otherSpellID: string]: number } } = {};
 
     totalReductionBySpell = this.sumCooldown(
@@ -70,6 +98,16 @@ class HolyWordsReductionBySpell extends Analyzer {
   ) {
     for (const [key, value] of Object.entries(newList)) {
       if (currentList[key] == null) {
+        if (
+          key === String(TALENTS.CIRCLE_OF_HEALING_TALENT.id) ||
+          key === String(SPELLS.HOLY_FIRE.id) ||
+          key === String(TALENTS.PRAYER_OF_MENDING_TALENT.id)
+        ) {
+          newList[key].apparatus = newList[key].base;
+          newList[key].base = 0;
+        } else {
+          newList[key].apparatus = 0;
+        }
         currentList[key] = value;
       } else {
         for (const [innerKey, innerValue] of Object.entries(value)) {
@@ -83,7 +121,7 @@ class HolyWordsReductionBySpell extends Analyzer {
 
   statistic() {
     const reductionRatio = this.totalReduction / (this.owner.fightDuration + this.totalReduction);
-    const reductionBySpell: any = this.reductionBySpell;
+    const reductionBySpell = this.reductionBySpellNonApparatus;
 
     return (
       <Statistic
@@ -115,6 +153,7 @@ class HolyWordsReductionBySpell extends Analyzer {
                   <td>Base</td>
                   {this.apotheosisActive && <th>Apotheosis</th>}
                   {this.lightOfTheNaaruActive && <th>Light of the Naaru</th>}
+                  {this.harmoniousApparatusActive && <th>Harmonious apparatus</th>}
                 </tr>
               </thead>
               <tbody>
@@ -129,6 +168,9 @@ class HolyWordsReductionBySpell extends Analyzer {
                     )}
                     {this.lightOfTheNaaruActive && (
                       <td>{Math.ceil(reductionBySpell[e].lightOfTheNaaru / 1000)}s</td>
+                    )}
+                    {this.harmoniousApparatusActive && (
+                      <td>{Math.ceil(reductionBySpell[e].apparatus / 1000)}s</td>
                     )}
                   </tr>
                 ))}

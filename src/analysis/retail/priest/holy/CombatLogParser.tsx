@@ -102,13 +102,11 @@ class CombatLogParser extends CoreCombatLogParser {
     DivineStar: Talents.Classwide.DivineStar,
     mindgames: Mindgames,
 
-    LightOfTheNaru: Talents.BottomRow.LightOfTheNaaru,
     HolyWordSalvation: Talents.BottomRow.HolyWordSalvation,
     Apotheosis: Talents.BottomRow.Apotheosis,
     AnsweredPrayers: Talents.BottomRow.AnsweredPrayers,
     Lightweaver: Talents.BottomRow.Lightweaver,
 
-    harmoniousApparatus: Talents.BottomRow.HarmoniousApparatus,
     divineImage: Talents.BottomRow.DivineImage,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
     resonantWords: Talents.BottomRow.ResonantWords,
