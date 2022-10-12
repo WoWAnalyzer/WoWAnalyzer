@@ -14,7 +14,6 @@ import {
 } from 'parser/core/Events';
 import ModuleError from 'parser/core/ModuleError';
 import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
-import BloodSpatteredScale from 'parser/retail/modules/items/dungeons/BloodSpatteredScale';
 import AscendedVigor from 'parser/retail/modules/items/enchants/AscendedVigor';
 import PotionChecker from 'parser/retail/modules/items/PotionChecker';
 import WeaponEnhancementChecker from 'parser/retail/modules/items/WeaponEnhancementChecker';
@@ -31,11 +30,6 @@ import AugmentRuneChecker from '../retail/modules/items/AugmentRuneChecker';
 import CombatPotion from '../retail/modules/items/CombatPotion';
 import DarkmoonDeckVoracity from '../retail/modules/items/crafted/DarkmoonDeckVoracity';
 import { DrapeOfShame } from '../retail/modules/items/DrapeOfShame';
-import CodexOfTheFirstTechnique from '../retail/modules/items/dungeons/CodexOfTheFirstTechnique';
-import InscrutableQuantumDevice from '../retail/modules/items/dungeons/InscrutableQuantumDevice';
-import OverchargedAnimaBattery from '../retail/modules/items/dungeons/OverchargedAnimaBattery';
-import ShadowgraspTotem from '../retail/modules/items/dungeons/ShadowgraspTotem';
-import SoullettingRuby from '../retail/modules/items/dungeons/SoullettingRuby';
 import EnchantChecker from '../retail/modules/items/EnchantChecker';
 import FlaskChecker from '../retail/modules/items/FlaskChecker';
 import FoodChecker from '../retail/modules/items/FoodChecker';
@@ -225,12 +219,6 @@ class CombatLogParser {
     darkmoonDeckVoracity: DarkmoonDeckVoracity,
 
     // Dungeons
-    inscrutableQuantumDevice: InscrutableQuantumDevice,
-    overchargedAnimaBattery: OverchargedAnimaBattery,
-    shadowgraspTotem: ShadowgraspTotem,
-    soullettingRuby: SoullettingRuby,
-    codexOfTheFirstTechnique: CodexOfTheFirstTechnique,
-    bloodSpatteredScale: BloodSpatteredScale,
 
     // Raids
     // Sepulcher of the First Ones

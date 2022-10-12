@@ -65,6 +65,7 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 11), 'Remove Shadowlands dungeon trinket analyzers.', ToppleTheNun),
   change(date(2022, 10, 9), 'Fixed an issue where DeathRecapTracker was being disabled by a bad Blessing of Sacrifice ID', Sref),
   change(date(2022, 10, 5), 'Add Vault of the Incarnates raid information.', ToppleTheNun),
   change(date(2022, 10, 4), 'Add Blessing of the Bronze as a raid buff.', ToppleTheNun),
