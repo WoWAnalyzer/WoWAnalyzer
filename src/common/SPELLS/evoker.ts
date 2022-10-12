@@ -11,6 +11,11 @@ const spells = {
     name: 'Dream Breath',
     icon: 'ability_evoker_dreambreath',
   },
+  DREAM_BREATH_ECHO: {
+    id: 376788,
+    name: 'Dream Breath',
+    icon: 'ability_evoker_dreambreath',
+  },
   RENEWING_BREATH: {
     id: 381923,
     name: 'Renewing Breath',
