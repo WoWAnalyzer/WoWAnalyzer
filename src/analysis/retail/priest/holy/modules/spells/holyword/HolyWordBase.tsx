@@ -3,6 +3,8 @@ import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 
+const LIGHT_OF_THE_NAARU_REDUCTION_PER_RANK = 0.1;
+const HARMONIOUS_APPARATUS_REDUCTION_PER_RANK = 2000;
 class HolyWordBase extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
@@ -12,7 +14,8 @@ class HolyWordBase extends Analyzer {
   baseCooldown = 60000;
   serendipityReduction = 6000;
   apparatusReduction =
-    2000 * this.selectedCombatant.getTalentRank(TALENTS.HARMONIOUS_APPARATUS_TALENT);
+    HARMONIOUS_APPARATUS_REDUCTION_PER_RANK *
+    this.selectedCombatant.getTalentRank(TALENTS.HARMONIOUS_APPARATUS_TALENT);
   //Currently on the beta both apparatus and light of the naaru are bugged but this is written as if tooltips are correct
   //If bugs stay/tooltips change this needs to be updated
   remainingCooldown = 0;
@@ -29,17 +32,21 @@ class HolyWordBase extends Analyzer {
   holyWordCasts = 0;
   holyWordWastedCooldown = 0;
   baseHolyWordReductionBySpell: { [spellID: string]: number } = {};
+
   lightOfTheNaruActive = false;
   lightOfTheNaruMultiplier = 1;
   lightOfTheNaruReductionBySpell: { [spellID: string]: number } = {};
+
   apotheosisCasts = 0;
   apotheosisActive = false;
   apotheosisMultiplier = 3;
+  //Not constant because it is used in other holy word files
   apotheosisReductionBySpell: { [spellID: string]: number } = {};
   apotheosisManaReduction = 0;
   holyWordApotheosisCasts = 0;
   holyWordHealingDuringApotheosis = 0;
   holyWordOverhealingDuringApotheosis = 0;
+
   harmoniousApparatusActive = false;
 
   protected spellUsable!: SpellUsable;
@@ -51,7 +58,9 @@ class HolyWordBase extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS.LIGHT_OF_THE_NAARU_TALENT.id)) {
       this.lightOfTheNaruActive = true;
       this.lightOfTheNaruMultiplier =
-        this.selectedCombatant.getTalentRank(TALENTS.LIGHT_OF_THE_NAARU_TALENT) * 0.1 + 1;
+        this.selectedCombatant.getTalentRank(TALENTS.LIGHT_OF_THE_NAARU_TALENT) *
+          LIGHT_OF_THE_NAARU_REDUCTION_PER_RANK +
+        1;
     }
 
     if (this.selectedCombatant.hasTalent(TALENTS.HARMONIOUS_APPARATUS_TALENT)) {

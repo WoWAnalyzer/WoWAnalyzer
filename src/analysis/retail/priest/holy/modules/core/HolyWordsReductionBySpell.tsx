@@ -91,9 +91,10 @@ class HolyWordsReductionBySpell extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            The % above is the total CD reduction normalize against the fight length.
+            This % shows the percentage of total CD reduction for your Holy Words throughout the
+            fight
             <br />
-            This allows for comparision across different fights more easily.
+            that your Holy Words passive has contributed (The other contributor being time).
             <br />
             <br />
             Talents like <strong>Light of the Naaru</strong> and <strong>Apotheosis</strong> which
@@ -137,7 +138,7 @@ class HolyWordsReductionBySpell extends Analyzer {
         }
       >
         <BoringSpellValueText spellId={SPELLS.HOLY_WORDS.id}>
-          {formatPercentage(reductionRatio)}% Effective Holy Word Reduction
+          {formatPercentage(reductionRatio)}% Total Holy Word reduction
         </BoringSpellValueText>
       </Statistic>
     );
