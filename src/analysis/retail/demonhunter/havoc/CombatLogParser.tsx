@@ -49,6 +49,7 @@ import AnyMeansNecessary from './modules/talents/AnyMeansNecessary';
 import Soulrend from './modules/talents/Soulrend';
 import GrowingInferno from './modules/talents/GrowingInferno';
 import BurningHatred from './modules/talents/BurningHatred';
+import EssenceBreakNormalizer from './normalizers/EssenceBreakNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -60,6 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizer
     eyeBeamNormalizer: EyeBeam,
+    essenceBreakNormalizer: EssenceBreakNormalizer,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
