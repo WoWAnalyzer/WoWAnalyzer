@@ -1,9 +1,7 @@
 import {
-  FallenOrder,
   TouchOfDeath,
   FaelineStomp,
   FaelineHarmony,
-  SinisterTeachings,
   ImbuedReflections,
   InvokersDelight,
   MysticTouch,
@@ -95,7 +93,6 @@ class CombatLogParser extends CoreCombatLogParser {
     primordialPotential: PrimordialPotential,
 
     // Covenants
-    fallenOrder: FallenOrder,
     weaponsOfOrder: WeaponsOfOrderWindwalker,
     faelineStomp: FaelineStomp,
     faelineHarmony: FaelineHarmony,
