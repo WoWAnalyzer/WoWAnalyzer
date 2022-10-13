@@ -95,6 +95,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_MONK.REVIVAL_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
+        enabled: combatant.hasTalent(TALENTS_MONK.REVIVAL_TALENT),
         cooldown: 180,
         gcd: {
           base: 1500,
@@ -104,6 +105,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_MONK.RESTORAL_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
+        enabled: combatant.hasTalent(TALENTS_MONK.RESTORAL_TALENT),
         cooldown: 180,
         gcd: {
           base: 1500,
@@ -113,8 +115,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: !combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id),
-        cooldown: 180,
+        enabled: combatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id),
+        cooldown: combatant.hasTalent(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT) ? 60 : 180,
         gcd: {
           base: 1500,
         },
@@ -127,7 +129,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id),
-        cooldown: 180,
+        cooldown: combatant.hasTalent(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT) ? 60 : 180,
         gcd: {
           base: 1500,
         },

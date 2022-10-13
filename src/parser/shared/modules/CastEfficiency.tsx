@@ -137,7 +137,6 @@ class CastEfficiency extends Analyzer {
         return acc;
       }
     }, 0);
-
     return timeSpentCasting;
   }
 

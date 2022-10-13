@@ -8,7 +8,7 @@ const talents = createTalentList({
     name: 'Soothing Mist',
     icon: 'ability_monk_soothingmists',
     maxRanks: 1,
-    manaCost: 0,
+    manaCost: 200,
   },
   RISING_SUN_KICK_TALENT: {
     id: 107428,

@@ -109,6 +109,11 @@ const spells = spellIndexableList({
     name: 'Essence Font',
     icon: 'ability_monk_essencefont',
   },
+  SECRET_INFUSION_HASTE_BUFF: {
+    id: 388497,
+    name: 'Secret infusion',
+    icon: 'ability_monk_chibrew',
+  },
   LIFE_COCOON: {
     id: 116849,
     name: 'Life Cocoon',
@@ -163,6 +168,11 @@ const spells = spellIndexableList({
     name: "Invoke Yu'lon, the Jade Serpent",
     icon: 'ability_monk_dragonkick',
     manaCost: 2500,
+  },
+  INVOKERS_DELIGHT_BUFF: {
+    id: 388663,
+    name: "Invoker's Delight",
+    icon: 'inv_inscription_80_warscroll_battleshout',
   },
   ENVELOPING_BREATH: {
     id: 325209,
