@@ -1,5 +1,4 @@
 import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -10,6 +9,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import TALENTS from 'common/TALENTS/warrior';
 
 const AVATAR_DAMAGE_INCREASE = 0.2;
 
@@ -18,15 +18,21 @@ class Avatar extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.AVATAR_TALENT.id);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(new EventFilter(EventType.Damage).by(SELECTED_PLAYER), this.handleDamage);
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.AVATAR_TALENT.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(TALENTS.AVATAR_TALENT.id) / this.owner.fightDuration
+    );
   }
 
   handleDamage(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.AVATAR_TALENT.id)) {
+    if (!this.selectedCombatant.hasBuff(TALENTS.AVATAR_TALENT.id)) {
       return;
     }
 
@@ -50,7 +56,7 @@ class Avatar extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.AVATAR_TALENT.id} /> Damage Contributed
+              <SpellIcon id={TALENTS.AVATAR_TALENT.id} /> Damage Contributed
             </>
           }
         >

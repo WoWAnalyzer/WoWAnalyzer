@@ -3,10 +3,10 @@ import { createTalentList } from './types';
 
 const talents = createTalentList({
   //Shared
-  BATTLE_STANCE_TALENT: {
-    id: 386164,
-    name: 'Battle Stance',
-    icon: 'ability_warrior_offensivestance',
+  BERSERKER_STANCE_TALENT: {
+    id: 386196,
+    name: 'Berserker Stance',
+    icon: 'ability_racial_avatar',
     maxRanks: 1,
   },
   DEFENSIVE_STANCE_TALENT: {
@@ -29,7 +29,7 @@ const talents = createTalentList({
     rageCost: 10,
   },
   WAR_MACHINE_TALENT: {
-    id: 346002,
+    id: 262231,
     name: 'War Machine',
     icon: 'ability_hunter_rapidkilling',
     maxRanks: 1,
@@ -70,9 +70,9 @@ const talents = createTalentList({
     icon: 'ability_warrior_shieldreflection',
     maxRanks: 1,
   },
-  SIPHONING_STRIKES_TALENT: {
+  LEECHING_STRIKES_TALENT: {
     id: 382258,
-    name: 'Siphoning Strikes',
+    name: 'Leeching Strikes',
     icon: 'inv_artifact_bloodoftheassassinated',
     maxRanks: 1,
   },
@@ -89,7 +89,7 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   FROTHING_BERSERKER_TALENT: {
-    id: 215571,
+    id: 392792,
     name: 'Frothing Berserker',
     icon: 'warrior_talent_icon_furyintheblood',
     maxRanks: 1,
@@ -158,7 +158,7 @@ const talents = createTalentList({
     maxRanks: 2,
   },
   BARBARIC_TRAINING_TALENT: {
-    id: 390674,
+    id: 383082,
     name: 'Barbaric Training',
     icon: 'ability_garrosh_whirling_corruption',
     maxRanks: 1,
@@ -181,12 +181,6 @@ const talents = createTalentList({
     icon: 'ability_heroicleap',
     maxRanks: 1,
   },
-  WRENCHING_IMPACT_TALENT: {
-    id: 392383,
-    name: 'Wrenching Impact',
-    icon: 'spell_shaman_firenova',
-    maxRanks: 1,
-  },
   BLOOD_AND_THUNDER_TALENT: {
     id: 384277,
     name: 'Blood and Thunder',
@@ -201,7 +195,7 @@ const talents = createTalentList({
   },
   SIDEARM_TALENT: { id: 384404, name: 'Sidearm', icon: 'inv_throwingaxe_06', maxRanks: 1 },
   HONED_REFLEXES_TALENT: {
-    id: 391270,
+    id: 382461,
     name: 'Honed Reflexes',
     icon: 'spell_holy_borrowedtime',
     maxRanks: 1,
@@ -226,16 +220,16 @@ const talents = createTalentList({
     icon: 'inv_shoulder_22',
     maxRanks: 2,
   },
-  QUICK_THINKING_TALENT: {
+  WILD_STRIKES_TALENT: {
     id: 382946,
-    name: 'Quick Thinking',
+    name: 'Wild Strikes',
     icon: 'ability_rogue_sprint',
     maxRanks: 2,
   },
-  ONE_HANDED_WEAPON_SPECIALIZATION_TALENT: {
-    id: 382895,
-    name: 'One-Handed Weapon Specialization',
-    icon: 'inv_sword_20',
+  DUAL_WIELD_SPECIALIZATION_TALENT: {
+    id: 382900,
+    name: 'Dual Wield Specialization',
+    icon: 'ability_dualwield',
     maxRanks: 1,
   },
   CRUEL_STRIKES_TALENT: {
@@ -245,7 +239,7 @@ const talents = createTalentList({
     maxRanks: 2,
   },
   ENDURANCE_TRAINING_TALENT: {
-    id: 391997,
+    id: 382940,
     name: 'Endurance Training',
     icon: 'spell_nature_unyeildingstamina',
     maxRanks: 1,
@@ -269,16 +263,16 @@ const talents = createTalentList({
     icon: 'ability_warrior_shockwave',
     maxRanks: 1,
   },
-  IMMOVABLE_OBJECT_TALENT: {
-    id: 394307,
-    name: 'Immovable Object',
-    icon: 'spell_frost_chillingarmor',
+  BERSERKERS_TORMENT_TALENT: {
+    id: 390123,
+    name: "Berserker's Torment",
+    icon: 'ability_warrior_innerrage',
     maxRanks: 1,
   },
-  UNSTOPPABLE_FORCE_TALENT: {
-    id: 275336,
-    name: 'Unstoppable Force',
-    icon: 'warrior_talent_icon_thunderstruck',
+  TITANS_TORMENT_TALENT: {
+    id: 390135,
+    name: "Titan's Torment",
+    icon: '70_inscription_vantus_rune_odyn',
     maxRanks: 1,
   },
   UPROAR_TALENT: { id: 391572, name: 'Uproar', icon: 'inv_misc_head_dragon_01', maxRanks: 1 },
@@ -312,21 +306,52 @@ const talents = createTalentList({
     icon: 'spell_nature_unrelentingstorm',
     maxRanks: 1,
   },
+  BATTLE_STANCE_TALENT: {
+    id: 386164,
+    name: 'Battle Stance',
+    icon: 'ability_warrior_offensivestance',
+    maxRanks: 1,
+  },
+  ONE_HANDED_WEAPON_SPECIALIZATION_TALENT: {
+    id: 382895,
+    name: 'One-Handed Weapon Specialization',
+    icon: 'inv_sword_20',
+    maxRanks: 1,
+  },
+  IMMOVABLE_OBJECT_TALENT: {
+    id: 394307,
+    name: 'Immovable Object',
+    icon: 'spell_frost_chillingarmor',
+    maxRanks: 1,
+  },
+  UNSTOPPABLE_FORCE_TALENT: {
+    id: 275336,
+    name: 'Unstoppable Force',
+    icon: 'warrior_talent_icon_thunderstruck',
+    maxRanks: 1,
+  },
+  RAVAGER_TALENT: { id: 228920, name: 'Ravager', icon: 'warrior_talent_icon_ravager', maxRanks: 1 },
+  STORM_OF_STEEL_TALENT: {
+    id: 382953,
+    name: 'Storm of Steel',
+    icon: 'ability_creature_cursed_04',
+    maxRanks: 1,
+  },
   TWO_HANDED_WEAPON_SPECIALIZATION_TALENT: {
     id: 382896,
     name: 'Two-Handed Weapon Specialization',
     icon: 'inv_axe_09',
     maxRanks: 1,
   },
-  MEMORY_OF_A_TORMENTED_BLADEMASTER_TALENT: {
+  BLADEMASTERS_TORMENT_TALENT: {
     id: 390138,
-    name: 'Memory of a Tormented Blademaster',
+    name: "Blademaster's Torment",
     icon: 'spell_nature_mirrorimage',
     maxRanks: 1,
   },
-  MEMORY_OF_A_TORMENTED_WARLORD_TALENT: {
+  WARLORDS_TORMENT_TALENT: {
     id: 390140,
-    name: 'Memory of a Tormented Warlord',
+    name: "Warlord's Torment",
     icon: 'warrior_talent_icon_innerrage',
     maxRanks: 1,
   },
@@ -342,48 +367,10 @@ const talents = createTalentList({
     icon: 'ability_demonhunter_bloodlet',
     maxRanks: 1,
   },
-  BERSERKER_STANCE_TALENT: {
-    id: 386196,
-    name: 'Berserker Stance',
-    icon: 'ability_racial_avatar',
-    maxRanks: 1,
-  },
-  DUAL_WIELD_SPECIALIZATION_TALENT: {
-    id: 382900,
-    name: 'Dual Wield Specialization',
-    icon: 'ability_dualwield',
-    maxRanks: 1,
-  },
-  MEMORY_OF_A_TORMENTED_BERSERKER_TALENT: {
-    id: 390123,
-    name: 'Memory of a Tormented Berserker',
-    icon: 'ability_warrior_innerrage',
-    maxRanks: 1,
-  },
-  MEMORY_OF_A_TORMENTED_TITAN_TALENT: {
-    id: 390135,
-    name: 'Memory of a Tormented Titan',
-    icon: '70_inscription_vantus_rune_odyn',
-    maxRanks: 1,
-  },
-  SUDDEN_DEATH_SHARED_TALENT: {
-    id: 29725,
-    name: 'Sudden Death',
-    icon: 'ability_warrior_improveddisciplines',
-    maxRanks: 1,
-  },
-  MASSACRE_SHARED_TALENT: { id: 281001, name: 'Massacre', icon: 'inv_sword_48', maxRanks: 1 },
   ANGER_MANAGEMENT_TALENT: {
     id: 152278,
     name: 'Anger Management',
     icon: 'warrior_talent_icon_angermanagement',
-    maxRanks: 1,
-  },
-  RAVAGER_TALENT: { id: 228920, name: 'Ravager', icon: 'warrior_talent_icon_ravager', maxRanks: 1 },
-  STORM_OF_STEEL_TALENT: {
-    id: 382953,
-    name: 'Storm of Steel',
-    icon: 'ability_creature_cursed_04',
     maxRanks: 1,
   },
   HURRICANE_TALENT: {
@@ -391,6 +378,232 @@ const talents = createTalentList({
     name: 'Hurricane',
     icon: 'ability_warrior_bladestorm',
     maxRanks: 1,
+  },
+
+  //Fury
+  BLOODTHIRST_TALENT: {
+    id: 23881,
+    name: 'Bloodthirst',
+    icon: 'spell_nature_bloodlust',
+    maxRanks: 1,
+  },
+  RAGING_BLOW_TALENT: { id: 85288, name: 'Raging Blow', icon: 'warrior_wild_strike', maxRanks: 1 },
+  IMPROVED_ENRAGE_TALENT: {
+    id: 383848,
+    name: 'Improved Enrage',
+    icon: 'spell_shadow_unholyfrenzy',
+    maxRanks: 1,
+  },
+  ENRAGED_REGENERATION_TALENT: {
+    id: 184364,
+    name: 'Enraged Regeneration',
+    icon: 'ability_warrior_focusedrage',
+    maxRanks: 1,
+  },
+  IMPROVED_BLOODTHIRST_TALENT: {
+    id: 383852,
+    name: 'Improved Bloodthirst',
+    icon: 'spell_nature_bloodlust',
+    maxRanks: 1,
+  },
+  FRESH_MEAT_TALENT: {
+    id: 215568,
+    name: 'Fresh Meat',
+    icon: 'ability_deathwing_bloodcorruption_death',
+    maxRanks: 1,
+  },
+  WARPAINT_TALENT: { id: 208154, name: 'Warpaint', icon: 'ability_rogue_preparation', maxRanks: 1 },
+  INVIGORATING_FURY_TALENT: {
+    id: 383468,
+    name: 'Invigorating Fury',
+    icon: 'spell_misc_emotionangry',
+    maxRanks: 1,
+  },
+  IMPROVED_RAGING_BLOW_TALENT: {
+    id: 383854,
+    name: 'Improved Raging Blow',
+    icon: 'warrior_wild_strike',
+    maxRanks: 1,
+  },
+  FOCUS_IN_CHAOS_TALENT: {
+    id: 383486,
+    name: 'Focus in Chaos',
+    icon: 'ability_hunter_mastermarksman',
+    maxRanks: 1,
+  },
+  RAMPAGE_TALENT: {
+    id: 184367,
+    name: 'Rampage',
+    icon: 'ability_warrior_rampage',
+    maxRanks: 1,
+    rageCost: 80,
+  },
+  CRUELTY_TALENT: { id: 392931, name: 'Cruelty', icon: 'spell_nature_focusedmind', maxRanks: 1 },
+  SINGLE_MINDED_FURY_TALENT: {
+    id: 81099,
+    name: 'Single-Minded Fury',
+    icon: 'warrior_talent_icon_singlemindedfury',
+    maxRanks: 1,
+  },
+  COLD_STEEL_HOT_BLOOD_TALENT: {
+    id: 383959,
+    name: 'Cold Steel, Hot Blood',
+    icon: 'ability_rogue_hungerforblood',
+    maxRanks: 1,
+  },
+  VICIOUS_CONTEMPT_TALENT: {
+    id: 383885,
+    name: 'Vicious Contempt',
+    icon: 'ability_ironmaidens_sorkasprey',
+    maxRanks: 2,
+  },
+  FRENZY_TALENT: { id: 335077, name: 'Frenzy', icon: 'ability_rogue_bloodyeye', maxRanks: 1 },
+  HACK_AND_SLASH_TALENT: {
+    id: 383877,
+    name: 'Hack and Slash',
+    icon: 'ability_rogue_rollthebones02',
+    maxRanks: 1,
+  },
+  SLAUGHTERING_STRIKES_TALENT: {
+    id: 388004,
+    name: 'Slaughtering Strikes',
+    icon: 'inv_axe_2h_orcwarrior_c_01',
+    maxRanks: 1,
+  },
+  ASHEN_JUGGERNAUT_TALENT: {
+    id: 392536,
+    name: 'Ashen Juggernaut',
+    icon: 'warrior_talent_icon_skirmisher',
+    maxRanks: 1,
+  },
+  IMPROVED_WHIRLWIND_TALENT: {
+    id: 12950,
+    name: 'Improved Whirlwind',
+    icon: 'ability_whirlwind',
+    maxRanks: 1,
+  },
+  WRATH_AND_FURY_TALENT: {
+    id: 392936,
+    name: 'Wrath and Fury',
+    icon: 'inv_sword_2h_artifactarathor_d_03',
+    maxRanks: 1,
+  },
+  FRENZIED_FLURRY_TALENT: {
+    id: 383605,
+    name: 'Frenzied Flurry',
+    icon: 'ability_ghoulfrenzy',
+    maxRanks: 1,
+  },
+  BLOODCRAZE_TALENT: {
+    id: 393950,
+    name: 'Bloodcraze',
+    icon: 'ability_creature_cursed_02',
+    maxRanks: 1,
+  },
+  RECKLESSNESS_TALENT: {
+    id: 1719,
+    name: 'Recklessness',
+    icon: 'warrior_talent_icon_innerrage',
+    maxRanks: 1,
+  },
+  MEAT_CLEAVER_TALENT: { id: 280392, name: 'Meat Cleaver', icon: 'ability_whirlwind', maxRanks: 1 },
+  RAGING_ARMAMENTS_TALENT: {
+    id: 388049,
+    name: 'Raging Armaments',
+    icon: 'achievement_arena_2v2_5',
+    maxRanks: 1,
+  },
+  SWIFT_STRIKES_TALENT: {
+    id: 383459,
+    name: 'Swift Strikes',
+    icon: 'ability_rogue_sprint',
+    maxRanks: 2,
+  },
+  ODYNS_FURY_TALENT: {
+    id: 385059,
+    name: "Odyn's Fury",
+    icon: 'inv_sword_1h_artifactvigfus_d_01',
+    maxRanks: 1,
+  },
+  RECKLESS_ABANDON_TALENT: {
+    id: 202751,
+    name: 'Reckless Abandon',
+    icon: 'ability_warrior_battleshout',
+    maxRanks: 1,
+  },
+  ONSLAUGHT_TALENT: { id: 315720, name: 'Onslaught', icon: 'ability_warrior_trauma', maxRanks: 1 },
+  ANNIHILATOR_TALENT: {
+    id: 383916,
+    name: 'Annihilator',
+    icon: 'ability_warrior_annihilator',
+    maxRanks: 1,
+  },
+  DANCING_BLADES_TALENT: {
+    id: 391683,
+    name: 'Dancing Blades',
+    icon: 'inv_sword_1h_artifactvigfus_d_01dual',
+    maxRanks: 1,
+  },
+  TITANIC_RAGE_TALENT: {
+    id: 394329,
+    name: 'Titanic Rage',
+    icon: 'inv_sword_1h_artifactvigfus_d_02',
+    maxRanks: 1,
+  },
+  UNBRIDLED_FEROCITY_TALENT: {
+    id: 389603,
+    name: 'Unbridled Ferocity',
+    icon: 'ability_warrior_endlessrage',
+    maxRanks: 1,
+  },
+  DEPTHS_OF_INSANITY_TALENT: {
+    id: 383922,
+    name: 'Depths of Insanity',
+    icon: 'racial_troll_berserk',
+    maxRanks: 1,
+  },
+  TENDERIZE_TALENT: {
+    id: 388933,
+    name: 'Tenderize',
+    icon: 'inv_mace_1h_blacksmithing_b_01_black',
+    maxRanks: 1,
+  },
+  SUDDEN_DEATH_FURY_TALENT: {
+    id: 280721,
+    name: 'Sudden Death',
+    icon: 'ability_warrior_improveddisciplines',
+    maxRanks: 1,
+  },
+  BLOODBORNE_FURY_TALENT: {
+    id: 385703,
+    name: 'Bloodborne',
+    icon: 'inv_artifact_bloodoftheassassinated',
+    maxRanks: 1,
+  },
+  MASSACRE_FURY_TALENT: { id: 206315, name: 'Massacre', icon: 'inv_sword_48', maxRanks: 1 },
+  IMPROVED_EXECUTE_FURY_TALENT: {
+    id: 316402,
+    name: 'Improved Execute',
+    icon: 'inv_sword_48',
+    maxRanks: 1,
+  },
+  STORM_OF_SWORDS_FURY_TALENT: {
+    id: 388903,
+    name: 'Storm of Swords',
+    icon: 'ability_skyreach_fourblades',
+    maxRanks: 1,
+  },
+  DEFT_EXPERIENCE_FURY_TALENT: {
+    id: 383295,
+    name: 'Deft Experience',
+    icon: 'inv_misc_book_07',
+    maxRanks: 2,
+  },
+  CRITICAL_THINKING_FURY_TALENT: {
+    id: 383297,
+    name: 'Critical Thinking',
+    icon: 'ability_criticalstrike',
+    maxRanks: 2,
   },
 
   //Protection
@@ -471,6 +684,12 @@ const talents = createTalentList({
     icon: 'ability_rogue_reinforcedleather',
     maxRanks: 1,
   },
+  SUDDEN_DEATH_PROTECTION_TALENT: {
+    id: 29725,
+    name: 'Sudden Death',
+    icon: 'ability_warrior_improveddisciplines',
+    maxRanks: 1,
+  },
   THUNDERLORD_TALENT: {
     id: 385840,
     name: 'Thunderlord',
@@ -489,9 +708,9 @@ const talents = createTalentList({
     icon: 'shield_draenorcrafted_d_02_c_alliance',
     maxRanks: 1,
   },
-  SPIKED_SHIELD_TALENT: {
+  TOUGH_AS_NAILS_TALENT: {
     id: 385888,
-    name: 'Spiked Shield',
+    name: 'Tough as Nails',
     icon: 'inv_titanium_shield_spike',
     maxRanks: 1,
   },
@@ -500,6 +719,12 @@ const talents = createTalentList({
     name: 'Spell Block',
     icon: 'ability_warrior_shieldbreak',
     maxRanks: 1,
+  },
+  BLOODBORNE_PROTECTION_TALENT: {
+    id: 385704,
+    name: 'Bloodborne',
+    icon: 'inv_artifact_bloodoftheassassinated',
+    maxRanks: 2,
   },
   HEAVY_REPERCUSSIONS_TALENT: {
     id: 203177,
@@ -519,15 +744,16 @@ const talents = createTalentList({
     icon: 'ability_defend',
     maxRanks: 1,
   },
+  MASSACRE_PROTECTION_TALENT: { id: 281001, name: 'Massacre', icon: 'inv_sword_48', maxRanks: 1 },
   UNBREAKABLE_WILL_TALENT: {
     id: 384074,
     name: 'Unbreakable Will',
     icon: 'ability_warrior_stalwartprotector',
     maxRanks: 1,
   },
-  THE_WALL_TALENT: {
+  IMPENETRABLE_WALL_TALENT: {
     id: 384072,
-    name: 'The Wall',
+    name: 'Impenetrable Wall',
     icon: 'ability_warrior_shieldguard',
     maxRanks: 1,
   },
@@ -573,9 +799,9 @@ const talents = createTalentList({
     icon: 'ability_warrior_intensifyrage',
     maxRanks: 1,
   },
-  OUTBURST_TALENT: {
+  VIOLENT_OUTBURST_TALENT: {
     id: 386477,
-    name: 'Outburst',
+    name: 'Violent Outburst',
     icon: 'ability_warrior_furiousresolve',
     maxRanks: 1,
   },
@@ -603,12 +829,6 @@ const talents = createTalentList({
     icon: 'ability_gouge',
     maxRanks: 1,
     rageCost: 30,
-  },
-  BLOODBORNE_PROTECTION_TALENT: {
-    id: 385704,
-    name: 'Bloodborne',
-    icon: 'inv_artifact_bloodoftheassassinated',
-    maxRanks: 2,
   },
   DANCE_OF_DEATH_PROTECTION_TALENT: {
     id: 393965,
@@ -644,6 +864,12 @@ const talents = createTalentList({
     icon: 'ability_warrior_challange',
     maxRanks: 1,
   },
+  IMPROVED_EXECUTE_ARMS_TALENT: {
+    id: 316405,
+    name: 'Improved Execute',
+    icon: 'inv_sword_48',
+    maxRanks: 1,
+  },
   IMPROVED_OVERPOWER_TALENT: {
     id: 385571,
     name: 'Improved Overpower',
@@ -651,6 +877,12 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   STORM_WALL_TALENT: { id: 388807, name: 'Storm Wall', icon: 'spell_sandstorm', maxRanks: 1 },
+  SUDDEN_DEATH_ARMS_TALENT: {
+    id: 29725,
+    name: 'Sudden Death',
+    icon: 'ability_warrior_improveddisciplines',
+    maxRanks: 1,
+  },
   FERVOR_OF_BATTLE_TALENT: {
     id: 202316,
     name: 'Fervor of Battle',
@@ -683,6 +915,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_igniteweapon',
     maxRanks: 1,
   },
+  MASSACRE_ARMS_TALENT: { id: 281001, name: 'Massacre', icon: 'inv_sword_48', maxRanks: 1 },
   SWEEPING_STRIKES_TALENT: {
     id: 260708,
     name: 'Sweeping Strikes',
@@ -696,10 +929,10 @@ const talents = createTalentList({
     maxRanks: 1,
     rageCost: 20,
   },
-  FRACTURE_TALENT: {
+  TIDE_OF_BLOOD_TALENT: {
     id: 386357,
-    name: 'Fracture',
-    icon: 'inv_skinning_80_bloodsoakedbone',
+    name: 'Tide of Blood',
+    icon: 'spell_shadow_bloodboil',
     maxRanks: 1,
   },
   BLOODBORNE_ARMS_TALENT: {
@@ -734,6 +967,12 @@ const talents = createTalentList({
     icon: 'ability_warrior_savageblow',
     maxRanks: 1,
   },
+  STORM_OF_SWORDS_ARMS_TALENT: {
+    id: 385512,
+    name: 'Storm of Swords',
+    icon: 'ability_skyreach_fourblades',
+    maxRanks: 1,
+  },
   COLLATERAL_DAMAGE_TALENT: {
     id: 334779,
     name: 'Collateral Damage',
@@ -746,10 +985,22 @@ const talents = createTalentList({
     icon: 'ability_rogue_cuttothechase',
     maxRanks: 1,
   },
+  DEFT_EXPERIENCE_ARMS_TALENT: {
+    id: 389308,
+    name: 'Deft Experience',
+    icon: 'inv_misc_book_07',
+    maxRanks: 2,
+  },
   VALOR_IN_VICTORY_TALENT: {
     id: 383338,
     name: 'Valor in Victory',
     icon: 'spell_holy_summonchampion',
+    maxRanks: 2,
+  },
+  CRITICAL_THINKING_ARMS_TALENT: {
+    id: 389306,
+    name: 'Critical Thinking',
+    icon: 'ability_criticalstrike',
     maxRanks: 2,
   },
   BLOODLETTING_TALENT: {
@@ -771,7 +1022,12 @@ const talents = createTalentList({
     icon: 'inv_sword_27',
     maxRanks: 1,
   },
-  EXPLOITER_TALENT: { id: 386634, name: 'Exploiter', icon: 'inv_sword_48', maxRanks: 1 },
+  EXECUTIONERS_PRECISION_TALENT: {
+    id: 386634,
+    name: "Executioner's Precision",
+    icon: 'inv_sword_48',
+    maxRanks: 1,
+  },
   FATALITY_TALENT: {
     id: 383703,
     name: 'Fatality',
@@ -800,256 +1056,6 @@ const talents = createTalentList({
     id: 383292,
     name: 'Juggernaut',
     icon: 'warrior_talent_icon_skirmisher',
-    maxRanks: 1,
-  },
-  IMPROVED_EXECUTE_ARMS_TALENT: {
-    id: 316405,
-    name: 'Improved Execute',
-    icon: 'inv_sword_48',
-    maxRanks: 1,
-  },
-  DEFT_EXPERIENCE_ARMS_TALENT: {
-    id: 389308,
-    name: 'Deft Experience',
-    icon: 'inv_misc_book_07',
-    maxRanks: 2,
-  },
-  CRITICAL_THINKING_ARMS_TALENT: {
-    id: 389306,
-    name: 'Critical Thinking',
-    icon: 'ability_criticalstrike',
-    maxRanks: 2,
-  },
-  STORM_OF_SWORDS_ARMS_TALENT: {
-    id: 385512,
-    name: 'Storm of Swords',
-    icon: 'ability_skyreach_fourblades',
-    maxRanks: 1,
-  },
-
-  //Fury
-  BLOODTHIRST_TALENT: {
-    id: 23881,
-    name: 'Bloodthirst',
-    icon: 'spell_nature_bloodlust',
-    maxRanks: 1,
-  },
-  RAGING_BLOW_TALENT: { id: 85288, name: 'Raging Blow', icon: 'warrior_wild_strike', maxRanks: 1 },
-  IMPROVED_ENRAGE_TALENT: {
-    id: 383848,
-    name: 'Improved Enrage',
-    icon: 'spell_shadow_unholyfrenzy',
-    maxRanks: 1,
-  },
-  ENRAGED_REGENERATION_TALENT: {
-    id: 184364,
-    name: 'Enraged Regeneration',
-    icon: 'ability_warrior_focusedrage',
-    maxRanks: 1,
-  },
-  IMPROVED_EXECUTE_FURY_TALENT: {
-    id: 316402,
-    name: 'Improved Execute',
-    icon: 'inv_sword_48',
-    maxRanks: 1,
-  },
-  IMPROVED_BLOODTHIRST_TALENT: {
-    id: 383852,
-    name: 'Improved Bloodthirst',
-    icon: 'spell_nature_bloodlust',
-    maxRanks: 1,
-  },
-  FRESH_MEAT_TALENT: {
-    id: 215568,
-    name: 'Fresh Meat',
-    icon: 'ability_deathwing_bloodcorruption_death',
-    maxRanks: 1,
-  },
-  WARPAINT_TALENT: { id: 208154, name: 'Warpaint', icon: 'ability_rogue_preparation', maxRanks: 1 },
-  INVIGORATING_FURY_TALENT: {
-    id: 383468,
-    name: 'Invigorating Fury',
-    icon: 'spell_misc_emotionangry',
-    maxRanks: 1,
-  },
-  SUDDEN_DEATH_FURY_TALENT: {
-    id: 280721,
-    name: 'Sudden Death',
-    icon: 'ability_warrior_improveddisciplines',
-    maxRanks: 1,
-  },
-  IMPROVED_RAGING_BLOW_TALENT: {
-    id: 383854,
-    name: 'Improved Raging Blow',
-    icon: 'warrior_wild_strike',
-    maxRanks: 1,
-  },
-  FOCUS_IN_CHAOS_TALENT: {
-    id: 383486,
-    name: 'Focus in Chaos',
-    icon: 'ability_hunter_mastermarksman',
-    maxRanks: 1,
-  },
-  RAMPAGE_TALENT: {
-    id: 184367,
-    name: 'Rampage',
-    icon: 'ability_warrior_rampage',
-    maxRanks: 1,
-    rageCost: 80,
-  },
-  CRUELTY_TALENT: { id: 392931, name: 'Cruelty', icon: 'spell_nature_focusedmind', maxRanks: 1 },
-  SINGLE_MINDED_FURY_TALENT: {
-    id: 81099,
-    name: 'Single-Minded Fury',
-    icon: 'warrior_talent_icon_singlemindedfury',
-    maxRanks: 1,
-  },
-  COLD_STEEL_HOT_BLOOD_TALENT: {
-    id: 383959,
-    name: 'Cold Steel, Hot Blood',
-    icon: 'ability_rogue_hungerforblood',
-    maxRanks: 1,
-  },
-  VICIOUS_CONTEMPT_TALENT: {
-    id: 383885,
-    name: 'Vicious Contempt',
-    icon: 'ability_ironmaidens_sorkasprey',
-    maxRanks: 2,
-  },
-  FRENZY_TALENT: { id: 335077, name: 'Frenzy', icon: 'ability_rogue_bloodyeye', maxRanks: 1 },
-  HACK_AND_SLASH_TALENT: {
-    id: 383877,
-    name: 'Hack and Slash',
-    icon: 'ability_rogue_rollthebones02',
-    maxRanks: 1,
-  },
-  SLAUGHTERING_STRIKES_TALENT: {
-    id: 388004,
-    name: 'Slaughtering Strikes',
-    icon: 'inv_axe_2h_orcwarrior_c_01',
-    maxRanks: 1,
-  },
-  ASHEN_JUGGERNAUT_TALENT: {
-    id: 392536,
-    name: 'Ashen Juggernaut',
-    icon: 'warrior_talent_icon_skirmisher',
-    maxRanks: 1,
-  },
-  IMPROVED_WHIRLWIND_TALENT: {
-    id: 12950,
-    name: 'Improved Whirlwind',
-    icon: 'ability_whirlwind',
-    maxRanks: 1,
-  },
-  WRATH_AND_FURY_TALENT: {
-    id: 392936,
-    name: 'Wrath and Fury',
-    icon: 'inv_shoulder_34',
-    maxRanks: 1,
-  },
-  FRENZIED_FLURRY_TALENT: {
-    id: 383605,
-    name: 'Frenzied Flurry',
-    icon: 'ability_ghoulfrenzy',
-    maxRanks: 1,
-  },
-  BLOODBORNE_FURY_TALENT: {
-    id: 385703,
-    name: 'Bloodborne',
-    icon: 'inv_artifact_bloodoftheassassinated',
-    maxRanks: 1,
-  },
-  BLOODCRAZE_TALENT: {
-    id: 393950,
-    name: 'Bloodcraze',
-    icon: 'ability_creature_cursed_02',
-    maxRanks: 1,
-  },
-  RECKLESSNESS_TALENT: {
-    id: 1719,
-    name: 'Recklessness',
-    icon: 'warrior_talent_icon_innerrage',
-    maxRanks: 1,
-  },
-  MASSACRE_FURY_TALENT: { id: 206315, name: 'Massacre', icon: 'inv_sword_48', maxRanks: 1 },
-  MEAT_CLEAVER_TALENT: { id: 280392, name: 'Meat Cleaver', icon: 'ability_whirlwind', maxRanks: 1 },
-  RAGING_ARMAMENTS_TALENT: {
-    id: 388049,
-    name: 'Raging Armaments',
-    icon: 'achievement_arena_2v2_5',
-    maxRanks: 1,
-  },
-  DEFT_EXPERIENCE_FURY_TALENT: {
-    id: 383295,
-    name: 'Deft Experience',
-    icon: 'inv_misc_book_07',
-    maxRanks: 2,
-  },
-  SWIFT_STRIKES_TALENT: {
-    id: 383459,
-    name: 'Swift Strikes',
-    icon: 'ability_rogue_sprint',
-    maxRanks: 2,
-  },
-  CRITICAL_THINKING_FURY_TALENT: {
-    id: 383297,
-    name: 'Critical Thinking',
-    icon: 'ability_criticalstrike',
-    maxRanks: 2,
-  },
-  STORM_OF_SWORDS_FURY_TALENT: {
-    id: 388903,
-    name: 'Storm of Swords',
-    icon: 'ability_skyreach_fourblades',
-    maxRanks: 1,
-  },
-  ODYNS_FURY_TALENT: {
-    id: 385059,
-    name: "Odyn's Fury",
-    icon: 'inv_sword_1h_artifactvigfus_d_01',
-    maxRanks: 1,
-  },
-  RECKLESS_ABANDON_TALENT: {
-    id: 202751,
-    name: 'Reckless Abandon',
-    icon: 'ability_warrior_battleshout',
-    maxRanks: 1,
-  },
-  ONSLAUGHT_TALENT: { id: 315720, name: 'Onslaught', icon: 'ability_warrior_trauma', maxRanks: 1 },
-  ANNIHILATOR_TALENT: {
-    id: 383916,
-    name: 'Annihilator',
-    icon: 'ability_warrior_annihilator',
-    maxRanks: 1,
-  },
-  DANCING_BLADES_TALENT: {
-    id: 391683,
-    name: 'Dancing Blades',
-    icon: 'inv_sword_1h_artifactvigfus_d_01dual',
-    maxRanks: 1,
-  },
-  PLACEHOLDER_TALENT_TALENT: {
-    id: 390376,
-    name: 'Placeholder Talent',
-    icon: 'garrison_building_workshop',
-    maxRanks: 1,
-  },
-  UNBRIDLED_FEROCITY_TALENT: {
-    id: 389603,
-    name: 'Unbridled Ferocity',
-    icon: 'ability_warrior_endlessrage',
-    maxRanks: 1,
-  },
-  DEPTHS_OF_INSANITY_TALENT: {
-    id: 383922,
-    name: 'Depths of Insanity',
-    icon: 'racial_troll_berserk',
-    maxRanks: 1,
-  },
-  PULVERIZE_TALENT: {
-    id: 388933,
-    name: 'Pulverize',
-    icon: 'inv_mace_1h_blacksmithing_b_01_black',
     maxRanks: 1,
   },
 });
