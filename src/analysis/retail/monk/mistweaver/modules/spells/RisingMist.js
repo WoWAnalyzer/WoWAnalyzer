@@ -120,7 +120,10 @@ class RisingMist extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RISING_SUN_KICK_TALENT),
       this.extendHots,
     );
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleVivify);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.VIVIFY_TALENT),
+      this.handleVivify,
+    );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.calculateEvn); //gotta just look at all heals tbh
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
@@ -223,7 +226,7 @@ class RisingMist extends Analyzer {
         } else if (spellId === SPELLS.RENEWING_MIST_HEAL.id) {
           foundTarget = true;
           this.remCount += 1;
-        } else if (spellId === SPELLS.ENVELOPING_MIST.id) {
+        } else if (spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id) {
           foundTarget = true;
           this.evmCount += 1;
         }

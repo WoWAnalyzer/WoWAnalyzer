@@ -34,7 +34,9 @@ class SoothingMist extends Analyzer {
       this.castSoothingMist,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, SPELLS.ENVELOPING_MIST]),
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([TALENTS_MONK.VIVIFY_TALENT, TALENTS_MONK.ENVELOPING_MIST_TALENT]),
       this.castDuringSoothingMist,
     );
     this.addEventListener(

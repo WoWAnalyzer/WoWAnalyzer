@@ -315,7 +315,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.VIVIFY.id, // don't know if the vivify spell has been updated to the new ID yet
+        spell: TALENTS_MONK.VIVIFY_TALENT.id, // don't know if the vivify spell has been updated to the new ID yet
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,

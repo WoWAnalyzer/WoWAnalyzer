@@ -36,9 +36,12 @@ class Lifecycles extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivifyCast);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.VIVIFY_TALENT),
+      this.vivifyCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
       this.envelopingMistCast,
     );
   }
@@ -58,7 +61,7 @@ class Lifecycles extends Analyzer {
   vivifyCast(event: CastEvent) {
     // Checking for TFT->Viv and classify as non-reduced Viv
     if (
-      this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) ||
+      this.selectedCombatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id) ||
       this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)
     ) {
       return;
@@ -67,8 +70,8 @@ class Lifecycles extends Analyzer {
       this.castsNonRedViv += 1;
       return;
     }
-    this.manaSaved += SPELLS.VIVIFY.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
-    this.manaSavedViv += SPELLS.VIVIFY.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
+    this.manaSaved += TALENTS_MONK.VIVIFY_TALENT.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
+    this.manaSavedViv += TALENTS_MONK.VIVIFY_TALENT.manaCost * LIFECYCLES_MANA_PERC_REDUCTION;
     this.castsRedViv += 1;
     debug && console.log('Viv Reduced');
   }
@@ -88,7 +91,7 @@ class Lifecycles extends Analyzer {
       event.timestamp,
     )?.stacks;
     if (!chijiStacksAtEnvCast) {
-      this.calculateEnvManaSaved(SPELLS.ENVELOPING_MIST.manaCost);
+      this.calculateEnvManaSaved(TALENTS_MONK.ENVELOPING_MIST_TALENT.manaCost);
       return;
     }
     //check for free cast from chiji
@@ -97,7 +100,8 @@ class Lifecycles extends Analyzer {
     }
     //have to do this weird because blizzard decided to make each chiji stack reduce the mana cost by 1001 instead of and exact 33%
     const modifiedManaCost =
-      SPELLS.ENVELOPING_MIST.manaCost - CHIJI_MANA_SAVED_PER_STACK * chijiStacksAtEnvCast;
+      TALENTS_MONK.ENVELOPING_MIST_TALENT.manaCost -
+      CHIJI_MANA_SAVED_PER_STACK * chijiStacksAtEnvCast;
     this.calculateEnvManaSaved(modifiedManaCost);
   }
 

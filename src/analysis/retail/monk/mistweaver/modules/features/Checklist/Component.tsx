@@ -33,7 +33,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
             <SpellLink id={SPELLS.RENEWING_MIST.id} />. The other piece is ensuring you have enough{' '}
             <SpellLink id={SPELLS.RENEWING_MIST.id} />
             's on the raid so that you maximize the cleave healing from{' '}
-            <SpellLink id={SPELLS.VIVIFY.id} />.
+            <SpellLink id={TALENTS_MONK.VIVIFY_TALENT.id} />.
           </>
         }
       >
@@ -72,7 +72,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.THUNDER_FOCUS_TEA.id} />
+        <AbilityRequirement spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} />
         {combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT.id) && (
           <AbilityRequirement spell={TALENTS_MONK.MANA_TEA_TALENT.id} />
         )}
@@ -110,8 +110,8 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.ENVELOPING_BREATH.id} /> applied per{' '}
-              <SpellLink id={SPELLS.ENVELOPING_MIST.id} /> cast
+              <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} /> applied per{' '}
+              <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> cast
             </>
           }
           thresholds={thresholds.envelopingBreath}
@@ -236,7 +236,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> incorrect casts
+              <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} /> incorrect casts
             </>
           }
           thresholds={thresholds.thunderFocusTea}

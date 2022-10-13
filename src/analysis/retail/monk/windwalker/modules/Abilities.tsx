@@ -266,7 +266,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.VIVIFY.id,
+        spell: TALENTS_MONK.VIVIFY_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,

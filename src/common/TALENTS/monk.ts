@@ -73,6 +73,13 @@ const talents = createTalentList({
     icon: 'monk_ability_cherrymanatea',
     maxRanks: 2,
   },
+  VIVIFY_TALENT: {
+    id: 116670,
+    name: 'Vivify',
+    icon: 'ability_monk_vivify',
+    manaCost: 1900,
+    maxRanks: 1,
+  },
   VIVACIOUS_VIVIFICATION_TALENT: {
     id: 388812,
     name: 'Vivacious Vivification',

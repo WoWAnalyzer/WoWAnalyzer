@@ -21,7 +21,7 @@ class InvokeYulon extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH_HEAL),
       this.handleEnvelopingBreath,
     );
     this.addEventListener(

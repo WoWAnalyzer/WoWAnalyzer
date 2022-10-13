@@ -9,10 +9,10 @@ import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHea
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   HEALING_ABILITIES_ON_GCD: number[] = [
-    SPELLS.ENVELOPING_MIST.id,
+    TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
     SPELLS.ESSENCE_FONT.id,
     SPELLS.RENEWING_MIST.id,
-    SPELLS.VIVIFY.id,
+    TALENTS_MONK.VIVIFY_TALENT.id,
     TALENTS_MONK.REVIVAL_TALENT.id,
     TALENTS_MONK.RESTORAL_TALENT.id,
     TALENTS_MONK.CHI_BURST_TALENT.id,

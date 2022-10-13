@@ -52,7 +52,7 @@ class MasteryStats extends Analyzer {
       {
         color: SPELL_COLORS.VIVIFY,
         label: 'Vivify',
-        spellId: SPELLS.VIVIFY.id,
+        spellId: TALENTS_MONK.VIVIFY_TALENT.id,
         value: this.vivify.gomHealing,
         valueTooltip: formatThousands(this.vivify.gomHealing),
       },
@@ -66,7 +66,7 @@ class MasteryStats extends Analyzer {
       {
         color: SPELL_COLORS.ENVELOPING_MIST,
         label: 'Enveloping Mist',
-        spellId: SPELLS.ENVELOPING_MIST.id,
+        spellId: TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
         value: this.envelopingMists.gustsHealing,
         valueTooltip: formatThousands(this.envelopingMists.gustsHealing),
       },

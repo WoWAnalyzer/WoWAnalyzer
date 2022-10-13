@@ -31,7 +31,10 @@ class GroundingBreath extends Analyzer {
 
     this.healingBoost = conduitScaling(0.15, conduitRank);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivifyBoost);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.VIVIFY_TALENT),
+      this.vivifyBoost,
+    );
     this.addEventListener(
       Events.resourcechange
         .by(SELECTED_PLAYER)

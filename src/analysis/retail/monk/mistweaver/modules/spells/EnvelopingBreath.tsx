@@ -30,11 +30,11 @@ class EnvelopingBreath extends Analyzer {
     super(options);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handleEnvelopingBreathHeal);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH_HEAL),
       this.handleEnvelopingBreathCount,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
       this.handleEnvelopingMist,
     );
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)) {
@@ -69,7 +69,7 @@ class EnvelopingBreath extends Analyzer {
     if (this.combatants.players[targetId]) {
       if (
         this.combatants.players[targetId].hasBuff(
-          SPELLS.ENVELOPING_BREATH.id,
+          SPELLS.ENVELOPING_BREATH_HEAL.id,
           event.timestamp,
           0,
           0,
@@ -108,13 +108,14 @@ class EnvelopingBreath extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are not utilizing <SpellLink id={SPELLS.ENVELOPING_BREATH.id} /> effectively. Make
-          sure you are choosing good targets for your <SpellLink id={SPELLS.ENVELOPING_MIST.id} />{' '}
-          during your Celestial cooldowns to apply the maximum number of{' '}
-          <SpellLink id={SPELLS.ENVELOPING_BREATH.id} /> possible.
+          You are not utilizing <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} /> effectively.
+          Make sure you are choosing good targets for your{' '}
+          <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> during your Celestial cooldowns
+          to apply the maximum number of <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} />{' '}
+          possible.
         </>,
       )
-        .icon(SPELLS.ENVELOPING_BREATH.icon)
+        .icon(SPELLS.ENVELOPING_BREATH_HEAL.icon)
         .actual(
           `${this.averageEnvBPerEnv.toFixed(2)}${t({
             id: 'monk.mistweaver.suggestions.envelopingBreath.averageEnvBPerEnv',
@@ -133,7 +134,7 @@ class EnvelopingBreath extends Analyzer {
         category={STATISTIC_CATEGORY.THEORYCRAFT}
         tooltip={<>This is the effective healing contributed by the Enveloping Breath buff.</>}
       >
-        <BoringSpellValueText spellId={SPELLS.ENVELOPING_BREATH.id}>
+        <BoringSpellValueText spellId={SPELLS.ENVELOPING_BREATH_HEAL.id}>
           <>
             {formatNumber(this.envBIncrease)} <small>healing contributed by the buff</small>
           </>

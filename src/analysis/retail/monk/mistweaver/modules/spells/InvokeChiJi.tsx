@@ -58,11 +58,11 @@ class InvokeChiJi extends Analyzer {
       this.handleGust,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH_HEAL),
       this.handleEnvelopingBreath,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
       this.handleEnvelopCast,
     );
     this.addEventListener(

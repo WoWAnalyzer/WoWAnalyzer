@@ -29,8 +29,14 @@ class Vivify extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivCast);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleViv);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.VIVIFY_TALENT),
+      this.vivCast,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.VIVIFY_TALENT),
+      this.handleViv,
+    );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
       this.handleMastery,
@@ -84,13 +90,13 @@ class Vivify extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are casting <SpellLink id={SPELLS.VIVIFY.id} /> with less than 2{' '}
+          You are casting <SpellLink id={TALENTS_MONK.VIVIFY_TALENT.id} /> with less than 2{' '}
           <SpellLink id={SPELLS.RENEWING_MIST.id} /> out on the raid. To ensure you are gaining the
-          maximum <SpellLink id={SPELLS.VIVIFY.id} /> healing, keep{' '}
+          maximum <SpellLink id={TALENTS_MONK.VIVIFY_TALENT.id} /> healing, keep{' '}
           <SpellLink id={SPELLS.RENEWING_MIST.id} /> on cooldown.
         </>,
       )
-        .icon(SPELLS.VIVIFY.icon)
+        .icon(TALENTS_MONK.VIVIFY_TALENT.icon)
         .actual(
           `${this.averageRemPerVivify.toFixed(2)}${t({
             id: 'monk.mistweaver.suggestions.vivify.renewingMistsPerVivify',
@@ -105,7 +111,7 @@ class Vivify extends Analyzer {
     return (
       <StatisticBox
         postion={STATISTIC_ORDER.CORE(15)}
-        icon={<SpellIcon id={SPELLS.VIVIFY.id} />}
+        icon={<SpellIcon id={TALENTS_MONK.VIVIFY_TALENT.id} />}
         value={`${this.averageRemPerVivify.toFixed(2)}`}
         label={
           <TooltipElement

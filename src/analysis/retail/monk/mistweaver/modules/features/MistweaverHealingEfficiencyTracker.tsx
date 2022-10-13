@@ -58,14 +58,14 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   getCustomSpellStats(spellInfo: SpellInfoDetails, spellId: number) {
     if (spellId === SPELLS.ESSENCE_FONT.id) {
       spellInfo = this.getEssenceFontDetails(spellInfo);
-    } else if (spellId === SPELLS.ENVELOPING_MIST.id) {
+    } else if (spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id) {
       //maybe consider adding tft buffed version's spell id too
       spellInfo = this.getEnvelopingMistsDetails(spellInfo);
     } else if (spellId === SPELLS.SOOTHING_MIST.id) {
       spellInfo = this.getSoothingMistDetails(spellInfo);
     } else if (spellId === SPELLS.RENEWING_MIST.id) {
       spellInfo = this.getRenewingMistDetails(spellInfo);
-    } else if (spellId === SPELLS.VIVIFY.id) {
+    } else if (spellId === TALENTS_MONK.VIVIFY_TALENT.id) {
       spellInfo = this.getVivifyDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id) {
       spellInfo = this.getRefreshingJadeWindDetails(spellInfo);
@@ -97,8 +97,10 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       this.envelopingMists.gustsHealing +
       this.envelopingMists.healingIncrease;
     // Enveloping breath part
-    spellInfo.healingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).effective;
-    spellInfo.overhealingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).overheal;
+    spellInfo.healingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH_HEAL.id).effective;
+    spellInfo.overhealingDone += this.healingDone.byAbility(
+      SPELLS.ENVELOPING_BREATH_HEAL.id,
+    ).overheal;
     return spellInfo;
   }
 

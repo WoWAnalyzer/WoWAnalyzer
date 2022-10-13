@@ -53,7 +53,7 @@ class ThunderFocusTea extends Analyzer {
     this.ftActive = this.selectedCombatant.hasTalent(TALENTS_MONK.FOCUSED_THUNDER_TALENT.id);
     this.rmActive = this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.THUNDER_FOCUS_TEA),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT),
       this.tftCast,
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.buffedCast);
@@ -88,9 +88,9 @@ class ThunderFocusTea extends Analyzer {
       return;
     }
 
-    if (this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)) {
+    if (this.selectedCombatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)) {
       if (
-        SPELLS.VIVIFY.id === spellId &&
+        TALENTS_MONK.VIVIFY_TALENT.id === spellId &&
         !event.classResources?.find((resource) => resource.type === RESOURCE_TYPES.MANA.id)?.cost
       ) {
         this.castsUnderTft += 1;
@@ -109,7 +109,7 @@ class ThunderFocusTea extends Analyzer {
 
         debug && console.log('RSK TFT Check ', event.timestamp);
       }
-      if (SPELLS.ENVELOPING_MIST.id === spellId) {
+      if (TALENTS_MONK.ENVELOPING_MIST_TALENT.id === spellId) {
         this.castsUnderTft += 1;
         this.castsTftEnm += 1;
         debug && console.log('Enm TFT Check ', event.timestamp);
@@ -134,7 +134,7 @@ class ThunderFocusTea extends Analyzer {
       {
         color: SPELL_COLORS.VIVIFY,
         label: 'Vivify',
-        spellId: SPELLS.VIVIFY.id,
+        spellId: TALENTS_MONK.VIVIFY_TALENT.id,
         value: this.castsTftViv,
       },
       {
@@ -146,7 +146,7 @@ class ThunderFocusTea extends Analyzer {
       {
         color: SPELL_COLORS.ENVELOPING_MIST,
         label: 'Enveloping Mists',
-        spellId: SPELLS.ENVELOPING_MIST.id,
+        spellId: TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
         value: this.castsTftEnm,
       },
       {
@@ -170,18 +170,18 @@ class ThunderFocusTea extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are currently using <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> to buff spells
-          other than{' '}
+          You are currently using <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} /> to
+          buff spells other than{' '}
           {this.rmActive ? (
             <SpellLink id={SPELLS.RISING_SUN_KICK.id} />
           ) : (
-            <SpellLink id={SPELLS.VIVIFY.id} />
+            <SpellLink id={TALENTS_MONK.VIVIFY_TALENT.id} />
           )}{' '}
           or <SpellLink id={SPELLS.RENEWING_MIST.id} />. It is advised to limit the number of spells
           buffed to only these two.
         </>,
       )
-        .icon(SPELLS.THUNDER_FOCUS_TEA.icon)
+        .icon(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.icon)
         .actual(
           `${this.incorrectTftCasts}${t({
             id: 'monk.mistweaver.suggestions.thunderFocusTea.incorrectCasts',
@@ -201,7 +201,7 @@ class ThunderFocusTea extends Analyzer {
       >
         <div className="pad">
           <label>
-            <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> usage
+            <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} /> usage
           </label>
           {this.renderCastRatioChart()}
         </div>

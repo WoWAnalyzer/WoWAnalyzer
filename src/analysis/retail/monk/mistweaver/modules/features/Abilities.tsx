@@ -39,7 +39,7 @@ class Abilities extends CoreAbilities {
 
       // Cooldowns
       {
-        spell: SPELLS.THUNDER_FOCUS_TEA.id,
+        spell: TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
         castEfficiency: {
@@ -141,7 +141,7 @@ class Abilities extends CoreAbilities {
 
       // Other Spell Casting Metrics
       {
-        spell: SPELLS.ENVELOPING_MIST.id,
+        spell: TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
@@ -149,7 +149,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 19,
       },
       {
-        spell: SPELLS.VIVIFY.id,
+        spell: TALENTS_MONK.VIVIFY_TALENT.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
