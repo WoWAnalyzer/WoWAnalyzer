@@ -65,6 +65,7 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 11), 'Remove Effusive Anima Accelerator analyzer.', ToppleTheNun),
   change(date(2022, 10, 11), 'Remove conduits and soulbinds from character page.', ToppleTheNun),
   change(date(2022, 10,  11), 'Convert Discord button to TypeScript.', ToppleTheNun),
   change(date(2022, 10, 9), 'Fixed an issue where DeathRecapTracker was being disabled by a bad Blessing of Sacrifice ID', Sref),
