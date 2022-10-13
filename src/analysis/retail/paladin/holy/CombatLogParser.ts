@@ -31,12 +31,9 @@ import HealingPerHolyPower from './modules/features/HealingPerHolyPower';
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import Overhealing from './modules/features/Overhealing';
 import MightOfTheMountain from './modules/racials/MightOfTheMountain';
-import UntemperedDedication from './modules/shadowlands/conduits/UntemperedDedication';
-import VanquishersHammerAnalysis from './modules/shadowlands/covenants/VanquishersHammerAnalysis';
-import { DrapeOfShame } from './modules/shadowlands/items/DrapeOfShame';
-import MaraadsCastRatio from './modules/shadowlands/legendaries/MaraadsCastRatio';
-import MaraadsOverheal from './modules/shadowlands/legendaries/MaraadsOverheal';
-import ShockBarrier from './modules/shadowlands/legendaries/ShockBarrier';
+import UntemperedDedication from './modules/talents/UntemperedDedication';
+import MaraadsCastRatio from './modules/talents/MaraadsCastRatio';
+import MaraadsOverheal from './modules/talents/MaraadsOverheal';
 import Tier28FourSet from './modules/shadowlands/tier/Tier28FourSet';
 import DevotionAuraDamageReduction from './modules/spells/DevotionAuraDamageReduction';
 import FillerFlashOfLight from './modules/spells/FillerFlashOfLight';
@@ -99,6 +96,12 @@ class CombatLogParser extends CoreCombatLogParser {
     avengingCrusader: AvengingCrusader,
     judgmentOfLight: JudgmentOfLight,
     glimmerOfLight: GlimmerOfLight,
+    MaraadsCastRatio: MaraadsCastRatio,
+    MaraadsOverheal: MaraadsOverheal,
+    ashenHallow: AshenHallow,
+    divineToll: DivineToll,
+    vanquishersHammer: VanquishersHammer,
+    UntemperedDedication: UntemperedDedication,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
@@ -106,25 +109,9 @@ class CombatLogParser extends CoreCombatLogParser {
     holyPowerPerMinute: HolyPowerPerMinute,
 
     //-- shadowlands section --//
-    // Lego
-    MaraadsCastRatio: MaraadsCastRatio,
-    MaraadsOverheal: MaraadsOverheal,
-    shockBarrier: ShockBarrier,
-
-    // Covenant
-    ashenHallow: AshenHallow,
-    divineToll: DivineToll,
-    vanquishersHammer: VanquishersHammer,
-    vanquishersHammerAnalysis: VanquishersHammerAnalysis,
-
-    // Conduits
-    UntemperedDedication: UntemperedDedication,
 
     // Tier Sets
     Tier28FourSet: Tier28FourSet,
-
-    // Items
-    drapeOfShame: DrapeOfShame,
   };
 }
 

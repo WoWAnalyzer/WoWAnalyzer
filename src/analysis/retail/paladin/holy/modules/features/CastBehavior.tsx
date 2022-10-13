@@ -10,7 +10,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticGroup from 'parser/ui/StatisticGroup';
 
 import PaladinAbilityTracker from '../core/PaladinAbilityTracker';
-import MaraadsCastRatio from '../shadowlands/legendaries/MaraadsCastRatio';
+import MaraadsCastRatio from '../talents/MaraadsCastRatio';
 
 class CastBehavior extends Analyzer {
   static dependencies = {

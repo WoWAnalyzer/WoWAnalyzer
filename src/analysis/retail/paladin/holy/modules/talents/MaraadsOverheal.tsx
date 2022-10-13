@@ -1,5 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
@@ -14,7 +15,7 @@ class MaraadsOverheal extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.MARAADS_DYING_BREATH);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.MARAADS_DYING_BREATH_TALENT);
     if (!this.active) {
       return;
     }
