@@ -1,6 +1,5 @@
 import Analyzer, { Options } from 'parser/core/Analyzer';
 
-import { ThresholdStyle } from 'parser/core/ParseResults';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
