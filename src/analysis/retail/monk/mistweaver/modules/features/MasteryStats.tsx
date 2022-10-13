@@ -52,14 +52,14 @@ class MasteryStats extends Analyzer {
       {
         color: SPELL_COLORS.VIVIFY,
         label: 'Vivify',
-        spellId: TALENTS_MONK.VIVIFY_TALENT.id,
+        spellId: SPELLS.VIVIFY.id,
         value: this.vivify.gomHealing,
         valueTooltip: formatThousands(this.vivify.gomHealing),
       },
       {
         color: SPELL_COLORS.RENEWING_MIST,
         label: 'Renewing Mist',
-        spellId: SPELLS.RENEWING_MIST.id,
+        spellId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
         value: this.renewingMist.gustsHealing,
         valueTooltip: formatThousands(this.renewingMist.gustsHealing),
       },
@@ -73,14 +73,14 @@ class MasteryStats extends Analyzer {
       {
         color: SPELL_COLORS.SOOTHING_MIST,
         label: 'Soothing Mist',
-        spellId: SPELLS.SOOTHING_MIST.id,
+        spellId: TALENTS_MONK.SOOTHING_MIST_TALENT.id,
         value: this.soothingMist.gustsHealing,
         valueTooltip: formatThousands(this.soothingMist.gustsHealing),
       },
       {
         color: SPELL_COLORS.ESSENCE_FONT,
         label: 'Essence font',
-        spellId: SPELLS.ESSENCE_FONT.id,
+        spellId: TALENTS_MONK.ESSENCE_FONT_TALENT.id,
         value: this.essenceFont.gomHealing,
         valueTooltip: formatThousands(this.essenceFont.gomHealing),
       },

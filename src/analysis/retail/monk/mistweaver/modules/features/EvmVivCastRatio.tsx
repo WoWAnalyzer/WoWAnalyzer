@@ -1,3 +1,4 @@
+import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -21,7 +22,7 @@ class CastRatio extends Analyzer {
     const getAbility = (spellId: number) => this.abilityTracker.getAbility(spellId);
 
     const evmCasts = getAbility(TALENTS_MONK.ENVELOPING_MIST_TALENT.id).casts || 0;
-    const vivCasts = getAbility(TALENTS_MONK.VIVIFY_TALENT.id).casts || 0;
+    const vivCasts = getAbility(SPELLS.VIVIFY.id).casts || 0;
 
     return (
       <StatisticBox
@@ -30,7 +31,7 @@ class CastRatio extends Analyzer {
         icon={
           <>
             <SpellIcon id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> :{' '}
-            <SpellIcon id={TALENTS_MONK.VIVIFY_TALENT.id} />{' '}
+            <SpellIcon id={SPELLS.VIVIFY.id} />{' '}
           </>
         }
         value={`${evmCasts} : ${vivCasts}`}

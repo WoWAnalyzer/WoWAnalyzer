@@ -56,22 +56,22 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   protected faelineStompHealing!: FaelineStompHealing;
 
   getCustomSpellStats(spellInfo: SpellInfoDetails, spellId: number) {
-    if (spellId === SPELLS.ESSENCE_FONT.id) {
+    if (spellId === TALENTS_MONK.ESSENCE_FONT_TALENT.id) {
       spellInfo = this.getEssenceFontDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id) {
       //maybe consider adding tft buffed version's spell id too
       spellInfo = this.getEnvelopingMistsDetails(spellInfo);
-    } else if (spellId === SPELLS.SOOTHING_MIST.id) {
+    } else if (spellId === TALENTS_MONK.SOOTHING_MIST_TALENT.id) {
       spellInfo = this.getSoothingMistDetails(spellInfo);
-    } else if (spellId === SPELLS.RENEWING_MIST.id) {
+    } else if (spellId === TALENTS_MONK.RENEWING_MIST_TALENT.id) {
       spellInfo = this.getRenewingMistDetails(spellInfo);
-    } else if (spellId === TALENTS_MONK.VIVIFY_TALENT.id) {
+    } else if (spellId === SPELLS.VIVIFY.id) {
       spellInfo = this.getVivifyDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id) {
       spellInfo = this.getRefreshingJadeWindDetails(spellInfo);
-    } else if (spellId === SPELLS.RISING_SUN_KICK.id) {
+    } else if (spellId === TALENTS_MONK.RISING_SUN_KICK_TALENT.id) {
       spellInfo = this.getRisingSunKickDetails(spellInfo);
-    } else if (spellId === SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id) {
+    } else if (spellId === TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id) {
       spellInfo = this.getYulonDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) {
       spellInfo = this.getChijiDetails(spellInfo);
@@ -86,7 +86,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getSoothingMistDetails(spellInfo: SpellInfoDetails) {
     // the default tracker gets the healing of the soothing mists, but only the mana for the first cast. Every tick costs mana.
-    spellInfo.manaSpent = this.soothingMist.soomTicks * SPELLS.SOOTHING_MIST.manaCost;
+    spellInfo.manaSpent = this.soothingMist.soomTicks * TALENTS_MONK.SOOTHING_MIST_TALENT.manaCost!;
     spellInfo.healingDone = spellInfo.healingDone + this.soothingMist.gustsHealing;
     return spellInfo;
   }

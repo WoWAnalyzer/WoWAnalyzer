@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, RemoveBuffEvent } from 'parser/core/Events';
@@ -21,12 +22,9 @@ class REMGraph extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivifyCast);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.VIVIFY_TALENT),
-      this.vivifyCast,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RISING_SUN_KICK_TALENT),
       this.rskCast,
     );
 
@@ -232,12 +230,12 @@ class REMGraph extends Analyzer {
         position={100}
         explanation={
           <>
-            <SpellLink id={TALENTS_MONK.VIVIFY_TALENT.id} /> also heals any targets that have{' '}
-            <SpellLink id={SPELLS.RENEWING_MIST.id} />. This means casting{' '}
-            <SpellLink id={TALENTS_MONK.VIVIFY_TALENT.id} /> while having high amounts of{' '}
-            <SpellLink id={SPELLS.RENEWING_MIST.id} /> will greatly increase its healing. Magenta
-            dots are <SpellLink id={TALENTS_MONK.VIVIFY_TALENT.id} /> casts while Orange triangles
-            are <SpellLink id={SPELLS.RISING_SUN_KICK.id} /> casts.
+            <SpellLink id={SPELLS.VIVIFY.id} /> also heals any targets that have{' '}
+            <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />. This means casting{' '}
+            <SpellLink id={SPELLS.VIVIFY.id} /> while having high amounts of{' '}
+            <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> will greatly increase its
+            healing. Magenta dots are <SpellLink id={SPELLS.VIVIFY.id} /> casts while Orange
+            triangles are <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> casts.
           </>
         }
       >

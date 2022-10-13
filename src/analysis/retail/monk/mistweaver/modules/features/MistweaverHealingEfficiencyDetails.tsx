@@ -25,9 +25,9 @@ class MistweaverHealingEfficiencyDetails extends HealingEfficiencyDetails {
             given the healing from duplicated gusts, since without{' '}
             <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> the second gust would not have
             happened. <br /> <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> is given the
-            splash healing of <SpellLink id={TALENTS_MONK.VIVIFY_TALENT.id} />
+            splash healing of <SpellLink id={SPELLS.VIVIFY.id} />
             's heal since without <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />,{' '}
-            <SpellLink id={TALENTS_MONK.VIVIFY_TALENT.id} /> wouldn't have splashed. <br />{' '}
+            <SpellLink id={SPELLS.VIVIFY.id} /> wouldn't have splashed. <br />{' '}
             <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> is given the healing of{' '}
             <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} /> since without casting{' '}
             <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} />,{' '}

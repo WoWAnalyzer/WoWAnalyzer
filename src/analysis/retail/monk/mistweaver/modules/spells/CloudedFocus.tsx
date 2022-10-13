@@ -48,19 +48,13 @@ class CloudedFocus extends Analyzer {
       this.removeBuff,
     );
     this.addEventListener(
-      Events.cast
-        .by(SELECTED_PLAYER)
-        .spell([TALENTS_MONK.VIVIFY_TALENT, TALENTS_MONK.ENVELOPING_MIST_TALENT]),
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, TALENTS_MONK.ENVELOPING_MIST_TALENT]),
       this.calculateManaEffect,
     );
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
-        .spell([
-          TALENTS_MONK.VIVIFY_TALENT,
-          TALENTS_MONK.ENVELOPING_MIST_TALENT,
-          SPELLS.ENVELOPING_BREATH_HEAL,
-        ]),
+        .spell([SPELLS.VIVIFY, TALENTS_MONK.ENVELOPING_MIST_TALENT, SPELLS.ENVELOPING_BREATH_HEAL]),
       this.calculateHealingEffect,
     );
   }

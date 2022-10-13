@@ -90,7 +90,7 @@ class ThunderFocusTea extends Analyzer {
 
     if (this.selectedCombatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)) {
       if (
-        TALENTS_MONK.VIVIFY_TALENT.id === spellId &&
+        SPELLS.VIVIFY.id === spellId &&
         !event.classResources?.find((resource) => resource.type === RESOURCE_TYPES.MANA.id)?.cost
       ) {
         this.castsUnderTft += 1;
@@ -99,7 +99,7 @@ class ThunderFocusTea extends Analyzer {
         debug && console.log('Viv TFT Check ', event.timestamp);
         this.castBufferTimestamp = event.timestamp;
       }
-      if (SPELLS.RISING_SUN_KICK.id === spellId) {
+      if (TALENTS_MONK.RISING_SUN_KICK_TALENT.id === spellId) {
         this.castsUnderTft += 1;
         this.castsTftRsk += 1;
 
@@ -114,7 +114,7 @@ class ThunderFocusTea extends Analyzer {
         this.castsTftEnm += 1;
         debug && console.log('Enm TFT Check ', event.timestamp);
       }
-      if (SPELLS.RENEWING_MIST.id === spellId) {
+      if (TALENTS_MONK.RENEWING_MIST_TALENT.id === spellId) {
         this.castsUnderTft += 1;
         this.castsTftRem += 1;
         this.correctCasts += 1;
@@ -134,13 +134,13 @@ class ThunderFocusTea extends Analyzer {
       {
         color: SPELL_COLORS.VIVIFY,
         label: 'Vivify',
-        spellId: TALENTS_MONK.VIVIFY_TALENT.id,
+        spellId: SPELLS.VIVIFY.id,
         value: this.castsTftViv,
       },
       {
         color: SPELL_COLORS.RENEWING_MIST,
         label: 'Renewing Mist',
-        spellId: SPELLS.RENEWING_MIST.id,
+        spellId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
         value: this.castsTftRem,
       },
       {
@@ -152,7 +152,7 @@ class ThunderFocusTea extends Analyzer {
       {
         color: SPELL_COLORS.RISING_SUN_KICK,
         label: 'Rising Sun Kick',
-        spellId: SPELLS.RISING_SUN_KICK.id,
+        spellId: TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
         value: this.castsTftRsk,
       },
       {
@@ -173,12 +173,12 @@ class ThunderFocusTea extends Analyzer {
           You are currently using <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} /> to
           buff spells other than{' '}
           {this.rmActive ? (
-            <SpellLink id={SPELLS.RISING_SUN_KICK.id} />
+            <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />
           ) : (
-            <SpellLink id={TALENTS_MONK.VIVIFY_TALENT.id} />
+            <SpellLink id={SPELLS.VIVIFY.id} />
           )}{' '}
-          or <SpellLink id={SPELLS.RENEWING_MIST.id} />. It is advised to limit the number of spells
-          buffed to only these two.
+          or <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />. It is advised to limit the
+          number of spells buffed to only these two.
         </>,
       )
         .icon(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.icon)

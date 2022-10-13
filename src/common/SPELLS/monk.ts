@@ -101,6 +101,12 @@ const spells = spellIndexableList({
     name: 'Renewing Mist',
     icon: 'ability_monk_renewingmists',
   },
+  VIVIFY: {
+    id: 116670,
+    name: 'Vivify',
+    icon: 'ability_monk_vivify',
+    manaCost: 1900,
+  },
   ATOTM_BUFF: {
     id: 388026,
     name: 'Ancient Teachings of the Monestary',

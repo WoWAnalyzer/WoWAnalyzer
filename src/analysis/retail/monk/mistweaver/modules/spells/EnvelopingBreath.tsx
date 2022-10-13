@@ -84,7 +84,7 @@ class EnvelopingBreath extends Analyzer {
   handleEnvelopingMist(event: CastEvent) {
     if (
       this.chijiActive ||
-      this.selectedCombatant.hasBuff(SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id)
+      this.selectedCombatant.hasBuff(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id)
     ) {
       this.envsDuringCelestial += 1;
     }

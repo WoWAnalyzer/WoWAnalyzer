@@ -123,9 +123,9 @@ class ManaTea extends Analyzer {
       suggest(
         <>
           Your mana spent during <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> can be improved.
-          Aim to prioritize as many <SpellLink id={TALENTS_MONK.VIVIFY_TALENT.id} /> casts until the
-          last second of the buff and then cast <SpellLink id={SPELLS.ESSENCE_FONT.id} />.{' '}
-          <SpellLink id={SPELLS.ESSENCE_FONT.id} />
+          Aim to prioritize as many <SpellLink id={SPELLS.VIVIFY.id} /> casts until the last second
+          of the buff and then cast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} />.{' '}
+          <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} />
           's mana cost is taken at the beginning of the channel, so you gain the benefit of{' '}
           <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> even if the channel continues past the
           buff.
