@@ -6,6 +6,7 @@ import Events, {
   ApplyBuffEvent,
   DamageEvent,
   HealEvent,
+  RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -25,6 +26,10 @@ type ShieldInfo = {
   crit: boolean;
 };
 
+// when removebuff happens, clear out the entry in the map
+// if you have an applybuff (or refreshbuff) and there is already an entry in the map for the target, you know that the previous buff has been overwritten by a new apply, so you can immediately expire the old one
+//after that, you handle the applybuff/refreshbuff as normal
+
 class PowerWordShield extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
@@ -34,7 +39,7 @@ class PowerWordShield extends Analyzer {
 
   hasAegis = false;
   decayedShields = 0;
-  private shieldApplications: Map<number, ShieldInfo> = new Map();
+  private shieldApplications: Map<number, ShieldInfo | null> = new Map();
   shieldOfAbsolutionValue = 0;
   critCount = 0;
   pwsValue = 0;
@@ -77,9 +82,18 @@ class PowerWordShield extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_SHIELD),
       this.onShieldExpiry,
     );
+
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_SHIELD),
+      this.onShieldRefresh,
+    );
   }
 
   onShieldApplication(event: ApplyBuffEvent) {
+    if (this.shieldApplications.get(event.targetID)) {
+      this.shieldApplications.set(event.targetID, null);
+    }
+
     this.shieldApplications.set(event.targetID, {
       event: event,
       shieldOfAbsolutionValue: this.shieldOfAbsolutionValue,
@@ -104,6 +118,14 @@ class PowerWordShield extends Analyzer {
   }
 
   onShieldExpiry(event: RemoveBuffEvent) {
+    this.handleRemovedShield(event);
+  }
+
+  onShieldRefresh(event: RefreshBuffEvent) {
+    this.handleRemovedShield(event);
+  }
+
+  handleRemovedShield(event: RefreshBuffEvent | RemoveBuffEvent) {
     const info = this.shieldApplications.get(event.targetID);
     if (
       !info ||
@@ -127,6 +149,7 @@ class PowerWordShield extends Analyzer {
 
     if (!this.hasAegis) {
       return;
+      this.shieldApplications.set(event.targetID, null);
     }
     if (totalShielded < shieldOfAbsolutionBonus) {
       this.aegisValue += totalShielded - shieldOfAbsolutionBonus;
@@ -135,6 +158,8 @@ class PowerWordShield extends Analyzer {
     totalShielded -=
       totalShielded >= shieldOfAbsolutionBonus ? shieldOfAbsolutionBonus : totalShielded;
     this.aegisValue += totalShielded;
+
+    this.shieldApplications.set(event.targetID, null);
   }
 
   onPWSAbsorb(event: AbsorbedEvent) {
