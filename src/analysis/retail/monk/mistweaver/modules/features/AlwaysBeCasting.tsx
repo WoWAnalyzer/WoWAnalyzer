@@ -28,14 +28,13 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.FAELINE_STOMP_CAST.id,
     SPELLS.FALLEN_ORDER_CAST.id,
   ];
-
   constructor(options: Options) {
     super(options);
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK.id);
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK_SECOND.id);
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.SONG_OF_CHI_JI_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)) {
       this.addEventListener(
         Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT),
         this.handleChijiStart,

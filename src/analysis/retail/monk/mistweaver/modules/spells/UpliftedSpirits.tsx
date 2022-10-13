@@ -46,9 +46,6 @@ class UpliftedSpirits extends Analyzer {
 
   rskHit(event: DamageEvent) {
     // Cooldown Reduction on Revival
-    if (event.hitType !== HIT_TYPES.CRIT) {
-      return;
-    }
     if (this.spellUsable.isOnCooldown(this.activeTalent.id)) {
       this.cooldownReductionUsed += this.spellUsable.reduceCooldown(
         this.activeTalent.id,
