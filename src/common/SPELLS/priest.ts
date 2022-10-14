@@ -384,6 +384,11 @@ const spells = spellIndexableList({
     name: 'Spirit of Redemption',
     icon: 'inv_enchant_essenceeternallarge',
   },
+  LIGHTWEAVER_TALENT_BUFF: {
+    id: 390993,
+    name: 'Lightweaver',
+    icon: 'spell_holy_greaterheal',
+  },
   // Talents
   BINDING_HEALS_TALENT_HEAL: {
     id: 368276,
