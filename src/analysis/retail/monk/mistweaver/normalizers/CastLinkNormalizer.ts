@@ -15,6 +15,7 @@ export const APPLIED_HEAL = 'AppliedHeal';
 export const BOUNCED = 'Bounced';
 export const FROM_DANCING_MISTS = 'FromDM';
 export const FROM_HARDCAST = 'FromHardcast';
+export const FROM_MISTY_PEAKS = 'FromMistyPeaks';
 export const FROM_RAPID_DIFFUSION = 'FromRD'; // can be linked to env mist or rsk cast
 
 const CAST_BUFFER_MS = 150;
@@ -103,6 +104,17 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
+  // misty peaks proc from a ReM hot event
+  {
+    linkRelation: FROM_MISTY_PEAKS,
+    linkingEventId: [TALENTS_MONK.ENVELOPING_MIST_TALENT.id],
+    linkingEventType: [EventType.ApplyBuff],
+    referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
+    referencedEventType: [EventType.Heal],
+    anyTarget: true,
+    forwardBufferMs: 50,
+    backwardBufferMs: 50,
+  },
 ];
 
 /**
@@ -122,7 +134,7 @@ class CastLinkNormalizer extends EventLinkNormalizer {
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
 export function isFromHardcast(event: AbilityEvent<any>): boolean {
-  if (HasRelatedEvent(event, FROM_RAPID_DIFFUSION)) {
+  if (HasRelatedEvent(event, FROM_RAPID_DIFFUSION) || HasRelatedEvent(event, FROM_MISTY_PEAKS)) {
     return false;
   }
   // 2nd ReM application is the duplicated event
