@@ -5,7 +5,7 @@ import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
 import { isFromHardcast } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 
-const DEBUG = false;
+const debug = false;
 
 class HotAttributor extends Analyzer {
   static dependencies = {
@@ -36,23 +36,20 @@ class HotAttributor extends Analyzer {
 
   onApplyRem(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (event.prepull || isFromHardcast(event)) {
-      console.log(event.ability.name + ' true ' + event.targetID + ' ' + event.timestamp);
+      debug && console.log(event.ability.name + ' true ' + event.targetID + ' ' + event.timestamp);
       this.hotTracker.addAttributionFromApply(this.REMAttrib, event);
     }
   }
 
   onApplyEnvm(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (event.prepull || isFromHardcast(event)) {
-      console.log(event.ability.name + ' true ' + event.targetID);
+      debug && console.log(event.ability.name + ' true ' + event.targetID);
       this.hotTracker.addAttributionFromApply(this.envMistAttrib, event);
     }
   }
 
   onApplyEF(event: ApplyBuffEvent | RefreshBuffEvent) {
-    if (event.prepull || isFromHardcast(event)) {
-      console.log(event.ability.name + ' true ' + event.targetID);
-      this.hotTracker.addAttributionFromApply(this.EFAttrib, event);
-    }
+    this.hotTracker.addAttributionFromApply(this.EFAttrib, event);
   }
 
   _logAttrib(event: ApplyBuffEvent | RefreshBuffEvent, attrib: Attribution | string | undefined) {
@@ -67,7 +64,7 @@ class HotAttributor extends Analyzer {
           '!',
       );
     } else {
-      DEBUG &&
+      debug &&
         console.log(
           'Attributed ' +
             event.ability.name +
