@@ -65,6 +65,9 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 11), 'Remove Effusive Anima Accelerator analyzer.', ToppleTheNun),
+  change(date(2022, 10, 11), 'Remove conduits and soulbinds from character page.', ToppleTheNun),
+  change(date(2022, 10,  11), 'Convert Discord button to TypeScript.', ToppleTheNun),
   change(date(2022, 10, 9), 'Fixed an issue where DeathRecapTracker was being disabled by a bad Blessing of Sacrifice ID', Sref),
   change(date(2022, 10, 5), 'Add Vault of the Incarnates raid information.', ToppleTheNun),
   change(date(2022, 10, 4), 'Add Blessing of the Bronze as a raid buff.', ToppleTheNun),
@@ -77,6 +80,7 @@ export default [
   change(date(2022, 9, 10), 'Show Dragonflight talents on character page if able to detect them.', ToppleTheNun),
   change(date(2022, 9, 8), 'Bump supported versions of classic and retail.', ToppleTheNun),
   change(date(2022, 9, 8), 'Add support for Dragonflight talent detection.', emallson),
+  change(date(2022, 9, 7), "Added the beginnings of a Shared Code system to make spec maintenance easier.", Sharrq),
   change(date(2022, 8, 28), 'Add capability of auto-generating talents for Dragonflight based on gamedata', Putro),
   change(date(2022, 8, 25), "Added support for querying cooldown status at any point in the fight", Sref),
   change(date(2022, 8, 23), "Fixed a bug where the timeline's cooldown tooltips weren't showing properly", Sref),

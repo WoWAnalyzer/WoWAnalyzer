@@ -103,7 +103,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.id),
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 20,
+        cooldown: 40,
         gcd: {
           base: 1500,
         },

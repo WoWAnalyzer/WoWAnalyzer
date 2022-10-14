@@ -36,6 +36,7 @@ import FrailtyDebuff from './modules/talents/FrailtyDebuff';
 import SpiritBombSoulsConsume from './modules/talents/SpiritBombSoulsConsume';
 import PainbringerBuff from './modules/talents/PainbringerBuff';
 import DarkglareBoon from './modules/talents/DarkglareBoon';
+import ShearFractureNormalizer from './normalizers/ShearFractureNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -53,6 +54,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Resource Tracker
     furyTracker: FuryTracker,
     furyDetails: FuryDetails,
+
+    // normalizers
+    shearFractureNormalizer: ShearFractureNormalizer,
 
     // Talents
     painbringer: PainbringerBuff,

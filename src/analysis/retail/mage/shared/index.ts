@@ -8,4 +8,5 @@ export { default as RuneOfPower } from './RuneOfPower';
 export { default as RuneOfPowerNormalizer } from './RuneOfPowerNormalizer';
 export { default as ShiftingPower } from './ShiftingPower';
 export { default as TempestBarrier } from './TempestBarrier';
+export { default as SharedCode } from './SharedCode';
 export * from './constants';
