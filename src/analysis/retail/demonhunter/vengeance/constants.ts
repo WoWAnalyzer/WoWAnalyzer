@@ -23,3 +23,5 @@ export const CHARRED_FLESH_SCALING = [0, 0.25, 0.5];
 export const FIERY_DEMISE_SCALING = [0, 0.15, 0.3];
 
 export const ABYSSAL_HASTE_SCALING = [0, 8];
+
+export const PERFECTLY_BALANCED_GLAIVE_SCALING = [0, 6];
