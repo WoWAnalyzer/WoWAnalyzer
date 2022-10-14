@@ -12,14 +12,21 @@ import { SpellLink } from 'interface';
 
 const HEALING_BONUS_PER_STACK = 0.01;
 const MAX_STACKS = 50;
+
+//Example log: /reports/w9BXrzFApPbj6LnG#fight=14&type=healing&source=19
 class HealingChorus extends Analyzer {
   totalStacks = 0;
-  wastedStacks = 0;
   usedStacks = 0;
   healingDoneFromTalent = 0;
   overhealingDoneFromTalent = 0;
   currentStacks = 0;
   totalCOHHealing = 0;
+
+  lastHealedTimestamp = 0;
+  lastHealedMultiplier = 0;
+  //Circle of healing triggers multiple events but we remove the stacks at the first event
+  //To apply the healing increase to all hits we save the timestamp and multiplier
+  //If errors occur the timestamp check might need to include an epsilon check but does not seem neccesary
 
   constructor(options: Options) {
     super(options);
@@ -39,28 +46,30 @@ class HealingChorus extends Analyzer {
     );
   }
   onHeal(Event: HealEvent) {
+    if (Event.timestamp === this.lastHealedTimestamp) {
+      this.healingDoneFromTalent += calculateEffectiveHealing(Event, this.lastHealedMultiplier);
+      this.overhealingDoneFromTalent += calculateOverhealing(Event, this.lastHealedMultiplier);
+    }
     if (this.currentStacks > 0) {
-      this.healingDoneFromTalent += calculateEffectiveHealing(
-        Event,
-        HEALING_BONUS_PER_STACK * this.currentStacks,
-      );
-      this.overhealingDoneFromTalent += calculateOverhealing(
-        Event,
-        HEALING_BONUS_PER_STACK * this.currentStacks,
-      );
+      const multiplier = this.currentStacks * HEALING_BONUS_PER_STACK;
+
+      this.healingDoneFromTalent += calculateEffectiveHealing(Event, multiplier);
+      this.overhealingDoneFromTalent += calculateOverhealing(Event, multiplier);
+
       this.currentStacks = 0;
+      this.lastHealedTimestamp = Event.timestamp;
+      this.lastHealedMultiplier = multiplier;
       this.usedStacks += 1;
     }
+
     this.totalCOHHealing += Event.amount;
   }
 
   onBuff() {
+    this.totalStacks += 1;
     if (this.currentStacks < MAX_STACKS) {
       this.currentStacks += 1;
-    } else {
-      this.wastedStacks += 1;
     }
-    this.totalStacks += 1;
   }
 
   statistic() {
@@ -71,7 +80,6 @@ class HealingChorus extends Analyzer {
     const circleOfHealingPercentage = formatPercentage(
       this.healingDoneFromTalent / this.totalCOHHealing,
     );
-
     return (
       <Statistic
         size="flexible"
@@ -83,8 +91,6 @@ class HealingChorus extends Analyzer {
           <br />
           {circleOfHealingPercentage}% of your total{' '}
           <SpellLink id={TALENTS.CIRCLE_OF_HEALING_TALENT.id} /> healing
-          <br />
-          {this.wastedStacks} stacks were wasted
         </BoringSpellValueText>
       </Statistic>
     );
