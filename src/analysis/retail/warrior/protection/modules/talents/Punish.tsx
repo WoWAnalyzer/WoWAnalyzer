@@ -9,8 +9,9 @@ import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TALENTS from 'common/TALENTS/warrior';
 
-const PUNISH_DAMAGE_INCREASE = 0.2;
+const PUNISH_DAMAGE_INCREASE = 0.1;
 
 class Punish extends Analyzer {
   static dependencies = {
@@ -22,7 +23,7 @@ class Punish extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.PUNISH_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.PUNISH_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM),
       this.onSlamDamage,
@@ -54,7 +55,7 @@ class Punish extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={SPELLS.PUNISH_TALENT.id} /> Damage contributed
+              <SpellLink id={TALENTS.PUNISH_TALENT.id} /> Damage contributed
             </>
           }
         >
