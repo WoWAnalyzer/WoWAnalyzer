@@ -376,8 +376,8 @@ class EventsTab extends Component {
                   />
                   <Column
                     dataKey="targetID"
-                    label="targetId"
-                    cellRenderer={({ cellData }) => cellData}
+                    label="Target"
+                    cellRenderer={({ cellData }) => this.renderEntity(this.findEntity(cellData))}
                     disableSort
                     width={50}
                     flexGrow={1}
