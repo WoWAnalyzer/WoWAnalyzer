@@ -43,6 +43,7 @@ import PreparationRuleAnalyzer from './modules/features/Checklist/PreparationRul
 import CombatPotionChecker from './modules/items/CombatPotionChecker';
 import EnchantChecker from './modules/items/EnchantChecker';
 import ManaGained from './statistic/ManaGained';
+import HyperspeedAccelerators from './modules/items/engineering/HyperspeedAccelerators';
 
 class CombatLogParser extends BaseCombatLogParser {
   static defaultModules: DependenciesDefinition = {
@@ -101,6 +102,9 @@ class CombatLogParser extends BaseCombatLogParser {
 
     // Migrated Functional Statistics
     manaGained: ManaGained,
+
+    // Engineering
+    hyperspeedAccelerators: HyperspeedAccelerators,
   };
 }
 
