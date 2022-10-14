@@ -89,9 +89,9 @@ class RisingMist extends Analyzer {
   risingMistCount = 0;
   risingMists = [];
   remCastGUIDS = Set;
-  efsExtended = 0;
   remCount = 0;
   efCount = 0;
+  flsEfCount = 0;
   evmCount = 0;
   targetCount = 0;
   trackUplift = false;
@@ -124,7 +124,7 @@ class RisingMist extends Analyzer {
       this.extendHots,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleVivify);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.calculateEvn); //gotta just look at all heals tbh
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.calculateEnv); //gotta just look at all heals tbh
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
       this.handleMastery,
@@ -135,12 +135,15 @@ class RisingMist extends Analyzer {
     const targetId = event.targetID;
     if (
       !this.hotTracker.hots[targetId] ||
-      !this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id]
+      (!this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id] &&
+        !this.hotTracker.hots[targetId][SPELLS.FAELINE_STOMP_ESSENCE_FONT.id])
     ) {
       return;
     }
 
-    const object = this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id];
+    const object = this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id]
+      ? this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id]
+      : this.hotTracker.hots[targetId][SPELLS.FAELINE_STOMP_ESSENCE_FONT.id];
 
     if (object.originalEnd < event.timestamp) {
       if (!this.masteryTickTock) {
@@ -153,7 +156,7 @@ class RisingMist extends Analyzer {
     }
   }
 
-  calculateEvn(event) {
+  calculateEnv(event) {
     const targetId = event.targetID;
     const spellId = event.ability.guid;
     if (
@@ -203,16 +206,15 @@ class RisingMist extends Analyzer {
     const newRisingMist = HotTracker.getNewAttribution(`RisingMist #${this.risingMistCount}`);
     this.risingMists.push(newRisingMist);
 
-    let foundEf = false;
     let foundTarget = false;
-
+    const untrackedSpells = [SPELLS.ESSENCE_FONT_BUFF.id, SPELLS.FAELINE_STOMP_ESSENCE_FONT.id];
     Object.keys(this.hotTracker.hots).forEach((playerId) => {
       Object.keys(this.hotTracker.hots[playerId]).forEach((spellIdString) => {
         const spellId = Number(spellIdString);
 
         const attribution = newRisingMist;
         if (
-          spellId !== SPELLS.ESSENCE_FONT_BUFF.id &&
+          !untrackedSpells.includes(spellId) &&
           this.hotTracker.hots[playerId][spellIdString].attributions.length === 0
         ) {
           return;
@@ -226,25 +228,23 @@ class RisingMist extends Analyzer {
         );
 
         if (spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
-          foundEf = true;
           foundTarget = true;
           this.efCount += 1;
+        } else if (spellId === SPELLS.FAELINE_STOMP_ESSENCE_FONT.id) {
+          foundTarget = true;
+          this.flsEfCount += 1;
         } else if (spellId === SPELLS.RENEWING_MIST_HEAL.id) {
           foundTarget = true;
           this.remCount += 1;
         } else if (
           spellId === SPELLS.ENVELOPING_MIST.id ||
-          spellId === SPELLS.ENVELOPING_MIST_TFT
+          spellId === SPELLS.ENVELOPING_MIST_TFT.id
         ) {
           foundTarget = true;
           this.evmCount += 1;
         }
       });
     });
-
-    if (foundEf) {
-      this.efsExtended += 1;
-    }
     if (foundTarget) {
       this.targetCount += 1;
     }
@@ -265,6 +265,9 @@ class RisingMist extends Analyzer {
               <li>Average HoT Extension Seconds per cast: {this.averageExtension.toFixed(2)}</li>
               <ul>
                 <li>Essence Font HoTs Extended: {this.efCount}</li>
+                {this.selectedCombatant.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT) && (
+                  <li>FLS Essence Font HoTs extended: {this.flsEfCount}</li>
+                )}
                 <li>Renewing Mist HoTs Extended: {this.remCount}</li>
                 <li>Enveloping Mist HoTs Extended: {this.evmCount}</li>
               </ul>
