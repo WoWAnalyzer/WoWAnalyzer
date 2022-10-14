@@ -102,24 +102,12 @@ class PowerOfTheArchdruid extends Analyzer {
               <li>
                 Created <strong>{this.rejuvsCreated}</strong>{' '}
                 <SpellLink id={SPELLS.REJUVENATION.id} /> HoTs for{' '}
-                <strong>
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(this.rejuvProcHealing),
-                  )}
-                  %
-                </strong>{' '}
-                healing
+                <strong>{this.owner.formatItemHealingDone(this.rejuvProcHealing)}</strong>
               </li>
               <li>
                 Created <strong>{this.regrowthsCreated}</strong>{' '}
                 <SpellLink id={SPELLS.REGROWTH.id} /> HoTs for{' '}
-                <strong>
-                  {formatPercentage(
-                    this.owner.getPercentageOfTotalHealingDone(this.regrowthProcHealing),
-                  )}
-                  %
-                </strong>{' '}
-                healing
+                <strong>{this.owner.formatItemHealingDone(this.regrowthProcHealing)}</strong>
               </li>
             </ul>
             <br />
