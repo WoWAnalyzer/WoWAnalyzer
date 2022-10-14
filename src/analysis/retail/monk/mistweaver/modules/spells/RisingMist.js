@@ -18,6 +18,7 @@ import HotTrackerMW from '../core/HotTrackerMW';
 
 const debug = false;
 
+const ENVELOPING_MIST_HARDCAST = 'Enveloping Mist Hardcast';
 const RISING_MIST_EXTENSION = 4000;
 const RENEWING_MIST_HARDCAST = 'Renewing Mist Hardcast';
 
@@ -173,13 +174,17 @@ class RisingMist extends Analyzer {
     const spellId = event.ability.guid;
     if (
       !this.hotTracker.hots[targetId] ||
-      !this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id]
+      (!this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id] &&
+        !this.hotTracker.hots[targetId][SPELLS.ENVELOPING_MIST_TFT.id])
     ) {
       return;
     }
     const object = this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
-    if (UNAFFECTED_SPELLS.includes(spellId)) {
+    if (
+      !this.hasAttribution(object.attributions, ENVELOPING_MIST_HARDCAST) ||
+      UNAFFECTED_SPELLS.includes(spellId)
+    ) {
       return;
     }
 
