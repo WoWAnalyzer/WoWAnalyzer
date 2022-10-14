@@ -20,7 +20,7 @@ const POWER_WORD_SHIELD_DURATION_MS = 15000;
 const SHIELD_OF_ABSOLUTION_MULTIPLIER_HEALING = 0.3;
 
 type ShieldInfo = {
-  event: ApplyBuffEvent;
+  event: ApplyBuffEvent | RefreshBuffEvent;
   shieldOfAbsolutionValue: number;
   healing: number;
   crit: boolean;
@@ -89,7 +89,7 @@ class PowerWordShield extends Analyzer {
     );
   }
 
-  onShieldApplication(event: ApplyBuffEvent) {
+  onShieldApplication(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (this.shieldApplications.get(event.targetID)) {
       this.shieldApplications.set(event.targetID, null);
     }
@@ -103,7 +103,7 @@ class PowerWordShield extends Analyzer {
     this.shieldOfAbsolutionValue = 0;
   }
 
-  critCheck(event: ApplyBuffEvent) {
+  critCheck(event: ApplyBuffEvent | RefreshBuffEvent) {
     // We need to check if the Shield was a crit, as the 4p value is then doubled in value. It's not possible to tell this from regular events,
     // however when checking for rapture and using the current intellect, we can accurately determine this. The only times this will be inaccurate
     // is when the target has a healing increase which also increases potency of absorbs (there are not many, the main offender is Vampiric blood)
@@ -123,6 +123,7 @@ class PowerWordShield extends Analyzer {
 
   onShieldRefresh(event: RefreshBuffEvent) {
     this.handleRemovedShield(event);
+    this.onShieldApplication(event);
   }
 
   handleRemovedShield(event: RefreshBuffEvent | RemoveBuffEvent) {
