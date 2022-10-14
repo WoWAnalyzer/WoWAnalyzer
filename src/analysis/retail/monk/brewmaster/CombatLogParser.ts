@@ -1,7 +1,6 @@
 import {
   BonedustBrew,
   FaelineStomp,
-  FallenOrder,
   TouchOfDeath,
   MysticTouch,
   DampenHarm,
@@ -90,7 +89,6 @@ class CombatLogParser extends CoreCombatLogParser {
     ehNorm: ExpelHarmNorm,
 
     // Covenants
-    fallenOrder: FallenOrder,
     faelineStomp: FaelineStomp,
     weaponsOfOrder: WeaponsOfOrder,
     bonedustBrew: BonedustBrew,
