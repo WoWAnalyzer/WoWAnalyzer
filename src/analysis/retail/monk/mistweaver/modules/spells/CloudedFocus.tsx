@@ -98,7 +98,7 @@ class CloudedFocus extends Analyzer {
         <BoringSpellValueText spellId={TALENTS_MONK.CLOUDED_FOCUS_TALENT.id}>
           <ItemHealingDone amount={this.healingDone} />
           <br />
-          <ItemManaGained amount={this.manaSaved} />
+          <ItemManaGained amount={this.manaSaved} useAbbrev />
         </BoringSpellValueText>
       </Statistic>
     );
