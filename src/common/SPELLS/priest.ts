@@ -82,6 +82,11 @@ const spells = spellIndexableList({
     icon: 'spell_holy_powerwordshield',
     manaCost: 1550,
   },
+  SHIELD_OF_ABSOLUTION_BUFF: {
+    id: 394624,
+    name: 'Shield Of Absolution',
+    icon: 'ability_priest_clarityofwill',
+  },
   SMITE: {
     id: 585,
     name: 'Smite',
