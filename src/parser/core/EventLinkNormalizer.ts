@@ -9,6 +9,7 @@ import {
 } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
+import Combatant from 'parser/core/Combatant';
 
 // TODO maximum links per event (prevent cast linking with too many)
 /**
@@ -43,21 +44,43 @@ export type EventLink = {
   anyTarget?: boolean;
   /** Iff defined, links will also be added from the referenced event to the linking event using this relation. */
   reverseLinkRelation?: string;
+  /** Iff defined, this spec will create at most the given number of links to matching reference events.
+   *  This maximum applies only to this spec (not other specs on the same event), and applies
+   *  only *from the linkingEvent* (the same referenceEvent can be pointed to used any number of times).
+   *  Scan for referenced events starts forward from the linking event first, then back
+   *  from the linking event, and will stop as soon as the maximum number of links are found.
+   *  Usually, including this field will not be needed! Proper time and target constraints should
+   *  make false positives impossible - only need to use this when situations require it.
+   *  By default, any number of links can be made if they meet the parameters */
+  maximumLinks?: number;
   /** Iff defined, this predicate will also be called with the candidate events and iff false no link will be made */
   additionalCondition?: (linkingEvent: AnyEvent, referencedEvent: AnyEvent) => boolean;
+  /** Iff defined, this predicate will be called with the selected combatant to determine if this
+   *  spec should be run. Will be called only once at the start of the normalize function.
+   *  Useful if using a list of interdependent specs where some are talent dependent.
+   *  Defaults to 'true' when omitted. */
+  isActive?: (c: Combatant) => boolean;
 };
 
 /**
  * An event normalizer that uses an Event's _linkedEvents field to indicate an association
- * between events. The meaning of this association is context sensitive and should be clearly
+ * between events. The meaning of this association is context-sensitive and should be clearly
  * documented by any implementer of this class.
  *
  * For example, to indicate that a cast event caused an applybuff event, we might add the cast event
- * as a linked event to the applybuff event.
+ * as a linked event to the applybuff event with a linkRelation like "FromHardcast".
  */
 abstract class EventLinkNormalizer extends EventsNormalizer {
   eventLinks: EventLink[];
 
+  /**
+   * Creates a new EventLinkNormalizer that uses the given EventLink specifications.
+   * Normalizers included in the CombatLogParser must have only options in their constructor,
+   * so the eventLinks should be filled by the extender of this class.
+   * @param eventLinks the event link specifications to apply. These links will be applied in
+   *   the order they are given, so it's possible to make one link's behavior depend on a previous
+   *   link in the list.
+   */
   protected constructor(options: Options, eventLinks: EventLink[]) {
     super(options);
     this.eventLinks = eventLinks;
@@ -109,9 +132,10 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
     );
   }
 
-  // checks that the referenced event matches the criteria and that the linking and referenced events
-  // match each other, then adds the link(s)
-  private _checkAndLink(el: EventLink, linkingEvent: AnyEvent, referencedEvent: AnyEvent): void {
+  /** checks that the referenced event matches the criteria and that the linking and
+   * referenced events match each other, then adds the link(s).
+   * Returns 1 iff a link is added, and 0 if not. */
+  private _checkAndLink(el: EventLink, linkingEvent: AnyEvent, referencedEvent: AnyEvent): number {
     if (
       this._isReferenced(el, referencedEvent) &&
       this._sourceCheck(el, linkingEvent, referencedEvent) &&
@@ -122,40 +146,51 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
       if (el.reverseLinkRelation !== undefined) {
         AddRelatedEvent(referencedEvent, el.reverseLinkRelation, linkingEvent);
       }
+      return 1;
     }
+    return 0;
   }
 
   normalize(events: AnyEvent[]): AnyEvent[] {
-    // loop through all events in order
-    events.forEach((event: AnyEvent, eventIndex: number) => {
-      // check each event link directive
-      this.eventLinks.forEach((el: EventLink) => {
-        // if we find a match of a linking ability
-        if (this._isLinking(el, event)) {
-          // loop forwards up to forwardBuffer and add links
-          for (let forwardIndex = eventIndex; forwardIndex < events.length; forwardIndex += 1) {
-            const forwardEvent = events[forwardIndex];
-            if (
-              forwardEvent.timestamp - event.timestamp >
-              (el.forwardBufferMs ? el.forwardBufferMs : 0)
-            ) {
-              break;
+    // check each event link directive
+    this.eventLinks.forEach((el: EventLink) => {
+      if (!el.isActive || el.isActive(this.selectedCombatant)) {
+        // loop through all events in order
+        events.forEach((event: AnyEvent, eventIndex: number) => {
+          // if we find a match of a linking ability
+          if (this._isLinking(el, event)) {
+            let linksMade = 0;
+            // loop forwards up to forwardBuffer and add links
+            for (let forwardIndex = eventIndex; forwardIndex < events.length; forwardIndex += 1) {
+              const forwardEvent = events[forwardIndex];
+              if (
+                forwardEvent.timestamp - event.timestamp >
+                (el.forwardBufferMs ? el.forwardBufferMs : 0)
+              ) {
+                break;
+              }
+              linksMade += this._checkAndLink(el, event, forwardEvent);
+              if (el.maximumLinks && el.maximumLinks <= linksMade) {
+                return;
+              }
             }
-            this._checkAndLink(el, event, forwardEvent);
-          }
-          for (let backwardIndex = eventIndex; backwardIndex >= 0; backwardIndex -= 1) {
-            const backwardEvent = events[backwardIndex];
-            if (
-              event.timestamp - backwardEvent.timestamp >
-              (el.backwardBufferMs ? el.backwardBufferMs : 0)
-            ) {
-              break;
+            // loop backwards up to backwardBuffer and add links
+            for (let backwardIndex = eventIndex; backwardIndex >= 0; backwardIndex -= 1) {
+              const backwardEvent = events[backwardIndex];
+              if (
+                event.timestamp - backwardEvent.timestamp >
+                (el.backwardBufferMs ? el.backwardBufferMs : 0)
+              ) {
+                break;
+              }
+              linksMade += this._checkAndLink(el, event, backwardEvent);
+              if (el.maximumLinks && el.maximumLinks <= linksMade) {
+                return;
+              }
             }
-            this._checkAndLink(el, event, backwardEvent);
           }
-          // loop backwards up to backwardBuffer and add links
-        }
-      });
+        });
+      }
     });
     return events;
   }
