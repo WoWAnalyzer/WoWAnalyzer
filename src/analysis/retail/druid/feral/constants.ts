@@ -95,8 +95,17 @@ export function getRipFullDuration(c: Combatant): number {
 // SNAPSHOTS
 //
 
-export const TIGERS_FURY_DAMAGE_BONUS = 0.15;
+const TIGERS_FURY_DAMAGE_BONUS = 0.15;
+const CARNIVOROUS_INSTINCT_DAMAGE_BONUS = 0.06;
+export function getTigersFuryDamageBonus(c: Combatant): number {
+  return (
+    TIGERS_FURY_DAMAGE_BONUS +
+    c.getTalentRank(TALENTS_DRUID.CARNIVOROUS_INSTINCT_TALENT) * CARNIVOROUS_INSTINCT_DAMAGE_BONUS
+  );
+}
+
 export const BLOODTALONS_DAMAGE_BONUS = 0.25;
+export const LIONS_STRENGTH_DAMAGE_BONUS = 0.15;
 export const MOMENT_OF_CLARITY_DAMAGE_BONUS = 0.15;
 export const PROWL_RAKE_DAMAGE_BONUS = 0.6;
 
