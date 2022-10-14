@@ -417,6 +417,11 @@ const spells = spellIndexableList({
     name: 'Resonant Words',
     icon: 'spell_holy_holybolt',
   },
+  HEALING_CHORUS_TALENT_BUFF: {
+    id: 390885,
+    name: 'Healing Chorus',
+    icon: 'spell_holy_circleofrenewal',
+  },
   // Shadow Spells
   MIND_BLAST: {
     id: 8092,
