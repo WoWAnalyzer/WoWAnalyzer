@@ -11,7 +11,6 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import Combatant from 'parser/core/Combatant';
 
-// TODO maximum links per event (prevent cast linking with too many)
 /**
  * The specification of an event link to apply.
  * By default, the linking event adds the referenced event to its _linkedEvents, but not vice versa.
