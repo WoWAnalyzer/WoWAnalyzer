@@ -357,14 +357,6 @@ class EventsTab extends Component {
                     flexGrow={1}
                   />
                   <Column
-                    dataKey="timestamp"
-                    label="Timestamp"
-                    cellRenderer={({ cellData }) => cellData}
-                    disableSort
-                    width={25}
-                    flexGrow={1}
-                  />
-                  <Column
                     dataKey="type"
                     label="Event"
                     cellRenderer={({ cellData }) => (
@@ -377,14 +369,6 @@ class EventsTab extends Component {
                   <Column
                     dataKey="sourceID"
                     label="Source"
-                    cellRenderer={({ cellData }) => this.renderEntity(this.findEntity(cellData))}
-                    disableSort
-                    width={50}
-                    flexGrow={1}
-                  />
-                  <Column
-                    dataKey="targetID"
-                    label="Target"
                     cellRenderer={({ cellData }) => this.renderEntity(this.findEntity(cellData))}
                     disableSort
                     width={50}
