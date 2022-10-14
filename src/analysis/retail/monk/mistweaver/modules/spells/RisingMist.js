@@ -264,7 +264,7 @@ class RisingMist extends Analyzer {
               <li>Rising Mist Direct Healing: {formatNumber(this.directHealing)}</li>
               <li>Average HoT Extension Seconds per cast: {this.averageExtension.toFixed(2)}</li>
               <ul>
-                <li>Essense Font HoTs Extended: {this.efCount}</li>
+                <li>Essence Font HoTs Extended: {this.efCount}</li>
                 <li>Renewing Mist HoTs Extended: {this.remCount}</li>
                 <li>Enveloping Mist HoTs Extended: {this.evmCount}</li>
               </ul>
