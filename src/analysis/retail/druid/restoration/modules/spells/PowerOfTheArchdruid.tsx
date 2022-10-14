@@ -106,7 +106,7 @@ class PowerOfTheArchdruid extends Analyzer {
               </li>
               <li>
                 Created <strong>{this.regrowthsCreated}</strong>{' '}
-                <SpellLink id={SPELLS.REGROWTH.id} /> HoTs for{' '}
+                <SpellLink id={SPELLS.REGROWTH.id} /> HoTs and Heals for{' '}
                 <strong>{this.owner.formatItemHealingDone(this.regrowthProcHealing)}</strong>
               </li>
             </ul>
