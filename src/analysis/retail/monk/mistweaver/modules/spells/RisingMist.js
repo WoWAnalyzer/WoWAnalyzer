@@ -9,6 +9,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HotTracker from 'parser/shared/modules/HotTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringValueText from 'parser/ui/BoringValueText';
+import REMAttrib from '../core/HotAttributor';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -18,6 +19,7 @@ import HotTrackerMW from '../core/HotTrackerMW';
 const debug = false;
 
 const RISING_MIST_EXTENSION = 4000;
+const RENEWING_MIST_HARDCAST = 'Renewing Mist Hardcast';
 
 const UNAFFECTED_SPELLS = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
@@ -131,6 +133,16 @@ class RisingMist extends Analyzer {
     );
   }
 
+  hasAttribution(attributions, name) {
+    let foundAttribution = false;
+    attributions.forEach(function (attr) {
+      if (attr.name === name) {
+        foundAttribution = true;
+      }
+    });
+    return foundAttribution;
+  }
+
   handleMastery(event) {
     const targetId = event.targetID;
     if (
@@ -186,7 +198,11 @@ class RisingMist extends Analyzer {
       return;
     }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
-    if (hot.originalEnd < event.timestamp && event.timestamp < hot.end) {
+    if (
+      this.hasAttribution(hot.attributions, RENEWING_MIST_HARDCAST) &&
+      hot.originalEnd < event.timestamp &&
+      event.timestamp < hot.end
+    ) {
       this.extraVivCleaves += 1;
       this.extraVivHealing += event.amount || 0;
       this.extraVivOverhealing += event.overheal || 0;
@@ -237,7 +253,7 @@ class RisingMist extends Analyzer {
           foundTarget = true;
           this.remCount += 1;
         } else if (
-          spellId === SPELLS.ENVELOPING_MIST.id ||
+          spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id ||
           spellId === SPELLS.ENVELOPING_MIST_TFT.id
         ) {
           foundTarget = true;
