@@ -9,7 +9,6 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HotTracker from 'parser/shared/modules/HotTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringValueText from 'parser/ui/BoringValueText';
-import REMAttrib from '../core/HotAttributor';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -91,7 +90,6 @@ class RisingMist extends Analyzer {
   };
   risingMistCount = 0;
   risingMists = [];
-  remCastGUIDS = Set;
   remCount = 0;
   efCount = 0;
   flsEfCount = 0;
