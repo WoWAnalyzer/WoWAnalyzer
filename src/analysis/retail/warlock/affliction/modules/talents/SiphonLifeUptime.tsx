@@ -1,8 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { SpellIcon } from 'interface';
+import talents from 'common/TALENTS/warlock';
+import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -15,7 +14,7 @@ class SiphonLifeUptime extends Analyzer {
   protected enemies!: Enemies;
 
   get uptime() {
-    return this.enemies.getBuffUptime(SPELLS.SIPHON_LIFE_TALENT.id) / this.owner.fightDuration;
+    return this.enemies.getBuffUptime(talents.SIPHON_LIFE_TALENT.id) / this.owner.fightDuration;
   }
 
   get suggestionThresholds() {
@@ -32,18 +31,18 @@ class SiphonLifeUptime extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SIPHON_LIFE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.SIPHON_LIFE_TALENT.id);
   }
 
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} /> uptime can be improved. Try to pay
+          Your <SpellLink id={talents.SIPHON_LIFE_TALENT.id} /> uptime can be improved. Try to pay
           more attention to your Siphon Life on the boss, perhaps use some debuff tracker.
         </>,
       )
-        .icon(SPELLS.SIPHON_LIFE_TALENT.icon)
+        .icon(talents.SIPHON_LIFE_TALENT.icon)
         .actual(
           t({
             id: 'warlock.affliction.suggestions.siphonLife.uptime',
@@ -55,11 +54,11 @@ class SiphonLifeUptime extends Analyzer {
   }
 
   subStatistic() {
-    const history = this.enemies.getDebuffHistory(SPELLS.SIPHON_LIFE_TALENT.id);
+    const history = this.enemies.getDebuffHistory(talents.SIPHON_LIFE_TALENT.id);
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.SIPHON_LIFE_TALENT.id} />
+          <SpellIcon id={talents.SIPHON_LIFE_TALENT.id} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)} % <small>uptime</small>

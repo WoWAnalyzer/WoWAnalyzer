@@ -1,15 +1,16 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/warlock'
 import { SpellLink } from 'interface';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
-import Gauge from 'parser/ui/Gauge';
-import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  get suggestionThresholds() {
+  position = STATISTIC_ORDER.CORE(1);
+
+  get downtimeSuggestionThresholds() {
     return {
       actual: this.downtimePercentage,
       isGreaterThan: {
@@ -22,13 +23,13 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+    when(this.downtimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
           Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay
           between casting spells. Even if you have to move, try casting something instant - maybe
           refresh your dots. Make good use of your <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} /> or
-          <SpellLink id={SPELLS.BURNING_RUSH_TALENT.id} /> when you can.
+          <SpellLink id={talents.BURNING_RUSH_TALENT.id} /> when you can.
         </>,
       )
         .icon('spell_mage_altertime')
@@ -38,39 +39,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
             message: `${formatPercentage(actual)}% downtime`,
           }),
         )
-        .recommended(`<${formatPercentage(recommended)}% is recommended`),
-    );
-  }
-
-  statistic() {
-    return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(2)}
-        tooltip={
-          <>
-            Downtime is available time not used to cast anything (including not having your GCD
-            rolling). This can be caused by delays between casting spells, latency, cast
-            interrupting or just simply not casting anything (e.g. due to movement/stunned).
-            <br />
-            <ul>
-              <li>
-                You spent <strong>{formatPercentage(this.activeTimePercentage)}%</strong> of your
-                time casting something.
-              </li>
-              <li>
-                You spent <strong>{formatPercentage(this.downtimePercentage)}%</strong> of your time
-                casting nothing at all.
-              </li>
-            </ul>
-          </>
-        }
-      >
-        <div className="pad">
-          <label>Active time</label>
-
-          <Gauge value={this.activeTimePercentage} />
-        </div>
-      </Statistic>
+        .recommended(`<${formatPercentage(recommended)}% is recommended`)
+        .regular(recommended + 0.15)
+        .major(recommended + 0.2),
     );
   }
 }

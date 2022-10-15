@@ -1,5 +1,6 @@
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/warlock';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -18,7 +19,7 @@ class AbsoluteCorruption extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ABSOLUTE_CORRUPTION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.ABSOLUTE_CORRUPTION_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CORRUPTION_DEBUFF),
       this.onCorruptionDamage,
@@ -44,7 +45,7 @@ class AbsoluteCorruption extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.ABSOLUTE_CORRUPTION_TALENT.id}>
+        <BoringSpellValueText spellId={talents.ABSOLUTE_CORRUPTION_TALENT.id}>
           {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total

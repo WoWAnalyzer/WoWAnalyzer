@@ -1,5 +1,5 @@
 import { formatThousands, formatPercentage, formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/warlock';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -24,13 +24,13 @@ class VileTaint extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.VILE_TAINT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.VILE_TAINT_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VILE_TAINT_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(talents.VILE_TAINT_TALENT),
       this.onVileTaintCast,
     );
     this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.VILE_TAINT_TALENT),
+      Events.applydebuff.by(SELECTED_PLAYER).spell(talents.VILE_TAINT_TALENT),
       this.onVileTaintApplyDebuff,
     );
     this.addEventListener(Events.fightend, this.onFinished);
@@ -59,7 +59,7 @@ class VileTaint extends Analyzer {
   }
 
   statistic() {
-    const spell = this.abilityTracker.getAbility(SPELLS.VILE_TAINT_TALENT.id);
+    const spell = this.abilityTracker.getAbility(talents.VILE_TAINT_TALENT.id);
     const damage = spell.damageEffective + spell.damageAbsorbed;
     const averageTargetsHit =
       this.casts.reduce((total, current) => total + current, 0) / spell.casts || 0;
@@ -76,7 +76,7 @@ class VileTaint extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.VILE_TAINT_TALENT.id}>
+        <BoringSpellValueText spellId={talents.VILE_TAINT_TALENT.id}>
           {formatNumber(dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total

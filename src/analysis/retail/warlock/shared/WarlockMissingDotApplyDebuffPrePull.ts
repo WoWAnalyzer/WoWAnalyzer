@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/warlock'
 import MissingDotApplyDebuffPrePull, {
   Dot,
 } from 'parser/shared/normalizers/MissingDotApplyDebuffPrePull';
@@ -14,7 +15,7 @@ const DOTS = [
     debuffId: SPELLS.UNSTABLE_AFFLICTION.id,
   },
   {
-    debuffId: SPELLS.HAUNT_TALENT.id,
+    debuffId: talents.HAUNT_TALENT.id,
   },
   {
     debuffId: SPELLS.PHANTOM_SINGULARITY_DAMAGE_HEAL.id,
