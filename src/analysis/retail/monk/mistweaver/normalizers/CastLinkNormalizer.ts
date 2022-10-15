@@ -10,6 +10,7 @@ import {
   GetRelatedEvents,
   HasRelatedEvent,
   RemoveBuffEvent,
+  RefreshBuffEvent,
 } from 'parser/core/Events';
 
 export const APPLIED_HEAL = 'AppliedHeal';
@@ -20,7 +21,7 @@ export const FROM_MISTY_PEAKS = 'FromMistyPeaks';
 export const FROM_RAPID_DIFFUSION = 'FromRD'; // can be linked to env mist or rsk cast
 
 const CAST_BUFFER_MS = 150;
-const MAX_REM_DURATION = 65000;
+const MAX_REM_DURATION = 77000;
 const FOUND_REMS = new Set();
 
 /*
@@ -34,7 +35,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: FROM_HARDCAST,
     reverseLinkRelation: APPLIED_HEAL,
     linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
-    linkingEventType: [EventType.ApplyBuff],
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
     referencedEventType: [EventType.Cast],
     forwardBufferMs: CAST_BUFFER_MS,
@@ -55,7 +56,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: BOUNCED,
     linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
-    linkingEventType: [EventType.ApplyBuff],
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
     referencedEventType: [EventType.RemoveBuff],
     backwardBufferMs: CAST_BUFFER_MS,
@@ -72,21 +73,20 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
     linkingEventType: [EventType.RemoveBuff],
     referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
-    referencedEventType: [EventType.ApplyBuff],
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     backwardBufferMs: MAX_REM_DURATION,
   },
   // link ReM to an EnvM/RSK cast
   {
     linkRelation: FROM_RAPID_DIFFUSION,
     linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
-    linkingEventType: [EventType.ApplyBuff],
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: [
       TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
       TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
       SPELLS.ENVELOPING_MIST_TFT.id,
     ],
     referencedEventType: [EventType.Cast],
-    forwardBufferMs: 0,
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
     additionalCondition(linkingEvent, referencedEvent) {
@@ -111,11 +111,10 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: FROM_MISTY_PEAKS,
     linkingEventId: [TALENTS_MONK.ENVELOPING_MIST_TALENT.id],
-    linkingEventType: [EventType.ApplyBuff],
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
     referencedEventType: [EventType.Heal],
     anyTarget: true,
-    forwardBufferMs: 50,
     backwardBufferMs: 50,
     additionalCondition(linkingEvent, referencedEvent) {
       return !HasRelatedEvent(linkingEvent, FROM_HARDCAST);
@@ -170,11 +169,13 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
     // There can be multiple linked applications/removals if multiple ReM's bouce close together
     // so filter out each linked events and find the one with the closest timestamp
     const minEvent = getClosestEvent(event.timestamp, relatedEvents);
-    // see if ancestor event can be linked to a hardcast
-    if (minEvent.type === EventType.RemoveBuff) {
+    // we linked event as sourced from either a remove, apply, or refresh, so we recurse to track down the source of the linked event
+    if (minEvent.type === EventType.ApplyBuff) {
+      return isFromHardcast(minEvent as ApplyBuffEvent);
+    } else if (minEvent.type === EventType.RemoveBuff) {
       return isFromHardcast(minEvent as RemoveBuffEvent);
     } else {
-      return isFromHardcast(minEvent as ApplyBuffEvent);
+      return isFromHardcast(minEvent as RefreshBuffEvent);
     }
   }
   return false;
