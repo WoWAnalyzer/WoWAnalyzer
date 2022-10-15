@@ -13,7 +13,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 /** Maximum time buffer between a hardcast and applybuff to allow attribution */
 const BUFFER_MS = 150;
 
-const DEBUG = false;
+const DEBUG = true;
 
 /**
  * Many Resto HoTs can be applied from multiple different sources including talents and hardcasts.
@@ -53,7 +53,8 @@ class HotAttributor extends Analyzer {
   lbHardcastAttrib = HotTracker.getNewAttribution('Lifebloom Hardcast');
   // track various talent attributions
   overgrowthAttrib = HotTracker.getNewAttribution('Overgrowth');
-  powerOfTheArchdruidAttrib = HotTracker.getNewAttribution('PowerOfTheArchdruid');
+  powerOfTheArchdruidRejuvAttrib = HotTracker.getNewAttribution('PowerOfTheArchdruid-Rejuv');
+  powerOfTheArchdruidRegrowthAttrib = HotTracker.getNewAttribution('PowerOfTheArchdruid-Regrowth');
   luxuriantSoilAttrib = HotTracker.getNewAttribution('LuxuriantSoil');
   rampantGrowthAttrib = HotTracker.getNewAttribution('RampantGrowth');
   // Convoke handled separately in Resto Convoke module
@@ -120,8 +121,8 @@ class HotAttributor extends Analyzer {
         this.lastConvokeRejuvOrRegrowthBuffTimestamp &&
         this.lastConvokeRejuvOrRegrowthBuffTimestamp + BUFFER_MS >= event.timestamp
       ) {
-        this.hotTracker.addAttributionFromApply(this.powerOfTheArchdruidAttrib, event);
-        this._logAttrib(event, this.powerOfTheArchdruidAttrib);
+        this.hotTracker.addAttributionFromApply(this.powerOfTheArchdruidRejuvAttrib, event);
+        this._logAttrib(event, this.powerOfTheArchdruidRejuvAttrib);
       }
       this.lastConvokeRejuvOrRegrowthBuffTimestamp = event.timestamp;
       // convoke module adds the attribution for Convoke
@@ -130,8 +131,8 @@ class HotAttributor extends Analyzer {
       this.hotTracker.addAttributionFromApply(this.overgrowthAttrib, event);
       this._logAttrib(event, this.overgrowthAttrib);
     } else if (possiblePota) {
-      this.hotTracker.addAttributionFromApply(this.powerOfTheArchdruidAttrib, event);
-      this._logAttrib(event, this.powerOfTheArchdruidAttrib);
+      this.hotTracker.addAttributionFromApply(this.powerOfTheArchdruidRejuvAttrib, event);
+      this._logAttrib(event, this.powerOfTheArchdruidRejuvAttrib);
     } else if (this.hasLuxuriantSoil) {
       this.hotTracker.addAttributionFromApply(this.luxuriantSoilAttrib, event);
       this._logAttrib(event, this.luxuriantSoilAttrib);
@@ -168,8 +169,8 @@ class HotAttributor extends Analyzer {
         this.lastConvokeRejuvOrRegrowthBuffTimestamp &&
         this.lastConvokeRejuvOrRegrowthBuffTimestamp + BUFFER_MS >= event.timestamp
       ) {
-        this.hotTracker.addAttributionFromApply(this.powerOfTheArchdruidAttrib, event);
-        this._logAttrib(event, this.powerOfTheArchdruidAttrib);
+        this.hotTracker.addAttributionFromApply(this.powerOfTheArchdruidRegrowthAttrib, event);
+        this._logAttrib(event, this.powerOfTheArchdruidRegrowthAttrib);
       }
       if (!possibleRg) {
         this.lastConvokeRejuvOrRegrowthBuffTimestamp = event.timestamp;
@@ -180,8 +181,8 @@ class HotAttributor extends Analyzer {
       this.hotTracker.addAttributionFromApply(this.overgrowthAttrib, event);
       this._logAttrib(event, this.overgrowthAttrib);
     } else if (possiblePota) {
-      this.hotTracker.addAttributionFromApply(this.powerOfTheArchdruidAttrib, event);
-      this._logAttrib(event, this.powerOfTheArchdruidAttrib);
+      this.hotTracker.addAttributionFromApply(this.powerOfTheArchdruidRegrowthAttrib, event);
+      this._logAttrib(event, this.powerOfTheArchdruidRegrowthAttrib);
     } else {
       this._logAttrib(event, undefined);
     }
@@ -205,15 +206,15 @@ class HotAttributor extends Analyzer {
         this.lastRegrowthDirectHealTimestamp &&
         this.lastRegrowthDirectHealTimestamp + BUFFER_MS >= event.timestamp
       ) {
-        this.powerOfTheArchdruidAttrib.healing += effectiveHeal;
-        this._logAttrib(event, this.powerOfTheArchdruidAttrib);
+        this.powerOfTheArchdruidRegrowthAttrib.healing += effectiveHeal;
+        this._logAttrib(event, this.powerOfTheArchdruidRegrowthAttrib);
       }
       this.lastRegrowthDirectHealTimestamp = event.timestamp;
       // convoke module adds the attribution for Convoke
       this._logAttrib(event, this.convokeSpirits.currentConvokeAttribution);
     } else if (possiblePota) {
-      this.powerOfTheArchdruidAttrib.healing += effectiveHeal;
-      this._logAttrib(event, this.powerOfTheArchdruidAttrib);
+      this.powerOfTheArchdruidRegrowthAttrib.healing += effectiveHeal;
+      this._logAttrib(event, this.powerOfTheArchdruidRegrowthAttrib);
     } else {
       this._logAttrib(event, undefined);
     }

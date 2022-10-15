@@ -14,7 +14,7 @@ import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
 const DAMAGE_MULTIPLIER = 0.2;
 
 const MOD_RATE = 2;
-const MOD_RATE_ABILITIES = [SPELLS.FISTS_OF_FURY_CAST.id, SPELLS.RISING_SUN_KICK.id];
+const MOD_RATE_ABILITIES = [SPELLS.FISTS_OF_FURY_CAST.id, TALENTS_MONK.RISING_SUN_KICK_TALENT.id];
 
 /**
  * Tracks damage increase and cooldown reduction from
@@ -53,9 +53,10 @@ class Serenity extends Analyzer {
   }
 
   _reduceRSK() {
-    if (this.spellUsable.isOnCooldown(SPELLS.RISING_SUN_KICK.id)) {
-      const cooldownReduction = this.spellUsable.cooldownRemaining(SPELLS.RISING_SUN_KICK.id) * 0.5;
-      this.spellUsable.reduceCooldown(SPELLS.RISING_SUN_KICK.id, cooldownReduction);
+    if (this.spellUsable.isOnCooldown(TALENTS_MONK.RISING_SUN_KICK_TALENT.id)) {
+      const cooldownReduction =
+        this.spellUsable.cooldownRemaining(TALENTS_MONK.RISING_SUN_KICK_TALENT.id) * 0.5;
+      this.spellUsable.reduceCooldown(TALENTS_MONK.RISING_SUN_KICK_TALENT.id, cooldownReduction);
       this.effectiveRisingSunKickReductionMs += cooldownReduction;
     }
   }
@@ -111,7 +112,7 @@ class Serenity extends Analyzer {
           <br />
           <span style={{ fontSize: '75%' }}>
             <SpellIcon
-              id={SPELLS.RISING_SUN_KICK.id}
+              id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id}
               style={{
                 height: '1.3em',
                 marginTop: '-1.em',

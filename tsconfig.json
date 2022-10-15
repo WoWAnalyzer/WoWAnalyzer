@@ -46,8 +46,7 @@
     "src/analysis/retail/warlock/demonology",
     "src/analysis/retail/warlock/destruction",
     "src/analysis/retail/warlock/shared",
-    "src/analysis/retail/warrior/arms",
-    "src/analysis/retail/warrior/protection"
+    "src/analysis/retail/warrior/arms"
   ],
   "ts-node": {
     // these options are overrides used only by ts-node

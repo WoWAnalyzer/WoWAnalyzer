@@ -7,16 +7,17 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TALENTS from 'common/TALENTS/warrior';
 
-import RageTracker from '../../core/RageTracker';
+import RageTracker from '../core/RageTracker';
 
 const REDUCTION = 5000;
 const EXTRA_RAGE = 5;
 
 /**
- * Whenever you cast a shield slam reduce shield wall by 5 second and gain 5 extra rage.
+ * Whenever you cast a shield slam reduce shield wall by 5 second and gain 3 extra rage.
  */
-class TheWall extends Analyzer {
+class ImpenetrableWall extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
     rageTracker: RageTracker,
@@ -33,7 +34,7 @@ class TheWall extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.THE_WALL);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.IMPENETRABLE_WALL_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -51,7 +52,7 @@ class TheWall extends Analyzer {
     }
 
     if (this.rageTracker.maxResource > this.rageTracker.current + EXTRA_RAGE) {
-      this.effectiveRage += 5;
+      this.effectiveRage += 3;
     } else {
       const effective = this.rageTracker.maxResource - this.rageTracker.current;
       this.effectiveRage += effective;
@@ -81,4 +82,4 @@ class TheWall extends Analyzer {
   }
 }
 
-export default TheWall;
+export default ImpenetrableWall;

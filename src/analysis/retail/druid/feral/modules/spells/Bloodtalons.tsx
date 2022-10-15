@@ -2,20 +2,34 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink, SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { AnyEvent, CastEvent, DamageEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Events, {
+  AnyEvent,
+  ApplyDebuffEvent,
+  CastEvent,
+  DamageEvent,
+  RefreshDebuffEvent,
+} from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { cdSpell, FINISHERS } from 'analysis/retail/druid/feral/constants';
+import {
+  BLOODTALONS_DAMAGE_BONUS,
+  cdSpell,
+  FINISHERS,
+  LIONS_STRENGTH_DAMAGE_BONUS,
+} from 'analysis/retail/druid/feral/constants';
 import { isFromHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 import ConvokeSpiritsFeral from 'analysis/retail/druid/feral/modules/spells/ConvokeSpiritsFeral';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
+import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import { GradiatedPerformanceBar, SubSection } from 'interface/guide';
 
 const BUFFER_MS = 50;
 
-const DEBUG = true;
+const DEBUG = false;
 
 /**
  * **Bloodtalons**
@@ -29,12 +43,22 @@ const DEBUG = true;
  */
 class Bloodtalons extends Analyzer {
   static dependencies = {
+    abilityTracker: AbilityTracker,
     convokeSpirits: ConvokeSpiritsFeral,
   };
 
+  protected abilityTracker!: AbilityTracker;
   protected convokeSpirits!: ConvokeSpiritsFeral;
+
   /** True iff the player has the Apex Predator's Craving legendary */
   hasApex: boolean;
+
+  /** Finishers buffed by BT */
+  goodFinishers: number = 0;
+  /** Finisher unbuffed by BT, but where you might not have been able to */
+  acceptableFinishers: number = 0;
+  /** Finisher unbuffed by BT when you should have been able to */
+  badFinishers: number = 0;
 
   /** Bites cast with the Apex Predator's Craving buff */
   apexBites: number = 0;
@@ -59,6 +83,11 @@ class Bloodtalons extends Analyzer {
   /** Rips cast that were buffed with BT */
   ripsWithBt: number = 0;
 
+  /** Primal Wraths cast */
+  primalWraths: number = 0;
+  /** Primal Wraths cast that were buffed with BT */
+  primalWrathsWithBt: number = 0;
+
   /**
    * Normally, every regular hardcast FB should be buffed by BT, but we allow the following exceptions:
    * * Player consumed BT on an Apex bite since the last finisher
@@ -74,16 +103,44 @@ class Bloodtalons extends Analyzer {
    * this finisher to be a Ferocious Bite unbuffed by BT */
   exceptionSinceLastFinisher: boolean = false;
 
+  /** Total damage added by Bloodtalons  */
+  btDamage: number = 0;
+  /** The damage that could have been boosted by Bloodtalons, before the boost. */
+  totalBoostableDamage: number = 0;
+  /** The damage that was boosted by Bloodtalons, before the boost */
+  baseBoostedDamage: number = 0;
+  /** Set of target IDs whose last rip application had BT */
+  targetsWithBtRip: Set<string> = new Set<string>();
+
   constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT);
     this.hasApex = this.selectedCombatant.hasTalent(TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT);
 
+    // for tallying casts
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(FINISHERS), this.onFinisherCast);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEROCIOUS_BITE),
       this.onFbDamage,
+    );
+
+    // for counting damage (Primal Wrath direct damage does not benefit from BT, hence its omission)
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.FEROCIOUS_BITE, SPELLS.RAMPANT_FEROCITY]),
+      this.onBtDirect,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.RIP, SPELLS.TEAR_OPEN_WOUNDS]),
+      this.onBtFromRip,
+    );
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.RIP),
+      this.onRipApply,
+    );
+    this.addEventListener(
+      Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.RIP),
+      this.onRipApply,
     );
 
     DEBUG && this.addEventListener(Events.fightend, this.onFightEnd);
@@ -121,12 +178,15 @@ class Bloodtalons extends Analyzer {
             this.regBites += 1;
           }
         }
+        this.goodFinishers += 1;
       } else if (!fromApex) {
         // hardcast bite without BT - check if this is acceptable
         if (this.exceptionSinceLastFinisher || this._isBerserkOrIncarn()) {
           this.correctBites += 1;
+          this.acceptableFinishers += 1;
         } else {
           this.badBites += 1;
+          this.badFinishers += 1;
         }
         // also increment the correct counter
         if (this._isBerserkOrIncarn()) {
@@ -137,12 +197,24 @@ class Bloodtalons extends Analyzer {
       } else {
         // apex bite without BT
         this.apexBites += 1;
+        this.acceptableFinishers += 1;
       }
     } else if (event.ability.guid === SPELLS.RIP.id) {
       if (this._hasBt(event)) {
         this.ripsWithBt += 1;
+        this.goodFinishers += 1;
+      } else {
+        this.badFinishers += 1;
       }
       this.rips += 1;
+    } else if (event.ability.guid === TALENTS_DRUID.PRIMAL_WRATH_TALENT.id) {
+      if (this._hasBt(event)) {
+        this.primalWrathsWithBt += 1;
+        this.goodFinishers += 1;
+      } else {
+        this.badFinishers += 1;
+      }
+      this.primalWraths += 1;
     }
 
     this.exceptionSinceLastFinisher = false;
@@ -155,8 +227,40 @@ class Bloodtalons extends Analyzer {
         // consumed BT with a convoke bite - this is an exception allowing real finisher to be missing BT
         this.convokeBitesWithBt += 1;
         this.exceptionSinceLastFinisher = true;
+        this.goodFinishers += 1;
+      } else {
+        this.acceptableFinishers += 1;
       }
       this.convokeBites += 1;
+    }
+  }
+
+  onBtDirect(event: DamageEvent) {
+    this._tallyBtDamage(event, this._hasBt(event));
+  }
+
+  onBtFromRip(event: DamageEvent) {
+    this._tallyBtDamage(event, this.targetsWithBtRip.has(encodeEventTargetString(event) || ''));
+  }
+
+  _tallyBtDamage(event: DamageEvent, benefittedFromBt: boolean) {
+    const totalDamage = event.amount + (event.absorbed || 0);
+    let btAdd = 0;
+    if (benefittedFromBt) {
+      btAdd = calculateEffectiveDamage(event, BLOODTALONS_DAMAGE_BONUS);
+      this.btDamage += btAdd;
+    }
+    const baseDamage = totalDamage - btAdd;
+    this.totalBoostableDamage += baseDamage;
+    benefittedFromBt && (this.baseBoostedDamage += baseDamage);
+  }
+
+  onRipApply(event: ApplyDebuffEvent | RefreshDebuffEvent) {
+    const targetString = encodeEventTargetString(event) || '';
+    if (this._hasBt(event)) {
+      this.targetsWithBtRip.add(targetString);
+    } else {
+      this.targetsWithBtRip.delete(targetString);
     }
   }
 
@@ -171,10 +275,6 @@ class Bloodtalons extends Analyzer {
     );
   }
 
-  get totalRegularBites() {
-    return this.badBites + this.correctBites;
-  }
-
   get totalBites() {
     return this.apexBites + this.convokeBites + this.berserkBites + this.regBites;
   }
@@ -185,60 +285,71 @@ class Bloodtalons extends Analyzer {
     );
   }
 
-  get percentCorrectBites() {
-    return this.totalRegularBites === 0 ? 1 : this.correctBites / this.totalRegularBites;
+  /** Percent of boostable damage that actually did benefit from BT */
+  get percentBoosted() {
+    return this.totalBoostableDamage === 0 ? 0 : this.baseBoostedDamage / this.totalBoostableDamage;
   }
 
-  get correctFbSuggestionThresholds() {
-    return {
-      actual: this.percentCorrectBites,
-      isLessThan: {
-        minor: 1,
-        average: 0.8,
-        major: 0.5,
-      },
-      style: ThresholdStyle.PERCENTAGE,
+  get bloodtalonsVsLionsStrengthText() {
+    return (
+      <>
+        You applied Bloodtalons to <strong>{formatPercentage(this.percentBoosted, 1)}%</strong> of
+        your finisher damage. Below{' '}
+        {formatPercentage(LIONS_STRENGTH_DAMAGE_BONUS / BLOODTALONS_DAMAGE_BONUS, 0)}%,{' '}
+        <SpellLink id={TALENTS_DRUID.LIONS_STRENGTH_TALENT.id}>Bite Force</SpellLink> would have
+        done more damage for you.
+      </>
+    );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const goodFinishers = {
+      count: this.goodFinishers,
+      label: 'Bloodtalons Finishers',
     };
-  }
+    const acceptableFinishers = {
+      count: this.acceptableFinishers,
+      label: 'Acceptable Unbuffed Finishers',
+    };
+    const badFinishers = {
+      count: this.badFinishers,
+      label: 'Unacceptable Unbuffed Finishers',
+    };
 
-  suggestions(when: When) {
-    when(this.correctFbSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You are casting <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> without{' '}
-          <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />. With only a few exceptions, you
-          should be able to buff each of your Bites with Bloodtalons.
-          <br />
-          <br />
-          The exceptions are: you have <SpellLink id={SPELLS.BERSERK.id} /> or{' '}
-          <SpellLink id={TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id} /> active and don't
-          have enough combo builders between finishers to proc Bloodtalons, or your{' '}
-          <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> consumed Bloodtalons before your finisher
-          {this.hasApex && (
-            <>
-              , or your <SpellLink id={SPELLS.APEX_PREDATORS_CRAVING.id} /> proc consumed
-              Bloodtalons before your finisher
-            </>
-          )}
-          . These exceptions are accounted for by the below statistic.
-        </>,
-      )
-        .icon(TALENTS_DRUID.BLOODTALONS_TALENT.icon)
-        .actual(`${formatPercentage(actual, 1)}% correct Bloodtalon Ferocious Bites.`)
-        .recommended(`${formatPercentage(recommended, 0)}% is recommended`),
+    return (
+      <SubSection>
+        <p>
+          <strong>
+            <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />
+          </strong>{' '}
+          changes your builder priorities. Pooling energy will make it easier to use three builders
+          within a short window. It's worth using a sub-optimal builder if doing so would generate a
+          proc. Some mechanics (Convoke, Berserk, Apex) will give you less than three builders
+          between finishers - in these cases it's ok to use unbuffed finishers.
+        </p>
+        <p>{this.bloodtalonsVsLionsStrengthText}</p>
+        <strong>Finisher use breakdown</strong>
+        <small>
+          {' '}
+          - Green is Bloodtalons finishers, Yellow is acceptable unbuffed finishers, Red is
+          unacceptable unbuffed finishers. Mouseover for more details.
+        </small>
+        <GradiatedPerformanceBar good={goodFinishers} ok={acceptableFinishers} bad={badFinishers} />
+      </SubSection>
     );
   }
 
   statistic() {
+    const hasPw = this.selectedCombatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_TALENT);
     return (
       <Statistic
         tooltip={
           <>
             The main statistic tracks how many of your Ferocious Bite and Rip casts benefitted from
-            Bloodtalons. Your Rips should always be buffed by Bloodtalons, but there are several
-            reasons why it might be impractical to buff every Bite, including being unable to proc
-            it to avoid overcapping CPs during Berserk, or having more Bites than procs due to Apex
-            Predator's Craving or Convoke the Spirits.
+            Bloodtalons. Your Rips {hasPw && 'and Primal Wraths '}should always be buffed by
+            Bloodtalons, but there are several reasons why it might be impractical to buff every
+            Bite, including being unable to proc it to avoid overcapping CPs during Berserk, or
+            having more Bites than procs due to Apex Predator's Craving or Convoke the Spirits.
             <br />
             <br />
             Buffed Bite breakdown by source:
@@ -272,6 +383,15 @@ class Bloodtalons extends Analyzer {
                 </li>
               )}
             </ul>
+            <br />
+            Damage added due to <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} /> (opportunity
+            cost not included):{' '}
+            <strong>
+              {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.btDamage))}%
+            </strong>
+            <br />
+            <br />
+            {this.bloodtalonsVsLionsStrengthText}
           </>
         }
         size="flexible"
@@ -283,6 +403,13 @@ class Bloodtalons extends Analyzer {
             <small>buffed</small>
             <br />
             <SpellIcon id={SPELLS.RIP.id} /> {this.ripsWithBt} / {this.rips} <small>buffed</small>
+            {hasPw && (
+              <>
+                <br />
+                <SpellIcon id={TALENTS_DRUID.PRIMAL_WRATH_TALENT.id} /> {this.primalWrathsWithBt} /{' '}
+                {this.primalWraths} <small>buffed</small>
+              </>
+            )}
           </>
         </BoringSpellValueText>
       </Statistic>

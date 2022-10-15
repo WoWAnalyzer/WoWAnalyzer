@@ -9,8 +9,12 @@ import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TALENTS from 'common/TALENTS/warrior';
 
-const COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT = [SPELLS.AVATAR_TALENT.id, SPELLS.SHIELD_WALL.id];
+const COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT = [
+  TALENTS.AVATAR_TALENT.id,
+  TALENTS.SHIELD_WALL_TALENT.id,
+];
 const RAGE_NEEDED_FOR_A_PROC = 10;
 const CDR_PER_PROC = 1000; // ms
 
@@ -25,7 +29,10 @@ class AngerManagement extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ANGER_MANAGEMENT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ANGER_MANAGEMENT_TALENT.id);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach((e) => {
       this.wastedReduction[e] = 0;
@@ -88,7 +95,7 @@ class AngerManagement extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={SPELLS.ANGER_MANAGEMENT_TALENT.id} /> Possible cooldown reduction
+              <SpellLink id={TALENTS.ANGER_MANAGEMENT_TALENT.id} /> Possible cooldown reduction
             </>
           }
         >

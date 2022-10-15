@@ -13,7 +13,7 @@ export function getMetamorphosisCooldown(combatant: Combatant) {
     BASE_COOLDOWN -
     RUSH_OF_CHAOS_SCALING[combatant.getTalentRank(TALENTS_DEMON_HUNTER.RUSH_OF_CHAOS_TALENT)] -
     DEMONIC_ORIGINS_CDR_SCALING[
-      combatant.getTalentRank(TALENTS_DEMON_HUNTER.DEMONIC_ORIGINS_TALENT)
+      combatant.getTalentRank(TALENTS_DEMON_HUNTER.FIRST_OF_THE_ILLIDARI_TALENT)
     ]
   );
 }

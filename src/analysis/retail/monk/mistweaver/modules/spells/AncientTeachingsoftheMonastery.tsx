@@ -74,7 +74,7 @@ class AncientTeachingsoftheMonastery extends Analyzer {
       {
         color: SPELL_COLORS.RISING_SUN_KICK,
         label: 'Rising Sun Kick',
-        spellId: SPELLS.RISING_SUN_KICK.id,
+        spellId: TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
         value: rskHealing / totalHealing,
         valueTooltip: formatThousands(rskHealing),
       },

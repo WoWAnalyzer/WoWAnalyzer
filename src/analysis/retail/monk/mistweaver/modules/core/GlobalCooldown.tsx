@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { CastEvent } from 'parser/core/Events';
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
@@ -9,8 +10,8 @@ class GlobalCooldown extends CoreGlobalCooldown {
   onCast(event: CastEvent) {
     if (
       event.ability.guid === SPELLS.CRACKLING_JADE_LIGHTNING.id ||
-      event.ability.guid === SPELLS.SOOTHING_MIST.id ||
-      event.ability.guid === SPELLS.ESSENCE_FONT.id
+      event.ability.guid === TALENTS_MONK.SOOTHING_MIST_TALENT.id ||
+      event.ability.guid === TALENTS_MONK.ESSENCE_FONT_TALENT.id
     ) {
       // Channeling fabricates fake `beginchannel` events for these abilities, that already takes care of the GCD.
       return;

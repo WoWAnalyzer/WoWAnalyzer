@@ -81,11 +81,10 @@ class CombatLogParser extends CoreCombatLogParser {
     TrailOfLight: Talents.MiddleRow.TrailOfLight,
     RenewedFaith: Talents.TopRow.RenewedFaith,
     DesperateTimes: Talents.BottomRow.DesperateTimes,
+    HealingChorus: Talents.MiddleRow.HealingChorus,
 
     BindingHeals: Talents.Classwide.BindingHeals,
-    AngelicFeather: Talents.Classwide.AngelicFeather,
     AngelsMercy: Talents.Classwide.AngelsMercy,
-    BodyAndSoul: Talents.Classwide.BodyAndSoul,
 
     GuardianAngel: Talents.TopRow.GuardianAngel,
     Afterlife: Talents.TopRow.Afterlife,
@@ -102,12 +101,11 @@ class CombatLogParser extends CoreCombatLogParser {
     DivineStar: Talents.Classwide.DivineStar,
     mindgames: Mindgames,
 
-    LightOfTheNaru: Talents.BottomRow.LightOfTheNaaru,
     HolyWordSalvation: Talents.BottomRow.HolyWordSalvation,
     Apotheosis: Talents.BottomRow.Apotheosis,
     AnsweredPrayers: Talents.BottomRow.AnsweredPrayers,
+    Lightweaver: Talents.BottomRow.Lightweaver,
 
-    harmoniousApparatus: Talents.BottomRow.HarmoniousApparatus,
     divineImage: Talents.BottomRow.DivineImage,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
     resonantWords: Talents.BottomRow.ResonantWords,
