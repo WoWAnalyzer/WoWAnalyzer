@@ -168,7 +168,8 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
     const relatedEvents = GetRelatedEvents(event, BOUNCED);
     // There can be multiple linked applications/removals if multiple ReM's bouce close together
     // so filter out each linked events and find the one with the closest timestamp
-    const minEvent = getClosestEvent(event.timestamp, relatedEvents);
+    const minEvent =
+      relatedEvents.length > 1 ? getClosestEvent(event.timestamp, relatedEvents) : relatedEvents[0];
     // we linked event as sourced from either a remove, apply, or refresh, so we recurse to track down the source of the linked event
     if (minEvent.type === EventType.ApplyBuff) {
       return isFromHardcast(minEvent as ApplyBuffEvent);
