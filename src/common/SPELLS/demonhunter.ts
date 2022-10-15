@@ -505,6 +505,11 @@ const spells = spellIndexableList({
     name: 'Blur',
     icon: 'ability_demonhunter_blur',
   },
+  FEL_DEVASTATION_DAMAGE: {
+    id: 212105,
+    name: 'Fel Devastation',
+    icon: 'ability_demonhunter_feldevastation',
+  },
   //endregion
 });
 
