@@ -6,6 +6,7 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 15), <>Correct cooldown for <SpellLink id={TALENTS.FIERY_BRAND_TALENT.id}/> when <SpellLink id={TALENTS.DOWN_IN_FLAMES_TALENT.id}/> is talented.</>, ToppleTheNun),
   change(date(2022, 10, 14), 'Correct some spell cooldowns and add missing spells.', ToppleTheNun),
   change(date(2022, 10, 13), 'Standardize Fury tracking across Havoc and Vengeance.', ToppleTheNun),
   change(date(2022, 10, 10), <>Improve detection of bad <SpellLink id={SPELLS.SHEAR.id} /> and <SpellLink id={TALENTS.FRACTURE_TALENT.id}/> casts.</>, ToppleTheNun),
