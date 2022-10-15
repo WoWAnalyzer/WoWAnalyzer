@@ -519,9 +519,9 @@ const spells = spellIndexableList({
   },
 
   // Tier set
-  T28_OUTBURST: {
-    id: 364010,
-    name: 'Outburst',
+  VIOLENT_OUTBURST_BUFF: {
+    id: 386478,
+    name: 'Violent Outburst',
     icon: 'ability_warrior_furiousresolve',
   },
 });

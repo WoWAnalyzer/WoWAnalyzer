@@ -3,12 +3,16 @@ import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { getBuffedCasts } from '../../normalizers/EssenceBreakNormalizer';
+import { SpellLink } from 'interface';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
 /*
   example report: https://www.warcraftlogs.com/reports/LvmF6W4C3TgcZxj8/#fight=last
@@ -30,13 +34,28 @@ class EssenceBreak extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
+  badCasts = 0;
   extraDamage = 0;
   protected enemies!: Enemies;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.id);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(DAMAGE_SPELLS), this.damage);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT),
+      this.cast,
+    );
+  }
+
+  cast(event: CastEvent) {
+    const buffedCasts = getBuffedCasts(event);
+    if (buffedCasts.length < 2) {
+      this.badCasts += 1;
+    }
   }
 
   damage(event: DamageEvent) {
@@ -51,6 +70,39 @@ class EssenceBreak extends Analyzer {
     }
   }
 
+  get suggestionThresholds() {
+    return {
+      actual: this.badCasts,
+      isGreaterThan: {
+        minor: 0,
+        average: 0,
+        major: 1,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Try to fit at least 2 casts of <SpellLink id={SPELLS.CHAOS_STRIKE.id} /> /{' '}
+          <SpellLink id={SPELLS.ANNIHILATION.id} />
+          /
+          <SpellLink id={SPELLS.BLADE_DANCE.id} /> / <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during
+          your <SpellLink id={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.id} /> window.
+        </>,
+      )
+        .icon(TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT.icon)
+        .actual(
+          <>
+            {actual} bad <SpellLink id={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.id} /> casts.
+          </>,
+        )
+        .recommended('No bad casts is recommended.'),
+    );
+  }
+
   statistic() {
     return (
       <Statistic
@@ -60,7 +112,7 @@ class EssenceBreak extends Analyzer {
         tooltip={`${formatThousands(this.extraDamage)} total damage`}
       >
         <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.id}>
-          {this.owner.formatItemDamageDone(this.extraDamage)}
+          <ItemDamageDone amount={this.extraDamage} />
         </BoringSpellValueText>
       </Statistic>
     );

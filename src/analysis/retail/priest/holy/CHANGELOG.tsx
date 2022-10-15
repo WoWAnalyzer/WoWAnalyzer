@@ -5,6 +5,7 @@ import { Abelito75, Adoraci, acornellier, Khadaj, niseko, Zeboot, carglass, Hana
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 10, 12), <> Updated holy word functionality for Dragonflight and added support for <SpellLink id={TALENTS.LIGHTWEAVER_TALENT.id} />. </>, Litena),
   change(date(2022, 10, 9), <> New talent file structure and support for <SpellLink id={TALENTS.DESPERATE_TIMES_TALENT.id}/> and <SpellLink id={TALENTS.ANSWERED_PRAYERS_TALENT.id }/>. </>, Litena),
   change(date(2022,10,7), <> Updated for Dragonflight although not feature complete. </>, Litena),
   change(date(2022, 8, 10), <>Implemented current version of <SpellLink id={TALENTS.BINDING_HEALS_TALENT.id}/>.</>, Vetyst),

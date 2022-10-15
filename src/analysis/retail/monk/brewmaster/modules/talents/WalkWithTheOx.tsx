@@ -67,9 +67,9 @@ export default class WalkWithTheOx extends Analyzer {
   }
 
   private reduceCooldown() {
-    if (this.spellUsable.isOnCooldown(talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id)) {
+    if (this.spellUsable.isOnCooldown(talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id)) {
       const cdr = this.spellUsable.reduceCooldown(
-        talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id,
+        talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id,
         COOLDOWN_REDUCTION,
       );
       this.effCdr += cdr;

@@ -103,7 +103,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.id),
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 20,
+        cooldown: 40,
         gcd: {
           base: 1500,
         },
@@ -145,7 +145,7 @@ class Abilities extends CoreAbilities {
         category: combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_TALENT.id)
           ? SPELL_CATEGORY.ROTATIONAL
           : SPELL_CATEGORY.UTILITY,
-        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.HOT_FEET_TALENT.id) ? 1 : 0),
+        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.BLAZING_PATH_TALENT.id) ? 1 : 0),
         cooldown: getFelRushCooldown(combatant),
         gcd: {
           static: 250,

@@ -82,6 +82,11 @@ const spells = spellIndexableList({
     icon: 'spell_holy_powerwordshield',
     manaCost: 1550,
   },
+  SHIELD_OF_ABSOLUTION_BUFF: {
+    id: 394624,
+    name: 'Shield Of Absolution',
+    icon: 'ability_priest_clarityofwill',
+  },
   SMITE: {
     id: 585,
     name: 'Smite',
@@ -383,6 +388,11 @@ const spells = spellIndexableList({
     id: 27827,
     name: 'Spirit of Redemption',
     icon: 'inv_enchant_essenceeternallarge',
+  },
+  LIGHTWEAVER_TALENT_BUFF: {
+    id: 390993,
+    name: 'Lightweaver',
+    icon: 'spell_holy_greaterheal',
   },
   // Talents
   BINDING_HEALS_TALENT_HEAL: {

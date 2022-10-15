@@ -1947,7 +1947,7 @@ export const Litena: Contributor = {
   discord: 'BooTheGhoster#9666',
   mains: [
     {
-      name: 'Listefano',
+      name: 'Litena',
       spec: SPECS.HOLY_PRIEST,
       link: 'https://worldofwarcraft.com/en-us/character/eu/silvermoon/Litena',
     },

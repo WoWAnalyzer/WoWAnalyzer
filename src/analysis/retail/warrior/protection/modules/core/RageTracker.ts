@@ -1,4 +1,6 @@
-import SPELLS from 'common/SPELLS';
+import OTHER_SPELLS from 'common/SPELLS/others';
+import WARRIOR_SPELLS from 'common/SPELLS/warrior';
+import TALENTS from 'common/TALENTS/warrior';
 import HIT_TYPES from 'game/HIT_TYPES';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -18,12 +20,15 @@ class RageTracker extends ResourceTracker {
   constructor(options: Options) {
     super(options);
     this.resource = RESOURCE_TYPES.RAGE;
-    if (this.selectedCombatant.hasTalent(SPELLS.WAR_MACHINE_TALENT_PROTECTION.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_TALENT.id)) {
       this.ragePerMeleeHit += 1;
     }
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE), this.onDamage);
     this.addEventListener(
-      Events.damage.to(SELECTED_PLAYER).spell(SPELLS.MELEE),
+      Events.damage.by(SELECTED_PLAYER).spell(OTHER_SPELLS.MELEE),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.damage.to(SELECTED_PLAYER).spell(OTHER_SPELLS.MELEE),
       this.onDamageTaken,
     );
   }
@@ -41,7 +46,7 @@ class RageTracker extends ResourceTracker {
 
   onDamage(event: DamageEvent) {
     this.processInvisibleEnergize(
-      SPELLS.RAGE_AUTO_ATTACKS.id,
+      WARRIOR_SPELLS.RAGE_AUTO_ATTACKS.id,
       this.ragePerMeleeHit,
       event.timestamp,
     );
@@ -54,7 +59,7 @@ class RageTracker extends ResourceTracker {
 
     if (event.timestamp - this.lastMeleeTaken >= RAGE_GEN_FROM_MELEE_HIT_ICD) {
       this.processInvisibleEnergize(
-        SPELLS.RAGE_DAMAGE_TAKEN.id,
+        WARRIOR_SPELLS.RAGE_DAMAGE_TAKEN.id,
         RAGE_PER_MELEE_HIT_TAKEN,
         event.timestamp,
       );

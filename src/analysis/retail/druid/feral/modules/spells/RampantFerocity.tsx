@@ -86,9 +86,7 @@ class RampantFerocity extends Analyzer {
 
   statistic() {
     const hasApex = this.selectedCombatant.hasTalent(TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT);
-    const hasConvoke = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT,
-    );
+    const hasConvoke = this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT);
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(4)} // number based on talent row
@@ -111,7 +109,7 @@ class RampantFerocity extends Analyzer {
                   )}
                   {hasConvoke && (
                     <li>
-                      <SpellLink id={TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT.id} />:{' '}
+                      <SpellLink id={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id} />:{' '}
                       {this._formattedPercentDamage(this.convokeRfDamage)}
                     </li>
                   )}

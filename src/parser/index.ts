@@ -31,7 +31,7 @@ import EnhancementShaman from 'analysis/retail/shaman/enhancement';
 // import DestructionWarlock from 'analysis/retail/warlock/destruction';
 // import ArmsWarrior from 'analysis/retail/warrior/arms';
 import FuryWarrior from 'analysis/retail/warrior/fury';
-// import ProtectionWarrior from 'analysis/retail/warrior/protection';
+import ProtectionWarrior from 'analysis/retail/warrior/protection';
 import ClassicDruid from 'analysis/classic/druid';
 import ClassicHunter from 'analysis/classic/hunter';
 import ClassicMage from 'analysis/classic/mage';
@@ -96,7 +96,7 @@ const configs: Config[] = [
   // DemonologyWarlock,
   // DestructionWarlock,
 
-  // ProtectionWarrior,
+  ProtectionWarrior,
   // ArmsWarrior,
   FuryWarrior,
 

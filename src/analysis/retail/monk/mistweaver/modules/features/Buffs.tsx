@@ -22,6 +22,10 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.TEACHINGS_OF_THE_MONASTERY.id,
       },
       {
+        spellId: SPELLS.SECRET_INFUSION_HASTE_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT),
+      },
+      {
         spellId: TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT),
         timelineHighlight: true,

@@ -10,7 +10,7 @@ import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
-
+import Haste from 'parser/shared/modules/Haste';
 import { SPELL_COLORS } from '../../constants';
 
 const debug = false;
@@ -34,6 +34,22 @@ class ThunderFocusTea extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    const secret_infusion_rank = this.selectedCombatant.getTalentRank(
+      TALENTS_MONK.SECRET_INFUSION_TALENT.id,
+    );
+    switch (secret_infusion_rank) {
+      case 1: {
+        Haste.HASTE_BUFFS[SPELLS.SECRET_INFUSION_HASTE_BUFF.id] = 0.08;
+        break;
+      }
+      case 2: {
+        Haste.HASTE_BUFFS[SPELLS.SECRET_INFUSION_HASTE_BUFF.id] = 0.15;
+        break;
+      }
+      default: {
+        Haste.HASTE_BUFFS[SPELLS.SECRET_INFUSION_HASTE_BUFF.id] = 0;
+      }
+    }
     this.ftActive = this.selectedCombatant.hasTalent(TALENTS_MONK.FOCUSED_THUNDER_TALENT.id);
     this.rmActive = this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id);
     this.addEventListener(
