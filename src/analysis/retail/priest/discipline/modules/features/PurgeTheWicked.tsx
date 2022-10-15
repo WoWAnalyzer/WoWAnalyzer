@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -15,7 +15,9 @@ import { Options } from 'parser/core/Module';
 import { SuggestionFactory, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
-import StatisticBox from 'parser/ui/StatisticBox';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import SuggestionThresholds from '../../SuggestionThresholds';
 
@@ -127,28 +129,27 @@ class PurgeTheWicked extends Analyzer {
 
     if (this.dotSpell === SPELLS.PURGE_THE_WICKED_BUFF) {
       return (
-        <StatisticBox
-          icon={<SpellIcon id={this.dotSpell.id} />}
-          value={
-            <>
-              {formatPercentage(uptime)}% Uptime <br />
-              {this.extraPTWs} Extra DOTs
-              <br />
-            </>
-          }
+        <Statistic
+          size="flexible"
+          category={STATISTIC_CATEGORY.TALENTS}
           tooltip={`The additional dots contributed ${formatThousands(
             this.ptwCleaveDamage,
           )} damage.`}
-          label={`${this.dotSpell.name}`}
-        />
+        >
+          <BoringSpellValueText spellId={TALENTS_PRIEST.PURGE_THE_WICKED_TALENT.id}>
+            {formatPercentage(uptime)}% Uptime <br />
+            {this.extraPTWs} Extra DOTs
+            <br />
+          </BoringSpellValueText>
+        </Statistic>
       );
     } else {
       return (
-        <StatisticBox
-          icon={<SpellIcon id={this.dotSpell.id} />}
-          value={`${formatPercentage(uptime)} %`}
-          label={`${this.dotSpell.name} Uptime`}
-        />
+        <Statistic size="flexible" category={STATISTIC_CATEGORY.GENERAL}>
+          <BoringSpellValueText spellId={SPELLS.SHADOW_WORD_PAIN.id}>
+            {formatPercentage(uptime)}% Uptime
+          </BoringSpellValueText>
+        </Statistic>
       );
     }
   }
