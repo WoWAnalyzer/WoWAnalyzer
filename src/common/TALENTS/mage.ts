@@ -97,7 +97,7 @@ const talents = createTalentList({
   REDUPLICATION_TALENT: {
     id: 382569,
     name: 'Reduplication',
-    icon: 'spell_magic_lesserinvisibilty',
+    icon: 'ability_mage_massinvisibility',
     maxRanks: 1,
   },
   REABSORPTION_TALENT: {
@@ -166,17 +166,22 @@ const talents = createTalentList({
     icon: 'spell_frost_frostnova',
     maxRanks: 1,
   },
-  RIGID_ICE_TALENT: { id: 382481, name: 'Rigid Ice', icon: 'spell_frost_frostnova', maxRanks: 1 },
+  RIGID_ICE_TALENT: {
+    id: 382481,
+    name: 'Rigid Ice',
+    icon: 'spell_hunter_blackicetrap',
+    maxRanks: 1,
+  },
   TOME_OF_RHONIN_TALENT: {
     id: 382493,
     name: 'Tome of Rhonin',
-    icon: 'spell_chargepositive',
+    icon: 'inv_misc_book_04',
     maxRanks: 1,
   },
   TOME_OF_ANTONIDAS_TALENT: {
     id: 382490,
     name: 'Tome of Antonidas',
-    icon: 'spell_chargepositive',
+    icon: 'inv_misc_book_18',
     maxRanks: 1,
   },
   VOLATILE_DETONATION_TALENT: {
@@ -357,7 +362,7 @@ const talents = createTalentList({
   CRITICAL_MASS_TALENT: {
     id: 117216,
     name: 'Critical Mass',
-    icon: 'ability_mage_firestarter',
+    icon: 'spell_fire_volcano',
     maxRanks: 2,
   },
   CAUTERIZE_TALENT: { id: 86949, name: 'Cauterize', icon: 'spell_fire_rune', maxRanks: 1 },
@@ -406,7 +411,7 @@ const talents = createTalentList({
     icon: 'artifactability_firemage_phoenixbolt',
     maxRanks: 1,
   },
-  FIREMIND_TALENT: { id: 383499, name: 'Firemind', icon: 'ability_mage_hotstreak', maxRanks: 2 },
+  FIREMIND_TALENT: { id: 383499, name: 'Firemind', icon: 'spell_burningsoul', maxRanks: 2 },
   IMPROVED_COMBUSTION_TALENT: {
     id: 383967,
     name: 'Improved Combustion',
@@ -441,14 +446,14 @@ const talents = createTalentList({
   FLAME_ACCELERANT_TALENT: { id: 203275, name: 'Flame Accelerant', icon: 'inv_ember', maxRanks: 2 },
   KINDLING_TALENT: { id: 155148, name: 'Kindling', icon: 'spell_mage_kindling', maxRanks: 1 },
   WILDFIRE_TALENT: { id: 383489, name: 'Wildfire', icon: 'ability_warlock_inferno', maxRanks: 2 },
-  PYROMANIAC_TALENT: { id: 205020, name: 'Pyromaniac', icon: 'inv_misc_volatilefire', maxRanks: 1 },
-  FIREFALL_TALENT: { id: 384033, name: 'Firefall', icon: 'spell_mage_meteor', maxRanks: 1 },
   MASTER_OF_FLAME_TALENT: {
     id: 384174,
     name: 'Master of Flame',
     icon: 'inv_trinket_firelands_02',
     maxRanks: 1,
   },
+  PYROMANIAC_TALENT: { id: 205020, name: 'Pyromaniac', icon: 'inv_misc_volatilefire', maxRanks: 1 },
+  FIREFALL_TALENT: { id: 384033, name: 'Firefall', icon: 'spell_mage_meteor', maxRanks: 1 },
   CONTROLLED_DESTRUCTION_TALENT: {
     id: 383669,
     name: 'Controlled Destruction',
@@ -539,7 +544,7 @@ const talents = createTalentList({
   PERPETUAL_WINTER_TALENT: {
     id: 378198,
     name: 'Perpetual Winter',
-    icon: 'ability_warlock_burningembersblue',
+    icon: 'spell_frost_arcticwinds',
     maxRanks: 1,
   },
   LONELY_WINTER_TALENT: {
@@ -565,7 +570,7 @@ const talents = createTalentList({
   GLACIAL_ASSAULT_TALENT: {
     id: 378947,
     name: 'Glacial Assault',
-    icon: 'spell_mage_cometstorm2',
+    icon: 'inv_staff_15',
     maxRanks: 2,
   },
   FROZEN_TOUCH_TALENT: {
@@ -583,7 +588,7 @@ const talents = createTalentList({
   WINTERTIDE_TALENT: {
     id: 378406,
     name: 'Wintertide',
-    icon: 'ability_mage_burstofcold',
+    icon: 'ability_deathknight_frozencenter',
     maxRanks: 2,
   },
   SNOWSTORM_TALENT: {
@@ -595,7 +600,7 @@ const talents = createTalentList({
   FLASH_FREEZE_TALENT: {
     id: 379993,
     name: 'Flash Freeze',
-    icon: 'ability_mage_coldasice',
+    icon: 'spell_hunter_icetrap',
     maxRanks: 1,
   },
   SUBZERO_TALENT: { id: 380154, name: 'Subzero', icon: 'spell_ice_magicdamage', maxRanks: 2 },
@@ -609,7 +614,7 @@ const talents = createTalentList({
   SPLINTERING_COLD_TALENT: {
     id: 379049,
     name: 'Splintering Cold',
-    icon: 'spell_frost_iceshard',
+    icon: 'spell_fire_blueflamestrike',
     maxRanks: 2,
   },
   COMET_STORM_TALENT: {
@@ -628,7 +633,7 @@ const talents = createTalentList({
   ICY_PROPULSION_TALENT: {
     id: 378433,
     name: 'Icy Propulsion',
-    icon: 'spell_frost_coldhearted',
+    icon: 'spell_frost_wisp',
     maxRanks: 1,
   },
   RAY_OF_FROST_TALENT: {
@@ -650,12 +655,7 @@ const talents = createTalentList({
     icon: 'spell_fire_frostresistancetotem',
     maxRanks: 2,
   },
-  SNAP_FREEZE_TALENT: {
-    id: 378901,
-    name: 'Snap Freeze',
-    icon: 'spell_frost_coldhearted',
-    maxRanks: 1,
-  },
+  SNAP_FREEZE_TALENT: { id: 378901, name: 'Snap Freeze', icon: 'ability_mage_freeze', maxRanks: 1 },
   SLICK_ICE_TALENT: {
     id: 382144,
     name: 'Slick Ice',
@@ -683,7 +683,7 @@ const talents = createTalentList({
   FREEZING_WINDS_TALENT: {
     id: 382103,
     name: 'Freezing Winds',
-    icon: 'spell_shadow_soulleech_2',
+    icon: 'spell_fire_blueflamering',
     maxRanks: 1,
   },
   THERMAL_VOID_TALENT: {
@@ -747,17 +747,16 @@ const talents = createTalentList({
     maxRanks: 1,
     manaCost: 1,
   },
-  IMPROVED_ARCANE_EXPLOSION_TALENT: {
+  CRACKLING_ENERGY_TALENT: {
     id: 321752,
-    name: 'Improved Arcane Explosion',
+    name: 'Crackling Energy',
     icon: 'spell_nature_wispsplode',
     maxRanks: 2,
   },
-  IMPETUS_TALENT: { id: 383676, name: 'Impetus', icon: 'spell_arcane_arcanetorrent', maxRanks: 1 },
-  ARCANE_FAMILIAR_TALENT: {
-    id: 205022,
-    name: 'Arcane Familiar',
-    icon: 'ability_socererking_arcanemines',
+  NETHER_PRECISION_TALENT: {
+    id: 383782,
+    name: 'Nether Precision',
+    icon: 'spell_arcane_blast_nightborne',
     maxRanks: 1,
   },
   RULE_OF_THREES_TALENT: {
@@ -766,18 +765,19 @@ const talents = createTalentList({
     icon: 'spell_arcane_starfire',
     maxRanks: 1,
   },
+  ARCANE_FAMILIAR_TALENT: {
+    id: 205022,
+    name: 'Arcane Familiar',
+    icon: 'ability_socererking_arcanemines',
+    maxRanks: 1,
+  },
   CHARGED_ORB_TALENT: {
     id: 384651,
     name: 'Charged Orb',
     icon: 'spell_mage_arcaneorb',
     maxRanks: 1,
   },
-  ARCING_CLEAVE_TALENT: {
-    id: 231564,
-    name: 'Arcing Cleave',
-    icon: 'ability_mage_arcanebarrage',
-    maxRanks: 1,
-  },
+  RESONANCE_TALENT: { id: 205028, name: 'Resonance', icon: 'spell_arcane_arcane01', maxRanks: 1 },
   ARCANE_POWER_TALENT: {
     id: 321739,
     name: 'Arcane Power',
@@ -790,12 +790,7 @@ const talents = createTalentList({
     icon: 'ability_mage_arcanebarrage',
     maxRanks: 1,
   },
-  NETHER_PRECISION_TALENT: {
-    id: 383782,
-    name: 'Nether Precision',
-    icon: 'spell_arcane_blast_nightborne',
-    maxRanks: 1,
-  },
+  SLIPSTREAM_TALENT: { id: 236457, name: 'Slipstream', icon: 'spell_holy_mindsooth', maxRanks: 1 },
   AMPLIFICATION_TALENT: {
     id: 236628,
     name: 'Amplification',
@@ -814,13 +809,11 @@ const talents = createTalentList({
     icon: 'spell_mage_presenceofmind',
     maxRanks: 1,
   },
-  RESONANCE_TALENT: { id: 205028, name: 'Resonance', icon: 'spell_arcane_arcane01', maxRanks: 1 },
-  NETHER_TEMPEST_TALENT: {
-    id: 114923,
-    name: 'Nether Tempest',
-    icon: 'spell_mage_nethertempest',
+  ARCING_CLEAVE_TALENT: {
+    id: 231564,
+    name: 'Arcing Cleave',
+    icon: 'ability_mage_arcanebarrage',
     maxRanks: 1,
-    manaCost: 500,
   },
   REVERBERATE_TALENT: {
     id: 281482,
@@ -828,13 +821,20 @@ const talents = createTalentList({
     icon: 'spell_arcane_arcane04',
     maxRanks: 1,
   },
+  NETHER_TEMPEST_TALENT: {
+    id: 114923,
+    name: 'Nether Tempest',
+    icon: 'spell_mage_nethertempest',
+    maxRanks: 1,
+    manaCost: 500,
+  },
   IMPROVED_PRISMATIC_BARRIER_TALENT: {
     id: 321745,
     name: 'Improved Prismatic Barrier',
     icon: 'spell_magearmor',
     maxRanks: 1,
   },
-  SLIPSTREAM_TALENT: { id: 236457, name: 'Slipstream', icon: 'spell_holy_mindsooth', maxRanks: 1 },
+  IMPETUS_TALENT: { id: 383676, name: 'Impetus', icon: 'spell_arcane_arcanetorrent', maxRanks: 1 },
   IMPROVED_CLEARCASTING_TALENT: {
     id: 321420,
     name: 'Improved Clearcasting',

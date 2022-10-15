@@ -36,9 +36,7 @@ export const CIRCLE_DOT_DURATION_MULT = 0.75;
 /** Gets the multiplier to apply to a DoT's duration depending on if player is using
  *  the 'Circle of Life and Death' talent */
 function getCircleMult(c: Combatant): number {
-  return c.hasTalent(TALENTS_DRUID.CIRCLE_OF_LIFE_AND_DEATH_SHARED_TALENT)
-    ? CIRCLE_DOT_DURATION_MULT
-    : 1;
+  return c.hasTalent(TALENTS_DRUID.CIRCLE_OF_LIFE_AND_DEATH_TALENT) ? CIRCLE_DOT_DURATION_MULT : 1;
 }
 
 export const VEINRIPPER_DURATION_MULT = 1.25;
@@ -95,8 +93,17 @@ export function getRipFullDuration(c: Combatant): number {
 // SNAPSHOTS
 //
 
-export const TIGERS_FURY_DAMAGE_BONUS = 0.15;
+const TIGERS_FURY_DAMAGE_BONUS = 0.15;
+const CARNIVOROUS_INSTINCT_DAMAGE_BONUS = 0.06;
+export function getTigersFuryDamageBonus(c: Combatant): number {
+  return (
+    TIGERS_FURY_DAMAGE_BONUS +
+    c.getTalentRank(TALENTS_DRUID.CARNIVOROUS_INSTINCT_TALENT) * CARNIVOROUS_INSTINCT_DAMAGE_BONUS
+  );
+}
+
 export const BLOODTALONS_DAMAGE_BONUS = 0.25;
+export const LIONS_STRENGTH_DAMAGE_BONUS = 0.15;
 export const MOMENT_OF_CLARITY_DAMAGE_BONUS = 0.15;
 export const PROWL_RAKE_DAMAGE_BONUS = 0.6;
 

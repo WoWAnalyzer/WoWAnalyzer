@@ -59,6 +59,12 @@ class HotTrackerMW extends HotTracker {
         tickPeriod: 2000,
         maxDuration: essenceFontDuration * 2,
       },
+      {
+        spell: SPELLS.FAELINE_STOMP_ESSENCE_FONT,
+        duration: essenceFontDuration,
+        tickPeriod: 2000,
+        maxDuration: essenceFontDuration * 2,
+      },
     ];
   }
 }

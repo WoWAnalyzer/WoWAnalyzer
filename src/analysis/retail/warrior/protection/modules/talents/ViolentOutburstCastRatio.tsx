@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/warrior';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
@@ -6,11 +6,12 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TALENTS from 'common/TALENTS/warrior';
 
 /**
  * Whenever you cast a shield slam reduce shield wall by 5 second and gain 5 extra rage.
  */
-class FourSetCastRatio extends Analyzer {
+class ViolentOutburstCastRatio extends Analyzer {
   hasBuff = false;
 
   ssUsage = 0;
@@ -18,17 +19,17 @@ class FourSetCastRatio extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has4Piece();
+    this.active = this.selectedCombatant.hasTalent(TALENTS.VIOLENT_OUTBURST_TALENT.id);
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.T28_OUTBURST),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.VIOLENT_OUTBURST_BUFF),
       this.gainBuff,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.T28_OUTBURST),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.VIOLENT_OUTBURST_BUFF),
       this.removeBuff,
     );
 
@@ -63,7 +64,7 @@ class FourSetCastRatio extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spellId={SPELLS.T28_OUTBURST.id}>
+        <BoringSpellValueText spellId={TALENTS.VIOLENT_OUTBURST_TALENT.id}>
           <SpellIcon id={SPELLS.THUNDER_CLAP.id} /> {this.tcUsage} :{' '}
           <SpellIcon id={SPELLS.SHIELD_SLAM.id} /> {this.ssUsage}
         </BoringSpellValueText>
@@ -72,4 +73,4 @@ class FourSetCastRatio extends Analyzer {
   }
 }
 
-export default FourSetCastRatio;
+export default ViolentOutburstCastRatio;
