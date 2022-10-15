@@ -45,6 +45,7 @@ export const PAIN_SUPPRESSION = 33206;
 export const MIND_FLAY = 48156;
 export const SILENCE = 15487;
 export const VAMPIRIC_TOUCH = 48160;
+export const VAMPIRIC_EMBRACE = 15286;
 export const SHADOW_FORM = 15473;
 export const SYMBOL_OF_HOPE = 32548;
 export const CHASTISE = 44047;
