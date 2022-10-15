@@ -23,7 +23,7 @@ import HolyPriest from 'analysis/retail/priest/holy';
 // import AssassinationRogue from 'analysis/retail/rogue/assassination';
 // import OutlawRogue from 'analysis/retail/rogue/outlaw';
 // import SubtletyRogue from 'analysis/retail/rogue/subtlety';
-// import ElementalShaman from 'analysis/retail/shaman/elemental';
+import ElementalShaman from 'analysis/retail/shaman/elemental';
 import EnhancementShaman from 'analysis/retail/shaman/enhancement';
 // import RestorationShaman from 'analysis/retail/shaman/restoration';
 // import AfflictionWarlock from 'analysis/retail/warlock/affliction';
@@ -88,7 +88,7 @@ const configs: Config[] = [
   // AssassinationRogue,
   // OutlawRogue,
 
-  // ElementalShaman,
+  ElementalShaman,
   EnhancementShaman,
   // RestorationShaman,
 

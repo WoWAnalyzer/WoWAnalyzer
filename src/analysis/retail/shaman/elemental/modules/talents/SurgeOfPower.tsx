@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
@@ -12,8 +13,8 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 const SURGE_OF_POWER = {
   AFFECTED_CASTS: [
     SPELLS.FLAME_SHOCK,
-    SPELLS.FROST_SHOCK,
-    SPELLS.LAVA_BURST,
+    TALENTS.LAVA_BURST_TALENT,
+    TALENTS.LAVA_BURST_TALENT,
     SPELLS.LIGHTNING_BOLT,
   ],
 };
@@ -27,7 +28,7 @@ class SurgeOfPower extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SURGE_OF_POWER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_POWER_TALENT.id);
 
     Object.values(SURGE_OF_POWER.AFFECTED_CASTS).forEach(({ id: spellid }) => {
       this.sopBuffedAbilities[spellid] = 0;
@@ -54,7 +55,7 @@ class SurgeOfPower extends Analyzer {
   _onCast(event: CastEvent) {
     // cast lightning bolt with only SK buff active
     if (
-      this.selectedCombatant.hasBuff(SPELLS.STORMKEEPER_TALENT_ELEMENTAL.id, event.timestamp) &&
+      this.selectedCombatant.hasBuff(TALENTS.STORMKEEPER_ELEMENTAL_TALENT.id, event.timestamp) &&
       event.ability.guid === SPELLS.LIGHTNING_BOLT.id
     ) {
       this.skCasts += 1;
@@ -70,7 +71,7 @@ class SurgeOfPower extends Analyzer {
 
     // cast lightning bolt with SoP and SK buffs active
     if (
-      this.selectedCombatant.hasBuff(SPELLS.STORMKEEPER_TALENT_ELEMENTAL.id, event.timestamp) &&
+      this.selectedCombatant.hasBuff(TALENTS.STORMKEEPER_ELEMENTAL_TALENT.id, event.timestamp) &&
       event.ability.guid === SPELLS.LIGHTNING_BOLT.id
     ) {
       this.skSopCasts += 1;
@@ -111,7 +112,7 @@ class SurgeOfPower extends Analyzer {
           available, then casting ES {'->'} SK {'->'} LB {'->'} LvB {'->'} ES {'->'} LB.
         </span>,
       )
-        .icon(SPELLS.SURGE_OF_POWER_TALENT.icon)
+        .icon(TALENTS.SURGE_OF_POWER_TALENT.icon)
         .actual(
           t({
             id: 'shaman.elemental.suggestions.surgeOfPower.stormKeeperEmpowered',
