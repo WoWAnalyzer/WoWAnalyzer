@@ -164,7 +164,7 @@ class Flourish extends Analyzer {
         requires a ramp more than any of your other cooldowns, as its power is based almost entirely
         in the HoTs present when you cast it. Cast many Rejuvenations, and then a Wild Growth a few
         seconds before you're ready to Flourish.{' '}
-        {this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT) && (
+        {this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) && (
           <>
             When pairing this with <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />, the Convoke should
             ALWAYS be cast first. This is because the Convoke will produce many HoTs which can be
@@ -203,7 +203,7 @@ class Flourish extends Analyzer {
             result: <PassFailCheckmark pass={cast.rejuvsOnCast > 0} />,
             details: <>({cast.rejuvsOnCast} HoTs active)</>,
           });
-          this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT) &&
+          this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) &&
             checklistItems.push({
               label: (
                 <>

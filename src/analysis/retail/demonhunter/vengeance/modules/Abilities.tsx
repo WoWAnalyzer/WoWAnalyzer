@@ -304,7 +304,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.INFERNAL_STRIKE.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: getInfernalStrikeCooldown(combatant),
-        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.HOT_FEET_TALENT.id) ? 1 : 0),
+        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.BLAZING_PATH_TALENT.id) ? 1 : 0),
         enabled: false, // TODO: change this to true, when infernal strike logging is working, see infernalstrike module for more details.
       },
       {

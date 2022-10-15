@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 10, 13), <>Updated Rising Mist module for Dragonflight</>, Trevor),
   change(date(2022, 10, 9), <>Added Secret Infusion haste buff and fixed Uplifted Spirits</>, Trevor),
   change(date(2022, 10, 8), <>Added support for existing MW talents</>, Trevor),
   change(date(2022, 9, 4), <>Updated guide link in checklist.</>, emallson),
