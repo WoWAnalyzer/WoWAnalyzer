@@ -14,6 +14,7 @@ import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 interface DirtyDamageEvent extends DamageEvent {
   penanceBoltNumber?: number;
@@ -87,6 +88,7 @@ class Castigation extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.CORE(4)}
         tooltip={
           <>
             {' '}

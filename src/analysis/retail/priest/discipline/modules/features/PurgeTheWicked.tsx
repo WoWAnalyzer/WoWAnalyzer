@@ -18,6 +18,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import SuggestionThresholds from '../../SuggestionThresholds';
 
@@ -132,6 +133,7 @@ class PurgeTheWicked extends Analyzer {
         <Statistic
           size="flexible"
           category={STATISTIC_CATEGORY.TALENTS}
+          position={STATISTIC_ORDER.CORE(5)}
           tooltip={`The additional dots contributed ${formatThousands(
             this.ptwCleaveDamage,
           )} damage.`}

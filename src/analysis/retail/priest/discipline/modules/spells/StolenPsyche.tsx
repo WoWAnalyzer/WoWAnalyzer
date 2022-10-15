@@ -8,6 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const STOLEN_PSYCHE_RANK_INCREASE = 0.2;
 
@@ -36,7 +37,11 @@ class StolenPsyche extends Analyzer {
 
   statistic() {
     return (
-      <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
+      <Statistic
+        size="flexible"
+        position={STATISTIC_ORDER.OPTIONAL(15)}
+        category={STATISTIC_CATEGORY.TALENTS}
+      >
         <BoringSpellValueText spellId={TALENTS_PRIEST.STOLEN_PSYCHE_TALENT.id}>
           <>
             <ItemHealingDone amount={this.healing} /> <br />

@@ -83,7 +83,7 @@ class Evangelism extends Analyzer {
 
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(13)}
+        position={STATISTIC_ORDER.CORE(0)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         dropdown={
