@@ -7,6 +7,7 @@ import {
   MasterOfTheGlaive,
   ShatteredRestoration,
   SigilOfFlame,
+  SwallowedAnger,
   TheHunt,
 } from 'analysis/retail/demonhunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
@@ -79,6 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
     collectiveAnguish: CollectiveAnguish,
     demonic: Demonic,
     stokeTheFlames: StokeTheFlames,
+    swallowedAnger: SwallowedAnger,
 
     // Spell
     immolationAura: ImmolationAura,
