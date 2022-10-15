@@ -18,7 +18,6 @@ import getResourceSpent from 'parser/core/getResourceSpent';
  *
  * Situations where <5 combo point use of an ability is fine:
  *  Fresh Rip on a target which doesn't yet have it.
- *  [NYI] Maim on a target where the stun is effective and useful.
  */
 class FinisherUse extends Analyzer {
   totalFinishers = 0;
@@ -46,35 +45,6 @@ class FinisherUse extends Analyzer {
       this.badFinishers += 1;
       return;
     }
-
-    // TODO
-    // // Rip has been used without full combo points, which is a good thing only in certain situations
-    // // RipSnapshot will have added the feralSnapshotState prop to the event, because this module has RipSnapshot as a dependency
-    // // we know that will have been done before this executes.
-    // if (!event.feralSnapshotState) {
-    //   // ..but when it comes to null references it's worth checking.
-    //   // If for some reason the property doesn't exist just skip checking this cast
-    //   debug && this.warn("Rip cast event doesn't have the expected feralSnapshotState property.");
-    //   return;
-    // }
-    // if (RipSnapshot.wasStateFreshlyApplied(event.feralSnapshotState)) {
-    //   debug &&
-    //   this.log(
-    //     `cast ${finisher.name} with ${combo} combo points but it was a fresh application, so is good`,
-    //   );
-    //   this.freshRips += 1;
-    //   return;
-    // }
-    // if (this.hasSabertooth && RipSnapshot.wasStatePowerUpgrade(event.feralSnapshotState)) {
-    //   debug &&
-    //   this.log(
-    //     `cast ${finisher.name} with ${combo} combo points but it was upgrading ready to be extended with sabertooth, so is good`,
-    //   );
-    //   this.upgradingRips += 1;
-    //   return;
-    // }
-    // debug && this.log(`cast ${finisher.name} with ${combo} combo points`);
-    // this.badFinishers += 1;
   }
 
   get fractionBadFinishers() {

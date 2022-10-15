@@ -30,6 +30,7 @@ import RakeBleed from './normalizers/RakeBleed';
 import Guide from 'analysis/retail/druid/feral/Guide';
 import BloodtalonsLinkNormalizer from 'analysis/retail/druid/feral/normalizers/BloodtalonsLinkNormalizer';
 import RampantFerocity from 'analysis/retail/druid/feral/modules/spells/RampantFerocity';
+import EnergyGraph from 'analysis/retail/druid/feral/modules/core/energy/EnergyGraph';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -53,6 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spellUsable: SpellUsable,
     energyTracker: EnergyTracker,
     energyDetails: EnergyDetails,
+    energyGraph: EnergyGraph,
 
     // bleeds
     rakeUptime: RakeUptimeAndSnapshots,
