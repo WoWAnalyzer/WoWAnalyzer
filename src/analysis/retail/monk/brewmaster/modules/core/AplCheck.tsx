@@ -71,10 +71,9 @@ export const apl = build([
       <>
         It is worthwhile to cast <SpellLink id={SPELLS.SPINNING_CRANE_KICK_BRM.id} /> over{' '}
         <SpellLink id={SPELLS.TIGER_PALM.id} /> when using this conduit <em>if</em> doing so would
-        get you an extra cast of{' '}
-        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} /> that lines up
-        with incoming damage. We cannot check this automatically, and be warned that it is a small
-        defensive loss due to the loss of Brew cooldown reduction.
+        get you an extra cast of <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} />{' '}
+        that lines up with incoming damage. We cannot check this automatically, and be warned that
+        it is a small defensive loss due to the loss of Brew cooldown reduction.
       </>,
     ),
   },

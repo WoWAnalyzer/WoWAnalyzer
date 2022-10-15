@@ -374,7 +374,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id}>
           <ItemPercentHealingDone approximate amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

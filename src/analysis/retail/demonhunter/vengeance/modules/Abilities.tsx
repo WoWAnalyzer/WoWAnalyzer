@@ -4,9 +4,13 @@ import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import { PITCH_BLACK_SCALING } from 'analysis/retail/demonhunter/shared';
+import {
+  MASTER_OF_THE_GLAIVE_SCALING,
+  PITCH_BLACK_SCALING,
+} from 'analysis/retail/demonhunter/shared';
 import { getInfernalStrikeCooldown } from 'analysis/retail/demonhunter/vengeance/modules/spells/InfernalStrike';
 import { getMetamorphosisCooldown } from 'analysis/retail/demonhunter/shared/modules/talents/MetamorphosisCooldown';
+import { PERFECTLY_BALANCED_GLAIVE_SCALING } from 'analysis/retail/demonhunter/vengeance/constants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -173,7 +177,11 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
       },
       {
-        spell: SPELLS.ELYSIAN_DECREE.id,
+        spell: [
+          TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id,
+          SPELLS.ELYSIAN_DECREE_CONCENTRATED.id,
+          SPELLS.ELYSIAN_DECREE_PRECISE.id,
+        ],
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown:
           60 *
@@ -209,7 +217,27 @@ class Abilities extends CoreAbilities {
             <>
               The only time you should delay casting{' '}
               <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id} /> is when you're expecting
-              adds to spawn soon.
+              adds to spawn soon or are preparing for a burst window.
+            </>
+          ),
+        },
+      },
+      {
+        spell: TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+          extraSuggestion: (
+            <>
+              The only time you should delay casting{' '}
+              <SpellLink id={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT.id} /> is when you're expecting
+              are preparing for a burst window.
             </>
           ),
         },
@@ -276,13 +304,13 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.INFERNAL_STRIKE.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: getInfernalStrikeCooldown(combatant),
-        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.HOT_FEET_TALENT.id) ? 1 : 0),
+        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.BLAZING_PATH_TALENT.id) ? 1 : 0),
         enabled: false, // TODO: change this to true, when infernal strike logging is working, see infernalstrike module for more details.
       },
       {
         spell: TALENTS_DEMON_HUNTER.IMPRISON_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 15,
+        cooldown: 45,
         gcd: {
           base: 1500,
         },
@@ -306,9 +334,18 @@ class Abilities extends CoreAbilities {
         cooldown: 15,
       },
       {
-        spell: SPELLS.THROW_GLAIVE.id,
+        spell: SPELLS.THROW_GLAIVE_VENGEANCE.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: (haste) => 3 / (1 + haste),
+        cooldown:
+          9 -
+          PERFECTLY_BALANCED_GLAIVE_SCALING[
+            combatant.getTalentRank(TALENTS_DEMON_HUNTER.PERFECTLY_BALANCED_GLAIVE_TALENT)
+          ],
+        charges:
+          1 +
+          MASTER_OF_THE_GLAIVE_SCALING[
+            combatant.getTalentRank(TALENTS_DEMON_HUNTER.MASTER_OF_THE_GLAIVE_TALENT)
+          ],
         gcd: {
           base: 1500,
         },
