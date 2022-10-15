@@ -624,12 +624,6 @@ const talents = createTalentList({
     icon: 'ability_shaman_fortifyingwaters',
     maxRanks: 1,
   },
-  ASCENDANCE_ENHANCEMENT_TALENT: {
-    id: 114051,
-    name: 'Ascendance',
-    icon: 'spell_fire_elementaldevastation',
-    maxRanks: 1,
-  },
   ELEMENTAL_BLAST_ENHANCEMENT_TALENT: {
     id: 394150,
     name: 'Elemental Blast',
@@ -879,12 +873,6 @@ const talents = createTalentList({
     maxRanks: 1,
     manaCost: 100,
   },
-  ASCENDANCE_RESTORATION_TALENT: {
-    id: 114052,
-    name: 'Ascendance',
-    icon: 'spell_fire_elementaldevastation',
-    maxRanks: 1,
-  },
   WELLSPRING_TALENT: {
     id: 197995,
     name: 'Wellspring',
@@ -896,6 +884,12 @@ const talents = createTalentList({
     id: 383009,
     name: 'Stormkeeper',
     icon: 'ability_thunderking_lightningwhip',
+    maxRanks: 1,
+  },
+  ASCENDANCE_RESTORATION_TALENT: {
+    id: 114052,
+    name: 'Ascendance',
+    icon: 'spell_fire_elementaldevastation',
     maxRanks: 1,
   },
 

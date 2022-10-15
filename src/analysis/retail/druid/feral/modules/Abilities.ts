@@ -138,7 +138,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 22,
       },
       {
-        spell: TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT.id,
+        spell: TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: combatant.hasTalent(TALENTS_DRUID.ASHAMANES_GUIDANCE_TALENT) ? 60 : 120,
         gcd: {

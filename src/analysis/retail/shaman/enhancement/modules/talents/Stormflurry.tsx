@@ -85,11 +85,9 @@ class Stormflurry extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={`You had ${this.extraHits} extra Stormstrike${
-          this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id)
-            ? `/Windstrike`
-            : ``
-        } hits (+${formatPercentage(this.extraHits / this.totalStormstrikeCasts)}%).`}
+        tooltip={`You had ${this.extraHits} extra Stormstrike hits (+${formatPercentage(
+          this.extraHits / this.totalStormstrikeCasts,
+        )}%).`}
       >
         <BoringSpellValueText spellId={TALENTS_SHAMAN.STORMFLURRY_TALENT.id}>
           <>

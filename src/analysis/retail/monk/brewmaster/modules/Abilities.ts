@@ -118,8 +118,8 @@ class Abilities extends CoreAbilities {
       },
       // Cooldowns
       {
-        spell: talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id,
-        enabled: combatant.hasTalent(talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT),
+        spell: talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id,
+        enabled: combatant.hasTalent(talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: {

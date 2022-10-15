@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import COVENANTS from 'game/shadowlands/COVENANTS';
-import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -399,21 +398,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
-
-      {
-        spell: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id),
-        damageSpellIds: [SPELLS.ASCENDANCE_INITIAL_DAMAGE.id],
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 1.0,
-        },
-      },
       {
         spell: TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id,
         buffSpellId: [
@@ -455,30 +439,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
-          maxCasts: (cooldown: number) =>
-            calculateMaxCasts(
-              cooldown,
-              this.owner.fightDuration -
-                combatant.getBuffUptime(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id),
-            ),
-        },
-      },
-      {
-        spell: SPELLS.WINDSTRIKE_CAST.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => 2.5 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.85,
-          maxCasts: (cooldown: number) =>
-            calculateMaxCasts(
-              cooldown,
-              combatant.getBuffUptime(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id),
-            ),
         },
       },
       {
