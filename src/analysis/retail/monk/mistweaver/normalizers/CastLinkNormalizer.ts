@@ -4,6 +4,7 @@ import { Options } from 'parser/core/Module';
 import { TALENTS_MONK } from 'common/TALENTS';
 import {
   AbilityEvent,
+  AnyEvent,
   ApplyBuffEvent,
   EventType,
   GetRelatedEvents,
@@ -19,6 +20,7 @@ export const FROM_MISTY_PEAKS = 'FromMistyPeaks';
 export const FROM_RAPID_DIFFUSION = 'FromRD'; // can be linked to env mist or rsk cast
 
 const CAST_BUFFER_MS = 150;
+const MAX_REM_DURATION = 65000;
 const FOUND_REMS = new Set();
 
 /*
@@ -56,8 +58,7 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.ApplyBuff],
     referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
     referencedEventType: [EventType.RemoveBuff],
-    forwardBufferMs: 0,
-    backwardBufferMs: 500,
+    backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
     additionalCondition(linkingEvent, referencedEvent) {
       return (
@@ -72,8 +73,7 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.RemoveBuff],
     referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
     referencedEventType: [EventType.ApplyBuff],
-    forwardBufferMs: 0,
-    backwardBufferMs: 65000,
+    backwardBufferMs: MAX_REM_DURATION,
   },
   // link ReM to an EnvM/RSK cast
   {
@@ -86,9 +86,12 @@ const EVENT_LINKS: EventLink[] = [
       SPELLS.ENVELOPING_MIST_TFT.id,
     ],
     referencedEventType: [EventType.Cast],
-    forwardBufferMs: 500,
-    backwardBufferMs: 500,
+    forwardBufferMs: 0,
+    backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return !HasRelatedEvent(linkingEvent, FROM_HARDCAST);
+    },
   },
   // two REMs happen in same timestamp when dancing mists procs
   {
@@ -114,6 +117,9 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     forwardBufferMs: 50,
     backwardBufferMs: 50,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return !HasRelatedEvent(linkingEvent, FROM_HARDCAST);
+    },
   },
 ];
 
@@ -130,6 +136,17 @@ class CastLinkNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, EVENT_LINKS);
   }
+}
+
+// given list of events, find event closest to given timestamp
+function getClosestEvent(timestamp: number, events: AnyEvent[]): AnyEvent {
+  let minEvent = events[0];
+  events.forEach(function (ev) {
+    if (Math.abs(timestamp - ev.timestamp) < Math.abs(timestamp - minEvent.timestamp)) {
+      minEvent = ev;
+    }
+  });
+  return minEvent;
 }
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
@@ -150,16 +167,9 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
   }
   if (HasRelatedEvent(event, BOUNCED)) {
     const relatedEvents = GetRelatedEvents(event, BOUNCED);
-    let minEvent = relatedEvents[0];
-    // find closest removal/application
-    relatedEvents.forEach(function (rel_ev) {
-      if (
-        Math.abs(rel_ev.timestamp - event.timestamp) <
-        Math.abs(minEvent.timestamp - event.timestamp)
-      ) {
-        minEvent = rel_ev;
-      }
-    });
+    // There can be multiple linked applications/removals if multiple ReM's bouce close together
+    // so filter out each linked events and find the one with the closest timestamp
+    const minEvent = getClosestEvent(event.timestamp, relatedEvents);
     // see if ancestor event can be linked to a hardcast
     if (minEvent.type === EventType.RemoveBuff) {
       return isFromHardcast(minEvent as RemoveBuffEvent);
