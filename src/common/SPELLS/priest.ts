@@ -402,6 +402,11 @@ const spells = spellIndexableList({
     icon: 'spell_holy_chastise',
     manaCost: 1000,
   },
+  RESONANT_WORDS_TALENT_BUFF: {
+    id: 372313,
+    name: 'Resonant Words',
+    icon: 'spell_holy_holybolt',
+  },
   // Shadow Spells
   MIND_BLAST: {
     id: 8092,

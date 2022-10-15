@@ -4,47 +4,41 @@ import {
   DivertedEnergy,
   ElementalBarrier,
   GroundingSurge,
-  IreOfTheAscended,
   MirrorImage,
-  MirrorsOfTorment,
   RuneOfPower,
   RuneOfPowerNormalizer,
   ShiftingPower,
-  SiphonedMalice,
   TempestBarrier,
+  SharedCode,
 } from 'analysis/retail/mage/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
-import Checklist from './modules/Checklist/Module';
-import Abilities from './modules/features/Abilities';
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Buffs from './modules/features/Buffs';
-import CombustionActiveTime from './modules/features/CombustionActiveTime';
-import CombustionCasts from './modules/features/CombustionCasts';
-import CombustionCharges from './modules/features/CombustionCharges';
-import CombustionPreCastDelay from './modules/features/CombustionPreCastDelay';
-import CombustionSpellUsage from './modules/features/CombustionSpellUsage';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import HeatingUp from './modules/features/HeatingUp';
-import HotStreak from './modules/features/HotStreak';
-import HotStreakPreCasts from './modules/features/HotStreakPreCasts';
-import HotStreakWastedCrits from './modules/features/HotStreakWastedCrits';
-import MirrorsOfTormentUsage from './modules/features/MirrorsOfTormentUsage';
-import PhoenixFlames from './modules/features/PhoenixFlames';
-import Pyroclasm from './modules/features/Pyroclasm';
-import ShiftingPowerUsage from './modules/features/ShiftingPowerUsage';
-import DisciplinaryCommand from './modules/items/DisciplinaryCommand';
-import FeveredIncantation from './modules/items/FeveredIncantation';
-import Firestorm from './modules/items/Firestorm';
-import InfernalCascade from './modules/items/InfernalCascade';
-import SunKingsBlessing from './modules/items/SunKingsBlessing';
-import FromTheAshes from './modules/talents/FromTheAshes';
-import Kindling from './modules/talents/Kindling';
-import Meteor from './modules/talents/Meteor';
-import MeteorCombustion from './modules/talents/MeteorCombustion';
-import MeteorRune from './modules/talents/MeteorRune';
-import SearingTouch from './modules/talents/SearingTouch';
+import Checklist from './Checklist/Module';
+import Abilities from './Abilities';
+import AlwaysBeCasting from './AlwaysBeCasting';
+import Buffs from './Buffs';
+import CooldownThroughputTracker from './CooldownThroughputTracker';
+import CombustionActiveTime from './core/CombustionActiveTime';
+import CombustionCasts from './core/CombustionCasts';
+import CombustionCharges from './core/CombustionCharges';
+import CombustionPreCastDelay from './core/CombustionPreCastDelay';
+import CombustionSpellUsage from './core/CombustionSpellUsage';
+import HeatingUp from './core/HeatingUp';
+import HotStreak from './core/HotStreak';
+import PhoenixFlames from './talents/PhoenixFlames';
+import Pyroclasm from './talents/Pyroclasm';
+import ShiftingPowerUsage from './talents/ShiftingPowerUsage';
+import FeveredIncantation from './talents/FeveredIncantation';
+import Firestorm from './talents/Firestorm';
+import InfernalCascade from './talents/InfernalCascade';
+import SunKingsBlessing from './talents/SunKingsBlessing';
+import FromTheAshes from './talents/FromTheAshes';
+import Kindling from './talents/Kindling';
+import Meteor from './talents/Meteor';
+import MeteorCombustion from './talents/MeteorCombustion';
+import MeteorRune from './talents/MeteorRune';
+import SearingTouch from './talents/SearingTouch';
 import CombustionNormalizer from './normalizers/Combustion';
 import FlamestrikeNormalizer from './normalizers/Flamestrike';
 import PyroclasmBuffNormalizer from './normalizers/PyroclasmBuff';
@@ -64,6 +58,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Checklist
     checklist: Checklist,
     buffs: Buffs,
+    sharedCode: SharedCode,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -71,8 +66,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     cancelledCasts: CancelledCasts,
     hotStreak: HotStreak,
-    hotStreakPreCasts: HotStreakPreCasts,
-    hotStreakWastedCrits: HotStreakWastedCrits,
     combustionCasts: CombustionCasts,
     combustionCharges: CombustionCharges,
     combustionSpellUsage: CombustionSpellUsage,
@@ -97,22 +90,17 @@ class CombatLogParser extends CoreCombatLogParser {
     //Legendaries
     feveredIncantation: FeveredIncantation,
     firestorm: Firestorm,
-    disciplinaryCommand: DisciplinaryCommand,
     sunKingsBlessing: SunKingsBlessing,
 
     //Covenants
     shiftingPower: ShiftingPower,
     shiftingPowerUsage: ShiftingPowerUsage,
-    mirrorsOfTorment: MirrorsOfTorment,
-    mirrorsOfTormentUsage: MirrorsOfTormentUsage,
 
     //Conduits
     infernalCascade: InfernalCascade,
     divertedEnergy: DivertedEnergy,
     groundingSurge: GroundingSurge,
-    ireOfTheAscended: IreOfTheAscended,
     tempestBarrier: TempestBarrier,
-    siphonedMalice: SiphonedMalice,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

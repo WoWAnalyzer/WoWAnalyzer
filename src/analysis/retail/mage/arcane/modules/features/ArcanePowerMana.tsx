@@ -2,7 +2,6 @@ import { Trans } from '@lingui/macro';
 import {
   ARCANE_BLAST_BASE_MANA_COST,
   ARCANE_EXPLOSION_BASE_MANA_COST,
-  OVERPOWERED_COST_REDUCTION_PERCENT,
   MS_BUFFER_1000,
 } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
@@ -33,14 +32,11 @@ class ArcanePowerMana extends Analyzer {
   protected spellManaCost!: SpellManaCost;
   protected eventHistory!: EventHistory;
 
-  hasOverpowered: boolean;
-
   outOfMana = 0;
   buffEndTimestamp = 0;
 
   constructor(options: Options) {
     super(options);
-    this.hasOverpowered = this.selectedCombatant.hasTalent(SPELLS.OVERPOWERED_TALENT.id);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_BLAST, SPELLS.ARCANE_EXPLOSION]),
       this.onCast,
@@ -94,9 +90,7 @@ class ArcanePowerMana extends Analyzer {
       if (this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_ARCANE.id)) {
         return 0;
       } else {
-        return this.hasOverpowered
-          ? ARCANE_EXPLOSION_BASE_MANA_COST * OVERPOWERED_COST_REDUCTION_PERCENT
-          : ARCANE_EXPLOSION_BASE_MANA_COST;
+        return ARCANE_EXPLOSION_BASE_MANA_COST;
       }
     }
 
@@ -106,9 +100,7 @@ class ArcanePowerMana extends Analyzer {
       if (this.selectedCombatant.hasBuff(SPELLS.RULE_OF_THREES_BUFF.id)) {
         return 0;
       } else {
-        return this.hasOverpowered
-          ? ARCANE_BLAST_BASE_MANA_COST * arcaneCharges * OVERPOWERED_COST_REDUCTION_PERCENT
-          : ARCANE_BLAST_BASE_MANA_COST * arcaneCharges;
+        return ARCANE_BLAST_BASE_MANA_COST * arcaneCharges;
       }
     }
     return 0;
@@ -141,9 +133,6 @@ class ArcanePowerMana extends Analyzer {
           You ran dangerously low or ran out of mana during{' '}
           <SpellLink id={SPELLS.ARCANE_POWER.id} /> {this.outOfMana} times. Running out of mana
           during Arcane Power is a massive DPS loss and should be avoided at all costs.{' '}
-          {!this.hasOverpowered
-            ? 'To avoid this, ensure you have at least 40% mana before casting Arcane Power to ensure you have enough mana to finish Arcane Power.'
-            : ''}
         </>,
       )
         .icon(SPELLS.ARCANE_POWER.icon)

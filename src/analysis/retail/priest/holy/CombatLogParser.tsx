@@ -5,7 +5,6 @@ import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
-
 import Abilities from './modules/Abilities';
 import Checklist from './modules/checklist/Module';
 import EchoOfLightMastery from './modules/core/EchoOfLightMastery';
@@ -22,9 +21,6 @@ import HealingEfficiencyDetails from './modules/features/HolyPriestHealingEffici
 import HealingEfficiencyTracker from './modules/features/HolyPriestHealingEfficiencyTracker';
 import SpellUsable from './modules/features/SpellUsable';
 import StatWeights from './modules/features/StatWeights';
-import ResonantWords from './modules/talents/ResonantWords';
-import DivineImage from './modules/talents/DivineImage';
-import HarmoniousApparatus from './modules/talents/HarmoniousApparatus';
 import CircleOfHealing from './modules/spells/CircleOfHealing';
 import DivineHymn from './modules/spells/DivineHymn';
 import GuardianSpirit from './modules/spells/GuardianSpirit';
@@ -81,37 +77,40 @@ class CombatLogParser extends CoreCombatLogParser {
     prayerOfMending: PrayerOfMending,
 
     // Talents
-    Enlightenment: Talents.t15.Enlightenment,
-    TrailOfLight: Talents.t15.TrailOfLight,
-    RenewedFaith: Talents.t15.RenewedFaith,
+    Enlightenment: Talents.MiddleRow.Enlightenment,
+    TrailOfLight: Talents.MiddleRow.TrailOfLight,
+    RenewedFaith: Talents.TopRow.RenewedFaith,
+    DesperateTimes: Talents.BottomRow.DesperateTimes,
 
-    AngelicFeather: Talents.t30.AngelicFeather,
-    AngelsMercy: Talents.t30.AngelsMercy,
-    BodyAndSoul: Talents.t30.BodyAndSoul,
+    BindingHeals: Talents.Classwide.BindingHeals,
+    AngelicFeather: Talents.Classwide.AngelicFeather,
+    AngelsMercy: Talents.Classwide.AngelsMercy,
+    BodyAndSoul: Talents.Classwide.BodyAndSoul,
 
-    GuardianAngel: Talents.t45.GuardianAngel,
-    Afterlife: Talents.t45.Afterlife,
-    CosmicRipple: Talents.t45.CosmicRipple,
+    GuardianAngel: Talents.TopRow.GuardianAngel,
+    Afterlife: Talents.TopRow.Afterlife,
+    CosmicRipple: Talents.TopRow.CosmicRipple,
 
-    Censure: Talents.t60.Censure,
-    PsychicVoice: Talents.t60.PsychicVoice,
+    Censure: Talents.TopRow.Censure,
+    PsychicVoice: Talents.Classwide.PsychicVoice,
 
-    SurgeOfLight: Talents.t75.SurgeOfLight,
-    PrayerCircle: Talents.t75.PrayerCircle,
+    SurgeOfLight: Talents.Classwide.SurgeOfLight,
+    PrayerCircle: Talents.MiddleRow.PrayerCircle,
 
-    Halo: Talents.t90.Halo,
-    Benediction: Talents.t90.Benediction,
-    DivineStar: Talents.t90.DivineStar,
+    Halo: Talents.Classwide.Halo,
+    Benediction: Talents.MiddleRow.Benediction,
+    DivineStar: Talents.Classwide.DivineStar,
     mindgames: Mindgames,
 
-    LightOfTheNaru: Talents.t100.LightOfTheNaaru,
-    HolyWordSalvation: Talents.t100.HolyWordSalvation,
-    Apotheosis: Talents.t100.Apotheosis,
+    LightOfTheNaru: Talents.BottomRow.LightOfTheNaaru,
+    HolyWordSalvation: Talents.BottomRow.HolyWordSalvation,
+    Apotheosis: Talents.BottomRow.Apotheosis,
+    AnsweredPrayers: Talents.BottomRow.AnsweredPrayers,
 
-    harmoniousApparatus: HarmoniousApparatus,
-    divineImage: DivineImage,
+    harmoniousApparatus: Talents.BottomRow.HarmoniousApparatus,
+    divineImage: Talents.BottomRow.DivineImage,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
-    resonantWords: ResonantWords,
+    resonantWords: Talents.BottomRow.ResonantWords,
     TranslucentImage: TranslucentImage,
     // Mana Tab
     manaTracker: ManaTracker,

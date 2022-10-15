@@ -29,6 +29,7 @@ import FerociousBiteDrainLinkNormalizer from './normalizers/FerociousBiteDrainLi
 import RakeBleed from './normalizers/RakeBleed';
 import Guide from 'analysis/retail/druid/feral/Guide';
 import BloodtalonsLinkNormalizer from 'analysis/retail/druid/feral/normalizers/BloodtalonsLinkNormalizer';
+import RampantFerocity from 'analysis/retail/druid/feral/modules/spells/RampantFerocity';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -68,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     convokeSpirits: ConvokeSpiritsFeral,
     adaptiveSwarm: AdaptiveSwarmFeral,
     berserkBoosts: BerserkBoosts,
+    rampantFerocity: RampantFerocity,
 
     // resources
     comboPointTracker: ComboPointTracker,

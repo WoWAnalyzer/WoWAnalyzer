@@ -96,7 +96,7 @@ export function getRipFullDuration(c: Combatant): number {
 //
 
 export const TIGERS_FURY_DAMAGE_BONUS = 0.15;
-export const BLOODTALONS_DAMAGE_BONUS = 0.3;
+export const BLOODTALONS_DAMAGE_BONUS = 0.25;
 export const MOMENT_OF_CLARITY_DAMAGE_BONUS = 0.15;
 export const PROWL_RAKE_DAMAGE_BONUS = 0.6;
 
