@@ -9,6 +9,7 @@ import {
   SigilOfFlame,
   SwallowedAnger,
   TheHunt,
+  UnnaturalMalice,
 } from 'analysis/retail/demonhunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
@@ -80,6 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
     collectiveAnguish: CollectiveAnguish,
     demonic: Demonic,
     stokeTheFlames: StokeTheFlames,
+    unnaturalMalice: UnnaturalMalice,
     swallowedAnger: SwallowedAnger,
 
     // Spell
