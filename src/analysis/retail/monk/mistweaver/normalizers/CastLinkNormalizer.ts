@@ -89,7 +89,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.Cast],
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
-    additionalCondition(linkingEvent, referencedEvent) {
+    additionalCondition(linkingEvent) {
       return !HasRelatedEvent(linkingEvent, FROM_HARDCAST);
     },
   },
@@ -116,7 +116,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.Heal],
     anyTarget: true,
     backwardBufferMs: 50,
-    additionalCondition(linkingEvent, referencedEvent) {
+    additionalCondition(linkingEvent) {
       return !HasRelatedEvent(linkingEvent, FROM_HARDCAST);
     },
   },
