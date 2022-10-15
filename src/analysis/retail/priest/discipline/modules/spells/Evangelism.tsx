@@ -1,13 +1,15 @@
-import { formatNumber, formatPercentage } from 'common/format';
-import { SpellIcon } from 'interface';
-import { TooltipElement } from 'interface';
+import { formatNumber } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import StatisticBox from 'parser/ui/StatisticBox';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { TALENTS_PRIEST } from 'common/TALENTS';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import isAtonement from '../core/isAtonement';
 import Atonement from './Atonement';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 const EVANGELISM_DURATION = 6;
 const EVANGELISM_DURATION_MS = EVANGELISM_DURATION * 1000;
@@ -80,46 +82,37 @@ class Evangelism extends Analyzer {
     const evangelismStatistics = this.evangelismStatistics;
 
     return (
-      <StatisticBox
-        icon={<SpellIcon id={TALENTS_PRIEST.EVANGELISM_TALENT.id} />}
-        value={`${formatNumber(
-          (evangelismStatistics.reduce((total, c) => total + c.healing, 0) /
-            this.owner.fightDuration) *
-            1000,
-        )} HPS`}
-        label={
-          <TooltipElement
-            content={`Evangelism accounted for approximately ${formatPercentage(
-              this.owner.getPercentageOfTotalHealingDone(
-                evangelismStatistics.reduce((p, c) => p + c.healing, 0),
-              ),
-            )}% of your healing.`}
-          >
-            Evangelism contribution
-          </TooltipElement>
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+        dropdown={
+          <table className="table table-condensed">
+            <thead>
+              <tr>
+                <th>Cast</th>
+                <th>Healing</th>
+                <th>Duration</th>
+                <th>Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.evangelismStatistics.map((evangelism, index) => (
+                <tr key={index}>
+                  <th scope="row">{index + 1}</th>
+                  <td>{formatNumber(evangelism.healing)}</td>
+                  <td>{evangelism.atonementSeconds}s</td>
+                  <td>{evangelism.count}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         }
       >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Cast</th>
-              <th>Healing</th>
-              <th>Duration</th>
-              <th>Count</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.evangelismStatistics.map((evangelism, index) => (
-              <tr key={index}>
-                <th scope="row">{index + 1}</th>
-                <td>{formatNumber(evangelism.healing)}</td>
-                <td>{evangelism.atonementSeconds}s</td>
-                <td>{evangelism.count}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </StatisticBox>
+        <BoringSpellValueText spellId={TALENTS_PRIEST.EVANGELISM_TALENT.id}>
+          <ItemHealingDone amount={evangelismStatistics.reduce((p, c) => p + c.healing, 0)} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

@@ -78,7 +78,7 @@ class TwinsOfTheSunPriestess extends Analyzer {
 
   statistic() {
     return (
-      <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
+      <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
         <BoringSpellValueText spellId={SPELLS.TWINS_OF_THE_SUN_PRIESTESS.id}>
           {formatNumber(this.goodCasts)}/{formatNumber(this.totalCasts)} Uses
         </BoringSpellValueText>

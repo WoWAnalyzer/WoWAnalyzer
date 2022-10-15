@@ -36,7 +36,7 @@ class StolenPsyche extends Analyzer {
 
   statistic() {
     return (
-      <Statistic size="flexible" category={STATISTIC_CATEGORY.COVENANTS}>
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
         <BoringSpellValueText spellId={TALENTS_PRIEST.STOLEN_PSYCHE_TALENT.id}>
           <>
             <ItemHealingDone amount={this.healing} /> <br />
