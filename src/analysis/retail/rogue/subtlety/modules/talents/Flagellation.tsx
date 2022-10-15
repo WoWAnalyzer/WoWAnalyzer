@@ -1,6 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
+import TALENTS from 'common/TALENTS/rogue';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -25,9 +25,13 @@ class Flagellation extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.FLAGELLATION_TALENT.id);
+    if (!this.active) {
+      return;
+    }
+
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FLAGELLATION),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.FLAGELLATION_TALENT),
       this.onDamage,
     );
     this.addEventListener(
@@ -35,24 +39,22 @@ class Flagellation extends Analyzer {
       this.onLashDamage,
     );
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
-    if (this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id)) {
-      (options.abilities as Abilities).add({
-        spell: SPELLS.FLAGELLATION.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: this.cooldown,
-        gcd: {
-          base: 1000,
-        },
-        castEfficiency: {
-          maxCasts: () => this.maxCasts,
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          averageIssueEfficiency: 0.8,
-          majorIssueEfficiency: 0.7,
-          extraSuggestion: 'Cast before finisher moves to maximize haste buff and lashing damage',
-        },
-      });
-    }
+    (options.abilities as Abilities).add({
+      spell: TALENTS.FLAGELLATION_TALENT.id,
+      category: SPELL_CATEGORY.COOLDOWNS,
+      cooldown: this.cooldown,
+      gcd: {
+        base: 1000,
+      },
+      castEfficiency: {
+        maxCasts: () => this.maxCasts,
+        suggestion: true,
+        recommendedEfficiency: 0.9,
+        averageIssueEfficiency: 0.8,
+        majorIssueEfficiency: 0.7,
+        extraSuggestion: 'Cast before finisher moves to maximize haste buff and lashing damage',
+      },
+    });
   }
 
   adjustMaxCasts() {
@@ -89,7 +91,7 @@ class Flagellation extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <ul>
             <li>{formatNumber(this.lashDamage)} damage done by flagellation lashes</li>
@@ -97,7 +99,7 @@ class Flagellation extends Analyzer {
           </ul>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.FLAGELLATION.id}>
+        <BoringSpellValueText spellId={TALENTS.FLAGELLATION_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

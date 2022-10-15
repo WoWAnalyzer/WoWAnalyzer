@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
@@ -41,11 +40,11 @@ const SubRogueChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         {combatant.hasTalent(TALENTS.SECRET_TECHNIQUE_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.SECRET_TECHNIQUE_TALENT.id} />
         )}
-        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
-          <AbilityRequirement spell={SPELLS.SEPSIS.id} />
+        {combatant.hasTalent(TALENTS.SEPSIS_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.SEPSIS_TALENT.id} />
         )}
-        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
-          <AbilityRequirement spell={SPELLS.FLAGELLATION.id} />
+        {combatant.hasCovenant(TALENTS.FLAGELLATION_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.FLAGELLATION_TALENT.id} />
         )}
       </Rule>
       <Rule

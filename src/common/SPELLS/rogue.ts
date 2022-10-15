@@ -106,6 +106,16 @@ const spells = spellIndexableList({
     icon: 'inv_throwingknife_04',
   },
 
+  SEPSIS_FINAL_DMG: {
+    id: 394026,
+    name: 'Sepsis',
+    icon: 'ability_ardenweald_rogue',
+  },
+  SEPSIS_BUFF: {
+    id: 375939,
+    name: 'Sepsis',
+    icon: 'ability_ardenweald_rogue',
+  },
   // Subtlety spells
   // Combo point generating damage ability
   BACKSTAB: {
@@ -139,8 +149,9 @@ const spells = spellIndexableList({
     name: 'Eviscerate',
     icon: 'ability_rogue_eviscerate',
   },
-  BLACK_POWDER: {
-    id: 319175,
+  // Shadowed Finishers
+  BLACK_POWDER_SHADOW: {
+    id: 319190,
     name: 'Black Powder',
     icon: 'spell_priest_divinestar_shadow',
   },
@@ -154,6 +165,11 @@ const spells = spellIndexableList({
     id: 212283,
     name: 'Symbols of Death',
     icon: 'spell_shadow_rune',
+  },
+  FLAGELLATION_LASH: {
+    id: 394757,
+    name: 'Flagellation',
+    icon: 'ability_revendreth_rogue',
   },
 
   // CP Generation

@@ -21,6 +21,10 @@ class TheRotten extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.THE_ROTTEN_TALENT);
+    if (!this.active) {
+      return;
+    }
+
     this.addEventListener(
       Events.resourcechange
         .by(SELECTED_PLAYER)
