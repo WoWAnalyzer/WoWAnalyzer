@@ -9,7 +9,7 @@ import { ERRATIC_FELHEART_SCALING } from 'analysis/retail/demonhunter/shared';
 export function getInfernalStrikeCooldown(combatant: Combatant) {
   const baseCooldown = 20;
   const abyssalHasteReduction =
-    ABYSSAL_HASTE_SCALING[combatant.getTalentRank(TALENTS_DEMON_HUNTER.ABYSSAL_HASTE_TALENT)];
+    ABYSSAL_HASTE_SCALING[combatant.getTalentRank(TALENTS_DEMON_HUNTER.METEORIC_STRIKES_TALENT)];
   const erraticFelheartReduction =
     ERRATIC_FELHEART_SCALING[combatant.getTalentRank(TALENTS_DEMON_HUNTER.ERRATIC_FELHEART_TALENT)];
   const flatReduced = baseCooldown - abyssalHasteReduction;

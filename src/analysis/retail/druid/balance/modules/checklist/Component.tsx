@@ -109,20 +109,6 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
           thresholds={thresholds.stellarFlareRefresh}
         />
       )}
-      {combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_BALANCE_TALENT) && (
-        <Requirement
-          name={
-            <>
-              <SpellLink id={SPELLS.ADAPTIVE_SWARM_DAMAGE.id} /> damage uptime
-            </>
-          }
-          thresholds={thresholds.adaptiveSwarmUptime}
-          tooltip={`100% Adaptive Swarm uptime isn't practically possible due to its cooldown
-              and mechanics. On a single target fight you should NOT be using it on cooldown,
-              as you'll clip the 2nd bounce. Instead, wait for the 2nd bounce to reach
-              its refresh window.`}
-        />
-      )}
     </Rule>
   );
 
@@ -178,7 +164,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
       ) : (
         <AbilityRequirement spell={SPELLS.CELESTIAL_ALIGNMENT.id} />
       )}
-      {combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_BALANCE_TALENT) && (
+      {combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) && (
         <AbilityRequirement spell={SPELLS.CONVOKE_SPIRITS.id} />
       )}
       {combatant.hasTalent(TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id) && (

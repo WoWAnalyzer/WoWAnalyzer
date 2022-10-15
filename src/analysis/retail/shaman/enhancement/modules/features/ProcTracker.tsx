@@ -1,17 +1,9 @@
-import { TALENTS_SHAMAN } from 'common/TALENTS';
 import { Panel } from 'interface';
-import CoreCooldownThroughputTracker, {
-  BUILT_IN_SUMMARY_TYPES,
-} from 'parser/shared/modules/CooldownThroughputTracker';
+import CoreCooldownThroughputTracker from 'parser/shared/modules/CooldownThroughputTracker';
 import CooldownOverview from 'parser/ui/CooldownOverview';
 
 class ProcTracker extends CoreCooldownThroughputTracker {
-  static cooldownSpells = [
-    {
-      spell: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id,
-      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
-    },
-  ];
+  static cooldownSpells = [];
 
   tab(): any {
     return {

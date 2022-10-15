@@ -24,7 +24,7 @@ class HotCountGraph extends BuffCountGraph {
 
   constructor(options: Options) {
     super(options);
-    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT)) {
       this.addEventListener(Events.fightend, this.onFightEndConvokeCount);
     }
   }
@@ -39,7 +39,7 @@ class HotCountGraph extends BuffCountGraph {
     if (this.selectedCombatant.hasTalent(TALENTS_DRUID.CENARION_WARD_TALENT)) {
       buffSpecs.push({ spells: SPELLS.CENARION_WARD_HEAL, color: '#44ffcc' });
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_SHARED_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT)) {
       buffSpecs.push({
         spells: [SPELLS.ADAPTIVE_SWARM_HEAL, SPELLS.ADAPTIVE_SWARM_DAMAGE],
         color: '#cc7722',
@@ -54,7 +54,7 @@ class HotCountGraph extends BuffCountGraph {
     if (this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT)) {
       castSpecs.push({ spells: TALENTS_DRUID.FLOURISH_TALENT, color: '#ddbb33' });
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT)) {
       // these custom specs will get filled in manually from Convoke module data
       castSpecs.push({ name: 'Convoke', spells: [], color: '#2222bb' });
       // TODO for DF, Flourish convoke only possible with additional talent - update for this
