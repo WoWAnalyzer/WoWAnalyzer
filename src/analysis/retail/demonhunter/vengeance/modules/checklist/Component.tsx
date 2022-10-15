@@ -59,7 +59,7 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
           <AbilityRequirement spell={TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.ELYSIAN_DECREE.id} />
+          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id) && (
           <AbilityRequirement spell={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id} />

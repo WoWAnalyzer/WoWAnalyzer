@@ -40,16 +40,6 @@ const spells = spellIndexableList({
     name: 'Sigil of Misery',
     icon: 'ability_demonhunter_sigilofmisery',
   },
-  SIGIL_OF_SILENCE_CONCENTRATED: {
-    id: 207682,
-    name: 'Sigil of Silence',
-    icon: 'ability_demonhunter_sigilofsilence',
-  },
-  SIGIL_OF_CHAINS_CONCENTRATED: {
-    id: 207665,
-    name: 'Sigil of Chains',
-    icon: 'ability_demonhunter_sigilofchains',
-  },
   SIGIL_OF_FLAME_PRECISE: {
     id: 389810,
     name: 'Sigil of Flame',
@@ -59,16 +49,6 @@ const spells = spellIndexableList({
     id: 389813,
     name: 'Sigil of Misery',
     icon: 'ability_demonhunter_sigilofmisery',
-  },
-  SIGIL_OF_SILENCE_PRECISE: {
-    id: 389809,
-    name: 'Sigil of Silence',
-    icon: 'ability_demonhunter_sigilofsilence',
-  },
-  SIGIL_OF_CHAINS_PRECISE: {
-    id: 389807,
-    name: 'Sigil of Chains',
-    icon: 'ability_demonhunter_sigilofchains',
   },
   SIGIL_OF_FLAME_DEBUFF: {
     id: 204598,
@@ -196,6 +176,11 @@ const spells = spellIndexableList({
     name: 'Throw Glaive',
     icon: 'ability_demonhunter_throwglaive',
   },
+  THROW_GLAIVE_VENGEANCE: {
+    id: 346665,
+    name: 'Throw Glaive',
+    icon: 'ability_demonhunter_throwglaive',
+  },
   TORMENT: {
     id: 185245,
     name: 'Torment',
@@ -241,6 +226,26 @@ const spells = spellIndexableList({
     id: 212988,
     name: 'Painbringer',
     icon: 'artifactability_vengeancedemonhunter_painbringer',
+  },
+  SIGIL_OF_SILENCE_CONCENTRATED: {
+    id: 207682,
+    name: 'Sigil of Silence',
+    icon: 'ability_demonhunter_sigilofsilence',
+  },
+  SIGIL_OF_CHAINS_CONCENTRATED: {
+    id: 207665,
+    name: 'Sigil of Chains',
+    icon: 'ability_demonhunter_sigilofchains',
+  },
+  SIGIL_OF_SILENCE_PRECISE: {
+    id: 389809,
+    name: 'Sigil of Silence',
+    icon: 'ability_demonhunter_sigilofsilence',
+  },
+  SIGIL_OF_CHAINS_PRECISE: {
+    id: 389807,
+    name: 'Sigil of Chains',
+    icon: 'ability_demonhunter_sigilofchains',
   },
   //endregion
 
@@ -415,8 +420,13 @@ const spells = spellIndexableList({
     name: 'Unbound Chaos',
     icon: 'artifactability_vengeancedemonhunter_painbringer',
   },
-  ELYSIAN_DECREE: {
-    id: 327839,
+  ELYSIAN_DECREE_PRECISE: {
+    id: 389815,
+    name: 'Elysian Decree',
+    icon: 'ability_bastion_demonhunter',
+  },
+  ELYSIAN_DECREE_CONCENTRATED: {
+    id: 389858,
     name: 'Elysian Decree',
     icon: 'ability_bastion_demonhunter',
   },

@@ -90,10 +90,10 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
         <br />
         Apex predator usage?
       </SubSection>
-      {info.combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_SHARED_TALENT) && (
+      {info.combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT) && (
         <SubSection>
           <strong>
-            <SpellLink id={TALENTS_DRUID.ADAPTIVE_SWARM_SHARED_TALENT.id} />
+            <SpellLink id={TALENTS_DRUID.ADAPTIVE_SWARM_TALENT.id} />
           </strong>{' '}
           - ???
           {modules.adaptiveSwarm.subStatistic()}
@@ -118,7 +118,7 @@ function snapshotTooltip() {
 function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   const hasBerserk = info.combatant.hasTalent(TALENTS_DRUID.BERSERK_TALENT);
   const hasIncarn = info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT);
-  const hasConvoke = info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT);
+  const hasConvoke = info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT);
   const hasFeralFrenzy = info.combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT);
   return (
     <SubSection>
