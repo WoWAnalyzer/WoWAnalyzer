@@ -7,4 +7,5 @@ export { default as MasterOfTheGlaive } from './modules/talents/MasterOfTheGlaiv
 export { default as CollectiveAnguish } from './modules/talents/CollectiveAnguish';
 export { default as SigilOfFlame } from './modules/talents/SigilOfFlame';
 export { default as Demonic } from './modules/talents/Demonic';
+export { default as SwallowedAnger } from './modules/talents/SwallowedAnger';
 export * from './constants';
