@@ -44,7 +44,7 @@ const talents = createTalentList({
     name: 'Starsurge',
     icon: 'spell_arcane_arcane03',
     maxRanks: 1,
-    lunarPowerCost: 300,
+    lunarPowerCost: 400,
   },
   RIP_TALENT: { id: 1079, name: 'Rip', icon: 'ability_ghoulfrenzy', maxRanks: 1, energyCost: 20 },
   SWIPE_TALENT: { id: 213764, name: 'Swipe', icon: 'inv_misc_monsterclaw_03', maxRanks: 1 },
@@ -165,9 +165,9 @@ const talents = createTalentList({
     icon: 'ability_racial_cannibalize',
     maxRanks: 1,
   },
-  URSOCS_ENDURANCE_NNF_TALENT: {
+  MATTED_FUR_TALENT: {
     id: 385786,
-    name: "Ursoc's Endurance (NNF)",
+    name: 'Matted Fur',
     icon: 'spell_nature_stoneclawtotem',
     maxRanks: 1,
   },
@@ -241,7 +241,12 @@ const talents = createTalentList({
   },
   RENEWAL_TALENT: { id: 108238, name: 'Renewal', icon: 'spell_nature_natureblessing', maxRanks: 1 },
   INNERVATE_TALENT: { id: 29166, name: 'Innervate', icon: 'spell_nature_lightning', maxRanks: 1 },
-  FUROR_TALENT: { id: 378986, name: 'Furor', icon: 'spell_holy_blessingofstamina', maxRanks: 1 },
+  PROTECTOR_OF_THE_PACK_TALENT: {
+    id: 378986,
+    name: 'Protector of the Pack',
+    icon: 'ability_druid_denmother',
+    maxRanks: 1,
+  },
   HEART_OF_THE_WILD_TALENT: {
     id: 319454,
     name: 'Heart of the Wild',
@@ -261,6 +266,13 @@ const talents = createTalentList({
     maxRanks: 1,
     manaCost: 600,
   },
+  ADAPTIVE_SWARM_TALENT: {
+    id: 391888,
+    name: 'Adaptive Swarm',
+    icon: 'ability_maldraxxus_druid',
+    maxRanks: 1,
+    manaCost: 500,
+  },
   UNBRIDLED_SWARM_TALENT: {
     id: 391951,
     name: 'Unbridled Swarm',
@@ -273,24 +285,17 @@ const talents = createTalentList({
     icon: 'ability_druid_tigersroar',
     maxRanks: 1,
   },
-  CONVOKE_THE_SPIRITS_SHARED_TALENT: {
-    id: 391528,
-    name: 'Convoke the Spirits',
-    icon: 'ability_ardenweald_druid',
-    maxRanks: 1,
-  },
-  CIRCLE_OF_LIFE_AND_DEATH_SHARED_TALENT: {
+  CIRCLE_OF_LIFE_AND_DEATH_TALENT: {
     id: 391969,
     name: 'Circle of Life and Death',
     icon: 'ability_druid_cyclone',
     maxRanks: 1,
   },
-  ADAPTIVE_SWARM_SHARED_TALENT: {
-    id: 391888,
-    name: 'Adaptive Swarm',
-    icon: 'ability_maldraxxus_druid',
+  CONVOKE_THE_SPIRITS_TALENT: {
+    id: 391528,
+    name: 'Convoke the Spirits',
+    icon: 'ability_ardenweald_druid',
     maxRanks: 1,
-    manaCost: 500,
   },
 
   //Restoration
@@ -403,7 +408,12 @@ const talents = createTalentList({
     icon: 'ability_druid_flourish',
     maxRanks: 1,
   },
-  STONEBARK_TALENT: { id: 197061, name: 'Stonebark', icon: 'spell_druid_ironbark', maxRanks: 1 },
+  STONEBARK_TALENT: {
+    id: 197061,
+    name: 'Stonebark',
+    icon: 'archaeology_5_0_crackedmogurunestone',
+    maxRanks: 1,
+  },
   IMPROVED_IRONBARK_TALENT: {
     id: 382552,
     name: 'Improved Ironbark',
@@ -443,7 +453,7 @@ const talents = createTalentList({
   REGENERATIVE_HEARTWOOD_TALENT: {
     id: 392116,
     name: 'Regenerative Heartwood',
-    icon: 'ability_druid_manatree',
+    icon: 'spell_nature_naturetouchgrow',
     maxRanks: 1,
   },
   SPRING_BLOSSOMS_TALENT: {
@@ -972,7 +982,7 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   INCARNATION_GUARDIAN_OF_URSOC_TALENT: {
-    id: 102558,
+    id: 394786,
     name: 'Incarnation: Guardian of Ursoc',
     icon: 'spell_druid_incarnation',
     maxRanks: 1,
@@ -1028,34 +1038,16 @@ const talents = createTalentList({
 
   //Balance
   ECLIPSE_TALENT: { id: 79577, name: 'Eclipse', icon: 'ability_druid_eclipseorange', maxRanks: 1 },
-  IMPROVED_ECLIPSE_TALENT: {
-    id: 328021,
-    name: 'Improved Eclipse',
-    icon: 'ability_druid_eclipseorange',
-    maxRanks: 2,
-  },
-  IMPROVED_MOONFIRE_TALENT: {
-    id: 328023,
-    name: 'Improved Moonfire',
-    icon: 'spell_nature_starfall',
-    maxRanks: 2,
-  },
-  FORCE_OF_NATURE_TALENT: {
-    id: 205636,
-    name: 'Force of Nature',
-    icon: 'ability_druid_forceofnature',
+  SHOOTING_STARS_TALENT: {
+    id: 202342,
+    name: 'Shooting Stars',
+    icon: 'spell_priest_divinestar_shadow2',
     maxRanks: 1,
   },
   NATURES_BALANCE_TALENT: {
     id: 202430,
     name: "Nature's Balance",
     icon: 'ability_druid_balanceofpower',
-    maxRanks: 2,
-  },
-  WARRIOR_OF_ELUNE_TALENT: {
-    id: 202425,
-    name: 'Warrior of Elune',
-    icon: 'spell_holy_elunesgrace',
     maxRanks: 1,
   },
   STARFALL_TALENT: {
@@ -1065,22 +1057,40 @@ const talents = createTalentList({
     maxRanks: 1,
     lunarPowerCost: 500,
   },
-  OWLKIN_FRENZY_TALENT: {
-    id: 231042,
-    name: 'Owlkin Frenzy',
-    icon: 'spell_nature_forceofnature',
+  SOLSTICE_TALENT: {
+    id: 343647,
+    name: 'Solstice',
+    icon: 'artifactability_balancedruid_moonandstars',
+    maxRanks: 2,
+  },
+  UMBRAL_INTENSITY_TALENT: {
+    id: 383195,
+    name: 'Umbral Intensity',
+    icon: 'ability_druid_eclipse',
+    maxRanks: 2,
+  },
+  UMBRAL_EMBRACE_TALENT: {
+    id: 393760,
+    name: 'Umbral Embrace',
+    icon: 'ability_druid_improvedmoonkinform',
+    maxRanks: 2,
+  },
+  AETHERIAL_KINDLING_TALENT: {
+    id: 327541,
+    name: 'Aetherial Kindling',
+    icon: 'ability_druid_starfall',
+    maxRanks: 2,
+  },
+  LUNAR_SHRAPNEL_TALENT: {
+    id: 393868,
+    name: 'Lunar Shrapnel',
+    icon: 'spell_arcane_arcane04',
     maxRanks: 1,
   },
-  CELESTIAL_ALIGNMENT_TALENT: {
-    id: 194223,
-    name: 'Celestial Alignment',
-    icon: 'spell_nature_natureguardian',
-    maxRanks: 1,
-  },
-  IMPROVED_STARSURGE_TALENT: {
-    id: 328022,
-    name: 'Improved Starsurge',
-    icon: 'spell_arcane_arcane03',
+  STELLAR_FLARE_TALENT: {
+    id: 202347,
+    name: 'Stellar Flare',
+    icon: 'ability_druid_stellarflare',
     maxRanks: 1,
   },
   SOLAR_BEAM_TALENT: {
@@ -1090,23 +1100,54 @@ const talents = createTalentList({
     maxRanks: 1,
     manaCost: 1600,
   },
-  SHOOTING_STARS_TALENT: {
-    id: 202342,
-    name: 'Shooting Stars',
-    icon: 'spell_priest_divinestar_shadow2',
+  FORCE_OF_NATURE_TALENT: {
+    id: 205636,
+    name: 'Force of Nature',
+    icon: 'ability_druid_forceofnature',
     maxRanks: 1,
   },
-  AETHERIAL_KINDLING_TALENT: {
-    id: 327541,
-    name: 'Aetherial Kindling',
-    icon: 'ability_druid_starfall',
+  ORBIT_BREAKER_TALENT: {
+    id: 383197,
+    name: 'Orbit Breaker',
+    icon: 'artifactability_balancedruid_moonandstars',
+    maxRanks: 1,
+  },
+  TWIN_MOONS_TALENT: { id: 279620, name: 'Twin Moons', icon: 'spell_nature_starfall', maxRanks: 1 },
+  LIGHT_OF_THE_SUN_TALENT: {
+    id: 202918,
+    name: 'Light of the Sun',
+    icon: 'ability_vehicle_sonicshockwave',
+    maxRanks: 1,
+  },
+  STELLAR_INNERVATION_TALENT: {
+    id: 394115,
+    name: 'Stellar Innervation',
+    icon: 'sha_ability_mage_firestarter_nightborne',
+    maxRanks: 1,
+  },
+  STARWEAVER_TALENT: {
+    id: 393940,
+    name: 'Starweaver',
+    icon: 'spell_arcane_invocation',
+    maxRanks: 1,
+  },
+  RATTLE_THE_STARS_TALENT: {
+    id: 393954,
+    name: 'Rattle the Stars',
+    icon: 'spell_arcane_arcane01',
+    maxRanks: 1,
+  },
+  WANING_TWILIGHT_TALENT: {
+    id: 393956,
+    name: 'Waning Twilight',
+    icon: 'spell_shadow_twilight',
     maxRanks: 2,
   },
-  POWER_OF_GOLDRINN_TALENT: {
-    id: 202996,
-    name: 'Power of Goldrinn',
-    icon: 'inv_mount_spectralwolf',
-    maxRanks: 2,
+  CELESTIAL_ALIGNMENT_TALENT: {
+    id: 395022,
+    name: 'Celestial Alignment',
+    icon: 'spell_nature_natureguardian',
+    maxRanks: 1,
   },
   STARLORD_TALENT: {
     id: 202345,
@@ -1114,46 +1155,23 @@ const talents = createTalentList({
     icon: 'spell_shaman_measuredinsight',
     maxRanks: 2,
   },
-  STELLAR_DRIFT_TALENT: {
-    id: 202354,
-    name: 'Stellar Drift',
-    icon: 'ability_druid_starfall',
+  ASTRAL_COMMUNION_TALENT: {
+    id: 202359,
+    name: 'Astral Communion',
+    icon: 'talentspec_druid_balance',
     maxRanks: 1,
   },
-  STELLAR_INSPIRATION_TALENT: {
-    id: 383194,
-    name: 'Stellar Inspiration',
-    icon: 'ability_skyreach_lens_flare',
-    maxRanks: 2,
-  },
-  LIGHT_OF_THE_SUN_TALENT: {
-    id: 202918,
-    name: 'Light of the Sun',
-    icon: 'ability_vehicle_sonicshockwave',
+  NATURES_GRACE_TALENT: {
+    id: 393958,
+    name: "Nature's Grace",
+    icon: 'spell_nature_naturesblessing',
     maxRanks: 1,
   },
-  UMBRAL_INTENSITY_TALENT: {
-    id: 383195,
-    name: 'Umbral Intensity',
-    icon: 'ability_druid_eclipse',
-    maxRanks: 2,
-  },
-  PRECISE_ALIGNMENT_TALENT: {
-    id: 340706,
-    name: 'Precise Alignment',
-    icon: 'spell_nature_natureguardian',
-    maxRanks: 1,
-  },
-  BLESSING_OF_ELUNE_TALENT: {
-    id: 202737,
-    name: 'Blessing of Elune',
-    icon: 'achievement_worldevent_lunar',
-    maxRanks: 1,
-  },
-  BLESSING_OF_ANSHE_TALENT: {
-    id: 202739,
-    name: "Blessing of An'she",
-    icon: 'spell_priest_divinestar_holy',
+  SYZYGY_TALENT: { id: 390378, name: 'Syzygy', icon: 'ability_druid_cresentburn', maxRanks: 1 },
+  PRIMORDIAL_ARCANIC_PULSAR_TALENT: {
+    id: 393960,
+    name: 'Primordial Arcanic Pulsar',
+    icon: 'spell_arcane_arcane03',
     maxRanks: 1,
   },
   SOUL_OF_THE_FOREST_BALANCE_TALENT: {
@@ -1162,67 +1180,53 @@ const talents = createTalentList({
     icon: 'ability_druid_manatree',
     maxRanks: 1,
   },
-  FURY_OF_THE_SKIES_TALENT: {
-    id: 384656,
-    name: 'Fury of the Skies',
-    icon: 'spell_druid_equinox',
-    maxRanks: 2,
-  },
-  TWIN_MOONS_TALENT: { id: 279620, name: 'Twin Moons', icon: 'spell_nature_starfall', maxRanks: 1 },
-  STELLAR_FLARE_TALENT: {
-    id: 202347,
-    name: 'Stellar Flare',
-    icon: 'ability_druid_stellarflare',
+  WILD_MUSHROOM_TALENT: {
+    id: 88747,
+    name: 'Wild Mushroom',
+    icon: 'druid_ability_wildmushroom_a',
     maxRanks: 1,
-  },
-  SOLSTICE_TALENT: {
-    id: 343647,
-    name: 'Solstice',
-    icon: 'artifactability_balancedruid_moonandstars',
-    maxRanks: 2,
-  },
-  ONETHS_CLEAR_VISION_NNF_TALENT: {
-    id: 338661,
-    name: "Oneth's Clear Vision [NNF]",
-    icon: 'spell_arcane_invocation',
-    maxRanks: 1,
-  },
-  TIMEWORN_DREAMBINDER_NNF_TALENT: {
-    id: 339949,
-    name: 'Timeworn Dreambinder [NNF]',
-    icon: 'ability_creature_cursed_04',
-    maxRanks: 1,
-  },
-  UMBRAL_INFUSION_NNF_TALENT: {
-    id: 383196,
-    name: 'Umbral Infusion [NNF]',
-    icon: 'spell_animaardenweald_groundstate',
-    maxRanks: 2,
   },
   INCARNATION_CHOSEN_OF_ELUNE_TALENT: {
-    id: 102560,
+    id: 394013,
     name: 'Incarnation: Chosen of Elune',
     icon: 'spell_druid_incarnation',
     maxRanks: 1,
   },
-  CONVOKE_THE_SPIRITS_BALANCE_TALENT: {
-    id: 323764,
-    name: 'Convoke the Spirits',
+  POWER_OF_GOLDRINN_TALENT: {
+    id: 394046,
+    name: 'Power of Goldrinn',
+    icon: 'inv_mount_spectralwolf',
+    maxRanks: 1,
+  },
+  FUNGAL_GROWTH_TALENT: {
+    id: 392999,
+    name: 'Fungal Growth',
+    icon: 'druid_ability_wildmushroom_b',
+    maxRanks: 1,
+  },
+  DENIZEN_OF_THE_DREAM_TALENT: {
+    id: 394065,
+    name: 'Denizen of the Dream',
+    icon: 'inv_faeriedragon2_orange',
+    maxRanks: 1,
+  },
+  ASTRAL_SMOLDER_TALENT: {
+    id: 394058,
+    name: 'Astral Smolder',
+    icon: 'spell_fire_bluefire',
+    maxRanks: 2,
+  },
+  ELUNES_GUIDANCE_TALENT: {
+    id: 393991,
+    name: "Elune's Guidance",
     icon: 'ability_ardenweald_druid',
     maxRanks: 1,
   },
-  CIRCLE_OF_LIFE_AND_DEATH_BALANCE_TALENT: {
-    id: 338657,
-    name: 'Circle of Life and Death',
-    icon: 'ability_druid_cyclone',
+  BALANCE_OF_ALL_THINGS_TALENT: {
+    id: 394048,
+    name: 'Balance of All Things',
+    icon: 'ability_druid_earthandsky',
     maxRanks: 2,
-  },
-  SYZYGY_TALENT: { id: 390378, name: 'Syzygy', icon: 'ability_druid_cresentburn', maxRanks: 1 },
-  PRIMORDIAL_ARCANIC_PULSAR_TALENT: {
-    id: 338668,
-    name: 'Primordial Arcanic Pulsar',
-    icon: 'spell_arcane_arcane03',
-    maxRanks: 1,
   },
   NEW_MOON_TALENT: {
     id: 274281,
@@ -1236,23 +1240,28 @@ const talents = createTalentList({
     icon: 'ability_druid_dreamstate',
     maxRanks: 1,
   },
-  ADAPTIVE_SWARM_BALANCE_TALENT: {
-    id: 325727,
-    name: 'Adaptive Swarm',
-    icon: 'ability_maldraxxus_druid',
-    maxRanks: 1,
-    manaCost: 500,
-  },
-  BALANCE_OF_ALL_THINGS_TALENT: {
-    id: 339942,
-    name: 'Balance of All Things',
-    icon: 'ability_druid_balanceofpower',
+  FRIEND_OF_THE_FAE_TALENT: {
+    id: 394081,
+    name: 'Friend of the Fae',
+    icon: 'inv_elemental_primal_mana',
     maxRanks: 1,
   },
-  ORBIT_BREAKER_TALENT: {
-    id: 383197,
-    name: 'Orbit Breaker',
-    icon: 'artifactability_balancedruid_moonandstars',
+  WARRIOR_OF_ELUNE_TALENT: {
+    id: 202425,
+    name: 'Warrior of Elune',
+    icon: 'spell_holy_elunesgrace',
+    maxRanks: 1,
+  },
+  SUNDERED_FIRMAMENT_TALENT: {
+    id: 394094,
+    name: 'Sundered Firmament',
+    icon: 'spell_druid_equinox',
+    maxRanks: 1,
+  },
+  RADIANT_MOONLIGHT_TALENT: {
+    id: 394121,
+    name: 'Radiant Moonlight',
+    icon: 'artifactability_balancedruid_fullmoon',
     maxRanks: 1,
   },
 });

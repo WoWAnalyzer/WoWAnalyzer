@@ -146,9 +146,9 @@ const talents = createTalentList({
     icon: 'ability_hunter_camouflage',
     maxRanks: 1,
   },
-  SENTINEL_OWL_TALENT: {
-    id: 388045,
-    name: 'Sentinel Owl',
+  SENTINEL_TALENT: {
+    id: 393505,
+    name: 'Sentinel',
     icon: 'ability_hunter_sentinelowl',
     maxRanks: 1,
   },
@@ -308,7 +308,7 @@ const talents = createTalentList({
   PRECISE_SHOTS_TALENT: {
     id: 260240,
     name: 'Precise Shots',
-    icon: 'ability_hunter_focusedaim',
+    icon: 'ability_hunter_snipertraining',
     maxRanks: 2,
   },
   RAPID_FIRE_TALENT: {
