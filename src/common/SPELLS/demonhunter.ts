@@ -431,7 +431,7 @@ const spells = spellIndexableList({
     icon: 'ability_bastion_demonhunter',
   },
   ELYSIAN_DECREE_DAMAGE: {
-    id: 307046,
+    id: 389860,
     name: 'Elysian Decree',
     icon: 'ability_bastion_demonhunter',
   },
