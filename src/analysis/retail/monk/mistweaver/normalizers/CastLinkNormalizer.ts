@@ -126,7 +126,7 @@ const EVENT_LINKS: EventLink[] = [
  * When a spell is cast on a target, the ordering of the Cast and ApplyBuff/RefreshBuff/(direct)Heal
  * can be semi-arbitrary, making analysis difficult.
  *
- * This normalizer adds a _linkedEvent to the ApplyBuff/RefreshBuff/Heal linking back to the Cast event
+ * This normalizer adds a _linkedEvent to the ApplyBuff/RefreshBuff/RemoveBuff linking back to the Cast event
  * that caused it (if one can be found).
  *
  * This normalizer adds links for Renewing Mist and Enveloping Mist
