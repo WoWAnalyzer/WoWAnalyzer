@@ -1,6 +1,5 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
@@ -35,19 +34,25 @@ class JadeSerpentStatue extends Analyzer {
     }
 
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_MIST_STATUE),
+      Events.heal.by(SELECTED_PLAYER_PET).spell(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT),
       this.jssHeal,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_MIST_STATUE),
+      Events.applybuff
+        .by(SELECTED_PLAYER_PET)
+        .spell(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT),
       this.jssApplyBuff,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_MIST_STATUE),
+      Events.removebuff
+        .by(SELECTED_PLAYER_PET)
+        .spell(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT),
       this.jssRemoveBuff,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_MIST_STATUE),
+      Events.refreshbuff
+        .by(SELECTED_PLAYER_PET)
+        .spell(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT),
       this.jssRefreshBuff,
     );
     this.addEventListener(Events.fightend, this.endFight);
@@ -93,7 +98,7 @@ class JadeSerpentStatue extends Analyzer {
 
   jssRefreshBuff(event: RefreshBuffEvent) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SOOTHING_MIST_STATUE.id) {
+    if (spellId !== TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.id) {
       return;
     }
 

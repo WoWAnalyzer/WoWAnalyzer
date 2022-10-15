@@ -2,8 +2,6 @@ import {
   BonedustBrew,
   FaelineStomp,
   FallenOrder,
-  FortifyingIngredients,
-  GroundingBreath,
   TouchOfDeath,
   MysticTouch,
   DampenHarm,
@@ -98,9 +96,6 @@ class CombatLogParser extends CoreCombatLogParser {
     bonedustBrew: BonedustBrew,
 
     // Conduits
-    /// Endurance
-    fortifyingIngredients: FortifyingIngredients,
-    groundingBreath: GroundingBreath,
     /// Potency
     scaldingBrew: ScaldingBrew,
     walkWithTheOx: WalkWithTheOx,

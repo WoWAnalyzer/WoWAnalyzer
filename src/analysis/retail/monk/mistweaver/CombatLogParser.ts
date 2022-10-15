@@ -63,7 +63,7 @@ import SpiritOfTheCrane from './modules/spells/SpiritOfTheCrane';
 import Upwelling from './modules/spells/Upwelling';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
-import CastLinkNormalizer from "./normalizers/CastLinkNormalizer";
+import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

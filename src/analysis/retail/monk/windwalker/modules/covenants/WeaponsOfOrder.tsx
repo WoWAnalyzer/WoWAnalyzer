@@ -63,9 +63,9 @@ class WeaponsOfOrderWindwalker extends WeaponsOfOrder {
         BLACKOUT_KICK_COOLDOWN_REDUCTION_MS,
       );
     }
-    if (this.spellUsable.isOnCooldown(SPELLS.RISING_SUN_KICK.id)) {
+    if (this.spellUsable.isOnCooldown(TALENTS_MONK.RISING_SUN_KICK_TALENT.id)) {
       this.extraRisingSunKickReductionMs += this.spellUsable.reduceCooldown(
-        SPELLS.RISING_SUN_KICK.id,
+        TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
         BLACKOUT_KICK_COOLDOWN_REDUCTION_MS,
       );
     }
@@ -135,7 +135,7 @@ class WeaponsOfOrderWindwalker extends WeaponsOfOrder {
             <small>Chi Discounted</small>
             <br />
             <SpellIcon
-              id={SPELLS.RISING_SUN_KICK.id}
+              id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id}
               style={{
                 height: '1.3em',
                 marginTop: '-1.em',
