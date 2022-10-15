@@ -1,5 +1,5 @@
 import AbilityTracker from 'analysis/retail/priest/holy/modules/core/AbilityTracker';
-import { Mindgames, TwinsOfTheSunPriestess, TranslucentImage } from 'analysis/retail/priest/shared';
+import { Mindgames, TranslucentImage } from 'analysis/retail/priest/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
@@ -34,6 +34,8 @@ import PrayerOfMending from './modules/spells/PrayerOfMending';
 import Renew from './modules/spells/Renew';
 import SpiritOfRedemption from './modules/spells/SpiritOfRedemption';
 import Talents from './modules/talents';
+import TwoSet from './modules/dragonflight/tier/Tier29HolyPriest2Set';
+import FourSet from './modules/dragonflight/tier/Tier29HolyPriest4Set';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -76,6 +78,8 @@ class CombatLogParser extends CoreCombatLogParser {
     renew: Renew,
     prayerOfMending: PrayerOfMending,
 
+    TwoSet: TwoSet,
+    FourSet: FourSet,
     // Talents
     Enlightenment: Talents.MiddleRow.Enlightenment,
     TrailOfLight: Talents.MiddleRow.TrailOfLight,
@@ -107,7 +111,6 @@ class CombatLogParser extends CoreCombatLogParser {
     Lightweaver: Talents.BottomRow.Lightweaver,
 
     divineImage: Talents.BottomRow.DivineImage,
-    twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
     resonantWords: Talents.BottomRow.ResonantWords,
     TranslucentImage: TranslucentImage,
     // Mana Tab
