@@ -5,16 +5,14 @@ import { CooldownBar } from 'parser/ui/CooldownBar';
 import SPELLS from 'common/SPELLS';
 import { SpellLink, TooltipElement } from 'interface';
 import { formatPercentage } from 'common/format';
+import styled from '@emotion/styled';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
       <ResourceUseSection modules={modules} events={events} info={info} />
       <CoreRotationSection modules={modules} events={events} info={info} />
-      <Section title="Cooldowns">
-        <p>TODO COOLDOWN USAGE DESCRIPTION</p>
-        <CooldownGraphSubsection modules={modules} events={events} info={info} />
-      </Section>
+      <CooldownSection modules={modules} events={events} info={info} />
     </>
   );
 }
@@ -41,7 +39,10 @@ function ResourceUseSection({ modules, events, info }: GuideProps<typeof CombatL
           (with the exception of your opening <SpellLink id={SPELLS.RIP.id} />
           ).
         </p>
-        TODO METRICS FOR BUILDERS / SPENDERS
+        <SideBySidePanels>
+          <RoundedPanel>{modules.builderUse.chart}</RoundedPanel>
+          <RoundedPanel>{modules.finisherUse.chart}</RoundedPanel>
+        </SideBySidePanels>
       </SubSection>
     </Section>
   );
@@ -115,6 +116,15 @@ function snapshotTooltip() {
   );
 }
 
+function CooldownSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
+  return (
+    <Section title="Cooldowns">
+      <p>TODO COOLDOWN USAGE DESCRIPTION</p>
+      <CooldownGraphSubsection modules={modules} events={events} info={info} />
+    </Section>
+  );
+}
+
 function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   const hasBerserk = info.combatant.hasTalent(TALENTS_DRUID.BERSERK_TALENT);
   const hasIncarn = info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT);
@@ -167,3 +177,21 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
     </SubSection>
   );
 }
+
+// TODO more purpose built rather than copypasta from Emallson's stuff
+const RoundedPanel = styled.div`
+  background: #222;
+  border-radius: 0.5em;
+  padding: 1em 1.5em;
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-columns: 1fr max-content;
+  align-content: center;
+  align-items: center;
+`;
+
+const SideBySidePanels = styled.div`
+  display: grid;
+  grid-template-columns: minmax(50%, max-content) 1fr;
+  grid-column-gap: 1em;
+`;
