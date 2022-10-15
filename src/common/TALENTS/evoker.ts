@@ -489,9 +489,9 @@ const talents = createTalentList({
     icon: 'spell_fire_burnout',
     maxRanks: 1,
   },
-  CASCADING_POWER_TALENT: {
+  HOARDED_POWER_TALENT: {
     id: 375796,
-    name: 'Cascading Power',
+    name: 'Hoarded Power',
     icon: 'ability_evoker_innatemagic2',
     maxRanks: 1,
   },
@@ -635,7 +635,7 @@ const talents = createTalentList({
     id: 376179,
     name: 'Lifeforce Mender',
     icon: 'ability_evoker_dragonrage2',
-    maxRanks: 3,
+    maxRanks: 2,
   },
   TIME_LORD_TALENT: {
     id: 372527,
@@ -661,8 +661,8 @@ const talents = createTalentList({
     icon: 'inv_misc_head_dragon_bronze',
     maxRanks: 1,
   },
-  LIFEBIND_TALENT: { id: 373270, name: 'Lifebind', icon: 'ability_evoker_hoverred', maxRanks: 1 },
   CALL_OF_YSERA_TALENT: { id: 373834, name: 'Call of Ysera', icon: '', maxRanks: 1 },
+  LIFEBIND_TALENT: { id: 373270, name: 'Lifebind', icon: 'ability_evoker_hoverred', maxRanks: 1 },
   PUNCTUALITY_TALENT: {
     id: 371270,
     name: 'Punctuality',
