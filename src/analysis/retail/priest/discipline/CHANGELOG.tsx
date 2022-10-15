@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 10,15), <>Added <SpellLink id={TALENTS_PRIEST.STOLEN_PSYCHE_TALENT.id}/>.</>, Hana),
   change(date(2022, 10,11), <>Added <SpellLink id={TALENTS_PRIEST.CRYSTALLINE_REFLECTION_TALENT.id}/> module showing it's damage breakdown.</>, Hana),
   change(date (2022,10,10), <>Added generic <SpellLink id={SPELLS.POWER_WORD_SHIELD.id}/> module which handles attribution of it's amplifiers</>, Hana),
   change(date(2022, 10, 8), <>Added <SpellLink id={TALENTS_PRIEST.AEGIS_OF_WRATH_TALENT.id}/>.</>, Hana),
