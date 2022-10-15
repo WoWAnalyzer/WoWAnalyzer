@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
@@ -36,8 +37,12 @@ class Backdraft extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this._maxStacks = this.selectedCombatant.hasTalent(SPELLS.FLASHOVER_TALENT.id) ? 4 : 2;
-    this._stacksPerApplication = this.selectedCombatant.hasTalent(SPELLS.FLASHOVER_TALENT.id)
+    this._maxStacks = this.selectedCombatant.hasTalent(TALENTS.IMPROVED_CONFLAGRATE_TALENT.id)
+      ? 4
+      : 2;
+    this._stacksPerApplication = this.selectedCombatant.hasTalent(
+      TALENTS.IMPROVED_CONFLAGRATE_TALENT.id,
+    )
       ? 2
       : 1;
 

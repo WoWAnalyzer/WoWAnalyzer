@@ -1,5 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -16,13 +17,13 @@ class ReverseEntropy extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.REVERSE_ENTROPY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.REVERSE_ENTROPY_TALENT.id);
   }
 
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="small">
-        <BoringSpellValueText spellId={SPELLS.REVERSE_ENTROPY_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.REVERSE_ENTROPY_TALENT.id}>
           <UptimeIcon /> {formatPercentage(this.uptime, 0)} % <small>uptime</small>
         </BoringSpellValueText>
       </Statistic>

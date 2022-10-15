@@ -46,8 +46,7 @@
     "src/analysis/retail/shaman/shared",
     "src/analysis/retail/warlock/affliction",
     "src/analysis/retail/warlock/demonology",
-    "src/analysis/retail/warlock/destruction",
-    "src/analysis/retail/warlock/shared",
+
     "src/analysis/retail/warrior/arms"
   ],
   "ts-node": {

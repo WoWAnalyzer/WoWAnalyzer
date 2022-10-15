@@ -28,7 +28,7 @@ import EnhancementShaman from 'analysis/retail/shaman/enhancement';
 // import RestorationShaman from 'analysis/retail/shaman/restoration';
 // import AfflictionWarlock from 'analysis/retail/warlock/affliction';
 // import DemonologyWarlock from 'analysis/retail/warlock/demonology';
-// import DestructionWarlock from 'analysis/retail/warlock/destruction';
+import DestructionWarlock from 'analysis/retail/warlock/destruction';
 // import ArmsWarrior from 'analysis/retail/warrior/arms';
 import FuryWarrior from 'analysis/retail/warrior/fury';
 import ProtectionWarrior from 'analysis/retail/warrior/protection';
@@ -94,7 +94,7 @@ const configs: Config[] = [
 
   // AfflictionWarlock,
   // DemonologyWarlock,
-  // DestructionWarlock,
+  DestructionWarlock,
 
   ProtectionWarrior,
   // ArmsWarrior,
