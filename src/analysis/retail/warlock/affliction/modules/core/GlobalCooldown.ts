@@ -1,4 +1,4 @@
-import talents from 'common/TALENTS/warlock';
+import TALENTS from 'common/TALENTS/warlock';
 import { CastEvent } from 'parser/core/Events';
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
@@ -7,7 +7,7 @@ import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
  */
 class GlobalCooldown extends CoreGlobalCooldown {
   onCast(event: CastEvent) {
-    if (event.ability.guid === talents.DRAIN_SOUL_TALENT.id) {
+    if (event.ability.guid === TALENTS.DRAIN_SOUL_TALENT.id) {
       // This GCD gets handled by the `beginchannel` event
       return;
     }

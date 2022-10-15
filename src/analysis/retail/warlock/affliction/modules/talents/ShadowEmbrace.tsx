@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import talents from 'common/TALENTS/warlock';
+import TALENTS from 'common/TALENTS/warlock';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -195,7 +195,7 @@ class ShadowEmbrace extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >
-        <BoringSpellValueText spellId={talents.SHADOW_EMBRACE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.SHADOW_EMBRACE_TALENT.id}>
           {formatPercentage(this.totalUptimePercentage)} %{' '}
           <TooltipElement
             content={

@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import covenantSpells from 'common/SPELLS/shadowlands/covenants/warlock'
-import talents from 'common/TALENTS/warlock';
+import TALENTS from 'common/TALENTS/warlock';
 import Combatant from 'parser/core/Combatant';
 
 const defaultDurations = {
@@ -8,11 +8,11 @@ const defaultDurations = {
   [SPELLS.AGONY.id]: 18000,
   [SPELLS.CORRUPTION_DEBUFF.id]: 14000,
   // Talents
-  [talents.SIPHON_LIFE_TALENT.id]: 15000,
-  [talents.UNSTABLE_AFFLICTION_TALENT.id]: 16000,
-  [talents.PHANTOM_SINGULARITY_TALENT.id]: 16000,
-  [talents.VILE_TAINT_TALENT.id]: 10000,
-  [talents.SOUL_ROT_TALENT.id]: 8000,
+  [TALENTS.SIPHON_LIFE_TALENT.id]: 15000,
+  [TALENTS.UNSTABLE_AFFLICTION_TALENT.id]: 16000,
+  [TALENTS.PHANTOM_SINGULARITY_TALENT.id]: 16000,
+  [TALENTS.VILE_TAINT_TALENT.id]: 10000,
+  [TALENTS.SOUL_ROT_TALENT.id]: 8000,
   // Shadowlands Covenant Abilities
   [covenantSpells.SCOURING_TITHE.id]: 18000,
   [covenantSpells.SOUL_ROT.id]: 8000,
@@ -22,12 +22,12 @@ const defaultDurations = {
 const affectedByCreepingDeath = [
   SPELLS.AGONY.id,
   SPELLS.CORRUPTION_DEBUFF.id,
-  talents.SIPHON_LIFE_TALENT.id,
-  talents.UNSTABLE_AFFLICTION_TALENT.id,
+  TALENTS.SIPHON_LIFE_TALENT.id,
+  TALENTS.UNSTABLE_AFFLICTION_TALENT.id,
 ] as const;
 
 export const getDotDurations = (combatant: Combatant): Record<number, number> =>
-  combatant.hasTalent(talents.CREEPING_DEATH_TALENT.id)
+  combatant.hasTalent(TALENTS.CREEPING_DEATH_TALENT.id)
     ? Object.fromEntries(
         Object.entries(defaultDurations).map(([key, value]) => [
           key,

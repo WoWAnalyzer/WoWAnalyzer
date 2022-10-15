@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
-import talents from 'common/TALENTS/warlock';
+import TALENTS from 'common/TALENTS/warlock';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -21,7 +21,7 @@ class Haunt extends Analyzer {
   protected enemies!: Enemies;
 
   get uptime() {
-    return this.enemies.getBuffUptime(talents.HAUNT_TALENT.id) / this.owner.fightDuration;
+    return this.enemies.getBuffUptime(TALENTS.HAUNT_TALENT.id) / this.owner.fightDuration;
   }
 
   get dps() {
@@ -46,7 +46,7 @@ class Haunt extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.HAUNT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HAUNT_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
@@ -56,7 +56,7 @@ class Haunt extends Analyzer {
       return;
     }
 
-    const hasHaunt = target.hasBuff(talents.HAUNT_TALENT.id, event.timestamp);
+    const hasHaunt = target.hasBuff(TALENTS.HAUNT_TALENT.id, event.timestamp);
 
     if (hasHaunt) {
       this.bonusDmg += calculateEffectiveDamage(event, HAUNT_DAMAGE_BONUS);
@@ -67,12 +67,12 @@ class Haunt extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={talents.HAUNT_TALENT.id} /> debuff uptime is too low. While it's
+          Your <SpellLink id={TALENTS.HAUNT_TALENT.id} /> debuff uptime is too low. While it's
           usually not possible to get 100% uptime due to travel and cast time, you should aim for as
           much uptime on the debuff as possible.
         </>,
       )
-        .icon(talents.HAUNT_TALENT.icon)
+        .icon(TALENTS.HAUNT_TALENT.icon)
         .actual(
           t({
             id: 'warlock.affliction.suggestions.haunt.uptime',
@@ -95,7 +95,7 @@ class Haunt extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={talents.HAUNT_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.HAUNT_TALENT.id}>
           {formatPercentage(this.uptime)} % <small>uptime</small>
           <br />
           {formatNumber(this.dps)} DPS{' '}
@@ -108,11 +108,11 @@ class Haunt extends Analyzer {
   }
 
   subStatistic() {
-    const history = this.enemies.getDebuffHistory(talents.HAUNT_TALENT.id);
+    const history = this.enemies.getDebuffHistory(TALENTS.HAUNT_TALENT.id);
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={talents.HAUNT_TALENT.id} />
+          <SpellIcon id={TALENTS.HAUNT_TALENT.id} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)} % <small>uptime</small>

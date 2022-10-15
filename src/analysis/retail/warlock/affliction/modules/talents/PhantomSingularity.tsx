@@ -1,5 +1,5 @@
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
-import talents from 'common/TALENTS/warlock';
+import TALENTS from 'common/TALENTS/warlock';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -14,11 +14,11 @@ class PhantomSingularity extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.PHANTOM_SINGULARITY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.PHANTOM_SINGULARITY_TALENT.id);
   }
 
   statistic() {
-    const spell = this.abilityTracker.getAbility(talents.PHANTOM_SINGULARITY_TALENT.id);
+    const spell = this.abilityTracker.getAbility(TALENTS.PHANTOM_SINGULARITY_TALENT.id);
     const damage = spell.damageEffective + spell.damageAbsorbed;
     const dps = (damage / this.owner.fightDuration) * 1000;
     return (
@@ -27,7 +27,7 @@ class PhantomSingularity extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(damage)} damage`}
       >
-        <BoringSpellValueText spellId={talents.PHANTOM_SINGULARITY_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.PHANTOM_SINGULARITY_TALENT.id}>
           {formatNumber(dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total

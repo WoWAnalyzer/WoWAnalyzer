@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import talents from 'common/TALENTS/warlock';
+import TALENTS from 'common/TALENTS/warlock';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -15,7 +15,7 @@ class Nightfall extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.NIGHTFALL_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.NIGHTFALL_TALENT.id);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.NIGHTFALL_BUFF),
       this.onNightfallApplyRefresh,
@@ -49,7 +49,7 @@ class Nightfall extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
-        <BoringSpellValueText spellId={talents.NIGHTFALL_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.NIGHTFALL_TALENT.id}>
           {this.wastedProcs} <small>wasted procs</small>
         </BoringSpellValueText>
       </Statistic>
