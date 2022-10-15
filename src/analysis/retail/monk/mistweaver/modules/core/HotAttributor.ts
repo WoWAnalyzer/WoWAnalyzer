@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
 import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
@@ -25,7 +26,7 @@ class HotAttributor extends Analyzer {
     this.addEventListener(
       Events.applybuff
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.ENVELOPING_MIST, SPELLS.ENVELOPING_MIST_TFT]),
+        .spell([TALENTS_MONK.ENVELOPING_MIST_TALENT, SPELLS.ENVELOPING_MIST_TFT]),
       this.onApplyEnvm,
     );
     this.addEventListener(
