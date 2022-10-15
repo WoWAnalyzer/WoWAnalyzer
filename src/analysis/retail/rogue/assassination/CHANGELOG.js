@@ -1,5 +1,6 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 import { Tyndi, Zeboot, Putro, Hordehobbs, Bloodfox, Akai } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
@@ -7,7 +8,7 @@ import { SpellLink } from 'interface';
 export default [
   change(date(2022, 4,6), 'Added numerous potency conduits and updated legendary modules', Tyndi ),
   change(date(2022, 3, 6), <>Bump to partial support for 9.2</>, Tyndi),
-  change(date(2021, 8, 12), <>Added <SpellLink id={SPELLS.FLAGELLATION.id} /> suggestion in overview section. Fixed Flagellation damage in statistics section.</>, Akai),
+  change(date(2021, 8, 12), <>Added <SpellLink id={TALENTS.FLAGELLATION_TALENT.id} /> suggestion in overview section. Fixed Flagellation damage in statistics section.</>, Akai),
   change(date(2021, 5, 2), <>Fix bug in Sepsis analyzer in mythic plus analysis.</>, Hordehobbs),
   change(date(2021, 4, 25), <>Added additional functionality to <SpellLink id={SPELLS.SEPSIS.id} /> analyzers. </>, Hordehobbs),
   change(date(2021, 4, 11), <>Adjusted logic to ensure correct <SpellLink id={SPELLS.MASTER_ASSASSIN_BUFF.id} /> usage is accounted for.</>, Bloodfox),
