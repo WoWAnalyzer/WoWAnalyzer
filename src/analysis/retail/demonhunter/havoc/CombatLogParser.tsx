@@ -9,6 +9,7 @@ import {
   SigilOfFlame,
   SwallowedAnger,
   TheHunt,
+  UnnaturalMalice,
 } from 'analysis/retail/demonhunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -109,6 +110,7 @@ class CombatLogParser extends CoreCombatLogParser {
     growingInferno: GrowingInferno,
     burningHatred: BurningHatred,
     demonic: Demonic,
+    unnaturalMalice: UnnaturalMalice,
     swallowedAnger: SwallowedAnger,
 
     // Resources
