@@ -26,11 +26,11 @@ const config: Config = {
   isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
-  description: <>Proof of Concept analysis for TBCC Priests.</>,
+  description: <>Analysis for WOTLK Priests.</>,
   pages: {
     overview: {
       hideChecklist: false,
-      text: <>TBC support is still a Work in Progress.</>,
+      text: <>WOTLK support is still a Work in Progress.</>,
       type: 'info',
     },
   },
@@ -40,16 +40,30 @@ const config: Config = {
   builds: {
     [Build.DEFAULT]: {
       url: 'standard',
-      name: '20/41/0',
-      talents: [20, 41, 0],
-      icon: <Icon icon="spell_holy_summonlightwell" />,
+      name: 'Standard',
+      talents: [53, 18, 0],
+      icon: <Icon icon="class_priest" />,
       visible: true,
     },
     [Build.DISC]: {
       url: 'disc',
-      name: '51/41/0',
-      talents: [54, 7, 0],
-      icon: <Icon icon="spell_holy_summonlightwell" />,
+      name: 'Disc',
+      talents: [53, 18, 0],
+      icon: <Icon icon="spell_holy_wordfortitude" />,
+      visible: true,
+    },
+    [Build.HOLY]: {
+      url: 'holy',
+      name: 'Holy',
+      talents: [18, 53, 0],
+      icon: <Icon icon="spell_holy_guardianspirit" />,
+      visible: true,
+    },
+    [Build.SHADOW]: {
+      url: 'shadow',
+      name: 'Shadow',
+      talents: [17, 0, 57],
+      icon: <Icon icon="spell_shadow_shadowwordpain" />,
       visible: true,
     },
   },
@@ -69,12 +83,12 @@ const config: Config = {
         ...lowRankSpells[SPELLS.FLASH_HEAL],
         SPELLS.GREATER_HEAL,
         ...lowRankSpells[SPELLS.GREATER_HEAL],
-
         SPELLS.PRAYER_OF_HEALING,
         ...lowRankSpells[SPELLS.PRAYER_OF_HEALING],
         SPELLS.PENANCE_HEALING,
         ...lowRankSpells[SPELLS.PENANCE_HEALING],
-
+        SPELLS.BINDING_HEAL,
+        ...lowRankSpells[SPELLS.BINDING_HEAL],
       ],
       [SPELLS.PAIN_SUPPRESSION, SPELLS.GUARDIAN_SPIRIT],
       [
@@ -87,6 +101,10 @@ const config: Config = {
         ...lowRankSpells[SPELLS.SHADOW_WORD_DEATH],
         SPELLS.MIND_BLAST,
         ...lowRankSpells[SPELLS.MIND_BLAST],
+        SPELLS.MIND_FLAY,
+        ...lowRankSpells[SPELLS.MIND_FLAY],
+        SPELLS.MIND_SEAR,
+        ...lowRankSpells[SPELLS.MIND_SEAR],
         SPELLS.HOLY_FIRE,
         ...lowRankSpells[SPELLS.HOLY_FIRE],
         SPELLS.PENANCE_DAMAGE,
