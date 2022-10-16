@@ -1953,3 +1953,8 @@ export const Litena: Contributor = {
     },
   ],
 };
+
+export const jazminite: Contributor = {
+  nickname: 'jazminite',
+  github: 'jazminite',
+};
