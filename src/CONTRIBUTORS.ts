@@ -1901,6 +1901,11 @@ export const Lucky0604: Contributor = {
   discord: 'Lucky0604#8966',
 };
 
+export const Omegabiscuit: Contributor = {
+  nickname: 'Omegabiscuit',
+  github: 'omegabiscuit',
+};
+
 export const ToppleTheNun: Contributor = {
   nickname: 'ToppleTheNun',
   github: 'ToppleTheNun',
@@ -1952,6 +1957,11 @@ export const Litena: Contributor = {
       link: 'https://worldofwarcraft.com/en-us/character/eu/silvermoon/Litena',
     },
   ],
+};
+
+export const jazminite: Contributor = {
+  nickname: 'jazminite',
+  github: 'jazminite',
 };
 
 export const Jonfanz: Contributor = {
