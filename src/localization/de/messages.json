@@ -257,6 +257,7 @@
   "deathknight.unholy.suggestions.virulentPlague.uptime": "{0}% Virulente Seuche Uptime",
   "demonhunter.shared.suggestions.blur.uptime": "{0}% Blur uptime",
   "demonhunter.shared.suggestions.consumeMagic.furyWasted": "{0}% Fury wasted",
+  "demonhunter.shared.suggestions.disrupt.furyWasted": "{0}% Fury wasted",
   "demonhunter.shared.suggestions.sigilOfFlame.furyWasted": "{0}% Fury wasted",
   "demonhunter.havoc.suggestions.alwaysBeCasting.downtime": "{0}% Downtime",
   "demonhunter.havoc.suggestions.demonBlades.furyWasted": "{0}% Jähzorn verschwendet",

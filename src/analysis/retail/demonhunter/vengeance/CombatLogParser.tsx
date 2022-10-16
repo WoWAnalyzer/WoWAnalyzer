@@ -2,6 +2,7 @@ import {
   CharredWarblades,
   CollectiveAnguish,
   Demonic,
+  DisruptingFury,
   Felblade,
   FlamesOfFury,
   ImmolationAura,
@@ -85,6 +86,7 @@ class CombatLogParser extends CoreCombatLogParser {
     unnaturalMalice: UnnaturalMalice,
     swallowedAnger: SwallowedAnger,
     flamesOfFury: FlamesOfFury,
+    disruptingFury: DisruptingFury,
 
     // Spell
     immolationAura: ImmolationAura,
