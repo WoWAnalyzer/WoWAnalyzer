@@ -134,9 +134,10 @@ class T31TierSet extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={
           <ul>
-            <li>{this.numExtensions} Renewing Mist extensions</li>
+            <li>{this.numExtensions} 4 pc extensions</li>
             <li>{this.extraVivCleaves} extra Vivify cleaves from extensions</li>
             <li>{formatNumber(this.extraVivOverhealing)} extra Vivify overhealing</li>
+            <li>{formatNumber(this.extraVivAbsorbed)} extra Vivify healing absorbed</li>
           </ul>
         }
       >
