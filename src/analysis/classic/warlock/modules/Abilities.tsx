@@ -194,6 +194,11 @@ class Abilities extends CoreAbilities {
         gcd: { static: 1500 },
       },
       {
+        spell: [SPELLS.METAMORPHOSIS],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { static: 1500 },
+      },
+      {
         spell: [SPELLS.RAIN_OF_FIRE, ...lowRankSpells[SPELLS.RAIN_OF_FIRE]],
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: { static: 1500 },

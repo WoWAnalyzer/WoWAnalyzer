@@ -37,6 +37,7 @@ export const IMMOLATION_AURA = 50589;
 export const INCINERATE = 47838;
 export const INFERNO = 1122;
 export const LIFE_TAP = 57946;
+export const METAMORPHOSIS = 47241;
 export const RAIN_OF_FIRE = 47820;
 export const RITUAL_OF_DOOM = 18540;
 export const RITUAL_OF_SOULS = 58887;
