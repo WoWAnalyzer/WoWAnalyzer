@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -66,7 +67,7 @@ class Eradication extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ERADICATION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ERADICATION_TALENT.id);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.INCINERATE, SPELLS.CHAOS_BOLT]),
       this.onTravelSpellCast,
@@ -158,7 +159,7 @@ class Eradication extends Analyzer {
           </small>
         </>,
       )
-        .icon(SPELLS.ERADICATION_TALENT.icon)
+        .icon(TALENTS.ERADICATION_TALENT.icon)
         .actual(
           t({
             id: 'warlock.destruction.suggestions.eradication.uptime',
@@ -176,7 +177,7 @@ class Eradication extends Analyzer {
         size="flexible"
         tooltip={`Bonus damage: ${formatThousands(this.bonusDmg)}`}
       >
-        <BoringSpellValueText spellId={SPELLS.ERADICATION_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.ERADICATION_TALENT.id}>
           {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total

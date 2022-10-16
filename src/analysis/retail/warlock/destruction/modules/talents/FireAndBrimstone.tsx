@@ -1,5 +1,6 @@
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -29,7 +30,7 @@ class FireAndBrimstone extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FIRE_AND_BRIMSTONE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.FIRE_AND_BRIMSTONE_TALENT.id);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INCINERATE),
       this.onIncinerateCast,
@@ -77,12 +78,12 @@ class FireAndBrimstone extends Analyzer {
       .addSuggestion((suggest) =>
         suggest(
           <>
-            Your <SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} icon /> talent didn't
+            Your <SpellLink id={TALENTS.FIRE_AND_BRIMSTONE_TALENT.id} icon /> talent didn't
             contribute any bonus fragments. When there are no adds to cleave onto, this talent is
             useless and you should switch to a different talent.
           </>,
         )
-          .icon(SPELLS.FIRE_AND_BRIMSTONE_TALENT.icon)
+          .icon(TALENTS.FIRE_AND_BRIMSTONE_TALENT.icon)
           .actual('No bonus Soul Shard Fragments generated')
           .recommended('Different talent is recommended')
           .staticImportance(ISSUE_IMPORTANCE.MAJOR),
@@ -96,7 +97,7 @@ class FireAndBrimstone extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.bonusDmg)} bonus cleaved damage`}
       >
-        <BoringSpellValueText spellId={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.FIRE_AND_BRIMSTONE_TALENT.id}>
           {this.bonusFragments} <small>bonus Soul Shard Fragments</small> <br />
           {formatNumber(this.dps)} DPS{' '}
           <small>
