@@ -10,6 +10,7 @@ import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart'
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 import Channeling from 'parser/shared/normalizers/Channeling';
 
+import Guide from './Guide';
 import Abilities from './modules/Abilities';
 import AbilityTracker from './modules/core/AbilityTracker';
 import AtonementAnalyzer from './modules/core/AtonementAnalyzer';
@@ -112,6 +113,7 @@ class CombatLogParser extends CoreCombatLogParser {
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
     maliciousIntent: MaliciousIntent,
   };
+  static guide = Guide;
 }
 
 export default CombatLogParser;
