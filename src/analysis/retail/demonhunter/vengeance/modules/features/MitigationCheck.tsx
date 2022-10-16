@@ -9,7 +9,7 @@ class MitigationCheck extends CoreMitigationCheck {
     this.buffCheckPhysical = [SPELLS.DEMON_SPIKES_BUFF.id];
     this.buffCheckPhysAndMag = [SPELLS.METAMORPHOSIS_TANK.id];
 
-    this.debuffCheckPhysAndMag = [SPELLS.FIERY_BRAND_DEBUFF.id];
+    this.debuffCheckPhysAndMag = [SPELLS.FIERY_BRAND_DOT.id];
   }
 }
 
