@@ -33,6 +33,7 @@ import BonedustBrewAverageTargets from './modules/spells/BonedustBrewAverageTarg
 import FaelineStompHealing from './modules/spells/FaelineStompHealing';
 import AncientTeachingsoftheMonastery from './modules/spells/AncientTeachingsoftheMonastery';
 import CloudedFocus from './modules/spells/CloudedFocus';
+import DancingMists from './modules/spells/DancingMists';
 import EnvelopingBreath from './modules/spells/EnvelopingBreath';
 import EnvelopingMists from './modules/spells/EnvelopingMists';
 import EssenceFont from './modules/spells/EssenceFont';
@@ -111,6 +112,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
     bonedustBrewAverageTargets: BonedustBrewAverageTargets,
     cloudedFocus: CloudedFocus,
+    dancingMists: DancingMists,
     envelopingBreath: EnvelopingBreath,
     envelopingMists: EnvelopingMists,
     essenceFont: EssenceFont,
