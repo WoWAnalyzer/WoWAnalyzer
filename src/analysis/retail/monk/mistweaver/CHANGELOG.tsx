@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 10, 17), <>Added module for <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT.id}/></>, Trevor),
   change(date(2022, 10, 16), <>Added module for <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id}/></>, Trevor),
   change(date(2022, 10, 13), <>Cleaned up MW spells/talents files</>, Trevor),
   change(date(2022, 10, 13), <>Updated Rising Mist module for Dragonflight</>, Trevor),
