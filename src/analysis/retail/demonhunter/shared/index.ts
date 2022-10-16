@@ -10,4 +10,5 @@ export { default as Demonic } from './modules/talents/Demonic';
 export { default as SwallowedAnger } from './modules/talents/SwallowedAnger';
 export { default as UnnaturalMalice } from './modules/talents/UnnaturalMalice';
 export { default as FlamesOfFury } from './modules/talents/FlamesOfFury';
+export { default as DisruptingFury } from './modules/talents/DisruptingFury';
 export * from './constants';
