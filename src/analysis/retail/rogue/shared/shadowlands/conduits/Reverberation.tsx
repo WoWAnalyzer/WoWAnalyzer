@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
@@ -36,7 +37,7 @@ class Reverberation extends Analyzer {
     this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.REVERBERATION.id);
     this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.REVERBERATION.id);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ECHOING_REPRIMAND),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.ECHOING_REPRIMAND_TALENT),
       this.onDamage,
     );
   }

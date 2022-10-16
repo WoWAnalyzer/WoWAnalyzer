@@ -32,6 +32,10 @@ import BloodtalonsLinkNormalizer from 'analysis/retail/druid/feral/normalizers/B
 import RampantFerocity from 'analysis/retail/druid/feral/modules/spells/RampantFerocity';
 import EnergyGraph from 'analysis/retail/druid/feral/modules/core/energy/EnergyGraph';
 import BuilderUse from 'analysis/retail/druid/feral/modules/core/combopoints/BuilderUse';
+import DoubleClawedRake from 'analysis/retail/druid/feral/modules/spells/DoubleClawedRake';
+import Sabertooth from 'analysis/retail/druid/feral/modules/spells/Sabertooth';
+import SuddenAmbushLinkNormalizer from 'analysis/retail/druid/feral/normalizers/SuddenAmbushLinkNormalizer';
+import SuddenAmbush from 'analysis/retail/druid/feral/modules/spells/SuddenAmbush';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -40,6 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castLinkNormalizer: CastLinkNormalizer,
     ferociousBiteDrainLinkNormalizer: FerociousBiteDrainLinkNormalizer,
     bloodtalonsLinkNormalizer: BloodtalonsLinkNormalizer,
+    suddenAmbushLinkNormalizer: SuddenAmbushLinkNormalizer,
 
     // Core
     activeDruidForm: ActiveDruidForm,
@@ -81,6 +86,14 @@ class CombatLogParser extends CoreCombatLogParser {
     adaptiveSwarm: AdaptiveSwarmFeral,
     berserkBoosts: BerserkBoosts,
     rampantFerocity: RampantFerocity,
+    doubleClawedRake: DoubleClawedRake,
+    sabertooth: Sabertooth,
+    suddenAmbush: SuddenAmbush,
+
+    // resources
+    comboPointTracker: ComboPointTracker,
+    comboPointDetails: ComboPointDetails,
+    finisherUse: FinisherUse,
   };
 
   static guide = Guide;

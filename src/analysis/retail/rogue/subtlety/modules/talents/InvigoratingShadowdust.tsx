@@ -1,16 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
-import SPECS from 'game/SPECS';
+import TALENTS from 'common/TALENTS/rogue';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-import {
-  ASSASSINATION_ABILITY_COOLDOWNS,
-  OUTLAW_ABILITY_COOLDOWNS,
-  SUBTLETY_ABILITY_COOLDOWNS,
-} from './constants';
+import { SUBTLETY_ABILITY_COOLDOWNS } from '../../../shared/constants';
 
 /**
  * The Inigorating Shadowdust legendary reduces the cooldown of ALL abilities by 15 seconds after using Vanish. This is usable by all 3 Rogue specs.
@@ -23,26 +19,18 @@ class InvigoratingShadowdust extends Analyzer {
     abilities: Abilities,
     spellUsable: SpellUsable,
   };
-  cooldownReduction: number = 15000; // 15 seconds
+  cooldownReduction: number = 10000; // 15 seconds
   cooldowns: Spell[] = [];
   protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {
     super(options);
-    switch (this.selectedCombatant.specId) {
-      case SPECS.ASSASSINATION_ROGUE.id:
-        this.cooldowns = ASSASSINATION_ABILITY_COOLDOWNS;
-        break;
-      case SPECS.OUTLAW_ROGUE.id:
-        this.cooldowns = OUTLAW_ABILITY_COOLDOWNS;
-        break;
-      case SPECS.SUBTLETY_ROGUE.id:
-        this.cooldowns = SUBTLETY_ABILITY_COOLDOWNS;
-        break;
-      default:
-        break;
+    this.cooldowns = SUBTLETY_ABILITY_COOLDOWNS;
+    this.active = this.selectedCombatant.hasTalent(TALENTS.INVIGORATING_SHADOWDUST_TALENT);
+    if (!this.active) {
+      return;
     }
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.INVIGORATING_SHADOWDUST);
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VANISH), this.onCast);
   }
 

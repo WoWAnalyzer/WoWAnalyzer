@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 import { Options } from 'parser/core/Analyzer';
 
 import FilteredDamageTracker from './FilteredDamageTracker';
@@ -11,7 +11,7 @@ class StealthDamageTracker extends FilteredDamageTracker {
   constructor(options: Options) {
     super(options);
 
-    if (this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.SUBTERFUGE_TALENT)) {
       //Subterfuge allows use of stealth abilities for 3 seconds after stealth fades
       this.delayWindow += 3000;
     }

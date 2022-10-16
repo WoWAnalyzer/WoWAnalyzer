@@ -2,9 +2,10 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import Spell from 'common/SPELLS/Spell';
 import Combatant from 'parser/core/Combatant';
-import { CastEvent } from 'parser/core/Events';
+import { CastEvent, DamageEvent } from 'parser/core/Events';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { getHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 
 /** Feral combo point cap */
 export const MAX_CPS = 5;
@@ -129,4 +130,26 @@ export function directAoeBuilder(c: Combatant): Spell {
   return c.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT)
     ? TALENTS_DRUID.BRUTAL_SLASH_TALENT
     : SPELLS.SWIPE_CAT;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// MISC
+//
+
+/** Damage boost to a Shred or Rake from stealth */
+export const STEALTH_SHRED_RAKE_BOOST = 0.6;
+
+/** Effective combo points used by a Convoke'd Ferocious Bite */
+export const CONVOKE_FB_CPS = 4;
+
+/** Gets the number of CPs that were used to produce this Bite.
+ *  Takes DamageEvent instead of CastEvent to also catch Convoke'd bites */
+export function getBiteCps(event: DamageEvent) {
+  const hardcast = getHardcast(event);
+  if (hardcast) {
+    return getResourceSpent(hardcast, RESOURCE_TYPES.COMBO_POINTS);
+  } else {
+    // no hardcast -> from Convoke
+    return CONVOKE_FB_CPS;
+  }
 }

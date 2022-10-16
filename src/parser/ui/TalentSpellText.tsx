@@ -3,10 +3,10 @@ import { SpellLink } from 'interface';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import PropTypes from 'prop-types';
 import { ReactNode } from 'react';
+import { Talent } from 'common/TALENTS/types';
 
 interface Props {
-  spellId: number;
-  maxRanks: number;
+  talent: Talent;
   children: ReactNode;
   className?: string;
 }
@@ -21,21 +21,21 @@ interface Context {
  * Component will link to the talent with the current rank as well".
  */
 const TalentSpellText = (
-  { spellId, maxRanks, children, className }: Props,
+  { talent, children, className }: Props,
   { parser: { selectedCombatant } }: Context,
 ) => {
+  const spellId = talent.id;
   const rank = selectedCombatant.getTalentRank(spellId);
+  const maxRanks = talent.maxRanks;
   return (
     <div className={`pad boring-text ${className || ''}`}>
       <label>
         <SpellIcon id={spellId} /> <SpellLink id={spellId} icon={false} /> -{' '}
         <TooltipElement
-            content={`Talented into with ${rank} point${
-              rank > 1 ? 's' : ''
-            } out of ${maxRanks} point${maxRanks > 1 ? 's' : ''}`}
-          >
-            {rank}/{maxRanks}
-          </TooltipElement>
+          content={`Talented into with ${rank} out of ${maxRanks} point${maxRanks > 1 ? 's' : ''}`}
+        >
+          {rank}/{maxRanks}
+        </TooltipElement>
       </label>
       <div className="value">{children}</div>
     </div>

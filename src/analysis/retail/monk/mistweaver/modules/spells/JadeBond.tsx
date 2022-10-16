@@ -21,7 +21,7 @@ class JadeBond extends Analyzer {
   };
   cooldownReductionUsed: number = 0;
   cooldownReductionWasted: number = 0;
-  spellToReduce: Spell = SPELLS.INVOKE_YULON_THE_JADE_SERPENT;
+  spellToReduce: Spell = TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT;
   healingBoost: number = 0;
   healing: number = 0;
   conduitRank: number = 0;

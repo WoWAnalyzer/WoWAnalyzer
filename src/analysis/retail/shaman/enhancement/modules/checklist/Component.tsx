@@ -56,6 +56,9 @@ const EnhancementShamanChecklist = (props: ChecklistProps & AplRuleProps) => {
         }
       >
         <AbilityRequirement spell={TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id} />
+        {combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ELEMENTAL_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_SHAMAN.ASCENDANCE_ELEMENTAL_TALENT.id} />
+        )}
         {combatant.hasCovenant(COVENANTS.KYRIAN.id) && (
           <AbilityRequirement spell={SPELLS.VESPER_TOTEM.id} />
         )}
@@ -101,6 +104,7 @@ const EnhancementShamanChecklist = (props: ChecklistProps & AplRuleProps) => {
         cooldowns={[
           // TODO: Enable talent as spell
           // TALENTS_SHAMAN.FERAL_SPIRIT_TALENT,
+          // TALENTS_SHAMAN.ASCENDANCE_ELEMENTAL_TALENT,
           SPELLS.VESPER_TOTEM,
           SPELLS.PRIMORDIAL_WAVE_CAST,
           SPELLS.FAE_TRANSFUSION,

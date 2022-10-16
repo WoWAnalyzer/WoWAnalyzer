@@ -1,17 +1,18 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 
 class InefficientLightOfTheMartyrs extends Analyzer {
-  // have to track over multiple events when player has Maraad's legendary
+  // have to track over multiple events when player has Maraad's talent
   // in these cases we'll have a little inaccuracy when DoT is refreshed, but should be close enough
   /** tracks damage taken from LotM since last heal */
   damageTakenSinceLast: number = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = !this.selectedCombatant.hasLegendary(SPELLS.MARAADS_DYING_BREATH);
+    this.active = !this.selectedCombatant.hasTalent(TALENTS.MARAADS_DYING_BREATH_TALENT);
     if (!this.active) {
       return;
     }

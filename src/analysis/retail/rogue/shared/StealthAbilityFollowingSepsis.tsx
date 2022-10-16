@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
-import COVENANTS from 'game/shadowlands/COVENANTS';
+import TALENTS from 'common/TALENTS/rogue';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -31,16 +31,22 @@ class StealthAbilityFollowingSepsis extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
-    STEALTH_ABILITIES.forEach((ability) => {
-      this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(ability), this.onStealthAbility);
-    });
+
     const specId = this.selectedCombatant.specId;
     // Outlaw and Assassination should use Ambush, Sub should use Shadowstrike.
     this.properStealthAbility =
       specId === SPECS.OUTLAW_ROGUE.id || specId === SPECS.ASSASSINATION_ROGUE.id
         ? SPELLS.AMBUSH
         : SPELLS.SHADOWSTRIKE;
+
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SEPSIS_TALENT.id);
+    if (!this.active) {
+      return;
+    }
+
+    STEALTH_ABILITIES.forEach((ability) => {
+      this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(ability), this.onStealthAbility);
+    });
   }
 
   onStealthAbility(event: CastEvent) {
@@ -77,7 +83,7 @@ class StealthAbilityFollowingSepsis extends Analyzer {
       tooltip = (
         <>
           You used <SpellLink id={this.properStealthAbility.id} />
-          following the completion of <SpellLink id={SPELLS.SEPSIS_POISON.id} />
+          following the completion of <SpellLink id={TALENTS.SEPSIS_TALENT.id} />
           every time! Great job!
         </>
       );
@@ -86,7 +92,7 @@ class StealthAbilityFollowingSepsis extends Analyzer {
         <>
           You used the incorrect stealth ability instead of{' '}
           <SpellLink id={this.properStealthAbility.id} />
-          following the completion of <SpellLink id={SPELLS.SEPSIS_POISON.id} />
+          following the completion of <SpellLink id={TALENTS.SEPSIS_TALENT.id} />
         </>
       );
     }
@@ -118,7 +124,7 @@ class StealthAbilityFollowingSepsis extends Analyzer {
           dropdown={dropdown}
         >
           <BoringSpellValue
-            spellId={SPELLS.SEPSIS.id}
+            spellId={TALENTS.SEPSIS_TALENT.id}
             value={`${this.badCasts.length}`}
             label="Bad Casts after Sepsis Finishes"
           />

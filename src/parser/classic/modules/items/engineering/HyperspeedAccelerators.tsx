@@ -34,4 +34,3 @@ class HyperspeedAccelerators extends Analyzer {
 }
 
 export default HyperspeedAccelerators;
-

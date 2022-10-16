@@ -19,7 +19,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = !this.selectedCombatant.hasLegendary(SPELLS.MARAADS_DYING_BREATH);
+    this.active = !this.selectedCombatant.hasTalent(TALENTS.MARAADS_DYING_BREATH_TALENT);
     if (!this.active) {
       return;
     }

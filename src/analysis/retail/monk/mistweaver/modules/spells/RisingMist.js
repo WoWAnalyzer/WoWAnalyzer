@@ -215,7 +215,7 @@ class RisingMist extends Analyzer {
 
   extendHots(event) {
     const spellId = event.ability.guid;
-    if (SPELLS.RISING_SUN_KICK.id !== spellId) {
+    if (TALENTS_MONK.RISING_SUN_KICK_TALENT.id !== spellId) {
       return;
     }
 

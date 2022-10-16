@@ -431,7 +431,7 @@ const spells = spellIndexableList({
     icon: 'ability_bastion_demonhunter',
   },
   ELYSIAN_DECREE_DAMAGE: {
-    id: 307046,
+    id: 389860,
     name: 'Elysian Decree',
     icon: 'ability_bastion_demonhunter',
   },
@@ -504,6 +504,11 @@ const spells = spellIndexableList({
     id: 212800,
     name: 'Blur',
     icon: 'ability_demonhunter_blur',
+  },
+  FEL_DEVASTATION_DAMAGE: {
+    id: 212105,
+    name: 'Fel Devastation',
+    icon: 'ability_demonhunter_feldevastation',
   },
   //endregion
 });
