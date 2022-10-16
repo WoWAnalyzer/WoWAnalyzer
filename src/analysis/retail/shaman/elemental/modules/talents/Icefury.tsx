@@ -16,7 +16,7 @@ class Icefury extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.ICEFURY_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.LAVA_BURST_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.FROST_SHOCK_TALENT),
       this.onFrostShockCast,
     );
   }
@@ -46,7 +46,7 @@ class Icefury extends Analyzer {
       suggest(
         <>
           You should fully utilize your <SpellLink id={TALENTS.ICEFURY_TALENT.id} /> casts by
-          casting 4 <SpellLink id={TALENTS.LAVA_BURST_TALENT.id} />s before the{' '}
+          casting 4 <SpellLink id={TALENTS.FROST_SHOCK_TALENT.id} />s before the{' '}
           <SpellLink id={TALENTS.ICEFURY_TALENT.id} /> buff expires. Pay attention to the remaining
           duration of the buff to ensure you have time to use all of the stacks.
         </>,
@@ -55,7 +55,7 @@ class Icefury extends Analyzer {
         .actual(
           <>
             On average, only {actual.toFixed(2)} <SpellLink id={TALENTS.ICEFURY_TALENT.id} />
-            (s) stacks were consumed with <SpellLink id={TALENTS.LAVA_BURST_TALENT.id} /> casts
+            (s) stacks were consumed with <SpellLink id={TALENTS.FROST_SHOCK_TALENT.id} /> casts
             before <SpellLink id={TALENTS.ICEFURY_TALENT.id} /> buff expired.
           </>,
         )

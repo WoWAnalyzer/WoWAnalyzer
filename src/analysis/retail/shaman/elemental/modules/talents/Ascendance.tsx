@@ -21,7 +21,7 @@ class Ascendance extends Analyzer {
   numCasts = {
     [TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id]: 0,
     [TALENTS.LAVA_BURST_TALENT.id]: 0,
-    [SPELLS.EARTH_SHOCK.id]: 0,
+    [TALENTS.EARTH_SHOCK_TALENT.id]: 0,
     [TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id]: 0,
     others: 0,
   };

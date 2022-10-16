@@ -342,7 +342,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.LAVA_BURST_TALENT.id,
+        spell: SPELLS.LAVA_BURST.id,
         buffSpellId: SPELLS.LAVA_SURGE.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT_SHARED.id) ? 2 : 1,
@@ -361,7 +361,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 60,
       },
       {
-        spell: TALENTS.CHAIN_LIGHTNING_TALENT.id,
+        spell: SPELLS.CHAIN_LIGHTNING.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         gcd: {
           base: 1500,
@@ -564,7 +564,7 @@ class Abilities extends CoreAbilities {
         isUndetectable: true, // its not but, why.
       },
       {
-        spell: TALENTS.LAVA_BURST_TALENT.id,
+        spell: SPELLS.FROST_SHOCK.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         gcd: {
           base: 1500,

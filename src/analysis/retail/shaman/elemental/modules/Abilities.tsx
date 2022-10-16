@@ -9,7 +9,7 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
     return [
       {
-        spell: SPELLS.LAVA_BURST_DAMAGE.id,
+        spell: TALENTS.LAVA_BURST_TALENT.id,
         charges: combatant.hasTalent(TALENTS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
         cooldown: (haste) => 8 / (1 + haste),
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -25,7 +25,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.LIQUID_MAGMA_TOTEM_DAMAGE.id,
+        spell: TALENTS.LIQUID_MAGMA_TOTEM_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
@@ -56,7 +56,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ELEMENTAL_BLAST.id,
+        spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id),
         cooldown: 12,

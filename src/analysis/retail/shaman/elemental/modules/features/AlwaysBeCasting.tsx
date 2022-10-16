@@ -24,7 +24,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         <>
           Your downtime can be improved. If you need to move use{' '}
           <SpellLink id={SPELLS.FLAME_SHOCK.id} />, <SpellLink id={SPELLS.EARTH_SHOCK.id} /> or{' '}
-          <SpellLink id={TALENTS.LAVA_BURST_TALENT.id} />
+          <SpellLink id={TALENTS.FROST_SHOCK_TALENT.id} />
         </>,
       )
         .icon('spell_mage_altertime')

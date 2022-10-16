@@ -53,7 +53,7 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
       this.getUnleashLifeBuffDetails(spellInfo, spellId);
     } else if (spellId === SPELLS.EARTH_SHIELD_TALENT.id) {
       this.getEarthShieldBuffDetails(spellInfo);
-    } else if (spellId === TALENTS.LAVA_BURST_TALENT.id) {
+    } else if (spellId === SPELLS.LAVA_BURST.id) {
       this.getLavaBurstDamageDetails(spellInfo);
     }
     // Primordial
