@@ -67,8 +67,9 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 16), 'Update SpellLink to accept Spell instances.', ToppleTheNun),
   change(date(2022, 10, 16), 'Adding sourceInstance to BuffEvent', Jonfanz),
-  change(date(2022, 10, 14), 'Updates to EventLinkNormazlier to allow for more advanced usage.', Sref),
+  change(date(2022, 10, 14), 'Updates to EventLinkNormalizer to allow for more advanced usage.', Sref),
   change(date(2022, 10, 13), 'Adding Hyperspeed Accelerators to WOTLK analysis.', Khadaj),
   change(date(2022, 10, 13), 'Adding Frag Belt to WOTLK analysis.', Khadaj),
   change(date(2022, 10, 11), 'Remove Effusive Anima Accelerator analyzer.', ToppleTheNun),
