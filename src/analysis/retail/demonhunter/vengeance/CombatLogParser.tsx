@@ -2,12 +2,16 @@ import {
   CharredWarblades,
   CollectiveAnguish,
   Demonic,
+  DisruptingFury,
   Felblade,
+  FlamesOfFury,
   ImmolationAura,
   MasterOfTheGlaive,
   ShatteredRestoration,
   SigilOfFlame,
+  SwallowedAnger,
   TheHunt,
+  UnnaturalMalice,
 } from 'analysis/retail/demonhunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
@@ -36,7 +40,9 @@ import FrailtyDebuff from './modules/talents/FrailtyDebuff';
 import SpiritBombSoulsConsume from './modules/talents/SpiritBombSoulsConsume';
 import PainbringerBuff from './modules/talents/PainbringerBuff';
 import DarkglareBoon from './modules/talents/DarkglareBoon';
+import StokeTheFlames from './modules/talents/StokeTheFlames';
 import ShearFractureNormalizer from './normalizers/ShearFractureNormalizer';
+import FieryBrand from 'analysis/retail/demonhunter/vengeance/modules/talents/FieryBrand';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -77,6 +83,12 @@ class CombatLogParser extends CoreCombatLogParser {
     darkglareBoon: DarkglareBoon,
     collectiveAnguish: CollectiveAnguish,
     demonic: Demonic,
+    stokeTheFlames: StokeTheFlames,
+    unnaturalMalice: UnnaturalMalice,
+    swallowedAnger: SwallowedAnger,
+    flamesOfFury: FlamesOfFury,
+    disruptingFury: DisruptingFury,
+    fieryBrand: FieryBrand,
 
     // Spell
     immolationAura: ImmolationAura,

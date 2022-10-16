@@ -16,7 +16,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
     {
-      spell: SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id,
+      spell: TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,

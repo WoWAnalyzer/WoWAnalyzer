@@ -62,7 +62,7 @@ class DivineImage extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             Total Images Summoned: {this.totalProcs}

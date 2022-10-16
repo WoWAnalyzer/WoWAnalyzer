@@ -49,7 +49,7 @@ class NourishingChi extends Analyzer {
       return;
     }
 
-    if (target.hasBuff(SPELLS.LIFE_COCOON.id, event.timestamp, 0, 0)) {
+    if (target.hasBuff(TALENTS_MONK.LIFE_COCOON_TALENT.id, event.timestamp, 0, 0)) {
       // idea
       // heal = boostedHeal / (1.5 + x)
       // bonusHeal = heal * x

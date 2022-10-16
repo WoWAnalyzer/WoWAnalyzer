@@ -110,12 +110,7 @@ const talents = createTalentList({
     maxRanks: 1,
     manaCost: 1000,
   },
-  REBUKE_TALENT: {
-    id: 96231,
-    name: 'Rebuke',
-    icon: 'spell_holy_rebuke',
-    maxRanks: 1,
-  },
+  REBUKE_TALENT: { id: 96231, name: 'Rebuke', icon: 'spell_holy_rebuke', maxRanks: 1 },
   GOLDEN_PATH_TALENT: {
     id: 377128,
     name: 'Golden Path',
@@ -154,12 +149,7 @@ const talents = createTalentList({
     icon: 'spell_holy_greaterblessingofsalvation',
     maxRanks: 2,
   },
-  AFTERIMAGE_TALENT: {
-    id: 385414,
-    name: 'Afterimage',
-    icon: 'spell_holy_aspiration',
-    maxRanks: 1,
-  },
+  AFTERIMAGE_TALENT: { id: 385414, name: 'Afterimage', icon: 'spell_holy_aspiration', maxRanks: 1 },
   SACRIFICE_OF_THE_JUST_TALENT: {
     id: 384820,
     name: 'Sacrifice of the Just',
@@ -183,13 +173,6 @@ const talents = createTalentList({
     name: 'Improved Blessing of Protection',
     icon: 'spell_holy_sealofprotection',
     maxRanks: 1,
-  },
-  BLESSING_OF_SPELLWARDING_TALENT: {
-    id: 204018,
-    name: 'Blessing of Spellwarding',
-    icon: 'spell_holy_blessingofprotection',
-    maxRanks: 1,
-    manaCost: 1500,
   },
   INCANDESCENCE_TALENT: {
     id: 385464,
@@ -323,7 +306,7 @@ const talents = createTalentList({
   RELENTLESS_INQUISITOR_TALENT: {
     id: 383388,
     name: 'Relentless Inquisitor',
-    icon: 'spell_holy_divinepurpose',
+    icon: 'spell_holy_mindvision',
     maxRanks: 2,
   },
   EMPYREAN_LEGACY_TALENT: {
@@ -415,6 +398,13 @@ const talents = createTalentList({
     icon: 'spell_holy_pureofheart',
     maxRanks: 2,
   },
+  BLESSING_OF_SPELLWARDING_TALENT: {
+    id: 204018,
+    name: 'Blessing of Spellwarding',
+    icon: 'spell_holy_blessingofprotection',
+    maxRanks: 1,
+    manaCost: 1500,
+  },
   IMPROVED_ARDENT_DEFENDER_TALENT: {
     id: 393114,
     name: 'Improved Ardent Defender',
@@ -442,10 +432,10 @@ const talents = createTalentList({
   TYRS_ENFORCER_TALENT: {
     id: 378285,
     name: "Tyr's Enforcer",
-    icon: 'inv_summerfest_firespirit',
+    icon: 'spell_holy_persecution',
     maxRanks: 2,
   },
-  SENTINEL_TALENT: { id: 389539, name: 'Sentinel', icon: 'spell_holy_holynova', maxRanks: 1 },
+  SENTINEL_TALENT: { id: 385438, name: 'Sentinel', icon: 'spell_holy_holynova', maxRanks: 1 },
   HAND_OF_THE_PROTECTOR_TALENT: {
     id: 315924,
     name: 'Hand of the Protector',
@@ -612,7 +602,12 @@ const talents = createTalentList({
     icon: 'ability_skyreach_spinning_blade',
     maxRanks: 1,
   },
-  ZEAL_TALENT: { id: 269569, name: 'Zeal', icon: 'spell_holy_sealofblood', maxRanks: 1 },
+  EMPYREAN_POWER_TALENT: {
+    id: 326732,
+    name: 'Empyrean Power',
+    icon: 'ability_paladin_sheathoflight',
+    maxRanks: 1,
+  },
   SHIELD_OF_VENGEANCE_TALENT: {
     id: 184662,
     name: 'Shield of Vengeance',
@@ -704,12 +699,7 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   TRUTHS_WAKE_TALENT: { id: 383350, name: "Truth's Wake", icon: 'inv_mace_104', maxRanks: 1 },
-  EMPYREAN_POWER_TALENT: {
-    id: 326732,
-    name: 'Empyrean Power',
-    icon: 'ability_paladin_sheathoflight',
-    maxRanks: 1,
-  },
+  ZEAL_TALENT: { id: 269569, name: 'Zeal', icon: 'spell_holy_sealofblood', maxRanks: 1 },
   FIRES_OF_JUSTICE_TALENT: {
     id: 203316,
     name: 'Fires of Justice',
@@ -916,7 +906,7 @@ const talents = createTalentList({
   SHINING_SAVIOR_TALENT: {
     id: 388005,
     name: 'Shining Savior',
-    icon: 'ability_paladin_longarmofthelaw',
+    icon: 'ability_paladin_sacredcleansing',
     maxRanks: 1,
   },
   UNWAVERING_SPIRIT_TALENT: {
@@ -976,11 +966,10 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   LIGHT_OF_THE_MARTYR_TALENT: {
-    id: 183998,
+    id: 219562,
     name: 'Light of the Martyr',
-    icon: 'ability_paladin_lightofthemartyr',
+    icon: 'spell_holy_power',
     maxRanks: 1,
-    manaCost: 700,
   },
   DIVINE_REVELATIONS_TALENT: {
     id: 387808,
@@ -997,7 +986,7 @@ const talents = createTalentList({
   SECOND_SUNRISE_TALENT: {
     id: 200482,
     name: 'Second Sunrise',
-    icon: 'spell_paladin_lightofdawn',
+    icon: 'spell_holy_lightsgrace',
     maxRanks: 2,
   },
   DIVINE_GLIMPSE_TALENT: {
@@ -1032,12 +1021,7 @@ const talents = createTalentList({
     icon: 'ability_crown_of_the_heavens_icon',
     maxRanks: 1,
   },
-  BREAKING_DAWN_TALENT: {
-    id: 387879,
-    name: 'Breaking Dawn',
-    icon: 'spell_paladin_lightofdawn',
-    maxRanks: 1,
-  },
+  BREAKING_DAWN_TALENT: { id: 387879, name: 'Breaking Dawn', icon: 'spell_holy_rune', maxRanks: 1 },
   AVENGING_CRUSADER_TALENT: {
     id: 394088,
     name: 'Avenging Crusader',

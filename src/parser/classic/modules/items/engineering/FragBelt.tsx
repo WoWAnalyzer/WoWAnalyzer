@@ -35,4 +35,3 @@ class FragBelt extends Analyzer {
 }
 
 export default FragBelt;
-
