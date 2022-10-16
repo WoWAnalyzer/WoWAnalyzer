@@ -140,27 +140,26 @@ class PowerWordShield extends Analyzer {
       return;
     }
     const shieldAmount = info.event.absorb || 0; // the initial amount, from the ApplyBuffEvent/RefreshBuffEvent
-    let shieldOfAbsolutionBonus = info.crit
-      ? info.shieldOfAbsolutionValue * 2
-      : info.shieldOfAbsolutionValue; // the amount the shield was increased by the 4p
-    shieldOfAbsolutionBonus *= info.rapture ? 1.3 : 1;
+    const shieldOfAbsolutionBonus =
+      info.shieldOfAbsolutionValue * (info.crit ? 2 : 1) * (info.rapture ? 1.3 : 1);
     const basePowerWordShieldAmount = this.hasAegis
       ? (shieldAmount - shieldOfAbsolutionBonus) / 1.5
       : shieldAmount - shieldOfAbsolutionBonus;
     let totalShielded = info.healing; // this is the amount of healing the shield did
-    this.pwsValue +=
+    const didPwsConsume =
       totalShielded - basePowerWordShieldAmount > 0 ? basePowerWordShieldAmount : totalShielded;
+    this.pwsValue += didPwsConsume;
 
-    totalShielded -=
-      totalShielded - basePowerWordShieldAmount > 0 ? basePowerWordShieldAmount : totalShielded;
+    totalShielded -= didPwsConsume;
+
+    const shieldOfAbsolutionValue = (totalShielded: number) =>
+      totalShielded >= shieldOfAbsolutionBonus ? shieldOfAbsolutionBonus : totalShielded;
 
     if (!this.hasAegis) {
       if (totalShielded > 0) {
         // without aegis the shield didn't consume the 4p bonus
-        this.t23pValue +=
-          totalShielded >= shieldOfAbsolutionBonus ? shieldOfAbsolutionBonus : totalShielded;
-        totalShielded -=
-          totalShielded >= shieldOfAbsolutionBonus ? shieldOfAbsolutionBonus : totalShielded;
+        this.t23pValue += shieldOfAbsolutionValue(totalShielded);
+        totalShielded -= shieldOfAbsolutionValue(totalShielded);
       }
 
       this.shieldApplications.set(event.targetID, null);
@@ -168,8 +167,7 @@ class PowerWordShield extends Analyzer {
     }
 
     if (totalShielded < shieldOfAbsolutionBonus) {
-      this.t23pValue +=
-        totalShielded >= shieldOfAbsolutionBonus ? shieldOfAbsolutionBonus : totalShielded;
+      this.t23pValue += totalShielded;
       this.aegisValue += totalShielded - shieldOfAbsolutionBonus;
       return;
     }
