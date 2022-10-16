@@ -45,7 +45,6 @@ class TranslucentImage extends Analyzer {
           <BoringSpellValueText spellId={TALENTS.TRANSLUCENT_IMAGE_TALENT.id}>
             {formatNumber(this.damageReduced)} <small> damage reduced </small> <br />
             {formatNumber((this.damageReduced / fightDuration) * 1000)} DRPS <br />
-            {this.damageDuringTranslucentImage}
           </BoringSpellValueText>
         </>
       </Statistic>
