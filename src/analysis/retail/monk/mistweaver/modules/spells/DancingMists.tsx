@@ -114,7 +114,7 @@ class DancingMists extends Analyzer {
           </ul>
         }
       >
-        <TalentSpellText spellId={TALENTS_MONK.DANCING_MISTS_TALENT.id} maxRanks={2}>
+        <TalentSpellText talent={TALENTS_MONK.DANCING_MISTS_TALENT}>
           <ItemHealingDone amount={this.extraVivHealing + this.extraRemHeal} />
         </TalentSpellText>
       </Statistic>
