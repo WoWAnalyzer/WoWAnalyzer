@@ -1,0 +1,98 @@
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { TALENTS_MONK } from 'common/TALENTS';
+import Events, { ApplyBuffEvent, HealEvent } from 'parser/core/Events';
+import { isFromMistyPeaks } from '../../normalizers/CastLinkNormalizer';
+import HotTrackerMW from '../core/HotTrackerMW';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+
+const UNAFFECTED_SPELLS = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
+
+class MistyPeaks extends Analyzer {
+  static dependencies = {
+    hotTracker: HotTrackerMW,
+  };
+  hotTracker!: HotTrackerMW;
+  numHots: number = 0;
+  extraHealing: number = 0;
+  overHealing: number = 0;
+  extraHits: number = 0;
+  envmHealingIncrease: number = 0;
+  extraEnvBonusHealing: number = 0;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT);
+    if (!this.active) {
+      return;
+    }
+    this.envmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT.id)
+      ? 0.4
+      : 0.3;
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
+      this.handleEnvApply,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
+      this.handleEnvHeal,
+    );
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handleHeal);
+  }
+
+  handleEnvApply(event: ApplyBuffEvent) {
+    if (isFromMistyPeaks(event)) {
+      this.numHots += 1;
+    }
+  }
+
+  handleEnvHeal(event: HealEvent) {
+    const playerId = event.targetID;
+    const hot = this.hotTracker.hots[playerId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
+    if (this.hotTracker.fromMistyPeaks(hot.attributions)) {
+      this.extraHits += 1;
+      this.extraHealing += event.amount || 0;
+      this.overHealing += event.overheal || 0;
+    }
+  }
+
+  handleHeal(event: HealEvent) {
+    const targetId = event.targetID;
+    const spellId = event.ability.guid;
+    if (
+      UNAFFECTED_SPELLS.includes(spellId) ||
+      !this.hotTracker.hots[targetId] ||
+      !this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id]
+    ) {
+      return;
+    }
+
+    const hot = this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
+    if (!this.hotTracker.fromMistyPeaks(hot.attributions)) {
+      return;
+    }
+    this.extraEnvBonusHealing += calculateEffectiveHealing(event, this.envmHealingIncrease);
+  }
+
+  statistic() {
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+      >
+        <BoringSpellValueText spellId={TALENTS_MONK.MISTY_PEAKS_TALENT.id}>
+          <ItemHealingDone amount={this.extraHealing} />
+          <br />
+          <ItemHealingDone amount={this.extraEnvBonusHealing} /> from healing increase
+        </BoringSpellValueText>
+      </Statistic>
+    );
+  }
+}
+
+export default MistyPeaks;
