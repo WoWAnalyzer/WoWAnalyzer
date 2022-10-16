@@ -16,6 +16,7 @@ import { Options } from 'parser/core/Module';
 const CAST_BUFFER_MS = 200;
 
 export const FROM_HARDCAST = 'FromHardcast';
+export const FROM_DOUBLE_CLAWED_RAKE = 'FromDoubleClawedRake';
 export const FROM_PRIMAL_WRATH = 'FromPrimalWrath';
 export const HIT_TARGET = 'HitTarget';
 
@@ -48,6 +49,17 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    linkRelation: FROM_DOUBLE_CLAWED_RAKE,
+    linkingEventId: [SPELLS.RAKE_BLEED.id, SPELLS.RAKE_STUN.id],
+    linkingEventType: [EventType.ApplyDebuff, EventType.RefreshDebuff],
+    referencedEventId: SPELLS.RAKE.id,
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    additionalCondition: (le, re) => !isFromHardcast(le),
   },
   {
     linkRelation: FROM_HARDCAST,
@@ -130,10 +142,12 @@ class CastLinkNormalizer extends EventLinkNormalizer {
   }
 }
 
-export function isFromHardcast(
-  event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
-): boolean {
+export function isFromHardcast(event: AnyEvent): boolean {
   return HasRelatedEvent(event, FROM_HARDCAST);
+}
+
+export function isFromDoubleClawedRake(event: AnyEvent): boolean {
+  return HasRelatedEvent(event, FROM_DOUBLE_CLAWED_RAKE);
 }
 
 export function getHardcast(

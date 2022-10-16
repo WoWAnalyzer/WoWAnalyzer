@@ -30,6 +30,10 @@ import RakeBleed from './normalizers/RakeBleed';
 import Guide from 'analysis/retail/druid/feral/Guide';
 import BloodtalonsLinkNormalizer from 'analysis/retail/druid/feral/normalizers/BloodtalonsLinkNormalizer';
 import RampantFerocity from 'analysis/retail/druid/feral/modules/spells/RampantFerocity';
+import DoubleClawedRake from 'analysis/retail/druid/feral/modules/spells/DoubleClawedRake';
+import Sabertooth from 'analysis/retail/druid/feral/modules/spells/Sabertooth';
+import SuddenAmbushLinkNormalizer from 'analysis/retail/druid/feral/normalizers/SuddenAmbushLinkNormalizer';
+import SuddenAmbush from 'analysis/retail/druid/feral/modules/spells/SuddenAmbush';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -38,6 +42,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castLinkNormalizer: CastLinkNormalizer,
     ferociousBiteDrainLinkNormalizer: FerociousBiteDrainLinkNormalizer,
     bloodtalonsLinkNormalizer: BloodtalonsLinkNormalizer,
+    suddenAmbushLinkNormalizer: SuddenAmbushLinkNormalizer,
 
     // Core
     activeDruidForm: ActiveDruidForm,
@@ -70,6 +75,9 @@ class CombatLogParser extends CoreCombatLogParser {
     adaptiveSwarm: AdaptiveSwarmFeral,
     berserkBoosts: BerserkBoosts,
     rampantFerocity: RampantFerocity,
+    doubleClawedRake: DoubleClawedRake,
+    sabertooth: Sabertooth,
+    suddenAmbush: SuddenAmbush,
 
     // resources
     comboPointTracker: ComboPointTracker,
