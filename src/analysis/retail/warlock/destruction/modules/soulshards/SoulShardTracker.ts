@@ -206,8 +206,7 @@ class SoulShardTracker extends ResourceTracker {
     resource?: ClassResources,
   ) {
     const beforeBuilder = this.current % 10;
-    const time = timestamp ?? -1;
-    super._applyBuilder(spellId, gain, waste, time, resource);
+    super._applyBuilder(spellId, gain, waste, timestamp ?? -1, resource);
     const afterBuilder = this.current % 10;
     // for trait Chaos Shards we need to know when we generated a full Shard
     // can be either to full shard (39 => 40, beforebuilder = 9, afterBuilder = 0)
