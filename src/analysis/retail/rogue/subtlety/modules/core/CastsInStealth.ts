@@ -1,6 +1,7 @@
 import { StealthDamageTracker } from 'analysis/retail/rogue/shared';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
+import TALENTS from 'common/TALENTS/rogue';
 import { Options } from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
@@ -21,9 +22,9 @@ class CastsInStealth extends CastsInStealthBase {
     super(options);
 
     this.maxCastsPerStealth =
-      1 + (this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ? 2 : 0);
+      1 + (this.selectedCombatant.hasTalent(TALENTS.SUBTERFUGE_TALENT) ? 2 : 0);
 
-    this.stealthCondition = this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id)
+    this.stealthCondition = this.selectedCombatant.hasTalent(TALENTS.SUBTERFUGE_TALENT)
       ? 'Stealth or Vanish with Subterfuge'
       : 'Stealth or Vanish';
 

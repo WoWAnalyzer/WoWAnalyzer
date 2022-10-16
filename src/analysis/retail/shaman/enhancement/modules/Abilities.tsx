@@ -399,15 +399,14 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
-
       {
-        spell: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id,
+        spell: TALENTS_SHAMAN.ASCENDANCE_ELEMENTAL_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ELEMENTAL_TALENT.id),
         damageSpellIds: [SPELLS.ASCENDANCE_INITIAL_DAMAGE.id],
         castEfficiency: {
           suggestion: true,
@@ -459,13 +458,13 @@ class Abilities extends CoreAbilities {
             calculateMaxCasts(
               cooldown,
               this.owner.fightDuration -
-                combatant.getBuffUptime(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id),
+                combatant.getBuffUptime(TALENTS_SHAMAN.ASCENDANCE_ELEMENTAL_TALENT.id),
             ),
         },
       },
       {
         spell: SPELLS.WINDSTRIKE_CAST.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ELEMENTAL_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 2.5 / (1 + haste),
         gcd: {
@@ -477,7 +476,7 @@ class Abilities extends CoreAbilities {
           maxCasts: (cooldown: number) =>
             calculateMaxCasts(
               cooldown,
-              combatant.getBuffUptime(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id),
+              combatant.getBuffUptime(TALENTS_SHAMAN.ASCENDANCE_ELEMENTAL_TALENT.id),
             ),
         },
       },

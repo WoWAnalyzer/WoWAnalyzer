@@ -64,7 +64,7 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id)
         ) && <AbilityRequirement spell={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id} />}
         {combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.ELYSIAN_DECREE.id} />
+          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id) && (
           <AbilityRequirement spell={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id} />

@@ -86,7 +86,7 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       you waited to use them again. Grey segments show when the spell was available, yellow segments
       show when the spell was cooling down. Red segments highlight times when you could have fit a
       whole extra use of the cooldown.
-      {info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT) && (
+      {info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={SPELLS.CONVOKE_SPIRITS.id}
@@ -140,7 +140,7 @@ function CooldownBreakdownSubsection({
     <SubSection>
       <strong>Spell Breakdowns</strong>
       <p />
-      {info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT) &&
+      {info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) &&
         modules.convokeSpirits.guideCastBreakdown}
       {info.combatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT.id) &&
         modules.flourish.guideCastBreakdown}

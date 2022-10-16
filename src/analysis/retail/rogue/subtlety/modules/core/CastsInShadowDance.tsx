@@ -1,5 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 import Spell from 'common/SPELLS/Spell';
 import { SpellIcon } from 'interface';
 import { Options } from 'parser/core/Analyzer';
@@ -30,7 +31,7 @@ class CastsInShadowDance extends CastsInStealthBase {
 
     this.maxCastsPerStealth =
       this.BASE_MAX_CASTS +
-      (this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id)
+      (this.selectedCombatant.hasTalent(TALENTS.SUBTERFUGE_TALENT)
         ? this.BONUS_SUBTERFUGE_CASTS
         : 0);
 
@@ -49,7 +50,8 @@ class CastsInShadowDance extends CastsInStealthBase {
 
   get stealthMaxCasts() {
     return (
-      this.maxCastsPerStealth * this.damageTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts || 0
+      this.maxCastsPerStealth *
+        this.damageTracker.getAbility(TALENTS.SHADOW_DANCE_TALENT.id).casts || 0
     );
   }
 
@@ -61,7 +63,7 @@ class CastsInShadowDance extends CastsInStealthBase {
 
   suggestions(when: When) {
     this.suggestWrongCast(when, this.backstabSpell, this.danceBackstabThresholds);
-    this.suggestAvgCasts(when, SPELLS.SHADOW_DANCE);
+    this.suggestAvgCasts(when, TALENTS.SHADOW_DANCE_TALENT);
   }
 
   statistic() {

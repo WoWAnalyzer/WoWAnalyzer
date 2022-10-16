@@ -882,6 +882,7 @@ const spells = spellIndexableList({
     name: 'Bloodtalons',
     icon: 'spell_druid_bloodythrash',
   },
+  // bleed from Feral Frenzy and also the CP energize
   FERAL_FRENZY_DEBUFF: {
     id: 274838,
     name: 'Feral Frenzy',

@@ -73,10 +73,6 @@ const spells: number[] = [
   SPELLS.CARVED_IVORY_KEEPSAKE.id,
   SPELLS.ANIMA_FIELD_EMITTER_BUFF.id,
   //endregion
-
-  // monk
-  SPELLS.PRIMORDIAL_MENDING.id,
-  // end monk
 ];
 
 export default spells;

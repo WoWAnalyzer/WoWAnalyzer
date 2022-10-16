@@ -22,7 +22,7 @@ class EssenceFontHealingBreakdown extends Analyzer {
       {
         color: SPELL_COLORS.ESSENCE_FONT,
         label: 'Bolt',
-        spellId: SPELLS.ESSENCE_FONT.id,
+        spellId: TALENTS_MONK.ESSENCE_FONT_TALENT.id,
         value: this.essenceFont.boltHealing,
         valueTooltip: formatThousands(this.essenceFont.boltHealing),
       },

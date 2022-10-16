@@ -1958,3 +1958,8 @@ export const Litena: Contributor = {
     },
   ],
 };
+
+export const Jonfanz: Contributor = {
+  nickname: 'jonfanz',
+  github: 'jharrell',
+}

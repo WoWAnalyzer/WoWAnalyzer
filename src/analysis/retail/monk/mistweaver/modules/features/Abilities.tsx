@@ -16,7 +16,7 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational Spells
       {
-        spell: SPELLS.RENEWING_MIST.id,
+        spell: TALENTS_MONK.RENEWING_MIST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 9,
         charges: 2,
@@ -29,7 +29,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 1,
       },
       {
-        spell: SPELLS.SOOTHING_MIST.id,
+        spell: TALENTS_MONK.SOOTHING_MIST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1000,
@@ -39,7 +39,7 @@ class Abilities extends CoreAbilities {
 
       // Cooldowns
       {
-        spell: SPELLS.THUNDER_FOCUS_TEA.id,
+        spell: TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
         castEfficiency: {
@@ -84,7 +84,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: SPELLS.LIFE_COCOON.id,
+        spell: TALENTS_MONK.LIFE_COCOON_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         castEfficiency: {
@@ -113,7 +113,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 18,
       },
       {
-        spell: SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id,
+        spell: TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id),
         cooldown: combatant.hasTalent(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT) ? 60 : 180,
@@ -141,7 +141,7 @@ class Abilities extends CoreAbilities {
 
       // Other Spell Casting Metrics
       {
-        spell: SPELLS.ENVELOPING_MIST.id,
+        spell: TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
@@ -157,7 +157,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 4,
       },
       {
-        spell: SPELLS.ESSENCE_FONT.id,
+        spell: TALENTS_MONK.ESSENCE_FONT_TALENT.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
@@ -316,7 +316,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 32,
       },
       {
-        spell: SPELLS.RISING_SUN_KICK.id,
+        spell: TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         cooldown: (haste: number) => 12 / (1 + haste),
         gcd: {
