@@ -70,9 +70,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.CORRUPTION_DEBUFF.id,
       },
       {
-        spell: TALENTS.INFERNO_TALENT.id,
+        spell: TALENTS.SOUL_FIRE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.INFERNO_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SOUL_FIRE_TALENT.id),
         cooldown: 45, // TODO: further shortened via spending soul shards
         castEfficiency: {
           suggestion: true,
@@ -80,11 +80,11 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.INFERNO_TALENT.id,
+        spell: TALENTS.SHADOWBURN_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 12 / (1 + haste),
         charges: 2,
-        enabled: combatant.hasTalent(TALENTS.INFERNO_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SHADOWBURN_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -92,7 +92,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-        buffSpellId: TALENTS.INFERNO_TALENT.id,
+        buffSpellId: TALENTS.SHADOWBURN_TALENT.id,
       },
       {
         spell: SPELLS.IMMOLATE.id,

@@ -90,8 +90,8 @@ const DestructionWarlockChecklist = ({
             thresholds={thresholds.eradication}
           />
         )}
-        {combatant.hasTalent(TALENTS.INFERNO_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS.INFERNO_TALENT.id} />
+        {combatant.hasTalent(TALENTS.SHADOWBURN_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.SHADOWBURN_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS.CATACLYSM_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.CATACLYSM_TALENT.id} />
@@ -99,8 +99,8 @@ const DestructionWarlockChecklist = ({
         {combatant.hasTalent(TALENTS.CHANNEL_DEMONFIRE_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.CHANNEL_DEMONFIRE_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.INFERNO_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS.INFERNO_TALENT.id} />
+        {combatant.hasTalent(TALENTS.SOUL_FIRE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.SOUL_FIRE_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.SUMMON_INFERNAL.id} />
       </Rule>

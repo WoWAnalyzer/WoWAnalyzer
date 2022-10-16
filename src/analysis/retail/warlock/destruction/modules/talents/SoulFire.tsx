@@ -22,17 +22,17 @@ class SoulFire extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.INFERNO_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SOUL_FIRE_TALENT.id);
   }
 
   statistic() {
-    const fragments = this.soulShardTracker.getGeneratedBySpell(TALENTS.INFERNO_TALENT.id);
+    const fragments = this.soulShardTracker.getGeneratedBySpell(TALENTS.SOUL_FIRE_TALENT.id);
 
     const chaosBolt = this.abilityTracker.getAbility(SPELLS.CHAOS_BOLT.id);
     const avg = (chaosBolt.damageEffective + chaosBolt.damageAbsorbed) / chaosBolt.casts || 0;
     const estimatedDamage = Math.floor(fragments / FRAGMENTS_PER_CHAOS_BOLT) * avg;
 
-    const spell = this.abilityTracker.getAbility(TALENTS.INFERNO_TALENT.id);
+    const spell = this.abilityTracker.getAbility(TALENTS.SOUL_FIRE_TALENT.id);
     const damage = spell.damageEffective + spell.damageAbsorbed;
     const dps = (damage / this.owner.fightDuration) * 1000;
 
@@ -52,7 +52,7 @@ class SoulFire extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.INFERNO_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.SOUL_FIRE_TALENT.id}>
           {formatNumber(dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total

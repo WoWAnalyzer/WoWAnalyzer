@@ -28,8 +28,9 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         <>
           Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay
           between casting spells. When you know you'll be moving, try to save{' '}
-          <SpellLink id={SPELLS.CONFLAGRATE.id} /> or <SpellLink id={TALENTS.INFERNO_TALENT.id} />{' '}
-          charges. Make good use of your <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} /> or{' '}
+          <SpellLink id={SPELLS.CONFLAGRATE.id} /> or{' '}
+          <SpellLink id={TALENTS.SHADOWBURN_TALENT.id} /> charges. Make good use of your{' '}
+          <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} /> or{' '}
           <SpellLink id={TALENTS.BURNING_RUSH_TALENT.id} /> when you can.
         </>,
       )

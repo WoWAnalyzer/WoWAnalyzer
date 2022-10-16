@@ -34,9 +34,9 @@ class Shadowburn extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.INFERNO_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SHADOWBURN_TALENT.id);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.INFERNO_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.SHADOWBURN_TALENT),
       this.onShadowburnDamage,
     );
   }
@@ -48,7 +48,7 @@ class Shadowburn extends Analyzer {
   statistic() {
     const spell = this.abilityTracker.getAbility(SPELLS.CHAOS_BOLT.id);
     const avg = (spell.damageEffective + spell.damageAbsorbed) / spell.casts || 0;
-    const fragments = this.soulShardTracker.getGeneratedBySpell(TALENTS.INFERNO_TALENT.id);
+    const fragments = this.soulShardTracker.getGeneratedBySpell(TALENTS.SHADOWBURN_TALENT.id);
     const estimatedDamage = Math.floor(fragments / FRAGMENTS_PER_CHAOS_BOLT) * avg;
     return (
       <Statistic
@@ -66,7 +66,7 @@ class Shadowburn extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.INFERNO_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.SHADOWBURN_TALENT.id}>
           {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total

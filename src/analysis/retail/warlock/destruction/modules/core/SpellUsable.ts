@@ -38,11 +38,11 @@ class SpellUsable extends CoreSpellUsable {
     this.hasSF = this.selectedCombatant.hasTalent(TALENTS.SOUL_FIRE_TALENT.id);
     this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendResource);
     this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(TALENTS.INFERNO_TALENT),
+      Events.applydebuff.by(SELECTED_PLAYER).spell(TALENTS.SHADOWBURN_TALENT),
       this._handleShadowburn,
     );
     this.addEventListener(
-      Events.refreshdebuff.by(SELECTED_PLAYER).spell(TALENTS.INFERNO_TALENT),
+      Events.refreshdebuff.by(SELECTED_PLAYER).spell(TALENTS.SHADOWBURN_TALENT),
       this._handleShadowburn,
     );
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER), this.onRemoveDebuff);
@@ -52,10 +52,10 @@ class SpellUsable extends CoreSpellUsable {
     if (!this.hasSF) {
       return;
     }
-    if (this.isOnCooldown(TALENTS.INFERNO_TALENT.id)) {
+    if (this.isOnCooldown(TALENTS.SOUL_FIRE_TALENT.id)) {
       // event.resourceChange is in multiples of 10 (2 shards = 20)
       const shardsSpent = event.resourceChange / 10;
-      this.reduceCooldown(TALENTS.INFERNO_TALENT.id, shardsSpent * REDUCTION_MS_PER_SHARD);
+      this.reduceCooldown(TALENTS.SOUL_FIRE_TALENT.id, shardsSpent * REDUCTION_MS_PER_SHARD);
     }
   }
 
@@ -74,7 +74,7 @@ class SpellUsable extends CoreSpellUsable {
     if (!this.hasSB) {
       return;
     }
-    if (event.ability.guid !== TALENTS.INFERNO_TALENT.id) {
+    if (event.ability.guid !== TALENTS.SHADOWBURN_TALENT.id) {
       return;
     }
     const target = encodeTargetString(event.targetID, event.targetInstance);
@@ -86,9 +86,9 @@ class SpellUsable extends CoreSpellUsable {
     const diedEarlier =
       this.shadowburnedEnemies[target].start <= event.timestamp &&
       event.timestamp <= this.shadowburnedEnemies[target].expectedEnd - BUFFER;
-    if (diedEarlier && this.isOnCooldown(TALENTS.INFERNO_TALENT.id)) {
+    if (diedEarlier && this.isOnCooldown(TALENTS.SHADOWBURN_TALENT.id)) {
       debug && this.log(`Shadowburned enemy died (${target}), cooldown reset.`);
-      this.endCooldown(TALENTS.INFERNO_TALENT.id);
+      this.endCooldown(TALENTS.SHADOWBURN_TALENT.id);
     }
   }
 }

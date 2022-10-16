@@ -20,7 +20,7 @@ const debug = false;
 const DAMAGE_GENERATORS = {
   [SPELLS.IMMOLATE_DEBUFF.id]: () => 1, // has 50% chance of additional fragment on crit
   [SPELLS.CONFLAGRATE.id]: () => 5,
-  [TALENTS.INFERNO_TALENT.id]: () => 3,
+  [TALENTS.SHADOWBURN_TALENT.id]: () => 3,
   [SPELLS.INCINERATE.id]: (event: DamageEvent) => (event.hitType === HIT_TYPES.CRIT ? 1 : 0),
 };
 
@@ -71,7 +71,7 @@ class SoulShardTracker extends ResourceTracker {
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     const eventResource = this.getResource(event);
-    if (spellId === TALENTS.INFERNO_TALENT.id) {
+    if (spellId === TALENTS.SOUL_FIRE_TALENT.id) {
       this.processInvisibleEnergize(spellId, 4, event.timestamp);
     } else if (spellId === SPELLS.INCINERATE.id) {
       // Incinerate generates 2 fragments on cast (and another one if it crits, handled further down)
@@ -206,7 +206,7 @@ class SoulShardTracker extends ResourceTracker {
     resource?: ClassResources,
   ) {
     const beforeBuilder = this.current % 10;
-    const time = timestamp == null ? -1 : timestamp;
+    const time = timestamp ?? -1;
     super._applyBuilder(spellId, gain, waste, time, resource);
     const afterBuilder = this.current % 10;
     // for trait Chaos Shards we need to know when we generated a full Shard
