@@ -6,6 +6,7 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 16), <>Add mitigation tracking for <SpellLink id={TALENTS.FIERY_BRAND_TALENT.id}/>.</>, ToppleTheNun),
   change(date(2022, 10, 16), <>Add support for <SpellLink id={TALENTS.DISRUPTING_FURY_TALENT.id}/>.</>, ToppleTheNun),
   change(date(2022, 10, 15), <>Add support for <SpellLink id={TALENTS.FLAMES_OF_FURY_TALENT.id}/>.</>, ToppleTheNun),
   change(date(2022, 10, 15), <>Add support for <SpellLink id={TALENTS.STOKE_THE_FLAMES_TALENT.id}/>.</>, ToppleTheNun),
