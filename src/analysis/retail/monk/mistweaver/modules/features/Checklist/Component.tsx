@@ -30,26 +30,26 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         description={
           <>
             As a Mistweaver you only have a single rotational spell that should be cast on CD{' '}
-            <SpellLink id={SPELLS.RENEWING_MIST.id} />. The other piece is ensuring you have enough{' '}
-            <SpellLink id={SPELLS.RENEWING_MIST.id} />
+            <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />. The other piece is ensuring you
+            have enough <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />
             's on the raid so that you maximize the cleave healing from{' '}
             <SpellLink id={SPELLS.VIVIFY.id} />.
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.RENEWING_MIST.id} />
+        <AbilityRequirement spell={TALENTS_MONK.RENEWING_MIST_TALENT.id} />
         {!combatant.hasTalent(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.RENEWING_MIST.id} /> avg per Vivify cast
+                <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> avg per Vivify cast
               </>
             }
             thresholds={thresholds.vivify}
           />
         )}
         {combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.RISING_SUN_KICK.id} />
+          <AbilityRequirement spell={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />
         )}
         {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
           <AbilityRequirement spell={SPELLS.FAELINE_STOMP_CAST.id} />
@@ -72,7 +72,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.THUNDER_FOCUS_TEA.id} />
+        <AbilityRequirement spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} />
         {combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT.id) && (
           <AbilityRequirement spell={TALENTS_MONK.MANA_TEA_TALENT.id} />
         )}
@@ -81,7 +81,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
             <Requirement
               name={
                 <>
-                  <SpellLink id={SPELLS.RENEWING_MIST.id} /> active during{' '}
+                  <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> active during{' '}
                   <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} />
                 </>
               }
@@ -101,7 +101,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           <AbilityRequirement spell={TALENTS_MONK.RESTORAL_TALENT.id} />
         )}
         {!combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id} />
+          <AbilityRequirement spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) && (
           <AbilityRequirement spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} />
@@ -110,8 +110,8 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.ENVELOPING_BREATH.id} /> applied per{' '}
-              <SpellLink id={SPELLS.ENVELOPING_MIST.id} /> cast
+              <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} /> applied per{' '}
+              <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> cast
             </>
           }
           thresholds={thresholds.envelopingBreath}
@@ -236,7 +236,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> incorrect casts
+              <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} /> incorrect casts
             </>
           }
           thresholds={thresholds.thunderFocusTea}
@@ -274,7 +274,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         <Requirement
           name={
             <>
-              Effective <SpellLink id={SPELLS.SOOTHING_MIST.id} /> Casts
+              Effective <SpellLink id={TALENTS_MONK.SOOTHING_MIST_TALENT.id} /> Casts
             </>
           }
           thresholds={thresholds.soothingMist}
@@ -286,7 +286,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         description="Make sure you use your personal and defensive cooldowns at appropriate times throughout the fight. While it may not make sense to use these abilities on cooldown, saving them for large damage events is ideal."
       >
         <AbilityRequirement spell={TALENTS_MONK.FORTIFYING_BREW_SHARED_TALENT.id} />
-        <AbilityRequirement spell={SPELLS.LIFE_COCOON.id} />
+        <AbilityRequirement spell={TALENTS_MONK.LIFE_COCOON_TALENT.id} />
         {combatant.hasTalent(TALENTS_MONK.DIFFUSE_MAGIC_TALENT.id) && (
           <AbilityRequirement spell={TALENTS_MONK.DIFFUSE_MAGIC_TALENT.id} />
         )}

@@ -115,7 +115,8 @@ class RenewingMistDuringManaTea extends Analyzer {
       suggest(
         <>
           During <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> you should have a minimum of two{' '}
-          <SpellLink id={SPELLS.RENEWING_MIST.id} /> out to maximize your healing during the buff.
+          <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> out to maximize your healing
+          during the buff.
         </>,
       )
         .icon(TALENTS_MONK.MANA_TEA_TALENT.icon)

@@ -50,6 +50,7 @@ import Expiation from './modules/spells/Expiation';
 import PowerWordShield from './modules/spells/PowerWordShield';
 import AegisOfWrath from './modules/spells/AegisOfWrath';
 import CrystallineReflection from './modules/spells/CrystallineReflection';
+import StolenPsyche from './modules/spells/StolenPsyche';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -107,7 +108,7 @@ class CombatLogParser extends CoreCombatLogParser {
     Indemnity: Indemnity,
     expiation: Expiation,
     powerWordShield: PowerWordShield,
-
+    StolenPsyche: StolenPsyche,
     // Covenants
     unholyNova: UnholyNova,
     boonOfTheAscended: BoonOfTheAscended,
