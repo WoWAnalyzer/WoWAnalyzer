@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -16,7 +16,7 @@ class DarkShadowContribution extends DarkShadow {
   protected danceDamageTracker!: DanceDamageTracker;
 
   get darkShadowDamageFactor() {
-    return 0.25;
+    return this.selectedCombatant.getTalentRank(TALENTS.DARK_SHADOW_TALENT) * 0.15;
   }
 
   statistic() {
@@ -32,7 +32,7 @@ class DarkShadowContribution extends DarkShadow {
 
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.GENERAL}>
-        <BoringSpellValueText spellId={SPELLS.DARK_SHADOW_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.DARK_SHADOW_TALENT.id}>
           <ItemDamageDone amount={danceDamage} />
         </BoringSpellValueText>
       </Statistic>
