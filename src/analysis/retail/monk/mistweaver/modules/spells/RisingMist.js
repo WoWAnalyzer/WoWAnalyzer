@@ -133,13 +133,9 @@ class RisingMist extends Analyzer {
   }
 
   hasAttribution(attributions, name) {
-    let foundAttribution = false;
-    attributions.forEach(function (attr) {
-      if (attr.name === name) {
-        foundAttribution = true;
-      }
+    return attributions.some(function (attr) {
+      return attr.name === name;
     });
-    return foundAttribution;
   }
 
   handleMastery(event) {
