@@ -197,4 +197,8 @@ export function isFromDancingMists(event: ApplyBuffEvent | RefreshBuffEvent): bo
   );
 }
 
+export function isFromRapidDiffusion(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
+  return HasRelatedEvent(event, FROM_RAPID_DIFFUSION);
+}
+
 export default CastLinkNormalizer;

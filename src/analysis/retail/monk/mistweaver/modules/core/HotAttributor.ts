@@ -7,6 +7,7 @@ import {
   isFromDancingMists,
   isFromHardcast,
   isFromMistyPeaks,
+  isFromRapidDiffusion,
 } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 
@@ -22,6 +23,7 @@ class HotAttributor extends Analyzer {
   envMistMistyPeaksAttrib = HotTracker.getNewAttribution('Enveloping Mist Misty Peaks Proc');
   REMHardcastAttrib = HotTracker.getNewAttribution('Renewing Mist Hardcast');
   REMDancingMistsAttrib = HotTracker.getNewAttribution('Renewing Mist Dancing Mists Proc');
+  REMRapidDiffusionAttrib = HotTracker.getNewAttribution('Renewing Mist Rapid Diffusion Proc');
   EFAttrib = HotTracker.getNewAttribution('Essence Font Hardcast');
 
   constructor(options: Options) {
@@ -56,6 +58,13 @@ class HotAttributor extends Analyzer {
             this.owner.formatTimestamp(event.timestamp),
         );
       this.hotTracker.addAttributionFromApply(this.REMDancingMistsAttrib, event);
+    } else if (isFromRapidDiffusion(event)) {
+      debug &&
+        console.log(
+          'Attributed Renewing Mist Rapid Diffusion proc at ' +
+            this.owner.formatTimestamp(event.timestamp),
+        );
+      this.hotTracker.addAttributionFromApply(this.REMRapidDiffusionAttrib, event);
     }
   }
 
