@@ -10,7 +10,10 @@ import {
 } from 'analysis/retail/demonhunter/shared';
 import { getInfernalStrikeCooldown } from 'analysis/retail/demonhunter/vengeance/modules/spells/InfernalStrike';
 import { getMetamorphosisCooldown } from 'analysis/retail/demonhunter/shared/modules/talents/MetamorphosisCooldown';
-import { PERFECTLY_BALANCED_GLAIVE_SCALING } from 'analysis/retail/demonhunter/vengeance/constants';
+import {
+  DOWN_IN_FLAMES_CDR_SCALING,
+  PERFECTLY_BALANCED_GLAIVE_SCALING,
+} from 'analysis/retail/demonhunter/vengeance/constants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -78,7 +81,11 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 60,
+        cooldown:
+          60 -
+          DOWN_IN_FLAMES_CDR_SCALING[
+            combatant.getTalentRank(TALENTS_DEMON_HUNTER.DOWN_IN_FLAMES_TALENT.id)
+          ],
         charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.DOWN_IN_FLAMES_TALENT.id) ? 1 : 0),
         gcd: {
           base: 1500,

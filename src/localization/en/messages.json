@@ -257,6 +257,7 @@
   "deathknight.unholy.suggestions.suddendoom.wastedProcs": "{0} procs were refreshed or expired without being used",
   "deathknight.unholy.suggestions.virulentPlague.uptime": "{0}% Virulent Plague uptime",
   "demonhunter.shared.suggestions.blur.uptime": "{0}% Blur uptime",
+  "demonhunter.shared.suggestions.consumeMagic.furyWasted": "{0}% Fury wasted",
   "demonhunter.havoc.suggestions.alwaysBeCasting.downtime": "{0}% downtime",
   "demonhunter.havoc.suggestions.demonBlades.furyWasted": "{0}% Fury wasted",
   "demonhunter.havoc.suggestions.demonicAppetite.furyWasted": "{0}% Fury wasted",

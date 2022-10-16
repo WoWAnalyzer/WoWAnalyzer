@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
@@ -6,6 +7,10 @@ import CoreCooldownThroughputTracker, {
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
+    {
+      spell: TALENTS_SHAMAN.ASCENDANCE_ELEMENTAL_TALENT.id,
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
+    },
     {
       spell: SPELLS.BERSERKING.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
