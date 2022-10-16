@@ -4,6 +4,7 @@ import { SpellLink } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
+  change(date(2022, 10, 16), <>Fixed a bug where casting Flourish before your first Convoke caused a crash in the Flourish module.</>, Sref),
   change(date(2022, 10, 14), <>Updated statistics for <SpellLink id={TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT.id} /> and <SpellLink id={TALENTS_DRUID.REGENESIS_TALENT.id} /> to provide breakdown by spell.</>, Sref),
   change(date(2022, 10, 14), <>Added statistic and mana efficiency entry for <SpellLink id={TALENTS_DRUID.OVERGROWTH_TALENT.id} />. You may stop bothering me now, Zimbita.</>, Sref),
   change(date(2022, 10, 9), <>Added statistic for <SpellLink id={TALENTS_DRUID.RAMPANT_GROWTH_TALENT.id} />. Fixed an issue where <SpellLink id={TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT.id} /> wasn't counting procs that occur during <SpellLink id={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id} />. Updated <SpellLink id={TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT.id} />, <SpellLink id={TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT.id} />, <SpellLink id={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id} />, and <SpellLink id={TALENTS_DRUID.NURTURING_DORMANCY_TALENT.id} /> to account for balance changes in Beta build 45969. </>, Sref),

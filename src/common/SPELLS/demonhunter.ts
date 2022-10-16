@@ -352,11 +352,6 @@ const spells = spellIndexableList({
     name: 'Disrupt',
     icon: 'ability_demonhunter_consumemagic',
   },
-  CONSUME_MAGIC_FURY_GEN: {
-    id: 218903,
-    name: 'Consume Magic',
-    icon: 'ability_demonhunter_consumemagic',
-  },
   METAMORPHOSIS_HAVOC_BUFF: {
     id: 162264,
     name: 'Metamorphosis',
@@ -504,6 +499,21 @@ const spells = spellIndexableList({
     id: 212800,
     name: 'Blur',
     icon: 'ability_demonhunter_blur',
+  },
+  FEL_DEVASTATION_DAMAGE: {
+    id: 212105,
+    name: 'Fel Devastation',
+    icon: 'ability_demonhunter_feldevastation',
+  },
+  FLAMES_OF_FURY_FURY_GEN: {
+    id: 395001,
+    name: 'Flames of Fury',
+    icon: 'ability_demonhunter_sigilofinquisition',
+  },
+  DISRUPTING_FURY_FURY_GEN: {
+    id: 218903,
+    name: 'Disrupt',
+    icon: 'ability_demonhunter_consumemagic',
   },
   //endregion
 });
