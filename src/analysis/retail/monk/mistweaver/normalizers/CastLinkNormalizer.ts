@@ -193,7 +193,7 @@ export function isFromMistyPeaks(event: ApplyBuffEvent | RefreshBuffEvent) {
 
 export function isFromDancingMists(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
   return (
-    HasRelatedEvent(event, FROM_MISTY_PEAKS) && FOUND_REMS.get(event.timestamp) === event.targetID
+    HasRelatedEvent(event, FROM_DANCING_MISTS) && FOUND_REMS.get(event.timestamp) !== event.targetID
   );
 }
 

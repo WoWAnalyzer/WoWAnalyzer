@@ -3,10 +3,14 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
 import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
-import { isFromHardcast, isFromMistyPeaks } from '../../normalizers/CastLinkNormalizer';
+import {
+  isFromDancingMists,
+  isFromHardcast,
+  isFromMistyPeaks,
+} from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 
-const debug = false;
+const debug = true;
 
 class HotAttributor extends Analyzer {
   static dependencies = {
@@ -17,6 +21,7 @@ class HotAttributor extends Analyzer {
   envMistHardcastAttrib = HotTracker.getNewAttribution('Enveloping Mist Hardcast');
   envMistMistyPeaksAttrib = HotTracker.getNewAttribution('Enveloping Mist Misty Peaks Proc');
   REMHardcastAttrib = HotTracker.getNewAttribution('Renewing Mist Hardcast');
+  REMDancingMistsAttrib = HotTracker.getNewAttribution('Renewing Mist Dancing Mists Proc');
   EFAttrib = HotTracker.getNewAttribution('Essence Font Hardcast');
 
   constructor(options: Options) {
@@ -44,6 +49,13 @@ class HotAttributor extends Analyzer {
           'Attributed Renewing Mist hardcast at ' + this.owner.formatTimestamp(event.timestamp),
         );
       this.hotTracker.addAttributionFromApply(this.REMHardcastAttrib, event);
+    } else if (isFromDancingMists(event)) {
+      debug &&
+        console.log(
+          'Attributed Renewing Mist Dancing mists proc at ' +
+            this.owner.formatTimestamp(event.timestamp),
+        );
+      this.hotTracker.addAttributionFromApply(this.REMDancingMistsAttrib, event);
     }
   }
 
