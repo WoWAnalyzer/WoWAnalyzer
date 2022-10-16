@@ -43,6 +43,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
+    isActive: (c) => c.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_TALENT),
   },
   {
     linkRelation: FROM_HARDCAST,
@@ -63,6 +64,7 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
     additionalCondition: (le, re) => !isFromHardcast(le),
+    isActive: (c) => c.hasTalent(TALENTS_DRUID.DOUBLE_CLAWED_RAKE_TALENT),
   },
   {
     linkRelation: FROM_HARDCAST,
@@ -101,6 +103,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
+    isActive: (c) => c.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT),
   },
   {
     linkRelation: FROM_HARDCAST,

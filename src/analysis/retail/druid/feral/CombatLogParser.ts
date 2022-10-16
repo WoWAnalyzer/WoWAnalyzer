@@ -36,6 +36,9 @@ import DoubleClawedRake from 'analysis/retail/druid/feral/modules/spells/DoubleC
 import Sabertooth from 'analysis/retail/druid/feral/modules/spells/Sabertooth';
 import SuddenAmbushLinkNormalizer from 'analysis/retail/druid/feral/normalizers/SuddenAmbushLinkNormalizer';
 import SuddenAmbush from 'analysis/retail/druid/feral/modules/spells/SuddenAmbush';
+import RampantFerocityLinkNormalizer from 'analysis/retail/druid/feral/normalizers/RampantFerocityLinkNormalizer';
+import TasteForBlood from 'analysis/retail/druid/feral/modules/spells/TasteForBlood';
+import RagingFury from 'analysis/retail/druid/feral/modules/spells/RagingFury';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -45,6 +48,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ferociousBiteDrainLinkNormalizer: FerociousBiteDrainLinkNormalizer,
     bloodtalonsLinkNormalizer: BloodtalonsLinkNormalizer,
     suddenAmbushLinkNormalizer: SuddenAmbushLinkNormalizer,
+    rampantFerocityLinkNormalizer: RampantFerocityLinkNormalizer,
 
     // Core
     activeDruidForm: ActiveDruidForm,
@@ -89,6 +93,8 @@ class CombatLogParser extends CoreCombatLogParser {
     doubleClawedRake: DoubleClawedRake,
     sabertooth: Sabertooth,
     suddenAmbush: SuddenAmbush,
+    tasteForBlood: TasteForBlood,
+    ragingFury: RagingFury,
   };
 
   static guide = Guide;

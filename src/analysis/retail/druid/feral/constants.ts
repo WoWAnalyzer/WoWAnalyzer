@@ -153,3 +153,13 @@ export function getBiteCps(event: DamageEvent) {
     return CONVOKE_FB_CPS;
   }
 }
+
+export const TIGERS_FURY_BASE_DURATION = 10_000;
+export const PREDATOR_DURATION_BOOST = 5_000;
+
+export function getTigersFuryDuration(c: Combatant) {
+  return (
+    TIGERS_FURY_BASE_DURATION +
+    (c.hasTalent(TALENTS_DRUID.PREDATOR_TALENT) ? PREDATOR_DURATION_BOOST : 0)
+  );
+}
