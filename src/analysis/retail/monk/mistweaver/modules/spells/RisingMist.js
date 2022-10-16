@@ -12,13 +12,12 @@ import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
+import { FOUR_PIECE_EXTENSION, RISING_MIST_EXTENSION } from '../../constants';
 import HotTrackerMW from '../core/HotTrackerMW';
 
 const debug = false;
 
 const ENVELOPING_MIST_HARDCAST = 'Enveloping Mist Hardcast';
-const RISING_MIST_EXTENSION = 4000;
 const RENEWING_MIST_HARDCAST = 'Renewing Mist Hardcast';
 
 const UNAFFECTED_SPELLS = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
@@ -201,16 +200,11 @@ class RisingMist extends Analyzer {
       return;
     }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
-    const numTierExtensions = this.hotTracker.getNumberOfAttributions(
-      hot.attributions,
-      'EF 4 Piece extension',
-    );
-    console.log(hot.attributions);
-    console.log('num tier extensions ' + numTierExtensions);
+    const numTierExtensions = this.hotTracker.getNumberOfExtensions(hot.extensions, '4 Piece');
     if (
       this.hasAttribution(hot.attributions, RENEWING_MIST_HARDCAST) &&
       hot.originalEnd < event.timestamp &&
-      event.timestamp < hot.end - numTierExtensions * 1000
+      event.timestamp < hot.end - numTierExtensions * FOUR_PIECE_EXTENSION
     ) {
       this.extraVivCleaves += 1;
       this.extraVivHealing += event.amount || 0;
@@ -228,7 +222,7 @@ class RisingMist extends Analyzer {
     this.risingMistCount += 1;
     debug && console.log(`risingMist cast #: ${this.risingMistCount}`);
 
-    const newRisingMist = HotTracker.getNewAttribution(`RisingMist extension`);
+    const newRisingMist = HotTracker.getNewAttribution(`RisingMist #${this.risingMistCount}`);
     this.risingMists.push(newRisingMist);
 
     let foundTarget = false;

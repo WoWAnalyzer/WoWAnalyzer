@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { Options } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
-import HotTracker, { Attribution, HotInfo } from 'parser/shared/modules/HotTracker';
+import HotTracker, { Extension, HotInfo } from 'parser/shared/modules/HotTracker';
 
 const REM_BASE_DURATION = 20000;
 const ENV_BASE_DURATION = 6000;
@@ -22,11 +22,16 @@ class HotTrackerMW extends HotTracker {
     this.upwellingActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT.id);
   }
 
-  getNumberOfAttributions(attributions: Attribution[], substring: string): number {
+  /**
+   * Use to calculate number of extensions that contain specified substring in its attributions
+   * @param extensions array of extension objects for a given hot
+   * @param substring string to search for in extension attributions
+   * @returns number of extensions containing string
+   */
+  getNumberOfExtensions(extensions: Extension[], substring: string): number {
     let count = 0;
-    attributions.forEach(function (attr) {
-      console.log(attr.name);
-      if (attr.name.includes(substring)) {
+    extensions.forEach(function (extension) {
+      if (extension.attribution.name.includes(substring)) {
         count += 1;
       }
     });
