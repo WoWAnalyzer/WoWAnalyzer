@@ -8,8 +8,9 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { formatNumber } from 'common/format';
+import TalentSpellText from 'parser/ui/TalentSpellText';
+import SpellLink from 'interface/SpellLink';
 
 const UNAFFECTED_SPELLS = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
@@ -87,17 +88,24 @@ class MistyPeaks extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <ul>
-            <li>Extra Enveloping Mist hits: {this.extraHits}</li>
-            <li>Extra Enveloping Mist direct healing: {formatNumber(this.extraHealing)}</li>
             <li>
-              Bonus healing from Enveloping Mist Buff: {formatNumber(this.extraEnvBonusHealing)}
+              {' '}
+              <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> extra hits: {this.extraHits}
+            </li>
+            <li>
+              Extra <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> direct healing:{' '}
+              {formatNumber(this.extraHealing)}
+            </li>
+            <li>
+              Bonus healing from <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> buff:{' '}
+              {formatNumber(this.extraEnvBonusHealing)}
             </li>
           </ul>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_MONK.MISTY_PEAKS_TALENT.id}>
+        <TalentSpellText spellId={TALENTS_MONK.MISTY_PEAKS_TALENT.id} maxRanks={2}>
           <ItemHealingDone amount={this.extraHealing + this.extraEnvBonusHealing} />
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }
