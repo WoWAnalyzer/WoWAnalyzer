@@ -22,7 +22,7 @@ export const FROM_RAPID_DIFFUSION = 'FromRD'; // can be linked to env mist or rs
 
 const CAST_BUFFER_MS = 100;
 const MAX_REM_DURATION = 77000;
-const FOUND_REMS = new Set();
+const FOUND_REMS = new Map<number, number>();
 
 /*
   This file is for attributing Renewing Mist and Enveloping Mist applications to hard casts.
@@ -158,7 +158,12 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
     if (FOUND_REMS.has(event.timestamp)) {
       return false;
     } else {
-      FOUND_REMS.add(event.timestamp);
+      if (event.type === EventType.ApplyBuff) {
+        FOUND_REMS.set(event.timestamp, (event as ApplyBuffEvent).targetID);
+      } else {
+        // Refresh
+        FOUND_REMS.set(event.timestamp, (event as RefreshBuffEvent).targetID);
+      }
     }
   }
   if (HasRelatedEvent(event, FROM_HARDCAST)) {
@@ -184,6 +189,12 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
 
 export function isFromMistyPeaks(event: ApplyBuffEvent | RefreshBuffEvent) {
   return HasRelatedEvent(event, FROM_MISTY_PEAKS);
+}
+
+export function isFromDancingMists(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
+  return (
+    HasRelatedEvent(event, FROM_MISTY_PEAKS) && FOUND_REMS.get(event.timestamp) === event.targetID
+  );
 }
 
 export default CastLinkNormalizer;
