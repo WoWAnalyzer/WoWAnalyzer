@@ -24,13 +24,13 @@ class HotTrackerMW extends HotTracker {
 
   // Renewing Mist applies with a longer duration if Thunder Focus Tea is active
   _calculateRemDuration(combatant: Combatant): number {
-    return combatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)
+    return combatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)
       ? REM_BASE_DURATION + TFT_REM_EXTRA_DURATION
       : REM_BASE_DURATION;
   }
 
   _calculateMaxRemDuration(combatant: Combatant): number {
-    return combatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)
+    return combatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)
       ? (REM_BASE_DURATION + TFT_REM_EXTRA_DURATION) * 2
       : REM_BASE_DURATION * 2;
   }
@@ -48,13 +48,19 @@ class HotTrackerMW extends HotTracker {
         bouncy: true,
       },
       {
-        spell: SPELLS.ENVELOPING_MIST,
+        spell: TALENTS_MONK.ENVELOPING_MIST_TALENT,
         duration: envMistDuration,
         tickPeriod: 1000,
         maxDuration: envMistDuration * 2,
       },
       {
         spell: SPELLS.ESSENCE_FONT_BUFF,
+        duration: essenceFontDuration,
+        tickPeriod: 2000,
+        maxDuration: essenceFontDuration * 2,
+      },
+      {
+        spell: SPELLS.FAELINE_STOMP_ESSENCE_FONT,
         duration: essenceFontDuration,
         tickPeriod: 2000,
         maxDuration: essenceFontDuration * 2,

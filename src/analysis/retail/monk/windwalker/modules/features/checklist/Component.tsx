@@ -25,12 +25,13 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         name="Use core abilities as often as possible"
         description={
           <>
-            Spells with short cooldowns like <SpellLink id={SPELLS.RISING_SUN_KICK.id} /> and{' '}
+            Spells with short cooldowns like{' '}
+            <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> and{' '}
             <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> should be used as often as possible.
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.RISING_SUN_KICK.id} />
+        <AbilityRequirement spell={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />
         <AbilityRequirement spell={SPELLS.FISTS_OF_FURY_CAST.id} />
         {combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id} />

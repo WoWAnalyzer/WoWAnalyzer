@@ -8,6 +8,7 @@ import { formatPercentage } from 'common/format';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { SpellLink } from 'interface';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 
 const HEALING_BONUS_PER_STACK = 0.15;
 const MAX_STACKS = 2;
@@ -42,15 +43,14 @@ class Lightweaver extends Analyzer {
 
   onHeal(Event: HealEvent) {
     if (this.currentStacks > 0) {
-      const overhealing = Event.overheal != null ? Event.overheal : 0;
-      const absorbed = Event.absorbed != null ? Event.absorbed : 0;
-      const totalHealing = Event.amount + overhealing + absorbed;
-
-      const totalHealingFromTalent =
-        totalHealing - totalHealing / (1 + HEALING_BONUS_PER_STACK * this.currentStacks);
-      this.overhealingDoneFromTalent +=
-        overhealing <= totalHealingFromTalent ? overhealing : totalHealingFromTalent;
-      this.healingDoneFromTalent += Math.max(totalHealingFromTalent - overhealing, 0);
+      this.healingDoneFromTalent += calculateEffectiveHealing(
+        Event,
+        HEALING_BONUS_PER_STACK * this.currentStacks,
+      );
+      this.overhealingDoneFromTalent += calculateOverhealing(
+        Event,
+        HEALING_BONUS_PER_STACK * this.currentStacks,
+      );
 
       this.currentStacks = 0;
       this.timesUsedBuffed += 1;

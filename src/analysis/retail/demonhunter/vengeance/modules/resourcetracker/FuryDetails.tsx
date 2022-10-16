@@ -80,7 +80,7 @@ class FuryDetails extends Analyzer {
 
   tab() {
     return {
-      title: 'Fury usage',
+      title: 'Fury Usage',
       url: 'fury-usage',
       render: () => (
         <Panel>

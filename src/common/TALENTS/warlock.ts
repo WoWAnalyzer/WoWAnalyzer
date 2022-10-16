@@ -266,9 +266,9 @@ const talents = createTalentList({
     icon: 'warlock_grimoireofsacrifice',
     maxRanks: 1,
   },
-  WILFREDS_SIGIL_OF_SUPERIOR_SUMMONING_TALENT: {
-    id: 337020,
-    name: "Wilfred's Sigil of Superior Summoning",
+  GRAND_WARLOCKS_DESIGN_TALENT: {
+    id: 387084,
+    name: "Grand Warlock's Design",
     icon: 'spell_warlock_demonicportal_purple',
     maxRanks: 1,
   },
@@ -723,12 +723,6 @@ const talents = createTalentList({
     icon: 'spell_fire_felrainoffire',
     maxRanks: 1,
   },
-  GRAND_WARLOCKS_DESIGN_TALENT: {
-    id: 387084,
-    name: "Grand Warlock's Design",
-    icon: 'spell_warlock_demonicportal_purple',
-    maxRanks: 1,
-  },
   CHAOS_INCARNATE_TALENT: {
     id: 387275,
     name: 'Chaos Incarnate',
@@ -878,7 +872,7 @@ const talents = createTalentList({
   DREAD_CALLING_TALENT: {
     id: 387391,
     name: 'Dread Calling',
-    icon: 'spell_warlock_calldreadstalkers',
+    icon: 'inv_felhound3_shadow_mount',
     maxRanks: 1,
   },
   DOOM_TALENT: {

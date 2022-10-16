@@ -21,7 +21,7 @@ class InvokeYulon extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH_HEAL),
       this.handleEnvelopingBreath,
     );
     this.addEventListener(
@@ -53,7 +53,7 @@ class InvokeYulon extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id}>
+        <BoringSpellValueText spellId={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id}>
           <ItemHealingDone amount={this.soothHealing + this.envelopHealing} />
           <br />
         </BoringSpellValueText>
