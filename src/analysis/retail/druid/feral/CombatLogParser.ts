@@ -7,7 +7,7 @@ import RipUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/spells/Ri
 import Buffs from './modules/Buffs';
 import ComboPointDetails from 'analysis/retail/druid/feral/modules/core/combopoints/ComboPointDetails';
 import ComboPointTracker from 'analysis/retail/druid/feral/modules/core/combopoints/ComboPointTracker';
-import FinisherUse from 'analysis/retail/druid/feral/modules/features/FinisherUse';
+import FinisherUse from 'analysis/retail/druid/feral/modules/core/combopoints/FinisherUse';
 import DotUptimesAndSnapshots from 'analysis/retail/druid/feral/modules/features/DotUptimesAndSnapshots';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -30,6 +30,8 @@ import RakeBleed from './normalizers/RakeBleed';
 import Guide from 'analysis/retail/druid/feral/Guide';
 import BloodtalonsLinkNormalizer from 'analysis/retail/druid/feral/normalizers/BloodtalonsLinkNormalizer';
 import RampantFerocity from 'analysis/retail/druid/feral/modules/spells/RampantFerocity';
+import EnergyGraph from 'analysis/retail/druid/feral/modules/core/energy/EnergyGraph';
+import BuilderUse from 'analysis/retail/druid/feral/modules/core/combopoints/BuilderUse';
 import DoubleClawedRake from 'analysis/retail/druid/feral/modules/spells/DoubleClawedRake';
 import Sabertooth from 'analysis/retail/druid/feral/modules/spells/Sabertooth';
 import SuddenAmbushLinkNormalizer from 'analysis/retail/druid/feral/normalizers/SuddenAmbushLinkNormalizer';
@@ -48,6 +50,17 @@ class CombatLogParser extends CoreCombatLogParser {
     activeDruidForm: ActiveDruidForm,
     spellEnergyCost: SpellEnergyCost,
 
+    // Energy
+    energyTracker: EnergyTracker,
+    energyDetails: EnergyDetails,
+    energyGraph: EnergyGraph,
+
+    // Combo Points
+    comboPointTracker: ComboPointTracker,
+    comboPointDetails: ComboPointDetails,
+    finisherUse: FinisherUse,
+    builderUse: BuilderUse,
+
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
@@ -56,8 +69,6 @@ class CombatLogParser extends CoreCombatLogParser {
     dotUptimesAndSnapshots: DotUptimesAndSnapshots,
     ferociousBite: FerociousBite,
     spellUsable: SpellUsable,
-    energyTracker: EnergyTracker,
-    energyDetails: EnergyDetails,
 
     // bleeds
     rakeUptime: RakeUptimeAndSnapshots,
@@ -78,11 +89,6 @@ class CombatLogParser extends CoreCombatLogParser {
     doubleClawedRake: DoubleClawedRake,
     sabertooth: Sabertooth,
     suddenAmbush: SuddenAmbush,
-
-    // resources
-    comboPointTracker: ComboPointTracker,
-    comboPointDetails: ComboPointDetails,
-    finisherUse: FinisherUse,
   };
 
   static guide = Guide;

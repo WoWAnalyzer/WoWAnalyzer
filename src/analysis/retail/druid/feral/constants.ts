@@ -10,7 +10,7 @@ import { getHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNor
 /** Feral combo point cap */
 export const MAX_CPS = 5;
 
-/** The cast spells for Combo Point generating abilities */
+/** The cast / energize spells for Combo Point generating abilities */
 export const CP_GENERATORS: Spell[] = [
   SPELLS.SHRED,
   SPELLS.RAKE,
@@ -18,7 +18,8 @@ export const CP_GENERATORS: Spell[] = [
   SPELLS.SWIPE_CAT,
   SPELLS.MOONFIRE_FERAL,
   TALENTS_DRUID.BRUTAL_SLASH_TALENT,
-  TALENTS_DRUID.FERAL_FRENZY_TALENT,
+  TALENTS_DRUID.FERAL_FRENZY_TALENT, // the cast ID
+  SPELLS.FERAL_FRENZY_DEBUFF, // the resource generate ID
 ];
 
 /** The cast spells for Finishers */

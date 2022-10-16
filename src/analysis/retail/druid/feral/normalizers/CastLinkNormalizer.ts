@@ -2,12 +2,14 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
+  AbilityEvent,
   AnyEvent,
   ApplyDebuffEvent,
   CastEvent,
   DamageEvent,
   EventType,
   GetRelatedEvents,
+  HasAbility,
   HasRelatedEvent,
   RefreshDebuffEvent,
 } from 'parser/core/Events';
@@ -23,6 +25,7 @@ export const HIT_TARGET = 'HitTarget';
 const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: HIT_TARGET,
     linkingEventId: SPELLS.RIP.id,
     linkingEventType: [EventType.ApplyDebuff, EventType.RefreshDebuff],
     referencedEventId: SPELLS.RIP.id,
@@ -173,6 +176,12 @@ export function getPrimalWrath(
 /** Only works for the AoE casts Primal Wrath, Brutal Slash, Swipe, and (Cat) Thrash */
 export function getHitCount(aoeCastEvent: CastEvent): number {
   return GetRelatedEvents(aoeCastEvent, HIT_TARGET).length;
+}
+
+export function getHits(castEvent: CastEvent): AbilityEvent<any>[] {
+  return GetRelatedEvents(castEvent, HIT_TARGET).filter((e): e is AbilityEvent<any> =>
+    HasAbility(e),
+  );
 }
 
 export default CastLinkNormalizer;

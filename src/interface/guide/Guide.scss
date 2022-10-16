@@ -5,6 +5,14 @@ $good-perf-color: #4ec04e;
 $ok-perf-color: #ffc84a;
 $bad-perf-color: #ac1f39;
 
+// for export
+:root {
+  --guide-perfect-color: #{$perfect-perf-color};
+  --guide-good-color: #{$good-perf-color};
+  --guide-ok-color: #{$ok-perf-color};
+  --guide-bad-color: #{$bad-perf-color};
+}
+
 .guide-container {
   section {
     margin: initial;
