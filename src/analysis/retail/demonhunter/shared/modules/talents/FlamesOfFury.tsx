@@ -10,18 +10,18 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
-export default class SwallowedAnger extends Analyzer {
+export default class FlamesOfFury extends Analyzer {
   furyGain = 0;
   furyWaste = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SWALLOWED_ANGER_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FLAMES_OF_FURY_TALENT);
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.CONSUME_MAGIC),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.FLAMES_OF_FURY_FURY_GEN),
       this.onEnergizeEvent,
     );
   }
@@ -51,14 +51,14 @@ export default class SwallowedAnger extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Avoid casting <SpellLink id={SPELLS.CONSUME_MAGIC.id} /> close to Fury cap and cast
-          abilities regularly to avoid accidently capping your fury.
+          Avoid casting <SpellLink id={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id} /> close to
+          Fury cap and cast abilities regularly to avoid accidently capping your fury.
         </>,
       )
-        .icon(TALENTS_DEMON_HUNTER.SWALLOWED_ANGER_TALENT.icon)
+        .icon(TALENTS_DEMON_HUNTER.FLAMES_OF_FURY_TALENT.icon)
         .actual(
           t({
-            id: 'demonhunter.shared.suggestions.consumeMagic.furyWasted',
+            id: 'demonhunter.shared.suggestions.sigilOfFlame.furyWasted',
             message: `${formatPercentage(actual)}% Fury wasted`,
           }),
         )
@@ -82,7 +82,7 @@ export default class SwallowedAnger extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.SWALLOWED_ANGER_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.FLAMES_OF_FURY_TALENT.id}>
           <>
             {this.furyPerMin} <small>Fury per min</small>
           </>

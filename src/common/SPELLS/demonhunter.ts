@@ -510,6 +510,11 @@ const spells = spellIndexableList({
     name: 'Fel Devastation',
     icon: 'ability_demonhunter_feldevastation',
   },
+  FLAMES_OF_FURY_FURY_GEN: {
+    id: 395001,
+    name: 'Flames of Fury',
+    icon: 'ability_demonhunter_sigilofinquisition',
+  },
   //endregion
 });
 
