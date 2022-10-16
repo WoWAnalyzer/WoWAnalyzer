@@ -22,6 +22,17 @@ class HotTrackerMW extends HotTracker {
     this.upwellingActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT.id);
   }
 
+  fromDancingMists(attributions: Attribution[]): boolean {
+    return (
+      attributions.some(function (attr) {
+        return attr.name.includes('Dancing Mists');
+      }) &&
+      !attributions.some(function (attr) {
+        return attr.name.includes('Hardcast');
+      })
+    );
+  }
+
   fromMistyPeaks(attributions: Attribution[]): boolean {
     return attributions.some(function (attr) {
       return attr.name.includes('Misty Peaks');
