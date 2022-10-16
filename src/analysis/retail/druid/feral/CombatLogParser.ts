@@ -89,11 +89,6 @@ class CombatLogParser extends CoreCombatLogParser {
     doubleClawedRake: DoubleClawedRake,
     sabertooth: Sabertooth,
     suddenAmbush: SuddenAmbush,
-
-    // resources
-    comboPointTracker: ComboPointTracker,
-    comboPointDetails: ComboPointDetails,
-    finisherUse: FinisherUse,
   };
 
   static guide = Guide;
