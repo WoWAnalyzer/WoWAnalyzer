@@ -103,7 +103,7 @@ class MistyPeaks extends Analyzer {
           </ul>
         }
       >
-        <TalentSpellText spellId={TALENTS_MONK.MISTY_PEAKS_TALENT.id} maxRanks={2}>
+        <TalentSpellText talent={TALENTS_MONK.MISTY_PEAKS_TALENT}>
           <ItemHealingDone amount={this.extraHealing + this.extraEnvBonusHealing} />
         </TalentSpellText>
       </Statistic>
