@@ -228,10 +228,8 @@ class RisingMist extends Analyzer {
         const spellId = Number(spellIdString);
 
         const attribution = newRisingMist;
-        if (
-          !untrackedSpells.includes(spellId) &&
-          !this.hotTracker.fromHardcast(this.hotTracker.hots[playerId][spellId].attributions)
-        ) {
+        const hot = this.hotTracker.hots[playerId][spellId];
+        if (!untrackedSpells.includes(spellId) && !this.hotTracker.fromHardcast(hot.attributions)) {
           return;
         }
         this.hotTracker.addExtension(
