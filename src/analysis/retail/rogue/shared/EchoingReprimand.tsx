@@ -1,7 +1,6 @@
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { ResourceIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
@@ -22,13 +21,13 @@ class EchoingReprimand extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ECHOING_REPRIMAND_TALENT.id);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ECHOING_REPRIMAND),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.ECHOING_REPRIMAND_TALENT),
       this.onDamage,
     );
     this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.ECHOING_REPRIMAND),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(TALENTS.ECHOING_REPRIMAND_TALENT),
       this.onEnergize,
     );
   }
@@ -48,10 +47,10 @@ class EchoingReprimand extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`${formatNumber(this.damage)} total damage done.`}
       >
-        <BoringSpellValueText spellId={SPELLS.ECHOING_REPRIMAND.id}>
+        <BoringSpellValueText spellId={TALENTS.ECHOING_REPRIMAND_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
           <br />
           <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink />

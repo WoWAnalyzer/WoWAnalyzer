@@ -9,6 +9,10 @@ class Buffs extends CoreAuras {
 
     return [
       {
+        spellId: TALENTS_SHAMAN.ASCENDANCE_ELEMENTAL_TALENT.id,
+        timelineHighlight: true,
+      },
+      {
         spellId: SPELLS.STORMBRINGER_BUFF.id,
         timelineHighlight: true,
       },

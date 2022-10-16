@@ -1,43 +1,46 @@
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import TALENTS from 'common/TALENTS/warlock';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
 import { findMax, binomialPMF } from 'parser/shared/modules/helpers/Probability';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-import SoulShardTracker from '../soulshards/SoulShardTracker';
+import SoulShardTracker from '../core/SoulShardTracker';
 
 const TICKS_PER_UA = 4;
 const SC_PROC_CHANCE = 0.15;
 
 class SoulConduit extends Analyzer {
+
   static dependencies = {
     soulShardTracker: SoulShardTracker,
   };
 
+  protected soulShardTracker!: SoulShardTracker;
+
   _totalTicks = 0;
   _totalUAdamage = 0;
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_CONDUIT_TALENT.id);
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SOUL_CONDUIT_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.UNSTABLE_AFFLICTION),
       this.onUnstableAfflictionDamage,
     );
   }
 
-  onUnstableAfflictionDamage(event) {
+  onUnstableAfflictionDamage(event: DamageEvent) {
     this._totalTicks += 1;
     this._totalUAdamage += event.amount + (event.absorbed || 0);
   }
 
   statistic() {
     // if we haven't cast any UAs, _totalTicks would be 0 and we would get an exception
-    // but with denominator 1 in this case, if this._totalUAdamage = 0, then dividing by 1 still gives correct result of average damage = 0
-    const avgDamage = this._totalUAdamage / (this._totalTicks > 0 ? this._totalTicks : 1);
+    const avgDamage = this._totalUAdamage / Math.max(this._totalTicks, 1);
     const shardsGained = this.soulShardTracker.getGeneratedBySpell(
       SPELLS.SOUL_CONDUIT_SHARD_GEN.id,
     );
@@ -69,7 +72,7 @@ class SoulConduit extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SOUL_CONDUIT_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.SOUL_CONDUIT_TALENT.id}>
           {shardsGained} <small>Soul Shards generated</small>
         </BoringSpellValueText>
       </Statistic>

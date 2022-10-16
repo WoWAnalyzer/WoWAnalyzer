@@ -82,7 +82,7 @@ export default class SwallowedAnger extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.SWALLOWED_ANGER_TALENT.id}>
           <>
             {this.furyPerMin} <small>Fury per min</small>
           </>
