@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { SpendResourceEvent } from 'parser/core/Events';
@@ -17,7 +17,7 @@ class SecretTechniqueCdr extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SECRET_TECHNIQUE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SECRET_TECHNIQUE_TALENT.id);
     this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendResource);
   }
 
@@ -27,8 +27,8 @@ class SecretTechniqueCdr extends Analyzer {
       return;
     }
 
-    if (this.spellUsable.isOnCooldown(SPELLS.SECRET_TECHNIQUE_TALENT.id)) {
-      this.spellUsable.reduceCooldown(SPELLS.SECRET_TECHNIQUE_TALENT.id, comboPointsSpent * 1000);
+    if (this.spellUsable.isOnCooldown(TALENTS.SECRET_TECHNIQUE_TALENT.id)) {
+      this.spellUsable.reduceCooldown(TALENTS.SECRET_TECHNIQUE_TALENT.id, comboPointsSpent * 1000);
     }
   }
 }

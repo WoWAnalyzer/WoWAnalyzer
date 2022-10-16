@@ -10,6 +10,7 @@ import {
   HasRelatedEvent,
 } from 'parser/core/Events';
 import { CP_GENERATORS } from 'analysis/retail/druid/feral/constants';
+import { TALENTS_DRUID } from 'common/TALENTS';
 
 /** Link from BT application to the casts that procced it */
 const PROCCED_BY = 'ProccedBy';
@@ -57,6 +58,7 @@ const EVENT_LINKS: EventLink[] = [
 class BloodtalonsLinkNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, EVENT_LINKS);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT);
   }
 }
 

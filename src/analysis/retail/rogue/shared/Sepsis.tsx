@@ -1,6 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
+import TALENTS from 'common/TALENTS/rogue';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
@@ -28,15 +28,25 @@ class Sepsis extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SEPSIS), this.onDamage);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SEPSIS), this.onSepsisCast);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SEPSIS_TALENT.id);
+    if (!this.active) {
+      return;
+    }
+
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SEPSIS_POISON),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SEPSIS_FINAL_DMG),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SEPSIS_TALENT),
+      this.onSepsisCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.SEPSIS_TALENT),
       this.onPoisonDamage,
     );
     this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SEPSIS),
+      Events.removedebuff.by(SELECTED_PLAYER).spell(TALENTS.SEPSIS_TALENT),
       this.onDebuffFade,
     );
   }
@@ -55,9 +65,9 @@ class Sepsis extends Analyzer {
     // of Sepsis is reduced by 30 seconds.
     if (
       timestampDiff < BASE_DOT_LENGTH_MS + DOT_END_BUFFER_MS &&
-      !this.spellUsable.isAvailable(SPELLS.SEPSIS.id)
+      !this.spellUsable.isAvailable(TALENTS.SEPSIS_TALENT.id)
     ) {
-      this.spellUsable.reduceCooldown(SPELLS.SEPSIS.id, COOLDOWN_REDUCTION_MS);
+      this.spellUsable.reduceCooldown(TALENTS.SEPSIS_TALENT.id, COOLDOWN_REDUCTION_MS);
     }
   }
 
@@ -87,7 +97,7 @@ class Sepsis extends Analyzer {
             </ul>
           }
         >
-          <BoringSpellValueText spellId={SPELLS.SEPSIS.id}>
+          <BoringSpellValueText spellId={TALENTS.SEPSIS_TALENT.id}>
             <ItemDamageDone amount={this.damage + this.poisonDamage} />
           </BoringSpellValueText>
         </Statistic>
