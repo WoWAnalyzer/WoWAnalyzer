@@ -7,6 +7,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import PowerWordShield from './PowerWordShield';
 import DonutChart from 'parser/ui/DonutChart';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 const CRYSTALLINE_REFLECTION_RANK_INCREASE = 0.1;
 
@@ -70,7 +71,11 @@ class CrystallineReflection extends Analyzer {
 
   statistic() {
     return (
-      <Statistic position={STATISTIC_ORDER.OPTIONAL(20)} size="flexible">
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(20)}
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+      >
         <div className="pad">
           <label>
             <SpellLink id={TALENTS_PRIEST.CRYSTALLINE_REFLECTION_TALENT.id}></SpellLink> damage

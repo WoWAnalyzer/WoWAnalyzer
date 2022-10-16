@@ -211,7 +211,7 @@ class PowerWordShield extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.ITEMS}
       >
         <>
           <BoringSpellValueText spellId={SPELLS.SHIELD_OF_ABSOLUTION_BUFF.id}>
