@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS/druid';
 
 export default [
+  change(date(2022, 10, 16), <>Added statistics for <SpellLink id={TALENTS_DRUID.RAGING_FURY_TALENT.id} /> and <SpellLink id={TALENTS_DRUID.TASTE_FOR_BLOOD_TALENT.id} /></>, Sref),
   change(date(2022, 10, 15), <>Overhauled Guide's 'Resource Use' section, including adding graphs for energy and CP usage.</>, Sref),
   change(date(2022, 10, 16), <>Added statistics for <SpellLink id={TALENTS_DRUID.DOUBLE_CLAWED_RAKE_TALENT.id} />, <SpellLink id={TALENTS_DRUID.SABERTOOTH_TALENT.id} />, and <SpellLink id={TALENTS_DRUID.SUDDEN_AMBUSH_TALENT.id} /></>, Sref),
   change(date(2022, 10, 12), <><SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} /> - updated Statistic and added Guide section.</>, Sref),
