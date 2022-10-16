@@ -230,7 +230,7 @@ class RisingMist extends Analyzer {
         const attribution = newRisingMist;
         if (
           !untrackedSpells.includes(spellId) &&
-          this.hotTracker.hots[playerId][spellIdString].attributions.length === 0
+          !this.hotTracker.fromHardcast(this.hotTracker.hots[playerId][spellId].attributions)
         ) {
           return;
         }
