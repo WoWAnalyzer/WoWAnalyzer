@@ -23,11 +23,9 @@ class HotTrackerMW extends HotTracker {
   }
 
   fromMistyPeaks(attributions: Attribution[]): boolean {
-    let found = false;
-    attributions.forEach(function (attr) {
-      found = found || attr.name.includes('Misty Peaks');
+    return attributions.some(function (attr) {
+      return attr.name.includes('Misty Peaks');
     });
-    return found;
   }
 
   // Renewing Mist applies with a longer duration if Thunder Focus Tea is active
