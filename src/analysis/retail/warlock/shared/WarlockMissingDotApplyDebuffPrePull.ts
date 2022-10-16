@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/warlock'
+import TALENTS from 'common/TALENTS/warlock';
 import MissingDotApplyDebuffPrePull, {
   Dot,
 } from 'parser/shared/normalizers/MissingDotApplyDebuffPrePull';
