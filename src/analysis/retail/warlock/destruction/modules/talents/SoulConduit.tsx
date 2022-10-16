@@ -1,5 +1,6 @@
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { findMax, binomialPMF } from 'parser/shared/modules/helpers/Probability';
@@ -28,7 +29,7 @@ class SoulConduit extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_CONDUIT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SOUL_CONDUIT_TALENT.id);
   }
 
   statistic() {
@@ -64,7 +65,7 @@ class SoulConduit extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SOUL_CONDUIT_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.SOUL_CONDUIT_TALENT.id}>
           {generatedShards} <small>generated Shards</small>
         </BoringSpellValueText>
       </Statistic>

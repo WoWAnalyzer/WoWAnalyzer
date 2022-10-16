@@ -4,37 +4,47 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import { CooldownBar } from 'parser/ui/CooldownBar';
 import SPELLS from 'common/SPELLS';
 import { SpellLink, TooltipElement } from 'interface';
+import { formatPercentage } from 'common/format';
+import styled from '@emotion/styled';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
-      <Section title="Resource Use">
-        <SubSection title="Energy">
-          <p>
-            Feral's primary resource is Energy. Typically, ability use will be limited by energy,
-            not time. You should avoid capping energy - lost energy regeneration is lost DPS. It
-            will occasionally be impossible to avoid capping energy - like while handling mecahnics
-            or during intermission phases.
-          </p>
-          TODO ENERGY GRAPH w/ HIGHLIGHTED CAPPED ENERGY, TIMES OFF TARGET (NO MELEE)
-        </SubSection>
-        <SubSection title="Combo Points">
-          <p>
-            Feral uses a system of Combo Point builders and spenders. Spenders are always more
-            powerful than builders - when you reach maximum combo points you should always use a
-            spender.
-          </p>
-          TODO LIST OF BUILDERS w/ GENERATED vs WASTED (OVERCAP)
-          <br />
-          TODO LIST OF SPENDERS w/ LOW CP USAGE
-        </SubSection>
-      </Section>
+      <ResourceUseSection modules={modules} events={events} info={info} />
       <CoreRotationSection modules={modules} events={events} info={info} />
-      <Section title="Cooldowns">
-        <p>TODO COOLDOWN USAGE DESCRIPTION</p>
-        <CooldownGraphSubsection modules={modules} events={events} info={info} />
-      </Section>
+      <CooldownSection modules={modules} events={events} info={info} />
     </>
+  );
+}
+
+function ResourceUseSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
+  return (
+    <Section title="Resource Use">
+      <SubSection title="Energy">
+        <p>
+          Your primary resource is Energy. Typically, ability use will be limited by energy, not
+          time. Avoid capping energy - lost energy regeneration is lost DPS. It will occasionally be
+          impossible to avoid capping energy - like while handling mechanics or during intermission
+          phases.
+        </p>
+        The chart below shows your energy over the course of the encounter. You spent{' '}
+        <strong>{formatPercentage(modules.energyTracker.percentAtCap, 1)}%</strong> of the encounter
+        capped on Energy.
+        {modules.energyGraph.plot}
+      </SubSection>
+      <SubSection title="Combo Points">
+        <p>
+          Most of your abilities either <strong>build</strong> or <strong>spend</strong> Combo
+          Points. Never use a builder at max CPs, and always wait until max CPs to use a spender
+          (with the exception of your opening <SpellLink id={SPELLS.RIP.id} />
+          ).
+        </p>
+        <SideBySidePanels>
+          <RoundedPanel>{modules.builderUse.chart}</RoundedPanel>
+          <RoundedPanel>{modules.finisherUse.chart}</RoundedPanel>
+        </SideBySidePanels>
+      </SubSection>
+    </Section>
   );
 }
 
@@ -106,6 +116,15 @@ function snapshotTooltip() {
   );
 }
 
+function CooldownSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
+  return (
+    <Section title="Cooldowns">
+      <p>TODO COOLDOWN USAGE DESCRIPTION</p>
+      <CooldownGraphSubsection modules={modules} events={events} info={info} />
+    </Section>
+  );
+}
+
 function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   const hasBerserk = info.combatant.hasTalent(TALENTS_DRUID.BERSERK_TALENT);
   const hasIncarn = info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT);
@@ -158,3 +177,21 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
     </SubSection>
   );
 }
+
+// TODO more purpose built rather than copypasta from Emallson's stuff
+const RoundedPanel = styled.div`
+  background: #222;
+  border-radius: 0.5em;
+  padding: 1em 1.5em;
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-columns: 1fr max-content;
+  align-content: center;
+  align-items: center;
+`;
+
+const SideBySidePanels = styled.div`
+  display: grid;
+  grid-template-columns: minmax(50%, max-content) 1fr;
+  grid-column-gap: 1em;
+`;

@@ -42,6 +42,7 @@ class Enemies extends Entities<Enemy> {
   }
 
   /**
+   * Retrieves the enemy that was the target of given event.
    * @param {object} event
    * @returns {Enemy|null}
    */
@@ -68,6 +69,39 @@ class Enemies extends Entities<Enemy> {
         return null;
       }
       this.enemies[enemyId] = enemy = new Enemy(this.owner, baseInfo, targetInstance);
+    }
+    return enemy;
+  }
+
+  /**
+   * Retrieves the enemy that was the source of given event.
+   * @param {object} event
+   * @returns {Enemy|null}
+   */
+  getSourceEntity(event: AnyEvent): Enemy | null {
+    if (!HasSource(event)) {
+      return null;
+    }
+    if (event.sourceIsFriendly) {
+      return null;
+    }
+
+    const sourceId = event.sourceID;
+    const sourceInstance = event.sourceInstance ?? 0;
+
+    const enemyId = encodeTargetString(sourceId, sourceInstance);
+
+    let enemy = this.enemies[enemyId];
+
+    if (!enemy) {
+      const baseInfo = this.owner.report.enemies.find(
+        (enemy: { id: number }) => enemy.id === sourceId,
+      );
+      if (!baseInfo) {
+        debug && console.warn('Enemy not noteworthy enough:', sourceId, sourceInstance, event);
+        return null;
+      }
+      this.enemies[enemyId] = enemy = new Enemy(this.owner, baseInfo, sourceInstance);
     }
     return enemy;
   }

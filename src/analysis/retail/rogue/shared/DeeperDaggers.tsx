@@ -1,5 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
@@ -13,7 +14,7 @@ class DeeperDaggers extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.DEEPER_DAGGERS.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DEEPER_DAGGERS_TALENT.id);
   }
 
   get percentUptime() {
@@ -27,7 +28,7 @@ class DeeperDaggers extends Analyzer {
       <Statistic size="flexible" category={STATISTIC_CATEGORY.COVENANTS}>
         <div className="pad">
           <label>
-            <SpellLink id={SPELLS.DEEPER_DAGGERS.id} /> Uptime
+            <SpellLink id={TALENTS.DEEPER_DAGGERS_TALENT.id} /> Uptime
           </label>
           <div className="value">{formatPercentage(this.percentUptime)}%</div>
         </div>

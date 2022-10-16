@@ -18,12 +18,14 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const POWER_WORD_SHIELD_DURATION_MS = 15000;
 const SHIELD_OF_ABSOLUTION_MULTIPLIER_HEALING = 0.3;
+const SHIELD_OF_ABSOLUTION_MULTIPLIER_DAMAGE = 1;
 
 type ShieldInfo = {
   event: ApplyBuffEvent | RefreshBuffEvent;
   shieldOfAbsolutionValue: number;
   healing: number;
   crit: boolean;
+  rapture: boolean;
 };
 
 // when removebuff happens, clear out the entry in the map
@@ -99,6 +101,7 @@ class PowerWordShield extends Analyzer {
       shieldOfAbsolutionValue: this.shieldOfAbsolutionValue,
       healing: 0,
       crit: this.critCheck(event),
+      rapture: this.selectedCombatant.hasBuff(TALENTS_PRIEST.RAPTURE_TALENT.id),
     });
     this.shieldOfAbsolutionValue = 0;
   }
@@ -128,34 +131,49 @@ class PowerWordShield extends Analyzer {
 
   handleRemovedShield(event: RefreshBuffEvent | RemoveBuffEvent) {
     const info = this.shieldApplications.get(event.targetID);
+
     if (
       !info ||
-      info.event.timestamp > event.timestamp || // not sure how this happens? fabrication stuff?
+      info.event.timestamp > event.timestamp ||
       info.event.timestamp + POWER_WORD_SHIELD_DURATION_MS < event.timestamp
     ) {
       return;
     }
-
-    const shieldAmount = info.event.absorb || 0; // the initial amount, from the ApplyBuffEvent
-    const shieldOfAbsolutionBonus = info.crit
-      ? info.shieldOfAbsolutionValue * 2
-      : info.shieldOfAbsolutionValue; // the amount the shield was increased by the 4p
-    const basePowerWordShieldAmount = (shieldAmount - shieldOfAbsolutionBonus) / 1.5;
+    const shieldAmount = info.event.absorb || 0; // the initial amount, from the ApplyBuffEvent/RefreshBuffEvent
+    const shieldOfAbsolutionBonus =
+      info.shieldOfAbsolutionValue * (info.crit ? 2 : 1) * (info.rapture ? 1.3 : 1);
+    const basePowerWordShieldAmount = this.hasAegis
+      ? (shieldAmount - shieldOfAbsolutionBonus) / 1.5
+      : shieldAmount - shieldOfAbsolutionBonus;
     let totalShielded = info.healing; // this is the amount of healing the shield did
+    const didPwsConsume =
+      totalShielded - basePowerWordShieldAmount > 0 ? basePowerWordShieldAmount : totalShielded;
+    this.pwsValue += didPwsConsume;
 
-    this.pwsValue += basePowerWordShieldAmount;
-    totalShielded -= basePowerWordShieldAmount;
-    this.t23pValue +=
+    totalShielded -= didPwsConsume;
+
+    const shieldOfAbsolutionValue = (totalShielded: number) =>
       totalShielded >= shieldOfAbsolutionBonus ? shieldOfAbsolutionBonus : totalShielded;
 
     if (!this.hasAegis) {
-      return;
+      if (totalShielded > 0) {
+        // without aegis the shield didn't consume the 4p bonus
+        this.t23pValue += shieldOfAbsolutionValue(totalShielded);
+        totalShielded -= shieldOfAbsolutionValue(totalShielded);
+      }
+
       this.shieldApplications.set(event.targetID, null);
+      return;
     }
+
     if (totalShielded < shieldOfAbsolutionBonus) {
+      this.t23pValue += totalShielded;
       this.aegisValue += totalShielded - shieldOfAbsolutionBonus;
       return;
     }
+
+    this.t23pValue +=
+      totalShielded >= shieldOfAbsolutionBonus ? shieldOfAbsolutionBonus : totalShielded;
     totalShielded -=
       totalShielded >= shieldOfAbsolutionBonus ? shieldOfAbsolutionBonus : totalShielded;
     this.aegisValue += totalShielded;
@@ -176,11 +194,12 @@ class PowerWordShield extends Analyzer {
   }
 
   onPenanceHeal(event: HealEvent) {
-    this.shieldOfAbsolutionValue += event.amount * SHIELD_OF_ABSOLUTION_MULTIPLIER_HEALING;
+    this.shieldOfAbsolutionValue +=
+      (event.amount + (event.overheal || 0)) * SHIELD_OF_ABSOLUTION_MULTIPLIER_HEALING;
   }
 
   onPenanceDamage(event: DamageEvent) {
-    this.shieldOfAbsolutionValue += event.amount;
+    this.shieldOfAbsolutionValue += event.amount * SHIELD_OF_ABSOLUTION_MULTIPLIER_DAMAGE;
   }
 
   onPenanceCast() {
@@ -192,7 +211,7 @@ class PowerWordShield extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.ITEMS}
       >
         <>
           <BoringSpellValueText spellId={SPELLS.SHIELD_OF_ABSOLUTION_BUFF.id}>
