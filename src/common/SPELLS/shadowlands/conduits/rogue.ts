@@ -19,21 +19,11 @@ const conduits = spellIndexableList({
   //endregion
 
   //region Venthyr
-  LASHING_SCARS: {
-    id: 341310,
-    name: 'Lashing Scars',
-    icon: 'inv_misc_crop_01',
-  },
   //endregion
 
   //region shared
-  DEEPER_DAGGERS: {
-    id: 341549,
-    name: 'Deeper Daggers',
-    icon: 'ability_rogue_focusedattacks',
-  },
   DEEPER_DAGGERS_BUFF: {
-    id: 341550,
+    id: 383405,
     name: 'Deeper Daggers',
     icon: 'ability_rogue_focusedattacks',
   },

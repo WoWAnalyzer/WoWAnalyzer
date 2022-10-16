@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -36,19 +37,19 @@ class GrimoireOfSacrifice extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.GRIMOIRE_OF_SACRIFICE_TALENT.id);
   }
 
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your uptime on <SpellLink id={SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.id} /> is too low. If
+          Your uptime on <SpellLink id={TALENTS.GRIMOIRE_OF_SACRIFICE_TALENT.id} /> is too low. If
           you picked this talent, you should always have your pet sacrificed. If you died or
           summoned your pet, make sure to sacrifice it again to gain this buff.
         </>,
       )
-        .icon(SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.icon)
+        .icon(TALENTS.GRIMOIRE_OF_SACRIFICE_TALENT.icon)
         .actual(
           t({
             id: 'warlock.shared.suggestions.grimoireOfSacrifice.uptime',
@@ -75,7 +76,7 @@ class GrimoireOfSacrifice extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.GRIMOIRE_OF_SACRIFICE_TALENT.id}>
           {formatNumber(dps)} DPS
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total

@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
+import TALENTS from 'common/TALENTS/rogue';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -12,19 +13,18 @@ class CastsInStealthBase extends Analyzer {
   maxCastsPerStealth = 0;
   validStealthSpellIds = [
     SPELLS.BACKSTAB.id,
-    SPELLS.GLOOMBLADE_TALENT.id,
+    TALENTS.GLOOMBLADE_TALENT.id,
     SPELLS.SHURIKEN_STORM.id,
     SPELLS.SHADOWSTRIKE.id,
-    SPELLS.NIGHTBLADE.id,
     SPELLS.EVISCERATE.id,
-    SPELLS.SHURIKEN_TORNADO_TALENT.id,
-    SPELLS.SECRET_TECHNIQUE_TALENT.id,
+    TALENTS.SHURIKEN_TORNADO_TALENT.id,
+    TALENTS.SECRET_TECHNIQUE_TALENT.id,
   ];
 
   constructor(options: Options) {
     super(options);
-    this.backstabSpell = this.selectedCombatant.hasTalent(SPELLS.GLOOMBLADE_TALENT.id)
-      ? SPELLS.GLOOMBLADE_TALENT
+    this.backstabSpell = this.selectedCombatant.hasTalent(TALENTS.GLOOMBLADE_TALENT.id)
+      ? TALENTS.GLOOMBLADE_TALENT
       : SPELLS.BACKSTAB;
     this.badStealthSpells = [this.backstabSpell];
   }

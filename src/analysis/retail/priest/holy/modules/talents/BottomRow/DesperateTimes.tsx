@@ -53,10 +53,7 @@ class DesperateTimes extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(1)}
       >
-        <TalentSpellText
-          spellId={TALENTS.DESPERATE_TIMES_TALENT.id}
-          maxRanks={TALENTS.DESPERATE_TIMES_TALENT.maxRanks}
-        >
+        <TalentSpellText talent={TALENTS.DESPERATE_TIMES_TALENT}>
           <ItemHealingDone amount={this.healingDoneFromTalent} />
         </TalentSpellText>
       </Statistic>

@@ -3,9 +3,8 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
-import ScouringTitheUptime from '../../covenants/ScouringTithe';
-import SoulShardDetails from '../../soulshards/SoulShardDetails';
-import SoulShardTracker from '../../soulshards/SoulShardTracker';
+import SoulShardDetails from '../../core/SoulShardDetails';
+import SoulShardTracker from '../../core/SoulShardTracker';
 import Haunt from '../../talents/Haunt';
 import ShadowEmbrace from '../../talents/ShadowEmbrace';
 import SiphonLifeUptime from '../../talents/SiphonLifeUptime';
@@ -18,21 +17,39 @@ import Component from './Component';
 class Checklist extends BaseChecklist {
   static dependencies = {
     ...BaseChecklist.dependencies,
-    combatants: Combatants,
-    castEfficiency: CastEfficiency,
-    alwaysBeCasting: AlwaysBeCasting,
-    preparationRuleAnalyzer: PreparationRuleAnalyzer,
-
     agonyUptime: AgonyUptime,
+    alwaysBeCasting: AlwaysBeCasting,
+    castEfficiency: CastEfficiency,
+    combatants: Combatants,
     corruptionUptime: CorruptionUptime,
-    siphonLifeUptime: SiphonLifeUptime,
-    unstableAfflictionUptime: UnstableAfflictionUptime,
     haunt: Haunt,
+    preparationRuleAnalyzer: PreparationRuleAnalyzer,
     shadowEmbrace: ShadowEmbrace,
-    scouringTithe: ScouringTitheUptime,
+    siphonLifeUptime: SiphonLifeUptime,
     soulShardDetails: SoulShardDetails,
     soulShardTracker: SoulShardTracker,
+    unstableAfflictionUptime: UnstableAfflictionUptime,
   };
+
+  // Core
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected castEfficiency!: CastEfficiency;
+  protected combatants!: Combatants;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+
+  // Spells
+  protected haunt!: Haunt;
+  protected shadowEmbrace!: ShadowEmbrace;
+
+  // DoT Uptimes
+  protected agonyUptime!: AgonyUptime;
+  protected corruptionUptime!: CorruptionUptime;
+  protected siphonLifeUptime!: SiphonLifeUptime;
+  protected unstableAfflictionUptime!: UnstableAfflictionUptime;
+
+
+  // Resources
+  protected soulShardDetails!: SoulShardDetails;
 
   render() {
     return (
@@ -41,18 +58,15 @@ class Checklist extends BaseChecklist {
         combatant={this.combatants.selected}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
-
           agony: this.agonyUptime.suggestionThresholds,
           corruption: this.corruptionUptime.suggestionThresholds,
+          downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           unstableAffliction: this.unstableAfflictionUptime.suggestionThresholds,
           siphonLife: this.siphonLifeUptime.suggestionThresholds,
           haunt: this.haunt.suggestionThresholds,
-          scouringTithe: this.scouringTithe.suggestionThresholds,
           shadowEmbrace: this.shadowEmbrace.suggestionThresholds,
-          soulShards: this.soulShardDetails.suggestionThresholds,
-          downtime: this.alwaysBeCasting.suggestionThresholds,
+          soulShardDetails: this.soulShardDetails.suggestionThresholds,
         }}
-        shardTracker={this.soulShardTracker}
       />
     );
   }
