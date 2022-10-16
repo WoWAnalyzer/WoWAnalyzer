@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -22,7 +23,7 @@ class SoulShardDetails extends Analyzer {
         average: 5 / 3, // 5 shards in 3 minute fight
         major: 10 / 3, // 10 shards in 3 minute fight
       },
-      style: 'number', // TODO: not sure about this yet
+      style: ThresholdStyle.DECIMAL,
     };
   }
 
