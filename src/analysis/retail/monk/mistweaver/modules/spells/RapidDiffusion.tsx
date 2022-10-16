@@ -7,7 +7,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { isFromDancingMists } from '../../normalizers/CastLinkNormalizer';
+import { isFromRapidDiffusion } from '../../normalizers/CastLinkNormalizer';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import SpellLink from 'interface/SpellLink';
 import { formatNumber } from 'common/format';
@@ -26,7 +26,7 @@ class RapidDiffusion extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.DANCING_MISTS_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT);
     if (!this.active) {
       return;
     }
@@ -49,7 +49,7 @@ class RapidDiffusion extends Analyzer {
     ) {
       return;
     }
-    if (isFromDancingMists(event)) {
+    if (isFromRapidDiffusion(event)) {
       this.numExtraRems += 1;
     }
   }
@@ -63,7 +63,7 @@ class RapidDiffusion extends Analyzer {
       return;
     }
     const hot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
-    if (this.hotTracker.fromDancingMists(hot.attributions)) {
+    if (this.hotTracker.fromRapidDiffusion(hot.attributions)) {
       this.extraRemHeal += event.amount || 0;
     }
   }
@@ -77,7 +77,7 @@ class RapidDiffusion extends Analyzer {
       return;
     }
     const hot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
-    if (this.hotTracker.fromDancingMists(hot.attributions)) {
+    if (this.hotTracker.fromRapidDiffusion(hot.attributions)) {
       this.extraVivCleaves += 1;
       this.extraVivHealing += event.amount || 0;
       this.extraVivOverhealing += event.overheal || 0;
