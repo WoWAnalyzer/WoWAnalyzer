@@ -43,6 +43,7 @@ import EssenceFontUniqueTargets from './modules/spells/EssenceFontUniqueTargets'
 import ExpelHarm from './modules/spells/ExpelHarm';
 import InvokeYulon from './modules/spells/InvokeYulon';
 import LifeCocoon from './modules/spells/LifeCocoon';
+import RapidDiffusion from './modules/spells/RapidDiffusion';
 import RenewingMist from './modules/spells/RenewingMist';
 import Revival from './modules/spells/Revival';
 import RisingSunKick from './modules/spells/RisingSunKick';
@@ -133,6 +134,7 @@ class CombatLogParser extends CoreCombatLogParser {
     manaTea: ManaTea,
     mistyPeaks: MistyPeaks,
     nourishingCh: NourishingChi,
+    rapidDiffuson: RapidDiffusion,
     refreshingJadeWind: RefreshingJadeWind,
     renewingMist: RenewingMist,
     renewingMistDuringManaTea: RenewingMistDuringManaTea,
