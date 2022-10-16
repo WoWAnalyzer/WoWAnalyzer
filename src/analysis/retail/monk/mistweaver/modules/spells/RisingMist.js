@@ -201,10 +201,16 @@ class RisingMist extends Analyzer {
       return;
     }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
+    const numTierExtensions = this.hotTracker.getNumberOfAttributions(
+      hot.attributions,
+      'EF 4 Piece extension',
+    );
+    console.log(hot.attributions);
+    console.log('num tier extensions ' + numTierExtensions);
     if (
       this.hasAttribution(hot.attributions, RENEWING_MIST_HARDCAST) &&
       hot.originalEnd < event.timestamp &&
-      event.timestamp < hot.end
+      event.timestamp < hot.end - numTierExtensions * 1000
     ) {
       this.extraVivCleaves += 1;
       this.extraVivHealing += event.amount || 0;
@@ -222,7 +228,7 @@ class RisingMist extends Analyzer {
     this.risingMistCount += 1;
     debug && console.log(`risingMist cast #: ${this.risingMistCount}`);
 
-    const newRisingMist = HotTracker.getNewAttribution(`RisingMist #${this.risingMistCount}`);
+    const newRisingMist = HotTracker.getNewAttribution(`RisingMist extension`);
     this.risingMists.push(newRisingMist);
 
     let foundTarget = false;

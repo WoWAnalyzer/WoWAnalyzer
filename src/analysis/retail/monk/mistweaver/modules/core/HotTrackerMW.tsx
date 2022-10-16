@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { Options } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
-import HotTracker, { HotInfo } from 'parser/shared/modules/HotTracker';
+import HotTracker, { Attribution, HotInfo } from 'parser/shared/modules/HotTracker';
 
 const REM_BASE_DURATION = 20000;
 const ENV_BASE_DURATION = 6000;
@@ -22,15 +22,26 @@ class HotTrackerMW extends HotTracker {
     this.upwellingActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT.id);
   }
 
+  getNumberOfAttributions(attributions: Attribution[], substring: string): number {
+    let count = 0;
+    attributions.forEach(function (attr) {
+      console.log(attr.name);
+      if (attr.name.includes(substring)) {
+        count += 1;
+      }
+    });
+    return count;
+  }
+
   // Renewing Mist applies with a longer duration if Thunder Focus Tea is active
   _calculateRemDuration(combatant: Combatant): number {
-    return combatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)
+    return combatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)
       ? REM_BASE_DURATION + TFT_REM_EXTRA_DURATION
       : REM_BASE_DURATION;
   }
 
   _calculateMaxRemDuration(combatant: Combatant): number {
-    return combatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)
+    return combatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)
       ? (REM_BASE_DURATION + TFT_REM_EXTRA_DURATION) * 2
       : REM_BASE_DURATION * 2;
   }
@@ -48,7 +59,7 @@ class HotTrackerMW extends HotTracker {
         bouncy: true,
       },
       {
-        spell: SPELLS.ENVELOPING_MIST,
+        spell: TALENTS_MONK.ENVELOPING_MIST_TALENT,
         duration: envMistDuration,
         tickPeriod: 1000,
         maxDuration: envMistDuration * 2,

@@ -48,6 +48,7 @@ import RisingSunKick from './modules/spells/RisingSunKick';
 import SoothingMist from './modules/spells/SoothingMist';
 import SpinningCraneKick from './modules/spells/SpinningCraneKick';
 import ThunderFocusTea from './modules/spells/ThunderFocusTea';
+import T31MWTier from './modules/dragonflight/tier/T31MWTier';
 import Vivify from './modules/spells/Vivify';
 import AverageTimeBetweenRSKSs from './modules/spells/AverageTimeBetweenRSKs';
 import ChiBurst from './modules/spells/ChiBurst';
@@ -63,7 +64,7 @@ import SpiritOfTheCrane from './modules/spells/SpiritOfTheCrane';
 import Upwelling from './modules/spells/Upwelling';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
-import CastLinkNormalizer from "./normalizers/CastLinkNormalizer";
+import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -139,6 +140,9 @@ class CombatLogParser extends CoreCombatLogParser {
     soothingMist: SoothingMist,
     thunderFocusTea: ThunderFocusTea,
     upwelling: Upwelling,
+
+    // Borrowed Power
+    t31TierSet: T31MWTier,
 
     // Mana Tab
     manaTracker: ManaTracker,
