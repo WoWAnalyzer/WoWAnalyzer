@@ -23,7 +23,7 @@ export const FROM_RAPID_DIFFUSION = 'FromRD'; // can be linked to env mist or rs
 const CAST_BUFFER_MS = 100;
 const MAX_REM_DURATION = 77000;
 const FOUND_REMS = new Set();
-const debug = true;
+const debug = false;
 
 /*
   This file is for attributing Renewing Mist and Enveloping Mist applications to hard casts.
@@ -102,6 +102,8 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: [SPELLS.RENEWING_MIST_HEAL.id],
     referencedEventType: [EventType.ApplyBuff],
     anyTarget: true,
+    forwardBufferMs: 100,
+    maximumLinks: 1,
     additionalCondition(linkingEvent, referencedEvent) {
       return (
         (linkingEvent as ApplyBuffEvent).targetID !== (referencedEvent as ApplyBuffEvent).targetID
@@ -151,7 +153,7 @@ function getClosestEvent(timestamp: number, events: AnyEvent[]): AnyEvent {
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
 export function isFromHardcast(event: AbilityEvent<any>): boolean {
-  console.log('Checking is hardcast at ', event.timestamp, event);
+  debug && console.log('Checking is hardcast at ', event.timestamp, event);
   if (HasRelatedEvent(event, FROM_RAPID_DIFFUSION) || HasRelatedEvent(event, FROM_MISTY_PEAKS)) {
     debug && console.log(event, ' at ', event.timestamp, ' linked to either RD or MP');
     return false;
@@ -204,7 +206,11 @@ export function isFromMistyPeaks(event: ApplyBuffEvent | RefreshBuffEvent) {
 }
 
 export function isFromDancingMists(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
-  return HasRelatedEvent(event, FROM_DANCING_MISTS) && !isFromHardcast(event);
+  return (
+    HasRelatedEvent(event, FROM_DANCING_MISTS) &&
+    !isFromHardcast(event) &&
+    !HasRelatedEvent(event, BOUNCED)
+  );
 }
 
 export default CastLinkNormalizer;
