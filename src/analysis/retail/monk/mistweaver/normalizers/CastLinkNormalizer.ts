@@ -22,7 +22,7 @@ export const FROM_RAPID_DIFFUSION = 'FromRD'; // can be linked to env mist or rs
 
 const CAST_BUFFER_MS = 100;
 const MAX_REM_DURATION = 77000;
-const FOUND_REMS = new Map<number, number>();
+const debug = true;
 
 /*
   This file is for attributing Renewing Mist and Enveloping Mist applications to hard casts.
@@ -150,32 +150,37 @@ function getClosestEvent(timestamp: number, events: AnyEvent[]): AnyEvent {
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
 export function isFromHardcast(event: AbilityEvent<any>): boolean {
+  console.log('Checking is hardcast at ', event.timestamp, event);
   if (HasRelatedEvent(event, FROM_RAPID_DIFFUSION) || HasRelatedEvent(event, FROM_MISTY_PEAKS)) {
+    debug && console.log(event, ' at ', event.timestamp, ' linked to either RD or MP');
     return false;
   }
   // 2nd ReM application is the duplicated event
   if (HasRelatedEvent(event, FROM_DANCING_MISTS)) {
-    if (FOUND_REMS.has(event.timestamp)) {
+    const partnerEvent = getClosestEvent(
+      event.timestamp,
+      GetRelatedEvents(event, FROM_DANCING_MISTS),
+    );
+    if (event.timestamp > partnerEvent.timestamp) {
+      debug &&
+        console.log(event, ' at ', event.timestamp, ' is a duplicated REM from Dancing Mists');
       return false;
-    } else {
-      if (event.type === EventType.ApplyBuff) {
-        FOUND_REMS.set(event.timestamp, (event as ApplyBuffEvent).targetID);
-      } else {
-        // Refresh
-        FOUND_REMS.set(event.timestamp, (event as RefreshBuffEvent).targetID);
-      }
     }
   }
   if (HasRelatedEvent(event, FROM_HARDCAST)) {
+    debug &&
+      console.log(event, ' at ', event.timestamp, ' is a first apply from a Renewing Mist Cast');
     return true;
   }
   if (HasRelatedEvent(event, BOUNCED)) {
+    debug && console.log(event, ' at ', event.timestamp, ' is a bounced REM');
     const relatedEvents = GetRelatedEvents(event, BOUNCED);
     // There can be multiple linked applications/removals if multiple ReM's bouce close together
     // so filter out each linked events and find the one with the closest timestamp
     const minEvent =
       relatedEvents.length > 1 ? getClosestEvent(event.timestamp, relatedEvents) : relatedEvents[0];
     // we linked event as sourced from either a remove, apply, or refresh, so we recurse to track down the source of the linked event
+    debug && console.log('recursing on ', minEvent, minEvent.timestamp);
     if (minEvent.type === EventType.ApplyBuff) {
       return isFromHardcast(minEvent as ApplyBuffEvent);
     } else if (minEvent.type === EventType.RemoveBuff) {
@@ -192,9 +197,7 @@ export function isFromMistyPeaks(event: ApplyBuffEvent | RefreshBuffEvent) {
 }
 
 export function isFromDancingMists(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
-  return (
-    HasRelatedEvent(event, FROM_DANCING_MISTS) && FOUND_REMS.get(event.timestamp) !== event.targetID
-  );
+  return HasRelatedEvent(event, FROM_DANCING_MISTS) && !isFromHardcast(event);
 }
 
 export default CastLinkNormalizer;
