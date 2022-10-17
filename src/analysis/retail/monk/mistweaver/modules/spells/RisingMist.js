@@ -37,8 +37,9 @@ class RisingMist extends Analyzer {
     const array = this.hotTracker.hotHistory;
     let value = 0;
     for (let i = 0; i < array.length; i += 1) {
-      if (this.hotTracker.fromHardcast(array[i].attributions)) {
-        value += array[i].healingAfterOriginalEnd || 0;
+      const hot = array[i];
+      if (this.hotTracker.fromHardcast(hot.attributions) || this.hotTracker.fromMistsOfLife(hot)) {
+        value += hot.healingAfterOriginalEnd || 0;
       }
     }
     return value;
@@ -232,7 +233,11 @@ class RisingMist extends Analyzer {
         }
         const attribution = newRisingMist;
         const hot = this.hotTracker.hots[playerId][spellId];
-        if (!untrackedSpells.includes(spellId) && !this.hotTracker.fromHardcast(hot.attributions)) {
+        if (
+          !untrackedSpells.includes(spellId) &&
+          !this.hotTracker.fromHardcast(hot.attributions) &&
+          !this.hotTracker.fromMistsOfLife(hot)
+        ) {
           return;
         }
         this.hotTracker.addExtension(
