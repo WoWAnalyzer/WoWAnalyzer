@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
 import { EventType } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
@@ -19,6 +20,14 @@ const EVENT_ORDERS: EventOrder[] = [
     afterEventId: SPELLS.ESSENCE_FONT_BUFF.id,
     afterEventType: EventType.Heal,
     bufferMs: MAX_DELAY,
+  },
+  {
+    beforeEventId: TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
+    beforeEventType: EventType.ApplyBuff,
+    afterEventId: SPELLS.ENVELOPING_BREATH_HEAL.id,
+    afterEventType: EventType.ApplyBuff,
+    bufferMs: 100,
+    anyTarget: true,
   },
 ];
 

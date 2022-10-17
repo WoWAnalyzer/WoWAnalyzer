@@ -1,10 +1,16 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, GetRelatedEvents, RefreshBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  GetRelatedEvents,
+  HasRelatedEvent,
+  RefreshBuffEvent,
+} from 'parser/core/Events';
 import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
 import {
   ENV_BREATH_APPLICATION,
+  FROM_MISTS_OF_LIFE,
   isFromHardcast,
   isFromMistyPeaks,
   isFromMistsOfLife,
@@ -23,7 +29,9 @@ class HotAttributor extends Analyzer {
   envMistMistyPeaksAttrib = HotTracker.getNewAttribution('Enveloping Mist Misty Peaks Proc');
   REMHardcastAttrib = HotTracker.getNewAttribution('Renewing Mist Hardcast');
   EFAttrib = HotTracker.getNewAttribution('Essence Font Hardcast');
+  EnvbFromHardcastAttrib = HotTracker.getNewAttribution('Enveloping Breath Hardcast');
   MistsOfLifeEnvAttrib = HotTracker.getNewAttribution('Enveloping Mist Mists of Life Proc');
+  MistsOfLifeEnvbAttrib = HotTracker.getNewAttribution('Enveloping Breath Mists of Life Proc');
   MistsOfLifeRemAttrib = HotTracker.getNewAttribution('Renewing Mist Mists of Life Proc');
 
   constructor(options: Options) {
@@ -85,12 +93,20 @@ class HotAttributor extends Analyzer {
 
   onApplyEnvb(event: ApplyBuffEvent | RefreshBuffEvent) {
     const relatedEvents = GetRelatedEvents(event, ENV_BREATH_APPLICATION);
-    console.log(
-      'Envb application related to ' +
-        relatedEvents.length +
-        ' at' +
-        this.owner.formatTimestamp(event.timestamp),
-    );
+    if (relatedEvents.length === 1) {
+      const relatedEvent = relatedEvents[0];
+      if (HasRelatedEvent(relatedEvent, FROM_MISTS_OF_LIFE)) {
+        this.hotTracker.addAttributionFromApply(this.MistsOfLifeEnvbAttrib, event);
+      } else {
+        this.hotTracker.addAttributionFromApply(this.EnvbFromHardcastAttrib, event);
+      }
+    } else {
+      debug &&
+        console.log(
+          'Unattributed Enveloping Breath at ',
+          this.owner.formatTimestamp(event.timestamp),
+        );
+    }
   }
 
   _logAttrib(event: ApplyBuffEvent | RefreshBuffEvent, attrib: Attribution | string | undefined) {
