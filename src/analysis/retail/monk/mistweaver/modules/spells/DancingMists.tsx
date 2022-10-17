@@ -63,7 +63,7 @@ class DancingMists extends Analyzer {
       return;
     }
     const hot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
-    if (this.hotTracker.fromDancingMists(hot.attributions)) {
+    if (this.hotTracker.fromDancingMists(hot)) {
       this.extraRemHeal += event.amount || 0;
     }
   }
@@ -77,7 +77,7 @@ class DancingMists extends Analyzer {
       return;
     }
     const hot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
-    if (this.hotTracker.fromDancingMists(hot.attributions)) {
+    if (this.hotTracker.fromDancingMists(hot)) {
       this.extraVivCleaves += 1;
       this.extraVivHealing += event.amount || 0;
       this.extraVivOverhealing += event.overheal || 0;

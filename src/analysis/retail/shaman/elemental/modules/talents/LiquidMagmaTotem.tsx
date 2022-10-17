@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -11,7 +12,7 @@ class LiquidMagmaTotem extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.LIQUID_MAGMA_TOTEM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.LIQUID_MAGMA_TOTEM_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LIQUID_MAGMA_TOTEM_DAMAGE),
       this.onLMTDamage,
@@ -25,7 +26,7 @@ class LiquidMagmaTotem extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.LIQUID_MAGMA_TOTEM_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.LIQUID_MAGMA_TOTEM_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damageGained} />
           </>

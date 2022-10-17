@@ -1,5 +1,6 @@
 import { EarthShield } from 'analysis/retail/shaman/shared';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import CoreHealingEfficiencyTracker, {
   SpellInfoDetails,
 } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
@@ -53,7 +54,7 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
       this.getUnleashLifeBuffDetails(spellInfo, spellId);
     } else if (spellId === SPELLS.EARTH_SHIELD_TALENT.id) {
       this.getEarthShieldBuffDetails(spellInfo);
-    } else if (spellId === SPELLS.LAVA_BURST.id) {
+    } else if (spellId === TALENTS.LAVA_BURST_TALENT.id) {
       this.getLavaBurstDamageDetails(spellInfo);
     }
     // Primordial

@@ -9,7 +9,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 /**
- * When your health is brought below 35%, you instantly heal for 20% of your maximum health.
+ * When your health is brought below 35%, you instantly heal for 10/20% of your maximum health.
  * Cannot occur more than once every 45 sec.
  *
  * Example log:
