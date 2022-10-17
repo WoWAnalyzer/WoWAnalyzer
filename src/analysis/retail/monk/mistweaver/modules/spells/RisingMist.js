@@ -235,7 +235,7 @@ class RisingMist extends Analyzer {
         const hot = this.hotTracker.hots[playerId][spellId];
         if (
           !untrackedSpells.includes(spellId) &&
-          !this.hotTracker.fromHardcast(hot.attributions) &&
+          !this.hotTracker.fromHardcast(hot) &&
           !this.hotTracker.fromMistsOfLife(hot)
         ) {
           return;
