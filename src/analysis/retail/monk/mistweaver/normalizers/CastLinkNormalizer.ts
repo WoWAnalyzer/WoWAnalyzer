@@ -141,9 +141,11 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventId: [SPELLS.ENVELOPING_BREATH_HEAL.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
-    referencedEventType: [EventType.ApplyBuff],
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     anyTarget: true,
     backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1, // can only attribute each env breath to 1 env mist
     additionalCondition(linkingEvent, referencedEvent) {
       return (
         HasRelatedEvent(referencedEvent, FROM_HARDCAST) ||
