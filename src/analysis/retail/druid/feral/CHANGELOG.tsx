@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS/druid';
 
 export default [
+  change(date(2022, 10, 17), <>Fixed a bug where Apex procs were counting as 0 CP bites when tallied by the <SpellLink id={TALENTS_DRUID.SABERTOOTH_TALENT.id} /> statistic.</>, Sref),
   change(date(2022, 10, 17), <>Filled out Guide's 'Core Rotation' section</>, Sref),
   change(date(2022, 10, 16), <>Added statistics for <SpellLink id={TALENTS_DRUID.RAGING_FURY_TALENT.id} /> and <SpellLink id={TALENTS_DRUID.TASTE_FOR_BLOOD_TALENT.id} /></>, Sref),
   change(date(2022, 10, 15), <>Overhauled Guide's 'Resource Use' section, including adding graphs for energy and CP usage.</>, Sref),
