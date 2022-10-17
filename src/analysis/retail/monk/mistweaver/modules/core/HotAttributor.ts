@@ -12,12 +12,14 @@ import {
   ENV_BREATH_APPLICATION,
   FROM_MISTS_OF_LIFE,
   isFromHardcast,
-  isFromMistyPeaks,
   isFromMistsOfLife,
+  isFromDancingMists,
+  isFromMistyPeaks,
+  isFromRapidDiffusion,
 } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 
-const debug = false;
+const debug = true;
 
 class HotAttributor extends Analyzer {
   static dependencies = {
@@ -28,6 +30,8 @@ class HotAttributor extends Analyzer {
   envMistHardcastAttrib = HotTracker.getNewAttribution('Enveloping Mist Hardcast');
   envMistMistyPeaksAttrib = HotTracker.getNewAttribution('Enveloping Mist Misty Peaks Proc');
   REMHardcastAttrib = HotTracker.getNewAttribution('Renewing Mist Hardcast');
+  REMDancingMistsAttrib = HotTracker.getNewAttribution('Renewing Mist Dancing Mists Proc');
+  REMRapidDiffusionAttrib = HotTracker.getNewAttribution('Renewing Mist Rapid Diffusion Proc');
   EFAttrib = HotTracker.getNewAttribution('Essence Font Hardcast');
   EnvbFromHardcastAttrib = HotTracker.getNewAttribution('Enveloping Breath Hardcast');
   MistsOfLifeEnvAttrib = HotTracker.getNewAttribution('Enveloping Mist Mists of Life Proc');
@@ -65,6 +69,20 @@ class HotAttributor extends Analyzer {
       this.hotTracker.addAttributionFromApply(this.REMHardcastAttrib, event);
     } else if (isFromMistsOfLife(event)) {
       this.hotTracker.addAttributionFromApply(this.MistsOfLifeRemAttrib, event);
+    } else if (isFromDancingMists(event)) {
+      debug &&
+        console.log(
+          'Attributed Renewing Mist Dancing mists proc at ' +
+            this.owner.formatTimestamp(event.timestamp),
+        );
+      this.hotTracker.addAttributionFromApply(this.REMDancingMistsAttrib, event);
+    } else if (isFromRapidDiffusion(event)) {
+      debug &&
+        console.log(
+          'Attributed Renewing Mist Rapid Diffusion proc at ' +
+            this.owner.formatTimestamp(event.timestamp),
+        );
+      this.hotTracker.addAttributionFromApply(this.REMRapidDiffusionAttrib, event);
     }
   }
 

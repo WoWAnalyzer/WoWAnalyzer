@@ -33,6 +33,7 @@ import BonedustBrewAverageTargets from './modules/spells/BonedustBrewAverageTarg
 import FaelineStompHealing from './modules/spells/FaelineStompHealing';
 import AncientTeachingsoftheMonastery from './modules/spells/AncientTeachingsoftheMonastery';
 import CloudedFocus from './modules/spells/CloudedFocus';
+import DancingMists from './modules/spells/DancingMists';
 import EnvelopingBreath from './modules/spells/EnvelopingBreath';
 import EnvelopingMists from './modules/spells/EnvelopingMists';
 import EssenceFont from './modules/spells/EssenceFont';
@@ -42,6 +43,7 @@ import EssenceFontUniqueTargets from './modules/spells/EssenceFontUniqueTargets'
 import ExpelHarm from './modules/spells/ExpelHarm';
 import InvokeYulon from './modules/spells/InvokeYulon';
 import LifeCocoon from './modules/spells/LifeCocoon';
+import RapidDiffusion from './modules/spells/RapidDiffusion';
 import RenewingMist from './modules/spells/RenewingMist';
 import Revival from './modules/spells/Revival';
 import RisingSunKick from './modules/spells/RisingSunKick';
@@ -112,6 +114,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
     bonedustBrewAverageTargets: BonedustBrewAverageTargets,
     cloudedFocus: CloudedFocus,
+    dancingMists: DancingMists,
     envelopingBreath: EnvelopingBreath,
     envelopingMists: EnvelopingMists,
     essenceFont: EssenceFont,
@@ -133,6 +136,7 @@ class CombatLogParser extends CoreCombatLogParser {
     manaTea: ManaTea,
     mistyPeaks: MistyPeaks,
     nourishingCh: NourishingChi,
+    rapidDiffuson: RapidDiffusion,
     refreshingJadeWind: RefreshingJadeWind,
     renewingMist: RenewingMist,
     renewingMistDuringManaTea: RenewingMistDuringManaTea,

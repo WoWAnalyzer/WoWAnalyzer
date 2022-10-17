@@ -23,6 +23,17 @@ class HotTrackerMW extends HotTracker {
     this.upwellingActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT.id);
   }
 
+  fromDancingMists(hot: Tracker): boolean {
+    return (
+      hot.attributions.some(function (attr) {
+        return attr.name.includes('Dancing Mists');
+      }) &&
+      !hot.attributions.some(function (attr) {
+        return attr.name.includes('Hardcast');
+      })
+    );
+  }
+
   fromMistyPeaks(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
       return attr.name.includes('Misty Peaks');
@@ -38,6 +49,12 @@ class HotTrackerMW extends HotTracker {
   fromMistsOfLife(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
       return attr.name.includes('Mists of Life');
+    });
+  }
+
+  fromRapidDiffusion(hot: Tracker): boolean {
+    return hot.attributions.some(function (attr) {
+      return attr.name.includes('Rapid Diffusion');
     });
   }
 
