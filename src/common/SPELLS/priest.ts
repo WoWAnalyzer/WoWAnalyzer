@@ -8,12 +8,6 @@ import { spellIndexableList } from './Spell';
 
 const spells = spellIndexableList({
   // Shared
-  HOLY_NOVA: {
-    id: 132157,
-    name: 'Holy Nova',
-    icon: 'spell_holy_holynova',
-    manaCost: 800,
-  },
   HOLY_NOVA_HEAL: {
     id: 281265,
     name: 'Holy Nova',
@@ -25,17 +19,6 @@ const spells = spellIndexableList({
     name: 'Power Word: Fortitude',
     icon: 'spell_holy_wordfortitude',
     manaCost: 2000,
-  },
-  SHADOW_WORD_DEATH: {
-    id: 32379,
-    name: 'Shadow Word: Death',
-    icon: 'spell_shadow_demonicfortitude',
-    manaCost: 250,
-  },
-  POWER_INFUSION: {
-    id: 10060,
-    name: 'Power Infusion',
-    icon: 'spell_holy_powerinfusion',
   },
   DESPERATE_PRAYER: {
     id: 19236,
@@ -99,6 +82,11 @@ const spells = spellIndexableList({
     icon: 'spell_holy_powerwordshield',
     manaCost: 1550,
   },
+  SHIELD_OF_ABSOLUTION_BUFF: {
+    id: 394624,
+    name: 'Shield Of Absolution',
+    icon: 'ability_priest_clarityofwill',
+  },
   SMITE: {
     id: 585,
     name: 'Smite',
@@ -134,12 +122,6 @@ const spells = spellIndexableList({
     name: 'Mass Dispel',
     icon: 'spell_arcane_massdispel',
     manaCost: 4000,
-  },
-  DISPEL_MAGIC: {
-    id: 528,
-    name: 'Dispel Magic',
-    icon: 'spell_nature_nullifydisease',
-    manaCost: 800,
   },
   LEAP_OF_FAITH: {
     id: 73325,
@@ -339,23 +321,11 @@ const spells = spellIndexableList({
     icon: 'spell_holy_greaterheal',
     manaCost: 1200,
   },
-  CIRCLE_OF_HEALING_TALENT: {
-    id: 204883,
-    name: 'Circle of Healing',
-    icon: 'spell_holy_circleofrenewal',
-    manaCost: 1650,
-  },
   FLASH_HEAL: {
     id: 2061,
     name: 'Flash Heal',
     icon: 'spell_holy_flashheal',
     manaCost: 1800,
-  },
-  PRAYER_OF_MENDING_CAST: {
-    id: 33076,
-    name: 'Prayer of Mending',
-    icon: 'spell_holy_prayerofmendingtga',
-    manaCost: 1000,
   },
   PRAYER_OF_MENDING_HEAL: {
     id: 33110,
@@ -367,12 +337,6 @@ const spells = spellIndexableList({
     name: 'Prayer of Mending',
     icon: 'spell_holy_prayerofmendingtga',
   },
-  PRAYER_OF_HEALING: {
-    id: 596,
-    name: 'Prayer of Healing',
-    icon: 'spell_holy_prayerofhealing02',
-    manaCost: 2500,
-  },
   ECHO_OF_LIGHT_MASTERY: {
     id: 77485,
     name: 'Echo of Light',
@@ -383,40 +347,10 @@ const spells = spellIndexableList({
     name: 'Echo of Light',
     icon: 'spell_holy_aspiration',
   },
-  RENEW: {
-    id: 139,
-    name: 'Renew',
-    icon: 'spell_holy_renew',
-    manaCost: 900,
-  },
-  HOLY_WORD_SERENITY: {
-    id: 2050,
-    name: 'Holy Word: Serenity',
-    icon: 'spell_holy_persuitofjustice',
-    manaCost: 2000,
-  },
-  HOLY_WORD_SANCTIFY: {
-    id: 34861,
-    name: 'Holy Word: Sanctify',
-    icon: 'spell_holy_divineprovidence',
-    manaCost: 2500,
-  },
-  GUARDIAN_SPIRIT: {
-    id: 47788,
-    name: 'Guardian Spirit',
-    icon: 'spell_holy_guardianspirit',
-    manaCost: 450,
-  },
   GUARDIAN_SPIRIT_HEAL: {
     id: 48153,
     name: 'Guardian Spirit',
     icon: 'spell_holy_guardianspirit',
-  },
-  DIVINE_HYMN_CAST: {
-    id: 64843,
-    name: 'Divine Hymn',
-    icon: 'spell_holy_divinehymn',
-    manaCost: 2200,
   },
   DIVINE_HYMN_HEAL: {
     id: 64844,
@@ -434,30 +368,7 @@ const spells = spellIndexableList({
     icon: 'spell_holy_searinglight',
     manaCost: 500,
   },
-  HOLY_WORD_CHASTISE: {
-    id: 88625,
-    name: 'Holy Word: Chastise',
-    icon: 'spell_holy_chastise',
-    manaCost: 1000,
-  },
-  HOLY_WORD_CHASTISE_CENSURE_INCAPACITATE: {
-    id: 200196,
-    name: 'Holy Word: Chastise',
-    icon: 'spell_holy_chastise',
-    manaCost: 1000,
-  },
-  HOLY_WORD_CHASTISE_CENSURE_STUN: {
-    id: 200200,
-    name: 'Holy Word: Chastise',
-    icon: 'spell_holy_chastise',
-    manaCost: 1000,
-  },
-  SYMBOL_OF_HOPE: {
-    id: 64901,
-    name: 'Symbol of Hope',
-    icon: 'spell_holy_symbolofhope',
-  },
-  TRAIL_OF_LIGHT_HEAL: {
+  TRAIL_OF_LIGHT_TALENT_HEAL: {
     id: 234946,
     name: 'Trail of Light',
     icon: 'ability_priest_wordsofmeaning',
@@ -478,20 +389,39 @@ const spells = spellIndexableList({
     name: 'Spirit of Redemption',
     icon: 'inv_enchant_essenceeternallarge',
   },
-  // Items
-  DIVINE_IMAGE: {
-    id: 336401,
-    name: 'Divine Image',
-    icon: 'ability_priest_ascension',
+  LIGHTWEAVER_TALENT_BUFF: {
+    id: 390993,
+    name: 'Lightweaver',
+    icon: 'spell_holy_greaterheal',
   },
-
   // Talents
   BINDING_HEALS_TALENT_HEAL: {
     id: 368276,
     name: 'Binding Heals',
     icon: 'spell_holy_blindingheal',
   },
-
+  HOLY_WORD_CHASTISE_CENSURE_TALENT_INCAPACITATE: {
+    id: 200196,
+    name: 'Holy Word: Chastise',
+    icon: 'spell_holy_chastise',
+    manaCost: 1000,
+  },
+  HOLY_WORD_CHASTISE_CENSURE_TALENT_STUN: {
+    id: 200200,
+    name: 'Holy Word: Chastise',
+    icon: 'spell_holy_chastise',
+    manaCost: 1000,
+  },
+  RESONANT_WORDS_TALENT_BUFF: {
+    id: 372313,
+    name: 'Resonant Words',
+    icon: 'spell_holy_holybolt',
+  },
+  HEALING_CHORUS_TALENT_BUFF: {
+    id: 390885,
+    name: 'Healing Chorus',
+    icon: 'spell_holy_circleofrenewal',
+  },
   // Shadow Spells
   MIND_BLAST: {
     id: 8092,

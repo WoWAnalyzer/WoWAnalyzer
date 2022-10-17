@@ -61,13 +61,15 @@ export const CONVOKE_DAMAGE_SPELLS = [
   SPELLS.MANGLE_BEAR,
   TALENTS.PULVERIZE_TALENT,
 ];
-/** Convokable spells that do direct damage (and possible also a DoT portion) - for damage tallying */
+/** Convokable spells that do direct damage (and possibly also a DoT portion) - for damage tallying */
 export const CONVOKE_DIRECT_DAMAGE_SPELLS = [
   ...CONVOKE_DAMAGE_SPELLS,
   SPELLS.RAKE,
   SPELLS.THRASH_BEAR,
   SPELLS.MOONFIRE_DEBUFF,
   SPELLS.MOONFIRE_FERAL,
+  // shouldn't be shown as a hit because not its own spell, but should still be damage tallied
+  SPELLS.RAMPANT_FEROCITY,
 ];
 /** Convokable spells that have travel time */
 export const SPELLS_WITH_TRAVEL_TIME = [
@@ -85,10 +87,15 @@ export const SPELL_IDS_WITH_AOE = [
   SPELLS.FULL_MOON.id,
   SPELLS.THRASH_BEAR_DOT.id,
   SPELLS.WILD_GROWTH.id,
+  // Rejuv and Regrowth don't normally AoE, but Rampant Growth and PotA procs can make them
+  // hit extra targets - adding them to this list is best way to control for that
+  SPELLS.REJUVENATION.id,
+  SPELLS.REJUVENATION_GERMINATION.id,
+  SPELLS.REGROWTH.id,
 ];
 
 const SPELLS_CAST = 16;
-const SPELLS_CAST_RESTO = 12; // TODO in DF might be 16 for resto too, double check later in beta
+const SPELLS_CAST_RESTO = 12;
 
 const AOE_BUFFER_MS = 100;
 const AFTER_CHANNEL_BUFFER_MS = 50;
@@ -133,11 +140,7 @@ class ConvokeSpirits extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active =
-      this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_BALANCE_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT);
 
     this.spellsPerCast =
       this.selectedCombatant.specId === SPECS.RESTORATION_DRUID.id

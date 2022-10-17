@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import HIT_TYPES from 'game/HIT_TYPES';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';
@@ -19,7 +20,7 @@ const debug = false;
 const DAMAGE_GENERATORS = {
   [SPELLS.IMMOLATE_DEBUFF.id]: () => 1, // has 50% chance of additional fragment on crit
   [SPELLS.CONFLAGRATE.id]: () => 5,
-  [SPELLS.SHADOWBURN_TALENT.id]: () => 3,
+  [TALENTS.SHADOWBURN_TALENT.id]: () => 3,
   [SPELLS.INCINERATE.id]: (event: DamageEvent) => (event.hitType === HIT_TYPES.CRIT ? 1 : 0),
 };
 
@@ -49,8 +50,8 @@ class SoulShardTracker extends ResourceTracker {
     // a copy of the object since I don't want to change it in the Events tab, only in the Resource tab
     this.resource = Object.assign({}, RESOURCE_TYPES.SOUL_SHARDS);
     this.resource.name = 'Soul Shard Fragments';
-    this.current = 30;
-    this.hasInferno = this.selectedCombatant.hasTalent(SPELLS.INFERNO_TALENT.id);
+    // this.current = 30;
+    this.hasInferno = this.selectedCombatant.hasTalent(TALENTS.INFERNO_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.any, this.onEvent);
     this.addEventListener(Events.fightend, this.onFightend);
@@ -70,7 +71,7 @@ class SoulShardTracker extends ResourceTracker {
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     const eventResource = this.getResource(event);
-    if (spellId === SPELLS.SOUL_FIRE_TALENT.id) {
+    if (spellId === TALENTS.SOUL_FIRE_TALENT.id) {
       this.processInvisibleEnergize(spellId, 4, event.timestamp);
     } else if (spellId === SPELLS.INCINERATE.id) {
       // Incinerate generates 2 fragments on cast (and another one if it crits, handled further down)
@@ -201,11 +202,11 @@ class SoulShardTracker extends ResourceTracker {
     spellId: number,
     gain: number,
     waste: number,
-    resource?: ClassResources,
     timestamp?: number,
+    resource?: ClassResources,
   ) {
     const beforeBuilder = this.current % 10;
-    super._applyBuilder(spellId, gain, waste, timestamp, resource);
+    super._applyBuilder(spellId, gain, waste, timestamp ?? -1, resource);
     const afterBuilder = this.current % 10;
     // for trait Chaos Shards we need to know when we generated a full Shard
     // can be either to full shard (39 => 40, beforebuilder = 9, afterBuilder = 0)

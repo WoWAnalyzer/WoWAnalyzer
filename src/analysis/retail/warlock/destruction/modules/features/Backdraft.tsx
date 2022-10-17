@@ -36,10 +36,6 @@ class Backdraft extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this._maxStacks = this.selectedCombatant.hasTalent(SPELLS.FLASHOVER_TALENT.id) ? 4 : 2;
-    this._stacksPerApplication = this.selectedCombatant.hasTalent(SPELLS.FLASHOVER_TALENT.id)
-      ? 2
-      : 1;
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CONFLAGRATE),

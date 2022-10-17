@@ -1,5 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -18,10 +19,10 @@ class Ascendance extends Analyzer {
   justEnteredAscendance = false;
   checkDelay = 0;
   numCasts = {
-    [SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id]: 0,
-    [SPELLS.LAVA_BURST.id]: 0,
-    [SPELLS.EARTH_SHOCK.id]: 0,
-    [SPELLS.ELEMENTAL_BLAST_TALENT.id]: 0,
+    [TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id]: 0,
+    [TALENTS.LAVA_BURST_TALENT.id]: 0,
+    [TALENTS.EARTH_SHOCK_TALENT.id]: 0,
+    [TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id]: 0,
     others: 0,
   };
   protected abilities!: Abilities;
@@ -29,20 +30,20 @@ class Ascendance extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id);
   }
 
   get AscendanceUptime() {
     return (
-      this.selectedCombatant.getBuffUptime(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) /
+      this.selectedCombatant.getBuffUptime(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id) /
       this.owner.fightDuration
     );
   }
 
   get averageLavaBurstCasts() {
     return (
-      this.numCasts[SPELLS.LAVA_BURST.id] / this.numCasts[SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id] ||
-      0
+      this.numCasts[TALENTS.LAVA_BURST_TALENT.id] /
+        this.numCasts[TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id] || 0
     );
   }
 
@@ -57,7 +58,7 @@ class Ascendance extends Analyzer {
   }
 
   statistic() {
-    const hasEB = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
+    const hasEB = this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id);
 
     return (
       <Statistic
@@ -70,14 +71,18 @@ class Ascendance extends Analyzer {
             Casts while Ascendance was up:
             <ul>
               <li>Earth Shock: {this.numCasts[SPELLS.EARTH_SHOCK.id]}</li>
-              <li>Lava Burst: {this.numCasts[SPELLS.LAVA_BURST.id]}</li>
-              {hasEB && <li>Elemental Blast: {this.numCasts[SPELLS.ELEMENTAL_BLAST_TALENT.id]}</li>}
+              <li>Lava Burst: {this.numCasts[TALENTS.LAVA_BURST_TALENT.id]}</li>
+              {hasEB && (
+                <li>
+                  Elemental Blast: {this.numCasts[TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id]}
+                </li>
+              )}
               <li>Other Spells: {this.numCasts.others}</li>
             </ul>
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id}>
+        <BoringSpellValueText spellId={TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id}>
           <>
             On average {formatNumber(this.averageLavaBurstCasts)} Lava Bursts cast during
             Ascendance.
@@ -89,11 +94,13 @@ class Ascendance extends Analyzer {
 
   suggestions(when: When) {
     const abilities = `Lava Burst ${
-      this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id) ? `, Elemental Blast ` : ``
+      this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id)
+        ? `, Elemental Blast `
+        : ``
     } and Earth Shock`;
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(<span>Maximize your damage during ascendance by only using ${abilities}.</span>)
-        .icon(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.icon)
+        .icon(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.icon)
         .actual(`${actual} other casts during Ascendence`)
         .recommended(`Only cast ${abilities} during Ascendence.`),
     );

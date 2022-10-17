@@ -1,10 +1,15 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Abelito75, Adoraci, acornellier, Khadaj, niseko, Zeboot, carglass, Hana, Vetyst } from 'CONTRIBUTORS';
+import TALENTS from 'common/TALENTS/priest';
+import { Abelito75, Adoraci, acornellier, Khadaj, niseko, Zeboot, carglass, Hana, Vetyst, Litena } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
-  change(date(2022, 8, 10), <>Implemented current version of <SpellLink id={SPELLS.BINDING_HEALS_TALENT.id}/>.</>, Vetyst),
+  change(date(2022, 10, 12), <> Cooldown view now shows <SpellLink id={TALENTS.HOLY_WORD_SALVATION_TALENT.id}/> and <SpellLink id={TALENTS.APOTHEOSIS_TALENT.id}/> also added support for <SpellLink id={TALENTS.HEALING_CHORUS_TALENT.id} />. </>, Litena),
+  change(date(2022, 10, 12), <> Updated holy word functionality for Dragonflight and added support for <SpellLink id={TALENTS.LIGHTWEAVER_TALENT.id} />. </>, Litena),
+  change(date(2022, 10, 9), <> New talent file structure and support for <SpellLink id={TALENTS.DESPERATE_TIMES_TALENT.id}/> and <SpellLink id={TALENTS.ANSWERED_PRAYERS_TALENT.id }/>. </>, Litena),
+  change(date(2022,10,7), <> Updated for Dragonflight although not feature complete. </>, Litena),
+  change(date(2022, 8, 10), <>Implemented current version of <SpellLink id={TALENTS.BINDING_HEALS_TALENT.id}/>.</>, Vetyst),
   change(date(2022, 7, 19), <>Remove GCD trigger from <SpellLink id={SPELLS.FADE.id} />.</>, Vetyst),
   change(date(2022, 5, 19), <>Fixed Always be Healing.</>, Abelito75),
   change(date(2022, 5, 4), <>Implemented <SpellLink id={SPELLS.TRANSLUCENT_IMAGE.id} /> damage reduction values.</>, Hana),
@@ -45,7 +50,7 @@ export default [
   change(
     date(2021, 2, 26),
     <>
-      Updating base mana value for <SpellLink id={SPELLS.ENLIGHTENMENT_TALENT.id} />.
+      Updating base mana value for <SpellLink id={TALENTS.ENLIGHTENMENT_TALENT.id} />.
     </>,
     Khadaj,
   ),
@@ -66,7 +71,7 @@ export default [
   change(
     date(2020, 12, 28),
     <>
-      Adding support for <SpellLink id={SPELLS.MINDGAMES.id} />
+      Adding support for <SpellLink id={TALENTS.MINDGAMES_TALENT.id} />
     </>,
     Khadaj,
   ),
@@ -88,7 +93,7 @@ export default [
     date(2020, 12, 21),
     <>
       Fixing bugs with <SpellLink id={SPELLS.HARMONIOUS_APPARATUS.id} /> and{' '}
-      <SpellLink id={SPELLS.SURGE_OF_LIGHT_TALENT.id} />
+      <SpellLink id={TALENTS.SURGE_OF_LIGHT_TALENT.id} />
     </>,
     Khadaj,
   ),
@@ -109,7 +114,7 @@ export default [
   change(
     date(2020, 12, 9),
     <>
-      Adding <SpellLink id={SPELLS.RESONANT_WORDS.id} /> module
+      Adding <SpellLink id={TALENTS.RESONANT_WORDS_TALENT.id} /> module
     </>,
     Khadaj,
   ),
@@ -117,7 +122,7 @@ export default [
   change(
     date(2020, 11, 30),
     <>
-      Fixing a bug with <SpellLink id={SPELLS.PRAYER_OF_MENDING_CAST.id} /> tracking
+      Fixing a bug with <SpellLink id={TALENTS.PRAYER_OF_MENDING_TALENT.id} /> tracking
     </>,
     Khadaj,
   ),

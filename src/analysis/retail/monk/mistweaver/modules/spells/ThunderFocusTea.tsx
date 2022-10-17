@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -9,7 +10,7 @@ import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
-
+import Haste from 'parser/shared/modules/Haste';
 import { SPELL_COLORS } from '../../constants';
 
 const debug = false;
@@ -20,6 +21,7 @@ class ThunderFocusTea extends Analyzer {
   castsTftViv: number = 0;
   castsTftEnm: number = 0;
   castsTftRem: number = 0;
+  castsTftEF: number = 0;
 
   castsTft: number = 0;
   castsUnderTft: number = 0;
@@ -32,10 +34,26 @@ class ThunderFocusTea extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.ftActive = this.selectedCombatant.hasTalent(SPELLS.FOCUSED_THUNDER_TALENT.id);
-    this.rmActive = this.selectedCombatant.hasTalent(SPELLS.RISING_MIST_TALENT.id);
+    const secret_infusion_rank = this.selectedCombatant.getTalentRank(
+      TALENTS_MONK.SECRET_INFUSION_TALENT.id,
+    );
+    switch (secret_infusion_rank) {
+      case 1: {
+        Haste.HASTE_BUFFS[SPELLS.SECRET_INFUSION_HASTE_BUFF.id] = 0.08;
+        break;
+      }
+      case 2: {
+        Haste.HASTE_BUFFS[SPELLS.SECRET_INFUSION_HASTE_BUFF.id] = 0.15;
+        break;
+      }
+      default: {
+        Haste.HASTE_BUFFS[SPELLS.SECRET_INFUSION_HASTE_BUFF.id] = 0;
+      }
+    }
+    this.ftActive = this.selectedCombatant.hasTalent(TALENTS_MONK.FOCUSED_THUNDER_TALENT.id);
+    this.rmActive = this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.THUNDER_FOCUS_TEA),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT),
       this.tftCast,
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.buffedCast);
@@ -70,7 +88,7 @@ class ThunderFocusTea extends Analyzer {
       return;
     }
 
-    if (this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)) {
+    if (this.selectedCombatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)) {
       if (
         SPELLS.VIVIFY.id === spellId &&
         !event.classResources?.find((resource) => resource.type === RESOURCE_TYPES.MANA.id)?.cost
@@ -81,7 +99,7 @@ class ThunderFocusTea extends Analyzer {
         debug && console.log('Viv TFT Check ', event.timestamp);
         this.castBufferTimestamp = event.timestamp;
       }
-      if (SPELLS.RISING_SUN_KICK.id === spellId) {
+      if (TALENTS_MONK.RISING_SUN_KICK_TALENT.id === spellId) {
         this.castsUnderTft += 1;
         this.castsTftRsk += 1;
 
@@ -91,16 +109,22 @@ class ThunderFocusTea extends Analyzer {
 
         debug && console.log('RSK TFT Check ', event.timestamp);
       }
-      if (SPELLS.ENVELOPING_MIST.id === spellId) {
+      if (TALENTS_MONK.ENVELOPING_MIST_TALENT.id === spellId) {
         this.castsUnderTft += 1;
         this.castsTftEnm += 1;
         debug && console.log('Enm TFT Check ', event.timestamp);
       }
-      if (SPELLS.RENEWING_MIST.id === spellId) {
+      if (TALENTS_MONK.RENEWING_MIST_TALENT.id === spellId) {
         this.castsUnderTft += 1;
         this.castsTftRem += 1;
         this.correctCasts += 1;
         debug && console.log('REM TFT Check ', event.timestamp);
+      }
+      if (TALENTS_MONK.ESSENCE_FONT_TALENT.id === spellId) {
+        this.castsUnderTft += 1;
+        this.castsTftEF += 1;
+        this.correctCasts += 1;
+        debug && console.log('REM EF Check ', event.timestamp);
       }
     }
   }
@@ -116,20 +140,26 @@ class ThunderFocusTea extends Analyzer {
       {
         color: SPELL_COLORS.RENEWING_MIST,
         label: 'Renewing Mist',
-        spellId: SPELLS.RENEWING_MIST.id,
+        spellId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
         value: this.castsTftRem,
       },
       {
         color: SPELL_COLORS.ENVELOPING_MIST,
         label: 'Enveloping Mists',
-        spellId: SPELLS.ENVELOPING_MIST.id,
+        spellId: TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
         value: this.castsTftEnm,
       },
       {
         color: SPELL_COLORS.RISING_SUN_KICK,
         label: 'Rising Sun Kick',
-        spellId: SPELLS.RISING_SUN_KICK.id,
+        spellId: TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
         value: this.castsTftRsk,
+      },
+      {
+        color: SPELL_COLORS.ESSENCE_FONT,
+        label: 'Essence Font',
+        spellId: TALENTS_MONK.ESSENCE_FONT_TALENT.id,
+        value: this.castsTftEF,
       },
     ];
 
@@ -140,18 +170,18 @@ class ThunderFocusTea extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are currently using <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> to buff spells
-          other than{' '}
+          You are currently using <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} /> to
+          buff spells other than{' '}
           {this.rmActive ? (
-            <SpellLink id={SPELLS.RISING_SUN_KICK.id} />
+            <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />
           ) : (
             <SpellLink id={SPELLS.VIVIFY.id} />
           )}{' '}
-          or <SpellLink id={SPELLS.RENEWING_MIST.id} />. It is advised to limit the number of spells
-          buffed to only these two.
+          or <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />. It is advised to limit the
+          number of spells buffed to only these two.
         </>,
       )
-        .icon(SPELLS.THUNDER_FOCUS_TEA.icon)
+        .icon(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.icon)
         .actual(
           `${this.incorrectTftCasts}${t({
             id: 'monk.mistweaver.suggestions.thunderFocusTea.incorrectCasts',
@@ -171,7 +201,7 @@ class ThunderFocusTea extends Analyzer {
       >
         <div className="pad">
           <label>
-            <SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> usage
+            <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} /> usage
           </label>
           {this.renderCastRatioChart()}
         </div>

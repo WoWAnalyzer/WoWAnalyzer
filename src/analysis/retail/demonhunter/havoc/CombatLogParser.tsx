@@ -2,12 +2,16 @@ import {
   CharredWarblades,
   CollectiveAnguish,
   Demonic,
+  DisruptingFury,
   Felblade,
+  FlamesOfFury,
   ImmolationAura,
   MasterOfTheGlaive,
   ShatteredRestoration,
   SigilOfFlame,
+  SwallowedAnger,
   TheHunt,
+  UnnaturalMalice,
 } from 'analysis/retail/demonhunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -49,6 +53,7 @@ import AnyMeansNecessary from './modules/talents/AnyMeansNecessary';
 import Soulrend from './modules/talents/Soulrend';
 import GrowingInferno from './modules/talents/GrowingInferno';
 import BurningHatred from './modules/talents/BurningHatred';
+import EssenceBreakNormalizer from './normalizers/EssenceBreakNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -60,6 +65,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizer
     eyeBeamNormalizer: EyeBeam,
+    essenceBreakNormalizer: EssenceBreakNormalizer,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -106,6 +112,10 @@ class CombatLogParser extends CoreCombatLogParser {
     growingInferno: GrowingInferno,
     burningHatred: BurningHatred,
     demonic: Demonic,
+    unnaturalMalice: UnnaturalMalice,
+    swallowedAnger: SwallowedAnger,
+    flamesOfFury: FlamesOfFury,
+    disruptingFury: DisruptingFury,
 
     // Resources
     furyTracker: FuryTracker,

@@ -104,10 +104,7 @@ class AdaptiveSwarm extends Analyzer {
     super(options);
 
     // TODO update if Guardian gets it too
-    this.active =
-      this.selectedCombatant.hasTalent(TALENTS.ADAPTIVE_SWARM_BALANCE_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS.ADAPTIVE_SWARM_SHARED_TALENT) ||
-      this.selectedCombatant.hasTalent(TALENTS.ADAPTIVE_SWARM_SHARED_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ADAPTIVE_SWARM_TALENT);
 
     this._periodicBoost =
       this.selectedCombatant.specId === SPECS.BALANCE_DRUID.id

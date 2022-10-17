@@ -1,5 +1,5 @@
 import ActiveDruidForm from 'analysis/retail/druid/shared/core/ActiveDruidForm';
-import { AdaptiveSwarmDamageDealer, SinfulHysteria } from 'analysis/retail/druid/shared';
+import { AdaptiveSwarmDamageDealer } from 'analysis/retail/druid/shared';
 import MainCombatLogParser from 'parser/core/CombatLogParser';
 import Channeling from 'parser/shared/normalizers/Channeling';
 
@@ -22,7 +22,6 @@ import AstralPowerDetails from 'analysis/retail/druid/balance/modules/features/A
 import AstralPowerTracker from 'analysis/retail/druid/balance/modules/features/AstralPowerTracker';
 import SoulOfTheForest from 'analysis/retail/druid/balance/modules/spells/SoulOfTheForest';
 import Starlord from 'analysis/retail/druid/balance/modules/spells/Starlord';
-import StellarDrift from 'analysis/retail/druid/balance/modules/spells/StellarDrift';
 import StellarFlareUptime from 'analysis/retail/druid/balance/modules/spells/StellarFlareUptime';
 import TwinMoons from 'analysis/retail/druid/balance/modules/spells/TwinMoons';
 
@@ -51,13 +50,11 @@ class CombatLogParser extends MainCombatLogParser {
     //Talents
     stellarFlareUptime: StellarFlareUptime,
     twinMoons: TwinMoons,
-    stellarDrift: StellarDrift,
     starlord: Starlord,
     soulOfTheForest: SoulOfTheForest,
     //Covenants
     convokeSpiritsBalance: ConvokeSpiritsBalance,
     adaptiveSwarm: AdaptiveSwarmDamageDealer,
-    sinfulHysteria: SinfulHysteria,
 
     //Resources
     astralPowerTracker: AstralPowerTracker,

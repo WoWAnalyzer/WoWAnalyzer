@@ -1,10 +1,7 @@
 import {
-  BoonOfTheAscended,
   DesperatePrayer,
-  FaeGuardians,
   ShadowfiendNormalizer,
   TwinsOfTheSunPriestess,
-  UnholyNova,
   TwistOfFate,
 } from 'analysis/retail/priest/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
@@ -47,6 +44,10 @@ import HarshDiscipline from './modules/spells/HarshDiscipline';
 import EnduringLuminescense from './modules/spells/EnduringLuminescence';
 import Indemnity from './modules/spells/Indemnity';
 import Expiation from './modules/spells/Expiation';
+import PowerWordShield from './modules/spells/PowerWordShield';
+import AegisOfWrath from './modules/spells/AegisOfWrath';
+import CrystallineReflection from './modules/spells/CrystallineReflection';
+import StolenPsyche from './modules/spells/StolenPsyche';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -86,8 +87,8 @@ class CombatLogParser extends CoreCombatLogParser {
     atonementApplicatorBreakdown: AtonementApplicatorBreakdown,
     solaceVsShieldDiscipline: SolaceVsShieldDiscipline,
     enduringLuminescense: EnduringLuminescense,
-
-    // Spells (talents and traits):
+    AegisOfWrath: AegisOfWrath,
+    crystallineReflection: CrystallineReflection,
     twistOfFate: TwistOfFate,
     castigation: Castigation,
     atonement: Atonement,
@@ -99,16 +100,10 @@ class CombatLogParser extends CoreCombatLogParser {
     schism: Schism,
     mindgames: Mindgames,
     harshDiscipline: HarshDiscipline,
-    Indemnity: Indemnity,
+    indemnity: Indemnity,
     expiation: Expiation,
-
-    // Covenants
-    unholyNova: UnholyNova,
-    boonOfTheAscended: BoonOfTheAscended,
-    faeGuardians: FaeGuardians,
-
-    // Conduits
-    // Legendaries
+    powerWordShield: PowerWordShield,
+    stolenPsyche: StolenPsyche,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
   };
 }

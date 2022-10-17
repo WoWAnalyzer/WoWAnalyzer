@@ -1,15 +1,16 @@
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
-import { SpellIcon } from 'interface';
-import { TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import StatisticBox from 'parser/ui/StatisticBox';
+import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import { DISCIPLINE_ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../discipline/constants';
 // The holy abilities can be imported once their talents are complete
@@ -67,33 +68,26 @@ class TwistOfFate extends Analyzer {
 
     const healing = this.healing || 0;
     const damage = this.damage || 0;
-    const tofPercent = this.owner.getPercentageOfTotalHealingDone(healing);
     const tofDamage = this.owner.getPercentageOfTotalDamageDone(damage);
 
     return (
-      <StatisticBox
-        icon={<SpellIcon id={TALENTS_PRIEST.TWIST_OF_FATE_TALENT.id} />}
-        value={
-          <>
-            <ItemDamageDone amount={this.damage} />
-            <br />
-            <ItemHealingDone amount={this.healing} />
-          </>
-        }
-        label={
-          <TooltipElement
-            content={`The effective healing contributed by Twist of Fate was ${formatPercentage(
-              tofPercent,
-            )}% of total healing done. Twist of Fate also contributed ${formatNumber(
-              (damage / this.owner.fightDuration) * 1000,
-            )} DPS (${formatPercentage(
-              tofDamage,
-            )}% of total damage); the healing gain of this damage was included in the shown numbers.`}
-          >
-            Twist of Fate
-          </TooltipElement>
-        }
-      />
+      <Statistic
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.CORE(2)}
+        tooltip={`The effective healing contributed by Twist of Fate was {formatPercentage(
+                tofPercent,
+              )}% of total healing done. Twist of Fate also contributed {formatNumber(
+                (damage / this.owner.fightDuration) * 1000,
+              )} DPS (${formatPercentage(
+                tofDamage,
+              )}% of total damage); the healing gain of this damage was included in the shown numbers.`}
+      >
+        <BoringSpellValueText spellId={TALENTS_PRIEST.TWIST_OF_FATE_TALENT.id}>
+          <ItemHealingDone amount={healing} />
+          <ItemDamageDone amount={damage} />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

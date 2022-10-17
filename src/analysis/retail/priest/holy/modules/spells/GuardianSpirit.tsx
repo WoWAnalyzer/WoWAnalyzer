@@ -1,6 +1,6 @@
 import fetchWcl from 'common/fetchWclApi';
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import { WCLHealing, WCLHealingTableResponse } from 'common/WCL_TYPES';
 import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -20,17 +20,17 @@ class GuardianSpirit extends Analyzer {
   protected abilityTracker!: AbilityTracker;
 
   get totalGSCasts() {
-    return this.abilityTracker.getAbility(SPELLS.GUARDIAN_SPIRIT.id).casts;
+    return this.abilityTracker.getAbility(TALENTS.GUARDIAN_SPIRIT_TALENT.id).casts;
   }
 
   get filter() {
     return `
     IN RANGE
       FROM type='${EventType.ApplyBuff}'
-          AND ability.id=${SPELLS.GUARDIAN_SPIRIT.id}
+          AND ability.id=${TALENTS.GUARDIAN_SPIRIT_TALENT.id}
           AND source.name='${this.selectedCombatant.name}'
       TO type='${EventType.RemoveBuff}'
-          AND ability.id=${SPELLS.GUARDIAN_SPIRIT.id}
+          AND ability.id=${TALENTS.GUARDIAN_SPIRIT_TALENT.id}
           AND source.name='${this.selectedCombatant.name}'
       GROUP BY
         target ON target END`;
@@ -60,7 +60,7 @@ class GuardianSpirit extends Analyzer {
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
-        icon={<SpellIcon id={SPELLS.GUARDIAN_SPIRIT.id} />}
+        icon={<SpellIcon id={TALENTS.GUARDIAN_SPIRIT_TALENT.id} />}
         value={<ItemHealingDone amount={this.totalHealingFromGSBuff} />}
         label="Guardian Spirit Buff Contribution"
         tooltip={

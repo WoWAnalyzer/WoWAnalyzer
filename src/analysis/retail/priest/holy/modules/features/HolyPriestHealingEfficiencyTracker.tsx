@@ -2,8 +2,8 @@ import Abilities from 'analysis/retail/priest/holy/modules/Abilities';
 import EchoOfLightMastery from 'analysis/retail/priest/holy/modules/core/EchoOfLightMastery';
 import PrayerOfMending from 'analysis/retail/priest/holy/modules/spells/PrayerOfMending';
 import Renew from 'analysis/retail/priest/holy/modules/spells/Renew';
-import HolyWordSalvation from 'analysis/retail/priest/holy/modules/talents/100/HolyWordSalvation';
-import SPELLS from 'common/SPELLS';
+import HolyWordSalvation from 'analysis/retail/priest/holy/modules/talents/BottomRow/HolyWordSalvation';
+import TALENTS from 'common/TALENTS/priest';
 import HealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -35,11 +35,11 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getCustomSpellStats(spellInfo: any, spellId: number, healingSpellIds: number[]) {
     // If we have a spell that has custom logic for the healing/damage numbers, do that before the rest of our calculations.
-    if (spellId === SPELLS.RENEW.id) {
+    if (spellId === TALENTS.RENEW_TALENT.id) {
       spellInfo = this.getRenewDetails(spellInfo);
-    } else if (spellId === SPELLS.PRAYER_OF_MENDING_CAST.id) {
+    } else if (spellId === TALENTS.PRAYER_OF_MENDING_TALENT.id) {
       spellInfo = this.getPomDetails(spellInfo);
-    } else if (spellId === SPELLS.HOLY_WORD_SALVATION_TALENT.id) {
+    } else if (spellId === TALENTS.HOLY_WORD_SALVATION_TALENT.id) {
       spellInfo = this.getSalvationDetails(spellInfo);
     }
 

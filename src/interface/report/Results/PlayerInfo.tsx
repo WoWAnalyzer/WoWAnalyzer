@@ -5,11 +5,9 @@ import { Item } from 'parser/core/Events';
 
 import './PlayerInfo.scss';
 import PlayerGearHeader from './PlayerGearHeader';
-import PlayerInfoConduits from './PlayerInfoConduits';
 import PlayerInfoEnchants from './PlayerInfoEnchants';
 import PlayerInfoGear from './PlayerInfoGear';
 import PlayerInfoGems from './PlayerInfoGems';
-import PlayerInfoSoulbinds from './PlayerInfoSoulbinds';
 import PlayerInfoTalents from './PlayerInfoTalents';
 
 function _parseGear(gear: Item[]) {
@@ -25,8 +23,6 @@ const PlayerInfo = ({ combatant }: Props) => {
   const gear: Item[] = _parseGear(combatant._combatantInfo.gear);
   const talents = combatant._combatantInfo.talentTree;
   const averageIlvl = getAverageItemLevel(gear);
-  const conduits = combatant._combatantInfo.conduits;
-  const soulbinds = combatant._combatantInfo.soulbindTraits;
   const background =
     combatant.characterProfile && combatant.characterProfile.thumbnail
       ? `https://render-${
@@ -51,8 +47,6 @@ const PlayerInfo = ({ combatant }: Props) => {
         {isRetail && (
           <>
             <PlayerInfoTalents talents={talents} />
-            <PlayerInfoConduits conduits={conduits} />
-            <PlayerInfoSoulbinds soulbinds={soulbinds} />
           </>
         )}
       </div>

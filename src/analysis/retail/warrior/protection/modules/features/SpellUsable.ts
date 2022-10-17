@@ -3,6 +3,7 @@ import { Options } from 'parser/core/Analyzer';
 import { AbilityEvent, CastEvent } from 'parser/core/Events';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
+import TALENTS from 'common/TALENTS/warrior';
 
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {
@@ -15,7 +16,7 @@ class SpellUsable extends CoreSpellUsable {
 
   constructor(options: Options) {
     super(options);
-    this.hasDevastator = this.selectedCombatant.hasTalent(SPELLS.DEVASTATOR_TALENT.id);
+    this.hasDevastator = this.selectedCombatant.hasTalent(TALENTS.DEVASTATOR_TALENT.id);
   }
 
   onCast(event: CastEvent) {

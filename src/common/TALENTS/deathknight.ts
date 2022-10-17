@@ -410,7 +410,7 @@ const talents = createTalentList({
     name: 'Chill Streak',
     icon: 'spell_frost_piercing_chill',
     maxRanks: 1,
-    runicPowerCost: 40,
+    runesCost: 1,
   },
   MURDEROUS_EFFICIENCY_TALENT: {
     id: 207061,
@@ -705,7 +705,7 @@ const talents = createTalentList({
   SHATTERING_BONE_TALENT: {
     id: 377640,
     name: 'Shattering Bone',
-    icon: 'ability_deathknight_boneshield',
+    icon: 'ability_deathknight_shatteringbone',
     maxRanks: 2,
   },
   HEARTREND_TALENT: {
@@ -827,18 +827,18 @@ const talents = createTalentList({
     icon: 'artifactability_unholydeathknight_deathsembrace',
     maxRanks: 1,
   },
+  PLAGUEBRINGER_TALENT: {
+    id: 390175,
+    name: 'Plaguebringer',
+    icon: 'spell_deathknight_plaguestrike',
+    maxRanks: 1,
+  },
   CLAWING_SHADOWS_TALENT: {
     id: 207311,
     name: 'Clawing Shadows',
     icon: 'warlock_curse_shadow',
     maxRanks: 1,
     runesCost: 1,
-  },
-  PLAGUEBRINGER_TALENT: {
-    id: 390175,
-    name: 'Plaguebringer',
-    icon: 'spell_deathknight_plaguestrike',
-    maxRanks: 1,
   },
   SUDDEN_DOOM_TALENT: {
     id: 49530,

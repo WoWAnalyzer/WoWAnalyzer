@@ -8,30 +8,30 @@ import RestoDruid from 'analysis/retail/druid/restoration';
 // import BeastMasteryHunter from 'analysis/retail/hunter/beastmastery';
 // import MarksmanshipHunter from 'analysis/retail/hunter/marksmanship';
 // import SurvivalHunter from 'analysis/retail/hunter/survival';
-// import ArcaneMage from 'analysis/retail/mage/arcane';
-// import FireMage from 'analysis/retail/mage/fire';
+import ArcaneMage from 'analysis/retail/mage/arcane';
+import FireMage from 'analysis/retail/mage/fire';
 import FrostMage from 'analysis/retail/mage/frost';
 import BrewmasterMonk from 'analysis/retail/monk/brewmaster';
-// import MistweaverMonk from 'analysis/retail/monk/mistweaver';
+import MistweaverMonk from 'analysis/retail/monk/mistweaver';
 // import WindwalkerMonk from 'analysis/retail/monk/windwalker';
 import HolyPaladin from 'analysis/retail/paladin/holy';
 // import ProtectionPaladin from 'analysis/retail/paladin/protection';
 // import RetributionPaladin from 'analysis/retail/paladin/retribution';
 import DisciplinePriest from 'analysis/retail/priest/discipline';
-// import HolyPriest from 'analysis/retail/priest/holy';
+import HolyPriest from 'analysis/retail/priest/holy';
 // import ShadowPriest from 'analysis/retail/priest/shadow';
 // import AssassinationRogue from 'analysis/retail/rogue/assassination';
 // import OutlawRogue from 'analysis/retail/rogue/outlaw';
-// import SubtletyRogue from 'analysis/retail/rogue/subtlety';
-// import ElementalShaman from 'analysis/retail/shaman/elemental';
+import ElementalShaman from 'analysis/retail/shaman/elemental';
+import SubtletyRogue from 'analysis/retail/rogue/subtlety';
 import EnhancementShaman from 'analysis/retail/shaman/enhancement';
 // import RestorationShaman from 'analysis/retail/shaman/restoration';
-// import AfflictionWarlock from 'analysis/retail/warlock/affliction';
+import AfflictionWarlock from 'analysis/retail/warlock/affliction';
 // import DemonologyWarlock from 'analysis/retail/warlock/demonology';
-// import DestructionWarlock from 'analysis/retail/warlock/destruction';
+import DestructionWarlock from 'analysis/retail/warlock/destruction';
 // import ArmsWarrior from 'analysis/retail/warrior/arms';
 import FuryWarrior from 'analysis/retail/warrior/fury';
-// import ProtectionWarrior from 'analysis/retail/warrior/protection';
+import ProtectionWarrior from 'analysis/retail/warrior/protection';
 import ClassicDruid from 'analysis/classic/druid';
 import ClassicHunter from 'analysis/classic/hunter';
 import ClassicMage from 'analysis/classic/mage';
@@ -69,34 +69,34 @@ const configs: Config[] = [
   // SurvivalHunter,
 
   FrostMage,
-  // FireMage,
-  // ArcaneMage,
+  FireMage,
+  ArcaneMage,
 
   BrewmasterMonk,
   // WindwalkerMonk,
-  // MistweaverMonk,
+  MistweaverMonk,
 
   HolyPaladin,
   // RetributionPaladin,
   // ProtectionPaladin,
 
   DisciplinePriest,
-  // HolyPriest,
+  HolyPriest,
   // ShadowPriest,
 
-  // SubtletyRogue,
+  SubtletyRogue,
   // AssassinationRogue,
   // OutlawRogue,
 
-  // ElementalShaman,
+  ElementalShaman,
   EnhancementShaman,
   // RestorationShaman,
 
-  // AfflictionWarlock,
+  AfflictionWarlock,
   // DemonologyWarlock,
-  // DestructionWarlock,
+  DestructionWarlock,
 
-  // ProtectionWarrior,
+  ProtectionWarrior,
   // ArmsWarrior,
   FuryWarrior,
 

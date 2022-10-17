@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -10,6 +11,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class TwinsOfTheSunPriestess extends Analyzer {
   // More could probably be done with this to analyze what the person you used it on did.
@@ -58,10 +60,10 @@ class TwinsOfTheSunPriestess extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You had {this.badCasts} bad {castsPlural} of <SpellLink id={SPELLS.POWER_INFUSION.id} />{' '}
-          by using it on yourself. When taking this legendary, make sure to always use it on an
-          ally. By using it on yourself, you lose out on a free{' '}
-          <SpellLink id={SPELLS.POWER_INFUSION.id} /> for a raid member.
+          You had {this.badCasts} bad {castsPlural} of{' '}
+          <SpellLink id={TALENTS.POWER_INFUSION_TALENT.id} /> by using it on yourself. When taking
+          this legendary, make sure to always use it on an ally. By using it on yourself, you lose
+          out on a free <SpellLink id={TALENTS.POWER_INFUSION_TALENT.id} /> for a raid member.
         </>,
       )
         .icon(SPELLS.TWINS_OF_THE_SUN_PRIESTESS.icon)
@@ -77,7 +79,11 @@ class TwinsOfTheSunPriestess extends Analyzer {
 
   statistic() {
     return (
-      <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.OPTIONAL(15)}
+        size="flexible"
+      >
         <BoringSpellValueText spellId={SPELLS.TWINS_OF_THE_SUN_PRIESTESS.id}>
           {formatNumber(this.goodCasts)}/{formatNumber(this.totalCasts)} Uses
         </BoringSpellValueText>

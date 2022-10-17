@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import HealingEfficiencyTracker, {
   SpellInfoDetails,
 } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
@@ -9,14 +10,14 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
-import FaelineStompHealing from '../shadowlands/covenant/FaelineStompHealing';
+import FaelineStompHealing from '../spells/FaelineStompHealing';
 import EnvelopingMists from '../spells/EnvelopingMists';
 import EssenceFont from '../spells/EssenceFont';
 import ExpelHarm from '../spells/ExpelHarm';
 import RenewingMist from '../spells/RenewingMist';
 import SoothingMist from '../spells/SoothingMist';
 import Vivify from '../spells/Vivify';
-import RefreshingJadeWind from '../talents/RefreshingJadeWind';
+import RefreshingJadeWind from '../spells/RefreshingJadeWind';
 
 class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
@@ -55,24 +56,24 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   protected faelineStompHealing!: FaelineStompHealing;
 
   getCustomSpellStats(spellInfo: SpellInfoDetails, spellId: number) {
-    if (spellId === SPELLS.ESSENCE_FONT.id) {
+    if (spellId === TALENTS_MONK.ESSENCE_FONT_TALENT.id) {
       spellInfo = this.getEssenceFontDetails(spellInfo);
-    } else if (spellId === SPELLS.ENVELOPING_MIST.id) {
+    } else if (spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id) {
       //maybe consider adding tft buffed version's spell id too
       spellInfo = this.getEnvelopingMistsDetails(spellInfo);
-    } else if (spellId === SPELLS.SOOTHING_MIST.id) {
+    } else if (spellId === TALENTS_MONK.SOOTHING_MIST_TALENT.id) {
       spellInfo = this.getSoothingMistDetails(spellInfo);
-    } else if (spellId === SPELLS.RENEWING_MIST.id) {
+    } else if (spellId === TALENTS_MONK.RENEWING_MIST_TALENT.id) {
       spellInfo = this.getRenewingMistDetails(spellInfo);
     } else if (spellId === SPELLS.VIVIFY.id) {
       spellInfo = this.getVivifyDetails(spellInfo);
-    } else if (spellId === SPELLS.REFRESHING_JADE_WIND_TALENT.id) {
+    } else if (spellId === TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id) {
       spellInfo = this.getRefreshingJadeWindDetails(spellInfo);
-    } else if (spellId === SPELLS.RISING_SUN_KICK.id) {
+    } else if (spellId === TALENTS_MONK.RISING_SUN_KICK_TALENT.id) {
       spellInfo = this.getRisingSunKickDetails(spellInfo);
-    } else if (spellId === SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id) {
+    } else if (spellId === TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id) {
       spellInfo = this.getYulonDetails(spellInfo);
-    } else if (spellId === SPELLS.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) {
+    } else if (spellId === TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) {
       spellInfo = this.getChijiDetails(spellInfo);
     } else if (spellId === SPELLS.EXPEL_HARM.id) {
       spellInfo = this.getExpelHarmDetails(spellInfo);
@@ -85,7 +86,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getSoothingMistDetails(spellInfo: SpellInfoDetails) {
     // the default tracker gets the healing of the soothing mists, but only the mana for the first cast. Every tick costs mana.
-    spellInfo.manaSpent = this.soothingMist.soomTicks * SPELLS.SOOTHING_MIST.manaCost;
+    spellInfo.manaSpent = this.soothingMist.soomTicks * TALENTS_MONK.SOOTHING_MIST_TALENT.manaCost!;
     spellInfo.healingDone = spellInfo.healingDone + this.soothingMist.gustsHealing;
     return spellInfo;
   }
@@ -96,8 +97,10 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       this.envelopingMists.gustsHealing +
       this.envelopingMists.healingIncrease;
     // Enveloping breath part
-    spellInfo.healingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).effective;
-    spellInfo.overhealingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH.id).overheal;
+    spellInfo.healingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH_HEAL.id).effective;
+    spellInfo.overhealingDone += this.healingDone.byAbility(
+      SPELLS.ENVELOPING_BREATH_HEAL.id,
+    ).overheal;
     return spellInfo;
   }
 

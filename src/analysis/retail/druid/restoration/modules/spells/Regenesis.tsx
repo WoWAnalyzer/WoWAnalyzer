@@ -10,6 +10,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
+import { SpellLink } from 'interface';
 
 const REJUV_MAX_BOOST_PER_RANK = 0.1;
 const TRANQ_MAX_BOOST_PER_RANK = 0.2;
@@ -23,7 +24,8 @@ const TRANQ_MAX_BOOST_PER_RANK = 0.2;
  */
 class Regenesis extends Analyzer {
   ranks: number;
-  totalHealing: number = 0;
+  rejuvBoostHealing: number = 0;
+  tranqBoostHealing: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -42,32 +44,45 @@ class Regenesis extends Analyzer {
   }
 
   onRejuvHeal(event: HealEvent) {
-    this._onBoostedHeal(event, REJUV_MAX_BOOST_PER_RANK * this.ranks);
+    this.rejuvBoostHealing += this._getBoostHealing(event, REJUV_MAX_BOOST_PER_RANK * this.ranks);
   }
 
   onTranqHeal(event: HealEvent) {
-    this._onBoostedHeal(event, TRANQ_MAX_BOOST_PER_RANK * this.ranks);
+    this.tranqBoostHealing += this._getBoostHealing(event, TRANQ_MAX_BOOST_PER_RANK * this.ranks);
   }
 
-  _onBoostedHeal(event: HealEvent, boostAmount: number) {
+  _getBoostHealing(event: HealEvent, boostAmount: number): number {
     // looks like the scaling on the boost is linear, with max boost when target is at 0% and no boost when target is full
     const healthPercentMissingBeforeHeal =
       1 - (event.hitPoints - event.amount) / event.maxHitPoints;
-    this.totalHealing += calculateEffectiveHealing(
-      event,
-      boostAmount * healthPercentMissingBeforeHeal,
-    );
+    return calculateEffectiveHealing(event, boostAmount * healthPercentMissingBeforeHeal);
   }
 
-  // TODO stats like avg health of target healed, breakdown between rejuv and tranq
+  get totalHealing() {
+    return this.rejuvBoostHealing + this.tranqBoostHealing;
+  }
+
   statistic() {
     return (
       <Statistic
         size="flexible"
         position={STATISTIC_ORDER.OPTIONAL(7)} // number based on talent row
         category={STATISTIC_CATEGORY.TALENTS}
-        // tooltip={
-        // }
+        tooltip={
+          <>
+            Breakdown by boosted spell:
+            <ul>
+              <li>
+                <SpellLink id={SPELLS.REJUVENATION.id} />:{' '}
+                <strong>{this.owner.formatItemHealingDone(this.rejuvBoostHealing)}</strong>
+              </li>
+              <li>
+                <SpellLink id={SPELLS.TRANQUILITY_HEAL.id} />:{' '}
+                <strong>{this.owner.formatItemHealingDone(this.tranqBoostHealing)}</strong>
+              </li>
+            </ul>
+          </>
+        }
       >
         <BoringSpellValueText spellId={TALENTS_DRUID.REGENESIS_TALENT.id}>
           <ItemPercentHealingDone amount={this.totalHealing} />

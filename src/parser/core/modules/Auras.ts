@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import Module, { Options } from 'parser/core/Module';
 import Ability from 'parser/core/modules/Ability';
@@ -60,7 +60,7 @@ class Auras extends Module {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.POWER_INFUSION.id,
+        spellId: TALENTS_PRIEST.POWER_INFUSION_TALENT.id,
         timelineHighlight: true,
       },
     ];

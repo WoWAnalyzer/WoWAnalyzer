@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
@@ -9,7 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-const UNAFFECTED_SPELLS: number[] = [SPELLS.ENVELOPING_MIST.id];
+const UNAFFECTED_SPELLS: number[] = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
 class EnvelopingMists extends Analyzer {
   static dependencies = {
@@ -25,11 +26,11 @@ class EnvelopingMists extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.evmHealingIncrease = this.selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id)
+    this.evmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT.id)
       ? 0.4
       : 0.3;
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
       this.castEnvelopingMist,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handleEnvelopingMist);
@@ -67,7 +68,7 @@ class EnvelopingMists extends Analyzer {
     if (this.combatants.players[targetId]) {
       if (
         this.combatants.players[targetId].hasBuff(
-          SPELLS.ENVELOPING_MIST.id,
+          TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
           event.timestamp,
           0,
           0,
@@ -87,7 +88,7 @@ class EnvelopingMists extends Analyzer {
         category={STATISTIC_CATEGORY.THEORYCRAFT}
         tooltip={<>This is the effective healing contributed by the Enveloping Mist buff.</>}
       >
-        <BoringSpellValueText spellId={SPELLS.ENVELOPING_MIST.id}>
+        <BoringSpellValueText spellId={TALENTS_MONK.ENVELOPING_MIST_TALENT.id}>
           <>
             {formatNumber(this.healingIncrease)} <small>healing contributed by the buff</small>
           </>

@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -20,7 +21,7 @@ class CastRatio extends Analyzer {
   statistic() {
     const getAbility = (spellId: number) => this.abilityTracker.getAbility(spellId);
 
-    const evmCasts = getAbility(SPELLS.ENVELOPING_MIST.id).casts || 0;
+    const evmCasts = getAbility(TALENTS_MONK.ENVELOPING_MIST_TALENT.id).casts || 0;
     const vivCasts = getAbility(SPELLS.VIVIFY.id).casts || 0;
 
     return (
@@ -29,7 +30,8 @@ class CastRatio extends Analyzer {
         category={STATISTIC_CATEGORY.THEORYCRAFT}
         icon={
           <>
-            <SpellIcon id={SPELLS.ENVELOPING_MIST.id} /> : <SpellIcon id={SPELLS.VIVIFY.id} />{' '}
+            <SpellIcon id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> :{' '}
+            <SpellIcon id={SPELLS.VIVIFY.id} />{' '}
           </>
         }
         value={`${evmCasts} : ${vivCasts}`}

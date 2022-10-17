@@ -17,18 +17,17 @@ import { InvokeNiuzaoSummaryChart } from './chart';
 export { InvokeNiuzao } from './analyzer';
 
 const NIUZAO_BUFF_ID_TO_CAST = {
-  [talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id]:
-    talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id,
+  [talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id]: talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id,
   [SPELLS.CTA_INVOKE_NIUZAO_BUFF.id]: SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id,
 };
 
 const MAX_STOMPS = {
-  [talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id]: 5,
+  [talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id]: 5,
   [SPELLS.CTA_INVOKE_NIUZAO_BUFF.id]: 3,
 };
 
 const TARGET_PURIFIES = {
-  [talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id]: 6,
+  [talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id]: 6,
   [SPELLS.CTA_INVOKE_NIUZAO_BUFF.id]: 4,
 };
 
@@ -247,7 +246,7 @@ export function InvokeNiuzaoSection({
   module: InvokeNiuzao;
 }): JSX.Element {
   const efficiency = castEfficiency.getCastEfficiencyForSpellId(
-    talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id,
+    talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id,
   );
 
   const wooEfficiency = castEfficiency.getCastEfficiencyForSpellId(
@@ -257,19 +256,18 @@ export function InvokeNiuzaoSection({
   return (
     <Section title="Invoke Niuzao, the Black Ox">
       <p>
-        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} /> is one of the
-        most powerful damage cooldowns in the game&mdash;and one of the most dangerous. Using this
-        ability, we can efficiently turn massive amounts of damage taken into massive amounts of
-        damage dealt.
+        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} /> is one of the most powerful
+        damage cooldowns in the game&mdash;and one of the most dangerous. Using this ability, we can
+        efficiently turn massive amounts of damage taken into massive amounts of damage dealt.
       </p>
       <p>
         The level 58 upgrade to this ability causes{' '}
-        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} /> to add 25% of the
-        purified damage to the next <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> within 6
-        seconds. Niuzao casts <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> when he is summoned,
-        and then every 5 seconds after that, for a total of 5
+        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} /> to add 25% of the purified
+        damage to the next <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> within 6 seconds. Niuzao
+        casts <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> when he is summoned, and then every 5
+        seconds after that, for a total of 5
         <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />s per{' '}
-        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} />.
+        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} />.
         {info.combatant.hasTalent(talents.CALL_TO_ARMS_TALENT) && (
           <>
             {' '}
@@ -283,9 +281,9 @@ export function InvokeNiuzaoSection({
       </p>
       <p>
         Unlike most damage cooldowns, it is frequently correct to sacrifice a cast of{' '}
-        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} /> in order to get a
-        better cast later. This is because <em>so much</em> of the damage of this cooldown is tied
-        up in using <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> to convert damage taken into
+        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} /> in order to get a better
+        cast later. This is because <em>so much</em> of the damage of this cooldown is tied up in
+        using <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> to convert damage taken into
         damage dealt that a single <em>great</em> cast can be worth more than multiple mediocre
         casts.
       </p>
@@ -294,7 +292,7 @@ export function InvokeNiuzaoSection({
           {efficiency && (
             <tr>
               <td>
-                <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} /> casts
+                <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} /> casts
               </td>
 
               <td className="pass-fail-counts">

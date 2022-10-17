@@ -1,8 +1,10 @@
 import SpellUsable from 'analysis/retail/priest/holy/modules/features/SpellUsable';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 
+const LIGHT_OF_THE_NAARU_REDUCTION_PER_RANK = 0.1;
+const HARMONIOUS_APPARATUS_REDUCTION_PER_RANK = 2000;
 class HolyWordBase extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
@@ -10,13 +12,18 @@ class HolyWordBase extends Analyzer {
   spellId = 0;
   manaCost = 0;
   baseCooldown = 60000;
-  serendipityReduction = 6000;
+  apparatusReduction =
+    HARMONIOUS_APPARATUS_REDUCTION_PER_RANK *
+    this.selectedCombatant.getTalentRank(TALENTS.HARMONIOUS_APPARATUS_TALENT);
+  //Currently on the beta both apparatus and light of the naaru are bugged but this is written as if tooltips are correct
+  //If bugs stay/tooltips change this needs to be updated
   remainingCooldown = 0;
   serendipityProccers: {
     [spellID: string]: {
       baseReduction: () => number;
       lightOfTheNaaruReduction: () => number;
       apotheosisReduction: () => number;
+      lightOfTheNaaruAndApotheosisReduction: () => number;
     };
   } = {};
   holyWordHealing = 0;
@@ -24,45 +31,52 @@ class HolyWordBase extends Analyzer {
   holyWordCasts = 0;
   holyWordWastedCooldown = 0;
   baseHolyWordReductionBySpell: { [spellID: string]: number } = {};
+
   lightOfTheNaruActive = false;
-  lightOfTheNaruMultiplier = 1.333;
+  lightOfTheNaruMultiplier = 1;
   lightOfTheNaruReductionBySpell: { [spellID: string]: number } = {};
+
   apotheosisCasts = 0;
   apotheosisActive = false;
   apotheosisMultiplier = 3;
+  //Not constant because it is used in other holy word files
   apotheosisReductionBySpell: { [spellID: string]: number } = {};
   apotheosisManaReduction = 0;
   holyWordApotheosisCasts = 0;
   holyWordHealingDuringApotheosis = 0;
   holyWordOverhealingDuringApotheosis = 0;
+
+  harmoniousApparatusActive = false;
+
   protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {
     super(options);
 
     // Set up proper serendipity reduction values
-    if (this.selectedCombatant.hasTalent(SPELLS.LIGHT_OF_THE_NAARU_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.LIGHT_OF_THE_NAARU_TALENT.id)) {
       this.lightOfTheNaruActive = true;
+      this.lightOfTheNaruMultiplier =
+        this.selectedCombatant.getTalentRank(TALENTS.LIGHT_OF_THE_NAARU_TALENT) *
+          LIGHT_OF_THE_NAARU_REDUCTION_PER_RANK +
+        1;
     }
 
-    if (this.selectedCombatant.hasLegendary(SPELLS.HARMONIOUS_APPARATUS)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.HARMONIOUS_APPARATUS_TALENT)) {
       this.harmoniousApparatusActive = true;
     }
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.APOTHEOSIS_TALENT),
       this.onApplyBuff,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.APOTHEOSIS_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.APOTHEOSIS_TALENT),
       this.onRemoveBuff,
     );
   }
-
-  // Legendary https://www.wowhead.com/spell=336314/harmonious-apparatus
-  harmoniousApparatusActive = false;
 
   get baseCooldownReduction() {
     let totalCDR = 0;
@@ -179,16 +193,40 @@ class HolyWordBase extends Analyzer {
     this.baseHolyWordReductionBySpell[spellId] += baseReductionAmount;
 
     // Get the modified reduction by spell
+    if (this.lightOfTheNaruActive && this.apotheosisActive) {
+      //When both LightOfTheNaaru and Apotheosis is active the total reduction is higher than each reduction individually
+      //Here each gets reduction equal to their individual contribution and the additional total reduction is split 50%
+      //Cooldown gained from harmonious apparatus is treated as being base reduction and thus does not gain any from other bonusses
+      const totalReduction =
+        this.serendipityProccers[spellId].lightOfTheNaaruAndApotheosisReduction() -
+        baseReductionAmount;
+      const lightOfTheNaaruReduction =
+        this.serendipityProccers[spellId].lightOfTheNaaruReduction() - baseReductionAmount;
+      const apotheosisReduction =
+        this.serendipityProccers[spellId].apotheosisReduction() - baseReductionAmount;
+      const additionalReduction = totalReduction - (lightOfTheNaaruReduction + apotheosisReduction);
+
+      this.lightOfTheNaruReductionBySpell[spellId] =
+        this.lightOfTheNaruReductionBySpell[spellId] || 0; //Setting the value to zero if its the first time the spell is cast
+      this.apotheosisReductionBySpell[spellId] = this.apotheosisReductionBySpell[spellId] || 0; //Setting the value to zero if its the first time the spell is cast
+
+      this.lightOfTheNaruReductionBySpell[spellId] +=
+        lightOfTheNaaruReduction + additionalReduction;
+      this.apotheosisReductionBySpell[spellId] += apotheosisReduction + additionalReduction;
+
+      return totalReduction + baseReductionAmount;
+    }
+
     if (this.lightOfTheNaruActive) {
       const lightOfTheNaaruReduction = this.serendipityProccers[spellId].lightOfTheNaaruReduction();
       this.lightOfTheNaruReductionBySpell[spellId] =
-        this.lightOfTheNaruReductionBySpell[spellId] || 0;
+        this.lightOfTheNaruReductionBySpell[spellId] || 0; //Setting the value to zero if its the first time the spell is cast
       this.lightOfTheNaruReductionBySpell[spellId] +=
         lightOfTheNaaruReduction - baseReductionAmount;
       return lightOfTheNaaruReduction;
     } else if (this.apotheosisActive) {
       const apotheosisReduction = this.serendipityProccers[spellId].apotheosisReduction();
-      this.apotheosisReductionBySpell[spellId] = this.apotheosisReductionBySpell[spellId] || 0;
+      this.apotheosisReductionBySpell[spellId] = this.apotheosisReductionBySpell[spellId] || 0; //Setting the value to zero if its the first time the spell is cast
       this.apotheosisReductionBySpell[spellId] += apotheosisReduction - baseReductionAmount;
       return apotheosisReduction;
     } else {

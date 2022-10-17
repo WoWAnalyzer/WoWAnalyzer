@@ -1,6 +1,7 @@
 import fetchWcl from 'common/fetchWclApi';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import { WCLHealing, WCLHealingTableResponse } from 'common/WCL_TYPES';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -110,7 +111,7 @@ class HymnBuffBenefit extends Analyzer {
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
-        icon={<SpellIcon id={SPELLS.DIVINE_HYMN_CAST.id} />}
+        icon={<SpellIcon id={TALENTS.DIVINE_HYMN_TALENT.id} />}
         value={`≈${formatNumber((this.totalHealingFromHymnBuff / fightDuration) * 1000)} HPS`}
         label="Hymn Buff Contribution"
         tooltip={

@@ -89,7 +89,7 @@ class Indemnity extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             This value is calculated from the healing contributed from the last 3 seconds of the

@@ -1,5 +1,6 @@
 import { formatMilliseconds, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
@@ -71,7 +72,7 @@ class Haste extends Analyzer {
     //endregion
 
     //region Priest
-    [SPELLS.POWER_INFUSION.id]: 0.25,
+    [TALENTS_PRIEST.POWER_INFUSION_TALENT.id]: 0.25,
     //endregion
 
     //region Mage
@@ -81,6 +82,7 @@ class Haste extends Analyzer {
 
     //region Monk
     [SPELLS.INVOKERS_DELIGHT_BUFF.id]: 0.33,
+    [SPELLS.SECRET_INFUSION_HASTE_BUFF.id]: 0, // manually set in monk files
     //endregion
 
     //region Shaman

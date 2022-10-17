@@ -1,5 +1,6 @@
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import DonutChart from 'parser/ui/DonutChart';
@@ -58,28 +59,28 @@ class MasteryStats extends Analyzer {
       {
         color: SPELL_COLORS.RENEWING_MIST,
         label: 'Renewing Mist',
-        spellId: SPELLS.RENEWING_MIST.id,
+        spellId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
         value: this.renewingMist.gustsHealing,
         valueTooltip: formatThousands(this.renewingMist.gustsHealing),
       },
       {
         color: SPELL_COLORS.ENVELOPING_MIST,
         label: 'Enveloping Mist',
-        spellId: SPELLS.ENVELOPING_MIST.id,
+        spellId: TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
         value: this.envelopingMists.gustsHealing,
         valueTooltip: formatThousands(this.envelopingMists.gustsHealing),
       },
       {
         color: SPELL_COLORS.SOOTHING_MIST,
         label: 'Soothing Mist',
-        spellId: SPELLS.SOOTHING_MIST.id,
+        spellId: TALENTS_MONK.SOOTHING_MIST_TALENT.id,
         value: this.soothingMist.gustsHealing,
         valueTooltip: formatThousands(this.soothingMist.gustsHealing),
       },
       {
         color: SPELL_COLORS.ESSENCE_FONT,
         label: 'Essence font',
-        spellId: SPELLS.ESSENCE_FONT.id,
+        spellId: TALENTS_MONK.ESSENCE_FONT_TALENT.id,
         value: this.essenceFont.gomHealing,
         valueTooltip: formatThousands(this.essenceFont.gomHealing),
       },
@@ -93,7 +94,7 @@ class MasteryStats extends Analyzer {
       {
         color: SPELL_COLORS.REVIVAL,
         label: 'Revival',
-        spellId: SPELLS.REVIVAL.id,
+        spellId: TALENTS_MONK.REVIVAL_TALENT.id,
         value: this.revival.gustsHealing,
         valueTooltip: formatThousands(this.revival.gustsHealing),
       },

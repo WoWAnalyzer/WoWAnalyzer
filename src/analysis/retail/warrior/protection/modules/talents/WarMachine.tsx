@@ -5,6 +5,7 @@ import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TALENTS from 'common/TALENTS/warrior';
 
 import RageTracker from '../core/RageTracker';
 
@@ -17,7 +18,7 @@ class WarMachine extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.WAR_MACHINE_TALENT_PROTECTION.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_TALENT.id);
   }
 
   statistic() {
@@ -33,7 +34,7 @@ class WarMachine extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={SPELLS.WAR_MACHINE_TALENT_PROTECTION.id} /> Extra Rage From Melees
+              <SpellLink id={TALENTS.WAR_MACHINE_TALENT.id} /> Extra Rage From Melees
             </>
           }
         >
