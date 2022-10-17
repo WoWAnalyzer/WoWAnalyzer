@@ -42,13 +42,11 @@ class UpliftedSpirits extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK_SECOND),
       this.rskHit,
     );
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivifyHit);
   }
 
   rskHit(event: DamageEvent) {
     // Cooldown Reduction on Revival
-    if (event.hitType !== HIT_TYPES.CRIT) {
-      return;
-    }
     if (this.spellUsable.isOnCooldown(this.activeTalent.id)) {
       this.cooldownReductionUsed += this.spellUsable.reduceCooldown(
         this.activeTalent.id,

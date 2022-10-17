@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
+import TALENTS from 'common/TALENTS/warrior';
 
 class Buffs extends CoreAuras {
   //TODO: Get shrike to fill this out since I'm lazy
@@ -15,11 +16,11 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.AVATAR_TALENT.id,
+        spellId: TALENTS.AVATAR_TALENT.id,
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.LAST_STAND.id,
+        spellId: TALENTS.LAST_STAND_TALENT.id,
         timelineHighlight: true,
       },
       {
@@ -27,11 +28,11 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.SHIELD_WALL.id,
+        spellId: TALENTS.SHIELD_WALL_TALENT.id,
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.SPELL_REFLECTION.id,
+        spellId: TALENTS.SPELL_REFLECTION_TALENT.id,
         timelineHighlight: true,
       },
     ];

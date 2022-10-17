@@ -22,16 +22,16 @@ import HolyPriest from 'analysis/retail/priest/holy';
 // import ShadowPriest from 'analysis/retail/priest/shadow';
 // import AssassinationRogue from 'analysis/retail/rogue/assassination';
 // import OutlawRogue from 'analysis/retail/rogue/outlaw';
-// import SubtletyRogue from 'analysis/retail/rogue/subtlety';
-// import ElementalShaman from 'analysis/retail/shaman/elemental';
+import ElementalShaman from 'analysis/retail/shaman/elemental';
+import SubtletyRogue from 'analysis/retail/rogue/subtlety';
 import EnhancementShaman from 'analysis/retail/shaman/enhancement';
 // import RestorationShaman from 'analysis/retail/shaman/restoration';
-// import AfflictionWarlock from 'analysis/retail/warlock/affliction';
+import AfflictionWarlock from 'analysis/retail/warlock/affliction';
 // import DemonologyWarlock from 'analysis/retail/warlock/demonology';
-// import DestructionWarlock from 'analysis/retail/warlock/destruction';
+import DestructionWarlock from 'analysis/retail/warlock/destruction';
 // import ArmsWarrior from 'analysis/retail/warrior/arms';
 import FuryWarrior from 'analysis/retail/warrior/fury';
-// import ProtectionWarrior from 'analysis/retail/warrior/protection';
+import ProtectionWarrior from 'analysis/retail/warrior/protection';
 import ClassicDruid from 'analysis/classic/druid';
 import ClassicHunter from 'analysis/classic/hunter';
 import ClassicMage from 'analysis/classic/mage';
@@ -84,19 +84,19 @@ const configs: Config[] = [
   HolyPriest,
   // ShadowPriest,
 
-  // SubtletyRogue,
+  SubtletyRogue,
   // AssassinationRogue,
   // OutlawRogue,
 
-  // ElementalShaman,
+  ElementalShaman,
   EnhancementShaman,
   // RestorationShaman,
 
-  // AfflictionWarlock,
+  AfflictionWarlock,
   // DemonologyWarlock,
-  // DestructionWarlock,
+  DestructionWarlock,
 
-  // ProtectionWarrior,
+  ProtectionWarrior,
   // ArmsWarrior,
   FuryWarrior,
 

@@ -12,7 +12,7 @@ class Buffs extends CoreAuras {
     // This data can be used by various kinds of modules to improve their results, and modules added in the future may rely on buffs that aren't used today.
     return [
       {
-        spellId: SPELLS.THUNDER_FOCUS_TEA.id,
+        spellId: TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id,
       },
       {
         spellId: [SPELLS.LIFECYCLES_VIVIFY_BUFF.id, SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id],
@@ -20,6 +20,10 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.TEACHINGS_OF_THE_MONASTERY.id,
+      },
+      {
+        spellId: SPELLS.SECRET_INFUSION_HASTE_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT),
       },
       {
         spellId: TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id,

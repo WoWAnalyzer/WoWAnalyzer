@@ -57,7 +57,9 @@ import {
   ToppleTheNun,
   Vetyst,
   Chizu,
-  Tyndi
+  Tyndi,
+  Khadaj,
+  Jonfanz,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
@@ -65,6 +67,13 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 16), 'Adding sourceInstance to BuffEvent', Jonfanz),
+  change(date(2022, 10, 14), 'Updates to EventLinkNormazlier to allow for more advanced usage.', Sref),
+  change(date(2022, 10, 13), 'Adding Hyperspeed Accelerators to WOTLK analysis.', Khadaj),
+  change(date(2022, 10, 13), 'Adding Frag Belt to WOTLK analysis.', Khadaj),
+  change(date(2022, 10, 11), 'Remove Effusive Anima Accelerator analyzer.', ToppleTheNun),
+  change(date(2022, 10, 11), 'Remove conduits and soulbinds from character page.', ToppleTheNun),
+  change(date(2022, 10,  11), 'Convert Discord button to TypeScript.', ToppleTheNun),
   change(date(2022, 10, 9), 'Fixed an issue where DeathRecapTracker was being disabled by a bad Blessing of Sacrifice ID', Sref),
   change(date(2022, 10, 5), 'Add Vault of the Incarnates raid information.', ToppleTheNun),
   change(date(2022, 10, 4), 'Add Blessing of the Bronze as a raid buff.', ToppleTheNun),

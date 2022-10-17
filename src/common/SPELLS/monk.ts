@@ -28,12 +28,6 @@ const spells = spellIndexableList({
     name: 'Crackling Jade Lightning',
     icon: 'ability_monk_cracklingjadelightning',
   },
-  RISING_SUN_KICK: {
-    id: 107428,
-    name: 'Rising Sun Kick',
-    icon: 'ability_monk_risingsunkick',
-    manaCost: 750,
-  },
   ROLL: {
     id: 109132,
     name: 'Roll',
@@ -43,7 +37,7 @@ const spells = spellIndexableList({
     id: 101546,
     name: 'Spinning Crane Kick',
     icon: 'ability_monk_cranekick_new',
-    manaCost: 500,
+    manaCost: 2500,
   },
   SPINNING_CRANE_KICK_DAMAGE: {
     id: 107270,
@@ -79,6 +73,7 @@ const spells = spellIndexableList({
     id: 322101,
     name: 'Expel Harm',
     icon: 'ability_monk_expelharm',
+    manaCost: 7500,
   },
 
   // Mistweaver Monk Spells
@@ -87,49 +82,31 @@ const spells = spellIndexableList({
     name: 'Clouded Focus',
     icon: 'ability_monk_surgingmist',
   },
-  ENVELOPING_MIST: {
-    id: 124682,
-    name: 'Enveloping Mist',
-    icon: 'spell_monk_envelopingmist',
-    manaCost: 2800,
-  },
   ENVELOPING_MIST_TFT: {
     id: 274062,
     name: 'Enveloping Mist',
     icon: 'spell_monk_envelopingmist',
-  },
-  ESSENCE_FONT: {
-    id: 191837,
-    name: 'Essence Font',
-    icon: 'ability_monk_essencefont',
-    manaCost: 3600,
   },
   ESSENCE_FONT_BUFF: {
     id: 191840,
     name: 'Essence Font',
     icon: 'ability_monk_essencefont',
   },
-  LIFE_COCOON: {
-    id: 116849,
-    name: 'Life Cocoon',
-    icon: 'ability_monk_chicocoon',
-    manaCost: 1200,
-  },
-  RENEWING_MIST: {
-    id: 115151,
-    name: 'Renewing Mist',
-    icon: 'ability_monk_renewingmists',
-    manaCost: 900,
+  SECRET_INFUSION_HASTE_BUFF: {
+    id: 388497,
+    name: 'Secret infusion',
+    icon: 'ability_monk_chibrew',
   },
   RENEWING_MIST_HEAL: {
     id: 119611,
     name: 'Renewing Mist',
     icon: 'ability_monk_renewingmists',
   },
-  THUNDER_FOCUS_TEA: {
-    id: 116680,
-    name: 'Thunder Focus Tea',
-    icon: 'ability_monk_thunderfocustea',
+  VIVIFY: {
+    id: 116670,
+    name: 'Vivify',
+    icon: 'ability_monk_vivify',
+    manaCost: 9500,
   },
   ATOTM_BUFF: {
     id: 388026,
@@ -146,25 +123,12 @@ const spells = spellIndexableList({
     name: 'Ancient Teachings of the Monestary',
     icon: 'inv_jewelcrafting_jadeserpent',
   },
-  VIVIFY: {
-    id: 116670,
-    name: 'Vivify',
-    icon: 'ability_monk_vivify',
-    manaCost: 1900,
+  INVOKERS_DELIGHT_BUFF: {
+    id: 388663,
+    name: "Invoker's Delight",
+    icon: 'inv_inscription_80_warscroll_battleshout',
   },
-  SOOTHING_MIST: {
-    id: 115175,
-    name: 'Soothing Mist',
-    icon: 'ability_monk_soothingmists',
-    manaCost: 200,
-  },
-  INVOKE_YULON_THE_JADE_SERPENT: {
-    id: 322118,
-    name: "Invoke Yu'lon, the Jade Serpent",
-    icon: 'ability_monk_dragonkick',
-    manaCost: 2500,
-  },
-  ENVELOPING_BREATH: {
+  ENVELOPING_BREATH_HEAL: {
     id: 325209,
     name: 'Enveloping Breath',
     icon: 'ability_monk_chiexplosion',
@@ -204,13 +168,6 @@ const spells = spellIndexableList({
     name: 'Detox',
     icon: 'ability_rogue_imrovedrecuperate',
     manaCost: 650,
-  },
-
-  // temp spot for t 28
-  PRIMORDIAL_MENDING: {
-    id: 364266,
-    name: 'Primordial Mending',
-    icon: 'inv_relics_totemofrage',
   },
 
   // Talents

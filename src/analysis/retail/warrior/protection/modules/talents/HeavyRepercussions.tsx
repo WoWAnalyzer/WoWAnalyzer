@@ -9,6 +9,7 @@ import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TALENTS from 'common/TALENTS/warrior';
 
 import RageTracker from '../core/RageTracker';
 
@@ -26,7 +27,10 @@ class HeavyRepercussions extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.HEAVY_REPERCUSSIONS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HEAVY_REPERCUSSIONS_TALENT.id);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM),
       this.onSlamCast,
@@ -67,7 +71,7 @@ class HeavyRepercussions extends Analyzer {
           <SpellLink id={SPELLS.SHIELD_SLAM.id} />.
         </>,
       )
-        .icon(SPELLS.HEAVY_REPERCUSSIONS_TALENT.icon)
+        .icon(TALENTS.HEAVY_REPERCUSSIONS_TALENT.icon)
         .actual(
           t({
             id: 'warrior.protection.suggestions.heavyRepercussions.shieldBlockCasts',
@@ -101,7 +105,7 @@ class HeavyRepercussions extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={SPELLS.HEAVY_REPERCUSSIONS_TALENT.id} /> Extra Shield Block and Rage
+              <SpellLink id={TALENTS.HEAVY_REPERCUSSIONS_TALENT.id} /> Extra Shield Block and Rage
             </>
           }
         >

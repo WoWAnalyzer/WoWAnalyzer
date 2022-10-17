@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, FightEndEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
@@ -30,15 +31,15 @@ class SoothingMist extends Analyzer {
     super(options);
     this.assumedGCD = 1500 * 0.95;
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SOOTHING_MIST),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.SOOTHING_MIST_TALENT),
       this.castSoothingMist,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, SPELLS.ENVELOPING_MIST]),
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, TALENTS_MONK.ENVELOPING_MIST_TALENT]),
       this.castDuringSoothingMist,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.SOOTHING_MIST),
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.SOOTHING_MIST_TALENT),
       this.handleSoothingMist,
     );
     this.addEventListener(
@@ -46,7 +47,7 @@ class SoothingMist extends Analyzer {
       this.masterySoothingMist,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SOOTHING_MIST),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.SOOTHING_MIST_TALENT),
       this.removeBuffSoothingMist,
     );
     this.addEventListener(Events.fightend, this.end);
@@ -155,25 +156,25 @@ class SoothingMist extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest) =>
       suggest(
         <>
-          You are allowing <SpellLink id={SPELLS.SOOTHING_MIST.id} /> to channel for an extended
-          period of time. <SpellLink id={SPELLS.SOOTHING_MIST.id} /> does little healing, so your
-          time is better spent DPS'ing through the use of <SpellLink id={SPELLS.TIGER_PALM.id} />{' '}
-          and <SpellLink id={SPELLS.BLACKOUT_KICK.id} />.
+          You are allowing <SpellLink id={TALENTS_MONK.SOOTHING_MIST_TALENT.id} /> to channel for an
+          extended period of time. <SpellLink id={TALENTS_MONK.SOOTHING_MIST_TALENT.id} /> does
+          little healing, so your time is better spent DPS'ing through the use of{' '}
+          <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} />.
         </>,
       )
-        .icon(SPELLS.SOOTHING_MIST.icon)
+        .icon(TALENTS_MONK.SOOTHING_MIST_TALENT.icon)
         .staticImportance(SUGGESTION_IMPORTANCE.MAJOR),
     );
 
     when(this.suggestionThresholdsCasting).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You were channeling <SpellLink id={SPELLS.SOOTHING_MIST.id} /> without casting spells
-          during it. Replace this channel time with damage abilities like{' '}
-          <SpellLink id={SPELLS.RISING_SUN_KICK.id} />.
+          You were channeling <SpellLink id={TALENTS_MONK.SOOTHING_MIST_TALENT.id} /> without
+          casting spells during it. Replace this channel time with damage abilities like{' '}
+          <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />.
         </>,
       )
-        .icon(SPELLS.SOOTHING_MIST.icon)
+        .icon(TALENTS_MONK.SOOTHING_MIST_TALENT.icon)
         .actual(
           `${formatPercentage(this.badSooms / this.totalSoomCasts)}${t({
             id: 'monk.mistweaver.suggestions.soothingMist.channelingWithoutCastingSpells',

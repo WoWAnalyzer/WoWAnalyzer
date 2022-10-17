@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
@@ -17,7 +18,7 @@ class EssenceFontUniqueTargets extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
       this.castEssenceFont,
     );
     this.addEventListener(
@@ -64,7 +65,7 @@ class EssenceFontUniqueTargets extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.ESSENCE_FONT.id} /> Average Unique Targets Hit
+              <SpellIcon id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> Average Unique Targets Hit
             </>
           }
         >

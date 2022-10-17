@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
@@ -8,6 +7,7 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { TALENTS_MONK } from 'common/TALENTS';
 
 import { LIFE_COCOON_HEALING_BOOST } from '../../constants';
 
@@ -35,7 +35,7 @@ class LifeCocoon extends Analyzer {
       return;
     }
 
-    if (target.hasBuff(SPELLS.LIFE_COCOON.id, event.timestamp, 0, 0)) {
+    if (target.hasBuff(TALENTS_MONK.LIFE_COCOON_TALENT.id, event.timestamp, 0, 0)) {
       this.healing += calculateEffectiveHealing(event, LIFE_COCOON_HEALING_BOOST);
     }
   }
@@ -48,7 +48,7 @@ class LifeCocoon extends Analyzer {
         size="flexible"
         tooltip={<>Life Cocoon boosts HoTs from other players as wells as your own.</>}
       >
-        <BoringSpellValueText spellId={SPELLS.LIFE_COCOON.id}>
+        <BoringSpellValueText spellId={TALENTS_MONK.LIFE_COCOON_TALENT.id}>
           <ItemHealingDone amount={this.healing} />
           <br />
         </BoringSpellValueText>

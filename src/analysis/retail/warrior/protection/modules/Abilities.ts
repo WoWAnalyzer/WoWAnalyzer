@@ -3,6 +3,7 @@ import COVENANTS from 'game/shadowlands/COVENANTS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import TALENTS from 'common/TALENTS/warrior';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -10,7 +11,7 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.DEVASTATE.id,
-        enabled: !combatant.hasTalent(SPELLS.DEVASTATOR_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS.DEVASTATOR_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -69,8 +70,8 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL, // 6 / (1 + haste)
         cooldown: (haste) => {
           if (
-            combatant.hasTalent(SPELLS.UNSTOPPABLE_FORCE_TALENT.id) &&
-            combatant.hasBuff(SPELLS.AVATAR_TALENT.id)
+            combatant.hasTalent(TALENTS.UNSTOPPABLE_FORCE_TALENT.id) &&
+            combatant.hasBuff(TALENTS.AVATAR_TALENT.id)
           ) {
             return 6 / 2 / (1 + haste);
           }
@@ -111,7 +112,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.LAST_STAND.id,
         buffSpellId: SPELLS.LAST_STAND.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(SPELLS.BOLSTER_TALENT.id) ? 180 - 60 : 180,
+        cooldown: combatant.hasTalent(TALENTS.BOLSTER_TALENT.id) ? 180 - 60 : 180,
         timelineSortIndex: 9,
       },
       {
@@ -132,7 +133,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(SPELLS.BOUNDING_STRIDE_TALENT.id) ? 45 - 15 : 45,
+        cooldown: combatant.hasTalent(TALENTS.BOUNDING_STRIDE_TALENT.id) ? 45 - 15 : 45,
       },
       {
         spell: SPELLS.HEROIC_THROW.id,
@@ -159,12 +160,12 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.VICTORY_RUSH.id,
-        enabled: !combatant.hasTalent(SPELLS.IMPENDING_VICTORY_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS.IMPENDING_VICTORY_TALENT.id),
         category: SPELL_CATEGORY.OTHERS,
       },
       {
-        spell: SPELLS.STORM_BOLT_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.STORM_BOLT_TALENT.id),
+        spell: TALENTS.STORM_BOLT_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.STORM_BOLT_TALENT.id),
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
@@ -172,8 +173,8 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
       },
       {
-        spell: SPELLS.AVATAR_TALENT.id,
-        buffSpellId: SPELLS.AVATAR_TALENT.id,
+        spell: TALENTS.AVATAR_TALENT.id,
+        buffSpellId: TALENTS.AVATAR_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
@@ -182,8 +183,8 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 9,
       },
       {
-        spell: SPELLS.IMPENDING_VICTORY_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.IMPENDING_VICTORY_TALENT.id),
+        spell: TALENTS.IMPENDING_VICTORY_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.IMPENDING_VICTORY_TALENT.id),
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
@@ -191,8 +192,8 @@ class Abilities extends CoreAbilities {
         cooldown: 25,
       },
       {
-        spell: SPELLS.RAVAGER_TALENT_PROTECTION.id,
-        enabled: combatant.hasTalent(SPELLS.RAVAGER_TALENT_PROTECTION.id),
+        spell: TALENTS.RAVAGER_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.RAVAGER_TALENT.id),
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
@@ -205,8 +206,8 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 9,
       },
       {
-        spell: SPELLS.DRAGON_ROAR_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id),
+        spell: TALENTS.THUNDEROUS_ROAR_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.THUNDEROUS_ROAR_TALENT.id),
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
@@ -229,30 +230,18 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 20 - (combatant.hasTalent(SPELLS.DOUBLE_TIME_TALENT.id) ? 3 : 0),
-        charges: 1 + (combatant.hasTalent(SPELLS.DOUBLE_TIME_TALENT.id) ? 1 : 0),
+        cooldown: 20 - (combatant.hasTalent(TALENTS.DOUBLE_TIME_TALENT.id) ? 3 : 0),
+        charges: 1 + (combatant.hasTalent(TALENTS.DOUBLE_TIME_TALENT.id) ? 1 : 0),
         timelineSortIndex: 9,
       },
       {
-        spell: [SPELLS.INTERVENE_CAST.id, SPELLS.INTERVENE_BUFF.id, SPELLS.INTERVENE_CHARGE.id],
+        spell: [TALENTS.INTERVENE_TALENT.id, SPELLS.INTERVENE_BUFF.id, SPELLS.INTERVENE_CHARGE.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
         cooldown: 30,
         timelineSortIndex: 9,
-      },
-
-      // covenant magic
-      {
-        spell: SPELLS.CONQUERORS_BANNER.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 120,
-        timelineSortIndex: 9,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
     ];
   }

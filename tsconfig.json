@@ -39,17 +39,10 @@
     "src/analysis/retail/priest/shadow",
     "src/analysis/retail/rogue/assassination",
     "src/analysis/retail/rogue/outlaw",
-    "src/analysis/retail/rogue/shared",
-    "src/analysis/retail/rogue/subtlety",
-    "src/analysis/retail/shaman/elemental",
     "src/analysis/retail/shaman/restoration",
     "src/analysis/retail/shaman/shared",
-    "src/analysis/retail/warlock/affliction",
     "src/analysis/retail/warlock/demonology",
-    "src/analysis/retail/warlock/destruction",
-    "src/analysis/retail/warlock/shared",
-    "src/analysis/retail/warrior/arms",
-    "src/analysis/retail/warrior/protection"
+    "src/analysis/retail/warrior/arms"
   ],
   "ts-node": {
     // these options are overrides used only by ts-node

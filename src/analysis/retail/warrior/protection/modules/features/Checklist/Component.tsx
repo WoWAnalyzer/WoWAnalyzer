@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { SpellLink } from 'interface';
-import { ResourceLink } from 'interface';
+import { ResourceLink, SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
@@ -11,6 +10,7 @@ import {
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
+import TALENTS from 'common/TALENTS/warrior';
 
 const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
@@ -49,11 +49,12 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
           }
           thresholds={thresholds.shieldBlock}
         />
-        {combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />
-        )}
-        {combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.DRAGON_ROAR_TALENT.id} />
+        {combatant.hasTalent(TALENTS.BOOMING_VOICE_TALENT.id) &&
+          combatant.hasTalent(TALENTS.DEMORALIZING_SHOUT_TALENT.id) && (
+            <AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />
+          )}
+        {combatant.hasTalent(TALENTS.THUNDEROUS_ROAR_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.THUNDEROUS_ROAR_TALENT.id} />
         )}
       </Rule>
 
@@ -76,28 +77,29 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
           }
           thresholds={thresholds.spellReflect}
         />
-        {!combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />
-        )}
+        {!combatant.hasTalent(TALENTS.BOOMING_VOICE_TALENT.id) &&
+          combatant.hasTalent(TALENTS.DEMORALIZING_SHOUT_TALENT.id) && (
+            <AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />
+          )}
       </Rule>
 
       <Rule
         name="Offensive Cooldowns"
         description={
           <>
-            Using <SpellLink id={SPELLS.AVATAR_TALENT.id} /> as often as possible is very important
+            Using <SpellLink id={TALENTS.AVATAR_TALENT.id} /> as often as possible is very important
             because it will increase your overall damage a lot and provides 30{' '}
             <ResourceLink id={RESOURCE_TYPES.RAGE.id} />.<br /> If you are also using{' '}
-            <SpellLink id={SPELLS.UNSTOPPABLE_FORCE_TALENT.id} /> remember that{' '}
-            <SpellLink id={SPELLS.THUNDER_CLAP.id} /> will have a reduced cooldown so you can use it
-            every other GCD.
+            <SpellLink id={TALENTS.UNSTOPPABLE_FORCE_TALENT.id} /> remember that{' '}
+            <SpellLink id={TALENTS.THUNDER_CLAP_TALENT.id} /> will have a reduced cooldown so you
+            can use it every other GCD.
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.AVATAR_TALENT.id} />
-        <AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />
-        {combatant.hasTalent(SPELLS.RAVAGER_TALENT_PROTECTION.id) && (
-          <AbilityRequirement spell={SPELLS.RAVAGER_TALENT_PROTECTION.id} />
+        <AbilityRequirement spell={TALENTS.AVATAR_TALENT.id} />
+        <AbilityRequirement spell={TALENTS.DEMORALIZING_SHOUT_TALENT.id} />
+        {combatant.hasTalent(TALENTS.RAVAGER_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.RAVAGER_TALENT.id} />
         )}
       </Rule>
 
@@ -107,8 +109,8 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
           <>
             Minimizing your wasted <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> should be top
             priority as a protection warrior so be sure to use{' '}
-            <SpellLink id={SPELLS.IGNORE_PAIN.id} /> and <SpellLink id={SPELLS.REVENGE.id} /> to
-            avoid this.
+            <SpellLink id={TALENTS.IGNORE_PAIN_TALENT.id} /> and{' '}
+            <SpellLink id={TALENTS.REVENGE_TALENT.id} /> to avoid this.
           </>
         }
       >
@@ -119,12 +121,14 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
         name="Utility"
         description={
           <>
-            Warriors main raid utility comes from <SpellLink id={SPELLS.RALLYING_CRY.id} /> - it
-            should be used on high damage spikes to help people survive.
+            Warriors main raid utility comes from <SpellLink id={TALENTS.RALLYING_CRY_TALENT.id} />{' '}
+            - it should be used on high damage spikes to help people survive.
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.RALLYING_CRY.id} />
+        {combatant.hasTalent(TALENTS.RALLYING_CRY_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.RALLYING_CRY.id} />
+        )}
       </Rule>
 
       <PreparationRule thresholds={thresholds} />
