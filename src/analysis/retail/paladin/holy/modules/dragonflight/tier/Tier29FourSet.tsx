@@ -5,7 +5,7 @@ import TALENTS from 'common/TALENTS/paladin';
 import SpellIcon from 'interface/SpellIcon';
 import SpellLink from 'interface/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent, CastEvent } from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -14,15 +14,21 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const CDR = 1000;
 
-// todo: refactor file to match tier set bonus in dragonflight
+// https://www.wowhead.com/news/paladin-season-1-dragonflight-tier-set-bonuses-guide-writer-first-impressions-329300
 
-class Tier28FourSet extends Analyzer {
+//https://www.wowhead.com/beta/spell=393672/paladin-holy-class-set-4pc
+// Paladin Holy Class Set 4pc
+// Requires Paladin
+// Holy Light, Flash of Light, Light of Dawn, Word of Glory, and Bestow Faith healing is increased by 6% and their critical effects
+// increase the damage or healing of your next Holy Shock by 20%.
+
+class Tier29FourSet extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
   cooldownReductionUsed: number = 0;
   cooldownReductionWasted: number = 0;
-  WingsCasts: number = 0;
+  // WingsCasts: number = 0;
   spellToReduce: Spell = SPELLS.AVENGING_WRATH;
   protected spellUsable!: SpellUsable;
 
@@ -38,10 +44,10 @@ class Tier28FourSet extends Analyzer {
       this.lodHeal,
     );
 
-    this.addEventListener(
-      Events.cast.spell(this.spellToReduce).by(SELECTED_PLAYER),
-      this.wingsCast,
-    );
+    // this.addEventListener(
+    //   Events.cast.spell(this.spellToReduce).by(SELECTED_PLAYER),
+    //   this.wingsCast,
+    // );
 
     if (this.selectedCombatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT.id)) {
       this.spellToReduce = TALENTS.AVENGING_CRUSADER_TALENT;
@@ -57,13 +63,13 @@ class Tier28FourSet extends Analyzer {
     }
   }
 
-  wingsCast(event: CastEvent) {
-    if (this.spellUsable.isOnCooldown(this.spellToReduce.id)) {
-      this.spellUsable.endCooldown(this.spellToReduce.id);
-      this.spellUsable.beginCooldown(event, this.spellToReduce.id);
-    }
-    this.WingsCasts += 1;
-  }
+  // wingsCast(event: CastEvent) {
+  //   if (this.spellUsable.isOnCooldown(this.spellToReduce.id)) {
+  //     this.spellUsable.endCooldown(this.spellToReduce.id);
+  //     this.spellUsable.beginCooldown(event, this.spellToReduce.id);
+  //   }
+  //   this.WingsCasts += 1;
+  // }
 
   statistic() {
     return (
@@ -87,11 +93,11 @@ class Tier28FourSet extends Analyzer {
             </>
           }
         >
-          <>{formatDuration(this.cooldownReductionUsed / (this.WingsCasts + 1))}</>
+          {/* <>{formatDuration(this.cooldownReductionUsed / (this.WingsCasts + 1))}</> */}
         </BoringValueText>
       </Statistic>
     );
   }
 }
 
-export default Tier28FourSet;
+export default Tier29FourSet;
