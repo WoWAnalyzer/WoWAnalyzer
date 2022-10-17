@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
 
@@ -10,7 +11,7 @@ class Buffs extends CoreAuras {
     // This data can be used by various kinds of modules to improve their results, and modules added in the future may rely on buffs that aren't used today.
     return [
       {
-        spellId: SPELLS.ICEFURY_TALENT.id,
+        spellId: TALENTS.ICEFURY_TALENT.id,
         timelineHighlight: true,
       },
       {
@@ -19,17 +20,17 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id,
-        enabled: combatant.hasTalent(SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.MASTER_OF_THE_ELEMENTS_TALENT.id),
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.SURGE_OF_POWER_BUFF.id,
-        enabled: combatant.hasTalent(SPELLS.SURGE_OF_POWER_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SURGE_OF_POWER_TALENT.id),
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.STORMKEEPER_TALENT_ELEMENTAL.id,
-        triggeredBySpellId: SPELLS.STORMKEEPER_TALENT_ELEMENTAL.id,
+        spellId: TALENTS.STORMKEEPER_ELEMENTAL_TALENT.id,
+        triggeredBySpellId: TALENTS.STORMKEEPER_ELEMENTAL_TALENT.id,
         timelineHighlight: true,
       },
       {

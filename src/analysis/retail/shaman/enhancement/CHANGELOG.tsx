@@ -5,6 +5,7 @@ import { Mae, xunai, Vonn, Vetyst } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 10, 16), <>Updated spellbook for build 46157.</>, Vetyst),
   change(date(2022, 9, 9), <>Initial implementation of Dragonflight Talent system.</>, Vetyst),
   change(date(2022, 8, 22), <>Make <SpellLink id={SPELLS.STORMBRINGER.id} /> a priority only if you have <SpellLink id={TALENTS_SHAMAN.STORMFLURRY_TALENT.id} /> talented.</>, Vetyst),
   change(date(2022, 8, 16), <>Implement an initial version of the Single Target APL checker.</>, Vetyst),

@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
@@ -342,7 +343,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.LAVA_BURST.id,
+        spell: TALENTS.LAVA_BURST_TALENT.id,
         buffSpellId: SPELLS.LAVA_SURGE.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT_SHARED.id) ? 2 : 1,

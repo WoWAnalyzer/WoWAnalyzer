@@ -1,6 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
+// TODO: either spell or talent depends on the next build.
+export const ASCENDANCE_ID = 114051;
+
 export const STORMSTRIKE_CAST_SPELLS = [TALENTS_SHAMAN.STORMSTRIKE_TALENT, SPELLS.WINDSTRIKE_CAST];
 
 export const STORMSTRIKE_DAMAGE_SPELLS = [
@@ -9,6 +12,8 @@ export const STORMSTRIKE_DAMAGE_SPELLS = [
   SPELLS.WINDSTRIKE_DAMAGE,
   SPELLS.WINDSTRIKE_DAMAGE_OFFHAND,
 ];
+
+export const MOLTEN_ASSAULT_SCALING = [0, 3, 6];
 
 export const ESSENTIAL_EXTRACTION_EFFECT_BY_RANK = [
   0,
