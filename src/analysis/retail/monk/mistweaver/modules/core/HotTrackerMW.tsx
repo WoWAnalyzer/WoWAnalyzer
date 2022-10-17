@@ -40,8 +40,8 @@ class HotTrackerMW extends HotTracker {
     });
   }
 
-  fromRapidDiffusion(attributions: Attribution[]): boolean {
-    return attributions.some(function (attr) {
+  fromRapidDiffusion(hot: Tracker): boolean {
+    return hot.attributions.some(function (attr) {
       return attr.name.includes('Rapid Diffusion');
     });
   }
