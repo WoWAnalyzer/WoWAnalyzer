@@ -22,6 +22,9 @@ const CDR = 1000;
 // Holy Light, Flash of Light, Light of Dawn, Word of Glory, and Bestow Faith healing is increased by 6% and their critical effects
 // increase the damage or healing of your next Holy Shock by 20%.
 
+// TODO: convert this from Tier28FourSet Tier29FourSet
+// File has just currently been renamed
+
 class Tier29FourSet extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,

@@ -111,7 +111,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //-- shadowlands section --//
 
     // Tier Sets
-    Tier28FourSet: Tier29FourSet,
+    Tier29FourSet: Tier29FourSet,
   };
 }
 
