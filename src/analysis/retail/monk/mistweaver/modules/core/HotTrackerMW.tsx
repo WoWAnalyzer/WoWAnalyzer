@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { Options } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
-import HotTracker, { Attribution, HotInfo } from 'parser/shared/modules/HotTracker';
+import HotTracker, { Tracker, HotInfo } from 'parser/shared/modules/HotTracker';
 
 const REM_BASE_DURATION = 20000;
 const ENV_BASE_DURATION = 6000;
@@ -22,14 +22,14 @@ class HotTrackerMW extends HotTracker {
     this.upwellingActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT.id);
   }
 
-  fromMistyPeaks(attributions: Attribution[]): boolean {
-    return attributions.some(function (attr) {
+  fromMistyPeaks(hot: Tracker): boolean {
+    return hot.attributions.some(function (attr) {
       return attr.name.includes('Misty Peaks');
     });
   }
 
-  fromHardcast(attributions: Attribution[]): boolean {
-    return attributions.some(function (attr) {
+  fromHardcast(hot: Tracker): boolean {
+    return hot.attributions.some(function (attr) {
       return attr.name.includes('Hardcast');
     });
   }
