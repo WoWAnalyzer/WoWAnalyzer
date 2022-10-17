@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 export default [
   change(date(2022, 10, 16), <>Add Mists of Life module for MW</>, Trevor),
+  change(date(2022, 10, 16), <>Fixed Uplifted Spirits CDR</>, Trevor),
   change(date(2022, 10, 13), <>Cleaned up MW spells/talents files</>, Trevor),
   change(date(2022, 10, 13), <>Updated Rising Mist module for Dragonflight</>, Trevor),
   change(date(2022, 10, 9), <>Added Secret Infusion haste buff and fixed <SpellLink id={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT.id}/></>, Trevor),

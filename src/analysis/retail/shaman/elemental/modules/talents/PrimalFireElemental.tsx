@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
@@ -33,8 +34,8 @@ class PrimalFireElemental extends Analyzer {
       [SPELLS.FIRE_ELEMENTAL_FIRE_BLAST.id]: false,
     };
     this.active =
-      this.selectedCombatant.hasTalent(SPELLS.PRIMAL_ELEMENTALIST_TALENT.id) &&
-      !this.selectedCombatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id);
+      this.selectedCombatant.hasTalent(TALENTS.PRIMAL_ELEMENTALIST_TALENT.id) &&
+      !this.selectedCombatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER_PET).spell(damagingCasts),
       this.onDamage,
@@ -119,7 +120,7 @@ class PrimalFireElemental extends Analyzer {
         <span>
           You are not using <SpellLink id={SPELLS.FIRE_ELEMENTAL_METEOR.id} /> every time you cast{' '}
           <SpellLink id={SPELLS.FIRE_ELEMENTAL.id} /> if you are using{' '}
-          <SpellLink id={SPELLS.PRIMAL_ELEMENTALIST_TALENT.id} />. Only wait with casting meteor if
+          <SpellLink id={TALENTS.PRIMAL_ELEMENTALIST_TALENT.id} />. Only wait with casting meteor if
           you wait for adds to spawn.
         </span>,
       )
