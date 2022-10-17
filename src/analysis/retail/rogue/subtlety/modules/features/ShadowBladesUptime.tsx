@@ -1,5 +1,5 @@
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -16,13 +16,14 @@ class ShadowBladesUptime extends Analyzer {
 
   statistic() {
     const shadowBladesUptime =
-      this.selectedCombatant.getBuffUptime(SPELLS.SHADOW_BLADES.id) / this.owner.fightDuration;
+      this.selectedCombatant.getBuffUptime(TALENTS.SHADOW_BLADES_TALENT.id) /
+      this.owner.fightDuration;
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.GENERAL}>
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.SHADOW_BLADES.id} /> Shadow Blades Uptime
+              <SpellIcon id={TALENTS.SHADOW_BLADES_TALENT.id} /> Shadow Blades Uptime
             </>
           }
         >

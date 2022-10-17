@@ -8,25 +8,10 @@ import { spellIndexableList } from './Spell';
 
 const spells = spellIndexableList({
   // Defensive general spells
-  FEINT: {
-    id: 1966,
-    name: 'Feint',
-    icon: 'ability_rogue_feint',
-  },
   CRIMSON_VIAL: {
     id: 185311,
     name: 'Crimson Vial',
     icon: 'ability_rogue_crimsonvial',
-  },
-  CLOAK_OF_SHADOWS: {
-    id: 31224,
-    name: 'Cloak of Shadows',
-    icon: 'spell_shadow_nethercloak',
-  },
-  EVASION: {
-    id: 5277,
-    name: 'Evasion',
-    icon: 'spell_shadow_shadowward',
   },
   RIPOSTE: {
     id: 199754,
@@ -44,11 +29,6 @@ const spells = spellIndexableList({
     id: 2983,
     name: 'Sprint',
     icon: 'ability_rogue_sprint',
-  },
-  TRICKS_OF_THE_TRADE: {
-    id: 57934,
-    name: 'Tricks of the Trade',
-    icon: 'ability_rogue_tricksofthetrade',
   },
   STEALTH: {
     id: 1784,
@@ -69,11 +49,6 @@ const spells = spellIndexableList({
     id: 11327,
     name: 'Vanish',
     icon: 'ability_vanish',
-  },
-  SHADOWSTEP: {
-    id: 36554,
-    name: 'Shadowstep',
-    icon: 'ability_rogue_shadowstep',
   },
   SAP: {
     id: 6770,
@@ -105,11 +80,6 @@ const spells = spellIndexableList({
     name: 'Gouge',
     icon: 'ability_gouge',
   },
-  GRAPPLING_HOOK: {
-    id: 195457,
-    name: 'Grappling Hook',
-    icon: 'ability_rogue_grapplinghook',
-  },
   PICK_LOCK: {
     id: 1804,
     name: 'Pick Lock',
@@ -136,6 +106,16 @@ const spells = spellIndexableList({
     icon: 'inv_throwingknife_04',
   },
 
+  SEPSIS_FINAL_DMG: {
+    id: 394026,
+    name: 'Sepsis',
+    icon: 'ability_ardenweald_rogue',
+  },
+  SEPSIS_BUFF: {
+    id: 375939,
+    name: 'Sepsis',
+    icon: 'ability_ardenweald_rogue',
+  },
   // Subtlety spells
   // Combo point generating damage ability
   BACKSTAB: {
@@ -169,22 +149,13 @@ const spells = spellIndexableList({
     name: 'Eviscerate',
     icon: 'ability_rogue_eviscerate',
   },
-  BLACK_POWDER: {
-    id: 319175,
+  // Shadowed Finishers
+  BLACK_POWDER_SHADOW: {
+    id: 319190,
     name: 'Black Powder',
     icon: 'spell_priest_divinestar_shadow',
   },
   // Offensive cooldown
-  SHADOW_BLADES: {
-    id: 121471,
-    name: 'Shadow Blades',
-    icon: 'inv_knife_1h_grimbatolraid_d_03',
-  },
-  SHADOW_DANCE: {
-    id: 185313,
-    name: 'Shadow Dance',
-    icon: 'ability_rogue_shadowdance',
-  },
   SHADOW_DANCE_BUFF: {
     id: 185422,
     name: 'Shadow Dance',
@@ -194,6 +165,11 @@ const spells = spellIndexableList({
     id: 212283,
     name: 'Symbols of Death',
     icon: 'spell_shadow_rune',
+  },
+  FLAGELLATION_LASH: {
+    id: 394757,
+    name: 'Flagellation',
+    icon: 'ability_revendreth_rogue',
   },
 
   // CP Generation
@@ -347,13 +323,13 @@ const spells = spellIndexableList({
     name: 'Rupture',
     icon: 'ability_rogue_rupture',
   },
+  INTERNAL_BLEEDING_DEBUFF: {
+    id: 381628,
+    name: 'Internal Bleeding',
+    icon: 'ability_rogue_bloodsplattter',
+  },
 
   //Cooldowns
-  VENDETTA: {
-    id: 79140,
-    name: 'Vendetta',
-    icon: 'ability_rogue_deadliness',
-  },
 
   //Procs/Poisons
   DEADLY_POISON_PROC: {
@@ -469,30 +445,10 @@ const spells = spellIndexableList({
     name: 'Between the Eyes',
     icon: 'inv_weapon_rifle_01',
   },
-  BLIND: {
-    id: 2094,
-    name: 'Blind',
-    icon: 'spell_shadow_mindsteal',
-  },
-  ROLL_THE_BONES: {
-    id: 315508,
-    name: 'Roll the Bones',
-    icon: 'ability_rogue_rollthebones',
-  },
 
   //CDs
-  ADRENALINE_RUSH: {
-    id: 13750,
-    name: 'Adrenaline Rush',
-    icon: 'spell_shadow_shadowworddominate',
-  },
 
   //Other
-  BLADE_FLURRY: {
-    id: 13877,
-    name: 'Blade Flurry',
-    icon: 'ability_warrior_punishingblow',
-  },
   BLADE_FLURRY_DAMAGE: {
     id: 22482,
     name: 'Blade Flurry',

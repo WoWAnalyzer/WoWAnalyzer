@@ -14,7 +14,7 @@ export enum Build {
   DEFAULT = 'default',
   DISC = 'disc',
   HOLY = 'holy',
-  SHADOW = 'shadow'
+  SHADOW = 'shadow',
 }
 
 const config: Config = {

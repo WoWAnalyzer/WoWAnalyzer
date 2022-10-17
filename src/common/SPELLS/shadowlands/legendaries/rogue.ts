@@ -154,12 +154,6 @@ const legendaries = {
     name: 'Deathspike',
     icon: 'ability_maldraxxus_rogue',
   },
-  OBEDIENCE: {
-    id: 354703,
-    bonusID: 7572,
-    name: 'Obedience',
-    icon: 'ability_revendreth_rogue',
-  },
   //endregion
 } as const;
 export default legendaries;

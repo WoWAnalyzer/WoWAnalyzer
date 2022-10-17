@@ -573,6 +573,7 @@ export interface BuffEvent<T extends string> extends Event<T> {
   targetIsFriendly: boolean;
   sourceID?: number;
   sourceIsFriendly: boolean;
+  sourceInstance?: number;
 }
 
 export interface ApplyBuffEvent extends BuffEvent<EventType.ApplyBuff> {

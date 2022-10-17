@@ -10,7 +10,7 @@ import { getHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNor
 /** Feral combo point cap */
 export const MAX_CPS = 5;
 
-/** The cast spells for Combo Point generating abilities */
+/** The cast / energize spells for Combo Point generating abilities */
 export const CP_GENERATORS: Spell[] = [
   SPELLS.SHRED,
   SPELLS.RAKE,
@@ -18,7 +18,8 @@ export const CP_GENERATORS: Spell[] = [
   SPELLS.SWIPE_CAT,
   SPELLS.MOONFIRE_FERAL,
   TALENTS_DRUID.BRUTAL_SLASH_TALENT,
-  TALENTS_DRUID.FERAL_FRENZY_TALENT,
+  TALENTS_DRUID.FERAL_FRENZY_TALENT, // the cast ID
+  SPELLS.FERAL_FRENZY_DEBUFF, // the resource generate ID
 ];
 
 /** The cast spells for Finishers */
@@ -151,4 +152,14 @@ export function getBiteCps(event: DamageEvent) {
     // no hardcast -> from Convoke
     return CONVOKE_FB_CPS;
   }
+}
+
+export const TIGERS_FURY_BASE_DURATION = 10_000;
+export const PREDATOR_DURATION_BOOST = 5_000;
+
+export function getTigersFuryDuration(c: Combatant) {
+  return (
+    TIGERS_FURY_BASE_DURATION +
+    (c.hasTalent(TALENTS_DRUID.PREDATOR_TALENT) ? PREDATOR_DURATION_BOOST : 0)
+  );
 }
