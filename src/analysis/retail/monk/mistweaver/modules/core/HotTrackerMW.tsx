@@ -2,10 +2,11 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { Options } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
-import HotTracker, { Attribution, HotInfo } from 'parser/shared/modules/HotTracker';
+import HotTracker, { Attribution, HotInfo, Tracker } from 'parser/shared/modules/HotTracker';
 
 const REM_BASE_DURATION = 20000;
 const ENV_BASE_DURATION = 6000;
+const ENV_BREATH_DURATION = 6000;
 const EF_BASE_DURATION = 8000;
 
 const UPWELLING = 4000;
@@ -33,6 +34,12 @@ class HotTrackerMW extends HotTracker {
       return attr.name.includes('Hardcast');
     });
   }
+  
+  fromMistsOfLife(hot: Tracker): boolean {
+    return hot.attributions.some(function (attr) {
+      return attr.name.includes('Mists of Life');
+    });
+  }
 
   // Renewing Mist applies with a longer duration if Thunder Focus Tea is active
   _calculateRemDuration(combatant: Combatant): number {
@@ -51,6 +58,7 @@ class HotTrackerMW extends HotTracker {
     // must be generated dynamically because it reads from traits
     const envMistDuration = ENV_BASE_DURATION + (this.mistwrapActive ? MISTWRAP : 0);
     const essenceFontDuration = EF_BASE_DURATION + (this.upwellingActive ? UPWELLING : 0);
+    const envBreathDuration = ENV_BREATH_DURATION + (this.mistwrapActive ? MISTWRAP : 0);
     return [
       {
         spell: SPELLS.RENEWING_MIST_HEAL,
@@ -76,6 +84,12 @@ class HotTrackerMW extends HotTracker {
         duration: essenceFontDuration,
         tickPeriod: 2000,
         maxDuration: essenceFontDuration * 2,
+      },
+      {
+        spell: SPELLS.ENVELOPING_BREATH_HEAL,
+        duration: envBreathDuration,
+        tickPeriod: 1000,
+        maxDuration: envBreathDuration,
       },
     ];
   }

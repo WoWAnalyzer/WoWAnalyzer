@@ -1,9 +1,14 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, GetRelatedEvents, RefreshBuffEvent } from 'parser/core/Events';
 import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
-import { isFromHardcast, isFromMistyPeaks } from '../../normalizers/CastLinkNormalizer';
+import {
+  ENV_BREATH_APPLICATION,
+  isFromHardcast,
+  isFromMistyPeaks,
+  isFromMistsOfLife,
+} from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 
 const debug = false;
@@ -18,6 +23,8 @@ class HotAttributor extends Analyzer {
   envMistMistyPeaksAttrib = HotTracker.getNewAttribution('Enveloping Mist Misty Peaks Proc');
   REMHardcastAttrib = HotTracker.getNewAttribution('Renewing Mist Hardcast');
   EFAttrib = HotTracker.getNewAttribution('Essence Font Hardcast');
+  MistsOfLifeEnvAttrib = HotTracker.getNewAttribution('Enveloping Mist Mists of Life Proc');
+  MistsOfLifeRemAttrib = HotTracker.getNewAttribution('Renewing Mist Mists of Life Proc');
 
   constructor(options: Options) {
     super(options);
@@ -35,6 +42,10 @@ class HotAttributor extends Analyzer {
       Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.ESSENCE_FONT_BUFF]),
       this.onApplyEF,
     );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.ENVELOPING_BREATH_HEAL]),
+      this.onApplyEnvb,
+    );
   }
 
   onApplyRem(event: ApplyBuffEvent | RefreshBuffEvent) {
@@ -44,6 +55,8 @@ class HotAttributor extends Analyzer {
           'Attributed Renewing Mist hardcast at ' + this.owner.formatTimestamp(event.timestamp),
         );
       this.hotTracker.addAttributionFromApply(this.REMHardcastAttrib, event);
+    } else if (isFromMistsOfLife(event)) {
+      this.hotTracker.addAttributionFromApply(this.MistsOfLifeRemAttrib, event);
     }
   }
 
@@ -61,11 +74,23 @@ class HotAttributor extends Analyzer {
             this.owner.formatTimestamp(event.timestamp),
         );
       this.hotTracker.addAttributionFromApply(this.envMistMistyPeaksAttrib, event);
+    } else if (isFromMistsOfLife(event)) {
+      this.hotTracker.addAttributionFromApply(this.MistsOfLifeEnvAttrib, event);
     }
   }
 
   onApplyEF(event: ApplyBuffEvent | RefreshBuffEvent) {
     this.hotTracker.addAttributionFromApply(this.EFAttrib, event);
+  }
+
+  onApplyEnvb(event: ApplyBuffEvent | RefreshBuffEvent) {
+    const relatedEvents = GetRelatedEvents(event, ENV_BREATH_APPLICATION);
+    console.log(
+      'Envb application related to ' +
+        relatedEvents.length +
+        ' at' +
+        this.owner.formatTimestamp(event.timestamp),
+    );
   }
 
   _logAttrib(event: ApplyBuffEvent | RefreshBuffEvent, attrib: Attribution | string | undefined) {

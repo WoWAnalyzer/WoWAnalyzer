@@ -65,6 +65,7 @@ import Upwelling from './modules/spells/Upwelling';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
+import MistsOfLife from './modules/spells/MistsOfLife';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -128,6 +129,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lifecycles: Lifecycles,
     lifeCocoon: LifeCocoon,
     mistWrapEnvelopingBreath: MistWrapEnvelopingBreath,
+    mistsOfLife: MistsOfLife,
     manaTea: ManaTea,
     mistyPeaks: MistyPeaks,
     nourishingCh: NourishingChi,
