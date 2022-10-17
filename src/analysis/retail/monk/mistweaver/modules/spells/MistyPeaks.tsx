@@ -1,5 +1,6 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { TALENTS_MONK } from 'common/TALENTS';
+import SPELLS from 'common/SPELLS';
 import Events, { ApplyBuffEvent, HealEvent } from 'parser/core/Events';
 import { isFromMistyPeaks } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
@@ -11,14 +12,17 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { formatNumber } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import SpellLink from 'interface/SpellLink';
+import Combatants from 'parser/shared/modules/Combatants';
 
 const UNAFFECTED_SPELLS = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
 class MistyPeaks extends Analyzer {
   static dependencies = {
     hotTracker: HotTrackerMW,
+    combatants: Combatants,
   };
   hotTracker!: HotTrackerMW;
+  combatants!: Combatants;
   numHots: number = 0;
   extraHealing: number = 0;
   overHealing: number = 0;
@@ -36,11 +40,15 @@ class MistyPeaks extends Analyzer {
       ? 0.4
       : 0.3;
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
+      Events.applybuff
+        .by(SELECTED_PLAYER)
+        .spell([TALENTS_MONK.ENVELOPING_MIST_TALENT, SPELLS.ENVELOPING_MIST_TFT]),
       this.handleEnvApply,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([TALENTS_MONK.ENVELOPING_MIST_TALENT, SPELLS.ENVELOPING_MIST_TFT]),
       this.handleEnvHeal,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handleHeal);
@@ -54,7 +62,16 @@ class MistyPeaks extends Analyzer {
 
   handleEnvHeal(event: HealEvent) {
     const playerId = event.targetID;
-    const hot = this.hotTracker.hots[playerId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
+    if (
+      !this.hotTracker.hots[playerId] ||
+      (!this.hotTracker.hots[playerId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id] &&
+        !this.hotTracker.hots[playerId][SPELLS.ENVELOPING_MIST_TFT.id])
+    ) {
+      return;
+    }
+    const hot =
+      this.hotTracker.hots[playerId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id] ||
+      this.hotTracker.hots[playerId][SPELLS.ENVELOPING_MIST_TFT.id];
     if (this.hotTracker.fromMistyPeaks(hot.attributions)) {
       this.extraHits += 1;
       this.extraHealing += event.amount || 0;
@@ -68,12 +85,15 @@ class MistyPeaks extends Analyzer {
     if (
       UNAFFECTED_SPELLS.includes(spellId) ||
       !this.hotTracker.hots[targetId] ||
-      !this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id]
+      (!this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id] &&
+        !this.hotTracker.hots[targetId][SPELLS.ENVELOPING_MIST_TFT.id])
     ) {
       return;
     }
 
-    const hot = this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
+    const hot =
+      this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id] ||
+      this.hotTracker.hots[targetId][SPELLS.ENVELOPING_MIST_TFT.id];
     if (!this.hotTracker.fromMistyPeaks(hot.attributions)) {
       return;
     }
