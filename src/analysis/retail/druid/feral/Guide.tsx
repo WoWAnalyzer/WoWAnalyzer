@@ -81,7 +81,15 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
 function CooldownSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Cooldowns">
-      <p>TODO COOLDOWN USAGE DESCRIPTION</p>
+      <p>
+        Feral's cooldowns are decently powerful but should not be held on to for long. In order to
+        maximize usages over the course of an encounter, you should aim to send the cooldown as soon
+        as it becomes available (as long as it can do damage on target). It is particularly
+        important to use <SpellLink id={SPELLS.TIGERS_FURY.id} /> as often as possible.
+        <br />
+        <br />
+        <strong>Per-spell guidance and statistics coming soon!</strong>
+      </p>
       <CooldownGraphSubsection modules={modules} events={events} info={info} />
     </Section>
   );
