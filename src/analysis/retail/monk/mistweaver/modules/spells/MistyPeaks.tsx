@@ -109,7 +109,6 @@ class MistyPeaks extends Analyzer {
         tooltip={
           <ul>
             <li>
-              {' '}
               <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> extra hits: {this.extraHits}
             </li>
             <li>
@@ -117,7 +116,7 @@ class MistyPeaks extends Analyzer {
               {formatNumber(this.extraHealing)}
             </li>
             <li>
-              Bonus healing from <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> buff:{' '}
+              Bonus healing from <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> buff:
               {formatNumber(this.extraEnvBonusHealing)}
             </li>
           </ul>
