@@ -22,6 +22,7 @@ export const FROM_RAPID_DIFFUSION = 'FromRD'; // can be linked to env mist or rs
 
 const CAST_BUFFER_MS = 100;
 const MAX_REM_DURATION = 77000;
+const FOUND_REMS = new Set();
 const debug = true;
 
 /*
@@ -161,7 +162,13 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
       event.timestamp,
       GetRelatedEvents(event, FROM_DANCING_MISTS),
     );
-    if (event.timestamp > partnerEvent.timestamp) {
+    if (event.timestamp === partnerEvent.timestamp) {
+      if (FOUND_REMS.has(event.timestamp)) {
+        return false;
+      } else {
+        FOUND_REMS.add(event.timestamp);
+      }
+    } else if (event.timestamp > partnerEvent.timestamp) {
       debug &&
         console.log(event, ' at ', event.timestamp, ' is a duplicated REM from Dancing Mists');
       return false;
