@@ -22,6 +22,7 @@ const RISING_MIST_EXTENSION = 4000;
 const RENEWING_MIST_HARDCAST = 'Renewing Mist Hardcast';
 
 const UNAFFECTED_SPELLS = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
+const NOT_EXTENDED = [SPELLS.ENVELOPING_BREATH_HEAL.id];
 
 class RisingMist extends Analyzer {
   get averageExtension() {
@@ -230,7 +231,9 @@ class RisingMist extends Analyzer {
     Object.keys(this.hotTracker.hots).forEach((playerId) => {
       Object.keys(this.hotTracker.hots[playerId]).forEach((spellIdString) => {
         const spellId = Number(spellIdString);
-
+        if (NOT_EXTENDED.includes(spellId)) {
+          return;
+        }
         const attribution = newRisingMist;
         if (
           !untrackedSpells.includes(spellId) &&

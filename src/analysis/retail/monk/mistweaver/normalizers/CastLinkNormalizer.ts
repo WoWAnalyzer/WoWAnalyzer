@@ -19,6 +19,8 @@ export const FROM_DANCING_MISTS = 'FromDM';
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_MISTY_PEAKS = 'FromMistyPeaks';
 export const FROM_RAPID_DIFFUSION = 'FromRD'; // can be linked to env mist or rsk cast
+export const ENV_BREATH_APPLICATION = 'EnvBreathApply';
+export const FROM_MISTS_OF_LIFE = 'FromMOL';
 
 const CAST_BUFFER_MS = 100;
 const MAX_REM_DURATION = 77000;
@@ -120,6 +122,35 @@ const EVENT_LINKS: EventLink[] = [
       return !HasRelatedEvent(linkingEvent, FROM_HARDCAST);
     },
   },
+  {
+    linkRelation: FROM_MISTS_OF_LIFE,
+    linkingEventId: [TALENTS_MONK.ENVELOPING_MIST_TALENT.id, SPELLS.RENEWING_MIST_HEAL.id],
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: TALENTS_MONK.LIFE_COCOON_TALENT.id,
+    referencedEventType: [EventType.Cast],
+    backwardBufferMs: 500,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        !HasRelatedEvent(linkingEvent, FROM_HARDCAST) &&
+        !HasRelatedEvent(referencedEvent, FROM_HARDCAST)
+      );
+    },
+  },
+  {
+    linkRelation: ENV_BREATH_APPLICATION,
+    linkingEventId: [SPELLS.ENVELOPING_BREATH_HEAL.id],
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
+    referencedEventType: [EventType.ApplyBuff],
+    anyTarget: true,
+    backwardBufferMs: CAST_BUFFER_MS,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        HasRelatedEvent(referencedEvent, FROM_HARDCAST) ||
+        HasRelatedEvent(referencedEvent, FROM_MISTS_OF_LIFE)
+      );
+    },
+  },
 ];
 
 /**
@@ -180,6 +211,10 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
     }
   }
   return false;
+}
+
+export function isFromMistsOfLife(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
+  return HasRelatedEvent(event, FROM_MISTS_OF_LIFE);
 }
 
 export default CastLinkNormalizer;
