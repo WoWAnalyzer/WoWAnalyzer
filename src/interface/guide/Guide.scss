@@ -4,6 +4,7 @@ $perfect-perf-color: #2090c0;
 $good-perf-color: #4ec04e;
 $ok-perf-color: #ffc84a;
 $bad-perf-color: #ac1f39;
+$very-bad-perf-color: #661111;
 
 // for export
 :root {
@@ -11,6 +12,7 @@ $bad-perf-color: #ac1f39;
   --guide-good-color: #{$good-perf-color};
   --guide-ok-color: #{$ok-perf-color};
   --guide-bad-color: #{$bad-perf-color};
+  --guide-very-bad-color: #{$very-bad-perf-color};
 }
 
 .guide-container {
