@@ -328,7 +328,7 @@ class Bloodtalons extends Analyzer {
           between finishers - in these cases it's ok to use unbuffed finishers.
         </p>
         <p>{this.bloodtalonsVsLionsStrengthText}</p>
-        <strong>Finisher use breakdown</strong>
+        <strong>Bloodtalons use breakdown</strong>
         <small>
           {' '}
           - Green is Bloodtalons finishers, Yellow is acceptable unbuffed finishers, Red is
