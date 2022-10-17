@@ -32,7 +32,7 @@ import ElementalSpirits from './modules/talents/ElementalSpirits';
 import ElementalAssault from './modules/talents/ElementalAssault';
 import SeedsOfRampantGrowth from './modules/shadowlands/legendaries/SeedsOfRampantGrowth';
 import Tier28TwoSet from './modules/shadowlands/tier/Tier28TwoSet';
-import Tier28FourSet from 'analysis/retail/paladin/holy/modules/shadowlands/tier/Tier28FourSet';
+import Tier29FourSet from 'analysis/retail/paladin/holy/modules/dragonflight/tier/Tier29FourSet';
 import Stormbringer from './modules/spells/Stormbringer';
 import FeralSpirit from './modules/talents/FeralSpirit';
 import ChainLightning from './modules/talents/ChainLightning';
@@ -98,7 +98,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Tier
     tier28TwoSet: Tier28TwoSet,
-    tier28FourSet: Tier28FourSet,
+    tier28FourSet: Tier29FourSet,
 
     // TODO: Rework AplCheck for Dragonflight
     aplCheck: AplCheck,

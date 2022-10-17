@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
-import SPELLS from 'common/SPELLS';
+// import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import { Panel } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
@@ -79,7 +80,7 @@ class DeathRecapTracker extends Analyzer {
         if (!hasBuff) {
           return false;
         }
-        if (e.id === SPELLS.BLESSING_OF_SACRIFICE.id) {
+        if (e.id === TALENTS.BLESSING_OF_SACRIFICE_TALENT.id) {
           return buff.sourceID === this.selectedCombatant.id;
         }
         return true;
