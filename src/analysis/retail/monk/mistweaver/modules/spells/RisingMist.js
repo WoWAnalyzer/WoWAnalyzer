@@ -34,14 +34,14 @@ class RisingMist extends Analyzer {
   }
 
   get hotHealing() {
-    const array = this.hotTracker.hotHistory;
     let value = 0;
-    for (let i = 0; i < array.length; i += 1) {
-      const hot = array[i];
-      if (this.hotTracker.fromHardcast(hot.attributions) || this.hotTracker.fromMistsOfLife(hot)) {
-        value += hot.healingAfterOriginalEnd || 0;
-      }
-    }
+    this.hotTracker.hotHistory.forEach(
+      function (hot) {
+        if (this.hotTracker.fromHardcast(hot) || this.hotTracker.fromMistsOfLife(hot)) {
+          value += hot.healingAfterOriginalEnd || 0;
+        }
+      }.bind(this),
+    );
     return value;
   }
 

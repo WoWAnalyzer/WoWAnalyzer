@@ -72,7 +72,7 @@ class MistyPeaks extends Analyzer {
     const hot =
       this.hotTracker.hots[playerId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id] ||
       this.hotTracker.hots[playerId][SPELLS.ENVELOPING_MIST_TFT.id];
-    if (this.hotTracker.fromMistyPeaks(hot.attributions)) {
+    if (this.hotTracker.fromMistyPeaks(hot)) {
       this.extraHits += 1;
       this.extraHealing += event.amount || 0;
       this.overHealing += event.overheal || 0;
@@ -94,7 +94,7 @@ class MistyPeaks extends Analyzer {
     const hot =
       this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id] ||
       this.hotTracker.hots[targetId][SPELLS.ENVELOPING_MIST_TFT.id];
-    if (!this.hotTracker.fromMistyPeaks(hot.attributions)) {
+    if (!this.hotTracker.fromMistyPeaks(hot)) {
       return;
     }
     this.extraEnvBonusHealing += calculateEffectiveHealing(event, this.envmHealingIncrease);
