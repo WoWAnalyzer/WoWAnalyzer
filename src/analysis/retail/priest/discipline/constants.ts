@@ -61,6 +61,7 @@ export const ATONEMENT_SOURCE_FILTER: SpellFilter = [
 
 export const SPIRIT_SHELL_COEFFICIENT = 0.8;
 export const ATONEMENT_COEFFICIENT = 0.5;
+export const DISCIPLINE_DAMAGE_AURA_VALUE = 0.94;
 
 export const PENANCE_COEFFICIENCT = 0.4;
 export const SMITE_COEFFICIENT = 0.47;
