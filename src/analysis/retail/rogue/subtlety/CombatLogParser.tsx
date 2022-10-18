@@ -6,12 +6,9 @@ import {
   EnergyCapTracker,
   EnergyDetails,
   EnergyTracker,
-  EssenceOfBloodfang,
-  Flagellation,
   InvigoratingShadowdust,
   Sepsis,
   StealthAbilityFollowingSepsis,
-  SerratedBoneSpike,
   SpellEnergyCost,
   SpellUsable,
   StealthDamageTracker,
@@ -35,10 +32,10 @@ import Checklist from './modules/features/checklist/Module';
 import ShadowBladesUptime from './modules/features/ShadowBladesUptime';
 import SymbolsOfDeathUptime from './modules/features/SymbolsOfDeathUptime';
 import VanishFindWeakness from './modules/features/VanishFindWeakness';
-import AkaarisSoulFragment from './modules/spells/shadowlands/legendaries/AkaarisSoulFragment';
-import TheRotten from './modules/spells/shadowlands/legendaries/TheRotten';
+import TheRotten from './modules/talents/TheRotten';
 import DarkShadowContribution from './modules/talents/DarkShadow/DarkShadowContribution';
 import ShurikenStormNormalizer from './normalizers/ShurikenStormNormalizer';
+import Flagellation from './modules/talents/Flagellation';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -65,7 +62,6 @@ class CombatLogParser extends CoreCombatLogParser {
     symbolsDamageTracker: SymbolsDamageTracker,
     danceDamageTracker: DanceDamageTracker,
     stealthDamageTracker: StealthDamageTracker,
-    blackPowder: BlackPowder,
 
     //Core
     danceCooldownReduction: DeepeningShadows,
@@ -80,23 +76,19 @@ class CombatLogParser extends CoreCombatLogParser {
     instantPoison: InstantPoison,
 
     //Talents
+    blackPowder: BlackPowder,
     darkShadowContribution: DarkShadowContribution,
-
-    // Covenants
-    serratedBoneSpike: SerratedBoneSpike,
-    echoingReprimand: EchoingReprimand,
-    flagellation: Flagellation,
+    theRotten: TheRotten,
+    deeperDaggers: DeeperDaggers,
+    invigoratingShadowdust: InvigoratingShadowdust,
     sepsis: Sepsis,
     stealthAbilityFollowingSepsis: StealthAbilityFollowingSepsis,
+    echoingReprimand: EchoingReprimand,
+    flagellation: Flagellation,
+
+    // Covenants
 
     // Legendaries
-    akaarisSoulFragment: AkaarisSoulFragment,
-    theRotten: TheRotten,
-    essenceOfBloodfang: EssenceOfBloodfang,
-    invigoratingShadowdust: InvigoratingShadowdust,
-
-    // Conduits
-    deeperDaggers: DeeperDaggers,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,

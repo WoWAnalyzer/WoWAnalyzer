@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 import { EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
@@ -25,7 +26,7 @@ class ShurikenStormNormalizer extends EventsNormalizer {
 
     //Player CP Pool
     let cpPool = 5;
-    if (this.selectedCombatant.hasTalent(SPELLS.DEEPER_STRATAGEM_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.DEEPER_STRATAGEM_TALENT.id)) {
       cpPool += 1;
     }
 

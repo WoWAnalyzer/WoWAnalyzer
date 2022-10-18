@@ -1,5 +1,6 @@
 import { Enchant } from 'common/ITEMS/Item';
 import { T28_TIER_GEAR_IDS, TIER_BY_CLASSES } from 'common/ITEMS/shadowlands';
+import { TIER_BY_CLASSES as DF_TIER_BY_CLASSES } from 'common/ITEMS/dragonflight';
 import { maybeGetSpell } from 'common/SPELLS';
 import { LegendarySpell } from 'common/SPELLS/Spell';
 import { getClassBySpecId } from 'game/CLASSES';
@@ -21,6 +22,7 @@ import {
 
 import Entity from './Entity';
 import { PlayerInfo } from './Player';
+import { TIERS } from 'game/TIERS';
 
 export interface CombatantInfo extends CombatantInfoEvent {
   name: string;
@@ -515,10 +517,23 @@ class Combatant extends Entity {
     return [this.head, this.shoulder, this.chest, this.legs, this.hands];
   }
 
+  /**
+   * @deprecated Use {@link setIdBySpecByTier} instead.
+   */
   setIdBySpec(): T28_TIER_GEAR_IDS {
     return TIER_BY_CLASSES[getClassBySpecId(this._combatantInfo.specID)];
   }
 
+  setIdBySpecByTier(tier: TIERS) {
+    if (tier === TIERS.T28) {
+      return TIER_BY_CLASSES[getClassBySpecId(this._combatantInfo.specID)];
+    }
+    return DF_TIER_BY_CLASSES[tier]?.[getClassBySpecId(this._combatantInfo.specID)];
+  }
+
+  /**
+   * @deprecated Use {@link has2PieceByTier} instead.
+   */
   has2Piece(setId?: T28_TIER_GEAR_IDS) {
     if (!setId) {
       setId = this.setIdBySpec();
@@ -530,6 +545,18 @@ class Combatant extends Entity {
     return this.tierPieces.filter((gear) => gear?.setID === setId).length >= 2;
   }
 
+  has2PieceByTier(tier: TIERS) {
+    const setID = this.setIdBySpecByTier(tier);
+    if (!setID) {
+      console.error('Unable to find set ID for spec and tier');
+      return false;
+    }
+    return this.tierPieces.filter((gear) => gear?.setID === setID).length >= 2;
+  }
+
+  /**
+   * @deprecated Use {@link has4PieceByTier} instead.
+   */
   has4Piece(setId?: T28_TIER_GEAR_IDS) {
     if (!setId) {
       setId = this.setIdBySpec();
@@ -539,6 +566,15 @@ class Combatant extends Entity {
       return false;
     }
     return this.tierPieces.filter((gear) => gear?.setID === setId).length >= 4;
+  }
+
+  has4PieceByTier(tier: TIERS) {
+    const setID = this.setIdBySpecByTier(tier);
+    if (!setID) {
+      console.error('Unable to find set ID for spec and tier');
+      return false;
+    }
+    return this.tierPieces.filter((gear) => gear?.setID === setID).length >= 4;
   }
 
   // endregion

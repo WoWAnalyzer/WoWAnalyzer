@@ -1901,6 +1901,11 @@ export const Lucky0604: Contributor = {
   discord: 'Lucky0604#8966',
 };
 
+export const Omegabiscuit: Contributor = {
+  nickname: 'Omegabiscuit',
+  github: 'omegabiscuit',
+};
+
 export const ToppleTheNun: Contributor = {
   nickname: 'ToppleTheNun',
   github: 'ToppleTheNun',
@@ -1953,3 +1958,13 @@ export const Litena: Contributor = {
     },
   ],
 };
+
+export const jazminite: Contributor = {
+  nickname: 'jazminite',
+  github: 'jazminite',
+};
+
+export const Jonfanz: Contributor = {
+  nickname: 'jonfanz',
+  github: 'jharrell',
+}

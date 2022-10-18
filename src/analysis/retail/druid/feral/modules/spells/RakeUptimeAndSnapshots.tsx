@@ -18,6 +18,7 @@ import { SubSection } from 'interface/guide';
 import { PerformanceBoxRow } from 'parser/ui/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
+/** Tracking code for everything Rake related */
 class RakeUptimeAndSnapshots extends Snapshots {
   static dependencies = {
     ...Snapshots.dependencies,

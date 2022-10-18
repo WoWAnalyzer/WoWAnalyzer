@@ -1,5 +1,6 @@
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -41,7 +42,7 @@ class Inferno extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.INFERNO_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.INFERNO_TALENT.id);
   }
 
   statistic() {
@@ -79,7 +80,7 @@ class Inferno extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.INFERNO_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.INFERNO_TALENT.id}>
           {fragments}{' '}
           <small>
             <strong>estimated</strong> bonus Fragments

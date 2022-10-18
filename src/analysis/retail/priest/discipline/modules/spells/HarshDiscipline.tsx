@@ -79,7 +79,7 @@ class HarshDiscipline extends Analyzer {
     const manaSaved = this.harshPenances * SPELLS.PENANCE.manaCost;
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(13)}
+        position={STATISTIC_ORDER.CORE(3)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
