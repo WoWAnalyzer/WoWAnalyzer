@@ -11,6 +11,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class TwinsOfTheSunPriestess extends Analyzer {
   // More could probably be done with this to analyze what the person you used it on did.
@@ -78,7 +79,11 @@ class TwinsOfTheSunPriestess extends Analyzer {
 
   statistic() {
     return (
-      <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.OPTIONAL(15)}
+        size="flexible"
+      >
         <BoringSpellValueText spellId={SPELLS.TWINS_OF_THE_SUN_PRIESTESS.id}>
           {formatNumber(this.goodCasts)}/{formatNumber(this.totalCasts)} Uses
         </BoringSpellValueText>

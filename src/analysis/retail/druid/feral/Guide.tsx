@@ -3,38 +3,48 @@ import CombatLogParser from 'analysis/retail/druid/feral/CombatLogParser';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { CooldownBar } from 'parser/ui/CooldownBar';
 import SPELLS from 'common/SPELLS';
-import { SpellLink, TooltipElement } from 'interface';
+import { SpellLink } from 'interface';
+import { formatPercentage } from 'common/format';
+import styled from '@emotion/styled';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
-      <Section title="Resource Use">
-        <SubSection title="Energy">
-          <p>
-            Feral's primary resource is Energy. Typically, ability use will be limited by energy,
-            not time. You should avoid capping energy - lost energy regeneration is lost DPS. It
-            will occasionally be impossible to avoid capping energy - like while handling mecahnics
-            or during intermission phases.
-          </p>
-          TODO ENERGY GRAPH w/ HIGHLIGHTED CAPPED ENERGY, TIMES OFF TARGET (NO MELEE)
-        </SubSection>
-        <SubSection title="Combo Points">
-          <p>
-            Feral uses a system of Combo Point builders and spenders. Spenders are always more
-            powerful than builders - when you reach maximum combo points you should always use a
-            spender.
-          </p>
-          TODO LIST OF BUILDERS w/ GENERATED vs WASTED (OVERCAP)
-          <br />
-          TODO LIST OF SPENDERS w/ LOW CP USAGE
-        </SubSection>
-      </Section>
+      <ResourceUseSection modules={modules} events={events} info={info} />
       <CoreRotationSection modules={modules} events={events} info={info} />
-      <Section title="Cooldowns">
-        <p>TODO COOLDOWN USAGE DESCRIPTION</p>
-        <CooldownGraphSubsection modules={modules} events={events} info={info} />
-      </Section>
+      <CooldownSection modules={modules} events={events} info={info} />
     </>
+  );
+}
+
+function ResourceUseSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
+  return (
+    <Section title="Resource Use">
+      <SubSection title="Energy">
+        <p>
+          Your primary resource is Energy. Typically, ability use will be limited by energy, not
+          time. Avoid capping energy - lost energy regeneration is lost DPS. It will occasionally be
+          impossible to avoid capping energy - like while handling mechanics or during intermission
+          phases.
+        </p>
+        The chart below shows your energy over the course of the encounter. You spent{' '}
+        <strong>{formatPercentage(modules.energyTracker.percentAtCap, 1)}%</strong> of the encounter
+        capped on Energy.
+        {modules.energyGraph.plot}
+      </SubSection>
+      <SubSection title="Combo Points">
+        <p>
+          Most of your abilities either <strong>build</strong> or <strong>spend</strong> Combo
+          Points. Never use a builder at max CPs, and always wait until max CPs to use a spender
+          (with the exception of your opening <SpellLink id={SPELLS.RIP.id} />
+          ).
+        </p>
+        <SideBySidePanels>
+          <RoundedPanel>{modules.builderUse.chart}</RoundedPanel>
+          <RoundedPanel>{modules.finisherUse.chart}</RoundedPanel>
+        </SideBySidePanels>
+      </SubSection>
+    </Section>
   );
 }
 
@@ -54,55 +64,34 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
         </a>
         . See below for spell usage details.
       </p>
-      {modules.bloodtalons.guideSubsection}
-      {modules.rakeUptime.guideSubsection}
-      {info.combatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_TALENT) && (
-        <SubSection>
-          <strong>
-            <SpellLink id={SPELLS.MOONFIRE_FERAL.id} />
-          </strong>{' '}
-          - Maintain uptime, preferably with{' '}
-          <TooltipElement content={snapshotTooltip()}>snapshots</TooltipElement>
-          {modules.moonfireUptime.subStatistic()}
-        </SubSection>
-      )}
-      <SubSection>
-        <strong>
-          <SpellLink id={SPELLS.SWIPE_CAT.id} /> and <SpellLink id={SPELLS.THRASH_FERAL.id} />
-        </strong>{' '}
-        - TODO targets hit eval (check for bloodtalons contrib)
-      </SubSection>
+      {info.combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT) &&
+        modules.bloodtalons.guideSubsection}
       {modules.ripUptime.guideSubsection}
-      <SubSection>
-        <strong>
-          <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />
-        </strong>{' '}
-        - TODO eval? Per-cast (snapshot, use full energy)
-        <br />
-        Apex predator usage?
-      </SubSection>
-      {info.combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT) && (
-        <SubSection>
-          <strong>
-            <SpellLink id={TALENTS_DRUID.ADAPTIVE_SWARM_TALENT.id} />
-          </strong>{' '}
-          - ???
-          {modules.adaptiveSwarm.subStatistic()}
-        </SubSection>
-      )}
+      {modules.ferociousBite.guideSubsection}
+      {modules.rakeUptime.guideSubsection}
+      {info.combatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_TALENT) &&
+        modules.moonfireUptime.guideSubsection}
+      {info.combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT) &&
+        modules.adaptiveSwarm.guideSubsection}
+      {modules.hitCountAoe.guideSubsection}
     </Section>
   );
 }
 
-function snapshotTooltip() {
+function CooldownSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
-    <>
-      Your damage over time abilities 'snapshot' some of your buffs, retaining their damage bonus
-      over the DoTs full duration, even if the buff fades. The buffs that snapshot are{' '}
-      <SpellLink id={TALENTS_DRUID.TIGERS_FURY_TALENT.id} />,{' '}
-      <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />, and{' '}
-      <SpellLink id={TALENTS_DRUID.POUNCING_STRIKES_TALENT.id} />
-    </>
+    <Section title="Cooldowns">
+      <p>
+        Feral's cooldowns are decently powerful but should not be held on to for long. In order to
+        maximize usages over the course of an encounter, you should aim to send the cooldown as soon
+        as it becomes available (as long as it can do damage on target). It is particularly
+        important to use <SpellLink id={SPELLS.TIGERS_FURY.id} /> as often as possible.
+        <br />
+        <br />
+        <strong>Per-spell guidance and statistics coming soon!</strong>
+      </p>
+      <CooldownGraphSubsection modules={modules} events={events} info={info} />
+    </Section>
   );
 }
 
@@ -158,3 +147,22 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
     </SubSection>
   );
 }
+
+// TODO more purpose built rather than copypasta from Emallson's stuff
+export const RoundedPanel = styled.div`
+  background: #222;
+  border-radius: 0.5em;
+  padding: 1em 1.5em;
+  display: grid;
+  grid-gap: 2rem;
+  align-content: center;
+  align-items: center;
+`;
+
+/** Any number of panels laid out side by side - will always be equal width! Watch for overflow */
+export const SideBySidePanels = styled.div`
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  grid-column-gap: 1em;
+`;

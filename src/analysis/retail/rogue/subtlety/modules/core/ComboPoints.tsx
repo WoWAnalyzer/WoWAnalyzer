@@ -1,6 +1,7 @@
 import { ComboPointTracker } from 'analysis/retail/rogue/shared';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
+import TALENTS from 'common/TALENTS/rogue';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -35,11 +36,11 @@ class ComboPoints extends Analyzer {
 
   suggestions(when: When) {
     resourceSuggest(when, this.comboPointTracker, {
-      spell: SPELLS.MARKED_FOR_DEATH_TALENT, // 5 CP
+      spell: TALENTS.MARKED_FOR_DEATH_TALENT, // 5 CP
       minor: 0,
       avg: 0.05,
       major: 0.1,
-      extraSuggestion: this.makeExtraSuggestion(SPELLS.MARKED_FOR_DEATH_TALENT),
+      extraSuggestion: this.makeExtraSuggestion(TALENTS.MARKED_FOR_DEATH_TALENT),
     });
     resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.BACKSTAB, // 1 CP
@@ -49,11 +50,11 @@ class ComboPoints extends Analyzer {
       extraSuggestion: this.makeExtraSuggestion(SPELLS.BACKSTAB),
     });
     resourceSuggest(when, this.comboPointTracker, {
-      spell: SPELLS.GLOOMBLADE_TALENT, // 1 CP
+      spell: TALENTS.GLOOMBLADE_TALENT, // 1 CP
       minor: 0.05,
       avg: 0.1,
       major: 0.15,
-      extraSuggestion: this.makeExtraSuggestion(SPELLS.GLOOMBLADE_TALENT),
+      extraSuggestion: this.makeExtraSuggestion(TALENTS.GLOOMBLADE_TALENT),
     });
     resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.SHADOWSTRIKE, // 2 CP

@@ -1,5 +1,6 @@
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -22,7 +23,7 @@ class ChannelDemonfire extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.CHANNEL_DEMONFIRE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.CHANNEL_DEMONFIRE_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CHANNEL_DEMONFIRE_DAMAGE),
       this.onCDFdamage,
@@ -40,7 +41,7 @@ class ChannelDemonfire extends Analyzer {
         size="small"
         tooltip={`${formatThousands(this.damage)} damage`}
       >
-        <BoringSpellValueText spellId={SPELLS.CHANNEL_DEMONFIRE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.CHANNEL_DEMONFIRE_TALENT.id}>
           {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total

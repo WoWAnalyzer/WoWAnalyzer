@@ -2,6 +2,7 @@
 import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import { TooltipElement } from 'interface';
@@ -85,9 +86,9 @@ class Vivify extends Analyzer {
       suggest(
         <>
           You are casting <SpellLink id={SPELLS.VIVIFY.id} /> with less than 2{' '}
-          <SpellLink id={SPELLS.RENEWING_MIST.id} /> out on the raid. To ensure you are gaining the
-          maximum <SpellLink id={SPELLS.VIVIFY.id} /> healing, keep{' '}
-          <SpellLink id={SPELLS.RENEWING_MIST.id} /> on cooldown.
+          <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> out on the raid. To ensure you are
+          gaining the maximum <SpellLink id={SPELLS.VIVIFY.id} /> healing, keep{' '}
+          <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> on cooldown.
         </>,
       )
         .icon(SPELLS.VIVIFY.icon)

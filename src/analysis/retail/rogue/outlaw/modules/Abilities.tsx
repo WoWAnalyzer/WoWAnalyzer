@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Combatant from 'parser/core/Combatant';
@@ -309,7 +310,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SEPSIS.id,
+        spell: TALENTS.SEPSIS_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
         cooldown: 90,
@@ -329,7 +330,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FLAGELLATION.id,
+        spell: TALENTS.FLAGELLATION_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
         gcd: {

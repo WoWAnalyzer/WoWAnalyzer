@@ -116,7 +116,7 @@ class XuensBattlegear extends Analyzer {
             <small>Seconds reduced</small>
             <br />
             <SpellIcon
-              id={SPELLS.RISING_SUN_KICK.id}
+              id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id}
               style={{
                 height: '1.3em',
                 marginTop: '-1.em',

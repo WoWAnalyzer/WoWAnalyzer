@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -22,7 +23,7 @@ class RisingSunKick extends Analyzer {
     super(options);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RISING_SUN_KICK_TALENT),
       this.risingSunKickCast,
     );
     this.addEventListener(
@@ -33,7 +34,7 @@ class RisingSunKick extends Analyzer {
 
   risingSunKickCast(event: CastEvent) {
     // we are fine. Regular cast
-    if (!this.spellUsable.isOnCooldown(SPELLS.RISING_SUN_KICK.id)) {
+    if (!this.spellUsable.isOnCooldown(TALENTS_MONK.RISING_SUN_KICK_TALENT.id)) {
       this.lastRSK = event.timestamp;
       return;
     }
@@ -41,8 +42,8 @@ class RisingSunKick extends Analyzer {
     if (this.lastBOK > this.lastRSK) {
       this.rskResets += 1;
 
-      this.spellUsable.endCooldown(SPELLS.RISING_SUN_KICK.id);
-      this.spellUsable.beginCooldown(event, SPELLS.RISING_SUN_KICK.id);
+      this.spellUsable.endCooldown(TALENTS_MONK.RISING_SUN_KICK_TALENT.id);
+      this.spellUsable.beginCooldown(event, TALENTS_MONK.RISING_SUN_KICK_TALENT.id);
     }
 
     this.lastRSK = event.timestamp;
@@ -58,7 +59,7 @@ class RisingSunKick extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={SPELLS.RISING_SUN_KICK.id} /> Resets
+              <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> Resets
             </>
           }
         >

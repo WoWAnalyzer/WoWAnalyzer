@@ -109,8 +109,10 @@ class Flourish extends Analyzer {
 
   onFlourishApplyBuff(event: ApplyBuffEvent | RefreshBuffEvent) {
     let extensionAttribution: Attribution;
+    let extensionAmount = HARDCAST_FLOURISH_EXTENSION;
     if (!isFromHardcast(event) && this.convokeSpirits.isConvoking()) {
       extensionAttribution = this.convokeSpirits.currentConvokeAttribution;
+      extensionAmount = CONVOKE_FLOURISH_EXTENSION;
       this.currentRateAttribution = this.convokeSpirits.currentConvokeRateAttribution;
     } else {
       this.hardcastCount += 1;
@@ -134,10 +136,6 @@ class Flourish extends Analyzer {
       });
     }
 
-    const extensionAmount =
-      extensionAttribution === this.convokeSpirits.currentConvokeAttribution
-        ? CONVOKE_FLOURISH_EXTENSION
-        : HARDCAST_FLOURISH_EXTENSION;
     let foundWg = false;
     Object.keys(this.hotTracker.hots).forEach((playerIdString) => {
       const playerId = Number(playerIdString);

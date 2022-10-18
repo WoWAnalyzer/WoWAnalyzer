@@ -35,19 +35,19 @@ class MistWrapEnvelopingBreath extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH_HEAL),
       this.addToMap,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH_HEAL),
       this.addToMap,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH_HEAL),
       this.hotRemoved,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH_HEAL),
       this.hotHeal,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.genericHeal);
@@ -124,7 +124,7 @@ class MistWrapEnvelopingBreath extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={SPELLS.ENVELOPING_BREATH.id} /> gained from{' '}
+              <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} /> gained from{' '}
               <SpellLink id={TALENTS_MONK.MIST_WRAP_TALENT.id} />
             </>
           }

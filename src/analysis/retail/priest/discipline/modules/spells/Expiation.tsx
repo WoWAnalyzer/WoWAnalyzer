@@ -100,7 +100,7 @@ class Expiation extends Analyzer {
             {formatNumber(this.bonusDamage)}.
           </>
         }
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spellId={TALENTS_PRIEST.EXPIATION_TALENT.id}>
           <>

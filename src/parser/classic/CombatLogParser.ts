@@ -106,7 +106,7 @@ class CombatLogParser extends BaseCombatLogParser {
 
     // Engineering
     hyperspeedAccelerators: HyperspeedAccelerators,
-    fragBelt: FragBelt
+    fragBelt: FragBelt,
   };
 }
 
