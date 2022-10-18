@@ -5,7 +5,7 @@ import ProblemList, {
   NoProblem,
   Problem,
   ProblemRendererProps,
-} from 'interface/guide/components/ProblemList';
+} from 'interface/guide/shared/ProblemList';
 import { Apl, CheckResult, Violation } from 'parser/shared/metrics/apl';
 import React, { useMemo } from 'react';
 import { useContext } from 'react';

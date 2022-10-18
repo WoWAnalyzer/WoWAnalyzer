@@ -1,5 +1,5 @@
 /**
- * This module contains the core types and utility components for constructing
+ * This module contains the core types for constructing
  * analysis summaries in the new "Guide" format.
  *
  * # What is a "Guide"?
