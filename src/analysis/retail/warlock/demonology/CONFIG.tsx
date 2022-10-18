@@ -16,7 +16,7 @@ export default {
   description: (
     <>
       <AlertWarning>
-        This spec needs maintenance for Shadowlands. Please considering contributing!
+        This spec needs maintenance for Dragonflight. Please considering contributing!
       </AlertWarning>
       <br /> <br />
       If you have any questions about Warlocks, feel free to pay a visit to{' '}

@@ -1,3 +1,4 @@
+import SPELLS from 'common/SPELLS';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { AnyEvent, EventType, SummonEvent } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
@@ -51,11 +52,9 @@ class PrepullPetNormalizer extends EventsNormalizer {
           );
       } else if (
         this.owner.byPlayerPet(event) &&
-        (
-          event.type === EventType.BeginCast ||
-          event.type === EventType.Cast || 
-          event.type === EventType.Damage
-        ) &&
+        (event.type === EventType.BeginCast ||
+          event.type === EventType.Cast ||
+          event.type === EventType.Damage) &&
         event.sourceID
       ) {
         debug &&
@@ -63,7 +62,7 @@ class PrepullPetNormalizer extends EventsNormalizer {
             `(${this.owner.formatTimestamp(event.timestamp, 3)}) begincast, cast or damage event`,
           );
         const petId = event.sourceID;
-        const petGUID = this._getPetGuid(petId)
+        const petGUID = this._getPetGuid(petId);
         const petInstance = 'sourceInstance' in event ? event.sourceInstance : undefined;
         const petString = encodeTargetString(petId, petInstance);
         if (!summonedPets.includes(petString)) {
@@ -118,7 +117,7 @@ class PrepullPetNormalizer extends EventsNormalizer {
               guid: spell.id,
               name: spell.name,
               abilityIcon: spell.icon,
-              type: MAGIC_SCHOOLS.ids.SHADOW
+              type: MAGIC_SCHOOLS.ids.SHADOW,
             },
             __fabricated: true,
           };
