@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/shaman';
+import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
@@ -36,12 +36,17 @@ class PrimalFireElemental extends Analyzer {
     this.active =
       this.selectedCombatant.hasTalent(TALENTS.PRIMAL_ELEMENTALIST_TALENT.id) &&
       !this.selectedCombatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id);
+
+    if (!this.active) {
+      return;
+    }
+
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER_PET).spell(damagingCasts),
       this.onDamage,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIRE_ELEMENTAL),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.FIRE_ELEMENTAL_TALENT),
       this.onFECast,
     );
     this.addEventListener(
@@ -102,7 +107,7 @@ class PrimalFireElemental extends Analyzer {
           set to autocast and you are using Meteor.
         </span>,
       )
-        .icon(SPELLS.FIRE_ELEMENTAL.icon)
+        .icon(TALENTS_SHAMAN.FIRE_ELEMENTAL_TALENT.icon)
         .actual(
           t({
             id: 'shaman.elemental.suggestions.primalFireElemental.unusedSpells',
@@ -119,12 +124,12 @@ class PrimalFireElemental extends Analyzer {
       suggest(
         <span>
           You are not using <SpellLink id={SPELLS.FIRE_ELEMENTAL_METEOR.id} /> every time you cast{' '}
-          <SpellLink id={SPELLS.FIRE_ELEMENTAL.id} /> if you are using{' '}
+          <SpellLink id={TALENTS_SHAMAN.FIRE_ELEMENTAL_TALENT.id} /> if you are using{' '}
           <SpellLink id={TALENTS.PRIMAL_ELEMENTALIST_TALENT.id} />. Only wait with casting meteor if
           you wait for adds to spawn.
         </span>,
       )
-        .icon(SPELLS.FIRE_ELEMENTAL.icon)
+        .icon(TALENTS_SHAMAN.FIRE_ELEMENTAL_TALENT.icon)
         .actual(
           t({
             id: 'shaman.elemental.suggestions.primalFireElemental.meteorCastsMissed',
@@ -140,7 +145,7 @@ class PrimalFireElemental extends Analyzer {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
         <>
-          <BoringSpellValueText spellId={SPELLS.FIRE_ELEMENTAL.id}>
+          <BoringSpellValueText spellId={TALENTS_SHAMAN.FIRE_ELEMENTAL_TALENT.id}>
             <ItemDamageDone amount={this.damageGained} />
           </BoringSpellValueText>
         </>

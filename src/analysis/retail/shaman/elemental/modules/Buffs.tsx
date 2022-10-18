@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/shaman';
+import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
 
@@ -15,7 +15,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.FIRE_ELEMENTAL.id,
+        spellId: TALENTS_SHAMAN.FIRE_ELEMENTAL_TALENT.id,
         timelineHighlight: true,
       },
       {

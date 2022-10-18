@@ -1,6 +1,5 @@
 import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/shaman';
+import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -31,6 +30,9 @@ class Ascendance extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id);
+    if (!this.active) {
+      return;
+    }
   }
 
   get AscendanceUptime() {
@@ -70,7 +72,7 @@ class Ascendance extends Analyzer {
             With a uptime of: {formatPercentage(this.AscendanceUptime)} %<br />
             Casts while Ascendance was up:
             <ul>
-              <li>Earth Shock: {this.numCasts[SPELLS.EARTH_SHOCK.id]}</li>
+              <li>Earth Shock: {this.numCasts[TALENTS_SHAMAN.EARTH_SHOCK_TALENT.id]}</li>
               <li>Lava Burst: {this.numCasts[TALENTS.LAVA_BURST_TALENT.id]}</li>
               {hasEB && (
                 <li>

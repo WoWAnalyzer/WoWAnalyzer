@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/shaman';
+import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -67,7 +67,8 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
           <>
             Downtime is the time where you are not casting and not GCD locked. Ensure you are
             casting as much as possible by avoiding movement when you could be casting. Elemental
-            shaman has many GCDs available from <SpellLink id={SPELLS.EARTH_SHOCK.id} />,{' '}
+            shaman has many GCDs available from{' '}
+            <SpellLink id={TALENTS_SHAMAN.EARTH_SHOCK_TALENT.id} />,{' '}
             <SpellLink id={SPELLS.LAVA_SURGE.id} /> empowered{' '}
             <SpellLink id={TALENTS.LAVA_BURST_TALENT.id} />
             s, <SpellLink id={TALENTS.FROST_SHOCK_TALENT.id} />, and others that help you move
@@ -155,12 +156,13 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
               <SpellLink id={TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id} />
               's damage comes from spamming <SpellLink id={TALENTS.LAVA_BURST_TALENT.id} /> during
               it's duration. Only use <SpellLink id={TALENTS.LAVA_BURST_TALENT.id} /> and{' '}
-              <SpellLink id={SPELLS.EARTH_SHOCK.id} /> while it is up.
+              <SpellLink id={TALENTS_SHAMAN.EARTH_SHOCK_TALENT.id} /> while it is up.
               {combatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id) && (
                 <>
                   {' '}
                   Use <SpellLink id={TALENTS.LAVA_BURST_TALENT.id} /> as much as you can. Only use{' '}
-                  <SpellLink id={SPELLS.EARTH_SHOCK.id} /> when you need to spend Malestrom..
+                  <SpellLink id={TALENTS_SHAMAN.EARTH_SHOCK_TALENT.id} /> when you need to spend
+                  Malestrom..
                 </>
               )}
             </>

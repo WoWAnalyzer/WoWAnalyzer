@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/shaman';
+import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -24,15 +24,15 @@ const MASTER_OF_THE_ELEMENTS = {
     SPELLS.CHAIN_LIGHTNING_OVERLOAD,
     TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
     SPELLS.ELEMENTAL_BLAST_OVERLOAD,
-    SPELLS.EARTH_SHOCK,
+    TALENTS_SHAMAN.EARTH_SHOCK_TALENT,
   ],
   AFFECTED_CASTS: [
-    SPELLS.EARTHQUAKE,
+    TALENTS_SHAMAN.EARTHQUAKE_TALENT,
     TALENTS.ICEFURY_TALENT,
     TALENTS.FROST_SHOCK_TALENT,
     TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
     TALENTS.CHAIN_LIGHTNING_TALENT,
-    SPELLS.EARTH_SHOCK,
+    TALENTS_SHAMAN.EARTH_SHOCK_TALENT,
     SPELLS.LIGHTNING_BOLT,
   ],
   TALENTS: [TALENTS.ICEFURY_TALENT.id, TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id],
@@ -47,6 +47,9 @@ class MasterOfTheElements extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.MASTER_OF_THE_ELEMENTS_TALENT.id);
+    if (!this.active) {
+      return;
+    }
 
     Object.values(MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS).forEach(({ id: spellid }) => {
       if (

@@ -34,6 +34,11 @@ class PrimalStormElemental extends Analyzer {
     this.active =
       this.selectedCombatant.hasTalent(TALENTS.PRIMAL_ELEMENTALIST_TALENT.id) &&
       this.selectedCombatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id);
+
+    if (!this.active) {
+      return;
+    }
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER_PET).spell(damagingCasts), this.onPetCast);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER_PET).spell(damagingCasts),
