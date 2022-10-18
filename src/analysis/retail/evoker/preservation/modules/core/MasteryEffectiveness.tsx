@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import { TALENTS_EVOKER } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
@@ -17,6 +16,7 @@ import HealingValue from 'parser/shared/modules/HealingValue';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -32,7 +32,6 @@ type MasteryEvent = {
 type ShieldInfo = {
   event: ApplyBuffEvent | RefreshBuffEvent;
   baseShieldValue: number;
-  shieldOfTemporalAnomaly: number;
   hasMasteryBoost: boolean;
   masteryValue: number;
   healing: number;
@@ -47,16 +46,11 @@ class MasteryEffectiveness extends Analyzer {
   protected combatants!: Combatants;
   protected statTracker!: StatTracker;
 
-  masteryEffectiveHealSpellsCount: number = 0;
-  totalHealSpellsCount: number = 0;
   totalHealingEffectedByMastery: number = 0;
 
   private lastKnownTargetHP = {};
   private prevokerHealth: number = 0;
   private shieldApplications: Map<number, ShieldInfo | null> = new Map();
-  shieldOfTemporalAnomaly = 0;
-
-  private spellPowerAtTACastTime = 0;
 
   totalPossibleAbsorbs = 0;
   totalCalculatedBaseAbsorbs = 0;
@@ -65,7 +59,6 @@ class MasteryEffectiveness extends Analyzer {
    * @type {number} The total amount of healing done by just the mastery gain. Precisely calculated for every spell.
    */
   totalMasteryHealingDone: number = 0;
-  totalMasteryAbsorbDone: number = 0;
   wastedShield = 0;
 
   masteryHealEvents: MasteryEvent[] = [];
@@ -73,10 +66,6 @@ class MasteryEffectiveness extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT),
-      this.onTACast,
-    );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorbedByPlayer);
     this.addEventListener(
@@ -92,10 +81,6 @@ class MasteryEffectiveness extends Analyzer {
       this.handleRemoveShield,
     );
     this.addEventListener(Events.any, this.onEvent);
-  }
-
-  onTACast(event: CastEvent) {
-    this.spellPowerAtTACastTime = event.spellPower || 0;
   }
 
   onEvent(event: AnyEvent) {
@@ -121,12 +106,10 @@ class MasteryEffectiveness extends Analyzer {
     this.shieldApplications.set(event.targetID, {
       event: event,
       baseShieldValue: this.calculateTAShield(),
-      shieldOfTemporalAnomaly: this.shieldOfTemporalAnomaly,
       hasMasteryBoost: this.masteryBoostCheck(event),
       masteryValue: this.statTracker.currentMasteryPercentage,
       healing: 0,
     });
-    this.shieldOfTemporalAnomaly = 0;
   }
 
   masteryBoostCheck(event: ApplyBuffEvent | RefreshBuffEvent) {
@@ -140,11 +123,11 @@ class MasteryEffectiveness extends Analyzer {
   }
 
   calculateTAShield() {
-    const intellect = this.spellPowerAtTACastTime; //this.statTracker.currentIntellectRating;
+    const intellect = this.statTracker.currentIntellectRating;
     const vers = this.statTracker.currentVersatilityPercentage;
 
     const baseShielding = intellect * 1.75 * (1 + vers);
-    return baseShielding;
+    return Math.round(baseShielding);
   }
 
   isTargetHealthierThanPlayer(playerHealth: number, targetHealth: number): boolean {
@@ -198,7 +181,6 @@ class MasteryEffectiveness extends Analyzer {
       return;
     }
     const shieldAmount = info.event.absorb || 0; // the initial absorb amount from the ApplyBuff/RefreshBuff Event
-    // const wasMasteryUsed = (info.healing - info.baseShieldValue > 0) && info.hasMasteryBoost;
     const didShieldConsume = info.healing >= shieldAmount;
 
     const absorbFromMasteryBonusUsed = Math.max(0, info.healing - info.baseShieldValue);
@@ -207,25 +189,18 @@ class MasteryEffectiveness extends Analyzer {
       this.wastedShield += shieldAmount - info.healing;
     }
 
-    this.totalMasteryAbsorbDone += absorbFromMasteryBonusUsed;
+    this.totalMasteryHealingDone += absorbFromMasteryBonusUsed;
   }
 
   statistic() {
-    console.log(`TOTAL CALCULATED BASE ABSORB IS: ${this.totalCalculatedBaseAbsorbs}`);
-    console.log(`TOTAL ABSORBS LOGGED IS ${this.totalPossibleAbsorbs}`);
-    console.log(`TOTAL MASTERY ABSORB IS ${this.totalMasteryAbsorbDone}`);
-    console.log(`TOTAL WASTED ABSORB IS ${this.wastedShield}`);
     return (
       <Statistic
         size="flexible"
         position={STATISTIC_ORDER.CORE(10)}
         category={STATISTIC_CATEGORY.GENERAL}
       >
-        <BoringSpellValueText spellId={SPELLS.LIFEBLOOM_HOT_HEAL.id}>
-          <ItemHealingDone amount={this.totalMasteryHealingDone} />
-        </BoringSpellValueText>
-        <BoringSpellValueText spellId={SPELLS.TEMPORAL_ANOMALY_SHIELD.id}>
-          <ItemHealingDone amount={this.totalMasteryAbsorbDone} />
+        <BoringSpellValueText spellId={SPELLS.MASTERY_LIFEBINDER.id}>
+          <ItemPercentHealingDone amount={this.totalMasteryHealingDone} />
         </BoringSpellValueText>
         <BoringSpellValueText spellId={SPELLS.DREAM_BREATH.id}>
           <ItemHealingDone amount={this.wastedShield} />

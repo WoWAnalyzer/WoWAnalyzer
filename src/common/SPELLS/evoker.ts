@@ -4,8 +4,15 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-const spells = {
+import { spellIndexableList } from './Spell';
+
+const spells = spellIndexableList({
   // Preservation Spells
+  MASTERY_LIFEBINDER: {
+    id: 363510,
+    name: 'Mastery: Life-Binder',
+    icon: 'ability_evoker_masterylifebinder',
+  },
   DREAM_BREATH: {
     id: 355941,
     name: 'Dream Breath',
@@ -97,6 +104,6 @@ const spells = {
     name: 'Permeating Chill',
     icon: 'spell_frost_coldhearted',
   },
-} as const;
+});
 
 export default spells;
