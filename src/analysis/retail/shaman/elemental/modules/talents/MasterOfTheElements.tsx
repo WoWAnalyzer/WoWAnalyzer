@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -14,27 +15,27 @@ const MASTER_OF_THE_ELEMENTS = {
   DURATION: 15000,
   WINDOW_DURATION: 500,
   AFFECTED_DAMAGE: [
-    SPELLS.ICEFURY_TALENT,
+    TALENTS.ICEFURY_TALENT,
     SPELLS.ICEFURY_OVERLOAD,
-    SPELLS.FROST_SHOCK,
+    TALENTS.FROST_SHOCK_TALENT,
     SPELLS.LIGHTNING_BOLT,
     SPELLS.LIGHTNING_BOLT_OVERLOAD,
-    SPELLS.CHAIN_LIGHTNING,
+    TALENTS.CHAIN_LIGHTNING_TALENT,
     SPELLS.CHAIN_LIGHTNING_OVERLOAD,
-    SPELLS.ELEMENTAL_BLAST_TALENT,
+    TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
     SPELLS.ELEMENTAL_BLAST_OVERLOAD,
     SPELLS.EARTH_SHOCK,
   ],
   AFFECTED_CASTS: [
     SPELLS.EARTHQUAKE,
-    SPELLS.ICEFURY_TALENT,
-    SPELLS.FROST_SHOCK,
-    SPELLS.ELEMENTAL_BLAST_TALENT,
-    SPELLS.CHAIN_LIGHTNING,
+    TALENTS.ICEFURY_TALENT,
+    TALENTS.FROST_SHOCK_TALENT,
+    TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
+    TALENTS.CHAIN_LIGHTNING_TALENT,
     SPELLS.EARTH_SHOCK,
     SPELLS.LIGHTNING_BOLT,
   ],
-  TALENTS: [SPELLS.ICEFURY_TALENT.id, SPELLS.ELEMENTAL_BLAST_TALENT.id],
+  TALENTS: [TALENTS.ICEFURY_TALENT.id, TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id],
 };
 
 class MasterOfTheElements extends Analyzer {
@@ -45,7 +46,7 @@ class MasterOfTheElements extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.MASTER_OF_THE_ELEMENTS_TALENT.id);
 
     Object.values(MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS).forEach(({ id: spellid }) => {
       if (
@@ -61,7 +62,7 @@ class MasterOfTheElements extends Analyzer {
       this._onCast,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LAVA_BURST),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.LAVA_BURST_TALENT),
       this._onLvBCast,
     );
     this.addEventListener(
@@ -127,7 +128,7 @@ class MasterOfTheElements extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damageGained} />
           </>

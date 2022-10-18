@@ -394,6 +394,17 @@ const spells = spellIndexableList({
     name: 'Lightweaver',
     icon: 'spell_holy_greaterheal',
   },
+  // Sets
+  HOLY_PRIEST_TIER_29_2_SET_BUFF: {
+    id: 394729,
+    name: 'Prayer Focus',
+    icon: 'spell_priest_finalprayer',
+  },
+  HOLY_PRIEST_TIER_29_4_SET_BUFF: {
+    id: 394745,
+    name: 'Seize the moment',
+    icon: 'inv_mace_1h_artifactheartofkure_d_03',
+  },
   // Talents
   BINDING_HEALS_TALENT_HEAL: {
     id: 368276,

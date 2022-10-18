@@ -11,6 +11,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
+// TODO: scale with talent rank.
 const HOT_HAND = {
   INCREASE: 1.0,
   MOD_RATE: 4.0,
