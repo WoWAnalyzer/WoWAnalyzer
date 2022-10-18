@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, ApplyBuffEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -11,7 +12,6 @@ type RadianceInfo = {
 };
 
 class PowerWordRadiance extends Analyzer {
-  radiancesOnAtonedTarget = 0;
   radianceCasts: RadianceInfo[] = [];
   radAtones = 0;
   static dependencies = {
@@ -23,6 +23,12 @@ class PowerWordRadiance extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT);
+
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_RADIANCE),
