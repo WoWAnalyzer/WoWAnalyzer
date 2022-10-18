@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -35,9 +36,9 @@ const FrostDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.PILLAR_OF_FROST.id} />
-        {combatant.hasTalent(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} />
+        <AbilityRequirement spell={talents.PILLAR_OF_FROST_TALENT.id} />
+        {combatant.hasTalent(talents.BREATH_OF_SINDRAGOSA_TALENT.id) && (
+          <AbilityRequirement spell={talents.BREATH_OF_SINDRAGOSA_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.EMPOWER_RUNE_WEAPON.id} />
         {/* We can't detect race, so disable this when it has never been cast. */}
@@ -51,7 +52,7 @@ const FrostDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
           <>
             While some downtime is inevitable in fights with movement, you should aim to reduce
             downtime to prevent capping Runes. In a worst case scenario, you can cast{' '}
-            <SpellLink id={SPELLS.HOWLING_BLAST.id} /> to prevent Rune capping
+            <SpellLink id={talents.HOWLING_BLAST_TALENT.id} /> to prevent Rune capping
           </>
         }
       >
@@ -68,7 +69,7 @@ const FrostDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         description={
           <>
             Death Knights are a resource based class, relying on Runes and Runic Power to cast core
-            abilities. Cast <SpellLink id={SPELLS.FROST_STRIKE_CAST.id} /> when you have 73+ Runic
+            abilities. Cast <SpellLink id={talents.FROST_STRIKE_TALENT.id} /> when you have 73+ Runic
             Power to avoid overcapping.
           </>
         }

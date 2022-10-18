@@ -1,5 +1,5 @@
 // import BloodDeathKnight from 'analysis/retail/deathknight/blood';
-// import FrostDeathKnight from 'analysis/retail/deathknight/frost';
+import FrostDeathKnight from 'analysis/retail/deathknight/frost';
 // import UnholyDeathKnight from 'analysis/retail/deathknight/unholy';
 import BalanceDruid from 'analysis/retail/druid/balance';
 import FeralDruid from 'analysis/retail/druid/feral';
@@ -51,7 +51,7 @@ import Config from './Config';
 const configs: Config[] = [
   // BloodDeathKnight,
   // UnholyDeathKnight,
-  // FrostDeathKnight,
+  FrostDeathKnight,
 
   HavocDemonHunter,
   VengeanceDemonHunter,

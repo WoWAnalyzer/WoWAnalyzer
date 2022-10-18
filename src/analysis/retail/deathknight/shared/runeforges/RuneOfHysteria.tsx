@@ -1,6 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/deathknight';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -91,9 +92,8 @@ class RuneOfHysteria extends Analyzer {
     when(this.efficiencySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="deathknight.shared.runeOfHysteria.suggestion.suggestion">
-          Avoid being Runic Power capped at all times, you wasted{' '}
-          {this.runicPowerWastedDuringHysteria} PR of {SPELLS.RUNE_OF_HYSTERIA.name} by being RP
-          capped.
+          Avoid being Runic Power capped at all times, while capped you wasted{' '}
+          {this.runicPowerWastedDuringHysteria} RP from {SPELLS.RUNE_OF_HYSTERIA.name}
         </Trans>,
       )
         .icon(SPELLS.RUNE_OF_HYSTERIA.icon)
@@ -118,11 +118,11 @@ class RuneOfHysteria extends Analyzer {
     if (this.selectedCombatant.spec === SPECS.BLOOD_DEATH_KNIGHT) {
       gainedSpell = t({
         id: 'deathknight.shared.runeOfHysteria.statistic.gainedSpell',
-        message: `, resulting in ${this.gainedDeathStrikes} additional ${SPELLS.DEATH_STRIKE.name}`,
+        message: `, resulting in ${this.gainedDeathStrikes} additional ${talents.DEATH_STRIKE_TALENT.name}`,
       });
       wastedSpell = t({
         id: 'deathknight.shared.runeOfHysteria.statistic.wastedSpell',
-        message: `, losing out on ${this.wastedDeathStrikes} ${SPELLS.DEATH_STRIKE.name}`,
+        message: `, losing out on ${this.wastedDeathStrikes} ${talents.DEATH_STRIKE_TALENT.name}`,
       });
     }
 

@@ -41,6 +41,8 @@ const spells: number[] = [
   SPELLS.RUNE_3.id,
   SPELLS.ABOMINATION_LIMB_HIDDEN_CAST.id,
   SPELLS.ABOMINATION_LIMB_GRIP.id,
+  SPELLS.ABOMINATION_LIMB_TICK.id,
+  SPELLS.ABOMINATION_LIMB_GRIP_TICK.id,
   //endregion
 
   //region Hunter

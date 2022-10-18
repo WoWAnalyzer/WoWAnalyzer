@@ -5,7 +5,7 @@ import SelfHealTimingGraph from 'parser/shared/modules/features/SelfHealTimingGr
 class DeathStrikeTiming extends SelfHealTimingGraph {
   constructor(options: Options) {
     super(options);
-    this.selfHealSpell = SPELLS.DEATH_STRIKE_HEAL;
+    this.selfHealSpell = talents.DEATH_STRIKE_TALENT_HEAL;
     this.tabTitle = 'Death Strike Timing';
     this.tabURL = 'death-strike-timings';
   }
