@@ -46,6 +46,7 @@ class PurgeTheWicked extends Analyzer {
   throesOfPainIncrease = 0;
   revelInPurityIncrease = 0;
   totalAmplification = 0;
+  effectiveIncrease = 0;
 
   ptwCleaveDamage = 0;
   dotSpell: any;
@@ -90,6 +91,12 @@ class PurgeTheWicked extends Analyzer {
 
     this.totalAmplification =
       this.painAndSufferingIncrease + this.revelInPurityIncrease + this.throesOfPainIncrease;
+
+    this.effectiveIncrease =
+      (this.painAndSufferingIncrease + 1) *
+      (this.revelInPurityIncrease + 1) *
+      (this.throesOfPainIncrease + 1);
+
     this.dotRatios = {
       painAndSuffering: this.painAndSufferingIncrease / this.totalAmplification,
       revelInPurity: this.revelInPurityIncrease / this.totalAmplification,
