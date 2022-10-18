@@ -1,11 +1,15 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_EVOKER } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
   AnyEvent,
+  ApplyBuffEvent,
   CastEvent,
   HasHitpoints,
   HealEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
   ResourceActor,
 } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -17,10 +21,19 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
+const TEMPORAL_ANOMALY_DURATION_MS = 15000;
+
 type MasteryEvent = {
   sourceEvent: HealEvent | AbsorbedEvent;
   effectiveHealing: number;
   rawMasteryGain: number;
+};
+
+type ShieldInfo = {
+  event: ApplyBuffEvent | RefreshBuffEvent;
+  baseShieldValue: number;
+  shieldOfTemporalAnomaly: number;
+  masteryBoost: boolean;
 };
 
 class MasteryEffectiveness extends Analyzer {
@@ -36,8 +49,15 @@ class MasteryEffectiveness extends Analyzer {
   totalHealSpellsCount: number = 0;
   totalHealingEffectedByMastery: number = 0;
 
-  lastKnownTargetHP = {};
-  prevokerHealth: number = 0;
+  private lastKnownTargetHP = {};
+  private prevokerHealth: number = 0;
+  private shieldApplications: Map<number, ShieldInfo | null> = new Map();
+  shieldOfTemporalAnomaly = 0;
+
+  private spellPowerAtTACastTime = 0;
+
+  totalPossibleAbsorbs = 0;
+  totalCalculatedBaseAbsorbs = 0;
 
   /**
    * @type {number} The total amount of healing done by just the mastery gain. Precisely calculated for every spell.
@@ -49,17 +69,67 @@ class MasteryEffectiveness extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT),
+      this.onTACast,
+    );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorbedByPlayer);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TEMPORAL_ANOMALY_SHIELD),
+      this.onShieldApplication,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TEMPORAL_ANOMALY_SHIELD),
+      this.onShieldApplication,
+    );
     this.addEventListener(Events.any, this.onEvent);
+  }
+
+  onTACast(event: CastEvent) {
+    this.spellPowerAtTACastTime = event.spellPower || 0;
   }
 
   onEvent(event: AnyEvent) {
     if (HasHitpoints(event)) {
       const unitId = event.resourceActor === ResourceActor.Target ? event.targetID : event.sourceID;
       (this.lastKnownTargetHP as any)[unitId] = event.hitPoints;
-      console.log(`LAST KNOWN HP: ${JSON.stringify(this.lastKnownTargetHP)}`);
     }
+  }
+
+  onShieldApplication(event: ApplyBuffEvent | RefreshBuffEvent) {
+    if (this.shieldApplications.get(event.targetID)) {
+      this.shieldApplications.set(event.targetID, null);
+    }
+
+    this.totalPossibleAbsorbs += event.absorb || 0;
+    this.totalCalculatedBaseAbsorbs += this.calculateTAShield();
+
+    this.shieldApplications.set(event.targetID, {
+      event: event,
+      baseShieldValue: this.calculateTAShield(),
+      shieldOfTemporalAnomaly: this.shieldOfTemporalAnomaly,
+      masteryBoost: this.masteryBoostCheck(event),
+    });
+    this.shieldOfTemporalAnomaly = 0;
+  }
+
+  masteryBoostCheck(event: ApplyBuffEvent | RefreshBuffEvent) {
+    const baseShieldValue = this.calculateTAShield();
+    if (event.absorb) {
+      if (baseShieldValue < event.absorb) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  calculateTAShield() {
+    const intellect = this.spellPowerAtTACastTime; //this.statTracker.currentIntellectRating;
+    const vers = this.statTracker.currentVersatilityPercentage;
+
+    const baseShielding = intellect * 1.75 * (1 + vers);
+    return baseShielding;
   }
 
   isTargetHealthierThanPlayer(playerHealth: number, targetHealth: number): boolean {
@@ -92,10 +162,24 @@ class MasteryEffectiveness extends Analyzer {
         rawMasteryGain,
       });
     }
-    console.log(`totalMasteryHealingDone IS: ${this.totalMasteryHealingDone}`);
+  }
+
+  handleRemoveShield(event: RefreshBuffEvent | RemoveBuffEvent) {
+    const info = this.shieldApplications.get(event.targetID);
+
+    if (
+      !info ||
+      info.event.timestamp > event.timestamp ||
+      info.event.timestamp + TEMPORAL_ANOMALY_DURATION_MS < event.timestamp
+    ) {
+      return;
+    }
+    // const shieldAmount = info.event.absorb || 0; // the initial absorb amount from the ApplyBuff/RefreshBuff Event
   }
 
   statistic() {
+    console.log(`TOTAL CALCULATED BASE ABSORB IS: ${this.totalCalculatedBaseAbsorbs}`);
+    console.log(`TOTAL ABSORBS LOGGED IS ${this.totalPossibleAbsorbs}`);
     return (
       <Statistic
         size="flexible"
