@@ -20,6 +20,7 @@ class WildImpEnergyHandler extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.demoPets = new DemoPets(options);
     this.initializeWildImps();
     this.addEventListener(Events.cast.by(SELECTED_PLAYER_PET), this.onPetCast);
   }
@@ -57,11 +58,7 @@ class WildImpEnergyHandler extends Analyzer {
       // Imp was empowered at least once, mark as empowered
       pet.setMeta(META_CLASSES.EMPOWERED, META_TOOLTIPS.EMPOWERED);
     }
-    pet.pushHistory(
-      event.timestamp,
-      'Cast',
-      event,
-    );
+    pet.pushHistory(event.timestamp, 'Cast', event);
 
     if (pet.currentEnergy === 0) {
       pet.despawn(event.timestamp, DESPAWN_REASONS.ZERO_ENERGY);
@@ -76,7 +73,7 @@ class WildImpEnergyHandler extends Analyzer {
     wildImpID && this._wildImpIds.push(wildImpID);
     if (this.selectedCombatant.hasTalent(TALENTS.INNER_DEMONS_TALENT.id)) {
       // and Inner Demons passively summons these Wild Imps
-      const innerDemonWildImpID = this._toId(PETS.WILD_IMP_INNER_DEMONS.guid)
+      const innerDemonWildImpID = this._toId(PETS.WILD_IMP_INNER_DEMONS.guid);
       innerDemonWildImpID && this._wildImpIds.push(innerDemonWildImpID);
     }
     // basically player would have to be dead from the beginning to end to not have these recorded
