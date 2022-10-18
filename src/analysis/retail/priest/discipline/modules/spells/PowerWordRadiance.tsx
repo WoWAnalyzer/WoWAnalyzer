@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, BeginCastEvent, ApplyBuffEvent } from 'parser/core/Events';
+import Events, { CastEvent, ApplyBuffEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import Atonement from './Atonement';
 
@@ -12,8 +12,6 @@ type RadianceInfo = {
 
 class PowerWordRadiance extends Analyzer {
   radiancesOnAtonedTarget = 0;
-  atonementsPreRadiance = 0;
-  lastPWR: CastEvent | null = null;
   radianceCasts: RadianceInfo[] = [];
   radAtones = 0;
   static dependencies = {
@@ -32,11 +30,6 @@ class PowerWordRadiance extends Analyzer {
     );
 
     this.addEventListener(
-      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_RADIANCE),
-      this.onRadianceBegin,
-    );
-
-    this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ATONEMENT_BUFF),
       this.onRadianceAtone,
     );
@@ -49,12 +42,7 @@ class PowerWordRadiance extends Analyzer {
     if (target?.hasBuff(SPELLS.ATONEMENT_BUFF.id)) {
       castInfo.onAtoned = true;
     }
-    this.lastPWR = event;
     this.radianceCasts.push(castInfo);
-  }
-
-  onRadianceBegin(event: BeginCastEvent) {
-    this.atonementsPreRadiance = this.atonement.numAtonementsActive;
   }
 
   onRadianceAtone(event: ApplyBuffEvent) {
@@ -67,7 +55,6 @@ class PowerWordRadiance extends Analyzer {
       if (this.radAtones === 5) {
         this.radAtones = 0;
         this.radianceCasts[this.radianceCasts.length - 1].goodCast = true;
-        return;
       }
     } else {
       this.radAtones = 0;
