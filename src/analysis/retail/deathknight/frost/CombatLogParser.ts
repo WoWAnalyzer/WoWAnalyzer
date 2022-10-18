@@ -26,6 +26,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spellUsable: SpellUsable,
     cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
+    runeforgeChecker: FrostRuneForgeChecker,
 
     // Features
     HardHowlingBlastCasts: HardHowlingBlastCasts,
