@@ -2,14 +2,15 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import Spell from 'common/SPELLS/Spell';
 import Combatant from 'parser/core/Combatant';
-import { CastEvent } from 'parser/core/Events';
+import { CastEvent, DamageEvent } from 'parser/core/Events';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { getHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 
 /** Feral combo point cap */
 export const MAX_CPS = 5;
 
-/** The cast spells for Combo Point generating abilities */
+/** The cast / energize spells for Combo Point generating abilities */
 export const CP_GENERATORS: Spell[] = [
   SPELLS.SHRED,
   SPELLS.RAKE,
@@ -17,7 +18,8 @@ export const CP_GENERATORS: Spell[] = [
   SPELLS.SWIPE_CAT,
   SPELLS.MOONFIRE_FERAL,
   TALENTS_DRUID.BRUTAL_SLASH_TALENT,
-  TALENTS_DRUID.FERAL_FRENZY_TALENT,
+  TALENTS_DRUID.FERAL_FRENZY_TALENT, // the cast ID
+  SPELLS.FERAL_FRENZY_DEBUFF, // the resource generate ID
 ];
 
 /** The cast spells for Finishers */
@@ -128,4 +130,38 @@ export function directAoeBuilder(c: Combatant): Spell {
   return c.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT)
     ? TALENTS_DRUID.BRUTAL_SLASH_TALENT
     : SPELLS.SWIPE_CAT;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// MISC
+//
+
+/** Damage boost to a Shred or Rake from stealth */
+export const STEALTH_SHRED_RAKE_BOOST = 0.6;
+
+/** Effective combo points used by a Convoke'd Ferocious Bite */
+export const CONVOKE_FB_CPS = 4;
+
+/** Gets the effective number of CPs that were used to produce this Bite.
+ *  Takes DamageEvent instead of CastEvent to also catch Convoke'd bites */
+export function getBiteCps(event: DamageEvent) {
+  const hardcast = getHardcast(event);
+  if (hardcast) {
+    const cpsUsed = getResourceSpent(hardcast, RESOURCE_TYPES.COMBO_POINTS);
+    // only way to get 0 CPs used is an Apex bite, which counts as though 5 CPs were used
+    return cpsUsed === 0 ? MAX_CPS : cpsUsed;
+  } else {
+    // no hardcast -> from Convoke
+    return CONVOKE_FB_CPS;
+  }
+}
+
+export const TIGERS_FURY_BASE_DURATION = 10_000;
+export const PREDATOR_DURATION_BOOST = 5_000;
+
+export function getTigersFuryDuration(c: Combatant) {
+  return (
+    TIGERS_FURY_BASE_DURATION +
+    (c.hasTalent(TALENTS_DRUID.PREDATOR_TALENT) ? PREDATOR_DURATION_BOOST : 0)
+  );
 }

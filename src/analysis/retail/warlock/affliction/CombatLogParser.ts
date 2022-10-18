@@ -9,7 +9,6 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 import Channeling from 'parser/shared/normalizers/Channeling';
 
 import GlobalCooldown from './modules/core/GlobalCooldown';
-import ScouringTitheUptime from './modules/covenants/ScouringTithe';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/Checklist/Module';
@@ -19,8 +18,8 @@ import DotUptimes from './modules/features/DotUptimes';
 import AgonyUptime from './modules/features/DotUptimes/AgonyUptime';
 import CorruptionUptime from './modules/features/DotUptimes/CorruptionUptime';
 import UnstableAfflictionUptime from './modules/features/DotUptimes/UnstableAfflictionUptime';
-import SoulShardDetails from './modules/soulshards/SoulShardDetails';
-import SoulShardTracker from './modules/soulshards/SoulShardTracker';
+import SoulShardDetails from './modules/core/SoulShardDetails';
+import SoulShardTracker from './modules/core/SoulShardTracker';
 import AbsoluteCorruption from './modules/talents/AbsoluteCorruption';
 import DrainSoul from './modules/talents/DrainSoul';
 import Haunt from './modules/talents/Haunt';
@@ -68,9 +67,6 @@ class CombatLogParser extends CoreCombatLogParser {
     haunt: Haunt,
     grimoireOfSacrifice: GrimoireOfSacrifice,
     soulConduit: SoulConduit,
-
-    // Covenants
-    scouringTithe: ScouringTitheUptime,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

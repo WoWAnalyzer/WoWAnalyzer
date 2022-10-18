@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -31,11 +32,11 @@ class AgonyUptime extends Analyzer {
   }
 
   suggestions(when: When) {
-    const text = this.selectedCombatant.hasTalent(SPELLS.WRITHE_IN_AGONY_TALENT.id) ? (
+    const text = this.selectedCombatant.hasTalent(TALENTS.WRITHE_IN_AGONY_TALENT.id) ? (
       <>
         Your <SpellLink id={SPELLS.AGONY.id} /> uptime can be improved as it is your main source of
         Soul Shards. Try to pay more attention to your Agony on the boss, especially since you're
-        using <SpellLink id={SPELLS.WRITHE_IN_AGONY_TALENT.id} /> talent.
+        using <SpellLink id={TALENTS.WRITHE_IN_AGONY_TALENT.id} /> talent.
       </>
     ) : (
       <>

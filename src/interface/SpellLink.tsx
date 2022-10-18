@@ -1,12 +1,13 @@
 import TooltipProvider from 'interface/TooltipProvider';
 import { CSSProperties } from 'react';
 import * as React from 'react';
+import Spell from 'common/SPELLS/Spell';
 
 import SpellIcon from './SpellIcon';
 import useSpellInfo from './useSpellInfo';
 
 interface Props extends Omit<React.HTMLAttributes<HTMLAnchorElement>, 'id'> {
-  id: number;
+  id: number | Spell;
   children?: React.ReactNode;
   icon?: boolean;
   iconStyle?: CSSProperties;
@@ -15,8 +16,9 @@ interface Props extends Omit<React.HTMLAttributes<HTMLAnchorElement>, 'id'> {
 }
 
 const SpellLink = React.forwardRef<HTMLAnchorElement, Props>(
-  ({ id: spellId, children, icon = true, iconStyle, ilvl, rank, ...other }: Props, ref) => {
-    const spell = useSpellInfo(spellId);
+  ({ id: spell, children, icon = true, iconStyle, ilvl, rank, ...other }: Props, ref) => {
+    const spellId = typeof spell === 'number' ? spell : spell.id;
+    const spellInfo = useSpellInfo(spell);
 
     return (
       <a
@@ -29,10 +31,10 @@ const SpellLink = React.forwardRef<HTMLAnchorElement, Props>(
       >
         {icon && (
           <>
-            <SpellIcon id={spellId} noLink style={iconStyle} alt="" />{' '}
+            <SpellIcon id={spell} noLink style={iconStyle} alt="" />{' '}
           </>
         )}
-        {children || (spell?.name ? spell.name : `Unknown spell: ${spellId}`)}
+        {children || (spellInfo?.name ? spellInfo.name : `Unknown spell: ${spellId}`)}
       </a>
     );
   },

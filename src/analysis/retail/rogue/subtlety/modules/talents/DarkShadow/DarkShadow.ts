@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
@@ -17,11 +17,11 @@ class DarkShadow extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DARK_SHADOW_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DARK_SHADOW_TALENT.id);
   }
 
   get totalShadowDanceCast() {
-    return this.damageTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts;
+    return this.damageTracker.getAbility(TALENTS.SHADOW_DANCE_TALENT.id).casts;
   }
 }
 

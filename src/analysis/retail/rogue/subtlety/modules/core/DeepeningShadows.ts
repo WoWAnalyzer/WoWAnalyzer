@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { SpendResourceEvent } from 'parser/core/Events';
@@ -20,11 +20,7 @@ class DeepeningShadows extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.cdrPerComboPoint =
-      this.BASE_CDR +
-      (this.selectedCombatant.hasTalent(SPELLS.ENVELOPING_SHADOWS_TALENT.id)
-        ? this.ENVELOPING_SHADOWS_EXTRA_CDR
-        : 0);
+    this.cdrPerComboPoint = this.BASE_CDR;
     this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendResource);
   }
 
@@ -34,9 +30,9 @@ class DeepeningShadows extends Analyzer {
       return;
     }
 
-    if (this.spellUsable.isOnCooldown(SPELLS.SHADOW_DANCE.id)) {
+    if (this.spellUsable.isOnCooldown(TALENTS.SHADOW_DANCE_TALENT.id)) {
       this.spellUsable.reduceCooldown(
-        SPELLS.SHADOW_DANCE.id,
+        TALENTS.SHADOW_DANCE_TALENT.id,
         comboPointsSpent * this.cdrPerComboPoint,
       );
     }

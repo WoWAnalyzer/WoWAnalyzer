@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -79,32 +80,29 @@ const DestructionWarlockChecklist = ({
         name="Use your cooldowns and talents"
         description="Be mindful of your talent choices and use them when it's appropriate. It's okay to hold on a cooldown for a little bit when the encounter requires it (burn phases or priority targets), but generally speaking you should use them as much as you can."
       >
-        {combatant.hasTalent(SPELLS.ERADICATION_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.ERADICATION_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.ERADICATION_TALENT.id} /> uptime
+                <SpellLink id={TALENTS.ERADICATION_TALENT.id} /> uptime
               </>
             }
             thresholds={thresholds.eradication}
           />
         )}
-        {combatant.hasTalent(SPELLS.SHADOWBURN_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.SHADOWBURN_TALENT.id} />
+        {combatant.hasTalent(TALENTS.SHADOWBURN_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.SHADOWBURN_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.CATACLYSM_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.CATACLYSM_TALENT.id} />
+        {combatant.hasTalent(TALENTS.CATACLYSM_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.CATACLYSM_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.CHANNEL_DEMONFIRE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.CHANNEL_DEMONFIRE_TALENT.id} />
+        {combatant.hasTalent(TALENTS.CHANNEL_DEMONFIRE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.CHANNEL_DEMONFIRE_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.SOUL_FIRE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.SOUL_FIRE_TALENT.id} />
+        {combatant.hasTalent(TALENTS.SOUL_FIRE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.SOUL_FIRE_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.SUMMON_INFERNAL.id} />
-        {combatant.hasTalent(SPELLS.DARK_SOUL_INSTABILITY_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.DARK_SOUL_INSTABILITY_TALENT.id} />
-        )}
       </Rule>
       <Rule
         name="Use your utility and defensive spells"
@@ -113,9 +111,9 @@ const DestructionWarlockChecklist = ({
             Use other spells in your toolkit to your advantage. For example, you can try to minimize
             necessary movement by using <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon />,{' '}
             <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} icon />,{' '}
-            <SpellLink id={SPELLS.BURNING_RUSH_TALENT.id} icon /> or mitigate incoming damage with{' '}
+            <SpellLink id={TALENTS.BURNING_RUSH_TALENT.id} icon /> or mitigate incoming damage with{' '}
             <SpellLink id={SPELLS.UNENDING_RESOLVE.id} icon />/
-            <SpellLink id={SPELLS.DARK_PACT_TALENT.id} icon />.<br />
+            <SpellLink id={TALENTS.DARK_PACT_TALENT.id} icon />.<br />
             While you shouldn't cast these defensives on cooldown, be aware of them and use them
             whenever effective. Not using them at all indicates you might not be aware of them or
             not using them optimally.
@@ -123,8 +121,8 @@ const DestructionWarlockChecklist = ({
         }
       >
         <AbilityRequirement spell={SPELLS.DEMONIC_CIRCLE_TELEPORT.id} />
-        {combatant.hasTalent(SPELLS.DARK_PACT_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.DARK_PACT_TALENT.id} />
+        {combatant.hasTalent(TALENTS.DARK_PACT_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.DARK_PACT_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.UNENDING_RESOLVE.id} />
       </Rule>

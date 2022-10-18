@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { Zeboot, LeoZhekov, Sharrq, Tiboonn, Kartarn, Ciuffi, Sref } from 'CONTRIBUTORS';
+import { Zeboot, LeoZhekov, Sharrq, Tiboonn, Kartarn, Ciuffi, Sref, ToppleTheNun } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 10, 17), <>Add <SpellLink id={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT} /> to Abilities list.</>, ToppleTheNun),
   change(date(2022, 9, 16), <>Initial updates for Dragonflight Talent system.</>, Sref),
   change(date(2022, 7, 6), <>Bumped version to indicate 9.2.5 is supported.</>, Sref),
   change(date(2022, 6, 19), <>Rolled DoT uptimes into an uptime graph. Added notional damage amount to <SpellLink id={SPELLS.CONVOKE_SPIRITS.id}/> statistic.</>, Sref),
