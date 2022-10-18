@@ -9,13 +9,13 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { getHitCount, getHits } from '../../normalizers/CastLinkNormalizer';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { SubSection } from 'interface/guide';
-import { RoundedPanel, SideBySidePanels } from 'analysis/retail/druid/feral/Guide';
 import DonutChart from 'parser/ui/DonutChart';
 import { VeryBadColor, BadColor, GoodColor, PerfectColor } from 'interface/guide';
 import { proccedBloodtalons } from 'analysis/retail/druid/feral/normalizers/BloodtalonsLinkNormalizer';
 import ThrashUptimeAndSnapshot from 'analysis/retail/druid/feral/modules/spells/ThrashUptimeAndSnapshot';
 import { PANDEMIC_FRACTION } from 'analysis/retail/druid/feral/constants';
 import Spell from 'common/SPELLS/Spell';
+import { RoundedPanel, SideBySidePanels } from 'interface/guide/shared/GuideDivs';
 
 /**
  * Tracks the number of targets hit by Feral's AoE abilities.

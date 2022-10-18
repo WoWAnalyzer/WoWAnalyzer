@@ -3,7 +3,7 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import { PerformanceBoxRow } from 'parser/ui/PerformanceBoxRow';
+import { PerformanceBoxRow } from 'interface/guide/shared/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 import {

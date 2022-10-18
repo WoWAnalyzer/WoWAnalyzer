@@ -28,7 +28,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SubSection } from 'interface/guide';
 import { SpellLink } from 'interface';
-import { PerformanceBoxRow } from 'parser/ui/PerformanceBoxRow';
+import { PerformanceBoxRow } from 'interface/guide/shared/PerformanceBoxRow';
 
 class RipUptimeAndSnapshots extends Snapshots {
   static dependencies = {

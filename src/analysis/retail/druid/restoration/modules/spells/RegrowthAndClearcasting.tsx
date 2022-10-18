@@ -9,7 +9,7 @@ import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import { PerformanceBoxRow } from 'parser/ui/PerformanceBoxRow';
+import { PerformanceBoxRow } from 'interface/guide/shared/PerformanceBoxRow';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_DRUID } from 'common/TALENTS';

@@ -6,7 +6,7 @@ import Events, { CastEvent, TargettedEvent } from 'parser/core/Events';
 import { getAdditionalEnergyUsed } from '../../normalizers/FerociousBiteDrainLinkNormalizer';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { SubSection } from 'interface/guide';
-import { PerformanceBoxRow } from 'parser/ui/PerformanceBoxRow';
+import { PerformanceBoxRow } from 'interface/guide/shared/PerformanceBoxRow';
 import Enemies from 'parser/shared/modules/Enemies';
 import RipUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/spells/RipUptimeAndSnapshots';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';

@@ -15,7 +15,7 @@ import {
 } from 'analysis/retail/druid/feral/constants';
 import { SubSection } from 'interface/guide';
 import { SpellLink } from 'interface';
-import { PerformanceBoxRow } from 'parser/ui/PerformanceBoxRow';
+import { PerformanceBoxRow } from 'interface/guide/shared/PerformanceBoxRow';
 import { getHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 import { proccedBloodtalons } from 'analysis/retail/druid/feral/normalizers/BloodtalonsLinkNormalizer';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';

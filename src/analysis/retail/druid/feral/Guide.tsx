@@ -5,7 +5,7 @@ import { CooldownBar } from 'parser/ui/CooldownBar';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
-import styled from '@emotion/styled';
+import { RoundedPanel, SideBySidePanels } from 'interface/guide/shared/GuideDivs';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -147,22 +147,3 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
     </SubSection>
   );
 }
-
-// TODO more purpose built rather than copypasta from Emallson's stuff
-export const RoundedPanel = styled.div`
-  background: #222;
-  border-radius: 0.5em;
-  padding: 1em 1.5em;
-  display: grid;
-  grid-gap: 2rem;
-  align-content: center;
-  align-items: center;
-`;
-
-/** Any number of panels laid out side by side - will always be equal width! Watch for overflow */
-export const SideBySidePanels = styled.div`
-  display: grid;
-  grid-auto-columns: minmax(0, 1fr);
-  grid-auto-flow: column;
-  grid-column-gap: 1em;
-`;

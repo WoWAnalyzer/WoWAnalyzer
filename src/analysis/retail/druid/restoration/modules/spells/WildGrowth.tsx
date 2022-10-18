@@ -7,7 +7,7 @@ import Events, { AnyEvent, CastEvent, EventType, HealEvent } from 'parser/core/E
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import BoringValue from 'parser/ui/BoringValueText';
-import { PerformanceBoxRow } from 'parser/ui/PerformanceBoxRow';
+import { PerformanceBoxRow } from 'interface/guide/shared/PerformanceBoxRow';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
