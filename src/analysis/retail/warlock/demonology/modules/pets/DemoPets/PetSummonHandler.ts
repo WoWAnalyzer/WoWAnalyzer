@@ -1,33 +1,37 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import TALENTS from 'common/TALENTS/warlock';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, DamageEvent, HealEvent, ResourceChangeEvent, SpendResourceEvent, SummonEvent } from 'parser/core/Events';
 import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 
 import { SUMMON_TO_SPELL_MAP } from '../CONSTANTS';
 import { isWildImp } from '../helpers';
 import PETS from '../PETS';
-import { TimelinePet, META_CLASSES } from '../TimelinePet';
+import { TimelinePet } from '../TimelinePet';
 import DemoPets from './index';
 
 const debug = false;
 const test = false;
 const DEMONIC_POWER_DURATION = 15000;
 const BUFFER = 150;
+type PlayerPositionEvent = CastEvent | DamageEvent | ResourceChangeEvent | HealEvent;
 
 class PetSummonHandler extends Analyzer {
   static dependencies = {
     demoPets: DemoPets,
   };
 
-  _lastDemonicTyrantCast = null;
-  _lastIDtick = null;
-  _lastSpendResource = null;
+  demoPets!: DemoPets;
+
+  _lastDemonicTyrantCast: number | null = null;
+  _lastIDtick: number | null = null;
+  _lastSpendResource: number | null = null;
   _lastPlayerPosition = {
     x: 0,
     y: 0,
   };
 
-  constructor(options) {
+  constructor(options: Options) {
     super(options);
     this.addEventListener(Events.summon.by(SELECTED_PLAYER), this.onSummon);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
@@ -35,10 +39,10 @@ class PetSummonHandler extends Analyzer {
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
     this.addEventListener(Events.resourcechange.to(SELECTED_PLAYER), this.onEnergize);
     this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHealTaken);
-    this.addEventListener(Events.absorbed.to(SELECTED_PLAYER), this.onAbsorb);
+    // this.addEventListener(Events.absorbed.to(SELECTED_PLAYER), this.onAbsorb);
   }
 
-  onSummon(event) {
+  onSummon(event: SummonEvent) {
     const petInfo = this.demoPets._getPetInfo(event.targetID);
     if (!petInfo) {
       debug && this.error('Summoned unknown pet', event);
@@ -54,35 +58,22 @@ class PetSummonHandler extends Analyzer {
       event.targetInstance,
       event.timestamp,
       this._getPetDuration(event.targetID),
-      this._getSummonSpell(event),
       event.ability.guid,
+      this._getSummonSpellId(event),
     );
     if (isWildImp(pet.guid)) {
       // Wild Imps need few additional properties
       pet.setWildImpProperties(this._lastPlayerPosition);
     }
-    if (
-      petInfo.name === 'Demonic Tyrant' &&
-      this.selectedCombatant.hasTalent(SPELLS.DEMONIC_CONSUMPTION_TALENT.id)
-    ) {
-      const power = this.demoPets.currentPets
-        .filter((pet) => isWildImp(pet.guid))
-        .map((pet) => pet.currentEnergy)
-        .reduce((acc, val) => acc + val, 0);
-      pet.setMeta(
-        META_CLASSES.EMPOWERED,
-        `Empowered by ${(power / 2).toFixed(2)} % from consuming imps`,
-      );
-    }
     test && this.log('Pet summoned', pet);
     this.demoPets.timeline.addPet(pet);
     pet.pushHistory(event.timestamp, 'Summoned', event);
-    if (pet.summonedBy === SPELLS.INNER_DEMONS_TALENT.id) {
+    if (pet.summonedBy === TALENTS.INNER_DEMONS_TALENT.id) {
       this._lastIDtick = event.timestamp;
     }
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     this._updatePlayerPosition(event);
     if (event.ability.guid !== SPELLS.SUMMON_DEMONIC_TYRANT.id) {
       return;
@@ -90,7 +81,7 @@ class PetSummonHandler extends Analyzer {
     this._lastDemonicTyrantCast = event.timestamp;
   }
 
-  onSpendResource(event) {
+  onSpendResource(event: SpendResourceEvent) {
     this._lastSpendResource = event.timestamp;
   }
 
@@ -98,23 +89,23 @@ class PetSummonHandler extends Analyzer {
   // important, since Wild Imp summons uses player position as default (not entirely accurate, as they're spawned around player, not exactly on top of it, but that's as close as I'm gonna get)
   // needed for Implosion - there's a possibility that Wild Imps don't cast anything between their 'summon' and Implosion, therefore I wouldn't get their position
 
-  onDamageTaken(event) {
+  onDamageTaken(event: DamageEvent) {
     this._updatePlayerPosition(event);
   }
 
-  onEnergize(event) {
+  onEnergize(event: ResourceChangeEvent) {
     this._updatePlayerPosition(event);
   }
 
-  onHealTaken(event) {
+  onHealTaken(event: HealEvent) {
     this._updatePlayerPosition(event);
   }
 
-  onAbsorb(event) {
-    this._updatePlayerPosition(event);
-  }
+  // onAbsorb(event: AbsorbedEvent) {
+  //   this._updatePlayerPosition(event);
+  // }
 
-  _getPetDuration(id, isGuid = false) {
+  _getPetDuration(id: number, isGuid = false) {
     const pet = this.demoPets._getPetInfo(id, isGuid);
     if (!pet) {
       debug &&
@@ -133,7 +124,7 @@ class PetSummonHandler extends Analyzer {
     }
     // for imps, take Demonic Tyrant in consideration
     // if player doesn't have the buff, it's 15 seconds
-    if (isWildImp(pet.guid) && this.selectedCombatant.hasBuff(SPELLS.DEMONIC_POWER.id)) {
+    if (isWildImp(pet.guid) && this.selectedCombatant.hasBuff(SPELLS.DEMONIC_POWER.id) && this._lastDemonicTyrantCast) {
       // if player has the buff, it takes the remaining buff time + 15 seconds
       const remainingBuffTime =
         this._lastDemonicTyrantCast + DEMONIC_POWER_DURATION - this.owner.currentTimestamp;
@@ -142,16 +133,17 @@ class PetSummonHandler extends Analyzer {
     return PETS[pet.guid].duration;
   }
 
-  _getSummonSpell(event) {
+  _getSummonSpellId(event: SummonEvent): number {
     if (!SUMMON_TO_SPELL_MAP[event.ability.guid]) {
-      if (event.timestamp <= this._lastIDtick + BUFFER) {
-        return SPELLS.INNER_DEMONS_TALENT.id;
+      if (this._lastIDtick && event.timestamp <= this._lastIDtick + BUFFER) {
+        return TALENTS.INNER_DEMONS_TALENT.id;
       }
       if (
         this.selectedCombatant.hasBuff(SPELLS.NETHER_PORTAL_BUFF.id) &&
+        this._lastSpendResource &&
         event.timestamp <= this._lastSpendResource + BUFFER
       ) {
-        return SPELLS.NETHER_PORTAL_TALENT.id;
+        return TALENTS.NETHER_PORTAL_TALENT.id;
       }
       debug && this.error('Unknown source of summon event', event);
       return -1;
@@ -159,7 +151,7 @@ class PetSummonHandler extends Analyzer {
     return SUMMON_TO_SPELL_MAP[event.ability.guid];
   }
 
-  _updatePlayerPosition(event) {
+  _updatePlayerPosition(event: PlayerPositionEvent) {
     if (!event.x || !event.y) {
       return;
     }

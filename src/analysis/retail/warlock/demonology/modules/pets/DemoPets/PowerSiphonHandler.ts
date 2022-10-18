@@ -1,6 +1,6 @@
-import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import TALENTS from 'common/TALENTS/warlock';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
 
 import { isWildImp } from '../helpers';
@@ -15,16 +15,18 @@ class PowerSiphonHandler extends Analyzer {
     demoPets: DemoPets,
   };
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.POWER_SIPHON_TALENT.id);
+  demoPets!: DemoPets;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.POWER_SIPHON_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.POWER_SIPHON_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.POWER_SIPHON_TALENT),
       this.onPowerSiphonCast,
     );
   }
 
-  onPowerSiphonCast(event) {
+  onPowerSiphonCast(event: CastEvent & { activeImpsAfterCast?: string[] }) {
     if (!event.activeImpsAfterCast || event.activeImpsAfterCast.length === 0) {
       debug && this.error("Power Siphon cast didn't have any active imps after cast", event);
     }
@@ -32,9 +34,9 @@ class PowerSiphonHandler extends Analyzer {
     // filters out only those that aren't active after the cast (they can't be killed because they're casting in the future)
     const currentImps = this.demoPets.currentPets
       .filter((pet) => isWildImp(pet.guid) && !pet.shouldImplode)
-      .sort((imp1, imp2) => imp1.currentEnergy - imp2.currentEnergy || imp1.spawn - imp2.spawn);
+      .sort((imp1, imp2) => (imp1.currentEnergy || 0) - (imp2.currentEnergy || 0) || imp1.spawn - imp2.spawn);
     const filtered = currentImps.filter(
-      (imp) => !event.activeImpsAfterCast.includes(encodeTargetString(imp.id, imp.instance)),
+      (imp) => !event.activeImpsAfterCast?.includes(encodeTargetString(imp.id, imp.instance)),
     );
     test &&
       this.log(

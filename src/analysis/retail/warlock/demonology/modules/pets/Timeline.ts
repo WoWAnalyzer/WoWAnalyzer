@@ -2,28 +2,33 @@ import SPELLS from 'common/SPELLS';
 import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 
 import { isWarlockPet } from './helpers';
-import { DESPAWN_REASONS } from './TimelinePet';
+import { DESPAWN_REASONS, TimelinePet } from './TimelinePet';
 
 const debug = false;
 
 class Timeline {
-  timeline = [];
 
-  addPet(pet) {
+  timeline: TimelinePet[]
+
+  constructor() {
+    this.timeline = [];
+  }
+
+  addPet(pet: TimelinePet) {
     this.timeline.push(pet);
   }
 
-  find(filter) {
+  find(filter: (tp: TimelinePet) => boolean) {
     // just a forward to the inner timeline
     return this.timeline.find(filter);
   }
 
-  filter(predicate) {
+  filter(predicate: (tp: TimelinePet) => boolean) {
     // forward
     return this.timeline.filter(predicate);
   }
 
-  tryDespawnLastPermanentPet(timestamp) {
+  tryDespawnLastPermanentPet(timestamp: number) {
     const permanentPets = this.timeline.filter((pet) => isPermanentPet(pet.guid));
     if (permanentPets.length > 0) {
       debug && console.log('Despawning last permanent pet');
@@ -31,7 +36,7 @@ class Timeline {
     }
   }
 
-  getPetsAtTimestamp(timestamp) {
+  getPetsAtTimestamp(timestamp: number) {
     // Warlock pet check so this doesn't pick up things like Vanquished Tendrils of G'huun (trinket, spawns a pet that timeline picks up)
     return this.timeline.filter(
       (pet) =>
@@ -42,7 +47,7 @@ class Timeline {
   }
 
   groupPetsBySummonAbility() {
-    return this.timeline.reduce((obj, pet) => {
+    return this.timeline.reduce<Record<number | string, { spellName: string, pets: TimelinePet[]}>>((obj, pet) => {
       // if pet is summoned by unknown spell, it gets summonedBy = -1
       const key = pet.summonedBy !== -1 ? pet.summonedBy : 'unknown';
       const spellName = (SPELLS[pet.summonedBy] && SPELLS[pet.summonedBy].name) || 'unknown';

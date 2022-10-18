@@ -1,10 +1,12 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
-import Events from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const FELSTORM_COOLDOWN = 30;
 // when Demonic Strength is cast, then AFTER the cast, Felguard charges at the target, and after he arrives, does the Felstorm
@@ -25,17 +27,17 @@ class Felstorm extends Analyzer {
         average: 0.8,
         major: 0.7,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  _lastDemonicStrengthCast = null;
+  _lastDemonicStrengthCast: number | null = null;
   mainPetFelstormCount = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEMONIC_STRENGTH_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.DEMONIC_STRENGTH_TALENT),
       this.demonicStrengthCast,
     );
     this.addEventListener(
@@ -44,12 +46,12 @@ class Felstorm extends Analyzer {
     );
   }
 
-  demonicStrengthCast(event) {
+  demonicStrengthCast(event: CastEvent) {
     this._lastDemonicStrengthCast = event.timestamp;
   }
 
   // works with either direct /cast Felstorm or by using the Command Demon ability (if direct /cast Felstorm, then the player didn't cast it, but this buff gets applied either way)
-  applyFelstormBuff(event) {
+  applyFelstormBuff(event: ApplyBuffEvent) {
     if (
       this._lastDemonicStrengthCast &&
       event.timestamp <= this._lastDemonicStrengthCast + DEMONIC_STRENGTH_BUFFER
@@ -63,7 +65,7 @@ class Felstorm extends Analyzer {
     }
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>

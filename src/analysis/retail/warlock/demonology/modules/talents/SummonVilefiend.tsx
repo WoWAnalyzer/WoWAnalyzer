@@ -1,6 +1,6 @@
 import { formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import TALENTS from 'common/TALENTS/warlock';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -14,11 +14,12 @@ class SummonVilefiend extends Analyzer {
     demoPets: DemoPets,
   };
 
+  demoPets!: DemoPets;
   damage = 0;
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SUMMON_VILEFIEND_TALENT.id);
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SUMMON_VILEFIEND_TALENT.id);
   }
 
   statistic() {
@@ -29,7 +30,7 @@ class SummonVilefiend extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(damage)} damage`}
       >
-        <BoringSpellValueText spellId={SPELLS.SUMMON_VILEFIEND_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.SUMMON_VILEFIEND_TALENT.id}>
           <ItemDamageDone amount={damage} />
         </BoringSpellValueText>
       </Statistic>

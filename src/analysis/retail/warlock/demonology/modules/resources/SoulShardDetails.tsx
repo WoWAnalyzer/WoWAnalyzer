@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -31,7 +31,9 @@ class SoulShardDetails extends Analyzer {
     soulShardTracker: SoulShardTracker,
   };
 
-  suggestions(when) {
+  soulShardTracker!: SoulShardTracker;
+
+  suggestions(when: When) {
     const shardsWasted = this.soulShardTracker.wasted;
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(

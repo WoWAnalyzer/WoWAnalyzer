@@ -1,8 +1,9 @@
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import TALENTS from 'common/TALENTS/warlock';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -13,11 +14,14 @@ import DemoPets from '../pets/DemoPets';
 const BONUS_DAMAGE_PER_PET = 0.04;
 const MAX_TRAVEL_TIME = 3000; // Shadow Bolt is the slowest, takes around 2 seconds to land from max distance, add a little more to account for target movement
 const debug = false;
+type QueueItem = {
+  timestamp: number;
+  spellId: number;
+  targetID: number | undefined;
+  targetInstance: number | undefined;
+  bonus: number;
+};
 
-/*
-  Sacrificed Souls:
-    Shadow Bolt and Demonbolt deal 5% additional damage per demon you have summoned.
- */
 class SacrificedSouls extends Analyzer {
   get totalBonusDamage() {
     return this._shadowBoltDamage + this._demonboltDamage;
@@ -26,13 +30,14 @@ class SacrificedSouls extends Analyzer {
   static dependencies = {
     demoPets: DemoPets,
   };
+  demoPets!: DemoPets;
   _shadowBoltDamage = 0;
   _demonboltDamage = 0;
-  _queue = [];
+  _queue: QueueItem[] = [];
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SACRIFICED_SOULS_TALENT.id);
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SACRIFICED_SOULS_TALENT.id);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.SHADOW_BOLT_DEMO, SPELLS.DEMONBOLT]),
       this.handleCast,
@@ -44,7 +49,7 @@ class SacrificedSouls extends Analyzer {
   }
 
   // essentially same snapshotting mechanic as in Destruction's Eradication
-  handleCast(event) {
+  handleCast(event: CastEvent) {
     const bonus = this.demoPets.getPetCount() * BONUS_DAMAGE_PER_PET;
     this._queue.push({
       timestamp: event.timestamp,
@@ -56,7 +61,7 @@ class SacrificedSouls extends Analyzer {
     debug && this.log('Pushed a cast into queue', JSON.parse(JSON.stringify(this._queue)));
   }
 
-  handleDamage(event) {
+  handleDamage(event: DamageEvent) {
     // filter out old casts if there are any
     this._queue = this._queue.filter((cast) => cast.timestamp > event.timestamp - MAX_TRAVEL_TIME);
     const castIndex = this._queue.findIndex(
@@ -92,7 +97,7 @@ class SacrificedSouls extends Analyzer {
   }
 
   statistic() {
-    const hasPS = this.selectedCombatant.hasTalent(SPELLS.POWER_SIPHON_TALENT.id);
+    const hasPS = this.selectedCombatant.hasTalent(TALENTS.POWER_SIPHON_TALENT.id);
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
@@ -117,7 +122,7 @@ class SacrificedSouls extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SACRIFICED_SOULS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.SACRIFICED_SOULS_TALENT.id}>
           <ItemDamageDone amount={this.totalBonusDamage} />
         </BoringSpellValueText>
       </Statistic>

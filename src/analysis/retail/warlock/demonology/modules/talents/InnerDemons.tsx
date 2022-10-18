@@ -1,6 +1,6 @@
 import { formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import TALENTS from 'common/TALENTS/warlock';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -11,10 +11,14 @@ import { isRandomPet } from '../pets/helpers';
 import PETS from '../pets/PETS';
 
 class InnerDemons extends Analyzer {
+  static dependencies = {
+    demoPets: DemoPets,
+  };
+  demoPets!: DemoPets;
   get damage() {
     const wildImps = this.demoPets.getPetDamage(PETS.WILD_IMP_INNER_DEMONS.guid);
     const otherPetsSummonedByID = this.demoPets.timeline.filter(
-      (pet) => isRandomPet(pet.guid) && pet.summonedBy === SPELLS.INNER_DEMONS_TALENT.id,
+      (pet) => Boolean(isRandomPet(pet.guid)) && pet.summonedBy === TALENTS.INNER_DEMONS_TALENT.id,
     );
     const other = otherPetsSummonedByID
       .map((pet) => this.demoPets.getPetDamage(pet.guid, pet.instance))
@@ -22,13 +26,11 @@ class InnerDemons extends Analyzer {
     return wildImps + other;
   }
 
-  static dependencies = {
-    demoPets: DemoPets,
-  };
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.INNER_DEMONS_TALENT.id);
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.INNER_DEMONS_TALENT.id);
   }
 
   statistic() {
@@ -45,7 +47,7 @@ class InnerDemons extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.INNER_DEMONS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.INNER_DEMONS_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

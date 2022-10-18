@@ -2,6 +2,7 @@ import Analyzer from 'parser/core/Analyzer';
 
 import PetDamage from '../PetDamage';
 import Timeline from '../Timeline';
+import { TimelinePet } from '../TimelinePet';
 
 const debug = false;
 
@@ -23,7 +24,7 @@ class DemoPets extends Analyzer {
   damage = new PetDamage();
   timeline = new Timeline();
 
-  getPetDamage(id, instance = null, isGuid = true) {
+  getPetDamage(id: number, instance: number | null = null, isGuid = true) {
     // if instance = null, returns total damage from all instances, otherwise from a specific instance
     // isGuid = true, because it's more convenient to call this with getPetDamage(PETS.SOME_PET.guid)
     // because you know what you're looking for (pet IDs change, GUIDs don't)
@@ -36,7 +37,7 @@ class DemoPets extends Analyzer {
     return this.damage.getDamageForGuid(guid, instance);
   }
 
-  getPetCount(timestamp = this.owner.currentTimestamp, petId = null) {
+  getPetCount(timestamp = this.owner.currentTimestamp, petId: number | null = null) {
     return this.timeline
       .getPetsAtTimestamp(timestamp)
       .filter((pet) => (petId ? pet.id === petId : true)).length;
@@ -48,11 +49,11 @@ class DemoPets extends Analyzer {
     return this.timeline.getPetsAtTimestamp(timestamp);
   }
 
-  _getPetFromTimeline(id, instance) {
-    return this.timeline.find((pet) => pet.id === id && pet.instance === instance);
+  _getPetFromTimeline(id: number, instance: number) {
+    return this.timeline.find((pet: TimelinePet) => pet.id === id && pet.instance === instance);
   }
 
-  _getPetInfo(id, isGuid = false) {
+  _getPetInfo(id: number, isGuid = false) {
     let pet;
     if (isGuid) {
       pet = this.owner.playerPets.find((pet) => pet.guid === id);
@@ -69,8 +70,8 @@ class DemoPets extends Analyzer {
     return pet;
   }
 
-  _toGuid(id) {
-    return this._getPetInfo(id).guid;
+  _toGuid(id: number) {
+    return this._getPetInfo(id)!.guid;
   }
 }
 

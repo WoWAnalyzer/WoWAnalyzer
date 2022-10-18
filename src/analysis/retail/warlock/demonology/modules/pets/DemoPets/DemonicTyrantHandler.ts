@@ -1,10 +1,9 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 import { isWildImp } from '../helpers';
 import PETS from '../PETS';
-import { DESPAWN_REASONS, META_CLASSES, META_TOOLTIPS } from '../TimelinePet';
 import DemoPets from './index';
 
 const test = false;
@@ -14,14 +13,12 @@ class DemonicTyrantHandler extends Analyzer {
     demoPets: DemoPets,
   };
 
-  _lastCast = null;
-  _hasDemonicConsumption = false;
+  demoPets!: DemoPets;
+  _lastCast: number | null;
 
-  constructor(...args) {
-    super(...args);
-    this._hasDemonicConsumption = this.selectedCombatant.hasTalent(
-      SPELLS.DEMONIC_CONSUMPTION_TALENT.id,
-    );
+  constructor(options: Options) {
+    super(options);
+    this._lastCast = null;
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DEMONIC_TYRANT),
       this.onDemonicTyrantCast,
@@ -32,7 +29,7 @@ class DemonicTyrantHandler extends Analyzer {
     );
   }
 
-  onDemonicTyrantCast(event) {
+  onDemonicTyrantCast(event: CastEvent) {
     // extend current pets by 15 seconds
     this._lastCast = event.timestamp;
     const affectedPets = this.demoPets.currentPets;
@@ -41,13 +38,6 @@ class DemonicTyrantHandler extends Analyzer {
     affectedPets.forEach((pet) => {
       pet.extend();
       pet.pushHistory(event.timestamp, 'Extended with Demonic Tyrant', event);
-      // if player has Demonic Consumption talent, kill all imps
-      if (this._hasDemonicConsumption && isWildImp(pet.guid)) {
-        test && this.log('Wild Imp killed because Demonic Consumption', pet);
-        pet.despawn(event.timestamp, DESPAWN_REASONS.DEMONIC_CONSUMPTION);
-        pet.setMeta(META_CLASSES.DESTROYED, META_TOOLTIPS.DEMONIC_CONSUMPTION);
-        pet.pushHistory(event.timestamp, 'Killed by Demonic Consumption', event);
-      }
     });
     test &&
       this.log(
@@ -56,23 +46,20 @@ class DemonicTyrantHandler extends Analyzer {
       );
   }
 
-  onDemonicPowerRemove(event) {
+  onDemonicPowerRemove(event: RemoveBuffEvent) {
     // Demonic Tyrant effect faded, update imps' expected despawn
-    const actualBuffTime = event.timestamp - this._lastCast;
+    const actualBuffTime = event.timestamp - (this._lastCast || 0);
     this.demoPets.currentPets
       .filter((pet) => isWildImp(pet.guid))
       .forEach((imp) => {
         // original duration = spawn + 15
         // extended duration on DT cast = (spawn + 15) + 15
         // real duration = (spawn + 15) + actualBuffTime
-        const old = imp.expectedDespawn;
         imp.expectedDespawn = imp.spawn + PETS.WILD_IMP_HOG.duration + actualBuffTime;
         imp.pushHistory(
           event.timestamp,
-          'Updated expected despawn from',
-          old,
-          'to',
-          imp.expectedDespawn,
+          'Updated expected despawn for imp',
+          event,
         );
       });
   }

@@ -1,12 +1,11 @@
-import SPELLS from 'common/SPELLS';
-import { EventType } from 'parser/core/Events';
+import TALENTS from 'common/TALENTS/warlock';
+import { AnyEvent, BeginCastEvent, CastEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { encodeEventSourceString, encodeTargetString } from 'parser/shared/modules/Enemies';
+import { encodeEventSourceString } from 'parser/shared/modules/Enemies';
 
 import { isWildImp } from '../../pets/helpers';
 
 const debug = false;
-const CHECKED_EVENT_TYPES = [EventType.BeginCast, EventType.Cast];
 
 class PowerSiphonNormalizer extends EventsNormalizer {
   // Power Siphon sacrifices up to 2 Wild Imps to gain Demonic Core stacks from them
@@ -17,24 +16,24 @@ class PowerSiphonNormalizer extends EventsNormalizer {
 
   // This normalizer looks at Power Siphon casts, and looks for Wild Imp activity AFTER the cast, storing which Wild Imps were active AFTER the cast
   // If I can store the info inside the PS cast (with __modified flag) I should be able to correctly filter Imps that should actually die in the DemoPets.js Analyzer
-  normalize(events) {
-    if (!this.selectedCombatant.hasTalent(SPELLS.POWER_SIPHON_TALENT.id)) {
+  normalize(events: AnyEvent[]) {
+    if (!this.selectedCombatant.hasTalent(TALENTS.POWER_SIPHON_TALENT.id)) {
       return events;
     }
 
-    let lastPowerSiphonCast = null;
-    let activeImpsAfterCast = [];
+    let lastPowerSiphonCast: CastEvent & { __modified?: boolean, activeImpsAfterCast?: string[] } | null = null;
+    let activeImpsAfterCast: string[] = [];
 
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
       // skip everything till first PS cast
       if (
         !lastPowerSiphonCast &&
-        (!event.ability || event.ability.guid !== SPELLS.POWER_SIPHON_TALENT.id)
+        (event.type !== EventType.Cast || event.ability.guid !== TALENTS.POWER_SIPHON_TALENT.id)
       ) {
         continue;
       }
-      if (event.ability && event.ability.guid === SPELLS.POWER_SIPHON_TALENT.id) {
+      if (event.type === EventType.Cast && event.ability.guid === TALENTS.POWER_SIPHON_TALENT.id) {
         if (lastPowerSiphonCast) {
           // if it's not first PS cast, add the active imps to previous cast, start counting again
           lastPowerSiphonCast.activeImpsAfterCast = [...activeImpsAfterCast];
@@ -45,7 +44,7 @@ class PowerSiphonNormalizer extends EventsNormalizer {
       } else {
         // all events after PS cast
         if (
-          CHECKED_EVENT_TYPES.includes(event.type) &&
+          (event.type === EventType.Cast || event.type === EventType.BeginCast) &&
           this.owner.byPlayerPet(event) &&
           this._isFromWildImp(event)
         ) {
@@ -57,20 +56,20 @@ class PowerSiphonNormalizer extends EventsNormalizer {
       }
     }
     // modify the last PS cast
-    lastPowerSiphonCast.activeImpsAfterCast = [...activeImpsAfterCast];
-    lastPowerSiphonCast.__modified = true;
+    lastPowerSiphonCast!.activeImpsAfterCast = [...activeImpsAfterCast];
+    lastPowerSiphonCast!.__modified = true;
     debug &&
       console.log(
         'PS casts after normalizing',
         events.filter(
           (event) =>
-            event.type === EventType.Cast && event.ability.guid === SPELLS.POWER_SIPHON_TALENT.id,
+            event.type === EventType.Cast && event.ability.guid === TALENTS.POWER_SIPHON_TALENT.id,
         ),
       );
     return events;
   }
 
-  _isFromWildImp(event) {
+  _isFromWildImp(event: BeginCastEvent | CastEvent) {
     // if event is not from player pet (is not in this.owner.playerPets), this function shouldn't even get called, but just to be safe
     const info = this.owner.playerPets.find((pet) => pet.id === event.sourceID);
     if (!info) {

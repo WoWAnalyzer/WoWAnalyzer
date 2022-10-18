@@ -1,7 +1,8 @@
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import TALENTS from 'common/TALENTS/warlock';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, { DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Pets from 'parser/shared/modules/Pets';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -17,33 +18,34 @@ class DemonicStrength extends Analyzer {
     pets: Pets,
   };
 
-  _removedAt = null;
+  pets!: Pets;
+  _removedAt: number | null = null;
   damage = 0;
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DEMONIC_STRENGTH_TALENT.id);
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DEMONIC_STRENGTH_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.FELSTORM_DAMAGE),
       this.handleFelstormDamage,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DEMONIC_STRENGTH_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.DEMONIC_STRENGTH_TALENT),
       this.handleRemoveDemonicStrength,
     );
   }
 
-  handleFelstormDamage(event) {
+  handleFelstormDamage(event: DamageEvent) {
     // pet ability Felstorm and this "empowered" Felstorm can't be active at the same time, they're exclusive (the game doesn't let you cast it)
     const petInfo = this.owner.playerPets.find((pet) => pet.id === event.sourceID);
-    if (petInfo.guid === PETS.GRIMOIRE_FELGUARD.guid) {
+    if (petInfo?.guid === PETS.GRIMOIRE_FELGUARD.guid) {
       // Grimoire: Felguard uses same spell IDs
       return;
     }
     const pet = this.pets.getSourceEntity(event);
     if (
-      pet.hasBuff(SPELLS.DEMONIC_STRENGTH_TALENT.id) ||
-      event.timestamp <= this._removedAt + BUFFER
+      pet?.hasBuff(TALENTS.DEMONIC_STRENGTH_TALENT.id) ||
+      (this._removedAt && event.timestamp <= this._removedAt + BUFFER)
     ) {
       // the last empowered Felstorm usually happens in this order:
       // Felstorm cast -> Demonic Strength removebuff -> Felstorm damages
@@ -52,7 +54,7 @@ class DemonicStrength extends Analyzer {
     }
   }
 
-  handleRemoveDemonicStrength(event) {
+  handleRemoveDemonicStrength(event: RemoveBuffEvent) {
     this._removedAt = event.timestamp;
   }
 
@@ -63,7 +65,7 @@ class DemonicStrength extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} damage`}
       >
-        <BoringSpellValueText spellId={SPELLS.DEMONIC_STRENGTH_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.DEMONIC_STRENGTH_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

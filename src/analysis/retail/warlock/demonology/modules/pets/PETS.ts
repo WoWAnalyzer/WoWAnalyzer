@@ -1,8 +1,16 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 
 const INNER_DEMON_NETHER_PORTAL_DURATION = 15000;
 
-const indexByGuid = (obj) => {
+type PetRecord = {
+  guid: number;
+  duration: number;
+  summonAbility: number;
+  isRandom?: boolean;
+}
+
+const indexByGuid = (obj: Record<string, PetRecord>) => {
   Object.keys(obj).forEach((key) => {
     const pet = obj[key];
     obj[pet.guid] = pet;
@@ -24,12 +32,12 @@ const PETS = {
   VILEFIEND: {
     guid: 135816,
     duration: 15000,
-    summonAbility: SPELLS.SUMMON_VILEFIEND_TALENT.id,
+    summonAbility: TALENTS.SUMMON_VILEFIEND_TALENT.id,
   },
   GRIMOIRE_FELGUARD: {
     guid: 17252,
     duration: 15000,
-    summonAbility: SPELLS.GRIMOIRE_FELGUARD_TALENT.id,
+    summonAbility: TALENTS.GRIMOIRE_FELGUARD_TALENT.id,
   },
   DEMONIC_TYRANT: {
     guid: 135002,

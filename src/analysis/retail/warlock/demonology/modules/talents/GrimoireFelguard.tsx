@@ -1,6 +1,6 @@
 import { formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import TALENTS from 'common/TALENTS/warlock';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -16,9 +16,12 @@ class GrimoireFelguard extends Analyzer {
     demoPets: DemoPets,
   };
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.GRIMOIRE_FELGUARD_TALENT.id);
+  abilityTracker!: AbilityTracker;
+  demoPets!: DemoPets;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.GRIMOIRE_FELGUARD_TALENT.id);
   }
 
   statistic() {
@@ -29,7 +32,7 @@ class GrimoireFelguard extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(damage)} damage`}
       >
-        <BoringSpellValueText spellId={SPELLS.GRIMOIRE_FELGUARD_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.GRIMOIRE_FELGUARD_TALENT.id}>
           <ItemDamageDone amount={damage} />
         </BoringSpellValueText>
       </Statistic>

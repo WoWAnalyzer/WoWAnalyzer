@@ -1,8 +1,9 @@
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import TALENTS from 'common/TALENTS/warlock';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import Events from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -20,11 +21,12 @@ class FromTheShadows extends Analyzer {
     enemies: Enemies,
   };
 
+  enemies!: Enemies;
   damage = 0;
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FROM_THE_SHADOWS_TALENT.id);
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.FROM_THE_SHADOWS_TALENT.id);
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
@@ -33,7 +35,7 @@ class FromTheShadows extends Analyzer {
     );
   }
 
-  handleDamage(event) {
+  handleDamage(event: DamageEvent) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy || !enemy.hasBuff(SPELLS.FROM_THE_SHADOWS_DEBUFF.id)) {
       return;
@@ -48,7 +50,7 @@ class FromTheShadows extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >
-        <BoringSpellValueText spellId={SPELLS.FROM_THE_SHADOWS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.FROM_THE_SHADOWS_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

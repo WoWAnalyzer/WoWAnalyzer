@@ -3,7 +3,6 @@ import StatisticsListBox, { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox'
 
 import BilescourgeBombers from './BilescourgeBombers';
 import DemonicCalling from './DemonicCalling';
-import DemonicConsumption from './DemonicConsumption';
 import DemonicStrength from './DemonicStrength';
 import Doom from './Doom';
 import Dreadlash from './Dreadlash';
@@ -32,26 +31,35 @@ class TalentStatisticBox extends Analyzer {
     innerDemons: InnerDemons,
     grimoireFelguard: GrimoireFelguard,
     sacrificedSouls: SacrificedSouls,
-    demonicConsumption: DemonicConsumption,
     netherPortal: NetherPortal,
-  };
+  } as const;
 
-  constructor(...args) {
-    super(...args);
-    // active if at least one module is active and has subStatistic()
-    this.active = Object.keys(this.constructor.dependencies)
-      .filter((name) => this[name].subStatistic)
-      .map((name) => this[name].active)
-      .includes(true);
-  }
+  protected dreadlash!: Dreadlash;
+  protected demonicStrength!: DemonicStrength;
+  protected bilescourgeBombers!: BilescourgeBombers;
+  protected demonicCalling!: DemonicCalling;
+  protected powerSiphon!: PowerSiphon;
+  protected doom!: Doom;
+  protected fromTheShadows!: FromTheShadows;
+  protected soulStrike!: SoulStrike;
+  protected summonVilefiend!: SummonVilefiend;
+  protected soulConduit!: SoulConduit;
+  protected innerDemons!: InnerDemons;
+  protected grimoireFelguard!: GrimoireFelguard;
+  protected sacrificedSouls!: SacrificedSouls;
+  protected netherPortal!: NetherPortal;
 
   statistic() {
     return (
-      <StatisticsListBox position={STATISTIC_ORDER.CORE(4)} title="Talents">
-        {Object.keys(this.constructor.dependencies)
-          .map((name) => this[name])
-          .filter((module) => module.active && module.subStatistic)
-          .map((module) => module.subStatistic())}
+      <StatisticsListBox
+      position={STATISTIC_ORDER.CORE(4)} 
+      title="Talents"
+      tooltip="This provides an overview of the damage contributions of various talents. This isn't meant as a way to 1:1 evaluate talents, as some talents bring other strengths to the table than pure damage."
+      bodyStyle={{}}>
+        {Object.keys(TalentStatisticBox.dependencies)
+          .map((name) => this[name as keyof typeof TalentStatisticBox.dependencies])
+          .filter((module) => module.active && module.statistic)
+          .map((module) => module.statistic())}
       </StatisticsListBox>
     );
   }

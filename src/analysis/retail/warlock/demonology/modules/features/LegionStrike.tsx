@@ -2,9 +2,9 @@ import { t } from '@lingui/macro';
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
-import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
+import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -19,15 +19,15 @@ class LegionStrike extends Analyzer {
         average: 0,
         major: 0,
       },
-      style: 'number',
+      style: ThresholdStyle.NUMBER,
     };
   }
 
   casts = 0;
   damage = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER_PET).spell(SPELLS.FELGUARD_LEGION_STRIKE),
       this.legionStrikeCast,
@@ -38,29 +38,25 @@ class LegionStrike extends Analyzer {
     );
   }
 
-  legionStrikeCast(event) {
+  _isPermanentFelguardEvent(event: CastEvent | DamageEvent) {
+    // permanent Felguard doesn't have sourceInstance
+    return !event.sourceInstance;
+  }
+
+  legionStrikeCast(event: CastEvent) {
     // Grimoire: Felguard casts Legion Strike with the same spell ID, only count LS casts from the permanent pet
-    if (this._isPermanentPet(event.sourceID)) {
+    if (this._isPermanentFelguardEvent(event)) {
       this.casts += 1;
     }
   }
 
-  legionStrikeDamage(event) {
-    if (this._isPermanentPet(event.sourceID)) {
+  legionStrikeDamage(event: DamageEvent) {
+    if (this._isPermanentFelguardEvent(event)) {
       this.damage += event.amount + (event.absorbed || 0);
     }
   }
 
-  _getPetGuid(id) {
-    return this.owner.playerPets.find((pet) => pet.id === id).guid;
-  }
-
-  _isPermanentPet(id) {
-    const guid = this._getPetGuid(id);
-    return isPermanentPet(guid);
-  }
-
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>

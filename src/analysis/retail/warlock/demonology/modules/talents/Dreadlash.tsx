@@ -1,8 +1,9 @@
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import TALENTS from 'common/TALENTS/warlock';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -13,13 +14,13 @@ const DREADLASH_BONUS_DAMAGE = 0.25;
 const debug = false;
 
 class Dreadlash extends Analyzer {
-  _primaryTarget = null;
+  _primaryTarget: string | null = null;
   cleavedDamage = 0;
   bonusDamage = 0; // only from primary target
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DREADLASH_TALENT.id);
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DREADLASH_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.DREADBITE),
       this.handleDreadbite,
@@ -30,7 +31,7 @@ class Dreadlash extends Analyzer {
     );
   }
 
-  handleDreadbite(event) {
+  handleDreadbite(event: DamageEvent) {
     const target = encodeTargetString(event.targetID, event.targetInstance);
     if (this._primaryTarget === target) {
       debug && this.log(`Dreadbite damage on ${target}, primary`);
@@ -41,7 +42,11 @@ class Dreadlash extends Analyzer {
     }
   }
 
-  handleDreadstalkerCast(event) {
+  handleDreadstalkerCast(event: CastEvent) {
+    if (!event.targetID) {
+      debug && this.log('Dreadstalkers cast had no targetID', event);
+      return;
+    }
     this._primaryTarget = encodeTargetString(event.targetID, event.targetInstance);
     debug && this.log(`Dreadstalkers cast on ${this._primaryTarget}`);
   }
@@ -63,7 +68,7 @@ class Dreadlash extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.DREADLASH_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.DREADLASH_TALENT.id}>
           <ItemDamageDone amount={total} />
         </BoringSpellValueText>
       </Statistic>

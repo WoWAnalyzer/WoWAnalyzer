@@ -1,12 +1,13 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import TALENTS from 'common/TALENTS/warlock';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { findMax, binomialPMF } from 'parser/shared/modules/helpers/Probability';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-import SoulShardTracker from '../soulshards/SoulShardTracker';
+import SoulShardTracker from '../resources/SoulShardTracker';
 
 const SHARDS_PER_HOG = 3;
 const SC_PROC_CHANCE = 0.15;
@@ -16,9 +17,11 @@ class SoulConduit extends Analyzer {
     soulShardTracker: SoulShardTracker,
   };
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_CONDUIT_TALENT.id);
+  soulShardTracker!: SoulShardTracker;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SOUL_CONDUIT_TALENT.id);
   }
 
   statistic() {
@@ -47,7 +50,7 @@ class SoulConduit extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SOUL_CONDUIT_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.SOUL_CONDUIT_TALENT.id}>
           {generated} <small>Shards generated</small>
         </BoringSpellValueText>
       </Statistic>

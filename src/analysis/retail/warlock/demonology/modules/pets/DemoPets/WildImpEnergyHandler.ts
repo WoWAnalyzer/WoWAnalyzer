@@ -1,7 +1,7 @@
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
 
 import PETS from '../PETS';
 import { DESPAWN_REASONS, META_CLASSES, META_TOOLTIPS } from '../TimelinePet';
@@ -15,17 +15,22 @@ class WildImpEnergyHandler extends Analyzer {
     demoPets: DemoPets,
   };
 
-  _wildImpIds = []; // important for different handling of duration, these IDs change from log to log
+  demoPets!: DemoPets;
+  _wildImpIds: number[] = []; // important for different handling of duration, these IDs change from log to log
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.initializeWildImps();
     this.addEventListener(Events.cast.by(SELECTED_PLAYER_PET), this.onPetCast);
   }
 
-  onPetCast(event) {
+  onPetCast(event: CastEvent) {
     // handle Wild Imp energy - they should despawn when their energy reaches 0
     if (!this._wildImpIds.includes(event.sourceID)) {
+      return;
+    }
+    if (!event.sourceInstance) {
+      debug && this.error('sourceInstance did not exist on event.', event);
       return;
     }
     const pet = this.demoPets._getPetFromTimeline(event.sourceID, event.sourceInstance);
@@ -56,10 +61,6 @@ class WildImpEnergyHandler extends Analyzer {
       event.timestamp,
       'Cast',
       event,
-      'old energy',
-      oldEnergy,
-      'new energy',
-      pet.currentEnergy,
     );
 
     if (pet.currentEnergy === 0) {
@@ -71,17 +72,19 @@ class WildImpEnergyHandler extends Analyzer {
 
   initializeWildImps() {
     // there's very little possibility these statements wouldn't return an object, Hand of Guldan is a key part of rotation
-    this._wildImpIds.push(this._toId(PETS.WILD_IMP_HOG.guid));
-    if (this.selectedCombatant.hasTalent(SPELLS.INNER_DEMONS_TALENT.id)) {
+    const wildImpID = this._toId(PETS.WILD_IMP_HOG.guid);
+    wildImpID && this._wildImpIds.push(wildImpID);
+    if (this.selectedCombatant.hasTalent(TALENTS.INNER_DEMONS_TALENT.id)) {
       // and Inner Demons passively summons these Wild Imps
-      this._wildImpIds.push(this._toId(PETS.WILD_IMP_INNER_DEMONS.guid));
+      const innerDemonWildImpID = this._toId(PETS.WILD_IMP_INNER_DEMONS.guid)
+      innerDemonWildImpID && this._wildImpIds.push(innerDemonWildImpID);
     }
     // basically player would have to be dead from the beginning to end to not have these recorded
     // (and even then it's probably fine, because it takes the info from parser.playerPets, which is cross-fight)
   }
 
-  _toId(guid) {
-    return this.demoPets._getPetInfo(guid, true).id;
+  _toId(guid: number) {
+    return this.demoPets._getPetInfo(guid, true)?.id;
   }
 }
 

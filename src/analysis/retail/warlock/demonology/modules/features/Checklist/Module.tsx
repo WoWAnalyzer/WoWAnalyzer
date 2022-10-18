@@ -3,8 +3,8 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
-import SoulShardDetails from '../../soulshards/SoulShardDetails';
-import SoulShardTracker from '../../soulshards/SoulShardTracker';
+import SoulShardDetails from '../../resources/SoulShardDetails';
+import SoulShardTracker from '../../resources/SoulShardTracker';
 import Doom from '../../talents/Doom';
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import Felstorm from '../Felstorm';
@@ -13,16 +13,27 @@ import Component from './Component';
 class Checklist extends BaseChecklist {
   static dependencies = {
     ...BaseChecklist.dependencies,
-    combatants: Combatants,
-    castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
-    preparationRuleAnalyzer: PreparationRuleAnalyzer,
-
+    castEfficiency: CastEfficiency,
+    combatants: Combatants,
+    doom: Doom,
     felstorm: Felstorm,
+    preparationRuleAnalyzer: PreparationRuleAnalyzer,
     soulShardDetails: SoulShardDetails,
     soulShardTracker: SoulShardTracker,
-    doom: Doom,
   };
+
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected castEfficiency!: CastEfficiency;
+  protected combatants!: Combatants;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+
+  // Spells
+  protected doom!: Doom;
+  protected felstorm!: Felstorm;
+
+  // Resources
+  protected soulShardDetails!: SoulShardDetails;
 
   render() {
     return (
@@ -36,8 +47,8 @@ class Checklist extends BaseChecklist {
           felstorm: this.felstorm.suggestionThresholds,
           soulShards: this.soulShardDetails.suggestionThresholds,
           downtime: this.alwaysBeCasting.suggestionThresholds,
+          soulShardDetails: this.soulShardDetails.suggestionThresholds,
         }}
-        shardTracker={this.soulShardTracker}
       />
     );
   }

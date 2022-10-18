@@ -1,6 +1,6 @@
 import { formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import TALENTS from 'common/TALENTS/warlock';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -11,7 +11,7 @@ import DemoPets from '../pets/DemoPets';
 class NetherPortal extends Analyzer {
   get damage() {
     const petsSummonedByNP = this.demoPets.timeline.filter(
-      (pet) => pet.summonedBy === SPELLS.NETHER_PORTAL_TALENT.id,
+      (pet) => pet.summonedBy === TALENTS.NETHER_PORTAL_TALENT.id,
     );
     return petsSummonedByNP
       .map((pet) => this.demoPets.getPetDamage(pet.guid, pet.instance))
@@ -21,10 +21,11 @@ class NetherPortal extends Analyzer {
   static dependencies = {
     demoPets: DemoPets,
   };
+  demoPets!: DemoPets;
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.NETHER_PORTAL_TALENT.id);
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.NETHER_PORTAL_TALENT.id);
   }
 
   statistic() {
@@ -34,7 +35,7 @@ class NetherPortal extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} damage`}
       >
-        <BoringSpellValueText spellId={SPELLS.NETHER_PORTAL_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.NETHER_PORTAL_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

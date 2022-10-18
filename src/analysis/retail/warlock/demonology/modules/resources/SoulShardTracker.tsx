@@ -1,26 +1,27 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { Options } from 'parser/core/Analyzer';
+import { CastEvent } from 'parser/core/Events';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
 class SoulShardTracker extends ResourceTracker {
-  constructor(...args) {
-    super(...args);
+  constructor(options: Options) {
+    super(options);
     this.resource = RESOURCE_TYPES.SOUL_SHARDS;
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     const classResources = this.getResource(event);
     if (classResources) {
-      // event resource amounts in cast are 10x what they should be for some reason (range 0-50)
       classResources.amount /= 10;
-      classResources.cost /= 10;
+      classResources.cost = classResources.cost ? classResources.cost / 10 : 0;
       classResources.max /= 10;
       super.onCast(event);
     }
   }
 
-  getAdjustedCost(event) {
-    let cost = super.getAdjustedCost(event);
+  getAdjustedCost(event: CastEvent) {
+    let cost = super.getAdjustedCost(event) ?? 0;
     // Demonic Calling (T30 talent) proc reduces the cost of next Call Dreadstalkers by 1 shard
     if (
       event.ability.guid === SPELLS.CALL_DREADSTALKERS.id &&

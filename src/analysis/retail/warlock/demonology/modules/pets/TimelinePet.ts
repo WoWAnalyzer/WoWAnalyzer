@@ -1,3 +1,6 @@
+import { AnyEvent } from 'parser/core/Events';
+import { PetInfo } from 'parser/core/Pet';
+
 const DEMONIC_TYRANT_EXTENSION = 15000;
 
 export const META_CLASSES = {
@@ -20,21 +23,27 @@ export const DESPAWN_REASONS = {
   NEW_PERMANENT_PET: 'Killed by summoning new permanent pet',
 };
 
+type PetHistoryEntry = [
+  number,
+  string,
+  AnyEvent
+]
+
 export class TimelinePet {
-  name = 'unknown';
-  guid = null;
-  id = null;
-  instance = null;
-  spawn = null;
-  expectedDespawn = null;
-  realDespawn = null;
-  despawnedBy = null;
-  summonAbility = null;
-  summonedBy = null;
+  name!: string;
+  guid!: number;
+  id!: number;
+  instance!: number;
+  spawn!: number;
+  expectedDespawn!: number;
+  realDespawn: number | null = null;
+  despawnedBy: string | null = null;
+  summonAbility!: number;
+  summonedBy!: number;
   // difference between summonAbility and summonedBy:
   // summonAbility is the summon ability itself (Summon Wild Imp, Summon Shivarra, Summon Vicious Hellhound, Summon Prince Malchezaar, ...)
   // summonedBy is the "source" from player's perspective - whether it's Hand of Gul'dan, Nether Portal, Inner Demons, ...
-  history = [];
+  history: PetHistoryEntry[] = [];
   // is used for highlighting in timeline
   meta = {
     iconClass: '',
@@ -42,40 +51,48 @@ export class TimelinePet {
   };
 
   // Wild Imp properties
-  x = null; // position due to Implosion
-  y = null;
-  shouldImplode = false;
-  currentEnergy; // energy because they can despawn "prematurely" due to their mechanics
+  x: number | null = null;
+  y: number | null = null;
+  shouldImplode: boolean = false;
+  currentEnergy : number | null = null; // energy because they can despawn "prematurely" due to their mechanics
 
-  constructor(petInfo, id, instance, timestamp, duration, summonedBy, summonAbility) {
+  constructor(
+    petInfo: PetInfo,
+    id: number,
+    instance: number,
+    timestamp: number,
+    duration: number,
+    summonAbility: number,
+    summonedBy: number,
+  ) {
     this.name = petInfo.name;
     this.guid = petInfo.guid;
     this.id = id;
     this.instance = instance;
     this.spawn = timestamp;
     this.expectedDespawn = timestamp + duration;
-    this.summonedBy = summonedBy;
     this.summonAbility = summonAbility;
+    this.summonedBy = summonedBy;
   }
 
-  setWildImpProperties(playerPosition) {
+  setWildImpProperties(playerPosition: { x: number, y: number }) {
     this.x = playerPosition.x;
     this.y = playerPosition.y;
     this.shouldImplode = false;
     this.currentEnergy = 100;
   }
 
-  updatePosition(event) {
-    this.x = event.x;
-    this.y = event.y;
+  updatePosition(event: AnyEvent) {
+    this.x = 'x' in event ? event.x ?? null : null;
+    this.y = 'y' in event ? event.y ?? null : null;
   }
 
-  despawn(timestamp, reason) {
+  despawn(timestamp: number, reason: string) {
     this.realDespawn = timestamp;
     this.despawnedBy = reason;
   }
 
-  pushHistory(...contents) {
+  pushHistory(...contents: PetHistoryEntry) {
     this.history.push([...contents]);
   }
 
@@ -85,7 +102,7 @@ export class TimelinePet {
     this.setMeta(META_CLASSES.EMPOWERED, META_TOOLTIPS.EMPOWERED);
   }
 
-  setMeta(iconClass, tooltip) {
+  setMeta(iconClass: string, tooltip: string) {
     this.meta.iconClass = iconClass;
     this.meta.tooltip = tooltip;
   }
