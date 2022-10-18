@@ -1,7 +1,11 @@
 import styled from '@emotion/styled';
 import { formatPercentage } from 'common/format';
 import { PassFailBar, useEvents, useInfo } from 'interface/guide';
-import ProblemList, { NoProblem, Problem, ProblemRendererProps } from 'interface/guide/ProblemList';
+import ProblemList, {
+  NoProblem,
+  Problem,
+  ProblemRendererProps,
+} from 'interface/guide/components/ProblemList';
 import { Apl, CheckResult, Violation } from 'parser/shared/metrics/apl';
 import React, { useMemo } from 'react';
 import { useContext } from 'react';
