@@ -33,7 +33,9 @@ type ShieldInfo = {
   event: ApplyBuffEvent | RefreshBuffEvent;
   baseShieldValue: number;
   shieldOfTemporalAnomaly: number;
-  masteryBoost: boolean;
+  hasMasteryBoost: boolean;
+  masteryValue: number;
+  healing: number;
 };
 
 class MasteryEffectiveness extends Analyzer {
@@ -63,6 +65,8 @@ class MasteryEffectiveness extends Analyzer {
    * @type {number} The total amount of healing done by just the mastery gain. Precisely calculated for every spell.
    */
   totalMasteryHealingDone: number = 0;
+  totalMasteryAbsorbDone: number = 0;
+  wastedShield = 0;
 
   masteryHealEvents: MasteryEvent[] = [];
 
@@ -81,7 +85,11 @@ class MasteryEffectiveness extends Analyzer {
     );
     this.addEventListener(
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TEMPORAL_ANOMALY_SHIELD),
-      this.onShieldApplication,
+      this.onShieldRefresh,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.TEMPORAL_ANOMALY_SHIELD),
+      this.handleRemoveShield,
     );
     this.addEventListener(Events.any, this.onEvent);
   }
@@ -97,6 +105,11 @@ class MasteryEffectiveness extends Analyzer {
     }
   }
 
+  onShieldRefresh(event: RefreshBuffEvent) {
+    this.handleRemoveShield(event);
+    this.onShieldApplication(event);
+  }
+
   onShieldApplication(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (this.shieldApplications.get(event.targetID)) {
       this.shieldApplications.set(event.targetID, null);
@@ -109,7 +122,9 @@ class MasteryEffectiveness extends Analyzer {
       event: event,
       baseShieldValue: this.calculateTAShield(),
       shieldOfTemporalAnomaly: this.shieldOfTemporalAnomaly,
-      masteryBoost: this.masteryBoostCheck(event),
+      hasMasteryBoost: this.masteryBoostCheck(event),
+      masteryValue: this.statTracker.currentMasteryPercentage,
+      healing: 0,
     });
     this.shieldOfTemporalAnomaly = 0;
   }
@@ -143,7 +158,15 @@ class MasteryEffectiveness extends Analyzer {
     this.prevokerHealth = event.hitPoints || 0;
   }
   onAbsorbedByPlayer(event: AbsorbedEvent) {
-    return;
+    const info = this.shieldApplications.get(event.targetID);
+    if (
+      !info ||
+      info.event.timestamp > event.timestamp ||
+      info.event.timestamp + TEMPORAL_ANOMALY_DURATION_MS < event.timestamp
+    ) {
+      return;
+    }
+    info.healing += event.amount;
   }
 
   processHealForMastery(event: HealEvent) {
@@ -174,12 +197,24 @@ class MasteryEffectiveness extends Analyzer {
     ) {
       return;
     }
-    // const shieldAmount = info.event.absorb || 0; // the initial absorb amount from the ApplyBuff/RefreshBuff Event
+    const shieldAmount = info.event.absorb || 0; // the initial absorb amount from the ApplyBuff/RefreshBuff Event
+    // const wasMasteryUsed = (info.healing - info.baseShieldValue > 0) && info.hasMasteryBoost;
+    const didShieldConsume = info.healing >= shieldAmount;
+
+    const absorbFromMasteryBonusUsed = Math.max(0, info.healing - info.baseShieldValue);
+
+    if (!didShieldConsume) {
+      this.wastedShield += shieldAmount - info.healing;
+    }
+
+    this.totalMasteryAbsorbDone += absorbFromMasteryBonusUsed;
   }
 
   statistic() {
     console.log(`TOTAL CALCULATED BASE ABSORB IS: ${this.totalCalculatedBaseAbsorbs}`);
     console.log(`TOTAL ABSORBS LOGGED IS ${this.totalPossibleAbsorbs}`);
+    console.log(`TOTAL MASTERY ABSORB IS ${this.totalMasteryAbsorbDone}`);
+    console.log(`TOTAL WASTED ABSORB IS ${this.wastedShield}`);
     return (
       <Statistic
         size="flexible"
@@ -188,6 +223,12 @@ class MasteryEffectiveness extends Analyzer {
       >
         <BoringSpellValueText spellId={SPELLS.LIFEBLOOM_HOT_HEAL.id}>
           <ItemHealingDone amount={this.totalMasteryHealingDone} />
+        </BoringSpellValueText>
+        <BoringSpellValueText spellId={SPELLS.TEMPORAL_ANOMALY_SHIELD.id}>
+          <ItemHealingDone amount={this.totalMasteryAbsorbDone} />
+        </BoringSpellValueText>
+        <BoringSpellValueText spellId={SPELLS.DREAM_BREATH.id}>
+          <ItemHealingDone amount={this.wastedShield} />
         </BoringSpellValueText>
       </Statistic>
     );

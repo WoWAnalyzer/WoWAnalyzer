@@ -21,6 +21,11 @@ const spells = {
     name: 'Temporal Anomaly',
     icon: 'ability_evoker_temporalanomaly',
   },
+  DREAM_BREATH_CAST: {
+    id: 382614,
+    name: 'Dream Breath',
+    icon: 'ability_evoker_dreambreath',
+  },
   RENEWING_BREATH: {
     id: 381923,
     name: 'Renewing Breath',
