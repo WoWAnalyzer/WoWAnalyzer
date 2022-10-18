@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import styled from '@emotion/styled';
-import { PassFailBar, useEvents, useInfo } from 'interface/guide';
+import { useEvents, useInfo } from 'interface/guide';
 import aplCheck, { Apl, CheckResult } from 'parser/shared/metrics/apl';
 
 import AplRules, { AplRuleList } from './rules';
@@ -12,6 +12,7 @@ import ViolationProblemList, {
 } from './violations';
 import { AplViolationExplainers, defaultExplainers } from './violations/claims';
 import { formatPercentage } from 'common/format';
+import PassFailBar from 'interface/guide/shared/PassFailBar';
 
 const AplSubsectionHeader = styled.header`
   font-weight: bold;

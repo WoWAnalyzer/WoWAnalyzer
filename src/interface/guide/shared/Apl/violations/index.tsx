@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { formatPercentage } from 'common/format';
-import { PassFailBar, useEvents, useInfo } from 'interface/guide';
+import { useEvents, useInfo } from 'interface/guide';
 import ProblemList, {
   NoProblem,
   Problem,
@@ -17,6 +17,7 @@ import {
   ViolationExplainer,
 } from './claims';
 import deduplicate, { DEDUP_WINDOW } from './deduplication';
+import PassFailBar from 'interface/guide/shared/PassFailBar';
 
 const EmbedContainer = styled.div`
   background: #222;

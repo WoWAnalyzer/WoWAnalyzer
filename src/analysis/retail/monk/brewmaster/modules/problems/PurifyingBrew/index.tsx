@@ -4,7 +4,7 @@ import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { WclTable, WCLThreatBand, WCLThreatTableResponse } from 'common/WCL_TYPES';
 import { TooltipElement } from 'interface';
-import { GuideProps, PassFailBar, SubSection } from 'interface/guide';
+import { GuideProps, SubSection } from 'interface/guide';
 import type { Problem, ProblemRendererProps } from 'interface/guide/shared/ProblemList';
 import ProblemList from 'interface/guide/shared/ProblemList';
 import SpellLink from 'interface/SpellLink';
@@ -22,6 +22,7 @@ import { potentialStaggerEvents } from './solver';
 
 import './PurifyingBrew.scss';
 import talents from 'common/TALENTS/monk';
+import PassFailBar from 'interface/guide/shared/PassFailBar';
 
 export { default } from './analyzer';
 

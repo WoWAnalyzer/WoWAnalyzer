@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import { GradiatedPerformanceBar, SubSection } from 'interface/guide';
+import { SubSection } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -21,6 +21,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { isFromHardcast } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
 import Mastery from 'analysis/retail/druid/restoration/modules/core/Mastery';
+import GradiatedPerformanceBar from 'interface/guide/shared/GradiatedPerformanceBar';
 
 const debug = false;
 

@@ -1,7 +1,7 @@
 import colorForPerformance from 'common/colorForPerformance';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { GuideProps, PassFailBar, Section, SubSection } from 'interface/guide';
+import { GuideProps, Section, SubSection } from 'interface/guide';
 import ProblemList, { Problem, ProblemRendererProps } from 'interface/guide/shared/ProblemList';
 import { AnyEvent, DamageEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
@@ -22,6 +22,7 @@ import Shuffle, { TrackedHit } from './modules/spells/Shuffle';
 import talents from 'common/TALENTS/monk';
 import { AplSectionData } from 'interface/guide/shared/Apl';
 import * as AplCheck from './modules/core/AplCheck';
+import PassFailBar from 'interface/guide/shared/PassFailBar';
 
 type TimelineEntry = {
   value: boolean;

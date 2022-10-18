@@ -69,7 +69,6 @@
  *
  * @module
  */
-import { Tooltip } from 'interface';
 import { ControlledExpandable } from 'interface/Expandable';
 import DropdownIcon from 'interface/icons/Dropdown';
 import type { Options } from 'parser/core/Analyzer';
@@ -259,49 +258,9 @@ export const SubSection = ({
   </section>
 );
 
-/**
- * A simplified form of the Checklist's success meters.
- *
- * # Props
- * - `pass` - The number of successes.
- * - `total` - The number of events that *could have* succeeded (also known as `successes + failures`).
- *
- * # Styles
- *
- * You can control the colors of this component by wrapping it in a container
- * `div` and setting the `background-color` for the `.pass-bar` and `.fail-bar`
- * classes.
- *
- * For an example, see the Brewmaster `PurifyReasonBreakdown` component, which
- * sets `.fail-bar` to be transparent.
+/*
+ * Common styling colors and marks
  */
-export function PassFailBar({
-  pass,
-  total,
-  className,
-  passTooltip,
-  failTooltip,
-}: {
-  pass: number;
-  total: number;
-  className?: string;
-  passTooltip?: string;
-  failTooltip?: string;
-}) {
-  const perf = Math.min(pass / total, 1);
-  return (
-    <div className={`pass-fail-bar-container ${className ?? ''}`}>
-      <div className="pass-bar" title={passTooltip} style={{ minWidth: `${perf * 100}%` }} />
-      {perf < 1 && (
-        <div
-          className="fail-bar"
-          title={failTooltip}
-          style={{ minWidth: `${(1 - perf) * 100}%` }}
-        />
-      )}
-    </div>
-  );
-}
 
 export const PerfectMark = () => <i className="glyphicon glyphicon-ok-circle perfect-mark" />;
 export const GoodMark = () => <i className="glyphicon glyphicon-ok good-mark" />;
@@ -327,110 +286,3 @@ export const VeryBadColor = getComputedStyle(document.documentElement).getProper
 /** Shows a glyph - either a green checkmark or a red X depending on if 'pass' is true */
 export const PassFailCheckmark = ({ pass }: { pass: boolean }) =>
   pass ? <GoodMark /> : <BadMark />;
-
-/**
- * A slightly more complex form of the Checklist's success meters that allows for more than two outcomes.
- * Not all result types need be included, depending on the bar's context.
- *
- * # Props
- * - `perfect` - The number of flawless executions (or an object with the number plus a tooltip label)
- * - `good` - The number of acceptable executions (or an object with the number plus a tooltip label)
- * - `ok` - The number of suboptimal executions (or an object with the number plus a tooltip label)
- * - `bad` - The number of unacceptable executions (or an object with the number plus a tooltip label)
- */
-export function GradiatedPerformanceBar({
-  perfect,
-  good,
-  ok,
-  bad,
-}: {
-  perfect?: number | GradiatedPerformanceBarInfo;
-  good?: number | GradiatedPerformanceBarInfo;
-  ok?: number | GradiatedPerformanceBarInfo;
-  bad?: number | GradiatedPerformanceBarInfo;
-}) {
-  const perfectObj = getDefaultInfo(perfect);
-  const goodObj = getDefaultInfo(good);
-  const okObj = getDefaultInfo(ok);
-  const badObj = getDefaultInfo(bad);
-
-  const total = perfectObj.count + goodObj.count + okObj.count + badObj.count;
-  return (
-    <div className="gradiated-bar-container">
-      {perfectObj.count > 0 && (
-        <Tooltip
-          content={
-            <>
-              {perfectObj.label && `${perfectObj.label} - `}
-              <strong>
-                {perfectObj.count} / {total}
-              </strong>
-            </>
-          }
-        >
-          <div
-            className="perfect-bar"
-            style={{ minWidth: `${(perfectObj.count / total) * 100}%` }}
-          />
-        </Tooltip>
-      )}
-      {goodObj.count > 0 && (
-        <Tooltip
-          content={
-            <>
-              {goodObj.label && `${goodObj.label} - `}
-              <strong>
-                {goodObj.count} / {total}
-              </strong>
-            </>
-          }
-        >
-          <div className="good-bar" style={{ minWidth: `${(goodObj.count / total) * 100}%` }} />
-        </Tooltip>
-      )}
-      {okObj.count > 0 && (
-        <Tooltip
-          content={
-            <>
-              {okObj.label && `${okObj.label} - `}
-              <strong>
-                {okObj.count} / {total}
-              </strong>
-            </>
-          }
-        >
-          <div className="ok-bar" style={{ minWidth: `${(okObj.count / total) * 100}%` }} />
-        </Tooltip>
-      )}
-      {badObj.count > 0 && (
-        <Tooltip
-          content={
-            <>
-              {badObj.label && `${badObj.label} - `}
-              <strong>
-                {badObj.count} / {total}
-              </strong>
-            </>
-          }
-        >
-          <div className="bad-bar" style={{ minWidth: `${(badObj.count / total) * 100}%` }} />
-        </Tooltip>
-      )}
-    </div>
-  );
-}
-
-function getDefaultInfo(val?: number | GradiatedPerformanceBarInfo) {
-  if (val === undefined) {
-    return { count: 0, label: '' };
-  } else if (typeof val === 'number') {
-    return { count: val, label: '' };
-  } else {
-    return val;
-  }
-}
-
-type GradiatedPerformanceBarInfo = {
-  count: number;
-  label: string;
-};
