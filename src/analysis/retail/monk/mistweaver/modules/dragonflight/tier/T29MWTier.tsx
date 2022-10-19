@@ -3,6 +3,7 @@ import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
+import { TIERS } from 'game/TIERS';
 import Events, { HealEvent, ApplyBuffEvent } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -47,6 +48,8 @@ class T29TierSet extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.has2Piece = this.selectedCombatant.has2PieceByTier(TIERS.T29);
+    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.T29);
     this.active = this.has2Piece || this.has4Piece;
     if (!this.active) {
       return;
