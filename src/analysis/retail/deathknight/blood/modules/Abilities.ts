@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/deathknight';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
@@ -11,8 +12,8 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
     return [
       {
-        spell: SPELLS.ICEBOUND_FORTITUDE.id,
-        buffSpellId: SPELLS.ICEBOUND_FORTITUDE.id,
+        spell: talents.ICEBOUND_FORTITUDE_TALENT.id,
+        buffSpellId: talents.ICEBOUND_FORTITUDE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 180,
         castEfficiency: {
@@ -109,7 +110,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 6,
       },
       {
-        spell: SPELLS.DEATH_STRIKE.id,
+        spell: talents.DEATH_STRIKE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -171,8 +172,8 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 2,
       },
       {
-        spell: SPELLS.ANTI_MAGIC_SHELL.id,
-        buffSpellId: SPELLS.ANTI_MAGIC_SHELL.id,
+        spell: talents.ANTI_MAGIC_SHELL_TALENT.id,
+        buffSpellId: talents.ANTI_MAGIC_SHELL_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: combatant.hasTalent(SPELLS.ANTI_MAGIC_BARRIER_TALENT.id) ? 60 - 15 : 60,
         castEfficiency: {
@@ -188,7 +189,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: SPELLS.MIND_FREEZE.id,
+        spell: talents.MIND_FREEZE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 15,
       },
@@ -214,8 +215,8 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 14,
       },
       {
-        spell: SPELLS.WRAITH_WALK_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.WRAITH_WALK_TALENT.id),
+        spell: talents.WRAITH_WALK_TALENT.id,
+        enabled: combatant.hasTalent(talents.WRAITH_WALK_TALENT.id),
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
@@ -248,7 +249,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.CONTROL_UNDEAD.id,
+        spell: talents.CONTROL_UNDEAD_TALENTS.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
@@ -260,8 +261,8 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
       },
       {
-        spell: SPELLS.ANTI_MAGIC_ZONE.id,
-        buffSpellId: SPELLS.ANTI_MAGIC_ZONE_BUFF.id,
+        spell: talents.ANTI_MAGIC_ZONE_TALENT.id,
+        buffSpellId: talents.ANTI_MAGIC_ZONE_TALENT_BUFF.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120,
         gcd: null,

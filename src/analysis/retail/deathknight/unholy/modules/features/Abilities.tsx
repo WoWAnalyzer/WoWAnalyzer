@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/deathknight'
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
@@ -45,7 +46,7 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell: SPELLS.CHAINS_OF_ICE.id,
+        spell: talents.CHAINS_OF_ICE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 40,
         gcd: {
@@ -147,23 +148,23 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ICEBOUND_FORTITUDE.id,
-        buffSpellId: SPELLS.ICEBOUND_FORTITUDE.id,
+        spell: talents.ICEBOUND_FORTITUDE_TALENT.id,
+        buffSpellId: talents.ICEBOUND_FORTITUDE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 180,
         gcd: null,
       },
       {
-        spell: SPELLS.ANTI_MAGIC_ZONE.id,
-        buffSpellId: SPELLS.ANTI_MAGIC_ZONE_BUFF.id,
+        spell: talents.ANTI_MAGIC_ZONE_TALENT.id,
+        buffSpellId: talents.ANTI_MAGIC_ZONE_TALENT_BUFF.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120,
         gcd: null,
         isDefensive: true,
       },
       {
-        spell: SPELLS.ANTI_MAGIC_SHELL.id,
-        buffSpellId: SPELLS.ANTI_MAGIC_SHELL.id,
+        spell: talents.ANTI_MAGIC_SHELL_TALENT.id,
+        buffSpellId: talents.ANTI_MAGIC_SHELL_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 60,
         gcd: null,
@@ -213,16 +214,16 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.DEATH_PACT_TALENT.id,
+        spell: talents.DEATH_STRIKE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        enabled: combatant.hasTalent(SPELLS.DEATH_PACT_TALENT.id),
+        enabled: combatant.hasTalent(talents.DEATH_STRIKE_TALENT.id),
         cooldown: 120,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.ASPHYXIATE_TALENT.id,
+        spell: talents.ASPHYXIATE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
         gcd: {
@@ -230,9 +231,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.WRAITH_WALK_TALENT.id,
+        spell: talents.WRAITH_WALK_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.WRAITH_WALK_TALENT.id),
+        enabled: combatant.hasTalent(talents.WRAITH_WALK_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -245,7 +246,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.DEATH_STRIKE.id,
+        spell: talents.DEATH_STRIKE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: {
           base: 1500,
@@ -261,7 +262,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.CONTROL_UNDEAD.id,
+        spell: talents.CONTROL_UNDEAD_TALENTS.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
@@ -281,7 +282,7 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
-        spell: SPELLS.MIND_FREEZE.id,
+        spell: talents.MIND_FREEZE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
       },

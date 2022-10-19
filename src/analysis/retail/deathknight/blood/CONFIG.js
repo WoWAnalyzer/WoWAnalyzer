@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/deathknight';
 import { Yajinni, joshinator } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
@@ -21,11 +22,11 @@ export default {
       <br />
       Overusing <SpellLink id={SPELLS.MARROWREND.id} /> for example reduces the amount of runic
       power you can generate, directly affecting the amount of{' '}
-      <SpellLink id={SPELLS.DEATH_STRIKE.id} />
+      <SpellLink id={talents.DEATH_STRIKE_TALENT.id} />
       's.
       <br />
       <br />
-      Not only the amount of <SpellLink id={SPELLS.DEATH_STRIKE.id} />
+      Not only the amount of <SpellLink id={talents.DEATH_STRIKE_TALENT.id} />
       's are important, timing is aswell. Make sure to check them in the 'Death Strike Timing'-tab
       below.
       <br />

@@ -5,14 +5,23 @@ import { Abelito75, Adoraci, acornellier, Khadaj, niseko, Zeboot, carglass, Hana
 import { SpellLink } from 'interface';
 
 export default [
-  change(date(2022, 10, 12), <> Cooldown view now shows <SpellLink id={TALENTS.HOLY_WORD_SALVATION_TALENT.id}/> and <SpellLink id={TALENTS.APOTHEOSIS_TALENT.id}/> also added support for <SpellLink id={TALENTS.HEALING_CHORUS_TALENT.id} />. </>, Litena),
+  change(date(2022, 10, 15), <> Implemented current version of tier. </>, Litena),
+  change(
+    date(2022, 10, 12),
+    <>
+      Cooldown view now shows <SpellLink id={TALENTS.HOLY_WORD_SALVATION_TALENT.id} /> and
+      <SpellLink id={TALENTS.APOTHEOSIS_TALENT.id} /> also added support for
+      <SpellLink id={TALENTS.HEALING_CHORUS_TALENT.id} />.
+    </>,
+    Litena
+  ),
   change(date(2022, 10, 12), <> Updated holy word functionality for Dragonflight and added support for <SpellLink id={TALENTS.LIGHTWEAVER_TALENT.id} />. </>, Litena),
   change(date(2022, 10, 9), <> New talent file structure and support for <SpellLink id={TALENTS.DESPERATE_TIMES_TALENT.id}/> and <SpellLink id={TALENTS.ANSWERED_PRAYERS_TALENT.id }/>. </>, Litena),
   change(date(2022,10,7), <> Updated for Dragonflight although not feature complete. </>, Litena),
   change(date(2022, 8, 10), <>Implemented current version of <SpellLink id={TALENTS.BINDING_HEALS_TALENT.id}/>.</>, Vetyst),
   change(date(2022, 7, 19), <>Remove GCD trigger from <SpellLink id={SPELLS.FADE.id} />.</>, Vetyst),
   change(date(2022, 5, 19), <>Fixed Always be Healing.</>, Abelito75),
-  change(date(2022, 5, 4), <>Implemented <SpellLink id={SPELLS.TRANSLUCENT_IMAGE.id} /> damage reduction values.</>, Hana),
+  change(date(2022, 5, 4), <>Implemented <SpellLink id={TALENTS.TRANSLUCENT_IMAGE_TALENT.id} /> damage reduction values.</>, Hana),
   change(date(2022, 3, 14), <>Fixed <b>ANY</b> crashing from the HarmoniousApparatus modules</>, Abelito75),
   change(date(2022, 3, 14), <>Fixed <b>ANY</b> crashing from the HolyWord modules</>, Abelito75),
   change(date(2021, 10, 1), <>Fixing Crash in Holy Priest Checklist</>, Khadaj),

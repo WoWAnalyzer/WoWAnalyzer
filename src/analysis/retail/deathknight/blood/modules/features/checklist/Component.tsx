@@ -188,8 +188,8 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         })}
       >
         <AbilityRequirement spell={SPELLS.VAMPIRIC_BLOOD.id} />
-        <AbilityRequirement spell={SPELLS.ICEBOUND_FORTITUDE.id} />
-        <AbilityRequirement spell={SPELLS.ANTI_MAGIC_SHELL.id} />
+        <AbilityRequirement spell={talents.ICEBOUND_FORTITUDE_TALENT.id} />
+        <AbilityRequirement spell={talents.ANTI_MAGIC_SHELL_TALENT.id} />
         {combatant.hasTalent(SPELLS.RUNE_TAP.id) && (
           <AbilityRequirement spell={SPELLS.RUNE_TAP.id} />
         )}

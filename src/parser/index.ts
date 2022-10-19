@@ -1,5 +1,5 @@
 // import BloodDeathKnight from 'analysis/retail/deathknight/blood';
-// import FrostDeathKnight from 'analysis/retail/deathknight/frost';
+import FrostDeathKnight from 'analysis/retail/deathknight/frost';
 // import UnholyDeathKnight from 'analysis/retail/deathknight/unholy';
 import BalanceDruid from 'analysis/retail/druid/balance';
 import FeralDruid from 'analysis/retail/druid/feral';
@@ -22,13 +22,13 @@ import HolyPriest from 'analysis/retail/priest/holy';
 // import ShadowPriest from 'analysis/retail/priest/shadow';
 // import AssassinationRogue from 'analysis/retail/rogue/assassination';
 // import OutlawRogue from 'analysis/retail/rogue/outlaw';
+import ElementalShaman from 'analysis/retail/shaman/elemental';
 import SubtletyRogue from 'analysis/retail/rogue/subtlety';
-// import ElementalShaman from 'analysis/retail/shaman/elemental';
 import EnhancementShaman from 'analysis/retail/shaman/enhancement';
 // import RestorationShaman from 'analysis/retail/shaman/restoration';
 import AfflictionWarlock from 'analysis/retail/warlock/affliction';
-// import DemonologyWarlock from 'analysis/retail/warlock/demonology';
-// import DestructionWarlock from 'analysis/retail/warlock/destruction';
+import DemonologyWarlock from 'analysis/retail/warlock/demonology';
+import DestructionWarlock from 'analysis/retail/warlock/destruction';
 // import ArmsWarrior from 'analysis/retail/warrior/arms';
 import FuryWarrior from 'analysis/retail/warrior/fury';
 import ProtectionWarrior from 'analysis/retail/warrior/protection';
@@ -51,7 +51,7 @@ import Config from './Config';
 const configs: Config[] = [
   // BloodDeathKnight,
   // UnholyDeathKnight,
-  // FrostDeathKnight,
+  FrostDeathKnight,
 
   HavocDemonHunter,
   VengeanceDemonHunter,
@@ -88,13 +88,13 @@ const configs: Config[] = [
   // AssassinationRogue,
   // OutlawRogue,
 
-  // ElementalShaman,
+  ElementalShaman,
   EnhancementShaman,
   // RestorationShaman,
 
   AfflictionWarlock,
-  // DemonologyWarlock,
-  // DestructionWarlock,
+  DemonologyWarlock,
+  DestructionWarlock,
 
   ProtectionWarrior,
   // ArmsWarrior,

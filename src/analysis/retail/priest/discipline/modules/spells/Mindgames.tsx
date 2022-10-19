@@ -72,7 +72,7 @@ class Mindgames extends Analyzer {
             </ul>
           </>
         }
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spellId={TALENTS_PRIEST.MINDGAMES_TALENT.id}>
           <>
