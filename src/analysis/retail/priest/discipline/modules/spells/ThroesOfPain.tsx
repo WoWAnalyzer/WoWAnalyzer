@@ -7,12 +7,13 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import PurgeTheWicked from '../features/PurgeTheWicked';
 import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 
-class PainAndSuffering extends Analyzer {
+class ThroesOfPain extends Analyzer {
   static dependencies = {
     purgeTheWicked: PurgeTheWicked,
   };
@@ -21,12 +22,13 @@ class PainAndSuffering extends Analyzer {
 
   healing = 0;
   damage = 0;
+  manaGained = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.PAIN_AND_SUFFERING_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.THROES_OF_PAIN_TALENT.id);
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtonement);
-
+    this.addEventListener(Events.resourcechange.by(SELECTED_PLAYER), this.onManaGain);
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
@@ -50,28 +52,41 @@ class PainAndSuffering extends Analyzer {
     const nonAmpedHealing = rawHeal / this.purgeTheWicked.effectiveIncrease;
     const increase = healEvent.amount - nonAmpedHealing;
     console.log(
-      [healEvent, increase * this.purgeTheWicked.dotRatios.painAndSuffering],
+      [healEvent, increase * this.purgeTheWicked.dotRatios.throesOfPain],
       this.owner.formatTimestamp(event.timestamp),
     );
     if (increase > 0) {
-      this.healing += increase * this.purgeTheWicked.dotRatios.painAndSuffering;
+      this.healing += increase * this.purgeTheWicked.dotRatios.throesOfPain;
     }
   }
 
   onDamage(event: DamageEvent) {
     this.damage += calculateEffectiveDamage(
       event,
-      this.purgeTheWicked.dotRatios.painAndSuffering / (this.purgeTheWicked.totalAmplification + 1),
+      this.purgeTheWicked.dotRatios.throesOfPain / (this.purgeTheWicked.totalAmplification + 1),
     );
+  }
+
+  onManaGain(event: ResourceChangeEvent) {
+    this.manaGained += event.resourceChange;
   }
 
   statistic() {
     return (
-      <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
-        <BoringSpellValueText spellId={TALENTS_PRIEST.PAIN_AND_SUFFERING_TALENT.id}>
+      <Statistic
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <>
+            <SpellLink id={TALENTS_PRIEST.THROES_OF_PAIN_TALENT.id} /> also restored{' '}
+            {this.manaGained} mana.
+          </>
+        }
+      >
+        <BoringSpellValueText spellId={TALENTS_PRIEST.THROES_OF_PAIN_TALENT.id}>
           <>
             <ItemHealingDone amount={this.healing} /> <br />
-            <ItemDamageDone amount={this.damage} />
+            <ItemDamageDone amount={this.damage} /> <br />
           </>
         </BoringSpellValueText>
       </Statistic>
@@ -79,4 +94,4 @@ class PainAndSuffering extends Analyzer {
   }
 }
 
-export default PainAndSuffering;
+export default ThroesOfPain;

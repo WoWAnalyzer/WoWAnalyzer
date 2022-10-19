@@ -49,6 +49,7 @@ import AegisOfWrath from './modules/spells/AegisOfWrath';
 import CrystallineReflection from './modules/spells/CrystallineReflection';
 import StolenPsyche from './modules/spells/StolenPsyche';
 import PainAndSuffering from './modules/spells/PainAndSuffering';
+import ThroesOfPain from './modules/spells/ThroesOfPain';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -107,6 +108,7 @@ class CombatLogParser extends CoreCombatLogParser {
     stolenPsyche: StolenPsyche,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
     painAndSuffering: PainAndSuffering,
+    throesOfPain: ThroesOfPain,
   };
 }
 
