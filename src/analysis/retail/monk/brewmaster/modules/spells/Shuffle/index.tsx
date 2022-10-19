@@ -2,10 +2,11 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
+import { Uptime } from 'parser/ui/UptimeBar';
 
 export type TrackedHit = {
   mitigated: boolean;
@@ -19,6 +20,7 @@ export default class Shuffle extends Analyzer {
   protected enemies!: Enemies;
 
   hits: TrackedHit[] = [];
+  uptime: Uptime[] = [];
 
   get hitsWith() {
     return this.hits.filter(({ mitigated }) => mitigated).length;
@@ -32,6 +34,47 @@ export default class Shuffle extends Analyzer {
     super(options);
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._damageTaken);
+    this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.SHUFFLE),
+      this.onShuffleApply,
+    );
+    this.addEventListener(
+      Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.SHUFFLE),
+      this.onShuffleRemove,
+    );
+    this.addEventListener(Events.fightend, this.finalize);
+  }
+
+  private onShuffleApply(event: ApplyBuffEvent) {
+    const uptime: Uptime = {
+      start: event.timestamp,
+      end: event.timestamp,
+    };
+
+    this.uptime.push(uptime);
+  }
+
+  private onShuffleRemove(event: RemoveBuffEvent) {
+    let uptime = this.uptime[this.uptime.length - 1];
+    if (!uptime) {
+      uptime = {
+        start: this.owner.fight.start_time,
+        end: event.timestamp,
+      };
+
+      this.uptime.push(uptime);
+    } else {
+      uptime.end = event.timestamp;
+    }
+  }
+
+  private finalize() {
+    const uptime = this.uptime[this.uptime.length - 1];
+    if (!uptime) {
+      return;
+    }
+
+    uptime.end = this.owner.fight.end_time;
   }
 
   get uptimeSuggestionThreshold() {
@@ -46,7 +89,7 @@ export default class Shuffle extends Analyzer {
     };
   }
 
-  _damageTaken(event: DamageEvent) {
+  private _damageTaken(event: DamageEvent) {
     if (event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
       return;
     }
