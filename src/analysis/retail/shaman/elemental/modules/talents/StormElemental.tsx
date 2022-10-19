@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -23,8 +23,8 @@ class StormElemental extends Analyzer {
     [TALENTS.STORM_ELEMENTAL_TALENT.id]: 0,
     [SPELLS.LIGHTNING_BOLT.id]: 0,
     [TALENTS.CHAIN_LIGHTNING_TALENT.id]: 0,
-    [TALENTS_SHAMAN.EARTH_SHOCK_TALENT.id]: 0,
-    [TALENTS_SHAMAN.EARTHQUAKE_TALENT.id]: 0,
+    [TALENTS.EARTH_SHOCK_TALENT.id]: 0,
+    [TALENTS.EARTHQUAKE_TALENT.id]: 0,
     others: 0,
   };
   protected enemies!: Enemies;
@@ -96,9 +96,9 @@ class StormElemental extends Analyzer {
             With a uptime of: {formatPercentage(this.stormEleUptime)} %<br />
             Casts while Storm Elemental was up:
             <ul>
-              <li>Earth Shock: {this.numCasts[TALENTS_SHAMAN.EARTH_SHOCK_TALENT.id]}</li>
+              <li>Earth Shock: {this.numCasts[TALENTS.EARTH_SHOCK_TALENT.id]}</li>
               <li>Lightning Bolt: {this.numCasts[SPELLS.LIGHTNING_BOLT.id]}</li>
-              <li>Earthquake: {this.numCasts[TALENTS_SHAMAN.EARTH_SHOCK_TALENT.id]}</li>
+              <li>Earthquake: {this.numCasts[TALENTS.EARTH_SHOCK_TALENT.id]}</li>
               <li>Chain Lightning: {this.numCasts[TALENTS.CHAIN_LIGHTNING_TALENT.id]}</li>
               <li>Other Spells: {this.numCasts.others}</li>
             </ul>

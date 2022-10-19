@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
+import TALENTS from 'common/TALENTS/shaman';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -9,9 +9,9 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
     return [
       {
-        spell: TALENTS_SHAMAN.LAVA_BURST_TALENT.id,
-        charges: combatant.hasTalent(TALENTS_SHAMAN.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.LAVA_BURST_TALENT.id),
+        spell: TALENTS.LAVA_BURST_TALENT.id,
+        charges: combatant.hasTalent(TALENTS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
+        enabled: combatant.hasTalent(TALENTS.LAVA_BURST_TALENT.id),
         cooldown: (haste) => 8 / (1 + haste),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
@@ -26,8 +26,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_SHAMAN.LIQUID_MAGMA_TOTEM_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.LIQUID_MAGMA_TOTEM_TALENT.id),
+        spell: TALENTS.LIQUID_MAGMA_TOTEM_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.LIQUID_MAGMA_TOTEM_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
@@ -39,8 +39,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT.id),
+        spell: TALENTS.CHAIN_LIGHTNING_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.CHAIN_LIGHTNING_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL_AOE, // 2 / (1 + haste)
         gcd: {
           base: 1500,
@@ -51,16 +51,16 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
       },
       {
-        spell: TALENTS_SHAMAN.EARTHQUAKE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.EARTHQUAKE_TALENT.id),
+        spell: TALENTS.EARTHQUAKE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.EARTHQUAKE_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: TALENTS_SHAMAN.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id),
+        spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 12,
         gcd: {
@@ -72,8 +72,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_SHAMAN.ASCENDANCE_ELEMENTAL_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ELEMENTAL_TALENT.id),
+        spell: TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: {
@@ -85,8 +85,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_SHAMAN.FIRE_ELEMENTAL_TALENT.id,
-        enabled: !combatant.hasTalent(TALENTS_SHAMAN.STORM_ELEMENTAL_TALENT.id),
+        spell: TALENTS.FIRE_ELEMENTAL_TALENT.id,
+        enabled: !combatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60 * 2.5,
         gcd: {
@@ -103,8 +103,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_SHAMAN.STORMKEEPER_ELEMENTAL_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.STORMKEEPER_ELEMENTAL_TALENT.id),
+        spell: TALENTS.STORMKEEPER_ELEMENTAL_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.STORMKEEPER_ELEMENTAL_TALENT.id),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         gcd: {
@@ -116,8 +116,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_SHAMAN.STORM_ELEMENTAL_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.STORM_ELEMENTAL_TALENT.id),
+        spell: TALENTS.STORM_ELEMENTAL_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60 * 2.5,
         damageSpellIds: [SPELLS.WIND_GUST.id, SPELLS.EYE_OF_THE_STORM.id, SPELLS.CALL_LIGHTNING.id],
@@ -136,16 +136,16 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_SHAMAN.FROST_SHOCK_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.FROST_SHOCK_TALENT.id),
+        spell: TALENTS.FROST_SHOCK_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.FROST_SHOCK_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: TALENTS_SHAMAN.ICEFURY_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.ICEFURY_TALENT.id),
+        spell: TALENTS.ICEFURY_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.ICEFURY_TALENT.id),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
         gcd: {
@@ -157,16 +157,16 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_SHAMAN.EARTH_SHOCK_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.EARTH_SHOCK_TALENT.id),
+        spell: TALENTS.EARTH_SHOCK_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.EARTH_SHOCK_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: TALENTS_SHAMAN.CAPACITOR_TOTEM_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.CAPACITOR_TOTEM_TALENT.id),
+        spell: TALENTS.CAPACITOR_TOTEM_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.CAPACITOR_TOTEM_TALENT.id),
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
@@ -174,15 +174,15 @@ class Abilities extends CoreAbilities {
         cooldown: 60, //misses Static Charge CDR
       },
       {
-        spell: TALENTS_SHAMAN.ASTRAL_SHIFT_TALENT.id,
-        buffSpellId: TALENTS_SHAMAN.ASTRAL_SHIFT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.ASTRAL_SHIFT_TALENT.id),
+        spell: TALENTS.ASTRAL_SHIFT_TALENT.id,
+        buffSpellId: TALENTS.ASTRAL_SHIFT_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.ASTRAL_SHIFT_TALENT.id),
         cooldown: 90,
         category: SPELL_CATEGORY.DEFENSIVE,
       },
       {
-        spell: TALENTS_SHAMAN.THUNDERSTORM_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.THUNDERSTORM_TALENT.id),
+        spell: TALENTS.THUNDERSTORM_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.THUNDERSTORM_TALENT.id),
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1000,
@@ -190,16 +190,16 @@ class Abilities extends CoreAbilities {
         cooldown: 45,
       },
       {
-        spell: TALENTS_SHAMAN.TREMOR_TOTEM_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.TREMOR_TOTEM_TALENT.id),
+        spell: TALENTS.TREMOR_TOTEM_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.TREMOR_TOTEM_TALENT.id),
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: TALENTS_SHAMAN.WIND_SHEAR_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.WIND_SHEAR_TALENT.id),
+        spell: TALENTS.WIND_SHEAR_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.WIND_SHEAR_TALENT.id),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 12,
         gcd: null,

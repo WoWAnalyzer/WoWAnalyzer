@@ -1,6 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -23,9 +23,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       suggest(
         <>
           Your downtime can be improved. If you need to move use{' '}
-          <SpellLink id={SPELLS.FLAME_SHOCK.id} />,{' '}
-          <SpellLink id={TALENTS_SHAMAN.EARTH_SHOCK_TALENT.id} /> or{' '}
-          <SpellLink id={TALENTS.FROST_SHOCK_TALENT.id} />
+          <SpellLink id={SPELLS.FLAME_SHOCK.id} />, <SpellLink id={TALENTS.EARTH_SHOCK_TALENT.id} />{' '}
+          or <SpellLink id={TALENTS.FROST_SHOCK_TALENT.id} />
         </>,
       )
         .icon('spell_mage_altertime')

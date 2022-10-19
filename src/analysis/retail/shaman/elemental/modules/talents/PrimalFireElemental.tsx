@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
@@ -46,7 +46,7 @@ class PrimalFireElemental extends Analyzer {
       this.onDamage,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.FIRE_ELEMENTAL_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.FIRE_ELEMENTAL_TALENT),
       this.onFECast,
     );
     this.addEventListener(
@@ -107,7 +107,7 @@ class PrimalFireElemental extends Analyzer {
           set to autocast and you are using Meteor.
         </span>,
       )
-        .icon(TALENTS_SHAMAN.FIRE_ELEMENTAL_TALENT.icon)
+        .icon(TALENTS.FIRE_ELEMENTAL_TALENT.icon)
         .actual(
           t({
             id: 'shaman.elemental.suggestions.primalFireElemental.unusedSpells',
@@ -124,12 +124,12 @@ class PrimalFireElemental extends Analyzer {
       suggest(
         <span>
           You are not using <SpellLink id={SPELLS.FIRE_ELEMENTAL_METEOR.id} /> every time you cast{' '}
-          <SpellLink id={TALENTS_SHAMAN.FIRE_ELEMENTAL_TALENT.id} /> if you are using{' '}
+          <SpellLink id={TALENTS.FIRE_ELEMENTAL_TALENT.id} /> if you are using{' '}
           <SpellLink id={TALENTS.PRIMAL_ELEMENTALIST_TALENT.id} />. Only wait with casting meteor if
           you wait for adds to spawn.
         </span>,
       )
-        .icon(TALENTS_SHAMAN.FIRE_ELEMENTAL_TALENT.icon)
+        .icon(TALENTS.FIRE_ELEMENTAL_TALENT.icon)
         .actual(
           t({
             id: 'shaman.elemental.suggestions.primalFireElemental.meteorCastsMissed',
@@ -145,7 +145,7 @@ class PrimalFireElemental extends Analyzer {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
         <>
-          <BoringSpellValueText spellId={TALENTS_SHAMAN.FIRE_ELEMENTAL_TALENT.id}>
+          <BoringSpellValueText spellId={TALENTS.FIRE_ELEMENTAL_TALENT.id}>
             <ItemDamageDone amount={this.damageGained} />
           </BoringSpellValueText>
         </>
