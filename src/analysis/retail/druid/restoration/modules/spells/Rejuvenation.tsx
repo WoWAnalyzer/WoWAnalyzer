@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import { SubSection } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -22,6 +21,7 @@ import { isFromHardcast } from 'analysis/retail/druid/restoration/normalizers/Ca
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
 import Mastery from 'analysis/retail/druid/restoration/modules/core/Mastery';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
+import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
 
 const debug = false;
 
@@ -183,7 +183,20 @@ class Rejuvenation extends Analyzer {
   }
 
   /** Guide subsection describing the proper usage of Rejuvenation */
-  get guideSubsection(): JSX.Element {
+  get explanationAndData(): ExplanationAndDataRow {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={SPELLS.REJUVENATION.id} />
+        </b>{' '}
+        is your primary filler spell. It can be used on injured raiders or pre-cast on full health
+        raiders when big damage is incoming. Don't spam it unmotivated - you'll run out of mana.
+        Don't cast it on targets with a high duration Rejuvenation - you'll clip duration. Some
+        high-overheal Rejuvs are unavoidable due to heal sniping, but if a large proportion of them
+        are you might be casting too much.
+      </p>
+    );
+
     const goodRejuvs = {
       count: this.goodRejuvs,
       label: 'Good Rejuvenations',
@@ -196,29 +209,19 @@ class Rejuvenation extends Analyzer {
       count: this.earlyRefreshments,
       label: 'Clipped duration Rejuvenations',
     };
-    return (
-      <SubSection>
-        <p>
-          <b>
-            <SpellLink id={SPELLS.REJUVENATION.id} />
-          </b>{' '}
-          is your primary filler spell and will almost always be your most cast spell. It can be
-          used on injured raiders or even pre-cast on full health raiders if you know big damage is
-          coming soon. Do not spam it unmotivated - you'll run yourself out of mana. You also
-          shouldn't cast it on targets that already have a high duration Rejuvenation, as you will
-          clip duration. Note that some high-overheal Rejuvs are unavoidable due to heal sniping,
-          but if a large proportion of them are, you might be casting too much.
-        </p>
+    const data = (
+      <div>
         <strong>Rejuvenation cast breakdown</strong>
         <small>
           {' '}
           - Green is a good cast, Yellow is a cast with very high overheal, and Red is an early
           refresh that clipped duration. Mouseover for more details.
         </small>
-        <br />
         <GradiatedPerformanceBar good={goodRejuvs} ok={highOverhealRejuvs} bad={clippedRejuvs} />
-      </SubSection>
+      </div>
     );
+
+    return { explanation, data };
   }
 
   statistic() {

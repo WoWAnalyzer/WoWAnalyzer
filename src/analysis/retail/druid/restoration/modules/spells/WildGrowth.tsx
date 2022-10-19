@@ -1,7 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
-import { SubSection } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AnyEvent, CastEvent, EventType, HealEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -12,6 +11,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { getHeals } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
 
 /** Number of targets WG must effectively heal in order to be efficient */
 const RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD = 3;
@@ -134,24 +134,27 @@ class WildGrowth extends Analyzer {
   }
 
   /** Guide subsection describing the proper usage of Wild Growth */
-  get guideSubsection(): JSX.Element {
+  get explanationAndData(): ExplanationAndDataRow {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={SPELLS.WILD_GROWTH.id} />
+        </b>{' '}
+        is your best healing spell when multiple raiders are injured. It quickly heals a lot of
+        damage, but has a high mana cost. Use Wild Growth over Rejuvenation if there are at least 3
+        injured targets. Remember that only allies within 30 yds of the primary target can be hit -
+        don't cast this on an isolated player!
+      </p>
+    );
+
     const castPerfBoxes = this.castWgHitsLog.map((wgCast) => ({
       value: wgCast.effectiveHits >= 3,
       tooltip: `@ ${this.owner.formatTimestamp(wgCast.timestamp)} - Hits: ${
         wgCast.hits
       }, Effective: ${wgCast.effectiveHits}`,
     }));
-    return (
-      <SubSection>
-        <p>
-          <b>
-            <SpellLink id={SPELLS.WILD_GROWTH.id} />
-          </b>{' '}
-          is your best healing spell when multiple raiders are injured. It quickly heals a lot of
-          damage, but has a high mana cost. Use Wild Growth over Rejuvenation if there are at least
-          3 injured targets. Remember that only allies within 30 yds of the primary target can be
-          hit - don't cast this on an isolated player!
-        </p>
+    const data = (
+      <div>
         <strong>Wild Growth casts</strong>
         <small>
           {' '}
@@ -160,8 +163,10 @@ class WildGrowth extends Analyzer {
           boxes for details.
         </small>
         <PerformanceBoxRow values={castPerfBoxes} />
-      </SubSection>
+      </div>
     );
+
+    return { explanation, data };
   }
 
   statistic() {

@@ -6,21 +6,24 @@ import { useState } from 'react';
 
 import CombatLogParser from './CombatLogParser';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import ExplanationAndData from 'interface/guide/components/ExplanationAndData';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
       <Section title="Core Spells">
-        {modules.rejuvenation.guideSubsection}
-        {modules.wildGrowth.guideSubsection}
-        {modules.regrowthAndClearcasting.guideSubsection}
-        {modules.lifebloom.guideSubsection}
-        {modules.efflorescence.guideSubsection}
-        <SubSection>
-          {modules.swiftmend.guideFragment}
-          {info.combatant.hasTalent(TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT) &&
-            modules.soulOfTheForest.guideFragment}
-        </SubSection>
+        <ExplanationAndData
+          rows={[
+            modules.rejuvenation.explanationAndData,
+            modules.wildGrowth.explanationAndData,
+            modules.regrowthAndClearcasting.explanationAndData,
+            modules.lifebloom.explanationAndData,
+            modules.efflorescence.explanationAndData,
+            modules.swiftmend.explanationAndData,
+            info.combatant.hasTalent(TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT) &&
+              modules.soulOfTheForest.explanationAndData,
+          ]}
+        />
         {info.combatant.hasTalent(TALENTS_DRUID.CENARION_WARD_TALENT) && (
           <CenarionWardSubsection modules={modules} events={events} info={info} />
         )}

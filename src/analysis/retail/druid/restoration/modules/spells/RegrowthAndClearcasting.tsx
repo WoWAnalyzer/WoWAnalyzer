@@ -1,7 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
-import { SubSection } from 'interface/guide';
 import CheckmarkIcon from 'interface/icons/Checkmark';
 import CrossIcon from 'interface/icons/Cross';
 import HealthIcon from 'interface/icons/Health';
@@ -15,6 +14,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { getDirectHeal } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import { buffedByClearcast } from 'analysis/retail/druid/restoration/normalizers/ClearcastingNormalizer';
+import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
 
 /** Health percent below which we consider a heal to be 'triage' */
 const TRIAGE_THRESHOLD = 0.5;
@@ -168,8 +168,27 @@ class RegrowthAndClearcasting extends Analyzer {
   }
 
   /** Guide subsection describing the proper usage of Regrowth */
-  get guideSubsection(): JSX.Element {
+  get explanationAndData(): ExplanationAndDataRow {
     const hasAbundance = this.selectedCombatant.hasTalent(TALENTS_DRUID.ABUNDANCE_TALENT);
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={SPELLS.REGROWTH.id} />
+        </b>{' '}
+        is for urgent spot healing. The HoT is very weak - Regrowth is only efficient when its
+        direct portion is effective. Exceptions are when Regrowth is free due to{' '}
+        <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> /{' '}
+        <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} />{' '}
+        {hasAbundance && (
+          <>
+            or cheap due to <SpellLink id={TALENTS_DRUID.ABUNDANCE_TALENT.id} />. With{' '}
+            <SpellLink id={TALENTS_DRUID.ABUNDANCE_TALENT.id} /> ramp with Rejuvenation, activate
+            cooldowns, and then fill with high-stack Regrowths.
+          </>
+        )}
+      </p>
+    );
+
     const castPerfBoxes = this.castRegrowthLog.map((rgCast) => {
       let message = '';
       if (rgCast.reason === 'innervate') {
@@ -190,26 +209,8 @@ class RegrowthAndClearcasting extends Analyzer {
         tooltip: `@ ${this.owner.formatTimestamp(rgCast.timestamp)} - ${message}`,
       };
     });
-
-    return (
-      <SubSection>
-        <p>
-          <b>
-            <SpellLink id={SPELLS.REGROWTH.id} />
-          </b>{' '}
-          is for urgent spot healing. The HoT it applies is very weak, meaning Regrowth is only
-          efficient when its direct portion is effective. Exceptions are when Regrowth is free due
-          to <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> /{' '}
-          <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} />{' '}
-          {hasAbundance && (
-            <>
-              or cheap due to <SpellLink id={TALENTS_DRUID.ABUNDANCE_TALENT.id} />. Even with{' '}
-              <SpellLink id={TALENTS_DRUID.ABUNDANCE_TALENT.id} /> you still shouldn't cast Regrowth
-              during your ramp. When your ramp is finished and your cooldowns are rolling, then you
-              can fill with high-stack Regrowth casts.
-            </>
-          )}
-        </p>
+    const data = (
+      <div>
         <strong>Regrowth casts</strong>
         <small>
           {' '}
@@ -217,8 +218,10 @@ class RegrowthAndClearcasting extends Analyzer {
           Mouseover boxes for details.
         </small>
         <PerformanceBoxRow values={castPerfBoxes} />
-      </SubSection>
+      </div>
     );
+
+    return { explanation, data };
   }
 
   statistic() {

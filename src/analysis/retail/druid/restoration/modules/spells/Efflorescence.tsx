@@ -1,11 +1,12 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
-import { SubSection } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ClosedTimePeriod, mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
 import UptimeStackBar from 'parser/ui/UptimeStackBar';
+import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 
 const DURATION_MS = 30000;
 const TICK_MS = 2000;
@@ -112,20 +113,28 @@ class Efflorescence extends Analyzer {
   }
 
   /** Guide subsection describing the proper usage of Efflorescence */
-  get guideSubsection(): JSX.Element {
-    return (
-      <SubSection>
-        <p>
-          <b>
-            <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} />
-          </b>{' '}
-          is extremely mana efficient if you're good about placing it where raiders are standing.
-          Under the boss is usually a safe bet. While it's acceptable to let it drop during heavy
-          movement, you should otherwise aim to keep it active at all times.
-        </p>
-        {this.subStatistic()}
-      </SubSection>
+  get explanationAndData(): ExplanationAndDataRow {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} />
+        </b>{' '}
+        is extremely mana efficient if you're good about placing it where raiders are standing.
+        Under the boss is usually a safe bet. While it's acceptable to let it drop during heavy
+        movement, you should otherwise aim to keep it active at all times.
+      </p>
     );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>Effloresence uptimes</strong>
+          {this.subStatistic()}
+        </RoundedPanel>
+      </div>
+    );
+
+    return { explanation, data };
   }
 
   // Custom statistic shows efflo targets hit with bar thickness
