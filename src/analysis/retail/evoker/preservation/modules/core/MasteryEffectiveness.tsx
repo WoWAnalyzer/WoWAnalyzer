@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
@@ -14,8 +15,6 @@ import Events, {
 import Combatants from 'parser/shared/modules/Combatants';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -192,6 +191,10 @@ class MasteryEffectiveness extends Analyzer {
     this.totalMasteryHealingDone += absorbFromMasteryBonusUsed;
   }
 
+  get wastedTemporalAnomalyShield() {
+    return this.wastedShield;
+  }
+
   statistic() {
     return (
       <Statistic
@@ -199,12 +202,14 @@ class MasteryEffectiveness extends Analyzer {
         position={STATISTIC_ORDER.CORE(10)}
         category={STATISTIC_CATEGORY.GENERAL}
       >
-        <BoringSpellValueText spellId={SPELLS.MASTERY_LIFEBINDER.id}>
-          <ItemPercentHealingDone amount={this.totalMasteryHealingDone} />
-        </BoringSpellValueText>
-        <BoringSpellValueText spellId={SPELLS.DREAM_BREATH.id}>
-          <ItemHealingDone amount={this.wastedShield} />
-        </BoringSpellValueText>
+        <div className="pad">
+          <label>
+            % of Healing Effected by <SpellIcon id={SPELLS.MASTERY_LIFEBINDER.id} />
+          </label>
+          <div className="value">
+            <ItemPercentHealingDone amount={this.totalMasteryHealingDone} />
+          </div>
+        </div>
       </Statistic>
     );
   }

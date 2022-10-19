@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -28,15 +28,6 @@ class DreamBreath extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_BREATH),
       this.onDotHeal,
     );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DREAM_BREATH_CAST),
-      this.onCast,
-    );
-  }
-
-  onCast(event: CastEvent) {
-    console.log(`CASTEVENT Hitpoints: ${event?.hitPoints}`);
-    return;
   }
 
   onHeal(event: HealEvent) {
