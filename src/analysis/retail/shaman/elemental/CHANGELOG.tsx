@@ -1,6 +1,6 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import TALENTS  from 'common/TALENTS/shaman';
+import TALENTS from 'common/TALENTS/shaman';
 import { HawkCorrigan, Putro, Zeboot, Maximaw, Zea, emallson, Vetyst } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
