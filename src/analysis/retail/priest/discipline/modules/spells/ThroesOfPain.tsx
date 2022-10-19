@@ -51,10 +51,6 @@ class ThroesOfPain extends Analyzer {
     const rawHeal = healEvent.amount + (healEvent.overheal || 0);
     const nonAmpedHealing = rawHeal / this.purgeTheWicked.effectiveIncrease;
     const increase = healEvent.amount - nonAmpedHealing;
-    console.log(
-      [healEvent, increase * this.purgeTheWicked.dotRatios.throesOfPain],
-      this.owner.formatTimestamp(event.timestamp),
-    );
     if (increase > 0) {
       this.healing += increase * this.purgeTheWicked.dotRatios.throesOfPain;
     }

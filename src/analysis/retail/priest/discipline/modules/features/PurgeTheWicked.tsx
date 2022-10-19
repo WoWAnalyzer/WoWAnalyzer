@@ -182,10 +182,6 @@ class PurgeTheWicked extends Analyzer {
       );
   }
 
-  calculateDotRatio(dotName: string) {
-    // return dotRatios[dotName]
-  }
-
   statistic() {
     const uptime = this.uptime || 0;
 
