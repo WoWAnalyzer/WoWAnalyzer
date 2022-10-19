@@ -24,7 +24,13 @@ const talents = createTalentList({
     maxRanks: 1,
     manaCost: 1100,
   },
-  STARFIRE_TALENT: { id: 194153, name: 'Starfire', icon: 'spell_arcane_starfire', maxRanks: 1 },
+  STARFIRE_TALENT: {
+    id: 197628,
+    name: 'Starfire',
+    icon: 'spell_arcane_starfire',
+    maxRanks: 1,
+    manaCost: 300,
+  },
   THRASH_TALENT: { id: 106832, name: 'Thrash', icon: 'spell_druid_thrash', maxRanks: 1 },
   IMPROVED_BARKSKIN_TALENT: {
     id: 327993,
@@ -40,11 +46,11 @@ const talents = createTalentList({
     manaCost: 800,
   },
   STARSURGE_TALENT: {
-    id: 78674,
+    id: 197626,
     name: 'Starsurge',
     icon: 'spell_arcane_arcane03',
     maxRanks: 1,
-    lunarPowerCost: 400,
+    manaCost: 300,
   },
   RIP_TALENT: { id: 1079, name: 'Rip', icon: 'ability_ghoulfrenzy', maxRanks: 1, energyCost: 20 },
   SWIPE_TALENT: { id: 213764, name: 'Swipe', icon: 'inv_misc_monsterclaw_03', maxRanks: 1 },
@@ -61,7 +67,7 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   MOONKIN_FORM_TALENT: {
-    id: 24858,
+    id: 197625,
     name: 'Moonkin Form',
     icon: 'spell_nature_forceofnature',
     maxRanks: 1,
@@ -283,6 +289,25 @@ const talents = createTalentList({
     id: 61336,
     name: 'Survival Instincts',
     icon: 'ability_druid_tigersroar',
+    maxRanks: 1,
+  },
+  STARFIRE_BALANCE_TALENT: {
+    id: 194153,
+    name: 'Starfire',
+    icon: 'spell_arcane_starfire',
+    maxRanks: 1,
+  },
+  STARSURGE_BALANCE_TALENT: {
+    id: 78674,
+    name: 'Starsurge',
+    icon: 'spell_arcane_arcane03',
+    maxRanks: 1,
+    lunarPowerCost: 400,
+  },
+  MOONKIN_FORM_BALANCE_TALENT: {
+    id: 24858,
+    name: 'Moonkin Form',
+    icon: 'spell_nature_forceofnature',
     maxRanks: 1,
   },
   CIRCLE_OF_LIFE_AND_DEATH_TALENT: {
@@ -594,9 +619,9 @@ const talents = createTalentList({
     maxRanks: 1,
     energyCost: 20,
   },
-  MERCILESS_STRIKES_TALENT: {
+  MERCILESS_CLAWS_TALENT: {
     id: 231063,
-    name: 'Merciless Strikes',
+    name: 'Merciless Claws',
     icon: 'inv_misc_monsterclaw_03',
     maxRanks: 1,
   },
@@ -618,6 +643,12 @@ const talents = createTalentList({
     icon: 'spell_nature_resistnature',
     maxRanks: 1,
   },
+  LUNAR_INSPIRATION_TALENT: {
+    id: 155580,
+    name: 'Lunar Inspiration',
+    icon: 'spell_druid_lunarinspiration',
+    maxRanks: 1,
+  },
   SABERTOOTH_TALENT: {
     id: 202031,
     name: 'Sabertooth',
@@ -634,12 +665,6 @@ const talents = createTalentList({
     id: 390772,
     name: 'Pouncing Strikes',
     icon: 'ability_druid_prowl',
-    maxRanks: 1,
-  },
-  LUNAR_INSPIRATION_TALENT: {
-    id: 155580,
-    name: 'Lunar Inspiration',
-    icon: 'spell_druid_lunarinspiration',
     maxRanks: 1,
   },
   SUDDEN_AMBUSH_TALENT: {
@@ -874,7 +899,7 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   LAYERED_MANE_TALENT: {
-    id: 279552,
+    id: 384721,
     name: 'Layered Mane',
     icon: 'ability_druid_ironfur',
     maxRanks: 2,
@@ -1167,7 +1192,12 @@ const talents = createTalentList({
     icon: 'spell_nature_naturesblessing',
     maxRanks: 1,
   },
-  SYZYGY_TALENT: { id: 390378, name: 'Syzygy', icon: 'ability_druid_cresentburn', maxRanks: 1 },
+  ORBITAL_STRIKE_TALENT: {
+    id: 390378,
+    name: 'Orbital Strike',
+    icon: 'ability_druid_cresentburn',
+    maxRanks: 1,
+  },
   PRIMORDIAL_ARCANIC_PULSAR_TALENT: {
     id: 393960,
     name: 'Primordial Arcanic Pulsar',

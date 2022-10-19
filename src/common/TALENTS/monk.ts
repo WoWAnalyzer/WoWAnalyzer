@@ -852,7 +852,7 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   CALL_TO_ARMS_TALENT: {
-    id: 356684,
+    id: 395268,
     name: 'Call to Arms',
     icon: 'ability_bastion_monk',
     maxRanks: 1,
@@ -912,7 +912,7 @@ const talents = createTalentList({
   FLASHING_FISTS_TALENT: {
     id: 388854,
     name: 'Flashing Fists',
-    icon: 'monk_ability_fistoffury',
+    icon: 'inv_weapon_hand_08',
     maxRanks: 2,
   },
   OPEN_PALM_STRIKES_TALENT: {
@@ -1065,7 +1065,7 @@ const talents = createTalentList({
   TRANSFER_THE_POWER_TALENT: {
     id: 195300,
     name: 'Transfer the Power',
-    icon: 'monk_ability_fistoffury',
+    icon: 'ability_thunderking_kickshell',
     maxRanks: 1,
   },
   WHIRLING_DRAGON_PUNCH_TALENT: {

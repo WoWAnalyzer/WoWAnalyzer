@@ -94,7 +94,7 @@ const talents = createTalentList({
   HOLY_AEGIS_TALENT: {
     id: 385515,
     name: 'Holy Aegis',
-    icon: 'spell_holy_divineprotection',
+    icon: 'ability_paladin_touchedbylight',
     maxRanks: 2,
   },
   AVENGING_WRATH_TALENT: {
@@ -252,18 +252,18 @@ const talents = createTalentList({
     icon: 'spell_holy_sealofwisdom',
     maxRanks: 1,
   },
+  SANCTIFIED_WRATH_TALENT: {
+    id: 53376,
+    name: 'Sanctified Wrath',
+    icon: 'ability_paladin_judgementsofthejust',
+    maxRanks: 1,
+  },
   SERAPHIM_TALENT: {
     id: 152262,
     name: 'Seraphim',
     icon: 'ability_paladin_seraphim',
     maxRanks: 1,
     holyPowerCost: 3,
-  },
-  SANCTIFIED_WRATH_TALENT: {
-    id: 53376,
-    name: 'Sanctified Wrath',
-    icon: 'ability_paladin_judgementsofthejust',
-    maxRanks: 1,
   },
   ZEALOTS_PARAGON_TALENT: {
     id: 391142,
@@ -281,6 +281,12 @@ const talents = createTalentList({
     id: 393024,
     name: 'Improved Cleanse',
     icon: 'spell_holy_purify',
+    maxRanks: 1,
+  },
+  GREATER_JUDGMENT_HOLY_TALENT: {
+    id: 231644,
+    name: 'Greater Judgment',
+    icon: 'spell_holy_righteousfury',
     maxRanks: 1,
   },
   DIVINE_PROTECTION_TALENT: {
@@ -398,18 +404,18 @@ const talents = createTalentList({
     icon: 'spell_holy_pureofheart',
     maxRanks: 2,
   },
+  IMPROVED_ARDENT_DEFENDER_TALENT: {
+    id: 393114,
+    name: 'Improved Ardent Defender',
+    icon: 'spell_holy_ardentdefender',
+    maxRanks: 1,
+  },
   BLESSING_OF_SPELLWARDING_TALENT: {
     id: 204018,
     name: 'Blessing of Spellwarding',
     icon: 'spell_holy_blessingofprotection',
     maxRanks: 1,
     manaCost: 1500,
-  },
-  IMPROVED_ARDENT_DEFENDER_TALENT: {
-    id: 393114,
-    name: 'Improved Ardent Defender',
-    icon: 'spell_holy_ardentdefender',
-    maxRanks: 1,
   },
   LIGHT_OF_THE_TITANS_TALENT: {
     id: 378405,

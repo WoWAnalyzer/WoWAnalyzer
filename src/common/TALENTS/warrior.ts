@@ -29,7 +29,7 @@ const talents = createTalentList({
     rageCost: 10,
   },
   WAR_MACHINE_TALENT: {
-    id: 262231,
+    id: 346002,
     name: 'War Machine',
     icon: 'ability_hunter_rapidkilling',
     maxRanks: 1,
@@ -89,7 +89,7 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   FROTHING_BERSERKER_TALENT: {
-    id: 392792,
+    id: 215571,
     name: 'Frothing Berserker',
     icon: 'warrior_talent_icon_furyintheblood',
     maxRanks: 1,
@@ -102,11 +102,10 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   THUNDER_CLAP_TALENT: {
-    id: 6343,
+    id: 396719,
     name: 'Thunder Clap',
     icon: 'spell_nature_thunderclap',
     maxRanks: 1,
-    rageCost: 30,
   },
   FURIOUS_BLOWS_TALENT: {
     id: 390354,
@@ -157,12 +156,7 @@ const talents = createTalentList({
     icon: 'racial_orc_berserkerstrength',
     maxRanks: 2,
   },
-  BARBARIC_TRAINING_TALENT: {
-    id: 383082,
-    name: 'Barbaric Training',
-    icon: 'ability_garrosh_whirling_corruption',
-    maxRanks: 1,
-  },
+  SIDEARM_TALENT: { id: 384404, name: 'Sidearm', icon: 'inv_throwingaxe_06', maxRanks: 1 },
   CONCUSSIVE_BLOWS_TALENT: {
     id: 383115,
     name: 'Concussive Blows',
@@ -193,9 +187,14 @@ const talents = createTalentList({
     icon: 'ability_thunderking_overcharge',
     maxRanks: 1,
   },
-  SIDEARM_TALENT: { id: 384404, name: 'Sidearm', icon: 'inv_throwingaxe_06', maxRanks: 1 },
+  BARBARIC_TRAINING_TALENT: {
+    id: 390674,
+    name: 'Barbaric Training',
+    icon: 'ability_garrosh_whirling_corruption',
+    maxRanks: 1,
+  },
   HONED_REFLEXES_TALENT: {
-    id: 382461,
+    id: 391270,
     name: 'Honed Reflexes',
     icon: 'spell_holy_borrowedtime',
     maxRanks: 1,
@@ -239,7 +238,7 @@ const talents = createTalentList({
     maxRanks: 2,
   },
   ENDURANCE_TRAINING_TALENT: {
-    id: 382940,
+    id: 391997,
     name: 'Endurance Training',
     icon: 'spell_nature_unyeildingstamina',
     maxRanks: 1,
@@ -312,10 +311,59 @@ const talents = createTalentList({
     icon: 'ability_warrior_offensivestance',
     maxRanks: 1,
   },
+  WAR_MACHINE_PROTECTION_TALENT: {
+    id: 316733,
+    name: 'War Machine',
+    icon: 'ability_hunter_rapidkilling',
+    maxRanks: 1,
+  },
+  FROTHING_BERSERKER_PROTECTION_TALENT: {
+    id: 392790,
+    name: 'Frothing Berserker',
+    icon: 'warrior_talent_icon_furyintheblood',
+    maxRanks: 1,
+  },
+  THUNDER_CLAP_PROTECTION_TALENT: {
+    id: 6343,
+    name: 'Thunder Clap',
+    icon: 'spell_nature_thunderclap',
+    maxRanks: 1,
+    rageCost: 30,
+  },
+  CRUSHING_FORCE_PROTECTION_TALENT: {
+    id: 390642,
+    name: 'Crushing Force',
+    icon: 'spell_shadow_unholystrength',
+    maxRanks: 2,
+  },
+  BARBARIC_TRAINING_PROTECTION_TALENT: {
+    id: 390675,
+    name: 'Barbaric Training',
+    icon: 'ability_garrosh_whirling_corruption',
+    maxRanks: 1,
+  },
+  HONED_REFLEXES_PROTECTION_TALENT: {
+    id: 391271,
+    name: 'Honed Reflexes',
+    icon: 'spell_holy_borrowedtime',
+    maxRanks: 1,
+  },
+  ARMORED_TO_THE_TEETH_PROTECTION_TALENT: {
+    id: 394855,
+    name: 'Armored to the Teeth',
+    icon: 'inv_shoulder_22',
+    maxRanks: 2,
+  },
   ONE_HANDED_WEAPON_SPECIALIZATION_TALENT: {
     id: 382895,
     name: 'One-Handed Weapon Specialization',
     icon: 'inv_sword_20',
+    maxRanks: 1,
+  },
+  ENDURANCE_TRAINING_PROTECTION_TALENT: {
+    id: 382940,
+    name: 'Endurance Training',
+    icon: 'spell_nature_unyeildingstamina',
     maxRanks: 1,
   },
   IMMOVABLE_OBJECT_TALENT: {
@@ -335,6 +383,30 @@ const talents = createTalentList({
     id: 382953,
     name: 'Storm of Steel',
     icon: 'ability_creature_cursed_04',
+    maxRanks: 1,
+  },
+  WAR_MACHINE_ARMS_TALENT: {
+    id: 262231,
+    name: 'War Machine',
+    icon: 'ability_hunter_rapidkilling',
+    maxRanks: 1,
+  },
+  FROTHING_BERSERKER_ARMS_TALENT: {
+    id: 392792,
+    name: 'Frothing Berserker',
+    icon: 'warrior_talent_icon_furyintheblood',
+    maxRanks: 1,
+  },
+  BARBARIC_TRAINING_ARMS_TALENT: {
+    id: 383082,
+    name: 'Barbaric Training',
+    icon: 'ability_garrosh_whirling_corruption',
+    maxRanks: 1,
+  },
+  HONED_REFLEXES_ARMS_TALENT: {
+    id: 382461,
+    name: 'Honed Reflexes',
+    icon: 'spell_holy_borrowedtime',
     maxRanks: 1,
   },
   TWO_HANDED_WEAPON_SPECIALIZATION_TALENT: {

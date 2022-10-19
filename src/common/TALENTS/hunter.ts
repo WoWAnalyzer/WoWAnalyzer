@@ -4,10 +4,11 @@ import { createTalentList } from './types';
 const talents = createTalentList({
   //Shared
   KILL_COMMAND_TALENT: {
-    id: 259489,
+    id: 34026,
     name: 'Kill Command',
     icon: 'ability_hunter_killcommand',
     maxRanks: 1,
+    focusCost: 30,
   },
   CONCUSSIVE_SHOT_TALENT: {
     id: 5116,
@@ -16,7 +17,7 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   KILL_SHOT_TALENT: {
-    id: 320976,
+    id: 53351,
     name: 'Kill Shot',
     icon: 'ability_hunter_assassinate2',
     maxRanks: 1,
@@ -282,6 +283,19 @@ const talents = createTalentList({
     icon: 'ability_theblackarrow',
     maxRanks: 1,
     focusCost: 15,
+  },
+  KILL_COMMAND_SURVIVAL_TALENT: {
+    id: 259489,
+    name: 'Kill Command',
+    icon: 'ability_hunter_killcommand',
+    maxRanks: 1,
+  },
+  KILL_SHOT_SURVIVAL_TALENT: {
+    id: 320976,
+    name: 'Kill Shot',
+    icon: 'ability_hunter_assassinate2',
+    maxRanks: 1,
+    focusCost: 10,
   },
   MUZZLE_TALENT: { id: 187707, name: 'Muzzle', icon: 'ability_hunter_negate', maxRanks: 1 },
 

@@ -47,6 +47,7 @@ async function generateTalents() {
   //DISTRIBUTE TALENTS TO talentObjectByClass
   Object.values(talents).forEach((specTalents) => {
     const className = specTalents.className.replace(' ', '').toLowerCase();
+    const specName = specTalents.specName.replace(' ', '').toLowerCase();
     talentObjectByClass[className] = talentObjectByClass[className] || {};
     //Shared hasn't been populated yet, so let's do that
     talentObjectByClass[className]['Shared'] = talentObjectByClass[className]['Shared'] || {};
@@ -62,7 +63,17 @@ async function generateTalents() {
         ) {
           return;
         }
-        const talentKey = createTalentKey(talentSpell.name);
+        const talentKeyWithoutSpecName = createTalentKey(talentSpell.name);
+        const talentKeyWithSpecName = createTalentKey(talentSpell.name, specName);
+        const talentKeyAlreadyExistsWithoutSpecName = Boolean(
+          talentObjectByClass[className]['Shared'][talentKeyWithoutSpecName],
+        );
+        const talentKey =
+          talentKeyAlreadyExistsWithoutSpecName &&
+          talentObjectByClass[className]['Shared'][talentKeyWithoutSpecName].id !==
+            talentSpell.spellId
+            ? talentKeyWithSpecName
+            : talentKeyWithoutSpecName;
         talentObjectByClass[className]['Shared'][talentKey] = {
           id: talentSpell.spellId,
           name: talentSpell.name,
