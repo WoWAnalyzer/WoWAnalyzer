@@ -1,10 +1,18 @@
 import styled from '@emotion/styled';
 import { SubSection } from 'interface/guide/index';
 
-// TODO docs
+/**
+ * An explanation and some data based on that explanation, presented side by side.
+ * The explanation section will be narrow and the data section wide.
+ */
 export type ExplanationAndDataRow = { explanation: JSX.Element; data: JSX.Element };
 
-// TODO docs
+/**
+ * A panel containing multiple rows of explanation / data.
+ *
+ * NOTE: future work may add a 'reduce explanations' toggle, which is planned to hide the
+ * explanation column and allow the data column to expand to full width.
+ */
 export default function ExplanationAndData({ rows }: { rows: (ExplanationAndDataRow | false)[] }) {
   return (
     <>
