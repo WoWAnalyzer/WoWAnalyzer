@@ -5,7 +5,7 @@ import { CooldownBar } from 'parser/ui/CooldownBar';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
-import { RoundedPanel, SideBySidePanels } from 'interface/guide/shared/GuideDivs';
+import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (

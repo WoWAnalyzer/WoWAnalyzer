@@ -12,7 +12,7 @@ import ViolationProblemList, {
 } from './violations';
 import { AplViolationExplainers, defaultExplainers } from './violations/claims';
 import { formatPercentage } from 'common/format';
-import PassFailBar from 'interface/guide/shared/PassFailBar';
+import PassFailBar from 'interface/guide/components/PassFailBar';
 
 const AplSubsectionHeader = styled.header`
   font-weight: bold;

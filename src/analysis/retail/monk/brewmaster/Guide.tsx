@@ -2,7 +2,7 @@ import colorForPerformance from 'common/colorForPerformance';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { GuideProps, Section, SubSection } from 'interface/guide';
-import ProblemList, { Problem, ProblemRendererProps } from 'interface/guide/shared/ProblemList';
+import ProblemList, { Problem, ProblemRendererProps } from 'interface/guide/components/ProblemList';
 import { AnyEvent, DamageEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
@@ -20,9 +20,9 @@ import { InvokeNiuzaoSection } from './modules/problems/InvokeNiuzao';
 import { PurifySection } from './modules/problems/PurifyingBrew';
 import Shuffle, { TrackedHit } from './modules/spells/Shuffle';
 import talents from 'common/TALENTS/monk';
-import { AplSectionData } from 'interface/guide/shared/Apl';
+import { AplSectionData } from 'interface/guide/components/Apl';
 import * as AplCheck from './modules/core/AplCheck';
-import PassFailBar from 'interface/guide/shared/PassFailBar';
+import PassFailBar from 'interface/guide/components/PassFailBar';
 
 type TimelineEntry = {
   value: boolean;

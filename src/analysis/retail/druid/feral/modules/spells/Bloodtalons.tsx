@@ -26,7 +26,7 @@ import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { SubSection } from 'interface/guide';
-import GradiatedPerformanceBar from 'interface/guide/shared/GradiatedPerformanceBar';
+import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 
 const BUFFER_MS = 50;
 

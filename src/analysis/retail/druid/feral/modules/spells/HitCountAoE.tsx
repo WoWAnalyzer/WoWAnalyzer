@@ -15,7 +15,7 @@ import { proccedBloodtalons } from 'analysis/retail/druid/feral/normalizers/Bloo
 import ThrashUptimeAndSnapshot from 'analysis/retail/druid/feral/modules/spells/ThrashUptimeAndSnapshot';
 import { PANDEMIC_FRACTION } from 'analysis/retail/druid/feral/constants';
 import Spell from 'common/SPELLS/Spell';
-import { RoundedPanel, SideBySidePanels } from 'interface/guide/shared/GuideDivs';
+import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
 
 /**
  * Tracks the number of targets hit by Feral's AoE abilities.

@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import { AlertWarning, ControlledExpandable, SpellLink, Tooltip } from 'interface';
 import { GuideProps, Section, SectionHeader, SubSection } from 'interface/guide';
-import PassFailBar from 'interface/guide/shared/PassFailBar';
+import PassFailBar from 'interface/guide/components/PassFailBar';
 import InformationIcon from 'interface/icons/Information';
 import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';

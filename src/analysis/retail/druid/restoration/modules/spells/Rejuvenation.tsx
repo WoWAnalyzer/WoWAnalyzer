@@ -21,7 +21,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { isFromHardcast } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
 import Mastery from 'analysis/retail/druid/restoration/modules/core/Mastery';
-import GradiatedPerformanceBar from 'interface/guide/shared/GradiatedPerformanceBar';
+import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 
 const debug = false;
 

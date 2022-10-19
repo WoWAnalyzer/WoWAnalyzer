@@ -1,5 +1,5 @@
 import { Tooltip } from 'interface/index';
-import 'interface/guide/shared/PerformanceBoxRow.scss';
+import './PerformanceBoxRow.scss';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { useCallback, useState } from 'react';
 
