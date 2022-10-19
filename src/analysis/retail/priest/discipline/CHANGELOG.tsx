@@ -7,6 +7,7 @@ import { SpellLink } from 'interface';
 
 export default [
   change(date(2022, 10, 16), <>Added <SpellLink id={TALENTS_PRIEST.PAIN_AND_SUFFERING_TALENT.id}/> and <SpellLink id={TALENTS_PRIEST.THROES_OF_PAIN_TALENT}/>.</>, Hana),
+  change(date(2022, 10, 16), <>Added <SpellLink id={TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id}/> module.</>, Hana),
   change(date(2022, 10, 16), <>Fixed <SpellLink id={TALENTS_PRIEST.CONTRITION_TALENT.id}/>.</>, Hana),
   change(date(2022, 10, 15), <>Reorganised talents display</>, Hana),
   change(date(2022, 10, 15), <><SpellLink id={SPELLS.POWER_WORD_SHIELD.id}/> bugfixes. </>, Hana),
