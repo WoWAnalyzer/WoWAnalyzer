@@ -25,8 +25,8 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { SubSection } from 'interface/guide';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
+import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
 
 const BUFFER_MS = 50;
 
@@ -303,7 +303,7 @@ class Bloodtalons extends Analyzer {
     );
   }
 
-  get guideSubsection(): JSX.Element {
+  get explanationAndData(): ExplanationAndDataRow {
     const goodFinishers = {
       count: this.goodFinishers,
       label: 'Bloodtalons Finishers',
@@ -317,17 +317,20 @@ class Bloodtalons extends Analyzer {
       label: 'Unacceptable Unbuffed Finishers',
     };
 
-    return (
-      <SubSection>
-        <p>
-          <strong>
-            <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />
-          </strong>{' '}
-          changes your builder priorities. Pooling energy will make it easier to use three builders
-          within a short window. It's worth using a sub-optimal builder if doing so would generate a
-          proc. Some mechanics (Convoke, Berserk, Apex) will give you less than three builders
-          between finishers - in these cases it's ok to use unbuffed finishers.
-        </p>
+    const explanation = (
+      <p>
+        <strong>
+          <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />
+        </strong>{' '}
+        changes your builder priorities. Pooling energy will make it easier to use three builders
+        within a short window. It's worth using a sub-optimal builder if doing so would generate a
+        proc. Some mechanics (Convoke, Berserk, Apex) will give you less than three builders between
+        finishers - in these cases it's ok to use unbuffed finishers.
+      </p>
+    );
+
+    const data = (
+      <div>
         <p>{this.bloodtalonsVsLionsStrengthText}</p>
         <strong>Bloodtalons use breakdown</strong>
         <small>
@@ -336,8 +339,10 @@ class Bloodtalons extends Analyzer {
           unacceptable unbuffed finishers. Mouseover for more details.
         </small>
         <GradiatedPerformanceBar good={goodFinishers} ok={acceptableFinishers} bad={badFinishers} />
-      </SubSection>
+      </div>
     );
+
+    return { explanation, data };
   }
 
   statistic() {

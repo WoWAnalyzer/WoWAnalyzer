@@ -5,7 +5,6 @@ import Events, { CastEvent, TargettedEvent } from 'parser/core/Events';
 
 import { getAdditionalEnergyUsed } from '../../normalizers/FerociousBiteDrainLinkNormalizer';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { SubSection } from 'interface/guide';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import Enemies from 'parser/shared/modules/Enemies';
 import RipUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/spells/RipUptimeAndSnapshots';
@@ -13,6 +12,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
 import { cdSpell, MAX_CPS } from 'analysis/retail/druid/feral/constants';
 import getResourceSpent from 'parser/core/getResourceSpent';
+import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
 
 const FB_BASE_COST = 25;
 const MAX_FB_DRAIN = 25;
@@ -80,7 +80,7 @@ class FerociousBite extends Analyzer {
     });
   }
 
-  get guideSubsection(): JSX.Element {
+  get explanationAndData(): ExplanationAndDataRow {
     const castPerfBoxes = this.castLog.map((cast) => {
       const usedMaxExtraEnergy = cast.extraEnergyUsed === MAX_FB_DRAIN;
       const acceptableTimeLeftOnRip = cast.timeLeftOnRip >= MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS;
@@ -123,25 +123,28 @@ class FerociousBite extends Analyzer {
     const hasConvokeOrApex =
       this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT);
-    return (
-      <SubSection>
-        <p>
-          <strong>
-            <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />
-          </strong>{' '}
-          is your direct damage finisher. Use it when you've already applied Rip to enemies. Always
-          use Bite at maximum CPs. Bite can consume up to {MAX_FB_DRAIN} extra energy to do
-          increased damage - this boost is very efficient and you should always wait until{' '}
-          {MAX_FB_DRAIN + FB_BASE_COST} energy to use Bite.{' '}
-          {this.hasSotf && (
-            <>
-              One exception: because you have{' '}
-              <SpellLink id={TALENTS_DRUID.SOUL_OF_THE_FOREST_FERAL_TALENT.id} />, it is acceptable
-              to use low energy bites during <SpellLink id={cdSpell(this.selectedCombatant).id} />{' '}
-              in order to get extra finishers in.
-            </>
-          )}
-        </p>
+    const explanation = (
+      <p>
+        <strong>
+          <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />
+        </strong>{' '}
+        is your direct damage finisher. Use it when you've already applied Rip to enemies. Always
+        use Bite at maximum CPs. Bite can consume up to {MAX_FB_DRAIN} extra energy to do increased
+        damage - this boost is very efficient and you should always wait until{' '}
+        {MAX_FB_DRAIN + FB_BASE_COST} energy to use Bite.{' '}
+        {this.hasSotf && (
+          <>
+            One exception: because you have{' '}
+            <SpellLink id={TALENTS_DRUID.SOUL_OF_THE_FOREST_FERAL_TALENT.id} />, it is acceptable to
+            use low energy bites during <SpellLink id={cdSpell(this.selectedCombatant).id} /> in
+            order to get extra finishers in.
+          </>
+        )}
+      </p>
+    );
+
+    const data = (
+      <div>
         {hasConvokeOrApex && (
           <>
             The below cast evaluations consider only CP spending Bites -{' '}
@@ -158,8 +161,10 @@ class FerociousBite extends Analyzer {
           details.
         </small>
         <PerformanceBoxRow values={castPerfBoxes} />
-      </SubSection>
+      </div>
     );
+
+    return { explanation, data };
   }
 }
 

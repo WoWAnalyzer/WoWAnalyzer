@@ -14,9 +14,10 @@ import Snapshots, {
 } from 'analysis/retail/druid/feral/modules/core/Snapshots';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { proccedBloodtalons } from 'analysis/retail/druid/feral/normalizers/BloodtalonsLinkNormalizer';
-import { SubSection } from 'interface/guide';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
 
 /** Tracking code for everything Rake related */
 class RakeUptimeAndSnapshots extends Snapshots {
@@ -88,7 +89,7 @@ class RakeUptimeAndSnapshots extends Snapshots {
   }
 
   /** Subsection explaining the use of Rake and providing performance statistics */
-  get guideSubsection(): JSX.Element {
+  get explanationAndData(): ExplanationAndDataRow {
     const castPerfBoxes = this.castLog.map((cast) => {
       let value: QualitativePerformance = 'good';
       if (!cast.proccedBt) {
@@ -146,29 +147,36 @@ class RakeUptimeAndSnapshots extends Snapshots {
       };
     });
     const hasBt = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT);
-    return (
-      <SubSection>
-        <p>
-          <b>
-            <SpellLink id={SPELLS.RAKE.id} />
-          </b>{' '}
-          is your highest damage-per-energy single target builder. Try to keep it active on all
-          targets (except when in a many-target AoE situation). Rake snapshots{' '}
-          <SpellLink id={SPELLS.TIGERS_FURY.id} /> and{' '}
-          <SpellLink id={TALENTS_DRUID.POUNCING_STRIKES_TALENT.id} /> - when forced to refresh with
-          a weaker snapshot, try to wait until the last moment in order to overwrite the minimum
-          amount of the stronger DoT.
-          {hasBt && (
-            <>
-              {' '}
-              It's always acceptable to do a sub-optimal Rake cast if needed to proc{' '}
-              <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />.
-            </>
-          )}
-        </p>
-        <strong>Rake uptime / snapshots</strong>
-        <small> - Try to get as close to 100% as the encounter allows!</small>
-        {this.subStatistic()}
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={SPELLS.RAKE.id} />
+        </b>{' '}
+        is your highest damage-per-energy single target builder. Try to keep it active on all
+        targets (except when in a many-target AoE situation). Rake snapshots{' '}
+        <SpellLink id={SPELLS.TIGERS_FURY.id} /> and{' '}
+        <SpellLink id={TALENTS_DRUID.POUNCING_STRIKES_TALENT.id} /> - when forced to refresh with a
+        weaker snapshot, try to wait until the last moment in order to overwrite the minimum amount
+        of the stronger DoT.
+        {hasBt && (
+          <>
+            {' '}
+            It's always acceptable to do a sub-optimal Rake cast if needed to proc{' '}
+            <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />.
+          </>
+        )}
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <div>
+            <strong>Rake uptime / snapshots</strong>
+            <small> - Try to get as close to 100% as the encounter allows!</small>
+          </div>
+          {this.subStatistic()}
+        </RoundedPanel>
         <strong>Rake casts</strong>
         <small>
           {' '}
@@ -183,8 +191,10 @@ class RakeUptimeAndSnapshots extends Snapshots {
           (clipped duration or downgraded snapshot w/ &gt;2s remaining). Mouseover for more details.
         </small>
         <PerformanceBoxRow values={castPerfBoxes} />
-      </SubSection>
+      </div>
     );
+
+    return { explanation, data };
   }
 
   subStatistic() {

@@ -13,12 +13,13 @@ import {
   getMoonfireDuration,
   SNAPSHOT_DOWNGRADE_BUFFER,
 } from 'analysis/retail/druid/feral/constants';
-import { SubSection } from 'interface/guide';
 import { SpellLink } from 'interface';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { getHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 import { proccedBloodtalons } from 'analysis/retail/druid/feral/normalizers/BloodtalonsLinkNormalizer';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 
 class MoonfireUptimeAndSnapshots extends Snapshots {
   static dependencies = {
@@ -92,7 +93,7 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
   }
 
   /** Subsection explaining the use of Lunar Inspiration and providing performance statistics */
-  get guideSubsection(): JSX.Element {
+  get explanationAndData(): ExplanationAndDataRow {
     // TODO this is basically copy pasta'd from Rake - can they be unified?
     const castPerfBoxes = this.castLog.map((cast) => {
       let value: QualitativePerformance = 'good';
@@ -151,18 +152,25 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
       };
     });
     const hasBt = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT);
-    return (
-      <SubSection>
-        <p>
-          <b>
-            <SpellLink id={SPELLS.MOONFIRE_FERAL.id} />
-          </b>{' '}
-          (with <SpellLink id={TALENTS_DRUID.LUNAR_INSPIRATION_TALENT.id} />) is another builder DoT
-          that behaves like a long-range (but weaker) Rake. For usage advice, see the Rake section.
-        </p>
-        <strong>Moonfire uptime / snapshots</strong>
-        <small> - Try to get as close to 100% as the encounter allows!</small>
-        {this.subStatistic()}
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={SPELLS.MOONFIRE_FERAL.id} />
+        </b>{' '}
+        (with <SpellLink id={TALENTS_DRUID.LUNAR_INSPIRATION_TALENT.id} />) is another builder DoT
+        that behaves like a long-range (but weaker) Rake. For usage advice, see the Rake section.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <div>
+            <strong>Moonfire uptime / snapshots</strong>
+            <small> - Try to get as close to 100% as the encounter allows!</small>
+          </div>
+          {this.subStatistic()}
+        </RoundedPanel>
         <strong>Moonfire casts</strong>
         <small>
           {' '}
@@ -177,8 +185,10 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
           (clipped duration or downgraded snapshot w/ &gt;2s remaining). Mouseover for more details.
         </small>
         <PerformanceBoxRow values={castPerfBoxes} />
-      </SubSection>
+      </div>
     );
+
+    return { explanation, data };
   }
 
   subStatistic() {

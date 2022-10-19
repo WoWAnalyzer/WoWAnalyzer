@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
+import ExplanationAndData from 'interface/guide/components/ExplanationAndData';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -64,15 +65,19 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
         </a>
         . See below for spell usage details.
       </p>
-      {info.combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT) &&
-        modules.bloodtalons.guideSubsection}
-      {modules.ripUptime.guideSubsection}
-      {modules.ferociousBite.guideSubsection}
-      {modules.rakeUptime.guideSubsection}
-      {info.combatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_TALENT) &&
-        modules.moonfireUptime.guideSubsection}
-      {info.combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT) &&
-        modules.adaptiveSwarm.guideSubsection}
+      <ExplanationAndData
+        rows={[
+          info.combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT) &&
+            modules.bloodtalons.explanationAndData,
+          modules.ripUptime.explanationAndData,
+          modules.ferociousBite.explanationAndData,
+          modules.rakeUptime.explanationAndData,
+          info.combatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_TALENT) &&
+            modules.moonfireUptime.explanationAndData,
+          info.combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT) &&
+            modules.adaptiveSwarm.explanationAndData,
+        ]}
+      />
       {modules.hitCountAoe.guideSubsection}
     </Section>
   );

@@ -26,9 +26,10 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { SubSection } from 'interface/guide';
 import { SpellLink } from 'interface';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 
 class RipUptimeAndSnapshots extends Snapshots {
   static dependencies = {
@@ -122,7 +123,7 @@ class RipUptimeAndSnapshots extends Snapshots {
   }
 
   /** Subsection explaining the use of Rip and providing performance statistics */
-  get guideSubsection(): JSX.Element {
+  get explanationAndData(): ExplanationAndDataRow {
     const hasPw = this.selectedCombatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_TALENT);
     const hasBt = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT);
     const castPerfBoxes = this.castLog.map((cast, index) => {
@@ -169,37 +170,44 @@ class RipUptimeAndSnapshots extends Snapshots {
       return { value, tooltip };
     });
 
-    return (
-      <SubSection>
-        <p>
-          <b>
-            <SpellLink id={SPELLS.RIP.id} />
-          </b>{' '}
-          is your highest damage-per-energy single target spender. Try to maintain 100% uptime.{' '}
-          {hasPw ? (
-            <>
-              Use <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_TALENT.id} /> to apply it when you can
-              hit more than one target.
-            </>
-          ) : (
-            <>
-              You can even keep it active on multiple targets, though if a fight will frequently
-              have multiple targets consider speccing for{' '}
-              <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_TALENT.id} />.
-            </>
-          )}{' '}
-          Don't refresh early, and try to always snapshot <SpellLink id={SPELLS.TIGERS_FURY.id} />
-          {hasBt && (
-            <>
-              {' '}
-              and <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />
-            </>
-          )}
-          .
-        </p>
-        <strong>Rip uptime / snapshots</strong>
-        <small> - Try to get as close to 100% as the encounter allows!</small>
-        {this.subStatistic()}
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={SPELLS.RIP.id} />
+        </b>{' '}
+        is your highest damage-per-energy single target spender. Try to maintain 100% uptime.{' '}
+        {hasPw ? (
+          <>
+            Use <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_TALENT.id} /> to apply it when you can hit
+            more than one target.
+          </>
+        ) : (
+          <>
+            You can even keep it active on multiple targets, though if a fight will frequently have
+            multiple targets consider speccing for{' '}
+            <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_TALENT.id} />.
+          </>
+        )}{' '}
+        Don't refresh early, and try to always snapshot <SpellLink id={SPELLS.TIGERS_FURY.id} />
+        {hasBt && (
+          <>
+            {' '}
+            and <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />
+          </>
+        )}
+        .
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <div>
+            <strong>Rip uptime / snapshots</strong>
+            <small> - Try to get as close to 100% as the encounter allows!</small>
+          </div>
+          {this.subStatistic()}
+        </RoundedPanel>
         <strong>Rip casts</strong>
         <small>
           {' '}
@@ -208,8 +216,10 @@ class RipUptimeAndSnapshots extends Snapshots {
           {hasBt && ' or missing Bloodtalons'}). Mouseover for more details.
         </small>
         <PerformanceBoxRow values={castPerfBoxes} />
-      </SubSection>
+      </div>
     );
+
+    return { explanation, data };
   }
 
   get uptimeHistory() {
