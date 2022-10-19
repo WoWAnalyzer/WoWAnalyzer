@@ -25,12 +25,10 @@ const lowRankSpells = (spells: LowRankSpells, whitelist: LowRankSpells = []) =>
           )
           .map((spellId) => ({
             text: (
-              <TooltipElement content="Healers can ignore this suggestion if they are running low on mana during a fight.">
-                <Trans id="tbc.suggestions.lowRankSpells">
-                  You cast a lower rank <SpellLink id={spellId} />. You should use the max rank{' '}
-                  <SpellLink id={Number(primarySpellId)} /> instead.
-                </Trans>
-              </TooltipElement>
+              <Trans id="tbc.suggestions.lowRankSpells">
+                You cast a lower rank <SpellLink id={spellId} />. You should use the max rank{' '}
+                <SpellLink id={Number(primarySpellId)} /> instead.
+              </Trans>
             ),
             importance: SuggestionImportance.Regular,
             icon: (maybeGetSpell(primarySpellId) || maybeGetSpell(spellId))?.icon,
