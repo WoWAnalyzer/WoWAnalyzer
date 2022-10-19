@@ -5,7 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
-  change(date(2022, 10, 18), <>Fix <SpellLink id={SPELLS.RISING_SUN_KICK_TALENT.id}/></>, Trevor),
+  change(date(2022, 10, 18), <>Fix <SpellLink id={SPELLS.RISING_SUN_KICK.id}/></>, Trevor),
   change(date(2022, 9, 4), <>Updated guide link in checklist.</>, emallson),
   change(date(2022, 7, 6), <>Created a set color scheme for each spell. A spell's color should remain the same across all infographs.</>, Abelito75),
   change(date(2022, 7, 6), <>Average Renewing Mists during Mana Tea no longer depends on vivify being cast.</>, Abelito75),
