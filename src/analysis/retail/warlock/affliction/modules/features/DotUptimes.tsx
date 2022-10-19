@@ -2,28 +2,28 @@ import Analyzer from 'parser/core/Analyzer';
 import StatisticBar from 'parser/ui/StatisticBar';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
-import Haunt from '../../talents/Haunt';
-import ShadowEmbrace from '../../talents/ShadowEmbrace';
-import SiphonLifeUptime from '../../talents/SiphonLifeUptime';
-import AgonyUptime from './AgonyUptime';
-import CorruptionUptime from './CorruptionUptime';
-import UnstableAfflictionUptime from './UnstableAfflictionUptime';
+import Agony from '../spells/Agony';
+import Corruption from '../spells/Corruption';
+import Haunt from '../spells/Haunt';
+import ShadowEmbrace from '../spells/ShadowEmbrace';
+import SiphonLife from '../spells/SiphonLife';
+import UnstableAffliction from '../spells/UnstableAffliction';
 
 class DotUptimeStatisticBox extends Analyzer {
   static dependencies = {
-    agonyUptime: AgonyUptime,
-    corruptionUptime: CorruptionUptime,
+    agonyUptime: Agony,
+    corruptionUptime: Corruption,
     hauntUptime: Haunt,
     shadowEmbraceUptime: ShadowEmbrace,
-    siphonLifeUptime: SiphonLifeUptime,
-    unstableAfflictionUptime: UnstableAfflictionUptime,
+    siphonLifeUptime: SiphonLife,
+    unstableAfflictionUptime: UnstableAffliction,
   };
-  protected agonyUptime!: AgonyUptime;
-  protected corruptionUptime!: CorruptionUptime;
+  protected agonyUptime!: Agony;
+  protected corruptionUptime!: Corruption;
   protected hauntUptime!: Haunt;
   protected shadowEmbraceUptime!: ShadowEmbrace;
-  protected siphonLifeUptime!: SiphonLifeUptime;
-  protected unstableAfflictionUptime!: UnstableAfflictionUptime;
+  protected siphonLifeUptime!: SiphonLife;
+  protected unstableAfflictionUptime!: UnstableAffliction;
 
   statistic() {
     return (

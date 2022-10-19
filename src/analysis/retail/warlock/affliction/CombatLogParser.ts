@@ -8,27 +8,27 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
 
+import Checklist from './modules/checklist/Module';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Darkglare from './modules/features/Darkglare';
 import DotUptimes from './modules/features/DotUptimes';
-import AgonyUptime from './modules/features/DotUptimes/AgonyUptime';
-import CorruptionUptime from './modules/features/DotUptimes/CorruptionUptime';
-import UnstableAfflictionUptime from './modules/features/DotUptimes/UnstableAfflictionUptime';
-import SoulShardDetails from './modules/core/SoulShardDetails';
-import SoulShardTracker from './modules/core/SoulShardTracker';
-import AbsoluteCorruption from './modules/talents/AbsoluteCorruption';
-import DrainSoul from './modules/talents/DrainSoul';
-import Haunt from './modules/talents/Haunt';
-import Nightfall from './modules/talents/Nightfall';
-import PhantomSingularity from './modules/talents/PhantomSingularity';
-import ShadowEmbrace from './modules/talents/ShadowEmbrace';
-import SiphonLifeUptime from './modules/talents/SiphonLifeUptime';
-import SoulConduit from './modules/talents/SoulConduit';
-import VileTaint from './modules/talents/VileTaint';
+import SoulShardDetails from './modules/resources/SoulShardDetails';
+import SoulShardTracker from './modules/resources/SoulShardTracker';
+import AbsoluteCorruption from './modules/spells/AbsoluteCorruption';
+import AgonyUptime from './modules/spells/Agony';
+import CorruptionUptime from './modules/spells/Corruption';
+import DrainSoul from './modules/spells/DrainSoul';
+import Haunt from './modules/spells/Haunt';
+import Nightfall from './modules/spells/Nightfall';
+import PhantomSingularity from './modules/spells/PhantomSingularity';
+import ShadowEmbrace from './modules/spells/ShadowEmbrace';
+import SiphonLifeUptime from './modules/spells/SiphonLife';
+import SoulConduit from './modules/spells/SoulConduit';
+import UnstableAfflictionUptime from './modules/spells/UnstableAffliction';
+import VileTaint from './modules/spells/VileTaint';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
