@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -104,7 +105,7 @@ class RimeEfficiency extends Analyzer {
         <>
           {' '}
           You are wasting <SpellLink id={SPELLS.RIME.id} /> procs. You should be casting{' '}
-          <SpellLink id={SPELLS.HOWLING_BLAST.id} /> as soon as possible when you have a Rime proc
+          <SpellLink id={talents.HOWLING_BLAST_TALENT.id} /> as soon as possible when you have a Rime proc
           to avoid wasting it.
         </>,
       )

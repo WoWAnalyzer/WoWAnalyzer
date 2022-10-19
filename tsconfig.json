@@ -25,8 +25,6 @@
     "./**/*.test.ts",
     "./**/*.test.tsx",
     "src/analysis/retail/deathknight/blood",
-    "src/analysis/retail/deathknight/frost",
-    "src/analysis/retail/deathknight/shared",
     "src/analysis/retail/deathknight/unholy",
     "src/analysis/retail/druid/guardian",
     "src/analysis/retail/hunter/beastmastery",
