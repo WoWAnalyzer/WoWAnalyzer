@@ -11,7 +11,7 @@ This component provides a section that includes:
 Assuming that you already have an APL (see the [wiki](https://github.com/WoWAnalyzer/WoWAnalyzer/wiki/APLCheck) if you don't), you can add the component to your guide using:
 
 ```tsx
-import { AplSectionData } from 'interface/guide/shared/Apl';
+import { AplSectionData } from 'interface/guide/components/Apl';
 // replace this with however you structured your apl checking module
 import * as AplCheck from './modules/core/AplCheck';
 

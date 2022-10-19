@@ -1,4 +1,4 @@
-import { Tooltip } from 'interface';
+import { Tooltip } from 'interface/index';
 import './PerformanceBoxRow.scss';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { useCallback, useState } from 'react';
