@@ -39,7 +39,6 @@
     "src/analysis/retail/rogue/outlaw",
     "src/analysis/retail/shaman/restoration",
     "src/analysis/retail/shaman/shared",
-    "src/analysis/retail/warlock/demonology",
     "src/analysis/retail/warrior/arms"
   ],
   "ts-node": {
