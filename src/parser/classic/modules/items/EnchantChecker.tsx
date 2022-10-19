@@ -44,7 +44,13 @@ const MIN_ENCHANT_IDS = [
   3252, // https://www.wowhead.com/wotlk/spell=44623/enchant-chest-super-stats
 
   // Legs
+  3718, // https://www.wowhead.com/wotlk/spell=55630/shining-spellthread
+  3720, // https://www.wowhead.com/wotlk/spell=55632/azure-spellthread
+  3325, // https://www.wowhead.com/wotlk/spell=50901/jormungar-leg-armor
+  3326, // https://www.wowhead.com/wotlk/spell=50902/nerubian-leg-armor
+
   // Boots
+  3824, // https://www.wowhead.com/wotlk/spell=60606/enchant-boots-assault
   // Bracers
   1600, // https://www.wowhead.com/wotlk/spell=60616/enchant-bracers-striking
   2326, // https://www.wowhead.com/wotlk/spell=44635/enchant-bracers-greater-spellpower
@@ -69,6 +75,9 @@ const MIN_ENCHANT_IDS = [
   1446, // https://www.wowhead.com/wotlk/spell=44590/enchant-cloak-superior-shadow-resistance
 
   // Weapon
+  1606, // https://www.wowhead.com/wotlk/spell=60621/enchant-weapon-greater-potency
+  3830, // https://www.wowhead.com/wotlk/spell=44629/enchant-weapon-exceptional-spellpower
+
   // Offhand
 
   // Other
@@ -109,8 +118,25 @@ const MAX_ENCHANT_IDS = [
   3832, // https://www.wowhead.com/wotlk/spell=60692/enchant-chest-powerful-stats
 
   // Legs
+  3853, // https://www.wowhead.com/wotlk/spell=62447/earthen-leg-armor
+  3823, // https://www.wowhead.com/wotlk/spell=60582/icescale-leg-armor
+  3719, // https://www.wowhead.com/wotlk/spell=55631/brilliant-spellthread
+  3721, // https://www.wowhead.com/wotlk/spell=55634/sapphire-spellthread
+  3822, // https://www.wowhead.com/wotlk/spell=60581/frosthide-leg-armor
+  3327, // https://www.wowhead.com/wotlk/spell=60583/jormungar-leg-reinforcements
+  3328, // https://www.wowhead.com/wotlk/spell=60584/nerubian-leg-reinforcements
+  3872, // https://www.wowhead.com/wotlk/spell=56039/sanctified-spellthread
+  3873, // https://www.wowhead.com/wotlk/spell=56034/masters-spellthread
 
   // Boots
+  1597, // https://www.wowhead.com/wotlk/spell=60763/enchant-boots-greater-assault
+  3826, // https://www.wowhead.com/wotlk/spell=60623/enchant-boots-icewalker
+  3232, // https://www.wowhead.com/wotlk/spell=47901/enchant-boots-tuskarrs-vitality
+  3244, // https://www.wowhead.com/wotlk/spell=44584/enchant-boots-greater-vitality
+  983,  // https://www.wowhead.com/wotlk/spell=44589/enchant-boots-superior-agility
+  1147, // https://www.wowhead.com/wotlk/spell=44508/enchant-boots-greater-spirit
+  1075, // https://www.wowhead.com/wotlk/spell=44528/enchant-boots-greater-fortitude
+  3606, // https://www.wowhead.com/wotlk/spell=55016/nitro-boosts
 
   // Bracers
   3231, // https://www.wowhead.com/wotlk/spell=44598/enchant-bracers-expertise
@@ -137,6 +163,9 @@ const MAX_ENCHANT_IDS = [
   3860, // https://www.wowhead.com/wotlk/spell=63770/reticulated-armor-webbing
 
   // Ring
+  3839, // https://www.wowhead.com/wotlk/spell=44645/enchant-ring-assault
+  3840, // https://www.wowhead.com/wotlk/spell=44636/enchant-ring-greater-spellpower
+  3791, // https://www.wowhead.com/wotlk/spell=59636/enchant-ring-stamina
 
   // Cloak
   3294, // https://www.wowhead.com/wotlk/spell=47672/enchant-cloak-mighty-armor
@@ -153,6 +182,14 @@ const MAX_ENCHANT_IDS = [
   3601, // flexweave-underlay, but for Spell Damage
 
   // Weapon
+  3790, // https://www.wowhead.com/wotlk/spell=59625/enchant-weapon-black-magic
+  3241, // https://www.wowhead.com/wotlk/spell=44576/enchant-weapon-lifeward
+  3789, // https://www.wowhead.com/wotlk/spell=59621/enchant-weapon-berserking
+  3251, // https://www.wowhead.com/wotlk/spell=44621/enchant-weapon-giant-slayer
+  3239, // https://www.wowhead.com/wotlk/spell=44524/enchant-weapon-icebreaker
+  3833, // https://www.wowhead.com/wotlk/spell=60707/enchant-weapon-superior-potency
+  3834, // https://www.wowhead.com/wotlk/spell=60714/enchant-weapon-mighty-spellpower
+3788, // https://www.wowhead.com/wotlk/spell=59619/enchant-weapon-accuracy
   2673, // https://tbc.wowhead.com/spell=46536/enchant-weapon-mongoose
 
   // 2H Weapon
@@ -160,6 +197,12 @@ const MAX_ENCHANT_IDS = [
   // Ranged
 
   // Offhand
+
+  // Shield
+  1952, // https://www.wowhead.com/wotlk/spell=44489/enchant-shield-defense
+  3849, // https://www.wowhead.com/wotlk/spell=62201/titanium-plating
+  3748, // https://www.wowhead.com/wotlk/spell=56353/titanium-shield-spike
+  1128, // https://www.wowhead.com/wotlk/spell=60653/enchant-shield-greater-intellect
 
   // Belt
   3599, // https://www.wowhead.com/wotlk/spell=54736/personal-electromagnetic-pulse-generator
