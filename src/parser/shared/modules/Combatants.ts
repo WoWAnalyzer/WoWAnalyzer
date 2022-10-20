@@ -1,5 +1,5 @@
 import Combatant from 'parser/core/Combatant';
-import { AnyEvent, HasTarget } from 'parser/core/Events';
+import { AnyEvent, HasSource, HasTarget } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
 import Entities from './Entities';
@@ -17,6 +17,17 @@ class Combatants extends Entities<Combatant> {
       return null;
     }
     const combatant = this.players[event.targetID];
+    if (!combatant) {
+      return null; // a pet or something probably, either way we don't care.
+    }
+    return combatant;
+  }
+
+  getSourceEntity(event: AnyEvent) {
+    if (!HasSource(event)) {
+      return null;
+    }
+    const combatant = this.players[event.sourceID];
     if (!combatant) {
       return null; // a pet or something probably, either way we don't care.
     }
