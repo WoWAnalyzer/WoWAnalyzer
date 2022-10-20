@@ -1,7 +1,6 @@
 import Channeling from 'parser/shared/normalizers/Channeling';
 import FlaskChecker from 'parser/classic/modules/items/FlaskChecker';
 import FoodChecker from 'parser/classic/modules/items/FoodChecker';
-import WeaponEnhancementChecker from 'parser/classic/modules/items/WeaponEnhancementChecker';
 
 import BaseCombatLogParser, { DependenciesDefinition } from '../core/CombatLogParser';
 import Abilities from '../core/modules/Abilities';
@@ -67,7 +66,6 @@ class CombatLogParser extends BaseCombatLogParser {
     foodChecker: FoodChecker,
     enchantChecker: EnchantChecker,
     flaskChecker: FlaskChecker,
-    weaponEnhancementChecker: WeaponEnhancementChecker,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     combatPotionChecker: CombatPotionChecker,
 
