@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/macro';
 import { maybeGetSpell } from 'common/SPELLS';
-import { TooltipElement } from 'interface';
 import SpellLink from 'interface/SpellLink';
 import { suggestion } from 'parser/core/Analyzer';
 import { SuggestionImportance } from 'parser/core/CombatLogParser';
