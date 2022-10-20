@@ -14,6 +14,11 @@ class Abilities extends CoreAbilities {
         gcd: { static: 1500 },
       },
       {
+        spell: [SPELLS.CHALLENGING_HOWL],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { static: 1500 },
+      },
+      {
         spell: [SPELLS.CORRUPTION, ...lowRankSpells[SPELLS.CORRUPTION]],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { static: 1500 },
@@ -64,11 +69,6 @@ class Abilities extends CoreAbilities {
         gcd: { static: 1500 },
       },
       {
-        spell: [SPELLS.CURSE_OF_RECKLESSNESS, ...lowRankSpells[SPELLS.CURSE_OF_RECKLESSNESS]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
         spell: [SPELLS.CURSE_OF_THE_ELEMENTS, ...lowRankSpells[SPELLS.CURSE_OF_THE_ELEMENTS]],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { static: 1500 },
@@ -99,6 +99,26 @@ class Abilities extends CoreAbilities {
         gcd: { static: 1500 },
       },
       {
+        spell: [SPELLS.DEMONIC_CIRCLE_SUMMON],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { static: 1500 },
+      },
+      {
+        spell: [SPELLS.DEMONIC_CIRCLE_TELEPORT],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { static: 1500 },
+      },
+      {
+        spell: [SPELLS.DEMONIC_EMPOWERMENT],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { static: 1500 },
+      },
+      {
+        spell: [SPELLS.DEMONIC_IMMOLATE],
+        category: SPELL_CATEGORY.HIDDEN,
+        gcd: { static: 1500 },
+      },
+      {
         spell: [SPELLS.DEMONIC_SACRIFICE],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { static: 1500 },
@@ -114,17 +134,12 @@ class Abilities extends CoreAbilities {
         gcd: { static: 1500 },
       },
       {
-        spell: [SPELLS.DRAIN_MANA, ...lowRankSpells[SPELLS.DRAIN_MANA]],
+        spell: [SPELLS.DRAIN_MANA],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { static: 1500 },
       },
       {
         spell: [SPELLS.DRAIN_SOUL, ...lowRankSpells[SPELLS.DRAIN_SOUL]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.ENSLAVE_DEMON, ...lowRankSpells[SPELLS.ENSLAVE_DEMON]],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { static: 1500 },
       },
@@ -141,6 +156,11 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.FEL_ARMOR, ...lowRankSpells[SPELLS.FEL_ARMOR]],
         category: SPELL_CATEGORY.UTILITY,
+        gcd: { static: 1500 },
+      },
+      {
+        spell: [SPELLS.HAUNT, ...lowRankSpells[SPELLS.HAUNT]],
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { static: 1500 },
       },
       {
@@ -164,6 +184,11 @@ class Abilities extends CoreAbilities {
         gcd: { static: 1500 },
       },
       {
+        spell: [SPELLS.IMMOLATION_AURA],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { static: 1500 },
+      },
+      {
         spell: [SPELLS.INCINERATE, ...lowRankSpells[SPELLS.INCINERATE]],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { static: 1500 },
@@ -179,6 +204,11 @@ class Abilities extends CoreAbilities {
         gcd: { static: 1500 },
       },
       {
+        spell: [SPELLS.METAMORPHOSIS],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { static: 1500 },
+      },
+      {
         spell: [SPELLS.RAIN_OF_FIRE, ...lowRankSpells[SPELLS.RAIN_OF_FIRE]],
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: { static: 1500 },
@@ -189,7 +219,7 @@ class Abilities extends CoreAbilities {
         gcd: { static: 1500 },
       },
       {
-        spell: [SPELLS.RITUAL_OF_SOULS],
+        spell: [SPELLS.RITUAL_OF_SOULS, ...lowRankSpells[SPELLS.RITUAL_OF_SOULS]],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { static: 1500 },
       },
@@ -219,8 +249,18 @@ class Abilities extends CoreAbilities {
         gcd: { static: 1500 },
       },
       {
+        spell: [SPELLS.SHADOW_CLEAVE],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { static: 1500 },
+      },
+      {
         spell: [SPELLS.SHADOW_WARD, ...lowRankSpells[SPELLS.SHADOW_WARD]],
         category: SPELL_CATEGORY.DEFENSIVE,
+        gcd: { static: 1500 },
+      },
+      {
+        spell: [SPELLS.SHADOWFLAME, ...lowRankSpells[SPELLS.SHADOWFLAME]],
+        category: SPELL_CATEGORY.COOLDOWNS,
         gcd: { static: 1500 },
       },
       {
@@ -231,6 +271,11 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.SOULSHATTER],
         category: SPELL_CATEGORY.DEFENSIVE,
+        gcd: { static: 1500 },
+      },
+      {
+        spell: [SPELLS.SUBJUGATE_DEMON, ...lowRankSpells[SPELLS.SUBJUGATE_DEMON]],
+        category: SPELL_CATEGORY.UTILITY,
         gcd: { static: 1500 },
       },
       {
@@ -254,6 +299,11 @@ class Abilities extends CoreAbilities {
         gcd: { static: 1500 },
       },
       {
+        spell: [SPELLS.SUMMON_INCUBUS],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { static: 1500 },
+      },
+      {
         spell: [SPELLS.SUMMON_SUCCUBUS],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { static: 1500 },
@@ -266,6 +316,11 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.UNENDING_BREATH],
         category: SPELL_CATEGORY.UTILITY,
+        gcd: { static: 1500 },
+      },
+      {
+        spell: [SPELLS.UNSTABLE_AFFLICTION, ...lowRankSpells[SPELLS.UNSTABLE_AFFLICTION]],
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { static: 1500 },
       },
     ];

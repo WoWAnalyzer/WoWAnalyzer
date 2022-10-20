@@ -82,6 +82,11 @@ const spells = spellIndexableList({
     icon: 'spell_holy_powerwordshield',
     manaCost: 1550,
   },
+  SHIELD_OF_ABSOLUTION_BUFF: {
+    id: 394624,
+    name: 'Shield Of Absolution',
+    icon: 'ability_priest_clarityofwill',
+  },
   SMITE: {
     id: 585,
     name: 'Smite',
@@ -384,6 +389,22 @@ const spells = spellIndexableList({
     name: 'Spirit of Redemption',
     icon: 'inv_enchant_essenceeternallarge',
   },
+  LIGHTWEAVER_TALENT_BUFF: {
+    id: 390993,
+    name: 'Lightweaver',
+    icon: 'spell_holy_greaterheal',
+  },
+  // Sets
+  HOLY_PRIEST_TIER_29_2_SET_BUFF: {
+    id: 394729,
+    name: 'Prayer Focus',
+    icon: 'spell_priest_finalprayer',
+  },
+  HOLY_PRIEST_TIER_29_4_SET_BUFF: {
+    id: 394745,
+    name: 'Seize the moment',
+    icon: 'inv_mace_1h_artifactheartofkure_d_03',
+  },
   // Talents
   BINDING_HEALS_TALENT_HEAL: {
     id: 368276,
@@ -406,6 +427,11 @@ const spells = spellIndexableList({
     id: 372313,
     name: 'Resonant Words',
     icon: 'spell_holy_holybolt',
+  },
+  HEALING_CHORUS_TALENT_BUFF: {
+    id: 390885,
+    name: 'Healing Chorus',
+    icon: 'spell_holy_circleofrenewal',
   },
   // Shadow Spells
   MIND_BLAST: {

@@ -1,3 +1,8 @@
+import Combatant from 'parser/core/Combatant';
+import Spell from 'common/SPELLS/Spell';
+import SPELLS from 'common/SPELLS/demonhunter';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
+
 export const SHATTERED_RESTORATION_SCALING = [0, 5, 10];
 
 export const UNRESTRAINED_FURY_SCALING = [0, 10, 20];
@@ -25,3 +30,13 @@ export const RUSH_OF_CHAOS_SCALING = [0, 60];
 export const DEMONIC_ORIGINS_CDR_SCALING = [0, 60];
 
 export const DEMONIC_DURATION = 6000;
+
+export function getElysianDecreeSpell(c: Combatant): Spell {
+  if (c.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT)) {
+    return SPELLS.ELYSIAN_DECREE_CONCENTRATED;
+  }
+  if (c.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT)) {
+    return SPELLS.ELYSIAN_DECREE_PRECISE;
+  }
+  return TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT;
+}

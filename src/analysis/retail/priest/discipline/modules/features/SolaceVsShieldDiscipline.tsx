@@ -48,7 +48,7 @@ class SolaceVsShieldDiscipline extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             The value for <SpellLink id={TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT.id} /> also

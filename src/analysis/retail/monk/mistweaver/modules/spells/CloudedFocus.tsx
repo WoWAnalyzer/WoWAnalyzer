@@ -48,13 +48,13 @@ class CloudedFocus extends Analyzer {
       this.removeBuff,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, SPELLS.ENVELOPING_MIST]),
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, TALENTS_MONK.ENVELOPING_MIST_TALENT]),
       this.calculateManaEffect,
     );
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.VIVIFY, SPELLS.ENVELOPING_MIST, SPELLS.ENVELOPING_BREATH]),
+        .spell([SPELLS.VIVIFY, TALENTS_MONK.ENVELOPING_MIST_TALENT, SPELLS.ENVELOPING_BREATH_HEAL]),
       this.calculateHealingEffect,
     );
   }
@@ -98,7 +98,7 @@ class CloudedFocus extends Analyzer {
         <BoringSpellValueText spellId={TALENTS_MONK.CLOUDED_FOCUS_TALENT.id}>
           <ItemHealingDone amount={this.healingDone} />
           <br />
-          <ItemManaGained amount={this.manaSaved} />
+          <ItemManaGained amount={this.manaSaved} useAbbrev />
         </BoringSpellValueText>
       </Statistic>
     );

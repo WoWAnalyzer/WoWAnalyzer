@@ -54,7 +54,10 @@ class Upwelling extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
       this.efHeal,
     );
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT), this.efcast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
+      this.efcast,
+    );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
       this.applyBuff,

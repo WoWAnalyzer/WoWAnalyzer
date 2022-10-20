@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -19,9 +20,9 @@ class StormElemental extends Analyzer {
   justEnteredSE = false;
   checkDelay = 0;
   numCasts = {
-    [SPELLS.STORM_ELEMENTAL_TALENT.id]: 0,
+    [TALENTS.STORM_ELEMENTAL_TALENT.id]: 0,
     [SPELLS.LIGHTNING_BOLT.id]: 0,
-    [SPELLS.CHAIN_LIGHTNING.id]: 0,
+    [TALENTS.CHAIN_LIGHTNING_TALENT.id]: 0,
     [SPELLS.EARTH_SHOCK.id]: 0,
     [SPELLS.EARTHQUAKE.id]: 0,
     others: 0,
@@ -31,9 +32,9 @@ class StormElemental extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STORM_ELEMENTAL_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.STORM_ELEMENTAL_TALENT),
       this.onSECast,
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onSECast);
@@ -47,14 +48,15 @@ class StormElemental extends Analyzer {
 
   get averageLightningBoltCasts() {
     return (
-      this.numCasts[SPELLS.LIGHTNING_BOLT.id] / this.numCasts[SPELLS.STORM_ELEMENTAL_TALENT.id] || 0
+      this.numCasts[SPELLS.LIGHTNING_BOLT.id] / this.numCasts[TALENTS.STORM_ELEMENTAL_TALENT.id] ||
+      0
     );
   }
 
   get averageChainLightningCasts() {
     return (
-      this.numCasts[SPELLS.CHAIN_LIGHTNING.id] / this.numCasts[SPELLS.STORM_ELEMENTAL_TALENT.id] ||
-      0
+      this.numCasts[TALENTS.CHAIN_LIGHTNING_TALENT.id] /
+        this.numCasts[TALENTS.STORM_ELEMENTAL_TALENT.id] || 0
     );
   }
 
@@ -70,7 +72,7 @@ class StormElemental extends Analyzer {
 
   onSECast(event: CastEvent) {
     this.justEnteredSE = true;
-    this.numCasts[SPELLS.STORM_ELEMENTAL_TALENT.id] += 1;
+    this.numCasts[TALENTS.STORM_ELEMENTAL_TALENT.id] += 1;
   }
 
   onCast(event: CastEvent) {
@@ -94,7 +96,7 @@ class StormElemental extends Analyzer {
               <li>Earth Shock: {this.numCasts[SPELLS.EARTH_SHOCK.id]}</li>
               <li>Lightning Bolt: {this.numCasts[SPELLS.LIGHTNING_BOLT.id]}</li>
               <li>Earthquake: {this.numCasts[SPELLS.EARTHQUAKE.id]}</li>
-              <li>Chain Lightning: {this.numCasts[SPELLS.CHAIN_LIGHTNING.id]}</li>
+              <li>Chain Lightning: {this.numCasts[TALENTS.CHAIN_LIGHTNING_TALENT.id]}</li>
               <li>Other Spells: {this.numCasts.others}</li>
             </ul>
           </>
@@ -102,7 +104,7 @@ class StormElemental extends Analyzer {
       >
         <>
           You cast <SpellLink id={SPELLS.LIGHTNING_BOLT.id} /> {this.averageLightningBoltCasts}{' '}
-          times per <SpellLink id={SPELLS.STORM_ELEMENTAL_TALENT.id} />
+          times per <SpellLink id={TALENTS.STORM_ELEMENTAL_TALENT.id} />
         </>
       </Statistic>
     );
@@ -112,7 +114,7 @@ class StormElemental extends Analyzer {
     const abilities = `Lightning Bolt/Chain Lightning and Earth Shock/Earthquake`;
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(<span>Maximize your damage during Storm Elemental by only using {abilities}.</span>)
-        .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
+        .icon(TALENTS.STORM_ELEMENTAL_TALENT.icon)
         .actual(
           t({
             id: 'shaman.elemental.suggestions.stormElemental.badCasts',

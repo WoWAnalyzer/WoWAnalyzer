@@ -1,7 +1,12 @@
 import SinsOfTheMany from 'analysis/retail/priest/discipline/modules/spells/SinsOfTheMany';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
-import { ATONEMENT_COEFFICIENT, PENANCE_COEFFICIENCT, SMITE_COEFFICIENT } from './constants';
+import {
+  ATONEMENT_COEFFICIENT,
+  PENANCE_COEFFICIENCT,
+  SMITE_COEFFICIENT,
+  DISCIPLINE_DAMAGE_AURA_VALUE,
+} from './constants';
 
 // 50% dmg increase passive
 const SMITE_DAMAGE_BUFF = 0.5;
@@ -31,7 +36,7 @@ export const OffensivePenanceBoltEstimation = statWrapper((stats: StatTracker) =
   const currentIntellect = stats.currentIntellectRating;
   const currentVers = 1 + stats.currentVersatilityPercentage;
   const currentMastery = 1 + stats.currentMasteryPercentage;
-  const penanceCoefficient = PENANCE_COEFFICIENCT;
+  const penanceCoefficient = PENANCE_COEFFICIENCT * DISCIPLINE_DAMAGE_AURA_VALUE;
 
   const penanceBoltDamage = Math.round(currentIntellect * penanceCoefficient * currentVers);
 

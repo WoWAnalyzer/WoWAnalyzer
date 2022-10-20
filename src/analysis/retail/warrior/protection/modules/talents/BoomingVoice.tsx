@@ -11,9 +11,10 @@ import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TALENTS from 'common/TALENTS/warrior';
 
 const BOOMING_VOICE_DAMAGE_INCREASE = 0.2;
-const BOOMING_VOICE_RAGE_GENERATION = 40;
+const BOOMING_VOICE_RAGE_GENERATION = 30;
 
 class BoomingVoice extends Analyzer {
   static dependencies = {
@@ -28,7 +29,10 @@ class BoomingVoice extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BOOMING_VOICE_TALENT.id);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEMORALIZING_SHOUT),
       this.onShoutCast,
@@ -89,7 +93,7 @@ class BoomingVoice extends Analyzer {
           {this.maxRage - BOOMING_VOICE_RAGE_GENERATION} Rage.
         </>,
       )
-        .icon(SPELLS.BOOMING_VOICE_TALENT.icon)
+        .icon(TALENTS.BOOMING_VOICE_TALENT.icon)
         .actual(
           t({
             id: 'warrior.protection.suggestions.boominVoice.rage.wasted',
@@ -117,7 +121,7 @@ class BoomingVoice extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={SPELLS.BOOMING_VOICE_TALENT.id} /> Rage generated
+              <SpellLink id={TALENTS.BOOMING_VOICE_TALENT.id} /> Rage generated
             </>
           }
         >

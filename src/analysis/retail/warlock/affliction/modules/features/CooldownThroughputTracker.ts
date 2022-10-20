@@ -4,13 +4,6 @@ import CoreCooldownThroughputTracker, {
 } from 'parser/shared/modules/CooldownThroughputTracker';
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
-  static cooldownSpells = [
-    ...CoreCooldownThroughputTracker.cooldownSpells,
-    {
-      spell: SPELLS.DARK_SOUL_MISERY_TALENT.id,
-      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
-    },
-  ];
 
   static castCooldowns = [
     ...CoreCooldownThroughputTracker.castCooldowns,

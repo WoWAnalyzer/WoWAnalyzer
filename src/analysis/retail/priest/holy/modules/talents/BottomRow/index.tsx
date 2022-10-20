@@ -5,6 +5,7 @@ import DivineImage from './DivineImage';
 import HarmoniousApparatus from './HarmoniousApparatus';
 import HolyWordSalvation from './HolyWordSalvation';
 import LightOfTheNaaru from './LightOfTheNaaru';
+import Lightweaver from './Lightweaver';
 import ResonantWords from './ResonantWords';
 
 export {
@@ -15,5 +16,6 @@ export {
   HarmoniousApparatus,
   HolyWordSalvation,
   LightOfTheNaaru,
+  Lightweaver,
   ResonantWords,
 };

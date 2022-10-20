@@ -28,6 +28,9 @@ import DivineAegis from 'analysis/classic/priest/modules/spells/DivineAegis';
 import RenewedHope from 'analysis/classic/priest/modules/spells/RenewedHope';
 import SoulWarding from 'analysis/classic/priest/modules/spells/SoulWarding';
 import ReflectiveShield from 'analysis/classic/priest/modules/spells/ReflectiveShield';
+import ShadowWordPain from 'analysis/classic/priest/modules/spells/ShadowWordPain';
+import VampiricTouch from 'analysis/classic/priest/modules/spells/VampiricTouch';
+import DevouringPlague from 'analysis/classic/priest/modules/spells/DevouringPlague';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -61,6 +64,9 @@ class CombatLogParser extends BaseCombatLogParser {
     renewedHope: RenewedHope,
     soulWarding: SoulWarding,
     reflectiveShield: ReflectiveShield,
+    shadowWordPain: ShadowWordPain,
+    vampiricTouch: VampiricTouch,
+    devouringPlague: DevouringPlague,
 
     checklist: Checklist,
     lowRankSpells: lowRankSpellsSuggestion(lowRankSpells, whitelist),
