@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-// import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { Panel } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
