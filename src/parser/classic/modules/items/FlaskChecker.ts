@@ -5,44 +5,32 @@ import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResult
 import { RequirementThresholds } from 'parser/shared/modules/features/Checklist/Requirement';
 
 const FLASK_IDS = [
-  28518, // https://tbc.wowhead.com/spell=28518/flask-of-fortification
-  28540, // https://tbc.wowhead.com/spell=28540/flask-of-pure-death
-  28520, // https://tbc.wowhead.com/spell=28520/flask-of-relentless-assault
-  28521, // https://tbc.wowhead.com/spell=28521/flask-of-blinding-light
-  28519, // https://tbc.wowhead.com/spell=28519/flask-of-mighty-restoration
-  42735, // https://tbc.wowhead.com/spell=42735/chromatic-wonder
-  17627, // https://tbc.wowhead.com/spell=17627/distilled-wisdom
-
-  41609, // https://tbc.wowhead.com/spell=41609/fortification-of-shattrath
-  46837, // https://tbc.wowhead.com/spell=46837/pure-death-of-shattrath
-  46838, // https://tbc.wowhead.com/spell=46837/pure-death-of-shattrath  it's also pure-death-of-shattrath, but different from the 46837
-  41608, // https://tbc.wowhead.com/spell=41608/relentless-assault-of-shattrath
-  46839, // https://tbc.wowhead.com/spell=46839/blinding-light-of-shattrath
-  41610, // https://tbc.wowhead.com/spell=41610/mighty-restoration-of-shattrath
-  41611, // https://tbc.wowhead.com/spell=41611/supreme-power-of-shattrath,
+  54212, // https://www.wowhead.com/wotlk/spell=54212/flask-of-pure-mojo
+  53758, // https://www.wowhead.com/wotlk/spell=53758/flask-of-stoneblood
+  53755, // https://www.wowhead.com/wotlk/spell=53755/flask-of-the-frost-wyrm
+  53760, // https://www.wowhead.com/wotlk/spell=53760/flask-of-endless-rage
 ];
 
 const GUARDIAN_ELIXIR_IDS = [
-  28514, // https://tbc.wowhead.com/spell=28514/empowerment
-  28509, // https://tbc.wowhead.com/spell=28509/greater-mana-regeneration
-  28502, // https://tbc.wowhead.com/spell=28502/major-armor
-  39628, // https://tbc.wowhead.com/spell=39628/elixir-of-ironskin
-  39627, // https://tbc.wowhead.com/spell=39627/elixir-of-draenic-wisdom
-  39626, // https://tbc.wowhead.com/spell=39626/earthen-elixir
-  39625, // https://tbc.wowhead.com/spell=39625/elixir-of-major-fortitude
+  53751, // https://www.wowhead.com/wotlk/spell=53751/elixir-of-mighty-fortitude
+  60343, // https://www.wowhead.com/wotlk/spell=60343/mighty-defense
+  53763, // https://www.wowhead.com/wotlk/spell=53763/protection
+  60347, // https://www.wowhead.com/wotlk/spell=60347/mighty-thoughts
 ];
 
 const BATTLE_ELIXIR_IDS = [
-  28503, // https://tbc.wowhead.com/spell=28503/major-shadow-power
-  38954, // https://tbc.wowhead.com/spell=38954/fel-strength-elixir
-  28497, // https://tbc.wowhead.com/spell=28497/major-agility
-  28501, // https://tbc.wowhead.com/spell=28501/major-firepower
-  28493, // https://tbc.wowhead.com/spell=28493/major-frost-power
-  28491, // https://tbc.wowhead.com/spell=28491/healing-power
-  33726, // https://tbc.wowhead.com/spell=33726/elixir-of-mastery
-  28490, // https://tbc.wowhead.com/spell=28490/major-strength
-  33721, // https://tbc.wowhead.com/spell=33721/adepts-elixir
-  33720, // https://tbc.wowhead.com/spell=33720/onslaught-elixir
+  53749, // https://www.wowhead.com/wotlk/spell=53749/gurus-elixir
+  60346, // https://www.wowhead.com/wotlk/spell=60346/lightning-speed
+  33721, // https://www.wowhead.com/wotlk/spell=33721/spellpower-elixir
+  60340, // https://www.wowhead.com/wotlk/spell=60340/accuracy
+  53764, // https://www.wowhead.com/wotlk/spell=53764/mighty-mana-regeneration
+  53748, // https://www.wowhead.com/wotlk/spell=53748/mighty-strength
+  60344, // https://www.wowhead.com/wotlk/spell=60344/expertise
+  28497, // https://www.wowhead.com/wotlk/spell=28497/mighty-agility
+  60345, // https://www.wowhead.com/wotlk/spell=60345/armor-piercing
+  60341, // https://www.wowhead.com/wotlk/spell=60341/deadly-strikes
+  53746, // https://www.wowhead.com/wotlk/spell=53746/wrath-elixir
+  53747, // https://www.wowhead.com/wotlk/spell=53747/elixir-of-spirit
 ];
 
 class FlaskChecker extends Analyzer {
