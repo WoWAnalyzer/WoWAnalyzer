@@ -15,6 +15,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import AtonementDamageSource from '../features/AtonementDamageSource';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class Schism extends Analyzer {
   protected enemies!: Enemies;
@@ -80,6 +81,7 @@ class Schism extends Analyzer {
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.CORE(1)}
         size="flexible"
         tooltip={
           <>

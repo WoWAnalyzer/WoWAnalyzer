@@ -177,11 +177,6 @@ const spells = spellIndexableList({
     name: 'Frost Fever',
     icon: 'spell_deathknight_frostfever',
   },
-  FROST_STRIKE_CAST: {
-    id: 49143,
-    name: 'Frost Strike',
-    icon: 'spell_deathknight_empowerruneblade2',
-  },
   FROST_STRIKE_MAIN_HAND_DAMAGE: {
     id: 222026,
     name: 'Frost Strike',
@@ -191,11 +186,6 @@ const spells = spellIndexableList({
     id: 66196,
     name: 'Frost Strike',
     icon: 'spell_deathknight_empowerruneblade2',
-  },
-  OBLITERATE_CAST: {
-    id: 49020,
-    name: 'Obliterate',
-    icon: 'spell_deathknight_classicon',
   },
   OBLITERATE_MAIN_HAND_DAMAGE: {
     id: 222024,
@@ -207,26 +197,15 @@ const spells = spellIndexableList({
     name: 'Obliterate',
     icon: 'spell_deathknight_classicon',
   },
-  HOWLING_BLAST: {
-    id: 49184,
-    name: 'Howling Blast',
-    icon: 'spell_frost_arcticwinds',
-  },
-  REMORSELESS_WINTER_ENV_CAST: {
+  REMORSELESS_WINTER_TALENT_ENV_CAST: {
     // not actually sure what this does
     id: 211793,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
   },
-  REMORSELESS_WINTER_DAMAGE: {
+  REMORSELESS_WINTER_TALENT_DAMAGE: {
     // every tick puts a cast event on the environment and also the id of the damage event
     id: 196771,
-    name: 'Remorseless Winter',
-    icon: 'ability_deathknight_remorselesswinters2',
-  },
-  REMORSELESS_WINTER: {
-    // This the spell the player casts, triggers energize event, also exists as buff on player
-    id: 196770,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
   },
@@ -240,26 +219,11 @@ const spells = spellIndexableList({
     name: 'Breath of Sindragosa',
     icon: 'spell_deathknight_breathofsindragosa',
   },
-  CHILL_STREAK_TALENT: {
-    id: 305392,
-    name: 'Chill Streak',
-    icon: 'spell_frost_piercing-chill',
-  },
-  FROSTWYRMS_FURY: {
-    id: 279302,
-    name: "Frostwyrm's Fury",
-    icon: 'achievement_boss_sindragosa',
-  },
   // Buffs
   EMPOWER_RUNE_WEAPON: {
     id: 47568,
     name: 'Empower Rune Weapon',
     icon: 'inv_sword_62',
-  },
-  PILLAR_OF_FROST: {
-    id: 51271,
-    name: 'Pillar of Frost',
-    icon: 'ability_deathknight_pillaroffrost',
   },
   // Procs
   RIME: {
@@ -475,34 +439,16 @@ const spells = spellIndexableList({
     icon: 'ability_deathknight_runicimpowerment',
   },
 
-  ANTI_MAGIC_ZONE: {
-    id: 51052,
-    name: 'Anti-Magic Zone',
-    icon: 'spell_deathknight_antimagiczone',
-  },
-
-  ANTI_MAGIC_ZONE_BUFF: {
+  ANTI_MAGIC_ZONE_TALENT_BUFF: {
     id: 145629,
     name: 'Anti-Magic Zone',
     icon: 'spell_deathknight_antimagiczone',
-  },
-
-  ANTI_MAGIC_SHELL: {
-    id: 48707,
-    name: 'Anti-Magic Shell',
-    icon: 'spell_shadow_antimagicshell',
   },
 
   ANTI_MAGIC_SHELL_RP_GAINED: {
     id: 49088,
     name: 'Anti-Magic Shell',
     icon: 'spell_holy_righteousnessaura',
-  },
-
-  CHAINS_OF_ICE: {
-    id: 45524,
-    name: 'Chains of Ice',
-    icon: 'spell_frost_chainsofice',
   },
 
   DARK_COMMAND: {
@@ -515,12 +461,6 @@ const spells = spellIndexableList({
     id: 49576,
     name: 'Death Grip',
     icon: 'spell_deathknight_strangulate',
-  },
-
-  MIND_FREEZE: {
-    id: 47528,
-    name: 'Mind Freeze',
-    icon: 'spell_deathknight_mindfreeze',
   },
 
   DEATH_AND_DECAY: {
@@ -541,34 +481,22 @@ const spells = spellIndexableList({
     icon: 'spell_shadow_deathanddecay',
   },
 
-  DEATH_STRIKE: {
-    id: 49998,
-    name: 'Death Strike',
-    icon: 'spell_deathknight_butcher2',
-  },
-
   DEATH_STRIKE_HEAL: {
     id: 45470,
     name: 'Death Strike',
     icon: 'spell_deathknight_butcher2',
   },
 
-  ICEBOUND_FORTITUDE: {
-    id: 48792,
-    name: 'Icebound Fortitude',
-    icon: 'spell_deathknight_iceboundfortitude',
-  },
-
-  CONTROL_UNDEAD: {
-    id: 111673,
-    name: 'Control Undead',
-    icon: 'inv_misc_bone_skull_01',
-  },
-
   DEATH_GATE: {
     id: 50977,
     name: 'Death Gate',
     icon: 'spell_arcane_teleportundercity',
+  },
+
+  DEATHS_ADVANCE: {
+    id: 48265,
+    name: "Death's Advance",
+    icon: 'spell_shadow_demonicempathy',
   },
 
   PATH_OF_FROST: {
@@ -589,18 +517,6 @@ const spells = spellIndexableList({
     icon: 'inv_pet_ghoul',
   },
 
-  SACRIFICIAL_PACT: {
-    id: 327574,
-    name: 'Sacrificial Pact',
-    icon: 'spell_shadow_corpseexplode',
-  },
-
-  DEATHS_ADVANCE: {
-    id: 48265,
-    name: "Death's Advance",
-    icon: 'spell_shadow_demonicempathy',
-  },
-
   DEATH_COIL: {
     id: 47541,
     name: 'Death Coil',
@@ -617,6 +533,18 @@ const spells = spellIndexableList({
     id: 49039,
     name: 'Lichborne',
     icon: 'spell_shadow_raisedead',
+  },
+
+  ABOMINATION_LIMB_GRIP_TICK: {
+    id: 383312,
+    name: 'Abomination Limb',
+    icon: 'ability_maldraxxus_deathknight',
+  },
+
+  ABOMINATION_LIMB_TICK: {
+    id: 383313,
+    name: 'Abomination Limb',
+    icon: 'ability_maldraxxus_deathknight',
   },
 
   RUNE_1: {

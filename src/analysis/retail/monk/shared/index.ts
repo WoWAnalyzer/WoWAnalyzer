@@ -1,8 +1,6 @@
 export { default as BonedustBrew } from './BonedustBrew';
 export { default as FaelineStomp } from './FaelineStomp';
 export { default as FallenOrder } from './FallenOrder';
-export { default as FortifyingIngredients } from './FortifyingIngredients';
-export { default as GroundingBreath } from './GroundingBreath';
 export { default as ImbuedReflections } from './ImbuedReflections';
 export { default as InvokersDelight } from './InvokersDelight';
 export { default as TouchOfDeath } from './TouchOfDeath';

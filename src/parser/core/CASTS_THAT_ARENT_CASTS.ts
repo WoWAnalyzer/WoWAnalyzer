@@ -41,6 +41,8 @@ const spells: number[] = [
   SPELLS.RUNE_3.id,
   SPELLS.ABOMINATION_LIMB_HIDDEN_CAST.id,
   SPELLS.ABOMINATION_LIMB_GRIP.id,
+  SPELLS.ABOMINATION_LIMB_TICK.id,
+  SPELLS.ABOMINATION_LIMB_GRIP_TICK.id,
   //endregion
 
   //region Hunter
@@ -73,10 +75,6 @@ const spells: number[] = [
   SPELLS.CARVED_IVORY_KEEPSAKE.id,
   SPELLS.ANIMA_FIELD_EMITTER_BUFF.id,
   //endregion
-
-  // monk
-  SPELLS.PRIMORDIAL_MENDING.id,
-  // end monk
 ];
 
 export default spells;

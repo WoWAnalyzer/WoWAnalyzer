@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
@@ -29,7 +30,7 @@ class FrostFeverUptime extends Analyzer {
           <span>
             Your <SpellLink id={SPELLS.FROST_FEVER.id} /> uptime can be improved. Try to pay
             attention to when Frost Fever is about to fall off the priority target, using{' '}
-            <SpellLink id={SPELLS.HOWLING_BLAST.id} /> to refresh Frost Fever. Using a debuff
+            <SpellLink id={talents.HOWLING_BLAST_TALENT.id} /> to refresh Frost Fever. Using a debuff
             tracker can help.
           </span>,
         )

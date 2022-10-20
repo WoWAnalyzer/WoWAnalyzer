@@ -67,16 +67,6 @@ const conduits = spellIndexableList({
     name: "Light's Inspiration",
     icon: 'spell_holy_restoration',
   },
-  TRANSLUCENT_IMAGE: {
-    id: 337662,
-    name: 'Translucent Image',
-    icon: 'spell_nature_invisibilty',
-  },
-  TRANSLUCENT_IMAGE_BUFF: {
-    id: 337661,
-    name: 'Translucent Image',
-    icon: 'spell_nature_invisibilty',
-  },
   //endregion
 
   //region Finesse Conduits

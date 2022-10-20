@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import { Panel } from 'interface';
 import { AlertWarning } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -9,7 +10,6 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import 'analysis/retail/warlock/SoulShardDetails.css';
 import SoulShardTracker from './SoulShardTracker';
 
 class SoulShardDetails extends Analyzer {
@@ -86,7 +86,7 @@ class SoulShardDetails extends Analyzer {
         <Panel>
           <AlertWarning style={{ marginLeft: 0, marginRight: 0 }}>
             Due to the technical limitations and randomness of Immolate
-            {this.selectedCombatant.hasTalent(SPELLS.INFERNO_TALENT.id)
+            {this.selectedCombatant.hasTalent(TALENTS.INFERNO_TALENT.id)
               ? ' and Rain of Fire with Inferno talent'
               : ''}
             , we can't accurately determine the amount of generated Soul Shard Fragments, but we

@@ -1,26 +1,39 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Events, { CastEvent, TargettedEvent } from 'parser/core/Events';
 
 import { getAdditionalEnergyUsed } from '../../normalizers/FerociousBiteDrainLinkNormalizer';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import { SubSection } from 'interface/guide';
+import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import Enemies from 'parser/shared/modules/Enemies';
+import RipUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/spells/RipUptimeAndSnapshots';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { SpellLink } from 'interface';
+import { cdSpell, MAX_CPS } from 'analysis/retail/druid/feral/constants';
+import getResourceSpent from 'parser/core/getResourceSpent';
 
 const FB_BASE_COST = 25;
 const MAX_FB_DRAIN = 25;
 
-// TODO advice here needs to be revisted when playstyle for DF stabilizes
+const MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS = 5000;
+
 /**
  * Tracks Ferocious Bite usage for analysis, including some legendary and talent interactions.
  */
 class FerociousBite extends Analyzer {
+  static dependencies = {
+    enemies: Enemies,
+    rip: RipUptimeAndSnapshots,
+  };
+
+  protected enemies!: Enemies;
+  protected rip!: RipUptimeAndSnapshots;
+
   hasSotf: boolean;
 
-  shouldUseBonusEnergyCasts: number = 0;
-  extraEnergyUsed: number = 0;
+  castLog: FbCast[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -38,110 +51,132 @@ class FerociousBite extends Analyzer {
       return; // free FBs (like from Apex Predator's Craving) don't drain but do full damage
     }
 
-    if (
+    const duringBerserkAndSotf =
       this.hasSotf &&
       (this.selectedCombatant.hasBuff(SPELLS.BERSERK.id) ||
-        this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id))
-    ) {
-      return; // using less than full bonus with SotF during Zerk is acceptable in order to maximize finishers used
-    }
+        this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id));
+    const extraEnergyUsed = getAdditionalEnergyUsed(event);
 
-    const additionalEnergyUsed = getAdditionalEnergyUsed(event);
-    this.shouldUseBonusEnergyCasts += 1;
-    this.extraEnergyUsed += additionalEnergyUsed;
-
-    if (additionalEnergyUsed < MAX_FB_DRAIN) {
+    if (!duringBerserkAndSotf && extraEnergyUsed < MAX_FB_DRAIN) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = `Used with low energy, causing only ${additionalEnergyUsed}
+      event.meta.inefficientCastReason = `Used with low energy, causing only ${extraEnergyUsed}
         extra energy to be turned in to bonus damage. You should always cast Ferocious Bite with
         the full ${FB_BASE_COST + MAX_FB_DRAIN} energy available in order to maximize damage`;
     }
-  }
 
-  /** This is the average extra energy used by FB casts, not counting casts where the player shouldn't use the full extra */
-  get averageExtraEnergyUsed() {
-    return this.shouldUseBonusEnergyCasts === 0
-      ? MAX_FB_DRAIN // default to max with zero casts to avoid spurious suggestion
-      : this.extraEnergyUsed / this.shouldUseBonusEnergyCasts;
-  }
-
-  get extraEnergySuggestionThresholds() {
-    return {
-      actual: this.averageExtraEnergyUsed,
-      isLessThan: {
-        minor: 25,
-        average: 20,
-        major: 10,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
-  suggestions(when: When) {
-    const hasSotf = this.selectedCombatant.hasTalent(TALENTS_DRUID.SOUL_OF_THE_FOREST_FERAL_TALENT);
-    const hasApex = this.selectedCombatant.hasTalent(TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT);
-    let exceptions = 0;
-    if (hasSotf) {
-      exceptions += 1;
+    let timeLeftOnRip = 0;
+    // target is optional in cast event, but we know FB cast will always have it
+    if (event.targetID !== undefined && event.targetIsFriendly !== undefined) {
+      timeLeftOnRip = this.rip.getTimeRemaining(event as TargettedEvent<any>);
     }
-    if (hasApex) {
-      exceptions += 1;
-    }
-    when(this.extraEnergySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
+    this.castLog.push({
+      timestamp: event.timestamp,
+      targetName: this.enemies.getEntity(event)?.name,
+      cpsUsed: getResourceSpent(event, RESOURCE_TYPES.COMBO_POINTS),
+      timeLeftOnRip,
+      extraEnergyUsed,
+      duringBerserkAndSotf,
+    });
+  }
+
+  get guideSubsection(): JSX.Element {
+    const castPerfBoxes = this.castLog.map((cast) => {
+      const usedMaxExtraEnergy = cast.extraEnergyUsed === MAX_FB_DRAIN;
+      const acceptableTimeLeftOnRip = cast.timeLeftOnRip >= MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS;
+
+      let value: QualitativePerformance = 'good';
+      if (cast.cpsUsed < MAX_CPS) {
+        value = 'fail';
+      } else if (!usedMaxExtraEnergy && !cast.duringBerserkAndSotf) {
+        value = 'fail';
+      } else if (!acceptableTimeLeftOnRip) {
+        value = 'ok';
+      }
+
+      const tooltip = (
         <>
-          You didn't always give <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> enough energy to get
-          the full damage bonus. You should aim to have {FB_BASE_COST + MAX_FB_DRAIN} energy before
-          using Ferocious Bite.
-          {exceptions === 2 && (
+          @ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
+          <strong>{cast.targetName || 'unknown'}</strong> using <strong>{cast.cpsUsed} CPs</strong>
+          <br />
+          Extra energy used: <strong>{cast.extraEnergyUsed}</strong>{' '}
+          {cast.duringBerserkAndSotf && '(during Berserk)'}
+          <br />
+          {cast.extraEnergyUsed === 0 ? (
             <>
-              <br />
-              <br />
-              The two exceptions are:{' '}
+              <strong>No Rip on target!</strong>
+            </>
+          ) : (
+            <>
+              Time remaining on Rip: <strong>{(cast.timeLeftOnRip / 1000).toFixed(1)}s</strong>
             </>
           )}
-          {exceptions === 1 && (
+        </>
+      );
+
+      return {
+        value,
+        tooltip,
+      };
+    });
+
+    const hasConvokeOrApex =
+      this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT);
+    return (
+      <SubSection>
+        <p>
+          <strong>
+            <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />
+          </strong>{' '}
+          is your direct damage finisher. Use it when you've already applied Rip to enemies. Always
+          use Bite at maximum CPs. Bite can consume up to {MAX_FB_DRAIN} extra energy to do
+          increased damage - this boost is very efficient and you should always wait until{' '}
+          {MAX_FB_DRAIN + FB_BASE_COST} energy to use Bite.{' '}
+          {this.hasSotf && (
             <>
-              <br />
-              <br />
-              The one exception is:{' '}
+              One exception: because you have{' '}
+              <SpellLink id={TALENTS_DRUID.SOUL_OF_THE_FOREST_FERAL_TALENT.id} />, it is acceptable
+              to use low energy bites during <SpellLink id={cdSpell(this.selectedCombatant).id} />{' '}
+              in order to get extra finishers in.
             </>
           )}
-          {hasSotf && (
-            <>
-              because you have <SpellLink id={TALENTS_DRUID.SOUL_OF_THE_FOREST_FERAL_TALENT.id} />,
-              during <SpellLink id={SPELLS.BERSERK.id} /> it is acceptable to cast at minimum energy
-              in order to maximize the number of bites cast
-              {hasApex ? ', and ' : '. '}
-            </>
-          )}
-          {hasApex && (
-            <>
-              because you have <SpellLink id={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT.id} />{' '}
-              your free bite procs don't need extra energy because they always count as though they
-              used the extra energy.
-            </>
-          )}
-          {exceptions > 0 && (
-            <>
-              {' '}
-              Exceptions are <strong>excluded</strong> from this statistic - this suggestion is
-              based only on the casts that should have had full energy.
-            </>
-          )}
-        </>,
-      )
-        .icon(SPELLS.FEROCIOUS_BITE.icon)
-        .actual(
-          t({
-            id: 'druid.feral.suggestions.ferociousBite.efficiency',
-            message: `${actual.toFixed(1)} average bonus energy used on Ferocious Bite.`,
-          }),
-        )
-        .recommended(`${recommended} is recommended.`),
+        </p>
+        {hasConvokeOrApex && (
+          <>
+            The below cast evaluations consider only CP spending Bites -{' '}
+            <SpellLink id={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id} /> and{' '}
+            <SpellLink id={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT.id} /> procs aren't included.
+            <br />
+          </>
+        )}
+        <strong>Ferocious Bite casts</strong>
+        <small>
+          {' '}
+          - Green is a good cast , Yellow is an questionable cast (used on target with low duration
+          Rip), Red is a bad cast (&lt;25 extra energy + not during Berserk). Mouseover for more
+          details.
+        </small>
+        <PerformanceBoxRow values={castPerfBoxes} />
+      </SubSection>
     );
   }
 }
+
+/** Tracking object for each Ferocious Bite cast */
+type FbCast = {
+  /** Cast's timestamp */
+  timestamp: number;
+  /** Name of cast's target */
+  targetName?: string;
+  /** Number of Combo Points consumed */
+  cpsUsed: number;
+  /** Time remaining on Rip on target (zero if no Rip) */
+  timeLeftOnRip: number;
+  /** Extra energy used by the cast */
+  extraEnergyUsed: number;
+  /** If cast happened when player has SotF and Berserk active */
+  duringBerserkAndSotf: boolean;
+};
 
 export default FerociousBite;

@@ -24,7 +24,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.RISING_SUN_KICK.id,
+        spell: TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 10 / (1 + haste),
         gcd: {

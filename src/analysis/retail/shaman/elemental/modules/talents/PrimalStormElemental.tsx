@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
@@ -31,15 +32,15 @@ class PrimalStormElemental extends Analyzer {
       [SPELLS.CALL_LIGHTNING.id]: false,
     };
     this.active =
-      this.selectedCombatant.hasTalent(SPELLS.PRIMAL_ELEMENTALIST_TALENT.id) &&
-      this.selectedCombatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id);
+      this.selectedCombatant.hasTalent(TALENTS.PRIMAL_ELEMENTALIST_TALENT.id) &&
+      this.selectedCombatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER_PET).spell(damagingCasts), this.onPetCast);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER_PET).spell(damagingCasts),
       this.onPetDamage,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STORM_ELEMENTAL_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.STORM_ELEMENTAL_TALENT),
       this.onPSECast,
     );
   }
@@ -101,7 +102,7 @@ class PrimalStormElemental extends Analyzer {
           Lightning are set to autocast and you are using Eye Of The Storm.
         </span>,
       )
-        .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
+        .icon(TALENTS.STORM_ELEMENTAL_TALENT.icon)
         .actual(
           `${formatNumber(actual)} spells not used by your Storm Elemental (${unusedSpellsString})`,
         )
@@ -114,7 +115,7 @@ class PrimalStormElemental extends Analyzer {
           You are not using <SpellLink id={SPELLS.CALL_LIGHTNING.id} /> on cooldown.
         </span>,
       )
-        .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
+        .icon(TALENTS.STORM_ELEMENTAL_TALENT.icon)
         .actual(
           `${formatNumber(
             actual,
@@ -136,7 +137,7 @@ class PrimalStormElemental extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.STORM_ELEMENTAL_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.STORM_ELEMENTAL_TALENT.id}>
           <ItemDamageDone amount={this.damageGained} />
         </BoringSpellValueText>
       </Statistic>

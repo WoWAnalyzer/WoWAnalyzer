@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink } from 'interface';
 import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -12,7 +13,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-import SoulShardTracker from '../soulshards/SoulShardTracker';
+import SoulShardTracker from '../core/SoulShardTracker';
 
 // limit to filter out relevant removedebuffs (those what I'm interested in happen either at the same timestamp as energize, or about 20ms afterwards (tested on 2 logs, didn't surpass 30ms))
 // it's still possible that it can be a coincidence (mob dies and at the same time something falls off somewhere unrelated), but shouldn't happen too much
@@ -50,13 +51,13 @@ class DrainSoul extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DRAIN_SOUL_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DRAIN_SOUL_TALENT.id);
     this.addEventListener(
       Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_SOUL_KILL_SHARD_GEN),
       this.onDrainSoulEnergize,
     );
     this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_SOUL_TALENT),
+      Events.removedebuff.by(SELECTED_PLAYER).spell(TALENTS.DRAIN_SOUL_TALENT),
       this.onDrainSoulRemove,
     );
     this.addEventListener(Events.fightend, this.onFinished);
@@ -100,7 +101,7 @@ class DrainSoul extends Analyzer {
           You sniped {formatPercentage(actual)} % of mobs in this fight (
           {this.mobsSniped - this._subtractBossShards} / {this.totalNumOfAdds}) for total of
           {this._shardsGained} Soul Shards. You could get up to {this.totalNumOfAdds} Shards from
-          them. Try to snipe shards from adds (cast <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} />
+          them. Try to snipe shards from adds (cast <SpellLink id={TALENTS.DRAIN_SOUL_TALENT.id} />
           on them before they die) as it is a great source of extra Soul Shards.
           <br />
           <br />
@@ -123,7 +124,7 @@ class DrainSoul extends Analyzer {
   }
 
   statistic() {
-    const ds = this.abilityTracker.getAbility(SPELLS.DRAIN_SOUL_TALENT.id);
+    const ds = this.abilityTracker.getAbility(TALENTS.DRAIN_SOUL_TALENT.id);
     const damage = ds.damageEffective + ds.damageAbsorbed;
     const dps = (damage / this.owner.fightDuration) * 1000;
     return (
@@ -132,7 +133,7 @@ class DrainSoul extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(damage)} total damage`}
       >
-        <BoringSpellValueText spellId={SPELLS.DRAIN_SOUL_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.DRAIN_SOUL_TALENT.id}>
           {formatNumber(dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total

@@ -145,7 +145,7 @@ class Abilities extends CoreAbilities {
         category: combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_TALENT.id)
           ? SPELL_CATEGORY.ROTATIONAL
           : SPELL_CATEGORY.UTILITY,
-        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.HOT_FEET_TALENT.id) ? 1 : 0),
+        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.BLAZING_PATH_TALENT.id) ? 1 : 0),
         cooldown: getFelRushCooldown(combatant),
         gcd: {
           static: 250,
@@ -350,15 +350,20 @@ class Abilities extends CoreAbilities {
           ),
         },
       },
-      //Covenant
       {
-        spell: SPELLS.ELYSIAN_DECREE.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
+        spell: [
+          TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id,
+          SPELLS.ELYSIAN_DECREE_CONCENTRATED.id,
+          SPELLS.ELYSIAN_DECREE_PRECISE.id,
+        ],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown:
+          60 *
+          (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
         gcd: {
           base: 1500,
         },
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,

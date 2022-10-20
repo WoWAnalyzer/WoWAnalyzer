@@ -8,7 +8,7 @@ import CooldownOverview from 'parser/ui/CooldownOverview';
 class ProcTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     {
-      spell: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id,
+      spell: TALENTS_SHAMAN.ASCENDANCE_ELEMENTAL_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];
