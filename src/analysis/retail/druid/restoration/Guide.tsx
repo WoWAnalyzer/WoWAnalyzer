@@ -8,7 +8,7 @@ import CombatLogParser from './CombatLogParser';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 /** Common 'rule line' point for the explanation/data in Core Spells section */
-export const GUIDE_CORE_EXPLANATION_PERCENT = 35;
+export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
