@@ -5,7 +5,7 @@ import mergeAllChangelogs from 'mergeAllChangelogs';
 
 import Changelog from './Changelog';
 const CHANGE_LOG_ENTRIES = mergeAllChangelogs();
-console.log(CHANGE_LOG_ENTRIES)
+
 const ChangelogPanel = () => {
   const [expanded, setExpanded] = useState<boolean>(false);
   const [changelogType, setChangelogType] = useState<number>(0);
