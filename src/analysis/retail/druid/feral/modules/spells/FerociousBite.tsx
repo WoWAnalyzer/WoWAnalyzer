@@ -12,7 +12,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
 import { cdSpell, MAX_CPS } from 'analysis/retail/druid/feral/constants';
 import getResourceSpent from 'parser/core/getResourceSpent';
-import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
 const FB_BASE_COST = 25;
 const MAX_FB_DRAIN = 25;
@@ -80,7 +80,7 @@ class FerociousBite extends Analyzer {
     });
   }
 
-  get explanationAndData(): ExplanationAndDataRow {
+  get guideSubsection(): JSX.Element {
     const castPerfBoxes = this.castLog.map((cast) => {
       const usedMaxExtraEnergy = cast.extraEnergyUsed === MAX_FB_DRAIN;
       const acceptableTimeLeftOnRip = cast.timeLeftOnRip >= MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS;
@@ -164,7 +164,7 @@ class FerociousBite extends Analyzer {
       </div>
     );
 
-    return { explanation, data };
+    return explanationAndDataSubsection(explanation, data);
   }
 }
 

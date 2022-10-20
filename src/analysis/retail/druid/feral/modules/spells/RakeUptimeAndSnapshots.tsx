@@ -17,7 +17,7 @@ import { proccedBloodtalons } from 'analysis/retail/druid/feral/normalizers/Bloo
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
-import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
 /** Tracking code for everything Rake related */
 class RakeUptimeAndSnapshots extends Snapshots {
@@ -89,7 +89,7 @@ class RakeUptimeAndSnapshots extends Snapshots {
   }
 
   /** Subsection explaining the use of Rake and providing performance statistics */
-  get explanationAndData(): ExplanationAndDataRow {
+  get guideSubsection(): JSX.Element {
     const castPerfBoxes = this.castLog.map((cast) => {
       let value: QualitativePerformance = 'good';
       if (!cast.proccedBt) {
@@ -194,7 +194,7 @@ class RakeUptimeAndSnapshots extends Snapshots {
       </div>
     );
 
-    return { explanation, data };
+    return explanationAndDataSubsection(explanation, data);
   }
 
   subStatistic() {
