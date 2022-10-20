@@ -1,10 +1,11 @@
 import { t, Trans } from '@lingui/macro';
-import CORE_CHANGELOG from 'CHANGELOG';
 import AVAILABLE_CONFIGS from 'parser';
 import { useState } from 'react';
+import mergeAllChangelogs from 'mergeAllChangelogs';
 
 import Changelog from './Changelog';
-
+const CHANGE_LOG_ENTRIES = mergeAllChangelogs();
+console.log(CHANGE_LOG_ENTRIES)
 const ChangelogPanel = () => {
   const [expanded, setExpanded] = useState<boolean>(false);
   const [changelogType, setChangelogType] = useState<number>(0);
@@ -39,7 +40,7 @@ const ChangelogPanel = () => {
             changelog={
               changelogType
                 ? AVAILABLE_CONFIGS.find((config) => config.spec.id === changelogType)!.changelog
-                : CORE_CHANGELOG
+                : CHANGE_LOG_ENTRIES
             }
             limit={limit}
             includeCore={false}
