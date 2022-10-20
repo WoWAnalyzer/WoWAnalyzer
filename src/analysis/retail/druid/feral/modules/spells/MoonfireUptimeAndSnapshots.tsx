@@ -18,8 +18,8 @@ import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow'
 import { getHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 import { proccedBloodtalons } from 'analysis/retail/druid/feral/normalizers/BloodtalonsLinkNormalizer';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
 class MoonfireUptimeAndSnapshots extends Snapshots {
   static dependencies = {
@@ -93,7 +93,7 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
   }
 
   /** Subsection explaining the use of Lunar Inspiration and providing performance statistics */
-  get explanationAndData(): ExplanationAndDataRow {
+  get guideSubsection(): JSX.Element {
     // TODO this is basically copy pasta'd from Rake - can they be unified?
     const castPerfBoxes = this.castLog.map((cast) => {
       let value: QualitativePerformance = 'good';
@@ -188,7 +188,7 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
       </div>
     );
 
-    return { explanation, data };
+    return explanationAndDataSubsection(explanation, data);
   }
 
   subStatistic() {

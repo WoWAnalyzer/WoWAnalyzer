@@ -28,8 +28,8 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
-import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
 class RipUptimeAndSnapshots extends Snapshots {
   static dependencies = {
@@ -123,7 +123,7 @@ class RipUptimeAndSnapshots extends Snapshots {
   }
 
   /** Subsection explaining the use of Rip and providing performance statistics */
-  get explanationAndData(): ExplanationAndDataRow {
+  get guideSubsection(): JSX.Element {
     const hasPw = this.selectedCombatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_TALENT);
     const hasBt = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT);
     const castPerfBoxes = this.castLog.map((cast, index) => {
@@ -219,7 +219,7 @@ class RipUptimeAndSnapshots extends Snapshots {
       </div>
     );
 
-    return { explanation, data };
+    return explanationAndDataSubsection(explanation, data);
   }
 
   get uptimeHistory() {

@@ -3,8 +3,8 @@ import SPELLS from 'common/SPELLS';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import { SpellLink } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
 /**
  * Feral's display module for Adaptive Swarm - standard damage dealer plus also the uptime stat
@@ -22,7 +22,7 @@ class AdaptiveSwarmFeral extends AdaptiveSwarmDamageDealer {
     );
   }
 
-  get explanationAndData(): ExplanationAndDataRow {
+  get guideSubsection(): JSX.Element {
     const hasUs = this.selectedCombatant.hasTalent(TALENTS_DRUID.UNBRIDLED_SWARM_TALENT);
     const explanation = (
       <p>
@@ -58,7 +58,7 @@ class AdaptiveSwarmFeral extends AdaptiveSwarmDamageDealer {
       </RoundedPanel>
     );
 
-    return { explanation, data };
+    return explanationAndDataSubsection(explanation, data);
   }
 }
 

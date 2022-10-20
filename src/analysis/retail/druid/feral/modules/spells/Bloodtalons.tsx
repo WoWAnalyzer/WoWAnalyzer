@@ -26,7 +26,7 @@ import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
-import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
 const BUFFER_MS = 50;
 
@@ -303,7 +303,7 @@ class Bloodtalons extends Analyzer {
     );
   }
 
-  get explanationAndData(): ExplanationAndDataRow {
+  get guideSubsection(): JSX.Element {
     const goodFinishers = {
       count: this.goodFinishers,
       label: 'Bloodtalons Finishers',
@@ -342,7 +342,7 @@ class Bloodtalons extends Analyzer {
       </div>
     );
 
-    return { explanation, data };
+    return explanationAndDataSubsection(explanation, data);
   }
 
   statistic() {
