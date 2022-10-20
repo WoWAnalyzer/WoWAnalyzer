@@ -21,6 +21,7 @@ import AbsoluteCorruption from './modules/spells/AbsoluteCorruption';
 import AgonyUptime from './modules/spells/Agony';
 import CorruptionUptime from './modules/spells/Corruption';
 import DrainSoul from './modules/spells/DrainSoul';
+import DreadTouch from './modules/spells/DreadTouch';
 import Haunt from './modules/spells/Haunt';
 import Nightfall from './modules/spells/Nightfall';
 import PhantomSingularity from './modules/spells/PhantomSingularity';
@@ -32,6 +33,14 @@ import VileTaint from './modules/spells/VileTaint';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    // Normalizers
+    channeling: Channeling,
+    grimoireOfSacrificeNormalizer: GrimoireOfSacrificeNormalizer,
+    warlockMissingDotApplyDebuffPrePull: WarlockMissingDotApplyDebuffPrePull,
+
+    // Core
+    globalCooldown: GlobalCooldown,
+
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
@@ -41,32 +50,27 @@ class CombatLogParser extends CoreCombatLogParser {
     shadowEmbrace: ShadowEmbrace,
     demonicCirclesCreated: DemonicCirclesCreated,
 
-    // Normalizers
-    grimoireOfSacrificeNormalizer: GrimoireOfSacrificeNormalizer,
-    warlockMissingDotApplyDebuffPrePull: WarlockMissingDotApplyDebuffPrePull,
-
     // DoTs
     agonyUptime: AgonyUptime,
     corruptionUptime: CorruptionUptime,
     unstableAfflictionUptime: UnstableAfflictionUptime,
     dotUptimes: DotUptimes,
 
-    // Core
+    // Resources
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
-    channeling: Channeling,
-    globalCooldown: GlobalCooldown,
 
     // Talents
-    nightfall: Nightfall,
-    drainSoul: DrainSoul,
     absoluteCorruption: AbsoluteCorruption,
-    siphonLifeUptime: SiphonLifeUptime,
-    phantomSingularity: PhantomSingularity,
-    vileTaint: VileTaint,
-    haunt: Haunt,
+    drainSoul: DrainSoul,
+    dreadTouch: DreadTouch,
     grimoireOfSacrifice: GrimoireOfSacrifice,
+    haunt: Haunt,
+    nightfall: Nightfall,
+    phantomSingularity: PhantomSingularity,
+    siphonLifeUptime: SiphonLifeUptime,
     soulConduit: SoulConduit,
+    vileTaint: VileTaint,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
