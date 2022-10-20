@@ -21,7 +21,8 @@ import { isFromHardcast } from 'analysis/retail/druid/restoration/normalizers/Ca
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
 import Mastery from 'analysis/retail/druid/restoration/modules/core/Mastery';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
-import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/druid/restoration/Guide';
 
 const debug = false;
 
@@ -183,7 +184,7 @@ class Rejuvenation extends Analyzer {
   }
 
   /** Guide subsection describing the proper usage of Rejuvenation */
-  get explanationAndData(): ExplanationAndDataRow {
+  get guideSubsection(): JSX.Element {
     const explanation = (
       <p>
         <b>
@@ -221,7 +222,7 @@ class Rejuvenation extends Analyzer {
       </div>
     );
 
-    return { explanation, data };
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   statistic() {

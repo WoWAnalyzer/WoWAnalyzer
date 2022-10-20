@@ -13,9 +13,10 @@ import {
 import { getRemovedHot } from 'analysis/retail/druid/restoration/normalizers/SwiftmendNormalizer';
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
-const DEBUG = true;
+const DEBUG = false;
 
 const TRIAGE_THRESHOLD = 0.5;
 const HIGH_VALUE_HOTS = [
@@ -113,7 +114,7 @@ class Swiftmend extends Analyzer {
   }
 
   /** Guide subsectopm describing the proper usage of Swiftmend */
-  get explanationAndData(): ExplanationAndDataRow {
+  get guideSubsection(): JSX.Element {
     const explanation = (
       <p>
         <b>
@@ -238,7 +239,7 @@ class Swiftmend extends Analyzer {
       </div>
     );
 
-    return { explanation, data };
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 }
 

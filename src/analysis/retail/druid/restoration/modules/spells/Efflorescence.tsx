@@ -5,8 +5,9 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ClosedTimePeriod, mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
 import UptimeStackBar from 'parser/ui/UptimeStackBar';
-import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 const DURATION_MS = 30000;
 const TICK_MS = 2000;
@@ -113,7 +114,7 @@ class Efflorescence extends Analyzer {
   }
 
   /** Guide subsection describing the proper usage of Efflorescence */
-  get explanationAndData(): ExplanationAndDataRow {
+  get guideSubsection(): JSX.Element {
     const explanation = (
       <p>
         <b>
@@ -134,7 +135,7 @@ class Efflorescence extends Analyzer {
       </div>
     );
 
-    return { explanation, data };
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   // Custom statistic shows efflo targets hit with bar thickness

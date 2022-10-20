@@ -11,7 +11,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { getHeals } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
-import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 /** Number of targets WG must effectively heal in order to be efficient */
 const RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD = 3;
@@ -134,7 +135,7 @@ class WildGrowth extends Analyzer {
   }
 
   /** Guide subsection describing the proper usage of Wild Growth */
-  get explanationAndData(): ExplanationAndDataRow {
+  get guideSubsection(): JSX.Element {
     const explanation = (
       <p>
         <b>
@@ -166,7 +167,7 @@ class WildGrowth extends Analyzer {
       </div>
     );
 
-    return { explanation, data };
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   statistic() {

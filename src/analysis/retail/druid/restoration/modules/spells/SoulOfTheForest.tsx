@@ -28,7 +28,8 @@ import {
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
 import ConvokeSpiritsResto from 'analysis/retail/druid/restoration/modules/spells/ConvokeSpiritsResto';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 const SOTF_SPELLS = [
   SPELLS.REJUVENATION,
@@ -275,7 +276,7 @@ class SoulOfTheForest extends Analyzer {
   }
 
   /** Guide subsection describing the proper usage of Soul of the Forest */
-  get explanationAndData(): ExplanationAndDataRow {
+  get guideSubsection(): JSX.Element {
     const explanation = (
       <p>
         <strong>
@@ -320,7 +321,7 @@ class SoulOfTheForest extends Analyzer {
       </div>
     );
 
-    return { explanation, data };
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   _spellReportLine(totalUses: number, hardcastUses: number, healing: number): React.ReactNode {

@@ -9,8 +9,9 @@ import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSu
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { LIFEBLOOM_BUFFS } from 'analysis/retail/druid/restoration/constants';
 import { causedBloom } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
-import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 const LB_COLOR = '#00bb44';
 const UNDERGROWTH_COLOR = '#dd5500';
@@ -137,7 +138,7 @@ class Lifebloom extends Analyzer {
   }
 
   /** Guide subsection describing the proper usage of Lifebloom */
-  get explanationAndData(): ExplanationAndDataRow {
+  get guideSubsection(): JSX.Element {
     const hasPhoto = this.selectedCombatant.hasTalent(TALENTS_DRUID.PHOTOSYNTHESIS_TALENT);
     const hasUndergrowth = this.selectedCombatant.hasTalent(TALENTS_DRUID.UNDERGROWTH_TALENT);
     const hasVerdancy = this.selectedCombatant.hasTalent(TALENTS_DRUID.VERDANCY_TALENT);
@@ -223,7 +224,7 @@ class Lifebloom extends Analyzer {
       </div>
     );
 
-    return { explanation, data };
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   subStatistic() {

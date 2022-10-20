@@ -14,7 +14,8 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { getDirectHeal } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import { buffedByClearcast } from 'analysis/retail/druid/restoration/normalizers/ClearcastingNormalizer';
-import { ExplanationAndDataRow } from 'interface/guide/components/ExplanationAndData';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 /** Health percent below which we consider a heal to be 'triage' */
 const TRIAGE_THRESHOLD = 0.5;
@@ -168,7 +169,7 @@ class RegrowthAndClearcasting extends Analyzer {
   }
 
   /** Guide subsection describing the proper usage of Regrowth */
-  get explanationAndData(): ExplanationAndDataRow {
+  get guideSubsection(): JSX.Element {
     const hasAbundance = this.selectedCombatant.hasTalent(TALENTS_DRUID.ABUNDANCE_TALENT);
     const explanation = (
       <p>
@@ -221,7 +222,7 @@ class RegrowthAndClearcasting extends Analyzer {
       </div>
     );
 
-    return { explanation, data };
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   statistic() {
