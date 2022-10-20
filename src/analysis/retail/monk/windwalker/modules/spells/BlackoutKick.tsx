@@ -46,7 +46,10 @@ class BlackoutKick extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  IMPORTANT_SPELLS: number[] = [SPELLS.RISING_SUN_KICK.id, SPELLS.FISTS_OF_FURY_CAST.id];
+  IMPORTANT_SPELLS: number[] = [
+    TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
+    SPELLS.FISTS_OF_FURY_CAST.id,
+  ];
   effectiveRisingSunKickReductionMs = 0;
   wastedRisingSunKickReductionMs = 0;
   effectiveFistsOfFuryReductionMs = 0;
@@ -89,11 +92,11 @@ class BlackoutKick extends Analyzer {
       );
     }
 
-    if (!this.spellUsable.isOnCooldown(SPELLS.RISING_SUN_KICK.id)) {
+    if (!this.spellUsable.isOnCooldown(TALENTS_MONK.RISING_SUN_KICK_TALENT.id)) {
       this.wastedRisingSunKickReductionMs += currentCooldownReductionMS;
     } else {
       const reductionMs = this.spellUsable.reduceCooldown(
-        SPELLS.RISING_SUN_KICK.id,
+        TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
         currentCooldownReductionMS,
       );
       this.effectiveRisingSunKickReductionMs += reductionMs;
@@ -160,7 +163,7 @@ class BlackoutKick extends Analyzer {
         <BoringSpellValueText spellId={SPELLS.BLACKOUT_KICK.id}>
           <span>
             <SpellIcon
-              id={SPELLS.RISING_SUN_KICK.id}
+              id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id}
               style={{
                 height: '1.3em',
                 marginTop: '-1.em',

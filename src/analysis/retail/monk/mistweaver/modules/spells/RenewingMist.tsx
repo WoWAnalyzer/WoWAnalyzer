@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 
@@ -14,7 +15,7 @@ class RenewingMist extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RENEWING_MIST_TALENT),
       this.castRenewingMist,
     );
     this.addEventListener(

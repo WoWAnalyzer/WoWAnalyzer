@@ -14,9 +14,9 @@ import { UptimeBarSpec } from 'parser/ui/UptimeBarSubStatistic';
 
 import {
   BLOODTALONS_DAMAGE_BONUS,
+  getTigersFuryDamageBonus,
   PANDEMIC_FRACTION,
   PROWL_RAKE_DAMAGE_BONUS,
-  TIGERS_FURY_DAMAGE_BONUS,
 } from '../../constants';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
@@ -29,7 +29,7 @@ export const TIGERS_FURY_SPEC: StaticSnapshotSpec = {
   isActive: (_) => true,
   isPresent: (c, timestamp) => c.hasBuff(SPELLS.TIGERS_FURY.id, timestamp, BUFF_DROP_BUFFER),
   displayColor: '#ff9955',
-  boostStrength: TIGERS_FURY_DAMAGE_BONUS,
+  boostStrength: getTigersFuryDamageBonus,
 };
 
 export const PROWL_SPEC: StaticSnapshotSpec = {
@@ -48,7 +48,7 @@ export const PROWL_SPEC: StaticSnapshotSpec = {
     c.hasBuff(SPELLS.SHADOWMELD.id, timestamp, BUFF_DROP_BUFFER) ||
     c.hasBuff(SPELLS.SUDDEN_AMBUSH_BUFF.id, timestamp, BUFF_DROP_BUFFER),
   displayColor: '#5555ff',
-  boostStrength: PROWL_RAKE_DAMAGE_BONUS,
+  boostStrength: (c) => PROWL_RAKE_DAMAGE_BONUS,
 };
 
 export const BLOODTALONS_SPEC: StaticSnapshotSpec = {
@@ -57,7 +57,7 @@ export const BLOODTALONS_SPEC: StaticSnapshotSpec = {
   isActive: (c) => c.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT),
   isPresent: (c, timestamp) => c.hasBuff(SPELLS.BLOODTALONS_BUFF.id, timestamp, BUFF_DROP_BUFFER),
   displayColor: '#dd0022',
-  boostStrength: BLOODTALONS_DAMAGE_BONUS,
+  boostStrength: (_) => BLOODTALONS_DAMAGE_BONUS,
 };
 
 export function hasSpec(snapshots: SnapshotSpec[], sss: StaticSnapshotSpec) {
@@ -94,7 +94,7 @@ abstract class Snapshots extends Analyzer {
         spells: as.spellFunc(this.selectedCombatant),
         isPresent: as.isPresent,
         displayColor: as.displayColor,
-        boostStrength: as.boostStrength,
+        boostStrength: as.boostStrength(this.selectedCombatant),
       }));
 
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(debuff), this.onApplyDot);
@@ -249,6 +249,17 @@ abstract class Snapshots extends Analyzer {
       : this.getSnapshotCombinedUptimeDuration(snapshotName) / totalUptime;
   }
 
+  /** Gets the time remaining on the DoT active on the given event's target at the time of the event (zero if DoT isn't active) */
+  getTimeRemaining(event: TargettedEvent<any>): number {
+    const uptimes = this.getUptimesForTarget(event);
+    if (uptimes.length > 0) {
+      const latestUptime = uptimes[uptimes.length - 1];
+      return Math.max(0, latestUptime.expectedEnd - event.timestamp);
+    } else {
+      return 0;
+    }
+  }
+
   get percentWithBloodtalons() {
     return this.getPercentUptimeWithSnapshot(BLOODTALONS_SPEC.name);
   }
@@ -284,7 +295,7 @@ type StaticSnapshotSpec = {
   /** Color with which to display this snapshot on the chart */
   displayColor: string;
   /** The strength of this snapshot's boost */
-  boostStrength: number;
+  boostStrength: (c: Combatant) => number;
 };
 
 /** Specification of a snapshotting buff specific to the combatant, generated from StaticSnapshotSpecs */

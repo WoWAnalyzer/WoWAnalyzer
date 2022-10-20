@@ -2,12 +2,14 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
+  AbilityEvent,
   AnyEvent,
   ApplyDebuffEvent,
   CastEvent,
   DamageEvent,
   EventType,
   GetRelatedEvents,
+  HasAbility,
   HasRelatedEvent,
   RefreshDebuffEvent,
 } from 'parser/core/Events';
@@ -16,12 +18,14 @@ import { Options } from 'parser/core/Module';
 const CAST_BUFFER_MS = 200;
 
 export const FROM_HARDCAST = 'FromHardcast';
+export const FROM_DOUBLE_CLAWED_RAKE = 'FromDoubleClawedRake';
 export const FROM_PRIMAL_WRATH = 'FromPrimalWrath';
 export const HIT_TARGET = 'HitTarget';
 
 const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: HIT_TARGET,
     linkingEventId: SPELLS.RIP.id,
     linkingEventType: [EventType.ApplyDebuff, EventType.RefreshDebuff],
     referencedEventId: SPELLS.RIP.id,
@@ -39,6 +43,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
+    isActive: (c) => c.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_TALENT),
   },
   {
     linkRelation: FROM_HARDCAST,
@@ -48,6 +53,18 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    linkRelation: FROM_DOUBLE_CLAWED_RAKE,
+    linkingEventId: [SPELLS.RAKE_BLEED.id, SPELLS.RAKE_STUN.id],
+    linkingEventType: [EventType.ApplyDebuff, EventType.RefreshDebuff],
+    referencedEventId: SPELLS.RAKE.id,
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    additionalCondition: (le, re) => !isFromHardcast(le),
+    isActive: (c) => c.hasTalent(TALENTS_DRUID.DOUBLE_CLAWED_RAKE_TALENT),
   },
   {
     linkRelation: FROM_HARDCAST,
@@ -86,6 +103,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
+    isActive: (c) => c.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT),
   },
   {
     linkRelation: FROM_HARDCAST,
@@ -130,10 +148,12 @@ class CastLinkNormalizer extends EventLinkNormalizer {
   }
 }
 
-export function isFromHardcast(
-  event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
-): boolean {
+export function isFromHardcast(event: AnyEvent): boolean {
   return HasRelatedEvent(event, FROM_HARDCAST);
+}
+
+export function isFromDoubleClawedRake(event: AnyEvent): boolean {
+  return HasRelatedEvent(event, FROM_DOUBLE_CLAWED_RAKE);
 }
 
 export function getHardcast(
@@ -159,6 +179,12 @@ export function getPrimalWrath(
 /** Only works for the AoE casts Primal Wrath, Brutal Slash, Swipe, and (Cat) Thrash */
 export function getHitCount(aoeCastEvent: CastEvent): number {
   return GetRelatedEvents(aoeCastEvent, HIT_TARGET).length;
+}
+
+export function getHits(castEvent: CastEvent): AbilityEvent<any>[] {
+  return GetRelatedEvents(castEvent, HIT_TARGET).filter((e): e is AbilityEvent<any> =>
+    HasAbility(e),
+  );
 }
 
 export default CastLinkNormalizer;

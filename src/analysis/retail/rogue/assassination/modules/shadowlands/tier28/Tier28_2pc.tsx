@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -18,7 +19,7 @@ const POISON_BLEED_DOTS = [
   SPELLS.DEADLY_POISON,
   SPELLS.DEADLY_POISON_DOT,
   SPELLS.DEADLY_POISON_PROC,
-  SPELLS.SEPSIS,
+  TALENTS.SEPSIS_TALENT,
   SPELLS.EXSANGUINATE_TALENT,
   SPELLS.WOUND_POISON,
   SPELLS.SERRATED_BONE_SPIKE,

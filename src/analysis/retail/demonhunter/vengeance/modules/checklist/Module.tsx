@@ -4,7 +4,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import BaseModule from 'parser/shared/modules/features/Checklist/Module';
 
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
-import FuryDetails from '../fury/FuryDetails';
+import FuryDetails from '../resourcetracker/FuryDetails';
 import DemonSpikes from '../spells/DemonSpikes';
 import ShearFracture from '../spells/ShearFracture';
 import SoulCleaveSoulsConsumed from '../spells/SoulCleaveSoulsConsumed';

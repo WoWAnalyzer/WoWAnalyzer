@@ -1,15 +1,13 @@
 import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { SpellIcon } from 'interface';
-import { TooltipElement } from 'interface';
+import TALENTS from 'common/TALENTS/warlock';
+import { SpellIcon, SpellLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { ChangeDebuffStackEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import Enemies from 'parser/shared/modules/Enemies';
-import { encodeTargetString } from 'parser/shared/modules/Enemies';
+import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -197,7 +195,7 @@ class ShadowEmbrace extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >
-        <BoringSpellValueText spellId={SPELLS.SHADOW_EMBRACE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.SHADOW_EMBRACE_TALENT.id}>
           {formatPercentage(this.totalUptimePercentage)} %{' '}
           <TooltipElement
             content={

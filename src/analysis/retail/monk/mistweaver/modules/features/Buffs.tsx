@@ -12,7 +12,7 @@ class Buffs extends CoreAuras {
     // This data can be used by various kinds of modules to improve their results, and modules added in the future may rely on buffs that aren't used today.
     return [
       {
-        spellId: SPELLS.THUNDER_FOCUS_TEA.id,
+        spellId: TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id,
       },
       {
         spellId: [SPELLS.LIFECYCLES_VIVIFY_BUFF.id, SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id],

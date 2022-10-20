@@ -10,7 +10,7 @@ import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults'
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const ALLOWED_CASTS_DURING_DRW = [
-  SPELLS.DEATH_STRIKE.id,
+  talents.DEATH_STRIKE_TALENT.id,
   SPELLS.HEART_STRIKE.id,
   SPELLS.BLOOD_BOIL.id,
   SPELLS.MARROWREND.id,
