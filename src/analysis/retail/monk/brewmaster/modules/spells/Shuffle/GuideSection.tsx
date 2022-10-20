@@ -135,6 +135,14 @@ function HitTimeline({ hits, showSourceName }: { hits: TrackedHit[]; showSourceN
   );
 }
 
+const Highlight = styled.span<{ color: string; textColor?: string }>`
+  background-color: ${(props) => props.color};
+  padding: 0 3px;
+  ${(props) => (props.textColor ? `color: ${props.textColor};` : '')}
+`;
+
+const red = colorForPerformance(0);
+
 function ShuffleOverview({ shuffle, info }: { shuffle: Shuffle; info: Info }): JSX.Element {
   const uptime = uptimeBarSubStatistic(
     { start_time: info.fightStart, end_time: info.fightEnd },
@@ -174,17 +182,33 @@ function ShuffleOverview({ shuffle, info }: { shuffle: Shuffle; info: Info }): J
   hitsBySpell.delete(1);
 
   return (
-    <>
+    <div>
+      <strong>Shuffle Uptime</strong>
       {uptime}
+      <strong>Damage Taken</strong>{' '}
+      <small>
+        - Hits without Shuffle are shown in{' '}
+        <Highlight color={red} textColor="white">
+          red
+        </Highlight>
+        .
+      </small>
       {Array.from(meleesBySource.entries()).map(([id, hits]) => (
         <HitTimeline hits={hits} key={id} showSourceName={meleesBySource.size > 1} />
       ))}
       {Array.from(hitsBySpell.entries()).map(([id, hits]) => (
         <HitTimeline hits={hits} key={id} />
       ))}
-    </>
+    </div>
   );
 }
+
+// TODO budget NarrowWideColumns. get sref's once merged
+const Columns = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap-x: 1rem;
+`;
 
 export default function ShuffleSection(): JSX.Element {
   const info = useInfo()!;
@@ -192,12 +216,24 @@ export default function ShuffleSection(): JSX.Element {
 
   return (
     <SubSection title="Shuffle">
-      <SpellLink id={SPELLS.SHUFFLE.id} /> provides a significant increase to the amount of damage
-      you <SpellLink id={SPELLS.STAGGER.id} />. Getting hit without{' '}
-      <SpellLink id={SPELLS.SHUFFLE.id} /> active is very dangerous&mdash;and in many cases lethal.
-      <SubSection title="Hits with Shuffle Active">
+      <Columns>
+        <div>
+          <p>
+            <SpellLink id={SPELLS.SHUFFLE} /> nearly <strong>doubles</strong> the amount of damage
+            that is absorbed by <SpellLink id={talents.STAGGER_TALENT} />, and is critical to have
+            up while tanking. It is applied automatically by your core rotational abilities&mdash;so
+            as long as you are doing your rotation, you should have{' '}
+            <SpellLink id={SPELLS.SHUFFLE} />.
+          </p>
+          <p>
+            This chart shows your <SpellLink id={SPELLS.SHUFFLE} /> uptime along with the damage
+            that you took. <strong>You do not need 100% uptime!</strong> However, damage taken
+            without <SpellLink id={SPELLS.SHUFFLE} /> active (shown in{' '}
+            <Highlight color={red}>red</Highlight>) is very dangerous!
+          </p>
+        </div>
         <ShuffleOverview info={info} shuffle={shuffle} />
-      </SubSection>
+      </Columns>
     </SubSection>
   );
 }
