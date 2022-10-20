@@ -12,6 +12,11 @@ const spells = spellIndexableList({
     name: 'Prayer of Mending',
     icon: 'spell_holy_prayerofmendingtga',
   },
+  HYMN_OF_HOPE: {
+    id: SPELLS.HYMN_OF_HOPE,
+    name: 'Hymn of Hope',
+    icon: 'spell_holy_symbolofhope',
+  },
 });
 
 export default spells;
