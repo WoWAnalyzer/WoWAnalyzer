@@ -18,6 +18,11 @@ const spells = spellIndexableList({
     name: 'Dream Breath',
     icon: 'ability_evoker_dreambreath',
   },
+  TWIN_GUARDIAN_SHIELD: {
+    id: 370889,
+    name: 'Twin Guardian',
+    icon: 'ability_skyreach_shielded',
+  },
   DREAM_BREATH_ECHO: {
     id: 376788,
     name: 'Dream Breath',
