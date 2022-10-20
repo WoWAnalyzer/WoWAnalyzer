@@ -57,7 +57,7 @@ class DrainSoul extends Analyzer {
       this.onDrainSoulEnergize,
     );
     this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(TALENTS.DRAIN_SOUL_TALENT),
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_SOUL_DEBUFF),
       this.onDrainSoulRemove,
     );
     this.addEventListener(Events.fightend, this.onFinished);
@@ -124,7 +124,7 @@ class DrainSoul extends Analyzer {
   }
 
   statistic() {
-    const ds = this.abilityTracker.getAbility(TALENTS.DRAIN_SOUL_TALENT.id);
+    const ds = this.abilityTracker.getAbility(SPELLS.DRAIN_SOUL_DEBUFF.id);
     const damage = ds.damageEffective + ds.damageAbsorbed;
     const dps = (damage / this.owner.fightDuration) * 1000;
     return (
