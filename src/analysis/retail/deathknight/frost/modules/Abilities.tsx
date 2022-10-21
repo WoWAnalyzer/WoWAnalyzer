@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/deathknight';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
@@ -11,11 +12,12 @@ class Abilities extends CoreAbilities {
     return [
       // COOLDOWNS
       {
-        spell: SPELLS.PILLAR_OF_FROST.id,
-        buffSpellId: SPELLS.PILLAR_OF_FROST.id,
+        spell: talents.PILLAR_OF_FROST_TALENT.id,
+        buffSpellId: talents.PILLAR_OF_FROST_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 60,
+        enabled: combatant.hasTalent(talents.PILLAR_OF_FROST_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
@@ -29,39 +31,40 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 120,
+        charges: Number(combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT.id)) + Number(combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT)),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
           extraSuggestion: (
             <>
               You should use this with every{' '}
-              <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> if it is talented. Otherwise
-              use it with <SpellLink id={SPELLS.PILLAR_OF_FROST.id} />.
+              <SpellLink id={talents.BREATH_OF_SINDRAGOSA_TALENT.id} /> if it is talented. Otherwise
+              use it with <SpellLink id={talents.PILLAR_OF_FROST_TALENT.id} />.
             </>
           ),
         },
         timelineSortIndex: 1,
+        enabled: combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT.id) || combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT),
       },
       {
-        spell: SPELLS.HORN_OF_WINTER_TALENT.id,
+        spell: talents.HORN_OF_WINTER_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
         },
         cooldown: 45,
-        enabled: combatant.hasTalent(SPELLS.HORN_OF_WINTER_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
+        enabled: combatant.hasTalent(talents.HORN_OF_WINTER_TALENT.id),
       },
       {
-        spell: SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id,
-        buffSpellId: SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id,
+        spell: talents.BREATH_OF_SINDRAGOSA_TALENT.id,
+        buffSpellId: talents.BREATH_OF_SINDRAGOSA_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 120,
-        enabled: combatant.hasTalent(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -69,9 +72,10 @@ class Abilities extends CoreAbilities {
             'You should only save this if there is a mechanic you will need to deal with in the next 30 seconds or if you need to save it for a particular phase',
         },
         timelineSortIndex: 2,
+        enabled: combatant.hasTalent(talents.BREATH_OF_SINDRAGOSA_TALENT.id),
       },
       {
-        spell: SPELLS.FROSTWYRMS_FURY.id,
+        spell: talents.FROSTWYRMS_FURY_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
@@ -83,18 +87,46 @@ class Abilities extends CoreAbilities {
           extraSuggestion: (
             <>
               Although you normally want to use this off CD, you can save it to line it up with{' '}
-              <SpellLink id={SPELLS.PILLAR_OF_FROST.id} icon />. You can also hold it if you know
-              there will be an opportunity to hit more than one enemy in the next 30 seconds.
+              <SpellLink id={talents.PILLAR_OF_FROST_TALENT.id} icon />. You can also hold it if you know
+              there will be an opportunity to hit many enemies.
             </>
           ),
         },
+        enabled: combatant.hasTalent(talents.FROSTWYRMS_FURY_TALENT.id),
       },
       {
-        spell: SPELLS.HYPOTHERMIC_PRESENCE_TALENT.id,
+        spell: SPELLS.RAISE_DEAD_BLOOD_FROST.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
+        cooldown: 120,
+      },
+      {
+        spell: talents.CHILL_STREAK_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
         cooldown: 45,
-        enabled: combatant.hasTalent(SPELLS.HYPOTHERMIC_PRESENCE_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+          extraSuggestion: (
+            <>
+              Although you normally want to use this off CD, you can save it to line it up with{' '}
+              <SpellLink id={talents.PILLAR_OF_FROST_TALENT.id} icon />.  You can also save it if you only have one target and another will spawn within 45 seconds.
+            </>
+          ),
+        },
+        enabled: combatant.hasTalent(talents.CHILL_STREAK_TALENT.id),
+      },
+      {
+        spell: talents.ABOMINATION_LIMB_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 120,
+        enabled: combatant.hasTalent(talents.ABOMINATION_LIMB_TALENT.id),
       },
       {
         spell: SPELLS.RAISE_DEAD_BLOOD_FROST.id,
@@ -104,15 +136,15 @@ class Abilities extends CoreAbilities {
       },
       // ROTATIONAL
       {
-        spell: SPELLS.OBLITERATE_CAST.id,
+        spell: talents.OBLITERATE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.REMORSELESS_WINTER.id,
-        buffSpellId: SPELLS.REMORSELESS_WINTER.id,
+        spell: talents.REMORSELESS_WINTER_TALENT.id,
+        buffSpellId: talents.REMORSELESS_WINTER_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -122,66 +154,70 @@ class Abilities extends CoreAbilities {
           suggestion: false,
           recommendedEfficiency: 0.9,
         },
+        enabled: combatant.hasTalent(talents.REMORSELESS_WINTER_TALENT.id),
       },
       {
-        spell: SPELLS.HOWLING_BLAST.id,
+        spell: talents.HOWLING_BLAST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.FROST_STRIKE_CAST.id,
+        spell: talents.FROST_STRIKE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.FROSTSCYTHE_TALENT.id,
+        spell: talents.FROSTSCYTHE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.FROSTSCYTHE_TALENT.id),
+        enabled: combatant.hasTalent(talents.FROSTSCYTHE_TALENT.id),
       },
       {
-        spell: SPELLS.GLACIAL_ADVANCE_TALENT.id,
+        spell: talents.GLACIAL_ADVANCE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 6 / (1 + haste),
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.GLACIAL_ADVANCE_TALENT.id),
+        enabled: combatant.hasTalent(talents.GLACIAL_ADVANCE_TALENT.id),
       },
       {
-        spell: SPELLS.SACRIFICIAL_PACT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
+        spell: talents.SACRIFICIAL_PACT_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,      
         cooldown: 120,
         gcd: {
           base: 1500,
         },
+        enabled: combatant.hasTalent(talents.SACRIFICIAL_PACT_TALENT.id),
       },
 
       // DEFENSIVE
       {
-        spell: SPELLS.ANTI_MAGIC_SHELL.id,
-        buffSpellId: SPELLS.ANTI_MAGIC_SHELL.id,
+        spell: talents.ANTI_MAGIC_SHELL_TALENT.id,
+        buffSpellId: talents.ANTI_MAGIC_SHELL_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: null,
-        cooldown: 60,
+        cooldown: combatant.hasTalent(talents.ANTI_MAGIC_BARRIER_TALENT.id) ? 40 : 60,
         isDefensive: true,
+        enabled: combatant.hasTalent(talents.ANTI_MAGIC_SHELL_TALENT.id),
       },
       {
-        spell: SPELLS.ICEBOUND_FORTITUDE.id,
-        buffSpellId: SPELLS.ICEBOUND_FORTITUDE.id,
+        spell: talents.ICEBOUND_FORTITUDE_TALENT.id,
+        buffSpellId: talents.ICEBOUND_FORTITUDE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: null,
         cooldown: 180,
         isDefensive: true,
+        enabled: combatant.hasTalent(talents.ICEBOUND_FORTITUDE_TALENT.id),
       },
       {
-        spell: SPELLS.DEATH_STRIKE.id,
+        spell: talents.DEATH_STRIKE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: {
           base: 1500,
@@ -189,17 +225,17 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
       },
       {
-        spell: SPELLS.DEATH_PACT_TALENT.id,
-        buffSpellId: SPELLS.DEATH_PACT_TALENT.id,
+        spell: talents.DEATH_STRIKE_TALENT.id,
+        buffSpellId: talents.DEATH_STRIKE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: null,
         cooldown: 120,
         isDefensive: true,
-        enabled: combatant.hasTalent(SPELLS.DEATH_PACT_TALENT.id),
+        enabled: combatant.hasTalent(talents.DEATH_STRIKE_TALENT.id),
       },
       {
-        spell: SPELLS.ANTI_MAGIC_ZONE.id,
-        buffSpellId: SPELLS.ANTI_MAGIC_ZONE_BUFF.id,
+        spell: talents.ANTI_MAGIC_ZONE_TALENT.id,
+        buffSpellId: SPELLS.ANTI_MAGIC_ZONE_TALENT_BUFF.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: null,
         cooldown: 120,
@@ -223,8 +259,8 @@ class Abilities extends CoreAbilities {
         cooldown: 25,
       },
       {
-        spell: SPELLS.CHAINS_OF_ICE.id,
-        category: combatant.hasTalent(SPELLS.COLD_HEART_TALENT.id)
+        spell: talents.CHAINS_OF_ICE_TALENT.id,
+        category: combatant.hasTalent(talents.COLD_HEART_TALENT.id)
           ? SPELL_CATEGORY.ROTATIONAL
           : SPELL_CATEGORY.UTILITY,
         gcd: {
@@ -234,8 +270,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEATHS_ADVANCE.id,
         category: SPELL_CATEGORY.UTILITY,
+        charges: combatant.hasTalent(talents.DEATHS_ECHO_TALENT.id) ? 2 : 1,
         gcd: null,
-        cooldown: 45,
+        cooldown: 45,        
       },
       {
         spell: SPELLS.DARK_COMMAND.id,
@@ -252,7 +289,7 @@ class Abilities extends CoreAbilities {
         cooldown: 600,
       },
       {
-        spell: SPELLS.MIND_FREEZE.id,
+        spell: talents.MIND_FREEZE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
         cooldown: 15,
@@ -265,7 +302,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ASPHYXIATE_TALENT.id,
+        spell: talents.ASPHYXIATE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
@@ -273,33 +310,34 @@ class Abilities extends CoreAbilities {
         cooldown: 45,
       },
       {
-        spell: SPELLS.CONTROL_UNDEAD.id,
+        spell: talents.CONTROL_UNDEAD_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.BLINDING_SLEET_TALENT.id,
+        spell: talents.BLINDING_SLEET_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
         cooldown: 60,
-        enabled: combatant.hasTalent(SPELLS.BLINDING_SLEET_TALENT.id),
+        enabled: combatant.hasTalent(talents.BLINDING_SLEET_TALENT.id),
       },
       {
-        spell: SPELLS.WRAITH_WALK_TALENT.id,
+        spell: talents.WRAITH_WALK_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
         cooldown: 60,
-        enabled: combatant.hasTalent(SPELLS.WRAITH_WALK_TALENT.id),
+        enabled: combatant.hasTalent(talents.WRAITH_WALK_TALENT.id),
       },
       {
         spell: SPELLS.DEATH_AND_DECAY.id,
         category: SPELL_CATEGORY.UTILITY,
+        charges: combatant.hasTalent(talents.DEATHS_ECHO_TALENT.id) ? 2 : 1,
         gcd: {
           base: 1500,
         },
@@ -333,83 +371,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.HIDDEN,
         cooldown: (haste) => 10 / (1 + haste),
         charges: 2,
-      },
-      // covenants
-      {
-        spell: SPELLS.SWARMING_MIST.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
-      },
-      {
-        spell: SPELLS.DOOR_OF_SHADOWS.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
-      },
-      {
-        spell: SPELLS.ABOMINATION_LIMB.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-      },
-      {
-        spell: SPELLS.FLESHCRAFT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-      },
-      {
-        spell: SPELLS.SHACKLE_THE_UNWORTHY.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
-      },
-      {
-        spell: SPELLS.DEATHS_DUE.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
-      },
-      {
-        spell: SPELLS.SOULSHAPE.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },
     ];
   }

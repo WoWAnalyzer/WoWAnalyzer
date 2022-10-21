@@ -30,11 +30,11 @@ class Hemostasis extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.DEATH_STRIKE_HEAL),
+      Events.heal.by(SELECTED_PLAYER).spell(talents.DEATH_STRIKE_TALENT_HEAL),
       this.onHeal,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DEATH_STRIKE, SPELLS.BLOOD_BOIL]),
+      Events.damage.by(SELECTED_PLAYER).spell([talents.DEATH_STRIKE_TALENT, SPELLS.BLOOD_BOIL]),
       this.onDamage,
     );
   }
@@ -47,7 +47,7 @@ class Hemostasis extends Analyzer {
 
   onDamage(event: DamageEvent) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.DEATH_STRIKE.id) {
+    if (spellId === talents.DEATH_STRIKE_TALENT.id) {
       if (this.buffStack > 0) {
         this.buffedDeathStrikes += 1;
         this.usedBuffs += this.buffStack;

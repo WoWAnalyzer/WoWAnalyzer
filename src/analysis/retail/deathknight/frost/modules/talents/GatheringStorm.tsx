@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/deathknight'
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -31,7 +32,7 @@ class GatheringStorm extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.GATHERING_STORM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.GATHERING_STORM_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -45,7 +46,7 @@ class GatheringStorm extends Analyzer {
       this.onApplyBuffStack,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.REMORSELESS_WINTER_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.REMORSELESS_WINTER_TALENT_DAMAGE),
       this.onDamage,
     );
     this.addEventListener(
@@ -80,11 +81,11 @@ class GatheringStorm extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.REMORSELESS_WINTER.id)) {
+    if (!this.selectedCombatant.hasBuff(talents.REMORSELESS_WINTER_TALENT.id)) {
       return;
     }
     if (
-      event.ability.guid === SPELLS.HOWLING_BLAST.id &&
+      event.ability.guid === talents.HOWLING_BLAST_TALENT.id &&
       this.selectedCombatant.hasBuff(SPELLS.RIME.id)
     ) {
       // handles the free HB from Rime proc,
@@ -113,7 +114,7 @@ class GatheringStorm extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.GATHERING_STORM_TALENT.id}>
+        <BoringSpellValueText spellId={talents.GATHERING_STORM_TALENT.id}>
           <>
             <ItemDamageDone amount={this.bonusDamage} /> <br />
             <UptimeIcon /> {this.averageExtension.toFixed(1)}{' '}

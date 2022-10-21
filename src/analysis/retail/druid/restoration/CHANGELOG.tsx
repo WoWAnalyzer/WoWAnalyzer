@@ -4,6 +4,7 @@ import { SpellLink } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
 export default [
+  change(date(2022, 10, 19), <>Rearranged Guide's 'Core Rotation' section for improved readability</>, Sref),
   change(date(2022, 10, 16), <>Fixed a bug where casting Flourish before your first Convoke caused a crash in the Flourish module.</>, Sref),
   change(date(2022, 10, 14), <>Updated statistics for <SpellLink id={TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT.id} /> and <SpellLink id={TALENTS_DRUID.REGENESIS_TALENT.id} /> to provide breakdown by spell.</>, Sref),
   change(date(2022, 10, 14), <>Added statistic and mana efficiency entry for <SpellLink id={TALENTS_DRUID.OVERGROWTH_TALENT.id} />. You may stop bothering me now, Zimbita.</>, Sref),

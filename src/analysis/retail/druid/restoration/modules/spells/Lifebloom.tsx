@@ -1,7 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { SubSection } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
@@ -10,6 +9,9 @@ import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSu
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { LIFEBLOOM_BUFFS } from 'analysis/retail/druid/restoration/constants';
 import { causedBloom } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 const LB_COLOR = '#00bb44';
 const UNDERGROWTH_COLOR = '#dd5500';
@@ -142,8 +144,9 @@ class Lifebloom extends Analyzer {
     const hasVerdancy = this.selectedCombatant.hasTalent(TALENTS_DRUID.VERDANCY_TALENT);
     const selfUptimePercent = this.selfLifebloomUptime / this.owner.fightDuration;
     const othersUptimePercent = this.othersLifebloomUptime / this.owner.fightDuration;
-    return (
-      <SubSection>
+
+    const explanation = (
+      <>
         <p>
           <b>
             <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} />
@@ -209,9 +212,19 @@ class Lifebloom extends Analyzer {
             )}
           </p>
         )}
-        {this.subStatistic()}
-      </SubSection>
+      </>
     );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>Lifebloom upimtes</strong>
+          {this.subStatistic()}
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   subStatistic() {

@@ -27,7 +27,7 @@ class BrynadaorsMight extends Analyzer {
 
     this.addEventListener(Events.resourcechange, this._onEnergize);
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.DEATH_STRIKE_HEAL),
+      Events.heal.by(SELECTED_PLAYER).spell(talents.DEATH_STRIKE_TALENT_HEAL),
       this._onHeal,
     );
   }
@@ -107,7 +107,7 @@ class BrynadaorsMight extends Analyzer {
         size="flexible"
         tooltip={
           <Trans id="deathknight.blood.bryndaorsMight.statistic.tooltip">
-            <strong>{this.brynadaorsTriggered}</strong> of your {SPELLS.DEATH_STRIKE.name}s
+            <strong>{this.brynadaorsTriggered}</strong> of your {talents.DEATH_STRIKE_TALENT.name}s
             triggered {SPELLS.BRYNDAORS_MIGHT.name} while{' '}
             <strong>
               {this.brynadaorsNotTriggered} ({formatPercentage(this.brynadaorsPercentage)}%) did not

@@ -109,6 +109,11 @@ class Abilities extends CoreAbilities {
         gcd: { static: 1500 },
       },
       {
+        spell: [SPELLS.DEMONIC_EMPOWERMENT],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { static: 1500 },
+      },
+      {
         spell: [SPELLS.DEMONIC_IMMOLATE],
         category: SPELL_CATEGORY.HIDDEN,
         gcd: { static: 1500 },
@@ -151,6 +156,11 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.FEL_ARMOR, ...lowRankSpells[SPELLS.FEL_ARMOR]],
         category: SPELL_CATEGORY.UTILITY,
+        gcd: { static: 1500 },
+      },
+      {
+        spell: [SPELLS.HAUNT, ...lowRankSpells[SPELLS.HAUNT]],
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { static: 1500 },
       },
       {
@@ -306,6 +316,11 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.UNENDING_BREATH],
         category: SPELL_CATEGORY.UTILITY,
+        gcd: { static: 1500 },
+      },
+      {
+        spell: [SPELLS.UNSTABLE_AFFLICTION, ...lowRankSpells[SPELLS.UNSTABLE_AFFLICTION]],
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { static: 1500 },
       },
     ];
