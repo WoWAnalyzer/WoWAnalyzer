@@ -60,15 +60,12 @@ class MasteryEffectiveness extends Analyzer {
   totalPossibleAbsorbs = 0;
   totalCalculatedBaseAbsorbs = 0;
 
-  /**
-   * @type {number} The total amount of healing done by just the mastery gain. Precisely calculated for every spell.
-   */
   totalMasteryHealingDone: number = 0;
 
-  wastedShield = 0;
-
   wastedTAShield: number = 0;
+  totalTAShield: number = 0;
   wastedTGShield: number = 0;
+  totalTGShield: number = 0;
 
   masteryHealEvents: MasteryEvent[] = [];
 
@@ -253,12 +250,17 @@ class MasteryEffectiveness extends Analyzer {
       !didShieldConsume
     ) {
       const shieldWasted = shieldAmount - info.healing;
-      this.wastedShield += shieldWasted;
-      if (!isTAShield) {
-        this.wastedTGShield += shieldWasted;
-      } else {
+      if (isTAShield) {
         this.wastedTAShield += shieldWasted;
+      } else {
+        this.wastedTGShield += shieldWasted;
       }
+    }
+
+    if (isTAShield) {
+      this.totalTAShield += shieldAmount;
+    } else {
+      this.totalTGShield += shieldAmount;
     }
 
     this.totalMasteryHealingDone += absorbFromMasteryBonusUsed;
@@ -268,8 +270,16 @@ class MasteryEffectiveness extends Analyzer {
     return this.wastedTAShield;
   }
 
+  get totalTemporalAnomalyShield() {
+    return this.totalTAShield;
+  }
+
   get wastedTwinGuardianShield() {
     return this.wastedTGShield;
+  }
+
+  get totalTwinGuardianShield() {
+    return this.totalTGShield;
   }
 
   statistic() {
