@@ -12,8 +12,8 @@ class RuneBreakdown extends ResourceBreakdown {
   render() {
     const { tracker, showSpenders } = this.props;
     const resourceName = tracker.resource.name;
-    const generated = this.prepareGenerated(tracker.buildersObj);
-    const spent = this.prepareSpent(tracker.spendersObj);
+    const generated = this.prepareGenerated(tracker);
+    const spent = this.prepareSpent(tracker);
 
     let totalGenerated = tracker.generated;
     let totalWasted = tracker.wasted;

@@ -7,11 +7,11 @@ class MitigationCheck extends CoreMitigationCheck {
     super(options);
 
     this.buffCheckPhysical = [SPELLS.BONE_SHIELD.id, SPELLS.DANCING_RUNE_WEAPON_BUFF.id];
-    this.buffCheckMagical = [SPELLS.ANTI_MAGIC_SHELL.id];
+    this.buffCheckMagical = [talents.ANTI_MAGIC_SHELL_TALENT.id];
     this.buffCheckPhysAndMag = [
       SPELLS.BLOOD_SHIELD.id,
       SPELLS.VAMPIRIC_BLOOD.id,
-      SPELLS.ICEBOUND_FORTITUDE.id,
+      talents.ICEBOUND_FORTITUDE_TALENT.id,
       SPELLS.TOMBSTONE_TALENT.id,
     ];
   }

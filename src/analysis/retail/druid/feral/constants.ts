@@ -142,12 +142,14 @@ export const STEALTH_SHRED_RAKE_BOOST = 0.6;
 /** Effective combo points used by a Convoke'd Ferocious Bite */
 export const CONVOKE_FB_CPS = 4;
 
-/** Gets the number of CPs that were used to produce this Bite.
+/** Gets the effective number of CPs that were used to produce this Bite.
  *  Takes DamageEvent instead of CastEvent to also catch Convoke'd bites */
 export function getBiteCps(event: DamageEvent) {
   const hardcast = getHardcast(event);
   if (hardcast) {
-    return getResourceSpent(hardcast, RESOURCE_TYPES.COMBO_POINTS);
+    const cpsUsed = getResourceSpent(hardcast, RESOURCE_TYPES.COMBO_POINTS);
+    // only way to get 0 CPs used is an Apex bite, which counts as though 5 CPs were used
+    return cpsUsed === 0 ? MAX_CPS : cpsUsed;
   } else {
     // no hardcast -> from Convoke
     return CONVOKE_FB_CPS;

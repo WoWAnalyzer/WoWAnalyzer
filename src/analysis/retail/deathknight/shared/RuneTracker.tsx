@@ -90,14 +90,7 @@ class RuneTracker extends ResourceTracker {
     event.classResources
       .filter((resource) => resource.type === this.resource.id)
       .forEach(({ amount, cost }) => {
-        let runeCost = cost || 0;
-        //adjust for resource cost reduction
-        if (
-          event.ability.guid === SPELLS.OBLITERATE_CAST.id &&
-          this.selectedCombatant.hasBuff(SPELLS.OBLITERATION_TALENT.id)
-        ) {
-          runeCost -= 1;
-        }
+        const runeCost = cost || 0;
         if (runeCost <= 0) {
           return;
         }

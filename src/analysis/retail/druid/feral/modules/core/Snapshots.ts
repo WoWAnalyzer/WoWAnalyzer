@@ -249,6 +249,17 @@ abstract class Snapshots extends Analyzer {
       : this.getSnapshotCombinedUptimeDuration(snapshotName) / totalUptime;
   }
 
+  /** Gets the time remaining on the DoT active on the given event's target at the time of the event (zero if DoT isn't active) */
+  getTimeRemaining(event: TargettedEvent<any>): number {
+    const uptimes = this.getUptimesForTarget(event);
+    if (uptimes.length > 0) {
+      const latestUptime = uptimes[uptimes.length - 1];
+      return Math.max(0, latestUptime.expectedEnd - event.timestamp);
+    } else {
+      return 0;
+    }
+  }
+
   get percentWithBloodtalons() {
     return this.getPercentUptimeWithSnapshot(BLOODTALONS_SPEC.name);
   }

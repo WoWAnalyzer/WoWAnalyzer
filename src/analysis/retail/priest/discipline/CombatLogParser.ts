@@ -48,6 +48,7 @@ import PowerWordShield from './modules/spells/PowerWordShield';
 import AegisOfWrath from './modules/spells/AegisOfWrath';
 import CrystallineReflection from './modules/spells/CrystallineReflection';
 import StolenPsyche from './modules/spells/StolenPsyche';
+import PowerWordRadiance from './modules/spells/PowerWordRadiance';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -89,6 +90,9 @@ class CombatLogParser extends CoreCombatLogParser {
     enduringLuminescense: EnduringLuminescense,
     AegisOfWrath: AegisOfWrath,
     crystallineReflection: CrystallineReflection,
+    powerWordRadiance: PowerWordRadiance,
+
+    // Spells (talents and traits):
     twistOfFate: TwistOfFate,
     castigation: Castigation,
     atonement: Atonement,

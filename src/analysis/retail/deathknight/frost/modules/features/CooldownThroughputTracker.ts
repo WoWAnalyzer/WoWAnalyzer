@@ -1,4 +1,6 @@
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/deathknight';
+
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
@@ -7,23 +9,23 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id,
+      spell: talents.BREATH_OF_SINDRAGOSA_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
-      spell: SPELLS.PILLAR_OF_FROST.id,
+      spell: talents.PILLAR_OF_FROST_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
-      spell: SPELLS.OBLITERATION_TALENT.id,
+      spell: talents.OBLITERATION_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];
 
   static ignoredSpells = [
     ...CoreCooldownThroughputTracker.ignoredSpells,
-    SPELLS.REMORSELESS_WINTER_DAMAGE.id,
-    SPELLS.REMORSELESS_WINTER_ENV_CAST.id,
+    SPELLS.REMORSELESS_WINTER_TALENT_DAMAGE.id,
+    SPELLS.REMORSELESS_WINTER_TALENT_ENV_CAST.id,
   ];
 }
 

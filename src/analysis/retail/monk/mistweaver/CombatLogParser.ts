@@ -59,7 +59,7 @@ import MistWrapEnvelopingBreath from './modules/spells/MistWrapEnvelopingBreath'
 import MistyPeaks from './modules/spells/MistyPeaks';
 import RefreshingJadeWind from './modules/spells/RefreshingJadeWind';
 import RenewingMistDuringManaTea from './modules/spells/RenewingMistDuringManaTea';
-import RisingMist from './modules/spells/RisingMist';
+// import RisingMist from './modules/spells/RisingMist';
 import SpiritOfTheCrane from './modules/spells/SpiritOfTheCrane';
 import Upwelling from './modules/spells/Upwelling';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
@@ -135,7 +135,7 @@ class CombatLogParser extends CoreCombatLogParser {
     renewingMist: RenewingMist,
     renewingMistDuringManaTea: RenewingMistDuringManaTea,
     revival: Revival,
-    risingMist: RisingMist,
+    //risingMist: RisingMist,
     risingSunRevival: RisingSunRevival,
     spiritOfTheCrane: SpiritOfTheCrane,
     soothingMist: SoothingMist,

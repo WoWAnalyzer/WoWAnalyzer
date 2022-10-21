@@ -3,9 +3,9 @@ import CombatLogParser from 'analysis/retail/druid/feral/CombatLogParser';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { CooldownBar } from 'parser/ui/CooldownBar';
 import SPELLS from 'common/SPELLS';
-import { SpellLink, TooltipElement } from 'interface';
+import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
-import styled from '@emotion/styled';
+import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -64,62 +64,32 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
         </a>
         . See below for spell usage details.
       </p>
-      {modules.bloodtalons.guideSubsection}
-      {modules.rakeUptime.guideSubsection}
-      {info.combatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_TALENT) && (
-        <SubSection>
-          <strong>
-            <SpellLink id={SPELLS.MOONFIRE_FERAL.id} />
-          </strong>{' '}
-          - Maintain uptime, preferably with{' '}
-          <TooltipElement content={snapshotTooltip()}>snapshots</TooltipElement>
-          {modules.moonfireUptime.subStatistic()}
-        </SubSection>
-      )}
-      <SubSection>
-        <strong>
-          <SpellLink id={SPELLS.SWIPE_CAT.id} /> and <SpellLink id={SPELLS.THRASH_FERAL.id} />
-        </strong>{' '}
-        - TODO targets hit eval (check for bloodtalons contrib)
-      </SubSection>
+      {info.combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT) &&
+        modules.bloodtalons.guideSubsection}
       {modules.ripUptime.guideSubsection}
-      <SubSection>
-        <strong>
-          <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />
-        </strong>{' '}
-        - TODO eval? Per-cast (snapshot, use full energy)
-        <br />
-        Apex predator usage?
-      </SubSection>
-      {info.combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT) && (
-        <SubSection>
-          <strong>
-            <SpellLink id={TALENTS_DRUID.ADAPTIVE_SWARM_TALENT.id} />
-          </strong>{' '}
-          - ???
-          {modules.adaptiveSwarm.subStatistic()}
-        </SubSection>
-      )}
+      {modules.ferociousBite.guideSubsection}
+      {modules.rakeUptime.guideSubsection}
+      {info.combatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_TALENT) &&
+        modules.moonfireUptime.guideSubsection}
+      {info.combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT) &&
+        modules.adaptiveSwarm.guideSubsection}
+      {modules.hitCountAoe.guideSubsection}
     </Section>
-  );
-}
-
-function snapshotTooltip() {
-  return (
-    <>
-      Your damage over time abilities 'snapshot' some of your buffs, retaining their damage bonus
-      over the DoTs full duration, even if the buff fades. The buffs that snapshot are{' '}
-      <SpellLink id={TALENTS_DRUID.TIGERS_FURY_TALENT.id} />,{' '}
-      <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />, and{' '}
-      <SpellLink id={TALENTS_DRUID.POUNCING_STRIKES_TALENT.id} />
-    </>
   );
 }
 
 function CooldownSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Cooldowns">
-      <p>TODO COOLDOWN USAGE DESCRIPTION</p>
+      <p>
+        Feral's cooldowns are decently powerful but should not be held on to for long. In order to
+        maximize usages over the course of an encounter, you should aim to send the cooldown as soon
+        as it becomes available (as long as it can do damage on target). It is particularly
+        important to use <SpellLink id={SPELLS.TIGERS_FURY.id} /> as often as possible.
+        <br />
+        <br />
+        <strong>Per-spell guidance and statistics coming soon!</strong>
+      </p>
       <CooldownGraphSubsection modules={modules} events={events} info={info} />
     </Section>
   );
@@ -177,21 +147,3 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
     </SubSection>
   );
 }
-
-// TODO more purpose built rather than copypasta from Emallson's stuff
-const RoundedPanel = styled.div`
-  background: #222;
-  border-radius: 0.5em;
-  padding: 1em 1.5em;
-  display: grid;
-  grid-gap: 2rem;
-  grid-template-columns: 1fr max-content;
-  align-content: center;
-  align-items: center;
-`;
-
-const SideBySidePanels = styled.div`
-  display: grid;
-  grid-template-columns: minmax(50%, max-content) 1fr;
-  grid-column-gap: 1em;
-`;

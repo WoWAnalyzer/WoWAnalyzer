@@ -25,7 +25,8 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { GradiatedPerformanceBar, SubSection } from 'interface/guide';
+import { SubSection } from 'interface/guide';
+import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 
 const BUFFER_MS = 50;
 
@@ -328,7 +329,7 @@ class Bloodtalons extends Analyzer {
           between finishers - in these cases it's ok to use unbuffed finishers.
         </p>
         <p>{this.bloodtalonsVsLionsStrengthText}</p>
-        <strong>Finisher use breakdown</strong>
+        <strong>Bloodtalons use breakdown</strong>
         <small>
           {' '}
           - Green is Bloodtalons finishers, Yellow is acceptable unbuffed finishers, Red is

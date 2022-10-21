@@ -39,6 +39,7 @@ import SuddenAmbush from 'analysis/retail/druid/feral/modules/spells/SuddenAmbus
 import RampantFerocityLinkNormalizer from 'analysis/retail/druid/feral/normalizers/RampantFerocityLinkNormalizer';
 import TasteForBlood from 'analysis/retail/druid/feral/modules/spells/TasteForBlood';
 import RagingFury from 'analysis/retail/druid/feral/modules/spells/RagingFury';
+import ThrashUptimeAndSnapshot from 'analysis/retail/druid/feral/modules/spells/ThrashUptimeAndSnapshot';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -77,6 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // bleeds
     rakeUptime: RakeUptimeAndSnapshots,
     ripUptime: RipUptimeAndSnapshots,
+    thrashUptime: ThrashUptimeAndSnapshot,
 
     // spells
     tigersFuryEnergy: TigersFuryEnergy,

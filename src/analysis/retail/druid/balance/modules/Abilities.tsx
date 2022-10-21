@@ -162,6 +162,15 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 11,
       },
+      {
+        spell: SPELLS.CONVOKE_SPIRITS.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: combatant.hasTalent(TALENTS_DRUID.ELUNES_GUIDANCE_TALENT) ? 60 : 120,
+        gcd: {
+          base: 1500,
+        },
+      },
 
       //Utility
       {
