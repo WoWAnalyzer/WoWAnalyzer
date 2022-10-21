@@ -17,7 +17,7 @@ class Ossuary extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATH_STRIKE), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(talents.DEATH_STRIKE_TALENT), this.onCast);
   }
 
   get uptime() {
@@ -72,7 +72,7 @@ class Ossuary extends Analyzer {
       suggest(
         <Trans id="deathknight.blood.ossuary.suggestion.suggestion">
           Your <SpellLink id={SPELLS.OSSUARY.id} /> usage can be improved. Avoid casting{' '}
-          <SpellLink id={SPELLS.DEATH_STRIKE.id} /> while not having Ossuary up as you lose Runic
+          <SpellLink id={talents.DEATH_STRIKE_TALENT.id} /> while not having Ossuary up as you lose Runic
           Power by doing so.
         </Trans>,
       )

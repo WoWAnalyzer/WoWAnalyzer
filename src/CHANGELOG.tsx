@@ -67,6 +67,7 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 17), 'Use generated talent info for character pages.', ToppleTheNun),
   change(date(2022, 10, 16), 'Update SpellLink to accept Spell instances.', ToppleTheNun),
   change(date(2022, 10, 16), 'Add ability to determine if wearing T29 2pc or 4pc.', ToppleTheNun),
   change(date(2022, 10, 16), 'Adding sourceInstance to BuffEvent', Jonfanz),
