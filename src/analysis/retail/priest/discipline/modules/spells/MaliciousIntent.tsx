@@ -92,7 +92,7 @@ class MaliciousIntent extends Analyzer {
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
-        position={STATISTIC_ORDER.CORE(1)}
+        position={STATISTIC_ORDER.CORE(20)}
         size="flexible"
       >
         <BoringSpellValueText spellId={TALENTS_PRIEST.MALICIOUS_INTENT_TALENT.id}>
