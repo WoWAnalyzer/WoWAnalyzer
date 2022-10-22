@@ -7,6 +7,7 @@ import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import CurseOfAgony from '../spells/CurseOfAgony';
 import CurseOfDoom from '../spells/CurseOfDoom';
 import CurseOfTheElements from '../spells/CurseOfTheElements';
+import Curses from '../spells/Curses';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {
@@ -18,6 +19,7 @@ class Checklist extends BaseChecklist {
     curseOfAgony: CurseOfAgony,
     curseOfDoom: CurseOfDoom,
     curseOfTheElements: CurseOfTheElements,
+    curses: Curses,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
   };
   protected alwaysBeCasting!: AlwaysBeCasting;
@@ -26,6 +28,7 @@ class Checklist extends BaseChecklist {
   protected curseOfAgony!: CurseOfAgony;
   protected curseOfDoom!: CurseOfDoom;
   protected curseOfTheElements!: CurseOfTheElements;
+  protected curses!: Curses;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
 
   render() {
@@ -38,6 +41,7 @@ class Checklist extends BaseChecklist {
           curseOfAgony: this.curseOfAgony.suggestionThresholds,
           curseOfDoom: this.curseOfDoom.suggestionThresholds,
           curseOfTheElements: this.curseOfTheElements.suggestionThresholds,
+          curses: this.curses.suggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
         }}
       />
