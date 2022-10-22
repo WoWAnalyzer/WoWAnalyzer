@@ -8,7 +8,7 @@ import { PurifySection } from './modules/problems/PurifyingBrew';
 import talents from 'common/TALENTS/monk';
 import * as AplCheck from './modules/core/AplCheck';
 import { AplSectionData } from 'interface/guide/components/Apl';
-import { InvokeNiuzaoSection } from './modules/problems/InvokeNiuzao';
+import { ImprovedInvokeNiuzaoSection } from './modules/problems/InvokeNiuzao';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -40,7 +40,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         </p>
         <AplSectionData checker={AplCheck.check} apl={AplCheck.apl} />
       </Section>
-      <InvokeNiuzaoSection
+      <ImprovedInvokeNiuzaoSection
         events={events}
         info={info}
         module={modules.invokeNiuzao}
