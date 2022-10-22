@@ -49,8 +49,8 @@ const DisciplinePriestChecklist = ({
         {combatant.hasTalent(TALENTS.POWER_WORD_SOLACE_TALENT) && (
           <AbilityRequirement spell={TALENTS.POWER_WORD_SOLACE_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.DIVINE_STAR_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS.DIVINE_STAR_TALENT.id} />
+        {combatant.hasTalent(TALENTS.DIVINE_STAR_SHARED_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.DIVINE_STAR_SHARED_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS.SHADOW_COVENANT_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.SHADOW_COVENANT_TALENT.id} />

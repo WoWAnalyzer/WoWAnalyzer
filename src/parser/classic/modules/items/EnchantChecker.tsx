@@ -75,15 +75,14 @@ const MIN_ENCHANT_IDS = [
   // Other
   3330, // https://www.wowhead.com/wotlk/spell=50909/heavy-borean-armor-kit
   3329, // https://www.wowhead.com/wotlk/spell=50906/borean-armor-kit
-
 ];
 
 const MAX_ENCHANT_IDS = [
   // Head
-  3819,  // https://www.wowhead.com/wotlk/spell=59960/arcanum-of-blissful-mending
-  3820,  // https://www.wowhead.com/wotlk/spell=59970/arcanum-of-burning-mysteries
-  3817,  // https://www.wowhead.com/wotlk/spell=59954/arcanum-of-torment
-  3818,  // https://www.wowhead.com/wotlk/spell=59955/arcanum-of-the-stalwart-protector
+  3819, // https://www.wowhead.com/wotlk/spell=59960/arcanum-of-blissful-mending
+  3820, // https://www.wowhead.com/wotlk/spell=59970/arcanum-of-burning-mysteries
+  3817, // https://www.wowhead.com/wotlk/spell=59954/arcanum-of-torment
+  3818, // https://www.wowhead.com/wotlk/spell=59955/arcanum-of-the-stalwart-protector
   3878, // https://www.wowhead.com/wotlk/spell=67839/mind-amplification-dish
   // Shoulder
   3836, // https://www.wowhead.com/wotlk/spell=61118/masters-inscription-of-the-crag
@@ -118,7 +117,7 @@ const MAX_ENCHANT_IDS = [
   3826, // https://www.wowhead.com/wotlk/spell=60623/enchant-boots-icewalker
   3232, // https://www.wowhead.com/wotlk/spell=47901/enchant-boots-tuskarrs-vitality
   3244, // https://www.wowhead.com/wotlk/spell=44584/enchant-boots-greater-vitality
-  983,  // https://www.wowhead.com/wotlk/spell=44589/enchant-boots-superior-agility
+  983, // https://www.wowhead.com/wotlk/spell=44589/enchant-boots-superior-agility
   1147, // https://www.wowhead.com/wotlk/spell=44508/enchant-boots-greater-spirit
   1075, // https://www.wowhead.com/wotlk/spell=44528/enchant-boots-greater-fortitude
   3606, // https://www.wowhead.com/wotlk/spell=55016/nitro-boosts
@@ -154,7 +153,7 @@ const MAX_ENCHANT_IDS = [
   3243, // https://www.wowhead.com/wotlk/spell=44582/enchant-cloak-spell-piercing
   3256, // https://www.wowhead.com/wotlk/spell=44631/enchant-cloak-shadow-armor
   3296, // https://www.wowhead.com/wotlk/spell=47899/enchant-cloak-wisdom
-  983,  // https://www.wowhead.com/wotlk/spell=44500/enchant-cloak-superior-agility
+  983, // https://www.wowhead.com/wotlk/spell=44500/enchant-cloak-superior-agility
   3728, // https://www.wowhead.com/wotlk/spell=55769/darkglow-embroidery
   3722, // https://www.wowhead.com/wotlk/spell=55642/lightweave-embroidery
   3730, // https://www.wowhead.com/wotlk/spell=55777/swordguard-embroidery

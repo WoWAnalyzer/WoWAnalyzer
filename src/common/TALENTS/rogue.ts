@@ -84,6 +84,12 @@ const talents = createTalentList({
     icon: 'ability_rogue_preyontheweak',
     maxRanks: 1,
   },
+  SHADOWSTEP_SHARED_TALENT: {
+    id: 394931,
+    name: 'Shadowstep',
+    icon: 'rogue_shadowfocus',
+    maxRanks: 1,
+  },
   SUBTERFUGE_TALENT: { id: 108208, name: 'Subterfuge', icon: 'rogue_subterfuge', maxRanks: 1 },
   VIRULENT_POISONS_TALENT: {
     id: 381543,
@@ -218,12 +224,6 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   SHADOW_DANCE_TALENT: { id: 394930, name: 'Shadow Dance', icon: 'rogue_shadowfocus', maxRanks: 1 },
-  SHADOWSTEP_SHARED_TALENT: {
-    id: 394931,
-    name: 'Shadowstep',
-    icon: 'rogue_shadowfocus',
-    maxRanks: 1,
-  },
   SEPSIS_TALENT: {
     id: 385408,
     name: 'Sepsis',
@@ -476,6 +476,12 @@ const talents = createTalentList({
     icon: 'ability_rogue_grapplinghook',
     maxRanks: 1,
   },
+  WEAPONMASTER_OUTLAW_TALENT: {
+    id: 200733,
+    name: 'Weaponmaster',
+    icon: 'ability_ironmaidens_bladerush',
+    maxRanks: 1,
+  },
   COMBAT_POTENCY_TALENT: {
     id: 61329,
     name: 'Combat Potency',
@@ -702,12 +708,6 @@ const talents = createTalentList({
     id: 386823,
     name: "Greenskin's Wickers",
     icon: 'ability_creature_cursed_04',
-    maxRanks: 1,
-  },
-  WEAPONMASTER_OUTLAW_TALENT: {
-    id: 200733,
-    name: 'Weaponmaster',
-    icon: 'ability_ironmaidens_bladerush',
     maxRanks: 1,
   },
 

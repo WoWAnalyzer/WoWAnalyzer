@@ -81,13 +81,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_PRIEST.DIVINE_STAR_TALENT.id,
+        spell: TALENTS_PRIEST.DIVINE_STAR_SHARED_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 15,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_PRIEST.DIVINE_STAR_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_PRIEST.DIVINE_STAR_SHARED_TALENT.id),
         castEfficiency: {
           suggestion: true,
         },

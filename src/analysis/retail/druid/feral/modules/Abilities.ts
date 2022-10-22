@@ -219,7 +219,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MOONKIN_FORM_AFFINITY.id, // with no affinity any more, is this correct?
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS_DRUID.MOONKIN_FORM_TALENT),
+        enabled: combatant.hasTalent(TALENTS_DRUID.MOONKIN_FORM_SHARED_TALENT),
         gcd: {
           base: 1500,
         },
@@ -260,7 +260,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STARFIRE_AFFINITY.id, // TODO still this ID with no more affinity?
         category: SPELL_CATEGORY.OTHERS,
-        enabled: combatant.hasTalent(TALENTS_DRUID.STARFIRE_TALENT),
+        enabled: combatant.hasTalent(TALENTS_DRUID.STARFIRE_SHARED_TALENT),
         gcd: {
           base: 1500,
         },
@@ -275,7 +275,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STARSURGE_AFFINITY.id, // TODO still this ID with no more affinity?
         category: SPELL_CATEGORY.OTHERS,
-        enabled: combatant.hasTalent(TALENTS_DRUID.STARSURGE_TALENT),
+        enabled: combatant.hasTalent(TALENTS_DRUID.STARSURGE_SHARED_TALENT),
         gcd: {
           base: 1500,
         },
@@ -293,7 +293,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FLAP.id,
         category: SPELL_CATEGORY.UTILITY,
         // only usable in Moonkin form so need Balance affinity, also need to learn from a tome
-        enabled: combatant.hasTalent(TALENTS_DRUID.MOONKIN_FORM_TALENT),
+        enabled: combatant.hasTalent(TALENTS_DRUID.MOONKIN_FORM_SHARED_TALENT),
         gcd: {
           static: 500,
         },

@@ -67,6 +67,7 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 22), 'Correct some issues with talent generation', Putro),
   change(date(2022, 10, 22), 'Updating Flask and Elixir list for WOTLK.', Khadaj),
   change(date(2022, 10, 22), 'Removing weapon enhancement checker for WOTLK.', Khadaj),
   change(date(2022, 10, 22), 'Updating Enchant list for WOTLK Classic.', Khadaj),

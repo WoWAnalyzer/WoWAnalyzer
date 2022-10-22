@@ -272,7 +272,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STARSURGE_AFFINITY.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        enabled: combatant.hasTalent(TALENTS_DRUID.STARSURGE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.STARSURGE_SHARED_TALENT.id),
         cooldown: 10,
         gcd: {
           base: 1500,
@@ -281,7 +281,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STARFIRE_AFFINITY.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        enabled: combatant.hasTalent(TALENTS_DRUID.STARFIRE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.STARFIRE_SHARED_TALENT.id),
         gcd: {
           base: 1500,
         },
