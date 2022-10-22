@@ -8,12 +8,13 @@ const ENCHANTABLE_SLOTS = {
   0: <Trans id="common.slots.head">Head</Trans>,
   2: <Trans id="common.slots.shoulder">Shoulder</Trans>,
   4: <Trans id="common.slots.chest">Chest</Trans>,
+  // 5: <Trans id={"common.slots.belt"}>Belt</Trans>,        // Eng only
   6: <Trans id="common.slots.legs">Legs</Trans>,
   7: <Trans id="common.slots.boots">Boots</Trans>,
   8: <Trans id="common.slots.bracers">Bracers</Trans>,
   9: <Trans id="common.slots.gloves">Gloves</Trans>,
-  // 10: <Trans id="common.slots.ring">Ring</Trans>,
-  // 11: <Trans id="common.slots.ring">Ring</Trans>,
+  // 10: <Trans id="common.slots.ring">Ring</Trans>,        // Enchanter Only
+  // 11: <Trans id="common.slots.ring">Ring</Trans>,        // Enchanter Only
   14: <Trans id="common.slots.cloak">Cloak</Trans>,
   15: <Trans id="common.slots.weapon">Weapon</Trans>,
   // 16: <Trans id="common.slots.offhand">OffHand</Trans>,
@@ -21,166 +22,180 @@ const ENCHANTABLE_SLOTS = {
 
 const MIN_ENCHANT_IDS = [
   // Head
+  3795, // https://www.wowhead.com/wotlk/spell=59777/arcanum-of-triumph
+  3797, // https://www.wowhead.com/wotlk/spell=59784/arcanum-of-dominance
+  3842, // https://www.wowhead.com/wotlk/spell=61271/arcanum-of-the-savage-gladiator
+  3815, // https://www.wowhead.com/wotlk/spell=59947/arcanum-of-the-eclipsed-moon
+  3816, // https://www.wowhead.com/wotlk/spell=59948/arcanum-of-the-flames-soul
+  3812, // https://www.wowhead.com/wotlk/spell=59944/arcanum-of-the-frosty-soul
+  3813, // https://www.wowhead.com/wotlk/spell=59945/arcanum-of-toxic-warding
+  3814, // https://www.wowhead.com/wotlk/spell=59946/arcanum-of-the-fleeing-shadow
   // Shoulder
-  2979, // https://tbc.wowhead.com/spell=35403/inscription-of-faith
-  2983, // https://tbc.wowhead.com/spell=35407/inscription-of-vengeance
-  2981, // https://tbc.wowhead.com/spell=35405/inscription-of-discipline
-  2977, // https://tbc.wowhead.com/spell=35355/inscription-of-warding
-  2994, // https://tbc.wowhead.com/spell=35436/inscription-of-the-orb
-  2990, // https://tbc.wowhead.com/spell=35432/inscription-of-the-knight
-  2996, // https://tbc.wowhead.com/spell=35438/inscription-of-the-blade
-  2992, // https://tbc.wowhead.com/spell=35434/inscription-of-the-oracle
+  3875, // https://www.wowhead.com/wotlk/spell=59929/inscription-of-the-axe
+  3876, // https://www.wowhead.com/wotlk/spell=59932/inscription-of-the-pinnacle
+  3806, // https://www.wowhead.com/wotlk/spell=59927/inscription-of-the-storm
+  3807, // https://www.wowhead.com/wotlk/spell=59928/inscription-of-the-crag
+  3793, // https://www.wowhead.com/wotlk/spell=59771/inscription-of-triumph
+  3794, // https://www.wowhead.com/wotlk/spell=59773/inscription-of-dominance
   // Chest
+  3236, // https://www.wowhead.com/wotlk/spell=44492/enchant-chest-mighty-health
+  3252, // https://www.wowhead.com/wotlk/spell=44623/enchant-chest-super-stats
   // Legs
-  3011, // https://tbc.wowhead.com/spell=35489/clefthide-leg-armor
-  3010, // https://tbc.wowhead.com/spell=35488/cobrahide-leg-armor
-  2747, // https://tbc.wowhead.com/spell=31371/mystic-spellthread
-  2745, // https://tbc.wowhead.com/spell=31369/silver-spellthread
+  3718, // https://www.wowhead.com/wotlk/spell=55630/shining-spellthread
+  3720, // https://www.wowhead.com/wotlk/spell=55632/azure-spellthread
+  3325, // https://www.wowhead.com/wotlk/spell=50901/jormungar-leg-armor
+  3326, // https://www.wowhead.com/wotlk/spell=50902/nerubian-leg-armor
   // Boots
+  3824, // https://www.wowhead.com/wotlk/spell=60606/enchant-boots-assault
   // Bracers
+  1600, // https://www.wowhead.com/wotlk/spell=60616/enchant-bracers-striking
+  2326, // https://www.wowhead.com/wotlk/spell=44635/enchant-bracers-greater-spellpower
+  3763, // https://www.wowhead.com/wotlk/spell=57701/fur-lining-arcane-resist
+  3759, // https://www.wowhead.com/wotlk/spell=57692/fur-lining-fire-resist
+  3760, // https://www.wowhead.com/wotlk/spell=57694/fur-lining-frost-resist
+  3762, // https://www.wowhead.com/wotlk/spell=57699/fur-lining-nature-resist
+  3761, // https://www.wowhead.com/wotlk/spell=57696/fur-lining-shadow-resist
   // Gloves
+  3829, // https://www.wowhead.com/wotlk/spell=44513/enchant-gloves-greater-assault
   // Ring
   // Cloak
+  3825, // https://www.wowhead.com/wotlk/spell=60609/enchant-cloak-speed
+  1099, // https://www.wowhead.com/wotlk/spell=60663/enchant-cloak-major-agility
+  1262, // https://www.wowhead.com/wotlk/spell=44596/enchant-cloak-superior-arcane-resistance
+  1354, // https://www.wowhead.com/wotlk/spell=44556/enchant-cloak-superior-fire-resistance
+  3230, // https://www.wowhead.com/wotlk/spell=44483/enchant-cloak-superior-frost-resistance
+  1400, // https://www.wowhead.com/wotlk/spell=44494/enchant-cloak-superior-nature-resistance
+  1446, // https://www.wowhead.com/wotlk/spell=44590/enchant-cloak-superior-shadow-resistance
   // Weapon
+  1606, // https://www.wowhead.com/wotlk/spell=60621/enchant-weapon-greater-potency
+  3830, // https://www.wowhead.com/wotlk/spell=44629/enchant-weapon-exceptional-spellpower
+  // 2H Weapon
+  3828, // https://www.wowhead.com/wotlk/spell=44630/enchant-2h-weapon-greater-savagery
   // Offhand
+  // Other
+  3330, // https://www.wowhead.com/wotlk/spell=50909/heavy-borean-armor-kit
+  3329, // https://www.wowhead.com/wotlk/spell=50906/borean-armor-kit
 ];
 
 const MAX_ENCHANT_IDS = [
   // Head
-  3006, // https://tbc.wowhead.com/spell=35455/glyph-of-arcane-warding
-  3007, // https://tbc.wowhead.com/spell=35456/glyph-of-fire-warding
-  3008, // https://tbc.wowhead.com/spell=35457/glyph-of-frost-warding
-  3005, // https://tbc.wowhead.com/spell=35454/glyph-of-nature-warding
-  3009, // https://tbc.wowhead.com/spell=35458/glyph-of-shadow-warding
-  3002, // https://tbc.wowhead.com/spell=35447/glyph-of-power
-  3001, // https://tbc.wowhead.com/spell=35445/glyph-of-renewal
-  2999, // https://tbc.wowhead.com/spell=35443/glyph-of-the-defender
-  3003, // https://tbc.wowhead.com/spell=35452/glyph-of-ferocity
-  3096, // https://tbc.wowhead.com/spell=37891/glyph-of-the-outcast
-  3004, // https://tbc.wowhead.com/spell=35453/glyph-of-the-gladiator
-
+  3819, // https://www.wowhead.com/wotlk/spell=59960/arcanum-of-blissful-mending
+  3820, // https://www.wowhead.com/wotlk/spell=59970/arcanum-of-burning-mysteries
+  3817, // https://www.wowhead.com/wotlk/spell=59954/arcanum-of-torment
+  3818, // https://www.wowhead.com/wotlk/spell=59955/arcanum-of-the-stalwart-protector
+  3878, // https://www.wowhead.com/wotlk/spell=67839/mind-amplification-dish
   // Shoulder
-  2980, // https://tbc.wowhead.com/spell=35404/greater-inscription-of-faith
-  2986, // https://tbc.wowhead.com/spell=35417/greater-inscription-of-vengeance
-  2982, // https://tbc.wowhead.com/spell=35406/greater-inscription-of-discipline
-  2978, // https://tbc.wowhead.com/spell=35402/greater-inscription-of-warding
-  2991, // https://tbc.wowhead.com/spell=35433/greater-inscription-of-the-knight
-  2997, // https://tbc.wowhead.com/spell=35439/greater-inscription-of-the-blade
-  2993, // https://tbc.wowhead.com/spell=35435/greater-inscription-of-the-oracle
-  2995, // https://tbc.wowhead.com/spell=35437/greater-inscription-of-the-orb
-
+  3836, // https://www.wowhead.com/wotlk/spell=61118/masters-inscription-of-the-crag
+  3838, // https://www.wowhead.com/wotlk/spell=61120/masters-inscription-of-the-storm
+  3837, // https://www.wowhead.com/wotlk/spell=61119/masters-inscription-of-the-pinnacle
+  3835, // https://www.wowhead.com/wotlk/spell=61117/masters-inscription-of-the-axe
+  3808, // https://www.wowhead.com/wotlk/spell=59934/greater-inscription-of-the-axe
+  3811, // https://www.wowhead.com/wotlk/spell=59941/greater-inscription-of-the-pinnacle
+  3810, // https://www.wowhead.com/wotlk/spell=59937/greater-inscription-of-the-storm
+  3809, // https://www.wowhead.com/wotlk/spell=59936/greater-inscription-of-the-crag
+  3852, // https://www.wowhead.com/wotlk/spell=62384/greater-inscription-of-the-gladiator
   // Other
-  2715, // https://tbc.wowhead.com/spell=29475/resilience-of-the-scourge
-  2716, // https://tbc.wowhead.com/spell=29480/fortitude-of-the-scourge
-  2583, // https://tbc.wowhead.com/spell=24149/presence-of-might
-
   // Chest
-  1950, // https://tbc.wowhead.com/spell=46594/enchant-chest-defense
-  2933, // https://tbc.wowhead.com/spell=33992/enchant-chest-major-resilience
-  3150, // https://tbc.wowhead.com/spell=33991/enchant-chest-restore-mana-prime
-  2659, // https://tbc.wowhead.com/spell=46501/enchant-chest-exceptional-health
-  2661, // https://tbc.wowhead.com/spell=46502/enchant-chest-exceptional-stats
-  1144, // https://tbc.wowhead.com/spell=46504/enchant-chest-major-spirit
-
+  1953, // https://www.wowhead.com/wotlk/spell=47766/enchant-chest-greater-defense
+  3245, // https://www.wowhead.com/wotlk/spell=44588/enchant-chest-exceptional-resilience
+  2381, // https://www.wowhead.com/wotlk/spell=44509/enchant-chest-greater-mana-restoration
+  3297, // https://www.wowhead.com/wotlk/spell=47900/enchant-chest-super-health
+  3233, // https://www.wowhead.com/wotlk/spell=27958/enchant-chest-exceptional-mana
+  3832, // https://www.wowhead.com/wotlk/spell=60692/enchant-chest-powerful-stats
   // Legs
-  3013, // https://tbc.wowhead.com/spell=35495/nethercleft-leg-armor
-  3012, // https://tbc.wowhead.com/spell=35490/nethercobra-leg-armor
-  2748, // https://tbc.wowhead.com/spell=31372/runic-spellthread
-  2746, // https://tbc.wowhead.com/spell=31370/golden-spellthread
-
+  3853, // https://www.wowhead.com/wotlk/spell=62447/earthen-leg-armor
+  3823, // https://www.wowhead.com/wotlk/spell=60582/icescale-leg-armor
+  3719, // https://www.wowhead.com/wotlk/spell=55631/brilliant-spellthread
+  3721, // https://www.wowhead.com/wotlk/spell=55634/sapphire-spellthread
+  3822, // https://www.wowhead.com/wotlk/spell=60581/frosthide-leg-armor
+  3327, // https://www.wowhead.com/wotlk/spell=60583/jormungar-leg-reinforcements
+  3328, // https://www.wowhead.com/wotlk/spell=60584/nerubian-leg-reinforcements
+  3872, // https://www.wowhead.com/wotlk/spell=56039/sanctified-spellthread
+  3873, // https://www.wowhead.com/wotlk/spell=56034/masters-spellthread
   // Boots
-  2940, // https://tbc.wowhead.com/spell=34008/enchant-boots-boars-speed
-  2656, // https://tbc.wowhead.com/spell=27948/enchant-boots-vitality
-  2658, // https://tbc.wowhead.com/spell=27954/enchant-boots-surefooted
-  2939, // https://tbc.wowhead.com/spell=46471/enchant-boots-cats-swiftness
-  2657, // https://tbc.wowhead.com/spell=46472/enchant-boots-dexterity
-  2656, // https://tbc.wowhead.com/spell=46492/enchant-boots-vitality
-
+  1597, // https://www.wowhead.com/wotlk/spell=60763/enchant-boots-greater-assault
+  3826, // https://www.wowhead.com/wotlk/spell=60623/enchant-boots-icewalker
+  3232, // https://www.wowhead.com/wotlk/spell=47901/enchant-boots-tuskarrs-vitality
+  3244, // https://www.wowhead.com/wotlk/spell=44584/enchant-boots-greater-vitality
+  983, // https://www.wowhead.com/wotlk/spell=44589/enchant-boots-superior-agility
+  1147, // https://www.wowhead.com/wotlk/spell=44508/enchant-boots-greater-spirit
+  1075, // https://www.wowhead.com/wotlk/spell=44528/enchant-boots-greater-fortitude
+  3606, // https://www.wowhead.com/wotlk/spell=55016/nitro-boosts
   // Bracers
-  1593, // https://tbc.wowhead.com/spell=34002/enchant-bracer-assault
-  2650, // https://tbc.wowhead.com/spell=46498/enchant-bracer-spellpower
-  2617, // https://tbc.wowhead.com/spell=46500/enchant-bracer-superior-healing
-  2679, // https://tbc.wowhead.com/spell=46497/enchant-bracer-restore-mana-prime
-  2648, // https://tbc.wowhead.com/spell=27906/enchant-bracer-major-defense
-  1891, // https://tbc.wowhead.com/spell=46499/enchant-bracer-stats
-  369, // https://tbc.wowhead.com/spell=46496/enchant-bracer-major-intellect
-  2649, // https://tbc.wowhead.com/spell=46494/enchant-bracer-fortitude
-  2647, // https://tbc.wowhead.com/spell=46493/enchant-bracer-brawn
-
+  3231, // https://www.wowhead.com/wotlk/spell=44598/enchant-bracers-expertise
+  3845, // https://www.wowhead.com/wotlk/spell=44575/enchant-bracers-greater-assault
+  2332, // https://www.wowhead.com/wotlk/spell=60767/enchant-bracers-superior-spellpower
+  2661, // https://www.wowhead.com/wotlk/spell=44616/enchant-bracers-greater-stats
+  1883, // https://www.wowhead.com/classic/spell=20008/enchant-bracer-greater-intellect
+  1147, // https://www.wowhead.com/wotlk/spell=44593/enchant-bracers-major-spirit
+  3850, // https://www.wowhead.com/wotlk/spell=62256/enchant-bracers-major-stamina
+  3756, // https://www.wowhead.com/wotlk/spell=57683/fur-lining-attack-power
+  3758, // https://www.wowhead.com/wotlk/spell=57691/fur-lining-spell-power
+  3757, // https://www.wowhead.com/wotlk/spell=57690/fur-lining-stamina
   // Gloves
-  3260, // https://tbc.wowhead.com/spell=44769/glove-reinforcements
-  2937, // https://tbc.wowhead.com/spell=46514/enchant-gloves-major-spellpower
-  2322, // https://tbc.wowhead.com/spell=46513/enchant-gloves-major-healing
-  2935, // https://tbc.wowhead.com/spell=46516/enchant-gloves-spell-strike
-  2934, // https://tbc.wowhead.com/spell=46512/enchant-gloves-blasting
-  1594, // https://tbc.wowhead.com/spell=46511/enchant-gloves-assault
-  2564, // https://tbc.wowhead.com/spell=25080/enchant-gloves-superior-agility
-  2613, // https://tbc.wowhead.com/spell=25072/enchant-gloves-threat
-  684, // https://tbc.wowhead.com/spell=33995/enchant-gloves-major-strength
-
+  3246, // https://www.wowhead.com/wotlk/spell=44592/enchant-gloves-exceptional-spellpower
+  3231, // https://www.wowhead.com/wotlk/spell=44484/enchant-gloves-expertise
+  3234, // https://www.wowhead.com/wotlk/spell=44488/enchant-gloves-precision
+  1603, // https://www.wowhead.com/wotlk/spell=60668/enchant-gloves-crusher
+  3253, // https://www.wowhead.com/wotlk/spell=44625/enchant-gloves-armsman
+  3222, // https://www.wowhead.com/wotlk/spell=44529/enchant-gloves-major-agility
+  3603, // https://www.wowhead.com/wotlk/spell=54998/hand-mounted-pyro-rocket
+  3604, // https://www.wowhead.com/wotlk/spell=54999/hyperspeed-accelerators
+  3860, // https://www.wowhead.com/wotlk/spell=63770/reticulated-armor-webbing
   // Ring
-  2930, // https://tbc.wowhead.com/spell=46517/enchant-ring-healing-power
-  2928, // https://tbc.wowhead.com/spell=46518/enchant-ring-spellpower
-  2931, // https://tbc.wowhead.com/spell=46519/enchant-ring-stats
-  2929, // https://tbc.wowhead.com/spell=46520/enchant-ring-striking
-
+  3839, // https://www.wowhead.com/wotlk/spell=44645/enchant-ring-assault
+  3840, // https://www.wowhead.com/wotlk/spell=44636/enchant-ring-greater-spellpower
+  3791, // https://www.wowhead.com/wotlk/spell=59636/enchant-ring-stamina
   // Cloak
-  2662, // https://tbc.wowhead.com/spell=46510/enchant-cloak-major-armor
-  2938, // https://tbc.wowhead.com/spell=46509/enchant-cloak-spell-penetration
-  368, // https://tbc.wowhead.com/spell=46505/enchant-cloak-greater-agility
-  2664, // https://tbc.wowhead.com/spell=46508/enchant-cloak-major-resistance
-  1257, // https://tbc.wowhead.com/spell=46506/enchant-cloak-greater-arcane-resistance
-  1441, // https://tbc.wowhead.com/spell=46507/enchant-cloak-greater-shadow-resistance
-  2648, // https://tbc.wowhead.com/spell=47051/enchant-cloak-steelweave
-  2621, // https://tbc.wowhead.com/spell=25084/enchant-cloak-subtlety
-
+  3294, // https://www.wowhead.com/wotlk/spell=47672/enchant-cloak-mighty-armor
+  3831, // https://www.wowhead.com/wotlk/spell=47898/enchant-cloak-greater-speed
+  1951, // https://www.wowhead.com/wotlk/spell=44591/enchant-cloak-titanweave
+  3243, // https://www.wowhead.com/wotlk/spell=44582/enchant-cloak-spell-piercing
+  3256, // https://www.wowhead.com/wotlk/spell=44631/enchant-cloak-shadow-armor
+  3296, // https://www.wowhead.com/wotlk/spell=47899/enchant-cloak-wisdom
+  983, // https://www.wowhead.com/wotlk/spell=44500/enchant-cloak-superior-agility
+  3728, // https://www.wowhead.com/wotlk/spell=55769/darkglow-embroidery
+  3722, // https://www.wowhead.com/wotlk/spell=55642/lightweave-embroidery
+  3730, // https://www.wowhead.com/wotlk/spell=55777/swordguard-embroidery
+  3605, // https://www.wowhead.com/wotlk/spell=55002/flexweave-underlay
+  3859, // https://www.wowhead.com/wotlk/spell=63765/springy-arachnoweave
   // Weapon
-  963, // https://tbc.wowhead.com/spell=46535/enchant-weapon-major-striking
-  3222, // https://tbc.wowhead.com/spell=46529/enchant-weapon-greater-agility
-  2666, // https://tbc.wowhead.com/spell=46532/enchant-weapon-major-intellect
-  2668, // https://tbc.wowhead.com/spell=46537/enchant-weapon-potency
-  2669, // https://tbc.wowhead.com/spell=46533/enchant-weapon-major-spellpower
-  2343, // https://tbc.wowhead.com/spell=46531/enchant-weapon-major-healing
-  2672, // https://tbc.wowhead.com/spell=46538/enchant-weapon-soulfrost
-  2671, // https://tbc.wowhead.com/spell=46540/enchant-weapon-sunfire
+  3790, // https://www.wowhead.com/wotlk/spell=59625/enchant-weapon-black-magic
+  3241, // https://www.wowhead.com/wotlk/spell=44576/enchant-weapon-lifeward
+  3789, // https://www.wowhead.com/wotlk/spell=59621/enchant-weapon-berserking
+  3251, // https://www.wowhead.com/wotlk/spell=44621/enchant-weapon-giant-slayer
+  3239, // https://www.wowhead.com/wotlk/spell=44524/enchant-weapon-icebreaker
+  3833, // https://www.wowhead.com/wotlk/spell=60707/enchant-weapon-superior-potency
+  3834, // https://www.wowhead.com/wotlk/spell=60714/enchant-weapon-mighty-spellpower
+  3788, // https://www.wowhead.com/wotlk/spell=59619/enchant-weapon-accuracy
   2673, // https://tbc.wowhead.com/spell=46536/enchant-weapon-mongoose
-  2675, // https://tbc.wowhead.com/spell=46527/enchant-weapon-battlemaster
-  3273, // https://tbc.wowhead.com/spell=46578/enchant-weapon-deathfrost
-  2674, // https://tbc.wowhead.com/spell=46539/enchant-weapon-spellsurge
-  3225, // https://tbc.wowhead.com/spell=42974/enchant-weapon-executioner
-  3223, // https://tbc.wowhead.com/spell=42688/adamantite-weapon-chain
-  2667, // https://tbc.wowhead.com/spell=46462/enchant-2h-weapon-savagery
-  2670, // https://tbc.wowhead.com/spell=46461/enchant-2h-weapon-major-agility
-  2564, // https://tbc.wowhead.com/spell=23800/enchant-weapon-agility
-
+  3731, // https://www.wowhead.com/wotlk/spell=55836/titanium-weapon-chain
+  1103, // https://www.wowhead.com/wotlk/spell=44633/enchant-weapon-exceptional-agility
+  3844, // https://www.wowhead.com/wotlk/spell=44510/enchant-weapon-exceptional-spirit
+  3369, // https://www.wowhead.com/wotlk/spell=53341/rune-of-cinderglacier
+  3370, // https://www.wowhead.com/wotlk/spell=53343/rune-of-razorice
+  3366, // https://www.wowhead.com/wotlk/spell=53331/rune-of-lichbane
+  3368, // https://www.wowhead.com/wotlk/spell=53344/rune-of-the-fallen-crusader
+  3595, // https://www.wowhead.com/wotlk/spell=54447/rune-of-spellbreaking
+  3594, // https://www.wowhead.com/wotlk/spell=54446/rune-of-swordbreaking
   // 2H Weapon
-  2667, //  https://tbc.wowhead.com/spell=46462/enchant-2h-weapon-savagery
-  2670, // https://tbc.wowhead.com/spell=46461/enchant-2h-weapon-major-agility
-
+  3827, // https://www.wowhead.com/wotlk/spell=60691/enchant-2h-weapon-massacre
+  3247, // https://www.wowhead.com/wotlk/spell=44595/enchant-2h-weapon-scourgebane
+  3367, // https://www.wowhead.com/wotlk/spell=53342/rune-of-spellshattering
+  3365, // https://www.wowhead.com/wotlk/spell=53323/rune-of-swordshattering
   // Ranged
-  2722, // https://tbc.wowhead.com/spell=30250/adamantite-scope
-  2723, // https://tbc.wowhead.com/spell=30252/khorium-scope
-  2724, // https://tbc.wowhead.com/spell=30260/stabilitzed-eternium-scope
-
+  3607, // https://www.wowhead.com/wotlk/spell=55076/sun-scope
+  3608, // https://www.wowhead.com/wotlk/spell=55135/heartseeker-scope
+  3843, // https://www.wowhead.com/wotlk/spell=61468/diamond-cut-refractor-scope
   // Offhand
-  2655, // https://tbc.wowhead.com/spell=46526/enchant-shield-shield-block
-  2653, // https://tbc.wowhead.com/spell=27944/enchant-shield-tough-shield
-  3229, // https://tbc.wowhead.com/spell=44383/enchant-shield-resilience
-  1888, // https://tbc.wowhead.com/spell=46525/enchant-shield-resistance
-  2654, // https://tbc.wowhead.com/spell=46522/enchant-shield-intellect
-  1071, // https://tbc.wowhead.com/spell=46524/enchant-shield-major-stamina
-  2714, // https://tbc.wowhead.com/spell=29454/felsteel-shield-spike
-
-  // Armor Kits
-  2841, // https://tbc.wowhead.com/item=34330/heavy-knothide-armor-kit
-  2792, // https://tbc.wowhead.com/item=25650/knothide-armor-kit
-  2793, // https://tbc.wowhead.com/item=25651/vindicators-armor-kit
-  2794, // https://tbc.wowhead.com/item=25652/magisters-armor-kit
-  2989, // https://tbc.wowhead.com/item=29488/arcane-armor-kit
-  2985, // https://tbc.wowhead.com/item=29485/flame-armor-kit
-  2987, // https://tbc.wowhead.com/item=29486/frost-armor-kit
-  2988, // https://tbc.wowhead.com/item=29487/nature-armor-kit
-  2984, // https://tbc.wowhead.com/item=29483/shadow-armor-kit
+  // Shield
+  1952, // https://www.wowhead.com/wotlk/spell=44489/enchant-shield-defense
+  3849, // https://www.wowhead.com/wotlk/spell=62201/titanium-plating
+  3748, // https://www.wowhead.com/wotlk/spell=56353/titanium-shield-spike
+  1128, // https://www.wowhead.com/wotlk/spell=60653/enchant-shield-greater-intellect
+  // Belt
+  3599, // https://www.wowhead.com/wotlk/spell=54736/personal-electromagnetic-pulse-generator
+  3601, // https://www.wowhead.com/wotlk/spell=54793/frag-belt
 ];
 
 class EnchantChecker extends BaseEnchantChecker {
