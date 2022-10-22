@@ -27,14 +27,6 @@ class RevitalizingPrayers extends Analyzer {
     return this.renew.healingFromRenew(this.renewsFromRevitalizingPrayers);
   }
 
-  get overhealingFromRevitalizingPrayersRenews() {
-    return this.renew.overhealingFromRenew(this.renewsFromRevitalizingPrayers);
-  }
-
-  get absorbedHealingFromRevitalizingPrayersRenews() {
-    return this.renew.absorptionFromRenew(this.renewsFromRevitalizingPrayers);
-  }
-
   statistic() {
     return (
       <Statistic
