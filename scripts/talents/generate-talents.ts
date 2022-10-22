@@ -10,6 +10,7 @@ import {
   readJsonFromUrl,
 } from './talent-tree-helpers';
 import {
+  GenericTalentInterface,
   ISpellpower,
   ITalentObjectByClass,
   ITalentTree,
@@ -44,11 +45,6 @@ async function generateTalents() {
 
   const talentObjectByClass: ITalentObjectByClass = {};
 
-  //Talents that have different IDs but the same name a class talent tree
-  const duplicateClassTalentNames: Record<string, { id: number; name: string }[]> = {};
-  //Talents that have the same name and ID that have already been marked Shared
-  const sharedClassTalentNames: Record<string, { id: number; name: string }[]> = {};
-
   //DISTRIBUTE TALENTS TO talentObjectByClass
   Object.values(talents).forEach((specTalents) => {
     const className = specTalents.className.replace(' ', '').toLowerCase();
@@ -60,100 +56,22 @@ async function generateTalents() {
         if (!talentSpell.name || !talentSpell.spellId) {
           return;
         }
-        //By default we just want to key with spell name
-        let talentKey = createTalentKey(talentSpell.name);
-
-        //But sometimes we want to mark a talent as shared
-        const sharedTalentKey = createTalentKey(talentSpell.name, 'Shared');
-
-        //Detect if any talents exist with the same ID
-        const classTalentsWithSameId = Object.values(
-          talentObjectByClass[className]['Shared'],
-        ).filter((entry) => entry.id === talentSpell.spellId);
-
-        //Detect duplicates in class tree
-        if (
-          talentObjectByClass[className]['Shared'][talentKey] ||
-          classTalentsWithSameId.length > 0
-        ) {
-          //Mark the spell as a troublesome talent, so that its detectable later
-          duplicateClassTalentNames[className] = duplicateClassTalentNames[className] || [];
-          duplicateClassTalentNames[className].push({
-            id: talentSpell.spellId,
-            name: talentSpell.name,
-          });
-
-          //Reallocate to have spec specific keys if they have different IDs
-          if (classTalentsWithSameId.length === 0) {
-            //Find the previously added class talent and reallocate it under shared for now
-            const oldTalent = talentObjectByClass[className]['Shared'][talentKey];
-            talentObjectByClass[className]['Shared'][sharedTalentKey] = oldTalent;
-
-            //Remove the old talent with wrong key
-            delete talentObjectByClass[className]['Shared'][talentKey];
-
-            //Create new key using spec name
-            talentKey = createTalentKey(talentSpell.name, specTalents.specName);
-          }
-
-          sharedClassTalentNames[className] = sharedClassTalentNames[className] || [];
-          const isMarkedShared =
-            sharedClassTalentNames[className].filter(
-              (sharedTalent) => sharedTalent.name === talentSpell.name,
-            ).length > 0;
-
-          const classTalentsWithSameNameDifferentId = Object.values(
-            talentObjectByClass[className]['Shared'],
-          ).filter((entry) => entry.id !== talentSpell.spellId && entry.name === talentSpell.name);
-          if (
-            classTalentsWithSameId.length > 0 &&
-            !isMarkedShared &&
-            classTalentsWithSameNameDifferentId.length > 0
-          ) {
-            //Remove the old talents with the non-shared keys
-            classTalentsWithSameId.forEach((dupeSpell) => {
-              const dupeTalentKey = createTalentKey(dupeSpell.name);
-              const dupeTalentKeyWithSpec = createTalentKey(dupeSpell.name, dupeSpell.spec);
-              if (talentObjectByClass[className]['Shared'][dupeTalentKey]) {
-                delete talentObjectByClass[className]['Shared'][dupeTalentKey];
-              }
-              if (talentObjectByClass[className]['Shared'][dupeTalentKeyWithSpec]) {
-                delete talentObjectByClass[className]['Shared'][dupeTalentKeyWithSpec];
-              }
-            });
-            //Create new key using SHARED
-            talentKey = sharedTalentKey;
-            //Mark the talent as shared
-            sharedClassTalentNames[className].push({
-              id: talentSpell.spellId,
-              name: talentSpell.name,
-            });
-          }
-        }
-
-        //If it's a key that already exists and it has the same id as an existing spell we don't want to add it
-        const equalToShared =
-          talentObjectByClass[className]['Shared'][sharedTalentKey] &&
-          talentObjectByClass[className]['Shared'][sharedTalentKey].id === talentSpell.spellId;
-        if (
-          classTalentsWithSameId.length > 0 &&
-          (talentObjectByClass[className]['Shared'][talentKey] || equalToShared)
-        ) {
-          return;
-        }
+        //By default we just want to key with spell name & spec - we'll clean this up later.
+        const talentKey = createTalentKey(talentSpell.name, specTalents.specName);
 
         talentObjectByClass[className]['Shared'][talentKey] = {
           id: talentSpell.spellId,
           name: talentSpell.name,
           icon: talentSpell.icon,
-          //Information used for debugging and ensuring we filter the data properly
-          spec: specTalents.specName,
           //additional DF tree information
           maxRanks: talentSpell.maxRanks,
           //reqPoints: classTalent.reqPoints ?? 0,
           //spellType: talentSpell.type,
           //talentType: classTalent.type,
+          //Debugging values used for filtering later on
+          spec: specTalents.specName,
         };
+
         const entryInSpellPowerTable = spellpower.find(
           (e) => parseInt(e.SpellID) === talentSpell.spellId,
         );
@@ -175,42 +93,9 @@ async function generateTalents() {
         if (!talentSpell.name || !talentSpell.spellId) {
           return;
         }
-        let talentKey = createTalentKey(talentSpell.name); //createTalentKey(talentSpell.name, specTalents.specName);
-        let shouldBeShared = false;
+        const talentKey = createTalentKey(talentSpell.name, specTalents.specName);
 
-        Object.keys(talentObjectByClass[className]).forEach((specKey) => {
-          //First we create a new key for the previously added talent but this time with spec name in it
-          const talentKeyWithSpecName = createTalentKey(talentSpell.name as string, specKey);
-
-          //Has an entry been added to the object under the desired key already?
-          if (talentObjectByClass[className][specKey][talentKey]) {
-            //Is the added entry the same id as the current talent, if yes, then we should consider it a shared talent
-            if (talentObjectByClass[className][specKey][talentKey].id === talentSpell.spellId) {
-              talentObjectByClass[className]['Shared'][talentKey] =
-                talentObjectByClass[className][specKey][talentKey];
-              shouldBeShared = true;
-              delete talentObjectByClass[className][specKey][talentKey];
-            } else {
-              //We want to remove this existing talent as it's keyed without spec name but there are
-              //multiple instances of the talent name, but they have different IDs so they must be different
-              //We assign the previous value to the new key
-              talentObjectByClass[className][specKey][talentKeyWithSpecName] =
-                talentObjectByClass[className][specKey][talentKey];
-
-              //We remove the old entry
-              delete talentObjectByClass[className][specKey][talentKey];
-              //We create a talent key using the specName that we are currenty looking at for use below
-              talentKey = createTalentKey(talentSpell.name as string, specTalents.specName);
-            }
-          }
-          if (talentObjectByClass[className][specKey][talentKeyWithSpecName]) {
-            talentKey = createTalentKey(talentSpell.name as string, specTalents.specName);
-          }
-        });
-
-        talentObjectByClass[className][shouldBeShared ? 'Shared' : specTalents.specName][
-          talentKey
-        ] = {
+        talentObjectByClass[className][specTalents.specName][talentKey] = {
           id: talentSpell.spellId,
           name: talentSpell.name,
           icon: talentSpell.icon,
@@ -219,6 +104,8 @@ async function generateTalents() {
           //reqPoints: specTalent.reqPoints ?? 0,
           //spellType: talentSpell.type,
           //talentType: specTalent.type,
+          //Debugging values used for filtering later on
+          spec: specTalents.specName,
         };
         const entryInSpellPowerTable = spellpower.find(
           (e) => parseInt(e.SpellID) === talentSpell.spellId,
@@ -227,13 +114,77 @@ async function generateTalents() {
           const resourceId = parseInt(entryInSpellPowerTable.PowerType);
           const resourceName = ResourceTypes[resourceId];
           const resourceCostKey = `${camalize(resourceName)}Cost` as ResourceCostType;
-          talentObjectByClass[className][shouldBeShared ? 'Shared' : specTalents.specName][
-            talentKey
-          ][resourceCostKey] = findResourceCost(
+          talentObjectByClass[className][specTalents.specName][talentKey][
+            resourceCostKey
+          ] = findResourceCost(
             entryInSpellPowerTable,
             resourceId,
             classes[specTalents.classId].baseMaxResource,
           );
+        }
+      });
+    });
+  });
+
+  //CLEAN THE OUTPUT
+  const cleanedTalentObjectByClass: ITalentObjectByClass = {};
+  Object.values(classes).forEach((playerClass) => {
+    const lowerCasedClassName = playerClass.name.toLowerCase().replace(' ', '');
+    cleanedTalentObjectByClass[lowerCasedClassName] =
+      cleanedTalentObjectByClass[lowerCasedClassName] || {};
+
+    let allClassTalentsObj: Record<string, GenericTalentInterface> = {};
+    Object.values(talentObjectByClass[lowerCasedClassName]).forEach((obj) => {
+      allClassTalentsObj = { ...allClassTalentsObj, ...obj };
+    });
+
+    const allClassTalentsArr = Object.values(allClassTalentsObj);
+    Object.entries(talentObjectByClass[lowerCasedClassName]).forEach(([specName, specTalents]) => {
+      cleanedTalentObjectByClass[lowerCasedClassName][specName] =
+        cleanedTalentObjectByClass[lowerCasedClassName][specName] || {};
+
+      Object.values(specTalents).forEach((talent) => {
+        const talentKey = createTalentKey(talent.name);
+        const sharedTalentKey = createTalentKey(talent.name, 'Shared');
+        const specTalentKey = createTalentKey(talent.name, talent.spec);
+
+        const multipleOfSameSpellId =
+          allClassTalentsArr.filter((talentFromAllClasses) => talentFromAllClasses.id === talent.id)
+            .length > 1;
+
+        const sameNameDifferentSpellId =
+          allClassTalentsArr.filter(
+            (talentFromAllClasses) =>
+              talentFromAllClasses.name === talent.name && talentFromAllClasses.id !== talent.id,
+          ).length > 0;
+
+        const hasBeenAdded =
+          Object.values(cleanedTalentObjectByClass[lowerCasedClassName]).flatMap(
+            (addedSpecTalents) => {
+              return Object.values(addedSpecTalents).filter(
+                (singleAddedTalent) => singleAddedTalent.id === talent.id,
+              );
+            },
+          ).length > 0;
+
+        //If no other spell with the same name exists, it's unique already
+        //We assign NOTHING, as it's unique already
+        if (!sameNameDifferentSpellId && !hasBeenAdded) {
+          //If there are multiple of this spell, it's a shared spell
+          if (multipleOfSameSpellId) {
+            cleanedTalentObjectByClass[lowerCasedClassName]['Shared'][talentKey] = talent;
+          } else {
+            cleanedTalentObjectByClass[lowerCasedClassName][specName][talentKey] = talent;
+          }
+        }
+        //If there are multiple of the same spell id AND there's a spell with same name but different spellID
+        //We call it SHARED_
+        else if (multipleOfSameSpellId && !hasBeenAdded) {
+          cleanedTalentObjectByClass[lowerCasedClassName]['Shared'][sharedTalentKey] = talent;
+        }
+        //If there are multiples of this spell name but different IDs, we use spec
+        else if (sameNameDifferentSpellId && !hasBeenAdded) {
+          cleanedTalentObjectByClass[lowerCasedClassName][specName][specTalentKey] = talent;
         }
       });
     });
@@ -247,7 +198,7 @@ async function generateTalents() {
       `// Generated file, changes will eventually be overwritten!
 import { createTalentList } from './types';
 
-const talents = createTalentList({${printTalents(talentObjectByClass[lowerCasedClassName])}
+const talents = createTalentList({${printTalents(cleanedTalentObjectByClass[lowerCasedClassName])}
   });
 
 export default talents;

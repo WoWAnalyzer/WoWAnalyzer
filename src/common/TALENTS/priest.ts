@@ -246,6 +246,20 @@ const talents = createTalentList({
     icon: 'spell_holy_blindingheal',
     maxRanks: 1,
   },
+  DIVINE_STAR_SHADOW_TALENT: {
+    id: 122121,
+    name: 'Divine Star',
+    icon: 'spell_priest_divinestar_shadow2',
+    maxRanks: 1,
+    manaCost: 0,
+  },
+  HALO_SHADOW_TALENT: {
+    id: 120644,
+    name: 'Halo',
+    icon: 'ability_priest_halo_shadow',
+    maxRanks: 1,
+    manaCost: 500,
+  },
   TRANSLUCENT_IMAGE_TALENT: {
     id: 373446,
     name: 'Translucent Image',
@@ -321,24 +335,24 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   DIVINE_STAR_SHARED_TALENT: {
-    id: 122121,
+    id: 110744,
     name: 'Divine Star',
-    icon: 'spell_priest_divinestar_shadow2',
+    icon: 'spell_priest_divinestar',
     maxRanks: 1,
-    manaCost: 0,
+    manaCost: 1000,
   },
   HALO_SHARED_TALENT: {
-    id: 120644,
+    id: 120517,
     name: 'Halo',
-    icon: 'ability_priest_halo_shadow',
+    icon: 'ability_priest_halo',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 1000,
   },
   INESCAPABLE_TORMENT_TALENT: {
     id: 373427,
     name: 'Inescapable Torment',
     icon: 'spell_shadow_chilltouch',
-    maxRanks: 1,
+    maxRanks: 2,
   },
 
   //Shadow
@@ -504,6 +518,12 @@ const talents = createTalentList({
     icon: 'inv_misc_eye_03',
     maxRanks: 2,
   },
+  MINDBENDER_SHADOW_TALENT: {
+    id: 200174,
+    name: 'Mindbender',
+    icon: 'spell_shadow_soulleech_3',
+    maxRanks: 1,
+  },
   DEATHSPEAKER_TALENT: {
     id: 392507,
     name: 'Deathspeaker',
@@ -586,12 +606,6 @@ const talents = createTalentList({
     id: 373280,
     name: "Idol of N'Zoth",
     icon: 'achievement_nzothraid_nzoth',
-    maxRanks: 1,
-  },
-  MINDBENDER_SHADOW_TALENT: {
-    id: 200174,
-    name: 'Mindbender',
-    icon: 'spell_shadow_soulleech_3',
     maxRanks: 1,
   },
 

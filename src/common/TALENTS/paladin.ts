@@ -85,6 +85,12 @@ const talents = createTalentList({
     icon: 'ability_paladin_artofwar',
     maxRanks: 1,
   },
+  GREATER_JUDGMENT_SHARED_TALENT: {
+    id: 231663,
+    name: 'Greater Judgment',
+    icon: 'spell_holy_righteousfury',
+    maxRanks: 1,
+  },
   HOLY_AEGIS_TALENT: {
     id: 385515,
     name: 'Holy Aegis',
@@ -265,22 +271,10 @@ const talents = createTalentList({
     icon: 'ability_paladin_conviction',
     maxRanks: 1,
   },
-  CONSECRATED_GROUND_TALENT: {
-    id: 204054,
-    name: 'Consecrated Ground',
-    icon: 'ability_paladin_righteousvengeance',
-    maxRanks: 1,
-  },
   IMPROVED_CLEANSE_TALENT: {
     id: 393024,
     name: 'Improved Cleanse',
     icon: 'spell_holy_purify',
-    maxRanks: 1,
-  },
-  GREATER_JUDGMENT_SHARED_TALENT: {
-    id: 231663,
-    name: 'Greater Judgment',
-    icon: 'spell_holy_righteousfury',
     maxRanks: 1,
   },
   GREATER_JUDGMENT_HOLY_TALENT: {
@@ -289,12 +283,23 @@ const talents = createTalentList({
     icon: 'spell_holy_righteousfury',
     maxRanks: 1,
   },
-  DIVINE_PROTECTION_TALENT: {
-    id: 498,
-    name: 'Divine Protection',
-    icon: 'spell_holy_divineprotection',
+  CONSECRATED_GROUND_TALENT: {
+    id: 204054,
+    name: 'Consecrated Ground',
+    icon: 'ability_paladin_righteousvengeance',
     maxRanks: 1,
-    manaCost: 300,
+  },
+  RELENTLESS_INQUISITOR_TALENT: {
+    id: 383388,
+    name: 'Relentless Inquisitor',
+    icon: 'spell_holy_mindvision',
+    maxRanks: 1,
+  },
+  AVENGING_WRATH_MIGHT_TALENT: {
+    id: 384442,
+    name: 'Avenging Wrath: Might',
+    icon: 'spell_holy_avenginewrath',
+    maxRanks: 1,
   },
   DIVINE_TOLL_TALENT: {
     id: 375576,
@@ -303,17 +308,12 @@ const talents = createTalentList({
     maxRanks: 1,
     manaCost: 1500,
   },
-  AVENGING_WRATH_MIGHT_TALENT: {
-    id: 384442,
-    name: 'Avenging Wrath: Might',
-    icon: 'spell_holy_avenginewrath',
+  DIVINE_PROTECTION_TALENT: {
+    id: 498,
+    name: 'Divine Protection',
+    icon: 'spell_holy_divineprotection',
     maxRanks: 1,
-  },
-  RELENTLESS_INQUISITOR_TALENT: {
-    id: 383388,
-    name: 'Relentless Inquisitor',
-    icon: 'spell_holy_mindvision',
-    maxRanks: 2,
+    manaCost: 300,
   },
   EMPYREAN_LEGACY_TALENT: {
     id: 387170,
@@ -545,16 +545,16 @@ const talents = createTalentList({
     icon: 'spell_holy_sealofrighteousness',
     maxRanks: 1,
   },
-  QUICKENED_INVOCATIONS_TALENT: {
-    id: 379391,
-    name: 'Quickened Invocations',
-    icon: 'spell_holy_pureofheart',
-    maxRanks: 1,
-  },
   DIVINE_RESONANCE_PROTECTION_TALENT: {
     id: 386738,
     name: 'Divine Resonance',
     icon: 'ability_bastion_paladin',
+    maxRanks: 1,
+  },
+  QUICKENED_INVOCATIONS_TALENT: {
+    id: 379391,
+    name: 'Quickened Invocations',
+    icon: 'spell_holy_pureofheart',
     maxRanks: 1,
   },
 

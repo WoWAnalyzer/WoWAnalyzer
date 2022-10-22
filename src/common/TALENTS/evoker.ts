@@ -267,16 +267,16 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   ZEPHYR_TALENT: { id: 374227, name: 'Zephyr', icon: 'ability_evoker_hoverblack', maxRanks: 1 },
-  ESSENCE_ATTUNEMENT_TALENT: {
-    id: 375722,
-    name: 'Essence Attunement',
-    icon: 'ability_evoker_essenceburststacks',
-    maxRanks: 1,
-  },
   POWER_NEXUS_TALENT: {
     id: 369908,
     name: 'Power Nexus',
     icon: 'ability_evoker_powernexus',
+    maxRanks: 1,
+  },
+  ESSENCE_ATTUNEMENT_TALENT: {
+    id: 375722,
+    name: 'Essence Attunement',
+    icon: 'ability_evoker_essenceburststacks',
     maxRanks: 1,
   },
   FONT_OF_MAGIC_TALENT: {

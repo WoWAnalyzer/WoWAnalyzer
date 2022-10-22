@@ -24,6 +24,13 @@ const talents = createTalentList({
     maxRanks: 1,
     manaCost: 1100,
   },
+  STARFIRE_SHARED_TALENT: {
+    id: 197628,
+    name: 'Starfire',
+    icon: 'spell_arcane_starfire',
+    maxRanks: 1,
+    manaCost: 300,
+  },
   THRASH_TALENT: { id: 106832, name: 'Thrash', icon: 'spell_druid_thrash', maxRanks: 1 },
   IMPROVED_BARKSKIN_TALENT: {
     id: 327993,
@@ -38,6 +45,13 @@ const talents = createTalentList({
     maxRanks: 1,
     manaCost: 800,
   },
+  STARSURGE_SHARED_TALENT: {
+    id: 197626,
+    name: 'Starsurge',
+    icon: 'spell_arcane_arcane03',
+    maxRanks: 1,
+    manaCost: 300,
+  },
   RIP_TALENT: { id: 1079, name: 'Rip', icon: 'ability_ghoulfrenzy', maxRanks: 1, energyCost: 20 },
   SWIPE_TALENT: { id: 213764, name: 'Swipe', icon: 'inv_misc_monsterclaw_03', maxRanks: 1 },
   VERDANT_HEART_TALENT: {
@@ -50,6 +64,12 @@ const talents = createTalentList({
     id: 392378,
     name: "Improved Nature's Cure",
     icon: 'ability_shaman_cleansespirit',
+    maxRanks: 1,
+  },
+  MOONKIN_FORM_SHARED_TALENT: {
+    id: 197625,
+    name: 'Moonkin Form',
+    icon: 'spell_nature_forceofnature',
     maxRanks: 1,
   },
   MAIM_TALENT: {
@@ -252,12 +272,43 @@ const talents = createTalentList({
     maxRanks: 1,
     manaCost: 600,
   },
+  STARFIRE_BALANCE_TALENT: {
+    id: 194153,
+    name: 'Starfire',
+    icon: 'spell_arcane_starfire',
+    maxRanks: 1,
+  },
+  STARSURGE_BALANCE_TALENT: {
+    id: 78674,
+    name: 'Starsurge',
+    icon: 'spell_arcane_arcane03',
+    maxRanks: 1,
+    lunarPowerCost: 400,
+  },
+  MOONKIN_FORM_BALANCE_TALENT: {
+    id: 24858,
+    name: 'Moonkin Form',
+    icon: 'spell_nature_forceofnature',
+    maxRanks: 1,
+  },
+  CONVOKE_THE_SPIRITS_TALENT: {
+    id: 391528,
+    name: 'Convoke the Spirits',
+    icon: 'ability_ardenweald_druid',
+    maxRanks: 1,
+  },
   ADAPTIVE_SWARM_TALENT: {
     id: 391888,
     name: 'Adaptive Swarm',
     icon: 'ability_maldraxxus_druid',
     maxRanks: 1,
     manaCost: 500,
+  },
+  CIRCLE_OF_LIFE_AND_DEATH_TALENT: {
+    id: 391969,
+    name: 'Circle of Life and Death',
+    icon: 'ability_druid_cyclone',
+    maxRanks: 1,
   },
   UNBRIDLED_SWARM_TALENT: {
     id: 391951,
@@ -269,57 +320,6 @@ const talents = createTalentList({
     id: 61336,
     name: 'Survival Instincts',
     icon: 'ability_druid_tigersroar',
-    maxRanks: 1,
-  },
-  STARFIRE_SHARED_TALENT: {
-    id: 197628,
-    name: 'Starfire',
-    icon: 'spell_arcane_starfire',
-    maxRanks: 1,
-    manaCost: 300,
-  },
-  STARFIRE_BALANCE_TALENT: {
-    id: 194153,
-    name: 'Starfire',
-    icon: 'spell_arcane_starfire',
-    maxRanks: 1,
-  },
-  STARSURGE_SHARED_TALENT: {
-    id: 197626,
-    name: 'Starsurge',
-    icon: 'spell_arcane_arcane03',
-    maxRanks: 1,
-    manaCost: 300,
-  },
-  STARSURGE_BALANCE_TALENT: {
-    id: 78674,
-    name: 'Starsurge',
-    icon: 'spell_arcane_arcane03',
-    maxRanks: 1,
-    lunarPowerCost: 400,
-  },
-  MOONKIN_FORM_SHARED_TALENT: {
-    id: 197625,
-    name: 'Moonkin Form',
-    icon: 'spell_nature_forceofnature',
-    maxRanks: 1,
-  },
-  MOONKIN_FORM_BALANCE_TALENT: {
-    id: 24858,
-    name: 'Moonkin Form',
-    icon: 'spell_nature_forceofnature',
-    maxRanks: 1,
-  },
-  CIRCLE_OF_LIFE_AND_DEATH_TALENT: {
-    id: 391969,
-    name: 'Circle of Life and Death',
-    icon: 'ability_druid_cyclone',
-    maxRanks: 1,
-  },
-  CONVOKE_THE_SPIRITS_TALENT: {
-    id: 391528,
-    name: 'Convoke the Spirits',
-    icon: 'ability_ardenweald_druid',
     maxRanks: 1,
   },
 
@@ -341,6 +341,12 @@ const talents = createTalentList({
     id: 132158,
     name: "Nature's Swiftness",
     icon: 'spell_nature_ravenform',
+    maxRanks: 1,
+  },
+  OMEN_OF_CLARITY_RESTORATION_TALENT: {
+    id: 113043,
+    name: 'Omen of Clarity',
+    icon: 'spell_nature_crystalball',
     maxRanks: 1,
   },
   GROVE_TENDING_TALENT: {
@@ -414,6 +420,12 @@ const talents = createTalentList({
     manaCost: 1800,
   },
   IRONBARK_TALENT: { id: 102342, name: 'Ironbark', icon: 'spell_druid_ironbark', maxRanks: 1 },
+  SOUL_OF_THE_FOREST_RESTORATION_TALENT: {
+    id: 158478,
+    name: 'Soul of the Forest',
+    icon: 'ability_druid_manatree',
+    maxRanks: 1,
+  },
   CULTIVATION_TALENT: {
     id: 200390,
     name: 'Cultivation',
@@ -580,18 +592,6 @@ const talents = createTalentList({
     maxRanks: 1,
     manaCost: 200,
   },
-  OMEN_OF_CLARITY_RESTORATION_TALENT: {
-    id: 113043,
-    name: 'Omen of Clarity',
-    icon: 'spell_nature_crystalball',
-    maxRanks: 1,
-  },
-  SOUL_OF_THE_FOREST_RESTORATION_TALENT: {
-    id: 158478,
-    name: 'Soul of the Forest',
-    icon: 'ability_druid_manatree',
-    maxRanks: 1,
-  },
 
   //Feral
   TIGERS_FURY_TALENT: {
@@ -702,6 +702,12 @@ const talents = createTalentList({
     id: 236068,
     name: 'Moment of Clarity',
     icon: 'spell_druid_momentofclarity',
+    maxRanks: 1,
+  },
+  INFECTED_WOUNDS_FERAL_TALENT: {
+    id: 48484,
+    name: 'Infected Wounds',
+    icon: 'ability_druid_infectedwound',
     maxRanks: 1,
   },
   DREADFUL_BLEEDING_TALENT: {
@@ -824,12 +830,6 @@ const talents = createTalentList({
     id: 391881,
     name: "Apex Predator's Craving",
     icon: 'ability_druid_primaltenacity',
-    maxRanks: 1,
-  },
-  INFECTED_WOUNDS_FERAL_TALENT: {
-    id: 48484,
-    name: 'Infected Wounds',
-    icon: 'ability_druid_infectedwound',
     maxRanks: 1,
   },
 

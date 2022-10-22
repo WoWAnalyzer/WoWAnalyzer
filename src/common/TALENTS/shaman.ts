@@ -223,6 +223,12 @@ const talents = createTalentList({
     icon: 'inv_jewelry_talisman_06',
     maxRanks: 1,
   },
+  HEALING_STREAM_TOTEM_SHARED_TALENT: {
+    id: 392915,
+    name: 'Healing Stream Totem',
+    icon: 'inv_spear_04',
+    maxRanks: 1,
+  },
   IMPROVED_LIGHTNING_BOLT_TALENT: {
     id: 381674,
     name: 'Improved Lightning Bolt',
@@ -348,36 +354,11 @@ const talents = createTalentList({
     icon: 'ability_shaman_cleansespirit',
     maxRanks: 1,
   },
-  HEALING_STREAM_TOTEM_SHARED_TALENT: {
-    id: 392915,
-    name: 'Healing Stream Totem',
-    icon: 'inv_spear_04',
-    maxRanks: 1,
-  },
   ANCESTRAL_WOLF_AFFINITY_TALENT: {
     id: 382197,
     name: 'Ancestral Wolf Affinity',
     icon: 'spell_beastmaster_wolf',
     maxRanks: 1,
-  },
-  CALL_OF_THUNDER_TALENT: {
-    id: 378241,
-    name: 'Call of Thunder',
-    icon: 'ability_thunderking_balllightning',
-    maxRanks: 1,
-  },
-  LAVA_SURGE_TALENT: { id: 77756, name: 'Lava Surge', icon: 'spell_shaman_lavasurge', maxRanks: 1 },
-  ECHO_OF_THE_ELEMENTS_TALENT: {
-    id: 333919,
-    name: 'Echo of the Elements',
-    icon: 'ability_shaman_echooftheelements',
-    maxRanks: 1,
-  },
-  MASTER_OF_THE_ELEMENTS_TALENT: {
-    id: 16166,
-    name: 'Master of the Elements',
-    icon: 'spell_nature_elementalabsorption',
-    maxRanks: 2,
   },
   PRIMORDIAL_WAVE_TALENT: {
     id: 375982,
@@ -396,6 +377,31 @@ const talents = createTalentList({
     id: 382042,
     name: 'Splintered Elements',
     icon: 'spell_nature_elementalprecision_1',
+    maxRanks: 1,
+  },
+  CALL_OF_THUNDER_TALENT: {
+    id: 378241,
+    name: 'Call of Thunder',
+    icon: 'ability_thunderking_balllightning',
+    maxRanks: 1,
+  },
+  REFRESHING_WATERS_SHARED_TALENT: {
+    id: 378211,
+    name: 'Refreshing Waters',
+    icon: 'ability_shaman_fortifyingwaters',
+    maxRanks: 1,
+  },
+  MASTER_OF_THE_ELEMENTS_TALENT: {
+    id: 16166,
+    name: 'Master of the Elements',
+    icon: 'spell_nature_elementalabsorption',
+    maxRanks: 1,
+  },
+  LAVA_SURGE_TALENT: { id: 77756, name: 'Lava Surge', icon: 'spell_shaman_lavasurge', maxRanks: 1 },
+  ECHO_OF_THE_ELEMENTS_TALENT: {
+    id: 333919,
+    name: 'Echo of the Elements',
+    icon: 'ability_shaman_echooftheelements',
     maxRanks: 1,
   },
 
@@ -515,6 +521,12 @@ const talents = createTalentList({
     icon: 'spell_nature_stormreach',
     maxRanks: 1,
   },
+  REFRESHING_WATERS_ENHANCEMENT_TALENT: {
+    id: 393905,
+    name: 'Refreshing Waters',
+    icon: 'ability_shaman_fortifyingwaters',
+    maxRanks: 1,
+  },
   CRASH_LIGHTNING_TALENT: {
     id: 187874,
     name: 'Crash Lightning',
@@ -532,6 +544,12 @@ const talents = createTalentList({
     id: 390370,
     name: 'Ashen Catalyst',
     icon: 'spell_shaman_stormearthfire',
+    maxRanks: 1,
+  },
+  ELEMENTAL_BLAST_ENHANCEMENT_TALENT: {
+    id: 394150,
+    name: 'Elemental Blast',
+    icon: 'shaman_talent_elementalblast',
     maxRanks: 1,
   },
   STORMBLAST_TALENT: {
@@ -568,6 +586,12 @@ const talents = createTalentList({
     id: 51533,
     name: 'Feral Spirit',
     icon: 'spell_shaman_feralspirit',
+    maxRanks: 1,
+  },
+  ASCENDANCE_ENHANCEMENT_TALENT: {
+    id: 114051,
+    name: 'Ascendance',
+    icon: 'spell_fire_elementaldevastation',
     maxRanks: 1,
   },
   PRIMAL_MAELSTROM_TALENT: {
@@ -618,24 +642,6 @@ const talents = createTalentList({
     icon: 'spell_shaman_ancestralawakening',
     maxRanks: 1,
   },
-  REFRESHING_WATERS_ENHANCEMENT_TALENT: {
-    id: 393905,
-    name: 'Refreshing Waters',
-    icon: 'ability_shaman_fortifyingwaters',
-    maxRanks: 1,
-  },
-  ASCENDANCE_ENHANCEMENT_TALENT: {
-    id: 114051,
-    name: 'Ascendance',
-    icon: 'spell_fire_elementaldevastation',
-    maxRanks: 1,
-  },
-  ELEMENTAL_BLAST_ENHANCEMENT_TALENT: {
-    id: 394150,
-    name: 'Elemental Blast',
-    icon: 'shaman_talent_elementalblast',
-    maxRanks: 1,
-  },
 
   //Restoration
   RIPTIDE_TALENT: {
@@ -670,6 +676,12 @@ const talents = createTalentList({
     icon: 'spell_nature_giftofthewaterspirit',
     maxRanks: 1,
     manaCost: 2100,
+  },
+  STORMKEEPER_RESTORATION_TALENT: {
+    id: 383009,
+    name: 'Stormkeeper',
+    icon: 'ability_thunderking_lightningwhip',
+    maxRanks: 1,
   },
   WATER_SHIELD_TALENT: {
     id: 52127,
@@ -732,12 +744,6 @@ const talents = createTalentList({
     icon: 'spell_shaman_spiritlink',
     maxRanks: 1,
     manaCost: 1100,
-  },
-  REFRESHING_WATERS_RESTORATION_TALENT: {
-    id: 378211,
-    name: 'Refreshing Waters',
-    icon: 'ability_shaman_fortifyingwaters',
-    maxRanks: 1,
   },
   LIVING_STREAM_TALENT: {
     id: 382482,
@@ -892,12 +898,6 @@ const talents = createTalentList({
     maxRanks: 1,
     manaCost: 2000,
   },
-  STORMKEEPER_RESTORATION_TALENT: {
-    id: 383009,
-    name: 'Stormkeeper',
-    icon: 'ability_thunderking_lightningwhip',
-    maxRanks: 1,
-  },
 
   //Elemental
   EARTH_SHOCK_TALENT: {
@@ -951,12 +951,6 @@ const talents = createTalentList({
     icon: 'inv_10_elementalshardfoozles_primordial',
     maxRanks: 1,
   },
-  REFRESHING_WATERS_ELEMENTAL_TALENT: {
-    id: 378211,
-    name: 'Refreshing Waters',
-    icon: 'ability_shaman_fortifyingwaters',
-    maxRanks: 1,
-  },
   PRIMORDIAL_BOND_TALENT: {
     id: 381764,
     name: 'Primordial Bond',
@@ -992,6 +986,12 @@ const talents = createTalentList({
     id: 378255,
     name: 'Call of Fire',
     icon: 'spell_fire_ragnaros_molteninferno',
+    maxRanks: 1,
+  },
+  STORMKEEPER_ELEMENTAL_TALENT: {
+    id: 392763,
+    name: 'Stormkeeper',
+    icon: 'ability_thunderking_lightningwhip',
     maxRanks: 1,
   },
   FLUX_MELTING_TALENT: {
@@ -1120,12 +1120,6 @@ const talents = createTalentList({
     id: 210689,
     name: 'Lightning Rod',
     icon: 'inv_rod_enchantedcobalt',
-    maxRanks: 1,
-  },
-  STORMKEEPER_ELEMENTAL_TALENT: {
-    id: 392763,
-    name: 'Stormkeeper',
-    icon: 'ability_thunderking_lightningwhip',
     maxRanks: 1,
   },
   PRIMORDIAL_SURGE_TALENT: {
