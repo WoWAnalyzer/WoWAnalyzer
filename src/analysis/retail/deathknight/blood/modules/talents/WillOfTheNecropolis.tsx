@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -22,14 +22,14 @@ class WillOfTheNecropolis extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.WILL_OF_THE_NECROPOLIS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.WILL_OF_THE_NECROPOLIS_TALENT.id);
 
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.WILL_OF_THE_NECROPOLIS_TALENT),
+      Events.absorbed.by(SELECTED_PLAYER).spell(TALENTS.WILL_OF_THE_NECROPOLIS_TALENT),
       this.onAbsorbed,
     );
     this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHealReceived);
@@ -79,7 +79,7 @@ class WillOfTheNecropolis extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.WILL_OF_THE_NECROPOLIS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.WILL_OF_THE_NECROPOLIS_TALENT.id}>
           <ItemHealingDone amount={this.totalWotnAbsorbed} />
         </BoringSpellValueText>
       </Statistic>

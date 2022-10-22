@@ -237,7 +237,7 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
   );
 }
 
-export function InvokeNiuzaoSection({
+export function ImprovedInvokeNiuzaoSection({
   castEfficiency,
   events,
   info,
@@ -245,7 +245,14 @@ export function InvokeNiuzaoSection({
 }: Pick<GuideProps<any>, 'events' | 'info'> & {
   castEfficiency: CastEfficiency;
   module: InvokeNiuzao;
-}): JSX.Element {
+}): JSX.Element | null {
+  if (!info.combatant.hasTalent(talents.IMPROVED_INVOKE_NIUZAO_THE_BLACK_OX_TALENT)) {
+    // this section is explicitly for the improved Invoke Niuzao
+    return null;
+  }
+
+  const shouldCheckWoo = info.combatant.hasTalent(talents.CALL_TO_ARMS_TALENT);
+
   const efficiency = castEfficiency.getCastEfficiencyForSpellId(
     talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id,
   );
@@ -257,22 +264,24 @@ export function InvokeNiuzaoSection({
   return (
     <Section title="Invoke Niuzao, the Black Ox">
       <p>
-        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} /> is one of the most powerful
-        damage cooldowns in the game&mdash;and one of the most dangerous. Using this ability, we can
-        efficiently turn massive amounts of damage taken into massive amounts of damage dealt.
+        With the <SpellLink id={talents.IMPROVED_INVOKE_NIUZAO_THE_BLACK_OX_TALENT} /> talent,{' '}
+        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} /> becomes one of the most
+        powerful damage cooldowns in the game&mdash;and one of the most dangerous. Using this
+        ability, we can efficiently turn massive amounts of damage taken into massive amounts of
+        damage dealt.
       </p>
       <p>
-        The level 58 upgrade to this ability causes{' '}
+        This talent
         <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} /> to add 25% of the purified
         damage to the next <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> within 6 seconds. Niuzao
         casts <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> when he is summoned, and then every 5
         seconds after that, for a total of 5
         <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />s per{' '}
         <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} />.
-        {info.combatant.hasTalent(talents.CALL_TO_ARMS_TALENT) && (
+        {shouldCheckWoo && (
           <>
-            {' '}
-            A cast of <SpellLink id={talents.WEAPONS_OF_ORDER_TALENT.id} /> will trigger 3{' '}
+            A cast of <SpellLink id={talents.WEAPONS_OF_ORDER_TALENT.id} /> (with{' '}
+            <SpellLink id={talents.CALL_TO_ARMS_TALENT} />) will trigger 3{' '}
             <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />
             s&mdash;though this Niuzao has some issues hitting bosses with large models.
           </>

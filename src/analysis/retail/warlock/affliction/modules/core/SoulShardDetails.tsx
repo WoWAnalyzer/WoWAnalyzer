@@ -11,7 +11,6 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import SoulShardTracker from './SoulShardTracker';
 
 class SoulShardDetails extends Analyzer {
-
   static dependencies = {
     soulShardTracker: SoulShardTracker,
   };
@@ -19,7 +18,7 @@ class SoulShardDetails extends Analyzer {
   protected soulShardTracker!: SoulShardTracker;
 
   get wastedPerMinute() {
-    return (this.soulShardTracker.wasted / this.owner.fightDuration) * 1000 * 60
+    return (this.soulShardTracker.wasted / this.owner.fightDuration) * 1000 * 60;
   }
 
   get suggestionThresholds() {
@@ -43,10 +42,14 @@ class SoulShardDetails extends Analyzer {
         .actual(
           t({
             id: 'warlock.affliction.suggestions.soulShards.wastedPerMinute',
-            message: `${this.soulShardTracker.wasted} Soul Shards wasted (${actual.toFixed(2)} per minute)`,
+            message: `${this.soulShardTracker.wasted} Soul Shards wasted (${actual.toFixed(
+              2,
+            )} per minute)`,
           }),
         )
-        .recommended(`Wasting less than ${recommended.toFixed(2)} Soul Shards per minute is recommended`),
+        .recommended(
+          `Wasting less than ${recommended.toFixed(2)} Soul Shards per minute is recommended`,
+        ),
     );
   }
 
@@ -55,11 +58,9 @@ class SoulShardDetails extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(3)}
         size="flexible"
-        tooltip={
-          `${this.soulShardTracker.wasted} out of ${
-            this.soulShardTracker.wasted + this.soulShardTracker.generated
-          } Soul Shards wasted.`
-        }
+        tooltip={`${this.soulShardTracker.wasted} out of ${
+          this.soulShardTracker.wasted + this.soulShardTracker.generated
+        } Soul Shards wasted.`}
       >
         <BoringResourceValue
           resource={RESOURCE_TYPES.SOUL_SHARDS}

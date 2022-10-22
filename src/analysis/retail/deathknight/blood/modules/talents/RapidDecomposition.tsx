@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
+import TALENTS from 'common/TALENTS/deathknight';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -22,7 +23,7 @@ class RapidDecomposition extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -58,7 +59,7 @@ class RapidDecomposition extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.RAPID_DECOMPOSITION_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.RAPID_DECOMPOSITION_TALENT.id}>
           <ItemDamageDone amount={this.totalDamage} />
         </BoringSpellValueText>
       </Statistic>

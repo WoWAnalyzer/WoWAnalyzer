@@ -7,6 +7,9 @@ import { useState } from 'react';
 import CombatLogParser from './CombatLogParser';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
+/** Common 'rule line' point for the explanation/data in Core Spells section */
+export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
+
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
@@ -16,11 +19,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.regrowthAndClearcasting.guideSubsection}
         {modules.lifebloom.guideSubsection}
         {modules.efflorescence.guideSubsection}
-        <SubSection>
-          {modules.swiftmend.guideFragment}
-          {info.combatant.hasTalent(TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT) &&
-            modules.soulOfTheForest.guideFragment}
-        </SubSection>
+        {modules.swiftmend.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT) &&
+          modules.soulOfTheForest.guideSubsection}
         {info.combatant.hasTalent(TALENTS_DRUID.CENARION_WARD_TALENT) && (
           <CenarionWardSubsection modules={modules} events={events} info={info} />
         )}

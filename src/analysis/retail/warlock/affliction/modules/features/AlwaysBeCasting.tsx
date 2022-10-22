@@ -1,7 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/warlock'
+import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink } from 'interface';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -10,7 +10,6 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-
   get downtimeSuggestionThresholds() {
     return {
       actual: this.downtimePercentage,
