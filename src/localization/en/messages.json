@@ -1248,7 +1248,7 @@
   "warlock.wotlk.checklist.avoidBeingInactive": "Try to avoid being inactive for a large portion of the fight",
   "warlock.wotlk.checklist.avoidBeingInactive.description": "High downtime is something to avoid. You can reduce your downtime by reducing the delay between casting abilities, anticipating movement, and moving during the GCD.",
   "warlock.wotlk.checklist.maintainCurse": "Maintain a curse on the primary target",
-  "warlock.wotlk.checklist.maintainCurse.description": "It is important to maintain a curse on the primary target. If there is no Holy DK (using Ebon Plaguebringer) or Boomkin (using Earth and Moon) in the raid, use <0>{curseOfTheElements}</0>. After the priority curse consideration, use <1>{curseOfDoom}</1> for a target alive more than a minute or <2>{curseOfAgony}</2> for a target alive less than a minute.",
+  "warlock.wotlk.checklist.maintainCurse.description": "It is important to maintain a curse on the primary target. If there is no Unholy DK (using Ebon Plaguebringer) or Boomkin (using Earth and Moon) in the raid, use <0>{curseOfTheElements}</0>. After the priority curse consideration, use <1>{curseOfDoom}</1> for a target alive more than a minute or <2>{curseOfAgony}</2> for a target alive less than a minute.",
   "warlock.wotlk.checklist.downtime": "Downtime",
   "warlock.wotlk.shared.curses.curseOfAgony": "Curse of Agony",
   "warlock.wotlk.shared.curses.curseOfDoom": "Curse of Doom",
