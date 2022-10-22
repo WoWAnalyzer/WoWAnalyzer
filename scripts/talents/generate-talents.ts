@@ -44,6 +44,9 @@ async function generateTalents() {
 
   const talentObjectByClass: ITalentObjectByClass = {};
 
+  //Talents that have different IDs but the same name a class talent tree
+  const duplicateClassTalentNames: Record<string, string[]> = {};
+
   //DISTRIBUTE TALENTS TO talentObjectByClass
   Object.values(talents).forEach((specTalents) => {
     const className = specTalents.className.replace(' ', '').toLowerCase();
@@ -62,11 +65,35 @@ async function generateTalents() {
         ) {
           return;
         }
-        const talentKey = createTalentKey(talentSpell.name);
+        let talentKey = createTalentKey(talentSpell.name);
+
+        //Detect duplicates in class tree and reallocate to have spec specific keys
+        if (talentObjectByClass[className]['Shared'][talentKey]) {
+          //Find the previously added class talent and reallocate it with spec name
+          const oldTalent = talentObjectByClass[className]['Shared'][talentKey];
+          const oldTalentKeyWithSpecName = createTalentKey(oldTalent.name, oldTalent.spec);
+          talentObjectByClass[className]['Shared'][oldTalentKeyWithSpecName] = oldTalent;
+
+          //Remove the old talent with wrong key
+          delete talentObjectByClass[className]['Shared'][talentKey];
+
+          //Mark the spell as a troublesome talent, so that its
+          duplicateClassTalentNames[className] = duplicateClassTalentNames[className] || [];
+          duplicateClassTalentNames[className].push(talentSpell.name);
+        }
+
+        //If a talent is marked as having duplicate name it should always be keyed with spec name
+        if (duplicateClassTalentNames[className]?.includes(talentSpell.name)) {
+          //Create new key using spec name
+          talentKey = createTalentKey(talentSpell.name, specTalents.specName);
+        }
+
         talentObjectByClass[className]['Shared'][talentKey] = {
           id: talentSpell.spellId,
           name: talentSpell.name,
           icon: talentSpell.icon,
+          //Information used for debugging and ensuring we filter the data properly
+          spec: specTalents.specName,
           //additional DF tree information
           maxRanks: talentSpell.maxRanks,
           //reqPoints: classTalent.reqPoints ?? 0,

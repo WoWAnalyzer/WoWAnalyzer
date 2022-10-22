@@ -131,9 +131,9 @@ const talents = createTalentList({
     icon: 'inv_helm_mail_dracthyrquest_b_02',
     maxRanks: 2,
   },
-  TEMPERED_SCALES_TALENT: {
+  INHERENT_RESISTANCE_TALENT: {
     id: 375544,
-    name: 'Tempered Scales',
+    name: 'Inherent Resistance',
     icon: 'inv_misc_rubysanctum1',
     maxRanks: 2,
   },
@@ -161,12 +161,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_firebreath',
     maxRanks: 2,
   },
-  EXUBERANCE_TALENT: {
-    id: 375542,
-    name: 'Exuberance',
-    icon: 'achievement_guildperk_mountup',
-    maxRanks: 1,
-  },
+  EXUBERANCE_TALENT: { id: 375542, name: 'Exuberance', icon: 'ability_evoker_hover2', maxRanks: 1 },
   SOURCE_OF_MAGIC_TALENT: {
     id: 369459,
     name: 'Source of Magic',
