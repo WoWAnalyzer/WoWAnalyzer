@@ -3,13 +3,16 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, EndChannelEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Combatants from 'parser/shared/modules/Combatants';
 import Haste from 'parser/shared/modules/Haste';
 
 class EssenceFontCancelled extends Analyzer {
   static dependencies = {
     haste: Haste,
+    combatants: Combatants,
   };
 
+  protected combatants!: Combatants;
   protected haste!: Haste;
 
   expected_duration: number = 0;
@@ -44,6 +47,10 @@ class EssenceFontCancelled extends Analyzer {
       );
     }
     this.expected_duration = (3000 + extra_secs * 1000) / (1 + this.haste.current!);
+    // TFT ef has half duration
+    if (this.combatants.players[event.sourceID].hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)) {
+      this.expected_duration /= 2;
+    }
     this.last_ef_time = event.timestamp;
     this.last_ef = event;
   }
