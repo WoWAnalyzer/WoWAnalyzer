@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 10, 18), <>Fixed <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT}/> uptime calculation and <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT}/></>, Trevor),
   change(date(2022, 10, 16), <>Fixed Uplifted Spirits CDR</>, Trevor),
   change(date(2022, 10, 13), <>Cleaned up MW spells/talents files</>, Trevor),
   change(date(2022, 10, 13), <>Updated Rising Mist module for Dragonflight</>, Trevor),

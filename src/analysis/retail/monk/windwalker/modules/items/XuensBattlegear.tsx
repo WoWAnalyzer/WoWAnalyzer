@@ -35,7 +35,7 @@ class XuensBattlegear extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK_SECOND),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK_DAMAGE),
       this.onRisingSunKickHit,
     );
   }
@@ -65,7 +65,7 @@ class XuensBattlegear extends Analyzer {
   }
 
   get totalHits() {
-    return this.abilityTracker.getAbility(SPELLS.RISING_SUN_KICK_SECOND.id).damageHits;
+    return this.abilityTracker.getAbility(SPELLS.RISING_SUN_KICK_DAMAGE.id).damageHits;
   }
 
   get suggestionThresholds() {
