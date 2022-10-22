@@ -102,6 +102,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     Halo: Talents.Classwide.Halo,
     Benediction: Talents.MiddleRow.Benediction,
+    RevitalizingPrayers: Talents.MiddleRow.RevitalizingPrayers,
     DivineStar: Talents.Classwide.DivineStar,
     mindgames: Mindgames,
 

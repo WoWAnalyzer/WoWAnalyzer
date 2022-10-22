@@ -13,6 +13,7 @@ import DistanceMoved from 'parser/shared/modules/DistanceMoved';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const MS_BUFFER = 100;
+const REVITALIZING_PRAYERS_RENEW_FRACTION = 0.4;
 
 class Renew extends Analyzer {
   static dependencies = {
@@ -42,6 +43,11 @@ class Renew extends Analyzer {
   protected distanceMoved!: DistanceMoved;
   protected spellUsable!: SpellUsable;
 
+  revitalizingPrayersActive = false;
+  timestampOfLastPrayerCast = -1;
+  timestampOfLastRenewApplication = -1;
+  revitalizingPrayersRenewDurations = 0; //Amount of renews normalized to normal renew duration
+
   constructor(options: Options) {
     super(options);
 
@@ -50,6 +56,9 @@ class Renew extends Analyzer {
     }
     if (this.selectedCombatant.hasTalent(TALENTS.BENEDICTION_TALENT.id)) {
       this.benedictionActive = true;
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS.REVITALIZING_PRAYERS_TALENT.id)) {
+      this.revitalizingPrayersActive = true;
     }
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(TALENTS.RENEW_TALENT), this.onHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
@@ -62,6 +71,13 @@ class Renew extends Analyzer {
       this.onRefreshBuff,
     );
     this.addEventListener(Events.GlobalCooldown.by(SELECTED_PLAYER), this.onGCD);
+
+    if (this.revitalizingPrayersActive) {
+      this.addEventListener(
+        Events.heal.by(SELECTED_PLAYER).spell(TALENTS.PRAYER_OF_HEALING_TALENT),
+        this.onPrayerCast,
+      );
+    }
   }
 
   get renewsFromBenediction() {
@@ -123,6 +139,9 @@ class Renew extends Analyzer {
     }
   }
 
+  onPrayerCast(event: HealEvent) {
+    this.timestampOfLastPrayerCast = event.timestamp;
+  }
   onApplyBuff(event: ApplyBuffEvent) {
     this.handleRenewApplication(event);
   }
@@ -132,6 +151,13 @@ class Renew extends Analyzer {
   }
 
   handleRenewApplication(event: ApplyBuffEvent | RefreshBuffEvent) {
+    this.timestampOfLastRenewApplication = event.timestamp;
+    if (this.timestampOfLastRenewApplication - this.timestampOfLastPrayerCast < MS_BUFFER) {
+      console.log(this.timestampOfLastRenewApplication - this.timestampOfLastPrayerCast);
+      this.revitalizingPrayersRenewDurations += REVITALIZING_PRAYERS_RENEW_FRACTION;
+      this.totalRenewApplications += REVITALIZING_PRAYERS_RENEW_FRACTION;
+      return;
+    }
     this.totalRenewApplications += 1;
 
     if (this.salvationActive && event.timestamp - this.lastSalvationCast < MS_BUFFER) {

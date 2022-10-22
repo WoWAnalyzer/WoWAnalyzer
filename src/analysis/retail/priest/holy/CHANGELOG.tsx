@@ -5,6 +5,14 @@ import { Abelito75, Adoraci, acornellier, Khadaj, niseko, Zeboot, carglass, Hana
 import { SpellLink } from 'interface';
 
 export default [
+  change(
+    date(2022, 10, 22),
+    <>
+      8Updated 'Mana efficiency tab' and added support for
+      <SpellLink id={TALENTS.REVITALIZING_PRAYERS_TALENT.id} />
+    </>,
+    Litena
+  ),
   change(date(2022, 10, 15), <> Implemented current version of tier. </>, Litena),
   change(
     date(2022, 10, 12),
