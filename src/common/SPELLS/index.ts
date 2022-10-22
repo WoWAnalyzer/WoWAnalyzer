@@ -12,7 +12,7 @@
  * use the named spell by default, this makes things much more readable.
  **************************************************************************************************************** */
 
-import indexById from 'common/indexById';
+import indexById, { RestrictedTable } from 'common/indexById';
 
 import DEATH_KNIGHT from './deathknight';
 import DEMON_HUNTER from './demonhunter';
@@ -35,7 +35,7 @@ import WARRIOR from './warrior';
 import Expansion from 'game/Expansion';
 import { maybeGetSpell as maybeGetClassicSpell } from 'common/SPELLS/classic';
 
-const ABILITIES = {
+const ABILITIES: RestrictedTable<Spell | Enchant, any> = {
   ...OTHERS,
   ...ENCOUNTER,
   ...RACIALS,
@@ -68,7 +68,7 @@ const InternalSpellTable = indexById<Spell | Enchant, typeof ABILITIES>(ABILITIE
 // compiling the spread operator on large objects.
 // InternalSpellTable.maybeGet = (key) => (key ? InternalSpellTable[key] : undefined);
 
-const SPELLS = new Proxy(InternalSpellTable, {
+export const spellProxyHandler: ProxyHandler<RestrictedTable<Spell | Enchant, typeof ABILITIES>> = {
   get(target, prop, receiver) {
     const value = Reflect.get(target, prop, receiver);
 
@@ -90,7 +90,9 @@ const SPELLS = new Proxy(InternalSpellTable, {
 
     return value;
   },
-});
+};
+
+const SPELLS = new Proxy(InternalSpellTable, spellProxyHandler);
 
 export default SPELLS;
 
