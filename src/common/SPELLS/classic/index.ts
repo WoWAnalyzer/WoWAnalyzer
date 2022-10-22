@@ -12,16 +12,15 @@
  * use the named spell by default, this makes things much more readable.
  **************************************************************************************************************** */
 
-import indexById, { RestrictedTable } from 'common/indexById';
+import indexById from 'common/indexById';
 
 import Spell, { Enchant } from '../Spell';
 import PRIEST from './priest';
 import Engineering from './engineering';
-import { spellProxyHandler } from 'common/SPELLS/index';
 
-const ABILITIES: RestrictedTable<Spell | Enchant, any> = {
+const ABILITIES = {
   ...PRIEST,
-  ...Engineering,
+  ...Engineering
 } as const;
 
 // type SpellCollection = SpellList & {
@@ -37,7 +36,29 @@ const InternalSpellTable = indexById<Spell | Enchant, typeof ABILITIES>(ABILITIE
 // compiling the spread operator on large objects.
 // InternalSpellTable.maybeGet = (key) => (key ? InternalSpellTable[key] : undefined);
 
-const CLASSIC_SPELLS = new Proxy(InternalSpellTable, spellProxyHandler);
+const CLASSIC_SPELLS = new Proxy(InternalSpellTable, {
+  get(target, prop, receiver) {
+    const value = Reflect.get(target, prop, receiver);
+
+    if (value === undefined) {
+      if (process.env.NODE_ENV === 'production') {
+        console.error(
+          'Attempted to retrieve invalid or missing spell from SPELLS. If this is expected, use SPELLS.maybeGet.',
+          prop,
+          target,
+        );
+      } else {
+        throw new Error(
+          `Attempted to retrieve invalid or missing spell from SPELLS: ${String(
+            prop,
+          )}. If this is expected, use SPELLS.maybeGet.`,
+        );
+      }
+    }
+
+    return value;
+  },
+});
 
 export default CLASSIC_SPELLS;
 export const maybeGetSpell = (key: string | number | undefined): Spell | undefined =>

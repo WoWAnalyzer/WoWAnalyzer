@@ -7,7 +7,7 @@ interface BaseIndexableObj {
 
 const typedKeys = <T>(obj: T) => Object.keys(obj) as Array<keyof typeof obj>;
 
-export type RestrictedTable<T, E> = {
+type RestrictedTable<T, E> = {
   [Key in keyof E]: E[Key] extends T ? E[Key] : never;
 };
 

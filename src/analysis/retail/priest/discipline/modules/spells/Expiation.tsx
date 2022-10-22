@@ -53,15 +53,15 @@ class Expiation extends Analyzer {
       return;
     }
 
-    if (damageEvent?.ability.guid === SPELLS.EXPIATION_DAMAGE.id) {
+    if (damageEvent.ability.guid === SPELLS.EXPIATION_DAMAGE.id) {
       this.expiationHealing += healEvent.amount;
     }
 
-    if (damageEvent?.ability.guid === SPELLS.MIND_BLAST.id) {
+    if (damageEvent.ability.guid === SPELLS.MIND_BLAST.id) {
       this.mindBlastHealing += calculateEffectiveHealing(healEvent, this.expiationIncrease);
     }
 
-    if (damageEvent?.ability.guid === TALENTS_PRIEST.SHADOW_WORD_DEATH_TALENT.id) {
+    if (damageEvent.ability.guid === TALENTS_PRIEST.SHADOW_WORD_DEATH_TALENT.id) {
       this.deathHealing += calculateEffectiveHealing(healEvent, this.expiationIncrease);
     }
   }
