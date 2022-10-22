@@ -68,6 +68,7 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 22), 'Extract proxyRestrictedTable function for both retail and classic.', ToppleTheNun),
   change(date(2022, 10, 22), 'Add BiS Warlock Chest Enchant to Max enchants', jazminite),
   change(date(2022, 10, 22), 'Updating WOTLK to use custom spell definitions.', Khadaj),
   change(date(2022, 10, 22), 'Correct some issues with talent generation', Putro),
