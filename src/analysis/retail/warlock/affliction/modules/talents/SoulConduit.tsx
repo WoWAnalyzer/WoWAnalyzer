@@ -14,7 +14,6 @@ const TICKS_PER_UA = 4;
 const SC_PROC_CHANCE = 0.15;
 
 class SoulConduit extends Analyzer {
-
   static dependencies = {
     soulShardTracker: SoulShardTracker,
   };

@@ -1,6 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import Spell from 'common/SPELLS/Spell';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
@@ -42,13 +43,16 @@ class DeathsCaress extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATHS_CARESS), this.onCast);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEATHS_CARESS),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.DEATHS_CARESS_TALENT),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.DEATHS_CARESS_TALENT),
       this.onDamage,
     );
-    if (this.selectedCombatant.hasTalent(SPELLS.BLOODDRINKER_TALENT.id)) {
-      this.spellsThatShouldBeUsedFirst.push(SPELLS.BLOODDRINKER_TALENT.id);
+    if (this.selectedCombatant.hasTalent(TALENTS.BLOODDRINKER_TALENT.id)) {
+      this.spellsThatShouldBeUsedFirst.push(TALENTS.BLOODDRINKER_TALENT.id);
     }
   }
 
@@ -128,18 +132,18 @@ class DeathsCaress extends Analyzer {
     when(this.averageCastSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="deathknight.blood.deathsCaress.suggestion.suggestion">
-          Avoid casting <SpellLink id={SPELLS.DEATHS_CARESS.id} /> unless you're out of melee range
-          and about to cap your runes while <SpellLink id={this.DD_ABILITY.id} /> and{' '}
-          <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> are on cooldown. Dump runes primarily
-          with <SpellLink id={SPELLS.HEART_STRIKE.id} />.
+          Avoid casting <SpellLink id={TALENTS.DEATHS_CARESS_TALENT.id} /> unless you're out of
+          melee range and about to cap your runes while <SpellLink id={this.DD_ABILITY.id} /> and{' '}
+          <SpellLink id={TALENTS.BLOODDRINKER_TALENT.id} /> are on cooldown. Dump runes primarily
+          with <SpellLink id={TALENTS.HEART_STRIKE_TALENT.id} />.
         </Trans>,
       )
-        .icon(SPELLS.DEATHS_CARESS.icon)
+        .icon(TALENTS.DEATHS_CARESS_TALENT.icon)
         .actual(
           t({
             id: 'deathknight.blood.deathsCaress.suggestion.actual',
             message: `${formatPercentage(this.badDcCasts / this.dcCasts)}% bad ${
-              SPELLS.DEATHS_CARESS.name
+              TALENTS.DEATHS_CARESS_TALENT.name
             } casts`,
           }),
         )

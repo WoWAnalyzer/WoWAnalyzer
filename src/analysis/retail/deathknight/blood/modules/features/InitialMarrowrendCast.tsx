@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -18,7 +19,10 @@ class InitialMarrowrendCast extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MARROWREND), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.MARROWREND_TALENT),
+      this.onCast,
+    );
   }
 
   onCast(event: CastEvent) {
@@ -27,7 +31,7 @@ class InitialMarrowrendCast extends Analyzer {
     }
 
     this.firstMRCast = true;
-    if (!this.selectedCombatant.hasBuff(SPELLS.DANCING_RUNE_WEAPON_BUFF.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.DANCING_RUNE_WEAPON_TALENT_BUFF.id)) {
       this.firstMRCastWithoutDRW = true;
     }
   }
@@ -46,15 +50,15 @@ class InitialMarrowrendCast extends Analyzer {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
           <Trans id="deathknight.blood.initialMarrowrend.suggestion">
-            Use your first <SpellLink id={SPELLS.MARROWREND.id} /> together with{' '}
-            <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> to build up stacks of{' '}
+            Use your first <SpellLink id={TALENTS.MARROWREND_TALENT.id} /> together with{' '}
+            <SpellLink id={TALENTS.DANCING_RUNE_WEAPON_TALENT.id} /> to build up stacks of{' '}
             <SpellLink id={SPELLS.BONE_SHIELD.id} /> faster without wasting as much runes. This will
             also increase your initial threat-genration as your burst DPS will increase
-            significantly. Don't treat <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> as a
+            significantly. Don't treat <SpellLink id={TALENTS.DANCING_RUNE_WEAPON_TALENT.id} /> as a
             defensive CD unless you really need the parry and increased Runic Power generation
             defensively.
           </Trans>,
-        ).icon(SPELLS.DANCING_RUNE_WEAPON.icon),
+        ).icon(TALENTS.DANCING_RUNE_WEAPON_TALENT.icon),
       );
   }
 }

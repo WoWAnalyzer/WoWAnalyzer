@@ -1967,4 +1967,4 @@ export const jazminite: Contributor = {
 export const Jonfanz: Contributor = {
   nickname: 'jonfanz',
   github: 'jharrell',
-}
+};

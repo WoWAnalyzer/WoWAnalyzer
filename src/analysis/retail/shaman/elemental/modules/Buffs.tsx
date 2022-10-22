@@ -15,7 +15,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.FIRE_ELEMENTAL.id,
+        spellId: TALENTS.FIRE_ELEMENTAL_TALENT.id,
         timelineHighlight: true,
       },
       {

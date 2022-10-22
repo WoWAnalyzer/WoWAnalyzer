@@ -13,6 +13,9 @@ class LiquidMagmaTotem extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.LIQUID_MAGMA_TOTEM_TALENT.id);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LIQUID_MAGMA_TOTEM_DAMAGE),
       this.onLMTDamage,

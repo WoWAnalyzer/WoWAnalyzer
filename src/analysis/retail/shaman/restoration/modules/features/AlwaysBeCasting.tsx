@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   HEALING_ABILITIES_ON_GCD = [
@@ -9,8 +10,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.RIPTIDE.id,
     SPELLS.HEALING_RAIN_CAST.id,
     SPELLS.HEALING_STREAM_TOTEM_CAST.id,
-    SPELLS.HEALING_TIDE_TOTEM_CAST.id,
-    SPELLS.SPIRIT_LINK_TOTEM.id,
+    TALENTS_SHAMAN.HEALING_TIDE_TOTEM_TALENT.id,
+    TALENTS_SHAMAN.SPIRIT_LINK_TOTEM_TALENT.id,
     SPELLS.WELLSPRING_TALENT.id,
     SPELLS.CLOUDBURST_TOTEM_TALENT.id,
     SPELLS.EARTHEN_WALL_TOTEM_TALENT.id,
