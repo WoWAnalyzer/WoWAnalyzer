@@ -38,6 +38,7 @@
     "redux-thunk": "^2.3.0",
     "sass-text-stroke": "1.2.0",
     "swr": "^0.5.6",
+    "typesafe-i18n": "^5.15.0",
     "universal-cookie": "^4.0.4",
     "vega": "~5.21.0",
     "vega-lite": "^5.2.0"
@@ -62,6 +63,7 @@
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.5",
     "archiver": "^3.1.1",
     "babel-core": "^7.0.0-bridge.0",
+    "concurrently": "^7.4.0",
     "cross-env": "^7.0.3",
     "customize-cra": "^1.0.0",
     "decompress": "^4.2.0",
@@ -88,7 +90,7 @@
     "prettier-plugin-tailwindcss": "0.1.7"
   },
   "scripts": {
-    "start": "react-app-rewired start",
+    "start": "concurrently \"typesafe-i18n\" \"react-app-rewired start\"",
     "safestart": "yarn && react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",

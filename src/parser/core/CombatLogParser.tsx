@@ -100,6 +100,7 @@ import ParseResults from './ParseResults';
 import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
 import Report from './Report';
+import { TranslationFunctions } from 'i18n/i18n-types';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -629,10 +630,10 @@ class CombatLogParser {
     return formatDuration(timestamp - this.fight.start_time, precision);
   }
 
-  generateResults(adjustForDowntime: boolean): ParseResults {
+  generateResults(adjustForDowntime: boolean, LL: TranslationFunctions): ParseResults {
     this.adjustForDowntime = adjustForDowntime;
 
-    let results: ParseResults = new ParseResults();
+    let results: ParseResults = new ParseResults(LL);
 
     const addStatistic = (statistic: any, basePosition: number, key: string) => {
       if (!statistic) {
@@ -699,7 +700,7 @@ class CombatLogParser {
     //keep trying to generate results until no "new" errors are found anymore to weed out all the inaccurate / errored modules
     let generated = false;
     while (!generated) {
-      results = new ParseResults();
+      results = new ParseResults(LL);
 
       results.tabs = [];
       generated = attemptResultGeneration();

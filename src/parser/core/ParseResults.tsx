@@ -2,6 +2,7 @@ import { captureException } from 'common/errorLogger';
 import { ParseResultsTab } from 'parser/core/Analyzer';
 import { Suggestion as SuggestionData } from 'parser/core/CombatLogParser';
 import * as React from 'react';
+import { TranslationFunctions } from 'i18n/i18n-types';
 
 import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
 
@@ -18,9 +19,11 @@ enum AssertionMode {
 abstract class SuggestionAssertion<T extends number | boolean> {
   _actual!: T;
   _addIssue: (issue: Issue) => void;
+  private LL: TranslationFunctions;
 
-  constructor(addIssue: (issue: Issue) => void) {
+  constructor(addIssue: (issue: Issue) => void, LL: TranslationFunctions) {
     this._addIssue = addIssue;
+    this.LL = LL;
   }
 
   abstract get _triggerThreshold(): T;
@@ -32,7 +35,34 @@ abstract class SuggestionAssertion<T extends number | boolean> {
   addSuggestion(func: (suggest: SuggestionFactory, actual: T, recommended: T) => Suggestion) {
     if (this._isApplicable()) {
       const suggestion = func(
-        (suggestionText: React.ReactNode) => new Suggestion(suggestionText),
+        (suggestionText: React.ReactNode) => new Suggestion(suggestionText, this.LL),
+        this._actual,
+        this._triggerThreshold,
+      );
+
+      this._addIssue({
+        issue: suggestion._text,
+        // stat is a string and not a React node on purpose: this is quicker and we don't want the stats to become complicated
+        stat: suggestion._actualText ? (
+          <>
+            {suggestion._actualText} ({suggestion._recommendedText})
+          </>
+        ) : null,
+        icon: suggestion._icon,
+        spell: suggestion._spell,
+        importance: this._getIssueImportance(suggestion),
+        details: suggestion._details,
+      });
+    }
+  }
+
+  addLocalizedSuggestion(
+    func: (suggest: LocalizedSuggestionFactory, actual: T, recommended: T) => Suggestion,
+  ) {
+    if (this._isApplicable()) {
+      const suggestion = func(
+        (suggest: (LL: TranslationFunctions) => React.ReactNode) =>
+          new Suggestion(suggest(this.LL), this.LL),
         this._actual,
         this._triggerThreshold,
       );
@@ -58,8 +88,12 @@ export class NumberSuggestionAssertion extends SuggestionAssertion<number> {
   _threshold?: number | ThresholdRange;
   _mode?: AssertionMode | null;
 
-  constructor(options: number | NumberThreshold, addIssue: (issue: Issue) => void) {
-    super(addIssue);
+  constructor(
+    options: number | NumberThreshold,
+    addIssue: (issue: Issue) => void,
+    LL: TranslationFunctions,
+  ) {
+    super(addIssue, LL);
     if (typeof options !== 'object') {
       this._actual = options;
       return;
@@ -172,8 +206,12 @@ export class NumberSuggestionAssertion extends SuggestionAssertion<number> {
 export class BoolSuggestionAssertion extends SuggestionAssertion<boolean> {
   _compareTo?: boolean;
 
-  constructor(options: boolean | BoolThreshold, addIssue: (issue: Issue) => void) {
-    super(addIssue);
+  constructor(
+    options: boolean | BoolThreshold,
+    addIssue: (issue: Issue) => void,
+    LL: TranslationFunctions,
+  ) {
+    super(addIssue, LL);
     if (typeof options === 'object') {
       this._actual = options.actual;
       this._compareTo = options.isEqual;
@@ -225,6 +263,10 @@ export class BoolSuggestionAssertion extends SuggestionAssertion<boolean> {
 
 export type SuggestionFactory = (suggest: React.ReactNode) => Suggestion;
 
+export type LocalizedSuggestionFactory = (
+  suggest: (LL: TranslationFunctions) => React.ReactNode,
+) => Suggestion;
+
 class Suggestion {
   _text: React.ReactNode;
   _icon?: string;
@@ -235,9 +277,11 @@ class Suggestion {
   majorThreshold?: number;
   _staticImportance: ISSUE_IMPORTANCE | null = null;
   _details: (() => React.ReactNode) | null = null;
+  private LL: TranslationFunctions;
 
-  constructor(text: React.ReactNode) {
+  constructor(text: React.ReactNode, LL: TranslationFunctions) {
     this._text = text;
+    this.LL = LL;
   }
   icon(icon: string) {
     this._icon = icon;
@@ -251,10 +295,22 @@ class Suggestion {
     this._actualText = actualText;
     return this;
   }
+
+  actualLocalized(actualText: (LL: TranslationFunctions) => React.ReactNode) {
+    this._actualText = actualText(this.LL);
+    return this;
+  }
+
   recommended(recommendedText: React.ReactNode) {
     this._recommendedText = recommendedText;
     return this;
   }
+
+  recommendedLocalized(recommendedText: (LL: TranslationFunctions) => React.ReactNode) {
+    this._recommendedText = recommendedText(this.LL);
+    return this;
+  }
+
   regular(value: number) {
     this.averageThreshold = value;
     return this;
@@ -348,9 +404,11 @@ class ParseResults {
   tabs: ParseResultsTab[] = [];
   statistics: React.ReactElement[] = [];
   issues: Array<Issue | SuggestionData> = [];
+  LL: TranslationFunctions;
 
-  constructor() {
+  constructor(LL: TranslationFunctions) {
     this.addIssue = this.addIssue.bind(this);
+    this.LL = LL;
   }
 
   addIssue(issue: Issue | SuggestionData) {
@@ -366,27 +424,27 @@ class ParseResults {
       if (typeof threshold === 'number') {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        return new NumberSuggestionAssertion(threshold, this.addIssue);
+        return new NumberSuggestionAssertion(threshold, this.addIssue, this.LL);
       } else if (typeof threshold === 'string') {
         captureException(new Error('Sent string threshold, only number and boolean allowed'));
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore TODO find all instances of javascript sending in formatted numbers here (via captured error above), then remove this
-        return new NumberSuggestionAssertion(Number(threshold), this.addIssue);
+        return new NumberSuggestionAssertion(Number(threshold), this.addIssue, this.LL);
       } else if (typeof threshold === 'boolean') {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        return new BoolSuggestionAssertion(threshold, this.addIssue);
+        return new BoolSuggestionAssertion(threshold, this.addIssue, this.LL);
       } else if (typeof threshold === 'object') {
         const th = threshold as Threshold<any>;
         switch (th.style) {
           case ThresholdStyle.BOOLEAN:
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            return new BoolSuggestionAssertion(threshold, this.addIssue);
+            return new BoolSuggestionAssertion(threshold, this.addIssue, this.LL);
           default:
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            return new NumberSuggestionAssertion(threshold, this.addIssue);
+            return new NumberSuggestionAssertion(threshold, this.addIssue, this.LL);
         }
       }
       throw new Error('Invalid threshold type');

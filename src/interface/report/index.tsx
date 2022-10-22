@@ -27,6 +27,7 @@ import PlayerLoader from './PlayerLoader';
 import ReportLoader from './ReportLoader';
 import Results from './Results';
 import SupportChecker from './SupportChecker';
+import { useI18nContext } from 'i18n/i18n-react';
 
 interface Props {
   config: Config;
@@ -40,6 +41,7 @@ const ResultsLoader = ({ config, report, fight, player, combatants }: Props) => 
   const [timeFilter, setTimeFilter] = useState<Filter | null>(null);
   const [selectedPhase, setSelectedPhase] = useState<string>(SELECTION_ALL_PHASES);
   const [selectedInstance, setSelectedInstance] = useState<number>(0);
+  const { LL } = useI18nContext();
 
   const parserClass = useParser(config);
   const isLoadingParser = parserClass == null;
@@ -176,6 +178,7 @@ const ResultsLoader = ({ config, report, fight, player, combatants }: Props) => 
       makeTabUrl={(tab: string, newBuild?: string) =>
         makeAnalyzerUrl(report, fight.id, player.id, tab, newBuild || config.builds?.[build!]?.url)
       }
+      LL={LL}
     />
   );
 };

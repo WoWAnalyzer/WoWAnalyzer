@@ -51,6 +51,7 @@ import Overview from './Overview';
 import ReportStatistics from './ReportStatistics';
 import ScrollToTop from './ScrollToTop';
 import TABS from './TABS';
+import { TranslationFunctions } from 'i18n/i18n-types';
 
 const TimelineTab = lazyLoadComponent(
   () =>
@@ -99,6 +100,7 @@ interface PassedProps {
   progress?: number;
   premium?: boolean;
   config: Config;
+  LL: TranslationFunctions;
 }
 
 type Props = PassedProps & ConnectedProps;
@@ -377,7 +379,9 @@ class Results extends React.PureComponent<Props, State> {
 
     const boss = findByBossId(fight.boss);
 
-    const results = this.isLoading ? null : parser.generateResults(this.state.adjustForDowntime);
+    const results = this.isLoading
+      ? null
+      : parser.generateResults(this.state.adjustForDowntime, this.props.LL);
 
     const contributorinfo = (
       <ReadableListing>

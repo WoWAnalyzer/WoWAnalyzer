@@ -9,6 +9,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
 import I18nProvider from './localization/I18nProvider';
+import TypesafeI18nProvider from './i18n/I18nProvider';
 
 const store = createStore(createReducers(), composeWithDevTools(applyMiddleware(thunk)));
 
@@ -19,10 +20,12 @@ interface Props {
 const Root = ({ children }: Props) => (
   <ReduxProvider store={store}>
     <I18nProvider>
-      {/* We need to place the error boundary inside all providers since it uses i18n for localized messages. */}
-      <RootErrorBoundary>
-        <BrowserRouter>{children || <App />}</BrowserRouter>
-      </RootErrorBoundary>
+      <TypesafeI18nProvider>
+        {/* We need to place the error boundary inside all providers since it uses i18n for localized messages. */}
+        <RootErrorBoundary>
+          <BrowserRouter>{children || <App />}</BrowserRouter>
+        </RootErrorBoundary>
+      </TypesafeI18nProvider>
     </I18nProvider>
   </ReduxProvider>
 );
