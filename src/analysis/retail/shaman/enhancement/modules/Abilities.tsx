@@ -424,13 +424,13 @@ class Abilities extends CoreAbilities {
       },
       {
         // TODO: Correct Spell ID
-        spell: TALENTS_SHAMAN.ASCENDANCE_ELEMENTAL_TALENT.id,
+        spell: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ELEMENTAL_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id),
         damageSpellIds: [SPELLS.ASCENDANCE_INITIAL_DAMAGE.id],
         castEfficiency: {
           suggestion: true,

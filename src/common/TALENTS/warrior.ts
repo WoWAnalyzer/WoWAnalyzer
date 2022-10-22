@@ -28,8 +28,8 @@ const talents = createTalentList({
     maxRanks: 1,
     rageCost: 10,
   },
-  WAR_MACHINE_TALENT: {
-    id: 262231,
+  WAR_MACHINE_FURY_TALENT: {
+    id: 346002,
     name: 'War Machine',
     icon: 'ability_hunter_rapidkilling',
     maxRanks: 1,
@@ -88,8 +88,8 @@ const talents = createTalentList({
     icon: 'ability_hunter_harass',
     maxRanks: 1,
   },
-  FROTHING_BERSERKER_TALENT: {
-    id: 392792,
+  FROTHING_BERSERKER_FURY_TALENT: {
+    id: 215571,
     name: 'Frothing Berserker',
     icon: 'warrior_talent_icon_furyintheblood',
     maxRanks: 1,
@@ -101,12 +101,11 @@ const talents = createTalentList({
     icon: 'ability_golemthunderclap',
     maxRanks: 1,
   },
-  THUNDER_CLAP_TALENT: {
-    id: 6343,
+  THUNDER_CLAP_SHARED_TALENT: {
+    id: 396719,
     name: 'Thunder Clap',
     icon: 'spell_nature_thunderclap',
     maxRanks: 1,
-    rageCost: 30,
   },
   FURIOUS_BLOWS_TALENT: {
     id: 390354,
@@ -126,7 +125,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_shatteringthrow',
     maxRanks: 1,
   },
-  CRUSHING_FORCE_TALENT: {
+  CRUSHING_FORCE_SHARED_TALENT: {
     id: 382764,
     name: 'Crushing Force',
     icon: 'spell_shadow_unholystrength',
@@ -157,12 +156,7 @@ const talents = createTalentList({
     icon: 'racial_orc_berserkerstrength',
     maxRanks: 2,
   },
-  BARBARIC_TRAINING_TALENT: {
-    id: 383082,
-    name: 'Barbaric Training',
-    icon: 'ability_garrosh_whirling_corruption',
-    maxRanks: 1,
-  },
+  SIDEARM_TALENT: { id: 384404, name: 'Sidearm', icon: 'inv_throwingaxe_06', maxRanks: 1 },
   CONCUSSIVE_BLOWS_TALENT: {
     id: 383115,
     name: 'Concussive Blows',
@@ -193,9 +187,14 @@ const talents = createTalentList({
     icon: 'ability_thunderking_overcharge',
     maxRanks: 1,
   },
-  SIDEARM_TALENT: { id: 384404, name: 'Sidearm', icon: 'inv_throwingaxe_06', maxRanks: 1 },
-  HONED_REFLEXES_TALENT: {
-    id: 382461,
+  BARBARIC_TRAINING_FURY_TALENT: {
+    id: 390674,
+    name: 'Barbaric Training',
+    icon: 'ability_garrosh_whirling_corruption',
+    maxRanks: 1,
+  },
+  HONED_REFLEXES_FURY_TALENT: {
+    id: 391270,
     name: 'Honed Reflexes',
     icon: 'spell_holy_borrowedtime',
     maxRanks: 1,
@@ -214,7 +213,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_bloodnova',
     maxRanks: 1,
   },
-  ARMORED_TO_THE_TEETH_TALENT: {
+  ARMORED_TO_THE_TEETH_SHARED_TALENT: {
     id: 384124,
     name: 'Armored to the Teeth',
     icon: 'inv_shoulder_22',
@@ -238,8 +237,8 @@ const talents = createTalentList({
     icon: 'ability_criticalstrike',
     maxRanks: 2,
   },
-  ENDURANCE_TRAINING_TALENT: {
-    id: 382940,
+  ENDURANCE_TRAINING_FURY_TALENT: {
+    id: 391997,
     name: 'Endurance Training',
     icon: 'spell_nature_unyeildingstamina',
     maxRanks: 1,
@@ -312,10 +311,59 @@ const talents = createTalentList({
     icon: 'ability_warrior_offensivestance',
     maxRanks: 1,
   },
+  WAR_MACHINE_PROTECTION_TALENT: {
+    id: 316733,
+    name: 'War Machine',
+    icon: 'ability_hunter_rapidkilling',
+    maxRanks: 1,
+  },
+  FROTHING_BERSERKER_PROTECTION_TALENT: {
+    id: 392790,
+    name: 'Frothing Berserker',
+    icon: 'warrior_talent_icon_furyintheblood',
+    maxRanks: 1,
+  },
+  THUNDER_CLAP_PROTECTION_TALENT: {
+    id: 6343,
+    name: 'Thunder Clap',
+    icon: 'spell_nature_thunderclap',
+    maxRanks: 1,
+    rageCost: 30,
+  },
+  CRUSHING_FORCE_PROTECTION_TALENT: {
+    id: 390642,
+    name: 'Crushing Force',
+    icon: 'spell_shadow_unholystrength',
+    maxRanks: 2,
+  },
+  BARBARIC_TRAINING_PROTECTION_TALENT: {
+    id: 390675,
+    name: 'Barbaric Training',
+    icon: 'ability_garrosh_whirling_corruption',
+    maxRanks: 1,
+  },
+  HONED_REFLEXES_PROTECTION_TALENT: {
+    id: 391271,
+    name: 'Honed Reflexes',
+    icon: 'spell_holy_borrowedtime',
+    maxRanks: 1,
+  },
+  ARMORED_TO_THE_TEETH_PROTECTION_TALENT: {
+    id: 394855,
+    name: 'Armored to the Teeth',
+    icon: 'inv_shoulder_22',
+    maxRanks: 2,
+  },
   ONE_HANDED_WEAPON_SPECIALIZATION_TALENT: {
     id: 382895,
     name: 'One-Handed Weapon Specialization',
     icon: 'inv_sword_20',
+    maxRanks: 1,
+  },
+  ENDURANCE_TRAINING_SHARED_TALENT: {
+    id: 382940,
+    name: 'Endurance Training',
+    icon: 'spell_nature_unyeildingstamina',
     maxRanks: 1,
   },
   IMMOVABLE_OBJECT_TALENT: {
@@ -330,11 +378,28 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_thunderstruck',
     maxRanks: 1,
   },
-  RAVAGER_TALENT: { id: 228920, name: 'Ravager', icon: 'warrior_talent_icon_ravager', maxRanks: 1 },
-  STORM_OF_STEEL_TALENT: {
-    id: 382953,
-    name: 'Storm of Steel',
-    icon: 'ability_creature_cursed_04',
+  WAR_MACHINE_ARMS_TALENT: {
+    id: 262231,
+    name: 'War Machine',
+    icon: 'ability_hunter_rapidkilling',
+    maxRanks: 1,
+  },
+  FROTHING_BERSERKER_ARMS_TALENT: {
+    id: 392792,
+    name: 'Frothing Berserker',
+    icon: 'warrior_talent_icon_furyintheblood',
+    maxRanks: 1,
+  },
+  BARBARIC_TRAINING_ARMS_TALENT: {
+    id: 383082,
+    name: 'Barbaric Training',
+    icon: 'ability_garrosh_whirling_corruption',
+    maxRanks: 1,
+  },
+  HONED_REFLEXES_ARMS_TALENT: {
+    id: 382461,
+    name: 'Honed Reflexes',
+    icon: 'spell_holy_borrowedtime',
     maxRanks: 1,
   },
   TWO_HANDED_WEAPON_SPECIALIZATION_TALENT: {
@@ -355,6 +420,25 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_innerrage',
     maxRanks: 1,
   },
+  ANGER_MANAGEMENT_TALENT: {
+    id: 152278,
+    name: 'Anger Management',
+    icon: 'warrior_talent_icon_angermanagement',
+    maxRanks: 1,
+  },
+  RAVAGER_TALENT: { id: 228920, name: 'Ravager', icon: 'warrior_talent_icon_ravager', maxRanks: 1 },
+  STORM_OF_STEEL_TALENT: {
+    id: 382953,
+    name: 'Storm of Steel',
+    icon: 'ability_creature_cursed_04',
+    maxRanks: 1,
+  },
+  HURRICANE_TALENT: {
+    id: 390563,
+    name: 'Hurricane',
+    icon: 'ability_warrior_bladestorm',
+    maxRanks: 1,
+  },
   BLOODSURGE_TALENT: {
     id: 384361,
     name: 'Bloodsurge',
@@ -367,18 +451,13 @@ const talents = createTalentList({
     icon: 'ability_demonhunter_bloodlet',
     maxRanks: 1,
   },
-  ANGER_MANAGEMENT_TALENT: {
-    id: 152278,
-    name: 'Anger Management',
-    icon: 'warrior_talent_icon_angermanagement',
+  SUDDEN_DEATH_SHARED_TALENT: {
+    id: 29725,
+    name: 'Sudden Death',
+    icon: 'ability_warrior_improveddisciplines',
     maxRanks: 1,
   },
-  HURRICANE_TALENT: {
-    id: 390563,
-    name: 'Hurricane',
-    icon: 'ability_warrior_bladestorm',
-    maxRanks: 1,
-  },
+  MASSACRE_SHARED_TALENT: { id: 281001, name: 'Massacre', icon: 'inv_sword_48', maxRanks: 1 },
 
   //Fury
   BLOODTHIRST_TALENT: {
@@ -400,6 +479,12 @@ const talents = createTalentList({
     icon: 'ability_warrior_focusedrage',
     maxRanks: 1,
   },
+  IMPROVED_EXECUTE_FURY_TALENT: {
+    id: 316402,
+    name: 'Improved Execute',
+    icon: 'inv_sword_48',
+    maxRanks: 1,
+  },
   IMPROVED_BLOODTHIRST_TALENT: {
     id: 383852,
     name: 'Improved Bloodthirst',
@@ -417,6 +502,12 @@ const talents = createTalentList({
     id: 383468,
     name: 'Invigorating Fury',
     icon: 'spell_misc_emotionangry',
+    maxRanks: 1,
+  },
+  SUDDEN_DEATH_FURY_TALENT: {
+    id: 280721,
+    name: 'Sudden Death',
+    icon: 'ability_warrior_improveddisciplines',
     maxRanks: 1,
   },
   IMPROVED_RAGING_BLOW_TALENT: {
@@ -494,6 +585,12 @@ const talents = createTalentList({
     icon: 'ability_ghoulfrenzy',
     maxRanks: 1,
   },
+  BLOODBORNE_FURY_TALENT: {
+    id: 385703,
+    name: 'Bloodborne',
+    icon: 'inv_artifact_bloodoftheassassinated',
+    maxRanks: 1,
+  },
   BLOODCRAZE_TALENT: {
     id: 393950,
     name: 'Bloodcraze',
@@ -506,6 +603,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_innerrage',
     maxRanks: 1,
   },
+  MASSACRE_FURY_TALENT: { id: 206315, name: 'Massacre', icon: 'inv_sword_48', maxRanks: 1 },
   MEAT_CLEAVER_TALENT: { id: 280392, name: 'Meat Cleaver', icon: 'ability_whirlwind', maxRanks: 1 },
   RAGING_ARMAMENTS_TALENT: {
     id: 388049,
@@ -513,11 +611,29 @@ const talents = createTalentList({
     icon: 'achievement_arena_2v2_5',
     maxRanks: 1,
   },
+  DEFT_EXPERIENCE_FURY_TALENT: {
+    id: 383295,
+    name: 'Deft Experience',
+    icon: 'inv_misc_book_07',
+    maxRanks: 2,
+  },
   SWIFT_STRIKES_TALENT: {
     id: 383459,
     name: 'Swift Strikes',
     icon: 'ability_rogue_sprint',
     maxRanks: 2,
+  },
+  CRITICAL_THINKING_FURY_TALENT: {
+    id: 383297,
+    name: 'Critical Thinking',
+    icon: 'ability_criticalstrike',
+    maxRanks: 2,
+  },
+  STORM_OF_SWORDS_FURY_TALENT: {
+    id: 388903,
+    name: 'Storm of Swords',
+    icon: 'ability_skyreach_fourblades',
+    maxRanks: 1,
   },
   ODYNS_FURY_TALENT: {
     id: 385059,
@@ -567,43 +683,6 @@ const talents = createTalentList({
     name: 'Tenderize',
     icon: 'inv_mace_1h_blacksmithing_b_01_black',
     maxRanks: 1,
-  },
-  SUDDEN_DEATH_FURY_TALENT: {
-    id: 280721,
-    name: 'Sudden Death',
-    icon: 'ability_warrior_improveddisciplines',
-    maxRanks: 1,
-  },
-  BLOODBORNE_FURY_TALENT: {
-    id: 385703,
-    name: 'Bloodborne',
-    icon: 'inv_artifact_bloodoftheassassinated',
-    maxRanks: 1,
-  },
-  MASSACRE_FURY_TALENT: { id: 206315, name: 'Massacre', icon: 'inv_sword_48', maxRanks: 1 },
-  IMPROVED_EXECUTE_FURY_TALENT: {
-    id: 316402,
-    name: 'Improved Execute',
-    icon: 'inv_sword_48',
-    maxRanks: 1,
-  },
-  STORM_OF_SWORDS_FURY_TALENT: {
-    id: 388903,
-    name: 'Storm of Swords',
-    icon: 'ability_skyreach_fourblades',
-    maxRanks: 1,
-  },
-  DEFT_EXPERIENCE_FURY_TALENT: {
-    id: 383295,
-    name: 'Deft Experience',
-    icon: 'inv_misc_book_07',
-    maxRanks: 2,
-  },
-  CRITICAL_THINKING_FURY_TALENT: {
-    id: 383297,
-    name: 'Critical Thinking',
-    icon: 'ability_criticalstrike',
-    maxRanks: 2,
   },
 
   //Protection
@@ -666,6 +745,13 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   INSTIGATE_TALENT: { id: 394311, name: 'Instigate', icon: 'ability_rogue_dismantle', maxRanks: 1 },
+  REND_PROTECTION_TALENT: {
+    id: 394062,
+    name: 'Rend',
+    icon: 'ability_gouge',
+    maxRanks: 1,
+    rageCost: 30,
+  },
   BRUTAL_VITALITY_TALENT: {
     id: 384036,
     name: 'Brutal Vitality',
@@ -682,12 +768,6 @@ const talents = createTalentList({
     id: 385843,
     name: 'Show of Force',
     icon: 'ability_rogue_reinforcedleather',
-    maxRanks: 1,
-  },
-  SUDDEN_DEATH_PROTECTION_TALENT: {
-    id: 29725,
-    name: 'Sudden Death',
-    icon: 'ability_warrior_improveddisciplines',
     maxRanks: 1,
   },
   THUNDERLORD_TALENT: {
@@ -744,7 +824,6 @@ const talents = createTalentList({
     icon: 'ability_defend',
     maxRanks: 1,
   },
-  MASSACRE_PROTECTION_TALENT: { id: 281001, name: 'Massacre', icon: 'inv_sword_48', maxRanks: 1 },
   UNBREAKABLE_WILL_TALENT: {
     id: 384074,
     name: 'Unbreakable Will',
@@ -761,6 +840,12 @@ const talents = createTalentList({
     id: 275334,
     name: 'Punish',
     icon: 'ability_deathknight_sanguinfortitude',
+    maxRanks: 1,
+  },
+  JUGGERNAUT_PROTECTION_TALENT: {
+    id: 393967,
+    name: 'Juggernaut',
+    icon: 'warrior_talent_icon_skirmisher',
     maxRanks: 1,
   },
   FOCUSED_VIGOR_TALENT: {
@@ -823,23 +908,10 @@ const talents = createTalentList({
     icon: 'ability_warrior_endlessrage',
     maxRanks: 1,
   },
-  REND_PROTECTION_TALENT: {
-    id: 394062,
-    name: 'Rend',
-    icon: 'ability_gouge',
-    maxRanks: 1,
-    rageCost: 30,
-  },
   DANCE_OF_DEATH_PROTECTION_TALENT: {
     id: 393965,
     name: 'Dance of Death',
     icon: 'ability_butcher_whirl',
-    maxRanks: 1,
-  },
-  JUGGERNAUT_PROTECTION_TALENT: {
-    id: 393967,
-    name: 'Juggernaut',
-    icon: 'warrior_talent_icon_skirmisher',
     maxRanks: 1,
   },
 
@@ -877,12 +949,6 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   STORM_WALL_TALENT: { id: 388807, name: 'Storm Wall', icon: 'spell_sandstorm', maxRanks: 1 },
-  SUDDEN_DEATH_ARMS_TALENT: {
-    id: 29725,
-    name: 'Sudden Death',
-    icon: 'ability_warrior_improveddisciplines',
-    maxRanks: 1,
-  },
   FERVOR_OF_BATTLE_TALENT: {
     id: 202316,
     name: 'Fervor of Battle',
@@ -915,7 +981,6 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_igniteweapon',
     maxRanks: 1,
   },
-  MASSACRE_ARMS_TALENT: { id: 281001, name: 'Massacre', icon: 'inv_sword_48', maxRanks: 1 },
   SWEEPING_STRIKES_TALENT: {
     id: 260708,
     name: 'Sweeping Strikes',
