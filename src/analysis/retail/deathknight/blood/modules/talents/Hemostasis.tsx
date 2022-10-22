@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -25,16 +26,18 @@ class Hemostasis extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.HEMOSTASIS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HEMOSTASIS_TALENT.id);
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(talents.DEATH_STRIKE_TALENT_HEAL),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.DEATH_STRIKE_HEAL),
       this.onHeal,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell([talents.DEATH_STRIKE_TALENT, SPELLS.BLOOD_BOIL]),
+      Events.damage
+        .by(SELECTED_PLAYER)
+        .spell([TALENTS.DEATH_STRIKE_TALENT, TALENTS.BLOOD_BOIL_TALENT]),
       this.onDamage,
     );
   }
@@ -47,7 +50,7 @@ class Hemostasis extends Analyzer {
 
   onDamage(event: DamageEvent) {
     const spellId = event.ability.guid;
-    if (spellId === talents.DEATH_STRIKE_TALENT.id) {
+    if (spellId === TALENTS.DEATH_STRIKE_TALENT.id) {
       if (this.buffStack > 0) {
         this.buffedDeathStrikes += 1;
         this.usedBuffs += this.buffStack;
@@ -58,7 +61,7 @@ class Hemostasis extends Analyzer {
       this.unbuffedDeathStrikes += 1;
     }
 
-    if (spellId === SPELLS.BLOOD_BOIL.id) {
+    if (spellId === TALENTS.BLOOD_BOIL_TALENT.id) {
       if (this.buffStack === MAX_BUFF_STACKS) {
         this.wastedBuffs += 1;
       } else {
@@ -87,7 +90,7 @@ class Hemostasis extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.HEMOSTASIS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.HEMOSTASIS_TALENT.id}>
           <Trans id="deathknight.blood.hemostasis.statistic">
             {formatPercentage(this.averageIncrease)} % <small>average DS increase</small>
           </Trans>

@@ -1,6 +1,7 @@
 import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import { useEffect, useMemo, useState } from 'react';
+import './ProblemList.scss';
 
 /**
    Wrapper type used to deliver problem data and context information to the

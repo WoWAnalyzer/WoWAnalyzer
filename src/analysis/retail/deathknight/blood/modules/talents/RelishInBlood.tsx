@@ -1,6 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ResourceChangeEvent, HealEvent } from 'parser/core/Events';
@@ -18,7 +19,7 @@ class RelishInBlood extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.RELISH_IN_BLOOD_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.RELISH_IN_BLOOD_TALENT.id);
 
     if (!this.active) {
       return;
@@ -76,12 +77,12 @@ class RelishInBlood extends Analyzer {
           being RP capped`,
         }),
       )
-        .icon(SPELLS.RELISH_IN_BLOOD_TALENT.icon)
+        .icon(TALENTS.RELISH_IN_BLOOD_TALENT.icon)
         .actual(
           t({
             id: 'deathknight.blood.relishInBlood.suggestion.actual',
             message: `You wasted ${formatPercentage(actual)}% of RP from ${
-              SPELLS.RELISH_IN_BLOOD_TALENT.name
+              TALENTS.RELISH_IN_BLOOD_TALENT.name
             } by being RP capped.`,
           }),
         )
@@ -111,7 +112,7 @@ class RelishInBlood extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.RELISH_IN_BLOOD_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.RELISH_IN_BLOOD_TALENT.id}>
           <Trans id="deathknight.blood.relishInBlood.statistic">
             {this.runicPowerGained} <small>RP gained</small>
           </Trans>

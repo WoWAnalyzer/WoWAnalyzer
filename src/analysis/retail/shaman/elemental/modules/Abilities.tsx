@@ -11,6 +11,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.LAVA_BURST_TALENT.id,
         charges: combatant.hasTalent(TALENTS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
+        enabled: combatant.hasTalent(TALENTS.LAVA_BURST_TALENT.id),
         cooldown: (haste) => 8 / (1 + haste),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
@@ -26,12 +27,12 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.LIQUID_MAGMA_TOTEM_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.LIQUID_MAGMA_TOTEM_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
         cooldown: 60,
-        enabled: combatant.hasTalent(TALENTS.LIQUID_MAGMA_TOTEM_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -39,6 +40,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.CHAIN_LIGHTNING_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.CHAIN_LIGHTNING_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL_AOE, // 2 / (1 + haste)
         gcd: {
           base: 1500,
@@ -49,7 +51,8 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
       },
       {
-        spell: SPELLS.EARTHQUAKE.id,
+        spell: TALENTS.EARTHQUAKE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.EARTHQUAKE_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
@@ -57,8 +60,8 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id),
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 12,
         gcd: {
           base: 1500,
@@ -70,19 +73,20 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
       },
       {
-        spell: SPELLS.FIRE_ELEMENTAL.id,
+        spell: TALENTS.FIRE_ELEMENTAL_TALENT.id,
+        enabled: !combatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60 * 2.5,
         gcd: {
@@ -93,7 +97,6 @@ class Abilities extends CoreAbilities {
           SPELLS.METEOR_DAMAGE.id,
           SPELLS.FIRE_ELEMENTAL_IMMOLATE.id,
         ],
-        enabled: !combatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 1.0,
@@ -101,12 +104,12 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.STORMKEEPER_ELEMENTAL_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.STORMKEEPER_ELEMENTAL_TALENT.id),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.STORMKEEPER_ELEMENTAL_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -114,9 +117,9 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.STORM_ELEMENTAL_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60 * 2.5,
-        enabled: combatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id),
         damageSpellIds: [SPELLS.WIND_GUST.id, SPELLS.EYE_OF_THE_STORM.id, SPELLS.CALL_LIGHTNING.id],
         castEfficiency: {
           suggestion: true,
@@ -134,6 +137,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.FROST_SHOCK_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.FROST_SHOCK_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -141,19 +145,20 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.ICEFURY_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.ICEFURY_TALENT.id),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.ICEFURY_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
         },
       },
       {
-        spell: SPELLS.EARTH_SHOCK.id,
+        spell: TALENTS.EARTH_SHOCK_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.EARTH_SHOCK_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -161,22 +166,23 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.CAPACITOR_TOTEM_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.CAPACITOR_TOTEM_TALENT.id),
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.ICEFURY_TALENT.id),
         cooldown: 60, //misses Static Charge CDR
       },
       {
         spell: TALENTS.ASTRAL_SHIFT_TALENT.id,
         buffSpellId: TALENTS.ASTRAL_SHIFT_TALENT.id,
-        cooldown: 90,
         enabled: combatant.hasTalent(TALENTS.ASTRAL_SHIFT_TALENT.id),
+        cooldown: 90,
         category: SPELL_CATEGORY.DEFENSIVE,
       },
       {
         spell: TALENTS.THUNDERSTORM_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.THUNDERSTORM_TALENT.id),
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1000,
@@ -185,6 +191,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.TREMOR_TOTEM_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.TREMOR_TOTEM_TALENT.id),
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
@@ -192,6 +199,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.WIND_SHEAR_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.WIND_SHEAR_TALENT.id),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 12,
         gcd: null,

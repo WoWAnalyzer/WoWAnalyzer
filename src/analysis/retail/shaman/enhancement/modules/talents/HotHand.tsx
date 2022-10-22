@@ -61,19 +61,22 @@ class HotHand extends Analyzer {
     );
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LAVA_LASH),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.LAVA_LASH_TALENT),
       this.onLavaLashDamage,
     );
   }
 
   applyHotHand() {
     // on application both resets the CD and applies a mod rate
-    this.spellUsable.endCooldown(SPELLS.LAVA_LASH.id);
-    this.spellUsable.applyCooldownRateChange(SPELLS.LAVA_LASH.id, HOT_HAND.MOD_RATE);
+    this.spellUsable.endCooldown(TALENTS_SHAMAN.LAVA_LASH_TALENT.id);
+    this.spellUsable.applyCooldownRateChange(TALENTS_SHAMAN.LAVA_LASH_TALENT.id, HOT_HAND.MOD_RATE);
   }
 
   removeHotHand() {
-    this.spellUsable.removeCooldownRateChange(SPELLS.LAVA_LASH.id, HOT_HAND.MOD_RATE);
+    this.spellUsable.removeCooldownRateChange(
+      TALENTS_SHAMAN.LAVA_LASH_TALENT.id,
+      HOT_HAND.MOD_RATE,
+    );
   }
 
   onLavaLashDamage(event: DamageEvent) {

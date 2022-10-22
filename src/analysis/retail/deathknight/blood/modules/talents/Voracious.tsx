@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import Uptime from 'interface/icons/Uptime';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
@@ -12,11 +13,14 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 class Voracious extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.VORACIOUS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.VORACIOUS_TALENT.id);
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.VORACIOUS.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.VORACIOUS_TALENT_BUFF.id) /
+      this.owner.fightDuration
+    );
   }
 
   get uptimeSuggestionThresholds(): NumberThreshold {
@@ -38,7 +42,7 @@ class Voracious extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
       >
-        <BoringSpellValueText spellId={SPELLS.VORACIOUS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.VORACIOUS_TALENT.id}>
           <Trans id="deathknight.blood.voracious.statistic">
             <Uptime /> {formatPercentage(this.uptime)}% <small>Uptime</small>
           </Trans>

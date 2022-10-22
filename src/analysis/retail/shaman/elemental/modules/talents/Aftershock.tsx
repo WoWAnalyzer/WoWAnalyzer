@@ -15,6 +15,9 @@ class Aftershock extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.AFTERSHOCK_TALENT.id);
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(Events.resourcechange.spell(SPELLS.AFTERSHOCK), this.onAftershock);
   }

@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
   DamageEvent,
@@ -35,7 +36,7 @@ class Bloodworms extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BLOODWORMS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BLOODWORMS_TALENT.id);
 
     if (!this.active) {
       return;
@@ -105,7 +106,7 @@ class Bloodworms extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.BLOODWORMS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.BLOODWORMS_TALENT.id}>
           <ItemHealingDone amount={this.totalHealing} />
         </BoringSpellValueText>
       </Statistic>

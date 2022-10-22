@@ -34,7 +34,6 @@ import MightOfTheMountain from './modules/racials/MightOfTheMountain';
 import UntemperedDedication from './modules/talents/UntemperedDedication';
 import MaraadsCastRatio from './modules/talents/MaraadsCastRatio';
 import MaraadsOverheal from './modules/talents/MaraadsOverheal';
-import Tier28FourSet from './modules/shadowlands/tier/Tier28FourSet';
 import DevotionAuraDamageReduction from './modules/spells/DevotionAuraDamageReduction';
 import FillerFlashOfLight from './modules/spells/FillerFlashOfLight';
 import FillerLightOfTheMartyrs from './modules/spells/FillerLightOfTheMartyrs';
@@ -111,7 +110,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //-- shadowlands section --//
 
     // Tier Sets
-    Tier28FourSet: Tier28FourSet,
+    // TODO: Add Tier 29
   };
 }
 
