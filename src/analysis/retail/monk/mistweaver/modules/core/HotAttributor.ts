@@ -34,9 +34,7 @@ class HotAttributor extends Analyzer {
       this.onApplyRem,
     );
     this.addEventListener(
-      Events.applybuff
-        .by(SELECTED_PLAYER)
-        .spell([TALENTS_MONK.ENVELOPING_MIST_TALENT, SPELLS.ENVELOPING_MIST_TFT]),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
       this.onApplyEnvm,
     );
     this.addEventListener(
