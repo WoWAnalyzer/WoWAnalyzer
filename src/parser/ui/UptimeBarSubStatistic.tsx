@@ -37,7 +37,7 @@ export enum SubPercentageStyle {
  *
  */
 export default function uptimeBarSubStatistic(
-  fight: WCLFight,
+  fight: Pick<WCLFight, 'start_time' | 'end_time'>,
   primaryBar: UptimeBarSpec,
   subBars: UptimeBarSpec[] = [],
   subPercentageStyle: SubPercentageStyle = SubPercentageStyle.RELATIVE,
