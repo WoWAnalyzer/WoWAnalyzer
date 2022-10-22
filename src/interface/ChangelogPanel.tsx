@@ -1,8 +1,9 @@
 import { t, Trans } from '@lingui/macro';
+import CORE_CHANGELOG from 'CHANGELOG';
 import AVAILABLE_CONFIGS from 'parser';
 import { useState } from 'react';
+
 import Changelog from './Changelog';
-import CORE_CHANGELOG from 'CHANGELOG';
 
 const ChangelogPanel = () => {
   const [expanded, setExpanded] = useState<boolean>(false);
