@@ -84,7 +84,7 @@ const talents = createTalentList({
     icon: 'ability_rogue_preyontheweak',
     maxRanks: 1,
   },
-  SHADOWSTEP_ASSASSINATION_TALENT: {
+  SHADOWSTEP_SHARED_TALENT: {
     id: 394931,
     name: 'Shadowstep',
     icon: 'rogue_shadowfocus',

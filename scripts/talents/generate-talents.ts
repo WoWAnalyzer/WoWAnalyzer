@@ -10,7 +10,6 @@ import {
   readJsonFromUrl,
 } from './talent-tree-helpers';
 import {
-  GenericTalentInterface,
   ISpellpower,
   ITalentObjectByClass,
   ITalentTree,
@@ -133,12 +132,10 @@ async function generateTalents() {
     cleanedTalentObjectByClass[lowerCasedClassName] =
       cleanedTalentObjectByClass[lowerCasedClassName] || {};
 
-    let allClassTalentsObj: Record<string, GenericTalentInterface> = {};
-    Object.values(talentObjectByClass[lowerCasedClassName]).forEach((obj) => {
-      allClassTalentsObj = { ...allClassTalentsObj, ...obj };
-    });
+    const allClassTalentsArr = Object.values(
+      talentObjectByClass[lowerCasedClassName],
+    ).flatMap((spectalents) => Object.values(spectalents));
 
-    const allClassTalentsArr = Object.values(allClassTalentsObj);
     Object.entries(talentObjectByClass[lowerCasedClassName]).forEach(([specName, specTalents]) => {
       cleanedTalentObjectByClass[lowerCasedClassName][specName] =
         cleanedTalentObjectByClass[lowerCasedClassName][specName] || {};

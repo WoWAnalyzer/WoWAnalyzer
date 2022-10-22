@@ -23,7 +23,7 @@ export enum ResourceTypes {
 
 export type ResourceCostType = Uncapitalize<`${keyof typeof ResourceTypes}Cost`>;
 
-export type GenericTalentInterface = {
+type GenericTalentInterface = {
   [key in ResourceCostType]?: number;
 } & {
   id: number;
