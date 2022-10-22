@@ -8,8 +8,7 @@ export default [
   change(
     date(2022, 10, 22),
     <>
-      8Updated 'Mana efficiency tab' and added support for
-      <SpellLink id={TALENTS.REVITALIZING_PRAYERS_TALENT.id} />
+      Updated 'Mana efficiency tab' and added support for <SpellLink id={TALENTS.REVITALIZING_PRAYERS_TALENT.id} />
     </>,
     Litena
   ),
