@@ -11,6 +11,8 @@ import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import talents from 'common/TALENTS/monk';
 import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import TooltipProvider from 'interface/TooltipProvider';
+import ExplanationRow from 'interface/guide/components/ExplanationRow';
+import Explanation from 'interface/guide/components/Explanation';
 
 const HitTimelineContainer = styled.div`
   display: grid;
@@ -203,21 +205,14 @@ function ShuffleOverview({ shuffle, info }: { shuffle: Shuffle; info: Info }): J
   );
 }
 
-// TODO budget NarrowWideColumns. get sref's once merged
-const Columns = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap-x: 1rem;
-`;
-
 export default function ShuffleSection(): JSX.Element {
   const info = useInfo()!;
   const shuffle = useAnalyzer(Shuffle)!;
 
   return (
     <SubSection title="Shuffle">
-      <Columns>
-        <div>
+      <ExplanationRow>
+        <Explanation>
           <p>
             <SpellLink id={SPELLS.SHUFFLE} /> nearly <strong>doubles</strong> the amount of damage
             that is absorbed by <SpellLink id={talents.STAGGER_TALENT} />, and is critical to have
@@ -231,9 +226,9 @@ export default function ShuffleSection(): JSX.Element {
             without <SpellLink id={SPELLS.SHUFFLE} /> active (shown in{' '}
             <Highlight color={red}>red</Highlight>) is very dangerous!
           </p>
-        </div>
+        </Explanation>
         <ShuffleOverview info={info} shuffle={shuffle} />
-      </Columns>
+      </ExplanationRow>
     </SubSection>
   );
 }
