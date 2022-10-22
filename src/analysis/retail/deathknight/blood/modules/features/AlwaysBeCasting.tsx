@@ -1,6 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -27,8 +27,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           <Trans id="deathknight.blood.alwaysBeCasting.suggestion.suggestion">
             While some downtime is inevitable in fights with movement, you should aim to reduce
             downtime to prevent capping Runes. You can reduce downtime by casting ranged/filler
-            abilities like <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> or{' '}
-            <SpellLink id={SPELLS.BLOOD_BOIL.id} />
+            abilities like <SpellLink id={TALENTS.BLOODDRINKER_TALENT.id} /> or{' '}
+            <SpellLink id={TALENTS.BLOOD_BOIL_TALENT.id} />
           </Trans>,
         )
           .icon('spell_mage_altertime')

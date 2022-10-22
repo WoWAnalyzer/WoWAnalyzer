@@ -29,6 +29,9 @@ class SurgeOfPower extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_POWER_TALENT.id);
+    if (!this.active) {
+      return;
+    }
 
     Object.values(SURGE_OF_POWER.AFFECTED_CASTS).forEach(({ id: spellid }) => {
       this.sopBuffedAbilities[spellid] = 0;

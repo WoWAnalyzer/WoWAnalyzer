@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
-import talents from 'common/TALENTS/deathknight';
+import TALENTS from 'common/TALENTS/deathknight';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
@@ -12,8 +12,8 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
     return [
       {
-        spell: talents.ICEBOUND_FORTITUDE_TALENT.id,
-        buffSpellId: talents.ICEBOUND_FORTITUDE_TALENT.id,
+        spell: TALENTS.ICEBOUND_FORTITUDE_TALENT.id,
+        buffSpellId: TALENTS.ICEBOUND_FORTITUDE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 180,
         castEfficiency: {
@@ -29,8 +29,8 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: SPELLS.VAMPIRIC_BLOOD.id,
-        buffSpellId: SPELLS.VAMPIRIC_BLOOD.id,
+        spell: TALENTS.VAMPIRIC_BLOOD_TALENT.id,
+        buffSpellId: TALENTS.VAMPIRIC_BLOOD_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 90,
         castEfficiency: {
@@ -46,7 +46,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: SPELLS.BLOOD_BOIL.id,
+        spell: TALENTS.BLOOD_BOIL_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 7.5 / (1 + haste),
         gcd: {
@@ -64,9 +64,9 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 4,
       },
       {
-        spell: SPELLS.CONSUMPTION_TALENT.id,
+        spell: TALENTS.CONSUMPTION_TALENT.id,
         category: SPELL_CATEGORY.SEMI_DEFENSIVE,
-        enabled: combatant.hasTalent(SPELLS.CONSUMPTION_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.CONSUMPTION_TALENT.id),
         cooldown: 45,
         gcd: {
           base: 1500,
@@ -74,9 +74,9 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 5,
       },
       {
-        spell: SPELLS.DANCING_RUNE_WEAPON.id,
+        spell: TALENTS.DANCING_RUNE_WEAPON_TALENT.id,
         category: SPELL_CATEGORY.SEMI_DEFENSIVE,
-        buffSpellId: SPELLS.DANCING_RUNE_WEAPON_BUFF.id,
+        buffSpellId: SPELLS.DANCING_RUNE_WEAPON_TALENT_BUFF.id,
         gcd: {
           base: 1500,
         },
@@ -92,13 +92,13 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 9,
       },
       {
-        spell: SPELLS.BLOODDRINKER_TALENT.id,
+        spell: TALENTS.BLOODDRINKER_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.BLOODDRINKER_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.BLOODDRINKER_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -110,7 +110,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 6,
       },
       {
-        spell: talents.DEATH_STRIKE_TALENT.id,
+        spell: TALENTS.DEATH_STRIKE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -118,7 +118,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 1,
       },
       {
-        spell: SPELLS.DEATHS_CARESS.id,
+        spell: TALENTS.DEATHS_CARESS_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -133,7 +133,7 @@ class Abilities extends CoreAbilities {
         },
         enabled:
           !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) &&
-          combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
+          combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT.id),
         cooldown: 15,
         castEfficiency: {
           suggestion: true,
@@ -150,12 +150,12 @@ class Abilities extends CoreAbilities {
         },
         enabled:
           !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) &&
-          !combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id),
+          !combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT.id),
         cooldown: 15,
         timelineSortIndex: 5,
       },
       {
-        spell: SPELLS.HEART_STRIKE.id,
+        spell: TALENTS.HEART_STRIKE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -163,7 +163,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 3,
       },
       {
-        spell: SPELLS.MARROWREND.id,
+        spell: TALENTS.MARROWREND_TALENT.id,
         buffSpellId: SPELLS.BONE_SHIELD.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
@@ -172,10 +172,10 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 2,
       },
       {
-        spell: talents.ANTI_MAGIC_SHELL_TALENT.id,
-        buffSpellId: talents.ANTI_MAGIC_SHELL_TALENT.id,
+        spell: TALENTS.ANTI_MAGIC_SHELL_TALENT.id,
+        buffSpellId: TALENTS.ANTI_MAGIC_SHELL_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(SPELLS.ANTI_MAGIC_BARRIER_TALENT.id) ? 60 - 15 : 60,
+        cooldown: combatant.hasTalent(TALENTS.ANTI_MAGIC_BARRIER_TALENT.id) ? 60 - 15 : 60,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
@@ -189,7 +189,7 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: talents.MIND_FREEZE_TALENT.id,
+        spell: TALENTS.MIND_FREEZE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 15,
       },
@@ -215,8 +215,8 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 14,
       },
       {
-        spell: talents.WRAITH_WALK_TALENT.id,
-        enabled: combatant.hasTalent(talents.WRAITH_WALK_TALENT.id),
+        spell: TALENTS.WRAITH_WALK_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.WRAITH_WALK_TALENT.id),
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
@@ -225,12 +225,12 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 14,
       },
       {
-        spell: SPELLS.GOREFIENDS_GRASP.id,
+        spell: TALENTS.GOREFIENDS_GRASP_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
         },
-        cooldown: combatant.hasTalent(SPELLS.TIGHTENING_GRASP_TALENT.id) ? 90 : 120,
+        cooldown: combatant.hasTalent(TALENTS.TIGHTENING_GRASP_TALENT.id) ? 90 : 120,
         timelineSortIndex: 11,
       },
       {
@@ -241,7 +241,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ASPHYXIATE.id,
+        spell: TALENTS.ASPHYXIATE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
         gcd: {
@@ -249,7 +249,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: talents.CONTROL_UNDEAD_TALENTS.id,
+        spell: TALENTS.CONTROL_UNDEAD_TALENT.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
@@ -261,17 +261,17 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
       },
       {
-        spell: talents.ANTI_MAGIC_ZONE_TALENT.id,
-        buffSpellId: talents.ANTI_MAGIC_ZONE_TALENT_BUFF.id,
+        spell: TALENTS.ANTI_MAGIC_ZONE_TALENT.id,
+        buffSpellId: SPELLS.ANTI_MAGIC_ZONE_TALENT_BUFF.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120,
         gcd: null,
         isDefensive: true,
       },
       {
-        spell: SPELLS.MARK_OF_BLOOD_TALENT.id,
+        spell: TALENTS.MARK_OF_BLOOD_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT),
+        enabled: combatant.hasTalent(TALENTS.MARK_OF_BLOOD_TALENT),
         cooldown: 6,
         gcd: {
           base: 1500,
@@ -279,9 +279,9 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: SPELLS.TOMBSTONE_TALENT.id,
+        spell: TALENTS.TOMBSTONE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        enabled: combatant.hasTalent(SPELLS.TOMBSTONE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.TOMBSTONE_TALENT.id),
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -299,8 +299,8 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: SPELLS.RUNE_TAP.id,
-        buffSpellId: SPELLS.RUNE_TAP.id,
+        spell: TALENTS.RUNE_TAP_TALENT.id,
+        buffSpellId: TALENTS.RUNE_TAP_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 25,
         charges: 2,
@@ -317,9 +317,9 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: SPELLS.BLOOD_TAP_TALENT.id,
+        spell: TALENTS.BLOOD_TAP_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.BLOOD_TAP_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.BLOOD_TAP_TALENT.id),
         cooldown: 60,
         charges: 2,
         castEfficiency: {
@@ -334,9 +334,9 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 10,
       },
       {
-        spell: SPELLS.BONESTORM_TALENT.id,
+        spell: TALENTS.BONESTORM_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled: combatant.hasTalent(SPELLS.BONESTORM_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.BONESTORM_TALENT.id),
         cooldown: 60,
         gcd: {
           base: 1500,

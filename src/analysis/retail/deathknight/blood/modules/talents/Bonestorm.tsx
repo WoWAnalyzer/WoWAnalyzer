@@ -1,6 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import { formatPercentage, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -21,18 +22,18 @@ class Bonestorm extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BONESTORM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BONESTORM_TALENT.id);
 
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BONESTORM_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.BONESTORM_TALENT),
       this.onCast,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BONESTORM_HIT),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BONESTORM_TALENT_HIT),
       this.onDamage,
     );
   }
@@ -96,13 +97,13 @@ class Bonestorm extends Analyzer {
       when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
           <Trans id="deathknight.blood.bonestorm.suggestion.2p.suggestion">
-            Try to cast <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> only when you have 100 or more
-            Runic Power. The main purpose of <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> once you
-            have 2-piece is to quickly spend Runic Power on a high Damage Per Execution Time (DPET)
-            ability.
+            Try to cast <SpellLink id={TALENTS.BONESTORM_TALENT.id} /> only when you have 100 or
+            more Runic Power. The main purpose of <SpellLink id={TALENTS.BONESTORM_TALENT.id} />{' '}
+            once you have 2-piece is to quickly spend Runic Power on a high Damage Per Execution
+            Time (DPET) ability.
           </Trans>,
         )
-          .icon(SPELLS.BONESTORM_TALENT.icon)
+          .icon(TALENTS.BONESTORM_TALENT.icon)
           .actual(
             t({
               id: 'deathknight.blood.bonestorm.suggestion.2p.actual',
@@ -122,14 +123,14 @@ class Bonestorm extends Analyzer {
       when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
           <Trans id="deathknight.blood.bonestorm.suggestion.suggestion">
-            Try to cast <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> only if you can reliable hit 2
-            or more targets to maximize the damage and healing. Casting{' '}
-            <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> with only one target in range is only a
+            Try to cast <SpellLink id={TALENTS.BONESTORM_TALENT.id} /> only if you can reliable hit
+            2 or more targets to maximize the damage and healing. Casting{' '}
+            <SpellLink id={TALENTS.BONESTORM_TALENT.id} /> with only one target in range is only a
             minor DPS gain (~10 DPS) at the cost of pooling Runic Power, use{' '}
-            <SpellLink id={talents.DEATH_STRIKE_TALENT.id} /> instead.
+            <SpellLink id={TALENTS.DEATH_STRIKE_TALENT.id} /> instead.
           </Trans>,
         )
-          .icon(SPELLS.BONESTORM_TALENT.icon)
+          .icon(TALENTS.BONESTORM_TALENT.icon)
           .actual(
             t({
               id: 'deathknight.blood.bonestorm.suggestion.actual',
@@ -175,7 +176,7 @@ class Bonestorm extends Analyzer {
         size="flexible"
         tooltip={this.bonestormTooltip}
       >
-        <BoringSpellValueText spellId={SPELLS.BONESTORM_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.BONESTORM_TALENT.id}>
           <ItemPercentDamageDone amount={this.totalBonestormDamage} />
         </BoringSpellValueText>
       </Statistic>

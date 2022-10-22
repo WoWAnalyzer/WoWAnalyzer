@@ -1,6 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import Uptime from 'interface/icons/Uptime';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -20,11 +20,11 @@ class MarkOfBlood extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.MARK_OF_BLOOD_TALENT.id);
   }
 
   get uptime() {
-    return this.enemies.getBuffUptime(SPELLS.MARK_OF_BLOOD_TALENT.id) / this.owner.fightDuration;
+    return this.enemies.getBuffUptime(TALENTS.MARK_OF_BLOOD_TALENT.id) / this.owner.fightDuration;
   }
 
   get uptimeSuggestionThresholds(): NumberThreshold {
@@ -43,10 +43,10 @@ class MarkOfBlood extends Analyzer {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="deathknight.blood.markOfBlood.suggestion.suggestion">
-          Your <SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id} /> uptime can be improved.
+          Your <SpellLink id={TALENTS.MARK_OF_BLOOD_TALENT.id} /> uptime can be improved.
         </Trans>,
       )
-        .icon(SPELLS.MARK_OF_BLOOD_TALENT.icon)
+        .icon(TALENTS.MARK_OF_BLOOD_TALENT.icon)
         .actual(
           t({
             id: 'deathknight.blood.markOfBlood.suggestion.actual',
@@ -69,7 +69,7 @@ class MarkOfBlood extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
       >
-        <BoringSpellValueText spellId={SPELLS.MARK_OF_BLOOD_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.MARK_OF_BLOOD_TALENT.id}>
           <Trans id="deathknight.blood.markOfBlood.statistic">
             <Uptime /> {formatPercentage(this.uptime)}% <small>Uptime</small>
           </Trans>

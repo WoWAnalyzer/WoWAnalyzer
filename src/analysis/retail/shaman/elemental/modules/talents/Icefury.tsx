@@ -15,6 +15,9 @@ class Icefury extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.ICEFURY_TALENT.id);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.FROST_SHOCK_TALENT),
       this.onFrostShockCast,

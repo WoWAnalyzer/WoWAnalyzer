@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import covenantSpells from 'common/SPELLS/shadowlands/covenants/'
+import covenantSpells from 'common/SPELLS/shadowlands/covenants/';
 import TALENTS from 'common/TALENTS/warlock';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';

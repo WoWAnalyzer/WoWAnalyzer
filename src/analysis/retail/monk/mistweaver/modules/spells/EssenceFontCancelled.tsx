@@ -44,6 +44,10 @@ class EssenceFontCancelled extends Analyzer {
       );
     }
     this.expected_duration = (3000 + extra_secs * 1000) / (1 + this.haste.current!);
+    // TFT ef has half duration
+    if (this.selectedCombatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)) {
+      this.expected_duration /= 2;
+    }
     this.last_ef_time = event.timestamp;
     this.last_ef = event;
   }
