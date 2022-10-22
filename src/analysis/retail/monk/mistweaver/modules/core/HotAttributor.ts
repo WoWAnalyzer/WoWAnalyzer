@@ -12,7 +12,7 @@ import HotTracker from 'parser/shared/modules/HotTracker';
 import { isFromHardcast, isFromMistyPeaks } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 
-const debug = true;
+const debug = false;
 
 class HotAttributor extends Analyzer {
   static dependencies = {
