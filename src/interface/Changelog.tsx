@@ -1,4 +1,5 @@
 import CORE_CHANGELOG from 'CHANGELOG';
+
 import { ChangelogEntry } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 import ReadableListing from 'interface/ReadableListing';
