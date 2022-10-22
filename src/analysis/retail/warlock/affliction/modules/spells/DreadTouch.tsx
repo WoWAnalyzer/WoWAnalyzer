@@ -59,11 +59,6 @@ export default class DreadTouch extends Analyzer {
       >
         <BoringSpellValueText spellId={TALENTS.DREAD_TOUCH_TALENT.id}>
           {formatPercentage(this.uptime)} % <small>uptime</small>
-          {/* <br />
-          {formatNumber(this.dps)} DPS{' '}
-          <small>
-            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total
-          </small> */}
         </BoringSpellValueText>
       </Statistic>
     );
