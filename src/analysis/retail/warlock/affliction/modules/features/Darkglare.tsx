@@ -1,6 +1,5 @@
 import { formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import covenantSpells from 'common/SPELLS/shadowlands/covenants/warlock';
 import TALENTS from 'common/TALENTS/warlock';
 import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
@@ -52,10 +51,6 @@ const DOT_DEBUFFS = [
   TALENTS.PHANTOM_SINGULARITY_TALENT,
   TALENTS.VILE_TAINT_TALENT,
   TALENTS.SOUL_ROT_TALENT,
-  // Shadowlands covenant spells
-  covenantSpells.SCOURING_TITHE,
-  covenantSpells.SOUL_ROT,
-  covenantSpells.IMPENDING_CATASTROPHE_DEBUFF,
 ];
 const debug = false;
 

@@ -64,7 +64,7 @@ class SoulShardDetails extends Analyzer {
       >
         <BoringResourceValue
           resource={RESOURCE_TYPES.SOUL_SHARDS}
-          value={this.wastedPerMinute}
+          value={this.wastedPerMinute.toFixed(2)}
           label="Soul Shards wasted per minute"
         />
       </Statistic>
