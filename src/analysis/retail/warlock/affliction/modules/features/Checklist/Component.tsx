@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import shadowlandsSpells from 'common/SPELLS/shadowlands/covenants'
+import shadowlandsSpells from 'common/SPELLS/shadowlands/covenants';
 import TALENTS from 'common/TALENTS/warlock';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
@@ -57,8 +57,7 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
         name="Don't cap your Soul Shards"
         description="Soul Shards are your main and most important resource and since their generation is random as Affliction, it's very important not to let them cap."
       >
-        <Requirement name="Wasted shards per minute" thresholds={thresholds.soulShardDetails}
-        />
+        <Requirement name="Wasted shards per minute" thresholds={thresholds.soulShardDetails} />
       </Rule>
       <Rule
         name="Use your cooldowns"
