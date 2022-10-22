@@ -21,6 +21,10 @@ export const apl = build([
     spell: talents.KEG_SMASH_TALENT,
     condition: buffPresent(talents.WEAPONS_OF_ORDER_TALENT),
   },
+  {
+    spell: talents.KEG_SMASH_TALENT,
+    condition: cnd.targetsHit({ atLeast: 2 }),
+  },
   talents.RISING_SUN_KICK_TALENT,
   {
     spell: talents.BREATH_OF_FIRE_TALENT,
