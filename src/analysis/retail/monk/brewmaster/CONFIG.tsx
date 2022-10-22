@@ -9,14 +9,14 @@ export default {
   contributors: [emallson],
   expansion: Expansion.Dragonflight,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: null,
+  patchCompatibility: '10.0.2',
   isPartial: true,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
       Hello, and welcome to the Brewmaster Analyzer! This analyzer is maintained by{' '}
-      <a href="//raider.io/characters/us/turalyon/Eisenpelz">
+      <a href="https://www.warcraftlogs.com/character/us/area-52/eisenpelz">
         <code>emallson</code>
       </a>
       , a Brewmaster theorycrafter and main.
