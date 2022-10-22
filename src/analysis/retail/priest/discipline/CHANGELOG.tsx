@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 10, 22), <>Initial guide/suggestion revamp implementation, including section for <SpellLink id={TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id}/></>, Hana),
   change(date(2022, 10, 22), <>Added <SpellLink id={TALENTS_PRIEST.MALICIOUS_INTENT_TALENT}/>.</>, Hana),
   change(date(2022, 10, 16), <>Added <SpellLink id={TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id}/> module.</>, Hana),
   change(date(2022, 10, 16), <>Fixed <SpellLink id={TALENTS_PRIEST.CONTRITION_TALENT.id}/>.</>, Hana),
