@@ -1,6 +1,4 @@
 import CORE_CHANGELOG from 'CHANGELOG';
-import CLASSIC_CHANGELOG from 'parser/classic/CHANGELOG';
-
 import { ChangelogEntry } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 import ReadableListing from 'interface/ReadableListing';
@@ -13,7 +11,7 @@ interface Props {
 
 const Changelog = ({ changelog, limit, includeCore = true }: Props) => {
   const mergedChangelog: ChangelogEntry[] = includeCore
-    ? [...CORE_CHANGELOG, ...CLASSIC_CHANGELOG, ...changelog].sort(
+    ? [...CORE_CHANGELOG, ...changelog].sort(
         (a: ChangelogEntry, b: ChangelogEntry) => b.date.getTime() - a.date.getTime(),
       )
     : changelog;
