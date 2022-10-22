@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -58,7 +59,9 @@ class BoneShieldStacksBySeconds extends Analyzer {
     this.addEventListener(Events.fightend, this.handleStacks);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.MARROWREND, SPELLS.DANCING_RUNE_WEAPON]),
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([TALENTS.MARROWREND_TALENT, TALENTS.DANCING_RUNE_WEAPON_TALENT]),
       this.trackApplication,
     );
   }
@@ -90,11 +93,11 @@ class BoneShieldStacksBySeconds extends Analyzer {
   trackApplication(event: CastEvent) {
     // Can't track this with buff applied events in case the player
     // refreshes at 10 stacks.
-    const isMarrow = event.ability.guid === SPELLS.MARROWREND.id;
-    const isDRW = event.ability.guid === SPELLS.DANCING_RUNE_WEAPON.id;
-    const hasCRW = this.selectedCombatant.hasLegendary(SPELLS.CRIMSON_RUNE_WEAPON);
+    const isMarrow = event.ability.guid === TALENTS.MARROWREND_TALENT.id;
+    const isDRW = event.ability.guid === TALENTS.DANCING_RUNE_WEAPON_TALENT.id;
+    const drwAddsStacks = this.selectedCombatant.hasTalent(TALENTS.INSATIABLE_BLADE_TALENT);
 
-    if (isMarrow || (isDRW && hasCRW)) {
+    if (isMarrow || (isDRW && drwAddsStacks)) {
       this.boneShieldApplied = event.timestamp;
     }
   }
@@ -131,7 +134,7 @@ class BoneShieldStacksBySeconds extends Analyzer {
       return;
     }
     const reduction = -stackDiff * DRW_COOLDOWN_REDUCTION_MS;
-    const reducedSpellID = SPELLS.DANCING_RUNE_WEAPON.id;
+    const reducedSpellID = TALENTS.DANCING_RUNE_WEAPON_TALENT.id;
     if (!this.spellUsable.isOnCooldown(reducedSpellID)) {
       this.totalDRWCooldownReductionWasted += reduction;
     } else {
@@ -142,14 +145,14 @@ class BoneShieldStacksBySeconds extends Analyzer {
   }
 
   reduceBloodTapCooldown(stackDiff: number) {
-    if (!this.selectedCombatant.hasTalent(SPELLS.BLOOD_TAP_TALENT)) {
+    if (!this.selectedCombatant.hasTalent(TALENTS.BLOOD_TAP_TALENT)) {
       return;
     }
     if (stackDiff >= 0) {
       return;
     }
     const reduction = -stackDiff * BLOOD_TAP_COOLDOWN_REDUCTION_MS;
-    const reducedSpellID = SPELLS.BLOOD_TAP_TALENT.id;
+    const reducedSpellID = TALENTS.BLOOD_TAP_TALENT.id;
     if (this.spellUsable.isOnCooldown(reducedSpellID)) {
       this.spellUsable.reduceCooldown(reducedSpellID, reduction);
     }

@@ -5,16 +5,19 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import CurseOfAgony from '../spells/CurseOfAgony';
 import CurseOfDoom from '../spells/CurseOfDoom';
 import CurseOfTheElements from '../spells/CurseOfTheElements';
+import Curses from '../spells/Curses';
 
 class CurseUptimeStatisticBox extends Analyzer {
   static dependencies = {
     curseOfAgony: CurseOfAgony,
     curseOfDoom: CurseOfDoom,
     curseOfTheElements: CurseOfTheElements,
+    curses: Curses,
   };
   protected curseOfAgony!: CurseOfAgony;
   protected curseOfDoom!: CurseOfDoom;
   protected curseOfTheElements!: CurseOfTheElements;
+  protected curses!: Curses;
 
   statistic() {
     return (

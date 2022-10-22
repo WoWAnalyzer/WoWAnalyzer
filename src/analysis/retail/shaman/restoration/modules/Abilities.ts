@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/shaman';
+import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
@@ -173,8 +173,9 @@ class Abilities extends CoreAbilities {
         healSpellIds: [SPELLS.ASCENDANCE_HEAL.id, SPELLS.ASCENDANCE_INITIAL_HEAL.id],
       },
       {
-        spell: SPELLS.HEALING_TIDE_TOTEM_CAST.id,
-        buffSpellId: SPELLS.HEALING_TIDE_TOTEM_CAST.id,
+        spell: TALENTS_SHAMAN.HEALING_TIDE_TOTEM_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.HEALING_TIDE_TOTEM_TALENT.id),
+        buffSpellId: TALENTS_SHAMAN.HEALING_TIDE_TOTEM_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: {
@@ -189,7 +190,7 @@ class Abilities extends CoreAbilities {
         healSpellIds: [SPELLS.HEALING_TIDE_TOTEM_HEAL.id],
       },
       {
-        spell: SPELLS.SPIRIT_LINK_TOTEM.id,
+        spell: TALENTS_SHAMAN.SPIRIT_LINK_TOTEM_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: {

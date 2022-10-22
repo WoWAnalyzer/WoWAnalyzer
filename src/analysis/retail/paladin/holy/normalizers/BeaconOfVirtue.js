@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import { EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
@@ -41,7 +41,7 @@ class BeaconOfVirtue extends EventsNormalizer {
       if (previousEvent.type !== EventType.Cast && previousEvent.type !== EventType.ApplyBuff) {
         continue;
       }
-      if (previousEvent.ability.guid !== SPELLS.BEACON_OF_VIRTUE_TALENT.id) {
+      if (previousEvent.ability.guid !== TALENTS.BEACON_OF_VIRTUE_TALENT.id) {
         continue;
       }
       if (previousEvent.sourceID !== event.sourceID) {
@@ -58,7 +58,7 @@ class BeaconOfVirtue extends EventsNormalizer {
     events.forEach((event, eventIndex) => {
       if (
         event.type === EventType.ApplyBuff &&
-        event.ability.guid === SPELLS.BEACON_OF_VIRTUE_TALENT.id
+        event.ability.guid === TALENTS.BEACON_OF_VIRTUE_TALENT.id
       ) {
         const lastBeaconOfVirtueCastIndex = this.findPreviousCast(fixedEvents, event);
 
