@@ -271,7 +271,7 @@ const talents = createTalentList({
     icon: 'ability_druid_tigersroar',
     maxRanks: 1,
   },
-  STARFIRE_RESTORATION_TALENT: {
+  STARFIRE_SHARED_TALENT: {
     id: 197628,
     name: 'Starfire',
     icon: 'spell_arcane_starfire',
@@ -284,7 +284,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_starfire',
     maxRanks: 1,
   },
-  STARSURGE_RESTORATION_TALENT: {
+  STARSURGE_SHARED_TALENT: {
     id: 197626,
     name: 'Starsurge',
     icon: 'spell_arcane_arcane03',
@@ -298,7 +298,7 @@ const talents = createTalentList({
     maxRanks: 1,
     lunarPowerCost: 400,
   },
-  MOONKIN_FORM_RESTORATION_TALENT: {
+  MOONKIN_FORM_SHARED_TALENT: {
     id: 197625,
     name: 'Moonkin Form',
     icon: 'spell_nature_forceofnature',

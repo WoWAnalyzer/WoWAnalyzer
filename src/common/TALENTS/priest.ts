@@ -320,33 +320,19 @@ const talents = createTalentList({
     icon: 'spell_holy_nullifydisease',
     maxRanks: 1,
   },
-  DIVINE_STAR_SHADOW_TALENT: {
+  DIVINE_STAR_SHARED_TALENT: {
     id: 122121,
     name: 'Divine Star',
     icon: 'spell_priest_divinestar_shadow2',
     maxRanks: 1,
     manaCost: 0,
   },
-  DIVINE_STAR_HOLY_TALENT: {
-    id: 110744,
-    name: 'Divine Star',
-    icon: 'spell_priest_divinestar',
-    maxRanks: 1,
-    manaCost: 1000,
-  },
-  HALO_SHADOW_TALENT: {
+  HALO_SHARED_TALENT: {
     id: 120644,
     name: 'Halo',
     icon: 'ability_priest_halo_shadow',
     maxRanks: 1,
     manaCost: 500,
-  },
-  HALO_HOLY_TALENT: {
-    id: 120517,
-    name: 'Halo',
-    icon: 'ability_priest_halo',
-    maxRanks: 1,
-    manaCost: 1000,
   },
   INESCAPABLE_TORMENT_TALENT: {
     id: 373427,

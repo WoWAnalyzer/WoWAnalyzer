@@ -277,7 +277,7 @@ const talents = createTalentList({
     icon: 'spell_holy_purify',
     maxRanks: 1,
   },
-  GREATER_JUDGMENT_PROTECTION_TALENT: {
+  GREATER_JUDGMENT_SHARED_TALENT: {
     id: 231663,
     name: 'Greater Judgment',
     icon: 'spell_holy_righteousfury',

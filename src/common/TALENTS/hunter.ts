@@ -270,7 +270,7 @@ const talents = createTalentList({
     maxRanks: 1,
     focusCost: 15,
   },
-  KILL_COMMAND_MARKSMANSHIP_TALENT: {
+  KILL_COMMAND_SHARED_TALENT: {
     id: 34026,
     name: 'Kill Command',
     icon: 'ability_hunter_killcommand',
@@ -283,7 +283,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_killcommand',
     maxRanks: 1,
   },
-  KILL_SHOT_MARKSMANSHIP_TALENT: {
+  KILL_SHOT_SHARED_TALENT: {
     id: 53351,
     name: 'Kill Shot',
     icon: 'ability_hunter_assassinate2',

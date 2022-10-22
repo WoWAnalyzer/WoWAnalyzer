@@ -263,7 +263,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_offensivestance',
     maxRanks: 1,
   },
-  WAR_MACHINE_FURY_TALENT: {
+  WAR_MACHINE_SHARED_TALENT: {
     id: 346002,
     name: 'War Machine',
     icon: 'ability_hunter_rapidkilling',
@@ -275,7 +275,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_rapidkilling',
     maxRanks: 1,
   },
-  FROTHING_BERSERKER_FURY_TALENT: {
+  FROTHING_BERSERKER_SHARED_TALENT: {
     id: 215571,
     name: 'Frothing Berserker',
     icon: 'warrior_talent_icon_furyintheblood',
@@ -287,7 +287,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_furyintheblood',
     maxRanks: 1,
   },
-  THUNDER_CLAP_FURY_TALENT: {
+  THUNDER_CLAP_SHARED_TALENT: {
     id: 396719,
     name: 'Thunder Clap',
     icon: 'spell_nature_thunderclap',
@@ -300,7 +300,7 @@ const talents = createTalentList({
     maxRanks: 1,
     rageCost: 30,
   },
-  CRUSHING_FORCE_FURY_TALENT: {
+  CRUSHING_FORCE_SHARED_TALENT: {
     id: 382764,
     name: 'Crushing Force',
     icon: 'spell_shadow_unholystrength',
@@ -312,7 +312,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_unholystrength',
     maxRanks: 2,
   },
-  BARBARIC_TRAINING_FURY_TALENT: {
+  BARBARIC_TRAINING_SHARED_TALENT: {
     id: 390674,
     name: 'Barbaric Training',
     icon: 'ability_garrosh_whirling_corruption',
@@ -324,7 +324,7 @@ const talents = createTalentList({
     icon: 'ability_garrosh_whirling_corruption',
     maxRanks: 1,
   },
-  HONED_REFLEXES_FURY_TALENT: {
+  HONED_REFLEXES_SHARED_TALENT: {
     id: 391270,
     name: 'Honed Reflexes',
     icon: 'spell_holy_borrowedtime',
@@ -336,7 +336,7 @@ const talents = createTalentList({
     icon: 'spell_holy_borrowedtime',
     maxRanks: 1,
   },
-  ARMORED_TO_THE_TEETH_FURY_TALENT: {
+  ARMORED_TO_THE_TEETH_SHARED_TALENT: {
     id: 384124,
     name: 'Armored to the Teeth',
     icon: 'inv_shoulder_22',
@@ -354,14 +354,8 @@ const talents = createTalentList({
     icon: 'inv_sword_20',
     maxRanks: 1,
   },
-  ENDURANCE_TRAINING_FURY_TALENT: {
+  ENDURANCE_TRAINING_SHARED_TALENT: {
     id: 391997,
-    name: 'Endurance Training',
-    icon: 'spell_nature_unyeildingstamina',
-    maxRanks: 1,
-  },
-  ENDURANCE_TRAINING_PROTECTION_TALENT: {
-    id: 382940,
     name: 'Endurance Training',
     icon: 'spell_nature_unyeildingstamina',
     maxRanks: 1,
@@ -385,25 +379,25 @@ const talents = createTalentList({
     icon: 'ability_creature_cursed_04',
     maxRanks: 1,
   },
-  WAR_MACHINE_ARMS_TALENT: {
+  WAR_MACHINE_TALENT: {
     id: 262231,
     name: 'War Machine',
     icon: 'ability_hunter_rapidkilling',
     maxRanks: 1,
   },
-  FROTHING_BERSERKER_ARMS_TALENT: {
+  FROTHING_BERSERKER_TALENT: {
     id: 392792,
     name: 'Frothing Berserker',
     icon: 'warrior_talent_icon_furyintheblood',
     maxRanks: 1,
   },
-  BARBARIC_TRAINING_ARMS_TALENT: {
+  BARBARIC_TRAINING_TALENT: {
     id: 383082,
     name: 'Barbaric Training',
     icon: 'ability_garrosh_whirling_corruption',
     maxRanks: 1,
   },
-  HONED_REFLEXES_ARMS_TALENT: {
+  HONED_REFLEXES_TALENT: {
     id: 382461,
     name: 'Honed Reflexes',
     icon: 'spell_holy_borrowedtime',

@@ -45,7 +45,9 @@ async function generateTalents() {
   const talentObjectByClass: ITalentObjectByClass = {};
 
   //Talents that have different IDs but the same name a class talent tree
-  const duplicateClassTalentNames: Record<string, string[]> = {};
+  const duplicateClassTalentNames: Record<string, { id: number; name: string }[]> = {};
+  //Talents that have the same name and ID that have already been marked Shared
+  const sharedClassTalentNames: Record<string, { id: number; name: string }[]> = {};
 
   //DISTRIBUTE TALENTS TO talentObjectByClass
   Object.values(talents).forEach((specTalents) => {
@@ -58,34 +60,86 @@ async function generateTalents() {
         if (!talentSpell.name || !talentSpell.spellId) {
           return;
         }
-        if (
-          Object.values(talentObjectByClass[className]['Shared']).filter(
-            (entry) => entry.id === talentSpell.spellId,
-          ).length > 0
-        ) {
-          return;
-        }
+        //By default we just want to key with spell name
         let talentKey = createTalentKey(talentSpell.name);
 
-        //Detect duplicates in class tree and reallocate to have spec specific keys
-        if (talentObjectByClass[className]['Shared'][talentKey]) {
-          //Find the previously added class talent and reallocate it with spec name
-          const oldTalent = talentObjectByClass[className]['Shared'][talentKey];
-          const oldTalentKeyWithSpecName = createTalentKey(oldTalent.name, oldTalent.spec);
-          talentObjectByClass[className]['Shared'][oldTalentKeyWithSpecName] = oldTalent;
+        //But sometimes we want to mark a talent as shared
+        const sharedTalentKey = createTalentKey(talentSpell.name, 'Shared');
 
-          //Remove the old talent with wrong key
-          delete talentObjectByClass[className]['Shared'][talentKey];
+        //Detect if any talents exist with the same ID
+        const classTalentsWithSameId = Object.values(
+          talentObjectByClass[className]['Shared'],
+        ).filter((entry) => entry.id === talentSpell.spellId);
 
-          //Mark the spell as a troublesome talent, so that its
+        //Detect duplicates in class tree
+        if (
+          talentObjectByClass[className]['Shared'][talentKey] ||
+          classTalentsWithSameId.length > 0
+        ) {
+          //Mark the spell as a troublesome talent, so that its detectable later
           duplicateClassTalentNames[className] = duplicateClassTalentNames[className] || [];
-          duplicateClassTalentNames[className].push(talentSpell.name);
+          duplicateClassTalentNames[className].push({
+            id: talentSpell.spellId,
+            name: talentSpell.name,
+          });
+
+          //Reallocate to have spec specific keys if they have different IDs
+          if (classTalentsWithSameId.length === 0) {
+            //Find the previously added class talent and reallocate it under shared for now
+            const oldTalent = talentObjectByClass[className]['Shared'][talentKey];
+            talentObjectByClass[className]['Shared'][sharedTalentKey] = oldTalent;
+
+            //Remove the old talent with wrong key
+            delete talentObjectByClass[className]['Shared'][talentKey];
+
+            //Create new key using spec name
+            talentKey = createTalentKey(talentSpell.name, specTalents.specName);
+          }
+
+          sharedClassTalentNames[className] = sharedClassTalentNames[className] || [];
+          const isMarkedShared =
+            sharedClassTalentNames[className].filter(
+              (sharedTalent) => sharedTalent.name === talentSpell.name,
+            ).length > 0;
+
+          const classTalentsWithSameNameDifferentId = Object.values(
+            talentObjectByClass[className]['Shared'],
+          ).filter((entry) => entry.id !== talentSpell.spellId && entry.name === talentSpell.name);
+          if (
+            classTalentsWithSameId.length > 0 &&
+            !isMarkedShared &&
+            classTalentsWithSameNameDifferentId.length > 0
+          ) {
+            //Remove the old talents with the non-shared keys
+            classTalentsWithSameId.forEach((dupeSpell) => {
+              const dupeTalentKey = createTalentKey(dupeSpell.name);
+              const dupeTalentKeyWithSpec = createTalentKey(dupeSpell.name, dupeSpell.spec);
+              if (talentObjectByClass[className]['Shared'][dupeTalentKey]) {
+                delete talentObjectByClass[className]['Shared'][dupeTalentKey];
+              }
+              if (talentObjectByClass[className]['Shared'][dupeTalentKeyWithSpec]) {
+                delete talentObjectByClass[className]['Shared'][dupeTalentKeyWithSpec];
+              }
+            });
+            //Create new key using SHARED
+            talentKey = sharedTalentKey;
+            //Mark the talent as shared
+            sharedClassTalentNames[className].push({
+              id: talentSpell.spellId,
+              name: talentSpell.name,
+            });
+          }
         }
 
-        //If a talent is marked as having duplicate name it should always be keyed with spec name
-        if (duplicateClassTalentNames[className]?.includes(talentSpell.name)) {
-          //Create new key using spec name
-          talentKey = createTalentKey(talentSpell.name, specTalents.specName);
+        //If it's a key that already exists and it has the same id as an existing spell we don't want to add it
+        const equalToShared =
+          talentObjectByClass[className]['Shared'][sharedTalentKey] &&
+          talentObjectByClass[className]['Shared'][sharedTalentKey].id === talentSpell.spellId;
+        if (
+          classTalentsWithSameId.length > 0 &&
+          (talentObjectByClass[className]['Shared'][talentKey] || equalToShared)
+        ) {
+          return;
         }
 
         talentObjectByClass[className]['Shared'][talentKey] = {
