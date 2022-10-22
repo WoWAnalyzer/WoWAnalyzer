@@ -28,7 +28,6 @@ import uptimeBarSubStatistic, {
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 import SuggestionThresholds from '../../SuggestionThresholds';
-const PTW_COLOR = '#4ec04e';
 
 class PurgeTheWicked extends Analyzer {
   protected enemies!: Enemies;
@@ -204,7 +203,6 @@ class PurgeTheWicked extends Analyzer {
       {
         spells: [this.dotSpell],
         uptimes: mergeTimePeriods(this.ptwUptimes, this.owner.currentTimestamp),
-        color: PTW_COLOR,
       },
       subBars,
       SubPercentageStyle.ABSOLUTE,
