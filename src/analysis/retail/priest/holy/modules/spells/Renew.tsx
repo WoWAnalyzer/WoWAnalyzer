@@ -153,7 +153,6 @@ class Renew extends Analyzer {
   handleRenewApplication(event: ApplyBuffEvent | RefreshBuffEvent) {
     this.timestampOfLastRenewApplication = event.timestamp;
     if (this.timestampOfLastRenewApplication - this.timestampOfLastPrayerCast < MS_BUFFER) {
-      console.log(this.timestampOfLastRenewApplication - this.timestampOfLastPrayerCast);
       this.revitalizingPrayersRenewDurations += REVITALIZING_PRAYERS_RENEW_FRACTION;
       this.totalRenewApplications += REVITALIZING_PRAYERS_RENEW_FRACTION;
       return;
