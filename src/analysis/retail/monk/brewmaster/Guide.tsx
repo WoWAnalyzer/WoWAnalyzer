@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
+import { AlertWarning, SpellLink } from 'interface';
 import ShuffleSection from './modules/spells/Shuffle/GuideSection';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CombatLogParser from './CombatLogParser';
@@ -29,7 +29,12 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <ShuffleSection />
         <PurifySection module={modules.purifyProblems} events={events} info={info} />
       </Section>
-      <Section title="Rotation">
+      <Section title="Core Rotation">
+        <AlertWarning>
+          This section is under heavy development as work on the Brewmaster rotation continues
+          during the Dragonflight pre-patch. It is currently a reasonable starting point, but may
+          not match the optimal rotation yet.
+        </AlertWarning>
         <p>
           The Brewmaster rotation is driven by a <em>priority list</em>. When you are ready to use
           an ability, you should use the highest-priority ability that is available. Doing this
