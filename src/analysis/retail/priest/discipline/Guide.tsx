@@ -4,6 +4,8 @@ import { SpellLink } from 'interface';
 import { Section, GuideProps, SubSection } from 'interface/guide';
 import type CombatLogParser from './CombatLogParser';
 
+export const GUIDE_CORE_EXPLANATION_PERCENT = 30;
+
 export default function Guide({
   modules,
   events,
@@ -11,6 +13,10 @@ export default function Guide({
 }: GuideProps<typeof CombatLogParser>): JSX.Element {
   return (
     <>
+      <Section title="Short cooldowns">
+        {info.combatant.hasTalent(TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT) &&
+          modules.powerWordRadiance.guideSubsection}
+      </Section>
       <Section title="Main Ramp">
         When using effects which extend <SpellLink id={SPELLS.ATONEMENT_BUFF.id} /> such as{' '}
         <SpellLink id={TALENTS_PRIEST.EVANGELISM_TALENT.id} />, it is critical to your success as a
