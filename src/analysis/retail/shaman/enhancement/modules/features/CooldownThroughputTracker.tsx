@@ -8,7 +8,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: TALENTS_SHAMAN.ASCENDANCE_ELEMENTAL_TALENT.id,
+      spell: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
