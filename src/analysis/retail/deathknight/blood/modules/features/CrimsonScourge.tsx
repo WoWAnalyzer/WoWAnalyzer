@@ -2,6 +2,7 @@ import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
+import TALENTS from 'common/TALENTS/deathknight';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -36,13 +37,13 @@ class CrimsonScourge extends Analyzer {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.DD_ABILITY), this.onCast);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CRIMSON_SCOURGE),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CRIMSON_SCOURGE_TALENT_BUFF),
       this.onApplyBuff,
     );
   }
 
   onCast(event: CastEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.CRIMSON_SCOURGE.id, event.timestamp)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.CRIMSON_SCOURGE_TALENT_BUFF.id, event.timestamp)) {
       this.freeDeathAndDecayCounter += 1;
       if (this.endOfCombatCast) {
         this.endOfCombatCast = false;
@@ -97,17 +98,17 @@ class CrimsonScourge extends Analyzer {
   }
 
   suggestions(when: When) {
-    if (this.selectedCombatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT.id)) {
       return;
     }
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="deathknight.blood.crimsonScourge.suggestion.suggestion">
-          You had unspent <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs. Make sure you always
-          use them.
+          You had unspent <SpellLink id={SPELLS.CRIMSON_SCOURGE_TALENT_BUFF.id} /> procs. Make sure
+          you always use them.
         </Trans>,
       )
-        .icon(SPELLS.CRIMSON_SCOURGE.icon)
+        .icon(SPELLS.CRIMSON_SCOURGE_TALENT_BUFF.icon)
         .actual(
           t({
             id: 'deathknight.blood.crimsonScourge.suggestion.actual',
@@ -133,7 +134,7 @@ class CrimsonScourge extends Analyzer {
           message: `${this.wastedCrimsonScourgeProcs} out of ${this.crimsonScourgeProcsCounter} procs wasted.`,
         })}
       >
-        <BoringSpellValueText spellId={SPELLS.CRIMSON_SCOURGE.id}>
+        <BoringSpellValueText spellId={SPELLS.CRIMSON_SCOURGE_TALENT_BUFF.id}>
           <Trans id="deathknight.blood.crimsonScourge.statistic">
             {formatPercentage(this.wastedCrimsonScourgeProcsPercent)} % <small>procs wasted</small>
           </Trans>

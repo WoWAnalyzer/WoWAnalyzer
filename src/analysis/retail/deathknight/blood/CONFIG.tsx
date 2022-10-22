@@ -1,5 +1,4 @@
-import SPELLS from 'common/SPELLS';
-import talents from 'common/TALENTS/deathknight';
+import TALENTS from 'common/TALENTS/deathknight';
 import { Yajinni, joshinator } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
@@ -10,9 +9,9 @@ import CHANGELOG from './CHANGELOG';
 export default {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
   contributors: [Yajinni, joshinator],
-  expansion: Expansion.Shadowlands,
+  expansion: Expansion.Dragonflight,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '9.0.5',
+  patchCompatibility: '10.0',
   isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -20,13 +19,13 @@ export default {
     <>
       Blood depends a lot on using his runes and how they're used in order to perform well.
       <br />
-      Overusing <SpellLink id={SPELLS.MARROWREND.id} /> for example reduces the amount of runic
-      power you can generate, directly affecting the amount of{' '}
-      <SpellLink id={talents.DEATH_STRIKE_TALENT.id} />
+      Overusing <SpellLink id={TALENTS.MARROWREND_TALENT.id} /> for example reduces the amount of
+      runic power you can generate, directly affecting the amount of{' '}
+      <SpellLink id={TALENTS.DEATH_STRIKE_TALENT.id} />
       's.
       <br />
       <br />
-      Not only the amount of <SpellLink id={talents.DEATH_STRIKE_TALENT.id} />
+      Not only the amount of <SpellLink id={TALENTS.DEATH_STRIKE_TALENT.id} />
       's are important, timing is aswell. Make sure to check them in the 'Death Strike Timing'-tab
       below.
       <br />

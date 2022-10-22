@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, HealEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -27,26 +27,26 @@ class Blooddrinker extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BLOODDRINKER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BLOODDRINKER_TALENT.id);
 
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLOODDRINKER_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.BLOODDRINKER_TALENT),
       this.onCast,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLOODDRINKER_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.BLOODDRINKER_TALENT),
       this.onDamage,
     );
     this.addEventListener(
-      Events.heal.to(SELECTED_PLAYER).spell(SPELLS.BLOODDRINKER_TALENT),
+      Events.heal.to(SELECTED_PLAYER).spell(TALENTS.BLOODDRINKER_TALENT),
       this.onHeal,
     );
     this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.BLOODDRINKER_TALENT),
+      Events.removedebuff.by(SELECTED_PLAYER).spell(TALENTS.BLOODDRINKER_TALENT),
       this.onRemoveDebuff,
     );
   }
@@ -92,7 +92,7 @@ class Blooddrinker extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.BLOODDRINKER_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.BLOODDRINKER_TALENT.id}>
           <Trans id="deathknight.blood.blooddrinker.statistic">
             {this._ruinedCasts} / {this._totalCasts} <small>Channels cancelled early</small>
           </Trans>

@@ -1,6 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
+import TALENTS from 'common/TALENTS/deathknight';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -10,11 +11,11 @@ import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults'
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const ALLOWED_CASTS_DURING_DRW = [
-  talents.DEATH_STRIKE_TALENT.id,
-  SPELLS.HEART_STRIKE.id,
-  SPELLS.BLOOD_BOIL.id,
-  SPELLS.MARROWREND.id,
-  SPELLS.CONSUMPTION_TALENT.id, // todo => test if new consumption talent actually works with DRW
+  TALENTS.DEATH_STRIKE_TALENT.id,
+  TALENTS.HEART_STRIKE_TALENT.id,
+  TALENTS.BLOOD_BOIL_TALENT.id,
+  TALENTS.MARROWREND_TALENT.id,
+  TALENTS.CONSUMPTION_TALENT.id, // todo => test if new consumption talent actually works with DRW
 ];
 
 class DancingRuneWeapon extends Analyzer {
@@ -38,7 +39,7 @@ class DancingRuneWeapon extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.DANCING_RUNE_WEAPON_BUFF.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.DANCING_RUNE_WEAPON_TALENT_BUFF.id)) {
       return;
     }
 
@@ -47,7 +48,7 @@ class DancingRuneWeapon extends Analyzer {
     //push all casts during DRW that were on the GCD in array
     if (
       event.ability.guid !== SPELLS.RAISE_ALLY.id && //probably usefull to rezz someone even if it's a personal DPS-loss
-      event.ability.guid !== SPELLS.DANCING_RUNE_WEAPON.id && //because you get the DRW buff before the cast event since BFA
+      event.ability.guid !== TALENTS.DANCING_RUNE_WEAPON_TALENT.id && //because you get the DRW buff before the cast event since BFA
       ability?.gcd
     ) {
       this.castsDuringDRW.push(event.ability.guid);
@@ -71,7 +72,7 @@ class DancingRuneWeapon extends Analyzer {
   }
 
   spellLinks(spellId: number, index: number) {
-    if (spellId === SPELLS.CONSUMPTION_TALENT.id) {
+    if (spellId === TALENTS.CONSUMPTION_TALENT.id) {
       return (
         <>
           <Trans id="deathknight.blood.drw.spellLinks.consumption">
@@ -114,13 +115,13 @@ class DancingRuneWeapon extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="deathknight.blood.drw.suggestion.suggestion">
-          Avoid casting spells during <SpellLink id={SPELLS.DANCING_RUNE_WEAPON.id} /> that don't
-          benefit from the copies such as <SpellLink id={SPELLS.BLOODDRINKER_TALENT.id} /> and{' '}
-          <SpellLink id={this.DD_ABILITY.id} />. Check the cooldown-tab below for more detailed
+          Avoid casting spells during <SpellLink id={TALENTS.DANCING_RUNE_WEAPON_TALENT.id} /> that
+          don't benefit from the copies such as <SpellLink id={TALENTS.BLOODDRINKER_TALENT.id} />{' '}
+          and <SpellLink id={this.DD_ABILITY.id} />. Check the cooldown-tab below for more detailed
           breakdown.{this.goodDRWSpells}
         </Trans>,
       )
-        .icon(SPELLS.DANCING_RUNE_WEAPON.icon)
+        .icon(TALENTS.DANCING_RUNE_WEAPON_TALENT.icon)
         .actual(
           t({
             id: 'deathknight.blood.drw.suggestion.actual',
