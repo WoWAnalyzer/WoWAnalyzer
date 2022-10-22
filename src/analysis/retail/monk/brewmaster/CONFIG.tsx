@@ -15,25 +15,28 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Hello, and welcome to the Brewmaster Analyzer! This analyzer is maintained by{' '}
-      <a href="https://www.warcraftlogs.com/character/us/area-52/eisenpelz">
-        <code>emallson</code>
-      </a>
-      , a Brewmaster theorycrafter and main.
-      <br />
-      <br />
-      If you are new to the spec, focus first on hitting the targets in the Checklist and
-      Suggestions tabs. The statistics below provide further insight both into your performance and
-      into the effectiveness of your gear and stats.
-      <br />
-      <br />
-      If you have questions about the output, please ask in the <code>#brew-questions</code> channel
-      of the <a href="http://discord.gg/peakofserenity">Peak of Serenity</a>. If you have
-      theorycrafting questions or want to contribute, come say hi in <code>#craft-brewing</code>.
+      <p>
+        Hello, and welcome to the Brewmaster Analyzer! This analyzer is maintained by{' '}
+        <a href="https://www.warcraftlogs.com/character/us/area-52/eisenpelz">
+          <code>emallson</code>
+        </a>
+        , a Brewmaster theorycrafter and main.
+      </p>
+      <p>
+        This analyzer is currently under heavy development for Dragonflight, and the new Overview
+        page is incomplete. If there is anything that confuses you about it or that seems missing,
+        please reach out to me on Discord.
+      </p>
+      <p>
+        If you have questions about the output, please ask in the <code>#brew-questions</code>{' '}
+        channel of the <a href="http://discord.gg/peakofserenity">Peak of Serenity</a>. If you have
+        theorycrafting questions or want to contribute, come say hi in{' '}
+        <code>#theory-of-brewing</code>.
+      </p>
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/bdf9wjm7XJQn3DCR/31-Mythic+The+Council+of+Blood+-+Wipe+15+(4:38)/Xaronbm',
+  exampleReport: '/report/ycBxvL38YaWtGfkC/24-Mythic+Eranog+-+Kill+(6:17)/Laryse',
   // These are multipliers to the stats applied *on pull* that are not
   // included in the stats reported by WCL. These are *baked in* and do
   // not multiply temporary buffs.
