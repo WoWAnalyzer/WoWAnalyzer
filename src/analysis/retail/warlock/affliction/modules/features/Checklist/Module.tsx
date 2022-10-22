@@ -47,7 +47,6 @@ class Checklist extends BaseChecklist {
   protected siphonLifeUptime!: SiphonLifeUptime;
   protected unstableAfflictionUptime!: UnstableAfflictionUptime;
 
-
   // Resources
   protected soulShardDetails!: SoulShardDetails;
 

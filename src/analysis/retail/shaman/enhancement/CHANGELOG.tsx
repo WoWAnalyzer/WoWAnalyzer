@@ -1,11 +1,12 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
-import { Mae, xunai, Vonn, Vetyst } from 'CONTRIBUTORS';
+import { Mae, xunai, Vonn, Vetyst, CamClark } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
   change(date(2022, 10, 18), <>Cleanup majority of old spells.</>, Vetyst),
+  change(date(2022, 10, 17), <>Remove incorrect reference to paladin Tier28FourSet. </>, CamClark),
   change(date(2022, 10, 16), <>Updated spellbook for build 46157.</>, Vetyst),
   change(date(2022, 9, 9), <>Initial implementation of Dragonflight Talent system.</>, Vetyst),
   change(date(2022, 8, 22), <>Make <SpellLink id={SPELLS.STORMBRINGER.id} /> a priority only if you have <SpellLink id={TALENTS_SHAMAN.STORMFLURRY_TALENT.id} /> talented.</>, Vetyst),

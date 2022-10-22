@@ -511,7 +511,7 @@ const spells = spellIndexableList({
     name: 'Flying Serpent Kick',
     icon: 'priest_icon_chakra_green',
   },
-  RISING_SUN_KICK_SECOND: {
+  RISING_SUN_KICK_DAMAGE: {
     id: 185099,
     name: 'Rising Sun Kick',
     icon: 'ability_monk_risingsunkick',

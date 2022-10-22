@@ -126,7 +126,7 @@ class Bonestorm extends Analyzer {
             or more targets to maximize the damage and healing. Casting{' '}
             <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> with only one target in range is only a
             minor DPS gain (~10 DPS) at the cost of pooling Runic Power, use{' '}
-            <SpellLink id={SPELLS.DEATH_STRIKE.id} /> instead.
+            <SpellLink id={talents.DEATH_STRIKE_TALENT.id} /> instead.
           </Trans>,
         )
           .icon(SPELLS.BONESTORM_TALENT.icon)

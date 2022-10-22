@@ -1,14 +1,6 @@
-import {
-  RuneDetails,
-  RuneOfHysteria,
-  RuneOfTheFallenCrusader,
-  Superstrain,
-  SwarmingMist,
-  DeathsDue,
-} from 'analysis/deathknight';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
-
+import { RuneDetails, RuneOfHysteria, RuneOfTheFallenCrusader } from '../shared';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
@@ -25,16 +17,16 @@ import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
 import BreathOfSindragosa from './modules/talents/BreathOfSindragosa';
 import Frostscythe from './modules/talents/Frostscythe';
 import GatheringStorm from './modules/talents/GatheringStorm';
-import HypothermicPresence from './modules/talents/HypothermicPresence';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
-    cooldownThroughputTracker: CooldownThroughputTracker,
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     spellUsable: SpellUsable,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
+    runeforgeChecker: FrostRuneForgeChecker,
 
     // Features
     HardHowlingBlastCasts: HardHowlingBlastCasts,
@@ -42,8 +34,6 @@ class CombatLogParser extends CoreCombatLogParser {
     rimeEfficiency: RimeEfficiency,
     killingMachineEfficiency: KillingMachineEfficiency,
     breathofSindragoa: BreathOfSindragosa,
-    hypothermicPresence: HypothermicPresence,
-    frostRuneForgeChecker: FrostRuneForgeChecker,
 
     //resource tracker
     runeTracker: RuneTracker,
@@ -58,13 +48,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Runes
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
     runeOfHysteria: RuneOfHysteria,
-
-    // Legendaries
-    superStrain: Superstrain,
-
-    // Covenants
-    swarmingMist: SwarmingMist,
-    deathsDue: DeathsDue,
 
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,
   };

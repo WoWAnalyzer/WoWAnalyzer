@@ -17,7 +17,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     },
 
     {
-      spell: SPELLS.ANTI_MAGIC_SHELL.id,
+      spell: talents.ANTI_MAGIC_SHELL_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.ABSORBED],
     },
   ];
