@@ -8,7 +8,6 @@ import {
   targetsHit,
   buffPresent,
   buffMissing,
-  hasConduit,
   optional,
   hasTalent,
 } from 'parser/shared/metrics/apl/conditions';
@@ -71,7 +70,7 @@ export const apl = build([
   {
     spell: SPELLS.SPINNING_CRANE_KICK_BRM,
     condition: optional(
-      hasConduit(SPELLS.WALK_WITH_THE_OX),
+      hasTalent(talents.WALK_WITH_THE_OX_TALENT),
       <>
         It is worthwhile to cast <SpellLink id={SPELLS.SPINNING_CRANE_KICK_BRM.id} /> over{' '}
         <SpellLink id={SPELLS.TIGER_PALM.id} /> when using this conduit <em>if</em> doing so would
