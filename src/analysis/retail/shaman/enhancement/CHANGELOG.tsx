@@ -5,6 +5,7 @@ import { Mae, xunai, Vonn, Vetyst, CamClark } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 10, 18), <>Cleanup majority of old spells.</>, Vetyst),
   change(date(2022, 10, 17), <>Remove incorrect reference to paladin Tier28FourSet. </>, CamClark),
   change(date(2022, 10, 16), <>Updated spellbook for build 46157.</>, Vetyst),
   change(date(2022, 9, 9), <>Initial implementation of Dragonflight Talent system.</>, Vetyst),
@@ -19,7 +20,7 @@ export default [
   change(date(2022, 7, 22), <>Add suggestion for the <SpellLink id={TALENTS_SHAMAN.ELEMENTAL_SPIRITS_TALENT.id} /> talent while wearing T28 4 set.</>, Vetyst),
   change(date(2022, 7, 22), <>Remove <SpellLink id={TALENTS_SHAMAN.EARTH_ELEMENTAL_TALENT.id} />  as suggested offensive cooldown.</>, Vetyst),
   change(date(2022, 7, 22), <>Reset <SpellLink id={TALENTS_SHAMAN.STORMSTRIKE_TALENT.id} /> cooldown when <SpellLink id={SPELLS.STORMBRINGER.id} /> is refreshed. </>, Vetyst),
-  change(date(2022, 7, 19), <>Reduce the cooldown of <SpellLink id={SPELLS.LAVA_LASH.id} /> when the <SpellLink id={TALENTS_SHAMAN.HOT_HAND_TALENT.id} /> buff is active. </>, Vetyst),
+  change(date(2022, 7, 19), <>Reduce the cooldown of <SpellLink id={TALENTS_SHAMAN.LAVA_LASH_TALENT.id} /> when the <SpellLink id={TALENTS_SHAMAN.HOT_HAND_TALENT.id} /> buff is active. </>, Vetyst),
   change(date(2022, 4, 26), <>Added <SpellLink id={SPELLS.FAE_TRANSFUSION.id} /> to the timeline and support for <SpellLink id={SPELLS.SEEDS_OF_RAMPANT_GROWTH.id} /> </>, xunai),
   change(date(2022, 4, 24), <>Added cooldown reduction tracking for <SpellLink id={SPELLS.WITCH_DOCTORS_WOLF_BONES.id} /></>, xunai),
   change(date(2022, 4, 21), <>Added statistics for tier 28 two set bonus and for <SpellLink id={TALENTS_SHAMAN.ELEMENTAL_SPIRITS_TALENT.id} /></>, xunai),
