@@ -6,9 +6,9 @@ import CrossIcon from 'interface/icons/Cross';
 import HealthIcon from 'interface/icons/Health';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_DRUID } from 'common/TALENTS';
@@ -16,6 +16,8 @@ import { getDirectHeal } from 'analysis/retail/druid/restoration/normalizers/Cas
 import { buffedByClearcast } from 'analysis/retail/druid/restoration/normalizers/ClearcastingNormalizer';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { calculateHealTargetHealthPercent } from 'parser/core/EventCalculateLib';
+import { ABUNDANCE_MANA_REDUCTION } from 'analysis/retail/druid/restoration/modules/spells/Abundance';
 
 /** Health percent below which we consider a heal to be 'triage' */
 const TRIAGE_THRESHOLD = 0.5;
@@ -50,7 +52,8 @@ class RegrowthAndClearcasting extends Analyzer {
   /** full price regrowth hardcasts on healthy targets */
   badRegrowths = 0;
 
-  castRegrowthLog: RegrowthCast[] = [];
+  /** Box row entry for each Regrowth cast */
+  castEntries: BoxRowEntry[] = [];
 
   hasAbundance: boolean;
 
@@ -86,56 +89,67 @@ class RegrowthAndClearcasting extends Analyzer {
 
   onCastRegrowth(event: CastEvent) {
     this.totalRegrowths += 1;
+
+    let targetHealthPercent = undefined;
+    const regrowthHeal = getDirectHeal(event);
+    if (regrowthHeal) {
+      targetHealthPercent = calculateHealTargetHealthPercent(regrowthHeal);
+    }
+
+    let castNote = '';
+    let wasGood = true;
     if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
       this.innervateRegrowths += 1;
-      this._pushToCastLog(event, 'innervate');
-      return;
+      castNote = 'Free due to Innervate';
     } else if (
       this.selectedCombatant.hasBuff(SPELLS.NATURES_SWIFTNESS.id, event.timestamp, MS_BUFFER)
     ) {
       this.nsRegrowths += 1;
-      this._pushToCastLog(event, 'ns');
+      castNote = "Free due to Nature's Swiftness";
     } else if (buffedByClearcast(event)) {
       this.ccRegrowths += 1;
-      this._pushToCastLog(event, 'clearcast');
+      castNote = 'Free due to Clearcasting';
     } else if (
       this.selectedCombatant.getBuffStacks(SPELLS.ABUNDANCE_BUFF.id) >= ABUNDANCE_EXCEPTION_STACKS
     ) {
       this.abundanceRegrowths += 1;
-      this._pushToCastLog(event, 'abundance');
+      const abundanceStacks = this.selectedCombatant.getBuffStacks(SPELLS.ABUNDANCE_BUFF.id);
+      castNote =
+        ABUNDANCE_MANA_REDUCTION * abundanceStacks >= 1
+          ? `Free due to ${abundanceStacks} stacks of Abundance`
+          : `Cheap due to ${abundanceStacks} stacks of Abundance`;
     } else {
-      // use the heal event to determine if this Regrowth was triage (saving low health player)
-      const regrowthHeal = getDirectHeal(event);
-      if (regrowthHeal !== undefined) {
-        // heals absorbs not technically part of player heal percent,
-        // but they're important to remove so we'll include it
-        const effectiveHealing = regrowthHeal.amount + (regrowthHeal.absorbed || 0);
-        const hitPointsBeforeHeal = regrowthHeal.hitPoints - effectiveHealing;
-        const healthPercentage = hitPointsBeforeHeal / regrowthHeal.maxHitPoints;
-        if (healthPercentage < TRIAGE_THRESHOLD) {
-          this.triageRegrowths += 1;
-          this._pushToCastLog(event, 'triage');
-        } else {
-          this.badRegrowths += 1;
-          this._pushToCastLog(event, 'bad');
-        }
+      // use the heal to determine if this Regrowth was triage (saving low health player)
+      if (targetHealthPercent !== undefined && targetHealthPercent < TRIAGE_THRESHOLD) {
+        this.triageRegrowths += 1;
+        castNote = 'Cast full price on a low health target';
       } else {
-        // shouldn't happen, but just in case something weird is going on
-        console.warn("Regrowth cast couldn't be matched to a heal", event);
+        this.badRegrowths += 1;
+        wasGood = false;
+        castNote = 'Cast full price on a high health target';
       }
     }
+
+    const targetHealthString =
+      targetHealthPercent !== undefined ? `${formatPercentage(targetHealthPercent, 0)}` : 'unknown';
+    this.castEntries.push({
+      value: wasGood,
+      tooltip: (
+        <>
+          @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> - {castNote}
+          <br />
+          targetting <strong>{this.owner.getTargetName(event)}</strong> w/{' '}
+          <strong>{targetHealthString}%</strong>
+          health
+        </>
+      ),
+    });
   }
 
   onFightEnd() {
     if (this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id)) {
       this.endingClearcasts = 1;
     }
-  }
-
-  _pushToCastLog(event: CastEvent | HealEvent, reason: RegrowthReason) {
-    const wasGood = reason !== 'bad';
-    const abundanceStacks = this.selectedCombatant.getBuffStacks(SPELLS.ABUNDANCE_BUFF.id);
-    this.castRegrowthLog.push({ timestamp: event.timestamp, wasGood, reason, abundanceStacks });
   }
 
   get usedClearcasts() {
@@ -190,26 +204,6 @@ class RegrowthAndClearcasting extends Analyzer {
       </p>
     );
 
-    const castPerfBoxes = this.castRegrowthLog.map((rgCast) => {
-      let message = '';
-      if (rgCast.reason === 'innervate') {
-        message = 'Free due to Innervate';
-      } else if (rgCast.reason === 'ns') {
-        message = "Free due to Nature's Swiftness";
-      } else if (rgCast.reason === 'clearcast') {
-        message = 'Free due to Clearcasting';
-      } else if (rgCast.reason === 'abundance') {
-        message = `Cheap due to ${rgCast.abundanceStacks} stacks of Abundance`;
-      } else if (rgCast.reason === 'triage') {
-        message = 'Cast full price on a low health target';
-      } else if (rgCast.reason === 'bad') {
-        message = 'Cast full price on a high health target';
-      }
-      return {
-        value: rgCast.wasGood,
-        tooltip: `@ ${this.owner.formatTimestamp(rgCast.timestamp)} - ${message}`,
-      };
-    });
     const data = (
       <div>
         <strong>Regrowth casts</strong>
@@ -218,7 +212,7 @@ class RegrowthAndClearcasting extends Analyzer {
           - Green is a good cast, Red is a bad cast (at full mana cost on a high health target).
           Mouseover boxes for details.
         </small>
-        <PerformanceBoxRow values={castPerfBoxes} />
+        <PerformanceBoxRow values={this.castEntries} />
       </div>
     );
 
@@ -308,15 +302,5 @@ class RegrowthAndClearcasting extends Analyzer {
     );
   }
 }
-
-/** Stats about a Regrowth cast */
-type RegrowthCast = {
-  timestamp: number;
-  wasGood: boolean;
-  reason: RegrowthReason;
-  abundanceStacks: number;
-};
-
-type RegrowthReason = 'innervate' | 'ns' | 'clearcast' | 'abundance' | 'triage' | 'bad';
 
 export default RegrowthAndClearcasting;
