@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 10, 23), <>Updated abilities file with new spells, updated mana costs of spells.</>, Hana),
   change(date(2022, 10, 23), <>Updated list of spells which are effected by healing increases.</>, Hana),
   change(date(2022, 10, 23), <>Updated <SpellLink id={TALENTS_PRIEST.PURGE_THE_WICKED_TALENT.id}/> section to the Guide.</>, Hana),
   change(date(2022, 10, 22), <>Added <SpellLink id={TALENTS_PRIEST.PURGE_THE_WICKED_TALENT.id}/> section to the Guide.</>, Hana),
