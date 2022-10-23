@@ -84,7 +84,6 @@ class VivaciousVivification extends Analyzer {
       isGreaterThan: {
         minor: 30000, // 30 seconds
         average: 60000, // 1 minute
-        major: 120000, // 2 minutes
       },
       recommended: 0,
       style: ThresholdStyle.NUMBER,
