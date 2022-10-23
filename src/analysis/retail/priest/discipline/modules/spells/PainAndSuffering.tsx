@@ -6,7 +6,7 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
-import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import PurgeTheWicked from '../features/PurgeTheWicked';
@@ -46,19 +46,14 @@ class PainAndSuffering extends Analyzer {
       return;
     }
 
-    const rawHeal = healEvent.amount + (healEvent.overheal || 0);
-    const nonAmpedHealing = rawHeal / this.purgeTheWicked.effectiveIncrease;
-    const increase = healEvent.amount - nonAmpedHealing;
-    if (increase > 0) {
-      this.healing += increase * this.purgeTheWicked.dotRatios.painAndSuffering;
-    }
+    this.healing += calculateEffectiveHealing(
+      healEvent,
+      this.purgeTheWicked.painAndSufferingIncrease,
+    );
   }
 
   onDamage(event: DamageEvent) {
-    this.damage += calculateEffectiveDamage(
-      event,
-      this.purgeTheWicked.dotRatios.painAndSuffering / (this.purgeTheWicked.totalAmplification + 1),
-    );
+    this.damage += calculateEffectiveDamage(event, this.purgeTheWicked.painAndSufferingIncrease);
   }
 
   statistic() {
