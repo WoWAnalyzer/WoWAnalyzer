@@ -126,7 +126,6 @@ class VivaciousVivification extends Analyzer {
       >
         <TalentSpellText talent={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT}>
           <ItemHealingDone amount={this.totalHealed} />
-          <br />
         </TalentSpellText>
       </Statistic>
     );
