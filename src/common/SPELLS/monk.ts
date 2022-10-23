@@ -108,6 +108,11 @@ const spells = spellIndexableList({
     icon: 'ability_monk_vivify',
     manaCost: 9500,
   },
+  VIVIFICATION_BUFF: {
+    id: 392883,
+    name: 'Vivifacious Vivification',
+    icon: 'ability_monk_vivify',
+  },
   ATOTM_BUFF: {
     id: 388026,
     name: 'Ancient Teachings of the Monestary',

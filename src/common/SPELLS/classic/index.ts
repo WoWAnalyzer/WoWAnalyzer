@@ -20,7 +20,7 @@ import Engineering from './engineering';
 
 const ABILITIES = {
   ...PRIEST,
-  ...Engineering
+  ...Engineering,
 } as const;
 
 // type SpellCollection = SpellList & {

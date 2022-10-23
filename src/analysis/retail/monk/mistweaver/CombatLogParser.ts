@@ -61,6 +61,7 @@ import RefreshingJadeWind from './modules/spells/RefreshingJadeWind';
 import RenewingMistDuringManaTea from './modules/spells/RenewingMistDuringManaTea';
 import RisingMist from './modules/spells/RisingMist';
 import SpiritOfTheCrane from './modules/spells/SpiritOfTheCrane';
+import VivaciousVivification from './modules/spells/VivaciousVivify';
 import Upwelling from './modules/spells/Upwelling';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
@@ -106,6 +107,7 @@ class CombatLogParser extends CoreCombatLogParser {
     dampenHarm: DampenHarm,
     touchOfDeath: TouchOfDeath,
     risingSunKick: RisingSunKick,
+    vivaciousVivification: VivaciousVivification,
 
     // MW Talents
     ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
