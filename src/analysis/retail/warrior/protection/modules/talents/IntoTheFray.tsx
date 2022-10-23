@@ -14,6 +14,7 @@ import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TALENTS from 'common/TALENTS/warrior';
 
 const MAX_STACKS = 5;
 const HASTE_PER_STACK = 2;
@@ -21,13 +22,16 @@ const HASTE_PER_STACK = 2;
 //update haste per stack in ./core/Haste.tsx aswell
 
 class IntoTheFray extends Analyzer {
-  buffStacks: number[][];
+  buffStacks: number[][] = Array.from({ length: MAX_STACKS + 1 }, () => [0]);
   lastStacks = 0;
   lastUpdate = this.owner.fight.start_time;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.INTO_THE_FRAY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.INTO_THE_FRAY_TALENT.id);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INTO_THE_FRAY_BUFF),
       this.handleStacks,
@@ -45,7 +49,6 @@ class IntoTheFray extends Analyzer {
       this.handleStacks,
     );
     this.addEventListener(Events.fightend, this.fightEnd);
-    this.buffStacks = Array.from({ length: MAX_STACKS + 1 }, () => [0]);
   }
 
   get averageHaste() {
@@ -119,7 +122,7 @@ class IntoTheFray extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={SPELLS.INTO_THE_FRAY_TALENT.id} /> average haste gained
+              <SpellLink id={TALENTS.INTO_THE_FRAY_TALENT.id} /> average haste gained
             </>
           }
         >

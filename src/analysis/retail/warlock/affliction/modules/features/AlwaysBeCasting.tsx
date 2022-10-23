@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink } from 'interface';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -9,6 +10,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
+  position = STATISTIC_ORDER.CORE(6);
+
   get suggestionThresholds() {
     return {
       actual: this.downtimePercentage,
@@ -28,7 +31,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay
           between casting spells. Even if you have to move, try casting something instant - maybe
           refresh your dots. Make good use of your <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} /> or
-          <SpellLink id={SPELLS.BURNING_RUSH_TALENT.id} /> when you can.
+          <SpellLink id={TALENTS.BURNING_RUSH_TALENT.id} /> when you can.
         </>,
       )
         .icon('spell_mage_altertime')
@@ -38,14 +41,16 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
             message: `${formatPercentage(actual)}% downtime`,
           }),
         )
-        .recommended(`<${formatPercentage(recommended)}% is recommended`),
+        .recommended(`<${formatPercentage(recommended)}% is recommended`)
+        .regular(recommended + 0.15)
+        .major(recommended + 0.2),
     );
   }
 
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(2)}
+        position={STATISTIC_ORDER.CORE(10)}
         tooltip={
           <>
             Downtime is available time not used to cast anything (including not having your GCD
@@ -67,7 +72,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       >
         <div className="pad">
           <label>Active time</label>
-
           <Gauge value={this.activeTimePercentage} />
         </div>
       </Statistic>

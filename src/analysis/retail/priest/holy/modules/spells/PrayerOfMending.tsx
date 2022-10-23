@@ -45,10 +45,6 @@ class PrayerOfMending extends Analyzer {
     );
   }
 
-  get pomTicksFromCast() {
-    return this.pomCasts * 5;
-  }
-
   get wastedPomStacks() {
     return this.pomBuffCount - this.pomHealTicks;
   }

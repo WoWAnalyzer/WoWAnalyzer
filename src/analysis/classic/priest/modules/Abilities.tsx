@@ -165,7 +165,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.MIND_CONTROL, ...lowRankSpells[SPELLS.MIND_CONTROL]],
+        spell: [SPELLS.MIND_CONTROL],
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           static: 1500,
@@ -314,6 +314,31 @@ class Abilities extends CoreAbilities {
         enabled: this.selectedCombatant.talentPoints[0] >= 41,
       },
       {
+        spell: [SPELLS.PENANCE, ...lowRankSpells[SPELLS.PENANCE]],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: {
+          static: 1500,
+        },
+        enabled: this.selectedCombatant.talentPoints[0] >= 51,
+      },
+      {
+        spell: [SPELLS.PENANCE_HEALING, ...lowRankSpells[SPELLS.PENANCE_HEALING]],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: {
+          static: 1500,
+        },
+        enabled: this.selectedCombatant.talentPoints[0] >= 51,
+      },
+      {
+        spell: [SPELLS.PENANCE_DAMAGE, ...lowRankSpells[SPELLS.PENANCE_DAMAGE]],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: {
+          static: 1500,
+        },
+        enabled: this.selectedCombatant.talentPoints[0] >= 51,
+      },
+
+      {
         spell: [SPELLS.MIND_FLAY, ...lowRankSpells[SPELLS.MIND_FLAY]],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
@@ -371,36 +396,7 @@ class Abilities extends CoreAbilities {
         },
         enabled: true,
       },
-      {
-        spell: [SPELLS.FEEDBACK, ...lowRankSpells[SPELLS.FEEDBACK]],
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 180,
-        gcd: {
-          static: 1500,
-        },
-        enabled: false,
-      },
-      {
-        spell: [SPELLS.STAR_SHARDS, ...lowRankSpells[SPELLS.STAR_SHARDS]],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
-        enabled: false,
-      },
-      {
-        spell: SPELLS.ELUNES_GRACE,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 180,
-        enabled: false,
-      },
-      {
-        spell: SPELLS.CONSUME_MAGIC,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 120,
-        gcd: {
-          static: 1500,
-        },
-        enabled: false,
-      },
+
       {
         spell: [SPELLS.TOUCH_OF_WEAKNESS, ...lowRankSpells[SPELLS.TOUCH_OF_WEAKNESS]],
         category: SPELL_CATEGORY.UTILITY,
@@ -416,23 +412,27 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: false,
       },
       {
-        spell: [SPELLS.SHADOW_GUARD, ...lowRankSpells[SPELLS.SHADOW_GUARD]],
-        category: SPELL_CATEGORY.UTILITY,
+        spell: [SPELLS.DIVINE_HYMN],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 480,
         gcd: {
           static: 1500,
         },
-        enabled: false,
       },
       {
-        spell: [SPELLS.HEX_OF_WEAKNESS, ...lowRankSpells[SPELLS.HEX_OF_WEAKNESS]],
-        category: SPELL_CATEGORY.UTILITY,
+        spell: [SPELLS.HYMN_OF_HOPE],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 480,
         gcd: {
           static: 1500,
         },
-        enabled: false,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.6,
+          extraSuggestion: 'You should aim to use this as often as possible.',
+        },
       },
     ];
 

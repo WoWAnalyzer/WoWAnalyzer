@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage, formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -22,14 +22,14 @@ class RedThirst extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.RED_THIRST_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.RED_THIRST_TALENT.id);
 
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VAMPIRIC_BLOOD),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.VAMPIRIC_BLOOD_TALENT),
       this.onCast,
     );
   }
@@ -68,7 +68,7 @@ class RedThirst extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.RED_THIRST_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.RED_THIRST_TALENT.id}>
           <Trans id="deathknight.blood.redThirst.statistic">
             <UptimeIcon /> {formatNumber(this.averageReduction)} sec{' '}
             <small>average reduction</small>

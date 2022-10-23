@@ -1,0 +1,51 @@
+import { CLASSES } from 'game/CLASSES';
+import { TIERS } from 'game/TIERS';
+
+export const DEATH_KNIGHT_T29_ID = 1526;
+export const DEMON_HUNTER_T29_ID = 1527;
+export const DRUID_T29_ID = 1528;
+export const EVOKER_T29_ID = 1530;
+export const HUNTER_T29_ID = 1529;
+export const MAGE_T29_ID = 1531;
+export const MONK_T29_ID = 1532;
+export const PALADIN_T29_ID = 1533;
+export const PRIEST_T29_ID = 1534;
+export const ROGUE_T29_ID = 1535;
+export const SHAMAN_T29_ID = 1536;
+export const WARLOCK_T29_ID = 1537;
+export const WARRIOR_T29_ID = 1538;
+
+export type T29_TIER_GEAR_IDS =
+  | typeof DEATH_KNIGHT_T29_ID
+  | typeof DEMON_HUNTER_T29_ID
+  | typeof DRUID_T29_ID
+  | typeof EVOKER_T29_ID
+  | typeof HUNTER_T29_ID
+  | typeof MAGE_T29_ID
+  | typeof MONK_T29_ID
+  | typeof PALADIN_T29_ID
+  | typeof PRIEST_T29_ID
+  | typeof ROGUE_T29_ID
+  | typeof SHAMAN_T29_ID
+  | typeof WARLOCK_T29_ID
+  | typeof WARRIOR_T29_ID;
+
+export const T29_TIER_BY_CLASSES: Record<number, T29_TIER_GEAR_IDS> = {
+  [CLASSES.DEATH_KNIGHT]: DEATH_KNIGHT_T29_ID,
+  [CLASSES.DEMON_HUNTER]: DEMON_HUNTER_T29_ID,
+  [CLASSES.DRUID]: DRUID_T29_ID,
+  [CLASSES.EVOKER]: EVOKER_T29_ID,
+  [CLASSES.HUNTER]: HUNTER_T29_ID,
+  [CLASSES.MAGE]: MAGE_T29_ID,
+  [CLASSES.MONK]: MONK_T29_ID,
+  [CLASSES.PALADIN]: PALADIN_T29_ID,
+  [CLASSES.PRIEST]: PRIEST_T29_ID,
+  [CLASSES.ROGUE]: ROGUE_T29_ID,
+  [CLASSES.SHAMAN]: SHAMAN_T29_ID,
+  [CLASSES.WARLOCK]: WARLOCK_T29_ID,
+  [CLASSES.WARRIOR]: WARRIOR_T29_ID,
+};
+
+export const TIER_BY_CLASSES: Record<number, Record<number, number>> = {
+  [TIERS.T29]: T29_TIER_BY_CLASSES,
+};

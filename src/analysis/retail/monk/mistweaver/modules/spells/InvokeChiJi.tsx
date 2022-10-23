@@ -76,7 +76,7 @@ class InvokeChiJi extends Analyzer {
         .by(SELECTED_PLAYER)
         .spell([
           SPELLS.BLACKOUT_KICK,
-          SPELLS.RISING_SUN_KICK_SECOND,
+          SPELLS.RISING_SUN_KICK_DAMAGE,
           SPELLS.BLACKOUT_KICK_TOTM,
           SPELLS.SPINNING_CRANE_KICK_DAMAGE,
         ]),

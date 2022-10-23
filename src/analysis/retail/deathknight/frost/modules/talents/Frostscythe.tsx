@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
@@ -20,17 +21,17 @@ class Frostscythe extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FROSTSCYTHE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.FROSTSCYTHE_TALENT.id);
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FROSTSCYTHE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(talents.FROSTSCYTHE_TALENT),
       this.onCast,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FROSTSCYTHE_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(talents.FROSTSCYTHE_TALENT),
       this.onDamage,
     );
     this.addEventListener(Events.fightend, this.onFightEnd);
@@ -79,12 +80,12 @@ class Frostscythe extends Analyzer {
     when(this.efficencyThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} /> efficiency can be improved. Only cast
+          Your <SpellLink id={talents.FROSTSCYTHE_TALENT.id} /> efficiency can be improved. Only cast
           Frostscythe if you have a <SpellLink id={SPELLS.KILLING_MACHINE.id} icon /> proc or you
           can hit 2+ targets.
         </>,
       )
-        .icon(SPELLS.FROSTSCYTHE_TALENT.icon)
+        .icon(talents.FROSTSCYTHE_TALENT.icon)
         .actual(
           t({
             id: 'deathknight.frost.frostScythe.efficiency',
@@ -102,7 +103,7 @@ class Frostscythe extends Analyzer {
         size="flexible"
         tooltip={`A good cast is one where you either hit 1+ targets with a Killing Machine buff or you hit 2+ targets.  You had ${this.goodCasts} / ${this.casts} good casts`}
       >
-        <BoringSpellValueText spellId={SPELLS.FROSTSCYTHE_TALENT.id}>
+        <BoringSpellValueText spellId={talents.FROSTSCYTHE_TALENT.id}>
           <>
             {formatPercentage(this.efficiency)} % <small>efficiency</small>
           </>

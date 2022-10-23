@@ -7,6 +7,9 @@ import { useState } from 'react';
 import CombatLogParser from './CombatLogParser';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
+/** Common 'rule line' point for the explanation/data in Core Spells section */
+export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
+
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
@@ -16,11 +19,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.regrowthAndClearcasting.guideSubsection}
         {modules.lifebloom.guideSubsection}
         {modules.efflorescence.guideSubsection}
-        <SubSection>
-          {modules.swiftmend.guideFragment}
-          {info.combatant.hasTalent(TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT) &&
-            modules.soulOfTheForest.guideFragment}
-        </SubSection>
+        {modules.swiftmend.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT) &&
+          modules.soulOfTheForest.guideSubsection}
         {info.combatant.hasTalent(TALENTS_DRUID.CENARION_WARD_TALENT) && (
           <CenarionWardSubsection modules={modules} events={events} info={info} />
         )}
@@ -86,7 +87,7 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       you waited to use them again. Grey segments show when the spell was available, yellow segments
       show when the spell was cooling down. Red segments highlight times when you could have fit a
       whole extra use of the cooldown.
-      {info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT) && (
+      {info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={SPELLS.CONVOKE_SPIRITS.id}
@@ -140,7 +141,7 @@ function CooldownBreakdownSubsection({
     <SubSection>
       <strong>Spell Breakdowns</strong>
       <p />
-      {info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_SHARED_TALENT) &&
+      {info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) &&
         modules.convokeSpirits.guideCastBreakdown}
       {info.combatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT.id) &&
         modules.flourish.guideCastBreakdown}

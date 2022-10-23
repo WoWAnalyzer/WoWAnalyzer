@@ -1,8 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
-import { SpellLink } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -10,6 +9,7 @@ import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import TALENTS from 'common/TALENTS/warrior';
 
 import ShieldBlock from '../spells/ShieldBlock';
 
@@ -35,10 +35,10 @@ class BlockCheck extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.bolster = this.selectedCombatant.hasTalent(SPELLS.BOLSTER_TALENT.id);
+    this.bolster = this.selectedCombatant.hasTalent(TALENTS.BOLSTER_TALENT.id);
     const reprisal = this.selectedCombatant.hasLegendary(SPELLS.REPRISAL);
     const heavyRepercussions = this.selectedCombatant.hasTalent(
-      SPELLS.HEAVY_REPERCUSSIONS_TALENT.id,
+      TALENTS.HEAVY_REPERCUSSIONS_TALENT.id,
     );
 
     if (this.bolster && reprisal) {

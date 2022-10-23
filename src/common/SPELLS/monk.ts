@@ -37,7 +37,7 @@ const spells = spellIndexableList({
     id: 101546,
     name: 'Spinning Crane Kick',
     icon: 'ability_monk_cranekick_new',
-    manaCost: 500,
+    manaCost: 2500,
   },
   SPINNING_CRANE_KICK_DAMAGE: {
     id: 107270,
@@ -73,6 +73,7 @@ const spells = spellIndexableList({
     id: 322101,
     name: 'Expel Harm',
     icon: 'ability_monk_expelharm',
+    manaCost: 7500,
   },
 
   // Mistweaver Monk Spells
@@ -105,7 +106,12 @@ const spells = spellIndexableList({
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
-    manaCost: 1900,
+    manaCost: 9500,
+  },
+  VIVIFICATION_BUFF: {
+    id: 392883,
+    name: 'Vivifacious Vivification',
+    icon: 'ability_monk_vivify',
   },
   ATOTM_BUFF: {
     id: 388026,
@@ -510,7 +516,7 @@ const spells = spellIndexableList({
     name: 'Flying Serpent Kick',
     icon: 'priest_icon_chakra_green',
   },
-  RISING_SUN_KICK_SECOND: {
+  RISING_SUN_KICK_DAMAGE: {
     id: 185099,
     name: 'Rising Sun Kick',
     icon: 'ability_monk_risingsunkick',

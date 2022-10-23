@@ -42,7 +42,7 @@ class ElysianDecree extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={<>{formatThousands(this.damage)} Total damage</>}
       >
-        <BoringSpellValueText spellId={SPELLS.ELYSIAN_DECREE.id}>
+        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

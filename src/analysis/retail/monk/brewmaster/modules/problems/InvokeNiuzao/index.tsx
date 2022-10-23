@@ -2,7 +2,8 @@ import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import { AlertWarning, ControlledExpandable, SpellLink, Tooltip } from 'interface';
-import { GuideProps, PassFailBar, Section, SectionHeader, SubSection } from 'interface/guide';
+import { GuideProps, Section, SectionHeader, SubSection } from 'interface/guide';
+import PassFailBar from 'interface/guide/components/PassFailBar';
 import InformationIcon from 'interface/icons/Information';
 import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
@@ -17,18 +18,17 @@ import { InvokeNiuzaoSummaryChart } from './chart';
 export { InvokeNiuzao } from './analyzer';
 
 const NIUZAO_BUFF_ID_TO_CAST = {
-  [talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id]:
-    talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id,
+  [talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id]: talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id,
   [SPELLS.CTA_INVOKE_NIUZAO_BUFF.id]: SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id,
 };
 
 const MAX_STOMPS = {
-  [talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id]: 5,
+  [talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id]: 5,
   [SPELLS.CTA_INVOKE_NIUZAO_BUFF.id]: 3,
 };
 
 const TARGET_PURIFIES = {
-  [talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id]: 6,
+  [talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id]: 6,
   [SPELLS.CTA_INVOKE_NIUZAO_BUFF.id]: 4,
 };
 
@@ -237,7 +237,7 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
   );
 }
 
-export function InvokeNiuzaoSection({
+export function ImprovedInvokeNiuzaoSection({
   castEfficiency,
   events,
   info,
@@ -245,9 +245,16 @@ export function InvokeNiuzaoSection({
 }: Pick<GuideProps<any>, 'events' | 'info'> & {
   castEfficiency: CastEfficiency;
   module: InvokeNiuzao;
-}): JSX.Element {
+}): JSX.Element | null {
+  if (!info.combatant.hasTalent(talents.IMPROVED_INVOKE_NIUZAO_THE_BLACK_OX_TALENT)) {
+    // this section is explicitly for the improved Invoke Niuzao
+    return null;
+  }
+
+  const shouldCheckWoo = info.combatant.hasTalent(talents.CALL_TO_ARMS_TALENT);
+
   const efficiency = castEfficiency.getCastEfficiencyForSpellId(
-    talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id,
+    talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id,
   );
 
   const wooEfficiency = castEfficiency.getCastEfficiencyForSpellId(
@@ -257,23 +264,24 @@ export function InvokeNiuzaoSection({
   return (
     <Section title="Invoke Niuzao, the Black Ox">
       <p>
-        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} /> is one of the
-        most powerful damage cooldowns in the game&mdash;and one of the most dangerous. Using this
+        With the <SpellLink id={talents.IMPROVED_INVOKE_NIUZAO_THE_BLACK_OX_TALENT} /> talent,{' '}
+        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} /> becomes one of the most
+        powerful damage cooldowns in the game&mdash;and one of the most dangerous. Using this
         ability, we can efficiently turn massive amounts of damage taken into massive amounts of
         damage dealt.
       </p>
       <p>
-        The level 58 upgrade to this ability causes{' '}
-        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} /> to add 25% of the
-        purified damage to the next <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> within 6
-        seconds. Niuzao casts <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> when he is summoned,
-        and then every 5 seconds after that, for a total of 5
+        This talent
+        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} /> to add 25% of the purified
+        damage to the next <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> within 6 seconds. Niuzao
+        casts <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> when he is summoned, and then every 5
+        seconds after that, for a total of 5
         <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />s per{' '}
-        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} />.
-        {info.combatant.hasTalent(talents.CALL_TO_ARMS_TALENT) && (
+        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} />.
+        {shouldCheckWoo && (
           <>
-            {' '}
-            A cast of <SpellLink id={talents.WEAPONS_OF_ORDER_TALENT.id} /> will trigger 3{' '}
+            A cast of <SpellLink id={talents.WEAPONS_OF_ORDER_TALENT.id} /> (with{' '}
+            <SpellLink id={talents.CALL_TO_ARMS_TALENT} />) will trigger 3{' '}
             <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />
             s&mdash;though this Niuzao has some issues hitting bosses with large models.
           </>
@@ -283,9 +291,9 @@ export function InvokeNiuzaoSection({
       </p>
       <p>
         Unlike most damage cooldowns, it is frequently correct to sacrifice a cast of{' '}
-        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} /> in order to get a
-        better cast later. This is because <em>so much</em> of the damage of this cooldown is tied
-        up in using <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> to convert damage taken into
+        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} /> in order to get a better
+        cast later. This is because <em>so much</em> of the damage of this cooldown is tied up in
+        using <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> to convert damage taken into
         damage dealt that a single <em>great</em> cast can be worth more than multiple mediocre
         casts.
       </p>
@@ -294,7 +302,7 @@ export function InvokeNiuzaoSection({
           {efficiency && (
             <tr>
               <td>
-                <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} /> casts
+                <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} /> casts
               </td>
 
               <td className="pass-fail-counts">

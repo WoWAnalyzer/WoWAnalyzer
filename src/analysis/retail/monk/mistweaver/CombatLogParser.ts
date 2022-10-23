@@ -14,6 +14,7 @@ import CoreChanneling from 'parser/shared/normalizers/Channeling';
 
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import HotTrackerMW from './modules/core/HotTrackerMW';
+import HotAttributor from './modules/core/HotAttributor';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
@@ -55,17 +56,21 @@ import JadeSerpentStatue from './modules/spells/JadeSerpentStatue';
 import Lifecycles from './modules/spells/Lifecycles';
 import ManaTea from './modules/spells/ManaTea';
 import MistWrapEnvelopingBreath from './modules/spells/MistWrapEnvelopingBreath';
+import MistyPeaks from './modules/spells/MistyPeaks';
 import RefreshingJadeWind from './modules/spells/RefreshingJadeWind';
 import RenewingMistDuringManaTea from './modules/spells/RenewingMistDuringManaTea';
 import RisingMist from './modules/spells/RisingMist';
 import SpiritOfTheCrane from './modules/spells/SpiritOfTheCrane';
+import VivaciousVivification from './modules/spells/VivaciousVivify';
 import Upwelling from './modules/spells/Upwelling';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
+import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizer
+    castLinkNormalizer: CastLinkNormalizer,
     hotApplicationNormalizer: HotApplicationNormalizer,
     hotRemovalNormalizer: HotRemovalNormalizer,
 
@@ -74,6 +79,7 @@ class CombatLogParser extends CoreCombatLogParser {
     channeling: CoreChanneling,
     globalCooldown: GlobalCooldown,
     hotTrackerMW: HotTrackerMW,
+    hotAttributor: HotAttributor,
     mysticTouch: MysticTouch,
 
     // Generic healer things
@@ -101,6 +107,7 @@ class CombatLogParser extends CoreCombatLogParser {
     dampenHarm: DampenHarm,
     touchOfDeath: TouchOfDeath,
     risingSunKick: RisingSunKick,
+    vivaciousVivification: VivaciousVivification,
 
     // MW Talents
     ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
@@ -124,6 +131,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lifeCocoon: LifeCocoon,
     mistWrapEnvelopingBreath: MistWrapEnvelopingBreath,
     manaTea: ManaTea,
+    mistyPeaks: MistyPeaks,
     nourishingCh: NourishingChi,
     refreshingJadeWind: RefreshingJadeWind,
     renewingMist: RenewingMist,

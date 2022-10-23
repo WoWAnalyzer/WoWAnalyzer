@@ -3,13 +3,7 @@ import { createTalentList } from './types';
 
 const talents = createTalentList({
   //Shared
-  RENEW_TALENT: {
-    id: 139,
-    name: 'Renew',
-    icon: 'spell_holy_renew',
-    maxRanks: 1,
-    manaCost: 500,
-  },
+  RENEW_TALENT: { id: 139, name: 'Renew', icon: 'spell_holy_renew', maxRanks: 1, manaCost: 500 },
   DISPEL_MAGIC_TALENT: {
     id: 528,
     name: 'Dispel Magic',
@@ -252,19 +246,19 @@ const talents = createTalentList({
     icon: 'spell_holy_blindingheal',
     maxRanks: 1,
   },
-  DIVINE_STAR_TALENT: {
-    id: 110744,
+  DIVINE_STAR_SHADOW_TALENT: {
+    id: 122121,
     name: 'Divine Star',
-    icon: 'spell_priest_divinestar',
+    icon: 'spell_priest_divinestar_shadow2',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 0,
   },
-  HALO_TALENT: {
-    id: 120517,
+  HALO_SHADOW_TALENT: {
+    id: 120644,
     name: 'Halo',
-    icon: 'ability_priest_halo',
+    icon: 'ability_priest_halo_shadow',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 500,
   },
   TRANSLUCENT_IMAGE_TALENT: {
     id: 373446,
@@ -340,11 +334,25 @@ const talents = createTalentList({
     icon: 'spell_holy_nullifydisease',
     maxRanks: 1,
   },
+  DIVINE_STAR_SHARED_TALENT: {
+    id: 110744,
+    name: 'Divine Star',
+    icon: 'spell_priest_divinestar',
+    maxRanks: 1,
+    manaCost: 1000,
+  },
+  HALO_SHARED_TALENT: {
+    id: 120517,
+    name: 'Halo',
+    icon: 'ability_priest_halo',
+    maxRanks: 1,
+    manaCost: 1000,
+  },
   INESCAPABLE_TORMENT_TALENT: {
     id: 373427,
     name: 'Inescapable Torment',
     icon: 'spell_shadow_chilltouch',
-    maxRanks: 1,
+    maxRanks: 2,
   },
 
   //Shadow
@@ -355,7 +363,6 @@ const talents = createTalentList({
     maxRanks: 1,
     insanityCost: 5000,
   },
-  SILENCE_TALENT: { id: 15487, name: 'Silence', icon: 'ability_priest_silence', maxRanks: 1 },
   DISPERSION_TALENT: {
     id: 47585,
     name: 'Dispersion',
@@ -368,25 +375,7 @@ const talents = createTalentList({
     icon: 'ability_priest_shadowyapparition',
     maxRanks: 1,
   },
-  PSYCHIC_HORROR_TALENT: {
-    id: 64044,
-    name: 'Psychic Horror',
-    icon: 'spell_shadow_psychichorrors',
-    maxRanks: 1,
-  },
-  LAST_WORD_TALENT: { id: 263716, name: 'Last Word', icon: 'ability_priest_silence', maxRanks: 1 },
-  MISERY_TALENT: {
-    id: 238558,
-    name: 'Misery',
-    icon: 'ability_rogue_envelopingshadows',
-    maxRanks: 1,
-  },
-  DARK_VOID_TALENT: {
-    id: 263346,
-    name: 'Dark Void',
-    icon: 'inv_elemental_primal_shadow',
-    maxRanks: 1,
-  },
+  SILENCE_TALENT: { id: 15487, name: 'Silence', icon: 'ability_priest_silence', maxRanks: 1 },
   INTANGIBILITY_TALENT: {
     id: 288733,
     name: 'Intangibility',
@@ -399,16 +388,23 @@ const talents = createTalentList({
     icon: 'ability_priest_clarityofpower',
     maxRanks: 1,
   },
-  AUSPICIOUS_SPIRITS_TALENT: {
-    id: 155271,
-    name: 'Auspicious Spirits',
-    icon: 'ability_priest_auspiciousspirits',
+  MISERY_TALENT: {
+    id: 238558,
+    name: 'Misery',
+    icon: 'ability_rogue_envelopingshadows',
     maxRanks: 1,
   },
-  TORMENTED_SPIRITS_TALENT: {
-    id: 391284,
-    name: 'Tormented Spirits',
-    icon: 'spell_shadow_painandsuffering',
+  DARK_VOID_TALENT: {
+    id: 263346,
+    name: 'Dark Void',
+    icon: 'inv_elemental_primal_shadow',
+    maxRanks: 1,
+  },
+  LAST_WORD_TALENT: { id: 263716, name: 'Last Word', icon: 'ability_priest_silence', maxRanks: 1 },
+  PSYCHIC_HORROR_TALENT: {
+    id: 64044,
+    name: 'Psychic Horror',
+    icon: 'spell_shadow_psychichorrors',
     maxRanks: 1,
   },
   COALESCING_SHADOWS_TALENT: {
@@ -424,24 +420,6 @@ const talents = createTalentList({
     maxRanks: 1,
     insanityCost: 0,
   },
-  DARK_ASCENSION_TALENT: {
-    id: 391109,
-    name: 'Dark Ascension',
-    icon: 'ability_priest_darkarchangel',
-    maxRanks: 1,
-  },
-  VOID_ERUPTION_TALENT: {
-    id: 228260,
-    name: 'Void Eruption',
-    icon: 'spell_priest_void_blast',
-    maxRanks: 1,
-  },
-  PSYCHIC_LINK_TALENT: {
-    id: 199484,
-    name: 'Psychic Link',
-    icon: 'ability_priest_psychiclink',
-    maxRanks: 2,
-  },
   MIND_SPIKE_TALENT: { id: 73510, name: 'Mind Spike', icon: 'spell_priest_mindspike', maxRanks: 1 },
   PUPPET_MASTER_TALENT: {
     id: 377387,
@@ -455,16 +433,22 @@ const talents = createTalentList({
     icon: 'ability_kaztik_dominatemind',
     maxRanks: 1,
   },
-  ANCIENT_MADNESS_TALENT: {
-    id: 341240,
-    name: 'Ancient Madness',
-    icon: 'spell_priest_void_flay',
-    maxRanks: 2,
+  DARK_ASCENSION_TALENT: {
+    id: 391109,
+    name: 'Dark Ascension',
+    icon: 'ability_priest_darkarchangel',
+    maxRanks: 1,
   },
-  SHADOWY_INSIGHT_TALENT: {
-    id: 375888,
-    name: 'Shadowy Insight',
-    icon: 'spell_shadow_possession',
+  VOID_ERUPTION_TALENT: {
+    id: 228260,
+    name: 'Void Eruption',
+    icon: 'spell_priest_void_blast',
+    maxRanks: 1,
+  },
+  UNFURLING_DARKNESS_TALENT: {
+    id: 341273,
+    name: 'Unfurling Darkness',
+    icon: 'spell_priest_shadow_mend',
     maxRanks: 1,
   },
   SURGE_OF_DARKNESS_TALENT: {
@@ -479,11 +463,17 @@ const talents = createTalentList({
     icon: 'inv_chaos_orb',
     maxRanks: 1,
   },
-  UNFURLING_DARKNESS_TALENT: {
-    id: 341273,
-    name: 'Unfurling Darkness',
-    icon: 'spell_priest_shadow_mend',
+  SHADOWY_INSIGHT_TALENT: {
+    id: 375888,
+    name: 'Shadowy Insight',
+    icon: 'spell_shadow_possession',
     maxRanks: 1,
+  },
+  ANCIENT_MADNESS_TALENT: {
+    id: 341240,
+    name: 'Ancient Madness',
+    icon: 'spell_priest_void_flay',
+    maxRanks: 2,
   },
   SHADOW_CRASH_TALENT: {
     id: 205385,
@@ -504,11 +494,35 @@ const talents = createTalentList({
     icon: 'spell_mage_presenceofmind',
     maxRanks: 2,
   },
+  AUSPICIOUS_SPIRITS_TALENT: {
+    id: 155271,
+    name: 'Auspicious Spirits',
+    icon: 'ability_priest_auspiciousspirits',
+    maxRanks: 1,
+  },
+  TORMENTED_SPIRITS_TALENT: {
+    id: 391284,
+    name: 'Tormented Spirits',
+    icon: 'spell_shadow_painandsuffering',
+    maxRanks: 1,
+  },
+  PSYCHIC_LINK_TALENT: {
+    id: 199484,
+    name: 'Psychic Link',
+    icon: 'ability_priest_psychiclink',
+    maxRanks: 2,
+  },
   WHISPERS_OF_THE_DAMNED_TALENT: {
     id: 391137,
     name: 'Whispers of the Damned',
     icon: 'inv_misc_eye_03',
     maxRanks: 2,
+  },
+  MINDBENDER_SHADOW_TALENT: {
+    id: 200174,
+    name: 'Mindbender',
+    icon: 'spell_shadow_soulleech_3',
+    maxRanks: 1,
   },
   DEATHSPEAKER_TALENT: {
     id: 392507,
@@ -594,12 +608,6 @@ const talents = createTalentList({
     icon: 'achievement_nzothraid_nzoth',
     maxRanks: 1,
   },
-  MINDBENDER_SHADOW_TALENT: {
-    id: 200174,
-    name: 'Mindbender',
-    icon: 'spell_shadow_soulleech_3',
-    maxRanks: 1,
-  },
 
   //Holy
   HOLY_WORD_SERENITY_TALENT: {
@@ -649,12 +657,7 @@ const talents = createTalentList({
     icon: 'spell_holy_guardianspirit',
     maxRanks: 1,
   },
-  CENSURE_TALENT: {
-    id: 200199,
-    name: 'Censure',
-    icon: 'spell_holy_eyeforaneye',
-    maxRanks: 1,
-  },
+  CENSURE_TALENT: { id: 200199, name: 'Censure', icon: 'spell_holy_eyeforaneye', maxRanks: 1 },
   BURNING_VEHEMENCE_TALENT: {
     id: 372307,
     name: 'Burning Vehemence',
@@ -797,12 +800,7 @@ const talents = createTalentList({
     icon: 'spell_holy_prayerofmendingtga',
     maxRanks: 2,
   },
-  PONTIFEX_TALENT: {
-    id: 390980,
-    name: 'Pontifex',
-    icon: 'spell_priest_pontifex',
-    maxRanks: 1,
-  },
+  PONTIFEX_TALENT: { id: 390980, name: 'Pontifex', icon: 'spell_priest_pontifex', maxRanks: 1 },
   APOTHEOSIS_TALENT: {
     id: 200183,
     name: 'Apotheosis',
@@ -889,12 +887,7 @@ const talents = createTalentList({
     icon: 'inv_staff_2h_artifactheartofkure_d_04',
     maxRanks: 1,
   },
-  DIVINE_WORD_TALENT: {
-    id: 372760,
-    name: 'Divine Word',
-    icon: 'spell_priest_chakra',
-    maxRanks: 1,
-  },
+  DIVINE_WORD_TALENT: { id: 372760, name: 'Divine Word', icon: 'spell_priest_chakra', maxRanks: 1 },
   MIRACLE_WORKER_TALENT: {
     id: 235587,
     name: 'Miracle Worker',
@@ -1043,6 +1036,12 @@ const talents = createTalentList({
     icon: 'spell_holy_spiritualguidence',
     maxRanks: 1,
   },
+  INDEMNITY_TALENT: {
+    id: 373049,
+    name: 'Indemnity',
+    icon: 'ability_priest_clarityofwill',
+    maxRanks: 1,
+  },
   PAIN_AND_SUFFERING_TALENT: {
     id: 390689,
     name: 'Pain and Suffering',
@@ -1085,17 +1084,17 @@ const talents = createTalentList({
     icon: 'ability_mage_studentofthemind',
     maxRanks: 1,
   },
-  MAKE_AMENDS_TALENT: { id: 391079, name: 'Make Amends', icon: 'spell_holy_penance', maxRanks: 1 },
   LIGHTS_WRATH_TALENT: {
     id: 373178,
     name: "Light's Wrath",
     icon: 'inv_staff_2h_artifacttome_d_01',
     maxRanks: 1,
   },
-  TWILIGHT_EQUILIBRIUM_TALENT: {
-    id: 390705,
-    name: 'Twilight Equilibrium',
-    icon: 'ability_priest_innerlightandshadow',
+  LENIENCE_TALENT: { id: 238063, name: 'Lenience', icon: 'ability_priest_atonement', maxRanks: 1 },
+  EVANGELISM_TALENT: {
+    id: 246287,
+    name: 'Evangelism',
+    icon: 'spell_holy_divineillumination',
     maxRanks: 1,
   },
   MINDBENDER_DISCIPLINE_TALENT: {
@@ -1119,7 +1118,7 @@ const talents = createTalentList({
   RESPLENDENT_LIGHT_TALENT: {
     id: 390765,
     name: 'Resplendent Light',
-    icon: 'spell_priest_divinestar_holy',
+    icon: 'inv_staff_2h_artifacttome_d_01',
     maxRanks: 2,
   },
   HARSH_DISCIPLINE_TALENT: {
@@ -1128,23 +1127,17 @@ const talents = createTalentList({
     icon: 'ability_paladin_handoflight',
     maxRanks: 2,
   },
-  VOID_SUMMONER_TALENT: {
-    id: 390770,
-    name: 'Void Summoner',
-    icon: 'spell_shadow_shadowfiend',
-    maxRanks: 2,
-  },
   EXPIATION_TALENT: {
     id: 390832,
     name: 'Expiation',
     icon: 'spell_shadow_shadowpower',
     maxRanks: 2,
   },
-  INDEMNITY_TALENT: {
-    id: 373049,
-    name: 'Indemnity',
-    icon: 'spell_holy_divineprotection',
-    maxRanks: 1,
+  VOID_SUMMONER_TALENT: {
+    id: 390770,
+    name: 'Void Summoner',
+    icon: 'spell_shadow_shadowfiend',
+    maxRanks: 2,
   },
   AEGIS_OF_WRATH_TALENT: {
     id: 238135,
@@ -1152,23 +1145,23 @@ const talents = createTalentList({
     icon: 'spell_holy_powerwordshield',
     maxRanks: 1,
   },
-  LENIENCE_TALENT: { id: 238063, name: 'Lenience', icon: 'ability_priest_atonement', maxRanks: 1 },
-  EVANGELISM_TALENT: {
-    id: 246287,
-    name: 'Evangelism',
-    icon: 'spell_holy_divineillumination',
+  MAKE_AMENDS_TALENT: { id: 391079, name: 'Make Amends', icon: 'spell_holy_penance', maxRanks: 1 },
+  WEAL_AND_WOE_TALENT: {
+    id: 390786,
+    name: 'Weal and Woe',
+    icon: 'spell_priest_burningwill',
     maxRanks: 1,
   },
   WRATH_UNLEASHED_TALENT: {
     id: 390781,
     name: 'Wrath Unleashed',
-    icon: 'inv_staff_2h_artifacttome_d_01',
+    icon: 'spell_priest_divinestar_holy',
     maxRanks: 1,
   },
-  WEAL_AND_WOE_TALENT: {
-    id: 390786,
-    name: 'Weal and Woe',
-    icon: 'spell_priest_burningwill',
+  TWILIGHT_EQUILIBRIUM_TALENT: {
+    id: 390705,
+    name: 'Twilight Equilibrium',
+    icon: 'ability_priest_innerlightandshadow',
     maxRanks: 1,
   },
 });

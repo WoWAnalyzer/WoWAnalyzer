@@ -108,8 +108,7 @@ class EnchantChecker extends Analyzer {
               <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
                 {slotName}
               </ItemLink>{' '}
-              is missing an enchant. Apply a strong enchant to very easily increase your throughput
-              slightly.
+              is missing an enchant. Apply a strong enchant to increase your throughput.
             </Trans>,
           )
             .icon(item.icon)
@@ -126,8 +125,7 @@ class EnchantChecker extends Analyzer {
               <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
                 {slotName}
               </ItemLink>{' '}
-              has a cheap enchant. Apply a strong enchant to very easily increase your throughput
-              slightly.
+              has a cheap enchant. Apply a stronger enchant to increase your throughput.
             </Trans>,
           )
             .icon(item.icon)

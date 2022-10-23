@@ -85,10 +85,7 @@ class ResonantWords extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`${this.wastedResonantWords}/${this.totalResonantWords} wasted resonant word buffs.`}
       >
-        <TalentSpellText
-          spellId={TALENTS.RESONANT_WORDS_TALENT.id}
-          maxRanks={TALENTS.RESONANT_WORDS_TALENT.maxRanks}
-        >
+        <TalentSpellText talent={TALENTS.RESONANT_WORDS_TALENT}>
           <ItemHealingDone amount={this.healingDoneFromTalent} />
           <br />
           {formatPercentage(

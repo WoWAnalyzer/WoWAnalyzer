@@ -8,7 +8,7 @@ const talents = createTalentList({
     name: 'Soothing Mist',
     icon: 'ability_monk_soothingmists',
     maxRanks: 1,
-    manaCost: 200,
+    manaCost: 0,
   },
   RISING_SUN_KICK_TALENT: {
     id: 107428,
@@ -66,7 +66,13 @@ const talents = createTalentList({
     icon: 'ability_rogue_imrovedrecuperate',
     maxRanks: 1,
   },
-  PARALYSIS_TALENT: { id: 344359, name: 'Paralysis', icon: 'ability_monk_paralysis', maxRanks: 1 },
+  PARALYSIS_TALENT: {
+    id: 115078,
+    name: 'Paralysis',
+    icon: 'ability_monk_paralysis',
+    maxRanks: 1,
+    energyCost: 20,
+  },
   GRACE_OF_THE_CRANE_TALENT: {
     id: 388811,
     name: 'Grace of the Crane',
@@ -85,6 +91,12 @@ const talents = createTalentList({
     icon: 'ability_mount_pinktiger',
     maxRanks: 2,
   },
+  IMPROVED_PARALYSIS_TALENT: {
+    id: 344359,
+    name: 'Improved Paralysis',
+    icon: 'ability_monk_paralysis',
+    maxRanks: 1,
+  },
   ELUSIVE_MISTS_TALENT: {
     id: 388681,
     name: 'Elusive Mists',
@@ -101,6 +113,12 @@ const talents = createTalentList({
     id: 116705,
     name: 'Spear Hand Strike',
     icon: 'ability_monk_spearhand',
+    maxRanks: 1,
+  },
+  FORTIFYING_BREW_SHARED_TALENT: {
+    id: 388917,
+    name: 'Fortifying Brew',
+    icon: 'ability_monk_fortifyingale_new',
     maxRanks: 1,
   },
   CHI_WAVE_TALENT: { id: 115098, name: 'Chi Wave', icon: 'ability_monk_chiwave', maxRanks: 1 },
@@ -256,41 +274,16 @@ const talents = createTalentList({
     maxRanks: 1,
     energyCost: 20,
   },
-  HEALING_ELIXIR_TALENT: {
-    id: 122281,
-    name: 'Healing Elixir',
-    icon: 'ability_monk_jasmineforcetea',
-    maxRanks: 1,
-  },
-  FORTIFYING_BREW_SHARED_TALENT: {
-    id: 115203,
-    name: 'Fortifying Brew',
-    icon: 'ability_monk_fortifyingale_new',
-    maxRanks: 1,
-  },
-  BOUNTIFUL_BREW_TALENT: {
-    id: 386949,
-    name: 'Bountiful Brew',
-    icon: 'ability_maldraxxus_monk',
-    maxRanks: 1,
-  },
-  RUSHING_JADE_WIND_TALENT: {
-    id: 116847,
-    name: 'Rushing Jade Wind',
-    icon: 'ability_monk_rushingjadewind',
-    maxRanks: 1,
-    chiCost: 1,
-  },
   TEACHINGS_OF_THE_MONASTERY_TALENT: {
     id: 116645,
     name: 'Teachings of the Monastery',
     icon: 'passive_monk_teachingsofmonastery',
     maxRanks: 1,
   },
-  BONEDUST_BREW_TALENT: {
-    id: 386276,
-    name: 'Bonedust Brew',
-    icon: 'ability_maldraxxus_monk',
+  HEALING_ELIXIR_TALENT: {
+    id: 122281,
+    name: 'Healing Elixir',
+    icon: 'ability_monk_jasmineforcetea',
     maxRanks: 1,
   },
   FAELINE_STOMP_TALENT: {
@@ -299,6 +292,18 @@ const talents = createTalentList({
     icon: 'ability_ardenweald_monk',
     maxRanks: 1,
     manaCost: 2000,
+  },
+  BONEDUST_BREW_TALENT: {
+    id: 386276,
+    name: 'Bonedust Brew',
+    icon: 'ability_maldraxxus_monk',
+    maxRanks: 1,
+  },
+  BOUNTIFUL_BREW_TALENT: {
+    id: 386949,
+    name: 'Bountiful Brew',
+    icon: 'spell_animamaldraxxus_wave',
+    maxRanks: 1,
   },
   ATTENUATION_TALENT: {
     id: 386941,
@@ -311,6 +316,13 @@ const talents = createTalentList({
     name: "Invoker's Delight",
     icon: 'inv_inscription_80_warscroll_battleshout',
     maxRanks: 1,
+  },
+  RUSHING_JADE_WIND_TALENT: {
+    id: 116847,
+    name: 'Rushing Jade Wind',
+    icon: 'ability_monk_rushingjadewind',
+    maxRanks: 1,
+    chiCost: 1,
   },
 
   //Mistweaver
@@ -372,7 +384,7 @@ const talents = createTalentList({
   MASTERY_OF_MIST_TALENT: {
     id: 281231,
     name: 'Mastery of Mist',
-    icon: 'ability_monk_renewingmists',
+    icon: 'spell_nature_wispsplodegreen',
     maxRanks: 1,
   },
   SPIRIT_OF_THE_CRANE_TALENT: {
@@ -384,7 +396,7 @@ const talents = createTalentList({
   MISTS_OF_LIFE_TALENT: {
     id: 388548,
     name: 'Mists of Life',
-    icon: 'ability_monk_chicocoon',
+    icon: 'inv_shoulder__inv_leather_raidmonkmythic_s_01',
     maxRanks: 1,
   },
   UPLIFTED_SPIRITS_TALENT: {
@@ -396,7 +408,7 @@ const talents = createTalentList({
   FONT_OF_LIFE_TALENT: {
     id: 337209,
     name: 'Font of Life',
-    icon: 'ability_monk_essencefont',
+    icon: 'spell_shaman_tidalwaves',
     maxRanks: 1,
   },
   ZEN_PULSE_TALENT: {
@@ -415,7 +427,7 @@ const talents = createTalentList({
   OVERFLOWING_MISTS_TALENT: {
     id: 388511,
     name: 'Overflowing Mists',
-    icon: 'spell_monk_envelopingmist',
+    icon: 'inv_legion_faction_dreamweavers',
     maxRanks: 2,
   },
   INVOKE_YULON_THE_JADE_SERPENT_TALENT: {
@@ -435,7 +447,7 @@ const talents = createTalentList({
   ECHOING_REVERBERATION_TALENT: {
     id: 388604,
     name: 'Echoing Reverberation',
-    icon: 'spell_monk_nimblebrew',
+    icon: 'ability_monk_legacyoftheemperor',
     maxRanks: 1,
   },
   ACCUMULATING_MIST_TALENT: {
@@ -459,7 +471,7 @@ const talents = createTalentList({
   YULONS_WHISPER_TALENT: {
     id: 388038,
     name: "Yu'lon's Whisper",
-    icon: 'ability_monk_dragonkick',
+    icon: 'ability_monk_chiexplosion',
     maxRanks: 1,
   },
   MIST_WRAP_TALENT: {
@@ -478,13 +490,13 @@ const talents = createTalentList({
   ENVELOPING_BREATH_TALENT: {
     id: 343655,
     name: 'Enveloping Breath',
-    icon: 'ability_monk_dragonkick',
+    icon: 'ability_monk_jadeserpentbreath',
     maxRanks: 1,
   },
   DANCING_MISTS_TALENT: {
     id: 388701,
     name: 'Dancing Mists',
-    icon: 'ability_monk_souldance',
+    icon: 'ability_monk_serenity',
     maxRanks: 2,
   },
   LIFECYCLES_TALENT: {
@@ -502,7 +514,7 @@ const talents = createTalentList({
   ANCIENT_TEACHINGS_TALENT: {
     id: 388023,
     name: 'Ancient Teachings',
-    icon: 'passive_monk_teachingsofmonastery',
+    icon: 'inv_misc_book_07',
     maxRanks: 1,
   },
   CLOUDED_FOCUS_TALENT: {
@@ -550,25 +562,25 @@ const talents = createTalentList({
   SECRET_INFUSION_TALENT: {
     id: 388491,
     name: 'Secret Infusion',
-    icon: 'ability_monk_thunderfocustea',
+    icon: 'ability_monk_chibrew',
     maxRanks: 2,
   },
   MISTY_PEAKS_TALENT: {
     id: 388682,
     name: 'Misty Peaks',
-    icon: 'ability_monk_renewingmists',
+    icon: 'achievement_zone_stormpeaks_10',
     maxRanks: 2,
   },
   PEACEFUL_MENDING_TALENT: {
     id: 388593,
     name: 'Peaceful Mending',
-    icon: 'ability_monk_surgingmist',
+    icon: 'pandarenracial_innerpeace',
     maxRanks: 2,
   },
   AWAKENED_FAELINE_TALENT: {
     id: 388779,
     name: 'Awakened Faeline',
-    icon: 'ability_ardenweald_monk',
+    icon: 'spell_animaardenweald_buff',
     maxRanks: 1,
   },
   TEA_OF_SERENITY_TALENT: {
@@ -587,7 +599,7 @@ const talents = createTalentList({
   MENDING_PROLIFERATION_TALENT: {
     id: 388509,
     name: 'Mending Proliferation',
-    icon: 'ability_monk_souldance',
+    icon: 'inv_shoulder_inv_leather_raidmonk_s_01',
     maxRanks: 1,
   },
   TEAR_OF_MORNING_TALENT: {
@@ -705,6 +717,12 @@ const talents = createTalentList({
     icon: 'ability_monk_zenmeditation',
     maxRanks: 1,
   },
+  SHADOWBOXING_TREADS_BREWMASTER_TALENT: {
+    id: 387638,
+    name: 'Shadowboxing Treads',
+    icon: 'ability_monk_roundhousekick',
+    maxRanks: 1,
+  },
   FLUIDITY_OF_MOTION_TALENT: {
     id: 387230,
     name: 'Fluidity of Motion',
@@ -739,6 +757,12 @@ const talents = createTalentList({
     id: 280515,
     name: 'Bob and Weave',
     icon: 'ability_creature_cursed_04',
+    maxRanks: 1,
+  },
+  INVOKE_NIUZAO_THE_BLACK_OX_TALENT: {
+    id: 132578,
+    name: 'Invoke Niuzao, the Black Ox',
+    icon: 'spell_monk_brewmaster_spec',
     maxRanks: 1,
   },
   LIGHT_BREWING_TALENT: {
@@ -802,9 +826,9 @@ const talents = createTalentList({
     icon: 'ability_monk_palmstrike',
     maxRanks: 1,
   },
-  INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT: {
+  IMPROVED_INVOKE_NIUZAO_THE_BLACK_OX_TALENT: {
     id: 322740,
-    name: 'Invoke Niuzao, the Black Ox',
+    name: 'Improved Invoke Niuzao, the Black Ox',
     icon: 'spell_monk_brewmaster_spec',
     maxRanks: 1,
   },
@@ -834,7 +858,7 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   CALL_TO_ARMS_TALENT: {
-    id: 356684,
+    id: 395268,
     name: 'Call to Arms',
     icon: 'ability_bastion_monk',
     maxRanks: 1,
@@ -843,12 +867,6 @@ const talents = createTalentList({
     id: 393400,
     name: 'Chi Surge',
     icon: 'ability_monk_chiexplosion',
-    maxRanks: 1,
-  },
-  SHADOWBOXING_TREADS_BREWMASTER_TALENT: {
-    id: 387638,
-    name: 'Shadowboxing Treads',
-    icon: 'ability_monk_roundhousekick',
     maxRanks: 1,
   },
 
@@ -894,7 +912,7 @@ const talents = createTalentList({
   FLASHING_FISTS_TALENT: {
     id: 388854,
     name: 'Flashing Fists',
-    icon: 'monk_ability_fistoffury',
+    icon: 'inv_weapon_hand_08',
     maxRanks: 2,
   },
   OPEN_PALM_STRIKES_TALENT: {
@@ -904,7 +922,7 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   MARK_OF_THE_CRANE_TALENT: {
-    id: 228287,
+    id: 220357,
     name: 'Mark of the Crane',
     icon: 'ability_monk_cranekick_new',
     maxRanks: 1,
@@ -946,11 +964,12 @@ const talents = createTalentList({
     icon: 'ability_monk_touchofdeath',
     maxRanks: 1,
   },
-  JADE_IGNITION_TALENT: {
-    id: 392979,
-    name: 'Jade Ignition',
-    icon: 'ability_monk_chiexplosion',
+  STRIKE_OF_THE_WINDLORD_TALENT: {
+    id: 392983,
+    name: 'Strike of the Windlord',
+    icon: 'inv_hand_1h_artifactskywall_d_01',
     maxRanks: 1,
+    chiCost: 2,
   },
   DANCE_OF_CHI_JI_TALENT: {
     id: 325201,
@@ -958,7 +977,12 @@ const talents = createTalentList({
     icon: 'ability_monk_cranekick_new',
     maxRanks: 1,
   },
-  HIT_COMBO_TALENT: { id: 196740, name: 'Hit Combo', icon: 'ability_monk_palmstrike', maxRanks: 1 },
+  JADE_IGNITION_TALENT: {
+    id: 392979,
+    name: 'Jade Ignition',
+    icon: 'ability_monk_chiexplosion',
+    maxRanks: 1,
+  },
   DRINKING_HORN_COVER_TALENT: {
     id: 391370,
     name: 'Drinking Horn Cover',
@@ -971,13 +995,7 @@ const talents = createTalentList({
     icon: 'spell_nature_giftofthewild',
     maxRanks: 1,
   },
-  STRIKE_OF_THE_WINDLORD_TALENT: {
-    id: 392983,
-    name: 'Strike of the Windlord',
-    icon: 'inv_hand_1h_artifactskywall_d_01',
-    maxRanks: 1,
-    chiCost: 2,
-  },
+  HIT_COMBO_TALENT: { id: 196740, name: 'Hit Combo', icon: 'ability_monk_palmstrike', maxRanks: 1 },
   FORBIDDEN_TECHNIQUE_TALENT: {
     id: 393098,
     name: 'Forbidden Technique',
@@ -1009,13 +1027,13 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   FURY_OF_XUEN_TALENT: {
-    id: 287055,
+    id: 396166,
     name: 'Fury of Xuen',
     icon: 'ability_monk_prideofthetiger',
     maxRanks: 1,
   },
   EMPOWERED_TIGER_LIGHTNING_TALENT: {
-    id: 335913,
+    id: 323999,
     name: 'Empowered Tiger Lightning',
     icon: 'ability_monk_summontigerstatue',
     maxRanks: 1,
@@ -1027,7 +1045,7 @@ const talents = createTalentList({
     maxRanks: 2,
   },
   FATAL_FLYING_GUILLOTINE_TALENT: {
-    id: 331679,
+    id: 394923,
     name: 'Fatal Flying Guillotine',
     icon: 'ability_monk_touchofdeath',
     maxRanks: 1,
@@ -1047,7 +1065,7 @@ const talents = createTalentList({
   TRANSFER_THE_POWER_TALENT: {
     id: 195300,
     name: 'Transfer the Power',
-    icon: 'monk_ability_fistoffury',
+    icon: 'ability_thunderking_kickshell',
     maxRanks: 1,
   },
   WHIRLING_DRAGON_PUNCH_TALENT: {

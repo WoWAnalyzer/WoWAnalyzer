@@ -1,10 +1,7 @@
 import {
-  BoonOfTheAscended,
   DesperatePrayer,
-  FaeGuardians,
   ShadowfiendNormalizer,
   TwinsOfTheSunPriestess,
-  UnholyNova,
   TwistOfFate,
 } from 'analysis/retail/priest/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
@@ -47,7 +44,14 @@ import HarshDiscipline from './modules/spells/HarshDiscipline';
 import EnduringLuminescense from './modules/spells/EnduringLuminescence';
 import Indemnity from './modules/spells/Indemnity';
 import Expiation from './modules/spells/Expiation';
+import PowerWordShield from './modules/spells/PowerWordShield';
 import AegisOfWrath from './modules/spells/AegisOfWrath';
+import CrystallineReflection from './modules/spells/CrystallineReflection';
+import StolenPsyche from './modules/spells/StolenPsyche';
+import PainAndSuffering from './modules/spells/PainAndSuffering';
+import ThroesOfPain from './modules/spells/ThroesOfPain';
+import MaliciousIntent from './modules/spells/MaliciousIntent';
+import PowerWordRadiance from './modules/spells/PowerWordRadiance';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -87,6 +91,9 @@ class CombatLogParser extends CoreCombatLogParser {
     atonementApplicatorBreakdown: AtonementApplicatorBreakdown,
     solaceVsShieldDiscipline: SolaceVsShieldDiscipline,
     enduringLuminescense: EnduringLuminescense,
+    AegisOfWrath: AegisOfWrath,
+    crystallineReflection: CrystallineReflection,
+    powerWordRadiance: PowerWordRadiance,
 
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,
@@ -100,18 +107,14 @@ class CombatLogParser extends CoreCombatLogParser {
     schism: Schism,
     mindgames: Mindgames,
     harshDiscipline: HarshDiscipline,
-    Indemnity: Indemnity,
+    indemnity: Indemnity,
     expiation: Expiation,
-    aegisOfWrath: AegisOfWrath,
-
-    // Covenants
-    unholyNova: UnholyNova,
-    boonOfTheAscended: BoonOfTheAscended,
-    faeGuardians: FaeGuardians,
-
-    // Conduits
-    // Legendaries
+    powerWordShield: PowerWordShield,
+    stolenPsyche: StolenPsyche,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
+    painAndSuffering: PainAndSuffering,
+    throesOfPain: ThroesOfPain,
+    maliciousIntent: MaliciousIntent,
   };
 }
 

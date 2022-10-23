@@ -2,12 +2,16 @@ import {
   CharredWarblades,
   CollectiveAnguish,
   Demonic,
+  DisruptingFury,
   Felblade,
+  FlamesOfFury,
   ImmolationAura,
   MasterOfTheGlaive,
   ShatteredRestoration,
   SigilOfFlame,
+  SwallowedAnger,
   TheHunt,
+  UnnaturalMalice,
 } from 'analysis/retail/demonhunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -50,6 +54,8 @@ import Soulrend from './modules/talents/Soulrend';
 import GrowingInferno from './modules/talents/GrowingInferno';
 import BurningHatred from './modules/talents/BurningHatred';
 import EssenceBreakNormalizer from './normalizers/EssenceBreakNormalizer';
+import FuryGraph from './modules/resourcetracker/FuryGraph';
+import Guide from './Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -108,14 +114,21 @@ class CombatLogParser extends CoreCombatLogParser {
     growingInferno: GrowingInferno,
     burningHatred: BurningHatred,
     demonic: Demonic,
+    unnaturalMalice: UnnaturalMalice,
+    swallowedAnger: SwallowedAnger,
+    flamesOfFury: FlamesOfFury,
+    disruptingFury: DisruptingFury,
 
     // Resources
     furyTracker: FuryTracker,
     furyDetails: FuryDetails,
+    furyGraph: FuryGraph,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;

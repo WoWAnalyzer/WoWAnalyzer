@@ -37,6 +37,7 @@ import Shuffle from './modules/spells/Shuffle';
 import TigerPalm from './modules/spells/TigerPalm';
 import ExpelHarmNorm from './normalizers/ExpelHarm';
 import GiftOfTheOx from './normalizers/GiftOfTheOx';
+import StaggerLinkNormalizer from './modules/core/StaggerLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -81,6 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // normalizers
     gotoxNorm: GiftOfTheOx,
     ehNorm: ExpelHarmNorm,
+    staggerLink: StaggerLinkNormalizer,
 
     // Covenants
     weaponsOfOrder: WeaponsOfOrder,

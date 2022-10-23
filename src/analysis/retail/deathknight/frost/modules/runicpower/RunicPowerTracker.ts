@@ -1,11 +1,11 @@
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/deathknight';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, EventType } from 'parser/core/Events';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
 const BREATH_COST_PER_TICK = 160;
-const HYPOTHERMIC_PRESENCE_COST_REDUCTION = 0.35;
 
 class RunicPowerTracker extends ResourceTracker {
   constructor(options: Options) {
@@ -19,22 +19,17 @@ class RunicPowerTracker extends ResourceTracker {
   }
 
   mostRecentTickTime = 0;
-  private _totalHypothermicPresenceReduction = 0;
-
-  get totalHypothermicPresenceReduction() {
-    return Math.round(this._totalHypothermicPresenceReduction / 10);
-  }
 
   // The following is adapted from ResourceTracker to handle the specific use case for BoS where
   // a single cast event triggers many ticks of a damage event where each damage tick costs
   // resources
   onCast(event: CastEvent) {
-    if (event.ability.guid === SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id) {
-      if (!this.spendersObj[SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id]) {
-        this.initSpenderAbility(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id);
+    if (event.ability.guid === talents.BREATH_OF_SINDRAGOSA_TALENT.id) {
+      if (!this.spendersObj[talents.BREATH_OF_SINDRAGOSA_TALENT.id]) {
+        this.initSpenderAbility(talents.BREATH_OF_SINDRAGOSA_TALENT.id);
       }
 
-      this.spendersObj[SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id].casts += 1;
+      this.spendersObj[talents.BREATH_OF_SINDRAGOSA_TALENT.id].casts += 1;
     } else {
       super.onCast(event);
     }
@@ -45,30 +40,23 @@ class RunicPowerTracker extends ResourceTracker {
       return;
     }
 
-    let cost = this.getHypothermicPresenceReduction(BREATH_COST_PER_TICK, event.timestamp);
-    cost = cost / 10;
-    this._applySpender(event, cost, this.getResource(event));
+    const fabricatedSourceId: CastEvent = {
+      type: EventType.Cast,
+      ability: event.ability,
+      timestamp: event.timestamp,
+      sourceID: event.sourceID!,
+      sourceIsFriendly: event.sourceIsFriendly,
+      targetIsFriendly: event.targetIsFriendly
+    }
+
+    event.sourceID = 1;
+    const cost = BREATH_COST_PER_TICK / 10;
+    this._applySpender(fabricatedSourceId, cost, this.getResource(event));
 
     this.mostRecentTickTime = event.timestamp;
   }
 
-  getHypothermicPresenceReduction(cost: number, timestamp: number) {
-    if (this.selectedCombatant.hasBuff(SPELLS.HYPOTHERMIC_PRESENCE_TALENT.id, timestamp)) {
-      const newCost = cost * (1 - HYPOTHERMIC_PRESENCE_COST_REDUCTION);
-      this._totalHypothermicPresenceReduction += cost - newCost;
-      cost = newCost;
-    }
 
-    return cost;
-  }
-
-  getReducedCost(event: CastEvent) {
-    const cost = this.getResource(event)?.cost;
-    if (cost) {
-      const reducedCost = this.getHypothermicPresenceReduction(cost, event.timestamp);
-      return reducedCost / 10;
-    }
-  }
 }
 
 export default RunicPowerTracker;

@@ -11,6 +11,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import HotAttributor from 'analysis/retail/druid/restoration/modules/core/hottracking/HotAttributor';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import { SpellLink } from 'interface';
 
 const PROC_PROB = 0.4;
 
@@ -67,6 +68,26 @@ class PowerOfTheArchdruid extends Analyzer {
     return binomialCDF(this.procs, this.wgCasts, PROC_PROB);
   }
 
+  get rejuvsCreated() {
+    return this.hotAttributor.powerOfTheArchdruidRejuvAttrib.procs;
+  }
+
+  get regrowthsCreated() {
+    return this.hotAttributor.powerOfTheArchdruidRegrowthAttrib.procs;
+  }
+
+  get rejuvProcHealing() {
+    return this.hotAttributor.powerOfTheArchdruidRejuvAttrib.healing;
+  }
+
+  get regrowthProcHealing() {
+    return this.hotAttributor.powerOfTheArchdruidRegrowthAttrib.healing;
+  }
+
+  get totalHealing() {
+    return this.rejuvProcHealing + this.regrowthProcHealing;
+  }
+
   statistic() {
     return (
       <Statistic
@@ -77,7 +98,18 @@ class PowerOfTheArchdruid extends Analyzer {
           <>
             This is the healing attributable to the rejuvenations and regrowths spawned by the Power
             of the Archdruid talent. This amount includes the mastery benefit.
-            <br />
+            <ul>
+              <li>
+                Created <strong>{this.rejuvsCreated}</strong>{' '}
+                <SpellLink id={SPELLS.REJUVENATION.id} /> HoTs for{' '}
+                <strong>{this.owner.formatItemHealingDone(this.rejuvProcHealing)}</strong>
+              </li>
+              <li>
+                Created <strong>{this.regrowthsCreated}</strong>{' '}
+                <SpellLink id={SPELLS.REGROWTH.id} /> HoTs and Heals for{' '}
+                <strong>{this.owner.formatItemHealingDone(this.regrowthProcHealing)}</strong>
+              </li>
+            </ul>
             <br />
             You got <strong>{this.procs}</strong> procs over <strong>{this.wgCasts}</strong> casts,
             for a proc rate of <strong>{formatPercentage(this.procRate, 1)}%</strong>. This is a{' '}
@@ -89,7 +121,7 @@ class PowerOfTheArchdruid extends Analyzer {
         }
       >
         <BoringSpellValueText spellId={TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT.id}>
-          <ItemPercentHealingDone amount={this.hotAttributor.powerOfTheArchdruidAttrib.healing} />
+          <ItemPercentHealingDone amount={this.totalHealing} />
         </BoringSpellValueText>
       </Statistic>
     );

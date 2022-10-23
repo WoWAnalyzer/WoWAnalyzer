@@ -2,12 +2,16 @@ import {
   CharredWarblades,
   CollectiveAnguish,
   Demonic,
+  DisruptingFury,
   Felblade,
+  FlamesOfFury,
   ImmolationAura,
   MasterOfTheGlaive,
   ShatteredRestoration,
   SigilOfFlame,
+  SwallowedAnger,
   TheHunt,
+  UnnaturalMalice,
 } from 'analysis/retail/demonhunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
@@ -18,8 +22,9 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import MitigationCheck from './modules/features/MitigationCheck';
 import SoulFragmentsTracker from './modules/features/SoulFragmentsTracker';
-import FuryDetails from './modules/fury/FuryDetails';
-import FuryTracker from './modules/fury/FuryTracker';
+import FuryDetails from './modules/resourcetracker/FuryDetails';
+import FuryGraph from './modules/resourcetracker/FuryGraph';
+import FuryTracker from './modules/resourcetracker/FuryTracker';
 import DemonSpikes from './modules/spells/DemonSpikes';
 import InfernalStrike from './modules/spells/InfernalStrike';
 import ShearFracture from './modules/spells/ShearFracture';
@@ -36,7 +41,11 @@ import FrailtyDebuff from './modules/talents/FrailtyDebuff';
 import SpiritBombSoulsConsume from './modules/talents/SpiritBombSoulsConsume';
 import PainbringerBuff from './modules/talents/PainbringerBuff';
 import DarkglareBoon from './modules/talents/DarkglareBoon';
+import StokeTheFlames from './modules/talents/StokeTheFlames';
+import FieryBrand from './modules/talents/FieryBrand';
 import ShearFractureNormalizer from './normalizers/ShearFractureNormalizer';
+import SoulFragmentsGraph from './modules/resourcetracker/SoulFragmentsGraph';
+import SoulFragmentBuffStackTracker from './modules/resourcetracker/SoulFragmentBuffStackTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -54,6 +63,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Resource Tracker
     furyTracker: FuryTracker,
     furyDetails: FuryDetails,
+    furyGraph: FuryGraph,
+    soulFragmentBuffStackTracker: SoulFragmentBuffStackTracker,
+    soulFragmentsGraph: SoulFragmentsGraph,
 
     // normalizers
     shearFractureNormalizer: ShearFractureNormalizer,
@@ -77,6 +89,12 @@ class CombatLogParser extends CoreCombatLogParser {
     darkglareBoon: DarkglareBoon,
     collectiveAnguish: CollectiveAnguish,
     demonic: Demonic,
+    stokeTheFlames: StokeTheFlames,
+    unnaturalMalice: UnnaturalMalice,
+    swallowedAnger: SwallowedAnger,
+    flamesOfFury: FlamesOfFury,
+    disruptingFury: DisruptingFury,
+    fieryBrand: FieryBrand,
 
     // Spell
     immolationAura: ImmolationAura,

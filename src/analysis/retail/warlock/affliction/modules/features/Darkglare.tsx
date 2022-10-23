@@ -1,5 +1,6 @@
 import { formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
@@ -45,13 +46,11 @@ const BONUS_DURATION = 8000;
 const DOT_DEBUFFS = [
   SPELLS.AGONY,
   SPELLS.CORRUPTION_DEBUFF,
-  SPELLS.SIPHON_LIFE_TALENT,
-  SPELLS.UNSTABLE_AFFLICTION,
-  SPELLS.PHANTOM_SINGULARITY_TALENT,
-  SPELLS.VILE_TAINT_TALENT,
-  SPELLS.SCOURING_TITHE,
-  SPELLS.SOUL_ROT,
-  SPELLS.IMPENDING_CATASTROPHE_DEBUFF,
+  TALENTS.SIPHON_LIFE_TALENT,
+  TALENTS.UNSTABLE_AFFLICTION_TALENT,
+  TALENTS.PHANTOM_SINGULARITY_TALENT,
+  TALENTS.VILE_TAINT_TALENT,
+  TALENTS.SOUL_ROT_TALENT,
 ];
 const debug = false;
 
@@ -73,7 +72,7 @@ class Darkglare extends Analyzer {
     super(options);
     this._dotDurations = getDotDurations(this.selectedCombatant);
     // if player has Absolute Corruption, disregard the Corruption duration (it's permanent debuff then)
-    this._hasAC = this.selectedCombatant.hasTalent(SPELLS.ABSOLUTE_CORRUPTION_TALENT.id);
+    this._hasAC = this.selectedCombatant.hasTalent(TALENTS.ABSOLUTE_CORRUPTION_TALENT.id);
     if (this._hasAC) {
       delete this._dotDurations[SPELLS.CORRUPTION_DEBUFF.id];
     }
@@ -88,7 +87,7 @@ class Darkglare extends Analyzer {
       this.onDotRemove,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DARKGLARE),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SUMMON_DARKGLARE_TALENT),
       this._processDarkglareCast,
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(DOT_DEBUFFS), this._processDotCast);

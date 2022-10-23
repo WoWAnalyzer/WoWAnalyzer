@@ -8,31 +8,39 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
 
+import Checklist from './modules/checklist/Module';
 import GlobalCooldown from './modules/core/GlobalCooldown';
-import ScouringTitheUptime from './modules/covenants/ScouringTithe';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Darkglare from './modules/features/Darkglare';
 import DotUptimes from './modules/features/DotUptimes';
-import AgonyUptime from './modules/features/DotUptimes/AgonyUptime';
-import CorruptionUptime from './modules/features/DotUptimes/CorruptionUptime';
-import UnstableAfflictionUptime from './modules/features/DotUptimes/UnstableAfflictionUptime';
-import SoulShardDetails from './modules/soulshards/SoulShardDetails';
-import SoulShardTracker from './modules/soulshards/SoulShardTracker';
-import AbsoluteCorruption from './modules/talents/AbsoluteCorruption';
-import DrainSoul from './modules/talents/DrainSoul';
-import Haunt from './modules/talents/Haunt';
-import Nightfall from './modules/talents/Nightfall';
-import PhantomSingularity from './modules/talents/PhantomSingularity';
-import ShadowEmbrace from './modules/talents/ShadowEmbrace';
-import SiphonLifeUptime from './modules/talents/SiphonLifeUptime';
-import SoulConduit from './modules/talents/SoulConduit';
-import VileTaint from './modules/talents/VileTaint';
+import SoulShardDetails from './modules/resources/SoulShardDetails';
+import SoulShardTracker from './modules/resources/SoulShardTracker';
+import AbsoluteCorruption from './modules/spells/AbsoluteCorruption';
+import AgonyUptime from './modules/spells/Agony';
+import CorruptionUptime from './modules/spells/Corruption';
+import DrainSoul from './modules/spells/DrainSoul';
+import DreadTouch from './modules/spells/DreadTouch';
+import Haunt from './modules/spells/Haunt';
+import Nightfall from './modules/spells/Nightfall';
+import PhantomSingularity from './modules/spells/PhantomSingularity';
+import ShadowEmbrace from './modules/spells/ShadowEmbrace';
+import SiphonLifeUptime from './modules/spells/SiphonLife';
+import SoulConduit from './modules/spells/SoulConduit';
+import UnstableAfflictionUptime from './modules/spells/UnstableAffliction';
+import VileTaint from './modules/spells/VileTaint';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    // Normalizers
+    channeling: Channeling,
+    grimoireOfSacrificeNormalizer: GrimoireOfSacrificeNormalizer,
+    warlockMissingDotApplyDebuffPrePull: WarlockMissingDotApplyDebuffPrePull,
+
+    // Core
+    globalCooldown: GlobalCooldown,
+
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
@@ -42,35 +50,27 @@ class CombatLogParser extends CoreCombatLogParser {
     shadowEmbrace: ShadowEmbrace,
     demonicCirclesCreated: DemonicCirclesCreated,
 
-    // Normalizers
-    grimoireOfSacrificeNormalizer: GrimoireOfSacrificeNormalizer,
-    warlockMissingDotApplyDebuffPrePull: WarlockMissingDotApplyDebuffPrePull,
-
     // DoTs
     agonyUptime: AgonyUptime,
     corruptionUptime: CorruptionUptime,
     unstableAfflictionUptime: UnstableAfflictionUptime,
     dotUptimes: DotUptimes,
 
-    // Core
+    // Resources
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
-    channeling: Channeling,
-    globalCooldown: GlobalCooldown,
 
     // Talents
-    nightfall: Nightfall,
-    drainSoul: DrainSoul,
     absoluteCorruption: AbsoluteCorruption,
-    siphonLifeUptime: SiphonLifeUptime,
-    phantomSingularity: PhantomSingularity,
-    vileTaint: VileTaint,
-    haunt: Haunt,
+    drainSoul: DrainSoul,
+    dreadTouch: DreadTouch,
     grimoireOfSacrifice: GrimoireOfSacrifice,
+    haunt: Haunt,
+    nightfall: Nightfall,
+    phantomSingularity: PhantomSingularity,
+    siphonLifeUptime: SiphonLifeUptime,
     soulConduit: SoulConduit,
-
-    // Covenants
-    scouringTithe: ScouringTitheUptime,
+    vileTaint: VileTaint,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

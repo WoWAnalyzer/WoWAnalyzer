@@ -14,6 +14,7 @@ import {
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
@@ -102,7 +103,7 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           </Trans>
         }
       >
-        <AbilityRequirement spell={SPELLS.HEALING_TIDE_TOTEM_CAST.id} />
+        <AbilityRequirement spell={TALENTS_SHAMAN.HEALING_TIDE_TOTEM_TALENTS.id} />
         <AbilityRequirement spell={SPELLS.SPIRIT_LINK_TOTEM.id} />
         <AbilityRequirement spell={SPELLS.MANA_TIDE_TOTEM_CAST.id} />
         {combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_RESTORATION.id) && (

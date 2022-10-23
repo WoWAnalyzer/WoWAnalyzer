@@ -1,5 +1,6 @@
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import { Tooltip } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -25,7 +26,7 @@ class Flashover extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FLASHOVER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.IMPROVED_CONFLAGRATE_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CONFLAGRATE),
       this.onConflagrateDamage,
@@ -79,7 +80,7 @@ class Flashover extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >
-        <BoringSpellValueText spellId={SPELLS.FLASHOVER_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.IMPROVED_CONFLAGRATE_TALENT.id}>
           {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total
