@@ -30,7 +30,7 @@ class AncientTeachingsoftheMonastery extends Analyzer {
       Events.damage
         .by(SELECTED_PLAYER)
         .spell([
-          TALENTS_MONK.RISING_SUN_KICK_TALENT,
+          SPELLS.RISING_SUN_KICK_DAMAGE,
           SPELLS.BLACKOUT_KICK,
           SPELLS.BLACKOUT_KICK_TOTM,
           SPELLS.TIGER_PALM,
@@ -64,7 +64,7 @@ class AncientTeachingsoftheMonastery extends Analyzer {
   }
 
   renderDonutChart() {
-    const rskHealing = this.damageSpellToHealing.get(SPELLS.RISING_SUN_KICK_SECOND.id) || 0;
+    const rskHealing = this.damageSpellToHealing.get(SPELLS.RISING_SUN_KICK_DAMAGE.id) || 0;
     const bokHealing = this.damageSpellToHealing.get(SPELLS.BLACKOUT_KICK.id) || 0;
     const totmHealing = this.damageSpellToHealing.get(SPELLS.BLACKOUT_KICK_TOTM.id) || 0;
     const tpHealing = this.damageSpellToHealing.get(SPELLS.TIGER_PALM.id) || 0;

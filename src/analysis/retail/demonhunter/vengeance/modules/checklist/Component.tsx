@@ -74,6 +74,10 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
             thresholds={thresholds.demonSpikes}
           />
         )}
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.id) &&
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT.id) && (
+            <AbilityRequirement spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.id} />
+          )}
       </Rule>
 
       <Rule

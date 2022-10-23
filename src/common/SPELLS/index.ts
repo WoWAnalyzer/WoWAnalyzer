@@ -32,6 +32,8 @@ import SHAMAN from './shaman';
 import Spell, { Enchant } from './Spell';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
+import Expansion from 'game/Expansion';
+import { maybeGetSpell as maybeGetClassicSpell } from 'common/SPELLS/classic';
 
 const ABILITIES = {
   ...OTHERS,
@@ -91,8 +93,16 @@ const SPELLS = new Proxy(InternalSpellTable, {
 });
 
 export default SPELLS;
-export const maybeGetSpell = (key: string | number | undefined): Spell | undefined =>
-  key ? InternalSpellTable[key as any] : undefined;
+
+export function maybeGetSpell(
+  key: string | number | undefined,
+  expansion = Expansion.Dragonflight,
+): Spell | undefined {
+  if (expansion === Expansion.WrathOfTheLichKing) {
+    return maybeGetClassicSpell(key);
+  }
+  return key ? InternalSpellTable[key as any] : undefined;
+}
 
 export const registerSpell = (id: number, name: string, icon: string) => {
   if (InternalSpellTable[id]) {

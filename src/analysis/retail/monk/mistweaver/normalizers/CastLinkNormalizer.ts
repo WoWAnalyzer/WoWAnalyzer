@@ -115,7 +115,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
     referencedEventType: [EventType.Heal],
     anyTarget: true,
-    backwardBufferMs: 50,
+    backwardBufferMs: 100,
     additionalCondition(linkingEvent) {
       return !HasRelatedEvent(linkingEvent, FROM_HARDCAST);
     },
@@ -180,6 +180,10 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
     }
   }
   return false;
+}
+
+export function isFromMistyPeaks(event: ApplyBuffEvent | RefreshBuffEvent) {
+  return HasRelatedEvent(event, FROM_MISTY_PEAKS);
 }
 
 export default CastLinkNormalizer;

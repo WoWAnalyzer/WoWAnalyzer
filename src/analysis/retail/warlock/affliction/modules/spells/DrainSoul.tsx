@@ -13,7 +13,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-import SoulShardTracker from '../core/SoulShardTracker';
+import SoulShardTracker from '../resources/SoulShardTracker';
 
 // limit to filter out relevant removedebuffs (those what I'm interested in happen either at the same timestamp as energize, or about 20ms afterwards (tested on 2 logs, didn't surpass 30ms))
 // it's still possible that it can be a coincidence (mob dies and at the same time something falls off somewhere unrelated), but shouldn't happen too much
@@ -57,7 +57,7 @@ class DrainSoul extends Analyzer {
       this.onDrainSoulEnergize,
     );
     this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(TALENTS.DRAIN_SOUL_TALENT),
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_SOUL_DEBUFF),
       this.onDrainSoulRemove,
     );
     this.addEventListener(Events.fightend, this.onFinished);
@@ -124,7 +124,7 @@ class DrainSoul extends Analyzer {
   }
 
   statistic() {
-    const ds = this.abilityTracker.getAbility(TALENTS.DRAIN_SOUL_TALENT.id);
+    const ds = this.abilityTracker.getAbility(SPELLS.DRAIN_SOUL_DEBUFF.id);
     const damage = ds.damageEffective + ds.damageAbsorbed;
     const dps = (damage / this.owner.fightDuration) * 1000;
     return (

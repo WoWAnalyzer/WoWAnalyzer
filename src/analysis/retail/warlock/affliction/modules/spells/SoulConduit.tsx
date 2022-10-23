@@ -8,13 +8,12 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-import SoulShardTracker from '../core/SoulShardTracker';
+import SoulShardTracker from '../resources/SoulShardTracker';
 
 const TICKS_PER_UA = 4;
 const SC_PROC_CHANCE = 0.15;
 
 class SoulConduit extends Analyzer {
-
   static dependencies = {
     soulShardTracker: SoulShardTracker,
   };

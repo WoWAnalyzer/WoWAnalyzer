@@ -3,32 +3,32 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
-import SoulShardDetails from '../../core/SoulShardDetails';
-import SoulShardTracker from '../../core/SoulShardTracker';
-import Haunt from '../../talents/Haunt';
-import ShadowEmbrace from '../../talents/ShadowEmbrace';
-import SiphonLifeUptime from '../../talents/SiphonLifeUptime';
-import AlwaysBeCasting from '../AlwaysBeCasting';
-import AgonyUptime from '../DotUptimes/AgonyUptime';
-import CorruptionUptime from '../DotUptimes/CorruptionUptime';
-import UnstableAfflictionUptime from '../DotUptimes/UnstableAfflictionUptime';
+import SoulShardDetails from '../resources/SoulShardDetails';
+import SoulShardTracker from '../resources/SoulShardTracker';
+import Haunt from '../spells/Haunt';
+import ShadowEmbrace from '../spells/ShadowEmbrace';
+import SiphonLife from '../spells/SiphonLife';
+import AlwaysBeCasting from '../features/AlwaysBeCasting';
+import Agony from '../spells/Agony';
+import Corruption from '../spells/Corruption';
+import UnstableAffliction from '../spells/UnstableAffliction';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
     ...BaseChecklist.dependencies,
-    agonyUptime: AgonyUptime,
+    agonyUptime: Agony,
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
     combatants: Combatants,
-    corruptionUptime: CorruptionUptime,
+    corruptionUptime: Corruption,
     haunt: Haunt,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     shadowEmbrace: ShadowEmbrace,
-    siphonLifeUptime: SiphonLifeUptime,
+    siphonLifeUptime: SiphonLife,
     soulShardDetails: SoulShardDetails,
     soulShardTracker: SoulShardTracker,
-    unstableAfflictionUptime: UnstableAfflictionUptime,
+    unstableAfflictionUptime: UnstableAffliction,
   };
 
   // Core
@@ -42,11 +42,10 @@ class Checklist extends BaseChecklist {
   protected shadowEmbrace!: ShadowEmbrace;
 
   // DoT Uptimes
-  protected agonyUptime!: AgonyUptime;
-  protected corruptionUptime!: CorruptionUptime;
-  protected siphonLifeUptime!: SiphonLifeUptime;
-  protected unstableAfflictionUptime!: UnstableAfflictionUptime;
-
+  protected agonyUptime!: Agony;
+  protected corruptionUptime!: Corruption;
+  protected siphonLifeUptime!: SiphonLife;
+  protected unstableAfflictionUptime!: UnstableAffliction;
 
   // Resources
   protected soulShardDetails!: SoulShardDetails;

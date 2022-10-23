@@ -34,11 +34,11 @@ class Thunderlord extends Analyzer {
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.THUNDER_CLAP_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.THUNDER_CLAP_PROTECTION_TALENT),
       this.onCast,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.THUNDER_CLAP_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.THUNDER_CLAP_PROTECTION_TALENT),
       this.reduce,
     );
   }
