@@ -35,7 +35,7 @@ const WarlockChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPr
     <Rule
       name={
         <Trans id="warlock.wotlk.checklist.avoidBeingInactive">
-          Avoid being inactive for a large portion of the fight
+          Avoid being inactive during the fight
         </Trans>
       }
       description={
