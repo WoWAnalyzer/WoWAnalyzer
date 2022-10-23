@@ -1,4 +1,4 @@
-import { RuneTracker as BaseRuneTracker } from 'analysis/deathknight';
+import { RuneTracker as BaseRuneTracker } from 'analysis/retail/deathknight/shared';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 
 class RuneTracker extends BaseRuneTracker {

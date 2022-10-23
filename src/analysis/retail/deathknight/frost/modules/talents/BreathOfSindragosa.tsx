@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import talents from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffEvent, FightEndEvent } from 'parser/core/Events';
@@ -19,17 +20,17 @@ class BreathOfSindragosa extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.BREATH_OF_SINDRAGOSA_TALENT.id);
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BREATH_OF_SINDRAGOSA_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(talents.BREATH_OF_SINDRAGOSA_TALENT),
       this.onCast,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BREATH_OF_SINDRAGOSA_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(talents.BREATH_OF_SINDRAGOSA_TALENT),
       this.onRemoveBuff,
     );
     this.addEventListener(Events.fightend, this.onFightEnd);
@@ -62,7 +63,7 @@ class BreathOfSindragosa extends Analyzer {
         <>
           {' '}
           You are not getting good uptime from your{' '}
-          <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> casts. A good cast is one that
+          <SpellLink id={talents.BREATH_OF_SINDRAGOSA_TALENT.id} /> casts. A good cast is one that
           lasts 25 seconds or more. To ensure a good duration, make sure you have 70+ Runic Power
           pooled and have less than 4 Runes available before you start the cast. Also make sure to
           use <SpellLink id={SPELLS.EMPOWER_RUNE_WEAPON.id} /> within a few seconds of casting
@@ -70,7 +71,7 @@ class BreathOfSindragosa extends Analyzer {
           overcapping. {this.tickingOnFinishedString}
         </>,
       )
-        .icon(SPELLS.BREATH_OF_SINDRAGOSA_TALENT.icon)
+        .icon(talents.BREATH_OF_SINDRAGOSA_TALENT.icon)
         .actual(
           t({
             id: 'deathknight.frost.suggestions.breathOfSindragosa.uptime',
@@ -115,7 +116,7 @@ class BreathOfSindragosa extends Analyzer {
         position={STATISTIC_ORDER.CORE(60)}
         size="flexible"
       >
-        <BoringSpellValueText spellId={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id}>
+        <BoringSpellValueText spellId={talents.BREATH_OF_SINDRAGOSA_TALENT.id}>
           <>
             {this.averageDuration.toFixed(1)}s <small>average duration</small>
           </>
