@@ -52,7 +52,6 @@ class AdaptiveSwarmFeral extends AdaptiveSwarmDamageDealer {
       <RoundedPanel>
         <div>
           <strong>Adaptive Swarm uptime</strong>
-          <small> - Try to get as close to 100% as the encounter allows!</small>
         </div>
         {this.subStatistic()}
       </RoundedPanel>
