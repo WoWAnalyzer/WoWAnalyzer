@@ -46,6 +46,11 @@ const spells = spellIndexableList({
     name: 'Mindgames',
     icon: 'ability_revendreth_priest',
   },
+  CRYSTALLINE_REFLECTION_TALENT_HEAL: {
+    id: 373462,
+    name: 'Crystalline Reflection',
+    icon: 'ability_priest_reflectiveshield',
+  },
   // Discipline Priest:
   GRACE: {
     id: 271534,
@@ -319,13 +324,13 @@ const spells = spellIndexableList({
     id: 2060,
     name: 'Heal',
     icon: 'spell_holy_greaterheal',
-    manaCost: 1200,
+    manaCost: 6000,
   },
   FLASH_HEAL: {
     id: 2061,
     name: 'Flash Heal',
     icon: 'spell_holy_flashheal',
-    manaCost: 1800,
+    manaCost: 9000,
   },
   PRAYER_OF_MENDING_HEAL: {
     id: 33110,
@@ -366,17 +371,12 @@ const spells = spellIndexableList({
     id: 14914,
     name: 'Holy Fire',
     icon: 'spell_holy_searinglight',
-    manaCost: 500,
+    manaCost: 2500,
   },
   TRAIL_OF_LIGHT_TALENT_HEAL: {
     id: 234946,
     name: 'Trail of Light',
     icon: 'ability_priest_wordsofmeaning',
-  },
-  SURGE_OF_LIGHT_BUFF: {
-    id: 114255,
-    name: 'Surge of Light',
-    icon: 'spell_holy_surgeoflight',
   },
   COSMIC_RIPPLE_HEAL: {
     id: 243241,
@@ -394,6 +394,12 @@ const spells = spellIndexableList({
     name: 'Lightweaver',
     icon: 'spell_holy_greaterheal',
   },
+  SURGE_OF_LIGHT_BUFF: {
+    id: 114255,
+    name: 'Surge of Light',
+    icon: 'spell_holy_surgeoflight',
+  },
+
   // Sets
   HOLY_PRIEST_TIER_29_2_SET_BUFF: {
     id: 394729,
@@ -411,17 +417,27 @@ const spells = spellIndexableList({
     name: 'Binding Heals',
     icon: 'spell_holy_blindingheal',
   },
+  EMPOWERED_RENEW_TALENT_HEAL: {
+    id: 391359,
+    name: 'Empowered Renew',
+    icon: 'ability_paladin_infusionoflight',
+  },
+  LIGHTWELL_TALENT_HEAL: {
+    id: 372847,
+    name: 'Lightwell',
+    icon: 'spell_holy_summonlightwell',
+  },
   HOLY_WORD_CHASTISE_CENSURE_TALENT_INCAPACITATE: {
     id: 200196,
     name: 'Holy Word: Chastise',
     icon: 'spell_holy_chastise',
-    manaCost: 1000,
+    manaCost: 5000,
   },
   HOLY_WORD_CHASTISE_CENSURE_TALENT_STUN: {
     id: 200200,
     name: 'Holy Word: Chastise',
     icon: 'spell_holy_chastise',
-    manaCost: 1000,
+    manaCost: 5000,
   },
   RESONANT_WORDS_TALENT_BUFF: {
     id: 372313,
