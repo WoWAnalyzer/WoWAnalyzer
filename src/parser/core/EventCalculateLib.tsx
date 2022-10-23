@@ -178,7 +178,10 @@ export function calculateEffectiveDamage(event: DamageEvent, increase: number): 
  * @return the target's health percent *before* the heal, in range 0 to 1. Note that if `includeHealAbsorbs` is true,
  * targets with a large heal absorb could report as having 0 health.
  */
-export function calculateTargetHealthPercent(event: HealEvent, includeHealAbsorbs: boolean = true) {
+export function calculateHealTargetHealthPercent(
+  event: HealEvent,
+  includeHealAbsorbs: boolean = true,
+) {
   const effectiveHealing = event.amount + (event.absorbed || 0);
   const hitPointsBeforeHeal = event.hitPoints - effectiveHealing;
   const targetHealthPercent = hitPointsBeforeHeal / event.maxHitPoints;

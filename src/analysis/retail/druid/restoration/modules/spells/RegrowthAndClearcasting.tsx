@@ -16,7 +16,7 @@ import { getDirectHeal } from 'analysis/retail/druid/restoration/normalizers/Cas
 import { buffedByClearcast } from 'analysis/retail/druid/restoration/normalizers/ClearcastingNormalizer';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
-import { calculateTargetHealthPercent } from 'parser/core/EventCalculateLib';
+import { calculateHealTargetHealthPercent } from 'parser/core/EventCalculateLib';
 import { ABUNDANCE_MANA_REDUCTION } from 'analysis/retail/druid/restoration/modules/spells/Abundance';
 
 /** Health percent below which we consider a heal to be 'triage' */
@@ -93,7 +93,7 @@ class RegrowthAndClearcasting extends Analyzer {
     let targetHealthPercent = undefined;
     const regrowthHeal = getDirectHeal(event);
     if (regrowthHeal) {
-      targetHealthPercent = calculateTargetHealthPercent(regrowthHeal);
+      targetHealthPercent = calculateHealTargetHealthPercent(regrowthHeal);
     }
 
     let castNote = '';
@@ -138,7 +138,8 @@ class RegrowthAndClearcasting extends Analyzer {
         <>
           @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> - {castNote}
           <br />
-          targetting <strong>{this.owner.getTargetName(event)}</strong> w/ {targetHealthString}%
+          targetting <strong>{this.owner.getTargetName(event)}</strong> w/{' '}
+          <strong>{targetHealthString}%</strong>
           health
         </>
       ),

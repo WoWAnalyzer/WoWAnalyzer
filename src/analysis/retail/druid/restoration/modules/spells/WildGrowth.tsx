@@ -19,7 +19,7 @@ const RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD = 3;
 /** Max time after WG apply to watch for high overhealing */
 const OVERHEAL_BUFFER = 3000;
 /** Overheal percent within OVERHEAL_BUFFER of application that will count as 'too much' */
-const OVERHEAL_THRESHOLD = 0.7;
+const OVERHEAL_THRESHOLD = 0.6;
 
 /**
  * Tracks stats relating to Wild Growth
@@ -158,8 +158,8 @@ class WildGrowth extends Analyzer {
         <small>
           {' '}
           - Green is a good cast, Red was effective on fewer than three targets. A hit is considered
-          "ineffective" if over the first 3 seconds it did more than 50% overhealing. Mouseover
-          boxes for details.
+          "ineffective" if over the first {(OVERHEAL_BUFFER / 1000).toFixed(0)} seconds it did more
+          than {formatPercentage(OVERHEAL_THRESHOLD, 0)}% overhealing. Mouseover boxes for details.
         </small>
         <PerformanceBoxRow values={this.castEntries} />
       </div>

@@ -15,7 +15,7 @@ import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
-import { calculateTargetHealthPercent } from 'parser/core/EventCalculateLib';
+import { calculateHealTargetHealthPercent } from 'parser/core/EventCalculateLib';
 import { formatPercentage } from 'common/format';
 
 const TRIAGE_THRESHOLD = 0.5;
@@ -83,7 +83,9 @@ class Swiftmend extends Analyzer {
 
   onSwiftmendCast(event: CastEvent) {
     const directHeal = getDirectHeal(event);
-    const targetHealthPercent = directHeal ? calculateTargetHealthPercent(directHeal) : undefined;
+    const targetHealthPercent = directHeal
+      ? calculateHealTargetHealthPercent(directHeal)
+      : undefined;
     const target = this.combatants.getEntity(event);
     if (!target) {
       console.warn("Couldn't find target for Swiftmend cast", event);
@@ -161,7 +163,8 @@ class Swiftmend extends Analyzer {
       <>
         @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
         <br />
-        targetting <strong>{target.name}</strong> w/ {targetHealthPercentText}% health
+        targetting <strong>{target.name}</strong> w/ <strong>{targetHealthPercentText}%</strong>{' '}
+        health
         <br />
         {hotChangeText}
       </>
