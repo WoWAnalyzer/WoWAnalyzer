@@ -64,7 +64,7 @@ class VivaciousVivification extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
-    if (Math.abs(event.timestamp - this.lastRemove) < HEAL_EVENT_BUFFER) {
+    if (event.timestamp - this.lastRemove < HEAL_EVENT_BUFFER) {
       this.totalHealed += event.amount;
     }
   }
