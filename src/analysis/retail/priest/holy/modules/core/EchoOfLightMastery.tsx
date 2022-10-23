@@ -1,6 +1,5 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/priest';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellIcon } from 'interface';
 import { TooltipElement } from 'interface';
@@ -166,9 +165,6 @@ class EchoOfLightMastery extends Analyzer {
   handleEolApplication(event: any) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
-    if (spellId === TALENTS.RENEW_TALENT.id && event.tick) {
-      return;
-    }
 
     if (!this.targetMasteryPool[targetId]) {
       this.targetMasteryPool[targetId] = {

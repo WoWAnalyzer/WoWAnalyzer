@@ -12,7 +12,7 @@ import Events, {
   RefreshDebuffEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
-import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
+import { OpenTimePeriod } from 'parser/core/mergeTimePeriods';
 import { Options } from 'parser/core/Module';
 import { SuggestionFactory, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -26,6 +26,7 @@ import uptimeBarSubStatistic, {
   SubPercentageStyle,
   UptimeBarSpec,
 } from 'parser/ui/UptimeBarSubStatistic';
+import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 import SuggestionThresholds from '../../SuggestionThresholds';
@@ -253,18 +254,15 @@ class PurgeTheWicked extends Analyzer {
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
-  subStatistic() {
-    const subBars: UptimeBarSpec[] | undefined = [];
+  get uptimeHistory() {
+    return this.enemies.getDebuffHistory(SPELLS.PURGE_THE_WICKED_BUFF.id);
+  }
 
-    return uptimeBarSubStatistic(
-      this.owner.fight,
-      {
-        spells: [this.dotSpell],
-        uptimes: mergeTimePeriods(this.ptwUptimes, this.owner.currentTimestamp),
-      },
-      subBars,
-      SubPercentageStyle.ABSOLUTE,
-    );
+  subStatistic() {
+    return uptimeBarSubStatistic(this.owner.fight, {
+      spells: [TALENTS_PRIEST.PURGE_THE_WICKED_TALENT],
+      uptimes: this.uptimeHistory,
+    });
   }
 }
 
