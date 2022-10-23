@@ -94,7 +94,10 @@ const SPELLS = new Proxy(InternalSpellTable, {
 
 export default SPELLS;
 
-export function maybeGetSpell(key: string | number | undefined, expansion = Expansion.Dragonflight): Spell | undefined {
+export function maybeGetSpell(
+  key: string | number | undefined,
+  expansion = Expansion.Dragonflight,
+): Spell | undefined {
   if (expansion === Expansion.WrathOfTheLichKing) {
     return maybeGetClassicSpell(key);
   }
