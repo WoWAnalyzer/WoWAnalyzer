@@ -21,10 +21,19 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { THROES_OF_PAIN_INCREASE, PAIN_AND_SUFFERING_INCREASE } from '../../constants';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 import SuggestionThresholds from '../../SuggestionThresholds';
+
+type DotInformation =
+  | {
+      throesOfPain: number;
+      revelInPurity: number;
+      painAndSuffering: number;
+    }
+  | Record<string, never>;
 
 class PurgeTheWicked extends Analyzer {
   protected enemies!: Enemies;
@@ -34,6 +43,15 @@ class PurgeTheWicked extends Analyzer {
     enemies: Enemies,
     abilityTracker: AbilityTracker,
   };
+  revelInPurityActive = false;
+  painAndSufferingActive = false;
+  throesOfPainActive = false;
+
+  painAndSufferingIncrease = 0;
+  throesOfPainIncrease = 0;
+  revelInPurityIncrease = 0;
+  totalAmplification = 0;
+  effectiveIncrease = 0;
 
   ptwCleaveDamage = 0;
   dotSpell: any;
@@ -41,16 +59,56 @@ class PurgeTheWicked extends Analyzer {
   ptwApplications = 0;
   lastCastTarget: number = 0;
   ptwCleaveTracker: any = {};
+  dotRatios: DotInformation = {};
 
   ptwUptimes: OpenTimePeriod[] = [];
 
   constructor(options: Options) {
     super(options);
-    if (this.selectedCombatant.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.PURGE_THE_WICKED_TALENT.id)) {
       this.dotSpell = SPELLS.PURGE_THE_WICKED_BUFF;
+      if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.REVEL_IN_PURITY_TALENT)) {
+        this.revelInPurityActive = true;
+        this.revelInPurityIncrease = 0.05;
+      }
     } else {
       this.dotSpell = SPELLS.SHADOW_WORD_PAIN;
     }
+
+    this.painAndSufferingActive = this.selectedCombatant.hasTalent(
+      TALENTS_PRIEST.PAIN_AND_SUFFERING_TALENT,
+    );
+    this.throesOfPainActive = this.selectedCombatant.hasTalent(
+      TALENTS_PRIEST.THROES_OF_PAIN_TALENT,
+    );
+
+    if (this.throesOfPainActive) {
+      this.throesOfPainIncrease =
+        THROES_OF_PAIN_INCREASE[
+          this.selectedCombatant.getTalentRank(TALENTS_PRIEST.THROES_OF_PAIN_TALENT) - 1
+        ];
+    }
+
+    if (this.painAndSufferingActive) {
+      this.painAndSufferingIncrease =
+        PAIN_AND_SUFFERING_INCREASE[
+          this.selectedCombatant.getTalentRank(TALENTS_PRIEST.PAIN_AND_SUFFERING_TALENT) - 1
+        ];
+    }
+
+    this.totalAmplification =
+      this.painAndSufferingIncrease + this.revelInPurityIncrease + this.throesOfPainIncrease;
+
+    this.effectiveIncrease =
+      (this.painAndSufferingIncrease + 1) *
+      (this.revelInPurityIncrease + 1) *
+      (this.throesOfPainIncrease + 1);
+
+    this.dotRatios = {
+      painAndSuffering: this.painAndSufferingIncrease / this.totalAmplification,
+      revelInPurity: this.revelInPurityIncrease / this.totalAmplification,
+      throesOfPain: this.throesOfPainIncrease / this.totalAmplification,
+    };
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PURGE_THE_WICKED_TALENT]),
