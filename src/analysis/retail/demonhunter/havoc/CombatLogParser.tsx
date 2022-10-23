@@ -54,6 +54,8 @@ import Soulrend from './modules/talents/Soulrend';
 import GrowingInferno from './modules/talents/GrowingInferno';
 import BurningHatred from './modules/talents/BurningHatred';
 import EssenceBreakNormalizer from './normalizers/EssenceBreakNormalizer';
+import FuryGraph from './modules/resourcetracker/FuryGraph';
+import Guide from './Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -120,10 +122,13 @@ class CombatLogParser extends CoreCombatLogParser {
     // Resources
     furyTracker: FuryTracker,
     furyDetails: FuryDetails,
+    furyGraph: FuryGraph,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;
