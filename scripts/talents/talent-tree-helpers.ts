@@ -67,7 +67,11 @@ export function printTalents(talentObj: ITalentObjectByClass[string]) {
     .map(([specName, specTalents]) => {
       const header = `\n  //${specName}`;
       const talents = Object.keys(specTalents)
-        .map((talent) => `${talent}: ${JSON.stringify(specTalents[talent])},`)
+        .map((talent) => {
+          //Spec was only used during generation, so we remove it before writing to file
+          delete specTalents[talent].spec;
+          return `${talent}: ${JSON.stringify(specTalents[talent])},`;
+        })
         .join('\n');
 
       return [header, talents].join('\n');

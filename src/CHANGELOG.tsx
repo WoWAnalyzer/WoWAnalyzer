@@ -67,6 +67,11 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 22), 'Updating WOTLK to use custom spell definitions.', Khadaj),
+  change(date(2022, 10, 22), 'Correct some issues with talent generation', Putro),
+  change(date(2022, 10, 22), 'Updating Flask and Elixir list for WOTLK.', Khadaj),
+  change(date(2022, 10, 22), 'Removing weapon enhancement checker for WOTLK.', Khadaj),
+  change(date(2022, 10, 22), 'Updating Enchant list for WOTLK Classic.', Khadaj),
   change(date(2022, 10, 17), 'Use generated talent info for character pages.', ToppleTheNun),
   change(date(2022, 10, 16), 'Update SpellLink to accept Spell instances.', ToppleTheNun),
   change(date(2022, 10, 16), 'Add ability to determine if wearing T29 2pc or 4pc.', ToppleTheNun),

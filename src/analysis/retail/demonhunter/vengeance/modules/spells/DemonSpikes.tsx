@@ -68,7 +68,7 @@ class DemonSpikes extends Analyzer {
         <>
           {' '}
           Cast <SpellLink id={SPELLS.DEMON_SPIKES.id} /> more regularly while actively tanking the
-          boss or when they use a big phsyical attack. You missed having it up for{' '}
+          boss or when they use a big physical attack. You missed having it up for{' '}
           {formatPercentage(this.hitsWithDSOffCDPercent)}% of physical hits.
         </>,
       )

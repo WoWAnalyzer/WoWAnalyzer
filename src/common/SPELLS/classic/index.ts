@@ -14,45 +14,13 @@
 
 import indexById from 'common/indexById';
 
-import DEATH_KNIGHT from './deathknight';
-import DEMON_HUNTER from './demonhunter';
-import DRUID from './druid';
-import ENCOUNTER from './encounter';
-import EVOKER from './evoker';
-import HUNTER from './hunter';
-import MAGE from './mage';
-import MONK from './monk';
-import OTHERS from './others';
-import PALADIN from './paladin';
+import Spell, { Enchant } from '../Spell';
 import PRIEST from './priest';
-import RACIALS from './racials';
-import ROGUE from './rogue';
-import SHADOWLANDS from './shadowlands';
-import SHAMAN from './shaman';
-import Spell, { Enchant } from './Spell';
-import WARLOCK from './warlock';
-import WARRIOR from './warrior';
-import Expansion from 'game/Expansion';
-import { maybeGetSpell as maybeGetClassicSpell } from 'common/SPELLS/classic';
+import Engineering from './engineering';
 
 const ABILITIES = {
-  ...OTHERS,
-  ...ENCOUNTER,
-  ...RACIALS,
-  ...DEATH_KNIGHT,
-  ...DEMON_HUNTER,
-  ...DRUID,
-  ...EVOKER,
-  ...HUNTER,
-  ...MAGE,
-  ...MONK,
-  ...PALADIN,
   ...PRIEST,
-  ...ROGUE,
-  ...SHAMAN,
-  ...WARLOCK,
-  ...WARRIOR,
-  ...SHADOWLANDS,
+  ...Engineering,
 } as const;
 
 // type SpellCollection = SpellList & {
@@ -68,7 +36,7 @@ const InternalSpellTable = indexById<Spell | Enchant, typeof ABILITIES>(ABILITIE
 // compiling the spread operator on large objects.
 // InternalSpellTable.maybeGet = (key) => (key ? InternalSpellTable[key] : undefined);
 
-const SPELLS = new Proxy(InternalSpellTable, {
+const CLASSIC_SPELLS = new Proxy(InternalSpellTable, {
   get(target, prop, receiver) {
     const value = Reflect.get(target, prop, receiver);
 
@@ -92,17 +60,9 @@ const SPELLS = new Proxy(InternalSpellTable, {
   },
 });
 
-export default SPELLS;
-
-export function maybeGetSpell(
-  key: string | number | undefined,
-  expansion = Expansion.Dragonflight,
-): Spell | undefined {
-  if (expansion === Expansion.WrathOfTheLichKing) {
-    return maybeGetClassicSpell(key);
-  }
-  return key ? InternalSpellTable[key as any] : undefined;
-}
+export default CLASSIC_SPELLS;
+export const maybeGetSpell = (key: string | number | undefined): Spell | undefined =>
+  key ? InternalSpellTable[key as any] : undefined;
 
 export const registerSpell = (id: number, name: string, icon: string) => {
   if (InternalSpellTable[id]) {
