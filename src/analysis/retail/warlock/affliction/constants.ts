@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import covenantSpells from 'common/SPELLS/shadowlands/covenants/warlock';
 import TALENTS from 'common/TALENTS/warlock';
 import Combatant from 'parser/core/Combatant';
 
@@ -13,10 +12,6 @@ const defaultDurations = {
   [TALENTS.PHANTOM_SINGULARITY_TALENT.id]: 16000,
   [TALENTS.VILE_TAINT_TALENT.id]: 10000,
   [TALENTS.SOUL_ROT_TALENT.id]: 8000,
-  // Shadowlands Covenant Abilities
-  [covenantSpells.SCOURING_TITHE.id]: 18000,
-  [covenantSpells.SOUL_ROT.id]: 8000,
-  [covenantSpells.IMPENDING_CATASTROPHE_DEBUFF.id]: 12000,
 } as const;
 
 const affectedByCreepingDeath = [

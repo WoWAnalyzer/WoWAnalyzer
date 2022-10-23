@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 10, 20), <>Fix <SpellLink id={TALENTS.DRAIN_SOUL_TALENT.id} /> damage calculations and add initial support for <SpellLink id={TALENTS.DREAD_TOUCH_TALENT.id} />.</>, Jonfanz),
   change(date(2022, 10, 14), 'Begin working on support for Dragonflight.', Jonfanz),
   change(date(2022, 7, 22), <>Add tracker for number of <SpellLink id={SPELLS.DEMONIC_CIRCLE_SUMMON.id} /> created.</>, ToppleTheNun),
   change(date(2021, 9,  28), <>Updated <SpellLink id={TALENTS.SHADOW_EMBRACE_TALENT.id}/> suggestions and  <SpellLink id={SPELLS.SUMMON_DARKGLARE.id}/> cooldown, </>, Pirrang),

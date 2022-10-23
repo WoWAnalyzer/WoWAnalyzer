@@ -18,7 +18,7 @@ class WarMachine extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_PROTECTION_TALENT.id);
   }
 
   statistic() {
@@ -34,7 +34,7 @@ class WarMachine extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={TALENTS.WAR_MACHINE_TALENT.id} /> Extra Rage From Melees
+              <SpellLink id={TALENTS.WAR_MACHINE_PROTECTION_TALENT.id} /> Extra Rage From Melees
             </>
           }
         >

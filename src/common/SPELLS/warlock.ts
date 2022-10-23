@@ -260,6 +260,11 @@ const spells = spellIndexableList({
   },
 
   // Affliction talents
+  DREAD_TOUCH_DEBUFF: {
+    id: 389868,
+    name: 'Dread Touch',
+    icon: 'ability_priest_touchofdecay',
+  },
   NIGHTFALL_BUFF: {
     id: 264571,
     name: 'Nightfall',
@@ -286,6 +291,11 @@ const spells = spellIndexableList({
     id: 31117,
     name: 'Unstable Affliction',
     icon: 'spell_shadow_unstableaffliction_3',
+  },
+  DRAIN_SOUL_DEBUFF: {
+    id: 198590,
+    name: 'Drain Soul',
+    icon: 'spell_shadow_haunting',
   },
   DRAIN_SOUL_KILL_SHARD_GEN: {
     id: 205292,

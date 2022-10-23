@@ -1,7 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import covenantSpells from 'common/SPELLS/shadowlands/covenants/';
 import TALENTS from 'common/TALENTS/warlock';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -361,75 +359,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-      },
-
-      // Covenants
-      {
-        spell: covenantSpells.SCOURING_TITHE.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 45,
-        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: false,
-        },
-      },
-      {
-        spell: covenantSpells.DECIMATING_BOLT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 45,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-        buffSpellId: covenantSpells.DECIMATING_BOLT.id,
-      },
-      {
-        spell: covenantSpells.SOULSHAPE.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 90,
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
-        gcd: {
-          base: 1500,
-        },
-        buffSpellId: covenantSpells.SOULSHAPE.id,
-      },
-      // this is the covenant spell soul rot, not the talent soul rot
-      {
-        spell: covenantSpells.SOUL_ROT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 60,
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      },
-      {
-        spell: covenantSpells.IMPENDING_CATASTROPHE_CAST.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 60,
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-        damageSpellIds: [
-          covenantSpells.IMPENDING_CATASTROPHE_HIT.id,
-          covenantSpells.IMPENDING_CATASTROPHE_DEBUFF.id,
-        ],
       },
     ];
   }
