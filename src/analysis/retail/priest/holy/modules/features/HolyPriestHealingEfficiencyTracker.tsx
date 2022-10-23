@@ -13,6 +13,7 @@ import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import Halo from 'analysis/retail/priest/holy/modules/talents/Classwide/Halo';
 import DivineStar from 'analysis/retail/priest/holy/modules/talents/Classwide/DivineStar';
 import Benediction from 'analysis/retail/priest/holy/modules/talents/MiddleRow/Benediction';
+import RevitalizingPrayers from 'analysis/retail/priest/holy/modules/talents/MiddleRow/RevitalizingPrayers';
 
 class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
@@ -32,6 +33,7 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     halo: Halo,
     divineStar: DivineStar,
     benediction: Benediction,
+    revitalizingPrayers: RevitalizingPrayers,
   };
   includeEchoOfLight = false;
   protected salvation!: HolyWordSalvation;
@@ -41,6 +43,7 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
   protected halo!: Halo;
   protected divineStar!: DivineStar;
   protected benediction!: Benediction;
+  protected revitalizingPrayers!: RevitalizingPrayers;
 
   getCustomSpellStats(spellInfo: any, spellId: number, healingSpellIds: number[]) {
     // If we have a spell that has custom logic for the healing/damage numbers, do that before the rest of our calculations.
@@ -95,13 +98,17 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
   }
 
   getPrayerOfHealingDetails(spellInfo: any, spellId: number) {
-    const renews = this.renew.revitalizingPrayersRenewDurations;
+    //We get the healing done from Prayer of healing and healing from renews applied by casting it
     const ability = this.abilityTracker.getAbility(spellId);
-    spellInfo.healingDone = (ability.healingEffective || 0) + this.renew.healingFromRenew(renews);
+    spellInfo.healingDone =
+      (ability.healingEffective || 0) +
+      this.revitalizingPrayers.healingFromRevitalizingPrayersRenews;
     spellInfo.overhealingDone =
-      (ability.healingOverheal || 0) + this.renew.overhealingFromRenew(renews);
+      (ability.healingOverheal || 0) +
+      this.revitalizingPrayers.overhealingFromRevitalizingPrayersRenews;
     spellInfo.healingAbsorbed =
-      (ability.healingAbsorbed || 0) + this.renew.absorptionFromRenew(renews);
+      (ability.healingAbsorbed || 0) +
+      this.revitalizingPrayers.absorbedHealingFromRevitalizingPrayersRenews;
     return spellInfo;
   }
 
