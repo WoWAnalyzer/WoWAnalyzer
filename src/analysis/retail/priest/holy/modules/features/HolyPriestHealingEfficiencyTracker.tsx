@@ -53,9 +53,9 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
       spellInfo = this.getPomDetails(spellInfo);
     } else if (spellId === TALENTS.HOLY_WORD_SALVATION_TALENT.id) {
       spellInfo = this.getSalvationDetails(spellInfo);
-    } else if (spellId === TALENTS.HALO_TALENT.id) {
+    } else if (spellId === TALENTS.HALO_SHARED_TALENT.id) {
       spellInfo = this.getHaloDetails(spellInfo);
-    } else if (spellId === TALENTS.DIVINE_STAR_TALENT.id) {
+    } else if (spellId === TALENTS.DIVINE_STAR_SHARED_TALENT.id) {
       spellInfo = this.getDivineStarDetails(spellInfo);
     } else if (
       spellId === TALENTS.PRAYER_OF_HEALING_TALENT.id &&
