@@ -3,6 +3,7 @@ import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { SpellLink } from 'interface';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyDebuffEvent,
@@ -11,6 +12,7 @@ import Events, {
   RefreshDebuffEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
+import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
 import { Options } from 'parser/core/Module';
 import { SuggestionFactory, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -19,6 +21,11 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import uptimeBarSubStatistic, {
+  SubPercentageStyle,
+  UptimeBarSpec,
+} from 'parser/ui/UptimeBarSubStatistic';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 import SuggestionThresholds from '../../SuggestionThresholds';
 
@@ -37,6 +44,8 @@ class PurgeTheWicked extends Analyzer {
   ptwApplications = 0;
   lastCastTarget: number = 0;
   ptwCleaveTracker: any = {};
+
+  ptwUptimes: OpenTimePeriod[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -85,14 +94,16 @@ class PurgeTheWicked extends Analyzer {
 
   onDotApply(event: ApplyDebuffEvent | RefreshDebuffEvent) {
     this.ptwApplications += 1;
-
+    this.ptwUptimes.push({ start: event.timestamp, end: event.timestamp + 15000 });
     if (event.targetID !== this.lastCastTarget) {
       this.ptwCleaveTracker[event.targetID] = 1;
     }
   }
 
   onDotRemove(event: RemoveDebuffEvent) {
+    this.ptwUptimes[this.ptwUptimes.length - 1].end = event.timestamp;
     delete this.ptwCleaveTracker[event.targetID];
+    console.log(this.ptwUptimes[this.ptwUptimes.length - 1]);
   }
 
   onDotDamage(event: DamageEvent) {
@@ -154,6 +165,48 @@ class PurgeTheWicked extends Analyzer {
         </Statistic>
       );
     }
+  }
+
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <>
+        <p>
+          <b>
+            Maintain <SpellLink id={TALENTS_PRIEST.PURGE_THE_WICKED_TALENT.id} />
+          </b>{' '}
+          at all times. It is an efficient source of damage for atonement, and is the sole source of
+          procs for <SpellLink id={TALENTS_PRIEST.POWER_OF_THE_DARK_SIDE_TALENT.id} />. The uptime
+          of this debuff should be kept as high as possible. Consider using{' '}
+          <SpellLink id={TALENTS_PRIEST.PAINFUL_PUNISHMENT_TALENT.id} /> if you struggle to keep a
+          good uptime.
+        </p>
+      </>
+    );
+
+    const data = (
+      <div>
+        <strong>
+          <SpellLink id={this.dotSpell.id} />
+        </strong>
+        {this.subStatistic()}
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  subStatistic() {
+    const subBars: UptimeBarSpec[] | undefined = [];
+
+    return uptimeBarSubStatistic(
+      this.owner.fight,
+      {
+        spells: [this.dotSpell],
+        uptimes: mergeTimePeriods(this.ptwUptimes, this.owner.currentTimestamp),
+      },
+      subBars,
+      SubPercentageStyle.ABSOLUTE,
+    );
   }
 }
 

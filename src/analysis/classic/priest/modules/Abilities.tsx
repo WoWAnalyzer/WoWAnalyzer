@@ -165,7 +165,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.MIND_CONTROL, ...lowRankSpells[SPELLS.MIND_CONTROL]],
+        spell: [SPELLS.MIND_CONTROL],
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           static: 1500,

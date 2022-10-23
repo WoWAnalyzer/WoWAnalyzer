@@ -23,6 +23,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import MitigationCheck from './modules/features/MitigationCheck';
 import SoulFragmentsTracker from './modules/features/SoulFragmentsTracker';
 import FuryDetails from './modules/resourcetracker/FuryDetails';
+import FuryGraph from './modules/resourcetracker/FuryGraph';
 import FuryTracker from './modules/resourcetracker/FuryTracker';
 import DemonSpikes from './modules/spells/DemonSpikes';
 import InfernalStrike from './modules/spells/InfernalStrike';
@@ -41,8 +42,8 @@ import SpiritBombSoulsConsume from './modules/talents/SpiritBombSoulsConsume';
 import PainbringerBuff from './modules/talents/PainbringerBuff';
 import DarkglareBoon from './modules/talents/DarkglareBoon';
 import StokeTheFlames from './modules/talents/StokeTheFlames';
+import FieryBrand from './modules/talents/FieryBrand';
 import ShearFractureNormalizer from './normalizers/ShearFractureNormalizer';
-import FieryBrand from 'analysis/retail/demonhunter/vengeance/modules/talents/FieryBrand';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -60,6 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Resource Tracker
     furyTracker: FuryTracker,
     furyDetails: FuryDetails,
+    furyGraph: FuryGraph,
 
     // normalizers
     shearFractureNormalizer: ShearFractureNormalizer,

@@ -27,19 +27,6 @@ const PreparationRule = ({
     </>
   );
 
-  const RenderWeaponEnhancementRequirements = () => (
-    <>
-      <Requirement
-        name={<Trans>All weapons enhanced (oils/stones)</Trans>}
-        thresholds={thresholds.weaponsEnhanced}
-      />
-      <Requirement
-        name={<Trans>Using high quality weapon enhancements</Trans>}
-        thresholds={thresholds.bestWeaponEnhancements}
-      />
-    </>
-  );
-
   const RenderFlaskRequirements = () => (
     <>
       <Requirement
@@ -83,7 +70,6 @@ const PreparationRule = ({
         </Trans>
       }
     >
-      <RenderWeaponEnhancementRequirements />
       <RenderEnchantRequirements />
       <RenderFlaskRequirements />
       <RenderFoodRequirements />

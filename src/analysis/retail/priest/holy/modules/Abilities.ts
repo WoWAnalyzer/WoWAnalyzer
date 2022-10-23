@@ -130,10 +130,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.DIVINE_STAR_TALENT.id,
+        spell: TALENTS.DIVINE_STAR_SHARED_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 15,
-        enabled: combatant.hasTalent(TALENTS.DIVINE_STAR_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.DIVINE_STAR_SHARED_TALENT.id),
         gcd: {
           base: 1500,
         },
