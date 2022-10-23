@@ -96,6 +96,7 @@ const MAX_ENCHANT_IDS = [
   3852, // https://www.wowhead.com/wotlk/spell=62384/greater-inscription-of-the-gladiator
   // Other
   // Chest
+  1144, // https://www.wowhead.com/wotlk/spell=33990/enchant-chest-major-spirit
   1953, // https://www.wowhead.com/wotlk/spell=47766/enchant-chest-greater-defense
   3245, // https://www.wowhead.com/wotlk/spell=44588/enchant-chest-exceptional-resilience
   2381, // https://www.wowhead.com/wotlk/spell=44509/enchant-chest-greater-mana-restoration
