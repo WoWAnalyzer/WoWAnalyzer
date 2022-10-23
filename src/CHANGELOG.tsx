@@ -22,6 +22,7 @@ import {
   Haelrail,
   HolySchmidt,
   Jafowler,
+  jazminite,
   jos3p,
   joshinator,
   Juko8,
@@ -67,6 +68,7 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 22), 'Add BiS Warlock Chest Enchant to Max enchants', jazminite),
   change(date(2022, 10, 22), 'Updating WOTLK to use custom spell definitions.', Khadaj),
   change(date(2022, 10, 22), 'Correct some issues with talent generation', Putro),
   change(date(2022, 10, 22), 'Updating Flask and Elixir list for WOTLK.', Khadaj),
