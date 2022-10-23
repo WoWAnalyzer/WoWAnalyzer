@@ -37,14 +37,16 @@ class Curses extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          <Trans id="warlock.wotlk.suggestions.curse.description"></Trans>
+          <Trans id="warlock.wotlk.suggestions.curse.description">
+            Your curse uptime can be improved.
+          </Trans>
         </span>,
       )
         .icon('classicon_warlock')
         .actual(
           t({
             id: 'warlock.wotlk.suggestions.curse.uptime',
-            message: `${formatPercentage(actual)}`,
+            message: `${formatPercentage(actual)}% Curse uptime`,
           }),
         )
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
