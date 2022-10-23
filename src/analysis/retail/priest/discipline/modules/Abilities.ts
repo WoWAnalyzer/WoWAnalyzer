@@ -25,9 +25,23 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: [TALENTS_PRIEST.RENEW_TALENT.id],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: [SPELLS.FLASH_HEAL.id],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.POWER_WORD_RADIANCE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 20,
+        cooldown: this.selectedCombatant.hasTalent(TALENTS_PRIEST.BRIGHT_PUPIL_TALENT.id) ? 15 : 20,
         charges: 2,
         gcd: {
           base: 1500,
@@ -115,6 +129,31 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT.id),
         castEfficiency: {
           suggestion: true,
+        },
+      },
+      {
+        spell: TALENTS_PRIEST.LIGHTS_WRATH_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 90,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS_PRIEST.LIGHTS_WRATH_TALENT.id),
+      },
+      {
+        spell: TALENTS_PRIEST.POWER_WORD_LIFE_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: TALENTS_PRIEST.MINDGAMES_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 45,
+        gcd: {
+          base: 1500,
         },
       },
       {
