@@ -20,8 +20,9 @@ class VivaciousVivification extends Analyzer {
   lastApply: number = 0;
   lastRemove: number = 0;
   totalCasts: number = 0;
-  wastedTime: number = 0;
   totalHealed: number = 0;
+  wastedTime: number = 0;
+
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT);
