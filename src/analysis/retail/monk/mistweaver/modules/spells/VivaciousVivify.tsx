@@ -104,7 +104,7 @@ class VivaciousVivification extends Analyzer {
         .actual(
           `${formatDuration(this.wastedTime) + ' '}${t({
             id: 'monk.mistweaver.suggestions.vivaciousVivification.wastedTime',
-            message: ` seconds of overcapping`,
+            message: `of overcapping`,
           })}`,
         )
         .recommended(`<${formatNumber(recommended / 1000)} seconds of overcapping is recommended`),
