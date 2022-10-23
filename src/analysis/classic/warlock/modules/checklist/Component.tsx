@@ -24,33 +24,50 @@ const DotUptime = (props: DotUptimeProps) => (
   />
 );
 
-const curseOfTheElements = <Trans id="warlock.wotlk.shared.curses.curseOfElements"></Trans>;
-const curseOfDoom = <Trans id="warlock.wotlk.shared.curses.curseOfDoom"></Trans>;
-const curseOfAgony = <Trans id="warlock.wotlk.shared.curses.curseOfAgony"></Trans>;
+const curseOfTheElements = (
+  <Trans id="warlock.wotlk.shared.curses.curseOfElements">Curse of Elements</Trans>
+);
+const curseOfDoom = <Trans id="warlock.wotlk.shared.curses.curseOfDoom">Curse of Doom</Trans>;
+const curseOfAgony = <Trans id="warlock.wotlk.shared.curses.curseOfAgony">Curse of Elements</Trans>;
 
 const WarlockChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistProps) => (
   <Checklist>
     <Rule
-      name={<Trans id="warlock.wotlk.checklist.avoidBeingInactive"></Trans>}
+      name={
+        <Trans id="warlock.wotlk.checklist.avoidBeingInactive">
+          Avoid being inactive for a large portion of the fight
+        </Trans>
+      }
       description={
         <>
-          <Trans id="warlock.wotlk.checklist.avoidBeingInactive.description"></Trans>
+          <Trans id="warlock.wotlk.checklist.avoidBeingInactive.description">
+            High downtime is something to avoid. You can reduce your downtime by reducing the delay
+            between casting abilities, anticipating movement, and moving during the GCD.
+          </Trans>
         </>
       }
     >
       <Requirement
-        name={<Trans id="warlock.wotlk.checklist.downtime"></Trans>}
+        name={<Trans id="warlock.wotlk.checklist.downtime">Downtime</Trans>}
         thresholds={thresholds.downtimeSuggestionThresholds}
       />
     </Rule>
     <Rule
-      name={<Trans id="warlock.wotlk.checklist.maintainCurse"></Trans>}
+      name={
+        <Trans id="warlock.wotlk.checklist.maintainCurse">
+          Maintain a curse on the primary target
+        </Trans>
+      }
       description={
         <Fragment>
           <Trans id="warlock.wotlk.checklist.maintainCurse.description">
-            <SpellLink id={CURSE_OF_THE_ELEMENTS}>{curseOfTheElements}</SpellLink>
-            <SpellLink id={CURSE_OF_DOOM}>{curseOfDoom}</SpellLink>
-            <SpellLink id={CURSE_OF_AGONY}>{curseOfAgony}</SpellLink>
+            It is important to maintain a curse on the primary target. If there is no Unholy DK
+            \(using Ebon Plaguebringer\) or Boomkin \(using Earth and Moon\) in the raid, use{' '}
+            <SpellLink id={CURSE_OF_THE_ELEMENTS}>{curseOfTheElements}</SpellLink>. After the
+            priority curse consideration, use{' '}
+            <SpellLink id={CURSE_OF_DOOM}>{curseOfDoom}</SpellLink> for a target alive more than a
+            minute or <SpellLink id={CURSE_OF_AGONY}>{curseOfAgony}</SpellLink> for a target alive
+            less than a minute.
           </Trans>
         </Fragment>
       }
