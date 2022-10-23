@@ -36,7 +36,7 @@ function ResourceUsageSection({ modules, events, info }: GuideProps<typeof Comba
           Fragments. Never use a builder at max Soul Fragments or when doing so will cause you to
           overcap on Soul Fragments.
         </p>
-        <p>TODO SOUL FRAGMENT GRAPH</p>
+        {modules.soulFragmentsGraph.plot}
       </SubSection>
     </Section>
   );
