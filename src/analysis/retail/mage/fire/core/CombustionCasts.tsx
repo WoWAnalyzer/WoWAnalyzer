@@ -1,6 +1,6 @@
 import { SharedCode } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
@@ -34,7 +34,7 @@ class CombustionCasts extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.COMBUSTION.id}>
+        <BoringSpellValueText spellId={TALENTS.COMBUSTION_TALENT.id}>
           <>
             <table className="table table-condensed">
               <tbody>
@@ -50,7 +50,7 @@ class CombustionCasts extends Analyzer {
                   </td>
                 </tr>
                 {this.sharedCode
-                  .castBreakdownByBuff(true, SPELLS.COMBUSTION)
+                  .castBreakdownByBuff(true, TALENTS.COMBUSTION_TALENT)
                   .sort((a, b) => b[1] - a[1])
                   .map((spell) => (
                     <tr key={Number(spell)} style={{ fontSize: 16 }}>
@@ -61,8 +61,10 @@ class CombustionCasts extends Analyzer {
                       <td style={{ textAlign: 'center' }}>
                         {formatPercentage(
                           spell[1] /
-                            this.eventHistory.getEventsWithBuff(SPELLS.COMBUSTION, EventType.Cast)
-                              .length || 0,
+                            this.eventHistory.getEventsWithBuff(
+                              TALENTS.COMBUSTION_TALENT,
+                              EventType.Cast,
+                            ).length || 0,
                         )}
                         %
                       </td>

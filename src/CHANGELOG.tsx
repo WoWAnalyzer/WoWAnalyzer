@@ -1,7 +1,7 @@
 import { change, date } from 'common/changelog';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import { TALENTS_PRIEST } from 'common/TALENTS';
+import { TALENTS_MAGE, TALENTS_PRIEST } from 'common/TALENTS';
 import {
   Abelito75,
   acornellier,
@@ -122,7 +122,7 @@ export default [
   change(date(2022, 8, 8), 'Display equiped set pieces on tooltip.', Vetyst),
   change(date(2022, 8, 7), 'Update Buff tracking to TypeScript.', ToppleTheNun),
   change(date(2022, 8, 4), <>Add support for <ItemLink id={ITEMS.CACHE_OF_ACQUIRED_TREASURES.id}/>.</>, ToppleTheNun),
-  change(date(2022, 8, 3), <>Add spellsteal event for Mage's <SpellLink id={SPELLS.SPELLSTEAL.id} />.</>, Vetyst),
+  change(date(2022, 8, 3), <>Add spellsteal event for Mage's <SpellLink id={TALENTS_MAGE.SPELLSTEAL_TALENT.id} />.</>, Vetyst),
   change(date(2022, 7, 26), 'Updated translations and corrected some translation values in various places', Putro),
   change(date(2022, 7, 22), 'Show Death Knight Runeforge enchants on character overview.', Vetyst),
   change(date(2022, 7, 22), 'Add create event for handling spells like Demonic Circle.', ToppleTheNun),

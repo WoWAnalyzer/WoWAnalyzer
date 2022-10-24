@@ -20,7 +20,10 @@ import DRUID from './druid';
 import ENCOUNTER from './encounter';
 import EVOKER from './evoker';
 import HUNTER from './hunter';
-import MAGE from './mage';
+import MAGE from 'analysis/retail/mage/shared/SPELLS';
+import ARCANE_MAGE from 'analysis/retail/mage/arcane/SPELLS';
+import FIRE_MAGE from 'analysis/retail/mage/fire/SPELLS';
+import FROST_MAGE from 'analysis/retail/mage/frost/SPELLS';
 import MONK from './monk';
 import OTHERS from './others';
 import PALADIN from './paladin';
@@ -45,6 +48,9 @@ const ABILITIES = {
   ...EVOKER,
   ...HUNTER,
   ...MAGE,
+  ...ARCANE_MAGE,
+  ...FIRE_MAGE,
+  ...FROST_MAGE,
   ...MONK,
   ...PALADIN,
   ...PRIEST,
