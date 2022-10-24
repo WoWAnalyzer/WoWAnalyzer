@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro';
 import { MS_BUFFER_250 } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -68,7 +69,7 @@ class InfernalCascade extends Analyzer {
       this.onBuffStack,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
       this.onCombustionApplied,
     );
     this.addEventListener(
@@ -78,18 +79,18 @@ class InfernalCascade extends Analyzer {
     this.addEventListener(
       Events.removebuff
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.INFERNAL_CASCADE_BUFF, SPELLS.COMBUSTION]),
+        .spell([SPELLS.INFERNAL_CASCADE_BUFF, TALENTS.COMBUSTION_TALENT]),
       this.onBuffRemoved,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
       this.onCombustionRemoved,
     );
   }
 
   onDamage(event: DamageEvent) {
     const buff = this.selectedCombatant.getBuff(SPELLS.INFERNAL_CASCADE_BUFF.id);
-    if (!buff || !this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id)) {
+    if (!buff || !this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id)) {
       return;
     }
     this.bonusDamage += calculateEffectiveDamage(
@@ -112,10 +113,10 @@ class InfernalCascade extends Analyzer {
     const lastCombustEnd = this.eventHistory.last(
       1,
       3000,
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
     );
     if (
-      this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id, event.timestamp - 10) ||
+      this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, event.timestamp - 10) ||
       lastCombustEnd.length > 0
     ) {
       return;
@@ -124,7 +125,7 @@ class InfernalCascade extends Analyzer {
     const lastCombustStart = this.eventHistory.last(
       1,
       MS_BUFFER_250,
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
     );
     if (lastCombustStart.length === 0) {
       this.isSKBCombust = true;
@@ -139,7 +140,7 @@ class InfernalCascade extends Analyzer {
     const lastCombustStart = this.eventHistory.last(
       1,
       undefined,
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
     );
     this.totalCombustionDuration +=
       event.timestamp - (lastCombustStart[0]?.timestamp ?? this.owner.fight.start_time);
@@ -159,7 +160,9 @@ class InfernalCascade extends Analyzer {
 
   get averageDuration() {
     return (
-      this.maxStackDuration / 1000 / this.abilityTracker.getAbility(SPELLS.COMBUSTION.id).casts
+      this.maxStackDuration /
+      1000 /
+      this.abilityTracker.getAbility(TALENTS.COMBUSTION_TALENT.id).casts
     );
   }
 
@@ -191,13 +194,13 @@ class InfernalCascade extends Analyzer {
           {formatPercentage(this.maxStackPercent)}% of your Combustion Uptime. Because so much of
           your damage comes from your Combustion, it is important that you adjust your rotation to
           maintain {MAX_STACKS} stacks of <SpellLink id={SPELLS.INFERNAL_CASCADE.id} /> for as much
-          of your <SpellLink id={SPELLS.COMBUSTION.id} /> as possible. This can be done by
+          of your <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> as possible. This can be done by
           alternating between using <SpellLink id={SPELLS.FIRE_BLAST.id} /> and{' '}
-          <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> to generate{' '}
+          <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} /> to generate{' '}
           <SpellLink id={SPELLS.HOT_STREAK.id} /> instead of using all the charges of one, and then
-          all the charges of the other. <SpellLink id={SPELLS.COMBUSTION.id} />s that were proc'd by{' '}
-          <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} /> are not included in this, unless you used
-          the proc to extend an existing <SpellLink id={SPELLS.COMBUSTION.id} />.
+          all the charges of the other. <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />s that were
+          proc'd by <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} /> are not included in this, unless
+          you used the proc to extend an existing <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />.
         </>,
       )
         .icon(SPELLS.INFERNAL_CASCADE.icon)

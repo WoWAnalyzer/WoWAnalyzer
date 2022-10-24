@@ -38,8 +38,10 @@ class HotStreak extends Analyzer {
   hasPyromaniac: boolean = this.selectedCombatant.hasTalent(TALENTS.PYROMANIAC_TALENT.id);
 
   expiredProcs = () =>
-    this.sharedCode.getExpiredProcs(SPELLS.HOT_STREAK, [SPELLS.PYROBLAST, SPELLS.FLAMESTRIKE])
-      .length || 0;
+    this.sharedCode.getExpiredProcs(SPELLS.HOT_STREAK, [
+      SPELLS.PYROBLAST,
+      TALENTS.FLAMESTRIKE_TALENT,
+    ]).length || 0;
 
   // prettier-ignore
   missingHotStreakPreCast = () => {
@@ -47,18 +49,18 @@ class HotStreak extends Analyzer {
     hotStreakRemovals = hotStreakRemovals.filter(hs => !this.sharedCode.getPreCast(hs, SPELLS.FIREBALL));
     
     //If Hot Streak was used on Flamestrike, filter it out
-    hotStreakRemovals = hotStreakRemovals.filter(hs => !this.sharedCode.getPreCast(hs, SPELLS.FLAMESTRIKE));
+    hotStreakRemovals = hotStreakRemovals.filter(hs => !this.sharedCode.getPreCast(hs, TALENTS.FLAMESTRIKE_TALENT));
 
     //If Combustion or Firestorm was active, filter it out
     hotStreakRemovals = hotStreakRemovals.filter(hs => {
-      const combustionActive = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id, hs.timestamp);
+      const combustionActive = this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, hs.timestamp);
       const firestormActive = this.selectedCombatant.hasBuff(SPELLS.FIRESTORM_BUFF.id, hs.timestamp);
       return (!this.hasFirestorm || !firestormActive) && (!combustionActive)
     });
 
     //If Combustion ended less than 3 seconds ago, filter it out
     hotStreakRemovals = hotStreakRemovals.filter(hs => {
-      const combustionEnded = this.eventHistory.getEvents(EventType.RemoveBuff, { searchBackwards: true, spell: SPELLS.COMBUSTION, count: 1, startTimestamp: hs.timestamp })[0];
+      const combustionEnded = this.eventHistory.getEvents(EventType.RemoveBuff, { searchBackwards: true, spell: TALENTS.COMBUSTION_TALENT, count: 1, startTimestamp: hs.timestamp })[0];
       return !combustionEnded || hs.timestamp - combustionEnded.timestamp > COMBUSTION_END_BUFFER;
     })
 
@@ -196,7 +198,7 @@ class HotStreak extends Analyzer {
     when(this.castBeforeHotStreakThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          When <SpellLink id={SPELLS.COMBUSTION.id} /> is not active
+          When <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> is not active
           {this.hasFirestarter ? ' and the target is below 90% health' : ''}{' '}
           {this.hasSearingTouch ? ' and the target is over 30% health' : ''},{' '}
           <SpellLink id={SPELLS.HOT_STREAK.id} /> procs should be used immediately after casting{' '}

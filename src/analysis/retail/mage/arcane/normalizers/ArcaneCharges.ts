@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
 import { EventType } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
@@ -8,7 +9,7 @@ const EVENT_ORDERS: EventOrder[] = [
     beforeEventId: [
       SPELLS.ARCANE_BLAST.id,
       SPELLS.ARCANE_EXPLOSION.id,
-      SPELLS.TOUCH_OF_THE_MAGI.id,
+      TALENTS.TOUCH_OF_THE_MAGI_TALENT.id,
       SPELLS.ARTIFICE_OF_THE_ARCHMAGE.id,
     ],
     beforeEventType: EventType.Cast,

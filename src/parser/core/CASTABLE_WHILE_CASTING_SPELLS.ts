@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 
 const spells: number[] = [
   /**
@@ -7,7 +8,7 @@ const spells: number[] = [
    * spell cast was cancelled since these do not interrupt casting.
    */
   SPELLS.FIRE_BLAST.id,
-  SPELLS.COMBUSTION.id,
+  TALENTS.COMBUSTION_TALENT.id,
 ];
 
 export default spells;
