@@ -419,7 +419,7 @@ class Results extends React.PureComponent<Props, State> {
           <DegradedExperience disabledModules={parser.disabledModules} />
         )}
         {
-          //Warning Message for Shadowlands Prepatch (Remove after Shadowlands Launch)
+          //Warning Message for Dragonflight Prepatch (Remove after Dragonflight Launch)
           <div className="container">
             <AlertWarning style={{ marginBottom: 30 }}>
               In an effort to focus on Dragonflight and Vault of the Incarnates development, we will
