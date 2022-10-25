@@ -115,7 +115,7 @@ const FOOD_MAPPINGS: { [spellId: number]: FoodInfo } = {
   43771: { itemId: SPICED_MAMMOTH_TREATS },
 };
 
-// Setting this to true will replace the food suggestion with a list of all of the
+// Setting this to true will replace the food suggestion with a list of the
 // defined foods and their recommendedFoods. This is useful for sanity checking
 // the list of foods you are marking as upgrades.
 const DEBUG = false;
@@ -170,6 +170,14 @@ class FoodChecker extends Analyzer {
   }
 
   get higherFoodSuggestionThresholds() {
+    if (DEBUG) {
+      return {
+        actual: true,
+        isEqual: true,
+        style: ThresholdStyle.BOOLEAN,
+      };
+    }
+
     return {
       actual: this.higherFoodUp,
       isEqual: false,
