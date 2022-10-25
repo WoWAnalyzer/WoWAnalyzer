@@ -217,10 +217,10 @@ export const faide: Contributor = {
   github: 'FaideWW',
   avatar: avatar('faide-avatar.png'),
 };
-export const Fyruna: Contributor = {
+export const Arlie: Contributor = {
   nickname: 'arlie',
   github: 'avilene',
-  avatar: avatar('Fyruna_avatar.jpg'),
+  avatar: avatar('arlie-avatar.jpg'),
   mains: [
     {
       name: 'Aveline',

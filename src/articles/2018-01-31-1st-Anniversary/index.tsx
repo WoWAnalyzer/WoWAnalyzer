@@ -1242,7 +1242,7 @@ const Article = (props: ArticleProps) => {
 
       <Item title="Checking legendary item levels" date="14 Oct">
         To help you notice legendaries you forgot to upgrade,{' '}
-        <Contributor {...CONTRIBUTORS.Fyruna} />{' '}
+        <Contributor {...CONTRIBUTORS.Arlie} />{' '}
         <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/506">added</a> a suggestion for
         legendaries below the max possible item level.
         <br />
@@ -1277,7 +1277,7 @@ const Article = (props: ArticleProps) => {
         some fights are more movement intensive than other, but mainly it would for the fun of it.
         <br />
         <br />
-        <Contributor {...CONTRIBUTORS.Fyruna} />{' '}
+        <Contributor {...CONTRIBUTORS.Arlie} />{' '}
         <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/522">added</a> this distance moved
         statistic.
         <br />
@@ -1313,7 +1313,7 @@ const Article = (props: ArticleProps) => {
         Initial version was <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/pull/521">
           added
         </a>{' '}
-        by <Contributor {...CONTRIBUTORS.Fyruna} />. <Contributor {...CONTRIBUTORS.Sref} /> added a
+        by <Contributor {...CONTRIBUTORS.Arlie} />. <Contributor {...CONTRIBUTORS.Sref} /> added a
         couple of things. <Contributor {...CONTRIBUTORS.Sharrq} /> added a lot of modules.
         <br />
         <br />

@@ -1,11 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import { Adoraci, niseko, Abelito75, Shamorisse, Vetyst, Fyruna } from 'CONTRIBUTORS';
+import { Adoraci, niseko, Abelito75, Shamorisse, Vetyst, Arlie } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
-  change(date(2022, 10, 25), <>Converted Shadowlands spells and talents to Dragonflight versions</>, Fyruna),
+  change(date(2022, 10, 25), <>Converted Shadowlands spells and talents to Dragonflight versions</>, Arlie),
   change(date(2022, 10, 18), <>Cleanup majority of old spells.</>, Vetyst),
   change(date(2022, 8, 1), `Removed some outdated modules.`, niseko),
   change(date(2022, 7, 22), <>Reset cooldown of <SpellLink id={SPELLS.PRIMORDIAL_WAVE_CAST.id} /> when <SpellLink id={SPELLS.TUMBLING_WAVES_CONDUIT.id} /> procs.</>, Vetyst),
