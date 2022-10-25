@@ -10,6 +10,10 @@ import { getHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNor
 /** Feral combo point cap */
 export const MAX_CPS = 5;
 
+///////////////////////////////////////////////////////////////////////////////
+// SPELL CATEGORIES
+//
+
 /** The cast / energize spells for Combo Point generating abilities */
 export const CP_GENERATORS: Spell[] = [
   SPELLS.SHRED,
@@ -29,6 +33,35 @@ export const FINISHERS: Spell[] = [
   SPELLS.MAIM,
   TALENTS_DRUID.PRIMAL_WRATH_TALENT,
 ];
+
+/** Spells that have their damage boosted by Tiger's Fury */
+export const TIGERS_FURY_BOOSTED: Spell[] = [
+  SPELLS.SHRED,
+  SPELLS.FEROCIOUS_BITE,
+  SPELLS.THRASH_FERAL,
+  SPELLS.RIP,
+  SPELLS.RAKE,
+  SPELLS.RAKE_BLEED,
+  SPELLS.MAIM,
+  TALENTS_DRUID.BRUTAL_SLASH_TALENT,
+  TALENTS_DRUID.PRIMAL_WRATH_TALENT,
+  SPELLS.SWIPE_CAT,
+  SPELLS.MOONFIRE_FERAL,
+  TALENTS_DRUID.FERAL_FRENZY_TALENT,
+  SPELLS.FERAL_FRENZY_DEBUFF,
+  SPELLS.FRENZIED_ASSAULT,
+  SPELLS.TEAR,
+  SPELLS.RAMPANT_FEROCITY,
+  SPELLS.TEAR_OPEN_WOUNDS,
+  SPELLS.ADAPTIVE_SWARM_DAMAGE,
+];
+
+///////////////////////////////////////////////////////////////////////////////
+// ENERGY MULTIPLIERS
+//
+
+export const INCARN_ENERGY_MULT = 0.8;
+export const RELENTLESS_PREDATOR_FB_ENERGY_MULT = 0.8;
 
 ///////////////////////////////////////////////////////////////////////////////
 // DOT DURATIONS
@@ -95,11 +128,11 @@ export function getRipFullDuration(c: Combatant): number {
 // SNAPSHOTS
 //
 
-const TIGERS_FURY_DAMAGE_BONUS = 0.15;
-const CARNIVOROUS_INSTINCT_DAMAGE_BONUS = 0.06;
+export const BASE_TIGERS_FURY_DAMAGE_BONUS = 0.15;
+export const CARNIVOROUS_INSTINCT_DAMAGE_BONUS = 0.06;
 export function getTigersFuryDamageBonus(c: Combatant): number {
   return (
-    TIGERS_FURY_DAMAGE_BONUS +
+    BASE_TIGERS_FURY_DAMAGE_BONUS +
     c.getTalentRank(TALENTS_DRUID.CARNIVOROUS_INSTINCT_TALENT) * CARNIVOROUS_INSTINCT_DAMAGE_BONUS
   );
 }
@@ -135,9 +168,6 @@ export function directAoeBuilder(c: Combatant): Spell {
 ///////////////////////////////////////////////////////////////////////////////
 // MISC
 //
-
-/** Damage boost to a Shred or Rake from stealth */
-export const STEALTH_SHRED_RAKE_BOOST = 0.6;
 
 /** Effective combo points used by a Convoke'd Ferocious Bite */
 export const CONVOKE_FB_CPS = 4;
