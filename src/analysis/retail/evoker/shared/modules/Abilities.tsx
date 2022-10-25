@@ -9,14 +9,14 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
     return [
       //region Rotational Spells
-      {
-        spell: SPELLS.LIVING_FLAME_HEAL.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 0,
-        gcd: {
-          base: 1500,
-        },
-      },
+      // {
+      //   spell: SPELLS.LIVING_FLAME_HEAL.id,
+      //   category: SPELL_CATEGORY.ROTATIONAL,
+      //   cooldown: 0,
+      //   gcd: {
+      //     base: 1500,
+      //   },
+      // },
       {
         spell: SPELLS.DISINTEGRATE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
