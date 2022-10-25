@@ -418,7 +418,7 @@ class Results extends React.PureComponent<Props, State> {
         {parser && parser.disabledModules && (
           <DegradedExperience disabledModules={parser.disabledModules} />
         )}
-        {
+        {!build && (
           //Warning Message for Dragonflight Prepatch (Remove after Dragonflight Launch)
           <div className="container">
             <AlertWarning style={{ marginBottom: 30 }}>
@@ -428,7 +428,7 @@ class Results extends React.PureComponent<Props, State> {
               encounters may be inaccurate.
             </AlertWarning>
           </div>
-        }
+        )}
         {boss && boss.fight.resultsWarning && (
           <div className="container">
             <AlertWarning style={{ marginBottom: 30 }}>{boss.fight.resultsWarning}</AlertWarning>

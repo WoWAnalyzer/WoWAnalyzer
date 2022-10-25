@@ -68,6 +68,7 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 25), 'Exclude classic from patch version checking.', ToppleTheNun),
   change(date(2022, 10, 25), 'Add prepatch warning and add prepatch details.', ToppleTheNun),
   change(date(2022, 10, 25), 'Update stat scaling values for DF prepatch - and add values to easily swap over after prepatch ends', Putro),
   change(date(2022, 10, 24), 'Updating WOTLK Potions', Khadaj),
