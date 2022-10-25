@@ -13,7 +13,7 @@ import Events, {
 } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
-import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -88,7 +88,8 @@ class SoulOfTheForest extends Analyzer {
   lastTalliedSotF?: RemoveBuffEvent;
   lastBuffFromHardcast: boolean = false;
 
-  sotfConsumeLog: SotfUse[] = [];
+  /** Box row entry for SotF use */
+  useEntries: BoxRowEntry[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -191,10 +192,14 @@ class SoulOfTheForest extends Analyzer {
   }
 
   onSotfRemove(event: RemoveBuffEvent | RefreshBuffEvent) {
-    const timestamp = event.timestamp;
+    // Text to show in tooltip for this SotF usage. Won't be filled for Convoke generated ones!
+    let useText: React.ReactNode;
+    let value: QualitativePerformance = false;
+
     if (event.type === EventType.RefreshBuff) {
       if (this.lastBuffFromHardcast) {
-        this.sotfConsumeLog.push({ timestamp, use: 'Overwritten' });
+        useText = 'Overwritten';
+        value = 'fail';
       }
       this.lastBuffFromHardcast = false;
       return;
@@ -202,7 +207,8 @@ class SoulOfTheForest extends Analyzer {
 
     const buffed = getSotfBuffs(event);
     if (buffed.length === 0) {
-      this.sotfConsumeLog.push({ timestamp, use: 'Expired' });
+      useText = 'Expired';
+      value = 'fail';
     } else {
       if (!isFromHardcast(buffed[0]) && !this.lastBuffFromHardcast) {
         // SM during Convoke also consumed during Convoke - don't count it
@@ -215,16 +221,30 @@ class SoulOfTheForest extends Analyzer {
         firstGuid === SPELLS.REJUVENATION.id ||
         firstGuid === SPELLS.REJUVENATION_GERMINATION.id
       ) {
-        this.sotfConsumeLog.push({ timestamp, use: 'Rejuvenation' });
+        useText = <SpellLink id={SPELLS.REJUVENATION.id} />;
+        value = 'ok';
       } else if (firstGuid === SPELLS.REGROWTH.id) {
-        this.sotfConsumeLog.push({ timestamp, use: 'Regrowth' });
+        useText = <SpellLink id={SPELLS.REGROWTH.id} />;
+        value = 'ok';
       } else if (firstGuid === SPELLS.WILD_GROWTH.id) {
-        this.sotfConsumeLog.push({ timestamp, use: 'Wild Growth' });
+        useText = <SpellLink id={SPELLS.WILD_GROWTH.id} />;
+        value = 'good';
       } else {
         console.warn('SOTF reported as consumed by unexpected spell ID: ' + firstGuid);
       }
     }
     this.lastBuffFromHardcast = false;
+
+    // fill in box entry if needed
+    if (useText !== undefined) {
+      const tooltip = (
+        <>
+          @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> -{' '}
+          <strong>{useText}</strong>
+        </>
+      );
+      this.useEntries.push({ value, tooltip });
+    }
   }
 
   get rejuvHardcastUses() {
@@ -294,21 +314,6 @@ class SoulOfTheForest extends Analyzer {
       </p>
     );
 
-    const castPerfBoxes = this.sotfConsumeLog.map((sotfUse) => {
-      let value: QualitativePerformance;
-      if (sotfUse.use === 'Expired') {
-        value = 'fail';
-      } else if (sotfUse.use === 'Wild Growth') {
-        value = 'good';
-      } else {
-        // rejuv or regrowth
-        value = 'ok';
-      }
-      return {
-        value,
-        tooltip: `@ ${this.owner.formatTimestamp(sotfUse.timestamp)} - ${sotfUse.use}`,
-      };
-    });
     const data = (
       <div>
         <strong>Soul of the Forest usage</strong>
@@ -317,7 +322,7 @@ class SoulOfTheForest extends Analyzer {
           - Green is a Wild Growth use, Yellow is a Rejuvenation or Regrowth use, and Red is an
           expired or overwritten proc. Mouseover for more details.
         </small>
-        <PerformanceBoxRow values={castPerfBoxes} />
+        <PerformanceBoxRow values={this.useEntries} />
       </div>
     );
 
@@ -389,10 +394,5 @@ class SoulOfTheForest extends Analyzer {
     );
   }
 }
-
-type SotfUse = {
-  timestamp: number;
-  use: 'Rejuvenation' | 'Regrowth' | 'Wild Growth' | 'Expired' | 'Overwritten';
-};
 
 export default SoulOfTheForest;

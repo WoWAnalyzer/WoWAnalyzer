@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
@@ -33,7 +33,7 @@ class CombustionActiveTime extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
       this.onCombustionRemoved,
     );
     this.addEventListener(Events.fightend, this.onFinished);
@@ -43,7 +43,7 @@ class CombustionActiveTime extends Analyzer {
     const applyBuffs = this.eventHistory.last(
       1,
       undefined,
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
     );
     const buffApplied = applyBuffs[0]?.timestamp ?? this.owner.fight.start_time;
     const uptime = this.filteredActiveTime.getActiveTime(buffApplied, event.timestamp);
@@ -60,7 +60,7 @@ class CombustionActiveTime extends Analyzer {
   }
 
   get buffUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.COMBUSTION.id);
+    return this.selectedCombatant.getBuffUptime(TALENTS.COMBUSTION_TALENT.id);
   }
 
   get percentActiveTime() {
@@ -72,7 +72,9 @@ class CombustionActiveTime extends Analyzer {
   }
 
   get averageDowntime() {
-    return this.downtimeSeconds / this.abilityTracker.getAbility(SPELLS.COMBUSTION.id).casts;
+    return (
+      this.downtimeSeconds / this.abilityTracker.getAbility(TALENTS.COMBUSTION_TALENT.id).casts
+    );
   }
 
   get combustionActiveTimeThresholds() {
@@ -93,15 +95,15 @@ class CombustionActiveTime extends Analyzer {
         <>
           You spent {formatNumber(this.downtimeSeconds)} seconds (
           {formatNumber(this.averageDowntime)}s per cast) not casting anything while{' '}
-          <SpellLink id={SPELLS.COMBUSTION.id} /> was active. Because a large portion of your damage
-          comes from Combustion, you should ensure that you are getting the most out of it every
-          time it is cast. While sometimes this is out of your control (you got targeted by a
-          mechanic at the worst possible time), you should try to minimize that risk by casting{' '}
-          <SpellLink id={SPELLS.COMBUSTION.id} /> when you are at a low risk of being interrupted or
-          when the target is vulnerable.
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> was active. Because a large portion of
+          your damage comes from Combustion, you should ensure that you are getting the most out of
+          it every time it is cast. While sometimes this is out of your control (you got targeted by
+          a mechanic at the worst possible time), you should try to minimize that risk by casting{' '}
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> when you are at a low risk of being
+          interrupted or when the target is vulnerable.
         </>,
       )
-        .icon(SPELLS.COMBUSTION.icon)
+        .icon(TALENTS.COMBUSTION_TALENT.icon)
         .actual(
           <Trans id="mage.frost.suggestions.combustion.combustionActiveTime">
             {formatPercentage(this.percentActiveTime)}% Active Time during Combustion
@@ -166,7 +168,7 @@ class CombustionActiveTime extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.COMBUSTION.id}>
+        <BoringSpellValueText spellId={TALENTS.COMBUSTION_TALENT.id}>
           {formatPercentage(this.percentActiveTime)}% <small>Combustion Active Time</small>
           <br />
           {this.combustionPreCastDelay.combustionCastDelayThresholds.actual.toFixed(2)}s{' '}

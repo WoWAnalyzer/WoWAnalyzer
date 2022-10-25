@@ -22,6 +22,7 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: EventType.Cast,
     referencedEventId: [
       SPELLS.REJUVENATION.id,
+      SPELLS.REJUVENATION_GERMINATION.id,
       SPELLS.REGROWTH.id,
       SPELLS.WILD_GROWTH.id,
       SPELLS.RENEWING_BLOOM.id,
