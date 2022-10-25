@@ -12,6 +12,7 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { SpellLink } from 'interface';
 
 const UPLIFTED_SPIRITS_REDUCTION = 1000;
 
@@ -24,6 +25,8 @@ class UpliftedSpirits extends Analyzer {
     healingDone: HealingDone,
   };
   cooldownReductionUsed: number = 0;
+  totalRskCdr: number = 0;
+  totalVivifyCdr: number = 0;
   cooldownReductionWasted: number = 0;
   activeTalent!: Talent;
   protected spellUsable!: SpellUsable;
@@ -39,9 +42,10 @@ class UpliftedSpirits extends Analyzer {
       ? TALENTS_MONK.REVIVAL_TALENT
       : TALENTS_MONK.RESTORAL_TALENT;
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK_SECOND),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK_DAMAGE),
       this.rskHit,
     );
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivifyHit);
   }
 
   rskHit(event: DamageEvent) {
@@ -54,6 +58,7 @@ class UpliftedSpirits extends Analyzer {
     } else {
       this.cooldownReductionWasted += UPLIFTED_SPIRITS_REDUCTION;
     }
+    this.totalRskCdr += UPLIFTED_SPIRITS_REDUCTION;
   }
 
   vivifyHit(event: HealEvent) {
@@ -68,6 +73,7 @@ class UpliftedSpirits extends Analyzer {
     } else {
       this.cooldownReductionWasted += UPLIFTED_SPIRITS_REDUCTION;
     }
+    this.totalVivifyCdr += UPLIFTED_SPIRITS_REDUCTION;
   }
 
   get usHealing() {
@@ -90,6 +96,12 @@ class UpliftedSpirits extends Analyzer {
             Effective Cooldown Reduction: {formatNumber(this.cooldownReductionUsed / 1000)} Seconds
             <br />
             Wasted Cooldown Reduction: {formatNumber(this.cooldownReductionWasted / 1000)} Seconds
+            <br />
+            Total reduction from <SpellLink id={SPELLS.VIVIFY.id} />:{' '}
+            {formatNumber(this.totalVivifyCdr / 1000)} Seconds
+            <br />
+            Total reduction from <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />:{' '}
+            {formatNumber(this.totalRskCdr / 1000)} Seconds
           </>
         }
       >

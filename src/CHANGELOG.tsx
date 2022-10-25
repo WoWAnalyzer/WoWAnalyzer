@@ -1,7 +1,7 @@
 import { change, date } from 'common/changelog';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import { TALENTS_PRIEST } from 'common/TALENTS';
+import { TALENTS_MAGE, TALENTS_PRIEST } from 'common/TALENTS';
 import {
   Abelito75,
   acornellier,
@@ -22,6 +22,7 @@ import {
   Haelrail,
   HolySchmidt,
   Jafowler,
+  jazminite,
   jos3p,
   joshinator,
   Juko8,
@@ -57,7 +58,9 @@ import {
   ToppleTheNun,
   Vetyst,
   Chizu,
-  Tyndi
+  Tyndi,
+  Khadaj,
+  Jonfanz,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
@@ -65,7 +68,21 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
-  change(date(2022, 10, 13), 'Update stat scaling values for DF prepatch - and add values to easily swap over after prepatch ends', Putro),
+  change(date(2022, 10, 25), 'Update stat scaling values for DF prepatch - and add values to easily swap over after prepatch ends', Putro),
+  change(date(2022, 10, 24), 'Updating WOTLK Foods, adding food suggestions', Khadaj),
+  change(date(2022, 10, 22), 'Add BiS Warlock Chest Enchant to Max enchants', jazminite),
+  change(date(2022, 10, 22), 'Updating WOTLK to use custom spell definitions.', Khadaj),
+  change(date(2022, 10, 22), 'Correct some issues with talent generation', Putro),
+  change(date(2022, 10, 22), 'Updating Flask and Elixir list for WOTLK.', Khadaj),
+  change(date(2022, 10, 22), 'Removing weapon enhancement checker for WOTLK.', Khadaj),
+  change(date(2022, 10, 22), 'Updating Enchant list for WOTLK Classic.', Khadaj),
+  change(date(2022, 10, 17), 'Use generated talent info for character pages.', ToppleTheNun),
+  change(date(2022, 10, 16), 'Update SpellLink to accept Spell instances.', ToppleTheNun),
+  change(date(2022, 10, 16), 'Add ability to determine if wearing T29 2pc or 4pc.', ToppleTheNun),
+  change(date(2022, 10, 16), 'Adding sourceInstance to BuffEvent', Jonfanz),
+  change(date(2022, 10, 14), 'Updates to EventLinkNormalizer to allow for more advanced usage.', Sref),
+  change(date(2022, 10, 13), 'Adding Hyperspeed Accelerators to WOTLK analysis.', Khadaj),
+  change(date(2022, 10, 13), 'Adding Frag Belt to WOTLK analysis.', Khadaj),
   change(date(2022, 10, 11), 'Remove Effusive Anima Accelerator analyzer.', ToppleTheNun),
   change(date(2022, 10, 11), 'Remove conduits and soulbinds from character page.', ToppleTheNun),
   change(date(2022, 10, 11), 'Convert Discord button to TypeScript.', ToppleTheNun),
@@ -107,7 +124,7 @@ export default [
   change(date(2022, 8, 8), 'Display equiped set pieces on tooltip.', Vetyst),
   change(date(2022, 8, 7), 'Update Buff tracking to TypeScript.', ToppleTheNun),
   change(date(2022, 8, 4), <>Add support for <ItemLink id={ITEMS.CACHE_OF_ACQUIRED_TREASURES.id}/>.</>, ToppleTheNun),
-  change(date(2022, 8, 3), <>Add spellsteal event for Mage's <SpellLink id={SPELLS.SPELLSTEAL.id} />.</>, Vetyst),
+  change(date(2022, 8, 3), <>Add spellsteal event for Mage's <SpellLink id={TALENTS_MAGE.SPELLSTEAL_TALENT.id} />.</>, Vetyst),
   change(date(2022, 7, 26), 'Updated translations and corrected some translation values in various places', Putro),
   change(date(2022, 7, 22), 'Show Death Knight Runeforge enchants on character overview.', Vetyst),
   change(date(2022, 7, 22), 'Add create event for handling spells like Demonic Circle.', ToppleTheNun),

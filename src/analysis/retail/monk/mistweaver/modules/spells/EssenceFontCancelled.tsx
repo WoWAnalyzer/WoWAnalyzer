@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, EndChannelEvent } from 'parser/core/Events';
@@ -24,12 +23,12 @@ class EssenceFontCancelled extends Analyzer {
     super(options);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
       this.castEssenceFont,
     );
 
     this.addEventListener(
-      Events.EndChannel.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT),
+      Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
       this.handleEndChannel,
     );
     this.hasUpwelling = this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT.id);
@@ -45,6 +44,10 @@ class EssenceFontCancelled extends Analyzer {
       );
     }
     this.expected_duration = (3000 + extra_secs * 1000) / (1 + this.haste.current!);
+    // TFT ef has half duration
+    if (this.selectedCombatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)) {
+      this.expected_duration /= 2;
+    }
     this.last_ef_time = event.timestamp;
     this.last_ef = event;
   }
@@ -77,7 +80,7 @@ class EssenceFontCancelled extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(<>You cancelled Essence Font</>)
-        .icon(SPELLS.ESSENCE_FONT.icon)
+        .icon(TALENTS_MONK.ESSENCE_FONT_TALENT.icon)
         .actual(
           `${this.cancelled_ef} ${t({
             id: 'monk.mistweaver.suggestions.essenceFont.cancelledCasts',

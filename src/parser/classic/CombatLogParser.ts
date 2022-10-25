@@ -1,7 +1,6 @@
 import Channeling from 'parser/shared/normalizers/Channeling';
 import FlaskChecker from 'parser/classic/modules/items/FlaskChecker';
 import FoodChecker from 'parser/classic/modules/items/FoodChecker';
-import WeaponEnhancementChecker from 'parser/classic/modules/items/WeaponEnhancementChecker';
 
 import BaseCombatLogParser, { DependenciesDefinition } from '../core/CombatLogParser';
 import Abilities from '../core/modules/Abilities';
@@ -43,6 +42,8 @@ import PreparationRuleAnalyzer from './modules/features/Checklist/PreparationRul
 import CombatPotionChecker from './modules/items/CombatPotionChecker';
 import EnchantChecker from './modules/items/EnchantChecker';
 import ManaGained from './statistic/ManaGained';
+import HyperspeedAccelerators from './modules/items/engineering/HyperspeedAccelerators';
+import FragBelt from 'parser/classic/modules/items/engineering/FragBelt';
 
 class CombatLogParser extends BaseCombatLogParser {
   static defaultModules: DependenciesDefinition = {
@@ -67,7 +68,6 @@ class CombatLogParser extends BaseCombatLogParser {
     foodChecker: FoodChecker,
     enchantChecker: EnchantChecker,
     flaskChecker: FlaskChecker,
-    weaponEnhancementChecker: WeaponEnhancementChecker,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     combatPotionChecker: CombatPotionChecker,
 
@@ -101,6 +101,10 @@ class CombatLogParser extends BaseCombatLogParser {
 
     // Migrated Functional Statistics
     manaGained: ManaGained,
+
+    // Engineering
+    hyperspeedAccelerators: HyperspeedAccelerators,
+    fragBelt: FragBelt,
   };
 }
 

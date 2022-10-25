@@ -20,7 +20,10 @@ import DRUID from './druid';
 import ENCOUNTER from './encounter';
 import EVOKER from './evoker';
 import HUNTER from './hunter';
-import MAGE from './mage';
+import MAGE from 'analysis/retail/mage/shared/SPELLS';
+import ARCANE_MAGE from 'analysis/retail/mage/arcane/SPELLS';
+import FIRE_MAGE from 'analysis/retail/mage/fire/SPELLS';
+import FROST_MAGE from 'analysis/retail/mage/frost/SPELLS';
 import MONK from './monk';
 import OTHERS from './others';
 import PALADIN from './paladin';
@@ -32,6 +35,8 @@ import SHAMAN from './shaman';
 import Spell, { Enchant } from './Spell';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
+import Expansion from 'game/Expansion';
+import { maybeGetSpell as maybeGetClassicSpell } from 'common/SPELLS/classic';
 
 const ABILITIES = {
   ...OTHERS,
@@ -43,6 +48,9 @@ const ABILITIES = {
   ...EVOKER,
   ...HUNTER,
   ...MAGE,
+  ...ARCANE_MAGE,
+  ...FIRE_MAGE,
+  ...FROST_MAGE,
   ...MONK,
   ...PALADIN,
   ...PRIEST,
@@ -91,8 +99,16 @@ const SPELLS = new Proxy(InternalSpellTable, {
 });
 
 export default SPELLS;
-export const maybeGetSpell = (key: string | number | undefined): Spell | undefined =>
-  key ? InternalSpellTable[key as any] : undefined;
+
+export function maybeGetSpell(
+  key: string | number | undefined,
+  expansion = Expansion.Dragonflight,
+): Spell | undefined {
+  if (expansion === Expansion.WrathOfTheLichKing) {
+    return maybeGetClassicSpell(key);
+  }
+  return key ? InternalSpellTable[key as any] : undefined;
+}
 
 export const registerSpell = (id: number, name: string, icon: string) => {
   if (InternalSpellTable[id]) {

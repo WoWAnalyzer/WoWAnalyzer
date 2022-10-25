@@ -25,7 +25,7 @@ class FrailtyDebuff extends Analyzer {
       this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id) ||
       this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FRAILTY_TALENT.id) ||
       this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.VOID_REAVER_TALENT.id) ||
-      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.THE_WEAK_WILLED_TALENT.id);
+      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SOULCRUSH_TALENT.id);
   }
 
   get uptime() {

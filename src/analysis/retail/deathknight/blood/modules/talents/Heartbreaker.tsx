@@ -1,5 +1,5 @@
 import { t, Trans } from '@lingui/macro';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, ResourceChangeEvent } from 'parser/core/Events';
@@ -17,12 +17,18 @@ class Heartbreaker extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.HEARTBREAKER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HEARTBREAKER_TALENT.id);
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEART_STRIKE), this.onCast);
-    this.addEventListener(Events.resourcechange.spell(SPELLS.HEARTBREAKER), this.onEnergize);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HEART_STRIKE_TALENT),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.resourcechange.spell(TALENTS.HEARTBREAKER_TALENT),
+      this.onEnergize,
+    );
   }
 
   onCast(event: CastEvent) {
@@ -59,7 +65,7 @@ class Heartbreaker extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.HEARTBREAKER_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.HEARTBREAKER_TALENT.id}>
           <BoringResourceValue
             resource={RESOURCE_TYPES.RUNIC_POWER}
             value={this.totalRPGained}

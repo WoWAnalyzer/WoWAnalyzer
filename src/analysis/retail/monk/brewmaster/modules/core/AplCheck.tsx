@@ -8,7 +8,6 @@ import {
   targetsHit,
   buffPresent,
   buffMissing,
-  hasConduit,
   optional,
   hasTalent,
 } from 'parser/shared/metrics/apl/conditions';
@@ -20,6 +19,10 @@ export const apl = build([
   {
     spell: talents.KEG_SMASH_TALENT,
     condition: buffPresent(talents.WEAPONS_OF_ORDER_TALENT),
+  },
+  {
+    spell: talents.KEG_SMASH_TALENT,
+    condition: cnd.targetsHit({ atLeast: 2 }),
   },
   talents.RISING_SUN_KICK_TALENT,
   {
@@ -67,14 +70,13 @@ export const apl = build([
   {
     spell: SPELLS.SPINNING_CRANE_KICK_BRM,
     condition: optional(
-      hasConduit(SPELLS.WALK_WITH_THE_OX),
+      hasTalent(talents.WALK_WITH_THE_OX_TALENT),
       <>
         It is worthwhile to cast <SpellLink id={SPELLS.SPINNING_CRANE_KICK_BRM.id} /> over{' '}
         <SpellLink id={SPELLS.TIGER_PALM.id} /> when using this conduit <em>if</em> doing so would
-        get you an extra cast of{' '}
-        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id} /> that lines up
-        with incoming damage. We cannot check this automatically, and be warned that it is a small
-        defensive loss due to the loss of Brew cooldown reduction.
+        get you an extra cast of <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} />{' '}
+        that lines up with incoming damage. We cannot check this automatically, and be warned that
+        it is a small defensive loss due to the loss of Brew cooldown reduction.
       </>,
     ),
   },

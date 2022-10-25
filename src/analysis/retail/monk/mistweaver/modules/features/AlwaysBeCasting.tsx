@@ -9,19 +9,19 @@ import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHea
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   HEALING_ABILITIES_ON_GCD: number[] = [
-    SPELLS.ENVELOPING_MIST.id,
-    SPELLS.ESSENCE_FONT.id,
-    SPELLS.RENEWING_MIST.id,
+    TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
+    TALENTS_MONK.ESSENCE_FONT_TALENT.id,
+    TALENTS_MONK.RENEWING_MIST_TALENT.id,
     SPELLS.VIVIFY.id,
     TALENTS_MONK.REVIVAL_TALENT.id,
     TALENTS_MONK.RESTORAL_TALENT.id,
     TALENTS_MONK.CHI_BURST_TALENT.id,
     TALENTS_MONK.CHI_WAVE_TALENT.id,
     TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id,
-    SPELLS.SOOTHING_MIST.id,
+    TALENTS_MONK.SOOTHING_MIST_TALENT.id,
     TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
     SPELLS.EXPEL_HARM.id,
-    SPELLS.INVOKE_YULON_THE_JADE_SERPENT.id,
+    TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id,
     //covenants
     SPELLS.WEAPONS_OF_ORDER_CAST.id,
     SPELLS.BONEDUST_BREW_CAST.id,
@@ -31,8 +31,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   constructor(options: Options) {
     super(options);
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
-      this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK.id);
-      this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK_SECOND.id);
+      this.HEALING_ABILITIES_ON_GCD.push(TALENTS_MONK.RISING_SUN_KICK_TALENT.id);
+      this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK_DAMAGE.id);
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)) {
       this.addEventListener(
@@ -43,23 +43,23 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT)) {
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.TIGER_PALM.id);
-      this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK.id);
-      this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK_SECOND.id);
+      this.HEALING_ABILITIES_ON_GCD.push(TALENTS_MONK.RISING_SUN_KICK_TALENT.id);
+      this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK_DAMAGE.id);
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.BLACKOUT_KICK.id);
     }
   }
 
   handleChijiStart(event: CastEvent) {
     this.HEALING_ABILITIES_ON_GCD.push(SPELLS.TIGER_PALM.id);
-    this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK.id);
-    this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK_SECOND.id);
+    this.HEALING_ABILITIES_ON_GCD.push(TALENTS_MONK.RISING_SUN_KICK_TALENT.id);
+    this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK_DAMAGE.id);
     this.HEALING_ABILITIES_ON_GCD.push(SPELLS.BLACKOUT_KICK.id);
   }
 
   handleChijiDeath(event: DeathEvent) {
     const tpSpot = this.HEALING_ABILITIES_ON_GCD.indexOf(SPELLS.TIGER_PALM.id);
-    const rskSpot = this.HEALING_ABILITIES_ON_GCD.indexOf(SPELLS.RISING_SUN_KICK.id);
-    const rskTwoSpot = this.HEALING_ABILITIES_ON_GCD.indexOf(SPELLS.RISING_SUN_KICK_SECOND.id);
+    const rskSpot = this.HEALING_ABILITIES_ON_GCD.indexOf(TALENTS_MONK.RISING_SUN_KICK_TALENT.id);
+    const rskTwoSpot = this.HEALING_ABILITIES_ON_GCD.indexOf(SPELLS.RISING_SUN_KICK_DAMAGE.id);
     const bokSpot = this.HEALING_ABILITIES_ON_GCD.indexOf(SPELLS.BLACKOUT_KICK.id);
     //if tp isn't there then we don't want to mess with this
     if (tpSpot === -1) {

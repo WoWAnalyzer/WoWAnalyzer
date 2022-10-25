@@ -7,6 +7,7 @@ import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
+import TALENTS from 'common/TALENTS/warrior';
 
 const debug = false;
 
@@ -16,8 +17,8 @@ class ShieldBlock extends Analyzer {
   shieldBlocksOverall: OverallData[] = [];
   goodCast = 0;
   badCast = 0;
-  bolster = this.selectedCombatant.hasTalent(SPELLS.BOLSTER_TALENT.id);
-  ssNeeded = !this.selectedCombatant.hasTalent(SPELLS.DEVASTATOR_TALENT.id) ? 0 : 1;
+  bolster = this.selectedCombatant.hasTalent(TALENTS.BOLSTER_TALENT.id);
+  ssNeeded = !this.selectedCombatant.hasTalent(TALENTS.DEVASTATOR_TALENT.id) ? 0 : 1;
 
   constructor(options: Options) {
     super(options);

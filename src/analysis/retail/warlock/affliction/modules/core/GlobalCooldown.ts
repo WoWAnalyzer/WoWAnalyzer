@@ -7,7 +7,7 @@ import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
  */
 class GlobalCooldown extends CoreGlobalCooldown {
   onCast(event: CastEvent) {
-    if (event.ability.guid === SPELLS.DRAIN_SOUL_TALENT.id) {
+    if (event.ability.guid === SPELLS.DRAIN_SOUL_DEBUFF.id) {
       // This GCD gets handled by the `beginchannel` event
       return;
     }

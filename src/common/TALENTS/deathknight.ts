@@ -17,6 +17,7 @@ const talents = createTalentList({
     maxRanks: 1,
     runicPowerCost: 45,
   },
+  RAISE_DEAD_SHARED_TALENT: { id: 46585, name: 'Raise Dead', icon: 'inv_pet_ghoul', maxRanks: 1 },
   MIND_FREEZE_TALENT: {
     id: 47528,
     name: 'Mind Freeze',
@@ -255,6 +256,12 @@ const talents = createTalentList({
     icon: 'inv_sword_1h_felfireraid_d_01',
     maxRanks: 2,
   },
+  EMPOWER_RUNE_WEAPON_SHARED_TALENT: {
+    id: 392962,
+    name: 'Empower Rune Weapon',
+    icon: 'inv_sword_62',
+    maxRanks: 1,
+  },
   ABOMINATION_LIMB_TALENT: {
     id: 383269,
     name: 'Abomination Limb',
@@ -268,13 +275,6 @@ const talents = createTalentList({
     maxRanks: 1,
     runesCost: 1,
   },
-  EMPOWER_RUNE_WEAPON_SHARED_TALENT: {
-    id: 392962,
-    name: 'Empower Rune Weapon',
-    icon: 'inv_sword_62',
-    maxRanks: 1,
-  },
-  RAISE_DEAD_SHARED_TALENT: { id: 46585, name: 'Raise Dead', icon: 'inv_pet_ghoul', maxRanks: 1 },
 
   //Frost
   FROST_STRIKE_TALENT: {
@@ -410,7 +410,7 @@ const talents = createTalentList({
     name: 'Chill Streak',
     icon: 'spell_frost_piercing_chill',
     maxRanks: 1,
-    runicPowerCost: 40,
+    runesCost: 1,
   },
   MURDEROUS_EFFICIENCY_TALENT: {
     id: 207061,
@@ -705,7 +705,7 @@ const talents = createTalentList({
   SHATTERING_BONE_TALENT: {
     id: 377640,
     name: 'Shattering Bone',
-    icon: 'ability_deathknight_boneshield',
+    icon: 'ability_deathknight_shatteringbone',
     maxRanks: 2,
   },
   HEARTREND_TALENT: {
@@ -827,18 +827,18 @@ const talents = createTalentList({
     icon: 'artifactability_unholydeathknight_deathsembrace',
     maxRanks: 1,
   },
+  PLAGUEBRINGER_TALENT: {
+    id: 390175,
+    name: 'Plaguebringer',
+    icon: 'spell_deathknight_plaguestrike',
+    maxRanks: 1,
+  },
   CLAWING_SHADOWS_TALENT: {
     id: 207311,
     name: 'Clawing Shadows',
     icon: 'warlock_curse_shadow',
     maxRanks: 1,
     runesCost: 1,
-  },
-  PLAGUEBRINGER_TALENT: {
-    id: 390175,
-    name: 'Plaguebringer',
-    icon: 'spell_deathknight_plaguestrike',
-    maxRanks: 1,
   },
   SUDDEN_DOOM_TALENT: {
     id: 49530,

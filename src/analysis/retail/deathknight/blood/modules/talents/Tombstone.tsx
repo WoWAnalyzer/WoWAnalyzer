@@ -1,6 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -45,26 +45,26 @@ class Tombstone extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.TOMBSTONE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.TOMBSTONE_TALENT.id);
 
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.TOMBSTONE_TALENT),
+      Events.applybuff.to(SELECTED_PLAYER).spell(TALENTS.TOMBSTONE_TALENT),
       this.onApplyBuff,
     );
     this.addEventListener(
-      Events.resourcechange.to(SELECTED_PLAYER).spell(SPELLS.TOMBSTONE_TALENT),
+      Events.resourcechange.to(SELECTED_PLAYER).spell(TALENTS.TOMBSTONE_TALENT),
       this.onEnergize,
     );
     this.addEventListener(
-      Events.absorbed.to(SELECTED_PLAYER).spell(SPELLS.TOMBSTONE_TALENT),
+      Events.absorbed.to(SELECTED_PLAYER).spell(TALENTS.TOMBSTONE_TALENT),
       this.onAbsorb,
     );
     this.addEventListener(
-      Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.TOMBSTONE_TALENT),
+      Events.removebuff.to(SELECTED_PLAYER).spell(TALENTS.TOMBSTONE_TALENT),
       this.onRemoveBuff,
     );
   }
@@ -117,11 +117,11 @@ class Tombstone extends Analyzer {
     when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="deathknight.blood.tombstone.suggestion.suggestion">
-          You casted {this.wastedCasts} <SpellLink id={SPELLS.TOMBSTONE_TALENT.id} /> with less than
-          5 charges causing a reduced absorb shield.
+          You casted {this.wastedCasts} <SpellLink id={TALENTS.TOMBSTONE_TALENT.id} /> with less
+          than 5 charges causing a reduced absorb shield.
         </Trans>,
       )
-        .icon(SPELLS.TOMBSTONE_TALENT.icon)
+        .icon(TALENTS.TOMBSTONE_TALENT.icon)
         .actual(
           t({
             id: 'deathknight.blood.tombstone.suggestion.actual',
@@ -199,7 +199,7 @@ class Tombstone extends Analyzer {
           </table>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.TOMBSTONE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.TOMBSTONE_TALENT.id}>
           <Trans id="deathknight.blood.tombstone.statistic">
             {this.wastedCasts} <small>Bad Casts</small>
           </Trans>

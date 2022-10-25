@@ -18,13 +18,11 @@ import PowerSiphonHandler from './modules/pets/DemoPets/PowerSiphonHandler';
 import WildImpEnergyHandler from './modules/pets/DemoPets/WildImpEnergyHandler';
 import PrepullPetNormalizer from './modules/pets/normalizers/PrepullPetNormalizer';
 import SummonOrderNormalizer from './modules/pets/normalizers/SummonOrderNormalizer';
-import PetTimelineTab from './modules/pets/PetTimelineTab';
-import SoulShardDetails from './modules/soulshards/SoulShardDetails';
-import SoulShardTracker from './modules/soulshards/SoulShardTracker';
+import SoulShardDetails from './modules/resources/SoulShardDetails';
+import SoulShardTracker from './modules/resources/SoulShardTracker';
 import TalentStatisticBox from './modules/talents';
 import BilescourgeBombers from './modules/talents/BilescourgeBombers';
 import DemonicCalling from './modules/talents/DemonicCalling';
-import DemonicConsumption from './modules/talents/DemonicConsumption';
 import DemonicStrength from './modules/talents/DemonicStrength';
 import Doom from './modules/talents/Doom';
 import Dreadlash from './modules/talents/Dreadlash';
@@ -63,7 +61,6 @@ class CombatLogParser extends CoreCombatLogParser {
     powerSiphonHandler: PowerSiphonHandler,
     demonicTyrantHandler: DemonicTyrantHandler,
     implosionHandler: ImplosionHandler,
-    petTimelineTab: PetTimelineTab,
     summonOrderNormalizer: SummonOrderNormalizer,
     prepullPetNormalizer: PrepullPetNormalizer,
 
@@ -85,7 +82,6 @@ class CombatLogParser extends CoreCombatLogParser {
     doom: Doom,
     grimoireFelguard: GrimoireFelguard,
     sacrificedSouls: SacrificedSouls,
-    demonicConsumption: DemonicConsumption,
     netherPortal: NetherPortal,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown

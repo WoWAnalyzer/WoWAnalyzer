@@ -131,9 +131,9 @@ const talents = createTalentList({
     icon: 'inv_helm_mail_dracthyrquest_b_02',
     maxRanks: 2,
   },
-  TEMPERED_SCALES_TALENT: {
+  INHERENT_RESISTANCE_TALENT: {
     id: 375544,
-    name: 'Tempered Scales',
+    name: 'Inherent Resistance',
     icon: 'inv_misc_rubysanctum1',
     maxRanks: 2,
   },
@@ -161,12 +161,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_firebreath',
     maxRanks: 2,
   },
-  EXUBERANCE_TALENT: {
-    id: 375542,
-    name: 'Exuberance',
-    icon: 'achievement_guildperk_mountup',
-    maxRanks: 1,
-  },
+  EXUBERANCE_TALENT: { id: 375542, name: 'Exuberance', icon: 'ability_evoker_hover2', maxRanks: 1 },
   SOURCE_OF_MAGIC_TALENT: {
     id: 369459,
     name: 'Source of Magic',
@@ -272,16 +267,16 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   ZEPHYR_TALENT: { id: 374227, name: 'Zephyr', icon: 'ability_evoker_hoverblack', maxRanks: 1 },
-  ESSENCE_ATTUNEMENT_TALENT: {
-    id: 375722,
-    name: 'Essence Attunement',
-    icon: 'ability_evoker_essenceburststacks',
-    maxRanks: 1,
-  },
   POWER_NEXUS_TALENT: {
     id: 369908,
     name: 'Power Nexus',
     icon: 'ability_evoker_powernexus',
+    maxRanks: 1,
+  },
+  ESSENCE_ATTUNEMENT_TALENT: {
+    id: 375722,
+    name: 'Essence Attunement',
+    icon: 'ability_evoker_essenceburststacks',
     maxRanks: 1,
   },
   FONT_OF_MAGIC_TALENT: {
@@ -489,9 +484,9 @@ const talents = createTalentList({
     icon: 'spell_fire_burnout',
     maxRanks: 1,
   },
-  CASCADING_POWER_TALENT: {
+  HOARDED_POWER_TALENT: {
     id: 375796,
-    name: 'Cascading Power',
+    name: 'Hoarded Power',
     icon: 'ability_evoker_innatemagic2',
     maxRanks: 1,
   },
@@ -635,7 +630,7 @@ const talents = createTalentList({
     id: 376179,
     name: 'Lifeforce Mender',
     icon: 'ability_evoker_dragonrage2',
-    maxRanks: 3,
+    maxRanks: 2,
   },
   TIME_LORD_TALENT: {
     id: 372527,
@@ -661,8 +656,8 @@ const talents = createTalentList({
     icon: 'inv_misc_head_dragon_bronze',
     maxRanks: 1,
   },
-  LIFEBIND_TALENT: { id: 373270, name: 'Lifebind', icon: 'ability_evoker_hoverred', maxRanks: 1 },
   CALL_OF_YSERA_TALENT: { id: 373834, name: 'Call of Ysera', icon: '', maxRanks: 1 },
+  LIFEBIND_TALENT: { id: 373270, name: 'Lifebind', icon: 'ability_evoker_hoverred', maxRanks: 1 },
   PUNCTUALITY_TALENT: {
     id: 371270,
     name: 'Punctuality',

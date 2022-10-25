@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { ResourceChangeEvent } from 'parser/core/Events';
@@ -13,7 +14,10 @@ class Aftershock extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.AFTERSHOCK_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.AFTERSHOCK_TALENT.id);
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(Events.resourcechange.spell(SPELLS.AFTERSHOCK), this.onAftershock);
   }
@@ -29,7 +33,7 @@ class Aftershock extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.AFTERSHOCK_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.AFTERSHOCK_TALENT.id}>
           <>
             <ResourceGenerated resourceType={RESOURCE_TYPES.MAELSTROM} amount={this.refund} />
           </>

@@ -17,7 +17,9 @@ import HotTrackerMW from '../core/HotTrackerMW';
 
 const debug = false;
 
+const ENVELOPING_MIST_HARDCAST = 'Enveloping Mist Hardcast';
 const RISING_MIST_EXTENSION = 4000;
+const RENEWING_MIST_HARDCAST = 'Renewing Mist Hardcast';
 
 const UNAFFECTED_SPELLS = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
@@ -31,11 +33,14 @@ class RisingMist extends Analyzer {
   }
 
   get hotHealing() {
-    const array = this.hotTracker.hotHistory;
     let value = 0;
-    for (let i = 0; i < array.length; i += 1) {
-      value += array[i].healingAfterOriginalEnd || 0;
-    }
+    this.hotTracker.hotHistory.forEach(
+      function (hot) {
+        if (this.hotTracker.fromHardcast(hot)) {
+          value += hot.healingAfterOriginalEnd || 0;
+        }
+      }.bind(this),
+    );
     return value;
   }
 
@@ -86,9 +91,9 @@ class RisingMist extends Analyzer {
   };
   risingMistCount = 0;
   risingMists = [];
-  efsExtended = 0;
   remCount = 0;
   efCount = 0;
+  flsEfCount = 0;
   evmCount = 0;
   targetCount = 0;
   trackUplift = false;
@@ -121,23 +126,32 @@ class RisingMist extends Analyzer {
       this.extendHots,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleVivify);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.calculateEvn); //gotta just look at all heals tbh
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.calculateEnv); //gotta just look at all heals tbh
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
       this.handleMastery,
     );
   }
 
+  hasAttribution(attributions, name) {
+    return attributions.some(function (attr) {
+      return attr.name === name;
+    });
+  }
+
   handleMastery(event) {
     const targetId = event.targetID;
     if (
       !this.hotTracker.hots[targetId] ||
-      !this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id]
+      (!this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id] &&
+        !this.hotTracker.hots[targetId][SPELLS.FAELINE_STOMP_ESSENCE_FONT.id])
     ) {
       return;
     }
 
-    const object = this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id];
+    const object = this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id]
+      ? this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id]
+      : this.hotTracker.hots[targetId][SPELLS.FAELINE_STOMP_ESSENCE_FONT.id];
 
     if (object.originalEnd < event.timestamp) {
       if (!this.masteryTickTock) {
@@ -150,18 +164,22 @@ class RisingMist extends Analyzer {
     }
   }
 
-  calculateEvn(event) {
+  calculateEnv(event) {
     const targetId = event.targetID;
     const spellId = event.ability.guid;
     if (
       !this.hotTracker.hots[targetId] ||
-      !this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id]
+      (!this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id] &&
+        !this.hotTracker.hots[targetId][SPELLS.ENVELOPING_MIST_TFT.id])
     ) {
       return;
     }
     const object = this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
-    if (UNAFFECTED_SPELLS.includes(spellId)) {
+    if (
+      !this.hasAttribution(object.attributions, ENVELOPING_MIST_HARDCAST) ||
+      UNAFFECTED_SPELLS.includes(spellId)
+    ) {
       return;
     }
 
@@ -180,7 +198,11 @@ class RisingMist extends Analyzer {
       return;
     }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
-    if (hot.originalEnd < event.timestamp && event.timestamp < hot.end) {
+    if (
+      this.hasAttribution(hot.attributions, RENEWING_MIST_HARDCAST) &&
+      hot.originalEnd < event.timestamp &&
+      event.timestamp < hot.end
+    ) {
       this.extraVivCleaves += 1;
       this.extraVivHealing += event.amount || 0;
       this.extraVivOverhealing += event.overheal || 0;
@@ -190,7 +212,7 @@ class RisingMist extends Analyzer {
 
   extendHots(event) {
     const spellId = event.ability.guid;
-    if (SPELLS.RISING_SUN_KICK.id !== spellId) {
+    if (TALENTS_MONK.RISING_SUN_KICK_TALENT.id !== spellId) {
       return;
     }
 
@@ -200,14 +222,17 @@ class RisingMist extends Analyzer {
     const newRisingMist = HotTracker.getNewAttribution(`RisingMist #${this.risingMistCount}`);
     this.risingMists.push(newRisingMist);
 
-    let foundEf = false;
     let foundTarget = false;
-
+    const untrackedSpells = [SPELLS.ESSENCE_FONT_BUFF.id, SPELLS.FAELINE_STOMP_ESSENCE_FONT.id];
     Object.keys(this.hotTracker.hots).forEach((playerId) => {
       Object.keys(this.hotTracker.hots[playerId]).forEach((spellIdString) => {
         const spellId = Number(spellIdString);
 
         const attribution = newRisingMist;
+        const hot = this.hotTracker.hots[playerId][spellId];
+        if (!untrackedSpells.includes(spellId) && !this.hotTracker.fromHardcast(hot)) {
+          return;
+        }
         this.hotTracker.addExtension(
           attribution,
           RISING_MIST_EXTENSION,
@@ -217,22 +242,23 @@ class RisingMist extends Analyzer {
         );
 
         if (spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
-          foundEf = true;
           foundTarget = true;
           this.efCount += 1;
+        } else if (spellId === SPELLS.FAELINE_STOMP_ESSENCE_FONT.id) {
+          foundTarget = true;
+          this.flsEfCount += 1;
         } else if (spellId === SPELLS.RENEWING_MIST_HEAL.id) {
           foundTarget = true;
           this.remCount += 1;
-        } else if (spellId === SPELLS.ENVELOPING_MIST.id) {
+        } else if (
+          spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id ||
+          spellId === SPELLS.ENVELOPING_MIST_TFT.id
+        ) {
           foundTarget = true;
           this.evmCount += 1;
         }
       });
     });
-
-    if (foundEf) {
-      this.efsExtended += 1;
-    }
     if (foundTarget) {
       this.targetCount += 1;
     }
@@ -252,7 +278,10 @@ class RisingMist extends Analyzer {
               <li>Rising Mist Direct Healing: {formatNumber(this.directHealing)}</li>
               <li>Average HoT Extension Seconds per cast: {this.averageExtension.toFixed(2)}</li>
               <ul>
-                <li>Essense Font HoTs Extended: {this.efCount}</li>
+                <li>Essence Font HoTs Extended: {this.efCount}</li>
+                {this.selectedCombatant.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT) && (
+                  <li>FLS Essence Font HoTs extended: {this.flsEfCount}</li>
+                )}
                 <li>Renewing Mist HoTs Extended: {this.remCount}</li>
                 <li>Enveloping Mist HoTs Extended: {this.evmCount}</li>
               </ul>

@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import { TALENTS_MONK } from 'common/TALENTS';
+import { TALENTS_MAGE, TALENTS_MONK } from 'common/TALENTS';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import {
   AnyEvent,
@@ -45,9 +45,9 @@ class Channeling extends EventsNormalizer {
     // Shadowlands Encounter
     buffChannelSpec(SPELLS.SOUL_INFUSION.id), // fight channel from Sun King's Salvation - see in this log: https://wowanalyzer.com/report/g4Pja6pLHnmQtbvk/32-Normal+Sun+King's+Salvation+-+Kill+(10:14)/Pjurbo/standard/events
     // Mage
-    buffChannelSpec(SPELLS.EVOCATION.id),
+    buffChannelSpec(TALENTS_MAGE.EVOCATION_TALENT.id),
     buffChannelSpec(SPELLS.SHIFTING_POWER.id),
-    nextCastChannelSpec(SPELLS.ARCANE_MISSILES.id),
+    nextCastChannelSpec(TALENTS_MAGE.ARCANE_MISSILES_TALENT.id),
     // Priest
     buffChannelSpec(TALENTS_PRIEST.DIVINE_HYMN_TALENT.id),
     nextCastChannelSpec(SPELLS.PENANCE_CAST.id),
@@ -58,8 +58,8 @@ class Channeling extends EventsNormalizer {
     buffChannelSpec(SPELLS.CONVOKE_SPIRITS.id),
     // Monk
     buffChannelSpec(TALENTS_MONK.ZEN_MEDITATION_TALENT.id),
-    buffChannelSpec(SPELLS.ESSENCE_FONT.id),
-    buffChannelSpec(SPELLS.SOOTHING_MIST.id),
+    buffChannelSpec(TALENTS_MONK.ESSENCE_FONT_TALENT.id),
+    buffChannelSpec(TALENTS_MONK.SOOTHING_MIST_TALENT.id),
     buffChannelSpec(SPELLS.CRACKLING_JADE_LIGHTNING.id),
     buffChannelSpec(SPELLS.FISTS_OF_FURY_CAST.id),
     // Demon Hunter

@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -23,7 +22,7 @@ class TimeBetweenRSKs extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RISING_SUN_KICK_TALENT),
       this.onRSK,
     );
   }
@@ -61,8 +60,8 @@ class TimeBetweenRSKs extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.RISING_SUN_KICK.id} /> Average Time Between Rising Sun Kick
-              casts
+              <SpellIcon id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> Average Time Between Rising
+              Sun Kick casts
             </>
           }
         >

@@ -58,11 +58,11 @@ class InvokeChiJi extends Analyzer {
       this.handleGust,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH_HEAL),
       this.handleEnvelopingBreath,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_MIST),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
       this.handleEnvelopCast,
     );
     this.addEventListener(
@@ -76,7 +76,7 @@ class InvokeChiJi extends Analyzer {
         .by(SELECTED_PLAYER)
         .spell([
           SPELLS.BLACKOUT_KICK,
-          SPELLS.RISING_SUN_KICK_SECOND,
+          SPELLS.RISING_SUN_KICK_DAMAGE,
           SPELLS.BLACKOUT_KICK_TOTM,
           SPELLS.SPINNING_CRANE_KICK_DAMAGE,
         ]),
@@ -89,7 +89,7 @@ class InvokeChiJi extends Analyzer {
     );
     this.addEventListener(Events.GlobalCooldown.by(SELECTED_PLAYER), this.handleGlobal);
     this.addEventListener(
-      Events.EndChannel.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT),
+      Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
       this.handleEssenceFontEnd,
     );
   }
@@ -112,7 +112,7 @@ class InvokeChiJi extends Analyzer {
       //if timebetween globals is longer than the gcd add the difference to the missed gcd tally
       //we only care about accounting for channels of essence font during WoO, other than that it should be the gcd during chiji
       if (
-        event.ability.guid === SPELLS.ESSENCE_FONT.id &&
+        event.ability.guid === TALENTS_MONK.ESSENCE_FONT_TALENT.id &&
         this.selectedCombatant.hasBuff(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id)
       ) {
         this.efGcd = event.duration;

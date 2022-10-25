@@ -3,11 +3,12 @@ import { createTalentList } from './types';
 
 const talents = createTalentList({
   //Shared
-  KILL_COMMAND_TALENT: {
-    id: 259489,
+  KILL_COMMAND_SHARED_TALENT: {
+    id: 34026,
     name: 'Kill Command',
     icon: 'ability_hunter_killcommand',
     maxRanks: 1,
+    focusCost: 30,
   },
   CONCUSSIVE_SHOT_TALENT: {
     id: 5116,
@@ -15,8 +16,8 @@ const talents = createTalentList({
     icon: 'spell_frost_stun',
     maxRanks: 1,
   },
-  KILL_SHOT_TALENT: {
-    id: 320976,
+  KILL_SHOT_SHARED_TALENT: {
+    id: 53351,
     name: 'Kill Shot',
     icon: 'ability_hunter_assassinate2',
     maxRanks: 1,
@@ -146,9 +147,9 @@ const talents = createTalentList({
     icon: 'ability_hunter_camouflage',
     maxRanks: 1,
   },
-  SENTINEL_OWL_TALENT: {
-    id: 388045,
-    name: 'Sentinel Owl',
+  SENTINEL_TALENT: {
+    id: 393505,
+    name: 'Sentinel',
     icon: 'ability_hunter_sentinelowl',
     maxRanks: 1,
   },
@@ -276,6 +277,20 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   HYDRAS_BITE_TALENT: { id: 260241, name: "Hydra's Bite", icon: 'inv_hydrasbite', maxRanks: 1 },
+  KILL_COMMAND_SURVIVAL_TALENT: {
+    id: 259489,
+    name: 'Kill Command',
+    icon: 'ability_hunter_killcommand',
+    maxRanks: 1,
+  },
+  KILL_SHOT_SURVIVAL_TALENT: {
+    id: 320976,
+    name: 'Kill Shot',
+    icon: 'ability_hunter_assassinate2',
+    maxRanks: 1,
+    focusCost: 10,
+  },
+  MUZZLE_TALENT: { id: 187707, name: 'Muzzle', icon: 'ability_hunter_negate', maxRanks: 1 },
   WAILING_ARROW_TALENT: {
     id: 392060,
     name: 'Wailing Arrow',
@@ -283,7 +298,6 @@ const talents = createTalentList({
     maxRanks: 1,
     focusCost: 15,
   },
-  MUZZLE_TALENT: { id: 187707, name: 'Muzzle', icon: 'ability_hunter_negate', maxRanks: 1 },
 
   //Marksmanship
   AIMED_SHOT_TALENT: {
@@ -308,7 +322,7 @@ const talents = createTalentList({
   PRECISE_SHOTS_TALENT: {
     id: 260240,
     name: 'Precise Shots',
-    icon: 'ability_hunter_focusedaim',
+    icon: 'ability_hunter_snipertraining',
     maxRanks: 2,
   },
   RAPID_FIRE_TALENT: {
@@ -378,6 +392,13 @@ const talents = createTalentList({
     name: 'Focused Aim',
     icon: 'ability_hunter_mastermarksman',
     maxRanks: 2,
+  },
+  MULTI_SHOT_MARKSMANSHIP_TALENT: {
+    id: 257620,
+    name: 'Multi-Shot',
+    icon: 'ability_upgrademoonglaive',
+    maxRanks: 1,
+    focusCost: 20,
   },
   RAZOR_FRAGMENTS_TALENT: {
     id: 384790,
@@ -499,13 +520,6 @@ const talents = createTalentList({
     name: "Windrunner's Guidance",
     icon: 'ability_hunter_laceration',
     maxRanks: 1,
-  },
-  MULTI_SHOT_MARKSMANSHIP_TALENT: {
-    id: 257620,
-    name: 'Multi-Shot',
-    icon: 'ability_upgrademoonglaive',
-    maxRanks: 1,
-    focusCost: 20,
   },
 
   //Beast Mastery

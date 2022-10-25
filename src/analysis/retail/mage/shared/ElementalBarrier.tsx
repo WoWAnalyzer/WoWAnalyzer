@@ -1,5 +1,5 @@
 import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import SPECS from 'game/SPECS';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent } from 'parser/core/Events';
@@ -29,10 +29,10 @@ class ElementalBarrier extends Analyzer {
     const spec = this.selectedCombatant.specId;
     this.barrierSpell =
       spec === SPECS.FROST_MAGE.id
-        ? SPELLS.ICE_BARRIER
+        ? TALENTS.ICE_BARRIER_TALENT
         : spec === SPECS.FIRE_MAGE.id
-        ? SPELLS.BLAZING_BARRIER
-        : SPELLS.PRISMATIC_BARRIER;
+        ? TALENTS.BLAZING_BARRIER_TALENT
+        : TALENTS.PRISMATIC_BARRIER_TALENT;
     this.addEventListener(
       Events.absorbed.by(SELECTED_PLAYER).spell(this.barrierSpell),
       this.onDamageAbsorbed,

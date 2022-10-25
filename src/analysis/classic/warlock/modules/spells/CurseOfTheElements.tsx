@@ -1,12 +1,11 @@
-import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import { SpellIcon, SpellLink } from 'interface';
+import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import UptimeBar from 'parser/ui/UptimeBar';
 
-import { CURSE_OF_AGONY, CURSE_OF_DOOM, CURSE_OF_THE_ELEMENTS } from '../../SPELLS';
+import { CURSE_OF_THE_ELEMENTS } from '../../SPELLS';
 
 class CurseOfTheElements extends Analyzer {
   static dependencies = {
@@ -15,12 +14,7 @@ class CurseOfTheElements extends Analyzer {
   protected enemies!: Enemies;
 
   get uptime() {
-    return (
-      (this.enemies.getBuffUptime(CURSE_OF_AGONY) +
-        this.enemies.getBuffUptime(CURSE_OF_DOOM) +
-        this.enemies.getBuffUptime(CURSE_OF_THE_ELEMENTS)) /
-      this.owner.fightDuration
-    );
+    return this.enemies.getBuffUptime(CURSE_OF_THE_ELEMENTS) / this.owner.fightDuration;
   }
 
   get suggestionThresholds() {
@@ -33,30 +27,6 @@ class CurseOfTheElements extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  suggestions(when: When) {
-    const slotsName = (
-      <Trans id="tbcwarlock.shared.curses.curseOfElements">Curse of Elements</Trans>
-    );
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <span>
-          <Trans id="shared.curseChecker.suggestions.tbcwarlock.label">
-            Your <SpellLink id={CURSE_OF_THE_ELEMENTS}>{slotsName}</SpellLink> uptime can be
-            improved. Try to pay more attention to your{' '}
-            <SpellLink id={CURSE_OF_THE_ELEMENTS}>{slotsName}</SpellLink> on the boss.
-          </Trans>
-        </span>,
-      )
-        .actual(
-          t({
-            id: 'priest.shadow.suggestions.vampiricTouch.uptime',
-            message: `${formatPercentage(actual)}% Vampiric Touch uptime`,
-          }),
-        )
-        .recommended(`>${formatPercentage(recommended)}% is recommended`),
-    );
   }
 
   subStatistic() {

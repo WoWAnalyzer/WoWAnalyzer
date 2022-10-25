@@ -6,19 +6,17 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
-import { ESSENTIAL_EXTRACTION_EFFECT_BY_RANK } from '../constants';
+import {
+  MOLTEN_ASSAULT_SCALING,
+  ESSENTIAL_EXTRACTION_EFFECT_BY_RANK,
+  ASCENDANCE_ID,
+} from '../constants';
 
-// TODO: Implement Totemic Surge - Rank 2
-// https://www.wowhead.com/beta/spell=381867/totemic-surge
-
-// TODO: Go With the Flow - Rank 2
-// https://www.wowhead.com/beta/spell=381678/go-with-the-flow
-
-// TODO: Molten Assult - Rank 2
-// https://www.wowhead.com/beta/spell=334033/molten-assault
-
-// TODO: Hot Hand - Rank 2
-// https://www.wowhead.com/beta/spell=201900/hot-hand
+import {
+  TOTEMIC_SURGE_SCALING,
+  GWTF_SW_SCALING,
+  GWTF_GOW_SCALING,
+} from 'analysis/retail/shaman/shared/constants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -34,7 +32,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.EARTHBIND_TOTEM.id,
         category: SPELL_CATEGORY.OTHERS,
-        cooldown: 30 - (combatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id) ? 2 : 0),
+        cooldown:
+          30 -
+          TOTEMIC_SURGE_SCALING[combatant.getTalentRank(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id)],
         gcd: {
           base: 1000,
         },
@@ -91,7 +91,9 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS_SHAMAN.LAVA_BURST_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.LAVA_BURST_TALENT.id),
+        enabled:
+          combatant.hasTalent(TALENTS_SHAMAN.LAVA_BURST_TALENT.id) &&
+          !combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_ENHANCEMENT_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 8,
         charges: 1,
@@ -190,7 +192,8 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_SHAMAN.SPIRIT_WALK_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.SPIRIT_WALK_TALENT.id),
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(TALENTS_SHAMAN.GO_WITH_THE_FLOW_TALENT.id) ? 52.5 : 60,
+        cooldown:
+          60 - GWTF_SW_SCALING[combatant.getTalentRank(TALENTS_SHAMAN.GO_WITH_THE_FLOW_TALENT.id)],
         gcd: {
           static: 0,
         },
@@ -199,7 +202,8 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_SHAMAN.GUST_OF_WIND_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.GUST_OF_WIND_TALENT.id),
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(TALENTS_SHAMAN.GO_WITH_THE_FLOW_TALENT.id) ? 25 : 30,
+        cooldown:
+          30 - GWTF_GOW_SCALING[combatant.getTalentRank(TALENTS_SHAMAN.GO_WITH_THE_FLOW_TALENT.id)],
         gcd: {
           static: 0,
         },
@@ -276,7 +280,9 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_SHAMAN.CAPACITOR_TOTEM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.CAPACITOR_TOTEM_TALENT.id),
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60 - (combatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id) ? 2 : 0),
+        cooldown:
+          60 -
+          TOTEMIC_SURGE_SCALING[combatant.getTalentRank(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id)],
         gcd: {
           base: 1500,
         },
@@ -288,7 +294,9 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_SHAMAN.TREMOR_TOTEM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.TREMOR_TOTEM_TALENT.id),
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60 - (combatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id) ? 2 : 0),
+        cooldown:
+          60 -
+          TOTEMIC_SURGE_SCALING[combatant.getTalentRank(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id)],
         gcd: {
           base: 1500,
         },
@@ -300,7 +308,9 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_SHAMAN.WIND_RUSH_TOTEM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.WIND_RUSH_TOTEM_TALENT.id),
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 120 - (combatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id) ? 2 : 0),
+        cooldown:
+          120 -
+          TOTEMIC_SURGE_SCALING[combatant.getTalentRank(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id)],
         gcd: {
           base: 1500,
         },
@@ -312,7 +322,9 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_SHAMAN.EARTHGRAB_TOTEM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.EARTHGRAB_TOTEM_TALENT.id),
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60 - (combatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id) ? 2 : 0),
+        cooldown:
+          60 -
+          TOTEMIC_SURGE_SCALING[combatant.getTalentRank(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id)],
         gcd: {
           base: 1500,
         },
@@ -324,7 +336,9 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_SHAMAN.HEALING_STREAM_TOTEM_SHARED_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.HEALING_STREAM_TOTEM_SHARED_TALENT.id),
         category: SPELL_CATEGORY.OTHERS,
-        cooldown: 30 - (combatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id) ? 2 : 0),
+        cooldown:
+          30 -
+          TOTEMIC_SURGE_SCALING[combatant.getTalentRank(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id)],
         charges: 1,
         gcd: {
           static: 1000,
@@ -337,7 +351,9 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_SHAMAN.MANA_SPRING_TOTEM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.MANA_SPRING_TOTEM_TALENT.id),
         category: SPELL_CATEGORY.OTHERS,
-        cooldown: 45 - (combatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id) ? 2 : 0),
+        cooldown:
+          45 -
+          TOTEMIC_SURGE_SCALING[combatant.getTalentRank(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id)],
         gcd: {
           static: 1000,
         },
@@ -349,7 +365,9 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_SHAMAN.POISON_CLEANSING_TOTEM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.POISON_CLEANSING_TOTEM_TALENT.id),
         category: SPELL_CATEGORY.OTHERS,
-        cooldown: 45 - (combatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id) ? 2 : 0),
+        cooldown:
+          45 -
+          TOTEMIC_SURGE_SCALING[combatant.getTalentRank(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id)],
         gcd: {
           static: 1000,
         },
@@ -361,7 +379,9 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_SHAMAN.STONESKIN_TOTEM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.STONESKIN_TOTEM_TALENT.id),
         category: SPELL_CATEGORY.OTHERS,
-        cooldown: 30 - (combatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id) ? 2 : 0),
+        cooldown:
+          30 -
+          TOTEMIC_SURGE_SCALING[combatant.getTalentRank(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id)],
         gcd: {
           static: 1000,
         },
@@ -373,7 +393,9 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_SHAMAN.TRANQUIL_AIR_TOTEM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.TRANQUIL_AIR_TOTEM_TALENT.id),
         category: SPELL_CATEGORY.OTHERS,
-        cooldown: 60 - (combatant.hasTalent(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id) ? 2 : 0),
+        cooldown:
+          60 -
+          TOTEMIC_SURGE_SCALING[combatant.getTalentRank(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT.id)],
         gcd: {
           static: 1000,
         },
@@ -390,17 +412,18 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_SHAMAN.LAVA_LASH_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.LAVA_LASH_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => 18,
-        // Base line is 18. Reduced by a maximum of 6s with Molten Assault. (3s per rank)
-        // Then another 37.5% per rank of the Hot Hand talent while the buff is active. (37.5% per rank)
-        // (18 - combatant.talentRank(TALENTS_SHAMAN.MOLTEN_ASSULT_ENCHANEMENT_TALENT.id) * 3) *
-        // (1 - (combatant.talentRank(SPELLS.HOT_HAND_BUFF.id) (?) .375 : 0)) / (1 + haste),
+        cooldown: (haste) =>
+          (18 -
+            MOLTEN_ASSAULT_SCALING[
+              combatant.getTalentRank(TALENTS_SHAMAN.MOLTEN_ASSAULT_TALENT.id)
+            ]) /
+          (1 + haste),
         gcd: {
           base: 1500,
         },
       },
-
       {
+        // TODO: Correct Spell ID
         spell: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
@@ -433,8 +456,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_SHAMAN.ELEMENTAL_BLAST_ENHANCEMENT_TALENT.id,
+        // This is no error. We actually use the elemental shaman elemental blast spell id.
+        spell: TALENTS_SHAMAN.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_ENHANCEMENT_TALENT.id),
+        charges: combatant.hasTalent(TALENTS_SHAMAN.LAVA_BURST_TALENT) ? 2 : 1,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 12,
         gcd: {
@@ -456,18 +481,21 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.85,
           maxCasts: (cooldown: number) =>
+            // Placeholder for enhancement's ascendance
             calculateMaxCasts(
               cooldown,
-              this.owner.fightDuration -
-                combatant.getBuffUptime(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id),
+              this.owner.fightDuration - combatant.getBuffUptime(ASCENDANCE_ID),
             ),
         },
       },
       {
         spell: SPELLS.WINDSTRIKE_CAST.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id),
+        // Placeholder for enhancement's ascendance
+        enabled:
+          combatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT.id) ||
+          combatant.hasTalent(ASCENDANCE_ID),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => 2.5 / (1 + haste),
+        cooldown: (haste) => 3 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -475,10 +503,8 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.85,
           maxCasts: (cooldown: number) =>
-            calculateMaxCasts(
-              cooldown,
-              combatant.getBuffUptime(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id),
-            ),
+            // Placeholder for enhancement's ascendance
+            calculateMaxCasts(cooldown, combatant.getBuffUptime(ASCENDANCE_ID)),
         },
       },
       {

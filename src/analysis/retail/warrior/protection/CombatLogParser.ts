@@ -13,11 +13,10 @@ import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import MitigationCheck from './modules/features/MitigationCheck';
 import SpellUsable from './modules/features/SpellUsable';
-import Glory from './modules/shadowlands/legendaries/Glory';
-import TheWall from './modules/shadowlands/legendaries/TheWall';
-import Thunderlord from './modules/shadowlands/legendaries/Thunderlord';
-import FourSetCastRatio from './modules/shadowlands/tierset/FourSetCastRatio';
-import FourSetTimeBetweenBuffs from './modules/shadowlands/tierset/FourSetTimeBetweenBuffs';
+import ImpenetrableWall from './modules/talents/ImpenetrableWall';
+import Thunderlord from './modules/talents/Thunderlord';
+import ViolentOutburstCastRatio from './modules/talents/ViolentOutburstCastRatio';
+import ViolentOutburstTimeBetweenBuffs from './modules/talents/ViolentOutburstTimeBetweenBuffs';
 import IgnorePainExpired from './modules/spells/IgnorePainExpired';
 import IgnorePainOvercap from './modules/spells/IgnorePainOvercap';
 import IgnorePainTracker from './modules/spells/IgnorePainTracker';
@@ -26,7 +25,7 @@ import ShieldSlam from './modules/spells/ShieldSlam';
 import SpellReflect from './modules/spells/SpellReflect';
 import AngerManagement from './modules/talents/AngerManagement';
 import BoomingVoice from './modules/talents/BoomingVoice';
-import DragonRoar from './modules/talents/DragonRoar';
+import ThunderousRoar from './modules/talents/ThunderousRoar';
 import HeavyRepercussions from './modules/talents/HeavyRepercussions';
 import IntoTheFray from './modules/talents/IntoTheFray';
 import Punish from './modules/talents/Punish';
@@ -67,15 +66,11 @@ class CombatLogParser extends CoreCombatLogParser {
     intoTheFray: IntoTheFray,
     warMachine: WarMachine,
     punish: Punish,
-    dragonRoar: DragonRoar,
-
-    //legos
-    theWall: TheWall,
+    thunderousRoar: ThunderousRoar,
+    impenetrableWall: ImpenetrableWall,
     thunderlord: Thunderlord,
-    glory: Glory,
-    //tier
-    fourSetCastRatio: FourSetCastRatio,
-    fourSetTimeBetweenBuffs: FourSetTimeBetweenBuffs,
+    violentOutburstCastRatio: ViolentOutburstCastRatio,
+    violentOutburstTimeBetweenBuffs: ViolentOutburstTimeBetweenBuffs,
   };
 }
 

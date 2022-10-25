@@ -19,7 +19,7 @@ const RECENT_PURIFY_WINDOW = 6000;
 
 const NIUZAO_PET_BUFF_IDS = new Set([
   SPELLS.CTA_INVOKE_NIUZAO_BUFF.id, // cta niuzao
-  talents.INVOKE_NIUZAO_THE_BLACK_OX_BREWMASTER_TALENT.id, // real niuzao
+  talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id, // real niuzao
 ]);
 
 export type NiuzaoCastData = {
