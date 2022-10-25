@@ -48,19 +48,19 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
     if (this.resurgence.resurgence[spellId]) {
       this.getResurgenceDetails(spellInfo, spellId);
     }
-    if (spellId === SPELLS.UNLEASH_LIFE_TALENT.id) {
+    if (spellId === TALENTS.UNLEASH_LIFE_TALENT.id) {
       this.getUnleashLifeDetails(spellInfo);
     } else if (this.unleashLife.healingBuff[spellId]) {
       this.getUnleashLifeBuffDetails(spellInfo, spellId);
-    } else if (spellId === SPELLS.EARTH_SHIELD_TALENT.id) {
+    } else if (spellId === TALENTS.EARTH_SHIELD_TALENT.id) {
       this.getEarthShieldBuffDetails(spellInfo);
     } else if (spellId === TALENTS.LAVA_BURST_TALENT.id) {
       this.getLavaBurstDamageDetails(spellInfo);
     }
     // Primordial
-    if (spellId === SPELLS.HEALING_WAVE.id) {
+    if (spellId === TALENTS.HEALING_WAVE_TALENT.id) {
       this.getHealingWaveDetails(spellInfo);
-    } else if (spellId === SPELLS.RIPTIDE.id) {
+    } else if (spellId === TALENTS.RIPTIDE_TALENT.id) {
       this.getRiptideDetails(spellInfo);
     } else if (spellId === SPELLS.PRIMORDIAL_WAVE_CAST.id) {
       this.getPrimordialWaveDetails(spellInfo);

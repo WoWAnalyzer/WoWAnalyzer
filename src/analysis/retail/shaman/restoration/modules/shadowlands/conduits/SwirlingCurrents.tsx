@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, {
@@ -37,22 +38,28 @@ class SwirlingCurrents extends Analyzer {
 
     this.healingBoost = SWIRLING_CURRENTS_RANKS[this.conduitRank] / 100;
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.riptideHeal);
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_SURGE, SPELLS.HEALING_WAVE]),
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),
+      this.riptideHeal,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_SURGE, TALENTS.HEALING_WAVE_TALENT]),
       this.notRiptideHeal,
     );
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.trackRiptide);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),
       this.trackRiptide,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),
+      this.trackRiptide,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),
       this.removeRiptide,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),
       this.pandemicRiptide,
     );
   }

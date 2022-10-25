@@ -1,5 +1,6 @@
 import { EARTHSHIELD_HEALING_INCREASE } from 'analysis/retail/shaman/shared';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -42,7 +43,7 @@ class EmbraceOfEarth extends Analyzer {
       return;
     }
 
-    if (target.hasBuff(SPELLS.EARTH_SHIELD_TALENT.id, event.timestamp, 0, 0)) {
+    if (target.hasBuff(TALENTS.EARTH_SHIELD_TALENT.id, event.timestamp, 0, 0)) {
       // idea
       // heal = boostedHeal / (1.2 + x)
       // bonusHeal = heal * x

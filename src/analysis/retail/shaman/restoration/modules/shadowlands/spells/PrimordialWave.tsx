@@ -1,5 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
@@ -35,21 +36,24 @@ class PrimordialWave extends Analyzer {
     );
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),
       this._riptide,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),
       this._riptide,
     );
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this._riptideHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),
+      this._riptideHeal,
+    );
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HEALING_WAVE_TALENT),
       this._waveCast,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE),
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.HEALING_WAVE_TALENT),
       this._waveHeal,
     );
   }
@@ -145,7 +149,7 @@ class PrimordialWave extends Analyzer {
                 {formatPercentage(this.overHealing / (this.healing + this.overHealing))} %{' '}
                 <small>Overhealing</small>
               </BoringSpellValueText>
-              <BoringSpellValueText spellId={SPELLS.RIPTIDE.id}>
+              <BoringSpellValueText spellId={TALENTS.RIPTIDE_TALENT.id}>
                 <ItemHealingDone amount={this.riptideHealing} />
                 <br />
                 <img src="/img/healing.png" alt="Overhealing" className="icon" />{' '}
@@ -154,7 +158,7 @@ class PrimordialWave extends Analyzer {
                 )}{' '}
                 % <small>Overhealing</small>
               </BoringSpellValueText>
-              <BoringSpellValueText spellId={SPELLS.HEALING_WAVE.id}>
+              <BoringSpellValueText spellId={TALENTS.HEALING_WAVE_TALENT.id}>
                 <ItemHealingDone amount={this.waveHealing} />
                 <br />
                 <img src="/img/healing.png" alt="Overhealing" className="icon" />{' '}

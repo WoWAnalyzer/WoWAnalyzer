@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -43,18 +44,21 @@ class PrimalTideCore extends Analyzer {
     this.active = this.selectedCombatant.hasLegendary(SPELLS.PRIMAL_TIDE_CORE);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.RIPTIDE, SPELLS.PRIMORDIAL_WAVE_CAST]),
+      Events.cast.by(SELECTED_PLAYER).spell([TALENTS.RIPTIDE_TALENT, SPELLS.PRIMORDIAL_WAVE_CAST]),
       this.castedRiptide,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),
       this.trackRiptide,
     );
     // we figured out it can never refresh a riptide
-    // this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.trackRiptide);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this.riptideHeal);
+    // this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT), this.trackRiptide);
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE),
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),
+      this.riptideHeal,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),
       this.removeRiptide,
     );
   }

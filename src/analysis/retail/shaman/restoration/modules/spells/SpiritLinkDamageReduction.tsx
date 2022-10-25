@@ -3,6 +3,7 @@ import fetchWcl from 'common/fetchWclApi';
 import { formatThousands, formatNumber } from 'common/format';
 import makeWclUrl from 'common/makeWclUrl';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { WCLDamageTaken, WCLDamageTakenTableResponse } from 'common/WCL_TYPES';
 import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -78,7 +79,7 @@ class SpiritLinkDamageReduction extends Analyzer {
       <LazyLoadStatisticBox
         position={STATISTIC_ORDER.OPTIONAL(60)}
         loader={this.load.bind(this)}
-        icon={<SpellIcon id={SPELLS.SPIRIT_LINK_TOTEM.id} />}
+        icon={<SpellIcon id={TALENTS.SPIRIT_LINK_TOTEM_TALENT.id} />}
         value={
           <Trans id="shaman.restoration.slt.statistic.value">≈{formatNumber(this.drps)} DRPS</Trans>
         }

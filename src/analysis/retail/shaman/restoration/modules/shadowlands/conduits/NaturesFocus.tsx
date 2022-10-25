@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
@@ -32,11 +33,11 @@ class NaturesFocus extends Analyzer {
     this.healingBoost = NATURES_FOCUS_RANKS[this.conduitRank] / 100;
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CHAIN_HEAL_TALENT),
       this._onChainHealCast,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL),
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.CHAIN_HEAL_TALENT),
       this._onChainHealHeal,
     );
   }

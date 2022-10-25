@@ -54,7 +54,6 @@ import EarthenWallTotem from './modules/talents/EarthenWallTotem';
 import FlashFlood from './modules/talents/FlashFlood';
 import HighTide from './modules/talents/HighTide';
 import NaturesGuardian from './modules/talents/NaturesGuardian';
-import SurgeOfEarth from './modules/talents/SurgeOfEarth';
 import TalentStatisticBox from './modules/talents/TalentStatisticBox';
 import Torrent from './modules/talents/Torrent';
 import Undulation from './modules/talents/Undulation';
@@ -97,7 +96,6 @@ class CombatLogParser extends CoreCombatLogParser {
     unleashLife: UnleashLife,
     undulation: Undulation,
     deluge: Deluge,
-    surgeOfEarth: SurgeOfEarth,
     flashFlood: FlashFlood,
     ancestralVigor: AncestralVigor,
     earthenWallTotem: EarthenWallTotem,

@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import ROLES from 'game/ROLES';
 import { SpellLink } from 'interface';
 import { SpecIcon } from 'interface';
@@ -30,7 +31,7 @@ class ManaTideTotem extends Analyzer {
     super(options);
 
     this.addEventListener(
-      Events.summon.by(SELECTED_PLAYER).spell(SPELLS.MANA_TIDE_TOTEM_CAST),
+      Events.summon.by(SELECTED_PLAYER).spell(TALENTS.MANA_TIDE_TOTEM_TALENT),
       this.mAnATiDeTotEm,
     );
   }
@@ -97,7 +98,7 @@ class ManaTideTotem extends Analyzer {
           </table>
         }
       >
-        <BoringValue label={<SpellLink id={SPELLS.MANA_TIDE_TOTEM_CAST.id} />}>
+        <BoringValue label={<SpellLink id={TALENTS.MANA_TIDE_TOTEM_TALENT.id} />}>
           <div className="flex mtt-value">
             <div className="flex-sub icon">
               <ManaIcon />

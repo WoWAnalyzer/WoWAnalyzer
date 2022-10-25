@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import DonutChart from 'parser/ui/DonutChart';
@@ -18,10 +19,10 @@ class CastBehavior extends Analyzer {
   protected abilityTracker!: RestorationAbilityTracker;
 
   get twUsageRatioChart() {
-    const riptide = this.abilityTracker.getAbility(SPELLS.RIPTIDE.id);
-    const healingWave = this.abilityTracker.getAbility(SPELLS.HEALING_WAVE.id);
+    const riptide = this.abilityTracker.getAbility(TALENTS.RIPTIDE_TALENT.id);
+    const healingWave = this.abilityTracker.getAbility(TALENTS.HEALING_WAVE_TALENT.id);
     const healingSurge = this.abilityTracker.getAbility(SPELLS.HEALING_SURGE.id);
-    const chainHeal = this.abilityTracker.getAbility(SPELLS.CHAIN_HEAL.id);
+    const chainHeal = this.abilityTracker.getAbility(TALENTS.CHAIN_HEAL_TALENT.id);
 
     const chainHealCasts = chainHeal.casts || 0;
     const riptideCasts = riptide.casts || 0;
@@ -36,7 +37,7 @@ class CastBehavior extends Analyzer {
       {
         color: RESTORATION_COLORS.HEALING_WAVE,
         label: <Trans id="shaman.restoration.spell.healingWave">Healing Wave</Trans>,
-        spellId: SPELLS.HEALING_WAVE.id,
+        spellId: TALENTS.HEALING_WAVE_TALENT.id,
         value: twHealingWaves,
       },
       {
@@ -63,7 +64,7 @@ class CastBehavior extends Analyzer {
   }
 
   get fillerCastRatioChart() {
-    const healingWave = this.abilityTracker.getAbility(SPELLS.HEALING_WAVE.id);
+    const healingWave = this.abilityTracker.getAbility(TALENTS.HEALING_WAVE_TALENT.id);
     const healingSurge = this.abilityTracker.getAbility(SPELLS.HEALING_SURGE.id);
     const twHealingWaves = healingWave.healingTwHits || 0;
     const twHealingSurges = healingSurge.healingTwHits || 0;
@@ -77,7 +78,7 @@ class CastBehavior extends Analyzer {
       {
         color: RESTORATION_COLORS.HEALING_WAVE,
         label: <Trans id="shaman.restoration.spell.healingWave">Healing Wave</Trans>,
-        spellId: SPELLS.HEALING_WAVE.id,
+        spellId: TALENTS.HEALING_WAVE_TALENT.id,
         value: fillerHealingWaves,
       },
       {

@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
@@ -20,7 +21,10 @@ class JonatsNaturalFocus extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasLegendary(SPELLS.JONATS_NATURAL_FOCUS);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this.chainHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.CHAIN_HEAL_TALENT),
+      this.chainHeal,
+    );
   }
 
   chainHeal(event: HealEvent) {

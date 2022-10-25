@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro';
 import fetchWcl from 'common/fetchWclApi';
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { WCLEventsResponse, WclOptions } from 'common/WCL_TYPES';
 import SPECS from 'game/SPECS';
 import { SpellIcon } from 'interface';
@@ -31,7 +32,7 @@ class AncestralVigor extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = Boolean(this.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id));
+    this.active = Boolean(this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_VIGOR_TALENT.id));
   }
 
   // recursively fetch events until no nextPageTimestamp is returned
@@ -91,7 +92,7 @@ class AncestralVigor extends Analyzer {
     );
     if (
       restoShamans &&
-      restoShamans.some((shaman) => shaman.hasTalent(SPELLS.ANCESTRAL_VIGOR_TALENT.id))
+      restoShamans.some((shaman) => shaman.hasTalent(TALENTS.ANCESTRAL_VIGOR_TALENT.id))
     ) {
       this.disableStatistics = true;
     }

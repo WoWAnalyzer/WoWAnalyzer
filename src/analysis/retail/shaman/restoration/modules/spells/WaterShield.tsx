@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import ManaIcon from 'interface/icons/Mana';
@@ -30,7 +31,7 @@ class WaterShield extends Analyzer {
       this.waterShield,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WATER_SHIELD),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.WATER_SHIELD_TALENT),
       this.waterShieldPrepullCheck,
     );
   }
@@ -47,7 +48,8 @@ class WaterShield extends Analyzer {
 
   get regenOnPlayer() {
     let uptime =
-      this.selectedCombatant.getBuffUptime(SPELLS.WATER_SHIELD.id) / this.owner.fightDuration;
+      this.selectedCombatant.getBuffUptime(TALENTS.WATER_SHIELD_TALENT.id) /
+      this.owner.fightDuration;
     if (uptime === 0) {
       uptime = 1; // quick fix for water shield not being in logs
     }
@@ -56,7 +58,7 @@ class WaterShield extends Analyzer {
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.WATER_SHIELD.id);
+    return this.selectedCombatant.getBuffUptime(TALENTS.WATER_SHIELD_TALENT.id);
   }
 
   get uptimePercent() {
@@ -86,7 +88,7 @@ class WaterShield extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" position={STATISTIC_ORDER.UNIMPORTANT(88)}>
-        <BoringValue label={<SpellLink id={SPELLS.WATER_SHIELD.id} />}>
+        <BoringValue label={<SpellLink id={TALENTS.WATER_SHIELD_TALENT.id} />}>
           <div className="flex mtt-value">
             <div className="flex-sub icon">
               <ManaIcon />
