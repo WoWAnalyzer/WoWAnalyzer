@@ -41,6 +41,7 @@ import TasteForBlood from 'analysis/retail/druid/feral/modules/spells/TasteForBl
 import RagingFury from 'analysis/retail/druid/feral/modules/spells/RagingFury';
 import ThrashUptimeAndSnapshot from 'analysis/retail/druid/feral/modules/spells/ThrashUptimeAndSnapshot';
 import LionsStrength from 'analysis/retail/druid/feral/modules/spells/LionsStrength';
+import CarnivorousInstinct from 'analysis/retail/druid/feral/modules/spells/CarnivorousInstinct';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -99,6 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tasteForBlood: TasteForBlood,
     ragingFury: RagingFury,
     lionsStrength: LionsStrength,
+    carnivorousInstinct: CarnivorousInstinct,
   };
 
   static guide = Guide;
