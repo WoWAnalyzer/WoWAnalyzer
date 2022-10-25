@@ -48,6 +48,7 @@ class LivingFlame extends Analyzer {
       >
         <BoringSpellValueText spellId={SPELLS.LIVING_FLAME_DAMAGE.id}>
           <ItemPercentHealingDone amount={this.livingFlameHealing} />
+          <br />
           <ItemDamageDone amount={this.livingFlameDamage} />
         </BoringSpellValueText>
       </Statistic>

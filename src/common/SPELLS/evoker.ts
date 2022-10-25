@@ -60,7 +60,7 @@ const spells = spellIndexableList({
     icon: 'ability_evoker_blessingofthebronze',
   },
   LIVING_FLAME_DAMAGE: {
-    id: 361469,
+    id: 361500,
     name: 'Living Flame',
     icon: 'ability_evoker_livingflame',
   },
