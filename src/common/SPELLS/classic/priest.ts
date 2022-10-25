@@ -132,6 +132,16 @@ const spells = spellIndexableList({
     name: 'Penance',
     icon: 'spell_holy_penance',
   },
+  PENANCE_HEALING: {
+    id: SPELLS.PENANCE_HEALING,
+    name: 'Penance',
+    icon: 'spell_holy_penance',
+  },
+  PENANCE_DAMAGE: {
+    id: SPELLS.PENANCE_DAMAGE,
+    name: 'Penance',
+    icon: 'spell_holy_penance',
+  },
 });
 
 export default spells;
