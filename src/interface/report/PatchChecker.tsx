@@ -14,6 +14,8 @@ import { Link } from 'react-router-dom';
 
 import Background from './images/weirdnelf.png';
 import PATCHES, { Patch } from './PATCHES';
+import { wclGameVersionToExpansion } from 'game/VERSIONS';
+import Expansion from 'game/Expansion';
 
 interface Props {
   children: React.ReactNode;
@@ -52,8 +54,10 @@ class PatchChecker extends React.PureComponent<Props> {
 
     const expansionStartPatch = orderedPatches[orderedPatches.length - 1];
     const reportPatch = orderedPatches.find((patch) => reportTimestamp > patch.timestamp);
+    const reportExpansion = wclGameVersionToExpansion(report.gameVersion);
+    const isClassic = reportExpansion < Expansion.BattleForAzeroth;
 
-    if ((reportPatch && reportPatch.isCurrent) || this.continue) {
+    if ((reportPatch && reportPatch.isCurrent) || isClassic || this.continue) {
       return children;
     } else {
       const isThisExpansion = reportTimestamp >= expansionStartPatch.timestamp;
