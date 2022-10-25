@@ -127,6 +127,11 @@ const spells = spellIndexableList({
     name: 'Prayer of Shadow Protection',
     icon: 'spell_holy_prayerofshadowprotection',
   },
+  PENANCE: {
+    id: SPELLS.PENANCE,
+    name: 'Penance',
+    icon: 'spell_holy_penance',
+  },
 });
 
 export default spells;
