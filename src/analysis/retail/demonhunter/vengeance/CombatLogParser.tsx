@@ -44,6 +44,8 @@ import DarkglareBoon from './modules/talents/DarkglareBoon';
 import StokeTheFlames from './modules/talents/StokeTheFlames';
 import FieryBrand from './modules/talents/FieryBrand';
 import ShearFractureNormalizer from './normalizers/ShearFractureNormalizer';
+import SoulFragmentsGraph from './modules/resourcetracker/SoulFragmentsGraph';
+import SoulFragmentBuffStackTracker from './modules/resourcetracker/SoulFragmentBuffStackTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -62,6 +64,8 @@ class CombatLogParser extends CoreCombatLogParser {
     furyTracker: FuryTracker,
     furyDetails: FuryDetails,
     furyGraph: FuryGraph,
+    soulFragmentBuffStackTracker: SoulFragmentBuffStackTracker,
+    soulFragmentsGraph: SoulFragmentsGraph,
 
     // normalizers
     shearFractureNormalizer: ShearFractureNormalizer,

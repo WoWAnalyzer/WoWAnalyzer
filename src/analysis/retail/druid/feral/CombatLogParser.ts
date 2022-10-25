@@ -40,6 +40,7 @@ import RampantFerocityLinkNormalizer from 'analysis/retail/druid/feral/normalize
 import TasteForBlood from 'analysis/retail/druid/feral/modules/spells/TasteForBlood';
 import RagingFury from 'analysis/retail/druid/feral/modules/spells/RagingFury';
 import ThrashUptimeAndSnapshot from 'analysis/retail/druid/feral/modules/spells/ThrashUptimeAndSnapshot';
+import LionsStrength from 'analysis/retail/druid/feral/modules/spells/LionsStrength';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -97,6 +98,7 @@ class CombatLogParser extends CoreCombatLogParser {
     suddenAmbush: SuddenAmbush,
     tasteForBlood: TasteForBlood,
     ragingFury: RagingFury,
+    lionsStrength: LionsStrength,
   };
 
   static guide = Guide;

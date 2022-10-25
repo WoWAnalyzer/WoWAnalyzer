@@ -12,30 +12,37 @@ import {
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Channeling from 'parser/shared/normalizers/Channeling';
 
-import Checklist from './modules/Checklist/Module';
-import Abilities from './modules/features/Abilities';
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import ArcaneChargeTracker from './modules/features/ArcaneChargeTracker';
-import ArcaneMissiles from './modules/features/ArcaneMissiles';
-import ArcanePowerActiveTime from './modules/features/ArcanePowerActiveTime';
-import ArcanePowerCasts from './modules/features/ArcanePowerCasts';
-import ArcanePowerMana from './modules/features/ArcanePowerMana';
-import ArcanePowerPreReqs from './modules/features/ArcanePowerPreReqs';
-import Buffs from './modules/features/Buffs';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import RadiantSpark from './modules/features/RadiantSpark';
-import ArcaneBombardment from './modules/talents/ArcaneBombardment';
-import ArcaneHarmony from './modules/talents/ArcaneHarmony';
-import ArcaneProdigy from './modules/items/ArcaneProdigy';
-import ArtificeOfTheArchmage from './modules/items/ArtificeOfTheArchmage';
-import Mana from './modules/ManaChart/Mana';
-import ManaValues from './modules/ManaChart/ManaValues';
-import ArcaneEcho from './modules/talents/ArcaneEcho';
-import ArcaneFamiliar from './modules/talents/ArcaneFamiliar';
-import ArcaneOrb from './modules/talents/ArcaneOrb';
-import MasterOfTime from './modules/talents/MasterOfTime';
-import RuleOfThrees from './modules/talents/RuleOfThrees';
-import TimeAnomaly from './modules/talents/TimeAnomaly';
+//Core
+import Checklist from './Checklist/Module';
+import Abilities from './core/Abilities';
+import AlwaysBeCasting from './core/AlwaysBeCasting';
+import Buffs from './core/Buffs';
+import CooldownThroughputTracker from './core/CooldownThroughputTracker';
+import ArcaneChargeTracker from './core/ArcaneChargeTracker';
+import ArcaneMissiles from './core/ArcaneMissiles';
+import ArcanePowerActiveTime from './core/ArcanePowerActiveTime';
+import ArcanePowerCasts from './core/ArcanePowerCasts';
+import ArcanePowerMana from './core/ArcanePowerMana';
+import ArcanePowerPreReqs from './core/ArcanePowerPreReqs';
+
+//Items
+
+//Mana Chart
+import Mana from './ManaChart/Mana';
+import ManaValues from './ManaChart/ManaValues';
+
+//Talents
+import ArcaneBombardment from './talents/ArcaneBombardment';
+import ArcaneEcho from './talents/ArcaneEcho';
+import ArcaneFamiliar from './talents/ArcaneFamiliar';
+import ArcaneHarmony from './talents/ArcaneHarmony';
+import ArcaneOrb from './talents/ArcaneOrb';
+import MasterOfTime from './talents/MasterOfTime';
+import RadiantSpark from './talents/RadiantSpark';
+import RuleOfThrees from './talents/RuleOfThrees';
+import TimeAnomaly from './talents/TimeAnomaly';
+
+//Normalizers
 import ArcaneChargesNormalizer from './normalizers/ArcaneCharges';
 import ArcanePowerNormalizer from './normalizers/ArcanePower';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
@@ -47,7 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
     arcanePowerNormalizer: ArcanePowerNormalizer,
     castLinkNormalizer: CastLinkNormalizer,
 
-    // Features
+    //Core
     checklist: Checklist,
     buffs: Buffs,
     alwaysBeCasting: AlwaysBeCasting,
@@ -63,8 +70,6 @@ class CombatLogParser extends CoreCombatLogParser {
     arcanePowerCasts: ArcanePowerCasts,
     arcanePowerActiveTime: ArcanePowerActiveTime,
     arcaneMissiles: ArcaneMissiles,
-    mirrorImage: MirrorImage,
-    elementalBarrier: ElementalBarrier,
 
     // Talents
     arcaneFamiliar: ArcaneFamiliar,
@@ -75,21 +80,15 @@ class CombatLogParser extends CoreCombatLogParser {
     timeAnomaly: TimeAnomaly,
     masterOfTime: MasterOfTime,
     arcaneEcho: ArcaneEcho,
-
-    //Legendaries
     arcaneHarmony: ArcaneHarmony,
     arcaneBombardment: ArcaneBombardment,
-
-    //Covenants
     shiftingPower: ShiftingPower,
     radiantSpark: RadiantSpark,
-
-    //Conduits
-    arcaneProdigy: ArcaneProdigy,
-    artificeOfTheArchmage: ArtificeOfTheArchmage,
     divertedEnergy: DivertedEnergy,
     groundingSurge: GroundingSurge,
     tempestBarrier: TempestBarrier,
+    mirrorImage: MirrorImage,
+    elementalBarrier: ElementalBarrier,
   };
 }
 

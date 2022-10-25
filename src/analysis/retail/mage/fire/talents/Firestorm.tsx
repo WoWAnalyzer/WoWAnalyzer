@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { CastEvent, ApplyBuffEvent } from 'parser/core/Events';
@@ -15,7 +16,7 @@ class Firestorm extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasLegendary(SPELLS.FIRESTORM);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PYROBLAST, SPELLS.FLAMESTRIKE]),
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PYROBLAST, TALENTS.FLAMESTRIKE_TALENT]),
       this.onCast,
     );
     this.addEventListener(

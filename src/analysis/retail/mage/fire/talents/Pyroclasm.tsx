@@ -78,7 +78,7 @@ class Pyroclasm extends Analyzer {
 
   //Checks Pyroblast casts during Combustion to see if the player hard casted Pyroblast during Combustion while they were capped or near capped on charges of Phoenix Flames or Fire Blast
   onPyroblastCast(event: CastEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id)) {
+    if (!this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id)) {
       return;
     }
 
@@ -95,7 +95,9 @@ class Pyroclasm extends Analyzer {
     const maxFireBlastCharges = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT.id)
       ? 3
       : 2;
-    const currentPhoenixFlamesCharges = this.spellUsable.chargesAvailable(SPELLS.PHOENIX_FLAMES.id);
+    const currentPhoenixFlamesCharges = this.spellUsable.chargesAvailable(
+      TALENTS.PHOENIX_FLAMES_TALENT.id,
+    );
     if (
       currentFireBlastCharges === maxFireBlastCharges ||
       currentPhoenixFlamesCharges === PHOENIX_FLAMES_MAX_CHARGES
@@ -211,15 +213,16 @@ class Pyroclasm extends Analyzer {
       suggest(
         <>
           You used your <SpellLink id={TALENTS.PYROCLASM_TALENT.id} /> proc during{' '}
-          <SpellLink id={SPELLS.COMBUSTION.id} /> {this.badPyroclasmDuringCombustion} times while
-          you were capped or close to capping on <SpellLink id={SPELLS.FIRE_BLAST.id} /> or{' '}
-          <SpellLink id={SPELLS.PHOENIX_FLAMES.id} />. While you do want to use your{' '}
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> {this.badPyroclasmDuringCombustion} times
+          while you were capped or close to capping on <SpellLink id={SPELLS.FIRE_BLAST.id} /> or{' '}
+          <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} />. While you do want to use your{' '}
           <SpellLink id={TALENTS.PYROCLASM_TALENT.id} /> procs during{' '}
-          <SpellLink id={SPELLS.COMBUSTION.id} /> if they are available, you should use some of your{' '}
-          <SpellLink id={SPELLS.FIRE_BLAST.id} /> and <SpellLink id={SPELLS.PHOENIX_FLAMES.id} />{' '}
-          charges first to ensure you are not capping them and therefore wasting them. The only
-          exception to this is if your <SpellLink id={TALENTS.PYROCLASM_TALENT.id} /> proc will
-          expire before you can use your other charges.
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> if they are available, you should use some
+          of your <SpellLink id={SPELLS.FIRE_BLAST.id} /> and{' '}
+          <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} /> charges first to ensure you are not
+          capping them and therefore wasting them. The only exception to this is if your{' '}
+          <SpellLink id={TALENTS.PYROCLASM_TALENT.id} /> proc will expire before you can use your
+          other charges.
         </>,
       )
         .icon(TALENTS.PYROCLASM_TALENT.icon)

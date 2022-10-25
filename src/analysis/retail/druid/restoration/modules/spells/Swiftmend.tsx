@@ -3,7 +3,7 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 import {
@@ -15,8 +15,8 @@ import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
-
-const DEBUG = false;
+import { calculateHealTargetHealthPercent } from 'parser/core/EventCalculateLib';
+import { formatPercentage } from 'common/format';
 
 const TRIAGE_THRESHOLD = 0.5;
 const HIGH_VALUE_HOTS = [
@@ -50,8 +50,10 @@ class Swiftmend extends Analyzer {
   hasReforestation: boolean;
   /** Number of procs player has from Swiftmend (between VI, SotF, and Reforestation) */
   numProcs: number;
-  /** Info about each Swiftmend cast */
-  swiftmendCastInfo: CastInfo[] = [];
+  // /** Info about each Swiftmend cast */
+  // swiftmendCastInfo: CastInfo[] = [];
+  /** Box row entry for each Swiftmend cast */
+  castEntries: BoxRowEntry[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -80,37 +82,95 @@ class Swiftmend extends Analyzer {
   }
 
   onSwiftmendCast(event: CastEvent) {
-    const timestamp = event.timestamp;
     const directHeal = getDirectHeal(event);
-    let targetHealthPercent = undefined;
-    if (directHeal) {
-      // technically the amount absorbed shouldn't be counted when calculating health before heal,
-      // but because heal absorbs are important to remove we'll consider this legit triage
-      const effectiveHealing = directHeal.amount + (directHeal.absorbed || 0);
-      const hitPointsBeforeHeal = directHeal.hitPoints - effectiveHealing;
-      targetHealthPercent = hitPointsBeforeHeal / directHeal.maxHitPoints;
+    const targetHealthPercent = directHeal
+      ? calculateHealTargetHealthPercent(directHeal)
+      : undefined;
+    const target = this.combatants.getEntity(event);
+    if (!target) {
+      console.warn("Couldn't find target for Swiftmend cast", event);
+      return; // can't do further handling without target
     }
-    const targetName = this.combatants.getEntity(event)?.name;
+    const wasTriage = targetHealthPercent && targetHealthPercent <= TRIAGE_THRESHOLD;
+    const targetHealthPercentText = targetHealthPercent
+      ? formatPercentage(targetHealthPercent, 0)
+      : 'unknown';
 
+    /*
+     * Build value and tooltip text depending on if player had VI
+     */
+
+    let hotChangeText: React.ReactNode = '';
+    let value: QualitativePerformance;
     if (this.hasVi) {
-      let extendedHots: SpellIdAndName[] = [];
-      const target = this.combatants.getEntity(event);
-      if (target && this.hotTracker.hots[target.id]) {
-        extendedHots = Object.values(this.hotTracker.hots[target.id]).map((tracker) => ({
-          name: tracker.name,
-          id: tracker.spellId,
-        }));
+      const extendedHotIds: number[] = [];
+      if (this.hotTracker.hots[target.id]) {
+        Object.values(this.hotTracker.hots[target.id]).forEach((tracker) =>
+          extendedHotIds.push(tracker.spellId),
+        );
       }
-      this.swiftmendCastInfo.push({ timestamp, extendedHots, targetHealthPercent, targetName });
-      DEBUG && console.log('Swiftmend extended ' + extendedHots);
+      const extendedHighValue =
+        extendedHotIds.includes(VERY_HIGH_VALUE_HOT) ||
+        extendedHotIds.filter((id) => HIGH_VALUE_HOTS.includes(id)).length >= 2;
+      if (extendedHighValue) {
+        value = 'perfect';
+      } else if (wasTriage) {
+        value = 'good';
+      } else {
+        value = 'ok';
+      }
+
+      if (extendedHotIds.length === 0) {
+        hotChangeText = 'extended Nothing!';
+      } else {
+        hotChangeText = (
+          <>
+            extended{' '}
+            <strong>
+              {extendedHotIds.map((id, index) => (
+                <>
+                  <SpellLink key={id} id={id} />{' '}
+                </>
+              ))}
+            </strong>
+          </>
+        );
+      }
     } else {
       const removedHotHeal = getRemovedHot(event);
-      const removedHot = removedHotHeal
-        ? { name: removedHotHeal.ability.name, id: removedHotHeal.ability.guid }
-        : undefined;
-      this.swiftmendCastInfo.push({ timestamp, removedHot, targetHealthPercent, targetName });
-      DEBUG && console.log('Swiftmend removed ' + removedHot);
+
+      const removedHighValue =
+        HIGH_VALUE_HOTS.find((id) => id === removedHotHeal?.ability.guid) !== undefined;
+      if (wasTriage || !removedHighValue) {
+        value = 'good';
+      } else if (this.numProcs > 0) {
+        value = 'ok';
+      } else {
+        value = 'fail';
+      }
+
+      hotChangeText = (
+        <>
+          removed{' '}
+          <strong>
+            {removedHotHeal ? <SpellLink id={removedHotHeal.ability.guid} /> : 'unknown HoT'}
+          </strong>
+        </>
+      );
     }
+
+    const tooltip = (
+      <>
+        @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
+        <br />
+        targetting <strong>{target.name}</strong> w/ <strong>{targetHealthPercentText}%</strong>{' '}
+        health
+        <br />
+        {hotChangeText}
+      </>
+    );
+
+    this.castEntries.push({ value, tooltip });
   }
 
   /** Guide subsectopm describing the proper usage of Swiftmend */
@@ -169,91 +229,16 @@ class Swiftmend extends Analyzer {
     }
     chartDescription += ' Mouseover for more details.';
 
-    // Build up perf boxes for each cast, which vary a lot based on talents
-    const castPerfBoxes = this.swiftmendCastInfo.map((cast) => {
-      const wasTriage = cast.targetHealthPercent && cast.targetHealthPercent <= TRIAGE_THRESHOLD;
-      const targetName = cast.targetName || 'unknown target';
-      const targetHealthString = cast.targetHealthPercent
-        ? (cast.targetHealthPercent * 100).toFixed(0)
-        : 'unknown';
-      let value: QualitativePerformance;
-      let hotTooltip: JSX.Element;
-      if (this.hasVi) {
-        const extendedIds = cast.extendedHots ? cast.extendedHots.map((hot) => hot.id) : [];
-        const extendedHighValue =
-          extendedIds.includes(VERY_HIGH_VALUE_HOT) ||
-          extendedIds.filter((id) => HIGH_VALUE_HOTS.includes(id)).length >= 2;
-        if (extendedHighValue) {
-          value = 'perfect';
-        } else if (wasTriage) {
-          value = 'good';
-        } else {
-          value = 'ok';
-        }
-        if (extendedIds.length === 0) {
-          hotTooltip = <> extended unknown HoT</>;
-        } else {
-          hotTooltip = (
-            <>
-              {' '}
-              extended <strong>{cast.extendedHots?.map((hot) => ' ' + hot.name)}</strong>
-            </>
-          );
-        }
-      } else {
-        const removedHighValue =
-          HIGH_VALUE_HOTS.find((id) => id === cast.removedHot?.id) !== undefined;
-        if (wasTriage || !removedHighValue) {
-          value = 'good';
-        } else if (this.numProcs > 0) {
-          value = 'ok';
-        } else {
-          value = 'fail';
-        }
-        const removedHotName = cast.removedHot?.name || 'unknown HoT';
-        hotTooltip = (
-          <>
-            {' '}
-            removed <strong>{removedHotName}</strong>
-          </>
-        );
-      }
-
-      const tooltip = (
-        <>
-          @ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong>
-          <br />
-          targetting <strong>{targetName}</strong> w/ {targetHealthString}% health
-          <br />
-          {hotTooltip}
-        </>
-      );
-
-      return { value, tooltip };
-    });
     const data = (
       <div>
         <strong>Swiftmend casts</strong>
         <small>{chartDescription}</small>
-        <PerformanceBoxRow values={castPerfBoxes} />
+        <PerformanceBoxRow values={this.castEntries} />
       </div>
     );
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 }
-
-type CastInfo = {
-  timestamp: number;
-  removedHot?: SpellIdAndName;
-  extendedHots?: SpellIdAndName[];
-  targetHealthPercent?: number;
-  targetName?: string;
-};
-
-type SpellIdAndName = {
-  name: string;
-  id: number;
-};
 
 export default Swiftmend;
