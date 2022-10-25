@@ -418,6 +418,17 @@ class Results extends React.PureComponent<Props, State> {
         {parser && parser.disabledModules && (
           <DegradedExperience disabledModules={parser.disabledModules} />
         )}
+        {
+          //Warning Message for Shadowlands Prepatch (Remove after Shadowlands Launch)
+          <div className="container">
+            <AlertWarning style={{ marginBottom: 30 }}>
+              In an effort to focus on Dragonflight and Vault of the Incarnates development, we will
+              be reducing support for Covenants, Conduits, legendaries, and other Shadowlands
+              specific items with the launch of Prepatch. As a result, analysis of Prepatch
+              encounters may be inaccurate.
+            </AlertWarning>
+          </div>
+        }
         {boss && boss.fight.resultsWarning && (
           <div className="container">
             <AlertWarning style={{ marginBottom: 30 }}>{boss.fight.resultsWarning}</AlertWarning>
