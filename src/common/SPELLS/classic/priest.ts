@@ -22,11 +22,6 @@ const spells = spellIndexableList({
     name: 'Circle of Healing',
     icon: 'spell_holy_circleofrenewal',
   },
-  HYMN_OF_HOPE: {
-    id: SPELLS.HYMN_OF_HOPE,
-    name: 'Hymn of Hope',
-    icon: 'spell_holy_symbolofhope',
-  },
   PRAYER_OF_MENDING: {
     id: SPELLS.PRAYER_OF_MENDING,
     name: 'Prayer of Mending',
@@ -156,6 +151,21 @@ const spells = spellIndexableList({
     id: SPELLS.MIND_FLAY,
     name: 'Mind Flay',
     icon: 'spell_shadow_siphonmana',
+  },
+  RAPTURE: {
+    id: SPELLS.RAPTURE,
+    name: 'Rapture',
+    icon: 'spell_holy_rapture',
+  },
+  HYMN_OF_HOPE: {
+    id: SPELLS.HYMN_OF_HOPE,
+    name: 'Hymn of Hope',
+    icon: 'spell_holy_symbolofhope',
+  },
+  HYMN_OF_HOPE_BUFF: {
+    id: SPELLS.HYMN_OF_HOPE_BUFF,
+    name: 'Hymn of Hope',
+    icon: 'spell_holy_symbolofhope',
   },
 });
 
