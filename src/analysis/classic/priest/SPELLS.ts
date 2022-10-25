@@ -60,6 +60,7 @@ export const SHADOW_GUARD = 25477;
 export const HEX_OF_WEAKNESS = 25470;
 export const GUARDIAN_SPIRIT = 47788;
 export const HYMN_OF_HOPE = 64901;
+export const HYMN_OF_HOPE_BUFF = 64904;
 export const MIND_SEAR = 53023;
 export const PENANCE = 53003;
 export const PENANCE_HEALING = 52985;
