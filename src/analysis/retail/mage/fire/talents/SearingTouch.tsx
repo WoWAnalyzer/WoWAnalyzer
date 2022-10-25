@@ -44,7 +44,7 @@ class SearingTouch extends Analyzer {
       this.onDamage,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
       this.onCombustionEnd,
     );
   }
@@ -70,7 +70,7 @@ class SearingTouch extends Analyzer {
     if (
       spellId === SPELLS.SCORCH.id &&
       this.healthPercent > SEARING_TOUCH_THRESHOLD &&
-      !this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id) &&
+      !this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id) &&
       event.timestamp > this.combustionEnded + COMBUSTION_END_BUFFER
     ) {
       this.nonExecuteScorchCasts += 1;

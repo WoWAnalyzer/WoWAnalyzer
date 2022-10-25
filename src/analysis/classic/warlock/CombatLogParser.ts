@@ -11,6 +11,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CurseOfAgony from './modules/spells/CurseOfAgony';
 import CurseOfDoom from './modules/spells/CurseOfDoom';
 import CurseOfTheElements from './modules/spells/CurseOfTheElements';
+import Curses from './modules/spells/Curses';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -23,6 +24,7 @@ class CombatLogParser extends BaseCombatLogParser {
     curseOfAgony: CurseOfAgony,
     curseOfDoom: CurseOfDoom,
     curseOfTheElements: CurseOfTheElements,
+    curses: Curses,
 
     lowRankSpells: lowRankSpellsSuggestion(lowRankSpells, whitelist),
   };

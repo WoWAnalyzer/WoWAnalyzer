@@ -291,7 +291,7 @@ class MasteryEffectiveness extends Analyzer {
       >
         <div className="pad">
           <label>
-            % of Healing Effected by <SpellIcon id={SPELLS.MASTERY_LIFEBINDER.id} />
+            % of Healing Affected by <SpellIcon id={SPELLS.MASTERY_LIFEBINDER.id} />
           </label>
           <div className="value">
             <ItemPercentHealingDone amount={this.totalMasteryHealingDone} />

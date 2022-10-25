@@ -1,4 +1,4 @@
-// import BloodDeathKnight from 'analysis/retail/deathknight/blood';
+import BloodDeathKnight from 'analysis/retail/deathknight/blood';
 import FrostDeathKnight from 'analysis/retail/deathknight/frost';
 // import UnholyDeathKnight from 'analysis/retail/deathknight/unholy';
 import BalanceDruid from 'analysis/retail/druid/balance';
@@ -49,7 +49,7 @@ import PreservationEvoker from 'analysis/retail/evoker/preservation';
 import Config from './Config';
 
 const configs: Config[] = [
-  // BloodDeathKnight,
+  BloodDeathKnight,
   // UnholyDeathKnight,
   FrostDeathKnight,
 

@@ -85,7 +85,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_artofwar',
     maxRanks: 1,
   },
-  GREATER_JUDGMENT_TALENT: {
+  GREATER_JUDGMENT_SHARED_TALENT: {
     id: 231663,
     name: 'Greater Judgment',
     icon: 'spell_holy_righteousfury',
@@ -94,7 +94,7 @@ const talents = createTalentList({
   HOLY_AEGIS_TALENT: {
     id: 385515,
     name: 'Holy Aegis',
-    icon: 'spell_holy_divineprotection',
+    icon: 'ability_paladin_touchedbylight',
     maxRanks: 2,
   },
   AVENGING_WRATH_TALENT: {
@@ -252,6 +252,12 @@ const talents = createTalentList({
     icon: 'spell_holy_sealofwisdom',
     maxRanks: 1,
   },
+  SANCTIFIED_WRATH_TALENT: {
+    id: 53376,
+    name: 'Sanctified Wrath',
+    icon: 'ability_paladin_judgementsofthejust',
+    maxRanks: 1,
+  },
   SERAPHIM_TALENT: {
     id: 152262,
     name: 'Seraphim',
@@ -259,22 +265,10 @@ const talents = createTalentList({
     maxRanks: 1,
     holyPowerCost: 3,
   },
-  SANCTIFIED_WRATH_TALENT: {
-    id: 53376,
-    name: 'Sanctified Wrath',
-    icon: 'ability_paladin_judgementsofthejust',
-    maxRanks: 1,
-  },
   ZEALOTS_PARAGON_TALENT: {
     id: 391142,
     name: "Zealot's Paragon",
     icon: 'ability_paladin_conviction',
-    maxRanks: 1,
-  },
-  CONSECRATED_GROUND_TALENT: {
-    id: 204054,
-    name: 'Consecrated Ground',
-    icon: 'ability_paladin_righteousvengeance',
     maxRanks: 1,
   },
   IMPROVED_CLEANSE_TALENT: {
@@ -283,12 +277,29 @@ const talents = createTalentList({
     icon: 'spell_holy_purify',
     maxRanks: 1,
   },
-  DIVINE_PROTECTION_TALENT: {
-    id: 498,
-    name: 'Divine Protection',
-    icon: 'spell_holy_divineprotection',
+  GREATER_JUDGMENT_HOLY_TALENT: {
+    id: 231644,
+    name: 'Greater Judgment',
+    icon: 'spell_holy_righteousfury',
     maxRanks: 1,
-    manaCost: 300,
+  },
+  CONSECRATED_GROUND_TALENT: {
+    id: 204054,
+    name: 'Consecrated Ground',
+    icon: 'ability_paladin_righteousvengeance',
+    maxRanks: 1,
+  },
+  RELENTLESS_INQUISITOR_TALENT: {
+    id: 383388,
+    name: 'Relentless Inquisitor',
+    icon: 'spell_holy_mindvision',
+    maxRanks: 1,
+  },
+  AVENGING_WRATH_MIGHT_TALENT: {
+    id: 384442,
+    name: 'Avenging Wrath: Might',
+    icon: 'spell_holy_avenginewrath',
+    maxRanks: 1,
   },
   DIVINE_TOLL_TALENT: {
     id: 375576,
@@ -297,17 +308,12 @@ const talents = createTalentList({
     maxRanks: 1,
     manaCost: 1500,
   },
-  AVENGING_WRATH_MIGHT_TALENT: {
-    id: 384442,
-    name: 'Avenging Wrath: Might',
-    icon: 'spell_holy_avenginewrath',
+  DIVINE_PROTECTION_TALENT: {
+    id: 498,
+    name: 'Divine Protection',
+    icon: 'spell_holy_divineprotection',
     maxRanks: 1,
-  },
-  RELENTLESS_INQUISITOR_TALENT: {
-    id: 383388,
-    name: 'Relentless Inquisitor',
-    icon: 'spell_holy_mindvision',
-    maxRanks: 2,
+    manaCost: 300,
   },
   EMPYREAN_LEGACY_TALENT: {
     id: 387170,
@@ -398,18 +404,18 @@ const talents = createTalentList({
     icon: 'spell_holy_pureofheart',
     maxRanks: 2,
   },
+  IMPROVED_ARDENT_DEFENDER_TALENT: {
+    id: 393114,
+    name: 'Improved Ardent Defender',
+    icon: 'spell_holy_ardentdefender',
+    maxRanks: 1,
+  },
   BLESSING_OF_SPELLWARDING_TALENT: {
     id: 204018,
     name: 'Blessing of Spellwarding',
     icon: 'spell_holy_blessingofprotection',
     maxRanks: 1,
     manaCost: 1500,
-  },
-  IMPROVED_ARDENT_DEFENDER_TALENT: {
-    id: 393114,
-    name: 'Improved Ardent Defender',
-    icon: 'spell_holy_ardentdefender',
-    maxRanks: 1,
   },
   LIGHT_OF_THE_TITANS_TALENT: {
     id: 378405,
@@ -539,16 +545,16 @@ const talents = createTalentList({
     icon: 'spell_holy_sealofrighteousness',
     maxRanks: 1,
   },
-  QUICKENED_INVOCATIONS_TALENT: {
-    id: 379391,
-    name: 'Quickened Invocations',
-    icon: 'spell_holy_pureofheart',
-    maxRanks: 1,
-  },
   DIVINE_RESONANCE_PROTECTION_TALENT: {
     id: 386738,
     name: 'Divine Resonance',
     icon: 'ability_bastion_paladin',
+    maxRanks: 1,
+  },
+  QUICKENED_INVOCATIONS_TALENT: {
+    id: 379391,
+    name: 'Quickened Invocations',
+    icon: 'spell_holy_pureofheart',
     maxRanks: 1,
   },
 

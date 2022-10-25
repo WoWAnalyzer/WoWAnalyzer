@@ -135,11 +135,6 @@ const spells = spellIndexableList({
     name: 'Resonance Totem',
     icon: 'spell_nature_stoneskintotem',
   },
-  EARTH_SHOCK: {
-    id: 8042,
-    name: 'Earth Shock',
-    icon: 'spell_nature_earthshock',
-  },
   LAVA_BURST_DAMAGE: {
     id: 285452,
     name: 'Lava Burst',
@@ -251,11 +246,6 @@ const spells = spellIndexableList({
     name: 'Lava Beam Overload',
     icon: 'spell_fire_soulburn',
   },
-  EARTHQUAKE: {
-    id: 61882,
-    name: 'Earthquake',
-    icon: 'spell_shaman_earthquake',
-  },
   EARTHQUAKE_DAMAGE: {
     id: 77478,
     name: 'Earthquake',
@@ -275,11 +265,6 @@ const spells = spellIndexableList({
     id: 77505,
     name: 'Earthquake',
     icon: 'spell_shaman_earthquake',
-  },
-  FIRE_ELEMENTAL: {
-    id: 198067,
-    name: 'Fire Elemental',
-    icon: 'spell_fire_elemental_totem',
   },
   SUMMON_FIRE_ELEMENTAL: {
     id: 263819,
@@ -432,12 +417,6 @@ const spells = spellIndexableList({
     id: 115360,
     name: 'Windstrike Off-Hand',
     icon: 'ability_skyreach_four_wind',
-  },
-  LAVA_LASH: {
-    id: 60103,
-    name: 'Lava Lash',
-    icon: 'ability_shaman_lavalash',
-    manaCost: 400,
   },
   FIRE_NOVA_DAMAGE: {
     id: 333977,
@@ -592,34 +571,16 @@ const spells = spellIndexableList({
     icon: 'spell_nature_stormreach',
   },
   // Restoration Shaman
-  HEALING_WAVE: {
-    id: 77472,
-    name: 'Healing Wave',
-    icon: 'spell_nature_healingwavelesser',
-    manaCost: 1500,
-  },
   HEALING_SURGE: {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
     manaCost: 2400, // enh/ele cost is higher
   },
-  RIPTIDE: {
-    id: 61295,
-    name: 'Riptide',
-    icon: 'spell_nature_riptide',
-    manaCost: 800,
-  },
   TIDAL_WAVES_BUFF: {
     id: 53390,
     name: 'Tidal Waves',
     icon: 'spell_shaman_tidalwaves',
-  },
-  HEALING_RAIN_CAST: {
-    id: 73920,
-    name: 'Healing Rain',
-    icon: 'spell_nature_giftofthewaterspirit',
-    manaCost: 2160,
   },
   HEALING_RAIN_HEAL: {
     id: 73921,
@@ -630,12 +591,6 @@ const spells = spellIndexableList({
     id: 52042,
     name: 'Healing Stream Totem',
     icon: 'inv_spear_04',
-  },
-  HEALING_TIDE_TOTEM_CAST: {
-    id: 108280,
-    name: 'Healing Tide Totem',
-    icon: 'ability_shaman_healingtide',
-    manaCost: 560,
   },
   HEALING_TIDE_TOTEM_HEAL: {
     id: 114942,
@@ -651,12 +606,6 @@ const spells = spellIndexableList({
     id: 294020,
     name: 'Ascendance',
     icon: 'spell_fire_elementaldevastation',
-  },
-  SPIRIT_LINK_TOTEM: {
-    id: 98008,
-    name: 'Spirit Link Totem',
-    icon: 'spell_shaman_spiritlink',
-    manaCost: 1100,
   },
   SPIRIT_LINK_TOTEM_REDISTRIBUTE: {
     id: 98021,
@@ -734,20 +683,10 @@ const spells = spellIndexableList({
     name: 'High Tide',
     icon: 'spell_shaman_hightide',
   },
-  MANA_TIDE_TOTEM_CAST: {
-    id: 16191,
-    name: 'Mana Tide Totem',
-    icon: 'spell_frost_summonwaterelemental',
-  },
   MANA_TIDE_TOTEM_BUFF: {
     id: 320763,
     name: 'Mana Tide Totem',
     icon: 'spell_frost_summonwaterelemental',
-  },
-  WATER_SHIELD: {
-    id: 52127,
-    name: 'Water Shield',
-    icon: 'ability_shaman_watershield',
   },
   WATER_SHIELD_ENERGIZE: {
     id: 52128,

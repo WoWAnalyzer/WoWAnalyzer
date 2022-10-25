@@ -9,7 +9,7 @@ class Buffs extends CoreAuras {
 
     return [
       {
-        spellId: TALENTS_SHAMAN.ASCENDANCE_ELEMENTAL_TALENT.id,
+        spellId: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id,
         timelineHighlight: true,
       },
       {

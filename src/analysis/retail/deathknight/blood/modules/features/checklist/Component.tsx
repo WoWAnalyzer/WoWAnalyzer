@@ -1,5 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
@@ -32,22 +33,22 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
           message: 'These should generally always be recharging to maximize efficiency.',
         })}
       >
-        <AbilityRequirement spell={SPELLS.BLOOD_BOIL.id} />
-        {combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id) &&
+        <AbilityRequirement spell={TALENTS.BLOOD_BOIL_TALENT.id} />
+        {combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT.id) &&
           !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
             <AbilityRequirement spell={SPELLS.DEATH_AND_DECAY.id} />
           )}
         {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
           <AbilityRequirement spell={SPELLS.DEATHS_DUE.id} />
         )}
-        {combatant.hasTalent(SPELLS.BLOODDRINKER_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.BLOODDRINKER_TALENT.id} />
+        {combatant.hasTalent(TALENTS.BLOODDRINKER_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.BLOODDRINKER_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.RAPID_DECOMPOSITION_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT.id) && (
           <Requirement
             name={
               <Trans id="deathknight.blood.checklist.useShortCd.crimsonScourge">
-                <SpellLink id={SPELLS.CRIMSON_SCOURGE.id} /> procs spent
+                <SpellLink id={SPELLS.CRIMSON_SCOURGE_TALENT_BUFF.id} /> procs spent
               </Trans>
             }
             thresholds={thresholds.crimsonScourge}
@@ -82,7 +83,7 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         <Requirement
           name={
             <Trans id="deathknight.blood.checklist.dontCapResources.marrowrendEfficiency">
-              <SpellLink id={SPELLS.MARROWREND.id} /> Efficiency
+              <SpellLink id={TALENTS.MARROWREND_TALENT.id} /> Efficiency
             </Trans>
           }
           thresholds={thresholds.marrowrend}
@@ -90,7 +91,7 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         <Requirement
           name={
             <Trans id="deathknight.blood.checklist.dontCapResources.deathsCaressEfficiency">
-              <SpellLink id={SPELLS.DEATHS_CARESS.id} /> Efficiency
+              <SpellLink id={TALENTS.DEATHS_CARESS_TALENT.id} /> Efficiency
             </Trans>
           }
           thresholds={thresholds.deathsCaress}
@@ -108,22 +109,22 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
             'You should aim to use these cooldowns as often as you can to maximize your damage output unless you are saving them for their defensive value.',
         })}
       >
-        <AbilityRequirement spell={SPELLS.DANCING_RUNE_WEAPON.id} />
-        {combatant.hasTalent(SPELLS.CONSUMPTION_TALENT.id) && (
+        <AbilityRequirement spell={TALENTS.DANCING_RUNE_WEAPON_TALENT.id} />
+        {combatant.hasTalent(TALENTS.CONSUMPTION_TALENT.id) && (
           <Requirement
             name={
               <Trans id="deathknight.blood.checklist.offensiveCd.consumption">
-                Possible <SpellLink id={SPELLS.CONSUMPTION_TALENT.id} /> Hits
+                Possible <SpellLink id={TALENTS.CONSUMPTION_TALENT.id} /> Hits
               </Trans>
             }
             thresholds={thresholds.consumption}
           />
         )}
-        {combatant.hasTalent(SPELLS.BONESTORM_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.BONESTORM_TALENT.id) && (
           <Requirement
             name={
               <Trans id="deathknight.blood.checklist.offensiveCd.bonestorm">
-                <SpellLink id={SPELLS.BONESTORM_TALENT.id} /> Efficiency
+                <SpellLink id={TALENTS.BONESTORM_TALENT.id} /> Efficiency
               </Trans>
             }
             thresholds={thresholds.bonestorm}
@@ -149,11 +150,11 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
           }
           thresholds={thresholds.bloodPlague}
         />
-        {combatant.hasTalent(SPELLS.MARK_OF_BLOOD_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.MARK_OF_BLOOD_TALENT.id) && (
           <Requirement
             name={
               <Trans id="deathknight.blood.checklist.buffsDebuffs.markOfBlood">
-                <SpellLink id={SPELLS.MARK_OF_BLOOD_TALENT.id} /> Uptime
+                <SpellLink id={TALENTS.MARK_OF_BLOOD_TALENT.id} /> Uptime
               </Trans>
             }
             thresholds={thresholds.markOfBlood}
@@ -170,7 +171,7 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         <Requirement
           name={
             <Trans id="deathknight.blood.checklist.buffsDebuffs.ossuary">
-              <SpellLink id={SPELLS.OSSUARY.id} /> Efficiency
+              <SpellLink id={TALENTS.OSSUARY_TALENT.id} /> Efficiency
             </Trans>
           }
           thresholds={thresholds.ossuary}
@@ -187,14 +188,14 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
             'Use these to block damage spikes and keep damage smooth to reduce external healing required.',
         })}
       >
-        <AbilityRequirement spell={SPELLS.VAMPIRIC_BLOOD.id} />
-        <AbilityRequirement spell={talents.ICEBOUND_FORTITUDE_TALENT.id} />
-        <AbilityRequirement spell={talents.ANTI_MAGIC_SHELL_TALENT.id} />
-        {combatant.hasTalent(SPELLS.RUNE_TAP.id) && (
-          <AbilityRequirement spell={SPELLS.RUNE_TAP.id} />
+        <AbilityRequirement spell={TALENTS.VAMPIRIC_BLOOD_TALENT.id} />
+        <AbilityRequirement spell={TALENTS.ICEBOUND_FORTITUDE_TALENT.id} />
+        <AbilityRequirement spell={TALENTS.ANTI_MAGIC_SHELL_TALENT.id} />
+        {combatant.hasTalent(TALENTS.RUNE_TAP_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.RUNE_TAP_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.TOMBSTONE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.TOMBSTONE_TALENT.id} />
+        {combatant.hasTalent(TALENTS.TOMBSTONE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.TOMBSTONE_TALENT.id} />
         )}
       </Rule>
       <PreparationRule thresholds={thresholds} />

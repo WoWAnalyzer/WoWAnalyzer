@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { RuneForgeChecker } from 'analysis/deathknight';
+import { RuneForgeChecker } from 'analysis/retail/deathknight/shared';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { Options } from 'parser/core/Analyzer';

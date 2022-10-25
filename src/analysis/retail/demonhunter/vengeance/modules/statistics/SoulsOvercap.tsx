@@ -21,12 +21,6 @@ class SoulsOvercap extends Analyzer {
   protected abilityTracker!: AbilityTracker;
   protected soulFragmentsTracker!: SoulFragmentsTracker;
 
-  /* Feed The Demon talent is taken in defensive builds. In those cases you want to generate and consume souls as quickly
- as possible. So how you consume your souls down matter. If you dont take that talent your taking a more balanced
- build meaning you want to consume souls in a way that boosts your dps. That means feeding the souls into spirit
- bomb as efficiently as possible (cast at 4+ souls) for a dps boost and have soul cleave absorb souls as little as
- possible since it provides no extra dps.
-*/
   constructor(options: Options) {
     super(options);
     this.active =

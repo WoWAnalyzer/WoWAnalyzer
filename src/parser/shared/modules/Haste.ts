@@ -1,6 +1,6 @@
 import { formatMilliseconds, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { TALENTS_PRIEST } from 'common/TALENTS';
+import { TALENTS_MAGE, TALENTS_PRIEST } from 'common/TALENTS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
@@ -76,7 +76,7 @@ class Haste extends Analyzer {
     //endregion
 
     //region Mage
-    [SPELLS.ICY_VEINS.id]: 0.3,
+    [TALENTS_MAGE.ICY_VEINS_TALENT.id]: 0.3,
 
     //endregion
 

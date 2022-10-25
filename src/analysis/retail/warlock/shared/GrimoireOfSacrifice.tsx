@@ -77,7 +77,7 @@ class GrimoireOfSacrifice extends Analyzer {
         }
       >
         <BoringSpellValueText spellId={TALENTS.GRIMOIRE_OF_SACRIFICE_TALENT.id}>
-          {formatNumber(dps)} DPS
+          {formatNumber(dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total
           </small>

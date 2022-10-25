@@ -1,7 +1,7 @@
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/warlock'
+import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink } from 'interface';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -10,8 +10,9 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
+  position = STATISTIC_ORDER.CORE(6);
 
-  get downtimeSuggestionThresholds() {
+  get suggestionThresholds() {
     return {
       actual: this.downtimePercentage,
       isGreaterThan: {
@@ -24,7 +25,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   }
 
   suggestions(when: When) {
-    when(this.downtimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
           Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay
@@ -51,7 +52,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       <Statistic
         position={STATISTIC_ORDER.CORE(10)}
         tooltip={
-          <Trans id="warlock.affliction.alwaysBeCasting.statistic.tooltip">
+          <>
             Downtime is available time not used to cast anything (including not having your GCD
             rolling). This can be caused by delays between casting spells, latency, cast
             interrupting or just simply not casting anything (e.g. due to movement/stunned).
@@ -66,13 +67,11 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
                 casting nothing at all.
               </li>
             </ul>
-          </Trans>
+          </>
         }
       >
         <div className="pad">
-          <label>
-            <Trans id="warlock.affliction.alwaysBeCasting.statistic.label">Active time</Trans>
-          </label>
+          <label>Active time</label>
           <Gauge value={this.activeTimePercentage} />
         </div>
       </Statistic>

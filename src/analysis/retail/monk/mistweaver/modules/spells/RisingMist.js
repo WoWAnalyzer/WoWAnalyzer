@@ -33,13 +33,14 @@ class RisingMist extends Analyzer {
   }
 
   get hotHealing() {
-    const array = this.hotTracker.hotHistory;
     let value = 0;
-    for (let i = 0; i < array.length; i += 1) {
-      if (array[i].attributions.length > 0) {
-        value += array[i].healingAfterOriginalEnd || 0;
-      }
-    }
+    this.hotTracker.hotHistory.forEach(
+      function (hot) {
+        if (this.hotTracker.fromHardcast(hot)) {
+          value += hot.healingAfterOriginalEnd || 0;
+        }
+      }.bind(this),
+    );
     return value;
   }
 
@@ -133,13 +134,9 @@ class RisingMist extends Analyzer {
   }
 
   hasAttribution(attributions, name) {
-    let foundAttribution = false;
-    attributions.forEach(function (attr) {
-      if (attr.name === name) {
-        foundAttribution = true;
-      }
+    return attributions.some(function (attr) {
+      return attr.name === name;
     });
-    return foundAttribution;
   }
 
   handleMastery(event) {
@@ -232,10 +229,8 @@ class RisingMist extends Analyzer {
         const spellId = Number(spellIdString);
 
         const attribution = newRisingMist;
-        if (
-          !untrackedSpells.includes(spellId) &&
-          this.hotTracker.hots[playerId][spellIdString].attributions.length === 0
-        ) {
+        const hot = this.hotTracker.hots[playerId][spellId];
+        if (!untrackedSpells.includes(spellId) && !this.hotTracker.fromHardcast(hot)) {
           return;
         }
         this.hotTracker.addExtension(

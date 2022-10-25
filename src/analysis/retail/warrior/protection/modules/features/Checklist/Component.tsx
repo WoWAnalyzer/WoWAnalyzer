@@ -91,8 +91,8 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
             because it will increase your overall damage a lot and provides 30{' '}
             <ResourceLink id={RESOURCE_TYPES.RAGE.id} />.<br /> If you are also using{' '}
             <SpellLink id={TALENTS.UNSTOPPABLE_FORCE_TALENT.id} /> remember that{' '}
-            <SpellLink id={TALENTS.THUNDER_CLAP_TALENT.id} /> will have a reduced cooldown so you
-            can use it every other GCD.
+            <SpellLink id={TALENTS.THUNDER_CLAP_PROTECTION_TALENT.id} /> will have a reduced
+            cooldown so you can use it every other GCD.
           </>
         }
       >

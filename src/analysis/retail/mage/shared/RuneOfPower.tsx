@@ -45,9 +45,9 @@ class RuneOfPower extends Analyzer {
           .by(SELECTED_PLAYER)
           .spell([
             TALENTS.RUNE_OF_POWER_TALENT,
-            SPELLS.COMBUSTION,
-            SPELLS.ICY_VEINS,
-            SPELLS.ARCANE_POWER,
+            TALENTS.COMBUSTION_TALENT,
+            TALENTS.ICY_VEINS_TALENT,
+            TALENTS.ARCANE_SURGE_TALENT,
           ]),
         this.onCast,
       );
@@ -144,10 +144,11 @@ class RuneOfPower extends Analyzer {
         <>
           You cast <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> or an ability that
           automatically casts <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> (Like{' '}
-          <SpellLink id={SPELLS.ICY_VEINS.id} />, <SpellLink id={SPELLS.COMBUSTION.id} />, or{' '}
-          <SpellLink id={SPELLS.ARCANE_POWER.id} />) while you still had a Rune down. Make sure you
-          are not overlapping your <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> so you can get
-          the most out of the damage buff that it provides.
+          <SpellLink id={TALENTS.ICY_VEINS_TALENT.id} />,{' '}
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />, or{' '}
+          <SpellLink id={TALENTS.ARCANE_SURGE_TALENT.id} />) while you still had a Rune down. Make
+          sure you are not overlapping your <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> so
+          you can get the most out of the damage buff that it provides.
         </>,
       )
         .icon(TALENTS.RUNE_OF_POWER_TALENT.icon)
