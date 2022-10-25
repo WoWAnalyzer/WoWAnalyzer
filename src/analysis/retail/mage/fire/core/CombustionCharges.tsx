@@ -29,7 +29,7 @@ class CombustionCharges extends Analyzer {
     super(options);
     this.hasFlameOn = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
       this.onCombustion,
     );
   }
@@ -37,7 +37,8 @@ class CombustionCharges extends Analyzer {
   //When Combustion is cast, check to see how many charges of Fire Blast and Phoenix Flames are available. If there is less than (Max Charges - 1) then its a bad Combustion cast.
   onCombustion(event: CastEvent) {
     const fireBlastCharges = this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id);
-    const phoenixFlamesCharges = this.spellUsable.chargesAvailable(SPELLS.PHOENIX_FLAMES.id) || 0;
+    const phoenixFlamesCharges =
+      this.spellUsable.chargesAvailable(TALENTS.PHOENIX_FLAMES_TALENT.id) || 0;
     const FIRE_BLAST_THRESHOLD = this.hasFlameOn ? 2 : 1;
     this.badCast = false;
 
@@ -69,13 +70,16 @@ class CombustionCharges extends Analyzer {
 
   get phoenixFlamesChargeUtil() {
     return (
-      1 - this.lowPhoenixFlamesCharges / this.abilityTracker.getAbility(SPELLS.COMBUSTION.id).casts
+      1 -
+      this.lowPhoenixFlamesCharges /
+        this.abilityTracker.getAbility(TALENTS.COMBUSTION_TALENT.id).casts
     );
   }
 
   get fireBlastChargeUtil() {
     return (
-      1 - this.lowFireBlastCharges / this.abilityTracker.getAbility(SPELLS.COMBUSTION.id).casts
+      1 -
+      this.lowFireBlastCharges / this.abilityTracker.getAbility(TALENTS.COMBUSTION_TALENT.id).casts
     );
   }
 
@@ -107,13 +111,13 @@ class CombustionCharges extends Analyzer {
     when(this.phoenixFlamesThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={SPELLS.COMBUSTION.id} /> {this.lowPhoenixFlamesCharges} times with
-          less than 2 charges of <SpellLink id={SPELLS.PHOENIX_FLAMES.id} />. Make sure you are
-          saving at least 2 charges while Combustion is on cooldown so you can get as many{' '}
-          <SpellLink id={SPELLS.HOT_STREAK.id} /> procs as possible before Combustion ends.
+          You cast <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> {this.lowPhoenixFlamesCharges}{' '}
+          times with less than 2 charges of <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} />.
+          Make sure you are saving at least 2 charges while Combustion is on cooldown so you can get
+          as many <SpellLink id={SPELLS.HOT_STREAK.id} /> procs as possible before Combustion ends.
         </>,
       )
-        .icon(SPELLS.COMBUSTION.icon)
+        .icon(TALENTS.COMBUSTION_TALENT.icon)
         .actual(
           <Trans id="mage.fire.suggestions.combustionCharges.phoenixFlames.utilization">
             {formatPercentage(this.phoenixFlamesChargeUtil)}% Utilization
@@ -124,15 +128,15 @@ class CombustionCharges extends Analyzer {
     when(this.fireBlastThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={SPELLS.COMBUSTION.id} /> {this.lowFireBlastCharges} times with
-          less than {this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT.id) ? '2' : '1'}{' '}
+          You cast <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> {this.lowFireBlastCharges} times
+          with less than {this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT.id) ? '2' : '1'}{' '}
           charges of <SpellLink id={SPELLS.FIRE_BLAST.id} />. Make sure you are saving at least{' '}
           {this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT.id) ? '2' : '1'} charges while
           Combustion is on cooldown so you can get as many <SpellLink id={SPELLS.HOT_STREAK.id} />{' '}
           procs as possible before Combustion ends.
         </>,
       )
-        .icon(SPELLS.COMBUSTION.icon)
+        .icon(TALENTS.COMBUSTION_TALENT.icon)
         .actual(
           <Trans id="mage.fire.suggestions.combustionCharges.flameOn.utilization">
             {formatPercentage(this.fireBlastChargeUtil)}% Utilization

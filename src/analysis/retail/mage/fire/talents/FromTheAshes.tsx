@@ -1,6 +1,5 @@
 import { FIRE_DIRECT_DAMAGE_SPELLS } from 'analysis/retail/mage/shared';
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
@@ -32,13 +31,13 @@ class FromTheAshes extends Analyzer {
   //Look for crit damage events to reduce the cooldown on Kindling
   onCritDamage(event: DamageEvent) {
     if (
-      !this.spellUsable.isOnCooldown(SPELLS.PHOENIX_FLAMES.id) ||
+      !this.spellUsable.isOnCooldown(TALENTS.PHOENIX_FLAMES_TALENT.id) ||
       event.hitType !== HIT_TYPES.CRIT
     ) {
       return;
     }
     this.cooldownReduction += this.spellUsable.reduceCooldown(
-      SPELLS.PHOENIX_FLAMES.id,
+      TALENTS.PHOENIX_FLAMES_TALENT.id,
       MS_REDUCTION,
     );
   }

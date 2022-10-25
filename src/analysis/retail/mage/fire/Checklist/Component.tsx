@@ -48,23 +48,24 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         description={
           <>
             As a Fire Mage, the vast majority if your damage is going to come from{' '}
-            <SpellLink id={SPELLS.COMBUSTION.id} />. Therefore it is critical that you do everything
-            you can to get the most out of <SpellLink id={SPELLS.COMBUSTION.id} />, including
-            getting the most out of abilities that empower <SpellLink id={SPELLS.COMBUSTION.id} />.
-            This not only includes the abilities you use during{' '}
-            <SpellLink id={SPELLS.COMBUSTION.id} />, but also pooling resources, like{' '}
-            <SpellLink id={SPELLS.FIRE_BLAST.id} /> and <SpellLink id={SPELLS.PHOENIX_FLAMES.id} />,
-            before <SpellLink id={SPELLS.COMBUSTION.id} />.
+            <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />. Therefore it is critical that you do
+            everything you can to get the most out of{' '}
+            <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />, including getting the most out of
+            abilities that empower <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />. This not only
+            includes the abilities you use during <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />,
+            but also pooling resources, like <SpellLink id={SPELLS.FIRE_BLAST.id} /> and{' '}
+            <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} />, before{' '}
+            <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />.
           </>
         }
       >
         <AbilityRequirement
           name={
             <>
-              <SpellLink id={SPELLS.COMBUSTION.id} /> Cast Efficiency
+              <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> Cast Efficiency
             </>
           }
-          spell={SPELLS.COMBUSTION.id}
+          spell={TALENTS.COMBUSTION_TALENT.id}
         />
         <Requirement
           name="Pooling Fire Blast Charges"
@@ -118,10 +119,10 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             <SpellLink id={SPELLS.HEATING_UP.id} /> proc. If you get a second consecutive crit with
             a direct damage ability, you will get a <SpellLink id={SPELLS.HOT_STREAK.id} /> proc
             which makes your next <SpellLink id={SPELLS.PYROBLAST.id} /> or{' '}
-            <SpellLink id={SPELLS.FLAMESTRIKE.id} /> cast be instant cast. Additionally, you have
-            spells like <SpellLink id={SPELLS.FIRE_BLAST.id} /> which is always guaranteed to crit
-            and spells like <SpellLink id={SPELLS.SCORCH.id} /> which are guaranteed to crit when
-            the target is below 30% health (If you are using the{' '}
+            <SpellLink id={TALENTS.FLAMESTRIKE_TALENT.id} /> cast be instant cast. Additionally, you
+            have spells like <SpellLink id={SPELLS.FIRE_BLAST.id} /> which is always guaranteed to
+            crit and spells like <SpellLink id={SPELLS.SCORCH.id} /> which are guaranteed to crit
+            when the target is below 30% health (If you are using the{' '}
             <SpellLink id={TALENTS.SEARING_TOUCH_TALENT.id} /> talent). These can be used to force{' '}
             <SpellLink id={SPELLS.HOT_STREAK.id} /> procs.
           </>
@@ -175,10 +176,10 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         <AbilityRequirement
           name={
             <>
-              <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> Cast Efficiency
+              <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} /> Cast Efficiency
             </>
           }
-          spell={SPELLS.PHOENIX_FLAMES.id}
+          spell={TALENTS.PHOENIX_FLAMES_TALENT.id}
         />
         {combatant.hasTalent(TALENTS.BLAST_WAVE_TALENT.id) && (
           <AbilityRequirement

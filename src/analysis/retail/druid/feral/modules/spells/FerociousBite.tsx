@@ -5,12 +5,16 @@ import Events, { CastEvent, TargettedEvent } from 'parser/core/Events';
 
 import { getAdditionalEnergyUsed } from '../../normalizers/FerociousBiteDrainLinkNormalizer';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
-import Enemies from 'parser/shared/modules/Enemies';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import RipUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/spells/RipUptimeAndSnapshots';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
-import { cdSpell, MAX_CPS } from 'analysis/retail/druid/feral/constants';
+import {
+  cdSpell,
+  INCARN_ENERGY_MULT,
+  MAX_CPS,
+  RELENTLESS_PREDATOR_FB_ENERGY_MULT,
+} from 'analysis/retail/druid/feral/constants';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
@@ -24,16 +28,14 @@ const MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS = 5000;
  */
 class FerociousBite extends Analyzer {
   static dependencies = {
-    enemies: Enemies,
     rip: RipUptimeAndSnapshots,
   };
 
-  protected enemies!: Enemies;
   protected rip!: RipUptimeAndSnapshots;
 
   hasSotf: boolean;
 
-  castLog: FbCast[] = [];
+  castEntries: BoxRowEntry[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -56,70 +58,72 @@ class FerociousBite extends Analyzer {
       (this.selectedCombatant.hasBuff(SPELLS.BERSERK.id) ||
         this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id));
     const extraEnergyUsed = getAdditionalEnergyUsed(event);
+    const maxExtraEnergy =
+      MAX_FB_DRAIN *
+      (this.selectedCombatant.hasTalent(TALENTS_DRUID.RELENTLESS_PREDATOR_TALENT)
+        ? RELENTLESS_PREDATOR_FB_ENERGY_MULT
+        : 1) *
+      (this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id)
+        ? INCARN_ENERGY_MULT
+        : 1);
+    const usedMax = extraEnergyUsed === maxExtraEnergy;
 
-    if (!duringBerserkAndSotf && extraEnergyUsed < MAX_FB_DRAIN) {
+    if (!duringBerserkAndSotf && usedMax) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = `Used with low energy, causing only ${extraEnergyUsed}
         extra energy to be turned in to bonus damage. You should always cast Ferocious Bite with
-        the full ${FB_BASE_COST + MAX_FB_DRAIN} energy available in order to maximize damage`;
+        the full extra energy available in order to maximize damage`;
     }
 
+    // fill out cast entry
     let timeLeftOnRip = 0;
     // target is optional in cast event, but we know FB cast will always have it
     if (event.targetID !== undefined && event.targetIsFriendly !== undefined) {
       timeLeftOnRip = this.rip.getTimeRemaining(event as TargettedEvent<any>);
     }
-    this.castLog.push({
-      timestamp: event.timestamp,
-      targetName: this.enemies.getEntity(event)?.name,
-      cpsUsed: getResourceSpent(event, RESOURCE_TYPES.COMBO_POINTS),
-      timeLeftOnRip,
-      extraEnergyUsed,
-      duringBerserkAndSotf,
+    const cpsUsed = getResourceSpent(event, RESOURCE_TYPES.COMBO_POINTS);
+    const acceptableTimeLeftOnRip = timeLeftOnRip >= MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS;
+
+    let value: QualitativePerformance = 'good';
+    if (cpsUsed < MAX_CPS) {
+      value = 'fail';
+    } else if (!usedMax && !duringBerserkAndSotf) {
+      value = 'fail';
+    } else if (!acceptableTimeLeftOnRip) {
+      value = 'ok';
+    }
+
+    const tooltip = (
+      <>
+        @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> targetting{' '}
+        <strong>{this.owner.getTargetName(event)}</strong> using <strong>{cpsUsed} CPs</strong>
+        <br />
+        Extra energy used:{' '}
+        <strong>
+          {extraEnergyUsed} / {maxExtraEnergy}
+        </strong>{' '}
+        {duringBerserkAndSotf && '(during Berserk)'}
+        <br />
+        {timeLeftOnRip === 0 ? (
+          <>
+            <strong>No Rip on target!</strong>
+          </>
+        ) : (
+          <>
+            Time remaining on Rip: <strong>{(timeLeftOnRip / 1000).toFixed(1)}s</strong>
+          </>
+        )}
+      </>
+    );
+
+    this.castEntries.push({
+      value,
+      tooltip,
     });
   }
 
   get guideSubsection(): JSX.Element {
-    const castPerfBoxes = this.castLog.map((cast) => {
-      const usedMaxExtraEnergy = cast.extraEnergyUsed === MAX_FB_DRAIN;
-      const acceptableTimeLeftOnRip = cast.timeLeftOnRip >= MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS;
-
-      let value: QualitativePerformance = 'good';
-      if (cast.cpsUsed < MAX_CPS) {
-        value = 'fail';
-      } else if (!usedMaxExtraEnergy && !cast.duringBerserkAndSotf) {
-        value = 'fail';
-      } else if (!acceptableTimeLeftOnRip) {
-        value = 'ok';
-      }
-
-      const tooltip = (
-        <>
-          @ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
-          <strong>{cast.targetName || 'unknown'}</strong> using <strong>{cast.cpsUsed} CPs</strong>
-          <br />
-          Extra energy used: <strong>{cast.extraEnergyUsed}</strong>{' '}
-          {cast.duringBerserkAndSotf && '(during Berserk)'}
-          <br />
-          {cast.extraEnergyUsed === 0 ? (
-            <>
-              <strong>No Rip on target!</strong>
-            </>
-          ) : (
-            <>
-              Time remaining on Rip: <strong>{(cast.timeLeftOnRip / 1000).toFixed(1)}s</strong>
-            </>
-          )}
-        </>
-      );
-
-      return {
-        value,
-        tooltip,
-      };
-    });
-
     const hasConvokeOrApex =
       this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT);
@@ -160,28 +164,12 @@ class FerociousBite extends Analyzer {
           Rip), Red is a bad cast (&lt;25 extra energy + not during Berserk). Mouseover for more
           details.
         </small>
-        <PerformanceBoxRow values={castPerfBoxes} />
+        <PerformanceBoxRow values={this.castEntries} />
       </div>
     );
 
     return explanationAndDataSubsection(explanation, data);
   }
 }
-
-/** Tracking object for each Ferocious Bite cast */
-type FbCast = {
-  /** Cast's timestamp */
-  timestamp: number;
-  /** Name of cast's target */
-  targetName?: string;
-  /** Number of Combo Points consumed */
-  cpsUsed: number;
-  /** Time remaining on Rip on target (zero if no Rip) */
-  timeLeftOnRip: number;
-  /** Extra energy used by the cast */
-  extraEnergyUsed: number;
-  /** If cast happened when player has SotF and Berserk active */
-  duringBerserkAndSotf: boolean;
-};
 
 export default FerociousBite;
