@@ -20,7 +20,7 @@ const TRANQ_MAX_BOOST_PER_RANK = 0.2;
  * Spec Talent
  *
  * Rejuvenation healing is increased by up to (10 / 20)%, and Tranquility healing is increased by
- * up to (20 / 40)%, healing for more on low-health targets.
+ * up to (15 / 30)%, healing for more on low-health targets.
  */
 class Regenesis extends Analyzer {
   ranks: number;
