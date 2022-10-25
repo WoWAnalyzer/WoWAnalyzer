@@ -17,6 +17,7 @@ class EarthShield extends EarthShieldCore {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.EARTH_SHIELD_TALENT);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.EARTH_SHIELD_TALENT),

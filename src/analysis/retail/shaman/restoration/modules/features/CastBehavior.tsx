@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -15,6 +15,11 @@ class CastBehavior extends Analyzer {
   static dependencies = {
     abilityTracker: RestorationAbilityTracker,
   };
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.TIDAL_WAVES_TALENT);
+  }
 
   protected abilityTracker!: RestorationAbilityTracker;
 

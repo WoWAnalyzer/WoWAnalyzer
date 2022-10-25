@@ -21,6 +21,7 @@ class HealingWave extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HEALING_WAVE_TALENT);
 
     this.addEventListener(
       Events.begincast.by(SELECTED_PLAYER).spell(TALENTS.HEALING_WAVE_TALENT),

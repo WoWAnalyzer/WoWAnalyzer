@@ -45,6 +45,7 @@ class ChainHeal extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.CHAIN_HEAL_TALENT);
     this.suggestedTargets = this.maxTargets * CHAIN_HEAL_TARGET_EFFICIENCY;
 
     this.addEventListener(

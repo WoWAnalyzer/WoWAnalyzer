@@ -29,6 +29,7 @@ class ManaTideTotem extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.MANA_TIDE_TOTEM_TALENT);
 
     this.addEventListener(
       Events.summon.by(SELECTED_PLAYER).spell(TALENTS.MANA_TIDE_TOTEM_TALENT),

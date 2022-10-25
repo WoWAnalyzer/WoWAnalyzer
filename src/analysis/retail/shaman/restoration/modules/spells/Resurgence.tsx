@@ -48,6 +48,7 @@ class Resurgence extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.RESURGENCE_TALENT);
 
     this.addEventListener(
       Events.heal
