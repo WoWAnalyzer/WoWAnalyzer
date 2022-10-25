@@ -405,7 +405,7 @@ class StatTracker extends Analyzer {
         console.log(
           `StatTracker: ${stat} multiplier change (${before.toFixed(2)} -> ${this.playerMultipliers[
             statKey
-            ].toFixed(2)}) @ ${formatMilliseconds(this.owner.fightDuration)}`,
+          ].toFixed(2)}) @ ${formatMilliseconds(this.owner.fightDuration)}`,
         );
 
       if (changeCurrentStats) {
@@ -435,7 +435,7 @@ class StatTracker extends Analyzer {
         console.log(
           `StatTracker: ${stat} multiplier change (${before.toFixed(2)} -> ${this.playerMultipliers[
             statKey
-            ].toFixed(2)}) @ ${formatMilliseconds(this.owner.fightDuration)}`,
+          ].toFixed(2)}) @ ${formatMilliseconds(this.owner.fightDuration)}`,
         );
 
       if (changeCurrentStats) {
