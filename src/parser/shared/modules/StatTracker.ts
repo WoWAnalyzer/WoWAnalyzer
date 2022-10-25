@@ -671,7 +671,7 @@ class StatTracker extends Analyzer {
       if (returnRatingForNextPercent) {
         //Returns the rating needed for 1% at current rating levels
         return (
-          (baselineRatingPerPercent / (1 - (penaltyThresholds[idx - 1].penaltyAboveThis || 0)) / coef) *
+          (baselineRatingPerPercent / (1 - (penaltyThresholds[idx - 1]?.penaltyAboveThis || 0)) / coef) *
           100
         );
       } else {
