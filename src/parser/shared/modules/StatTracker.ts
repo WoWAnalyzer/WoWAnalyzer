@@ -402,11 +402,11 @@ class StatTracker extends Analyzer {
       this.playerMultipliers[statKey] *= multiplier;
 
       debug &&
-      console.log(
-        `StatTracker: ${stat} multiplier change (${before.toFixed(2)} -> ${this.playerMultipliers[
-          statKey
-          ].toFixed(2)}) @ ${formatMilliseconds(this.owner.fightDuration)}`,
-      );
+        console.log(
+          `StatTracker: ${stat} multiplier change (${before.toFixed(2)} -> ${this.playerMultipliers[
+            statKey
+            ].toFixed(2)}) @ ${formatMilliseconds(this.owner.fightDuration)}`,
+        );
 
       if (changeCurrentStats) {
         const curr: number = this._currentStats[statKey];
@@ -432,11 +432,11 @@ class StatTracker extends Analyzer {
       this.playerMultipliers[statKey] /= multiplier;
 
       debug &&
-      console.log(
-        `StatTracker: ${stat} multiplier change (${before.toFixed(2)} -> ${this.playerMultipliers[
-          statKey
-          ].toFixed(2)}) @ ${formatMilliseconds(this.owner.fightDuration)}`,
-      );
+        console.log(
+          `StatTracker: ${stat} multiplier change (${before.toFixed(2)} -> ${this.playerMultipliers[
+            statKey
+            ].toFixed(2)}) @ ${formatMilliseconds(this.owner.fightDuration)}`,
+        );
 
       if (changeCurrentStats) {
         const curr: number = this._currentStats[statKey];
@@ -841,9 +841,9 @@ class StatTracker extends Analyzer {
     const actualIntellect = event.spellPower;
     if (currentIntellect !== actualIntellect) {
       debug &&
-      this.error(
-        `Intellect rating calculated with StatTracker is different from actual Intellect from events! StatTracker: ${currentIntellect}, actual: ${actualIntellect}`,
-      );
+        this.error(
+          `Intellect rating calculated with StatTracker is different from actual Intellect from events! StatTracker: ${currentIntellect}, actual: ${actualIntellect}`,
+        );
       const delta = actualIntellect - currentIntellect;
       this.forceChangeStats({ intellect: delta }, null, true);
     }
@@ -884,11 +884,11 @@ class StatTracker extends Analyzer {
       // we have to check the stacks count because Entities incorrectly copies the prepull property onto changes and removal following the application
       if (event.prepull && event.oldStacks === 0) {
         debug &&
-        console.log(
-          `StatTracker prepull application IGNORED for ${
-            SPELLS[spellId] ? SPELLS[spellId].name : spellId
-          }`,
-        );
+          console.log(
+            `StatTracker prepull application IGNORED for ${
+              SPELLS[spellId] ? SPELLS[spellId].name : spellId
+            }`,
+          );
         return;
       }
 
@@ -896,11 +896,11 @@ class StatTracker extends Analyzer {
       const delta = this._changeStats(statBuff, event.newStacks - event.oldStacks);
       const after = Object.assign({}, this._currentStats);
       debug &&
-      console.log(
-        `StatTracker: (${event.oldStacks} -> ${event.newStacks}) ${
-          SPELLS[spellId] ? SPELLS[spellId].name : spellId
-        } @ ${formatMilliseconds(this.owner.fightDuration)} - Change: ${this._statPrint(delta)}`,
-      );
+        console.log(
+          `StatTracker: (${event.oldStacks} -> ${event.newStacks}) ${
+            SPELLS[spellId] ? SPELLS[spellId].name : spellId
+          } @ ${formatMilliseconds(this.owner.fightDuration)} - Change: ${this._statPrint(delta)}`,
+        );
       debug && this._debugPrintStats(this._currentStats);
       this._triggerChangeStats(event, before, delta, after);
     }
@@ -909,11 +909,11 @@ class StatTracker extends Analyzer {
       // we have to check the stacks count because Entities incorrectly copies the prepull property onto changes and removal following the application
       if (event.prepull && event.oldStacks === 0) {
         debug &&
-        console.log(
-          `StatTracker prepull application IGNORED for ${
-            SPELLS[spellId] ? SPELLS[spellId].name : spellId
-          }`,
-        );
+          console.log(
+            `StatTracker prepull application IGNORED for ${
+              SPELLS[spellId] ? SPELLS[spellId].name : spellId
+            }`,
+          );
         this.addStatMultiplier(statMult);
         return;
       }
