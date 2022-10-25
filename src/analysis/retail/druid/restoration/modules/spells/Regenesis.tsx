@@ -13,7 +13,7 @@ import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import { SpellLink } from 'interface';
 
 const REJUV_MAX_BOOST_PER_RANK = 0.1;
-const TRANQ_MAX_BOOST_PER_RANK = 0.2;
+const TRANQ_MAX_BOOST_PER_RANK = 0.15;
 
 /**
  * **Regenesis**
