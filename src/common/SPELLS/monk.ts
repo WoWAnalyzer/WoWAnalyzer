@@ -241,6 +241,11 @@ const spells = spellIndexableList({
     name: 'Whirling Dragon Punch',
     icon: 'ability_monk_hurricanestrike',
   },
+  YULONS_WHISPER_HEAL: {
+    id: 388044,
+    name: "Yu'lon's Whisper",
+    icon: 'ability_monk_chiexplosion',
+  },
 
   // Brewmaster
   NIUZAO_STOMP_DAMAGE: {

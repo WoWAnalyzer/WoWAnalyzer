@@ -5,6 +5,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2022, 10, 25), <>Updated numbers to account for pre-patch tuning pass.</>, Sref),
   change(date(2022, 10, 23), <>Updated Guide's 'cast box' displays with better tooltips. Made high overheal <SpellLink id={SPELLS.WILD_GROWTH.id} /> detection slightly less strict. Fixed an issue where <SpellLink id={SPELLS.SWIFTMEND.id} /> tracking wasn't detecting <SpellLink id={SPELLS.REJUVENATION_GERMINATION.id} /> removal.</>, Sref),
   change(date(2022, 10, 19), <>Rearranged Guide's 'Core Rotation' section for improved readability</>, Sref),
   change(date(2022, 10, 16), <>Fixed a bug where casting Flourish before your first Convoke caused a crash in the Flourish module.</>, Sref),

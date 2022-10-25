@@ -20,7 +20,10 @@ class DreamBreath extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.DREAM_BREATH), this.onHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.DREAM_BREATH, SPELLS.DREAM_BREATH_ECHO]),
+      this.onHeal,
+    );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_BREATH),
       this.onDotHeal,

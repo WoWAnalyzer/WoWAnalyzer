@@ -207,20 +207,20 @@ class StatTracker extends Analyzer {
 
   //Values taken from https://github.com/simulationcraft/simc/blob/dragonflight/engine/dbc/generated/sc_scale_data.inc
   statBaselineRatingPerPercent = {
+    //TODO Update to level 70 values once DF has launched as we will need the old values during prepatch
     /** Secondaries */
-    [STAT.CRITICAL_STRIKE]: 170,
-    [STAT.HASTE]: 180,
-    [STAT.MASTERY]: 180,
-    [STAT.VERSATILITY]: 205,
+    [STAT.CRITICAL_STRIKE]: 35, //@ Level 70 180
+    [STAT.HASTE]: 33, //@ Level 70 170
+    [STAT.MASTERY]: 35, //@ Level 70 180
+    [STAT.VERSATILITY]: 40, //@ Level 70 205
     /** Tertiaries */
-    [STAT.AVOIDANCE]: 88,
-    [STAT.LEECH]: 132,
-    [STAT.SPEED]: 62,
+    [STAT.AVOIDANCE]: 14, //@ Level 70 72
+    [STAT.LEECH]: 21, //@ Level 70 110
+    [STAT.SPEED]: 10, //@ Level 70 50
   };
 
-  // TODO these values are in updated SIMC for Dragonflight, but I don't know how to derive them - still need to update
   /** Secondary stat scaling thresholds
-   * Taken from https://raw.githubusercontent.com/simulationcraft/simc/shadowlands/engine/dbc/generated/item_scaling.inc
+   * Taken from https://raw.githubusercontent.com/simulationcraft/simc/dragonflight/engine/dbc/generated/item_scaling.inc
    * Search for 21024 in the first column for secondary stat scaling
    */
   secondaryStatPenaltyThresholds: PenaltyThreshold[] = [
@@ -235,19 +235,18 @@ class StatTracker extends Analyzer {
     { base: 2, scaled: 1.26, penaltyAboveThis: 1 },
   ];
 
-  // TODO these values are in updated SIMC for Dragonflight, but I don't know how to derive them - still need to update
   /** Tertiary stat scaling thresholds
-   * Taken from https://raw.githubusercontent.com/simulationcraft/simc/shadowlands/engine/dbc/generated/item_scaling.inc
+   * Taken from https://raw.githubusercontent.com/simulationcraft/simc/dragonflight/engine/dbc/generated/item_scaling.inc
    * Search for 21025 in the first column for tertiary stat scaling
    */
   tertiaryStatPenaltyThresholds: PenaltyThreshold[] = [
     /** Tertiary stat scaling thresholds */
     { base: 0, scaled: 0, penaltyAboveThis: 0 },
     { base: 0.05, scaled: 0.05, penaltyAboveThis: 0 },
-    { base: 0.1, scaled: 0.1, penaltyAboveThis: 0 },
-    { base: 0.15, scaled: 0.14, penaltyAboveThis: 0.2 },
-    { base: 0.2, scaled: 0.17, penaltyAboveThis: 0.4 },
-    { base: 0.25, scaled: 0.19, penaltyAboveThis: 0.6 },
+    { base: 0.1, scaled: 0.1, penaltyAboveThis: 0.2 },
+    { base: 0.15, scaled: 0.14, penaltyAboveThis: 0.4 },
+    { base: 0.2, scaled: 0.17, penaltyAboveThis: 0.6 },
+    { base: 0.25, scaled: 0.19, penaltyAboveThis: 0.8 },
     { base: 1, scaled: 0.49, penaltyAboveThis: 1 },
   ];
 
