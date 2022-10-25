@@ -142,6 +142,21 @@ const spells = spellIndexableList({
     name: 'Penance',
     icon: 'spell_holy_penance',
   },
+  VAMPIRIC_TOUCH: {
+    id: SPELLS.VAMPIRIC_TOUCH,
+    name: 'Vampiric Touch',
+    icon: 'spell_holy_stoicism',
+  },
+  VAMPIRIC_EMBRACE: {
+    id: SPELLS.VAMPIRIC_EMBRACE,
+    name: 'Vampiric Embrace',
+    icon: 'spell_shadow_unsummonbuilding',
+  },
+  MIND_FLAY: {
+    id: SPELLS.MIND_FLAY,
+    name: 'Mind Flay',
+    icon: 'spell_shadow_siphonmana',
+  },
 });
 
 export default spells;
