@@ -49,7 +49,7 @@ class Checklist extends BaseChecklist {
           manaLeft: this.manaValues.suggestionThresholds,
           nonHealingTimeSuggestionThresholds: this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
-          shadowWordPain: this.shadowWordPain.suggestionThresholds,
+          shadowWordPain: this.shadowWordPain.uptimeSuggestionThresholds,
           vampiricTouch: this.vampiricTouch.suggestionThresholds,
           devouringPlague: this.devouringPlague.suggestionThresholds,
         }}
