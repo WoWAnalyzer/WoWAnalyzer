@@ -42,7 +42,6 @@ export default function BaseChart(props: Props) {
     },
     data: undefined,
   };
-  console.log(JSON.stringify({ ...prp.spec }));
 
   return <VegaLite theme="dark" tooltip={{ theme: 'dark' }} actions={false} {...prp} />;
 }
