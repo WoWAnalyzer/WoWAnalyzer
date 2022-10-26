@@ -34,7 +34,7 @@ const ITEMS = {
     SHAMAN,
     WARLOCK,
     WARRIOR,
-    CLASSIC
+    CLASSIC,
   ),
   //Any non class-specific items
   ...safeMerge(OTHERS, SHADOWLANDS),
