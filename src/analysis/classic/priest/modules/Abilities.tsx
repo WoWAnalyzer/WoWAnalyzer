@@ -5,6 +5,7 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import lowRankSpells from '../lowRankSpells';
 import * as SPELLS from '../SPELLS';
 import { Build } from 'analysis/classic/priest/CONFIG';
+import { PRAYER_OF_MENDING_HEAL } from '../SPELLS';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -111,7 +112,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.MANA_BURN, ...lowRankSpells[SPELLS.MANA_BURN]],
+        spell: [SPELLS.MANA_BURN],
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           static: 1500,

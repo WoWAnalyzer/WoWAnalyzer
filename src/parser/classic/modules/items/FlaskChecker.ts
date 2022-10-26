@@ -86,21 +86,21 @@ class FlaskChecker extends Analyzer {
         'You did not have a flask up before combat. Having a flask during combat is an easy way to improve performance.',
       )
         .icon('inv_potion_97')
-        .staticImportance(SUGGESTION_IMPORTANCE.MINOR),
+        .staticImportance(SUGGESTION_IMPORTANCE.MAJOR),
     );
     when(this.GuardianElixirSuggestionThresholds).addSuggestion((suggest: SuggestionFactory) =>
       suggest(
         'You did not have a guardian elixir or flask up before combat. Having one of these is an easy way to improve performance.',
       )
         .icon('inv_potion_155')
-        .staticImportance(SUGGESTION_IMPORTANCE.MINOR),
+        .staticImportance(SUGGESTION_IMPORTANCE.MAJOR),
     );
     when(this.BattleElixirSuggestionThresholds).addSuggestion((suggest: SuggestionFactory) =>
       suggest(
         'You did not have a battle elixir or flask up before combat. Having one of these is an easy way to improve performance.',
       )
         .icon('inv_potion_142')
-        .staticImportance(SUGGESTION_IMPORTANCE.MINOR),
+        .staticImportance(SUGGESTION_IMPORTANCE.MAJOR),
     );
   }
 }
