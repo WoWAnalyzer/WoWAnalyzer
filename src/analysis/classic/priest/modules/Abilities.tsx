@@ -4,6 +4,7 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 import lowRankSpells from '../lowRankSpells';
 import * as SPELLS from '../SPELLS';
+import { Build } from 'analysis/classic/priest/CONFIG';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -57,7 +58,7 @@ class Abilities extends CoreAbilities {
           static: 1500,
         },
         castEfficiency: {
-          suggestion: true,
+          suggestion: this.selectedCombatant.owner.build === Build.DISC || this.selectedCombatant.owner.build === Build.HOLY,
           recommendedEfficiency: 0.75,
           extraSuggestion: 'You should use this as often as possible.',
         },
@@ -284,17 +285,18 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.6,
           extraSuggestion: 'You should use this as often as possible.',
         },
+        enabled: this.selectedCombatant.owner.build === Build.HOLY,
       },
       {
         spell: SPELLS.INNER_FOCUS,
         category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: this.selectedCombatant.talentPoints[0] >= 11,
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
           extraSuggestion: 'You should use this as often as possible.',
         },
+        enabled: this.selectedCombatant.owner.build === Build.DISC,
       },
       {
         spell: SPELLS.POWER_INFUSION,
@@ -308,7 +310,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.5,
           extraSuggestion: 'You should use this as often as possible.',
         },
-        enabled: this.selectedCombatant.talentPoints[0] >= 31,
+        enabled: this.selectedCombatant.owner.build === Build.DISC,
       },
       {
         spell: SPELLS.PAIN_SUPPRESSION,
@@ -316,7 +318,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: this.selectedCombatant.talentPoints[0] >= 41,
+        enabled: this.selectedCombatant.owner.build === Build.DISC,
       },
       {
         spell: [SPELLS.PENANCE, ...lowRankSpells[SPELLS.PENANCE]],
@@ -324,7 +326,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: this.selectedCombatant.talentPoints[0] >= 51,
+        enabled: this.selectedCombatant.owner.build === Build.DISC,
       },
       {
         spell: [SPELLS.PENANCE_HEALING, ...lowRankSpells[SPELLS.PENANCE_HEALING]],
@@ -332,7 +334,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: this.selectedCombatant.talentPoints[0] >= 51,
+        enabled: this.selectedCombatant.owner.build === Build.DISC,
       },
       {
         spell: [SPELLS.PENANCE_DAMAGE, ...lowRankSpells[SPELLS.PENANCE_DAMAGE]],
@@ -340,7 +342,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: this.selectedCombatant.talentPoints[0] >= 51,
+        enabled: this.selectedCombatant.owner.build === Build.DISC,
       },
 
       {
@@ -349,7 +351,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: this.selectedCombatant.talentPoints[2] >= 11,
+        enabled: this.selectedCombatant.owner.build === Build.SHADOW,
       },
       {
         spell: SPELLS.SILENCE,
@@ -364,7 +366,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: this.selectedCombatant.talentPoints[2] >= 21,
+        enabled: this.selectedCombatant.owner.build === Build.SHADOW,
       },
       {
         spell: SPELLS.SHADOW_FORM,
@@ -372,7 +374,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: this.selectedCombatant.talentPoints[2] >= 41,
+        enabled: this.selectedCombatant.owner.build === Build.SHADOW,
       },
       {
         spell: SPELLS.SYMBOL_OF_HOPE,
@@ -434,7 +436,7 @@ class Abilities extends CoreAbilities {
           static: 1500,
         },
         castEfficiency: {
-          suggestion: true,
+          suggestion: this.selectedCombatant.owner.build === Build.DISC || this.selectedCombatant.owner.build === Build.HOLY,
           recommendedEfficiency: 0.6,
           extraSuggestion: 'You should use this as often as possible.',
         },
@@ -451,6 +453,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.3,
           extraSuggestion: 'Save this cooldown for a tank, but make sure you still cast it!',
         },
+        enabled: this.selectedCombatant.owner.build === Build.HOLY,
       },
 
     ];

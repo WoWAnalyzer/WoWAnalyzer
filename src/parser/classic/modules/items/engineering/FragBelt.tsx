@@ -2,6 +2,7 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 
 import Abilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 const FRAG_BELT_ENCHANT_ID = 3601;
 const FRAG_BELT_SPELL_ID = 67890;
@@ -28,6 +29,7 @@ class FragBelt extends Analyzer {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: .35,
+          importance: ISSUE_IMPORTANCE.REGULAR
         },
       });
     }

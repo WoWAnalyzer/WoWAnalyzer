@@ -2,6 +2,7 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 
 import Abilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 const HYPERSPEED_ACCELERATORS_ENCHANT_ID = 3604;
 const HYPERSPEED_ACCELERATORS_SPELL_ID = 54758;
@@ -27,6 +28,7 @@ class HyperspeedAccelerators extends Analyzer {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: .35,
+          importance: ISSUE_IMPORTANCE.REGULAR
         },
       });
     }
