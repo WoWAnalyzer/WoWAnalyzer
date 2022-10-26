@@ -10,6 +10,7 @@ export const PRAYER_OF_HEALING = 48072;
 export const PRAYER_OF_MENDING_BUFF = 41635;
 export const PRAYER_OF_MENDING_HEAL = 33110;
 export const SHADOW_WORD_PAIN = 48125;
+export const SHADOW_WEAVING_TALENT = 15332;
 export const MIND_BLAST = 48127;
 export const SHADOW_WORD_DEATH = 48158;
 export const SMITE = 48123;

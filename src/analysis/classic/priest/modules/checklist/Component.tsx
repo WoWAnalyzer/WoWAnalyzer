@@ -4,7 +4,7 @@ import { TooltipElement } from 'interface/Tooltip';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
-  ChecklistProps,
+  ChecklistProps, DotUptimeProps,
 } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
@@ -13,8 +13,19 @@ import PreparationRule from 'parser/classic/modules/features/Checklist/Preparati
 
 import * as SPELLS from '../../SPELLS';
 import { Build } from 'analysis/classic/priest/CONFIG';
+import { SHADOW_WEAVING_TALENT } from '../../SPELLS';
 
 const PriestChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistProps) => {
+  const DotUptime = (props: DotUptimeProps) => (
+    <Requirement
+      name={
+        <>
+          <SpellLink id={props.id} icon /> uptime
+        </>
+      }
+      thresholds={props.thresholds}
+    />
+  );
 
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
@@ -43,6 +54,16 @@ const PriestChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPro
         {combatant.owner.build !== Build.SHADOW && <AbilityRequirement spell={SPELLS.PRAYER_OF_MENDING} />}
         {combatant.owner.build === Build.HOLY && <AbilityRequirement spell={SPELLS.CIRCLE_OF_HEALING} />}
       </Rule>
+      {combatant.owner.build === Build.SHADOW && <Rule
+        name="Maintain your DoTs on the boss"
+        description={<>DoTs are a big part of your damage. You should try to keep as high uptime on them as possible, but do not refresh them too early.
+          Try to cast <SpellLink id={SPELLS.SHADOW_WORD_PAIN} /> after applying 5 stacks of <SpellLink id={SPELLS.SHADOW_WEAVING_TALENT} /></>}
+      >
+        <DotUptime id={SPELLS.SHADOW_WORD_PAIN} thresholds={thresholds.shadowWordPain} />
+        <DotUptime id={SPELLS.VAMPIRIC_TOUCH} thresholds={thresholds.vampiricTouch} />
+        <DotUptime id={SPELLS.DEVOURING_PLAGUE} thresholds={thresholds.devouringPlague} />
+      </Rule>}
+
       <Rule
         name="Use cooldowns effectively"
         description={

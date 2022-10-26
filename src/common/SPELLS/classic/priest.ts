@@ -167,6 +167,11 @@ const spells = spellIndexableList({
     name: 'Hymn of Hope',
     icon: 'spell_holy_symbolofhope',
   },
+  SHADOW_WEAVING_TALENT: {
+    id: SPELLS.SHADOW_WEAVING_TALENT,
+    name: 'Shadow Weaving',
+    icon: 'spell_shadow_blackplague',
+  },
 });
 
 export default spells;
