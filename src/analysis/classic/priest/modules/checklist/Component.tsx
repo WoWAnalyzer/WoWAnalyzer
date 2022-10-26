@@ -13,7 +13,6 @@ import PreparationRule from 'parser/classic/modules/features/Checklist/Preparati
 
 import * as SPELLS from '../../SPELLS';
 import { Build } from 'analysis/classic/priest/CONFIG';
-import { SHADOW_WEAVING_TALENT } from '../../SPELLS';
 
 const PriestChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistProps) => {
   const DotUptime = (props: DotUptimeProps) => (

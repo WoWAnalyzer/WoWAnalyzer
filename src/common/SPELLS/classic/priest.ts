@@ -1,6 +1,5 @@
 import { spellIndexableList } from '../Spell';
 import * as SPELLS from 'analysis/classic/priest/SPELLS';
-import { PAIN_AND_SIFFERING_TALENT, SHADOW_WEAVING_BUFF } from 'analysis/classic/priest/SPELLS';
 
 const spells = spellIndexableList({
   GREATER_HEAL: {

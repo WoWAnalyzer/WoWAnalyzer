@@ -7,9 +7,8 @@ import Enemies from 'parser/shared/modules/Enemies';
 import UptimeBar from 'parser/ui/UptimeBar';
 import * as SPELLS from '../../SPELLS';
 import { Build } from 'analysis/classic/priest/CONFIG';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, ApplyDebuffEvent, ApplyDebuffStackEvent, CastEvent, ChangeBuffStackEvent, ChangeDebuffStackEvent, RefreshDebuffEvent, RemoveBuffEvent, RemoveDebuffEvent, RemoveDebuffStackEvent } from 'parser/core/Events';
-import { PAIN_AND_SIFFERING_TALENT, SHADOW_WEAVING_BUFF } from '../../SPELLS';
-import app from 'interface/App';
+import Events, { ApplyDebuffEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import { SHADOW_WEAVING_BUFF } from '../../SPELLS';
 
 interface ShadowWordPainTracker {
   applicationTime: number;
