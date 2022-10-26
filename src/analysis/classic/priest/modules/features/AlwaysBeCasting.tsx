@@ -1,39 +1,32 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import { Options } from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 
-import lowRankSpells, { LowRankSpells } from '../../lowRankSpells';
+import lowRankSpells  from '../../lowRankSpells';
 import * as SPELLS from '../../SPELLS';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
-  static HEALING_ABILITIES_ON_GCD: number[] = [
-    SPELLS.FLASH_HEAL,
-    SPELLS.GREATER_HEAL,
-    SPELLS.RENEW,
-    SPELLS.POWER_WORD_SHIELD,
-    SPELLS.BINDING_HEAL,
-    SPELLS.PRAYER_OF_MENDING,
-    SPELLS.PRAYER_OF_HEALING,
-    SPELLS.CIRCLE_OF_HEALING,
+  HEALING_ABILITIES_ON_GCD: number[] = [
+    SPELLS.FLASH_HEAL, ...lowRankSpells[SPELLS.FLASH_HEAL],
+    SPELLS.GREATER_HEAL, ...lowRankSpells[SPELLS.GREATER_HEAL],
+    SPELLS.RENEW, ...lowRankSpells[SPELLS.RENEW],
+    SPELLS.POWER_WORD_SHIELD, ...lowRankSpells[SPELLS.POWER_WORD_SHIELD],
+    SPELLS.BINDING_HEAL, ...lowRankSpells[SPELLS.BINDING_HEAL],
+    SPELLS.BINDING_HEAL, ...lowRankSpells[SPELLS.BINDING_HEAL],
+    SPELLS.PRAYER_OF_MENDING, ...lowRankSpells[SPELLS.PRAYER_OF_MENDING],
+    SPELLS.PRAYER_OF_HEALING, ...lowRankSpells[SPELLS.PRAYER_OF_HEALING],
+    SPELLS.CIRCLE_OF_HEALING, ...lowRankSpells[SPELLS.CIRCLE_OF_HEALING],
+    SPELLS.DISPEL_MAGIC, ...lowRankSpells[SPELLS.DISPEL_MAGIC],
+    SPELLS.PENANCE, ...lowRankSpells[SPELLS.PENANCE],
+    SPELLS.PENANCE_HEALING, ...lowRankSpells[SPELLS.PENANCE_HEALING],
+    SPELLS.PENANCE_DAMAGE, ...lowRankSpells[SPELLS.PENANCE_DAMAGE],
+    SPELLS.DIVINE_HYMN,
+    SPELLS.MASS_DISPEL,
+    SPELLS.ABOLISH_DISEASE,
+    SPELLS.HYMN_OF_HOPE,
+    SPELLS.GUARDIAN_SPIRIT,
   ];
-
-  constructor(options: Options) {
-    super(options);
-
-    const maxRankSpells: number[] = AlwaysBeCasting.HEALING_ABILITIES_ON_GCD;
-
-    const lrs: LowRankSpells = lowRankSpells;
-    for (const spell_id of maxRankSpells) {
-      AlwaysBeCasting.HEALING_ABILITIES_ON_GCD = AlwaysBeCasting.HEALING_ABILITIES_ON_GCD.concat(
-        lrs[spell_id],
-      );
-    }
-    AlwaysBeCasting.HEALING_ABILITIES_ON_GCD = AlwaysBeCasting.HEALING_ABILITIES_ON_GCD.filter(
-      (id: number) => Boolean(id),
-    );
-  }
 
   suggestions(when: When) {
     const deadTimePercentage = this.totalTimeWasted / this.owner.fightDuration;

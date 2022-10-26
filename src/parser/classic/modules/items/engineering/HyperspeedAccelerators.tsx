@@ -16,8 +16,8 @@ class HyperspeedAccelerators extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const bracers = this.selectedCombatant._getGearItemBySlotId(9);
-    this.active = bracers.permanentEnchant === HYPERSPEED_ACCELERATORS_ENCHANT_ID;
+    const gloves = this.selectedCombatant._getGearItemBySlotId(9);
+    this.active = gloves.permanentEnchant === HYPERSPEED_ACCELERATORS_ENCHANT_ID;
     if (this.active) {
       (options.abilities as Abilities).add({
         spell: HYPERSPEED_ACCELERATORS_SPELL_ID,
@@ -26,7 +26,9 @@ class HyperspeedAccelerators extends Analyzer {
         gcd: null,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.8,
+          recommendedEfficiency: .3,
+          averageIssueEfficiency: .1,
+          majorIssueEfficiency: -1,
         },
       });
     }
