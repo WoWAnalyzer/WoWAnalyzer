@@ -84,7 +84,7 @@ class HealingEfficiencyTracker extends Analyzer {
 
     if (healingSpellIds) {
       for (const healingSpellId of healingSpellIds) {
-        const healingAbility = this.abilityTracker.getAbility(healingSpellIds[healingSpellId]);
+        const healingAbility = this.abilityTracker.getAbility(healingSpellId);
 
         spellInfo.healingHits += healingAbility.healingHits || 0;
         spellInfo.healingDone +=
