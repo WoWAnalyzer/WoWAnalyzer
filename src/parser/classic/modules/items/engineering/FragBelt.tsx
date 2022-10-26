@@ -27,7 +27,7 @@ class FragBelt extends Analyzer {
         gcd: null,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.8,
+          recommendedEfficiency: .35,
         },
       });
     }

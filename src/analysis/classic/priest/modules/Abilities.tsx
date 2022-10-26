@@ -59,7 +59,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.75,
-          extraSuggestion: 'You should aim to use this off CD.',
+          extraSuggestion: 'You should use this as often as possible.',
         },
         buffSpellId: SPELLS.PRAYER_OF_MENDING_BUFF,
         healSpellIds: [SPELLS.PRAYER_OF_MENDING_HEAL],
@@ -125,7 +125,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.75,
-          extraSuggestion: 'You should aim to use this any time you are below 70% mana.',
+          extraSuggestion: 'You should use this any time you are below 70% mana.',
         },
         cooldown: 300,
       },
@@ -278,7 +278,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: this.selectedCombatant.talentPoints[1] >= 41,
+        cooldown: 6,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.6,
+          extraSuggestion: 'You should use this as often as possible.',
+        },
       },
       {
         spell: SPELLS.INNER_FOCUS,
@@ -287,8 +292,8 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.85,
-          extraSuggestion: 'You should aim to use this off CD.',
+          recommendedEfficiency: 0.5,
+          extraSuggestion: 'You should use this as often as possible.',
         },
       },
       {
@@ -300,8 +305,8 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.85,
-          extraSuggestion: 'You should aim to use this off CD.',
+          recommendedEfficiency: 0.5,
+          extraSuggestion: 'You should use this as often as possible.',
         },
         enabled: this.selectedCombatant.talentPoints[0] >= 31,
       },
@@ -407,7 +412,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.DEVOURING_PLAGUE, ...lowRankSpells[SPELLS.DEVOURING_PLAGUE]],
-        category: SPELL_CATEGORY.COOLDOWNS,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 180,
         gcd: {
           static: 1500,
@@ -431,9 +436,23 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.6,
-          extraSuggestion: 'You should aim to use this as often as possible.',
+          extraSuggestion: 'You should use this as often as possible.',
         },
       },
+      {
+        spell: [SPELLS.GUARDIAN_SPIRIT],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 180,
+        gcd: {
+          static: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.3,
+          extraSuggestion: 'Save this cooldown for a tank, but make sure you still cast it!',
+        },
+      },
+
     ];
 
     return baseSpells;
