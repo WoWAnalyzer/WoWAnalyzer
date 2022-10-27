@@ -20,6 +20,7 @@ import RenewingMistDuringManaTea from '../../spells/RenewingMistDuringManaTea';
 import SpiritOfTheCrane from '../../spells/SpiritOfTheCrane';
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import Component from './Component';
+import VivaciousVivification from '../../spells/VivaciousVivify';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -43,6 +44,7 @@ class Checklist extends BaseChecklist {
     soothingMist: SoothingMist,
     envelopingBreath: EnvelopingBreath,
     EssenceFontCancelled: EssenceFontCancelled,
+    vivaciousVivification: VivaciousVivification,
   };
 
   protected combatants!: Combatants;
@@ -64,6 +66,7 @@ class Checklist extends BaseChecklist {
   protected soothingMist!: SoothingMist;
   protected envelopingBreath!: EnvelopingBreath;
   protected EssenceFontCancelled!: EssenceFontCancelled;
+  protected vivaciousVivification!: VivaciousVivification;
 
   render() {
     return (
@@ -92,6 +95,7 @@ class Checklist extends BaseChecklist {
           jadeSerpentStatue: this.jadeSerpentStatue.suggestionThresholds,
           soothingMist: this.soothingMist.suggestionThresholdsCasting,
           EssenceFontCancelled: this.EssenceFontCancelled.suggestionThresholds,
+          vivaciousVivification: this.vivaciousVivification.suggestionThresholds,
         }}
       />
     );
