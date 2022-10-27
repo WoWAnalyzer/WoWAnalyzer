@@ -6,6 +6,7 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 26), 'Enable guide for Vengeance DH.', ToppleTheNun),
   change(date(2022, 10, 22), 'Add Soul Fragment buff stack tracking to Guide.', ToppleTheNun),
   change(date(2022, 10, 22), 'Setup initial Vengeance DH guide.', ToppleTheNun),
   change(date(2022, 10, 22), <>Enable Soul Overcap analysis even when <SpellLink id={TALENTS.FEED_THE_DEMON_TALENT}/> is taken.</>, ToppleTheNun),
