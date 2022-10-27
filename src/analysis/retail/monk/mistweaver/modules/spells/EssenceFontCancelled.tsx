@@ -10,7 +10,7 @@ import Events, {
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
-const debug = true;
+const debug = false;
 const NUM_EF_BOLTS = 18;
 const BOLT_BUFFER = 2;
 
