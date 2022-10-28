@@ -1,6 +1,5 @@
 import { itemIndexableList } from 'common/ITEMS/Item';
 
-const items = itemIndexableList({
-});
+const items = itemIndexableList({});
 
 export default items;

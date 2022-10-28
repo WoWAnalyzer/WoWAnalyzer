@@ -19,6 +19,8 @@ import Spell, { Enchant } from '../Spell';
 import DRUID from './druid';
 import PRIEST from './priest';
 import WARLOCK from './warlock';
+import WARRIOR from './warrior';
+
 //Professions
 import Engineering from './engineering';
 
@@ -26,6 +28,7 @@ const ABILITIES = {
   ...DRUID,
   ...PRIEST,
   ...WARLOCK,
+  ...WARRIOR,
   ...Engineering,
 } as const;
 

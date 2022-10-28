@@ -3,7 +3,7 @@ import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import * as SPELLS from '../../SPELLS';
-import { RENEWED_HOPE_BUFF } from '../../SPELLS';
+import { RENEWED_HOPE_BUFF, RENEWED_HOPE_TALENT } from '../../SPELLS';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -71,7 +71,7 @@ class RenewedHope extends Analyzer {
     when(this.damageReductionActiveThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your raid should try to have at least one person buffing: <SpellLink id={RENEWED_HOPE_BUFF} />, <SpellLink id={GREATER_BLESSING_OF_SANCTUARY_ID} />, <SpellLink id={BLESSING_OF_SANCTUARY_ID} />, or <SpellLink id={VIGILANCE_ID} />.
+          Your raid should try to have at least one person buffing: <SpellLink id={RENEWED_HOPE_TALENT} />, <SpellLink id={GREATER_BLESSING_OF_SANCTUARY_ID} />, <SpellLink id={BLESSING_OF_SANCTUARY_ID} />, or <SpellLink id={VIGILANCE_ID} />.
         </>,
       ).staticImportance(ISSUE_IMPORTANCE.REGULAR)
         .icon('spell_holy_holyprotection')
