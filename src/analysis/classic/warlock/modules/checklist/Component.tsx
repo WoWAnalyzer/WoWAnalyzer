@@ -29,8 +29,6 @@ const curseOfTheElements = (
 const curseOfDoom = <Trans id="warlock.wotlk.shared.curses.curseOfDoom">Curse of Doom</Trans>;
 const curseOfAgony = <Trans id="warlock.wotlk.shared.curses.curseOfAgony">Curse of Elements</Trans>;
 
-console.log(SPELLS);
-
 const WarlockChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistProps) => (
   <Checklist>
     <Rule

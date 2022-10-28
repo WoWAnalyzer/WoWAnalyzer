@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/classic';
+import SPELLS from 'common/SPELLS/classic/warlock';
 import { formatPercentage } from 'common/format';
 import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
