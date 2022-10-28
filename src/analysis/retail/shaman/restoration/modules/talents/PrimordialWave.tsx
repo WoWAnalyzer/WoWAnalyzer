@@ -1,7 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -24,14 +23,14 @@ class PrimordialWave extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_TALENT);
 
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.PRIMORDIAL_WAVE_HEAL),
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.PRIMORDIAL_WAVE_TALENT),
       this._onHeal,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PRIMORDIAL_WAVE_CAST),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.PRIMORDIAL_WAVE_TALENT),
       this._onCast,
     );
 
@@ -59,6 +58,7 @@ class PrimordialWave extends Analyzer {
   }
 
   _onHeal(event: HealEvent) {
+    // This isn't working as intended
     this.healing += event.amount + (event.absorbed || 0);
     this.overHealing += event.overheal || 0;
   }
