@@ -15,13 +15,17 @@
 import indexById, { proxyRestrictedTable } from 'common/indexById';
 
 import Spell, { Enchant } from '../Spell';
-import PRIEST from './priest';
+//Classes
 import DRUID from './druid';
+import PRIEST from './priest';
+import WARLOCK from './warlock';
+//Professions
 import Engineering from './engineering';
 
 const ABILITIES = {
-  ...PRIEST,
   ...DRUID,
+  ...PRIEST,
+  ...WARLOCK,
   ...Engineering,
 } as const;
 
