@@ -98,15 +98,15 @@ class RipUptimeAndSnapshots extends Snapshots {
        *  Clip Duration -> Red
        *  None of the Above -> Green
        */
-      let value: QualitativePerformance = 'good';
+      let value: QualitativePerformance = QualitativePerformance.Good;
       if (cpsUsed < MAX_CPS && this.castEntries.length > 0) {
-        value = 'fail';
+        value = QualitativePerformance.Fail;
       } else if (this.hasBt && !hasSpec(snapshots, BLOODTALONS_SPEC)) {
-        value = 'fail';
+        value = QualitativePerformance.Fail;
       } else if (clipped > 0) {
-        value = wasUpgrade ? 'ok' : 'fail';
+        value = wasUpgrade ? QualitativePerformance.Ok : QualitativePerformance.Fail;
       } else if (!hasSpec(snapshots, TIGERS_FURY_SPEC)) {
-        value = 'ok';
+        value = QualitativePerformance.Ok;
       }
       // TODO require TF / BT
 
