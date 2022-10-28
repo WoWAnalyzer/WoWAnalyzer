@@ -108,7 +108,8 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           </Trans>
         }
       >
-        {combatant.hasTalent(TALENTS.HEALING_STREAM_TOTEM_RESTORATION_TALENT.id) && (
+        {/* There is an issue with the castefficiency of this */}
+        {combatant.hasTalent(TALENTS.HEALING_STREAM_TOTEM_RESTORATION_TALENT.id) && !combatant.hasTalent(TALENTS.CLOUDBURST_TOTEM_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.HEALING_STREAM_TOTEM_RESTORATION_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS.SPIRIT_LINK_TOTEM_TALENT.id) && (
