@@ -114,7 +114,7 @@ class PrimordialWave extends Analyzer {
       <Statistic
         size="flexible"
         wide
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             {this.healing} healing via Primordial Wave,{' '}
