@@ -14,8 +14,8 @@ class InvokeYulon extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = !this.selectedCombatant.hasTalent(
-      TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id,
     );
     if (!this.active) {
       return;

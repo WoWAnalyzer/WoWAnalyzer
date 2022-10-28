@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS/druid';
 
 export default [
+  change(date(2022, 10, 25), <>Fixed a bug where <SpellLink id={TALENTS_DRUID.LIONS_STRENGTH_TALENT.id} /> statistic was showing at the wrong times.</>, Sref),
   change(date(2022, 10, 25), <>Added statistic for <SpellLink id={TALENTS_DRUID.CARNIVOROUS_INSTINCT_TALENT.id} />. Updated handling of energy cost modifying talents.</>, Sref),
   change(date(2022, 10, 19), <>Added statistic for <SpellLink id={TALENTS_DRUID.LIONS_STRENGTH_TALENT.id} /></>, Sref),
   change(date(2022, 10, 19), <>Rearranged Guide's 'Core Rotation' section for improved readability</>, Sref),
