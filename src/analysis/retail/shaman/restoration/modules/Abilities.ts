@@ -1,7 +1,6 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 // import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
@@ -295,50 +294,16 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.CHAIN_HARVEST.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        timelineSortIndex: 12,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
-        cooldown: 90, // reduced by crits
-      },
-      {
-        spell: SPELLS.DOOR_OF_SHADOWS.id, //TODO: add charges based on soulbind trait
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
-      },
-      {
-        spell: SPELLS.PRIMORDIAL_WAVE_CAST.id,
+        spell: TALENTS.PRIMORDIAL_WAVE_TALENT.id,
         buffSpellId: SPELLS.PRIMORDIAL_WAVE_BUFF.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         timelineSortIndex: 12,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_TALENT.id),
         cooldown: 45,
         healSpellIds: [SPELLS.PRIMORDIAL_WAVE_HEAL.id],
-      },
-      {
-        spell: SPELLS.FLESHCRAFT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-      },
-      {
-        spell: SPELLS.SOULSHAPE.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
       },
       {
         spell: SPELLS.PURIFY_SPIRIT.id,
