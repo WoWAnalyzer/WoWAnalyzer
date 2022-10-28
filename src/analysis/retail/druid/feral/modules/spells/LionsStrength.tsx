@@ -33,7 +33,7 @@ export default class LionsStrength extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.LIONS_STRENGTH_TALENT);
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(LIONS_STRENGTH_BOOSTED_SPELLS),
