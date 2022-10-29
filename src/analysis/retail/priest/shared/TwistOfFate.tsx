@@ -83,6 +83,7 @@ class TwistOfFate extends Analyzer {
       >
         <BoringSpellValueText spellId={TALENTS_PRIEST.TWIST_OF_FATE_TALENT.id}>
           <ItemHealingDone amount={healing} />
+          <br />
           <ItemDamageDone amount={damage} />
         </BoringSpellValueText>
       </Statistic>
