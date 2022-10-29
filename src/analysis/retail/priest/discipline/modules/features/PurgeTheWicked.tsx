@@ -158,7 +158,6 @@ class PurgeTheWicked extends Analyzer {
   onDotRemove(event: RemoveDebuffEvent) {
     this.ptwUptimes[this.ptwUptimes.length - 1].end = event.timestamp;
     delete this.ptwCleaveTracker[event.targetID];
-    console.log(this.ptwUptimes[this.ptwUptimes.length - 1]);
   }
 
   onDotDamage(event: DamageEvent) {
