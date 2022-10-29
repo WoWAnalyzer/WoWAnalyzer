@@ -46,9 +46,7 @@ import Undulation from './modules/talents/Undulation';
 import UnleashLife from './modules/talents/UnleashLife';
 import Wellspring from './modules/talents/Wellspring';
 // Spells
-// Potency Conduits
 // Legendaries
-// Covenants
 // Shared
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
 import RiptideNormalizer from './normalizers/RiptideNormalizer';

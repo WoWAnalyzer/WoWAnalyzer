@@ -22,7 +22,6 @@ class Undulation extends Analyzer {
       this._onHeal,
     );
   }
-  // TODO this might need to account for pwave covenant ability in SL as it copies healing waves
   _onHeal(event: HealEvent) {
     const hasUndulation = this.selectedCombatant.hasBuff(
       SPELLS.UNDULATION_BUFF.id,

@@ -2,12 +2,6 @@ import { AnyEvent, EventType, HealEvent } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import TALENTS from 'common/TALENTS/shaman';
 
-/**
- * reordering riptide applybuff after the initial heal because i really need it this way around
- * for the primaltidecore legendary analysis
- * todo: fix cast event as well?
- */
-
 class RiptideNormalizer extends EventsNormalizer {
   normalize(events: AnyEvent[]) {
     const fixedEvents: AnyEvent[] = [];
