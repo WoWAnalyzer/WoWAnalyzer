@@ -10,8 +10,10 @@ import GlobalCooldown from '../core/GlobalCooldown';
 import Atonement from '../spells/Atonement';
 import Evangelism from '../spells/Evangelism';
 import Haste from 'parser/shared/modules/Haste';
-import { SpellLink } from 'interface';
-import { CooldownExpandable } from 'analysis/retail/druid/restoration/Guide';
+import { ControlledExpandable, Icon, SpellLink, Tooltip } from 'interface';
+
+import './EvangelismAnalysis.scss';
+import { useState } from 'react';
 
 const ALLOWED_PRE_EVANG = [
   TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id,
@@ -111,6 +113,8 @@ class EvangelismAnalysis extends Analyzer {
 
   get guideCastBreakdown() {
     return this.ramps.map((ramp, ix) => {
+      const [isExpanded, setIsExpanded] = useState(false);
+
       const header = (
         <>
           @ {this.owner.formatTimestamp(ramp.timestamp)}{' '}
@@ -118,7 +122,66 @@ class EvangelismAnalysis extends Analyzer {
         </>
       );
 
-      return <CooldownExpandable header={header} checklistItems={[]} key={ix} />;
+      const badCastTooltip = (index: number) => (
+        <>
+          Casting a spell like <SpellLink id={ramp.rampHistory[index].ability.guid} /> is not
+          recommended while ramping. Make sure to mostly focus on applying{' '}
+          <SpellLink id={TALENTS_PRIEST.ATONEMENT_TALENT.id} /> when ramping.
+        </>
+      );
+
+      const spellSequence = ramp.rampHistory.map((cast, index) => {
+        const tooltipContent = (
+          <>{ramp.badCastIndexes?.includes(index) ? badCastTooltip(index) : 'No issues found'}</>
+        );
+        const iconClass = `evang__icon ${ramp.badCastIndexes?.includes(index) ? '--fail' : ''}`;
+        return (
+          <Tooltip content={tooltipContent} key={index} direction="up">
+            <div className="" data-place="top">
+              <Icon icon={cast.ability.abilityIcon} className={iconClass} />
+            </div>
+          </Tooltip>
+        );
+      });
+
+      const badCastOverview =
+        ramp.badCastIndexes?.length && ramp.badCastIndexes?.length > 0 ? (
+          <>
+            <div>
+              You cast {ramp.badCastIndexes?.length || 0} spells which are not optimally used while
+              ramping. Highlight here to see which spells these were.
+            </div>
+          </>
+        ) : null;
+
+      const problemOverview = (
+        <>
+          <div>{badCastOverview}</div>
+        </>
+      );
+
+      const noProblems = (
+        <>
+          <div>
+            No major issues detected, however if you think there should be, please let us know!
+          </div>
+        </>
+      );
+
+      return (
+        <ControlledExpandable
+          header={header}
+          element="section"
+          expanded={isExpanded}
+          inverseExpanded={() => setIsExpanded(!isExpanded)}
+          key={ix}
+        >
+          <div className="evang__cast-list">{spellSequence}</div>
+          {ramp.badCastIndexes?.length && ramp.badCastIndexes?.length > 0
+            ? problemOverview
+            : noProblems}
+        </ControlledExpandable>
+      );
     });
   }
 }
