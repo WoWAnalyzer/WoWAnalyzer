@@ -11,11 +11,10 @@ import Report from 'parser/core/Report';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { wclGameVersionToExpansion } from 'game/VERSIONS';
 
 import Background from './images/weirdnelf.png';
 import PATCHES, { Patch } from './PATCHES';
-import { wclGameVersionToExpansion } from 'game/VERSIONS';
-import Expansion from 'game/Expansion';
 
 interface Props {
   children: React.ReactNode;
@@ -36,6 +35,11 @@ class PatchChecker extends React.PureComponent<Props> {
   }
 
   makePreviousPatchUrl(patch: Patch) {
+    // Handle the case where we don't need a URL prefix
+    // This is specifically for patches within expansion, expansion changes usually merit a prefix
+    if (!patch.urlPrefix) {
+      return `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
+    }
     return `${window.location.protocol}//${patch.urlPrefix}.${window.location.host}${window.location.pathname}`;
   }
 
@@ -48,19 +52,24 @@ class PatchChecker extends React.PureComponent<Props> {
 
     const reportTimestamp = report.start;
     const reportDate = new Date(report.start).toLocaleDateString();
+    const reportGameVersion = report.gameVersion;
+
+    // Only check patches with matching game version
+    const patchesForGameVersion = PATCHES.filter((it) => it.gameVersion === reportGameVersion);
 
     // Sort from latest to oldest
-    const orderedPatches = PATCHES.sort((a, b) => b.timestamp - a.timestamp);
+    const orderedPatches = patchesForGameVersion.sort((a, b) => b.timestamp - a.timestamp);
 
-    const expansionStartPatch = orderedPatches[orderedPatches.length - 1];
     const reportPatch = orderedPatches.find((patch) => reportTimestamp > patch.timestamp);
+    // This will get the expansion expected based on the game version of the report, which
+    // _can_ be different from the expansion from the report patch.
+    // If they're different, it might be a bug OR the patch might be missing from the patches file.
     const reportExpansion = wclGameVersionToExpansion(report.gameVersion);
-    const isClassic = reportExpansion < Expansion.BattleForAzeroth;
 
-    if ((reportPatch && reportPatch.isCurrent) || isClassic || this.continue) {
+    if ((reportPatch && reportPatch.isCurrent) || this.continue) {
       return children;
     } else {
-      const isThisExpansion = reportTimestamp >= expansionStartPatch.timestamp;
+      const isThisExpansion = reportPatch?.expansion === reportExpansion;
 
       return (
         <div className="container offset">
@@ -95,16 +104,6 @@ class PatchChecker extends React.PureComponent<Props> {
                     accurately.
                     <br />
                     <br />
-                    If you would like to view the analysis on an older version of WoWAnalyzer,{' '}
-                    <a
-                      href={reportPatch && this.makePreviousPatchUrl(reportPatch)}
-                      onClick={this.handleClickContinue}
-                      style={{ fontSize: '1.1em' }}
-                    >
-                      <Trans id="interface.report.patchChecker.clickHere">click here</Trans>
-                    </a>
-                    .<br />
-                    <br />
                     If you would still like to view the analysis using the latest updates, you can
                     click 'Continue anyway' below.
                   </Trans>
@@ -117,6 +116,21 @@ class PatchChecker extends React.PureComponent<Props> {
                     <br />
                     You can still access the Analysis by clicking 'Continue anyway' below if
                     required.
+                    <br />
+                    <br />
+                    If you would like to view the analysis on an older version of WoWAnalyzer,{' '}
+                    <a
+                      href={reportPatch && this.makePreviousPatchUrl(reportPatch)}
+                      onClick={this.handleClickContinue}
+                      style={{ fontSize: '1.1em' }}
+                    >
+                      <Trans id="interface.report.patchChecker.clickHere">click here</Trans>
+                    </a>
+                    .
+                    <br />
+                    <br />
+                    If you would still like to view the analysis using the latest updates, you can
+                    click 'Continue anyway' below.
                   </Trans>
                 )}
                 <br />
