@@ -1,9 +1,10 @@
 import TALENTS from 'common/TALENTS/evoker';
-import CoreAbilities from 'parser/core/modules/Abilities';
+import CoreAbilities from 'analysis/retail/evoker/shared/modules/Abilities';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 class Abilities extends CoreAbilities {
-  spellbook() {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
       {
@@ -50,6 +51,7 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(TALENTS.SHATTERING_STAR_TALENT.id),
       },
+      ...super.spellbook(),
     ];
   }
 }

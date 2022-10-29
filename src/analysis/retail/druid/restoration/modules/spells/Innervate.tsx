@@ -1,7 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
-import { SpellLink } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import { PassFailCheckmark } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
@@ -14,17 +13,18 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import {
   CooldownExpandable,
   CooldownExpandableItem,
+  GUIDE_CORE_EXPLANATION_PERCENT,
 } from 'analysis/retail/druid/restoration/Guide';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
 // TODO these mana values will probably need to be updated?
-export const GREED_INNERVATE = 9000;
-export const SMART_INNERVATE = GREED_INNERVATE / 2;
+export const INNERVATE_MANA_REQUIRED = 9000;
 
 class Innervate extends Analyzer {
   casts = 0;
   castsOnYourself = 0;
   manaSaved = 0;
-  reduction = 0;
 
   castTrackers: InnervateCast[] = [];
 
@@ -58,7 +58,7 @@ class Innervate extends Analyzer {
 
       //checks if the spell costs anything (we don't just use cost since some spells don't play nice)
       if (Object.keys(manaEvent).length !== 0) {
-        const manaSavedFromThisCast = manaEvent[0] * this.reduction;
+        const manaSavedFromThisCast = manaEvent[0];
         this.manaSaved += manaSavedFromThisCast;
         if (this.castTrackers.length > 0) {
           this.castTrackers[this.castTrackers.length - 1].manaSaved += manaSavedFromThisCast;
@@ -68,7 +68,6 @@ class Innervate extends Analyzer {
   }
 
   onInnervate(event: CastEvent) {
-    this.reduction = 0.5;
     this.casts += 1;
 
     const castTracker: InnervateCast = {
@@ -80,7 +79,6 @@ class Innervate extends Analyzer {
 
     if (event.targetID === event.sourceID) {
       this.castsOnYourself += 1;
-      this.reduction = 1;
     } else {
       castTracker.targetId = event.targetID;
     }
@@ -94,23 +92,30 @@ class Innervate extends Analyzer {
   }
 
   get guideCastBreakdown() {
-    return (
-      <>
+    const explanation = (
+      <p>
         <strong>
           <SpellLink id={SPELLS.INNERVATE.id} />
         </strong>{' '}
         is best used during your ramp, or any time when you expect to spam cast. Typically it should
         be used as soon as it's available. Remember to fit a Wild Growth inside the Innervate, as
         it's one of your most expensive spells.
-        <p />
+      </p>
+    );
+
+    const data = (
+      <div>
+        <strong>Per-Cast Breakdown</strong>
+        <small> - click to expand</small>
         {this.castTrackers.map((cast, ix) => {
-          const isSelfCast = cast.targetId === undefined;
           const targetName = cast.targetId === undefined ? 'SELF' : 'ALLY';
-          const metThresholdMana = isSelfCast
-            ? cast.manaSaved >= GREED_INNERVATE
-            : cast.manaSaved >= SMART_INNERVATE;
+          const metThresholdMana = cast.manaSaved >= INNERVATE_MANA_REQUIRED;
           const castWildGrowth =
             cast.casts.filter((c) => c.ability.guid === SPELLS.WILD_GROWTH.id).length > 0;
+          const overallPerf =
+            metThresholdMana && castWildGrowth
+              ? QualitativePerformance.Good
+              : QualitativePerformance.Fail;
 
           const header = (
             <>
@@ -123,13 +128,7 @@ class Innervate extends Analyzer {
           checklistItems.push({
             label: 'Chain-cast expensive spells',
             result: <PassFailCheckmark pass={metThresholdMana} />,
-            details: (
-              <>
-                {isSelfCast
-                  ? `(for a self-cast, save at least ${GREED_INNERVATE} mana)`
-                  : `(for an ally-cast, save at least ${SMART_INNERVATE} mana)`}
-              </>
-            ),
+            details: <>(save at least {INNERVATE_MANA_REQUIRED} mana)</>,
           });
           checklistItems.push({
             label: (
@@ -165,13 +164,15 @@ class Innervate extends Analyzer {
               header={header}
               checklistItems={checklistItems}
               detailItems={detailItems}
+              perf={overallPerf}
               key={ix}
             />
           );
         })}
-        <p />
-      </>
+      </div>
     );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   statistic() {

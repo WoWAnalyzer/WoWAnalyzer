@@ -1,7 +1,7 @@
 import { change, date } from 'common/changelog';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
-import { TALENTS_PRIEST } from 'common/TALENTS';
+import { TALENTS_MAGE, TALENTS_PRIEST } from 'common/TALENTS';
 import {
   Abelito75,
   acornellier,
@@ -68,6 +68,12 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 25), 'Exclude classic from patch version checking.', ToppleTheNun),
+  change(date(2022, 10, 25), 'Add prepatch warning and add prepatch details.', ToppleTheNun),
+  change(date(2022, 10, 25), 'Update stat scaling values for DF prepatch - and add values to easily swap over after prepatch ends', Putro),
+  change(date(2022, 10, 24), 'Updating WOTLK Potions', Khadaj),
+  change(date(2022, 10, 24), 'Updating WOTLK Foods, adding food suggestions', Khadaj),
+  change(date(2022, 10, 22), 'Extract proxyRestrictedTable function for both retail and classic.', ToppleTheNun),
   change(date(2022, 10, 22), 'Add BiS Warlock Chest Enchant to Max enchants', jazminite),
   change(date(2022, 10, 22), 'Updating WOTLK to use custom spell definitions.', Khadaj),
   change(date(2022, 10, 22), 'Correct some issues with talent generation', Putro),
@@ -83,7 +89,7 @@ export default [
   change(date(2022, 10, 13), 'Adding Frag Belt to WOTLK analysis.', Khadaj),
   change(date(2022, 10, 11), 'Remove Effusive Anima Accelerator analyzer.', ToppleTheNun),
   change(date(2022, 10, 11), 'Remove conduits and soulbinds from character page.', ToppleTheNun),
-  change(date(2022, 10,  11), 'Convert Discord button to TypeScript.', ToppleTheNun),
+  change(date(2022, 10, 11), 'Convert Discord button to TypeScript.', ToppleTheNun),
   change(date(2022, 10, 9), 'Fixed an issue where DeathRecapTracker was being disabled by a bad Blessing of Sacrifice ID', Sref),
   change(date(2022, 10, 5), 'Add Vault of the Incarnates raid information.', ToppleTheNun),
   change(date(2022, 10, 4), 'Add Blessing of the Bronze as a raid buff.', ToppleTheNun),
@@ -122,7 +128,7 @@ export default [
   change(date(2022, 8, 8), 'Display equiped set pieces on tooltip.', Vetyst),
   change(date(2022, 8, 7), 'Update Buff tracking to TypeScript.', ToppleTheNun),
   change(date(2022, 8, 4), <>Add support for <ItemLink id={ITEMS.CACHE_OF_ACQUIRED_TREASURES.id}/>.</>, ToppleTheNun),
-  change(date(2022, 8, 3), <>Add spellsteal event for Mage's <SpellLink id={SPELLS.SPELLSTEAL.id} />.</>, Vetyst),
+  change(date(2022, 8, 3), <>Add spellsteal event for Mage's <SpellLink id={TALENTS_MAGE.SPELLSTEAL_TALENT.id} />.</>, Vetyst),
   change(date(2022, 7, 26), 'Updated translations and corrected some translation values in various places', Putro),
   change(date(2022, 7, 22), 'Show Death Knight Runeforge enchants on character overview.', Vetyst),
   change(date(2022, 7, 22), 'Add create event for handling spells like Demonic Circle.', ToppleTheNun),

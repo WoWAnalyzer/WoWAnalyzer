@@ -8,6 +8,9 @@ import CombatPotionChecker from 'parser/classic/modules/items/CombatPotionChecke
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import PrayerOfMending from '../spells/PrayerOfMending';
 import Component from './Component';
+import ShadowWordPain from 'analysis/classic/priest/modules/spells/ShadowWordPain';
+import VampiricTouch from 'analysis/classic/priest/modules/spells/VampiricTouch';
+import DevouringPlague from 'analysis/classic/priest/modules/spells/DevouringPlague';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -19,6 +22,9 @@ class Checklist extends BaseChecklist {
     prayerOfMending: PrayerOfMending,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     combatPotionChecker: CombatPotionChecker,
+    shadowWordPain: ShadowWordPain,
+    vampiricTouch: VampiricTouch,
+    devouringPlague: DevouringPlague,
   };
 
   protected combatants!: Combatants;
@@ -28,6 +34,9 @@ class Checklist extends BaseChecklist {
   protected manaValues!: ManaValues;
   protected alwaysBeCasting!: AlwaysBeCasting;
   protected combatPotionChecker!: CombatPotionChecker;
+  protected shadowWordPain!: ShadowWordPain;
+  protected vampiricTouch!: VampiricTouch;
+  protected devouringPlague!: DevouringPlague;
 
   render() {
     return (
@@ -38,9 +47,11 @@ class Checklist extends BaseChecklist {
           ...this.preparationRuleAnalyzer.thresholds,
           prayerOfMending: this.prayerOfMending.prayerOfMendingThreshold,
           manaLeft: this.manaValues.suggestionThresholds,
-          nonHealingTimeSuggestionThresholds: this.alwaysBeCasting
-            .nonHealingTimeSuggestionThresholds,
+          nonHealingTimeSuggestionThresholds: this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
+          shadowWordPain: this.shadowWordPain.uptimeSuggestionThresholds,
+          vampiricTouch: this.vampiricTouch.suggestionThresholds,
+          devouringPlague: this.devouringPlague.suggestionThresholds,
         }}
       />
     );

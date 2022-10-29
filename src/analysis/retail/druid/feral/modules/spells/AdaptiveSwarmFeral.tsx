@@ -49,13 +49,12 @@ class AdaptiveSwarmFeral extends AdaptiveSwarmDamageDealer {
       </p>
     );
     const data = (
-      <RoundedPanel>
-        <div>
-          <strong>Moonfire uptime / snapshots</strong>
-          <small> - Try to get as close to 100% as the encounter allows!</small>
-        </div>
-        {this.subStatistic()}
-      </RoundedPanel>
+      <div>
+        <RoundedPanel>
+          <strong>Adaptive Swarm uptime</strong>
+          {this.subStatistic()}
+        </RoundedPanel>
+      </div>
     );
 
     return explanationAndDataSubsection(explanation, data);

@@ -10,7 +10,6 @@ import {
   getRipFullDuration,
   MAX_CPS,
   RIP_DURATION_BASE,
-  SNAPSHOT_DOWNGRADE_BUFFER,
 } from 'analysis/retail/druid/feral/constants';
 import {
   getHardcast,
@@ -27,7 +26,7 @@ import getResourceSpent from 'parser/core/getResourceSpent';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
-import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
@@ -39,10 +38,12 @@ class RipUptimeAndSnapshots extends Snapshots {
 
   protected enemies!: Enemies;
 
-  castLog: RipCast[] = [];
+  hasBt: boolean;
+  castEntries: BoxRowEntry[] = [];
 
   constructor(options: Options) {
     super(SPELLS.RIP, SPELLS.RIP, [TIGERS_FURY_SPEC, BLOODTALONS_SPEC], options);
+    this.hasBt = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT);
   }
 
   getDotExpectedDuration(event: ApplyDebuffEvent | RefreshDebuffEvent): number {
@@ -84,24 +85,52 @@ class RipUptimeAndSnapshots extends Snapshots {
     if (ripCast) {
       // log the cast
       const timestamp = ripCast.timestamp;
-      const targetName = this.enemies.getEntity(ripCast)?.name;
+      const targetName = this.owner.getTargetName(ripCast);
       const cpsUsed = getResourceSpent(ripCast, RESOURCE_TYPES.COMBO_POINTS);
       const wasNewApplication = prevSnapshots === null;
-      const wasUnacceptableDowngrade =
-        prevPower > power && remainingOnPrev > SNAPSHOT_DOWNGRADE_BUFFER;
       const wasUpgrade = prevPower < power;
 
-      this.castLog.push({
-        timestamp,
-        targetName,
-        cpsUsed,
-        remainingOnPrev,
-        clipped,
-        snapshots,
-        wasNewApplication,
-        wasUnacceptableDowngrade,
-        wasUpgrade,
-      });
+      /** Perf logic:
+       *  < 5 CPs (and not initial cast) -> Red
+       *  Missing BT -> Red
+       *  Missing TF -> Yellow
+       *  Clip Duration (but upgrade Snapshot) -> Yellow
+       *  Clip Duration -> Red
+       *  None of the Above -> Green
+       */
+      let value: QualitativePerformance = QualitativePerformance.Good;
+      if (cpsUsed < MAX_CPS && this.castEntries.length > 0) {
+        value = QualitativePerformance.Fail;
+      } else if (this.hasBt && !hasSpec(snapshots, BLOODTALONS_SPEC)) {
+        value = QualitativePerformance.Fail;
+      } else if (clipped > 0) {
+        value = wasUpgrade ? QualitativePerformance.Ok : QualitativePerformance.Fail;
+      } else if (!hasSpec(snapshots, TIGERS_FURY_SPEC)) {
+        value = QualitativePerformance.Ok;
+      }
+      // TODO require TF / BT
+
+      const tooltip = (
+        <>
+          @ <strong>{this.owner.formatTimestamp(timestamp)}</strong> targetting{' '}
+          <strong>{targetName || 'unknown'}</strong> using <strong>{cpsUsed} CPs</strong>
+          <br />
+          {!wasNewApplication && (
+            <>
+              Refreshed on target w/ {(remainingOnPrev / 1000).toFixed(1)}s remaining{' '}
+              {clipped > 0 && (
+                <>
+                  <strong>- Clipped {(clipped / 1000).toFixed(1)}s!</strong>
+                </>
+              )}
+              <br />
+            </>
+          )}
+          Snapshots: <strong>{snapshots.map((ss) => ss.name).join(', ')}</strong>
+          <br />
+        </>
+      );
+      this.castEntries.push({ value, tooltip });
     } else if (pwCast) {
       // TODO handle PW cast
     } else {
@@ -125,51 +154,6 @@ class RipUptimeAndSnapshots extends Snapshots {
   /** Subsection explaining the use of Rip and providing performance statistics */
   get guideSubsection(): JSX.Element {
     const hasPw = this.selectedCombatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_TALENT);
-    const hasBt = this.selectedCombatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT);
-    const castPerfBoxes = this.castLog.map((cast, index) => {
-      /** Perf logic:
-       *  < 5 CPs (and not initial cast) -> Red
-       *  Missing BT -> Red
-       *  Missing TF -> Yellow
-       *  Clip Duration (but upgrade Snapshot) -> Yellow
-       *  Clip Duration -> Red
-       *  None of the Above -> Green
-       */
-      let value: QualitativePerformance = 'good';
-      if (cast.cpsUsed < MAX_CPS && index !== 0) {
-        value = 'fail';
-      } else if (hasBt && !hasSpec(cast.snapshots, BLOODTALONS_SPEC)) {
-        value = 'fail';
-      } else if (cast.clipped > 0) {
-        value = cast.wasUpgrade ? 'ok' : 'fail';
-      } else if (!hasSpec(cast.snapshots, TIGERS_FURY_SPEC)) {
-        value = 'ok';
-      }
-      // TODO require TF / BT
-
-      const tooltip = (
-        <>
-          @ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
-          <strong>{cast.targetName || 'unknown'}</strong> using <strong>{cast.cpsUsed} CPs</strong>
-          <br />
-          {!cast.wasNewApplication && (
-            <>
-              Refreshed on target w/ {(cast.remainingOnPrev / 1000).toFixed(1)}s remaining{' '}
-              {cast.clipped > 0 && (
-                <>
-                  <strong>- Clipped {(cast.clipped / 1000).toFixed(1)}s!</strong>
-                </>
-              )}
-              <br />
-            </>
-          )}
-          Snapshots: <strong>{cast.snapshots.map((ss) => ss.name).join(', ')}</strong>
-          <br />
-        </>
-      );
-      return { value, tooltip };
-    });
-
     const explanation = (
       <p>
         <b>
@@ -189,7 +173,7 @@ class RipUptimeAndSnapshots extends Snapshots {
           </>
         )}{' '}
         Don't refresh early, and try to always snapshot <SpellLink id={SPELLS.TIGERS_FURY.id} />
-        {hasBt && (
+        {this.hasBt && (
           <>
             {' '}
             and <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />
@@ -213,9 +197,9 @@ class RipUptimeAndSnapshots extends Snapshots {
           {' '}
           - Green is a good cast, Yellow is an ok cast (clipped duration but upgraded snapshot or
           missing Tigers Fury), Red is a bad cast (clipped duration
-          {hasBt && ' or missing Bloodtalons'}). Mouseover for more details.
+          {this.hasBt && ' or missing Bloodtalons'}). Mouseover for more details.
         </small>
-        <PerformanceBoxRow values={castPerfBoxes} />
+        <PerformanceBoxRow values={this.castEntries} />
       </div>
     );
 
@@ -238,27 +222,5 @@ class RipUptimeAndSnapshots extends Snapshots {
     );
   }
 }
-
-/** Tracking object for each Rip cast */
-type RipCast = {
-  /** Cast's timestamp */
-  timestamp: number;
-  /** Name of cast's target */
-  targetName?: string;
-  /** Number of Combo Points consumed */
-  cpsUsed: number;
-  /** Time remaining on previous Rip */
-  remainingOnPrev: number;
-  /** Time clipped from previous Rip */
-  clipped: number;
-  /** Snapshots on new cast */
-  snapshots: SnapshotSpec[];
-  /** True iff this was a new application */
-  wasNewApplication: boolean;
-  /** True iff snapshots were downgraded with more than buffer time remaining */
-  wasUnacceptableDowngrade: boolean;
-  /** True iff the snapshot got stronger */
-  wasUpgrade: boolean;
-};
 
 export default RipUptimeAndSnapshots;

@@ -9,8 +9,8 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
-const MS_BUFFER = 200;
-const ABUNDANCE_MANA_REDUCTION = 0.05;
+const MS_BUFFER = 100;
+export const ABUNDANCE_MANA_REDUCTION = 0.05;
 const ABUNDANCE_INCREASED_CRIT = 0.05;
 
 /**

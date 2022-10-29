@@ -9,9 +9,12 @@ import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import {
   CooldownExpandable,
   CooldownExpandableItem,
+  GUIDE_CORE_EXPLANATION_PERCENT,
 } from 'analysis/retail/druid/restoration/Guide';
 import { getTranquilityTicks } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 export const MAX_TRANQ_TICKS = 5;
 
@@ -71,8 +74,8 @@ class Tranquility extends Analyzer {
 
   /** Guide fragment showing a breakdown of each Tranquility cast */
   get guideCastBreakdown() {
-    return (
-      <>
+    const explanation = (
+      <p>
         <strong>
           <SpellLink id={SPELLS.TRANQUILITY_CAST.id} />
         </strong>{' '}
@@ -81,7 +84,13 @@ class Tranquility extends Analyzer {
         majority of Tranquility's healing is direct and not from the HoT. Do NOT use the HoT to
         ramp. Watch your positioning when you cast - you want to be able to channel full duration
         without moving.
-        <p />
+      </p>
+    );
+
+    const data = (
+      <div>
+        <strong>Per-Cast Breakdown</strong>
+        <small> - click to expand</small>
         {this.tranqCasts.map((cast, ix) => {
           const castTotalHealing = cast.directHealing + cast.periodicHealing;
           const header = (
@@ -92,6 +101,14 @@ class Tranquility extends Analyzer {
             </>
           );
 
+          const wgRamp = cast.wgsOnCast > 0;
+          const rejuvRamp = cast.rejuvsOnCast > 0;
+          const channeledMaxTicks = cast.channeledTicks === MAX_TRANQ_TICKS;
+          const overallPerf =
+            wgRamp && rejuvRamp && channeledMaxTicks
+              ? QualitativePerformance.Good
+              : QualitativePerformance.Fail;
+
           const checklistItems: CooldownExpandableItem[] = [];
           checklistItems.push({
             label: (
@@ -99,7 +116,7 @@ class Tranquility extends Analyzer {
                 <SpellLink id={SPELLS.WILD_GROWTH.id} /> ramp
               </>
             ),
-            result: <PassFailCheckmark pass={cast.wgsOnCast > 0} />,
+            result: <PassFailCheckmark pass={wgRamp} />,
             details: <>({cast.wgsOnCast} HoTs active)</>,
           });
           checklistItems.push({
@@ -108,7 +125,7 @@ class Tranquility extends Analyzer {
                 <SpellLink id={SPELLS.REJUVENATION.id} /> ramp
               </>
             ),
-            result: <PassFailCheckmark pass={cast.rejuvsOnCast > 0} />,
+            result: <PassFailCheckmark pass={rejuvRamp} />,
             details: <>({cast.rejuvsOnCast} HoTs active)</>,
           });
           checklistItems.push({
@@ -131,7 +148,7 @@ class Tranquility extends Analyzer {
                 </Tooltip>
               </>
             ),
-            result: <PassFailCheckmark pass={cast.channeledTicks === MAX_TRANQ_TICKS} />,
+            result: <PassFailCheckmark pass={channeledMaxTicks} />,
             details: (
               <>
                 ({cast.channeledTicks} / {MAX_TRANQ_TICKS} ticks)
@@ -156,13 +173,15 @@ class Tranquility extends Analyzer {
               header={header}
               checklistItems={checklistItems}
               detailItems={detailItems}
+              perf={overallPerf}
               key={ix}
             />
           );
         })}
-        <p />
-      </>
+      </div>
     );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 }
 

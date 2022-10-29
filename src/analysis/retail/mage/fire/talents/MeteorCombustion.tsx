@@ -38,11 +38,11 @@ class MeteorCombustion extends Analyzer {
       this.onMeteorDamage,
     );
     this.addEventListener(
-      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
+      Events.applybuff.to(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
       this.onCombustionStart,
     );
     this.addEventListener(
-      Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
+      Events.removebuff.to(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
       this.onCombustionEnd,
     );
   }
@@ -58,7 +58,7 @@ class MeteorCombustion extends Analyzer {
     const lastCast = this.eventHistory.last(
       1,
       100,
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
     );
     if (lastCast.length !== 0) {
       this.combustionActive = true;
@@ -82,7 +82,7 @@ class MeteorCombustion extends Analyzer {
   }
 
   get totalCombustionCasts() {
-    return this.abilityTracker.getAbility(SPELLS.COMBUSTION.id).casts;
+    return this.abilityTracker.getAbility(TALENTS.COMBUSTION_TALENT.id).casts;
   }
 
   get combustionWithoutMeteor() {
@@ -119,10 +119,10 @@ class MeteorCombustion extends Analyzer {
       suggest(
         <>
           You failed to cast <SpellLink id={TALENTS.METEOR_TALENT.id} /> during{' '}
-          <SpellLink id={SPELLS.COMBUSTION.id} /> {this.combustionWithoutMeteor} times. In order to
-          make the most of Combustion and <SpellLink id={SPELLS.IGNITE.id} />, you should always
-          cast Meteor during Combustion. If Meteor will not come off cooldown before Combustion is
-          available, then you should hold Meteor for Combustion.
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> {this.combustionWithoutMeteor} times. In
+          order to make the most of Combustion and <SpellLink id={SPELLS.IGNITE.id} />, you should
+          always cast Meteor during Combustion. If Meteor will not come off cooldown before
+          Combustion is available, then you should hold Meteor for Combustion.
         </>,
       )
         .icon(TALENTS.METEOR_TALENT.icon)

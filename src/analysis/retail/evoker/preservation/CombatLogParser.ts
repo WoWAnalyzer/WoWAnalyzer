@@ -7,6 +7,7 @@ import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart'
 import Abilities from './modules/Abilities';
 import LivingFlame from '../shared/modules/core/LivingFlame';
 import DreamBreath from './modules/talents/DreamBreath';
+import MasteryEffectiveness from './modules/core/MasteryEffectiveness';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -20,6 +21,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     dreamBreath: DreamBreath,
     livingFlame: LivingFlame,
+    masteryEffectiveness: MasteryEffectiveness,
   };
 }
 

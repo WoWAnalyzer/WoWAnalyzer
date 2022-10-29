@@ -85,7 +85,7 @@ const spells = spellIndexableList({
     id: 17,
     name: 'Power Word: Shield',
     icon: 'spell_holy_powerwordshield',
-    manaCost: 1550,
+    manaCost: 7750,
   },
   SHIELD_OF_ABSOLUTION_BUFF: {
     id: 394624,
@@ -96,13 +96,13 @@ const spells = spellIndexableList({
     id: 585,
     name: 'Smite',
     icon: 'spell_holy_holysmite',
-    manaCost: 200,
+    manaCost: 1000,
   },
   POWER_WORD_RADIANCE: {
     id: 194509,
     name: 'Power Word: Radiance',
     icon: 'spell_priest_power-word',
-    manaCost: 3250,
+    manaCost: 16250,
   },
   SHADOW_MEND: {
     id: 186263,
@@ -114,7 +114,7 @@ const spells = spellIndexableList({
     id: 47536,
     name: 'Rapture',
     icon: 'spell_holy_rapture',
-    manaCost: 1550,
+    manaCost: 7750,
   },
   PAIN_SUPPRESSION: {
     id: 33206,

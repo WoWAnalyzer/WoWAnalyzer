@@ -1,22 +1,18 @@
 import TALENTS from 'common/TALENTS/evoker';
 import CoreAbilities from 'analysis/retail/evoker/shared/modules/Abilities';
-import Ability from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import SPELLS from 'common/SPELLS';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 
 class Abilities extends CoreAbilities {
-  static ABILITY_CLASS = Ability;
-  static dependencies = {
-    ...CoreAbilities.dependencies,
-  };
-  spellbook() {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
       {
         spell: TALENTS.REVERSION_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 9,
-        charges: 1,
+        charges: combatant.hasTalent(TALENTS.PUNCTUALITY_TALENT.id) ? 2 : 1,
         gcd: {
           base: 1500,
         },
@@ -30,11 +26,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-      },
-      {
-        spell: SPELLS.RENEWING_BREATH.id,
-        category: SPELL_CATEGORY.OTHERS,
-        enabled: combatant.hasTalent(TALENTS.RENEWING_BREATH_TALENT.id),
       },
       {
         spell: TALENTS.ECHO_TALENT.id,
@@ -75,7 +66,8 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.REWIND_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 240,
+        cooldown: combatant.hasTalent(TALENTS.TEMPORAL_ARTIFICER_TALENT.id) ? 180 : 240,
+        charges: combatant.hasTalent(TALENTS.ERASURE_TALENT.id) ? 2 : 1,
         gcd: {
           base: 1500,
         },
@@ -93,11 +85,20 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.DREAM_FLIGHT_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
+        cooldown: 120,
         gcd: {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.DREAM_FLIGHT_TALENT.id),
+      },
+      {
+        spell: TALENTS.STASIS_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 90,
+        gcd: {
+          static: 0,
+        },
+        enabled: combatant.hasTalent(TALENTS.STASIS_TALENT.id),
       },
       ...super.spellbook(),
     ];
