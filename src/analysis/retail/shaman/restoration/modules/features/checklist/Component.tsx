@@ -2,7 +2,6 @@ import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
 import { TooltipElement } from 'interface';
@@ -83,11 +82,8 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         {combatant.hasTalent(TALENTS.DOWNPOUR_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.DOWNPOUR_TALENT.id} />
         )}
-        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
-          <AbilityRequirement spell={SPELLS.CHAIN_HARVEST.id} />
-        )}
-        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
-          <AbilityRequirement spell={SPELLS.PRIMORDIAL_WAVE_CAST.id} />
+        {combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.PRIMORDIAL_WAVE_TALENT.id} />
         )}
       </Rule>
       <Rule
@@ -108,9 +104,10 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           </Trans>
         }
       >
-        {combatant.hasTalent(TALENTS.HEALING_STREAM_TOTEM_RESTORATION_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS.HEALING_STREAM_TOTEM_RESTORATION_TALENT.id} />
-        )}
+        {combatant.hasTalent(TALENTS.HEALING_STREAM_TOTEM_RESTORATION_TALENT.id) &&
+          !combatant.hasTalent(TALENTS.CLOUDBURST_TOTEM_TALENT.id) && (
+            <AbilityRequirement spell={TALENTS.HEALING_STREAM_TOTEM_RESTORATION_TALENT.id} />
+          )}
         {combatant.hasTalent(TALENTS.SPIRIT_LINK_TOTEM_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.SPIRIT_LINK_TOTEM_TALENT.id} />
         )}

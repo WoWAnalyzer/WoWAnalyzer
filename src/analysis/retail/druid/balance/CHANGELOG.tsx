@@ -5,6 +5,7 @@ import { Zeboot, LeoZhekov, Sharrq, Tiboonn, Kartarn, Ciuffi, Sref, ToppleTheNun
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 10, 17), <>Only check <SpellLink id={TALENTS_DRUID.INNERVATE_TALENT} /> efficiency if talented into it.</>, ToppleTheNun),
   change(date(2022, 10, 17), <>Add <SpellLink id={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT} /> to Abilities list.</>, ToppleTheNun),
   change(date(2022, 9, 16), <>Initial updates for Dragonflight Talent system.</>, Sref),
   change(date(2022, 7, 6), <>Bumped version to indicate 9.2.5 is supported.</>, Sref),

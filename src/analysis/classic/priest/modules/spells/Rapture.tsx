@@ -107,7 +107,7 @@ class Rapture extends Analyzer {
         tooltip="Rapture is your most important mana regenerating tool. It can only proc once every 12 seconds, but it can be triggered by multiple shields popping at the same time. Try and line up the cooldown with large AOE damage to get the most mana back."
         dropdown={<RaptureTable raptureEvents={this.raptureEvents} combatants={this.combatants} />}
       >
-        <BoringSpellValueText spellId={SPELLS.RAPTURE_PERSONAL_MANA_REGEN}>
+        <BoringSpellValueText spellId={SPELLS.RAPTURE}>
           <ItemManaGained amount={this.manaFromRapture} />
           <br />
           {this.multiHits} Multi-Hit(s)
