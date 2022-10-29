@@ -1,7 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
-import { SpellLink } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import { PassFailCheckmark } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
@@ -14,7 +13,10 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import {
   CooldownExpandable,
   CooldownExpandableItem,
+  GUIDE_CORE_EXPLANATION_PERCENT,
 } from 'analysis/retail/druid/restoration/Guide';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
 // TODO these mana values will probably need to be updated?
 export const INNERVATE_MANA_REQUIRED = 9000;
@@ -90,20 +92,30 @@ class Innervate extends Analyzer {
   }
 
   get guideCastBreakdown() {
-    return (
-      <>
+    const explanation = (
+      <p>
         <strong>
           <SpellLink id={SPELLS.INNERVATE.id} />
         </strong>{' '}
         is best used during your ramp, or any time when you expect to spam cast. Typically it should
         be used as soon as it's available. Remember to fit a Wild Growth inside the Innervate, as
         it's one of your most expensive spells.
-        <p />
+      </p>
+    );
+
+    const data = (
+      <div>
+        <strong>Per-Cast Breakdown</strong>
+        <small> - click to expand</small>
         {this.castTrackers.map((cast, ix) => {
           const targetName = cast.targetId === undefined ? 'SELF' : 'ALLY';
           const metThresholdMana = cast.manaSaved >= INNERVATE_MANA_REQUIRED;
           const castWildGrowth =
             cast.casts.filter((c) => c.ability.guid === SPELLS.WILD_GROWTH.id).length > 0;
+          const overallPerf =
+            metThresholdMana && castWildGrowth
+              ? QualitativePerformance.Good
+              : QualitativePerformance.Fail;
 
           const header = (
             <>
@@ -152,13 +164,15 @@ class Innervate extends Analyzer {
               header={header}
               checklistItems={checklistItems}
               detailItems={detailItems}
+              perf={overallPerf}
               key={ix}
             />
           );
         })}
-        <p />
-      </>
+      </div>
     );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   statistic() {

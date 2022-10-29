@@ -13,6 +13,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { getHeals } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 /** Number of targets WG must effectively heal in order to be efficient */
 const RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD = 3;
@@ -120,7 +121,7 @@ class WildGrowth extends Analyzer {
     }
 
     // add cast perf entry
-    const value = effectiveHits >= 3;
+    const value = effectiveHits >= 3 ? QualitativePerformance.Good : QualitativePerformance.Fail;
     const tooltip = (
       <>
         @ <strong>{this.owner.formatTimestamp(this.recentWgTimestamp)}</strong>, Hits:{' '}

@@ -69,13 +69,13 @@ class RakeUptimeAndSnapshots extends Snapshots {
       prevPower > power && remainingOnPrev > SNAPSHOT_DOWNGRADE_BUFFER;
     const wasUpgrade = prevPower < power;
 
-    let value: QualitativePerformance = 'good';
+    let value: QualitativePerformance = QualitativePerformance.Good;
     if (!proccedBt) {
       if (wasUnacceptableDowngrade) {
-        value = 'fail';
+        value = QualitativePerformance.Fail;
       }
       if (clipped > 0) {
-        value = wasUpgrade ? 'ok' : 'fail';
+        value = wasUpgrade ? QualitativePerformance.Ok : QualitativePerformance.Fail;
       }
     }
 
