@@ -10,4 +10,9 @@
  *
  * If a boolean is provided instead, true is equivalent to 'good' and false is equivalent to 'fail'.
  */
-export type QualitativePerformance = boolean | 'perfect' | 'good' | 'ok' | 'fail';
+export const enum QualitativePerformance {
+  Perfect = 'Perfect',
+  Good = 'Good',
+  Ok = 'Ok',
+  Fail = 'Fail',
+}

@@ -46,6 +46,7 @@ import FieryBrand from './modules/talents/FieryBrand';
 import ShearFractureNormalizer from './normalizers/ShearFractureNormalizer';
 import SoulFragmentsGraph from './modules/resourcetracker/SoulFragmentsGraph';
 import SoulFragmentBuffStackTracker from './modules/resourcetracker/SoulFragmentBuffStackTracker';
+import Guide from './Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -107,6 +108,8 @@ class CombatLogParser extends CoreCombatLogParser {
     soulsOvercap: SoulsOvercap,
     soulFragmentsConsume: SoulFragmentsConsume,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;

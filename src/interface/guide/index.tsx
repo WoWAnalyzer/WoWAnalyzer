@@ -76,9 +76,9 @@ import type CombatLogParser from 'parser/core/CombatLogParser';
 import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import Module from 'parser/core/Module';
-import React, { useContext, useMemo } from 'react';
-import { useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import './Guide.scss';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 type Constructed<T> = T extends new (options: Options) => infer R ? R : never;
 type ConstructedModules<T> = {
@@ -286,3 +286,17 @@ export const VeryBadColor = getComputedStyle(document.documentElement).getProper
 /** Shows a glyph - either a green checkmark or a red X depending on if 'pass' is true */
 export const PassFailCheckmark = ({ pass }: { pass: boolean }) =>
   pass ? <GoodMark /> : <BadMark />;
+
+/** Shows a glyph depending on given performance */
+export const PerformanceMark = ({ perf }: { perf: QualitativePerformance }) => {
+  switch (perf) {
+    case QualitativePerformance.Perfect:
+      return <PerfectMark />;
+    case QualitativePerformance.Good:
+      return <GoodMark />;
+    case QualitativePerformance.Ok:
+      return <OkMark />;
+    case QualitativePerformance.Fail:
+      return <BadMark />;
+  }
+};
