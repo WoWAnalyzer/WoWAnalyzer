@@ -251,6 +251,14 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           }
           thresholds={thresholds.EssenceFontCancelled}
         />
+        <Requirement
+          name={
+            <>
+              <SpellLink id={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT.id} /> wasted applications
+            </>
+          }
+          thresholds={thresholds.vivaciousVivification}
+        />
       </Rule>
 
       <Rule
