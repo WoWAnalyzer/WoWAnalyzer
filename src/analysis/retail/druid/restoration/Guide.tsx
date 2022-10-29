@@ -1,11 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import { ControlledExpandable, SpellLink } from 'interface';
-import { GuideProps, Section, SubSection } from 'interface/guide';
+import { GuideProps, PerformanceMark, Section, SubSection } from 'interface/guide';
 import { CooldownBar } from 'parser/ui/CooldownBar';
 import { useState } from 'react';
 
 import CombatLogParser from './CombatLogParser';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 /** Common 'rule line' point for the explanation/data in Core Spells section */
 export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
@@ -134,15 +135,25 @@ export function CooldownExpandable({
   header,
   checklistItems,
   detailItems,
+  perf,
 }: {
   header: React.ReactNode;
   checklistItems?: CooldownExpandableItem[];
   detailItems?: CooldownExpandableItem[];
+  perf?: QualitativePerformance;
 }): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
+  const combinedHeader =
+    perf !== undefined ? (
+      <div>
+        {header} &mdash; <PerformanceMark perf={perf} />
+      </div>
+    ) : (
+      header
+    );
   return (
     <ControlledExpandable
-      header={header}
+      header={combinedHeader}
       element="section"
       expanded={isExpanded}
       inverseExpanded={() => setIsExpanded(!isExpanded)}

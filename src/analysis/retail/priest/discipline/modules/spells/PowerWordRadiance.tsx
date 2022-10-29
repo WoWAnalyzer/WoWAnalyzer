@@ -88,12 +88,12 @@ class PowerWordRadiance extends Analyzer {
     const castPerfBoxes = this.radianceCasts.map((radianceCast) => {
       let value: QualitativePerformance;
       if (radianceCast.goodCast && !radianceCast.onAtoned) {
-        value = 'good';
+        value = QualitativePerformance.Good;
       } else if (!radianceCast.goodCast && radianceCast.onAtoned) {
         // cast on a target with atonement and you got less than 5 people with it
-        value = 'fail';
+        value = QualitativePerformance.Fail;
       } else {
-        value = 'ok';
+        value = QualitativePerformance.Ok;
       }
       return {
         value,
