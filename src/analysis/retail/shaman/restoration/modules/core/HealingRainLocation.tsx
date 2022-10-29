@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
@@ -36,14 +37,14 @@ class HealingRainLocation extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DELUGE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HEALING_RAIN_TALENT.id);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL),
       this.healingRainHeal,
     );
     this.addEventListener(
-      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_CAST),
+      Events.begincast.by(SELECTED_PLAYER).spell(TALENTS.HEALING_RAIN_TALENT),
       this.healingRainCast,
     );
   }

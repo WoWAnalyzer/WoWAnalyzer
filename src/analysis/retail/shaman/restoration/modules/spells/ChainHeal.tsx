@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { Trans } from '@lingui/macro';
 import { formatNth, formatDuration } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellIcon, SpellLink, SpecIcon } from 'interface';
 import { TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
@@ -45,10 +45,17 @@ class ChainHeal extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.CHAIN_HEAL_TALENT);
     this.suggestedTargets = this.maxTargets * CHAIN_HEAL_TARGET_EFFICIENCY;
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this.chainHeal);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this.chainHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.CHAIN_HEAL_TALENT),
+      this.chainHeal,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CHAIN_HEAL_TALENT),
+      this.chainHeal,
+    );
   }
 
   chainHeal(event: HealEvent | CastEvent) {
@@ -99,11 +106,11 @@ class ChainHeal extends Analyzer {
       .addSuggestion((suggest, _actual, _recommended) =>
         suggest(
           <Trans id="shaman.restoration.suggestions.aoeTargets.label">
-            Try to always cast <SpellLink id={SPELLS.CHAIN_HEAL.id} /> on groups of people, so that
-            it heals all {this.maxTargets} potential targets.
+            Try to always cast <SpellLink id={TALENTS.CHAIN_HEAL_TALENT.id} /> on groups of people,
+            so that it heals all {this.maxTargets} potential targets.
           </Trans>,
         )
-          .icon(SPELLS.CHAIN_HEAL.icon)
+          .icon(TALENTS.CHAIN_HEAL_TALENT.icon)
           .actual(
             `${suggestedThreshold.actual.toFixed(2)} ${t({
               id: 'shaman.restoration.suggestions.aoeTargets.averageTargets',
@@ -122,14 +129,14 @@ class ChainHeal extends Analyzer {
   }
 
   get avgHits() {
-    const chainHeal = this.abilityTracker.getAbility(SPELLS.CHAIN_HEAL.id);
+    const chainHeal = this.abilityTracker.getAbility(TALENTS.CHAIN_HEAL_TALENT.id);
     const casts = chainHeal.casts;
     const hits = chainHeal.healingHits;
     return hits / casts || 0;
   }
 
   get casts() {
-    return this.abilityTracker.getAbility(SPELLS.CHAIN_HEAL.id).casts;
+    return this.abilityTracker.getAbility(TALENTS.CHAIN_HEAL_TALENT.id).casts;
   }
 
   get suggestionThreshold() {
@@ -153,7 +160,7 @@ class ChainHeal extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.CHAIN_HEAL.id} />}
+        icon={<SpellIcon id={TALENTS.CHAIN_HEAL_TALENT.id} />}
         value={this.avgHits.toFixed(2)}
         position={STATISTIC_ORDER.OPTIONAL(70)}
         label={

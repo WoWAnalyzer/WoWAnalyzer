@@ -1,11 +1,4 @@
-import {
-  AstralShift,
-  ChainHarvest,
-  ElementalConduit,
-  SpiritWolf,
-  StaticCharge,
-  TumblingWaves,
-} from 'analysis/retail/shaman/shared';
+import { AstralShift, SpiritWolf, StaticCharge } from 'analysis/retail/shaman/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
@@ -26,14 +19,7 @@ import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import SpellUsable from './modules/features/SpellUsable';
 import TidalWaves from './modules/features/TidalWaves';
 // Talents
-import EmbraceOfEarth from './modules/shadowlands/conduits/EmbraceOfEarth';
-import HeavyRainfall from './modules/shadowlands/conduits/HeavyRainfall';
-import NaturesFocus from './modules/shadowlands/conduits/NaturesFocus';
-import SwirlingCurrents from './modules/shadowlands/conduits/SwirlingCurrents';
-import EarthenHarmony from './modules/shadowlands/legendaries/EarthenHarmony';
-import JonatsNaturalFocus from './modules/shadowlands/legendaries/JonatsNaturalFocus';
-import PrimalTideCore from './modules/shadowlands/legendaries/PrimalTideCore';
-import PrimordialWave from './modules/shadowlands/spells/PrimordialWave';
+import PrimordialWave from './modules/talents/PrimordialWave';
 import ChainHeal from './modules/spells/ChainHeal';
 import EarthShield from './modules/spells/EarthShield'; // technically shared
 import HealingRain from './modules/spells/HealingRain';
@@ -54,16 +40,13 @@ import EarthenWallTotem from './modules/talents/EarthenWallTotem';
 import FlashFlood from './modules/talents/FlashFlood';
 import HighTide from './modules/talents/HighTide';
 import NaturesGuardian from './modules/talents/NaturesGuardian';
-import SurgeOfEarth from './modules/talents/SurgeOfEarth';
 import TalentStatisticBox from './modules/talents/TalentStatisticBox';
 import Torrent from './modules/talents/Torrent';
 import Undulation from './modules/talents/Undulation';
 import UnleashLife from './modules/talents/UnleashLife';
 import Wellspring from './modules/talents/Wellspring';
 // Spells
-// Potency Conduits
 // Legendaries
-// Covenants
 // Shared
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
 import RiptideNormalizer from './normalizers/RiptideNormalizer';
@@ -97,7 +80,6 @@ class CombatLogParser extends CoreCombatLogParser {
     unleashLife: UnleashLife,
     undulation: Undulation,
     deluge: Deluge,
-    surgeOfEarth: SurgeOfEarth,
     flashFlood: FlashFlood,
     ancestralVigor: AncestralVigor,
     earthenWallTotem: EarthenWallTotem,
@@ -109,6 +91,7 @@ class CombatLogParser extends CoreCombatLogParser {
     naturesGuardian: NaturesGuardian,
     ancestralProtectionTotem: AncestralProtectionTotem,
     talentStatisticBox: TalentStatisticBox,
+    primordialWave: PrimordialWave,
 
     // Spells
     chainHeal: ChainHeal,
@@ -130,23 +113,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Normalizers
     cloudburstNormalizer: CloudburstNormalizer,
     riptideNormalizer: RiptideNormalizer,
-
-    // Conduits
-    embraceOfEarth: EmbraceOfEarth,
-    heavyRainfall: HeavyRainfall,
-    swirlingCurrents: SwirlingCurrents,
-    naturesFocus: NaturesFocus,
-    tumblingWaves: TumblingWaves,
-
-    // Legendaries
-    primalTideCore: PrimalTideCore,
-    jonatsNaturalFocus: JonatsNaturalFocus,
-    earthenHarmony: EarthenHarmony,
-    elementalConduit: ElementalConduit,
-
-    // Covenants
-    chainHarvest: ChainHarvest,
-    primordialWave: PrimordialWave,
   };
 }
 

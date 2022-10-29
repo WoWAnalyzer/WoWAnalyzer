@@ -36,7 +36,6 @@
     "src/analysis/retail/priest/shadow",
     "src/analysis/retail/rogue/assassination",
     "src/analysis/retail/rogue/outlaw",
-    "src/analysis/retail/shaman/restoration",
     "src/analysis/retail/shaman/shared",
     "src/analysis/retail/warrior/arms"
   ],

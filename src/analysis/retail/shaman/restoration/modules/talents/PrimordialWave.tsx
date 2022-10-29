@@ -1,6 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
+import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -23,38 +23,42 @@ class PrimordialWave extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_TALENT);
 
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.PRIMORDIAL_WAVE_HEAL),
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.PRIMORDIAL_WAVE_TALENT),
       this._onHeal,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PRIMORDIAL_WAVE_CAST),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.PRIMORDIAL_WAVE_TALENT),
       this._onCast,
     );
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),
       this._riptide,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),
       this._riptide,
     );
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this._riptideHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),
+      this._riptideHeal,
+    );
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HEALING_WAVE_TALENT),
       this._waveCast,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE),
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.HEALING_WAVE_TALENT),
       this._waveHeal,
     );
   }
 
   _onHeal(event: HealEvent) {
+    // This isn't working as intended
     this.healing += event.amount + (event.absorbed || 0);
     this.overHealing += event.overheal || 0;
   }
@@ -110,7 +114,7 @@ class PrimordialWave extends Analyzer {
       <Statistic
         size="flexible"
         wide
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             {this.healing} healing via Primordial Wave,{' '}
@@ -145,7 +149,7 @@ class PrimordialWave extends Analyzer {
                 {formatPercentage(this.overHealing / (this.healing + this.overHealing))} %{' '}
                 <small>Overhealing</small>
               </BoringSpellValueText>
-              <BoringSpellValueText spellId={SPELLS.RIPTIDE.id}>
+              <BoringSpellValueText spellId={TALENTS.RIPTIDE_TALENT.id}>
                 <ItemHealingDone amount={this.riptideHealing} />
                 <br />
                 <img src="/img/healing.png" alt="Overhealing" className="icon" />{' '}
@@ -154,7 +158,7 @@ class PrimordialWave extends Analyzer {
                 )}{' '}
                 % <small>Overhealing</small>
               </BoringSpellValueText>
-              <BoringSpellValueText spellId={SPELLS.HEALING_WAVE.id}>
+              <BoringSpellValueText spellId={TALENTS.HEALING_WAVE_TALENT.id}>
                 <ItemHealingDone amount={this.waveHealing} />
                 <br />
                 <img src="/img/healing.png" alt="Overhealing" className="icon" />{' '}

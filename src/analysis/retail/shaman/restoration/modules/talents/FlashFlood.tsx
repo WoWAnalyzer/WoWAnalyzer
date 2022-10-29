@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -36,12 +37,12 @@ class FlashFlood extends Analyzer {
   beginCastGlobalCooldown = 0;
 
   spellsConsumingFlashFlood: FlashFloodInfo = {
-    [SPELLS.HEALING_WAVE.id]: {
+    [TALENTS.HEALING_WAVE_TALENT.id]: {
       timesBuffed: 0,
       timeSaved: 0,
       timeWasted: 0,
     },
-    [SPELLS.CHAIN_HEAL.id]: {
+    [TALENTS.CHAIN_HEAL_TALENT.id]: {
       timesBuffed: 0,
       timeSaved: 0,
       timeWasted: 0,
@@ -52,7 +53,7 @@ class FlashFlood extends Analyzer {
       timeSaved: 0,
       timeWasted: 0,
     },
-    [SPELLS.HEALING_RAIN_CAST.id]: {
+    [TALENTS.HEALING_RAIN_TALENT.id]: {
       timesBuffed: 0,
       timeSaved: 0,
       timeWasted: 0,
@@ -61,11 +62,11 @@ class FlashFlood extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FLASH_FLOOD_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.FLASH_FLOOD_TALENT.id);
 
-    if (this.selectedCombatant.hasTalent(SPELLS.WELLSPRING_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.WELLSPRING_TALENT.id)) {
       //-- always below GCD
-      this.spellsConsumingFlashFlood[SPELLS.WELLSPRING_TALENT.id] = {
+      this.spellsConsumingFlashFlood[TALENTS.WELLSPRING_TALENT.id] = {
         timesBuffed: 0,
         timeSaved: 0,
         timeWasted: 0,
@@ -73,11 +74,11 @@ class FlashFlood extends Analyzer {
     }
 
     const spellFilter = [
-      SPELLS.HEALING_WAVE,
-      SPELLS.CHAIN_HEAL,
+      TALENTS.HEALING_WAVE_TALENT,
+      TALENTS.CHAIN_HEAL_TALENT,
       SPELLS.HEALING_SURGE,
-      SPELLS.HEALING_RAIN_CAST,
-      SPELLS.WELLSPRING_TALENT,
+      TALENTS.HEALING_RAIN_TALENT,
+      TALENTS.WELLSPRING_TALENT,
     ];
     this.addEventListener(
       Events.begincast.by(SELECTED_PLAYER).spell(spellFilter),
@@ -153,16 +154,16 @@ class FlashFlood extends Analyzer {
       {
         color: RESTORATION_COLORS.CHAIN_HEAL,
         label: <Trans id="shaman.restoration.spell.chainHeal">Chain Heal</Trans>,
-        spellId: SPELLS.CHAIN_HEAL.id,
-        value: this.spellsConsumingFlashFlood[SPELLS.CHAIN_HEAL.id].timeSaved,
-        valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.CHAIN_HEAL.id]),
+        spellId: TALENTS.CHAIN_HEAL_TALENT.id,
+        value: this.spellsConsumingFlashFlood[TALENTS.CHAIN_HEAL_TALENT.id].timeSaved,
+        valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[TALENTS.CHAIN_HEAL_TALENT.id]),
       },
       {
         color: RESTORATION_COLORS.HEALING_WAVE,
         label: <Trans id="shaman.restoration.spell.healingWave">Healing Wave</Trans>,
-        spellId: SPELLS.HEALING_WAVE.id,
-        value: this.spellsConsumingFlashFlood[SPELLS.HEALING_WAVE.id].timeSaved,
-        valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.HEALING_WAVE.id]),
+        spellId: TALENTS.HEALING_WAVE_TALENT.id,
+        value: this.spellsConsumingFlashFlood[TALENTS.HEALING_WAVE_TALENT.id].timeSaved,
+        valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[TALENTS.HEALING_WAVE_TALENT.id]),
       },
       {
         color: RESTORATION_COLORS.HEALING_SURGE,
@@ -174,19 +175,19 @@ class FlashFlood extends Analyzer {
       {
         color: RESTORATION_COLORS.RIPTIDE,
         label: <Trans id="shaman.restoration.spell.healingRain">Healing Rain</Trans>,
-        spellId: SPELLS.HEALING_RAIN_CAST.id,
-        value: this.spellsConsumingFlashFlood[SPELLS.HEALING_RAIN_CAST.id].timeSaved,
-        valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.HEALING_RAIN_CAST.id]),
+        spellId: TALENTS.HEALING_RAIN_TALENT.id,
+        value: this.spellsConsumingFlashFlood[TALENTS.HEALING_RAIN_TALENT.id].timeSaved,
+        valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[TALENTS.HEALING_RAIN_TALENT.id]),
       },
     ];
 
-    if (this.spellsConsumingFlashFlood[SPELLS.WELLSPRING_TALENT.id]) {
+    if (this.spellsConsumingFlashFlood[TALENTS.WELLSPRING_TALENT.id]) {
       const wellspring = {
         color: '#FEFEFE',
         label: <Trans id="shaman.restoration.spell.wellspring">Wellspring</Trans>,
-        spellId: SPELLS.WELLSPRING_TALENT.id,
-        value: this.spellsConsumingFlashFlood[SPELLS.WELLSPRING_TALENT.id].timeSaved,
-        valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.WELLSPRING_TALENT.id]),
+        spellId: TALENTS.WELLSPRING_TALENT.id,
+        value: this.spellsConsumingFlashFlood[TALENTS.WELLSPRING_TALENT.id].timeSaved,
+        valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[TALENTS.WELLSPRING_TALENT.id]),
       };
       items.splice(4, 0, wellspring);
     }
@@ -204,7 +205,7 @@ class FlashFlood extends Analyzer {
         <div className="pad">
           <label>
             <Trans id="shaman.restoration.flashFlood.statistic.label">
-              <SpellLink id={SPELLS.FLASH_FLOOD_TALENT.id} /> usage
+              <SpellLink id={TALENTS.FLASH_FLOOD_TALENT.id} /> usage
             </Trans>
           </label>
           <div className="flex">
