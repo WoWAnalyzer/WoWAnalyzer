@@ -36,6 +36,7 @@ const PEMITTED_RAMP_STARTERS = [
 
 interface Ramp {
   timestamp: number;
+  rampHistory: CastEvent[];
   badCastIndexes?: number[];
 }
 
@@ -78,7 +79,7 @@ class EvangelismAnalysis extends Analyzer {
       );
     rampHistory.push(event);
 
-    this.ramps.push({ timestamp: event.timestamp });
+    this.ramps.push({ timestamp: event.timestamp, rampHistory: rampHistory });
     this.cutSequence(rampHistory);
   }
 
