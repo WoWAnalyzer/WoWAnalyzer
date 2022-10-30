@@ -168,8 +168,8 @@ export function calculateEffectiveDamage(event: DamageEvent, increase: number): 
 /**
  * Calculates the target's health percent *before* the heal. Useful for evaluation of triage healing.
  *
- * By default, this calculation will consider removed healing absorbs to be part of 'missing health' because they
- * are usually important to remove. For example, if the target had 2000 max health,
+ * Optionally, this calculation will consider removed healing absorbs to be part of 'missing health'
+ * because they are usually important to remove. For example, if the target had 2000 max health,
  * 1000 current health, a 1000 healing abosrb, and the given heal removed 500 of that absorb,
  * this function would report the target as having being at 25% health.
  *
@@ -180,10 +180,13 @@ export function calculateEffectiveDamage(event: DamageEvent, increase: number): 
  */
 export function calculateHealTargetHealthPercent(
   event: HealEvent,
-  includeHealAbsorbs: boolean = true,
+  includeHealAbsorbs: boolean = false,
 ) {
-  const effectiveHealing = event.amount + (event.absorbed || 0);
-  const hitPointsBeforeHeal = event.hitPoints - effectiveHealing;
+  let healing = event.amount;
+  if (includeHealAbsorbs) {
+    healing += event.absorbed || 0;
+  }
+  const hitPointsBeforeHeal = event.hitPoints - healing;
   const targetHealthPercent = hitPointsBeforeHeal / event.maxHitPoints;
   if (targetHealthPercent > 1) {
     return 1;
