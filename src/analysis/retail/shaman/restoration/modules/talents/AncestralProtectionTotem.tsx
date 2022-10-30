@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro';
 import fetchWcl from 'common/fetchWclApi';
 import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { WCLEventsResponse, WclOptions } from 'common/WCL_TYPES';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
@@ -26,7 +27,7 @@ class AncestralProtectionTotem extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = Boolean(
-      this.selectedCombatant.hasTalent(SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id),
+      this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id),
     );
   }
 
@@ -55,7 +56,7 @@ class AncestralProtectionTotem extends Analyzer {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
       filter: `(
-        (type='${EventType.Cast}' AND ability.id=${SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id})
+        (type='${EventType.Cast}' AND ability.id=${TALENTS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id})
         OR
         (type='${EventType.ApplyDebuff}' AND ability.id=${SPELLS.TOTEMIC_REVIVAL_DEBUFF.id})
         OR
@@ -68,7 +69,7 @@ class AncestralProtectionTotem extends Analyzer {
 
   spellToText(ability: number) {
     switch (ability) {
-      case SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id:
+      case TALENTS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id:
         return <Trans id="shaman.restoration.apt.status.totemPlaced">Totem placed</Trans>;
       case SPELLS.TOTEMIC_REVIVAL_DEBUFF.id:
         return <Trans id="shaman.restoration.apt.status.revivable">Able to revive</Trans>;
@@ -101,7 +102,7 @@ class AncestralProtectionTotem extends Analyzer {
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
-        icon={<SpellIcon id={SPELLS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id} />}
+        icon={<SpellIcon id={TALENTS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id} />}
         label={
           <Trans id="shaman.restoration.apt.statistic.label">Ancestral Protection Totem</Trans>
         }

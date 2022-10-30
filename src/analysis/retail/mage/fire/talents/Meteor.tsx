@@ -1,6 +1,5 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -62,7 +61,7 @@ class Meteor extends Analyzer {
           You could have cast <SpellLink id={TALENTS.METEOR_TALENT.id} /> {this.meteorMaxCasts}{' '}
           times during this fight, but you only cast it {this.totalMeteorCasts} times. While you
           should not cast Meteor on cooldown (since you need to have it available for{' '}
-          <SpellLink id={SPELLS.COMBUSTION.id} />
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />
           ), you should be casting it at least once per minute.
         </>,
       )

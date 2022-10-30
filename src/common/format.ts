@@ -37,7 +37,7 @@ export function formatPercentage(percentage: number, precision: number = 2): str
  * with the given decimal second precision (default 0).
  * Ex: 317.3 => 5:17
  */
-export function formatDuration(duration: number, precision: number = 0) {
+export function formatDuration(duration: number, precision: number = 0): string {
   const totalSeconds = duration / 1000;
   const neg = totalSeconds < 0 ? '-' : '';
   const posSeconds = Math.abs(totalSeconds);

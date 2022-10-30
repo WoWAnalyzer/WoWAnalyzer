@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -48,16 +49,16 @@ class UnleashLife extends Analyzer {
 
   healing = 0;
   healingBuff: HealingBuffInfo = {
-    [SPELLS.RIPTIDE.id]: {
+    [TALENTS.RIPTIDE_TALENT.id]: {
       healing: 0,
       castAmount: 0,
       playersActive: [],
     },
-    [SPELLS.CHAIN_HEAL.id]: {
+    [TALENTS.CHAIN_HEAL_TALENT.id]: {
       healing: 0,
       castAmount: 0,
     },
-    [SPELLS.HEALING_WAVE.id]: {
+    [TALENTS.HEALING_WAVE_TALENT.id]: {
       healing: 0,
       castAmount: 0,
     },
@@ -76,19 +77,19 @@ class UnleashLife extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT.id);
 
     const spellFilter = [
-      SPELLS.UNLEASH_LIFE_TALENT,
-      SPELLS.RIPTIDE,
-      SPELLS.CHAIN_HEAL,
-      SPELLS.HEALING_WAVE,
+      TALENTS.UNLEASH_LIFE_TALENT,
+      TALENTS.RIPTIDE_TALENT,
+      TALENTS.CHAIN_HEAL_TALENT,
+      TALENTS.HEALING_WAVE_TALENT,
       SPELLS.HEALING_SURGE,
     ]; // TODO ADD CHAIN HARVEST
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(spellFilter), this._onHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(spellFilter), this._onCast);
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),
       this._onRiptideRemoval,
     );
   }
@@ -96,7 +97,7 @@ class UnleashLife extends Analyzer {
   _onHeal(event: HealEvent) {
     const spellId = event.ability.guid;
 
-    if (spellId === SPELLS.UNLEASH_LIFE_TALENT.id) {
+    if (spellId === TALENTS.UNLEASH_LIFE_TALENT.id) {
       this.unleashLifeHealRemaining = 1;
       this.lastUnleashLifeTimestamp = event.timestamp;
       this.healing += event.amount + (event.absorbed || 0);
@@ -112,7 +113,7 @@ class UnleashLife extends Analyzer {
 
     // Riptide HoT handling, ticks on whoever its active
     if (
-      spellId === SPELLS.RIPTIDE.id &&
+      spellId === TALENTS.RIPTIDE_TALENT.id &&
       (this.healingBuff[spellId] as HealingBuffHot).playersActive.includes(event.targetID)
     ) {
       if (event.tick) {
@@ -134,9 +135,9 @@ class UnleashLife extends Analyzer {
     // These 3 heals only have 1 event and are handled easily
     if (
       this.unleashLifeHealRemaining > 0 &&
-      (spellId === SPELLS.HEALING_WAVE.id ||
+      (spellId === TALENTS.HEALING_WAVE_TALENT.id ||
         spellId === SPELLS.HEALING_SURGE.id ||
-        (spellId === SPELLS.RIPTIDE.id && !event.tick))
+        (spellId === TALENTS.RIPTIDE_TALENT.id && !event.tick))
     ) {
       this.healingBuff[spellId].healing += calculateEffectiveHealing(
         event,
@@ -146,14 +147,14 @@ class UnleashLife extends Analyzer {
       debug && console.log('Heal:', spellId);
 
       // I had to move the HoT application to the heal event as the buffapply event had too many false positives
-      if (spellId === SPELLS.RIPTIDE.id) {
+      if (spellId === TALENTS.RIPTIDE_TALENT.id) {
         (this.healingBuff[spellId] as HealingBuffHot).playersActive.push(event.targetID);
         debug && console.log('HoT Applied:', spellId, event.targetID);
       }
 
       // Chain heal has up to 4 events, setting the variable to -1 to indicate that there might be more events coming
     } else if (
-      spellId === SPELLS.CHAIN_HEAL.id &&
+      spellId === TALENTS.CHAIN_HEAL_TALENT.id &&
       (this.unleashLifeHealRemaining > 0 ||
         (this.unleashLifeHealRemaining < 0 &&
           this.buffedChainHealTimestamp + BUFFER_MS > event.timestamp))
@@ -171,7 +172,7 @@ class UnleashLife extends Analyzer {
   _onCast(event: CastEvent) {
     const spellId = event.ability.guid;
 
-    if (spellId === SPELLS.UNLEASH_LIFE_TALENT.id) {
+    if (spellId === TALENTS.UNLEASH_LIFE_TALENT.id) {
       this.unleashLifeCasts += 1;
       this.unleashLifeRemaining = true;
       this.lastUnleashLifeTimestamp = event.timestamp;
@@ -223,14 +224,14 @@ class UnleashLife extends Analyzer {
       {
         color: RESTORATION_COLORS.CHAIN_HEAL,
         label: <Trans id="shaman.restoration.spell.chainHeal">Chain Heal</Trans>,
-        spellId: SPELLS.CHAIN_HEAL.id,
-        value: this.healingBuff[SPELLS.CHAIN_HEAL.id].castAmount,
+        spellId: TALENTS.CHAIN_HEAL_TALENT.id,
+        value: this.healingBuff[TALENTS.CHAIN_HEAL_TALENT.id].castAmount,
       },
       {
         color: RESTORATION_COLORS.HEALING_WAVE,
         label: <Trans id="shaman.restoration.spell.healingWave">Healing Wave</Trans>,
-        spellId: SPELLS.HEALING_WAVE.id,
-        value: this.healingBuff[SPELLS.HEALING_WAVE.id].castAmount,
+        spellId: TALENTS.HEALING_WAVE_TALENT.id,
+        value: this.healingBuff[TALENTS.HEALING_WAVE_TALENT.id].castAmount,
       },
       {
         color: RESTORATION_COLORS.HEALING_SURGE,
@@ -241,8 +242,8 @@ class UnleashLife extends Analyzer {
       {
         color: RESTORATION_COLORS.RIPTIDE,
         label: <Trans id="shaman.restoration.spell.riptide">Riptide</Trans>,
-        spellId: SPELLS.RIPTIDE.id,
-        value: this.healingBuff[SPELLS.RIPTIDE.id].castAmount,
+        spellId: TALENTS.RIPTIDE_TALENT.id,
+        value: this.healingBuff[TALENTS.RIPTIDE_TALENT.id].castAmount,
       },
       {
         color: RESTORATION_COLORS.UNUSED,
@@ -270,7 +271,7 @@ class UnleashLife extends Analyzer {
         <div className="pad">
           <label>
             <Trans id="shaman.restoration.unleashLife.statistic.label">
-              <SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} /> usage
+              <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT.id} /> usage
             </Trans>
           </label>
           {this.unleashLifeCastRatioChart}
@@ -282,7 +283,7 @@ class UnleashLife extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.UNLEASH_LIFE_TALENT.id} />}
+        title={<SpellLink id={TALENTS.UNLEASH_LIFE_TALENT.id} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.healing + this.totalBuffedHealing),
         )} %`}

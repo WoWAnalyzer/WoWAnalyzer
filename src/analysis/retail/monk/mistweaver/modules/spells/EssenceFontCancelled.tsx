@@ -1,23 +1,26 @@
 import { t } from '@lingui/macro';
 import { TALENTS_MONK } from 'common/TALENTS';
+import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, EndChannelEvent } from 'parser/core/Events';
+import Events, {
+  CastEvent,
+  EndChannelEvent,
+  HealEvent,
+  UpdateSpellUsableEvent,
+} from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import Haste from 'parser/shared/modules/Haste';
+
+const debug = false;
+const NUM_EF_BOLTS = 18;
+const BOLT_BUFFER = 2;
 
 class EssenceFontCancelled extends Analyzer {
-  static dependencies = {
-    haste: Haste,
-  };
-
-  protected haste!: Haste;
-
-  expected_duration: number = 0;
-  cancelled_ef: number = 0;
+  expectedNumBolts: number = 0;
+  numCancelled: number = 0;
   hasUpwelling: boolean = false;
-  cancelDelta: number = 100;
-  last_ef_time: number = 0;
-  last_ef: CastEvent | null;
+  numBoltHits: number = 0;
+  lastCdEnd: number = 0;
+  lastEf: CastEvent | null = null;
 
   constructor(options: Options) {
     super(options);
@@ -26,50 +29,90 @@ class EssenceFontCancelled extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
       this.castEssenceFont,
     );
-
     this.addEventListener(
       Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
       this.handleEndChannel,
     );
+    this.addEventListener(
+      Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
+      this.onEndCooldown,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
+      this.onApply,
+    );
     this.hasUpwelling = this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT.id);
-    this.last_ef = null;
   }
 
   castEssenceFont(event: CastEvent) {
-    let extra_secs = 0;
-    if (this.hasUpwelling) {
-      extra_secs = Math.min(
-        (event.timestamp - (this.last_ef_time + 12000)) / 6000, //12000 is the cooldown of EF in MS and 6000 corresponds to the number of MS for UW to get a full second in channels
-        3,
+    this.expectedNumBolts = this.getExpectedApplies(event);
+    debug &&
+      console.log(
+        `Number of expected bolts is ${
+          this.expectedNumBolts
+        } for cast at ${this.owner.formatTimestamp(event.timestamp)}`,
       );
+    this.lastEf = event;
+  }
+
+  onApply(event: HealEvent) {
+    // only want ef bolt heals
+    if (event.tick) {
+      return;
     }
-    this.expected_duration = (3000 + extra_secs * 1000) / (1 + this.haste.current!);
-    // TFT ef has half duration
-    if (this.selectedCombatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)) {
-      this.expected_duration /= 2;
+    this.numBoltHits += 1;
+  }
+
+  onEndCooldown(event: UpdateSpellUsableEvent) {
+    if (event.ability.guid !== TALENTS_MONK.ESSENCE_FONT_TALENT.id || !event.isAvailable) {
+      return;
     }
-    this.last_ef_time = event.timestamp;
-    this.last_ef = event;
+    this.lastCdEnd = event.timestamp;
+    debug && console.log(`Cooldown for EF ended at ${this.owner.formatTimestamp(event.timestamp)}`);
+  }
+
+  getExpectedApplies(event: CastEvent) {
+    if (!this.hasUpwelling) {
+      return NUM_EF_BOLTS;
+    }
+    // Every second that Essence Font is ready to be cast but isn't, another bolt gets added to its next cast, up to 18
+    return Math.min(
+      NUM_EF_BOLTS * 2,
+      NUM_EF_BOLTS + Math.floor((event.timestamp - this.lastCdEnd) / 1000),
+    );
   }
 
   handleEndChannel(event: EndChannelEvent) {
-    if (event.duration < this.expected_duration - this.cancelDelta) {
-      this.cancelled_ef += 1;
-      if (this.last_ef != null) {
-        this.last_ef.meta = this.last_ef.meta || {};
-        this.last_ef.meta.isInefficientCast = true;
-        this.last_ef.meta.inefficientCastReason = `This Essence Font cast was canceled early.`;
-      } else {
+    if (this.numBoltHits < this.expectedNumBolts - BOLT_BUFFER) {
+      debug &&
         console.log(
-          'Last Essence Font is null when detecting cancellation, when event is ' + event,
+          `EF cancelled at ${this.owner.formatTimestamp(
+            event.timestamp,
+          )} when number of applies was ${this.numBoltHits} and expected was ${
+            this.expectedNumBolts
+          }`,
         );
+      this.numCancelled += 1;
+      if (this.lastEf != null) {
+        this.lastEf.meta = this.lastEf.meta || {};
+        this.lastEf.meta.isInefficientCast = true;
+        this.lastEf.meta.inefficientCastReason = `This Essence Font cast was canceled early.`;
+      } else {
+        debug &&
+          console.log(
+            'Last Essence Font is null when detecting cancellation, when event is ' + event,
+          );
       }
+    } else {
+      debug &&
+        console.log(`Didn't cancel EF ending at ${this.owner.formatTimestamp(event.timestamp)}`);
     }
+    this.numBoltHits = 0;
   }
 
   get suggestionThresholds() {
     return {
-      actual: this.cancelled_ef,
+      actual: this.numCancelled,
       isGreaterThanOrEqual: {
         major: 1,
       },
@@ -82,7 +125,7 @@ class EssenceFontCancelled extends Analyzer {
       suggest(<>You cancelled Essence Font</>)
         .icon(TALENTS_MONK.ESSENCE_FONT_TALENT.icon)
         .actual(
-          `${this.cancelled_ef} ${t({
+          `${this.numCancelled} ${t({
             id: 'monk.mistweaver.suggestions.essenceFont.cancelledCasts',
             message: ` cancelled casts`,
           })}`,

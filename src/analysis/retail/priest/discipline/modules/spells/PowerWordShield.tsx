@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
+import { TIERS } from 'game/TIERS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
@@ -46,14 +47,15 @@ class PowerWordShield extends Analyzer {
   critCount = 0;
   pwsValue = 0;
   aegisValue = 0;
-  t23pValue = 0;
+  t29pValue = 0;
+  has4p = false;
 
   constructor(options: Options) {
     super(options);
 
     this.hasAegis = this.selectedCombatant.hasTalent(TALENTS_PRIEST.AEGIS_OF_WRATH_TALENT);
 
-    //
+    this.has4p = this.selectedCombatant.has4PieceByTier(TIERS.T29);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_SHIELD),
@@ -158,7 +160,7 @@ class PowerWordShield extends Analyzer {
     if (!this.hasAegis) {
       if (totalShielded > 0) {
         // without aegis the shield didn't consume the 4p bonus
-        this.t23pValue += shieldOfAbsolutionValue(totalShielded);
+        this.t29pValue += shieldOfAbsolutionValue(totalShielded);
         totalShielded -= shieldOfAbsolutionValue(totalShielded);
       }
 
@@ -167,12 +169,12 @@ class PowerWordShield extends Analyzer {
     }
 
     if (totalShielded < shieldOfAbsolutionBonus) {
-      this.t23pValue += totalShielded;
+      this.t29pValue += totalShielded;
       this.aegisValue += totalShielded - shieldOfAbsolutionBonus;
       return;
     }
 
-    this.t23pValue +=
+    this.t29pValue +=
       totalShielded >= shieldOfAbsolutionBonus ? shieldOfAbsolutionBonus : totalShielded;
     totalShielded -=
       totalShielded >= shieldOfAbsolutionBonus ? shieldOfAbsolutionBonus : totalShielded;
@@ -207,6 +209,10 @@ class PowerWordShield extends Analyzer {
   }
 
   statistic() {
+    if (!this.has4p) {
+      return;
+    }
+
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
@@ -215,7 +221,7 @@ class PowerWordShield extends Analyzer {
       >
         <>
           <BoringSpellValueText spellId={SPELLS.SHIELD_OF_ABSOLUTION_BUFF.id}>
-            <ItemHealingDone amount={this.t23pValue} />
+            <ItemHealingDone amount={this.t29pValue} />
           </BoringSpellValueText>
         </>
       </Statistic>

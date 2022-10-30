@@ -16,9 +16,10 @@ class FragBelt extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const belt = this.selectedCombatant._getGearItemBySlotId(5);
 
+    const belt = this.selectedCombatant._getGearItemBySlotId(5);
     this.active = belt.permanentEnchant === FRAG_BELT_ENCHANT_ID;
+
     if (this.active) {
       (options.abilities as Abilities).add({
         spell: FRAG_BELT_SPELL_ID,
@@ -27,7 +28,9 @@ class FragBelt extends Analyzer {
         gcd: null,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.8,
+          recommendedEfficiency: .3,
+          averageIssueEfficiency: .1,
+          majorIssueEfficiency: -1,
         },
       });
     }

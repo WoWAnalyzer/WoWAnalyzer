@@ -1,11 +1,10 @@
+import SPELLS from 'common/SPELLS/classic/warlock';
 import { formatPercentage } from 'common/format';
 import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import UptimeBar from 'parser/ui/UptimeBar';
-
-import { CURSE_OF_AGONY } from '../../SPELLS';
 
 class CurseOfAgony extends Analyzer {
   static dependencies = {
@@ -14,7 +13,7 @@ class CurseOfAgony extends Analyzer {
   protected enemies!: Enemies;
 
   get uptime() {
-    return this.enemies.getBuffUptime(CURSE_OF_AGONY) / this.owner.fightDuration;
+    return this.enemies.getBuffUptime(SPELLS.CURSE_OF_AGONY.id) / this.owner.fightDuration;
   }
 
   get suggestionThresholds() {
@@ -30,11 +29,11 @@ class CurseOfAgony extends Analyzer {
   }
 
   subStatistic() {
-    const history = this.enemies.getDebuffHistory(CURSE_OF_AGONY);
+    const history = this.enemies.getDebuffHistory(SPELLS.CURSE_OF_AGONY.id);
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={CURSE_OF_AGONY} />
+          <SpellIcon id={SPELLS.CURSE_OF_AGONY.id} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)}% <small>uptime</small>

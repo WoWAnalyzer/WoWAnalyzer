@@ -26,6 +26,8 @@ import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core
 import Rejuvenation from 'analysis/retail/druid/restoration/modules/spells/Rejuvenation';
 import { isFromHardcast } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/druid/restoration/Guide';
 
 const ALL_BOOST = 0.15;
 const ALL_MULT = 1.15;
@@ -222,18 +224,23 @@ class TreeOfLife extends Analyzer {
   // TODO implement (what do we need?)
   /** Guide fragment showing a breakdown of each Incarnation: Tree of Life cast */
   get guideCastBreakdown() {
-    return (
-      <>
+    const explanation = (
+      <p>
         <strong>
           <SpellLink id={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id} />
         </strong>{' '}
         is a longer, lower-impact cooldown. It should be planned around periods of high sustained
         healing.
-        <br />
-        <strong>EXPANDABLE PER-CAST BREAKDOWN COMING SOON!</strong>
-        <p />
-      </>
+      </p>
     );
+
+    const data = (
+      <p>
+        <strong>EXPANDABLE PER-CAST BREAKDOWN COMING SOON!</strong>
+      </p>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   suggestions(when: When) {

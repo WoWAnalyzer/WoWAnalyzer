@@ -1,5 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -37,14 +38,14 @@ class CloudburstTotem extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.CLOUDBURST_TOTEM_TALENT.id);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CLOUDBURST_TOTEM_HEAL),
       this._onHeal,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CLOUDBURST_TOTEM_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CLOUDBURST_TOTEM_TALENT),
       this._onCast,
     );
   }
@@ -76,7 +77,7 @@ class CloudburstTotem extends Analyzer {
     const fabricatedEvent: ApplyBuffEvent | RemoveBuffEvent = {
       ability: {
         ...event.ability,
-        guid: SPELLS.CLOUDBURST_TOTEM_TALENT.id,
+        guid: TALENTS.CLOUDBURST_TOTEM_TALENT.id,
       },
       sourceID: event.sourceID,
       targetID: event.sourceID,
@@ -92,7 +93,7 @@ class CloudburstTotem extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.CLOUDBURST_TOTEM_TALENT.id} />}
+        title={<SpellLink id={TALENTS.CLOUDBURST_TOTEM_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );

@@ -72,7 +72,9 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           </>
         }
       >
-        <AbilityRequirement spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} />
+        {combatant.hasTalent(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} />
+        )}
         {combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT.id) && (
           <AbilityRequirement spell={TALENTS_MONK.MANA_TEA_TALENT.id} />
         )}
@@ -100,7 +102,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         {combatant.hasTalent(TALENTS_MONK.RESTORAL_TALENT.id) && (
           <AbilityRequirement spell={TALENTS_MONK.RESTORAL_TALENT.id} />
         )}
-        {!combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id) && (
           <AbilityRequirement spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id) && (
@@ -248,6 +250,14 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
             </>
           }
           thresholds={thresholds.EssenceFontCancelled}
+        />
+        <Requirement
+          name={
+            <>
+              <SpellLink id={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT.id} /> wasted applications
+            </>
+          }
+          thresholds={thresholds.vivaciousVivification}
         />
       </Rule>
 

@@ -597,37 +597,99 @@ class CombatLogParser {
     return HasTarget(event) && this.playerPets.some((pet) => pet.id === event.targetID);
   }
 
+  /////////////////////////////////////////////////////////////////////////////
+  // Utilities - use fight context to do common calculations
+  //
+
+  /** Calculates a total amount's "amount per second" based on the encounter duration */
   getPerSecond(totalAmount: number): number {
     return (totalAmount / this.fightDuration) * 1000;
   }
+
+  /** Calculates a total amount's "amount per second" based on the encounter duration */
   getPerMinute(totalAmount: number): number {
     return (totalAmount / this.fightDuration) * 1000 * 60;
   }
-  getPercentageOfTotalHealingDone(healingDone: number) {
+
+  /** Calculates a healing amount's percentage of the player's total effective healing during the encounter */
+  getPercentageOfTotalHealingDone(healingDone: number): number {
     return healingDone / this.getModule(HealingDone).total.effective;
   }
-  formatItemHealingDone(healingDone: number) {
+
+  /** Formats a healing amount, showing percentage of total healing and HPS */
+  formatItemHealingDone(healingDone: number): string {
     return `${formatPercentage(
       this.getPercentageOfTotalHealingDone(healingDone),
     )} % / ${formatNumber(this.getPerSecond(healingDone))} HPS`;
   }
-  formatItemAbsorbDone(absorbDone: number) {
-    return `${formatNumber(absorbDone)}`;
-  }
-  getPercentageOfTotalDamageDone(damageDone: number) {
+
+  /** Calculates a damage amount's percentage of the player's total effective damage during the encounter */
+  getPercentageOfTotalDamageDone(damageDone: number): number {
     return damageDone / this.getModule(DamageDone).total.effective;
   }
-  formatItemDamageDone(damageDone: number) {
+
+  /** Formats a damage amount, showing percentage of total damage and DPS */
+  formatItemDamageDone(damageDone: number): string {
     return `${formatPercentage(this.getPercentageOfTotalDamageDone(damageDone))} % / ${formatNumber(
       this.getPerSecond(damageDone),
     )} DPS`;
   }
+
+  /** Calculates a damage amount's percentage of the player's total damage taken during the encounter */
   getPercentageOfTotalDamageTaken(damageTaken: number) {
     return damageTaken / this.getModule(DamageTaken).total.effective;
   }
-  formatTimestamp(timestamp: number, precision = 0) {
+
+  /** Formats a timestamp to show time into the encounter in mm:ss format */
+  formatTimestamp(timestamp: number, precision = 0): string {
     return formatDuration(timestamp - this.fight.start_time, precision);
   }
+
+  /** Gets the name of this event's target. Event must have defined `targetID` and `targetIsFriendly`
+   *  fields in order for the name to be looked up - if either of these are missing, 'none'
+   *  is returned. If they are present but the Entity with the given ID can't be found,
+   *  'unknown' is returned. */
+  getTargetName(event: AnyEvent): string {
+    if (
+      !('targetID' in event) ||
+      typeof event.targetID !== 'number' ||
+      !('targetIsFriendly' in event)
+    ) {
+      return 'none';
+    }
+    if (event.targetIsFriendly) {
+      const combatant = this.getModule(Combatants).getEntity(event);
+      return !combatant ? 'unknown' : combatant.name;
+    } else {
+      const enemy = this.getModule(Enemies).getEntity(event);
+      return !enemy ? 'unknown' : enemy.name;
+    }
+  }
+
+  /** Gets the name of this event's source. Event must have defined `sourceID` and `sourceIsFriendly`
+   *  fields in order for the name to be looked up - if either of these are missing, 'none'
+   *  is returned. If they are present but the Entity with the given ID can't be found,
+   *  'unknown' is returned. */
+  getSourceName(event: AnyEvent): string {
+    if (
+      !('sourceID' in event) ||
+      typeof event.sourceID !== 'number' ||
+      !('sourceIsFriendly' in event)
+    ) {
+      return 'none';
+    }
+    if (event.sourceIsFriendly) {
+      const combatant = this.getModule(Combatants).getSourceEntity(event);
+      return !combatant ? 'unknown' : combatant.name;
+    } else {
+      const enemy = this.getModule(Enemies).getSourceEntity(event);
+      return !enemy ? 'unknown' : enemy.name;
+    }
+  }
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Main Calculation functions
+  //
 
   generateResults(adjustForDowntime: boolean): ParseResults {
     this.adjustForDowntime = adjustForDowntime;

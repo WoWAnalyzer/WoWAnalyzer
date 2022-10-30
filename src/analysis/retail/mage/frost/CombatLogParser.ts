@@ -12,28 +12,33 @@ import {
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
-import Checklist from './modules/checklist/Module';
-import ColdSnap from './modules/cooldowns/ColdSnap';
-import FrozenOrb from './modules/cooldowns/FrozenOrb';
-import Abilities from './modules/features/Abilities';
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import AplCheck from './modules/features/apl';
-import BrainFreeze from './modules/features/BrainFreeze';
-import Buffs from './modules/features/Buffs';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import IceLance from './modules/features/IceLance';
-import IcyVeins from './modules/features/IcyVeins';
-import MunchedProcs from './modules/features/MunchedProcs';
-import WaterElemental from './modules/features/WaterElemental';
-import WintersChill from './modules/features/WintersChill';
-import ColdFront from './modules/talents/ColdFront';
-import IcyPropulsion from './modules/talents/IcyPropulsion';
-import BoneChilling from './modules/talents/BoneChilling';
-import CometStorm from './modules/talents/CometStorm';
-import GlacialSpike from './modules/talents/GlacialSpike';
-import LonelyWinter from './modules/talents/LonelyWinter';
-import SplittingIce from './modules/talents/SplittingIce';
-import ThermalVoid from './modules/talents/ThermalVoid';
+//Core
+import Checklist from './checklist/Module';
+import Abilities from './core/Abilities';
+import AlwaysBeCasting from './core/AlwaysBeCasting';
+import AplCheck from './core/apl';
+import BrainFreeze from './core/BrainFreeze';
+import Buffs from './core/Buffs';
+import CooldownThroughputTracker from './core/CooldownThroughputTracker';
+import IceLance from './core/IceLance';
+import IcyVeins from './core/IcyVeins';
+import MunchedProcs from './core/MunchedProcs';
+import WintersChill from './core/WintersChill';
+
+//Talents
+import ColdSnap from './talents/ColdSnap';
+import FrozenOrb from './talents/FrozenOrb';
+import WaterElemental from './talents/WaterElemental';
+import ColdFront from './talents/ColdFront';
+import IcyPropulsion from './talents/IcyPropulsion';
+import BoneChilling from './talents/BoneChilling';
+import CometStorm from './talents/CometStorm';
+import GlacialSpike from './talents/GlacialSpike';
+import LonelyWinter from './talents/LonelyWinter';
+import SplittingIce from './talents/SplittingIce';
+import ThermalVoid from './talents/ThermalVoid';
+
+//Normalizers
 import CometStormLinkNormalizer from './normalizers/CometStormLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -44,7 +49,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Normalizers
     cometStormLinkNormalizer: CometStormLinkNormalizer,
 
-    // Features
+    //Core
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
@@ -54,15 +59,14 @@ class CombatLogParser extends CoreCombatLogParser {
     iceLance: IceLance,
     icyVeins: IcyVeins,
     arcaneIntellect: ArcaneIntellect,
-    mirrorImage: MirrorImage,
     munchedProcs: MunchedProcs,
-    elementalBarrier: ElementalBarrier,
-    waterElemental: WaterElemental,
 
     // Talents
     boneChilling: BoneChilling,
     lonelyWinter: LonelyWinter,
     runeOfPower: RuneOfPower,
+    elementalBarrier: ElementalBarrier,
+    waterElemental: WaterElemental,
     splittingIce: SplittingIce,
     thermalVoid: ThermalVoid,
     glacialSpike: GlacialSpike,
@@ -73,8 +77,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tempestBarrier: TempestBarrier,
     shiftingPower: ShiftingPower,
     coldFront: ColdFront,
-
-    // Cooldowns
+    mirrorImage: MirrorImage,
     frozenOrb: FrozenOrb,
     coldSnap: ColdSnap,
 

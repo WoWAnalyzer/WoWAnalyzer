@@ -14,7 +14,7 @@ import {
   isBoostedBySuddenAmbush,
 } from 'analysis/retail/druid/feral/normalizers/SuddenAmbushLinkNormalizer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import { STEALTH_SHRED_RAKE_BOOST } from 'analysis/retail/druid/feral/constants';
+import { PROWL_RAKE_DAMAGE_BONUS } from 'analysis/retail/druid/feral/constants';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -100,10 +100,10 @@ class SuddenAmbush extends Analyzer {
       boostedDamageEvents.forEach((d) => {
         if (d.ability.guid === SPELLS.SHRED.id) {
           this.boostedShreds += 1;
-          this.boostedShredDamage += calculateEffectiveDamage(d, STEALTH_SHRED_RAKE_BOOST);
+          this.boostedShredDamage += calculateEffectiveDamage(d, PROWL_RAKE_DAMAGE_BONUS);
         } else if (d.ability.guid === SPELLS.RAKE.id) {
           this.boostedRakes += 1;
-          this.boostedRakeDamage += calculateEffectiveDamage(d, STEALTH_SHRED_RAKE_BOOST);
+          this.boostedRakeDamage += calculateEffectiveDamage(d, PROWL_RAKE_DAMAGE_BONUS);
         }
       });
     }
@@ -123,7 +123,7 @@ class SuddenAmbush extends Analyzer {
 
   onRakeBleedDamage(event: DamageEvent) {
     if (this.saBoostedRakeTargets.has(encodeEventTargetString(event) || '')) {
-      this.boostedRakeDamage += calculateEffectiveDamage(event, STEALTH_SHRED_RAKE_BOOST);
+      this.boostedRakeDamage += calculateEffectiveDamage(event, PROWL_RAKE_DAMAGE_BONUS);
     }
   }
 

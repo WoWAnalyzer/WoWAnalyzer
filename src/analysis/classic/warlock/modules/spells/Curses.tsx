@@ -1,10 +1,9 @@
 import { t, Trans } from '@lingui/macro';
+import SPELLS from 'common/SPELLS/classic/warlock';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
-
-import { CURSE_OF_AGONY, CURSE_OF_DOOM, CURSE_OF_THE_ELEMENTS } from '../../SPELLS';
 
 class Curses extends Analyzer {
   static dependencies = {
@@ -14,9 +13,9 @@ class Curses extends Analyzer {
 
   get uptime() {
     return (
-      (this.enemies.getBuffUptime(CURSE_OF_AGONY) +
-        this.enemies.getBuffUptime(CURSE_OF_DOOM) +
-        this.enemies.getBuffUptime(CURSE_OF_THE_ELEMENTS)) /
+      (this.enemies.getBuffUptime(SPELLS.CURSE_OF_AGONY.id) +
+        this.enemies.getBuffUptime(SPELLS.CURSE_OF_DOOM.id) +
+        this.enemies.getBuffUptime(SPELLS.CURSE_OF_THE_ELEMENTS.id)) /
       this.owner.fightDuration
     );
   }

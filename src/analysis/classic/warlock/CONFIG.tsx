@@ -5,10 +5,7 @@ import PRIMARY_STATS from 'game/PRIMARY_STATS';
 import ROLES from 'game/ROLES';
 import { Icon } from 'interface';
 import Config from 'parser/Config';
-
 import CHANGELOG from './CHANGELOG';
-import lowRankSpells from './lowRankSpells';
-import * as SPELLS from './SPELLS';
 
 export enum Build {
   DEFAULT = 'default',
@@ -22,7 +19,7 @@ const config: Config = {
   contributors: [Khadaj, Talador12],
   expansion: Expansion.WrathOfTheLichKing,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '2.4.0',
+  patchCompatibility: '3.4.0',
   isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -67,47 +64,7 @@ const config: Config = {
     },
   },
   timeline: {
-    separateCastBars: [
-      // Instant casts
-      [
-        SPELLS.CORRUPTION,
-        ...lowRankSpells[SPELLS.CORRUPTION],
-        SPELLS.CURSE_OF_AGONY,
-        ...lowRankSpells[SPELLS.CURSE_OF_AGONY],
-        SPELLS.CURSE_OF_DOOM,
-        ...lowRankSpells[SPELLS.CURSE_OF_DOOM],
-        SPELLS.CURSE_OF_THE_ELEMENTS,
-        ...lowRankSpells[SPELLS.CURSE_OF_THE_ELEMENTS],
-        SPELLS.CURSE_OF_TONGUES,
-        ...lowRankSpells[SPELLS.CURSE_OF_TONGUES],
-        SPELLS.CURSE_OF_WEAKNESS,
-        ...lowRankSpells[SPELLS.CURSE_OF_WEAKNESS],
-        SPELLS.LIFE_TAP,
-        ...lowRankSpells[SPELLS.LIFE_TAP],
-      ],
-      // Long casts
-      [
-        SPELLS.DRAIN_LIFE,
-        ...lowRankSpells[SPELLS.DRAIN_LIFE],
-        SPELLS.DRAIN_MANA,
-        SPELLS.DRAIN_SOUL,
-        ...lowRankSpells[SPELLS.DRAIN_SOUL],
-        SPELLS.HAUNT,
-        ...lowRankSpells[SPELLS.HAUNT],
-        SPELLS.IMMOLATE,
-        ...lowRankSpells[SPELLS.IMMOLATE],
-        SPELLS.INCINERATE,
-        ...lowRankSpells[SPELLS.INCINERATE],
-        SPELLS.SHADOW_BOLT,
-        ...lowRankSpells[SPELLS.SHADOW_BOLT],
-        SPELLS.SOUL_FIRE,
-        ...lowRankSpells[SPELLS.SOUL_FIRE],
-        SPELLS.UNSTABLE_AFFLICTION,
-        ...lowRankSpells[SPELLS.UNSTABLE_AFFLICTION],
-      ],
-      // Buffs
-      [SPELLS.DEMONIC_EMPOWERMENT, SPELLS.METAMORPHOSIS],
-    ],
+    separateCastBars: [[]],
   },
 
   // Don't change anything below this line;
@@ -120,7 +77,7 @@ const config: Config = {
       id: 'className.warlock',
       message: `Warlock`,
     }),
-    role: ROLES.HEALER,
+    role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     ranking: {
       class: 13,
@@ -131,7 +88,7 @@ const config: Config = {
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
   parser: () =>
-    import('./CombatLogParser' /* webpackChunkName: "TBCWarlock" */).then(
+    import('./CombatLogParser' /* webpackChunkName: "ClassicWarlock" */).then(
       (exports) => exports.default,
     ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.

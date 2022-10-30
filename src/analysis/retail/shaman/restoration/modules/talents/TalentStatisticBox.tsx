@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import Analyzer from 'parser/core/Analyzer';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticsListBox, { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
@@ -11,7 +11,6 @@ import Downpour from './Downpour';
 import EarthenWallTotem from './EarthenWallTotem';
 import HighTide from './HighTide';
 import NaturesGuardian from './NaturesGuardian';
-import SurgeOfEarth from './SurgeOfEarth';
 import Torrent from './Torrent';
 import Undulation from './Undulation';
 import UnleashLife from './UnleashLife';
@@ -24,7 +23,6 @@ class TalentStatisticBox extends Analyzer {
     undulation: Undulation,
     deluge: Deluge,
     earthenWallTotem: EarthenWallTotem,
-    surgeOfEarth: SurgeOfEarth,
     naturesGuardian: NaturesGuardian,
     downpour: Downpour,
     cloudburstTotem: CloudburstTotem,
@@ -38,7 +36,6 @@ class TalentStatisticBox extends Analyzer {
   protected undulation!: Undulation;
   protected deluge!: Deluge;
   protected earthenWallTotem!: EarthenWallTotem;
-  protected surgeOfEarth!: SurgeOfEarth;
   protected naturesGuardian!: NaturesGuardian;
   protected downpour!: Downpour;
   protected cloudburstTotem!: CloudburstTotem;
@@ -68,40 +65,37 @@ class TalentStatisticBox extends Analyzer {
         bodyStyle={{}} // idk
       >
         <div style={{ borderBottom: 0, marginBottom: 0, paddingBottom: 0 }} />
-        {this.selectedCombatant.hasTalent(SPELLS.TORRENT_TALENT.id)
+        {this.selectedCombatant.hasTalent(TALENTS.TORRENT_TALENT.id)
           ? this.torrent.subStatistic()
           : ''}
-        {this.selectedCombatant.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id)
+        {this.selectedCombatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT.id)
           ? this.unleashLife.subStatistic()
           : ''}
-        {this.selectedCombatant.hasTalent(SPELLS.UNDULATION_TALENT.id)
+        {this.selectedCombatant.hasTalent(TALENTS.UNDULATION_TALENT.id)
           ? this.undulation.subStatistic()
           : ''}
-        {this.selectedCombatant.hasTalent(SPELLS.DELUGE_TALENT.id)
+        {this.selectedCombatant.hasTalent(TALENTS.DELUGE_TALENT.id)
           ? this.deluge.subStatistic()
           : ''}
-        {this.selectedCombatant.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id)
+        {this.selectedCombatant.hasTalent(TALENTS.EARTHEN_WALL_TOTEM_TALENT.id)
           ? this.earthenWallTotem.subStatistic()
           : ''}
-        {this.selectedCombatant.hasTalent(SPELLS.SURGE_OF_EARTH_TALENT.id)
-          ? this.surgeOfEarth.subStatistic()
-          : ''}
-        {this.selectedCombatant.hasTalent(SPELLS.NATURES_GUARDIAN_TALENT.id)
+        {this.selectedCombatant.hasTalent(TALENTS.NATURES_GUARDIAN_TALENT.id)
           ? this.naturesGuardian.subStatistic()
           : ''}
-        {this.selectedCombatant.hasTalent(SPELLS.DOWNPOUR_TALENT.id)
+        {this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT.id)
           ? this.downpour.subStatistic()
           : ''}
-        {this.selectedCombatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id)
+        {this.selectedCombatant.hasTalent(TALENTS.CLOUDBURST_TOTEM_TALENT.id)
           ? this.cloudburstTotem.subStatistic()
           : ''}
-        {this.selectedCombatant.hasTalent(SPELLS.HIGH_TIDE_TALENT.id)
+        {this.selectedCombatant.hasTalent(TALENTS.HIGH_TIDE_TALENT.id)
           ? this.highTide.subStatistic()
           : ''}
-        {this.selectedCombatant.hasTalent(SPELLS.WELLSPRING_TALENT.id)
+        {this.selectedCombatant.hasTalent(TALENTS.WELLSPRING_TALENT.id)
           ? this.wellspring.subStatistic()
           : ''}
-        {this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_TALENT_RESTORATION.id)
+        {this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_RESTORATION_TALENT.id)
           ? this.ascendance.subStatistic()
           : ''}
       </StatisticsListBox>
