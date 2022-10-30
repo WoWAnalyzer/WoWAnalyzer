@@ -93,7 +93,7 @@ class RegrowthAndClearcasting extends Analyzer {
     let targetHealthPercent = undefined;
     const regrowthHeal = getDirectHeal(event);
     if (regrowthHeal) {
-      targetHealthPercent = calculateHealTargetHealthPercent(regrowthHeal);
+      targetHealthPercent = calculateHealTargetHealthPercent(regrowthHeal, true);
     }
 
     let castNote = '';

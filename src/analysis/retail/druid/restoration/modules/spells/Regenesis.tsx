@@ -4,13 +4,18 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import { REJUVENATION_BUFFS } from 'analysis/retail/druid/restoration/constants';
 import SPELLS from 'common/SPELLS';
 import Events, { HealEvent } from 'parser/core/Events';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import {
+  calculateEffectiveHealing,
+  calculateHealTargetHealthPercent,
+} from 'parser/core/EventCalculateLib';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import { SpellLink } from 'interface';
+import TalentSpellText from 'parser/ui/TalentSpellText';
+
+const DEBUG = false;
 
 const REJUV_MAX_BOOST_PER_RANK = 0.1;
 const TRANQ_MAX_BOOST_PER_RANK = 0.15;
@@ -52,10 +57,20 @@ class Regenesis extends Analyzer {
   }
 
   _getBoostHealing(event: HealEvent, boostAmount: number): number {
-    // looks like the scaling on the boost is linear, with max boost when target is at 0% and no boost when target is full
-    const healthPercentMissingBeforeHeal =
-      1 - (event.hitPoints - event.amount) / event.maxHitPoints;
-    return calculateEffectiveHealing(event, boostAmount * healthPercentMissingBeforeHeal);
+    // Scaling on the boost is linear, with max boost when target is at 0% and no boost when target is full
+    const healthPercentMissingBeforeHeal = 1 - calculateHealTargetHealthPercent(event);
+    const att = calculateEffectiveHealing(event, boostAmount * healthPercentMissingBeforeHeal);
+    if (DEBUG && event.amount > 0) {
+      console.log(
+        `${event.ability.name} heal for ${
+          event.amount
+        }\nw/ max boost ${boostAmount}\nmissing health ${healthPercentMissingBeforeHeal.toFixed(
+          2,
+        )}\nattributes ${att}\n`,
+        event,
+      );
+    }
+    return att;
   }
 
   get totalHealing() {
@@ -84,10 +99,9 @@ class Regenesis extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.REGENESIS_TALENT.id}>
+        <TalentSpellText talent={TALENTS_DRUID.REGENESIS_TALENT}>
           <ItemPercentHealingDone amount={this.totalHealing} />
-          <br />
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }
