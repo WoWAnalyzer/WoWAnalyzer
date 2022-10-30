@@ -25,7 +25,7 @@ import HolyPriest from 'analysis/retail/priest/holy';
 import ElementalShaman from 'analysis/retail/shaman/elemental';
 import SubtletyRogue from 'analysis/retail/rogue/subtlety';
 import EnhancementShaman from 'analysis/retail/shaman/enhancement';
-// import RestorationShaman from 'analysis/retail/shaman/restoration';
+import RestorationShaman from 'analysis/retail/shaman/restoration';
 import AfflictionWarlock from 'analysis/retail/warlock/affliction';
 import DemonologyWarlock from 'analysis/retail/warlock/demonology';
 import DestructionWarlock from 'analysis/retail/warlock/destruction';
@@ -90,7 +90,7 @@ const configs: Config[] = [
 
   ElementalShaman,
   EnhancementShaman,
-  // RestorationShaman,
+  RestorationShaman,
 
   AfflictionWarlock,
   DemonologyWarlock,

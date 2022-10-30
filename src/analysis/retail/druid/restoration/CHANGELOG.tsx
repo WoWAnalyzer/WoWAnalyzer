@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   change(date(2022, 10, 30), <>Added talent point count to <SpellLink id={TALENTS_DRUID.REGENESIS_TALENT.id} /> and cleaned up some unintended console spam.</>, Sref),
+  change(date(2022, 10, 28), <>Rearranged Guide's 'Cooldown Breakdown' section for improved readability</>, Sref),
   change(date(2022, 10, 25), <>Updated numbers to account for pre-patch tuning pass.</>, Sref),
   change(date(2022, 10, 23), <>Updated Guide's 'cast box' displays with better tooltips. Made high overheal <SpellLink id={SPELLS.WILD_GROWTH.id} /> detection slightly less strict. Fixed an issue where <SpellLink id={SPELLS.SWIFTMEND.id} /> tracking wasn't detecting <SpellLink id={SPELLS.REJUVENATION_GERMINATION.id} /> removal.</>, Sref),
   change(date(2022, 10, 19), <>Rearranged Guide's 'Core Rotation' section for improved readability</>, Sref),

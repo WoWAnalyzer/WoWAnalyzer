@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
@@ -24,7 +25,7 @@ class TidalWaves extends Analyzer {
       this._onHealingSurge,
     );
     this.addEventListener(
-      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE),
+      Events.begincast.by(SELECTED_PLAYER).spell(TALENTS.HEALING_WAVE_TALENT),
       this._onHealingWave,
     );
   }
@@ -67,8 +68,8 @@ class TidalWaves extends Analyzer {
         suggest(
           <Trans id="shaman.restoration.suggestions.tidalWaves.label">
             <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> buffed{' '}
-            <SpellLink id={SPELLS.HEALING_WAVE.id} /> can make for some very efficient healing,
-            consider casting more of them if you are running into mana issues (
+            <SpellLink id={TALENTS.HEALING_WAVE_TALENT.id} /> can make for some very efficient
+            healing, consider casting more of them if you are running into mana issues (
             {formatPercentage(suggestedThresholds.actual)}% unused Tidal Waves).
           </Trans>,
         )
@@ -90,10 +91,10 @@ class TidalWaves extends Analyzer {
   }
 
   get suggestionThresholds() {
-    const riptide = this.abilityTracker.getAbility(SPELLS.RIPTIDE.id);
-    const healingWave = this.abilityTracker.getAbility(SPELLS.HEALING_WAVE.id);
+    const riptide = this.abilityTracker.getAbility(TALENTS.RIPTIDE_TALENT.id);
+    const healingWave = this.abilityTracker.getAbility(TALENTS.HEALING_WAVE_TALENT.id);
     const healingSurge = this.abilityTracker.getAbility(SPELLS.HEALING_SURGE.id);
-    const chainHeal = this.abilityTracker.getAbility(SPELLS.CHAIN_HEAL.id);
+    const chainHeal = this.abilityTracker.getAbility(TALENTS.CHAIN_HEAL_TALENT.id);
 
     const chainHealCasts = chainHeal.casts || 0;
     const riptideCasts = riptide.casts || 0;

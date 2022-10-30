@@ -59,9 +59,9 @@ class CrystallineReflection extends Analyzer {
         color: '#0cd368',
         label: 'Shield Of Absolution (4p)',
         spellId: SPELLS.SHIELD_OF_ABSOLUTION_BUFF.id,
-        value: this.powerWordShield.t23pValue * this.crIncrease,
+        value: this.powerWordShield.t29pValue * this.crIncrease,
         valueTooltip: `${formatThousands(
-          ((this.powerWordShield.t23pValue * this.crIncrease) / this.owner.fightDuration) * 1000,
+          ((this.powerWordShield.t29pValue * this.crIncrease) / this.owner.fightDuration) * 1000,
         )} DPS`,
       },
     ];

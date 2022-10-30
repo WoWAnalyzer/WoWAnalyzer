@@ -6,6 +6,8 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 10, 29), <>Hid tier bonus when not using it</>, Hana),
+  change(date(2022, 10, 29), <>Added line break in <SpellLink id={TALENTS_PRIEST.TWIST_OF_FATE_TALENT}/> module.</>, Hana),
   change(date(2022, 10, 23), <>Updated abilities file with new spells, updated mana costs of spells.</>, Hana),
   change(date(2022, 10, 23), <>Updated list of spells which are effected by healing increases.</>, Hana),
   change(date(2022, 10, 23), <>Updated <SpellLink id={TALENTS_PRIEST.PURGE_THE_WICKED_TALENT.id}/> section to the Guide.</>, Hana),

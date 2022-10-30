@@ -46,14 +46,14 @@ function blockSize(numValues: number, refWidth: number): number {
 }
 
 function getBlockClassName(value: BoxRowEntry) {
-  if (value.value === 'perfect') {
-    return 'perfect-block';
-  } else if (value.value === 'good' || value.value === true) {
-    return 'good-block';
-  } else if (value.value === 'ok') {
-    return 'ok-block';
-  } else {
-    // bad / false
-    return 'bad-block';
+  switch (value.value) {
+    case QualitativePerformance.Perfect:
+      return 'perfect-block';
+    case QualitativePerformance.Good:
+      return 'good-block';
+    case QualitativePerformance.Ok:
+      return 'ok-block';
+    case QualitativePerformance.Fail:
+      return 'bad-block';
   }
 }

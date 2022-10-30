@@ -85,13 +85,13 @@ class FerociousBite extends Analyzer {
     const cpsUsed = getResourceSpent(event, RESOURCE_TYPES.COMBO_POINTS);
     const acceptableTimeLeftOnRip = timeLeftOnRip >= MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS;
 
-    let value: QualitativePerformance = 'good';
+    let value: QualitativePerformance = QualitativePerformance.Good;
     if (cpsUsed < MAX_CPS) {
-      value = 'fail';
+      value = QualitativePerformance.Fail;
     } else if (!usedMax && !duringBerserkAndSotf) {
-      value = 'fail';
+      value = QualitativePerformance.Fail;
     } else if (!acceptableTimeLeftOnRip) {
-      value = 'ok';
+      value = QualitativePerformance.Ok;
     }
 
     const tooltip = (

@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro';
+import SPELLS from 'common/SPELLS/classic/warlock';
 import { SpellLink } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
@@ -10,8 +11,6 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import { PERFORMANCE_METHOD } from 'parser/shared/modules/features/Checklist/Rule';
 import PreparationRule from 'parser/classic/modules/features/Checklist/PreparationRule';
 import { Fragment } from 'react';
-
-import { CURSE_OF_AGONY, CURSE_OF_DOOM, CURSE_OF_THE_ELEMENTS } from '../../SPELLS';
 
 const DotUptime = (props: DotUptimeProps) => (
   <Requirement
@@ -63,10 +62,11 @@ const WarlockChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPr
           <Trans id="warlock.wotlk.checklist.maintainCurse.description">
             It is important to maintain a curse on the primary target. If there is no Unholy DK
             \(using Ebon Plaguebringer\) or Boomkin \(using Earth and Moon\) in the raid, use{' '}
-            <SpellLink id={CURSE_OF_THE_ELEMENTS}>{curseOfTheElements}</SpellLink>. After the
-            priority curse consideration, use{' '}
-            <SpellLink id={CURSE_OF_DOOM}>{curseOfDoom}</SpellLink> for a target alive more than a
-            minute or <SpellLink id={CURSE_OF_AGONY}>{curseOfAgony}</SpellLink> for a target alive
+            <SpellLink id={SPELLS.CURSE_OF_THE_ELEMENTS.id}>{curseOfTheElements}</SpellLink>. After
+            the priority curse consideration, use{' '}
+            <SpellLink id={SPELLS.CURSE_OF_DOOM.id}>{curseOfDoom}</SpellLink> for a target alive
+            more than a minute or{' '}
+            <SpellLink id={SPELLS.CURSE_OF_AGONY.id}>{curseOfAgony}</SpellLink> for a target alive
             less than a minute.
           </Trans>
         </Fragment>
@@ -74,9 +74,9 @@ const WarlockChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPr
       performanceMethod={PERFORMANCE_METHOD.FIRST}
     >
       <Requirement name="Total Curse Uptime" thresholds={thresholds.curses} />
-      <DotUptime id={CURSE_OF_THE_ELEMENTS} thresholds={thresholds.curseOfTheElements} />
-      <DotUptime id={CURSE_OF_DOOM} thresholds={thresholds.curseOfDoom} />
-      <DotUptime id={CURSE_OF_AGONY} thresholds={thresholds.curseOfAgony} />
+      <DotUptime id={SPELLS.CURSE_OF_THE_ELEMENTS.id} thresholds={thresholds.curseOfTheElements} />
+      <DotUptime id={SPELLS.CURSE_OF_DOOM.id} thresholds={thresholds.curseOfDoom} />
+      <DotUptime id={SPELLS.CURSE_OF_AGONY.id} thresholds={thresholds.curseOfAgony} />
     </Rule>
     <PreparationRule thresholds={thresholds} />
   </Checklist>

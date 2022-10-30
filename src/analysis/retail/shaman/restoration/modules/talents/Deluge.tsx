@@ -1,5 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -27,16 +28,16 @@ class Deluge extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DELUGE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DELUGE_TALENT.id);
 
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.CHAIN_HEAL, SPELLS.HEALING_WAVE, SPELLS.HEALING_SURGE]),
+        .spell([TALENTS.CHAIN_HEAL_TALENT, TALENTS.HEALING_WAVE_TALENT, SPELLS.HEALING_SURGE]),
       this._onHeal,
     );
     this.addEventListener(
-      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_CAST),
+      Events.begincast.by(SELECTED_PLAYER).spell(TALENTS.HEALING_RAIN_TALENT),
       this._onHealingRainBegincast,
     );
     this.addEventListener(Events.fightend, this._onFightend);
@@ -51,7 +52,7 @@ class Deluge extends Analyzer {
     }
 
     const hasBuff = combatant.hasBuff(
-      SPELLS.RIPTIDE.id,
+      TALENTS.RIPTIDE_TALENT.id,
       event.timestamp,
       undefined,
       undefined,
@@ -96,7 +97,7 @@ class Deluge extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.DELUGE_TALENT.id} />}
+        title={<SpellLink id={TALENTS.DELUGE_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );
