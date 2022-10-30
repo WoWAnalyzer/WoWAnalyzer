@@ -36,7 +36,7 @@ const PEMITTED_RAMP_STARTERS = [
 
 interface Ramp {
   timestamp: number;
-  badCastIndexes?: (number | null)[];
+  badCastIndexes?: number[];
 }
 
 class EvangelismAnalysis extends Analyzer {
@@ -105,7 +105,7 @@ class EvangelismAnalysis extends Analyzer {
         }
         return null;
       })
-      .filter(Number);
+      .filter(Number) as number[];
   }
 
   get guideCastBreakdown() {
