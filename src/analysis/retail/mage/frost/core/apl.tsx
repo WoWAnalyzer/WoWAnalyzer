@@ -53,7 +53,7 @@ const precastFrostbolt: Condition<{ brainFreeze?: number; frostbolt?: number }> 
 
 export const apl = build([
   {
-    spell: SPELLS.ICE_LANCE,
+    spell: TALENTS.ICE_LANCE_TALENT,
     condition: cnd.debuffPresent(SPELLS.WINTERS_CHILL),
   },
   {
@@ -61,10 +61,10 @@ export const apl = build([
     condition: cnd.and(cnd.debuffMissing(SPELLS.MIRRORS_OF_TORMENT), precastFrostbolt),
   },
   {
-    spell: SPELLS.FLURRY,
+    spell: TALENTS.FLURRY_TALENT,
     condition: cnd.buffPresent(TALENTS.BRAIN_FREEZE_TALENT),
   },
-  { spell: SPELLS.ICE_LANCE, condition: cnd.buffPresent(TALENTS.FINGERS_OF_FROST_TALENT) },
+  { spell: TALENTS.ICE_LANCE_TALENT, condition: cnd.buffPresent(TALENTS.FINGERS_OF_FROST_TALENT) },
   TALENTS.FROZEN_ORB_TALENT,
   SPELLS.FROSTBOLT,
 ]);

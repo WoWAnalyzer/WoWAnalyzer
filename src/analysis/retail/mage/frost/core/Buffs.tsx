@@ -12,15 +12,18 @@ class Buffs extends CoreAuras {
     return [
       {
         spellId: TALENTS.BRAIN_FREEZE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.BRAIN_FREEZE_TALENT),
         timelineHighlight: true,
       },
       {
         spellId: TALENTS.FINGERS_OF_FROST_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.FINGERS_OF_FROST_TALENT),
         timelineHighlight: true,
       },
       {
         spellId: TALENTS.ICY_VEINS_TALENT.id,
         triggeredBySpellId: TALENTS.ICY_VEINS_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.ICY_VEINS_TALENT),
         timelineHighlight: true,
       },
       {
@@ -31,16 +34,18 @@ class Buffs extends CoreAuras {
       {
         spellId: TALENTS.ICE_BARRIER_TALENT.id,
         triggeredBySpellId: TALENTS.ICE_BARRIER_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.ICE_BARRIER_TALENT),
         timelineHighlight: true,
       },
       {
         spellId: TALENTS.ICE_BLOCK_TALENT.id,
         triggeredBySpellId: TALENTS.ICE_BLOCK_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.ICE_BLOCK_TALENT),
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.MIRROR_IMAGE.id,
-        triggeredBySpellId: SPELLS.MIRROR_IMAGE.id,
+        spellId: TALENTS.MIRROR_IMAGE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.MIRROR_IMAGE_TALENT),
         timelineHighlight: true,
       },
       {
