@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -73,26 +72,6 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           thresholds={thresholds.arcanePowerManaUtilization}
         />
       </Rule>
-      {combatant.hasCovenant(COVENANTS.KYRIAN.id) && (
-        <Rule
-          name="Kyrian Arcane"
-          description={
-            <>
-              When playing as Kyrian, you gain access to <SpellLink id={SPELLS.RADIANT_SPARK.id} />.
-              You should use this spell to help increase the damage of your{' '}
-              <SpellLink id={TALENTS.ARCANE_SURGE_TALENT.id} /> burn as well as your "Mini Burn"
-              when <SpellLink id={TALENTS.ARCANE_SURGE_TALENT.id} /> is not available. Additionally,
-              the recommendation for Kyrian is to use the{' '}
-              <SpellLink id={SPELLS.ARCANE_HARMONY.id} /> legendary, which will change your
-              rotation. Instead of casting <SpellLink id={SPELLS.ARCANE_BLAST.id} /> as your filler
-              ability, you would instead cast <SpellLink id={TALENTS.ARCANE_MISSILES_TALENT.id} />{' '}
-              (even if you do not have a <SpellLink id={SPELLS.CLEARCASTING_ARCANE.id} /> proc)
-              until you get 18 stacks of the <SpellLink id={SPELLS.ARCANE_HARMONY_BUFF.id} />, and
-              then use <SpellLink id={TALENTS.ARCANE_BARRAGE_TALENT.id} />.
-            </>
-          }
-        ></Rule>
-      )}
       <Rule
         name="Using your supporting spells and talents"
         description={
