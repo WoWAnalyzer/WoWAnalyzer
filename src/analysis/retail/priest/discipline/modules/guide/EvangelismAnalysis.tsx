@@ -10,7 +10,6 @@ import GlobalCooldown from '../core/GlobalCooldown';
 import Atonement from '../spells/Atonement';
 import Evangelism from '../spells/Evangelism';
 import Haste from 'parser/shared/modules/Haste';
-import { isNullOrFalse } from 'vega-lite';
 import { SpellLink } from 'interface';
 import { CooldownExpandable } from 'analysis/retail/druid/restoration/Guide';
 
@@ -25,6 +24,7 @@ const ALLOWED_PRE_EVANG = [
   SPELLS.SHADOW_WORD_PAIN.id,
   TALENTS_PRIEST.PURGE_THE_WICKED_TALENT.id,
 ];
+
 const PEMITTED_RAMP_STARTERS = [
   SPELLS.SHADOW_WORD_PAIN.id,
   TALENTS_PRIEST.PURGE_THE_WICKED_TALENT.id,
@@ -36,6 +36,7 @@ const PEMITTED_RAMP_STARTERS = [
 
 interface Ramp {
   timestamp: number;
+  badCastIndexes?: (number | null)[];
 }
 
 class EvangelismAnalysis extends Analyzer {
@@ -87,11 +88,13 @@ class EvangelismAnalysis extends Analyzer {
       ramp.shift();
     }
     this.analyzeSequence(ramp);
-    // this.evangSequences.push({ramp: ramp, details: {nonApplicatorCasts: []}})
   }
 
   analyzeSequence(ramp: CastEvent[]) {
-    this.checkForWrongCasts(ramp);
+    // check that only buttons to press pre evangelism were used
+    this.ramps[this.ramps.length - 1].badCastIndexes = this.checkForWrongCasts(ramp);
+
+    // TODO: check for downtime
   }
 
   checkForWrongCasts(ramp: CastEvent[]) {
@@ -102,7 +105,7 @@ class EvangelismAnalysis extends Analyzer {
         }
         return null;
       })
-      .filter((cast) => !isNullOrFalse(cast));
+      .filter(Number);
   }
 
   get guideCastBreakdown() {
