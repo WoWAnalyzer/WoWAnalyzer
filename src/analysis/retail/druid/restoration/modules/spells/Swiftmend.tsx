@@ -84,7 +84,7 @@ class Swiftmend extends Analyzer {
   onSwiftmendCast(event: CastEvent) {
     const directHeal = getDirectHeal(event);
     const targetHealthPercent = directHeal
-      ? calculateHealTargetHealthPercent(directHeal)
+      ? calculateHealTargetHealthPercent(directHeal, true)
       : undefined;
     const target = this.combatants.getEntity(event);
     if (!target) {
