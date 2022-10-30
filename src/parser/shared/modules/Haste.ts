@@ -73,7 +73,7 @@ class Haste extends Analyzer {
 
     //region Priest
     [TALENTS_PRIEST.POWER_INFUSION_TALENT.id]: 0.25,
-    [SPELLS.BORROWED_TIME_BUFF.id]: 0.8,
+    [SPELLS.BORROWED_TIME_BUFF.id]: 0.08,
     //endregion
 
     //region Mage
