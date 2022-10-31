@@ -71,7 +71,8 @@ const FrostMageChecklist = ({
             cast a rotational ability like <SpellLink id={SPELLS.FROSTBOLT.id} />,{' '}
             <SpellLink id={TALENTS.EBONBOLT_TALENT.id} />, or{' '}
             <SpellLink id={TALENTS.GLACIAL_SPIKE_TALENT.id} />, followed immediately by the Brain
-            Freeze buffed Flurry and then end with two <SpellLink id={SPELLS.ICE_LANCE.id} />
+            Freeze buffed Flurry and then end with two{' '}
+            <SpellLink id={TALENTS.ICE_LANCE_TALENT.id} />
             s. Against non-boss enemies, you can also utilize other things like{' '}
             <SpellLink id={SPELLS.FROST_NOVA.id} /> or your pet's{' '}
             <SpellLink id={SPELLS.FREEZE.id} /> to shatter spells as well.
@@ -135,8 +136,8 @@ const FrostMageChecklist = ({
             have Glacial Spike available, you should not cast it unless you have a{' '}
             <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> proc to use alongside it (
             <SpellLink id={TALENTS.GLACIAL_SPIKE_TALENT.id} /> {'>'}{' '}
-            <SpellLink id={SPELLS.FLURRY.id} /> {'>'}
-            <SpellLink id={SPELLS.ICE_LANCE.id} />) or if you also have the{' '}
+            <SpellLink id={TALENTS.FLURRY_TALENT.id} /> {'>'}
+            <SpellLink id={TALENTS.ICE_LANCE_TALENT.id} />) or if you also have the{' '}
             <SpellLink id={TALENTS.SPLITTING_ICE_TALENT.id} /> and the Glacial Spike will hit a
             second target. If neither of those are true, then you should continue casting{' '}
             <SpellLink id={SPELLS.FROSTBOLT.id} /> until you have a{' '}

@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -73,52 +72,6 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           thresholds={thresholds.arcanePowerManaUtilization}
         />
       </Rule>
-      {combatant.hasCovenant(COVENANTS.KYRIAN.id) && (
-        <Rule
-          name="Kyrian Arcane"
-          description={
-            <>
-              When playing as Kyrian, you gain access to <SpellLink id={SPELLS.RADIANT_SPARK.id} />.
-              You should use this spell to help increase the damage of your{' '}
-              <SpellLink id={TALENTS.ARCANE_SURGE_TALENT.id} /> burn as well as your "Mini Burn"
-              when <SpellLink id={TALENTS.ARCANE_SURGE_TALENT.id} /> is not available. Additionally,
-              the recommendation for Kyrian is to use the{' '}
-              <SpellLink id={SPELLS.ARCANE_HARMONY.id} /> legendary, which will change your
-              rotation. Instead of casting <SpellLink id={SPELLS.ARCANE_BLAST.id} /> as your filler
-              ability, you would instead cast <SpellLink id={TALENTS.ARCANE_MISSILES_TALENT.id} />{' '}
-              (even if you do not have a <SpellLink id={SPELLS.CLEARCASTING_ARCANE.id} /> proc)
-              until you get 18 stacks of the <SpellLink id={SPELLS.ARCANE_HARMONY_BUFF.id} />, and
-              then use <SpellLink id={TALENTS.ARCANE_BARRAGE_TALENT.id} />.
-            </>
-          }
-        >
-          {combatant.hasLegendary(SPELLS.ARCANE_HARMONY) && (
-            <Requirement
-              name="Low Arcane Harmony Stacks before AP"
-              tooltip="In order to get the most damage possible into your Arcane Power, you should ensure that you are at 18 stacks of Arcane Harmony before you activate Arcane Power."
-              thresholds={thresholds.arcaneHarmonyPreReqs}
-            />
-          )}
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink id={SPELLS.RADIANT_SPARK.id} /> Cast Efficiency
-              </>
-            }
-            spell={SPELLS.RADIANT_SPARK.id}
-          />
-          <Requirement
-            name="Radiant Spark not active during AP"
-            tooltip="Since Radiant Spark's primary function is to boost your damage, you want to ensure that you are casting it before every Arcane Power (Radiant Spark > Touch of the Magi > Arcane Power). This way, the Arcane Blasts that you cast once Arcane Power is active can get buffed by Radiant Spark."
-            thresholds={thresholds.radiantSparkPreReqs}
-          />
-          <Requirement
-            name="Radiant Spark Utilization"
-            tooltip="Since Arcane Blast hits very hard when at 4 Arcane Charges, you should use Radiant Spark's damage increase to make Arcane Blast hit even harder. Every time you cast Radiant Spark, you should cast 5 Arcane Blasts (4 if using the Harmonic Echo/Unity Legendary) before Radiant Spark ends. Alternatively, if there are 3 or more targets, you can use Arcane Explosion, Arcane Orb, and Arcane Barrage instead of Arcane Blast."
-            thresholds={thresholds.radiantSparkUtilization}
-          />
-        </Rule>
-      )}
       <Rule
         name="Using your supporting spells and talents"
         description={
@@ -135,72 +88,85 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           </>
         }
       >
-        <AbilityRequirement
-          name={
-            <>
-              <SpellLink id={TALENTS.EVOCATION_TALENT.id} /> Cast Efficiency
-            </>
-          }
-          spell={TALENTS.EVOCATION_TALENT.id}
-        />
-        {combatant.hasTalent(TALENTS.ARCANE_ORB_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.EVOCATION_TALENT) && (
           <AbilityRequirement
             name={
               <>
-                <SpellLink id={TALENTS.ARCANE_ORB_TALENT.id} /> Cast Efficiency
+                <SpellLink id={TALENTS.EVOCATION_TALENT} /> Cast Efficiency
+              </>
+            }
+            spell={TALENTS.EVOCATION_TALENT.id}
+          />
+        )}
+        {combatant.hasTalent(TALENTS.ARCANE_ORB_TALENT) && (
+          <AbilityRequirement
+            name={
+              <>
+                <SpellLink id={TALENTS.ARCANE_ORB_TALENT} /> Cast Efficiency
               </>
             }
             spell={TALENTS.ARCANE_ORB_TALENT.id}
           />
         )}
-        {combatant.hasTalent(TALENTS.SUPERNOVA_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SUPERNOVA_TALENT) && (
           <AbilityRequirement
             name={
               <>
-                <SpellLink id={TALENTS.SUPERNOVA_TALENT.id} /> Cast Efficiency
+                <SpellLink id={TALENTS.SUPERNOVA_TALENT} /> Cast Efficiency
               </>
             }
             spell={TALENTS.SUPERNOVA_TALENT.id}
           />
         )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) && (
           <AbilityRequirement
             name={
               <>
-                <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> Cast Efficiency
+                <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT} /> Cast Efficiency
               </>
             }
             spell={TALENTS.RUNE_OF_POWER_TALENT.id}
           />
         )}
-        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+        {combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT) && (
           <AbilityRequirement
             name={
               <>
-                <SpellLink id={SPELLS.SHIFTING_POWER.id} /> Cast Efficiency
+                <SpellLink id={SPELLS.RADIANT_SPARK} /> Cast Efficiency
               </>
             }
-            spell={SPELLS.SHIFTING_POWER.id}
+            spell={SPELLS.RADIANT_SPARK.id}
           />
         )}
-        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> Cast Efficiency
-              </>
-            }
-            spell={SPELLS.MIRRORS_OF_TORMENT.id}
+        {combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT) && (
+          <Requirement
+            name="Radiant Spark not active during AP"
+            tooltip="Since Radiant Spark's primary function is to boost your damage, you want to ensure that you are casting it before every Arcane Power (Radiant Spark > Touch of the Magi > Arcane Power). This way, the Arcane Blasts that you cast once Arcane Power is active can get buffed by Radiant Spark."
+            thresholds={thresholds.radiantSparkPreReqs}
           />
         )}
-        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
+        {combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT) && (
+          <Requirement
+            name="Radiant Spark Utilization"
+            tooltip="Since Arcane Blast hits very hard when at 4 Arcane Charges, you should use Radiant Spark's damage increase to make Arcane Blast hit even harder. Every time you cast Radiant Spark, you should cast 5 Arcane Blasts (4 if using the Harmonic Echo/Unity Legendary) before Radiant Spark ends. Alternatively, if there are 3 or more targets, you can use Arcane Explosion, Arcane Orb, and Arcane Barrage instead of Arcane Blast."
+            thresholds={thresholds.radiantSparkUtilization}
+          />
+        )}
+        {combatant.hasTalent(TALENTS.ARCANE_HARMONY_TALENT) && (
+          <Requirement
+            name="Low Arcane Harmony Stacks before AP"
+            tooltip="In order to get the most damage possible into your Arcane Power, you should ensure that you are at 18 stacks of Arcane Harmony before you activate Arcane Power."
+            thresholds={thresholds.arcaneHarmonyPreReqs}
+          />
+        )}
+        {combatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) && (
           <AbilityRequirement
             name={
               <>
-                <SpellLink id={SPELLS.DEATHBORNE.id} /> Cast Efficiency
+                <SpellLink id={TALENTS.SHIFTING_POWER_TALENT} /> Cast Efficiency
               </>
             }
-            spell={SPELLS.DEATHBORNE.id}
+            spell={TALENTS.SHIFTING_POWER_TALENT.id}
           />
         )}
         {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id) && (
@@ -252,7 +218,7 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         }
       >
         <Requirement name="Mana left on boss kill" thresholds={thresholds.manaOnKill} />
-        {!combatant.hasLegendary(SPELLS.ARCANE_HARMONY) && (
+        {!combatant.hasTalent(TALENTS.ARCANE_HARMONY_TALENT) && (
           <Requirement
             name="Arcane Missiles only with Clearcasting"
             thresholds={thresholds.arcaneMissilesUtilization}

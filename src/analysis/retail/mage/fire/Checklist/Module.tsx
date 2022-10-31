@@ -1,4 +1,10 @@
-import { ArcaneIntellect, CancelledCasts, RuneOfPower } from 'analysis/retail/mage/shared';
+import {
+  ArcaneIntellect,
+  CancelledCasts,
+  RuneOfPower,
+  Meteor,
+  MeteorRune,
+} from 'analysis/retail/mage/shared';
 import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -14,9 +20,7 @@ import HotStreak from '../core/HotStreak';
 import Pyroclasm from '../talents/Pyroclasm';
 import ShiftingPowerUsage from '../talents/ShiftingPowerUsage';
 import InfernalCascade from '../talents/InfernalCascade';
-import Meteor from '../talents/Meteor';
 import MeteorCombustion from '../talents/MeteorCombustion';
-import MeteorRune from '../talents/MeteorRune';
 import SearingTouch from '../talents/SearingTouch';
 import Component from './Component';
 
