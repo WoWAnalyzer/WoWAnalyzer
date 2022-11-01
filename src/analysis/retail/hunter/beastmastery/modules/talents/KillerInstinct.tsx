@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -25,7 +26,7 @@ class KillerInstinct extends ExecuteHelper {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.KILLER_INSTINCT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.KILLER_INSTINCT_TALENT.id);
   }
 
   statistic() {
@@ -43,7 +44,7 @@ class KillerInstinct extends ExecuteHelper {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.KILLER_INSTINCT_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.KILLER_INSTINCT_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

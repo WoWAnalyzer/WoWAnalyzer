@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { suggestion } from 'parser/core/Analyzer';
 import aplCheck, { build } from 'parser/shared/metrics/apl';
@@ -47,7 +48,7 @@ export const apl = build([
     ),
   },
 
-  SPELLS.BLOODSHED_TALENT,
+  TALENTS.BLOODSHED_TALENT,
   SPELLS.FLAYED_SHOT,
   {
     spell: SPELLS.KILL_SHOT_MM_BM,
@@ -62,15 +63,14 @@ export const apl = build([
     spell: SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE,
     condition: hasResource(RESOURCE_TYPES.FOCUS, { atMost: 80 }),
   },
-  { spell: SPELLS.STAMPEDE_TALENT, condition: buffPresent(SPELLS.ASPECT_OF_THE_WILD) },
-  SPELLS.A_MURDER_OF_CROWS_TALENT,
+  { spell: TALENTS.STAMPEDE_TALENT, condition: buffPresent(SPELLS.ASPECT_OF_THE_WILD) },
+  TALENTS.A_MURDER_OF_CROWS_TALENT,
   {
     spell: SPELLS.RESONATING_ARROW,
     condition: buffPresent(SPELLS.BESTIAL_WRATH),
   },
-  SPELLS.CHIMAERA_SHOT_TALENT_BEAST_MASTERY,
   SPELLS.KILL_COMMAND_CAST_BM,
-  SPELLS.DIRE_BEAST_TALENT,
+  TALENTS.DIRE_BEAST_TALENT,
   {
     spell: SPELLS.COBRA_SHOT,
     condition: or(
@@ -87,8 +87,7 @@ export const apl = build([
     condition: or(
       buffPresent(SPELLS.WILD_SPIRITS_BUFF),
       and(
-        spellCharges(SPELLS.BARBED_SHOT, { atLeast: 1, atMost: 2 }),
-        hasConduit(SPELLS.BLOODLETTING_CONDUIT),
+        spellCharges(SPELLS.BARBED_SHOT, { atLeast: 1, atMost: 2 })
       ),
     ),
   },
