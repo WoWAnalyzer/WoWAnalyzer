@@ -12,15 +12,6 @@ import {
   FocusDetails,
   SpellFocusCost,
   DeathChakrams,
-  EnfeebledMark,
-  EmpoweredRelease,
-  NecroticBarrage,
-  SpiritAttunement,
-  MarkmansAdvantage,
-  ResilienceOfTheHunter,
-  ReversalOfFortune,
-  RejuvenatingWind,
-  HarmonyOfTheTortollan,
   RaeshalareDeathsWhisper,
   RaeshalarePrepullNormalizer,
 } from 'analysis/retail/hunter/shared';
@@ -44,10 +35,6 @@ import BarbedShot from './modules/spells/BarbedShot';
 import BeastCleave from './modules/spells/BeastCleave';
 import BestialWrath from './modules/spells/BestialWrath';
 import CobraShot from './modules/spells/CobraShot';
-import Bloodletting from './modules/spells/conduits/Bloodletting';
-import EchoingCall from './modules/spells/conduits/EchoingCall';
-import FerociousAppetite from './modules/spells/conduits/FerociousAppetite';
-import OneWithTheBeast from './modules/spells/conduits/OneWithTheBeast';
 import AnimalCompanion from './modules/talents/AnimalCompanion';
 import AspectOfTheBeast from './modules/talents/AspectOfTheBeast';
 import DireBeast from './modules/talents/DireBeast';
@@ -58,7 +45,6 @@ import ScentOfBlood from './modules/talents/ScentOfBlood';
 import Stampede from './modules/talents/Stampede';
 import Stomp from './modules/talents/Stomp';
 import ThrillOfTheHunt from './modules/talents/ThrillOfTheHunt';
-import AntlerVersusRylak from './modules/theorycraft/AntlerVersusRylak';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -118,24 +104,6 @@ class CombatLogParser extends CoreCombatLogParser {
     direCommand: DireCommand,
     raeshalareDeathsWhisper: RaeshalareDeathsWhisper,
     deathChakrams: DeathChakrams,
-    
-    //Conduits
-    // empoweredRelease: EmpoweredRelease,
-    // enfeebledMark: EnfeebledMark,
-    // necroticBarrage: NecroticBarrage,
-    // spiritAttunement: SpiritAttunement,
-    // bloodLetting: Bloodletting,
-    // echoingCall: EchoingCall,
-    // ferociousAppetite: FerociousAppetite,
-    // oneWithTheBeast: OneWithTheBeast,
-    // markmansAdvantage: MarkmansAdvantage,
-    // resilienceOfTheHunter: ResilienceOfTheHunter,
-    // reversalOfFortune: ReversalOfFortune,
-    // rejuvenatingWind: RejuvenatingWind,
-    // harmonyOfTheTortollan: HarmonyOfTheTortollan,
-
-    //Theorycraft
-    // antlerVersusRylak: AntlerVersusRylak,
 
     // apl
     apl: AplCheck,
