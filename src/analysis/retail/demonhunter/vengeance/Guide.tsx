@@ -10,6 +10,7 @@ import ExplanationRow from 'interface/guide/components/ExplanationRow';
 import Explanation from 'interface/guide/components/Explanation';
 import DemonSpikesSection from './modules/spells/DemonSpikes/GuideSection';
 import FieryBrandSection from './modules/talents/FieryBrand/GuideSection';
+import VoidReaverSection from './modules/talents/VoidReaver/GuideSection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -68,20 +69,7 @@ function MitigationSection() {
       </SubSection>
       <DemonSpikesSection />
       <FieryBrandSection />
-      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.VOID_REAVER_TALENT) && (
-        <SubSection title="Frailty">
-          <ExplanationRow>
-            <Explanation>
-              <p>
-                <SpellLink id={TALENTS_DEMON_HUNTER.FRAILTY_TALENT} /> is a stacking 4% DR (Damage
-                Reduction). You should aim to have it applied to any target that you are actively
-                tanking. It is applied automatically by doing your core rotation effectively.
-              </p>
-            </Explanation>
-            <strong>Frailty overview coming soon!</strong>
-          </ExplanationRow>
-        </SubSection>
-      )}
+      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.VOID_REAVER_TALENT) && <VoidReaverSection />}
     </Section>
   );
 }
