@@ -1,5 +1,5 @@
-import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -13,7 +13,7 @@ class RaeshalareDeathsWhisper extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasMainHand(ITEMS.RAESHALARE_DEATHS_WHISPER.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.WAILING_ARROW_TALENT.id);
     if (!this.active) {
       return;
     }
