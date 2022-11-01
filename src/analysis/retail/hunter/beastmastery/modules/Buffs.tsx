@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
 
@@ -13,7 +14,7 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.DIRE_BEAST_BUFF.id,
         timelineHighlight: true,
-        triggeredBySpellId: SPELLS.DIRE_BEAST_TALENT.id,
+        triggeredBySpellId: TALENTS.DIRE_BEAST_TALENT.id,
       },
       {
         //shows pet buff, since that is what is interesting to see and the player buff is 8 different spellIDs

@@ -1,5 +1,6 @@
 import { MAX_GCD, MIN_GCD } from 'analysis/retail/hunter/shared';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import { CastEvent } from 'parser/core/Events';
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import Haste from 'parser/shared/modules/Haste';
@@ -21,7 +22,7 @@ class GlobalCooldown extends CoreGlobalCooldown {
    */
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.BARRAGE_TALENT.id) {
+    if (spellId === TALENTS.BARRAGE_TALENT.id) {
       return;
     }
     const isOnGCD = this.isOnGlobalCooldown(spellId);
