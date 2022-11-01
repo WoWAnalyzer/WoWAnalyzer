@@ -68,6 +68,7 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 11, 1), 'Re-add missing specs to the specializations page.', ToppleTheNun),
   change(date(2022, 10, 31), 'Add slightly more ergonomic talent cast efficiency wrapper.', ToppleTheNun),
   change(date(2022, 10, 31), 'Update patch compatibility for specs supporting Dragonflight.', ToppleTheNun),
   change(date(2022, 10, 25), 'Improve patch version detection for retail and classic.', ToppleTheNun),
