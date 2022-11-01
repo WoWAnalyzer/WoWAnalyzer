@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import { ONE_SECOND_IN_MS } from 'analysis/retail/hunter/shared';
 import { BUTCHERY_CARVE_MAX_TARGETS_HIT } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -34,12 +35,12 @@ class ButcheryCarve extends Analyzer {
   wastedReductionMs: number = 0;
   targetsHit: number = 0;
   casts: number = 0;
-  spellKnown: Spell = this.selectedCombatant.hasTalent(SPELLS.BUTCHERY_TALENT.id)
-    ? SPELLS.BUTCHERY_TALENT
+  spellKnown: Spell = this.selectedCombatant.hasTalent(TALENTS.BUTCHERY_TALENT.id)
+    ? TALENTS.BUTCHERY_TALENT
     : SPELLS.CARVE;
   damage: number = 0;
-  bombSpellKnown: number = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id)
-    ? SPELLS.WILDFIRE_INFUSION_TALENT.id
+  bombSpellKnown: number = this.selectedCombatant.hasTalent(TALENTS.WILDFIRE_INFUSION_TALENT.id)
+    ? TALENTS.WILDFIRE_INFUSION_TALENT.id
     : SPELLS.WILDFIRE_BOMB.id;
 
   protected spellUsable!: SpellUsable;
