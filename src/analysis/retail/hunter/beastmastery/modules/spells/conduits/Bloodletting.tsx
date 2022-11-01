@@ -9,6 +9,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
+// TODO DF: Should be adjusted to contain Sharp Barbs / War Orders damage
 /**
  * Barbed Shot's recharge time is reduced by 1 sec.
  * The damage of Barbed Shot is increased by x%.

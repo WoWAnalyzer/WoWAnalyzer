@@ -59,9 +59,7 @@ export const ASPECT_OF_THE_WILD_FOCUS = 5;
 /** Bloodshed */
 //Bloodshed increases the damage done by pets by 15%
 export const BLOODSHED_DAMAGE_AMP = 0.15;
-/** Scent of Blood */
-//Scent of Blood recharges 2 barbed shot charges when you activate Bestial Wrath
-export const SCENT_OF_BLOOD_BARBED_SHOT_RECHARGE = 2;
+
 /** Aspect of the Beast */
 //Aspect of the Beast increase pet damage and healing done by 30%
 export const AOTB_MULTIPLIER = 0.3;
@@ -76,12 +74,7 @@ export const AOTB_ABILITIES_NOT_AFFECTED: number[] = [
 export const KILLER_INSTINCT_THRESHOLD = 0.35;
 //When Killer Instinct is active Kill Command does 50% more damage
 export const KILLER_INSTINCT_MULTIPLIER = 0.5;
-/** Wild Call */
-//Wild Call has a 20% chance to reset Barbed Shot cooldown on critical auto attacks
-export const WILD_CALL_RESET_PERCENT = 0.2;
-/** Spitting Cobra */
-//Spitting Cobra has its damage increased by 10% for every Cobra Shot during Bestial Wrath
-export const SPITTING_COBRA_DAMAGE_INCREASE = 0.1;
+
 /** Stampede */
 // The potential amount of hits per target per stampede cast.
 // By checking through various Zek'voz logs, it seems to consistently hit the boss 18 times, except if the boss was moved.

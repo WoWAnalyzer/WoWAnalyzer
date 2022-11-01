@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
@@ -31,7 +32,7 @@ class KillerCobra extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.KILLER_COBRA_TALENT.id);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COBRA_SHOT),
       this.onCobraCast,
@@ -70,7 +71,7 @@ class KillerCobra extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.KILLER_COBRA_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.KILLER_COBRA_TALENT.id}>
           <>
             {this.effectiveKillCommandResets}/
             {this.effectiveKillCommandResets + this.wastedKillerCobraCobraShots}{' '}
@@ -92,13 +93,13 @@ class KillerCobra extends Analyzer {
           Avoid casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> whilst{' '}
           <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> isn't on cooldown, when you have{' '}
           <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up. Utilize the reset effect of{' '}
-          <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> by only casting{' '}
+          <SpellLink id={TALENTS.KILLER_COBRA_TALENT.id} /> by only casting{' '}
           <SpellLink id={SPELLS.COBRA_SHOT.id} /> to reset{' '}
           <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> when{' '}
           <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> is up.{' '}
         </>,
       )
-        .icon(SPELLS.KILLER_COBRA_TALENT.icon)
+        .icon(TALENTS.KILLER_COBRA_TALENT.icon)
         .actual(
           <Trans id="hunter.beastmastery.suggestions.killerCobra.efficiency">
             {' '}
