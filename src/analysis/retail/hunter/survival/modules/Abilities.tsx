@@ -150,9 +150,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.CHAKRAMS_TALENT.id,
+        spell: TALENTS.DEATH_CHAKRAM_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.CHAKRAMS_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.DEATH_CHAKRAM_TALENT.id),
         cooldown: 20,
         gcd: {
           base: 1500,
