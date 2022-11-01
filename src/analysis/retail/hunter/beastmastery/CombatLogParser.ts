@@ -12,8 +12,8 @@ import {
   FocusDetails,
   SpellFocusCost,
   DeathChakrams,
-  RaeshalareDeathsWhisper,
-  RaeshalarePrepullNormalizer,
+  WailingArrow,
+  WailingArrowPrepullNormalizer,
 } from 'analysis/retail/hunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
@@ -68,7 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
     beastMasteryFocusUsage: BeastMasteryFocusUsage,
 
     //Normalizers
-    raeshalarePrepullNormalizer: RaeshalarePrepullNormalizer,
+    wailingArrowPrepullNormalizer: WailingArrowPrepullNormalizer,
 
     //DeathTracker
     deathTracker: DeathTracker,
@@ -102,7 +102,7 @@ class CombatLogParser extends CoreCombatLogParser {
     bindingShot: BindingShot,
     animalCompanion: AnimalCompanion,
     direCommand: DireCommand,
-    raeshalareDeathsWhisper: RaeshalareDeathsWhisper,
+    wailingArrow: WailingArrow,
     deathChakrams: DeathChakrams,
 
     // apl
