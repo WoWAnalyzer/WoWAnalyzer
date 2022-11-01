@@ -6,6 +6,7 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 31), 'Mark Vengeance DH as partially supported for 10.0.0.', ToppleTheNun),
   change(date(2022, 10, 26), 'Enable guide for Vengeance DH.', ToppleTheNun),
   change(date(2022, 10, 22), 'Add Soul Fragment buff stack tracking to Guide.', ToppleTheNun),
   change(date(2022, 10, 22), 'Setup initial Vengeance DH guide.', ToppleTheNun),
