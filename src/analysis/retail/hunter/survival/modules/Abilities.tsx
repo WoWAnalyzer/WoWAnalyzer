@@ -107,7 +107,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.STEEL_TRAP_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.STEEL_TRAP_TALENT.id),
-        cooldown: 30,
+        cooldown: 30 - (combatant.getTalentRank(TALENTS.IMPROVED_TRAPS_TALENT.id) * 1.5),
         gcd: {
           base: 1500,
         },
