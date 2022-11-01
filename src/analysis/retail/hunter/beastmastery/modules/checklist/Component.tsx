@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import { ResourceIcon } from 'interface';
@@ -49,23 +50,20 @@ const BeastMasteryChecklist = (props: ChecklistProps & AplRuleProps) => {
         <AbilityRequirement spell={SPELLS.BESTIAL_WRATH.id} />
         <AbilityRequirement spell={SPELLS.ASPECT_OF_THE_WILD.id} />
 
-        {combatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.DIRE_BEAST_TALENT.id} />
+        {combatant.hasTalent(TALENTS.DIRE_BEAST_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.DIRE_BEAST_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_BEAST_MASTERY.id) && (
-          <AbilityRequirement spell={SPELLS.CHIMAERA_SHOT_TALENT_BEAST_MASTERY.id} />
+        {combatant.hasTalent(TALENTS.A_MURDER_OF_CROWS_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.A_MURDER_OF_CROWS_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.A_MURDER_OF_CROWS_TALENT.id} />
+        {combatant.hasTalent(TALENTS.BARRAGE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.BARRAGE_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.BARRAGE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.BARRAGE_TALENT.id} />
+        {combatant.hasTalent(TALENTS.STAMPEDE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.STAMPEDE_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.STAMPEDE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.STAMPEDE_TALENT.id} />
-        )}
-        {combatant.hasTalent(SPELLS.BLOODSHED_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.BLOODSHED_TALENT.id} />
+        {combatant.hasTalent(TALENTS.BLOODSHED_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.BLOODSHED_TALENT.id} />
         )}
       </Rule>
       <Rule
@@ -154,12 +152,12 @@ const BeastMasteryChecklist = (props: ChecklistProps & AplRuleProps) => {
           }
           thresholds={thresholds.beastCleaveThresholds}
         />
-        {combatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.KILLER_COBRA_TALENT.id) && (
           <Requirement
             name={
               <>
                 {' '}
-                Wasted <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> resets{' '}
+                Wasted <SpellLink id={TALENTS.KILLER_COBRA_TALENT.id} /> resets{' '}
               </>
             }
             thresholds={thresholds.wastedKillerCobraThreshold}

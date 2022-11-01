@@ -50,7 +50,6 @@ import FerociousAppetite from './modules/spells/conduits/FerociousAppetite';
 import OneWithTheBeast from './modules/spells/conduits/OneWithTheBeast';
 import AnimalCompanion from './modules/talents/AnimalCompanion';
 import AspectOfTheBeast from './modules/talents/AspectOfTheBeast';
-import ChimaeraShot from './modules/talents/ChimaeraShot';
 import DireBeast from './modules/talents/DireBeast';
 import KillerCobra from './modules/talents/KillerCobra';
 import KillerInstinct from './modules/talents/KillerInstinct';
@@ -101,7 +100,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Talents
     killerInstinct: KillerInstinct,
-    chimaeraShot: ChimaeraShot,
     direBeast: DireBeast,
     naturalMending: NaturalMending,
     trailblazer: Trailblazer,
@@ -122,22 +120,22 @@ class CombatLogParser extends CoreCombatLogParser {
     deathChakrams: DeathChakrams,
     
     //Conduits
-    empoweredRelease: EmpoweredRelease,
-    enfeebledMark: EnfeebledMark,
-    necroticBarrage: NecroticBarrage,
-    spiritAttunement: SpiritAttunement,
-    bloodLetting: Bloodletting,
-    echoingCall: EchoingCall,
-    ferociousAppetite: FerociousAppetite,
-    oneWithTheBeast: OneWithTheBeast,
-    markmansAdvantage: MarkmansAdvantage,
-    resilienceOfTheHunter: ResilienceOfTheHunter,
-    reversalOfFortune: ReversalOfFortune,
-    rejuvenatingWind: RejuvenatingWind,
-    harmonyOfTheTortollan: HarmonyOfTheTortollan,
+    // empoweredRelease: EmpoweredRelease,
+    // enfeebledMark: EnfeebledMark,
+    // necroticBarrage: NecroticBarrage,
+    // spiritAttunement: SpiritAttunement,
+    // bloodLetting: Bloodletting,
+    // echoingCall: EchoingCall,
+    // ferociousAppetite: FerociousAppetite,
+    // oneWithTheBeast: OneWithTheBeast,
+    // markmansAdvantage: MarkmansAdvantage,
+    // resilienceOfTheHunter: ResilienceOfTheHunter,
+    // reversalOfFortune: ReversalOfFortune,
+    // rejuvenatingWind: RejuvenatingWind,
+    // harmonyOfTheTortollan: HarmonyOfTheTortollan,
 
     //Theorycraft
-    antlerVersusRylak: AntlerVersusRylak,
+    // antlerVersusRylak: AntlerVersusRylak,
 
     // apl
     apl: AplCheck,

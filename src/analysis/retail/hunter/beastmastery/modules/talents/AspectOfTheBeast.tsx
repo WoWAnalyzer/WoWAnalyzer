@@ -3,6 +3,7 @@ import {
   AOTB_MULTIPLIER,
 } from 'analysis/retail/hunter/beastmastery/constants';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -27,7 +28,7 @@ class AspectOfTheBeast extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ASPECT_OF_THE_BEAST_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ASPECT_OF_THE_BEAST_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET), this.onPetHeal);
   }
@@ -51,7 +52,7 @@ class AspectOfTheBeast extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.ASPECT_OF_THE_BEAST_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.ASPECT_OF_THE_BEAST_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />
