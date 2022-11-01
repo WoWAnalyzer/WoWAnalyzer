@@ -5,10 +5,10 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/EventSubscriber';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { DEMONIC_DURATION } from 'analysis/retail/demonhunter/shared';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/23dHWCrT18qhaJbz/#fight=1&source=16
@@ -111,11 +111,9 @@ export default class DemonicDeathSweep extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.GENERAL} size="flexible">
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.DEMONIC_TALENT.id}>
-          <>
-            {this.badCasts} <small>Bad casts</small>
-          </>
-        </BoringSpellValueText>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.DEMONIC_TALENT}>
+          {this.badCasts} <small>Bad casts</small>
+        </TalentSpellText>
       </Statistic>
     );
   }

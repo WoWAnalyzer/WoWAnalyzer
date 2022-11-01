@@ -1,9 +1,9 @@
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/PGMqmyH1b86fW7F2/#fight=55&source=10
@@ -62,11 +62,9 @@ class Netherwalk extends Analyzer {
           )
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.NETHERWALK_TALENT.id}>
-          <>
-            {this.damageImmuned.length} <small>spells immuned</small>
-          </>
-        </BoringSpellValueText>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.NETHERWALK_TALENT}>
+          {this.damageImmuned.length} <small>spells immuned</small>
+        </TalentSpellText>
       </Statistic>
     );
   }

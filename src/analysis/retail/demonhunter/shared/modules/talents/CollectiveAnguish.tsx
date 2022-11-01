@@ -3,11 +3,11 @@ import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import SPECS from 'game/SPECS';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class CollectiveAnguish extends Analyzer {
   damage = 0;
@@ -38,9 +38,9 @@ class CollectiveAnguish extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={<>{formatThousands(this.damage)} Total damage</>}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.COLLECTIVE_ANGUISH_TALENT.id}>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.COLLECTIVE_ANGUISH_TALENT}>
           <ItemDamageDone amount={this.damage} />
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

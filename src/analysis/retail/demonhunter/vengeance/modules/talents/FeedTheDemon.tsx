@@ -5,10 +5,10 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const COOLDOWN_REDUCTION_MS = 500;
 
@@ -86,9 +86,9 @@ class FeedTheDemon extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.FEED_THE_DEMON_TALENT.id}>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.FEED_THE_DEMON_TALENT}>
           {formatNumber(this.averageReduction)} sec average reduction
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

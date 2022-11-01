@@ -8,7 +8,7 @@ import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 export default class FlamesOfFury extends Analyzer {
   furyGain = 0;
@@ -82,11 +82,9 @@ export default class FlamesOfFury extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.FLAMES_OF_FURY_TALENT.id}>
-          <>
-            {this.furyPerMin} <small>Fury per min</small>
-          </>
-        </BoringSpellValueText>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.FLAMES_OF_FURY_TALENT}>
+          {this.furyPerMin} <small>Fury per min</small>
+        </TalentSpellText>
       </Statistic>
     );
   }
