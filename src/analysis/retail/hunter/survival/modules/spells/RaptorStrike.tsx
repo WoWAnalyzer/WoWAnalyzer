@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 
@@ -14,8 +15,8 @@ class RaptorStrike extends Analyzer {
     super(options);
 
     this.active =
-      !this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id) &&
-      this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id);
+      !this.selectedCombatant.hasTalent(TALENTS.MONGOOSE_BITE_TALENT.id) &&
+      this.selectedCombatant.hasTalent(TALENTS.VIPERS_VENOM_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAPTOR_STRIKE), this.onCast);
   }
 
