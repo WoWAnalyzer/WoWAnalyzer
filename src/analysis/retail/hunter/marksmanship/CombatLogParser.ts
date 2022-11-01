@@ -26,8 +26,8 @@ import {
   HarmonyOfTheTortollan,
   SoulforgeEmbers,
   CancelledCasts,
-  RaeshalareDeathsWhisper,
-  RaeshalarePrepullNormalizer,
+  WailingArrow,
+  WailingArrowPrepullNormalizer,
   FragmentsOfTheElderAntlers,
 } from 'analysis/retail/hunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
@@ -41,11 +41,9 @@ import GlobalCooldown from './modules/core/GlobalCooldown';
 import SpellUsable from './modules/core/SpellUsable';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import EagletalonsTrueFocus from './modules/items/EagletalonsTrueFocus';
-import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
-import SecretsOfTheUnblinkingVigil from './modules/items/SecretsOfTheUnblinkingVigil';
-import SerpentstalkersTrickery from './modules/items/SerpentstalkersTrickery';
-import SurgingShots from './modules/items/SurgingShots';
+import EagletalonsTrueFocus from './modules/talents/EagletalonsTrueFocus';
+import SerpentstalkersTrickery from './modules/talents/SerpentstalkersTrickery';
+import SurgingShots from './modules/talents/SurgingShots';
 import Focus from './modules/resources/Focus';
 import MarksmanshipFocusCapTracker from './modules/resources/MarksmanshipFocusCapTracker';
 import MarksmanshipFocusUsage from './modules/resources/MarksmanshipFocusUsage';
@@ -99,7 +97,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizers
     aimedShotPrepullNormalizer: AimedShotPrepullNormalizer,
-    raeshalarePrepullNormalizer: RaeshalarePrepullNormalizer,
+    wailingArrowPrepullNormalizer: WailingArrowPrepullNormalizer,
 
     //DeathTracker
     deathTracker: DeathTracker,
@@ -133,6 +131,7 @@ class CombatLogParser extends CoreCombatLogParser {
     deadEye: DeadEye,
     lethalShots: LethalShots,
     streamline: Streamline,
+    wailingArrow: WailingArrow,
 
     //Covenants
     resonatingArrow: ResonatingArrow,
@@ -156,15 +155,12 @@ class CombatLogParser extends CoreCombatLogParser {
     harmonyOfTheTortollan: HarmonyOfTheTortollan,
 
     //Generic Legendaries
-    nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,
     soulforgeEmbers: SoulforgeEmbers,
-    raeshalareDeathsWhisper: RaeshalareDeathsWhisper,
     fragmentsOfTheElderAntlers: FragmentsOfTheElderAntlers,
 
     //Marksmanship Legendaries
     surgingShots: SurgingShots,
     serpentstalkersTrickery: SerpentstalkersTrickery,
-    secretsOfTheUnblinkingVigil: SecretsOfTheUnblinkingVigil,
     eagletalonsTrueFocus: EagletalonsTrueFocus,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown

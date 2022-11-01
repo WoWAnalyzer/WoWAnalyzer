@@ -19,8 +19,6 @@ import {
   HarmonyOfTheTortollan,
   EnfeebledMark,
   MarkmansAdvantage,
-  RaeshalareDeathsWhisper,
-  RaeshalarePrepullNormalizer,
 } from 'analysis/retail/hunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -84,7 +82,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizers
     tipOfTheSpearNormalizer: TipOfTheSpearNormalizer,
-    raeshalarePrepullNormalizer: RaeshalarePrepullNormalizer,
 
     //DeathTracker
     deathTracker: DeathTracker,
@@ -119,7 +116,6 @@ class CombatLogParser extends CoreCombatLogParser {
     shrapnelBomb: ShrapnelBomb,
     volatileBomb: VolatileBomb,
     deathChakrams: DeathChakrams,
-    raeshalareDeathsWhisper: RaeshalareDeathsWhisper,
 
     //Conduits
     empoweredRelease: EmpoweredRelease,

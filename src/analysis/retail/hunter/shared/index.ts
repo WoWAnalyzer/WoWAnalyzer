@@ -24,6 +24,6 @@ export { default as RejuvenatingWind } from './conduits/RejuvenatingWind';
 export { default as ResilienceOfTheHunter } from './conduits/ResilienceOfTheHunter';
 export { default as ReversalOfFortune } from './conduits/ReversalOfFortune';
 export { default as DeathChakrams } from './talents/DeathChakrams';
-export { default as RaeshalareDeathsWhisper} from './items/RaeshalareDeathsWhisper';
-export { default as RaeshalarePrepullNormalizer} from './items/RaeshalarePrepullNormalizer';
+export { default as WailingArrow } from './items/WailingArrow';
+export { default as WailingArrowPrepullNormalizer } from './items/WailingArrowPrepullNormalizer';
 export * from './constants';
