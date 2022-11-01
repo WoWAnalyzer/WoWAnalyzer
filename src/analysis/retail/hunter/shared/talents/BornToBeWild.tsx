@@ -1,6 +1,7 @@
 import { BASELINE_AOTE_CD } from 'analysis/retail/hunter/survival/constants';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -67,7 +68,7 @@ class BornToBeWild extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BORN_TO_BE_WILD_TALENT.id);
     this.hasEagle = this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER;
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(BORN_TO_BE_WILD_AFFECTED_SPELLS),
@@ -126,7 +127,7 @@ class BornToBeWild extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.BORN_TO_BE_WILD_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.BORN_TO_BE_WILD_TALENT.id}>
           <>
             {formatNumber(this.effectiveTotalCDR / 1000)}s <small>total effective CDR</small>
           </>
