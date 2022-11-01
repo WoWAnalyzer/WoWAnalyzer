@@ -7,7 +7,7 @@ import FeralDruid from 'analysis/retail/druid/feral';
 import RestoDruid from 'analysis/retail/druid/restoration';
 // import BeastMasteryHunter from 'analysis/retail/hunter/beastmastery';
 // import MarksmanshipHunter from 'analysis/retail/hunter/marksmanship';
-// import SurvivalHunter from 'analysis/retail/hunter/survival';
+import SurvivalHunter from 'analysis/retail/hunter/survival';
 import ArcaneMage from 'analysis/retail/mage/arcane';
 import FireMage from 'analysis/retail/mage/fire';
 import FrostMage from 'analysis/retail/mage/frost';
@@ -66,7 +66,7 @@ const configs: Config[] = [
 
   // BeastMasteryHunter,
   // MarksmanshipHunter,
-  // SurvivalHunter,
+  SurvivalHunter,
 
   FrostMage,
   FireMage,
