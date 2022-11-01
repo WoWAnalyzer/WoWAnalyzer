@@ -5,6 +5,7 @@ import {
 } from 'analysis/retail/hunter/survival/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -57,8 +58,8 @@ class SerpentSting extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.hasBoP = this.selectedCombatant.hasTalent(SPELLS.BIRDS_OF_PREY_TALENT.id);
-    this.hasVV = this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id);
+    this.hasBoP = this.selectedCombatant.hasTalent(TALENTS.BIRDS_OF_PREY_TALENT.id);
+    this.hasVV = this.selectedCombatant.hasTalent(TALENTS.VIPERS_VENOM_TALENT.id);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV),
@@ -243,12 +244,12 @@ class SerpentSting extends Analyzer {
           {' '}
           You should make sure to keep up <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> by using it
           within the pandemic windows during <SpellLink id={SPELLS.COORDINATED_ASSAULT.id} />, so
-          long as you have a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> proc.{' '}
+          long as you have a <SpellLink id={TALENTS.VIPERS_VENOM_TALENT.id} /> proc.{' '}
         </>
       ) : (
         <>
-          With <SpellLink id={SPELLS.BIRDS_OF_PREY_TALENT.id} /> talented and without{' '}
-          <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> talented, you don't want to cast{' '}
+          With <SpellLink id={TALENTS.BIRDS_OF_PREY_TALENT.id} /> talented and without{' '}
+          <SpellLink id={TALENTS.VIPERS_VENOM_TALENT.id} /> talented, you don't want to cast{' '}
           <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> during{' '}
           <SpellLink id={SPELLS.COORDINATED_ASSAULT.id} /> at all, which is a majority of the fight,
           therefore a low uptime of <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> is better than a

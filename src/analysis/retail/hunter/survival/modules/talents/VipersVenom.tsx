@@ -1,5 +1,6 @@
 import { VIPERS_VENOM_DAMAGE_MODIFIER } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { ApplyBuffEvent, CastEvent, DamageEvent } from 'parser/core/Events';
@@ -36,10 +37,10 @@ class VipersVenom extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.VIPERS_VENOM_TALENT.id);
 
-    if (this.active && this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id)) {
-      this.spellKnown = SPELLS.MONGOOSE_BITE_TALENT;
+    if (this.active && this.selectedCombatant.hasTalent(TALENTS.MONGOOSE_BITE_TALENT.id)) {
+      this.spellKnown = TALENTS.MONGOOSE_BITE_TALENT;
     }
 
     this.addEventListener(
@@ -114,7 +115,7 @@ class VipersVenom extends Analyzer {
         }
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.VIPERS_VENOM_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.VIPERS_VENOM_TALENT.id}>
           <>
             <ItemDamageDone amount={this.bonusDamage} />
             <br />
