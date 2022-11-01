@@ -1,6 +1,11 @@
 import Analyzer from 'parser/core/Analyzer';
 import { Uptime } from 'parser/ui/UptimeBar';
-import { TrackedHit } from 'analysis/retail/demonhunter/vengeance/modules/talents/FieryBrand';
+import { DamageEvent } from 'parser/core/Events';
+
+export type TrackedHit = {
+  mitigated: boolean;
+  event: DamageEvent;
+};
 
 export default abstract class HitBasedAnalyzer extends Analyzer {
   abstract hits: TrackedHit[];
