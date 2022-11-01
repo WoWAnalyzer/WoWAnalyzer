@@ -8,7 +8,6 @@ import {
   and,
   buffMissing,
   buffPresent,
-  hasConduit,
   hasLegendary,
   hasResource,
   inExecute,
@@ -86,9 +85,7 @@ export const apl = build([
     spell: SPELLS.BARBED_SHOT,
     condition: or(
       buffPresent(SPELLS.WILD_SPIRITS_BUFF),
-      and(
-        spellCharges(SPELLS.BARBED_SHOT, { atLeast: 1, atMost: 2 })
-      ),
+      and(spellCharges(SPELLS.BARBED_SHOT, { atLeast: 1, atMost: 2 })),
     ),
   },
   {
