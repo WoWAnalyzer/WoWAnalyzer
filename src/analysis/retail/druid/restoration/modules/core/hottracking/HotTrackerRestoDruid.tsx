@@ -13,6 +13,9 @@ import {
   ABILITIES_AFFECTED_BY_HEALING_INCREASES,
   MASTERY_STACK_BUFF_IDS,
 } from 'analysis/retail/druid/restoration/constants';
+import { TALENTS_DRUID } from 'common/TALENTS';
+
+const CIRCLE_MULT = 0.85;
 
 class HotTrackerRestoDruid extends HotTracker {
   static dependencies = {
@@ -85,72 +88,83 @@ class HotTrackerRestoDruid extends HotTracker {
   }
 
   _generateHotInfo(): HotInfo[] {
+    const hasCircle = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.CIRCLE_OF_LIFE_AND_DEATH_TALENT,
+    );
+    const hasImpRejuv = this.selectedCombatant.hasTalent(
+      TALENTS_DRUID.IMPROVED_REJUVENATION_TALENT,
+    );
+    const hasGermination = this.selectedCombatant.hasTalent(TALENTS_DRUID.GERMINATION_TALENT);
+
+    const globalMult = hasCircle ? CIRCLE_MULT : 1;
+    const rejuvDuration = 12000 + (hasImpRejuv ? 3000 : 0) + (hasGermination ? 2000 : 0);
+
     return [
       {
         spell: SPELLS.REJUVENATION,
-        duration: 15000,
+        duration: rejuvDuration * globalMult,
         tickPeriod: 3000,
       },
       {
         spell: SPELLS.REJUVENATION_GERMINATION,
-        duration: 15000,
+        duration: rejuvDuration * globalMult,
         tickPeriod: 3000,
       },
       {
         spell: SPELLS.REGROWTH,
-        duration: 12000,
+        duration: 12000 * globalMult,
         tickPeriod: 2000,
       },
       {
         spell: SPELLS.WILD_GROWTH,
-        duration: 7000,
+        duration: 7000 * globalMult,
         tickPeriod: 1000,
       },
       {
         spell: SPELLS.LIFEBLOOM_HOT_HEAL,
-        duration: 15000,
+        duration: 15000 * globalMult,
         tickPeriod: 1000,
       },
       {
         spell: SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL,
-        duration: 15000,
+        duration: 15000 * globalMult,
         tickPeriod: 1000,
       },
       {
         spell: SPELLS.CENARION_WARD_HEAL,
-        duration: 8000,
+        duration: 8000 * globalMult,
         tickPeriod: 2000,
       },
       {
         spell: SPELLS.CULTIVATION,
-        duration: 6000,
+        duration: 6000 * globalMult,
         tickPeriod: 2000,
       },
       {
         spell: SPELLS.SPRING_BLOSSOMS,
-        duration: 6000,
+        duration: 6000 * globalMult,
         tickPeriod: 2000,
         noHaste: true,
       },
       {
         spell: SPELLS.TRANQUILITY_HEAL,
-        duration: 8000,
+        duration: 8000 * globalMult,
         tickPeriod: 2000,
         refreshNoPandemic: true,
       },
       {
         spell: SPELLS.ADAPTIVE_SWARM_HEAL,
-        duration: 12000,
+        duration: 12000 * globalMult,
         tickPeriod: 2000,
       },
       {
         spell: SPELLS.RENEWING_BLOOM,
-        duration: 8000,
+        duration: 8000 * globalMult,
         tickPeriod: 1000,
       },
       {
         spell: SPELLS.GROVE_TENDING,
-        duration: 9000,
+        duration: 9000 * globalMult,
         tickPeriod: 3000,
       },
     ];

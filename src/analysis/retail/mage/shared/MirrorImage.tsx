@@ -1,5 +1,5 @@
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -23,7 +23,7 @@ class MirrorImage extends Analyzer {
   }
 
   onDamageTaken(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.MIRROR_IMAGE.id)) {
+    if (!this.selectedCombatant.hasBuff(TALENTS.MIRROR_IMAGE_TALENT.id)) {
       return;
     }
     this.damageDuringMirrorImages += event.amount + (event.absorbed || 0);
@@ -34,7 +34,10 @@ class MirrorImage extends Analyzer {
   }
 
   get reductionPerCast() {
-    return this.totalDamageReduction / this.abilityTracker.getAbility(SPELLS.MIRROR_IMAGE.id).casts;
+    return (
+      this.totalDamageReduction /
+      this.abilityTracker.getAbility(TALENTS.MIRROR_IMAGE_TALENT.id).casts
+    );
   }
 
   statistic() {
@@ -50,7 +53,7 @@ class MirrorImage extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.MIRROR_IMAGE.id}>
+        <BoringSpellValueText spellId={TALENTS.MIRROR_IMAGE_TALENT.id}>
           <>
             {formatNumber(this.totalDamageReduction)} <small> Damage Avoided</small>
           </>

@@ -3,11 +3,11 @@ import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 //WCL: https://www.warcraftlogs.com/reports/7DNACRhnaKzBfHLM/#fight=1&source=19
 class FeastOfSouls extends Analyzer {
@@ -46,9 +46,9 @@ class FeastOfSouls extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.FEAST_OF_SOULS_TALENT.id}>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.FEAST_OF_SOULS_TALENT}>
           <ItemHealingDone amount={this.heal} />
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

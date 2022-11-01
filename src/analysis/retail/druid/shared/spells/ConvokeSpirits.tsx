@@ -20,7 +20,7 @@ import { TALENTS_DRUID, TALENTS_DRUID as TALENTS } from 'common/TALENTS/druid';
 
 import ActiveDruidForm, { DruidForm } from '../core/ActiveDruidForm';
 
-const debug = true;
+const DEBUG = false;
 
 /*
  * For several spells we include multiple IDs for the same spell -
@@ -303,7 +303,7 @@ class ConvokeSpirits extends Analyzer {
   _addDamage(event: DamageEvent) {
     const currentConvoke = this.convokeTracker[this.cast];
     currentConvoke.damage += event.amount + (event.absorbed || 0);
-    debug &&
+    DEBUG &&
       console.log(
         `Convoke #${this.cast} - ${event.ability.name} did ${
           event.amount + (event.absorbed || 0)

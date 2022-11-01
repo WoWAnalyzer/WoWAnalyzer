@@ -52,20 +52,10 @@ const spells = spellIndexableList({
     name: 'Rule of Threes',
     icon: 'spell_arcane_starfire',
   },
-  GREATER_INVISIBILITY: {
-    id: 110959,
-    name: 'Greater Invisibility',
-    icon: 'ability_mage_greaterinvisibility',
-  },
   MASTERY_SAVANT: {
     id: 190740,
     name: 'Mastery: Savant',
     icon: 'spell_arcane_manatap',
-  },
-  PRISMATIC_BARRIER: {
-    id: 235450,
-    name: 'Prismatic Barrier',
-    icon: 'spell_magearmor',
   },
   REPLENISH_MANA: {
     id: 5405,
@@ -81,6 +71,11 @@ const spells = spellIndexableList({
     id: 153640,
     name: 'Arcane Orb',
     icon: 'spell_mage_arcaneorb',
+  },
+  ARCANE_SURGE_BUFF: {
+    id: 385362,
+    name: 'Arcane Surge',
+    icon: 'ability_mage_arcanesurge',
   },
 });
 

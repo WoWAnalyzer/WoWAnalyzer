@@ -5,7 +5,6 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -13,6 +12,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { getBuffedCasts } from '../../normalizers/EssenceBreakNormalizer';
 import { SpellLink } from 'interface';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 /*
   example report: https://www.warcraftlogs.com/reports/LvmF6W4C3TgcZxj8/#fight=last
@@ -111,9 +111,9 @@ class EssenceBreak extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`${formatThousands(this.extraDamage)} total damage`}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.id}>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT}>
           <ItemDamageDone amount={this.extraDamage} />
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

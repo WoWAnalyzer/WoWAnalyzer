@@ -32,6 +32,7 @@ export default function Guide({
           <SpellLink id={SPELLS.FLASH_HEAL.id} />, followed by two casts of{' '}
           <SpellLink id={TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id} />. Below are your main ramps
           with the most important issues highlighted.
+          {modules.evangelismAnalysis.guideCastBreakdown}
         </SubSection>
       </Section>
     </>

@@ -51,6 +51,11 @@ const spells = spellIndexableList({
     name: 'Crystalline Reflection',
     icon: 'ability_priest_reflectiveshield',
   },
+  BORROWED_TIME_BUFF: {
+    id: 390692,
+    name: 'Borrowed Time',
+    icon: 'spell_holy_borrowedtime',
+  },
   // Discipline Priest:
   GRACE: {
     id: 271534,
