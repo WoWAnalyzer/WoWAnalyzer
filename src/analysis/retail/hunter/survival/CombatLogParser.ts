@@ -9,10 +9,7 @@ import {
   FocusTracker,
   FocusDetails,
   SpellFocusCost,
-  ResonatingArrow,
   DeathChakrams,
-  WildSpirits,
-  FlayedShot,
   EmpoweredRelease,
   NecroticBarrage,
   SpiritAttunement,
@@ -20,10 +17,8 @@ import {
   ReversalOfFortune,
   RejuvenatingWind,
   HarmonyOfTheTortollan,
-  SoulforgeEmbers,
   EnfeebledMark,
   MarkmansAdvantage,
-  FragmentsOfTheElderAntlers,
 } from 'analysis/retail/hunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -35,11 +30,6 @@ import GlobalCooldown from './modules/core/GlobalCooldown';
 import SpellUsable from './modules/core/SpellUsable';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import ButchersBoneFragments from './modules/items/ButchersBoneFragments';
-import LatentPoisonInjectors from './modules/items/LatentPoisonInjectors';
-import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
-import RylakstalkersConfoundingStrikes from './modules/items/RylakstalkersConfoundingStrikes';
-import WildfireCluster from './modules/items/WildfireCluster';
 import Focus from './modules/resources/Focus';
 import SurvivalFocusCapTracker from './modules/resources/SurvivalFocusCapTracker';
 import SurvivalFocusUsage from './modules/resources/SurvivalFocusUsage';
@@ -125,12 +115,7 @@ class CombatLogParser extends CoreCombatLogParser {
     pheromoneBomb: PheromoneBomb,
     shrapnelBomb: ShrapnelBomb,
     volatileBomb: VolatileBomb,
-
-    //Covenants
-    resonatingArrow: ResonatingArrow,
     deathChakrams: DeathChakrams,
-    wildSpirits: WildSpirits,
-    flayedShot: FlayedShot,
 
     //Conduits
     empoweredRelease: EmpoweredRelease,
@@ -146,17 +131,6 @@ class CombatLogParser extends CoreCombatLogParser {
     reversalOfFortune: ReversalOfFortune,
     rejuvenatingWind: RejuvenatingWind,
     harmonyOfTheTortollan: HarmonyOfTheTortollan,
-
-    //Generic Legendaries
-    nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,
-    soulforgeEmbers: SoulforgeEmbers,
-    fragmentsOfTheElderAntlers: FragmentsOfTheElderAntlers,
-
-    //Survival Legendaries
-    wildfireCluster: WildfireCluster,
-    latentPoisonInjectors: LatentPoisonInjectors,
-    rylakstalkersConfoundingStrikes: RylakstalkersConfoundingStrikes,
-    butchersBoneFragments: ButchersBoneFragments,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,

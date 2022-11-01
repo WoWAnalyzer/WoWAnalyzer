@@ -1,5 +1,6 @@
 import { FocusTracker } from 'analysis/retail/hunter/shared';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
@@ -21,7 +22,7 @@ class Focus extends Analyzer {
       extraSuggestion: (
         <>
           Try to keep focus below max by using <SpellLink id={SPELLS.SERPENT_STING_SV.id} />,{' '}
-          <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} /> or{' '}
+          <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} /> or{' '}
           <SpellLink id={SPELLS.RAPTOR_STRIKE.id} />.
         </>
       ),

@@ -1,5 +1,6 @@
 import { FLANKING_STRIKE_FOCUS_GAIN } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -30,7 +31,7 @@ class FlankingStrike extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FLANKING_STRIKE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.FLANKING_STRIKE_TALENT.id);
 
     this.flankingStrikes.push({
       name: this.selectedCombatant.name,
@@ -164,7 +165,7 @@ class FlankingStrike extends Analyzer {
         }
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.FLANKING_STRIKE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.FLANKING_STRIKE_TALENT.id}>
           <>
             <ItemDamageDone amount={totalDamage} />
           </>
