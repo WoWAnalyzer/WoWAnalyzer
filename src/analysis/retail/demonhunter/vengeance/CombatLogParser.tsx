@@ -8,7 +8,6 @@ import {
   ImmolationAura,
   MasterOfTheGlaive,
   ShatteredRestoration,
-  SigilOfFlame,
   SwallowedAnger,
   TheHunt,
   UnnaturalMalice,
@@ -100,7 +99,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spell
     immolationAura: ImmolationAura,
     demonSpikes: DemonSpikes,
-    sigilOfFlame: SigilOfFlame,
     soulCleaveSoulsConsumed: SoulCleaveSoulsConsumed,
     infernalStrike: InfernalStrike,
 

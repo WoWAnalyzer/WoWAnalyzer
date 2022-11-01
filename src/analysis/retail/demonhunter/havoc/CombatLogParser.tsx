@@ -8,7 +8,6 @@ import {
   ImmolationAura,
   MasterOfTheGlaive,
   ShatteredRestoration,
-  SigilOfFlame,
   SwallowedAnger,
   TheHunt,
   UnnaturalMalice,
@@ -83,7 +82,6 @@ class CombatLogParser extends CoreCombatLogParser {
     immolationAura: ImmolationAura,
 
     //Talents
-    sigilOfFlame: SigilOfFlame,
     felblade: Felblade,
     demonicAppetite: DemonicAppetite,
     blindFury: BlindFury,

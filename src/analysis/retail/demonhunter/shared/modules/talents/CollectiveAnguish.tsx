@@ -24,7 +24,6 @@ class CollectiveAnguish extends Analyzer {
       this.selectedCombatant.specId === SPECS.HAVOC_DEMON_HUNTER.id
         ? TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT
         : SPELLS.COLLECTIVE_ANGUISH;
-    console.log('Collective Anguish spell', spell);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(spell), this.onDamageEvent);
   }
 
@@ -36,7 +35,7 @@ class CollectiveAnguish extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={<>{formatThousands(this.damage)} Total damage</>}
       >
         <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.COLLECTIVE_ANGUISH_TALENT.id}>
