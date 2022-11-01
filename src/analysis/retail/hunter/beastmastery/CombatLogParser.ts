@@ -11,10 +11,7 @@ import {
   FocusTracker,
   FocusDetails,
   SpellFocusCost,
-  ResonatingArrow,
   DeathChakrams,
-  WildSpirits,
-  FlayedShot,
   EnfeebledMark,
   EmpoweredRelease,
   NecroticBarrage,
@@ -24,10 +21,8 @@ import {
   ReversalOfFortune,
   RejuvenatingWind,
   HarmonyOfTheTortollan,
-  SoulforgeEmbers,
   RaeshalareDeathsWhisper,
   RaeshalarePrepullNormalizer,
-  FragmentsOfTheElderAntlers,
 } from 'analysis/retail/hunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
@@ -39,11 +34,7 @@ import GlobalCooldown from './modules/core/GlobalCooldown';
 import SpellUsable from './modules/core/SpellUsable';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import DireCommand from './modules/items/DireCommand';
-import FlamewakersCobraSting from './modules/items/FlamewakersCobraSting';
-import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
-import QaplaEredunWarOrder from './modules/items/QaplaEredunWarOrder';
-import RylakstalkersPiercingFangs from './modules/items/RylakstalkersPiercingFangs';
+import DireCommand from './modules/talents/DireCommand';
 import BasicAttacks from './modules/pets/basicAttacksTracker';
 import BeastMasteryFocusCapTracker from './modules/resources/BeastMasteryFocusCapTracker';
 import BeastMasteryFocusUsage from './modules/resources/BeastMasteryFocusUsage';
@@ -65,7 +56,6 @@ import KillerCobra from './modules/talents/KillerCobra';
 import KillerInstinct from './modules/talents/KillerInstinct';
 import OneWithThePack from './modules/talents/OneWithThePack';
 import ScentOfBlood from './modules/talents/ScentOfBlood';
-import SpittingCobra from './modules/talents/SpittingCobra';
 import Stampede from './modules/talents/Stampede';
 import Stomp from './modules/talents/Stomp';
 import ThrillOfTheHunt from './modules/talents/ThrillOfTheHunt';
@@ -123,18 +113,14 @@ class CombatLogParser extends CoreCombatLogParser {
     thrillOfTheHunt: ThrillOfTheHunt,
     oneWithThePack: OneWithThePack,
     aspectOfTheBeast: AspectOfTheBeast,
-    spittingCobra: SpittingCobra,
     scentOfBlood: ScentOfBlood,
     bornToBeWild: BornToBeWild,
     bindingShot: BindingShot,
     animalCompanion: AnimalCompanion,
-
-    //Covenants
-    resonatingArrow: ResonatingArrow,
+    direCommand: DireCommand,
+    raeshalareDeathsWhisper: RaeshalareDeathsWhisper,
     deathChakrams: DeathChakrams,
-    wildSpirits: WildSpirits,
-    flayedShot: FlayedShot,
-
+    
     //Conduits
     empoweredRelease: EmpoweredRelease,
     enfeebledMark: EnfeebledMark,
@@ -149,18 +135,6 @@ class CombatLogParser extends CoreCombatLogParser {
     reversalOfFortune: ReversalOfFortune,
     rejuvenatingWind: RejuvenatingWind,
     harmonyOfTheTortollan: HarmonyOfTheTortollan,
-
-    //Generic Legendaries
-    nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,
-    soulforgeEmbers: SoulforgeEmbers,
-    raeshalareDeathsWhisper: RaeshalareDeathsWhisper,
-    fragmentsOfTheElderAntlers: FragmentsOfTheElderAntlers,
-
-    //Beast Mastery Legendaries
-    direCommand: DireCommand,
-    flamewakersCobraSting: FlamewakersCobraSting,
-    qaplaEredunWarOrder: QaplaEredunWarOrder,
-    rylakstalkersPiercingFangs: RylakstalkersPiercingFangs,
 
     //Theorycraft
     antlerVersusRylak: AntlerVersusRylak,

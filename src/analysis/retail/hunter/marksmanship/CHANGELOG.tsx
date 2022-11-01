@@ -24,7 +24,7 @@ export default [
   change(date(2021, 1, 3), <> Added support for <SpellLink id={SPELLS.MARKMANS_ADVANTAGE_CONDUIT.id} /> and <SpellLink id={SPELLS.RESILIENCE_OF_THE_HUNTER_CONDUIT.id} />. </>, Putro),
   change(date(2020, 12, 20), <> Added proper handling for registering prepull casts of <SpellLink id={SPELLS.DOUBLE_TAP_TALENT.id} />. </>, Putro),
   change(date(2020, 12, 19), <> Added a usage requirement to <SpellLink id={SPELLS.FLARE.id} /> and <SpellLink id={SPELLS.TAR_TRAP.id} /> when using <SpellLink id={SPELLS.SOULFORGE_EMBERS_EFFECT.id} /> </>, Putro),
-  change(date(2020, 12, 19), <> Fixed an issue where <SpellLink id={SPELLS.AIMED_SHOT.id} /> and <SpellLink id={SPELLS.RAPID_FIRE.id} /> had their cooldown reduced by too much during <SpellLink id={SPELLS.TRUESHOT.id} /> or <SpellLink id={SPELLS.DEAD_EYE_TALENT.id} />.</>, Putro),
+  change(date(2020, 12, 19), <> Fixed an issue where <SpellLink id={SPELLS.AIMED_SHOT.id} /> and <SpellLink id={SPELLS.RAPID_FIRE.id} /> had their cooldown reduced by too much during <SpellLink id={SPELLS.TRUESHOT.id} /> or <SpellLink id={TALENTS.DEADEYE_TALENT.id} />.</>, Putro),
   change(date(2020, 12, 19), <> Fixed an issue where <SpellLink id={SPELLS.RAPID_FIRE.id} /> wouldn't show as channeling in the timeline tab.</>, Putro),
   change(date(2020, 12, 16), <> Fix an issue with <SpellLink id={SPELLS.BORN_TO_BE_WILD_TALENT.id} /> where it wouldn't load or register casts. </>, Putro),
   change(date(2020, 12, 15), 'Bumped level of support to 9.0.2', Putro),
