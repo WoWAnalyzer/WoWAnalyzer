@@ -6,9 +6,9 @@ import { SpellLink } from 'interface';
 import { t } from '@lingui/macro';
 import { formatDuration, formatPercentage } from 'common/format';
 import Statistic from 'parser/ui/Statistic';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 export default class TacticalRetreat extends Analyzer {
   constructor(options: Options) {
@@ -66,11 +66,9 @@ export default class TacticalRetreat extends Analyzer {
         size="flexible"
         tooltip={`The Tactical Retreat buff total uptime was ${formatDuration(this.buffDuration)}.`}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT.id}>
-          <>
-            <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>uptime</small>
-          </>
-        </BoringSpellValueText>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT}>
+          <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>uptime</small>
+        </TalentSpellText>
       </Statistic>
     );
   }

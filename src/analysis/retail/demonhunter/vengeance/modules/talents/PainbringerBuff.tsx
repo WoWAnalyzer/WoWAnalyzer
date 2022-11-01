@@ -8,8 +8,8 @@ import { formatDuration, formatPercentage } from 'common/format';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 export default class PainbringerBuff extends Analyzer {
   constructor(options: Options) {
@@ -40,11 +40,11 @@ export default class PainbringerBuff extends Analyzer {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.PAINBRINGER_BUFF.id} /> uptime can be improved. This is easy to
-          maintain and an important source of damage reduction.
+          Your <SpellLink id={TALENTS_DEMON_HUNTER.PAINBRINGER_TALENT} /> uptime can be improved.
+          This is easy to maintain and an important source of damage reduction.
         </>,
       )
-        .icon(SPELLS.PAINBRINGER_BUFF.icon)
+        .icon(TALENTS_DEMON_HUNTER.PAINBRINGER_TALENT.icon)
         .actual(
           t({
             id: 'demonhunter.vengeance.painbringerBuff.uptime',
@@ -63,9 +63,9 @@ export default class PainbringerBuff extends Analyzer {
         size="flexible"
         tooltip={<>Total uptime was {formatDuration(this.uptime)}.</>}
       >
-        <BoringSpellValueText spellId={SPELLS.PAINBRINGER_BUFF.id}>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.PAINBRINGER_TALENT}>
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

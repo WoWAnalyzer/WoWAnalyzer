@@ -8,7 +8,7 @@ import { formatPercentage, formatThousands } from 'common/format';
 import { t } from '@lingui/macro';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const IMMOLATION_AURA = [
   DH_SPELLS.IMMOLATION_AURA_INITIAL_HIT_DAMAGE,
@@ -97,11 +97,9 @@ export default class BurningHatred extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.BURNING_HATRED_TALENT.id}>
-          <>
-            {this.furyPerMin} <small>Fury per min</small>
-          </>
-        </BoringSpellValueText>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.BURNING_HATRED_TALENT}>
+          {this.furyPerMin} <small>Fury per min</small>
+        </TalentSpellText>
       </Statistic>
     );
   }

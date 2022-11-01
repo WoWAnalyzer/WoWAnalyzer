@@ -5,8 +5,8 @@ import SPELLS from 'common/SPELLS/demonhunter';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Spell from 'common/SPELLS/Spell';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const SPELLS_CONVERTED: Spell[] = [
   SPELLS.IMMOLATION_AURA,
@@ -51,13 +51,13 @@ export default class AnyMeansNecessary extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`${formatThousands(this.damage)} Total damage`}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.ANY_MEANS_NECESSARY_TALENT.id}>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.ANY_MEANS_NECESSARY_TALENT}>
           <img src="/img/sword.png" alt="Damage" className="icon" />
           {formatNumber((this.damage / this.owner.fightDuration) * 1000)} DPS converted{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total
           </small>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }
