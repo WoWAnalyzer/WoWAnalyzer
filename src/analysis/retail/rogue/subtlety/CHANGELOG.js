@@ -1,11 +1,12 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
-import { Tyndi, Zeboot, Putro, Hordehobbs, Akai, Chizu } from 'CONTRIBUTORS';
+import { Tyndi, Zeboot, Putro, Hordehobbs, Akai, Chizu, ToppleTheNun } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 10, 31), 'Update to reflect that Subtlety Rogue has been looked at for Dragonflight.', ToppleTheNun),
   change(date(2022, 10, 15), 'Initial support for Dragonflight - cleanup of old effects', Chizu),
   change(date(2022, 3, 6), <>Bump to partial support for 9.2</>, Tyndi),
   change(date(2021, 8, 12), <>Added <SpellLink id={TALENTS.FLAGELLATION_TALENT.id} /> suggestion in overview section. Fixed Flagellation damage in statistics section.</>, Akai),
