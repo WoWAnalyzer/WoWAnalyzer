@@ -42,6 +42,7 @@ import PainbringerBuff from './modules/talents/PainbringerBuff';
 import DarkglareBoon from './modules/talents/DarkglareBoon';
 import StokeTheFlames from './modules/talents/StokeTheFlames';
 import FieryBrand from './modules/talents/FieryBrand';
+import VoidReaver from './modules/talents/VoidReaver';
 import ShearFractureNormalizer from './normalizers/ShearFractureNormalizer';
 import SoulFragmentsGraph from './modules/resourcetracker/SoulFragmentsGraph';
 import SoulFragmentBuffStackTracker from './modules/resourcetracker/SoulFragmentBuffStackTracker';
@@ -95,6 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
     flamesOfFury: FlamesOfFury,
     disruptingFury: DisruptingFury,
     fieryBrand: FieryBrand,
+    voidReaver: VoidReaver,
 
     // Spell
     immolationAura: ImmolationAura,
