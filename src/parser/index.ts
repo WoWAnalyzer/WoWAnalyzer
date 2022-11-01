@@ -5,8 +5,8 @@ import BalanceDruid from 'analysis/retail/druid/balance';
 import FeralDruid from 'analysis/retail/druid/feral';
 import GuardianDruid from 'analysis/retail/druid/guardian';
 import RestoDruid from 'analysis/retail/druid/restoration';
-import BeastMasteryHunter from 'analysis/retail/hunter/beastmastery';
-import MarksmanshipHunter from 'analysis/retail/hunter/marksmanship';
+// import BeastMasteryHunter from 'analysis/retail/hunter/beastmastery';
+// import MarksmanshipHunter from 'analysis/retail/hunter/marksmanship';
 import SurvivalHunter from 'analysis/retail/hunter/survival';
 import ArcaneMage from 'analysis/retail/mage/arcane';
 import FireMage from 'analysis/retail/mage/fire';
@@ -64,8 +64,8 @@ const configs: Config[] = [
   DevastationEvoker,
   PreservationEvoker,
 
-  BeastMasteryHunter,
-  MarksmanshipHunter,
+  // BeastMasteryHunter,
+  // MarksmanshipHunter,
   SurvivalHunter,
 
   FrostMage,
