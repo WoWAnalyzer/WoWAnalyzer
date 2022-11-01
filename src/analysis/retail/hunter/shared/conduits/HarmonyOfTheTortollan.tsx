@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import ConduitSpellText from 'parser/ui/ConduitSpellText';
@@ -20,7 +21,7 @@ class HarmonyOfTheTortollan extends Analyzer {
   turtleCooldown =
     BASELINE_TURTLE_CHEETAH_CD *
     (1 -
-      (this.selectedCombatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id)
+      (this.selectedCombatant.hasTalent(TALENTS.BORN_TO_BE_WILD_TALENT.id)
         ? BORN_TO_BE_WILD_CD_REDUCTION
         : 0)) *
     (1 -
