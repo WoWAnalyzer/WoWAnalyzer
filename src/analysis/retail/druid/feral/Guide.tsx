@@ -73,6 +73,8 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
         modules.moonfireUptime.guideSubsection}
       {info.combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT) &&
         modules.adaptiveSwarm.guideSubsection}
+      {info.combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT) &&
+        modules.brutalSlash.guideSubsection}
       {modules.hitCountAoe.guideSubsection}
     </Section>
   );

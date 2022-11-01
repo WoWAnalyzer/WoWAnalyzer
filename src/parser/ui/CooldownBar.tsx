@@ -19,22 +19,24 @@ type Props = {
   /** Iff true, sections where the spell was available for the full duration of its
    * cooldown will be highlighted in red */
   highlightGaps?: boolean;
+  /** Iff true, spell uses will be represented by a minimal white line instead of the spell icon.
+   *  Useful for spells on CD shorter than 30s where the icons might be too closely packed to
+   *  be usable */
+  minimizeIcons?: boolean;
 };
 
 /**
+ * Displays a bar with icons showing when a cooldown spell was used, and shading showing when the
+ * spell was on cooldown vs when it was available.
  *
- * @param spellId
- * @param events
- * @param info
- * @param highlightGaps
- * @param others
- * @constructor
+ * See docs for {@link Props} for explanation of parameters.
  */
 export function CooldownBar({
   spellId,
   events,
   info,
   highlightGaps,
+  minimizeIcons,
   ...others
 }: Props): JSX.Element {
   const ability = info.abilities.find(
@@ -49,6 +51,13 @@ export function CooldownBar({
       event.ability.guid === spellId &&
       event.updateType === UpdateSpellUsableType.EndCooldown,
   );
+  const useCharges: UpdateSpellUsableEvent[] = events.filter(
+    (event): event is UpdateSpellUsableEvent =>
+      IsUpdateSpellUsable(event) &&
+      event.ability.guid === spellId &&
+      event.updateType === UpdateSpellUsableType.UseCharge,
+  );
+  const hasCharges = useCharges.length > 0;
   return (
     <div className="cooldown-bar" {...others}>
       {endCooldowns.length === 0 && (
@@ -82,6 +91,8 @@ export function CooldownBar({
               endTimestamp={cd.overallStartTimestamp}
               info={info}
               highlightGaps={highlightGaps}
+              minimizeIcons={minimizeIcons}
+              hasCharges={hasCharges}
               type="available"
               key={ix + '-available'}
             />
@@ -93,6 +104,8 @@ export function CooldownBar({
               endTimestamp={end}
               info={info}
               highlightGaps={highlightGaps}
+              minimizeIcons={minimizeIcons}
+              hasCharges={hasCharges}
               type="onCooldown"
               key={ix + '-cooldown'}
             />
@@ -109,9 +122,19 @@ export function CooldownBar({
           type="available"
           info={info}
           highlightGaps={highlightGaps}
+          minimizeIcons={minimizeIcons}
+          hasCharges={hasCharges}
           key="end-available"
         />
       )}
+      {useCharges.map((cd, ix) => {
+        const left = `${((cd.timestamp - info.fightStart) / info.fightDuration) * 100}%`;
+        return (
+          <div style={{ left }} key={ix + '-usecharge'}>
+            {iconOrChip(spellId, minimizeIcons)}
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -125,6 +148,8 @@ function CooldownBarSegment({
   type,
   info,
   highlightGaps,
+  minimizeIcons,
+  hasCharges,
   ...others
 }: {
   abilityId: number;
@@ -135,27 +160,42 @@ function CooldownBarSegment({
   type: 'onCooldown' | 'available';
   info: Info;
   highlightGaps?: boolean;
+  minimizeIcons?: boolean;
+  hasCharges?: boolean;
 }): JSX.Element {
   const left = `${((startTimestamp - info.fightStart) / info.fightDuration) * 100}%`;
   const width = `${((endTimestamp - startTimestamp) / info.fightDuration) * 100}%`;
-  const openForFullCooldown = highlightGaps && endTimestamp - startTimestamp >= abilityCdMs;
+  const openForFullCooldown =
+    highlightGaps && endTimestamp - startTimestamp >= abilityCdMs && !hasCharges;
+  const cappedCharges = highlightGaps && hasCharges;
+
+  const startText = <strong>{timestampOrFightTerminus(startTimestamp, info)}</strong>;
+  const endText = <strong>{timestampOrFightTerminus(endTimestamp, info)}</strong>;
 
   const className =
     type === 'onCooldown'
       ? 'cooldown-unavailable'
-      : openForFullCooldown
+      : openForFullCooldown || cappedCharges
       ? 'cooldown-available-bad'
       : 'cooldown-available';
   const tooltipContent =
     type === 'onCooldown' ? (
+      hasCharges ? (
+        <>
+          {abilityName} cooling down from {startText} until {endText}
+        </>
+      ) : (
+        <>
+          {abilityName} cast {startText} cooldown until {endText}
+        </>
+      )
+    ) : hasCharges ? (
       <>
-        {abilityName} cast <strong>{timestampOrFightTerminus(startTimestamp, info)}</strong>{' '}
-        cooldown until <strong>{timestampOrFightTerminus(endTimestamp, info)}</strong>
+        {abilityName} capped on charges {startText} to {endText}
       </>
     ) : (
       <>
-        {abilityName} available <strong>{timestampOrFightTerminus(startTimestamp, info)}</strong> to{' '}
-        <strong>{timestampOrFightTerminus(endTimestamp, info)}</strong>{' '}
+        {abilityName} available {startText} to {endText}{' '}
         {openForFullCooldown ? (
           <>
             <i> - could have fit a whole extra use here!</i>
@@ -169,9 +209,17 @@ function CooldownBarSegment({
   return (
     <Tooltip content={tooltipContent}>
       <div className={className} style={{ left, width }}>
-        {type === 'onCooldown' && <SpellIcon noLink id={abilityId} />}
+        {type === 'onCooldown' && iconOrChip(abilityId, minimizeIcons)}
       </div>
     </Tooltip>
+  );
+}
+
+function iconOrChip(spellId: number, minimizeIcons?: boolean): JSX.Element {
+  return minimizeIcons ? (
+    <div className="cast-chip" style={{ width: 3, height: '100%' }} />
+  ) : (
+    <SpellIcon noLink id={spellId} />
   );
 }
 
