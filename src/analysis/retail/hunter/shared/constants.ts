@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 
 //region Core
 /** Abilities */
@@ -76,8 +77,8 @@ export const RESOURCES_HUNTER_MAJOR_THRESHOLD = 0.15;
 /** Focus Spenders that are shared across the specs */
 export const LIST_OF_FOCUS_SPENDERS_SHARED = [
   SPELLS.REVIVE_PET,
-  SPELLS.A_MURDER_OF_CROWS_TALENT,
-  SPELLS.BARRAGE_TALENT,
+  TALENTS.A_MURDER_OF_CROWS_TALENT,
+  TALENTS.BARRAGE_TALENT,
   SPELLS.ARCANE_SHOT,
 ];
 //endregion
