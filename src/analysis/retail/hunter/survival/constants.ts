@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 
 //region Spells
 /** Butchery / Carve */
@@ -34,7 +35,7 @@ export const SERPENT_STING_SV_BASE_DURATION = 12000;
 export const RAPTOR_MONGOOSE_VARIANTS = [
   SPELLS.RAPTOR_STRIKE,
   SPELLS.RAPTOR_STRIKE_AOTE,
-  SPELLS.MONGOOSE_BITE_TALENT,
+  TALENTS.MONGOOSE_BITE_TALENT,
   SPELLS.MONGOOSE_BITE_TALENT_AOTE,
 ];
 /** Aspect of the Eagle */
@@ -94,10 +95,10 @@ export const HYDRAS_BITE_DOT_MODIFIER = 0.2;
 
 //region Resources
 export const LIST_OF_FOCUS_SPENDERS_SV = [
-  SPELLS.BUTCHERY_TALENT,
+  TALENTS.BUTCHERY_TALENT,
   SPELLS.CARVE,
   SPELLS.WING_CLIP,
-  SPELLS.CHAKRAMS_TALENT,
+  TALENTS.DEATH_CHAKRAM_TALENT,
   SPELLS.SERPENT_STING_SV,
   ...RAPTOR_MONGOOSE_VARIANTS,
 ];
@@ -189,19 +190,4 @@ export const STRENGTH_OF_THE_PACK_DAMAGE_MODIFIER = [
   0.1,
   0.1,
 ];
-//endregion
-
-//region Legendaries
-/** Rylakstalker's Confounding Strikes */
-//Rylakstalker's Confounding Strikes gives Mongoose Bite and Raptor Strike a 15% chance to reset the cooldown of Wildfire Bomb
-export const RYLAKSTALKERS_CONFOUNDING_STRIKES_RESET_CHANCE = 0.15;
-/** Latent Poison Injectors */
-//Latent Poison Injectors stacks up to 10 times
-export const LATENT_POISON_INJECOTRS_MAX_STACKS = 10;
-/** Butcher's Bone Fragments */
-//Butcher's Bone Fragments stacks up to 6 times
-export const BUTCHERS_BONE_FRAGMENTS_MAX_STACK = 6;
-//Butcher's Bone Fragments increases carve/butchery damage by 20% per stack
-export const BUTCHERS_BONE_FRAGMENTS_DMG_AMP = 0.2;
-//
 //endregion

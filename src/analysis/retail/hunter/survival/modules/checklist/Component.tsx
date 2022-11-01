@@ -55,8 +55,8 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         ) : (
           <AbilityRequirement spell={SPELLS.WILDFIRE_BOMB.id} />
         )}
-        {combatant.hasTalent(SPELLS.CHAKRAMS_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.CHAKRAMS_TALENT.id} />
+        {combatant.hasTalent(TALENTS.DEATH_CHAKRAM_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.DEATH_CHAKRAM_TALENT.id} />
         )}
       </Rule>
 
