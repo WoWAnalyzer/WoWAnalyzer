@@ -2,7 +2,6 @@ import {
   AOTB_ABILITIES_NOT_AFFECTED,
   AOTB_MULTIPLIER,
 } from 'analysis/retail/hunter/beastmastery/constants';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
