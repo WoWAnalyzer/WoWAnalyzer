@@ -68,6 +68,7 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 10, 31), 'Update patch compatibility for specs supporting Dragonflight.', ToppleTheNun),
   change(date(2022, 10, 25), 'Improve patch version detection for retail and classic.', ToppleTheNun),
   change(date(2022, 10, 25), 'Exclude classic from patch version checking.', ToppleTheNun),
   change(date(2022, 10, 25), 'Add prepatch warning and add prepatch details.', ToppleTheNun),

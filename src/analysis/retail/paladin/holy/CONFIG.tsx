@@ -11,8 +11,8 @@ import CHANGELOG from './CHANGELOG';
 const config: Config = {
   contributors: [xizbow, CamClark],
   expansion: Expansion.Dragonflight,
-  patchCompatibility: '9.2.7',
-  isPartial: false,
+  patchCompatibility: '10.0.0',
+  isPartial: true,
   description: (
     <>
       Hey! I hope the suggestions will help you improve your performance. Remember: focus on
