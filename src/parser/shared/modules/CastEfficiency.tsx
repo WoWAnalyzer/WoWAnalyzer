@@ -8,6 +8,7 @@ import Haste from 'parser/shared/modules/Haste';
 import SpellHistory from 'parser/shared/modules/SpellHistory';
 import CastEfficiencyComponent from 'parser/ui/CastEfficiency';
 import Panel from 'parser/ui/Panel';
+import Spell from 'common/SPELLS/Spell';
 
 import Combatant from '../../core/Combatant';
 import { EventType, UpdateSpellUsableEvent, UpdateSpellUsableType } from '../../core/Events';
@@ -228,6 +229,13 @@ class CastEfficiency extends Analyzer {
   ): AbilityCastEfficiency | null {
     const ability = this.abilities.getAbility(spellId);
     return ability ? this.getCastEfficiencyForAbility(ability, includeNoCooldownEfficiency) : null;
+  }
+
+  getCastEfficiencyForSpell(
+    spell: Spell,
+    includeNoCooldownEfficiency = false,
+  ): AbilityCastEfficiency | null {
+    return this.getCastEfficiencyForSpellId(spell.id, includeNoCooldownEfficiency);
   }
 
   getCastEfficiencyForAbility(
