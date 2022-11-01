@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -31,7 +32,7 @@ class NaturalMending extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.NATURAL_MENDING_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.NATURAL_MENDING_TALENT.id);
     if (this.active && this.selectedCombatant.spec === SPECS.BEAST_MASTERY_HUNTER) {
       this.cdrPerFocus = BM_CDR_PER_FOCUS;
     }
@@ -74,7 +75,7 @@ class NaturalMending extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.NATURAL_MENDING_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.NATURAL_MENDING_TALENT.id}>
           <>
             {formatNumber(this.effectiveExhilReductionMs / 1000)}s/
             {formatNumber(

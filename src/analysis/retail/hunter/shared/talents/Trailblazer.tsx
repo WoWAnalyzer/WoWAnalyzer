@@ -1,5 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -17,7 +18,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 class Trailblazer extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.TRAILBLAZER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.TRAILBLAZER_TALENT.id);
   }
 
   get percentUptime() {
@@ -33,7 +34,7 @@ class Trailblazer extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.TRAILBLAZER_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.TRAILBLAZER_TALENT.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.percentUptime)}% <small>uptime</small>
           </>
