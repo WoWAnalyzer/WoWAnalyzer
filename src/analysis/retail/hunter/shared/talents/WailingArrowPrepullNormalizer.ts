@@ -8,7 +8,7 @@ const debug = false;
  * This means we don't see the begincast event, and might not even see the cast success event - but we will see the damage event.
  * This normalizer can fabricate both begin cast and cast success events for Wailing Arrow if it's necessary.
  */
-class RaeshalarePrepullNormalizer extends EventsNormalizer {
+class WailingArrowPrepullNormalizer extends EventsNormalizer {
   normalize(events: AnyEvent[]) {
     const fixedEvents: any[] = [];
     let lastBeginCastTimestamp: number | null = null;
@@ -90,4 +90,4 @@ class RaeshalarePrepullNormalizer extends EventsNormalizer {
   }
 }
 
-export default RaeshalarePrepullNormalizer;
+export default WailingArrowPrepullNormalizer;
