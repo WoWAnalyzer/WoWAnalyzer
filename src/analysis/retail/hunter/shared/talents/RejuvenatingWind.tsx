@@ -1,26 +1,22 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
-class ReversalOfFortune extends Analyzer {
-  conduitRank = 0;
+class RejuvenatingWind extends Analyzer {
   healingDone = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.REJUVENATING_WIND_CONDUIT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.REJUVENATING_WIND_TALENT.id);
     if (!this.active) {
       return;
     }
-
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(
-      SPELLS.REJUVENATING_WIND_CONDUIT.id,
-    );
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATING_WIND_BUFF),
@@ -37,16 +33,16 @@ class ReversalOfFortune extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
-        <ConduitSpellText spellId={SPELLS.REJUVENATING_WIND_CONDUIT.id} rank={this.conduitRank}>
+        <TalentSpellText talent={TALENTS.REJUVENATING_WIND_TALENT}>
           <>
             <ItemHealingDone amount={this.healingDone} />
           </>
-        </ConduitSpellText>
+        </TalentSpellText>
       </Statistic>
     );
   }
 }
 
-export default ReversalOfFortune;
+export default RejuvenatingWind;
