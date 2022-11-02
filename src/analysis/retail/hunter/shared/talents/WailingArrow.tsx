@@ -8,7 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-class RaeshalareDeathsWhisper extends Analyzer {
+class WailingArrow extends Analyzer {
   damage = 0;
 
   constructor(options: Options) {
@@ -42,4 +42,4 @@ class RaeshalareDeathsWhisper extends Analyzer {
   }
 }
 
-export default RaeshalareDeathsWhisper;
+export default WailingArrow;
