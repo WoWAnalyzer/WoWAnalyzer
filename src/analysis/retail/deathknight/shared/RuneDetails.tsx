@@ -49,7 +49,6 @@ class RuneDetails extends Analyzer {
       },
     };
 
-    console.log(data);
     return (
       <AutoSizer disableHeight>
         {({ width }) => <BaseChart width={width} height={400} spec={spec} data={{ runes: data }} />}
