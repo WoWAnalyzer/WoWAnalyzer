@@ -17,6 +17,7 @@ import indexById, { proxyRestrictedTable } from 'common/indexById';
 import Spell, { Enchant } from '../Spell';
 //Classes
 import DRUID from './druid';
+import MAGE from './mage';
 import PRIEST from './priest';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
@@ -26,6 +27,7 @@ import Engineering from './engineering';
 
 const ABILITIES = {
   ...DRUID,
+  ...MAGE,
   ...PRIEST,
   ...WARLOCK,
   ...WARRIOR,
