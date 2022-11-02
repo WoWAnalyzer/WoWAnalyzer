@@ -7,18 +7,29 @@ import {
   UpdateSpellUsableEvent,
   UpdateSpellUsableType,
 } from 'parser/core/Events';
-import { Info } from 'parser/core/metric';
+import { useInfo, useEvents } from 'interface/guide';
+
+/** If and where times the spell was available should be highlighted in red
+ *  TODO add timed option?
+ */
+export enum GapHighlight {
+  /** Never highlight times the spell was off cooldown in red -
+   *  Good for utility spells with no specific cast efficiency requirements */
+  None,
+  /** Highlight in red segments where spell was off cooldown for its full CD duration,
+   *  e.g. player could have fit a full use of the spell without changing their existing casts.
+   *  Good for planned CDs like healing / tanking CDs */
+  FullCooldown,
+  /** All times where the spell was off cooldown are highlighted in red.
+   *  Good spells with charges, or strict throughput cooldowns that should be used immediately */
+  All,
+}
 
 type Props = {
   /** The spellId to show cooldown bars for - this must match the ID of the spell's cast event */
   spellId: number;
-  /** All events (should be available in functional react component's props) */
-  events: AnyEvent[];
-  /** The fight info (should be available in functional react component's props) */
-  info: Info;
-  /** Iff true, sections where the spell was available for the full duration of its
-   * cooldown will be highlighted in red */
-  highlightGaps?: boolean;
+  /** Gap highlight mode - see {@link GapHighlight} */
+  gapHighlightMode: GapHighlight;
   /** Iff true, spell uses will be represented by a minimal white line instead of the spell icon.
    *  Useful for spells on CD shorter than 30s where the icons might be too closely packed to
    *  be usable */
@@ -33,18 +44,19 @@ type Props = {
  */
 export function CooldownBar({
   spellId,
-  events,
-  info,
-  highlightGaps,
+  gapHighlightMode,
   minimizeIcons,
   ...others
 }: Props): JSX.Element {
+  const info = useInfo()!;
+  const events = useEvents()!;
   const ability = info.abilities.find(
     (a) => a.spell === spellId || (Array.isArray(a.spell) && a.spell.includes(spellId)),
   );
   const abilityCdMs = (ability ? ability.cooldown : 0) * 1000;
   const abilityName = ability?.name || 'Unknown Ability';
-  let lastAvailable = info.fightStart;
+  const hasCharges = ability && ability.charges > 1;
+
   const endCooldowns: UpdateSpellUsableEvent[] = events.filter(
     (event): event is UpdateSpellUsableEvent =>
       IsUpdateSpellUsable(event) &&
@@ -57,7 +69,19 @@ export function CooldownBar({
       event.ability.guid === spellId &&
       event.updateType === UpdateSpellUsableType.UseCharge,
   );
-  const hasCharges = useCharges.length > 0;
+
+  const segmentProps = {
+    gapHighlightMode,
+    minimizeIcons,
+    fightStart: info.fightStart,
+    fightEnd: info.fightEnd,
+    abilityId: spellId,
+    abilityCdMs,
+    abilityName,
+    hasCharges,
+  };
+
+  let lastAvailable = info.fightStart;
   return (
     <div className="cooldown-bar" {...others}>
       {endCooldowns.length === 0 && (
@@ -70,7 +94,11 @@ export function CooldownBar({
           }
         >
           <div
-            className={highlightGaps ? 'cooldown-available-bad' : 'cooldown-available'}
+            className={
+              gapHighlightMode === GapHighlight.None
+                ? 'cooldown-available'
+                : 'cooldown-available-bad'
+            }
             style={{ left: '0%', width: '100%' }}
           />
         </Tooltip>
@@ -84,47 +112,29 @@ export function CooldownBar({
         return (
           <>
             <CooldownBarSegment
-              abilityId={spellId}
-              abilityName={abilityName}
-              abilityCdMs={abilityCdMs}
               startTimestamp={currLastAvailable}
               endTimestamp={cd.overallStartTimestamp}
-              info={info}
-              highlightGaps={highlightGaps}
-              minimizeIcons={minimizeIcons}
-              hasCharges={hasCharges}
               type="available"
               key={ix + '-available'}
+              {...segmentProps}
             />
             <CooldownBarSegment
-              abilityId={spellId}
-              abilityName={abilityName}
-              abilityCdMs={abilityCdMs}
               startTimestamp={cd.overallStartTimestamp}
               endTimestamp={end}
-              info={info}
-              highlightGaps={highlightGaps}
-              minimizeIcons={minimizeIcons}
-              hasCharges={hasCharges}
               type="onCooldown"
               key={ix + '-cooldown'}
+              {...segmentProps}
             />
           </>
         );
       })}
       {endCooldowns.length !== 0 && lastAvailable !== info.fightEnd && (
         <CooldownBarSegment
-          abilityId={spellId}
-          abilityName={abilityName}
-          abilityCdMs={abilityCdMs}
           startTimestamp={lastAvailable}
           endTimestamp={info.fightEnd}
           type="available"
-          info={info}
-          highlightGaps={highlightGaps}
-          minimizeIcons={minimizeIcons}
-          hasCharges={hasCharges}
           key="end-available"
+          {...segmentProps}
         />
       )}
       {useCharges.map((cd, ix) => {
@@ -145,37 +155,42 @@ function CooldownBarSegment({
   abilityCdMs,
   startTimestamp,
   endTimestamp,
+  fightStart,
+  fightEnd,
   type,
-  info,
-  highlightGaps,
+  gapHighlightMode,
   minimizeIcons,
   hasCharges,
-  ...others
 }: {
   abilityId: number;
   abilityName: string;
   abilityCdMs: number;
   startTimestamp: number;
   endTimestamp: number;
+  fightStart: number;
+  fightEnd: number;
   type: 'onCooldown' | 'available';
-  info: Info;
-  highlightGaps?: boolean;
+  gapHighlightMode: GapHighlight;
   minimizeIcons?: boolean;
   hasCharges?: boolean;
 }): JSX.Element {
-  const left = `${((startTimestamp - info.fightStart) / info.fightDuration) * 100}%`;
-  const width = `${((endTimestamp - startTimestamp) / info.fightDuration) * 100}%`;
-  const openForFullCooldown =
-    highlightGaps && endTimestamp - startTimestamp >= abilityCdMs && !hasCharges;
-  const cappedCharges = highlightGaps && hasCharges;
+  const fightDuration = fightEnd - fightStart;
+  const left = `${((startTimestamp - fightStart) / fightDuration) * 100}%`;
+  const width = `${((endTimestamp - startTimestamp) / fightDuration) * 100}%`;
 
-  const startText = <strong>{timestampOrFightTerminus(startTimestamp, info)}</strong>;
-  const endText = <strong>{timestampOrFightTerminus(endTimestamp, info)}</strong>;
+  const openForFullCooldown =
+    gapHighlightMode !== GapHighlight.None && endTimestamp - startTimestamp >= abilityCdMs;
+  const redHighlight = gapHighlightMode === GapHighlight.All || openForFullCooldown;
+
+  const startText = (
+    <strong>{timestampOrFightTerminus(startTimestamp, fightStart, fightEnd)}</strong>
+  );
+  const endText = <strong>{timestampOrFightTerminus(endTimestamp, fightStart, fightEnd)}</strong>;
 
   const className =
     type === 'onCooldown'
       ? 'cooldown-unavailable'
-      : openForFullCooldown || cappedCharges
+      : redHighlight
       ? 'cooldown-available-bad'
       : 'cooldown-available';
   const tooltipContent =
@@ -223,13 +238,13 @@ function iconOrChip(spellId: number, minimizeIcons?: boolean): JSX.Element {
   );
 }
 
-function timestampOrFightTerminus(timestamp: number, info: Info): string {
-  if (timestamp === info.fightStart) {
+function timestampOrFightTerminus(timestamp: number, fightStart: number, fightEnd: number): string {
+  if (timestamp === fightStart) {
     return 'fight start';
-  } else if (timestamp === info.fightEnd) {
+  } else if (timestamp === fightEnd) {
     return 'fight end';
   } else {
-    return formatDuration(timestamp - info.fightStart);
+    return formatDuration(timestamp - fightStart);
   }
 }
 
