@@ -1,17 +1,18 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/druid';
+import TALENTS from 'common/TALENTS/druid';
 import { Buudha, Kettlepaw } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 
-import CHANGELOG from './CHANGELOG';
+// import CHANGELOG from './CHANGELOG';
 
 export default {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
   contributors: [Buudha, Kettlepaw],
   expansion: Expansion.Shadowlands,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '9.1.5',
+  patchCompatibility: null,
   isPartial: true,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -26,7 +27,7 @@ export default {
       The most important thing is to keep your hard-hitting, rage generating spells on cooldown at
       all times (<SpellLink id={SPELLS.THRASH_BEAR.id} />, <SpellLink id={SPELLS.MANGLE_BEAR.id} />,{' '}
       <SpellLink id={SPELLS.MOONFIRE_CAST.id} /> with{' '}
-      <SpellLink id={SPELLS.GALACTIC_GUARDIAN_TALENT.id} />
+      <SpellLink id={TALENTS.GALACTIC_GUARDIAN_TALENT.id} />
       ). Keep <SpellLink id={SPELLS.IRONFUR.id} /> up when you're tanking the boss, use{' '}
       <SpellLink id={SPELLS.FRENZIED_REGENERATION.id} /> when you're low or taking heavy damage, use{' '}
       <SpellLink id={SPELLS.BARKSKIN.id} /> frequently to mitigate damage, and save{' '}
@@ -48,12 +49,12 @@ export default {
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.GUARDIAN_DRUID,
   // The contents of your changelog.
-  changelog: CHANGELOG,
+  changelog: [],
   // The CombatLogParser class for your spec.
-  parser: () =>
-    import('./CombatLogParser' /* webpackChunkName: "GuardianDruid" */).then(
-      (exports) => exports.default,
-    ),
+  // parser: () =>
+  //   import('./CombatLogParser' /* webpackChunkName: "GuardianDruid" */).then(
+  //     (exports) => exports.default,
+  //   ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

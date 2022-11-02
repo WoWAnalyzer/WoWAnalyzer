@@ -9,9 +9,9 @@ import SpecListItem from './SpecListItem';
 import './SpecList.css';
 
 const isAnySpecSupported = (configs: Config[]) =>
-  configs.some((config) => config.patchCompatibility);
+  configs.some((config) => config.patchCompatibility && config.expansion === RETAIL_EXPANSION);
 
-const retailSpecs = AVAILABLE_CONFIGS.filter((it) => it.expansion >= RETAIL_EXPANSION);
+const retailSpecs = AVAILABLE_CONFIGS.filter((it) => it.expansion > CLASSIC_EXPANSION);
 const retailSpecsAsMap = groupByToMap(retailSpecs, (spec) => spec.spec.className);
 const retailSpecsGroupedByClass = Array.from(retailSpecsAsMap.entries());
 const retailClassesOrderedBySupport = retailSpecsGroupedByClass.sort(

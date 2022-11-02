@@ -15,3 +15,7 @@ export default Expansion;
 
 export const CLASSIC_EXPANSION = Expansion.WrathOfTheLichKing;
 export const RETAIL_EXPANSION = Expansion.Dragonflight;
+
+export function isCurrentExpansion(expansion: Expansion): boolean {
+  return expansion === CLASSIC_EXPANSION || expansion === RETAIL_EXPANSION;
+}
