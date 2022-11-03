@@ -29,11 +29,12 @@ export function PerformanceBoxRow({ values }: PerformanceBoxRowProps) {
 }
 
 type PerformanceBoxRowProps = {
-  values: TimelineEntry[];
+  values: BoxRowEntry[];
   style?: React.CSSProperties;
 };
 
-type TimelineEntry = {
+/** An entry for a PerformanceBoxRow */
+export type BoxRowEntry = {
   value: QualitativePerformance;
   tooltip?: React.ReactNode | string; // TODO default tooltip
 };
@@ -44,15 +45,15 @@ function blockSize(numValues: number, refWidth: number): number {
   return Math.max(Math.min(Math.floor(size), 60), 10); // min size = 10, max size = 60
 }
 
-function getBlockClassName(value: TimelineEntry) {
-  if (value.value === 'perfect') {
-    return 'perfect-block';
-  } else if (value.value === 'good' || value.value === true) {
-    return 'good-block';
-  } else if (value.value === 'ok') {
-    return 'ok-block';
-  } else {
-    // bad / false
-    return 'bad-block';
+function getBlockClassName(value: BoxRowEntry) {
+  switch (value.value) {
+    case QualitativePerformance.Perfect:
+      return 'perfect-block';
+    case QualitativePerformance.Good:
+      return 'good-block';
+    case QualitativePerformance.Ok:
+      return 'ok-block';
+    case QualitativePerformance.Fail:
+      return 'bad-block';
   }
 }

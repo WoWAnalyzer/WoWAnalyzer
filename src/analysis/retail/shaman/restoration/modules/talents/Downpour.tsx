@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import { TooltipElement } from 'interface';
@@ -40,7 +40,7 @@ class Downpour extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DOWNPOUR_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT.id);
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._onHeal);
   }
@@ -50,13 +50,13 @@ class Downpour extends Analyzer {
     // instead we set it to the maximum possible cooldown and reduce it by how many it fully overhealed or missed
     if (this.downpourTimestamp && event.timestamp > this.downpourTimestamp + BUFFER) {
       const reductionMS = (maxHits - this.downpourHits) * cooldownIncrease;
-      this.spellUsable.reduceCooldown(SPELLS.DOWNPOUR_TALENT.id, reductionMS);
+      this.spellUsable.reduceCooldown(TALENTS.DOWNPOUR_TALENT.id, reductionMS);
       this.downpourTimestamp = 0;
       this.downpourHits = 0;
     }
 
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DOWNPOUR_TALENT.id) {
+    if (spellId !== TALENTS.DOWNPOUR_TALENT.id) {
       return;
     }
 
@@ -70,7 +70,7 @@ class Downpour extends Analyzer {
   }
 
   statistic() {
-    const downpour = this.abilityTracker.getAbility(SPELLS.DOWNPOUR_TALENT.id);
+    const downpour = this.abilityTracker.getAbility(TALENTS.DOWNPOUR_TALENT.id);
 
     const downpourCasts = downpour.casts;
     if (!downpourCasts) {
@@ -84,7 +84,7 @@ class Downpour extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.DOWNPOUR_TALENT.id} />}
+        icon={<SpellIcon id={TALENTS.DOWNPOUR_TALENT.id} />}
         value={
           <Trans id="shaman.restoration.downpour.statistic.value">
             {downpourAverageCooldown.toFixed(1)} seconds
@@ -116,7 +116,7 @@ class Downpour extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.DOWNPOUR_TALENT.id} />}
+        title={<SpellLink id={TALENTS.DOWNPOUR_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );

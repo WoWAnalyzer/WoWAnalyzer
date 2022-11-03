@@ -24,8 +24,15 @@ class Benediction extends Analyzer {
   }
 
   get healingFromBenedictionRenews() {
-    const healing = this.renew.healingFromRenew(this.renew.renewsFromBenediction);
-    return healing;
+    return this.renew.healingFromRenew(this.renewsFromBenediction);
+  }
+
+  get overhealingFromBenedictionRenews() {
+    return this.renew.overhealingFromRenew(this.renewsFromBenediction);
+  }
+
+  get absorbedHealingFromBenedictionRenews() {
+    return this.renew.absorptionFromRenew(this.renewsFromBenediction);
   }
 
   statistic() {

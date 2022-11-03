@@ -241,6 +241,15 @@ const reasonOrder = [
   PurifyReason.Unknown,
 ];
 
+function reasonEnabled(info: Info, reason: PurifyReason): boolean {
+  switch (reason) {
+    case PurifyReason.RefreshPurifiedChi:
+      return info.combatant.hasTalent(talents.IMPROVED_CELESTIAL_BREW_TALENT);
+    default:
+      return true;
+  }
+}
+
 function PurifyReasonBreakdown({
   counts,
   total,
@@ -312,6 +321,7 @@ function PurifyReasonBreakdown({
             ([a], [b]) =>
               reasonOrder.indexOf(a as PurifyReason) - reasonOrder.indexOf(b as PurifyReason),
           )
+          .filter(([reason]) => reasonEnabled(info, reason as PurifyReason))
           .map(([reason, count]) => (
             <tr key={reason} className={reason}>
               <td>{reasonLabel(reason as PurifyReason)}</td>

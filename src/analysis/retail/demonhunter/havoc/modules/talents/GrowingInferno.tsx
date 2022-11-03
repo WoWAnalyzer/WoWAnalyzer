@@ -8,8 +8,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { GROWING_INFERNO_SCALING } from 'analysis/retail/demonhunter/havoc/constants';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 export default class GrowingInferno extends Analyzer {
   addedDamage: number = 0;
@@ -52,9 +52,9 @@ export default class GrowingInferno extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={<>Total damage of Immolation Aura {formatThousands(this.totalDamage)}</>}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.GROWING_INFERNO_TALENT.id}>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.GROWING_INFERNO_TALENT}>
           <ItemDamageDone amount={this.addedDamage} />
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

@@ -3,11 +3,7 @@ import {
   RuneDetails,
   RuneOfTheFallenCrusader,
   RuneOfHysteria,
-  Superstrain,
-  SwarmingMist,
-  DeathsDue,
-  EternalHunger,
-} from 'analysis/deathknight';
+} from 'analysis/retail/deathknight/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Channeling from 'parser/shared/normalizers/Channeling';
 
@@ -31,10 +27,6 @@ import MitigationCheck from './modules/features/MitigationCheck';
 import Ossuary from './modules/features/Ossuary';
 import RunicPowerDetails from './modules/runicpower/RunicPowerDetails';
 import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
-import WitheringPlague from './modules/shadowlands/conduits/WitheringPlague';
-import BrynadaorsMight from './modules/shadowlands/legendaries/BrynadaorsMight';
-import CrimsonRuneWeapon from './modules/shadowlands/legendaries/CrimsonRuneWeapon';
-import EndlessRuneWaltz from './modules/shadowlands/tier28/EndlessRuneWaltz';
 import Bloodworms from './modules/talents/Bloodworms';
 import BoneStorm from './modules/talents/Bonestorm';
 import Consumption from './modules/talents/Consumption';
@@ -102,20 +94,6 @@ class CombatLogParser extends CoreCombatLogParser {
     runeForgeChecker: RuneForgeChecker,
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
     runeOfHysteria: RuneOfHysteria,
-
-    // Legendaries
-    brynadaorsMight: BrynadaorsMight,
-    superStrain: Superstrain,
-    crimsonRuneWeapon: CrimsonRuneWeapon,
-    endlessRuneWaltz: EndlessRuneWaltz,
-
-    // Covenants
-    swarmingMist: SwarmingMist,
-    deathsDue: DeathsDue,
-
-    // Conduits
-    eternalHunger: EternalHunger,
-    witheringPlague: WitheringPlague,
   };
 }
 

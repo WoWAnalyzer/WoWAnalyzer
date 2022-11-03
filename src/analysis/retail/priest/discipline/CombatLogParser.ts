@@ -48,7 +48,12 @@ import PowerWordShield from './modules/spells/PowerWordShield';
 import AegisOfWrath from './modules/spells/AegisOfWrath';
 import CrystallineReflection from './modules/spells/CrystallineReflection';
 import StolenPsyche from './modules/spells/StolenPsyche';
+import PainAndSuffering from './modules/spells/PainAndSuffering';
+import ThroesOfPain from './modules/spells/ThroesOfPain';
+import MaliciousIntent from './modules/spells/MaliciousIntent';
 import PowerWordRadiance from './modules/spells/PowerWordRadiance';
+import EvangelismAnalysis from './modules/guide/EvangelismAnalysis';
+import Guide from './Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -109,7 +114,12 @@ class CombatLogParser extends CoreCombatLogParser {
     powerWordShield: PowerWordShield,
     stolenPsyche: StolenPsyche,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
+    painAndSuffering: PainAndSuffering,
+    throesOfPain: ThroesOfPain,
+    maliciousIntent: MaliciousIntent,
+    evangelismAnalysis: EvangelismAnalysis,
   };
+  static guide = Guide;
 }
 
 export default CombatLogParser;

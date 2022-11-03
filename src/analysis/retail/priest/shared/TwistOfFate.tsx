@@ -1,4 +1,4 @@
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -75,16 +75,15 @@ class TwistOfFate extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.CORE(2)}
-        tooltip={`The effective healing contributed by Twist of Fate was {formatPercentage(
-                tofPercent,
-              )}% of total healing done. Twist of Fate also contributed {formatNumber(
-                (damage / this.owner.fightDuration) * 1000,
-              )} DPS (${formatPercentage(
-                tofDamage,
-              )}% of total damage); the healing gain of this damage was included in the shown numbers.`}
+        tooltip={`Twist of Fate also contributed ${formatNumber(
+          (damage / this.owner.fightDuration) * 1000,
+        )} DPS (${formatPercentage(
+          tofDamage,
+        )}% of total damage); the healing gain of this damage was included in the shown numbers.`}
       >
         <BoringSpellValueText spellId={TALENTS_PRIEST.TWIST_OF_FATE_TALENT.id}>
           <ItemHealingDone amount={healing} />
+          <br />
           <ItemDamageDone amount={damage} />
         </BoringSpellValueText>
       </Statistic>

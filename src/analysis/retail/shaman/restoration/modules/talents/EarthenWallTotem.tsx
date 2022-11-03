@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatDuration, formatNth, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
@@ -42,12 +43,12 @@ class EarthenWallTotem extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.EARTHEN_WALL_TOTEM_TALENT.id);
     this.isMaghar =
       this.selectedCombatant.race && this.selectedCombatant.race.name === "Mag'har Orc";
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EARTHEN_WALL_TOTEM_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.EARTHEN_WALL_TOTEM_TALENT),
       this._onCast,
     );
     this.addEventListener(
@@ -140,12 +141,12 @@ class EarthenWallTotem extends Analyzer {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
           <Trans id="shaman.restoration.ewt.suggestion.label">
-            Try to cast <SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} /> at times - and
+            Try to cast <SpellLink id={TALENTS.EARTHEN_WALL_TOTEM_TALENT.id} /> at times - and
             positions where there will be as many people taking damage possible inside of it to
             maximize the amount it absorbs.
           </Trans>,
         )
-          .icon(SPELLS.EARTHEN_WALL_TOTEM_TALENT.icon)
+          .icon(TALENTS.EARTHEN_WALL_TOTEM_TALENT.icon)
           .actual(`${this.earthenWallEfficiency.toFixed(2)}%`)
           .recommended(`${recommended}%`)
           .regular(recommended - 0.15)
@@ -170,7 +171,7 @@ class EarthenWallTotem extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} />}
+        icon={<SpellIcon id={TALENTS.EARTHEN_WALL_TOTEM_TALENT.id} />}
         value={`${formatPercentage(this.earthenWallEfficiency)} %`}
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(60)}
@@ -237,7 +238,7 @@ class EarthenWallTotem extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} />}
+        title={<SpellLink id={TALENTS.EARTHEN_WALL_TOTEM_TALENT.id} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalEffectiveHealing),
         )} %`}

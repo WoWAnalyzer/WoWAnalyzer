@@ -1,331 +1,284 @@
+import SPELLS from 'common/SPELLS/classic/warlock';
 import CoreAbilities from 'parser/core/modules/Abilities';
-import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
-import lowRankSpells from '../lowRankSpells';
-import * as SPELLS from '../SPELLS';
-
 class Abilities extends CoreAbilities {
-  spellbook(): SpellbookAbility[] {
-    const baseSpells: SpellbookAbility[] = [
+  spellbook() {
+    const combatant = this.selectedCombatant;
+    return [
+      // Rotational
       {
-        spell: [SPELLS.BANISH, ...lowRankSpells[SPELLS.BANISH]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.CHALLENGING_HOWL],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.CORRUPTION, ...lowRankSpells[SPELLS.CORRUPTION]],
+        spell: [SPELLS.CURSE_OF_AGONY.id, ...SPELLS.CURSE_OF_AGONY.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.CREATE_FIRESTONE, ...lowRankSpells[SPELLS.CREATE_FIRESTONE]],
-        category: SPELL_CATEGORY.CONSUMABLE,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.MASTER_FIRESTONE, ...lowRankSpells[SPELLS.MASTER_FIRESTONE]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.CREATE_HEALTHSTONE, ...lowRankSpells[SPELLS.CREATE_HEALTHSTONE]],
-        category: SPELL_CATEGORY.CONSUMABLE,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.CREATE_SOULSTONE, ...lowRankSpells[SPELLS.CREATE_SOULSTONE]],
-        category: SPELL_CATEGORY.CONSUMABLE,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.MASTER_SOULSTONE, ...lowRankSpells[SPELLS.MASTER_SOULSTONE]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.CREATE_SPELLSTONE, ...lowRankSpells[SPELLS.CREATE_SPELLSTONE]],
-        category: SPELL_CATEGORY.CONSUMABLE,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.MASTER_SPELLSTONE, ...lowRankSpells[SPELLS.MASTER_SPELLSTONE]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.CURSE_OF_AGONY, ...lowRankSpells[SPELLS.CURSE_OF_AGONY]],
+        spell: [SPELLS.CURSE_OF_DOOM.id, ...SPELLS.CURSE_OF_DOOM.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.CURSE_OF_DOOM, ...lowRankSpells[SPELLS.CURSE_OF_DOOM]],
+        spell: [SPELLS.CORRUPTION.id, ...SPELLS.CORRUPTION.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.CURSE_OF_THE_ELEMENTS, ...lowRankSpells[SPELLS.CURSE_OF_THE_ELEMENTS]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.CURSE_OF_TONGUES, ...lowRankSpells[SPELLS.CURSE_OF_TONGUES]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.CURSE_OF_WEAKNESS, ...lowRankSpells[SPELLS.CURSE_OF_WEAKNESS]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.DEATH_COIL, ...lowRankSpells[SPELLS.DEATH_COIL]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.DEMON_ARMOR, ...lowRankSpells[SPELLS.DEMON_ARMOR]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.DEMON_SKIN, ...lowRankSpells[SPELLS.DEMON_SKIN]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.DEMONIC_CIRCLE_SUMMON],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.DEMONIC_CIRCLE_TELEPORT],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.DEMONIC_EMPOWERMENT],
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.DEMONIC_IMMOLATE],
-        category: SPELL_CATEGORY.HIDDEN,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.DEMONIC_SACRIFICE],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.DETECT_INVISIBILITY],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.DRAIN_LIFE, ...lowRankSpells[SPELLS.DRAIN_LIFE]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.DRAIN_MANA],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.DRAIN_SOUL, ...lowRankSpells[SPELLS.DRAIN_SOUL]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.EYE_OF_KILROGG],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.FEAR, ...lowRankSpells[SPELLS.FEAR]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.FEL_ARMOR, ...lowRankSpells[SPELLS.FEL_ARMOR]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.HAUNT, ...lowRankSpells[SPELLS.HAUNT]],
+        spell: [SPELLS.SHADOW_BOLT.id, ...SPELLS.SHADOW_BOLT.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.HEALTH_FUNNEL, ...lowRankSpells[SPELLS.HEALTH_FUNNEL]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
+        spell: [SPELLS.HAUNT.id, ...SPELLS.HAUNT.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 8,
+        gcd: { base: 1500 },
+        enabled: combatant.talentPoints[0] >= 50,
       },
       {
-        spell: [SPELLS.HELLFIRE, ...lowRankSpells[SPELLS.HELLFIRE]],
+        spell: [SPELLS.UNSTABLE_AFFLICTION.id, ...SPELLS.UNSTABLE_AFFLICTION.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+        enabled: combatant.talentPoints[0] >= 40,
+      },
+      {
+        spell: [SPELLS.DRAIN_SOUL.id, ...SPELLS.DRAIN_SOUL.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.IMMOLATE.id, ...SPELLS.IMMOLATE.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.INCINERATE.id, ...SPELLS.INCINERATE.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.SOUL_FIRE.id, ...SPELLS.SOUL_FIRE.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.SEARING_PAIN.id, ...SPELLS.SEARING_PAIN.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      // Rotational AOE
+      {
+        spell: [SPELLS.SEED_OF_CORRUPTION.id],
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.HOWL_OF_TERROR, ...lowRankSpells[SPELLS.HOWL_OF_TERROR]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.IMMOLATE, ...lowRankSpells[SPELLS.IMMOLATE]],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.IMMOLATION_AURA],
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.INCINERATE, ...lowRankSpells[SPELLS.INCINERATE]],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.INFERNO],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.LIFE_TAP, ...lowRankSpells[SPELLS.LIFE_TAP]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.METAMORPHOSIS],
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.RAIN_OF_FIRE, ...lowRankSpells[SPELLS.RAIN_OF_FIRE]],
+        spell: [SPELLS.HELLFIRE.id, ...SPELLS.HELLFIRE.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.RITUAL_OF_DOOM],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.RITUAL_OF_SOULS, ...lowRankSpells[SPELLS.RITUAL_OF_SOULS]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.RITUAL_OF_SUMMONING],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.SEARING_PAIN, ...lowRankSpells[SPELLS.SEARING_PAIN]],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.SEED_OF_CORRUPTION],
+        spell: [SPELLS.RAIN_OF_FIRE.id, ...SPELLS.RAIN_OF_FIRE.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
+      },
+      // Cooldowns
+      {
+        spell: [SPELLS.DEMONIC_EMPOWERMENT.id],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 60,
+        gcd: { base: 1500 },
+        enabled: combatant.talentPoints[1] >= 30,
       },
       {
-        spell: [SPELLS.SENSE_DEMONS],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
+        spell: [SPELLS.SHADOWFLAME.id, ...SPELLS.SHADOWFLAME.lowRanks],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 15,
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SHADOW_BOLT, ...lowRankSpells[SPELLS.SHADOW_BOLT]],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
+        spell: [SPELLS.METAMORPHOSIS.id],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 180,
+        gcd: { base: 1500 },
+        enabled: combatant.talentPoints[1] >= 50,
       },
       {
-        spell: [SPELLS.SHADOW_CLEAVE],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
+        spell: [SPELLS.IMMOLATION_AURA.id],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { base: 1500 },
+        enabled: combatant.talentPoints[1] >= 50,
       },
       {
-        spell: [SPELLS.SHADOW_WARD, ...lowRankSpells[SPELLS.SHADOW_WARD]],
+        spell: [SPELLS.SHADOW_CLEAVE.id],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { base: 1500 },
+        enabled: combatant.talentPoints[1] >= 50,
+      },
+      // Defensive
+      {
+        spell: [SPELLS.SOULSHATTER.id],
         category: SPELL_CATEGORY.DEFENSIVE,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SHADOWFLAME, ...lowRankSpells[SPELLS.SHADOWFLAME]],
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.SOUL_FIRE, ...lowRankSpells[SPELLS.SOUL_FIRE]],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.SOULSHATTER],
+        spell: [SPELLS.DEATH_COIL.id, ...SPELLS.DEATH_COIL.lowRanks],
         category: SPELL_CATEGORY.DEFENSIVE,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SUBJUGATE_DEMON, ...lowRankSpells[SPELLS.SUBJUGATE_DEMON]],
+        spell: [SPELLS.SHADOW_WARD.id, ...SPELLS.SHADOW_WARD.lowRanks],
+        category: SPELL_CATEGORY.DEFENSIVE,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.BANISH.id, ...SPELLS.BANISH.lowRanks],
+        category: SPELL_CATEGORY.DEFENSIVE,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.FEAR.id, ...SPELLS.FEAR.lowRanks],
+        category: SPELL_CATEGORY.DEFENSIVE,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.HOWL_OF_TERROR.id, ...SPELLS.HOWL_OF_TERROR.lowRanks],
+        category: SPELL_CATEGORY.DEFENSIVE,
+        gcd: { base: 1500 },
+      },
+      // Utility
+      {
+        spell: [SPELLS.LIFE_TAP.id, ...SPELLS.LIFE_TAP.lowRanks],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SUMMON_DREADSTEED],
+        spell: [SPELLS.CURSE_OF_THE_ELEMENTS.id, ...SPELLS.CURSE_OF_THE_ELEMENTS.lowRanks],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SUMMON_FELHUNTER],
+        spell: [SPELLS.CURSE_OF_TONGUES.id, ...SPELLS.CURSE_OF_TONGUES.lowRanks],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SUMMON_FELSTEED],
+        spell: [SPELLS.CURSE_OF_WEAKNESS.id, ...SPELLS.CURSE_OF_WEAKNESS.lowRanks],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SUMMON_IMP],
+        spell: [SPELLS.DEMONIC_CIRCLE_SUMMON.id],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SUMMON_INCUBUS],
+        spell: [SPELLS.DEMONIC_CIRCLE_TELEPORT.id],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SUMMON_SUCCUBUS],
+        spell: [SPELLS.DRAIN_LIFE.id, ...SPELLS.DRAIN_LIFE.lowRanks],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.SUMMON_VOIDWALKER],
+        spell: [SPELLS.DRAIN_MANA.id],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.UNENDING_BREATH],
+        spell: [SPELLS.CHALLENGING_HOWL.id],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
+        enabled: combatant.talentPoints[1] >= 50,
+      },
+      // Buffs
+      {
+        spell: [SPELLS.DEMONIC_SACRIFICE.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.UNSTABLE_AFFLICTION, ...lowRankSpells[SPELLS.UNSTABLE_AFFLICTION]],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
+        spell: [SPELLS.FEL_ARMOR.id, ...SPELLS.FEL_ARMOR.lowRanks],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.DEMON_ARMOR.id, ...SPELLS.DEMON_ARMOR.lowRanks],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.DETECT_INVISIBILITY.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.UNENDING_BREATH.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      // Pet Related
+      {
+        spell: [SPELLS.FEL_DOMINATION.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: null,
+        enabled: combatant.talentPoints[1] >= 10,
+      },
+      {
+        spell: [SPELLS.HEALTH_FUNNEL.id, ...SPELLS.HEALTH_FUNNEL.lowRanks],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.SUMMON_FELGUARD.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+        enabled: combatant.talentPoints[1] >= 40,
+      },
+      {
+        spell: [SPELLS.SUMMON_FELHUNTER.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.SUMMON_IMP.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.SUMMON_INCUBUS.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.SUMMON_INFERNO.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.SUMMON_SUCCUBUS.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.SUMMON_VOIDWALKER.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.SUBJUGATE_DEMON.id, ...SPELLS.SUBJUGATE_DEMON.lowRanks],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+
+      // Consumable
+      {
+        spell: [SPELLS.HEALTHSTONE_USE.id, ...SPELLS.HEALTHSTONE_USE.lowRanks],
+        category: SPELL_CATEGORY.CONSUMABLE,
+        gcd: { base: 1500 },
       },
     ];
-
-    return baseSpells;
   }
 }
 

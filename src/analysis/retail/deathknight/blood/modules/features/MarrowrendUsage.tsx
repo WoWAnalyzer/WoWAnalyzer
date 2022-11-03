@@ -1,6 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -66,7 +67,10 @@ class MarrowrendUsage extends Analyzer {
       Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.BONE_SHIELD),
       this.onRemoveBuffStack,
     );
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MARROWREND), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.MARROWREND_TALENT),
+      this.onCast,
+    );
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
@@ -170,11 +174,11 @@ class MarrowrendUsage extends Analyzer {
           <SpellLink id={SPELLS.BONE_SHIELD.id} /> that were not about to expire, wasting{' '}
           {this.bsStacksWasted} stacks.
           <br />
-          Cast <SpellLink id={SPELLS.HEART_STRIKE.id} /> instead if you are at{' '}
+          Cast <SpellLink id={TALENTS.HEART_STRIKE_TALENT.id} /> instead if you are at{' '}
           {this.refreshAtStacks} stacks or above.
         </Trans>,
       )
-        .icon(SPELLS.MARROWREND.icon)
+        .icon(TALENTS.MARROWREND_TALENT.icon)
         .actual(
           t({
             id: 'deathknight.blood.marrowrendUsage.suggestion.actual',
@@ -209,7 +213,7 @@ class MarrowrendUsage extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.MARROWREND.id}>
+        <BoringSpellValueText spellId={TALENTS.MARROWREND_TALENT.id}>
           <Trans id="deathknight.blood.marrowrendUsage.statistic">
             {this.badMRCasts} / {this.totalMRCasts} <small>bad casts</small>
           </Trans>

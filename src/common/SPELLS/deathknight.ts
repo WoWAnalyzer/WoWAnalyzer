@@ -24,27 +24,7 @@ const spells = spellIndexableList({
   },
 
   // Damage Dealing
-  BLOOD_BOIL: {
-    id: 50842,
-    name: 'Blood Boil',
-    icon: 'spell_deathknight_bloodboil',
-  },
-
-  HEART_STRIKE: {
-    id: 206930,
-    name: 'Heart Strike',
-    icon: 'inv_weapon_shortblade_40',
-  },
-
-  // T28 heart strike proc and also appears to be heart strike from DRW.
-  // Not sure if/when BLOOD_STRIKE is used instead?
-  HEART_STRIKE_PROC: {
-    id: 228645,
-    name: 'Heart Strike',
-    icon: 'inv_weapon_shortblade_40',
-  },
-
-  BONESTORM_HIT: {
+  BONESTORM_TALENT_HIT: {
     id: 196528,
     name: 'Bonestorm',
     icon: 'achievement_boss_lordmarrowgar',
@@ -56,39 +36,17 @@ const spells = spellIndexableList({
     name: 'Blood Strike',
     icon: 'spell_deathknight_deathstrike',
   },
-  MARROWREND: {
-    id: 195182,
-    name: 'Marrowrend',
-    icon: 'ability_deathknight_marrowrend',
-  },
   BLOOD_PLAGUE: {
     id: 55078,
     name: 'Blood Plague',
     icon: 'spell_deathknight_bloodplague',
   },
-  DEATHS_CARESS: {
-    id: 195292,
-    name: "Death's Caress",
-    icon: 'ability_deathknight_deathscaress',
-  },
 
   // Cooldowns
-  DANCING_RUNE_WEAPON: {
-    id: 49028,
-    name: 'Dancing Rune Weapon',
-    icon: 'inv_sword_07',
-  },
-
-  DANCING_RUNE_WEAPON_BUFF: {
+  DANCING_RUNE_WEAPON_TALENT_BUFF: {
     id: 81256,
     name: 'Dancing Rune Weapon',
     icon: 'inv_sword_07',
-  },
-
-  VAMPIRIC_BLOOD: {
-    id: 55233,
-    name: 'Vampiric Blood',
-    icon: 'spell_shadow_lifedrain',
   },
 
   SHROUD_OF_PURGATORY: {
@@ -109,36 +67,24 @@ const spells = spellIndexableList({
     icon: 'spell_deathknight_butcher2',
   },
 
-  HEARTBREAKER: {
-    id: 210738,
-    name: 'Heartbreaker',
-    icon: 'spell_deathknight_deathstrike',
-  },
-
-  RUNE_TAP: {
-    id: 194679,
-    name: 'Rune Tap',
-    icon: 'spell_deathknight_runetap',
-  },
-
-  CONSUMPTION_HEAL: {
+  CONSUMPTION_TALENT_HEAL: {
     id: 205224,
     name: 'Consumption Heal',
     icon: 'inv_axe_2h_artifactmaw_d_02',
   },
 
   // Buffs
-  OSSUARY: {
+  OSSUARY_TALENT_BUFF: {
     id: 219788,
     name: 'Ossuary',
     icon: 'ability_deathknight_brittlebones',
   },
-  CRIMSON_SCOURGE: {
+  CRIMSON_SCOURGE_TALENT_BUFF: {
     id: 81141,
     name: 'Crimson Scourge',
     icon: 'ability_warrior_bloodnova',
   },
-  VORACIOUS: {
+  VORACIOUS_TALENT_BUFF: {
     id: 274009,
     name: 'Voracious',
     icon: 'ability_ironmaidens_whirlofblood',
@@ -147,25 +93,6 @@ const spells = spellIndexableList({
     id: 317614,
     name: 'Relish in Blood',
     icon: 'ability_deathknight_roilingblood',
-  },
-  ENDLESS_RUNE_WALTZ: {
-    id: 366008,
-    name: 'Endless Rune Waltz',
-    icon: 'spell_deathknight_frozenruneweapon',
-  },
-
-  // CC
-  GOREFIENDS_GRASP: {
-    id: 108199,
-    name: "Gorefiend's Grasp",
-    icon: 'ability_deathknight_aoedeathgrip',
-  },
-
-  //Blood DK Version
-  ASPHYXIATE: {
-    id: 221562,
-    name: 'Asphyxiate',
-    icon: 'ability_deathknight_asphixiate',
   },
 
   // Frost:

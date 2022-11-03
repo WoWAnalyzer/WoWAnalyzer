@@ -1,6 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import SpellLink from 'interface/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -17,11 +18,16 @@ class Ossuary extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(talents.DEATH_STRIKE_TALENT), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.DEATH_STRIKE_TALENT),
+      this.onCast,
+    );
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.OSSUARY.id) / this.owner.fightDuration;
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.OSSUARY_TALENT_BUFF.id) / this.owner.fightDuration
+    );
   }
 
   get buffedDeathStrikes() {
@@ -29,7 +35,7 @@ class Ossuary extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.OSSUARY.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.OSSUARY_TALENT_BUFF.id)) {
       this.dsWithOS += 1;
     } else {
       this.dsWithoutOS += 1;
@@ -71,12 +77,12 @@ class Ossuary extends Analyzer {
     when(this.efficiencySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="deathknight.blood.ossuary.suggestion.suggestion">
-          Your <SpellLink id={SPELLS.OSSUARY.id} /> usage can be improved. Avoid casting{' '}
-          <SpellLink id={talents.DEATH_STRIKE_TALENT.id} /> while not having Ossuary up as you lose Runic
-          Power by doing so.
+          Your <SpellLink id={TALENTS.OSSUARY_TALENT.id} /> usage can be improved. Avoid casting{' '}
+          <SpellLink id={TALENTS.DEATH_STRIKE_TALENT.id} /> while not having Ossuary up as you lose
+          Runic Power by doing so.
         </Trans>,
       )
-        .icon(SPELLS.OSSUARY.icon)
+        .icon(TALENTS.OSSUARY_TALENT.icon)
         .actual(
           t({
             id: 'deathknight.blood.ossuary.suggestion.actual',
@@ -108,7 +114,7 @@ class Ossuary extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.OSSUARY.id}>
+        <BoringSpellValueText spellId={TALENTS.OSSUARY_TALENT.id}>
           <Trans id="deathknight.blood.ossuary.statistic">
             {this.dsWithoutOS} / {this.dsWithOS + this.dsWithoutOS}{' '}
             <small>Death Strikes without Ossuary</small>

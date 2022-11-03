@@ -4,11 +4,11 @@ import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/EventSubscriber';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 //WCL: https://www.warcraftlogs.com/reports/JxyY7HCDcjqMA9tf/#fight=1&source=15
 export default class AgonizingFlames extends Analyzer {
@@ -66,9 +66,9 @@ export default class AgonizingFlames extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.AGONIZING_FLAMES_TALENT.id}>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.AGONIZING_FLAMES_TALENT}>
           <ItemDamageDone amount={this.extendedImmolationAuraDamage} />
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

@@ -7,6 +7,7 @@ import {
 } from 'analysis/retail/mage/shared';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
@@ -44,11 +45,11 @@ class SunKingsBlessing extends Analyzer {
       this.onSunKingApplied,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
       this.onCombustionStart,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
       this.onCombustionCast,
     );
     this.addEventListener(
@@ -61,7 +62,7 @@ class SunKingsBlessing extends Analyzer {
     const lastCast = this.eventHistory.last(
       1,
       MS_BUFFER_100,
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PYROBLAST, SPELLS.FLAMESTRIKE]),
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PYROBLAST, TALENTS.FLAMESTRIKE_TALENT]),
     );
     if (lastCast.length === 0) {
       debug && this.log('Sun King Blessing Stack expired');
@@ -98,7 +99,7 @@ class SunKingsBlessing extends Analyzer {
   }
 
   onCombustionCast(event: CastEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id)) {
+    if (this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id)) {
       this.combustionCastDuringCombustion += 1;
     }
   }
@@ -159,21 +160,22 @@ class SunKingsBlessing extends Analyzer {
     when(this.combustionDuringCombustionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You used <SpellLink id={SPELLS.COMBUSTION.id} /> while{' '}
-          <SpellLink id={SPELLS.COMBUSTION.id} /> was already active{' '}
+          You used <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> while{' '}
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> was already active{' '}
           {this.combustionCastDuringCombustion} times. When using{' '}
           <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} /> and{' '}
-          <SpellLink id={SPELLS.COMBUSTION.id} /> at the same time, you want to ensure that{' '}
-          <SpellLink id={SPELLS.COMBUSTION.id} /> is activated first by using{' '}
-          <SpellLink id={SPELLS.COMBUSTION.id} /> just before your hard cast{' '}
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> at the same time, you want to ensure that{' '}
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> is activated first by using{' '}
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> just before your hard cast{' '}
           <SpellLink id={SPELLS.PYROBLAST.id} /> finishes casting. This is due to an odd interaction
-          where if <SpellLink id={SPELLS.COMBUSTION.id} /> is used while{' '}
-          <SpellLink id={SPELLS.COMBUSTION.id} /> is already active (via{' '}
+          where if <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> is used while{' '}
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> is already active (via{' '}
           <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} />) then the time remaining on{' '}
-          <SpellLink id={SPELLS.COMBUSTION.id} /> will be reset to {COMBUSTION_DURATION / 1000}sec
-          instead of adding to it. But if <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} /> is
-          activated after <SpellLink id={SPELLS.COMBUSTION.id} /> it will add{' '}
-          {SKB_COMBUST_DURATION / 1000}sec to your <SpellLink id={SPELLS.COMBUSTION.id} />.
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> will be reset to{' '}
+          {COMBUSTION_DURATION / 1000}sec instead of adding to it. But if{' '}
+          <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} /> is activated after{' '}
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> it will add {SKB_COMBUST_DURATION / 1000}
+          sec to your <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />.
         </>,
       )
         .icon(SPELLS.SUN_KINGS_BLESSING.icon)

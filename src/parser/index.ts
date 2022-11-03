@@ -1,4 +1,4 @@
-// import BloodDeathKnight from 'analysis/retail/deathknight/blood';
+import BloodDeathKnight from 'analysis/retail/deathknight/blood';
 import FrostDeathKnight from 'analysis/retail/deathknight/frost';
 // import UnholyDeathKnight from 'analysis/retail/deathknight/unholy';
 import BalanceDruid from 'analysis/retail/druid/balance';
@@ -25,7 +25,7 @@ import HolyPriest from 'analysis/retail/priest/holy';
 import ElementalShaman from 'analysis/retail/shaman/elemental';
 import SubtletyRogue from 'analysis/retail/rogue/subtlety';
 import EnhancementShaman from 'analysis/retail/shaman/enhancement';
-// import RestorationShaman from 'analysis/retail/shaman/restoration';
+import RestorationShaman from 'analysis/retail/shaman/restoration';
 import AfflictionWarlock from 'analysis/retail/warlock/affliction';
 import DemonologyWarlock from 'analysis/retail/warlock/demonology';
 import DestructionWarlock from 'analysis/retail/warlock/destruction';
@@ -49,7 +49,7 @@ import PreservationEvoker from 'analysis/retail/evoker/preservation';
 import Config from './Config';
 
 const configs: Config[] = [
-  // BloodDeathKnight,
+  BloodDeathKnight,
   // UnholyDeathKnight,
   FrostDeathKnight,
 
@@ -90,7 +90,7 @@ const configs: Config[] = [
 
   ElementalShaman,
   EnhancementShaman,
-  // RestorationShaman,
+  RestorationShaman,
 
   AfflictionWarlock,
   DemonologyWarlock,

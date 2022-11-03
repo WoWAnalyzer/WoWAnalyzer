@@ -2,9 +2,9 @@ import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyDebuffEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/QDMVJtvnBz43NZLk/#fight=2&source=1
@@ -34,11 +34,9 @@ class MasterOfTheGlaive extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.MASTER_OF_THE_GLAIVE_TALENT.id}>
-          <>
-            {this.slows} <small>slows provided</small>
-          </>
-        </BoringSpellValueText>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.MASTER_OF_THE_GLAIVE_TALENT}>
+          {this.slows} <small>slows provided</small>
+        </TalentSpellText>
       </Statistic>
     );
   }

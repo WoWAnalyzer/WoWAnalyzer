@@ -1,6 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
@@ -20,13 +21,14 @@ class HealingWave extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HEALING_WAVE_TALENT);
 
     this.addEventListener(
-      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE),
+      Events.begincast.by(SELECTED_PLAYER).spell(TALENTS.HEALING_WAVE_TALENT),
       this.onHealingWaveBegincast,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_WAVE),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HEALING_WAVE_TALENT),
       this.onHealingWaveCast,
     );
   }
@@ -55,7 +57,7 @@ class HealingWave extends Analyzer {
       return false;
     }
 
-    const hasRiptideAvailable = this.spellUsable.isAvailable(SPELLS.RIPTIDE.id);
+    const hasRiptideAvailable = this.spellUsable.isAvailable(TALENTS.RIPTIDE_TALENT.id);
     if (!hasRiptideAvailable) {
       return false;
     }
@@ -81,7 +83,7 @@ class HealingWave extends Analyzer {
   }
 
   get suggestedThreshold() {
-    const healingWave = this.abilityTracker.getAbility(SPELLS.HEALING_WAVE.id);
+    const healingWave = this.abilityTracker.getAbility(TALENTS.HEALING_WAVE_TALENT.id);
 
     const twHealingWaves = healingWave.healingTwHits || 0;
     const healingWaveCasts = healingWave.casts || 0;
@@ -106,13 +108,13 @@ class HealingWave extends Analyzer {
       .addSuggestion((suggest) =>
         suggest(
           <span>
-            Casting <SpellLink id={SPELLS.HEALING_WAVE.id} /> without{' '}
+            Casting <SpellLink id={TALENTS.HEALING_WAVE_TALENT.id} /> without{' '}
             <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon /> is slow and generally inefficient.
             Consider casting a riptide first to generate{' '}
             <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon />
           </span>,
         )
-          .icon(SPELLS.HEALING_WAVE.icon)
+          .icon(TALENTS.HEALING_WAVE_TALENT.icon)
           .actual(
             t({
               id: 'shaman.restoration.suggestions.healingWave.unbuffed',

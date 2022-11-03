@@ -189,7 +189,9 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         be aware of them and try to use them whenever effective.
         Not using them at all indicates you might not be aware of them enough."
     >
-      <AbilityRequirement spell={SPELLS.INNERVATE.id} />
+      {combatant.hasTalent(TALENTS_DRUID.INNERVATE_TALENT) && (
+        <AbilityRequirement spell={TALENTS_DRUID.INNERVATE_TALENT.id} />
+      )}
       <AbilityRequirement spell={SPELLS.BARKSKIN.id} />
       {combatant.hasTalent(TALENTS_DRUID.RENEWAL_TALENT.id) && (
         <AbilityRequirement spell={TALENTS_DRUID.RENEWAL_TALENT.id} />

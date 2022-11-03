@@ -1,4 +1,4 @@
-import { RuneTracker } from 'analysis/deathknight';
+import { RuneTracker } from 'analysis/retail/deathknight/shared';
 import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';

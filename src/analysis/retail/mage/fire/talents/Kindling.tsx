@@ -36,12 +36,15 @@ class Kindling extends Analyzer {
 
   //Look for crit damage events to reduce the cooldown on Kindling
   onCritDamage(event: DamageEvent) {
-    const combustionOnCD = this.spellUsable.isOnCooldown(SPELLS.COMBUSTION.id);
+    const combustionOnCD = this.spellUsable.isOnCooldown(TALENTS.COMBUSTION_TALENT.id);
     if (event.hitType !== HIT_TYPES.CRIT) {
       return;
     }
     if (combustionOnCD) {
-      this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.COMBUSTION.id, REDUCTION_MS);
+      this.cooldownReduction += this.spellUsable.reduceCooldown(
+        TALENTS.COMBUSTION_TALENT.id,
+        REDUCTION_MS,
+      );
     }
   }
 

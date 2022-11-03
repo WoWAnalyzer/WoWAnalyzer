@@ -13,7 +13,7 @@ import Events, {
 } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
-import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -28,6 +28,8 @@ import {
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
 import ConvokeSpiritsResto from 'analysis/retail/druid/restoration/modules/spells/ConvokeSpiritsResto';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 const SOTF_SPELLS = [
   SPELLS.REJUVENATION,
@@ -36,9 +38,9 @@ const SOTF_SPELLS = [
   SPELLS.REGROWTH,
 ];
 
-const REJUVENATION_HEALING_INCREASE = 2;
-const REGROWTH_HEALING_INCREASE = 2;
-const WILD_GROWTH_HEALING_INCREASE = 0.6;
+const REJUVENATION_HEALING_INCREASE = 1.5;
+const REGROWTH_HEALING_INCREASE = 1.5;
+const WILD_GROWTH_HEALING_INCREASE = 0.5;
 
 const debug = false;
 
@@ -46,8 +48,8 @@ const debug = false;
  * **Soul of the Forest**
  * Spec Talent Tier 6
  *
- * Swiftmend increases the healing of your next Regrowth or Rejuvenation by 200%,
- * or your next Wild Growth by 60%.
+ * Swiftmend increases the healing of your next Regrowth or Rejuvenation by 150%,
+ * or your next Wild Growth by 50%.
  */
 class SoulOfTheForest extends Analyzer {
   static dependencies = {
@@ -86,7 +88,8 @@ class SoulOfTheForest extends Analyzer {
   lastTalliedSotF?: RemoveBuffEvent;
   lastBuffFromHardcast: boolean = false;
 
-  sotfConsumeLog: SotfUse[] = [];
+  /** Box row entry for SotF use */
+  useEntries: BoxRowEntry[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -189,40 +192,58 @@ class SoulOfTheForest extends Analyzer {
   }
 
   onSotfRemove(event: RemoveBuffEvent | RefreshBuffEvent) {
-    const timestamp = event.timestamp;
+    // Text to show in tooltip for this SotF usage. Won't be filled for Convoke generated ones!
+    let useText: React.ReactNode;
+    let value: QualitativePerformance = QualitativePerformance.Fail;
+
     if (event.type === EventType.RefreshBuff) {
       if (this.lastBuffFromHardcast) {
-        this.sotfConsumeLog.push({ timestamp, use: 'Overwritten' });
+        useText = 'Overwritten';
+        value = QualitativePerformance.Fail;
       }
       this.lastBuffFromHardcast = false;
-      return;
-    }
-
-    const buffed = getSotfBuffs(event);
-    if (buffed.length === 0) {
-      this.sotfConsumeLog.push({ timestamp, use: 'Expired' });
     } else {
-      if (!isFromHardcast(buffed[0]) && !this.lastBuffFromHardcast) {
-        // SM during Convoke also consumed during Convoke - don't count it
-        return;
-      }
-
-      // even if generated during Convoke, we count it if consumed by hardcast
-      const firstGuid = buffed[0].ability.guid;
-      if (
-        firstGuid === SPELLS.REJUVENATION.id ||
-        firstGuid === SPELLS.REJUVENATION_GERMINATION.id
-      ) {
-        this.sotfConsumeLog.push({ timestamp, use: 'Rejuvenation' });
-      } else if (firstGuid === SPELLS.REGROWTH.id) {
-        this.sotfConsumeLog.push({ timestamp, use: 'Regrowth' });
-      } else if (firstGuid === SPELLS.WILD_GROWTH.id) {
-        this.sotfConsumeLog.push({ timestamp, use: 'Wild Growth' });
+      const buffed = getSotfBuffs(event);
+      if (buffed.length === 0) {
+        useText = 'Expired';
+        value = QualitativePerformance.Fail;
       } else {
-        console.warn('SOTF reported as consumed by unexpected spell ID: ' + firstGuid);
+        if (!isFromHardcast(buffed[0]) && !this.lastBuffFromHardcast) {
+          // SM during Convoke also consumed during Convoke - don't count it
+          return;
+        }
+
+        // even if generated during Convoke, we count it if consumed by hardcast
+        const firstGuid = buffed[0].ability.guid;
+        if (
+          firstGuid === SPELLS.REJUVENATION.id ||
+          firstGuid === SPELLS.REJUVENATION_GERMINATION.id
+        ) {
+          useText = <SpellLink id={SPELLS.REJUVENATION.id} />;
+          value = QualitativePerformance.Ok;
+        } else if (firstGuid === SPELLS.REGROWTH.id) {
+          useText = <SpellLink id={SPELLS.REGROWTH.id} />;
+          value = QualitativePerformance.Ok;
+        } else if (firstGuid === SPELLS.WILD_GROWTH.id) {
+          useText = <SpellLink id={SPELLS.WILD_GROWTH.id} />;
+          value = QualitativePerformance.Good;
+        } else {
+          console.warn('SOTF reported as consumed by unexpected spell ID: ' + firstGuid);
+        }
       }
+      this.lastBuffFromHardcast = false;
     }
-    this.lastBuffFromHardcast = false;
+
+    // fill in box entry if needed
+    if (useText !== undefined) {
+      const tooltip = (
+        <>
+          @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> -{' '}
+          <strong>{useText}</strong>
+        </>
+      );
+      this.useEntries.push({ value, tooltip });
+    }
   }
 
   get rejuvHardcastUses() {
@@ -273,48 +294,38 @@ class SoulOfTheForest extends Analyzer {
     );
   }
 
-  /** Guide fragment describing the proper usage of Soul of the Forest */
-  get guideFragment() {
-    const castPerfBoxes = this.sotfConsumeLog.map((sotfUse) => {
-      let value: QualitativePerformance;
-      if (sotfUse.use === 'Expired') {
-        value = 'fail';
-      } else if (sotfUse.use === 'Wild Growth') {
-        value = 'good';
-      } else {
-        // rejuv or regrowth
-        value = 'ok';
-      }
-      return {
-        value,
-        tooltip: `@ ${this.owner.formatTimestamp(sotfUse.timestamp)} - ${sotfUse.use}`,
-      };
-    });
-
-    return (
-      <>
-        <p>
-          <strong>
-            <SpellLink id={TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT.id} />
-          </strong>{' '}
-          procs are generated by casting Swiftmend. Consuming the proc with{' '}
-          <SpellLink id={SPELLS.WILD_GROWTH.id} /> is by far the highest value, but if only a single
-          target needs big healing it's acceptable to use <SpellLink id={SPELLS.REJUVENATION.id} />{' '}
-          or <SpellLink id={SPELLS.REGROWTH.id} />. <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> can
-          both generate and consume procs - you should always use your proc before casting Convoke
-          to avoid overwriting or consuming on a bad target. Never let a proc expire.
-        </p>
-        <p>
-          <strong>Soul of the Forest usage</strong>
-          <small>
-            {' '}
-            - Green is a Wild Growth use, Yellow is a Rejuvenation or Regrowth use, and Red is an
-            expired or overwritten proc. Mouseover for more details.
-          </small>
-          <PerformanceBoxRow values={castPerfBoxes} />
-        </p>
-      </>
+  /** Guide subsection describing the proper usage of Soul of the Forest */
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <strong>
+          <SpellLink id={TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT.id} />
+        </strong>{' '}
+        procs are highest value consumed with <SpellLink id={SPELLS.WILD_GROWTH.id} />, but{' '}
+        <SpellLink id={SPELLS.REJUVENATION.id} /> or <SpellLink id={SPELLS.REGROWTH.id} /> are
+        acceptable when one target needs big healing.{' '}
+        {this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) && (
+          <>
+            <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> can overwrite procs - always use your proc
+            before casting Convoke. Never let a proc expire.
+          </>
+        )}
+      </p>
     );
+
+    const data = (
+      <div>
+        <strong>Soul of the Forest usage</strong>
+        <small>
+          {' '}
+          - Green is a Wild Growth use, Yellow is a Rejuvenation or Regrowth use, and Red is an
+          expired or overwritten proc. Mouseover for more details.
+        </small>
+        <PerformanceBoxRow values={this.useEntries} />
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   _spellReportLine(totalUses: number, hardcastUses: number, healing: number): React.ReactNode {
@@ -382,10 +393,5 @@ class SoulOfTheForest extends Analyzer {
     );
   }
 }
-
-type SotfUse = {
-  timestamp: number;
-  use: 'Rejuvenation' | 'Regrowth' | 'Wild Growth' | 'Expired' | 'Overwritten';
-};
 
 export default SoulOfTheForest;

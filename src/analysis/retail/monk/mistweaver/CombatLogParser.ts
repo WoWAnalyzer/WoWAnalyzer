@@ -57,11 +57,14 @@ import JadeSerpentStatue from './modules/spells/JadeSerpentStatue';
 import Lifecycles from './modules/spells/Lifecycles';
 import ManaTea from './modules/spells/ManaTea';
 import MistWrapEnvelopingBreath from './modules/spells/MistWrapEnvelopingBreath';
+import MistyPeaks from './modules/spells/MistyPeaks';
 import RefreshingJadeWind from './modules/spells/RefreshingJadeWind';
 import RenewingMistDuringManaTea from './modules/spells/RenewingMistDuringManaTea';
 import RisingMist from './modules/spells/RisingMist';
 import SpiritOfTheCrane from './modules/spells/SpiritOfTheCrane';
+import VivaciousVivification from './modules/spells/VivaciousVivify';
 import Upwelling from './modules/spells/Upwelling';
+import YulonsWhisper from './modules/spells/YulonsWhisper';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
@@ -106,6 +109,7 @@ class CombatLogParser extends CoreCombatLogParser {
     dampenHarm: DampenHarm,
     touchOfDeath: TouchOfDeath,
     risingSunKick: RisingSunKick,
+    vivaciousVivification: VivaciousVivification,
 
     // MW Talents
     ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
@@ -129,6 +133,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lifeCocoon: LifeCocoon,
     mistWrapEnvelopingBreath: MistWrapEnvelopingBreath,
     manaTea: ManaTea,
+    mistyPeaks: MistyPeaks,
     nourishingCh: NourishingChi,
     refreshingJadeWind: RefreshingJadeWind,
     renewingMist: RenewingMist,
@@ -140,6 +145,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soothingMist: SoothingMist,
     thunderFocusTea: ThunderFocusTea,
     upwelling: Upwelling,
+    yulonsWhisper: YulonsWhisper,
 
     // Borrowed Power
     t29TierSet: T29TierSet,

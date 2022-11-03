@@ -5,11 +5,11 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { UNRESTRAINED_FURY_SCALING } from 'analysis/retail/demonhunter/shared';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const BASE_MAX_FURY = 100;
 
@@ -102,16 +102,14 @@ class BlindFury extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT.id}>
-          <>
-            {this.badCast}{' '}
-            <small>
-              bad <SpellLink id={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id} /> casts
-            </small>
-            <br />
-            {this.furyPerMin} <small>Fury per min</small>
-          </>
-        </BoringSpellValueText>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT}>
+          {this.badCast}{' '}
+          <small>
+            bad <SpellLink id={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id} /> casts
+          </small>
+          <br />
+          {this.furyPerMin} <small>Fury per min</small>
+        </TalentSpellText>
       </Statistic>
     );
   }

@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { Options } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
-import HotTracker, { Extension, HotInfo } from 'parser/shared/modules/HotTracker';
+import HotTracker, { Extension, HotInfo, Tracker } from 'parser/shared/modules/HotTracker';
 
 const REM_BASE_DURATION = 20000;
 const ENV_BASE_DURATION = 6000;
@@ -36,6 +36,18 @@ class HotTrackerMW extends HotTracker {
       }
     });
     return count;
+  }
+
+  fromMistyPeaks(hot: Tracker): boolean {
+    return hot.attributions.some(function (attr) {
+      return attr.name.includes('Misty Peaks');
+    });
+  }
+
+  fromHardcast(hot: Tracker): boolean {
+    return hot.attributions.some(function (attr) {
+      return attr.name.includes('Hardcast');
+    });
   }
 
   // Renewing Mist applies with a longer duration if Thunder Focus Tea is active

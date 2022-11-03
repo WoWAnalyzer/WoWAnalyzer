@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { formatDuration, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -20,7 +20,7 @@ class FoulBulwark extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FOUL_BULWARK_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.FOUL_BULWARK_TALENT.id);
   }
 
   get boneShieldTimesByStack() {
@@ -65,7 +65,7 @@ class FoulBulwark extends Analyzer {
           </table>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.FOUL_BULWARK_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.FOUL_BULWARK_TALENT.id}>
           <Trans id="deathknight.blood.foulBulwark.statistic">
             {this.averageFoulBullwark}% <small>average buff</small>
           </Trans>

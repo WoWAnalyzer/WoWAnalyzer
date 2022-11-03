@@ -2,6 +2,9 @@ import { change, date } from 'common/changelog';
 import { Khadaj, Talador12, emallson, jazminite } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2021, 10, 28), 'Re-organize Classic Warlock spells', jazminite),
+  change(date(2021, 10, 22), 'Text updates for live build', jazminite),
+  change(date(2021, 10, 22), 'Update Curse info for WotLK', jazminite),
   change(date(2021, 10, 18), 'Add specs and update timeline for WotLK', jazminite),
   change(date(2021, 10, 16), 'Update spells for WotLK', jazminite),
   change(date(2021, 10, 11), 'Fixed crashing errors in Curse modules', emallson),

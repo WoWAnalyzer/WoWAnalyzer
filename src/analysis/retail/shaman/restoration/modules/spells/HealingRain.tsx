@@ -1,5 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
@@ -29,6 +30,7 @@ class HealingRain extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HEALING_RAIN_TALENT);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL),
@@ -48,11 +50,11 @@ class HealingRain extends Analyzer {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
           <span>
-            Try to always cast <SpellLink id={SPELLS.HEALING_RAIN_CAST.id} /> in areas where players
-            stack. This allows the spell to consitantly hit all 6 possible targets.
+            Try to always cast <SpellLink id={TALENTS.HEALING_RAIN_TALENT.id} /> in areas where
+            players stack. This allows the spell to consitantly hit all 6 possible targets.
           </span>,
         )
-          .icon(SPELLS.HEALING_RAIN_CAST.icon)
+          .icon(TALENTS.HEALING_RAIN_TALENT.icon)
           .actual(
             t({
               id: 'shaman.restoration.suggestions.healingRain.averageTargets',

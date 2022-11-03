@@ -3,7 +3,8 @@ import SPELLS from 'common/SPELLS';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import { SpellLink } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { SubSection } from 'interface/guide';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
 /**
  * Feral's display module for Adaptive Swarm - standard damage dealer plus also the uptime stat
@@ -23,8 +24,8 @@ class AdaptiveSwarmFeral extends AdaptiveSwarmDamageDealer {
 
   get guideSubsection(): JSX.Element {
     const hasUs = this.selectedCombatant.hasTalent(TALENTS_DRUID.UNBRIDLED_SWARM_TALENT);
-    return (
-      <SubSection>
+    const explanation = (
+      <p>
         <strong>
           <SpellLink id={TALENTS_DRUID.ADAPTIVE_SWARM_TALENT.id} />
         </strong>{' '}
@@ -45,9 +46,18 @@ class AdaptiveSwarmFeral extends AdaptiveSwarmDamageDealer {
             soon as the previous Swarm falls, you should be able to maintain 60+% uptime.
           </>
         )}
-        {this.subStatistic()}
-      </SubSection>
+      </p>
     );
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>Adaptive Swarm uptime</strong>
+          {this.subStatistic()}
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data);
   }
 }
 

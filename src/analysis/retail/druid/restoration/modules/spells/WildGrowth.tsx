@@ -1,24 +1,26 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
-import { SubSection } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AnyEvent, CastEvent, EventType, HealEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import BoringValue from 'parser/ui/BoringValueText';
-import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { getHeals } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 /** Number of targets WG must effectively heal in order to be efficient */
 const RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD = 3;
 /** Max time after WG apply to watch for high overhealing */
 const OVERHEAL_BUFFER = 3000;
 /** Overheal percent within OVERHEAL_BUFFER of application that will count as 'too much' */
-const OVERHEAL_THRESHOLD = 0.5;
+const OVERHEAL_THRESHOLD = 0.6;
 
 /**
  * Tracks stats relating to Wild Growth
@@ -49,8 +51,8 @@ class WildGrowth extends Analyzer {
   /** Wild Growth hardcasts that had too much early overhealing */
   tooMuchOverhealCasts = 0;
 
-  /** Log of each WG cast, and how many targets were healed and how many were effective */
-  castWgHitsLog: WgCast[] = [];
+  /** Box row entry for each WG cast */
+  castEntries: BoxRowEntry[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -118,11 +120,15 @@ class WildGrowth extends Analyzer {
       }
     }
 
-    this.castWgHitsLog.push({
-      timestamp: this.recentWgTimestamp,
-      hits: hits.length,
-      effectiveHits,
-    });
+    // add cast perf entry
+    const value = effectiveHits >= 3 ? QualitativePerformance.Good : QualitativePerformance.Fail;
+    const tooltip = (
+      <>
+        @ <strong>{this.owner.formatTimestamp(this.recentWgTimestamp)}</strong>, Hits:{' '}
+        <strong>{hits.length}</strong>, Effective: <strong>{effectiveHits}</strong>
+      </>
+    );
+    this.castEntries.push({ value, tooltip });
   }
 
   get averageEffectiveHits() {
@@ -135,33 +141,32 @@ class WildGrowth extends Analyzer {
 
   /** Guide subsection describing the proper usage of Wild Growth */
   get guideSubsection(): JSX.Element {
-    const castPerfBoxes = this.castWgHitsLog.map((wgCast) => ({
-      value: wgCast.effectiveHits >= 3,
-      tooltip: `@ ${this.owner.formatTimestamp(wgCast.timestamp)} - Hits: ${
-        wgCast.hits
-      }, Effective: ${wgCast.effectiveHits}`,
-    }));
-    return (
-      <SubSection>
-        <p>
-          <b>
-            <SpellLink id={SPELLS.WILD_GROWTH.id} />
-          </b>{' '}
-          is your best healing spell when multiple raiders are injured. It quickly heals a lot of
-          damage, but has a high mana cost. Use Wild Growth over Rejuvenation if there are at least
-          3 injured targets. Remember that only allies within 30 yds of the primary target can be
-          hit - don't cast this on an isolated player!
-        </p>
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={SPELLS.WILD_GROWTH.id} />
+        </b>{' '}
+        is your best healing spell when multiple raiders are injured. It quickly heals a lot of
+        damage, but has a high mana cost. Use Wild Growth over Rejuvenation if there are at least 3
+        injured targets. Remember that only allies within 30 yds of the primary target can be hit -
+        don't cast this on an isolated player!
+      </p>
+    );
+
+    const data = (
+      <div>
         <strong>Wild Growth casts</strong>
         <small>
           {' '}
           - Green is a good cast, Red was effective on fewer than three targets. A hit is considered
-          "ineffective" if over the first 3 seconds it did more than 50% overhealing. Mouseover
-          boxes for details.
+          "ineffective" if over the first {(OVERHEAL_BUFFER / 1000).toFixed(0)} seconds it did more
+          than {formatPercentage(OVERHEAL_THRESHOLD, 0)}% overhealing. Mouseover boxes for details.
         </small>
-        <PerformanceBoxRow values={castPerfBoxes} />
-      </SubSection>
+        <PerformanceBoxRow values={this.castEntries} />
+      </div>
     );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   statistic() {
@@ -194,7 +199,5 @@ class WildGrowth extends Analyzer {
     );
   }
 }
-
-type WgCast = { timestamp: number; hits: number; effectiveHits: number };
 
 export default WildGrowth;

@@ -108,6 +108,11 @@ const spells = spellIndexableList({
     icon: 'ability_monk_vivify',
     manaCost: 9500,
   },
+  VIVIFICATION_BUFF: {
+    id: 392883,
+    name: 'Vivifacious Vivification',
+    icon: 'ability_monk_vivify',
+  },
   ATOTM_BUFF: {
     id: 388026,
     name: 'Ancient Teachings of the Monestary',
@@ -235,6 +240,11 @@ const spells = spellIndexableList({
     id: 158221,
     name: 'Whirling Dragon Punch',
     icon: 'ability_monk_hurricanestrike',
+  },
+  YULONS_WHISPER_HEAL: {
+    id: 388044,
+    name: "Yu'lon's Whisper",
+    icon: 'ability_monk_chiexplosion',
   },
 
   // Brewmaster
@@ -511,7 +521,7 @@ const spells = spellIndexableList({
     name: 'Flying Serpent Kick',
     icon: 'priest_icon_chakra_green',
   },
-  RISING_SUN_KICK_SECOND: {
+  RISING_SUN_KICK_DAMAGE: {
     id: 185099,
     name: 'Rising Sun Kick',
     icon: 'ability_monk_risingsunkick',

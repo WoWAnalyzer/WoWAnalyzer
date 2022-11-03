@@ -71,8 +71,12 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           </Trans>
         }
       >
-        <AbilityRequirement spell={TALENTS.HOLY_SHOCK_TALENT.id} />
-        <AbilityRequirement spell={TALENTS.HAMMER_OF_WRATH_TALENT.id} />
+        {combatant.hasTalent(TALENTS.HOLY_SHOCK_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.HOLY_SHOCK_TALENT.id} />
+        )}
+        {combatant.hasTalent(TALENTS.HAMMER_OF_WRATH_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.HAMMER_OF_WRATH_TALENT.id} />
+        )}
         {combatant.hasTalent(TALENTS.BESTOW_FAITH_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.BESTOW_FAITH_TALENT.id} />
         )}
@@ -177,8 +181,9 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           }
           thresholds={thresholds.fillerFlashOfLight}
         />
-        <AbilityRequirement spell={TALENTS.HOLY_SHOCK_TALENT.id} />
-        {combatant.hasTalent(TALENTS.HOLY_SHOCK_TALENT.id)}
+        {combatant.hasTalent(TALENTS.HOLY_SHOCK_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.HOLY_SHOCK_TALENT.id} />
+        )}
       </Rule>
       <Rule
         name={

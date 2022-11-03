@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import { TALENTS_PRIEST } from 'common/TALENTS';
+import { TALENTS_PRIEST, TALENTS_SHAMAN } from 'common/TALENTS';
 import SPECS from 'game/SPECS';
 import { Class, CombatantInfoEvent } from 'parser/core/Events';
 
@@ -25,15 +25,15 @@ const AVAILABLE_RAID_BUFFS = new Map<number, Array<Class | object>>([
   //  Physical vulnerability
   [SPELLS.MYSTIC_TOUCH.id, [Class.Monk]],
   // Raid cooldowns
-  [SPELLS.BLOODLUST.id, [Class.Shaman, Class.Mage, Class.Hunter]],
+  [SPELLS.BLOODLUST.id, [Class.Shaman, Class.Mage, Class.Hunter, Class.Evoker]],
   //  Battle res
-  [SPELLS.REBIRTH.id, [Class.Druid, Class.DeathKnight, Class.Warlock]],
+  [SPELLS.REBIRTH.id, [Class.Druid, Class.DeathKnight, Class.Warlock, Class.Paladin]],
   [SPELLS.RALLYING_CRY.id, [Class.Warrior]],
   [TALENTS_DEATH_KNIGHT.ANTI_MAGIC_ZONE_TALENT.id, [Class.DeathKnight]],
   [TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id, [Class.DemonHunter]],
   [SPELLS.AURA_MASTERY.id, [SPECS.HOLY_PALADIN]],
-  [SPELLS.SPIRIT_LINK_TOTEM.id, [SPECS.RESTORATION_SHAMAN]],
-  [SPELLS.HEALING_TIDE_TOTEM_CAST.id, [SPECS.RESTORATION_SHAMAN]],
+  [TALENTS_SHAMAN.SPIRIT_LINK_TOTEM_TALENT.id, [SPECS.RESTORATION_SHAMAN]],
+  [TALENTS_SHAMAN.HEALING_TIDE_TOTEM_TALENT.id, [SPECS.RESTORATION_SHAMAN]],
   [TALENTS_MONK.REVIVAL_TALENT.id, [SPECS.MISTWEAVER_MONK]],
   [TALENTS_MONK.RESTORAL_TALENT.id, [SPECS.MISTWEAVER_MONK]],
   [SPELLS.POWER_WORD_BARRIER_CAST.id, [SPECS.DISCIPLINE_PRIEST]],
