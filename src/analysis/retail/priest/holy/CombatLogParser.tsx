@@ -104,7 +104,8 @@ class CombatLogParser extends CoreCombatLogParser {
     Benediction: Talents.MiddleRow.Benediction,
     RevitalizingPrayers: Talents.MiddleRow.RevitalizingPrayers,
     DivineStar: Talents.Classwide.DivineStar,
-    mindgames: Mindgames,
+    Mindgames: Mindgames,
+    DivineWord: Talents.BottomRow.DivineWord,
 
     HolyWordSalvation: Talents.BottomRow.HolyWordSalvation,
     Apotheosis: Talents.BottomRow.Apotheosis,

@@ -454,6 +454,21 @@ const spells = spellIndexableList({
     name: 'Healing Chorus',
     icon: 'spell_holy_circleofrenewal',
   },
+  DIVINE_WORD_SANCTIFY_TALENT_HEAL: {
+    id: 372787,
+    name: 'Divine Word: Sanctuary',
+    icon: 'priest_icon_chakra_blue',
+  },
+  DIVINE_WORD_SERENITY_TALENT_BUFF: {
+    id: 372791,
+    name: 'Divine Favor: Serenity',
+    icon: 'priest_icon_chakra',
+  },
+  DIVINE_WORD_CHASTISE_TALENT_BUFF: {
+    id: 372761,
+    name: 'Divine Favor: Chastise',
+    icon: 'priest_icon_chakra_red',
+  },
   // Shadow Spells
   MIND_BLAST: {
     id: 8092,
