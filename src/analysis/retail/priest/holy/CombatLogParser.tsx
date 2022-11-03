@@ -106,6 +106,7 @@ class CombatLogParser extends CoreCombatLogParser {
     DivineStar: Talents.Classwide.DivineStar,
     Mindgames: Mindgames,
     DivineWord: Talents.BottomRow.DivineWord,
+    SearingLight: Talents.BottomRow.SearingLight,
 
     HolyWordSalvation: Talents.BottomRow.HolyWordSalvation,
     Apotheosis: Talents.BottomRow.Apotheosis,

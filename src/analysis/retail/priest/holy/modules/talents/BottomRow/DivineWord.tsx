@@ -5,8 +5,12 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Events, { DamageEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
-import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
+import Events, {
+  DamageEvent,
+  HealEvent,
+  ApplyBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import {
   calculateEffectiveHealing,
   calculateOverhealing,
@@ -17,19 +21,19 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { formatPercentage } from 'common/format';
 import { ABILITIES_THAT_WORK_WITH_DIVINE_FAVOR_CHASTISE } from 'analysis/retail/priest/holy/constants';
+import { SpellIcon } from '../../../../../../../interface';
 
 const DAMAGE_INCREASE_FROM_CHASTISE = 0.5;
 const HOLY_FIRE_APPLICATION_DURATION = 7;
 const HEALING_INCREASE_FROM_SERENITY = 0.3;
 const CRIT_INCREASE_FROM_SERENITY = 0.2;
 
-// Example Log:
+// Example Logs: /report/VXr2kgALF3Rj6Q4M/11-Mythic+Anduin+Wrynn+-+Kill+(5:12)/Litena/standard/statistics
+// /report/xq2FvfVCJh6YLjzZ/2-Mythic+Vigilant+Guardian+-+Kill+(4:40)/Ashelya/standard/statistics
 class DivineWord extends Analyzer {
   static dependencies = {
-    critEffectBonus: CritEffectBonus,
     statTracker: StatTracker,
   };
-  protected critEffectBonus!: CritEffectBonus;
   protected statTracker!: StatTracker;
 
   //Could also track mana saved and wasted Divine Words buffs
@@ -45,6 +49,12 @@ class DivineWord extends Analyzer {
 
   divineFavorSerenityActive = false;
   divineFavorChastiseActive = false;
+
+  divineWordActive = false;
+  divineWordCasts = 0;
+  serenityWordUse = 0;
+  chastiseWordUse = 0;
+  sanctifyWordUse = 0;
 
   constructor(options: Options) {
     super(options);
@@ -72,11 +82,19 @@ class DivineWord extends Analyzer {
       this.onBuff,
     );
     this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.DIVINE_WORD_TALENT),
+      this.onBuff,
+    );
+    this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF),
       this.onBuffRemoval,
     );
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF),
+      this.onBuffRemoval,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.DIVINE_WORD_TALENT),
       this.onBuffRemoval,
     );
     //Tracking Holy fire casts and debuff applications
@@ -94,6 +112,15 @@ class DivineWord extends Analyzer {
     );
     //Tracking damage events for divine favor chastise
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    //Tracking different uses of the buff
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.DIVINE_WORD_TALENT),
+      this.onDivineWord,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HOLY_WORD_SANCTIFY_TALENT),
+      this.onSanctify,
+    );
   }
   onHolyFireDebuff() {
     if (this.divineFavorChastiseActive) {
@@ -144,25 +171,27 @@ class DivineWord extends Analyzer {
   onBuff(event: ApplyBuffEvent) {
     const buffId = event.ability.guid;
     switch (buffId) {
+      case TALENTS.DIVINE_WORD_TALENT.id:
+        this.divineWordActive = true;
+        break;
       case SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF.id:
-        console.log('på');
         this.divineFavorChastiseActive = true;
+        this.chastiseWordUse += 1;
         break;
       case SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF.id:
         this.divineFavorSerenityActive = true;
+        this.serenityWordUse += 1;
         break;
-      default:
-        throw new DOMException();
     }
   }
 
   onBuffRemoval(event: RemoveBuffEvent) {
     const buffId = event.ability.guid;
-    switch (
-      buffId // CHeck ordering for correctness
-    ) {
+    switch (buffId) {
+      case TALENTS.DIVINE_WORD_TALENT.id:
+        this.divineWordActive = false;
+        break;
       case SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF.id:
-        console.log('af');
         this.divineFavorChastiseActive = false;
         break;
       case SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF.id:
@@ -171,9 +200,20 @@ class DivineWord extends Analyzer {
     }
   }
 
+  onDivineWord() {
+    this.divineWordCasts += 1;
+  }
+
+  onSanctify() {
+    if (this.divineWordActive) {
+      this.sanctifyWordUse += 1;
+    }
+  }
+
   statistic() {
     const holyFireFromSmiteDuration =
       (this.holyFireApplications - this.holyFireCasts) * HOLY_FIRE_APPLICATION_DURATION;
+    const castsString = this.divineWordCasts > 1 ? 'casts' : 'cast';
     return (
       <Statistic
         tooltip={
@@ -201,7 +241,16 @@ class DivineWord extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(7)}
       >
-        <BoringSpellValueText spellId={TALENTS.DIVINE_WORD_TALENT.id}></BoringSpellValueText>
+        <BoringSpellValueText spellId={TALENTS.DIVINE_WORD_TALENT.id}>
+          Usage: {this.sanctifyWordUse}
+          <SpellIcon id={SPELLS.DIVINE_WORD_SANCTIFY_TALENT_HEAL.id} />
+          &nbsp;{this.serenityWordUse}
+          <SpellIcon id={SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF.id} />
+          &nbsp;{this.chastiseWordUse}
+          <SpellIcon id={SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF.id} />
+          <br />
+          {this.divineWordCasts} total {castsString}
+        </BoringSpellValueText>
         <BoringSpellValueText spellId={SPELLS.DIVINE_WORD_SANCTIFY_TALENT_HEAL.id}>
           <ItemHealingDone amount={this.sanctifyHealing} />
         </BoringSpellValueText>

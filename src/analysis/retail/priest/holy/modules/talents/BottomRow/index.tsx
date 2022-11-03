@@ -8,6 +8,7 @@ import HolyWordSalvation from './HolyWordSalvation';
 import LightOfTheNaaru from './LightOfTheNaaru';
 import Lightweaver from './Lightweaver';
 import ResonantWords from './ResonantWords';
+import SearingLight from './SearingLight';
 
 export {
   AnsweredPrayers,
@@ -20,4 +21,5 @@ export {
   LightOfTheNaaru,
   Lightweaver,
   ResonantWords,
+  SearingLight,
 };
