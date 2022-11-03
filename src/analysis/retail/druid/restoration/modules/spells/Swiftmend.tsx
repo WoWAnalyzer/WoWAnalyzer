@@ -84,7 +84,7 @@ class Swiftmend extends Analyzer {
   onSwiftmendCast(event: CastEvent) {
     const directHeal = getDirectHeal(event);
     const targetHealthPercent = directHeal
-      ? calculateHealTargetHealthPercent(directHeal)
+      ? calculateHealTargetHealthPercent(directHeal, true)
       : undefined;
     const target = this.combatants.getEntity(event);
     if (!target) {
@@ -113,11 +113,11 @@ class Swiftmend extends Analyzer {
         extendedHotIds.includes(VERY_HIGH_VALUE_HOT) ||
         extendedHotIds.filter((id) => HIGH_VALUE_HOTS.includes(id)).length >= 2;
       if (extendedHighValue) {
-        value = 'perfect';
+        value = QualitativePerformance.Perfect;
       } else if (wasTriage) {
-        value = 'good';
+        value = QualitativePerformance.Good;
       } else {
-        value = 'ok';
+        value = QualitativePerformance.Ok;
       }
 
       if (extendedHotIds.length === 0) {
@@ -142,11 +142,11 @@ class Swiftmend extends Analyzer {
       const removedHighValue =
         HIGH_VALUE_HOTS.find((id) => id === removedHotHeal?.ability.guid) !== undefined;
       if (wasTriage || !removedHighValue) {
-        value = 'good';
+        value = QualitativePerformance.Good;
       } else if (this.numProcs > 0) {
-        value = 'ok';
+        value = QualitativePerformance.Ok;
       } else {
-        value = 'fail';
+        value = QualitativePerformance.Fail;
       }
 
       hotChangeText = (

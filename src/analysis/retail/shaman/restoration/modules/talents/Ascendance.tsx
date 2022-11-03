@@ -1,5 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
@@ -17,7 +18,7 @@ class Ascendance extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ASCENDANCE_TALENT_RESTORATION.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_RESTORATION_TALENT.id);
 
     this.addEventListener(
       Events.heal
@@ -34,7 +35,7 @@ class Ascendance extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.ASCENDANCE_TALENT_RESTORATION.id} />}
+        title={<SpellLink id={TALENTS.ASCENDANCE_RESTORATION_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );

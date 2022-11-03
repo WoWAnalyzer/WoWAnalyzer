@@ -1,19 +1,12 @@
-import { wclGameVersionToExpansion } from 'game/VERSIONS';
 import ErrorBoundary from 'interface/ErrorBoundary';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import NavigationBar from 'interface/NavigationBar';
-import Config from 'parser/Config';
-import { CombatantInfoEvent } from 'parser/core/Events';
-import { WCLFight } from 'parser/core/Fight';
-import { PlayerInfo } from 'parser/core/Player';
-import ReportObject from 'parser/core/Report';
-import getConfig from 'parser/getConfig';
 import { useCallback, useState } from 'react';
 
 import BOSS_PHASES_STATE from './BOSS_PHASES_STATE';
-import ConfigContext from './ConfigContext';
+import { ReportPlayerConfigProvider, useConfig } from './ConfigContext';
 import EVENT_PARSING_STATE from './EVENT_PARSING_STATE';
-import { ExpansionContextProvider } from './ExpansionContext';
+import { ReportExpansionContextProvider } from './ExpansionContext';
 import FightSelection from './FightSelection';
 import useBossPhaseEvents from './hooks/useBossPhaseEvents';
 import useCharacterProfile from './hooks/useCharacterProfile';
@@ -27,16 +20,15 @@ import PlayerLoader from './PlayerLoader';
 import ReportLoader from './ReportLoader';
 import Results from './Results';
 import SupportChecker from './SupportChecker';
+import { useReport } from 'interface/report/context/ReportContext';
+import { usePlayer } from 'interface/report/context/PlayerContext';
+import { useFight } from 'interface/report/context/FightContext';
 
-interface Props {
-  config: Config;
-  report: ReportObject;
-  fight: WCLFight;
-  player: PlayerInfo;
-  combatants: CombatantInfoEvent[];
-}
-
-const ResultsLoader = ({ config, report, fight, player, combatants }: Props) => {
+const ResultsLoader = () => {
+  const config = useConfig();
+  const { report } = useReport();
+  const { player, combatants } = usePlayer();
+  const { fight } = useFight();
   const [timeFilter, setTimeFilter] = useState<Filter | null>(null);
   const [selectedPhase, setSelectedPhase] = useState<string>(SELECTION_ALL_PHASES);
   const [selectedInstance, setSelectedInstance] = useState<number>(0);
@@ -180,7 +172,6 @@ const ResultsLoader = ({ config, report, fight, player, combatants }: Props) => 
   );
 };
 
-// TODO: Turn all the loaders and shit into hooks
 const Report = () => (
   // TODO: Error boundary so all sub components don't need the errorHandler with the silly withRouter dependency. Instead just throw the error and let the boundary catch it - if possible.
   <>
@@ -188,41 +179,19 @@ const Report = () => (
 
     <ErrorBoundary>
       <ReportLoader>
-        {(report, refreshReport) => (
-          <ExpansionContextProvider gameVersion={report.gameVersion}>
-            <PatchChecker report={report}>
-              <FightSelection report={report} refreshReport={refreshReport}>
-                {(fight) => (
-                  <PlayerLoader report={report} fight={fight}>
-                    {(player, combatant, combatants) => (
-                      <ConfigContext.Provider
-                        value={getConfig(
-                          wclGameVersionToExpansion(report.gameVersion),
-                          combatant.specID,
-                          player.type,
-                        )}
-                      >
-                        <SupportChecker report={report} fight={fight} player={player}>
-                          <ConfigContext.Consumer>
-                            {(config) => (
-                              <ResultsLoader
-                                config={config!}
-                                report={report}
-                                fight={fight}
-                                player={player}
-                                combatants={combatants}
-                              />
-                            )}
-                          </ConfigContext.Consumer>
-                        </SupportChecker>
-                      </ConfigContext.Provider>
-                    )}
-                  </PlayerLoader>
-                )}
-              </FightSelection>
-            </PatchChecker>
-          </ExpansionContextProvider>
-        )}
+        <ReportExpansionContextProvider>
+          <PatchChecker>
+            <FightSelection>
+              <PlayerLoader>
+                <ReportPlayerConfigProvider>
+                  <SupportChecker>
+                    <ResultsLoader />
+                  </SupportChecker>
+                </ReportPlayerConfigProvider>
+              </PlayerLoader>
+            </FightSelection>
+          </PatchChecker>
+        </ReportExpansionContextProvider>
       </ReportLoader>
     </ErrorBoundary>
   </>

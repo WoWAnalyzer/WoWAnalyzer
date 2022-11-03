@@ -69,11 +69,6 @@ const spells = spellIndexableList({
     name: 'Rune of Power',
     icon: 'spell_mage_runeofpower',
   },
-  MIRROR_IMAGE: {
-    id: 55342,
-    name: 'Mirror Image',
-    icon: 'spell_magic_lesserinvisibilty',
-  },
   MIRROR_IMAGE_SUMMON: {
     id: 88088,
     name: 'Mirror Image',
@@ -93,11 +88,6 @@ const spells = spellIndexableList({
     id: 342246,
     name: 'Alter Time',
     icon: 'spell_mage_altertime',
-  },
-  REMOVE_CURSE: {
-    id: 475,
-    name: 'Remove Curse',
-    icon: 'spell_nature_removecurse',
   },
   POLYMORPH_SHEEP: {
     id: 118,
@@ -169,24 +159,10 @@ const spells = spellIndexableList({
     name: 'Polymorph',
     icon: 'inv_mawrat',
   },
-
-  //Fire
-  DRAGONS_BREATH: {
-    id: 31661,
-    name: "Dragon's Breath",
-    icon: 'inv_misc_head_dragon_01',
-  },
-
-  //Arcane
-  GREATER_INVISIBILITY: {
-    id: 110959,
-    name: 'Greater Invisibility',
-    icon: 'ability_mage_greaterinvisibility',
-  },
-  SLOW: {
-    id: 31589,
-    name: 'Slow',
-    icon: 'spell_nature_slow',
+  POLYMORPH_DUCK: {
+    id: 391622,
+    name: 'Polymorph',
+    icon: 'inv_duckbaby_mallard',
   },
 });
 

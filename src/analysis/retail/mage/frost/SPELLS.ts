@@ -37,11 +37,6 @@ const spells = spellIndexableList({
     name: 'Waterbolt',
     icon: 'spell_frost_frostbolt',
   },
-  ICE_LANCE: {
-    id: 30455,
-    name: 'Ice Lance',
-    icon: 'spell_frost_frostblast',
-  },
   ICE_LANCE_DAMAGE: {
     id: 228598,
     name: 'Ice Lance',
@@ -71,11 +66,6 @@ const spells = spellIndexableList({
     id: 190357,
     name: 'Blizzard',
     icon: 'spell_frost_icestorm',
-  },
-  FLURRY: {
-    id: 44614,
-    name: 'Flurry',
-    icon: 'ability_warlock_burningembersblue',
   },
   FLURRY_DAMAGE: {
     id: 228354,

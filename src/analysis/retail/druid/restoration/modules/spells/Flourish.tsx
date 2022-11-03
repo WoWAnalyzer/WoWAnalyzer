@@ -18,11 +18,14 @@ import { FLOURISH_INCREASED_RATE } from 'analysis/retail/druid/restoration/const
 import {
   CooldownExpandable,
   CooldownExpandableItem,
+  GUIDE_CORE_EXPLANATION_PERCENT,
 } from 'analysis/retail/druid/restoration/Guide';
 import { isFromHardcast } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
 import ConvokeSpiritsResto from 'analysis/retail/druid/restoration/modules/spells/ConvokeSpiritsResto';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 const HARDCAST_FLOURISH_EXTENSION = 8000;
 const CONVOKE_FLOURISH_EXTENSION = 4000;
@@ -154,8 +157,8 @@ class Flourish extends Analyzer {
 
   /** Guide fragment showing a breakdown of each Flourish cast */
   get guideCastBreakdown() {
-    return (
-      <>
+    const explanation = (
+      <p>
         <strong>
           <SpellLink id={TALENTS_DRUID.FLOURISH_TALENT.id} />
         </strong>{' '}
@@ -170,7 +173,13 @@ class Flourish extends Analyzer {
             hardcast.
           </>
         )}
-        <p />
+      </p>
+    );
+
+    const data = (
+      <div>
+        <strong>Per-Cast Breakdown</strong>
+        <small> - click to expand</small>
         {this.rampTrackers.map((cast, ix) => {
           const castTotalHealing = cast.extensionAttribution.healing + cast.rateAttribution.amount;
 
@@ -182,6 +191,14 @@ class Flourish extends Analyzer {
             </>
           );
 
+          const wgRamp = cast.wgsOnCast > 0;
+          const rejuvRamp = cast.rejuvsOnCast > 0;
+          const noFlourishClip = !cast.clipped;
+          const overallPerf =
+            wgRamp && rejuvRamp && noFlourishClip
+              ? QualitativePerformance.Good
+              : QualitativePerformance.Fail;
+
           const checklistItems: CooldownExpandableItem[] = [];
           checklistItems.push({
             label: (
@@ -189,7 +206,7 @@ class Flourish extends Analyzer {
                 <SpellLink id={SPELLS.WILD_GROWTH.id} /> ramp
               </>
             ),
-            result: <PassFailCheckmark pass={cast.wgsOnCast > 0} />,
+            result: <PassFailCheckmark pass={wgRamp} />,
             details: <>({cast.wgsOnCast} HoTs active)</>,
           });
           checklistItems.push({
@@ -198,7 +215,7 @@ class Flourish extends Analyzer {
                 <SpellLink id={SPELLS.REJUVENATION.id} /> ramp
               </>
             ),
-            result: <PassFailCheckmark pass={cast.rejuvsOnCast > 0} />,
+            result: <PassFailCheckmark pass={rejuvRamp} />,
             details: <>({cast.rejuvsOnCast} HoTs active)</>,
           });
           this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) &&
@@ -226,14 +243,22 @@ class Flourish extends Analyzer {
                   </Tooltip>
                 </>
               ),
-              result: <PassFailCheckmark pass={!cast.clipped} />,
+              result: <PassFailCheckmark pass={noFlourishClip} />,
             });
 
-          return <CooldownExpandable header={header} checklistItems={checklistItems} key={ix} />;
+          return (
+            <CooldownExpandable
+              header={header}
+              checklistItems={checklistItems}
+              perf={overallPerf}
+              key={ix}
+            />
+          );
         })}
-        <p />
-      </>
+      </div>
     );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   statistic() {

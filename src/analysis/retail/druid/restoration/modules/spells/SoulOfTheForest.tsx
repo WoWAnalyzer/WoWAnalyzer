@@ -38,9 +38,9 @@ const SOTF_SPELLS = [
   SPELLS.REGROWTH,
 ];
 
-const REJUVENATION_HEALING_INCREASE = 2;
-const REGROWTH_HEALING_INCREASE = 2;
-const WILD_GROWTH_HEALING_INCREASE = 0.6;
+const REJUVENATION_HEALING_INCREASE = 1.5;
+const REGROWTH_HEALING_INCREASE = 1.5;
+const WILD_GROWTH_HEALING_INCREASE = 0.5;
 
 const debug = false;
 
@@ -48,8 +48,8 @@ const debug = false;
  * **Soul of the Forest**
  * Spec Talent Tier 6
  *
- * Swiftmend increases the healing of your next Regrowth or Rejuvenation by 200%,
- * or your next Wild Growth by 60%.
+ * Swiftmend increases the healing of your next Regrowth or Rejuvenation by 150%,
+ * or your next Wild Growth by 50%.
  */
 class SoulOfTheForest extends Analyzer {
   static dependencies = {
@@ -194,46 +194,45 @@ class SoulOfTheForest extends Analyzer {
   onSotfRemove(event: RemoveBuffEvent | RefreshBuffEvent) {
     // Text to show in tooltip for this SotF usage. Won't be filled for Convoke generated ones!
     let useText: React.ReactNode;
-    let value: QualitativePerformance = false;
+    let value: QualitativePerformance = QualitativePerformance.Fail;
 
     if (event.type === EventType.RefreshBuff) {
       if (this.lastBuffFromHardcast) {
         useText = 'Overwritten';
-        value = 'fail';
+        value = QualitativePerformance.Fail;
       }
       this.lastBuffFromHardcast = false;
-      return;
-    }
-
-    const buffed = getSotfBuffs(event);
-    if (buffed.length === 0) {
-      useText = 'Expired';
-      value = 'fail';
     } else {
-      if (!isFromHardcast(buffed[0]) && !this.lastBuffFromHardcast) {
-        // SM during Convoke also consumed during Convoke - don't count it
-        return;
-      }
-
-      // even if generated during Convoke, we count it if consumed by hardcast
-      const firstGuid = buffed[0].ability.guid;
-      if (
-        firstGuid === SPELLS.REJUVENATION.id ||
-        firstGuid === SPELLS.REJUVENATION_GERMINATION.id
-      ) {
-        useText = <SpellLink id={SPELLS.REJUVENATION.id} />;
-        value = 'ok';
-      } else if (firstGuid === SPELLS.REGROWTH.id) {
-        useText = <SpellLink id={SPELLS.REGROWTH.id} />;
-        value = 'ok';
-      } else if (firstGuid === SPELLS.WILD_GROWTH.id) {
-        useText = <SpellLink id={SPELLS.WILD_GROWTH.id} />;
-        value = 'good';
+      const buffed = getSotfBuffs(event);
+      if (buffed.length === 0) {
+        useText = 'Expired';
+        value = QualitativePerformance.Fail;
       } else {
-        console.warn('SOTF reported as consumed by unexpected spell ID: ' + firstGuid);
+        if (!isFromHardcast(buffed[0]) && !this.lastBuffFromHardcast) {
+          // SM during Convoke also consumed during Convoke - don't count it
+          return;
+        }
+
+        // even if generated during Convoke, we count it if consumed by hardcast
+        const firstGuid = buffed[0].ability.guid;
+        if (
+          firstGuid === SPELLS.REJUVENATION.id ||
+          firstGuid === SPELLS.REJUVENATION_GERMINATION.id
+        ) {
+          useText = <SpellLink id={SPELLS.REJUVENATION.id} />;
+          value = QualitativePerformance.Ok;
+        } else if (firstGuid === SPELLS.REGROWTH.id) {
+          useText = <SpellLink id={SPELLS.REGROWTH.id} />;
+          value = QualitativePerformance.Ok;
+        } else if (firstGuid === SPELLS.WILD_GROWTH.id) {
+          useText = <SpellLink id={SPELLS.WILD_GROWTH.id} />;
+          value = QualitativePerformance.Good;
+        } else {
+          console.warn('SOTF reported as consumed by unexpected spell ID: ' + firstGuid);
+        }
       }
+      this.lastBuffFromHardcast = false;
     }
-    this.lastBuffFromHardcast = false;
 
     // fill in box entry if needed
     if (useText !== undefined) {

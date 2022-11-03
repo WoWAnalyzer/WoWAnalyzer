@@ -1,5 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -14,14 +15,13 @@ class Undulation extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.UNDULATION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.UNDULATION_TALENT.id);
 
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.HEALING_WAVE, SPELLS.HEALING_SURGE]),
+      Events.heal.by(SELECTED_PLAYER).spell([TALENTS.HEALING_WAVE_TALENT, SPELLS.HEALING_SURGE]),
       this._onHeal,
     );
   }
-  // TODO this might need to account for pwave covenant ability in SL as it copies healing waves
   _onHeal(event: HealEvent) {
     const hasUndulation = this.selectedCombatant.hasBuff(
       SPELLS.UNDULATION_BUFF.id,
@@ -38,7 +38,7 @@ class Undulation extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.UNDULATION_TALENT.id} />}
+        title={<SpellLink id={TALENTS.UNDULATION_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );

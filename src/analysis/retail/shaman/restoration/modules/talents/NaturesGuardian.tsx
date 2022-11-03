@@ -1,5 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, EventType, HealEvent } from 'parser/core/Events';
@@ -28,7 +29,7 @@ class NaturesGuardian extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.NATURES_GUARDIAN_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.NATURES_GUARDIAN_TALENT.id);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.NATURES_GUARDIAN_HEAL),
@@ -40,7 +41,7 @@ class NaturesGuardian extends Analyzer {
     const fabricatedCastEvent: CastEvent = {
       ability: {
         ...event.ability,
-        guid: SPELLS.NATURES_GUARDIAN_TALENT.id,
+        guid: TALENTS.NATURES_GUARDIAN_TALENT.id,
       },
       sourceID: event.sourceID,
       sourceIsFriendly: event.sourceIsFriendly,
@@ -57,7 +58,7 @@ class NaturesGuardian extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.NATURES_GUARDIAN_TALENT.id} />}
+        title={<SpellLink id={TALENTS.NATURES_GUARDIAN_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );

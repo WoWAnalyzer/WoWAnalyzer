@@ -63,6 +63,7 @@ import RisingMist from './modules/spells/RisingMist';
 import SpiritOfTheCrane from './modules/spells/SpiritOfTheCrane';
 import VivaciousVivification from './modules/spells/VivaciousVivify';
 import Upwelling from './modules/spells/Upwelling';
+import YulonsWhisper from './modules/spells/YulonsWhisper';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
@@ -143,6 +144,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soothingMist: SoothingMist,
     thunderFocusTea: ThunderFocusTea,
     upwelling: Upwelling,
+    yulonsWhisper: YulonsWhisper,
 
     // Mana Tab
     manaTracker: ManaTracker,

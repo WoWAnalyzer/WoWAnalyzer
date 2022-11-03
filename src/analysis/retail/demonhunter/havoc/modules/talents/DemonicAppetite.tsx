@@ -6,10 +6,10 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/3Fx8Dbzt7fpaLkn4#fight=2&type=summary&source=14
@@ -89,11 +89,9 @@ class DemonicAppetite extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.DEMONIC_APPETITE_TALENT.id}>
-          <>
-            {this.furyPerMin} <small>Fury per min</small>
-          </>
-        </BoringSpellValueText>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.DEMONIC_APPETITE_TALENT}>
+          {this.furyPerMin} <small>Fury per min</small>
+        </TalentSpellText>
       </Statistic>
     );
   }

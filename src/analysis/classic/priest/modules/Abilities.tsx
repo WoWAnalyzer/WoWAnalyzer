@@ -4,6 +4,7 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 import lowRankSpells from '../lowRankSpells';
 import * as SPELLS from '../SPELLS';
+import { Build } from 'analysis/classic/priest/CONFIG';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -57,9 +58,9 @@ class Abilities extends CoreAbilities {
           static: 1500,
         },
         castEfficiency: {
-          suggestion: true,
+          suggestion: this.selectedCombatant.owner.build === Build.DISC || this.selectedCombatant.owner.build === Build.HOLY,
           recommendedEfficiency: 0.75,
-          extraSuggestion: 'You should aim to use this off CD.',
+          extraSuggestion: 'You should use this as often as possible.',
         },
         buffSpellId: SPELLS.PRAYER_OF_MENDING_BUFF,
         healSpellIds: [SPELLS.PRAYER_OF_MENDING_HEAL],
@@ -110,7 +111,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.MANA_BURN, ...lowRankSpells[SPELLS.MANA_BURN]],
+        spell: [SPELLS.MANA_BURN],
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           static: 1500,
@@ -125,7 +126,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.75,
-          extraSuggestion: 'You should aim to use this any time you are below 70% mana.',
+          extraSuggestion: 'You should use this any time you are below 70% mana.',
         },
         cooldown: 300,
       },
@@ -278,18 +279,24 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: this.selectedCombatant.talentPoints[1] >= 41,
+        cooldown: 6,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.6,
+          extraSuggestion: 'You should use this as often as possible.',
+        },
+        enabled: this.selectedCombatant.owner.build === Build.HOLY,
       },
       {
         spell: SPELLS.INNER_FOCUS,
         category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: this.selectedCombatant.talentPoints[0] >= 11,
         cooldown: 180,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.85,
-          extraSuggestion: 'You should aim to use this off CD.',
+          recommendedEfficiency: 0.5,
+          extraSuggestion: 'You should use this as often as possible.',
         },
+        enabled: this.selectedCombatant.owner.build === Build.DISC,
       },
       {
         spell: SPELLS.POWER_INFUSION,
@@ -300,10 +307,10 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.85,
-          extraSuggestion: 'You should aim to use this off CD.',
+          recommendedEfficiency: 0.5,
+          extraSuggestion: 'You should use this as often as possible.',
         },
-        enabled: this.selectedCombatant.talentPoints[0] >= 31,
+        enabled: this.selectedCombatant.owner.build === Build.DISC,
       },
       {
         spell: SPELLS.PAIN_SUPPRESSION,
@@ -311,7 +318,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: this.selectedCombatant.talentPoints[0] >= 41,
+        enabled: this.selectedCombatant.owner.build === Build.DISC,
       },
       {
         spell: [SPELLS.PENANCE, ...lowRankSpells[SPELLS.PENANCE]],
@@ -319,7 +326,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: this.selectedCombatant.talentPoints[0] >= 51,
+        enabled: this.selectedCombatant.owner.build === Build.DISC,
       },
       {
         spell: [SPELLS.PENANCE_HEALING, ...lowRankSpells[SPELLS.PENANCE_HEALING]],
@@ -327,7 +334,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: this.selectedCombatant.talentPoints[0] >= 51,
+        enabled: this.selectedCombatant.owner.build === Build.DISC,
       },
       {
         spell: [SPELLS.PENANCE_DAMAGE, ...lowRankSpells[SPELLS.PENANCE_DAMAGE]],
@@ -335,7 +342,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: this.selectedCombatant.talentPoints[0] >= 51,
+        enabled: this.selectedCombatant.owner.build === Build.DISC,
       },
 
       {
@@ -344,7 +351,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: this.selectedCombatant.talentPoints[2] >= 11,
+        enabled: this.selectedCombatant.owner.build === Build.SHADOW,
       },
       {
         spell: SPELLS.SILENCE,
@@ -359,7 +366,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: this.selectedCombatant.talentPoints[2] >= 21,
+        enabled: this.selectedCombatant.owner.build === Build.SHADOW,
       },
       {
         spell: SPELLS.SHADOW_FORM,
@@ -367,7 +374,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: this.selectedCombatant.talentPoints[2] >= 41,
+        enabled: this.selectedCombatant.owner.build === Build.SHADOW,
       },
       {
         spell: SPELLS.SYMBOL_OF_HOPE,
@@ -407,7 +414,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.DEVOURING_PLAGUE, ...lowRankSpells[SPELLS.DEVOURING_PLAGUE]],
-        category: SPELL_CATEGORY.COOLDOWNS,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 180,
         gcd: {
           static: 1500,
@@ -429,10 +436,24 @@ class Abilities extends CoreAbilities {
           static: 1500,
         },
         castEfficiency: {
-          suggestion: true,
+          suggestion: this.selectedCombatant.owner.build === Build.DISC || this.selectedCombatant.owner.build === Build.HOLY,
           recommendedEfficiency: 0.6,
-          extraSuggestion: 'You should aim to use this as often as possible.',
+          extraSuggestion: 'You should use this as often as possible.',
         },
+      },
+      {
+        spell: [SPELLS.GUARDIAN_SPIRIT],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 180,
+        gcd: {
+          static: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.3,
+          extraSuggestion: 'Save this cooldown for a tank, but make sure you still cast it!',
+        },
+        enabled: this.selectedCombatant.owner.build === Build.HOLY,
       },
     ];
 

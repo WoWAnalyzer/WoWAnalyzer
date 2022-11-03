@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
@@ -18,10 +19,10 @@ import WaterShield from './WaterShield';
 
 const SPELLS_PROCCING_RESURGENCE = {
   [SPELLS.HEALING_SURGE.id]: 0.006,
-  [SPELLS.HEALING_WAVE.id]: 0.01,
-  [SPELLS.CHAIN_HEAL.id]: 0.0025,
-  [SPELLS.UNLEASH_LIFE_TALENT.id]: 0.006,
-  [SPELLS.RIPTIDE.id]: 0.006,
+  [TALENTS.HEALING_WAVE_TALENT.id]: 0.01,
+  [TALENTS.CHAIN_HEAL_TALENT.id]: 0.0025,
+  [TALENTS.UNLEASH_LIFE_TALENT.id]: 0.006,
+  [TALENTS.RIPTIDE_TALENT.id]: 0.006,
 };
 
 interface ResurgenceInfo {
@@ -47,16 +48,17 @@ class Resurgence extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.RESURGENCE_TALENT);
 
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
         .spell([
           SPELLS.HEALING_SURGE,
-          SPELLS.HEALING_WAVE,
-          SPELLS.CHAIN_HEAL,
-          SPELLS.UNLEASH_LIFE_TALENT,
-          SPELLS.RIPTIDE,
+          TALENTS.HEALING_WAVE_TALENT,
+          TALENTS.CHAIN_HEAL_TALENT,
+          TALENTS.UNLEASH_LIFE_TALENT,
+          TALENTS.RIPTIDE_TALENT,
         ]),
       this.onRelevantHeal,
     );

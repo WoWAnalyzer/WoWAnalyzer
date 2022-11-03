@@ -8,6 +8,8 @@ import {
   RuneOfPower,
   ShiftingPower,
   TempestBarrier,
+  MasterOfTime,
+  TimeAnomaly,
 } from 'analysis/retail/mage/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -61,25 +63,29 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneIntellect: ArcaneIntellect,
     munchedProcs: MunchedProcs,
 
-    // Talents
+    // Talents - Frost
     boneChilling: BoneChilling,
     lonelyWinter: LonelyWinter,
-    runeOfPower: RuneOfPower,
-    elementalBarrier: ElementalBarrier,
     waterElemental: WaterElemental,
     splittingIce: SplittingIce,
     thermalVoid: ThermalVoid,
     glacialSpike: GlacialSpike,
     cometStorm: CometStorm,
     icyPropulsion: IcyPropulsion,
-    divertedEnergy: DivertedEnergy,
-    groundingSurge: GroundingSurge,
-    tempestBarrier: TempestBarrier,
-    shiftingPower: ShiftingPower,
     coldFront: ColdFront,
     mirrorImage: MirrorImage,
     frozenOrb: FrozenOrb,
     coldSnap: ColdSnap,
+
+    //Talents - Shared
+    runeOfPower: RuneOfPower,
+    elementalBarrier: ElementalBarrier,
+    divertedEnergy: DivertedEnergy,
+    groundingSurge: GroundingSurge,
+    tempestBarrier: TempestBarrier,
+    shiftingPower: ShiftingPower,
+    masterOfTime: MasterOfTime,
+    timeAnomaly: TimeAnomaly,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

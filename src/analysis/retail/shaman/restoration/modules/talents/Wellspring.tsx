@@ -1,6 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import { formatPercentage, formatDuration, formatNth } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -31,14 +32,14 @@ class Wellspring extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.WELLSPRING_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.WELLSPRING_TALENT.id);
 
     this.addEventListener(
-      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.WELLSPRING_TALENT),
+      Events.begincast.by(SELECTED_PLAYER).spell(TALENTS.WELLSPRING_TALENT),
       this._onBegincast,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WELLSPRING_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.WELLSPRING_TALENT),
       this._onCast,
     );
     this.addEventListener(
@@ -49,7 +50,7 @@ class Wellspring extends Analyzer {
   }
 
   _onBegincast(event: BeginCastEvent) {
-    if (event.ability.guid !== SPELLS.WELLSPRING_TALENT.id || event.isCancelled) {
+    if (event.ability.guid !== TALENTS.WELLSPRING_TALENT.id || event.isCancelled) {
       return;
     }
 
@@ -137,11 +138,11 @@ class Wellspring extends Analyzer {
         suggest(
           <Trans id="shaman.restoration.suggestions.wellSpring.label">
             You're not making full use of the potential of{' '}
-            <SpellLink id={SPELLS.WELLSPRING_TALENT.id} />. Try to aim it towards stacks of injured
+            <SpellLink id={TALENTS.WELLSPRING_TALENT.id} />. Try to aim it towards stacks of injured
             players with 6 people or more.
           </Trans>,
         )
-          .icon(SPELLS.WELLSPRING_TALENT.icon)
+          .icon(TALENTS.WELLSPRING_TALENT.icon)
           .actual(
             `${formatPercentage(suggestionThreshold.actual)}% ${t({
               id: 'shared.suggestions.efficiency',
@@ -175,7 +176,7 @@ class Wellspring extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.WELLSPRING_TALENT.id} />}
+        icon={<SpellIcon id={TALENTS.WELLSPRING_TALENT.id} />}
         label={
           <Trans id="shaman.restoration.wellspring.statistic.label">
             Wellspring target efficiency
@@ -223,7 +224,7 @@ class Wellspring extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.WELLSPRING_TALENT.id} />}
+        title={<SpellLink id={TALENTS.WELLSPRING_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );

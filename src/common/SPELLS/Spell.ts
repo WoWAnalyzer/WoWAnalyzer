@@ -33,6 +33,8 @@ export default interface Spell {
   rageCost?: number;
   //Evoker
   essenceCost?: number;
+  //Classic
+  lowRanks?: Array<number>;
 }
 
 export interface LegendarySpell extends Spell {

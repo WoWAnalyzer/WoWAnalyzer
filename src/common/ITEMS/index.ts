@@ -16,6 +16,7 @@ import SHADOWLANDS from './shadowlands';
 import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
+import CLASSIC from './classic';
 
 const ITEMS = {
   //Class items
@@ -33,6 +34,7 @@ const ITEMS = {
     SHAMAN,
     WARLOCK,
     WARRIOR,
+    CLASSIC,
   ),
   //Any non class-specific items
   ...safeMerge(OTHERS, SHADOWLANDS),

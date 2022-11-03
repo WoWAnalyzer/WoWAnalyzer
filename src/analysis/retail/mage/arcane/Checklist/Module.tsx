@@ -3,6 +3,7 @@ import {
   CancelledCasts,
   MirrorImage,
   RuneOfPower,
+  TimeAnomaly,
 } from 'analysis/retail/mage/shared';
 import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
@@ -20,7 +21,6 @@ import ArcaneEcho from '../talents/ArcaneEcho';
 import ArcaneFamiliar from '../talents/ArcaneFamiliar';
 import ArcaneOrb from '../talents/ArcaneOrb';
 import RuleOfThrees from '../talents/RuleOfThrees';
-import TimeAnomaly from '../talents/TimeAnomaly';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {

@@ -25,7 +25,7 @@ const CharacterTab = (props) => {
           <PlayerInfo combatant={combatant} />
         </div>
         <div className="col-sm-6">
-          <CharacterStats statTracker={statTracker} />
+          {!isClassic && <CharacterStats statTracker={statTracker} />}
 
           {!isClassic && <CharacterRace race={combatant.race} />}
 

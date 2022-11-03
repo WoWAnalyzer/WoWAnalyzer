@@ -18,6 +18,7 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { calculateHealTargetHealthPercent } from 'parser/core/EventCalculateLib';
 import { ABUNDANCE_MANA_REDUCTION } from 'analysis/retail/druid/restoration/modules/spells/Abundance';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 /** Health percent below which we consider a heal to be 'triage' */
 const TRIAGE_THRESHOLD = 0.5;
@@ -93,7 +94,7 @@ class RegrowthAndClearcasting extends Analyzer {
     let targetHealthPercent = undefined;
     const regrowthHeal = getDirectHeal(event);
     if (regrowthHeal) {
-      targetHealthPercent = calculateHealTargetHealthPercent(regrowthHeal);
+      targetHealthPercent = calculateHealTargetHealthPercent(regrowthHeal, true);
     }
 
     let castNote = '';
@@ -133,7 +134,7 @@ class RegrowthAndClearcasting extends Analyzer {
     const targetHealthString =
       targetHealthPercent !== undefined ? `${formatPercentage(targetHealthPercent, 0)}` : 'unknown';
     this.castEntries.push({
-      value: wasGood,
+      value: wasGood ? QualitativePerformance.Good : QualitativePerformance.Fail,
       tooltip: (
         <>
           @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> - {castNote}

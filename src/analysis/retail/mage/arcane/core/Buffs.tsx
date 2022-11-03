@@ -16,16 +16,19 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: TALENTS.EVOCATION_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.EVOCATION_TALENT),
         timelineHighlight: true,
       },
       {
-        spellId: TALENTS.ARCANE_SURGE_TALENT.id,
+        spellId: SPELLS.ARCANE_SURGE_BUFF.id,
         triggeredBySpellId: TALENTS.ARCANE_SURGE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.ARCANE_SURGE_TALENT),
         timelineHighlight: true,
       },
       {
         spellId: TALENTS.PRESENCE_OF_MIND_TALENT.id,
         triggeredBySpellId: TALENTS.PRESENCE_OF_MIND_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.PRESENCE_OF_MIND_TALENT),
         timelineHighlight: true,
       },
       {
@@ -34,27 +37,31 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.PRISMATIC_BARRIER.id,
-        triggeredBySpellId: SPELLS.PRISMATIC_BARRIER.id,
+        spellId: TALENTS.PRISMATIC_BARRIER_TALENT.id,
+        triggeredBySpellId: TALENTS.PRISMATIC_BARRIER_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.PRISMATIC_BARRIER_TALENT),
         timelineHighlight: true,
       },
       {
         spellId: TALENTS.ICE_BLOCK_TALENT.id,
         triggeredBySpellId: TALENTS.ICE_BLOCK_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.ICE_BLOCK_TALENT),
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.MIRROR_IMAGE.id,
-        triggeredBySpellId: SPELLS.MIRROR_IMAGE.id,
+        spellId: TALENTS.MIRROR_IMAGE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.MIRROR_IMAGE_TALENT),
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.ARCANE_HARMONY_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.ARCANE_HARMONY_TALENT),
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.RADIANT_SPARK.id,
-        triggeredBySpellId: SPELLS.RADIANT_SPARK.id,
+        spellId: TALENTS.RADIANT_SPARK_TALENT.id,
+        triggeredBySpellId: TALENTS.RADIANT_SPARK_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT),
         timelineHighlight: true,
       },
       {

@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
@@ -35,7 +36,7 @@ class CloudburstNormalizer extends EventsNormalizer {
 
       if (
         event.type === EventType.Cast &&
-        event.ability.guid === SPELLS.CLOUDBURST_TOTEM_TALENT.id
+        event.ability.guid === TALENTS.CLOUDBURST_TOTEM_TALENT.id
       ) {
         const castTimestamp = event.timestamp;
         let recallTimestamp = null;
@@ -87,7 +88,7 @@ class CloudburstNormalizer extends EventsNormalizer {
           } else if (
             nextEvent.type === EventType.Cast &&
             (nextEvent.ability.guid === SPELLS.CLOUDBURST_TOTEM_RECALL.id ||
-              nextEvent.ability.guid === SPELLS.CLOUDBURST_TOTEM_TALENT.id)
+              nextEvent.ability.guid === TALENTS.CLOUDBURST_TOTEM_TALENT.id)
           ) {
             recallTimestamp = nextEvent.timestamp;
             continue;

@@ -1,6 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -36,10 +37,11 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
               delay between casting spells. If you have to move, try casting instants like{' '}
               <SpellLink id={SPELLS.FIRE_BLAST.id} /> or{' '}
               <SpellLink id={SPELLS.ARCANE_EXPLOSION.id} /> (if there are 2+ targets); even unbuffed{' '}
-              <SpellLink id={SPELLS.ICE_LANCE.id} /> spam is better than nothing. Additionally, if
-              you are standing still while waiting for a boss damage reduction or immunity phase to
-              end, you should still be casting <SpellLink id={SPELLS.FROSTBOLT.id} /> to generate
-              procs or build <SpellLink id={SPELLS.ICICLES_BUFF.id} />.
+              <SpellLink id={TALENTS.ICE_LANCE_TALENT.id} /> spam is better than nothing.
+              Additionally, if you are standing still while waiting for a boss damage reduction or
+              immunity phase to end, you should still be casting{' '}
+              <SpellLink id={SPELLS.FROSTBOLT.id} /> to generate procs or build{' '}
+              <SpellLink id={SPELLS.ICICLES_BUFF.id} />.
             </>,
           )
             .icon('spell_mage_altertime')
