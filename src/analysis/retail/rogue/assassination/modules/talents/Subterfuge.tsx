@@ -8,7 +8,7 @@ import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResult
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_CATEGORY from '/parser/ui/STATISTIC_CATEGORY';
 
 import GarroteSnapshot from '../features/GarroteSnapshot';
 import StealthCasts from './StealthCasts';

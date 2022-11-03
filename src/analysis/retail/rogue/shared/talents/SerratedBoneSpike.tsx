@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import COVENANTS from 'game/shadowlands/COVENANTS';
 import { ResourceIcon } from 'interface';
@@ -10,6 +9,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import SPELLS from 'common/SPELLS';
 
 class SerratedBoneSpike extends Analyzer {
   static dependencies = {
