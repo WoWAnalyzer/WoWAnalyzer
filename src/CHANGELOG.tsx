@@ -68,6 +68,7 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 11, 2), 'Add Dragonflight enchants.', ToppleTheNun),
   change(date(2022, 11, 1), 'Add Preparation section that can be included in Guides.', ToppleTheNun),
   change(date(2022, 11, 1), 'Re-add missing specs to the specializations page.', ToppleTheNun),
   change(date(2022, 10, 31), 'Add slightly more ergonomic talent cast efficiency wrapper.', ToppleTheNun),
