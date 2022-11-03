@@ -8,13 +8,42 @@ import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
 import Explanation from 'interface/guide/components/Explanation';
+import ITEMS from 'common/ITEMS';
+import GEAR_SLOTS from 'game/GEAR_SLOTS';
+
 import DemonSpikesSection from './modules/spells/DemonSpikes/GuideSection';
 import FieryBrandSection from './modules/talents/FieryBrand/GuideSection';
 import VoidReaverSection from './modules/talents/VoidReaver/GuideSection';
+import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
+      <PreparationSection
+        recommendedEnchantments={{
+          [GEAR_SLOTS.CHEST]: [
+            ITEMS.ENCHANT_CHEST_ETERNAL_SKIRMISH,
+            ITEMS.ENCHANT_CHEST_ETERNAL_STATS,
+          ],
+          [GEAR_SLOTS.FEET]: [ITEMS.ENCHANT_BOOTS_ETERNAL_AGILITY],
+          [GEAR_SLOTS.BACK]: [
+            ITEMS.ENCHANT_CLOAK_FORTIFIED_LEECH,
+            ITEMS.ENCHANT_CLOAK_SOUL_VITALITY,
+          ],
+          [GEAR_SLOTS.FINGER1]: [ITEMS.ENCHANT_RING_TENET_OF_HASTE],
+          [GEAR_SLOTS.FINGER2]: [ITEMS.ENCHANT_RING_TENET_OF_HASTE],
+          [GEAR_SLOTS.MAINHAND]: [
+            ITEMS.ENCHANT_WEAPON_SINFUL_REVELATION,
+            ITEMS.ENCHANT_WEAPON_CELESTIAL_GUIDANCE,
+            ITEMS.ENCHANT_WEAPON_LIGHTLESS_FORCE,
+          ],
+          [GEAR_SLOTS.OFFHAND]: [
+            ITEMS.ENCHANT_WEAPON_SINFUL_REVELATION,
+            ITEMS.ENCHANT_WEAPON_CELESTIAL_GUIDANCE,
+            ITEMS.ENCHANT_WEAPON_LIGHTLESS_FORCE,
+          ],
+        }}
+      />
       <ResourceUsageSection modules={modules} events={events} info={info} />
       <MitigationSection />
       <CooldownSection modules={modules} events={events} info={info} />
