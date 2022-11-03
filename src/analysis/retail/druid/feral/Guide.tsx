@@ -1,7 +1,7 @@
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import CombatLogParser from 'analysis/retail/druid/feral/CombatLogParser';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { CooldownBar } from 'parser/ui/CooldownBar';
+import { CooldownBar, GapHighlight } from 'parser/ui/CooldownBar';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
@@ -73,6 +73,8 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
         modules.moonfireUptime.guideSubsection}
       {info.combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT) &&
         modules.adaptiveSwarm.guideSubsection}
+      {info.combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT) &&
+        modules.brutalSlash.guideSubsection}
       {modules.hitCountAoe.guideSubsection}
     </Section>
   );
@@ -107,20 +109,18 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       show when the spell was cooling down. Red segments highlight times when you could have fit a
       whole extra use of the cooldown.
       <div className="flex-main chart" style={{ padding: 5 }}>
-        <CooldownBar spellId={SPELLS.TIGERS_FURY.id} events={events} info={info} highlightGaps />
+        <CooldownBar spellId={SPELLS.TIGERS_FURY.id} gapHighlightMode={GapHighlight.FullCooldown} />
       </div>
       {hasBerserk && !hasIncarn && (
         <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar spellId={SPELLS.BERSERK.id} events={events} info={info} highlightGaps />
+          <CooldownBar spellId={SPELLS.BERSERK.id} gapHighlightMode={GapHighlight.FullCooldown} />
         </div>
       )}
       {hasIncarn && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
@@ -128,9 +128,7 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={SPELLS.CONVOKE_SPIRITS.id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
@@ -138,9 +136,7 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={TALENTS_DRUID.FERAL_FRENZY_TALENT.id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}

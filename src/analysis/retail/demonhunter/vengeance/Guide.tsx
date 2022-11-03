@@ -1,7 +1,7 @@
 import { GuideProps, Section, SubSection, useInfo } from 'interface/guide';
 import CombatLogParser from 'analysis/retail/demonhunter/vengeance/CombatLogParser';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
-import { CooldownBar } from 'parser/ui/CooldownBar';
+import { CooldownBar, GapHighlight } from 'parser/ui/CooldownBar';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { getElysianDecreeSpell } from 'analysis/retail/demonhunter/shared/constants';
 import { formatPercentage } from 'common/format';
@@ -111,18 +111,14 @@ function CooldownGraphSubsection({ events, info }: GuideProps<typeof CombatLogPa
       <div className="flex-main chart" style={{ padding: 5 }}>
         <CooldownBar
           spellId={SPELLS.METAMORPHOSIS_TANK.id}
-          events={events}
-          info={info}
-          highlightGaps
+          gapHighlightMode={GapHighlight.FullCooldown}
         />
       </div>
       {hasSoulCarver && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT.id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
@@ -130,9 +126,7 @@ function CooldownGraphSubsection({ events, info }: GuideProps<typeof CombatLogPa
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT.id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
@@ -140,9 +134,7 @@ function CooldownGraphSubsection({ events, info }: GuideProps<typeof CombatLogPa
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={getElysianDecreeSpell(info.combatant).id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
@@ -150,9 +142,7 @@ function CooldownGraphSubsection({ events, info }: GuideProps<typeof CombatLogPa
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
@@ -160,9 +150,7 @@ function CooldownGraphSubsection({ events, info }: GuideProps<typeof CombatLogPa
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
@@ -170,9 +158,7 @@ function CooldownGraphSubsection({ events, info }: GuideProps<typeof CombatLogPa
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={TALENTS_DEMON_HUNTER.BULK_EXTRACTION_TALENT.id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
@@ -180,9 +166,7 @@ function CooldownGraphSubsection({ events, info }: GuideProps<typeof CombatLogPa
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
