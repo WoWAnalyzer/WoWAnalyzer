@@ -36,8 +36,8 @@ class T29TierSet extends Analyzer {
     hotTracker: HotTrackerMW,
   };
   hotTracker!: HotTrackerMW;
-  has2Piece: boolean = false;
-  has4Piece: boolean = false;
+  has2Piece: boolean = true;
+  has4Piece: boolean = true;
   numExtensions: number = 0;
   twoPieceHealing: number = 0;
   fourPieceHealing: number = 0;
@@ -104,6 +104,12 @@ class T29TierSet extends Analyzer {
   }
 
   handle2PcHeal(event: HealEvent) {
+    if (
+      !this.hotTracker.hots[event.targetID] ||
+      !this.hotTracker.hots[event.targetID][SPELLS.RENEWING_MIST_HEAL.id]
+    ) {
+      return;
+    }
     this.twoPieceHealing += calculateEffectiveHealing(event, TWO_PIECE_BONUS);
   }
 
