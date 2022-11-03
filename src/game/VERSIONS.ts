@@ -27,3 +27,7 @@ export const wclGameVersionToExpansion = (gameVersion: number): Expansion => {
       return Expansion.Dragonflight;
   }
 };
+
+export const isUnsupportedClassicVersion = (gameVersion: number): boolean => {
+  return gameVersion === 2 || gameVersion === 3;
+};

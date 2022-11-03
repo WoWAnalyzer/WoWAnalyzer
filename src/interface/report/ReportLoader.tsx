@@ -3,7 +3,6 @@ import { captureException } from 'common/errorLogger';
 import { fetchFights, LogNotFoundError } from 'common/fetchWclApi';
 import { setReport } from 'interface/actions/report';
 import ActivityIndicator from 'interface/ActivityIndicator';
-import DocumentTitle from 'interface/DocumentTitle';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import { RootState } from 'interface/reducers';
 import { getReportCode } from 'interface/selectors/url/report';
@@ -12,6 +11,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { compose } from 'redux';
+import { ReportProvider } from 'interface/report/context/ReportContext';
+import { Helmet } from 'react-helmet';
 
 import handleApiError from './handleApiError';
 
@@ -26,7 +27,7 @@ interface ConnectedProps extends RouteComponentProps {
 }
 
 interface PassedProps {
-  children: (report: Report, handleRefresh: () => void) => React.ReactNode;
+  children: React.ReactNode;
 }
 
 type Props = ConnectedProps & PassedProps;
@@ -127,10 +128,13 @@ class ReportLoader extends React.PureComponent<Props, State> {
 
     return (
       <>
-        {/* TODO: Refactor the DocumentTitle away */}
-        <DocumentTitle title={report.title} />
+        <Helmet>
+          <title>{report.title}</title>
+        </Helmet>
 
-        {this.props.children(report, this.handleRefresh)}
+        <ReportProvider report={report} refreshReport={this.handleRefresh}>
+          {this.props.children}
+        </ReportProvider>
       </>
     );
   }
