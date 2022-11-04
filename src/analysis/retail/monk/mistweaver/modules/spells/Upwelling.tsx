@@ -118,6 +118,7 @@ class Upwelling extends Analyzer {
     if (!hot) {
       return false;
     }
+    // ef hot duration is normally 8 seconds and upwelling adds 4, so 8/(8+4) = 2/3
     const expectedBaseEnd = Math.floor((hot.originalEnd - hot.start) * (2 / 3) + hot.start);
     return event.timestamp > expectedBaseEnd && event.timestamp < hot.originalEnd;
   }
@@ -158,7 +159,6 @@ class Upwelling extends Analyzer {
       this.fromExtraBolts.add(targetID);
     }
     this.boltCount += 1; //increase current bolt
-    console.log('bolt count is now ' + this.boltCount);
   }
 
   efcast(event: CastEvent) {
