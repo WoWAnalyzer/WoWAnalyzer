@@ -36,11 +36,11 @@ class BladeFlurry extends Analyzer {
     if (!cpCost) {
       return;
     }
-    if (this.spellUsable.isOnCooldown(TALENTS.BLADE_RUSH_TALENT.id)) {
+    if (this.spellUsable.isOnCooldown(TALENTS.BLADE_FLURRY_TALENT.id)) {
       const extraCDR = this.selectedCombatant.hasBuff(SPELLS.TRUE_BEARING.id) ? cpCost * 1000 : 0;
       const cooldownReduction = cpCost * 1000 + extraCDR;
       this.spellUsable.reduceCooldown(
-        TALENTS.BLADE_RUSH_TALENT.id,
+        TALENTS.BLADE_FLURRY_TALENT.id,
         cooldownReduction,
         event.timestamp,
       );

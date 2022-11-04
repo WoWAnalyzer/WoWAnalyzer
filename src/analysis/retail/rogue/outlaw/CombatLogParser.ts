@@ -36,6 +36,7 @@ import RollTheBonesCounter from './modules/spells/RollTheBonesCounter';
 import RollTheBonesEfficiency from './modules/spells/RollTheBonesEfficiency';
 import SliceAndDiceUptime from './modules/spells/SliceAndDiceUptime';
 import BladeRush from './modules/talents/BladeRush';
+import InvigoratingShadowdust from 'analysis/retail/rogue/shared/shadowlands/legendaries/InvigoratingShadowdust';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -55,6 +56,9 @@ class CombatLogParser extends CoreCombatLogParser {
     energyDetails: EnergyDetails,
     energy: Energy,
     spellEnergyCost: SpellEnergyCost,
+
+    //Items
+    invigoratingShadowdust: InvigoratingShadowdust,
 
     //Core
     restlessBlades: RestlessBlades,

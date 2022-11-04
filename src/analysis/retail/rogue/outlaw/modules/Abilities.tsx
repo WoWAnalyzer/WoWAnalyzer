@@ -108,7 +108,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.DREADBLADES_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
+        cooldown: 120,
         gcd: {
           static: standardGcd,
         },
@@ -132,7 +132,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.BLADE_RUSH_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
+        cooldown: 30,
         gcd: {
           static: standardGcd,
         },
