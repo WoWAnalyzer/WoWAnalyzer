@@ -36,8 +36,19 @@
     "src/analysis/retail/priest/shadow",
     "src/analysis/retail/rogue/assassination",
     "src/analysis/retail/rogue/outlaw",
-    "src/analysis/retail/shaman/shared",
     "src/analysis/retail/warrior/arms"
+  ],
+  "files": [
+    "src/analysis/retail/deathknight/unholy/CONFIG.tsx",
+    "src/analysis/retail/druid/guardian/CONFIG.tsx",
+    "src/analysis/retail/hunter/beastmastery/CONFIG.tsx",
+    "src/analysis/retail/hunter/marksmanship/CONFIG.tsx",
+    "src/analysis/retail/hunter/survival/CONFIG.tsx",
+    "src/analysis/retail/monk/windwalker/CONFIG.tsx",
+    "src/analysis/retail/paladin/protection/CONFIG.tsx",
+    "src/analysis/retail/paladin/retribution/CONFIG.tsx",
+    "src/analysis/retail/priest/shadow/CONFIG.tsx",
+    "src/analysis/retail/warrior/arms/CONFIG.tsx"
   ],
   "ts-node": {
     // these options are overrides used only by ts-node
