@@ -111,6 +111,7 @@ class RisingMist extends Analyzer {
   extraEFhealing = 0;
   extraEFOverhealing = 0;
   extraEFAbsorbed = 0;
+  upwellingOffset = 0;
 
   constructor(...options) {
     super(...options);
@@ -149,11 +150,13 @@ class RisingMist extends Analyzer {
       return;
     }
 
-    const object = this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id]
-      ? this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id]
-      : this.hotTracker.hots[targetId][SPELLS.FAELINE_STOMP_ESSENCE_FONT.id];
+    const efHot = this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id];
+    const flsHot = this.hotTracker.hots[targetId][SPELLS.FAELINE_STOMP_ESSENCE_FONT.id];
 
-    if (object.originalEnd < event.timestamp) {
+    if (
+      (efHot && efHot.originalEnd < event.timestamp) ||
+      (flsHot && flsHot.originalEnd < event.timestamp)
+    ) {
       if (!this.masteryTickTock) {
         this.extraMasteryHits += 1;
         this.extraMasteryhealing += event.amount || 0;
