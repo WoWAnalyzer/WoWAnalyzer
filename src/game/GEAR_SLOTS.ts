@@ -1,6 +1,4 @@
-const GEAR_SLOTS: {
-  [key: string]: number;
-} = {
+const GEAR_SLOTS = {
   HEAD: 0,
   NECK: 1,
   SHOULDER: 2,
