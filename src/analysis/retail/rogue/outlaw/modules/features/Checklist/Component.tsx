@@ -156,7 +156,7 @@ OutlawRogueChecklist.propTypes = {
     hasTalent: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,
-  rtbEfficiencies: PropTypes.object.isRequired,
+  rtbEfficiencies: PropTypes.array.isRequired,
 };
 
 export default OutlawRogueChecklist;
