@@ -354,6 +354,12 @@ const talents = createTalentList({
     icon: 'spell_shadow_chilltouch',
     maxRanks: 2,
   },
+  BLAZE_OF_LIGHT_TALENT: {
+    id: 215768,
+    name: 'Blaze of Light',
+    icon: 'spell_holy_searinglight',
+    maxRanks: 2,
+  },
 
   //Shadow
   DEVOURING_PLAGUE_TALENT: {

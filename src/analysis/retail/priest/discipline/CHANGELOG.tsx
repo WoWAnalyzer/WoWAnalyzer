@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 11, 4), <>Enabled <SpellLink id={TALENTS_PRIEST.BLAZE_OF_LIGHT_TALENT.id}/>.</>, Hana),
   change(date(2022, 10, 30), <>First backend section of <SpellLink id={TALENTS_PRIEST.EVANGELISM_TALENT.id}/>.</>, Hana),
   change(date(2022, 10, 29), <>Hid tier bonus when not using it</>, Hana),
   change(date(2022, 10, 29), <>Added line break in <SpellLink id={TALENTS_PRIEST.TWIST_OF_FATE_TALENT}/> module.</>, Hana),
