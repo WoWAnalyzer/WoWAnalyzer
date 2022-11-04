@@ -73,11 +73,7 @@ class Upwelling extends Analyzer {
       this.removeBuff,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
-      this.handleMastery,
-    );
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUST_OF_MISTS_CHIJI),
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.GUST_OF_MISTS_CHIJI, SPELLS.GUSTS_OF_MISTS]),
       this.handleMastery,
     );
   }
