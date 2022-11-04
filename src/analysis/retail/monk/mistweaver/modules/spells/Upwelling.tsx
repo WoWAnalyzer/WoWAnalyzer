@@ -76,6 +76,10 @@ class Upwelling extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
       this.handleMastery,
     );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUST_OF_MISTS_CHIJI),
+      this.handleMastery,
+    );
   }
 
   get totalHealingAll() {
