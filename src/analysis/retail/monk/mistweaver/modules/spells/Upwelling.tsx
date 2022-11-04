@@ -4,7 +4,6 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
-import Combatants from 'parser/shared/modules/Combatants';
 import { Tracker } from 'parser/shared/modules/HotTracker';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -24,7 +23,6 @@ const BASE_BOLTS = 17; //18 base but we start counting at 0 so 18th on bolt coun
  */
 class Upwelling extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     hotTracker: HotTrackerMW,
   };
   totalHealing: number = 0;
@@ -45,7 +43,6 @@ class Upwelling extends Analyzer {
   masteryHealing: number = 0;
   masteryOverhealing: number = 0;
   masteryAbsorbed: number = 0;
-  protected combatants!: Combatants;
   protected hotTracker!: HotTrackerMW;
 
   constructor(options: Options) {
