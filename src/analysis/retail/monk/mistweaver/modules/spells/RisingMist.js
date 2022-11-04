@@ -179,7 +179,10 @@ class RisingMist extends Analyzer {
     }
     const object = this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
-    if (UNAFFECTED_SPELLS.includes(spellId)) {
+    if (
+      !this.hasAttribution(object.attributions, ENVELOPING_MIST_HARDCAST) ||
+      UNAFFECTED_SPELLS.includes(spellId)
+    ) {
       return;
     }
 
