@@ -1,4 +1,6 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
+
 import { Options } from 'parser/core/Analyzer';
 import PETS from 'parser/core/PETS';
 
@@ -9,7 +11,7 @@ class Shadowfiend extends Pet {
 
   constructor(options: Options) {
     super(options);
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id);
+    this.active = !this.selectedCombatant.hasTalent(TALENTS.MINDBENDER_SHADOW_TALENT.id);
   }
 }
 

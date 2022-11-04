@@ -3,6 +3,7 @@ import {
   VOID_TORRENT_INSANITY_PER_TICK,
 } from 'analysis/retail/priest/shadow/constants';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';
 import { ResourceChangeEvent } from 'parser/core/Events';
@@ -24,7 +25,7 @@ class InsanityTracker extends ResourceTracker {
     let gain = 0;
     if (SHADOW_SPELLS_WITHOUT_WASTE.includes(spellId)) {
       gain = event.resourceChange;
-      if (spellId === SPELLS.VOID_TORRENT_TALENT.id) {
+      if (spellId === TALENTS.VOID_TORRENT_TALENT.id) {
         waste = VOID_TORRENT_INSANITY_PER_TICK - gain;
         gain = gain - waste;
       }

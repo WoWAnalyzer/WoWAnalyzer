@@ -19,7 +19,7 @@ import HolyPaladin from 'analysis/retail/paladin/holy';
 // import RetributionPaladin from 'analysis/retail/paladin/retribution';
 import DisciplinePriest from 'analysis/retail/priest/discipline';
 import HolyPriest from 'analysis/retail/priest/holy';
-// import ShadowPriest from 'analysis/retail/priest/shadow';
+import ShadowPriest from 'analysis/retail/priest/shadow';
 // import AssassinationRogue from 'analysis/retail/rogue/assassination';
 // import OutlawRogue from 'analysis/retail/rogue/outlaw';
 import ElementalShaman from 'analysis/retail/shaman/elemental';
@@ -82,7 +82,7 @@ const configs: Config[] = [
 
   DisciplinePriest,
   HolyPriest,
-  // ShadowPriest,
+  ShadowPriest,
 
   SubtletyRogue,
   // AssassinationRogue,
