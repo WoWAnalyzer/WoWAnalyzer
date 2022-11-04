@@ -484,7 +484,7 @@ class Combatant extends Entity {
    * This id is the same as the spell ID on Wowhead.
    */
   hasLegendary(legendary: LegendarySpell) {
-    if (!this.scannedForLegendaries && this.legendaries.size < 1) {
+    if (!this.scannedForLegendaries && this.legendaries.size === 0) {
       Object.values(this._gearItemsBySlotId).forEach((item) => {
         if (item.effectID) {
           this.legendaries.add(item.effectID);
