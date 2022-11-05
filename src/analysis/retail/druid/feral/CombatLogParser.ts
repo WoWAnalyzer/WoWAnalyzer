@@ -43,6 +43,7 @@ import ThrashUptimeAndSnapshot from 'analysis/retail/druid/feral/modules/spells/
 import LionsStrength from 'analysis/retail/druid/feral/modules/spells/LionsStrength';
 import CarnivorousInstinct from 'analysis/retail/druid/feral/modules/spells/CarnivorousInstinct';
 import BrutalSlash from 'analysis/retail/druid/feral/modules/spells/BrutalSlash';
+import OmenAndMomentOfClarity from 'analysis/retail/druid/feral/modules/spells/OmenAndMomentOfClarity';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -103,6 +104,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lionsStrength: LionsStrength,
     carnivorousInstinct: CarnivorousInstinct,
     brutalSlash: BrutalSlash,
+    omenAndMomentOfClarity: OmenAndMomentOfClarity,
   };
 
   static guide = Guide;
