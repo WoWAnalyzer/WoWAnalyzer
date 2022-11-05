@@ -7,9 +7,9 @@ class Buffs extends CoreAuras {
   auras() {
     return [
       {
-        spellId: SPELLS.BESTIAL_WRATH.id,
+        spellId: TALENTS.BESTIAL_WRATH_TALENT.id,
         timelineHighlight: true,
-        triggeredBySpellId: SPELLS.BESTIAL_WRATH.id,
+        triggeredBySpellId: TALENTS.BESTIAL_WRATH_TALENT.id,
       },
       {
         spellId: SPELLS.DIRE_BEAST_BUFF.id,
@@ -20,17 +20,12 @@ class Buffs extends CoreAuras {
         //shows pet buff, since that is what is interesting to see and the player buff is 8 different spellIDs
         spellId: SPELLS.BARBED_SHOT_PET_BUFF.id,
         timelineHighlight: true,
-        triggeredBySpellId: SPELLS.BARBED_SHOT.id,
+        triggeredBySpellId: TALENTS.BARBED_SHOT_TALENT.id,
       },
       {
         spellId: SPELLS.BEAST_CLEAVE_BUFF.id,
         timelineHighlight: true,
-        triggeredBySpellId: SPELLS.MULTISHOT_BM.id,
-      },
-      {
-        spellId: SPELLS.ASPECT_OF_THE_WILD.id,
-        timelineHighlight: true,
-        triggeredBySpellId: SPELLS.ASPECT_OF_THE_WILD.id,
+        triggeredBySpellId: TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT.id,
       },
       {
         spellId: SPELLS.ASPECT_OF_THE_TURTLE.id,

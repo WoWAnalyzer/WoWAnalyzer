@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
@@ -33,6 +34,7 @@ class BarbedShot extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BARBED_SHOT_TALENT);
     this.barbedShotStacks = Array.from({ length: MAX_FRENZY_STACKS + 1 }, (x) => []);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT_PET_BUFF),
@@ -130,11 +132,11 @@ class BarbedShot extends Analyzer {
       suggest(
         <>
           Your pet has a general low uptime of the buff from{' '}
-          <SpellLink id={SPELLS.BARBED_SHOT.id} />, you should never be sitting on 2 stacks of this
-          spell.{' '}
+          <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} />, you should never be sitting on 2 stacks
+          of this spell.{' '}
         </>,
       )
-        .icon(SPELLS.BARBED_SHOT.icon)
+        .icon(TALENTS.BARBED_SHOT_TALENT.icon)
         .actual(
           <Trans id="hunter.beastmastery.suggestions.barbedShot.petBuff.uptime">
             Your pet had the buff from Barbed Shot for {formatPercentage(actual)}% of the fight{' '}
@@ -150,12 +152,12 @@ class BarbedShot extends Analyzer {
       suggest(
         <>
           Your pet has a general low uptime of the 3 stacked buff from{' '}
-          <SpellLink id={SPELLS.BARBED_SHOT.id} />. It's important to try and maintain the buff at 3
-          stacks for as long as possible, this is done by spacing out your casts, but at the same
-          time never letting them cap on charges.{' '}
+          <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} />. It's important to try and maintain the
+          buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at
+          the same time never letting them cap on charges.{' '}
         </>,
       )
-        .icon(SPELLS.BARBED_SHOT.icon)
+        .icon(TALENTS.BARBED_SHOT_TALENT.icon)
         .actual(
           <Trans id="hunter.beastmastery.suggestions.barbedShot.threeStacks.uptime">
             Your pet had 3 stacks of the buff from Barbed Shot for {formatPercentage(actual)}% of

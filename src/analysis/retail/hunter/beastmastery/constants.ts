@@ -4,8 +4,8 @@ import TALENTS from 'common/TALENTS/hunter';
 //region Spells
 
 /** Cobra Shot */
-//Cobra Shot reduces the cooldown of Kill Command by 1 second by default
-export const COBRA_SHOT_CDR_MS = 1000;
+//Cobra Shot reduces the cooldown of Kill Command by 2 seconds by default
+export const COBRA_SHOT_CDR_MS = 2000;
 //A threshold where you can never realistically overcap on focus by waiting for AT MOST 1 GCD + 1 second.
 export const COBRA_SHOT_FOCUS_THRESHOLD_TO_WAIT = 50;
 /** Kill Command */
@@ -30,14 +30,16 @@ export const PACK_TACTICS_FOCUS_REGEN_INCREASE = 2;
 /** Bloodshed */
 //Bloodshed increases the damage done by pets by 15%
 export const BLOODSHED_DAMAGE_AMP = 0.15;
-
+/** Dire Beast */
+//Dire Beast increases haste by 5% while active
+export const DIRE_BEAST_HASTE_PERCENT = 0.05;
 /** Aspect of the Beast */
 //Aspect of the Beast increase pet damage and healing done by 30%
 export const AOTB_MULTIPLIER = 0.3;
 //Aspect of the Beast does not affect all pet abilities
 export const AOTB_ABILITIES_NOT_AFFECTED: number[] = [
   SPELLS.MELEE.id,
-  SPELLS.KILL_COMMAND_DAMAGE_BM.id,
+  TALENTS.KILL_COMMAND_SHARED_TALENT.id,
   SPELLS.STOMP_DAMAGE.id,
 ];
 /** Killer Instinct */
@@ -115,10 +117,11 @@ export const BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS = [
 export const BARBED_SHOT_REGEN = 5;
 /** Focus Spenders specific to BM */
 export const LIST_OF_FOCUS_SPENDERS_BM = [
-  SPELLS.COBRA_SHOT,
-  SPELLS.MULTISHOT_BM,
-  SPELLS.KILL_COMMAND_CAST_BM,
-  TALENTS.DIRE_BEAST_TALENT,
+  TALENTS.COBRA_SHOT_TALENT,
+  TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT,
+  TALENTS.KILL_COMMAND_SHARED_TALENT,
+  TALENTS.KILL_SHOT_SHARED_TALENT,
+  TALENTS.A_MURDER_OF_CROWS_TALENT,
 ];
 //endregion
 
