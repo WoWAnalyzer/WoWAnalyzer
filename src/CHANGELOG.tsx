@@ -66,13 +66,13 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
-// prettier-ignore
 export default [
   change(date(2022, 11, 2), 'Add Dragonflight enchants.', ToppleTheNun),
   change(date(2022, 11, 1), 'Add Preparation section that can be included in Guides.', ToppleTheNun),
   change(date(2022, 11, 1), 'Re-add missing specs to the specializations page.', ToppleTheNun),
   change(date(2022, 10, 31), 'Add slightly more ergonomic talent cast efficiency wrapper.', ToppleTheNun),
   change(date(2022, 10, 31), 'Update patch compatibility for specs supporting Dragonflight.', ToppleTheNun),
+  change(date(2022, 10, 30), 'Add Classic WotLK specs.', jazminite),
   change(date(2022, 10, 26), 'Convert most of report loading process to functions.', ToppleTheNun),
   change(date(2022, 10, 25), 'Improve patch version detection for retail and classic.', ToppleTheNun),
   change(date(2022, 10, 25), 'Exclude classic from patch version checking.', ToppleTheNun),
