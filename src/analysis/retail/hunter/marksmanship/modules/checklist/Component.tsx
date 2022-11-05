@@ -181,11 +181,7 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
         />
       </Rule>
 
-      <AplRule
-        {...props}
-        name="APL checker (beta)"
-        cooldowns={[SPELLS.TRUESHOT, SPELLS.WILD_SPIRITS]}
-      />
+      <AplRule {...props} name="APL checker (beta)" cooldowns={[TALENTS_HUNTER.TRUESHOT_TALENT]} />
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );

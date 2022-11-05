@@ -34,7 +34,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.KILL_COMMAND_SHARED_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => hastedCooldown(7.5, haste),
-        charges: 2,
+        charges: combatant.hasTalent(TALENTS.ALPHA_PREDATOR_TALENT) ? 2 : 1,
         gcd: {
           base: 1500,
         },
@@ -268,10 +268,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        castEfficiency: {
-          suggestion: this.selectedCombatant.hasLegendary(SPELLS.SOULFORGE_EMBERS_EFFECT),
-          recommendedEfficiency: 0.55,
-        },
       },
       {
         spell: SPELLS.FEIGN_DEATH.id,
@@ -287,10 +283,6 @@ class Abilities extends CoreAbilities {
         cooldown: 20,
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: this.selectedCombatant.hasLegendary(SPELLS.SOULFORGE_EMBERS_EFFECT),
-          recommendedEfficiency: 0.9,
         },
       },
       {

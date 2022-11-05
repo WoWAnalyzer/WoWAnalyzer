@@ -4,6 +4,7 @@ import {
 } from 'analysis/retail/hunter/marksmanship/constants';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -24,10 +25,7 @@ class EagletalonsTrueFocus extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.EAGLETALONS_TRUE_FOCUS_EFFECT);
-    if (!this.active) {
-      return;
-    }
+    this.active = this.selectedCombatant.hasTalent(TALENTS.EAGLETALONS_TRUE_FOCUS_TALENT);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TRUESHOT),
@@ -59,7 +57,7 @@ class EagletalonsTrueFocus extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spellId={SPELLS.EAGLETALONS_TRUE_FOCUS_EFFECT.id}>
+        <BoringSpellValueText spellId={TALENTS.EAGLETALONS_TRUE_FOCUS_TALENT.id}>
           {formatNumber(this.focusSaved)} <small>Focus saved</small>
           <br />
           {formatNumber(this.trueshotDurationIncrease / 1000)}s{' '}
