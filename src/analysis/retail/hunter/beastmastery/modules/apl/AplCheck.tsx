@@ -18,7 +18,7 @@ import {
 
 export const apl = build([
   {
-    spell: SPELLS.BARBED_SHOT,
+    spell: TALENTS.BARBED_SHOT_TALENT,
     condition: buffMissing(SPELLS.BARBED_SHOT_PET_BUFF, { timeRemaining: 1000, duration: 8000 }),
   },
   TALENTS.BLOODSHED_TALENT,
@@ -38,24 +38,23 @@ export const apl = build([
       hasResource(RESOURCE_TYPES.FOCUS, { atMost: 80 }),
     ),
   },
-  { spell: TALENTS.STAMPEDE_TALENT, condition: buffPresent(SPELLS.ASPECT_OF_THE_WILD) },
   TALENTS.A_MURDER_OF_CROWS_TALENT,
-  SPELLS.KILL_COMMAND_CAST_BM,
+  TALENTS.KILL_COMMAND_SHARED_TALENT,
   TALENTS.DIRE_BEAST_TALENT,
   {
-    spell: SPELLS.COBRA_SHOT,
+    spell: TALENTS.COBRA_SHOT_TALENT,
     condition: or(
       hasResource(RESOURCE_TYPES.FOCUS, { atLeast: 50 }),
-      buffPresent(SPELLS.BESTIAL_WRATH),
+      buffPresent(TALENTS.BESTIAL_WRATH_TALENT),
     ),
   },
   {
-    spell: SPELLS.COBRA_SHOT,
-    condition: spellCooldownRemaining(SPELLS.KILL_COMMAND_CAST_BM, { atLeast: 2500 }),
+    spell: TALENTS.COBRA_SHOT_TALENT,
+    condition: spellCooldownRemaining(TALENTS.KILL_COMMAND_SHARED_TALENT, { atLeast: 2500 }),
   },
   {
-    spell: SPELLS.BARBED_SHOT,
-    condition: spellCharges(SPELLS.BARBED_SHOT, { atLeast: 1, atMost: 2 }),
+    spell: TALENTS.BARBED_SHOT_TALENT,
+    condition: spellCharges(TALENTS.BARBED_SHOT_TALENT, { atLeast: 1, atMost: 2 }),
   },
 ]);
 

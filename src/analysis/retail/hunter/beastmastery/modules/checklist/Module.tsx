@@ -8,10 +8,10 @@ import { apl, check as aplCheck } from '../apl/AplCheck';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import BasicAttacks from '../pets/basicAttacksTracker';
 import BeastMasteryFocusCapTracker from '../resources/BeastMasteryFocusCapTracker';
-import BarbedShot from '../spells/BarbedShot';
-import BeastCleave from '../spells/BeastCleave';
-import BestialWrath from '../spells/BestialWrath';
-import CobraShot from '../spells/CobraShot';
+import BarbedShot from '../talents/BarbedShot';
+import BeastCleave from '../talents/BeastCleave';
+import BestialWrath from '../talents/BestialWrath';
+import CobraShot from '../talents/CobraShot';
 import KillerCobra from '../talents/KillerCobra';
 import Component from './Component';
 

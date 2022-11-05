@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro';
 import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
@@ -36,6 +37,7 @@ class BeastCleave extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BEAST_CLEAVE_TALENT);
     this.addEventListener(
       Events.applybuff.to(SELECTED_PLAYER_PET).spell(SPELLS.BEAST_CLEAVE_PET_BUFF),
       this.onApplyBuff,
@@ -117,13 +119,14 @@ class BeastCleave extends Analyzer {
       when(this.beastCleavesWithoutHits).addSuggestion((suggest, actual, recommended) =>
         suggest(
           <>
-            You cast <SpellLink id={SPELLS.MULTISHOT_BM.id} /> {actual}{' '}
+            You cast <SpellLink id={TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT} /> {actual}{' '}
             {actual === 1 ? 'time' : 'times'} without your pets doing any{' '}
             <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage onto additional targets. On
-            single-target situations, avoid using <SpellLink id={SPELLS.MULTISHOT_BM.id} />.
+            single-target situations, avoid using{' '}
+            <SpellLink id={TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT.id} />.
           </>,
         )
-          .icon(SPELLS.MULTISHOT_BM.icon)
+          .icon(TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT.icon)
           .actual(
             <Trans id="hunter.beastmastery.suggestions.beastCleave.efficiency">
               {actual} {actual === 1 ? 'cast' : 'casts'} without any Beast Cleave damage{' '}

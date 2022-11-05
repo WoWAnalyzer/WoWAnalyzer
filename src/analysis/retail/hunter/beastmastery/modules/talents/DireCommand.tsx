@@ -1,5 +1,7 @@
-import { DIRE_COMMAND_PROC_CHANCE } from 'analysis/retail/hunter/beastmastery/constants';
-import { DIRE_BEAST_HASTE_PERCENT } from 'analysis/retail/hunter/shared';
+import {
+  DIRE_BEAST_HASTE_PERCENT,
+  DIRE_COMMAND_PROC_CHANCE,
+} from 'analysis/retail/hunter/beastmastery/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
@@ -40,7 +42,7 @@ class DireCommand extends Analyzer {
       this.direBeastSummon,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_BM),
+      Events.damage.by(SELECTED_PLAYER_PET).spell(TALENTS.KILL_COMMAND_SHARED_TALENT),
       this.killCommandDamage,
     );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
@@ -91,7 +93,7 @@ class DireCommand extends Analyzer {
               )}
               <p>
                 Likelihood of getting <em>exactly</em> as many procs as estimated on a fight given
-                your number of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> casts.
+                your number of <SpellLink id={TALENTS.KILL_COMMAND_SHARED_TALENT.id} /> casts.
               </p>
             </div>
           </>

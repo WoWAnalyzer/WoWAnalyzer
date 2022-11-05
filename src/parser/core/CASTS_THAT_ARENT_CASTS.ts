@@ -47,7 +47,6 @@ const spells: number[] = [
 
   //region Hunter
   SPELLS.BARBED_SHOT_PET_BUFF.id, //The buff applied to BM Hunter pet when casting Barbed Shot
-  SPELLS.DIRE_BEAST_SUMMON.id, //A secondary cast event from Dire Beast talent
   //endregion
 
   //region Mage
