@@ -2,6 +2,7 @@ import AtonementAnalyzer, {
   AtonementAnalyzerEvent,
 } from 'analysis/retail/priest/discipline/modules/core/AtonementAnalyzer';
 import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -12,18 +13,39 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { TALENTS_PRIEST } from 'common/TALENTS';
 import Atonement from './Atonement';
 
-const SINS_OF_THE_MANY_FLOOR_BONUS = 0.03;
+const SINS_OF_THE_MANY_FLOOR_BONUS = 0.01;
 
 /**
  * Sins isn't linear,
  * it allows you to have one Atonement active whilst keeping the full bonus
- * from the passive and from 6 onwards it only decreases 0.005.
+ * from the passive and from 6 onwards it decreases at increasing rates.
  * Hence this map with the values for each Atonement count.
  */
-const BONUS_DAMAGE_ARRAY = [0.12, 0.12, 0.1, 0.08, 0.07, 0.06, 0.055, 0.05, 0.045, 0.04];
+const BONUS_DAMAGE_ARRAY = [
+  0.3,
+  0.3,
+  0.3,
+  0.3,
+  0.3,
+  0.3,
+  0.26,
+  0.22,
+  0.18,
+  0.15,
+  0.12,
+  0.09,
+  0.07,
+  0.05,
+  0.04,
+  0.03,
+  0.025,
+  0.02,
+  0.015,
+  0.0125,
+  0.01,
+];
 
 class SinsOfTheMany extends Analyzer {
   static dependencies = {
@@ -37,7 +59,6 @@ class SinsOfTheMany extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.SINS_OF_THE_MANY_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onDamage);
 
@@ -89,7 +110,7 @@ class SinsOfTheMany extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_PRIEST.SINS_OF_THE_MANY_TALENT.id}>
+        <BoringSpellValueText spellId={SPELLS.SINS_OF_THE_MANY.id}>
           <ItemHealingDone amount={this.bonusHealing} /> <br />
           <ItemDamageDone amount={this.bonusDamage} />
         </BoringSpellValueText>
