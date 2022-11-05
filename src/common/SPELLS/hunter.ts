@@ -24,7 +24,7 @@ const spells = spellIndexableList({
     icon: 'ability_hunter_longevity',
   },
   DIRE_BEAST_SUMMON: {
-    id: 132764,
+    id: 219199,
     name: 'Dire Beast',
     icon: 'ability_hunter_sickem',
   },

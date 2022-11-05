@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
@@ -26,11 +26,14 @@ class TranquilizingShot extends DispelTracker {
 
   constructor(options: Options) {
     super(options);
-
+    this.active = this.selectedCombatant.hasTalent(TALENTS.TRANQUILIZING_SHOT_TALENT);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(Events.dispel.by(SELECTED_PLAYER), this.onDispel);
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.TRANQUILIZING_SHOT.id,
+      spell: TALENTS.TRANQUILIZING_SHOT_TALENT.id,
       category: SPELL_CATEGORY.UTILITY,
       cooldown: 10,
       gcd: {
@@ -51,7 +54,7 @@ class TranquilizingShot extends DispelTracker {
           size="flexible"
           category={STATISTIC_CATEGORY.GENERAL}
         >
-          <BoringSpellValueText spellId={SPELLS.TRANQUILIZING_SHOT.id}>
+          <BoringSpellValueText spellId={TALENTS.TRANQUILIZING_SHOT_TALENT.id}>
             <>{this.totalDispels}</>
           </BoringSpellValueText>
         </Statistic>
