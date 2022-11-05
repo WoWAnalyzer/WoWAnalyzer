@@ -1,4 +1,5 @@
 import { formatNumber } from 'common/format';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import { ThresholdStyle } from 'parser/core/ParseResults';
@@ -24,7 +25,7 @@ class DeadEye extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.DEADEYE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.DEADEYE_TALENT.id);
   }
 
   get deadEyeEfficacy() {
@@ -58,7 +59,7 @@ class DeadEye extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.DEADEYE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_HUNTER.DEADEYE_TALENT.id}>
           <>
             {formatNumber(this.deadEyeEffectiveCDR / 1000)}/
             {formatNumber(this.deadEyePotentialCDR / 1000)}s <small> total Aimed Shot CDR</small>

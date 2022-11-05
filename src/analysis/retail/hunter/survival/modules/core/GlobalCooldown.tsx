@@ -1,8 +1,7 @@
-import { MIN_GCD } from 'analysis/retail/hunter/shared';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
+import { CastEvent } from 'parser/core/Events';
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import Haste from 'parser/shared/modules/Haste';
-
 class GlobalCooldown extends CoreGlobalCooldown {
   static dependencies = {
     ...CoreGlobalCooldown.dependencies,
@@ -11,15 +10,19 @@ class GlobalCooldown extends CoreGlobalCooldown {
 
   protected haste!: Haste;
 
-  getGlobalCooldownDuration(spellId: number) {
-    let gcd = super.getGlobalCooldownDuration(spellId);
-    if (!gcd) {
-      return 0;
+  /**
+   * Barrage GCDs are triggered when fabricating channel events
+   */
+  onCast(event: CastEvent) {
+    const spellId = event.ability.guid;
+    if (spellId === TALENTS.BARRAGE_TALENT.id) {
+      return;
     }
-    if (spellId === SPELLS.WILD_SPIRITS.id) {
-      gcd = gcd / (1 + this.haste.current);
+    const isOnGCD = this.isOnGlobalCooldown(spellId);
+    if (!isOnGCD) {
+      return;
     }
-    return Math.max(MIN_GCD, gcd);
+    super.onCast(event);
   }
 }
 

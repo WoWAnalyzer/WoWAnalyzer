@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro';
 import { STEADY_FOCUS_HASTE_PERCENT } from 'analysis/retail/hunter/marksmanship/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import HasteIcon from 'interface/icons/Haste';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -21,7 +22,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 class SteadyFocus extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.STEADY_FOCUS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.STEADY_FOCUS_TALENT.id);
   }
 
   get uptime() {
@@ -31,7 +32,12 @@ class SteadyFocus extends Analyzer {
   }
 
   get avgHaste() {
-    return this.uptime * STEADY_FOCUS_HASTE_PERCENT;
+    return (
+      this.uptime *
+      STEADY_FOCUS_HASTE_PERCENT[
+        this.selectedCombatant.getTalentRank(TALENTS_HUNTER.STREAMLINE_TALENT)
+      ]
+    );
   }
 
   get uptimeThresholds() {
@@ -53,7 +59,7 @@ class SteadyFocus extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.STEADY_FOCUS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_HUNTER.STEADY_FOCUS_TALENT.id}>
           <>
             <HasteIcon /> {formatPercentage(this.avgHaste)}% <small>average Haste gained</small>
           </>
@@ -66,12 +72,12 @@ class SteadyFocus extends Analyzer {
     when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your uptime on the buff from <SpellLink id={SPELLS.STEADY_FOCUS_TALENT.id} /> could be
-          better. When using this talent you should always try and couple your{' '}
+          Your uptime on the buff from <SpellLink id={TALENTS_HUNTER.STEADY_FOCUS_TALENT.id} />{' '}
+          could be better. When using this talent you should always try and couple your{' '}
           <SpellLink id={SPELLS.STEADY_SHOT.id} /> together to maintain this buff.
         </>,
       )
-        .icon(SPELLS.STEADY_FOCUS_TALENT.icon)
+        .icon(TALENTS_HUNTER.STEADY_FOCUS_TALENT.icon)
         .actual(
           <Trans id="hunter.marksmanship.suggestions.steadyFocus.uptime">
             {' '}

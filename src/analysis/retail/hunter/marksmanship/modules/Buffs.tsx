@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
 
@@ -18,7 +19,7 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.LOCK_AND_LOAD_BUFF.id,
         timelineHighlight: true,
-        triggeredBySpellId: SPELLS.LOCK_AND_LOAD_TALENT.id,
+        triggeredBySpellId: TALENTS_HUNTER.LOCK_AND_LOAD_TALENT.id,
       },
       {
         spellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
@@ -26,9 +27,9 @@ class Buffs extends CoreAuras {
         triggeredBySpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
       },
       {
-        spellId: SPELLS.DOUBLE_TAP_TALENT.id,
+        spellId: TALENTS_HUNTER.DOUBLE_TAP_TALENT.id,
         timelineHighlight: true,
-        triggeredBySpellId: SPELLS.DOUBLE_TAP_TALENT.id,
+        triggeredBySpellId: TALENTS_HUNTER.DOUBLE_TAP_TALENT.id,
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),

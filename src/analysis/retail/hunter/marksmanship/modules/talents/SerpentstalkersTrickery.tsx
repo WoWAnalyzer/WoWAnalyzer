@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, HasTarget, RemoveDebuffEvent } from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
@@ -18,12 +19,12 @@ class SerpentstalkersTrickery extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.SERPENTSTALKERS_TRICKERY_EFFECT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.SERPENTSTALKERS_TRICKERY_TALENT);
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.SERPENT_STING_TALENT),
       this.onSerpentStingDamage,
     );
     this.addEventListener(
@@ -31,7 +32,7 @@ class SerpentstalkersTrickery extends Analyzer {
       this.onAimedShotCast,
     );
     this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_TALENT),
+      Events.removedebuff.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.SERPENT_STING_TALENT),
       this.onStingRemoval,
     );
   }

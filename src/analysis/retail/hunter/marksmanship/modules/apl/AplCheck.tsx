@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { suggestion } from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
 import aplCheck, { build } from 'parser/shared/metrics/apl';
@@ -10,17 +10,11 @@ import {
   buffMissing,
   buffPresent,
   debuffMissing,
-  debuffPresent,
-  hasCovenant,
-  hasLegendary,
   hasResource,
   hasTalent,
   inExecute,
   lastSpellCast,
-  not,
   or,
-  spellAvailable,
-  spellCooldownRemaining,
   targetsHit,
 } from 'parser/shared/metrics/apl/conditions';
 
@@ -28,87 +22,45 @@ export const apl = build([
   {
     spell: SPELLS.STEADY_SHOT,
     condition: and(
-      hasTalent(SPELLS.STEADY_FOCUS_TALENT),
+      hasTalent(TALENTS_HUNTER.STEADY_FOCUS_TALENT),
       lastSpellCast(SPELLS.STEADY_SHOT),
       buffMissing(SPELLS.STEADY_FOCUS_BUFF, { timeRemaining: 5000, duration: 15000 }),
     ),
   },
   {
     spell: SPELLS.STEADY_SHOT,
-    condition: and(hasTalent(SPELLS.STEADY_FOCUS_TALENT), buffMissing(SPELLS.STEADY_FOCUS_BUFF)),
+    condition: and(
+      hasTalent(TALENTS_HUNTER.STEADY_FOCUS_TALENT),
+      buffMissing(SPELLS.STEADY_FOCUS_BUFF),
+    ),
   },
   {
     spell: SPELLS.KILL_SHOT_MM_BM,
     condition: inExecute(0.2),
   },
   {
-    spell: SPELLS.KILL_SHOT_MM_BM,
-    condition: buffPresent(SPELLS.FLAYERS_MARK),
+    spell: TALENTS_HUNTER.DOUBLE_TAP_TALENT,
+    condition: hasTalent(TALENTS_HUNTER.DOUBLE_TAP_TALENT),
+  },
+  TALENTS_HUNTER.EXPLOSIVE_SHOT_TALENT,
+  {
+    spell: TALENTS_HUNTER.DEATH_CHAKRAM_TALENT,
+    condition: hasTalent(TALENTS_HUNTER.DEATH_CHAKRAM_TALENT),
   },
   {
-    spell: SPELLS.DOUBLE_TAP_TALENT,
-    condition: and(
-      hasCovenant(COVENANTS.KYRIAN),
-      spellCooldownRemaining(SPELLS.RESONATING_ARROW, { atMost: 1500 }),
-    ),
+    spell: TALENTS_HUNTER.WAILING_ARROW_TALENT,
+    condition: hasTalent(TALENTS_HUNTER.WAILING_ARROW_TALENT),
   },
   {
-    spell: SPELLS.DOUBLE_TAP_TALENT,
-    condition: and(
-      hasCovenant(COVENANTS.NIGHT_FAE),
-      spellCooldownRemaining(SPELLS.WILD_SPIRITS, { atLeast: 30000 }),
-    ),
-  },
-  {
-    spell: SPELLS.DOUBLE_TAP_TALENT,
-    condition: and(
-      hasCovenant(COVENANTS.NIGHT_FAE),
-      spellCooldownRemaining(SPELLS.WILD_SPIRITS, { atMost: 1500 }),
-    ),
-  },
-  {
-    spell: SPELLS.DOUBLE_TAP_TALENT,
-    condition: and(
-      not(hasCovenant(COVENANTS.NIGHT_FAE, true), false),
-      not(hasCovenant(COVENANTS.KYRIAN, true), false),
-    ),
-  },
-  {
-    spell: SPELLS.FLARE,
-    condition: and(
-      hasLegendary(SPELLS.SOULFORGE_EMBERS_EFFECT),
-      not(spellAvailable(SPELLS.TAR_TRAP, true), false),
-    ),
-  },
-  {
-    spell: SPELLS.TAR_TRAP,
-    condition: and(
-      hasLegendary(SPELLS.SOULFORGE_EMBERS_EFFECT),
-      spellCooldownRemaining(SPELLS.FLARE, { atMost: 1500 }),
-    ),
-  },
-  SPELLS.EXPLOSIVE_SHOT_TALENT,
-  SPELLS.FLAYED_SHOT,
-  {
-    spell: SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE,
-    condition: hasResource(RESOURCE_TYPES.FOCUS, { atMost: 80 }),
-  },
-  SPELLS.A_MURDER_OF_CROWS_TALENT,
-  SPELLS.WAILING_ARROW_CAST,
-  {
-    spell: SPELLS.VOLLEY_TALENT,
-    condition: debuffPresent(SPELLS.RESONATING_ARROW_DEBUFF),
-  },
-  {
-    spell: SPELLS.VOLLEY_TALENT,
-    condition: and(
-      not(hasCovenant(COVENANTS.KYRIAN, true), false),
-      buffMissing(SPELLS.PRECISE_SHOTS),
-    ),
+    spell: TALENTS_HUNTER.VOLLEY_TALENT,
+    condition: hasTalent(TALENTS_HUNTER.VOLLEY_TALENT),
   },
   {
     spell: SPELLS.RAPID_FIRE,
-    condition: and(hasLegendary(SPELLS.SURGING_SHOTS_EFFECT), hasTalent(SPELLS.STREAMLINE_TALENT)),
+    condition: and(
+      hasTalent(TALENTS_HUNTER.SURGING_SHOTS_TALENT),
+      hasTalent(TALENTS_HUNTER.STREAMLINE_TALENT),
+    ),
   },
   {
     spell: SPELLS.AIMED_SHOT,
@@ -129,10 +81,10 @@ export const apl = build([
     condition: hasResource(RESOURCE_TYPES.FOCUS, { atMost: 80 }),
   },
   {
-    spell: SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP,
-    condition: or(
-      buffPresent(SPELLS.PRECISE_SHOTS),
-      hasResource(RESOURCE_TYPES.FOCUS, { atLeast: 55 }),
+    spell: TALENTS_HUNTER.CHIMAERA_SHOT_TALENT,
+    condition: and(
+      hasTalent(TALENTS_HUNTER.CHIMAERA_SHOT_TALENT),
+      or(buffPresent(SPELLS.PRECISE_SHOTS), hasResource(RESOURCE_TYPES.FOCUS, { atLeast: 55 })),
     ),
   },
   {
@@ -143,14 +95,20 @@ export const apl = build([
     ),
   },
   {
-    spell: SPELLS.SERPENT_STING_TALENT,
-    condition: debuffMissing(SPELLS.SERPENT_STING_TALENT, { timeRemaining: 6000, duration: 18000 }),
+    spell: TALENTS_HUNTER.SERPENT_STING_TALENT,
+    condition: and(
+      hasTalent(TALENTS_HUNTER.SERPENT_STING_TALENT),
+      debuffMissing(TALENTS_HUNTER.SERPENT_STING_TALENT, { timeRemaining: 6000, duration: 18000 }),
+    ),
   },
   {
-    spell: SPELLS.BARRAGE_TALENT,
-    condition: targetsHit(
-      { atLeast: 2 },
-      { lookahead: 1000, targetType: EventType.Damage, targetSpell: SPELLS.BARRAGE_DAMAGE },
+    spell: TALENTS_HUNTER.BARRAGE_TALENT,
+    condition: and(
+      hasTalent(TALENTS_HUNTER.BARRAGE_TALENT),
+      targetsHit(
+        { atLeast: 2 },
+        { lookahead: 1000, targetType: EventType.Damage, targetSpell: SPELLS.BARRAGE_DAMAGE },
+      ),
     ),
   },
   SPELLS.STEADY_SHOT,

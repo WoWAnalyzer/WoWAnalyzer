@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -19,7 +20,7 @@ class Volley extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.VOLLEY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.VOLLEY_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VOLLEY_DAMAGE),
       this.onVolleyDamage,
@@ -37,7 +38,7 @@ class Volley extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.VOLLEY_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_HUNTER.VOLLEY_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>
