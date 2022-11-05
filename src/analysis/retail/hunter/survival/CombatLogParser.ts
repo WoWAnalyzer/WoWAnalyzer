@@ -10,15 +10,7 @@ import {
   FocusDetails,
   SpellFocusCost,
   DeathChakrams,
-  EmpoweredRelease,
-  NecroticBarrage,
-  SpiritAttunement,
-  ResilienceOfTheHunter,
-  ReversalOfFortune,
   RejuvenatingWind,
-  HarmonyOfTheTortollan,
-  EnfeebledMark,
-  MarkmansAdvantage,
 } from 'analysis/retail/hunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -118,19 +110,11 @@ class CombatLogParser extends CoreCombatLogParser {
     deathChakrams: DeathChakrams,
 
     //Conduits
-    empoweredRelease: EmpoweredRelease,
-    enfeebledMark: EnfeebledMark,
-    necroticBarrage: NecroticBarrage,
-    spiritAttunement: SpiritAttunement,
     deadlyTandem: DeadlyTandem,
     flameInfusion: FlameInfusion,
     stingingStrike: StingingStrike,
     strengthOfThePack: StrengthOfThePack,
-    markmansAdvantage: MarkmansAdvantage,
-    resilienceOfTheHunter: ResilienceOfTheHunter,
-    reversalOfFortune: ReversalOfFortune,
     rejuvenatingWind: RejuvenatingWind,
-    harmonyOfTheTortollan: HarmonyOfTheTortollan,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,
