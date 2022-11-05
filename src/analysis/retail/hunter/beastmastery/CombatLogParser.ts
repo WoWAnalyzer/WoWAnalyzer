@@ -45,6 +45,7 @@ import ScentOfBlood from './modules/talents/ScentOfBlood';
 import Stampede from './modules/talents/Stampede';
 import Stomp from './modules/talents/Stomp';
 import ThrillOfTheHunt from './modules/talents/ThrillOfTheHunt';
+import MasterMarksman from '../shared/talents/MasterMarksman';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -104,6 +105,7 @@ class CombatLogParser extends CoreCombatLogParser {
     direCommand: DireCommand,
     wailingArrow: WailingArrow,
     deathChakrams: DeathChakrams,
+    masterMarksman: MasterMarksman,
 
     // apl
     apl: AplCheck,

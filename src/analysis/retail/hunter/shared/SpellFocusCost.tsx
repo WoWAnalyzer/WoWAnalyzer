@@ -1,5 +1,4 @@
 import { LNL_COST_MULTIPLIER } from 'analysis/retail/hunter/marksmanship/constants';
-import { VIPERS_VENOM_COST_MULTIPLIER } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -28,13 +27,6 @@ class SpellFocusCost extends SpellResourceCost {
       spellId === SPELLS.AIMED_SHOT.id
     ) {
       return cost * LNL_COST_MULTIPLIER;
-    }
-    if (
-      this.vipersVenom &&
-      this.selectedCombatant.hasBuff(SPELLS.VIPERS_VENOM_BUFF.id) &&
-      spellId === SPELLS.SERPENT_STING_SV.id
-    ) {
-      return cost * VIPERS_VENOM_COST_MULTIPLIER;
     }
     return cost;
   }

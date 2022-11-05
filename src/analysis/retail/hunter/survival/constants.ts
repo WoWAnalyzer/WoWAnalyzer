@@ -45,10 +45,6 @@ export const BASELINE_AOTE_CD = 90000;
 
 //region Talents
 /** Vipers Venom */
-//Serpent Sting costs 0 when Vipers Venom is active
-export const VIPERS_VENOM_COST_MULTIPLIER = 0;
-//The increased damage of the initial hit of Serpent Sting from Viper's Venom
-export const VIPERS_VENOM_DAMAGE_MODIFIER = 2.5;
 /** Bird of Prey */
 //Bird of Prey extends Coordinated Assault by 1.5 seconds per trigger
 export const BOP_CA_EXTENSION_PER_CAST = 1500;

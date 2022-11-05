@@ -73,7 +73,7 @@ export const STREAMLINE_RAPID_FIRE_DAMAGE_INCREASE = 0.15;
 export const STREAMLINE_AIMED_SHOT_CAST_SPEED_UP = 0.3;
 /** Steady Focus */
 //Steady Focus increases haste by 7%
-export const STEADY_FOCUS_HASTE_PERCENT = 0.07;
+export const STEADY_FOCUS_HASTE_PERCENT = [0, 0.04, 0.08];
 /** Master Marksman */
 //Master Marksman makes special shot crits apply a 15% DOT
 export const MASTER_MARKSMAN_CRIT_DOT = 0.15;
@@ -83,8 +83,8 @@ export const MASTER_MARKSMAN_TICK_RATE = 2000;
 //Dead Eye increases the Aimed Shot recharge rate by 200%, despite tooltip saying it is 50%
 export const DEAD_EYE_AIMED_SHOT_RECHARGE_INCREASE = 2;
 /** Calling the Shots */
-//Calling the Shots makes Arcane Shot and Multi Shot decrease Trueshot cooldown by 2.5s
-export const CTS_CDR_MS = 2500;
+//1 second per 50 focus spent
+export const CTS_CDR_PER_FOCUS = 1000 / 50;
 /** Careful Aim */
 //Careful Aim is a execution-like talent that triggers off above 70%
 export const CAREFUL_AIM_THRESHOLD = 0.7;

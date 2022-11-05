@@ -6,6 +6,7 @@ import {
 } from 'analysis/retail/hunter/marksmanship/constants';
 import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
@@ -36,11 +37,9 @@ class LethalShots extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.LETHAL_SHOTS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.LETHAL_SHOTS_TALENT.id);
     this.addEventListener(
-      Events.cast
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM, SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP]),
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM]),
       this.castChecker,
     );
     this.addEventListener(
@@ -95,7 +94,7 @@ class LethalShots extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.LETHAL_SHOTS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_HUNTER.LETHAL_SHOTS_TALENT.id}>
           <>
             ≈
             {(
@@ -113,19 +112,14 @@ class LethalShots extends Analyzer {
     when(this.wastedPotentialCDR).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast{' '}
-          {this.selectedCombatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP) ? (
-            <SpellLink id={SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP.id} />
-          ) : (
-            <SpellLink id={SPELLS.ARCANE_SHOT.id} />
-          )}{' '}
-          or <SpellLink id={SPELLS.MULTISHOT_MM.id} /> whilst{' '}
+          You cast <SpellLink id={SPELLS.ARCANE_SHOT.id} />
+          or <SpellLink id={TALENTS_HUNTER.MULTI_SHOT_MARKSMANSHIP_TALENT.id} /> whilst{' '}
           <SpellLink id={SPELLS.RAPID_FIRE.id} /> wasn't on cooldown. You want to try and avoid this
-          when using <SpellLink id={SPELLS.LETHAL_SHOTS_TALENT.id} />, as it is wasting potential
-          cooldown reduction.
+          when using <SpellLink id={TALENTS_HUNTER.LETHAL_SHOTS_TALENT.id} />, as it is wasting
+          potential cooldown reduction.
         </>,
       )
-        .icon(SPELLS.LETHAL_SHOTS_TALENT.icon)
+        .icon(TALENTS_HUNTER.LETHAL_SHOTS_TALENT.icon)
         .actual(
           t({
             id: 'hunter.marksmanship.suggestions.lethalShots.efficiency',

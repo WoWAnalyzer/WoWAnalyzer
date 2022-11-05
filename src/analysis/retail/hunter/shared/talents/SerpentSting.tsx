@@ -4,7 +4,7 @@ import {
   SERPENT_STING_MM_PANDEMIC,
 } from 'analysis/retail/hunter/marksmanship/constants';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -45,31 +45,33 @@ class SerpentSting extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SERPENT_STING_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.SERPENT_STING_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.SERPENT_STING_TALENT),
       this.onCast,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.SERPENT_STING_TALENT),
       this.onDamage,
     );
     this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_TALENT),
+      Events.applydebuff.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.SERPENT_STING_TALENT),
       this.onApplyDebuff,
     );
     this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_TALENT),
+      Events.removedebuff.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.SERPENT_STING_TALENT),
       this.onRemoveDebuff,
     );
     this.addEventListener(
-      Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_TALENT),
+      Events.refreshdebuff.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.SERPENT_STING_TALENT),
       this.onRefreshDebuff,
     );
   }
 
   get uptimePercentage() {
-    return this.enemies.getBuffUptime(SPELLS.SERPENT_STING_TALENT.id) / this.owner.fightDuration;
+    return (
+      this.enemies.getBuffUptime(TALENTS_HUNTER.SERPENT_STING_TALENT.id) / this.owner.fightDuration
+    );
   }
 
   get nonPandemicThreshold() {
@@ -153,12 +155,12 @@ class SerpentSting extends Analyzer {
     when(this.nonPandemicThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          It is not recommended to refresh <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} /> earlier
-          than when there is less than {formatPercentage(SERPENT_STING_MM_PANDEMIC, 0)}% of the
-          duration remaining.
+          It is not recommended to refresh <SpellLink id={TALENTS_HUNTER.SERPENT_STING_TALENT.id} />{' '}
+          earlier than when there is less than {formatPercentage(SERPENT_STING_MM_PANDEMIC, 0)}% of
+          the duration remaining.
         </>,
       )
-        .icon(SPELLS.SERPENT_STING_TALENT.icon)
+        .icon(TALENTS_HUNTER.SERPENT_STING_TALENT.icon)
         .actual(
           t({
             id: 'hunter.marksmanship.suggestions.serpentSting.refreshOutsidePandemic',
@@ -171,11 +173,11 @@ class SerpentSting extends Analyzer {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should make sure to keep up <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} /> by using
-          it within the pandemic windows to maximize it's damage potential.
+          You should make sure to keep up <SpellLink id={TALENTS_HUNTER.SERPENT_STING_TALENT.id} />{' '}
+          by using it within the pandemic windows to maximize it's damage potential.
         </>,
       )
-        .icon(SPELLS.SERPENT_STING_TALENT.icon)
+        .icon(TALENTS_HUNTER.SERPENT_STING_TALENT.icon)
         .actual(
           t({
             id: 'hunter.marksmanship.suggestions.serpentSting.uptime',
@@ -206,7 +208,7 @@ class SerpentSting extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SERPENT_STING_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_HUNTER.SERPENT_STING_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />
