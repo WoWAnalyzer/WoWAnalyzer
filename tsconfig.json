@@ -35,7 +35,6 @@
     "src/analysis/retail/paladin/retribution",
     "src/analysis/retail/priest/shadow",
     "src/analysis/retail/rogue/assassination",
-    "src/analysis/retail/rogue/outlaw",
     "src/analysis/retail/warrior/arms"
   ],
   "files": [

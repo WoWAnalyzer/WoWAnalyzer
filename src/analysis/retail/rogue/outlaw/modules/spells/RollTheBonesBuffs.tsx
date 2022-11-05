@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 import { SpellIcon, SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
@@ -16,7 +16,7 @@ class RollTheBonesBuffs extends Analyzer {
    * In other words, at least one of the buffs was active
    */
   get totalPercentUptime(): number {
-    return this.percentUptime(SPELLS.ROLL_THE_BONES.id);
+    return this.percentUptime(TALENTS.ROLL_THE_BONES_TALENT.id);
   }
 
   get suggestionThresholds(): NumberThreshold {
@@ -39,11 +39,12 @@ class RollTheBonesBuffs extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> uptime can be improved. Try to always
-          have <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> active, even with a lower value roll.
+          Your <SpellLink id={TALENTS.ROLL_THE_BONES_TALENT.id} /> uptime can be improved. Try to
+          always have <SpellLink id={TALENTS.ROLL_THE_BONES_TALENT.id} /> active, even with a lower
+          value roll.
         </>,
       )
-        .icon(SPELLS.ROLL_THE_BONES.icon)
+        .icon(TALENTS.ROLL_THE_BONES_TALENT.icon)
         .actual(
           t({
             id: 'rogue.outlaw.suggestions.rollTheBones.uptime',
@@ -58,14 +59,14 @@ class RollTheBonesBuffs extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE(2)}
-        icon={<SpellIcon id={SPELLS.ROLL_THE_BONES.id} />}
+        icon={<SpellIcon id={TALENTS.ROLL_THE_BONES_TALENT.id} />}
         value={
           <>
             <UptimeIcon /> {formatPercentage(this.totalPercentUptime)}% <small>uptime</small>
             <br />
           </>
         }
-        label={<SpellLink id={SPELLS.ROLL_THE_BONES.id} icon={false} />}
+        label={<SpellLink id={TALENTS.ROLL_THE_BONES_TALENT.id} icon={false} />}
       >
         <table className="table table-condensed">
           <thead>

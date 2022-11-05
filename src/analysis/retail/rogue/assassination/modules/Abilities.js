@@ -82,14 +82,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.MARKED_FOR_DEATH_TALENT.id,
+        spell: TALENTS.MARKED_FOR_DEATH_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30,
         gcd: null,
         castEfficiency: {
           suggestion: true,
         },
-        enabled: combatant.hasTalent(SPELLS.MARKED_FOR_DEATH_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.MARKED_FOR_DEATH_TALENT.id),
       },
       {
         spell: SPELLS.CRIMSON_TEMPEST_TALENT.id,
