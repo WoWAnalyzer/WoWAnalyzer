@@ -75,6 +75,11 @@ const spells = spellIndexableList({
     icon: 'ability_monk_expelharm',
     manaCost: 7500,
   },
+  SAVE_THEM_ALL_BUFF: {
+    id: 390105,
+    name: 'Save Them All',
+    icon: 'inv_weapon_hand_22',
+  },
 
   // Mistweaver Monk Spells
   CLOUDED_FOCUS_BUFF: {
