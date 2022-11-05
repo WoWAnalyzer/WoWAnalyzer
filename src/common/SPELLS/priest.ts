@@ -86,6 +86,11 @@ const spells = spellIndexableList({
     name: 'Harsh Discipline',
     icon: 'ability_paladin_handoflight',
   },
+  SINS_OF_THE_MANY: {
+    id: 280391,
+    name: 'Sins of the Many',
+    icon: 'spell_holy_holyguidance',
+  },
   POWER_WORD_SHIELD: {
     id: 17,
     name: 'Power Word: Shield',
