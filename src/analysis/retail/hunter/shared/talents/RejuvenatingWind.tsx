@@ -14,10 +14,6 @@ class RejuvenatingWind extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.REJUVENATING_WIND_TALENT.id);
-    if (!this.active) {
-      return;
-    }
-
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.REJUVENATING_WIND_BUFF),
       this.onHeal,

@@ -155,22 +155,6 @@ const BeastMasteryChecklist = (props: ChecklistProps & AplRuleProps) => {
         )}
       </Rule>
       <Rule
-        name="Legendaries"
-        description="The throughput gain of some legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly, even after trying to improve your usage of said legendary."
-      >
-        {combatant.hasLegendary(SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT.id} /> Kill Command Reset
-                Efficiency
-              </>
-            }
-            thresholds={thresholds.qaplaEfficiencyThreshold}
-          />
-        )}
-      </Rule>
-      <Rule
         name="Downtime & resource generators"
         description={
           <>
@@ -190,11 +174,7 @@ const BeastMasteryChecklist = (props: ChecklistProps & AplRuleProps) => {
           thresholds={thresholds.focusNaturalRegenWasteThresholds}
         />
       </Rule>
-      <AplRule
-        {...props}
-        name="APL checker (beta)"
-        cooldowns={[SPELLS.BESTIAL_WRATH, SPELLS.ASPECT_OF_THE_WILD, SPELLS.WILD_SPIRITS]}
-      />
+      <AplRule {...props} name="APL checker (beta)" cooldowns={[TALENTS.BESTIAL_WRATH_TALENT]} />
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );

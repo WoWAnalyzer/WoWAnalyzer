@@ -276,30 +276,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.TAR_TRAP.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 25,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: this.selectedCombatant.hasLegendary(SPELLS.SOULFORGE_EMBERS_EFFECT),
-          recommendedEfficiency: 0.55,
-        },
-      },
-      {
-        spell: SPELLS.FLARE.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 20,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: this.selectedCombatant.hasLegendary(SPELLS.SOULFORGE_EMBERS_EFFECT),
-          recommendedEfficiency: 0.9,
-        },
-      },
-      {
         spell: SPELLS.WING_CLIP.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
