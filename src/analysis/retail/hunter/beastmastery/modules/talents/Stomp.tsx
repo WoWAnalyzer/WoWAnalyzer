@@ -32,12 +32,9 @@ class Stomp extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.STOMP_TALENT.id);
     this.hasAC = this.selectedCombatant.hasTalent(TALENTS.ANIMAL_COMPANION_TALENT.id);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BARBED_SHOT, TALENTS.DIRE_BEAST_TALENT]),
-      () => {
-        this.casts += 1;
-      },
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(TALENTS.BARBED_SHOT_TALENT), () => {
+      this.casts += 1;
+    });
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.STOMP_DAMAGE),
       this.onPetStompDamage,

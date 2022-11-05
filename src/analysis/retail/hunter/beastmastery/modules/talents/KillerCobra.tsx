@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -34,7 +33,7 @@ class KillerCobra extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.KILLER_COBRA_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COBRA_SHOT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.COBRA_SHOT_TALENT),
       this.onCobraCast,
     );
   }
@@ -52,12 +51,14 @@ class KillerCobra extends Analyzer {
   }
 
   onCobraCast() {
-    if (!this.selectedCombatant.hasBuff(SPELLS.BESTIAL_WRATH.id)) {
+    if (!this.selectedCombatant.hasBuff(TALENTS.BESTIAL_WRATH_TALENT.id)) {
       return;
     }
-    const killCommandIsOnCooldown = this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND_CAST_BM.id);
+    const killCommandIsOnCooldown = this.spellUsable.isOnCooldown(
+      TALENTS.KILL_COMMAND_SHARED_TALENT.id,
+    );
     if (killCommandIsOnCooldown) {
-      this.spellUsable.endCooldown(SPELLS.KILL_COMMAND_CAST_BM.id);
+      this.spellUsable.endCooldown(TALENTS.KILL_COMMAND_SHARED_TALENT.id);
       this.effectiveKillCommandResets += 1;
     } else {
       this.wastedKillerCobraCobraShots += 1;
@@ -90,13 +91,13 @@ class KillerCobra extends Analyzer {
     when(this.wastedKillerCobraThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Avoid casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> whilst{' '}
-          <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> isn't on cooldown, when you have{' '}
-          <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> up. Utilize the reset effect of{' '}
+          Avoid casting <SpellLink id={TALENTS.COBRA_SHOT_TALENT.id} /> whilst{' '}
+          <SpellLink id={TALENTS.KILL_COMMAND_SHARED_TALENT.id} /> isn't on cooldown, when you have{' '}
+          <SpellLink id={TALENTS.BESTIAL_WRATH_TALENT.id} /> up. Utilize the reset effect of{' '}
           <SpellLink id={TALENTS.KILLER_COBRA_TALENT.id} /> by only casting{' '}
-          <SpellLink id={SPELLS.COBRA_SHOT.id} /> to reset{' '}
-          <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> when{' '}
-          <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> is up.{' '}
+          <SpellLink id={TALENTS.COBRA_SHOT_TALENT.id} /> to reset{' '}
+          <SpellLink id={TALENTS.KILL_COMMAND_SHARED_TALENT.id} /> when{' '}
+          <SpellLink id={TALENTS.BESTIAL_WRATH_TALENT.id} /> is up.{' '}
         </>,
       )
         .icon(TALENTS.KILLER_COBRA_TALENT.icon)

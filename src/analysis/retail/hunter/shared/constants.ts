@@ -19,15 +19,9 @@ export const TIME_SPENT_DEAD_THRESHOLD = 0.0025; //0.25%
 /** Kill Shot */
 //Kill Shot is castable on enemies sub 20% hp
 export const KILL_SHOT_EXECUTE_RANGE = 0.2;
-/** Multi Shot */
-//List of Multi Shots for use in Rapid Reload module
-export const MULTI_SHOTS_LIST = [SPELLS.MULTISHOT_BM, SPELLS.MULTISHOT_MM];
 /** Aspects */
 //This is the baseline cooldown of Aspect of the Turtle / Cheetah
 export const BASELINE_TURTLE_CHEETAH_CD = 180000;
-/** Dire Beast (and also Dire Consequences) */
-//Dire Beast (and therefore also Dire Consequences) increases haste by 5% while active
-export const DIRE_BEAST_HASTE_PERCENT = 0.05;
 //endregion
 
 //region Talents
@@ -71,8 +65,10 @@ export const RESOURCES_HUNTER_MAJOR_THRESHOLD = 0.15;
 /** Focus Spenders that are shared across the specs */
 export const LIST_OF_FOCUS_SPENDERS_SHARED = [
   SPELLS.REVIVE_PET,
-  TALENTS.A_MURDER_OF_CROWS_TALENT,
   TALENTS.BARRAGE_TALENT,
+  TALENTS.EXPLOSIVE_SHOT_TALENT,
+  TALENTS.SERPENT_STING_TALENT,
   SPELLS.ARCANE_SHOT,
+  TALENTS.SCARE_BEAST_TALENT,
 ];
 //endregion
