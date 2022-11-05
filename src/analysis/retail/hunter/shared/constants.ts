@@ -5,18 +5,11 @@ import TALENTS from 'common/TALENTS/hunter';
 /** Abilities */
 //A simple function to calculate hasted cooldowns
 export const hastedCooldown = (baseCD: number, haste: number) => baseCD / (1 + haste);
-/** GCDs */
-//Hunter GCDs don't go below 750ms
-export const MIN_GCD = 750;
-//Hunter GCDs don't go above 1500ms
-export const MAX_GCD = 1500;
 /** MS Buffers */
 //A 100ms buffer is standard to use since logs aren't precise to the millisecond for events
 export const MS_BUFFER_100 = 100;
 //Whenever we ned to use 1 second buffers
 export const ONE_SECOND_IN_MS = 1000;
-//Whenever we need to use a buffer that is slightly above that of the maximum GCD
-export const OVER_1_GCD_BUFFER = 2000;
 /** Death Tracker */
 //The override we use in the hunter version of the Death Tracker that allows for a hunter to be dead for 0.25% of an encounter without it counting towards death time as it could just be Feign Death
 export const TIME_SPENT_DEAD_THRESHOLD = 0.0025; //0.25%
@@ -56,10 +49,8 @@ export const BORN_TO_BE_WILD_AFFECTED_SPELLS = [
 //Born To Be Wild reduces the cooldown of affected spells by 20%
 export const BORN_TO_BE_WILD_CD_REDUCTION = 0.2;
 /** Natural Mending */
-//1 second per 20 focus spent
-export const MM_SV_CDR_PER_FOCUS = 1000 / 20;
-//1 second per 30 focus spent
-export const BM_CDR_PER_FOCUS = 1000 / 30;
+//1 second per 12 focus spent
+export const NATURAL_MENDING_CDR_PER_FOCUS = 1000 / 12;
 //endregion
 
 //region Resources

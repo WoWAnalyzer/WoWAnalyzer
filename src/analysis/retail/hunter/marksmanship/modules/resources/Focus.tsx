@@ -1,5 +1,6 @@
 import { FocusTracker } from 'analysis/retail/hunter/shared';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
@@ -16,12 +17,12 @@ class Focus extends Analyzer {
     const mmFocusExtraSuggestion = (
       <>
         Try to keep focus below max by using <SpellLink id={SPELLS.AIMED_SHOT.id} />,{' '}
-        {this.selectedCombatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP.id) ? (
-          <SpellLink id={SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP.id} />
+        {this.selectedCombatant.hasTalent(TALENTS_HUNTER.CHIMAERA_SHOT_TALENT.id) ? (
+          <SpellLink id={TALENTS_HUNTER.CHIMAERA_SHOT_TALENT.id} />
         ) : (
           <SpellLink id={SPELLS.ARCANE_SHOT.id} />
         )}{' '}
-        and <SpellLink id={SPELLS.MULTISHOT_MM.id} />.
+        and <SpellLink id={TALENTS_HUNTER.MULTI_SHOT_MARKSMANSHIP_TALENT.id} />.
       </>
     );
     resourceSuggest(when, this.focusTracker, {

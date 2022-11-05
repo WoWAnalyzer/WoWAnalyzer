@@ -14,6 +14,8 @@ import {
 } from 'analysis/retail/hunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+import MasterMarksman from '../shared/talents/MasterMarksman';
+import SerpentSting from '../shared/talents/SerpentSting';
 
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
@@ -33,7 +35,6 @@ import StrengthOfThePack from './modules/spells/conduits/StrengthOfThePack';
 import CoordinatedAssault from './modules/spells/CoordinatedAssault';
 import KillCommand from './modules/spells/KillCommand';
 import RaptorStrike from './modules/spells/RaptorStrike';
-import SerpentSting from './modules/spells/SerpentSting';
 import WildfireBomb from './modules/spells/WildfireBomb';
 import AlphaPredator from './modules/talents/AlphaPredator';
 import BirdOfPrey from './modules/talents/BirdOfPrey';
@@ -45,7 +46,6 @@ import HydrasBite from './modules/talents/HydrasBite';
 import MongooseBite from './modules/talents/MongooseBite';
 import SteelTrap from './modules/talents/SteelTrap';
 import TipOfTheSpear from './modules/talents/TipOfTheSpear';
-import VipersVenom from './modules/talents/VipersVenom';
 import PheromoneBomb from './modules/talents/WildfireInfusion/PheromoneBomb';
 import ShrapnelBomb from './modules/talents/WildfireInfusion/ShrapnelBomb';
 import VolatileBomb from './modules/talents/WildfireInfusion/VolatileBomb';
@@ -81,7 +81,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //Spells
     killCommand: KillCommand,
     butcheryCarve: ButcheryCarve,
-    serpentSting: SerpentSting,
     coordinatedAssault: CoordinatedAssault,
     wildfireBomb: WildfireBomb,
     raptorStrike: RaptorStrike,
@@ -91,7 +90,6 @@ class CombatLogParser extends CoreCombatLogParser {
     naturalMending: NaturalMending,
     trailblazer: Trailblazer,
     aMurderOfCrows: AMurderOfCrows,
-    vipersVenom: VipersVenom,
     mongooseBite: MongooseBite,
     steelTrap: SteelTrap,
     guerrillaTactics: GuerrillaTactics,
@@ -108,6 +106,8 @@ class CombatLogParser extends CoreCombatLogParser {
     shrapnelBomb: ShrapnelBomb,
     volatileBomb: VolatileBomb,
     deathChakrams: DeathChakrams,
+    serpentSting: SerpentSting,
+    masterMarksman: MasterMarksman,
 
     //Conduits
     deadlyTandem: DeadlyTandem,

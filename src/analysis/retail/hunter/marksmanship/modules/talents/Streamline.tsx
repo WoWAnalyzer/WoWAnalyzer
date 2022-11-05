@@ -6,6 +6,7 @@ import {
 } from 'analysis/retail/hunter/marksmanship/constants';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -35,7 +36,7 @@ class Streamline extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.STREAMLINE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.STREAMLINE_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE_DAMAGE),
       this.onRapidFireDamage,
@@ -80,7 +81,7 @@ class Streamline extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.STREAMLINE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_HUNTER.STREAMLINE_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>
