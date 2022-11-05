@@ -14,6 +14,7 @@ import {
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
+import TalentCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/TalentCastEfficiencyRequirement';
 
 const BeastMasteryChecklist = (props: ChecklistProps & AplRuleProps) => {
   const { combatant, castEfficiency, thresholds } = props;
@@ -48,23 +49,12 @@ const BeastMasteryChecklist = (props: ChecklistProps & AplRuleProps) => {
         <AbilityRequirement spell={SPELLS.KILL_COMMAND_CAST_BM.id} />
         <AbilityRequirement spell={SPELLS.BARBED_SHOT.id} />
         <AbilityRequirement spell={SPELLS.BESTIAL_WRATH.id} />
-        <AbilityRequirement spell={SPELLS.ASPECT_OF_THE_WILD.id} />
 
-        {combatant.hasTalent(TALENTS.DIRE_BEAST_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS.DIRE_BEAST_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS.A_MURDER_OF_CROWS_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS.A_MURDER_OF_CROWS_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS.BARRAGE_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS.BARRAGE_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS.STAMPEDE_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS.STAMPEDE_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS.BLOODSHED_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS.BLOODSHED_TALENT.id} />
-        )}
+        <TalentCastEfficiencyRequirement talent={TALENTS.ASPECT_OF_THE_WILD_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.DIRE_BEAST_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.BARRAGE_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.STAMPEDE_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.BLOODSHED_TALENT} />
       </Rule>
       <Rule
         name="Barbed Shot usage"

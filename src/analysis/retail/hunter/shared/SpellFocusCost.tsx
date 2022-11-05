@@ -10,12 +10,10 @@ class SpellFocusCost extends SpellResourceCost {
   static resourceType = RESOURCE_TYPES.FOCUS;
 
   lockAndLoad: boolean;
-  vipersVenom: boolean;
 
   constructor(options: Options) {
     super(options);
     this.lockAndLoad = this.selectedCombatant.hasTalent(TALENTS.LOCK_AND_LOAD_TALENT.id);
-    this.vipersVenom = this.selectedCombatant.hasTalent(TALENTS.VIPERS_VENOM_TALENT.id);
   }
 
   getResourceCost(event: CastEvent) {

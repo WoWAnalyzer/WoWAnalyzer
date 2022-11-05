@@ -30,7 +30,6 @@ import BasicAttacks from './modules/pets/basicAttacksTracker';
 import BeastMasteryFocusCapTracker from './modules/resources/BeastMasteryFocusCapTracker';
 import BeastMasteryFocusUsage from './modules/resources/BeastMasteryFocusUsage';
 import Focus from './modules/resources/Focus';
-import AspectOfTheWild from './modules/spells/AspectOfTheWild';
 import BarbedShot from './modules/spells/BarbedShot';
 import BeastCleave from './modules/spells/BeastCleave';
 import BestialWrath from './modules/spells/BestialWrath';
@@ -82,7 +81,6 @@ class CombatLogParser extends CoreCombatLogParser {
     beastCleave: BeastCleave,
     cobraShot: CobraShot,
     barbedShot: BarbedShot,
-    aspectOfTheWild: AspectOfTheWild,
     killShot: KillShot,
 
     //Talents

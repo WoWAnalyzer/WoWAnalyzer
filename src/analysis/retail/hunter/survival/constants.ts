@@ -38,13 +38,12 @@ export const RAPTOR_MONGOOSE_VARIANTS = [
   TALENTS.MONGOOSE_BITE_TALENT,
   SPELLS.MONGOOSE_BITE_TALENT_AOTE,
 ];
-/** Aspect of the Eagle */
-//This is the baseline cooldown of Aspect of the Eagle
-export const BASELINE_AOTE_CD = 90000;
 //endregion
 
 //region Talents
-/** Vipers Venom */
+/** Aspect of the Eagle */
+//This is the baseline cooldown of Aspect of the Eagle
+export const BASELINE_AOTE_CD = 90000;
 /** Bird of Prey */
 //Bird of Prey extends Coordinated Assault by 1.5 seconds per trigger
 export const BOP_CA_EXTENSION_PER_CAST = 1500;

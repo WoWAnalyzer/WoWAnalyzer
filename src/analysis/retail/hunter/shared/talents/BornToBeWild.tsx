@@ -13,8 +13,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import {
   BASELINE_TURTLE_CHEETAH_CD,
   BORN_TO_BE_WILD_AFFECTED_SPELLS,
-  CALL_OF_THE_WILD_CD_REDUCTION,
-  HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK,
+  SURVIVAL_OF_THE_FITTEST_BASE_CD,
 } from '../constants';
 
 /**
@@ -33,38 +32,24 @@ class BornToBeWild extends Analyzer {
     [SPELLS.ASPECT_OF_THE_CHEETAH.id]: {
       effectiveCDR: 0,
       lastCast: 0,
-      baseCD: BASELINE_TURTLE_CHEETAH_CD * this.callOfTheWildReduction,
+      baseCD: BASELINE_TURTLE_CHEETAH_CD,
     },
     [SPELLS.ASPECT_OF_THE_TURTLE.id]: {
       effectiveCDR: 0,
       lastCast: 0,
-      baseCD:
-        (BASELINE_TURTLE_CHEETAH_CD - this.harmonyOfTheTortollanReduction) *
-        this.callOfTheWildReduction,
+      baseCD: BASELINE_TURTLE_CHEETAH_CD,
     },
-    [SPELLS.ASPECT_OF_THE_EAGLE.id]: {
+    [TALENTS.ASPECT_OF_THE_EAGLE_TALENT.id]: {
       effectiveCDR: 0,
       lastCast: 0,
-      baseCD: BASELINE_AOTE_CD * this.callOfTheWildReduction,
+      baseCD: BASELINE_AOTE_CD,
+    },
+    [TALENTS.SURVIVAL_OF_THE_FITTEST_TALENT.id]: {
+      effectiveCDR: 0,
+      lastCast: 0,
+      baseCD: SURVIVAL_OF_THE_FITTEST_BASE_CD,
     },
   };
-
-  get callOfTheWildReduction() {
-    return (
-      1 -
-      (this.selectedCombatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT)
-        ? CALL_OF_THE_WILD_CD_REDUCTION
-        : 0)
-    );
-  }
-
-  get harmonyOfTheTortollanReduction() {
-    return this.selectedCombatant.hasConduitBySpellID(SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id)
-      ? HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK[
-          this.selectedCombatant.conduitRankBySpellID(SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id)
-        ]
-      : 0;
-  }
 
   constructor(options: Options) {
     super(options);
@@ -109,10 +94,20 @@ class BornToBeWild extends Analyzer {
             from Born To Be Wild) when you cast it again as that is the effective cooldown reduction
             it provided for you.
             <ul>
+              <li>
+                Survival of the Fittest:
+                {formatNumber(
+                  this._spells[TALENTS.SURVIVAL_OF_THE_FITTEST_TALENT.id].effectiveCDR / 1000,
+                )}
+                s
+              </li>
               {this.hasEagle && (
                 <li>
                   Aspect of the Eagle:{' '}
-                  {formatNumber(this._spells[SPELLS.ASPECT_OF_THE_EAGLE.id].effectiveCDR / 1000)}s
+                  {formatNumber(
+                    this._spells[TALENTS.ASPECT_OF_THE_EAGLE_TALENT.id].effectiveCDR / 1000,
+                  )}
+                  s
                 </li>
               )}
               <li>

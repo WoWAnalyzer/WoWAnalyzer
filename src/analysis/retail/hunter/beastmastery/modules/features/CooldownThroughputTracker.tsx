@@ -10,10 +10,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       spell: SPELLS.BESTIAL_WRATH.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
-    {
-      spell: SPELLS.ASPECT_OF_THE_WILD.id,
-      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
-    },
   ];
 
   static ignoredSpells = [
