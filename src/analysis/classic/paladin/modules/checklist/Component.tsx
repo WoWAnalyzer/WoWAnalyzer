@@ -7,7 +7,7 @@ import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PreparationRule from 'parser/classic/modules/features/Checklist/PreparationRule';
 
-const DruidChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistProps) => (
+const PaladinChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistProps) => (
   <Checklist>
     <Rule
       name="Try to avoid being inactive for a large portion of the fight"
@@ -46,4 +46,4 @@ const DruidChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistProp
   </Checklist>
 );
 
-export default DruidChecklist;
+export default PaladinChecklist;

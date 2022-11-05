@@ -11,40 +11,48 @@ import CHANGELOG from './CHANGELOG';
 export enum Build {
   DEFAULT = 'default',
   RET = 'Retribution',
+  PROT = 'Protection',
 }
 
 const config: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
   contributors: [Khadaj, Charurun],
-  expansion: Expansion.TheBurningCrusade,
+  expansion: Expansion.WrathOfTheLichKing,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '2.5.1',
+  patchCompatibility: '3.4.0',
   isPartial: true,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
-  description: <>Proof of Concept analysis for TBCC Holy Paladins.</>,
+  description: <>Analysis for Classic WotLK Paladins.</>,
   pages: {
     overview: {
       hideChecklist: false,
-      text: <>TBC support is still a Work in Progress.</>,
+      text: <>Classic WotLK support is still a Work in Progress.</>,
       type: 'info',
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/VDNn7ZJ6fRyvYTHw/32-Normal+Morogrim+Tidewalker+-+Kill+(6:06)/Terrek',
+  exampleReport: '/report/PJFahjyTHXz93wCt/13-Normal+Patchwerk+-+Kill+(2:21)/Sacredstella',
   builds: {
     [Build.DEFAULT]: {
       url: 'standard',
-      name: '45/11/5',
-      talents: [45, 11, 5],
+      name: '51/20/0',
+      talents: [51, 20, 0],
       icon: <Icon icon="spell_holy_holybolt" />,
       visible: true,
     },
     [Build.RET]: {
       url: 'ret',
-      name: '5/11/45',
-      talents: [5, 11, 45],
-      icon: <Icon icon="spell_holy_crusaderstrike" />,
+      name: '11/5/55',
+      talents: [11, 5, 55],
+      icon: <Icon icon="spell_holy_auraoflight" />,
+      visible: true,
+    },
+    [Build.PROT]: {
+      url: 'prot',
+      name: '0/51/20',
+      talents: [0, 51, 20],
+      icon: <Icon icon="spell_holy_devotionaura" />,
       visible: true,
     },
   },
@@ -73,7 +81,7 @@ const config: Config = {
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
   parser: () =>
-    import('./CombatLogParser' /* webpackChunkName: "TBCPaladin" */).then(
+    import('./CombatLogParser' /* webpackChunkName: "ClassicPaladin" */).then(
       (exports) => exports.default,
     ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
