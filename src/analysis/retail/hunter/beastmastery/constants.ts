@@ -2,11 +2,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 
 //region Spells
-/** Barbed Shot */
-//max stacks your pet can have of the Frenzy buff
-export const MAX_FRENZY_STACKS = 3;
-//Frenzy lasts 8 seconds normally, but can be adjusted by some effects
-export const ORIGINAL_FRENZY_DURATION = 8000;
+
 /** Cobra Shot */
 //Cobra Shot reduces the cooldown of Kill Command by 1 second by default
 export const COBRA_SHOT_CDR_MS = 1000;
@@ -19,43 +15,18 @@ export const KILL_COMMAND_BM_FOCUS_COST = 30;
 //Bestial Wrath
 export const BARBED_SHOT_BESTIAL_WRATH_CDR_MS = 12000;
 export const BESTIAL_WRATH_BASE_CD = 90000;
-/** Aspect of the Wild */
-//Aspect of the Wild reduces the GCD of certain abilities
-export const AOTW_GCD_REDUCTION_AFFECTED_ABILITIES = [
-  SPELLS.KILL_COMMAND_CAST_BM.id,
-  SPELLS.COBRA_SHOT.id,
-  SPELLS.BESTIAL_WRATH.id,
-  SPELLS.MULTISHOT_BM.id,
-  SPELLS.BARBED_SHOT.id,
-  SPELLS.ASPECT_OF_THE_WILD.id,
-  SPELLS.CALL_PET_1.id,
-  SPELLS.CALL_PET_2.id,
-  SPELLS.CALL_PET_3.id,
-  SPELLS.CALL_PET_4.id,
-  SPELLS.CALL_PET_5.id,
-  SPELLS.INTIMIDATION.id,
-  SPELLS.FREEZING_TRAP.id,
-  SPELLS.TAR_TRAP.id,
-  SPELLS.HUNTERS_MARK.id,
-  SPELLS.ARCANE_SHOT.id,
-  SPELLS.EXHILARATION.id,
-  SPELLS.FLARE.id,
-  TALENTS.BLOODSHED_TALENT.id,
-  TALENTS.DIRE_BEAST_TALENT.id,
-  TALENTS.BARRAGE_TALENT.id,
-  TALENTS.STAMPEDE_TALENT.id,
-  TALENTS.CHIMAERA_SHOT_TALENT.id,
-  TALENTS.A_MURDER_OF_CROWS_TALENT.id,
-  SPELLS.WILD_SPIRITS.id,
-  SPELLS.FLAYED_SHOT.id,
-  SPELLS.RESONATING_ARROW.id,
-  SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE.id,
-];
-//Aspect of the Wild gives 5 focus per second
-export const ASPECT_OF_THE_WILD_FOCUS = 5;
 //endregion
 
 //region Talents
+/** Barbed Shot */
+//max stacks your pet can have of the Frenzy buff
+export const MAX_FRENZY_STACKS = 3;
+//Frenzy lasts 8 seconds normally, but can be adjusted by some effects
+export const ORIGINAL_FRENZY_DURATION = 8000;
+/** Kindred Spirits */
+export const KINDRED_SPIRITS_FOCUS_INCREASE = [0, 10, 20];
+/** Pack Tactics */
+export const PACK_TACTICS_FOCUS_REGEN_INCREASE = 2;
 /** Bloodshed */
 //Bloodshed increases the damage done by pets by 15%
 export const BLOODSHED_DAMAGE_AMP = 0.15;
@@ -109,9 +80,9 @@ export const NO_DELAY_TIME_BETWEEN_BASIC_ATK = 3000;
 //region Resources
 /** Focus */
 //Beast Mastery has 10 focus/second as baseline regen
-export const BEAST_MASTERY_FOCUS_REGEN = 10;
+export const BEAST_MASTERY_FOCUS_REGEN = 5;
 //Beast Mastery has 120 focus at start
-export const BEAST_MASTERY_FOCUS_MAX = 120;
+export const BEAST_MASTERY_FOCUS_MAX = 100;
 //Minor threshold for focus wastage on focus generators
 export const FOCUS_THRESHOLD_MINOR = 0.025;
 //Average threshold for focus wastage on focus generators
@@ -140,18 +111,8 @@ export const BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS = [
   SPELLS.BARBED_SHOT_BUFF_7.id,
   SPELLS.BARBED_SHOT_BUFF_8.id,
 ];
-//Some energize spells don't have waste attached to their events
-export const BEAST_MASTERY_SPELLS_WITHOUT_WASTE = [
-  SPELLS.ASPECT_OF_THE_WILD.id,
-  SPELLS.CHIMAERA_SHOT_FOCUS.id,
-  ...BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS,
-];
 //Barbed Shot regenerates 5 focus per tick
 export const BARBED_SHOT_REGEN = 5;
-//Aspect of the Wild regenerates 5 focus per tick
-export const AOTW_REGEN = 5;
-//Chimaera Shot regenerates 10 focus per hit for BM hunters
-export const CHIM_REGEN = 10;
 /** Focus Spenders specific to BM */
 export const LIST_OF_FOCUS_SPENDERS_BM = [
   SPELLS.COBRA_SHOT,

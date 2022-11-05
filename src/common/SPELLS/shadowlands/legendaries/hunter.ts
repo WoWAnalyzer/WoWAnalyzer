@@ -123,17 +123,6 @@ const legendaries = {
     icon: 'ability_hunter_invigeration',
     bonusID: 7003,
   },
-  NESINGWARYS_TRAPPING_APPARATUS_EFFECT: {
-    id: 336743,
-    name: "Nesingwary's Trapping Apparatus",
-    icon: 'ability_hunter_invigeration',
-    bonusID: 7004,
-  },
-  NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE: {
-    id: 336744,
-    name: "Nesingwary's Trapping Apparatus",
-    icon: 'ability_hunter_traplauncher',
-  },
   SOULFORGE_EMBERS_EFFECT: {
     id: 336745,
     name: 'Soulforge Embers',

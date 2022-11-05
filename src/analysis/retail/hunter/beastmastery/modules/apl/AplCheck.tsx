@@ -88,17 +88,6 @@ export const apl = build([
       and(spellCharges(SPELLS.BARBED_SHOT, { atLeast: 1, atMost: 2 })),
     ),
   },
-  {
-    spell: SPELLS.TAR_TRAP,
-    condition: or(
-      hasLegendary(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT),
-      hasLegendary(SPELLS.SOULFORGE_EMBERS_EFFECT),
-    ),
-  },
-  {
-    spell: SPELLS.FREEZING_TRAP,
-    condition: hasLegendary(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT),
-  },
 ]);
 
 export const check = aplCheck(apl);

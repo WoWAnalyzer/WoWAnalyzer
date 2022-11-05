@@ -1,9 +1,4 @@
-import {
-  BORN_TO_BE_WILD_CD_REDUCTION,
-  CALL_OF_THE_WILD_CD_REDUCTION,
-  HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK,
-  hastedCooldown,
-} from 'analysis/retail/hunter/shared';
+import { BORN_TO_BE_WILD_CD_REDUCTION, hastedCooldown } from 'analysis/retail/hunter/shared';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import CoreAbilities from 'parser/core/modules/Abilities';
@@ -27,7 +22,9 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 3,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: combatant.hasTalent(TALENTS.ALPHA_PREDATOR_TALENT.id) ? 0.65 : 0.85,
+          recommendedEfficiency: combatant.hasTalent(TALENTS.ALPHA_PREDATOR_TALENT.id)
+            ? 0.65
+            : 0.85,
         },
       },
       {
@@ -75,12 +72,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.COORDINATED_ASSAULT.id,
         buffSpellId: SPELLS.COORDINATED_ASSAULT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown:
-          120 *
-          (1 -
-            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT)
-              ? CALL_OF_THE_WILD_CD_REDUCTION
-              : 0)),
+        cooldown: 120,
         gcd: {
           static: 0,
         },
@@ -107,7 +99,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.STEEL_TRAP_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.STEEL_TRAP_TALENT.id),
-        cooldown: 30 - (combatant.getTalentRank(TALENTS.IMPROVED_TRAPS_TALENT.id) * 1.5),
+        cooldown: 30 - combatant.getTalentRank(TALENTS.IMPROVED_TRAPS_TALENT.id) * 1.5,
         gcd: {
           base: 1500,
         },
@@ -213,20 +205,11 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
         cooldown:
-          (180 -
-            (combatant.hasConduitBySpellID(SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id)
-              ? HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK[
-                  combatant.conduitRankBySpellID(SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id)
-                ]
-              : 0)) *
+          180 *
           (1 -
-            (combatant.hasTalent(TALENTS.BORN_TO_BE_WILD_TALENT.id)
-              ? BORN_TO_BE_WILD_CD_REDUCTION
-              : 0)) *
-          (1 -
-            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT)
-              ? CALL_OF_THE_WILD_CD_REDUCTION
-              : 0)),
+            BORN_TO_BE_WILD_CD_REDUCTION[
+              combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT.id)
+            ]),
         gcd: {
           static: 0,
         },
@@ -240,13 +223,9 @@ class Abilities extends CoreAbilities {
         cooldown:
           90 *
           (1 -
-            (combatant.hasTalent(TALENTS.BORN_TO_BE_WILD_TALENT.id)
-              ? BORN_TO_BE_WILD_CD_REDUCTION
-              : 0)) *
-          (1 -
-            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT)
-              ? CALL_OF_THE_WILD_CD_REDUCTION
-              : 0)),
+            BORN_TO_BE_WILD_CD_REDUCTION[
+              combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT.id)
+            ]),
         gcd: {
           static: 0,
         },
@@ -257,13 +236,9 @@ class Abilities extends CoreAbilities {
         cooldown:
           180 *
           (1 -
-            (combatant.hasTalent(TALENTS.BORN_TO_BE_WILD_TALENT.id)
-              ? BORN_TO_BE_WILD_CD_REDUCTION
-              : 0)) *
-          (1 -
-            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT)
-              ? CALL_OF_THE_WILD_CD_REDUCTION
-              : 0)),
+            BORN_TO_BE_WILD_CD_REDUCTION[
+              combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT.id)
+            ]),
         gcd: {
           static: 0,
         },
