@@ -4,6 +4,7 @@ import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
 import resourceSuggest from 'parser/shared/modules/resources/resourcetracker/ResourceSuggest';
+import TALENTS from 'common/TALENTS/rogue';
 
 class Energy extends Analyzer {
   static dependencies = {
@@ -25,7 +26,7 @@ class Energy extends Analyzer {
       ),
     });
 
-    if (this.selectedCombatant.hasTalent(SPELLS.BLADE_RUSH_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.BLADE_RUSH_TALENT.id)) {
       resourceSuggest(when, this.energyTracker, {
         spell: SPELLS.BLADE_RUSH_TALENT_BUFF,
         minor: 0.05,
@@ -34,7 +35,7 @@ class Energy extends Analyzer {
         extraSuggestion: (
           <>
             Try to keep energy below max to avoid waisting{' '}
-            <SpellLink id={SPELLS.BLADE_RUSH_TALENT.id} /> gains.
+            <SpellLink id={TALENTS.BLADE_RUSH_TALENT.id} /> gains.
           </>
         ),
       });

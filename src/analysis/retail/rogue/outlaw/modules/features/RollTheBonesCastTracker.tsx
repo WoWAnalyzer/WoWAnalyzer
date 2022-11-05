@@ -4,6 +4,7 @@ import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { CastEvent } from 'parser/core/Events';
+import TALENTS from 'common/TALENTS/rogue';
 
 import { ROLL_THE_BONES_BUFFS, ROLL_THE_BONES_DURATION } from '../../constants';
 
@@ -83,7 +84,7 @@ class RollTheBonesCastTracker extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ROLL_THE_BONES),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ROLL_THE_BONES_TALENT),
       this.processCast,
     );
   }
