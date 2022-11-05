@@ -484,6 +484,21 @@ const spells = spellIndexableList({
   //endregion
 
   //region Shared
+  DEATH_CHAKRAM_DAMAGE: {
+    id: 375893,
+    icon: 'ability_maldraxxus_hunter',
+    name: 'Death Chakram',
+  },
+  DEATH_CHAKRAM_ENERGIZE: {
+    id: 375894,
+    icon: 'ability_maldraxxus_hunter',
+    name: 'Death Chakram',
+  },
+  REJUVENATING_WIND_BUFF: {
+    id: 385540,
+    name: 'Rejuvenating Winds',
+    icon: 'ability_druid_galewinds',
+  },
   ARCANE_SHOT: {
     id: 185358,
     name: 'Arcane Shot',

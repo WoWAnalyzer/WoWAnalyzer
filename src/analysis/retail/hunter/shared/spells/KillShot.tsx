@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import SPECS from 'game/SPECS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -17,7 +16,7 @@ import { KILL_SHOT_EXECUTE_RANGE } from '../constants';
 class KillShot extends ExecuteHelper {
   static executeSources = SELECTED_PLAYER;
   static lowerThreshold = KILL_SHOT_EXECUTE_RANGE;
-  static singleExecuteEnablers = [SPELLS.FLAYERS_MARK];
+  static singleExecuteEnablers = [TALENTS.HUNTERS_PREY_TALENT];
   static modifiesDamage = false;
 
   static dependencies = {
@@ -26,15 +25,18 @@ class KillShot extends ExecuteHelper {
   };
 
   maxCasts: number = 0;
+
   activeKillShotSpell =
     this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER
-      ? SPELLS.KILL_SHOT_SV
-      : SPELLS.KILL_SHOT_MM_BM;
-
+      ? TALENTS.KILL_SHOT_SURVIVAL_TALENT
+      : TALENTS.KILL_SHOT_SHARED_TALENT;
   protected abilities!: Abilities;
 
   constructor(options: Options) {
     super(options);
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.KILL_SHOT_SHARED_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.KILL_SHOT_SURVIVAL_TALENT);
 
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
     const ctor = this.constructor as typeof ExecuteHelper;

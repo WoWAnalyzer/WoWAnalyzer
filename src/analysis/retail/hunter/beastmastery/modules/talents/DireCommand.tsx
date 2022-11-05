@@ -2,6 +2,7 @@ import { DIRE_COMMAND_PROC_CHANCE } from 'analysis/retail/hunter/beastmastery/co
 import { DIRE_BEAST_HASTE_PERCENT } from 'analysis/retail/hunter/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import Haste from 'interface/icons/Haste';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
@@ -30,7 +31,7 @@ class DireCommand extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.DIRE_COMMAND_EFFECT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DIRE_COMMAND_TALENT);
     if (!this.active) {
       return;
     }
@@ -96,7 +97,7 @@ class DireCommand extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.DIRE_COMMAND_EFFECT.id}>
+        <BoringSpellValueText spellId={TALENTS.DIRE_COMMAND_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
           <br />
           <Haste /> {formatPercentage(DIRE_BEAST_HASTE_PERCENT * this.uptime)}% <small>Haste</small>

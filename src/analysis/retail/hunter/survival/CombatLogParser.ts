@@ -21,17 +21,12 @@ import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
 import GlobalCooldown from './modules/core/GlobalCooldown';
-import SpellUsable from './modules/core/SpellUsable';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Focus from './modules/resources/Focus';
 import SurvivalFocusCapTracker from './modules/resources/SurvivalFocusCapTracker';
 import SurvivalFocusUsage from './modules/resources/SurvivalFocusUsage';
 import ButcheryCarve from './modules/spells/ButcheryCarve';
-import DeadlyTandem from './modules/spells/conduits/DeadlyTandem';
-import FlameInfusion from './modules/spells/conduits/FlameInfusion';
-import StingingStrike from './modules/spells/conduits/StingingStrike';
-import StrengthOfThePack from './modules/spells/conduits/StrengthOfThePack';
 import CoordinatedAssault from './modules/spells/CoordinatedAssault';
 import KillCommand from './modules/spells/KillCommand';
 import RaptorStrike from './modules/spells/RaptorStrike';
@@ -57,7 +52,6 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     checklist: Checklist,
     globalCooldown: GlobalCooldown,
-    spellUsable: SpellUsable,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -109,11 +103,7 @@ class CombatLogParser extends CoreCombatLogParser {
     serpentSting: SerpentSting,
     masterMarksman: MasterMarksman,
 
-    //Conduits
-    deadlyTandem: DeadlyTandem,
-    flameInfusion: FlameInfusion,
-    stingingStrike: StingingStrike,
-    strengthOfThePack: StrengthOfThePack,
+    //Shared Talents
     rejuvenatingWind: RejuvenatingWind,
 
     // Survival's throughput benefit isn't as big as for other classes

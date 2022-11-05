@@ -4,6 +4,7 @@ import {
 } from 'analysis/retail/hunter/marksmanship/constants';
 import SpellUsable from 'analysis/retail/hunter/marksmanship/modules/core/SpellUsable';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -33,10 +34,7 @@ class SurgingShots extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.SURGING_SHOTS_EFFECT);
-    if (!this.active) {
-      return;
-    }
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SURGING_SHOTS_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE_DAMAGE),
       this.onRapidFireDamage,
@@ -77,7 +75,7 @@ class SurgingShots extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SURGING_SHOTS_EFFECT.id}>
+        <BoringSpellValueText spellId={TALENTS.SURGING_SHOTS_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

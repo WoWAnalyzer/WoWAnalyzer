@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { ResourceIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
@@ -26,14 +26,14 @@ class DeathChakrams extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DEATH_CHAKRAM_TALENT);
 
     if (!this.active) {
       return;
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE.id,
+      spell: TALENTS.DEATH_CHAKRAM_TALENT.id,
       category: SPELL_CATEGORY.ROTATIONAL,
       cooldown: 45,
       gcd: {
@@ -46,9 +46,7 @@ class DeathChakrams extends Analyzer {
     });
 
     this.addEventListener(
-      Events.damage
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.DEATH_CHAKRAM_SINGLE_TARGET, SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE]),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEATH_CHAKRAM_DAMAGE),
       this.onDamage,
     );
     this.addEventListener(
@@ -73,7 +71,7 @@ class DeathChakrams extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spellId={SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE.id}>
+        <BoringSpellValueText spellId={TALENTS.DEATH_CHAKRAM_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />
