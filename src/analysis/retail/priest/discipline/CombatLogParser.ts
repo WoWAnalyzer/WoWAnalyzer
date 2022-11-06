@@ -54,6 +54,7 @@ import MaliciousIntent from './modules/spells/MaliciousIntent';
 import PowerWordRadiance from './modules/spells/PowerWordRadiance';
 import EvangelismAnalysis from './modules/guide/EvangelismAnalysis';
 import Guide from './Guide';
+import SelfAtonementAnalyzer from './modules/guide/SelfAtonementAnalysis';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -118,6 +119,7 @@ class CombatLogParser extends CoreCombatLogParser {
     throesOfPain: ThroesOfPain,
     maliciousIntent: MaliciousIntent,
     evangelismAnalysis: EvangelismAnalysis,
+    selfAtonementAnalyzer: SelfAtonementAnalyzer,
   };
   static guide = Guide;
 }
