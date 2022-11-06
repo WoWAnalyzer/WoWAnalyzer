@@ -30,17 +30,17 @@ export const SV_SERPENT_STING_COST = 20;
 export const SERPENT_STING_SV_PANDEMIC = 0.3;
 //The baseduration of Serpent Sting before any haste reduction
 export const SERPENT_STING_SV_BASE_DURATION = 12000;
+//endregion
+
+//region Talents
 /** Raptor Strike / Mongoose Bite */
 //Raptor Strike turns into Mongoose Bite when talented into it, and during Aspect of the Eagle they change spellIDs.
 export const RAPTOR_MONGOOSE_VARIANTS = [
-  SPELLS.RAPTOR_STRIKE,
+  TALENTS.RAPTOR_STRIKE_TALENT,
   SPELLS.RAPTOR_STRIKE_AOTE,
   TALENTS.MONGOOSE_BITE_TALENT,
   SPELLS.MONGOOSE_BITE_TALENT_AOTE,
 ];
-//endregion
-
-//region Talents
 /** Aspect of the Eagle */
 //This is the baseline cooldown of Aspect of the Eagle
 export const BASELINE_AOTE_CD = 90000;
@@ -90,15 +90,11 @@ export const HYDRAS_BITE_DOT_MODIFIER = 0.2;
 
 //region Resources
 export const LIST_OF_FOCUS_SPENDERS_SV = [
+  TALENTS.CARVE_TALENT,
   TALENTS.BUTCHERY_TALENT,
-  SPELLS.CARVE,
-  SPELLS.WING_CLIP,
-  TALENTS.DEATH_CHAKRAM_TALENT,
-  SPELLS.SERPENT_STING_SV,
+  TALENTS.KILL_SHOT_SURVIVAL_TALENT,
   ...RAPTOR_MONGOOSE_VARIANTS,
 ];
-export const BASE_FOCUS_REGEN_SV = 5;
-export const BASE_MAX_FOCUS_SV = 100;
 //endregion
 
 //region Conduits
