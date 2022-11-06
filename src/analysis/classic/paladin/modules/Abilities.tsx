@@ -1,20 +1,20 @@
+import SPELLS from 'common/SPELLS/classic/paladin';
 import CoreAbilities from 'parser/core/modules/Abilities';
-import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 import { Build } from '../CONFIG';
-import lowRankSpells from '../lowRankSpells';
-import * as SPELLS from '../SPELLS';
 
 class Abilities extends CoreAbilities {
-  spellbook(): SpellbookAbility[] {
+  spellbook() {
+    const combatant = this.selectedCombatant;
     const build = this.owner.build;
-    const baseSpells: SpellbookAbility[] = [
+    return [
+      // Rotational
       {
-        spell: [SPELLS.CRUSADER_STRIKE],
+        spell: [SPELLS.CRUSADER_STRIKE.id],
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
-        cooldown: 6,
+        gcd: { base: 1500 },
+        cooldown: 4,
         castEfficiency: {
           suggestion: build === Build.RET ? true : false,
           recommendedEfficiency: 0.8,
@@ -22,321 +22,225 @@ class Abilities extends CoreAbilities {
         enabled: build === Build.RET ? true : false,
       },
       {
-        spell: [SPELLS.AVENGING_WRATH],
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: { static: 1500 },
-        cooldown: 180,
-        castEfficiency: {
-          suggestion: build === Build.RET ? true : false,
-          recommendedEfficiency: 0.9,
-        },
-      },
-      {
-        spell: [SPELLS.BLESSING_OF_FREEDOM],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.BLESSING_OF_LIGHT, ...lowRankSpells[SPELLS.BLESSING_OF_LIGHT]],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.BLESSING_OF_MIGHT, ...lowRankSpells[SPELLS.BLESSING_OF_MIGHT]],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.BLESSING_OF_PROTECTION, ...lowRankSpells[SPELLS.BLESSING_OF_PROTECTION]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.BLESSING_OF_SACRIFICE, ...lowRankSpells[SPELLS.BLESSING_OF_SACRIFICE]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.BLESSING_OF_SALVATION],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.BLESSING_OF_WISDOM, ...lowRankSpells[SPELLS.BLESSING_OF_WISDOM]],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.BLOOD_CORRUPTION],
+        spell: [SPELLS.SEAL_OF_COMMAND_DMG.id],
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
+        enabled: combatant.talentPoints[2] >= 10,
       },
       {
-        spell: [SPELLS.CLEANSE],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.CONCENTRATION_AURA],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.CONSECRATION, ...lowRankSpells[SPELLS.CONSECRATION]],
+        spell: [SPELLS.JUDGEMENT_OF_LIGHT.id],
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.JUDGEMENT_OF_WISDOM.id],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.DIVINE_STORM.id],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+        enabled: combatant.talentPoints[2] >= 50,
+      },
+      {
+        spell: [SPELLS.SHIELD_OF_RIGHTEOUSNESS.id, ...SPELLS.SHIELD_OF_RIGHTEOUSNESS.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.HOLY_SHIELD.id, ...SPELLS.HOLY_SHIELD.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+        enabled: combatant.talentPoints[1] >= 30,
+      },
+      {
+        spell: [SPELLS.HAMMER_OF_WRATH.id, ...SPELLS.HAMMER_OF_WRATH.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.EXORCISM.id, ...SPELLS.EXORCISM.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      /// Healing
+      {
+        spell: [SPELLS.FLASH_OF_LIGHT.id, ...SPELLS.FLASH_OF_LIGHT.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.HOLY_LIGHT.id, ...SPELLS.HOLY_LIGHT.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.SACRED_SHIELD.id],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.HOLY_SHOCK.id, ...SPELLS.HOLY_SHOCK.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+        enabled: combatant.talentPoints[0] >= 30,
+      },
+      {
+        spell: [SPELLS.BEACON_OF_LIGHT.id],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+        enabled: combatant.talentPoints[0] >= 50,
+      },
+      {
+        spell: [SPELLS.HAMMER_OF_THE_RIGHTEOUS.id],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+        enabled: combatant.talentPoints[1] >= 50,
+        cooldown: 6,
+      },
+      // Rotational AOE
+      {
+        spell: [SPELLS.CONSECRATION.id, ...SPELLS.CONSECRATION.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        gcd: { base: 1500 },
         cooldown: 8,
       },
+      // Cooldowns
       {
-        spell: [SPELLS.CRUSADER_AURA],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
+        spell: [SPELLS.AURA_MASTERY.id],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { base: 1500 },
+        enabled: combatant.talentPoints[0] >= 10,
+        cooldown: 120,
       },
       {
-        spell: [SPELLS.DEVOTION_AURA, ...lowRankSpells[SPELLS.DEVOTION_AURA]],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
+        spell: [SPELLS.DIVINE_FAVOR.id],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { base: 1500 },
+        enabled: combatant.talentPoints[0] >= 20,
+        cooldown: 120,
       },
       {
-        spell: [SPELLS.DIVINE_INTERVENTION],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
+        spell: [SPELLS.DIVINE_ILLUMINATION.id],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { base: 1500 },
+        enabled: combatant.talentPoints[0] >= 40,
+        cooldown: 180,
       },
       {
-        spell: [SPELLS.DIVINE_PROTECTION, ...lowRankSpells[SPELLS.DIVINE_PROTECTION]],
+        spell: [SPELLS.DIVINE_PLEA.id],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { base: 1500 },
+        cooldown: 60,
+      },
+      {
+        spell: [SPELLS.AVENGING_WRATH.id],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { base: 1500 },
+        cooldown: build === Build.RET ? 120 : 180,
+      },
+      {
+        spell: [SPELLS.AVENGERS_SHIELD.id, ...SPELLS.AVENGERS_SHIELD.lowRanks],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { base: 1500 },
+        enabled: combatant.talentPoints[1] >= 40,
+        cooldown: 30,
+      },
+      {
+        spell: [SPELLS.DIVINE_SACRIFICE.id],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { base: 1500 },
+        enabled: combatant.talentPoints[1] >= 10,
+        cooldown: 120,
+      },
+      {
+        spell: [SPELLS.HOLY_WRATH.id, ...SPELLS.HOLY_WRATH.lowRanks],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { base: 1500 },
+        cooldown: 30,
+      },
+      // Defensive
+      {
+        spell: [SPELLS.DIVINE_PROTECTION.id],
         category: SPELL_CATEGORY.DEFENSIVE,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
+        cooldown: 180,
+      },
+      {
+        spell: [SPELLS.DIVINE_SHIELD.id],
+        category: SPELL_CATEGORY.DEFENSIVE,
+        gcd: { base: 1500 },
         cooldown: 300,
       },
+      // Utility
       {
-        spell: [SPELLS.DIVINE_SHIELD, ...lowRankSpells[SPELLS.DIVINE_SHIELD]],
-        category: SPELL_CATEGORY.DEFENSIVE,
-        gcd: { static: 1500 },
-        cooldown: 300,
-      },
-      {
-        spell: [SPELLS.EXORCISM, ...lowRankSpells[SPELLS.EXORCISM]],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.FIRE_RESISTANCE_AURA, ...lowRankSpells[SPELLS.FIRE_RESISTANCE_AURA]],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.FLASH_OF_LIGHT, ...lowRankSpells[SPELLS.FLASH_OF_LIGHT]],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
-        enabled: build === Build.DEFAULT ? true : false,
-      },
-      {
-        spell: [SPELLS.FROST_RESISTANCE_AURA, ...lowRankSpells[SPELLS.FROST_RESISTANCE_AURA]],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.GREATER_BLESSING_OF_KINGS],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [
-          SPELLS.GREATER_BLESSING_OF_LIGHT,
-          ...lowRankSpells[SPELLS.GREATER_BLESSING_OF_LIGHT],
-        ],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [
-          SPELLS.GREATER_BLESSING_OF_MIGHT,
-          ...lowRankSpells[SPELLS.GREATER_BLESSING_OF_MIGHT],
-        ],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.GREATER_BLESSING_OF_SALVATION],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [
-          SPELLS.GREATER_BLESSING_OF_SANCTUARY,
-          ...lowRankSpells[SPELLS.GREATER_BLESSING_OF_SANCTUARY],
-        ],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [
-          SPELLS.GREATER_BLESSING_OF_WISDOM,
-          ...lowRankSpells[SPELLS.GREATER_BLESSING_OF_WISDOM],
-        ],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.HAMMER_OF_JUSTICE, ...lowRankSpells[SPELLS.HAMMER_OF_JUSTICE]],
+        spell: [SPELLS.HAMMER_OF_JUSTICE.id, ...SPELLS.HAMMER_OF_JUSTICE.lowRanks],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.HAMMER_OF_WRATH, ...lowRankSpells[SPELLS.HAMMER_OF_WRATH]],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.HOLY_LIGHT, ...lowRankSpells[SPELLS.HOLY_LIGHT]],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
-        enabled: build === Build.DEFAULT ? true : false,
-      },
-      {
-        spell: [SPELLS.HOLY_SHOCK, ...lowRankSpells[SPELLS.HOLY_SHOCK]],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
-        enabled: build === Build.DEFAULT ? true : false,
-      },
-      {
-        spell: [SPELLS.HOLY_WRATH, ...lowRankSpells[SPELLS.HOLY_WRATH]],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.JUDGEMENT],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.JUDGEMENT_OF_CORRUPTION],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.JUDGEMENT_OF_THE_CRUSADER],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.LAY_ON_HANDS, ...lowRankSpells[SPELLS.LAY_ON_HANDS]],
+        spell: [SPELLS.REPENTANCE.id],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
+        enabled: combatant.talentPoints[2] >= 30,
       },
       {
-        spell: [SPELLS.PURIFY],
+        spell: [SPELLS.CLEANSE.id],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.REDEMPTION, ...lowRankSpells[SPELLS.REDEMPTION]],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.RETRIBUTION_AURA, ...lowRankSpells[SPELLS.RETRIBUTION_AURA]],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.RIGHTEOUS_DEFENSE],
+        spell: [SPELLS.PURIFY.id],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.RIGHTEOUS_FURY],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.SEAL_OF_COMMAND, ...lowRankSpells[SPELLS.SEAL_OF_COMMAND]],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.SEAL_OF_BLOOD],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.SEAL_OF_CORRUPTION],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.SEAL_OF_JUSTICE, ...lowRankSpells[SPELLS.SEAL_OF_JUSTICE]],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.SEAL_OF_LIGHT, ...lowRankSpells[SPELLS.SEAL_OF_LIGHT]],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.SEAL_OF_RIGHTEOUSNESS, ...lowRankSpells[SPELLS.SEAL_OF_RIGHTEOUSNESS]],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.SEAL_OF_THE_CRUSADER, ...lowRankSpells[SPELLS.SEAL_OF_THE_CRUSADER]],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.SEAL_OF_THE_MARTYR, ...lowRankSpells[SPELLS.SEAL_OF_THE_MARTYR]],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.SEAL_OF_VENGEANCE],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.SEAL_OF_WISDOM, ...lowRankSpells[SPELLS.SEAL_OF_WISDOM]],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.SENSE_UNDEAD],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.SHADOW_RESISTANCE_AURA, ...lowRankSpells[SPELLS.SHADOW_RESISTANCE_AURA]],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.SPIRITUAL_ATTUNEMENT, ...lowRankSpells[SPELLS.SPIRITUAL_ATTUNEMENT]],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.SUMMON_CHARGER, ...lowRankSpells[SPELLS.SUMMON_CHARGER]],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.SUMMON_WARHORSE, ...lowRankSpells[SPELLS.SUMMON_WARHORSE]],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.TURN_EVIL],
+        spell: [SPELLS.HAND_OF_SALVATION.id],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.TURN_UNDEAD, ...lowRankSpells[SPELLS.TURN_UNDEAD]],
+        spell: [SPELLS.HAND_OF_PROTECTION.id, ...SPELLS.HAND_OF_PROTECTION.lowRanks],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.HAND_OF_FREEDOM.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.HAND_OF_SACRIFICE.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.RIGHTEOUS_DEFENSE.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.LAY_ON_HANDS.id, ...SPELLS.LAY_ON_HANDS.lowRanks],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.RIGHTEOUS_FURY.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.DIVINE_INTERVENTION.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.TURN_EVIL.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
       },
     ];
-
-    return baseSpells;
   }
 }
 

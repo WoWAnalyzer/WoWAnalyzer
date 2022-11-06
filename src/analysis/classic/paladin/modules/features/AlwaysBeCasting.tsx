@@ -5,17 +5,17 @@ import { When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 
 import lowRankSpells, { LowRankSpells } from '../../lowRankSpells';
-import * as SPELLS from '../../SPELLS';
+import SPELLS from 'common/SPELLS/classic/paladin';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD: number[] = [
-    SPELLS.HOLY_SHOCK,
-    SPELLS.FLASH_OF_LIGHT,
-    SPELLS.HOLY_LIGHT,
-    SPELLS.JUDGEMENT,
-    SPELLS.LAY_ON_HANDS,
-    SPELLS.CLEANSE,
-    SPELLS.PURIFY,
+    SPELLS.HOLY_SHOCK.id,
+    SPELLS.FLASH_OF_LIGHT.id,
+    SPELLS.HOLY_LIGHT.id,
+    SPELLS.JUDGEMENT_OF_LIGHT.id,
+    SPELLS.LAY_ON_HANDS.id,
+    SPELLS.CLEANSE.id,
+    SPELLS.PURIFY.id,
   ];
 
   constructor(options: Options) {
