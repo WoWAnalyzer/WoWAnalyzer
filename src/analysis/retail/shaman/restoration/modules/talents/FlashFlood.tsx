@@ -11,7 +11,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
-import { RESTORATION_COLORS } from '../../constants';
+import { RESTORATION_COLORS, FLASH_FLOOD_CAST_SPEED_MODIFIER } from '../../constants';
 
 const BUFFER_MS = 50;
 
@@ -64,7 +64,8 @@ class FlashFlood extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.FLASH_FLOOD_TALENT.id);
     this.flashFloodHaste =
-      this.selectedCombatant.getTalentRank(TALENTS.FLASH_FLOOD_TALENT.id) * 0.1;
+      this.selectedCombatant.getTalentRank(TALENTS.FLASH_FLOOD_TALENT.id) *
+      FLASH_FLOOD_CAST_SPEED_MODIFIER;
 
     if (this.selectedCombatant.hasTalent(TALENTS.WELLSPRING_TALENT.id)) {
       //-- always below GCD
