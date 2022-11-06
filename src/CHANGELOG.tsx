@@ -67,6 +67,7 @@ import SpellLink from 'interface/SpellLink';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 export default [
+  change(date(2022, 11, 6), 'Add player icon lookup for configs to Classic specs.', jazminite),
   change(date(2022, 11, 2), 'Add Dragonflight enchants.', ToppleTheNun),
   change(date(2022, 11, 1), 'Add Preparation section that can be included in Guides.', ToppleTheNun),
   change(date(2022, 11, 1), 'Re-add missing specs to the specializations page.', ToppleTheNun),
