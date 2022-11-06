@@ -26,6 +26,7 @@ import ConvokeSpiritsResto from 'analysis/retail/druid/restoration/modules/spell
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
 
 const HARDCAST_FLOURISH_EXTENSION = 8000;
 const CONVOKE_FLOURISH_EXTENSION = 4000;
@@ -113,7 +114,7 @@ class Flourish extends Analyzer {
   onFlourishApplyBuff(event: ApplyBuffEvent | RefreshBuffEvent) {
     let extensionAttribution: Attribution;
     let extensionAmount = HARDCAST_FLOURISH_EXTENSION;
-    if (!isFromHardcast(event) && this.convokeSpirits.isConvoking()) {
+    if (!isFromHardcast(event) && isConvoking(this.selectedCombatant)) {
       extensionAttribution = this.convokeSpirits.currentConvokeAttribution;
       extensionAmount = CONVOKE_FLOURISH_EXTENSION;
       this.currentRateAttribution = this.convokeSpirits.currentConvokeRateAttribution;

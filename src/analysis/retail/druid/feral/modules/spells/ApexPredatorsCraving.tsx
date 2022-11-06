@@ -16,9 +16,9 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import ConvokeSpiritsFeral from 'analysis/retail/druid/feral/modules/spells/ConvokeSpiritsFeral';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { formatPercentage } from 'common/format';
+import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
 
 const BUFFER_MS = 50;
 
@@ -30,12 +30,6 @@ const BUFFER_MS = 50;
  * Rip damage has a 4% chance to make your next Ferocious Bite free and deal the maximum damage.
  */
 class ApexPredatorsCraving extends Analyzer {
-  static dependencies = {
-    convokeSpirits: ConvokeSpiritsFeral,
-  };
-
-  protected convokeSpirits!: ConvokeSpiritsFeral;
-
   hasSotf: boolean;
   hasRf: boolean;
 
@@ -98,7 +92,7 @@ class ApexPredatorsCraving extends Analyzer {
 
   onFbDamage(event: DamageEvent) {
     if (
-      !this.convokeSpirits.isConvoking() &&
+      !isConvoking(this.selectedCombatant) &&
       this.selectedCombatant.hasBuff(
         SPELLS.APEX_PREDATORS_CRAVING_BUFF.id,
         event.timestamp,
@@ -118,7 +112,7 @@ class ApexPredatorsCraving extends Analyzer {
 
   onRfDamage(event: DamageEvent) {
     if (
-      !this.convokeSpirits.isConvoking() &&
+      !isConvoking(this.selectedCombatant) &&
       this.selectedCombatant.hasBuff(
         SPELLS.APEX_PREDATORS_CRAVING_BUFF.id,
         event.timestamp,

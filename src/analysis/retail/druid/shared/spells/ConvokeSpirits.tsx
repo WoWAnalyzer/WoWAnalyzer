@@ -19,6 +19,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_DRUID, TALENTS_DRUID as TALENTS } from 'common/TALENTS/druid';
 
 import ActiveDruidForm, { DruidForm } from '../core/ActiveDruidForm';
+import Combatant from 'parser/core/Combatant';
 
 const DEBUG = false;
 
@@ -244,9 +245,8 @@ class ConvokeSpirits extends Analyzer {
     const isNewHit = this.isNewHit(spellId);
     const isTravelTime = SPELL_IDS_WITH_TRAVEL_TIME.includes(spellId);
     const wasProbablyHardcast = isTravelTime && this.wasProbablyHardcast(event);
-    const isConvoking = this.isConvoking();
 
-    if (isNewHit && isConvoking && !wasProbablyHardcast) {
+    if (isNewHit && isConvoking(this.selectedCombatant) && !wasProbablyHardcast) {
       // spell hit during convoke and was due to convoke
       this.registerConvokedSpell(spellId);
     } else if (isTravelTime && !wasProbablyHardcast && this.isWithinTravelFromConvoke()) {
@@ -268,9 +268,8 @@ class ConvokeSpirits extends Analyzer {
 
     const isTravelTime = SPELL_IDS_WITH_TRAVEL_TIME.includes(spellId);
     const wasProbablyHardcast = isTravelTime && this.wasProbablyHardcast(event);
-    const isConvoking = this.isConvoking();
 
-    if (isConvoking && !wasProbablyHardcast) {
+    if (isConvoking(this.selectedCombatant) && !wasProbablyHardcast) {
       // spell hit during convoke and was due to convoke
       this._addDamage(event);
     } else if (isTravelTime && !wasProbablyHardcast && this.isWithinTravelFromConvoke()) {
@@ -280,11 +279,11 @@ class ConvokeSpirits extends Analyzer {
   }
 
   onGainFeralFrenzy(_: ApplyBuffEvent | RefreshBuffEvent) {
-    this.feralFrenzyIsConvoke = this.isConvoking();
+    this.feralFrenzyIsConvoke = isConvoking(this.selectedCombatant);
   }
 
   onGainStarfall(_: ApplyBuffEvent | RefreshBuffEvent) {
-    this.starfallIsConvoke = this.isConvoking();
+    this.starfallIsConvoke = isConvoking(this.selectedCombatant);
   }
 
   onFeralFrenzyDamage(event: DamageEvent) {
@@ -327,15 +326,6 @@ class ConvokeSpirits extends Analyzer {
       currentConvoke.spellIdToCasts[spellId] = 0;
     }
     currentConvoke.spellIdToCasts[spellId] += 1;
-  }
-
-  /**
-   * True iff the player is currently Convoking the Spirits.
-   * Includes a small buffer after the end because occasionally the last convoked spell occurs
-   * slightly after the end.
-   */
-  isConvoking(): boolean {
-    return this.selectedCombatant.hasBuff(SPELLS.CONVOKE_SPIRITS.id, null, AFTER_CHANNEL_BUFFER_MS);
   }
 
   /**
@@ -446,6 +436,16 @@ class ConvokeSpirits extends Analyzer {
       </>
     );
   }
+}
+
+/**
+ * True iff the player is currently Convoking the Spirits.
+ * Includes a small buffer after the end because occasionally the last convoked spell occurs
+ * slightly after the end.
+ * Here as a separate function to avoid dependency issues.
+ */
+export function isConvoking(c: Combatant): boolean {
+  return c.hasBuff(SPELLS.CONVOKE_SPIRITS.id, null, AFTER_CHANNEL_BUFFER_MS);
 }
 
 export default ConvokeSpirits;
