@@ -126,7 +126,7 @@ class BirdOfPrey extends Analyzer {
       suggest(
         <>
           When talented into <SpellLink id={TALENTS.BIRDS_OF_PREY_TALENT.id} />, it's important to
-          cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} />,{' '}
+          cast <SpellLink id={TALENTS.RAPTOR_STRIKE_TALENT.id} />,{' '}
           <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} />, <SpellLink id={SPELLS.CARVE.id} /> or{' '}
           <SpellLink id={TALENTS.BUTCHERY_TALENT.id} /> on the same target as your pet is attacking.
         </>,
