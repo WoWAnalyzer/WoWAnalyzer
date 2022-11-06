@@ -15,7 +15,7 @@ class Focus extends Analyzer {
 
   suggestions(when: When) {
     resourceSuggest(when, this.focusTracker, {
-      spell: SPELLS.KILL_COMMAND_CAST_SV,
+      spell: TALENTS.KILL_COMMAND_SURVIVAL_TALENT,
       minor: 0.025,
       avg: 0.05,
       major: 0.1,
@@ -23,7 +23,7 @@ class Focus extends Analyzer {
         <>
           Try to keep focus below max by using <SpellLink id={SPELLS.SERPENT_STING_SV.id} />,{' '}
           <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} /> or{' '}
-          <SpellLink id={SPELLS.RAPTOR_STRIKE.id} />.
+          <SpellLink id={TALENTS.RAPTOR_STRIKE_TALENT.id} />.
         </>
       ),
     });

@@ -279,11 +279,6 @@ const spells = spellIndexableList({
     name: 'Wildfire Bomb',
     icon: 'inv_wildfirebomb',
   },
-  RAPTOR_STRIKE: {
-    id: 186270,
-    name: 'Raptor Strike',
-    icon: 'ability_hunter_raptorstrike',
-  },
   RAPTOR_STRIKE_AOTE: {
     id: 265189,
     name: 'Raptor Strike',
