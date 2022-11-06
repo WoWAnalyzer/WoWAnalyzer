@@ -66,11 +66,11 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           name="Mongoose Bite usage"
           description={
             <>
-              Using <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} /> properly is a key to achieving
-              high dps. Maintaining high stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> buff
-              from as soon as possible and casting as much{' '}
-              <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} />s on max stacks as possible is
-              considered to be most effective.
+              Using <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} /> properly is a key to
+              achieving high dps. Maintaining high stacks of{' '}
+              <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> buff from as soon as possible and casting
+              as much <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} />s on max stacks as possible
+              is considered to be most effective.
             </>
           }
         >
@@ -129,7 +129,7 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             {combatant.hasTalent(TALENTS.MONGOOSE_BITE_TALENT.id) ? (
               <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} />
             ) : (
-              <SpellLink id={SPELLS.RAPTOR_STRIKE.id} />
+              <SpellLink id={TALENTS.RAPTOR_STRIKE_TALENT.id} />
             )}{' '}
             to stay off the focus cap and do some damage.
           </>

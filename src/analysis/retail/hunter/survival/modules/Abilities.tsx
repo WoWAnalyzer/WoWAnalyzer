@@ -28,7 +28,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.RAPTOR_STRIKE.id, SPELLS.RAPTOR_STRIKE_AOTE.id],
+        spell: [TALENTS.RAPTOR_STRIKE_TALENT.id, SPELLS.RAPTOR_STRIKE_AOTE.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: !combatant.hasTalent(TALENTS.MONGOOSE_BITE_TALENT.id),
         gcd: {

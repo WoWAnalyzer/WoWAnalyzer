@@ -17,7 +17,12 @@ class RaptorStrike extends Analyzer {
     this.active =
       !this.selectedCombatant.hasTalent(TALENTS.MONGOOSE_BITE_TALENT.id) &&
       this.selectedCombatant.hasTalent(TALENTS.VIPERS_VENOM_TALENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAPTOR_STRIKE), this.onCast);
+    this.addEventListener(
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([TALENTS.RAPTOR_STRIKE_TALENT, SPELLS.RAPTOR_STRIKE_AOTE]),
+      this.onCast,
+    );
   }
 
   onCast(event: CastEvent) {
