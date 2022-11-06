@@ -9,17 +9,17 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { SUBTLETY_ABILITY_COOLDOWNS } from '../../../shared/constants';
 
 /**
- * The Inigorating Shadowdust legendary reduces the cooldown of ALL abilities by 15 seconds after using Vanish. This is usable by all 3 Rogue specs.
+ * The Inigorating Shadowdust legendary reduces the cooldown of ALL abilities by 10 seconds after using Vanish. This is usable by Subtlety Rogue specs.
  *
  * 10/20/2020 -- Have not been able to find any logs to test this against during the current Beta. Will implement and modify trackable statistic(s), if any, when there are logs available.
  */
 
-class InvigoratingShadowdust extends Analyzer {
+class InvigoratingShadowdustTalent extends Analyzer {
   static dependencies = {
     abilities: Abilities,
     spellUsable: SpellUsable,
   };
-  cooldownReduction: number = 10000; // 15 seconds
+  cooldownReduction: number = 10_000; // 10 seconds
   cooldowns: Spell[] = [];
   protected spellUsable!: SpellUsable;
 
@@ -45,4 +45,4 @@ class InvigoratingShadowdust extends Analyzer {
   }
 }
 
-export default InvigoratingShadowdust;
+export default InvigoratingShadowdustTalent;
