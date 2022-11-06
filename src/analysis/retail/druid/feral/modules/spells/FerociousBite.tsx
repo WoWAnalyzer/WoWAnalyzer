@@ -11,15 +11,14 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
 import {
   cdSpell,
+  FEROCIOUS_BITE_ENERGY,
+  FEROCIOUS_BITE_MAX_DRAIN,
   INCARN_ENERGY_MULT,
   MAX_CPS,
   RELENTLESS_PREDATOR_FB_ENERGY_MULT,
 } from 'analysis/retail/druid/feral/constants';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-
-const FB_BASE_COST = 25;
-const MAX_FB_DRAIN = 25;
 
 const MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS = 5000;
 
@@ -59,7 +58,7 @@ class FerociousBite extends Analyzer {
         this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id));
     const extraEnergyUsed = getAdditionalEnergyUsed(event);
     const maxExtraEnergy =
-      MAX_FB_DRAIN *
+      FEROCIOUS_BITE_MAX_DRAIN *
       (this.selectedCombatant.hasTalent(TALENTS_DRUID.RELENTLESS_PREDATOR_TALENT)
         ? RELENTLESS_PREDATOR_FB_ENERGY_MULT
         : 1) *
@@ -133,9 +132,9 @@ class FerociousBite extends Analyzer {
           <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />
         </strong>{' '}
         is your direct damage finisher. Use it when you've already applied Rip to enemies. Always
-        use Bite at maximum CPs. Bite can consume up to {MAX_FB_DRAIN} extra energy to do increased
-        damage - this boost is very efficient and you should always wait until{' '}
-        {MAX_FB_DRAIN + FB_BASE_COST} energy to use Bite.{' '}
+        use Bite at maximum CPs. Bite can consume up to {FEROCIOUS_BITE_MAX_DRAIN} extra energy to
+        do increased damage - this boost is very efficient and you should always wait until{' '}
+        {FEROCIOUS_BITE_MAX_DRAIN + FEROCIOUS_BITE_ENERGY} energy to use Bite.{' '}
         {this.hasSotf && (
           <>
             One exception: because you have{' '}
