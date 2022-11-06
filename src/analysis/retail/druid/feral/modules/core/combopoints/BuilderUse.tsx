@@ -1,7 +1,5 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ResourceChangeEvent } from 'parser/core/Events';
-import { CP_GENERATORS } from 'analysis/retail/druid/feral/constants';
-import ConvokeSpiritsFeral from 'analysis/retail/druid/feral/modules/spells/ConvokeSpiritsFeral';
 import SPELLS from 'common/SPELLS';
 import { ResourceLink, SpellLink } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
@@ -10,6 +8,8 @@ import { BadColor, GoodColor } from 'interface/guide';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { CP_GENERATORS } from '../../../constants';
+import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
 
 /** Feral Frenzy produces 5 generator events within 1 second */
 const FERAL_FRENZY_GENERATE_BUFFER_MS = 1000;
@@ -22,12 +22,6 @@ const FERAL_FRENZY_GENERATE_BUFFER_MS = 1000;
  * and need to work around some special casing like Convoke and Feral Frenzy.
  */
 class BuilderUse extends Analyzer {
-  static dependencies = {
-    convokeSpirits: ConvokeSpiritsFeral,
-  };
-
-  convokeSpirits!: ConvokeSpiritsFeral;
-
   /** Total hardcast builders (Convoke not included) */
   totalBuilderCasts = 0;
   /** Total hardcast builders that wasted all their CPs (Convoke not included) */
@@ -54,7 +48,7 @@ class BuilderUse extends Analyzer {
     }
 
     // don't count Convoke builders, and don't count ticks of FF other than the first
-    if (this.convokeSpirits.isConvoking() || isFollowOnFeralFrenzyTick) {
+    if (isConvoking(this.selectedCombatant) || isFollowOnFeralFrenzyTick) {
       return;
     }
 

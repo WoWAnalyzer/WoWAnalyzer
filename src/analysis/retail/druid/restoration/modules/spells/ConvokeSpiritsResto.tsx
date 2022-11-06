@@ -25,6 +25,7 @@ import { MutableAmount } from 'analysis/retail/druid/restoration/modules/spells/
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
 
 const CONVOKED_HOTS = [
   SPELLS.REJUVENATION,
@@ -86,7 +87,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
   }
 
   onRestoHotApply(event: ApplyBuffEvent | RefreshBuffEvent) {
-    if (!isFromHardcast(event) && this.isConvoking()) {
+    if (!isFromHardcast(event) && isConvoking(this.selectedCombatant)) {
       this.hotTracker.addAttributionFromApply(this.currentConvokeAttribution, event);
       if (
         event.ability.guid === SPELLS.REGROWTH.id &&
@@ -102,7 +103,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
   }
 
   onRestoDirectHeal(event: HealEvent) {
-    if (!isFromHardcast(event) && !event.tick && this.isConvoking()) {
+    if (!isFromHardcast(event) && !event.tick && isConvoking(this.selectedCombatant)) {
       this.currentConvokeAttribution.healing += event.amount + (event.absorbed || 0);
       if (
         event.ability.guid === SPELLS.REGROWTH.id &&
