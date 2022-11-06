@@ -11,7 +11,7 @@ class SurvivalFocusUsage extends SharedHunterFocusUsage {
     [key: number]: Spell;
   } = {
     [SPELLS.MONGOOSE_BITE_TALENT_AOTE.id]: TALENTS.MONGOOSE_BITE_TALENT,
-    [SPELLS.RAPTOR_STRIKE_AOTE.id]: SPELLS.RAPTOR_STRIKE,
+    [SPELLS.RAPTOR_STRIKE_AOTE.id]: TALENTS.RAPTOR_STRIKE_TALENT,
   };
 }
 

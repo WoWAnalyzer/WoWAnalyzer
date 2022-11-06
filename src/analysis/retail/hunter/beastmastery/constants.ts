@@ -82,9 +82,9 @@ export const NO_DELAY_TIME_BETWEEN_BASIC_ATK = 3000;
 //region Resources
 /** Focus */
 //Beast Mastery has 10 focus/second as baseline regen
-export const BEAST_MASTERY_FOCUS_REGEN = 5;
+export const BASE_BM_FOCUS_REGEN = 5;
 //Beast Mastery has 120 focus at start
-export const BEAST_MASTERY_FOCUS_MAX = 100;
+export const BASE_BM_FOCUS_MAX = 100;
 //Minor threshold for focus wastage on focus generators
 export const FOCUS_THRESHOLD_MINOR = 0.025;
 //Average threshold for focus wastage on focus generators
