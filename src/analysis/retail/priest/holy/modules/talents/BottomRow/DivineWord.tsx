@@ -188,8 +188,8 @@ class DivineWord extends Analyzer {
             The serenity healing increase from the increased crit chance is calculated as an
             average, so the <strong> Serenity</strong> healing is an estimate.
             <br />
-            The <strong> Holy fire's </strong> dot damage applied by smite that is not included in
-            the damage.
+            The <strong> Holy fire's </strong> damage from the dot that is applied by smite is not
+            included in the damage.
           </>
         }
         size="flexible"
