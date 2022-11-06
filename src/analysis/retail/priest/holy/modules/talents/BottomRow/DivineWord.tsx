@@ -5,12 +5,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Events, {
-  DamageEvent,
-  HealEvent,
-  ApplyBuffEvent,
-  RemoveBuffEvent,
-} from 'parser/core/Events';
+import Events, { DamageEvent, HealEvent, CastEvent } from 'parser/core/Events';
 import {
   calculateEffectiveHealing,
   calculateOverhealing,
@@ -21,7 +16,7 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { formatPercentage } from 'common/format';
 import { ABILITIES_THAT_WORK_WITH_DIVINE_FAVOR_CHASTISE } from 'analysis/retail/priest/holy/constants';
-import { SpellIcon } from '../../../../../../../interface';
+import { SpellIcon } from 'interface';
 
 const DAMAGE_INCREASE_FROM_CHASTISE = 0.5;
 const HOLY_FIRE_APPLICATION_DURATION = 7;
@@ -47,10 +42,6 @@ class DivineWord extends Analyzer {
   serenityHealing = 0;
   serenityOverhealing = 0;
 
-  divineFavorSerenityActive = false;
-  divineFavorChastiseActive = false;
-
-  divineWordActive = false;
   divineWordCasts = 0;
   serenityWordUse = 0;
   chastiseWordUse = 0;
@@ -64,38 +55,27 @@ class DivineWord extends Analyzer {
     }
 
     // Healing spells that are affected by serenity buff
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FLASH_HEAL), this.onHeal);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(TALENTS.RENEW_TALENT), this.onHeal);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GREATER_HEAL), this.onHeal);
+    this.addEventListener(
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.FLASH_HEAL, TALENTS.RENEW_TALENT, SPELLS.GREATER_HEAL]),
+      this.onHeal,
+    );
     // The heal from casting sanctify
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_WORD_SANCTIFY_TALENT_HEAL),
       this.onHeal,
     );
-    //Tracking buffs from casting Divine word and chastise/serenity while it is active
+    //Keeping track of which divine word is activated
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF),
-      this.onBuff,
-    );
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF),
-      this.onBuff,
-    );
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.DIVINE_WORD_TALENT),
-      this.onBuff,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF),
-      this.onBuffRemoval,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF),
-      this.onBuffRemoval,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.DIVINE_WORD_TALENT),
-      this.onBuffRemoval,
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([
+          TALENTS.HOLY_WORD_CHASTISE_TALENT,
+          TALENTS.HOLY_WORD_SANCTIFY_TALENT,
+          TALENTS.HOLY_WORD_SERENITY_TALENT,
+        ]),
+      this.onActivatorCast,
     );
     //Tracking Holy fire casts and debuff applications
     this.addEventListener(
@@ -117,19 +97,15 @@ class DivineWord extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.DIVINE_WORD_TALENT),
       this.onDivineWord,
     );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HOLY_WORD_SANCTIFY_TALENT),
-      this.onSanctify,
-    );
   }
   onHolyFireDebuff() {
-    if (this.divineFavorChastiseActive) {
+    if (this.selectedCombatant.hasBuff(SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF.id)) {
       this.holyFireApplications += 1;
     }
   }
 
   onHolyFireCast() {
-    if (this.divineFavorChastiseActive) {
+    if (this.selectedCombatant.hasBuff(SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF.id)) {
       this.holyFireCasts += 1;
     }
   }
@@ -142,7 +118,7 @@ class DivineWord extends Analyzer {
       return;
     }
     if (
-      this.divineFavorSerenityActive &&
+      this.selectedCombatant.hasBuff(SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF.id) &&
       (spellId === SPELLS.GREATER_HEAL.id ||
         spellId === SPELLS.FLASH_HEAL.id ||
         spellId === TALENTS.RENEW_TALENT.id)
@@ -162,52 +138,31 @@ class DivineWord extends Analyzer {
   onDamage(event: DamageEvent) {
     if (
       ABILITIES_THAT_WORK_WITH_DIVINE_FAVOR_CHASTISE.includes(event.ability.guid) &&
-      this.divineFavorChastiseActive
+      this.selectedCombatant.hasBuff(SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF.id)
     ) {
       this.chastiseDamage += calculateEffectiveDamage(event, DAMAGE_INCREASE_FROM_CHASTISE);
     }
   }
 
-  onBuff(event: ApplyBuffEvent) {
-    const buffId = event.ability.guid;
-    switch (buffId) {
-      case TALENTS.DIVINE_WORD_TALENT.id:
-        this.divineWordActive = true;
-        break;
-      case SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF.id:
-        this.divineFavorChastiseActive = true;
-        this.chastiseWordUse += 1;
-        break;
-      case SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF.id:
-        this.divineFavorSerenityActive = true;
-        this.serenityWordUse += 1;
-        break;
-    }
-  }
-
-  onBuffRemoval(event: RemoveBuffEvent) {
-    const buffId = event.ability.guid;
-    switch (buffId) {
-      case TALENTS.DIVINE_WORD_TALENT.id:
-        this.divineWordActive = false;
-        break;
-      case SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF.id:
-        this.divineFavorChastiseActive = false;
-        break;
-      case SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF.id:
-        this.divineFavorSerenityActive = false;
-        break;
+  onActivatorCast(event: CastEvent) {
+    const spellId = event.ability.guid;
+    if (this.selectedCombatant.hasBuff(TALENTS.DIVINE_WORD_TALENT.id)) {
+      switch (spellId) {
+        case TALENTS.HOLY_WORD_SERENITY_TALENT.id:
+          this.serenityWordUse += 1;
+          break;
+        case TALENTS.HOLY_WORD_CHASTISE_TALENT.id:
+          this.chastiseWordUse += 1;
+          break;
+        case TALENTS.HOLY_WORD_SANCTIFY_TALENT.id:
+          this.sanctifyWordUse += 1;
+          break;
+      }
     }
   }
 
   onDivineWord() {
     this.divineWordCasts += 1;
-  }
-
-  onSanctify() {
-    if (this.divineWordActive) {
-      this.sanctifyWordUse += 1;
-    }
   }
 
   statistic() {
