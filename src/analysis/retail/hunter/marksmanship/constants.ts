@@ -120,95 +120,6 @@ export const LIST_OF_FOCUS_SPENDERS_MM = [
 ];
 //endregion
 
-//region Conduits
-/** Brutal Projectiles */
-//With Brutal Projectiles your auto attacks have a 10% chance to proc the buff that amplifies the damage of your next Rapid Fire
-export const BRUTAL_PROJECTILES_PROC_CHANCE = 0.1;
-//Each Shot of Rapid Fire increases damage more and more over its duration
-export const BRUTAL_PROJECTILES_RAMP_DAMAGE = [
-  0,
-  0.03,
-  0.0325,
-  0.035,
-  0.04,
-  0.0425,
-  0.045,
-  0.0475,
-  0.0525,
-  0.055,
-  0.0575,
-  0.06,
-  0.0625,
-  0.065,
-  0.0675,
-  0.07,
-];
-//Rapid Fire fires off 7 shots, but the first shot is unbuffed
-export const BRUTAL_PROJECTILES_RAMP_CAP = 6;
-//During Double Tap Rapid Fire shoots off 14 shots, but in-game it seems they just doubled the regular cap
-export const BRUTAL_PROJECTILES_DOUBLE_TAP_RAMP_CAP = 12;
-/** Deadly Chain */
-//With Deadly Chain your trickshots damage is increased
-export const DEADLY_CHAIN_TRICKSHOTS_DAMAGE_INCREASE = [
-  0,
-  0.1,
-  0.11,
-  0.12,
-  0.13,
-  0.14,
-  0.15,
-  0.16,
-  0.18,
-  0.19,
-  0.2,
-  0.21,
-  0.22,
-  0.23,
-  0.24,
-  0.25,
-];
-/** Powerful Precision */
-//With Powerful Precision Precise Shots further increases the damage of Arcane Shot, Chimaera Shots and Multi-Shot
-export const POWERFUL_PRECISION_DAMAGE_INCREASE = [
-  0,
-  0.05,
-  0.06,
-  0.07,
-  0.08,
-  0.1,
-  0.11,
-  0.12,
-  0.13,
-  0.14,
-  0.15,
-  0.16,
-  0.17,
-  0.18,
-  0.19,
-  0.2,
-];
-/** Sharpshooter's Focus */
-//With Sharpshooter's Focus, Trueshot lasts x% longer
-export const SHARPSHOOTERS_FOCUS_INCREASE_TRUESHOT_DURATION = [
-  0,
-  0.2,
-  0.22,
-  0.24,
-  0.27,
-  0.29,
-  0.31,
-  0.33,
-  0.36,
-  0.38,
-  0.4,
-  0.42,
-  0.44,
-  0.46,
-  0.48,
-  0.5,
-];
-//endregion
-
 //region Legendaries
 /** Surging Shots */
 //Surging Shots increases the damage of Rapid Fire by 35%
@@ -220,9 +131,4 @@ export const SURGING_SHOTS_RESET_CHANCE = 0.15;
 export const EAGLETALONS_TRUE_FOCUS_COST_REDUCTION = 0.25;
 //Eagletalon's True Focus makes Trueshot last 3 seconds longer
 export const EAGLETALONS_TRUE_FOCUS_TRUESHOT_DURATION_INCREASE = 3000;
-/** Secrets of the Unblinking Vigil */
-//Secrets of the Unblinking Vigil has 50% chance to proc on gaining Trick Shots
-export const SECRETS_UNBLINKING_PROC_CHANCE = 0.5;
-//The Secrets of the Unblinking Vigil buff makes Aimed Shot cost 0 focus (100% reduction).
-export const SECRETS_UNBLINKING_FOCUS_COST_REDUCTION = 1;
 //endregion
