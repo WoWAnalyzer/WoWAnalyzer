@@ -2,7 +2,6 @@ import {
   SHADOW_SPELLS_WITHOUT_WASTE,
   VOID_TORRENT_INSANITY_PER_TICK,
 } from 'analysis/retail/priest/shadow/constants';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';

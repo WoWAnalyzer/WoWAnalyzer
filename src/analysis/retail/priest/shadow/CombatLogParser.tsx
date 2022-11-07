@@ -3,9 +3,7 @@ import {
   FaeGuardians,
   Mindgames,
   ShadowfiendNormalizer,
-  TwinsOfTheSunPriestess,
   UnholyNova,
-  TranslucentImage,
 } from 'analysis/retail/priest/shared';
 import MainCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
