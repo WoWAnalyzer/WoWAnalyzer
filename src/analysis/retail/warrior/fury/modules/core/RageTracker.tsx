@@ -25,7 +25,7 @@ class RageTracker extends ResourceTracker {
     );
   }
 
-  getAdjustCost(event: CastEvent) {
+  getAdjustedCost(event: CastEvent) {
     let cost = this.getResource(event)?.cost;
     if (!cost) {
       return 0;
