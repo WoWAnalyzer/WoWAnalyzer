@@ -2,7 +2,7 @@ import { GuideProps, Section, SubSection } from 'interface/guide';
 import talents from 'common/TALENTS/deathknight';
 import spells from 'common/SPELLS/deathknight';
 import CombatLogParser from './CombatLogParser';
-import { CooldownBar } from 'parser/ui/CooldownBar';
+import { CooldownBar, GapHighlight } from 'parser/ui/CooldownBar';
 import { SpellLink } from 'interface';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
@@ -58,9 +58,7 @@ function CooldownsSubsection({ modules, events, info }: GuideProps<typeof Combat
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={talents.PILLAR_OF_FROST_TALENT.id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
@@ -68,24 +66,23 @@ function CooldownsSubsection({ modules, events, info }: GuideProps<typeof Combat
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={talents.REMORSELESS_WINTER_TALENT.id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
       {info.combatant.hasTalent(talents.CHILL_STREAK_TALENT) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar spellId={talents.CHILL_STREAK_TALENT.id} events={events} info={info} />
+          <CooldownBar
+            spellId={talents.CHILL_STREAK_TALENT.id}
+            gapHighlightMode={GapHighlight.FullCooldown}
+          />
         </div>
       )}
       {info.combatant.hasTalent(talents.BREATH_OF_SINDRAGOSA_TALENT) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={talents.BREATH_OF_SINDRAGOSA_TALENT.id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
@@ -93,9 +90,7 @@ function CooldownsSubsection({ modules, events, info }: GuideProps<typeof Combat
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={talents.FROSTWYRMS_FURY_TALENT.id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
@@ -103,9 +98,7 @@ function CooldownsSubsection({ modules, events, info }: GuideProps<typeof Combat
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={talents.HORN_OF_WINTER_TALENT.id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
@@ -114,9 +107,7 @@ function CooldownsSubsection({ modules, events, info }: GuideProps<typeof Combat
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={spells.EMPOWER_RUNE_WEAPON.id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
