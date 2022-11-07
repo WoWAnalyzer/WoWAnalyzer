@@ -8,6 +8,8 @@ import {
   RuneOfPower,
   ShiftingPower,
   TempestBarrier,
+  MasterOfTime,
+  TimeAnomaly,
 } from 'analysis/retail/mage/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Channeling from 'parser/shared/normalizers/Channeling';
@@ -37,10 +39,8 @@ import ArcaneEcho from './talents/ArcaneEcho';
 import ArcaneFamiliar from './talents/ArcaneFamiliar';
 import ArcaneHarmony from './talents/ArcaneHarmony';
 import ArcaneOrb from './talents/ArcaneOrb';
-import MasterOfTime from './talents/MasterOfTime';
 import RadiantSpark from './talents/RadiantSpark';
 import RuleOfThrees from './talents/RuleOfThrees';
-import TimeAnomaly from './talents/TimeAnomaly';
 
 //Normalizers
 import ArcaneChargesNormalizer from './normalizers/ArcaneCharges';
@@ -71,24 +71,26 @@ class CombatLogParser extends CoreCombatLogParser {
     arcanePowerActiveTime: ArcanePowerActiveTime,
     arcaneMissiles: ArcaneMissiles,
 
-    // Talents
+    // Talents - Arcane
     arcaneFamiliar: ArcaneFamiliar,
-    arcaneIntellect: ArcaneIntellect,
-    runeOfPower: RuneOfPower,
     arcaneOrb: ArcaneOrb,
     ruleOfThrees: RuleOfThrees,
-    timeAnomaly: TimeAnomaly,
-    masterOfTime: MasterOfTime,
     arcaneEcho: ArcaneEcho,
     arcaneHarmony: ArcaneHarmony,
     arcaneBombardment: ArcaneBombardment,
     shiftingPower: ShiftingPower,
     radiantSpark: RadiantSpark,
+
+    //Talents - Shared
     divertedEnergy: DivertedEnergy,
     groundingSurge: GroundingSurge,
     tempestBarrier: TempestBarrier,
     mirrorImage: MirrorImage,
     elementalBarrier: ElementalBarrier,
+    timeAnomaly: TimeAnomaly,
+    masterOfTime: MasterOfTime,
+    runeOfPower: RuneOfPower,
+    arcaneIntellect: ArcaneIntellect,
   };
 }
 

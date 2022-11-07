@@ -241,21 +241,22 @@ class WintersChill extends Analyzer {
           You failed to properly take advantage of <SpellLink id={SPELLS.WINTERS_CHILL.id} /> on
           your target {this.missedShatters} times ({formatPercentage(this.shatterMissedPercent)}%).
           After debuffing the target via <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> and{' '}
-          <SpellLink id={SPELLS.FLURRY.id} />, you should ensure that you hit the target with{' '}
+          <SpellLink id={TALENTS.FLURRY_TALENT.id} />, you should ensure that you hit the target
+          with{' '}
           {this.hasGlacialSpike ? (
             <>
               a <SpellLink id={TALENTS.GLACIAL_SPIKE_TALENT.id} /> and an{' '}
-              <SpellLink id={SPELLS.ICE_LANCE.id} /> (If Glacial Spike is available), or{' '}
+              <SpellLink id={TALENTS.ICE_LANCE_TALENT.id} /> (If Glacial Spike is available), or{' '}
             </>
           ) : (
             ''
           )}{' '}
-          two <SpellLink id={SPELLS.ICE_LANCE.id} />s before the{' '}
+          two <SpellLink id={TALENTS.ICE_LANCE_TALENT.id} />s before the{' '}
           <SpellLink id={SPELLS.WINTERS_CHILL.id} /> debuff expires to get the most out of{' '}
           <SpellLink id={TALENTS.SHATTER_TALENT.id} />.
         </>,
       )
-        .icon(SPELLS.ICE_LANCE.icon)
+        .icon(TALENTS.ICE_LANCE_TALENT.icon)
         .actual(
           <Trans id="mage.frost.suggestions.wintersChill.notShatteredIceLance">
             {formatPercentage(this.shatterMissedPercent)}% Winter's Chill not shattered with Ice
@@ -270,7 +271,7 @@ class WintersChill extends Analyzer {
           You failed to use a pre-cast ability before spending your{' '}
           <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> {this.missedPreCasts} times (
           {formatPercentage(this.precastMissedPercent)}%). Because of the travel time of{' '}
-          <SpellLink id={SPELLS.FLURRY.id} />, you should cast a damaging ability such as{' '}
+          <SpellLink id={TALENTS.FLURRY_TALENT.id} />, you should cast a damaging ability such as{' '}
           <SpellLink id={SPELLS.FROSTBOLT.id} />{' '}
           {this.hasEbonbolt ? (
             <>
@@ -279,11 +280,11 @@ class WintersChill extends Analyzer {
           ) : (
             ''
           )}{' '}
-          immediately before using your instant cast <SpellLink id={SPELLS.FLURRY.id} />. Doing this
-          will allow your pre-cast ability to hit the target after{' '}
-          <SpellLink id={SPELLS.FLURRY.id} /> (unless you are standing too close to the target)
-          allowing it to benefit from <SpellLink id={TALENTS.SHATTER_TALENT.id} />. If you are a
-          Kyrian, it is also acceptable to pre-cast <SpellLink id={SPELLS.RADIANT_SPARK.id} />{' '}
+          immediately before using your instant cast <SpellLink id={TALENTS.FLURRY_TALENT.id} />.
+          Doing this will allow your pre-cast ability to hit the target after{' '}
+          <SpellLink id={TALENTS.FLURRY_TALENT.id} /> (unless you are standing too close to the
+          target) allowing it to benefit from <SpellLink id={TALENTS.SHATTER_TALENT.id} />. If you
+          are a Kyrian, it is also acceptable to pre-cast <SpellLink id={SPELLS.RADIANT_SPARK.id} />{' '}
           instead.
         </>,
       )

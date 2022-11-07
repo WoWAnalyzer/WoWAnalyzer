@@ -51,6 +51,11 @@ const spells = spellIndexableList({
     name: 'Crystalline Reflection',
     icon: 'ability_priest_reflectiveshield',
   },
+  BORROWED_TIME_BUFF: {
+    id: 390692,
+    name: 'Borrowed Time',
+    icon: 'spell_holy_borrowedtime',
+  },
   // Discipline Priest:
   GRACE: {
     id: 271534,
@@ -80,6 +85,11 @@ const spells = spellIndexableList({
     id: 373183,
     name: 'Harsh Discipline',
     icon: 'ability_paladin_handoflight',
+  },
+  SINS_OF_THE_MANY: {
+    id: 280391,
+    name: 'Sins of the Many',
+    icon: 'spell_holy_holyguidance',
   },
   POWER_WORD_SHIELD: {
     id: 17,
@@ -399,7 +409,26 @@ const spells = spellIndexableList({
     name: 'Surge of Light',
     icon: 'spell_holy_surgeoflight',
   },
-
+  DIVINE_WORD_CHASTISE_TALENT_BUFF: {
+    id: 372761,
+    name: 'Divine Favor: Chastise',
+    icon: 'priest_icon_chakra_red',
+  },
+  RESONANT_WORDS_TALENT_BUFF: {
+    id: 372313,
+    name: 'Resonant Words',
+    icon: 'spell_holy_holybolt',
+  },
+  HEALING_CHORUS_TALENT_BUFF: {
+    id: 390885,
+    name: 'Healing Chorus',
+    icon: 'spell_holy_circleofrenewal',
+  },
+  DIVINE_WORD_SERENITY_TALENT_BUFF: {
+    id: 372791,
+    name: 'Divine Favor: Serenity',
+    icon: 'priest_icon_chakra',
+  },
   // Sets
   HOLY_PRIEST_TIER_29_2_SET_BUFF: {
     id: 394729,
@@ -439,15 +468,10 @@ const spells = spellIndexableList({
     icon: 'spell_holy_chastise',
     manaCost: 5000,
   },
-  RESONANT_WORDS_TALENT_BUFF: {
-    id: 372313,
-    name: 'Resonant Words',
-    icon: 'spell_holy_holybolt',
-  },
-  HEALING_CHORUS_TALENT_BUFF: {
-    id: 390885,
-    name: 'Healing Chorus',
-    icon: 'spell_holy_circleofrenewal',
+  DIVINE_WORD_SANCTIFY_TALENT_HEAL: {
+    id: 372787,
+    name: 'Divine Word: Sanctuary',
+    icon: 'priest_icon_chakra_blue',
   },
   // Shadow Spells
   MIND_BLAST: {

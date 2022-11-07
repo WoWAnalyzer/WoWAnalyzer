@@ -3,7 +3,7 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-import * as SPELLS from '../../SPELLS';
+import SPELLS from 'common/SPELLS/classic/mage';
 
 const SPELL_RESETS = [
   SPELLS.ICE_BARRIER,
@@ -22,15 +22,15 @@ class ColdSnap extends Analyzer {
   constructor(props: Options) {
     super(props);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell({ id: SPELLS.COLD_SNAP }),
+      Events.cast.by(SELECTED_PLAYER).spell({ id: SPELLS.COLD_SNAP.id }),
       this._resetCooldowns,
     );
   }
 
   _resetCooldowns() {
     SPELL_RESETS.forEach((spell) => {
-      if (this.spellUsable.isOnCooldown(spell)) {
-        this.spellUsable.endCooldown(spell);
+      if (this.spellUsable.isOnCooldown(spell.id)) {
+        this.spellUsable.endCooldown(spell.id);
       }
     });
   }

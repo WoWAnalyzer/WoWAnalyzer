@@ -22,8 +22,8 @@ export default function FieryBrandSection() {
       <ExplanationRow>
         <Explanation>
           <p>
-            <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> reduces the damage dealt by
-            targets with its debuff by <strong>40%</strong>.
+            <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> reduces the damage dealt to
+            you by targets with its debuff by <strong>40%</strong>.
           </p>
           <p>
             This chart shows your <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> uptime

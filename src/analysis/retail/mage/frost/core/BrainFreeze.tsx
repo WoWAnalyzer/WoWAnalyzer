@@ -52,7 +52,10 @@ class BrainFreeze extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.BRAIN_FREEZE_TALENT),
       this.brainFreezeRemoved,
     );
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLURRY), this.onFlurryCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.FLURRY_TALENT),
+      this.onFlurryCast,
+    );
   }
 
   brainFreezeApplied(event: ApplyBuffEvent) {
@@ -69,7 +72,7 @@ class BrainFreeze extends Analyzer {
     const previousSpell = this.eventHistory.last(
       1,
       MS_BUFFER_100,
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FLURRY),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.FLURRY_TALENT),
     );
     if (previousSpell.length !== 0) {
       this.usedProcs += 1;
@@ -200,16 +203,16 @@ class BrainFreeze extends Analyzer {
     when(this.flurryWithoutBrainFreezeThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={SPELLS.FLURRY.id} /> without{' '}
+          You cast <SpellLink id={TALENTS.FLURRY_TALENT.id} /> without{' '}
           <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> {actual} times.{' '}
-          <SpellLink id={SPELLS.FLURRY.id} /> does not debuff the target with{' '}
+          <SpellLink id={TALENTS.FLURRY_TALENT.id} /> does not debuff the target with{' '}
           <SpellLink id={SPELLS.WINTERS_CHILL.id} /> unless you have a{' '}
           <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> proc, so you should never cast{' '}
-          <SpellLink id={SPELLS.FLURRY.id} /> unless you have{' '}
+          <SpellLink id={TALENTS.FLURRY_TALENT.id} /> unless you have{' '}
           <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} />.
         </>,
       )
-        .icon(SPELLS.FLURRY.icon)
+        .icon(TALENTS.FLURRY_TALENT.icon)
         .actual(
           <Trans id="mage.frost.suggestions.brainFreeze.casts">{formatNumber(actual)} casts</Trans>,
         )
@@ -219,7 +222,7 @@ class BrainFreeze extends Analyzer {
       suggest(
         <>
           You used a <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> proc via casting{' '}
-          <SpellLink id={SPELLS.FLURRY.id} /> while the target still had the{' '}
+          <SpellLink id={TALENTS.FLURRY_TALENT.id} /> while the target still had the{' '}
           <SpellLink id={SPELLS.WINTERS_CHILL.id} /> debuff on them {this.flurryOverlapped} times.
           Using <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> applies 2 stacks of{' '}
           <SpellLink id={SPELLS.WINTERS_CHILL.id} /> to the target so you should always ensure you
@@ -227,7 +230,7 @@ class BrainFreeze extends Analyzer {
           <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> proc.
         </>,
       )
-        .icon(SPELLS.FLURRY.icon)
+        .icon(TALENTS.FLURRY_TALENT.icon)
         .actual(
           <Trans id="mage.frost.suggestions.brainFreeze.casts">{formatNumber(actual)} casts</Trans>,
         )

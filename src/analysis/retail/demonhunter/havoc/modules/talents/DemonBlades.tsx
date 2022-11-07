@@ -6,10 +6,10 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/4GR2pwAYW8KtgFJn/#fight=6&source=18
@@ -99,12 +99,10 @@ class DemonBlades extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT.id}>
-          <>
-            {this.furyPerMin} <small>Fury per min</small> <br />
-            {this.owner.formatItemDamageDone(this.damage)}
-          </>
-        </BoringSpellValueText>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT}>
+          {this.furyPerMin} <small>Fury per min</small> <br />
+          {this.owner.formatItemDamageDone(this.damage)}
+        </TalentSpellText>
       </Statistic>
     );
   }

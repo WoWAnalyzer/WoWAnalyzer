@@ -5,11 +5,11 @@ import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { CYCLE_OF_HATRED_SCALING } from 'analysis/retail/demonhunter/havoc/constants';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 /*
   example report: https://www.warcraftlogs.com/reports/QxHJ9MTtmVYNXPLd/#fight=1&source=2
@@ -61,15 +61,13 @@ class CycleOfHatred extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.CYCLE_OF_HATRED_TALENT.id}>
-          <>
-            {formatNumber(this.totalCooldownReduction / 1000)} sec{' '}
-            <small>
-              total <SpellIcon id={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id} /> Eye Beam cooldown
-              reduction
-            </small>
-          </>
-        </BoringSpellValueText>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.CYCLE_OF_HATRED_TALENT}>
+          {formatNumber(this.totalCooldownReduction / 1000)} sec{' '}
+          <small>
+            total <SpellIcon id={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id} /> Eye Beam cooldown
+            reduction
+          </small>
+        </TalentSpellText>
       </Statistic>
     );
   }

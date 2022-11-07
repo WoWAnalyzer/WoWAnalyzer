@@ -9,6 +9,10 @@ import {
   RuneOfPowerNormalizer,
   ShiftingPower,
   TempestBarrier,
+  Meteor,
+  MeteorRune,
+  MasterOfTime,
+  TimeAnomaly,
   SharedCode,
 } from 'analysis/retail/mage/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
@@ -40,9 +44,7 @@ import InfernalCascade from './talents/InfernalCascade';
 import SunKingsBlessing from './talents/SunKingsBlessing';
 import FromTheAshes from './talents/FromTheAshes';
 import Kindling from './talents/Kindling';
-import Meteor from './talents/Meteor';
 import MeteorCombustion from './talents/MeteorCombustion';
-import MeteorRune from './talents/MeteorRune';
 import SearingTouch from './talents/SearingTouch';
 
 //Normalizers
@@ -81,14 +83,9 @@ class CombatLogParser extends CoreCombatLogParser {
     combustionActiveTime: CombustionActiveTime,
     combustionPreCastDelay: CombustionPreCastDelay,
 
-    //Talents
-    mirrorImage: MirrorImage,
-    elementalBarrier: ElementalBarrier,
+    //Talents - Fire
     phoenixFlames: PhoenixFlames,
-    runeOfPower: [RuneOfPower, { showStatistic: false, showSuggestion: false }] as const,
     kindling: Kindling,
-    meteor: Meteor,
-    meteorRune: MeteorRune,
     meteorCombustion: MeteorCombustion,
     pyroclasm: Pyroclasm,
     searingTouch: SearingTouch,
@@ -96,12 +93,21 @@ class CombatLogParser extends CoreCombatLogParser {
     feveredIncantation: FeveredIncantation,
     firestorm: Firestorm,
     sunKingsBlessing: SunKingsBlessing,
-    shiftingPower: ShiftingPower,
     shiftingPowerUsage: ShiftingPowerUsage,
     infernalCascade: InfernalCascade,
+
+    //Talents - Shared
+    mirrorImage: MirrorImage,
+    elementalBarrier: ElementalBarrier,
+    runeOfPower: [RuneOfPower, { showStatistic: false, showSuggestion: false }] as const,
+    shiftingPower: ShiftingPower,
     divertedEnergy: DivertedEnergy,
     groundingSurge: GroundingSurge,
     tempestBarrier: TempestBarrier,
+    meteor: Meteor,
+    meteorRune: MeteorRune,
+    masterOfTime: MasterOfTime,
+    timeAnomaly: TimeAnomaly,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

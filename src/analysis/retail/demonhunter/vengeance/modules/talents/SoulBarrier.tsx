@@ -8,10 +8,10 @@ import Events, { AbsorbedEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/c
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class SoulBarrier extends Analyzer {
   static dependencies = {
@@ -119,9 +119,9 @@ class SoulBarrier extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id}>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT}>
           <Uptime /> {formatPercentage(this.uptime)}% <small>Uptime</small>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

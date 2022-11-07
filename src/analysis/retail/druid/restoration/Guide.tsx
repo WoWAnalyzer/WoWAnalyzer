@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { ControlledExpandable, SpellLink } from 'interface';
 import { GuideProps, PerformanceMark, Section, SubSection } from 'interface/guide';
-import { CooldownBar } from 'parser/ui/CooldownBar';
+import { CooldownBar, GapHighlight } from 'parser/ui/CooldownBar';
 import { useState } from 'react';
 
 import CombatLogParser from './CombatLogParser';
@@ -68,9 +68,7 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={SPELLS.CONVOKE_SPIRITS.id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
@@ -78,9 +76,7 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={TALENTS_DRUID.FLOURISH_TALENT.id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
@@ -88,22 +84,18 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
       <div className="flex-main chart" style={{ padding: 5 }}>
         <CooldownBar
           spellId={SPELLS.TRANQUILITY_CAST.id}
-          events={events}
-          info={info}
-          highlightGaps
+          gapHighlightMode={GapHighlight.FullCooldown}
         />
       </div>
       <div className="flex-main chart" style={{ padding: 5 }}>
-        <CooldownBar spellId={SPELLS.INNERVATE.id} events={events} info={info} highlightGaps />
+        <CooldownBar spellId={SPELLS.INNERVATE.id} gapHighlightMode={GapHighlight.FullCooldown} />
       </div>
     </SubSection>
   );

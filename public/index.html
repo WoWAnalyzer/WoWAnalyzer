@@ -96,6 +96,25 @@
         onReady: function() { window.refreshAds(); },
       };
     </script>
+    <script id="tyche" src="//cdn.intergi.com/hera/tyche.js" type="text/javascript" onerror="window.adScriptFailed=true;"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E0TKKBEXVD"></script>
+    <script>
+      window.ramp = window.ramp || {};
+      window.ramp.que = window.ramp.que || [];
+    </script>
+    <script async src="//cdn.intergient.com/1024476/73270/ramp_config.js"></script>
+    <script>
+      window._pwGA4PageviewId = ''.concat(Date.now());
+      window.dataLayer = window.dataLayer || [];
+      window.gtag =
+        window.gtag ||
+        function () {
+                dataLayer.push(arguments);
+              };
+      gtag('js', new Date());
+      gtag('config', 'G-E0TKKBEXVD', { send_page_view: false });
+      gtag('event', 'ramp_js', { send_to: 'G-E0TKKBEXVD', pageview_id: window._pwGA4PageviewId });
+    </script>
   </head>
 
   <body>
@@ -128,17 +147,9 @@
         dsn: '%REACT_APP_SENTRY_DSN%',
         release: 'wowanalyzer@%REACT_APP_VERSION%',
         environment: '%REACT_APP_ENVIRONMENT_NAME%',
+        allowUrls: ['wowanalyzer.com/static/js/']
       });
     </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132937713-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'UA-132937713-1');
-    </script>
-    <script id="tyche" async src="//cdn.intergient.com/pageos/pageos.js" type="text/javascript" onerror="window.adScriptFailed=true;"></script>
+    <script async src="//cdn.intergient.com/ramp_core.js"></script>
   </body>
 </html>

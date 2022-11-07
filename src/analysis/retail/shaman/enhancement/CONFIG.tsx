@@ -9,13 +9,13 @@ import CHANGELOG from './CHANGELOG';
 const config: Config = {
   contributors: [Vetyst],
   expansion: Expansion.Dragonflight,
-  patchCompatibility: null,
+  patchCompatibility: '10.0.2',
   isPartial: true,
   description: (
     <>
       <AlertWarning>
-        Right now the Enhancement Analyzer is a work-in-progress, and only holds very basic
-        functionality.
+        Analytics are being developed for a level 70 dragonflight character on beta. Right now the
+        Enhancement Analyzer is a work-in-progress, and only holds very basic functionality.
       </AlertWarning>
       <br />
       Hey there! Thanks for checking out the Enhancement Analyzer. If you have any feedback or
