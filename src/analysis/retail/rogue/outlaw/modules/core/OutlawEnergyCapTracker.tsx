@@ -1,5 +1,6 @@
 import { EnergyCapTracker } from 'analysis/retail/rogue/shared';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 
 const BASE_ENERGY_REGEN = 10;
 const BURIED_TREASURE_REGEN = 4;
@@ -8,8 +9,8 @@ const ADRENALINE_RUSH_REGEN_MULTIPLIER = 1.6;
 const ADRENALINE_RUSH_MAX_ADDITION = 50;
 
 class OutlawEnergyCapTracker extends EnergyCapTracker {
-  static buffsChangeMax = [SPELLS.ADRENALINE_RUSH.id];
-  static buffsChangeRegen = [SPELLS.ADRENALINE_RUSH.id, SPELLS.BURIED_TREASURE.id];
+  static buffsChangeMax = [TALENTS.ADRENALINE_RUSH_TALENT.id];
+  static buffsChangeRegen = [TALENTS.ADRENALINE_RUSH_TALENT.id, SPELLS.BURIED_TREASURE.id];
 
   getBaseRegenRate(): number {
     let regenRate = BASE_ENERGY_REGEN;
@@ -24,7 +25,7 @@ class OutlawEnergyCapTracker extends EnergyCapTracker {
   naturalRegenRate(): number {
     let regen = super.naturalRegenRate();
 
-    if (this.combatantHasBuffActive(SPELLS.ADRENALINE_RUSH.id)) {
+    if (this.combatantHasBuffActive(TALENTS.ADRENALINE_RUSH_TALENT.id)) {
       regen *= ADRENALINE_RUSH_REGEN_MULTIPLIER;
     }
 
@@ -33,7 +34,7 @@ class OutlawEnergyCapTracker extends EnergyCapTracker {
 
   currentMaxResource(): number {
     let max = super.currentMaxResource();
-    if (this.combatantHasBuffActive(SPELLS.ADRENALINE_RUSH.id)) {
+    if (this.combatantHasBuffActive(TALENTS.ADRENALINE_RUSH_TALENT.id)) {
       max += ADRENALINE_RUSH_MAX_ADDITION;
     }
 

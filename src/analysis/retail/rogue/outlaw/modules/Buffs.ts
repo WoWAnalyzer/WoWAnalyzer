@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
+import TALENTS from 'common/TALENTS/rogue';
 
 class Buffs extends CoreAuras {
   auras() {
@@ -9,11 +10,11 @@ class Buffs extends CoreAuras {
     return [
       // Core
       {
-        spellId: SPELLS.ADRENALINE_RUSH.id,
+        spellId: TALENTS.ADRENALINE_RUSH_TALENT.id,
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.BLADE_RUSH_TALENT.id,
+        spellId: TALENTS.BLADE_RUSH_TALENT.id,
       },
       {
         spellId: SPELLS.OPPORTUNITY.id,
@@ -22,12 +23,12 @@ class Buffs extends CoreAuras {
 
       // Talents
       {
-        spellId: SPELLS.ALACRITY_TALENT.id,
+        spellId: TALENTS.ALACRITY_TALENT.id,
       },
 
       // Roll the Bones
       {
-        spellId: SPELLS.ROLL_THE_BONES.id,
+        spellId: TALENTS.ROLL_THE_BONES_TALENT.id,
         timelineHighlight: true,
       },
       {
@@ -51,13 +52,13 @@ class Buffs extends CoreAuras {
 
       // Misc
       {
-        spellId: SPELLS.CLOAK_OF_SHADOWS.id,
+        spellId: TALENTS.CLOAK_OF_SHADOWS_TALENT.id,
       },
       {
         spellId: SPELLS.CRIMSON_VIAL.id,
       },
       {
-        spellId: SPELLS.FEINT.id,
+        spellId: TALENTS.FEINT_TALENT.id,
       },
       {
         spellId: SPELLS.RIPOSTE.id,

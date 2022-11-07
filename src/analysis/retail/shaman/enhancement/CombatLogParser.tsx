@@ -50,8 +50,6 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     cooldownThroughputTracker: CooldownThroughputTracker,
 
-    // TODO: Rework below modules
-
     // Shaman Class Core
     flameShock: FlameShock,
 

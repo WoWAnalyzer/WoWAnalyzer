@@ -3,6 +3,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { SpendResourceEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import TALENTS from 'common/TALENTS/rogue';
 
 /**
  * Restless Blades
@@ -10,14 +11,14 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
  */
 
 const AFFECTED_ABILITIES: number[] = [
-  SPELLS.ADRENALINE_RUSH.id,
+  TALENTS.ADRENALINE_RUSH_TALENT.id,
   SPELLS.BETWEEN_THE_EYES.id,
   SPELLS.SPRINT.id,
-  SPELLS.GRAPPLING_HOOK.id,
-  SPELLS.GHOSTLY_STRIKE_TALENT.id,
-  SPELLS.MARKED_FOR_DEATH_TALENT.id,
-  SPELLS.BLADE_RUSH_TALENT.id,
-  SPELLS.KILLING_SPREE_TALENT.id,
+  TALENTS.GRAPPLING_HOOK_TALENT.id,
+  TALENTS.GHOSTLY_STRIKE_TALENT.id,
+  TALENTS.MARKED_FOR_DEATH_TALENT.id,
+  TALENTS.BLADE_RUSH_TALENT.id,
+  TALENTS.KILLING_SPREE_TALENT.id,
   SPELLS.VANISH.id,
 ];
 

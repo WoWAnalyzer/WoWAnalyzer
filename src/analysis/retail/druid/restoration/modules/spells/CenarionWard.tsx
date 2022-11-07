@@ -9,9 +9,9 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Mastery from 'analysis/retail/druid/restoration/modules/core/Mastery';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { SpellLink } from 'interface';
-import { CooldownBar } from 'parser/ui/CooldownBar';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/druid/restoration/Guide';
+import CastEfficiencyPanel from 'interface/guide/components/CastEfficiencyPanel';
 
 /**
  * **Cenarion Ward**
@@ -43,19 +43,7 @@ class CenarionWard extends Analyzer {
       </p>
     );
 
-    const data = (
-      <div>
-        <strong>Cenarion Ward usage and cooldown</strong>
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DRUID.CENARION_WARD_TALENT.id}
-            events={this.owner.eventHistory}
-            info={this.owner.info}
-            highlightGaps
-          />
-        </div>
-      </div>
-    );
+    const data = <CastEfficiencyPanel spell={TALENTS_DRUID.CENARION_WARD_TALENT} />;
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }

@@ -786,6 +786,599 @@ const SPECS = specIndexableList({
       spec: 2,
     },
   },
+
+  // --------------
+  // CLASSIC SPECS
+  // --------------
+  CLASSIC_WARRIOR_ARMS: {
+    id: 161,
+    index: 100,
+    type: 'Warrior',
+    className: t({
+      id: 'specs.warrior',
+      message: `Warrior`,
+    }),
+    specName: t({
+      id: 'specs.arms',
+      message: `Arms`,
+    }),
+    role: ROLES.DPS.MELEE,
+    primaryStat: PRIMARY_STATS.STRENGTH,
+    ranking: {
+      class: 1,
+      spec: 1,
+    },
+  },
+  CLASSIC_WARRIOR_FURY: {
+    id: 164,
+    index: 101,
+    type: 'Warrior',
+    className: t({
+      id: 'specs.warrior',
+      message: `Warrior`,
+    }),
+    specName: t({
+      id: 'specs.fury',
+      message: `Fury`,
+    }),
+    role: ROLES.DPS.MELEE,
+    primaryStat: PRIMARY_STATS.STRENGTH,
+    ranking: {
+      class: 1,
+      spec: 2,
+    },
+  },
+  CLASSIC_WARRIOR_PROTECTION: {
+    id: 163,
+    index: 102,
+    type: 'Warrior',
+    className: t({
+      id: 'specs.warrior',
+      message: `Warrior`,
+    }),
+    specName: t({
+      id: 'specs.protection',
+      message: `Protection`,
+    }),
+    role: ROLES.TANK,
+    primaryStat: PRIMARY_STATS.STRENGTH,
+    ranking: {
+      class: 1,
+      spec: 3,
+    },
+  },
+  CLASSIC_PALADIN_HOLY: {
+    id: 382,
+    type: 'Paladin',
+    index: 103,
+    className: t({
+      id: 'className.paladin',
+      message: `Paladin`,
+    }),
+    specName: t({
+      id: 'specs.holy',
+      message: `Holy`,
+    }),
+    role: ROLES.HEALER,
+    primaryStat: PRIMARY_STATS.INTELLECT,
+    ranking: {
+      class: 2,
+      spec: 1,
+    },
+  },
+  CLASSIC_PALADIN_PROTECTION: {
+    id: 383,
+    type: 'Paladin',
+    index: 104,
+    className: t({
+      id: 'className.paladin',
+      message: `Paladin`,
+    }),
+    specName: t({
+      id: 'specs.protection',
+      message: `Protection`,
+    }),
+    role: ROLES.TANK,
+    primaryStat: PRIMARY_STATS.STRENGTH,
+    ranking: {
+      class: 2,
+      spec: 2,
+    },
+  },
+  CLASSIC_PALADIN_RETRIBUTION: {
+    id: 381,
+    type: 'Paladin',
+    index: 105,
+    className: t({
+      id: 'className.paladin',
+      message: `Paladin`,
+    }),
+    specName: t({
+      id: 'specs.retribution',
+      message: `Retribution`,
+    }),
+    role: ROLES.DPS.MELEE,
+    primaryStat: PRIMARY_STATS.STRENGTH,
+    ranking: {
+      class: 2,
+      spec: 3,
+    },
+  },
+  CLASSIC_HUNTER_BEAST_MASTERY: {
+    id: 361,
+    type: 'Hunter',
+    index: 106,
+    className: t({
+      id: 'className.hunter',
+      message: `Hunter`,
+    }),
+    specName: t({
+      id: 'specs.beastMastery',
+      message: `Beast Mastery`,
+    }),
+    role: ROLES.DPS.RANGED,
+    primaryStat: PRIMARY_STATS.AGILITY,
+    ranking: {
+      class: 3,
+      spec: 1,
+    },
+  },
+  CLASSIC_HUNTER_MARKSMANSHIP: {
+    id: 363,
+    type: 'Hunter',
+    index: 107,
+    className: t({
+      id: 'className.hunter',
+      message: `Hunter`,
+    }),
+    specName: t({
+      id: 'specs.marksmanship',
+      message: `Marksmanship`,
+    }),
+    role: ROLES.DPS.RANGED,
+    primaryStat: PRIMARY_STATS.AGILITY,
+    ranking: {
+      class: 3,
+      spec: 2,
+    },
+  },
+  CLASSIC_HUNTER_SURVIVAL: {
+    id: 362,
+    type: 'Hunter',
+    index: 108,
+    className: t({
+      id: 'className.hunter',
+      message: `Hunter`,
+    }),
+    specName: t({
+      id: 'specs.survival',
+      message: `Survival`,
+    }),
+    role: ROLES.DPS.RANGED,
+    primaryStat: PRIMARY_STATS.AGILITY,
+    ranking: {
+      class: 3,
+      spec: 3,
+    },
+  },
+  CLASSIC_ROGUE_ASSASSINATION: {
+    id: 182,
+    type: 'Rogue',
+    index: 109,
+    className: t({
+      id: 'className.rogue',
+      message: `Rogue`,
+    }),
+    specName: t({
+      id: 'specs.assassination',
+      message: `Assassination`,
+    }),
+    role: ROLES.DPS.MELEE,
+    primaryStat: PRIMARY_STATS.AGILITY,
+    ranking: {
+      class: 4,
+      spec: 1,
+    },
+  },
+  CLASSIC_ROGUE_COMBAT: {
+    id: 181,
+    type: 'Rogue',
+    index: 110,
+    className: t({
+      id: 'className.rogue',
+      message: `Rogue`,
+    }),
+    specName: t({
+      id: 'specs.combat',
+      message: `Combat`,
+    }),
+    role: ROLES.DPS.MELEE,
+    primaryStat: PRIMARY_STATS.AGILITY,
+    ranking: {
+      class: 4,
+      spec: 2,
+    },
+  },
+  CLASSIC_ROGUE_SUBTLETY: {
+    id: 183,
+    type: 'Rogue',
+    index: 111,
+    className: t({
+      id: 'className.rogue',
+      message: `Rogue`,
+    }),
+    specName: t({
+      id: 'specs.subtlety',
+      message: `Subtlety`,
+    }),
+    role: ROLES.DPS.MELEE,
+    primaryStat: PRIMARY_STATS.AGILITY,
+    ranking: {
+      class: 4,
+      spec: 3,
+    },
+  },
+  CLASSIC_PRIEST_DISCIPLINE: {
+    id: 201,
+    type: 'Priest',
+    index: 112,
+    className: t({
+      id: 'className.priest',
+      message: `Priest`,
+    }),
+    specName: t({
+      id: 'specs.discipline',
+      message: `Discipline`,
+    }),
+    role: ROLES.HEALER,
+    primaryStat: PRIMARY_STATS.INTELLECT,
+    ranking: {
+      class: 5,
+      spec: 1,
+    },
+  },
+  CLASSIC_PRIEST_HOLY: {
+    id: 202,
+    type: 'Priest',
+    index: 113,
+    className: t({
+      id: 'className.priest',
+      message: `Priest`,
+    }),
+    specName: t({
+      id: 'specs.holy',
+      message: `Holy`,
+    }),
+    role: ROLES.HEALER,
+    primaryStat: PRIMARY_STATS.INTELLECT,
+    ranking: {
+      class: 5,
+      spec: 2,
+    },
+  },
+  CLASSIC_PRIEST_SHADOW: {
+    id: 203,
+    type: 'Priest',
+    index: 114,
+    className: t({
+      id: 'className.priest',
+      message: `Priest`,
+    }),
+    specName: t({
+      id: 'specs.shadow',
+      message: `Shadow`,
+    }),
+    role: ROLES.DPS.RANGED,
+    primaryStat: PRIMARY_STATS.INTELLECT,
+    ranking: {
+      class: 5,
+      spec: 3,
+    },
+  },
+  CLASSIC_DEATH_KNIGHT_BLOOD: {
+    id: 398,
+    index: 115,
+    className: t({
+      id: 'specs.deathKnight',
+      message: `Death Knight`,
+    }),
+    specName: t({
+      id: 'specs.blood',
+      message: `Blood`,
+    }),
+    role: ROLES.TANK,
+    primaryStat: PRIMARY_STATS.STRENGTH,
+    ranking: {
+      class: 6,
+      spec: 1,
+    },
+  },
+  CLASSIC_DEATH_KNIGHT_FROST: {
+    id: 399,
+    index: 116,
+    className: t({
+      id: 'specs.deathKnight',
+      message: `Death Knight`,
+    }),
+    specName: t({
+      id: 'specs.frost',
+      message: `Frost`,
+    }),
+    role: ROLES.DPS.MELEE,
+    primaryStat: PRIMARY_STATS.STRENGTH,
+    ranking: {
+      class: 6,
+      spec: 2,
+    },
+  },
+  CLASSIC_DEATH_KNIGHT_UNHOLY: {
+    id: 400,
+    index: 117,
+    className: t({
+      id: 'specs.deathKnight',
+      message: `Death Knight`,
+    }),
+    specName: t({
+      id: 'specs.unholy',
+      message: `Unholy`,
+    }),
+    role: ROLES.DPS.MELEE,
+    primaryStat: PRIMARY_STATS.STRENGTH,
+    ranking: {
+      class: 6,
+      spec: 3,
+    },
+  },
+  CLASSIC_SHAMAN_ELEMENTAL: {
+    // wowhead id is 261 but that's the same id as retail Subtlety Rogue
+    id: 2610,
+    type: 'Shaman',
+    index: 118,
+    className: t({
+      id: 'className.shaman',
+      message: `Shaman`,
+    }),
+    specName: t({
+      id: 'specs.elemental',
+      message: `Elemental`,
+    }),
+    role: ROLES.DPS.RANGED,
+    primaryStat: PRIMARY_STATS.INTELLECT,
+    ranking: {
+      class: 7,
+      spec: 1,
+    },
+  },
+  CLASSIC_SHAMAN_ENHANCEMENT: {
+    // wowhead id is 263 but that's the same id as retail Enhancement Shaman
+    id: 2630,
+    type: 'Shaman',
+    index: 119,
+    className: t({
+      id: 'className.shaman',
+      message: `Shaman`,
+    }),
+    specName: t({
+      id: 'specs.enhancement',
+      message: `Enhancement`,
+    }),
+    role: ROLES.DPS.MELEE,
+    primaryStat: PRIMARY_STATS.STRENGTH,
+    ranking: {
+      class: 7,
+      spec: 2,
+    },
+  },
+  CLASSIC_SHAMAN_RESTORATION: {
+    // wowhead id is 262 but that's the same id as retail Restoration Shaman
+    id: 2620,
+    type: 'Shaman',
+    index: 120,
+    className: t({
+      id: 'className.shaman',
+      message: `Shaman`,
+    }),
+    specName: t({
+      id: 'specs.restoration',
+      message: `Restoration`,
+    }),
+    role: ROLES.HEALER,
+    primaryStat: PRIMARY_STATS.INTELLECT,
+    ranking: {
+      class: 7,
+      spec: 3,
+    },
+  },
+  CLASSIC_MAGE_ARCANE: {
+    id: 81,
+    index: 121,
+    type: 'Mage',
+    className: t({
+      id: 'specs.mage',
+      message: `Mage`,
+    }),
+    specName: t({
+      id: 'specs.mage.arcane',
+      message: `Arcane`,
+    }),
+    role: ROLES.DPS.RANGED,
+    primaryStat: PRIMARY_STATS.INTELLECT,
+    ranking: {
+      class: 8,
+      spec: 1,
+    },
+  },
+  CLASSIC_MAGE_FIRE: {
+    id: 41,
+    index: 122,
+    type: 'Mage',
+    className: t({
+      id: 'specs.mage',
+      message: `Mage`,
+    }),
+    specName: t({
+      id: 'specs.fire',
+      message: `Fire`,
+    }),
+    role: ROLES.DPS.RANGED,
+    primaryStat: PRIMARY_STATS.INTELLECT,
+    ranking: {
+      class: 8,
+      spec: 2,
+    },
+  },
+  CLASSIC_MAGE_FROST: {
+    id: 61,
+    index: 123,
+    type: 'Mage',
+    className: t({
+      id: 'specs.mage',
+      message: `Mage`,
+    }),
+    specName: t({
+      id: 'specs.frost',
+      message: `Frost`,
+    }),
+    role: ROLES.DPS.RANGED,
+    primaryStat: PRIMARY_STATS.INTELLECT,
+    ranking: {
+      class: 8,
+      spec: 3,
+    },
+  },
+  CLASSIC_WARLOCK_AFFLICTION: {
+    id: 302,
+    type: 'Warlock',
+    index: 124,
+    className: t({
+      id: 'className.warlock',
+      message: `Warlock`,
+    }),
+    specName: t({
+      id: 'specs.affliction',
+      message: `Affliction`,
+    }),
+    role: ROLES.DPS.RANGED,
+    primaryStat: PRIMARY_STATS.INTELLECT,
+    ranking: {
+      class: 9,
+      spec: 1,
+    },
+  },
+  CLASSIC_WARLOCK_DEMONOLOGY: {
+    id: 303,
+    type: 'Warlock',
+    index: 125,
+    className: t({
+      id: 'className.warlock',
+      message: `Warlock`,
+    }),
+    specName: t({
+      id: 'specs.demonology',
+      message: `Demonology`,
+    }),
+    role: ROLES.DPS.RANGED,
+    primaryStat: PRIMARY_STATS.INTELLECT,
+    ranking: {
+      class: 9,
+      spec: 2,
+    },
+  },
+  CLASSIC_WARLOCK_DESTRUCTION: {
+    id: 301,
+    type: 'Warlock',
+    index: 126,
+    className: t({
+      id: 'className.warlock',
+      message: `Warlock`,
+    }),
+    specName: t({
+      id: 'specs.destruction',
+      message: `Destruction`,
+    }),
+    role: ROLES.DPS.RANGED,
+    primaryStat: PRIMARY_STATS.INTELLECT,
+    ranking: {
+      class: 9,
+      spec: 3,
+    },
+  },
+  CLASSIC_DRUID_BALANCE: {
+    id: 283,
+    type: 'Druid',
+    index: 127,
+    className: t({
+      id: 'className.druid',
+      message: `Druid`,
+    }),
+    specName: t({
+      id: 'specs.balance',
+      message: `Balance`,
+    }),
+    role: ROLES.DPS.RANGED,
+    primaryStat: PRIMARY_STATS.INTELLECT,
+    ranking: {
+      class: 11,
+      spec: 1,
+    },
+  },
+  CLASSIC_DRUID_FERAL_COMBAT: {
+    id: 281,
+    type: 'Druid',
+    index: 128,
+    className: t({
+      id: 'className.druid',
+      message: `Druid`,
+    }),
+    specName: t({
+      id: 'specs.feral',
+      message: `Feral`,
+    }),
+    role: ROLES.DPS.MELEE,
+    primaryStat: PRIMARY_STATS.STRENGTH,
+    ranking: {
+      class: 11,
+      spec: 2,
+    },
+  },
+  CLASSIC_DRUID_RESTORATION: {
+    id: 282,
+    type: 'Druid',
+    index: 129,
+    className: t({
+      id: 'className.druid',
+      message: `Druid`,
+    }),
+    specName: t({
+      id: 'specs.restoration',
+      message: `Restoration`,
+    }),
+    role: ROLES.HEALER,
+    primaryStat: PRIMARY_STATS.INTELLECT,
+    ranking: {
+      class: 11,
+      spec: 3,
+    },
+  },
+  CLASSIC_DRUID_GUARDIAN: {
+    id: 284,
+    type: 'Druid',
+    index: 130,
+    className: t({
+      id: 'className.druid',
+      message: `Druid`,
+    }),
+    specName: t({
+      id: 'specs.guardian',
+      message: `Guardian`,
+    }),
+    role: ROLES.TANK,
+    primaryStat: PRIMARY_STATS.STRENGTH,
+    ranking: {
+      class: 11,
+      spec: 4,
+    },
+  },
 });
 
 export const DEATH_KNIGHT_SPECS: Spec[] = [
@@ -841,6 +1434,61 @@ export const WARRIOR_SPECS: Spec[] = [
   SPECS.ARMS_WARRIOR,
   SPECS.PROTECTION_WARRIOR,
   SPECS.FURY_WARRIOR,
+];
+
+// --------------
+// CLASSIC SPECS
+// --------------
+export const CLASSIC_WARRIOR_SPECS: Spec[] = [
+  SPECS.CLASSIC_WARRIOR_ARMS,
+  SPECS.CLASSIC_WARRIOR_FURY,
+  SPECS.CLASSIC_WARRIOR_PROTECTION,
+];
+export const CLASSIC_PALADIN_SPECS: Spec[] = [
+  SPECS.CLASSIC_PALADIN_HOLY,
+  SPECS.CLASSIC_PALADIN_PROTECTION,
+  SPECS.CLASSIC_PALADIN_RETRIBUTION,
+];
+export const CLASSIC_HUNTER_SPECS: Spec[] = [
+  SPECS.CLASSIC_HUNTER_BEAST_MASTERY,
+  SPECS.CLASSIC_HUNTER_MARKSMANSHIP,
+  SPECS.CLASSIC_HUNTER_SURVIVAL,
+];
+export const CLASSIC_ROGUE_SPECS: Spec[] = [
+  SPECS.CLASSIC_ROGUE_ASSASSINATION,
+  SPECS.CLASSIC_ROGUE_COMBAT,
+  SPECS.CLASSIC_ROGUE_SUBTLETY,
+];
+export const CLASSIC_PRIEST_SPECS: Spec[] = [
+  SPECS.CLASSIC_PRIEST_DISCIPLINE,
+  SPECS.CLASSIC_PRIEST_HOLY,
+  SPECS.CLASSIC_PRIEST_SHADOW,
+];
+export const CLASSIC_DEATH_KNIGHT_SPECS: Spec[] = [
+  SPECS.CLASSIC_DEATH_KNIGHT_BLOOD,
+  SPECS.CLASSIC_DEATH_KNIGHT_FROST,
+  SPECS.CLASSIC_DEATH_KNIGHT_UNHOLY,
+];
+export const CLASSIC_SHAMAN_SPECS: Spec[] = [
+  SPECS.CLASSIC_SHAMAN_ELEMENTAL,
+  SPECS.CLASSIC_SHAMAN_ENHANCEMENT,
+  SPECS.CLASSIC_SHAMAN_RESTORATION,
+];
+export const CLASSIC_MAGE_SPECS: Spec[] = [
+  SPECS.CLASSIC_MAGE_ARCANE,
+  SPECS.CLASSIC_MAGE_FIRE,
+  SPECS.CLASSIC_MAGE_FROST,
+];
+export const CLASSIC_WARLOCK_SPECS: Spec[] = [
+  SPECS.CLASSIC_WARLOCK_AFFLICTION,
+  SPECS.CLASSIC_WARLOCK_DEMONOLOGY,
+  SPECS.CLASSIC_WARLOCK_DESTRUCTION,
+];
+export const CLASSIC_DRUID_SPECS: Spec[] = [
+  SPECS.CLASSIC_DRUID_BALANCE,
+  SPECS.CLASSIC_DRUID_FERAL_COMBAT,
+  SPECS.CLASSIC_DRUID_RESTORATION,
+  SPECS.CLASSIC_DRUID_GUARDIAN,
 ];
 
 export const specsCount = Object.keys(SPECS).length;

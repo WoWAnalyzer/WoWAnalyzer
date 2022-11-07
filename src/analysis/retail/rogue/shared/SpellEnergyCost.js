@@ -1,8 +1,8 @@
-import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellResourceCost from 'parser/shared/modules/SpellResourceCost';
 
 import { isStealthOrDance } from './IsStealth';
+import TALENTS from 'common/TALENTS/rogue';
 
 const SHADOW_FOCUS_MULTIPLIER = 0.8;
 
@@ -13,7 +13,7 @@ class SpellEnergyCost extends SpellResourceCost {
 
   constructor(...args) {
     super(...args);
-    this.discountShadowFocus = this.selectedCombatant.hasTalent(SPELLS.SHADOW_FOCUS_TALENT.id);
+    this.discountShadowFocus = this.selectedCombatant.hasTalent(TALENTS.SHADOW_FOCUS_TALENT.id);
   }
 
   getResourceCost(event) {
