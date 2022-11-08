@@ -51,7 +51,7 @@ class MunchedProcs extends Analyzer {
     const iceLanceCast = this.eventHistory.last(
       1,
       undefined,
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ICE_LANCE),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ICE_LANCE_TALENT),
     )[0];
     if (
       this.selectedCombatant.hasBuff(TALENTS.FINGERS_OF_FROST_TALENT.id, iceLanceCast.timestamp)
@@ -94,8 +94,9 @@ class MunchedProcs extends Analyzer {
           <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> proc and a{' '}
           <SpellLink id={TALENTS.FINGERS_OF_FROST_TALENT.id} /> proc, you should make sure you use
           the <SpellLink id={TALENTS.FINGERS_OF_FROST_TALENT.id} /> procs first before you start
-          casting <SpellLink id={SPELLS.FROSTBOLT.id} /> and <SpellLink id={SPELLS.FLURRY.id} /> to
-          minimize the number of wasted/munched procs.
+          casting <SpellLink id={SPELLS.FROSTBOLT.id} /> and{' '}
+          <SpellLink id={TALENTS.FLURRY_TALENT.id} /> to minimize the number of wasted/munched
+          procs.
         </>,
       )
         .icon(TALENTS.FINGERS_OF_FROST_TALENT.icon)

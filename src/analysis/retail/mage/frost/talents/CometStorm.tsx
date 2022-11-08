@@ -93,9 +93,9 @@ class CometStorm extends Analyzer {
           <SpellLink id={SPELLS.WINTERS_CHILL.id} />, you should always cast{' '}
           <SpellLink id={TALENTS.COMET_STORM_TALENT.id} /> immediately after using your{' '}
           <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> proc on{' '}
-          <SpellLink id={SPELLS.FLURRY.id} />. This way there is time for most/all of the comets to
-          hit the target before <SpellLink id={SPELLS.WINTERS_CHILL.id} /> expires. Alternatively,
-          if <SpellLink id={TALENTS.COMET_STORM_TALENT.id} /> will hit at least{' '}
+          <SpellLink id={TALENTS.FLURRY_TALENT.id} />. This way there is time for most/all of the
+          comets to hit the target before <SpellLink id={SPELLS.WINTERS_CHILL.id} /> expires.
+          Alternatively, if <SpellLink id={TALENTS.COMET_STORM_TALENT.id} /> will hit at least{' '}
           {COMET_STORM_AOE_MIN_TARGETS} targets, then it is acceptable to use it without{' '}
           <SpellLink id={TALENTS.SHATTER_TALENT.id} />/<SpellLink id={SPELLS.WINTERS_CHILL.id} />
         </>,

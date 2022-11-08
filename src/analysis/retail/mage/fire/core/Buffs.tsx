@@ -19,12 +19,16 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.INFERNAL_CASCADE_BUFF.id,
+        spellId: SPELLS.FEEL_THE_BURN_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.FEEL_THE_BURN_TALENT),
         timelineHighlight: true,
       },
       {
         spellId: TALENTS.COMBUSTION_TALENT.id,
         triggeredBySpellId: TALENTS.COMBUSTION_TALENT.id,
+        enabled:
+          combatant.hasTalent(TALENTS.COMBUSTION_TALENT) ||
+          combatant.hasTalent(TALENTS.SUN_KINGS_BLESSING_TALENT),
         timelineHighlight: true,
       },
       {
@@ -35,28 +39,28 @@ class Buffs extends CoreAuras {
       {
         spellId: TALENTS.BLAZING_BARRIER_TALENT.id,
         triggeredBySpellId: TALENTS.BLAZING_BARRIER_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.BLAZING_BARRIER_TALENT),
         timelineHighlight: true,
       },
       {
         spellId: TALENTS.ICE_BLOCK_TALENT.id,
         triggeredBySpellId: TALENTS.ICE_BLOCK_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.BLAZING_BARRIER_TALENT),
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.FIRESTORM_BUFF.id,
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.DISCIPLINARY_COMMAND_BUFF.id,
+        spellId: TALENTS.HYPERTHERMIA_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.HYPERTHERMIA_TALENT),
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.SUN_KINGS_BLESSING_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.SUN_KINGS_BLESSING_TALENT),
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.MIRROR_IMAGE.id,
-        triggeredBySpellId: SPELLS.MIRROR_IMAGE.id,
+        spellId: TALENTS.MIRROR_IMAGE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.MIRROR_IMAGE_TALENT),
         timelineHighlight: true,
       },
       {

@@ -1,5 +1,4 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import ConvokeSpiritsFeral from 'analysis/retail/druid/feral/modules/spells/ConvokeSpiritsFeral';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -10,6 +9,7 @@ import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
+import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
 
 const BUFFER_MS = 50;
 
@@ -21,12 +21,6 @@ const BUFFER_MS = 50;
  * Damage reduced beyond 5 target.
  */
 class RampantFerocity extends Analyzer {
-  static dependencies = {
-    convokeSpirits: ConvokeSpiritsFeral,
-  };
-
-  protected convokeSpirits!: ConvokeSpiritsFeral;
-
   totalBiteHits: number = 0;
   totalRampantFerocityHits: number = 0;
 
@@ -55,7 +49,7 @@ class RampantFerocity extends Analyzer {
     this.totalRampantFerocityHits += 1;
 
     const amount = event.amount + (event.absorbed || 0);
-    if (this.convokeSpirits.isConvoking()) {
+    if (isConvoking(this.selectedCombatant)) {
       this.convokeRfDamage += amount;
     } else if (
       this.selectedCombatant.hasBuff(

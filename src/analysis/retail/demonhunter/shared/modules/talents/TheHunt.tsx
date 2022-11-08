@@ -3,11 +3,11 @@ import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 /**
  * Night Fae - The Hunt
@@ -56,11 +56,11 @@ class TheHunt extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id}>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT}>
           <ItemDamageDone amount={this.damage} />
           <br />
           <ItemHealingDone amount={this.heal} />
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

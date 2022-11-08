@@ -88,8 +88,8 @@ const AssassinationRogueChecklist = ({ combatant, castEfficiency, thresholds }) 
         {combatant.hasTalent(SPELLS.EXSANGUINATE_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.EXSANGUINATE_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.MARKED_FOR_DEATH_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.MARKED_FOR_DEATH_TALENT.id} />
+        {combatant.hasTalent(TALENTS.MARKED_FOR_DEATH_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.MARKED_FOR_DEATH_TALENT.id} />
         )}
         {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
           <AbilityRequirement spell={TALENTS.SEPSIS_TALENT.id} />

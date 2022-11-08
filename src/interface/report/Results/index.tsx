@@ -51,6 +51,7 @@ import Overview from './Overview';
 import ReportStatistics from './ReportStatistics';
 import ScrollToTop from './ScrollToTop';
 import TABS from './TABS';
+import { CombatLogParserProvider } from 'interface/report/CombatLogParserContext';
 
 const TimelineTab = lazyLoadComponent(
   () =>
@@ -460,7 +461,9 @@ class Results extends React.PureComponent<Props, State> {
             </AlertWarning>
           </div>
         )}
-        {this.renderContent(selectedTab, results)}
+        <CombatLogParserProvider combatLogParser={parser}>
+          {this.renderContent(selectedTab, results)}
+        </CombatLogParserProvider>
 
         <div className="container" style={{ marginTop: 40 }}>
           <div className="row">

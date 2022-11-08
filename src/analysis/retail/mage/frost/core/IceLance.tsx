@@ -40,7 +40,10 @@ class IceLance extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.hasGlacialFragments = this.selectedCombatant.hasLegendary(SPELLS.GLACIAL_FRAGMENTS);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ICE_LANCE), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ICE_LANCE_TALENT),
+      this.onCast,
+    );
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ICE_LANCE_DAMAGE),
       this.onDamage,
@@ -115,7 +118,9 @@ class IceLance extends Analyzer {
   }
 
   get shatteredPercent() {
-    return 1 - this.nonShatteredCasts / this.abilityTracker.getAbility(SPELLS.ICE_LANCE.id).casts;
+    return (
+      1 - this.nonShatteredCasts / this.abilityTracker.getAbility(TALENTS.ICE_LANCE_TALENT.id).casts
+    );
   }
 
   get fingersProcUtilizationThresholds() {
@@ -132,7 +137,8 @@ class IceLance extends Analyzer {
 
   get nonShatteredIceLanceThresholds() {
     return {
-      actual: this.nonShatteredCasts / this.abilityTracker.getAbility(SPELLS.ICE_LANCE.id).casts,
+      actual:
+        this.nonShatteredCasts / this.abilityTracker.getAbility(TALENTS.ICE_LANCE_TALENT.id).casts,
       isGreaterThan: {
         minor: 0.05,
         average: 0.15,
@@ -146,7 +152,7 @@ class IceLance extends Analyzer {
     when(this.nonShatteredIceLanceThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={SPELLS.ICE_LANCE.id} /> {this.nonShatteredCasts} times (
+          You cast <SpellLink id={TALENTS.ICE_LANCE_TALENT.id} /> {this.nonShatteredCasts} times (
           {formatPercentage(actual)}%) without <SpellLink id={TALENTS.SHATTER_TALENT.id} />. Make
           sure that you are only casting Ice Lance when the target has{' '}
           <SpellLink id={SPELLS.WINTERS_CHILL.id} /> (or other Shatter effects), if you have a{' '}
@@ -154,7 +160,7 @@ class IceLance extends Analyzer {
           cant cast anything else.
         </>,
       )
-        .icon(SPELLS.ICE_LANCE.icon)
+        .icon(TALENTS.ICE_LANCE_TALENT.icon)
         .actual(
           <Trans id="mage.frost.suggestions.iceLance.nonShatterCasts">
             {formatPercentage(actual)}% missed
@@ -171,7 +177,7 @@ class IceLance extends Analyzer {
         size="flexible"
         tooltip="This is the percentage of Ice Lance casts that were shattered. The only time it is acceptable to cast Ice Lance without Shatter is if you are moving and you cant use anything else."
       >
-        <BoringSpellValueText spellId={SPELLS.ICE_LANCE.id}>
+        <BoringSpellValueText spellId={TALENTS.ICE_LANCE_TALENT.id}>
           {`${formatPercentage(this.shatteredPercent, 0)}%`} <small>Casts shattered</small>
         </BoringSpellValueText>
       </Statistic>

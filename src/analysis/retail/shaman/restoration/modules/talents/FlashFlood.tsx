@@ -11,9 +11,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
-import { RESTORATION_COLORS } from '../../constants';
+import { RESTORATION_COLORS, FLASH_FLOOD_CAST_SPEED_MODIFIER } from '../../constants';
 
-const FLASH_FLOOD_HASTE = 0.2;
 const BUFFER_MS = 50;
 
 interface FlashFloodInfo {
@@ -35,6 +34,7 @@ class FlashFlood extends Analyzer {
 
   beginCastTimestamp = 0;
   beginCastGlobalCooldown = 0;
+  flashFloodHaste = 0;
 
   spellsConsumingFlashFlood: FlashFloodInfo = {
     [TALENTS.HEALING_WAVE_TALENT.id]: {
@@ -63,6 +63,9 @@ class FlashFlood extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.FLASH_FLOOD_TALENT.id);
+    this.flashFloodHaste =
+      this.selectedCombatant.getTalentRank(TALENTS.FLASH_FLOOD_TALENT.id) *
+      FLASH_FLOOD_CAST_SPEED_MODIFIER;
 
     if (this.selectedCombatant.hasTalent(TALENTS.WELLSPRING_TALENT.id)) {
       //-- always below GCD
@@ -118,14 +121,14 @@ class FlashFlood extends Analyzer {
       // The next 2 lines together add up to the total reduction, but everything below the GCD is discarded
       this.spellsConsumingFlashFlood[spellId].timeWasted += this.beginCastGlobalCooldown - castTime;
       this.spellsConsumingFlashFlood[spellId].timeSaved += Math.max(
-        castTime / (1 - FLASH_FLOOD_HASTE) - this.beginCastGlobalCooldown,
+        castTime / (1 - this.flashFloodHaste) - this.beginCastGlobalCooldown,
         0,
       );
       return;
     }
 
     this.spellsConsumingFlashFlood[spellId].timeSaved +=
-      (castTime / (1 - FLASH_FLOOD_HASTE)) * FLASH_FLOOD_HASTE;
+      (castTime / (1 - this.flashFloodHaste)) * this.flashFloodHaste;
   }
 
   get totalTimeSaved() {

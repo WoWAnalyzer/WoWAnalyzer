@@ -101,7 +101,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SHADOW_DANCE.id,
+        spell: TALENTS.SHADOW_DANCE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         buffSpellId: SPELLS.SHADOW_DANCE_BUFF.id,
         cooldown: 60,
@@ -125,11 +125,11 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.MARKED_FOR_DEATH_TALENT.id,
+        spell: TALENTS.MARKED_FOR_DEATH_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
         gcd: null,
-        enabled: combatant.hasTalent(SPELLS.MARKED_FOR_DEATH_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.MARKED_FOR_DEATH_TALENT.id),
       },
       {
         spell: SPELLS.SECRET_TECHNIQUE_TALENT.id,

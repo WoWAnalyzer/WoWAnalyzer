@@ -68,6 +68,11 @@ const spells = spellIndexableList({
     name: 'Ignite',
     icon: 'spell_fire_incinerate',
   },
+  FEEL_THE_BURN_BUFF: {
+    id: 383395,
+    name: 'Feel the Burn',
+    icon: 'spell_fire_fireball',
+  },
 });
 
 export default spells;

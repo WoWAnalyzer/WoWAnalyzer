@@ -9,6 +9,7 @@ import ConvokeSpiritsResto from 'analysis/retail/druid/restoration/modules/spell
 import HotTrackerRestoDruid from '../hottracking/HotTrackerRestoDruid';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import Combatants from 'parser/shared/modules/Combatants';
+import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
 
 /** Maximum time buffer between a hardcast and applybuff to allow attribution */
 const BUFFER_MS = 150;
@@ -38,6 +39,7 @@ class HotAttributor extends Analyzer {
   hasPowerOfTheArchdruid: boolean;
   hasLuxuriantSoil: boolean;
   hasRampantGrowth: boolean;
+  hasConvoke: boolean;
 
   /** Special tracker to differentiate PotA procs during Convoke.
    *  We arbitrarily call the first Regrowth hit the 'direct' one, and follow-on ones
@@ -68,6 +70,7 @@ class HotAttributor extends Analyzer {
     );
     this.hasLuxuriantSoil = this.selectedCombatant.hasTalent(TALENTS_DRUID.LUXURIANT_SOIL_TALENT);
     this.hasRampantGrowth = this.selectedCombatant.hasTalent(TALENTS_DRUID.RAMPANT_GROWTH_TALENT);
+    this.hasConvoke = this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(REJUVENATION_BUFFS),
@@ -114,7 +117,7 @@ class HotAttributor extends Analyzer {
     if (event.prepull || isFromHardcast(event)) {
       this.hotTracker.addAttributionFromApply(this.rejuvHardcastAttrib, event);
       this._logAttrib(event, 'Hardcast');
-    } else if (this.convokeSpirits.active && this.convokeSpirits.isConvoking()) {
+    } else if (this.convokeSpirits.active && isConvoking(this.selectedCombatant)) {
       // if we have PotA buff and this isn't the first Rejuv in sequence within buffer - also attribute to PotA
       if (
         possiblePota &&
@@ -159,7 +162,7 @@ class HotAttributor extends Analyzer {
     if (event.prepull || isFromHardcast(event)) {
       this.hotTracker.addAttributionFromApply(this.regrowthHardcastAttrib, event);
       this._logAttrib(event, 'Hardcast');
-    } else if (this.convokeSpirits.active && this.convokeSpirits.isConvoking()) {
+    } else if (this.convokeSpirits.active && isConvoking(this.selectedCombatant)) {
       // could possible also be due to RG or PotA
       if (possibleRg) {
         this.hotTracker.addAttributionFromApply(this.rampantGrowthAttrib, event);
@@ -200,7 +203,7 @@ class HotAttributor extends Analyzer {
     if (isFromHardcast(event)) {
       this.regrowthHardcastAttrib.healing += effectiveHeal;
       this._logAttrib(event, this.regrowthHardcastAttrib);
-    } else if (this.convokeSpirits.active && this.convokeSpirits.isConvoking()) {
+    } else if (this.convokeSpirits.active && isConvoking(this.selectedCombatant)) {
       if (
         possiblePota &&
         this.lastRegrowthDirectHealTimestamp &&
@@ -225,7 +228,7 @@ class HotAttributor extends Analyzer {
       this.hotTracker.addAttributionFromApply(this.wgHardcastAttrib, event);
       this._logAttrib(event, 'Hardcast');
       // don't clear pending because it hits many targets
-    } else if (this.convokeSpirits.active && this.convokeSpirits.isConvoking()) {
+    } else if (this.convokeSpirits.active && isConvoking(this.selectedCombatant)) {
       // convoke module adds the attribution for Convoke
       this._logAttrib(event, this.convokeSpirits.currentConvokeAttribution);
     } else if (isFromOvergrowth(event)) {

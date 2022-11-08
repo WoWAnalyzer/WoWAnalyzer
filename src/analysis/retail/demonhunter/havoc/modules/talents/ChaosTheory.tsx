@@ -3,9 +3,9 @@ import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class ChaosTheory extends Analyzer {
   bonusDamage = 0;
@@ -24,9 +24,9 @@ class ChaosTheory extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.ITEMS}>
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.CHAOS_THEORY_TALENT.id}>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.CHAOS_THEORY_TALENT}>
           <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>Buff uptime</small>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

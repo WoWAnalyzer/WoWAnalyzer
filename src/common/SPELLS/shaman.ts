@@ -698,6 +698,31 @@ const spells = spellIndexableList({
     name: 'Surge of Earth',
     icon: 'inv_elementalearth2',
   },
+  UNDERCURRENT_BUFF: {
+    id: 383235,
+    name: 'Undercurrent',
+    icon: 'spell_fire_bluehellfire',
+  },
+  ANCESTRAL_GUIDANCE_HEAL: {
+    id: 114911,
+    name: 'Ancestral Guidance',
+    icon: 'ability_shaman_ancestralguidance',
+  },
+  ANCESTRAL_AWAKENING_HEAL: {
+    id: 382311,
+    name: 'Ancestral Awakening',
+    icon: 'spell_shaman_ancestralawakening',
+  },
+  OVERFLOWING_SHORES_HEAL: {
+    id: 383223,
+    name: 'Overflowing Shores',
+    icon: 'spell_nature_giftofthewaterspirit',
+  },
+  EARTHLIVING_WEAPON_HEAL: {
+    id: 382024,
+    name: 'Earthliving Weapon',
+    icon: 'spell_shaman_giftearthmother',
+  },
 });
 
 export default spells;

@@ -7,16 +7,13 @@ import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import * as MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import TooltipProvider from 'interface/TooltipProvider';
 import colorForPerformance from 'common/colorForPerformance';
-import { DamageEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
-import HitBasedAnalyzer from 'analysis/retail/demonhunter/vengeance/guide/HitBasedAnalyzer';
+import HitBasedAnalyzer, {
+  TrackedHit,
+} from 'analysis/retail/demonhunter/vengeance/guide/HitBasedAnalyzer';
 import Spell from 'common/SPELLS/Spell';
-
-export type TrackedHit = {
-  mitigated: boolean;
-  event: DamageEvent;
-};
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 
 const HitTimelineContainer = styled.div`
   display: grid;
@@ -197,27 +194,29 @@ export function HitBasedOverview({
 
   return (
     <div>
-      <strong>{spell.name} Uptime</strong>
-      {uptime}
-      <strong>Damage Taken</strong>{' '}
-      <small>
-        - Hits without {spell.name} are shown in{' '}
-        <Highlight color={red} textColor="white">
-          red
-        </Highlight>
-        .
-      </small>
-      {Array.from(meleesBySource.entries()).map(([id, hits]) => (
-        <HitTimeline
-          hits={hits}
-          key={id}
-          showSourceName={meleesBySource.size > 1}
-          unmitigatedContent={unmitigatedContent}
-        />
-      ))}
-      {Array.from(hitsBySpell.entries()).map(([id, hits]) => (
-        <HitTimeline hits={hits} key={id} unmitigatedContent={unmitigatedContent} />
-      ))}
+      <RoundedPanel>
+        <strong>{spell.name} Uptime</strong>
+        {uptime}
+        <strong>Damage Taken</strong>{' '}
+        <small>
+          - Hits without {spell.name} are shown in{' '}
+          <Highlight color={red} textColor="white">
+            red
+          </Highlight>
+          .
+        </small>
+        {Array.from(meleesBySource.entries()).map(([id, hits]) => (
+          <HitTimeline
+            hits={hits}
+            key={id}
+            showSourceName={meleesBySource.size > 1}
+            unmitigatedContent={unmitigatedContent}
+          />
+        ))}
+        {Array.from(hitsBySpell.entries()).map(([id, hits]) => (
+          <HitTimeline hits={hits} key={id} unmitigatedContent={unmitigatedContent} />
+        ))}
+      </RoundedPanel>
     </div>
   );
 }

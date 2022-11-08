@@ -1956,3 +1956,7 @@ export const Jonfanz: Contributor = {
   nickname: 'jonfanz',
   github: 'jharrell',
 };
+export const Anty: Contributor = {
+  nickname: 'Anty',
+  github: 'jsucupira',
+};

@@ -1,6 +1,5 @@
 import { t, Trans } from '@lingui/macro';
 import getFightName from 'common/getFightName';
-import DocumentTitle from 'interface/DocumentTitle';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import { RootState } from 'interface/reducers';
 import ClassicLogWarning from 'interface/report/ClassicLogWarning';
@@ -9,48 +8,39 @@ import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/Rep
 import { getFightFromReport } from 'interface/selectors/fight';
 import { getFightId } from 'interface/selectors/url/report';
 import Tooltip from 'interface/Tooltip';
-import { WCLFight } from 'parser/core/Fight';
-import Report from 'parser/core/Report';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
 import Toggle from 'react-toggle';
 import { compose } from 'redux';
+import { FightProvider } from 'interface/report/context/FightContext';
+import { ReactNode, useEffect, useState } from 'react';
+import { useReport } from 'interface/report/context/ReportContext';
+import { Helmet } from 'react-helmet';
+import { isUnsupportedClassicVersion } from 'game/VERSIONS';
 
 interface ConnectedProps {
   fightId: number | null;
 }
 
 interface PassedProps {
-  report: Report;
-  refreshReport: () => void;
-  children: (fight: WCLFight) => void;
+  children: ReactNode;
 }
 
 type Props = ConnectedProps & PassedProps;
 
-interface State {
-  killsOnly: boolean;
-}
+const FightSelection = ({ fightId, children }: Props) => {
+  const [killsOnly, setKillsOnly] = useState(false);
+  const { report, refreshReport } = useReport();
+  const reportDuration = report.end - report.start;
 
-class FightSelection extends React.PureComponent<Props, State> {
-  state = {
-    killsOnly: false,
-  };
-
-  componentDidMount() {
-    this.scrollToTop();
-  }
-  scrollToTop() {
+  useEffect(() => {
+    // Scroll to top of page on initial render
     window.scrollTo(0, 0);
-  }
+  }, []);
 
-  renderFightSelection() {
-    const { report, refreshReport } = this.props;
-    const { killsOnly } = this.state;
-
-    const reportDuration = report.end - report.start;
-
+  const fight = fightId && getFightFromReport(report, fightId);
+  if (!fightId || !fight) {
     return (
       <div className="container offset fight-selection">
         <div className="flex wrapable" style={{ marginBottom: 15 }}>
@@ -101,7 +91,7 @@ class FightSelection extends React.PureComponent<Props, State> {
                 <Toggle
                   checked={killsOnly}
                   icons={false}
-                  onChange={(event) => this.setState({ killsOnly: event.currentTarget.checked })}
+                  onChange={(event) => setKillsOnly(event.currentTarget.checked)}
                   id="kills-only-toggle"
                 />
                 <label htmlFor="kills-only-toggle">
@@ -113,43 +103,36 @@ class FightSelection extends React.PureComponent<Props, State> {
           </div>
         </div>
 
-        {report.gameVersion === 2 && <ClassicLogWarning />}
+        {isUnsupportedClassicVersion(report.gameVersion) && <ClassicLogWarning />}
 
         {reportDuration > MAX_REPORT_DURATION && (
           <ReportDurationWarning duration={reportDuration} />
         )}
 
-        {report.gameVersion !== 2 && <FightSelectionPanel report={report} killsOnly={killsOnly} />}
+        {!isUnsupportedClassicVersion(report.gameVersion) && (
+          <FightSelectionPanel report={report} killsOnly={killsOnly} />
+        )}
       </div>
     );
   }
-  render() {
-    const { report, fightId } = this.props;
 
-    const fight = fightId && getFightFromReport(report, fightId);
-    if (!fightId || !fight) {
-      return this.renderFightSelection();
-    }
+  return (
+    <>
+      <Helmet>
+        <title>
+          {fight
+            ? t({
+                id: 'interface.report.fightSelection.documentTitle',
+                message: `${getFightName(report, fight)} in ${report.title}`,
+              })
+            : report.title}
+        </title>
+      </Helmet>
 
-    return (
-      <>
-        {/* TODO: Refactor the DocumentTitle away */}
-        <DocumentTitle
-          title={
-            fight
-              ? t({
-                  id: 'interface.report.fightSelection.documentTitle',
-                  message: `${getFightName(report, fight)} in ${report.title}`,
-                })
-              : report.title
-          }
-        />
-
-        {this.props.children(fight)}
-      </>
-    );
-  }
-}
+      <FightProvider fight={fight}>{children}</FightProvider>
+    </>
+  );
+};
 
 const mapStateToProps = (state: RootState, props: RouteComponentProps) => ({
   // Because fightId comes from the URL we can't use local state

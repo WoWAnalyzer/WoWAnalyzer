@@ -4,6 +4,9 @@ import Analyzer from 'parser/core/Analyzer';
 import { Item } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { EnchantmentBoxRowEntry } from 'interface/guide/components/Preparation/EnchantmentSubSection/EnchantmentBoxRow';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { Enchant } from 'common/SPELLS/Spell';
 
 class EnchantChecker extends Analyzer {
   get EnchantableSlots(): any {
@@ -70,6 +73,70 @@ class EnchantChecker extends Analyzer {
     return false;
   }
 
+  boxRowPerformance(item: Item, recommendedEnchantments: number[] | undefined) {
+    const hasEnchant = this.hasEnchant(item);
+    const hasMaxEnchant = hasEnchant && this.hasMaxEnchant(item);
+    const recommendedEnchantmentExists = recommendedEnchantments !== undefined;
+    if (hasMaxEnchant) {
+      if (
+        recommendedEnchantmentExists &&
+        recommendedEnchantments.includes(item.permanentEnchant ?? 0)
+      ) {
+        return QualitativePerformance.Perfect;
+      }
+      return QualitativePerformance.Good;
+    }
+    if (hasEnchant) {
+      return QualitativePerformance.Ok;
+    }
+    return QualitativePerformance.Fail;
+  }
+
+  boxRowItemLink(item: Item, slotName: JSX.Element) {
+    return (
+      <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
+        {slotName}
+      </ItemLink>
+    );
+  }
+
+  boxRowTooltip(item: Item, slotName: JSX.Element, recommendedEnchantments: Enchant[] | undefined) {
+    const hasEnchant = this.hasEnchant(item);
+    const hasMaxEnchant = hasEnchant && this.hasMaxEnchant(item);
+    const recommendedEnchant = recommendedEnchantments?.map((it) => it.name)?.join(', ');
+    if (hasMaxEnchant) {
+      return null;
+    }
+    if (hasEnchant) {
+      if (recommendedEnchant) {
+        return (
+          <Trans id="shared.enchantChecker.guide.weakEnchant.labelWithRecommendation">
+            Your {slotName} has a cheap enchant. Apply a stronger enchant to increase your
+            throughput. Recommended: {recommendedEnchant}
+          </Trans>
+        );
+      }
+      return (
+        <Trans id="shared.enchantChecker.guide.weakEnchant.label">
+          Your {slotName} has a cheap enchant. Apply a stronger enchant to increase your throughput.
+        </Trans>
+      );
+    }
+    if (recommendedEnchant) {
+      return (
+        <Trans id="shared.enchantChecker.guide.noEnchant.labelWithRecommendation">
+          Your {slotName} is missing an enchant. Apply a strong enchant to increase your throughput.
+          Recommended: {recommendedEnchant}
+        </Trans>
+      );
+    }
+    return (
+      <Trans id="shared.enchantChecker.guide.noEnchant.label">
+        Your {slotName} is missing an enchant. Apply a strong enchant to increase your throughput.
+      </Trans>
+    );
+  }
+
   get itemsEnchantedThreshold() {
     return {
       actual: this.numEnchantableGear - this.numSlotsMissingEnchant,
@@ -88,6 +155,29 @@ class EnchantChecker extends Analyzer {
       isLessThan: this.numEnchantableGear,
       style: ThresholdStyle.NUMBER,
     };
+  }
+
+  getEnchantmentBoxRowEntries(
+    recommendedEnchants: Record<number, Enchant[]> = {},
+  ): EnchantmentBoxRowEntry[] {
+    const gear = this.EnchantableGear;
+    const enchantSlots: { [key: number]: JSX.Element } = this.EnchantableSlots;
+
+    return Object.keys(gear).map<EnchantmentBoxRowEntry>((slot) => {
+      const slotNumber = Number(slot);
+      const item = gear[slotNumber];
+      const slotName = enchantSlots[slotNumber];
+      const recommendedEnchantments = recommendedEnchants[slotNumber];
+      return {
+        item,
+        slotName: this.boxRowItemLink(item, slotName),
+        value: this.boxRowPerformance(
+          item,
+          recommendedEnchantments?.map((it) => it.effectId),
+        ),
+        tooltip: this.boxRowTooltip(item, slotName, recommendedEnchantments),
+      };
+    });
   }
 
   suggestions(when: When) {

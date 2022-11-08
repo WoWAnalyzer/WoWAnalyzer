@@ -3,10 +3,10 @@ import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 export default class Ragefire extends Analyzer {
   damage = 0;
@@ -34,9 +34,9 @@ export default class Ragefire extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`${formatThousands(this.damage)} Total damage`}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.RAGEFIRE_TALENT.id}>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.RAGEFIRE_TALENT}>
           <ItemDamageDone amount={this.damage} />
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }
