@@ -128,7 +128,7 @@ class RenewingMistDuringManaTea extends Analyzer {
   subStatistic() {
     return (
       <div>
-        <>{this.avgRemDuringMT.toFixed(2)} <small>{'average renewing mists'}</small></>
+        <>{this.avgRemDuringMT.toFixed(2)} <small>average renewing mists</small></>
       </div>
     );
   }
