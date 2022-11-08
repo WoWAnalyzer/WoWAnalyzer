@@ -8,11 +8,11 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import BoringValueText from 'parser/ui/BoringValueText';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 import RenewingMistDuringManaTea from './RenewingMistDuringManaTea';
 
 class ManaTea extends Analyzer {
@@ -187,18 +187,13 @@ class ManaTea extends Analyzer {
           </>
         }
       >
-        <BoringValueText
-          label={
-            <>
-              <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} />
-            </>
-          }
-        >
-          <><ItemManaGained amount={this.manaSavedMT} useAbbrev/></>
+        <TalentSpellText talent={TALENTS_MONK.MANA_TEA_TALENT}>
+          <ItemManaGained amount={this.manaSavedMT} useAbbrev/>
           <br />
-          <>{formatNumber(this.avgMtSaves)} <small>mana per cast</small></>
-          <>{this.renewingMistDuringManaTea.subStatistic()}</>
-        </BoringValueText>
+          {formatNumber(this.avgMtSaves)} <small>mana per cast</small>
+          <br />
+          {this.renewingMistDuringManaTea.subStatistic()}
+        </TalentSpellText>
         
       </Statistic>
     );
