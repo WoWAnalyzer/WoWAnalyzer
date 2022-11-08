@@ -2,7 +2,6 @@ import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { TALENTS_MONK } from 'common/TALENTS';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
@@ -12,7 +11,6 @@ import Events, {
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
