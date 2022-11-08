@@ -3,21 +3,26 @@ import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringValueText from 'parser/ui/BoringValueText';
+import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import RenewingMistDuringManaTea from './RenewingMistDuringManaTea';
 
 class ManaTea extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
+    renewingMistDuringManaTea: RenewingMistDuringManaTea,
   };
+
+  protected renewingMistDuringManaTea!: RenewingMistDuringManaTea;
+
   manaSavedMT: number = 0;
   manateaCount: number = 0;
   casts: Map<string, number> = new Map<string, number>();
@@ -185,12 +190,16 @@ class ManaTea extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={TALENTS_MONK.MANA_TEA_TALENT.id} /> Average mana saved
+              <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} />
             </>
           }
         >
-          <>{formatNumber(this.avgMtSaves)}</>
+          <><ItemManaGained amount={this.manaSavedMT} useAbbrev/></>
+          <br />
+          <>{formatNumber(this.avgMtSaves)} <small>mana per cast</small></>
+          <>{this.renewingMistDuringManaTea.subStatistic()}</>
         </BoringValueText>
+        
       </Statistic>
     );
   }
