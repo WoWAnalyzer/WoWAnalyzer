@@ -149,7 +149,7 @@ class JadeSerpentStatue extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <TalentSpellText talent={TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT}>
-        <>{formatPercentage(this.jadeSerpentStatueUptime)}% Uptime</>
+          {formatPercentage(this.jadeSerpentStatueUptime)}% Uptime
         </TalentSpellText>
       </Statistic>
     );
