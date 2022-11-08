@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { emallson, Trevor, ToppleTheNun, Vetyst } from 'CONTRIBUTORS';
+import { emallson, Trevor, ToppleTheNun, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 11, 8), <>Consolidated <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id}/> modules into one statistics box</>, Vohrr),
   change(date(2022, 11, 4), <>Remove Abelito75 from the contribution list.</>, Vetyst),
   change(date(2022, 11, 1), <>Add support for extending <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id}/> from <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id}/>  with <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id}/></>, Trevor),
   change(date(2022, 10, 26), <>Fix detection for cancelling <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id}/></>, Trevor),
