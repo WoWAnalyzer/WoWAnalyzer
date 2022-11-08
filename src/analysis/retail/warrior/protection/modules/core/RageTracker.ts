@@ -33,7 +33,7 @@ class RageTracker extends ResourceTracker {
     );
   }
 
-  getReducedCost(event: CastEvent) {
+  getAdjustedCost(event: CastEvent) {
     if (event.resourceCost && event.resourceCost[this.resource.id] !== undefined) {
       return event.resourceCost[this.resource.id];
     }
