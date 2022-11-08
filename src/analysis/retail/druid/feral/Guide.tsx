@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
+import { cdSpell } from './constants';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -88,11 +89,9 @@ function CooldownSection({ modules, events, info }: GuideProps<typeof CombatLogP
         maximize usages over the course of an encounter, you should aim to send the cooldown as soon
         as it becomes available (as long as it can do damage on target). It is particularly
         important to use <SpellLink id={SPELLS.TIGERS_FURY.id} /> as often as possible.
-        <br />
-        <br />
-        <strong>Per-spell guidance and statistics coming soon!</strong>
       </p>
       <CooldownGraphSubsection modules={modules} events={events} info={info} />
+      <CooldownBreakdownSubsection modules={modules} events={events} info={info} />
     </Section>
   );
 }
@@ -140,6 +139,31 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
           />
         </div>
       )}
+    </SubSection>
+  );
+}
+
+function CooldownBreakdownSubsection({
+  modules,
+  events,
+  info,
+}: GuideProps<typeof CombatLogParser>) {
+  return (
+    <SubSection>
+      <p>
+        <strong>
+          Breakdown for <SpellLink id={SPELLS.TIGERS_FURY.id} /> coming soon!
+        </strong>
+      </p>
+      <p>
+        <strong>
+          Breakdown for <SpellLink id={cdSpell(info.combatant).id} /> coming soon!
+        </strong>
+      </p>
+      {info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) &&
+        modules.convokeSpirits.guideCastBreakdown}
+      {info.combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT) &&
+        modules.feralFrenzy.guideCastBreakdown}
     </SubSection>
   );
 }

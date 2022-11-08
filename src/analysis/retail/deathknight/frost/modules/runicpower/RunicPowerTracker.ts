@@ -46,8 +46,8 @@ class RunicPowerTracker extends ResourceTracker {
       timestamp: event.timestamp,
       sourceID: event.sourceID!,
       sourceIsFriendly: event.sourceIsFriendly,
-      targetIsFriendly: event.targetIsFriendly
-    }
+      targetIsFriendly: event.targetIsFriendly,
+    };
 
     event.sourceID = 1;
     const cost = BREATH_COST_PER_TICK / 10;
@@ -56,7 +56,12 @@ class RunicPowerTracker extends ResourceTracker {
     this.mostRecentTickTime = event.timestamp;
   }
 
-
+  getAdjustedCost(event: CastEvent) {
+    const cost = this.getResource(event)?.cost;
+    if (cost) {
+      return cost / 10;
+    }
+  }
 }
 
 export default RunicPowerTracker;

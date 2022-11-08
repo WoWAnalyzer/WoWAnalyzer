@@ -9,7 +9,7 @@ class RunicPowerTracker extends ResourceTracker {
     this.resource = RESOURCE_TYPES.RUNIC_POWER;
   }
 
-  getReducedCost(event: CastEvent) {
+  getAdjustedCost(event: CastEvent) {
     const cost = this.getResource(event)?.cost;
     if (cost) {
       return cost / 10;
