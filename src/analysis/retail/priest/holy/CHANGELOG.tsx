@@ -6,9 +6,16 @@ import { SpellLink } from 'interface';
 
 export default [
   change(
+    date(2022, 11, 3),
+    <>
+      Added support for <SpellLink id={TALENTS.DIVINE_WORD_TALENT.id} /> and <SpellLink id={TALENTS.SEARING_LIGHT_TALENT.id} />.
+    </>,
+    Litena
+  ),
+  change(
     date(2022, 10, 22),
     <>
-      Updated 'Mana efficiency tab' and added support for <SpellLink id={TALENTS.REVITALIZING_PRAYERS_TALENT.id} />
+      Updated 'Mana efficiency tab' and added support for <SpellLink id={TALENTS.REVITALIZING_PRAYERS_TALENT.id} />.
     </>,
     Litena
   ),
@@ -16,9 +23,8 @@ export default [
   change(
     date(2022, 10, 12),
     <>
-      Cooldown view now shows <SpellLink id={TALENTS.HOLY_WORD_SALVATION_TALENT.id} /> and
-      <SpellLink id={TALENTS.APOTHEOSIS_TALENT.id} /> also added support for
-      <SpellLink id={TALENTS.HEALING_CHORUS_TALENT.id} />.
+      Cooldown view now shows <SpellLink id={TALENTS.HOLY_WORD_SALVATION_TALENT.id} /> and <SpellLink id={TALENTS.APOTHEOSIS_TALENT.id} /> also
+      added support for <SpellLink id={TALENTS.HEALING_CHORUS_TALENT.id} />.
     </>,
     Litena
   ),

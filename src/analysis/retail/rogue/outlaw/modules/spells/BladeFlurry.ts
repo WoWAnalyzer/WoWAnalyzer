@@ -4,6 +4,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import TALENTS from 'common/TALENTS/rogue';
 
 class BladeFlurry extends Analyzer {
   static dependencies = {
@@ -35,10 +36,14 @@ class BladeFlurry extends Analyzer {
     if (!cpCost) {
       return;
     }
-    if (this.spellUsable.isOnCooldown(SPELLS.BLADE_FLURRY.id)) {
+    if (this.spellUsable.isOnCooldown(TALENTS.BLADE_FLURRY_TALENT.id)) {
       const extraCDR = this.selectedCombatant.hasBuff(SPELLS.TRUE_BEARING.id) ? cpCost * 1000 : 0;
       const cooldownReduction = cpCost * 1000 + extraCDR;
-      this.spellUsable.reduceCooldown(SPELLS.BLADE_FLURRY.id, cooldownReduction, event.timestamp);
+      this.spellUsable.reduceCooldown(
+        TALENTS.BLADE_FLURRY_TALENT.id,
+        cooldownReduction,
+        event.timestamp,
+      );
     }
   }
 }

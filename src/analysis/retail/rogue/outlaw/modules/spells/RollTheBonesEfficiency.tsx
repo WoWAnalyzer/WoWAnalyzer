@@ -6,6 +6,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import * as React from 'react';
+import TALENTS from 'common/TALENTS/rogue';
 
 import RollTheBonesCastTracker, {
   ROLL_THE_BONES_CATEGORIES,
@@ -143,13 +144,14 @@ class RollTheBonesEfficiency extends Analyzer {
       when(suggestion.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
           <>
-            Your efficiency with refreshing <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> after a{' '}
-            {suggestion.label} roll could be improved. <SpellLink id={SPELLS.BROADSIDE.id} /> and{' '}
-            <SpellLink id={SPELLS.TRUE_BEARING.id} /> are your highest value buffs from{' '}
-            <SpellLink id={SPELLS.ROLL_THE_BONES.id} />. {suggestion.extraSuggestion || ''}
+            Your efficiency with refreshing <SpellLink id={TALENTS.ROLL_THE_BONES_TALENT.id} />{' '}
+            after a {suggestion.label} roll could be improved.{' '}
+            <SpellLink id={SPELLS.BROADSIDE.id} /> and <SpellLink id={SPELLS.TRUE_BEARING.id} /> are
+            your highest value buffs from <SpellLink id={TALENTS.ROLL_THE_BONES_TALENT.id} />.{' '}
+            {suggestion.extraSuggestion || ''}
           </>,
         )
-          .icon(SPELLS.ROLL_THE_BONES.icon)
+          .icon(TALENTS.ROLL_THE_BONES_TALENT.icon)
           .actual(
             t({
               id: 'rogue.outlaw.suggestions.rollTheBones.efficiency',

@@ -18,16 +18,15 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { cdSpell, FINISHERS } from 'analysis/retail/druid/feral/constants';
-import ConvokeSpiritsFeral from 'analysis/retail/druid/feral/modules/spells/ConvokeSpiritsFeral';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { formatNumber, formatPercentage } from 'common/format';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
 
 const BERSERK_CDR_MS = 700;
 const CONVOKE_BITE_CPS = 5;
 
-// TODO update to point to talent for DF
 /**
  * This tracks the two 'upgrade' talents for Berserk.
  *
@@ -46,12 +45,10 @@ class BerserkBoosts extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
     abilityTracker: AbilityTracker,
-    convokeSpiritsFeral: ConvokeSpiritsFeral,
   };
 
   protected spellUsable!: SpellUsable;
   protected abilityTracker!: AbilityTracker;
-  protected convokeSpiritsFeral!: ConvokeSpiritsFeral;
 
   /** If player has the Berserk: Heart of the Lion talent */
   hasHeartOfTheLion: boolean;
@@ -101,7 +98,7 @@ class BerserkBoosts extends Analyzer {
   }
 
   onBiteDamage(_: DamageEvent) {
-    if (this.convokeSpiritsFeral.isConvoking()) {
+    if (isConvoking(this.selectedCombatant)) {
       this._tallyReduction(CONVOKE_BITE_CPS);
     }
   }

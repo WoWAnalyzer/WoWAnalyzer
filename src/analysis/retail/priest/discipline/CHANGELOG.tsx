@@ -6,6 +6,8 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 11, 5), <>Updated <SpellLink id={SPELLS.SINS_OF_THE_MANY.id}/>.</>, Hana),
+  change(date(2022, 10, 30), <>Showed <SpellLink id={TALENTS_PRIEST.EVANGELISM_TALENT.id}/> casts and highlighted casts which are bad</>, Hana),
   change(date(2022, 10, 30), <>First backend section of <SpellLink id={TALENTS_PRIEST.EVANGELISM_TALENT.id}/>.</>, Hana),
   change(date(2022, 10, 29), <>Hid tier bonus when not using it</>, Hana),
   change(date(2022, 10, 29), <>Added line break in <SpellLink id={TALENTS_PRIEST.TWIST_OF_FATE_TALENT}/> module.</>, Hana),
