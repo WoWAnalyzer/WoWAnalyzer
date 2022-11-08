@@ -10,3 +10,13 @@
 .evang__cast-list {
   display: flex;
 }
+
+.evang__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.evang__applicator-half {
+  max-width: 50%;
+}
