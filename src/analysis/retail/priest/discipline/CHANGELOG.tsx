@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 11, 6), <>Added DPS rotation to <SpellLink id={TALENTS_PRIEST.EVANGELISM_TALENT.id}/> guide.</>, Hana),
   change(date(2022, 11, 5), <>Updated <SpellLink id={SPELLS.SINS_OF_THE_MANY.id}/>.</>, Hana),
   change(date(2022, 11, 5), <>Added <SpellLink id={TALENTS_PRIEST.RESPLENDENT_LIGHT_TALENT.id}/>.</>, Hana),
   change(date(2022, 10, 30), <>Showed <SpellLink id={TALENTS_PRIEST.EVANGELISM_TALENT.id}/> casts and highlighted casts which are bad</>, Hana),
