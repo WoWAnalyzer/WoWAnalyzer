@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 
 export const DISPERSION_BASE_CD = 90;
