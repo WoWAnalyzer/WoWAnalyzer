@@ -36,6 +36,7 @@ import SpiritOfRedemption from './modules/spells/SpiritOfRedemption';
 import Talents from './modules/talents';
 import TwoSet from './modules/dragonflight/tier/Tier29HolyPriest2Set';
 import FourSet from './modules/dragonflight/tier/Tier29HolyPriest4Set';
+import ProtectiveLight from '../shared/ProtectiveLight';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -97,6 +98,7 @@ class CombatLogParser extends CoreCombatLogParser {
     Censure: Talents.TopRow.Censure,
     PsychicVoice: Talents.Classwide.PsychicVoice,
 
+    ProtectiveLight: ProtectiveLight,
     SurgeOfLight: Talents.Classwide.SurgeOfLight,
     PrayerCircle: Talents.MiddleRow.PrayerCircle,
 

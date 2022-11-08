@@ -29,7 +29,12 @@ const PlayerTile = ({ player, makeUrl, config }: Props) => {
 
   useEffect(() => {
     const load = async () => {
-      if (!player.region || !player.server || !isSupportedRegion(player.region)) {
+      if (
+        player.combatant.expansion === 'wotlk' ||
+        !player.region ||
+        !player.server ||
+        !isSupportedRegion(player.region)
+      ) {
         return null;
       }
 

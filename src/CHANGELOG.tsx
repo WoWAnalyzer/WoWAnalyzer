@@ -67,6 +67,7 @@ import SpellLink from 'interface/SpellLink';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 export default [
+  change(date(2022, 11, 6), 'Update PlayerTile for Classic to clear console errors.', jazminite),
   change(date(2022, 11, 7), 'Configure Greater Spellpower enchant for WoTLK', Tialyss),
   change(date(2022, 11, 2), 'Add Dragonflight enchants.', ToppleTheNun),
   change(date(2022, 11, 1), 'Add Preparation section that can be included in Guides.', ToppleTheNun),

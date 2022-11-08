@@ -214,6 +214,11 @@ const spells = spellIndexableList({
     name: 'Shadow Word: Pain',
     icon: 'spell_shadow_shadowwordpain',
   },
+  PROTECTIVE_LIGHT_BUFF: {
+    id: 193065,
+    name: 'Protective Light',
+    icon: 'spell_holy_holyprotection',
+  },
   FADE: {
     id: 586,
     name: 'Fade',
