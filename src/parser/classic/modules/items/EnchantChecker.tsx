@@ -182,6 +182,7 @@ const MAX_ENCHANT_IDS = [
   // 2H Weapon
   3827, // https://www.wowhead.com/wotlk/spell=60691/enchant-2h-weapon-massacre
   3247, // https://www.wowhead.com/wotlk/spell=44595/enchant-2h-weapon-scourgebane
+  3854, // https://www.wowhead.com/wotlk/spell=62948/enchant-staff-greater-spellpower
   3367, // https://www.wowhead.com/wotlk/spell=53342/rune-of-spellshattering
   3365, // https://www.wowhead.com/wotlk/spell=53323/rune-of-swordshattering
   // Ranged
