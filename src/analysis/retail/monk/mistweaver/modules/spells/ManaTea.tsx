@@ -175,7 +175,7 @@ class ManaTea extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            During your {this.manateaCount} Mana Teas saved the following mana (
+            During your {this.manateaCount} casts of Mana Tea you saved mana on the following (
             {formatThousands((this.manaSavedMT / this.owner.fightDuration) * 1000 * 5)} MP5):
             <ul>
               {arrayOfKeys.map((spell) => (
