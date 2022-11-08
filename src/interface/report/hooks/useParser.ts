@@ -17,7 +17,10 @@ const useParser = (config: Config) => {
     };
 
     setParserClass(undefined);
-    load(config.parser);
+    if (config.parser) {
+      // noinspection JSIgnoredPromiseFromCall
+      load(config.parser);
+    }
   }, [config]);
 
   return parserClass;

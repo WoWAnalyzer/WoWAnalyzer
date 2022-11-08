@@ -139,9 +139,10 @@ class HolyWordsReductionBySpell extends Analyzer {
             provide further CD reduction are taken into account when calculating these numbers.
             <br />
             <br />
-            If you took the talent{' '}
-            <strong>Holy Word Salvation, Holy Words Sanctify and Serenity</strong> will show since
-            they provide CD reduction for <strong>Holy World Salvation</strong>.
+            If you have talented <strong>Holy Word Salvation</strong> both{' '}
+            <strong> Holy Word Sanctify </strong>
+            and <strong> Serenity</strong> will show since they provide CD reduction for{' '}
+            <strong>Holy World Salvation</strong>.
           </>
         }
         dropdown={

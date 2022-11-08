@@ -35,7 +35,7 @@ import VanishFindWeakness from './modules/features/VanishFindWeakness';
 import TheRotten from './modules/talents/TheRotten';
 import DarkShadowContribution from './modules/talents/DarkShadow/DarkShadowContribution';
 import ShurikenStormNormalizer from './normalizers/ShurikenStormNormalizer';
-import Flagellation from './modules/talents/Flagellation';
+import Flagellation from 'analysis/retail/rogue/shared/talents/Flagellation';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

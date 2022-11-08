@@ -1,13 +1,13 @@
-import { Khadaj, Litena } from 'CONTRIBUTORS';
+import { Litena } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import Config from 'parser/Config';
-
 import CHANGELOG from './CHANGELOG';
+
 //Description not accurate as of Dragonflight update
 const config: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
-  contributors: [Khadaj, Litena],
+  contributors: [Litena],
   expansion: Expansion.Dragonflight,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '10.0.2',
@@ -25,7 +25,7 @@ const config: Config = {
       <a href="https://warcraftpriests.com/holy/holy-priest-quickstart/">Warcraftpriests</a>
       <br />
       <br />
-      This page is maintained with help from the Holy Team at the{' '}
+      Check out the{' '}
       <a href="https://discord.gg/WarcraftPriests" target="_blank" rel="noopener noreferrer">
         Warcraft Priests Discord
       </a>
@@ -33,7 +33,7 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/dhPc7Z3VaHkfKrTj/1-Heroic+Wrathion+-+Kill+(3:39)/Canddoris',
+  exampleReport: '/report/xq2FvfVCJh6YLjzZ/2/8',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

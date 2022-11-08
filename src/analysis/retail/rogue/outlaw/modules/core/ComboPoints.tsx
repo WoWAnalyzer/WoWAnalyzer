@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
 import resourceSuggest from 'parser/shared/modules/resources/resourcetracker/ResourceSuggest';
+import TALENTS from 'common/TALENTS/rogue';
 
 class ComboPoints extends Analyzer {
   static dependencies = {
@@ -22,11 +23,11 @@ class ComboPoints extends Analyzer {
 
   suggestions(when: When) {
     resourceSuggest(when, this.comboPointTracker, {
-      spell: SPELLS.MARKED_FOR_DEATH_TALENT, // 5 CP
+      spell: TALENTS.MARKED_FOR_DEATH_TALENT, // 5 CP
       minor: 0.2, // MFD is typically guaranteed to waste 1 CP (20%) because of the Ruthlessness passive refunding CP from the previous finisher.
       avg: 0.4, // Using MFD at 2 CP is not recommended but not a huge problem.
       major: 0.6,
-      extraSuggestion: this.makeExtraSuggestion(SPELLS.MARKED_FOR_DEATH_TALENT),
+      extraSuggestion: this.makeExtraSuggestion(TALENTS.MARKED_FOR_DEATH_TALENT),
     });
     resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.SINISTER_STRIKE, // 1 CP + 35% chance for another
@@ -50,11 +51,11 @@ class ComboPoints extends Analyzer {
       extraSuggestion: this.makeExtraSuggestion(SPELLS.PISTOL_SHOT),
     });
     resourceSuggest(when, this.comboPointTracker, {
-      spell: SPELLS.GHOSTLY_STRIKE_TALENT, // 1 CP
+      spell: TALENTS.GHOSTLY_STRIKE_TALENT, // 1 CP
       minor: 0,
       avg: 0.05,
       major: 0.1,
-      extraSuggestion: this.makeExtraSuggestion(SPELLS.GHOSTLY_STRIKE_TALENT),
+      extraSuggestion: this.makeExtraSuggestion(TALENTS.GHOSTLY_STRIKE_TALENT),
     });
     resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.CHEAP_SHOT, // 2 CP
