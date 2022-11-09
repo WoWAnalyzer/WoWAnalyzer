@@ -100,10 +100,6 @@ class EssenceFont extends Analyzer {
     this.chijiGomEFHits += 1;
     this.chijiGomHealing += event.amount + (event.absorbed || 0);
     this.chijiGomOverhealing += event.overheal || 0;
-
-    // Total healing
-    this.totalHealing += event.amount + (event.absorbed || 0);
-    this.totalOverhealing += event.overheal || 0;
   }
 
   gustHealing(event: HealEvent) {
