@@ -5,6 +5,7 @@ import {
   TIP_MAX_STACKS,
 } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, ChangeBuffStackEvent, DamageEvent } from 'parser/core/Events';
@@ -32,7 +33,7 @@ class TipOfTheSpear extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.TIP_OF_THE_SPEAR_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.TIP_OF_THE_SPEAR_TALENT.id);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV),
@@ -84,7 +85,7 @@ class TipOfTheSpear extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.TIP_OF_THE_SPEAR_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.TIP_OF_THE_SPEAR_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
             <small>Used</small> {this.usedStacks}/{this.usedStacks + this.wastedStacks}{' '}

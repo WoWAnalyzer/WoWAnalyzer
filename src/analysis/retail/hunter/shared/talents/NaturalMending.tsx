@@ -1,7 +1,7 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -9,8 +9,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
-import { BM_CDR_PER_FOCUS, MM_SV_CDR_PER_FOCUS } from '../constants';
+import { NATURAL_MENDING_CDR_PER_FOCUS } from '../constants';
 
 /**
  * Every 20 (MM/SV) or 30 (BM) focus you spend reduces the remaining cooldown of Exhilaration by 1 sec.
@@ -23,7 +22,6 @@ class NaturalMending extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
-  cdrPerFocus = MM_SV_CDR_PER_FOCUS;
   effectiveExhilReductionMs = 0;
   wastedExhilReductionMs = 0;
   lastFocusCost = 0;
@@ -31,10 +29,7 @@ class NaturalMending extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.NATURAL_MENDING_TALENT.id);
-    if (this.active && this.selectedCombatant.spec === SPECS.BEAST_MASTERY_HUNTER) {
-      this.cdrPerFocus = BM_CDR_PER_FOCUS;
-    }
+    this.active = this.selectedCombatant.hasTalent(TALENTS.NATURAL_MENDING_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 
@@ -47,7 +42,7 @@ class NaturalMending extends Analyzer {
     }
 
     this.lastFocusCost = resource.cost || 0;
-    const cooldownReductionMS = this.cdrPerFocus * this.lastFocusCost;
+    const cooldownReductionMS = NATURAL_MENDING_CDR_PER_FOCUS * this.lastFocusCost;
     if (!this.spellUsable.isOnCooldown(SPELLS.EXHILARATION.id)) {
       this.wastedExhilReductionMs += cooldownReductionMS;
       return;
@@ -74,7 +69,7 @@ class NaturalMending extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.NATURAL_MENDING_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.NATURAL_MENDING_TALENT.id}>
           <>
             {formatNumber(this.effectiveExhilReductionMs / 1000)}s/
             {formatNumber(

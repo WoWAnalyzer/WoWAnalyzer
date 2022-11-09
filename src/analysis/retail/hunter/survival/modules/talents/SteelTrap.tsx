@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -30,10 +31,10 @@ class SteelTrap extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.STEEL_TRAP_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.STEEL_TRAP_TALENT.id);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STEEL_TRAP_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.STEEL_TRAP_TALENT),
       this.onCast,
     );
     this.addEventListener(
@@ -49,7 +50,7 @@ class SteelTrap extends Analyzer {
   onDamage(event: DamageEvent) {
     if (this.casts === 0) {
       this.casts += 1;
-      this.spellUsable.beginCooldown(event, SPELLS.STEEL_TRAP_TALENT.id);
+      this.spellUsable.beginCooldown(event, TALENTS.STEEL_TRAP_TALENT.id);
     }
     this.damage += event.amount + (event.absorbed || 0);
   }
@@ -61,7 +62,7 @@ class SteelTrap extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.STEEL_TRAP_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.STEEL_TRAP_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

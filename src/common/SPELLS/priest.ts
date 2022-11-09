@@ -643,6 +643,18 @@ const spells = spellIndexableList({
     icon: 'ability_priest_thoughtsteal01',
   },
 
+  SHADOWY_INSIGHT: {
+    id: 375888,
+    name: 'Shadowy Insight',
+    icon: 'spell_shadow_possession',
+  },
+
+  SHADOWY_INSIGHT_BUFF: {
+    id: 375981,
+    name: 'Shadowy Insight',
+    icon: 'spell_shadow_possession',
+  },
+
   UNFURLING_DARKNESS_BUFF: {
     id: 341282,
     name: 'Unfurling Darkness',

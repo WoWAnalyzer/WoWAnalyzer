@@ -1,6 +1,7 @@
 import AbilityTracker from 'analysis/retail/priest/shadow/modules/core/AbilityTracker';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Insanity from 'interface/icons/Insanity';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
@@ -22,20 +23,20 @@ class ShadowCrash extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_CRASH_TALENT_DAMAGE),
       this.onDamage,
     );
     this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_CRASH_TALENT),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_CRASH_TALENT),
       this.onEnergize,
     );
   }
 
   get averageTargetsHit() {
     return (
-      this.totalTargetsHit / this.abilityTracker.getAbility(SPELLS.SHADOW_CRASH_TALENT.id).casts
+      this.totalTargetsHit / this.abilityTracker.getAbility(TALENTS.SHADOW_CRASH_TALENT.id).casts
     );
   }
 
@@ -55,7 +56,7 @@ class ShadowCrash extends Analyzer {
         size="flexible"
         tooltip={`Average targets hit: ${formatNumber(this.averageTargetsHit)}`}
       >
-        <BoringSpellValueText spellId={SPELLS.SHADOW_CRASH_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.SHADOW_CRASH_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

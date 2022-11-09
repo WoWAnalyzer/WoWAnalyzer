@@ -6,6 +6,7 @@ import {
 } from 'analysis/retail/hunter/survival/constants';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -45,7 +46,7 @@ class MongooseBite extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.MONGOOSE_BITE_TALENT.id);
 
     this.mongooseBiteStacks = Array.from({ length: MONGOOSE_BITE_MAX_STACKS + 1 }, (x) => 0);
 
@@ -219,7 +220,7 @@ class MongooseBite extends Analyzer {
         }
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.MONGOOSE_BITE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.MONGOOSE_BITE_TALENT.id}>
           <ItemDamageDone amount={this.damage} /> <br />
           {this.fiveStackMongooseBites}/{this.totalMongooseBites} <small>5 stack bites</small>
         </BoringSpellValueText>
@@ -231,13 +232,13 @@ class MongooseBite extends Analyzer {
     when(this.focusOnMongooseWindowThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          When talented into <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />, it's important to
+          When talented into <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} />, it's important to
           have accumulated a good amount of focus before you open a{' '}
           <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> window in order to maximize the number of{' '}
-          <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />s at high stacks.
+          <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} />s at high stacks.
         </>,
       )
-        .icon(SPELLS.MONGOOSE_BITE_TALENT.icon)
+        .icon(TALENTS.MONGOOSE_BITE_TALENT.icon)
         .actual(
           t({
             id: 'hunter.survival.suggestions.mongooseBite.focusWindow',
@@ -249,11 +250,11 @@ class MongooseBite extends Analyzer {
     when(this.mongoose5StackHitThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          It's important to cast as much <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />s as
+          It's important to cast as much <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} />s as
           possible when having max(5) stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} />.
         </>,
       )
-        .icon(SPELLS.MONGOOSE_BITE_TALENT.icon)
+        .icon(TALENTS.MONGOOSE_BITE_TALENT.icon)
         .actual(
           t({
             id: 'hunter.survival.suggetsions.mongooseBite.maxStacksCasts',

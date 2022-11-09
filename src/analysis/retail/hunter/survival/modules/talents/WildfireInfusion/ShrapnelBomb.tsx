@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyDebuffEvent,
@@ -39,7 +40,7 @@ class ShrapnelBomb extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.WILDFIRE_INFUSION_TALENT.id);
 
     this.addEventListener(
       Events.damage
