@@ -75,16 +75,6 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
         {combatant.hasTalent(TALENTS.SOUL_ROT_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.SOUL_ROT_TALENT.id} />
         )}
-        {/* covenant spells below. Here be dragons. */}
-        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
-          <AbilityRequirement spell={shadowlandsSpells.SOUL_ROT.id} />
-        )}
-        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
-          <AbilityRequirement spell={shadowlandsSpells.DECIMATING_BOLT.id} />
-        )}
-        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
-          <AbilityRequirement spell={shadowlandsSpells.IMPENDING_CATASTROPHE_CAST.id} />
-        )}
       </Rule>
       <Rule
         name="Use your utility and defensive spells"
