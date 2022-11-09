@@ -20,13 +20,13 @@ import {
   LIONS_STRENGTH_DAMAGE_BONUS,
 } from 'analysis/retail/druid/feral/constants';
 import { isFromHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
-import ConvokeSpiritsFeral from 'analysis/retail/druid/feral/modules/spells/ConvokeSpiritsFeral';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
 
 const BUFFER_MS = 50;
 
@@ -45,11 +45,9 @@ const DEBUG = false;
 class Bloodtalons extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    convokeSpirits: ConvokeSpiritsFeral,
   };
 
   protected abilityTracker!: AbilityTracker;
-  protected convokeSpirits!: ConvokeSpiritsFeral;
 
   /** True iff the player has the Apex Predator's Craving legendary */
   hasApex: boolean;
@@ -222,7 +220,7 @@ class Bloodtalons extends Analyzer {
   }
 
   onFbDamage(event: DamageEvent) {
-    if (!isFromHardcast(event) && this.convokeSpirits.isConvoking()) {
+    if (!isFromHardcast(event) && isConvoking(this.selectedCombatant)) {
       // convoke bite
       if (this._hasBt(event)) {
         // consumed BT with a convoke bite - this is an exception allowing real finisher to be missing BT
@@ -372,7 +370,7 @@ class Bloodtalons extends Analyzer {
                   {this.berserkBitesWithBt} / {this.berserkBites}
                 </strong>
               </li>
-              {this.convokeSpirits.active && (
+              {this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) && (
                 <li>
                   <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />:{' '}
                   <strong>

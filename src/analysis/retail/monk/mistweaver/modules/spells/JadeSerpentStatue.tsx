@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
+import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
@@ -11,10 +11,10 @@ import Events, {
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class JadeSerpentStatue extends Analyzer {
   healing: number = 0;
@@ -34,25 +34,25 @@ class JadeSerpentStatue extends Analyzer {
     }
 
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER_PET).spell(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT),
+      Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_MIST_STATUE),
       this.jssHeal,
     );
     this.addEventListener(
       Events.applybuff
         .by(SELECTED_PLAYER_PET)
-        .spell(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT),
+        .spell(SPELLS.SOOTHING_MIST_STATUE),
       this.jssApplyBuff,
     );
     this.addEventListener(
       Events.removebuff
         .by(SELECTED_PLAYER_PET)
-        .spell(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT),
+        .spell(SPELLS.SOOTHING_MIST_STATUE),
       this.jssRemoveBuff,
     );
     this.addEventListener(
       Events.refreshbuff
         .by(SELECTED_PLAYER_PET)
-        .spell(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT),
+        .spell(SPELLS.SOOTHING_MIST_STATUE),
       this.jssRefreshBuff,
     );
     this.addEventListener(Events.fightend, this.endFight);
@@ -87,8 +87,9 @@ class JadeSerpentStatue extends Analyzer {
 
   jssRemoveBuff(event: RemoveBuffEvent) {
     // Care for buff application before fight.
-    if (this.lastBuffApplyTimestamp === null) {
+    if (this.lastBuffApplyTimestamp === -1) {
       this.soothingMistUptime += event.timestamp - this.owner.fight.start_time;
+      this.jssCasting = false;
       return;
     }
 
@@ -98,7 +99,7 @@ class JadeSerpentStatue extends Analyzer {
 
   jssRefreshBuff(event: RefreshBuffEvent) {
     const spellId = event.ability.guid;
-    if (spellId !== TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.id) {
+    if (spellId !== SPELLS.SOOTHING_MIST_STATUE.id) {
       return;
     }
 
@@ -147,15 +148,9 @@ class JadeSerpentStatue extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringValueText
-          label={
-            <>
-              <SpellIcon id={TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> % Uptime
-            </>
-          }
-        >
-          <>{formatPercentage(this.jadeSerpentStatueUptime)}</>
-        </BoringValueText>
+        <TalentSpellText talent={TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT}>
+          {formatPercentage(this.jadeSerpentStatueUptime)}% Uptime
+        </TalentSpellText>
       </Statistic>
     );
   }

@@ -1,21 +1,33 @@
 import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
-import CoreAbilities from 'parser/core/modules/Abilities';
+import SharedAbilities from 'analysis/retail/demonhunter/shared/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import {
-  MASTER_OF_THE_GLAIVE_SCALING,
-  PITCH_BLACK_SCALING,
-} from 'analysis/retail/demonhunter/shared';
+import { MASTER_OF_THE_GLAIVE_SCALING } from 'analysis/retail/demonhunter/shared';
 import { getMetamorphosisCooldown } from 'analysis/retail/demonhunter/shared/modules/talents/MetamorphosisCooldown';
 import { getFelRushCooldown } from 'analysis/retail/demonhunter/havoc/modules/spells/FelRush';
 
-class Abilities extends CoreAbilities {
+class Abilities extends SharedAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
       //Rotation Spells
+      {
+        // IMMOLATION_AURA is the ID for cast and the buff. But damage is done from IMMOLATION_AURA_INITIAL_HIT_DAMAGE and IMMOLATION_AURA_BUFF_DAMAGE
+        spell: SPELLS.IMMOLATION_AURA.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: (haste) => 30 / (1 + haste),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+          extraSuggestion:
+            'This is an important Fury generator spell. Try to always cast on cooldown, but beware to not waste the Fury generation it provides.',
+        },
+      },
       {
         spell: SPELLS.DEMONS_BITE.id,
         enabled: !combatant.hasTalent(TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT.id),
@@ -69,37 +81,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        // Felblade cooldown can be reset by Demon Bite. But its CD reset is not any event, so can't track if it resets or not.
-        cooldown: (haste) => 15 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-          extraSuggestion:
-            'This is an important Fury generator spell. Try to always cast on cooldown, but beware to not waste the Fury generation it provides. And also it can be used to charge to the desired target, making it very strong movement spell.',
-        },
-      },
-      {
-        // IMMOLATION_AURA is the ID for cast and the buff. But damage is done from IMMOLATION_AURA_INITIAL_HIT_DAMAGE and IMMOLATION_AURA_BUFF_DAMAGE
-        spell: SPELLS.IMMOLATION_AURA.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => 30 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-          extraSuggestion:
-            'This is an important Fury generator spell. Try to always cast on cooldown, but beware to not waste the Fury generation it provides.',
-        },
-      },
-      {
         spell: TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.id),
         category: SPELL_CATEGORY.COOLDOWNS,
@@ -139,7 +120,7 @@ class Abilities extends CoreAbilities {
         },
       },
 
-      //Movement
+      // Movement
       {
         spell: SPELLS.FEL_RUSH_CAST.id, //Becomes a rotational ability with the Momentum talent
         category: combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_TALENT.id)
@@ -187,108 +168,10 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
 
-      // Sigils
-      {
-        spell: [
-          SPELLS.SIGIL_OF_SILENCE_CONCENTRATED.id,
-          TALENTS_DEMON_HUNTER.SIGIL_OF_SILENCE_TALENT.id,
-          SPELLS.SIGIL_OF_SILENCE_PRECISE.id,
-        ],
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown:
-          60 *
-          (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: [
-          SPELLS.SIGIL_OF_MISERY_CONCENTRATED.id,
-          TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT.id,
-          SPELLS.SIGIL_OF_MISERY_PRECISE.id,
-        ],
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown:
-          60 *
-          (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.MISERY_IN_DEFEAT_TALENT.id),
-          recommendedEfficiency: 0.9,
-          extraSuggestion: `Cast on cooldown for a dps increase.`,
-        },
-      },
-      {
-        spell: [
-          SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id,
-          TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id,
-          SPELLS.SIGIL_OF_FLAME_PRECISE.id,
-        ],
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown:
-          30 *
-          (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion: `Cast on cooldown for a dps increase.`,
-        },
-      },
-
       // CC, interupts, and utility
       {
         spell: TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.id),
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: TALENTS_DEMON_HUNTER.CHAOS_NOVA_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(TALENTS_DEMON_HUNTER.UNLEASHED_POWER_TALENT.id) ? 40 : 60,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.DISRUPT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 15,
-        gcd: null,
-      },
-      {
-        spell: SPELLS.CONSUME_MAGIC.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 10,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.TORMENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 8,
-        gcd: null,
-      },
-      {
-        spell: TALENTS_DEMON_HUNTER.IMPRISON_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.SPECTRAL_SIGHT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
@@ -350,52 +233,7 @@ class Abilities extends CoreAbilities {
           ),
         },
       },
-      {
-        spell: [
-          TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id,
-          SPELLS.ELYSIAN_DECREE_CONCENTRATED.id,
-          SPELLS.ELYSIAN_DECREE_PRECISE.id,
-        ],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown:
-          60 *
-          (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion: (
-            <>
-              The only time you should delay casting{' '}
-              <SpellLink id={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id} /> is when you're
-              expecting adds to spawn soon.
-            </>
-          ),
-        },
-      },
-      {
-        spell: TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-          extraSuggestion: (
-            <>
-              The only time you should delay casting{' '}
-              <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id} /> is when you're expecting
-              adds to spawn soon.
-            </>
-          ),
-        },
-      },
+
       // Big DPS Cooldowns
       {
         spell: SPELLS.METAMORPHOSIS_HAVOC.id,
@@ -415,17 +253,6 @@ class Abilities extends CoreAbilities {
         cooldown: 60,
       },
       {
-        spell: TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id),
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown:
-          300 -
-          PITCH_BLACK_SCALING[combatant.getTalentRank(TALENTS_DEMON_HUNTER.PITCH_BLACK_TALENT.id)],
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: TALENTS_DEMON_HUNTER.NETHERWALK_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.NETHERWALK_TALENT.id),
         category: SPELL_CATEGORY.DEFENSIVE,
@@ -434,6 +261,8 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+
+      ...super.spellbook(),
     ];
   }
 }
