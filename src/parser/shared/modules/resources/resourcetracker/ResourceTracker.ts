@@ -227,6 +227,8 @@ class ResourceTracker extends Analyzer {
     this._applyBuilder(spellId, gain, waste, event.timestamp, this.getResource(event));
   }
 
+  /** Handles a DrainEvent (a resource loss - often used to implement "additional cost" effects).
+   *  Pulls fields from the event to push an appropriate resource update. */
   onDrain(event: DrainEvent) {
     if (event.resourceChangeType !== this.resource.id) {
       return;

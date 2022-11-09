@@ -45,6 +45,7 @@ import Torrent from './modules/talents/Torrent';
 import Undulation from './modules/talents/Undulation';
 import UnleashLife from './modules/talents/UnleashLife';
 import Wellspring from './modules/talents/Wellspring';
+import Undercurrent from './modules/talents/Undercurrent';
 // Spells
 // Legendaries
 // Shared
@@ -92,6 +93,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ancestralProtectionTotem: AncestralProtectionTotem,
     talentStatisticBox: TalentStatisticBox,
     primordialWave: PrimordialWave,
+    undercurrent: Undercurrent,
 
     // Spells
     chainHeal: ChainHeal,

@@ -1,6 +1,6 @@
 /**
  * All Rogue abilities except talents go in here. You can also put a talent in here if you want to override something imported in the `./talents` folder, but that should be extremely rare.
- * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
+ * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID in the URL.
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
@@ -523,23 +523,6 @@ const spells = spellIndexableList({
     id: 195627,
     name: 'Opportunity',
     icon: 'ability_rogue_pistolshot',
-  },
-
-  // Sets
-  OUTLAW_ROGUE_TIER_28_2P_SET_BONUS: {
-    id: 364555,
-    name: 'Tornado Trigger',
-    icon: 'inv_ammo_bullet_06',
-  },
-  OUTLAW_ROGUE_TIER_28_4P_SET_BONUS_LOAD_BULLET: {
-    id: 364234,
-    name: 'Tornado Trigger',
-    icon: 'inv_ammo_bullet_01',
-  },
-  OUTLAW_ROGUE_TIER_28_4P_SET_BONUS_6SHOT: {
-    id: 364556,
-    name: 'Tornado Trigger',
-    icon: 'inv_ammo_bullet_06',
   },
 });
 

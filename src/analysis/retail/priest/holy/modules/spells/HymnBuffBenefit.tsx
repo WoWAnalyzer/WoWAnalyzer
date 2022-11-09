@@ -8,12 +8,14 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, ApplyBuffStackEvent, EventType } from 'parser/core/Events';
 import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
 
-const DIVINE_HYMN_HEALING_INCREASE_PER_STACK = 0.04;
+const BASE_DIVINE_HYMN_HEALING_INCREASE_PER_STACK = 0.04;
+const GALES_OF_SONG_HEALING_INCREASE_PER_POINT = 0.02;
 
 class HymnBuffBenefit extends Analyzer {
   // This is an approximation. See the reasoning below.
   totalHealingFromHymnBuffPerStack = [0, 0, 0, 0, 0];
 
+  divineHymnTotalHealingIncreasePerStack = 0;
   filter(stackCount: number = 1) {
     // The first stack is an apply buff event, not an apply buff stack event
     if (stackCount === 1) {
@@ -76,7 +78,8 @@ class HymnBuffBenefit extends Analyzer {
         // lot of overhealing occurs.
         (healingFromBuff: any, entry: WCLHealing) =>
           healingFromBuff +
-          (entry.total - entry.total / (1 + DIVINE_HYMN_HEALING_INCREASE_PER_STACK * stackCount)) *
+          (entry.total -
+            entry.total / (1 + this.divineHymnTotalHealingIncreasePerStack * stackCount)) *
             (entry.total / (entry.total + (entry.overheal || 0))),
         0,
       );
@@ -85,6 +88,13 @@ class HymnBuffBenefit extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    if (!this.selectedCombatant.hasTalent(TALENTS.DIVINE_HYMN_TALENT)) {
+      this.active = false;
+    }
+    this.divineHymnTotalHealingIncreasePerStack =
+      BASE_DIVINE_HYMN_HEALING_INCREASE_PER_STACK +
+      this.selectedCombatant.getTalentRank(TALENTS.GALES_OF_SONG_TALENT) *
+        GALES_OF_SONG_HEALING_INCREASE_PER_POINT;
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_HYMN_HEAL),
       this.onBuffStackApply,

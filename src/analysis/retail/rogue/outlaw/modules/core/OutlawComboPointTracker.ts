@@ -20,7 +20,7 @@ class OutlawComboPointTracker extends ComboPointTracker {
         amount = 2;
       }
 
-      this.processInvisibleEnergize(SPELLS.SINISTER_STRIKE.id, amount);
+      this.processInvisibleEnergize(SPELLS.SINISTER_STRIKE.id, amount, event.timestamp);
     }
   }
 }
