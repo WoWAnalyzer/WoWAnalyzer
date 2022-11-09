@@ -103,7 +103,6 @@ class EssenceFont extends Analyzer {
   }
 
   gustHealing(event: HealEvent) {
-
     if(!this.isValidEFEvent(event)){
       return;
     }
