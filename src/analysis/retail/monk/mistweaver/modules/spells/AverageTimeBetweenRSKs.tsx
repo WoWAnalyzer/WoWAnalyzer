@@ -1,5 +1,5 @@
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
@@ -60,8 +60,7 @@ class TimeBetweenRSKs extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> Average Time Between Rising
-              Sun Kick casts
+              Average Time Between <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> casts
             </>
           }
         >

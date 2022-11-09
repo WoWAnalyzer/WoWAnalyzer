@@ -2,7 +2,6 @@ import { Trans } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
   CastEvent,
@@ -12,11 +11,11 @@ import Events, {
   GlobalCooldownEvent,
   HealEvent,
 } from 'parser/core/Events';
-import BoringValueText from 'parser/ui/BoringValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 /**
  * Blackout Kick, Totm BoKs, Rising Sun Kick and Spinning Crane Kick generate stacks of Invoke Chi-Ji, the Red Crane, which reduce the cast time and mana
@@ -221,13 +220,7 @@ class InvokeChiJi extends Analyzer {
           </Trans>
         }
       >
-        <BoringValueText
-          label={
-            <>
-              <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} />
-            </>
-          }
-        >
+        <TalentSpellText talent={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT}>
           <>
             <ItemHealingDone amount={this.gustHealing + this.envelopHealing} />
             <br />
@@ -235,7 +228,7 @@ class InvokeChiJi extends Analyzer {
               {formatNumber(this.missedGlobals)} missed GCDs
             </Trans>
           </>
-        </BoringValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }
