@@ -112,9 +112,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.DAMNATION_TALENT.id, //TODO reduce cooldown based upon talent ranks
+        spell: TALENTS.DAMNATION_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 60,
+        cooldown: 60 - (combatant.getTalentRank(TALENTS.MALEDICTION_TALENT) * 15),
         gcd: {
           base: 1500,
         },
@@ -160,7 +160,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.VOID_TORRENT_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 60, //TODO reduce cooldown based on talent ranks
+        cooldown: 60 - (combatant.getTalentRank(TALENTS.MALEDICTION_TALENT) * 15),
         gcd: {
           base: 1500,
         },
@@ -273,9 +273,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.LEAP_OF_FAITH_TALENT.id),
       },
       {
-        spell: SPELLS.FADE.id, //TODO reduce cooldown based on talent rank
+        spell: SPELLS.FADE.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 30,
+        cooldown: 30 - (combatant.getTalentRank(TALENTS.IMPROVED_FADE_TALENT) * 5),
         gcd: null,
       },
       {
@@ -331,7 +331,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PSYCHIC_SCREAM.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60,
+        cooldown: 60 - (combatant.hasTalent(TALENTS.PSYCHIC_VOICE_TALENT.id) ? 15 : 0),
         gcd: {
           base: 1500,
         },
