@@ -11,7 +11,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-class SearingNightmare extends Analyzer {
+class MindSear extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
@@ -22,9 +22,9 @@ class SearingNightmare extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SEARING_NIGHTMARE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.MIND_SEAR.id);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SEARING_NIGHTMARE_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_SEAR),
       this.onDamage,
     );
   }
@@ -32,7 +32,7 @@ class SearingNightmare extends Analyzer {
   get averageTargetsHit() {
     return (
       this.totalTargetsHit /
-        this.abilityTracker.getAbility(SPELLS.SEARING_NIGHTMARE_TALENT.id).casts || 0
+        this.abilityTracker.getAbility(SPELLS.MIND_SEAR.id).casts || 0
     );
   }
 
@@ -58,18 +58,18 @@ class SearingNightmare extends Analyzer {
       suggest(
         <>
           You hit an average of {formatNumber(actual)} targets with{' '}
-          <SpellLink id={SPELLS.SEARING_NIGHTMARE_TALENT.id} />. Using{' '}
-          <SpellLink id={SPELLS.SEARING_NIGHTMARE_TALENT.id} /> below {formatNumber(recommended)}{' '}
+          <SpellLink id={SPELLS.MIND_SEAR.id} />. Using{' '}
+          <SpellLink id={SPELLS.MIND_SEAR.id} /> below {formatNumber(recommended)}{' '}
           targets is not worth it and you will get more damage value from your insanity with{' '}
           <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} />. If you are not getting enough hits or casts
           from this talent, you will likely benefit more from a different one.
         </>,
       )
-        .icon(SPELLS.SEARING_NIGHTMARE_TALENT.icon)
+        .icon(SPELLS.MIND_SEAR.icon)
         .actual(
           t({
-            id: 'priest.shadow.suggestions.searingNightmare.efficiency',
-            message: `Hit an average of ${formatNumber(actual)} targets with Searing Nightmare.`,
+            id: 'priest.shadow.suggestions.MIND_SEAR.efficiency',
+            message: `Hit an average of ${formatNumber(actual)} targets with Mind Sear.`,
           }),
         )
         .recommended(`>=${recommended} is recommended.`),
@@ -83,7 +83,7 @@ class SearingNightmare extends Analyzer {
         size="flexible"
         tooltip={`Average targets hit: ${formatNumber(this.averageTargetsHit)}`}
       >
-        <BoringSpellValueText spellId={SPELLS.SEARING_NIGHTMARE_TALENT.id}>
+        <BoringSpellValueText spellId={SPELLS.MIND_SEAR.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>
@@ -93,4 +93,4 @@ class SearingNightmare extends Analyzer {
   }
 }
 
-export default SearingNightmare;
+export default MindSear;
