@@ -2,7 +2,6 @@ import { Trans } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
   CastEvent,
@@ -12,11 +11,11 @@ import Events, {
   GlobalCooldownEvent,
   HealEvent,
 } from 'parser/core/Events';
-import BoringValueText from 'parser/ui/BoringValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 /**
  * Blackout Kick, Totm BoKs, Rising Sun Kick and Spinning Crane Kick generate stacks of Invoke Chi-Ji, the Red Crane, which reduce the cast time and mana
@@ -110,11 +109,8 @@ class InvokeChiJi extends Analyzer {
     if (this.chijiActive) {
       this.chijiGlobals += 1;
       //if timebetween globals is longer than the gcd add the difference to the missed gcd tally
-      //we only care about accounting for channels of essence font during WoO, other than that it should be the gcd during chiji
-      if (
-        event.ability.guid === TALENTS_MONK.ESSENCE_FONT_TALENT.id &&
-        this.selectedCombatant.hasBuff(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id)
-      ) {
+      //we only care about accounting for channels of essence font, other than that it should be the gcd during chiji
+      if (event.ability.guid === TALENTS_MONK.ESSENCE_FONT_TALENT.id) {
         this.efGcd = event.duration;
       } else if (event.timestamp - this.lastGlobal > event.duration) {
         this.missedGlobals += (event.timestamp - this.lastGlobal - event.duration) / event.duration;
@@ -124,10 +120,7 @@ class InvokeChiJi extends Analyzer {
   }
 
   handleEssenceFontEnd(event: EndChannelEvent) {
-    if (
-      this.chijiActive &&
-      this.selectedCombatant.hasBuff(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id)
-    ) {
+    if (this.chijiActive) {
       if (event.duration > this.efGcd) {
         this.lastGlobal = event.timestamp - this.efGcd;
       } else {
@@ -221,12 +214,7 @@ class InvokeChiJi extends Analyzer {
           </Trans>
         }
       >
-        <BoringValueText
-          label={
-            <>
-              <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} />
-            </>
-          }
+        <TalentSpellText talent={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT}
         >
           <>
             <ItemHealingDone amount={this.gustHealing + this.envelopHealing} />
@@ -235,7 +223,7 @@ class InvokeChiJi extends Analyzer {
               {formatNumber(this.missedGlobals)} missed GCDs
             </Trans>
           </>
-        </BoringValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

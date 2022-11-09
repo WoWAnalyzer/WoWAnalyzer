@@ -68,6 +68,7 @@ import YulonsWhisper from './modules/spells/YulonsWhisper';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
+import Unison from './modules/spells/Unison';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -147,6 +148,7 @@ class CombatLogParser extends CoreCombatLogParser {
     thunderFocusTea: ThunderFocusTea,
     upwelling: Upwelling,
     yulonsWhisper: YulonsWhisper,
+    unison: Unison,
 
     // Mana Tab
     manaTracker: ManaTracker,

@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import { CastEvent, DamageEvent } from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
@@ -12,7 +13,7 @@ class SpellUsable extends CoreSpellUsable {
 
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (this.selectedCombatant.hasLegendary(SPELLS.SURGING_SHOTS_EFFECT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.SURGING_SHOTS_TALENT)) {
       if (spellId === SPELLS.AIMED_SHOT.id) {
         this.lastPotentialTriggerForRapidFireReset = event;
       } else if (spellId === SPELLS.RAPID_FIRE.id) {
@@ -25,7 +26,7 @@ class SpellUsable extends CoreSpellUsable {
   beginCooldown(triggerEvent: CastEvent | DamageEvent, spellId: number) {
     if (
       spellId === SPELLS.RAPID_FIRE.id &&
-      this.selectedCombatant.hasLegendary(SPELLS.SURGING_SHOTS_EFFECT)
+      this.selectedCombatant.hasTalent(TALENTS.SURGING_SHOTS_TALENT)
     ) {
       if (this.isOnCooldown(spellId)) {
         this.rapidFireResets += 1;

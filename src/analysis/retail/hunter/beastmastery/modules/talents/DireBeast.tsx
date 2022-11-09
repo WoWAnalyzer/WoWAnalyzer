@@ -1,6 +1,6 @@
-import { DIRE_BEAST_HASTE_PERCENT } from 'analysis/retail/hunter/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import Haste from 'interface/icons/Haste';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent, SummonEvent } from 'parser/core/Events';
@@ -10,6 +10,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { DIRE_BEAST_HASTE_PERCENT } from '../../constants';
 
 /**
  * Summons a powerful wild beast that attacks the target and roars, increasing your Haste by 5% for 8 sec.
@@ -27,7 +28,7 @@ class DireBeast extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DIRE_BEAST_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
     this.addEventListener(
       Events.summon.by(SELECTED_PLAYER).spell(SPELLS.DIRE_BEAST_SUMMON),
@@ -69,7 +70,7 @@ class DireBeast extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={<>You had {formatPercentage(this.uptime)}% uptime on the Dire Beast Haste buff.</>}
       >
-        <BoringSpellValueText spellId={SPELLS.DIRE_BEAST_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.DIRE_BEAST_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

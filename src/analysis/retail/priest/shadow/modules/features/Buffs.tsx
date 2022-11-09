@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
 
@@ -15,25 +16,20 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.DARK_THOUGHT_BUFF.id,
-        triggeredBySpellId: SPELLS.DARK_THOUGHTS.id,
+        spellId: SPELLS.SHADOWY_INSIGHT_BUFF.id,
+        triggeredBySpellId: SPELLS.SHADOWY_INSIGHT.id,
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.UNFURLING_DARKNESS_BUFF.id,
         triggeredBySpellId: SPELLS.VAMPIRIC_TOUCH.id,
-        enabled: combatant.hasTalent(SPELLS.UNFURLING_DARKNESS_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.UNFURLING_DARKNESS_TALENT.id),
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.DEATH_AND_MADNESS_BUFF.id,
-        triggeredBySpellId: SPELLS.SHADOW_WORD_DEATH.id,
-        enabled: combatant.hasTalent(SPELLS.DEATH_AND_MADNESS_TALENT.id),
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.SURRENDER_TO_MADNESS_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id),
+        triggeredBySpellId: TALENTS.SHADOW_WORD_DEATH_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.DEATH_AND_MADNESS_TALENT.id),
         timelineHighlight: true,
       },
       {
