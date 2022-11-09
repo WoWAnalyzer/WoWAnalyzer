@@ -128,11 +128,7 @@ class RenewingMistDuringManaTea extends Analyzer {
   subStatistic() {
     return (
       <TooltipElement
-      content={
-        <>
-          This is the average number of Renewing Mists active during Mana Tea
-        </>
-      }
+        content={<>This is the average number of Renewing Mists active during Mana Tea</>}
       >
         {this.avgRemDuringMT.toFixed(2)} <small>average renewing mists</small>
       </TooltipElement>

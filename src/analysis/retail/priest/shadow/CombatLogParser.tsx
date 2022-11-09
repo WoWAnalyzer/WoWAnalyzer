@@ -77,7 +77,7 @@ class CombatLogParser extends MainCombatLogParser {
     voidTorrent: VoidTorrent,
     shadowCrash: ShadowCrash,
     auspiciousSpirits: AuspiciousSpirits,
-    mindsear : MindSear,
+    mindsear: MindSear,
 
     // normalizers:
     shadowfiendNormalizer: ShadowfiendNormalizer,

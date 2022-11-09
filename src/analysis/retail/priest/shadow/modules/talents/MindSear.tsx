@@ -23,17 +23,11 @@ class MindSear extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MIND_SEAR.id);
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_SEAR),
-      this.onDamage,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_SEAR), this.onDamage);
   }
 
   get averageTargetsHit() {
-    return (
-      this.totalTargetsHit /
-        this.abilityTracker.getAbility(SPELLS.MIND_SEAR.id).casts || 0
-    );
+    return this.totalTargetsHit / this.abilityTracker.getAbility(SPELLS.MIND_SEAR.id).casts || 0;
   }
 
   onDamage(event: DamageEvent) {
@@ -58,11 +52,11 @@ class MindSear extends Analyzer {
       suggest(
         <>
           You hit an average of {formatNumber(actual)} targets with{' '}
-          <SpellLink id={SPELLS.MIND_SEAR.id} />. Using{' '}
-          <SpellLink id={SPELLS.MIND_SEAR.id} /> below {formatNumber(recommended)}{' '}
-          targets is not worth it and you will get more damage value from your insanity with{' '}
-          <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} />. If you are not getting enough hits or casts
-          from this talent, you will likely benefit more from a different one.
+          <SpellLink id={SPELLS.MIND_SEAR.id} />. Using <SpellLink id={SPELLS.MIND_SEAR.id} /> below{' '}
+          {formatNumber(recommended)} targets is not worth it and you will get more damage value
+          from your insanity with <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} />. If you are not
+          getting enough hits or casts from this talent, you will likely benefit more from a
+          different one.
         </>,
       )
         .icon(SPELLS.MIND_SEAR.icon)

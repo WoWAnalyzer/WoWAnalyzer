@@ -38,21 +38,15 @@ class JadeSerpentStatue extends Analyzer {
       this.jssHeal,
     );
     this.addEventListener(
-      Events.applybuff
-        .by(SELECTED_PLAYER_PET)
-        .spell(SPELLS.SOOTHING_MIST_STATUE),
+      Events.applybuff.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_MIST_STATUE),
       this.jssApplyBuff,
     );
     this.addEventListener(
-      Events.removebuff
-        .by(SELECTED_PLAYER_PET)
-        .spell(SPELLS.SOOTHING_MIST_STATUE),
+      Events.removebuff.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_MIST_STATUE),
       this.jssRemoveBuff,
     );
     this.addEventListener(
-      Events.refreshbuff
-        .by(SELECTED_PLAYER_PET)
-        .spell(SPELLS.SOOTHING_MIST_STATUE),
+      Events.refreshbuff.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_MIST_STATUE),
       this.jssRefreshBuff,
     );
     this.addEventListener(Events.fightend, this.endFight);
