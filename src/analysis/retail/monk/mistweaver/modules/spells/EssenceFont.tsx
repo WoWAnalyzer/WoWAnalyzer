@@ -60,13 +60,23 @@ class EssenceFont extends Analyzer {
       return false;
     }
 
-    const targetHasEFHot = combatant.hasBuff(
+    let targetHasEFHot = combatant.hasBuff(
       SPELLS.ESSENCE_FONT_BUFF.id,
       event.timestamp,
       0,
       0,
       event.sourceID,
     );
+    //Essence font and FLS Essence font only ever proc one addtional mastery event, so we only need to check for FLS EF whenever EF is not present
+    if(!targetHasEFHot && this.selectedCombatant.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT)) {
+      targetHasEFHot = combatant.hasBuff(
+        SPELLS.FAELINE_STOMP_ESSENCE_FONT.id,
+        event.timestamp,
+        0,
+        0,
+        event.sourceID,
+      );
+    }
 
     // if no EF buff die
     if (!targetHasEFHot) {
