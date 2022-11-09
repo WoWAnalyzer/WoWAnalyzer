@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 11, 9), <>Removed shadowlands spell references from the <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id}/> module and updated the statistic to use TalentSpellText. Added {Vohrr} to mistweaver contributors. </>, Vohrr),
   change(date(2022, 11, 8), <>Added module for <SpellLink id={TALENTS_MONK.UNISON_TALENT}/></>, Vohrr),
   change(date(2022, 11, 8), <>Updated the <SpellLink id={SPELLS.GUSTS_OF_MISTS.id}/> from <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id}/> module to show healing contribution and <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id}/> contribution when talented.</>, Vohrr), 
   change(date(2022, 11, 8), <>Readded the tooltip for average renewing mists during <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id}/> and updated wording to 'mana saved per cast'</>, Vohrr),
