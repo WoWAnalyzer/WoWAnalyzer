@@ -167,10 +167,10 @@ class EssenceFont extends Analyzer {
           Mastery:
           <ul>  
             <li>
-            {this.gomEFHits} <small>additional hits</small>
+            {this.gomEFHits} additional hits
             </li>
             <li>
-            {formatNumber(this.gomHealing)} <small>additional healing</small>
+            {formatNumber(this.gomHealing)} additional healing
             </li>
           </ul>
           {this.chijitooltip()}
