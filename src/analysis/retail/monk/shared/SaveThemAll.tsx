@@ -8,10 +8,10 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { formatNumber } from 'common/format';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 
 class SaveThemAll extends Analyzer {
   totalHealed: number = 0;
-  totalOverhealed: number = 0;
   healingBuff: number = 0;
   constructor(options: Options) {
     super(options);
@@ -28,10 +28,7 @@ class SaveThemAll extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.SAVE_THEM_ALL_BUFF.id)) {
       return;
     }
-    this.totalHealed += event.amount * this.healingBuff || 0;
-    if (event.overheal) {
-      this.totalOverhealed += event.overheal * this.healingBuff;
-    }
+    this.totalHealed += calculateEffectiveHealing(event, this.healingBuff);
   }
 
   statistic() {
@@ -43,7 +40,6 @@ class SaveThemAll extends Analyzer {
         tooltip={
           <>
             Total Healed: {formatNumber(this.totalHealed)} <br />
-            Total Overhealed: {formatNumber(this.totalOverhealed)} <br />
           </>
         }
       >
