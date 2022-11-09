@@ -5,19 +5,19 @@ import { When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 
 import lowRankSpells, { LowRankSpells } from '../../lowRankSpells';
-import * as SPELLS from '../../SPELLS';
+import SPELLS from 'common/SPELLS/classic/shaman';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD: number[] = [
-    SPELLS.CHAIN_HEAL,
-    SPELLS.HEALING_STREAM_TOTEM,
-    SPELLS.HEALING_WAVE,
-    SPELLS.LESSER_HEALING_WAVE,
-    SPELLS.FROST_RESISTANCE_TOTEM,
-    SPELLS.MANA_SPRING_TOTEM,
-    SPELLS.PURGE,
-    SPELLS.STONESKIN_TOTEM,
-    SPELLS.WATER_SHIELD,
+    SPELLS.CHAIN_HEAL.id,
+    SPELLS.HEALING_STREAM_TOTEM.id,
+    SPELLS.HEALING_WAVE.id,
+    SPELLS.LESSER_HEALING_WAVE.id,
+    SPELLS.FROST_RESISTANCE_TOTEM.id,
+    SPELLS.MANA_SPRING_TOTEM.id,
+    SPELLS.PURGE.id,
+    SPELLS.STONESKIN_TOTEM.id,
+    SPELLS.WATER_SHIELD.id,
   ];
 
   constructor(options: Options) {
