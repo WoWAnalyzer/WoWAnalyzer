@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro';
+import { isCurrentExpansion } from 'game/Expansion';
 import Contributor from 'interface/ContributorButton';
 import ReadableListing from 'interface/ReadableListing';
 import Config from 'parser/Config';
@@ -11,9 +12,10 @@ const SpecListItem = ({
   contributors,
   patchCompatibility,
   isPartial,
+  expansion,
 }: Config) => {
   const className = spec.className.replace(/ /g, '');
-  const Component = exampleReport ? 'a' : 'div';
+  const Component = exampleReport && isCurrentExpansion(expansion) ? 'a' : 'div';
 
   const maintainers = (
     <ReadableListing>

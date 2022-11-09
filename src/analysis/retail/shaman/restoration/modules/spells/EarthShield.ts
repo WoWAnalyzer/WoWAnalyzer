@@ -1,5 +1,5 @@
 import { EarthShield as EarthShieldCore } from 'analysis/retail/shaman/shared';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
@@ -17,9 +17,10 @@ class EarthShield extends EarthShieldCore {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.EARTH_SHIELD_TALENT);
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.EARTH_SHIELD_TALENT),
       this.earthShieldPrepullCheck,
     );
   }

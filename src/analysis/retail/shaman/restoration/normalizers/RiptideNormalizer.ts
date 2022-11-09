@@ -1,12 +1,6 @@
-import SPELLS from 'common/SPELLS';
 import { AnyEvent, EventType, HealEvent } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-
-/**
- * reordering riptide applybuff after the initial heal because i really need it this way around
- * for the primaltidecore legendary analysis
- * todo: fix cast event as well?
- */
+import TALENTS from 'common/TALENTS/shaman';
 
 class RiptideNormalizer extends EventsNormalizer {
   normalize(events: AnyEvent[]) {
@@ -16,7 +10,7 @@ class RiptideNormalizer extends EventsNormalizer {
     events.forEach((event: AnyEvent, eventIndex) => {
       if (
         event.type === EventType.Heal &&
-        event.ability.guid === SPELLS.RIPTIDE.id &&
+        event.ability.guid === TALENTS.RIPTIDE_TALENT.id &&
         !event.tick
       ) {
         healEvent = event;
@@ -26,7 +20,7 @@ class RiptideNormalizer extends EventsNormalizer {
       if (healEvent !== null) {
         if (
           event.type === EventType.ApplyBuff &&
-          event.ability.guid === SPELLS.RIPTIDE.id &&
+          event.ability.guid === TALENTS.RIPTIDE_TALENT.id &&
           event.targetID === healEvent.targetID
         ) {
           healEvent.__reordered = true;

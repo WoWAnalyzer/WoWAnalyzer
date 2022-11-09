@@ -3,11 +3,11 @@ import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 /**
  * Elysian Decree
@@ -42,9 +42,9 @@ class ElysianDecree extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={<>{formatThousands(this.damage)} Total damage</>}
       >
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id}>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT}>
           <ItemDamageDone amount={this.damage} />
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

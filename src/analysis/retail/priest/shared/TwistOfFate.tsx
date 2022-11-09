@@ -2,7 +2,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { AbsorbedEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -36,8 +36,7 @@ class TwistOfFate extends Analyzer {
       return;
     }
 
-    const raw = event.amount + (event.absorbed || 0);
-    this.damage += raw - raw / 1.2;
+    this.damage += calculateEffectiveDamage(event, this.twistOfFateIncrease);
   }
 
   onHeal(event: HealEvent) {
@@ -83,6 +82,7 @@ class TwistOfFate extends Analyzer {
       >
         <BoringSpellValueText spellId={TALENTS_PRIEST.TWIST_OF_FATE_TALENT.id}>
           <ItemHealingDone amount={healing} />
+          <br />
           <ItemDamageDone amount={damage} />
         </BoringSpellValueText>
       </Statistic>

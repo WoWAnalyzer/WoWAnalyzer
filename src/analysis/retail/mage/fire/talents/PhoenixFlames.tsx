@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -24,11 +24,11 @@ class PhoenixFlames extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(SPELLS.PHOENIX_FLAMES),
+      Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(TALENTS.PHOENIX_FLAMES_TALENT),
       this.onCooldownUpdate,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PHOENIX_FLAMES),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.PHOENIX_FLAMES_TALENT),
       this.onPhoenixCast,
     );
   }
@@ -73,14 +73,14 @@ class PhoenixFlames extends Analyzer {
       suggest(
         <>
           You spent {formatNumber(this.cappedSeconds)}s ({formatPercentage(this.percentCapped)}% of
-          the fight) capped on <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> charges. While it is
-          important to pool charges for your next <SpellLink id={SPELLS.COMBUSTION.id} />, you
-          should also try to avoid capping on charges whenever possible. To avoid this, you should
-          use a charge of <SpellLink id={SPELLS.PHOENIX_FLAMES.id} /> if you are capped or are about
-          to cap on charges.
+          the fight) capped on <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} /> charges. While it
+          is important to pool charges for your next <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />
+          , you should also try to avoid capping on charges whenever possible. To avoid this, you
+          should use a charge of <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} /> if you are
+          capped or are about to cap on charges.
         </>,
       )
-        .icon(SPELLS.PHOENIX_FLAMES.icon)
+        .icon(TALENTS.PHOENIX_FLAMES_TALENT.icon)
         .actual(
           <Trans id="mage.fire.suggestions.phoenixFlames.phoenixFlamesCappedCharges">
             {formatPercentage(actual)}% of fight capped on charges

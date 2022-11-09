@@ -9,16 +9,23 @@ import {
   RuneOfPowerNormalizer,
   ShiftingPower,
   TempestBarrier,
+  Meteor,
+  MeteorRune,
+  MasterOfTime,
+  TimeAnomaly,
   SharedCode,
 } from 'analysis/retail/mage/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
+//Checklist
 import Checklist from './Checklist/Module';
-import Abilities from './Abilities';
-import AlwaysBeCasting from './AlwaysBeCasting';
-import Buffs from './Buffs';
-import CooldownThroughputTracker from './CooldownThroughputTracker';
+
+//Core
+import Abilities from './core/Abilities';
+import AlwaysBeCasting from './core/AlwaysBeCasting';
+import Buffs from './core/Buffs';
+import CooldownThroughputTracker from './core/CooldownThroughputTracker';
 import CombustionActiveTime from './core/CombustionActiveTime';
 import CombustionCasts from './core/CombustionCasts';
 import CombustionCharges from './core/CombustionCharges';
@@ -26,6 +33,8 @@ import CombustionPreCastDelay from './core/CombustionPreCastDelay';
 import CombustionSpellUsage from './core/CombustionSpellUsage';
 import HeatingUp from './core/HeatingUp';
 import HotStreak from './core/HotStreak';
+
+//Talents
 import PhoenixFlames from './talents/PhoenixFlames';
 import Pyroclasm from './talents/Pyroclasm';
 import ShiftingPowerUsage from './talents/ShiftingPowerUsage';
@@ -35,10 +44,10 @@ import InfernalCascade from './talents/InfernalCascade';
 import SunKingsBlessing from './talents/SunKingsBlessing';
 import FromTheAshes from './talents/FromTheAshes';
 import Kindling from './talents/Kindling';
-import Meteor from './talents/Meteor';
 import MeteorCombustion from './talents/MeteorCombustion';
-import MeteorRune from './talents/MeteorRune';
 import SearingTouch from './talents/SearingTouch';
+
+//Normalizers
 import CombustionNormalizer from './normalizers/Combustion';
 import FlamestrikeNormalizer from './normalizers/Flamestrike';
 import PyroclasmBuffNormalizer from './normalizers/PyroclasmBuff';
@@ -57,50 +66,48 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Checklist
     checklist: Checklist,
+
+    //Core
     buffs: Buffs,
     sharedCode: SharedCode,
-
-    // Features
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,
     cancelledCasts: CancelledCasts,
+    arcaneIntellect: ArcaneIntellect,
+    heatingUp: HeatingUp,
     hotStreak: HotStreak,
     combustionCasts: CombustionCasts,
     combustionCharges: CombustionCharges,
     combustionSpellUsage: CombustionSpellUsage,
     combustionActiveTime: CombustionActiveTime,
     combustionPreCastDelay: CombustionPreCastDelay,
-    phoenixFlames: PhoenixFlames,
-    heatingUp: HeatingUp,
-    mirrorImage: MirrorImage,
-    elementalBarrier: ElementalBarrier,
 
-    // Talents
-    arcaneIntellect: ArcaneIntellect,
-    runeOfPower: [RuneOfPower, { showStatistic: false, showSuggestion: false }] as const,
+    //Talents - Fire
+    phoenixFlames: PhoenixFlames,
     kindling: Kindling,
-    meteor: Meteor,
-    meteorRune: MeteorRune,
     meteorCombustion: MeteorCombustion,
     pyroclasm: Pyroclasm,
     searingTouch: SearingTouch,
     fromTheAshes: FromTheAshes,
-
-    //Legendaries
     feveredIncantation: FeveredIncantation,
     firestorm: Firestorm,
     sunKingsBlessing: SunKingsBlessing,
-
-    //Covenants
-    shiftingPower: ShiftingPower,
     shiftingPowerUsage: ShiftingPowerUsage,
-
-    //Conduits
     infernalCascade: InfernalCascade,
+
+    //Talents - Shared
+    mirrorImage: MirrorImage,
+    elementalBarrier: ElementalBarrier,
+    runeOfPower: [RuneOfPower, { showStatistic: false, showSuggestion: false }] as const,
+    shiftingPower: ShiftingPower,
     divertedEnergy: DivertedEnergy,
     groundingSurge: GroundingSurge,
     tempestBarrier: TempestBarrier,
+    meteor: Meteor,
+    meteorRune: MeteorRune,
+    masterOfTime: MasterOfTime,
+    timeAnomaly: TimeAnomaly,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

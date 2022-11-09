@@ -23,7 +23,6 @@ import Rapture from './modules/spells/Rapture';
 import Penance from './modules/spells/Penance';
 import PenanceNormalizer from './modules/normalizers/PenanceNormalizer';
 import PainSuppression from 'analysis/classic/priest/modules/spells/PainSuppression';
-import DivineSpiritRaidBuff from 'analysis/classic/priest/modules/spells/DivineSpiritRaidBuff';
 import DivineAegis from 'analysis/classic/priest/modules/spells/DivineAegis';
 import RenewedHope from 'analysis/classic/priest/modules/spells/RenewedHope';
 import SoulWarding from 'analysis/classic/priest/modules/spells/SoulWarding';
@@ -59,7 +58,6 @@ class CombatLogParser extends BaseCombatLogParser {
     rapture: Rapture,
     penance: Penance,
     painSuppression: PainSuppression,
-    divineSpiritRaidBuff: DivineSpiritRaidBuff,
     divineAegis: DivineAegis,
     renewedHope: RenewedHope,
     soulWarding: SoulWarding,

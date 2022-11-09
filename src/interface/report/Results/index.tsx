@@ -51,6 +51,7 @@ import Overview from './Overview';
 import ReportStatistics from './ReportStatistics';
 import ScrollToTop from './ScrollToTop';
 import TABS from './TABS';
+import { CombatLogParserProvider } from 'interface/report/CombatLogParserContext';
 
 const TimelineTab = lazyLoadComponent(
   () =>
@@ -418,6 +419,17 @@ class Results extends React.PureComponent<Props, State> {
         {parser && parser.disabledModules && (
           <DegradedExperience disabledModules={parser.disabledModules} />
         )}
+        {!build && (
+          //Warning Message for Dragonflight Prepatch (Remove after Dragonflight Launch)
+          <div className="container">
+            <AlertWarning style={{ marginBottom: 30 }}>
+              In an effort to focus on Dragonflight and Vault of the Incarnates development, we will
+              be reducing support for Covenants, Conduits, legendaries, and other Shadowlands
+              specific items with the launch of Prepatch. As a result, analysis of Prepatch
+              encounters may be inaccurate.
+            </AlertWarning>
+          </div>
+        )}
         {boss && boss.fight.resultsWarning && (
           <div className="container">
             <AlertWarning style={{ marginBottom: 30 }}>{boss.fight.resultsWarning}</AlertWarning>
@@ -449,7 +461,9 @@ class Results extends React.PureComponent<Props, State> {
             </AlertWarning>
           </div>
         )}
-        {this.renderContent(selectedTab, results)}
+        <CombatLogParserProvider combatLogParser={parser}>
+          {this.renderContent(selectedTab, results)}
+        </CombatLogParserProvider>
 
         <div className="container" style={{ marginTop: 40 }}>
           <div className="row">

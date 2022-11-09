@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
@@ -11,8 +12,8 @@ const COMBUSTION_PRE_CASTS = [
   SPELLS.FIREBALL,
   SPELLS.PYROBLAST,
   SPELLS.SCORCH,
-  SPELLS.PHOENIX_FLAMES,
-  SPELLS.FLAMESTRIKE,
+  TALENTS.PHOENIX_FLAMES_TALENT,
+  TALENTS.FLAMESTRIKE_TALENT,
 ];
 
 class CombustionPreCastDelay extends Analyzer {
@@ -23,7 +24,7 @@ class CombustionPreCastDelay extends Analyzer {
 
   // prettier-ignore
   preCastDelay = () => {
-    const combustCasts = this.eventHistory.getEvents(EventType.Cast, { searchBackwards: true, spell: SPELLS.COMBUSTION });
+    const combustCasts = this.eventHistory.getEvents(EventType.Cast, { searchBackwards: true, spell: TALENTS.COMBUSTION_TALENT });
     const combustionCasts: number[] = [];
 
     combustCasts.forEach(cast => {
@@ -50,7 +51,7 @@ class CombustionPreCastDelay extends Analyzer {
         this.totalDelay /
         (this.eventHistory.getEvents(EventType.Cast, {
           searchBackwards: true,
-          spell: SPELLS.COMBUSTION,
+          spell: TALENTS.COMBUSTION_TALENT,
         }).length || 0) /
         1000,
       isGreaterThan: {
@@ -66,16 +67,16 @@ class CombustionPreCastDelay extends Analyzer {
     when(this.combustionCastDelayThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          On average, you used <SpellLink id={SPELLS.COMBUSTION.id} /> with {formatNumber(actual)}{' '}
-          seconds left on your pre-cast ability (The spell you were casting when you used{' '}
-          <SpellLink id={SPELLS.COMBUSTION.id} />
+          On average, you used <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> with{' '}
+          {formatNumber(actual)} seconds left on your pre-cast ability (The spell you were casting
+          when you used <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />
           ). In order to maximize the number of casts you can get in during{' '}
-          <SpellLink id={SPELLS.COMBUSTION.id} />, it is recommended that you are activating{' '}
-          <SpellLink id={SPELLS.COMBUSTION.id} /> closer to the end of your pre-cast (preferably
-          within {recommended} seconds of the cast completing).
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />, it is recommended that you are activating{' '}
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> closer to the end of your pre-cast
+          (preferably within {recommended} seconds of the cast completing).
         </>,
       )
-        .icon(SPELLS.COMBUSTION.icon)
+        .icon(TALENTS.COMBUSTION_TALENT.icon)
         .actual(
           <Trans id="mage.fire.suggestions.combustion.castDelay">
             {formatNumber(actual)}s Avg. Pre-Cast Delay

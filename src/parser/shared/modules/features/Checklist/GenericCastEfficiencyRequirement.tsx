@@ -3,12 +3,13 @@ import { SpellLink } from 'interface';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import { AbilityCastEfficiency } from 'parser/shared/modules/CastEfficiency';
 import { PureComponent } from 'react';
+import Spell from 'common/SPELLS/Spell';
 
 import Requirement, { RequirementThresholds } from './Requirement';
 
 interface Props {
   name?: string | JSX.Element;
-  spell: number;
+  spell: number | Spell;
   castEfficiency: AbilityCastEfficiency | null;
   casts?: number;
   isMaxCasts?: boolean;

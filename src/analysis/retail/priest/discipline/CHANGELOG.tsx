@@ -6,6 +6,17 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 11, 8), <>Updated <SpellLink id={TALENTS_PRIEST.TWIST_OF_FATE_TALENT.id}/> to use correct damage multiplier.</>, Hana),
+  change(date(2022, 11, 7), <><SpellLink id={TALENTS_PRIEST.PROTECTIVE_LIGHT_TALENT.id}/> support added.</>, Hana),
+  change(date(2022, 11, 6), <>Added <SpellLink id={TALENTS_PRIEST.BINDING_HEALS_TALENT.id}/> section to guide.</>, Hana),
+  change(date(2022, 11, 6), <>Added DPS rotation to <SpellLink id={TALENTS_PRIEST.EVANGELISM_TALENT.id}/> guide.</>, Hana),
+  change(date(2022, 11, 5), <>Updated <SpellLink id={SPELLS.SINS_OF_THE_MANY.id}/>.</>, Hana),
+  change(date(2022, 11, 5), <>Added <SpellLink id={TALENTS_PRIEST.RESPLENDENT_LIGHT_TALENT.id}/>.</>, Hana),
+  change(date(2022, 10, 30), <>Showed <SpellLink id={TALENTS_PRIEST.EVANGELISM_TALENT.id}/> casts and highlighted casts which are bad</>, Hana),
+  change(date(2022, 10, 30), <>First backend section of <SpellLink id={TALENTS_PRIEST.EVANGELISM_TALENT.id}/>.</>, Hana),
+  change(date(2022, 10, 29), <>Hid tier bonus when not using it</>, Hana),
+  change(date(2022, 10, 29), <>Added line break in <SpellLink id={TALENTS_PRIEST.TWIST_OF_FATE_TALENT}/> module.</>, Hana),
+  change(date(2022, 10, 23), <>Updated abilities file with new spells, updated mana costs of spells.</>, Hana),
   change(date(2022, 10, 23), <>Updated list of spells which are effected by healing increases.</>, Hana),
   change(date(2022, 10, 23), <>Updated <SpellLink id={TALENTS_PRIEST.PURGE_THE_WICKED_TALENT.id}/> section to the Guide.</>, Hana),
   change(date(2022, 10, 22), <>Added <SpellLink id={TALENTS_PRIEST.PURGE_THE_WICKED_TALENT.id}/> section to the Guide.</>, Hana),

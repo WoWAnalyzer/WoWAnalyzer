@@ -4,9 +4,9 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import SPELLS from 'common/SPELLS/demonhunter';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const UNNATURAL_MALICE_INCREASE = 0.3;
 
@@ -32,9 +32,9 @@ export default class UnnaturalMalice extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
-        <BoringSpellValueText spellId={TALENTS_DEMON_HUNTER.UNNATURAL_MALICE_TALENT.id}>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.UNNATURAL_MALICE_TALENT}>
           <ItemDamageDone amount={this.addedDamage} />
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

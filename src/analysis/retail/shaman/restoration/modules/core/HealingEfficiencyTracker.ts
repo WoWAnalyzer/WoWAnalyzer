@@ -10,7 +10,7 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
-import PrimordialWave from '../shadowlands/spells/PrimordialWave';
+import PrimordialWave from '../talents/PrimordialWave';
 import Resurgence from '../spells/Resurgence';
 import UnleashLife from '../talents/UnleashLife';
 import HealingDone from './HealingDone';
@@ -48,21 +48,21 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
     if (this.resurgence.resurgence[spellId]) {
       this.getResurgenceDetails(spellInfo, spellId);
     }
-    if (spellId === SPELLS.UNLEASH_LIFE_TALENT.id) {
+    if (spellId === TALENTS.UNLEASH_LIFE_TALENT.id) {
       this.getUnleashLifeDetails(spellInfo);
     } else if (this.unleashLife.healingBuff[spellId]) {
       this.getUnleashLifeBuffDetails(spellInfo, spellId);
-    } else if (spellId === SPELLS.EARTH_SHIELD_TALENT.id) {
+    } else if (spellId === TALENTS.EARTH_SHIELD_TALENT.id) {
       this.getEarthShieldBuffDetails(spellInfo);
     } else if (spellId === TALENTS.LAVA_BURST_TALENT.id) {
       this.getLavaBurstDamageDetails(spellInfo);
     }
     // Primordial
-    if (spellId === SPELLS.HEALING_WAVE.id) {
+    if (spellId === TALENTS.HEALING_WAVE_TALENT.id) {
       this.getHealingWaveDetails(spellInfo);
-    } else if (spellId === SPELLS.RIPTIDE.id) {
+    } else if (spellId === TALENTS.RIPTIDE_TALENT.id) {
       this.getRiptideDetails(spellInfo);
-    } else if (spellId === SPELLS.PRIMORDIAL_WAVE_CAST.id) {
+    } else if (spellId === TALENTS.PRIMORDIAL_WAVE_TALENT.id) {
       this.getPrimordialWaveDetails(spellInfo);
     }
 
@@ -99,17 +99,23 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
     spellInfo.damageAbsorbed = ability.damageAbsorbed || 0;
   }
   getHealingWaveDetails(spellInfo: SpellInfoDetails) {
-    spellInfo.healingDone -= this.primordialWave.waveHealing;
-    spellInfo.overhealingDone -= this.primordialWave.waveOverHealing;
+    if (this.primordialWave) {
+      spellInfo.healingDone -= this.primordialWave.waveHealing;
+      spellInfo.overhealingDone -= this.primordialWave.waveOverHealing;
+    }
   }
   getRiptideDetails(spellInfo: SpellInfoDetails) {
-    spellInfo.healingDone -= this.primordialWave.riptideHealing;
-    spellInfo.overhealingDone -= this.primordialWave.riptideOverHealing;
+    if (this.primordialWave) {
+      spellInfo.healingDone -= this.primordialWave.riptideHealing;
+      spellInfo.overhealingDone -= this.primordialWave.riptideOverHealing;
+    }
   }
   getPrimordialWaveDetails(spellInfo: SpellInfoDetails) {
-    spellInfo.healingDone += this.primordialWave.riptideHealing + this.primordialWave.waveHealing;
-    spellInfo.overhealingDone +=
-      this.primordialWave.riptideOverHealing + this.primordialWave.waveOverHealing;
+    if (this.primordialWave) {
+      spellInfo.healingDone += this.primordialWave.riptideHealing + this.primordialWave.waveHealing;
+      spellInfo.overhealingDone +=
+        this.primordialWave.riptideOverHealing + this.primordialWave.waveOverHealing;
+    }
   }
 }
 

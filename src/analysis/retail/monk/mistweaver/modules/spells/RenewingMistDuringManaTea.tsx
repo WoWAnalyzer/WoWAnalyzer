@@ -1,15 +1,10 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellIcon } from 'interface';
-import { SpellLink } from 'interface';
+import { SpellLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import BoringValueText from 'parser/ui/BoringValueText';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class RenewingMistDuringManaTea extends Analyzer {
   // tracks how long we had mana tea :)
@@ -130,24 +125,17 @@ class RenewingMistDuringManaTea extends Analyzer {
     );
   }
 
-  statistic() {
+  subStatistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(30)}
-        size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={<>This is the average number of Renewing Mists active during Mana Tea</>}
+      <TooltipElement
+      content={
+        <>
+          This is the average number of Renewing Mists active during Mana Tea
+        </>
+      }
       >
-        <BoringValueText
-          label={
-            <>
-              <SpellIcon id={TALENTS_MONK.MANA_TEA_TALENT.id} /> Average Renewing Mists
-            </>
-          }
-        >
-          <>{this.avgRemDuringMT.toFixed(2)}</>
-        </BoringValueText>
-      </Statistic>
+        {this.avgRemDuringMT.toFixed(2)} <small>average renewing mists</small>
+      </TooltipElement>
     );
   }
 }

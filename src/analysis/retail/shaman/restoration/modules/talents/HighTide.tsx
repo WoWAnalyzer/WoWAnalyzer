@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
@@ -57,14 +58,17 @@ class HighTide extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.HIGH_TIDE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HIGH_TIDE_TALENT.id);
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this.chainHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.CHAIN_HEAL_TALENT),
+      this.chainHeal,
+    );
     this.addEventListener(Events.fightend, this.onFightEnd);
 
     // these are for tracking high tide efficiency
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CHAIN_HEAL_TALENT),
       this.onChainHealCast,
     );
     this.addEventListener(
@@ -191,7 +195,7 @@ class HighTide extends Analyzer {
     return (
       <div>
         <StatisticListBoxItem
-          title={<SpellLink id={SPELLS.HIGH_TIDE_TALENT.id} />}
+          title={<SpellLink id={TALENTS.HIGH_TIDE_TALENT.id} />}
           value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
           valueTooltip={highTideToolTip}
         />

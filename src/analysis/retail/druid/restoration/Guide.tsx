@@ -1,11 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import { ControlledExpandable, SpellLink } from 'interface';
-import { GuideProps, Section, SubSection } from 'interface/guide';
-import { CooldownBar } from 'parser/ui/CooldownBar';
+import { GuideProps, PerformanceMark, Section, SubSection } from 'interface/guide';
+import { CooldownBar, GapHighlight } from 'parser/ui/CooldownBar';
 import { useState } from 'react';
 
 import CombatLogParser from './CombatLogParser';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 /** Common 'rule line' point for the explanation/data in Core Spells section */
 export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
@@ -22,9 +23,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.swiftmend.guideSubsection}
         {info.combatant.hasTalent(TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT) &&
           modules.soulOfTheForest.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_DRUID.CENARION_WARD_TALENT) && (
-          <CenarionWardSubsection modules={modules} events={events} info={info} />
-        )}
+        {info.combatant.hasTalent(TALENTS_DRUID.CENARION_WARD_TALENT) &&
+          modules.cenarionWard.guideSubsection}
       </Section>
       <Section title="Healing Cooldowns">
         <p>
@@ -42,29 +42,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <CooldownBreakdownSubsection modules={modules} events={events} info={info} />
       </Section>
     </>
-  );
-}
-
-function CenarionWardSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
-  return (
-    <SubSection>
-      <p>
-        <b>
-          <SpellLink id={TALENTS_DRUID.CENARION_WARD_TALENT.id} />
-        </b>{' '}
-        is a talented HoT on a short cooldown. It is extremely powerful and efficient and should be
-        cast virtually on cooldown. A tank is usually the best target.
-      </p>
-      <strong>Cenarion Ward usage and cooldown</strong>
-      <div className="flex-main chart" style={{ padding: 5 }}>
-        <CooldownBar
-          spellId={TALENTS_DRUID.CENARION_WARD_TALENT.id}
-          events={events}
-          info={info}
-          highlightGaps
-        />
-      </div>
-    </SubSection>
   );
 }
 
@@ -91,9 +68,7 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={SPELLS.CONVOKE_SPIRITS.id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
@@ -101,9 +76,7 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={TALENTS_DRUID.FLOURISH_TALENT.id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
@@ -111,22 +84,18 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id}
-            events={events}
-            info={info}
-            highlightGaps
+            gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
       <div className="flex-main chart" style={{ padding: 5 }}>
         <CooldownBar
           spellId={SPELLS.TRANQUILITY_CAST.id}
-          events={events}
-          info={info}
-          highlightGaps
+          gapHighlightMode={GapHighlight.FullCooldown}
         />
       </div>
       <div className="flex-main chart" style={{ padding: 5 }}>
-        <CooldownBar spellId={SPELLS.INNERVATE.id} events={events} info={info} highlightGaps />
+        <CooldownBar spellId={SPELLS.INNERVATE.id} gapHighlightMode={GapHighlight.FullCooldown} />
       </div>
     </SubSection>
   );
@@ -158,15 +127,25 @@ export function CooldownExpandable({
   header,
   checklistItems,
   detailItems,
+  perf,
 }: {
   header: React.ReactNode;
   checklistItems?: CooldownExpandableItem[];
   detailItems?: CooldownExpandableItem[];
+  perf?: QualitativePerformance;
 }): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
+  const combinedHeader =
+    perf !== undefined ? (
+      <div>
+        {header} &mdash; <PerformanceMark perf={perf} />
+      </div>
+    ) : (
+      header
+    );
   return (
     <ControlledExpandable
-      header={header}
+      header={combinedHeader}
       element="section"
       expanded={isExpanded}
       inverseExpanded={() => setIsExpanded(!isExpanded)}

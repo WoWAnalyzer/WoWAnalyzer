@@ -10,6 +10,7 @@ import {
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
+import TalentCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/TalentCastEfficiencyRequirement';
 
 const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
   const { combatant, castEfficiency, thresholds } = props;
@@ -49,21 +50,11 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
           combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT.id) ||
           combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id)
         ) && <AbilityRequirement spell={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id} />}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.FRACTURE_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id} />
-        )}
+        <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.FRACTURE_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.FELBLADE_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />
         {combatant.hasTalent(TALENTS_DEMON_HUNTER.RETALIATION_TALENT.id) && (
           <Requirement
             name={
@@ -149,9 +140,7 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
         }
       >
         <AbilityRequirement spell={SPELLS.METAMORPHOSIS_TANK.id} />
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.id} />
-        )}
+        <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} />
       </Rule>
 
       <Rule

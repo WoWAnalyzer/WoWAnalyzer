@@ -5,6 +5,12 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS/druid';
 
 export default [
+  change(date(2022, 11, 6), <>Added per-cast breakdowns for <SpellLink id={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id} /> and <SpellLink id={TALENTS_DRUID.FERAL_FRENZY_TALENT.id} /> to Guide.</>, Sref),
+  change(date(2022, 11, 5), <>Added <SpellLink id={TALENTS_DRUID.OMEN_OF_CLARITY_FERAL_TALENT.id} /> and <SpellLink id={TALENTS_DRUID.MOMENT_OF_CLARITY_TALENT.id} /> statistics.</>, Sref),
+  change(date(2022, 11, 1), <>Added <SpellLink id={TALENTS_DRUID.BRUTAL_SLASH_TALENT.id} /> subsection to Guide.</>, Sref),
+  change(date(2022, 10, 25), <>Fixed a bug where <SpellLink id={TALENTS_DRUID.LIONS_STRENGTH_TALENT.id} /> statistic was showing at the wrong times.</>, Sref),
+  change(date(2022, 10, 25), <>Added statistic for <SpellLink id={TALENTS_DRUID.CARNIVOROUS_INSTINCT_TALENT.id} />. Updated handling of energy cost modifying talents.</>, Sref),
+  change(date(2022, 10, 19), <>Added statistic for <SpellLink id={TALENTS_DRUID.LIONS_STRENGTH_TALENT.id} /></>, Sref),
   change(date(2022, 10, 19), <>Rearranged Guide's 'Core Rotation' section for improved readability</>, Sref),
   change(date(2022, 10, 17), <>Fixed a bug where Apex procs were counting as 0 CP bites when tallied by the <SpellLink id={TALENTS_DRUID.SABERTOOTH_TALENT.id} /> statistic.</>, Sref),
   change(date(2022, 10, 17), <>Filled out Guide's 'Core Rotation' section</>, Sref),

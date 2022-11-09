@@ -1,6 +1,7 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import { RuneDetails, RuneOfHysteria, RuneOfTheFallenCrusader } from '../shared';
+import Guide from './Guide';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
@@ -10,9 +11,11 @@ import HardHowlingBlastCasts from './modules/features/HardHowlingBlastCasts';
 import KillingMachineEfficiency from './modules/features/KillingMachine';
 import RimeEfficiency from './modules/features/RimeEfficiency';
 import FrostRuneForgeChecker from './modules/features/RuneForgeChecker';
+import RuneGraph from './modules/features/RuneGraph';
 import RuneTracker from './modules/features/RuneTracker';
 import SpellUsable from './modules/features/SpellUsable';
 import RunicPowerDetails from './modules/runicpower/RunicPowerDetails';
+import RunicPowerGraph from './modules/runicpower/RunicPowerGraph';
 import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
 import BreathOfSindragosa from './modules/talents/BreathOfSindragosa';
 import Frostscythe from './modules/talents/Frostscythe';
@@ -38,8 +41,10 @@ class CombatLogParser extends CoreCombatLogParser {
     //resource tracker
     runeTracker: RuneTracker,
     runeDetails: RuneDetails,
+    runeGraph: RuneGraph,
     runicPowerDetails: RunicPowerDetails,
     runicPowerTracker: RunicPowerTracker,
+    runicPowerGraph: RunicPowerGraph,
 
     //talents
     gatheringStorm: GatheringStorm,
@@ -51,6 +56,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;

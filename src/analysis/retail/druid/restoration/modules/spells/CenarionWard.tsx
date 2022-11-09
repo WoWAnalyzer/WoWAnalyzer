@@ -8,6 +8,10 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import Mastery from 'analysis/retail/druid/restoration/modules/core/Mastery';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import { SpellLink } from 'interface';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/druid/restoration/Guide';
+import CastEfficiencyPanel from 'interface/guide/components/CastEfficiencyPanel';
 
 /**
  * **Cenarion Ward**
@@ -26,6 +30,22 @@ class CenarionWard extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.CENARION_WARD_TALENT);
+  }
+
+  get guideSubsection() {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS_DRUID.CENARION_WARD_TALENT.id} />
+        </b>{' '}
+        is a talented HoT on a short cooldown. It is extremely powerful and efficient and should be
+        cast virtually on cooldown. A tank is usually the best target.
+      </p>
+    );
+
+    const data = <CastEfficiencyPanel spell={TALENTS_DRUID.CENARION_WARD_TALENT} />;
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   statistic() {

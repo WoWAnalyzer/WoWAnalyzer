@@ -17,11 +17,15 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import {
   CooldownExpandable,
   CooldownExpandableItem,
+  GUIDE_CORE_EXPLANATION_PERCENT,
 } from 'analysis/retail/druid/restoration/Guide';
 import { isFromHardcast } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
 import { MutableAmount } from 'analysis/retail/druid/restoration/modules/spells/Flourish';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
 
 const CONVOKED_HOTS = [
   SPELLS.REJUVENATION,
@@ -83,7 +87,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
   }
 
   onRestoHotApply(event: ApplyBuffEvent | RefreshBuffEvent) {
-    if (!isFromHardcast(event) && this.isConvoking()) {
+    if (!isFromHardcast(event) && isConvoking(this.selectedCombatant)) {
       this.hotTracker.addAttributionFromApply(this.currentConvokeAttribution, event);
       if (
         event.ability.guid === SPELLS.REGROWTH.id &&
@@ -99,7 +103,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
   }
 
   onRestoDirectHeal(event: HealEvent) {
-    if (!isFromHardcast(event) && !event.tick && this.isConvoking()) {
+    if (!isFromHardcast(event) && !event.tick && isConvoking(this.selectedCombatant)) {
       this.currentConvokeAttribution.healing += event.amount + (event.absorbed || 0);
       if (
         event.ability.guid === SPELLS.REGROWTH.id &&
@@ -185,8 +189,8 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
     const hasFlourish = this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT);
     const hasReforestation = this.selectedCombatant.hasTalent(TALENTS_DRUID.REFORESTATION_TALENT);
 
-    return (
-      <>
+    const explanation = (
+      <p>
         <strong>
           <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />
         </strong>{' '}
@@ -201,7 +205,13 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
         of direct healing it provides{' '}
         {hasCenariusGuidance && 'and possiblity of proccing Flourish '}means lightly ramping for a
         Convoke is still worthwhile.
-        <p />
+      </p>
+    );
+
+    const data = (
+      <div>
+        <strong>Per-Cast Breakdown</strong>
+        <small> - click to expand</small>
         {this.convokeTracker.map((cast, ix) => {
           const restoCast = this.restoConvokeTracker[ix];
           const castTotalHealing =
@@ -215,6 +225,15 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
             </>
           );
 
+          const wgRamp = restoCast.wgsOnCast > 0;
+          const rejuvRamp = restoCast.rejuvsOnCast > 0;
+          const noRecentFlourish = !restoCast.recentlyFlourished;
+          const syncWithReforestation = !hasReforestation || cast.form === 'Tree of Life';
+          const overallPerf =
+            wgRamp && rejuvRamp && noRecentFlourish && syncWithReforestation
+              ? QualitativePerformance.Good
+              : QualitativePerformance.Fail;
+
           const checklistItems: CooldownExpandableItem[] = [];
           checklistItems.push({
             label: (
@@ -222,7 +241,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
                 <SpellLink id={SPELLS.WILD_GROWTH.id} /> ramp
               </>
             ),
-            result: <PassFailCheckmark pass={restoCast.wgsOnCast > 0} />,
+            result: <PassFailCheckmark pass={wgRamp} />,
             details: <>({restoCast.wgsOnCast} HoTs active)</>,
           });
           checklistItems.push({
@@ -231,7 +250,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
                 <SpellLink id={SPELLS.REJUVENATION.id} /> ramp
               </>
             ),
-            result: <PassFailCheckmark pass={restoCast.rejuvsOnCast > 0} />,
+            result: <PassFailCheckmark pass={rejuvRamp} />,
             details: <>({restoCast.rejuvsOnCast} HoTs active)</>,
           });
           hasFlourish &&
@@ -259,7 +278,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
                   </Tooltip>
                 </>
               ),
-              result: <PassFailCheckmark pass={!restoCast.recentlyFlourished} />,
+              result: <PassFailCheckmark pass={noRecentFlourish} />,
             });
           hasReforestation &&
             checklistItems.push({
@@ -284,14 +303,22 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
                   </Tooltip>
                 </>
               ),
-              result: <PassFailCheckmark pass={cast.form === 'Tree of Life'} />,
+              result: <PassFailCheckmark pass={syncWithReforestation} />,
             });
 
-          return <CooldownExpandable header={header} checklistItems={checklistItems} key={ix} />;
+          return (
+            <CooldownExpandable
+              header={header}
+              checklistItems={checklistItems}
+              perf={overallPerf}
+              key={ix}
+            />
+          );
         })}
-        <p />
-      </>
+      </div>
     );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   statistic() {

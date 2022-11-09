@@ -14,7 +14,7 @@ class CancelledCasts extends CoreCancelledCasts {
     this.IGNORED_ABILITIES = [
       //Include the spells that you do not want to be tracked and spells that are castable while casting (Like Fire Blast, Combustion, or Shimmer)
       SPELLS.FIRE_BLAST.id,
-      SPELLS.COMBUSTION.id,
+      TALENTS.COMBUSTION_TALENT.id,
       TALENTS.SHIMMER_TALENT.id,
       TALENTS.ICE_FLOES_TALENT.id,
     ];

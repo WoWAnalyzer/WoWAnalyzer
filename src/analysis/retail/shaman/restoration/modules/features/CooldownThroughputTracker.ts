@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
@@ -7,7 +7,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.ASCENDANCE_TALENT_RESTORATION.id,
+      spell: TALENTS.ASCENDANCE_RESTORATION_TALENT.id,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
@@ -15,7 +15,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
     {
-      spell: SPELLS.CLOUDBURST_TOTEM_TALENT.id,
+      spell: TALENTS.CLOUDBURST_TOTEM_TALENT.id,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,

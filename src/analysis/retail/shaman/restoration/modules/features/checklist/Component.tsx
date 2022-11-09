@@ -1,7 +1,7 @@
 import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
 import { TooltipElement } from 'interface';
@@ -14,7 +14,6 @@ import {
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
@@ -34,10 +33,10 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         }
         description={
           <Trans id="shaman.restoration.checklist.efficientSpells.description">
-            Spells such as <SpellLink id={SPELLS.RIPTIDE.id} />,{' '}
-            <SpellLink id={SPELLS.HEALING_RAIN_CAST.id} /> and{' '}
-            <SpellLink id={SPELLS.HEALING_STREAM_TOTEM_CAST.id} /> are your most efficient spells
-            available. Try to cast them as much as possible without overhealing.{' '}
+            Spells such as <SpellLink id={TALENTS.RIPTIDE_TALENT.id} />,{' '}
+            <SpellLink id={TALENTS.HEALING_RAIN_TALENT.id} /> and{' '}
+            <SpellLink id={TALENTS.HEALING_STREAM_TOTEM_RESTORATION_TALENT.id} /> are your most
+            efficient spells available. Try to cast them as much as possible without overhealing.{' '}
             <TooltipElement
               content={t({
                 id: 'shaman.restoration.checklist.efficientSpells.description.tooltip',
@@ -58,31 +57,33 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           </Trans>
         }
       >
-        <AbilityRequirement spell={SPELLS.RIPTIDE.id} />
-        <AbilityRequirement spell={SPELLS.HEALING_RAIN_CAST.id} />
-        {!combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.HEALING_STREAM_TOTEM_CAST.id} />
+        {combatant.hasTalent(TALENTS.RIPTIDE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.RIPTIDE_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.CLOUDBURST_TOTEM_TALENT.id} />
+        {combatant.hasTalent(TALENTS.HEALING_RAIN_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.HEALING_RAIN_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.UNLEASH_LIFE_TALENT.id} />
+        {!combatant.hasTalent(TALENTS.CLOUDBURST_TOTEM_TALENT.id) &&
+          combatant.hasTalent(TALENTS.HEALING_STREAM_TOTEM_RESTORATION_TALENT.id) && (
+            <AbilityRequirement spell={TALENTS.HEALING_STREAM_TOTEM_RESTORATION_TALENT.id} />
+          )}
+        {combatant.hasTalent(TALENTS.CLOUDBURST_TOTEM_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.CLOUDBURST_TOTEM_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} />
+        {combatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.UNLEASH_LIFE_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.WELLSPRING_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.WELLSPRING_TALENT.id} />
+        {combatant.hasTalent(TALENTS.EARTHEN_WALL_TOTEM_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.EARTHEN_WALL_TOTEM_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.DOWNPOUR_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.DOWNPOUR_TALENT.id} />
+        {combatant.hasTalent(TALENTS.WELLSPRING_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.WELLSPRING_TALENT.id} />
         )}
-        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
-          <AbilityRequirement spell={SPELLS.CHAIN_HARVEST.id} />
+        {combatant.hasTalent(TALENTS.DOWNPOUR_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.DOWNPOUR_TALENT.id} />
         )}
-        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
-          <AbilityRequirement spell={SPELLS.PRIMORDIAL_WAVE_CAST.id} />
+        {combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.PRIMORDIAL_WAVE_TALENT.id} />
         )}
       </Rule>
       <Rule
@@ -103,11 +104,18 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           </Trans>
         }
       >
-        <AbilityRequirement spell={TALENTS_SHAMAN.HEALING_TIDE_TOTEM_TALENTS.id} />
-        <AbilityRequirement spell={SPELLS.SPIRIT_LINK_TOTEM.id} />
-        <AbilityRequirement spell={SPELLS.MANA_TIDE_TOTEM_CAST.id} />
-        {combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_RESTORATION.id) && (
-          <AbilityRequirement spell={SPELLS.ASCENDANCE_TALENT_RESTORATION.id} />
+        {combatant.hasTalent(TALENTS.HEALING_STREAM_TOTEM_RESTORATION_TALENT.id) &&
+          !combatant.hasTalent(TALENTS.CLOUDBURST_TOTEM_TALENT.id) && (
+            <AbilityRequirement spell={TALENTS.HEALING_STREAM_TOTEM_RESTORATION_TALENT.id} />
+          )}
+        {combatant.hasTalent(TALENTS.SPIRIT_LINK_TOTEM_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.SPIRIT_LINK_TOTEM_TALENT.id} />
+        )}
+        {combatant.hasTalent(TALENTS.MANA_TIDE_TOTEM_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.MANA_TIDE_TOTEM_TALENT.id} />
+        )}
+        {combatant.hasTalent(TALENTS.ASCENDANCE_RESTORATION_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.ASCENDANCE_RESTORATION_TALENT.id} />
         )}
         {/* We can't detect race, so disable this when it has never been cast. */}
         {castEfficiency.getCastEfficiencyForSpellId(SPELLS.BERSERKING.id) && (
@@ -126,54 +134,46 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           </Trans>
         }
       >
-        {thresholds.chainHealTargetThresholds.actual > 0 && (
-          <Requirement
-            name={
-              <Trans id="shaman.restoration.checklist.aoeSpell.targets">
-                Average <SpellLink id={SPELLS.CHAIN_HEAL.id} /> targets
-              </Trans>
-            }
-            thresholds={thresholds.chainHealTargetThresholds}
-          />
-        )}
-        {thresholds.healingRainTargetThreshold.actual > 0 && (
-          <Requirement
-            name={
-              <Trans id="shaman.restoration.checklist.aoeSpell.targets">
-                Average <SpellLink id={SPELLS.HEALING_RAIN_HEAL.id} /> targets
-              </Trans>
-            }
-            thresholds={thresholds.healingRainTargetThreshold}
-          />
-        )}
-        {combatant.hasTalent(SPELLS.WELLSPRING_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.CHAIN_HEAL_TALENT.id) &&
+          thresholds.chainHealTargetThresholds.actual > 0 && (
+            <Requirement
+              name={
+                <Trans id="shaman.restoration.checklist.aoeSpell.targets">
+                  Average <SpellLink id={TALENTS.CHAIN_HEAL_TALENT.id} /> targets
+                </Trans>
+              }
+              thresholds={thresholds.chainHealTargetThresholds}
+            />
+          )}
+        {combatant.hasTalent(TALENTS.HEALING_RAIN_TALENT.id) &&
+          thresholds.healingRainTargetThreshold.actual > 0 && (
+            <Requirement
+              name={
+                <Trans id="shaman.restoration.checklist.aoeSpell.targets">
+                  Average <SpellLink id={SPELLS.HEALING_RAIN_HEAL.id} /> targets
+                </Trans>
+              }
+              thresholds={thresholds.healingRainTargetThreshold}
+            />
+          )}
+        {combatant.hasTalent(TALENTS.WELLSPRING_TALENT.id) && (
           <Requirement
             name={
               <Trans id="shaman.restoration.checklist.aoeSpell.efficiency">
-                Average <SpellLink id={SPELLS.WELLSPRING_TALENT.id} /> efficiency
+                Average <SpellLink id={TALENTS.WELLSPRING_TALENT.id} /> efficiency
               </Trans>
             }
             thresholds={thresholds.wellspringTargetThreshold}
           />
         )}
-        {combatant.hasTalent(SPELLS.EARTHEN_WALL_TOTEM_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.EARTHEN_WALL_TOTEM_TALENT.id) && (
           <Requirement
             name={
               <Trans id="shaman.restoration.checklist.aoeSpell.efficiency">
-                Average <SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} /> efficiency
+                Average <SpellLink id={TALENTS.EARTHEN_WALL_TOTEM_TALENT.id} /> efficiency
               </Trans>
             }
             thresholds={thresholds.ewtTargetThreshold}
-          />
-        )}
-        {combatant.hasTalent(SPELLS.SURGE_OF_EARTH_TALENT.id) && (
-          <Requirement
-            name={
-              <Trans id="shaman.restoration.checklist.aoeSpell.targets">
-                Average <SpellLink id={SPELLS.SURGE_OF_EARTH_TALENT.id} /> targets
-              </Trans>
-            }
-            thresholds={thresholds.soeTargetThreshold}
           />
         )}
       </Rule>
@@ -189,22 +189,26 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           </Trans>
         }
       >
-        <Requirement
-          name={
-            <Trans id="shaman.restoration.checklist.appliedPrepull">
-              <SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} /> applied prepull
-            </Trans>
-          }
-          thresholds={thresholds.earthShieldPrepull}
-        />
-        <Requirement
-          name={
-            <Trans id="shaman.restoration.checklist.uptime">
-              <SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} /> Uptime
-            </Trans>
-          }
-          thresholds={thresholds.earthShieldUptime}
-        />
+        {combatant.hasTalent(TALENTS.EARTH_SHIELD_TALENT.id) && (
+          <Requirement
+            name={
+              <Trans id="shaman.restoration.checklist.appliedPrepull">
+                <SpellLink id={TALENTS.EARTH_SHIELD_TALENT.id} /> applied prepull
+              </Trans>
+            }
+            thresholds={thresholds.earthShieldPrepull}
+          />
+        )}
+        {combatant.hasTalent(TALENTS.EARTH_SHIELD_TALENT.id) && (
+          <Requirement
+            name={
+              <Trans id="shaman.restoration.checklist.uptime">
+                <SpellLink id={TALENTS.EARTH_SHIELD_TALENT.id} /> Uptime
+              </Trans>
+            }
+            thresholds={thresholds.earthShieldUptime}
+          />
+        )}
       </Rule>
       <Rule
         name={
