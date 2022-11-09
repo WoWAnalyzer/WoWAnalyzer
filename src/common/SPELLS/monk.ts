@@ -211,6 +211,11 @@ const spells = spellIndexableList({
     name: 'Soothing Mist',
     icon: 'ability_monk_soothingmists',
   },
+  UNISON_HEAL: {
+    id: 388480,
+    name: 'Unison',
+    icon: 'ability_monk_soothingmists',
+  },
   REFRESHING_JADE_WIND_HEAL: {
     id: 162530,
     name: 'Refreshing Jade Wind',
