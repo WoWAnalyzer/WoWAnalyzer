@@ -4,7 +4,6 @@ import {
   MysticTouch,
   TouchOfDeath,
   DampenHarm,
-  SaveThemAll,
 } from 'analysis/retail/monk/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
@@ -109,7 +108,6 @@ class CombatLogParser extends CoreCombatLogParser {
     dampenHarm: DampenHarm,
     touchOfDeath: TouchOfDeath,
     risingSunKick: RisingSunKick,
-    saveThemAll: SaveThemAll,
     vivaciousVivification: VivaciousVivification,
 
     // MW Talents
