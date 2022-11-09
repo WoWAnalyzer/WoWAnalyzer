@@ -13,7 +13,6 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import Tooltip from 'react-tooltip-lite';
 import RenewingMistDuringManaTea from './RenewingMistDuringManaTea';
 
 class ManaTea extends Analyzer {
