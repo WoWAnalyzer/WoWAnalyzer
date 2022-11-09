@@ -176,10 +176,7 @@ class RisingMist extends Analyzer {
     }
     const object = this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
-    if (
-      !this.hasAttribution(object.attributions, ENVELOPING_MIST_HARDCAST) ||
-      UNAFFECTED_SPELLS.includes(spellId)
-    ) {
+    if (UNAFFECTED_SPELLS.includes(spellId)) {
       return;
     }
 
@@ -210,6 +207,15 @@ class RisingMist extends Analyzer {
     }
   }
 
+  shouldExtend(hot) {
+    const untrackedSpells = [
+      SPELLS.ESSENCE_FONT_BUFF.id,
+      SPELLS.FAELINE_STOMP_ESSENCE_FONT.id,
+      TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
+    ];
+    return untrackedSpells.includes(hot.spellId) || this.hotTracker.fromHardcast(hot);
+  }
+
   extendHots(event) {
     const spellId = event.ability.guid;
     if (TALENTS_MONK.RISING_SUN_KICK_TALENT.id !== spellId) {
@@ -223,16 +229,18 @@ class RisingMist extends Analyzer {
     this.risingMists.push(newRisingMist);
 
     let foundTarget = false;
-    const untrackedSpells = [SPELLS.ESSENCE_FONT_BUFF.id, SPELLS.FAELINE_STOMP_ESSENCE_FONT.id];
+
     Object.keys(this.hotTracker.hots).forEach((playerId) => {
       Object.keys(this.hotTracker.hots[playerId]).forEach((spellIdString) => {
         const spellId = Number(spellIdString);
 
         const attribution = newRisingMist;
         const hot = this.hotTracker.hots[playerId][spellId];
-        if (!untrackedSpells.includes(spellId) && !this.hotTracker.fromHardcast(hot)) {
+
+        if (!this.shouldExtend(hot)) {
           return;
         }
+
         this.hotTracker.addExtension(
           attribution,
           RISING_MIST_EXTENSION,
