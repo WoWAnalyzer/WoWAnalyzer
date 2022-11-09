@@ -246,6 +246,17 @@ const spells = spellIndexableList({
     name: "Yu'lon's Whisper",
     icon: 'ability_monk_chiexplosion',
   },
+  FAELINE_STOMP_HEAL: {
+    id: 388207,
+    name: 'Faeline Stomp',
+    icon: 'ability_ardenweald_monk'
+  },
+  FAELINE_STOMP_ESSENCE_FONT: {
+    id: 344006,
+    name: 'Faeline Stomp',
+    icon: 'ability_monk_essencefont',
+  },
+
 
   // Brewmaster
   NIUZAO_STOMP_DAMAGE: {
