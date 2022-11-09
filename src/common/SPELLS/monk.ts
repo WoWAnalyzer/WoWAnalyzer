@@ -75,11 +75,6 @@ const spells = spellIndexableList({
     icon: 'ability_monk_expelharm',
     manaCost: 7500,
   },
-  SAVE_THEM_ALL_BUFF: {
-    id: 390105,
-    name: 'Save Them All',
-    icon: 'inv_weapon_hand_22',
-  },
 
   // Mistweaver Monk Spells
   CLOUDED_FOCUS_BUFF: {
@@ -254,14 +249,13 @@ const spells = spellIndexableList({
   FAELINE_STOMP_HEAL: {
     id: 388207,
     name: 'Faeline Stomp',
-    icon: 'ability_ardenweald_monk'
+    icon: 'ability_ardenweald_monk',
   },
   FAELINE_STOMP_ESSENCE_FONT: {
     id: 344006,
     name: 'Faeline Stomp',
     icon: 'ability_monk_essencefont',
   },
-
 
   // Brewmaster
   NIUZAO_STOMP_DAMAGE: {
