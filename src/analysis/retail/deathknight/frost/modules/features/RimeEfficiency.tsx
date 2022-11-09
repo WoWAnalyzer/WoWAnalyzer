@@ -3,6 +3,8 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -105,8 +107,8 @@ class RimeEfficiency extends Analyzer {
         <>
           {' '}
           You are wasting <SpellLink id={SPELLS.RIME.id} /> procs. You should be casting{' '}
-          <SpellLink id={talents.HOWLING_BLAST_TALENT.id} /> as soon as possible when you have a Rime proc
-          to avoid wasting it.
+          <SpellLink id={talents.HOWLING_BLAST_TALENT.id} /> as soon as possible when you have a
+          Rime proc to avoid wasting it.
         </>,
       )
         .icon(SPELLS.RIME.icon)
@@ -142,6 +144,48 @@ class RimeEfficiency extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const goodRimes = {
+      count: this.rimeProcs - this.expiredRimeProcs - this.refreshedRimeProcs,
+      label: 'Consumed Rimes',
+    };
+
+    const refreshedRimes = {
+      count: this.refreshedRimeProcs,
+      label: 'Refreshed Rimes',
+    };
+
+    const expiredRimes = {
+      count: this.expiredRimeProcs,
+      label: 'Expired Rimes',
+    };
+
+    const explanation = (
+      <p>
+        <strong>
+          <SpellLink id={talents.RIME_TALENT.id} />
+        </strong>{' '}
+        turns <SpellLink id={talents.HOWLING_BLAST_TALENT.id} /> from a weak ability you only use to
+        apply Frost Fever to a powerful spell that jumps to the top of the priority list. This is
+        especially true if
+        <SpellLink id={talents.AVALANCHE_TALENT.id} /> or{' '}
+        <SpellLink id={talents.ICEBREAKER_TALENT.id} /> are talented. Rime has a chance to proc
+        whenever cast <SpellLink id={talents.OBLITERATE_TALENT.id} /> and you can use this to
+        prevent refreshing the proc by making sure to consume Rime before casting Obliterate. You
+        should aim to consume as many Rimes as you can, only ignoring it during certain periods of
+        the main CD window.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <GradiatedPerformanceBar good={goodRimes} ok={refreshedRimes} bad={expiredRimes} />
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, 50);
   }
 }
 

@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
@@ -23,7 +24,7 @@ class UnfurlingDarkness extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.UNFURLING_DARKNESS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.UNFURLING_DARKNESS_TALENT.id);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.UNFURLING_DARKNESS_BUFF),
       this.onBuffApplied,
@@ -71,10 +72,10 @@ class UnfurlingDarkness extends Analyzer {
       suggest(
         <>
           You wasted {formatPercentage(actual)}% of{' '}
-          <SpellLink id={SPELLS.UNFURLING_DARKNESS_TALENT.id} /> procs.{' '}
+          <SpellLink id={TALENTS.UNFURLING_DARKNESS_TALENT.id} /> procs.{' '}
         </>,
       )
-        .icon(SPELLS.UNFURLING_DARKNESS_TALENT.icon)
+        .icon(TALENTS.UNFURLING_DARKNESS_TALENT.icon)
         .actual(
           t({
             id: 'priest.shadow.suggestions.unfurlingDarkness.efficiency',

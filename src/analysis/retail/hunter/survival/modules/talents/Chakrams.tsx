@@ -1,5 +1,5 @@
 import { SURVIVAL_CHAKRAM_TYPES } from 'analysis/retail/hunter/survival/constants';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
@@ -29,10 +29,10 @@ class Chakrams extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.CHAKRAMS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DEATH_CHAKRAM_TALENT.id);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHAKRAMS_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.DEATH_CHAKRAM_TALENT),
       this.onCast,
     );
     this.addEventListener(
@@ -49,7 +49,7 @@ class Chakrams extends Analyzer {
   onDamage(event: DamageEvent) {
     if (this.casts === 0) {
       this.casts += 1;
-      this.spellUsable.beginCooldown(event, SPELLS.CHAKRAMS_TALENT.id);
+      this.spellUsable.beginCooldown(event, TALENTS.DEATH_CHAKRAM_TALENT.id);
     }
     const damageTarget: string = encodeTargetString(event.targetID, event.targetInstance);
     if (!this.uniqueTargets.includes(damageTarget)) {
@@ -65,7 +65,7 @@ class Chakrams extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.CHAKRAMS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.DEATH_CHAKRAM_TALENT.id}>
           <>
             <AverageTargetsHit casts={this.casts} hits={this.targetsHit} unique />
           </>

@@ -1,0 +1,22 @@
+.evang__icon {
+  width: 44px !important;
+  height: 44px !important;
+}
+
+.evang__icon.--fail {
+  border: 4px solid #ac1f39;
+}
+
+.evang__cast-list {
+  display: flex;
+}
+
+.evang__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.evang__applicator-half {
+  max-width: 50%;
+}

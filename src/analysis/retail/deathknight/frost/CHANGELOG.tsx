@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 11, 1), 'Published basic guide with info on procs, resources, and cooldowns', Khazak),
   change(date(2022, 10, 17), 'Add support for Dragonflight analysis', Khazak),
   change(date(2022, 3, 2), 'Remove improperly applied partial support tag', Khazak),
   change(date(2021, 11, 5), 'Verified 9.1.5 patch changes and bumped support to 9.1.5', darkpsy3934),
