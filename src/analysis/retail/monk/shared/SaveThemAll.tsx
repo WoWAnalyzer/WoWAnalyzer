@@ -10,6 +10,8 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { formatNumber } from 'common/format';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 
+const BUFF_PER_POINT = 0.1;
+
 class SaveThemAll extends Analyzer {
   totalHealed: number = 0;
   healingBuff: number = 0;
@@ -20,7 +22,7 @@ class SaveThemAll extends Analyzer {
       return;
     }
     this.healingBuff =
-      this.selectedCombatant.getTalentRank(TALENTS_MONK.SAVE_THEM_ALL_TALENT) * 0.1;
+      this.selectedCombatant.getTalentRank(TALENTS_MONK.SAVE_THEM_ALL_TALENT) * BUFF_PER_POINT;
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
