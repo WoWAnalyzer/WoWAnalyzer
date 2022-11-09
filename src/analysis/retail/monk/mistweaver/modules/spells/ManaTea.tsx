@@ -13,6 +13,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import Tooltip from 'react-tooltip-lite';
 import RenewingMistDuringManaTea from './RenewingMistDuringManaTea';
 
 class ManaTea extends Analyzer {
@@ -190,7 +191,7 @@ class ManaTea extends Analyzer {
         <TalentSpellText talent={TALENTS_MONK.MANA_TEA_TALENT}>
           <ItemManaGained amount={this.manaSavedMT} useAbbrev/>
           <br />
-          {formatNumber(this.avgMtSaves)} <small>mana per cast</small>
+          {formatNumber(this.avgMtSaves)} <small>mana saved per cast</small>
           <br />
           {this.renewingMistDuringManaTea.subStatistic()}
         </TalentSpellText>
