@@ -140,9 +140,6 @@ const OutlawRogueChecklist = ({
         {combatant.hasTalent(TALENTS.SEPSIS_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.SEPSIS_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.FLAGELLATION_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS.FLAGELLATION_TALENT.id} />
-        )}
       </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>
