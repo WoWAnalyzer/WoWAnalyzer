@@ -54,7 +54,7 @@ class EssenceFont extends Analyzer {
     }
   }
 
-  isValidEFEvent(event: HealEvent){
+  isValidEFEvent(event: HealEvent) {
     const combatant = this.combatants.players[event.targetID];
     if (!combatant) {
       return false;
