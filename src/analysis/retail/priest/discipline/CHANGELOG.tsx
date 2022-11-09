@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 11, 8), <>Updated <SpellLink id={TALENTS_PRIEST.TWIST_OF_FATE_TALENT.id}/> to use correct damage multiplier.</>, Hana),
   change(date(2022, 11, 7), <><SpellLink id={TALENTS_PRIEST.PROTECTIVE_LIGHT_TALENT.id}/> support added.</>, Hana),
   change(date(2022, 11, 6), <>Added <SpellLink id={TALENTS_PRIEST.BINDING_HEALS_TALENT.id}/> section to guide.</>, Hana),
   change(date(2022, 11, 6), <>Added DPS rotation to <SpellLink id={TALENTS_PRIEST.EVANGELISM_TALENT.id}/> guide.</>, Hana),
