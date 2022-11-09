@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 11, 8), <>Cleanup covenant files for Mistweaver</>, Trevor),
   change(date(2022, 11, 8), <>Readded the tooltip for average renewing mists during <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id}/> and updated wording to 'mana saved per cast'</>, Vohrr),
   change(date(2022, 11, 8), <> Fix and update for <SpellLink id={TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.id}/> uptime</>, Vohrr),
   change(date(2022, 11, 8), <>Fixed <SpellLink id={TALENTS_MONK.NOURISHING_CHI_TALENT.id}/> showing up when not talented</>, Vohrr),
