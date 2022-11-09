@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro';
+import TALENTS from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -12,7 +13,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 // Example log: /report/JAPL1zpDfN7W8wck/33-Heroic+The+Council+of+Blood+-+Kill+(5:46)/Mayrim/standard/statistics
-class DarkThoughts extends Analyzer {
+class ShadowyInsight extends Analyzer {
   static dependencies = {
     abilities: Abilities,
     eventHistory: EventHistory,
@@ -29,12 +30,12 @@ class DarkThoughts extends Analyzer {
     super(options);
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DARK_THOUGHT_BUFF),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOWY_INSIGHT_BUFF),
       this.onBuffApplied,
     );
 
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DARK_THOUGHT_BUFF),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOWY_INSIGHT_BUFF),
       this.onBuffRemoved,
     );
   }
@@ -80,14 +81,14 @@ class DarkThoughts extends Analyzer {
       suggest(
         <>
           You wasted {this.procsWasted} out of {this.procsGained}{' '}
-          <SpellLink id={SPELLS.DARK_THOUGHTS.id} /> procs. Remember that the proc allows you to
+          <SpellLink id={SPELLS.SHADOWY_INSIGHT.id} /> procs. Remember that the proc allows you to
           cast <SpellLink id={SPELLS.MIND_BLAST.id} /> instantly during{' '}
           <SpellLink id={SPELLS.MIND_FLAY.id} />, <SpellLink id={SPELLS.MIND_SEAR.id} />, and{' '}
-          <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} />. Using during one of these casts allows
+          <SpellLink id={TALENTS.VOID_TORRENT_TALENT.id} />. Using during one of these casts allows
           you to double dip on damage during the global.
         </>,
       )
-        .icon(SPELLS.DARK_THOUGHTS.icon)
+        .icon(SPELLS.SHADOWY_INSIGHT.icon)
         .actual(
           t({
             id: 'priest.shadow.suggestions.darkThoughts.efficiency',
@@ -101,7 +102,7 @@ class DarkThoughts extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.GENERAL} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.DARK_THOUGHTS.id}>
+        <BoringSpellValueText spellId={SPELLS.SHADOWY_INSIGHT.id}>
           <>
             {this.procsUsed}/{this.procsGained} <small>Procs Used</small>
           </>
@@ -111,4 +112,4 @@ class DarkThoughts extends Analyzer {
   }
 }
 
-export default DarkThoughts;
+export default ShadowyInsight;
