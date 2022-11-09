@@ -211,46 +211,6 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             spell={TALENTS.LIVING_BOMB_TALENT.id}
           />
         )}
-        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink id={SPELLS.SHIFTING_POWER.id} /> Cast Efficiency
-              </>
-            }
-            spell={SPELLS.SHIFTING_POWER.id}
-          />
-        )}
-        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> Cast Efficiency
-              </>
-            }
-            spell={SPELLS.MIRRORS_OF_TORMENT.id}
-          />
-        )}
-        {combatant.hasCovenant(COVENANTS.KYRIAN.id) && (
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink id={SPELLS.RADIANT_SPARK.id} /> Cast Efficiency
-              </>
-            }
-            spell={SPELLS.RADIANT_SPARK.id}
-          />
-        )}
-        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink id={SPELLS.DEATHBORNE.id} /> Cast Efficiency
-              </>
-            }
-            spell={SPELLS.DEATHBORNE.id}
-          />
-        )}
         {combatant.hasTalent(TALENTS.METEOR_TALENT.id) && (
           <Requirement
             name={
