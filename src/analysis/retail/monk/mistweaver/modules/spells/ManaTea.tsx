@@ -190,7 +190,7 @@ class ManaTea extends Analyzer {
         <TalentSpellText talent={TALENTS_MONK.MANA_TEA_TALENT}>
           <ItemManaGained amount={this.manaSavedMT} useAbbrev/>
           <br />
-          {formatNumber(this.avgMtSaves)} <small>mana per cast</small>
+          {formatNumber(this.avgMtSaves)} <small>mana saved per cast</small>
           <br />
           {this.renewingMistDuringManaTea.subStatistic()}
         </TalentSpellText>

@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellLink } from 'interface';
+import { SpellLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -127,9 +127,15 @@ class RenewingMistDuringManaTea extends Analyzer {
 
   subStatistic() {
     return (
-      <div>
-        <>{this.avgRemDuringMT.toFixed(2)} <small>average renewing mists</small></>
-      </div>
+      <TooltipElement
+      content={
+        <>
+          This is the average number of Renewing Mists active during Mana Tea
+        </>
+      }
+      >
+        {this.avgRemDuringMT.toFixed(2)} <small>average renewing mists</small>
+      </TooltipElement>
     );
   }
 }
