@@ -143,10 +143,10 @@ class EssenceFont extends Analyzer {
       return <>Chi-Ji:
         <ul>
           <li>
-            {this.chijiGomEFHits} <small>additional Chi-Ji hits</small>
+            {this.chijiGomEFHits} additional Chi-Ji hits
           </li>
           <li>
-            {formatNumber(this.chijiGomHealing)} <small>addtional Chi-Ji healing</small>
+            {formatNumber(this.chijiGomHealing)} addtional Chi-Ji healing
           </li>
         </ul>
       </>
