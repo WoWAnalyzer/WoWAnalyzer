@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Insanity from 'interface/icons/Insanity';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -17,7 +18,7 @@ class AuspiciousSpirits extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.AUSPICIOUS_SPIRITS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.AUSPICIOUS_SPIRITS_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOWY_APPARITION_DAMAGE),
       this.onApparitionDamage,
@@ -36,7 +37,7 @@ class AuspiciousSpirits extends Analyzer {
         size="flexible"
         tooltip="The damage displayed is the additional damage you gained from taking this talent."
       >
-        <BoringSpellValueText spellId={SPELLS.AUSPICIOUS_SPIRITS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.AUSPICIOUS_SPIRITS_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage - this.damage / SPIRIT_DAMAGE_MULTIPLIER} />
             <br />

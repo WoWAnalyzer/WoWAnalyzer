@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
+import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -38,39 +38,48 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
         name="Maintain your DoTs on the boss"
         description={
           <Fragment>
-            When not in <SpellLink id={SPELLS.VOIDFORM.id} />, it's important to keep your DoTs up
-            on the boss. While in <SpellLink id={SPELLS.VOIDFORM.id} />, your{' '}
-            <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> and{' '}
-            <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> durations are extended when the target or
-            a nearby target gets hit by <SpellLink id={SPELLS.VOID_BOLT.id} />.
+            It's important to keep your DoTs up on the boss. In addition to doing damage, <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} />, {' '}
+            <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} />, and <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id}/> increase all your damage through <SpellLink id={SPELLS.MASTERY_SHADOW_WEAVING.id}/>.
           </Fragment>
         }
       >
         <DotUptime id={SPELLS.SHADOW_WORD_PAIN.id} thresholds={thresholds.shadowWordPain} />
         <DotUptime id={SPELLS.VAMPIRIC_TOUCH.id} thresholds={thresholds.vampiricTouch} />
+        <DotUptime id={TALENTS.DEVOURING_PLAGUE_TALENT.id} thresholds={thresholds.devouringPlague} /> {/**The threshold value needs to be reevalulated for Dragonflight */}
       </Rule>
 
       <Rule
         name="Use core spells as often as possible"
         description={
           <Fragment>
-            Spells such as <SpellLink id={SPELLS.VOID_BOLT.id} /> or{' '}
-            <SpellLink id={SPELLS.MIND_BLAST.id} /> are your most important spells. Try to cast them
-            as much as possible.
+            Spells such as these are your most important spells. Try to cast them as much as possible.
           </Fragment>
         }
       >
-        <AbilityRequirement spell={SPELLS.VOID_BOLT.id} />
+       {combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.VOID_BOLT.id} />
+        )} 
+        
         <AbilityRequirement spell={SPELLS.MIND_BLAST.id} />
-        <AbilityRequirement spell={SPELLS.SHADOW_WORD_DEATH.id} />
+        <AbilityRequirement spell={TALENTS.SHADOW_WORD_DEATH_TALENT.id} />
 
-        {combatant.hasTalent(SPELLS.VOID_TORRENT_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.VOID_TORRENT_TALENT.id} />
+        {combatant.hasTalent(TALENTS.VOID_TORRENT_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.VOID_TORRENT_TALENT.id} />
         )}
 
-        {combatant.hasTalent(SPELLS.SHADOW_CRASH_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.SHADOW_CRASH_TALENT.id} />
+        {combatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.SHADOW_CRASH_TALENT.id} />
         )}
+
+        {combatant.hasTalent(TALENTS.DAMNATION_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.DAMNATION_TALENT.id} />
+        )}
+
+        {/**  Not working right now, need to fix.
+        {combatant.hasTalent(TALENTS.MINDGAMES_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.MINDGAMES_TALENT.id} />
+        )}
+*/}
       </Rule>
 
       <Rule
@@ -82,34 +91,25 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           </Fragment>
         }
       >
-        <AbilityRequirement spell={SPELLS.VOID_ERUPTION.id} />
-        <AbilityRequirement spell={SPELLS.POWER_INFUSION.id} />
+             
+        {combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.VOID_ERUPTION_TALENT.id} />
+        )} 
 
-        {combatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.SURRENDER_TO_MADNESS_TALENT.id} />
+        {combatant.hasTalent(TALENTS.DARK_ASCENSION_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.DARK_ASCENSION_TALENT.id} />
         )}
 
-        {combatant.hasTalent(SPELLS.MINDBENDER_TALENT_SHADOW.id) ? (
-          <AbilityRequirement spell={SPELLS.MINDBENDER_TALENT_SHADOW.id} />
+        {combatant.hasTalent(TALENTS.POWER_INFUSION_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.POWER_INFUSION_TALENT.id} />
+        )}      
+
+        {combatant.hasTalent(TALENTS.MINDBENDER_SHADOW_TALENT.id) ? (
+          <AbilityRequirement spell={TALENTS.MINDBENDER_SHADOW_TALENT.id} />
         ) : (
           <AbilityRequirement spell={SPELLS.SHADOWFIEND.id} />
         )}
 
-        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
-          <AbilityRequirement spell={SPELLS.UNHOLY_NOVA.id} />
-        )}
-
-        {combatant.hasCovenant(COVENANTS.KYRIAN.id) && (
-          <AbilityRequirement spell={SPELLS.BOON_OF_THE_ASCENDED.id} />
-        )}
-
-        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
-          <AbilityRequirement spell={SPELLS.MINDGAMES.id} />
-        )}
-
-        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
-          <AbilityRequirement spell={SPELLS.FAE_GUARDIANS.id} />
-        )}
       </Rule>
 
       <Rule
@@ -136,7 +136,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
             stutterstep with each <SpellLink id={SPELLS.VOID_BOLT.id} /> or{' '}
             <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> cast towards that location. During high
             movement you can use <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> or{' '}
-            <SpellLink id={SPELLS.SHADOW_WORD_DEATH.id} /> as a filler.
+            <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> as a filler.
           </Fragment>
         }
       >

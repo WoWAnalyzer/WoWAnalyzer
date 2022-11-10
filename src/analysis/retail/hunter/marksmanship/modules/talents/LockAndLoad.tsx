@@ -1,6 +1,7 @@
 import { LNL_PROC_CHANCE } from 'analysis/retail/hunter/marksmanship/constants';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
@@ -38,7 +39,7 @@ class LockAndLoad extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.LOCK_AND_LOAD_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.LOCK_AND_LOAD_TALENT.id);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AUTO_SHOT),
       this.autoshotDamage,
@@ -130,7 +131,7 @@ class LockAndLoad extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.LOCK_AND_LOAD_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_HUNTER.LOCK_AND_LOAD_TALENT.id}>
           <>
             {this.totalProcs} <small>procs</small>
             <br />

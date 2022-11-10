@@ -3,23 +3,24 @@ import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 import { Build } from '../CONFIG';
-import lowRankSpells from '../lowRankSpells';
 import * as SPELL_EFFECTS from '../SPELL_EFFECTS';
-import * as SPELLS from '../SPELLS';
+import SPELLS from 'common/SPELLS/classic/shaman';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const baseSpells: SpellbookAbility[] = [
-      // Rotational Abilities
-      // Resto
+      // -----------
+      // ROTATIONAL
+      // -----------
+      // Restoration
       {
-        spell: [SPELLS.CHAIN_HEAL, ...lowRankSpells[SPELLS.CHAIN_HEAL]],
+        spell: [SPELLS.CHAIN_HEAL.id, ...SPELLS.CHAIN_HEAL.lowRanks],
         category:
           this.owner.build === Build.DEFAULT ? SPELL_CATEGORY.ROTATIONAL : SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
         castEfficiency: {
           casts: (ability, parser) => {
-            const chainHeals: number[] = [SPELLS.CHAIN_HEAL, ...lowRankSpells[SPELLS.CHAIN_HEAL]];
+            const chainHeals: number[] = [SPELLS.CHAIN_HEAL.id, ...SPELLS.CHAIN_HEAL.lowRanks];
             return chainHeals.reduce((casts, spell) => {
               casts += this.abilityTracker.getAbility(spell).casts;
 
@@ -29,16 +30,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.HEALING_WAVE, ...lowRankSpells[SPELLS.HEALING_WAVE]],
+        spell: [SPELLS.HEALING_WAVE.id, ...SPELLS.HEALING_WAVE.lowRanks],
         category:
           this.owner.build === Build.DEFAULT ? SPELL_CATEGORY.ROTATIONAL : SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
         castEfficiency: {
           casts: (ability, parser) => {
-            const healingWave: number[] = [
-              SPELLS.HEALING_WAVE,
-              ...lowRankSpells[SPELLS.HEALING_WAVE],
-            ];
+            const healingWave: number[] = [SPELLS.HEALING_WAVE.id, ...SPELLS.HEALING_WAVE.lowRanks];
             return healingWave.reduce((casts, spell) => {
               casts += this.abilityTracker.getAbility(spell).casts;
 
@@ -48,312 +46,344 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.LESSER_HEALING_WAVE, ...lowRankSpells[SPELLS.LESSER_HEALING_WAVE]],
+        spell: [SPELLS.LESSER_HEALING_WAVE.id, ...SPELLS.LESSER_HEALING_WAVE.lowRanks],
         category:
           this.owner.build === Build.DEFAULT ? SPELL_CATEGORY.ROTATIONAL : SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.EARTH_SHIELD, ...lowRankSpells[SPELLS.EARTH_SHIELD]],
+        spell: [SPELLS.EARTH_SHIELD.id, ...SPELLS.EARTH_SHIELD.lowRanks],
         enabled: this.owner.build === Build.DEFAULT,
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.RIP_TIDE.id, ...SPELLS.RIP_TIDE.lowRanks],
+        enabled: this.owner.build === Build.DEFAULT,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+        cooldown: 6,
       },
 
-      // Ele
+      // Elemental
       {
-        spell: [SPELLS.LIGHTNING_BOLT, ...lowRankSpells[SPELLS.LIGHTNING_BOLT]],
+        spell: [SPELLS.LIGHTNING_BOLT.id, ...SPELLS.LIGHTNING_BOLT.lowRanks],
         category:
-          this.owner.build === Build.ELEMENTAL
-            ? SPELL_CATEGORY.ROTATIONAL
-            : SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        gcd: { static: 1500 },
+          this.owner.build === Build.DEFAULT
+            ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
+            : SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.CHAIN_LIGHTNING, ...lowRankSpells[SPELLS.CHAIN_LIGHTNING]],
+        spell: [SPELLS.CHAIN_LIGHTNING.id, ...SPELLS.CHAIN_LIGHTNING.lowRanks],
         category:
-          this.owner.build === Build.ELEMENTAL
-            ? SPELL_CATEGORY.ROTATIONAL
-            : SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        gcd: { static: 1500 },
+          this.owner.build === Build.DEFAULT
+            ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
+            : SPELL_CATEGORY.ROTATIONAL_AOE,
+        gcd: { base: 1500 },
+        cooldown: 6,
+      },
+      {
+        spell: [SPELLS.LAVA_BURST.id, ...SPELLS.LAVA_BURST.lowRanks],
+        category:
+          this.owner.build === Build.DEFAULT
+            ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
+            : SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
         cooldown: 6,
       },
 
       // Enhancement
       {
-        spell: [SPELLS.STORMSTRIKE],
+        spell: [SPELLS.STORMSTRIKE.id],
         enabled: this.owner.build === Build.ENHANCEMENT,
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { static: 1000 },
-        cooldown: 10,
+        gcd: { base: 1000 },
+        cooldown: 8,
         damageSpellIds: [SPELL_EFFECTS.STORMSTRIKE_MAIN_HAND, SPELL_EFFECTS.STORMSTRIKE_OFF_HAND],
       },
       {
-        spell: [SPELLS.FLAME_SHOCK, ...lowRankSpells[SPELLS.FLAME_SHOCK]],
+        spell: [SPELLS.FLAME_SHOCK.id, ...SPELLS.FLAME_SHOCK.lowRanks],
         category:
-          this.owner.build === Build.ENHANCEMENT
-            ? SPELL_CATEGORY.ROTATIONAL
-            : SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        gcd: { static: 1500 },
+          this.owner.build === Build.DEFAULT
+            ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
+            : SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.EARTH_SHOCK.id, ...SPELLS.EARTH_SHOCK.lowRanks],
+        category:
+          this.owner.build === Build.DEFAULT
+            ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
+            : SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.LAVA_LASH.id],
+        enabled: this.owner.build === Build.ENHANCEMENT,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
         cooldown: 6,
       },
       {
-        spell: [SPELLS.EARTH_SHOCK, ...lowRankSpells[SPELLS.EARTH_SHOCK]],
+        spell: [SPELLS.SEARING_TOTEM.id, ...SPELLS.SEARING_TOTEM.lowRanks],
         category:
-          this.owner.build === Build.ENHANCEMENT
-            ? SPELL_CATEGORY.ROTATIONAL
-            : SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        gcd: { static: 1500 },
-        cooldown: 6,
+          this.owner.build === Build.DEFAULT
+            ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
+            : SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.WINDFURY_TOTEM, ...lowRankSpells[SPELLS.WINDFURY_TOTEM]],
+        spell: [SPELLS.FIRE_NOVA.id, ...SPELLS.FIRE_NOVA.lowRanks],
         category:
-          this.owner.build === Build.ENHANCEMENT
-            ? SPELL_CATEGORY.ROTATIONAL
-            : SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
-      },
-      {
-        spell: [SPELLS.GRACE_OF_AIR_TOTEM, ...lowRankSpells[SPELLS.GRACE_OF_AIR_TOTEM]],
-        category:
-          this.owner.build === Build.ENHANCEMENT
-            ? SPELL_CATEGORY.ROTATIONAL
-            : SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
+          this.owner.build === Build.DEFAULT
+            ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
+            : SPELL_CATEGORY.ROTATIONAL_AOE,
+        gcd: { base: 1500 },
+        cooldown: 10,
       },
 
-      // Cooldowns
+      // -----------
+      // COOLDOWNS
+      // -----------
+      // Restoration
       {
-        spell: [SPELLS.BLOODLUST],
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: { static: 1500 },
-        cooldown: 600,
-        isUndetectable: true,
-      },
-      {
-        spell: [SPELLS.HEROISM],
-        category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: { static: 1500 },
-        cooldown: 600,
-        isUndetectable: true,
-      },
-      {
-        spell: [SPELLS.MANA_TIDE_TOTEM],
+        spell: [SPELLS.MANA_TIDE_TOTEM.id],
         enabled: this.owner.build === Build.DEFAULT,
         category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: { static: 1000 },
+        gcd: { base: 1000 },
         cooldown: 300,
       },
       {
-        spell: [SPELLS.NATURES_SWIFTNESS],
+        spell: [SPELLS.NATURES_SWIFTNESS.id],
         enabled: this.owner.build === Build.DEFAULT,
         category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
         cooldown: 180,
       },
       {
-        spell: [SPELLS.ELEMENTAL_MASTERY],
+        spell: [SPELLS.TIDAL_FORCE.id],
+        enabled: this.owner.build === Build.DEFAULT,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { base: 1500 },
+        cooldown: 180,
+      },
+      // Elemental
+      {
+        spell: [SPELLS.THUNDERSTORM.id, ...SPELLS.THUNDERSTORM.lowRanks],
+        enabled: this.owner.build === Build.ELEMENTAL,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { base: 1500 },
+        cooldown: 45,
+      },
+      {
+        spell: [SPELLS.ELEMENTAL_MASTERY.id],
         enabled: this.owner.build === Build.ELEMENTAL,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 180,
       },
       {
-        spell: [SPELLS.SHAMANISTIC_RAGE],
+        spell: [SPELLS.MAGMA_TOTEM.id, ...SPELLS.MAGMA_TOTEM.lowRanks],
+        category:
+          this.owner.build === Build.DEFAULT
+            ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
+            : SPELL_CATEGORY.ROTATIONAL_AOE,
+        gcd: { base: 1000 },
+      },
+      // Enhancement
+      {
+        spell: [SPELLS.SHAMANISTIC_RAGE.id],
         enabled: this.owner.build === Build.ENHANCEMENT,
         category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: { static: 1000 },
-        cooldown: 120,
+        gcd: { base: 1000 },
+        cooldown: 60,
       },
       {
-        spell: [SPELLS.REINCARNATION],
+        spell: [SPELLS.FERAL_SPIRIT.id],
+        enabled: this.owner.build === Build.ENHANCEMENT,
         category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: { static: 1500 },
-        cooldown: 3600,
+        gcd: { base: 1500 },
+        cooldown: 180,
+      },
+      // Shared
+      {
+        spell: [SPELLS.BLOODLUST.id],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { base: 1500 },
+        isUndetectable: true,
+      },
+      {
+        spell: [SPELLS.HEROISM.id],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { base: 1500 },
+        isUndetectable: true,
+      },
+      {
+        spell: [SPELLS.FIRE_ELEMENTAL_TOTEM.id],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { base: 1000 },
+      },
+      {
+        spell: [SPELLS.EARTH_ELEMENTAL_TOTEM.id],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { base: 1000 },
+      },
+      {
+        spell: [SPELLS.REINCARNATION.id],
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: { base: 1500 },
       },
 
-      // Other spells
+      // -----------
+      // Utility
+      // -----------
       {
-        spell: [SPELLS.ASTRAL_RECALL],
+        spell: [SPELLS.CURE_TOXINS.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.CLEANSE_SPIRIT.id],
+        enabled: this.owner.build === Build.DEFAULT,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.FROST_SHOCK.id, ...SPELLS.FROST_SHOCK.lowRanks],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.CALL_OF_THE_ANCESTORS.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1000 },
+      },
+      {
+        spell: [SPELLS.CALL_OF_THE_ELEMENTS.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1000 },
+      },
+      {
+        spell: [SPELLS.CALL_OF_THE_SPIRITS.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1000 },
+      },
+      {
+        spell: [SPELLS.CLEANSING_TOTEM.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1000 },
+      },
+      {
+        spell: [SPELLS.EARTHBIND_TOTEM.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1000 },
+      },
+      {
+        spell: [SPELLS.FIRE_RESISTANCE_TOTEM.id, ...SPELLS.FIRE_RESISTANCE_TOTEM.lowRanks],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1000 },
+      },
+      {
+        spell: [SPELLS.FLAMETONGUE_TOTEM.id, ...SPELLS.FLAMETONGUE_TOTEM.lowRanks],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1000 },
+      },
+      {
+        spell: [SPELLS.FROST_RESISTANCE_TOTEM.id, ...SPELLS.FROST_RESISTANCE_TOTEM.lowRanks],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1000 },
+      },
+      {
+        spell: [SPELLS.GROUNDING_TOTEM.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1000 },
+      },
+      {
+        spell: [SPELLS.HEALING_STREAM_TOTEM.id, ...SPELLS.HEALING_STREAM_TOTEM.lowRanks],
         category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
-        cooldown: 900,
+        gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.CURE_DISEASE],
+        spell: [SPELLS.LIGHTNING_SHIELD.id, ...SPELLS.LIGHTNING_SHIELD.lowRanks],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.CURE_POISON],
+        spell: [SPELLS.MANA_SPRING_TOTEM.id, ...SPELLS.MANA_SPRING_TOTEM.lowRanks],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
+        gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.DISEASE_CLEANSING_TOTEM],
+        spell: [SPELLS.NATURE_RESISTANCE_TOTEM.id, ...SPELLS.NATURE_RESISTANCE_TOTEM.lowRanks],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
+        gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.EARTH_ELEMENTAL_TOTEM],
+        spell: [SPELLS.PURGE.id, ...SPELLS.PURGE.lowRanks],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
-        cooldown: 1200,
+        gcd: { base: 1500 },
       },
-
       {
-        spell: [SPELLS.EARTHBIND_TOTEM],
+        spell: [SPELLS.STONECLAW_TOTEM.id, ...SPELLS.STONECLAW_TOTEM.lowRanks],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
+        gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.FIRE_ELEMENTAL_TOTEM],
+        spell: [SPELLS.STONESKIN_TOTEM.id, ...SPELLS.STONESKIN_TOTEM.lowRanks],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
-        cooldown: 1200,
+        gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.FIRE_NOVA_TOTEM, ...lowRankSpells[SPELLS.FIRE_NOVA_TOTEM]],
-        category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        gcd: { static: 1000 },
-        cooldown: 15,
-      },
-      {
-        spell: [SPELLS.FIRE_RESISTANCE_TOTEM, ...lowRankSpells[SPELLS.FIRE_RESISTANCE_TOTEM]],
+        spell: [SPELLS.STRENGTH_OF_EARTH_TOTEM.id, ...SPELLS.STRENGTH_OF_EARTH_TOTEM.lowRanks],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
+        gcd: { base: 1000 },
       },
-
       {
-        spell: [SPELLS.FLAMETONGUE_TOTEM, ...lowRankSpells[SPELLS.FLAMETONGUE_TOTEM]],
+        spell: [SPELLS.TOTEMIC_CALL.id],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.FROST_RESISTANCE_TOTEM, ...lowRankSpells[SPELLS.FROST_RESISTANCE_TOTEM]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
-      },
-      {
-        spell: [SPELLS.FROST_SHOCK, ...lowRankSpells[SPELLS.FROST_SHOCK]],
-        category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        gcd: { static: 1500 },
-        cooldown: 6,
-      },
-      {
-        spell: [SPELLS.GROUNDING_TOTEM],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
-      },
-      {
-        spell: [SPELLS.HEALING_STREAM_TOTEM, ...lowRankSpells[SPELLS.HEALING_STREAM_TOTEM]],
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1000 },
-      },
-      {
-        spell: [SPELLS.LIGHTNING_SHIELD, ...lowRankSpells[SPELLS.LIGHTNING_SHIELD]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.MAGMA_TOTEM, ...lowRankSpells[SPELLS.MAGMA_TOTEM]],
-        category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        gcd: { static: 1000 },
-      },
-      {
-        spell: [SPELLS.MANA_SPRING_TOTEM, ...lowRankSpells[SPELLS.MANA_SPRING_TOTEM]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
-      },
-
-      {
-        spell: [SPELLS.NATURE_RESISTANCE_TOTEM, ...lowRankSpells[SPELLS.NATURE_RESISTANCE_TOTEM]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
-      },
-
-      {
-        spell: [SPELLS.POISON_CLEANSING_TOTEM],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
-      },
-      {
-        spell: [SPELLS.PURGE, ...lowRankSpells[SPELLS.PURGE]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.SEARING_TOTEM, ...lowRankSpells[SPELLS.SEARING_TOTEM]],
-        category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        gcd: { static: 1000 },
-      },
-      {
-        spell: [SPELLS.STONECLAW_TOTEM, ...lowRankSpells[SPELLS.STONECLAW_TOTEM]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
-      },
-      {
-        spell: [SPELLS.STONESKIN_TOTEM, ...lowRankSpells[SPELLS.STONESKIN_TOTEM]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
-      },
-      {
-        spell: [SPELLS.STRENGTH_OF_EARTH_TOTEM, ...lowRankSpells[SPELLS.STRENGTH_OF_EARTH_TOTEM]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
-      },
-      {
-        spell: [SPELLS.TOTEMIC_CALL],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-      {
-        spell: [SPELLS.TOTEM_OF_WRATH],
+        spell: [SPELLS.TOTEM_OF_WRATH.id],
         enabled: this.owner.build === Build.ELEMENTAL,
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
+        gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.TRANQUIL_AIR_TOTEM],
+        spell: [SPELLS.TREMOR_TOTEM.id],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
+        gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.TREMOR_TOTEM],
+        spell: [SPELLS.WATER_BREATHING.id],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
+        gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.WATER_BREATHING],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
-      },
-      {
-        spell: [SPELLS.WATER_SHIELD, ...lowRankSpells[SPELLS.WATER_SHIELD]],
+        spell: [SPELLS.WATER_SHIELD.id, ...SPELLS.WATER_SHIELD.lowRanks],
         category: SPELL_CATEGORY.OTHERS,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.WATER_WALKING],
+        spell: [SPELLS.WATER_WALKING.id],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
-      },
-
-      {
-        spell: [SPELLS.WINDFURY_WEAPON, ...lowRankSpells[SPELLS.WINDFURY_WEAPON]],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1500 },
+        gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.WINDWALL_TOTEM, ...lowRankSpells[SPELLS.WINDWALL_TOTEM]],
+        spell: [SPELLS.WINDFURY_TOTEM.id],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
+        gcd: { base: 1000 },
       },
       {
-        spell: [SPELLS.WRATH_OF_AIR_TOTEM],
+        spell: [SPELLS.WINDFURY_WEAPON.id, ...SPELLS.WINDFURY_WEAPON.lowRanks],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { static: 1000 },
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.WRATH_OF_AIR_TOTEM.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1000 },
       },
     ];
 

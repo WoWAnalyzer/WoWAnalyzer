@@ -1,9 +1,12 @@
+import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
+import TALENTS from 'common/TALENTS/priest';
+import { SpellIcon, SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import UptimeBar from 'parser/ui/UptimeBar';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+
 
 class DevouringPlague extends Analyzer {
   static dependencies = {
@@ -12,15 +15,46 @@ class DevouringPlague extends Analyzer {
   protected enemies!: Enemies;
 
   get uptime() {
-    return this.enemies.getBuffUptime(SPELLS.DEVOURING_PLAGUE.id) / this.owner.fightDuration;
+    return this.enemies.getBuffUptime(TALENTS.DEVOURING_PLAGUE_TALENT.id) / this.owner.fightDuration;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.uptime,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.8,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <span>
+          Your <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> uptime can be improved. Try to pay more
+          attention to your <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> on the boss.
+        </span>,
+      )
+        .icon(TALENTS.DEVOURING_PLAGUE_TALENT.icon)
+        .actual(
+          t({
+            id: 'priest.shadow.suggestions.devouringPlague.uptime',
+            message: `${formatPercentage(actual)}% Devouring Plauge uptime`,
+          }),
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   subStatistic() {
-    const history = this.enemies.getDebuffHistory(SPELLS.DEVOURING_PLAGUE.id);
+    const history = this.enemies.getDebuffHistory(TALENTS.DEVOURING_PLAGUE_TALENT.id);
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.DEVOURING_PLAGUE.id} />
+          <SpellIcon id={TALENTS.DEVOURING_PLAGUE_TALENT.id} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)}% <small>uptime</small>

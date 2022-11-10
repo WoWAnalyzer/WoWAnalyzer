@@ -1,4 +1,5 @@
 import TALENTS from 'common/TALENTS/rogue';
+import SPELLS from 'common/SPELLS/rogue';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
@@ -21,7 +22,7 @@ class DarkShadow extends Analyzer {
   }
 
   get totalShadowDanceCast() {
-    return this.damageTracker.getAbility(TALENTS.SHADOW_DANCE_TALENT.id).casts;
+    return this.damageTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts;
   }
 }
 
