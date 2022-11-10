@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 11, 9), 'Remove Shadowlands covenant abilities from checklist.', ToppleTheNun),
   change(date(2022, 10, 20), <>Fix <SpellLink id={TALENTS.DRAIN_SOUL_TALENT.id} /> damage calculations and add initial support for <SpellLink id={TALENTS.DREAD_TOUCH_TALENT.id} />.</>, Jonfanz),
   change(date(2022, 10, 14), 'Begin working on support for Dragonflight.', Jonfanz),
   change(date(2022, 7, 22), <>Add tracker for number of <SpellLink id={SPELLS.DEMONIC_CIRCLE_SUMMON.id} /> created.</>, ToppleTheNun),
@@ -17,5 +18,4 @@ export default [
   change(date(2020, 10, 15), 'Updated Spellbook and added Conduit, Legendary, and Covenant Spell IDs', Sharrq),
   change(date(2020, 10, 15), 'Fixed a crash in prepatch related to Unstable Affliction changes.', Dambroda),
   change(date(2020, 10, 2), 'Deleted Azerite Traits, Updated Statistic Boxes and added Integration Tests.', Sharrq),
-
 ];

@@ -216,6 +216,11 @@ const spells = spellIndexableList({
     name: 'Soothing Mist',
     icon: 'ability_monk_soothingmists',
   },
+  UNISON_HEAL: {
+    id: 388480,
+    name: 'Unison',
+    icon: 'ability_monk_soothingmists',
+  },
   REFRESHING_JADE_WIND_HEAL: {
     id: 162530,
     name: 'Refreshing Jade Wind',
@@ -250,6 +255,16 @@ const spells = spellIndexableList({
     id: 388044,
     name: "Yu'lon's Whisper",
     icon: 'ability_monk_chiexplosion',
+  },
+  FAELINE_STOMP_HEAL: {
+    id: 388207,
+    name: 'Faeline Stomp',
+    icon: 'ability_ardenweald_monk',
+  },
+  FAELINE_STOMP_ESSENCE_FONT: {
+    id: 344006,
+    name: 'Faeline Stomp',
+    icon: 'ability_monk_essencefont',
   },
 
   // Brewmaster

@@ -1,11 +1,6 @@
-import {
-  BORN_TO_BE_WILD_CD_REDUCTION,
-  CALL_OF_THE_WILD_CD_REDUCTION,
-  HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK,
-  hastedCooldown,
-} from 'analysis/retail/hunter/shared';
-import ITEMS from 'common/ITEMS';
+import { BORN_TO_BE_WILD_CD_REDUCTION, hastedCooldown } from 'analysis/retail/hunter/shared';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
@@ -17,7 +12,58 @@ class Abilities extends CoreAbilities {
     return [
       //region Baseline Rotational
       {
-        spell: SPELLS.BESTIAL_WRATH.id,
+        spell: SPELLS.ARCANE_SHOT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      //endregion
+
+      //region Talents
+      {
+        spell: TALENTS.COBRA_SHOT_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.COBRA_SHOT_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: TALENTS.KILL_COMMAND_SHARED_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.KILL_COMMAND_SHARED_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: (haste) => hastedCooldown(7.5, haste),
+        charges: combatant.hasTalent(TALENTS.ALPHA_PREDATOR_TALENT) ? 2 : 1,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.85,
+        },
+      },
+      {
+        spell: TALENTS.BARBED_SHOT_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.BARBED_SHOT_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        charges: 2,
+        cooldown: (haste) => hastedCooldown(12, haste),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: TALENTS.BESTIAL_WRATH_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.BESTIAL_WRATH_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: {
@@ -29,85 +75,91 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
           extraSuggestion: (
             <>
-              <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> should be cast on cooldown as its cooldown
-              is quickly reset again through <SpellLink id={SPELLS.BARBED_SHOT.id} />. You want to
-              start each <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> window with as much focus as
-              possible.
+              <SpellLink id={TALENTS.BESTIAL_WRATH_TALENT.id} /> should be cast on cooldown as its
+              cooldown is quickly reset again through{' '}
+              <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} />.
             </>
           ),
         },
       },
       {
-        spell: SPELLS.KILL_COMMAND_CAST_BM.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => hastedCooldown(7.5, haste),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.85,
-        },
-      },
-      {
-        spell: SPELLS.COBRA_SHOT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.ARCANE_SHOT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.BARBED_SHOT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        charges: 2,
-        cooldown: (haste) =>
-          hastedCooldown(
-            this.selectedCombatant.hasConduitBySpellID(SPELLS.BLOODLETTING_CONDUIT.id) ? 11 : 12,
-            haste,
-          ),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.MULTISHOT_BM.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.ASPECT_OF_THE_WILD.id,
+        spell: TALENTS.ASPECT_OF_THE_WILD_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.ASPECT_OF_THE_WILD_TALENT.id),
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown:
-          120 *
-          (1 -
-            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT)
-              ? CALL_OF_THE_WILD_CD_REDUCTION
-              : 0)),
+        cooldown: 120,
         gcd: {
           static: 0,
         },
-        timelineSortIndex: -1,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
         },
       },
-      //endregion
-
-      //region Items
       {
-        spell: SPELLS.WAILING_ARROW_CAST.id,
+        spell: TALENTS.DIRE_BEAST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasMainHand(ITEMS.RAESHALARE_DEATHS_WHISPER.id),
+        enabled: combatant.hasTalent(TALENTS.DIRE_BEAST_TALENT.id),
+        cooldown: 15,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: TALENTS.BARRAGE_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.BARRAGE_TALENT.id),
+        cooldown: 20,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+      },
+      {
+        spell: TALENTS.STAMPEDE_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.STAMPEDE_TALENT.id),
+        cooldown: 120,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+      },
+      {
+        spell: TALENTS.BLOODSHED_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.BLOODSHED_TALENT.id),
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: TALENTS.CAMOUFLAGE_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 60,
+        enabled: combatant.hasTalent(TALENTS.CAMOUFLAGE_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: TALENTS.WAILING_ARROW_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.WAILING_ARROW_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -126,20 +178,11 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
         cooldown:
-          (180 -
-            (combatant.hasConduitBySpellID(SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id)
-              ? HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK[
-                  combatant.conduitRankBySpellID(SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id)
-                ]
-              : 0)) *
+          180 *
           (1 -
-            (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id)
-              ? BORN_TO_BE_WILD_CD_REDUCTION
-              : 0)) *
-          (1 -
-            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT)
-              ? CALL_OF_THE_WILD_CD_REDUCTION
-              : 0)),
+            BORN_TO_BE_WILD_CD_REDUCTION[
+              combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT.id)
+            ]),
         gcd: {
           static: 0,
         },
@@ -171,13 +214,9 @@ class Abilities extends CoreAbilities {
         cooldown:
           180 *
           (1 -
-            (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id)
-              ? BORN_TO_BE_WILD_CD_REDUCTION
-              : 0)) *
-          (1 -
-            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT)
-              ? CALL_OF_THE_WILD_CD_REDUCTION
-              : 0)),
+            BORN_TO_BE_WILD_CD_REDUCTION[
+              combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT.id)
+            ]),
         gcd: {
           static: 0,
         },
@@ -229,10 +268,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        castEfficiency: {
-          suggestion: this.selectedCombatant.hasLegendary(SPELLS.SOULFORGE_EMBERS_EFFECT),
-          recommendedEfficiency: 0.55,
-        },
       },
       {
         spell: SPELLS.FEIGN_DEATH.id,
@@ -249,93 +284,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        castEfficiency: {
-          suggestion: this.selectedCombatant.hasLegendary(SPELLS.SOULFORGE_EMBERS_EFFECT),
-          recommendedEfficiency: 0.9,
-        },
       },
       {
         spell: SPELLS.HUNTERS_MARK.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1000,
-        },
-      },
-      //endregion
-
-      //region Talents
-      {
-        spell: SPELLS.DIRE_BEAST_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id),
-        cooldown: 15,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      },
-      {
-        spell: SPELLS.BARRAGE_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.BARRAGE_TALENT.id),
-        cooldown: 20,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-      },
-      {
-        spell: SPELLS.STAMPEDE_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.STAMPEDE_TALENT.id),
-        cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-      },
-      {
-        spell: SPELLS.CHIMAERA_SHOT_TALENT_BEAST_MASTERY.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_BEAST_MASTERY.id),
-        cooldown: (haste) => hastedCooldown(15, haste),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.85,
-        },
-      },
-      {
-        spell: SPELLS.BLOODSHED_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.BLOODSHED_TALENT.id),
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      },
-      {
-        spell: SPELLS.CAMOUFLAGE_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60,
-        enabled: combatant.hasTalent(SPELLS.CAMOUFLAGE_TALENT.id),
-        gcd: {
-          base: 1500,
         },
       },
       //endregion

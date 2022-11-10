@@ -478,7 +478,7 @@ const talents = createTalentList({
   ANCIENT_MADNESS_TALENT: {
     id: 341240,
     name: 'Ancient Madness',
-    icon: 'spell_priest_void_flay',
+    icon: 'spell_priest_void-flay',
     maxRanks: 2,
   },
   SHADOW_CRASH_TALENT: {

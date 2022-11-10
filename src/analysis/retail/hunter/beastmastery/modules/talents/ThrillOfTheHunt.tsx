@@ -4,6 +4,7 @@ import {
 } from 'analysis/retail/hunter/beastmastery/constants';
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import CriticalStrike from 'interface/icons/CriticalStrike';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -33,7 +34,7 @@ class ThrillOfTheHunt extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.THRILL_OF_THE_HUNT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.THRILL_OF_THE_HUNT_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -114,7 +115,7 @@ class ThrillOfTheHunt extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.THRILL_OF_THE_HUNT_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.THRILL_OF_THE_HUNT_TALENT.id}>
           <>
             <CriticalStrike /> {this.averageCritPercent}% <small>average Crit</small>
           </>

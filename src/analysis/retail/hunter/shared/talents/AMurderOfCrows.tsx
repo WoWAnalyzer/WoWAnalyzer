@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AnyEvent, DamageEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
@@ -38,10 +39,10 @@ class AMurderOfCrows extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.A_MURDER_OF_CROWS_TALENT.id);
     if (this.active) {
       (options.abilities as Abilities).add({
-        spell: SPELLS.A_MURDER_OF_CROWS_TALENT.id,
+        spell: TALENTS.A_MURDER_OF_CROWS_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 60,
         gcd: {
@@ -56,7 +57,7 @@ class AMurderOfCrows extends Analyzer {
     }
     this.addEventListener(Events.any, this.checkForReset);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.A_MURDER_OF_CROWS_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.A_MURDER_OF_CROWS_TALENT),
       this.onCast,
     );
     this.addEventListener(
@@ -70,7 +71,7 @@ class AMurderOfCrows extends Analyzer {
     // Checks if we've had atleast 1 damage tick of the currently applied crows, and checks that crows is in fact on cooldown.
     if (
       this.lastDamageTick &&
-      this.spellUsable.isOnCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id) &&
+      this.spellUsable.isOnCooldown(TALENTS.A_MURDER_OF_CROWS_TALENT.id) &&
       // Checks whether the current damage event happened while the time passed since crows application is less than the crows duration
       this.applicationTimestamp &&
       event.timestamp < this.crowsEndingTimestamp &&
@@ -78,7 +79,7 @@ class AMurderOfCrows extends Analyzer {
       event.timestamp > this.lastDamageTick + AMOC_TICK_RATE + MS_BUFFER_100
     ) {
       // If more than 1 second has passed and less than the duration has elapsed, we can assume that crows has been reset, and thus we reset the CD.
-      this.spellUsable.endCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id, event.timestamp);
+      this.spellUsable.endCooldown(TALENTS.A_MURDER_OF_CROWS_TALENT.id, event.timestamp);
       this.maxCasts += 1;
       this.resets += 1;
       debug && this.log('Crows was reset');
@@ -94,7 +95,7 @@ class AMurderOfCrows extends Analyzer {
   onDamage(event: DamageEvent) {
     if (this.casts === 0) {
       this.casts += 1;
-      this.spellUsable.beginCooldown(event, SPELLS.A_MURDER_OF_CROWS_TALENT.id);
+      this.spellUsable.beginCooldown(event, TALENTS.A_MURDER_OF_CROWS_TALENT.id);
       this.applicationTimestamp = this.owner.fight.start_time;
     }
     //This accounts for the travel time of crows, since the first damage marks the time where the crows debuff is applied
@@ -117,7 +118,7 @@ class AMurderOfCrows extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.A_MURDER_OF_CROWS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.A_MURDER_OF_CROWS_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

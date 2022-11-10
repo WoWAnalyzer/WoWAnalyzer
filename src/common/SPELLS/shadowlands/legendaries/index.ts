@@ -1,7 +1,6 @@
 import { spellIndexableList } from '../../Spell';
 import DEATH_KNIGHT from './deathknight';
 import DRUID from './druid';
-import HUNTER from './hunter';
 import MAGE from './mage';
 import MONK from './monk';
 import PALADIN from './paladin';
@@ -14,7 +13,6 @@ import WARRIOR from './warrior';
 const legendaries = spellIndexableList({
   ...DEATH_KNIGHT,
   ...DRUID,
-  ...HUNTER,
   ...MAGE,
   ...MONK,
   ...PALADIN,

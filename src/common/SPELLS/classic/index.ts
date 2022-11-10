@@ -20,6 +20,7 @@ import DRUID from './druid';
 import MAGE from './mage';
 import PALADIN from './paladin';
 import PRIEST from './priest';
+import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
 //Professions
@@ -30,6 +31,7 @@ const ABILITIES = {
   ...MAGE,
   ...PALADIN,
   ...PRIEST,
+  ...SHAMAN,
   ...WARLOCK,
   ...WARRIOR,
   ...Engineering,

@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import { ResourceIcon } from 'interface';
@@ -6,22 +7,13 @@ import { SpellIcon } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
-import {
-  AbilityRequirementProps,
-  ChecklistProps,
-} from 'parser/shared/modules/features/Checklist/ChecklistTypes';
-import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
+import { ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
+import TalentCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/TalentCastEfficiencyRequirement';
 
 const BeastMasteryChecklist = (props: ChecklistProps & AplRuleProps) => {
-  const { combatant, castEfficiency, thresholds } = props;
-  const AbilityRequirement = (props: AbilityRequirementProps) => (
-    <GenericCastEfficiencyRequirement
-      castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
-      {...props}
-    />
-  );
+  const { combatant, thresholds } = props;
 
   return (
     <Checklist>
@@ -44,39 +36,22 @@ const BeastMasteryChecklist = (props: ChecklistProps & AplRuleProps) => {
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.KILL_COMMAND_CAST_BM.id} />
-        <AbilityRequirement spell={SPELLS.BARBED_SHOT.id} />
-        <AbilityRequirement spell={SPELLS.BESTIAL_WRATH.id} />
-        <AbilityRequirement spell={SPELLS.ASPECT_OF_THE_WILD.id} />
-
-        {combatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.DIRE_BEAST_TALENT.id} />
-        )}
-        {combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_BEAST_MASTERY.id) && (
-          <AbilityRequirement spell={SPELLS.CHIMAERA_SHOT_TALENT_BEAST_MASTERY.id} />
-        )}
-        {combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.A_MURDER_OF_CROWS_TALENT.id} />
-        )}
-        {combatant.hasTalent(SPELLS.BARRAGE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.BARRAGE_TALENT.id} />
-        )}
-        {combatant.hasTalent(SPELLS.STAMPEDE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.STAMPEDE_TALENT.id} />
-        )}
-        {combatant.hasTalent(SPELLS.BLOODSHED_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.BLOODSHED_TALENT.id} />
-        )}
+        <TalentCastEfficiencyRequirement talent={TALENTS.KILL_COMMAND_SHARED_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.BARBED_SHOT_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.BESTIAL_WRATH_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.ASPECT_OF_THE_WILD_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.DIRE_BEAST_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.BARRAGE_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.STAMPEDE_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.BLOODSHED_TALENT} />
       </Rule>
       <Rule
         name="Barbed Shot usage"
         description={
           <>
-            Using <SpellLink id={SPELLS.BARBED_SHOT.id} /> properly is a key to achieving high dps.
-            This means maintaining the pet buff from <SpellLink id={SPELLS.BARBED_SHOT.id} /> as
-            long as possible, and using it to reduce the cooldown of{' '}
-            <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> as much as possible, to ensure high uptime on{' '}
-            <SpellLink id={SPELLS.BESTIAL_WRATH.id} />.
+            Using <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} /> properly is a key to achieving
+            high dps. This means maintaining the pet buff from{' '}
+            <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} /> as long as possible.
           </>
         }
       >
@@ -96,14 +71,16 @@ const BeastMasteryChecklist = (props: ChecklistProps & AplRuleProps) => {
           }
           thresholds={thresholds.frenzy3StackSuggestionThreshold}
         />
-        <Requirement
-          name={
-            <>
-              <SpellLink id={SPELLS.BESTIAL_WRATH.id} /> CDR Efficiency
-            </>
-          }
-          thresholds={thresholds.bestialWrathCDREfficiencyThreshold}
-        />
+        {combatant.hasTalent(TALENTS.BESTIAL_WRATH_TALENT) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={TALENTS.BESTIAL_WRATH_TALENT.id} /> CDR Efficiency
+              </>
+            }
+            thresholds={thresholds.bestialWrathCDREfficiencyThreshold}
+          />
+        )}
       </Rule>
       <Rule
         name="Talent, cooldown and spell efficiency"
@@ -118,8 +95,8 @@ const BeastMasteryChecklist = (props: ChecklistProps & AplRuleProps) => {
         <Requirement
           name={
             <>
-              <SpellIcon id={SPELLS.COBRA_SHOT.id} />
-              <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} icon={false} /> CDR efficiency
+              <SpellIcon id={TALENTS.COBRA_SHOT_TALENT.id} />
+              <SpellLink id={TALENTS.KILL_COMMAND_SHARED_TALENT.id} icon={false} /> CDR efficiency
             </>
           }
           thresholds={thresholds.cobraShotCDREfficiencyThreshold}
@@ -127,8 +104,8 @@ const BeastMasteryChecklist = (props: ChecklistProps & AplRuleProps) => {
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.COBRA_SHOT.id} /> casts when{' '}
-              <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> wasn't on cd
+              <SpellLink id={TALENTS.COBRA_SHOT_TALENT.id} /> casts when{' '}
+              <SpellLink id={TALENTS.KILL_COMMAND_SHARED_TALENT.id} /> wasn't on cd
             </>
           }
           thresholds={thresholds.wastedCobraShotsThreshold}
@@ -137,7 +114,7 @@ const BeastMasteryChecklist = (props: ChecklistProps & AplRuleProps) => {
           name={
             <>
               <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink={false} /> Average focus on{' '}
-              <SpellIcon id={SPELLS.BESTIAL_WRATH.id} /> cast{' '}
+              <SpellIcon id={TALENTS.BESTIAL_WRATH_TALENT.id} /> cast{' '}
             </>
           }
           thresholds={thresholds.bestialWrathFocusThreshold}
@@ -154,31 +131,15 @@ const BeastMasteryChecklist = (props: ChecklistProps & AplRuleProps) => {
           }
           thresholds={thresholds.beastCleaveThresholds}
         />
-        {combatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.KILLER_COBRA_TALENT.id) && (
           <Requirement
             name={
               <>
                 {' '}
-                Wasted <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> resets{' '}
+                Wasted <SpellLink id={TALENTS.KILLER_COBRA_TALENT.id} /> resets{' '}
               </>
             }
             thresholds={thresholds.wastedKillerCobraThreshold}
-          />
-        )}
-      </Rule>
-      <Rule
-        name="Legendaries"
-        description="The throughput gain of some legendaries might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly, even after trying to improve your usage of said legendary."
-      >
-        {combatant.hasLegendary(SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={SPELLS.QAPLA_EREDUN_WAR_ORDER_EFFECT.id} /> Kill Command Reset
-                Efficiency
-              </>
-            }
-            thresholds={thresholds.qaplaEfficiencyThreshold}
           />
         )}
       </Rule>
@@ -188,7 +149,8 @@ const BeastMasteryChecklist = (props: ChecklistProps & AplRuleProps) => {
           <>
             As a DPS, you should try to reduce the delay between casting spells, and stay off
             resource capping as much as possible. If everything is on cooldown, try and use{' '}
-            <SpellLink id={SPELLS.COBRA_SHOT.id} /> to stay off the focus cap and do some damage.
+            <SpellLink id={TALENTS.COBRA_SHOT_TALENT.id} /> to stay off the focus cap and do some
+            damage.
           </>
         }
       >
@@ -202,11 +164,7 @@ const BeastMasteryChecklist = (props: ChecklistProps & AplRuleProps) => {
           thresholds={thresholds.focusNaturalRegenWasteThresholds}
         />
       </Rule>
-      <AplRule
-        {...props}
-        name="APL checker (beta)"
-        cooldowns={[SPELLS.BESTIAL_WRATH, SPELLS.ASPECT_OF_THE_WILD, SPELLS.WILD_SPIRITS]}
-      />
+      <AplRule {...props} name="APL checker (beta)" cooldowns={[TALENTS.BESTIAL_WRATH_TALENT]} />
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );

@@ -109,11 +109,8 @@ class InvokeChiJi extends Analyzer {
     if (this.chijiActive) {
       this.chijiGlobals += 1;
       //if timebetween globals is longer than the gcd add the difference to the missed gcd tally
-      //we only care about accounting for channels of essence font during WoO, other than that it should be the gcd during chiji
-      if (
-        event.ability.guid === TALENTS_MONK.ESSENCE_FONT_TALENT.id &&
-        this.selectedCombatant.hasBuff(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id)
-      ) {
+      //we only care about accounting for channels of essence font, other than that it should be the gcd during chiji
+      if (event.ability.guid === TALENTS_MONK.ESSENCE_FONT_TALENT.id) {
         this.efGcd = event.duration;
       } else if (event.timestamp - this.lastGlobal > event.duration) {
         this.missedGlobals += (event.timestamp - this.lastGlobal - event.duration) / event.duration;
@@ -123,10 +120,7 @@ class InvokeChiJi extends Analyzer {
   }
 
   handleEssenceFontEnd(event: EndChannelEvent) {
-    if (
-      this.chijiActive &&
-      this.selectedCombatant.hasBuff(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id)
-    ) {
+    if (this.chijiActive) {
       if (event.duration > this.efGcd) {
         this.lastGlobal = event.timestamp - this.efGcd;
       } else {
