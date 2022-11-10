@@ -161,6 +161,11 @@ const spells = spellIndexableList({
     name: 'Shadow Dance',
     icon: 'ability_rogue_shadowdance',
   },
+  SHADOW_DANCE: {
+    id: 185313,
+    name: 'Shadow Dance',
+    icon: 'ability_rogue_shadowdance',
+  },
   SYMBOLS_OF_DEATH: {
     id: 212283,
     name: 'Symbols of Death',
@@ -170,6 +175,11 @@ const spells = spellIndexableList({
     id: 394757,
     name: 'Flagellation',
     icon: 'ability_revendreth_rogue',
+  },
+  SHADOW_STEP: {
+    id: 36554,
+    name: 'Shadowstep',
+    icon: 'ability_rogue_shadowstep',
   },
 
   // CP Generation
