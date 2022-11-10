@@ -38,28 +38,36 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
         name="Maintain your DoTs on the boss"
         description={
           <Fragment>
-            It's important to keep your DoTs up on the boss. In addition to doing damage, <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} />, {' '}
-            <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} />, and <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id}/> increase all your damage through <SpellLink id={SPELLS.MASTERY_SHADOW_WEAVING.id}/>.
+            It's important to keep your DoTs up on the boss. In addition to doing damage,{' '}
+            <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} />,{' '}
+            <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} />, and{' '}
+            <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> increase all your damage through{' '}
+            <SpellLink id={SPELLS.MASTERY_SHADOW_WEAVING.id} />.
           </Fragment>
         }
       >
         <DotUptime id={SPELLS.SHADOW_WORD_PAIN.id} thresholds={thresholds.shadowWordPain} />
         <DotUptime id={SPELLS.VAMPIRIC_TOUCH.id} thresholds={thresholds.vampiricTouch} />
-        <DotUptime id={TALENTS.DEVOURING_PLAGUE_TALENT.id} thresholds={thresholds.devouringPlague} /> {/**The threshold value needs to be reevalulated for Dragonflight */}
+        <DotUptime
+          id={TALENTS.DEVOURING_PLAGUE_TALENT.id}
+          thresholds={thresholds.devouringPlague}
+        />{' '}
+        {/**The threshold value needs to be reevalulated for Dragonflight */}
       </Rule>
 
       <Rule
         name="Use core spells as often as possible"
         description={
           <Fragment>
-            Spells such as these are your most important spells. Try to cast them as much as possible.
+            Spells such as these are your most important spells. Try to cast them as much as
+            possible.
           </Fragment>
         }
       >
-       {combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT.id) && (
           <AbilityRequirement spell={SPELLS.VOID_BOLT.id} />
-        )} 
-        
+        )}
+
         <AbilityRequirement spell={SPELLS.MIND_BLAST.id} />
         <AbilityRequirement spell={TALENTS.SHADOW_WORD_DEATH_TALENT.id} />
 
@@ -69,6 +77,10 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
 
         {combatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.SHADOW_CRASH_TALENT.id} />
+        )}
+
+        {combatant.hasTalent(TALENTS.DARK_VOID_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.DARK_VOID_TALENT.id} />
         )}
 
         {combatant.hasTalent(TALENTS.DAMNATION_TALENT.id) && (
@@ -91,10 +103,9 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           </Fragment>
         }
       >
-             
         {combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.VOID_ERUPTION_TALENT.id} />
-        )} 
+        )}
 
         {combatant.hasTalent(TALENTS.DARK_ASCENSION_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.DARK_ASCENSION_TALENT.id} />
@@ -102,14 +113,13 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
 
         {combatant.hasTalent(TALENTS.POWER_INFUSION_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.POWER_INFUSION_TALENT.id} />
-        )}      
+        )}
 
         {combatant.hasTalent(TALENTS.MINDBENDER_SHADOW_TALENT.id) ? (
           <AbilityRequirement spell={TALENTS.MINDBENDER_SHADOW_TALENT.id} />
         ) : (
           <AbilityRequirement spell={SPELLS.SHADOWFIEND.id} />
         )}
-
       </Rule>
 
       <Rule

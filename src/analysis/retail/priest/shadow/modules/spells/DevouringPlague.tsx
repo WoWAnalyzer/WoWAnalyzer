@@ -7,7 +7,6 @@ import Enemies from 'parser/shared/modules/Enemies';
 import UptimeBar from 'parser/ui/UptimeBar';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
-
 class DevouringPlague extends Analyzer {
   static dependencies = {
     enemies: Enemies,
@@ -15,16 +14,18 @@ class DevouringPlague extends Analyzer {
   protected enemies!: Enemies;
 
   get uptime() {
-    return this.enemies.getBuffUptime(TALENTS.DEVOURING_PLAGUE_TALENT.id) / this.owner.fightDuration;
+    return (
+      this.enemies.getBuffUptime(TALENTS.DEVOURING_PLAGUE_TALENT.id) / this.owner.fightDuration
+    );
   }
 
   get suggestionThresholds() {
     return {
       actual: this.uptime,
       isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: 0.8,
+        minor: 0.7,
+        average: 0.6,
+        major: 0.5,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -34,8 +35,9 @@ class DevouringPlague extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          Your <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> uptime can be improved. Try to pay more
-          attention to your <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> on the boss.
+          Your <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> uptime can be improved. Try to
+          pay more attention to your <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> on the
+          boss.
         </span>,
       )
         .icon(TALENTS.DEVOURING_PLAGUE_TALENT.icon)
