@@ -118,6 +118,9 @@ class CombatLogParser extends CoreCombatLogParser {
     divineImage: Talents.BottomRow.DivineImage,
     resonantWords: Talents.BottomRow.ResonantWords,
     TranslucentImage: TranslucentImage,
+
+    BurningVehemence: Talents.TopRow.BurningVehemence,
+
     // Mana Tab
     manaTracker: ManaTracker,
     hpmDetails: HealingEfficiencyDetails,
