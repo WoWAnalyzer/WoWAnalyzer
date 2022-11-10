@@ -6,6 +6,7 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2022, 11, 10), <>Prevent <SpellLink id={TALENTS.SIGIL_OF_MISERY_TALENT}/> and <SpellLink id={TALENTS.SIGIL_OF_SILENCE_TALENT}/> from appearing in statistics if untalented.</>, ToppleTheNun),
   change(date(2022, 11, 10), 'Mark as fully supported.', ToppleTheNun),
   change(date(2022, 11, 10), <>Remove Fury overcapping suggestions from <SpellLink id={TALENTS.DISRUPTING_FURY_TALENT}/> and <SpellLink id={TALENTS.SWALLOWED_ANGER_TALENT}/>.</>, ToppleTheNun),
   change(date(2022, 11, 8), 'Move some spells to a shared spellbook.', ToppleTheNun),
