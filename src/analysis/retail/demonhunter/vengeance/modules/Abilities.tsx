@@ -200,7 +200,7 @@ class Abilities extends SharedAbilities {
       },
 
       {
-        spell: SPELLS.THROW_GLAIVE_VENGEANCE.id,
+        spell: [SPELLS.THROW_GLAIVE_VENGEANCE.id, SPELLS.THROW_GLAIVE_VENGEANCE_MOTG.id],
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
           9 -
