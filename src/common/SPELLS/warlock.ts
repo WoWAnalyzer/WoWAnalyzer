@@ -414,6 +414,11 @@ const spells = spellIndexableList({
     name: 'Headbutt',
     icon: 'inv_argusfelstalkermountgrey',
   },
+  IMP_SINGE_MAGIC: {
+    id: 119905,
+    name: 'Singe Magic',
+    icon: 'spell_fire_elementaldevastation.jpg',
+  },
   // Inner Demons pet abilities
   INNER_DEMONS_EYE_OF_GULDAN: {
     id: 272131,
