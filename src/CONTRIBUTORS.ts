@@ -1960,3 +1960,14 @@ export const Anty: Contributor = {
   nickname: 'Anty',
   github: 'jsucupira',
 };
+export const Squided: Contributor = {
+  nickname: 'Squided',
+  github: 'foobartles',
+  mains: [
+    {
+      name: 'Squided',
+      spec: SPECS.HOLY_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Squided',
+    },
+  ],
+};

@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
-import { Abelito75, Adoraci, acornellier, Khadaj, niseko, Zeboot, carglass, Hana, Vetyst, Litena } from 'CONTRIBUTORS';
+import { Abelito75, Adoraci, acornellier, Khadaj, niseko, Zeboot, carglass, Hana, Vetyst, Litena, Squided } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 11, 10), <><SpellLink id={TALENTS_PRIEST.BURNING_VEHEMENCE_TALENT.id}/> support added.</>, Squided),
   change(date(2022, 11, 7), <><SpellLink id={TALENTS_PRIEST.PROTECTIVE_LIGHT_TALENT.id}/> support added.</>, Hana),
   change(
     date(2022, 11, 3),
