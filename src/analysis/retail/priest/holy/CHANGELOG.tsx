@@ -8,7 +8,9 @@ export default [
   change(
     date(2022, 11, 10),
     <>
-      Added support for <SpellLink id={TALENTS_PRIEST.SANCTIFIED_PRAYERS_TALENT.id}/> and <SpellLink id={TALENTS_PRIEST.BURNING_VEHEMENCE_TALENT.id}/>.
+      Added support for 
+      <SpellLink id={TALENTS_PRIEST.SANCTIFIED_PRAYERS_TALENT.id}/>, <SpellLink id={TALENTS_PRIEST.EVERLASTING_LIGHT_TALENT.id}/>, 
+      and <SpellLink id={TALENTS_PRIEST.BURNING_VEHEMENCE_TALENT.id}/>.
     </>,
     Squided
   ),
