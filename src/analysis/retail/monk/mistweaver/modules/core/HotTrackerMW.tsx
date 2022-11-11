@@ -34,6 +34,12 @@ class HotTrackerMW extends HotTracker {
     });
   }
 
+  fromRapidDiffusion(hot: Tracker): boolean {
+    return hot.attributions.some(function (attr) {
+      return attr.name.includes('Rapid Diffusion');
+    });
+  }
+
   // Renewing Mist applies with a longer duration if Thunder Focus Tea is active
   _calculateRemDuration(combatant: Combatant): number {
     return combatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)

@@ -15,6 +15,7 @@ import {
 
 export const APPLIED_HEAL = 'AppliedHeal';
 export const BOUNCED = 'Bounced';
+export const DEATH = 'Death';
 export const FROM_DANCING_MISTS = 'FromDM';
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_MISTY_PEAKS = 'FromMistyPeaks';
@@ -27,7 +28,7 @@ const FOUND_REMS = new Set();
 /*
   This file is for attributing Renewing Mist and Enveloping Mist applications to hard casts.
   It is needed because mistweaver talents can proc ReM/EnvM, 
-  but they are not extended by RM nor do they trigger the flat RM Heal
+  but not all are extended by RM nor do they trigger the flat RM Heal
   */
 const EVENT_LINKS: EventLink[] = [
   // link renewing mist apply to its CastEvent
@@ -52,6 +53,14 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
+  {
+    linkRelation: DEATH,
+    linkingEventId: null,
+    linkingEventType: [EventType.Death],
+    referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
+    referencedEventType: [EventType.RemoveBuff],
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
   // link renewing mist apply to the target it was removed from
   {
     linkRelation: BOUNCED,
@@ -63,6 +72,7 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     additionalCondition(linkingEvent, referencedEvent) {
       return (
+        !HasRelatedEvent(referencedEvent, DEATH) &&
         (linkingEvent as ApplyBuffEvent).targetID !== (referencedEvent as RemoveBuffEvent).targetID
       );
     },
@@ -75,20 +85,28 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     backwardBufferMs: MAX_REM_DURATION,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        (linkingEvent as RemoveBuffEvent).targetID ===
+          (referencedEvent as ApplyBuffEvent).targetID ||
+        (linkingEvent as RemoveBuffEvent).targetID ===
+          (referencedEvent as RefreshBuffEvent).targetID
+      );
+    },
   },
-  // link ReM to an EnvM/RSK cast
+  // link ReM application from Rapid diffusion
   {
     linkRelation: FROM_RAPID_DIFFUSION,
     linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: [
-      TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
       TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
-      SPELLS.ENVELOPING_MIST_TFT.id,
+      TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
     ],
     referencedEventType: [EventType.Cast],
-    backwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: 100,
     anyTarget: true,
+    maximumLinks: 1,
     additionalCondition(linkingEvent) {
       return !HasRelatedEvent(linkingEvent, FROM_HARDCAST);
     },
@@ -164,7 +182,7 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
   if (HasRelatedEvent(event, FROM_HARDCAST)) {
     return true;
   }
-  if (HasRelatedEvent(event, BOUNCED)) {
+  if (HasRelatedEvent(event, BOUNCED) && !HasRelatedEvent(event, DEATH)) {
     const relatedEvents = GetRelatedEvents(event, BOUNCED);
     // There can be multiple linked applications/removals if multiple ReM's bouce close together
     // so filter out each linked events and find the one with the closest timestamp
@@ -184,6 +202,27 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
 
 export function isFromMistyPeaks(event: ApplyBuffEvent | RefreshBuffEvent) {
   return HasRelatedEvent(event, FROM_MISTY_PEAKS);
+}
+
+export function isFromRapidDiffusion(event: ApplyBuffEvent | RefreshBuffEvent) {
+  if (HasRelatedEvent(event, FROM_HARDCAST)) {
+    return false;
+  }
+  if (HasRelatedEvent(event, FROM_DANCING_MISTS)) {
+    if (FOUND_REMS.has(event.timestamp)) {
+      return false;
+    } else {
+      FOUND_REMS.add(event.timestamp);
+    }
+  }
+  return HasRelatedEvent(event, FROM_RAPID_DIFFUSION);
+}
+
+export function isFromDeath(event: RemoveBuffEvent) {
+  if (HasRelatedEvent(event, DEATH)) {
+    return true;
+  }
+  return false;
 }
 
 export default CastLinkNormalizer;

@@ -69,6 +69,7 @@ import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import Unison from './modules/spells/Unison';
+import RapidDiffusion from './modules/spells/RapidDiffusion';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -149,6 +150,7 @@ class CombatLogParser extends CoreCombatLogParser {
     upwelling: Upwelling,
     yulonsWhisper: YulonsWhisper,
     unison: Unison,
+    rapidDiffusion: RapidDiffusion,
 
     // Mana Tab
     manaTracker: ManaTracker,
