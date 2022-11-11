@@ -42,8 +42,10 @@ import PreparationRuleAnalyzer from './modules/features/Checklist/PreparationRul
 import CombatPotionChecker from './modules/items/CombatPotionChecker';
 import EnchantChecker from './modules/items/EnchantChecker';
 import ManaGained from './statistic/ManaGained';
+// Engineering
 import HyperspeedAccelerators from './modules/items/engineering/HyperspeedAccelerators';
 import FragBelt from 'parser/classic/modules/items/engineering/FragBelt';
+import Bombs from 'parser/classic/modules/items/engineering/Bombs';
 
 class CombatLogParser extends BaseCombatLogParser {
   static defaultModules: DependenciesDefinition = {
@@ -105,6 +107,7 @@ class CombatLogParser extends BaseCombatLogParser {
     // Engineering
     hyperspeedAccelerators: HyperspeedAccelerators,
     fragBelt: FragBelt,
+    bombs: Bombs,
   };
 }
 
