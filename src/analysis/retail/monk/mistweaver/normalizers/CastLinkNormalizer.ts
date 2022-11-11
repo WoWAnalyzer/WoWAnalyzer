@@ -19,6 +19,7 @@ export const FROM_DANCING_MISTS = 'FromDM';
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_MISTY_PEAKS = 'FromMistyPeaks';
 export const FROM_RAPID_DIFFUSION = 'FromRD'; // can be linked to env mist or rsk cast
+export const FROM_DEATH = 'FromDeath';
 
 const CAST_BUFFER_MS = 100;
 const MAX_REM_DURATION = 77000;
@@ -63,6 +64,7 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     additionalCondition(linkingEvent, referencedEvent) {
       return (
+        !HasRelatedEvent(referencedEvent, FROM_DEATH) &&
         (linkingEvent as ApplyBuffEvent).targetID !== (referencedEvent as RemoveBuffEvent).targetID
       );
     },
@@ -75,6 +77,9 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     backwardBufferMs: MAX_REM_DURATION,
+    additionalCondition(linkingEvent) {
+      return !HasRelatedEvent(linkingEvent, FROM_DEATH);
+    },
   },
   // link ReM to an EnvM/RSK cast
   {
@@ -119,6 +124,15 @@ const EVENT_LINKS: EventLink[] = [
     additionalCondition(linkingEvent) {
       return !HasRelatedEvent(linkingEvent, FROM_HARDCAST);
     },
+  },
+  {
+    linkRelation: FROM_DEATH,
+    linkingEventId: null, // need to capture death
+    linkingEventType: EventType.Death,
+    referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
+    referencedEventType: EventType.RemoveBuff,
+    backwardBufferMs: 50,
+    forwardBufferMs: 50,
   },
 ];
 
