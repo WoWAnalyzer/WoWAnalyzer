@@ -1963,6 +1963,7 @@ export const Anty: Contributor = {
 export const Squided: Contributor = {
   nickname: 'Squided',
   github: 'foobartles',
+  discord: 'squided#0001',
   mains: [
     {
       name: 'Squided',

@@ -5,6 +5,7 @@ import { Abelito75, Adoraci, acornellier, Khadaj, niseko, Zeboot, carglass, Hana
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 11, 10), <><SpellLink id={TALENTS_PRIEST.SANCTIFIED_PRAYERS_TALENT.id}/> support added.</>, Squided),
   change(date(2022, 11, 10), <><SpellLink id={TALENTS_PRIEST.BURNING_VEHEMENCE_TALENT.id}/> support added.</>, Squided),
   change(date(2022, 11, 7), <><SpellLink id={TALENTS_PRIEST.PROTECTIVE_LIGHT_TALENT.id}/> support added.</>, Hana),
   change(
