@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
 import Insanity from 'interface/icons/Insanity';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
@@ -17,9 +18,9 @@ class DeathAndMadness extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DEATH_AND_MADNESS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DEATH_AND_MADNESS_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_DEATH),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_WORD_DEATH_TALENT),
       this.onCast,
     );
     this.addEventListener(
@@ -69,13 +70,13 @@ class DeathAndMadness extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You reset <SpellLink id={SPELLS.SHADOW_WORD_DEATH.id} /> with {formatNumber(this.resets)}{' '}
+          You reset <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> with {formatNumber(this.resets)}{' '}
           of your casts. Make sure that you are resetting{' '}
-          <SpellLink id={SPELLS.SHADOW_WORD_DEATH.id} /> as often as possible while taking the
+          <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> as often as possible while taking the
           talent to benefit from the bonus insanity gained.
         </>,
       )
-        .icon(SPELLS.DEATH_AND_MADNESS_TALENT.icon)
+        .icon(TALENTS.DEATH_AND_MADNESS_TALENT.icon)
         .actual(
           t({
             id: 'priest.shadow.suggestions.deathAndMadness.efficiency',
@@ -95,7 +96,7 @@ class DeathAndMadness extends Analyzer {
         size="flexible"
         tooltip="Number of casts where the target was killed and insanity generated from it."
       >
-        <BoringSpellValueText spellId={SPELLS.DEATH_AND_MADNESS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.DEATH_AND_MADNESS_TALENT.id}>
           <>
             {formatNumber(this.resets)} CD Resets
             <br />

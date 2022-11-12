@@ -8,41 +8,6 @@ import { spellIndexableList } from './Spell';
 
 const spells = spellIndexableList({
   //region Beast Mastery
-  ASPECT_OF_THE_WILD: {
-    id: 193530,
-    name: 'Aspect of the Wild',
-    icon: 'spell_nature_protectionformnature',
-  },
-  BESTIAL_WRATH: {
-    id: 19574,
-    name: 'Bestial Wrath',
-    icon: 'ability_druid_ferociousbite',
-  },
-  COBRA_SHOT: {
-    id: 193455,
-    name: 'Cobra Shot',
-    icon: 'ability_hunter_cobrashot',
-  },
-  BARBED_SHOT: {
-    id: 217200,
-    name: 'Barbed Shot',
-    icon: 'ability_hunter_barbedshot',
-  },
-  KILL_COMMAND_CAST_BM: {
-    id: 34026,
-    name: 'Kill Command',
-    icon: 'ability_hunter_killcommand',
-  },
-  KILL_COMMAND_DAMAGE_BM: {
-    id: 83381,
-    name: 'Kill Command',
-    icon: 'ability_hunter_killcommand',
-  },
-  MULTISHOT_BM: {
-    id: 2643,
-    name: 'Multi-Shot',
-    icon: 'ability_upgrademoonglaive',
-  },
   BEAST_CLEAVE_DAMAGE: {
     id: 118459,
     name: 'Beast Cleave',
@@ -58,13 +23,8 @@ const spells = spellIndexableList({
     name: 'Dire Beast',
     icon: 'ability_hunter_longevity',
   },
-  DIRE_BEAST_GENERATOR: {
-    id: 120694,
-    name: 'Dire Beast',
-    icon: 'ability_hunter_longevity',
-  },
   DIRE_BEAST_SUMMON: {
-    id: 132764,
+    id: 219199,
     name: 'Dire Beast',
     icon: 'ability_hunter_sickem',
   },
@@ -72,21 +32,6 @@ const spells = spellIndexableList({
     id: 201594,
     name: 'Stampede',
     icon: 'ability_hunter_bestialdiscipline',
-  },
-  SPITTING_COBRA_DAMAGE: {
-    id: 206685,
-    name: 'Cobra Spit',
-    icon: 'ability_creature_poison_02',
-  },
-  CHIMAERA_SHOT_BM_NATURE_DAMAGE: {
-    id: 171457,
-    name: 'Chimaera Shot',
-    icon: 'ability_hunter_chimerashot2',
-  },
-  CHIMAERA_SHOT_BM_FROST_DAMAGE: {
-    id: 171454,
-    name: 'Chimaera Shot',
-    icon: 'ability_hunter_chimerashot2',
   },
   BEAST_CLEAVE_BUFF: {
     id: 268877,
@@ -334,11 +279,6 @@ const spells = spellIndexableList({
     name: 'Wildfire Bomb',
     icon: 'inv_wildfirebomb',
   },
-  RAPTOR_STRIKE: {
-    id: 186270,
-    name: 'Raptor Strike',
-    icon: 'ability_hunter_raptorstrike',
-  },
   RAPTOR_STRIKE_AOTE: {
     id: 265189,
     name: 'Raptor Strike',
@@ -484,6 +424,21 @@ const spells = spellIndexableList({
   //endregion
 
   //region Shared
+  DEATH_CHAKRAM_DAMAGE: {
+    id: 375893,
+    icon: 'ability_maldraxxus_hunter',
+    name: 'Death Chakram',
+  },
+  DEATH_CHAKRAM_ENERGIZE: {
+    id: 375894,
+    icon: 'ability_maldraxxus_hunter',
+    name: 'Death Chakram',
+  },
+  REJUVENATING_WIND_BUFF: {
+    id: 385540,
+    name: 'Rejuvenating Winds',
+    icon: 'ability_druid_galewinds',
+  },
   ARCANE_SHOT: {
     id: 185358,
     name: 'Arcane Shot',

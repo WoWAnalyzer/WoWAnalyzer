@@ -1,10 +1,6 @@
-import {
-  BORN_TO_BE_WILD_CD_REDUCTION,
-  CALL_OF_THE_WILD_CD_REDUCTION,
-  HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK,
-  hastedCooldown,
-} from 'analysis/retail/hunter/shared';
+import { BORN_TO_BE_WILD_CD_REDUCTION, hastedCooldown } from 'analysis/retail/hunter/shared';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -18,7 +14,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.KILL_COMMAND_CAST_SV.id,
         buffSpellId: SPELLS.FLANKERS_ADVANTAGE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        charges: combatant.hasTalent(SPELLS.ALPHA_PREDATOR_TALENT.id) ? 2 : 1,
+        charges: combatant.hasTalent(TALENTS.ALPHA_PREDATOR_TALENT.id) ? 2 : 1,
         cooldown: (haste) => hastedCooldown(6, haste),
         gcd: {
           base: 1500,
@@ -26,13 +22,15 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 3,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: combatant.hasTalent(SPELLS.ALPHA_PREDATOR_TALENT.id) ? 0.65 : 0.85,
+          recommendedEfficiency: combatant.hasTalent(TALENTS.ALPHA_PREDATOR_TALENT.id)
+            ? 0.65
+            : 0.85,
         },
       },
       {
-        spell: [SPELLS.RAPTOR_STRIKE.id, SPELLS.RAPTOR_STRIKE_AOTE.id],
+        spell: [TALENTS.RAPTOR_STRIKE_TALENT.id, SPELLS.RAPTOR_STRIKE_AOTE.id],
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: !combatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS.MONGOOSE_BITE_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -41,8 +39,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.WILDFIRE_BOMB.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: !combatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id),
-        charges: combatant.hasTalent(SPELLS.GUERRILLA_TACTICS_TALENT.id) ? 2 : 1,
+        enabled: !combatant.hasTalent(TALENTS.WILDFIRE_INFUSION_TALENT.id),
+        charges: combatant.hasTalent(TALENTS.GUERRILLA_TACTICS_TALENT.id) ? 2 : 1,
         cooldown: (haste) => hastedCooldown(18, haste),
         gcd: {
           base: 1500,
@@ -64,7 +62,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CARVE.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled: !combatant.hasTalent(SPELLS.BUTCHERY_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS.BUTCHERY_TALENT.id),
         cooldown: (haste) => 6 / (1 + haste),
         gcd: {
           base: 1500,
@@ -74,12 +72,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.COORDINATED_ASSAULT.id,
         buffSpellId: SPELLS.COORDINATED_ASSAULT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown:
-          120 *
-          (1 -
-            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT)
-              ? CALL_OF_THE_WILD_CD_REDUCTION
-              : 0)),
+        cooldown: 120,
         gcd: {
           static: 0,
         },
@@ -93,20 +86,20 @@ class Abilities extends CoreAbilities {
 
       //region Talents
       {
-        spell: [SPELLS.MONGOOSE_BITE_TALENT.id, SPELLS.MONGOOSE_BITE_TALENT_AOTE.id],
+        spell: [TALENTS.MONGOOSE_BITE_TALENT.id, SPELLS.MONGOOSE_BITE_TALENT_AOTE.id],
         buffSpellId: SPELLS.MONGOOSE_FURY.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.MONGOOSE_BITE_TALENT.id),
         gcd: {
           base: 1500,
         },
         timelineSortIndex: 2,
       },
       {
-        spell: SPELLS.STEEL_TRAP_TALENT.id,
+        spell: TALENTS.STEEL_TRAP_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.STEEL_TRAP_TALENT.id),
-        cooldown: 30,
+        enabled: combatant.hasTalent(TALENTS.STEEL_TRAP_TALENT.id),
+        cooldown: 30 - combatant.getTalentRank(TALENTS.IMPROVED_TRAPS_TALENT.id) * 1.5,
         gcd: {
           base: 1500,
         },
@@ -116,9 +109,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.FLANKING_STRIKE_TALENT.id, SPELLS.FLANKING_STRIKE_PLAYER.id],
+        spell: [TALENTS.FLANKING_STRIKE_TALENT.id, SPELLS.FLANKING_STRIKE_PLAYER.id],
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.FLANKING_STRIKE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.FLANKING_STRIKE_TALENT.id),
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -133,12 +126,12 @@ class Abilities extends CoreAbilities {
           SPELLS.VOLATILE_BOMB_WFI.id,
           SPELLS.PHEROMONE_BOMB_WFI.id,
           SPELLS.SHRAPNEL_BOMB_WFI.id,
-          SPELLS.WILDFIRE_INFUSION_TALENT.id,
+          TALENTS.WILDFIRE_INFUSION_TALENT.id,
         ],
-        shownSpell: SPELLS.WILDFIRE_INFUSION_TALENT.id,
+        shownSpell: TALENTS.WILDFIRE_INFUSION_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id),
-        charges: combatant.hasTalent(SPELLS.GUERRILLA_TACTICS_TALENT.id) ? 2 : 1,
+        enabled: combatant.hasTalent(TALENTS.WILDFIRE_INFUSION_TALENT.id),
+        charges: combatant.hasTalent(TALENTS.GUERRILLA_TACTICS_TALENT.id) ? 2 : 1,
         cooldown: (haste) => hastedCooldown(18, haste),
         gcd: {
           base: 1500,
@@ -150,9 +143,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.CHAKRAMS_TALENT.id,
+        spell: TALENTS.DEATH_CHAKRAM_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.CHAKRAMS_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.DEATH_CHAKRAM_TALENT.id),
         cooldown: 20,
         gcd: {
           base: 1500,
@@ -163,9 +156,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.BUTCHERY_TALENT.id,
+        spell: TALENTS.BUTCHERY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled: combatant.hasTalent(SPELLS.BUTCHERY_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.BUTCHERY_TALENT.id),
         charges: 3,
         cooldown: (haste) => hastedCooldown(9, haste),
         gcd: {
@@ -177,10 +170,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.CAMOUFLAGE_TALENT.id,
+        spell: TALENTS.CAMOUFLAGE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
-        enabled: combatant.hasTalent(SPELLS.CAMOUFLAGE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.CAMOUFLAGE_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -212,20 +205,11 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
         cooldown:
-          (180 -
-            (combatant.hasConduitBySpellID(SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id)
-              ? HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK[
-                  combatant.conduitRankBySpellID(SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id)
-                ]
-              : 0)) *
+          180 *
           (1 -
-            (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id)
-              ? BORN_TO_BE_WILD_CD_REDUCTION
-              : 0)) *
-          (1 -
-            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT)
-              ? CALL_OF_THE_WILD_CD_REDUCTION
-              : 0)),
+            BORN_TO_BE_WILD_CD_REDUCTION[
+              combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT.id)
+            ]),
         gcd: {
           static: 0,
         },
@@ -239,13 +223,9 @@ class Abilities extends CoreAbilities {
         cooldown:
           90 *
           (1 -
-            (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id)
-              ? BORN_TO_BE_WILD_CD_REDUCTION
-              : 0)) *
-          (1 -
-            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT)
-              ? CALL_OF_THE_WILD_CD_REDUCTION
-              : 0)),
+            BORN_TO_BE_WILD_CD_REDUCTION[
+              combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT.id)
+            ]),
         gcd: {
           static: 0,
         },
@@ -256,13 +236,9 @@ class Abilities extends CoreAbilities {
         cooldown:
           180 *
           (1 -
-            (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id)
-              ? BORN_TO_BE_WILD_CD_REDUCTION
-              : 0)) *
-          (1 -
-            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT)
-              ? CALL_OF_THE_WILD_CD_REDUCTION
-              : 0)),
+            BORN_TO_BE_WILD_CD_REDUCTION[
+              combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT.id)
+            ]),
         gcd: {
           static: 0,
         },
@@ -297,30 +273,6 @@ class Abilities extends CoreAbilities {
         cooldown: 25,
         gcd: {
           base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.TAR_TRAP.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 25,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: this.selectedCombatant.hasLegendary(SPELLS.SOULFORGE_EMBERS_EFFECT),
-          recommendedEfficiency: 0.55,
-        },
-      },
-      {
-        spell: SPELLS.FLARE.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 20,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: this.selectedCombatant.hasLegendary(SPELLS.SOULFORGE_EMBERS_EFFECT),
-          recommendedEfficiency: 0.9,
         },
       },
       {

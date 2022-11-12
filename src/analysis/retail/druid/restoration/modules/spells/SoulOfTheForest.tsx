@@ -18,7 +18,6 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import * as React from 'react';
 
 import { isFromHardcast } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import {
@@ -26,10 +25,10 @@ import {
   getSotfBuffs,
 } from 'analysis/retail/druid/restoration/normalizers/SoulOfTheForestLinkNormalizer';
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
-import ConvokeSpiritsResto from 'analysis/retail/druid/restoration/modules/spells/ConvokeSpiritsResto';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
 
 const SOTF_SPELLS = [
   SPELLS.REJUVENATION,
@@ -54,11 +53,9 @@ const debug = false;
 class SoulOfTheForest extends Analyzer {
   static dependencies = {
     hotTracker: HotTrackerRestoDruid,
-    convokeSpirits: ConvokeSpiritsResto,
   };
 
   hotTracker!: HotTrackerRestoDruid;
-  convokeSpirits!: ConvokeSpiritsResto;
 
   sotfRejuvInfo = {
     boost: REJUVENATION_HEALING_INCREASE,
@@ -140,7 +137,7 @@ class SoulOfTheForest extends Analyzer {
 
     // check source
     const fromHardcast: boolean = isFromHardcast(event);
-    const fromConvoke: boolean = !fromHardcast && this.convokeSpirits.isConvoking();
+    const fromConvoke: boolean = !fromHardcast && isConvoking(this.selectedCombatant);
 
     // tally healing
     const procInfo = this.sotfSpellInfo[event.ability.guid];
@@ -329,7 +326,7 @@ class SoulOfTheForest extends Analyzer {
   }
 
   _spellReportLine(totalUses: number, hardcastUses: number, healing: number): React.ReactNode {
-    return this.convokeSpirits.active ? (
+    return this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) ? (
       <>
         {' '}
         consumed <strong>{hardcastUses}</strong> hardcast /{' '}

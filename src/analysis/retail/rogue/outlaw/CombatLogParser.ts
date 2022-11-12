@@ -57,7 +57,7 @@ class CombatLogParser extends CoreCombatLogParser {
     energy: Energy,
     spellEnergyCost: SpellEnergyCost,
 
-    //Items
+    //Legendaries
     invigoratingShadowdust: InvigoratingShadowdust,
 
     //Core

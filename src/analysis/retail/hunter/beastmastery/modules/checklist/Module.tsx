@@ -6,13 +6,12 @@ import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
 import { apl, check as aplCheck } from '../apl/AplCheck';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
-import QaplaEredunWarOrder from '../items/QaplaEredunWarOrder';
 import BasicAttacks from '../pets/basicAttacksTracker';
 import BeastMasteryFocusCapTracker from '../resources/BeastMasteryFocusCapTracker';
-import BarbedShot from '../spells/BarbedShot';
-import BeastCleave from '../spells/BeastCleave';
-import BestialWrath from '../spells/BestialWrath';
-import CobraShot from '../spells/CobraShot';
+import BarbedShot from '../talents/BarbedShot';
+import BeastCleave from '../talents/BeastCleave';
+import BestialWrath from '../talents/BestialWrath';
+import CobraShot from '../talents/CobraShot';
 import KillerCobra from '../talents/KillerCobra';
 import Component from './Component';
 
@@ -31,7 +30,6 @@ class Checklist extends BaseChecklist {
     focusCapTracker: BeastMasteryFocusCapTracker,
     beastCleave: BeastCleave,
     basicAttacks: BasicAttacks,
-    qaplaEredunWarOrder: QaplaEredunWarOrder,
   };
 
   //region Core
@@ -50,10 +48,6 @@ class Checklist extends BaseChecklist {
 
   //region Talents
   protected killerCobra!: KillerCobra;
-  //endregion
-
-  //region Legendaries (and sets.. maybe, please blizzard)
-  protected qaplaEredunWarOrder!: QaplaEredunWarOrder;
   //endregion
 
   //region Resources
@@ -92,10 +86,6 @@ class Checklist extends BaseChecklist {
 
           //region Talents
           wastedKillerCobraThreshold: this.killerCobra.wastedKillerCobraThreshold,
-          //endregion
-
-          //region Legendaries
-          qaplaEfficiencyThreshold: this.qaplaEredunWarOrder.killCommandResetsThreshold,
           //endregion
 
           //region Resources

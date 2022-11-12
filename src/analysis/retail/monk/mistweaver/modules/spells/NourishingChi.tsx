@@ -28,8 +28,8 @@ class NourishingChi extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.NOURISHING_CHI_TALENT)) {
-      this.active = false;
+    this.active =(this.selectedCombatant.hasTalent(TALENTS_MONK.NOURISHING_CHI_TALENT))
+    if(!this.active) {
       return;
     }
 

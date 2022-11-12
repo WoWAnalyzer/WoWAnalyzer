@@ -75,6 +75,11 @@ const spells = spellIndexableList({
     icon: 'ability_monk_expelharm',
     manaCost: 7500,
   },
+  SAVE_THEM_ALL_BUFF: {
+    id: 390105,
+    name: 'Save Them All',
+    icon: 'inv_weapon_hand_22',
+  },
 
   // Mistweaver Monk Spells
   CLOUDED_FOCUS_BUFF: {
@@ -211,6 +216,11 @@ const spells = spellIndexableList({
     name: 'Soothing Mist',
     icon: 'ability_monk_soothingmists',
   },
+  UNISON_HEAL: {
+    id: 388480,
+    name: 'Unison',
+    icon: 'ability_monk_soothingmists',
+  },
   REFRESHING_JADE_WIND_HEAL: {
     id: 162530,
     name: 'Refreshing Jade Wind',
@@ -246,6 +256,17 @@ const spells = spellIndexableList({
     name: "Yu'lon's Whisper",
     icon: 'ability_monk_chiexplosion',
   },
+  FAELINE_STOMP_HEAL: {
+    id: 388207,
+    name: 'Faeline Stomp',
+    icon: 'ability_ardenweald_monk'
+  },
+  FAELINE_STOMP_ESSENCE_FONT: {
+    id: 344006,
+    name: 'Faeline Stomp',
+    icon: 'ability_monk_essencefont',
+  },
+
 
   // Brewmaster
   NIUZAO_STOMP_DAMAGE: {

@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 
 //region Spells
 /** Rapid Fire */
@@ -37,14 +38,14 @@ export const LONE_WOLF_AFFECTED_SPELLS = [
   SPELLS.MULTISHOT_MM,
   SPELLS.AIMED_SHOT,
   SPELLS.STEADY_SHOT,
-  SPELLS.BARRAGE_TALENT,
+  TALENTS.BARRAGE_TALENT,
   SPELLS.A_MURDER_OF_CROWS_DEBUFF,
   SPELLS.CHIMAERA_SHOT_MM_FROST_DAMAGE,
   SPELLS.CHIMAERA_SHOT_MM_NATURE_DAMAGE,
   SPELLS.ARCANE_SHOT,
   SPELLS.BURSTING_SHOT,
   SPELLS.EXPLOSIVE_SHOT_DAMAGE,
-  SPELLS.SERPENT_STING_TALENT,
+  TALENTS.SERPENT_STING_TALENT,
   SPELLS.VOLLEY_DAMAGE,
   SPELLS.RAPID_FIRE,
   SPELLS.KILL_SHOT_MM_BM,
@@ -72,7 +73,7 @@ export const STREAMLINE_RAPID_FIRE_DAMAGE_INCREASE = 0.15;
 export const STREAMLINE_AIMED_SHOT_CAST_SPEED_UP = 0.3;
 /** Steady Focus */
 //Steady Focus increases haste by 7%
-export const STEADY_FOCUS_HASTE_PERCENT = 0.07;
+export const STEADY_FOCUS_HASTE_PERCENT = [0, 0.04, 0.08];
 /** Master Marksman */
 //Master Marksman makes special shot crits apply a 15% DOT
 export const MASTER_MARKSMAN_CRIT_DOT = 0.15;
@@ -82,8 +83,8 @@ export const MASTER_MARKSMAN_TICK_RATE = 2000;
 //Dead Eye increases the Aimed Shot recharge rate by 200%, despite tooltip saying it is 50%
 export const DEAD_EYE_AIMED_SHOT_RECHARGE_INCREASE = 2;
 /** Calling the Shots */
-//Calling the Shots makes Arcane Shot and Multi Shot decrease Trueshot cooldown by 2.5s
-export const CTS_CDR_MS = 2500;
+//1 second per 50 focus spent
+export const CTS_CDR_PER_FOCUS = 1000 / 50;
 /** Careful Aim */
 //Careful Aim is a execution-like talent that triggers off above 70%
 export const CAREFUL_AIM_THRESHOLD = 0.7;
@@ -109,101 +110,13 @@ export const SERPENT_STING_MM_PANDEMIC = 0.3;
 //region Resources
 /** Marksmanship specific focus spenders */
 export const LIST_OF_FOCUS_SPENDERS_MM = [
-  SPELLS.AIMED_SHOT,
+  TALENTS.AIMED_SHOT_TALENT,
   SPELLS.ARCANE_SHOT,
-  SPELLS.SERPENT_STING_TALENT,
-  SPELLS.MULTISHOT_MM,
-  SPELLS.BURSTING_SHOT,
-  SPELLS.EXPLOSIVE_SHOT_TALENT,
-];
-//endregion
-
-//region Conduits
-/** Brutal Projectiles */
-//With Brutal Projectiles your auto attacks have a 10% chance to proc the buff that amplifies the damage of your next Rapid Fire
-export const BRUTAL_PROJECTILES_PROC_CHANCE = 0.1;
-//Each Shot of Rapid Fire increases damage more and more over its duration
-export const BRUTAL_PROJECTILES_RAMP_DAMAGE = [
-  0,
-  0.03,
-  0.0325,
-  0.035,
-  0.04,
-  0.0425,
-  0.045,
-  0.0475,
-  0.0525,
-  0.055,
-  0.0575,
-  0.06,
-  0.0625,
-  0.065,
-  0.0675,
-  0.07,
-];
-//Rapid Fire fires off 7 shots, but the first shot is unbuffed
-export const BRUTAL_PROJECTILES_RAMP_CAP = 6;
-//During Double Tap Rapid Fire shoots off 14 shots, but in-game it seems they just doubled the regular cap
-export const BRUTAL_PROJECTILES_DOUBLE_TAP_RAMP_CAP = 12;
-/** Deadly Chain */
-//With Deadly Chain your trickshots damage is increased
-export const DEADLY_CHAIN_TRICKSHOTS_DAMAGE_INCREASE = [
-  0,
-  0.1,
-  0.11,
-  0.12,
-  0.13,
-  0.14,
-  0.15,
-  0.16,
-  0.18,
-  0.19,
-  0.2,
-  0.21,
-  0.22,
-  0.23,
-  0.24,
-  0.25,
-];
-/** Powerful Precision */
-//With Powerful Precision Precise Shots further increases the damage of Arcane Shot, Chimaera Shots and Multi-Shot
-export const POWERFUL_PRECISION_DAMAGE_INCREASE = [
-  0,
-  0.05,
-  0.06,
-  0.07,
-  0.08,
-  0.1,
-  0.11,
-  0.12,
-  0.13,
-  0.14,
-  0.15,
-  0.16,
-  0.17,
-  0.18,
-  0.19,
-  0.2,
-];
-/** Sharpshooter's Focus */
-//With Sharpshooter's Focus, Trueshot lasts x% longer
-export const SHARPSHOOTERS_FOCUS_INCREASE_TRUESHOT_DURATION = [
-  0,
-  0.2,
-  0.22,
-  0.24,
-  0.27,
-  0.29,
-  0.31,
-  0.33,
-  0.36,
-  0.38,
-  0.4,
-  0.42,
-  0.44,
-  0.46,
-  0.48,
-  0.5,
+  TALENTS.KILL_SHOT_SHARED_TALENT,
+  TALENTS.WAILING_ARROW_TALENT,
+  TALENTS.MULTI_SHOT_MARKSMANSHIP_TALENT,
+  TALENTS.BURSTING_SHOT_TALENT,
+  TALENTS.CHIMAERA_SHOT_TALENT,
 ];
 //endregion
 
@@ -218,9 +131,4 @@ export const SURGING_SHOTS_RESET_CHANCE = 0.15;
 export const EAGLETALONS_TRUE_FOCUS_COST_REDUCTION = 0.25;
 //Eagletalon's True Focus makes Trueshot last 3 seconds longer
 export const EAGLETALONS_TRUE_FOCUS_TRUESHOT_DURATION_INCREASE = 3000;
-/** Secrets of the Unblinking Vigil */
-//Secrets of the Unblinking Vigil has 50% chance to proc on gaining Trick Shots
-export const SECRETS_UNBLINKING_PROC_CHANCE = 0.5;
-//The Secrets of the Unblinking Vigil buff makes Aimed Shot cost 0 focus (100% reduction).
-export const SECRETS_UNBLINKING_FOCUS_COST_REDUCTION = 1;
 //endregion

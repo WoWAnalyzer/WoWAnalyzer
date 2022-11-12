@@ -5,6 +5,8 @@ import { Adoraci, niseko, Abelito75, Shamorisse, Vetyst, Arlie } from 'CONTRIBUT
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 11, 7), <>Added a statistic to display the healing gained from <SpellLink id={TALENTS.UNDERCURRENT_TALENT.id} />.</>, niseko),
+  change(date(2022, 11, 6), <>Add support for <SpellLink id={TALENTS.FLASH_FLOOD_TALENT.id}/> haste increases per rank.</>, Arlie),
   change(date(2022, 10, 29), <>Converted Shadowlands spells and talents to Dragonflight versions</>, Arlie),
   change(date(2022, 10, 18), <>Cleanup majority of old spells.</>, Vetyst),
   change(date(2022, 8, 1), `Removed some outdated modules.`, niseko),

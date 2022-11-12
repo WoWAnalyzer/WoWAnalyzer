@@ -5,7 +5,7 @@ export { default as EnergyDetails } from './EnergyDetails';
 export { default as EnergyTracker } from './EnergyTracker';
 export { default as FilteredDamageTracker } from './FilteredDamageTracker';
 export { default as FinisherTracker } from './FinisherTracker';
-export { default as InvigoratingShadowdust } from '../subtlety/modules/talents/InvigoratingShadowdust';
+export { default as InvigoratingShadowdust } from './shadowlands/legendaries/InvigoratingShadowdust';
 export { default as InstantPoison } from './InstantPoison';
 export * from './IsStealth';
 export { default as SpellEnergyCost } from './SpellEnergyCost';

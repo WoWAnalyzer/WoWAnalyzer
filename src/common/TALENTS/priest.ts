@@ -3,7 +3,13 @@ import { createTalentList } from './types';
 
 const talents = createTalentList({
   //Shared
-  RENEW_TALENT: { id: 139, name: 'Renew', icon: 'spell_holy_renew', maxRanks: 1, manaCost: 500 },
+  RENEW_TALENT: {
+    id: 139,
+    name: 'Renew',
+    icon: 'spell_holy_renew',
+    maxRanks: 1,
+    manaCost: 500,
+  },
   DISPEL_MAGIC_TALENT: {
     id: 528,
     name: 'Dispel Magic',
@@ -472,7 +478,7 @@ const talents = createTalentList({
   ANCIENT_MADNESS_TALENT: {
     id: 341240,
     name: 'Ancient Madness',
-    icon: 'spell_priest_void_flay',
+    icon: 'spell_priest_void-flay',
     maxRanks: 2,
   },
   SHADOW_CRASH_TALENT: {
@@ -887,7 +893,12 @@ const talents = createTalentList({
     icon: 'inv_staff_2h_artifactheartofkure_d_04',
     maxRanks: 1,
   },
-  DIVINE_WORD_TALENT: { id: 372760, name: 'Divine Word', icon: 'spell_priest_chakra', maxRanks: 1 },
+  DIVINE_WORD_TALENT: {
+    id: 372760,
+    name: 'Divine Word',
+    icon: 'spell_priest_chakra',
+    maxRanks: 1,
+  },
   MIRACLE_WORKER_TALENT: {
     id: 235587,
     name: 'Miracle Worker',

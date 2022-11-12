@@ -2,7 +2,7 @@ import {
   RAPID_FIRE_FOCUS_PER_TICK,
   TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE,
 } from 'analysis/retail/hunter/marksmanship/constants';
-import { MS_BUFFER_100, NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'analysis/retail/hunter/shared';
+import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -43,8 +43,6 @@ class RapidFire extends Analyzer {
   focusWasted = 0;
   additionalFocusFromTrueshot = 0;
   possibleAdditionalFocusFromTrueshot = 0;
-  additionalFocusFromNesingwary = 0;
-  possibleAdditionalFocusFromNesingwary = 0;
   lastFocusTickTimestamp = 0;
 
   protected spellUsable!: SpellUsable;
@@ -130,26 +128,13 @@ class RapidFire extends Analyzer {
     this.effectiveFocusGain += event.resourceChange - event.waste;
     this.focusWasted += event.waste;
     const hasTrueshot = this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id);
-    const hasNesingwary = this.selectedCombatant.hasBuff(
-      SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE.id,
-    );
 
     /** If Trueshot is active Rapid Fire has a 50% chance to fire an additional energize event
      *  However because focus can't be fractional and WoW rounds down on halves, we simply attribute 1 focus gain per additional energize tick over the baseline amount
-     *  However if Nesingwary is also active - the focus amount goes up to 3 because 1.5 * 2 = 3, and that works despite 1.5 focus not working.. In this case we can attribute 2 focus to Nesingwary, since that isn't possible otherwise and only 1 to Trueshot (if it was in excess of the regular 7 energize events).
-     *
      */
     if (hasTrueshot && this.lastFocusTickTimestamp + MS_BUFFER_100 / 2 > event.timestamp) {
       this.additionalFocusFromTrueshot += event.resourceChange - event.waste;
       this.possibleAdditionalFocusFromTrueshot += RAPID_FIRE_FOCUS_PER_TICK;
-    }
-    if (hasNesingwary) {
-      this.additionalFocusFromNesingwary += Math.max(
-        Math.ceil(event.resourceChange / NESINGWARY_FOCUS_GAIN_MULTIPLIER) - event.waste,
-        0,
-      );
-      this.possibleAdditionalFocusFromNesingwary +=
-        event.resourceChange - RAPID_FIRE_FOCUS_PER_TICK;
     }
   }
 

@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
@@ -26,12 +26,12 @@ class ShadowWordDeath extends ExecuteHelper {
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
 
     const ctor = this.constructor as typeof ExecuteHelper;
-    ctor.executeSpells.push(SPELLS.SHADOW_WORD_DEATH);
+    ctor.executeSpells.push(TALENTS.SHADOW_WORD_DEATH_TALENT);
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.SHADOW_WORD_DEATH.id,
+      spell: TALENTS.SHADOW_WORD_DEATH_TALENT.id,
       category: SPELL_CATEGORY.ROTATIONAL,
-      cooldown: (haste: number) => 20 / (1 + haste),
+      cooldown: (haste: number) => 20,
       gcd: {
         base: 1500,
       },
@@ -44,7 +44,7 @@ class ShadowWordDeath extends ExecuteHelper {
   }
 
   adjustMaxCasts() {
-    const cooldown = this.abilities.getAbility(SPELLS.SHADOW_WORD_DEATH.id)!.cooldown * 1000;
+    const cooldown = this.abilities.getAbility(TALENTS.SHADOW_WORD_DEATH_TALENT.id)!.cooldown * 1000;
     this.maxCasts += Math.ceil(this.totalExecuteDuration / cooldown) + this.totalNonExecuteCasts;
   }
 }

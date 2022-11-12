@@ -18,7 +18,9 @@ class DesperateTimes extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.DESPERATE_TIMES_TALENT);
+    if (!this.selectedCombatant.hasTalent(TALENTS.DESPERATE_TIMES_TALENT)) {
+      this.active = false;
+    }
     this.healingMultiplier =
       HEALING_MULTIPLIER_PER_RANK *
       this.selectedCombatant.getTalentRank(TALENTS.DESPERATE_TIMES_TALENT);

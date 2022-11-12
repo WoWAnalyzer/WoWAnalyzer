@@ -11,24 +11,11 @@ import {
   FocusTracker,
   FocusDetails,
   SpellFocusCost,
-  ResonatingArrow,
   DeathChakrams,
-  WildSpirits,
-  FlayedShot,
-  EnfeebledMark,
-  EmpoweredRelease,
-  NecroticBarrage,
-  SpiritAttunement,
-  MarkmansAdvantage,
-  ResilienceOfTheHunter,
-  ReversalOfFortune,
   RejuvenatingWind,
-  HarmonyOfTheTortollan,
-  SoulforgeEmbers,
   CancelledCasts,
-  RaeshalareDeathsWhisper,
-  RaeshalarePrepullNormalizer,
-  FragmentsOfTheElderAntlers,
+  WailingArrow,
+  WailingArrowPrepullNormalizer,
 } from 'analysis/retail/hunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -41,19 +28,13 @@ import GlobalCooldown from './modules/core/GlobalCooldown';
 import SpellUsable from './modules/core/SpellUsable';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import EagletalonsTrueFocus from './modules/items/EagletalonsTrueFocus';
-import NesingwarysTrappingApparatus from './modules/items/NesingwarysTrappingApparatus';
-import SecretsOfTheUnblinkingVigil from './modules/items/SecretsOfTheUnblinkingVigil';
-import SerpentstalkersTrickery from './modules/items/SerpentstalkersTrickery';
-import SurgingShots from './modules/items/SurgingShots';
+import EagletalonsTrueFocus from './modules/talents/EagletalonsTrueFocus';
+import SerpentstalkersTrickery from './modules/talents/SerpentstalkersTrickery';
+import SurgingShots from './modules/talents/SurgingShots';
 import Focus from './modules/resources/Focus';
 import MarksmanshipFocusCapTracker from './modules/resources/MarksmanshipFocusCapTracker';
 import MarksmanshipFocusUsage from './modules/resources/MarksmanshipFocusUsage';
 import AimedShot from './modules/spells/AimedShot';
-import BrutalProjectiles from './modules/spells/conduits/BrutalProjectiles';
-import DeadlyChain from './modules/spells/conduits/DeadlyChain';
-import PowerfulPrecision from './modules/spells/conduits/PowerfulPrecision';
-import SharpshootersFocus from './modules/spells/conduits/SharpshootersFocus';
 import LoneWolf from './modules/spells/LoneWolf';
 import PreciseShots from './modules/spells/PreciseShots';
 import RapidFire from './modules/spells/RapidFire';
@@ -64,11 +45,11 @@ import CarefulAim from './modules/talents/CarefulAim';
 import ChimaeraShot from './modules/talents/ChimaeraShot';
 import DeadEye from './modules/talents/DeadEye';
 import DoubleTap from './modules/talents/DoubleTap';
-import ExplosiveShot from './modules/talents/ExplosiveShot';
+import ExplosiveShot from '../shared/talents/ExplosiveShot';
 import LethalShots from './modules/talents/LethalShots';
 import LockAndLoad from './modules/talents/LockAndLoad';
-import MasterMarksman from './modules/talents/MasterMarksman';
-import SerpentSting from './modules/talents/SerpentSting';
+import MasterMarksman from '../shared/talents/MasterMarksman';
+import SerpentSting from '../shared/talents/SerpentSting';
 import SteadyFocus from './modules/talents/SteadyFocus';
 import Streamline from './modules/talents/Streamline';
 import Volley from './modules/talents/Volley';
@@ -99,7 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizers
     aimedShotPrepullNormalizer: AimedShotPrepullNormalizer,
-    raeshalarePrepullNormalizer: RaeshalarePrepullNormalizer,
+    wailingArrowPrepullNormalizer: WailingArrowPrepullNormalizer,
 
     //DeathTracker
     deathTracker: DeathTracker,
@@ -133,38 +114,15 @@ class CombatLogParser extends CoreCombatLogParser {
     deadEye: DeadEye,
     lethalShots: LethalShots,
     streamline: Streamline,
+    wailingArrow: WailingArrow,
 
-    //Covenants
-    resonatingArrow: ResonatingArrow,
-    deathChakrams: DeathChakrams,
-    wildSpirits: WildSpirits,
-    flayedShot: FlayedShot,
-
-    //Conduits
-    empoweredRelease: EmpoweredRelease,
-    enfeebledMark: EnfeebledMark,
-    necroticBarrage: NecroticBarrage,
-    spiritAttunement: SpiritAttunement,
-    brutalProjectiles: BrutalProjectiles,
-    deadlyChain: DeadlyChain,
-    powerfulPrecision: PowerfulPrecision,
-    sharpshootersFocus: SharpshootersFocus,
-    markmansAdvantage: MarkmansAdvantage,
-    resilienceOfTheHunter: ResilienceOfTheHunter,
-    reversalOfFortune: ReversalOfFortune,
+    //Shared Talents
     rejuvenatingWind: RejuvenatingWind,
-    harmonyOfTheTortollan: HarmonyOfTheTortollan,
-
-    //Generic Legendaries
-    nesingwarysTrappingApparatus: NesingwarysTrappingApparatus,
-    soulforgeEmbers: SoulforgeEmbers,
-    raeshalareDeathsWhisper: RaeshalareDeathsWhisper,
-    fragmentsOfTheElderAntlers: FragmentsOfTheElderAntlers,
+    deathChakrams: DeathChakrams,
 
     //Marksmanship Legendaries
     surgingShots: SurgingShots,
     serpentstalkersTrickery: SerpentstalkersTrickery,
-    secretsOfTheUnblinkingVigil: SecretsOfTheUnblinkingVigil,
     eagletalonsTrueFocus: EagletalonsTrueFocus,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown

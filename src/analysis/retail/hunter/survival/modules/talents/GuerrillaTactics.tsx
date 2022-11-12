@@ -2,7 +2,7 @@ import {
   AFFECTED_BY_GUERRILLA_TACTICS,
   GUERRILLA_TACTICS_INIT_HIT_MODIFIER,
 } from 'analysis/retail/hunter/survival/constants';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -24,7 +24,7 @@ class GuerrillaTactics extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.GUERRILLA_TACTICS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.GUERRILLA_TACTICS_TALENT.id);
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(AFFECTED_BY_GUERRILLA_TACTICS),
@@ -43,7 +43,7 @@ class GuerrillaTactics extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.GUERRILLA_TACTICS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.GUERRILLA_TACTICS_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>
