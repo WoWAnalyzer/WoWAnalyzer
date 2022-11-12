@@ -67,6 +67,7 @@ import SpellLink from 'interface/SpellLink';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 export default [
+  change(date(2022, 11, 12), 'Backend work on resource tracking, including light bug fixes and ability to query stats for specific time periods', Sref),
   change(date(2022, 11, 2), 'Add Dragonflight enchants.', ToppleTheNun),
   change(date(2022, 11, 1), 'Add Preparation section that can be included in Guides.', ToppleTheNun),
   change(date(2022, 11, 1), 'Re-add missing specs to the specializations page.', ToppleTheNun),

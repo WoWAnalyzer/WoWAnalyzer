@@ -102,7 +102,7 @@ export type ResourceUpdateType =
   /** A resource refund due to an ability miss */
   | 'refund';
 
-const DEBUG = true;
+const DEBUG = false;
 
 /**
  * This is an 'abstract' implementation of a framework for tracking resource generating/spending.
@@ -660,6 +660,8 @@ export default class ResourceTracker extends Analyzer {
         atCap: lastBeforeEnd.max === resourcesAtEnd,
       });
     }
+
+    DEBUG && console.log('Segment Data: ', segmentData);
 
     return segmentData;
   }
