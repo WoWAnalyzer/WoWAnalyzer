@@ -6,10 +6,10 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 import { LIFECYCLES_MANA_PERC_REDUCTION } from '../../constants';
 
@@ -157,15 +157,9 @@ class Lifecycles extends Analyzer {
           </>
         }
       >
-        <BoringValueText
-          label={
-            <>
-              <SpellLink id={TALENTS_MONK.LIFECYCLES_TALENT.id} />
-            </>
-          }
-        >
+        <TalentSpellText talent={TALENTS_MONK.LIFECYCLES_TALENT}>
           <>{formatNumber(this.manaSaved)} Mana Saved</>
-        </BoringValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

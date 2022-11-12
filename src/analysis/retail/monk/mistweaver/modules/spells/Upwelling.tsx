@@ -1,14 +1,14 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import BoringValueText from 'parser/ui/BoringValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const BASE_HOT_TIME = 8000; //ef's hot base time
 const BASE_BOLTS = 17; //18 base but we start counting at 0 so 18th on bolt count = 19th bolt
@@ -227,18 +227,9 @@ class Upwelling extends Analyzer {
           </>
         }
       >
-        <BoringValueText
-          label={
-            <>
-              <SpellIcon id={TALENTS_MONK.UPWELLING_TALENT.id} /> Upwelling Healing
-            </>
-          }
-        >
-          <>
-            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealingAll))}%
-            Total Healing
-          </>
-        </BoringValueText>
+        <TalentSpellText talent={TALENTS_MONK.UPWELLING_TALENT}>
+          <ItemHealingDone amount={this.totalHealingAll} />
+        </TalentSpellText>
       </Statistic>
     );
   }

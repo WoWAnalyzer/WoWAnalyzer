@@ -214,8 +214,7 @@ class InvokeChiJi extends Analyzer {
           </Trans>
         }
       >
-        <TalentSpellText talent={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT}
-        >
+        <TalentSpellText talent={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT}>
           <>
             <ItemHealingDone amount={this.gustHealing + this.envelopHealing} />
             <br />

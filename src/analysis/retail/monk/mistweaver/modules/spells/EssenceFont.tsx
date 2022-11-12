@@ -12,7 +12,6 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import { formatNumber } from 'common/format';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 
-
 class EssenceFont extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -37,7 +36,9 @@ class EssenceFont extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.chijiActive = this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT);
+    this.chijiActive = this.selectedCombatant.hasTalent(
+      TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT,
+    );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
       this.handleEssenceFontHealing,
@@ -46,11 +47,11 @@ class EssenceFont extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
       this.gustHealing,
     );
-    if(this.chijiActive) {
+    if (this.chijiActive) {
       this.addEventListener(
         Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUST_OF_MISTS_CHIJI),
         this.chijiGustHealing,
-      )
+      );
     }
   }
 
@@ -68,7 +69,7 @@ class EssenceFont extends Analyzer {
       event.sourceID,
     );
     //Essence font and FLS Essence font only ever proc one addtional mastery event, so we only need to check for FLS EF whenever EF is not present
-    if(!targetHasEFHot && this.selectedCombatant.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT)) {
+    if (!targetHasEFHot && this.selectedCombatant.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT)) {
       targetHasEFHot = combatant.hasBuff(
         SPELLS.FAELINE_STOMP_ESSENCE_FONT.id,
         event.timestamp,
@@ -87,7 +88,7 @@ class EssenceFont extends Analyzer {
   }
 
   chijiGustHealing(event: HealEvent) {
-    if(!this.isValidEFEvent(event)){
+    if (!this.isValidEFEvent(event)) {
       return;
     }
 
@@ -103,7 +104,7 @@ class EssenceFont extends Analyzer {
   }
 
   gustHealing(event: HealEvent) {
-    if(!this.isValidEFEvent(event)){
+    if (!this.isValidEFEvent(event)) {
       return;
     }
 
@@ -138,20 +139,18 @@ class EssenceFont extends Analyzer {
   }
 
   chijitooltip() {
-    if(this.chijiActive){
-      return <>Chi-Ji:
-        <ul>
-          <li>
-            {this.chijiGomEFHits} additional Chi-Ji hits
-          </li>
-          <li>
-            {formatNumber(this.chijiGomHealing)} addtional Chi-Ji healing
-          </li>
-        </ul>
-      </>
-      }
-    else{
-      return <></>
+    if (this.chijiActive) {
+      return (
+        <>
+          Chi-Ji:
+          <ul>
+            <li>{this.chijiGomEFHits} additional Chi-Ji hits</li>
+            <li>{formatNumber(this.chijiGomHealing)} addtional Chi-Ji healing</li>
+          </ul>
+        </>
+      );
+    } else {
+      return <></>;
     }
   }
 
@@ -163,23 +162,20 @@ class EssenceFont extends Analyzer {
         category={STATISTIC_CATEGORY.THEORYCRAFT}
         tooltip={
           <Trans>
-          Mastery:
-          <ul>  
-            <li>
-            {this.gomEFHits} additional hits
-            </li>
-            <li>
-            {formatNumber(this.gomHealing)} additional healing
-            </li>
-          </ul>
-          {this.chijitooltip()}
+            Mastery:
+            <ul>
+              <li>{this.gomEFHits} additional hits</li>
+              <li>{formatNumber(this.gomHealing)} additional healing</li>
+            </ul>
+            {this.chijitooltip()}
           </Trans>
         }
       >
         <BoringValueText
           label={
             <>
-              <SpellLink id={SPELLS.GUSTS_OF_MISTS.id}>Gusts of Mists</SpellLink> from <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT}/>
+              <SpellLink id={SPELLS.GUSTS_OF_MISTS.id}>Gusts of Mists</SpellLink> from{' '}
+              <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} />
             </>
           }
         >

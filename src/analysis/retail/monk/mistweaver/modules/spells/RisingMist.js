@@ -9,9 +9,11 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HotTracker from 'parser/shared/modules/HotTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringValueText from 'parser/ui/BoringValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 import HotTrackerMW from '../core/HotTrackerMW';
 
@@ -318,18 +320,9 @@ class RisingMist extends Analyzer {
           </>
         }
       >
-        <BoringValueText
-          label={
-            <>
-              <SpellIcon id={TALENTS_MONK.RISING_MIST_TALENT.id} /> Healing Contributed
-            </>
-          }
-        >
-          <>
-            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealing))}% total
-            healing
-          </>
-        </BoringValueText>
+        <TalentSpellText talent={TALENTS_MONK.RISING_MIST_TALENT}>
+          <ItemHealingDone amount={this.totalHealing} />
+        </TalentSpellText>
       </Statistic>
     );
   }
