@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 11, 11), <>Combined the <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id}/> module and moved into general. Reordered the statistics in general to make more sense.</>, Vohrr),
   change(date(2022, 11, 9), <>Fixed changelog breaking the build</>, Vohrr),
   change(date(2022, 11, 9), <>Removed shadowlands spell references from the <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id}/> module and updated the statistic to use TalentSpellText. Added Vohrr to mistweaver contributors. </>, Vohrr),
   change(date(2022, 11, 8), <>Add module for <SpellLink id={TALENTS_MONK.SAVE_THEM_ALL_TALENT}/></>, Trevor),

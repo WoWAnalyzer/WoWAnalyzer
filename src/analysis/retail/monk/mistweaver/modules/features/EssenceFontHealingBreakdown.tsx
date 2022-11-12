@@ -47,7 +47,7 @@ class EssenceFontHealingBreakdown extends Analyzer {
 
   statistic() {
     return (
-      <Statistic position={STATISTIC_ORDER.CORE(20)} size="flexible">
+      <Statistic position={STATISTIC_ORDER.CORE(1)} size="flexible">
         <div className="pad">
           <label>
             <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id}>Essence Font</SpellLink> breakdown
