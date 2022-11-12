@@ -67,6 +67,7 @@ import SpellLink from 'interface/SpellLink';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 export default [
+  change(date(2022, 11, 10), 'Add missing default tooltip for preparation section of guide.', ToppleTheNun),
   change(date(2022, 11, 10), 'Hide rank for talents with only one rank.', ToppleTheNun),
   change(date(2022, 11, 9), 'Add bombs and cleanup Classic Engineering.', jazminite),
   change(date(2022, 11, 7), 'Update for Classic WCLs URL.', jazminite),
