@@ -8,7 +8,11 @@ import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
  */
 class GlobalCooldown extends CoreGlobalCooldown {
   onCast(event: CastEvent) {
-    if (event.ability.guid === SPELLS.MIND_FLAY.id || event.ability.guid === TALENTS.MIND_SEAR_TALENT.id || event.ability.guid === TALENTS.MIND_FLAY_INSANITY_TALENT.id) {
+    if (
+      event.ability.guid === SPELLS.MIND_FLAY.id ||
+      event.ability.guid === TALENTS.MIND_SEAR_TALENT.id ||
+      event.ability.guid === TALENTS.MIND_FLAY_INSANITY_TALENT.id
+    ) {
       // This GCD gets handled by the `beginchannel` event
       return;
     }

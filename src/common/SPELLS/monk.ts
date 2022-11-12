@@ -75,6 +75,11 @@ const spells = spellIndexableList({
     icon: 'ability_monk_expelharm',
     manaCost: 7500,
   },
+  SAVE_THEM_ALL_BUFF: {
+    id: 390105,
+    name: 'Save Them All',
+    icon: 'inv_weapon_hand_22',
+  },
 
   // Mistweaver Monk Spells
   CLOUDED_FOCUS_BUFF: {
@@ -209,6 +214,11 @@ const spells = spellIndexableList({
   SOOTHING_MIST_STATUE: {
     id: 198533,
     name: 'Soothing Mist',
+    icon: 'ability_monk_soothingmists',
+  },
+  UNISON_HEAL: {
+    id: 388480,
+    name: 'Unison',
     icon: 'ability_monk_soothingmists',
   },
   REFRESHING_JADE_WIND_HEAL: {

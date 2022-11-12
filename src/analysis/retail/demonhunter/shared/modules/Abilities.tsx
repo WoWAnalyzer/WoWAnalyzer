@@ -112,6 +112,7 @@ export default class Abilities extends CoreAbilities {
           TALENTS_DEMON_HUNTER.SIGIL_OF_SILENCE_TALENT.id,
           SPELLS.SIGIL_OF_SILENCE_PRECISE.id,
         ],
+        enabled: this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_SILENCE_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
           60 *
@@ -126,6 +127,7 @@ export default class Abilities extends CoreAbilities {
           TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT.id,
           SPELLS.SIGIL_OF_MISERY_PRECISE.id,
         ],
+        enabled: this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
           60 *
