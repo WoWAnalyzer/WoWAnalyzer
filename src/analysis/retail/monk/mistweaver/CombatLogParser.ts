@@ -4,6 +4,7 @@ import {
   MysticTouch,
   TouchOfDeath,
   DampenHarm,
+  SaveThemAll,
 } from 'analysis/retail/monk/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
@@ -67,6 +68,7 @@ import YulonsWhisper from './modules/spells/YulonsWhisper';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
+import Unison from './modules/spells/Unison';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -108,6 +110,7 @@ class CombatLogParser extends CoreCombatLogParser {
     dampenHarm: DampenHarm,
     touchOfDeath: TouchOfDeath,
     risingSunKick: RisingSunKick,
+    saveThemAll: SaveThemAll,
     vivaciousVivification: VivaciousVivification,
 
     // MW Talents
@@ -145,6 +148,7 @@ class CombatLogParser extends CoreCombatLogParser {
     thunderFocusTea: ThunderFocusTea,
     upwelling: Upwelling,
     yulonsWhisper: YulonsWhisper,
+    unison: Unison,
 
     // Mana Tab
     manaTracker: ManaTracker,

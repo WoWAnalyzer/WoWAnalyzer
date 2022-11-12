@@ -39,7 +39,7 @@ export function binomialCDF(k: number, n: number, p: number) {
  * @param {Function} pmf Callback that returns probability of exactly K events happening in N tries. Parameters - K, N
  * @returns {{ max: Number, p: Number }} Maximum of given PMF function - argument and probability itself
  */
-export function findMax(n: number, pmf: (i: number, n: any) => any) {
+export function findMax(n: number, pmf: (i: number, n: any) => any): { max: number; p: number } {
   let max = -1;
   let maxP = 0;
   for (let i = 0; i <= n; i += 1) {
@@ -118,7 +118,7 @@ export function setMinMaxProbabilities(
  * @param lookup {Array} Lookup table
  * @returns {Number} Probability
  */
-function Ekj(k: number, j: number, p: number[], lookup: any[][]) {
+function Ekj(k: number, j: number, p: number[], lookup: any[][]): number {
   if (k === -1) {
     return 0;
   }

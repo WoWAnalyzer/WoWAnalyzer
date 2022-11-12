@@ -6,7 +6,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 /**
  * Secret Technique
- * Cooldown is reduced by by 1 sec for every combo point you spend.
+ * Cooldown is reduced by 1 sec for every combo point you spend.
  */
 class SecretTechniqueCdr extends Analyzer {
   static dependencies = {

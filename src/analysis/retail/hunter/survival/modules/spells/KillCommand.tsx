@@ -1,8 +1,6 @@
-import { NESINGWARY_FOCUS_GAIN_MULTIPLIER } from 'analysis/retail/hunter/shared';
-import { SV_KILL_COMMAND_FOCUS_GAIN } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, ResourceChangeEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -27,9 +25,6 @@ class KillCommand extends Analyzer {
 
   resets = 0;
 
-  additionalFocusFromNesingwary = 0;
-  possibleAdditionalFocusFromNesingwary = 0;
-
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
   protected globalCooldown!: GlobalCooldown;
@@ -41,11 +36,6 @@ class KillCommand extends Analyzer {
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FLANKERS_ADVANTAGE),
       this.onFlankersProc,
     );
-    this.selectedCombatant.hasLegendary(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_EFFECT) &&
-      this.addEventListener(
-        Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.KILL_COMMAND_CAST_SV),
-        this.checkNesingwaryFocusGain,
-      );
   }
 
   onFlankersProc(event: ApplyBuffEvent) {
@@ -62,14 +52,6 @@ class KillCommand extends Analyzer {
         SPELLS.KILL_COMMAND_CAST_SV.id,
         expectedCooldownDuration - globalCooldown,
       );
-    }
-  }
-
-  checkNesingwaryFocusGain(event: ResourceChangeEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.NESINGWARYS_TRAPPING_APPARATUS_ENERGIZE.id)) {
-      this.additionalFocusFromNesingwary +=
-        event.resourceChange * (1 - 1 / NESINGWARY_FOCUS_GAIN_MULTIPLIER) - event.waste;
-      this.possibleAdditionalFocusFromNesingwary += SV_KILL_COMMAND_FOCUS_GAIN;
     }
   }
 

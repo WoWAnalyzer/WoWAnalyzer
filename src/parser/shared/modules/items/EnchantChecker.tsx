@@ -103,16 +103,33 @@ class EnchantChecker extends Analyzer {
   boxRowTooltip(item: Item, slotName: JSX.Element, recommendedEnchantments: Enchant[] | undefined) {
     const hasEnchant = this.hasEnchant(item);
     const hasMaxEnchant = hasEnchant && this.hasMaxEnchant(item);
-    const recommendedEnchant = recommendedEnchantments?.map((it) => it.name)?.join(', ');
+    const recommendedEnchantNames = recommendedEnchantments?.map((it) => it.name)?.join(', ');
+    const recommendedEnchantIds = recommendedEnchantments?.map((it) => it.effectId);
     if (hasMaxEnchant) {
-      return null;
+      if (
+        recommendedEnchantIds &&
+        recommendedEnchantNames &&
+        !recommendedEnchantIds.includes(item.permanentEnchant ?? 0)
+      ) {
+        return (
+          <Trans id="shared.enchantChecker.guide.strongEnchant.labelWithRecommendation">
+            Your {slotName} has a strong enchant but these are recommended:{' '}
+            {recommendedEnchantNames}
+          </Trans>
+        );
+      }
+      return (
+        <Trans id="shared.enchantChecker.guide.strongEnchant.label">
+          Your {slotName} has a strong enchant. Good work!
+        </Trans>
+      );
     }
     if (hasEnchant) {
-      if (recommendedEnchant) {
+      if (recommendedEnchantNames) {
         return (
           <Trans id="shared.enchantChecker.guide.weakEnchant.labelWithRecommendation">
             Your {slotName} has a cheap enchant. Apply a stronger enchant to increase your
-            throughput. Recommended: {recommendedEnchant}
+            throughput. Recommended: {recommendedEnchantNames}
           </Trans>
         );
       }
@@ -122,11 +139,11 @@ class EnchantChecker extends Analyzer {
         </Trans>
       );
     }
-    if (recommendedEnchant) {
+    if (recommendedEnchantNames) {
       return (
         <Trans id="shared.enchantChecker.guide.noEnchant.labelWithRecommendation">
           Your {slotName} is missing an enchant. Apply a strong enchant to increase your throughput.
-          Recommended: {recommendedEnchant}
+          Recommended: {recommendedEnchantNames}
         </Trans>
       );
     }

@@ -195,7 +195,7 @@ class ThunderFocusTea extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(20)}
+        position={STATISTIC_ORDER.CORE(23)}
         size="flexible"
         category={STATISTIC_CATEGORY.GENERAL}
       >

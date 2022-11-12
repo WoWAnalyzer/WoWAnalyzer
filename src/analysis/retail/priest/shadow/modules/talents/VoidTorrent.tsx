@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
 import Insanity from 'interface/icons/Insanity';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -35,17 +36,17 @@ class VoidTorrent extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.VOID_TORRENT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.VOID_TORRENT_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VOID_TORRENT_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.VOID_TORRENT_TALENT),
       this.onCast,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.VOID_TORRENT_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.VOID_TORRENT_TALENT),
       this.onBuffRemoved,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VOID_TORRENT_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.VOID_TORRENT_TALENT),
       this.onDamage,
     );
     this.addEventListener(
@@ -150,12 +151,12 @@ class VoidTorrent extends Analyzer {
     when(this.interruptThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You interrupted <SpellLink id={SPELLS.VOID_TORRENT_TALENT.id} /> early, wasting{' '}
+          You interrupted <SpellLink id={TALENTS.VOID_TORRENT_TALENT.id} /> early, wasting{' '}
           {formatSeconds(this.timeWasted)} channeling seconds! Try to position yourself & time it so
           you don't get interrupted due to mechanics.
         </>,
       )
-        .icon(SPELLS.VOID_TORRENT_TALENT.icon)
+        .icon(TALENTS.VOID_TORRENT_TALENT.icon)
         .actual(
           t({
             id: 'priest.shadow.suggestions.voidTorrent.secondsLost',
@@ -181,7 +182,7 @@ class VoidTorrent extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.VOID_TORRENT_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.VOID_TORRENT_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
             <Insanity /> {this.insanityGained} <small>Insanity generated</small>

@@ -1,5 +1,6 @@
 import { HYDRAS_BITE_DOT_MODIFIER } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, {
@@ -33,7 +34,7 @@ class HydrasBite extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.HYDRAS_BITE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HYDRAS_BITE_TALENT.id);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV),
@@ -127,7 +128,7 @@ class HydrasBite extends Analyzer {
         }
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.HYDRAS_BITE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.HYDRAS_BITE_TALENT.id}>
           <>
             <ItemDamageDone amount={this.increasedMainTargetDamage + this.spreadDamage} /> <br />
             {(this.extraApplications / this.casts).toFixed(1)} <small>extra dots/cast</small>

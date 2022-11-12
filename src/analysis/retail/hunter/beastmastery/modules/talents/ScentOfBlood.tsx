@@ -1,5 +1,4 @@
-import { SCENT_OF_BLOOD_BARBED_SHOT_RECHARGE } from 'analysis/retail/hunter/beastmastery/constants';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -10,7 +9,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import SpellUsable from '../core/SpellUsable';
 
 /**
- * Activating Bestial Wrath grants 2 charges of Barbed Shot.
+ * Activating Bestial Wrath grants 1/2 charges of Barbed Shot. (depending on points)
  *
  * Example log:
  */
@@ -22,22 +21,24 @@ class ScentOfBlood extends Analyzer {
 
   chargesGained = 0;
   chargesWasted = 0;
+  shotRecharges = 0;
 
   protected spellUsable!: SpellUsable;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SCENT_OF_BLOOD_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SCENT_OF_BLOOD_TALENT.id);
+    this.shotRecharges = this.selectedCombatant.getTalentRank(TALENTS.SCENT_OF_BLOOD_TALENT.id);
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BESTIAL_WRATH),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.BESTIAL_WRATH_TALENT),
       this.bestialWrathApplication,
     );
   }
 
   bestialWrathApplication() {
-    const chargesAvailable = this.spellUsable.chargesAvailable(SPELLS.BARBED_SHOT.id);
-    this.chargesGained += SCENT_OF_BLOOD_BARBED_SHOT_RECHARGE - chargesAvailable;
+    const chargesAvailable = this.spellUsable.chargesAvailable(TALENTS.BARBED_SHOT_TALENT.id);
+    this.chargesGained += this.shotRecharges - chargesAvailable;
     this.chargesWasted += chargesAvailable;
   }
 
@@ -48,7 +49,7 @@ class ScentOfBlood extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.SCENT_OF_BLOOD_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.SCENT_OF_BLOOD_TALENT.id}>
           <>
             {this.chargesGained}/{this.chargesGained + this.chargesWasted}{' '}
             <small>charges gained</small>

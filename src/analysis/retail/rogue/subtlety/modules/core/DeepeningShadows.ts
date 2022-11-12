@@ -1,8 +1,8 @@
-import TALENTS from 'common/TALENTS/rogue';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { SpendResourceEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import SPELLS from 'common/SPELLS/rogue';
 
 /**
  * Deepening Shadows
@@ -30,9 +30,9 @@ class DeepeningShadows extends Analyzer {
       return;
     }
 
-    if (this.spellUsable.isOnCooldown(TALENTS.SHADOW_DANCE_TALENT.id)) {
+    if (this.spellUsable.isOnCooldown(SPELLS.SHADOW_DANCE.id)) {
       this.spellUsable.reduceCooldown(
-        TALENTS.SHADOW_DANCE_TALENT.id,
+        SPELLS.SHADOW_DANCE.id,
         comboPointsSpent * this.cdrPerComboPoint,
       );
     }

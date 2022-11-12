@@ -4,7 +4,7 @@ import { ThresholdStyle } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-import * as SPELLS from '../../../SPELLS';
+import SPELLS from 'common/SPELLS/classic/shaman';
 
 class WaterShield extends Analyzer {
   static dependencies = {
@@ -25,7 +25,7 @@ class WaterShield extends Analyzer {
     this.category = STATISTIC_CATEGORY.GENERAL;
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell({ id: SPELLS.WATER_SHIELD }),
+      Events.applybuff.by(SELECTED_PLAYER).spell({ id: SPELLS.WATER_SHIELD.id }),
       this.waterShieldPrepullCheck,
     );
   }
@@ -38,7 +38,8 @@ class WaterShield extends Analyzer {
 
   get uptime() {
     return Object.values(this.combatants.players).reduce(
-      (uptime, player) => uptime + player.getBuffUptime(SPELLS.WATER_SHIELD, this.owner.playerId),
+      (uptime, player) =>
+        uptime + player.getBuffUptime(SPELLS.WATER_SHIELD.id, this.owner.playerId),
       0,
     );
   }

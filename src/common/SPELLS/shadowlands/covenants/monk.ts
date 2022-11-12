@@ -60,11 +60,6 @@ const covenants = spellIndexableList({
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
   },
-  FAELINE_STOMP_ESSENCE_FONT: {
-    id: 344006,
-    name: 'Faeline Stomp',
-    icon: 'ability_ardenweald_monk',
-  },
   FAELINE_STOMP_PULSE_DAMAGE: {
     id: 327264,
     name: 'Faeline Stomp',
