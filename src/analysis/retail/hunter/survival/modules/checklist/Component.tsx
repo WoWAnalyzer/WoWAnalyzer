@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import { ResourceIcon } from 'interface';
@@ -44,32 +45,32 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         <AbilityRequirement spell={SPELLS.KILL_COMMAND_CAST_SV.id} />
         <AbilityRequirement spell={SPELLS.COORDINATED_ASSAULT.id} />
 
-        {combatant.hasTalent(SPELLS.FLANKING_STRIKE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.FLANKING_STRIKE_TALENT.id} />
+        {combatant.hasTalent(TALENTS.FLANKING_STRIKE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.FLANKING_STRIKE_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.A_MURDER_OF_CROWS_TALENT.id} />
+        {combatant.hasTalent(TALENTS.A_MURDER_OF_CROWS_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.A_MURDER_OF_CROWS_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id) ? (
-          <AbilityRequirement spell={SPELLS.WILDFIRE_INFUSION_TALENT.id} />
+        {combatant.hasTalent(TALENTS.WILDFIRE_INFUSION_TALENT.id) ? (
+          <AbilityRequirement spell={TALENTS.WILDFIRE_INFUSION_TALENT.id} />
         ) : (
           <AbilityRequirement spell={SPELLS.WILDFIRE_BOMB.id} />
         )}
-        {combatant.hasTalent(SPELLS.CHAKRAMS_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.CHAKRAMS_TALENT.id} />
+        {combatant.hasTalent(TALENTS.DEATH_CHAKRAM_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.DEATH_CHAKRAM_TALENT.id} />
         )}
       </Rule>
 
-      {combatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id) ? (
+      {combatant.hasTalent(TALENTS.MONGOOSE_BITE_TALENT.id) ? (
         <Rule
           name="Mongoose Bite usage"
           description={
             <>
-              Using <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} /> properly is a key to achieving
-              high dps. Maintaining high stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> buff
-              from as soon as possible and casting as much{' '}
-              <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />s on max stacks as possible is
-              considered to be most effective.
+              Using <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} /> properly is a key to
+              achieving high dps. Maintaining high stacks of{' '}
+              <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> buff from as soon as possible and casting
+              as much <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} />s on max stacks as possible
+              is considered to be most effective.
             </>
           }
         >
@@ -85,7 +86,7 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} /> hits on max stacks of{' '}
+                <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} /> hits on max stacks of{' '}
                 <SpellLink id={SPELLS.MONGOOSE_FURY.id} />{' '}
               </>
             }
@@ -104,11 +105,11 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           </>
         }
       >
-        {combatant.hasTalent(SPELLS.BIRDS_OF_PREY_TALENT.id) ? (
+        {combatant.hasTalent(TALENTS.BIRDS_OF_PREY_TALENT.id) ? (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.BIRDS_OF_PREY_TALENT.id} /> Effectiveness{' '}
+                <SpellLink id={TALENTS.BIRDS_OF_PREY_TALENT.id} /> Effectiveness{' '}
               </>
             }
             thresholds={thresholds.birdPercentEffectiveness}
@@ -125,10 +126,10 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           <>
             As a DPS, you should try to reduce the delay between casting spells, and stay off
             resource capping as much as possible. If everything is on cooldown, try and use{' '}
-            {combatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id) ? (
-              <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />
+            {combatant.hasTalent(TALENTS.MONGOOSE_BITE_TALENT.id) ? (
+              <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} />
             ) : (
-              <SpellLink id={SPELLS.RAPTOR_STRIKE.id} />
+              <SpellLink id={TALENTS.RAPTOR_STRIKE_TALENT.id} />
             )}{' '}
             to stay off the focus cap and do some damage.
           </>

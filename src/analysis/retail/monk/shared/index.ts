@@ -4,6 +4,7 @@ export { default as FallenOrder } from './FallenOrder';
 export { default as ImbuedReflections } from './ImbuedReflections';
 export { default as InvokersDelight } from './InvokersDelight';
 export { default as TouchOfDeath } from './TouchOfDeath';
+export { default as SaveThemAll } from './SaveThemAll';
 export { default as SinisterTeachings } from './SinisterTeachings';
 export { default as FaelineHarmony } from './FaelineHarmony';
 export { default as MysticTouch } from './MysticTouch';

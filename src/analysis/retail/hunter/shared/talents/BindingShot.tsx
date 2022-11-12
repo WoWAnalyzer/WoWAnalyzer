@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
@@ -29,7 +30,7 @@ class BindingShot extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active =
-      this.selectedCombatant.hasTalent(SPELLS.BINDING_SHOT_TALENT.id) ||
+      this.selectedCombatant.hasTalent(TALENTS.BINDING_SHOT_TALENT.id) ||
       this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER;
     this.category =
       this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER
@@ -44,12 +45,12 @@ class BindingShot extends Analyzer {
       this.onTether,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BINDING_SHOT_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.BINDING_SHOT_TALENT),
       this.onCast,
     );
     if (this.active) {
       (options.abilities as Abilities).add({
-        spell: SPELLS.BINDING_SHOT_TALENT.id,
+        spell: TALENTS.BINDING_SHOT_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
         gcd: {
@@ -75,7 +76,7 @@ class BindingShot extends Analyzer {
     if (this._casts > 0) {
       return (
         <Statistic position={STATISTIC_ORDER.OPTIONAL(14)} size="flexible" category={this.category}>
-          <BoringSpellValueText spellId={SPELLS.BINDING_SHOT_TALENT.id}>
+          <BoringSpellValueText spellId={TALENTS.BINDING_SHOT_TALENT.id}>
             <>
               {this._roots} <small>roots</small> / {this._applications} <small>possible</small>{' '}
               <br />

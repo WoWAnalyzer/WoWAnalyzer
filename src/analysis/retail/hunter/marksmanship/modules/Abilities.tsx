@@ -1,10 +1,6 @@
-import {
-  BORN_TO_BE_WILD_CD_REDUCTION,
-  CALL_OF_THE_WILD_CD_REDUCTION,
-  HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK,
-} from 'analysis/retail/hunter/shared';
-import ITEMS from 'common/ITEMS';
+import { BORN_TO_BE_WILD_CD_REDUCTION } from 'analysis/retail/hunter/shared';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -50,7 +46,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ARCANE_SHOT.id,
         buffSpellId: SPELLS.PRECISE_SHOTS.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: !combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP.id),
+
+        enabled: !combatant.hasTalent(TALENTS.CHIMAERA_SHOT_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -75,12 +72,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.TRUESHOT.id,
         buffSpellId: SPELLS.TRUESHOT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown:
-          120 *
-          (1 -
-            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT)
-              ? CALL_OF_THE_WILD_CD_REDUCTION
-              : 0)),
+        cooldown: 120,
         gcd: {
           static: 0,
         },
@@ -91,11 +83,11 @@ class Abilities extends CoreAbilities {
       },
       //endregion
 
-      //region Items
+      //region Talents
       {
-        spell: SPELLS.WAILING_ARROW_CAST.id,
+        spell: TALENTS.WAILING_ARROW_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.WAILING_ARROW_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasMainHand(ITEMS.RAESHALARE_DEATHS_WHISPER.id),
         gcd: {
           base: 1500,
         },
@@ -103,6 +95,85 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: TALENTS.CHIMAERA_SHOT_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.CHIMAERA_SHOT_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: TALENTS.EXPLOSIVE_SHOT_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+        buffSpellId: TALENTS.EXPLOSIVE_SHOT_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.EXPLOSIVE_SHOT_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+        },
+      },
+      {
+        spell: TALENTS.SERPENT_STING_TALENT.id,
+        buffSpellId: TALENTS.SERPENT_STING_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.SERPENT_STING_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: TALENTS.DOUBLE_TAP_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 60,
+        enabled: combatant.hasTalent(TALENTS.DOUBLE_TAP_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+      },
+      {
+        spell: TALENTS.BARRAGE_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 20,
+        enabled: combatant.hasTalent(TALENTS.BARRAGE_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: TALENTS.VOLLEY_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 45,
+        enabled: combatant.hasTalent(TALENTS.VOLLEY_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: TALENTS.CAMOUFLAGE_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 60,
+        enabled: combatant.hasTalent(TALENTS.CAMOUFLAGE_TALENT.id),
+        gcd: {
+          base: 1500,
         },
       },
       //endregion
@@ -123,20 +194,11 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
         cooldown:
-          (180 -
-            (combatant.hasConduitBySpellID(SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id)
-              ? HARMONY_OF_THE_TORTOLLAN_EFFECT_BY_RANK[
-                  combatant.conduitRankBySpellID(SPELLS.HARMONY_OF_THE_TORTOLLAN_CONDUIT.id)
-                ]
-              : 0)) *
+          180 *
           (1 -
-            (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id)
-              ? BORN_TO_BE_WILD_CD_REDUCTION
-              : 0)) *
-          (1 -
-            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT)
-              ? CALL_OF_THE_WILD_CD_REDUCTION
-              : 0)),
+            BORN_TO_BE_WILD_CD_REDUCTION[
+              combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT.id)
+            ]),
         gcd: {
           static: 0,
         },
@@ -199,13 +261,9 @@ class Abilities extends CoreAbilities {
         cooldown:
           180 *
           (1 -
-            (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id)
-              ? BORN_TO_BE_WILD_CD_REDUCTION
-              : 0)) *
-          (1 -
-            (combatant.hasLegendary(SPELLS.CALL_OF_THE_WILD_EFFECT)
-              ? CALL_OF_THE_WILD_CD_REDUCTION
-              : 0)),
+            BORN_TO_BE_WILD_CD_REDUCTION[
+              combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT.id)
+            ]),
         gcd: {
           static: 0,
         },
@@ -225,10 +283,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        castEfficiency: {
-          suggestion: this.selectedCombatant.hasLegendary(SPELLS.SOULFORGE_EMBERS_EFFECT),
-          recommendedEfficiency: 0.55,
-        },
       },
       {
         spell: SPELLS.FLARE.id,
@@ -237,98 +291,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        castEfficiency: {
-          suggestion: this.selectedCombatant.hasLegendary(SPELLS.SOULFORGE_EMBERS_EFFECT),
-          recommendedEfficiency: 0.9,
-        },
       },
       {
         spell: SPELLS.HUNTERS_MARK.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1000,
-        },
-      },
-      //endregion
-
-      //region Talents
-      {
-        spell: SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP.id),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.EXPLOSIVE_SHOT_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        buffSpellId: SPELLS.EXPLOSIVE_SHOT_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-        },
-      },
-      {
-        spell: SPELLS.SERPENT_STING_TALENT.id,
-        buffSpellId: SPELLS.SERPENT_STING_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.SERPENT_STING_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.DOUBLE_TAP_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 60,
-        enabled: combatant.hasTalent(SPELLS.DOUBLE_TAP_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-      },
-      {
-        spell: SPELLS.BARRAGE_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 20,
-        enabled: combatant.hasTalent(SPELLS.BARRAGE_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      },
-      {
-        spell: SPELLS.VOLLEY_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 45,
-        enabled: combatant.hasTalent(SPELLS.VOLLEY_TALENT.id),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-      },
-      {
-        spell: SPELLS.CAMOUFLAGE_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60,
-        enabled: combatant.hasTalent(SPELLS.CAMOUFLAGE_TALENT.id),
-        gcd: {
-          base: 1500,
         },
       },
       //endregion

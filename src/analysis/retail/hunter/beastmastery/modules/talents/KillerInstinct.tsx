@@ -1,5 +1,5 @@
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -17,7 +17,7 @@ import { KILLER_INSTINCT_MULTIPLIER, KILLER_INSTINCT_THRESHOLD } from '../../con
  * https://www.warcraftlogs.com/reports/DFZVfmhkj9bYa6rn#fight=1&type=damage-done
  */
 class KillerInstinct extends ExecuteHelper {
-  static executeSpells = [SPELLS.KILL_COMMAND_DAMAGE_BM, SPELLS.KILL_COMMAND_CAST_BM];
+  static executeSpells = [TALENTS.KILL_COMMAND_SHARED_TALENT];
   static executeSources = SELECTED_PLAYER_PET | SELECTED_PLAYER;
   static lowerThreshold = KILLER_INSTINCT_THRESHOLD;
   static modifiesDamage = true;
@@ -25,7 +25,7 @@ class KillerInstinct extends ExecuteHelper {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.KILLER_INSTINCT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.KILLER_INSTINCT_TALENT.id);
   }
 
   statistic() {
@@ -43,7 +43,7 @@ class KillerInstinct extends ExecuteHelper {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.KILLER_INSTINCT_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.KILLER_INSTINCT_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

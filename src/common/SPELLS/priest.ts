@@ -214,6 +214,11 @@ const spells = spellIndexableList({
     name: 'Shadow Word: Pain',
     icon: 'spell_shadow_shadowwordpain',
   },
+  PROTECTIVE_LIGHT_BUFF: {
+    id: 193065,
+    name: 'Protective Light',
+    icon: 'spell_holy_holyprotection',
+  },
   FADE: {
     id: 586,
     name: 'Fade',
@@ -636,6 +641,18 @@ const spells = spellIndexableList({
     id: 341207,
     name: 'Dark Thought',
     icon: 'ability_priest_thoughtsteal01',
+  },
+
+  SHADOWY_INSIGHT: {
+    id: 375888,
+    name: 'Shadowy Insight',
+    icon: 'spell_shadow_possession',
+  },
+
+  SHADOWY_INSIGHT_BUFF: {
+    id: 375981,
+    name: 'Shadowy Insight',
+    icon: 'spell_shadow_possession',
   },
 
   UNFURLING_DARKNESS_BUFF: {
