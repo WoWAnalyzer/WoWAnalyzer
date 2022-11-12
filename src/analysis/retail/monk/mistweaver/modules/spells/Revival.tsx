@@ -150,7 +150,7 @@ class Revival extends Analyzer {
 
   statistic() {
     return (
-      <Statistic position={STATISTIC_ORDER.CORE(20)} size="flexible">
+      <Statistic position={STATISTIC_ORDER.CORE(3)} size="flexible">
         <div className="pad">
           <label>
             <SpellLink id={this.activeTalent.id}>{this.activeTalent.name}</SpellLink> breakdown
