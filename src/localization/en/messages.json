@@ -1089,6 +1089,8 @@
   "shared.dispelTracker.label": "Dispels",
   "shared.distanceMoved.statistic.label": "Distance moved",
   "shared.distanceMoved.statistic.tooltip": "Consider this when analyzing the fight, as some fights require more movement than others. Unnecessary movement can result in a DPS/HPS loss.<0/><1/>In ≈{0} seconds of movement you moved ≈{1} yards (≈{2} yards per minute). This statistic may not be entirely accurate for fights with lots of problems.",
+  "shared.enchantChecker.guide.strongEnchant.label": "Your {slotName} has a strong enchant. Good work!",
+  "shared.enchantChecker.guide.strongEnchant.labelWithRecommendation": "Your {slotName} has a strong enchant but these are recommended: {recommendedEnchant}",
   "shared.enchantChecker.guide.noEnchant.label": "Your {slotName} is missing an enchant. Apply a strong enchant to increase your throughput.",
   "shared.enchantChecker.guide.noEnchant.labelWithRecommendation": "Your {slotName} is missing an enchant. Apply a strong enchant to increase your throughput. Recommended: {recommendedEnchant}",
   "shared.enchantChecker.guide.weakEnchant.label": "Your {slotName} has a cheap enchant. Apply a stronger enchant to increase your throughput.",
