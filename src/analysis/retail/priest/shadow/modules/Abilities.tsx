@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -17,13 +16,13 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: true,  
+          suggestion: true,
           recommendedEfficiency: 0.85,
           maxCasts: (cooldown: number) =>
             calculateMaxCasts(cooldown, combatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id)),
         },
         damageSpellIds: [SPELLS.VOID_BOLT.id, SPELLS.VOID_BOLT_DISSONANT_ECHOES.id],
-        enabled: combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT.id)
+        enabled: combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT.id),
       },
       {
         spell: SPELLS.MIND_BLAST.id,
@@ -46,12 +45,12 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.MIND_FLAY_INSANITY_TALENT.id,
+        spell: TALENTS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.MIND_FLAY_INSANITY_TALENT.id)
+        enabled: combatant.hasTalent(TALENTS.MIND_FLAY_INSANITY_TALENT.id),
       },
       {
         spell: TALENTS.MIND_SPIKE_TALENT.id,
@@ -59,7 +58,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.MIND_SPIKE_TALENT.id)
+        enabled: combatant.hasTalent(TALENTS.MIND_SPIKE_TALENT.id),
       },
       {
         spell: SPELLS.MIND_SEAR.id,
@@ -67,7 +66,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.MIND_SEAR_TALENT.id)
+        enabled: combatant.hasTalent(TALENTS.MIND_SEAR_TALENT.id),
       },
       {
         spell: TALENTS.SHADOW_CRASH_TALENT.id,
@@ -81,6 +80,19 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.8,
         },
         enabled: combatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT.id),
+      },
+      {
+        spell: TALENTS.DARK_VOID_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+        enabled: combatant.hasTalent(TALENTS.DARK_VOID_TALENT.id),
       },
       {
         spell: SPELLS.SHADOW_WORD_PAIN.id,
@@ -114,7 +126,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.DAMNATION_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 60 - (combatant.getTalentRank(TALENTS.MALEDICTION_TALENT) * 15),
+        cooldown: 60 - combatant.getTalentRank(TALENTS.MALEDICTION_TALENT) * 15,
         gcd: {
           base: 1500,
         },
@@ -142,7 +154,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.95,
         },
-        enabled: combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT.id)
+        enabled: combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT.id),
       },
       {
         spell: TALENTS.DARK_ASCENSION_TALENT.id,
@@ -155,12 +167,12 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.95,
         },
-        enabled: combatant.hasTalent(TALENTS.DARK_ASCENSION_TALENT.id)
+        enabled: combatant.hasTalent(TALENTS.DARK_ASCENSION_TALENT.id),
       },
       {
         spell: TALENTS.VOID_TORRENT_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 60 - (combatant.getTalentRank(TALENTS.MALEDICTION_TALENT) * 15),
+        cooldown: 60 - combatant.getTalentRank(TALENTS.MALEDICTION_TALENT) * 15,
         gcd: {
           base: 1500,
         },
@@ -210,7 +222,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.8,
         },
-        enabled: combatant.hasTalent(TALENTS.POWER_INFUSION_TALENT.id)
+        enabled: combatant.hasTalent(TALENTS.POWER_INFUSION_TALENT.id),
       },
 
       // Utility
@@ -223,14 +235,14 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.DISPERSION_TALENT.id)
+        enabled: combatant.hasTalent(TALENTS.DISPERSION_TALENT.id),
       },
       {
         spell: TALENTS.SILENCE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 45 - (combatant.hasTalent(TALENTS.LAST_WORD_TALENT.id) ? 15 : 0),
         gcd: null,
-        enabled: combatant.hasTalent(TALENTS.SILENCE_TALENT.id)
+        enabled: combatant.hasTalent(TALENTS.SILENCE_TALENT.id),
       },
       {
         spell: TALENTS.VAMPIRIC_EMBRACE_TALENT.id,
@@ -241,7 +253,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.VAMPIRIC_EMBRACE_TALENT.id)
+        enabled: combatant.hasTalent(TALENTS.VAMPIRIC_EMBRACE_TALENT.id),
       },
       {
         spell: SPELLS.POWER_WORD_SHIELD.id,
@@ -275,7 +287,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FADE.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 30 - (combatant.getTalentRank(TALENTS.IMPROVED_FADE_TALENT) * 5),
+        cooldown: 30 - combatant.getTalentRank(TALENTS.IMPROVED_FADE_TALENT) * 5,
         gcd: null,
       },
       {
@@ -300,7 +312,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.MASS_DISPEL_TALENT.id, 
+        spell: TALENTS.MASS_DISPEL_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 45 - (combatant.hasTalent(TALENTS.IMPROVED_MASS_DISPEL_TALENT.id) ? 30 : 0),
         gcd: {
@@ -373,12 +385,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-      },
-      {
-        spell: SPELLS.FLESHCRAFT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
     ];
   }

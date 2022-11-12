@@ -40,10 +40,11 @@ class DarkVoid extends Analyzer {
   onDamage(event: DamageEvent) {
     this.totalTargetsHit += 1;
     this.damage += event.amount + (event.absorbed || 0);
+    this.insanityGained += 15; // This adds the 15 insanity it should be getting every cast.
   }
 
   onEnergize(event: ResourceChangeEvent) {
-    this.insanityGained += event.resourceChange;
+    this.insanityGained += event.resourceChange; //TODO: for some reason, dark void doesn't give any insanity in the logs, but does give 15.
   }
 
   statistic() {

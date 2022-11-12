@@ -424,9 +424,21 @@ const talents = createTalentList({
     name: 'Mind Sear',
     icon: 'spell_shadow_mindshear',
     maxRanks: 1,
+    insanityCost: 2500,
+  },
+  MIND_SEAR_TALENT_DAMAGE: {
+    id: 49821,
+    name: 'Mind Sear',
+    icon: 'spell_shadow_mindshear',
+    maxRanks: 1,
     insanityCost: 0,
   },
-  MIND_SPIKE_TALENT: { id: 73510, name: 'Mind Spike', icon: 'spell_priest_mindspike', maxRanks: 1 },
+  MIND_SPIKE_TALENT: {
+    id: 73510,
+    name: 'Mind Spike',
+    icon: 'spell_priest_mindspike',
+    maxRanks: 1,
+  },
   PUPPET_MASTER_TALENT: {
     id: 377387,
     name: 'Puppet Master',
@@ -538,6 +550,12 @@ const talents = createTalentList({
   },
   MIND_FLAY_INSANITY_TALENT: {
     id: 391399,
+    name: 'Mind Flay: Insanity',
+    icon: 'spell_fire_twilightflamebreath',
+    maxRanks: 1,
+  },
+  MIND_FLAY_INSANITY_TALENT_DAMAGE: {
+    id: 391403,
     name: 'Mind Flay: Insanity',
     icon: 'spell_fire_twilightflamebreath',
     maxRanks: 1,
