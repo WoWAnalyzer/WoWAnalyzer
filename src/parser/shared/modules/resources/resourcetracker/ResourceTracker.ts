@@ -26,7 +26,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
  * resource amount. However, when multiple updates happen in quick succession, the last amount can
  * be 'out of date', causing an incorrect calculation of the resource amount after the updates.
  *
- * The following is a real example found in a log - the following events happened on the same timestamp:
+ * This is a real example found in a log - the following events happened on the same timestamp:
  * Ferocious Bite CAST - amount: 100, cost: 25
  * Ferocious Bite DRAIN - amount: 100, change: -25
  * Soul of the Forest ENERGIZE - amount: 90, change: 15
@@ -61,14 +61,17 @@ export type SpenderObj = {
 };
 
 /** An update on the resource state */
-type ResourceUpdate = {
+export type ResourceUpdate = {
   /** What triggered this update */
   type: ResourceUpdateType;
   /** This update's timestamp */
   timestamp: number;
+  /** The spell ID associated with this update.
+   *  Filled only for spend, drain, and gain types. */
+  spellId?: number;
   /** Instant change of resources with this update (negative indicates a spend or drain)
    *  This is the 'effective' change only, any overcap goes in changeWaste */
-  change: number;
+  change?: number;
   /** Amount of resource the player has AFTER the change */
   current: number;
   /** Current resource max */
@@ -76,14 +79,14 @@ type ResourceUpdate = {
   /** Current rate of continuous resource gain, in resource per second */
   rate: number;
   /** Wasted resources caused by the instant change of resources */
-  changeWaste: number;
+  changeWaste?: number;
   /** Wasted resources since the last update due to recharge */
-  rateWaste: number;
+  rateWaste?: number;
   /** True iff resources are capped AFTER the change */
   atCap: boolean;
 };
 
-type ResourceUpdateType =
+export type ResourceUpdateType =
   /** Player spent resource, as shown in a cast's classResources */
   | 'spend'
   /** Player drained resource, as shown in a DrainEvent */
@@ -94,19 +97,19 @@ type ResourceUpdateType =
   | 'regenCap'
   /** Regeneration rate changed */
   | 'rateChange'
-  /** The fight ended */
-  | 'fightEnd'
+  /** The fight (or segment) ended - used to show trailing rate waste */
+  | 'end'
   /** A resource refund due to an ability miss */
   | 'refund';
 
-const DEBUG = false;
+const DEBUG = true;
 
 /**
  * This is an 'abstract' implementation of a framework for tracking resource generating/spending.
  * Extend it by defining the resource and maxResource fields. Other functions can also be
  * overridden to handle unusual behavior - see comments in class for details.
  */
-class ResourceTracker extends Analyzer {
+export default class ResourceTracker extends Analyzer {
   static dependencies = {
     eventEmitter: EventEmitter,
     haste: Haste,
@@ -146,18 +149,17 @@ class ResourceTracker extends Analyzer {
 
   // END override values
 
-  /** Time ordered list of resource updates */
-  resourceUpdates: ResourceUpdate[] = [];
-  /** Tracked builders, indexed by spellId */
-  buildersObj: { [index: number]: BuilderObj } = {};
-  /** Tracked spenders, indexed by spellId */
-  spendersObj: { [index: number]: SpenderObj } = {};
+  /** Overall data object - updated during analysis */
+  dataObj: SegmentData;
 
   /** Info about the last spender so we can apply a refund if it misses */
   lastSpenderInfo?: { timestamp: number; amount: number; spellId: number };
 
   constructor(options: Options) {
     super(options);
+
+    this.dataObj = new SegmentData(this.owner.fight.start_time, this.owner.fight.end_time);
+
     this.addEventListener(Events.resourcechange.to(SELECTED_PLAYER), this.onEnergize);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.drain.to(SELECTED_PLAYER), this.onDrain);
@@ -165,6 +167,29 @@ class ResourceTracker extends Analyzer {
     this.addEventListener(Events.fightend, this.onFightEnd);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Direct data accessors (used to be included vals, kept with same name for backwards compat)
+  //
+
+  /** Time ordered list of resource updates */
+  get resourceUpdates(): ResourceUpdate[] {
+    return this.dataObj.updates;
+  }
+
+  /** Tracked builders, indexed by spellId */
+  get buildersObj(): { [index: number]: BuilderObj } {
+    return this.dataObj.builders;
+  }
+
+  /** Tracked spenders, indexed by spellId */
+  get spendersObj(): { [index: number]: SpenderObj } {
+    return this.dataObj.spenders;
+  }
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Setup stuff
+  //
 
   /** Manually adds a spell to the list of builder abilites.
    * Use to force a spell to show in results even if it wasn't used. */
@@ -175,23 +200,6 @@ class ResourceTracker extends Analyzer {
    * Use to force a spell to show in results even if it wasn't used. */
   initSpenderAbility(spellId: number) {
     this.spendersObj[spellId] = { spent: 0, spentByCast: [], casts: 0 };
-  }
-
-  /** The player's resource amount at the current timestamp */
-  get current(): number {
-    const lastUpdate = this.resourceUpdates.at(-1);
-    if (!lastUpdate) {
-      // there have been no updates so far, return a default
-      return 0; // TODO make some resources default to max?
-    }
-    if (lastUpdate.rate === 0) {
-      // resource doesn't naturally regenerate, so return the last seen val
-      return lastUpdate.current;
-    }
-    // resource naturally regenerates, calculate current based on last seen val
-    const timePassedSeconds = (this.owner.currentTimestamp - lastUpdate.timestamp) / 1000;
-    const naturalGain = Math.round(timePassedSeconds * lastUpdate.rate); // whole number amount of resources pls
-    return Math.min(lastUpdate.max, lastUpdate.current + naturalGain);
   }
 
   /////////////////////////////////////////////////////////////////////////////
@@ -234,7 +242,14 @@ class ResourceTracker extends Analyzer {
       return;
     }
     const resource = getResource(event.classResources, this.resource.id);
-    this._resourceUpdate('drain', resource?.amount, resource?.max, event.resourceChange);
+    this._resourceUpdate(
+      'drain',
+      resource?.amount,
+      resource?.max,
+      event.resourceChange,
+      0,
+      event.ability.guid,
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -259,7 +274,7 @@ class ResourceTracker extends Analyzer {
 
   onFightEnd() {
     if (this.baseRegenRate > 0) {
-      this._resourceUpdate('fightEnd');
+      this._resourceUpdate('end');
     }
   }
 
@@ -287,17 +302,9 @@ class ResourceTracker extends Analyzer {
     timestamp: number,
     resource?: ClassResources,
   ) {
-    if (!this.buildersObj[spellId]) {
-      this.initBuilderAbility(spellId);
-    }
-
-    this.buildersObj[spellId].wasted += waste;
-    this.buildersObj[spellId].generated += gain;
-    this.buildersObj[spellId].casts += 1;
-
     // resource.amount for an energize is the amount AFTER the energize
     const beforeAmount = !resource ? undefined : resource.amount - gain;
-    this._resourceUpdate('gain', beforeAmount, resource?.max, gain, waste);
+    this._resourceUpdate('gain', beforeAmount, resource?.max, gain, waste, spellId);
   }
 
   /** Pulls a cast's cost from its event fields. If an ability's true cost is different from what
@@ -345,15 +352,9 @@ class ResourceTracker extends Analyzer {
       this.initSpenderAbility(spellId);
     }
 
-    this.spendersObj[spellId].casts += 1;
-    this.spendersObj[spellId].spentByCast.push(spent);
-    if (spent > 0) {
-      this.spendersObj[spellId].spent += spent;
-    }
-
     // resource.amount for a spend is the amount BEFORE the spend
     const change = spent * -1;
-    this._resourceUpdate('spend', resource?.amount, resource?.max, change);
+    this._resourceUpdate('spend', resource?.amount, resource?.max, change, 0, spellId);
 
     const fabricatedEvent: SpendResourceEvent = {
       type: EventType.SpendResource,
@@ -374,6 +375,7 @@ class ResourceTracker extends Analyzer {
    * @param reportedMax the reported max resource
    * @param change the instant change in resource
    * @param waste the overcap waste in resource due to the instant change
+   * @param spellId the spell ID to associate with the resulting gain, spend, or drain update
    */
   _resourceUpdate(
     type: ResourceUpdateType,
@@ -381,10 +383,16 @@ class ResourceTracker extends Analyzer {
     reportedMax: number | undefined = undefined,
     change: number = 0,
     waste: number = 0,
+    spellId?: number,
   ) {
     const timestamp = this.owner.currentTimestamp;
     const max = !reportedMax ? this.maxResource : reportedMax;
     const prevUpdate = this.resourceUpdates.at(-1);
+
+    // ignore rateChanges that happen before first spend/gain/drain - can cause bad inferences
+    if (type === 'rateChange' && !prevUpdate) {
+      return;
+    }
 
     // use the calculated before amount unless there's a reported amount
     // and we're outside the multi-update buffer
@@ -419,7 +427,7 @@ class ResourceTracker extends Analyzer {
       if (!prevUpdate.atCap) {
         const capTimestamp =
           prevUpdate.timestamp + ((max - prevUpdate.current) / prevUpdate.rate) * 1000;
-        this.logAndPushUpdate({
+        this._logAndPushUpdate({
           type: 'regenCap',
           timestamp: capTimestamp,
           change: 0,
@@ -434,7 +442,7 @@ class ResourceTracker extends Analyzer {
     }
 
     this.maxResource = max;
-    this.logAndPushUpdate(
+    this._logAndPushUpdate(
       {
         type,
         timestamp,
@@ -445,6 +453,7 @@ class ResourceTracker extends Analyzer {
         rateWaste,
         changeWaste: waste,
         atCap: current === max,
+        spellId,
       },
       calculatedBeforeAmount,
       reportedBeforeAmount,
@@ -453,7 +462,7 @@ class ResourceTracker extends Analyzer {
   }
 
   /** Pushes the given update to the updates list, and also logs useful stuff if DEBUG flag is set */
-  logAndPushUpdate(
+  _logAndPushUpdate(
     update: ResourceUpdate,
     calculatedBeforeAmount?: number,
     reportedBeforeAmount?: number,
@@ -477,10 +486,31 @@ class ResourceTracker extends Analyzer {
         update,
       );
     }
-    this.resourceUpdates.push(update);
+    this.dataObj._pushUpdate(update);
   }
 
-  /** The resource's current regeneration rate */
+  /////////////////////////////////////////////////////////////////////////////
+  // Getters
+  //
+
+  /** The player's resource amount at the current timestamp */
+  get current(): number {
+    const lastUpdate = this.resourceUpdates.at(-1);
+    if (!lastUpdate) {
+      // there have been no updates so far, return a default
+      return 0; // TODO make some resources default to max?
+    }
+    if (lastUpdate.rate === 0) {
+      // resource doesn't naturally regenerate, so return the last seen val
+      return lastUpdate.current;
+    }
+    // resource naturally regenerates, calculate current based on last seen val
+    const timePassedSeconds = (this.owner.currentTimestamp - lastUpdate.timestamp) / 1000;
+    const naturalGain = Math.round(timePassedSeconds * lastUpdate.rate); // whole number amount of resources pls
+    return Math.min(lastUpdate.max, lastUpdate.current + naturalGain);
+  }
+
+  /** The resource's regeneration rate at the current timestamp */
   get currentRegenRate() {
     return this.isRegenHasted ? this.baseRegenRate * (1 + this.haste.current) : this.baseRegenRate;
   }
@@ -500,57 +530,37 @@ class ResourceTracker extends Analyzer {
 
   /** Resource generated by the given spell (will return 0 if there is no entry for the spell) */
   getGeneratedBySpell(spellId: number): number {
-    return (this.buildersObj[spellId] && this.buildersObj[spellId].generated) || 0;
+    return this.dataObj.generatedBySpell(spellId);
   }
 
   /** Resource wasted by the given spell (will return 0 if there is no entry for the spell) */
   getWastedBySpell(spellId: number): number {
-    return (this.buildersObj[spellId] && this.buildersObj[spellId].wasted) || 0;
+    return this.dataObj.wastedBySpell(spellId);
   }
 
   /** Casts of the given spell (will return 0 if there is no entry for the spell) */
   getBuilderCastsBySpell(spellId: number): number {
-    return (this.buildersObj[spellId] && this.buildersObj[spellId].casts) || 0;
+    return this.dataObj.generatorCastsBySpell(spellId);
   }
 
   /** Total resource generated */
   get generated(): number {
-    return Object.values(this.buildersObj).reduce((acc, spell) => acc + spell.generated, 0);
+    return this.dataObj.generated;
   }
 
   /** Total resource wasted due to direct gains overcap */
   get gainWaste(): number {
-    return Object.values(this.buildersObj).reduce((acc, spell) => acc + spell.wasted, 0);
+    return this.dataObj.gainWaste;
   }
 
   /** Total resource wasted due to natural regeneration overcap */
   get rateWaste(): number {
-    return this.resourceUpdates.reduce((acc, u) => acc + u.rateWaste, 0);
+    return this.dataObj.rateWaste;
   }
 
   /** Total resource wasted (overcapped) */
   get wasted(): number {
-    return this.gainWaste + this.rateWaste;
-  }
-
-  /** Time in milliseconds the player was at max resources */
-  get timeAtCap(): number {
-    if (this.resourceUpdates.length <= 1) {
-      return 0;
-    } else {
-      let capTime = 0;
-      for (let i = 1; i < this.resourceUpdates.length; i += 1) {
-        if (this.resourceUpdates[i - 1].atCap) {
-          capTime += this.resourceUpdates[i].timestamp - this.resourceUpdates[i - 1].timestamp;
-        }
-      }
-      return capTime;
-    }
-  }
-
-  /** Percent of the encounter the player was at max resources */
-  get percentAtCap(): number {
-    return this.timeAtCap / this.owner.fightDuration;
+    return this.dataObj.totalWaste;
   }
 
   /** Total resource spent */
@@ -562,6 +572,218 @@ class ResourceTracker extends Analyzer {
   get spendersCasts(): number {
     return Object.values(this.spendersObj).reduce((acc, spell) => acc + spell.casts, 0);
   }
+
+  /** Time in milliseconds the player was at max resources */
+  get timeAtCap(): number {
+    return this.dataObj.timeAtCap;
+  }
+
+  /** Percent of the encounter the player was at max resources */
+  get percentAtCap(): number {
+    return this.dataObj.percentAtCap;
+  }
+
+  /** Gets resource data for a specific segment of time
+   *  @param startTime the segment's start time (inclusive).
+   *    Must be no earlier than the fight's start.
+   *  @param endTime the segment's end time (exclusive).
+   *    Must be later than startTime and no later than the current time.
+   * */
+  generateSegmentData(startTime: number, endTime: number) {
+    if (startTime < this.dataObj.startTimestamp) {
+      throw new Error(
+        `Tried to generate segment with startTime ${startTime}, but fight start is ${this.dataObj.startTimestamp}`,
+      );
+    } else if (endTime <= startTime) {
+      throw new Error(
+        `Tried to generate segment with endTime ${endTime} not after startTime ${startTime}`,
+      );
+    } else if (endTime > this.owner.currentTimestamp) {
+      throw new Error(
+        `Tried to generate segment with endTime ${endTime}, but current time is ${this.owner.currentTimestamp}`,
+      );
+    }
+
+    const segmentData = new SegmentData(startTime, endTime);
+
+    let addedFirstInside = false;
+    let lastBeforeEnd: ResourceUpdate | undefined;
+    this.resourceUpdates.forEach((u, ix) => {
+      if (u.timestamp < startTime) {
+        lastBeforeEnd = u;
+      } else if (u.timestamp >= startTime && u.timestamp < endTime) {
+        // we're inside the segment
+        if (!addedFirstInside && (u.rateWaste || 0) > 0 && ix > 0) {
+          // this is the first update inside the segment and there's rate waste
+          // update waste with respect to start time using previous update's rate
+          const modifiedUpdate = { ...u }; // copy because we don't want to modify the original data
+          modifiedUpdate.rateWaste =
+            ((u.timestamp - startTime) / 1000) * this.resourceUpdates[ix - 1].rate;
+          segmentData._pushUpdate(modifiedUpdate);
+          lastBeforeEnd = modifiedUpdate;
+        } else {
+          segmentData._pushUpdate(u);
+          lastBeforeEnd = u;
+        }
+        addedFirstInside = true;
+      }
+    });
+
+    if (!lastBeforeEnd) {
+      // there were no resource updates happening before or during our segment - impossible to make meaningful data
+      segmentData._pushUpdate({
+        type: 'end',
+        timestamp: endTime,
+        change: 0,
+        current: 0,
+        max: this.maxResource,
+        rate: this.currentRegenRate,
+        changeWaste: 0,
+        rateWaste: 0,
+        atCap: false,
+      });
+    } else {
+      // add end update with info from last update before the end time
+      const rawResourcesAtEnd =
+        lastBeforeEnd.current + (lastBeforeEnd.rate * (endTime - lastBeforeEnd.timestamp)) / 1000;
+      const resourcesAtEnd = Math.min(lastBeforeEnd.max, rawResourcesAtEnd);
+      const rateWasteToEnd = Math.max(0, rawResourcesAtEnd - lastBeforeEnd.max);
+      segmentData._pushUpdate({
+        type: 'end',
+        timestamp: endTime,
+        change: 0,
+        current: resourcesAtEnd,
+        max: lastBeforeEnd.max,
+        rate: lastBeforeEnd.rate,
+        changeWaste: 0,
+        rateWaste: rateWasteToEnd,
+        atCap: lastBeforeEnd.max === resourcesAtEnd,
+      });
+    }
+
+    return segmentData;
+  }
 }
 
-export default ResourceTracker;
+/** Data for player resources over a segment of time
+ *  and a lot of functions to do calculations on that data */
+class SegmentData {
+  /** The start time of this segment */
+  startTimestamp: number;
+  /** The end time of this segment */
+  endTimestamp: number;
+  /** A timeline of updates to the resource state */
+  updates: ResourceUpdate[] = [];
+  /** Tracked builders, indexed by spellId */
+  builders: { [index: number]: BuilderObj } = {};
+  /** Tracked spenders, indexed by spellId */
+  spenders: { [index: number]: SpenderObj } = {};
+
+  constructor(startTimestamp: number, endTimestamp: number) {
+    this.startTimestamp = startTimestamp;
+    this.endTimestamp = endTimestamp;
+  }
+
+  /** Pushes a new update and also adds to the builders or spenders obj */
+  _pushUpdate(update: ResourceUpdate) {
+    this.updates.push(update);
+
+    if (update.type === 'spend' && update.spellId !== undefined) {
+      if (!this.spenders[update.spellId]) {
+        this.spenders[update.spellId] = {
+          spent: 0,
+          spentByCast: [],
+          casts: 0,
+        };
+      }
+      const spenderObj = this.spenders[update.spellId];
+      const spent = update.change ? -update.change : 0; // spender change always negative number
+      spenderObj.spent += spent;
+      spenderObj.spentByCast.push(spent);
+      spenderObj.casts += 1;
+    } else if (update.type === 'gain' && update.spellId !== undefined) {
+      if (!this.builders[update.spellId]) {
+        this.builders[update.spellId] = {
+          generated: 0,
+          wasted: 0,
+          casts: 0,
+        };
+      }
+      const builderObj = this.builders[update.spellId];
+      builderObj.generated += update.change || 0;
+      builderObj.wasted += update.changeWaste || 0;
+      builderObj.casts += 1;
+    }
+  }
+
+  get spent(): number {
+    return this.updates
+      .filter((u) => u.type === 'spend')
+      .reduce((acc, u) => acc - (u.change || 0), 0);
+  }
+
+  get drained(): number {
+    return this.updates
+      .filter((u) => u.type === 'drain')
+      .reduce((acc, u) => acc - (u.change || 0), 0);
+  }
+
+  get generated(): number {
+    return Object.values(this.builders).reduce((acc, spell) => acc + spell.generated, 0);
+  }
+
+  get gainWaste(): number {
+    return Object.values(this.builders).reduce((acc, spell) => acc + spell.wasted, 0);
+  }
+
+  get rateWaste(): number {
+    return this.updates.reduce((acc, u) => acc + (u.rateWaste || 0), 0);
+  }
+
+  get totalWaste(): number {
+    return this.gainWaste + this.rateWaste;
+  }
+
+  generatedBySpell(spellId: number): number {
+    return (this.builders[spellId] && this.builders[spellId].generated) || 0;
+  }
+
+  generatorCastsBySpell(spellId: number): number {
+    return (this.builders[spellId] && this.builders[spellId].casts) || 0;
+  }
+
+  spentBySpell(spellId: number): number {
+    return (this.spenders[spellId] && this.spenders[spellId].spent) || 0;
+  }
+
+  wastedBySpell(spellId: number): number {
+    return (this.builders[spellId] && this.builders[spellId].wasted) || 0;
+  }
+
+  // no 'DrainedObj' due to legacy reason - add one?
+  drainedBySpell(spellId: number): number {
+    return this.updates
+      .filter((u) => u.type === 'drain' && u.spellId === spellId)
+      .reduce((acc, u) => acc - (u.change || 0), 0);
+  }
+
+  /** Time within the segment the player was at max resources */
+  get timeAtCap(): number {
+    if (this.updates.length <= 1) {
+      return 0;
+    } else {
+      let capTime = 0;
+      for (let i = 1; i < this.updates.length; i += 1) {
+        if (this.updates[i - 1].atCap) {
+          capTime += this.updates[i].timestamp - this.updates[i - 1].timestamp;
+        }
+      }
+      return capTime;
+    }
+  }
+
+  /** Percent of the segment the player was at max resources */
+  get percentAtCap(): number {
+    return this.timeAtCap / (this.endTimestamp - this.startTimestamp);
+  }
+}
