@@ -60,6 +60,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
     referencedEventType: [EventType.RemoveBuff],
     backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
   },
   // link renewing mist apply to the target it was removed from
   {
@@ -87,10 +88,11 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: MAX_REM_DURATION,
     additionalCondition(linkingEvent, referencedEvent) {
       return (
-        (linkingEvent as RemoveBuffEvent).targetID ===
+        ((linkingEvent as RemoveBuffEvent).targetID ===
           (referencedEvent as ApplyBuffEvent).targetID ||
-        (linkingEvent as RemoveBuffEvent).targetID ===
-          (referencedEvent as RefreshBuffEvent).targetID
+          (linkingEvent as RemoveBuffEvent).targetID ===
+            (referencedEvent as RefreshBuffEvent).targetID) &&
+        !HasRelatedEvent(linkingEvent, DEATH)
       );
     },
   },

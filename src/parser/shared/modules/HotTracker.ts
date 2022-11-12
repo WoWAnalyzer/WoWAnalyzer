@@ -937,6 +937,8 @@ export interface HotInfo {
   bouncy?: boolean;
   /** the spell's ID again, for dynamic listeners */
   id?: number;
+  /** is the hot applied from an indirect source (i.e, not a hard cast) */
+  proc?: boolean;
 }
 
 /** A callback to be triggered when a HoT is refreshed */
