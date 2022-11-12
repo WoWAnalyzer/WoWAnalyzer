@@ -298,7 +298,12 @@ const PlayerLoaderFC = ({ children, setCombatants, history, playerName, playerId
   const combatant = player && combatants.find((combatant) => combatant.sourceID === player.id);
   const config =
     combatant &&
-    getConfig(wclGameVersionToExpansion(selectedReport.gameVersion), combatant.specID, player.type);
+    getConfig(
+      wclGameVersionToExpansion(selectedReport.gameVersion),
+      combatant.specID,
+      player.type,
+      player.icon,
+    );
   const build = combatant && getBuild(config, combatant);
   const missingBuild = config?.builds && !build;
   if (!player || hasDuplicatePlayers || !combatant || !config || missingBuild || combatant.error) {

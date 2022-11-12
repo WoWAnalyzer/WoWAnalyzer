@@ -67,6 +67,7 @@ import SpellLink from 'interface/SpellLink';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 export default [
+  change(date(2022, 11, 11), 'Add player icon lookup for configs to Classic specs.', jazminite),
   change(date(2022, 11, 9), 'Add spells for Classic Deathknights (no functionality yet).', jazminite),
   change(date(2022, 11, 10), 'Add missing default tooltip for preparation section of guide.', ToppleTheNun),
   change(date(2022, 11, 10), 'Hide rank for talents with only one rank.', ToppleTheNun),
