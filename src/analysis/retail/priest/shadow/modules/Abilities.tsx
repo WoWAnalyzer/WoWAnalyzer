@@ -95,6 +95,19 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.DARK_VOID_TALENT.id),
       },
       {
+        spell: TALENTS.MINDGAMES_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 45,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+        enabled: combatant.hasTalent(TALENTS.MINDGAMES_TALENT.id),
+      },
+      {
         spell: SPELLS.SHADOW_WORD_PAIN.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
@@ -368,6 +381,15 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.PURIFY_DISEASE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 8,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: TALENTS.ANGELIC_FEATHER_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 20,
+        charges: 3,
         gcd: {
           base: 1500,
         },

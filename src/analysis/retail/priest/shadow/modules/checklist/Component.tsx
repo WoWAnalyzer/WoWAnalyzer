@@ -87,11 +87,9 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           <AbilityRequirement spell={TALENTS.DAMNATION_TALENT.id} />
         )}
 
-        {/**  Not working right now, need to fix.
         {combatant.hasTalent(TALENTS.MINDGAMES_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.MINDGAMES_TALENT.id} />
         )}
-*/}
       </Rule>
 
       <Rule
