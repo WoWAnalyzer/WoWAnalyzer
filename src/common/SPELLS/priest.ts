@@ -307,6 +307,11 @@ const spells = spellIndexableList({
     name: 'Prayer Circle',
     icon: 'spell_paladin_divinecircle',
   },
+  SANCTIFIED_PRAYERS_BUFF: {
+    id: 196490,
+    name: 'Sanctified Prayers',
+    icon: 'spell_holy_pureofheart',
+  },
 
   // Talents:
   // lv90
