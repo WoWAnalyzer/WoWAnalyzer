@@ -25,9 +25,11 @@ const PANDEMIC_EXTRA = 0.3;
 
 /** tolerated difference between expected and actual HoT fall before a 'mismatch' is logged */
 const EXPECTED_REMOVAL_THRESHOLD = 200;
-
+/** tolerated latency between a buff remove and buff apply event for a bouncing hot */
+const BOUNCE_THRESHOLD = 50;
 // this class does a lot, a few different debug areas to cut down on the spam while debugging
 const debug = false;
+const bounceDebug = true;
 const extensionDebug = false; // logs pertaining to extensions
 const applyRemoveDebug = false; // logs tracking HoT apply / refresh / remove
 const healDebug = false; // logs tracking HoT heals
@@ -393,9 +395,22 @@ abstract class HotTracker extends Analyzer {
       if (!this.hots[targetId]) {
         this.hots[targetId] = {};
       }
-      this.hots[targetId][spellId] = this.bouncingHots[0];
-      this.bouncingHots.shift();
-      return;
+      const lastBounce = this.bouncingHots[0].lastBounce;
+      if(lastBounce) {
+        bounceDebug && console.log('Last Bounce: '+ this.owner.formatTimestamp(lastBounce,3) + ', Event Timestamp: ' + this.owner.formatTimestamp(event.timestamp,3));
+        const timeBetween = event.timestamp - lastBounce;
+        if(timeBetween <= BOUNCE_THRESHOLD) {
+          bounceDebug && console.log('Applied a bouncing hot at ' + this.owner.formatTimestamp(lastBounce,3) + ' on ' + this.combatants.getEntity(event)?.name);
+          this.hots[targetId][spellId] = this.bouncingHots[0];
+          this.bouncingHots.shift();
+          return;
+        }
+        else {
+           bounceDebug && console.log('Bouncing Hot was lost due to no eligible jump targets, player death, or (rapid diffusion expire) at ' + this.owner.formatTimestamp(lastBounce,3));
+          this.bouncingHots.shift();
+        }
+      }
+      
     }
 
     // this is a new HoT - build and register a new tracker
@@ -413,10 +428,14 @@ abstract class HotTracker extends Analyzer {
       boosts: [],
       healingAfterOriginalEnd: 0,
       maxDuration,
+      lastBounce: (this.hotInfo[spellId].bouncy ? 0 : undefined),
     };
 
     if (!this.hots[targetId]) {
       this.hots[targetId] = {};
+    }
+    if(bounceDebug && this.hotInfo[spellId].bouncy) {
+      console.log('New Hot was applied at ' + this.owner.formatTimestamp(event.timestamp, 3) + ' on ' + this.combatants.getEntity(event)?.name);
     }
     this.hots[targetId][spellId] = newHot;
     this.hotHistory.push(newHot);
@@ -567,7 +586,9 @@ abstract class HotTracker extends Analyzer {
 
     if (this.hotInfo[spellId].bouncy && this.hots[targetId][spellId].end > event.timestamp) {
       // if this is a HoT that bounces, push it on to the bounce stack
+      this.hots[targetId][spellId].lastBounce = event.timestamp;
       this.bouncingHots.push(this.hots[targetId][spellId]);
+      bounceDebug && console.log('Hot Bounced at ' + this.owner.formatTimestamp(Number(this.bouncingHots[0].lastBounce), 3) + ' from ' + this.combatants.getEntity(event)?.name);
     } else {
       // check removal time for logging
       this._checkRemovalTime(this.hots[targetId][spellId], event.timestamp, targetId);
@@ -877,6 +898,8 @@ export interface Tracker {
   healingAfterOriginalEnd: number;
   /** if present, this is the 'true max duration' beyond which the HoT cannot be extended */
   maxDuration?: number;
+  /**used to validate bounces for bouncy hots, is undefined on initial application  */
+  lastBounce?: number;
 }
 
 /** a record of a HoT's tick */
@@ -937,8 +960,8 @@ export interface HotInfo {
   bouncy?: boolean;
   /** the spell's ID again, for dynamic listeners */
   id?: number;
-  /** is the hot applied from an indirect source (i.e, not a hard cast) */
-  proc?: boolean;
+  /** the duration of the hot applied from an indirect source (i.e, a talent and not a hardcast) - special case handling for Mistweaver's Renewing Mist */
+  procDuration?: number | ((c: Combatant) => number);
 }
 
 /** A callback to be triggered when a HoT is refreshed */

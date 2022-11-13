@@ -3,7 +3,6 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
-  DeathEvent,
   HealEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
@@ -11,7 +10,6 @@ import Events, {
 import Combatants from 'parser/shared/modules/Combatants';
 import HotTracker from 'parser/shared/modules/HotTracker';
 import {
-  isFromDeath,
   isFromHardcast,
   isFromMistyPeaks,
   isFromRapidDiffusion,
@@ -36,6 +34,7 @@ class HotAttributor extends Analyzer {
   EFAttrib = HotTracker.getNewAttribution('Essence Font Hardcast');
 
   lastDeathTimestamp = 0;
+  lastBounceTimestamp = 0;
 
   constructor(options: Options) {
     super(options);
@@ -55,28 +54,10 @@ class HotAttributor extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
       this.onRemoveRem,
     );
-    this.addEventListener(Events.death.to(SELECTED_PLAYER), this.handleDeath);
   }
 
-  handleDeath(event: DeathEvent) {
-    console.log(
-      'death of' +
-        this.combatants.getEntity(event)?.name +
-        ' at: ' +
-        this.owner.formatTimestamp(event.timestamp),
-    );
-    this.lastDeathTimestamp = event.timestamp;
-  }
   onRemoveRem(event: RemoveBuffEvent) {
-    const targetId = event.targetID;
-    const spellId = event.ability.guid;
-    // console.log('Removed ' + this.hotTracker.hots[targetId][spellId] + 'attributions at ' + this.owner.formatTimestamp(event.timestamp, 3),
-    //     'on ' + this.combatants.getEntity(event)?.name,);
-    if (isFromDeath(event)) {
-      console.log('removed because of player death, deleting from hot tracker');
-      this.hotTracker.hotRemoved(event);
-      delete this.hotTracker.hots[targetId][spellId];
-    }
+    console.log('Removed rem from ' + this.combatants.getEntity(event)?.name + ' at ' + this.owner.formatTimestamp(event.timestamp, 3));
   }
 
   onApplyRem(event: ApplyBuffEvent | RefreshBuffEvent) {
@@ -84,9 +65,8 @@ class HotAttributor extends Analyzer {
       if (debug) {
         console.log(
           this.owner.formatTimestamp(event.timestamp, 3) +
-            ': rem has ' +
-            this.hotTracker.hots[event.targetID][event.ability.guid].attributions.length +
-            ' attributions.',
+            ': rem attributions:  ' +
+            this.hotTracker.hots[event.targetID][event.ability.guid].attributions.length,
         );
         if (
           this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0].name ===
@@ -128,8 +108,11 @@ class HotAttributor extends Analyzer {
         console.log(
           ' Rapid Diffusion Renewing Mist at ' + this.owner.formatTimestamp(event.timestamp, 3),
           'on ' + this.combatants.getEntity(event)?.name,
+          ' expected expiration: ' + this.owner.formatTimestamp(event.timestamp + Number(this.hotTracker.hotInfo[event.ability.guid].procDuration),3),
         );
       this.hotTracker.addAttributionFromApply(this.rapidDiffusionAttrib, event);
+      this.hotTracker.hots[event.targetID][event.ability.guid].maxDuration = Number(this.hotTracker.hotInfo[event.ability.guid].procDuration);
+      this.hotTracker.hots[event.targetID][event.ability.guid].end = event.timestamp + Number(this.hotTracker.hotInfo[event.ability.guid].procDuration);
     }
   }
 
