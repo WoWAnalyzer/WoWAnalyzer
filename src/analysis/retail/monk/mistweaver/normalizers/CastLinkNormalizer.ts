@@ -109,6 +109,8 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: [SPELLS.RENEWING_MIST_HEAL.id],
     referencedEventType: [EventType.ApplyBuff],
     anyTarget: true,
+    backwardBufferMs: 50,
+    forwardBufferMs: 50,
     additionalCondition(linkingEvent, referencedEvent) {
       return (
         (linkingEvent as ApplyBuffEvent).targetID !== (referencedEvent as ApplyBuffEvent).targetID

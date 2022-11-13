@@ -14,11 +14,19 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import SpellLink from 'interface/SpellLink';
 import Combatants from 'parser/shared/modules/Combatants';
 import { formatNumber } from 'common/format';
+import { Attribution } from 'parser/shared/modules/HotTracker';
+
+const RAPID_DIFFUSION = 'Renewing Mist Rapid Diffusion';
 
 class RapidDiffusion extends Analyzer {
-  get rawRemThroughput() {
-    return this.remHealing + this.remAbsorbed + this.remOverHealing;
+  get totalRemThroughput() {
+    return this.remHealing + this.remAbsorbed;
   }
+
+  get totalVivifyThroughput() {
+    return this.extraVivHealing + this.extraVivAbsorbed;
+  }
+
   static dependencies = {
     hotTracker: HotTrackerMW,
     combatants: Combatants,
@@ -34,7 +42,10 @@ class RapidDiffusion extends Analyzer {
   remAbsorbed: number = 0;
   remOverHealing: number = 0;
   extraMistyPeaksProcs: number = 0;
-  extraVivifyCleave: number = 0;
+  extraVivCleaves: number = 0;
+  extraVivHealing: number = 0;
+  extraVivOverhealing: number = 0;
+  extraVivAbsorbed: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -50,6 +61,7 @@ class RapidDiffusion extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
       this.handleReMHeal,
     );
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleVivify);
   }
 
   handleReMApply(event: ApplyBuffEvent) {
@@ -74,6 +86,29 @@ class RapidDiffusion extends Analyzer {
     }
   }
 
+  handleVivify(event: HealEvent) {
+    const targetId = event.targetID;
+    if (
+      !this.hotTracker.hots[targetId] ||
+      !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]
+    ) {
+      return;
+    }
+    const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
+    if (this.hasAttribution(hot.attributions, RAPID_DIFFUSION)) {
+      this.extraVivCleaves += 1;
+      this.extraVivHealing += event.amount || 0;
+      this.extraVivOverhealing += event.overheal || 0;
+      this.extraVivAbsorbed += event.absorbed || 0;
+    }
+  }
+
+  hasAttribution(attributions: Attribution[], name: string) {
+    return attributions.some(function (attr) {
+      return attr.name === name;
+    });
+  }
+
   statistic() {
     return (
       <Statistic
@@ -81,11 +116,17 @@ class RapidDiffusion extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
-          <>Additional Renewing Mist Total Throughput: {formatNumber(this.rawRemThroughput)}</>
+          <ul>
+            <li>
+              Additional Renewing Mist Total Throughput: {formatNumber(this.totalRemThroughput)}
+            </li>
+            <li>Extra Vivify Cleaves: {this.extraVivCleaves}</li>
+            <li>Extra Vivify Healing: {formatNumber(this.totalVivifyThroughput)}</li>
+          </ul>
         }
       >
         <TalentSpellText talent={TALENTS_MONK.RAPID_DIFFUSION_TALENT}>
-          <ItemHealingDone amount={this.remHealing + this.remAbsorbed} />
+          <ItemHealingDone amount={this.totalRemThroughput + this.totalVivifyThroughput} />
           <br />
           <>
             {this.remCount}{' '}
