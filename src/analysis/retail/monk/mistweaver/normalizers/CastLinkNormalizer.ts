@@ -94,7 +94,7 @@ const EVENT_LINKS: EventLink[] = [
       TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
     ],
     referencedEventType: [EventType.Cast],
-    backwardBufferMs: 100,
+    backwardBufferMs: 300,
     anyTarget: true,
     maximumLinks: 1,
     additionalCondition(linkingEvent) {

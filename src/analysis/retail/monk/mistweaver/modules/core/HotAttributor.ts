@@ -27,6 +27,7 @@ class HotAttributor extends Analyzer {
 
   protected combatants!: Combatants;
   protected hotTracker!: HotTrackerMW;
+  bouncedAttrib = HotTracker.getNewAttribution('Bounced');
   envMistHardcastAttrib = HotTracker.getNewAttribution('Enveloping Mist Hardcast');
   envMistMistyPeaksAttrib = HotTracker.getNewAttribution('Enveloping Mist Misty Peaks Proc');
   rapidDiffusionAttrib = HotTracker.getNewAttribution('Renewing Mist Rapid Diffusion');
@@ -65,6 +66,7 @@ class HotAttributor extends Analyzer {
 
   onApplyRem(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (this._hasAttribution(event)) {
+      this.hotTracker.addAttributionFromApply(this.bouncedAttrib, event);
       if (debug) {
         console.log(
           this.owner.formatTimestamp(event.timestamp, 3) +

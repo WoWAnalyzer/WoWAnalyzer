@@ -2,7 +2,6 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { TALENTS_MONK } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 import Events, { ApplyBuffEvent, HealEvent } from 'parser/core/Events';
-import { isFromRapidDiffusion } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 import MistyPeaks from './MistyPeaks';
 import Vivify from './Vivify';
@@ -66,7 +65,15 @@ class RapidDiffusion extends Analyzer {
   }
 
   handleReMApply(event: ApplyBuffEvent) {
-    if (isFromRapidDiffusion(event)) {
+    const playerId = event.targetID;
+    if (
+      !this.hotTracker.hots[playerId] ||
+      !this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id]
+    ) {
+      return;
+    }
+    const hot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
+    if (this.hotTracker.fromRapidDiffusion(hot) && !this.hotTracker.fromBounce(hot)) {
       this.remCount += 1;
     }
   }
