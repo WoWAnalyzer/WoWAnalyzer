@@ -32,7 +32,7 @@ export default class BrutalSlash extends Analyzer {
       </p>
     );
 
-    const data = <CastEfficiencyPanel spell={TALENTS_DRUID.BRUTAL_SLASH_TALENT} />;
+    const data = <CastEfficiencyPanel spell={TALENTS_DRUID.BRUTAL_SLASH_TALENT} useThresholds />;
 
     return explanationAndDataSubsection(explanation, data);
   }

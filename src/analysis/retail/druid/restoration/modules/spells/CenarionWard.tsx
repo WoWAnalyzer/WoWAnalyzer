@@ -43,7 +43,7 @@ class CenarionWard extends Analyzer {
       </p>
     );
 
-    const data = <CastEfficiencyPanel spell={TALENTS_DRUID.CENARION_WARD_TALENT} />;
+    const data = <CastEfficiencyPanel spell={TALENTS_DRUID.CENARION_WARD_TALENT} useThresholds />;
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
