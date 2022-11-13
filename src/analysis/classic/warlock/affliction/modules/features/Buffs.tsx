@@ -6,16 +6,16 @@ class Buffs extends CoreAuras {
   auras() {
     return [
       {
-        spellId: SPELLS.BURNING_WISH.id,
-        timelineHighlight: true,
-      },
-      {
         spellId: SPELLS.FEL_ARMOR.id,
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.TOUCH_OF_SHADOW.id,
+        spellId: SPELLS.LIFE_TAP_GLYPH.id,
         timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.SHADOW_TRANCE.id,
+        timelineHighlight: false,
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),

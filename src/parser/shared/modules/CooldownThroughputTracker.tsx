@@ -80,6 +80,14 @@ class CooldownThroughputTracker extends Analyzer {
       spell: TALENTS_PRIEST.POWER_INFUSION_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE, BUILT_IN_SUMMARY_TYPES.HEALING],
     },
+    {
+      spell: SPELLS.HEROISM.id,
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE, BUILT_IN_SUMMARY_TYPES.HEALING],
+    },
+    {
+      spell: SPELLS.BLOODLUST.id,
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE, BUILT_IN_SUMMARY_TYPES.HEALING],
+    },
   ];
 
   static ignoredSpells: number[] = [

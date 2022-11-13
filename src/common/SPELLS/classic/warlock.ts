@@ -181,6 +181,11 @@ const spells = spellIndexableList({
     icon: 'spell_shadow_burningspirit',
     lowRanks: [27222, 11689, 11688, 11687, 1456, 1455, 1454],
   },
+  LIFE_TAP_GLYPH: {
+    id: 63321,
+    name: 'Life Tap Glyph', // buff
+    icon: 'spell_shadow_burningspirit',
+  },
   RAIN_OF_FIRE: {
     id: 47820,
     name: 'Rain of Fire',
@@ -337,6 +342,16 @@ const spells = spellIndexableList({
     icon: 'ability_warlock_haunt',
     lowRanks: [59163, 59161, 48181],
   },
+  SHADOW_EMBRACE: {
+    id: 32394,
+    name: 'Shadow Embrace',
+    icon: 'spell_shadow_shadowembrace',
+  },
+  SHADOW_TRANCE: {
+    id: 17941,
+    name: 'Shadow Trance',
+    icon: 'spell_shadow_twilight',
+  },
   UNSTABLE_AFFLICTION: {
     id: 47843,
     name: 'Unstable Affliction',
@@ -351,38 +366,6 @@ const spells = spellIndexableList({
     name: 'Demonic Empowerment',
     icon: 'ability_warlock_demonicempowerment',
   },
-
-  DEMONIC_SACRIFICE: {
-    // --------------------------------
-    id: 18788,
-    name: 'Demonic Sacrifice',
-    icon: 'spell_shadow_psychicscream',
-  },
-  // Buff from Sacrifice Imp
-  BURNING_WISH: {
-    id: 18789,
-    name: 'Burning Wish',
-    icon: 'spell_shadow_psychicscream',
-  },
-  // Buff from Sacrifice Felhunter
-  FEL_ENERGY: {
-    id: 18792,
-    name: 'Fel Energy',
-    icon: 'spell_shadow_psychicscream',
-  },
-  // Buff from Sacrifice Felguard
-  TOUCH_OF_SHADOW: {
-    id: 18791,
-    name: 'Touch of Shadow',
-    icon: 'spell_shadow_psychicscream',
-  },
-  // Buff from Sacrifice Voidwalker
-  FEL_STAMINA: {
-    id: 18790,
-    name: 'Fel Stamina',
-    icon: 'spell_shadow_psychicscream',
-  },
-  // --------------------------------
 
   FEL_DOMINATION: {
     id: 18708,
@@ -424,12 +407,6 @@ const spells = spellIndexableList({
     icon: 'spell_shadow_summonfelguard',
     soulShardsCost: 1,
   },
-  // X: {
-  //   id: 0,
-  //   name: 'x',
-  //   icon: 'x',
-  //   lowRanks: [0],
-  // },
 });
 
 export default spells;
