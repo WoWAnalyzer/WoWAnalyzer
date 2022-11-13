@@ -395,7 +395,6 @@ abstract class HotTracker extends Analyzer {
       if (!this.hots[targetId]) {
         this.hots[targetId] = {};
       }
-      bounceDebug && console.log(this.bouncingHots.length + ' bounces in que');
       while (this.bouncingHots.length > 0) {
         const hot = this.bouncingHots[0];
         const lastBounce = hot.lastBounce;
@@ -407,14 +406,12 @@ abstract class HotTracker extends Analyzer {
                 ', Event Timestamp: ' +
                 this.owner.formatTimestamp(event.timestamp, 3),
             );
+          //validate the bounce
           const timeBetween = event.timestamp - lastBounce;
           if (timeBetween <= BOUNCE_THRESHOLD) {
             bounceDebug &&
               console.log(
-                'Applied a bouncing hot at ' +
-                  this.owner.formatTimestamp(event.timestamp, 3) +
-                  ' on ' +
-                  this.combatants.getEntity(event)?.name,
+                'Applied a bouncing hot at ' + this.owner.formatTimestamp(event.timestamp, 3),
               );
             this.hots[targetId][spellId] = hot;
             this.bouncingHots.shift();
@@ -422,7 +419,7 @@ abstract class HotTracker extends Analyzer {
           } else {
             bounceDebug &&
               console.log(
-                'Bouncing Hot was lost due to no eligible jump targets, player death, or (rapid diffusion expire) at ' +
+                'Bouncing Hot lost due to no eligible jump targets, player death, etc' +
                   this.owner.formatTimestamp(lastBounce, 3),
               );
             this.bouncingHots.shift();
@@ -452,14 +449,7 @@ abstract class HotTracker extends Analyzer {
     if (!this.hots[targetId]) {
       this.hots[targetId] = {};
     }
-    if (bounceDebug && this.hotInfo[spellId].bouncy) {
-      console.log(
-        'New Hot was applied at ' +
-          this.owner.formatTimestamp(event.timestamp, 3) +
-          ' on ' +
-          this.combatants.getEntity(event)?.name,
-      );
-    }
+
     this.hots[targetId][spellId] = newHot;
     this.hotHistory.push(newHot);
   }
@@ -617,15 +607,12 @@ abstract class HotTracker extends Analyzer {
             this.owner.formatTimestamp(
               Number(this.bouncingHots[this.bouncingHots.length - 1].lastBounce),
               3,
-            ) +
-            ' from ' +
-            this.combatants.getEntity(event)?.name,
+            ),
         );
     } else {
       // check removal time for logging
       this._checkRemovalTime(this.hots[targetId][spellId], event.timestamp, targetId);
     }
-
     // the HoT's gone and must be removed from tracking
     delete this.hots[targetId][spellId];
   }
