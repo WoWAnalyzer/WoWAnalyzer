@@ -145,6 +145,9 @@ class HotAttributor extends Analyzer {
           'on ' + this.combatants.getEntity(event)?.name,
         );
       this.hotTracker.addAttributionFromApply(this.envMistMistyPeaksAttrib, event);
+      this.hotTracker.hots[event.targetID][event.ability.guid].maxDuration = Number(
+        this.hotTracker.hotInfo[event.ability.guid].procDuration,
+      );
     }
   }
 

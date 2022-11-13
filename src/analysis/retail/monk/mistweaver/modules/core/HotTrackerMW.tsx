@@ -5,6 +5,7 @@ import Combatant from 'parser/core/Combatant';
 import HotTracker, { Tracker, HotInfo } from 'parser/shared/modules/HotTracker';
 
 const RAPID_DIFFUSION = 3000;
+const MISTY_PEAKS = 1000;
 const REM_BASE_DURATION = 20000;
 const ENV_BASE_DURATION = 6000;
 const EF_BASE_DURATION = 8000;
@@ -95,6 +96,10 @@ class HotTrackerMW extends HotTracker {
           (this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id)
             ? RISING_MIST
             : 1),
+        procDuration: this.owner.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT.id)
+          ? MISTY_PEAKS * this.selectedCombatant.getTalentRank(TALENTS_MONK.MISTY_PEAKS_TALENT) +
+            ENV_BASE_DURATION // misty peaks can be extended for 100% of base env duration
+          : undefined,
       },
       {
         spell: SPELLS.ESSENCE_FONT_BUFF,
