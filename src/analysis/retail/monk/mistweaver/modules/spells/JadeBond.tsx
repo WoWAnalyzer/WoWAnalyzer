@@ -6,12 +6,12 @@ import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { JADE_BOND_INC } from '../../constants';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const JADE_BOND_REDUCTION = 300;
 
@@ -91,10 +91,10 @@ class JadeBond extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.JADE_BOND.id}>
+        <TalentSpellText talent={TALENTS_MONK.JADE_BOND_TALENT}>
           <ItemHealingDone amount={this.healing} />
           <br />
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

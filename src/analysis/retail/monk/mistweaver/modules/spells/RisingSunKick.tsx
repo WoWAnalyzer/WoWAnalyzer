@@ -1,12 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import BoringValueText from 'parser/ui/BoringValueText';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class RisingSunKick extends Analyzer {
   static dependencies = {
@@ -50,19 +46,11 @@ class RisingSunKick extends Analyzer {
     this.lastBOK = event.timestamp;
   }
 
-  statistic() {
+  subStatistic() {
     return (
-      <Statistic position={STATISTIC_ORDER.CORE(20)} size="flexible">
-        <BoringValueText
-          label={
-            <>
-              <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> Resets
-            </>
-          }
-        >
-          <>{this.rskResets}</>
-        </BoringValueText>
-      </Statistic>
+      <>
+        {this.rskResets} <small>Resets</small>
+      </>
     );
   }
 }

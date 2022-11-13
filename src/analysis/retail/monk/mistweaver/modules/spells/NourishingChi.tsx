@@ -4,11 +4,11 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 import { LIFE_COCOON_HEALING_BOOST, NOURISHING_CHI_INC } from '../../constants';
 
@@ -28,8 +28,8 @@ class NourishingChi extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active =(this.selectedCombatant.hasTalent(TALENTS_MONK.NOURISHING_CHI_TALENT))
-    if(!this.active) {
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.NOURISHING_CHI_TALENT);
+    if (!this.active) {
       return;
     }
 
@@ -72,10 +72,9 @@ class NourishingChi extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.NOURISHING_CHI.id}>
+        <TalentSpellText talent={TALENTS_MONK.NOURISHING_CHI_TALENT}>
           <ItemHealingDone amount={this.healing} />
-          <br />
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

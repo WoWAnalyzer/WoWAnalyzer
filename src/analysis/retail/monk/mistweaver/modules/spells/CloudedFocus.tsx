@@ -9,12 +9,12 @@ import Events, {
   HealEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const BUFF_AMOUNT_PER_STACK = 0.15;
 
@@ -95,11 +95,11 @@ class CloudedFocus extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS_MONK.CLOUDED_FOCUS_TALENT.id}>
+        <TalentSpellText talent={TALENTS_MONK.CLOUDED_FOCUS_TALENT}>
           <ItemHealingDone amount={this.healingDone} />
           <br />
           <ItemManaGained amount={this.manaSaved} useAbbrev />
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

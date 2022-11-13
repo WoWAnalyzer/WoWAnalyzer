@@ -44,7 +44,8 @@ class ShadowWordDeath extends ExecuteHelper {
   }
 
   adjustMaxCasts() {
-    const cooldown = this.abilities.getAbility(TALENTS.SHADOW_WORD_DEATH_TALENT.id)!.cooldown * 1000;
+    const cooldown =
+      this.abilities.getAbility(TALENTS.SHADOW_WORD_DEATH_TALENT.id)!.cooldown * 1000;
     this.maxCasts += Math.ceil(this.totalExecuteDuration / cooldown) + this.totalNonExecuteCasts;
   }
 }

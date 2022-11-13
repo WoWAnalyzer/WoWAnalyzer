@@ -60,7 +60,7 @@ abstract class ResourceGraph extends Analyzer {
       if (u.change !== 0) {
         graphData.push({
           timestamp: u.timestamp,
-          amount: u.current - u.change,
+          amount: u.current - (u.change || 0),
         });
       }
       graphData.push({
