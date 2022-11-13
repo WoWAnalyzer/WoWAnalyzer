@@ -141,7 +141,7 @@ const spells = spellIndexableList({
   ENVELOPING_BREATH_HEAL: {
     id: 325209,
     name: 'Enveloping Breath',
-    icon: 'ability_monk_chiexplosion',
+    icon: 'ability_monk_jadeserpentbreath',
   },
   SOOTHING_BREATH: {
     id: 343737,
