@@ -15,7 +15,6 @@ import {
 
 export const APPLIED_HEAL = 'AppliedHeal';
 export const BOUNCED = 'Bounced';
-export const DEATH = 'Death';
 export const FROM_DANCING_MISTS = 'FromDM';
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_MISTY_PEAKS = 'FromMistyPeaks';
@@ -54,15 +53,6 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
-  {
-    linkRelation: DEATH,
-    linkingEventId: null,
-    linkingEventType: [EventType.Death],
-    referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
-    referencedEventType: [EventType.RemoveBuff],
-    backwardBufferMs: CAST_BUFFER_MS,
-    forwardBufferMs: CAST_BUFFER_MS,
-  },
   // link renewing mist apply to the target it was removed from
   {
     linkRelation: BOUNCED,
@@ -74,7 +64,6 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     additionalCondition(linkingEvent, referencedEvent) {
       return (
-        !HasRelatedEvent(referencedEvent, DEATH) &&
         (linkingEvent as ApplyBuffEvent).targetID !== (referencedEvent as RemoveBuffEvent).targetID
       );
     },
@@ -89,11 +78,10 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: MAX_REM_DURATION,
     additionalCondition(linkingEvent, referencedEvent) {
       return (
-        ((linkingEvent as RemoveBuffEvent).targetID ===
+        (linkingEvent as RemoveBuffEvent).targetID ===
           (referencedEvent as ApplyBuffEvent).targetID ||
-          (linkingEvent as RemoveBuffEvent).targetID ===
-            (referencedEvent as RefreshBuffEvent).targetID) &&
-        !HasRelatedEvent(linkingEvent, DEATH)
+        (linkingEvent as RemoveBuffEvent).targetID ===
+          (referencedEvent as RefreshBuffEvent).targetID
       );
     },
   },
@@ -184,7 +172,7 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
   if (HasRelatedEvent(event, FROM_HARDCAST)) {
     return true;
   }
-  if (HasRelatedEvent(event, BOUNCED) && !HasRelatedEvent(event, DEATH)) {
+  if (HasRelatedEvent(event, BOUNCED)) {
     const relatedEvents = GetRelatedEvents(event, BOUNCED);
     // There can be multiple linked applications/removals if multiple ReM's bouce close together
     // so filter out each linked events and find the one with the closest timestamp
@@ -218,13 +206,6 @@ export function isFromRapidDiffusion(event: ApplyBuffEvent | RefreshBuffEvent) {
     }
   }
   return HasRelatedEvent(event, FROM_RAPID_DIFFUSION);
-}
-
-export function isFromDeath(event: RemoveBuffEvent) {
-  if (HasRelatedEvent(event, DEATH)) {
-    return true;
-  }
-  return false;
 }
 
 export default CastLinkNormalizer;
