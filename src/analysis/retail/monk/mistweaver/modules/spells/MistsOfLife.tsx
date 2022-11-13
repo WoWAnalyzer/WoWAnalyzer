@@ -1,7 +1,7 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { TALENTS_MONK } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
-import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { isFromMistsOfLife } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -37,6 +37,8 @@ class MistsOfLife extends Analyzer {
   extraVivOverhealing: number = 0;
   envmHealingIncrease: number = 0;
   extraEnvBonusHealing: number = 0;
+  lastVivifyCastTarget: number = 0;
+  countedMainVivifyHit: boolean = false;
 
   constructor(options: Options) {
     super(options);
@@ -54,6 +56,10 @@ class MistsOfLife extends Analyzer {
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
       this.handleEnvHeal,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY),
+      this.handleVivifyCast,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleVivify);
     this.addEventListener(
@@ -142,14 +148,16 @@ class MistsOfLife extends Analyzer {
     }
   }
 
+  handleVivifyCast(event: CastEvent) {
+    this.lastVivifyCastTarget = event.targetID || 0;
+    this.countedMainVivifyHit = false;
+  }
+
   handleVivify(event: HealEvent) {
     const targetId = event.targetID;
-    const spellId = event.ability.guid;
-    if (
-      UNAFFECTED_SPELLS.includes(spellId) ||
-      !this.hotTracker.hots[targetId] ||
-      !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]
-    ) {
+    // only count cleave hit on main target
+    if (targetId === this.lastVivifyCastTarget && !this.countedMainVivifyHit) {
+      this.countedMainVivifyHit = true;
       return;
     }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
