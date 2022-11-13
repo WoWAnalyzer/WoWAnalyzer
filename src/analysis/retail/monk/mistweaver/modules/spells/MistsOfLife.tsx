@@ -103,10 +103,9 @@ class MistsOfLife extends Analyzer {
     }
 
     const hot = this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
-    if (!this.hotTracker.fromMistsOfLife(hot)) {
-      return;
+    if (this.hotTracker.fromMistsOfLife(hot)) {
+      this.extraEnvBonusHealing += calculateEffectiveHealing(event, this.envmHealingIncrease);
     }
-    this.extraEnvBonusHealing += calculateEffectiveHealing(event, this.envmHealingIncrease);
   }
 
   handleRemApply(event: ApplyBuffEvent | RefreshBuffEvent) {
