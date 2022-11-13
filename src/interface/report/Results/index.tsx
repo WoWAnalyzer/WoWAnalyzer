@@ -52,6 +52,7 @@ import ReportStatistics from './ReportStatistics';
 import ScrollToTop from './ScrollToTop';
 import TABS from './TABS';
 import { CombatLogParserProvider } from 'interface/report/CombatLogParserContext';
+import { isRetailExpansion } from 'game/Expansion';
 
 const TimelineTab = lazyLoadComponent(
   () =>
@@ -419,7 +420,7 @@ class Results extends React.PureComponent<Props, State> {
         {parser && parser.disabledModules && (
           <DegradedExperience disabledModules={parser.disabledModules} />
         )}
-        {!build && (
+        {isRetailExpansion(config.expansion) && (
           //Warning Message for Dragonflight Prepatch (Remove after Dragonflight Launch)
           <div className="container">
             <AlertWarning style={{ marginBottom: 30 }}>
