@@ -28,6 +28,12 @@ class HotTrackerMW extends HotTracker {
     });
   }
 
+  fromMistsOfLife(hot: Tracker): boolean {
+    return hot.attributions.some(function (attr) {
+      return attr.name.includes('Mists of Life');
+    });
+  }
+
   fromHardcast(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
       return attr.name.includes('Hardcast');
