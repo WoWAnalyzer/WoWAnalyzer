@@ -2,12 +2,14 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import PreparationRuleAnalyzer from 'parser/classic/modules/features/Checklist/PreparationRuleAnalyzer';
-
+// Features
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
+// Spells
+import Corruption from '../spells/Corruption';
 import CurseOfAgony from '../spells/CurseOfAgony';
-import CurseOfDoom from '../spells/CurseOfDoom';
-import CurseOfTheElements from '../spells/CurseOfTheElements';
-import Curses from '../spells/Curses';
+import Haunt from '../spells/Haunt';
+import UnstableAffliction from '../spells/UnstableAffliction';
+
 import Component from './Component';
 
 class Checklist extends BaseChecklist {
@@ -16,19 +18,19 @@ class Checklist extends BaseChecklist {
     alwaysBeCasting: AlwaysBeCasting,
     castEfficiency: CastEfficiency,
     combatants: Combatants,
+    corruption: Corruption,
     curseOfAgony: CurseOfAgony,
-    curseOfDoom: CurseOfDoom,
-    curseOfTheElements: CurseOfTheElements,
-    curses: Curses,
+    haunt: Haunt,
+    unstableAffliction: UnstableAffliction,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
   };
   protected alwaysBeCasting!: AlwaysBeCasting;
   protected castEfficiency!: CastEfficiency;
   protected combatants!: Combatants;
+  protected corruption!: Corruption;
   protected curseOfAgony!: CurseOfAgony;
-  protected curseOfDoom!: CurseOfDoom;
-  protected curseOfTheElements!: CurseOfTheElements;
-  protected curses!: Curses;
+  protected haunt!: Haunt;
+  protected unstableAffliction!: UnstableAffliction;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
 
   render() {
@@ -38,10 +40,10 @@ class Checklist extends BaseChecklist {
         castEfficiency={this.castEfficiency}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
+          corruption: this.corruption.suggestionThresholds,
           curseOfAgony: this.curseOfAgony.suggestionThresholds,
-          curseOfDoom: this.curseOfDoom.suggestionThresholds,
-          curseOfTheElements: this.curseOfTheElements.suggestionThresholds,
-          curses: this.curses.suggestionThresholds,
+          haunt: this.haunt.suggestionThresholds,
+          unstableAffliction: this.unstableAffliction.suggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
         }}
       />
