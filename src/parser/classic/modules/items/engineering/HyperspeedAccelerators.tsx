@@ -1,11 +1,7 @@
 import Analyzer, { Options } from 'parser/core/Analyzer';
-
 import Abilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-
-const HYPERSPEED_ACCELERATORS_ENCHANT_ID = 3604;
-const HYPERSPEED_ACCELERATORS_SPELL_ID = 54758;
-const HYPERSPEED_ACCELERATORS_SPELL_COOLDOWN = 60;
+import SPELLS from 'common/SPELLS/classic/engineering';
 
 class HyperspeedAccelerators extends Analyzer {
   static dependencies = {
@@ -17,17 +13,17 @@ class HyperspeedAccelerators extends Analyzer {
   constructor(options: Options) {
     super(options);
     const gloves = this.selectedCombatant._getGearItemBySlotId(9);
-    this.active = gloves.permanentEnchant === HYPERSPEED_ACCELERATORS_ENCHANT_ID;
+    this.active = gloves.permanentEnchant === 3604;
     if (this.active) {
       (options.abilities as Abilities).add({
-        spell: HYPERSPEED_ACCELERATORS_SPELL_ID,
+        spell: SPELLS.HYPERSPEED_ACCELERATION.id,
         category: SPELL_CATEGORY.ITEMS,
-        cooldown: HYPERSPEED_ACCELERATORS_SPELL_COOLDOWN,
+        cooldown: 60,
         gcd: null,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: .3,
-          averageIssueEfficiency: .1,
+          recommendedEfficiency: 0.3,
+          averageIssueEfficiency: 0.1,
           majorIssueEfficiency: -1,
         },
       });

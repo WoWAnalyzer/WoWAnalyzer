@@ -16,7 +16,8 @@ export default {
   description: (
     <>
       Welcome to the Shadow Priest analyzer! We hope you find these suggestions and statistics
-      useful. This is still incomplete for dragonflight, and many shadowlands abilities will not work.
+      useful. This is still incomplete for dragonflight, and many shadowlands abilities will not
+      work.
       <br />
       <br />
       If you need general help learning the spec, Wowhead has a great getting started guide for
@@ -48,9 +49,9 @@ export default {
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
   parser: () =>
-     import('./CombatLogParser' /* webpackChunkName: "ShadowPriest" */).then(
-       (exports) => exports.default,
-     ),
+    import('./CombatLogParser' /* webpackChunkName: "ShadowPriest" */).then(
+      (exports) => exports.default,
+    ),
   //The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };
