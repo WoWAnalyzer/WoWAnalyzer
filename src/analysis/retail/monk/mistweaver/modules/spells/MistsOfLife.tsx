@@ -155,6 +155,12 @@ class MistsOfLife extends Analyzer {
 
   handleVivify(event: HealEvent) {
     const targetId = event.targetID;
+    if (
+      !this.hotTracker.hots[targetId] ||
+      !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]
+    ) {
+      return;
+    }
     // only count cleave hit on main target
     if (targetId === this.lastVivifyCastTarget && !this.countedMainVivifyHit) {
       this.countedMainVivifyHit = true;
