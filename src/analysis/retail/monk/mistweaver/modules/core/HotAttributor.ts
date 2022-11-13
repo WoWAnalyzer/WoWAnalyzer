@@ -16,8 +16,8 @@ import {
 } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 
-const debug = true;
-const rdDebug = true;
+const debug = false;
+const rdDebug = false;
 
 class HotAttributor extends Analyzer {
   static dependencies = {
@@ -57,7 +57,12 @@ class HotAttributor extends Analyzer {
   }
 
   onRemoveRem(event: RemoveBuffEvent) {
-    console.log('Removed rem from ' + this.combatants.getEntity(event)?.name + ' at ' + this.owner.formatTimestamp(event.timestamp, 3));
+    console.log(
+      'Removed rem from ' +
+        this.combatants.getEntity(event)?.name +
+        ' at ' +
+        this.owner.formatTimestamp(event.timestamp, 3),
+    );
   }
 
   onApplyRem(event: ApplyBuffEvent | RefreshBuffEvent) {
@@ -108,11 +113,18 @@ class HotAttributor extends Analyzer {
         console.log(
           ' Rapid Diffusion Renewing Mist at ' + this.owner.formatTimestamp(event.timestamp, 3),
           'on ' + this.combatants.getEntity(event)?.name,
-          ' expected expiration: ' + this.owner.formatTimestamp(event.timestamp + Number(this.hotTracker.hotInfo[event.ability.guid].procDuration),3),
+          ' expected expiration: ' +
+            this.owner.formatTimestamp(
+              event.timestamp + Number(this.hotTracker.hotInfo[event.ability.guid].procDuration),
+              3,
+            ),
         );
       this.hotTracker.addAttributionFromApply(this.rapidDiffusionAttrib, event);
-      this.hotTracker.hots[event.targetID][event.ability.guid].maxDuration = Number(this.hotTracker.hotInfo[event.ability.guid].procDuration);
-      this.hotTracker.hots[event.targetID][event.ability.guid].end = event.timestamp + Number(this.hotTracker.hotInfo[event.ability.guid].procDuration);
+      this.hotTracker.hots[event.targetID][event.ability.guid].maxDuration = Number(
+        this.hotTracker.hotInfo[event.ability.guid].procDuration,
+      );
+      this.hotTracker.hots[event.targetID][event.ability.guid].end =
+        event.timestamp + Number(this.hotTracker.hotInfo[event.ability.guid].procDuration);
     }
   }
 

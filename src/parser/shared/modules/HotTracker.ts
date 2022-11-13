@@ -29,7 +29,7 @@ const EXPECTED_REMOVAL_THRESHOLD = 200;
 const BOUNCE_THRESHOLD = 50;
 // this class does a lot, a few different debug areas to cut down on the spam while debugging
 const debug = false;
-const bounceDebug = true;
+const bounceDebug = false;
 const extensionDebug = false; // logs pertaining to extensions
 const applyRemoveDebug = false; // logs tracking HoT apply / refresh / remove
 const healDebug = false; // logs tracking HoT heals
@@ -396,21 +396,35 @@ abstract class HotTracker extends Analyzer {
         this.hots[targetId] = {};
       }
       const lastBounce = this.bouncingHots[0].lastBounce;
-      if(lastBounce) {
-        bounceDebug && console.log('Last Bounce: '+ this.owner.formatTimestamp(lastBounce,3) + ', Event Timestamp: ' + this.owner.formatTimestamp(event.timestamp,3));
+      if (lastBounce) {
+        bounceDebug &&
+          console.log(
+            'Last Bounce: ' +
+              this.owner.formatTimestamp(lastBounce, 3) +
+              ', Event Timestamp: ' +
+              this.owner.formatTimestamp(event.timestamp, 3),
+          );
         const timeBetween = event.timestamp - lastBounce;
-        if(timeBetween <= BOUNCE_THRESHOLD) {
-          bounceDebug && console.log('Applied a bouncing hot at ' + this.owner.formatTimestamp(lastBounce,3) + ' on ' + this.combatants.getEntity(event)?.name);
+        if (timeBetween <= BOUNCE_THRESHOLD) {
+          bounceDebug &&
+            console.log(
+              'Applied a bouncing hot at ' +
+                this.owner.formatTimestamp(lastBounce, 3) +
+                ' on ' +
+                this.combatants.getEntity(event)?.name,
+            );
           this.hots[targetId][spellId] = this.bouncingHots[0];
           this.bouncingHots.shift();
           return;
-        }
-        else {
-           bounceDebug && console.log('Bouncing Hot was lost due to no eligible jump targets, player death, or (rapid diffusion expire) at ' + this.owner.formatTimestamp(lastBounce,3));
+        } else {
+          bounceDebug &&
+            console.log(
+              'Bouncing Hot was lost due to no eligible jump targets, player death, or (rapid diffusion expire) at ' +
+                this.owner.formatTimestamp(lastBounce, 3),
+            );
           this.bouncingHots.shift();
         }
       }
-      
     }
 
     // this is a new HoT - build and register a new tracker
@@ -428,14 +442,19 @@ abstract class HotTracker extends Analyzer {
       boosts: [],
       healingAfterOriginalEnd: 0,
       maxDuration,
-      lastBounce: (this.hotInfo[spellId].bouncy ? 0 : undefined),
+      lastBounce: this.hotInfo[spellId].bouncy ? 0 : undefined,
     };
 
     if (!this.hots[targetId]) {
       this.hots[targetId] = {};
     }
-    if(bounceDebug && this.hotInfo[spellId].bouncy) {
-      console.log('New Hot was applied at ' + this.owner.formatTimestamp(event.timestamp, 3) + ' on ' + this.combatants.getEntity(event)?.name);
+    if (bounceDebug && this.hotInfo[spellId].bouncy) {
+      console.log(
+        'New Hot was applied at ' +
+          this.owner.formatTimestamp(event.timestamp, 3) +
+          ' on ' +
+          this.combatants.getEntity(event)?.name,
+      );
     }
     this.hots[targetId][spellId] = newHot;
     this.hotHistory.push(newHot);
@@ -588,7 +607,13 @@ abstract class HotTracker extends Analyzer {
       // if this is a HoT that bounces, push it on to the bounce stack
       this.hots[targetId][spellId].lastBounce = event.timestamp;
       this.bouncingHots.push(this.hots[targetId][spellId]);
-      bounceDebug && console.log('Hot Bounced at ' + this.owner.formatTimestamp(Number(this.bouncingHots[0].lastBounce), 3) + ' from ' + this.combatants.getEntity(event)?.name);
+      bounceDebug &&
+        console.log(
+          'Hot Bounced at ' +
+            this.owner.formatTimestamp(Number(this.bouncingHots[0].lastBounce), 3) +
+            ' from ' +
+            this.combatants.getEntity(event)?.name,
+        );
     } else {
       // check removal time for logging
       this._checkRemovalTime(this.hots[targetId][spellId], event.timestamp, targetId);
