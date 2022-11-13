@@ -14,7 +14,6 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 /*
   Using Holy Word: Sanctify increases the healing done by Prayer of Healing by 15% for 15 sec.
 */
-
 const SANCTIFIED_PRAYERS_MULTIPLIER = 1.15;
 
 class SanctifiedPrayers extends Analyzer {
@@ -22,7 +21,6 @@ class SanctifiedPrayers extends Analyzer {
     abilityTracker: AbilityTracker,
     abilities: Abilities,
   };
-  lastSanctifyCastAt: number = 0;
   lastCastStartWasBuffed: boolean = false;
   buffedPohCasts: number = 0;
   rawAdditionalHealing: number = 0;
@@ -36,10 +34,6 @@ class SanctifiedPrayers extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS.SANCTIFIED_PRAYERS_TALENT.id);
 
     if (this.active) {
-      this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HOLY_WORD_SANCTIFY_TALENT),
-        this.sanctifyCast,
-      );
       this.addEventListener(
         Events.begincast.by(SELECTED_PLAYER).spell(TALENTS.PRAYER_OF_HEALING_TALENT),
         this.startPohCast,
@@ -67,10 +61,6 @@ class SanctifiedPrayers extends Analyzer {
       return 0;
     }
     return this.overhealing / this.rawAdditionalHealing;
-  }
-
-  sanctifyCast(event: CastEvent) {
-    this.lastSanctifyCastAt = event.timestamp;
   }
 
   startPohCast(event: BeginCastEvent) {

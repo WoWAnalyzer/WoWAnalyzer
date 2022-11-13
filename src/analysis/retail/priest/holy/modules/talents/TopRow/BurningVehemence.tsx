@@ -27,7 +27,7 @@ class BurningVehemence extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    this.holyFireDamage += event.amount || 0;
+    this.holyFireDamage += (event.amount || 0) + (event.absorbed || 0);
   }
 
   statistic() {
