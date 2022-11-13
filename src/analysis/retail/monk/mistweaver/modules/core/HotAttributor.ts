@@ -17,7 +17,7 @@ import {
 import HotTrackerMW from '../core/HotTrackerMW';
 
 const debug = false;
-const rdDebug = false;
+const rdDebug = true;
 
 class HotAttributor extends Analyzer {
   static dependencies = {
@@ -54,12 +54,13 @@ class HotAttributor extends Analyzer {
   }
 
   onRemoveRem(event: RemoveBuffEvent) {
-    console.log(
-      'Removed rem from ' +
-        this.combatants.getEntity(event)?.name +
-        ' at ' +
-        this.owner.formatTimestamp(event.timestamp, 3),
-    );
+    debug &&
+      console.log(
+        'Removed rem from ' +
+          this.combatants.getEntity(event)?.name +
+          ' at ' +
+          this.owner.formatTimestamp(event.timestamp, 3),
+      );
   }
 
   onApplyRem(event: ApplyBuffEvent | RefreshBuffEvent) {

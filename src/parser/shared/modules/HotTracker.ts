@@ -395,34 +395,38 @@ abstract class HotTracker extends Analyzer {
       if (!this.hots[targetId]) {
         this.hots[targetId] = {};
       }
-      const lastBounce = this.bouncingHots[0].lastBounce;
-      if (lastBounce) {
-        bounceDebug &&
-          console.log(
-            'Last Bounce: ' +
-              this.owner.formatTimestamp(lastBounce, 3) +
-              ', Event Timestamp: ' +
-              this.owner.formatTimestamp(event.timestamp, 3),
-          );
-        const timeBetween = event.timestamp - lastBounce;
-        if (timeBetween <= BOUNCE_THRESHOLD) {
+      bounceDebug && console.log(this.bouncingHots.length + ' bounces in que');
+      while (this.bouncingHots.length > 0) {
+        const hot = this.bouncingHots[0];
+        const lastBounce = hot.lastBounce;
+        if (lastBounce) {
           bounceDebug &&
             console.log(
-              'Applied a bouncing hot at ' +
+              'Last Bounce: ' +
                 this.owner.formatTimestamp(lastBounce, 3) +
-                ' on ' +
-                this.combatants.getEntity(event)?.name,
+                ', Event Timestamp: ' +
+                this.owner.formatTimestamp(event.timestamp, 3),
             );
-          this.hots[targetId][spellId] = this.bouncingHots[0];
-          this.bouncingHots.shift();
-          return;
-        } else {
-          bounceDebug &&
-            console.log(
-              'Bouncing Hot was lost due to no eligible jump targets, player death, or (rapid diffusion expire) at ' +
-                this.owner.formatTimestamp(lastBounce, 3),
-            );
-          this.bouncingHots.shift();
+          const timeBetween = event.timestamp - lastBounce;
+          if (timeBetween <= BOUNCE_THRESHOLD) {
+            bounceDebug &&
+              console.log(
+                'Applied a bouncing hot at ' +
+                  this.owner.formatTimestamp(event.timestamp, 3) +
+                  ' on ' +
+                  this.combatants.getEntity(event)?.name,
+              );
+            this.hots[targetId][spellId] = hot;
+            this.bouncingHots.shift();
+            return;
+          } else {
+            bounceDebug &&
+              console.log(
+                'Bouncing Hot was lost due to no eligible jump targets, player death, or (rapid diffusion expire) at ' +
+                  this.owner.formatTimestamp(lastBounce, 3),
+              );
+            this.bouncingHots.shift();
+          }
         }
       }
     }
@@ -610,7 +614,10 @@ abstract class HotTracker extends Analyzer {
       bounceDebug &&
         console.log(
           'Hot Bounced at ' +
-            this.owner.formatTimestamp(Number(this.bouncingHots[0].lastBounce), 3) +
+            this.owner.formatTimestamp(
+              Number(this.bouncingHots[this.bouncingHots.length - 1].lastBounce),
+              3,
+            ) +
             ' from ' +
             this.combatants.getEntity(event)?.name,
         );
