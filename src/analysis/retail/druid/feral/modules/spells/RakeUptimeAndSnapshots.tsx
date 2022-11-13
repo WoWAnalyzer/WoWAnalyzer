@@ -116,10 +116,10 @@ class RakeUptimeAndSnapshots extends Snapshots {
         )}
       </>
     );
-    return {
+    this.castEntries.push({
       value,
       tooltip,
-    };
+    });
 
     // TODO also highlight 'bad' Rakes in the timeline
   }
@@ -161,6 +161,7 @@ class RakeUptimeAndSnapshots extends Snapshots {
           </div>
           {this.subStatistic()}
         </RoundedPanel>
+        <br />
         <strong>Rake casts</strong>
         <small>
           {' '}

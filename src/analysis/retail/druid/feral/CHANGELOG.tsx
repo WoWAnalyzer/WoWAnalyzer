@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS/druid';
 
 export default [
+  change(date(2022, 11, 13), <>Added cast efficiency numbers to Guide cooldown bars. Fixed a bug where per-Rake cast evaluation wasn't showing.</>, Sref),
   change(date(2022, 11, 6), <>Added per-cast breakdowns for <SpellLink id={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id} /> and <SpellLink id={TALENTS_DRUID.FERAL_FRENZY_TALENT.id} /> to Guide.</>, Sref),
   change(date(2022, 11, 5), <>Added <SpellLink id={TALENTS_DRUID.OMEN_OF_CLARITY_FERAL_TALENT.id} /> and <SpellLink id={TALENTS_DRUID.MOMENT_OF_CLARITY_TALENT.id} /> statistics.</>, Sref),
   change(date(2022, 11, 1), <>Added <SpellLink id={TALENTS_DRUID.BRUTAL_SLASH_TALENT.id} /> subsection to Guide.</>, Sref),
