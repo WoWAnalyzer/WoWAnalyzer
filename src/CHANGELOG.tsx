@@ -67,6 +67,7 @@ import SpellLink from 'interface/SpellLink';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 export default [
+  change(date(2022, 11, 13), 'Hide Dragonflight warning on Classic logs that don\'t have a build selected', emallson),
   change(date(2022, 11, 12), 'Backend work on resource tracking, including light bug fixes and ability to query stats for specific time periods', Sref),
   change(date(2022, 11, 11), 'Add player icon lookup for configs to Classic specs.', jazminite),
   change(date(2022, 11, 9), 'Add spells for Classic Deathknights (no functionality yet).', jazminite),
