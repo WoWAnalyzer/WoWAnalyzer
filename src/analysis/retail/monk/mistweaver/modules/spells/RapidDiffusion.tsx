@@ -15,6 +15,7 @@ import SpellLink from 'interface/SpellLink';
 import Combatants from 'parser/shared/modules/Combatants';
 import { formatNumber } from 'common/format';
 import { Attribution } from 'parser/shared/modules/HotTracker';
+import { TooltipElement } from 'interface';
 
 const RAPID_DIFFUSION = 'Renewing Mist Rapid Diffusion';
 
@@ -128,12 +129,19 @@ class RapidDiffusion extends Analyzer {
         <TalentSpellText talent={TALENTS_MONK.RAPID_DIFFUSION_TALENT}>
           <ItemHealingDone amount={this.totalRemThroughput + this.totalVivifyThroughput} />
           <br />
-          <>
+          <TooltipElement
+            content={
+              <>
+                Rapid Diffusion has an internal cooldown of 0.25 seconds, so this number maybe be
+                slightly lower than your total Rising Sun Kick and Enveloping Mist casts.
+              </>
+            }
+          >
             {this.remCount}{' '}
             <small>
               additional <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
             </small>
-          </>
+          </TooltipElement>
         </TalentSpellText>
       </Statistic>
     );
