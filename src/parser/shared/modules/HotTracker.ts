@@ -985,7 +985,7 @@ export interface HotInfo {
   bouncy?: boolean;
   /** the spell's ID again, for dynamic listeners */
   id?: number;
-  /** the duration of the hot applied from an indirect source (i.e, a talent and not a hardcast) - special case handling for Mistweaver's Renewing Mist */
+  /** the duration of the hot applied from an indirect source (i.e, a talent and not a hardcast) - special case handling for Mistweaver's hots from talents that aren't extended by Rising Mist */
   procDuration?: number | ((c: Combatant) => number);
 }
 

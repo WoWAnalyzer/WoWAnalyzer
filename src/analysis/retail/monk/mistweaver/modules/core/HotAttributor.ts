@@ -33,9 +33,6 @@ class HotAttributor extends Analyzer {
   REMHardcastAttrib = HotTracker.getNewAttribution('Renewing Mist Hardcast');
   EFAttrib = HotTracker.getNewAttribution('Essence Font Hardcast');
 
-  lastDeathTimestamp = 0;
-  lastBounceTimestamp = 0;
-
   constructor(options: Options) {
     super(options);
     this.addEventListener(

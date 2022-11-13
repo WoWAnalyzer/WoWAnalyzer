@@ -19,8 +19,7 @@ export const FROM_DANCING_MISTS = 'FromDM';
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_MISTY_PEAKS = 'FromMistyPeaks';
 export const FROM_RAPID_DIFFUSION = 'FromRD'; // can be linked to env mist or rsk cast
-export const OVERHEAL_BOUNCE = 'BouncedFromOverheal';
-export const FORCE_BOUNCE = 'ForceBounce';
+
 const CAST_BUFFER_MS = 100;
 const MAX_REM_DURATION = 77000;
 const FOUND_REMS = new Set();
