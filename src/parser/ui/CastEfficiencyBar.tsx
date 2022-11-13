@@ -14,7 +14,7 @@ import { formatPercentage } from 'common/format';
  * @param useThresholds iff true, the cast efficiency percentage will be color coded by performance
  *    using the abilities efficiency requirements.
  */
-export default function CooldownUtilBar({
+export default function CastEfficiencyBar({
   spellId,
   gapHighlightMode,
   minimizeIcons,
@@ -25,7 +25,7 @@ export default function CooldownUtilBar({
   minimizeIcons?: boolean;
   useThresholds?: boolean;
 }): JSX.Element {
-  const castEffic = useAnalyzer(CastEfficiency)!.getCastEfficiencyForSpellId(spellId);
+  const castEffic = useAnalyzer(CastEfficiency)?.getCastEfficiencyForSpellId(spellId);
   let tooltip: React.ReactNode = `Couldn't get cast efficiency info!`;
   let utilDisplay = `N/A`;
   let textColor: string | undefined;

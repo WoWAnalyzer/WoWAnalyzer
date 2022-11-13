@@ -7,7 +7,7 @@ import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
 import { cdSpell } from './constants';
-import CooldownUtilBar from 'parser/ui/CooldownUtilBar';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -108,34 +108,34 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       you waited to use them again. Grey segments show when the spell was available, yellow segments
       show when the spell was cooling down. Red segments highlight times when you could have fit a
       whole extra use of the cooldown.
-      <CooldownUtilBar
+      <CastEfficiencyBar
         spellId={SPELLS.TIGERS_FURY.id}
         gapHighlightMode={GapHighlight.FullCooldown}
         useThresholds
       />
       {hasBerserk && !hasIncarn && (
-        <CooldownUtilBar
+        <CastEfficiencyBar
           spellId={SPELLS.BERSERK.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />
       )}
       {hasIncarn && (
-        <CooldownUtilBar
+        <CastEfficiencyBar
           spellId={TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />
       )}
       {hasConvoke && (
-        <CooldownUtilBar
+        <CastEfficiencyBar
           spellId={SPELLS.CONVOKE_SPIRITS.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />
       )}
       {hasFeralFrenzy && (
-        <CooldownUtilBar
+        <CastEfficiencyBar
           spellId={TALENTS_DRUID.FERAL_FRENZY_TALENT.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
