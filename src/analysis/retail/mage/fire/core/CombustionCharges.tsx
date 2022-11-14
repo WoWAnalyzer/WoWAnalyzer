@@ -1,77 +1,78 @@
 import { Trans } from '@lingui/macro';
-import { PHOENIX_FLAMES_MAX_CHARGES } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { CastEvent } from 'parser/core/Events';
+import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
+import Analyzer from 'parser/core/Analyzer';
+import { EventType } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
-
-const debug = false;
+import CooldownHistory from 'parser/shared/modules/CooldownHistory';
+import EventHistory from 'parser/shared/modules/EventHistory';
 
 class CombustionCharges extends Analyzer {
   static dependencies = {
-    spellUsable: SpellUsable,
     abilityTracker: AbilityTracker,
+    eventHistory: EventHistory,
+    cooldownHistory: CooldownHistory,
   };
-  protected spellUsable!: SpellUsable;
   protected abilityTracker!: AbilityTracker;
+  protected eventHistory!: EventHistory;
+  protected cooldownHistory!: CooldownHistory;
 
-  hasFlameOn: boolean;
-  lowPhoenixFlamesCharges = 0;
-  lowFireBlastCharges = 0;
-  badCast = false;
+  hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT);
 
-  constructor(options: Options) {
-    super(options);
-    this.hasFlameOn = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT.id);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
-      this.onCombustion,
+  lowFireBlastCharges = () => {
+    const maxFireBlastCharges = 1 + this.selectedCombatant.getTalentRank(TALENTS.FLAME_ON_TALENT);
+    let casts = this.eventHistory.getEvents(EventType.Cast, {
+      searchBackwards: true,
+      spell: TALENTS.COMBUSTION_TALENT,
+    });
+
+    //Filter out casts where the player was capped or almost capped on charges
+    casts = casts.filter(
+      (cast) =>
+        this.cooldownHistory.chargesAvailable(SPELLS.FIRE_BLAST.id, cast.timestamp) <
+        maxFireBlastCharges - 1,
     );
-  }
 
-  //When Combustion is cast, check to see how many charges of Fire Blast and Phoenix Flames are available. If there is less than (Max Charges - 1) then its a bad Combustion cast.
-  onCombustion(event: CastEvent) {
-    const fireBlastCharges = this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id);
-    const phoenixFlamesCharges =
-      this.spellUsable.chargesAvailable(TALENTS.PHOENIX_FLAMES_TALENT.id) || 0;
-    const FIRE_BLAST_THRESHOLD = this.hasFlameOn ? 2 : 1;
-    this.badCast = false;
+    //Highlight bad casts
+    const tooltip =
+      'This Combustion was cast with a low amount of Fire Blast and/or Phoenix Flames charges.';
+    casts.forEach((cast) => highlightInefficientCast(cast, tooltip));
 
-    if (fireBlastCharges < FIRE_BLAST_THRESHOLD) {
-      this.lowFireBlastCharges += 1;
-      this.badCast = true;
-      debug &&
-        this.log('Fire Blast Charges: ' + fireBlastCharges + ' Target: ' + FIRE_BLAST_THRESHOLD);
-    }
+    return casts.length;
+  };
 
-    if (phoenixFlamesCharges < PHOENIX_FLAMES_MAX_CHARGES - 1) {
-      this.lowPhoenixFlamesCharges += 1;
-      this.badCast = true;
-      debug && this.log('Phoenix Flames Charges: ' + phoenixFlamesCharges);
-    }
+  lowPhoenixFlamesCharges = () => {
+    this.log(this.selectedCombatant.getTalentRank(TALENTS.CALL_OF_THE_SUN_KING_TALENT));
+    const maxPhoenixFlamesCharges =
+      2 + this.selectedCombatant.getTalentRank(TALENTS.CALL_OF_THE_SUN_KING_TALENT);
+    let casts = this.eventHistory.getEvents(EventType.Cast, {
+      searchBackwards: true,
+      spell: TALENTS.COMBUSTION_TALENT,
+    });
 
-    if (this.badCast) {
-      this.flagTimeline(event);
-    }
-  }
+    //Filter out casts where the player was capped or almost capped on charges
+    casts = casts.filter(
+      (cast) =>
+        this.cooldownHistory.chargesAvailable(TALENTS.PHOENIX_FLAMES_TALENT.id, cast.timestamp) <
+        maxPhoenixFlamesCharges - 1,
+    );
 
-  flagTimeline(event: CastEvent) {
-    event.meta = event.meta || {};
-    event.meta.isInefficientCast = true;
-    event.meta.inefficientCastReason = `This Combustion was cast with a low amount of Fire Blast and/or Phoenix Flames charges. In order to get the most out of your Combustion casts, ensure that you have at least ${
-      this.hasFlameOn ? '2' : '1'
-    } Fire Blast charges and 2 Phoenix Flames charges. `;
-  }
+    //Highlight bad casts
+    const tooltip =
+      'This Combustion was cast with a low amount of Fire Blast and/or Phoenix Flames charges.';
+    casts.forEach((cast) => highlightInefficientCast(cast, tooltip));
+
+    return casts.length;
+  };
 
   get phoenixFlamesChargeUtil() {
     return (
       1 -
-      this.lowPhoenixFlamesCharges /
+      this.lowPhoenixFlamesCharges() /
         this.abilityTracker.getAbility(TALENTS.COMBUSTION_TALENT.id).casts
     );
   }
@@ -79,7 +80,8 @@ class CombustionCharges extends Analyzer {
   get fireBlastChargeUtil() {
     return (
       1 -
-      this.lowFireBlastCharges / this.abilityTracker.getAbility(TALENTS.COMBUSTION_TALENT.id).casts
+      this.lowFireBlastCharges() /
+        this.abilityTracker.getAbility(TALENTS.COMBUSTION_TALENT.id).casts
     );
   }
 
@@ -111,7 +113,7 @@ class CombustionCharges extends Analyzer {
     when(this.phoenixFlamesThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> {this.lowPhoenixFlamesCharges}{' '}
+          You cast <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> {this.lowPhoenixFlamesCharges()}{' '}
           times with less than 2 charges of <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} />.
           Make sure you are saving at least 2 charges while Combustion is on cooldown so you can get
           as many <SpellLink id={SPELLS.HOT_STREAK.id} /> procs as possible before Combustion ends.
@@ -128,9 +130,10 @@ class CombustionCharges extends Analyzer {
     when(this.fireBlastThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> {this.lowFireBlastCharges} times
-          with less than {this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT.id) ? '2' : '1'}{' '}
-          charges of <SpellLink id={SPELLS.FIRE_BLAST.id} />. Make sure you are saving at least{' '}
+          You cast <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> {this.lowFireBlastCharges()}{' '}
+          times with less than{' '}
+          {this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT.id) ? '2' : '1'} charges of{' '}
+          <SpellLink id={SPELLS.FIRE_BLAST.id} />. Make sure you are saving at least{' '}
           {this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT.id) ? '2' : '1'} charges while
           Combustion is on cooldown so you can get as many <SpellLink id={SPELLS.HOT_STREAK.id} />{' '}
           procs as possible before Combustion ends.
