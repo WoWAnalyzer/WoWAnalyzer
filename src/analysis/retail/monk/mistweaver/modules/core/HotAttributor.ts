@@ -147,7 +147,6 @@ class HotAttributor extends Analyzer {
           this.owner.formatTimestamp(event.timestamp, 3),
         'on ' + this.combatants.getEntity(event)?.name,
       );
-      return;
     } else if (
       this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0].name ===
       'Renewing Mist Rapid Diffusion'
@@ -159,7 +158,6 @@ class HotAttributor extends Analyzer {
           this.owner.formatTimestamp(event.timestamp, 3),
         'on ' + this.combatants.getEntity(event)?.name,
       );
-      return;
     }
   }
 }
