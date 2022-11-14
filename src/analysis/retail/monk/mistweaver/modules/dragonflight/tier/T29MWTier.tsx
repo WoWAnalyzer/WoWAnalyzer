@@ -32,6 +32,8 @@ const FOUR_PIECE_SPELLS = [
   SPELLS.VIVIFY,
 ];
 
+const EXTENSION_ATTRIB = HotTracker.getNewAttribution(ATTRIBUTION_PREFIX);
+
 class T29TierSet extends Analyzer {
   static dependencies = {
     hotTracker: HotTrackerMW,
@@ -44,7 +46,6 @@ class T29TierSet extends Analyzer {
   twoPieceHealing: number = 0;
   fourPieceHealingFromBuff: number = 0;
   extraRemHealing: number = 0;
-  extraVivCleaves: number = 0;
   extraVivHealing: number = 0;
 
   constructor(options: Options) {
@@ -93,12 +94,11 @@ class T29TierSet extends Analyzer {
     ) {
       return;
     }
-    const attribution = HotTracker.getNewAttribution(ATTRIBUTION_PREFIX + this.numExtensions);
     this.hotTracker.hots[playerId][
       SPELLS.RENEWING_MIST_HEAL.id
     ].maxDuration! += FOUR_PIECE_EXTENSION;
     this.hotTracker.addExtension(
-      attribution,
+      EXTENSION_ATTRIB,
       FOUR_PIECE_EXTENSION,
       playerId,
       SPELLS.RENEWING_MIST_HEAL.id,
@@ -136,7 +136,6 @@ class T29TierSet extends Analyzer {
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
     const extensionForVivify = this.hotTracker.getRemExtensionForTimestamp(hot, event.timestamp);
     if (extensionForVivify?.attribution.name.startsWith(ATTRIBUTION_PREFIX)) {
-      this.extraVivCleaves += 1;
       this.extraVivHealing += (event.amount || 0) + (event.absorbed || 0);
     }
   }
@@ -167,10 +166,6 @@ class T29TierSet extends Analyzer {
             <li>
               {formatDuration(this.totalExtensionDuration)} extra seconds of{' '}
               <SpellLink id={SPELLS.RENEWING_MIST_HEAL.id} />
-            </li>
-            <li>
-              {this.extraVivCleaves} extra <SpellLink id={SPELLS.VIVIFY.id} /> cleaves from
-              extensions
             </li>
             <li>
               {formatNumber(this.extraVivHealing)} extra <SpellLink id={SPELLS.VIVIFY.id} /> healing
