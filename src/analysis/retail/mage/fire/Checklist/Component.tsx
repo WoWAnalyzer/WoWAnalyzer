@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -115,10 +114,10 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             <SpellLink id={SPELLS.HEATING_UP.id} /> and <SpellLink id={SPELLS.HOT_STREAK.id} />, so
             it is very important that you understand how these procs work. Essentially, when you get
             a crit with a direct damage ability, like <SpellLink id={SPELLS.FIREBALL.id} /> or{' '}
-            <SpellLink id={SPELLS.PYROBLAST.id} />, you will get a{' '}
+            <SpellLink id={TALENTS.PYROBLAST_TALENT.id} />, you will get a{' '}
             <SpellLink id={SPELLS.HEATING_UP.id} /> proc. If you get a second consecutive crit with
             a direct damage ability, you will get a <SpellLink id={SPELLS.HOT_STREAK.id} /> proc
-            which makes your next <SpellLink id={SPELLS.PYROBLAST.id} /> or{' '}
+            which makes your next <SpellLink id={TALENTS.PYROBLAST_TALENT.id} /> or{' '}
             <SpellLink id={TALENTS.FLAMESTRIKE_TALENT.id} /> cast be instant cast. Additionally, you
             have spells like <SpellLink id={SPELLS.FIRE_BLAST.id} /> which is always guaranteed to
             crit and spells like <SpellLink id={SPELLS.SCORCH.id} /> which are guaranteed to crit
@@ -211,46 +210,6 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             spell={TALENTS.LIVING_BOMB_TALENT.id}
           />
         )}
-        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink id={SPELLS.SHIFTING_POWER.id} /> Cast Efficiency
-              </>
-            }
-            spell={SPELLS.SHIFTING_POWER.id}
-          />
-        )}
-        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink id={SPELLS.MIRRORS_OF_TORMENT.id} /> Cast Efficiency
-              </>
-            }
-            spell={SPELLS.MIRRORS_OF_TORMENT.id}
-          />
-        )}
-        {combatant.hasCovenant(COVENANTS.KYRIAN.id) && (
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink id={SPELLS.RADIANT_SPARK.id} /> Cast Efficiency
-              </>
-            }
-            spell={SPELLS.RADIANT_SPARK.id}
-          />
-        )}
-        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink id={SPELLS.DEATHBORNE.id} /> Cast Efficiency
-              </>
-            }
-            spell={SPELLS.DEATHBORNE.id}
-          />
-        )}
         {combatant.hasTalent(TALENTS.METEOR_TALENT.id) && (
           <Requirement
             name={
@@ -297,7 +256,7 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
               tooltip="In order to get the most out of your Meteor casts, you should only cast Meteor while you are buffed by Rune of Power."
             />
           )}
-        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+        {combatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT.id) && (
           <Requirement
             name="Shifting Power proper usage"
             thresholds={thresholds.shiftingPowerUsage}
