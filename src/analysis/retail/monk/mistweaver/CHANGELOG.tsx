@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 11, 13), <>Updates to Hot Tracker to better handle <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id}/> tracking. Added <SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT.id}/> module.</>, Vohrr),
   change(date(2022, 11, 13), <>Fix load conditions for some Mistweaver talents</>, Trevor),
   change(date(2022, 11, 12), <>Updated the spell icon for <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id}/></>, Vohrr),
   change(date(2022, 11, 12), <>Cleanup covenant files for Mistweaver</>, Trevor),
