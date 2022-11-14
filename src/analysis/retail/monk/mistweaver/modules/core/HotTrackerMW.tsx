@@ -36,12 +36,12 @@ class HotTrackerMW extends HotTracker {
 
   // Decide which extension is responsible for allowing this extra vivify cleave
   getRemExtensionForTimestamp(hot: Tracker, timestamp: number): Extension | null {
-    if (timestamp < hot.originalEnd) {
+    if (timestamp <= hot.originalEnd) {
       return null;
     }
     let currentStart = hot.originalEnd;
     for (const extension of hot.extensions) {
-      if (timestamp < currentStart + extension.amount) {
+      if (timestamp <= currentStart + extension.amount) {
         return extension;
       }
       currentStart += extension.amount;
