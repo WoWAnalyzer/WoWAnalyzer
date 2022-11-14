@@ -27,6 +27,7 @@ import VampiricTouch from './modules/spells/VampiricTouch';
 import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
 import DeathAndMadness from './modules/talents/DeathAndMadness';
 import ShadowCrash from './modules/talents/ShadowCrash';
+import InescapableTorment from './modules/talents/InescapableTorment';
 import DarkVoid from './modules/talents/DarkVoid';
 import UnfurlingDarkness from './modules/talents/UnfurlingDarkness';
 import VoidTorrent from './modules/talents/VoidTorrent';
@@ -70,6 +71,7 @@ class CombatLogParser extends MainCombatLogParser {
     twistOfFate: TwistOfFate,
     voidTorrent: VoidTorrent,
     shadowCrash: ShadowCrash,
+    inescapableTorment: InescapableTorment,
     darkVoid: DarkVoid,
     auspiciousSpirits: AuspiciousSpirits,
     mindsear: MindSear,

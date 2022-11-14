@@ -360,6 +360,12 @@ const talents = createTalentList({
     icon: 'spell_shadow_chilltouch',
     maxRanks: 2,
   },
+  INESCAPABLE_TORMENT_TALENT_DAMAGE: {
+    id: 373442,
+    name: 'Inescapable Torment',
+    icon: 'spell_shadow_chilltouch',
+    maxRanks: 2,
+  },
 
   //Shadow
   DEVOURING_PLAGUE_TALENT: {
