@@ -93,6 +93,9 @@ const EVENT_LINKS: EventLink[] = [
     additionalCondition(linkingEvent) {
       return !HasRelatedEvent(linkingEvent, FROM_HARDCAST);
     },
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT);
+    },
   },
   // two REMs happen in same timestamp when dancing mists procs
   {
@@ -110,6 +113,9 @@ const EVENT_LINKS: EventLink[] = [
           (referencedEvent as ApplyBuffEvent).targetID && !HasRelatedEvent(linkingEvent, BOUNCED)
       );
     },
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.DANCING_MISTS_TALENT);
+    },
   },
   // misty peaks proc from a ReM hot event
   {
@@ -121,6 +127,9 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: 100,
     additionalCondition(linkingEvent) {
       return !HasRelatedEvent(linkingEvent, FROM_HARDCAST);
+    },
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT);
     },
   },
 ];
