@@ -113,7 +113,8 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: 50,
     additionalCondition(linkingEvent, referencedEvent) {
       return (
-        (linkingEvent as ApplyBuffEvent).targetID !== (referencedEvent as ApplyBuffEvent).targetID
+        (linkingEvent as ApplyBuffEvent).targetID !==
+          (referencedEvent as ApplyBuffEvent).targetID && !HasRelatedEvent(linkingEvent, BOUNCED)
       );
     },
   },
@@ -202,8 +203,6 @@ export function isFromRapidDiffusion(event: ApplyBuffEvent | RefreshBuffEvent) {
   if (HasRelatedEvent(event, FROM_DANCING_MISTS)) {
     if (FOUND_REMS.has(event.timestamp)) {
       return false;
-    } else {
-      FOUND_REMS.add(event.timestamp);
     }
   }
   return HasRelatedEvent(event, FROM_RAPID_DIFFUSION);

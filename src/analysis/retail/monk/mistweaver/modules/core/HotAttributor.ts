@@ -68,11 +68,6 @@ class HotAttributor extends Analyzer {
     if (this._hasAttribution(event)) {
       this.hotTracker.addAttributionFromApply(this.bouncedAttrib, event);
       if (debug) {
-        console.log(
-          this.owner.formatTimestamp(event.timestamp, 3) +
-            ': rem attributions:  ' +
-            this.hotTracker.hots[event.targetID][event.ability.guid].attributions.length,
-        );
         if (
           this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0].name ===
           'Renewing Mist Hardcast'
@@ -96,8 +91,6 @@ class HotAttributor extends Analyzer {
               this.owner.formatTimestamp(event.timestamp, 3),
             'on ' + this.combatants.getEntity(event)?.name,
           );
-          return;
-        } else {
           return;
         }
       }
