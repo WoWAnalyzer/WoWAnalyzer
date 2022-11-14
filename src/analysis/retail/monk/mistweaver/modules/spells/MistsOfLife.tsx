@@ -27,14 +27,15 @@ class MistsOfLife extends Analyzer {
   extraEnvmApplications: number = 0;
   extraEnvmHealing: number = 0;
   extraEnvmOverHealing: number = 0;
-  extraEnvmHits: number = 0;
+  extraEnvmAbsorbed: number = 0;
   extraRemApplications: number = 0;
   extraRemHealing: number = 0;
   extraRemOverHealing: number = 0;
-  extraRemHits: number = 0;
+  extraRemAbsorbed: number = 0;
   extraVivCleaves: number = 0;
   extraVivHealing: number = 0;
   extraVivOverhealing: number = 0;
+  extraVivAbsorbed: number = 0;
   envmHealingIncrease: number = 0;
   extraEnvBonusHealing: number = 0;
   lastVivifyCastTarget: number = 0;
@@ -90,9 +91,9 @@ class MistsOfLife extends Analyzer {
 
     const hot = this.hotTracker.hots[playerId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
     if (this.hotTracker.fromMistsOfLife(hot)) {
-      this.extraEnvmHits += 1;
       this.extraEnvmHealing += event.amount || 0;
       this.extraEnvmOverHealing += event.overheal || 0;
+      this.extraEnvmAbsorbed += event.absorbed || 0;
     }
   }
 
@@ -116,9 +117,7 @@ class MistsOfLife extends Analyzer {
 
   handleRemApply(event: ApplyBuffEvent | RefreshBuffEvent) {
     const targetId = event.targetID;
-    const spellId = event.ability.guid;
     if (
-      UNAFFECTED_SPELLS.includes(spellId) ||
       !this.hotTracker.hots[targetId] ||
       !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]
     ) {
@@ -132,9 +131,7 @@ class MistsOfLife extends Analyzer {
 
   handleRemHeal(event: HealEvent) {
     const targetId = event.targetID;
-    const spellId = event.ability.guid;
     if (
-      UNAFFECTED_SPELLS.includes(spellId) ||
       !this.hotTracker.hots[targetId] ||
       !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]
     ) {
@@ -144,7 +141,7 @@ class MistsOfLife extends Analyzer {
     if (this.hotTracker.fromMistsOfLife(hot)) {
       this.extraRemHealing += event.amount || 0;
       this.extraRemOverHealing += event.overheal || 0;
-      this.extraRemHits += 1;
+      this.extraRemAbsorbed += event.absorbed || 0;
     }
   }
 
@@ -171,7 +168,20 @@ class MistsOfLife extends Analyzer {
       this.extraVivCleaves += 1;
       this.extraVivHealing += event.amount || 0;
       this.extraVivOverhealing += event.overheal || 0;
+      this.extraVivAbsorbed += event.absorbed || 0;
     }
+  }
+
+  get totalHealing() {
+    return (
+      this.extraEnvmHealing +
+      this.extraVivHealing +
+      this.extraEnvBonusHealing +
+      this.extraRemHealing +
+      this.extraEnvmAbsorbed +
+      this.extraRemAbsorbed +
+      this.extraVivAbsorbed
+    );
   }
 
   statistic() {
@@ -183,20 +193,12 @@ class MistsOfLife extends Analyzer {
         tooltip={
           <ul>
             <li>
-              <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> extra hits:{' '}
-              {this.extraEnvmHits}
-            </li>
-            <li>
               Extra <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> direct healing:{' '}
               {formatNumber(this.extraEnvmHealing)}
             </li>
             <li>
-              Bonus healing from <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> buff:
+              Bonus healing from <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> buff:{' '}
               {formatNumber(this.extraEnvBonusHealing)}
-            </li>
-            <li>
-              <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> extra hits:{' '}
-              {this.extraRemHits}
             </li>
             <li>
               Extra <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> direct healing:{' '}
@@ -213,9 +215,7 @@ class MistsOfLife extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_MONK.MISTS_OF_LIFE_TALENT}>
-          <ItemHealingDone
-            amount={this.extraEnvmHealing + this.extraVivHealing + this.extraEnvBonusHealing}
-          />
+          <ItemHealingDone amount={this.totalHealing} />
         </TalentSpellText>
       </Statistic>
     );
