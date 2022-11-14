@@ -17,7 +17,7 @@ import SpellLink from 'interface/SpellLink';
 const TWO_PIECE_BONUS = 0.1;
 const FOUR_PIECE_BONUS = 0.1;
 const FOUR_PIECE_EXTENSION = 1000;
-const ATTRIBUTION_PREFIX = '4 Piece extension #';
+const ATTRIBUTION_PREFIX = '4 Piece extension';
 
 const TWO_PIECE_SPELLS = [
   SPELLS.ESSENCE_FONT_BUFF,
