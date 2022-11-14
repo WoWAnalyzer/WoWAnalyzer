@@ -1,6 +1,6 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import { formatNumber } from 'common/format';
+import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 //import { TIERS } from 'game/TIERS';
@@ -41,18 +41,21 @@ class T29TierSet extends Analyzer {
   has2Piece: boolean = true;
   has4Piece: boolean = true;
   numExtensions: number = 0;
+  totalExtensionDuration: number = 0;
   twoPieceHealing: number = 0;
   fourPieceHealing: number = 0;
-  extraVivCleaves = 0;
-  extraVivHealing = 0;
-  extraVivOverhealing = 0;
-  extraVivAbsorbed = 0;
+  extraRemHealing: number = 0;
+  extraRemAbsorbed: number = 0;
+  extraRemOverhealing: number = 0;
+  extraVivCleaves: number = 0;
+  extraVivHealing: number = 0;
+  extraVivOverhealing: number = 0;
+  extraVivAbsorbed: number = 0;
 
   constructor(options: Options) {
     super(options);
     this.has2Piece = true; //this.selectedCombatant.has2PieceByTier(TIERS.T29);
     this.has4Piece = true; //this.selectedCombatant.has4PieceByTier(TIERS.T29);
-    console.log(`has2Piece: ${this.has2Piece} has4Piece: ${this.has4Piece}`);
     this.active = this.has2Piece || this.has4Piece;
     if (!this.active) {
       return;
@@ -68,7 +71,6 @@ class T29TierSet extends Analyzer {
       this.handle2PcHeal,
     );
     if (this.has4Piece) {
-      console.log('adding 4 piece event listeners');
       this.addEventListener(
         Events.heal.by(SELECTED_PLAYER).spell(FOUR_PIECE_SPELLS),
         this.handle4PcHeal,
@@ -76,6 +78,10 @@ class T29TierSet extends Analyzer {
       this.addEventListener(
         Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY),
         this.handle4PcVivify,
+      );
+      this.addEventListener(
+        Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
+        this.handleRemTick,
       );
     }
   }
@@ -101,6 +107,9 @@ class T29TierSet extends Analyzer {
     );
 
     this.numExtensions += 1;
+    this.totalExtensionDuration += this.hotTracker.hots[playerId][
+      SPELLS.RENEWING_MIST_HEAL.id
+    ].extensions.at(-1)!.amount;
   }
 
   handle2PcHeal(event: HealEvent) {
@@ -119,7 +128,6 @@ class T29TierSet extends Analyzer {
 
   handle4PcVivify(event: HealEvent) {
     const targetId = event.targetID;
-    console.log('4 piece vivify entered');
     if (
       !this.hotTracker.hots[targetId] ||
       !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]
@@ -128,12 +136,28 @@ class T29TierSet extends Analyzer {
     }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
     const extensionForVivify = this.hotTracker.getRemExtensionForTimestamp(hot, event.timestamp);
-    console.log(`YER Extension is ${extensionForVivify}`);
-    if (extensionForVivify && extensionForVivify.attribution.name.startsWith(ATTRIBUTION_PREFIX)) {
+    if (extensionForVivify?.attribution.name.startsWith(ATTRIBUTION_PREFIX)) {
       this.extraVivCleaves += 1;
       this.extraVivHealing += event.amount || 0;
       this.extraVivOverhealing += event.overheal || 0;
       this.extraVivAbsorbed += event.absorbed || 0;
+    }
+  }
+
+  handleRemTick(event: HealEvent) {
+    const targetId = event.targetID;
+    if (
+      !this.hotTracker.hots[targetId] ||
+      !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]
+    ) {
+      return;
+    }
+    const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
+    const extension = this.hotTracker.getRemExtensionForTimestamp(hot, event.timestamp);
+    if (extension?.attribution.name.startsWith(ATTRIBUTION_PREFIX)) {
+      this.extraRemHealing += event.amount || 0;
+      this.extraRemAbsorbed += event.absorbed || 0;
+      this.extraRemOverhealing += event.overheal || 0;
     }
   }
 
@@ -145,10 +169,34 @@ class T29TierSet extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={
           <ul>
-            <li>{this.numExtensions} 4 pc extensions</li>
-            <li>{this.extraVivCleaves} extra Vivify cleaves from extensions</li>
-            <li>{formatNumber(this.extraVivOverhealing)} extra Vivify overhealing</li>
-            <li>{formatNumber(this.extraVivAbsorbed)} extra Vivify healing absorbed</li>
+            <li>
+              {formatDuration(this.totalExtensionDuration)} extra seconds of{' '}
+              <SpellLink id={SPELLS.RENEWING_MIST_HEAL.id} />
+            </li>
+            <li>
+              {this.extraVivCleaves} extra <SpellLink id={SPELLS.VIVIFY.id} /> cleaves from
+              extensions
+            </li>
+            <li>
+              {formatNumber(this.extraVivOverhealing)} extra <SpellLink id={SPELLS.VIVIFY.id} />{' '}
+              overhealing
+            </li>
+            <li>
+              {formatNumber(this.extraVivAbsorbed)} extra <SpellLink id={SPELLS.VIVIFY.id} />{' '}
+              healing absorbed
+            </li>
+            <li>
+              {formatNumber(this.extraRemHealing)} extra{' '}
+              <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> healing
+            </li>
+            <li>
+              {formatNumber(this.extraRemAbsorbed)} extra{' '}
+              <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> healing absorbed
+            </li>
+            <li>
+              {formatNumber(this.extraRemOverhealing)} extra{' '}
+              <SpellLink id={SPELLS.RENEWING_MIST_HEAL.id} /> overhealing
+            </li>
           </ul>
         }
       >
@@ -158,13 +206,9 @@ class T29TierSet extends Analyzer {
           {this.has4Piece && (
             <>
               <h4>4 Piece</h4>
-              <ItemHealingDone amount={this.fourPieceHealing} />
-              <br />
-              <small>
-                Extra <SpellLink id={SPELLS.VIVIFY.id} /> Healing from extensions
-              </small>
-              <br />
-              <ItemHealingDone amount={this.extraVivHealing} />
+              <ItemHealingDone
+                amount={this.fourPieceHealing + this.extraRemHealing + this.extraVivHealing}
+              />
             </>
           )}
         </BoringValueText>

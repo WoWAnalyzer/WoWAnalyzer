@@ -16,6 +16,7 @@ import { RISING_MIST_EXTENSION } from '../../constants';
 
 import HotTrackerMW from '../core/HotTrackerMW';
 import Vivify from './Vivify';
+import T29TierSet from '../dragonflight/tier/T29MWTier';
 
 const debug = false;
 
@@ -31,7 +32,7 @@ class RisingMist extends Analyzer {
   }
 
   get hotHealing() {
-    let value = 0;
+    let value = 0 - this.t29TierSet.extraRemHealing; // don't want rem healing from tier set ticks
     this.hotTracker.hotHistory.forEach(
       function (hot) {
         if (this.hotTracker.fromHardcast(hot)) {
@@ -87,6 +88,7 @@ class RisingMist extends Analyzer {
     abilityTracker: AbilityTracker,
     spellUsable: SpellUsable,
     vivify: Vivify,
+    t29TierSet: T29TierSet,
   };
   risingMistCount = 0;
   risingMists = [];
