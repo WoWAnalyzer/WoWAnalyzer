@@ -35,7 +35,7 @@ class HotTrackerMW extends HotTracker {
   }
 
   // Decide which extension is responsible for allowing this extra vivify cleave
-  getRemExtensionForVivify(hot: Tracker, timestamp: number): Extension | null {
+  getRemExtensionForTimestamp(hot: Tracker, timestamp: number): Extension | null {
     if (timestamp < hot.originalEnd) {
       return null;
     }

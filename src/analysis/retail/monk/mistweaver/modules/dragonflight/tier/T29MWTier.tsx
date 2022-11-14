@@ -26,11 +26,13 @@ const TWO_PIECE_SPELLS = [
   TALENTS_MONK.ENVELOPING_MIST_TALENT,
   SPELLS.VIVIFY,
 ];
+
 const FOUR_PIECE_SPELLS = [
   TALENTS_MONK.ESSENCE_FONT_TALENT,
   SPELLS.ESSENCE_FONT_BUFF,
   SPELLS.VIVIFY,
 ];
+
 class T29TierSet extends Analyzer {
   static dependencies = {
     hotTracker: HotTrackerMW,
@@ -48,8 +50,9 @@ class T29TierSet extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    //this.has2Piece = this.selectedCombatant.has2PieceByTier(TIERS.T29);
-    //this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.T29);
+    this.has2Piece = true; //this.selectedCombatant.has2PieceByTier(TIERS.T29);
+    this.has4Piece = true; //this.selectedCombatant.has4PieceByTier(TIERS.T29);
+    console.log(`has2Piece: ${this.has2Piece} has4Piece: ${this.has4Piece}`);
     this.active = this.has2Piece || this.has4Piece;
     if (!this.active) {
       return;
@@ -65,6 +68,7 @@ class T29TierSet extends Analyzer {
       this.handle2PcHeal,
     );
     if (this.has4Piece) {
+      console.log('adding 4 piece event listeners');
       this.addEventListener(
         Events.heal.by(SELECTED_PLAYER).spell(FOUR_PIECE_SPELLS),
         this.handle4PcHeal,
@@ -84,15 +88,18 @@ class T29TierSet extends Analyzer {
     ) {
       return;
     }
-    const hot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
     const attribution = HotTracker.getNewAttribution(ATTRIBUTION_PREFIX + this.numExtensions);
+    this.hotTracker.hots[playerId][
+      SPELLS.RENEWING_MIST_HEAL.id
+    ].maxDuration! += FOUR_PIECE_EXTENSION;
     this.hotTracker.addExtension(
       attribution,
       FOUR_PIECE_EXTENSION,
       playerId,
-      hot.spellId,
+      SPELLS.RENEWING_MIST_HEAL.id,
       event.timestamp,
     );
+
     this.numExtensions += 1;
   }
 
@@ -112,6 +119,7 @@ class T29TierSet extends Analyzer {
 
   handle4PcVivify(event: HealEvent) {
     const targetId = event.targetID;
+    console.log('4 piece vivify entered');
     if (
       !this.hotTracker.hots[targetId] ||
       !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]
@@ -119,7 +127,8 @@ class T29TierSet extends Analyzer {
       return;
     }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
-    const extensionForVivify = this.hotTracker.getRemExtensionForVivify(hot, event.timestamp);
+    const extensionForVivify = this.hotTracker.getRemExtensionForTimestamp(hot, event.timestamp);
+    console.log(`YER Extension is ${extensionForVivify}`);
     if (extensionForVivify && extensionForVivify.attribution.name.startsWith(ATTRIBUTION_PREFIX)) {
       this.extraVivCleaves += 1;
       this.extraVivHealing += event.amount || 0;

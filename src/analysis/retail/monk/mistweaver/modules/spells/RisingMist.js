@@ -15,13 +15,11 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import { RISING_MIST_EXTENSION } from '../../constants';
 
 import HotTrackerMW from '../core/HotTrackerMW';
+import Vivify from './Vivify';
 
 const debug = false;
 
-const ENVELOPING_MIST_HARDCAST = 'Enveloping Mist Hardcast';
-const RENEWING_MIST_HARDCAST = 'Renewing Mist Hardcast';
-
-const UNAFFECTED_SPELLS = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
+const ATTRIBUTION_PREFIX = 'RisingMist #';
 
 class RisingMist extends Analyzer {
   get averageExtension() {
@@ -88,6 +86,7 @@ class RisingMist extends Analyzer {
     hotTracker: HotTrackerMW,
     abilityTracker: AbilityTracker,
     spellUsable: SpellUsable,
+    vivify: Vivify,
   };
   risingMistCount = 0;
   risingMists = [];
@@ -134,12 +133,6 @@ class RisingMist extends Analyzer {
     );
   }
 
-  hasAttribution(attributions, name) {
-    return attributions.some(function (attr) {
-      return attr.name === name;
-    });
-  }
-
   handleMastery(event) {
     const targetId = event.targetID;
     if (
@@ -177,16 +170,15 @@ class RisingMist extends Analyzer {
     ) {
       return;
     }
-    const object = this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
+    const hot = this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
     if (
-      !this.hasAttribution(object.attributions, ENVELOPING_MIST_HARDCAST) ||
-      UNAFFECTED_SPELLS.includes(spellId)
+      spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id // envm doesn't buff itself
     ) {
       return;
     }
 
-    if (object.originalEnd < event.timestamp) {
+    if (hot.originalEnd < event.timestamp) {
       this.extraEnvHits += 1;
       this.extraEnvBonusHealing += calculateEffectiveHealing(event, this.evmHealingIncrease);
     }
@@ -196,15 +188,17 @@ class RisingMist extends Analyzer {
     const targetId = event.targetID;
     if (
       !this.hotTracker.hots[targetId] ||
-      !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]
+      !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id] ||
+      (this.vivify.lastCastTarget === event.targetID && this.vivify.mainTargetHitsToCount === 0) // don't count main vivify hit
     ) {
       return;
     }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
+    const extension = this.hotTracker.getRemExtensionForTimestamp(hot, event.timestamp);
     if (
-      this.hasAttribution(hot.attributions, RENEWING_MIST_HARDCAST) &&
-      hot.originalEnd < event.timestamp &&
-      event.timestamp < hot.end
+      this.hotTracker.fromHardcast(hot) &&
+      extension &&
+      extension.attribution.name.startsWith(ATTRIBUTION_PREFIX)
     ) {
       this.extraVivCleaves += 1;
       this.extraVivHealing += event.amount || 0;
@@ -222,7 +216,7 @@ class RisingMist extends Analyzer {
     this.risingMistCount += 1;
     debug && console.log(`risingMist cast #: ${this.risingMistCount}`);
 
-    const newRisingMist = HotTracker.getNewAttribution(`RisingMist #${this.risingMistCount}`);
+    const newRisingMist = HotTracker.getNewAttribution(ATTRIBUTION_PREFIX + this.risingMistCount);
     this.risingMists.push(newRisingMist);
 
     let foundTarget = false;
