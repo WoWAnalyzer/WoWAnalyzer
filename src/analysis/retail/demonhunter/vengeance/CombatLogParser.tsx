@@ -43,6 +43,7 @@ import DarkglareBoon from './modules/talents/DarkglareBoon';
 import StokeTheFlames from './modules/talents/StokeTheFlames';
 import FieryBrand from './modules/talents/FieryBrand';
 import VoidReaver from './modules/talents/VoidReaver';
+import Metamorphosis from './modules/spells/Metamorphosis';
 import ShearFractureNormalizer from './normalizers/ShearFractureNormalizer';
 import SoulFragmentsGraph from './modules/resourcetracker/SoulFragmentsGraph';
 import SoulFragmentBuffStackTracker from './modules/resourcetracker/SoulFragmentBuffStackTracker';
@@ -103,6 +104,7 @@ class CombatLogParser extends CoreCombatLogParser {
     demonSpikes: DemonSpikes,
     soulCleaveSoulsConsumed: SoulCleaveSoulsConsumed,
     infernalStrike: InfernalStrike,
+    metamorphosis: Metamorphosis,
 
     // Stats
     soulsOvercap: SoulsOvercap,
