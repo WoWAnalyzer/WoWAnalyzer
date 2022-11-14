@@ -13,7 +13,7 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import { Build } from '../../../CONFIG';
 import * as SPELL_EFFECTS from '../../../SPELL_EFFECTS';
-import * as SPELLS from '../../../SPELLS';
+import SPELLS from 'common/SPELLS/classic/shaman';
 
 class EarthShield extends Analyzer {
   static dependencies = {
@@ -37,7 +37,7 @@ class EarthShield extends Analyzer {
     );
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell({ id: SPELLS.EARTH_SHIELD }),
+      Events.applybuff.by(SELECTED_PLAYER).spell({ id: SPELLS.EARTH_SHIELD.id }),
       this.earthShieldPrepullCheck,
     );
   }
@@ -52,7 +52,8 @@ class EarthShield extends Analyzer {
 
   get uptime() {
     return Object.values(this.combatants.players).reduce(
-      (uptime, player) => uptime + player.getBuffUptime(SPELLS.EARTH_SHIELD, this.owner.playerId),
+      (uptime, player) =>
+        uptime + player.getBuffUptime(SPELLS.EARTH_SHIELD.id, this.owner.playerId),
       0,
     );
   }
@@ -92,7 +93,7 @@ class EarthShield extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(45)}
       >
-        <BoringValue label={<SpellLink id={SPELLS.EARTH_SHIELD} />}>
+        <BoringValue label={<SpellLink id={SPELLS.EARTH_SHIELD.id} />}>
           <div>
             <UptimeIcon /> {formatPercentage(this.uptimePercent)}% <small>uptime</small>
             <br />

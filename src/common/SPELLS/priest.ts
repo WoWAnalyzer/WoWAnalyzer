@@ -86,6 +86,11 @@ const spells = spellIndexableList({
     name: 'Harsh Discipline',
     icon: 'ability_paladin_handoflight',
   },
+  SINS_OF_THE_MANY: {
+    id: 280391,
+    name: 'Sins of the Many',
+    icon: 'spell_holy_holyguidance',
+  },
   POWER_WORD_SHIELD: {
     id: 17,
     name: 'Power Word: Shield',
@@ -209,6 +214,11 @@ const spells = spellIndexableList({
     name: 'Shadow Word: Pain',
     icon: 'spell_shadow_shadowwordpain',
   },
+  PROTECTIVE_LIGHT_BUFF: {
+    id: 193065,
+    name: 'Protective Light',
+    icon: 'spell_holy_holyprotection',
+  },
   FADE: {
     id: 586,
     name: 'Fade',
@@ -296,6 +306,11 @@ const spells = spellIndexableList({
     id: 321379,
     name: 'Prayer Circle',
     icon: 'spell_paladin_divinecircle',
+  },
+  SANCTIFIED_PRAYERS_BUFF: {
+    id: 196490,
+    name: 'Sanctified Prayers',
+    icon: 'spell_holy_pureofheart',
   },
 
   // Talents:
@@ -404,7 +419,26 @@ const spells = spellIndexableList({
     name: 'Surge of Light',
     icon: 'spell_holy_surgeoflight',
   },
-
+  DIVINE_WORD_CHASTISE_TALENT_BUFF: {
+    id: 372761,
+    name: 'Divine Favor: Chastise',
+    icon: 'priest_icon_chakra_red',
+  },
+  RESONANT_WORDS_TALENT_BUFF: {
+    id: 372313,
+    name: 'Resonant Words',
+    icon: 'spell_holy_holybolt',
+  },
+  HEALING_CHORUS_TALENT_BUFF: {
+    id: 390885,
+    name: 'Healing Chorus',
+    icon: 'spell_holy_circleofrenewal',
+  },
+  DIVINE_WORD_SERENITY_TALENT_BUFF: {
+    id: 372791,
+    name: 'Divine Favor: Serenity',
+    icon: 'priest_icon_chakra',
+  },
   // Sets
   HOLY_PRIEST_TIER_29_2_SET_BUFF: {
     id: 394729,
@@ -444,15 +478,10 @@ const spells = spellIndexableList({
     icon: 'spell_holy_chastise',
     manaCost: 5000,
   },
-  RESONANT_WORDS_TALENT_BUFF: {
-    id: 372313,
-    name: 'Resonant Words',
-    icon: 'spell_holy_holybolt',
-  },
-  HEALING_CHORUS_TALENT_BUFF: {
-    id: 390885,
-    name: 'Healing Chorus',
-    icon: 'spell_holy_circleofrenewal',
+  DIVINE_WORD_SANCTIFY_TALENT_HEAL: {
+    id: 372787,
+    name: 'Divine Word: Sanctuary',
+    icon: 'priest_icon_chakra_blue',
   },
   // Shadow Spells
   MIND_BLAST: {
@@ -617,6 +646,18 @@ const spells = spellIndexableList({
     id: 341207,
     name: 'Dark Thought',
     icon: 'ability_priest_thoughtsteal01',
+  },
+
+  SHADOWY_INSIGHT: {
+    id: 375888,
+    name: 'Shadowy Insight',
+    icon: 'spell_shadow_possession',
+  },
+
+  SHADOWY_INSIGHT_BUFF: {
+    id: 375981,
+    name: 'Shadowy Insight',
+    icon: 'spell_shadow_possession',
   },
 
   UNFURLING_DARKNESS_BUFF: {

@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
 import { formatDuration, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Icon } from 'interface';
 import { Tooltip } from 'interface';
@@ -53,7 +53,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
 
   naturalRegenRate() {
     let regen = super.naturalRegenRate();
-    if (this.selectedCombatant.hasTalent(SPELLS.VIGOR_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.VIGOR_TALENT.id)) {
       regen *= VIGOR_REGEN_MULTIPLIER;
     }
     return regen;
@@ -61,7 +61,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
 
   currentMaxResource() {
     let max = BASE_ENERGY_MAX;
-    if (this.selectedCombatant.hasTalent(SPELLS.VIGOR_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.VIGOR_TALENT.id)) {
       max += VIGOR_MAX_ADDITION;
     }
     // What should be x.5 becomes x in-game.

@@ -42,7 +42,7 @@ class AstralPowerTracker extends ResourceTracker {
     );
   }
 
-  getReducedCost(event: CastEvent) {
+  getAdjustedCost(event: CastEvent) {
     const resource = this.getResource(event);
     if (!resource || !resource.cost) {
       return 0;

@@ -66,11 +66,23 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
-// prettier-ignore
 export default [
+  change(date(2022, 11, 13), 'Hide Dragonflight warning on Classic logs that don\'t have a build selected', emallson),
+  change(date(2022, 11, 12), 'Backend work on resource tracking, including light bug fixes and ability to query stats for specific time periods', Sref),
+  change(date(2022, 11, 11), 'Add player icon lookup for configs to Classic specs.', jazminite),
+  change(date(2022, 11, 9), 'Add spells for Classic Deathknights (no functionality yet).', jazminite),
+  change(date(2022, 11, 10), 'Add missing default tooltip for preparation section of guide.', ToppleTheNun),
+  change(date(2022, 11, 10), 'Hide rank for talents with only one rank.', ToppleTheNun),
+  change(date(2022, 11, 9), 'Add bombs and cleanup Classic Engineering.', jazminite),
+  change(date(2022, 11, 7), 'Update for Classic WCLs URL.', jazminite),
+  change(date(2022, 11, 7), 'Configure Greater Spellpower enchant for WoTLK', Tialyss),
+  change(date(2022, 11, 6), 'Update PlayerTile for Classic to clear console errors.', jazminite),
+  change(date(2022, 11, 2), 'Add Dragonflight enchants.', ToppleTheNun),
+  change(date(2022, 11, 1), 'Add Preparation section that can be included in Guides.', ToppleTheNun),
   change(date(2022, 11, 1), 'Re-add missing specs to the specializations page.', ToppleTheNun),
   change(date(2022, 10, 31), 'Add slightly more ergonomic talent cast efficiency wrapper.', ToppleTheNun),
   change(date(2022, 10, 31), 'Update patch compatibility for specs supporting Dragonflight.', ToppleTheNun),
+  change(date(2022, 10, 30), 'Add Classic WotLK specs.', jazminite),
   change(date(2022, 10, 26), 'Convert most of report loading process to functions.', ToppleTheNun),
   change(date(2022, 10, 25), 'Improve patch version detection for retail and classic.', ToppleTheNun),
   change(date(2022, 10, 25), 'Exclude classic from patch version checking.', ToppleTheNun),

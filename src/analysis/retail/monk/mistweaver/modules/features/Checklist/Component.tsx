@@ -38,16 +38,14 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         }
       >
         <AbilityRequirement spell={TALENTS_MONK.RENEWING_MIST_TALENT.id} />
-        {!combatant.hasTalent(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> avg per Vivify cast
-              </>
-            }
-            thresholds={thresholds.vivify}
-          />
-        )}
+        <Requirement
+          name={
+            <>
+              <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> avg per Vivify cast
+            </>
+          }
+          thresholds={thresholds.vivify}
+        />
         {combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id) && (
           <AbilityRequirement spell={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />
         )}
@@ -295,8 +293,12 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         name="Use your defensive cooldowns effectively"
         description="Make sure you use your personal and defensive cooldowns at appropriate times throughout the fight. While it may not make sense to use these abilities on cooldown, saving them for large damage events is ideal."
       >
-        <AbilityRequirement spell={TALENTS_MONK.FORTIFYING_BREW_SHARED_TALENT.id} />
-        <AbilityRequirement spell={TALENTS_MONK.LIFE_COCOON_TALENT.id} />
+        {combatant.hasTalent(TALENTS_MONK.FORTIFYING_BREW_SHARED_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_MONK.FORTIFYING_BREW_SHARED_TALENT.id} />
+        )}
+        {combatant.hasTalent(TALENTS_MONK.LIFE_COCOON_TALENT) && (
+          <AbilityRequirement spell={TALENTS_MONK.LIFE_COCOON_TALENT.id} />
+        )}
         {combatant.hasTalent(TALENTS_MONK.DIFFUSE_MAGIC_TALENT.id) && (
           <AbilityRequirement spell={TALENTS_MONK.DIFFUSE_MAGIC_TALENT.id} />
         )}

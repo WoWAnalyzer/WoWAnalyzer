@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import AverageTargetsHit from 'parser/ui/AverageTargetsHit';
@@ -29,14 +30,11 @@ class Stomp extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.STOMP_TALENT.id);
-    this.hasAC = this.selectedCombatant.hasTalent(SPELLS.ANIMAL_COMPANION_TALENT.id);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BARBED_SHOT, SPELLS.DIRE_BEAST_TALENT]),
-      () => {
-        this.casts += 1;
-      },
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS.STOMP_TALENT.id);
+    this.hasAC = this.selectedCombatant.hasTalent(TALENTS.ANIMAL_COMPANION_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(TALENTS.BARBED_SHOT_TALENT), () => {
+      this.casts += 1;
+    });
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.STOMP_DAMAGE),
       this.onPetStompDamage,
@@ -55,7 +53,7 @@ class Stomp extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.STOMP_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.STOMP_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

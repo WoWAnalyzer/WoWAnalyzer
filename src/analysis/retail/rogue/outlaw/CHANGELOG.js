@@ -1,21 +1,22 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
-import { Putro, Tyndi, Zeboot, Canotsa, Hordehobbs, Akai, ab, bhawkins6177 } from 'CONTRIBUTORS';
+import { Putro, Tyndi, Zeboot, Canotsa, Hordehobbs, Akai, ab, bhawkins6177, Anty } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022,11, 3), <>Enabling Spec for Dragonflight.</>, Anty),
   change(date(2022, 5, 28), <>Fixed issue causing modules to crash & added Tier support.</>, Tyndi),
   change(date(2022, 3, 6), <>Bump to partial support for 9.2</>, Tyndi),
-  change(date(2022, 3, 1), <>Fixed bug where <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> had incorrect high value buffs listed.</>, bhawkins6177),
+  change(date(2022, 3, 1), <>Fixed bug where <SpellLink id={TALENTS.ROLL_THE_BONES_TALENT.id} /> had incorrect high value buffs listed.</>, bhawkins6177),
   change(date(2021, 8, 12), <>Added <SpellLink id={TALENTS.FLAGELLATION_TALENT.id} /> suggestion in overview section. Fixed Flagellation damage in statistics section.</>, Akai),
   change(date(2021, 5, 2), <>Fix bug in Sepsis analyzer in mythic plus analysis.</>, Hordehobbs),
   change(date(2021, 5, 1), <>Added analyzer for <SpellLink id={SPELLS.CELERITY.id} /> legendary. </>, Hordehobbs),
   change(date(2021, 4, 25), <>Added additional functionality to <SpellLink id={TALENTS.SEPSIS_TALENT.id} /> analyzers. </>, Hordehobbs),
   change(date(2021, 4, 7), <>Refactor Outlaw modules into Typescript for future development.</>, Hordehobbs),
-  change(date(2021, 4, 7), <>Updated <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> to use the new combat buff priority list</>, ab),
-  change(date(2021, 3, 4), <>Fixed error where <SpellLink id={SPELLS.DREADBLADES_TALENT.id} /> was being suggested even when not talented</>, Akai),
+  change(date(2021, 4, 7), <>Updated <SpellLink id={TALENTS.ROLL_THE_BONES_TALENT.id} /> to use the new combat buff priority list</>, ab),
+  change(date(2021, 3, 4), <>Fixed error where <SpellLink id={TALENTS.DREADBLADES_TALENT.id} /> was being suggested even when not talented</>, Akai),
   change(date(2021, 2, 27), <>Add analyzer and suggestion for <SpellLink id={SPELLS.INSTANT_POISON.id} /> application.</>, Hordehobbs),
   change(date(2021, 1, 17), <>Suggestion added to cast <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> more often</>, Canotsa),
   change(date(2020, 12, 21), 'Minor update to suggestions', Tyndi),

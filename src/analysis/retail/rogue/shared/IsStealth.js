@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 const STEALTH_BUFFS = [SPELLS.STEALTH, SPELLS.VANISH_BUFF];
-const STEALTH_DANCE_BUFFS = [...STEALTH_BUFFS, SPELLS.SHADOW_DANCE];
+const STEALTH_DANCE_BUFFS = [...STEALTH_BUFFS, SPELLS.SHADOW_DANCE_BUFF];
 
 function isStealth(combatant, delayWindow) {
   return STEALTH_BUFFS.some((s) => combatant.hasBuff(s.id, null, delayWindow));

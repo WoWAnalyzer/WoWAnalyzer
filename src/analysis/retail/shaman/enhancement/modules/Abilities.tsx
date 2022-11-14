@@ -6,11 +6,7 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
-import {
-  MOLTEN_ASSAULT_SCALING,
-  ESSENTIAL_EXTRACTION_EFFECT_BY_RANK,
-  ASCENDANCE_ID,
-} from '../constants';
+import { MOLTEN_ASSAULT_SCALING, ESSENTIAL_EXTRACTION_EFFECT_BY_RANK } from '../constants';
 
 import {
   TOTEMIC_SURGE_SCALING,
@@ -484,7 +480,8 @@ class Abilities extends CoreAbilities {
             // Placeholder for enhancement's ascendance
             calculateMaxCasts(
               cooldown,
-              this.owner.fightDuration - combatant.getBuffUptime(ASCENDANCE_ID),
+              this.owner.fightDuration -
+                combatant.getBuffUptime(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id),
             ),
         },
       },
@@ -493,7 +490,7 @@ class Abilities extends CoreAbilities {
         // Placeholder for enhancement's ascendance
         enabled:
           combatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT.id) ||
-          combatant.hasTalent(ASCENDANCE_ID),
+          combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 3 / (1 + haste),
         gcd: {
@@ -504,7 +501,10 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.85,
           maxCasts: (cooldown: number) =>
             // Placeholder for enhancement's ascendance
-            calculateMaxCasts(cooldown, combatant.getBuffUptime(ASCENDANCE_ID)),
+            calculateMaxCasts(
+              cooldown,
+              combatant.getBuffUptime(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id),
+            ),
         },
       },
       {
@@ -606,7 +606,6 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
       },
-
       {
         spell: TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT.id),

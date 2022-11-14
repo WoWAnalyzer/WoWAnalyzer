@@ -512,6 +512,11 @@ export const Vetyst: Contributor = {
     },
   ],
 };
+export const DoxAshe: Contributor = {
+  nickname: 'DoxAshe',
+  github: 'DoxAshe',
+  discord: 'DoxAshe#8269',
+};
 export const Anatta336: Contributor = {
   nickname: 'Anatta336',
   github: 'Anatta336',
@@ -1950,4 +1955,20 @@ export const jazminite: Contributor = {
 export const Jonfanz: Contributor = {
   nickname: 'jonfanz',
   github: 'jharrell',
+};
+export const Anty: Contributor = {
+  nickname: 'Anty',
+  github: 'jsucupira',
+};
+export const Squided: Contributor = {
+  nickname: 'Squided',
+  github: 'foobartles',
+  discord: 'squided#0001',
+  mains: [
+    {
+      name: 'Squided',
+      spec: SPECS.HOLY_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Squided',
+    },
+  ],
 };

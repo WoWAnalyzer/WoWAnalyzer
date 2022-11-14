@@ -2,6 +2,7 @@ import indexById from '../indexById';
 import safeMerge from '../safeMerge';
 import DEATH_KNIGHT from './deathknight';
 import DEMON_HUNTER from './demonhunter';
+import DRAGONFLIGHT from './dragonflight';
 import DRUID from './druid';
 import EVOKER from './evoker';
 import HUNTER from './hunter';
@@ -37,7 +38,7 @@ const ITEMS = {
     CLASSIC,
   ),
   //Any non class-specific items
-  ...safeMerge(OTHERS, SHADOWLANDS),
+  ...safeMerge(OTHERS, SHADOWLANDS, DRAGONFLIGHT),
 };
 
 export default indexById<Item | Enchant, typeof ITEMS>(ITEMS);

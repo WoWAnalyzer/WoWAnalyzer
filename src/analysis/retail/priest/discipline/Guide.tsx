@@ -18,6 +18,8 @@ export default function Guide({
           modules.powerWordRadiance.guideSubsection}
         {info.combatant.hasTalent(TALENTS_PRIEST.PURGE_THE_WICKED_TALENT) &&
           modules.purgeTheWicked.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_PRIEST.BINDING_HEALS_TALENT) &&
+          modules.selfAtonementAnalyzer.guideSubsection}
       </Section>
       <Section title="Main Ramp">
         When using effects which extend <SpellLink id={SPELLS.ATONEMENT_BUFF.id} /> such as{' '}

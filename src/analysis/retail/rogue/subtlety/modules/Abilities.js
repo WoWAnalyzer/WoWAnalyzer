@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
@@ -15,15 +14,15 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
-        enabled: !combatant.hasTalent(SPELLS.GLOOMBLADE_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS.GLOOMBLADE_TALENT.id),
       },
       {
-        spell: SPELLS.GLOOMBLADE_TALENT.id,
+        spell: TALENTS.GLOOMBLADE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1000,
         },
-        enabled: combatant.hasTalent(SPELLS.GLOOMBLADE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.GLOOMBLADE_TALENT.id),
       },
       {
         spell: SPELLS.EVISCERATE.id,
@@ -33,10 +32,17 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.BLACK_POWDER.id,
+        spell: TALENTS.BLACK_POWDER_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1000,
+        },
+      },
+      {
+        spell: SPELLS.SLICE_AND_DICE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          static: 1000,
         },
       },
       {
@@ -74,11 +80,18 @@ class Abilities extends CoreAbilities {
           static: 1000,
         },
       },
+      {
+        spell: SPELLS.SHURIKEN_STORM_CP.id,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        gcd: {
+          static: null,
+        },
+      },
       // Cooldowns
       {
-        spell: SPELLS.SHADOW_BLADES.id,
+        spell: TALENTS.SHADOW_BLADES_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        buffSpellId: SPELLS.SHADOW_BLADES.id,
+        buffSpellId: TALENTS.SHADOW_BLADES_TALENT.id,
         cooldown: 180,
         gcd: {
           base: 1000,
@@ -91,7 +104,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.SEPSIS_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        enabled: combatant.hasTalent(TALENTS.SEPSIS_TALENT.id),
         cooldown: 90,
         gcd: {
           base: 1000,
@@ -105,7 +118,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         buffSpellId: SPELLS.SHADOW_DANCE_BUFF.id,
         cooldown: 60,
-        charges: 2 + (combatant.hasTalent(SPELLS.ENVELOPING_SHADOWS_TALENT.id) ? 1 : 0),
+        charges: 1 + (combatant.hasTalent(TALENTS.SHADOW_DANCE_TALENT.id) ? 1 : 0),
         gcd: null,
         castEfficiency: {
           suggestion: true,
@@ -125,14 +138,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.MARKED_FOR_DEATH_TALENT.id,
+        spell: TALENTS.MARKED_FOR_DEATH_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
         gcd: null,
-        enabled: combatant.hasTalent(SPELLS.MARKED_FOR_DEATH_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.MARKED_FOR_DEATH_TALENT.id),
       },
       {
-        spell: SPELLS.SECRET_TECHNIQUE_TALENT.id,
+        spell: TALENTS.SECRET_TECHNIQUE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 45,
         gcd: {
@@ -141,10 +154,10 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        enabled: combatant.hasTalent(SPELLS.SECRET_TECHNIQUE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SECRET_TECHNIQUE_TALENT.id),
       },
       {
-        spell: SPELLS.SHURIKEN_TORNADO_TALENT.id,
+        spell: TALENTS.SHURIKEN_TORNADO_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         gcd: {
@@ -153,13 +166,13 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        enabled: combatant.hasTalent(SPELLS.SHURIKEN_TORNADO_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SHURIKEN_TORNADO_TALENT.id),
       },
       // Defensive
       {
-        spell: SPELLS.CLOAK_OF_SHADOWS.id,
+        spell: TALENTS.CLOAK_OF_SHADOWS_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        buffSpellId: SPELLS.CLOAK_OF_SHADOWS.id,
+        buffSpellId: TALENTS.CLOAK_OF_SHADOWS_TALENT.id,
         cooldown: 120,
         gcd: null,
       },
@@ -172,15 +185,15 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.EVASION.id,
+        spell: TALENTS.EVASION_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        buffSpellId: SPELLS.EVASION.id,
+        buffSpellId: TALENTS.EVASION_TALENT.id,
         cooldown: 120,
       },
       {
-        spell: SPELLS.FEINT.id,
+        spell: TALENTS.FEINT_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        buffSpellId: SPELLS.FEINT.id,
+        buffSpellId: TALENTS.FEINT_TALENT.id,
         cooldown: 15,
         gcd: {
           static: 1000,
@@ -195,10 +208,10 @@ class Abilities extends CoreAbilities {
       },
       // Utility
       {
-        spell: SPELLS.SHADOWSTEP.id,
+        spell: SPELLS.SHADOW_STEP.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
-        charges: 2,
+        charges: 1 + (combatant.hasTalent(TALENTS.SHADOWSTEP_SUBTLETY_TALENT.id) ? 1 : 0),
         gcd: null,
       },
       {
@@ -208,7 +221,7 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
-        spell: SPELLS.TRICKS_OF_THE_TRADE.id,
+        spell: TALENTS.TRICKS_OF_THE_TRADE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: null,
@@ -220,7 +233,7 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
-        spell: SPELLS.BLIND.id,
+        spell: TALENTS.BLIND_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 120,
         gcd: {
@@ -278,7 +291,7 @@ class Abilities extends CoreAbilities {
         // While this actually has a 0.5s CD, it shows up weird in the Abilities tab if we set that
       },
       {
-        spell: SPELLS.PREMEDITATION_TALENT.id,
+        spell: TALENTS.PREMEDITATION_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
       },
     ];

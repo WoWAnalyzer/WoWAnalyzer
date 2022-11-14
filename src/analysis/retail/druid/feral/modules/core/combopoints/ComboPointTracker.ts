@@ -1,10 +1,9 @@
+import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';
 import { ClassResources } from 'parser/core/Events';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
-
-import ConvokeSpiritsFeral from 'analysis/retail/druid/feral/modules/spells/ConvokeSpiritsFeral';
 
 // Primal Fury may be slightly delayed.
 const PRIMAL_FURY_WINDOW = 50; //ms
@@ -12,10 +11,7 @@ const PRIMAL_FURY_WINDOW = 50; //ms
 class ComboPointTracker extends ResourceTracker {
   static dependencies = {
     ...ResourceTracker.dependencies,
-    convokeSpiritsFeral: ConvokeSpiritsFeral,
   };
-
-  convokeSpiritsFeral!: ConvokeSpiritsFeral;
 
   /**
    * A critical hit from a generator triggers Primal Fury which gives an extra combo point.
@@ -52,7 +48,7 @@ class ComboPointTracker extends ResourceTracker {
       return;
     }
 
-    if (this.convokeSpiritsFeral.isConvoking()) {
+    if (isConvoking(this.selectedCombatant)) {
       this.unavoidableWaste += waste;
     } else if (
       spellId === SPELLS.PRIMAL_FURY.id &&

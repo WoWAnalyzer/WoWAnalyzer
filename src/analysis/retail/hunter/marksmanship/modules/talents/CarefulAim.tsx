@@ -2,6 +2,7 @@ import { CA_MODIFIER, CAREFUL_AIM_THRESHOLD } from 'analysis/retail/hunter/marks
 import { abbreviateBossNames } from 'common/abbreviateLongNames';
 import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -65,7 +66,7 @@ class CarefulAim extends ExecuteHelper {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.CAREFUL_AIM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.CAREFUL_AIM_TALENT.id);
     this.owner.report.enemies.forEach((enemy) => {
       enemy.fights.forEach((fight) => {
         if (fight.id === this.owner.fight.id && enemy.type === 'Boss') {
@@ -158,7 +159,7 @@ class CarefulAim extends ExecuteHelper {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.CAREFUL_AIM_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_HUNTER.CAREFUL_AIM_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

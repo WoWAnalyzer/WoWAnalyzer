@@ -1,7 +1,14 @@
-import * as SPELLS from './SPELLS';
+import SPELLS from 'common/SPELLS/classic/mage';
 
-export default {
-  [SPELLS.FROSTBOLT]: [27071, 25304, 10181, 10180, 10179, 8408, 8407, 8406, 7322, 837, 205, 116],
-  [SPELLS.FIRE_BLAST]: [27078, 10199, 10197, 8413, 8412, 2138, 2137, 2136],
-  [SPELLS.MAGE_ARMOR]: [22783, 22782, 6117],
-};
+const lowRankSpells = Object.entries(SPELLS).reduce((result, [str, obj]) => {
+  if (obj.lowRanks) {
+    Object.assign(result, { [obj.id]: [...obj.lowRanks] });
+  }
+  return result;
+}, {});
+
+export default lowRankSpells;
+
+export interface LowRankSpells {
+  [primarySpellId: number]: number[];
+}
