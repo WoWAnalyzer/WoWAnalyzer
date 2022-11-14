@@ -20,6 +20,7 @@ export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_MISTY_PEAKS = 'FromMistyPeaks';
 export const FROM_RAPID_DIFFUSION = 'FromRD'; // can be linked to env mist or rsk cast
 
+const RAPID_DIFFUSION_BUFFER_MS = 300;
 const CAST_BUFFER_MS = 100;
 const MAX_REM_DURATION = 77000;
 const FOUND_REMS = new Set();
@@ -75,14 +76,6 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     backwardBufferMs: MAX_REM_DURATION,
-    additionalCondition(linkingEvent, referencedEvent) {
-      return (
-        (linkingEvent as RemoveBuffEvent).targetID ===
-          (referencedEvent as ApplyBuffEvent).targetID ||
-        (linkingEvent as RemoveBuffEvent).targetID ===
-          (referencedEvent as RefreshBuffEvent).targetID
-      );
-    },
   },
   // link ReM application from Rapid diffusion
   {
@@ -94,7 +87,7 @@ const EVENT_LINKS: EventLink[] = [
       TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
     ],
     referencedEventType: [EventType.Cast],
-    backwardBufferMs: 300,
+    backwardBufferMs: RAPID_DIFFUSION_BUFFER_MS,
     anyTarget: true,
     maximumLinks: 1,
     additionalCondition(linkingEvent) {

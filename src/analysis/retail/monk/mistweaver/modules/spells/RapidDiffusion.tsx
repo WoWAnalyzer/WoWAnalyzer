@@ -13,10 +13,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import SpellLink from 'interface/SpellLink';
 import Combatants from 'parser/shared/modules/Combatants';
 import { formatNumber } from 'common/format';
-import { Attribution } from 'parser/shared/modules/HotTracker';
 import { TooltipElement } from 'interface';
-
-const RAPID_DIFFUSION = 'Renewing Mist Rapid Diffusion';
 
 class RapidDiffusion extends Analyzer {
   get totalRemThroughput() {
@@ -103,18 +100,12 @@ class RapidDiffusion extends Analyzer {
       return;
     }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
-    if (this.hasAttribution(hot.attributions, RAPID_DIFFUSION)) {
+    if (this.hotTracker.fromRapidDiffusion(hot)) {
       this.extraVivCleaves += 1;
       this.extraVivHealing += event.amount || 0;
       this.extraVivOverhealing += event.overheal || 0;
       this.extraVivAbsorbed += event.absorbed || 0;
     }
-  }
-
-  hasAttribution(attributions: Attribution[], name: string) {
-    return attributions.some(function (attr) {
-      return attr.name === name;
-    });
   }
 
   statistic() {

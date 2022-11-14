@@ -17,7 +17,7 @@ import {
 import HotTrackerMW from '../core/HotTrackerMW';
 
 const debug = false;
-const rdDebug = true;
+const rdDebug = false;
 
 class HotAttributor extends Analyzer {
   static dependencies = {
@@ -68,31 +68,7 @@ class HotAttributor extends Analyzer {
     if (this._hasAttribution(event)) {
       this.hotTracker.addAttributionFromApply(this.bouncedAttrib, event);
       if (debug) {
-        if (
-          this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0].name ===
-          'Renewing Mist Hardcast'
-        ) {
-          console.log(
-            'Bounce! Existing ' +
-              this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0].name +
-              ' at ' +
-              this.owner.formatTimestamp(event.timestamp, 3),
-            'on ' + this.combatants.getEntity(event)?.name,
-          );
-          return;
-        } else if (
-          this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0].name ===
-          'Renewing Mist Rapid Diffusion'
-        ) {
-          console.log(
-            'Bounce! Existing ' +
-              this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0].name +
-              ' at ' +
-              this.owner.formatTimestamp(event.timestamp, 3),
-            'on ' + this.combatants.getEntity(event)?.name,
-          );
-          return;
-        }
+        this._existingAttributionLogging(event);
       }
     } else if (event.prepull || isFromHardcast(event)) {
       debug &&
@@ -157,6 +133,34 @@ class HotAttributor extends Analyzer {
       return;
     }
     return this.hotTracker.hots[targetId][spellId].attributions.length > 0;
+  }
+
+  _existingAttributionLogging(event: ApplyBuffEvent | RefreshBuffEvent) {
+    if (
+      this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0].name ===
+      'Renewing Mist Hardcast'
+    ) {
+      console.log(
+        'Bounce! Existing ' +
+          this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0].name +
+          ' at ' +
+          this.owner.formatTimestamp(event.timestamp, 3),
+        'on ' + this.combatants.getEntity(event)?.name,
+      );
+      return;
+    } else if (
+      this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0].name ===
+      'Renewing Mist Rapid Diffusion'
+    ) {
+      console.log(
+        'Bounce! Existing ' +
+          this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0].name +
+          ' at ' +
+          this.owner.formatTimestamp(event.timestamp, 3),
+        'on ' + this.combatants.getEntity(event)?.name,
+      );
+      return;
+    }
   }
 }
 

@@ -416,14 +416,13 @@ abstract class HotTracker extends Analyzer {
             this.hots[targetId][spellId] = hot;
             this.bouncingHots.shift();
             return;
-          } else {
-            bounceDebug &&
-              console.log(
-                'Bouncing Hot lost due to no eligible jump targets, player death, etc' +
-                  this.owner.formatTimestamp(lastBounce, 3),
-              );
-            this.bouncingHots.shift();
           }
+          bounceDebug &&
+            console.log(
+              'Bouncing Hot lost due to no eligible jump targets, player death, etc' +
+                this.owner.formatTimestamp(lastBounce, 3),
+            );
+          this.bouncingHots.shift();
         }
       }
     }
