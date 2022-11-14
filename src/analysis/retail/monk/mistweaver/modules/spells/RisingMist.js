@@ -32,7 +32,7 @@ class RisingMist extends Analyzer {
   }
 
   get hotHealing() {
-    let value = 0 - this.t29TierSet.extraRemHealing; // don't want rem healing from tier set ticks
+    let value = -this.t29TierSet.extraRemHealing; // don't want rem healing from tier set ticks
     this.hotTracker.hotHistory.forEach(
       function (hot) {
         if (this.hotTracker.fromHardcast(hot)) {
@@ -199,8 +199,7 @@ class RisingMist extends Analyzer {
     const extension = this.hotTracker.getRemExtensionForTimestamp(hot, event.timestamp);
     if (
       this.hotTracker.fromHardcast(hot) &&
-      extension &&
-      extension.attribution.name.startsWith(ATTRIBUTION_PREFIX)
+      extension?.attribution.name.startsWith(ATTRIBUTION_PREFIX)
     ) {
       this.extraVivCleaves += 1;
       this.extraVivHealing += event.amount || 0;
