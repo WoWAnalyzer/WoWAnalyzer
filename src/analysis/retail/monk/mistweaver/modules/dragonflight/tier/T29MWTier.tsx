@@ -45,12 +45,8 @@ class T29TierSet extends Analyzer {
   twoPieceHealing: number = 0;
   fourPieceHealing: number = 0;
   extraRemHealing: number = 0;
-  extraRemAbsorbed: number = 0;
-  extraRemOverhealing: number = 0;
   extraVivCleaves: number = 0;
   extraVivHealing: number = 0;
-  extraVivOverhealing: number = 0;
-  extraVivAbsorbed: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -138,9 +134,7 @@ class T29TierSet extends Analyzer {
     const extensionForVivify = this.hotTracker.getRemExtensionForTimestamp(hot, event.timestamp);
     if (extensionForVivify?.attribution.name.startsWith(ATTRIBUTION_PREFIX)) {
       this.extraVivCleaves += 1;
-      this.extraVivHealing += event.amount || 0;
-      this.extraVivOverhealing += event.overheal || 0;
-      this.extraVivAbsorbed += event.absorbed || 0;
+      this.extraVivHealing += (event.amount || 0) + (event.absorbed || 0);
     }
   }
 
@@ -155,9 +149,7 @@ class T29TierSet extends Analyzer {
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
     const extension = this.hotTracker.getRemExtensionForTimestamp(hot, event.timestamp);
     if (extension?.attribution.name.startsWith(ATTRIBUTION_PREFIX)) {
-      this.extraRemHealing += event.amount || 0;
-      this.extraRemAbsorbed += event.absorbed || 0;
-      this.extraRemOverhealing += event.overheal || 0;
+      this.extraRemHealing += (event.amount || 0) + (event.absorbed || 0);
     }
   }
 
@@ -178,24 +170,12 @@ class T29TierSet extends Analyzer {
               extensions
             </li>
             <li>
-              {formatNumber(this.extraVivOverhealing)} extra <SpellLink id={SPELLS.VIVIFY.id} />{' '}
-              overhealing
-            </li>
-            <li>
-              {formatNumber(this.extraVivAbsorbed)} extra <SpellLink id={SPELLS.VIVIFY.id} />{' '}
-              healing absorbed
+              {formatNumber(this.extraVivHealing)} extra <SpellLink id={SPELLS.VIVIFY.id} /> healing
+              from extensions
             </li>
             <li>
               {formatNumber(this.extraRemHealing)} extra{' '}
-              <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> healing
-            </li>
-            <li>
-              {formatNumber(this.extraRemAbsorbed)} extra{' '}
-              <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> healing absorbed
-            </li>
-            <li>
-              {formatNumber(this.extraRemOverhealing)} extra{' '}
-              <SpellLink id={SPELLS.RENEWING_MIST_HEAL.id} /> overhealing
+              <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> healing from extensions
             </li>
           </ul>
         }
