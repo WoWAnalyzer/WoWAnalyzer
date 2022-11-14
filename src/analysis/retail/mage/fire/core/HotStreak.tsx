@@ -34,12 +34,12 @@ class HotStreak extends Analyzer {
   hasPyroclasm: boolean = this.selectedCombatant.hasTalent(TALENTS.PYROCLASM_TALENT.id);
   hasFirestarter: boolean = this.selectedCombatant.hasTalent(TALENTS.FIRESTARTER_TALENT.id);
   hasSearingTouch: boolean = this.selectedCombatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT.id);
-  hasFirestorm: boolean = this.selectedCombatant.hasLegendary(SPELLS.FIRESTORM);
+  hasHyperthermia: boolean = this.selectedCombatant.hasTalent(TALENTS.HYPERTHERMIA_TALENT);
   hasPyromaniac: boolean = this.selectedCombatant.hasTalent(TALENTS.PYROMANIAC_TALENT.id);
 
   expiredProcs = () =>
     this.sharedCode.getExpiredProcs(SPELLS.HOT_STREAK, [
-      SPELLS.PYROBLAST,
+      TALENTS.PYROBLAST_TALENT,
       TALENTS.FLAMESTRIKE_TALENT,
     ]).length || 0;
 
@@ -51,11 +51,11 @@ class HotStreak extends Analyzer {
     //If Hot Streak was used on Flamestrike, filter it out
     hotStreakRemovals = hotStreakRemovals.filter(hs => !this.sharedCode.getPreCast(hs, TALENTS.FLAMESTRIKE_TALENT));
 
-    //If Combustion or Firestorm was active, filter it out
+    //If Combustion or Hyperthermia was active, filter it out
     hotStreakRemovals = hotStreakRemovals.filter(hs => {
       const combustionActive = this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, hs.timestamp);
-      const firestormActive = this.selectedCombatant.hasBuff(SPELLS.FIRESTORM_BUFF.id, hs.timestamp);
-      return (!this.hasFirestorm || !firestormActive) && (!combustionActive)
+      const hyperthermiaActive = this.selectedCombatant.hasBuff(SPELLS.HYPERTHERMIA_BUFF.id, hs.timestamp);
+      return (!this.hasHyperthermia || !hyperthermiaActive) && (!combustionActive)
     });
 
     //If Combustion ended less than 3 seconds ago, filter it out
@@ -90,7 +90,7 @@ class HotStreak extends Analyzer {
     //Highlight bad casts on timeline
     const tooltip = `This Pyroblast was cast using Hot Streak, but did not have a Fireball pre-cast in front of it.`
     hotStreakRemovals.forEach((cast) => {
-      const pyroCast = this.eventHistory.getEvents(EventType.Cast, { searchBackwards: true, spell: SPELLS.PYROBLAST, count: 1, startTimestamp: cast.timestamp, duration: 250 })
+      const pyroCast = this.eventHistory.getEvents(EventType.Cast, { searchBackwards: true, spell: TALENTS.PYROBLAST_TALENT, count: 1, startTimestamp: cast.timestamp, duration: 250 })
       highlightInefficientCast(pyroCast, tooltip)
     })
 

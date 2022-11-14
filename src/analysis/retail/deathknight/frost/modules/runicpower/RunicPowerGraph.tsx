@@ -66,7 +66,7 @@ class RunicPowerGraph extends ResourceGraph {
       if (u.change !== 0) {
         graphData.push({
           timestamp: u.timestamp,
-          amount: (u.current - u.change) / 10,
+          amount: (u.current - (u.change || 0)) / 10,
         });
       }
       graphData.push({

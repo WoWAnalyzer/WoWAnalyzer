@@ -1,12 +1,13 @@
 import SPELLS from 'common/SPELLS';
 import { ControlledExpandable, SpellLink } from 'interface';
 import { GuideProps, PerformanceMark, Section, SubSection } from 'interface/guide';
-import { CooldownBar, GapHighlight } from 'parser/ui/CooldownBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
 import { useState } from 'react';
 
 import CombatLogParser from './CombatLogParser';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 
 /** Common 'rule line' point for the explanation/data in Core Spells section */
 export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
@@ -65,38 +66,36 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       show when the spell was cooling down. Red segments highlight times when you could have fit a
       whole extra use of the cooldown.
       {info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={SPELLS.CONVOKE_SPIRITS.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
+        <CastEfficiencyBar
+          spellId={SPELLS.CONVOKE_SPIRITS.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
       )}
       {info.combatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT.id) && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DRUID.FLOURISH_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
+        <CastEfficiencyBar
+          spellId={TALENTS_DRUID.FLOURISH_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
       )}
       {info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id) && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
-      )}
-      <div className="flex-main chart" style={{ padding: 5 }}>
-        <CooldownBar
-          spellId={SPELLS.TRANQUILITY_CAST.id}
+        <CastEfficiencyBar
+          spellId={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id}
           gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
         />
-      </div>
-      <div className="flex-main chart" style={{ padding: 5 }}>
-        <CooldownBar spellId={SPELLS.INNERVATE.id} gapHighlightMode={GapHighlight.FullCooldown} />
-      </div>
+      )}
+      <CastEfficiencyBar
+        spellId={SPELLS.TRANQUILITY_CAST.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        useThresholds
+      />
+      <CastEfficiencyBar
+        spellId={SPELLS.INNERVATE.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        useThresholds
+      />
     </SubSection>
   );
 }

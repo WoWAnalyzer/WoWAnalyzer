@@ -1,11 +1,4 @@
-import {
-  BonedustBrew,
-  FaelineStomp,
-  FallenOrder,
-  TouchOfDeath,
-  MysticTouch,
-  DampenHarm,
-} from 'analysis/retail/monk/shared';
+import { BonedustBrew, TouchOfDeath, MysticTouch, DampenHarm } from 'analysis/retail/monk/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
@@ -92,8 +85,6 @@ class CombatLogParser extends CoreCombatLogParser {
     staggerLink: StaggerLinkNormalizer,
 
     // Covenants
-    fallenOrder: FallenOrder,
-    faelineStomp: FaelineStomp,
     weaponsOfOrder: WeaponsOfOrder,
     bonedustBrew: BonedustBrew,
 

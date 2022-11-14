@@ -26,6 +26,11 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.3,
+        },
         healSpellIds: [SPELLS.CENARION_WARD_HEAL.id],
       },
       {
@@ -105,6 +110,11 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          recommendedEfficiency: 0.7,
+          averageIssueEfficiency: 0.5,
+          majorIssueEfficiency: 0.2,
+        },
         healSpellIds: [SPELLS.TRANQUILITY_HEAL.id],
       },
       {
@@ -147,6 +157,11 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.3,
+        },
       },
       {
         spell: TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id,
@@ -156,6 +171,11 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.3,
+        },
       },
       {
         spell: SPELLS.CONVOKE_SPIRITS.id,
@@ -164,6 +184,11 @@ class Abilities extends CoreAbilities {
         cooldown: combatant.hasTalent(TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT) ? 60 : 120,
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.3,
         },
       },
       // Utility
