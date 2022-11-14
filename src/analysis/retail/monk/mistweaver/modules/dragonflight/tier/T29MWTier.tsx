@@ -42,7 +42,7 @@ class T29TierSet extends Analyzer {
   numExtensions: number = 0;
   totalExtensionDuration: number = 0;
   twoPieceHealing: number = 0;
-  fourPieceHealing: number = 0;
+  fourPieceHealingFromBuff: number = 0;
   extraRemHealing: number = 0;
   extraVivCleaves: number = 0;
   extraVivHealing: number = 0;
@@ -79,6 +79,10 @@ class T29TierSet extends Analyzer {
         this.handleRemTick,
       );
     }
+  }
+
+  get total4PieceHealing() {
+    return this.fourPieceHealingFromBuff + this.extraRemHealing + this.extraVivHealing;
   }
 
   handleEfBolt(event: ApplyBuffEvent) {
@@ -118,7 +122,7 @@ class T29TierSet extends Analyzer {
   }
 
   handle4PcHeal(event: HealEvent) {
-    this.fourPieceHealing += calculateEffectiveHealing(event, FOUR_PIECE_BONUS);
+    this.fourPieceHealingFromBuff += calculateEffectiveHealing(event, FOUR_PIECE_BONUS);
   }
 
   handle4PcVivify(event: HealEvent) {
@@ -185,9 +189,7 @@ class T29TierSet extends Analyzer {
           {this.has4Piece && (
             <>
               <h4>4 Piece</h4>
-              <ItemHealingDone
-                amount={this.fourPieceHealing + this.extraRemHealing + this.extraVivHealing}
-              />
+              <ItemHealingDone amount={this.total4PieceHealing} />
             </>
           )}
         </BoringValueText>
