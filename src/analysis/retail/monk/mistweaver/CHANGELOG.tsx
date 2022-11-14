@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 11, 14), <>Fix broken <SpellLink id={TALENTS_MONK.FAELINE_STOMP_TALENT.id}/> references and reordered the talent modules based on importance</>, Vohrr),
   change(date(2022, 11, 13), <>Fix load conditions for some Mistweaver talents</>, Trevor),
   change(date(2022, 11, 12), <>Updated the spell icon for <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id}/></>, Vohrr),
   change(date(2022, 11, 12), <>Cleanup covenant files for Mistweaver</>, Trevor),
