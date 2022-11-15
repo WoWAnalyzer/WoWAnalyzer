@@ -4,7 +4,7 @@ import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { TIERS } from 'game/TIERS';
-import Events, { HealEvent, ApplyBuffEvent, HasRelatedEvent } from 'parser/core/Events';
+import Events, { HealEvent, ApplyBuffEvent } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -51,8 +51,8 @@ class T29TierSet extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.has2Piece = this.selectedCombatant.has2PieceByTier(TIERS.T29);
-    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.T29);
-    this.active = this.has2Piece || this.has4Piece;
+    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.T29) && this.has2Piece;
+    this.active = this.has2Piece;
     if (!this.active) {
       return;
     }
@@ -152,10 +152,6 @@ class T29TierSet extends Analyzer {
     const extension = this.hotTracker.getRemExtensionForTimestamp(hot, event.timestamp);
     if (extension?.attribution.name.startsWith(ATTRIBUTION_PREFIX)) {
       this.extraRemHealing += (event.amount || 0) + (event.absorbed || 0);
-    }
-
-    if (HasRelatedEvent(event, 'FromMistyPeaks')) {
-      console.log('PROCED AN EXTRA MISTY PEAKS');
     }
   }
 
