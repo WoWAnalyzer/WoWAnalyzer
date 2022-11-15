@@ -58,9 +58,9 @@ class DeathAndMadness extends Analyzer {
     return {
       actual: this.resetPercentage,
       isLessThan: {
-        minor: 0.8,
-        average: 0.7,
-        major: 0.6,
+        minor: 0.0,
+        average: 0.0,
+        major: 0.0,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -70,10 +70,10 @@ class DeathAndMadness extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You reset <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> with {formatNumber(this.resets)}{' '}
-          of your casts. Make sure that you are resetting{' '}
-          <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> as often as possible while taking the
-          talent to benefit from the bonus insanity gained.
+          You reset <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> with{' '}
+          {formatNumber(this.resets)} of your casts. Make sure that you are resetting{' '}
+          <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> as often as possible while taking
+          the talent to benefit from the bonus insanity gained.
         </>,
       )
         .icon(TALENTS.DEATH_AND_MADNESS_TALENT.icon)

@@ -10,7 +10,7 @@ import { SHADOW_WORD_DEATH_EXECUTE_RANGE } from '../../constants';
 class ShadowWordDeath extends ExecuteHelper {
   static executeSources = SELECTED_PLAYER;
   static lowerThreshold = SHADOW_WORD_DEATH_EXECUTE_RANGE;
-  static countCooldownAsExecuteTime = true;
+  static countCooldownAsExecuteTime = false;
 
   static dependencies = {
     ...ExecuteHelper.dependencies,
@@ -44,8 +44,15 @@ class ShadowWordDeath extends ExecuteHelper {
   }
 
   adjustMaxCasts() {
-    const cooldown = this.abilities.getAbility(TALENTS.SHADOW_WORD_DEATH_TALENT.id)!.cooldown * 1000;
-    this.maxCasts += Math.ceil(this.totalExecuteDuration / cooldown) + this.totalNonExecuteCasts;
+    const cooldown =
+      this.abilities.getAbility(TALENTS.SHADOW_WORD_DEATH_TALENT.id)!.cooldown * 1000;
+    const ExecuteCasts = Math.ceil(this.totalExecuteDuration / cooldown);
+
+    if (this.selectedCombatant.hasTalent(TALENTS.DEATH_AND_MADNESS_TALENT.id)) {
+      //The Death and Madness talent lets you cast twice each cooldown.
+      this.maxCasts += ExecuteCasts;
+    }
+    this.maxCasts += ExecuteCasts + this.totalNonExecuteCasts;
   }
 }
 
