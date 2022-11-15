@@ -123,6 +123,9 @@ const EVENT_LINKS: EventLink[] = [
   },
   // From LC on target with Mists of Life talented
   {
+    isActive: (c) => {
+      return c.hasTalent(TALENTS_MONK.MISTS_OF_LIFE_TALENT);
+    },
     linkRelation: FROM_MISTS_OF_LIFE,
     linkingEventId: [TALENTS_MONK.ENVELOPING_MIST_TALENT.id, SPELLS.RENEWING_MIST_HEAL.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
