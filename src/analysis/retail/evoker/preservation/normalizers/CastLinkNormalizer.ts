@@ -12,6 +12,8 @@ import {
 
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly';
+export const ECHO_TEMPORAL_ANOMALY = 'TemporalAnomaly';
+export const ECHO = 'Echo';
 
 const CAST_BUFFER_MS = 100;
 /*
@@ -30,6 +32,19 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
+  //link hardcast echo removal to hot application
+  {
+    linkRelation: ECHO,
+    linkingEventId: [SPELLS.REVERSION_ECHO.id, SPELLS.DREAM_BREATH_ECHO.id],
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
+    referencedEventType: [EventType.RemoveBuff],
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    additionalCondition(referencedEvent) {
+      return !HasRelatedEvent(referencedEvent, FROM_TEMPORAL_ANOMALY);
+    },
+  },
   //link echo apply to the Temporal Anomaly shield application
   {
     linkRelation: FROM_TEMPORAL_ANOMALY,
@@ -39,6 +54,25 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+    isActive(c) {
+      return c.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT);
+    },
+  },
+  //link TA echo removal to hot application
+  {
+    linkRelation: ECHO_TEMPORAL_ANOMALY,
+    linkingEventId: [SPELLS.REVERSION_ECHO.id, SPELLS.DREAM_BREATH_ECHO.id],
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
+    referencedEventType: [EventType.RemoveBuff],
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    additionalCondition(referencedEvent) {
+      return !HasRelatedEvent(referencedEvent, FROM_HARDCAST);
+    },
+    isActive(c) {
+      return c.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT);
+    },
   },
 ];
 
@@ -59,17 +93,17 @@ class CastLinkNormalizer extends EventLinkNormalizer {
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
 export function isFromHardcast(event: AbilityEvent<any>): boolean {
-  if (HasRelatedEvent(event, FROM_TEMPORAL_ANOMALY)) {
+  if (HasRelatedEvent(event, ECHO_TEMPORAL_ANOMALY)) {
     return false;
   }
-  if (HasRelatedEvent(event, FROM_HARDCAST)) {
+  if (HasRelatedEvent(event, ECHO)) {
     return true;
   }
   return false;
 }
 
 export function isFromTemporalAnomaly(event: ApplyBuffEvent | RefreshBuffEvent) {
-  return HasRelatedEvent(event, FROM_TEMPORAL_ANOMALY);
+  return HasRelatedEvent(event, ECHO_TEMPORAL_ANOMALY);
 }
 
 export default CastLinkNormalizer;

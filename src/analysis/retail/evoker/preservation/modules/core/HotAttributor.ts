@@ -1,4 +1,4 @@
-import { TALENTS_EVOKER } from 'common/TALENTS';
+import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -27,12 +27,12 @@ class HotAttributor extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.ECHO_TALENT),
-      this.onApplyEcho,
+      Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.REVERSION_ECHO, SPELLS.DREAM_BREATH_ECHO]),
+      this.onApplyEchoHot,
     );
   }
 
-  onApplyEcho(event: ApplyBuffEvent | RefreshBuffEvent) {
+  onApplyEchoHot(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (this._hasAttribution(event)) {
       const attribution = this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0]
         .name;
