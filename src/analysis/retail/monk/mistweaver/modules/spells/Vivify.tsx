@@ -104,7 +104,8 @@ class Vivify extends Analyzer {
   get averageReMsFromDancingMist() {
     return (
       this.expectedAverageReMs *
-      (DANCING_MIST_CHANCE * this.selectedCombatant.getTalentRank(TALENTS_MONK.DANCING_MISTS_TALENT))
+      (DANCING_MIST_CHANCE *
+        this.selectedCombatant.getTalentRank(TALENTS_MONK.DANCING_MISTS_TALENT))
     );
   }
 
