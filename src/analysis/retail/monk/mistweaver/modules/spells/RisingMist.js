@@ -9,9 +9,11 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HotTracker from 'parser/shared/modules/HotTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringValueText from 'parser/ui/BoringValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 import HotTrackerMW from '../core/HotTrackerMW';
 
@@ -111,6 +113,7 @@ class RisingMist extends Analyzer {
   extraEFhealing = 0;
   extraEFOverhealing = 0;
   extraEFAbsorbed = 0;
+  upwellingOffset = 0;
 
   constructor(...options) {
     super(...options);
@@ -128,7 +131,7 @@ class RisingMist extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleVivify);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.calculateEnv); //gotta just look at all heals tbh
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.GUST_OF_MISTS_CHIJI, SPELLS.GUSTS_OF_MISTS]),
       this.handleMastery,
     );
   }
@@ -149,11 +152,13 @@ class RisingMist extends Analyzer {
       return;
     }
 
-    const object = this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id]
-      ? this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id]
-      : this.hotTracker.hots[targetId][SPELLS.FAELINE_STOMP_ESSENCE_FONT.id];
+    const efHot = this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id];
+    const flsHot = this.hotTracker.hots[targetId][SPELLS.FAELINE_STOMP_ESSENCE_FONT.id];
 
-    if (object.originalEnd < event.timestamp) {
+    if (
+      (efHot && efHot.originalEnd < event.timestamp) ||
+      (flsHot && flsHot.originalEnd < event.timestamp)
+    ) {
       if (!this.masteryTickTock) {
         this.extraMasteryHits += 1;
         this.extraMasteryhealing += event.amount || 0;
@@ -176,7 +181,10 @@ class RisingMist extends Analyzer {
     }
     const object = this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
-    if (UNAFFECTED_SPELLS.includes(spellId)) {
+    if (
+      !this.hasAttribution(object.attributions, ENVELOPING_MIST_HARDCAST) ||
+      UNAFFECTED_SPELLS.includes(spellId)
+    ) {
       return;
     }
 
@@ -207,15 +215,6 @@ class RisingMist extends Analyzer {
     }
   }
 
-  shouldExtend(hot) {
-    const untrackedSpells = [
-      SPELLS.ESSENCE_FONT_BUFF.id,
-      SPELLS.FAELINE_STOMP_ESSENCE_FONT.id,
-      TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
-    ];
-    return untrackedSpells.includes(hot.spellId) || this.hotTracker.fromHardcast(hot);
-  }
-
   extendHots(event) {
     const spellId = event.ability.guid;
     if (TALENTS_MONK.RISING_SUN_KICK_TALENT.id !== spellId) {
@@ -229,7 +228,7 @@ class RisingMist extends Analyzer {
     this.risingMists.push(newRisingMist);
 
     let foundTarget = false;
-
+    const untrackedSpells = [SPELLS.ESSENCE_FONT_BUFF.id, SPELLS.FAELINE_STOMP_ESSENCE_FONT.id];
     Object.keys(this.hotTracker.hots).forEach((playerId) => {
       Object.keys(this.hotTracker.hots[playerId]).forEach((spellIdString) => {
         const spellId = Number(spellIdString);
@@ -237,7 +236,7 @@ class RisingMist extends Analyzer {
         const attribution = newRisingMist;
         const hot = this.hotTracker.hots[playerId][spellId];
 
-        if (!this.shouldExtend(hot)) {
+        if (!untrackedSpells.includes(spellId) && !this.hotTracker.fromHardcast(hot)) {
           return;
         }
 
@@ -318,18 +317,9 @@ class RisingMist extends Analyzer {
           </>
         }
       >
-        <BoringValueText
-          label={
-            <>
-              <SpellIcon id={TALENTS_MONK.RISING_MIST_TALENT.id} /> Healing Contributed
-            </>
-          }
-        >
-          <>
-            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealing))}% total
-            healing
-          </>
-        </BoringValueText>
+        <TalentSpellText talent={TALENTS_MONK.RISING_MIST_TALENT}>
+          <ItemHealingDone amount={this.totalHealing} />
+        </TalentSpellText>
       </Statistic>
     );
   }

@@ -14,6 +14,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { isSupportedRegion } from 'common/regions';
+import { CLASSIC_EXPANSION } from 'game/Expansion';
+import getConfig from 'parser/getConfig';
 
 interface Props {
   player: Player;
@@ -60,6 +62,10 @@ const PlayerTile = ({ player, makeUrl, config }: Props) => {
         characterInfo.region
       }.worldofwarcraft.com/character/${characterInfo.thumbnail.replace('avatar', 'inset')}`
     : '/img/fallback-character.jpg';
+
+  if (!config && CLASSIC_EXPANSION) {
+    config = getConfig(CLASSIC_EXPANSION, 1, player.type, player.icon);
+  }
   const spec = config?.spec;
   const build = getBuild(config, player.combatant);
   const missingBuild = config?.builds && !build;

@@ -37,6 +37,7 @@ export const ReportPlayerConfigProvider = ({ children }: ReportPlayerConfigProvi
         wclGameVersionToExpansion(report.gameVersion),
         combatant.specID,
         player.type,
+        player.icon,
       )}
     >
       {children}

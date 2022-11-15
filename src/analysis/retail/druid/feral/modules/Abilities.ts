@@ -90,6 +90,9 @@ class Abilities extends CoreAbilities {
         charges: 3,
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.7,
         },
         gcd: {
           static: 1000,
@@ -116,6 +119,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.6,
         },
         // likely a Blizzard bug, probably intended to match Berserk's 1000 fixed
         gcd: {
@@ -131,6 +136,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.6,
         },
         gcd: {
           static: 1000,
@@ -144,6 +151,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: druidGcd,
         },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.6,
+        },
       },
       {
         spell: SPELLS.TIGERS_FURY.id,
@@ -151,8 +164,9 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         castEfficiency: {
           suggestion: true,
-          // Predator may reset the cooldown very frequently, more often than is useful to use the ability
-          recommendedEfficiency: combatant.hasTalent(TALENTS_DRUID.PREDATOR_TALENT.id) ? 0.5 : 0.8,
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.6,
         },
         gcd: null,
         timelineSortIndex: 20,
@@ -164,6 +178,9 @@ class Abilities extends CoreAbilities {
         cooldown: 45,
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.6,
         },
         gcd: {
           static: 1000,

@@ -74,7 +74,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.DRAIN_SOUL_TALENT.id,
+        spell: SPELLS.DRAIN_SOUL_DEBUFF.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.DRAIN_SOUL_TALENT.id),
         gcd: {
@@ -359,6 +359,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+      },
+      {
+        spell: SPELLS.IMP_SINGE_MAGIC.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 15,
+        gcd: null,
       },
     ];
   }

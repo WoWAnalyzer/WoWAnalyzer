@@ -87,6 +87,7 @@ class CombatLogParser extends CoreCombatLogParser {
     RenewedFaith: Talents.TopRow.RenewedFaith,
     DesperateTimes: Talents.BottomRow.DesperateTimes,
     HealingChorus: Talents.MiddleRow.HealingChorus,
+    EverlastingLight: Talents.MiddleRow.EverlastingLight,
 
     BindingHeals: Talents.Classwide.BindingHeals,
     AngelsMercy: Talents.Classwide.AngelsMercy,
@@ -101,6 +102,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ProtectiveLight: ProtectiveLight,
     SurgeOfLight: Talents.Classwide.SurgeOfLight,
     PrayerCircle: Talents.MiddleRow.PrayerCircle,
+    SanctifiedPrayers: Talents.TopRow.SanctifiedPrayers,
 
     Halo: Talents.Classwide.Halo,
     Benediction: Talents.MiddleRow.Benediction,
@@ -118,6 +120,9 @@ class CombatLogParser extends CoreCombatLogParser {
     divineImage: Talents.BottomRow.DivineImage,
     resonantWords: Talents.BottomRow.ResonantWords,
     TranslucentImage: TranslucentImage,
+
+    BurningVehemence: Talents.TopRow.BurningVehemence,
+
     // Mana Tab
     manaTracker: ManaTracker,
     hpmDetails: HealingEfficiencyDetails,

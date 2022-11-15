@@ -14,8 +14,7 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import { Build } from '../../CONFIG';
-import lowRankSpells from '../../lowRankSpells';
-import * as SPELLS from '../../SPELLS';
+import SPELLS from 'common/SPELLS/classic/shaman';
 
 const CHAIN_HEAL_TARGET_EFFICIENCY = 0.97;
 const HEAL_WINDOW_MS = 250;
@@ -56,8 +55,8 @@ class ChainHeal extends Analyzer {
     this.suggestedTargets = this.maxTargets * CHAIN_HEAL_TARGET_EFFICIENCY;
 
     const chainHealSpells: SpellInfo[] = [
-      SPELLS.CHAIN_HEAL,
-      ...lowRankSpells[SPELLS.CHAIN_HEAL],
+      SPELLS.CHAIN_HEAL.id,
+      ...SPELLS.CHAIN_HEAL.lowRanks,
     ].map((spell) => ({ id: spell }));
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(chainHealSpells), this.chainHeal);
@@ -112,8 +111,8 @@ class ChainHeal extends Analyzer {
       .addSuggestion((suggest, _actual, _recommended) =>
         suggest(
           <Trans id="shaman.restoration.suggestions.aoeTargets.label">
-            Try to always cast <SpellLink id={SPELLS.CHAIN_HEAL} /> on groups of people, so that it
-            heals all {this.maxTargets} potential targets.
+            Try to always cast <SpellLink id={SPELLS.CHAIN_HEAL.id} /> on groups of people, so that
+            it heals all {this.maxTargets} potential targets.
           </Trans>,
         )
           .icon('spell_nature_healingwavegreater')
@@ -135,7 +134,7 @@ class ChainHeal extends Analyzer {
   }
 
   get avgHits() {
-    const chainHeals: number[] = [SPELLS.CHAIN_HEAL, ...lowRankSpells[SPELLS.CHAIN_HEAL]];
+    const chainHeals: number[] = [SPELLS.CHAIN_HEAL.id, ...SPELLS.CHAIN_HEAL.lowRanks];
     const chStats = chainHeals.reduce(
       (stats, spell) => {
         const ability = this.abilityTracker.getAbility(spell);
@@ -150,7 +149,7 @@ class ChainHeal extends Analyzer {
   }
 
   get casts() {
-    const chainHeals: number[] = [SPELLS.CHAIN_HEAL, ...lowRankSpells[SPELLS.CHAIN_HEAL]];
+    const chainHeals: number[] = [SPELLS.CHAIN_HEAL.id, ...SPELLS.CHAIN_HEAL.lowRanks];
     return chainHeals.reduce((casts, spell) => {
       casts += this.abilityTracker.getAbility(spell).casts;
 
@@ -248,7 +247,7 @@ class ChainHeal extends Analyzer {
           )
         }
       >
-        <BoringValue label={<SpellLink id={SPELLS.CHAIN_HEAL} />}>
+        <BoringValue label={<SpellLink id={SPELLS.CHAIN_HEAL.id} />}>
           {this.avgHits.toFixed(2)}{' '}
           <small>
             <Trans id="shaman.restoration.chainHeal.averageTargets">

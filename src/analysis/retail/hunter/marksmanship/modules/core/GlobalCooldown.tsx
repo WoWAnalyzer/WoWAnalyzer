@@ -1,5 +1,5 @@
-import { MIN_GCD } from 'analysis/retail/hunter/shared';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { BeginCastEvent, CastEvent } from 'parser/core/Events';
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
@@ -34,7 +34,7 @@ class GlobalCooldown extends CoreGlobalCooldown {
 
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.BARRAGE_TALENT.id || spellId === SPELLS.RAPID_FIRE.id) {
+    if (spellId === TALENTS_HUNTER.BARRAGE_TALENT.id || spellId === SPELLS.RAPID_FIRE.id) {
       return;
     }
     const isOnGCD = this.isOnGlobalCooldown(spellId);
@@ -45,17 +45,14 @@ class GlobalCooldown extends CoreGlobalCooldown {
   }
 
   getGlobalCooldownDuration(spellId: number) {
-    let gcd = super.getGlobalCooldownDuration(spellId);
+    const gcd = super.getGlobalCooldownDuration(spellId);
     if (!gcd) {
       return 0;
     }
     if (spellId === SPELLS.AIMED_SHOT.id && this.aimedShotTimestamp === null) {
       return 0;
     }
-    if (spellId === SPELLS.WILD_SPIRITS.id) {
-      gcd = gcd / (1 + this.haste.current);
-    }
-    return Math.max(MIN_GCD, gcd);
+    return gcd;
   }
 }
 

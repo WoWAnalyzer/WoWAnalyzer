@@ -39,8 +39,8 @@ import PhoenixFlames from './talents/PhoenixFlames';
 import Pyroclasm from './talents/Pyroclasm';
 import ShiftingPowerUsage from './talents/ShiftingPowerUsage';
 import FeveredIncantation from './talents/FeveredIncantation';
-import Firestorm from './talents/Firestorm';
-import InfernalCascade from './talents/InfernalCascade';
+import Hyperthermia from './talents/Hyperthermia';
+import FeelTheBurn from './talents/FeelTheBurn';
 import SunKingsBlessing from './talents/SunKingsBlessing';
 import FromTheAshes from './talents/FromTheAshes';
 import Kindling from './talents/Kindling';
@@ -91,10 +91,10 @@ class CombatLogParser extends CoreCombatLogParser {
     searingTouch: SearingTouch,
     fromTheAshes: FromTheAshes,
     feveredIncantation: FeveredIncantation,
-    firestorm: Firestorm,
+    hyperthermia: Hyperthermia,
     sunKingsBlessing: SunKingsBlessing,
     shiftingPowerUsage: ShiftingPowerUsage,
-    infernalCascade: InfernalCascade,
+    feelTheBurn: FeelTheBurn,
 
     //Talents - Shared
     mirrorImage: MirrorImage,

@@ -18,7 +18,7 @@ class PrayerOfMending extends Analyzer {
   pomBuffCount = 0;
   pomRemovalCount = 0;
   prepullPomBuffs = 0;
-  lastSalvCastTime = 0;
+  lastSalvCastTime = 0; // dont think this is doing anything atm
   pomTicksFromSalv = 0;
 
   constructor(options: Options) {

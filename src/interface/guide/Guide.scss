@@ -1,10 +1,13 @@
 @import 'interface/Theme';
 
+// standard colors for perf
 $perfect-perf-color: #2090c0;
 $good-perf-color: #4ec04e;
 $ok-perf-color: #ffc84a;
 $bad-perf-color: #ac1f39;
+// extra colors for some special case stuff
 $very-bad-perf-color: #661111;
+$mediocre-perf-color: #dd5533;
 
 // for export
 :root {
@@ -13,6 +16,7 @@ $very-bad-perf-color: #661111;
   --guide-ok-color: #{$ok-perf-color};
   --guide-bad-color: #{$bad-perf-color};
   --guide-very-bad-color: #{$very-bad-perf-color};
+  --guide-mediocre-color: #{$mediocre-perf-color};
 }
 
 .guide-container {
