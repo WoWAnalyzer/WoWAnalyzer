@@ -6,6 +6,7 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2022, 11, 14), <>Add <SpellLink id={TALENTS.THE_HUNT_TALENT}/> cast breakdown to the Guide.</>, ToppleTheNun),
   change(date(2022, 11, 14), <>Add <SpellLink id={SPELLS.METAMORPHOSIS_TANK}/> support to the Guide.</>, ToppleTheNun),
   change(date(2022, 11, 10), 'Fix Throw Glaive tracking.', ToppleTheNun),
   change(date(2022, 11, 10), <>Prevent <SpellLink id={TALENTS.SIGIL_OF_MISERY_TALENT}/> and <SpellLink id={TALENTS.SIGIL_OF_SILENCE_TALENT}/> from appearing in statistics if untalented.</>, ToppleTheNun),
