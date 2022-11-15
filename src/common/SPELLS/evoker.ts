@@ -102,6 +102,12 @@ const spells = spellIndexableList({
     icon: 'ability_evoker_livingflame',
     manaCost: 5000,
   },
+  LIVING_FLAME_CAST: {
+    id: 361469,
+    name: 'Living Flame',
+    icon: 'ability_evoker_livingflame',
+    manaCost: 5000,
+  },
   AZURE_STRIKE: {
     id: 362969,
     name: 'Azure Strike',
@@ -109,6 +115,18 @@ const spells = spellIndexableList({
   },
   EMERALD_BLOSSOM: {
     id: 355916,
+    name: 'Emerald Blossom',
+    icon: 'ability_evoker_emeraldblossom',
+    essenceCost: 3,
+    manaCost: 12000,
+  },
+  EMERALD_BLOSSOM_ECHO: {
+    id: 376832,
+    name: 'Emerald Blossom',
+    icon: 'ability_evoker_emeraldblossom',
+  },
+  EMERALD_BLOSSOM_CAST: {
+    id: 355913,
     name: 'Emerald Blossom',
     icon: 'ability_evoker_emeraldblossom',
     essenceCost: 3,

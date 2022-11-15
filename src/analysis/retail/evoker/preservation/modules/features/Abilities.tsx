@@ -38,7 +38,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.TIME_DILATION_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 60,
         gcd: {
           base: 1500,
