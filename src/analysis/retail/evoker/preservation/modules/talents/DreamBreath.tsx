@@ -9,6 +9,9 @@ import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { formatNumber, formatPercentage } from 'common/format';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { t } from '@lingui/macro';
+import { SpellLink } from 'interface';
 
 class DreamBreath extends Analyzer {
   get calculateHotOverHealing() {
@@ -53,6 +56,40 @@ class DreamBreath extends Analyzer {
     // total healing
     this.totalHealing += event.amount + (event.absorbed || 0);
     this.totalOverhealing += event.overheal || 0;
+  }
+
+  get overhealPercent() {
+    return this.totalOverhealing / (this.totalHealing + this.totalOverhealing);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.overhealPercent,
+      isGreaterThan: {
+        minor: 35,
+        average: 40,
+        major: 50,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink id={SPELLS.DREAM_BREATH.id} /> is creating a large amount of overheal.
+        </>,
+      )
+        .icon(SPELLS.DREAM_BREATH.icon)
+        .actual(
+          `${formatPercentage(this.totalOverhealing, 2)} + ' '${t({
+            id: 'evoker.preservation.suggestions.dreamBreath.totalOverhealing',
+            message: ` Dream Breath overhealing`,
+          })}`,
+        )
+        .recommended(`${recommended} overheal or less recommended`),
+    );
   }
 
   statistic() {

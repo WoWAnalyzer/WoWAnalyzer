@@ -94,11 +94,13 @@ const spells = spellIndexableList({
     id: 361500,
     name: 'Living Flame',
     icon: 'ability_evoker_livingflame',
+    manaCost: 5000,
   },
   LIVING_FLAME_HEAL: {
     id: 361509,
     name: 'Living Flame',
     icon: 'ability_evoker_livingflame',
+    manaCost: 5000,
   },
   AZURE_STRIKE: {
     id: 362969,
@@ -109,6 +111,8 @@ const spells = spellIndexableList({
     id: 355916,
     name: 'Emerald Blossom',
     icon: 'ability_evoker_emeraldblossom',
+    essenceCost: 3,
+    manaCost: 12000,
   },
   PANACEA_HEAL: {
     id: 387763,
