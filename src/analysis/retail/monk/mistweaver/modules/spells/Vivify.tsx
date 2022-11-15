@@ -10,7 +10,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { DANCING_MIST, RAPID_DIFFUSION } from '../../constants';
+import { DANCING_MIST_CHANCE, RAPID_DIFFUSION_DURATION } from '../../constants';
 
 const RAPID_DIFFUSION_SPELLS = [
   TALENTS_MONK.ENVELOPING_MIST_TALENT,
@@ -95,7 +95,7 @@ class Vivify extends Analyzer {
   get averageReMsFromRapidDiffusion() {
     const fightLengthSec = this.owner.fightDuration;
     return (
-      (RAPID_DIFFUSION *
+      (RAPID_DIFFUSION_DURATION *
         this.selectedCombatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT)) /
       (fightLengthSec / this.rdCasts)
     );
@@ -104,7 +104,7 @@ class Vivify extends Analyzer {
   get averageReMsFromDancingMist() {
     return (
       this.expectedAverageReMs *
-      (DANCING_MIST * this.selectedCombatant.getTalentRank(TALENTS_MONK.DANCING_MISTS_TALENT))
+      (DANCING_MIST_CHANCE * this.selectedCombatant.getTalentRank(TALENTS_MONK.DANCING_MISTS_TALENT))
     );
   }
 
