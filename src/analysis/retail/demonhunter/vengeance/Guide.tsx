@@ -106,6 +106,10 @@ function CooldownSection({ modules, events, info }: GuideProps<typeof CombatLogP
         <strong>Per-spell guidance and statistics coming soon!</strong>
       </p>
       <CooldownGraphSubsection modules={modules} events={events} info={info} />
+      <SubSection>
+        {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT) &&
+          modules.theHunt.vengeanceGuideCastBreakdown()}
+      </SubSection>
     </Section>
   );
 }
