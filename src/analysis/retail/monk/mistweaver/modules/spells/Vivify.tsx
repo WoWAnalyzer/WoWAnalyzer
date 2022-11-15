@@ -16,6 +16,7 @@ const RAPID_DIFFUSION_SPELLS = [
   TALENTS_MONK.ENVELOPING_MIST_TALENT,
   TALENTS_MONK.RISING_SUN_KICK_TALENT,
 ];
+const BASE_AVERAGE_REMS = 2.22;
 
 class Vivify extends Analyzer {
   casts: number = 0;
@@ -78,9 +79,9 @@ class Vivify extends Analyzer {
 
   get estimatedAverageReMs() {
     if (this.risingMistActive) {
-      this.expectedAverageReMs = 4.44;
+      this.expectedAverageReMs = BASE_AVERAGE_REMS * 2;
     } else {
-      this.expectedAverageReMs = 2.22;
+      this.expectedAverageReMs = BASE_AVERAGE_REMS;
     }
     if (this.dancingMistActive) {
       this.expectedAverageReMs += this.averageReMsFromDancingMist;
