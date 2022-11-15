@@ -39,12 +39,11 @@ class HotTrackerPrevoker extends HotTracker {
 
   _generateHotInfo(): HotInfo[] {
     // must be generated dynamically because it reads from traits
-    const reversionDuration = this.timelessMagicActive
-      ? REVERSION_BASE_DURATION *
-        (1 +
-          TIMELESS_MAGIC *
-            this.selectedCombatant.getTalentRank(TALENTS_EVOKER.TIMELESS_MAGIC_TALENT.id))
-      : REVERSION_BASE_DURATION;
+    const reversionDuration =
+      REVERSION_BASE_DURATION *
+      (1 +
+        TIMELESS_MAGIC *
+          this.selectedCombatant.getTalentRank(TALENTS_EVOKER.TIMELESS_MAGIC_TALENT.id));
     const dreamBreathDuration = this.fontOfMagicActive
       ? DREAM_BREATH_MIN_DURATION
       : DREAM_BREATH_MIN_DURATION + DREAM_BREATH_MIN_DURATION;

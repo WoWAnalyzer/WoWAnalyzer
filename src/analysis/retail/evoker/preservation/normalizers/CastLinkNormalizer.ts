@@ -93,13 +93,7 @@ class CastLinkNormalizer extends EventLinkNormalizer {
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
 export function isFromHardcast(event: AbilityEvent<any>): boolean {
-  if (HasRelatedEvent(event, ECHO_TEMPORAL_ANOMALY)) {
-    return false;
-  }
-  if (HasRelatedEvent(event, ECHO)) {
-    return true;
-  }
-  return false;
+  return HasRelatedEvent(event, ECHO);
 }
 
 export function isFromTemporalAnomaly(event: ApplyBuffEvent | RefreshBuffEvent) {
