@@ -79,6 +79,9 @@ const EVENT_LINKS: EventLink[] = [
   },
   // link ReM to an EnvM/RSK cast
   {
+    isActive: (c) => {
+      return c.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT);
+    },
     linkRelation: FROM_RAPID_DIFFUSION,
     linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
@@ -96,6 +99,9 @@ const EVENT_LINKS: EventLink[] = [
   },
   // two REMs happen in same timestamp when dancing mists procs
   {
+    isActive: (c) => {
+      return c.hasTalent(TALENTS_MONK.DANCING_MISTS_TALENT);
+    },
     linkRelation: FROM_DANCING_MISTS,
     linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
     linkingEventType: [EventType.ApplyBuff],
@@ -110,6 +116,9 @@ const EVENT_LINKS: EventLink[] = [
   },
   // misty peaks proc from a ReM hot event
   {
+    isActive: (c) => {
+      return c.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT);
+    },
     linkRelation: FROM_MISTY_PEAKS,
     linkingEventId: [TALENTS_MONK.ENVELOPING_MIST_TALENT.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
