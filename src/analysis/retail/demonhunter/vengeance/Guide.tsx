@@ -46,9 +46,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         }}
       />
       <ResourceUsageSection modules={modules} events={events} info={info} />
-      <MitigationSection />
-      <RotationSection modules={modules} events={events} info={info} />
       <CooldownSection modules={modules} events={events} info={info} />
+      <RotationSection modules={modules} events={events} info={info} />
+      <MitigationSection />
     </>
   );
 }
@@ -142,12 +142,11 @@ function CooldownSection({ modules, events, info }: GuideProps<typeof CombatLogP
         aim to send the cooldown as soon as it becomes available (as long as it can do damage on
         target) if you won't need it for an upcoming mechanic. It is particularly important to use{' '}
         <SpellLink id={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT.id} /> as often as possible.
-        <br />
-        <br />
-        <strong>Per-spell guidance and statistics coming soon!</strong>
       </p>
       <CooldownGraphSubsection modules={modules} events={events} info={info} />
       <SubSection>
+        {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT) &&
+          modules.felDevastation.guideBreakdown()}
         {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT) &&
           modules.theHunt.vengeanceGuideCastBreakdown()}
         {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT) &&
@@ -177,12 +176,6 @@ function CooldownGraphSubsection({ info }: GuideProps<typeof CombatLogParser>) {
         spellId={SPELLS.METAMORPHOSIS_TANK.id}
         gapHighlightMode={GapHighlight.FullCooldown}
       />
-      {hasSoulCarver && (
-        <CastEfficiencyBar
-          spellId={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT.id}
-          gapHighlightMode={GapHighlight.FullCooldown}
-        />
-      )}
       {hasFelDevastation && (
         <CastEfficiencyBar
           spellId={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT.id}
@@ -198,6 +191,12 @@ function CooldownGraphSubsection({ info }: GuideProps<typeof CombatLogParser>) {
       {hasTheHunt && (
         <CastEfficiencyBar
           spellId={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+        />
+      )}
+      {hasSoulCarver && (
+        <CastEfficiencyBar
+          spellId={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT.id}
           gapHighlightMode={GapHighlight.FullCooldown}
         />
       )}

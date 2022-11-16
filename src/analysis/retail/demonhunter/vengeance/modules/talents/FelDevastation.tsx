@@ -10,76 +10,90 @@ import {
 import { PerformanceMark } from 'interface/guide';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import Enemies from 'parser/shared/modules/Enemies';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { combineQualitativePerformances } from 'analysis/retail/demonhunter/vengeance/guide/combineQualitativePerformances';
 import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/guide/VulnerabilityExplanation';
 import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/guide/FieryDemiseExplanation';
 
-const GOOD_FRAILTY_STACKS = 6;
-const OK_FRAILTY_STACKS = 4;
+const GOOD_FRAILTY_STACKS = 2;
+const OK_FRAILTY_STACKS = 1;
 
-interface SoulCarverCast {
-  timestamp: number;
-  primaryTargetStacksOfFrailty: number;
+interface FelDevastationDamage {
+  targetStacksOfFrailty: number;
   hasFieryBrandDebuff: boolean;
 }
+interface FelDevastationCast {
+  timestamp: number;
+  damage: FelDevastationDamage[];
+}
 
-export default class SoulCarver extends Analyzer {
+export default class FelDevastation extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
 
   cast = 0;
-  soulCarverTracker: SoulCarverCast[] = [];
+  felDevastationTracker: FelDevastationCast[] = [];
 
   protected enemies!: Enemies;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT);
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT),
       this.onCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT),
+      this.onDamage,
     );
   }
 
   onCast(event: CastEvent) {
     this.cast += 1;
-    this.soulCarverTracker[this.cast] = {
+    this.felDevastationTracker[this.cast] = {
       timestamp: event.timestamp,
-      primaryTargetStacksOfFrailty: 0,
-      hasFieryBrandDebuff: false,
+      damage: [],
     };
+  }
+
+  onDamage(event: DamageEvent) {
     const enemy = this.enemies.getEntity(event);
     if (!enemy) {
       return;
     }
-    this.soulCarverTracker[this.cast].primaryTargetStacksOfFrailty = enemy.getBuffStacks(
-      SPELLS.FRAILTY.id,
-      event.timestamp,
-    );
-    this.soulCarverTracker[this.cast].hasFieryBrandDebuff = enemy.hasBuff(
-      SPELLS.FIERY_BRAND_DOT.id,
-      event.timestamp,
-    );
+    this.felDevastationTracker[this.cast].damage.push({
+      targetStacksOfFrailty: enemy.getBuffStacks(SPELLS.FRAILTY.id, event.timestamp),
+      hasFieryBrandDebuff: enemy.hasBuff(SPELLS.FIERY_BRAND_DOT.id, event.timestamp),
+    });
   }
 
   guideBreakdown() {
+    const demonicExplanation = (
+      <>
+        {' '}
+        It will grant <SpellLink id={SPELLS.METAMORPHOSIS_TANK} /> for a short duration when cast
+        due to <SpellLink id={TALENTS_DEMON_HUNTER.DEMONIC_TALENT} />.
+      </>
+    );
     const explanation = (
       <>
         <strong>
-          <SpellLink id={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />
+          <SpellLink id={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT} />
         </strong>{' '}
-        is a burst of damage that also generates a decent chunk of Soul Fragments.
+        is a large burst of damage and healing.
+        {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.DEMONIC_TALENT) &&
+          demonicExplanation}
         {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.VULNERABILITY_TALENT) && (
           <VulnerabilityExplanation numberOfFrailtyStacks={GOOD_FRAILTY_STACKS} />
         )}
         {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT) && (
-          <FieryDemiseExplanation combatant={this.selectedCombatant} />
+          <FieryDemiseExplanation combatant={this.selectedCombatant} includeDownInFlames />
         )}
       </>
     );
@@ -89,11 +103,11 @@ export default class SoulCarver extends Analyzer {
         <strong>Per-Cast Breakdown</strong>
         <small> - click to expand</small>
 
-        {this.soulCarverTracker.map((cast, idx) => {
+        {this.felDevastationTracker.map((cast, idx) => {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />
+              <SpellLink id={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT} />
             </>
           );
 
@@ -102,14 +116,14 @@ export default class SoulCarver extends Analyzer {
           );
 
           let frailtyPerf = QualitativePerformance.Good;
-          if (cast.primaryTargetStacksOfFrailty <= OK_FRAILTY_STACKS) {
-            frailtyPerf = QualitativePerformance.Fail;
-          } else if (cast.primaryTargetStacksOfFrailty < GOOD_FRAILTY_STACKS) {
+          if (cast.damage.some((it) => it.targetStacksOfFrailty < GOOD_FRAILTY_STACKS)) {
             frailtyPerf = QualitativePerformance.Ok;
+          } else if (cast.damage.some((it) => it.targetStacksOfFrailty <= OK_FRAILTY_STACKS)) {
+            frailtyPerf = QualitativePerformance.Fail;
           }
 
           let fieryBrandPerf = QualitativePerformance.Good;
-          if (hasFieryDemise && !cast.hasFieryBrandDebuff) {
+          if (hasFieryDemise && !cast.damage.some((it) => it.hasFieryBrandDebuff)) {
             fieryBrandPerf = QualitativePerformance.Fail;
           }
 
@@ -120,15 +134,10 @@ export default class SoulCarver extends Analyzer {
               label: (
                 <>
                   At least {GOOD_FRAILTY_STACKS} stacks of <SpellLink id={SPELLS.FRAILTY} /> applied
-                  to target
+                  to at least one target
                 </>
               ),
               result: <PerformanceMark perf={frailtyPerf} />,
-              details: (
-                <>
-                  ({cast.primaryTargetStacksOfFrailty} stacks of <SpellLink id={SPELLS.FRAILTY} />)
-                </>
-              ),
             },
           ];
           if (hasFieryDemise) {
