@@ -48,7 +48,7 @@ class Dreamstate extends Analyzer {
         tooltip={
           <>
             Total Cooldown Reduction from all Tranquility casts:{' '}
-            <strong>{this.totalCDR / 1000} seconds</strong>
+            <strong>{(this.totalCDR / 1000).toFixed(0)} seconds</strong>
           </>
         }
       >
