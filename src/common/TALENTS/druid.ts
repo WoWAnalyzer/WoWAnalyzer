@@ -438,7 +438,12 @@ const talents = createTalentList({
     icon: 'ability_druid_dreamstate',
     maxRanks: 1,
   },
-  DREAMSTATE_TALENT: { id: 392162, name: 'Dreamstate', icon: 'spell_unused', maxRanks: 1 },
+  DREAMSTATE_TALENT: {
+    id: 392162,
+    name: 'Dreamstate',
+    icon: 'spell_unused',
+    maxRanks: 1,
+  },
   IMPROVED_WILD_GROWTH_TALENT: {
     id: 328025,
     name: 'Improved Wild Growth',
