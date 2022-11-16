@@ -61,7 +61,12 @@ export default class PainbringerBuff extends Analyzer {
         position={STATISTIC_ORDER.CORE(5)}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={<>Total uptime was {formatDuration(this.uptime)}.</>}
+        tooltip={
+          <>
+            Total uptime was{' '}
+            {formatDuration(this.selectedCombatant.getBuffUptime(SPELLS.PAINBRINGER_BUFF.id))}.
+          </>
+        }
       >
         <TalentSpellText talent={TALENTS_DEMON_HUNTER.PAINBRINGER_TALENT}>
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>

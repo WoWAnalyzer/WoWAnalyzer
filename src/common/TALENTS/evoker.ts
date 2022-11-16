@@ -510,14 +510,14 @@ const talents = createTalentList({
     name: 'Dream Breath',
     icon: 'ability_evoker_dreambreath',
     maxRanks: 1,
-    manaCost: 400,
+    manaCost: 11250,
   },
   REVERSION_TALENT: {
     id: 366155,
     name: 'Reversion',
     icon: 'ability_evoker_reversion',
     maxRanks: 1,
-    manaCost: 200,
+    manaCost: 6250,
   },
   TEMPORAL_COMPRESSION_TALENT: {
     id: 362874,
@@ -536,7 +536,7 @@ const talents = createTalentList({
     name: 'Rewind',
     icon: 'ability_evoker_rewind',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 12500,
   },
   SPIRITBLOOM_TALENT: {
     id: 367226,

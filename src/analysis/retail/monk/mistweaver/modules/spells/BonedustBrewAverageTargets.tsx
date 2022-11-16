@@ -68,8 +68,8 @@ class BonedustBrewAverageTargets extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        position={STATISTIC_ORDER.OPTIONAL(0)}
-        category={STATISTIC_CATEGORY.COVENANTS}
+        position={STATISTIC_ORDER.OPTIONAL(50)}
+        category={STATISTIC_CATEGORY.TALENTS}
         dropdown={this.baseTable}
       >
         <BoringSpellValueText spellId={SPELLS.BONEDUST_BREW_CAST.id}>

@@ -65,11 +65,6 @@ const covenants = spellIndexableList({
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
   },
-  FAELINE_STOMP_RESET: {
-    id: 327276,
-    name: 'Faeline Stomp',
-    icon: 'ability_ardenweald_monk',
-  },
   //endregion
 
   //region Venthyr

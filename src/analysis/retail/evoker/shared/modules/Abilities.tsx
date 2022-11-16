@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/evoker';
+import SPECS from 'game/SPECS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -12,16 +13,18 @@ class Abilities extends CoreAbilities {
       //region Rotational Spells
       {
         spell: SPELLS.DISINTEGRATE.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
+        category:
+          combatant.spec === SPECS.PRESERVATION_EVOKER
+            ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
+            : SPELL_CATEGORY.ROTATIONAL,
         cooldown: 0,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.EMERALD_BLOSSOM.id,
+        spell: SPELLS.EMERALD_BLOSSOM_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -37,7 +40,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.LIVING_FLAME_DAMAGE.id,
+        spell: SPELLS.LIVING_FLAME_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -45,7 +48,10 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.AZURE_STRIKE.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
+        category:
+          combatant.spec === SPECS.PRESERVATION_EVOKER
+            ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
+            : SPELL_CATEGORY.ROTATIONAL,
         cooldown: 0,
         gcd: {
           base: 1500,
@@ -55,7 +61,10 @@ class Abilities extends CoreAbilities {
       //region Cooldowns
       {
         spell: SPELLS.DEEP_BREATH.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
+        category:
+          combatant.spec === SPECS.PRESERVATION_EVOKER
+            ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
+            : SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         gcd: {
           base: 1500,
@@ -63,7 +72,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.LANDSLIDE_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 90,
         gcd: {
           base: 1500,
@@ -72,14 +81,17 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.OBSIDIAN_SCALES_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 90,
         charges: combatant.hasTalent(TALENTS.OBSIDIAN_BULWARK_TALENT.id) ? 2 : 1,
         enabled: combatant.hasTalent(TALENTS.OBSIDIAN_SCALES_TALENT.id),
       },
       {
         spell: TALENTS.VERDANT_EMBRACE_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
+        category:
+          combatant.spec === SPECS.PRESERVATION_EVOKER
+            ? SPELL_CATEGORY.ROTATIONAL
+            : SPELL_CATEGORY.COOLDOWNS,
         cooldown: 24,
         enabled: combatant.hasTalent(TALENTS.VERDANT_EMBRACE_TALENT.id),
         gcd: {
@@ -88,7 +100,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.CAUTERIZING_FLAME_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
         enabled: combatant.hasTalent(TALENTS.CAUTERIZING_FLAME_TALENT.id),
         gcd: {
@@ -103,13 +115,13 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.RENEWING_BLAZE_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 90,
         enabled: combatant.hasTalent(TALENTS.RENEWING_BLAZE_TALENT.id),
       },
       {
         spell: TALENTS.ZEPHYR_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
+        category: SPELL_CATEGORY.UTILITY,
         cooldown: 120,
         enabled: combatant.hasTalent(TALENTS.ZEPHYR_TALENT.id),
         gcd: {

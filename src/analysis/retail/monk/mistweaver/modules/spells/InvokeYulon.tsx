@@ -41,7 +41,7 @@ class InvokeYulon extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(50)}
+        position={STATISTIC_ORDER.DEFAULT}
         size="flexible"
         tooltip={
           <>

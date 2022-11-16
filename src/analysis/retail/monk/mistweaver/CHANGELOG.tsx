@@ -7,6 +7,9 @@ import { SpellLink } from 'interface';
 
 export default [
   change(date(2022, 11, 13), <>Updates to Hot Tracker to better handle <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id}/> tracking. Added <SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT.id}/> module.</>, Vohrr),
+  change(date(2022, 11, 13), <>Add <SpellLink id={TALENTS_MONK.MISTS_OF_LIFE_TALENT.id}/> module</>, Trevor),
+  change(date(2022, 11, 14), <>Add T29 tier set module for Mistweaver</>, Trevor),
+  change(date(2022, 11, 14), <>Fix broken <SpellLink id={TALENTS_MONK.FAELINE_STOMP_TALENT.id}/> references and reordered the talent modules based on importance</>, Vohrr),
   change(date(2022, 11, 13), <>Fix load conditions for some Mistweaver talents</>, Trevor),
   change(date(2022, 11, 12), <>Updated the spell icon for <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id}/></>, Vohrr),
   change(date(2022, 11, 12), <>Cleanup covenant files for Mistweaver</>, Trevor),

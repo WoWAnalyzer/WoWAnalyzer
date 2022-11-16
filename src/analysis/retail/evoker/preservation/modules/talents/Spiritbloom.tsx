@@ -5,9 +5,10 @@ import Events, { HealEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import { TALENTS_EVOKER } from 'common/TALENTS';
+import TalentSpellText from 'parser/ui/TalentSpellText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import { formatNumber } from 'common/format';
 
 class DreamBreath extends Analyzer {
   static dependencies = {
@@ -48,11 +49,18 @@ class DreamBreath extends Analyzer {
         size="flexible"
         position={STATISTIC_ORDER.CORE(1)}
         category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <ul>
+            <li>Primary Target Healing: {formatNumber(this.spiritbloomInitialHealingDone)}</li>
+            <li>Cleave Target Healing: {formatNumber(this.spiritbloomFirstSplitHealingDone)}</li>
+          </ul>
+        }
       >
-        <BoringSpellValueText spellId={SPELLS.DREAM_BREATH.id}>
-          <ItemPercentHealingDone amount={this.spiritbloomInitialHealingDone} />
-          <ItemPercentHealingDone amount={this.spiritbloomFirstSplitHealingDone} />
-        </BoringSpellValueText>
+        <TalentSpellText talent={TALENTS_EVOKER.SPIRITBLOOM_TALENT}>
+          <ItemHealingDone
+            amount={this.spiritbloomInitialHealingDone + this.spiritbloomFirstSplitHealingDone}
+          />
+        </TalentSpellText>
       </Statistic>
     );
   }
