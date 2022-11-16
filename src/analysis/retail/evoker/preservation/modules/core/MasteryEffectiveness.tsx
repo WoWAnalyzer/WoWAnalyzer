@@ -1,5 +1,7 @@
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
+import { TALENTS_EVOKER } from 'common/TALENTS';
+import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
@@ -12,13 +14,14 @@ import Events, {
 import Combatants from 'parser/shared/modules/Combatants';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const TEMPORAL_ANOMALY_DURATION_MS = 15000;
 const TWIN_GUARDIAN_DURATION_MS = 5000;
+const TEMPORAL_ANOMALY_SHIELD_COEFF = 1.75;
+const TWIN_GUARDIAN_SHIELD_COEFF = 0.3;
 
 const SHIELD_DURATIONS_MAP = new Map([
   [SPELLS.TEMPORAL_ANOMALY_SHIELD.id, TEMPORAL_ANOMALY_DURATION_MS],
@@ -59,9 +62,9 @@ class MasteryEffectiveness extends Analyzer {
 
   totalPossibleAbsorbs = 0;
   totalCalculatedBaseAbsorbs = 0;
-
+  totalEventsAffectedByMastery: number = 0;
+  totalEvents: number = 0;
   totalMasteryHealingDone: number = 0;
-
   wastedTAShield: number = 0;
   totalTAShield: number = 0;
   wastedTGShield: number = 0;
@@ -120,11 +123,11 @@ class MasteryEffectiveness extends Analyzer {
     }
 
     this.totalPossibleAbsorbs += event.absorb || 0;
-    this.totalCalculatedBaseAbsorbs += this.calculateShield(event.ability.guid);
+    this.totalCalculatedBaseAbsorbs += this.calculateShield(event);
 
     this.twinGuardianShieldApplications.set(event.targetID, {
       event: event,
-      baseShieldValue: this.calculateShield(event.ability.guid),
+      baseShieldValue: this.calculateShield(event),
       hasMasteryBoost: this.masteryBoostCheck(event),
       masteryValue: this.statTracker.currentMasteryPercentage,
       healing: 0,
@@ -135,13 +138,13 @@ class MasteryEffectiveness extends Analyzer {
     if (this.anomalyShieldApplications.get(event.targetID)) {
       this.anomalyShieldApplications.set(event.targetID, null);
     }
-
     this.totalPossibleAbsorbs += event.absorb || 0;
-    this.totalCalculatedBaseAbsorbs += this.calculateShield(event.ability.guid);
+    console.log('Temporal anomaly sheild applied: ' + event.absorb);
+    this.totalCalculatedBaseAbsorbs += this.calculateShield(event);
 
     this.anomalyShieldApplications.set(event.targetID, {
       event: event,
-      baseShieldValue: this.calculateShield(event.ability.guid),
+      baseShieldValue: this.calculateShield(event),
       hasMasteryBoost: this.masteryBoostCheck(event),
       masteryValue: this.statTracker.currentMasteryPercentage,
       healing: 0,
@@ -149,7 +152,7 @@ class MasteryEffectiveness extends Analyzer {
   }
 
   masteryBoostCheck(event: ApplyBuffEvent | RefreshBuffEvent) {
-    const baseShieldValue = this.calculateShield(event.ability.guid);
+    const baseShieldValue = this.calculateShield(event);
     if (event.absorb) {
       if (baseShieldValue < event.absorb) {
         return true;
@@ -157,30 +160,29 @@ class MasteryEffectiveness extends Analyzer {
     }
     return false;
   }
-
-  calculateShield(spellId: number) {
+  //TODO -- THESE CALCULATIONS ARE WRONG UNTIL ALL THE NEW RAID BUFFS ARE ADDED AND INCORPORATED INTO STATTRACKER
+  calculateShield(event: ApplyBuffEvent | RefreshBuffEvent) {
     let baseShielding = 0;
     const vers = this.statTracker.currentVersatilityPercentage;
-
-    if (this.isEventAbilityAnomaly(spellId)) {
+    if (this.isEventAbilityAnomaly(event.ability.guid)) {
       const intellect = this.statTracker.currentIntellectRating;
-      baseShielding = intellect * 1.75 * (1 + vers);
+      baseShielding = intellect * TEMPORAL_ANOMALY_SHIELD_COEFF * (1 + vers);
     }
 
-    if (this.isEventAbilityTwinGuardian(spellId)) {
-      const initialShieldAmount = this.prevokerMaxHealth * 0.3;
-      const versAddedShield = this.prevokerMaxHealth * 0.3 * vers;
+    if (this.isEventAbilityTwinGuardian(event.ability.guid)) {
+      const initialShieldAmount = this.prevokerMaxHealth * TWIN_GUARDIAN_SHIELD_COEFF;
+      const versAddedShield = this.prevokerMaxHealth * TWIN_GUARDIAN_SHIELD_COEFF * vers;
       baseShielding = initialShieldAmount + versAddedShield;
     }
-
     return Math.round(baseShielding);
   }
 
   isTargetHealthierThanPlayer(playerHealth: number, targetHealth: number): boolean {
-    return playerHealth > targetHealth;
+    return playerHealth >= targetHealth;
   }
 
   onHeal(event: HealEvent) {
+    this.totalEvents += 1;
     this.processHealForMastery(event);
   }
   onCast(event: CastEvent) {
@@ -217,6 +219,7 @@ class MasteryEffectiveness extends Analyzer {
     this.totalMasteryHealingDone += actualMasteryHealingDone;
 
     if (this.isTargetHealthierThanPlayer(this.prevokerHealthPercent, targetPlayerHealthPercent)) {
+      this.totalEventsAffectedByMastery += 1;
       this.masteryHealEvents.push({
         sourceEvent: event,
         effectiveHealing: heal.effective,
@@ -265,6 +268,9 @@ class MasteryEffectiveness extends Analyzer {
 
     this.totalMasteryHealingDone += absorbFromMasteryBonusUsed;
   }
+  get percentOfHealingAffectedByMastery() {
+    return this.totalEventsAffectedByMastery / this.totalEvents;
+  }
 
   get wastedTemporalAnomalyShield() {
     return this.wastedTAShield;
@@ -288,14 +294,19 @@ class MasteryEffectiveness extends Analyzer {
         size="flexible"
         position={STATISTIC_ORDER.CORE(10)}
         category={STATISTIC_CATEGORY.GENERAL}
+        tooltip={
+          <>
+            This does not curently account for the mastery benefit gained from shields like{' '}
+            <SpellLink id={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT.id} /> and{' '}
+            <SpellLink id={TALENTS_EVOKER.TWIN_GUARDIAN_TALENT.id} />
+          </>
+        }
       >
         <div className="pad">
           <label>
             % of Healing Affected by <SpellIcon id={SPELLS.MASTERY_LIFEBINDER.id} />
           </label>
-          <div className="value">
-            <ItemPercentHealingDone amount={this.totalMasteryHealingDone} />
-          </div>
+          <div className="value">{formatPercentage(this.percentOfHealingAffectedByMastery)}%</div>
         </div>
       </Statistic>
     );
