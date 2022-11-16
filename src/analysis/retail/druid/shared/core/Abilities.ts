@@ -168,6 +168,11 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: null,
+        castEfficiency: {
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.3,
+        },
       },
       {
         spell: SPELLS.REMOVE_CORRUPTION.id,

@@ -62,7 +62,7 @@ class SunKingsBlessing extends Analyzer {
     const lastCast = this.eventHistory.last(
       1,
       MS_BUFFER_100,
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PYROBLAST, TALENTS.FLAMESTRIKE_TALENT]),
+      Events.cast.by(SELECTED_PLAYER).spell([TALENTS.PYROBLAST_TALENT, TALENTS.FLAMESTRIKE_TALENT]),
     );
     if (lastCast.length === 0) {
       debug && this.log('Sun King Blessing Stack expired');
@@ -80,12 +80,12 @@ class SunKingsBlessing extends Analyzer {
       const lastPyroBegin = this.eventHistory.last(
         1,
         5000,
-        Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.PYROBLAST),
+        Events.begincast.by(SELECTED_PLAYER).spell(TALENTS.PYROBLAST_TALENT),
       );
       const lastPyroCast = this.eventHistory.last(
         1,
         MS_BUFFER_250,
-        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PYROBLAST),
+        Events.cast.by(SELECTED_PLAYER).spell(TALENTS.PYROBLAST_TALENT),
       );
       if (
         lastPyroCast.length === 0 ||
@@ -167,8 +167,8 @@ class SunKingsBlessing extends Analyzer {
           <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> at the same time, you want to ensure that{' '}
           <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> is activated first by using{' '}
           <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> just before your hard cast{' '}
-          <SpellLink id={SPELLS.PYROBLAST.id} /> finishes casting. This is due to an odd interaction
-          where if <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> is used while{' '}
+          <SpellLink id={TALENTS.PYROBLAST_TALENT.id} /> finishes casting. This is due to an odd
+          interaction where if <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> is used while{' '}
           <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> is already active (via{' '}
           <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} />) then the time remaining on{' '}
           <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> will be reset to{' '}

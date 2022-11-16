@@ -192,6 +192,7 @@ class RipUptimeAndSnapshots extends Snapshots {
           </div>
           {this.subStatistic()}
         </RoundedPanel>
+        <br />
         <strong>Rip casts</strong>
         <small>
           {' '}

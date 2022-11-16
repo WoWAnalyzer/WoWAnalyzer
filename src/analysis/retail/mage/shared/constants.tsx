@@ -21,7 +21,6 @@ export const SHATTER_DEBUFFS = [
 export const FIRESTARTER_THRESHOLD = 0.9;
 export const SEARING_TOUCH_THRESHOLD = 0.3;
 export const COMBUSTION_END_BUFFER = 3000;
-export const PHOENIX_FLAMES_MAX_CHARGES = 3;
 export const COMBUSTION_DURATION = 12000;
 export const SKB_COMBUST_DURATION = 6000;
 export const FIRE_DIRECT_DAMAGE_SPELLS = [

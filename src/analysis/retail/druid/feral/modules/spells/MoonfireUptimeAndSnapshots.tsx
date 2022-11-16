@@ -152,6 +152,7 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
           </div>
           {this.subStatistic()}
         </RoundedPanel>
+        <br />
         <strong>Moonfire casts</strong>
         <small>
           {' '}

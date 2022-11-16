@@ -1,11 +1,12 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
 import { EventType } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
 const EVENT_ORDERS: EventOrder[] = [
   {
-    beforeEventId: SPELLS.PYROBLAST.id,
+    beforeEventId: TALENTS.PYROBLAST_TALENT.id,
     beforeEventType: EventType.Cast,
     afterEventId: SPELLS.PYROCLASM_BUFF.id,
     afterEventType: [

@@ -13,11 +13,6 @@ const spells = spellIndexableList({
     name: 'Fireball',
     icon: 'spell_fire_flamebolt',
   },
-  PYROBLAST: {
-    id: 11366,
-    name: 'Pyroblast',
-    icon: 'spell_fire_fireball02',
-  },
   FIRE_BLAST: {
     id: 108853,
     name: 'Fire Blast',
@@ -72,6 +67,11 @@ const spells = spellIndexableList({
     id: 383395,
     name: 'Feel the Burn',
     icon: 'spell_fire_fireball',
+  },
+  HYPERTHERMIA_BUFF: {
+    id: 383874,
+    name: 'Hyperthermia',
+    icon: 'spell_fire_burnout',
   },
 });
 
