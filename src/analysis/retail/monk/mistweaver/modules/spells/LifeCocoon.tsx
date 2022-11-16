@@ -43,7 +43,7 @@ class LifeCocoon extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(20)}
+        position={STATISTIC_ORDER.OPTIONAL(70)}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={<>Life Cocoon boosts HoTs from other players as wells as your own.</>}

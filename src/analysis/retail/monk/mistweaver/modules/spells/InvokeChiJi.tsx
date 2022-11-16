@@ -184,7 +184,7 @@ class InvokeChiJi extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(50)}
+        position={STATISTIC_ORDER.DEFAULT}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={

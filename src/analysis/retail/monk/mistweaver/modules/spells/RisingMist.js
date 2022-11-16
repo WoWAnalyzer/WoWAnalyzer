@@ -274,7 +274,7 @@ class RisingMist extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(10)}
+        position={STATISTIC_ORDER.DEFAULT}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
