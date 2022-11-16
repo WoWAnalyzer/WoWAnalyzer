@@ -18,6 +18,7 @@ export const BOUNCED = 'Bounced';
 export const FROM_DANCING_MISTS = 'FromDM';
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_MISTY_PEAKS = 'FromMistyPeaks';
+export const FROM_MISTS_OF_LIFE = 'FromMOL';
 export const FROM_RAPID_DIFFUSION = 'FromRD'; // can be linked to env mist or rsk cast
 
 const CAST_BUFFER_MS = 100;
@@ -78,6 +79,9 @@ const EVENT_LINKS: EventLink[] = [
   },
   // link ReM to an EnvM/RSK cast
   {
+    isActive: (c) => {
+      return c.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT);
+    },
     linkRelation: FROM_RAPID_DIFFUSION,
     linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
@@ -95,6 +99,9 @@ const EVENT_LINKS: EventLink[] = [
   },
   // two REMs happen in same timestamp when dancing mists procs
   {
+    isActive: (c) => {
+      return c.hasTalent(TALENTS_MONK.DANCING_MISTS_TALENT);
+    },
     linkRelation: FROM_DANCING_MISTS,
     linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
     linkingEventType: [EventType.ApplyBuff],
@@ -109,6 +116,9 @@ const EVENT_LINKS: EventLink[] = [
   },
   // misty peaks proc from a ReM hot event
   {
+    isActive: (c) => {
+      return c.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT);
+    },
     linkRelation: FROM_MISTY_PEAKS,
     linkingEventId: [TALENTS_MONK.ENVELOPING_MIST_TALENT.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
@@ -118,6 +128,24 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: 100,
     additionalCondition(linkingEvent) {
       return !HasRelatedEvent(linkingEvent, FROM_HARDCAST);
+    },
+  },
+  // From LC on target with Mists of Life talented
+  {
+    isActive: (c) => {
+      return c.hasTalent(TALENTS_MONK.MISTS_OF_LIFE_TALENT);
+    },
+    linkRelation: FROM_MISTS_OF_LIFE,
+    linkingEventId: [TALENTS_MONK.ENVELOPING_MIST_TALENT.id, SPELLS.RENEWING_MIST_HEAL.id],
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: TALENTS_MONK.LIFE_COCOON_TALENT.id,
+    referencedEventType: [EventType.Cast],
+    backwardBufferMs: 500,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        !HasRelatedEvent(linkingEvent, FROM_HARDCAST) &&
+        !HasRelatedEvent(referencedEvent, FROM_HARDCAST)
+      );
     },
   },
 ];
@@ -184,6 +212,10 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
 
 export function isFromMistyPeaks(event: ApplyBuffEvent | RefreshBuffEvent) {
   return HasRelatedEvent(event, FROM_MISTY_PEAKS);
+}
+
+export function isFromMistsOfLife(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
+  return HasRelatedEvent(event, FROM_MISTS_OF_LIFE);
 }
 
 export default CastLinkNormalizer;

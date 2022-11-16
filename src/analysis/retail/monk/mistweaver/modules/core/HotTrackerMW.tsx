@@ -12,6 +12,10 @@ const UPWELLING = 4000;
 const MISTWRAP = 1000;
 const TFT_REM_EXTRA_DURATION = 10000;
 
+const HARDCAST = 'Hardcast';
+const MISTS_OF_LIFE = 'Mists of Life';
+const MISTY_PEAKS = 'Misty Peaks';
+
 class HotTrackerMW extends HotTracker {
   mistwrapActive: boolean;
   upwellingActive: boolean;
@@ -24,13 +28,19 @@ class HotTrackerMW extends HotTracker {
 
   fromMistyPeaks(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
-      return attr.name.includes('Misty Peaks');
+      return attr.name.includes(MISTY_PEAKS);
+    });
+  }
+
+  fromMistsOfLife(hot: Tracker): boolean {
+    return hot.attributions.some(function (attr) {
+      return attr.name.includes(MISTS_OF_LIFE);
     });
   }
 
   fromHardcast(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
-      return attr.name.includes('Hardcast');
+      return attr.name.includes(HARDCAST);
     });
   }
 
