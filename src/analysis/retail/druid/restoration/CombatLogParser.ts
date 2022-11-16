@@ -56,6 +56,7 @@ import NaturesVigil from 'analysis/retail/druid/restoration/modules/spells/Natur
 import RampantGrowth from 'analysis/retail/druid/restoration/modules/spells/RampantGrowth';
 import Overgrowth from 'analysis/retail/druid/restoration/modules/spells/Overgrowth';
 import BuddingLeaves from 'analysis/retail/druid/restoration/modules/spells/BuddingLeaves';
+import Dreamstate from 'analysis/retail/druid/restoration/modules/spells/Dreamstate';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -118,6 +119,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rampantGrowth: RampantGrowth,
     overgrowth: Overgrowth,
     buddingLeaves: BuddingLeaves,
+    Dreamstate: Dreamstate,
 
     // Mana Tab
     manaTracker: ManaTracker,
