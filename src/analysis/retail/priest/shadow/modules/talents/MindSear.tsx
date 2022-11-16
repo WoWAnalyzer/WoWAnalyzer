@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import AbilityTracker from 'analysis/retail/priest/shadow/modules/core/AbilityTracker';
 import { formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
+import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -24,7 +25,7 @@ class MindSear extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.MIND_SEAR_TALENT.id);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.MIND_SEAR_TALENT_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_SEAR_TALENT_DAMAGE),
       this.onDamage,
     );
   }

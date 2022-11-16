@@ -1,4 +1,5 @@
 import TALENTS from 'common/TALENTS/priest';
+import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -16,7 +17,7 @@ class InescapableTorment extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.INESCAPABLE_TORMENT_TALENT);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER_PET).spell(TALENTS.INESCAPABLE_TORMENT_TALENT_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.INESCAPABLE_TORMENT_TALENT_DAMAGE),
       this.onDamage,
     );
   }

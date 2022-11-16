@@ -360,12 +360,6 @@ const talents = createTalentList({
     icon: 'spell_shadow_chilltouch',
     maxRanks: 2,
   },
-  INESCAPABLE_TORMENT_TALENT_DAMAGE: {
-    id: 373442,
-    name: 'Inescapable Torment',
-    icon: 'spell_shadow_chilltouch',
-    maxRanks: 2,
-  },
 
   //Shadow
   DEVOURING_PLAGUE_TALENT: {
@@ -431,13 +425,6 @@ const talents = createTalentList({
     icon: 'spell_shadow_mindshear',
     maxRanks: 1,
     insanityCost: 2500,
-  },
-  MIND_SEAR_TALENT_DAMAGE: {
-    id: 49821,
-    name: 'Mind Sear',
-    icon: 'spell_shadow_mindshear',
-    maxRanks: 1,
-    insanityCost: 0,
   },
   MIND_SPIKE_TALENT: {
     id: 73510,
@@ -556,12 +543,6 @@ const talents = createTalentList({
   },
   MIND_FLAY_INSANITY_TALENT: {
     id: 391399,
-    name: 'Mind Flay: Insanity',
-    icon: 'spell_fire_twilightflamebreath',
-    maxRanks: 1,
-  },
-  MIND_FLAY_INSANITY_TALENT_DAMAGE: {
-    id: 391403,
     name: 'Mind Flay: Insanity',
     icon: 'spell_fire_twilightflamebreath',
     maxRanks: 1,

@@ -45,7 +45,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id,
+        spell: SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
