@@ -916,7 +916,8 @@ export interface Tracker {
   healingAfterOriginalEnd: number;
   /** if present, this is the 'true max duration' beyond which the HoT cannot be extended */
   maxDuration?: number;
-  /**used to validate bounces for bouncy hots, is undefined on initial application  */
+  /** property used to track bouncy hots. Is set to 0 on initial application of a bouncy hot, and is set to the timestamp of the removebuff event associated with a hot that has bounced at least once.
+   *  This should be left undefined for non-bouncy hots.*/
   lastBounce?: number;
 }
 
