@@ -8,10 +8,17 @@ import Statistic from 'parser/ui/Statistic';
 import { SpellIcon } from 'interface';
 import BoringValue from 'parser/ui/BoringValueText';
 import { formatNumber } from 'common/format';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { DRUID_COOLDOWNS } from 'analysis/retail/druid/restoration/constants';
 
-const cdrPerTick = 3;
+const CDR_PER_TICK = 3000;
 
 class Dreamstate extends Analyzer {
+  static dependencies = {
+    spellUsable: SpellUsable,
+  };
+  protected spellUsable!: SpellUsable;
+
   tickCount = 0;
 
   constructor(options: Options) {
@@ -25,10 +32,11 @@ class Dreamstate extends Analyzer {
 
   onCast(event: CastEvent) {
     this.tickCount += 1;
+    DRUID_COOLDOWNS.forEach((id) => this.spellUsable.reduceCooldown(id, CDR_PER_TICK));
   }
 
   get totalCDR() {
-    return cdrPerTick * this.tickCount;
+    return CDR_PER_TICK * this.tickCount;
   }
 
   statistic() {
@@ -40,7 +48,7 @@ class Dreamstate extends Analyzer {
         tooltip={
           <>
             Total Cooldown Reduction from all Tranquility casts:{' '}
-            <strong>{this.totalCDR} seconds</strong>
+            <strong>{this.totalCDR / 1000} seconds</strong>
           </>
         }
       >
@@ -51,7 +59,7 @@ class Dreamstate extends Analyzer {
             </>
           }
         >
-          <>{formatNumber(this.owner.getPerMinute(this.totalCDR))} seconds</>
+          <>{formatNumber(this.owner.getPerMinute(this.totalCDR) / 1000)} seconds</>
         </BoringValue>
       </Statistic>
     );
