@@ -1925,7 +1925,6 @@ export const Phased: Contributor = {
   nickname: 'Phased',
   github: 'bilalm4',
   discord: 'Phased#1267',
-  avatar: avatar('phased-avatar.jpg'),
   mains: [
     {
       name: 'Phasedruid',
