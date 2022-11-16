@@ -1,0 +1,80 @@
+import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { TALENTS_EVOKER } from 'common/TALENTS';
+import { SpellLink } from 'interface';
+import Analyzer from 'parser/core/Analyzer';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
+import Events, { HealEvent } from 'parser/core/Events';
+import { Options, SELECTED_PLAYER } from 'parser/core/EventSubscriber';
+import Combatants from 'parser/shared/modules/Combatants';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
+import { GRACE_PERIOD_INCREASE } from '../../constants';
+
+class GracePeriod extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
+  protected combatants!: Combatants;
+  gracePeriodIncrease: number = 0;
+  healingFromIncrease: number = 0;
+  overhealFromIncrease: number = 0;
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.GRACE_PERIOD_TALENT.id);
+    if (!this.active) {
+      return;
+    }
+    this.gracePeriodIncrease =
+      GRACE_PERIOD_INCREASE *
+      this.selectedCombatant.getTalentRank(TALENTS_EVOKER.GRACE_PERIOD_TALENT);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.calculateHealingIncrease);
+  }
+
+  calculateHealingIncrease(event: HealEvent) {
+    const combatant = this.combatants.getEntity(event);
+    if (!combatant) {
+      return;
+    }
+    let totalIncrease = this.gracePeriodIncrease;
+    if (combatant.hasBuff(TALENTS_EVOKER.REVERSION_TALENT.id)) {
+      if (combatant.hasBuff(SPELLS.REVERSION_ECHO.id)) {
+        //grace periods' healing amp is multiplicative and increases itself
+        totalIncrease = (1 + this.gracePeriodIncrease) * (1 + this.gracePeriodIncrease) - 1;
+      }
+      this.healingFromIncrease += calculateEffectiveHealing(event, totalIncrease);
+      this.overhealFromIncrease += calculateOverhealing(event, totalIncrease);
+    } else if (combatant.hasBuff(SPELLS.REVERSION_ECHO.id)) {
+      this.healingFromIncrease += calculateEffectiveHealing(event, totalIncrease);
+      this.overhealFromIncrease += calculateOverhealing(event, totalIncrease);
+    }
+  }
+
+  statistic() {
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.CORE(5)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <>
+            <SpellLink id={TALENTS_EVOKER.GRACE_PERIOD_TALENT.id} /> provided the following:
+            <ul>
+              <li>{formatNumber(this.healingFromIncrease)} effective healing</li>
+              <li>{formatNumber(this.overhealFromIncrease)} overheal</li>
+            </ul>
+          </>
+        }
+      >
+        <TalentSpellText talent={TALENTS_EVOKER.GRACE_PERIOD_TALENT}>
+          <ItemHealingDone amount={this.healingFromIncrease} />
+        </TalentSpellText>
+      </Statistic>
+    );
+  }
+}
+
+export default GracePeriod;

@@ -18,6 +18,7 @@ import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 import Checklist from 'analysis/retail/evoker/preservation/modules/features/Checklist/Module';
 import EssenceDetails from './modules/features/EssenceDetails';
 import EssenceTracker from './modules/features/EssenceTracker';
+import GracePeriod from './modules/talents/GracePeriod';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -48,6 +49,7 @@ class CombatLogParser extends CoreCombatLogParser {
     livingFlame: LivingFlame,
     masteryEffectiveness: MasteryEffectiveness,
     spiritBloom: Spiritbloom,
+    gracePeriod: GracePeriod,
   };
 }
 
