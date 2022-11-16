@@ -11,7 +11,7 @@ import CHANGELOG from './CHANGELOG';
 const config: Config = {
   contributors: [xizbow, CamClark],
   expansion: Expansion.Dragonflight,
-  patchCompatibility: '10.0.0',
+  patchCompatibility: '10.0.2',
   isPartial: true,
   description: (
     <>
