@@ -1,7 +1,7 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
-import { SpellIcon, SpellLink } from 'interface';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
@@ -304,9 +304,12 @@ class MasteryEffectiveness extends Analyzer {
       >
         <div className="pad">
           <label>
-            % of Healing Affected by <SpellIcon id={SPELLS.MASTERY_LIFEBINDER.id} />
+            <SpellLink id={SPELLS.MASTERY_LIFEBINDER.id} />
           </label>
-          <div className="value">{formatPercentage(this.percentOfHealingAffectedByMastery)}%</div>
+          <div className="value">
+            {formatPercentage(this.percentOfHealingAffectedByMastery)}%
+            <small> of Healing Affected</small>
+          </div>
         </div>
       </Statistic>
     );
