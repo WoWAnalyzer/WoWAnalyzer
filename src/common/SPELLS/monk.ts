@@ -266,6 +266,11 @@ const spells = spellIndexableList({
     name: 'Faeline Stomp',
     icon: 'ability_monk_essencefont',
   },
+  FAELINE_STOMP_RESET: {
+    id: 388203,
+    name: 'Faeline Stomp',
+    icon: 'ability_ardenweald_monk',
+  },
 
   // Brewmaster
   NIUZAO_STOMP_DAMAGE: {

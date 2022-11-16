@@ -1,20 +1,20 @@
 import { GuideProps, Section, SubSection, useInfo } from 'interface/guide';
 import CombatLogParser from 'analysis/retail/demonhunter/vengeance/CombatLogParser';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
-import { CooldownBar, GapHighlight } from 'parser/ui/CooldownBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { getElysianDecreeSpell } from 'analysis/retail/demonhunter/shared/constants';
 import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
-import ExplanationRow from 'interface/guide/components/ExplanationRow';
-import Explanation from 'interface/guide/components/Explanation';
 import ITEMS from 'common/ITEMS';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
+import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 
 import DemonSpikesSection from './modules/spells/DemonSpikes/GuideSection';
 import FieryBrandSection from './modules/talents/FieryBrand/GuideSection';
 import VoidReaverSection from './modules/talents/VoidReaver/GuideSection';
-import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
+import MetamorphosisSection from './modules/spells/Metamorphosis/GuideSection';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -84,18 +84,7 @@ function MitigationSection() {
 
   return (
     <Section title="Defensive Cooldowns and Mitigation">
-      <SubSection title="Metamorphosis">
-        <ExplanationRow>
-          <Explanation>
-            <p>
-              <SpellLink id={SPELLS.METAMORPHOSIS_TANK} /> is a massive life and survivability
-              increase. You should aim to have it active whenever you will be actively tanking large
-              hits.
-            </p>
-          </Explanation>
-          <strong>Metamorphosis overview coming soon!</strong>
-        </ExplanationRow>
-      </SubSection>
+      <MetamorphosisSection />
       <DemonSpikesSection />
       <FieryBrandSection />
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.VOID_REAVER_TALENT) && <VoidReaverSection />}
@@ -117,11 +106,15 @@ function CooldownSection({ modules, events, info }: GuideProps<typeof CombatLogP
         <strong>Per-spell guidance and statistics coming soon!</strong>
       </p>
       <CooldownGraphSubsection modules={modules} events={events} info={info} />
+      <SubSection>
+        {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT) &&
+          modules.theHunt.vengeanceGuideCastBreakdown()}
+      </SubSection>
     </Section>
   );
 }
 
-function CooldownGraphSubsection({ events, info }: GuideProps<typeof CombatLogParser>) {
+function CooldownGraphSubsection({ info }: GuideProps<typeof CombatLogParser>) {
   const hasSoulCarver = info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT);
   const hasFelDevastation = info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT);
   const hasElysianDecree = info.combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT);
@@ -137,67 +130,51 @@ function CooldownGraphSubsection({ events, info }: GuideProps<typeof CombatLogPa
       you waited to use them again. Grey segments show when the spell was available, yellow segments
       show when the spell was cooling down. Red segments highlight times when you could have fit a
       whole extra use of the cooldown.
-      <div className="flex-main chart" style={{ padding: 5 }}>
-        <CooldownBar
-          spellId={SPELLS.METAMORPHOSIS_TANK.id}
+      <CastEfficiencyBar
+        spellId={SPELLS.METAMORPHOSIS_TANK.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+      />
+      {hasSoulCarver && (
+        <CastEfficiencyBar
+          spellId={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT.id}
           gapHighlightMode={GapHighlight.FullCooldown}
         />
-      </div>
-      {hasSoulCarver && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
       )}
       {hasFelDevastation && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
+        <CastEfficiencyBar
+          spellId={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+        />
       )}
       {hasElysianDecree && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={getElysianDecreeSpell(info.combatant).id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
+        <CastEfficiencyBar
+          spellId={getElysianDecreeSpell(info.combatant).id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+        />
       )}
       {hasTheHunt && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
+        <CastEfficiencyBar
+          spellId={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+        />
       )}
       {hasSoulBarrier && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
+        <CastEfficiencyBar
+          spellId={TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+        />
       )}
       {hasBulkExtraction && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DEMON_HUNTER.BULK_EXTRACTION_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
+        <CastEfficiencyBar
+          spellId={TALENTS_DEMON_HUNTER.BULK_EXTRACTION_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+        />
       )}
       {hasFieryDemise && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
+        <CastEfficiencyBar
+          spellId={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+        />
       )}
     </SubSection>
   );
