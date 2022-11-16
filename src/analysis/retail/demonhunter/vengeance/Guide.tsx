@@ -150,6 +150,8 @@ function CooldownSection({ modules, events, info }: GuideProps<typeof CombatLogP
       <SubSection>
         {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT) &&
           modules.theHunt.vengeanceGuideCastBreakdown()}
+        {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT) &&
+          modules.soulCarver.guideBreakdown()}
       </SubSection>
     </Section>
   );
