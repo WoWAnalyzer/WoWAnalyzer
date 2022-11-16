@@ -30,7 +30,7 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
           </>
         }
       >
-        <Requirement name={<>Essence Wasted</>} thresholds={thresholds.essenceDetails} />
+        <Requirement name="Essence Wasted" thresholds={thresholds.essenceDetails} />
       </Rule>
       <Rule
         name="Use your empowered spells wisely"
@@ -42,15 +42,19 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.DREAM_BREATH_CAST.id} />
-        <Requirement
-          name={
-            <>
-              <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} /> % Overheal
-            </>
-          }
-          thresholds={thresholds.dreamBreath}
-        />
+        {combatant.hasTalent(TALENTS_EVOKER.DREAM_BREATH_TALENT.id) && (
+          <AbilityRequirement spell={SPELLS.DREAM_BREATH_CAST.id} />
+        )}
+        {combatant.hasTalent(TALENTS_EVOKER.DREAM_BREATH_TALENT.id) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} /> % Overheal
+              </>
+            }
+            thresholds={thresholds.dreamBreath}
+          />
+        )}
       </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>
