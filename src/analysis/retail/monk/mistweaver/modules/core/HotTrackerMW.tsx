@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { Options } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
-import HotTracker, { Tracker, HotInfo } from 'parser/shared/modules/HotTracker';
+import HotTracker, { Tracker, HotInfo, Extension } from 'parser/shared/modules/HotTracker';
 
 const REM_BASE_DURATION = 20000;
 const ENV_BASE_DURATION = 6000;
@@ -11,6 +11,10 @@ const EF_BASE_DURATION = 8000;
 const UPWELLING = 4000;
 const MISTWRAP = 1000;
 const TFT_REM_EXTRA_DURATION = 10000;
+
+const HARDCAST = 'Hardcast';
+const MISTS_OF_LIFE = 'Mists of Life';
+const MISTY_PEAKS = 'Misty Peaks';
 
 class HotTrackerMW extends HotTracker {
   mistwrapActive: boolean;
@@ -24,14 +28,35 @@ class HotTrackerMW extends HotTracker {
 
   fromMistyPeaks(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
-      return attr.name.includes('Misty Peaks');
+      return attr.name.includes(MISTY_PEAKS);
+    });
+  }
+
+  fromMistsOfLife(hot: Tracker): boolean {
+    return hot.attributions.some(function (attr) {
+      return attr.name.includes(MISTS_OF_LIFE);
     });
   }
 
   fromHardcast(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
-      return attr.name.includes('Hardcast');
+      return attr.name.includes(HARDCAST);
     });
+  }
+
+  // Decide which extension is responsible for allowing this extra vivify cleave
+  getRemExtensionForTimestamp(hot: Tracker, timestamp: number): Extension | null {
+    if (timestamp <= hot.originalEnd) {
+      return null;
+    }
+    let currentStart = hot.originalEnd;
+    for (const extension of hot.extensions) {
+      if (timestamp <= currentStart + extension.amount) {
+        return extension;
+      }
+      currentStart += extension.amount;
+    }
+    return null; // should never happen
   }
 
   // Renewing Mist applies with a longer duration if Thunder Focus Tea is active

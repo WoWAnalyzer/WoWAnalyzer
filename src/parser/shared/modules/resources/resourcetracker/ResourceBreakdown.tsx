@@ -14,6 +14,8 @@ interface Props {
   /** If true, the spenders section will show the number of casts that consumed
    *  the maxResources. (This is primarily for something like Combo Points) */
   showMaxSpenders?: boolean;
+  /** If true the section showing generated and wasted resources from builders will be hidden - for classes like evokers that only have passive generation for their secondary resource */
+  hideGenerated?: boolean;
 }
 
 class ResourceBreakdown extends Component<Props> {
@@ -43,7 +45,7 @@ class ResourceBreakdown extends Component<Props> {
   }
 
   render() {
-    const { tracker, showSpenders, showMaxSpenders } = this.props;
+    const { tracker, showSpenders, showMaxSpenders, hideGenerated } = this.props;
     const resourceName = tracker.resource.name;
 
     const generated = this.prepareGenerated(tracker);
@@ -67,39 +69,43 @@ class ResourceBreakdown extends Component<Props> {
     return (
       <>
         <table className="data-table">
-          <thead>
-            <tr>
-              <th>
-                <Trans id="shared.resourceBreakdown.ability">Ability</Trans>
-              </th>
-              <th colSpan={2}>
-                <Trans id="shared.resourceBreakdown.generatedHeader">
-                  {resourceName} generated
-                </Trans>
-              </th>
-              <th colSpan={2}>
-                <TooltipElement
-                  content={t({
-                    id: 'shared.resourceBreakdown.wastedHeader.tooltip',
-                    message:
-                      'This is the amount of resources that were generated while you were already at cap.',
-                  })}
-                >
-                  <Trans id="shared.resourceBreakdown.wastedHeader">{resourceName} wasted</Trans>
-                </TooltipElement>
-              </th>
-            </tr>
-          </thead>
+          {!hideGenerated && (
+            <thead>
+              <tr>
+                <th>
+                  <Trans id="shared.resourceBreakdown.ability">Ability</Trans>
+                </th>
+                <th colSpan={2}>
+                  <Trans id="shared.resourceBreakdown.generatedHeader">
+                    {resourceName} generated
+                  </Trans>
+                </th>
+                <th colSpan={2}>
+                  <TooltipElement
+                    content={t({
+                      id: 'shared.resourceBreakdown.wastedHeader.tooltip',
+                      message:
+                        'This is the amount of resources that were generated while you were already at cap.',
+                    })}
+                  >
+                    <Trans id="shared.resourceBreakdown.wastedHeader">{resourceName} wasted</Trans>
+                  </TooltipElement>
+                </th>
+              </tr>
+            </thead>
+          )}
           <tbody>
-            <tr className="poor">
-              <td>
-                <Trans id="shared.resourceBreakdown.total">Total</Trans>
-              </td>
-              <td style={numberColumnStyle}>{tracker.generated.toFixed(0)}</td>
-              <td></td>
-              <td style={numberColumnStyle}>{tracker.gainWaste}</td>
-              <td></td>
-            </tr>
+            {!hideGenerated && (
+              <tr className="poor">
+                <td>
+                  <Trans id="shared.resourceBreakdown.total">Total</Trans>
+                </td>
+                <td style={numberColumnStyle}>{tracker.generated.toFixed(0)}</td>
+                <td></td>
+                <td style={numberColumnStyle}>{tracker.gainWaste}</td>
+                <td></td>
+              </tr>
+            )}
             {generated &&
               generated.map((ability) => (
                 <tr key={ability.abilityId}>

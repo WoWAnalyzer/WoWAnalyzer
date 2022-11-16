@@ -58,6 +58,7 @@ import Lifecycles from './modules/spells/Lifecycles';
 import ManaTea from './modules/spells/ManaTea';
 import MistWrapEnvelopingBreath from './modules/spells/MistWrapEnvelopingBreath';
 import MistyPeaks from './modules/spells/MistyPeaks';
+import MistsOfLife from './modules/spells/MistsOfLife';
 import RefreshingJadeWind from './modules/spells/RefreshingJadeWind';
 import RenewingMistDuringManaTea from './modules/spells/RenewingMistDuringManaTea';
 import RisingMist from './modules/spells/RisingMist';
@@ -69,6 +70,7 @@ import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import Unison from './modules/spells/Unison';
+import T29TierSet from './modules/dragonflight/tier/T29MWTier';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -135,6 +137,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lifeCocoon: LifeCocoon,
     mistWrapEnvelopingBreath: MistWrapEnvelopingBreath,
     manaTea: ManaTea,
+    mistsOfLife: MistsOfLife,
     mistyPeaks: MistyPeaks,
     nourishingCh: NourishingChi,
     refreshingJadeWind: RefreshingJadeWind,
@@ -149,6 +152,9 @@ class CombatLogParser extends CoreCombatLogParser {
     upwelling: Upwelling,
     yulonsWhisper: YulonsWhisper,
     unison: Unison,
+
+    // Borrowed Power
+    t29TierSet: T29TierSet,
 
     // Mana Tab
     manaTracker: ManaTracker,

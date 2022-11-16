@@ -9,7 +9,11 @@ import Events, {
 } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import HotTracker from 'parser/shared/modules/HotTracker';
-import { isFromHardcast, isFromMistyPeaks } from '../../normalizers/CastLinkNormalizer';
+import {
+  isFromHardcast,
+  isFromMistsOfLife,
+  isFromMistyPeaks,
+} from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 
 const debug = false;
@@ -25,6 +29,7 @@ class HotAttributor extends Analyzer {
   envMistHardcastAttrib = HotTracker.getNewAttribution('Enveloping Mist Hardcast');
   envMistMistyPeaksAttrib = HotTracker.getNewAttribution('Enveloping Mist Misty Peaks Proc');
   REMHardcastAttrib = HotTracker.getNewAttribution('Renewing Mist Hardcast');
+  MistsOfLifeAttrib = HotTracker.getNewAttribution('Mists of Life');
   EFAttrib = HotTracker.getNewAttribution('Essence Font Hardcast');
 
   constructor(options: Options) {
@@ -46,6 +51,14 @@ class HotAttributor extends Analyzer {
   onApplyRem(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (this._hasAttribution(event)) {
       return;
+    } else if (isFromMistsOfLife(event)) {
+      debug &&
+        console.log(
+          'Attributed Renewing Mist from Mists of Life at ' +
+            this.owner.formatTimestamp(event.timestamp),
+          'on ' + this.combatants.getEntity(event)?.name,
+        );
+      this.hotTracker.addAttributionFromApply(this.MistsOfLifeAttrib, event);
     } else if (event.prepull || isFromHardcast(event)) {
       debug &&
         console.log(
@@ -59,6 +72,14 @@ class HotAttributor extends Analyzer {
   onApplyEnvm(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (this._hasAttribution(event)) {
       return;
+    } else if (isFromMistsOfLife(event)) {
+      debug &&
+        console.log(
+          'Attributed Enveloping Mist from Mists of Life at ' +
+            this.owner.formatTimestamp(event.timestamp),
+          'on ' + this.combatants.getEntity(event)?.name,
+        );
+      this.hotTracker.addAttributionFromApply(this.MistsOfLifeAttrib, event);
     } else if (event.prepull || isFromHardcast(event)) {
       this.hotTracker.addAttributionFromApply(this.envMistHardcastAttrib, event);
       debug &&
