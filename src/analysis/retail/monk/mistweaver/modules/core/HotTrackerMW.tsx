@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { Options } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
-import HotTracker, { Tracker, HotInfo } from 'parser/shared/modules/HotTracker';
+import HotTracker, { Tracker, HotInfo, Extension } from 'parser/shared/modules/HotTracker';
 
 const REM_BASE_DURATION = 20000;
 const ENV_BASE_DURATION = 6000;
@@ -32,6 +32,21 @@ class HotTrackerMW extends HotTracker {
     return hot.attributions.some(function (attr) {
       return attr.name.includes('Hardcast');
     });
+  }
+
+  // Decide which extension is responsible for allowing this extra vivify cleave
+  getRemExtensionForTimestamp(hot: Tracker, timestamp: number): Extension | null {
+    if (timestamp <= hot.originalEnd) {
+      return null;
+    }
+    let currentStart = hot.originalEnd;
+    for (const extension of hot.extensions) {
+      if (timestamp <= currentStart + extension.amount) {
+        return extension;
+      }
+      currentStart += extension.amount;
+    }
+    return null; // should never happen
   }
 
   // Renewing Mist applies with a longer duration if Thunder Focus Tea is active

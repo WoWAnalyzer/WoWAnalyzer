@@ -69,6 +69,7 @@ import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import Unison from './modules/spells/Unison';
+import T29TierSet from './modules/dragonflight/tier/T29MWTier';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -149,6 +150,9 @@ class CombatLogParser extends CoreCombatLogParser {
     upwelling: Upwelling,
     yulonsWhisper: YulonsWhisper,
     unison: Unison,
+
+    // Borrowed Power
+    t29TierSet: T29TierSet,
 
     // Mana Tab
     manaTracker: ManaTracker,
