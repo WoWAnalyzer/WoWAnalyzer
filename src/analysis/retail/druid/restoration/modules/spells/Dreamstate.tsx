@@ -5,11 +5,10 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Events, { CastEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
-import { SpellIcon } from 'interface';
-import BoringValue from 'parser/ui/BoringValueText';
 import { formatNumber } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { DRUID_COOLDOWNS } from 'analysis/retail/druid/restoration/constants';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 const CDR_PER_TICK = 3000;
 
@@ -52,15 +51,12 @@ class Dreamstate extends Analyzer {
           </>
         }
       >
-        <BoringValue
-          label={
-            <>
-              <SpellIcon id={TALENTS_DRUID.DREAMSTATE_TALENT.id} /> Dreamstate CDR per minute
-            </>
-          }
-        >
-          <>{formatNumber(this.owner.getPerMinute(this.totalCDR) / 1000)} seconds</>
-        </BoringValue>
+        <BoringSpellValueText spellId={TALENTS_DRUID.DREAMSTATE_TALENT.id}>
+          <>
+            {formatNumber(this.owner.getPerMinute(this.totalCDR) / 1000)} s{' '}
+            <small>CDR per minute</small>
+          </>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

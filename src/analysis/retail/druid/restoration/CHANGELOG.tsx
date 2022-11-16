@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
-import { Sref } from 'CONTRIBUTORS';
+import { Sref, Phased } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2022, 11, 16), <>Add module for <SpellLink id={TALENTS_DRUID.DREAMSTATE_TALENT.id}/>.</>, Phased),
   change(date(2022, 11, 13), <>Added cast efficiency numbers to Guide cooldown bars.</>, Sref),
   change(date(2022, 10, 31), <>Added statistic for <SpellLink id={TALENTS_DRUID.BUDDING_LEAVES_TALENT.id} /></>, Sref),
   change(date(2022, 10, 30), <>Fixed an issue where tracked HoT durations were not scaling correctly with <SpellLink id={TALENTS_DRUID.GERMINATION_TALENT.id} /> and <SpellLink id={TALENTS_DRUID.CIRCLE_OF_LIFE_AND_DEATH_TALENT.id} /></>, Sref),

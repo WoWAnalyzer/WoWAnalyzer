@@ -523,7 +523,13 @@ const talents = createTalentList({
     icon: 'inv_relics_totemoflife',
     maxRanks: 1,
   },
-  FLOURISH_TALENT: { id: 197721, name: 'Flourish', icon: 'spell_druid_wildburst', maxRanks: 1 },
+  FLOURISH_TALENT: {
+    id: 197721,
+    name: 'Flourish',
+    icon: 'spell_druid_wildburst',
+    maxRanks: 1,
+  },
+
   BUDDING_LEAVES_TALENT: {
     id: 392167,
     name: 'Budding Leaves',
