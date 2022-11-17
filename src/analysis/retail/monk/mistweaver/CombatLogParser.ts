@@ -70,6 +70,7 @@ import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import Unison from './modules/spells/Unison';
+import RapidDiffusion from './modules/spells/RapidDiffusion';
 import T29TierSet from './modules/dragonflight/tier/T29MWTier';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -152,6 +153,7 @@ class CombatLogParser extends CoreCombatLogParser {
     upwelling: Upwelling,
     yulonsWhisper: YulonsWhisper,
     unison: Unison,
+    rapidDiffusion: RapidDiffusion,
 
     // Borrowed Power
     t29TierSet: T29TierSet,

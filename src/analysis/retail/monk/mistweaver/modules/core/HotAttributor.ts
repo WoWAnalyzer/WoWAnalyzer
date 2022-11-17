@@ -11,12 +11,14 @@ import Combatants from 'parser/shared/modules/Combatants';
 import HotTracker from 'parser/shared/modules/HotTracker';
 import {
   isFromHardcast,
-  isFromMistsOfLife,
   isFromMistyPeaks,
+  isFromRapidDiffusion,
+  isFromMistsOfLife,
 } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 
 const debug = false;
+const rdDebug = false;
 
 class HotAttributor extends Analyzer {
   static dependencies = {
@@ -26,8 +28,10 @@ class HotAttributor extends Analyzer {
 
   protected combatants!: Combatants;
   protected hotTracker!: HotTrackerMW;
+  bouncedAttrib = HotTracker.getNewAttribution('Bounced');
   envMistHardcastAttrib = HotTracker.getNewAttribution('Enveloping Mist Hardcast');
   envMistMistyPeaksAttrib = HotTracker.getNewAttribution('Enveloping Mist Misty Peaks Proc');
+  rapidDiffusionAttrib = HotTracker.getNewAttribution('Renewing Mist Rapid Diffusion');
   REMHardcastAttrib = HotTracker.getNewAttribution('Renewing Mist Hardcast');
   MistsOfLifeAttrib = HotTracker.getNewAttribution('Mists of Life');
   EFAttrib = HotTracker.getNewAttribution('Essence Font Hardcast');
@@ -46,10 +50,28 @@ class HotAttributor extends Analyzer {
       Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.ESSENCE_FONT_BUFF]),
       this.onApplyEF,
     );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
+      this.onRemoveRem,
+    );
+  }
+
+  onRemoveRem(event: RemoveBuffEvent) {
+    debug &&
+      console.log(
+        'Removed rem from ' +
+          this.combatants.getEntity(event)?.name +
+          ' at ' +
+          this.owner.formatTimestamp(event.timestamp, 3),
+      );
   }
 
   onApplyRem(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (this._hasAttribution(event)) {
+      this.hotTracker.addAttributionFromApply(this.bouncedAttrib, event);
+      if (debug) {
+        this._existingAttributionLogging(event);
+      }
       return;
     } else if (isFromMistsOfLife(event)) {
       debug &&
@@ -62,10 +84,27 @@ class HotAttributor extends Analyzer {
     } else if (event.prepull || isFromHardcast(event)) {
       debug &&
         console.log(
-          'Attributed Renewing Mist hardcast at ' + this.owner.formatTimestamp(event.timestamp),
+          'Hardcast Renewing Mist at ' + this.owner.formatTimestamp(event.timestamp, 3),
           'on ' + this.combatants.getEntity(event)?.name,
         );
       this.hotTracker.addAttributionFromApply(this.REMHardcastAttrib, event);
+    } else if (isFromRapidDiffusion(event)) {
+      rdDebug &&
+        console.log(
+          ' Rapid Diffusion Renewing Mist at ' + this.owner.formatTimestamp(event.timestamp, 3),
+          'on ' + this.combatants.getEntity(event)?.name,
+          ' expected expiration: ' +
+            this.owner.formatTimestamp(
+              event.timestamp + Number(this.hotTracker.hotInfo[event.ability.guid].procDuration),
+              3,
+            ),
+        );
+      this.hotTracker.addAttributionFromApply(this.rapidDiffusionAttrib, event);
+      this.hotTracker.hots[event.targetID][event.ability.guid].maxDuration = Number(
+        this.hotTracker.hotInfo[event.ability.guid].procDuration,
+      );
+      this.hotTracker.hots[event.targetID][event.ability.guid].end =
+        event.timestamp + Number(this.hotTracker.hotInfo[event.ability.guid].procDuration);
     }
   }
 
@@ -84,17 +123,21 @@ class HotAttributor extends Analyzer {
       this.hotTracker.addAttributionFromApply(this.envMistHardcastAttrib, event);
       debug &&
         console.log(
-          'Attributed Enveloping Mist hardcast at ' + this.owner.formatTimestamp(event.timestamp),
+          'Attributed Enveloping Mist hardcast at ' +
+            this.owner.formatTimestamp(event.timestamp, 3),
           'on ' + this.combatants.getEntity(event)?.name,
         );
     } else if (isFromMistyPeaks(event)) {
       debug &&
         console.log(
           'Attributed Misty Peaks Enveloping Mist at ' +
-            this.owner.formatTimestamp(event.timestamp),
+            this.owner.formatTimestamp(event.timestamp, 3),
           'on ' + this.combatants.getEntity(event)?.name,
         );
       this.hotTracker.addAttributionFromApply(this.envMistMistyPeaksAttrib, event);
+      this.hotTracker.hots[event.targetID][event.ability.guid].maxDuration = Number(
+        this.hotTracker.hotInfo[event.ability.guid].procDuration,
+      );
     }
   }
 
@@ -109,6 +152,32 @@ class HotAttributor extends Analyzer {
       return;
     }
     return this.hotTracker.hots[targetId][spellId].attributions.length > 0;
+  }
+
+  _existingAttributionLogging(event: ApplyBuffEvent | RefreshBuffEvent) {
+    if (
+      this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0].name ===
+      'Renewing Mist Hardcast'
+    ) {
+      console.log(
+        'Bounce! Existing ' +
+          this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0].name +
+          ' at ' +
+          this.owner.formatTimestamp(event.timestamp, 3),
+        'on ' + this.combatants.getEntity(event)?.name,
+      );
+    } else if (
+      this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0].name ===
+      'Renewing Mist Rapid Diffusion'
+    ) {
+      console.log(
+        'Bounce! Existing ' +
+          this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0].name +
+          ' at ' +
+          this.owner.formatTimestamp(event.timestamp, 3),
+        'on ' + this.combatants.getEntity(event)?.name,
+      );
+    }
   }
 }
 
