@@ -5,7 +5,7 @@ import Combatant from 'parser/core/Combatant';
 import HotTracker, { Tracker, HotInfo, Extension } from 'parser/shared/modules/HotTracker';
 
 const RAPID_DIFFUSION = 3000;
-const MISTY_PEAKS = 1000;
+const MISTY_PEAKS_DURATION = 1000;
 const REM_BASE_DURATION = 20000;
 const ENV_BASE_DURATION = 6000;
 const EF_BASE_DURATION = 8000;
@@ -69,8 +69,8 @@ class HotTrackerMW extends HotTracker {
     return hot.attributions.some(function (attr) {
       return attr.name.includes('Rapid Diffusion');
     });
-  }  
-    
+  }
+
   // Decide which extension is responsible for allowing this extra vivify cleave
   getRemExtensionForTimestamp(hot: Tracker, timestamp: number): Extension | null {
     if (timestamp <= hot.originalEnd) {
@@ -128,7 +128,8 @@ class HotTrackerMW extends HotTracker {
             ? RISING_MIST
             : 1),
         procDuration: this.owner.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT.id)
-          ? MISTY_PEAKS * this.selectedCombatant.getTalentRank(TALENTS_MONK.MISTY_PEAKS_TALENT) +
+          ? MISTY_PEAKS_DURATION *
+              this.selectedCombatant.getTalentRank(TALENTS_MONK.MISTY_PEAKS_TALENT) +
             ENV_BASE_DURATION // misty peaks can be extended for 100% of base env duration
           : undefined,
       },

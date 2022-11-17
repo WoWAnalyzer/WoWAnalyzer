@@ -14,7 +14,6 @@ import {
   isFromMistyPeaks,
   isFromRapidDiffusion,
   isFromMistsOfLife,
-  isFromMistyPeaks,
 } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 
