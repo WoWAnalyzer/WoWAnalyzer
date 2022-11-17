@@ -416,6 +416,8 @@ abstract class HotTracker extends Analyzer {
                   ' on ' +
                   this.combatants.getEntity(event)?.name,
               );
+            //duration is not lost due to latency between events -- account for it
+            hot.maxDuration! += timeBetween;
             this.hots[targetId][spellId] = hot;
             this.bouncingHots.shift();
             return;

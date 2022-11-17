@@ -21,7 +21,7 @@ import HotTrackerMW from '../core/HotTrackerMW';
 const debug = false;
 const remDebug = true;
 const rdDebug = true;
-const dmDebug = false;
+const dmDebug = true;
 
 class HotAttributor extends Analyzer {
   static dependencies = {
