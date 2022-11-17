@@ -105,7 +105,7 @@ class MistWrapEnvelopingBreath extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(70)}
+        position={STATISTIC_ORDER.OPTIONAL(20)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={

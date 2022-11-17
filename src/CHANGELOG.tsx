@@ -67,6 +67,7 @@ import SpellLink from 'interface/SpellLink';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 export default [
+  change(date(2022, 11, 15), 'Add SuggestionSection component to help transition into Guides.', ToppleTheNun),
   change(date(2022, 11, 13), 'Add weapon enhancements to preparation section of guide.', ToppleTheNun),
   change(date(2022, 11, 13), 'Hide Dragonflight warning on Classic logs that don\'t have a build selected', emallson),
   change(date(2022, 11, 12), 'Backend work on resource tracking, including light bug fixes and ability to query stats for specific time periods', Sref),

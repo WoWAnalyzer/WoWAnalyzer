@@ -19,7 +19,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.REVERSION_TALENT.id),
       },
       {
-        spell: SPELLS.DREAM_BREATH.id,
+        spell: SPELLS.DREAM_BREATH_CAST.id,
         enabled: combatant.hasTalent(TALENTS.DREAM_BREATH_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 25,
@@ -38,7 +38,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.TIME_DILATION_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
+        category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 60,
         gcd: {
           base: 1500,

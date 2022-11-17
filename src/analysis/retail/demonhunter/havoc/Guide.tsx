@@ -1,11 +1,12 @@
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import CombatLogParser from 'analysis/retail/demonhunter/vengeance/CombatLogParser';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
-import { CooldownBar, GapHighlight } from 'parser/ui/CooldownBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { getElysianDecreeSpell } from 'analysis/retail/demonhunter/shared/constants';
 import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -47,6 +48,10 @@ function CooldownSection({ modules, events, info }: GuideProps<typeof CombatLogP
         <strong>Per-spell guidance and statistics coming soon!</strong>
       </p>
       <CooldownGraphSubsection modules={modules} events={events} info={info} />
+      <SubSection>
+        {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT) &&
+          modules.theHunt.havocGuideCastBreakdown()}
+      </SubSection>
     </Section>
   );
 }
@@ -71,7 +76,7 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
   );
 }
 
-function CooldownGraphSubsection({ events, info }: GuideProps<typeof CombatLogParser>) {
+function CooldownGraphSubsection({ info }: GuideProps<typeof CombatLogParser>) {
   const hasEssenceBreak = info.combatant.hasTalent(TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT);
   const hasEyeBeam = info.combatant.hasTalent(TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT);
   const hasGlaiveTempest = info.combatant.hasTalent(TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_TALENT);
@@ -86,67 +91,51 @@ function CooldownGraphSubsection({ events, info }: GuideProps<typeof CombatLogPa
       you waited to use them again. Grey segments show when the spell was available, yellow segments
       show when the spell was cooling down. Red segments highlight times when you could have fit a
       whole extra use of the cooldown.
-      <div className="flex-main chart" style={{ padding: 5 }}>
-        <CooldownBar
-          spellId={SPELLS.METAMORPHOSIS_HAVOC.id}
+      <CastEfficiencyBar
+        spellId={SPELLS.METAMORPHOSIS_HAVOC.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+      />
+      {hasEssenceBreak && (
+        <CastEfficiencyBar
+          spellId={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.id}
           gapHighlightMode={GapHighlight.FullCooldown}
         />
-      </div>
-      {hasEssenceBreak && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
       )}
       {hasEyeBeam && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
+        <CastEfficiencyBar
+          spellId={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+        />
       )}
       {hasElysianDecree && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={getElysianDecreeSpell(info.combatant).id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
+        <CastEfficiencyBar
+          spellId={getElysianDecreeSpell(info.combatant).id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+        />
       )}
       {hasTheHunt && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
+        <CastEfficiencyBar
+          spellId={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+        />
       )}
       {hasGlaiveTempest && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
+        <CastEfficiencyBar
+          spellId={TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+        />
       )}
       {hasFelBarrage && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
+        <CastEfficiencyBar
+          spellId={TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+        />
       )}
       {hasInitiative && hasVengefulRetreat && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
+        <CastEfficiencyBar
+          spellId={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+        />
       )}
     </SubSection>
   );

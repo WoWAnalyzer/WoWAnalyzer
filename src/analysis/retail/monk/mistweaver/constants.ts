@@ -35,6 +35,9 @@ export const LIFECYCLES_MANA_REDUCTION_PERCENT = 0.25;
 export const MANA_TEA_DURATION = 10000;
 export const JADE_BOND_INC = 0.4;
 export const NOURISHING_CHI_INC = 0.2;
+export const DANCING_MIST_CHANCE = 0.05; // per rank
+export const RAPID_DIFFUSION_DURATION = 3000; // per rank
+export const RISING_MIST_EXTENSION = 4000;
 
 export const LIFECYCLES_MANA_PERC_REDUCTION = 0.25;
 
