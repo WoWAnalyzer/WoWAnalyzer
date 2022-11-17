@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
 import { TooltipElement } from 'interface';
@@ -29,11 +28,12 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         name="Use core abilities as often as possible"
         description={
           <>
-            As a Mistweaver you only have a single rotational spell that should be cast on CD{' '}
-            <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />. The other piece is ensuring you
-            have enough <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />
-            's on the raid so that you maximize the cleave healing from{' '}
-            <SpellLink id={SPELLS.VIVIFY.id} />.
+            As a Mistweaver you only have a few rotational spells that should be cast on CD:{' '}
+            <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> and{' '}
+            <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />. Casting these on CD will
+            ensure that you maintain a high count of{' '}
+            <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />
+            's on the raid, maximizing the cleave healing from <SpellLink id={SPELLS.VIVIFY.id} />.
           </>
         }
       >
@@ -48,9 +48,6 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         />
         {combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id) && (
           <AbilityRequirement spell={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />
-        )}
-        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
-          <AbilityRequirement spell={SPELLS.FAELINE_STOMP_CAST.id} />
         )}
       </Rule>
 

@@ -47,6 +47,9 @@ import Metamorphosis from './modules/spells/Metamorphosis';
 import ShearFractureNormalizer from './normalizers/ShearFractureNormalizer';
 import SoulFragmentsGraph from './modules/resourcetracker/SoulFragmentsGraph';
 import SoulFragmentBuffStackTracker from './modules/resourcetracker/SoulFragmentBuffStackTracker';
+import Fracture from './modules/talents/Fracture';
+import SoulCarver from './modules/talents/SoulCarver';
+import FelDevastation from './modules/talents/FelDevastation';
 import Guide from './Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -98,6 +101,9 @@ class CombatLogParser extends CoreCombatLogParser {
     disruptingFury: DisruptingFury,
     fieryBrand: FieryBrand,
     voidReaver: VoidReaver,
+    fracture: Fracture,
+    soulCarver: SoulCarver,
+    felDevastation: FelDevastation,
 
     // Spell
     immolationAura: ImmolationAura,

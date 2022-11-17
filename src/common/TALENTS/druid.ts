@@ -438,7 +438,12 @@ const talents = createTalentList({
     icon: 'ability_druid_dreamstate',
     maxRanks: 1,
   },
-  DREAMSTATE_TALENT: { id: 392162, name: 'Dreamstate', icon: 'spell_unused', maxRanks: 1 },
+  DREAMSTATE_TALENT: {
+    id: 392162,
+    name: 'Dreamstate',
+    icon: 'spell_unused',
+    maxRanks: 1,
+  },
   IMPROVED_WILD_GROWTH_TALENT: {
     id: 328025,
     name: 'Improved Wild Growth',
@@ -518,7 +523,13 @@ const talents = createTalentList({
     icon: 'inv_relics_totemoflife',
     maxRanks: 1,
   },
-  FLOURISH_TALENT: { id: 197721, name: 'Flourish', icon: 'spell_druid_wildburst', maxRanks: 1 },
+  FLOURISH_TALENT: {
+    id: 197721,
+    name: 'Flourish',
+    icon: 'spell_druid_wildburst',
+    maxRanks: 1,
+  },
+
   BUDDING_LEAVES_TALENT: {
     id: 392167,
     name: 'Budding Leaves',

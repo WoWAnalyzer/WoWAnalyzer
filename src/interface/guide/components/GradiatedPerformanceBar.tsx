@@ -102,7 +102,7 @@ function getDefaultInfo(val?: number | GradiatedPerformanceBarInfo) {
   }
 }
 
-type GradiatedPerformanceBarInfo = {
+export type GradiatedPerformanceBarInfo = {
   count: number;
   label: string;
 };
