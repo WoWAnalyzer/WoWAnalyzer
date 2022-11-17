@@ -13,11 +13,14 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { GRACE_PERIOD_INCREASE } from '../../constants';
+import HotTrackerPrevoker from '../core/HotTrackerPrevoker';
 
 class GracePeriod extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    hotTracker: HotTrackerPrevoker,
   };
+  protected hotTracker!: HotTrackerPrevoker;
   protected combatants!: Combatants;
   gracePeriodIncrease: number = 0;
   healingFromIncrease: number = 0;
@@ -35,19 +38,24 @@ class GracePeriod extends Analyzer {
   }
 
   calculateHealingIncrease(event: HealEvent) {
-    const combatant = this.combatants.getEntity(event);
-    if (!combatant) {
+    const targetId = event.targetID;
+    if (!this.hotTracker.hots[targetId]) {
+      return;
+    }
+    const reversion = this.hotTracker.hots[targetId][TALENTS_EVOKER.REVERSION_TALENT.id];
+    const echoReversion = this.hotTracker.hots[targetId][SPELLS.REVERSION_ECHO.id];
+    if (!reversion && !echoReversion) {
       return;
     }
     let totalIncrease = this.gracePeriodIncrease;
-    if (combatant.hasBuff(TALENTS_EVOKER.REVERSION_TALENT.id)) {
-      if (combatant.hasBuff(SPELLS.REVERSION_ECHO.id)) {
+    if (reversion) {
+      if (echoReversion) {
         //grace periods' healing amp is multiplicative and increases itself
         totalIncrease = (1 + this.gracePeriodIncrease) * (1 + this.gracePeriodIncrease) - 1;
       }
       this.healingFromIncrease += calculateEffectiveHealing(event, totalIncrease);
       this.overhealFromIncrease += calculateOverhealing(event, totalIncrease);
-    } else if (combatant.hasBuff(SPELLS.REVERSION_ECHO.id)) {
+    } else if (echoReversion) {
       this.healingFromIncrease += calculateEffectiveHealing(event, totalIncrease);
       this.overhealFromIncrease += calculateOverhealing(event, totalIncrease);
     }
