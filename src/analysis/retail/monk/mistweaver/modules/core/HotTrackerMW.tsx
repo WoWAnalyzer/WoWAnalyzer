@@ -114,8 +114,7 @@ class HotTrackerMW extends HotTracker {
         bouncy: true,
         procDuration: this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT.id)
           ? RAPID_DIFFUSION *
-              this.selectedCombatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT) +
-            3000 // add 3000 for now to account for tier piece extension (a single rapid diffusion instance will only be around long enough for one channel of essence font)
+            this.selectedCombatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT)
           : undefined,
       },
       {
