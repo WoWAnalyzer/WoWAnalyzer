@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -118,6 +119,15 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
         castEfficiency: {
           suggestion: true,
+        },
+      },
+      {
+        spell: TALENTS_MONK.FAELINE_STOMP_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 30,
+        enabled: combatant.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT),
+        gcd: {
+          base: 1000,
         },
       },
       {

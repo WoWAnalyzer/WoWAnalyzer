@@ -850,7 +850,6 @@ const talents = createTalentList({
     name: 'Weapons of Order',
     icon: 'ability_bastion_monk',
     maxRanks: 1,
-    manaCost: 2500,
   },
   STORMSTOUTS_LAST_KEG_TALENT: {
     id: 383707,

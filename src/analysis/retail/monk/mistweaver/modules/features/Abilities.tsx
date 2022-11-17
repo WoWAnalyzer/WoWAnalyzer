@@ -36,7 +36,19 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 100,
       },
-
+      {
+        spell: TALENTS_MONK.FAELINE_STOMP_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 30,
+        enabled: combatant.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+      },
       // Cooldowns
       {
         spell: TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id,
