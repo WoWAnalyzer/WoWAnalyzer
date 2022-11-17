@@ -10,18 +10,33 @@ import {
   RefreshBuffEvent,
 } from 'parser/core/Events';
 
+export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly';
 export const ECHO_TEMPORAL_ANOMALY = 'TemporalAnomaly';
 export const ECHO = 'Echo';
 
 const CAST_BUFFER_MS = 100;
+const TA_BUFFER_MS = 6000 + CAST_BUFFER_MS; //TA pulses over 6s at 0% haste
 /*
   This file is for attributing echo applications to hard casts or to temporal anomaly.
   It is needed because echo can apply indrectly from temporal anomaly and 
   not just from a hard cast and has a reduced transfer rate
   */
 const EVENT_LINKS: EventLink[] = [
+  //link shield apply to cast event
+  {
+    linkRelation: SHIELD_FROM_TA_CAST,
+    linkingEventId: [SPELLS.TEMPORAL_ANOMALY_SHIELD.id],
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: [TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT.id],
+    referencedEventType: [EventType.Cast],
+    backwardBufferMs: TA_BUFFER_MS,
+    anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT);
+    },
+  },
   // link Echo apply to its CastEvent
   {
     linkRelation: FROM_HARDCAST,
