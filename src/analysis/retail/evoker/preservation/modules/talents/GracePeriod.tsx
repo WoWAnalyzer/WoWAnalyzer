@@ -6,7 +6,6 @@ import Analyzer from 'parser/core/Analyzer';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/EventSubscriber';
-import Combatants from 'parser/shared/modules/Combatants';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -17,11 +16,9 @@ import HotTrackerPrevoker from '../core/HotTrackerPrevoker';
 
 class GracePeriod extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
     hotTracker: HotTrackerPrevoker,
   };
   protected hotTracker!: HotTrackerPrevoker;
-  protected combatants!: Combatants;
   gracePeriodIncrease: number = 0;
   healingFromIncrease: number = 0;
   overhealFromIncrease: number = 0;
