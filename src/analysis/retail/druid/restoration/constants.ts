@@ -100,3 +100,14 @@ export const PHOTO_INCREASED_RATE = [
   SPELLS.SPRING_BLOSSOMS,
   SPELLS.EFFLORESCENCE_HEAL,
 ];
+
+//probably need to add natures vigil here as well and need to check if it reduces tranquility itself
+export const DRUID_COOLDOWNS = [
+  SPELLS.WILD_GROWTH.id,
+  SPELLS.SWIFTMEND.id,
+  TALENTS_DRUID.CENARION_WARD_TALENT.id,
+  SPELLS.TRANQUILITY_CAST.id,
+  SPELLS.CONVOKE_SPIRITS.id,
+  TALENTS_DRUID.FLOURISH_TALENT.id,
+  SPELLS.NATURES_SWIFTNESS.id,
+];
