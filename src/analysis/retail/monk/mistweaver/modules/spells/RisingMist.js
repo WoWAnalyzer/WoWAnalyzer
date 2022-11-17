@@ -221,7 +221,6 @@ class RisingMist extends Analyzer {
     this.risingMists.push(newRisingMist);
 
     let foundTarget = false;
-    const untrackedSpells = [SPELLS.ESSENCE_FONT_BUFF.id, SPELLS.FAELINE_STOMP_ESSENCE_FONT.id];
     Object.keys(this.hotTracker.hots).forEach((playerId) => {
       Object.keys(this.hotTracker.hots[playerId]).forEach((spellIdString) => {
         const spellId = Number(spellIdString);
@@ -229,7 +228,7 @@ class RisingMist extends Analyzer {
         const attribution = newRisingMist;
         const hot = this.hotTracker.hots[playerId][spellId];
 
-        if (!untrackedSpells.includes(spellId) && !this.hotTracker.fromHardcast(hot)) {
+        if (this.hotTracker.fromRapidDiffusion(hot)) {
           return;
         }
 
