@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer from 'parser/core/Analyzer';
-import Events, { HealEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/EventSubscriber';
 
 import Haste from 'parser/shared/modules/Haste';
@@ -14,7 +14,8 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { formatDuration, formatNumber } from 'common/format';
+import { formatNumber } from 'common/format';
+import { TooltipElement } from 'interface';
 
 const debug = false;
 const REVERSION_EXTENSION_PREFIX = 'Reversion Crit #';
@@ -35,6 +36,7 @@ class Reversion extends Analyzer {
   additionalAbsorbed: number = 0;
   healing: number = 0;
   absorbedHealing: number = 0;
+  buffCount: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -44,14 +46,41 @@ class Reversion extends Analyzer {
         .spell([TALENTS_EVOKER.REVERSION_TALENT, SPELLS.REVERSION_ECHO]),
       this.reversionHeal,
     );
+    this.addEventListener(
+      Events.applybuff
+        .by(SELECTED_PLAYER)
+        .spell([TALENTS_EVOKER.REVERSION_TALENT, SPELLS.REVERSION_ECHO]),
+      this.onApply,
+    );
+    this.addEventListener(
+      Events.refreshbuff
+        .by(SELECTED_PLAYER)
+        .spell([TALENTS_EVOKER.REVERSION_TALENT, SPELLS.REVERSION_ECHO]),
+      this.onApply,
+    );
   }
 
-  get totallHealing() {
+  get totalHealing() {
     return this.healing + this.absorbedHealing;
   }
 
-  get totalAdditionaHealing() {
+  get totalAdditionalHealing() {
     return this.additionalAbsorbed + this.additionalHealing;
+  }
+
+  get averageExtension() {
+    return this.totalExtensionTime / this.buffCount;
+  }
+
+  get averageDuration() {
+    return (
+      this.averageExtension +
+      Number(this.hotTracker.hotInfo[TALENTS_EVOKER.REVERSION_TALENT.id].duration)
+    );
+  }
+
+  onApply(event: ApplyBuffEvent | RefreshBuffEvent) {
+    this.buffCount += 1;
   }
 
   reversionHeal(event: HealEvent) {
@@ -106,16 +135,24 @@ class Reversion extends Analyzer {
         tooltip={
           <ul>
             <li>Extra ticks: {this.reversionCritCount}</li>
-            <li>Total healing from extensions: {formatNumber(this.totalAdditionaHealing)}</li>
+            <li>Extra duration from crits: {this.totalExtensionTime / 1000} seconds</li>
+            <li>Total healing from extensions: {formatNumber(this.totalAdditionalHealing)}</li>
           </ul>
         }
       >
         <TalentSpellText talent={TALENTS_EVOKER.REVERSION_TALENT}>
-          <ItemHealingDone amount={this.totallHealing} />
+          <ItemHealingDone amount={this.totalHealing} />
           <br />
-          <>
-            {formatDuration(this.totalExtensionTime)} <small>additional duration from crits</small>
-          </>
+          <TooltipElement
+            content={
+              <>
+                Each hot was extended by an average of {(this.averageExtension / 1000).toFixed(1)}{' '}
+                seconds
+              </>
+            }
+          >
+            {(this.averageDuration / 1000).toFixed(1)}s <small>average HoT duration</small>
+          </TooltipElement>
         </TalentSpellText>
       </Statistic>
     );
