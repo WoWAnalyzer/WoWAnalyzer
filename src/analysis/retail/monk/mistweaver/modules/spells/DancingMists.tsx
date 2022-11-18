@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -66,10 +66,6 @@ class DancingMists extends Analyzer {
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleVivify);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY),
-      this.handleVivifyCast,
-    );
-    this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
       this.handleEnvApply,
     );
@@ -112,10 +108,6 @@ class DancingMists extends Analyzer {
       this.dancingMistOverhealing += event.overheal || 0;
     }
   }
-  handleVivifyCast(event: CastEvent) {
-    this.vivify.lastCastTarget = event.targetID || 0;
-    this.vivify.mainTargetHitsToCount += 1;
-  }
 
   handleVivify(event: HealEvent) {
     const targetId = event.targetID;
@@ -128,7 +120,6 @@ class DancingMists extends Analyzer {
     }
     // only count cleave hit on main target
     if (this.vivify.lastCastTarget === targetId && this.vivify.mainTargetHitsToCount > 0) {
-      this.vivify.mainTargetHitsToCount -= 1;
       return;
     }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
