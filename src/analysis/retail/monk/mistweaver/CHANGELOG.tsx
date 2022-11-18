@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 11, 17),<> Fix some typos and remove <SpellLink id={TALENTS_MONK.LIFE_COCOON_TALENT.id}/> statistic</> ,Trevor),
   change(date(2022, 11, 14), <>Updated average <SpellLink id={SPELLS.RENEWING_MIST_HEAL.id}/> per <SpellLink id={SPELLS.VIVIFY.id}/> suggestion threshold to be accurate for specific talent selections</>, Vohrr),
   change(date(2022, 11, 13), <>Updates to Hot Tracker to better handle <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id}/> tracking. Added <SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT.id}/> module.</>, Vohrr),
   change(date(2022, 11, 13), <>Add <SpellLink id={TALENTS_MONK.MISTS_OF_LIFE_TALENT.id}/> module</>, Trevor),
