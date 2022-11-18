@@ -1,7 +1,7 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { TALENTS_MONK } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
-import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import HotTrackerMW from '../core/HotTrackerMW';
 import MistyPeaks from './MistyPeaks';
 import Vivify from './Vivify';
@@ -65,6 +65,10 @@ class RapidDiffusion extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
       this.handleReMHeal,
     );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY),
+      this.handleVivifyCast,
+    );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleVivify);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
@@ -110,12 +114,23 @@ class RapidDiffusion extends Analyzer {
     }
   }
 
+  handleVivifyCast(event: CastEvent) {
+    this.vivify.lastCastTarget = event.targetID || 0;
+    this.vivify.mainTargetHitsToCount += 1;
+  }
+
   handleVivify(event: HealEvent) {
     const targetId = event.targetID;
+    //check for rem on the target
     if (
       !this.hotTracker.hots[targetId] ||
       !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]
     ) {
+      return;
+    }
+    // only count cleave hit on main target
+    if (this.vivify.lastCastTarget === targetId && this.vivify.mainTargetHitsToCount > 0) {
+      this.vivify.mainTargetHitsToCount -= 1;
       return;
     }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
@@ -135,8 +150,8 @@ class RapidDiffusion extends Analyzer {
     ) {
       return;
     }
-    const hot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
-    if (this.hotTracker.fromRapidDiffusion(hot)) {
+    const remHot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
+    if (this.hotTracker.fromRapidDiffusion(remHot)) {
       if (isFromMistyPeaks(event)) {
         this.extraMistyPeaksProcs += 1;
       }
@@ -150,8 +165,8 @@ class RapidDiffusion extends Analyzer {
     ) {
       return;
     }
-    const remhot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
-    if (this.hotTracker.fromRapidDiffusion(remhot)) {
+    const remHot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
+    if (this.hotTracker.fromRapidDiffusion(remHot)) {
       if (
         !this.hotTracker.hots[playerId] ||
         !this.hotTracker.hots[playerId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id]

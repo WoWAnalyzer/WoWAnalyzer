@@ -11,11 +11,14 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { isFromMistyPeaks } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
+import Vivify from './Vivify';
 
 class DancingMists extends Analyzer {
   static dependencies = {
     hotTracker: HotTrackerMW,
+    vivify: Vivify,
   };
+  protected vivify!: Vivify;
   hotTracker!: HotTrackerMW;
   dancingMistCount: number = 0;
   dancingMistHealing: number = 0;
@@ -29,7 +32,6 @@ class DancingMists extends Analyzer {
   extraVivAbsorbed: number = 0;
   extraMistyPeaksProcs: number = 0;
   countedMainVivifyHit: boolean = false;
-  lastVivifyCastTarget: number = 0;
   extraMistyPeaksHealing: number = 0;
   extraMistyPeaksAbsorb: number = 0;
 
@@ -111,12 +113,13 @@ class DancingMists extends Analyzer {
     }
   }
   handleVivifyCast(event: CastEvent) {
-    this.lastVivifyCastTarget = event.targetID || 0;
-    this.countedMainVivifyHit = false;
+    this.vivify.lastCastTarget = event.targetID || 0;
+    this.vivify.mainTargetHitsToCount += 1;
   }
 
   handleVivify(event: HealEvent) {
     const targetId = event.targetID;
+    //check for rem on the target
     if (
       !this.hotTracker.hots[targetId] ||
       !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]
@@ -124,12 +127,12 @@ class DancingMists extends Analyzer {
       return;
     }
     // only count cleave hit on main target
-    if (targetId === this.lastVivifyCastTarget && !this.countedMainVivifyHit) {
-      this.countedMainVivifyHit = true;
+    if (this.vivify.lastCastTarget === targetId && this.vivify.mainTargetHitsToCount > 0) {
+      this.vivify.mainTargetHitsToCount -= 1;
       return;
     }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
-    if (this.hotTracker.fromRapidDiffusion(hot)) {
+    if (this.hotTracker.fromDancingMists(hot)) {
       this.extraVivCleaves += 1;
       this.extraVivHealing += event.amount || 0;
       this.extraVivOverhealing += event.overheal || 0;
@@ -145,8 +148,8 @@ class DancingMists extends Analyzer {
     ) {
       return;
     }
-    const hot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
-    if (this.hotTracker.fromDancingMists(hot)) {
+    const remHot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
+    if (this.hotTracker.fromDancingMists(remHot)) {
       if (isFromMistyPeaks(event)) {
         this.extraMistyPeaksProcs += 1;
       }
@@ -160,8 +163,8 @@ class DancingMists extends Analyzer {
     ) {
       return;
     }
-    const remhot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
-    if (this.hotTracker.fromDancingMists(remhot)) {
+    const remHot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
+    if (this.hotTracker.fromDancingMists(remHot)) {
       if (
         !this.hotTracker.hots[playerId] ||
         !this.hotTracker.hots[playerId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id]

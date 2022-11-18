@@ -46,6 +46,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
+  //link the remove buff event to cast - aka the Renewing Mist 'push'
   {
     linkRelation: FORCE_BOUNCE,
     linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
