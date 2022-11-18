@@ -24,9 +24,10 @@ export const FROM_MISTS_OF_LIFE = 'FromMOL';
 export const FROM_RAPID_DIFFUSION = 'FromRD'; // can be linked to env mist or rsk cast
 
 const RAPID_DIFFUSION_BUFFER_MS = 300;
+const DANCING_MIST_BUFFER_MS = 120;
 const CAST_BUFFER_MS = 100;
 const MAX_REM_DURATION = 77000;
-const FOUND_REMS = new Set();
+const FOUND_REMS: Map<string, number | null> = new Map();
 
 /*
   This file is for attributing Renewing Mist and Enveloping Mist applications to hard casts.
@@ -104,8 +105,9 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: [SPELLS.RENEWING_MIST_HEAL.id],
     referencedEventType: [EventType.ApplyBuff],
     anyTarget: true,
-    backwardBufferMs: 50,
-    forwardBufferMs: 50,
+    backwardBufferMs: DANCING_MIST_BUFFER_MS,
+    forwardBufferMs: DANCING_MIST_BUFFER_MS,
+    maximumLinks: 1,
     additionalCondition(linkingEvent, referencedEvent) {
       return (
         (linkingEvent as ApplyBuffEvent).targetID !==
@@ -125,6 +127,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: TALENTS_MONK.LIFE_COCOON_TALENT.id,
     referencedEventType: [EventType.Cast],
     backwardBufferMs: 500,
+    forwardBufferMs: 50,
     additionalCondition(linkingEvent, referencedEvent) {
       return (
         !HasRelatedEvent(linkingEvent, FROM_HARDCAST) &&
@@ -196,10 +199,14 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
   }
   // 2nd ReM application is the duplicated event
   if (HasRelatedEvent(event, FROM_DANCING_MISTS)) {
-    if (FOUND_REMS.has(event.timestamp)) {
+    const dmRem = FOUND_REMS.get(FROM_HARDCAST);
+    if (
+      dmRem! - DANCING_MIST_BUFFER_MS <= event.timestamp &&
+      event.timestamp <= dmRem! + DANCING_MIST_BUFFER_MS
+    ) {
       return false;
     } else {
-      FOUND_REMS.add(event.timestamp);
+      FOUND_REMS.set(FROM_HARDCAST, event.timestamp);
     }
   }
   if (HasRelatedEvent(event, FROM_HARDCAST)) {
@@ -232,28 +239,41 @@ export function isFromMistyPeaks(event: ApplyBuffEvent | RefreshBuffEvent) {
 }
 
 export function isFromRapidDiffusion(event: ApplyBuffEvent | RefreshBuffEvent) {
-  if (HasRelatedEvent(event, FROM_HARDCAST)) {
+  if (HasRelatedEvent(event, FROM_HARDCAST) || HasRelatedEvent(event, FROM_MISTS_OF_LIFE)) {
     return false;
   }
-  if (HasRelatedEvent(event, FROM_MISTS_OF_LIFE)) {
-    return false;
-  }
+  // 2nd ReM application is the duplicated event
   if (HasRelatedEvent(event, FROM_DANCING_MISTS)) {
-    if (FOUND_REMS.has(event.timestamp)) {
+    const dmRem = FOUND_REMS.get(FROM_RAPID_DIFFUSION);
+    if (
+      dmRem! - DANCING_MIST_BUFFER_MS <= event.timestamp &&
+      event.timestamp <= dmRem! + DANCING_MIST_BUFFER_MS
+    ) {
       return false;
+    } else {
+      FOUND_REMS.set(FROM_RAPID_DIFFUSION, event.timestamp);
     }
   }
   return HasRelatedEvent(event, FROM_RAPID_DIFFUSION);
 }
 
 export function isFromMistsOfLife(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
+  // 2nd ReM application is the duplicated event
+  if (HasRelatedEvent(event, FROM_DANCING_MISTS)) {
+    const dmRem = FOUND_REMS.get(FROM_MISTS_OF_LIFE);
+    if (
+      dmRem! - DANCING_MIST_BUFFER_MS <= event.timestamp &&
+      event.timestamp <= dmRem! + DANCING_MIST_BUFFER_MS
+    ) {
+      return false;
+    } else {
+      FOUND_REMS.set(FROM_MISTS_OF_LIFE, event.timestamp);
+    }
+  }
   return HasRelatedEvent(event, FROM_MISTS_OF_LIFE);
 }
 
 export function isFromDancingMists(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
-  if (HasRelatedEvent(event, FROM_HARDCAST)) {
-    return false;
-  }
   return HasRelatedEvent(event, FROM_DANCING_MISTS);
 }
 

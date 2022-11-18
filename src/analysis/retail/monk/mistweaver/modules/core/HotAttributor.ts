@@ -9,6 +9,7 @@ import Events, {
 } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
+import { ATTRIBUTION_STRINGS } from '../../constants';
 import {
   isFromHardcast,
   isFromMistyPeaks,
@@ -19,9 +20,9 @@ import {
 import HotTrackerMW from '../core/HotTrackerMW';
 
 const debug = false;
-const remDebug = true;
-const rdDebug = true;
-const dmDebug = true;
+const remDebug = false;
+const rdDebug = false;
+const dmDebug = false;
 
 class HotAttributor extends Analyzer {
   static dependencies = {
@@ -31,14 +32,20 @@ class HotAttributor extends Analyzer {
 
   protected combatants!: Combatants;
   protected hotTracker!: HotTrackerMW;
-  bouncedAttrib = HotTracker.getNewAttribution('Bounced');
-  envMistHardcastAttrib = HotTracker.getNewAttribution('Enveloping Mist Hardcast');
-  envMistMistyPeaksAttrib = HotTracker.getNewAttribution('Enveloping Mist Misty Peaks Proc');
-  rapidDiffusionAttrib = HotTracker.getNewAttribution('Renewing Mist Rapid Diffusion');
-  REMHardcastAttrib = HotTracker.getNewAttribution('Renewing Mist Hardcast');
-  MistsOfLifeAttrib = HotTracker.getNewAttribution('Mists of Life');
-  dancingMistAttrib = HotTracker.getNewAttribution('Dancing Mist Proc');
-  EFAttrib = HotTracker.getNewAttribution('Essence Font Hardcast');
+  bouncedAttrib = HotTracker.getNewAttribution(ATTRIBUTION_STRINGS.BOUNCED);
+  envMistHardcastAttrib = HotTracker.getNewAttribution(
+    ATTRIBUTION_STRINGS.HARDCAST_ENVELOPING_MIST,
+  );
+  envMistMistyPeaksAttrib = HotTracker.getNewAttribution(
+    ATTRIBUTION_STRINGS.MISTY_PEAKS_ENVELOPING_MIST,
+  );
+  rapidDiffusionAttrib = HotTracker.getNewAttribution(
+    ATTRIBUTION_STRINGS.RAPID_DIFFUSION_RENEWING_MIST,
+  );
+  REMHardcastAttrib = HotTracker.getNewAttribution(ATTRIBUTION_STRINGS.HARDCAST_RENEWING_MIST);
+  MistsOfLifeAttrib = HotTracker.getNewAttribution(ATTRIBUTION_STRINGS.MISTS_OF_LIFE_RENEWING_MIST);
+  dancingMistAttrib = HotTracker.getNewAttribution(ATTRIBUTION_STRINGS.DANCING_MIST_RENEWING_MIST);
+  EFAttrib = HotTracker.getNewAttribution(ATTRIBUTION_STRINGS.HARDCAST_ESSENCE_FONT);
 
   constructor(options: Options) {
     super(options);
@@ -142,21 +149,9 @@ class HotAttributor extends Analyzer {
   }
 
   _existingReMAttributionLogging(event: ApplyBuffEvent | RefreshBuffEvent) {
-    if (
-      this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0].name ===
-      'Renewing Mist Hardcast'
-    ) {
-      console.log(
-        'Bounce! Existing ' +
-          this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0].name +
-          ' at ' +
-          this.owner.formatTimestamp(event.timestamp, 3),
-        'on ' + this.combatants.getEntity(event)?.name,
-      );
-    } else if (
-      this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0].name ===
-      'Renewing Mist Rapid Diffusion'
-    ) {
+    const attribution = this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0]
+      .name;
+    if (attribution) {
       console.log(
         'Bounce! Existing ' +
           this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0].name +

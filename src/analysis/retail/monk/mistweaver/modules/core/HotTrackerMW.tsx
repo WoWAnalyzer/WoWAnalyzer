@@ -3,6 +3,7 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import { Options } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
 import HotTracker, { Tracker, HotInfo, Extension } from 'parser/shared/modules/HotTracker';
+import { ATTRIBUTION_STRINGS } from '../../constants';
 
 const RAPID_DIFFUSION = 3000;
 const MISTY_PEAKS_DURATION = 1000;
@@ -16,8 +17,6 @@ const MISTWRAP = 1000;
 const TFT_REM_EXTRA_DURATION = 10000;
 
 const HARDCAST = 'Hardcast';
-const MISTS_OF_LIFE = 'Mists of Life';
-const MISTY_PEAKS = 'Misty Peaks';
 
 class HotTrackerMW extends HotTracker {
   mistwrapActive: boolean;
@@ -43,13 +42,13 @@ class HotTrackerMW extends HotTracker {
 
   fromMistyPeaks(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
-      return attr.name.includes(MISTY_PEAKS);
+      return attr.name === ATTRIBUTION_STRINGS.MISTY_PEAKS_ENVELOPING_MIST;
     });
   }
 
   fromMistsOfLife(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
-      return attr.name.includes(MISTS_OF_LIFE);
+      return attr.name === ATTRIBUTION_STRINGS.MISTS_OF_LIFE_RENEWING_MIST;
     });
   }
 
@@ -61,13 +60,19 @@ class HotTrackerMW extends HotTracker {
 
   fromBounce(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
-      return attr.name.includes('Bounced');
+      return attr.name === ATTRIBUTION_STRINGS.BOUNCED;
     });
   }
 
   fromRapidDiffusion(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
-      return attr.name.includes('Rapid Diffusion');
+      return attr.name === ATTRIBUTION_STRINGS.RAPID_DIFFUSION_RENEWING_MIST;
+    });
+  }
+
+  fromDancingMists(hot: Tracker): boolean {
+    return hot.attributions.some(function (attr) {
+      return attr.name === ATTRIBUTION_STRINGS.DANCING_MIST_RENEWING_MIST;
     });
   }
 

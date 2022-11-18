@@ -29,7 +29,7 @@ const EXPECTED_REMOVAL_THRESHOLD = 200;
 const BOUNCE_THRESHOLD = 65;
 // this class does a lot, a few different debug areas to cut down on the spam while debugging
 const debug = false;
-const bounceDebug = true;
+const bounceDebug = false;
 const extensionDebug = false; // logs pertaining to extensions
 const applyRemoveDebug = false; // logs tracking HoT apply / refresh / remove
 const healDebug = false; // logs tracking HoT heals

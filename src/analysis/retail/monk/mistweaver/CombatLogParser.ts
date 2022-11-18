@@ -72,6 +72,8 @@ import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import Unison from './modules/spells/Unison';
 import RapidDiffusion from './modules/spells/RapidDiffusion';
 import T29TierSet from './modules/dragonflight/tier/T29MWTier';
+import DancingMists from './modules/spells/DancingMists';
+import MistyPeaksHealingBreakdown from './modules/features/MistyPeaksHealingBreakdown';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -101,6 +103,7 @@ class CombatLogParser extends CoreCombatLogParser {
     masteryStats: MasteryStats,
     buffs: Buffs,
     essenceFontHealingBreakDown: EssenceFontHealingBreakdown,
+    mistyPeaksHealingBreakdown: MistyPeaksHealingBreakdown,
     averageTimeBetweenRSKSs: AverageTimeBetweenRSKSs,
     remGraph: REMGraph,
 
@@ -154,6 +157,7 @@ class CombatLogParser extends CoreCombatLogParser {
     yulonsWhisper: YulonsWhisper,
     unison: Unison,
     rapidDiffusion: RapidDiffusion,
+    dancingMists: DancingMists,
 
     // Borrowed Power
     t29TierSet: T29TierSet,
