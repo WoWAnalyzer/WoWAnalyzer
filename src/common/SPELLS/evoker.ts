@@ -49,6 +49,11 @@ const spells = spellIndexableList({
     name: 'Dream Breath',
     icon: 'ability_evoker_dreambreath',
   },
+  CALL_OF_YSERA_BUFF: {
+    id: 373835,
+    name: 'Call of Ysera',
+    icon: '4096390',
+  },
   RENEWING_BREATH: {
     id: 381923,
     name: 'Renewing Breath',

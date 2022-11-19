@@ -6,6 +6,7 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2022, 11, 15), <>Add per-cast breakdown for <SpellLink id={TALENTS.FEL_DEVASTATION_TALENT} /> to the Guide.</>, ToppleTheNun),
   change(date(2022, 11, 15), <>Add per-cast breakdown for <SpellLink id={TALENTS.SOUL_CARVER_TALENT} /> to the Guide.</>, ToppleTheNun),
   change(date(2022, 11, 15), <>Add per-cast breakdown for <SpellLink id={TALENTS.FRACTURE_TALENT} /> to the Guide.</>, ToppleTheNun),
   change(date(2022, 11, 15), <>Fix <SpellLink id={TALENTS.PAINBRINGER_TALENT} /> duration in statistic tooltip.</>, ToppleTheNun),

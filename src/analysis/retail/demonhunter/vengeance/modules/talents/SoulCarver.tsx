@@ -13,6 +13,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import Events, { CastEvent } from 'parser/core/Events';
 import { combineQualitativePerformances } from 'analysis/retail/demonhunter/vengeance/guide/combineQualitativePerformances';
 import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/guide/VulnerabilityExplanation';
+import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/guide/FieryDemiseExplanation';
 
 const GOOD_FRAILTY_STACKS = 6;
 const OK_FRAILTY_STACKS = 4;
@@ -68,14 +69,6 @@ export default class SoulCarver extends Analyzer {
   }
 
   guideBreakdown() {
-    const fieryDemiseExplanation = (
-      <>
-        {' '}
-        Always use when <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> is applied to the
-        target in order to maximise the damage dealt due to{' '}
-        <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT} />.
-      </>
-    );
     const explanation = (
       <>
         <strong>
@@ -85,8 +78,9 @@ export default class SoulCarver extends Analyzer {
         {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.VULNERABILITY_TALENT) && (
           <VulnerabilityExplanation numberOfFrailtyStacks={GOOD_FRAILTY_STACKS} />
         )}
-        {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT) &&
-          fieryDemiseExplanation}
+        {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT) && (
+          <FieryDemiseExplanation combatant={this.selectedCombatant} />
+        )}
       </>
     );
 

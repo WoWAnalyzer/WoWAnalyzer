@@ -1,9 +1,12 @@
 import { Trans } from '@lingui/macro';
+import { Enchant } from 'common/SPELLS/Spell';
 import { ItemLink } from 'interface';
+import { WeaponEnhancementBoxRowEntry } from 'interface/guide/components/Preparation/WeaponEnhancementSubSection/WeaponEnhancementBoxRow';
 import Analyzer from 'parser/core/Analyzer';
 import { Item } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 // Example logs with missing enhancement:
 // /report/XQrLTRC1bFWGAt3m/21-Mythic+The+Council+of+Blood+-+Wipe+10+(3:17)/Odsuv/standard
@@ -93,6 +96,116 @@ class WeaponEnhancementChecker extends Analyzer {
       isLessThan: this.numWeapons,
       style: ThresholdStyle.NUMBER,
     };
+  }
+
+  boxRowPerformance(item: Item, recommendedEnhancements: number[] | undefined) {
+    const hasEnhancement = this.hasEnhancement(item);
+    const hasMaxEnhancement = hasEnhancement && this.hasMaxEnhancement(item);
+    const recommendedEnchantmentExists = recommendedEnhancements !== undefined;
+    if (hasMaxEnhancement) {
+      if (
+        recommendedEnchantmentExists &&
+        recommendedEnhancements.includes(item.temporaryEnchant ?? 0)
+      ) {
+        return QualitativePerformance.Perfect;
+      }
+      return QualitativePerformance.Good;
+    }
+    if (hasEnhancement) {
+      return QualitativePerformance.Ok;
+    }
+    return QualitativePerformance.Fail;
+  }
+
+  boxRowItemLink(item: Item, slotName: JSX.Element) {
+    return (
+      <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
+        {slotName}
+      </ItemLink>
+    );
+  }
+
+  boxRowTooltip(item: Item, slotName: JSX.Element, recommendedEnhancements: Enchant[] | undefined) {
+    const hasEnhancement = this.hasEnhancement(item);
+    const hasMaxEnhancement = hasEnhancement && this.hasMaxEnhancement(item);
+    const recommendedEnhancementNames = recommendedEnhancements?.map((it) => it.name)?.join(', ');
+    const recommendedEnhancementIds = recommendedEnhancements?.map((it) => it.effectId);
+    if (hasMaxEnhancement) {
+      if (
+        recommendedEnhancementIds &&
+        recommendedEnhancementNames &&
+        !recommendedEnhancementIds.includes(item.temporaryEnchant ?? 0)
+      ) {
+        return (
+          <Trans id="shared.enchantChecker.guide.strongEnhancement.labelWithRecommendation">
+            Your {slotName} has a strong enhancement (weapon oil/sharpening stone/weightstone) but
+            these are recommended: {recommendedEnhancementNames}
+          </Trans>
+        );
+      }
+      return (
+        <Trans id="shared.enchantChecker.guide.strongEnhancement.label">
+          Your {slotName} has a strong enhancement (weapon oil/sharpening stone/weightstone). Good
+          work!
+        </Trans>
+      );
+    }
+    if (hasEnhancement) {
+      if (recommendedEnhancementNames) {
+        return (
+          <Trans id="shared.enchantChecker.guide.weakEnhancement.labelWithRecommendation">
+            Your {slotName} has a cheap weapon enhancement [{hasEnhancement}] (weapon oil/sharpening
+            stone/weightstone). Apply a strong enhancement to very easily increase your throughput
+            slightly. Recommended: {recommendedEnhancementNames}
+          </Trans>
+        );
+      }
+      return (
+        <Trans id="shared.enchantChecker.guide.weakEnhancement.label">
+          Your {slotName} has a cheap weapon enhancement [{hasEnhancement}] (weapon oil/sharpening
+          stone/weightstone). Apply a strong enhancement to very easily increase your throughput
+          slightly.
+        </Trans>
+      );
+    }
+    if (recommendedEnhancementNames) {
+      return (
+        <Trans id="shared.enchantChecker.guide.noEnhancement.labelWithRecommendation">
+          Your {slotName} is missing a weapon enhancement (weapon oil/sharpening stone/weightstone).
+          Apply an enhancement to very easily increase your throughput slightly. Recommended:{' '}
+          {recommendedEnhancementNames}
+        </Trans>
+      );
+    }
+    return (
+      <Trans id="shared.enchantChecker.guide.noEnhancement.label">
+        Your {slotName} is missing a weapon enhancement (weapon oil/sharpening stone/weightstone).
+        Apply an enhancement to very easily increase your throughput slightly.
+      </Trans>
+    );
+  }
+
+  getWeaponEnhancementBoxRowEntries(
+    recommendedWeaponEnhancements: Record<number, Enchant[]> = {},
+  ): WeaponEnhancementBoxRowEntry[] {
+    const gear = this.enhanceableWeapons;
+    const enchantSlots: { [key: number]: JSX.Element } = this.WeaponSlots;
+
+    return Object.keys(gear).map<WeaponEnhancementBoxRowEntry>((slot) => {
+      const slotNumber = Number(slot);
+      const item = gear[slotNumber];
+      const slotName = enchantSlots[slotNumber];
+      const recommendedEnchantments = recommendedWeaponEnhancements[slotNumber];
+      return {
+        item,
+        slotName: this.boxRowItemLink(item, slotName),
+        value: this.boxRowPerformance(
+          item,
+          recommendedEnchantments?.map((it) => it.effectId),
+        ),
+        tooltip: this.boxRowTooltip(item, slotName, recommendedEnchantments),
+      };
+    });
   }
 
   suggestions(when: When) {
