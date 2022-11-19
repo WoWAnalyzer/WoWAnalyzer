@@ -6,7 +6,7 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 import DonutChart from 'parser/ui/DonutChart';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -49,11 +49,6 @@ class CallOfYsera extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DREAM_BREATH_CAST),
-      this.onDreamBreathCast,
-    );
-    // this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIVING_FLAME_CAST), this.onLivingFlameCast);
     //dream breath and dream breath echo healing
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell([SPELLS.DREAM_BREATH, SPELLS.DREAM_BREATH_ECHO]),
@@ -69,13 +64,6 @@ class CallOfYsera extends Analyzer {
     //verdant embrace echoes each apply their own call of ysera buff, these are always applied after the initial cast and show up in the log as refresh buff events
 
     //empowered spell cast ids are applied as removed as a buff event for the duration of their empower
-  }
-
-  onDreamBreathCast(event: CastEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.CALL_OF_YSERA_BUFF.id)) {
-      return;
-    }
-    //this.buffedDreamBreaths += 1;
   }
 
   onDreamBreathHeal(event: HealEvent) {
