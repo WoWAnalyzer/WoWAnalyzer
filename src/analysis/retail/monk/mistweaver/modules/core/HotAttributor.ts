@@ -78,9 +78,8 @@ class HotAttributor extends Analyzer {
   }
 
   onApplyRem(event: ApplyBuffEvent | RefreshBuffEvent) {
-    if (this._hasAttribution(event)) {
+    if (this._hasBouncedAttribution(event)) {
       remDebug && this._existingReMAttributionLogging(event);
-      this.hotTracker.addAttributionFromApply(this.bouncedAttrib, event);
     } else if (isFromMistsOfLife(event)) {
       remDebug && this._newReMAttributionLogging(event, this.MistsOfLifeAttrib);
       this.hotTracker.addAttributionFromApply(this.MistsOfLifeAttrib, event);
@@ -146,6 +145,18 @@ class HotAttributor extends Analyzer {
       return;
     }
     return this.hotTracker.hots[targetId][spellId].attributions.length > 0;
+  }
+
+  _hasBouncedAttribution(event: ApplyBuffEvent | HealEvent | RefreshBuffEvent | RemoveBuffEvent) {
+    const spellId = event.ability.guid;
+    const targetId = event.targetID;
+    if (!this.hotTracker.hots[targetId] || !this.hotTracker.hots[targetId][spellId]) {
+      return;
+    }
+    return (
+      this.hotTracker.hots[targetId][spellId].attributions.length > 0 &&
+      this.hotTracker.hots[targetId][spellId].attributions.indexOf(this.bouncedAttrib)
+    );
   }
 
   _existingReMAttributionLogging(event: ApplyBuffEvent | RefreshBuffEvent) {
