@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import AbilityTracker from 'analysis/retail/priest/shadow/modules/core/AbilityTracker';
 import { formatNumber } from 'common/format';
+import TALENTS from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -22,12 +23,17 @@ class MindSear extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.MIND_SEAR.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_SEAR), this.onDamage);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.MIND_SEAR_TALENT.id);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_SEAR_TALENT_DAMAGE),
+      this.onDamage,
+    );
   }
 
   get averageTargetsHit() {
-    return this.totalTargetsHit / this.abilityTracker.getAbility(SPELLS.MIND_SEAR.id).casts || 0;
+    return (
+      this.totalTargetsHit / this.abilityTracker.getAbility(TALENTS.MIND_SEAR_TALENT.id).casts || 0
+    );
   }
 
   onDamage(event: DamageEvent) {
@@ -39,9 +45,9 @@ class MindSear extends Analyzer {
     return {
       actual: this.averageTargetsHit,
       isLessThan: {
-        minor: 4,
-        average: 3.5,
-        major: 3,
+        minor: 3,
+        average: 2.5,
+        major: 2,
       },
       style: ThresholdStyle.NUMBER,
     };
@@ -52,14 +58,14 @@ class MindSear extends Analyzer {
       suggest(
         <>
           You hit an average of {formatNumber(actual)} targets with{' '}
-          <SpellLink id={SPELLS.MIND_SEAR.id} />. Using <SpellLink id={SPELLS.MIND_SEAR.id} /> below{' '}
-          {formatNumber(recommended)} targets is not worth it and you will get more damage value
-          from your insanity with <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} />. If you are not
-          getting enough hits or casts from this talent, you will likely benefit more from a
-          different one.
+          <SpellLink id={TALENTS.MIND_SEAR_TALENT.id} />. Using{' '}
+          <SpellLink id={TALENTS.MIND_SEAR_TALENT.id} /> below {formatNumber(recommended)} targets
+          is not worth it and you will get more damage value from your insanity with{' '}
+          <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} />. If you are not getting enough hits
+          or casts from this talent, you will likely benefit more from a different one.
         </>,
       )
-        .icon(SPELLS.MIND_SEAR.icon)
+        .icon(TALENTS.MIND_SEAR_TALENT.icon)
         .actual(
           t({
             id: 'priest.shadow.suggestions.MIND_SEAR.efficiency',
@@ -77,7 +83,7 @@ class MindSear extends Analyzer {
         size="flexible"
         tooltip={`Average targets hit: ${formatNumber(this.averageTargetsHit)}`}
       >
-        <BoringSpellValueText spellId={SPELLS.MIND_SEAR.id}>
+        <BoringSpellValueText spellId={TALENTS.MIND_SEAR_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

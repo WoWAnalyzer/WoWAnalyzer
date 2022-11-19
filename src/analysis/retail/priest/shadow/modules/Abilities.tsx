@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -46,7 +45,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.MIND_FLAY_INSANITY_TALENT.id,
+        spell: SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -81,6 +80,32 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.8,
         },
         enabled: combatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT.id),
+      },
+      {
+        spell: TALENTS.DARK_VOID_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+        enabled: combatant.hasTalent(TALENTS.DARK_VOID_TALENT.id),
+      },
+      {
+        spell: TALENTS.MINDGAMES_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 45,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+        enabled: combatant.hasTalent(TALENTS.MINDGAMES_TALENT.id),
       },
       {
         spell: SPELLS.SHADOW_WORD_PAIN.id,
@@ -361,6 +386,15 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: TALENTS.ANGELIC_FEATHER_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 20,
+        charges: 3,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.SHADOWFORM.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
@@ -373,12 +407,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-      },
-      {
-        spell: SPELLS.FLESHCRAFT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
     ];
   }
