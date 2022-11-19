@@ -4,7 +4,7 @@ import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { TIERS } from 'game/TIERS';
-import Events, { HealEvent, ApplyBuffEvent } from 'parser/core/Events';
+import Events, { HealEvent, ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -63,6 +63,12 @@ class T29TierSet extends Analyzer {
       this.handleEfBolt,
     );
     this.addEventListener(
+      Events.refreshbuff
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.ESSENCE_FONT_BUFF, SPELLS.FAELINE_STOMP_ESSENCE_FONT]),
+      this.handleEfBolt,
+    );
+    this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(TWO_PIECE_SPELLS),
       this.handle2PcHeal,
     );
@@ -86,7 +92,7 @@ class T29TierSet extends Analyzer {
     return this.fourPieceHealingFromBuff + this.extraRemHealing + this.extraVivHealing;
   }
 
-  handleEfBolt(event: ApplyBuffEvent) {
+  handleEfBolt(event: ApplyBuffEvent | RefreshBuffEvent) {
     const playerId = event.targetID;
     if (
       !this.hotTracker.hots[playerId] ||

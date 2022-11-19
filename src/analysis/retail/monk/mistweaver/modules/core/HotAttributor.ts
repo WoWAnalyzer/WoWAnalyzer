@@ -80,7 +80,7 @@ class HotAttributor extends Analyzer {
   onApplyRem(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (this._hasAttribution(event)) {
       remDebug && this._existingReMAttributionLogging(event);
-      return;
+      this.hotTracker.addAttributionFromApply(this.bouncedAttrib, event);
     } else if (isFromMistsOfLife(event)) {
       remDebug && this._newReMAttributionLogging(event, this.MistsOfLifeAttrib);
       this.hotTracker.addAttributionFromApply(this.MistsOfLifeAttrib, event);
