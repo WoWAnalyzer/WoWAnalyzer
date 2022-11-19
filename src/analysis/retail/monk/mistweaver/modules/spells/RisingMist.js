@@ -17,6 +17,7 @@ import { RISING_MIST_EXTENSION } from '../../constants';
 import HotTrackerMW from '../core/HotTrackerMW';
 import Vivify from './Vivify';
 import T29TierSet from '../dragonflight/tier/T29MWTier';
+import { isFromMistsOfLife } from '../../normalizers/CastLinkNormalizer';
 
 const debug = false;
 
@@ -228,7 +229,10 @@ class RisingMist extends Analyzer {
         const attribution = newRisingMist;
         const hot = this.hotTracker.hots[playerId][spellId];
 
-        if (this.hotTracker.fromRapidDiffusion(hot)) {
+        if (
+          this.hotTracker.fromRapidDiffusion(hot) ||
+          (spellId === SPELLS.RENEWING_MIST_HEAL.id && isFromMistsOfLife(hot))
+        ) {
           return;
         }
 
