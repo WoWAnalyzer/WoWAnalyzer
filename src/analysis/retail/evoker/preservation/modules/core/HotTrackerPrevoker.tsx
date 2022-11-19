@@ -2,12 +2,12 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { Options } from 'parser/core/Analyzer';
 import HotTracker, { Tracker, HotInfo } from 'parser/shared/modules/HotTracker';
-
-const REVERSION_BASE_DURATION = 12000;
-const DREAM_BREATH_MIN_DURATION = 4000;
-const DREAM_BREATH_MAX_DURATION = 16000;
-
-const TIMELESS_MAGIC = 0.15;
+import {
+  REVERSION_BASE_DURATION,
+  DREAM_BREATH_MAX_DURATION,
+  DREAM_BREATH_MIN_DURATION,
+  TIMELESS_MAGIC,
+} from '../../constants';
 
 class HotTrackerPrevoker extends HotTracker {
   timelessMagicActive: boolean;

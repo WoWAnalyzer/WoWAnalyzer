@@ -18,6 +18,8 @@ import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 import Checklist from 'analysis/retail/evoker/preservation/modules/features/Checklist/Module';
 import EssenceDetails from './modules/features/EssenceDetails';
 import EssenceTracker from './modules/features/EssenceTracker';
+
+import Reversion from './modules/talents/Reversion';
 import CallOfYsera from './modules/talents/CallOfYsera';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -50,6 +52,8 @@ class CombatLogParser extends CoreCombatLogParser {
     livingFlame: LivingFlame,
     masteryEffectiveness: MasteryEffectiveness,
     spiritBloom: Spiritbloom,
+    
+    reversion: Reversion,
     callOfYsera: CallOfYsera,
   };
 }
