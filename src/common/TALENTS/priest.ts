@@ -424,14 +424,9 @@ const talents = createTalentList({
     name: 'Mind Sear',
     icon: 'spell_shadow_mindshear',
     maxRanks: 1,
-    insanityCost: 2500,
+    insanityCost: 0,
   },
-  MIND_SPIKE_TALENT: {
-    id: 73510,
-    name: 'Mind Spike',
-    icon: 'spell_priest_mindspike',
-    maxRanks: 1,
-  },
+  MIND_SPIKE_TALENT: { id: 73510, name: 'Mind Spike', icon: 'spell_priest_mindspike', maxRanks: 1 },
   PUPPET_MASTER_TALENT: {
     id: 377387,
     name: 'Puppet Master',
