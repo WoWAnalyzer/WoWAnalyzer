@@ -58,8 +58,7 @@ class NurturingDormancy extends Analyzer {
     if (event.amount === 0 && event.overheal) {
       const procsEntry = this._getEntry(event);
       if (procsEntry.procs < MAX_PROCS) {
-        /* The 'cannot extend past 30s' condition only applies to this talent,
-         * and procs count against the max even though they don't extend the HoT */
+        // 'cannot extend past 30s' only applies to this talent - other effects can push it past
         let timeRemainingOnRejuv = 0; // if there's a problem getting rejuv duration, assume no cap
         if (
           this.hotTracker.hots[event.targetID] &&
@@ -74,12 +73,15 @@ class NurturingDormancy extends Analyzer {
           Math.min(EXTENSION_AMOUNT, REJUV_MAX - timeRemainingOnRejuv),
           0,
         );
-        this.hotTracker.addExtension(
-          this.attribution,
-          extensionAmount,
-          event.targetID,
-          event.ability.guid,
-        );
+        if (extensionAmount > 0) {
+          this.hotTracker.addExtension(
+            this.attribution,
+            extensionAmount,
+            event.targetID,
+            event.ability.guid,
+          );
+        }
+        // even if there's no extension due to cap, a usage is still consumed
         procsEntry.procs += 1;
       }
     }
