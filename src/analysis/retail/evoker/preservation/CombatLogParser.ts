@@ -19,6 +19,7 @@ import Checklist from 'analysis/retail/evoker/preservation/modules/features/Chec
 import EssenceDetails from './modules/features/EssenceDetails';
 import EssenceTracker from './modules/features/EssenceTracker';
 import GracePeriod from './modules/talents/GracePeriod';
+import Reversion from './modules/talents/Reversion';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -50,6 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
     masteryEffectiveness: MasteryEffectiveness,
     spiritBloom: Spiritbloom,
     gracePeriod: GracePeriod,
+    reversion: Reversion,
   };
 }
 

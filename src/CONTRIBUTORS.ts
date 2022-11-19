@@ -1921,6 +1921,19 @@ export const CamClark: Contributor = {
   ],
 };
 
+export const Phased: Contributor = {
+  nickname: 'Phased',
+  github: 'bilalm4',
+  discord: 'Phased#1267',
+  mains: [
+    {
+      name: 'Phasedruid',
+      spec: SPECS.RESTORATION_DRUID,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Phasedruid',
+    },
+  ],
+};
+
 export const Listefano: Contributor = {
   nickname: 'Listefano',
   github: 'listefano',
