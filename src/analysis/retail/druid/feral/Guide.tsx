@@ -6,7 +6,6 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
-import { cdSpell } from './constants';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
@@ -152,16 +151,7 @@ function CooldownBreakdownSubsection({
 }: GuideProps<typeof CombatLogParser>) {
   return (
     <SubSection>
-      <p>
-        <strong>
-          Breakdown for <SpellLink id={SPELLS.TIGERS_FURY.id} /> coming soon!
-        </strong>
-      </p>
-      <p>
-        <strong>
-          Breakdown for <SpellLink id={cdSpell(info.combatant).id} /> coming soon!
-        </strong>
-      </p>
+      {info.combatant.hasTalent(TALENTS_DRUID.BERSERK_TALENT) && modules.berserk.guideCastBreakdown}
       {info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) &&
         modules.convokeSpirits.guideCastBreakdown}
       {info.combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT) &&
