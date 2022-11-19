@@ -7,6 +7,7 @@ import {
   ApplyBuffEvent,
   EventType,
   HasRelatedEvent,
+  HealEvent,
   RefreshBuffEvent,
 } from 'parser/core/Events';
 
@@ -14,6 +15,9 @@ export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly';
 export const ECHO_TEMPORAL_ANOMALY = 'TemporalAnomaly';
 export const ECHO = 'Echo';
+export const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera';
+export const DREAM_BREATH_CALL_OF_YSERA_HOT = 'DreamBreathCallOfYseraHoT';
+export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera';
 
 const CAST_BUFFER_MS = 100;
 /*
@@ -55,7 +59,10 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     isActive(c) {
-      return c.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT);
+      return (
+        c.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT) &&
+        c.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT)
+      );
     },
   },
   //link TA echo removal to hot application
@@ -71,7 +78,58 @@ const EVENT_LINKS: EventLink[] = [
       return !HasRelatedEvent(referencedEvent, FROM_HARDCAST);
     },
     isActive(c) {
-      return c.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT);
+      return (
+        c.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT) &&
+        c.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT)
+      );
+    },
+  },
+  //link Call of Ysera Removal to the heals
+  {
+    linkRelation: DREAM_BREATH_CALL_OF_YSERA_HOT,
+    linkingEventId: [SPELLS.DREAM_BREATH.id, SPELLS.DREAM_BREATH_ECHO.id],
+    linkingEventType: [EventType.ApplyBuff, EventType.Heal],
+    referencedEventId: [SPELLS.DREAM_BREATH_CAST.id],
+    referencedEventType: [EventType.RemoveBuff],
+    backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    // additionalCondition(referencedEvent) {
+    //   return HasRelatedEvent(referencedEvent, DREAM_BREATH_CALL_OF_YSERA);
+    // },
+    isActive(c) {
+      return (
+        c.hasTalent(TALENTS_EVOKER.DREAM_BREATH_TALENT) &&
+        c.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT)
+      );
+    },
+  },
+  //link Call of Ysera Removal to Dream Breath cast that consumed it
+  {
+    linkRelation: DREAM_BREATH_CALL_OF_YSERA,
+    linkingEventId: [SPELLS.CALL_OF_YSERA_BUFF.id],
+    linkingEventType: [EventType.RemoveBuff],
+    referencedEventId: [SPELLS.DREAM_BREATH_CAST.id],
+    referencedEventType: [EventType.RemoveBuff],
+    maximumLinks: 1,
+    isActive(c) {
+      return (
+        c.hasTalent(TALENTS_EVOKER.DREAM_BREATH_TALENT) &&
+        c.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT)
+      );
+    },
+  },
+  //link Call of Ysera Removal to Living Flame heal that consumed it
+  {
+    linkRelation: LIVING_FLAME_CALL_OF_YSERA,
+    linkingEventId: [SPELLS.LIVING_FLAME_HEAL.id],
+    linkingEventType: [EventType.Heal],
+    referencedEventId: [SPELLS.CALL_OF_YSERA_BUFF.id],
+    referencedEventType: [EventType.RemoveBuff],
+    backwardBufferMs: 1100,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT);
     },
   },
 ];
@@ -98,6 +156,20 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
 
 export function isFromTemporalAnomaly(event: ApplyBuffEvent | RefreshBuffEvent) {
   return HasRelatedEvent(event, ECHO_TEMPORAL_ANOMALY);
+}
+
+export function isFromDreamBreathCallOfYsera(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
+  if (HasRelatedEvent(event, LIVING_FLAME_CALL_OF_YSERA)) {
+    return false;
+  }
+  return HasRelatedEvent(event, DREAM_BREATH_CALL_OF_YSERA_HOT);
+}
+
+export function isFromLivingFlameCallOfYsera(event: HealEvent) {
+  // if(HasRelatedEvent(event, DREAM_BREATH_CALL_OF_YSERA_HOT)){
+  //   return false;
+  // }
+  return HasRelatedEvent(event, LIVING_FLAME_CALL_OF_YSERA);
 }
 
 export default CastLinkNormalizer;
