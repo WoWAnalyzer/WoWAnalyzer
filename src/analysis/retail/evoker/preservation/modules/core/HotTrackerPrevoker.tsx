@@ -36,6 +36,11 @@ class HotTrackerPrevoker extends HotTracker {
       return attr.name.includes('Hardcast');
     });
   }
+  fromCallOfYsera(hot: Tracker): boolean {
+    return hot.attributions.some(function (attr) {
+      return attr.name.includes('Call Of Ysera');
+    });
+  }
 
   _generateHotInfo(): HotInfo[] {
     // must be generated dynamically because it reads from traits
