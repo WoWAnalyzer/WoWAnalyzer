@@ -1093,6 +1093,7 @@ const SPECS = specIndexableList({
   },
   CLASSIC_DEATH_KNIGHT_BLOOD: {
     id: 398,
+    type: 'DeathKnight',
     index: 115,
     className: t({
       id: 'specs.deathKnight',
@@ -1112,6 +1113,7 @@ const SPECS = specIndexableList({
   },
   CLASSIC_DEATH_KNIGHT_FROST: {
     id: 399,
+    type: 'DeathKnight',
     index: 116,
     className: t({
       id: 'specs.deathKnight',
@@ -1131,6 +1133,7 @@ const SPECS = specIndexableList({
   },
   CLASSIC_DEATH_KNIGHT_UNHOLY: {
     id: 400,
+    type: 'DeathKnight',
     index: 117,
     className: t({
       id: 'specs.deathKnight',
