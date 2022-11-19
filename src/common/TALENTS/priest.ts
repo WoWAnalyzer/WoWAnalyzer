@@ -453,13 +453,13 @@ const talents = createTalentList({
   VOID_ERUPTION_TALENT: {
     id: 228260,
     name: 'Void Eruption',
-    icon: 'spell_priest_void-blast',
+    icon: 'spell_priest_void_blast',
     maxRanks: 1,
   },
   UNFURLING_DARKNESS_TALENT: {
     id: 341273,
     name: 'Unfurling Darkness',
-    icon: 'spell_priest_shadow-mend',
+    icon: 'spell_priest_shadow_mend',
     maxRanks: 1,
   },
   SURGE_OF_DARKNESS_TALENT: {
