@@ -79,14 +79,19 @@ class HotAttributor extends Analyzer {
 
   onApplyRem(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (this._hasBouncedAttribution(event)) {
+      //bounced
       remDebug && this._existingReMAttributionLogging(event);
     } else if (isFromMistsOfLife(event)) {
+      //mists of life rem
       remDebug && this._newReMAttributionLogging(event, this.MistsOfLifeAttrib);
       this.hotTracker.addAttributionFromApply(this.MistsOfLifeAttrib, event);
+      this.hotTracker.hots[event.targetID][event.ability.guid].maxDuration = this.hotTracker._getDuration(this.hotTracker.hotInfo[event.ability.guid]);
     } else if (event.prepull || isFromHardcast(event)) {
+      //hardcast rem
       remDebug && this._newReMAttributionLogging(event, this.REMHardcastAttrib);
       this.hotTracker.addAttributionFromApply(this.REMHardcastAttrib, event);
     } else if (isFromRapidDiffusion(event)) {
+      //rapid diffusion rem
       rdDebug && this._newReMAttributionLogging(event, this.rapidDiffusionAttrib);
       this.hotTracker.addAttributionFromApply(this.rapidDiffusionAttrib, event);
       this.hotTracker.hots[event.targetID][event.ability.guid].maxDuration = Number(
@@ -95,8 +100,8 @@ class HotAttributor extends Analyzer {
       this.hotTracker.hots[event.targetID][event.ability.guid].end =
         event.timestamp + Number(this.hotTracker.hotInfo[event.ability.guid].procDuration);
     } else if (isFromDancingMists(event)) {
+      //dancing mists rem
       dmDebug && this._newReMAttributionLogging(event, this.dancingMistAttrib);
-      //if no other attribution, it HAS to be a dancing mist proc
       this.hotTracker.addAttributionFromApply(this.dancingMistAttrib, event);
     }
   }

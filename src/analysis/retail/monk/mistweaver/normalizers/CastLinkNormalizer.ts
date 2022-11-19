@@ -259,22 +259,13 @@ export function isFromRapidDiffusion(event: ApplyBuffEvent | RefreshBuffEvent) {
 }
 
 export function isFromMistsOfLife(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
-  // 2nd ReM application is the duplicated event
-  if (HasRelatedEvent(event, FROM_DANCING_MISTS)) {
-    const dmRem = FOUND_REMS.get(FROM_MISTS_OF_LIFE);
-    if (
-      dmRem! - DANCING_MIST_BUFFER_MS <= event.timestamp &&
-      event.timestamp <= dmRem! + DANCING_MIST_BUFFER_MS
-    ) {
-      return false;
-    } else {
-      FOUND_REMS.set(FROM_MISTS_OF_LIFE, event.timestamp);
-    }
-  }
   return HasRelatedEvent(event, FROM_MISTS_OF_LIFE);
 }
 
 export function isFromDancingMists(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
+  if(HasRelatedEvent(event, FROM_MISTS_OF_LIFE)) {
+    return false;
+  }
   return HasRelatedEvent(event, FROM_DANCING_MISTS);
 }
 
