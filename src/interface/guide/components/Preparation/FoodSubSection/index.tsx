@@ -3,9 +3,10 @@ import FoodChecker from 'parser/retail/modules/items/FoodChecker';
 import Spell from 'common/SPELLS/Spell';
 import { maybeGetSpell } from 'common/SPELLS';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import CurrentFoodBuff from 'interface/guide/components/Preparation/FoodSubSection/CurrentFoodBuff';
-import RecommendedFoodBuffs from 'interface/guide/components/Preparation/FoodSubSection/RecommendedFoodBuffs';
 import { SideBySidePanels } from 'interface/guide/components/GuideDivs';
+
+import CurrentFoodBuff from './CurrentFoodBuff';
+import RecommendedFoodBuffs from './RecommendedFoodBuffs';
 
 interface Props {
   recommendedFoods?: Spell[];

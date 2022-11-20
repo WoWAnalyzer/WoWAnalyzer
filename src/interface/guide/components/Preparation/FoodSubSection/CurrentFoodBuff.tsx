@@ -1,7 +1,8 @@
 import Spell from 'common/SPELLS/Spell';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
-import { PanelHeader, PerformanceRoundedPanel } from '../ExtraDivs';
+
+import { PanelHeader, PerformanceRoundedPanel } from '../../GuideDivs';
 
 interface Props {
   foodBuff?: Spell;

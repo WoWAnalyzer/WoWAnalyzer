@@ -1,10 +1,7 @@
 import Spell from 'common/SPELLS/Spell';
 import SpellLink from 'interface/SpellLink';
-import {
-  PanelHeader,
-  StartAlignedRoundedPanel,
-} from 'interface/guide/components/Preparation/ExtraDivs';
 
+import { PanelHeader, StartAlignedRoundedPanel } from '../../GuideDivs';
 import styles from './RecommendedFoodBuffs.module.scss';
 
 interface Props {

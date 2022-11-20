@@ -349,3 +349,16 @@ export const PerformanceMark = ({ perf }: { perf: QualitativePerformance }) => {
       return <BadMark />;
   }
 };
+
+export const qualitativePerformanceToColor = (qualitativePerformance: QualitativePerformance) => {
+  switch (qualitativePerformance) {
+    case QualitativePerformance.Perfect:
+      return PerfectColor;
+    case QualitativePerformance.Good:
+      return GoodColor;
+    case QualitativePerformance.Ok:
+      return OkColor;
+    case QualitativePerformance.Fail:
+      return BadColor;
+  }
+};
