@@ -96,7 +96,7 @@ function MitigationSection() {
   );
 }
 
-function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
+function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Rotation">
       <AlertWarning>
@@ -111,6 +111,7 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
       </p>
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT) &&
         modules.fracture.guideSubsection()}
+      {modules.immolationAura.vengeanceGuideBreakdown(info)}
       {explanationAndDataSubsection(
         <>
           <strong>
@@ -120,15 +121,16 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
         </>,
         <div />,
       )}
-      {explanationAndDataSubsection(
-        <>
-          <strong>
-            <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} />
-          </strong>{' '}
-          breakdown coming soon!
-        </>,
-        <div />,
-      )}
+      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT) &&
+        explanationAndDataSubsection(
+          <>
+            <strong>
+              <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} />
+            </strong>{' '}
+            breakdown coming soon!
+          </>,
+          <div />,
+        )}
     </Section>
   );
 }
