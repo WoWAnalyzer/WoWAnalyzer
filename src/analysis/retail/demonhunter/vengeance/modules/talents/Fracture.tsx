@@ -222,8 +222,7 @@ export default class Fracture extends Analyzer {
         </p>
         <strong>Fracture casts</strong>
         <small>
-          {' '}
-          - Green is a good cast, Red is a bad cast (too many Soul Fragments or too much Fury).
+          Green is a good cast, Red is a bad cast (too many Soul Fragments or too much Fury).
           Mouseover for more details. Click to expand.
         </small>
         <CastSummaryAndBreakdown
