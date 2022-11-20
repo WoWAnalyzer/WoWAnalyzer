@@ -9,6 +9,7 @@ import { AlertWarning, SpellLink } from 'interface';
 import ITEMS from 'common/ITEMS';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
+import ImmolationAuraVengeanceGuideSection from 'analysis/retail/demonhunter/shared/modules/spells/ImmolationAura/VengeanceGuideSection';
 
 import DemonSpikesSection from './modules/spells/DemonSpikes/GuideSection';
 import FieryBrandSection from './modules/talents/FieryBrand/GuideSection';
@@ -111,7 +112,7 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       </p>
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT) &&
         modules.fracture.guideSubsection()}
-      {modules.immolationAura.vengeanceGuideBreakdown(info)}
+      <ImmolationAuraVengeanceGuideSection />
       {explanationAndDataSubsection(
         <>
           <strong>
