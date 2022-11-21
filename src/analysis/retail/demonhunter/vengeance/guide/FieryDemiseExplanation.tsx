@@ -6,6 +6,7 @@ interface Props {
   combatant: Combatant;
   includeDownInFlames?: boolean;
 }
+
 const FieryDemiseExplanation = ({ combatant, includeDownInFlames }: Props) => (
   <>
     {' '}

@@ -18,6 +18,7 @@ import {
 } from 'analysis/retail/druid/restoration/Guide';
 import { PerformanceMark } from 'interface/guide';
 import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/guide/VulnerabilityExplanation';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 
 const GOOD_FRAILTY_STACKS = 3;
 const OK_FRAILTY_STACKS = 1;
@@ -75,7 +76,11 @@ class TheHunt extends Analyzer {
 
   onDamage(event: DamageEvent) {
     this.damage += event.amount + (event.absorbed || 0);
-    this.theHuntTracker[this.cast].damage += event.amount + (event.absorbed || 0);
+    const trackedCast = this.theHuntTracker[this.cast];
+    if (!trackedCast) {
+      return;
+    }
+    trackedCast.damage += event.amount + (event.absorbed || 0);
   }
 
   onChargeDamage(event: DamageEvent) {
@@ -83,7 +88,11 @@ class TheHunt extends Analyzer {
     if (!enemy) {
       return;
     }
-    this.theHuntTracker[this.cast].primaryTargetStacksOfFrailty = enemy.getBuffStacks(
+    const trackedCast = this.theHuntTracker[this.cast];
+    if (!trackedCast) {
+      return;
+    }
+    trackedCast.primaryTargetStacksOfFrailty = enemy.getBuffStacks(
       SPELLS.FRAILTY.id,
       event.timestamp,
     );
@@ -108,7 +117,11 @@ class TheHunt extends Analyzer {
   }
 
   onDebuffApply(_: ApplyDebuffEvent) {
-    this.theHuntTracker[this.cast].numberOfDotsApplied += 1;
+    const trackedCast = this.theHuntTracker[this.cast];
+    if (!trackedCast) {
+      return;
+    }
+    trackedCast.numberOfDotsApplied += 1;
   }
 
   statistic() {
@@ -215,7 +228,7 @@ class TheHunt extends Analyzer {
     );
 
     const data = (
-      <div>
+      <RoundedPanel>
         <strong>Per-Cast Breakdown</strong>
         <small> - click to expand</small>
 
@@ -262,7 +275,7 @@ class TheHunt extends Analyzer {
             />
           );
         })}
-      </div>
+      </RoundedPanel>
     );
 
     return explanationAndDataSubsection(explanation, data);
