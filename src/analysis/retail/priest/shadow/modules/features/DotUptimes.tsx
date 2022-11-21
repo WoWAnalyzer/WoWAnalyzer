@@ -25,7 +25,7 @@ class DotUptimeStatisticBox extends Analyzer {
         {this.vampiricTouch.subStatistic()}
         {this.shadowWordPain.subStatistic()}
         {this.devouringPlague.subStatistic()}
-        {this.darkEvangelism.subStatistic()}
+        {this.darkEvangelism.active && this.darkEvangelism.subStatistic()}
       </StatisticBar>
     );
   }

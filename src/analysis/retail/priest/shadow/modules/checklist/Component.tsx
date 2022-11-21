@@ -51,7 +51,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
         <DotUptime
           id={TALENTS.DEVOURING_PLAGUE_TALENT.id}
           thresholds={thresholds.devouringPlague}
-        />
+        />{' '}
         {/**The threshold value needs to be reevalulated for Dragonflight */}
         {combatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT.id) && (
           <DotUptime
