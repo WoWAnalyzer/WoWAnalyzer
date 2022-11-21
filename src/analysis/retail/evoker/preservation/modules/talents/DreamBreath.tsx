@@ -5,13 +5,13 @@ import Events, { HealEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { formatNumber, formatPercentage } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { t } from '@lingui/macro';
 import { SpellLink } from 'interface';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 
 class DreamBreath extends Analyzer {
   get calculateHotOverHealing() {
@@ -112,7 +112,7 @@ class DreamBreath extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_EVOKER.DREAM_BREATH_TALENT}>
-          <ItemPercentHealingDone amount={this.totalHealing} />
+          <ItemHealingDone amount={this.totalHealing} />
         </TalentSpellText>
       </Statistic>
     );

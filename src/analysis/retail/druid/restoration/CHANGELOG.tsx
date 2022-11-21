@@ -5,6 +5,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2022, 11, 19), <>Updated <SpellLink id={TALENTS_DRUID.NURTURING_DORMANCY_TALENT.id} /> to account for latest tuning changes, including duration cap.</>, Sref),
   change(date(2022, 11, 16), <>Added statistic for <SpellLink id={TALENTS_DRUID.DREAMSTATE_TALENT.id} />.</>, Phased),
   change(date(2022, 11, 13), <>Added cast efficiency numbers to Guide cooldown bars.</>, Sref),
   change(date(2022, 10, 31), <>Added statistic for <SpellLink id={TALENTS_DRUID.BUDDING_LEAVES_TALENT.id} /></>, Sref),

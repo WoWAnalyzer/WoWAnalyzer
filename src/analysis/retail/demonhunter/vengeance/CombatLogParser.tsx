@@ -50,6 +50,7 @@ import SoulFragmentBuffStackTracker from './modules/resourcetracker/SoulFragment
 import Fracture from './modules/talents/Fracture';
 import SoulCarver from './modules/talents/SoulCarver';
 import FelDevastation from './modules/talents/FelDevastation';
+import ImmolationAuraLinker from './normalizers/ImmolationAuraLinker';
 import Guide from './Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -74,6 +75,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // normalizers
     shearFractureNormalizer: ShearFractureNormalizer,
+    immolationAuraLinker: ImmolationAuraLinker,
 
     // Talents
     painbringer: PainbringerBuff,

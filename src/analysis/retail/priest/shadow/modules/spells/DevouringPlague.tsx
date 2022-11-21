@@ -23,9 +23,9 @@ class DevouringPlague extends Analyzer {
     return {
       actual: this.uptime,
       isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: 0.8,
+        minor: 0.7,
+        average: 0.6,
+        major: 0.5,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
