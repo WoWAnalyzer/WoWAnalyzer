@@ -9,6 +9,7 @@ import LightOfTheNaaru from './LightOfTheNaaru';
 import Lightweaver from './Lightweaver';
 import ResonantWords from './ResonantWords';
 import SearingLight from './SearingLight';
+import Pontifex from './Pontifex';
 
 export {
   AnsweredPrayers,
@@ -22,4 +23,5 @@ export {
   Lightweaver,
   ResonantWords,
   SearingLight,
+  Pontifex,
 };
