@@ -8,10 +8,8 @@ import Events, {
   CastEvent,
   HealEvent,
   RefreshBuffEvent,
-  RemoveBuffEvent,
 } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import HealingValue from 'parser/shared/modules/HealingValue';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -30,18 +28,11 @@ const SHIELD_DURATIONS_MAP = new Map([
 
 const SHIELD_DURATIONS = Object.fromEntries(SHIELD_DURATIONS_MAP);
 
-type MasteryEvent = {
-  sourceEvent: HealEvent | AbsorbedEvent;
-  effectiveHealing: number;
-  rawMasteryGain: number;
-};
-
 type ShieldInfo = {
   event: ApplyBuffEvent | RefreshBuffEvent;
   baseShieldValue: number;
   hasMasteryBoost: boolean;
   masteryValue: number;
-  healing: number;
 };
 
 class MasteryEffectiveness extends Analyzer {
@@ -57,22 +48,13 @@ class MasteryEffectiveness extends Analyzer {
 
   private prevokerHealthPercent: number = 0;
   private prevokerMaxHealth: number = 0;
-  private anomalyShieldApplications: Map<[number, number], ShieldInfo | null> = new Map();
-  private twinGuardianShieldApplications: Map<[number, number], ShieldInfo | null> = new Map();
+  private anomalyShieldApplications: Map<number, ShieldInfo | null> = new Map();
+  private twinGuardianShieldApplications: Map<number, ShieldInfo | null> = new Map();
 
-  totalPossibleAbsorbs = 0;
-  totalCalculatedBaseAbsorbs = 0;
   totalShieldEvents: number = 0;
   totalShieldEventsAffectedByMastery: number = 0;
   totalEventsAffectedByMastery: number = 0;
   totalEvents: number = 0;
-  totalMasteryHealingDone: number = 0;
-  wastedTAShield: number = 0;
-  totalTAShield: number = 0;
-  wastedTGShield: number = 0;
-  totalTGShield: number = 0;
-
-  masteryHealEvents: MasteryEvent[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -93,16 +75,10 @@ class MasteryEffectiveness extends Analyzer {
         .spell([SPELLS.TEMPORAL_ANOMALY_SHIELD, SPELLS.TWIN_GUARDIAN_SHIELD]),
       this.onShieldRefresh,
     );
-    this.addEventListener(
-      Events.removebuff
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.TEMPORAL_ANOMALY_SHIELD, SPELLS.TWIN_GUARDIAN_SHIELD]),
-      this.handleRemoveShield,
-    );
   }
 
   onShieldRefresh(event: RefreshBuffEvent) {
-    this.handleRemoveShield(event);
+    //apply
     if (this.isEventAbilityTwinGuardian(event.ability.guid)) {
       this.onTwinGuardianShieldApplication(event);
     }
@@ -113,50 +89,48 @@ class MasteryEffectiveness extends Analyzer {
 
   onTwinGuardianShieldApplication(event: ApplyBuffEvent | RefreshBuffEvent) {
     this.totalShieldEvents += 1;
-    const targetId = event.targetID;
-    const spellId = event.ability.guid;
     let existingAbsorb = 0;
-    if (this.twinGuardianShieldApplications.get([targetId, spellId])) {
-      existingAbsorb =
-        this.twinGuardianShieldApplications.get([targetId, spellId])?.event.absorb || 0;
-      this.twinGuardianShieldApplications.set([targetId, spellId], null);
+    //shield refresh event's absorb value is a sum of any exising absorb and the new absorb. find the existing absorb for calc in map then remove
+    if (this.twinGuardianShieldApplications.get(event.targetID)) {
+      existingAbsorb = this.twinGuardianShieldApplications.get(event.targetID)?.event.absorb || 0;
+      this.twinGuardianShieldApplications.set(event.targetID, null);
     }
-    this.totalPossibleAbsorbs += event.absorb || 0;
-    this.totalCalculatedBaseAbsorbs += this.calculateShield(event, existingAbsorb);
-    if (this.masteryBoostCheck(event, existingAbsorb)) {
+    //check for mastery map
+    const masteryEvent = this.masteryBoostCheck(event, existingAbsorb);
+    if (masteryEvent) {
       debug && console.log('mastery boosted TG found');
       this.totalShieldEventsAffectedByMastery += 1;
     }
-    this.twinGuardianShieldApplications.set([targetId, spellId], {
+    //push new shield to map
+    this.twinGuardianShieldApplications.set(event.targetID, {
       event: event,
       baseShieldValue: this.calculateShield(event, existingAbsorb),
-      hasMasteryBoost: this.masteryBoostCheck(event, existingAbsorb),
+      hasMasteryBoost: masteryEvent,
       masteryValue: this.statTracker.currentMasteryPercentage,
-      healing: 0,
     });
   }
 
   onAnomalyShieldApplication(event: ApplyBuffEvent | RefreshBuffEvent) {
     this.totalShieldEvents += 1;
-    const targetId = event.targetID;
-    const spellId = event.ability.guid;
     let existingAbsorb = 0;
-    if (this.anomalyShieldApplications.get([targetId, spellId])) {
-      existingAbsorb = this.anomalyShieldApplications.get([targetId, spellId])?.event.absorb || 0;
+    //shield refresh event's absorb value is a sum of any exising absorb and the new absorb. find the existing absorb for calc in map then  remove
+    if (this.anomalyShieldApplications.get(event.targetID)) {
+      existingAbsorb = this.anomalyShieldApplications.get(event.targetID)?.event.absorb || 0;
       debug && console.log('Existing absorb: ' + existingAbsorb);
-      this.anomalyShieldApplications.set([targetId, spellId], null);
+      this.anomalyShieldApplications.set(event.targetID, null);
     }
-    this.totalPossibleAbsorbs += event.absorb || 0;
-    if (this.masteryBoostCheck(event, existingAbsorb)) {
+    //check for mastery amp
+    const masteryEvent = this.masteryBoostCheck(event, existingAbsorb);
+    if (masteryEvent) {
       debug && console.log('Mastery boosted TA found');
       this.totalShieldEventsAffectedByMastery += 1;
     }
-    this.anomalyShieldApplications.set([targetId, spellId], {
+    //push new shield to map
+    this.anomalyShieldApplications.set(event.targetID, {
       event: event,
       baseShieldValue: this.calculateShield(event, existingAbsorb),
-      hasMasteryBoost: this.masteryBoostCheck(event, existingAbsorb),
+      hasMasteryBoost: masteryEvent,
       masteryValue: this.statTracker.currentMasteryPercentage,
-      healing: 0,
     });
   }
 
@@ -169,14 +143,14 @@ class MasteryEffectiveness extends Analyzer {
     this.prevokerHealthPercent = ((event.hitPoints || 0) / (event.maxHitPoints || 0)) * 100;
   }
   onAbsorbedByPlayer(event: AbsorbedEvent) {
+    //find any existing shield on player and update the values in our Map
     let info;
-    const targetId = event.targetID;
     const spellId = event.ability.guid;
     if (this.isEventAbilityAnomaly(spellId)) {
-      info = this.anomalyShieldApplications.get([targetId, spellId]);
+      info = this.anomalyShieldApplications.get(event.targetID);
     }
-    if (this.isEventAbilityTwinGuardian(event.ability.guid)) {
-      info = this.twinGuardianShieldApplications.get([targetId, spellId]);
+    if (this.isEventAbilityTwinGuardian(spellId)) {
+      info = this.twinGuardianShieldApplications.get(event.targetID);
     }
     const shieldDurationMS = SHIELD_DURATIONS[event.ability.guid];
 
@@ -187,59 +161,16 @@ class MasteryEffectiveness extends Analyzer {
     ) {
       return;
     }
-    info.healing += event.amount;
-  }
-
-  handleRemoveShield(event: RefreshBuffEvent | RemoveBuffEvent) {
-    let info;
-    const targetId = event.targetID;
-    const spellId = event.ability.guid;
-    if (this.isEventAbilityAnomaly(event.ability.guid)) {
-      info = this.anomalyShieldApplications.get([targetId, spellId]);
-    }
-    if (this.isEventAbilityTwinGuardian(event.ability.guid)) {
-      info = this.twinGuardianShieldApplications.get([targetId, spellId]);
-    }
-    const shieldDurationMS = SHIELD_DURATIONS[event.ability.guid];
-    const isTAShield = event.ability.guid === SPELLS.TEMPORAL_ANOMALY_SHIELD.id;
-
-    if (!info) {
-      return;
-    }
-
-    const shieldAmount = info.event.absorb || 0; // the initial absorb amount from the ApplyBuff/RefreshBuff Event
-    const didShieldConsume = info.healing >= shieldAmount;
-    const absorbFromMasteryBonusUsed = Math.max(0, info.healing - info.baseShieldValue);
-
-    if (
-      info.event.timestamp > event.timestamp ||
-      info.event.timestamp + shieldDurationMS < event.timestamp ||
-      !didShieldConsume
-    ) {
-      const shieldWasted = shieldAmount - info.healing;
-      if (isTAShield) {
-        this.wastedTAShield += shieldWasted;
-        this.anomalyShieldApplications.set([targetId, spellId], null);
-      } else {
-        this.wastedTGShield += shieldWasted;
-        this.twinGuardianShieldApplications.set([targetId, spellId], null);
-      }
-    }
-
-    if (isTAShield) {
-      this.totalTAShield += shieldAmount;
-    } else {
-      this.totalTGShield += shieldAmount;
-    }
-
-    this.totalMasteryHealingDone += absorbFromMasteryBonusUsed;
+    info.baseShieldValue -= event.amount;
   }
 
   private masteryBoostCheck(event: ApplyBuffEvent | RefreshBuffEvent, existingAbsorb: number) {
+    const baseMastery = this.statTracker.baseMasteryPercentage;
     const mastery = this.statTracker.currentMasteryPercentage;
     const baseShieldValue = this.calculateShield(event, existingAbsorb);
-    const lowerShieldBound = baseShieldValue * (1 + (mastery - 0.1));
-    const upperShieldBound = baseShieldValue * (1 + (mastery + 0.1));
+    //base mastery is 16% for preservation a minimum amp will fall inside of this threshold
+    const lowerShieldBound = baseShieldValue * (1 + (mastery - baseMastery));
+    const upperShieldBound = baseShieldValue * (1 + (mastery + baseMastery));
     if (event.absorb) {
       if (lowerShieldBound <= event.absorb && event.absorb <= upperShieldBound) {
         return true;
@@ -247,8 +178,9 @@ class MasteryEffectiveness extends Analyzer {
     }
     return false;
   }
-  //TODO -- THESE CALCULATIONS ARE USING A +/- 10% THRESHOLD UNTIL ALL THE NEW RAID BUFFS ARE ADDED AND INCORPORATED INTO STATTRACKER
+
   private calculateShield(event: ApplyBuffEvent | RefreshBuffEvent, existingAbsorb: number) {
+    //calculate expected shield size without mastery and compare to actual size to determine if the shield was affected
     let baseShielding = 0;
     const vers = this.statTracker.currentVersatilityPercentage;
     if (this.isEventAbilityAnomaly(event.ability.guid)) {
@@ -265,21 +197,10 @@ class MasteryEffectiveness extends Analyzer {
   }
 
   private processHealForMastery(event: HealEvent) {
-    const heal = new HealingValue(event.amount, event.absorbed, event.overheal);
     const targetPlayerHealthPercent = ((event.hitPoints - event.amount) / event.maxHitPoints) * 100;
-
-    const baseHealing = heal.raw / (1 + this.statTracker.currentMasteryPercentage);
-    const rawMasteryGain = heal.raw - baseHealing;
-    const actualMasteryHealingDone = Math.max(0, heal.effective - baseHealing);
-    this.totalMasteryHealingDone += actualMasteryHealingDone;
-
+    //check to see if this is a mastery event
     if (this.prevokerHealthPercent >= targetPlayerHealthPercent) {
       this.totalEventsAffectedByMastery += 1;
-      this.masteryHealEvents.push({
-        sourceEvent: event,
-        effectiveHealing: heal.effective,
-        rawMasteryGain,
-      });
     }
   }
 
@@ -296,22 +217,6 @@ class MasteryEffectiveness extends Analyzer {
       (this.totalEventsAffectedByMastery + this.totalShieldEventsAffectedByMastery) /
       (this.totalEvents + this.totalShieldEvents)
     );
-  }
-
-  get wastedTemporalAnomalyShield() {
-    return this.wastedTAShield;
-  }
-
-  get totalTemporalAnomalyShield() {
-    return this.totalTAShield;
-  }
-
-  get wastedTwinGuardianShield() {
-    return this.wastedTGShield;
-  }
-
-  get totalTwinGuardianShield() {
-    return this.totalTGShield;
   }
 
   statistic() {
