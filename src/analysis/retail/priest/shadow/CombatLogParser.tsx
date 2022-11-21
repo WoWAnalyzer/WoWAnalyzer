@@ -18,6 +18,7 @@ import Voidform from './modules/features/Voidform';
 import InsanityTracker from './modules/resources/InsanityTracker';
 import InsanityUsage from './modules/resources/InsanityUsage';
 import DevouringPlague from './modules/spells/DevouringPlague';
+import DarkEvangelism from './modules/talents/DarkEvangelism';
 import Dispersion from './modules/talents/Dispersion';
 import Shadowfiend from './modules/spells/Shadowfiend';
 import ShadowWordDeath from './modules/spells/ShadowWordDeath';
@@ -64,6 +65,7 @@ class CombatLogParser extends MainCombatLogParser {
     devouringPlague: DevouringPlague,
     dispersion: Dispersion,
     vampiricEmbrace: VampiricEmbrace,
+    darkEvangelism: DarkEvangelism,
 
     // talents:
     deathAndMadness: DeathAndMadness,

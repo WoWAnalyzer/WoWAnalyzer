@@ -672,6 +672,12 @@ const spells = spellIndexableList({
     icon: 'spell_shadow_painandsuffering',
   },
 
+  DARK_EVANGELISM_TALENT_BUFF: {
+    id: 391099,
+    name: 'Dark Evangelism',
+    icon: 'spell_mage_presenceofmind',
+  },
+
   // Shadow items:
 
   SHADOW_CRASH_TALENT_DAMAGE: {

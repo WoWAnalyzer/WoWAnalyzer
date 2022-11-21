@@ -8,6 +8,8 @@ import InsanityUsage from '../resources/InsanityUsage';
 import ShadowWordPain from '../spells/ShadowWordPain';
 import VampiricTouch from '../spells/VampiricTouch';
 import DevouringPlague from '../spells/DevouringPlague';
+import DarkEvangelism from '../talents/DarkEvangelism';
+
 import Component from './Component';
 
 class Checklist extends BaseChecklist {
@@ -21,6 +23,7 @@ class Checklist extends BaseChecklist {
     shadowWordPain: ShadowWordPain,
     vampiricTouch: VampiricTouch,
     devouringPlague: DevouringPlague,
+    darkEvangelism: DarkEvangelism,
   };
   protected combatants!: Combatants;
   protected castEfficiency!: CastEfficiency;
@@ -30,6 +33,7 @@ class Checklist extends BaseChecklist {
   protected shadowWordPain!: ShadowWordPain;
   protected vampiricTouch!: VampiricTouch;
   protected devouringPlague!: DevouringPlague;
+  protected darkEvangelism!: DarkEvangelism;
 
   render() {
     return (
@@ -43,6 +47,7 @@ class Checklist extends BaseChecklist {
           shadowWordPain: this.shadowWordPain.suggestionThresholds,
           vampiricTouch: this.vampiricTouch.suggestionThresholds,
           devouringPlague: this.devouringPlague.suggestionThresholds,
+          darkEvangelism: this.darkEvangelism.suggestionThresholds,
           downtime: this.alwaysBeCasting.suggestionThresholds,
         }}
       />
