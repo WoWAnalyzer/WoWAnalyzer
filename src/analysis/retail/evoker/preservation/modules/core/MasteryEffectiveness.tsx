@@ -250,7 +250,7 @@ class MasteryEffectiveness extends Analyzer {
   //TODO -- THESE CALCULATIONS ARE USING A +/- 10% THRESHOLD UNTIL ALL THE NEW RAID BUFFS ARE ADDED AND INCORPORATED INTO STATTRACKER
   private calculateShield(event: ApplyBuffEvent | RefreshBuffEvent, existingAbsorb: number) {
     let baseShielding = 0;
-    const vers = this.statTracker.currentVersatilityPercentage + 0.03; // TODO: REMOVE WHEN MARK OF THE WILD IS ADDED TO STATTRACKER
+    const vers = this.statTracker.currentVersatilityPercentage;
     if (this.isEventAbilityAnomaly(event.ability.guid)) {
       const intellect = this.statTracker.currentIntellectRating;
       baseShielding = intellect * TEMPORAL_ANOMALY_SHIELD_COEFF * (1 + vers) + existingAbsorb;
@@ -259,13 +259,9 @@ class MasteryEffectiveness extends Analyzer {
     if (this.isEventAbilityTwinGuardian(event.ability.guid)) {
       const initialShieldAmount = this.prevokerMaxHealth * TWIN_GUARDIAN_SHIELD_COEFF;
       const versAddedShield = this.prevokerMaxHealth * TWIN_GUARDIAN_SHIELD_COEFF * vers;
-      baseShielding = initialShieldAmount + versAddedShield + existingAbsorb;
+      baseShielding = initialShieldAmount + versAddedShield;
     }
     return Math.round(baseShielding);
-  }
-
-  private isTargetHealthierThanPlayer(playerHealth: number, targetHealth: number): boolean {
-    return playerHealth >= targetHealth;
   }
 
   private processHealForMastery(event: HealEvent) {
@@ -277,7 +273,7 @@ class MasteryEffectiveness extends Analyzer {
     const actualMasteryHealingDone = Math.max(0, heal.effective - baseHealing);
     this.totalMasteryHealingDone += actualMasteryHealingDone;
 
-    if (this.isTargetHealthierThanPlayer(this.prevokerHealthPercent, targetPlayerHealthPercent)) {
+    if (this.prevokerHealthPercent >= targetPlayerHealthPercent) {
       this.totalEventsAffectedByMastery += 1;
       this.masteryHealEvents.push({
         sourceEvent: event,
