@@ -67,6 +67,7 @@ import SpellLink from 'interface/SpellLink';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 export default [
+  change(date(2022, 11, 21), 'Convert StatisticBox and LazyLoadStatisticBox to TypeScript.', ToppleTheNun),
   change(date(2022, 11, 20), 'Fix talent display overflowing on character parses page.', ToppleTheNun),
   change(date(2022, 11, 20), 'Convert app wrapper to TypeScript.', ToppleTheNun),
   change(date(2022, 11, 20), 'Convert Home page to TypeScript.', ToppleTheNun),
