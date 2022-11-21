@@ -92,6 +92,7 @@ export default class Abilities extends CoreAbilities {
             </>
           ),
         },
+        damageSpellIds: [SPELLS.THE_HUNT_CHARGE.id, SPELLS.THE_HUNT_DOT.id],
       },
       {
         spell: TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id,
