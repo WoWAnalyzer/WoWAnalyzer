@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import TALENTS from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -81,18 +80,14 @@ class ShadowyInsight extends Analyzer {
       suggest(
         <>
           You wasted {this.procsWasted} out of {this.procsGained}{' '}
-          <SpellLink id={SPELLS.SHADOWY_INSIGHT.id} /> procs. Remember that the proc allows you to
-          cast <SpellLink id={SPELLS.MIND_BLAST.id} /> instantly during{' '}
-          <SpellLink id={SPELLS.MIND_FLAY.id} />, <SpellLink id={SPELLS.MIND_SEAR.id} />, and{' '}
-          <SpellLink id={TALENTS.VOID_TORRENT_TALENT.id} />. Using during one of these casts allows
-          you to double dip on damage during the global.
+          <SpellLink id={SPELLS.SHADOWY_INSIGHT.id} /> procs.
         </>,
       )
         .icon(SPELLS.SHADOWY_INSIGHT.icon)
         .actual(
           t({
             id: 'priest.shadow.suggestions.darkThoughts.efficiency',
-            message: `You wasted ${this.procsWasted} out of ${this.procsGained} Dark Thought procs.`,
+            message: `You wasted ${this.procsWasted} out of ${this.procsGained} Shadowy Insight procs.`,
           }),
         )
         .recommended(`${recommended} is recommended.`),

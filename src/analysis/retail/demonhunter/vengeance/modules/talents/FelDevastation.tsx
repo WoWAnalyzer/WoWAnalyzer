@@ -14,6 +14,7 @@ import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { combineQualitativePerformances } from 'analysis/retail/demonhunter/vengeance/guide/combineQualitativePerformances';
 import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/guide/VulnerabilityExplanation';
 import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/guide/FieryDemiseExplanation';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 
 const GOOD_FRAILTY_STACKS = 2;
 const OK_FRAILTY_STACKS = 1;
@@ -22,6 +23,7 @@ interface FelDevastationDamage {
   targetStacksOfFrailty: number;
   hasFieryBrandDebuff: boolean;
 }
+
 interface FelDevastationCast {
   timestamp: number;
   damage: FelDevastationDamage[];
@@ -99,7 +101,7 @@ export default class FelDevastation extends Analyzer {
     );
 
     const data = (
-      <div>
+      <RoundedPanel>
         <strong>Per-Cast Breakdown</strong>
         <small> - click to expand</small>
 
@@ -160,7 +162,7 @@ export default class FelDevastation extends Analyzer {
             />
           );
         })}
-      </div>
+      </RoundedPanel>
     );
 
     return explanationAndDataSubsection(explanation, data);

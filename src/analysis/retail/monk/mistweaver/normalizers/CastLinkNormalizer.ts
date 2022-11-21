@@ -144,6 +144,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: TALENTS_MONK.LIFE_COCOON_TALENT.id,
     referencedEventType: [EventType.Cast],
     backwardBufferMs: 500,
+    forwardBufferMs: 50,
     additionalCondition(linkingEvent, referencedEvent) {
       return (
         !HasRelatedEvent(linkingEvent, FROM_HARDCAST) &&

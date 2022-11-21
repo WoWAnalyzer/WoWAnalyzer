@@ -12,6 +12,7 @@ interface Props {
   ok?: number | GradiatedPerformanceBarInfo;
   bad?: number | GradiatedPerformanceBarInfo;
 }
+
 const CastSummaryAndBreakdown = ({ castEntries, perfect, good, ok, bad }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   return (

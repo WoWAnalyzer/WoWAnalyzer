@@ -45,14 +45,6 @@ export default class FieryBrand extends HitBasedAnalyzer {
     this.addEventListener(Events.fightend, this.finalize);
   }
 
-  getHitsWith() {
-    return this.hits.filter(({ mitigated }) => mitigated).length;
-  }
-
-  getHitsWithout() {
-    return this.hits.filter(({ mitigated }) => !mitigated).length;
-  }
-
   get suggestionThresholdsEfficiency(): NumberThreshold {
     return {
       actual: this.getHitsWith() / this.hits.length,
@@ -63,6 +55,14 @@ export default class FieryBrand extends HitBasedAnalyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
+  }
+
+  getHitsWith() {
+    return this.hits.filter(({ mitigated }) => mitigated).length;
+  }
+
+  getHitsWithout() {
+    return this.hits.filter(({ mitigated }) => !mitigated).length;
   }
 
   suggestions(when: When) {

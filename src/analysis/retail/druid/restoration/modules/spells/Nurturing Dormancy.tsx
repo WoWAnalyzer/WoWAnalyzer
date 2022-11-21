@@ -12,15 +12,16 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import { SpellLink } from 'interface';
 
-const EXTENSION_AMOUNT = 1000;
+const EXTENSION_AMOUNT = 2_000;
+const REJUV_MAX = 30_000;
 const MAX_PROCS = 3;
 
 /**
  * **Nurturing Dormancy**
  * Spec Talent
  *
- * When your Rejuvenation heals a full health target, its duration is increased by 1 sec, up to a
- * maximum total increase of 3 sec per cast.
+ * When your Rejuvenation heals a full health target, its duration is increased by 2 sec, up to a
+ * maximum total increase of 3 sec per cast. Cannot extend duration past 30 sec.
  */
 class NurturingDormancy extends Analyzer {
   static dependencies = {
@@ -57,12 +58,30 @@ class NurturingDormancy extends Analyzer {
     if (event.amount === 0 && event.overheal) {
       const procsEntry = this._getEntry(event);
       if (procsEntry.procs < MAX_PROCS) {
-        this.hotTracker.addExtension(
-          this.attribution,
-          EXTENSION_AMOUNT,
-          event.targetID,
-          event.ability.guid,
+        // 'cannot extend past 30s' only applies to this talent - other effects can push it past
+        let timeRemainingOnRejuv = 0; // if there's a problem getting rejuv duration, assume no cap
+        if (
+          this.hotTracker.hots[event.targetID] &&
+          this.hotTracker.hots[event.targetID][event.ability.guid]
+        ) {
+          timeRemainingOnRejuv =
+            this.hotTracker.hots[event.targetID][event.ability.guid].end - event.timestamp;
+        }
+        // extend the full amount if it won't take over the cap, nothing if already over the cap,
+        // and partial amount if taking exactly to the cap
+        const extensionAmount = Math.max(
+          Math.min(EXTENSION_AMOUNT, REJUV_MAX - timeRemainingOnRejuv),
+          0,
         );
+        if (extensionAmount > 0) {
+          this.hotTracker.addExtension(
+            this.attribution,
+            extensionAmount,
+            event.targetID,
+            event.ability.guid,
+          );
+        }
+        // even if there's no extension due to cap, a usage is still consumed
         procsEntry.procs += 1;
       }
     }
