@@ -24,7 +24,7 @@ class LifeCocoon extends Analyzer {
   }
 
   cocoonBuff(event: HealEvent) {
-    //Life Cocoon works on any HoT that has this flag checked even if they don't come from the mistweaver themselves
+    // Life Cocoon works on any HoT that has this flag checked even if they don't come from the mistweaver themselves
     if (!event.tick) {
       return;
     }

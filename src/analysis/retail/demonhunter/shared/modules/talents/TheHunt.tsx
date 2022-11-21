@@ -76,7 +76,11 @@ class TheHunt extends Analyzer {
 
   onDamage(event: DamageEvent) {
     this.damage += event.amount + (event.absorbed || 0);
-    this.theHuntTracker[this.cast].damage += event.amount + (event.absorbed || 0);
+    const trackedCast = this.theHuntTracker[this.cast];
+    if (!trackedCast) {
+      return;
+    }
+    trackedCast.damage += event.amount + (event.absorbed || 0);
   }
 
   onChargeDamage(event: DamageEvent) {
@@ -84,7 +88,11 @@ class TheHunt extends Analyzer {
     if (!enemy) {
       return;
     }
-    this.theHuntTracker[this.cast].primaryTargetStacksOfFrailty = enemy.getBuffStacks(
+    const trackedCast = this.theHuntTracker[this.cast];
+    if (!trackedCast) {
+      return;
+    }
+    trackedCast.primaryTargetStacksOfFrailty = enemy.getBuffStacks(
       SPELLS.FRAILTY.id,
       event.timestamp,
     );
@@ -109,7 +117,11 @@ class TheHunt extends Analyzer {
   }
 
   onDebuffApply(_: ApplyDebuffEvent) {
-    this.theHuntTracker[this.cast].numberOfDotsApplied += 1;
+    const trackedCast = this.theHuntTracker[this.cast];
+    if (!trackedCast) {
+      return;
+    }
+    trackedCast.numberOfDotsApplied += 1;
   }
 
   statistic() {

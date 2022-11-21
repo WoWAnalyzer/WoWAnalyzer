@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS/druid';
 
 export default [
+  change(date(2022, 11, 19), <>Added per-Berserk breakdown to Guide, and fixed an issue where Berserk CDR was being applied even when player wasn't talented for <SpellLink id={TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT.id} /></>, Sref),
   change(date(2022, 11, 13), <>Added cast efficiency numbers to Guide cooldown bars. Fixed a bug where per-Rake cast evaluation wasn't showing.</>, Sref),
   change(date(2022, 11, 6), <>Added per-cast breakdowns for <SpellLink id={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id} /> and <SpellLink id={TALENTS_DRUID.FERAL_FRENZY_TALENT.id} /> to Guide.</>, Sref),
   change(date(2022, 11, 5), <>Added <SpellLink id={TALENTS_DRUID.OMEN_OF_CLARITY_FERAL_TALENT.id} /> and <SpellLink id={TALENTS_DRUID.MOMENT_OF_CLARITY_TALENT.id} /> statistics.</>, Sref),
