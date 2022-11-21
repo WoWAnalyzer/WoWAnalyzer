@@ -18,6 +18,7 @@ import {
 } from 'analysis/retail/druid/restoration/Guide';
 import { PerformanceMark } from 'interface/guide';
 import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/guide/VulnerabilityExplanation';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 
 const GOOD_FRAILTY_STACKS = 3;
 const OK_FRAILTY_STACKS = 1;
@@ -215,7 +216,7 @@ class TheHunt extends Analyzer {
     );
 
     const data = (
-      <div>
+      <RoundedPanel>
         <strong>Per-Cast Breakdown</strong>
         <small> - click to expand</small>
 
@@ -262,7 +263,7 @@ class TheHunt extends Analyzer {
             />
           );
         })}
-      </div>
+      </RoundedPanel>
     );
 
     return explanationAndDataSubsection(explanation, data);
