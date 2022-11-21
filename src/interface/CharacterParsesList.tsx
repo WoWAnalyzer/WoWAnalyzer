@@ -128,10 +128,12 @@ class CharacterParsesList extends PureComponent<CharacterParsesListProps> {
                       </>
                     )}
                   </div>
-                  <div className="col-md-3">
+                  <div className="col-md-3 flex wrapable">
                     {elem.advanced &&
                       elem.talents.map((talent) => (
-                        <SpellIcon key={talent.id} id={talent.id} style={styles.icon} />
+                        <div key={talent.id} className="flex-sub">
+                          <SpellIcon id={talent.id} style={styles.icon} />
+                        </div>
                       ))}
                   </div>
                   <div className="col-md-2" style={{ color: 'white', textAlign: 'right' }}>
