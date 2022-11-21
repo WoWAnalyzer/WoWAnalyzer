@@ -1,10 +1,10 @@
-import { Trans, t } from '@lingui/macro';
-import { makeGuildApiUrl, makeCharacterApiUrl } from 'common/makeApiUrl';
+import { t, Trans } from '@lingui/macro';
+import { makeCharacterApiUrl, makeGuildApiUrl } from 'common/makeApiUrl';
 import makeCharacterPageUrl from 'common/makeCharacterPageUrl';
 import makeGuildPageUrl from 'common/makeGuildPageUrl';
 import REALMS from 'game/RealmList';
-import { createRef, PureComponent, FormEvent, RefObject } from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore react-select-search has a broken import so we need to manually do it. See https://github.com/tbleckert/react-select-search/issues/120
 import SelectSearch from 'react-select-search/dist/cjs';
@@ -14,193 +14,164 @@ export enum SearchType {
   GUILD = 'Guild',
 }
 
-interface State {
-  loading: boolean;
-  currentRegion: string;
-  currentRealm: string;
-}
-
-interface Props extends RouteComponentProps {
+interface Props {
   type: SearchType;
 }
+const NameSearch = ({ type }: Props) => {
+  const [loading, setLoading] = useState(false);
+  const [currentRegion, setCurrentRegion] = useState('EU');
+  const [currentRealm, setCurrentRealm] = useState('');
+  const regionInput = useRef<HTMLSelectElement>(null);
+  const nameInput = useRef<HTMLInputElement>(null);
+  const history = useHistory();
 
-class NameSearch extends PureComponent<Props, State> {
-  state = {
-    loading: false,
-    currentRegion: 'EU',
-    currentRealm: '',
-  };
+  const handleSubmit = useCallback(
+    async (e: FormEvent) => {
+      e.preventDefault();
 
-  regionInput: RefObject<HTMLSelectElement>;
-  nameInput: RefObject<HTMLInputElement>;
+      const region = regionInput.current?.value;
+      const realm = currentRealm;
+      const name = nameInput.current?.value;
+      const makePageUrl = type === SearchType.CHARACTER ? makeCharacterPageUrl : makeGuildPageUrl;
 
-  constructor(props: Props) {
-    super(props);
-    this.regionInput = createRef();
-    this.nameInput = createRef();
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.changeRegion = this.changeRegion.bind(this);
-  }
-
-  componentDidMount() {
-    if (this.regionInput.current) {
-      this.regionInput.current.focus();
-    }
-  }
-
-  async handleSubmit(e: FormEvent) {
-    e.preventDefault();
-
-    const region = this.regionInput.current?.value;
-    const realm = this.state.currentRealm;
-    const name = this.nameInput.current?.value;
-    const makePageUrl =
-      this.props.type === SearchType.CHARACTER ? makeCharacterPageUrl : makeGuildPageUrl;
-    if (!region || !realm || !name) {
-      alert(
-        t({
-          id: 'interface.nameSearch.pleaseSelect',
-          message: `Please select a region, realm, and guild.`,
-        }),
-      );
-      return;
-    }
-
-    // Checking for guild-exists here makes it more userfriendly and saves WCL-requests when guild doesn't exist
-    if (this.state.loading) {
-      alert(
-        t({
-          id: 'interface.nameSearch.stillWorking',
-          message: `Still working...`,
-        }),
-      );
-      return;
-    }
-    this.setState({ loading: true });
-    // Skip CN-API due to blizzard restrictions (aka there is no API for CN)
-    if (region !== 'CN') {
-      let response;
-      if (this.props.type === SearchType.GUILD) {
-        response = await fetch(makeGuildApiUrl(region, realm, name));
-      } else {
-        response = await fetch(makeCharacterApiUrl(undefined, region, realm, name));
-      }
-      if (response.status === 500) {
+      if (!region || !realm || !name) {
         alert(
           t({
-            id: 'interface.nameSearch.noResponse',
-            message: `It looks like we couldn't get a response in time from the API. Try and paste your report-code manually.`,
+            id: 'interface.nameSearch.pleaseSelect',
+            message: `Please select a region, realm, and guild.`,
           }),
         );
-        this.setState({
-          loading: false,
-        });
-        return;
-      } else if (response.status === 404) {
-        alert(
-          t({
-            id: 'interface.nameSearch.nameNotFound',
-            message: `${name} not found on ${realm}. Double check the region, realm, and name.`,
-          }),
-        );
-        this.setState({
-          loading: false,
-        });
-        return;
-      } else if (!response.ok) {
-        alert(
-          t({
-            id: 'interface.nameSearch.noAPIResponse',
-            message: `It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load. Please try and use your report-code or try again later.`,
-          }),
-        );
-        this.setState({
-          loading: false,
-        });
         return;
       }
-    }
-    this.props.history.push(makePageUrl(region, realm, name));
-  }
 
-  changeRegion(targetRegion: string) {
-    let newRealm = this.state.currentRealm;
+      // Checking for guild-exists here makes it more userfriendly and saves WCL-requests when guild doesn't exist
+      if (loading) {
+        alert(
+          t({
+            id: 'interface.nameSearch.stillWorking',
+            message: `Still working...`,
+          }),
+        );
+        return;
+      }
+      setLoading(true);
+      // Skip CN-API due to blizzard restrictions (aka there is no API for CN)
+      if (region !== 'CN') {
+        let response;
+        if (type === SearchType.GUILD) {
+          response = await fetch(makeGuildApiUrl(region, realm, name));
+        } else {
+          response = await fetch(makeCharacterApiUrl(undefined, region, realm, name));
+        }
+        if (response.status === 500) {
+          alert(
+            t({
+              id: 'interface.nameSearch.noResponse',
+              message: `It looks like we couldn't get a response in time from the API. Try and paste your report-code manually.`,
+            }),
+          );
+          setLoading(false);
+          return;
+        } else if (response.status === 404) {
+          alert(
+            t({
+              id: 'interface.nameSearch.nameNotFound',
+              message: `${name} not found on ${realm}. Double check the region, realm, and name.`,
+            }),
+          );
+          setLoading(false);
+          return;
+        } else if (!response.ok) {
+          alert(
+            t({
+              id: 'interface.nameSearch.noAPIResponse',
+              message: `It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load. Please try and use your report-code or try again later.`,
+            }),
+          );
+          setLoading(false);
+          return;
+        }
+      }
+
+      history.push(makePageUrl(region, realm, name));
+    },
+    [currentRealm, history, loading, type],
+  );
+
+  const changeRegion = (targetRegion: string) => {
+    let newRealm = currentRealm;
     // If the new region doesn't have a realm by the same name, clear the input
     if (!REALMS[targetRegion].some((realm) => realm.name === newRealm)) {
       newRealm = '';
     }
-    this.setState({
-      currentRegion: targetRegion,
-      currentRealm: newRealm,
-    });
-  }
+    setCurrentRegion(targetRegion);
+    setCurrentRealm(newRealm);
+  };
 
-  render() {
-    const namePlaceholder =
-      this.props.type === SearchType.CHARACTER
-        ? t({
-            id: 'interface.nameSearch.character',
-            message: `Character`,
-          })
-        : t({
-            id: 'interface.nameSearch.guild',
-            message: `Guild`,
-          });
-    return (
-      <form onSubmit={this.handleSubmit} className="character-guild-selector">
-        <select
-          className="form-control region"
-          ref={this.regionInput}
-          defaultValue={this.state.currentRegion}
-          onChange={(e) => this.changeRegion(e.target.value)}
-        >
-          {Object.keys(REALMS).map((elem) => (
-            <option key={elem} value={elem}>
-              {elem}
-            </option>
-          ))}
-        </select>
-        <SelectSearch
-          key={this.state.currentRegion}
-          className="realm"
-          search
-          options={REALMS[this.state.currentRegion].map((elem) => ({
-            value: elem.name,
-            name: elem.name,
-          }))}
-          value={this.state.currentRealm}
-          onChange={(value: string) => {
-            this.setState({
-              currentRealm: value,
-            });
-          }}
-          placeholder={t({
-            id: 'interface.nameSearch.realm',
-            message: `Realm`,
-          })}
-        />
-        <input
-          type="text"
-          name="code"
-          ref={this.nameInput}
-          className="name form-control"
-          autoCorrect="off"
-          autoCapitalize="off"
-          spellCheck="false"
-          placeholder={namePlaceholder}
-        />
-        <button
-          type="submit"
-          className={`btn btn-primary analyze animated-button ${
-            this.state.loading ? 'fill-button' : ''
-          }`}
-        >
-          <Trans id="interface.nameSearch.search">Search</Trans>{' '}
-          <span className="glyphicon glyphicon-chevron-right" aria-hidden />
-        </button>
-      </form>
-    );
-  }
-}
+  useEffect(() => {
+    regionInput.current?.focus();
+  }, []);
 
-export default withRouter(NameSearch);
+  const namePlaceholder =
+    type === SearchType.CHARACTER
+      ? t({
+          id: 'interface.nameSearch.character',
+          message: `Character`,
+        })
+      : t({
+          id: 'interface.nameSearch.guild',
+          message: `Guild`,
+        });
+  return (
+    <form onSubmit={handleSubmit} className="character-guild-selector">
+      <select
+        className="form-control region"
+        ref={regionInput}
+        defaultValue={currentRegion}
+        onChange={(e) => changeRegion(e.target.value)}
+      >
+        {Object.keys(REALMS).map((elem) => (
+          <option key={elem} value={elem}>
+            {elem}
+          </option>
+        ))}
+      </select>
+      <SelectSearch
+        key={currentRegion}
+        className="realm"
+        search
+        options={REALMS[currentRegion].map((elem) => ({
+          value: elem.name,
+          name: elem.name,
+        }))}
+        value={currentRealm}
+        onChange={(value: string) => {
+          setCurrentRealm(value);
+        }}
+        placeholder={t({
+          id: 'interface.nameSearch.realm',
+          message: `Realm`,
+        })}
+      />
+      <input
+        type="text"
+        name="code"
+        ref={nameInput}
+        className="name form-control"
+        autoCorrect="off"
+        autoCapitalize="off"
+        spellCheck="false"
+        placeholder={namePlaceholder}
+      />
+      <button
+        type="submit"
+        className={`btn btn-primary analyze animated-button ${loading ? 'fill-button' : ''}`}
+      >
+        <Trans id="interface.nameSearch.search">Search</Trans>{' '}
+        <span className="glyphicon glyphicon-chevron-right" aria-hidden />
+      </button>
+    </form>
+  );
+};
+
+export default NameSearch;
