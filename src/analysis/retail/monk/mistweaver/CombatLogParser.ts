@@ -42,7 +42,6 @@ import EssenceFontTargetsHit from './modules/spells/EssenceFontTargetsHit';
 import EssenceFontUniqueTargets from './modules/spells/EssenceFontUniqueTargets';
 import ExpelHarm from './modules/spells/ExpelHarm';
 import InvokeYulon from './modules/spells/InvokeYulon';
-import LifeCocoon from './modules/spells/LifeCocoon';
 import RenewingMist from './modules/spells/RenewingMist';
 import Revival from './modules/spells/Revival';
 import RisingSunKick from './modules/spells/RisingSunKick';
@@ -135,7 +134,6 @@ class CombatLogParser extends CoreCombatLogParser {
     jadeSerpentStatue: JadeSerpentStatue,
     jadeBond: JadeBond,
     lifecycles: Lifecycles,
-    lifeCocoon: LifeCocoon,
     mistWrapEnvelopingBreath: MistWrapEnvelopingBreath,
     manaTea: ManaTea,
     mistsOfLife: MistsOfLife,
