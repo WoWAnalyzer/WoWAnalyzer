@@ -67,6 +67,7 @@ import SpellLink from 'interface/SpellLink';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 export default [
+  change(date(2022, 11, 20), 'Update FightSelection to use hooks instead of compose.', ToppleTheNun),
   change(date(2022, 11, 15), 'Add Classic WotLK Racials.', jazminite),
   change(date(2022, 11, 15), 'Add 10.0.2 patch information.', ToppleTheNun),
   change(date(2022, 11, 15), 'Add SuggestionSection component to help transition into Guides.', ToppleTheNun),
