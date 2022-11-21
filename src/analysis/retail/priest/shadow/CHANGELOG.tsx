@@ -8,7 +8,8 @@ import { SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
 
 export default [
-  change(date(2022, 10, 13), <>Updated spells and talents for Dragonflight</>,DoxAshe),
+  change(date(2022, 11, 15), <>Added support for new Dragonflight talents</>,DoxAshe),
+  change(date(2022, 11, 6), <>Updated spells and talents for Dragonflight</>,DoxAshe),
   change(date(2022, 8, 9), <>Implemented <SpellLink id={SPELLS.DARK_THOUGHTS.id} /> and <SpellLink id={SPELLS.VOIDFORM.id} /> max charge changes.</>, Vetyst),
   change(date(2022, 5, 4), <>Implemented <SpellLink id={TALENTS.TRANSLUCENT_IMAGE_TALENT.id} /> damage reduction values.</>, Hana),
   change(date(2021, 10, 21), <>Updated <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> to TypeScript.</>, Adoraci),

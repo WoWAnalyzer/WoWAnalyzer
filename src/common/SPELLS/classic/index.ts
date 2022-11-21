@@ -15,7 +15,7 @@
 import indexById, { proxyRestrictedTable } from 'common/indexById';
 
 import Spell, { Enchant } from '../Spell';
-//Classes
+// Classes
 import DEATH_KNIGHT from './deathknight';
 import DRUID from './druid';
 import MAGE from './mage';
@@ -24,8 +24,9 @@ import PRIEST from './priest';
 import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
-//Professions
+// Other
 import Engineering from './engineering';
+import Racials from './racials';
 
 const ABILITIES = {
   ...DEATH_KNIGHT,
@@ -37,6 +38,7 @@ const ABILITIES = {
   ...WARLOCK,
   ...WARRIOR,
   ...Engineering,
+  ...Racials,
 } as const;
 
 const InternalSpellTable = indexById<Spell | Enchant, typeof ABILITIES>(ABILITIES);

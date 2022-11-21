@@ -6,8 +6,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 
 class LivingFlame extends Analyzer {
   static dependencies = {
@@ -47,7 +47,7 @@ class LivingFlame extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spellId={SPELLS.LIVING_FLAME_DAMAGE.id}>
-          <ItemPercentHealingDone amount={this.livingFlameHealing} />
+          <ItemHealingDone amount={this.livingFlameHealing} />
           <br />
           <ItemDamageDone amount={this.livingFlameDamage} />
         </BoringSpellValueText>

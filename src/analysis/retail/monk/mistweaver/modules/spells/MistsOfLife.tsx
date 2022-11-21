@@ -13,6 +13,7 @@ import { formatNumber } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import SpellLink from 'interface/SpellLink';
 import Combatants from 'parser/shared/modules/Combatants';
+import HotTracker from 'parser/shared/modules/HotTracker';
 
 const UNAFFECTED_SPELLS = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
@@ -40,6 +41,7 @@ class MistsOfLife extends Analyzer {
   extraEnvBonusHealing: number = 0;
   lastVivifyCastTarget: number = 0;
   countedMainVivifyHit: boolean = false;
+  MistsOfLifeAttrib = HotTracker.getNewAttribution('Mists of Life');
 
   constructor(options: Options) {
     super(options);
@@ -52,6 +54,10 @@ class MistsOfLife extends Analyzer {
       : 0.3;
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
+      this.handleEnvApply,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
       this.handleEnvApply,
     );
     this.addEventListener(
@@ -71,11 +77,23 @@ class MistsOfLife extends Analyzer {
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
       this.handleRemApply,
     );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
+      this.handleRemApply,
+    );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handleHeal);
   }
 
-  handleEnvApply(event: ApplyBuffEvent) {
+  handleEnvApply(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (isFromMistsOfLife(event)) {
+      const playerId = event.targetID;
+      if (
+        !this.hotTracker.hots[playerId] ||
+        !this.hotTracker.hots[playerId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id]
+      ) {
+        return;
+      }
+      this.hotTracker.addAttributionFromApply(this.MistsOfLifeAttrib, event);
       this.numEnv += 1;
     }
   }
@@ -116,15 +134,14 @@ class MistsOfLife extends Analyzer {
   }
 
   handleRemApply(event: ApplyBuffEvent | RefreshBuffEvent) {
-    const targetId = event.targetID;
-    if (
-      !this.hotTracker.hots[targetId] ||
-      !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]
-    ) {
-      return;
-    }
-    const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
-    if (this.hotTracker.fromMistsOfLife(hot)) {
+    if (isFromMistsOfLife(event)) {
+      const targetId = event.targetID;
+      if (
+        !this.hotTracker.hots[targetId] ||
+        !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]
+      ) {
+        return;
+      }
       this.extraRemApplications += 1;
     }
   }
