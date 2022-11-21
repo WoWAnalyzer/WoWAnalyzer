@@ -6,6 +6,7 @@ import TALENTS from 'common/TALENTS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2022, 11, 21), <>Fix degradation of <SpellLink id={TALENTS.THE_HUNT_TALENT} /> due to Advanced Combat Logging bug.</>, ToppleTheNun),
   change(date(2022, 11, 20), <>Automatically minimize icons on cooldown graphs if any cooldown was cast 10 or more times.</>, ToppleTheNun),
   change(date(2022, 11, 20), <>Add per-cast breakdown for <SpellLink id={SPELLS.IMMOLATION_AURA} /> to the Guide.</>, ToppleTheNun),
   change(date(2022, 11, 20), <>Add cast efficiency for <SpellLink id={SPELLS.IMMOLATION_AURA} /> to the Guide.</>, ToppleTheNun),
