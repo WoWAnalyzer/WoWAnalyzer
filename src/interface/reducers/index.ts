@@ -7,9 +7,10 @@ import { ReportState } from 'interface/reducers/report';
 import { ReportCodesIgnoredPreviousPatchWarning } from 'interface/reducers/reportCodesIgnoredPreviousPatchWarning';
 import { SpecsIgnoredNotSupportedWarningState } from 'interface/reducers/specsIgnoredNotSupportedWarning';
 import { combineReducers } from 'redux';
+import { InternetExplorerState } from 'interface/reducers/internetExplorer';
 
 export interface RootState {
-  error: any;
+  internetExplorer: InternetExplorerState;
   user: any;
   report: ReportState;
   combatants: CombatantsState;
@@ -24,7 +25,7 @@ export interface RootState {
 const createReducers = () =>
   combineReducers({
     // System
-    error: require('./error').default,
+    internetExplorer: require('./internetExplorer').default,
 
     // App
     user: require('./user').default,

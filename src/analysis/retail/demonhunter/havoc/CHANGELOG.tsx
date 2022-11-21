@@ -2,9 +2,11 @@ import { change, date } from 'common/changelog';
 import { ToppleTheNun } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 import TALENTS from 'common/TALENTS/demonhunter';
+import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 
 // prettier-ignore
 export default [
+  change(date(2022, 11, 21), <>Fix degradation of <SpellLink id={TALENTS.THE_HUNT_TALENT} /> due to pre-casts.</>, ToppleTheNun),
   change(date(2022, 11, 14), <>Add <SpellLink id={TALENTS.THE_HUNT_TALENT}/> cast breakdown to the Guide.</>, ToppleTheNun),
   change(date(2022, 11, 10), <>Prevent <SpellLink id={TALENTS.SIGIL_OF_MISERY_TALENT}/> and <SpellLink id={TALENTS.SIGIL_OF_SILENCE_TALENT}/> from appearing in statistics if untalented.</>, ToppleTheNun),
   change(date(2022, 11, 10), <>Remove Fury overcapping suggestions from <SpellLink id={TALENTS.DISRUPTING_FURY_TALENT}/> and <SpellLink id={TALENTS.SWALLOWED_ANGER_TALENT}/>.</>, ToppleTheNun),
@@ -23,4 +25,5 @@ export default [
   change(date(2022, 10, 11), <>Improve <SpellLink id={TALENTS.ESSENCE_BREAK_TALENT} /> bad cast detection.</>, ToppleTheNun),
   change(date(2022, 9, 22), 'Update to latest Havoc patch from 9/21/2022.', ToppleTheNun),
   change(date(2022, 9, 7), 'Begin working on support for Dragonflight.', ToppleTheNun),
+  ...SHARED_CHANGELOG,
 ];

@@ -1,5 +1,5 @@
 import { Section } from 'interface/guide';
-import { Enchant } from 'common/SPELLS/Spell';
+import Spell, { Enchant } from 'common/SPELLS/Spell';
 
 import EnchantmentSubSection from './EnchantmentSubSection';
 import FoodSubSection from './FoodSubSection';
@@ -10,12 +10,17 @@ import WeaponEnhancementSubSection from 'interface/guide/components/Preparation/
 interface Props {
   recommendedEnchantments?: Record<number, Enchant[]>;
   recommendedWeaponEnhancements?: Record<number, Enchant[]>;
+  recommendedFoods?: Spell[];
 }
-const PreparationSection = ({ recommendedEnchantments, recommendedWeaponEnhancements }: Props) => (
+const PreparationSection = ({
+  recommendedEnchantments,
+  recommendedFoods,
+  recommendedWeaponEnhancements,
+}: Props) => (
   <Section title="Preparation">
     <EnchantmentSubSection recommendedEnchantments={recommendedEnchantments} />
     <WeaponEnhancementSubSection recommendedWeaponEnhancements={recommendedWeaponEnhancements} />
-    <FoodSubSection />
+    <FoodSubSection recommendedFoods={recommendedFoods} />
     <PotionSubSection />
     <FlaskSubSection />
   </Section>
