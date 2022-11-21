@@ -75,7 +75,7 @@ const App = () => {
             {/* Lower case the button so it doesn't seem to aggressive */}
             <a
               className="btn btn-primary"
-              href="http://outdatedbrowser.com/"
+              href="https://outdatedbrowser.com/"
               style={{ textTransform: 'none' }}
             >
               Download a proper browser
