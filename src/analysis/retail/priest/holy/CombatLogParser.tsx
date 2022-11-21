@@ -123,6 +123,8 @@ class CombatLogParser extends CoreCombatLogParser {
     harmoniousApparatus: Talents.BottomRow.HarmoniousApparatus,
     resonantWords: Talents.BottomRow.ResonantWords,
     TranslucentImage: TranslucentImage,
+    rapidRecovery: Talents.BottomRow.RapidRecovery,
+    miracleWorker: Talents.BottomRow.MiracleWorker,
 
     BurningVehemence: Talents.TopRow.BurningVehemence,
 
