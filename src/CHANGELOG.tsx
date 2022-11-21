@@ -61,12 +61,14 @@ import {
   Tyndi,
   Khadaj,
   Jonfanz,
+  Vohrr,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 export default [
+  change(date(2022, 11, 21), 'Updated contributor and support status for Preservation', Vohrr),
   change(date(2022, 11, 20), 'Fix talent display overflowing on character parses page.', ToppleTheNun),
   change(date(2022, 11, 20), 'Convert app wrapper to TypeScript.', ToppleTheNun),
   change(date(2022, 11, 20), 'Convert Home page to TypeScript.', ToppleTheNun),
