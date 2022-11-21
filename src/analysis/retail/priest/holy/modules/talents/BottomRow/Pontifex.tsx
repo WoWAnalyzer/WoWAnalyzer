@@ -7,7 +7,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Events, { HealEvent } from 'parser/core/Events';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { formatThousands } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import HIT_TYPES from 'game/HIT_TYPES';
 
 const PONTIFEX_HEALING_INCREASE = 0.1;
@@ -18,8 +18,9 @@ const PONTIFEX_HEALING_INCREASE = 0.1;
  */
 
 class Pontifex extends Analyzer {
-  effectiveHealing = 0;
-  overhealing = 0;
+  rawAdditionalHealing: number = 0;
+  effectiveAdditionalHealing: number = 0;
+  overhealing: number = 0;
   wastedStacks = 0;
 
   constructor(options: Options) {
@@ -45,6 +46,13 @@ class Pontifex extends Analyzer {
     );
   }
 
+  get percentOverhealing() {
+    if (this.rawAdditionalHealing === 0) {
+      return 0;
+    }
+    return this.overhealing / this.rawAdditionalHealing;
+  }
+
   onPontifexHealCast(event: HealEvent) {
     const pontifexBuffStacks = this.selectedCombatant.getBuffStacks(SPELLS.PONTIFEX_TALENT_BUFF.id);
 
@@ -59,8 +67,13 @@ class Pontifex extends Analyzer {
 
     // Casted a Holy word with at least one stack of Pontifex
     if (pontifexBuffStacks > 0) {
-      this.effectiveHealing += calculateEffectiveHealing(event, PONTIFEX_HEALING_INCREASE);
-      this.overhealing += calculateOverhealing(event, PONTIFEX_HEALING_INCREASE);
+      const rawHealAmount = event.amount * PONTIFEX_HEALING_INCREASE;
+      const effectiveHealAmount = calculateEffectiveHealing(event, PONTIFEX_HEALING_INCREASE);
+      const overHealAmount = calculateOverhealing(event, PONTIFEX_HEALING_INCREASE);
+
+      this.rawAdditionalHealing += rawHealAmount;
+      this.effectiveAdditionalHealing += effectiveHealAmount;
+      this.overhealing += overHealAmount;
     }
   }
 
@@ -73,14 +86,13 @@ class Pontifex extends Analyzer {
           <>
             {this.wastedStacks} stacks of Pontifex wasted.
             <br />
-            Healing: {formatThousands(this.effectiveHealing)}
-            <br />
-            Overhealing: {formatThousands(this.overhealing)}
+            Total Healing: {formatNumber(this.rawAdditionalHealing)} (
+            {formatPercentage(this.percentOverhealing)}% OH)
           </>
         }
       >
         <BoringSpellValueText spellId={TALENTS.PONTIFEX_TALENT.id}>
-          <ItemHealingDone amount={this.effectiveHealing} />
+          <ItemHealingDone amount={this.effectiveAdditionalHealing} />
         </BoringSpellValueText>
       </Statistic>
     );
