@@ -263,10 +263,7 @@ export function isFromMistsOfLife(event: ApplyBuffEvent | RefreshBuffEvent): boo
 }
 
 export function isFromDancingMists(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
-  if(HasRelatedEvent(event, FROM_MISTS_OF_LIFE)) {
-    return false;
-  }
-  return HasRelatedEvent(event, FROM_DANCING_MISTS);
+  return HasRelatedEvent(event, FROM_DANCING_MISTS) && !HasRelatedEvent(event, FROM_MISTS_OF_LIFE);
 }
 
 export default CastLinkNormalizer;

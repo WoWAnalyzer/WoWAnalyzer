@@ -9,7 +9,6 @@ import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import Combatants from 'parser/shared/modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { DANCING_MIST_CHANCE, RAPID_DIFFUSION_DURATION } from '../../constants';
 
@@ -20,10 +19,6 @@ const RAPID_DIFFUSION_SPELLS = [
 const BASE_AVERAGE_REMS = 2.22;
 
 class Vivify extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-  };
-  protected combatants!: Combatants;
   casts: number = 0;
 
   mainTargetHitsToCount: number = 0;
