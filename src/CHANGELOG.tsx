@@ -67,6 +67,7 @@ import SpellLink from 'interface/SpellLink';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 export default [
+  change(date(2022, 11, 20), 'Convert app wrapper to TypeScript.', ToppleTheNun),
   change(date(2022, 11, 20), 'Convert Home page to TypeScript.', ToppleTheNun),
   change(date(2022, 11, 18), 'Update localization files.', ToppleTheNun),
   change(date(2022, 11, 15), 'Add Classic WotLK Racials.', jazminite),
