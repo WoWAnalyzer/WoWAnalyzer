@@ -159,10 +159,10 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
           // if we find a match of a linking ability
           if (this._isLinking(el, event)) {
             let linksMade = 0;
-            let maxLinks = el.maximumLinks;
-            if (typeof maxLinks == 'function') {
-              maxLinks = maxLinks(this.selectedCombatant);
-            }
+            const maxLinks =
+              typeof el.maximumLinks == 'function'
+                ? el.maximumLinks(this.selectedCombatant)
+                : el.maximumLinks;
             // loop forwards up to forwardBuffer and add links
             for (let forwardIndex = eventIndex; forwardIndex < events.length; forwardIndex += 1) {
               const forwardEvent = events[forwardIndex];
