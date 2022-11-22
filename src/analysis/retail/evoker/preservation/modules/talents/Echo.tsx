@@ -9,7 +9,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ECHO_HEALS, SPELL_COLORS } from '../../constants';
-import { isFromTAEcho } from '../../normalizers/CastLinkNormalizer';
+import { isFromHardcastEcho, isFromTAEcho } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerPrevoker from '../core/HotTrackerPrevoker';
 
 class Echo extends Analyzer {
@@ -33,9 +33,21 @@ class Echo extends Analyzer {
   }
 
   handleEchoHeal(event: HealEvent) {
+    const targetID = event.targetID;
     const spellID = event.ability.guid;
+    if (event.tick) {
+      if (!this.hotTracker.hots[targetID] || !this.hotTracker.hots[targetID][spellID]) {
+        return;
+      }
+      const hot = this.hotTracker.hots[targetID][spellID];
+      if (!this.hotTracker.fromEchoHardcast(hot) && !this.hotTracker.fromEchoTA(hot)) {
+        return;
+      }
+    } else if (!isFromTAEcho(event) && !isFromHardcastEcho(event)) {
+      return;
+    }
     const mapRef = this.isFromTaEcho(event) ? this.taEchoHealingBySpell : this.echoHealingBySpell;
-    mapRef.set(spellID, mapRef.get(spellID)! + (event.amount || 0));
+    mapRef.set(event.ability.guid, mapRef.get(event.ability.guid)! + (event.amount || 0));
   }
 
   isFromTaEcho(event: HealEvent) {
@@ -122,6 +134,15 @@ class Echo extends Analyzer {
         value: this.totalEchoHealingForSpell(TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id),
         valueTooltip: formatNumber(
           this.totalEchoHealingForSpell(TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id),
+        ),
+      },
+      {
+        color: SPELL_COLORS.FLUTTERING_SEEDLING,
+        label: 'Fluttering Seedling',
+        spellId: TALENTS_EVOKER.FLUTTERING_SEEDLINGS_TALENT.id,
+        value: this.totalEchoHealingForSpell(SPELLS.FLUTTERING_SEEDLINGS_HEAL.id),
+        valueTooltip: formatNumber(
+          this.totalEchoHealingForSpell(SPELLS.FLUTTERING_SEEDLINGS_HEAL.id),
         ),
       },
     ].filter((item) => {

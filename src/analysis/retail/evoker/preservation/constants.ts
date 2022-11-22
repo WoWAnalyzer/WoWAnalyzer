@@ -10,6 +10,7 @@ export const SPELL_COLORS = {
   DREAM_BREATH: '#c49c94',
   SPIRITBLOOM: '#fe85ff',
   EMERALD_BLOSSOM: '#ffffff',
+  FLUTTERING_SEEDLING: '#50c878',
 };
 
 // heal events that can be caused by an echo heal
@@ -20,6 +21,7 @@ export const ECHO_HEALS = [
   TALENTS_EVOKER.SPIRITBLOOM_TALENT,
   TALENTS_EVOKER.VERDANT_EMBRACE_TALENT,
   SPELLS.REVERSION_ECHO,
+  SPELLS.FLUTTERING_SEEDLINGS_HEAL,
 ];
 
 // hots

@@ -8,7 +8,6 @@ import {
   EventType,
   HasRelatedEvent,
   HealEvent,
-  GetRelatedEvents,
   RefreshBuffEvent,
 } from 'parser/core/Events';
 
@@ -19,7 +18,8 @@ export const ECHO = 'Echo';
 export const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera';
 export const DREAM_BREATH_CALL_OF_YSERA_HOT = 'DreamBreathCallOfYseraHoT';
 export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera';
-export const FLUTTERING_SEEDLINGS_ECHO = 'FlutteringSeedlings';
+export const FLUTTERING_SEEDLINGS_ECHO = 'FlutteringSeedlingsEcho';
+export const FLUTTERING_SEEDLINGS_HARDCAST = 'FlutteringSeedlingsHardcast';
 
 const CAST_BUFFER_MS = 100;
 const EB_BUFFER_MS = 2000;
@@ -58,6 +58,7 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventId: [
       TALENTS_EVOKER.SPIRITBLOOM_TALENT.id,
       SPELLS.LIVING_FLAME_HEAL.id,
+      SPELLS.DREAM_BREATH_ECHO.id,
       TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id,
       SPELLS.EMERALD_BLOSSOM_ECHO.id,
     ],
@@ -122,6 +123,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: ECHO_TEMPORAL_ANOMALY,
     linkingEventId: [
       TALENTS_EVOKER.SPIRITBLOOM_TALENT.id,
+      SPELLS.DREAM_BREATH_ECHO.id,
       SPELLS.LIVING_FLAME_HEAL.id,
       TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id,
     ],
@@ -147,7 +149,7 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: EventType.Heal,
     referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
     referencedEventType: [EventType.RemoveBuff],
-    backwardBufferMs: EB_BUFFER_MS,
+    forwardBufferMs: EB_BUFFER_MS,
     additionalCondition(referencedEvent) {
       return !HasRelatedEvent(referencedEvent, FROM_ECHO_HARDCAST);
     },
@@ -158,15 +160,45 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
-  // link seedling heal to Emerald Blossom echo heal group
+  // link seedling heal to Emerald Blossom echo heal
   {
     linkRelation: FLUTTERING_SEEDLINGS_ECHO,
-    linkingEventId: SPELLS.FLUTTERING_SEEDLINGS_HEAL.id,
+    reverseLinkRelation: FLUTTERING_SEEDLINGS_ECHO,
+    linkingEventId: SPELLS.EMERALD_BLOSSOM_ECHO.id,
     linkingEventType: EventType.Heal,
-    referencedEventId: SPELLS.EMERALD_BLOSSOM_ECHO.id,
+    referencedEventId: SPELLS.FLUTTERING_SEEDLINGS_HEAL.id,
     referencedEventType: EventType.Heal,
     anyTarget: true,
-    backwardBufferMs: CAST_BUFFER_MS * 5,
+    maximumLinks: 2,
+    forwardBufferMs: EB_BUFFER_MS,
+    isActive(c) {
+      return c.hasTalent(TALENTS_EVOKER.FLUTTERING_SEEDLINGS_TALENT);
+    },
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        !HasRelatedEvent(referencedEvent, FLUTTERING_SEEDLINGS_ECHO) &&
+        (HasRelatedEvent(linkingEvent, ECHO) ||
+          HasRelatedEvent(linkingEvent, ECHO_TEMPORAL_ANOMALY))
+      );
+    },
+  },
+  // link seedling heal to Emerald Blossom cast
+  {
+    linkRelation: FLUTTERING_SEEDLINGS_HARDCAST,
+    reverseLinkRelation: FLUTTERING_SEEDLINGS_HARDCAST,
+    linkingEventId: SPELLS.EMERALD_BLOSSOM_CAST.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.FLUTTERING_SEEDLINGS_HEAL.id,
+    referencedEventType: EventType.Heal,
+    anyTarget: true,
+    maximumLinks: 2,
+    forwardBufferMs: EB_BUFFER_MS,
+    isActive(c) {
+      return c.hasTalent(TALENTS_EVOKER.FLUTTERING_SEEDLINGS_TALENT);
+    },
+    additionalCondition(linkingEvent, referencedEvent) {
+      return !HasRelatedEvent(referencedEvent, FLUTTERING_SEEDLINGS_ECHO);
+    },
   },
   //link Call of Ysera Removal to the heals
   {
@@ -236,20 +268,14 @@ class CastLinkNormalizer extends EventLinkNormalizer {
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
 export function isFromHardcastEcho(event: AbilityEvent<any>): boolean {
   if (event.ability.guid === SPELLS.FLUTTERING_SEEDLINGS_HEAL.id) {
-    const blossoms = GetRelatedEvents(event, FLUTTERING_SEEDLINGS_ECHO);
-    return blossoms.every((ev) => {
-      return HasRelatedEvent(ev, ECHO);
-    });
+    return HasRelatedEvent(event, FLUTTERING_SEEDLINGS_ECHO);
   }
   return HasRelatedEvent(event, ECHO);
 }
 
 export function isFromTAEcho(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
   if (event.ability.guid === SPELLS.FLUTTERING_SEEDLINGS_HEAL.id) {
-    const blossoms = GetRelatedEvents(event, FLUTTERING_SEEDLINGS_ECHO);
-    return blossoms.every((ev) => {
-      return HasRelatedEvent(ev, ECHO_TEMPORAL_ANOMALY);
-    });
+    return HasRelatedEvent(event, FLUTTERING_SEEDLINGS_ECHO);
   }
   return HasRelatedEvent(event, ECHO_TEMPORAL_ANOMALY);
 }
