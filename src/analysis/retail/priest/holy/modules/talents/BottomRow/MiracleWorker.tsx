@@ -1,5 +1,4 @@
 import TALENTS from 'common/TALENTS/priest';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -60,6 +59,8 @@ class MiracleWorker extends Analyzer {
   }
 
   statistic() {
+    const extraSerenityCasts = Math.floor(this.extraSerenityCD / 1000 / 60);
+    const extraSanctifyCasts = Math.floor(this.extraSanctifyCD / 1000 / 60);
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(14)}
@@ -82,11 +83,9 @@ class MiracleWorker extends Analyzer {
       >
         <BoringSpellValueText spellId={TALENTS.MIRACLE_WORKER_TALENT.id}>
           <>
-            {Math.floor(this.extraSerenityCD / 1000 / 60)} extra{' '}
-            <SpellLink id={TALENTS.HOLY_WORD_SERENITY_TALENT.id} /> casts.
+            {extraSerenityCasts} extra Serenity cast{extraSerenityCasts > 1 ? 's' : ''}.
             <br />
-            {Math.floor(this.extraSanctifyCD / 1000 / 60)} extra{' '}
-            <SpellLink id={TALENTS.HOLY_WORD_SANCTIFY_TALENT.id} /> casts.
+            {extraSanctifyCasts} extra Sanctify cast{extraSanctifyCasts > 1 ? 's' : ''}.
           </>
         </BoringSpellValueText>
       </Statistic>
