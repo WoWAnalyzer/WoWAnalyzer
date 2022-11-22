@@ -1,32 +1,22 @@
 import NavigationBar from 'interface/NavigationBar';
-import { Helmet } from 'react-helmet';
+import { useParams } from 'react-router-dom';
+import DocumentTitle from 'interface/DocumentTitle';
 
 import CharacterParses from './CharacterParses';
-import { useRouteMatch } from 'react-router-dom';
-
-interface MatchParams {
-  region: string;
-  realm: string;
-  name: string;
-}
 
 const CharacterPage = () => {
-  const match = useRouteMatch<MatchParams>('/character/:region/:realm/:name');
-  const region = decodeURI(match?.params.region.replace(/\+/g, ' ') ?? '').toUpperCase();
-  const realm = decodeURI(match?.params.realm.replace(/\+/g, ' ') ?? '');
-  const name = decodeURI(match?.params.name.replace(/\+/g, ' ') ?? '');
+  const { region, realm, name } = useParams();
+  const regionDecoded = decodeURI(region?.replace(/\+/g, ' ') ?? '').toUpperCase();
+  const realmDecoded = decodeURI(realm?.replace(/\+/g, ' ') ?? '');
+  const nameDecoded = decodeURI(name?.replace(/\+/g, ' ') ?? '');
 
   return (
     <>
-      <Helmet>
-        <title>
-          {name}-{realm} ({region})
-        </title>
-      </Helmet>
+      <DocumentTitle title={`${nameDecoded}-${realmDecoded} (${regionDecoded})`} />
 
       <NavigationBar />
 
-      <CharacterParses region={region} realm={realm} name={name} />
+      <CharacterParses region={regionDecoded} realm={realmDecoded} name={nameDecoded} />
     </>
   );
 };

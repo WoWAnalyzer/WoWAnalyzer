@@ -1,7 +1,7 @@
-import getMatch from './getMatch';
+import { getMatchWithBuild } from './getMatch';
 
 const getBuild = (pathname: string) => {
-  const match = getMatch(pathname);
+  const match = getMatchWithBuild(pathname);
   return match ? match.params.build : null;
 };
 

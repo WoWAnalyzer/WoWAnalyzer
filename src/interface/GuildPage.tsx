@@ -1,29 +1,19 @@
 import GuildReports from 'interface/GuildReports';
 import NavigationBar from 'interface/NavigationBar';
-import { Helmet } from 'react-helmet';
-import { useRouteMatch } from 'react-router-dom';
-
-interface MatchParams {
-  region: string;
-  realm: string;
-  name: string;
-}
+import { useParams } from 'react-router-dom';
+import DocumentTitle from 'interface/DocumentTitle';
 
 const GuildPage = () => {
-  const match = useRouteMatch<MatchParams>('/guild/:region/:realm/:name');
-  const region = decodeURI(match?.params.region.replace(/\+/g, ' ') ?? '').toUpperCase();
-  const realm = decodeURI(match?.params.realm.replace(/\+/g, ' ') ?? '');
-  const name = decodeURI(match?.params.name.replace(/\+/g, ' ') ?? '');
+  const { region, realm, name } = useParams();
+  const regionDecoded = decodeURI(region?.replace(/\+/g, ' ') ?? '').toUpperCase();
+  const realmDecoded = decodeURI(realm?.replace(/\+/g, ' ') ?? '');
+  const nameDecoded = decodeURI(name?.replace(/\+/g, ' ') ?? '');
 
   return (
     <>
-      <Helmet>
-        <title>
-          {name}-{realm} ({region})
-        </title>
-      </Helmet>
+      <DocumentTitle title={`${nameDecoded}-${realmDecoded} (${nameDecoded})`} />
       <NavigationBar />
-      <GuildReports region={region} realm={realm} name={name} />
+      <GuildReports region={regionDecoded} realm={realmDecoded} name={nameDecoded} />
     </>
   );
 };

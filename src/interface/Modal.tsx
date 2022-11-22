@@ -3,22 +3,28 @@ import CloseIcon from 'interface/icons/Cross';
 import Portal from 'interface/Portal';
 import { useEffect } from 'react';
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useWaSelector } from 'interface/utils/useWaSelector';
+import { getOpenModals } from 'interface/selectors/openModals';
 
 import './Modal.scss';
 
 interface Props {
   children: React.ReactNode;
   onClose: () => void;
-  openModal: () => void;
-  closeModal: () => void;
 }
 
-const Modal = ({ children, onClose, openModal, closeModal }: Props) => {
+const Modal = ({ children, onClose }: Props) => {
+  // TODO: Figure out how to remove this but still force a re-render when the modal is "opened"
+  useWaSelector((state) => getOpenModals(state));
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    openModal();
-    return closeModal;
-  }, [openModal, closeModal]);
+    dispatch(openModal());
+    return () => {
+      dispatch(closeModal());
+    };
+  }, [dispatch]);
 
   return (
     <Portal>
@@ -34,7 +40,4 @@ const Modal = ({ children, onClose, openModal, closeModal }: Props) => {
   );
 };
 
-export default connect(null, {
-  openModal,
-  closeModal,
-})(Modal);
+export default Modal;

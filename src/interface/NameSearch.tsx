@@ -4,7 +4,7 @@ import makeCharacterPageUrl from 'common/makeCharacterPageUrl';
 import makeGuildPageUrl from 'common/makeGuildPageUrl';
 import REALMS from 'game/RealmList';
 import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore react-select-search has a broken import so we need to manually do it. See https://github.com/tbleckert/react-select-search/issues/120
 import SelectSearch from 'react-select-search/dist/cjs';
@@ -23,7 +23,7 @@ const NameSearch = ({ type }: Props) => {
   const [currentRealm, setCurrentRealm] = useState('');
   const regionInput = useRef<HTMLSelectElement>(null);
   const nameInput = useRef<HTMLInputElement>(null);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleSubmit = useCallback(
     async (e: FormEvent) => {
@@ -93,9 +93,9 @@ const NameSearch = ({ type }: Props) => {
         }
       }
 
-      history.push(makePageUrl(region, realm, name));
+      navigate(makePageUrl(region, realm, name));
     },
-    [currentRealm, history, loading, type],
+    [currentRealm, navigate, loading, type],
   );
 
   const changeRegion = (targetRegion: string) => {

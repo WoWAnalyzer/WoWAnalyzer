@@ -5,23 +5,23 @@ import ClassicLogWarning from 'interface/report/ClassicLogWarning';
 import FightSelectionPanel from 'interface/report/FightSelectionPanel';
 import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/ReportDurationWarning';
 import { getFightFromReport } from 'interface/selectors/fight';
-import { getFightId } from 'interface/selectors/url/report';
 import Tooltip from 'interface/Tooltip';
 import { ReactNode, useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Toggle from 'react-toggle';
 import { FightProvider } from 'interface/report/context/FightContext';
 import { useReport } from 'interface/report/context/ReportContext';
-import { Helmet } from 'react-helmet';
 import { isUnsupportedClassicVersion } from 'game/VERSIONS';
+import DocumentTitle from 'interface/DocumentTitle';
+import { getFightIdFromParam } from 'interface/selectors/url/report/getFightId';
 
 interface Props {
   children: ReactNode;
 }
 
 const FightSelection = ({ children }: Props) => {
-  const location = useLocation();
-  const fightId = getFightId(location.pathname);
+  const { fightId } = useParams();
+  const fightIdAsNumber = getFightIdFromParam(fightId);
   const [killsOnly, setKillsOnly] = useState(false);
   const { report, refreshReport } = useReport();
   const reportDuration = report.end - report.start;
@@ -31,8 +31,8 @@ const FightSelection = ({ children }: Props) => {
     window.scrollTo(0, 0);
   }, []);
 
-  const fight = fightId && getFightFromReport(report, fightId);
-  if (!fightId || !fight) {
+  const fight = fightIdAsNumber && getFightFromReport(report, fightIdAsNumber);
+  if (!fightIdAsNumber || !fight) {
     return (
       <div className="container offset fight-selection">
         <div className="flex wrapable" style={{ marginBottom: 15 }}>
@@ -110,17 +110,16 @@ const FightSelection = ({ children }: Props) => {
 
   return (
     <>
-      <Helmet>
-        <title>
-          {fight
+      <DocumentTitle
+        title={
+          fight
             ? t({
                 id: 'interface.report.fightSelection.documentTitle',
                 message: `${getFightName(report, fight)} in ${report.title}`,
               })
-            : report.title}
-        </title>
-      </Helmet>
-
+            : report.title
+        }
+      />
       <FightProvider fight={fight}>{children}</FightProvider>
     </>
   );

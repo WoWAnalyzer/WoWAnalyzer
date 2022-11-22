@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 
 const siteName = 'WoWAnalyzer';
 
@@ -6,11 +6,10 @@ interface DocumentTitleProps {
   title?: string;
 }
 
-const DocumentTitle = ({ title }: DocumentTitleProps) => {
-  useEffect(() => {
-    document.title = title ? `${title} - ${siteName}` : siteName;
-  }, [title]);
-  return null;
-};
+const DocumentTitle = ({ title }: DocumentTitleProps) => (
+  <Helmet>
+    <title>{title ?? siteName}</title>
+  </Helmet>
+);
 
 export default DocumentTitle;

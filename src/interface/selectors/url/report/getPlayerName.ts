@@ -1,9 +1,8 @@
-import getMatch from './getMatch';
+import { getMatchWithPlayer } from './getMatch';
 
-export default (pathname: string) => {
-  const match = getMatch(pathname);
-  if (match && match.params.player) {
-    const player = match.params.player;
+export const getPlayerNameFromParam = (param: string | null | undefined) => {
+  if (param) {
+    const player = param;
     const index = player.indexOf('-');
     const hasSeparator = index !== -1;
     const hasAnonSeparator = player.includes('+');
@@ -19,4 +18,9 @@ export default (pathname: string) => {
     return null;
   }
   return null;
+};
+
+export default (pathname: string) => {
+  const match = getMatchWithPlayer(pathname);
+  return getPlayerNameFromParam(match?.params?.player);
 };

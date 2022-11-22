@@ -1,9 +1,9 @@
-import getMatch from './getMatch';
+import { getMatchWithFightId } from './getMatch';
+
+export const getFightPartsFromParam = (fightId: string | null | undefined) =>
+  fightId ? fightId.split('-') : null;
 
 export default (pathname: string) => {
-  const match = getMatch(pathname);
-  if (match && match.params.fightId) {
-    return match.params.fightId.split('-');
-  }
-  return null;
+  const match = getMatchWithFightId(pathname);
+  return getFightPartsFromParam(match?.params?.fightId);
 };
