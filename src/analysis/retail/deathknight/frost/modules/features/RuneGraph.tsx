@@ -8,6 +8,7 @@ class RuneGraph extends ResourceGraph {
     runeTracker: RuneTracker,
   };
 
+  // TODO ideally this shouldn't need a custom vega spec just to interpolate - more cleanup needed?
   get vegaSpec() {
     return {
       data: {
@@ -46,7 +47,7 @@ class RuneGraph extends ResourceGraph {
       },
       mark: {
         type: 'line' as const,
-        // interpolate: 'step' as const,
+        interpolate: 'step' as const,
         color: 'rgb(196, 31, 59)' as const,
       },
       config: {
