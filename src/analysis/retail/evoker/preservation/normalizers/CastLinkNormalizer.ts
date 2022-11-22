@@ -169,8 +169,10 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.FLUTTERING_SEEDLINGS_HEAL.id,
     referencedEventType: EventType.Heal,
     anyTarget: true,
-    maximumLinks: 2,
     forwardBufferMs: EB_BUFFER_MS,
+    maximumLinks(c) {
+      return c.getTalentRank(TALENTS_EVOKER.FLUTTERING_SEEDLINGS_TALENT);
+    },
     isActive(c) {
       return c.hasTalent(TALENTS_EVOKER.FLUTTERING_SEEDLINGS_TALENT);
     },
@@ -191,7 +193,9 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.FLUTTERING_SEEDLINGS_HEAL.id,
     referencedEventType: EventType.Heal,
     anyTarget: true,
-    maximumLinks: 2,
+    maximumLinks(c) {
+      return c.getTalentRank(TALENTS_EVOKER.FLUTTERING_SEEDLINGS_TALENT);
+    },
     forwardBufferMs: EB_BUFFER_MS,
     isActive(c) {
       return c.hasTalent(TALENTS_EVOKER.FLUTTERING_SEEDLINGS_TALENT);
