@@ -59,9 +59,9 @@ class Checklist extends BaseChecklist {
           devouringPlague: this.devouringPlague.suggestionThresholds,
           darkEvangelism: this.darkEvangelism.suggestionThresholds,
           downtime: this.alwaysBeCasting.suggestionThresholds,
-          shadowyInsight: this.alwaysBeCasting.suggestionThresholds,
-          unfurlingDarkness: this.alwaysBeCasting.suggestionThresholds,
-          mindDevourer: this.alwaysBeCasting.suggestionThresholds,
+          shadowyInsight: this.shadowyInsight.suggestionThresholds,
+          unfurlingDarkness: this.unfurlingDarkness.suggestionThresholds,
+          mindDevourer: this.mindDevourer.suggestionThresholds,
         }}
       />
     );
