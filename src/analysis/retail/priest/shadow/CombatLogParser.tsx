@@ -33,6 +33,7 @@ import DarkVoid from './modules/talents/DarkVoid';
 import UnfurlingDarkness from './modules/talents/UnfurlingDarkness';
 import VoidTorrent from './modules/talents/VoidTorrent';
 import MindSear from './modules/talents/MindSear';
+import MindDevourer from './modules/talents/MindDevourer';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -77,6 +78,7 @@ class CombatLogParser extends MainCombatLogParser {
     darkVoid: DarkVoid,
     auspiciousSpirits: AuspiciousSpirits,
     mindsear: MindSear,
+    mindDevourer: MindDevourer,
 
     // normalizers:
     shadowfiendNormalizer: ShadowfiendNormalizer,

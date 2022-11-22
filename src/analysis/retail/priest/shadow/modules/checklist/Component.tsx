@@ -98,6 +98,21 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
         )}
       </Rule>
 
+      <Rule name="Use your procs effectively" description={<>Don't waste procs</>}>
+        <Requirement
+          name={<SpellLink id={TALENTS.SHADOWY_INSIGHT_TALENT.id} />}
+          thresholds={thresholds.shadowyInsight}
+        />
+        <Requirement
+          name={<SpellLink id={TALENTS.UNFURLING_DARKNESS_TALENT.id} />}
+          thresholds={thresholds.unfurlingDarkness}
+        />
+        <Requirement
+          name={<SpellLink id={TALENTS.MIND_DEVOURER_TALENT.id} />}
+          thresholds={thresholds.mindDevourer}
+        />
+      </Rule>
+
       <Rule
         name="Use cooldowns effectively"
         description={

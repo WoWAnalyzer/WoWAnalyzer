@@ -666,6 +666,12 @@ const spells = spellIndexableList({
     icon: 'spell_priest_shadow-mend',
   },
 
+  MIND_DEVOURER_TALENT_BUFF: {
+    id: 373204,
+    name: 'Mind Devourer',
+    icon: 'spell_arcane_mindmastery',
+  },
+
   DEATH_AND_MADNESS_BUFF: {
     id: 321973,
     name: 'Death and Madness',
