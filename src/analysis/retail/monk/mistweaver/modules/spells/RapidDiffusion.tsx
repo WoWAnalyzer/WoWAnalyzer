@@ -130,8 +130,10 @@ class RapidDiffusion extends Analyzer {
           <TooltipElement
             content={
               <>
-                Rapid Diffusion has an internal cooldown of 0.25 seconds, so this number maybe be
-                slightly lower than your total Rising Sun Kick and Enveloping Mist casts.
+                Rapid Diffusion has an internal cooldown of 0.25 seconds, so this number may be
+                slightly lower than your total{' '}
+                <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> and{' '}
+                <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> casts.
               </>
             }
           >
