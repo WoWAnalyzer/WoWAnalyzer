@@ -38,11 +38,13 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
         name="Maintain your DoTs on the boss"
         description={
           <Fragment>
-            It's important to keep your DoTs up on the boss. In addition to doing damage,{' '}
+            It's important to keep your DoTs up on the boss. In addition to dealing damage,{' '}
             <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} />,{' '}
             <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} />, and{' '}
             <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> increase all your damage through{' '}
-            <SpellLink id={SPELLS.MASTERY_SHADOW_WEAVING.id} />.
+            <SpellLink id={SPELLS.MASTERY_SHADOW_WEAVING.id} />. If you are talented into{' '}
+            <SpellLink id={TALENTS.DARK_EVANGELISM_TALENT} />, make sure to maintain 5 stacks of the
+            effect.
           </Fragment>
         }
       >
@@ -51,8 +53,10 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
         <DotUptime
           id={TALENTS.DEVOURING_PLAGUE_TALENT.id}
           thresholds={thresholds.devouringPlague}
-        />{' '}
+        />
+
         {/**The threshold value needs to be reevalulated for Dragonflight */}
+
         {combatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT.id) && (
           <DotUptime
             id={TALENTS.DARK_EVANGELISM_TALENT.id}
@@ -96,21 +100,51 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
         {combatant.hasTalent(TALENTS.MINDGAMES_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.MINDGAMES_TALENT.id} />
         )}
+        {/**TODO: Mindgames CD reduction from talents*/}
       </Rule>
 
-      <Rule name="Use your procs effectively" description={<>Don't waste procs</>}>
-        <Requirement
-          name={<SpellLink id={TALENTS.SHADOWY_INSIGHT_TALENT.id} />}
-          thresholds={thresholds.shadowyInsight}
-        />
-        <Requirement
-          name={<SpellLink id={TALENTS.UNFURLING_DARKNESS_TALENT.id} />}
-          thresholds={thresholds.unfurlingDarkness}
-        />
-        <Requirement
-          name={<SpellLink id={TALENTS.MIND_DEVOURER_TALENT.id} />}
-          thresholds={thresholds.mindDevourer}
-        />
+      <Rule
+        name="Use your procs effectively"
+        description={
+          <>
+            Many talents add procs to increase the power of your abilities. Make sure to use all of
+            them to maximize the damage these talents can give you, and gain extra insanity.
+          </>
+        }
+      >
+        {/**If you can gain Shaodwy insight while you already have it, this might not be exactly right.*/}
+        {combatant.hasTalent(TALENTS.SHADOWY_INSIGHT_TALENT.id) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={TALENTS.SHADOWY_INSIGHT_TALENT.id} /> wasted{' '}
+              </>
+            }
+            thresholds={thresholds.shadowyInsight}
+          />
+        )}
+
+        {combatant.hasTalent(TALENTS.UNFURLING_DARKNESS_TALENT.id) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={TALENTS.UNFURLING_DARKNESS_TALENT.id} /> wasted{' '}
+              </>
+            }
+            thresholds={thresholds.unfurlingDarkness}
+          />
+        )}
+
+        {combatant.hasTalent(TALENTS.MIND_DEVOURER_TALENT.id) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={TALENTS.MIND_DEVOURER_TALENT.id} /> wasted
+              </>
+            }
+            thresholds={thresholds.mindDevourer}
+          />
+        )}
       </Rule>
 
       <Rule
