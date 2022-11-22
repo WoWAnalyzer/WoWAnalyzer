@@ -11,15 +11,15 @@ import {
   RefreshBuffEvent,
 } from 'parser/core/Events';
 
-export const FROM_ECHO_HARDCAST = 'FromHardcast';
-export const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly';
-export const ECHO_TEMPORAL_ANOMALY = 'TemporalAnomaly';
-export const ECHO = 'Echo';
-export const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera';
-export const DREAM_BREATH_CALL_OF_YSERA_HOT = 'DreamBreathCallOfYseraHoT';
-export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera';
-export const FLUTTERING_SEEDLINGS_ECHO = 'FlutteringSeedlingsEcho';
-export const FLUTTERING_SEEDLINGS_HARDCAST = 'FlutteringSeedlingsHardcast';
+export const FROM_ECHO_HARDCAST = 'FromHardcast'; // for linking echo apply to echo cast
+export const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly'; // for linking TA echo apply to TA shield apply
+export const ECHO_TEMPORAL_ANOMALY = 'TemporalAnomaly'; // for linking BuffApply/Heal to echo removal
+export const ECHO = 'Echo'; // for linking BuffApply/Heal to echo removal
+export const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera'; // link DB hit to buff removal
+export const DREAM_BREATH_CALL_OF_YSERA_HOT = 'DreamBreathCallOfYseraHoT'; // link DB hot to buff removal
+export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera'; // link buffed living flame to buff removal
+export const FLUTTERING_SEEDLINGS_ECHO = 'FlutteringSeedlingsEcho'; // for linking seedling heal to EB echo
+export const FLUTTERING_SEEDLINGS_HARDCAST = 'FlutteringSeedlingsHardcast'; // for linking seedling heal to EB cast
 
 const CAST_BUFFER_MS = 100;
 const EB_BUFFER_MS = 2000;
