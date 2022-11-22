@@ -46,7 +46,7 @@ class RuneGraph extends ResourceGraph {
       },
       mark: {
         type: 'line' as const,
-        interpolate: 'step' as const,
+        // interpolate: 'step' as const,
         color: 'rgb(196, 31, 59)' as const,
       },
       config: {

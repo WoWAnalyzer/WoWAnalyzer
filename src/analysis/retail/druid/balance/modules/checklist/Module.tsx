@@ -1,11 +1,9 @@
-import { AdaptiveSwarmDamageDealer } from 'analysis/retail/druid/shared';
 import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseModule from 'parser/shared/modules/features/Checklist/Module';
 
 import FillerUsage from 'analysis/retail/druid/balance/modules/features/FillerUsage';
-import AstralPowerDetails from 'analysis/retail/druid/balance/modules/features/AstralPowerDetails';
 import StellarFlareUptime from 'analysis/retail/druid/balance/modules/spells/StellarFlareUptime';
 import AlwaysBeCasting from 'analysis/retail/druid/balance/modules/features/AlwaysBeCasting';
 import CancelledCasts from 'analysis/retail/druid/balance/modules/features/CancelledCasts';
@@ -15,6 +13,7 @@ import MoonfireUptime from 'analysis/retail/druid/balance/modules/spells/Moonfir
 import Starsurge from 'analysis/retail/druid/balance/modules/spells/Starsurge';
 import SunfireUptime from 'analysis/retail/druid/balance/modules/spells/SunfireUptime';
 import Component from 'analysis/retail/druid/balance/modules/checklist/Component';
+import AstralPowerDetails from 'analysis/retail/druid/balance/modules/core/astralpower/AstralPowerDetails';
 
 class Checklist extends BaseModule {
   static dependencies = {
@@ -32,7 +31,6 @@ class Checklist extends BaseModule {
     earlyDotRefreshes: EarlyDotRefreshes,
     earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
     astralPowerDetails: AstralPowerDetails,
-    adaptiveSwarm: AdaptiveSwarmDamageDealer,
   };
   protected combatants!: Combatants;
   protected castEfficiency!: CastEfficiency;
@@ -47,7 +45,6 @@ class Checklist extends BaseModule {
   protected earlyDotRefreshes!: EarlyDotRefreshes;
   protected earlyDotRefreshesInstants!: EarlyDotRefreshesInstants;
   protected astralPowerDetails!: AstralPowerDetails;
-  protected adaptiveSwarm!: AdaptiveSwarmDamageDealer;
 
   render() {
     return (
@@ -65,7 +62,6 @@ class Checklist extends BaseModule {
           moonfireRefresh: this.earlyDotRefreshesInstants.suggestionThresholdsMoonfireEfficiency,
           sunfireRefresh: this.earlyDotRefreshesInstants.suggestionThresholdsSunfireEfficiency,
           stellarFlareRefresh: this.earlyDotRefreshes.suggestionThresholdsStellarFlareEfficiency,
-          adaptiveSwarmUptime: this.adaptiveSwarm.suggestionThresholds,
           fillerUsage: this.fillerUsage.goodCastSuggestionThresholds,
           starsurgeUsage: this.starsurge.goodCastSuggestionThresholds,
         }}
