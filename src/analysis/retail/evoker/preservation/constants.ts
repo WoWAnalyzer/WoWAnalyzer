@@ -1,10 +1,35 @@
-//hots
+import SPELLS from 'common/SPELLS';
+import { TALENTS_EVOKER } from 'common/TALENTS';
+
+export const SPELL_COLORS = {
+  ECHO: '#fffb0a',
+  TA_ECHO: '#6711ad',
+  REVERSION: '#ffbb78',
+  LIVING_FLAME: '#880e0b',
+  VERDANT_EMBRACE: '#96ffd8',
+  DREAM_BREATH: '#c49c94',
+  SPIRITBLOOM: '#fe85ff',
+  EMERALD_BLOSSOM: '#ffffff',
+};
+
+// heal events that can be caused by an echo heal
+export const ECHO_HEALS = [
+  SPELLS.DREAM_BREATH_ECHO,
+  SPELLS.LIVING_FLAME_HEAL,
+  SPELLS.EMERALD_BLOSSOM_ECHO,
+  TALENTS_EVOKER.SPIRITBLOOM_TALENT,
+  SPELLS.SPIRITBLOOM_SPLIT,
+  TALENTS_EVOKER.VERDANT_EMBRACE_TALENT,
+  SPELLS.REVERSION_ECHO,
+];
+
+// hots
 export const ECHO_BASE_DURATION = 15000;
 export const REVERSION_BASE_DURATION = 12000;
 export const DREAM_BREATH_MIN_DURATION = 4000;
 export const DREAM_BREATH_MAX_DURATION = 16000;
 
-//talents
+// talents
 export const TIMELESS_MAGIC = 0.15;
 export const EMPATH_REGEN_FACTOR = 1;
 export const FLOW_STATE_FACTOR = 0.1;

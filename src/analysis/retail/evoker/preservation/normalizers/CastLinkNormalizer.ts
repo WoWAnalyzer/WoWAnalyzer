@@ -234,7 +234,7 @@ class CastLinkNormalizer extends EventLinkNormalizer {
 }
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
-export function isFromHardcast(event: AbilityEvent<any>): boolean {
+export function isFromHardcastEcho(event: AbilityEvent<any>): boolean {
   if (event.ability.guid === SPELLS.FLUTTERING_SEEDLINGS_HEAL.id) {
     const blossoms = GetRelatedEvents(event, FLUTTERING_SEEDLINGS_ECHO);
     return blossoms.every((ev) => {
@@ -244,7 +244,7 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
   return HasRelatedEvent(event, ECHO);
 }
 
-export function isFromTemporalAnomaly(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
+export function isFromTAEcho(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
   if (event.ability.guid === SPELLS.FLUTTERING_SEEDLINGS_HEAL.id) {
     const blossoms = GetRelatedEvents(event, FLUTTERING_SEEDLINGS_ECHO);
     return blossoms.every((ev) => {
