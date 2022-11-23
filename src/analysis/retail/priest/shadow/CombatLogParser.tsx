@@ -1,4 +1,9 @@
-import { TwistOfFate, Mindgames, ShadowfiendNormalizer } from 'analysis/retail/priest/shared';
+import {
+  TwistOfFate,
+  Mindgames,
+  ShadowfiendNormalizer,
+  TwinsOfTheSunPriestess,
+} from 'analysis/retail/priest/shared';
 import MainCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
@@ -57,6 +62,7 @@ class CombatLogParser extends MainCombatLogParser {
     shadowyInsight: ShadowyInsight,
     voidBoltUsage: VoidBoltUsage,
     voidform: Voidform,
+    twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
 
     // spells:
     shadowfiend: Shadowfiend,
