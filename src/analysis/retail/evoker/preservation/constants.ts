@@ -1,3 +1,16 @@
+export const SPELL_COLORS = {
+  ECHO: '#fffb0a',
+  TA_ECHO: '#6711ad',
+  REVERSION: '#ffbb78',
+  LIVING_FLAME: '#880e0b',
+  VERDANT_EMBRACE: '#96ffd8',
+  DREAM_BREATH: '#c49c94',
+  SPIRITBLOOM: '#fe85ff',
+  EMERALD_BLOSSOM: '#c1e1c1',
+  FLUTTERING_SEEDLING: '#50c878',
+  DISINTEGRATE: '#008080',
+};
+
 //hots
 export const ECHO_BASE_DURATION = 15000;
 export const REVERSION_BASE_DURATION = 12000;
