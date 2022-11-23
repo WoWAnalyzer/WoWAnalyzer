@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 11, 23), <>Fix another Mistweaver degraded experience</>, Trevor),
   change(date(2022, 11, 22), <>Fix Mistweaver degraded experience</>, Trevor),
   change(date(2022, 11, 17), <>Fix some typos and remove <SpellLink id={TALENTS_MONK.LIFE_COCOON_TALENT.id}/> statistic</> ,Trevor),
   change(date(2022, 11, 17), <>Fixed <SpellLink id={TALENTS_MONK.MISTS_OF_LIFE_TALENT.id}/> module</>, Vohrr),
