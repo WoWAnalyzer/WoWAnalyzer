@@ -97,7 +97,7 @@ class EssenceBurst extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are wasting <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> stacks
+          Try to avoid wasting <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> stacks.
         </>,
       )
         .icon(TALENTS_EVOKER.ESSENCE_BURST_TALENT.icon)
