@@ -71,9 +71,8 @@ class EmeraldBlossom extends Analyzer {
     return {
       actual: this.averageNumTargets,
       isLessThan: {
-        minor: 3 + Number(this.hasBountiful) * BOUNTIFUL_ADDITIONAL_TARGETS,
-        average: 2.5 + Number(this.hasBountiful) * BOUNTIFUL_ADDITIONAL_TARGETS,
-        major: 2 + Number(this.hasBountiful) * BOUNTIFUL_ADDITIONAL_TARGETS,
+        minor: 2.5 + Number(this.hasBountiful) * BOUNTIFUL_ADDITIONAL_TARGETS,
+        average: 2 + Number(this.hasBountiful) * BOUNTIFUL_ADDITIONAL_TARGETS,
       },
       style: ThresholdStyle.NUMBER,
     };
