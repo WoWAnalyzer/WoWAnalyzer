@@ -8,7 +8,6 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { getHealEvents } from '../../normalizers/CastLinkNormalizer';
 
 const BOUNTIFUL_ADDITIONAL_TARGETS = 2;
 
@@ -19,6 +18,7 @@ class EmeraldBlossom extends Analyzer {
   totalOverhealing: number = 0;
   totalHits: number = 0;
   numCasts: number = 0;
+  lastHit: number = 0;
 
   hasBountiful: boolean = false;
 
@@ -36,8 +36,7 @@ class EmeraldBlossom extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    const ebHeals = getHealEvents(event);
-    console.log(ebHeals);
+    console.log('ye');
   }
 
   get suggestionThresholds() {
