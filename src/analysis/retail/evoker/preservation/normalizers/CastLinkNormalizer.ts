@@ -23,7 +23,7 @@ export const FLUTTERING_SEEDLINGS_ECHO = 'FlutteringSeedlingsEcho'; // for linki
 export const FLUTTERING_SEEDLINGS_HARDCAST = 'FlutteringSeedlingsHardcast'; // for linking seedling heal to EB cast
 
 const CAST_BUFFER_MS = 100;
-const EB_BUFFER_MS = 2000;
+const EB_BUFFER_MS = 2500;
 /*
   This file is for attributing echo applications to hard casts or to temporal anomaly.
   It is needed because echo can apply indrectly from temporal anomaly and 
@@ -189,8 +189,8 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: FLUTTERING_SEEDLINGS_HARDCAST,
     reverseLinkRelation: FLUTTERING_SEEDLINGS_HARDCAST,
-    linkingEventId: SPELLS.EMERALD_BLOSSOM_CAST.id,
-    linkingEventType: EventType.Cast,
+    linkingEventId: SPELLS.EMERALD_BLOSSOM.id,
+    linkingEventType: EventType.Heal,
     referencedEventId: SPELLS.FLUTTERING_SEEDLINGS_HEAL.id,
     referencedEventType: EventType.Heal,
     anyTarget: true,
@@ -231,10 +231,7 @@ const EVENT_LINKS: EventLink[] = [
     },
     additionalCondition(linkingEvent, referencedEvent) {
       // make sure that the EB heal is not a hardcast EB (i.e. not from a proc) and ensure that the seedling is not from an echo'd EB (they can't proc FOD)
-      return (
-        HasRelatedEvent(linkingEvent, FLUTTERING_SEEDLINGS_HARDCAST) &&
-        !HasRelatedEvent(referencedEvent, FROM_HARDCAST)
-      );
+      return HasRelatedEvent(referencedEvent, FLUTTERING_SEEDLINGS_HARDCAST);
     },
   },
   //link Call of Ysera Removal to the heals
@@ -332,12 +329,7 @@ export function isFromLivingFlameCallOfYsera(event: HealEvent) {
 }
 
 export function isFromFieldOfDreams(event: HealEvent) {
-  if (event.ability.guid !== SPELLS.EMERALD_BLOSSOM.id) {
-    return false;
-  }
-  return (
-    event.ability.guid !== SPELLS.EMERALD_BLOSSOM.id && HasRelatedEvent(event, FIELD_OF_DREAMS_PROC)
-  );
+  return HasRelatedEvent(event, FIELD_OF_DREAMS_PROC);
 }
 
 export default CastLinkNormalizer;
