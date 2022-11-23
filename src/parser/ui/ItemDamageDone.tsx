@@ -1,24 +1,20 @@
 import { formatNumber, formatPercentage } from 'common/format';
-import CombatLogParser from 'parser/core/CombatLogParser';
-import PropTypes from 'prop-types';
+import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 
 interface Props {
   amount: number;
   approximate?: boolean;
 }
-interface Context {
-  parser: CombatLogParser;
-}
 
-const ItemDamageDone = ({ amount, approximate }: Props, { parser }: Context) => (
-  <>
-    <img src="/img/sword.png" alt="Damage" className="icon" /> {approximate && '≈'}
-    {formatNumber((amount / parser.fightDuration) * 1000)} DPS{' '}
-    <small>{formatPercentage(parser.getPercentageOfTotalDamageDone(amount))} % of total</small>
-  </>
-);
-ItemDamageDone.contextTypes = {
-  parser: PropTypes.object.isRequired,
+const ItemDamageDone = ({ amount, approximate }: Props) => {
+  const { combatLogParser: parser } = useCombatLogParser();
+  return (
+    <>
+      <img src="/img/sword.png" alt="Damage" className="icon" /> {approximate && '≈'}
+      {formatNumber((amount / parser.fightDuration) * 1000)} DPS{' '}
+      <small>{formatPercentage(parser.getPercentageOfTotalDamageDone(amount))} % of total</small>
+    </>
+  );
 };
 
 export default ItemDamageDone;
