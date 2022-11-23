@@ -205,4 +205,11 @@ export function getEssenceBurstConsumeAbility(
   return GetRelatedEvents(event, ESSENCE_BURST_CONSUME)[0] as CastEvent;
 }
 
+export function getHealEvents(event: CastEvent) {
+  const rawEvents = GetRelatedEvents(event, FROM_HARDCAST);
+  return rawEvents.map((ev) => {
+    return ev as HealEvent;
+  });
+}
+
 export default CastLinkNormalizer;

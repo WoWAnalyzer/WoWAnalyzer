@@ -22,6 +22,7 @@ import GracePeriod from './modules/talents/GracePeriod';
 import Reversion from './modules/talents/Reversion';
 import CallOfYsera from './modules/talents/CallOfYsera';
 import EssenceBurst from './modules/talents/EssenceBurst';
+import EmeraldBlossom from './modules/talents/EmeraldBlossom';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -44,6 +45,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //features
     checklist: Checklist,
+
     //core
     hotTrackerPrevoker: HotTrackerPrevoker,
     hotAttributor: HotAttributor,
@@ -57,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     reversion: Reversion,
     callOfYsera: CallOfYsera,
     essenceBurst: EssenceBurst,
+    emeraldBlossom: EmeraldBlossom,
   };
 }
 
