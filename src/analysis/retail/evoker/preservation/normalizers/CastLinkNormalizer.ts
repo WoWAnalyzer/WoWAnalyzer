@@ -5,10 +5,14 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 import {
   AbilityEvent,
   ApplyBuffEvent,
+  CastEvent,
   EventType,
+  GetRelatedEvents,
   HasRelatedEvent,
   HealEvent,
   RefreshBuffEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
 } from 'parser/core/Events';
 
 export const FROM_HARDCAST = 'FromHardcast';
@@ -18,6 +22,7 @@ export const ECHO = 'Echo';
 export const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera';
 export const DREAM_BREATH_CALL_OF_YSERA_HOT = 'DreamBreathCallOfYseraHoT';
 export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera';
+export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsumption'; // link essence cast to removing the essence burst buff
 
 const CAST_BUFFER_MS = 100;
 /*
@@ -129,6 +134,25 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT);
     },
   },
+  // link essence burst remove to a cast to track expirations vs consumptions
+  {
+    linkRelation: ESSENCE_BURST_CONSUME,
+    reverseLinkRelation: ESSENCE_BURST_CONSUME,
+    linkingEventId: SPELLS.ESSENCE_BURST_BUFF.id,
+    linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    referencedEventId: [
+      SPELLS.EMERALD_BLOSSOM_CAST.id,
+      SPELLS.DISINTEGRATE.id,
+      TALENTS_EVOKER.ECHO_TALENT.id,
+    ],
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    isActive(c) {
+      return c.hasTalent(TALENTS_EVOKER.ESSENCE_BURST_TALENT.id);
+    },
+  },
 ];
 
 /**
@@ -164,6 +188,15 @@ export function isFromDreamBreathCallOfYsera(event: ApplyBuffEvent | RefreshBuff
 
 export function isFromLivingFlameCallOfYsera(event: HealEvent) {
   return HasRelatedEvent(event, LIVING_FLAME_CALL_OF_YSERA);
+}
+
+export function getEssenceBurstConsumeAbility(
+  event: RemoveBuffEvent | RemoveBuffStackEvent,
+): null | CastEvent {
+  if (!HasRelatedEvent(event, ESSENCE_BURST_CONSUME)) {
+    return null;
+  }
+  return GetRelatedEvents(event, ESSENCE_BURST_CONSUME)[0] as CastEvent;
 }
 
 export default CastLinkNormalizer;
