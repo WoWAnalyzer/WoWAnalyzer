@@ -67,6 +67,13 @@ class HotAttributor extends Analyzer {
   }
 
   onApplyRem(event: ApplyBuffEvent | RefreshBuffEvent) {
+    if (
+      !this.hotTracker.hots[event.targetID] ||
+      !this.hotTracker.hots[event.targetID][SPELLS.RENEWING_MIST_HEAL.id]
+    ) {
+      return;
+    }
+
     if (this._hasBouncedAttribution(event)) {
       this.hotTracker.addAttributionFromApply(this.bouncedAttrib, event);
       if (debug) {
@@ -95,16 +102,18 @@ class HotAttributor extends Analyzer {
           'on ' + this.combatants.getEntity(event)?.name,
           ' expected expiration: ' +
             this.owner.formatTimestamp(
-              event.timestamp + Number(this.hotTracker.hotInfo[event.ability.guid].procDuration),
+              event.timestamp +
+                Number(this.hotTracker.hotInfo[SPELLS.RENEWING_MIST_HEAL.id].procDuration),
               3,
             ),
         );
       this.hotTracker.addAttributionFromApply(this.rapidDiffusionAttrib, event);
-      this.hotTracker.hots[event.targetID][event.ability.guid].maxDuration = Number(
-        this.hotTracker.hotInfo[event.ability.guid].procDuration,
+      this.hotTracker.hots[event.targetID][SPELLS.RENEWING_MIST_HEAL.id].maxDuration = Number(
+        this.hotTracker.hotInfo[SPELLS.RENEWING_MIST_HEAL.id].procDuration,
       );
-      this.hotTracker.hots[event.targetID][event.ability.guid].end =
-        event.timestamp + Number(this.hotTracker.hotInfo[event.ability.guid].procDuration);
+      this.hotTracker.hots[event.targetID][SPELLS.RENEWING_MIST_HEAL.id].end =
+        event.timestamp +
+        Number(this.hotTracker.hotInfo[SPELLS.RENEWING_MIST_HEAL.id].procDuration);
     }
   }
 
