@@ -47,7 +47,6 @@ class EssenceBurst extends Analyzer {
       this.essenceSaved += ESSENCE_COSTS[spellName];
       this.consumptionCount[spellName] += 1;
     } else if (event.type === EventType.RemoveBuff) {
-      console.log(`Buff expired at ${this.owner.formatTimestamp(event.timestamp)}`);
       this.totalExpired += 1;
     } else {
       console.log(`Buff expired at ${this.owner.formatTimestamp(event.timestamp)}`);
