@@ -49,7 +49,6 @@ class EssenceBurst extends Analyzer {
     } else if (event.type === EventType.RemoveBuff) {
       this.totalExpired += 1;
     } else {
-      console.log(`Buff expired at ${this.owner.formatTimestamp(event.timestamp)}`);
       this.totalExpired += (event as RemoveBuffStackEvent).stack;
     }
   }
