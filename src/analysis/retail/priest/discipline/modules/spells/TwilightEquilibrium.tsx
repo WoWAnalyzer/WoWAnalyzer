@@ -103,7 +103,7 @@ class TwilightEquilibrium extends Analyzer {
         }
       >
         <>
-          <BoringSpellValueText spellId={TALENTS_PRIEST.TWILIGHT_EQUILIBRIUM_DISCIPLINE_TALENT.id}>
+          <BoringSpellValueText spellId={TALENTS_PRIEST.TWILIGHT_EQUILIBRIUM_TALENT.id}>
             <ItemHealingDone amount={this.healing} /> <br />
             <ItemDamageDone amount={this.damage} />
           </BoringSpellValueText>
