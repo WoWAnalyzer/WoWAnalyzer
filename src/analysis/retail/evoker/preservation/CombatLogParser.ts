@@ -23,6 +23,8 @@ import Reversion from './modules/talents/Reversion';
 import CallOfYsera from './modules/talents/CallOfYsera';
 import EssenceBurst from './modules/talents/EssenceBurst';
 import EmeraldBlossom from './modules/talents/EmeraldBlossom';
+import Echo from './modules/talents/Echo';
+import ResonatingSphere from './modules/talents/ResonatingSphere';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -51,6 +53,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hotAttributor: HotAttributor,
 
     //talents
+    echo: Echo,
     dreamBreath: DreamBreath,
     livingFlame: LivingFlame,
     masteryEffectiveness: MasteryEffectiveness,
@@ -60,6 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     callOfYsera: CallOfYsera,
     essenceBurst: EssenceBurst,
     emeraldBlossom: EmeraldBlossom,
+    resonatingSphere: ResonatingSphere,
   };
 }
 
