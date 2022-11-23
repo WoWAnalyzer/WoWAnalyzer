@@ -226,6 +226,9 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true, // need to link all EB heals to original cast
     backwardBufferMs: EB_BUFFER_MS,
     maximumLinks: 1, // only link EB heal proc to 1 seedling at max (it doesn't matter which one we choose)
+    isActive(c) {
+      return c.hasTalent(TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT.id);
+    },
     additionalCondition(linkingEvent, referencedEvent) {
       // make sure that the EB heal is not a hardcast EB (i.e. not from a proc) and ensure that the seedling is not from an echo'd EB (they can't proc FOD)
       return (
