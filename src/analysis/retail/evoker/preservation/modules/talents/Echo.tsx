@@ -47,7 +47,10 @@ class Echo extends Analyzer {
       return;
     }
     const mapRef = this.isFromTaEcho(event) ? this.taEchoHealingBySpell : this.echoHealingBySpell;
-    mapRef.set(event.ability.guid, mapRef.get(event.ability.guid)! + (event.amount || 0));
+    mapRef.set(
+      event.ability.guid,
+      mapRef.get(event.ability.guid)! + (event.amount || 0) + (event.absorbed || 0),
+    );
   }
 
   isFromTaEcho(event: HealEvent) {
