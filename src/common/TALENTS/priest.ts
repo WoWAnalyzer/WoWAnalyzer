@@ -542,10 +542,10 @@ const talents = createTalentList({
     icon: 'spell_fire_twilightflamebreath',
     maxRanks: 1,
   },
-  TWILIGHT_EQUILIBRIUM_DISCIPLINE_TALENT: {
-    id: 390705,
-    name: 'Twilight Equilibrium',
-    icon: 'ability_priest_innerlightandshadow',
+  ENCROACHING_SHADOWS_TALENT: {
+    id: 391235,
+    name: 'Encroaching Shadows',
+    icon: 'spell_shadow_coneofsilence',
     maxRanks: 1,
   },
   DAMNATION_TALENT: {

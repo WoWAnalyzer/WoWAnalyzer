@@ -117,7 +117,6 @@ class CombatLogParser extends CoreCombatLogParser {
     expiation: Expiation,
     powerWordShield: PowerWordShield,
     stolenPsyche: StolenPsyche,
-    Indemnity: Indemnity,
     twilightEqilibrium: TwilightEquilibrium,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
     painAndSuffering: PainAndSuffering,
