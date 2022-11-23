@@ -68,6 +68,7 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 export default [
   change(date(2022, 11, 21), 'Put consumables panels side-by-side in preparation section of Guides and add support for potions and flasks.', ToppleTheNun),
+  change(date(2022, 11, 20), 'Update PlayerLoader to use router hooks instead of compose.', ToppleTheNun),
   change(date(2022, 11, 20), 'Convert NameSearch to a functional component.', ToppleTheNun),
   change(date(2022, 11, 20), 'Convert ReportLoader to a functional component.', ToppleTheNun),
   change(date(2022, 11, 20), 'Update FightSelection to use hooks instead of compose.', ToppleTheNun),
