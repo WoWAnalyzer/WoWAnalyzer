@@ -62,4 +62,8 @@ export const PerformanceRoundedPanel = ({ children, performance }: PropsWithChil
 export const PanelHeader = styled.div`
   padding: 0.5em 0;
   margin: -1px -1px 0;
+  align-content: center;
+  & svg {
+    height: 24px;
+  }
 `;
