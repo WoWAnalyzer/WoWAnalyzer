@@ -67,10 +67,9 @@ class HotAttributor extends Analyzer {
   }
 
   onApplyRem(event: ApplyBuffEvent | RefreshBuffEvent) {
-    if (
-      !this.hotTracker.hots[event.targetID] ||
-      !this.hotTracker.hots[event.targetID][SPELLS.RENEWING_MIST_HEAL.id]
-    ) {
+    const targetID = event.targetID;
+    const spellID = event.ability.guid;
+    if (!this.hotTracker.hots[targetID] || !this.hotTracker.hots[targetID][spellID]) {
       return;
     }
 
@@ -102,18 +101,16 @@ class HotAttributor extends Analyzer {
           'on ' + this.combatants.getEntity(event)?.name,
           ' expected expiration: ' +
             this.owner.formatTimestamp(
-              event.timestamp +
-                Number(this.hotTracker.hotInfo[SPELLS.RENEWING_MIST_HEAL.id].procDuration),
+              event.timestamp + Number(this.hotTracker.hotInfo[spellID].procDuration),
               3,
             ),
         );
       this.hotTracker.addAttributionFromApply(this.rapidDiffusionAttrib, event);
-      this.hotTracker.hots[event.targetID][SPELLS.RENEWING_MIST_HEAL.id].maxDuration = Number(
-        this.hotTracker.hotInfo[SPELLS.RENEWING_MIST_HEAL.id].procDuration,
+      this.hotTracker.hots[targetID][spellID].maxDuration = Number(
+        this.hotTracker.hotInfo[spellID].procDuration,
       );
-      this.hotTracker.hots[event.targetID][SPELLS.RENEWING_MIST_HEAL.id].end =
-        event.timestamp +
-        Number(this.hotTracker.hotInfo[SPELLS.RENEWING_MIST_HEAL.id].procDuration);
+      this.hotTracker.hots[targetID][spellID].end =
+        event.timestamp + Number(this.hotTracker.hotInfo[spellID].procDuration);
     }
   }
 
