@@ -11,13 +11,14 @@ import {
   RefreshBuffEvent,
 } from 'parser/core/Events';
 
-export const FROM_ECHO_HARDCAST = 'FromHardcast'; // for linking echo apply to echo cast
+export const FROM_HARDCAST = 'FromHardcast'; // for linking a buffapply or heal to its cast
 export const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly'; // for linking TA echo apply to TA shield apply
 export const ECHO_TEMPORAL_ANOMALY = 'TemporalAnomaly'; // for linking BuffApply/Heal to echo removal
 export const ECHO = 'Echo'; // for linking BuffApply/Heal to echo removal
 export const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera'; // link DB hit to buff removal
 export const DREAM_BREATH_CALL_OF_YSERA_HOT = 'DreamBreathCallOfYseraHoT'; // link DB hot to buff removal
 export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera'; // link buffed living flame to buff removal
+export const FIELD_OF_DREAMS_PROC = 'FromFieldOfDreams'; // link EB heal to fluttering heal
 export const FLUTTERING_SEEDLINGS_ECHO = 'FlutteringSeedlingsEcho'; // for linking seedling heal to EB echo
 export const FLUTTERING_SEEDLINGS_HARDCAST = 'FlutteringSeedlingsHardcast'; // for linking seedling heal to EB cast
 
@@ -31,7 +32,7 @@ const EB_BUFFER_MS = 2000;
 const EVENT_LINKS: EventLink[] = [
   // link Echo apply to its CastEvent
   {
-    linkRelation: FROM_ECHO_HARDCAST,
+    linkRelation: FROM_HARDCAST,
     linkingEventId: [TALENTS_EVOKER.ECHO_TALENT.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
@@ -109,7 +110,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     additionalCondition(referencedEvent) {
-      return !HasRelatedEvent(referencedEvent, FROM_ECHO_HARDCAST);
+      return !HasRelatedEvent(referencedEvent, FROM_HARDCAST);
     },
     isActive(c) {
       return (
@@ -133,7 +134,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     additionalCondition(referencedEvent) {
-      return !HasRelatedEvent(referencedEvent, FROM_ECHO_HARDCAST);
+      return !HasRelatedEvent(referencedEvent, FROM_HARDCAST);
     },
     isActive(c) {
       return (
@@ -151,7 +152,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.RemoveBuff],
     forwardBufferMs: EB_BUFFER_MS,
     additionalCondition(referencedEvent) {
-      return !HasRelatedEvent(referencedEvent, FROM_ECHO_HARDCAST);
+      return !HasRelatedEvent(referencedEvent, FROM_HARDCAST);
     },
     isActive(c) {
       return (
@@ -202,6 +203,35 @@ const EVENT_LINKS: EventLink[] = [
     },
     additionalCondition(linkingEvent, referencedEvent) {
       return !HasRelatedEvent(referencedEvent, FLUTTERING_SEEDLINGS_ECHO);
+    },
+  },
+  // link original EB heals to hardcast (i.e. not a field of dreams proc)
+  {
+    linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: FROM_HARDCAST,
+    linkingEventId: SPELLS.EMERALD_BLOSSOM_CAST.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.EMERALD_BLOSSOM.id,
+    referencedEventType: EventType.Heal,
+    anyTarget: true, // need to link all EB heals to original cast
+    forwardBufferMs: EB_BUFFER_MS,
+  },
+  // link proc'd EB to its seedling
+  {
+    linkRelation: FIELD_OF_DREAMS_PROC,
+    linkingEventId: SPELLS.EMERALD_BLOSSOM.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: SPELLS.FLUTTERING_SEEDLINGS_HEAL.id,
+    referencedEventType: EventType.Heal,
+    anyTarget: true, // need to link all EB heals to original cast
+    backwardBufferMs: EB_BUFFER_MS,
+    maximumLinks: 1, // only link EB heal proc to 1 seedling at max (it doesn't matter which one we choose)
+    additionalCondition(linkingEvent, referencedEvent) {
+      // make sure that the EB heal is not a hardcast EB (i.e. not from a proc) and ensure that the seedling is not from an echo'd EB (they can't proc FOD)
+      return (
+        HasRelatedEvent(linkingEvent, FLUTTERING_SEEDLINGS_HARDCAST) &&
+        !HasRelatedEvent(referencedEvent, FROM_HARDCAST)
+      );
     },
   },
   //link Call of Ysera Removal to the heals
@@ -296,6 +326,15 @@ export function isFromLivingFlameCallOfYsera(event: HealEvent) {
   //   return false;
   // }
   return HasRelatedEvent(event, LIVING_FLAME_CALL_OF_YSERA);
+}
+
+export function isFromFieldOfDreams(event: HealEvent) {
+  if (event.ability.guid !== SPELLS.EMERALD_BLOSSOM.id) {
+    return false;
+  }
+  return (
+    event.ability.guid !== SPELLS.EMERALD_BLOSSOM.id && HasRelatedEvent(event, FIELD_OF_DREAMS_PROC)
+  );
 }
 
 export default CastLinkNormalizer;
