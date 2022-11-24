@@ -67,9 +67,10 @@ class Pontifex extends Analyzer {
 
     // Casted a Holy word with at least one stack of Pontifex
     if (pontifexBuffStacks > 0) {
-      const rawHealAmount = event.amount * PONTIFEX_HEALING_INCREASE;
-      const effectiveHealAmount = calculateEffectiveHealing(event, PONTIFEX_HEALING_INCREASE);
-      const overHealAmount = calculateOverhealing(event, PONTIFEX_HEALING_INCREASE);
+      const healingIncrease = PONTIFEX_HEALING_INCREASE * pontifexBuffStacks;
+      const rawHealAmount = event.amount * healingIncrease;
+      const effectiveHealAmount = calculateEffectiveHealing(event, healingIncrease);
+      const overHealAmount = calculateOverhealing(event, healingIncrease);
 
       this.rawAdditionalHealing += rawHealAmount;
       this.effectiveAdditionalHealing += effectiveHealAmount;
