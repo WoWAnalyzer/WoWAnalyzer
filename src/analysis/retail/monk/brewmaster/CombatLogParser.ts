@@ -38,7 +38,7 @@ import TigerPalm from './modules/spells/TigerPalm';
 import ExpelHarmNorm from './normalizers/ExpelHarm';
 import GiftOfTheOx from './normalizers/GiftOfTheOx';
 import StaggerLinkNormalizer from './modules/core/StaggerLinkNormalizer';
-import { FortifyingBrew, ZenMeditation } from './modules/core/MajorDefensives';
+import { DiffuseMagic, FortifyingBrew, ZenMeditation } from './modules/core/MajorDefensives';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -78,6 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
     touchOfDeath: TouchOfDeath,
     zenMed: ZenMeditation,
     fortBrew: FortifyingBrew,
+    diffuseMagic: DiffuseMagic,
 
     // Items
     stormstoutsLastKeg: StormtoutsLastKeg,
