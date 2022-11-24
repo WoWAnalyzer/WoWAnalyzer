@@ -210,11 +210,11 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS_MONK.DAMPEN_HARM_TALENT.id),
       },
       {
-        spell: TALENTS_MONK.FORTIFYING_BREW_SHARED_TALENT.id,
-        buffSpellId: TALENTS_MONK.FORTIFYING_BREW_SHARED_TALENT.id,
+        spell: TALENTS_MONK.FORTIFYING_BREW_TALENT.id,
+        buffSpellId: TALENTS_MONK.FORTIFYING_BREW_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: combatant.hasTalent(TALENTS_MONK.EXPEDITIOUS_FORTIFICATION_TALENT) ? 240 : 360,
-        enabled: combatant.hasTalent(TALENTS_MONK.FORTIFYING_BREW_SHARED_TALENT),
+        enabled: combatant.hasTalent(TALENTS_MONK.FORTIFYING_BREW_TALENT),
       },
       {
         spell: TALENTS_MONK.HEALING_ELIXIR_TALENT.id,

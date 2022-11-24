@@ -184,7 +184,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: talents.FORTIFYING_BREW_BREWMASTER_TALENT.id,
+        spell: talents.FORTIFYING_BREW_TALENT.id,
         buffSpellId: SPELLS.FORTIFYING_BREW_BRM_BUFF.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 420,

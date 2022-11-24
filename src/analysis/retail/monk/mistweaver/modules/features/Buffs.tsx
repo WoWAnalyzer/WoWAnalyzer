@@ -72,7 +72,7 @@ class Buffs extends CoreAuras {
         enabled: combatant.hasTalent(TALENTS_MONK.DAMPEN_HARM_TALENT),
       },
       {
-        spellId: TALENTS_MONK.FORTIFYING_BREW_SHARED_TALENT.id,
+        spellId: TALENTS_MONK.FORTIFYING_BREW_TALENT.id,
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
