@@ -354,12 +354,6 @@ const talents = createTalentList({
     icon: 'spell_shadow_chilltouch',
     maxRanks: 2,
   },
-  BLAZE_OF_LIGHT_TALENT: {
-    id: 215768,
-    name: 'Blaze of Light',
-    icon: 'spell_holy_searinglight',
-    maxRanks: 2,
-  },
 
   //Shadow
   DEVOURING_PLAGUE_TALENT: {
@@ -935,6 +929,7 @@ const talents = createTalentList({
     icon: 'spell_priest_power_word',
     maxRanks: 1,
   },
+  MAKE_AMENDS_TALENT: { id: 391079, name: 'Make Amends', icon: 'spell_holy_penance', maxRanks: 1 },
   PAIN_TRANSFORMATION_TALENT: {
     id: 372991,
     name: 'Pain Transformation',
@@ -1115,10 +1110,10 @@ const talents = createTalentList({
     icon: 'spell_holy_devineaegis',
     maxRanks: 2,
   },
-  SINS_OF_THE_MANY_TALENT: {
-    id: 280391,
-    name: 'Sins of the Many',
-    icon: 'spell_holy_holyguidance',
+  BLAZE_OF_LIGHT_TALENT: {
+    id: 215768,
+    name: 'Blaze of Light',
+    icon: 'spell_holy_searinglight',
     maxRanks: 2,
   },
   RESPLENDENT_LIGHT_TALENT: {
@@ -1139,19 +1134,12 @@ const talents = createTalentList({
     icon: 'spell_shadow_shadowpower',
     maxRanks: 2,
   },
-  VOID_SUMMONER_TALENT: {
-    id: 390770,
-    name: 'Void Summoner',
-    icon: 'spell_shadow_shadowfiend',
-    maxRanks: 2,
-  },
   AEGIS_OF_WRATH_TALENT: {
     id: 238135,
     name: 'Aegis of Wrath',
     icon: 'spell_holy_powerwordshield',
     maxRanks: 1,
   },
-  MAKE_AMENDS_TALENT: { id: 391079, name: 'Make Amends', icon: 'spell_holy_penance', maxRanks: 1 },
   WEAL_AND_WOE_TALENT: {
     id: 390786,
     name: 'Weal and Woe',
@@ -1168,6 +1156,12 @@ const talents = createTalentList({
     id: 390705,
     name: 'Twilight Equilibrium',
     icon: 'ability_priest_innerlightandshadow',
+    maxRanks: 1,
+  },
+  VOID_SUMMONER_TALENT: {
+    id: 390770,
+    name: 'Void Summoner',
+    icon: 'spell_shadow_shadowfiend',
     maxRanks: 1,
   },
 });
