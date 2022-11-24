@@ -38,6 +38,7 @@ import TigerPalm from './modules/spells/TigerPalm';
 import ExpelHarmNorm from './normalizers/ExpelHarm';
 import GiftOfTheOx from './normalizers/GiftOfTheOx';
 import StaggerLinkNormalizer from './modules/core/StaggerLinkNormalizer';
+import { FortifyingBrew, ZenMeditation } from './modules/core/MajorDefensives';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -75,6 +76,8 @@ class CombatLogParser extends CoreCombatLogParser {
     gotox: GiftOfTheOxStat,
     shuffle: Shuffle,
     touchOfDeath: TouchOfDeath,
+    zenMed: ZenMeditation,
+    fortBrew: FortifyingBrew,
 
     // Items
     stormstoutsLastKeg: StormtoutsLastKeg,
