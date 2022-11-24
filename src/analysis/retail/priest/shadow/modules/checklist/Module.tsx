@@ -11,6 +11,7 @@ import DevouringPlague from '../spells/DevouringPlague';
 import DarkEvangelism from '../talents/DarkEvangelism';
 import ShadowyInsight from '../features/ShadowyInsight';
 import UnfurlingDarkness from '../talents/UnfurlingDarkness';
+import SurgeOfDarkness from '../talents/SurgeOfDarkness';
 import MindDevourer from '../talents/MindDevourer';
 
 import Component from './Component';
@@ -30,6 +31,7 @@ class Checklist extends BaseChecklist {
     shadowyInsight: ShadowyInsight,
     unfurlingDarkness: UnfurlingDarkness,
     mindDevourer: MindDevourer,
+    surgeOfDarkness: SurgeOfDarkness,
   };
 
   protected combatants!: Combatants;
@@ -44,6 +46,7 @@ class Checklist extends BaseChecklist {
   protected shadowyInsight!: ShadowyInsight;
   protected unfurlingDarkness!: UnfurlingDarkness;
   protected mindDevourer!: MindDevourer;
+  protected surgeOfDarkness!: SurgeOfDarkness;
 
   render() {
     return (
@@ -62,6 +65,7 @@ class Checklist extends BaseChecklist {
           shadowyInsight: this.shadowyInsight.suggestionThresholds,
           unfurlingDarkness: this.unfurlingDarkness.suggestionThresholds,
           mindDevourer: this.mindDevourer.suggestionThresholds,
+          surgeOfDarkness: this.surgeOfDarkness.suggestionThresholds,
         }}
       />
     );

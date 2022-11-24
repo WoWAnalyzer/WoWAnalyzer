@@ -54,8 +54,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           id={TALENTS.DEVOURING_PLAGUE_TALENT.id}
           thresholds={thresholds.devouringPlague}
         />
-
-        {/**The threshold value needs to be reevalulated for Dragonflight */}
+        {/**The threshold value of DP needs to be reevalulated for Dragonflight */}
 
         {combatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT.id) && (
           <DotUptime
@@ -112,7 +111,6 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           </>
         }
       >
-        {/**If you can gain Shaodwy insight while you already have it, this might not be exactly right.*/}
         {combatant.hasTalent(TALENTS.SHADOWY_INSIGHT_TALENT.id) && (
           <Requirement
             name={
@@ -132,6 +130,17 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
               </>
             }
             thresholds={thresholds.unfurlingDarkness}
+          />
+        )}
+
+        {combatant.hasTalent(TALENTS.SURGE_OF_DARKNESS_TALENT.id) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={SPELLS.SURGE_OF_DARKNESS_TALENT_BUFF.id} /> wasted{' '}
+              </>
+            }
+            thresholds={thresholds.surgeOfDarkness}
           />
         )}
 

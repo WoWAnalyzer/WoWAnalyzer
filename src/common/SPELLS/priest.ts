@@ -660,6 +660,12 @@ const spells = spellIndexableList({
     icon: 'spell_shadow_possession',
   },
 
+  SURGE_OF_DARKNESS_TALENT_BUFF: {
+    id: 87160,
+    name: 'Surge of Darkness',
+    icon: 'ability_priest_surgeofdarkness',
+  },
+
   UNFURLING_DARKNESS_BUFF: {
     id: 341282,
     name: 'Unfurling Darkness',
