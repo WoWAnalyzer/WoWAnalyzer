@@ -22,7 +22,7 @@ const DAMAGE_INCREASE_FROM_CHASTISE = 0.5;
 const HOLY_FIRE_APPLICATION_DURATION = 7;
 const HEALING_INCREASE_FROM_SERENITY = 0.3;
 const CRIT_INCREASE_FROM_SERENITY = 0.2;
-const ACTIVATOR_SPELL_INCREASE = 0.5;
+const ACTIVATOR_SPELL_INCREASE = 0.3;
 
 // Example Logs: /report/VXr2kgALF3Rj6Q4M/11-Mythic+Anduin+Wrynn+-+Kill+(5:12)/Litena/standard/statistics
 // /report/xq2FvfVCJh6YLjzZ/2-Mythic+Vigilant+Guardian+-+Kill+(4:40)/Ashelya/standard/statistics
