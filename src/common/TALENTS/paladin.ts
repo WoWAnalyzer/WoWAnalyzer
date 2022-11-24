@@ -98,7 +98,7 @@ const talents = createTalentList({
     maxRanks: 2,
   },
   AVENGING_WRATH_TALENT: {
-    id: 384376,
+    id: 31884,
     name: 'Avenging Wrath',
     icon: 'spell_holy_avenginewrath',
     maxRanks: 1,
@@ -252,12 +252,6 @@ const talents = createTalentList({
     icon: 'spell_holy_sealofwisdom',
     maxRanks: 1,
   },
-  SANCTIFIED_WRATH_TALENT: {
-    id: 53376,
-    name: 'Sanctified Wrath',
-    icon: 'ability_paladin_judgementsofthejust',
-    maxRanks: 1,
-  },
   SERAPHIM_TALENT: {
     id: 152262,
     name: 'Seraphim',
@@ -293,12 +287,6 @@ const talents = createTalentList({
     id: 383388,
     name: 'Relentless Inquisitor',
     icon: 'spell_holy_mindvision',
-    maxRanks: 1,
-  },
-  AVENGING_WRATH_MIGHT_TALENT: {
-    id: 384442,
-    name: 'Avenging Wrath: Might',
-    icon: 'spell_holy_avenginewrath',
     maxRanks: 1,
   },
   DIVINE_TOLL_TALENT: {
@@ -441,7 +429,7 @@ const talents = createTalentList({
     icon: 'spell_holy_persecution',
     maxRanks: 2,
   },
-  SENTINEL_TALENT: { id: 385438, name: 'Sentinel', icon: 'spell_holy_holynova', maxRanks: 1 },
+  SENTINEL_TALENT: { id: 389539, name: 'Sentinel', icon: 'spell_holy_holynova', maxRanks: 1 },
   HAND_OF_THE_PROTECTOR_TALENT: {
     id: 315924,
     name: 'Hand of the Protector',
@@ -548,7 +536,7 @@ const talents = createTalentList({
   DIVINE_RESONANCE_PROTECTION_TALENT: {
     id: 386738,
     name: 'Divine Resonance',
-    icon: 'ability_bastion_paladin',
+    icon: 'ability_mount_goatmountwhite',
     maxRanks: 1,
   },
   QUICKENED_INVOCATIONS_TALENT: {
@@ -699,7 +687,7 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   CRUSADE_TALENT: {
-    id: 384392,
+    id: 231895,
     name: 'Crusade',
     icon: 'ability_paladin_sanctifiedwrath',
     maxRanks: 1,
@@ -789,10 +777,11 @@ const talents = createTalentList({
     maxRanks: 2,
   },
   FINAL_VERDICT_TALENT: {
-    id: 383327,
+    id: 383328,
     name: 'Final Verdict',
     icon: 'spell_paladin_templarsverdict',
     maxRanks: 1,
+    holyPowerCost: 3,
   },
   EXECUTIONERS_WILL_TALENT: {
     id: 384162,
@@ -809,7 +798,7 @@ const talents = createTalentList({
   DIVINE_RESONANCE_RETRIBUTION_TALENT: {
     id: 384027,
     name: 'Divine Resonance',
-    icon: 'ability_bastion_paladin',
+    icon: 'ability_mount_goatmountwhite',
     maxRanks: 1,
   },
   FINAL_RECKONING_TALENT: {
@@ -838,7 +827,7 @@ const talents = createTalentList({
     name: 'Holy Light',
     icon: 'spell_holy_surgeoflight',
     maxRanks: 1,
-    manaCost: 1500,
+    manaCost: 1600,
   },
   LIGHT_OF_DAWN_TALENT: {
     id: 85222,
@@ -972,10 +961,11 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   LIGHT_OF_THE_MARTYR_TALENT: {
-    id: 219562,
+    id: 183998,
     name: 'Light of the Martyr',
-    icon: 'spell_holy_power',
+    icon: 'ability_paladin_lightofthemartyr',
     maxRanks: 1,
+    manaCost: 900,
   },
   DIVINE_REVELATIONS_TALENT: {
     id: 387808,
@@ -998,7 +988,7 @@ const talents = createTalentList({
   DIVINE_GLIMPSE_TALENT: {
     id: 387805,
     name: 'Divine Glimpse',
-    icon: 'achievement_dungeon_heroic_gloryoftheraider',
+    icon: 'spell_holy_healingaura',
     maxRanks: 2,
   },
   UNTEMPERED_DEDICATION_TALENT: {
@@ -1029,10 +1019,11 @@ const talents = createTalentList({
   },
   BREAKING_DAWN_TALENT: { id: 387879, name: 'Breaking Dawn', icon: 'spell_holy_rune', maxRanks: 1 },
   AVENGING_CRUSADER_TALENT: {
-    id: 394088,
+    id: 216331,
     name: 'Avenging Crusader',
     icon: 'ability_paladin_veneration',
     maxRanks: 1,
+    manaCost: 5000,
   },
   POWER_OF_THE_SILVER_HAND_TALENT: {
     id: 200474,
@@ -1045,7 +1036,7 @@ const talents = createTalentList({
     name: 'Barrier of Faith',
     icon: 'ability_paladin_barrieroffaith',
     maxRanks: 1,
-    manaCost: 900,
+    manaCost: 1600,
   },
   MARAADS_DYING_BREATH_TALENT: {
     id: 388018,
@@ -1056,7 +1047,7 @@ const talents = createTalentList({
   DIVINE_RESONANCE_HOLY_TALENT: {
     id: 387893,
     name: 'Divine Resonance',
-    icon: 'ability_bastion_paladin',
+    icon: 'ability_mount_goatmountwhite',
     maxRanks: 1,
   },
   CRUSADERS_MIGHT_TALENT: {
@@ -1076,6 +1067,7 @@ const talents = createTalentList({
     name: "Tyr's Deliverance",
     icon: 'inv_mace_2h_artifactsilverhand_d_01',
     maxRanks: 1,
+    manaCost: 1200,
   },
   GLIMMER_OF_LIGHT_TALENT: {
     id: 325966,
