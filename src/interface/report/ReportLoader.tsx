@@ -4,13 +4,11 @@ import { fetchFights, LogNotFoundError } from 'common/fetchWclApi';
 import { setReport } from 'interface/actions/report';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
-import { RootState } from 'interface/reducers';
 import { getReportCode } from 'interface/selectors/url/report';
 import Report from 'parser/core/Report';
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { compose } from 'redux';
+import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
 import { ReportProvider } from 'interface/report/context/ReportContext';
 import { Helmet } from 'react-helmet';
 
@@ -21,91 +19,73 @@ import handleApiError from './handleApiError';
 // Actually leaving this disabled for now so we can continue to serve reports when WCL goes down and high traffic to a specific report page doesn't bring us down (since everything would be logged). To solve the issue of confusion, I'll try improving the fight selection text instead.
 const REFRESH_BY_DEFAULT = false;
 
-interface ConnectedProps extends RouteComponentProps {
-  reportCode: string;
-  setReport: (report: Report | null) => void;
+interface Props {
+  children: ReactNode;
 }
+const ReportLoader = ({ children }: Props) => {
+  const location = useLocation();
+  const history = useHistory();
+  const reportCode = getReportCode(location.pathname);
+  const dispatch = useDispatch();
+  const [error, setError] = useState<Error | null>(null);
+  const [report, setReportState] = useState<Report | null>(null);
 
-interface PassedProps {
-  children: React.ReactNode;
-}
+  const updateState = useCallback(
+    (error: Error | null, report: Report | null) => {
+      setError(error);
+      setReportState(report);
+      dispatch(setReport(report));
+    },
+    [dispatch],
+  );
 
-type Props = ConnectedProps & PassedProps;
+  const resetState = useCallback(() => updateState(null, null), [updateState]);
 
-interface State {
-  error: Error | null;
-  report: Report | null;
-}
-
-class ReportLoader extends React.PureComponent<Props, State> {
-  state: State = {
-    error: null,
-    report: null,
-  };
-
-  constructor(props: Props) {
-    super(props);
-    this.handleRefresh = this.handleRefresh.bind(this);
-  }
-  updateState(error: Error | null = null, report: Report | null = null) {
-    this.setState({
-      error,
-      report,
-    });
-    // We need to set the report in the global state so the NavigationBar, which is not a child of this component, can also use it
-    this.props.setReport(report);
-  }
-  resetState() {
-    this.updateState(null, null);
-  }
-
-  componentDidMount() {
-    if (this.props.reportCode) {
-      // noinspection JSIgnoredPromiseFromCall
-      this.loadReport(this.props.reportCode, REFRESH_BY_DEFAULT);
-    }
-  }
-  component(prevProps: Props) {
-    if (this.props.reportCode && this.props.reportCode !== prevProps.reportCode) {
-      // noinspection JSIgnoredPromiseFromCall
-      this.loadReport(this.props.reportCode);
-    }
-  }
-  async loadReport(reportCode: string, refresh: boolean = false) {
-    const isAnonymous = reportCode.startsWith('a:');
-    try {
-      this.resetState();
-      const report = await fetchFights(reportCode, refresh);
-      if (this.props.reportCode !== reportCode) {
-        return; // the user switched report already
+  const loadReport = useCallback(
+    async (code: string, refresh: boolean = false) => {
+      const isAnonymous = code.startsWith('a:');
+      try {
+        resetState();
+        const report = await fetchFights(code, refresh);
+        if (reportCode !== code) {
+          return; // the user switched report already
+        }
+        updateState(null, {
+          ...report,
+          isAnonymous,
+          code: reportCode, // Pass the code so know which report this is
+          // TODO: Remove the code prop
+        });
+        // We need to set the report in the global state so the NavigationBar, which is not a child of this component, can also use it
+      } catch (err) {
+        const isCommonError = err instanceof LogNotFoundError;
+        if (!isCommonError) {
+          captureException(err as Error);
+        }
+        updateState(err as Error, null);
       }
-      this.updateState(null, {
-        ...report,
-        isAnonymous,
-        code: reportCode, // Pass the code so know which report this is
-        // TODO: Remove the code prop
-      });
-      // We need to set the report in the global state so the NavigationBar, which is not a child of this component, can also use it
-    } catch (err) {
-      const isCommonError = err instanceof LogNotFoundError;
-      if (!isCommonError) {
-        captureException(err as Error);
-      }
-      this.updateState(err as Error, null);
-    }
-  }
-  handleRefresh() {
-    // noinspection JSIgnoredPromiseFromCall
-    this.loadReport(this.props.reportCode, true);
-  }
+    },
+    [reportCode, resetState, updateState],
+  );
 
-  renderError(error: Error) {
+  const handleRefresh = useCallback(() => {
+    if (reportCode) {
+      // noinspection JSIgnoredPromiseFromCall
+      loadReport(reportCode, REFRESH_BY_DEFAULT);
+    }
+  }, [loadReport, reportCode]);
+
+  useEffect(() => {
+    handleRefresh();
+  }, [handleRefresh]);
+
+  if (error) {
     return handleApiError(error, () => {
-      this.resetState();
-      this.props.history.push(makeAnalyzerUrl());
+      resetState();
+      history.push(makeAnalyzerUrl());
     });
   }
-  renderLoading() {
+  if (!report) {
     return (
       <ActivityIndicator
         text={t({
@@ -115,37 +95,17 @@ class ReportLoader extends React.PureComponent<Props, State> {
       />
     );
   }
-  render() {
-    const error = this.state.error;
-    if (error) {
-      return this.renderError(error);
-    }
 
-    const report = this.state.report;
-    if (report === null) {
-      return this.renderLoading();
-    }
+  return (
+    <>
+      <Helmet>
+        <title>{report.title}</title>
+      </Helmet>
 
-    return (
-      <>
-        <Helmet>
-          <title>{report.title}</title>
-        </Helmet>
-
-        <ReportProvider report={report} refreshReport={this.handleRefresh}>
-          {this.props.children}
-        </ReportProvider>
-      </>
-    );
-  }
-}
-
-const mapStateToProps = (state: RootState, props: RouteComponentProps) => ({
-  reportCode: getReportCode(props.location.pathname),
-});
-export default compose(
-  withRouter,
-  connect(mapStateToProps, {
-    setReport,
-  }),
-)(ReportLoader) as React.ComponentType<PassedProps>;
+      <ReportProvider report={report} refreshReport={handleRefresh}>
+        {children}
+      </ReportProvider>
+    </>
+  );
+};
+export default ReportLoader;

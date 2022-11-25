@@ -1,8 +1,7 @@
 import { SpellIcon, TooltipElement } from 'interface';
 import { SpellLink } from 'interface';
-import CombatLogParser from 'parser/core/CombatLogParser';
-import PropTypes from 'prop-types';
 import { ReactNode } from 'react';
+import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 
 interface Props {
   spellId: number;
@@ -11,20 +10,15 @@ interface Props {
   children: ReactNode;
   className?: string;
 }
-
-interface Context {
-  parser: CombatLogParser;
-}
-
 /**
  * Component to display statistics for a conduit. Pass the spell ID of the conduit in the `spellId` prop.
  *
  * Component will link to the conduit with the equipped itemlevel, as well as print out "Rank x".
  */
-const ConduitSpellText = (
-  { spellId, children, className }: Props,
-  { parser: { selectedCombatant } }: Context,
-) => {
+const ConduitSpellText = ({ spellId, children, className }: Props) => {
+  const {
+    combatLogParser: { selectedCombatant },
+  } = useCombatLogParser();
   const { itemLevel, rank } = selectedCombatant.conduitsByConduitID[spellId];
 
   const likelyEmpowered = selectedCombatant.likelyHasEmpoweredConduits();
@@ -48,9 +42,6 @@ const ConduitSpellText = (
       <div className="value">{children}</div>
     </div>
   );
-};
-ConduitSpellText.contextTypes = {
-  parser: PropTypes.object.isRequired,
 };
 
 export default ConduitSpellText;

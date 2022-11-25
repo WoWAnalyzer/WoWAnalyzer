@@ -53,6 +53,7 @@ interface HitTooltipContentProps {
   hit: TrackedHit;
   unmitigatedContent: ReactNode;
 }
+
 function HitTooltipContent({ hit, unmitigatedContent }: HitTooltipContentProps) {
   const info = useInfo()!;
 
@@ -75,6 +76,7 @@ interface HitTimelineProps {
   showSourceName?: boolean;
   unmitigatedContent: ReactNode;
 }
+
 function HitTimeline({ hits, showSourceName, unmitigatedContent }: HitTimelineProps) {
   const info = useInfo();
   const enemies = useAnalyzer(Enemies);
@@ -149,6 +151,7 @@ interface HitBasedOverviewProps {
   info: Info;
   unmitigatedContent: ReactNode;
 }
+
 export function HitBasedOverview({
   hitBasedAnalyzer,
   spell,

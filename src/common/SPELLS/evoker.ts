@@ -13,8 +13,23 @@ const spells = spellIndexableList({
     name: 'Mastery: Life-Binder',
     icon: 'ability_evoker_masterylifebinder',
   },
+  REVERSION_ECHO: {
+    id: 367364,
+    name: 'Reversion',
+    icon: 'ability_evoker_reversion2',
+  },
+  GOLDEN_HOUR_HEAL: {
+    id: 378213,
+    name: 'Golden Hour',
+    icon: 'inv_belt_armor_waistoftime_d_01',
+  },
   DREAM_BREATH: {
     id: 355941,
+    name: 'Dream Breath',
+    icon: 'ability_evoker_dreambreath',
+  },
+  DREAM_BREATH_ECHO: {
+    id: 376788,
     name: 'Dream Breath',
     icon: 'ability_evoker_dreambreath',
   },
@@ -23,11 +38,7 @@ const spells = spellIndexableList({
     name: 'Twin Guardian',
     icon: 'ability_skyreach_shielded',
   },
-  DREAM_BREATH_ECHO: {
-    id: 376788,
-    name: 'Dream Breath',
-    icon: 'ability_evoker_dreambreath',
-  },
+
   TEMPORAL_ANOMALY_SHIELD: {
     id: 373862,
     name: 'Temporal Anomaly',
@@ -38,20 +49,45 @@ const spells = spellIndexableList({
     name: 'Dream Breath',
     icon: 'ability_evoker_dreambreath',
   },
+  CALL_OF_YSERA_BUFF: {
+    id: 373835,
+    name: 'Call of Ysera',
+    icon: '4096390',
+  },
   RENEWING_BREATH: {
     id: 381923,
     name: 'Renewing Breath',
     icon: 'ability_evoker_dreambreath',
   },
   SPIRITBLOOM: {
-    id: 355999,
+    id: 367230,
     name: 'Spiritbloom',
     icon: 'ability_evoker_spiritbloom2',
   },
   SPIRITBLOOM_SPLIT: {
-    id: 355998,
+    id: 367231,
     name: 'Spiritbloom',
     icon: 'ability_evoker_spiritbloom2',
+  },
+  LIFE_GIVERS_FLAME_HEAL: {
+    id: 371441,
+    name: "Life Giver's Flame",
+    icon: 'item_sparkofragnoros',
+  },
+  FLUTTERING_SEEDLINGS_HEAL: {
+    id: 361361,
+    name: 'Fluttering Seedlings',
+    icon: 'inv_herbalism_70_yserallineseed',
+  },
+  CYCLE_OF_LIFE_HEAL: {
+    id: 371879,
+    name: 'Cycle of Life',
+    icon: 'ability_monk_explodingjadeblossom',
+  },
+  DREAM_FLIGHT_HEAL: {
+    id: 363502,
+    name: 'Dream Flight',
+    icon: 'ability_evoker_dreamflight',
   },
   // Shared
   BLESSING_OF_THE_BRONZE: {
@@ -63,11 +99,19 @@ const spells = spellIndexableList({
     id: 361500,
     name: 'Living Flame',
     icon: 'ability_evoker_livingflame',
+    manaCost: 5000,
   },
   LIVING_FLAME_HEAL: {
     id: 361509,
     name: 'Living Flame',
     icon: 'ability_evoker_livingflame',
+    manaCost: 5000,
+  },
+  LIVING_FLAME_CAST: {
+    id: 361469,
+    name: 'Living Flame',
+    icon: 'ability_evoker_livingflame',
+    manaCost: 5000,
   },
   AZURE_STRIKE: {
     id: 362969,
@@ -75,9 +119,33 @@ const spells = spellIndexableList({
     icon: 'ability_evoker_azurestrike',
   },
   EMERALD_BLOSSOM: {
+    id: 355916,
+    name: 'Emerald Blossom',
+    icon: 'ability_evoker_emeraldblossom',
+    essenceCost: 3,
+    manaCost: 12000,
+  },
+  EMERALD_BLOSSOM_ECHO: {
+    id: 376832,
+    name: 'Emerald Blossom',
+    icon: 'ability_evoker_emeraldblossom',
+  },
+  EMERALD_BLOSSOM_CAST: {
     id: 355913,
     name: 'Emerald Blossom',
     icon: 'ability_evoker_emeraldblossom',
+    essenceCost: 3,
+    manaCost: 12000,
+  },
+  ESSENCE_BURST_BUFF: {
+    id: 369299,
+    name: 'Essence Burst',
+    icon: 'ability_evoker_essenceburst',
+  },
+  PANACEA_HEAL: {
+    id: 387763,
+    name: 'Panacea',
+    icon: 'ability_druid_protectionofthegrove',
   },
   DEEP_BREATH: {
     id: 357210,

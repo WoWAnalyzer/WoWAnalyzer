@@ -17,6 +17,11 @@ import {
   CooldownExpandableItem,
 } from 'analysis/retail/druid/restoration/Guide';
 import { PerformanceMark } from 'interface/guide';
+import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/guide/VulnerabilityExplanation';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+
+const GOOD_FRAILTY_STACKS = 3;
+const OK_FRAILTY_STACKS = 1;
 
 interface TheHuntCast {
   timestamp: number;
@@ -71,7 +76,11 @@ class TheHunt extends Analyzer {
 
   onDamage(event: DamageEvent) {
     this.damage += event.amount + (event.absorbed || 0);
-    this.theHuntTracker[this.cast].damage += event.amount + (event.absorbed || 0);
+    const trackedCast = this.theHuntTracker[this.cast];
+    if (!trackedCast) {
+      return;
+    }
+    trackedCast.damage += event.amount + (event.absorbed || 0);
   }
 
   onChargeDamage(event: DamageEvent) {
@@ -79,7 +88,11 @@ class TheHunt extends Analyzer {
     if (!enemy) {
       return;
     }
-    this.theHuntTracker[this.cast].primaryTargetStacksOfFrailty = enemy.getBuffStacks(
+    const trackedCast = this.theHuntTracker[this.cast];
+    if (!trackedCast) {
+      return;
+    }
+    trackedCast.primaryTargetStacksOfFrailty = enemy.getBuffStacks(
       SPELLS.FRAILTY.id,
       event.timestamp,
     );
@@ -104,7 +117,11 @@ class TheHunt extends Analyzer {
   }
 
   onDebuffApply(_: ApplyDebuffEvent) {
-    this.theHuntTracker[this.cast].numberOfDotsApplied += 1;
+    const trackedCast = this.theHuntTracker[this.cast];
+    if (!trackedCast) {
+      return;
+    }
+    trackedCast.numberOfDotsApplied += 1;
   }
 
   statistic() {
@@ -198,26 +215,20 @@ class TheHunt extends Analyzer {
   }
 
   vengeanceGuideCastBreakdown() {
-    const vulnerabilityExplanation = (
-      <>
-        {' '}
-        Always use with stacks of <SpellLink id={SPELLS.FRAILTY} /> applied to the target in order
-        to maximise the damage dealt.
-      </>
-    );
     const explanation = (
       <>
         <strong>
           <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />
         </strong>{' '}
         is a powerful burst of damage that also provides some healing with the DoT that it applies.
-        {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.VULNERABILITY_TALENT) &&
-          vulnerabilityExplanation}
+        {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.VULNERABILITY_TALENT) && (
+          <VulnerabilityExplanation numberOfFrailtyStacks={GOOD_FRAILTY_STACKS} />
+        )}
       </>
     );
 
     const data = (
-      <div>
+      <RoundedPanel>
         <strong>Per-Cast Breakdown</strong>
         <small> - click to expand</small>
 
@@ -230,9 +241,9 @@ class TheHunt extends Analyzer {
           );
 
           let frailtyPerf = QualitativePerformance.Good;
-          if (cast.primaryTargetStacksOfFrailty <= 1) {
+          if (cast.primaryTargetStacksOfFrailty <= OK_FRAILTY_STACKS) {
             frailtyPerf = QualitativePerformance.Fail;
-          } else if (cast.primaryTargetStacksOfFrailty <= 3) {
+          } else if (cast.primaryTargetStacksOfFrailty < GOOD_FRAILTY_STACKS) {
             frailtyPerf = QualitativePerformance.Ok;
           }
 
@@ -242,7 +253,8 @@ class TheHunt extends Analyzer {
             {
               label: (
                 <>
-                  Stacks of <SpellLink id={SPELLS.FRAILTY} /> on primary target
+                  At least {GOOD_FRAILTY_STACKS} stacks of <SpellLink id={SPELLS.FRAILTY} /> applied
+                  to target
                 </>
               ),
               result: <PerformanceMark perf={frailtyPerf} />,
@@ -263,7 +275,7 @@ class TheHunt extends Analyzer {
             />
           );
         })}
-      </div>
+      </RoundedPanel>
     );
 
     return explanationAndDataSubsection(explanation, data);

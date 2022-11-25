@@ -26,6 +26,11 @@ const spells = spellIndexableList({
     icon: 'spell_deathknight_bloodboil',
     lowRanks: [49940, 49939, 48721],
   },
+  BLOOD_PRESENCE: {
+    id: 48266,
+    name: 'Blood Presence',
+    icon: 'spell_deathknight_bloodpresence',
+  },
   BLOOD_STRIKE: {
     id: 49930,
     name: 'Blood Strike',
@@ -64,11 +69,11 @@ const spells = spellIndexableList({
     icon: 'spell_shadow_deathanddecay',
     lowRanks: [49937, 49936, 43265],
   },
-  DEATH_COIL: {
-    id: 62904,
+  DEATH_COIL_DK: {
+    id: 49895,
     name: 'Death Coil',
     icon: 'spell_shadow_deathcoil',
-    lowRanks: [49895, 49894, 62903, 62902, 49893, 49892, 62901, 47541, 62900],
+    lowRanks: [49894, 49893, 49892, 47541],
   },
   DEATH_GRIP: {
     id: 49576,
@@ -309,6 +314,11 @@ const spells = spellIndexableList({
     name: 'Desecration',
     icon: 'spell_shadow_shadowfiend',
     lowRanks: [55666],
+  },
+  EBON_PLAGUE: {
+    id: 51735,
+    name: 'Ebon Plague', // debuff on enemy
+    icon: 'spell_shadow_nethercloak',
   },
   GHOUL_FRENZY: {
     id: 63560,
