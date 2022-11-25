@@ -360,19 +360,22 @@ const spells = spellIndexableList({
   },
 
   // Demonology
-
+  DECIMATION: {
+    id: 63167,
+    name: 'Decimation',
+    icon: 'spell_fire_fireball02',
+    lowRanks: [63165],
+  },
   DEMONIC_EMPOWERMENT: {
     id: 47193,
     name: 'Demonic Empowerment',
     icon: 'ability_warlock_demonicempowerment',
   },
-
   FEL_DOMINATION: {
     id: 18708,
     name: 'Fel Domination',
     icon: 'spell_nature_removecurse',
   },
-
   METAMORPHOSIS: {
     // --------------------------------
     id: 47241,
@@ -400,7 +403,11 @@ const spells = spellIndexableList({
     icon: 'ability_warlock_avoidance',
   },
   // --------------------------------
-
+  SOUL_LINK: {
+    id: 19028,
+    name: 'Soul Link',
+    icon: 'spell_shadow_gathershadows',
+  },
   SUMMON_FELGUARD: {
     id: 30146,
     name: 'Summon Felguard',
