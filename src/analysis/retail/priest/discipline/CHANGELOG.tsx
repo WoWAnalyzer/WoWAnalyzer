@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 11, 23), <><SpellLink id={TALENTS_PRIEST.MALICIOUS_INTENT_TALENT.id}/> updated following buffs.</>, Hana),
   change(date(2022, 11, 23), <>Updated <SpellLink id={TALENTS_PRIEST.CRYSTALLINE_REFLECTION_TALENT.id}/> following nerfs.</>, Hana),
   change(date(2022, 11, 8), <>Updated <SpellLink id={TALENTS_PRIEST.TWIST_OF_FATE_TALENT.id}/> to use correct damage multiplier.</>, Hana),
   change(date(2022, 11, 7), <><SpellLink id={TALENTS_PRIEST.PROTECTIVE_LIGHT_TALENT.id}/> support added.</>, Hana),
