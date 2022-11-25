@@ -6,6 +6,13 @@ import { SpellLink } from 'interface';
 
 export default [
   change(
+    date(2022, 11, 26),
+    <>
+      Updated <SpellLink id={TALENTS.DIVINE_WORD_TALENT.id}/> to new hotfix value.
+    </>,
+    Litena
+  ),
+  change(
     date(2022, 11, 3),
     <>
       Added support for <SpellLink id={TALENTS.DIVINE_WORD_TALENT.id} /> and <SpellLink id={TALENTS.SEARING_LIGHT_TALENT.id} />.
