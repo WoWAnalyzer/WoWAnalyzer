@@ -36,6 +36,7 @@ import ShadowCrash from './modules/talents/ShadowCrash';
 import InescapableTorment from './modules/talents/InescapableTorment';
 import DarkVoid from './modules/talents/DarkVoid';
 import UnfurlingDarkness from './modules/talents/UnfurlingDarkness';
+import Deathspeaker from './modules/talents/Deathspeaker';
 import SurgeOfDarkness from './modules/talents/SurgeOfDarkness';
 import VoidTorrent from './modules/talents/VoidTorrent';
 import MindSear from './modules/talents/MindSear';
@@ -87,6 +88,7 @@ class CombatLogParser extends MainCombatLogParser {
     mindsear: MindSear,
     mindDevourer: MindDevourer,
     surgeOfDarkness: SurgeOfDarkness,
+    deathspeaker: Deathspeaker,
 
     // normalizers:
     shadowfiendNormalizer: ShadowfiendNormalizer,

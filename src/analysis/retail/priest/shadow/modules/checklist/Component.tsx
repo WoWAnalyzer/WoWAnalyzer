@@ -133,6 +133,17 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           />
         )}
 
+        {combatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT.id) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={TALENTS.DEATHSPEAKER_TALENT.id} /> wasted{' '}
+              </>
+            }
+            thresholds={thresholds.deathspeaker}
+          />
+        )}
+
         {combatant.hasTalent(TALENTS.SURGE_OF_DARKNESS_TALENT.id) && (
           <Requirement
             name={

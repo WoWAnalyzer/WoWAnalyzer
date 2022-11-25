@@ -11,6 +11,7 @@ import DevouringPlague from '../spells/DevouringPlague';
 import DarkEvangelism from '../talents/DarkEvangelism';
 import ShadowyInsight from '../features/ShadowyInsight';
 import UnfurlingDarkness from '../talents/UnfurlingDarkness';
+import Deathspeaker from '../talents/Deathspeaker';
 import SurgeOfDarkness from '../talents/SurgeOfDarkness';
 import MindDevourer from '../talents/MindDevourer';
 
@@ -30,6 +31,7 @@ class Checklist extends BaseChecklist {
     darkEvangelism: DarkEvangelism,
     shadowyInsight: ShadowyInsight,
     unfurlingDarkness: UnfurlingDarkness,
+    deathspeaker: Deathspeaker,
     mindDevourer: MindDevourer,
     surgeOfDarkness: SurgeOfDarkness,
   };
@@ -45,6 +47,7 @@ class Checklist extends BaseChecklist {
   protected darkEvangelism!: DarkEvangelism;
   protected shadowyInsight!: ShadowyInsight;
   protected unfurlingDarkness!: UnfurlingDarkness;
+  protected deathspeaker!: Deathspeaker;
   protected mindDevourer!: MindDevourer;
   protected surgeOfDarkness!: SurgeOfDarkness;
 
@@ -64,6 +67,7 @@ class Checklist extends BaseChecklist {
           downtime: this.alwaysBeCasting.suggestionThresholds,
           shadowyInsight: this.shadowyInsight.suggestionThresholds,
           unfurlingDarkness: this.unfurlingDarkness.suggestionThresholds,
+          deathspeaker: this.deathspeaker.suggestionThresholds,
           mindDevourer: this.mindDevourer.suggestionThresholds,
           surgeOfDarkness: this.surgeOfDarkness.suggestionThresholds,
         }}

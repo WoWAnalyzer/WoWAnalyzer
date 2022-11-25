@@ -672,6 +672,12 @@ const spells = spellIndexableList({
     icon: 'spell_priest_shadow-mend',
   },
 
+  DEATHSPEAKER_TALENT_BUFF: {
+    id: 392511,
+    name: 'Deathspeaker',
+    icon: 'spell_shadow_demonicfortitude',
+  },
+
   MIND_DEVOURER_TALENT_BUFF: {
     id: 373204,
     name: 'Mind Devourer',
