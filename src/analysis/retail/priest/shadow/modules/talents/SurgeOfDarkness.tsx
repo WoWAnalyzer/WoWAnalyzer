@@ -103,7 +103,7 @@ class SurgeOfDarkness extends Analyzer {
         .actual(
           t({
             id: 'priest.shadow.suggestions.surgeofdarkness.efficiency',
-            message: `You wasted ${this.procsWasted} out of ${this.procsGained} Shadowy Insight procs.`,
+            message: `You wasted ${this.procsWasted} out of ${this.procsGained} Surge of Darkness procs.`,
           }),
         )
         .recommended(`${recommended} is recommended.`),
