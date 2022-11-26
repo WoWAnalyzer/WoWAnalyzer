@@ -6,12 +6,17 @@ import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Che
 interface Props {
   name?: string | JSX.Element;
   talent: Spell;
+  /**
+   * Spell that is actually cast when using a talent. Useful for passive talents.
+   */
+  actualCast?: Spell;
   includeNoCooldownEfficiency?: boolean;
   casts?: number;
   isMaxCasts?: boolean;
 }
 
 const TalentCastEfficiencyRequirement = ({
+  actualCast,
   talent,
   includeNoCooldownEfficiency = false,
   ...props
@@ -23,8 +28,11 @@ const TalentCastEfficiencyRequirement = ({
   const castEfficiency = combatLogParser.getModule(CastEfficiency);
   return (
     <GenericCastEfficiencyRequirement
-      spell={talent}
-      castEfficiency={castEfficiency.getCastEfficiencyForSpell(talent, includeNoCooldownEfficiency)}
+      spell={actualCast ?? talent}
+      castEfficiency={castEfficiency.getCastEfficiencyForSpell(
+        actualCast ?? talent,
+        includeNoCooldownEfficiency,
+      )}
       {...props}
     />
   );
