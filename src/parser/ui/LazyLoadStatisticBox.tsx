@@ -25,17 +25,10 @@ interface Props {
   dropdown?: ReactNode;
 }
 
-interface Context {
-  updateResults: () => void;
-}
-
 /**
  * @deprecated Use `parser/ui/Statistic` instead.
  */
-const LazyLoadStatisticBoxFC = (
-  { loader, value, children, ...others }: Props,
-  { updateResults }: Context,
-) => {
+const LazyLoadStatisticBox = ({ loader, value, children, ...others }: Props) => {
   const [loaded, setLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -47,7 +40,6 @@ const LazyLoadStatisticBoxFC = (
     loader().then((result) => {
       setLoading(false);
       setLoaded(true);
-      updateResults();
       return result;
     });
   };
@@ -64,4 +56,4 @@ const LazyLoadStatisticBoxFC = (
   );
 };
 
-export default LazyLoadStatisticBoxFC;
+export default LazyLoadStatisticBox;
