@@ -1,35 +1,27 @@
 import { t, Trans } from '@lingui/macro';
 import getFightName from 'common/getFightName';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
-import { RootState } from 'interface/reducers';
 import ClassicLogWarning from 'interface/report/ClassicLogWarning';
 import FightSelectionPanel from 'interface/report/FightSelectionPanel';
 import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/ReportDurationWarning';
 import { getFightFromReport } from 'interface/selectors/fight';
 import { getFightId } from 'interface/selectors/url/report';
 import Tooltip from 'interface/Tooltip';
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
-import Toggle from 'react-toggle';
-import { compose } from 'redux';
-import { FightProvider } from 'interface/report/context/FightContext';
 import { ReactNode, useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import Toggle from 'react-toggle';
+import { FightProvider } from 'interface/report/context/FightContext';
 import { useReport } from 'interface/report/context/ReportContext';
 import { Helmet } from 'react-helmet';
 import { isUnsupportedClassicVersion } from 'game/VERSIONS';
 
-interface ConnectedProps {
-  fightId: number | null;
-}
-
-interface PassedProps {
+interface Props {
   children: ReactNode;
 }
 
-type Props = ConnectedProps & PassedProps;
-
-const FightSelection = ({ fightId, children }: Props) => {
+const FightSelection = ({ children }: Props) => {
+  const location = useLocation();
+  const fightId = getFightId(location.pathname);
   const [killsOnly, setKillsOnly] = useState(false);
   const { report, refreshReport } = useReport();
   const reportDuration = report.end - report.start;
@@ -134,11 +126,4 @@ const FightSelection = ({ fightId, children }: Props) => {
   );
 };
 
-const mapStateToProps = (state: RootState, props: RouteComponentProps) => ({
-  // Because fightId comes from the URL we can't use local state
-  fightId: getFightId(props.location.pathname),
-});
-export default compose(
-  withRouter,
-  connect(mapStateToProps),
-)(FightSelection) as React.ComponentType<PassedProps>;
+export default FightSelection;

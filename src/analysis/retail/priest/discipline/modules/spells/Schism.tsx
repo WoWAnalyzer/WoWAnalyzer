@@ -26,7 +26,7 @@ class Schism extends Analyzer {
     atonementDamageSource: AtonementDamageSource,
   };
 
-  static bonus = 0.25;
+  static bonus = 0.15;
 
   private directDamage = 0;
   private damageFromBuff = 0;

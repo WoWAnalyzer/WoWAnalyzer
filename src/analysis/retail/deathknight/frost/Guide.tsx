@@ -102,8 +102,7 @@ function CooldownsSubsection({ modules, events, info }: GuideProps<typeof Combat
           />
         </div>
       )}
-      {(info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT) ||
-        info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT)) && (
+      {info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_TALENT) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CooldownBar
             spellId={spells.EMPOWER_RUNE_WEAPON.id}

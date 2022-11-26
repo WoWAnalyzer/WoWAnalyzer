@@ -78,6 +78,12 @@ class HotAttributor extends Analyzer {
   }
 
   onApplyRem(event: ApplyBuffEvent | RefreshBuffEvent) {
+    const targetID = event.targetID;
+    const spellID = event.ability.guid;
+    if (!this.hotTracker.hots[targetID] || !this.hotTracker.hots[targetID][spellID]) {
+      return;
+    }
+
     if (this._hasBouncedAttribution(event)) {
       //bounced
       remDebug && this._existingReMAttributionLogging(event);
@@ -94,8 +100,8 @@ class HotAttributor extends Analyzer {
       //rapid diffusion rem
       rdDebug && this._newReMAttributionLogging(event, this.rapidDiffusionAttrib);
       this.hotTracker.addAttributionFromApply(this.rapidDiffusionAttrib, event);
-      this.hotTracker.hots[event.targetID][event.ability.guid].maxDuration = Number(
-        this.hotTracker.hotInfo[event.ability.guid].procDuration,
+      this.hotTracker.hots[targetID][spellID].maxDuration = Number(
+        this.hotTracker.hotInfo[spellID].procDuration,
       );
       this.hotTracker.hots[event.targetID][event.ability.guid].end =
         event.timestamp + Number(this.hotTracker.hotInfo[event.ability.guid].procDuration);
@@ -107,6 +113,12 @@ class HotAttributor extends Analyzer {
   }
 
   onApplyEnvm(event: ApplyBuffEvent | RefreshBuffEvent) {
+    const targetID = event.targetID;
+    const spellID = event.ability.guid;
+    if (!this.hotTracker.hots[targetID] || !this.hotTracker.hots[targetID][spellID]) {
+      return;
+    }
+
     if (this._hasAttribution(event)) {
       return;
     } else if (isFromMistsOfLife(event)) {
@@ -133,8 +145,8 @@ class HotAttributor extends Analyzer {
           'on ' + this.combatants.getEntity(event)?.name,
         );
       this.hotTracker.addAttributionFromApply(this.envMistMistyPeaksAttrib, event);
-      this.hotTracker.hots[event.targetID][event.ability.guid].maxDuration = Number(
-        this.hotTracker.hotInfo[event.ability.guid].procDuration,
+      this.hotTracker.hots[targetID][spellID].maxDuration = Number(
+        this.hotTracker.hotInfo[spellID].procDuration,
       );
     }
   }

@@ -137,6 +137,11 @@ const spells = spellIndexableList({
     essenceCost: 3,
     manaCost: 12000,
   },
+  ESSENCE_BURST_BUFF: {
+    id: 369299,
+    name: 'Essence Burst',
+    icon: 'ability_evoker_essenceburst',
+  },
   PANACEA_HEAL: {
     id: 387763,
     name: 'Panacea',

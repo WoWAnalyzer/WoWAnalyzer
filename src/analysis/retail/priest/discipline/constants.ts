@@ -78,3 +78,4 @@ export const RENEW_ATONEMENT_DUR = 15000;
 export const FLASH_HEAL_ATONEMENT_DUR = 15000;
 export const PAIN_AND_SUFFERING_INCREASE = [0.08, 0.15];
 export const THROES_OF_PAIN_INCREASE = [0.03, 0.05];
+export const BLAZE_OF_LIGHT_INCREASE = [0.08, 0.15];

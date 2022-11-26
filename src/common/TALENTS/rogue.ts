@@ -84,10 +84,10 @@ const talents = createTalentList({
     icon: 'ability_rogue_preyontheweak',
     maxRanks: 1,
   },
-  SHADOWSTEP_SHARED_TALENT: {
-    id: 394931,
+  SHADOWSTEP_TALENT: {
+    id: 36554,
     name: 'Shadowstep',
-    icon: 'rogue_shadowfocus',
+    icon: 'ability_rogue_shadowstep',
     maxRanks: 1,
   },
   SUBTERFUGE_TALENT: { id: 108208, name: 'Subterfuge', icon: 'rogue_subterfuge', maxRanks: 1 },
@@ -223,7 +223,12 @@ const talents = createTalentList({
     icon: 'spell_animabastion_buff',
     maxRanks: 1,
   },
-  SHADOW_DANCE_TALENT: { id: 394930, name: 'Shadow Dance', icon: 'rogue_shadowfocus', maxRanks: 1 },
+  SHADOW_DANCE_TALENT: {
+    id: 185313,
+    name: 'Shadow Dance',
+    icon: 'ability_rogue_shadowdance',
+    maxRanks: 1,
+  },
   SEPSIS_TALENT: {
     id: 385408,
     name: 'Sepsis',
@@ -249,12 +254,6 @@ const talents = createTalentList({
     id: 79134,
     name: 'Venomous Wounds',
     icon: 'ability_rogue_venomouswounds',
-    maxRanks: 1,
-  },
-  SHADOWSTEP_ASSASSINATION_TALENT: {
-    id: 394932,
-    name: 'Shadowstep',
-    icon: 'rogue_shadowfocus',
     maxRanks: 1,
   },
   CUT_TO_THE_CHASE_TALENT: {
@@ -322,7 +321,7 @@ const talents = createTalentList({
     name: 'Crimson Tempest',
     icon: 'inv_knife_1h_cataclysm_c_05',
     maxRanks: 1,
-    energyCost: 35,
+    energyCost: 30,
   },
   VENOM_RUSH_TALENT: { id: 152152, name: 'Venom Rush', icon: 'rogue_venomzest', maxRanks: 1 },
   DEATHMARK_TALENT: { id: 360194, name: 'Deathmark', icon: 'ability_rogue_deathmark', maxRanks: 1 },
@@ -677,7 +676,7 @@ const talents = createTalentList({
   TAKE_EM_BY_SURPRISE_TALENT: {
     id: 382742,
     name: "Take 'em by Surprise",
-    icon: 'ability_stealth',
+    icon: 'ability_rogue_masterofsubtlety',
     maxRanks: 2,
   },
   SUMMARILY_DISPATCHED_TALENT: {
@@ -716,12 +715,6 @@ const talents = createTalentList({
     id: 319949,
     name: 'Improved Backstab',
     icon: 'ability_backstab',
-    maxRanks: 1,
-  },
-  SHADOWSTEP_SUBTLETY_TALENT: {
-    id: 394935,
-    name: 'Shadowstep',
-    icon: 'rogue_shadowfocus',
     maxRanks: 1,
   },
   IMPROVED_SHURIKEN_STORM_TALENT: {
