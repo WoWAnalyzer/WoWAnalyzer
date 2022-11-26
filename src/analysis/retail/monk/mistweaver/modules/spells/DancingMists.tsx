@@ -1,69 +1,68 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { TALENTS_MONK } from 'common/TALENTS';
-import SPELLS from 'common/SPELLS';
-import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
-import HotTrackerMW from '../core/HotTrackerMW';
-import MistyPeaks from './MistyPeaks';
-import Vivify from './Vivify';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import TalentSpellText from 'parser/ui/TalentSpellText';
-import SpellLink from 'interface/SpellLink';
-import Combatants from 'parser/shared/modules/Combatants';
 import { formatNumber } from 'common/format';
-import { TooltipElement } from 'interface';
+import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
+import { SpellLink, TooltipElement } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 import { isFromMistyPeaks } from '../../normalizers/CastLinkNormalizer';
+import HotTrackerMW from '../core/HotTrackerMW';
+import Vivify from './Vivify';
 
-class RapidDiffusion extends Analyzer {
-  get totalRemThroughput() {
-    return this.remHealing + this.remAbsorbed;
-  }
-
-  get totalVivifyThroughput() {
-    return this.extraVivHealing + this.extraVivAbsorbed;
-  }
-
-  get mistyPeaksHealingFromRapidDiffusion() {
-    return this.extraMistyPeaksHealing + this.extraMistyPeaksAbsorb;
-  }
-
+class DancingMists extends Analyzer {
   static dependencies = {
     hotTracker: HotTrackerMW,
-    combatants: Combatants,
-    mistyPeaks: MistyPeaks,
     vivify: Vivify,
   };
+  protected vivify!: Vivify;
   hotTracker!: HotTrackerMW;
-  combatants!: Combatants;
-  mistyPeaks!: MistyPeaks;
-  vivify!: Vivify;
-  remCount: number = 0;
-  remHealing: number = 0;
-  remAbsorbed: number = 0;
-  remOverHealing: number = 0;
-  extraMistyPeaksProcs: number = 0;
+  dancingMistCount: number = 0;
+  dancingMistHealing: number = 0;
+  dancingMistAbsorbed: number = 0;
+  dancingMistOverhealing: number = 0;
+  dancingMistVivifyCleaveHits: number = 0;
+  dancingMistMistyPeaksProcs: number = 0;
   extraVivCleaves: number = 0;
   extraVivHealing: number = 0;
   extraVivOverhealing: number = 0;
   extraVivAbsorbed: number = 0;
+  extraMistyPeaksProcs: number = 0;
+  countedMainVivifyHit: boolean = false;
   extraMistyPeaksHealing: number = 0;
   extraMistyPeaksAbsorb: number = 0;
 
+  get totalHealing() {
+    return this.dancingMistReMHealing + this.dancingMistVivifyHealing;
+  }
+  get dancingMistReMHealing() {
+    return this.dancingMistHealing + this.dancingMistAbsorbed;
+  }
+
+  get dancingMistVivifyHealing() {
+    return this.extraVivHealing + this.extraVivAbsorbed;
+  }
+
+  get mistyPeaksHealingFromDancingMist() {
+    return this.extraMistyPeaksHealing + this.extraMistyPeaksAbsorb;
+  }
+
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.DANCING_MISTS_TALENT.id);
     if (!this.active) {
       return;
     }
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
-      this.handleReMApply,
+      this.onApplyRem,
     );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
-      this.handleReMHeal,
+      this.onReMHeal,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleVivify);
     this.addEventListener(
@@ -80,7 +79,7 @@ class RapidDiffusion extends Analyzer {
     );
   }
 
-  handleReMApply(event: ApplyBuffEvent) {
+  onApplyRem(event: ApplyBuffEvent) {
     const playerId = event.targetID;
     if (
       !this.hotTracker.hots[playerId] ||
@@ -89,12 +88,12 @@ class RapidDiffusion extends Analyzer {
       return;
     }
     const hot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
-    if (this.hotTracker.fromRapidDiffusion(hot) && !this.hotTracker.fromBounce(hot)) {
-      this.remCount += 1;
+    if (this.hotTracker.fromDancingMists(hot) && !this.hotTracker.fromBounce(hot)) {
+      this.dancingMistCount += 1;
     }
   }
 
-  handleReMHeal(event: HealEvent) {
+  onReMHeal(event: HealEvent) {
     const playerId = event.targetID;
     if (
       !this.hotTracker.hots[playerId] ||
@@ -103,10 +102,10 @@ class RapidDiffusion extends Analyzer {
       return;
     }
     const hot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
-    if (this.hotTracker.fromRapidDiffusion(hot)) {
-      this.remHealing += event.amount || 0;
-      this.remAbsorbed += event.absorbed || 0;
-      this.remOverHealing += event.overheal || 0;
+    if (this.hotTracker.fromDancingMists(hot)) {
+      this.dancingMistHealing += event.amount || 0;
+      this.dancingMistAbsorbed += event.absorbed || 0;
+      this.dancingMistOverhealing += event.overheal || 0;
     }
   }
 
@@ -124,7 +123,7 @@ class RapidDiffusion extends Analyzer {
       return;
     }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
-    if (this.hotTracker.fromRapidDiffusion(hot)) {
+    if (this.hotTracker.fromDancingMists(hot)) {
       this.extraVivCleaves += 1;
       this.extraVivHealing += event.amount || 0;
       this.extraVivOverhealing += event.overheal || 0;
@@ -141,7 +140,7 @@ class RapidDiffusion extends Analyzer {
       return;
     }
     const remHot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
-    if (this.hotTracker.fromRapidDiffusion(remHot)) {
+    if (this.hotTracker.fromDancingMists(remHot)) {
       if (isFromMistyPeaks(event)) {
         this.extraMistyPeaksProcs += 1;
       }
@@ -156,7 +155,7 @@ class RapidDiffusion extends Analyzer {
       return;
     }
     const remHot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
-    if (this.hotTracker.fromRapidDiffusion(remHot)) {
+    if (this.hotTracker.fromDancingMists(remHot)) {
       if (
         !this.hotTracker.hots[playerId] ||
         !this.hotTracker.hots[playerId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id]
@@ -188,33 +187,37 @@ class RapidDiffusion extends Analyzer {
             {this.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT) && (
               <li>
                 Extra <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id} /> healing:{' '}
-                {formatNumber(this.mistyPeaksHealingFromRapidDiffusion)}
+                {formatNumber(this.mistyPeaksHealingFromDancingMist)}
               </li>
             )}
             <li>
-              Additional Renewing Mist Total Throughput: {formatNumber(this.totalRemThroughput)}
+              Extra <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> direct healing:{' '}
+              {formatNumber(this.dancingMistReMHealing)}
             </li>
-            <li>Extra Vivify Cleaves: {this.extraVivCleaves}</li>
-            <li>Extra Vivify Healing: {formatNumber(this.totalVivifyThroughput)}</li>
+            <li>
+              Extra <SpellLink id={SPELLS.VIVIFY.id} /> cleaves: {this.extraVivCleaves}
+            </li>
+            <li>
+              Extra <SpellLink id={SPELLS.VIVIFY.id} /> healing:{' '}
+              {formatNumber(this.extraVivHealing)}
+            </li>
           </ul>
         }
       >
-        <TalentSpellText talent={TALENTS_MONK.RAPID_DIFFUSION_TALENT}>
-          <ItemHealingDone amount={this.totalRemThroughput + this.totalVivifyThroughput} />
+        <TalentSpellText talent={TALENTS_MONK.DANCING_MISTS_TALENT}>
+          <ItemHealingDone amount={this.totalHealing} />
           <br />
           <TooltipElement
             content={
               <>
-                Rapid Diffusion has an internal cooldown of 0.25 seconds, so this number may be
-                slightly lower than your total{' '}
-                <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> and{' '}
-                <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> casts.
+                The number of additional <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />s
+                procced on casts and jumps
               </>
             }
           >
-            {this.remCount}{' '}
+            {this.dancingMistCount}{' '}
             <small>
-              additional <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
+              duplicated <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
             </small>
           </TooltipElement>
         </TalentSpellText>
@@ -223,4 +226,4 @@ class RapidDiffusion extends Analyzer {
   }
 }
 
-export default RapidDiffusion;
+export default DancingMists;

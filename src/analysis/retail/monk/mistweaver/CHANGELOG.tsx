@@ -6,6 +6,8 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 11, 17), <>Added <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT.id}/> module and <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id}/> Breakdown chart.</>, Vohrr),
+  change(date(2022, 11, 17),<> Fix some typos and remove <SpellLink id={TALENTS_MONK.LIFE_COCOON_TALENT.id}/> statistic</> ,Trevor),
   change(date(2022, 11, 23), <>Fix another Mistweaver degraded experience</>, Trevor),
   change(date(2022, 11, 22), <>Fix Mistweaver degraded experience</>, Trevor),
   change(date(2022, 11, 17), <>Fix some typos and remove <SpellLink id={TALENTS_MONK.LIFE_COCOON_TALENT.id}/> statistic</> ,Trevor),
