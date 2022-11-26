@@ -223,11 +223,12 @@ const talents = createTalentList({
     icon: 'inv_jewelry_talisman_06',
     maxRanks: 1,
   },
-  HEALING_STREAM_TOTEM_SHARED_TALENT: {
-    id: 392915,
+  HEALING_STREAM_TOTEM_TALENT: {
+    id: 5394,
     name: 'Healing Stream Totem',
     icon: 'inv_spear_04',
     maxRanks: 1,
+    manaCost: 900,
   },
   IMPROVED_LIGHTNING_BOLT_TALENT: {
     id: 381674,
@@ -359,6 +360,13 @@ const talents = createTalentList({
     name: 'Ancestral Wolf Affinity',
     icon: 'spell_beastmaster_wolf',
     maxRanks: 1,
+  },
+  ELEMENTAL_BLAST_TALENT: {
+    id: 117014,
+    name: 'Elemental Blast',
+    icon: 'shaman_talent_elementalblast',
+    maxRanks: 1,
+    manaCost: 200,
   },
   PRIMORDIAL_WAVE_TALENT: {
     id: 375982,
@@ -546,12 +554,6 @@ const talents = createTalentList({
     icon: 'spell_shaman_stormearthfire',
     maxRanks: 1,
   },
-  ELEMENTAL_BLAST_ENHANCEMENT_TALENT: {
-    id: 394150,
-    name: 'Elemental Blast',
-    icon: 'shaman_talent_elementalblast',
-    maxRanks: 1,
-  },
   STORMBLAST_TALENT: {
     id: 319930,
     name: 'Stormblast',
@@ -564,9 +566,9 @@ const talents = createTalentList({
     icon: 'inv_mace_2h_draenorraid_d_03',
     maxRanks: 2,
   },
-  GATHERING_STORMS_TALENT: {
+  CONVERGING_STORMS_TALENT: {
     id: 384363,
-    name: 'Gathering Storms',
+    name: 'Converging Storms',
     icon: 'warrior_talent_icon_stormbolt',
     maxRanks: 1,
   },
@@ -663,12 +665,6 @@ const talents = createTalentList({
     icon: 'spell_nature_healingwavelesser',
     maxRanks: 1,
     manaCost: 1500,
-  },
-  HEALING_STREAM_TOTEM_RESTORATION_TALENT: {
-    id: 392916,
-    name: 'Healing Stream Totem',
-    icon: 'inv_spear_04',
-    maxRanks: 1,
   },
   HEALING_RAIN_TALENT: {
     id: 73920,
@@ -989,7 +985,7 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   STORMKEEPER_ELEMENTAL_TALENT: {
-    id: 392763,
+    id: 191634,
     name: 'Stormkeeper',
     icon: 'ability_thunderking_lightningwhip',
     maxRanks: 1,
@@ -1047,13 +1043,6 @@ const talents = createTalentList({
     name: 'Improved Flametongue Weapon',
     icon: 'spell_fire_flametounge',
     maxRanks: 1,
-  },
-  ELEMENTAL_BLAST_ELEMENTAL_TALENT: {
-    id: 117014,
-    name: 'Elemental Blast',
-    icon: 'shaman_talent_elementalblast',
-    maxRanks: 1,
-    manaCost: 200,
   },
   ASCENDANCE_ELEMENTAL_TALENT: {
     id: 114050,
