@@ -1,6 +1,5 @@
 import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -66,7 +65,7 @@ class TwinsOfTheSunPriestess extends Analyzer {
           out on a free <SpellLink id={TALENTS.POWER_INFUSION_TALENT.id} /> for a raid member.
         </>,
       )
-        .icon(SPELLS.TWINS_OF_THE_SUN_PRIESTESS.icon)
+        .icon(TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT.icon)
         .actual(
           t({
             id: 'priest.shared.legendaries.twinsOfTheSunPriestess.efficiency',
@@ -84,7 +83,7 @@ class TwinsOfTheSunPriestess extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(15)}
         size="flexible"
       >
-        <BoringSpellValueText spellId={SPELLS.TWINS_OF_THE_SUN_PRIESTESS.id}>
+        <BoringSpellValueText spellId={TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT.id}>
           {formatNumber(this.goodCasts)}/{formatNumber(this.totalCasts)} Uses
         </BoringSpellValueText>
       </Statistic>

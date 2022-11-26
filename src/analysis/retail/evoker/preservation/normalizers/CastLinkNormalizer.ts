@@ -98,9 +98,6 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.RemoveBuff],
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
-    // additionalCondition(referencedEvent) {
-    //   return HasRelatedEvent(referencedEvent, DREAM_BREATH_CALL_OF_YSERA);
-    // },
     isActive(c) {
       return (
         c.hasTalent(TALENTS_EVOKER.DREAM_BREATH_TALENT) &&
@@ -190,9 +187,6 @@ export function isFromDreamBreathCallOfYsera(event: ApplyBuffEvent | RefreshBuff
 }
 
 export function isFromLivingFlameCallOfYsera(event: HealEvent) {
-  // if(HasRelatedEvent(event, DREAM_BREATH_CALL_OF_YSERA_HOT)){
-  //   return false;
-  // }
   return HasRelatedEvent(event, LIVING_FLAME_CALL_OF_YSERA);
 }
 
