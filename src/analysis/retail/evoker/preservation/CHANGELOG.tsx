@@ -8,6 +8,7 @@ export default [
   change(date(2022, 11, 22), <>Added <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT}/> module</>, Trevor),
   change(date(2022, 11, 21), 'Updated contributor and support status for Preservation', Vohrr),
   change(date(2022, 11, 18), <>Added <SpellLink id={TALENTS_EVOKER.CALL_OF_YSERA_TALENT.id}/> module.</>, Vohrr),
+  change(date(2022, 11, 16), <>Updated removed shields from Mastery Effectiveness for a rework and relabeled and added a tooltip indicating such</>, Vohrr),
   change(date(2022, 11, 16), <>Added <SpellLink id={TALENTS_EVOKER.GRACE_PERIOD_TALENT.id}/> module</>, Vohrr),
   change(date(2022, 11, 16), <>Added <SpellLink id={TALENTS_EVOKER.REVERSION_TALENT.id}/> module</>, Vohrr),
   change(date(2022, 11, 14), <>Added preliminary hot tracking, cast attributions, & cast normalizers for Echo handling. Updated <SpellLink id={TALENTS_EVOKER.SPIRITBLOOM_TALENT.id}/> and <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id}/> modules</>, Vohrr),
