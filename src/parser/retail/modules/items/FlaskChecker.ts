@@ -20,6 +20,7 @@ const MAX_FLASK_IDS = [
 class FlaskChecker extends Analyzer {
   startFightWithFlaskUp = false;
   strongFlaskUsed = false;
+  flaskBuffId?: number;
 
   constructor(options: Options) {
     super(options);
@@ -30,10 +31,12 @@ class FlaskChecker extends Analyzer {
     const spellId = event.ability.guid;
     if (MIN_FLASK_IDS.includes(spellId) && event.prepull) {
       this.startFightWithFlaskUp = true;
+      this.flaskBuffId = spellId;
     }
     if (MAX_FLASK_IDS.includes(spellId) && event.prepull) {
       this.startFightWithFlaskUp = true;
       this.strongFlaskUsed = true;
+      this.flaskBuffId = spellId;
     }
   }
   get flaskStrengthSuggestion() {

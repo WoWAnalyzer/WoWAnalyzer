@@ -15,7 +15,7 @@ class RuneDetails extends Analyzer {
 
   protected runeTracker!: RuneTracker;
 
-  tab(): ParseResultsTab {
+  get runeChart() {
     const data = this.runeTracker.runesReady;
 
     const spec: VisualizationSpec = {
@@ -24,6 +24,7 @@ class RuneDetails extends Analyzer {
       },
       mark: {
         type: 'line',
+        interpolate: 'step',
         color: 'rgb(196, 31, 59)',
       },
       encoding: {
@@ -48,16 +49,20 @@ class RuneDetails extends Analyzer {
       },
     };
 
+    return (
+      <AutoSizer disableHeight>
+        {({ width }) => <BaseChart width={width} height={400} spec={spec} data={{ runes: data }} />}
+      </AutoSizer>
+    );
+  }
+
+  tab(): ParseResultsTab {
     return {
       title: t({ id: 'deathknight.shared.runeDetails.title', message: 'Rune usage' }),
       url: 'rune-usage',
       render: () => (
         <Panel>
-          <AutoSizer disableHeight>
-            {({ width }) => (
-              <BaseChart width={width} height={400} spec={spec} data={{ runes: data }} />
-            )}
-          </AutoSizer>
+          {this.runeChart}
           <RuneBreakdown tracker={this.runeTracker} showSpenders />
         </Panel>
       ),

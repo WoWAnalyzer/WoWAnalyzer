@@ -106,6 +106,7 @@ const talents = createTalentList({
     name: 'Thunder Clap',
     icon: 'spell_nature_thunderclap',
     maxRanks: 1,
+    rageCost: 30,
   },
   FURIOUS_BLOWS_TALENT: {
     id: 390354,
@@ -328,7 +329,6 @@ const talents = createTalentList({
     name: 'Thunder Clap',
     icon: 'spell_nature_thunderclap',
     maxRanks: 1,
-    rageCost: 30,
   },
   CRUSHING_FORCE_PROTECTION_TALENT: {
     id: 390642,
@@ -433,12 +433,7 @@ const talents = createTalentList({
     icon: 'ability_creature_cursed_04',
     maxRanks: 1,
   },
-  HURRICANE_TALENT: {
-    id: 390563,
-    name: 'Hurricane',
-    icon: 'ability_warrior_bladestorm',
-    maxRanks: 1,
-  },
+  HURRICANE_TALENT: { id: 390563, name: 'Hurricane', icon: 'ability_skyreach_wind', maxRanks: 1 },
   BLOODSURGE_TALENT: {
     id: 384361,
     name: 'Bloodsurge',
@@ -642,9 +637,9 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   RECKLESS_ABANDON_TALENT: {
-    id: 202751,
+    id: 396749,
     name: 'Reckless Abandon',
-    icon: 'ability_warrior_battleshout',
+    icon: 'spell_fire_incinerate',
     maxRanks: 1,
   },
   ONSLAUGHT_TALENT: { id: 315720, name: 'Onslaught', icon: 'ability_warrior_trauma', maxRanks: 1 },
@@ -824,9 +819,9 @@ const talents = createTalentList({
     icon: 'ability_defend',
     maxRanks: 1,
   },
-  UNBREAKABLE_WILL_TALENT: {
-    id: 384074,
-    name: 'Unbreakable Will',
+  DEFENDERS_AEGIS_TALENT: {
+    id: 397103,
+    name: "Defender's Aegis",
     icon: 'ability_warrior_stalwartprotector',
     maxRanks: 1,
   },

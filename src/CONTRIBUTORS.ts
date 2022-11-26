@@ -512,6 +512,11 @@ export const Vetyst: Contributor = {
     },
   ],
 };
+export const DoxAshe: Contributor = {
+  nickname: 'DoxAshe',
+  github: 'DoxAshe',
+  discord: 'DoxAshe#8269',
+};
 export const Anatta336: Contributor = {
   nickname: 'Anatta336',
   github: 'Anatta336',
@@ -1029,13 +1034,19 @@ export const Moonrabbit: Contributor = {
 export const Vohrr: Contributor = {
   nickname: 'Vohrr',
   github: 'pingypong',
-  discord: 'Vohrr#1414',
-  about: 'MW Vet in Peak of Serenity discord',
+  discord: 'Vohrr#3091',
+  avatar: avatar('vohrr-avatar.jpg'),
+  about: 'Mistweaver and Preservation Theorycafter. Vet in Peak of Serenity',
   mains: [
     {
       name: 'Vohrr',
       spec: SPECS.MISTWEAVER_MONK,
-      link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/vohrr',
+      link: 'https://worldofwarcraft.com/en-us/character/us/illidan/vohrr',
+    },
+    {
+      name: 'Vokeri',
+      spec: SPECS.PRESERVATION_EVOKER,
+      link: 'https://worldofwarcraft.com/en-us/character/us/illidan/vokeri',
     },
   ],
   alts: [
@@ -1047,12 +1058,12 @@ export const Vohrr: Contributor = {
     {
       name: 'Vohrpal',
       spec: SPECS.HOLY_PALADIN,
-      link: 'https://worldofwarcraft.com/en-us/character/us/malganis/vohrpal',
+      link: 'https://worldofwarcraft.com/en-us/character/us/sargeras/vohrpal',
     },
     {
-      name: 'Zappyvohr',
+      name: 'Vohrrtide',
       spec: SPECS.RESTORATION_SHAMAN,
-      link: 'https://worldofwarcraft.com/en-us/character/us/malganis/zappyvohr',
+      link: 'https://worldofwarcraft.com/en-us/character/us/malganis/Vohrrtide',
     },
     {
       name: 'Vohrbloom',
@@ -1916,6 +1927,19 @@ export const CamClark: Contributor = {
   ],
 };
 
+export const Phased: Contributor = {
+  nickname: 'Phased',
+  github: 'bilalm4',
+  discord: 'Phased#1267',
+  mains: [
+    {
+      name: 'Phasedruid',
+      spec: SPECS.RESTORATION_DRUID,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Phasedruid',
+    },
+  ],
+};
+
 export const Listefano: Contributor = {
   nickname: 'Listefano',
   github: 'listefano',
@@ -1950,4 +1974,20 @@ export const jazminite: Contributor = {
 export const Jonfanz: Contributor = {
   nickname: 'jonfanz',
   github: 'jharrell',
+};
+export const Anty: Contributor = {
+  nickname: 'Anty',
+  github: 'jsucupira',
+};
+export const Squided: Contributor = {
+  nickname: 'Squided',
+  github: 'foobartles',
+  discord: 'squided#0001',
+  mains: [
+    {
+      name: 'Squided',
+      spec: SPECS.HOLY_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Squided',
+    },
+  ],
 };

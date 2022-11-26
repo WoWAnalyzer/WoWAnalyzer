@@ -1,11 +1,12 @@
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import CombatLogParser from 'analysis/retail/druid/feral/CombatLogParser';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { CooldownBar, GapHighlight } from 'parser/ui/CooldownBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -88,11 +89,9 @@ function CooldownSection({ modules, events, info }: GuideProps<typeof CombatLogP
         maximize usages over the course of an encounter, you should aim to send the cooldown as soon
         as it becomes available (as long as it can do damage on target). It is particularly
         important to use <SpellLink id={SPELLS.TIGERS_FURY.id} /> as often as possible.
-        <br />
-        <br />
-        <strong>Per-spell guidance and statistics coming soon!</strong>
       </p>
       <CooldownGraphSubsection modules={modules} events={events} info={info} />
+      <CooldownBreakdownSubsection modules={modules} events={events} info={info} />
     </Section>
   );
 }
@@ -108,38 +107,55 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       you waited to use them again. Grey segments show when the spell was available, yellow segments
       show when the spell was cooling down. Red segments highlight times when you could have fit a
       whole extra use of the cooldown.
-      <div className="flex-main chart" style={{ padding: 5 }}>
-        <CooldownBar spellId={SPELLS.TIGERS_FURY.id} gapHighlightMode={GapHighlight.FullCooldown} />
-      </div>
+      <CastEfficiencyBar
+        spellId={SPELLS.TIGERS_FURY.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        useThresholds
+      />
       {hasBerserk && !hasIncarn && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar spellId={SPELLS.BERSERK.id} gapHighlightMode={GapHighlight.FullCooldown} />
-        </div>
+        <CastEfficiencyBar
+          spellId={SPELLS.BERSERK.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
       )}
       {hasIncarn && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
+        <CastEfficiencyBar
+          spellId={TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
       )}
       {hasConvoke && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={SPELLS.CONVOKE_SPIRITS.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
+        <CastEfficiencyBar
+          spellId={SPELLS.CONVOKE_SPIRITS.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
       )}
       {hasFeralFrenzy && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DRUID.FERAL_FRENZY_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
+        <CastEfficiencyBar
+          spellId={TALENTS_DRUID.FERAL_FRENZY_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
       )}
+    </SubSection>
+  );
+}
+
+function CooldownBreakdownSubsection({
+  modules,
+  events,
+  info,
+}: GuideProps<typeof CombatLogParser>) {
+  return (
+    <SubSection>
+      {info.combatant.hasTalent(TALENTS_DRUID.BERSERK_TALENT) && modules.berserk.guideCastBreakdown}
+      {info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) &&
+        modules.convokeSpirits.guideCastBreakdown}
+      {info.combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT) &&
+        modules.feralFrenzy.guideCastBreakdown}
     </SubSection>
   );
 }

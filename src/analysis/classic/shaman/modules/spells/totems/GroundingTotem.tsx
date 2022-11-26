@@ -8,7 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import * as SPELLS from '../../../SPELLS';
+import SPELLS from 'common/SPELLS/classic/shaman';
 import TotemTracker from '../../features/TotemTracker';
 
 class GroundingTotem extends Analyzer {
@@ -22,7 +22,7 @@ class GroundingTotem extends Analyzer {
 
   get groundedSpells() {
     return this.totemTracker
-      .totemEvents(SPELLS.GROUNDING_TOTEM)
+      .totemEvents(SPELLS.GROUNDING_TOTEM.id)
       .map((totemEvent) => totemEvent?.spellsGrounded);
   }
 
@@ -31,7 +31,7 @@ class GroundingTotem extends Analyzer {
   }
 
   get totemCastCount() {
-    return this.abilityTracker.getAbility(SPELLS.GROUNDING_TOTEM).casts;
+    return this.abilityTracker.getAbility(SPELLS.GROUNDING_TOTEM.id).casts;
   }
 
   statistic() {
@@ -70,7 +70,7 @@ class GroundingTotem extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellLink id={SPELLS.GROUNDING_TOTEM} />
+              <SpellLink id={SPELLS.GROUNDING_TOTEM.id} />
             </>
           }
         >

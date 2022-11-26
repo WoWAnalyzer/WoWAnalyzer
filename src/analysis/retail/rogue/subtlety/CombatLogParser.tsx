@@ -35,7 +35,8 @@ import VanishFindWeakness from './modules/features/VanishFindWeakness';
 import TheRotten from './modules/talents/TheRotten';
 import DarkShadowContribution from './modules/talents/DarkShadow/DarkShadowContribution';
 import ShurikenStormNormalizer from './normalizers/ShurikenStormNormalizer';
-import Flagellation from './modules/talents/Flagellation';
+import Flagellation from 'analysis/retail/rogue/shared/talents/Flagellation';
+import InvigoratingShadowdustTalent from 'analysis/retail/rogue/subtlety/modules/talents/InvigoratingShadowdustTalent';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -63,6 +64,9 @@ class CombatLogParser extends CoreCombatLogParser {
     danceDamageTracker: DanceDamageTracker,
     stealthDamageTracker: StealthDamageTracker,
 
+    //Legendaries
+    invigoratingShadowdust: InvigoratingShadowdust,
+
     //Core
     danceCooldownReduction: DeepeningShadows,
 
@@ -80,15 +84,13 @@ class CombatLogParser extends CoreCombatLogParser {
     darkShadowContribution: DarkShadowContribution,
     theRotten: TheRotten,
     deeperDaggers: DeeperDaggers,
-    invigoratingShadowdust: InvigoratingShadowdust,
+    invigoratingShadowdustTalent: InvigoratingShadowdustTalent,
     sepsis: Sepsis,
     stealthAbilityFollowingSepsis: StealthAbilityFollowingSepsis,
     echoingReprimand: EchoingReprimand,
     flagellation: Flagellation,
 
     // Covenants
-
-    // Legendaries
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,

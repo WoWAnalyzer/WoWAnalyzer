@@ -1,9 +1,10 @@
-import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 
 class BladeRush extends Analyzer {
   static dependencies = {
@@ -16,7 +17,7 @@ class BladeRush extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BLADE_RUSH_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BLADE_RUSH_TALENT.id);
     this.addEventListener(
       Events.cast
         .by(SELECTED_PLAYER)
@@ -36,16 +37,16 @@ class BladeRush extends Analyzer {
     if (!cpCost) {
       return;
     }
-    if (this.spellUsable.isOnCooldown(SPELLS.BLADE_RUSH_TALENT.id)) {
-      const cooldownRemaining = this.spellUsable.cooldownRemaining(SPELLS.BLADE_RUSH_TALENT.id);
+    if (this.spellUsable.isOnCooldown(TALENTS.BLADE_RUSH_TALENT.id)) {
+      const cooldownRemaining = this.spellUsable.cooldownRemaining(TALENTS.BLADE_RUSH_TALENT.id);
       const extraCDR = this.selectedCombatant.hasBuff(SPELLS.TRUE_BEARING.id) ? cpCost * 1000 : 0;
       const cooldownReduction = cpCost * 1000 + extraCDR;
       const newChargeCDR = cooldownRemaining - cooldownReduction;
       if (newChargeCDR < 0) {
-        this.spellUsable.endCooldown(SPELLS.BLADE_RUSH_TALENT.id);
+        this.spellUsable.endCooldown(TALENTS.BLADE_RUSH_TALENT.id);
       } else {
         this.spellUsable.reduceCooldown(
-          SPELLS.BLADE_RUSH_TALENT.id,
+          TALENTS.BLADE_RUSH_TALENT.id,
           cooldownReduction,
           event.timestamp,
         );

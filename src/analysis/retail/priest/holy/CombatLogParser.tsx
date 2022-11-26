@@ -36,6 +36,7 @@ import SpiritOfRedemption from './modules/spells/SpiritOfRedemption';
 import Talents from './modules/talents';
 import TwoSet from './modules/dragonflight/tier/Tier29HolyPriest2Set';
 import FourSet from './modules/dragonflight/tier/Tier29HolyPriest4Set';
+import ProtectiveLight from '../shared/ProtectiveLight';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -86,6 +87,7 @@ class CombatLogParser extends CoreCombatLogParser {
     RenewedFaith: Talents.TopRow.RenewedFaith,
     DesperateTimes: Talents.BottomRow.DesperateTimes,
     HealingChorus: Talents.MiddleRow.HealingChorus,
+    EverlastingLight: Talents.MiddleRow.EverlastingLight,
 
     BindingHeals: Talents.Classwide.BindingHeals,
     AngelsMercy: Talents.Classwide.AngelsMercy,
@@ -97,14 +99,18 @@ class CombatLogParser extends CoreCombatLogParser {
     Censure: Talents.TopRow.Censure,
     PsychicVoice: Talents.Classwide.PsychicVoice,
 
+    ProtectiveLight: ProtectiveLight,
     SurgeOfLight: Talents.Classwide.SurgeOfLight,
     PrayerCircle: Talents.MiddleRow.PrayerCircle,
+    SanctifiedPrayers: Talents.TopRow.SanctifiedPrayers,
 
     Halo: Talents.Classwide.Halo,
     Benediction: Talents.MiddleRow.Benediction,
     RevitalizingPrayers: Talents.MiddleRow.RevitalizingPrayers,
     DivineStar: Talents.Classwide.DivineStar,
-    mindgames: Mindgames,
+    Mindgames: Mindgames,
+    DivineWord: Talents.BottomRow.DivineWord,
+    SearingLight: Talents.BottomRow.SearingLight,
 
     HolyWordSalvation: Talents.BottomRow.HolyWordSalvation,
     Apotheosis: Talents.BottomRow.Apotheosis,
@@ -114,6 +120,9 @@ class CombatLogParser extends CoreCombatLogParser {
     divineImage: Talents.BottomRow.DivineImage,
     resonantWords: Talents.BottomRow.ResonantWords,
     TranslucentImage: TranslucentImage,
+
+    BurningVehemence: Talents.TopRow.BurningVehemence,
+
     // Mana Tab
     manaTracker: ManaTracker,
     hpmDetails: HealingEfficiencyDetails,

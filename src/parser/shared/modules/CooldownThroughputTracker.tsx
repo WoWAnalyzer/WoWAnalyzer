@@ -1,4 +1,5 @@
 import { t, Trans } from '@lingui/macro';
+import { RETAIL_EXPANSION, CLASSIC_EXPANSION } from 'game/Expansion';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { Panel } from 'interface';
@@ -49,6 +50,7 @@ export type CooldownSpell = {
   startBufferEvents?: number;
   petID?: number;
   duration?: number;
+  expansion?: number;
 };
 
 export type TrackedCooldown = CooldownSpell & {
@@ -68,6 +70,7 @@ class CooldownThroughputTracker extends Analyzer {
   protected eventHistory!: EventHistory;
 
   static cooldownSpells: CooldownSpell[] = [
+    // Retail
     {
       spell: SPELLS.INNERVATE.id,
       summary: [
@@ -75,10 +78,28 @@ class CooldownThroughputTracker extends Analyzer {
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
+      expansion: RETAIL_EXPANSION,
     },
     {
       spell: TALENTS_PRIEST.POWER_INFUSION_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE, BUILT_IN_SUMMARY_TYPES.HEALING],
+      expansion: RETAIL_EXPANSION,
+    },
+    // Classic
+    {
+      spell: SPELLS.BLOODLUST.id,
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE, BUILT_IN_SUMMARY_TYPES.HEALING],
+      expansion: CLASSIC_EXPANSION,
+    },
+    {
+      spell: SPELLS.HEROISM.id,
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE, BUILT_IN_SUMMARY_TYPES.HEALING],
+      expansion: CLASSIC_EXPANSION,
+    },
+    {
+      spell: TALENTS_PRIEST.POWER_INFUSION_TALENT.id,
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE, BUILT_IN_SUMMARY_TYPES.HEALING],
+      expansion: CLASSIC_EXPANSION,
     },
   ];
 
@@ -117,13 +138,16 @@ class CooldownThroughputTracker extends Analyzer {
     event: CastEvent | ApplyBuffEvent | ApplyDebuffEvent,
     isCastCooldown: boolean = false,
   ) {
+    const expansion = this.owner.config.expansion;
     const spellId = event.ability.guid;
     const ctor = this.constructor as typeof CooldownThroughputTracker;
     let cooldownSpell: CooldownSpell | undefined;
     if (isCastCooldown) {
       cooldownSpell = ctor.castCooldowns.find((cooldownSpell) => cooldownSpell.spell === spellId);
     } else {
-      cooldownSpell = ctor.cooldownSpells.find((cooldownSpell) => cooldownSpell.spell === spellId);
+      cooldownSpell = ctor.cooldownSpells.find(
+        (cooldownSpell) => cooldownSpell.spell === spellId && expansion === cooldownSpell.expansion,
+      );
     }
 
     if (!cooldownSpell) {

@@ -678,6 +678,44 @@ const enchants = enchantIndexableList({
     icon: 'inv_misc_enchantedscroll',
     effectId: 6565,
   },
+
+  // Weapon Enhancements
+  PRIMAL_WHETSTONE_R1: {
+    id: 191933,
+    name: 'Primal Whetstone',
+    icon: 'inv_10_blacksmithing_consumable_sharpeningstone_color2',
+    effectId: 6379,
+  },
+  PRIMAL_WHETSTONE_R2: {
+    id: 191939,
+    name: 'Primal Whetstone',
+    icon: 'inv_10_blacksmithing_consumable_sharpeningstone_color2',
+    effectId: 6380,
+  },
+  PRIMAL_WHETSTONE_R3: {
+    id: 191940,
+    name: 'Primal Whetstone',
+    icon: 'inv_10_blacksmithing_consumable_sharpeningstone_color2',
+    effectId: 6381,
+  },
+  PRIMAL_WEIGHTSTONE_R1: {
+    id: 191943,
+    name: 'Primal Weightstone',
+    icon: 'inv_10_blacksmithing_consumable_weightstone_color2',
+    effectId: 6696,
+  },
+  PRIMAL_WEIGHTSTONE_R2: {
+    id: 191944,
+    name: 'Primal Weightstone',
+    icon: 'inv_10_blacksmithing_consumable_weightstone_color2',
+    effectId: 6697,
+  },
+  PRIMAL_WEIGHTSTONE_R3: {
+    id: 191945,
+    name: 'Primal Weightstone',
+    icon: 'inv_10_blacksmithing_consumable_weightstone_color2',
+    effectId: 6698,
+  },
 });
 
 export default enchants;

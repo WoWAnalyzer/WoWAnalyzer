@@ -10,7 +10,7 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PreparationRule from 'parser/classic/modules/features/Checklist/PreparationRule';
 
 import { Build } from '../../CONFIG';
-import * as SPELLS from '../../SPELLS';
+import SPELLS from 'common/SPELLS/classic/shaman';
 import { TotemElements } from '../../totemConstants';
 import TotemTracker from '../features/TotemTracker';
 
@@ -35,7 +35,7 @@ const ShamanChecklist = ({ thresholds, totemTracker, build }: ChecklistProps) =>
           <Requirement
             name={
               <Trans id="shaman.restoration.checklist.appliedPrepull">
-                <SpellLink id={SPELLS.EARTH_SHIELD} /> applied prepull
+                <SpellLink id={SPELLS.EARTH_SHIELD.id} /> applied prepull
               </Trans>
             }
             thresholds={thresholds.earthShieldPrepull}
@@ -43,7 +43,7 @@ const ShamanChecklist = ({ thresholds, totemTracker, build }: ChecklistProps) =>
           <Requirement
             name={
               <Trans id="shaman.restoration.checklist.uptime">
-                <SpellLink id={SPELLS.EARTH_SHIELD} /> Uptime
+                <SpellLink id={SPELLS.EARTH_SHIELD.id} /> Uptime
               </Trans>
             }
             thresholds={thresholds.earthShieldUptime}
@@ -53,7 +53,7 @@ const ShamanChecklist = ({ thresholds, totemTracker, build }: ChecklistProps) =>
       <Requirement
         name={
           <Trans id="shaman.restoration.checklist.appliedPrepull">
-            <SpellLink id={SPELLS.WATER_SHIELD} /> applied prepull
+            <SpellLink id={SPELLS.WATER_SHIELD.id} /> applied prepull
           </Trans>
         }
         thresholds={thresholds.waterShieldPrepull}
@@ -61,7 +61,7 @@ const ShamanChecklist = ({ thresholds, totemTracker, build }: ChecklistProps) =>
       <Requirement
         name={
           <Trans id="shaman.restoration.checklist.uptime">
-            <SpellLink id={SPELLS.WATER_SHIELD} /> Uptime
+            <SpellLink id={SPELLS.WATER_SHIELD.id} /> Uptime
           </Trans>
         }
         thresholds={thresholds.waterShieldUptime}
@@ -116,7 +116,7 @@ const ShamanChecklist = ({ thresholds, totemTracker, build }: ChecklistProps) =>
           <Requirement
             name={
               <Trans id="shaman.restoration.checklist.aoeSpell.targets">
-                Average <SpellLink id={SPELLS.CHAIN_HEAL} /> targets
+                Average <SpellLink id={SPELLS.CHAIN_HEAL.id} /> targets
               </Trans>
             }
             thresholds={thresholds.chainHealTargetThresholds}

@@ -16,6 +16,8 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { Fragment } from 'react';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 
 const LAG_BUFFER_MS = 100;
 const BUFF_DURATION_MS = 10000;
@@ -152,6 +154,44 @@ class KillingMachineEfficiency extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const goodKms = {
+      count: this.kmProcs - this.expiredKMProcs - this.refreshedKMProcs,
+      label: 'Killing Machine procs cosumed',
+    };
+
+    const refreshedKms = {
+      count: this.refreshedKMProcs,
+      label: 'Killing Machines refreshed',
+    };
+
+    const expiredKms = {
+      count: this.expiredKMProcs,
+      label: 'Killing Machines expired',
+    };
+
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={SPELLS.KILLING_MACHINE.id} />
+        </b>{' '}
+        is your most important proc. You want to waste as few of them as possible. If you have{' '}
+        <SpellLink id={talents.FROSTREAPER_TALENT.id} /> or{' '}
+        <SpellLink id={talents.MIGHT_OF_THE_FROZEN_WASTES_TALENT.id} /> it is even more important
+        because <SpellLink id={talents.OBLITERATE_TALENT} /> will be a significant source of damage
+        in your build.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <strong>Killing Machine breakdown</strong>
+        <GradiatedPerformanceBar good={goodKms} ok={refreshedKms} bad={expiredKms} />
+      </div>
+    );
+    return explanationAndDataSubsection(explanation, data, 50);
   }
 }
 

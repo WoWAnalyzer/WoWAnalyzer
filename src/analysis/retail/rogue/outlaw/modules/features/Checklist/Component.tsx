@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -41,8 +40,8 @@ const OutlawRogueChecklist = ({
         name="Maximize your Roll the Bones usage"
         description={
           <>
-            Efficient use of <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> is a critical part of
-            Outlaw rogue. You should try to keep as high of an uptime as possible with any of the
+            Efficient use of <SpellLink id={TALENTS.ROLL_THE_BONES_TALENT.id} /> is a critical part
+            of Outlaw rogue. You should try to keep as high of an uptime as possible with any of the
             buffs, and reroll efficiently to get higher value buffs.{' '}
             <SpellLink id={SPELLS.TRUE_BEARING.id} /> and <SpellLink id={SPELLS.BROADSIDE.id} /> are
             the highest value of the six possible buffs. You should reroll until you get one of
@@ -53,7 +52,7 @@ const OutlawRogueChecklist = ({
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> uptime
+              <SpellLink id={TALENTS.ROLL_THE_BONES_TALENT.id} /> uptime
             </>
           }
           thresholds={thresholds.rollTheBonesBuffs}
@@ -124,25 +123,22 @@ const OutlawRogueChecklist = ({
         name="Use your cooldowns"
         description="Your cooldowns are a major contributor to your DPS, and should be used as frequently as possible throughout a fight. A cooldown should be held on to only if a priority DPS phase is coming soon. Holding cooldowns too long will hurt your DPS."
       >
-        <AbilityRequirement spell={SPELLS.ADRENALINE_RUSH.id} />
-        {combatant.hasTalent(SPELLS.GHOSTLY_STRIKE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.GHOSTLY_STRIKE_TALENT.id} />
+        <AbilityRequirement spell={TALENTS.ADRENALINE_RUSH_TALENT.id} />
+        {combatant.hasTalent(TALENTS.GHOSTLY_STRIKE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.GHOSTLY_STRIKE_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.MARKED_FOR_DEATH_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.MARKED_FOR_DEATH_TALENT.id} />
+        {combatant.hasTalent(TALENTS.MARKED_FOR_DEATH_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.MARKED_FOR_DEATH_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.BLADE_RUSH_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.BLADE_RUSH_TALENT.id} />
+        {combatant.hasTalent(TALENTS.BLADE_RUSH_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.BLADE_RUSH_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.KILLING_SPREE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.KILLING_SPREE_TALENT.id} />
+        {combatant.hasTalent(TALENTS.KILLING_SPREE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.KILLING_SPREE_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.VANISH.id} />
-        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+        {combatant.hasTalent(TALENTS.SEPSIS_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.SEPSIS_TALENT.id} />
-        )}
-        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
-          <AbilityRequirement spell={TALENTS.FLAGELLATION_TALENT.id} />
         )}
       </Rule>
       <PreparationRule thresholds={thresholds} />
@@ -156,7 +152,7 @@ OutlawRogueChecklist.propTypes = {
     hasTalent: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,
-  rtbEfficiencies: PropTypes.object.isRequired,
+  rtbEfficiencies: PropTypes.array.isRequired,
 };
 
 export default OutlawRogueChecklist;

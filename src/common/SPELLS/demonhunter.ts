@@ -171,12 +171,12 @@ const spells = spellIndexableList({
     name: 'Infernal Strike',
     icon: 'ability_demonhunter_infernalstrike1',
   },
-  THROW_GLAIVE: {
+  THROW_GLAIVE_VENGEANCE: {
     id: 204157,
     name: 'Throw Glaive',
     icon: 'ability_demonhunter_throwglaive',
   },
-  THROW_GLAIVE_VENGEANCE: {
+  THROW_GLAIVE_VENGEANCE_MOTG: {
     id: 346665,
     name: 'Throw Glaive',
     icon: 'ability_demonhunter_throwglaive',

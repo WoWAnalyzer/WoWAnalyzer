@@ -40,7 +40,7 @@ class SearingTouch extends Analyzer {
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.FIREBALL, SPELLS.SCORCH, SPELLS.PYROBLAST, SPELLS.FIRE_BLAST]),
+        .spell([SPELLS.FIREBALL, SPELLS.SCORCH, TALENTS.PYROBLAST_TALENT, SPELLS.FIRE_BLAST]),
       this.onDamage,
     );
     this.addEventListener(

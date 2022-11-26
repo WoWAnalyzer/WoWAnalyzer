@@ -908,7 +908,7 @@ const talents = createTalentList({
     name: 'Power Word: Radiance',
     icon: 'spell_priest_power_word',
     maxRanks: 1,
-    manaCost: 3000,
+    manaCost: 2500,
   },
   PAIN_SUPPRESSION_TALENT: {
     id: 33206,

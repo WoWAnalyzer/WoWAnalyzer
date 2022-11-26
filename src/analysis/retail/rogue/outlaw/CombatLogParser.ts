@@ -3,9 +3,7 @@ import {
   EchoingReprimand,
   EnergyDetails,
   EnergyTracker,
-  EssenceOfBloodfang,
   Flagellation,
-  InvigoratingShadowdust,
   SerratedBoneSpike,
   SpellEnergyCost,
   SpellUsable,
@@ -36,12 +34,9 @@ import OpportunityDamageTracker from './modules/spells/OpportunityDamageTracker'
 import RollTheBonesBuffs from './modules/spells/RollTheBonesBuffs';
 import RollTheBonesCounter from './modules/spells/RollTheBonesCounter';
 import RollTheBonesEfficiency from './modules/spells/RollTheBonesEfficiency';
-import Celerity from './modules/spells/shadowlands/legendaries/Celerity';
-import GreenskinsWickers from './modules/spells/shadowlands/legendaries/GreenskinsWickers';
-import GuileCharm from './modules/spells/shadowlands/legendaries/GuileCharm';
-import TornadoTrigger from './modules/spells/shadowlands/tier28/TornadoTrigger';
 import SliceAndDiceUptime from './modules/spells/SliceAndDiceUptime';
 import BladeRush from './modules/talents/BladeRush';
+import InvigoratingShadowdust from 'analysis/retail/rogue/shared/shadowlands/legendaries/InvigoratingShadowdust';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -62,17 +57,13 @@ class CombatLogParser extends CoreCombatLogParser {
     energy: Energy,
     spellEnergyCost: SpellEnergyCost,
 
+    //Legendaries
+    invigoratingShadowdust: InvigoratingShadowdust,
+
     //Core
     restlessBlades: RestlessBlades,
     rollTheBonesCastTracker: RollTheBonesCastTracker,
     instantPoison: InstantPoison,
-
-    //Items
-    guileCharm: GuileCharm,
-    greenskinsWickers: GreenskinsWickers,
-    essenceOfBloodfang: EssenceOfBloodfang,
-    invigoratingShadowdust: InvigoratingShadowdust,
-    celerity: Celerity,
 
     //Casts
     dispatch: Dispatch,
@@ -88,15 +79,11 @@ class CombatLogParser extends CoreCombatLogParser {
     bladeFlurry: BladeFlurry,
     //Talents
     bladeRush: BladeRush,
-    // Covenants
     serratedBoneSpike: SerratedBoneSpike,
     echoingReprimand: EchoingReprimand,
     flagellation: Flagellation,
     sepsis: Sepsis,
     stealthAbilityFollowingSepsis: StealthAbilityFollowingSepsis,
-
-    // Tier 28
-    tornadoTrigger: TornadoTrigger,
 
     // Outlaw's throughput benefit isn't as big as for other classes since we don't have a lot of free gcds to use
     arcaneTorrent: [

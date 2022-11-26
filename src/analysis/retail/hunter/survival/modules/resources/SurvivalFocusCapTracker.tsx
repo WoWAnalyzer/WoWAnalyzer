@@ -1,15 +1,11 @@
-import { FocusCapTracker } from 'analysis/retail/hunter/shared';
-import { BASE_FOCUS_REGEN_SV, BASE_MAX_FOCUS_SV } from 'analysis/retail/hunter/survival/constants';
-
+import { FocusCapTracker, HUNTER_BASE_FOCUS_MAX } from 'analysis/retail/hunter/shared';
+import TALENTS from 'common/TALENTS/hunter';
 class SurvivalFocusCapTracker extends FocusCapTracker {
-  getBaseRegenRate() {
-    const regenRate = BASE_FOCUS_REGEN_SV;
-    return regenRate;
-  }
-
   currentMaxResource() {
-    const max = BASE_MAX_FOCUS_SV;
-    return max;
+    const additionalFocus = this.selectedCombatant.hasTalent(TALENTS.ENERGETIC_ALLY_TALENT)
+      ? 10
+      : 0;
+    return HUNTER_BASE_FOCUS_MAX + additionalFocus;
   }
 }
 

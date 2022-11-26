@@ -1,11 +1,7 @@
 import Analyzer, { Options } from 'parser/core/Analyzer';
-
 import Abilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-
-const FRAG_BELT_ENCHANT_ID = 3601;
-const FRAG_BELT_SPELL_ID = 67890;
-const FRAG_BELT_SPELL_COOLDOWN = 360;
+import SPELLS from 'common/SPELLS/classic/engineering';
 
 class FragBelt extends Analyzer {
   static dependencies = {
@@ -18,18 +14,18 @@ class FragBelt extends Analyzer {
     super(options);
 
     const belt = this.selectedCombatant._getGearItemBySlotId(5);
-    this.active = belt.permanentEnchant === FRAG_BELT_ENCHANT_ID;
+    this.active = belt.permanentEnchant === 3601;
 
     if (this.active) {
       (options.abilities as Abilities).add({
-        spell: FRAG_BELT_SPELL_ID,
+        spell: SPELLS.FRAG_BELT.id,
         category: SPELL_CATEGORY.ITEMS,
-        cooldown: FRAG_BELT_SPELL_COOLDOWN,
+        cooldown: 360,
         gcd: null,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: .3,
-          averageIssueEfficiency: .1,
+          recommendedEfficiency: 0.3,
+          averageIssueEfficiency: 0.1,
           majorIssueEfficiency: -1,
         },
       });

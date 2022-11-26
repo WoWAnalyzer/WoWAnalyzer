@@ -4,6 +4,7 @@ import HealingChorus from './HealingChorus';
 import PrayerCircle from './PrayerCircle';
 import RevitalizingPrayers from './RevitalizingPrayers';
 import TrailOfLight from './TrailOfLight';
+import EverlastingLight from './EverlastingLight';
 
 export {
   Benediction,
@@ -12,4 +13,5 @@ export {
   PrayerCircle,
   TrailOfLight,
   RevitalizingPrayers,
+  EverlastingLight,
 };
