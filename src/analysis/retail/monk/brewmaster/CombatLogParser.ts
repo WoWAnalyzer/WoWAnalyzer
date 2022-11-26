@@ -39,6 +39,7 @@ import ExpelHarmNorm from './normalizers/ExpelHarm';
 import GiftOfTheOx from './normalizers/GiftOfTheOx';
 import StaggerLinkNormalizer from './modules/core/StaggerLinkNormalizer';
 import { DiffuseMagic, FortifyingBrew, ZenMeditation } from './modules/core/MajorDefensives';
+import CelestialBrewNormalizer from './modules/spells/CelestialBrew/normalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -87,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     gotoxNorm: GiftOfTheOx,
     ehNorm: ExpelHarmNorm,
     staggerLink: StaggerLinkNormalizer,
+    cbNorm: CelestialBrewNormalizer,
 
     // Covenants
     weaponsOfOrder: WeaponsOfOrder,

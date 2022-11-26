@@ -5,7 +5,13 @@ import { Talent } from 'common/TALENTS/types';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { SpellLink, Tooltip } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { AnyEvent, ApplyBuffEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  AnyEvent,
+  ApplyBuffEvent,
+  DamageEvent,
+  FightEndEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -23,7 +29,7 @@ export type DefensiveOptions = {
 
 export type Mitigation = {
   start: ApplyBuffEvent;
-  end: RemoveBuffEvent;
+  end: RemoveBuffEvent | FightEndEvent;
   mitigated: MitigatedEvent[];
   amount: number;
 };
@@ -105,7 +111,7 @@ export class MajorDefensive extends Analyzer {
   private lastApply?: ApplyBuffEvent;
   private currentMitigation?: MitigatedEvent[];
 
-  private mitigations: Mitigation[] = [];
+  private mitigationData: Mitigation[] = [];
 
   private talent: Talent;
   private buff: Spell;
@@ -119,6 +125,7 @@ export class MajorDefensive extends Analyzer {
 
     this.addEventListener(Events.applybuff.spell(this.buff).by(SELECTED_PLAYER), this.onApply);
     this.addEventListener(Events.removebuff.spell(this.buff).by(SELECTED_PLAYER), this.onRemove);
+    this.addEventListener(Events.fightend, this.onRemove);
   }
 
   protected recordMitigation(mitigation: MitigatedEvent) {
@@ -130,13 +137,13 @@ export class MajorDefensive extends Analyzer {
     this.currentMitigation = [];
   }
 
-  private onRemove(event: RemoveBuffEvent) {
+  private onRemove(event: RemoveBuffEvent | FightEndEvent) {
     if (!this.lastApply || !this.currentMitigation) {
       // no apply, nothing we can do. probably looking at a slice of a log
       return;
     }
 
-    this.mitigations.push({
+    this.mitigationData.push({
       start: this.lastApply,
       end: event,
       mitigated: this.currentMitigation,
@@ -146,6 +153,10 @@ export class MajorDefensive extends Analyzer {
     });
     this.lastApply = undefined;
     this.currentMitigation = undefined;
+  }
+
+  protected get mitigations() {
+    return this.mitigationData;
   }
 
   get defensiveActive(): boolean {
@@ -169,14 +180,14 @@ export class MajorDefensive extends Analyzer {
           <strong>Time</strong>
           <strong>Mit.</strong>
         </MitigationRowContainer>
-        {this.mitigations.map((mit) => (
+        {this.mitigationData.map((mit) => (
           <MitigationRow
             mitigation={mit}
             segments={this.mitigationSegments(mit)}
             fightStart={this.owner.fight.start_time}
             maxValue={Math.max.apply(
               null,
-              this.mitigations.map((mit) => mit.amount),
+              this.mitigationData.map((mit) => mit.amount),
             )}
             key={mit.start.timestamp}
           />
@@ -194,7 +205,7 @@ export class MajorDefensive extends Analyzer {
         >
           <img alt="Damage Mitigated" src="/img/shield.png" className="icon" />{' '}
           {formatNumber(
-            this.mitigations
+            this.mitigationData
               .flatMap((mit) => mit.mitigated.map((event) => event.mitigatedAmount))
               .reduce((a, b) => a + b, 0),
           )}
