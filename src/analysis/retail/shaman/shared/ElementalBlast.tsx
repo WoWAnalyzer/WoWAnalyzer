@@ -16,9 +16,7 @@ class ElementalBlast extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active =
-      this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id) ||
-      this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_ENHANCEMENT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT.id);
 
     if (!this.active) {
       return;
@@ -78,7 +76,7 @@ class ElementalBlast extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
-        icon={<SpellIcon id={TALENTS_SHAMAN.ELEMENTAL_BLAST_ENHANCEMENT_TALENT.id} />}
+        icon={<SpellIcon id={TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT.id} />}
         value={`${formatPercentage(this.elementalBlastUptime)} %`}
         label="Uptime"
         tooltip={

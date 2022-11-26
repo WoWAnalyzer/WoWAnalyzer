@@ -256,8 +256,8 @@ const talents = createTalentList({
     icon: 'inv_sword_1h_felfireraid_d_01',
     maxRanks: 2,
   },
-  EMPOWER_RUNE_WEAPON_SHARED_TALENT: {
-    id: 392962,
+  EMPOWER_RUNE_WEAPON_TALENT: {
+    id: 47568,
     name: 'Empower Rune Weapon',
     icon: 'inv_sword_62',
     maxRanks: 1,
@@ -425,12 +425,6 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   ICECAP_TALENT: { id: 207126, name: 'Icecap', icon: 'inv_misc_herb_icecap', maxRanks: 1 },
-  EMPOWER_RUNE_WEAPON_FROST_TALENT: {
-    id: 392963,
-    name: 'Empower Rune Weapon',
-    icon: 'inv_sword_62',
-    maxRanks: 1,
-  },
   GATHERING_STORM_TALENT: {
     id: 194912,
     name: 'Gathering Storm',

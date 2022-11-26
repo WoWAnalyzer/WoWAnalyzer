@@ -660,16 +660,40 @@ const spells = spellIndexableList({
     icon: 'spell_shadow_possession',
   },
 
+  SURGE_OF_DARKNESS_TALENT_BUFF: {
+    id: 87160,
+    name: 'Surge of Darkness',
+    icon: 'ability_priest_surgeofdarkness',
+  },
+
   UNFURLING_DARKNESS_BUFF: {
     id: 341282,
     name: 'Unfurling Darkness',
     icon: 'spell_priest_shadow-mend',
   },
 
+  DEATHSPEAKER_TALENT_BUFF: {
+    id: 392511,
+    name: 'Deathspeaker',
+    icon: 'spell_shadow_demonicfortitude',
+  },
+
+  MIND_DEVOURER_TALENT_BUFF: {
+    id: 373204,
+    name: 'Mind Devourer',
+    icon: 'spell_arcane_mindmastery',
+  },
+
   DEATH_AND_MADNESS_BUFF: {
     id: 321973,
     name: 'Death and Madness',
     icon: 'spell_shadow_painandsuffering',
+  },
+
+  DARK_EVANGELISM_TALENT_BUFF: {
+    id: 391099,
+    name: 'Dark Evangelism',
+    icon: 'spell_mage_presenceofmind',
   },
 
   // Shadow items:
