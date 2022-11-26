@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 11, 26), <>Enabled <SpellLink id={TALENTS_PRIEST.BLAZE_OF_LIGHT_TALENT.id}/>.</>, Hana),
   change(date(2022, 11, 23), <><SpellLink id={TALENTS_PRIEST.SCHISM_TALENT.id}/> updated following nerfs.</>, Hana),
   change(date(2022, 11, 23), <><SpellLink id={TALENTS_PRIEST.MALICIOUS_INTENT_TALENT.id}/> updated following buffs.</>, Hana),
   change(date(2022, 11, 23), <>Updated <SpellLink id={TALENTS_PRIEST.CRYSTALLINE_REFLECTION_TALENT.id}/> following nerfs.</>, Hana),
