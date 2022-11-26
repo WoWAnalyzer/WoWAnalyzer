@@ -35,7 +35,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
  * from after the CAST but before the DRAIN. If we trusted the last seen amount, we'd say the
  * current energy is now 90, but in fact the true answer is 65.
  */
-const MULTI_UPDATE_BUFFER_MS = 300;
+const MULTI_UPDATE_BUFFER_MS = 150;
 
 /** hitType values that indicate an ability did not connect */
 const REFUND_HIT_TYPES = [HIT_TYPES.MISS, HIT_TYPES.DODGE, HIT_TYPES.PARRY];
@@ -236,15 +236,17 @@ export default class ResourceTracker extends Analyzer {
    *  pulling fields from the event and then calling {@link _applyBuilder}.
    *  Implementers that need to handle special cases may override this. */
   onEnergize(event: ResourceChangeEvent) {
-    const spellId = event.ability.guid;
-
     if (event.resourceChangeType !== this.resource.id) {
       return;
     }
-
-    const waste = event.waste;
-    const gain = event.resourceChange - waste;
-    this._applyBuilder(spellId, gain, waste, event.timestamp, this.getResource(event));
+    const gainAndWaste = this.getAdjustedGain(event);
+    this._applyBuilder(
+      event.ability.guid,
+      gainAndWaste.gain,
+      gainAndWaste.waste,
+      event.timestamp,
+      this.getResource(event),
+    );
   }
 
   /** Handles a CastEvent (a resource spend e.g. a spender),
@@ -401,7 +403,7 @@ export default class ResourceTracker extends Analyzer {
       reportedBeforeAmount !== undefined && !withinMultiUpdateBuffer
         ? reportedBeforeAmount
         : calculatedBeforeAmount;
-    const current = Math.min(max, beforeAmount + change); // current is the after amount
+    const current = Math.max(Math.min(max, beforeAmount + change), 0); // current is the after amount
 
     // if our resource regenerates and the beforeAmount was capped,
     // then we were wasting resources due to natural regeneration
@@ -492,6 +494,16 @@ export default class ResourceTracker extends Analyzer {
       return event.resourceCost[this.resource.id];
     }
     return this.getResource(event)?.cost;
+  }
+
+  /** Pulls a resourcechange's gain and waste from its event fields. If an ability's true gain
+   *  and/or waste is different from what shows in an event, implementers should override this to
+   *  return the correct number. This will only be called for ResourceChangeEvents with
+   *  a resourcetype that matches this tracker. */
+  getAdjustedGain(event: ResourceChangeEvent): { gain: number; waste: number } {
+    const waste = event.waste;
+    const gain = event.resourceChange - waste;
+    return { gain, waste };
   }
 
   /////////////////////////////////////////////////////////////////////////////

@@ -8,6 +8,7 @@ class RuneGraph extends ResourceGraph {
     runeTracker: RuneTracker,
   };
 
+  // TODO ideally this shouldn't need a custom vega spec just to interpolate - more cleanup needed?
   get vegaSpec() {
     return {
       data: {
