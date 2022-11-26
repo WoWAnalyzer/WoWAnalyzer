@@ -67,6 +67,7 @@ import SpellLink from 'interface/SpellLink';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 export default [
+  change(date(2022, 11, 21), 'Reduce usage of render props in app wrapper.', ToppleTheNun),
   change(date(2022, 11, 21), 'Convert Results to a functional component.', ToppleTheNun),
   change(date(2022, 11, 23), 'Update talent data for all specs', emallson),
   change(date(2022, 11, 21), 'Move away from legacy context APIs where possible.', ToppleTheNun),
