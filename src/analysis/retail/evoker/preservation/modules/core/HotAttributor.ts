@@ -10,6 +10,8 @@ import {
 } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerPrevoker from '../core/HotTrackerPrevoker';
 
+const debug = true;
+
 class HotAttributor extends Analyzer {
   static dependencies = {
     hotTracker: HotTrackerPrevoker,
@@ -36,8 +38,10 @@ class HotAttributor extends Analyzer {
 
   onApplyEchoHot(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (isFromHardcastEcho(event)) {
+      debug && console.log(`Attributed Hardcast ${event.ability.name} at ${this.owner.formatTimestamp(event.timestamp)}`);
       this.hotTracker.addAttributionFromApply(this.echoHardcastAttrib, event);
     } else if (isFromTAEcho(event)) {
+      debug && console.log(`Attributed TA ${event.ability.name} at ${this.owner.formatTimestamp(event.timestamp)}`);
       this.hotTracker.addAttributionFromApply(this.echoTemporalAnomalyAttrib, event);
     }
   }
