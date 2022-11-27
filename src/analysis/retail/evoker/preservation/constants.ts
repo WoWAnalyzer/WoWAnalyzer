@@ -13,7 +13,7 @@ export const SPELL_COLORS = {
   FLUTTERING_SEEDLING: '#50c878',
 };
 
-// heal events that can be caused by an echo heal
+// heal events that can be caused by an echo buff or proc'd from an echo consumption (seedling)
 export const ECHO_HEALS = [
   SPELLS.DREAM_BREATH_ECHO,
   SPELLS.LIVING_FLAME_HEAL,

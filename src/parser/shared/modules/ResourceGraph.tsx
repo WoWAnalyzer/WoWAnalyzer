@@ -8,6 +8,19 @@ abstract class ResourceGraph extends Analyzer {
   /** Implementer must override this to return the ResourceTracker for the resource to graph */
   abstract tracker(): ResourceTracker;
 
+  /** Implementer may override this to give the graph line a custom color.
+   *  Color must be in format '#rrggbb', where rr gg and bb are hex values. */
+  lineColor(): string | undefined {
+    return undefined;
+  }
+
+  /** Some are scaled differently in events vs the user facing value. Implementer may override
+   *  this to apply a scale factor so the graph shows with the user facing value.
+   *  The returned value should be the multiplier to get from the events value to the user value. */
+  scaleFactor(): number {
+    return 1;
+  }
+
   get vegaSpec(): VisualizationSpec {
     return {
       data: {
@@ -46,6 +59,7 @@ abstract class ResourceGraph extends Analyzer {
       },
       mark: {
         type: 'line' as const,
+        color: this.lineColor(),
       },
       config: {
         view: {},
@@ -56,16 +70,17 @@ abstract class ResourceGraph extends Analyzer {
   get graphData() {
     const graphData: GraphData[] = [];
     const tracker = this.tracker();
+    const scaleFactor = this.scaleFactor();
     tracker.resourceUpdates.forEach((u) => {
       if (u.change !== 0) {
         graphData.push({
           timestamp: u.timestamp,
-          amount: u.current - (u.change || 0),
+          amount: (u.current - (u.change || 0)) * scaleFactor,
         });
       }
       graphData.push({
         timestamp: u.timestamp,
-        amount: u.current,
+        amount: u.current * scaleFactor,
       });
     });
 

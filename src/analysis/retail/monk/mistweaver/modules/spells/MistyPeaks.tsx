@@ -24,6 +24,7 @@ class MistyPeaks extends Analyzer {
   combatants!: Combatants;
   numHots: number = 0;
   extraHealing: number = 0;
+  extraAbsorb: number = 0;
   overHealing: number = 0;
   extraHits: number = 0;
   envmHealingIncrease: number = 0;
@@ -67,6 +68,7 @@ class MistyPeaks extends Analyzer {
     if (this.hotTracker.fromMistyPeaks(hot)) {
       this.extraHits += 1;
       this.extraHealing += event.amount || 0;
+      this.extraAbsorb += event.absorbed || 0;
       this.overHealing += event.overheal || 0;
     }
   }
@@ -102,7 +104,7 @@ class MistyPeaks extends Analyzer {
             </li>
             <li>
               Extra <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> direct healing:{' '}
-              {formatNumber(this.extraHealing)}
+              {formatNumber(this.extraHealing + this.extraAbsorb)}
             </li>
             <li>
               Bonus healing from <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> buff:{' '}
@@ -112,7 +114,9 @@ class MistyPeaks extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_MONK.MISTY_PEAKS_TALENT}>
-          <ItemHealingDone amount={this.extraHealing + this.extraEnvBonusHealing} />
+          <ItemHealingDone
+            amount={this.extraHealing + this.extraAbsorb + this.extraEnvBonusHealing}
+          />
         </TalentSpellText>
       </Statistic>
     );

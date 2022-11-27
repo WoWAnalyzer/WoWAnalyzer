@@ -23,6 +23,7 @@ import Reversion from './modules/talents/Reversion';
 import CallOfYsera from './modules/talents/CallOfYsera';
 import Echo from './modules/talents/Echo';
 import ResonatingSphere from './modules/talents/ResonatingSphere';
+import EssenceBurst from './modules/talents/EssenceBurst';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -59,6 +60,7 @@ class CombatLogParser extends CoreCombatLogParser {
     reversion: Reversion,
     callOfYsera: CallOfYsera,
     resonatingSphere: ResonatingSphere,
+    essenceBurst: EssenceBurst,
   };
 }
 

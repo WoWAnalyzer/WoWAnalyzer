@@ -56,6 +56,21 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
           />
         )}
       </Rule>
+      <Rule
+        name="Use your procs and short CDs"
+        description="Make sure to use your procs and spells at the correct time."
+      >
+        {combatant.hasTalent(TALENTS_EVOKER.ESSENCE_BURST_TALENT) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> wasted stacks
+              </>
+            }
+            thresholds={thresholds.essenceBurst}
+          />
+        )}
+      </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );

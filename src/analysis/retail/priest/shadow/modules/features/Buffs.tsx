@@ -21,6 +21,12 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
+        spellId: SPELLS.DARK_EVANGELISM_TALENT_BUFF.id,
+        triggeredBySpellId: TALENTS.DARK_EVANGELISM_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT.id),
+        timelineHighlight: false,
+      },
+      {
         spellId: SPELLS.UNFURLING_DARKNESS_BUFF.id,
         triggeredBySpellId: SPELLS.VAMPIRIC_TOUCH.id,
         enabled: combatant.hasTalent(TALENTS.UNFURLING_DARKNESS_TALENT.id),
@@ -30,12 +36,6 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.DEATH_AND_MADNESS_BUFF.id,
         triggeredBySpellId: TALENTS.SHADOW_WORD_DEATH_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.DEATH_AND_MADNESS_TALENT.id),
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.DISSONANT_ECHOES_BUFF.id,
-        triggeredBySpellId: SPELLS.VOID_BOLT_DISSONANT_ECHOES.id,
-        enabled: combatant.hasConduitBySpellID(SPELLS.DISSONANT_ECHOES.id),
         timelineHighlight: true,
       },
       {

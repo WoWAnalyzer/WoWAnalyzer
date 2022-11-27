@@ -46,6 +46,7 @@ import ClassicPriest from 'analysis/classic/priest';
 import ClassicRogue from 'analysis/classic/rogue';
 import ClassicShaman from 'analysis/classic/shaman';
 import ClassicWarlockAffliction from 'analysis/classic/warlock/affliction';
+import ClassicWarlockDemonology from 'analysis/classic/warlock/demonology';
 import ClassicWarrior from 'analysis/classic/warrior';
 
 import Config from './Config';
@@ -112,6 +113,7 @@ const configs: Config[] = [
   ClassicRogue,
   ClassicShaman,
   ClassicWarlockAffliction,
+  ClassicWarlockDemonology,
   ClassicWarrior,
 ];
 
