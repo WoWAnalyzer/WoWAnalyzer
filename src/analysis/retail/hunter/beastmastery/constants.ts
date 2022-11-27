@@ -1,14 +1,11 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 
 //region Spells
-/** Barbed Shot */
-//max stacks your pet can have of the Frenzy buff
-export const MAX_FRENZY_STACKS = 3;
-//Frenzy lasts 8 seconds normally, but can be adjusted by some effects
-export const ORIGINAL_FRENZY_DURATION = 8000;
+
 /** Cobra Shot */
-//Cobra Shot reduces the cooldown of Kill Command by 1 second by default
-export const COBRA_SHOT_CDR_MS = 1000;
+//Cobra Shot reduces the cooldown of Kill Command by 2 seconds by default
+export const COBRA_SHOT_CDR_MS = 2000;
 //A threshold where you can never realistically overcap on focus by waiting for AT MOST 1 GCD + 1 second.
 export const COBRA_SHOT_FOCUS_THRESHOLD_TO_WAIT = 50;
 /** Kill Command */
@@ -18,57 +15,31 @@ export const KILL_COMMAND_BM_FOCUS_COST = 30;
 //Bestial Wrath
 export const BARBED_SHOT_BESTIAL_WRATH_CDR_MS = 12000;
 export const BESTIAL_WRATH_BASE_CD = 90000;
-/** Aspect of the Wild */
-//Aspect of the Wild reduces the GCD of certain abilities
-export const AOTW_GCD_REDUCTION_AFFECTED_ABILITIES = [
-  SPELLS.KILL_COMMAND_CAST_BM.id,
-  SPELLS.COBRA_SHOT.id,
-  SPELLS.BESTIAL_WRATH.id,
-  SPELLS.MULTISHOT_BM.id,
-  SPELLS.BARBED_SHOT.id,
-  SPELLS.ASPECT_OF_THE_WILD.id,
-  SPELLS.CALL_PET_1.id,
-  SPELLS.CALL_PET_2.id,
-  SPELLS.CALL_PET_3.id,
-  SPELLS.CALL_PET_4.id,
-  SPELLS.CALL_PET_5.id,
-  SPELLS.INTIMIDATION.id,
-  SPELLS.FREEZING_TRAP.id,
-  SPELLS.TAR_TRAP.id,
-  SPELLS.HUNTERS_MARK.id,
-  SPELLS.ARCANE_SHOT.id,
-  SPELLS.EXHILARATION.id,
-  SPELLS.FLARE.id,
-  SPELLS.BLOODSHED_TALENT.id,
-  SPELLS.DIRE_BEAST_TALENT.id,
-  SPELLS.SPITTING_COBRA_TALENT.id,
-  SPELLS.BARRAGE_TALENT.id,
-  SPELLS.STAMPEDE_TALENT.id,
-  SPELLS.CHIMAERA_SHOT_TALENT_BEAST_MASTERY.id,
-  SPELLS.A_MURDER_OF_CROWS_TALENT.id,
-  SPELLS.WILD_SPIRITS.id,
-  SPELLS.FLAYED_SHOT.id,
-  SPELLS.RESONATING_ARROW.id,
-  SPELLS.DEATH_CHAKRAM_INITIAL_AND_AOE.id,
-];
-//Aspect of the Wild gives 5 focus per second
-export const ASPECT_OF_THE_WILD_FOCUS = 5;
 //endregion
 
 //region Talents
+/** Barbed Shot */
+//max stacks your pet can have of the Frenzy buff
+export const MAX_FRENZY_STACKS = 3;
+//Frenzy lasts 8 seconds normally, but can be adjusted by some effects
+export const ORIGINAL_FRENZY_DURATION = 8000;
+/** Kindred Spirits */
+export const KINDRED_SPIRITS_FOCUS_INCREASE = [0, 10, 20];
+/** Pack Tactics */
+export const PACK_TACTICS_FOCUS_REGEN_INCREASE = 2;
 /** Bloodshed */
 //Bloodshed increases the damage done by pets by 15%
 export const BLOODSHED_DAMAGE_AMP = 0.15;
-/** Scent of Blood */
-//Scent of Blood recharges 2 barbed shot charges when you activate Bestial Wrath
-export const SCENT_OF_BLOOD_BARBED_SHOT_RECHARGE = 2;
+/** Dire Beast */
+//Dire Beast increases haste by 5% while active
+export const DIRE_BEAST_HASTE_PERCENT = 0.05;
 /** Aspect of the Beast */
 //Aspect of the Beast increase pet damage and healing done by 30%
 export const AOTB_MULTIPLIER = 0.3;
 //Aspect of the Beast does not affect all pet abilities
 export const AOTB_ABILITIES_NOT_AFFECTED: number[] = [
   SPELLS.MELEE.id,
-  SPELLS.KILL_COMMAND_DAMAGE_BM.id,
+  TALENTS.KILL_COMMAND_SHARED_TALENT.id,
   SPELLS.STOMP_DAMAGE.id,
 ];
 /** Killer Instinct */
@@ -76,12 +47,7 @@ export const AOTB_ABILITIES_NOT_AFFECTED: number[] = [
 export const KILLER_INSTINCT_THRESHOLD = 0.35;
 //When Killer Instinct is active Kill Command does 50% more damage
 export const KILLER_INSTINCT_MULTIPLIER = 0.5;
-/** Wild Call */
-//Wild Call has a 20% chance to reset Barbed Shot cooldown on critical auto attacks
-export const WILD_CALL_RESET_PERCENT = 0.2;
-/** Spitting Cobra */
-//Spitting Cobra has its damage increased by 10% for every Cobra Shot during Bestial Wrath
-export const SPITTING_COBRA_DAMAGE_INCREASE = 0.1;
+
 /** Stampede */
 // The potential amount of hits per target per stampede cast.
 // By checking through various Zek'voz logs, it seems to consistently hit the boss 18 times, except if the boss was moved.
@@ -116,9 +82,9 @@ export const NO_DELAY_TIME_BETWEEN_BASIC_ATK = 3000;
 //region Resources
 /** Focus */
 //Beast Mastery has 10 focus/second as baseline regen
-export const BEAST_MASTERY_FOCUS_REGEN = 10;
+export const BASE_BM_FOCUS_REGEN = 5;
 //Beast Mastery has 120 focus at start
-export const BEAST_MASTERY_FOCUS_MAX = 120;
+export const BASE_BM_FOCUS_MAX = 100;
 //Minor threshold for focus wastage on focus generators
 export const FOCUS_THRESHOLD_MINOR = 0.025;
 //Average threshold for focus wastage on focus generators
@@ -147,109 +113,15 @@ export const BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS = [
   SPELLS.BARBED_SHOT_BUFF_7.id,
   SPELLS.BARBED_SHOT_BUFF_8.id,
 ];
-//Some energize spells don't have waste attached to their events
-export const BEAST_MASTERY_SPELLS_WITHOUT_WASTE = [
-  SPELLS.ASPECT_OF_THE_WILD.id,
-  SPELLS.CHIMAERA_SHOT_FOCUS.id,
-  ...BARBED_SHOT_FOCUS_REGEN_BUFFS_IDS,
-];
 //Barbed Shot regenerates 5 focus per tick
 export const BARBED_SHOT_REGEN = 5;
-//Aspect of the Wild regenerates 5 focus per tick
-export const AOTW_REGEN = 5;
-//Chimaera Shot regenerates 10 focus per hit for BM hunters
-export const CHIM_REGEN = 10;
 /** Focus Spenders specific to BM */
 export const LIST_OF_FOCUS_SPENDERS_BM = [
-  SPELLS.COBRA_SHOT,
-  SPELLS.MULTISHOT_BM,
-  SPELLS.KILL_COMMAND_CAST_BM,
-  SPELLS.DIRE_BEAST_TALENT,
-];
-//endregion
-
-//region Conduits
-/** Ferocious Appetite */
-//Ferocious Appetite causes Kill Command crits to reduce the cooldown of Aspect of the Wild with X seconds.
-export const FEROCIOUS_APPETITE_ASPECT_REDUCTION = [
-  0,
-  1000,
-  1100,
-  1200,
-  1300,
-  1400,
-  1500,
-  1600,
-  1700,
-  1800,
-  1900,
-  2000,
-  2100,
-  2200,
-  2300,
-  2400,
-];
-/** One With the Beast */
-//One With the Beast increases all damage done during Bestial Wrath
-export const ONE_WITH_THE_BEAST_DAMAGE_INCREASE = [
-  0,
-  0.01,
-  0.02,
-  0.03,
-  0.04,
-  0.05,
-  0.06,
-  0.07,
-  0.08,
-  0.09,
-  0.1,
-  0.11,
-  0.12,
-  0.13,
-  0.14,
-  0.15,
-];
-/** Bloodletting */
-//Bloodletting reduces the recharge time of Barbed Shot by 1 second
-export const BLOODLETTING_BARBED_SHOT_RECHARGE_REDUCTION = 1000;
-//Bloodletting increases the damage done by x%
-export const BLOODLETTING_BARBED_DOT_INCREASE = [
-  0,
-  0.1,
-  0.11,
-  0.12,
-  0.13,
-  0.14,
-  0.15,
-  0.16,
-  0.18,
-  0.19,
-  0.2,
-  0.21,
-  0.22,
-  0.23,
-  0.24,
-  0.25,
-];
-/** Echoing Call */
-//Wild Call has a % increase chance to reset the cooldown of Barbed Shot
-export const ECHOING_CALL_INCREASED_WILD_CALL_CHANCE = [
-  0,
-  0.05,
-  0.06,
-  0.06,
-  0.07,
-  0.07,
-  0.08,
-  0.08,
-  0.09,
-  0.09,
-  0.1,
-  0.1,
-  0.11,
-  0.11,
-  0.12,
-  0.12,
+  TALENTS.COBRA_SHOT_TALENT,
+  TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT,
+  TALENTS.KILL_COMMAND_SHARED_TALENT,
+  TALENTS.KILL_SHOT_SHARED_TALENT,
+  TALENTS.A_MURDER_OF_CROWS_TALENT,
 ];
 //endregion
 

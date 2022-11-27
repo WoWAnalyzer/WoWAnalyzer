@@ -6,6 +6,7 @@ import {
 } from 'analysis/retail/hunter/survival/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -35,17 +36,17 @@ class BirdOfPrey extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BIRDS_OF_PREY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BIRDS_OF_PREY_TALENT.id);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
-        .spell([...RAPTOR_MONGOOSE_VARIANTS, SPELLS.CARVE, SPELLS.BUTCHERY_TALENT]),
+        .spell([...RAPTOR_MONGOOSE_VARIANTS, SPELLS.CARVE, TALENTS.BUTCHERY_TALENT]),
       this.onPlayerDamage,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.CARVE, SPELLS.BUTCHERY_TALENT]),
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.CARVE, TALENTS.BUTCHERY_TALENT]),
       this.onAoECast,
     );
     this.addEventListener(Events.fightend, this.aoeCheck);
@@ -98,7 +99,7 @@ class BirdOfPrey extends Analyzer {
     }
     const spellId = event.ability.guid;
     this.playerTarget = encodeTargetString(event.targetID, event.targetInstance);
-    if (spellId === SPELLS.CARVE.id || spellId === SPELLS.BUTCHERY_TALENT.id) {
+    if (spellId === SPELLS.CARVE.id || spellId === TALENTS.BUTCHERY_TALENT.id) {
       this.targetsHitAoE.push(this.playerTarget === this.petTarget);
       this.timestampAoE = event.timestamp;
     } else {
@@ -124,13 +125,13 @@ class BirdOfPrey extends Analyzer {
     when(this.birdPercentEffectiveness).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          When talented into <SpellLink id={SPELLS.BIRDS_OF_PREY_TALENT.id} />, it's important to
-          cast <SpellLink id={SPELLS.RAPTOR_STRIKE.id} />,{' '}
-          <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />, <SpellLink id={SPELLS.CARVE.id} /> or{' '}
-          <SpellLink id={SPELLS.BUTCHERY_TALENT.id} /> on the same target as your pet is attacking.
+          When talented into <SpellLink id={TALENTS.BIRDS_OF_PREY_TALENT.id} />, it's important to
+          cast <SpellLink id={TALENTS.RAPTOR_STRIKE_TALENT.id} />,{' '}
+          <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} />, <SpellLink id={SPELLS.CARVE.id} /> or{' '}
+          <SpellLink id={TALENTS.BUTCHERY_TALENT.id} /> on the same target as your pet is attacking.
         </>,
       )
-        .icon(SPELLS.BIRDS_OF_PREY_TALENT.icon)
+        .icon(TALENTS.BIRDS_OF_PREY_TALENT.icon)
         .actual(
           t({
             id: 'hunter.survival.suggestions.birdOfPrey.efficiency',
@@ -161,7 +162,7 @@ class BirdOfPrey extends Analyzer {
         }
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.BIRDS_OF_PREY_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.BIRDS_OF_PREY_TALENT.id}>
           <>
             <small>Extended CA by</small> {this.timeExtendedInSeconds}s
           </>

@@ -2,7 +2,7 @@ import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
 
 import * as SPELL_EFFECTS from '../SPELL_EFFECTS';
-import * as SPELLS from '../SPELLS';
+import SPELLS from 'common/SPELLS/classic/shaman';
 
 class Buffs extends CoreAuras {
   auras() {
@@ -12,7 +12,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.TOTEM_OF_WRATH,
+        spellId: SPELLS.TOTEM_OF_WRATH.id,
         timelineHighlight: true,
       },
       {

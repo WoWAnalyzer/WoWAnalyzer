@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import CLASSIC_SPELLS from 'common/SPELLS/classic';
 import { TALENTS_MAGE, TALENTS_MONK } from 'common/TALENTS';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import {
@@ -69,6 +70,12 @@ class Channeling extends EventsNormalizer {
     buffChannelSpec(SPELLS.RAPID_FIRE.id),
     // Paladin
     buffChannelSpec(SPELLS.BLADESTORM.id),
+
+    // CLASSIC
+    // Warlock
+    buffChannelSpec(CLASSIC_SPELLS.DRAIN_SOUL.id),
+    buffChannelSpec(CLASSIC_SPELLS.DRAIN_LIFE.id),
+    buffChannelSpec(CLASSIC_SPELLS.DRAIN_MANA.id),
   ];
 
   // registered special case handlers, mapped by guid

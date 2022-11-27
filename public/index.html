@@ -88,21 +88,15 @@
         color: #e45a5a;
       }
     </style>
-    <script>
-      var tyche = {
-        mode: 'tyche',
-        config: '//config.playwire.com/1024476/v2/websites/73270/banner.json',
-        passiveMode: true,
-        onReady: function() { window.refreshAds(); },
-      };
-    </script>
-    <script id="tyche" src="//cdn.intergi.com/hera/tyche.js" type="text/javascript" onerror="window.adScriptFailed=true;"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-E0TKKBEXVD"></script>
     <script>
-      window.ramp = window.ramp || {};
-      window.ramp.que = window.ramp.que || [];
+      var ramp = {
+        passiveMode: true,
+        que: [],
+        onReady: function() { window.refreshAds() },
+      };
     </script>
-    <script async src="//cdn.intergient.com/1024476/73270/ramp_config.js"></script>
+    <script async src="//cdn.intergient.com/1024476/73270/ramp.js" onerror="window.adScriptFailed=true;"></script>
     <script>
       window._pwGA4PageviewId = ''.concat(Date.now());
       window.dataLayer = window.dataLayer || [];
@@ -150,6 +144,5 @@
         allowUrls: ['wowanalyzer.com/static/js/']
       });
     </script>
-    <script async src="//cdn.intergient.com/ramp_core.js"></script>
   </body>
 </html>

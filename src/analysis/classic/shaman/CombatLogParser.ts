@@ -7,7 +7,7 @@ import BaseCombatLogParser from 'parser/classic/CombatLogParser';
 import PreparationRuleAnalyzer from 'parser/classic/modules/features/Checklist/PreparationRuleAnalyzer';
 import lowRankSpellsSuggestion from 'parser/classic/suggestions/lowRankSpells';
 
-import lowRankSpells, { whitelist } from './lowRankSpells';
+import lowRankSpells from './lowRankSpells';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
@@ -55,7 +55,7 @@ class CombatLogParser extends BaseCombatLogParser {
 
     checklist: Checklist,
 
-    lowRankSpells: lowRankSpellsSuggestion(lowRankSpells, whitelist),
+    lowRankSpells: lowRankSpellsSuggestion(lowRankSpells),
   };
 }
 

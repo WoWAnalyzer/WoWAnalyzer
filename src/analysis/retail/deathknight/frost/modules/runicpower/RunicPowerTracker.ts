@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent, EventType } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, EventType, ResourceChangeEvent } from 'parser/core/Events';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
 const BREATH_COST_PER_TICK = 160;
@@ -50,18 +50,24 @@ class RunicPowerTracker extends ResourceTracker {
     };
 
     event.sourceID = 1;
-    const cost = BREATH_COST_PER_TICK / 10;
+    const cost = BREATH_COST_PER_TICK;
     this._applySpender(fabricatedSourceId, cost, this.getResource(event));
 
     this.mostRecentTickTime = event.timestamp;
   }
 
-  getAdjustedCost(event: CastEvent) {
-    const cost = this.getResource(event)?.cost;
-    if (cost) {
-      return cost / 10;
-    }
+  /** All RP amounts multiplied by 10 - except gain and waste for some reason */
+  getAdjustedGain(event: ResourceChangeEvent): { gain: number; waste: number } {
+    const baseGain = super.getAdjustedGain(event);
+    return { gain: baseGain.gain * 10, waste: baseGain.waste * 10 };
   }
+
+  // getAdjustedCost(event: CastEvent) {
+  //   const cost = this.getResource(event)?.cost;
+  //   if (cost) {
+  //     return cost / 10;
+  //   }
+  // }
 }
 
 export default RunicPowerTracker;

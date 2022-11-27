@@ -18,8 +18,10 @@ export const BOUNCED = 'Bounced';
 export const FROM_DANCING_MISTS = 'FromDM';
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_MISTY_PEAKS = 'FromMistyPeaks';
+export const FROM_MISTS_OF_LIFE = 'FromMOL';
 export const FROM_RAPID_DIFFUSION = 'FromRD'; // can be linked to env mist or rsk cast
 
+const RAPID_DIFFUSION_BUFFER_MS = 300;
 const CAST_BUFFER_MS = 100;
 const MAX_REM_DURATION = 77000;
 const FOUND_REMS = new Set();
@@ -27,7 +29,7 @@ const FOUND_REMS = new Set();
 /*
   This file is for attributing Renewing Mist and Enveloping Mist applications to hard casts.
   It is needed because mistweaver talents can proc ReM/EnvM, 
-  but they are not extended by RM nor do they trigger the flat RM Heal
+  but not all are extended by RM nor do they trigger the flat RM Heal
   */
 const EVENT_LINKS: EventLink[] = [
   // link renewing mist apply to its CastEvent
@@ -76,21 +78,24 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     backwardBufferMs: MAX_REM_DURATION,
   },
-  // link ReM to an EnvM/RSK cast
+  // link ReM application from Rapid diffusion
   {
     linkRelation: FROM_RAPID_DIFFUSION,
     linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: [
-      TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
       TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
-      SPELLS.ENVELOPING_MIST_TFT.id,
+      TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
     ],
     referencedEventType: [EventType.Cast],
-    backwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: RAPID_DIFFUSION_BUFFER_MS,
     anyTarget: true,
+    maximumLinks: 1,
     additionalCondition(linkingEvent) {
       return !HasRelatedEvent(linkingEvent, FROM_HARDCAST);
+    },
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT);
     },
   },
   // two REMs happen in same timestamp when dancing mists procs
@@ -101,10 +106,16 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: [SPELLS.RENEWING_MIST_HEAL.id],
     referencedEventType: [EventType.ApplyBuff],
     anyTarget: true,
+    backwardBufferMs: 50,
+    forwardBufferMs: 50,
     additionalCondition(linkingEvent, referencedEvent) {
       return (
-        (linkingEvent as ApplyBuffEvent).targetID !== (referencedEvent as ApplyBuffEvent).targetID
+        (linkingEvent as ApplyBuffEvent).targetID !==
+          (referencedEvent as ApplyBuffEvent).targetID && !HasRelatedEvent(linkingEvent, BOUNCED)
       );
+    },
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.DANCING_MISTS_TALENT);
     },
   },
   // misty peaks proc from a ReM hot event
@@ -114,10 +125,31 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
     referencedEventType: [EventType.Heal],
-    anyTarget: true,
     backwardBufferMs: 100,
     additionalCondition(linkingEvent) {
       return !HasRelatedEvent(linkingEvent, FROM_HARDCAST);
+    },
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT);
+    },
+  },
+  // From LC on target with Mists of Life talented
+  {
+    isActive: (c) => {
+      return c.hasTalent(TALENTS_MONK.MISTS_OF_LIFE_TALENT);
+    },
+    linkRelation: FROM_MISTS_OF_LIFE,
+    linkingEventId: [TALENTS_MONK.ENVELOPING_MIST_TALENT.id, SPELLS.RENEWING_MIST_HEAL.id],
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: TALENTS_MONK.LIFE_COCOON_TALENT.id,
+    referencedEventType: [EventType.Cast],
+    backwardBufferMs: 500,
+    forwardBufferMs: 50,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        !HasRelatedEvent(linkingEvent, FROM_HARDCAST) &&
+        !HasRelatedEvent(referencedEvent, FROM_HARDCAST)
+      );
     },
   },
 ];
@@ -184,6 +216,22 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
 
 export function isFromMistyPeaks(event: ApplyBuffEvent | RefreshBuffEvent) {
   return HasRelatedEvent(event, FROM_MISTY_PEAKS);
+}
+
+export function isFromRapidDiffusion(event: ApplyBuffEvent | RefreshBuffEvent) {
+  if (HasRelatedEvent(event, FROM_HARDCAST)) {
+    return false;
+  }
+  if (HasRelatedEvent(event, FROM_DANCING_MISTS)) {
+    if (FOUND_REMS.has(event.timestamp)) {
+      return false;
+    }
+  }
+  return HasRelatedEvent(event, FROM_RAPID_DIFFUSION);
+}
+
+export function isFromMistsOfLife(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
+  return HasRelatedEvent(event, FROM_MISTS_OF_LIFE);
 }
 
 export default CastLinkNormalizer;

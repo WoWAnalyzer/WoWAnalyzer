@@ -74,20 +74,9 @@ class HeatingUp extends Analyzer {
 
     //If the player was capped on charges, filter it out
     casts = casts.filter((cast) => {
-      const maxCharges = this.hasFlameOn ? 3 : 2;
+      const maxCharges = 1 + this.selectedCombatant.getTalentRank(TALENTS.FLAME_ON_TALENT);
       const charges = this.cooldownHistory.chargesAvailable(SPELLS.FIRE_BLAST.id, cast.timestamp);
       return charges !== maxCharges;
-    });
-
-    //If the player was casting Mirrors of Torment, filter it out
-    casts = casts.filter((cast) => {
-      const lastEvent = this.eventHistory.getEvents(EventType.BeginCast, {
-        searchBackwards: true,
-        count: 1,
-        startTimestamp: cast.timestamp,
-        duration: 1000,
-      })[0];
-      return !lastEvent || lastEvent.ability.guid !== SPELLS.MIRRORS_OF_TORMENT.id;
     });
 
     //Highlight bad casts

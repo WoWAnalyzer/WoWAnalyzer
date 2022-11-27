@@ -10,6 +10,13 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { DANCING_MIST_CHANCE, RAPID_DIFFUSION_DURATION } from '../../constants';
+
+const RAPID_DIFFUSION_SPELLS = [
+  TALENTS_MONK.ENVELOPING_MIST_TALENT,
+  TALENTS_MONK.RISING_SUN_KICK_TALENT,
+];
+const BASE_AVERAGE_REMS = 2.22;
 
 class Vivify extends Analyzer {
   casts: number = 0;
@@ -28,9 +35,25 @@ class Vivify extends Analyzer {
   lastCastTarget: number = 0;
   gomToCount: number = 0;
 
+  expectedAverageReMs: number = 0;
+  rdCasts: number = 0;
+
+  risingMistActive: boolean;
+  dancingMistActive: boolean;
+  rapidDiffusionActive: boolean;
+
   constructor(options: Options) {
     super(options);
+    this.risingMistActive = this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT);
+    this.dancingMistActive = this.selectedCombatant.hasTalent(TALENTS_MONK.DANCING_MISTS_TALENT);
+    this.rapidDiffusionActive = this.selectedCombatant.hasTalent(
+      TALENTS_MONK.RAPID_DIFFUSION_TALENT,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(RAPID_DIFFUSION_SPELLS),
+      this.rapidDiffusionReMs,
+    );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleViv);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
@@ -44,14 +67,50 @@ class Vivify extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: this.averageRemPerVivify,
+      actual: this.casts > 0 ? this.averageRemPerVivify : 0,
       isLessThan: {
-        minor: 1.75,
-        average: 1.25,
-        major: 0.75,
+        minor: this.casts > 0 ? this.estimatedAverageReMs : 0,
+        average: this.casts > 0 ? this.estimatedAverageReMs - 0.5 : 0,
+        major: this.casts > 0 ? this.estimatedAverageReMs - 1 : 0,
       },
       style: ThresholdStyle.NUMBER,
     };
+  }
+
+  get estimatedAverageReMs() {
+    if (this.risingMistActive) {
+      this.expectedAverageReMs = BASE_AVERAGE_REMS * 2;
+    } else {
+      this.expectedAverageReMs = BASE_AVERAGE_REMS;
+    }
+    if (this.dancingMistActive) {
+      this.expectedAverageReMs += this.averageReMsFromDancingMist;
+    }
+    if (this.rapidDiffusionActive) {
+      this.expectedAverageReMs += this.averageReMsFromRapidDiffusion;
+    }
+    return this.expectedAverageReMs;
+  }
+
+  get averageReMsFromRapidDiffusion() {
+    const fightLengthSec = this.owner.fightDuration;
+    return (
+      (RAPID_DIFFUSION_DURATION *
+        this.selectedCombatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT)) /
+      (fightLengthSec / this.rdCasts)
+    );
+  }
+
+  get averageReMsFromDancingMist() {
+    return (
+      this.expectedAverageReMs *
+      (DANCING_MIST_CHANCE *
+        this.selectedCombatant.getTalentRank(TALENTS_MONK.DANCING_MISTS_TALENT))
+    );
+  }
+
+  rapidDiffusionReMs(event: CastEvent) {
+    this.rdCasts += 1;
   }
 
   vivCast(event: CastEvent) {
@@ -80,12 +139,11 @@ class Vivify extends Analyzer {
       this.gomToCount -= 1;
     }
   }
-
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are casting <SpellLink id={SPELLS.VIVIFY.id} /> with less than 2{' '}
+          You are casting <SpellLink id={SPELLS.VIVIFY.id} /> with low counts of{' '}
           <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> out on the raid. To ensure you are
           gaining the maximum <SpellLink id={SPELLS.VIVIFY.id} /> healing, keep{' '}
           <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> on cooldown.
@@ -93,19 +151,19 @@ class Vivify extends Analyzer {
       )
         .icon(SPELLS.VIVIFY.icon)
         .actual(
-          `${this.averageRemPerVivify.toFixed(2)}${t({
+          `${this.averageRemPerVivify.toFixed(2) + ' '}${t({
             id: 'monk.mistweaver.suggestions.vivify.renewingMistsPerVivify',
             message: ` Renewing Mists per Vivify`,
           })}`,
         )
-        .recommended(`${recommended} Renewing Mists are recommended per Vivify`),
+        .recommended(`${recommended.toFixed(2)} Renewing Mists are recommended per Vivify`),
     );
   }
 
   statistic() {
     return (
       <StatisticBox
-        postion={STATISTIC_ORDER.CORE(15)}
+        position={STATISTIC_ORDER.CORE(20)}
         icon={<SpellIcon id={SPELLS.VIVIFY.id} />}
         value={`${this.averageRemPerVivify.toFixed(2)}`}
         label={

@@ -22,7 +22,7 @@ const talents = createTalentList({
     name: 'Rejuvenation',
     icon: 'spell_nature_rejuvenation',
     maxRanks: 1,
-    manaCost: 1100,
+    manaCost: 1200,
   },
   STARFIRE_SHARED_TALENT: {
     id: 197628,
@@ -320,6 +320,12 @@ const talents = createTalentList({
     id: 61336,
     name: 'Survival Instincts',
     icon: 'ability_druid_tigersroar',
+    maxRanks: 1,
+  },
+  BERSERK_RAVAGE_TALENT: {
+    id: 50334,
+    name: 'Berserk: Ravage',
+    icon: 'ability_druid_berserk',
     maxRanks: 1,
   },
 
@@ -679,7 +685,7 @@ const talents = createTalentList({
     icon: 'ability_druid_primaltenacity',
     maxRanks: 1,
   },
-  BERSERK_TALENT: { id: 343223, name: 'Berserk', icon: 'ability_druid_berserk', maxRanks: 1 },
+  BERSERK_TALENT: { id: 106951, name: 'Berserk', icon: 'ability_druid_berserk', maxRanks: 1 },
   TEAR_OPEN_WOUNDS_TALENT: {
     id: 391785,
     name: 'Tear Open Wounds',
@@ -836,13 +842,13 @@ const talents = createTalentList({
   //Guardian
   MAUL_TALENT: { id: 6807, name: 'Maul', icon: 'ability_druid_maul', maxRanks: 1, rageCost: 40 },
   GORE_TALENT: { id: 210706, name: 'Gore', icon: 'spell_druid_bearhug', maxRanks: 1 },
+  BRAMBLES_TALENT: { id: 203953, name: 'Brambles', icon: 'inv_misc_thornnecklace', maxRanks: 1 },
   BRISTLING_FUR_TALENT: {
     id: 155835,
     name: 'Bristling Fur',
     icon: 'spell_druid_bristlingfur',
     maxRanks: 1,
   },
-  BRAMBLES_TALENT: { id: 203953, name: 'Brambles', icon: 'inv_misc_thornnecklace', maxRanks: 1 },
   URSINE_ADEPT_TALENT: {
     id: 300346,
     name: 'Ursine Adept',
@@ -868,17 +874,11 @@ const talents = createTalentList({
     icon: 'ability_druid_infectedwound',
     maxRanks: 1,
   },
-  BERSERK_RAVAGE_TALENT: {
-    id: 343240,
-    name: 'Berserk: Ravage',
-    icon: 'ability_druid_berserk',
-    maxRanks: 1,
-  },
   URSOCS_ENDURANCE_TALENT: {
     id: 393611,
     name: "Ursoc's Endurance",
     icon: 'ability_hunter_pet_bear',
-    maxRanks: 2,
+    maxRanks: 1,
   },
   GORY_FUR_TALENT: {
     id: 200854,
@@ -892,11 +892,11 @@ const talents = createTalentList({
     icon: 'spell_druid_thrash',
     maxRanks: 2,
   },
-  TOOTH_AND_CLAW_TALENT: {
-    id: 135288,
-    name: 'Tooth and Claw',
-    icon: 'inv_misc_monsterfang_01',
-    maxRanks: 1,
+  VULNERABLE_FLESH_TALENT: {
+    id: 372618,
+    name: 'Vulnerable Flesh',
+    icon: 'ability_druid_primalagression',
+    maxRanks: 2,
   },
   LAYERED_MANE_TALENT: {
     id: 384721,
@@ -904,10 +904,10 @@ const talents = createTalentList({
     icon: 'ability_druid_ironfur',
     maxRanks: 2,
   },
-  SCINTILLATING_MOONLIGHT_TALENT: {
-    id: 238049,
-    name: 'Scintillating Moonlight',
-    icon: 'spell_nature_starfall',
+  SURVIVAL_OF_THE_FITTEST_TALENT: {
+    id: 203965,
+    name: 'Survival of the Fittest',
+    icon: 'ability_druid_enrage',
     maxRanks: 2,
   },
   EARTHWARDEN_TALENT: {
@@ -922,11 +922,11 @@ const talents = createTalentList({
     icon: 'spell_druid_bearhug',
     maxRanks: 1,
   },
-  VULNERABLE_FLESH_TALENT: {
-    id: 372618,
-    name: 'Vulnerable Flesh',
-    icon: 'ability_druid_primalagression',
-    maxRanks: 2,
+  TOOTH_AND_CLAW_TALENT: {
+    id: 135288,
+    name: 'Tooth and Claw',
+    icon: 'inv_misc_monsterfang_01',
+    maxRanks: 1,
   },
   FRONT_OF_THE_PACK_TALENT: {
     id: 377835,
@@ -940,22 +940,22 @@ const talents = createTalentList({
     icon: 'spell_druid_malfurionstenacity',
     maxRanks: 1,
   },
-  GALACTIC_GUARDIAN_TALENT: {
-    id: 203964,
-    name: 'Galactic Guardian',
-    icon: 'spell_frost_iceclaw',
+  SOUL_OF_THE_FOREST_GUARDIAN_TALENT: {
+    id: 158477,
+    name: 'Soul of the Forest',
+    icon: 'ability_druid_manatree',
     maxRanks: 1,
   },
-  TWIN_MOONFIRE_TALENT: {
-    id: 372567,
-    name: 'Twin Moonfire',
-    icon: 'spell_nature_starfall',
+  AFTER_THE_WILDFIRE_TALENT: {
+    id: 371905,
+    name: 'After the Wildfire',
+    icon: 'spell_nature_naturetouchgrow',
     maxRanks: 1,
   },
-  BERSERK_UNCHECKED_AGGRESSION_TALENT: {
-    id: 377623,
-    name: 'Berserk: Unchecked Aggression',
-    icon: 'ability_druid_berserk',
+  GUARDIAN_OF_ELUNE_TALENT: {
+    id: 155578,
+    name: 'Guardian of Elune',
+    icon: 'spell_druid_guardianofelune',
     maxRanks: 1,
   },
   FURY_OF_NATURE_TALENT: {
@@ -963,12 +963,6 @@ const talents = createTalentList({
     name: 'Fury of Nature',
     icon: 'spell_nature_moonglow',
     maxRanks: 2,
-  },
-  BERSERK_PERSISTENCE_TALENT: {
-    id: 377779,
-    name: 'Berserk: Persistence',
-    icon: 'ability_druid_berserk',
-    maxRanks: 1,
   },
   REINVIGORATION_TALENT: {
     id: 372945,
@@ -982,10 +976,10 @@ const talents = createTalentList({
     icon: 'spell_holy_elunesgrace',
     maxRanks: 1,
   },
-  SURVIVAL_OF_THE_FITTEST_TALENT: {
-    id: 203965,
-    name: 'Survival of the Fittest',
-    icon: 'ability_druid_enrage',
+  SCINTILLATING_MOONLIGHT_TALENT: {
+    id: 238049,
+    name: 'Scintillating Moonlight',
+    icon: 'spell_nature_starfall',
     maxRanks: 2,
   },
   URSOCS_FURY_TALENT: {
@@ -1007,7 +1001,7 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   INCARNATION_GUARDIAN_OF_URSOC_TALENT: {
-    id: 394786,
+    id: 102558,
     name: 'Incarnation: Guardian of Ursoc',
     icon: 'spell_druid_incarnation',
     maxRanks: 1,
@@ -1018,22 +1012,16 @@ const talents = createTalentList({
     icon: 'ability_druid_primaltenacity',
     maxRanks: 1,
   },
-  SOUL_OF_THE_FOREST_GUARDIAN_TALENT: {
-    id: 158477,
-    name: 'Soul of the Forest',
-    icon: 'ability_druid_manatree',
+  GALACTIC_GUARDIAN_TALENT: {
+    id: 203964,
+    name: 'Galactic Guardian',
+    icon: 'spell_frost_iceclaw',
     maxRanks: 1,
   },
-  AFTER_THE_WILDFIRE_TALENT: {
-    id: 371905,
-    name: 'After the Wildfire',
-    icon: 'spell_nature_naturetouchgrow',
-    maxRanks: 1,
-  },
-  GUARDIAN_OF_ELUNE_TALENT: {
-    id: 155578,
-    name: 'Guardian of Elune',
-    icon: 'spell_druid_guardianofelune',
+  TWIN_MOONFIRE_TALENT: {
+    id: 372567,
+    name: 'Twin Moonfire',
+    icon: 'spell_nature_starfall',
     maxRanks: 1,
   },
   REND_AND_TEAR_TALENT: {
@@ -1169,7 +1157,7 @@ const talents = createTalentList({
     maxRanks: 2,
   },
   CELESTIAL_ALIGNMENT_TALENT: {
-    id: 395022,
+    id: 194223,
     name: 'Celestial Alignment',
     icon: 'spell_nature_natureguardian',
     maxRanks: 1,
@@ -1258,16 +1246,16 @@ const talents = createTalentList({
     icon: 'ability_druid_earthandsky',
     maxRanks: 2,
   },
-  NEW_MOON_TALENT: {
-    id: 274281,
-    name: 'New Moon',
-    icon: 'artifactability_balancedruid_newmoon',
-    maxRanks: 1,
-  },
   FURY_OF_ELUNE_TALENT: {
     id: 202770,
     name: 'Fury of Elune',
     icon: 'ability_druid_dreamstate',
+    maxRanks: 1,
+  },
+  NEW_MOON_TALENT: {
+    id: 274281,
+    name: 'New Moon',
+    icon: 'artifactability_balancedruid_newmoon',
     maxRanks: 1,
   },
   FRIEND_OF_THE_FAE_TALENT: {

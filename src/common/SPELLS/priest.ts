@@ -214,6 +214,11 @@ const spells = spellIndexableList({
     name: 'Shadow Word: Pain',
     icon: 'spell_shadow_shadowwordpain',
   },
+  PROTECTIVE_LIGHT_BUFF: {
+    id: 193065,
+    name: 'Protective Light',
+    icon: 'spell_holy_holyprotection',
+  },
   FADE: {
     id: 586,
     name: 'Fade',
@@ -301,6 +306,11 @@ const spells = spellIndexableList({
     id: 321379,
     name: 'Prayer Circle',
     icon: 'spell_paladin_divinecircle',
+  },
+  SANCTIFIED_PRAYERS_BUFF: {
+    id: 196490,
+    name: 'Sanctified Prayers',
+    icon: 'spell_holy_pureofheart',
   },
 
   // Talents:
@@ -638,10 +648,40 @@ const spells = spellIndexableList({
     icon: 'ability_priest_thoughtsteal01',
   },
 
+  SHADOWY_INSIGHT: {
+    id: 375888,
+    name: 'Shadowy Insight',
+    icon: 'spell_shadow_possession',
+  },
+
+  SHADOWY_INSIGHT_BUFF: {
+    id: 375981,
+    name: 'Shadowy Insight',
+    icon: 'spell_shadow_possession',
+  },
+
+  SURGE_OF_DARKNESS_TALENT_BUFF: {
+    id: 87160,
+    name: 'Surge of Darkness',
+    icon: 'ability_priest_surgeofdarkness',
+  },
+
   UNFURLING_DARKNESS_BUFF: {
     id: 341282,
     name: 'Unfurling Darkness',
     icon: 'spell_priest_shadow-mend',
+  },
+
+  DEATHSPEAKER_TALENT_BUFF: {
+    id: 392511,
+    name: 'Deathspeaker',
+    icon: 'spell_shadow_demonicfortitude',
+  },
+
+  MIND_DEVOURER_TALENT_BUFF: {
+    id: 373204,
+    name: 'Mind Devourer',
+    icon: 'spell_arcane_mindmastery',
   },
 
   DEATH_AND_MADNESS_BUFF: {
@@ -650,12 +690,37 @@ const spells = spellIndexableList({
     icon: 'spell_shadow_painandsuffering',
   },
 
+  DARK_EVANGELISM_TALENT_BUFF: {
+    id: 391099,
+    name: 'Dark Evangelism',
+    icon: 'spell_mage_presenceofmind',
+  },
+
   // Shadow items:
 
   SHADOW_CRASH_TALENT_DAMAGE: {
     id: 205386,
     name: 'Shadow Crash',
     icon: 'spell_shadow_shadowfury',
+  },
+
+  INESCAPABLE_TORMENT_TALENT_DAMAGE: {
+    id: 373442,
+    name: 'Inescapable Torment',
+    icon: 'spell_shadow_chilltouch',
+  },
+
+  MIND_SEAR_TALENT_DAMAGE: {
+    id: 49821,
+    name: 'Mind Sear',
+    icon: 'spell_shadow_mindshear',
+    insanityCost: 0,
+  },
+
+  MIND_FLAY_INSANITY_TALENT_DAMAGE: {
+    id: 391403,
+    name: 'Mind Flay: Insanity',
+    icon: 'spell_fire_twilightflamebreath',
   },
 
   // Disc

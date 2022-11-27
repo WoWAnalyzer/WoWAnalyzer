@@ -1,20 +1,20 @@
 import { GuideProps, Section, SubSection, useInfo } from 'interface/guide';
 import CombatLogParser from 'analysis/retail/demonhunter/vengeance/CombatLogParser';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
-import { CooldownBar, GapHighlight } from 'parser/ui/CooldownBar';
 import SPELLS from 'common/SPELLS/demonhunter';
-import { getElysianDecreeSpell } from 'analysis/retail/demonhunter/shared/constants';
 import { formatPercentage } from 'common/format';
-import { SpellLink } from 'interface';
-import ExplanationRow from 'interface/guide/components/ExplanationRow';
-import Explanation from 'interface/guide/components/Explanation';
+import { AlertWarning, SpellLink } from 'interface';
 import ITEMS from 'common/ITEMS';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
+import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
+import ImmolationAuraVengeanceGuideSection from 'analysis/retail/demonhunter/shared/modules/spells/ImmolationAura/VengeanceGuideSection';
 
 import DemonSpikesSection from './modules/spells/DemonSpikes/GuideSection';
 import FieryBrandSection from './modules/talents/FieryBrand/GuideSection';
 import VoidReaverSection from './modules/talents/VoidReaver/GuideSection';
-import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
+import MetamorphosisSection from './modules/spells/Metamorphosis/GuideSection';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import CooldownGraphSubsection from './guide/CooldownGraphSubSection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -45,8 +45,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         }}
       />
       <ResourceUsageSection modules={modules} events={events} info={info} />
-      <MitigationSection />
       <CooldownSection modules={modules} events={events} info={info} />
+      <RotationSection modules={modules} events={events} info={info} />
+      <MitigationSection />
     </>
   );
 }
@@ -59,9 +60,11 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
           Vengeance's primary resource is Fury. Typically, ability use will be limited by Fury, not
           time. You should avoid capping Fury - lost Fury generation is lost DPS.
         </p>
-        The chart below shows your Fury over the course of the encounter. You spent{' '}
-        <strong>{formatPercentage(modules.furyTracker.percentAtCap, 1)}%</strong> of the encounter
-        capped on Fury.
+        <p>
+          The chart below shows your Fury over the course of the encounter. You spent{' '}
+          <strong>{formatPercentage(modules.furyTracker.percentAtCap, 1)}%</strong> of the encounter
+          capped on Fury.
+        </p>
         {modules.furyGraph.plot}
       </SubSection>
       <SubSection title="Soul Fragments">
@@ -84,18 +87,7 @@ function MitigationSection() {
 
   return (
     <Section title="Defensive Cooldowns and Mitigation">
-      <SubSection title="Metamorphosis">
-        <ExplanationRow>
-          <Explanation>
-            <p>
-              <SpellLink id={SPELLS.METAMORPHOSIS_TANK} /> is a massive life and survivability
-              increase. You should aim to have it active whenever you will be actively tanking large
-              hits.
-            </p>
-          </Explanation>
-          <strong>Metamorphosis overview coming soon!</strong>
-        </ExplanationRow>
-      </SubSection>
+      <MetamorphosisSection />
       <DemonSpikesSection />
       <FieryBrandSection />
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.VOID_REAVER_TALENT) && <VoidReaverSection />}
@@ -103,7 +95,46 @@ function MitigationSection() {
   );
 }
 
-function CooldownSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
+function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+  return (
+    <Section title="Rotation">
+      <AlertWarning>
+        This section is under heavy development as work on the Vengeance rotation continues during
+        the Dragonflight pre-patch. It is currently a reasonable starting point, but may not match
+        the optimal rotation yet.
+      </AlertWarning>
+      <p>
+        Vengeance's core rotation involves <strong>building</strong> and then{' '}
+        <strong>spending</strong> <SpellLink id={SPELLS.SOUL_FRAGMENT} />
+        s, which heal for 6% of damage taken in the 5 seconds before they are absorbed.
+      </p>
+      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT) &&
+        modules.fracture.guideSubsection()}
+      <ImmolationAuraVengeanceGuideSection />
+      {explanationAndDataSubsection(
+        <>
+          <strong>
+            <SpellLink id={SPELLS.SOUL_CLEAVE} />
+          </strong>{' '}
+          breakdown coming soon!
+        </>,
+        <div />,
+      )}
+      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT) &&
+        explanationAndDataSubsection(
+          <>
+            <strong>
+              <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} />
+            </strong>{' '}
+            breakdown coming soon!
+          </>,
+          <div />,
+        )}
+    </Section>
+  );
+}
+
+function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Cooldowns">
       <p>
@@ -112,93 +143,14 @@ function CooldownSection({ modules, events, info }: GuideProps<typeof CombatLogP
         aim to send the cooldown as soon as it becomes available (as long as it can do damage on
         target) if you won't need it for an upcoming mechanic. It is particularly important to use{' '}
         <SpellLink id={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT.id} /> as often as possible.
-        <br />
-        <br />
-        <strong>Per-spell guidance and statistics coming soon!</strong>
       </p>
-      <CooldownGraphSubsection modules={modules} events={events} info={info} />
+      <CooldownGraphSubsection />
+      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT) &&
+        modules.felDevastation.guideBreakdown()}
+      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT) &&
+        modules.theHunt.vengeanceGuideCastBreakdown()}
+      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT) &&
+        modules.soulCarver.guideBreakdown()}
     </Section>
-  );
-}
-
-function CooldownGraphSubsection({ events, info }: GuideProps<typeof CombatLogParser>) {
-  const hasSoulCarver = info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT);
-  const hasFelDevastation = info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT);
-  const hasElysianDecree = info.combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT);
-  const hasTheHunt = info.combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT);
-  const hasSoulBarrier = info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT);
-  const hasBulkExtraction = info.combatant.hasTalent(TALENTS_DEMON_HUNTER.BULK_EXTRACTION_TALENT);
-  const hasFieryDemise =
-    info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT) &&
-    info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT);
-  return (
-    <SubSection>
-      <strong>Cooldown Graph</strong> - this graph shows when you used your cooldowns and how long
-      you waited to use them again. Grey segments show when the spell was available, yellow segments
-      show when the spell was cooling down. Red segments highlight times when you could have fit a
-      whole extra use of the cooldown.
-      <div className="flex-main chart" style={{ padding: 5 }}>
-        <CooldownBar
-          spellId={SPELLS.METAMORPHOSIS_TANK.id}
-          gapHighlightMode={GapHighlight.FullCooldown}
-        />
-      </div>
-      {hasSoulCarver && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
-      )}
-      {hasFelDevastation && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
-      )}
-      {hasElysianDecree && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={getElysianDecreeSpell(info.combatant).id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
-      )}
-      {hasTheHunt && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
-      )}
-      {hasSoulBarrier && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
-      )}
-      {hasBulkExtraction && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DEMON_HUNTER.BULK_EXTRACTION_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
-      )}
-      {hasFieryDemise && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
-      )}
-    </SubSection>
   );
 }

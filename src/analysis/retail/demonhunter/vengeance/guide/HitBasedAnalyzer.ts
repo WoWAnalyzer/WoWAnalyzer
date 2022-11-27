@@ -12,5 +12,6 @@ export default abstract class HitBasedAnalyzer extends Analyzer {
   abstract uptime: Uptime[];
 
   abstract getHitsWith(): number;
+
   abstract getHitsWithout(): number;
 }

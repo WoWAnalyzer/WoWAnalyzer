@@ -50,8 +50,7 @@ class CastsInShadowDance extends CastsInStealthBase {
 
   get stealthMaxCasts() {
     return (
-      this.maxCastsPerStealth *
-        this.damageTracker.getAbility(TALENTS.SHADOW_DANCE_TALENT.id).casts || 0
+      this.maxCastsPerStealth * this.damageTracker.getAbility(SPELLS.SHADOW_DANCE.id).casts || 0
     );
   }
 
@@ -63,7 +62,7 @@ class CastsInShadowDance extends CastsInStealthBase {
 
   suggestions(when: When) {
     this.suggestWrongCast(when, this.backstabSpell, this.danceBackstabThresholds);
-    this.suggestAvgCasts(when, TALENTS.SHADOW_DANCE_TALENT);
+    this.suggestAvgCasts(when, SPELLS.SHADOW_DANCE);
   }
 
   statistic() {

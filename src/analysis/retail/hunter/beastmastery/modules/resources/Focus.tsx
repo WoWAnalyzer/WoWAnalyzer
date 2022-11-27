@@ -1,5 +1,5 @@
 import { FocusTracker } from 'analysis/retail/hunter/shared';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
@@ -22,17 +22,11 @@ class Focus extends Analyzer {
   suggestions(when: When) {
     const bmFocusExtraSuggestion = (
       <>
-        Try to keep focus below max by using <SpellLink id={SPELLS.COBRA_SHOT.id} /> and{' '}
-        <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} />.
+        Try to keep focus below max by using{' '}
+        <SpellLink id={TALENTS.KILL_COMMAND_SHARED_TALENT.id} /> and{' '}
+        <SpellLink id={TALENTS.COBRA_SHOT_TALENT.id} />.
       </>
     );
-    resourceSuggest(when, this.focusTracker, {
-      spell: SPELLS.ASPECT_OF_THE_WILD,
-      minor: FOCUS_THRESHOLD_MINOR,
-      avg: FOCUS_THRESHOLD_AVG,
-      major: FOCUS_THRESHOLD_MAJOR,
-      extraSuggestion: bmFocusExtraSuggestion,
-    });
     resourceSuggest(when, this.focusTracker, {
       spell: BARBED_SHOT_FOCUS_REGEN_BUFFS,
       minor: FOCUS_THRESHOLD_MINOR,

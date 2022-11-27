@@ -1,10 +1,12 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -15,15 +17,18 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 class UnfurlingDarkness extends Analyzer {
   static dependencies = {
     eventHistory: EventHistory,
+    abilityTracker: AbilityTracker,
   };
   protected eventHistory!: EventHistory;
+  protected abilityTracker!: AbilityTracker;
 
   procsGained: number = 0;
-  procsUsed: number = 0;
+  procsWasted: number = 0;
+  lastProcTime: number = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.UNFURLING_DARKNESS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.UNFURLING_DARKNESS_TALENT.id);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.UNFURLING_DARKNESS_BUFF),
       this.onBuffApplied,
@@ -34,29 +39,25 @@ class UnfurlingDarkness extends Analyzer {
     );
   }
 
-  onBuffApplied() {
+  onBuffApplied(event: ApplyBuffEvent) {
     this.procsGained += 1; // Add a proc to the counter
+    this.lastProcTime = event.timestamp;
   }
 
-  onBuffRemoved() {
-    if (
-      this.eventHistory.last(1, 100, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VAMPIRIC_TOUCH))
-        .length === 0
-    ) {
-      // If VT is not instant, it's not a proc
-      return;
+  onBuffRemoved(event: RemoveBuffEvent) {
+    const durationHeld = event.timestamp - this.lastProcTime;
+    if (durationHeld >= 7990) {
+      this.procsWasted += 1;
     }
-
-    this.procsUsed += 1;
   }
 
-  getProcsWasted() {
-    return this.procsGained - this.procsUsed;
+  getProcsUsed() {
+    return this.procsGained - this.procsWasted;
   }
 
   get suggestionThresholds() {
     return {
-      actual: this.getProcsWasted() / this.procsGained,
+      actual: this.procsWasted / this.procsGained,
       isGreaterThan: {
         minor: 0,
         average: 0,
@@ -71,10 +72,10 @@ class UnfurlingDarkness extends Analyzer {
       suggest(
         <>
           You wasted {formatPercentage(actual)}% of{' '}
-          <SpellLink id={SPELLS.UNFURLING_DARKNESS_TALENT.id} /> procs.{' '}
+          <SpellLink id={TALENTS.UNFURLING_DARKNESS_TALENT.id} /> procs.{' '}
         </>,
       )
-        .icon(SPELLS.UNFURLING_DARKNESS_TALENT.icon)
+        .icon(TALENTS.UNFURLING_DARKNESS_TALENT.icon)
         .actual(
           t({
             id: 'priest.shadow.suggestions.unfurlingDarkness.efficiency',
@@ -92,7 +93,7 @@ class UnfurlingDarkness extends Analyzer {
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
         <BoringSpellValueText spellId={SPELLS.UNFURLING_DARKNESS_BUFF.id}>
           <>
-            {this.procsUsed}/{this.procsGained} <small>Procs Used</small>
+            {this.getProcsUsed()}/{this.procsGained} <small>Procs Used</small>
           </>
         </BoringSpellValueText>
       </Statistic>

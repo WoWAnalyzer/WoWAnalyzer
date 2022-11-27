@@ -34,13 +34,13 @@ class Abilities extends CoreAbilities {
         damageSpellIds: [SPELLS.ARCANE_EXPLOSION.id],
       },
       {
-        spell: SPELLS.PYROBLAST.id,
+        spell: TALENTS.PYROBLAST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.PYROBLAST_TALENT),
-        damageSpellIds: [SPELLS.PYROBLAST.id],
+        damageSpellIds: [TALENTS.PYROBLAST_TALENT.id],
       },
       {
         spell: SPELLS.SCORCH.id,

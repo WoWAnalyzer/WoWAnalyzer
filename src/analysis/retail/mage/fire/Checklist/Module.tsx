@@ -19,7 +19,7 @@ import HeatingUp from '../core/HeatingUp';
 import HotStreak from '../core/HotStreak';
 import Pyroclasm from '../talents/Pyroclasm';
 import ShiftingPowerUsage from '../talents/ShiftingPowerUsage';
-import InfernalCascade from '../talents/InfernalCascade';
+import FeelTheBurn from '../talents/FeelTheBurn';
 import MeteorCombustion from '../talents/MeteorCombustion';
 import SearingTouch from '../talents/SearingTouch';
 import Component from './Component';
@@ -39,7 +39,7 @@ class Checklist extends BaseChecklist {
     meteor: Meteor,
     meteorRune: MeteorRune,
     meteorCombustion: MeteorCombustion,
-    infernalCascade: InfernalCascade,
+    feelTheBurn: FeelTheBurn,
     shiftingPowerUsage: ShiftingPowerUsage,
     castEfficiency: CastEfficiency,
     arcaneIntellect: ArcaneIntellect,
@@ -60,7 +60,7 @@ class Checklist extends BaseChecklist {
   protected meteor!: Meteor;
   protected meteorRune!: MeteorRune;
   protected meteorCombustion!: MeteorCombustion;
-  protected infernalCascade!: InfernalCascade;
+  protected feelTheBurn!: FeelTheBurn;
   protected shiftingPowerUsage!: ShiftingPowerUsage;
   protected castEfficiency!: CastEfficiency;
   protected arcaneIntellect!: ArcaneIntellect;
@@ -93,7 +93,7 @@ class Checklist extends BaseChecklist {
           searingTouchUtilization: this.searingTouch.executeSuggestionThreshold,
           meteorEfficiency: this.meteor.meteorEfficiencySuggestionThresholds,
           meteorUtilization: this.meteorRune.meteorUtilSuggestionThresholds,
-          infernalCascadeMaxStacks: this.infernalCascade.maxStackUptimeThresholds,
+          infernalCascadeMaxStacks: this.feelTheBurn.maxStackUptimeThresholds,
           shiftingPowerUsage: this.shiftingPowerUsage.shiftingPowerUsageThresholds,
           meteorCombustionUtilization: this.meteorCombustion.meteorCombustionSuggestionThresholds,
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,

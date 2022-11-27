@@ -242,7 +242,7 @@ const talents = createTalentList({
   },
   GRIM_FEAST_TALENT: { id: 386689, name: 'Grim Feast', icon: 'inv_flaming_splinter', maxRanks: 1 },
   SUMMON_SOULKEEPER_TALENT: {
-    id: 386244,
+    id: 386256,
     name: 'Summon Soulkeeper',
     icon: 'spell_fel_elementaldevastation',
     maxRanks: 1,
@@ -332,7 +332,13 @@ const talents = createTalentList({
     icon: 'spell_warlock_darkregeneration',
     maxRanks: 2,
   },
-  DRAIN_SOUL_TALENT: { id: 388667, name: 'Drain Soul', icon: 'spell_shadow_haunting', maxRanks: 1 },
+  DRAIN_SOUL_TALENT: {
+    id: 198590,
+    name: 'Drain Soul',
+    icon: 'spell_shadow_haunting',
+    maxRanks: 1,
+    manaCost: 0,
+  },
   ABSOLUTE_CORRUPTION_TALENT: {
     id: 196103,
     name: 'Absolute Corruption',

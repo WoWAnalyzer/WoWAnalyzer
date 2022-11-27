@@ -1,5 +1,6 @@
+import * as React from 'react';
 import { useCallback, useEffect, useReducer } from 'react';
-import { Trans, t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { captureException } from 'common/errorLogger';
 import { fetchCombatants, LogNotFoundError } from 'common/fetchWclApi';
 import getFightName from 'common/getFightName';
@@ -7,12 +8,10 @@ import getAverageItemLevel from 'game/getAverageItemLevel';
 import ROLES from 'game/ROLES';
 import SPECS from 'game/SPECS';
 import { isUnsupportedClassicVersion, wclGameVersionToExpansion } from 'game/VERSIONS';
-import { fetchCharacter } from 'interface/actions/characters';
 import { setCombatants } from 'interface/actions/combatants';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import Panel from 'interface/Panel';
-import { RootState } from 'interface/reducers';
 import AdvancedLoggingWarning from 'interface/report/AdvancedLoggingWarning';
 import { generateFakeCombatantInfo } from 'interface/report/CombatantInfoFaker';
 import RaidCompositionDetails from 'interface/report/RaidCompositionDetails';
@@ -20,16 +19,12 @@ import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/Rep
 import ReportRaidBuffList from 'interface/ReportRaidBuffList';
 import { getPlayerId, getPlayerName } from 'interface/selectors/url/report';
 import Tooltip from 'interface/Tooltip';
-import CharacterProfile from 'parser/core/CharacterProfile';
 import { CombatantInfoEvent } from 'parser/core/Events';
 import { WCLFight } from 'parser/core/Fight';
 import Report from 'parser/core/Report';
 import getBuild from 'parser/getBuild';
 import getConfig from 'parser/getConfig';
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
-import { compose } from 'redux';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 import handleApiError from './handleApiError';
@@ -40,26 +35,14 @@ import { useFight } from 'interface/report/context/FightContext';
 
 const FAKE_PLAYER_IF_DEV_ENV = false;
 
-interface ConnectedProps extends RouteComponentProps {
-  setCombatants: (combatants: CombatantInfoEvent[] | null) => void;
-  playerName: string | null;
-  playerId: number | null;
-  fetchCharacter: (guid: number, region: string, realm: string, name: string) => CharacterProfile;
-}
-
-interface PassedProps {
+interface Props {
   children: React.ReactNode;
 }
-
-type Props = ConnectedProps & PassedProps;
 
 interface State {
   error: Error | null;
   combatants: CombatantInfoEvent[] | null;
   combatantsFightId: number | null;
-}
-
-interface StateFC extends State {
   tanks: number;
   healers: number;
   dps: number;
@@ -71,10 +54,6 @@ const defaultState: State = {
   error: null,
   combatants: null,
   combatantsFightId: null,
-};
-
-const defaultStateFC: StateFC = {
-  ...defaultState,
   tanks: 0,
   healers: 0,
   dps: 0,
@@ -95,10 +74,10 @@ type Action =
   | { type: 'set_combatants'; combatants: CombatantInfoEvent[]; combatantsFightId: number }
   | { type: 'set_error'; error: Error };
 
-const fcReducer = (state: StateFC, action: Action): StateFC => {
+const fcReducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'reset':
-      return { ...defaultStateFC };
+      return { ...defaultState };
     case 'update_composition':
       return {
         ...state,
@@ -115,19 +94,23 @@ const fcReducer = (state: StateFC, action: Action): StateFC => {
         combatantsFightId: action.combatantsFightId,
       };
     case 'set_error':
-      return { ...defaultStateFC, error: action.error };
+      return { ...defaultState, error: action.error };
     default:
       return { ...state };
   }
 };
 
-const PlayerLoaderFC = ({ children, setCombatants, history, playerName, playerId }: Props) => {
+const PlayerLoader = ({ children }: Props) => {
   const [
     { error, combatants, combatantsFightId, tanks, healers, dps, ranged, ilvl },
     dispatchFC,
-  ] = useReducer(fcReducer, defaultStateFC);
+  ] = useReducer(fcReducer, defaultState);
   const { report: selectedReport } = useReport();
   const { fight: selectedFight } = useFight();
+  const history = useHistory();
+  const location = useLocation();
+  const playerId = getPlayerId(location.pathname);
+  const playerName = getPlayerName(location.pathname);
 
   const loadCombatants = useCallback(
     async (report: Report, fight: WCLFight) => {
@@ -211,7 +194,7 @@ const PlayerLoaderFC = ({ children, setCombatants, history, playerName, playerId
         setCombatants(null);
       }
     },
-    [selectedFight, selectedReport, setCombatants],
+    [selectedFight, selectedReport],
   );
 
   useEffect(() => {
@@ -298,7 +281,12 @@ const PlayerLoaderFC = ({ children, setCombatants, history, playerName, playerId
   const combatant = player && combatants.find((combatant) => combatant.sourceID === player.id);
   const config =
     combatant &&
-    getConfig(wclGameVersionToExpansion(selectedReport.gameVersion), combatant.specID, player.type);
+    getConfig(
+      wclGameVersionToExpansion(selectedReport.gameVersion),
+      combatant.specID,
+      player.type,
+      player.icon,
+    );
   const build = combatant && getBuild(config, combatant);
   const missingBuild = config?.builds && !build;
   if (!player || hasDuplicatePlayers || !combatant || !config || missingBuild || combatant.error) {
@@ -415,14 +403,4 @@ const PlayerLoaderFC = ({ children, setCombatants, history, playerName, playerId
   );
 };
 
-const mapStateToProps = (state: RootState, props: RouteComponentProps) => ({
-  playerName: getPlayerName(props.location.pathname),
-  playerId: getPlayerId(props.location.pathname),
-});
-export default compose(
-  withRouter,
-  connect(mapStateToProps, {
-    setCombatants,
-    fetchCharacter,
-  }),
-)(PlayerLoaderFC) as React.ComponentType<PassedProps>;
+export default PlayerLoader;

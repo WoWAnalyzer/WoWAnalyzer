@@ -19,3 +19,7 @@ export const RETAIL_EXPANSION = Expansion.Dragonflight;
 export function isCurrentExpansion(expansion: Expansion): boolean {
   return expansion === CLASSIC_EXPANSION || expansion === RETAIL_EXPANSION;
 }
+
+export function isRetailExpansion(expansion: Expansion): boolean {
+  return expansion >= Expansion.Legion;
+}

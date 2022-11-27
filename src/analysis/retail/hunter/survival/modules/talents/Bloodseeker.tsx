@@ -2,6 +2,7 @@ import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared';
 import { BLOODSEEKER_ATTACK_SPEED_GAIN } from 'analysis/retail/hunter/survival/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -26,7 +27,7 @@ class Bloodseeker extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BLOODSEEKER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BLOODSEEKER_TALENT.id);
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_SV),
@@ -74,7 +75,7 @@ class Bloodseeker extends Analyzer {
         }
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.BLOODSEEKER_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.BLOODSEEKER_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
             {formatPercentage(this.averageAttackSpeedGain)}% <small>atk speed gain</small>

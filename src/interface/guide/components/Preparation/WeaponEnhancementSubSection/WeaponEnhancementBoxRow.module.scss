@@ -1,0 +1,51 @@
+@import 'interface/guide/Guide';
+
+$shadow: 0 0 0px 1px hsla(45, 100%, 60%, 0.7);
+
+.enchantment-block-row {
+  display: flex;
+  flex-direction: row;
+
+  .enchantment-block-column {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1;
+    margin: 0 0 0 2px;
+
+    .enchantment-block {
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      flex: 1 1 auto;
+      height: 2em;
+
+      &:hover {
+        box-shadow: $shadow;
+      }
+
+      :global(.icon) {
+        font-size: 20px;
+        margin: 0;
+      }
+    }
+  }
+
+  .perfect-block {
+    background-color: $perfect-perf-color;
+  }
+
+  .good-block {
+    background-color: $good-perf-color;
+  }
+
+  .ok-block {
+    background-color: $ok-perf-color;
+  }
+
+  .bad-block {
+    background-color: $bad-perf-color;
+  }
+}

@@ -1,6 +1,6 @@
 import { LNL_COST_MULTIPLIER } from 'analysis/retail/hunter/marksmanship/constants';
-import { VIPERS_VENOM_COST_MULTIPLIER } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';
 import { CastEvent } from 'parser/core/Events';
@@ -10,12 +10,10 @@ class SpellFocusCost extends SpellResourceCost {
   static resourceType = RESOURCE_TYPES.FOCUS;
 
   lockAndLoad: boolean;
-  vipersVenom: boolean;
 
   constructor(options: Options) {
     super(options);
-    this.lockAndLoad = this.selectedCombatant.hasTalent(SPELLS.LOCK_AND_LOAD_TALENT.id);
-    this.vipersVenom = this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id);
+    this.lockAndLoad = this.selectedCombatant.hasTalent(TALENTS.LOCK_AND_LOAD_TALENT.id);
   }
 
   getResourceCost(event: CastEvent) {
@@ -27,13 +25,6 @@ class SpellFocusCost extends SpellResourceCost {
       spellId === SPELLS.AIMED_SHOT.id
     ) {
       return cost * LNL_COST_MULTIPLIER;
-    }
-    if (
-      this.vipersVenom &&
-      this.selectedCombatant.hasBuff(SPELLS.VIPERS_VENOM_BUFF.id) &&
-      spellId === SPELLS.SERPENT_STING_SV.id
-    ) {
-      return cost * VIPERS_VENOM_COST_MULTIPLIER;
     }
     return cost;
   }

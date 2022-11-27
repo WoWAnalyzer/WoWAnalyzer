@@ -21,6 +21,7 @@ export interface Spec {
     class: number;
     spec: number;
   };
+  icon?: string; // Classic only due to specId being 0
 }
 
 const specIndexableList = asRestrictedTable<Spec>();
@@ -808,6 +809,7 @@ const SPECS = specIndexableList({
       class: 1,
       spec: 1,
     },
+    icon: 'Warrior-Arms',
   },
   CLASSIC_WARRIOR_FURY: {
     id: 164,
@@ -827,6 +829,7 @@ const SPECS = specIndexableList({
       class: 1,
       spec: 2,
     },
+    icon: 'Warrior-Fury',
   },
   CLASSIC_WARRIOR_PROTECTION: {
     id: 163,
@@ -846,6 +849,7 @@ const SPECS = specIndexableList({
       class: 1,
       spec: 3,
     },
+    icon: 'Warrior-Protection',
   },
   CLASSIC_PALADIN_HOLY: {
     id: 382,
@@ -865,6 +869,7 @@ const SPECS = specIndexableList({
       class: 2,
       spec: 1,
     },
+    icon: 'Paladin-Holy',
   },
   CLASSIC_PALADIN_PROTECTION: {
     id: 383,
@@ -884,6 +889,7 @@ const SPECS = specIndexableList({
       class: 2,
       spec: 2,
     },
+    icon: 'Paladin-Protection',
   },
   CLASSIC_PALADIN_RETRIBUTION: {
     id: 381,
@@ -903,6 +909,7 @@ const SPECS = specIndexableList({
       class: 2,
       spec: 3,
     },
+    icon: 'Paladin-Retribution',
   },
   CLASSIC_HUNTER_BEAST_MASTERY: {
     id: 361,
@@ -922,6 +929,7 @@ const SPECS = specIndexableList({
       class: 3,
       spec: 1,
     },
+    icon: 'Hunter-BeastMastery',
   },
   CLASSIC_HUNTER_MARKSMANSHIP: {
     id: 363,
@@ -941,6 +949,7 @@ const SPECS = specIndexableList({
       class: 3,
       spec: 2,
     },
+    icon: 'Hunter-Marksmanship',
   },
   CLASSIC_HUNTER_SURVIVAL: {
     id: 362,
@@ -960,6 +969,7 @@ const SPECS = specIndexableList({
       class: 3,
       spec: 3,
     },
+    icon: 'Hunter-Survival',
   },
   CLASSIC_ROGUE_ASSASSINATION: {
     id: 182,
@@ -979,6 +989,7 @@ const SPECS = specIndexableList({
       class: 4,
       spec: 1,
     },
+    icon: 'Rogue-Assassination',
   },
   CLASSIC_ROGUE_COMBAT: {
     id: 181,
@@ -998,6 +1009,7 @@ const SPECS = specIndexableList({
       class: 4,
       spec: 2,
     },
+    icon: 'Rogue-Combat',
   },
   CLASSIC_ROGUE_SUBTLETY: {
     id: 183,
@@ -1017,6 +1029,7 @@ const SPECS = specIndexableList({
       class: 4,
       spec: 3,
     },
+    icon: 'Rogue-Subtlety',
   },
   CLASSIC_PRIEST_DISCIPLINE: {
     id: 201,
@@ -1036,6 +1049,7 @@ const SPECS = specIndexableList({
       class: 5,
       spec: 1,
     },
+    icon: 'Priest-Discipline',
   },
   CLASSIC_PRIEST_HOLY: {
     id: 202,
@@ -1055,6 +1069,7 @@ const SPECS = specIndexableList({
       class: 5,
       spec: 2,
     },
+    icon: 'Priest-Holy',
   },
   CLASSIC_PRIEST_SHADOW: {
     id: 203,
@@ -1074,9 +1089,11 @@ const SPECS = specIndexableList({
       class: 5,
       spec: 3,
     },
+    icon: 'Priest-Shadow',
   },
   CLASSIC_DEATH_KNIGHT_BLOOD: {
     id: 398,
+    type: 'DeathKnight',
     index: 115,
     className: t({
       id: 'specs.deathKnight',
@@ -1092,9 +1109,11 @@ const SPECS = specIndexableList({
       class: 6,
       spec: 1,
     },
+    icon: 'DeathKnight-Blood',
   },
   CLASSIC_DEATH_KNIGHT_FROST: {
     id: 399,
+    type: 'DeathKnight',
     index: 116,
     className: t({
       id: 'specs.deathKnight',
@@ -1110,9 +1129,11 @@ const SPECS = specIndexableList({
       class: 6,
       spec: 2,
     },
+    icon: 'DeathKnight-Frost',
   },
   CLASSIC_DEATH_KNIGHT_UNHOLY: {
     id: 400,
+    type: 'DeathKnight',
     index: 117,
     className: t({
       id: 'specs.deathKnight',
@@ -1128,6 +1149,7 @@ const SPECS = specIndexableList({
       class: 6,
       spec: 3,
     },
+    icon: 'DeathKnight-Unholy',
   },
   CLASSIC_SHAMAN_ELEMENTAL: {
     // wowhead id is 261 but that's the same id as retail Subtlety Rogue
@@ -1148,6 +1170,7 @@ const SPECS = specIndexableList({
       class: 7,
       spec: 1,
     },
+    icon: 'Shaman-Elemental',
   },
   CLASSIC_SHAMAN_ENHANCEMENT: {
     // wowhead id is 263 but that's the same id as retail Enhancement Shaman
@@ -1168,6 +1191,7 @@ const SPECS = specIndexableList({
       class: 7,
       spec: 2,
     },
+    icon: 'Shaman-Enhancement',
   },
   CLASSIC_SHAMAN_RESTORATION: {
     // wowhead id is 262 but that's the same id as retail Restoration Shaman
@@ -1188,6 +1212,7 @@ const SPECS = specIndexableList({
       class: 7,
       spec: 3,
     },
+    icon: 'Shaman-Restoration',
   },
   CLASSIC_MAGE_ARCANE: {
     id: 81,
@@ -1207,6 +1232,7 @@ const SPECS = specIndexableList({
       class: 8,
       spec: 1,
     },
+    icon: 'Mage-Arcane',
   },
   CLASSIC_MAGE_FIRE: {
     id: 41,
@@ -1226,6 +1252,7 @@ const SPECS = specIndexableList({
       class: 8,
       spec: 2,
     },
+    icon: 'Mage-Fire',
   },
   CLASSIC_MAGE_FROST: {
     id: 61,
@@ -1245,6 +1272,7 @@ const SPECS = specIndexableList({
       class: 8,
       spec: 3,
     },
+    icon: 'Mage-Frost',
   },
   CLASSIC_WARLOCK_AFFLICTION: {
     id: 302,
@@ -1264,6 +1292,7 @@ const SPECS = specIndexableList({
       class: 9,
       spec: 1,
     },
+    icon: 'Warlock-Affliction',
   },
   CLASSIC_WARLOCK_DEMONOLOGY: {
     id: 303,
@@ -1283,6 +1312,7 @@ const SPECS = specIndexableList({
       class: 9,
       spec: 2,
     },
+    icon: 'Warlock-Demonology',
   },
   CLASSIC_WARLOCK_DESTRUCTION: {
     id: 301,
@@ -1302,6 +1332,7 @@ const SPECS = specIndexableList({
       class: 9,
       spec: 3,
     },
+    icon: 'Warlock-Destruction',
   },
   CLASSIC_DRUID_BALANCE: {
     id: 283,
@@ -1321,6 +1352,7 @@ const SPECS = specIndexableList({
       class: 11,
       spec: 1,
     },
+    icon: 'Druid-Balance',
   },
   CLASSIC_DRUID_FERAL_COMBAT: {
     id: 281,
@@ -1340,6 +1372,7 @@ const SPECS = specIndexableList({
       class: 11,
       spec: 2,
     },
+    icon: 'Druid-Feral',
   },
   CLASSIC_DRUID_RESTORATION: {
     id: 282,
@@ -1359,6 +1392,7 @@ const SPECS = specIndexableList({
       class: 11,
       spec: 3,
     },
+    icon: 'Druid-Restoration',
   },
   CLASSIC_DRUID_GUARDIAN: {
     id: 284,
@@ -1378,6 +1412,7 @@ const SPECS = specIndexableList({
       class: 11,
       spec: 4,
     },
+    icon: 'Druid-Guardian',
   },
 });
 
