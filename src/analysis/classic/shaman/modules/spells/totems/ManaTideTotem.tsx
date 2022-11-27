@@ -16,7 +16,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { Build } from '../../../CONFIG';
 import * as SPELL_EFFECTS from '../../../SPELL_EFFECTS';
-import * as SPELLS from '../../../SPELLS';
+import SPELLS from 'common/SPELLS/classic/shaman';
 
 class ManaTideTotem extends Analyzer {
   static dependencies = {
@@ -34,7 +34,7 @@ class ManaTideTotem extends Analyzer {
     this.active = this.owner.build === Build.DEFAULT;
 
     this.addEventListener(
-      Events.summon.by(SELECTED_PLAYER).spell({ id: SPELLS.MANA_TIDE_TOTEM }),
+      Events.summon.by(SELECTED_PLAYER).spell({ id: SPELLS.MANA_TIDE_TOTEM.id }),
       this.manaTideTotem,
     );
 
@@ -113,7 +113,7 @@ class ManaTideTotem extends Analyzer {
           </table>
         }
       >
-        <BoringValue label={<SpellLink id={SPELLS.MANA_TIDE_TOTEM} />}>
+        <BoringValue label={<SpellLink id={SPELLS.MANA_TIDE_TOTEM.id} />}>
           <div>
             <PersonIcon /> {formatNumber(this.regenOnPlayer)}{' '}
             <small>

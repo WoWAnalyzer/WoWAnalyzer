@@ -2,7 +2,7 @@ import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/
 import Events, { CastEvent, DeathEvent, FightEndEvent, SummonEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 
-import * as SPELLS from '../../SPELLS';
+import SPELLS from 'common/SPELLS/classic/shaman';
 import {
   AllTotemsFilter,
   GetTotemElement,
@@ -157,7 +157,7 @@ class TotemTracker extends Analyzer {
     this.addEventListener(Events.cast, this.totemCastEvent);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell({ id: SPELLS.TOTEMIC_CALL }),
+      Events.cast.by(SELECTED_PLAYER).spell({ id: SPELLS.TOTEMIC_CALL.id }),
       this.totemPurgeEvent,
     );
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this.totemPurgeEvent);
@@ -210,7 +210,7 @@ class TotemTracker extends Analyzer {
     if (targetTotemelement !== TotemElements.Air) {
       return;
     }
-    if (this.activeTotem(TotemElements.Air)?.totemSpellId !== SPELLS.GROUNDING_TOTEM) {
+    if (this.activeTotem(TotemElements.Air)?.totemSpellId !== SPELLS.GROUNDING_TOTEM.id) {
       return;
     }
 

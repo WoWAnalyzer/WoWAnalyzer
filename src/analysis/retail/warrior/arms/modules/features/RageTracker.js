@@ -16,7 +16,7 @@ class RageUsage extends ResourceTracker {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE), this.onDamage);
   }
 
-  getReducedCost(event) {
+  getAdjustedCost(event) {
     if (!this.getResource(event).cost) {
       return 0;
     }

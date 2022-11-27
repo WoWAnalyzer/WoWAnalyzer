@@ -236,6 +236,50 @@ export function useAnalyzer<T extends typeof Module>(value: string | T) {
 }
 
 /**
+ * Get multiple analysis modules from within a Guide section.
+ *
+ * # Example
+ *
+ * ```
+ * import BrewCDR from 'analysis/retail/monk/brewmaster/modules/core/BrewCDR';
+ * import PurifyingBrew from 'analysis/retail/monk/brewmaster/modules/spells/PurifyingBrew';
+ *
+ * function MySection() {
+ *   const analyzers = useAnalyzer([BrewCDR, PurifyingBrew]);
+ *   // ...
+ * }
+ *
+ * // ... later, in the Guide component
+ *
+ * function Guide(props) {
+ *   return (
+ *    // ...
+ *    <MySection />
+ *    // ...
+ *   )
+ * }
+ * ```
+ */
+export function useAnalyzers<T extends typeof Module>(moduleTypes: T[]): InstanceType<T>[];
+export function useAnalyzers(moduleKeys: string[]): Module[];
+export function useAnalyzers<T extends typeof Module>(values: (string | T)[]) {
+  const ctx = useContext(GuideContext);
+  return useMemo(
+    () =>
+      values.map((value) => {
+        if (typeof value === 'string') {
+          return ctx.modules[value];
+        } else {
+          return Object.values(ctx.modules).find((module) => module instanceof value) as
+            | InstanceType<T>
+            | undefined;
+        }
+      }),
+    [values, ctx],
+  );
+}
+
+/**
  * The overall guide container. You will never need this, it is used by the WoWA
  * core to hold your `Guide` component.
  */
@@ -279,8 +323,13 @@ export const OkColor = getComputedStyle(document.documentElement).getPropertyVal
 export const BadColor = getComputedStyle(document.documentElement).getPropertyValue(
   '--guide-bad-color',
 );
+
+// some extra colors for fun
 export const VeryBadColor = getComputedStyle(document.documentElement).getPropertyValue(
   '--guide-very-bad-color',
+);
+export const MediocreColor = getComputedStyle(document.documentElement).getPropertyValue(
+  '--guide-mediocre-color',
 );
 
 /** Shows a glyph - either a green checkmark or a red X depending on if 'pass' is true */
@@ -298,5 +347,18 @@ export const PerformanceMark = ({ perf }: { perf: QualitativePerformance }) => {
       return <OkMark />;
     case QualitativePerformance.Fail:
       return <BadMark />;
+  }
+};
+
+export const qualitativePerformanceToColor = (qualitativePerformance: QualitativePerformance) => {
+  switch (qualitativePerformance) {
+    case QualitativePerformance.Perfect:
+      return PerfectColor;
+    case QualitativePerformance.Good:
+      return GoodColor;
+    case QualitativePerformance.Ok:
+      return OkColor;
+    case QualitativePerformance.Fail:
+      return BadColor;
   }
 };

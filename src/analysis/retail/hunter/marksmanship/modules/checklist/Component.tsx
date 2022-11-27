@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
@@ -10,6 +11,7 @@ import {
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
+import TalentCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/TalentCastEfficiencyRequirement';
 
 const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
   const { combatant, castEfficiency, thresholds } = props;
@@ -44,27 +46,15 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
         <AbilityRequirement spell={SPELLS.AIMED_SHOT.id} />
         <AbilityRequirement spell={SPELLS.RAPID_FIRE.id} />
         <AbilityRequirement spell={SPELLS.TRUESHOT.id} />
-        <AbilityRequirement spell={SPELLS.KILL_SHOT_MM_BM.id} />
+        <TalentCastEfficiencyRequirement talent={TALENTS_HUNTER.KILL_SHOT_SHARED_TALENT} />
 
-        {combatant.hasTalent(SPELLS.DOUBLE_TAP_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.DOUBLE_TAP_TALENT.id} />
-        )}
+        <TalentCastEfficiencyRequirement talent={TALENTS_HUNTER.DOUBLE_TAP_TALENT} />
 
-        {combatant.hasTalent(SPELLS.EXPLOSIVE_SHOT_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.EXPLOSIVE_SHOT_TALENT.id} />
-        )}
+        <TalentCastEfficiencyRequirement talent={TALENTS_HUNTER.EXPLOSIVE_SHOT_TALENT} />
 
-        {combatant.hasTalent(SPELLS.BARRAGE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.BARRAGE_TALENT.id} />
-        )}
+        <TalentCastEfficiencyRequirement talent={TALENTS_HUNTER.BARRAGE_TALENT} />
 
-        {combatant.hasTalent(SPELLS.VOLLEY_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.VOLLEY_TALENT.id} />
-        )}
-
-        {combatant.hasTalent(SPELLS.A_MURDER_OF_CROWS_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.A_MURDER_OF_CROWS_TALENT.id} />
-        )}
+        <TalentCastEfficiencyRequirement talent={TALENTS_HUNTER.VOLLEY_TALENT} />
       </Rule>
 
       <Rule
@@ -80,56 +70,57 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
           thresholds={thresholds.preciseShotsThresholds}
         />
 
-        {combatant.hasTalent(SPELLS.SERPENT_STING_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_HUNTER.SERPENT_STING_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} /> uptime
+                <SpellLink id={TALENTS_HUNTER.SERPENT_STING_TALENT.id} /> uptime
               </>
             }
             thresholds={thresholds.serpentStingUptimeThresholds}
           />
         )}
 
-        {combatant.hasTalent(SPELLS.SERPENT_STING_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_HUNTER.SERPENT_STING_TALENT.id) && (
           <Requirement
             name={
               <>
-                Refreshes of <SpellLink id={SPELLS.SERPENT_STING_TALENT.id} /> that didn't pandemic{' '}
+                Refreshes of <SpellLink id={TALENTS_HUNTER.SERPENT_STING_TALENT.id} /> that didn't
+                pandemic{' '}
               </>
             }
             thresholds={thresholds.serpentStingNonPandemicThresholds}
           />
         )}
 
-        {combatant.hasTalent(SPELLS.CALLING_THE_SHOTS_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.CALLING_THE_SHOTS_TALENT.id} /> CDR efficiency{' '}
+                <SpellLink id={TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT.id} /> CDR efficiency{' '}
               </>
             }
             thresholds={thresholds.callingTheShotsThresholds}
           />
         )}
 
-        {combatant.hasTalent(SPELLS.DEAD_EYE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_HUNTER.DEADEYE_TALENT.id) && (
           <Requirement
             name={
               <>
                 <SpellLink id={SPELLS.AIMED_SHOT.id} /> recharge efficiency from{' '}
-                <SpellLink id={SPELLS.DEAD_EYE_TALENT.id} />
+                <SpellLink id={TALENTS_HUNTER.DEADEYE_TALENT.id} />
               </>
             }
             thresholds={thresholds.deadEyeThresholds}
           />
         )}
 
-        {combatant.hasTalent(SPELLS.LETHAL_SHOTS_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_HUNTER.LETHAL_SHOTS_TALENT.id) && (
           <Requirement
             name={
               <>
-                Potential <SpellLink id={SPELLS.LETHAL_SHOTS_TALENT.id} /> triggers when{' '}
+                Potential <SpellLink id={TALENTS_HUNTER.LETHAL_SHOTS_TALENT.id} /> triggers when{' '}
                 <SpellLink id={SPELLS.RAPID_FIRE.id} /> isn't on CD
               </>
             }
@@ -137,11 +128,11 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
           />
         )}
 
-        {combatant.hasTalent(SPELLS.STEADY_FOCUS_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_HUNTER.STEADY_FOCUS_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.STEADY_FOCUS_TALENT.id} /> buff uptime
+                <SpellLink id={TALENTS_HUNTER.STEADY_FOCUS_TALENT.id} /> buff uptime
               </>
             }
             thresholds={thresholds.steadyFocusThresholds}
@@ -170,8 +161,8 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
           <>
             Capping on Focus is a loss of potential DPS, as you could've used that Focus for a
             damaging ability at a later point. If everything is on cooldown, try and use{' '}
-            {combatant.hasTalent(SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP.id) ? (
-              <SpellLink id={SPELLS.CHIMAERA_SHOT_TALENT_MARKSMANSHIP.id} />
+            {combatant.hasTalent(TALENTS_HUNTER.CHIMAERA_SHOT_TALENT.id) ? (
+              <SpellLink id={TALENTS_HUNTER.CHIMAERA_SHOT_TALENT.id} />
             ) : (
               <SpellLink id={SPELLS.ARCANE_SHOT.id} />
             )}{' '}
@@ -190,11 +181,7 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
         />
       </Rule>
 
-      <AplRule
-        {...props}
-        name="APL checker (beta)"
-        cooldowns={[SPELLS.TRUESHOT, SPELLS.WILD_SPIRITS]}
-      />
+      <AplRule {...props} name="APL checker (beta)" cooldowns={[TALENTS_HUNTER.TRUESHOT_TALENT]} />
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );

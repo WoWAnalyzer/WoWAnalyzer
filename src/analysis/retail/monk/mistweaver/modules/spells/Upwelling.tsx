@@ -1,16 +1,16 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
-import Combatants from 'parser/shared/modules/Combatants';
-import BoringValueText from 'parser/ui/BoringValueText';
+import { Tracker } from 'parser/shared/modules/HotTracker';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import HotTrackerMW from '../core/HotTrackerMW';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
-const BASE_HOT_TIME = 8000; //ef's hot base time
 const BASE_BOLTS = 17; //18 base but we start counting at 0 so 18th on bolt count = 19th bolt
 
 /**
@@ -23,7 +23,7 @@ const BASE_BOLTS = 17; //18 base but we start counting at 0 so 18th on bolt coun
  */
 class Upwelling extends Analyzer {
   static dependencies = {
-    combatants: Combatants,
+    hotTracker: HotTrackerMW,
   };
   totalHealing: number = 0;
   totalOverhealing: number = 0;
@@ -33,15 +33,17 @@ class Upwelling extends Analyzer {
   extraBolts: number = 0; //number of extra bolts
   efHotHeal: number = 0; //healing from hots
   efHotOverheal: number = 0; //overhealing from hots
+  flsHotHeal: number = 0; // extra healing from fls hots
+  flsHotOverheal: number = 0; //overhealing from fls hots
   boltCount: number = 0;
   totalBolts: number = 0;
-  hotMap: Map<number, { fullCount: boolean; applicationTime: number }> = new Map(); //tracking on who has what and how it is
+  fromExtraBolts: Set<number> = new Set(); //tracking people with EF hot from extra bolt
   masteryTickTock: boolean = false;
   masteryHit: number = 0;
   masteryHealing: number = 0;
   masteryOverhealing: number = 0;
   masteryAbsorbed: number = 0;
-  protected combatants!: Combatants;
+  protected hotTracker!: HotTrackerMW;
 
   constructor(options: Options) {
     super(options);
@@ -52,6 +54,10 @@ class Upwelling extends Analyzer {
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
+      this.efHeal,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FAELINE_STOMP_ESSENCE_FONT),
       this.efHeal,
     );
     this.addEventListener(
@@ -67,7 +73,7 @@ class Upwelling extends Analyzer {
       this.removeBuff,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.GUST_OF_MISTS_CHIJI, SPELLS.GUSTS_OF_MISTS]),
       this.handleMastery,
     );
   }
@@ -105,27 +111,41 @@ class Upwelling extends Analyzer {
     }
   }
 
+  fromExtraDuration(event: HealEvent, hot: Tracker) {
+    if (!hot) {
+      return false;
+    }
+    // ef hot duration is normally 8 seconds and upwelling adds 4, so 8/(8+4) = 2/3
+    const expectedBaseEnd = Math.floor((hot.originalEnd - hot.start) * (2 / 3) + hot.start);
+    return event.timestamp > expectedBaseEnd && event.timestamp < hot.originalEnd;
+  }
+
   hotHeal(event: HealEvent) {
     const targetID = event.targetID; //short hand
-
-    const hot = this.hotMap.get(targetID);
-    if (hot === undefined) {
+    const spellID = event.ability.guid;
+    if (
+      !this.hotTracker.hots[targetID] ||
+      (!this.hotTracker.hots[targetID][SPELLS.ESSENCE_FONT_BUFF.id] &&
+        !this.hotTracker.hots[targetID][SPELLS.FAELINE_STOMP_ESSENCE_FONT.id])
+    ) {
       return;
     }
-
-    if (this.hotMap.has(targetID)) {
-      //check if hot heals before bolt hits (should never happen but logs)
-      if (hot.fullCount || event.timestamp - BASE_HOT_TIME > hot.applicationTime) {
-        //check if its an extra bolt from ef or was part of the core 18
-        this.efHotHeal += (event.amount || 0) + (event.absorbed || 0);
-        this.efHotOverheal += event.overheal || 0;
-      }
+    const hot = this.hotTracker.hots[targetID][spellID];
+    if (
+      (spellID === SPELLS.ESSENCE_FONT_BUFF.id && this.fromExtraBolts.has(targetID)) ||
+      this.fromExtraDuration(event, hot)
+    ) {
+      //check if its an extra bolt from ef or was part of the core 18
+      this.efHotHeal += (event.amount || 0) + (event.absorbed || 0);
+      this.efHotOverheal += event.overheal || 0;
     }
   }
 
   boltHeal(event: HealEvent) {
     const targetID = event.targetID; //short hand
-
+    if (event.ability.guid !== SPELLS.ESSENCE_FONT_BUFF.id) {
+      return;
+    }
     this.totalBolts += 1; //told number of bolts
     if (this.boltCount > BASE_BOLTS) {
       //only get bolts that are from upwelling
@@ -133,19 +153,15 @@ class Upwelling extends Analyzer {
       this.totalOverhealing += event.overheal || 0;
       this.totalAbsorbs += event.absorbed || 0;
       this.extraBolts += 1;
+      this.fromExtraBolts.add(targetID);
     }
-    const holder = {
-      fullCount: this.boltCount > BASE_BOLTS, //if its an extra bolt or not
-      applicationTime: event.timestamp, //time when casted for nonextra damage
-    };
-    this.hotMap.set(targetID, holder); //overriding is okay and actually desired if it want to
     this.boltCount += 1; //increase current bolt
   }
 
   efcast(event: CastEvent) {
     this.castEF += 1;
     this.boltCount = 0;
-    this.hotMap.clear();
+    this.fromExtraBolts.clear();
   }
 
   applyBuff(event: ApplyBuffEvent) {
@@ -156,48 +172,43 @@ class Upwelling extends Analyzer {
   }
 
   removeBuff(event: RemoveBuffEvent) {
-    this.hotMap.delete(event.targetID);
+    this.fromExtraBolts.delete(event.targetID);
   }
 
   handleMastery(event: HealEvent) {
     const targetID = event.targetID; //short hand
 
-    if (!this.combatants.players[targetID]) {
-      //fixes weird bug where if the target fails to load we break the module... might want to add this to core
-      return;
-    }
-
-    const hot = this.hotMap.get(targetID);
-    if (hot === undefined) {
-      return;
-    }
-
     if (
-      this.combatants.players[targetID].hasBuff(
-        SPELLS.ESSENCE_FONT_BUFF.id,
-        event.timestamp,
-        0,
-        0,
-        event.sourceID,
-      )
+      !this.hotTracker.hots[targetID] ||
+      (!this.hotTracker.hots[targetID][SPELLS.ESSENCE_FONT_BUFF.id] &&
+        !this.hotTracker.hots[targetID][SPELLS.FAELINE_STOMP_ESSENCE_FONT.id])
     ) {
-      //do they have the hot
-      if (hot.fullCount || event.timestamp - BASE_HOT_TIME > hot.applicationTime) {
-        if (!this.masteryTickTock) {
-          this.masteryHit += 1;
-          this.masteryHealing += event.amount || 0;
-          this.masteryOverhealing += event.overheal || 0;
-          this.masteryAbsorbed += event.absorbed || 0;
-        }
-        this.masteryTickTock = !this.masteryTickTock;
+      return;
+    }
+
+    const efHot = this.hotTracker.hots[targetID][SPELLS.ESSENCE_FONT_BUFF.id];
+    const flsHot = this.hotTracker.hots[targetID][SPELLS.FAELINE_STOMP_ESSENCE_FONT.id];
+
+    //do they have the hot
+    if (
+      this.fromExtraBolts.has(targetID) ||
+      this.fromExtraDuration(event, efHot) ||
+      this.fromExtraDuration(event, flsHot)
+    ) {
+      if (!this.masteryTickTock) {
+        this.masteryHit += 1;
+        this.masteryHealing += event.amount || 0;
+        this.masteryOverhealing += event.overheal || 0;
+        this.masteryAbsorbed += event.absorbed || 0;
       }
+      this.masteryTickTock = !this.masteryTickTock;
     }
   }
 
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(10)}
+        position={STATISTIC_ORDER.DEFAULT}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
@@ -227,18 +238,9 @@ class Upwelling extends Analyzer {
           </>
         }
       >
-        <BoringValueText
-          label={
-            <>
-              <SpellIcon id={TALENTS_MONK.UPWELLING_TALENT.id} /> Upwelling Healing
-            </>
-          }
-        >
-          <>
-            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealingAll))}%
-            Total Healing
-          </>
-        </BoringValueText>
+        <TalentSpellText talent={TALENTS_MONK.UPWELLING_TALENT}>
+          <ItemHealingDone amount={this.totalHealingAll} />
+        </TalentSpellText>
       </Statistic>
     );
   }

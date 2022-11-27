@@ -134,7 +134,7 @@ const RESOURCE_TYPES = asRestrictedTable<Resource>()({
     // Evoker
     id: 19,
     name: 'Essence',
-    icon: 'trade_engineering',
+    icon: 'ability_evoker_powernexus',
     url: 'essence',
   },
 });

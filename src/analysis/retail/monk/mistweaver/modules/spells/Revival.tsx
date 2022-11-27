@@ -2,7 +2,6 @@ import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { Talent } from 'common/TALENTS/types';
 import { TALENTS_MONK } from 'common/TALENTS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
@@ -135,7 +134,7 @@ class Revival extends Analyzer {
       });
     }
 
-    if (this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.BONEDUST_BREW_TALENT)) {
       items.push({
         color: SPELL_COLORS.BONEDUST_BREW_GUST_OF_MIST,
         label: 'Gust Of Mist (bdb)',
@@ -150,7 +149,7 @@ class Revival extends Analyzer {
 
   statistic() {
     return (
-      <Statistic position={STATISTIC_ORDER.CORE(20)} size="flexible">
+      <Statistic position={STATISTIC_ORDER.CORE(3)} size="flexible">
         <div className="pad">
           <label>
             <SpellLink id={this.activeTalent.id}>{this.activeTalent.name}</SpellLink> breakdown

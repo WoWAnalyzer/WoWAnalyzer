@@ -31,7 +31,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 120,
-        charges: Number(combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT.id)) + Number(combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT)),
+        charges: combatant.getRepeatedTalentCount(talents.EMPOWER_RUNE_WEAPON_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -44,7 +44,7 @@ class Abilities extends CoreAbilities {
           ),
         },
         timelineSortIndex: 1,
-        enabled: combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT.id) || combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT),
+        enabled: combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_TALENT.id),
       },
       {
         spell: talents.HORN_OF_WINTER_TALENT.id,
@@ -87,8 +87,8 @@ class Abilities extends CoreAbilities {
           extraSuggestion: (
             <>
               Although you normally want to use this off CD, you can save it to line it up with{' '}
-              <SpellLink id={talents.PILLAR_OF_FROST_TALENT.id} icon />. You can also hold it if you know
-              there will be an opportunity to hit many enemies.
+              <SpellLink id={talents.PILLAR_OF_FROST_TALENT.id} icon />. You can also hold it if you
+              know there will be an opportunity to hit many enemies.
             </>
           ),
         },
@@ -113,7 +113,8 @@ class Abilities extends CoreAbilities {
           extraSuggestion: (
             <>
               Although you normally want to use this off CD, you can save it to line it up with{' '}
-              <SpellLink id={talents.PILLAR_OF_FROST_TALENT.id} icon />.  You can also save it if you only have one target and another will spawn within 45 seconds.
+              <SpellLink id={talents.PILLAR_OF_FROST_TALENT.id} icon />. You can also save it if you
+              only have one target and another will spawn within 45 seconds.
             </>
           ),
         },
@@ -189,7 +190,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: talents.SACRIFICIAL_PACT_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,      
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         gcd: {
           base: 1500,
@@ -272,7 +273,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         charges: combatant.hasTalent(talents.DEATHS_ECHO_TALENT.id) ? 2 : 1,
         gcd: null,
-        cooldown: 45,        
+        cooldown: 45,
       },
       {
         spell: SPELLS.DARK_COMMAND.id,

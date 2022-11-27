@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
@@ -21,9 +22,9 @@ class DoubleTap extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DOUBLE_TAP_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.DOUBLE_TAP_TALENT.id);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DOUBLE_TAP_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.DOUBLE_TAP_TALENT),
       this.onDoubleTapApplication,
     );
     this.addEventListener(
@@ -45,14 +46,14 @@ class DoubleTap extends Analyzer {
   }
 
   onAimedCast() {
-    if (!this.selectedCombatant.hasBuff(SPELLS.DOUBLE_TAP_TALENT.id)) {
+    if (!this.selectedCombatant.hasBuff(TALENTS_HUNTER.DOUBLE_TAP_TALENT.id)) {
       return;
     }
     this.aimedUsage += 1;
   }
 
   onRapidFireCast() {
-    if (!this.selectedCombatant.hasBuff(SPELLS.DOUBLE_TAP_TALENT.id)) {
+    if (!this.selectedCombatant.hasBuff(TALENTS_HUNTER.DOUBLE_TAP_TALENT.id)) {
       return;
     }
     this.RFUsage += 1;
@@ -83,7 +84,7 @@ class DoubleTap extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.DOUBLE_TAP_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_HUNTER.DOUBLE_TAP_TALENT.id}>
           <>
             {this.aimedUsage}
             {'  '}

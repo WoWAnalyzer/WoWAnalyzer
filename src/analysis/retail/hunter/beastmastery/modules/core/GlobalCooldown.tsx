@@ -1,13 +1,7 @@
-import { MAX_GCD, MIN_GCD } from 'analysis/retail/hunter/shared';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import { CastEvent } from 'parser/core/Events';
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import Haste from 'parser/shared/modules/Haste';
-
-import { AOTW_GCD_REDUCTION_AFFECTED_ABILITIES } from '../../constants';
-
-const ASPECT_GCD_REDUCTION = 200;
-
 class GlobalCooldown extends CoreGlobalCooldown {
   static dependencies = {
     ...CoreGlobalCooldown.dependencies,
@@ -21,7 +15,7 @@ class GlobalCooldown extends CoreGlobalCooldown {
    */
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.BARRAGE_TALENT.id) {
+    if (spellId === TALENTS.BARRAGE_TALENT.id) {
       return;
     }
     const isOnGCD = this.isOnGlobalCooldown(spellId);
@@ -29,32 +23,6 @@ class GlobalCooldown extends CoreGlobalCooldown {
       return;
     }
     super.onCast(event);
-  }
-
-  /**
-   * Aspect of the wild reduces Global Cooldown for certain spells by 0.2 seconds before haste calculations
-   */
-  getGlobalCooldownDuration(spellId: number) {
-    let gcd = super.getGlobalCooldownDuration(spellId);
-    if (!gcd) {
-      return 0;
-    }
-    if (
-      AOTW_GCD_REDUCTION_AFFECTED_ABILITIES.includes(spellId) &&
-      this.selectedCombatant.hasBuff(SPELLS.ASPECT_OF_THE_WILD.id)
-    ) {
-      const unhastedAspectGCD = MAX_GCD - ASPECT_GCD_REDUCTION;
-      const hastepercent = 1 + this.haste.current;
-      gcd = unhastedAspectGCD / hastepercent;
-      if (spellId === SPELLS.WILD_SPIRITS.id) {
-        gcd = gcd / (1 + this.haste.current);
-      }
-      return Math.max(MIN_GCD, gcd);
-    }
-    if (spellId === SPELLS.WILD_SPIRITS.id) {
-      gcd = gcd / (1 + this.haste.current);
-    }
-    return Math.max(MIN_GCD, gcd);
   }
 }
 

@@ -1,4 +1,6 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
+
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
@@ -11,11 +13,11 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
-      spell: SPELLS.POWER_INFUSION.id,
+      spell: TALENTS.POWER_INFUSION_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
-      spell: SPELLS.BOON_OF_THE_ASCENDED.id,
+      spell: TALENTS.DARK_ASCENSION_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];

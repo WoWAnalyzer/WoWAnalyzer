@@ -5,6 +5,7 @@ import {
 } from 'analysis/retail/hunter/survival/constants';
 import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -68,7 +69,7 @@ class VolatileBomb extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.WILDFIRE_INFUSION_TALENT.id);
 
     this.addEventListener(
       Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV),

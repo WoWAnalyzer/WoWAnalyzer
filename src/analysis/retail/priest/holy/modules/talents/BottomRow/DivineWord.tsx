@@ -169,7 +169,7 @@ class DivineWord extends Analyzer {
       spellId === TALENTS.HOLY_WORD_CHASTISE_TALENT.id &&
       this.selectedCombatant.hasBuff(TALENTS.DIVINE_WORD_TALENT.id)
     ) {
-      this.chastiseDamage += calculateEffectiveDamage(event, DAMAGE_INCREASE_FROM_CHASTISE);
+      this.chastiseDamage += calculateEffectiveDamage(event, ACTIVATOR_SPELL_INCREASE);
     } else if (
       ABILITIES_THAT_WORK_WITH_DIVINE_FAVOR_CHASTISE.includes(event.ability.guid) &&
       this.selectedCombatant.hasBuff(SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF.id)

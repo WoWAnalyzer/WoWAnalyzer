@@ -47,10 +47,7 @@ const spells: number[] = [
 
   //region Hunter
   SPELLS.BARBED_SHOT_PET_BUFF.id, //The buff applied to BM Hunter pet when casting Barbed Shot
-  SPELLS.DIRE_BEAST_SUMMON.id, //A secondary cast event from Dire Beast talent
-  SPELLS.WILD_MARK.id, //The debuff applied from enemies inside Wild Spirits
-  SPELLS.RESONATING_ARROW_DEBUFF.id, //The debuff applied to mobs inside Kyrian hunter ability resonating arrow area of effect
-  SPELLS.RESONATING_ARROW_DAMAGE_AND_BUFF.id, //The damage event from the Kyrian Hunter Ability also has a cast event tied to it which we shouldn't track
+  SPELLS.DIRE_BEAST_SUMMON.id, //Additional cast event associated with summoning a Dire Beast
   //endregion
 
   //region Mage

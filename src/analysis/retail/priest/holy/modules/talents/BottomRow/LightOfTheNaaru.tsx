@@ -47,7 +47,7 @@ class LightOfTheNaaru extends Analyzer {
               this.chastise.lightOfTheNaaruCooldownReduction) /
               1000,
           )}
-          <small>Cooldown Reduction</small>
+          s <small>Cooldown Reduction</small>
         </BoringSpellValueText>
       </Statistic>
     );

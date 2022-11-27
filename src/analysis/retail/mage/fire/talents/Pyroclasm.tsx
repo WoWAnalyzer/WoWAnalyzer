@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { MS_BUFFER_250, PHOENIX_FLAMES_MAX_CHARGES } from 'analysis/retail/mage/shared';
+import { MS_BUFFER_250 } from 'analysis/retail/mage/shared';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -63,7 +63,7 @@ class Pyroclasm extends Analyzer {
       this.onPyroclasmRefresh,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PYROBLAST),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.PYROBLAST_TALENT),
       this.onPyroblastCast,
     );
     this.addEventListener(Events.fightend, this.onFinished);
@@ -82,10 +82,15 @@ class Pyroclasm extends Analyzer {
       return;
     }
 
+    const PHOENIX_FLAMES_MAX_CHARGES = this.selectedCombatant.hasTalent(
+      TALENTS.CALL_OF_THE_SUN_KING_TALENT,
+    )
+      ? 3
+      : 2;
     const pyroblastBeginCast = this.eventHistory.last(
       1,
       MS_BUFFER_250,
-      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.PYROBLAST),
+      Events.begincast.by(SELECTED_PLAYER).spell(TALENTS.PYROBLAST_TALENT),
     );
     if (pyroblastBeginCast.length > 0) {
       return;
@@ -112,7 +117,7 @@ class Pyroclasm extends Analyzer {
     const lastPyroblastCast = this.eventHistory.last(
       undefined,
       MS_BUFFER_250,
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PYROBLAST),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.PYROBLAST_TALENT),
     )[0];
     if (!lastPyroblastCast) {
       return;
@@ -196,8 +201,8 @@ class Pyroclasm extends Analyzer {
         <>
           You wasted {formatNumber(this.wastedProcs)} of your{' '}
           <SpellLink id={TALENTS.PYROCLASM_TALENT.id} /> procs. These procs make your hard cast (non
-          instant) <SpellLink id={SPELLS.PYROBLAST.id} /> casts deal {DAMAGE_MODIFIER}% extra
-          damage, so try and use them as quickly as possible so they do not expire or get
+          instant) <SpellLink id={TALENTS.PYROBLAST_TALENT.id} /> casts deal {DAMAGE_MODIFIER}%
+          extra damage, so try and use them as quickly as possible so they do not expire or get
           overwritten.
         </>,
       )

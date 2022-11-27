@@ -4,6 +4,7 @@ import {
   MysticTouch,
   TouchOfDeath,
   DampenHarm,
+  SaveThemAll,
 } from 'analysis/retail/monk/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
@@ -41,7 +42,6 @@ import EssenceFontTargetsHit from './modules/spells/EssenceFontTargetsHit';
 import EssenceFontUniqueTargets from './modules/spells/EssenceFontUniqueTargets';
 import ExpelHarm from './modules/spells/ExpelHarm';
 import InvokeYulon from './modules/spells/InvokeYulon';
-import LifeCocoon from './modules/spells/LifeCocoon';
 import RenewingMist from './modules/spells/RenewingMist';
 import Revival from './modules/spells/Revival';
 import RisingSunKick from './modules/spells/RisingSunKick';
@@ -57,6 +57,7 @@ import Lifecycles from './modules/spells/Lifecycles';
 import ManaTea from './modules/spells/ManaTea';
 import MistWrapEnvelopingBreath from './modules/spells/MistWrapEnvelopingBreath';
 import MistyPeaks from './modules/spells/MistyPeaks';
+import MistsOfLife from './modules/spells/MistsOfLife';
 import RefreshingJadeWind from './modules/spells/RefreshingJadeWind';
 import RenewingMistDuringManaTea from './modules/spells/RenewingMistDuringManaTea';
 import RisingMist from './modules/spells/RisingMist';
@@ -67,6 +68,11 @@ import YulonsWhisper from './modules/spells/YulonsWhisper';
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
 import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
+import Unison from './modules/spells/Unison';
+import RapidDiffusion from './modules/spells/RapidDiffusion';
+import T29TierSet from './modules/dragonflight/tier/T29MWTier';
+import DancingMists from './modules/spells/DancingMists';
+import MistyPeaksHealingBreakdown from './modules/features/MistyPeaksHealingBreakdown';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -96,6 +102,7 @@ class CombatLogParser extends CoreCombatLogParser {
     masteryStats: MasteryStats,
     buffs: Buffs,
     essenceFontHealingBreakDown: EssenceFontHealingBreakdown,
+    mistyPeaksHealingBreakdown: MistyPeaksHealingBreakdown,
     averageTimeBetweenRSKSs: AverageTimeBetweenRSKSs,
     remGraph: REMGraph,
 
@@ -108,6 +115,7 @@ class CombatLogParser extends CoreCombatLogParser {
     dampenHarm: DampenHarm,
     touchOfDeath: TouchOfDeath,
     risingSunKick: RisingSunKick,
+    saveThemAll: SaveThemAll,
     vivaciousVivification: VivaciousVivification,
 
     // MW Talents
@@ -129,9 +137,9 @@ class CombatLogParser extends CoreCombatLogParser {
     jadeSerpentStatue: JadeSerpentStatue,
     jadeBond: JadeBond,
     lifecycles: Lifecycles,
-    lifeCocoon: LifeCocoon,
     mistWrapEnvelopingBreath: MistWrapEnvelopingBreath,
     manaTea: ManaTea,
+    mistsOfLife: MistsOfLife,
     mistyPeaks: MistyPeaks,
     nourishingCh: NourishingChi,
     refreshingJadeWind: RefreshingJadeWind,
@@ -145,6 +153,12 @@ class CombatLogParser extends CoreCombatLogParser {
     thunderFocusTea: ThunderFocusTea,
     upwelling: Upwelling,
     yulonsWhisper: YulonsWhisper,
+    unison: Unison,
+    rapidDiffusion: RapidDiffusion,
+    dancingMists: DancingMists,
+
+    // Borrowed Power
+    t29TierSet: T29TierSet,
 
     // Mana Tab
     manaTracker: ManaTracker,

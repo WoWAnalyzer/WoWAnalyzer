@@ -1,13 +1,10 @@
 import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
-import CoreAbilities from 'parser/core/modules/Abilities';
+import SharedAbilities from 'analysis/retail/demonhunter/shared/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import {
-  MASTER_OF_THE_GLAIVE_SCALING,
-  PITCH_BLACK_SCALING,
-} from 'analysis/retail/demonhunter/shared';
+import { MASTER_OF_THE_GLAIVE_SCALING } from 'analysis/retail/demonhunter/shared';
 import { getInfernalStrikeCooldown } from 'analysis/retail/demonhunter/vengeance/modules/spells/InfernalStrike';
 import { getMetamorphosisCooldown } from 'analysis/retail/demonhunter/shared/modules/talents/MetamorphosisCooldown';
 import {
@@ -15,7 +12,7 @@ import {
   PERFECTLY_BALANCED_GLAIVE_SCALING,
 } from 'analysis/retail/demonhunter/vengeance/constants';
 
-class Abilities extends CoreAbilities {
+class Abilities extends SharedAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
@@ -108,17 +105,6 @@ class Abilities extends CoreAbilities {
         },
         isDefensive: true,
       },
-      {
-        spell: TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id),
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown:
-          300 -
-          PITCH_BLACK_SCALING[combatant.getTalentRank(TALENTS_DEMON_HUNTER.PITCH_BLACK_TALENT.id)],
-        gcd: {
-          base: 1500,
-        },
-      },
 
       // Talents
       {
@@ -184,52 +170,6 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
       },
       {
-        spell: [
-          TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id,
-          SPELLS.ELYSIAN_DECREE_CONCENTRATED.id,
-          SPELLS.ELYSIAN_DECREE_PRECISE.id,
-        ],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown:
-          60 *
-          (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion: (
-            <>
-              The only time you should delay casting{' '}
-              <SpellLink id={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id} /> is when you're
-              expecting adds to spawn soon.
-            </>
-          ),
-        },
-      },
-      {
-        spell: TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 90,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-          extraSuggestion: (
-            <>
-              The only time you should delay casting{' '}
-              <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id} /> is when you're expecting
-              adds to spawn soon or are preparing for a burst window.
-            </>
-          ),
-        },
-      },
-      {
         spell: TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
@@ -250,62 +190,6 @@ class Abilities extends CoreAbilities {
         },
       },
 
-      // Sigils
-      {
-        spell: [
-          SPELLS.SIGIL_OF_SILENCE_CONCENTRATED.id,
-          TALENTS_DEMON_HUNTER.SIGIL_OF_SILENCE_TALENT.id,
-          SPELLS.SIGIL_OF_SILENCE_PRECISE.id,
-        ],
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_SILENCE_TALENT),
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown:
-          60 *
-          (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: [
-          SPELLS.SIGIL_OF_MISERY_CONCENTRATED.id,
-          TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT.id,
-          SPELLS.SIGIL_OF_MISERY_PRECISE.id,
-        ],
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT),
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown:
-          60 *
-          (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.MISERY_IN_DEFEAT_TALENT.id),
-          recommendedEfficiency: 0.9,
-          extraSuggestion: `Cast on cooldown for a dps increase.`,
-        },
-      },
-      {
-        spell: [
-          SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id,
-          TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id,
-          SPELLS.SIGIL_OF_FLAME_PRECISE.id,
-        ],
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown:
-          30 *
-          (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion: `Cast on cooldown for a dps increase.`,
-        },
-      },
-
       // Utility
       {
         spell: SPELLS.INFERNAL_STRIKE.id,
@@ -314,34 +198,9 @@ class Abilities extends CoreAbilities {
         charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.BLAZING_PATH_TALENT.id) ? 1 : 0),
         enabled: false, // TODO: change this to true, when infernal strike logging is working, see infernalstrike module for more details.
       },
+
       {
-        spell: TALENTS_DEMON_HUNTER.IMPRISON_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.TORMENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 8,
-      },
-      {
-        spell: SPELLS.CONSUME_MAGIC.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 10,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.DISRUPT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 15,
-      },
-      {
-        spell: SPELLS.THROW_GLAIVE_VENGEANCE.id,
+        spell: [SPELLS.THROW_GLAIVE_VENGEANCE.id, SPELLS.THROW_GLAIVE_VENGEANCE_MOTG.id],
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
           9 -
@@ -357,11 +216,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
-      {
-        spell: SPELLS.GLIDE.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: null,
-      },
 
       // Misc
       {
@@ -369,6 +223,8 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.HIDDEN,
         gcd: null,
       },
+
+      ...super.spellbook(),
     ];
   }
 }

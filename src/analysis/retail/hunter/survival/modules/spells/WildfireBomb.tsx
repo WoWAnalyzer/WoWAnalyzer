@@ -3,6 +3,7 @@ import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared';
 import { WILDFIRE_BOMB_LEEWAY_BUFFER } from 'analysis/retail/hunter/survival/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
@@ -43,7 +44,7 @@ class WildfireBomb extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
+    this.active = !this.selectedCombatant.hasTalent(TALENTS.WILDFIRE_INFUSION_TALENT.id);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WILDFIRE_BOMB), this.onCast);
     this.addEventListener(

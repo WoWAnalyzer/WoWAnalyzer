@@ -54,6 +54,10 @@ import MaliciousIntent from './modules/spells/MaliciousIntent';
 import PowerWordRadiance from './modules/spells/PowerWordRadiance';
 import EvangelismAnalysis from './modules/guide/EvangelismAnalysis';
 import Guide from './Guide';
+import BlazeOfLight from './modules/spells/BlazeOfLight';
+import SelfAtonementAnalyzer from './modules/guide/SelfAtonementAnalysis';
+import ProtectiveLight from '../shared/ProtectiveLight';
+import ResplendentLight from './modules/spells/ResplendentLight';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -118,6 +122,10 @@ class CombatLogParser extends CoreCombatLogParser {
     throesOfPain: ThroesOfPain,
     maliciousIntent: MaliciousIntent,
     evangelismAnalysis: EvangelismAnalysis,
+    blazeOfLight: BlazeOfLight,
+    selfAtonementAnalyzer: SelfAtonementAnalyzer,
+    protectiveLight: ProtectiveLight,
+    resplendentLight: ResplendentLight,
   };
   static guide = Guide;
 }

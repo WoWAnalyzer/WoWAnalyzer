@@ -6,7 +6,7 @@ import {
   csvToObject,
   findResourceCost,
   printTalents,
-  readCsvFromUrl,
+  readCsvFromFile,
   readJsonFromUrl,
 } from './talent-tree-helpers';
 import {
@@ -17,9 +17,9 @@ import {
   ResourceTypes,
 } from './talent-tree-types';
 
-const WOW_BUILD_NUMBER = '10.0.2.46157';
+const WOW_BUILD_NUMBER = '10.0.2.46781';
 const TALENT_DATA_URL = 'https://www.raidbots.com/static/data/beta/new-talent-trees.json';
-const SPELLPOWER_DATA_URL = `https://wow.tools/dbc/api/export/?name=spellpower&build=${WOW_BUILD_NUMBER}`;
+const SPELLPOWER_DATA_FILE = `./spellpower_${WOW_BUILD_NUMBER}.csv`;
 
 const classes: { [classId: number]: { name: string; baseMaxResource: number } } = {
   //TODO Non Mana users verification
@@ -40,7 +40,7 @@ const classes: { [classId: number]: { name: string; baseMaxResource: number } } 
 
 async function generateTalents() {
   const talents: ITalentTree[] = await readJsonFromUrl(TALENT_DATA_URL);
-  const spellpower: ISpellpower[] = csvToObject(await readCsvFromUrl(SPELLPOWER_DATA_URL));
+  const spellpower: ISpellpower[] = csvToObject(await readCsvFromFile(SPELLPOWER_DATA_FILE));
 
   const talentObjectByClass: ITalentObjectByClass = {};
 

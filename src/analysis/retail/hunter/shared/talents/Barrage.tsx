@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -31,9 +32,9 @@ class Barrage extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BARRAGE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BARRAGE_TALENT.id);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BARRAGE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.BARRAGE_TALENT),
       this.onCast,
     );
     this.addEventListener(
@@ -95,13 +96,13 @@ class Barrage extends Analyzer {
     when(this.barrageInefficientCastsThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={SPELLS.BARRAGE_TALENT.id} /> inefficiently {actual}{' '}
+          You cast <SpellLink id={TALENTS.BARRAGE_TALENT.id} /> inefficiently {actual}{' '}
           {actual > 1 ? 'times' : 'time'} throughout the fight. This means you didn't hit all{' '}
           {BARRAGE_HITS_PER_CAST} shots of your barrage channel. Remember to always be facing your
-          target when channeling <SpellLink id={SPELLS.BARRAGE_TALENT.id} />.{' '}
+          target when channeling <SpellLink id={TALENTS.BARRAGE_TALENT.id} />.{' '}
         </>,
       )
-        .icon(SPELLS.BARRAGE_TALENT.icon)
+        .icon(TALENTS.BARRAGE_TALENT.icon)
         .actual(
           t({
             id: 'hunter.shared.suggestions.barrage.efficiency',
@@ -119,7 +120,7 @@ class Barrage extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.BARRAGE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.BARRAGE_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
             <AverageTargetsHit casts={this.casts.length} hits={this.hits} />

@@ -2,6 +2,7 @@ import { Trans } from '@lingui/macro';
 import { STAMPEDE_POTENTIAL_HITS } from 'analysis/retail/hunter/beastmastery/constants';
 import { formatMilliseconds, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, DamageEvent } from 'parser/core/Events';
@@ -27,9 +28,9 @@ class Stampede extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.STAMPEDE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.STAMPEDE_TALENT.id);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.STAMPEDE_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.STAMPEDE_TALENT),
       this.onStampedeApply,
     );
     this.addEventListener(
@@ -92,15 +93,15 @@ class Stampede extends Analyzer {
     when(this.stampedeInefficientCastsThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> inefficiently {actual}{' '}
+          You cast <SpellLink id={TALENTS.STAMPEDE_TALENT.id} /> inefficiently {actual}{' '}
           {actual > 1 ? 'times' : 'time'} throughout the fight. This means you've placed{' '}
-          <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> at a place where it was impossible for it to
+          <SpellLink id={TALENTS.STAMPEDE_TALENT.id} /> at a place where it was impossible for it to
           deal it's full damage, or the enemy moved out of it. Avoid using{' '}
-          <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> on moments where it's likely the enemy will
+          <SpellLink id={TALENTS.STAMPEDE_TALENT.id} /> on moments where it's likely the enemy will
           be moving out of it.
         </>,
       )
-        .icon(SPELLS.STAMPEDE_TALENT.icon)
+        .icon(TALENTS.STAMPEDE_TALENT.icon)
         .actual(
           <Trans id="hunter.beastmastery.suggestions.stampede.efficiency">
             {actual} inefficient {actual > 1 ? 'casts' : 'cast'}
@@ -155,7 +156,7 @@ class Stampede extends Analyzer {
             </>
           }
         >
-          <BoringSpellValueText spellId={SPELLS.STAMPEDE_TALENT.id}>
+          <BoringSpellValueText spellId={TALENTS.STAMPEDE_TALENT.id}>
             <>
               <ItemDamageDone amount={this.damage} />
               <br />

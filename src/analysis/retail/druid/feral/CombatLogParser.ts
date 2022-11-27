@@ -18,7 +18,7 @@ import SpellUsable from './modules/features/SpellUsable';
 import AdaptiveSwarmFeral from 'analysis/retail/druid/feral/modules/spells/AdaptiveSwarmFeral';
 import ApexPredatorsCraving from 'analysis/retail/druid/feral/modules/spells/ApexPredatorsCraving';
 import ConvokeSpiritsFeral from 'analysis/retail/druid/feral/modules/spells/ConvokeSpiritsFeral';
-import BerserkBoosts from './modules/spells/BerserkBoosts';
+import Berserk from 'analysis/retail/druid/feral/modules/spells/Berserk';
 import FerociousBite from './modules/spells/FerociousBite';
 import HitCountAoE from './modules/spells/HitCountAoE';
 import TigersFuryEnergy from './modules/spells/TigersFuryEnergy';
@@ -95,7 +95,7 @@ class CombatLogParser extends CoreCombatLogParser {
     apexPredatorsCraving: ApexPredatorsCraving,
     convokeSpirits: ConvokeSpiritsFeral,
     adaptiveSwarm: AdaptiveSwarmFeral,
-    berserkBoosts: BerserkBoosts,
+    berserk: Berserk,
     rampantFerocity: RampantFerocity,
     doubleClawedRake: DoubleClawedRake,
     sabertooth: Sabertooth,

@@ -78,7 +78,7 @@ class Haste extends Analyzer {
 
     //region Mage
     [TALENTS_MAGE.ICY_VEINS_TALENT.id]: 0.3,
-
+    [TALENTS_MAGE.TOME_OF_ANTONIDAS_TALENT.id]: 0.02,
     //endregion
 
     //region Monk
