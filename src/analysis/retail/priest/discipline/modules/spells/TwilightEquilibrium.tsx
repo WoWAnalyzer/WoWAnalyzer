@@ -1,7 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, {
+  ApplyDebuffEvent,
+  CastEvent,
+  DamageEvent,
+  RefreshDebuffEvent,
+} from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -11,14 +16,15 @@ import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnal
 import { HOLY_DAMAGE_SPELLS, SHADOW_DAMAGE_SPELLS } from '../../constants';
 import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import { SpellLink } from 'interface';
+import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 
 const TE_INCREASE = 0.15;
 
 class TwilightEquilibrium extends Analyzer {
   healing = 0;
   damage = 0;
-
+  ptwDotDamage = 0;
+  ptwTargets: Set<string> = new Set<string>();
   constructor(options: Options) {
     super(options);
 
@@ -29,11 +35,31 @@ class TwilightEquilibrium extends Analyzer {
     }
 
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtone);
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell([SPELLS.PURGE_THE_WICKED_TALENT]),
+      this.onPTWApply,
+    );
+
+    this.addEventListener(
+      Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.PURGE_THE_WICKED_BUFF),
+      this.onPTWApply,
+    );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PURGE_THE_WICKED_BUFF),
+      this.onPTWDotDamage,
+    );
   }
 
   onAtone(event: AtonementAnalyzerEvent) {
-    const { damageEvent } = event;
+    const { damageEvent, healEvent } = event;
+
+    if (damageEvent?.ability.guid === SPELLS.PURGE_THE_WICKED_BUFF.id) {
+      if (this.ptwTargets.has(encodeEventTargetString(damageEvent) || '')) {
+        this.healing += calculateEffectiveHealing(healEvent, TE_INCREASE);
+      }
+    }
+
     if (
       !this.selectedCombatant.hasBuff(SPELLS.TWILIGHT_EQUILIBRIUM_HOLY_BUFF.id) &&
       !this.selectedCombatant.hasBuff(SPELLS.TWILIGHT_EQUILIBRIUM_SHADOW_BUFF.id)
@@ -85,22 +111,28 @@ class TwilightEquilibrium extends Analyzer {
     }
   }
 
+  onPTWApply(event: CastEvent | RefreshDebuffEvent | ApplyDebuffEvent) {
+    const targetString = encodeEventTargetString(event) || '';
+    if (this.selectedCombatant.hasBuff(SPELLS.TWILIGHT_EQUILIBRIUM_HOLY_BUFF.id)) {
+      this.ptwTargets.add(targetString);
+    } else {
+      this.ptwTargets.delete(targetString);
+    }
+  }
+
+  onPTWDotDamage(event: DamageEvent) {
+    if (this.ptwTargets.has(encodeEventTargetString(event) || '')) {
+      this.damage += calculateEffectiveDamage(event, TE_INCREASE);
+      this.ptwDotDamage += calculateEffectiveDamage(event, TE_INCREASE);
+    }
+  }
+
   statistic() {
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={
-          <>
-            This module represents the healing of{' '}
-            <SpellLink id={TALENTS_PRIEST.TWILIGHT_EQUILIBRIUM_TALENT.id} />. The talent is
-            currently subject to a large number of bugs. If the buff is procced in the spell queue
-            window, it will consume the buff but not amplify the spell. If using{' '}
-            <SpellLink id={TALENTS_PRIEST.DIVINE_AEGIS_TALENT.id} />, any procs of this buff will
-            immediately consume either Twilight Equilibrium stack.
-          </>
-        }
       >
         <>
           <BoringSpellValueText spellId={TALENTS_PRIEST.TWILIGHT_EQUILIBRIUM_TALENT.id}>
