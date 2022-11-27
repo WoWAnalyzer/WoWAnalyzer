@@ -13,8 +13,8 @@ import {
 
 export const FROM_ECHO_HARDCAST = 'FromHardcast'; // for linking echo apply to echo cast
 export const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly'; // for linking TA echo apply to TA shield apply
-export const ECHO_REMOVAL = "EchoRemoval"; // for linking echo removal to echo apply
-export const TA_ECHO_REMOVAL = "TaEchoTemoval"; // for linking TA echo removal to echo apply
+export const ECHO_REMOVAL = 'EchoRemoval'; // for linking echo removal to echo apply
+export const TA_ECHO_REMOVAL = 'TaEchoTemoval'; // for linking TA echo removal to echo apply
 export const ECHO_TEMPORAL_ANOMALY = 'TemporalAnomaly'; // for linking BuffApply/Heal to echo removal
 export const ECHO = 'Echo'; // for linking BuffApply/Heal to echo removal
 export const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera'; // link DB hit to buff removal
@@ -124,11 +124,11 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: ECHO,
     linkingEventId: [
-      TALENTS_EVOKER.SPIRITBLOOM_TALENT.id,
+      SPELLS.SPIRITBLOOM_SPLIT.id,
+      SPELLS.SPIRITBLOOM.id,
       SPELLS.LIVING_FLAME_HEAL.id,
       SPELLS.DREAM_BREATH_ECHO.id,
       TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id,
-      SPELLS.EMERALD_BLOSSOM_ECHO.id,
     ],
     linkingEventType: [EventType.Heal],
     referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
@@ -155,7 +155,8 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: ECHO_TEMPORAL_ANOMALY,
     linkingEventId: [
-      TALENTS_EVOKER.SPIRITBLOOM_TALENT.id,
+      SPELLS.SPIRITBLOOM_SPLIT.id,
+      SPELLS.SPIRITBLOOM.id,
       SPELLS.DREAM_BREATH_ECHO.id,
       SPELLS.LIVING_FLAME_HEAL.id,
       TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id,
@@ -212,7 +213,7 @@ const EVENT_LINKS: EventLink[] = [
     },
     additionalCondition(linkingEvent, referencedEvent) {
       return (
-        !HasRelatedEvent(referencedEvent, FLUTTERING_SEEDLINGS_ECHO) &&
+        !HasRelatedEvent(referencedEvent, FLUTTERING_SEEDLINGS_HARDCAST) &&
         (HasRelatedEvent(linkingEvent, ECHO) ||
           HasRelatedEvent(linkingEvent, ECHO_TEMPORAL_ANOMALY))
       );
