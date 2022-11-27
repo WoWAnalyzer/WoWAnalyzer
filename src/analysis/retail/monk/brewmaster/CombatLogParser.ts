@@ -38,8 +38,10 @@ import TigerPalm from './modules/spells/TigerPalm';
 import ExpelHarmNorm from './normalizers/ExpelHarm';
 import GiftOfTheOx from './normalizers/GiftOfTheOx';
 import StaggerLinkNormalizer from './modules/core/StaggerLinkNormalizer';
-import { DiffuseMagic, FortifyingBrew, ZenMeditation } from './modules/core/MajorDefensives';
 import CelestialBrewNormalizer from './modules/spells/CelestialBrew/normalizer';
+import { ZenMeditation } from './modules/core/MajorDefensives/ZenMeditation';
+import { FortifyingBrew } from './modules/core/MajorDefensives/FortifyingBrew';
+import { DiffuseMagic } from './modules/core/MajorDefensives/DiffuseMagic';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {

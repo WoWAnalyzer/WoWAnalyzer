@@ -206,6 +206,14 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
+        spell: talents.DIFFUSE_MAGIC_TALENT.id,
+        buffSpellId: talents.DIFFUSE_MAGIC_TALENT.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: 90,
+        enabled: combatant.hasTalent(talents.DIFFUSE_MAGIC_TALENT),
+        gcd: null,
+      },
+      {
         spell: talents.ZEN_MEDITATION_TALENT.id,
         buffSpellId: talents.ZEN_MEDITATION_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,

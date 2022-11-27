@@ -7,8 +7,10 @@ import Events, {
   DrainEvent,
   HealEvent,
 } from 'parser/core/Events';
-import { MajorDefensive } from '../brewmaster/modules/core/MajorDefensives';
-import { absoluteMitigation } from '../brewmaster/modules/core/MajorDefensives/core';
+import {
+  MajorDefensive,
+  absoluteMitigation,
+} from '../brewmaster/modules/core/MajorDefensives/core';
 
 class DampenHarm extends MajorDefensive {
   currentMaxHP = 0;

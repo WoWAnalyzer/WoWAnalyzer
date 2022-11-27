@@ -16,8 +16,7 @@ import BoringValue from 'parser/ui/BoringValueText';
 import FooterChart, { formatTime } from 'parser/ui/FooterChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { MajorDefensive } from '../../core/MajorDefensives';
-import { Mitigation } from '../../core/MajorDefensives/core';
+import { MajorDefensive, Mitigation } from '../../core/MajorDefensives/core';
 import { damageEvent } from './normalizer';
 
 const PURIFIED_CHI_PCT = 0.2;

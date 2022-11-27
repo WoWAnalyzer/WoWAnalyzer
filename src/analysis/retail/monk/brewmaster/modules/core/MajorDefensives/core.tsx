@@ -155,7 +155,7 @@ export class MajorDefensive extends Analyzer {
     this.currentMitigation = undefined;
   }
 
-  protected get mitigations() {
+  get mitigations() {
     return this.mitigationData;
   }
 

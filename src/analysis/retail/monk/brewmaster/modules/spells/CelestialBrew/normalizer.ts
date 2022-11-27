@@ -4,6 +4,7 @@ import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer'
 import { AbsorbedEvent, DamageEvent, EventType } from 'parser/core/Events';
 
 const relation = 'cb-absorb';
+const reverseRelation = 'cb-absorb-reverse';
 const CelestialBrewAbsorbLink: EventLink = {
   linkRelation: relation,
   linkingEventId: talents.CELESTIAL_BREW_TALENT.id,
@@ -14,6 +15,7 @@ const CelestialBrewAbsorbLink: EventLink = {
   anySource: true,
   anyTarget: false,
   maximumLinks: 1,
+  reverseLinkRelation: reverseRelation,
   additionalCondition: (linkingEvent, referencedEvent) =>
     linkingEvent.type === EventType.Absorbed &&
     referencedEvent.type === EventType.Damage &&
@@ -29,4 +31,9 @@ export default class CelestialBrewNormalizer extends EventLinkNormalizer {
 
 export function damageEvent(event: AbsorbedEvent): DamageEvent | undefined {
   return event._linkedEvents?.find((rel) => rel.relation === relation)?.event as DamageEvent;
+}
+
+export function cbAbsorb(event: DamageEvent): AbsorbedEvent | undefined {
+  return event._linkedEvents?.find((rel) => rel.relation === reverseRelation)
+    ?.event as AbsorbedEvent;
 }
