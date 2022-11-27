@@ -12,9 +12,10 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import SpellLink from 'interface/SpellLink';
 import Combatants from 'parser/shared/modules/Combatants';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import { TooltipElement } from 'interface';
 import { isFromMistyPeaks } from '../../normalizers/CastLinkNormalizer';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 class RapidDiffusion extends Analyzer {
   get totalRemThroughput() {
@@ -27,6 +28,10 @@ class RapidDiffusion extends Analyzer {
 
   get mistyPeaksHealingFromRapidDiffusion() {
     return this.extraMistyPeaksHealing + this.extraMistyPeaksAbsorb;
+  }
+
+  get totalHealing() {
+    return this.totalRemThroughput + this.totalVivifyThroughput;
   }
 
   static dependencies = {
@@ -171,6 +176,17 @@ class RapidDiffusion extends Analyzer {
     }
   }
 
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT.id} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
+        )} %`}
+      />
+    );
+  }
+
   statistic() {
     return (
       <Statistic
@@ -200,7 +216,7 @@ class RapidDiffusion extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_MONK.RAPID_DIFFUSION_TALENT}>
-          <ItemHealingDone amount={this.totalRemThroughput + this.totalVivifyThroughput} />
+          <ItemHealingDone amount={this.totalHealing} />
           <br />
           <TooltipElement
             content={
