@@ -23,7 +23,6 @@ const TE_INCREASE = 0.15;
 class TwilightEquilibrium extends Analyzer {
   healing = 0;
   damage = 0;
-  ptwDotDamage = 0;
   ptwTargets: Set<string> = new Set<string>();
   constructor(options: Options) {
     super(options);
@@ -60,13 +59,6 @@ class TwilightEquilibrium extends Analyzer {
       }
     }
 
-    if (
-      !this.selectedCombatant.hasBuff(SPELLS.TWILIGHT_EQUILIBRIUM_HOLY_BUFF.id) &&
-      !this.selectedCombatant.hasBuff(SPELLS.TWILIGHT_EQUILIBRIUM_SHADOW_BUFF.id)
-    ) {
-      return;
-    }
-
     if (HOLY_DAMAGE_SPELLS.includes(damageEvent?.ability.guid ?? -1)) {
       this.handleHolyHeal(event);
     }
@@ -92,22 +84,17 @@ class TwilightEquilibrium extends Analyzer {
 
   onDamage(event: DamageEvent) {
     if (
-      !this.selectedCombatant.hasBuff(SPELLS.TWILIGHT_EQUILIBRIUM_HOLY_BUFF.id) &&
-      !this.selectedCombatant.hasBuff(SPELLS.TWILIGHT_EQUILIBRIUM_SHADOW_BUFF.id)
+      HOLY_DAMAGE_SPELLS.includes(event?.ability.guid ?? -1) &&
+      this.selectedCombatant.hasBuff(SPELLS.TWILIGHT_EQUILIBRIUM_HOLY_BUFF.id)
     ) {
-      return;
+      this.damage += calculateEffectiveDamage(event, TE_INCREASE);
     }
 
-    if (HOLY_DAMAGE_SPELLS.includes(event?.ability.guid ?? -1)) {
-      if (this.selectedCombatant.hasBuff(SPELLS.TWILIGHT_EQUILIBRIUM_HOLY_BUFF.id)) {
-        this.damage += calculateEffectiveDamage(event, TE_INCREASE);
-      }
-    }
-
-    if (SHADOW_DAMAGE_SPELLS.includes(event?.ability.guid ?? -1)) {
-      if (this.selectedCombatant.hasBuff(SPELLS.TWILIGHT_EQUILIBRIUM_SHADOW_BUFF.id)) {
-        this.damage += calculateEffectiveDamage(event, TE_INCREASE);
-      }
+    if (
+      SHADOW_DAMAGE_SPELLS.includes(event?.ability.guid ?? -1) &&
+      this.selectedCombatant.hasBuff(SPELLS.TWILIGHT_EQUILIBRIUM_SHADOW_BUFF.id)
+    ) {
+      this.damage += calculateEffectiveDamage(event, TE_INCREASE);
     }
   }
 
@@ -123,7 +110,6 @@ class TwilightEquilibrium extends Analyzer {
   onPTWDotDamage(event: DamageEvent) {
     if (this.ptwTargets.has(encodeEventTargetString(event) || '')) {
       this.damage += calculateEffectiveDamage(event, TE_INCREASE);
-      this.ptwDotDamage += calculateEffectiveDamage(event, TE_INCREASE);
     }
   }
 
