@@ -91,9 +91,7 @@ class HotAttributor extends Analyzer {
       //mists of life rem
       remDebug && this._newReMAttributionLogging(event, this.MistsOfLifeAttrib);
       this.hotTracker.addAttributionFromApply(this.MistsOfLifeAttrib, event);
-      this.hotTracker.hots[event.targetID][
-        event.ability.guid
-      ].maxDuration = this.hotTracker._getDuration(this.hotTracker.hotInfo[event.ability.guid]);
+      this.hotTracker.hots[event.targetID][event.ability.guid].maxDuration = this.hotTracker._getDuration(this.hotTracker.hotInfo[event.ability.guid]);
     } else if (event.prepull || isFromHardcast(event)) {
       //hardcast rem
       remDebug && this._newReMAttributionLogging(event, this.REMHardcastAttrib);
