@@ -755,6 +755,7 @@ class CombatLogParser {
       modules: this._modules as ModulesOf<any>,
       info: this.info,
       events: this.eventHistory,
+      parser: this,
     };
 
     const Component = ctor.guide;

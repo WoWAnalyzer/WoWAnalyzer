@@ -42,6 +42,8 @@ import CelestialBrewNormalizer from './modules/spells/CelestialBrew/normalizer';
 import { ZenMeditation } from './modules/core/MajorDefensives/ZenMeditation';
 import { FortifyingBrew } from './modules/core/MajorDefensives/FortifyingBrew';
 import { DiffuseMagic } from './modules/core/MajorDefensives/DiffuseMagic';
+import DefensiveBuffs from './modules/core/MajorDefensives/DefensiveBuffs';
+import DefensiveBuffLinkNormalizer from './modules/core/MajorDefensives/DefensiveBuffLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -82,6 +84,8 @@ class CombatLogParser extends CoreCombatLogParser {
     zenMed: ZenMeditation,
     fortBrew: FortifyingBrew,
     diffuseMagic: DiffuseMagic,
+    defensiveBuffs: DefensiveBuffs,
+    defensiveLinks: DefensiveBuffLinkNormalizer,
 
     // Items
     stormstoutsLastKeg: StormtoutsLastKeg,
