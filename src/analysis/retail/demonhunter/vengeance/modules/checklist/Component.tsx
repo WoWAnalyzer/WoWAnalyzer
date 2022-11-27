@@ -11,6 +11,7 @@ import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Che
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import TalentCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/TalentCastEfficiencyRequirement';
+import TalentRequirement from 'parser/shared/modules/features/Checklist/TalentRequirement';
 
 const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
   const { combatant, castEfficiency, thresholds } = props;
@@ -53,22 +54,30 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
         <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT} />
         <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.FRACTURE_TALENT} />
         <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.FELBLADE_TALENT} />
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT.id) &&
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT) && (
+            <AbilityRequirement spell={SPELLS.ELYSIAN_DECREE_PRECISE.id} />
+          )}
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id) &&
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT) && (
+            <AbilityRequirement spell={SPELLS.ELYSIAN_DECREE_CONCENTRATED.id} />
+          )}
+        {!(
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT.id) ||
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id)
+        ) && (
+          <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT} />
+        )}
         <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT} />
         <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.RETALIATION_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={SPELLS.DEMON_SPIKES.id} />
-              </>
-            }
-            thresholds={thresholds.demonSpikes}
-          />
+        <TalentRequirement
+          talent={TALENTS_DEMON_HUNTER.RETALIATION_TALENT}
+          name={<SpellLink id={SPELLS.DEMON_SPIKES.id} />}
+          thresholds={thresholds.demonSpikes}
+        />
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT.id) && (
+          <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} />
         )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.id) &&
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT.id) && (
-            <AbilityRequirement spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.id} />
-          )}
       </Rule>
 
       <Rule
@@ -89,38 +98,32 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
         }
       >
         <Requirement
-          name={
-            <>
-              <SpellLink id={SPELLS.DEMON_SPIKES.id} />
-            </>
-          }
+          name={<SpellLink id={SPELLS.DEMON_SPIKES.id} />}
           thresholds={thresholds.demonSpikes}
         />
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id) &&
-          !combatant.hasTalent(TALENTS_DEMON_HUNTER.FEED_THE_DEMON_TALENT.id) && (
-            <Requirement
-              name={
-                <>
-                  <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id} /> casted at 4+ souls
-                </>
-              }
-              thresholds={thresholds.spiritBombSoulsConsume}
-            />
-          )}
-        {!combatant.hasTalent(TALENTS_DEMON_HUNTER.FEED_THE_DEMON_TALENT.id) &&
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id) && (
-            <Requirement
-              name={
-                <>
-                  <SpellLink id={SPELLS.SOUL_CLEAVE.id} /> minimizing souls consumed
-                </>
-              }
-              thresholds={thresholds.soulCleaveSoulsConsumed}
-            />
-          )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id} />
+        {!combatant.hasTalent(TALENTS_DEMON_HUNTER.FEED_THE_DEMON_TALENT.id) && (
+          <TalentRequirement
+            talent={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT}
+            name={
+              <>
+                <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id} /> casted at 4+ souls
+              </>
+            }
+            thresholds={thresholds.spiritBombSoulsConsume}
+          />
         )}
+        {!combatant.hasTalent(TALENTS_DEMON_HUNTER.FEED_THE_DEMON_TALENT.id) && (
+          <TalentRequirement
+            talent={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT}
+            name={
+              <>
+                <SpellLink id={SPELLS.SOUL_CLEAVE.id} /> minimizing souls consumed
+              </>
+            }
+            thresholds={thresholds.soulCleaveSoulsConsumed}
+          />
+        )}
+        <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT} />
       </Rule>
 
       <Rule
@@ -159,26 +162,24 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
           </>
         }
       >
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FRAILTY_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={SPELLS.FRAILTY.id} /> debuff uptime
-              </>
-            }
-            thresholds={thresholds.frailtyDebuff}
-          />
-        )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.PAINBRINGER_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={TALENTS_DEMON_HUNTER.PAINBRINGER_TALENT.id} /> buff uptime
-              </>
-            }
-            thresholds={thresholds.painbringerBuff}
-          />
-        )}
+        <TalentRequirement
+          talent={TALENTS_DEMON_HUNTER.FRAILTY_TALENT}
+          name={
+            <>
+              <SpellLink id={SPELLS.FRAILTY.id} /> debuff uptime
+            </>
+          }
+          thresholds={thresholds.frailtyDebuff}
+        />
+        <TalentRequirement
+          talent={TALENTS_DEMON_HUNTER.PAINBRINGER_TALENT}
+          name={
+            <>
+              <SpellLink id={TALENTS_DEMON_HUNTER.PAINBRINGER_TALENT.id} /> buff uptime
+            </>
+          }
+          thresholds={thresholds.painbringerBuff}
+        />
       </Rule>
 
       <Rule
@@ -186,17 +187,6 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
         description={<>You should always avoid capping your Fury/Souls and spend them regularly.</>}
       >
         <Requirement name="Total Fury Waste" thresholds={thresholds.furyDetails} />
-        {combatant.hasTalent(SPELLS.IMMOLATION_AURA.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={SPELLS.IMMOLATION_AURA.id} /> Fury wasted
-              </>
-            }
-            thresholds={thresholds.immolationAuraEfficiency}
-          />
-        )}
-
         {!combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT.id) && (
           <Requirement
             name={
@@ -207,17 +197,15 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
             thresholds={thresholds.shearFracture}
           />
         )}
-
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={TALENTS_DEMON_HUNTER.FRACTURE_TALENT.id} /> bad casts
-              </>
-            }
-            thresholds={thresholds.shearFracture}
-          />
-        )}
+        <TalentRequirement
+          talent={TALENTS_DEMON_HUNTER.FRACTURE_TALENT}
+          name={
+            <>
+              <SpellLink id={TALENTS_DEMON_HUNTER.FRACTURE_TALENT.id} /> bad casts
+            </>
+          }
+          thresholds={thresholds.shearFracture}
+        />
       </Rule>
 
       <PreparationRule thresholds={thresholds} />

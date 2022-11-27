@@ -591,12 +591,16 @@ class StatTracker extends Analyzer {
   }
 
   get baseHastePercentage() {
-    return 0;
+    return this.selectedCombatant.race === RACES.Goblin ? 0.01 : 0;
   }
 
   get baseMasteryPercentage() {
     const spellPoints = 8; // Spellpoint is a unit of mastery, each class has 8 base Spellpoints
-    return (spellPoints * (this.selectedCombatant.spec?.masteryCoefficient || 1)) / 100;
+    let mastery = (spellPoints * (this.selectedCombatant.spec?.masteryCoefficient || 1)) / 100;
+    if (this.selectedCombatant.race === RACES.Dracthyr) {
+      mastery += 0.018;
+    }
+    return mastery;
   }
 
   get hasMasteryCoefficient() {

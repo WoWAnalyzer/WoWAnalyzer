@@ -115,8 +115,8 @@ const talents = createTalentList({
     icon: 'ability_monk_spearhand',
     maxRanks: 1,
   },
-  FORTIFYING_BREW_SHARED_TALENT: {
-    id: 388917,
+  FORTIFYING_BREW_TALENT: {
+    id: 115203,
     name: 'Fortifying Brew',
     icon: 'ability_monk_fortifyingale_new',
     maxRanks: 1,
@@ -331,7 +331,7 @@ const talents = createTalentList({
     name: 'Enveloping Mist',
     icon: 'spell_monk_envelopingmist',
     maxRanks: 1,
-    manaCost: 2500,
+    manaCost: 2000,
   },
   ESSENCE_FONT_TALENT: {
     id: 191837,
@@ -485,7 +485,7 @@ const talents = createTalentList({
     name: 'Refreshing Jade Wind',
     icon: 'ability_monk_rushingjadewind',
     maxRanks: 1,
-    manaCost: 1500,
+    manaCost: 2500,
   },
   ENVELOPING_BREATH_TALENT: {
     id: 343655,
@@ -741,9 +741,9 @@ const talents = createTalentList({
     icon: 'ability_warrior_unrelentingassault',
     maxRanks: 1,
   },
-  FORTIFYING_BREW_BREWMASTER_TALENT: {
+  FORTIFYING_BREW_DETERMINATION_TALENT: {
     id: 322960,
-    name: 'Fortifying Brew',
+    name: 'Fortifying Brew: Determination',
     icon: 'ability_monk_fortifyingale_new',
     maxRanks: 1,
   },
@@ -858,7 +858,7 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   CALL_TO_ARMS_TALENT: {
-    id: 395268,
+    id: 397251,
     name: 'Call to Arms',
     icon: 'ability_bastion_monk',
     maxRanks: 1,

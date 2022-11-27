@@ -12,6 +12,7 @@ import { Options } from 'parser/core/Module';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
+import convertColor from 'parser/ui/convertColor';
 
 /**
  * An abstract implementation producing a graph showing the number of buffs the player has active
@@ -387,23 +388,9 @@ abstract class BuffCountGraph extends Analyzer {
   _convertToInternalTracker(spec: GraphedSpellSpec): GraphedSpellInternalTracker {
     const spells: Spell[] = Array.isArray(spec.spells) ? spec.spells : [spec.spells];
     const name: string = spec.name !== undefined ? spec.name : spells[0].name;
-    const color: string = this._convertColor(spec.color);
+    const color: string = convertColor(spec.color);
     const currCount = 0;
     return { name, spells, color, currCount };
-  }
-
-  /** Converts a color from input format '#rrggbb' to internal format 'r,g,b' */
-  _convertColor(color: string) {
-    if (color.length !== 7 || !color.startsWith('#')) {
-      console.error(
-        'Got color to convert with bad format: ' + color + ' - will be replaced with white.',
-      );
-      return '#ffffff';
-    }
-    const r = '0x' + color[1] + color[2];
-    const g = '0x' + color[3] + color[4];
-    const b = '0x' + color[5] + color[6];
-    return 'rgb(' + Number(r) + ',' + Number(g) + ',' + Number(b) + ')';
   }
 }
 

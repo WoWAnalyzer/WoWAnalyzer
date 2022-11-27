@@ -1,7 +1,10 @@
-import Enchants from './enchants';
 import safeMerge from 'common/safeMerge';
 
-const items = safeMerge(Enchants);
+import Enchants from './enchants';
+import Potions from './potions';
+import Gems from './gems';
+
+const items = safeMerge(Enchants, Potions, Gems);
 
 export default items;
 export * from './tier';

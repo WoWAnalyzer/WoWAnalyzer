@@ -142,6 +142,15 @@ class Combatant extends Entity {
     return this.treeTalentsBySpellId.has(spellId);
   }
 
+  /**
+   * Return the number of times that a talent has been taken for repeated
+   * talents (like Empower Rune Weapon or Stormkeeper).
+   */
+  getRepeatedTalentCount(spell: number | Spell): number {
+    const spellId = typeof spell === 'number' ? spell : spell.id;
+    return this._combatantInfo.talentTree?.filter((entry) => entry.spellID === spellId).length ?? 0;
+  }
+
   /** Returns the number of points the combatant has in the specified talent. If the talent
    *  hasn't been picked at all, this will be zero. */
   getTalentRank(spell: number | Spell) {
