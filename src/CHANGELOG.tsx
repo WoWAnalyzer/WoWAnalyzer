@@ -67,6 +67,7 @@ import SpellLink from 'interface/SpellLink';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 export default [
+  change(date(2022, 11, 27), 'Add phials for Dragonflight.', ToppleTheNun),
   change(date(2022, 11, 26), 'Add potions for Dragonflight.', ToppleTheNun),
   change(date(2022, 11, 26), 'Add gems for Dragonflight.', ToppleTheNun),
   change(date(2022, 11, 26), 'Add Inscription weapon enhancements for Dragonflight.', ToppleTheNun),
