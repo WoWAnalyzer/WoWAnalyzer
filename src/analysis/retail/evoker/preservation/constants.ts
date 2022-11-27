@@ -9,11 +9,12 @@ export const SPELL_COLORS = {
   VERDANT_EMBRACE: '#96ffd8',
   DREAM_BREATH: '#c49c94',
   SPIRITBLOOM: '#fe85ff',
-  EMERALD_BLOSSOM: '#ffffff',
+  EMERALD_BLOSSOM: '#c1e1c1',
   FLUTTERING_SEEDLING: '#50c878',
+  DISINTEGRATE: '#008080',
 };
 
-// heal events that can be caused by an echo buff or proc'd from an echo consumption (seedling)
+// heal events that can be caused by an echo heal
 export const ECHO_HEALS = [
   SPELLS.DREAM_BREATH_ECHO,
   SPELLS.LIVING_FLAME_HEAL,
