@@ -34,10 +34,12 @@ import Abilities from '../../Abilities';
 import { isApplicableUpdateSpellUsableEvent } from 'interface/report/Results/Timeline/Component';
 import { defensiveExpiration } from './DefensiveBuffLinkNormalizer';
 import styled from '@emotion/styled';
-import { Tooltip } from 'interface';
-import { useCallback, useState } from 'react';
+import { SpellLink, Tooltip } from 'interface';
+import { useCallback, useMemo, useState } from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import React from 'react';
+import { Mitigation, MitigationSegment, MitigationSegments } from './core';
+import { formatDuration, formatNumber } from 'common/format';
 
 const MAJOR_ANALYZERS = [CelestialBrew, FortifyingBrew, DampenHarm, DiffuseMagic, ZenMeditation];
 
@@ -230,9 +232,87 @@ const BuffBar = styled.div<{ start: number; end: number; fightDuration: number }
   left: ${({ start, fightDuration }) => (start / fightDuration) * 100}%;
 `;
 
+const BuffBarContainer = styled.div`
+  position: relative;
+  height: 24px;
+`;
+
+const TooltipSegments = styled(MitigationSegments)`
+  min-width: 100px;
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.2);
+`;
+
+const MitigationDataRow = styled.div`
+  display: flex;
+  align-items: center;
+  align-content: center;
+  gap: 1rem;
+  line-height: 1em;
+  margin-top: 0.4em;
+`;
+
+const BuffTooltip = ({
+  mitigation,
+  segments,
+  maxValue,
+}: {
+  mitigation: Mitigation;
+  segments: MitigationSegment[];
+  maxValue: number;
+}) => {
+  const fightStart = useInfo()?.fightStart ?? 0;
+  return (
+    <div>
+      <div>
+        <SpellLink id={mitigation.start.ability.guid} />
+        {' @ '}
+        {formatDuration(mitigation.start.timestamp - fightStart)} -{' '}
+        {formatDuration(mitigation.end.timestamp - fightStart)}
+      </div>
+      <MitigationDataRow>
+        <div>Mitigated {formatNumber(mitigation.amount)} Damage</div>
+        <TooltipSegments segments={segments} maxValue={maxValue} />
+      </MitigationDataRow>
+    </div>
+  );
+};
+
 const BuffDisplay = ({ hoverKey }: { hoverKey: HoverKey | null }) => {
   const info = useInfo();
   const events = useEvents();
+  const analyzers = useAnalyzers(MAJOR_ANALYZERS);
+
+  const tooltipData = useCallback(
+    (event: ApplyBuffEvent) => {
+      const analyzer = analyzers?.find((analyzer) => analyzer.appliesToEvent(event));
+      const mit = analyzer?.mitigations.find((mit) => mit.start.timestamp === event.timestamp);
+
+      if (!mit) {
+        return undefined;
+      }
+
+      return {
+        mitigation: mit,
+        segments: analyzer!.mitigationSegments(mit),
+      };
+    },
+    [analyzers],
+  );
+
+  const maxValue = useMemo(
+    () =>
+      Math.max.apply(
+        null,
+        analyzers?.map((analyzer) =>
+          Math.max.apply(
+            null,
+            analyzer.mitigations.map((mit) => mit.amount),
+          ),
+        ),
+      ),
+    [analyzers],
+  );
 
   if (!info) {
     return null;
@@ -252,19 +332,36 @@ const BuffDisplay = ({ hoverKey }: { hoverKey: HoverKey | null }) => {
         start: event.timestamp - info.fightStart,
         end: expirationTime - info.fightStart,
         ability: event.ability,
+        tooltipData: tooltipData(event),
       };
     });
 
   return (
-    <div style={{ position: 'relative', height: 24 }}>
-      {buffEvents.map(({ start, end, ability, externalHover }) => (
-        <Tooltip key={start} content={ability.name} isOpen={externalHover || undefined}>
+    <BuffBarContainer>
+      {buffEvents.map(({ start, end, ability, externalHover, tooltipData }) => (
+        <Tooltip
+          key={`${start}-${ability.guid}`}
+          hoverable
+          content={
+            tooltipData ? (
+              <BuffTooltip {...tooltipData} maxValue={maxValue} />
+            ) : (
+              'Unable to locate mitigation data'
+            )
+          }
+          isOpen={externalHover || undefined}
+        >
           <BuffBar start={start} end={end} fightDuration={info.fightDuration} />
         </Tooltip>
       ))}
-    </div>
+    </BuffBarContainer>
   );
 };
+
+const BareTimelineContainer = styled(EmbeddedTimelineContainer)`
+  padding: 0;
+  background: unset;
+`;
 
 const DefensiveTimeline = ({ width }: { width: number }) => {
   const info = useInfo();
@@ -307,11 +404,7 @@ const DefensiveTimeline = ({ width }: { width: number }) => {
     }, new Map());
 
   return (
-    <EmbeddedTimelineContainer
-      secondWidth={secondWidth}
-      secondsShown={secondsShown}
-      style={{ padding: 0, background: 'unset' }}
-    >
+    <BareTimelineContainer secondWidth={secondWidth} secondsShown={secondsShown}>
       <SpellTimeline>
         <Cooldowns
           start={info.fightStart}
@@ -321,9 +414,13 @@ const DefensiveTimeline = ({ width }: { width: number }) => {
           abilities={abilities!}
         />
       </SpellTimeline>
-    </EmbeddedTimelineContainer>
+    </BareTimelineContainer>
   );
 };
+
+const BuffTimelineContainer = styled.div`
+  margin-left: 48px;
+`;
 
 export default function MajorDefensivesSection(): JSX.Element | null {
   const info = useInfo();
@@ -353,10 +450,10 @@ export default function MajorDefensivesSection(): JSX.Element | null {
       </Explanation>
       <SubSection>
         <DamageMitigationChart onHover={onHover} />
-      </SubSection>
-      <SubSection style={{ marginLeft: 48 /* hack for chart offset */ }}>
-        <BuffDisplay hoverKey={chartHover} />
-        <AutoSizer disableHeight>{(props) => <DefensiveTimeline {...props} />}</AutoSizer>
+        <BuffTimelineContainer>
+          <BuffDisplay hoverKey={chartHover} />
+          <AutoSizer disableHeight>{(props) => <DefensiveTimeline {...props} />}</AutoSizer>
+        </BuffTimelineContainer>
       </SubSection>
     </Section>
   );

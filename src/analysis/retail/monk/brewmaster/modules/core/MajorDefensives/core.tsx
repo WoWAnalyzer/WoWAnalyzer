@@ -50,6 +50,7 @@ const MitigationTooltipBody = 'div';
 const MitigationSegmentContainer = styled.div`
   height: 1em;
   text-align: left;
+  line-height: 1em;
 `;
 const MitigationRowContainer = styled.div`
   display: grid;
@@ -67,12 +68,37 @@ const MitigationRowContainer = styled.div`
 // we use content-box sizing with a border because that makes the hitbox bigger, so it is easier to read the tooltips.
 const MitigationTooltipSegment = styled.div<{ color: string; width: number }>`
   background-color: ${(props) => props.color};
-  width: ${(props) => Math.max(2, props.width * 95)}%;
+  width: calc(${(props) => Math.max(2, props.width * 100)}% - 1px);
   height: 100%;
   display: inline-block;
   box-sizing: content-box;
   border-left: 1px solid #000;
 `;
+
+export const MitigationSegments = ({
+  segments,
+  maxValue,
+  className,
+}: {
+  segments: MitigationSegment[];
+  maxValue: number;
+  className?: string;
+}) => (
+  <MitigationSegmentContainer className={className}>
+    {segments.map((seg, ix) => (
+      <Tooltip
+        content={
+          <>
+            {seg.tooltip} - {formatNumber(seg.amount)}
+          </>
+        }
+        key={ix}
+      >
+        <MitigationTooltipSegment color={seg.color} width={seg.amount / maxValue} />
+      </Tooltip>
+    ))}
+  </MitigationSegmentContainer>
+);
 
 const MitigationRow = ({
   mitigation,
@@ -89,20 +115,7 @@ const MitigationRow = ({
     <MitigationRowContainer>
       <div>{formatDuration(mitigation.start.timestamp - fightStart)}</div>
       <div>{formatNumber(mitigation.amount)}</div>
-      <MitigationSegmentContainer>
-        {segments.map((seg, ix) => (
-          <Tooltip
-            content={
-              <>
-                {seg.tooltip} - {formatNumber(seg.amount)}
-              </>
-            }
-            key={ix}
-          >
-            <MitigationTooltipSegment color={seg.color} width={seg.amount / maxValue} />
-          </Tooltip>
-        ))}
-      </MitigationSegmentContainer>
+      <MitigationSegments segments={segments} maxValue={maxValue} />
     </MitigationRowContainer>
   );
 };
@@ -115,6 +128,10 @@ export class MajorDefensive extends Analyzer {
 
   private talent: Talent;
   private buff: Spell;
+
+  appliesToEvent(buffEvent: ApplyBuffEvent): boolean {
+    return buffEvent.ability.guid === this.buff.id;
+  }
 
   constructor({ talent, buffSpell }: DefensiveOptions, options: Options) {
     super(options);
