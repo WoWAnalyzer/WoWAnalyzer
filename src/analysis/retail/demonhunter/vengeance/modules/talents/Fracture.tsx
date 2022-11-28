@@ -9,17 +9,16 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import FuryTracker from 'analysis/retail/demonhunter/vengeance/modules/resourcetracker/FuryTracker';
 import { formatPercentage } from 'common/format';
-import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/vengeance/guide/CastSummaryAndBreakdown';
+import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/CastSummaryAndBreakdown';
 import { UNRESTRAINED_FURY_SCALING } from 'analysis/retail/demonhunter/shared';
 import { TIERS } from 'game/TIERS';
 import { ReactNode } from 'react';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { t, Trans } from '@lingui/macro';
 
-// Fracture fury gen (no tier): 25
-// Metamorphosis Fracture fury gen (no tier): 45
-// Fracture fury gen (w/ tier): 30
-// Metamorphosis Fracture fury gen (w/ tier): 54
+// Fracture fury gen (no T29): 25
+// Metamorphosis Fracture fury gen (no T29): 45
+// Fracture fury gen (w/ T29): 30
+// Metamorphosis Fracture fury gen (w/ T29): 54
 const DEFAULT_IN_META_FURY_LIMIT = 55;
 const DEFAULT_NOT_META_FURY_LIMIT = 75;
 const T29_IN_META_FURY_LIMIT = 46;
@@ -224,7 +223,7 @@ export default class Fracture extends Analyzer {
       </p>
     );
     const data = (
-      <RoundedPanel>
+      <div>
         <Trans id="guide.demonhunter.vengeance.sections.rotation.fracture.data">
           <p>
             <strong>{formatPercentage(numberOfGoodFractures / numberOfFractures, 1)}%</strong> of
@@ -241,7 +240,7 @@ export default class Fracture extends Analyzer {
           good={goodFractures}
           bad={badFractures}
         />
-      </RoundedPanel>
+      </div>
     );
 
     return explanationAndDataSubsection(explanation, data);

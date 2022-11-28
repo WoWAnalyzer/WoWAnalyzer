@@ -25,13 +25,12 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
 import EnergyTracker from 'analysis/retail/druid/feral/modules/core/energy/EnergyTracker';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import {
-  CooldownExpandable,
-  CooldownExpandableItem,
-} from 'analysis/retail/druid/restoration/Guide';
 import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import InformationIcon from 'interface/icons/Information';
+import CooldownExpandable, {
+  CooldownExpandableItem,
+} from 'interface/guide/components/CooldownExpandable';
 
 const BERSERK_CDR_MS = 700;
 const CONVOKE_BITE_CPS = 4;
