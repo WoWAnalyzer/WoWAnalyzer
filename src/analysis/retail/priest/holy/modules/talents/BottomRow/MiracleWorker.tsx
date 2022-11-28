@@ -11,7 +11,6 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 /**
  * Holy Word: Serenity and Holy Word: Sanctify gain an additional charge.
  */
-
 class MiracleWorker extends Analyzer {
   static dependencies = {
     abilities: Abilities,
@@ -67,16 +66,8 @@ class MiracleWorker extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            <p>
-              This statistic shows the estimated number of extra casts granted from having an
-              additional charge of Holy Word: Serenity and Holy Word: Sanctify.
-            </p>
-            <p>
-              This is done by looking at the remaining cooldown of a holy word after a cast to
-              determine how much time the spell would have spent off cooldown without the extra
-              charge. If casting these spells on cooldown, only 1 extra cast will be gained over the
-              course of a fight.
-            </p>
+            This statistic shows the estimated number of extra casts granted from having an
+            additional charge of Holy Word: Serenity and Holy Word: Sanctify.
           </>
         }
         category={STATISTIC_CATEGORY.TALENTS}

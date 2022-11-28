@@ -33,8 +33,11 @@ class RapidRecovery extends Analyzer {
     );
   }
 
-  get averageRenewTick() {
-    return this.renew.averageHealingPerTick + this.renew.averageAbsorptionPerTick;
+  get averageRenewTickPreBuff() {
+    const totalRenewHealing = this.renew.totalRenewHealing + this.renew.totalRenewAbsorbs;
+    const healingPerTick = totalRenewHealing / this.renew.totalRenewTicks;
+    // divide average healing per tick by RR increase to find average expected tick without buff
+    return healingPerTick / (1 + RAPID_RECOVERY_HEALING_INCREASE);
   }
 
   get ticksLost() {
@@ -42,7 +45,9 @@ class RapidRecovery extends Analyzer {
   }
 
   get effectiveAdditionalHealing() {
-    return this.additionalHealing - this.ticksLost * this.averageRenewTick;
+    // effective additional healing will be
+    // healing increased from RR buff minus the amount of healing from unbuffed lost ticks
+    return this.additionalHealing - this.ticksLost * this.averageRenewTickPreBuff;
   }
 
   onRenewTick(event: HealEvent) {
@@ -54,10 +59,17 @@ class RapidRecovery extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={<>{this.ticksLost.toFixed(1)} ticks of renew lost to duration decrease.</>}
+        tooltip={
+          <>
+            {this.ticksLost.toFixed(1)} ticks of renew lost to duration decrease.
+            <br />
+            This number is an estimated by using the player's haste value at time of renew
+            application.
+          </>
+        }
       >
         <BoringSpellValueText spellId={TALENTS.RAPID_RECOVERY_TALENT.id}>
-          <ItemHealingDone amount={this.effectiveAdditionalHealing} />
+          ~ <ItemHealingDone amount={this.effectiveAdditionalHealing} />
         </BoringSpellValueText>
       </Statistic>
     );

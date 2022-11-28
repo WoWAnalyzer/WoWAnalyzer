@@ -11,7 +11,7 @@ import Events, {
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import DistanceMoved from 'parser/shared/modules/DistanceMoved';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import StatTracker from 'parser/shared/modules/StatTracker';
+import Haste from 'parser/shared/modules/Haste';
 
 const MS_BUFFER = 100;
 const RENEW_TICK_INTERVAL = 3;
@@ -22,7 +22,7 @@ class Renew extends Analyzer {
   static dependencies = {
     distanceMoved: DistanceMoved,
     spellUsable: SpellUsable,
-    statTracker: StatTracker,
+    haste: Haste,
   };
   totalRenewHealing = 0;
   totalRenewOverhealing = 0;
@@ -46,7 +46,7 @@ class Renew extends Analyzer {
   lastCast: CastEvent | null = null;
   protected distanceMoved!: DistanceMoved;
   protected spellUsable!: SpellUsable;
-  protected statTracker!: StatTracker;
+  protected haste!: Haste;
 
   revitalizingPrayersActive = false;
   renewsFromRevitalizingPrayers = 0;
@@ -56,6 +56,8 @@ class Renew extends Analyzer {
   revitalizingPrayersRenewDurations = 0; //Amount of renews normalized to normal renew duration
 
   rapidRecoveryActive = false;
+  hasteOnFullDurationApplication: number[] = [];
+  hasteOnShortDurationApplication: number[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -121,28 +123,20 @@ class Renew extends Analyzer {
       return 0;
     }
 
-    const hastePercentage = this.statTracker.currentHastePercentage;
-    const fullDurationRenews =
-      this.renewsFromBenediction + this.renewsFromSalvation + this.renewsCast;
+    // for every regular renew application, calculate 3 seconds of ticks with haste at time of application
+    let fullDurationTicksLost = 0;
+    for (const hastePercent of this.hasteOnFullDurationApplication) {
+      fullDurationTicksLost +=
+        RAPID_RECOVERY_FULL_DURATION_DECREASE / (RENEW_TICK_INTERVAL * (1 - hastePercent));
+    }
+    // for every short duration renew, count 1 second of ticks with haste at time of application
+    let shortDurationTicksLost = 0;
+    for (const hastePercent of this.hasteOnShortDurationApplication) {
+      shortDurationTicksLost +=
+        RAPID_RECOVERY_PARTIAL_DURATION_DECREASE / (RENEW_TICK_INTERVAL * (1 - hastePercent));
+    }
 
-    // for every regular renew application, calculate 3 seconds of ticks
-    const fullDurationTicksLost =
-      fullDurationRenews *
-      (RAPID_RECOVERY_FULL_DURATION_DECREASE / (RENEW_TICK_INTERVAL * (1 - hastePercentage)));
-    // for every revitalizing prayers renew, count 1 second of ticks
-    const revitalizingPrayersTicksLost =
-      this.renewsFromRevitalizingPrayers *
-      (RAPID_RECOVERY_PARTIAL_DURATION_DECREASE / (RENEW_TICK_INTERVAL * (1 - hastePercentage)));
-
-    return fullDurationTicksLost + revitalizingPrayersTicksLost;
-  }
-
-  get averageHealingPerTick() {
-    return this.totalRenewHealing / this.totalRenewTicks;
-  }
-
-  get averageAbsorptionPerTick() {
-    return this.totalRenewAbsorbs / this.totalRenewTicks;
+    return fullDurationTicksLost + shortDurationTicksLost;
   }
 
   healingFromRenew(applicationCount: number) {
@@ -201,9 +195,11 @@ class Renew extends Analyzer {
       this.revitalizingPrayersRenewDurations += this.revitalizingPrayersRenewFraction;
       this.totalRenewApplications += this.revitalizingPrayersRenewFraction;
       this.renewsFromRevitalizingPrayers += 1;
+      this.hasteOnShortDurationApplication.push(this.haste.current);
       return;
     }
     this.totalRenewApplications += 1;
+    this.hasteOnFullDurationApplication.push(this.haste.current);
 
     if (this.salvationActive && event.timestamp - this.lastSalvationCast < MS_BUFFER) {
       this.renewsFromSalvation += 1;
