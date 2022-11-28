@@ -4,9 +4,9 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Events, { HealEvent } from 'parser/core/Events';
-import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { formatNumber, formatPercentage } from 'common/format';
+import Renew from '../../spells/Renew';
 
 const RAPID_RECOVERY_HEALING_INCREASE = 0.35;
 
@@ -14,11 +14,14 @@ const RAPID_RECOVERY_HEALING_INCREASE = 0.35;
  * Increases healing done by Renew by 35%,
  * but decreases its base duration by 3 sec.
  */
-
 class RapidRecovery extends Analyzer {
-  rawAdditionalHealing: number = 0;
-  effectiveAdditionalHealing: number = 0;
-  overhealing: number = 0;
+  static dependencies = {
+    renew: Renew,
+  };
+
+  protected renew!: Renew;
+
+  additionalHealing: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -26,26 +29,24 @@ class RapidRecovery extends Analyzer {
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(TALENTS.RENEW_TALENT),
-      this.onRenewCast,
+      this.onRenewTick,
     );
   }
 
-  get percentOverhealing() {
-    if (this.rawAdditionalHealing === 0) {
-      return 0;
-    }
-    return this.overhealing / this.rawAdditionalHealing;
+  get averageRenewTick() {
+    return this.renew.averageHealingPerTick + this.renew.averageAbsorptionPerTick;
   }
 
-  onRenewCast(event: HealEvent) {
-    // Casted a Holy word with at least one stack of Pontifex
-    const rawHealAmount = event.amount * RAPID_RECOVERY_HEALING_INCREASE;
-    const effectiveHealAmount = calculateEffectiveHealing(event, RAPID_RECOVERY_HEALING_INCREASE);
-    const overHealAmount = calculateOverhealing(event, RAPID_RECOVERY_HEALING_INCREASE);
+  get ticksLost() {
+    return this.renew.rapidRecoveryTicksLost;
+  }
 
-    this.rawAdditionalHealing += rawHealAmount;
-    this.effectiveAdditionalHealing += effectiveHealAmount;
-    this.overhealing += overHealAmount;
+  get effectiveAdditionalHealing() {
+    return this.additionalHealing - this.ticksLost * this.averageRenewTick;
+  }
+
+  onRenewTick(event: HealEvent) {
+    this.additionalHealing += calculateEffectiveHealing(event, RAPID_RECOVERY_HEALING_INCREASE);
   }
 
   statistic() {
@@ -53,12 +54,7 @@ class RapidRecovery extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={
-          <>
-            Total Healing: {formatNumber(this.rawAdditionalHealing)} (
-            {formatPercentage(this.percentOverhealing)}% OH)
-          </>
-        }
+        tooltip={<>{this.ticksLost.toFixed(1)} ticks of renew lost to duration decrease.</>}
       >
         <BoringSpellValueText spellId={TALENTS.RAPID_RECOVERY_TALENT.id}>
           <ItemHealingDone amount={this.effectiveAdditionalHealing} />
