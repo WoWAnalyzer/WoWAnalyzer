@@ -26,10 +26,10 @@ class MistsOfLife extends Analyzer {
   hotTracker!: HotTrackerMW;
   combatants!: Combatants;
   numEnv: number = 0;
-  extraEnvmApplications: number = 0;
   extraEnvmHealing: number = 0;
   extraEnvmOverHealing: number = 0;
   extraEnvmAbsorbed: number = 0;
+  extraMistyPeaksHealing: number = 0;
   extraRemApplications: number = 0;
   extraRemHealing: number = 0;
   extraRemOverHealing: number = 0;
@@ -100,6 +100,7 @@ class MistsOfLife extends Analyzer {
   }
 
   handleEnvHeal(event: HealEvent) {
+    //handle envelop healing from MoL
     const playerId = event.targetID;
     if (
       !this.hotTracker.hots[playerId] ||
@@ -113,6 +114,19 @@ class MistsOfLife extends Analyzer {
       this.extraEnvmHealing += event.amount || 0;
       this.extraEnvmOverHealing += event.overheal || 0;
       this.extraEnvmAbsorbed += event.absorbed || 0;
+    }
+    //track misty peaks procs from MoL ReM
+    if (
+      !this.hotTracker.hots[playerId] ||
+      !this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id]
+    ) {
+      return;
+    }
+    const remHot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
+    if (this.hotTracker.fromMistsOfLife(remHot)) {
+      if (this.hotTracker.fromMistyPeaks(hot)) {
+        this.extraMistyPeaksHealing += event.amount + (event.absorbed || 0);
+      }
     }
   }
 

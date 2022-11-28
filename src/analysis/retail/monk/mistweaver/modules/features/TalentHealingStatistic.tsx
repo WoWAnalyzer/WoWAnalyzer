@@ -42,6 +42,47 @@ class TalentHealingStatistic extends Analyzer {
   protected cloudedFocus!: CloudedFocus;
   protected mistsOfLife!: MistsOfLife;
 
+  buildTalentList() {
+    const talentList = [];
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id)) {
+      talentList.push(this.invokeChiji.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id)) {
+      talentList.push(this.invokeYulon.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id)) {
+      talentList.push(this.risingMist.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT.id)) {
+      talentList.push(this.upwelling.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT.id)) {
+      talentList.push(this.mistyPeaks.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.DANCING_MISTS_TALENT.id)) {
+      talentList.push(this.dancingMists.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT.id)) {
+      talentList.push(this.rapidDiffusion.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.CLOUDED_FOCUS_TALENT.id)) {
+      talentList.push(this.cloudedFocus.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.SAVE_THEM_ALL_TALENT.id)) {
+      talentList.push(this.saveThemAll.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.UNISON_TALENT.id)) {
+      talentList.push(this.unison.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.MISTS_OF_LIFE_TALENT.id)) {
+      talentList.push(this.mistsOfLife.subStatistic());
+    }
+    const sortedTalentList = talentList.sort(
+      (a, b) => parseFloat(b.props.value) - parseFloat(a.props.value),
+    );
+    return sortedTalentList;
+  }
+
   statistic() {
     return (
       <StatisticsListBox
@@ -54,48 +95,17 @@ class TalentHealingStatistic extends Analyzer {
             gain from the other options.
             <br />
             <br />
-            Detailed breakdowns of each talent's impact can be found in the Talents Section below
+            Note: Due to the synergies that exist between certain talents there is some overlap in
+            the HPS contribution shown. Detailed breakdowns of each talent's impact can be found in
+            the Talents Section.
           </Trans>
         }
         position={STATISTIC_ORDER.CORE(9)}
         category={STATISTIC_CATEGORY.GENERAL}
-        bodyStyle={{}} // idk
+        bodyStyle={{}}
       >
         <div style={{ borderBottom: 0, marginBottom: 0, paddingBottom: 0 }} />
-        {this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id)
-          ? this.invokeChiji.subStatistic()
-          : ''}
-        {this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id)
-          ? this.invokeYulon.subStatistic()
-          : ''}
-        {this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id)
-          ? this.risingMist.subStatistic()
-          : ''}
-        {this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT.id)
-          ? this.upwelling.subStatistic()
-          : ''}
-        {this.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT.id)
-          ? this.mistyPeaks.subStatistic()
-          : ''}
-
-        {this.selectedCombatant.hasTalent(TALENTS_MONK.DANCING_MISTS_TALENT.id)
-          ? this.dancingMists.subStatistic()
-          : ''}
-        {this.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT.id)
-          ? this.rapidDiffusion.subStatistic()
-          : ''}
-        {this.selectedCombatant.hasTalent(TALENTS_MONK.CLOUDED_FOCUS_TALENT.id)
-          ? this.cloudedFocus.subStatistic()
-          : ''}
-        {this.selectedCombatant.hasTalent(TALENTS_MONK.SAVE_THEM_ALL_TALENT.id)
-          ? this.saveThemAll.subStatistic()
-          : ''}
-        {this.selectedCombatant.hasTalent(TALENTS_MONK.UNISON_TALENT.id)
-          ? this.unison.subStatistic()
-          : ''}
-        {this.selectedCombatant.hasTalent(TALENTS_MONK.MISTS_OF_LIFE_TALENT.id)
-          ? this.mistsOfLife.subStatistic()
-          : ''}
+        {this.buildTalentList()}
       </StatisticsListBox>
     );
   }
