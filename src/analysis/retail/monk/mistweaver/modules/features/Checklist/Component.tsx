@@ -290,8 +290,8 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         name="Use your defensive cooldowns effectively"
         description="Make sure you use your personal and defensive cooldowns at appropriate times throughout the fight. While it may not make sense to use these abilities on cooldown, saving them for large damage events is ideal."
       >
-        {combatant.hasTalent(TALENTS_MONK.FORTIFYING_BREW_SHARED_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS_MONK.FORTIFYING_BREW_SHARED_TALENT.id} />
+        {combatant.hasTalent(TALENTS_MONK.FORTIFYING_BREW_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS_MONK.FORTIFYING_BREW_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS_MONK.LIFE_COCOON_TALENT) && (
           <AbilityRequirement spell={TALENTS_MONK.LIFE_COCOON_TALENT.id} />

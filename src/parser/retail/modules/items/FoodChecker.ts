@@ -56,6 +56,7 @@ class FoodChecker extends Analyzer {
   lowerFoodUp = false;
   midTierFoodUp = false;
   higherFoodUp = false;
+  foodBuffId?: number;
 
   constructor(options: Options) {
     super(options);
@@ -67,12 +68,15 @@ class FoodChecker extends Analyzer {
     if (event.prepull) {
       if (LOWER_FOOD_IDS.includes(spellId)) {
         this.lowerFoodUp = true;
+        this.foodBuffId = spellId;
       }
       if (HIGHER_FOOD_IDS.includes(spellId)) {
         this.higherFoodUp = true;
+        this.foodBuffId = spellId;
       }
       if (MID_TIER_FOOD_IDS.includes(spellId)) {
         this.midTierFoodUp = true;
+        this.foodBuffId = spellId;
       }
     }
   }
@@ -90,6 +94,7 @@ class FoodChecker extends Analyzer {
       style: ThresholdStyle.BOOLEAN,
     };
   }
+
   suggestions(when: When) {
     let importance = SUGGESTION_IMPORTANCE.MINOR;
     let suggestionText =

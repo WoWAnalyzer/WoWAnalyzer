@@ -13,6 +13,7 @@ import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/vengeance/guide
 import { UNRESTRAINED_FURY_SCALING } from 'analysis/retail/demonhunter/shared';
 import { TIERS } from 'game/TIERS';
 import { ReactNode } from 'react';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 
 // Fracture fury gen (no tier): 25
 // Metamorphosis Fracture fury gen (no tier): 45
@@ -214,15 +215,14 @@ export default class Fracture extends Analyzer {
       </p>
     );
     const data = (
-      <div>
+      <RoundedPanel>
         <p>
           <strong>{formatPercentage(numberOfGoodFractures / numberOfFractures, 1)}%</strong> of your{' '}
           <SpellLink id={TALENTS.FRACTURE_TALENT} /> casts were good.
         </p>
         <strong>Fracture casts</strong>
         <small>
-          {' '}
-          - Green is a good cast, Red is a bad cast (too many Soul Fragments or too much Fury).
+          Green is a good cast, Red is a bad cast (too many Soul Fragments or too much Fury).
           Mouseover for more details. Click to expand.
         </small>
         <CastSummaryAndBreakdown
@@ -230,7 +230,7 @@ export default class Fracture extends Analyzer {
           good={goodFractures}
           bad={badFractures}
         />
-      </div>
+      </RoundedPanel>
     );
 
     return explanationAndDataSubsection(explanation, data);

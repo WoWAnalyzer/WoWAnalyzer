@@ -89,7 +89,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_SHAMAN.LAVA_BURST_TALENT.id,
         enabled:
           combatant.hasTalent(TALENTS_SHAMAN.LAVA_BURST_TALENT.id) &&
-          !combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_ENHANCEMENT_TALENT.id),
+          !combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 8,
         charges: 1,
@@ -329,8 +329,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_SHAMAN.HEALING_STREAM_TOTEM_SHARED_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.HEALING_STREAM_TOTEM_SHARED_TALENT.id),
+        spell: TALENTS_SHAMAN.HEALING_STREAM_TOTEM_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.HEALING_STREAM_TOTEM_TALENT.id),
         category: SPELL_CATEGORY.OTHERS,
         cooldown:
           30 -
@@ -453,9 +453,9 @@ class Abilities extends CoreAbilities {
       },
       {
         // This is no error. We actually use the elemental shaman elemental blast spell id.
-        spell: TALENTS_SHAMAN.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_ENHANCEMENT_TALENT.id),
-        charges: combatant.hasTalent(TALENTS_SHAMAN.LAVA_BURST_TALENT) ? 2 : 1,
+        spell: TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT.id),
+        charges: combatant.getRepeatedTalentCount(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 12,
         gcd: {

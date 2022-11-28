@@ -1,9 +1,8 @@
 import { SpellIcon, TooltipElement } from 'interface';
 import { SpellLink } from 'interface';
-import CombatLogParser from 'parser/core/CombatLogParser';
-import PropTypes from 'prop-types';
 import { ReactNode } from 'react';
 import { Talent } from 'common/TALENTS/types';
+import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 
 const TalentRankTooltip = ({ rank, maxRanks }: { rank: number; maxRanks: number }) => (
   <>
@@ -23,19 +22,15 @@ interface Props {
   className?: string;
 }
 
-interface Context {
-  parser: CombatLogParser;
-}
-
 /**
  * Component to display rank/maxrank for a talent. Pass the spell ID and maxranks of the talent in the `spellId` prop.
  *
  * Component will link to the talent with the current rank as well".
  */
-const TalentSpellText = (
-  { talent, children, className }: Props,
-  { parser: { selectedCombatant } }: Context,
-) => {
+const TalentSpellText = ({ talent, children, className }: Props) => {
+  const {
+    combatLogParser: { selectedCombatant },
+  } = useCombatLogParser();
   const spellId = talent.id;
   const rank = selectedCombatant.getTalentRank(spellId);
   const maxRanks = talent.maxRanks;
@@ -48,9 +43,6 @@ const TalentSpellText = (
       <div className="value">{children}</div>
     </div>
   );
-};
-TalentSpellText.contextTypes = {
-  parser: PropTypes.object.isRequired,
 };
 
 export default TalentSpellText;

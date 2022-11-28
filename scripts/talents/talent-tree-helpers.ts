@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 
 import { ISpellpower, ITalentObjectByClass, ResourceTypes } from './talent-tree-types';
 
@@ -43,6 +44,10 @@ export function csvToObject<T>(csvString: string): T[] {
     );
   //JSON
   return result;
+}
+
+export function readCsvFromFile(file: string) {
+  return fs.readFileSync(path.resolve(__dirname, file), { encoding: 'utf-8' });
 }
 
 export async function readCsvFromUrl(url: string) {

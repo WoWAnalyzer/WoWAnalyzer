@@ -37,6 +37,7 @@ import VengeanceDemonHunter from 'analysis/retail/demonhunter/vengeance';
 import DevastationEvoker from 'analysis/retail/evoker/devastation';
 import PreservationEvoker from 'analysis/retail/evoker/preservation';
 // Classic
+import ClassicDeathKnightUnholy from 'analysis/classic/deathknight/unholy';
 import ClassicDruid from 'analysis/classic/druid';
 import ClassicHunter from 'analysis/classic/hunter';
 import ClassicMage from 'analysis/classic/mage';
@@ -45,6 +46,7 @@ import ClassicPriest from 'analysis/classic/priest';
 import ClassicRogue from 'analysis/classic/rogue';
 import ClassicShaman from 'analysis/classic/shaman';
 import ClassicWarlockAffliction from 'analysis/classic/warlock/affliction';
+import ClassicWarlockDemonology from 'analysis/classic/warlock/demonology';
 import ClassicWarrior from 'analysis/classic/warrior';
 
 import Config from './Config';
@@ -100,7 +102,9 @@ const configs: Config[] = [
   ProtectionWarrior,
   ArmsWarrior,
   FuryWarrior,
+
   // Classic
+  ClassicDeathKnightUnholy,
   ClassicDruid,
   ClassicHunter,
   ClassicMage,
@@ -109,6 +113,7 @@ const configs: Config[] = [
   ClassicRogue,
   ClassicShaman,
   ClassicWarlockAffliction,
+  ClassicWarlockDemonology,
   ClassicWarrior,
 ];
 

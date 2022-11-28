@@ -58,9 +58,9 @@ class DeathAndMadness extends Analyzer {
     return {
       actual: this.resetPercentage,
       isLessThan: {
-        minor: 0.8,
-        average: 0.7,
-        major: 0.6,
+        minor: 0.0,
+        average: 0.0,
+        major: 0.0,
       },
       style: ThresholdStyle.PERCENTAGE,
     };

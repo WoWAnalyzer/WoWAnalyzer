@@ -2,13 +2,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Events, { HealEvent } from 'parser/core/Events';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
-import TalentSpellText from 'parser/ui/TalentSpellText';
-import { TALENTS_EVOKER } from 'common/TALENTS';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { t } from '@lingui/macro';
 import { SpellLink } from 'interface';
@@ -89,32 +83,6 @@ class DreamBreath extends Analyzer {
           })}`,
         )
         .recommended(`${recommended} overheal or less recommended`),
-    );
-  }
-
-  statistic() {
-    return (
-      <Statistic
-        size="flexible"
-        position={STATISTIC_ORDER.CORE(1)}
-        category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={
-          <ul>
-            <li>
-              Hit Healing: {formatNumber(this.breathHealing)} ({this.calculateHitOverHealing}%
-              Overheal)
-            </li>
-            <li>
-              HoT Healing: {formatNumber(this.breathHotHealing)} ({this.calculateHotOverHealing}%
-              Overheal)
-            </li>
-          </ul>
-        }
-      >
-        <TalentSpellText talent={TALENTS_EVOKER.DREAM_BREATH_TALENT}>
-          <ItemPercentHealingDone amount={this.totalHealing} />
-        </TalentSpellText>
-      </Statistic>
     );
   }
 }

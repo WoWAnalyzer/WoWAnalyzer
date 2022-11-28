@@ -14,6 +14,7 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { combineQualitativePerformances } from 'analysis/retail/demonhunter/vengeance/guide/combineQualitativePerformances';
 import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/guide/VulnerabilityExplanation';
 import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/guide/FieryDemiseExplanation';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 
 const GOOD_FRAILTY_STACKS = 6;
 const OK_FRAILTY_STACKS = 4;
@@ -85,7 +86,7 @@ export default class SoulCarver extends Analyzer {
     );
 
     const data = (
-      <div>
+      <RoundedPanel>
         <strong>Per-Cast Breakdown</strong>
         <small> - click to expand</small>
 
@@ -151,7 +152,7 @@ export default class SoulCarver extends Analyzer {
             />
           );
         })}
-      </div>
+      </RoundedPanel>
     );
 
     return explanationAndDataSubsection(explanation, data);

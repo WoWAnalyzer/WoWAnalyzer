@@ -42,7 +42,6 @@ import EssenceFontTargetsHit from './modules/spells/EssenceFontTargetsHit';
 import EssenceFontUniqueTargets from './modules/spells/EssenceFontUniqueTargets';
 import ExpelHarm from './modules/spells/ExpelHarm';
 import InvokeYulon from './modules/spells/InvokeYulon';
-import LifeCocoon from './modules/spells/LifeCocoon';
 import RenewingMist from './modules/spells/RenewingMist';
 import Revival from './modules/spells/Revival';
 import RisingSunKick from './modules/spells/RisingSunKick';
@@ -72,6 +71,8 @@ import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import Unison from './modules/spells/Unison';
 import RapidDiffusion from './modules/spells/RapidDiffusion';
 import T29TierSet from './modules/dragonflight/tier/T29MWTier';
+import DancingMists from './modules/spells/DancingMists';
+import MistyPeaksHealingBreakdown from './modules/features/MistyPeaksHealingBreakdown';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -101,6 +102,7 @@ class CombatLogParser extends CoreCombatLogParser {
     masteryStats: MasteryStats,
     buffs: Buffs,
     essenceFontHealingBreakDown: EssenceFontHealingBreakdown,
+    mistyPeaksHealingBreakdown: MistyPeaksHealingBreakdown,
     averageTimeBetweenRSKSs: AverageTimeBetweenRSKSs,
     remGraph: REMGraph,
 
@@ -135,7 +137,6 @@ class CombatLogParser extends CoreCombatLogParser {
     jadeSerpentStatue: JadeSerpentStatue,
     jadeBond: JadeBond,
     lifecycles: Lifecycles,
-    lifeCocoon: LifeCocoon,
     mistWrapEnvelopingBreath: MistWrapEnvelopingBreath,
     manaTea: ManaTea,
     mistsOfLife: MistsOfLife,
@@ -154,6 +155,7 @@ class CombatLogParser extends CoreCombatLogParser {
     yulonsWhisper: YulonsWhisper,
     unison: Unison,
     rapidDiffusion: RapidDiffusion,
+    dancingMists: DancingMists,
 
     // Borrowed Power
     t29TierSet: T29TierSet,
