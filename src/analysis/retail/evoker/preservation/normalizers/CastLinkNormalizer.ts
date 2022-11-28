@@ -27,13 +27,12 @@ export const FLUTTERING_SEEDLINGS_ECHO = 'FlutteringSeedlingsEcho'; // for linki
 export const FLUTTERING_SEEDLINGS_HARDCAST = 'FlutteringSeedlingsHardcast'; // for linking seedling heal to EB cast
 export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera'; // link buffed living flame to buff removal
 export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
+export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsumption'; // link essence cast to removing the essence burst buff
 
 const CAST_BUFFER_MS = 100;
 const EB_BUFFER_MS = 2000;
 const MAX_ECHO_DURATION = 20000; // 15s with 30% inc = 19s
 const TA_BUFFER_MS = 6000 + CAST_BUFFER_MS; //TA pulses over 6s at 0% haste
-
-export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsumption'; // link essence cast to removing the essence burst buff
 
 /*
   This file is for attributing echo applications to hard casts or to temporal anomaly.
@@ -145,10 +144,11 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: ECHO,
     linkingEventId: [
+      SPELLS.DREAM_BREATH_ECHO.id,
+      SPELLS.EMERALD_BLOSSOM_ECHO.id,
+      SPELLS.LIVING_FLAME_HEAL.id,
       SPELLS.SPIRITBLOOM_SPLIT.id,
       SPELLS.SPIRITBLOOM.id,
-      SPELLS.LIVING_FLAME_HEAL.id,
-      SPELLS.DREAM_BREATH_ECHO.id,
       TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id,
     ],
     linkingEventType: [EventType.Heal],
@@ -176,6 +176,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: ECHO_TEMPORAL_ANOMALY,
     linkingEventId: [
+      SPELLS.EMERALD_BLOSSOM_ECHO.id,
       SPELLS.SPIRITBLOOM_SPLIT.id,
       SPELLS.SPIRITBLOOM.id,
       SPELLS.DREAM_BREATH_ECHO.id,
