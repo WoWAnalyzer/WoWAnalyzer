@@ -171,10 +171,12 @@ class Vivify extends Analyzer {
             <ul>
               <li>
                 {formatNumber(this.mainTargetHealing + this.cleaveHealing)} overall healing from
-                Vivify.
+                <SpellLink id={SPELLS.VIVIFY.id} />.
               </li>
               <li>
-                {formatNumber(this.cleaveHealing)} portion of your Vivify healing to REM targets.
+                {formatNumber(this.cleaveHealing)} portion of your{' '}
+                <SpellLink id={SPELLS.VIVIFY.id} /> healing to{' '}
+                <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> targets.
               </li>
             </ul>
           </>
