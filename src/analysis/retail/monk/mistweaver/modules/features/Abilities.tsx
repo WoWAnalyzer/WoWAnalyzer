@@ -363,6 +363,10 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_MONK.ZEN_PULSE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT),
+        cooldown: 30,
+        castEfficiency: {
+          suggestion: true,
+        },
         gcd: {
           base: 1500,
           timelineSortIndex: 100,
