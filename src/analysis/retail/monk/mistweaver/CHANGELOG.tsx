@@ -6,10 +6,11 @@ import { SpellLink } from 'interface';
 
 
 export default [
-  change(date(2022, 11, 17), <>Added <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT.id}/> module and <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id}/> Breakdown chart.</>, Vohrr),
-  change(date(2022, 11, 17),<> Fix some typos and remove <SpellLink id={TALENTS_MONK.LIFE_COCOON_TALENT.id}/> statistic</> ,Trevor),
+  change(date(2022, 11, 28), <>Updated the <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id}/> and <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id}/> modules to include <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id}/> in the title now that it is its own talent. Updated tooltips to use SpellLinks.</>, Vohrr),
   change(date(2022, 11, 23), <>Fix another Mistweaver degraded experience</>, Trevor),
   change(date(2022, 11, 22), <>Fix Mistweaver degraded experience</>, Trevor),
+  change(date(2022, 11, 17), <>Added <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT.id}/> module and <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id}/> Breakdown chart.</>, Vohrr),
+  change(date(2022, 11, 17), <>Fix some typos and remove <SpellLink id={TALENTS_MONK.LIFE_COCOON_TALENT.id}/> statistic</> ,Trevor),
   change(date(2022, 11, 17), <>Fix some typos and remove <SpellLink id={TALENTS_MONK.LIFE_COCOON_TALENT.id}/> statistic</> ,Trevor),
   change(date(2022, 11, 17), <>Fixed <SpellLink id={TALENTS_MONK.MISTS_OF_LIFE_TALENT.id}/> module</>, Vohrr),
   change(date(2022, 11, 17), <>Fix for T29 not catching multiple extensions to the same HoT</>, Vohrr),
