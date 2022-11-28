@@ -48,7 +48,7 @@ class Unison extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS_MONK.UNISON_TALENT.id} />}
+        title={<SpellLink id={SPELLS.UNISON_HEAL.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );
