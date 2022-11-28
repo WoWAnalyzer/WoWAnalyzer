@@ -9,7 +9,7 @@ import {
 } from 'interface/guide';
 import Explanation from 'interface/guide/components/Explanation';
 import BaseChart, { defaultConfig, formatTime } from 'parser/ui/BaseChart';
-import { VisualizationSpec } from 'react-vega';
+import { SignalListener, VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
 import {
   AbilityEvent,
@@ -23,7 +23,7 @@ import { FortifyingBrew } from './FortifyingBrew';
 import { DiffuseMagic } from './DiffuseMagic';
 import { ZenMeditation } from './ZenMeditation';
 import CelestialBrew from '../../spells/CelestialBrew';
-import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
+import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import EmbeddedTimelineContainer, {
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
@@ -35,6 +35,9 @@ import { isApplicableUpdateSpellUsableEvent } from 'interface/report/Results/Tim
 import { defensiveExpiration } from './DefensiveBuffLinkNormalizer';
 import styled from '@emotion/styled';
 import { Tooltip } from 'interface';
+import { useCallback, useState } from 'react';
+import Analyzer from 'parser/core/Analyzer';
+import React from 'react';
 
 const MAJOR_ANALYZERS = [CelestialBrew, FortifyingBrew, DampenHarm, DiffuseMagic, ZenMeditation];
 
@@ -43,9 +46,20 @@ const rekey = (key: string) =>
     return { ...value, key };
   };
 
-const DamageMitigationChart = () => {
+type HoverKey = {
+  analyzerClass: typeof Analyzer;
+  startTime: number;
+};
+
+// we have to memo this for reasons unbeknownst to me, but it fixes the onHover not getting called with the null value.
+const DamageMitigationChart = React.memo(({ onHover }: { onHover: SignalListener }) => {
   const events = useEvents();
   const info = useInfo();
+  const listeners = { hover: onHover };
+
+  // shift to help deal with interpolation slope
+  const BUFF_WINDOW_SHIFT = 500;
+
   const physicalData = events
     .filter(
       (event): event is DamageEvent =>
@@ -76,16 +90,14 @@ const DamageMitigationChart = () => {
       .map(rekey('.mitigated'));
   });
 
-  // shift to help deal with interpolation slope
-  const BUFF_WINDOW_SHIFT = 500;
   const buffData = analyzers.flatMap((analyzer) => {
     if (!analyzer) {
       return [];
     }
 
     return analyzer.mitigations.map((mit, index) => ({
-      startTime: mit.start.timestamp - (info?.fightStart ?? 0) - BUFF_WINDOW_SHIFT,
-      endTime: mit.end.timestamp - (info?.fightStart ?? 0) - BUFF_WINDOW_SHIFT,
+      startTime: mit.start.timestamp - (info?.fightStart ?? 0),
+      endTime: mit.end.timestamp - (info?.fightStart ?? 0),
       amount: mit.amount,
       key: analyzer.constructor.name,
       index,
@@ -136,9 +148,9 @@ const DamageMitigationChart = () => {
         mark: {
           type: 'area',
           interpolate: 'cardinal',
-          color: '#bc4949',
+          color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
           stroke: 'black',
-          strokeOpacity: 0.3,
+          strokeWidth: 1.5,
         },
         data: {
           name: 'events',
@@ -160,6 +172,7 @@ const DamageMitigationChart = () => {
             keyvals: { start: 0, stop: info?.fightDuration ?? 0, step: 1000 },
             value: 0,
           },
+          { calculate: `datum.timestamp + ${BUFF_WINDOW_SHIFT}`, as: 'timestamp' },
         ],
         encoding: {
           x: {
@@ -196,14 +209,14 @@ const DamageMitigationChart = () => {
               height={200}
               spec={spec}
               config={{ ...defaultConfig, autosize: { type: 'pad', contains: 'content' } }}
-              signalListeners={{ hover: (...args) => console.log('hover', ...args) }}
+              signalListeners={listeners}
             />
           </div>
         )}
       </AutoSizer>
     </div>
   );
-};
+});
 
 const BuffBar = styled.div<{ start: number; end: number; fightDuration: number }>`
   position: absolute;
@@ -217,7 +230,7 @@ const BuffBar = styled.div<{ start: number; end: number; fightDuration: number }
   left: ${({ start, fightDuration }) => (start / fightDuration) * 100}%;
 `;
 
-const BuffDisplay = () => {
+const BuffDisplay = ({ hoverKey }: { hoverKey: HoverKey | null }) => {
   const info = useInfo();
   const events = useEvents();
 
@@ -235,6 +248,7 @@ const BuffDisplay = () => {
       const expirationTime = defensiveExpiration(event)?.timestamp ?? info.fightEnd;
 
       return {
+        externalHover: event.timestamp - info.fightStart === hoverKey?.startTime,
         start: event.timestamp - info.fightStart,
         end: expirationTime - info.fightStart,
         ability: event.ability,
@@ -243,8 +257,8 @@ const BuffDisplay = () => {
 
   return (
     <div style={{ position: 'relative', height: 24 }}>
-      {buffEvents.map(({ start, end, ability }) => (
-        <Tooltip key={start} content={ability.name}>
+      {buffEvents.map(({ start, end, ability, externalHover }) => (
+        <Tooltip key={start} content={ability.name} isOpen={externalHover || undefined}>
           <BuffBar start={start} end={end} fightDuration={info.fightDuration} />
         </Tooltip>
       ))}
@@ -313,6 +327,19 @@ const DefensiveTimeline = ({ width }: { width: number }) => {
 
 export default function MajorDefensivesSection(): JSX.Element | null {
   const info = useInfo();
+  const [chartHover, setChartHover] = useState<HoverKey | null>(null);
+
+  const onHover = useCallback((_event: string, item: { key: string[]; startTime: number[] }) => {
+    if (item.key === undefined) {
+      setChartHover(null);
+    } else {
+      setChartHover({
+        // by construction: we will always find an analyzer
+        analyzerClass: MAJOR_ANALYZERS.find((analyzer) => analyzer.name === item.key[0])!,
+        startTime: item.startTime[0],
+      });
+    }
+  }, []) as SignalListener;
 
   if (!info) {
     return null;
@@ -325,10 +352,10 @@ export default function MajorDefensivesSection(): JSX.Element | null {
         effectively is critical for your survival, especially while undergeared.
       </Explanation>
       <SubSection>
-        <DamageMitigationChart />
+        <DamageMitigationChart onHover={onHover} />
       </SubSection>
       <SubSection style={{ marginLeft: 48 /* hack for chart offset */ }}>
-        <BuffDisplay />
+        <BuffDisplay hoverKey={chartHover} />
         <AutoSizer disableHeight>{(props) => <DefensiveTimeline {...props} />}</AutoSizer>
       </SubSection>
     </Section>
