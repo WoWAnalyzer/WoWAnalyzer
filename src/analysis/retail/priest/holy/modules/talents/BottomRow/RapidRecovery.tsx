@@ -63,8 +63,7 @@ class RapidRecovery extends Analyzer {
           <>
             {this.ticksLost.toFixed(1)} ticks of renew lost to duration decrease.
             <br />
-            This number is an estimated by using the player's haste value at time of renew
-            application.
+            This number is estimated by using the player's haste value at time of renew application.
           </>
         }
       >
