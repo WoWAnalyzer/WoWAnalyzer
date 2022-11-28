@@ -1,18 +1,56 @@
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
-// not pleased with this due to it possibly going through the array multiple times, but
-// we probably won't have multiple long array where this will cause an issue.
-export const combineQualitativePerformances = (
-  performances: QualitativePerformance[],
-): QualitativePerformance => {
-  if (performances.some((it) => it === QualitativePerformance.Fail)) {
-    return QualitativePerformance.Fail;
+/**
+ * Converts a given {@link QualitativePerformance} to a number representation (necessary since
+ * QualitativePerformance is a string enum).
+ *
+ * @param {QualitativePerformance} performance QualitativePerformance to convert to a number
+ * @returns {number} Number representation of QualitativePerformance
+ */
+export const qualitativePerformanceToNumber = (performance: QualitativePerformance) => {
+  switch (performance) {
+    case QualitativePerformance.Perfect:
+      return 3;
+    case QualitativePerformance.Good:
+      return 2;
+    case QualitativePerformance.Ok:
+      return 1;
+    case QualitativePerformance.Fail:
+      return 0;
   }
-  if (performances.some((it) => it === QualitativePerformance.Ok)) {
-    return QualitativePerformance.Ok;
-  }
-  if (performances.some((it) => it === QualitativePerformance.Good)) {
-    return QualitativePerformance.Good;
-  }
-  return QualitativePerformance.Perfect;
 };
+
+/**
+ * Converts a given number to a {@link QualitativePerformance}.
+ *
+ * @param {number} performance Number to convert to QualitativePerformance
+ * @returns {QualitativePerformance} QualitativePerformance represented by given number
+ */
+export const numberToQualitativePerformance = (performance: number) => {
+  switch (performance) {
+    case 3:
+      return QualitativePerformance.Perfect;
+    case 2:
+      return QualitativePerformance.Good;
+    case 1:
+      return QualitativePerformance.Ok;
+    default:
+      return QualitativePerformance.Fail;
+  }
+};
+
+/**
+ * Returns the lowest {@link QualitativePerformance} from the given array, defaulting to
+ * {@link QualitativePerformance.Perfect} if the array is empty.
+ *
+ * @param {QualitativePerformance[]} performances Performances to combine
+ * @returns {QualitativePerformance} Lowest performance value from the given array
+ */
+export const combineQualitativePerformances = (performances: QualitativePerformance[]) =>
+  performances.reduce(
+    (prev, curr) =>
+      numberToQualitativePerformance(
+        Math.min(qualitativePerformanceToNumber(prev), qualitativePerformanceToNumber(curr)),
+      ),
+    QualitativePerformance.Perfect,
+  );

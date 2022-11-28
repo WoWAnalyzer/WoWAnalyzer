@@ -15,6 +15,8 @@ import { combineQualitativePerformances } from 'analysis/retail/demonhunter/veng
 import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/guide/VulnerabilityExplanation';
 import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/guide/FieryDemiseExplanation';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import DemonicExplanation from 'analysis/retail/demonhunter/vengeance/guide/DemonicExplanation';
+import { Trans } from '@lingui/macro';
 
 const GOOD_FRAILTY_STACKS = 2;
 const OK_FRAILTY_STACKS = 1;
@@ -69,35 +71,23 @@ export default class FelDevastation extends Analyzer {
     if (!enemy) {
       return;
     }
-    this.felDevastationTracker[this.cast].damage.push({
+    this.felDevastationTracker[this.cast]?.damage.push({
       targetStacksOfFrailty: enemy.getBuffStacks(SPELLS.FRAILTY.id, event.timestamp),
       hasFieryBrandDebuff: enemy.hasBuff(SPELLS.FIERY_BRAND_DOT.id, event.timestamp),
     });
   }
 
   guideBreakdown() {
-    const demonicExplanation = (
-      <>
-        {' '}
-        It will grant <SpellLink id={SPELLS.METAMORPHOSIS_TANK} /> for a short duration when cast
-        due to <SpellLink id={TALENTS_DEMON_HUNTER.DEMONIC_TALENT} />.
-      </>
-    );
     const explanation = (
-      <>
+      <Trans id="guide.demonhunter.vengeance.sections.cooldowns.felDevastation.explanation">
         <strong>
           <SpellLink id={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT} />
         </strong>{' '}
         is a large burst of damage and healing.
-        {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.DEMONIC_TALENT) &&
-          demonicExplanation}
-        {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.VULNERABILITY_TALENT) && (
-          <VulnerabilityExplanation numberOfFrailtyStacks={GOOD_FRAILTY_STACKS} />
-        )}
-        {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT) && (
-          <FieryDemiseExplanation combatant={this.selectedCombatant} includeDownInFlames />
-        )}
-      </>
+        <DemonicExplanation />
+        <VulnerabilityExplanation numberOfFrailtyStacks={GOOD_FRAILTY_STACKS} />
+        <FieryDemiseExplanation includeDownInFlames />
+      </Trans>
     );
 
     const data = (

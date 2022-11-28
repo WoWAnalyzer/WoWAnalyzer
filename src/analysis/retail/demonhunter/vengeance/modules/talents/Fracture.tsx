@@ -14,6 +14,7 @@ import { UNRESTRAINED_FURY_SCALING } from 'analysis/retail/demonhunter/shared';
 import { TIERS } from 'game/TIERS';
 import { ReactNode } from 'react';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { t, Trans } from '@lingui/macro';
 
 // Fracture fury gen (no tier): 25
 // Metamorphosis Fracture fury gen (no tier): 45
@@ -196,35 +197,45 @@ export default class Fracture extends Analyzer {
     ).length;
     const goodFractures = {
       count: numberOfGoodFractures,
-      label: 'Fractures',
+      label: t({
+        id: 'guide.demonhunter.vengeance.sections.rotation.fracture.data.summary.performance.good',
+        message: 'Fractures',
+      }),
     };
     const badFractures = {
       count: numberOfBadFractures,
-      label: 'Bad Fractures',
+      label: t({
+        id: 'guide.demonhunter.vengeance.sections.rotation.fracture.data.summary.performance.bad',
+        message: 'Bad Fractures',
+      }),
     };
 
     const explanation = (
       <p>
-        <strong>
-          <SpellLink id={TALENTS.FRACTURE_TALENT} />
-        </strong>{' '}
-        is your primary <strong>builder</strong> for <strong>Fury</strong> and{' '}
-        <strong>Soul Fragments</strong>. Cast it when you have less than 4 Soul Fragments and less
-        than {this.notMetaFuryLimit} Fury. In <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />, cast it
-        when you have less than 3 Soul Fragments and less than {this.inMetaFuryLimit} Fury.
+        <Trans id="guide.demonhunter.vengeance.sections.rotation.fracture.explanation">
+          <strong>
+            <SpellLink id={TALENTS.FRACTURE_TALENT} />
+          </strong>{' '}
+          is your primary <strong>builder</strong> for <strong>Fury</strong> and{' '}
+          <strong>Soul Fragments</strong>. Cast it when you have less than 4 Soul Fragments and less
+          than {this.notMetaFuryLimit} Fury. In <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />, cast
+          it when you have less than 3 Soul Fragments and less than {this.inMetaFuryLimit} Fury.
+        </Trans>
       </p>
     );
     const data = (
       <RoundedPanel>
-        <p>
-          <strong>{formatPercentage(numberOfGoodFractures / numberOfFractures, 1)}%</strong> of your{' '}
-          <SpellLink id={TALENTS.FRACTURE_TALENT} /> casts were good.
-        </p>
-        <strong>Fracture casts</strong>
-        <small>
-          Green is a good cast, Red is a bad cast (too many Soul Fragments or too much Fury).
-          Mouseover for more details. Click to expand.
-        </small>
+        <Trans id="guide.demonhunter.vengeance.sections.rotation.fracture.data">
+          <p>
+            <strong>{formatPercentage(numberOfGoodFractures / numberOfFractures, 1)}%</strong> of
+            your <SpellLink id={TALENTS.FRACTURE_TALENT} /> casts were good.
+          </p>
+          <strong>Fracture casts</strong>
+          <small>
+            Green is a good cast, Red is a bad cast (too many Soul Fragments or too much Fury).
+            Mouseover for more details. Click to expand.
+          </small>
+        </Trans>
         <CastSummaryAndBreakdown
           castEntries={this.castEntries}
           good={goodFractures}
