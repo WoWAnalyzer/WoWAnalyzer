@@ -19,6 +19,7 @@ import {
 import { PerformanceMark } from 'interface/guide';
 import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/guide/VulnerabilityExplanation';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { Trans } from '@lingui/macro';
 
 const GOOD_FRAILTY_STACKS = 3;
 const OK_FRAILTY_STACKS = 1;
@@ -216,15 +217,13 @@ class TheHunt extends Analyzer {
 
   vengeanceGuideCastBreakdown() {
     const explanation = (
-      <>
+      <Trans id="guide.demonhunter.vengeance.sections.cooldowns.theHunt.explanation">
         <strong>
           <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />
         </strong>{' '}
         is a powerful burst of damage that also provides some healing with the DoT that it applies.
-        {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.VULNERABILITY_TALENT) && (
-          <VulnerabilityExplanation numberOfFrailtyStacks={GOOD_FRAILTY_STACKS} />
-        )}
-      </>
+        <VulnerabilityExplanation numberOfFrailtyStacks={GOOD_FRAILTY_STACKS} />
+      </Trans>
     );
 
     const data = (

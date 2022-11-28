@@ -15,6 +15,7 @@ import { combineQualitativePerformances } from 'analysis/retail/demonhunter/veng
 import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/guide/VulnerabilityExplanation';
 import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/guide/FieryDemiseExplanation';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { Trans } from '@lingui/macro';
 
 const GOOD_FRAILTY_STACKS = 6;
 const OK_FRAILTY_STACKS = 4;
@@ -71,24 +72,20 @@ export default class SoulCarver extends Analyzer {
 
   guideBreakdown() {
     const explanation = (
-      <>
+      <Trans id="guide.demonhunter.vengeance.sections.cooldowns.soulCarver.explanation">
         <strong>
           <SpellLink id={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />
         </strong>{' '}
         is a burst of damage that also generates a decent chunk of Soul Fragments.
-        {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.VULNERABILITY_TALENT) && (
-          <VulnerabilityExplanation numberOfFrailtyStacks={GOOD_FRAILTY_STACKS} />
-        )}
-        {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT) && (
-          <FieryDemiseExplanation combatant={this.selectedCombatant} />
-        )}
-      </>
+        <VulnerabilityExplanation numberOfFrailtyStacks={GOOD_FRAILTY_STACKS} />
+        <FieryDemiseExplanation />
+      </Trans>
     );
 
     const data = (
       <RoundedPanel>
         <strong>Per-Cast Breakdown</strong>
-        <small> - click to expand</small>
+        <small>Click to expand.</small>
 
         {this.soulCarverTracker.map((cast, idx) => {
           const header = (
