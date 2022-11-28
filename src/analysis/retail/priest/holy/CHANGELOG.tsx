@@ -6,11 +6,11 @@ import { SpellLink } from 'interface';
 
 export default [
   change(
-    date(2022, 11, 21),
+    date(2022, 11, 28),
     <>
-      Added support for 
-      <SpellLink id={TALENTS_PRIEST.PONTIFEX_TALENT.id}/>, <SpellLink id={TALENTS_PRIEST.RAPID_RECOVERY_TALENT.id}/>, 
-      and <SpellLink id={TALENTS_PRIEST.MIRACLE_WORKER_TALENT.id}/>.
+      Added support for {' '}
+      <SpellLink id={TALENTS_PRIEST.PONTIFEX_TALENT.id}/>, <SpellLink id={TALENTS_PRIEST.RAPID_RECOVERY_TALENT.id}/>, {' '}
+      <SpellLink id={TALENTS_PRIEST.EMPOWERED_RENEW_TALENT.id}/>, and <SpellLink id={TALENTS_PRIEST.MIRACLE_WORKER_TALENT.id}/>.
     </>,
     Squided
   ),

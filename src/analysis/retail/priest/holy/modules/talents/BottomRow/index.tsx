@@ -12,6 +12,7 @@ import SearingLight from './SearingLight';
 import Pontifex from './Pontifex';
 import RapidRecovery from './RapidRecovery';
 import MiracleWorker from './MiracleWorker';
+import EmpoweredRenew from './EmpoweredRenew';
 
 export {
   AnsweredPrayers,
@@ -28,4 +29,5 @@ export {
   Pontifex,
   RapidRecovery,
   MiracleWorker,
+  EmpoweredRenew,
 };
