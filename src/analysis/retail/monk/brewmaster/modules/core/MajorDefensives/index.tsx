@@ -40,6 +40,7 @@ import Analyzer from 'parser/core/Analyzer';
 import React from 'react';
 import { Mitigation, MitigationSegment, MitigationSegments } from './core';
 import { formatDuration, formatNumber } from 'common/format';
+import CooldownExpandable from 'interface/guide/components/CooldownExpandable';
 
 const MAJOR_ANALYZERS = [CelestialBrew, FortifyingBrew, DampenHarm, DiffuseMagic, ZenMeditation];
 
@@ -278,6 +279,24 @@ const BuffTooltip = ({
   );
 };
 
+const useMaxMitigationValue = () => {
+  const analyzers = useAnalyzers(MAJOR_ANALYZERS);
+
+  return useMemo(
+    () =>
+      Math.max.apply(
+        null,
+        analyzers?.map((analyzer) =>
+          Math.max.apply(
+            null,
+            analyzer.mitigations.map((mit) => mit.amount),
+          ),
+        ),
+      ),
+    [analyzers],
+  );
+};
+
 const BuffDisplay = ({ hoverKey }: { hoverKey: HoverKey | null }) => {
   const info = useInfo();
   const events = useEvents();
@@ -300,19 +319,7 @@ const BuffDisplay = ({ hoverKey }: { hoverKey: HoverKey | null }) => {
     [analyzers],
   );
 
-  const maxValue = useMemo(
-    () =>
-      Math.max.apply(
-        null,
-        analyzers?.map((analyzer) =>
-          Math.max.apply(
-            null,
-            analyzer.mitigations.map((mit) => mit.amount),
-          ),
-        ),
-      ),
-    [analyzers],
-  );
+  const maxValue = useMaxMitigationValue();
 
   if (!info) {
     return null;
@@ -422,6 +429,70 @@ const BuffTimelineContainer = styled.div`
   margin-left: 48px;
 `;
 
+type MitigationData = { mitigation: Mitigation; segments: MitigationSegment[]; maxValue: number };
+
+const HeaderContainer = styled.div`
+  display: grid;
+  grid-template-columns: max-content 8em 4em 100px;
+  gap: 1em;
+  align-items: center;
+  align-content: center;
+`;
+
+const MitigationCooldownHeader = ({ mitigation, segments, maxValue }: MitigationData) => {
+  const fightStart = useInfo()?.fightStart ?? 0;
+  return (
+    <HeaderContainer>
+      <span>{formatDuration(mitigation.start.timestamp - fightStart)}</span>{' '}
+      <SpellLink id={mitigation.start.ability.guid} />{' '}
+      <span style={{ textAlign: 'right' }}>{formatNumber(mitigation.amount)}</span>{' '}
+      <MitigationSegments segments={segments} maxValue={maxValue} />
+    </HeaderContainer>
+  );
+};
+
+const MitigationCooldownBreakdown = (props: MitigationData) => {
+  const mitigationSegmentItems = props.segments.map((segment) => ({
+    label: segment.tooltip,
+    result: (
+      <MitigationDataRow>
+        <span>{formatNumber(segment.amount)}</span>{' '}
+        <TooltipSegments segments={[segment]} maxValue={props.maxValue} />
+      </MitigationDataRow>
+    ),
+  }));
+  return (
+    <CooldownExpandable
+      header={<MitigationCooldownHeader {...props} />}
+      detailItems={mitigationSegmentItems}
+    />
+  );
+};
+
+const CooldownUsageList = () => {
+  const analyzers = useAnalyzers(MAJOR_ANALYZERS);
+  const maxValue = useMaxMitigationValue();
+
+  const mitigations = analyzers.flatMap((analyzer) =>
+    analyzer.mitigations.map((mit) => ({ mit, segments: analyzer.mitigationSegments(mit) })),
+  );
+
+  return (
+    <>
+      {mitigations
+        .sort((a, b) => a.mit.start.timestamp - b.mit.start.timestamp)
+        .map(({ mit, segments }, ix) => (
+          <MitigationCooldownBreakdown
+            key={ix}
+            mitigation={mit}
+            segments={segments}
+            maxValue={maxValue}
+          />
+        ))}
+    </>
+  );
+};
+
 export default function MajorDefensivesSection(): JSX.Element | null {
   const info = useInfo();
   const [chartHover, setChartHover] = useState<HoverKey | null>(null);
@@ -454,6 +525,9 @@ export default function MajorDefensivesSection(): JSX.Element | null {
           <BuffDisplay hoverKey={chartHover} />
           <AutoSizer disableHeight>{(props) => <DefensiveTimeline {...props} />}</AutoSizer>
         </BuffTimelineContainer>
+      </SubSection>
+      <SubSection title="Cooldown Usages">
+        <CooldownUsageList />
       </SubSection>
     </Section>
   );
