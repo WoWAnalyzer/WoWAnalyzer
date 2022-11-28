@@ -8,7 +8,7 @@ const talents = createTalentList({
     name: 'Soothing Mist',
     icon: 'ability_monk_soothingmists',
     maxRanks: 1,
-    manaCost: 2000,
+    manaCost: 0,
   },
   RISING_SUN_KICK_TALENT: {
     id: 107428,
@@ -16,7 +16,6 @@ const talents = createTalentList({
     icon: 'ability_monk_risingsunkick',
     maxRanks: 1,
     chiCost: 2,
-    manaCost: 6250,
   },
   TIGERS_LUST_TALENT: {
     id: 116841,
@@ -116,8 +115,8 @@ const talents = createTalentList({
     icon: 'ability_monk_spearhand',
     maxRanks: 1,
   },
-  FORTIFYING_BREW_SHARED_TALENT: {
-    id: 388917,
+  FORTIFYING_BREW_TALENT: {
+    id: 115203,
     name: 'Fortifying Brew',
     icon: 'ability_monk_fortifyingale_new',
     maxRanks: 1,
@@ -292,7 +291,7 @@ const talents = createTalentList({
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
     maxRanks: 1,
-    manaCost: 10000,
+    manaCost: 2000,
   },
   BONEDUST_BREW_TALENT: {
     id: 386276,
@@ -332,28 +331,28 @@ const talents = createTalentList({
     name: 'Enveloping Mist',
     icon: 'spell_monk_envelopingmist',
     maxRanks: 1,
-    manaCost: 12000,
+    manaCost: 2000,
   },
   ESSENCE_FONT_TALENT: {
     id: 191837,
     name: 'Essence Font',
     icon: 'ability_monk_essencefont',
     maxRanks: 1,
-    manaCost: 18000,
+    manaCost: 3500,
   },
   RENEWING_MIST_TALENT: {
     id: 115151,
     name: 'Renewing Mist',
     icon: 'ability_monk_renewingmists',
     maxRanks: 1,
-    manaCost: 4500,
+    manaCost: 500,
   },
   LIFE_COCOON_TALENT: {
     id: 116849,
     name: 'Life Cocoon',
     icon: 'ability_monk_chicocoon',
     maxRanks: 1,
-    manaCost: 6000,
+    manaCost: 1000,
   },
   THUNDER_FOCUS_TEA_TALENT: {
     id: 116680,
@@ -372,14 +371,14 @@ const talents = createTalentList({
     name: 'Revival',
     icon: 'spell_monk_revival',
     maxRanks: 1,
-    manaCost: 10935,
+    manaCost: 2000,
   },
   RESTORAL_TALENT: {
     id: 388615,
     name: 'Restoral',
     icon: 'ability_monk_tigerstyle',
     maxRanks: 1,
-    manaCost: 10935,
+    manaCost: 2000,
   },
   SONG_OF_CHI_JI_TALENT: { id: 198898, name: 'Song of Chi-Ji', icon: 'inv_chaos_orb', maxRanks: 1 },
   MASTERY_OF_MIST_TALENT: {
@@ -417,7 +416,7 @@ const talents = createTalentList({
     name: 'Zen Pulse',
     icon: 'ability_monk_forcesphere',
     maxRanks: 1,
-    manaCost: 2500,
+    manaCost: 500,
   },
   NOURISHING_CHI_TALENT: {
     id: 387765,
@@ -436,14 +435,14 @@ const talents = createTalentList({
     name: "Invoke Yu'lon, the Jade Serpent",
     icon: 'ability_monk_dragonkick',
     maxRanks: 1,
-    manaCost: 12500,
+    manaCost: 2500,
   },
   INVOKE_CHI_JI_THE_RED_CRANE_TALENT: {
     id: 325197,
     name: 'Invoke Chi-Ji, the Red Crane',
     icon: 'inv_pet_cranegod',
     maxRanks: 1,
-    manaCost: 12500,
+    manaCost: 2500,
   },
   ECHOING_REVERBERATION_TALENT: {
     id: 388604,
@@ -486,7 +485,7 @@ const talents = createTalentList({
     name: 'Refreshing Jade Wind',
     icon: 'ability_monk_rushingjadewind',
     maxRanks: 1,
-    manaCost: 12500,
+    manaCost: 2500,
   },
   ENVELOPING_BREATH_TALENT: {
     id: 343655,
@@ -742,9 +741,9 @@ const talents = createTalentList({
     icon: 'ability_warrior_unrelentingassault',
     maxRanks: 1,
   },
-  FORTIFYING_BREW_BREWMASTER_TALENT: {
+  FORTIFYING_BREW_DETERMINATION_TALENT: {
     id: 322960,
-    name: 'Fortifying Brew',
+    name: 'Fortifying Brew: Determination',
     icon: 'ability_monk_fortifyingale_new',
     maxRanks: 1,
   },
@@ -850,6 +849,7 @@ const talents = createTalentList({
     name: 'Weapons of Order',
     icon: 'ability_bastion_monk',
     maxRanks: 1,
+    manaCost: 2500,
   },
   STORMSTOUTS_LAST_KEG_TALENT: {
     id: 383707,
@@ -858,7 +858,7 @@ const talents = createTalentList({
     maxRanks: 1,
   },
   CALL_TO_ARMS_TALENT: {
-    id: 395268,
+    id: 397251,
     name: 'Call to Arms',
     icon: 'ability_bastion_monk',
     maxRanks: 1,

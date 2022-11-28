@@ -153,11 +153,6 @@ const spells = spellIndexableList({
     name: 'Expel Harm',
     icon: 'ability_monk_expelharm',
   },
-  ZEN_PULSE_HEAL: {
-    id: 198487,
-    name: 'Zen Pulse',
-    icon: 'ability_monk_forcesphere',
-  },
   // Mastery
   GUSTS_OF_MISTS: {
     id: 191894,
