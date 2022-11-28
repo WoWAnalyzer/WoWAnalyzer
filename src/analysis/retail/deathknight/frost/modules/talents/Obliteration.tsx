@@ -7,6 +7,7 @@ import talents from 'common/TALENTS/deathknight';
 import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
 import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import SpellLink from 'interface/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -26,7 +27,8 @@ class Obliteration extends Analyzer {
   globalCooldown!: GlobalCooldown;
   spellUsable!: SpellUsable;
 
-  oblitCasts: ObliterationWindow[] = [];
+  oblitPrecastInfo: ObliterationPrecastConditions[] = [];
+  pillarWindows: BoxRowEntry[][] = [];
 
   goodGcds = 0;
   badGcds = 0;
@@ -49,32 +51,50 @@ class Obliteration extends Analyzer {
 
   onCast(event: CastEvent) {
     if (
-      this.selectedCombatant.hasBuff(talents.PILLAR_OF_FROST_TALENT.id) &&
+      this.selectedCombatant.hasBuff(talents.PILLAR_OF_FROST_TALENT.id, event.timestamp) &&
       this.globalCooldown.isOnGlobalCooldown(event.ability.guid)
     ) {
+      let value = QualitativePerformance.Fail;
       if (this.selectedCombatant.hasBuff(spells.KILLING_MACHINE.id, event.timestamp, 0, 100)) {
         if (event.ability.guid === talents.OBLITERATE_TALENT.id) {
           this.goodGcds += 1;
+          value = QualitativePerformance.Perfect;
         } else {
           this.badGcds += 1;
         }
       }
+      else if (event.ability.guid === talents.FROST_STRIKE_TALENT.id && 
+        !this.selectedCombatant.hasBuff(talents.RIME_TALENT.id, event.timestamp)){
+        value = QualitativePerformance.Good;
+      }
+      else if (event.ability.guid === talents.HOWLING_BLAST_TALENT.id && 
+        (this.selectedCombatant.hasBuff(talents.RIME_TALENT.id, event.timestamp))) {
+          value = QualitativePerformance.Good;
+        }
+
+      this.pillarWindows[this.pillarWindows.length - 1].push({
+        value,
+        tooltip
+      })
     }
-    this.runesOnLastCast =
-      getResource(event.classResources, RESOURCE_TYPES.RUNES.id)?.amount ?? this.runesOnLastCast;
   }
 
   onPillarStart(event: CastEvent) {
     this.currentPillarTimestamp = event.timestamp;
     const rwRefreshed =
       this.spellUsable.cooldownRemaining(talents.REMORSELESS_WINTER_TALENT.id) > 12000;
-    const runeOneCharging = this.spellUsable.cooldownRemaining(-101, event.timestamp) > 0;
-    const runeTwoCharging = this.spellUsable.cooldownRemaining(-102, event.timestamp) > 0;
-    const runeThreeCharging = this.spellUsable.cooldownRemaining(-103, event.timestamp) > 0;
-    const runesAvailable =
-      6 - Number(runeOneCharging) - Number(runeTwoCharging) - Number(runeThreeCharging);
-    console.log(rwRefreshed);
-    console.log(runesAvailable);
+    const runeOneCharges = this.spellUsable.chargesAvailable(-101);
+    const runeTwoCharges = this.spellUsable.chargesAvailable(-102);
+    const runeThreeCharges = this.spellUsable.chargesAvailable(-103);
+    const runesAvailable = runeOneCharges + runeTwoCharges + runeThreeCharges;
+
+    this.oblitPrecastInfo.push({
+      timestamp: event.timestamp,
+      runesAtStart: runesAvailable,
+      remorselessWinterRefreshed: rwRefreshed,
+    })
+
+    this.pillarWindows.push([]);
   }
 
   get badGcdPercentage() {
@@ -97,11 +117,31 @@ class Obliteration extends Analyzer {
     );
   }
 
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={talents.OBLITERATION_TALENT.id} />
+        </b>{' '}
+        turns <SpellLink id={talents.PILLAR_OF_FROST_TALENT.id}/> into your main damage cooldown that requires you play in a specific way to optimize the number of guaranteed
+        <SpellLink id={talents.KILLING_MACHINE_TALENT.id}/>s that you get.
+      </p>
+    )
+
+    const data = (
+      <div>
+        <strong>GCDs in Pillar of Frost</strong>
+      </div>
+    )
+  }
+
   get guideCastBreakdown() {
     const explanation = (
       <p>
-        <strong>Obliteration</strong>
-        Oblit stuff here
+        <strong><SpellLink id={talents.OBLITERATION_TALENT.id}/></strong>
+        turns <SpellLink id={talents.PILLAR_OF_FROST_TALENT.id}/> into your main damage cooldown that requires you play in a specific way to optimize the number of guaranteed
+        <SpellLink id={talents.KILLING_MACHINE_TALENT.id}/>s that you get.  To ensure no GCDs are wasted while Pillar of Frost is active, you should aim to have Runes pooled 
+        and to put <SpellLink id={talents.REMORSELESS_WINTER_TALENT.id}/> on cooldown before casting Pillar of Frost.
       </p>
     );
 
@@ -109,7 +149,7 @@ class Obliteration extends Analyzer {
       <div>
         <strong>Per-Cast Breakdown</strong>
         <small> - click to expand</small>
-        {this.oblitCasts.map((cast, i) => {
+        {this.oblitPrecastInfo.map((cast, i) => {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
@@ -118,7 +158,7 @@ class Obliteration extends Analyzer {
           );
 
           let runesPooled = QualitativePerformance.Good;
-          if (cast.runesAtStart > 2) {
+          if (cast.runesAtStart < 4) {
             runesPooled = QualitativePerformance.Ok;
           } else if (cast.runesAtStart <= 2) {
             runesPooled = QualitativePerformance.Fail;
@@ -161,11 +201,10 @@ class Obliteration extends Analyzer {
   }
 }
 
-interface ObliterationWindow {
+interface ObliterationPrecastConditions {
   timestamp: number;
   runesAtStart: number;
   remorselessWinterRefreshed: boolean;
-  obliterateDamage: number;
 }
 
 export default Obliteration;

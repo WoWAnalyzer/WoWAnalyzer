@@ -181,6 +181,7 @@ class RimeEfficiency extends Analyzer {
 
     const data = (
       <div>
+        <strong>Rime breakdown</strong>
         <GradiatedPerformanceBar good={goodRimes} ok={refreshedRimes} bad={expiredRimes} />
       </div>
     );
