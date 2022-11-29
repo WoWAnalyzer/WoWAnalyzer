@@ -1,4 +1,4 @@
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -7,12 +7,17 @@ import Events, { HealEvent } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class InvokeYulon extends Analyzer {
   soothHealing: number = 0;
   envelopHealing: number = 0;
+
+  get totalHealing() {
+    return this.soothHealing + this.envelopHealing;
+  }
 
   constructor(options: Options) {
     super(options);
@@ -38,6 +43,17 @@ class InvokeYulon extends Analyzer {
 
   handleSoothingBreath(event: HealEvent) {
     this.soothHealing += (event.amount || 0) + (event.absorbed || 0);
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
+        )} %`}
+      />
+    );
   }
 
   statistic() {
@@ -71,7 +87,7 @@ class InvokeYulon extends Analyzer {
             </>
           }
         >
-          <ItemHealingDone amount={this.soothHealing + this.envelopHealing} />
+          <ItemHealingDone amount={this.totalHealing} />
         </BoringValueText>
       </Statistic>
     );

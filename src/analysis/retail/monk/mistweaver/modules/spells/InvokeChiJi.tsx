@@ -1,7 +1,7 @@
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import SpellLink from 'interface/SpellLink';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
   CastEvent,
@@ -14,6 +14,7 @@ import Events, {
 import BoringValueText from 'parser/ui/BoringValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
@@ -43,6 +44,10 @@ class InvokeChiJi extends Analyzer {
   lastGlobal: number = 0;
   efGcd: number = 0;
   checkForSckDamage: number = -1;
+
+  get totalHealing() {
+    return this.gustHealing + this.envelopHealing;
+  }
 
   constructor(options: Options) {
     super(options);
@@ -181,6 +186,17 @@ class InvokeChiJi extends Analyzer {
     }
   }
 
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
+        )} %`}
+      />
+    );
+  }
+
   statistic() {
     return (
       <Statistic
@@ -234,7 +250,7 @@ class InvokeChiJi extends Analyzer {
           }
         >
           <>
-            <ItemHealingDone amount={this.gustHealing + this.envelopHealing} />
+            <ItemHealingDone amount={this.totalHealing} />
             <br />
             {formatNumber(this.missedGlobals)} <small>missed GCDs</small>
           </>

@@ -3,12 +3,13 @@ import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 class Unison extends Analyzer {
   healing: number = 0;
@@ -42,6 +43,15 @@ class Unison extends Analyzer {
     this.healing += (event.amount || 0) + (event.absorbed || 0);
     this.overhealing += event.overheal || 0;
     this.healingFromJss += (event.amount || 0) + (event.absorbed || 0);
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink id={SPELLS.UNISON_HEAL.id} />}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
+      />
+    );
   }
 
   statistic() {
