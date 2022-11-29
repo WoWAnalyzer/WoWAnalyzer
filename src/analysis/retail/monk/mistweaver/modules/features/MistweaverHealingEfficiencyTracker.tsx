@@ -77,8 +77,10 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       spellInfo = this.getChijiDetails(spellInfo);
     } else if (spellId === SPELLS.EXPEL_HARM.id) {
       spellInfo = this.getExpelHarmDetails(spellInfo);
-    } else if (spellId === SPELLS.FAELINE_STOMP_CAST.id) {
+    } else if (spellId === TALENTS_MONK.FAELINE_STOMP_TALENT.id) {
       spellInfo = this.getFLSDetails(spellInfo);
+    } else if (spellId === TALENTS_MONK.ZEN_PULSE_TALENT.id) {
+      spellInfo = this.getZenPulseDetails(spellInfo);
     }
 
     return spellInfo;
@@ -170,7 +172,12 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       this.faelineStompHealing.flsHealing + this.faelineStompHealing.efHealing;
     spellInfo.overhealingDone =
       this.faelineStompHealing.flsOverhealing + this.faelineStompHealing.efOverhealing;
-    spellInfo.manaSpent = this.faelineStompHealing.flsCasts * 2000;
+    return spellInfo;
+  }
+
+  getZenPulseDetails(spellInfo: SpellInfoDetails) {
+    spellInfo.healingDone = this.healingDone.byAbility(SPELLS.ZEN_PULSE_HEAL.id).effective;
+    spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.ZEN_PULSE_HEAL.id).overheal;
     return spellInfo;
   }
 }
