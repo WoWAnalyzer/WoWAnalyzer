@@ -256,6 +256,11 @@ const spells = spellIndexableList({
     name: "Yu'lon's Whisper",
     icon: 'ability_monk_chiexplosion',
   },
+  ZEN_PULSE_HEAL: {
+    id: 198487,
+    name: 'Zen Pulse',
+    icon: 'ability_monk_forcesphere',
+  },
   FAELINE_STOMP_HEAL: {
     id: 388207,
     name: 'Faeline Stomp',

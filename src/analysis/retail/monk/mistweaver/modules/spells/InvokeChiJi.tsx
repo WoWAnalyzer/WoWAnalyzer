@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
@@ -12,12 +11,12 @@ import Events, {
   GlobalCooldownEvent,
   HealEvent,
 } from 'parser/core/Events';
+import BoringValueText from 'parser/ui/BoringValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentSpellText from 'parser/ui/TalentSpellText';
 
 /**
  * Blackout Kick, Totm BoKs, Rising Sun Kick and Spinning Crane Kick generate stacks of Invoke Chi-Ji, the Red Crane, which reduce the cast time and mana
@@ -205,17 +204,27 @@ class InvokeChiJi extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={
-          <Trans id="monk.mistweaver.modules.talents.invokeChiJi.breakdown">
+          <>
             Healing Breakdown:
             <ul>
-              <li>{formatNumber(this.gustHealing)} healing from Chi-Ji Gust of Mist.</li>
-              <li>{formatNumber(this.envelopHealing)} healing from Enveloping Breath.</li>
+              <li>
+                {formatNumber(this.gustHealing)} healing from{' '}
+                <SpellLink id={SPELLS.GUST_OF_MISTS_CHIJI.id} />.
+              </li>
+              <li>
+                {formatNumber(this.envelopHealing)} healing from{' '}
+                <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} />.
+              </li>
             </ul>
             Stack Breakdown:
             <ul>
-              <li>{formatNumber(this.freeCasts)} free Enveloping Mist cast(s).</li>
               <li>
-                {formatNumber(this.castsBelowMaxStacks)} Enveloping Mist cast(s) below max (
+                {formatNumber(this.freeCasts)} free{' '}
+                <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> cast(s).
+              </li>
+              <li>
+                {formatNumber(this.castsBelowMaxStacks)}{' '}
+                <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> cast(s) below max (
                 {MAX_STACKS}) Chi-Ji stacks.
               </li>
               <li>
@@ -228,18 +237,24 @@ class InvokeChiJi extends Analyzer {
                 {(this.chijiGlobals / this.chijiUses).toFixed(2)} average gcds inside Chi-Ji window
               </li>
             </ul>
-          </Trans>
+          </>
         }
       >
-        <TalentSpellText talent={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT}>
+        <BoringValueText
+          label={
+            <>
+              <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} /> and
+              <br />
+              <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} />
+            </>
+          }
+        >
           <>
             <ItemHealingDone amount={this.totalHealing} />
             <br />
-            <Trans id="monk.mistweaver.modules.talents.invokeChiJi.missedGCDs">
-              {formatNumber(this.missedGlobals)} missed GCDs
-            </Trans>
+            {formatNumber(this.missedGlobals)} <small>missed GCDs</small>
           </>
-        </TalentSpellText>
+        </BoringValueText>
       </Statistic>
     );
   }
