@@ -7,6 +7,7 @@ import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 
 // prettier-ignore
 export default [
+  change(date(2022, 11, 28), 'Remove gray backgrounds from most subsections in Guide.', ToppleTheNun),
   change(date(2022, 11, 27), 'Re-organize and internationalize Guide.', ToppleTheNun),
   change(date(2022, 11, 21), <>Fix degradation of <SpellLink id={TALENTS.THE_HUNT_TALENT} /> due to pre-casts.</>, ToppleTheNun),
   change(date(2022, 11, 20), <>Automatically minimize icons on cooldown graphs if any cooldown was cast 10 or more times.</>, ToppleTheNun),

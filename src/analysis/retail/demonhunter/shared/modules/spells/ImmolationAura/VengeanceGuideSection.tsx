@@ -2,15 +2,14 @@ import { useAnalyzer, useInfo } from 'interface/guide';
 import ImmolationAura from './index';
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS/demonhunter';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/vengeance/guide/CastSummaryAndBreakdown';
 import { formatPercentage } from 'common/format';
 import { t, Trans } from '@lingui/macro';
 
+import CastSummaryAndBreakdown from '../../../guide/CastSummaryAndBreakdown';
 import FalloutSnippet from './FalloutSnippet';
 
 const VengeanceGuideSection = () => {
@@ -58,7 +57,7 @@ const VengeanceGuideSection = () => {
     </p>
   );
   const data = (
-    <RoundedPanel>
+    <div>
       <Trans id="guide.demonhunter.vengeance.sections.rotation.immolationAura.data">
         <p>
           <strong>
@@ -82,7 +81,7 @@ const VengeanceGuideSection = () => {
           minimizeIcons
         />
       </Trans>
-    </RoundedPanel>
+    </div>
   );
 
   return explanationAndDataSubsection(explanation, data);
