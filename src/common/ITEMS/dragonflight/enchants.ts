@@ -679,7 +679,7 @@ const enchants = enchantIndexableList({
     effectId: 6565,
   },
 
-  // Weapon Enhancements
+  // Weapon Enhancements - Blacksmithing
   PRIMAL_WHETSTONE_R1: {
     id: 191933,
     name: 'Primal Whetstone',
@@ -715,6 +715,62 @@ const enchants = enchantIndexableList({
     name: 'Primal Weightstone',
     icon: 'inv_10_blacksmithing_consumable_weightstone_color2',
     effectId: 6698,
+  },
+
+  // Weapon Enhancements - Inscription
+  BUZZING_RUNE_R1: {
+    id: 194821,
+    name: 'Buzzing Rune',
+    icon: 'inv_misc_rune_08',
+    effectId: 6512,
+  },
+  BUZZING_RUNE_R2: {
+    id: 194822,
+    name: 'Buzzing Rune',
+    icon: 'inv_misc_rune_08',
+    effectId: 6513,
+  },
+  BUZZING_RUNE_R3: {
+    id: 194823,
+    name: 'Buzzing Rune',
+    icon: 'inv_misc_rune_08',
+    effectId: 6514,
+  },
+  CHIRPING_RUNE_R1: {
+    id: 194824,
+    name: 'Chirping Rune',
+    icon: 'inv_misc_rune_09',
+    effectId: 6515,
+  },
+  CHIRPING_RUNE_R2: {
+    id: 194825,
+    name: 'Chirping Rune',
+    icon: 'inv_misc_rune_09',
+    effectId: 6694,
+  },
+  CHIRPING_RUNE_R3: {
+    id: 194826,
+    name: 'Chirping Rune',
+    icon: 'inv_misc_rune_09',
+    effectId: 6695,
+  },
+  HOWLING_RUNE_R1: {
+    id: 194817,
+    name: 'Howling Rune',
+    icon: 'inv_misc_rune_05',
+    effectId: 6516,
+  },
+  HOWLING_RUNE_R2: {
+    id: 194819,
+    name: 'Howling Rune',
+    icon: 'inv_misc_rune_05',
+    effectId: 6517,
+  },
+  HOWLING_RUNE_R3: {
+    id: 194820,
+    name: 'Howling Rune',
+    icon: 'inv_misc_rune_05',
+    effectId: 6518,
   },
 });
 

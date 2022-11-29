@@ -1,23 +1,34 @@
-import DocumentTitle from 'interface/DocumentTitle';
 import NavigationBar from 'interface/NavigationBar';
+import { Helmet } from 'react-helmet';
 
 import CharacterParses from './CharacterParses';
-import { Region } from 'common/regions';
+import { useRouteMatch } from 'react-router-dom';
 
-interface CharacterPageProps {
-  region: Region;
+interface MatchParams {
+  region: string;
   realm: string;
   name: string;
 }
 
-const CharacterPage = ({ region, realm, name, ...others }: CharacterPageProps) => (
-  <>
-    <DocumentTitle title={`${name}-${realm} (${region})`} />
+const CharacterPage = () => {
+  const match = useRouteMatch<MatchParams>('/character/:region/:realm/:name');
+  const region = decodeURI(match?.params.region.replace(/\+/g, ' ') ?? '').toUpperCase();
+  const realm = decodeURI(match?.params.realm.replace(/\+/g, ' ') ?? '');
+  const name = decodeURI(match?.params.name.replace(/\+/g, ' ') ?? '');
 
-    <NavigationBar />
+  return (
+    <>
+      <Helmet>
+        <title>
+          {name}-{realm} ({region})
+        </title>
+      </Helmet>
 
-    <CharacterParses region={region} realm={realm} name={name} {...others} />
-  </>
-);
+      <NavigationBar />
+
+      <CharacterParses region={region} realm={realm} name={name} />
+    </>
+  );
+};
 
 export default CharacterPage;

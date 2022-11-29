@@ -3,13 +3,7 @@ import { createTalentList } from './types';
 
 const talents = createTalentList({
   //Shared
-  RENEW_TALENT: {
-    id: 139,
-    name: 'Renew',
-    icon: 'spell_holy_renew',
-    maxRanks: 1,
-    manaCost: 500,
-  },
+  RENEW_TALENT: { id: 139, name: 'Renew', icon: 'spell_holy_renew', maxRanks: 1, manaCost: 500 },
   DISPEL_MAGIC_TALENT: {
     id: 528,
     name: 'Dispel Magic',
@@ -478,7 +472,7 @@ const talents = createTalentList({
   ANCIENT_MADNESS_TALENT: {
     id: 341240,
     name: 'Ancient Madness',
-    icon: 'spell_priest_void-flay',
+    icon: 'spell_priest_void_flay',
     maxRanks: 2,
   },
   SHADOW_CRASH_TALENT: {
@@ -893,12 +887,7 @@ const talents = createTalentList({
     icon: 'inv_staff_2h_artifactheartofkure_d_04',
     maxRanks: 1,
   },
-  DIVINE_WORD_TALENT: {
-    id: 372760,
-    name: 'Divine Word',
-    icon: 'spell_priest_chakra',
-    maxRanks: 1,
-  },
+  DIVINE_WORD_TALENT: { id: 372760, name: 'Divine Word', icon: 'spell_priest_chakra', maxRanks: 1 },
   MIRACLE_WORKER_TALENT: {
     id: 235587,
     name: 'Miracle Worker',
@@ -919,7 +908,7 @@ const talents = createTalentList({
     name: 'Power Word: Radiance',
     icon: 'spell_priest_power_word',
     maxRanks: 1,
-    manaCost: 3000,
+    manaCost: 2500,
   },
   PAIN_SUPPRESSION_TALENT: {
     id: 33206,
@@ -940,6 +929,7 @@ const talents = createTalentList({
     icon: 'spell_priest_power_word',
     maxRanks: 1,
   },
+  MAKE_AMENDS_TALENT: { id: 391079, name: 'Make Amends', icon: 'spell_holy_penance', maxRanks: 1 },
   PAIN_TRANSFORMATION_TALENT: {
     id: 372991,
     name: 'Pain Transformation',
@@ -1120,10 +1110,10 @@ const talents = createTalentList({
     icon: 'spell_holy_devineaegis',
     maxRanks: 2,
   },
-  SINS_OF_THE_MANY_TALENT: {
-    id: 280391,
-    name: 'Sins of the Many',
-    icon: 'spell_holy_holyguidance',
+  BLAZE_OF_LIGHT_TALENT: {
+    id: 215768,
+    name: 'Blaze of Light',
+    icon: 'spell_holy_searinglight',
     maxRanks: 2,
   },
   RESPLENDENT_LIGHT_TALENT: {
@@ -1144,19 +1134,12 @@ const talents = createTalentList({
     icon: 'spell_shadow_shadowpower',
     maxRanks: 2,
   },
-  VOID_SUMMONER_TALENT: {
-    id: 390770,
-    name: 'Void Summoner',
-    icon: 'spell_shadow_shadowfiend',
-    maxRanks: 2,
-  },
   AEGIS_OF_WRATH_TALENT: {
     id: 238135,
     name: 'Aegis of Wrath',
     icon: 'spell_holy_powerwordshield',
     maxRanks: 1,
   },
-  MAKE_AMENDS_TALENT: { id: 391079, name: 'Make Amends', icon: 'spell_holy_penance', maxRanks: 1 },
   WEAL_AND_WOE_TALENT: {
     id: 390786,
     name: 'Weal and Woe',
@@ -1173,6 +1156,12 @@ const talents = createTalentList({
     id: 390705,
     name: 'Twilight Equilibrium',
     icon: 'ability_priest_innerlightandshadow',
+    maxRanks: 1,
+  },
+  VOID_SUMMONER_TALENT: {
+    id: 390770,
+    name: 'Void Summoner',
+    icon: 'spell_shadow_shadowfiend',
     maxRanks: 1,
   },
 });

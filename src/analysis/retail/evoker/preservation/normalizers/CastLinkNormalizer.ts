@@ -5,12 +5,17 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 import {
   AbilityEvent,
   ApplyBuffEvent,
+  CastEvent,
   EventType,
+  GetRelatedEvents,
   HasRelatedEvent,
   HealEvent,
   RefreshBuffEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
 } from 'parser/core/Events';
 
+export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly';
 export const ECHO_TEMPORAL_ANOMALY = 'TemporalAnomaly';
@@ -18,14 +23,29 @@ export const ECHO = 'Echo';
 export const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera';
 export const DREAM_BREATH_CALL_OF_YSERA_HOT = 'DreamBreathCallOfYseraHoT';
 export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera';
+export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsumption'; // link essence cast to removing the essence burst buff
 
 const CAST_BUFFER_MS = 100;
+const TA_BUFFER_MS = 6000 + CAST_BUFFER_MS; //TA pulses over 6s at 0% haste
 /*
   This file is for attributing echo applications to hard casts or to temporal anomaly.
   It is needed because echo can apply indrectly from temporal anomaly and 
   not just from a hard cast and has a reduced transfer rate
   */
 const EVENT_LINKS: EventLink[] = [
+  //link shield apply to cast event
+  {
+    linkRelation: SHIELD_FROM_TA_CAST,
+    linkingEventId: [SPELLS.TEMPORAL_ANOMALY_SHIELD.id],
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: [TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT.id],
+    referencedEventType: [EventType.Cast],
+    backwardBufferMs: TA_BUFFER_MS,
+    anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT);
+    },
+  },
   // link Echo apply to its CastEvent
   {
     linkRelation: FROM_HARDCAST,
@@ -93,9 +113,6 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.RemoveBuff],
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
-    // additionalCondition(referencedEvent) {
-    //   return HasRelatedEvent(referencedEvent, DREAM_BREATH_CALL_OF_YSERA);
-    // },
     isActive(c) {
       return (
         c.hasTalent(TALENTS_EVOKER.DREAM_BREATH_TALENT) &&
@@ -132,6 +149,25 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT);
     },
   },
+  // link essence burst remove to a cast to track expirations vs consumptions
+  {
+    linkRelation: ESSENCE_BURST_CONSUME,
+    reverseLinkRelation: ESSENCE_BURST_CONSUME,
+    linkingEventId: SPELLS.ESSENCE_BURST_BUFF.id,
+    linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    referencedEventId: [
+      SPELLS.EMERALD_BLOSSOM_CAST.id,
+      SPELLS.DISINTEGRATE.id,
+      TALENTS_EVOKER.ECHO_TALENT.id,
+    ],
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    isActive(c) {
+      return c.hasTalent(TALENTS_EVOKER.ESSENCE_BURST_TALENT.id);
+    },
+  },
 ];
 
 /**
@@ -166,10 +202,16 @@ export function isFromDreamBreathCallOfYsera(event: ApplyBuffEvent | RefreshBuff
 }
 
 export function isFromLivingFlameCallOfYsera(event: HealEvent) {
-  // if(HasRelatedEvent(event, DREAM_BREATH_CALL_OF_YSERA_HOT)){
-  //   return false;
-  // }
   return HasRelatedEvent(event, LIVING_FLAME_CALL_OF_YSERA);
+}
+
+export function getEssenceBurstConsumeAbility(
+  event: RemoveBuffEvent | RemoveBuffStackEvent,
+): null | CastEvent {
+  if (!HasRelatedEvent(event, ESSENCE_BURST_CONSUME)) {
+    return null;
+  }
+  return GetRelatedEvents(event, ESSENCE_BURST_CONSUME)[0] as CastEvent;
 }
 
 export default CastLinkNormalizer;

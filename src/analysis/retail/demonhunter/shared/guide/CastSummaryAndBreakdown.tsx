@@ -4,6 +4,7 @@ import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/Perfo
 import GradiatedPerformanceBar, {
   GradiatedPerformanceBarInfo,
 } from 'interface/guide/components/GradiatedPerformanceBar';
+import { Trans } from '@lingui/macro';
 
 interface Props {
   castEntries: BoxRowEntry[];
@@ -22,7 +23,9 @@ const CastSummaryAndBreakdown = ({ castEntries, perfect, good, ok, bad }: Props)
       expanded={isExpanded}
       inverseExpanded={() => setIsExpanded(!isExpanded)}
     >
-      <small>Mouseover for more details.</small>
+      <small>
+        <Trans id="guide.mouseoverForMoreDetails">Mouseover for more details.</Trans>
+      </small>
       <PerformanceBoxRow values={castEntries} />
     </ControlledExpandable>
   );

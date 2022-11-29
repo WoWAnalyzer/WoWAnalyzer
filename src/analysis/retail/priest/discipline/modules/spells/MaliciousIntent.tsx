@@ -25,7 +25,7 @@ class MaliciousIntent extends Analyzer {
     atonementDamageSource: AtonementDamageSource,
   };
 
-  bonus = 0.25;
+  bonus = 0.15;
 
   private damage = 0;
   private healing = 0;
@@ -68,7 +68,7 @@ class MaliciousIntent extends Analyzer {
     }
 
     const start = this.lastSchismCast.timestamp + 9000;
-    const end = this.lastSchismCast.timestamp + 12000;
+    const end = this.lastSchismCast.timestamp + 15000;
     const inWindow = event.timestamp > start && event.timestamp < end ? true : false;
     return inWindow;
   }

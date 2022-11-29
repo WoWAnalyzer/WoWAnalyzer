@@ -23,32 +23,28 @@ class SummonDemonicTyrant extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.demonicTyrantPower = [];
-    this._hasReignOfTyranny = this.selectedCombatant.hasTalent(
-      TALENTS.REIGN_OF_TYRANNY_TALENT.id,
-    );
+    this._hasReignOfTyranny = this.selectedCombatant.hasTalent(TALENTS.REIGN_OF_TYRANNY_TALENT.id);
     this._petsPerCast = [];
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DEMONIC_TYRANT),
       this.summonDemonicTyrantCast,
     );
-    this._hasReignOfTyranny = this.selectedCombatant.hasTalent(
-      TALENTS.REIGN_OF_TYRANNY_TALENT.id,
-    );
+    this._hasReignOfTyranny = this.selectedCombatant.hasTalent(TALENTS.REIGN_OF_TYRANNY_TALENT.id);
   }
 
   summonDemonicTyrantCast() {
     const pets = this.demoPets.currentPets;
     const countsPerCast = pets.reduce<Record<number, number>>((countsObj, currPet) => {
       const { summonedBy } = currPet;
-      return {...countsObj, [summonedBy]: (countsObj[summonedBy] || 0) + 1}
-    }, {})
+      return { ...countsObj, [summonedBy]: (countsObj[summonedBy] || 0) + 1 };
+    }, {});
     const demonicServitudeStacks = pets.reduce((total, currPet) => {
       if (isWildImp(currPet.guid)) {
         return total + 1;
       } else {
         return total + 2;
       }
-    }, 0)
+    }, 0);
     // pets.forEach((pet) => {
     //   if (isWildImp(pet.guid)) {
     //     demonicServitudeStacks += 1;
@@ -62,12 +58,10 @@ class SummonDemonicTyrant extends Analyzer {
     this._petsPerCast.push(countsPerCast);
   }
 
-
   myList = [
-    { 1: 2, 3: 5, 6: 22},
-    { 1: 1, 3: 5 }
-  ]
-
+    { 1: 2, 3: 5, 6: 22 },
+    { 1: 1, 3: 5 },
+  ];
 
   statistic() {
     const avgPets =
@@ -84,9 +78,9 @@ class SummonDemonicTyrant extends Analyzer {
         acc[petId] = (acc[petId] || 0) + numCasts;
       }
       return acc;
-    }, {})
+    }, {});
 
-    // convert array of 
+    // convert array of
     // const mergedPets = {};
 
     // const mergedPets = (Object.keys(cast) as Array<keyof typeof v>).reduce((acc, curr) => {
@@ -105,14 +99,16 @@ class SummonDemonicTyrant extends Analyzer {
           <td align="left">
             <SpellLink id={Number(demonSource)} />
           </td>
-          <td align="center">{(mergedPets[Number(demonSource)] / this._petsPerCast.length).toFixed(2)}</td>
+          <td align="center">
+            {(mergedPets[Number(demonSource)] / this._petsPerCast.length).toFixed(2)}
+          </td>
         </tr>
-      )
-    })
+      );
+    });
 
-    const avgTyrantPower = this.demonicTyrantPower.reduce(
-      (acc, val) => acc + val, 0
-    ) / Math.max(this.demonicTyrantPower.length, 1);
+    const avgTyrantPower =
+      this.demonicTyrantPower.reduce((acc, val) => acc + val, 0) /
+      Math.max(this.demonicTyrantPower.length, 1);
     const tyrantFooter = this._hasReignOfTyranny
       ? `Average Reign of Tyranny Bonus Damage: ${avgTyrantPower.toFixed(2)}%`
       : null;
@@ -134,6 +130,7 @@ class SummonDemonicTyrant extends Analyzer {
         position={STATISTIC_ORDER.CORE(6)}
         size="flexible"
         tooltip="Number of pets empowered by each Demonic Tyrant summon."
+        value={avgPets.toFixed(2)}
         dropdown={petTable}
         footer={tyrantFooter}
       >

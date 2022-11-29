@@ -8,6 +8,7 @@ import ITEMS from 'common/ITEMS';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import ImmolationAuraVengeanceGuideSection from 'analysis/retail/demonhunter/shared/modules/spells/ImmolationAura/VengeanceGuideSection';
+import { t, Trans } from '@lingui/macro';
 
 import DemonSpikesSection from './modules/spells/DemonSpikes/GuideSection';
 import FieryBrandSection from './modules/talents/FieryBrand/GuideSection';
@@ -19,6 +20,10 @@ import CooldownGraphSubsection from './guide/CooldownGraphSubSection';
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
+      <ResourceUsageSection modules={modules} events={events} info={info} />
+      <RotationSection modules={modules} events={events} info={info} />
+      <MitigationSection />
+      <CooldownSection modules={modules} events={events} info={info} />
       <PreparationSection
         recommendedEnchantments={{
           [GEAR_SLOTS.CHEST]: [
@@ -44,34 +49,58 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           ],
         }}
       />
-      <ResourceUsageSection modules={modules} events={events} info={info} />
-      <CooldownSection modules={modules} events={events} info={info} />
-      <RotationSection modules={modules} events={events} info={info} />
-      <MitigationSection />
     </>
   );
 }
 
 function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
   return (
-    <Section title="Resource Use">
-      <SubSection title="Fury">
+    <Section
+      title={t({
+        id: 'guide.demonhunter.vengeance.sections.resources.title',
+        message: 'Resource Use',
+      })}
+    >
+      <SubSection
+        title={t({
+          id: 'guide.demonhunter.vengeance.sections.resources.fury.title',
+          message: 'Fury',
+        })}
+      >
         <p>
-          Vengeance's primary resource is Fury. Typically, ability use will be limited by Fury, not
-          time. You should avoid capping Fury - lost Fury generation is lost DPS.
+          <Trans id="guide.demonhunter.vengeance.sections.resources.fury.summary">
+            Vengeance's primary resource is Fury. Typically, ability use will be limited by Fury,
+            not time. You should avoid capping Fury - lost Fury generation is lost DPS.
+          </Trans>
         </p>
         <p>
-          The chart below shows your Fury over the course of the encounter. You spent{' '}
-          <strong>{formatPercentage(modules.furyTracker.percentAtCap, 1)}%</strong> of the encounter
-          capped on Fury.
+          <Trans id="guide.demonhunter.vengeance.sections.resources.fury.chart">
+            The chart below shows your Fury over the course of the encounter. You spent{' '}
+            <strong>{formatPercentage(modules.furyTracker.percentAtCap, 1)}%</strong> of the
+            encounter capped on Fury.
+          </Trans>
         </p>
         {modules.furyGraph.plot}
       </SubSection>
-      <SubSection title="Soul Fragments">
+      <SubSection
+        title={t({
+          id: 'guide.demonhunter.vengeance.sections.resources.soulFragments.title',
+          message: 'Soul Fragments',
+        })}
+      >
         <p>
-          Most of your abilities either <strong>build</strong> or <strong>spend</strong> Soul
-          Fragments. Never use a builder at max Soul Fragments or when doing so will cause you to
-          overcap on Soul Fragments.
+          <Trans id="guide.demonhunter.vengeance.sections.resources.soulFragments.summary">
+            Most of your abilities either <strong>build</strong> or <strong>spend</strong> Soul
+            Fragments. Never use a builder at max <SpellLink id={SPELLS.SOUL_FRAGMENT} />s or when
+            doing so will cause you to overcap on <SpellLink id={SPELLS.SOUL_FRAGMENT} />
+            s.
+          </Trans>
+        </p>
+        <p>
+          <Trans id="guide.demonhunter.vengeance.sections.resources.soulFragments.chart">
+            The chart below shows your <SpellLink id={SPELLS.SOUL_FRAGMENT} />s over the course of
+            the encounter.
+          </Trans>
         </p>
         {modules.soulFragmentsGraph.plot}
       </SubSection>
@@ -86,27 +115,39 @@ function MitigationSection() {
   }
 
   return (
-    <Section title="Defensive Cooldowns and Mitigation">
+    <Section
+      title={t({
+        id: 'guide.demonhunter.vengeance.sections.defensives.title',
+        message: 'Defensive Cooldowns and Mitigation',
+      })}
+    >
       <MetamorphosisSection />
       <DemonSpikesSection />
       <FieryBrandSection />
-      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.VOID_REAVER_TALENT) && <VoidReaverSection />}
+      <VoidReaverSection />
     </Section>
   );
 }
 
 function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
-    <Section title="Rotation">
+    <Section
+      title={t({
+        id: 'guide.demonhunter.vengeance.sections.rotation.title',
+        message: 'Rotation',
+      })}
+    >
       <AlertWarning>
         This section is under heavy development as work on the Vengeance rotation continues during
         the Dragonflight pre-patch. It is currently a reasonable starting point, but may not match
         the optimal rotation yet.
       </AlertWarning>
       <p>
-        Vengeance's core rotation involves <strong>building</strong> and then{' '}
-        <strong>spending</strong> <SpellLink id={SPELLS.SOUL_FRAGMENT} />
-        s, which heal for 6% of damage taken in the 5 seconds before they are absorbed.
+        <Trans id="guide.demonhunter.vengeance.sections.rotation.summary">
+          Vengeance's core rotation involves <strong>building</strong> and then{' '}
+          <strong>spending</strong> <SpellLink id={SPELLS.SOUL_FRAGMENT} />
+          s, which heal for 6% of damage taken in the 5 seconds before they are absorbed.
+        </Trans>
       </p>
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT) &&
         modules.fracture.guideSubsection()}
@@ -136,13 +177,20 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
 
 function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
-    <Section title="Cooldowns">
+    <Section
+      title={t({
+        id: 'guide.demonhunter.vengeance.sections.cooldowns.title',
+        message: 'Cooldowns',
+      })}
+    >
       <p>
-        Vengeance has multiple cooldowns that it can use to increase survivability or do large
-        amounts of damage. In order to maximize usages over the course of an encounter, you should
-        aim to send the cooldown as soon as it becomes available (as long as it can do damage on
-        target) if you won't need it for an upcoming mechanic. It is particularly important to use{' '}
-        <SpellLink id={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT.id} /> as often as possible.
+        <Trans id="guide.demonhunter.vengeance.sections.cooldowns.summary">
+          Vengeance has multiple cooldowns that it can use to increase survivability or do large
+          amounts of damage. In order to maximize usages over the course of an encounter, you should
+          aim to send the cooldown as soon as it becomes available (as long as it can do damage on
+          target) if you won't need it for an upcoming mechanic. It is particularly important to use{' '}
+          <SpellLink id={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT.id} /> as often as possible.
+        </Trans>
       </p>
       <CooldownGraphSubsection />
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT) &&

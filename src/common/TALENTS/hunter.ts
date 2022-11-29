@@ -147,9 +147,9 @@ const talents = createTalentList({
     icon: 'ability_hunter_camouflage',
     maxRanks: 1,
   },
-  SENTINEL_TALENT: {
-    id: 393505,
-    name: 'Sentinel',
+  SENTINEL_OWL_TALENT: {
+    id: 388045,
+    name: 'Sentinel Owl',
     icon: 'ability_hunter_sentinelowl',
     maxRanks: 1,
   },
