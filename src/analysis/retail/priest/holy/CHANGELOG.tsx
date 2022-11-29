@@ -15,6 +15,13 @@ export default [
     Squided
   ),
   change(
+    date(2022, 11, 26),
+    <>
+      Updated <SpellLink id={TALENTS.DIVINE_WORD_TALENT.id} /> to new hotfix value.
+    </>,
+    Litena
+  ),
+  change(
     date(2022, 11, 10),
     <>
       Added support for 
@@ -23,7 +30,13 @@ export default [
     </>,
     Squided
   ),
-  change(date(2022, 11, 7), <><SpellLink id={TALENTS_PRIEST.PROTECTIVE_LIGHT_TALENT.id}/> support added.</>, Hana),
+  change(
+    date(2022, 11, 7),
+    <>
+      <SpellLink id={TALENTS_PRIEST.PROTECTIVE_LIGHT_TALENT.id} /> support added.
+    </>,
+    Hana
+  ),
   change(
     date(2022, 11, 3),
     <>
