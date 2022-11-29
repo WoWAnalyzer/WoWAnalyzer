@@ -6,7 +6,6 @@ export const SPELL_COLORS = {
   DREAM_BREATH: '#c49c94',
   ECHO: '#fffb0a',
   EMERALD_BLOSSOM: '#c1e1c1',
-  FLUTTERING_SEEDLING: '#50c878',
   LIVING_FLAME: '#880e0b',
   SPIRITBLOOM: '#fe85ff',
   TA_ECHO: '#6711ad',
