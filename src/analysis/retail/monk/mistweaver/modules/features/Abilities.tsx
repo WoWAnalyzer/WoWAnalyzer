@@ -36,7 +36,19 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 100,
       },
-
+      {
+        spell: TALENTS_MONK.FAELINE_STOMP_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 30,
+        enabled: combatant.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+      },
       // Cooldowns
       {
         spell: TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id,
@@ -158,6 +170,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS_MONK.ESSENCE_FONT_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_MONK.ESSENCE_FONT_TALENT),
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
@@ -235,6 +248,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_MONK.PARALYSIS_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
+        enabled: combatant.hasTalent(TALENTS_MONK.PARALYSIS_TALENT),
         gcd: {
           base: 1500,
         },
@@ -285,6 +299,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_MONK.TRANSCENDENCE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 10,
+        enabled: combatant.hasTalent(TALENTS_MONK.TRANSCENDENCE_TALENT),
         gcd: {
           base: 1500,
         },
@@ -343,6 +358,19 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         timelineSortIndex: 100,
+      },
+      {
+        spell: TALENTS_MONK.ZEN_PULSE_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        enabled: combatant.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT),
+        cooldown: 30,
+        castEfficiency: {
+          suggestion: true,
+        },
+        gcd: {
+          base: 1500,
+          timelineSortIndex: 100,
+        },
       },
     ];
   }

@@ -7,10 +7,9 @@ import Enemies from 'parser/shared/modules/Enemies';
 import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import {
-  CooldownExpandable,
+import CooldownExpandable, {
   CooldownExpandableItem,
-} from 'analysis/retail/druid/restoration/Guide';
+} from 'interface/guide/components/CooldownExpandable';
 import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
 
 /**

@@ -58,6 +58,7 @@ import BlazeOfLight from './modules/spells/BlazeOfLight';
 import SelfAtonementAnalyzer from './modules/guide/SelfAtonementAnalysis';
 import ProtectiveLight from '../shared/ProtectiveLight';
 import ResplendentLight from './modules/spells/ResplendentLight';
+import TwilightEquilibrium from './modules/spells/TwilightEquilibrium';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -117,6 +118,7 @@ class CombatLogParser extends CoreCombatLogParser {
     expiation: Expiation,
     powerWordShield: PowerWordShield,
     stolenPsyche: StolenPsyche,
+    twilightEqilibrium: TwilightEquilibrium,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
     painAndSuffering: PainAndSuffering,
     throesOfPain: ThroesOfPain,

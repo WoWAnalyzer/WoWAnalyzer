@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -63,21 +62,21 @@ class Deathspeaker extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: this.procsWasted / this.procsGained,
+      actual: this.procsWasted,
       isGreaterThan: {
         minor: 0,
-        average: 0,
-        major: 0.05,
+        average: 0.5,
+        major: 1.1,
       },
-      style: ThresholdStyle.PERCENTAGE,
+      style: ThresholdStyle.NUMBER,
     };
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+    when(this.suggestionThresholds).addSuggestion((suggest) =>
       suggest(
         <>
-          You wasted {formatPercentage(actual)}% of{' '}
+          You wasted {this.procsWasted} out of {this.procsGained}{' '}
           <SpellLink id={TALENTS.DEATHSPEAKER_TALENT.id} /> procs.{' '}
         </>,
       )
@@ -85,10 +84,10 @@ class Deathspeaker extends Analyzer {
         .actual(
           t({
             id: 'priest.shadow.suggestions.deathspeaker.efficiency',
-            message: `Wasted ${formatPercentage(actual)}% of DeathSpeaker procs.`,
+            message: `You wasted ${this.procsWasted} out of ${this.procsGained} DeathSpeaker procs.`,
           }),
         )
-        .recommended(`<${formatPercentage(recommended)}% is recommended.`),
+        .recommended(`<0 is recommended.`),
     );
   }
 

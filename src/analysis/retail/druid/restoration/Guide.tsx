@@ -1,12 +1,10 @@
 import SPELLS from 'common/SPELLS';
-import { ControlledExpandable, SpellLink } from 'interface';
-import { GuideProps, PerformanceMark, Section, SubSection } from 'interface/guide';
+import { SpellLink } from 'interface';
+import { GuideProps, Section, SubSection } from 'interface/guide';
 import { GapHighlight } from 'parser/ui/CooldownBar';
-import { useState } from 'react';
 
 import CombatLogParser from './CombatLogParser';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 
 /** Common 'rule line' point for the explanation/data in Core Spells section */
@@ -119,80 +117,4 @@ function CooldownBreakdownSubsection({
       {modules.innervate.guideCastBreakdown}
     </SubSection>
   );
-}
-
-// TODO replace this with a properly styled and better implemented version in core modules
-export function CooldownExpandable({
-  header,
-  checklistItems,
-  detailItems,
-  perf,
-}: {
-  header: React.ReactNode;
-  checklistItems?: CooldownExpandableItem[];
-  detailItems?: CooldownExpandableItem[];
-  perf?: QualitativePerformance;
-}): JSX.Element {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const combinedHeader =
-    perf !== undefined ? (
-      <div>
-        {header} &mdash; <PerformanceMark perf={perf} />
-      </div>
-    ) : (
-      header
-    );
-  return (
-    <ControlledExpandable
-      header={combinedHeader}
-      element="section"
-      expanded={isExpanded}
-      inverseExpanded={() => setIsExpanded(!isExpanded)}
-    >
-      <div>
-        {checklistItems && checklistItems.length !== 0 && (
-          <section>
-            <header style={{ fontWeight: 'bold' }}>Checklist</header>
-            <tbody>
-              <table>
-                {checklistItems.map((item, ix) => (
-                  <tr key={'checklist-' + ix}>
-                    <td style={{ paddingRight: '1em', paddingLeft: '1em', minWidth: '25em' }}>
-                      {item.label}
-                    </td>
-                    <td style={{ paddingRight: '1em', textAlign: 'right' }}>{item.result}</td>
-                    {item.details && <td style={{ paddingRight: '1em' }}>{item.details}</td>}
-                  </tr>
-                ))}
-              </table>
-            </tbody>
-          </section>
-        )}
-        {detailItems && detailItems.length !== 0 && (
-          <section>
-            <tbody>
-              <header style={{ fontWeight: 'bold' }}>Details</header>
-              <table>
-                {detailItems.map((item, ix) => (
-                  <tr key={'details-' + ix}>
-                    <td style={{ paddingRight: '1em', paddingLeft: '1em', minWidth: '25em' }}>
-                      {item.label}
-                    </td>
-                    <td style={{ paddingRight: '1em', textAlign: 'right' }}>{item.result}</td>
-                    {item.details && <td style={{ paddingRight: '1em' }}>{item.details}</td>}
-                  </tr>
-                ))}
-              </table>
-            </tbody>
-          </section>
-        )}
-      </div>
-    </ControlledExpandable>
-  );
-}
-
-export interface CooldownExpandableItem {
-  label: React.ReactNode;
-  result: React.ReactNode;
-  details?: React.ReactNode;
 }

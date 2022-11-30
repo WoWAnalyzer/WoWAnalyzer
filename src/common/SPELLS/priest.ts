@@ -275,7 +275,16 @@ const spells = spellIndexableList({
     name: 'Contrition',
     icon: 'ability_priest_savinggrace',
   },
-
+  TWILIGHT_EQUILIBRIUM_SHADOW_BUFF: {
+    id: 390707,
+    name: 'Twilight Equilibrium',
+    icon: 'ability_priest_innerlightandshadow',
+  },
+  TWILIGHT_EQUILIBRIUM_HOLY_BUFF: {
+    id: 390706,
+    name: 'Twilight Equilibrium',
+    icon: 'ability_priest_innerlightandshadow',
+  },
   MANIFESTED_TWILIGHT_BUFF_2P: {
     id: 363943,
     name: 'Manifested Twilight',
