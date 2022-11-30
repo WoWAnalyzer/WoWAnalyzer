@@ -30,6 +30,7 @@ import PALADIN from './paladin';
 import PRIEST from './priest';
 import RACIALS from './racials';
 import ROGUE from './rogue';
+import DRAGONFLIGHT from './dragonflight';
 import SHADOWLANDS from './shadowlands';
 import DRAGONFLIGHT from './dragonflight';
 import SHAMAN from './shaman';
