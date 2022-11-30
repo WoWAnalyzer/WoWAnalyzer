@@ -32,7 +32,6 @@ import RACIALS from './racials';
 import ROGUE from './rogue';
 import DRAGONFLIGHT from './dragonflight';
 import SHADOWLANDS from './shadowlands';
-import DRAGONFLIGHT from './dragonflight';
 import SHAMAN from './shaman';
 import Spell, { Enchant } from './Spell';
 import WARLOCK from './warlock';
