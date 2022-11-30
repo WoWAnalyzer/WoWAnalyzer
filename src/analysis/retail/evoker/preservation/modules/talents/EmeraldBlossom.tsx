@@ -86,7 +86,7 @@ class EmeraldBlossom extends Analyzer {
           <SpellLink id={SPELLS.EMERALD_BLOSSOM_CAST.id} />
         </>,
       )
-        .icon(SPELLS.DREAM_BREATH.icon)
+        .icon(SPELLS.EMERALD_BLOSSOM.icon)
         .actual(
           `${this.averageNumTargets.toFixed(1)} ${t({
             id: 'evoker.preservation.suggestions.emeraldBlossom.avgTargetsHit',
