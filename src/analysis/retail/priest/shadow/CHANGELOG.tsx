@@ -8,6 +8,7 @@ import { SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
 
 export default [
+  change(date(2022, 11, 29), <>Improved proc checklist section and fixed some missing icons for the procs </>,DoxAshe),
   change(date(2022, 11, 24), <>Added checklist section and suggestions for using procs </>,DoxAshe),
   change(date(2022, 11, 15), <>Added support for new Dragonflight talents</>,DoxAshe),
   change(date(2022, 11, 6), <>Updated spells and talents for Dragonflight</>,DoxAshe),
