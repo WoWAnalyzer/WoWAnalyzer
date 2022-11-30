@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -57,34 +56,32 @@ class UnfurlingDarkness extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: this.procsWasted / this.procsGained,
+      actual: this.procsWasted,
       isGreaterThan: {
         minor: 0,
-        average: 0,
-        major: 0.05,
+        average: 0.5,
+        major: 1.1,
       },
-      style: ThresholdStyle.PERCENTAGE,
+      style: ThresholdStyle.NUMBER,
     };
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+    when(this.suggestionThresholds).addSuggestion((suggest) =>
       suggest(
         <>
-          You wasted {formatPercentage(actual)}% of{' '}
+          You wasted {this.procsWasted} out of {this.procsGained}{' '}
           <SpellLink id={TALENTS.UNFURLING_DARKNESS_TALENT.id} /> procs.{' '}
         </>,
       )
-        .icon(TALENTS.UNFURLING_DARKNESS_TALENT.icon)
+        .icon(SPELLS.UNFURLING_DARKNESS_BUFF.icon)
         .actual(
           t({
             id: 'priest.shadow.suggestions.unfurlingDarkness.efficiency',
-            message: `Wasted ${formatPercentage(
-              actual,
-            )}% of Unfurling Darkness procs. If you're not getting enough uses from Unfurling Darkness, you'll likely benefit more from using a different talent.`,
+            message: `You wasted ${this.procsWasted} out of ${this.procsGained} Unfurling Darkness procs.`,
           }),
         )
-        .recommended(`<${formatPercentage(recommended)}% is recommended.`),
+        .recommended(`0 is recommended.`),
     );
   }
 

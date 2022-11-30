@@ -1,5 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { SpellLink } from 'interface';
 import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -13,6 +14,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { RISING_MIST_EXTENSION } from '../../constants';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 import HotTrackerMW from '../core/HotTrackerMW';
 import Vivify from './Vivify';
@@ -265,6 +267,17 @@ class RisingMist extends Analyzer {
     if (foundTarget) {
       this.targetCount += 1;
     }
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
+        )} %`}
+      />
+    );
   }
 
   statistic() {

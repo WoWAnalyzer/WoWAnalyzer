@@ -7,8 +7,10 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_MONK } from 'common/TALENTS';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { SpellLink } from 'interface';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 const BUFF_PER_POINT = 0.1;
 
@@ -31,6 +33,17 @@ class SaveThemAll extends Analyzer {
       return;
     }
     this.totalHealed += calculateEffectiveHealing(event, this.healingBuff);
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink id={TALENTS_MONK.SAVE_THEM_ALL_TALENT.id} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.totalHealed),
+        )} %`}
+      />
+    );
   }
 
   statistic() {

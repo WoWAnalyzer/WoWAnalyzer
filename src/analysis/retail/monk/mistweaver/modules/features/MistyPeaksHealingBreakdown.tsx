@@ -17,7 +17,8 @@ class MistyPeaksHealingBreakdown extends Analyzer {
     return (
       this.mistyPeaks.extraHealing -
       this.rapidDiffusion.mistyPeaksHealingFromRapidDiffusion -
-      this.dancingMists.mistyPeaksHealingFromDancingMist
+      this.dancingMists.mistyPeaksHealingFromDancingMist -
+      this.mistsOfLife.extraMistyPeaksHealing
     );
   }
   static dependencies = {
@@ -62,13 +63,13 @@ class MistyPeaksHealingBreakdown extends Analyzer {
         value: this.remainingMistyPeaksHealing,
         valueTooltip: formatThousands(this.remainingMistyPeaksHealing),
       },
-      // {
-      //   color: SPELL_COLORS.RENEWING_MIST ,
-      //   label: 'Mists of Life',
-      //   spellId: TALENTS_MONK.MISTS_OF_LIFE_TALENT.id,
-      //   value: this.mistsOfLife,
-      //   valueTooltip: formatThousands(this.mistsOfLife),
-      // },
+      {
+        color: SPELL_COLORS.GUSTS_OF_MISTS,
+        label: 'Mists of Life',
+        spellId: TALENTS_MONK.MISTS_OF_LIFE_TALENT.id,
+        value: this.mistsOfLife.extraMistyPeaksHealing,
+        valueTooltip: formatThousands(this.mistsOfLife.extraMistyPeaksHealing),
+      },
     ];
 
     return <DonutChart items={items} />;

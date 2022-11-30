@@ -1,4 +1,4 @@
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink, TooltipElement } from 'interface';
@@ -6,6 +6,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
@@ -168,6 +169,17 @@ class DancingMists extends Analyzer {
         this.extraMistyPeaksAbsorb += event.absorbed || 0;
       }
     }
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT.id} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
+        )} %`}
+      />
+    );
   }
 
   statistic() {
