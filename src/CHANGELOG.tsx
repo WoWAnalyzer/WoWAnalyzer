@@ -67,6 +67,7 @@ import SpellLink from 'interface/SpellLink';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 export default [
+  change(date(2022, 11, 30), 'Add Dragonflight Engineering enchantments and weapon enchancements.', ToppleTheNun),
   change(date(2022, 11, 30), <>Add support for <ItemLink id={ITEMS.DRACONIC_AUGMENT_RUNE.id} />.</>, ToppleTheNun),
   change(date(2022, 11, 30), 'Add Vault of Incarnates to ZONES and remove Shadowlands raids from ZONES.', ToppleTheNun),
   change(date(2022, 11, 30), <>Add Evoker's <SpellLink id={SPELLS.FURY_OF_THE_ASPECTS} /> as a Bloodlust buff.</>, ToppleTheNun),
