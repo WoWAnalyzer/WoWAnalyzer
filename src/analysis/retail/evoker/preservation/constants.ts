@@ -10,6 +10,7 @@ export const SPELL_COLORS = {
   SPIRITBLOOM: '#fe85ff',
   TA_ECHO: '#6711ad',
   REVERSION: '#ffbb78',
+  VERDANT_EMBRACE: '#96ffd8',
 };
 
 // heal events that can be caused by an echo heal
