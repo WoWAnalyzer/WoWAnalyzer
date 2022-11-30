@@ -865,7 +865,7 @@
   "priest.shadow.suggestions.shadowWordPain.shadowWordPainOverwrite": "{actual} Shadow Word Pain Overwrites",
   "priest.shadow.suggestions.shadowWordPain.uptime": "{0}% Shadow Word: Pain uptime",
   "priest.shadow.suggestions.surgeofdarkness.efficiency": "You wasted {0} out of {1} Surge of Darkness procs.",
-  "priest.shadow.suggestions.unfurlingDarkness.efficiency": "Wasted {0}% of Unfurling Darkness procs. If you're not getting enough uses from Unfurling Darkness, you'll likely benefit more from using a different talent.",
+  "priest.shadow.suggestions.unfurlingDarkness.efficiency": "You Wasted {0} of Unfurling Darkness procs.",
   "priest.shadow.suggestions.vampiricTouch.uptime": "{0}% Vampiric Touch uptime",
   "priest.shadow.suggestions.voidBolt.efficiency": "You had {0} cast(s) while Void Bolt was off cooldown during Voidform.",
   "priest.shadow.suggestions.voidTorrent.secondsLost": "Lost {0} seconds of Void Torrent.",

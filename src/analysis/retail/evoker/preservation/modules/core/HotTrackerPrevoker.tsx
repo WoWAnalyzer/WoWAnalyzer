@@ -24,18 +24,19 @@ class HotTrackerPrevoker extends HotTracker {
   }
 
   //from echo
-  fromEcho(hot: Tracker): boolean {
+  fromEchoHardcast(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
-      return attr.name.includes('Echo');
+      return attr.name.startsWith('Echo Hardcast');
     });
   }
 
   //from hardcast
-  fromHardcast(hot: Tracker): boolean {
+  fromEchoTA(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
-      return attr.name.includes('Hardcast');
+      return attr.name.startsWith('Echo Temporal Anomaly');
     });
   }
+
   fromCallOfYsera(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
       return attr.name.includes('Call Of Ysera');
