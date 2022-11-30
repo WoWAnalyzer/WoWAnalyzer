@@ -9,7 +9,7 @@ import PowerWordShield from './PowerWordShield';
 import DonutChart from 'parser/ui/DonutChart';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-const CRYSTALLINE_REFLECTION_RANK_INCREASE = 0.1;
+const CRYSTALLINE_REFLECTION_RANK_INCREASE = 0.06;
 
 class CrystallineReflection extends Analyzer {
   static dependencies = {

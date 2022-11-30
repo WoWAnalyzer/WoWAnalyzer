@@ -40,17 +40,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.HEALING_STREAM_TOTEM_RESTORATION_TALENT.id,
+        spell: TALENTS.HEALING_STREAM_TOTEM_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        charges:
-          combatant.hasTalent(TALENTS.HEALING_STREAM_TOTEM_RESTORATION_TALENT.id) &&
-          combatant.hasTalent(TALENTS.HEALING_STREAM_TOTEM_SHARED_TALENT.id)
-            ? 2
-            : 1,
+        charges: combatant.getRepeatedTalentCount(TALENTS.HEALING_STREAM_TOTEM_TALENT.id),
         timelineSortIndex: 18,
         enabled:
           !combatant.hasTalent(TALENTS.CLOUDBURST_TOTEM_TALENT.id) &&
-          combatant.hasTalent(TALENTS.HEALING_STREAM_TOTEM_RESTORATION_TALENT.id),
+          combatant.hasTalent(TALENTS.HEALING_STREAM_TOTEM_TALENT.id),
         gcd: {
           static: totemGCD,
         },

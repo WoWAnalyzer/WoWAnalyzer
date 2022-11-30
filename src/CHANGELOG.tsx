@@ -67,6 +67,15 @@ import SpellLink from 'interface/SpellLink';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 export default [
+  change(date(2022, 11, 28), 'Add chevron to cooldown expandables.', ToppleTheNun),
+  change(date(2022, 11, 26), 'Add potions for Dragonflight.', ToppleTheNun),
+  change(date(2022, 11, 26), 'Add gems for Dragonflight.', ToppleTheNun),
+  change(date(2022, 11, 26), 'Add Inscription weapon enhancements for Dragonflight.', ToppleTheNun),
+  change(date(2022, 11, 21), 'Reduce usage of render props in app wrapper.', ToppleTheNun),
+  change(date(2022, 11, 21), 'Convert Results to a functional component.', ToppleTheNun),
+  change(date(2022, 11, 23), 'Update talent data for all specs', emallson),
+  change(date(2022, 11, 21), 'Move away from legacy context APIs where possible.', ToppleTheNun),
+  change(date(2022, 11, 21), 'Reduce usage of render props in Home page.', ToppleTheNun),
   change(date(2022, 11, 21), 'Convert ThroughputPerformance to a functional component.', ToppleTheNun),
   change(date(2022, 11, 21), 'Convert StatisticBox and LazyLoadStatisticBox to TypeScript.', ToppleTheNun),
   change(date(2022, 11, 21), 'Put consumables panels side-by-side in preparation section of Guides and add support for potions and flasks.', ToppleTheNun),

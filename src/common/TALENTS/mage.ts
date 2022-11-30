@@ -850,7 +850,7 @@ const talents = createTalentList({
   TOUCH_OF_THE_MAGI_TALENT: {
     id: 321507,
     name: 'Touch of the Magi',
-    icon: 'spell_mage_icenova',
+    icon: 'ability_mage_netherwindpresence',
     maxRanks: 1,
     manaCost: 2500,
   },

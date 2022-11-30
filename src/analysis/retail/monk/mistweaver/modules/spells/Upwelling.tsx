@@ -10,6 +10,8 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import HotTrackerMW from '../core/HotTrackerMW';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import { SpellLink } from 'interface';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 const BASE_BOLTS = 17; //18 base but we start counting at 0 so 18th on bolt count = 19th bolt
 
@@ -203,6 +205,17 @@ class Upwelling extends Analyzer {
       }
       this.masteryTickTock = !this.masteryTickTock;
     }
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink id={TALENTS_MONK.UPWELLING_TALENT.id} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.totalHealingAll),
+        )} %`}
+      />
+    );
   }
 
   statistic() {
