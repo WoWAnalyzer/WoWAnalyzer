@@ -177,6 +177,11 @@ const spells = spellIndexableList({
     name: 'Permeating Chill',
     icon: 'spell_frost_coldhearted',
   },
+  FURY_OF_THE_ASPECTS: {
+    id: 390386,
+    name: 'Fury of the Aspects',
+    icon: 'ability_evoker_furyoftheaspects',
+  },
 });
 
 export default spells;

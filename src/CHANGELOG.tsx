@@ -67,6 +67,7 @@ import SpellLink from 'interface/SpellLink';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 export default [
+  change(date(2022, 11, 30), <>Add Evoker's <SpellLink id={SPELLS.FURY_OF_THE_ASPECTS} /> as a Bloodlust buff.</>, ToppleTheNun),
   change(date(2022, 11, 30), <>Add support for <ItemLink id={ITEMS.REFRESHING_HEALING_POTION_R3.id} />.</>, ToppleTheNun),
   change(date(2022, 11, 28), 'Add chevron to cooldown expandables.', ToppleTheNun),
   change(date(2022, 11, 26), 'Add potions for Dragonflight.', ToppleTheNun),
