@@ -1,6 +1,6 @@
 import { itemIndexableList } from 'common/ITEMS/Item';
 
-const potions = itemIndexableList({
+const others = itemIndexableList({
   DRACONIC_AUGMENT_RUNE: {
     id: 201325,
     name: 'Draconic Augment Rune',
@@ -8,4 +8,4 @@ const potions = itemIndexableList({
   },
 });
 
-export default potions;
+export default others;
