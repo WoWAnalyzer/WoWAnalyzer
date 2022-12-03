@@ -1,7 +1,6 @@
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import { Boss, findByBossId } from 'game/raids';
-import Guide, { GuideContainer, GuideContext } from 'interface/guide';
-import { ModulesOf } from 'interface/guide';
+import Guide, { GuideContainer, GuideContext, ModulesOf } from 'interface/guide';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import {
   AnyEvent,
@@ -14,8 +13,6 @@ import {
 } from 'parser/core/Events';
 import ModuleError from 'parser/core/ModuleError';
 import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
-import BloodSpatteredScale from 'parser/retail/modules/items/dungeons/BloodSpatteredScale';
-import AscendedVigor from 'parser/retail/modules/items/enchants/AscendedVigor';
 import PotionChecker from 'parser/retail/modules/items/PotionChecker';
 import WeaponEnhancementChecker from 'parser/retail/modules/items/WeaponEnhancementChecker';
 import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
@@ -29,21 +26,11 @@ import * as React from 'react';
 import Config from '../Config';
 import AugmentRuneChecker from '../retail/modules/items/AugmentRuneChecker';
 import CombatPotion from '../retail/modules/items/CombatPotion';
-import DarkmoonDeckVoracity from '../retail/modules/items/crafted/DarkmoonDeckVoracity';
-import { DrapeOfShame } from '../retail/modules/items/DrapeOfShame';
-import CodexOfTheFirstTechnique from '../retail/modules/items/dungeons/CodexOfTheFirstTechnique';
-import InscrutableQuantumDevice from '../retail/modules/items/dungeons/InscrutableQuantumDevice';
-import OverchargedAnimaBattery from '../retail/modules/items/dungeons/OverchargedAnimaBattery';
-import ShadowgraspTotem from '../retail/modules/items/dungeons/ShadowgraspTotem';
-import SoullettingRuby from '../retail/modules/items/dungeons/SoullettingRuby';
 import EnchantChecker from '../retail/modules/items/EnchantChecker';
 import FlaskChecker from '../retail/modules/items/FlaskChecker';
 import FoodChecker from '../retail/modules/items/FoodChecker';
 import HealthPotion from '../retail/modules/items/HealthPotion';
 import Healthstone from '../retail/modules/items/Healthstone';
-import CacheOfAcquiredTreasures from '../retail/modules/items/raid/sepulcherofthefirstones/CacheOfAcquiredTreasures';
-import EarthbreakersImpact from '../retail/modules/items/raid/sepulcherofthefirstones/EarthbreakersImpact';
-import TheFirstSigil from '../retail/modules/items/raid/sepulcherofthefirstones/TheFirstSigil';
 import SpellTimeWaitingOnGlobalCooldown from '../shared/enhancers/SpellTimeWaitingOnGlobalCooldown';
 import AbilitiesMissing from '../shared/modules/AbilitiesMissing';
 import AbilityTracker from '../shared/modules/AbilityTracker';
@@ -214,29 +201,14 @@ class CombatLogParser {
     bloodFury: BloodFury,
 
     // Items:
-    drapeOfShame: DrapeOfShame,
 
     // Enchants
-    ascendedVigor: AscendedVigor,
-
-    // Legendaries
 
     // Crafted
-    darkmoonDeckVoracity: DarkmoonDeckVoracity,
 
     // Dungeons
-    inscrutableQuantumDevice: InscrutableQuantumDevice,
-    overchargedAnimaBattery: OverchargedAnimaBattery,
-    shadowgraspTotem: ShadowgraspTotem,
-    soullettingRuby: SoullettingRuby,
-    codexOfTheFirstTechnique: CodexOfTheFirstTechnique,
-    bloodSpatteredScale: BloodSpatteredScale,
 
     // Raids
-    // Sepulcher of the First Ones
-    earthbreakersImpact: EarthbreakersImpact,
-    theFirstSigil: TheFirstSigil,
-    cacheOfAcquiredTreasures: CacheOfAcquiredTreasures,
   };
   // Override this with spec specific modules when extending
   static specModules: DependenciesDefinition = {};

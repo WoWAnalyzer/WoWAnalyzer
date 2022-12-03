@@ -71,6 +71,26 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
           />
         )}
       </Rule>
+      <Rule
+        name="Maximize targets hit by AoE abilities"
+        description={
+          <>
+            Try to hit as many targets as possible with AoE spells such as{' '}
+            <SpellLink id={SPELLS.EMERALD_BLOSSOM.id} /> and{' '}
+            <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} />
+          </>
+        }
+      >
+        <Requirement
+          name={
+            <>
+              Average targets hit by
+              <SpellLink id={SPELLS.EMERALD_BLOSSOM.id} />
+            </>
+          }
+          thresholds={thresholds.emeraldBlossom}
+        />
+      </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
