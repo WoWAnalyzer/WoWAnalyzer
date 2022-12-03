@@ -26,13 +26,11 @@ export const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera'; // link DB h
 export const DREAM_BREATH_CALL_OF_YSERA_HOT = 'DreamBreathCallOfYseraHoT'; // link DB hot to buff removal
 export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera'; // link buffed living flame to buff removal
 export const FIELD_OF_DREAMS_PROC = 'FromFieldOfDreams'; // link EB heal to fluttering heal
-export const FLUTTERING_SEEDLINGS_ECHO = 'FlutteringSeedlingsEcho'; // for linking seedling heal to EB echo
-export const FLUTTERING_SEEDLINGS_HARDCAST = 'FlutteringSeedlingsHardcast'; // for linking seedling heal to EB cast
 export const HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
 export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
 
 const CAST_BUFFER_MS = 100;
-const EB_BUFFER_MS = 2000;
+const EB_BUFFER_MS = 2250;
 const MAX_ECHO_DURATION = 20000; // 15s with 30% inc = 19s
 const TA_BUFFER_MS = 6000 + CAST_BUFFER_MS; //TA pulses over 6s at 0% haste
 
@@ -218,51 +216,6 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
-  /* SEEDLING LINKING */
-  // link seedling heal to Emerald Blossom echo heal
-  {
-    linkRelation: FLUTTERING_SEEDLINGS_ECHO,
-    reverseLinkRelation: FLUTTERING_SEEDLINGS_ECHO,
-    linkingEventId: SPELLS.EMERALD_BLOSSOM_ECHO.id,
-    linkingEventType: EventType.Heal,
-    referencedEventId: SPELLS.FLUTTERING_SEEDLINGS_HEAL.id,
-    referencedEventType: EventType.Heal,
-    anyTarget: true,
-    forwardBufferMs: EB_BUFFER_MS,
-    maximumLinks(c) {
-      return c.getTalentRank(TALENTS_EVOKER.FLUTTERING_SEEDLINGS_TALENT);
-    },
-    isActive(c) {
-      return c.hasTalent(TALENTS_EVOKER.FLUTTERING_SEEDLINGS_TALENT);
-    },
-    additionalCondition(linkingEvent, referencedEvent) {
-      return (
-        !HasRelatedEvent(referencedEvent, FLUTTERING_SEEDLINGS_HARDCAST) &&
-        (HasRelatedEvent(linkingEvent, ECHO) ||
-          HasRelatedEvent(linkingEvent, ECHO_TEMPORAL_ANOMALY))
-      );
-    },
-  },
-  // link seedling heal to Emerald Blossom cast
-  {
-    linkRelation: FLUTTERING_SEEDLINGS_HARDCAST,
-    reverseLinkRelation: FLUTTERING_SEEDLINGS_HARDCAST,
-    linkingEventId: SPELLS.EMERALD_BLOSSOM.id,
-    linkingEventType: EventType.Heal,
-    referencedEventId: SPELLS.FLUTTERING_SEEDLINGS_HEAL.id,
-    referencedEventType: EventType.Heal,
-    anyTarget: true,
-    maximumLinks(c) {
-      return c.getTalentRank(TALENTS_EVOKER.FLUTTERING_SEEDLINGS_TALENT);
-    },
-    forwardBufferMs: EB_BUFFER_MS,
-    isActive(c) {
-      return c.hasTalent(TALENTS_EVOKER.FLUTTERING_SEEDLINGS_TALENT);
-    },
-    additionalCondition(linkingEvent, referencedEvent) {
-      return !HasRelatedEvent(referencedEvent, FLUTTERING_SEEDLINGS_ECHO);
-    },
-  },
   // link original EB heals to hardcast (i.e. not a field of dreams proc)
   {
     linkRelation: FROM_HARDCAST,
@@ -273,24 +226,6 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Heal,
     anyTarget: true, // need to link all EB heals to original cast
     forwardBufferMs: EB_BUFFER_MS,
-  },
-  // link proc'd EB to its seedling
-  {
-    linkRelation: FIELD_OF_DREAMS_PROC,
-    linkingEventId: SPELLS.EMERALD_BLOSSOM.id,
-    linkingEventType: EventType.Heal,
-    referencedEventId: SPELLS.FLUTTERING_SEEDLINGS_HEAL.id,
-    referencedEventType: EventType.Heal,
-    anyTarget: true, // need to link all EB heals to original cast
-    backwardBufferMs: EB_BUFFER_MS,
-    maximumLinks: 1, // only link EB heal proc to 1 seedling at max (it doesn't matter which one we choose)
-    isActive(c) {
-      return c.hasTalent(TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT.id);
-    },
-    additionalCondition(linkingEvent, referencedEvent) {
-      // make sure that the EB heal is not a hardcast EB (i.e. not from a proc) and ensure that the seedling is not from an echo'd EB (they can't proc FOD)
-      return HasRelatedEvent(referencedEvent, FLUTTERING_SEEDLINGS_HARDCAST);
-    },
   },
   //link Call of Ysera Removal to the heals
   {
@@ -408,16 +343,10 @@ class CastLinkNormalizer extends EventLinkNormalizer {
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
 export function isFromHardcastEcho(event: AbilityEvent<any>): boolean {
-  if (event.ability.guid === SPELLS.FLUTTERING_SEEDLINGS_HEAL.id) {
-    return HasRelatedEvent(event, FLUTTERING_SEEDLINGS_ECHO);
-  }
   return HasRelatedEvent(event, ECHO);
 }
 
 export function isFromTAEcho(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
-  if (event.ability.guid === SPELLS.FLUTTERING_SEEDLINGS_HEAL.id) {
-    return HasRelatedEvent(event, FLUTTERING_SEEDLINGS_ECHO);
-  }
   return HasRelatedEvent(event, ECHO_TEMPORAL_ANOMALY);
 }
 
@@ -433,7 +362,7 @@ export function isFromLivingFlameCallOfYsera(event: HealEvent) {
 }
 
 export function isFromFieldOfDreams(event: HealEvent) {
-  return HasRelatedEvent(event, FIELD_OF_DREAMS_PROC);
+  return !HasRelatedEvent(event, FROM_HARDCAST);
 }
 
 export function getEssenceBurstConsumeAbility(

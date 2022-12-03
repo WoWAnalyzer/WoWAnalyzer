@@ -8,7 +8,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { GetHealEvents } from '../../normalizers/CastLinkNormalizer';
+import { getHealEvents } from '../../normalizers/CastLinkNormalizer';
 import { SpellLink } from 'interface';
 import { formatNumber } from 'common/format';
 import { t } from '@lingui/macro';
@@ -50,7 +50,7 @@ class EmeraldBlossom extends Analyzer {
     if (this.countedTimestamps.has(event.timestamp)) {
       return;
     }
-    const allHealingEvents = GetHealEvents(event);
+    const allHealingEvents = getHealEvents(event);
     this.numCasts += 1;
     this.totalHits += allHealingEvents.length;
     for (let i = 0; i < allHealingEvents.length; i += 1) {
