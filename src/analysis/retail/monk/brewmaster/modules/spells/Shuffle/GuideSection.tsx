@@ -137,7 +137,7 @@ function HitTimeline({ hits, showSourceName }: { hits: TrackedHit[]; showSourceN
   );
 }
 
-const Highlight = styled.span<{ color: string; textColor?: string }>`
+export const Highlight = styled.span<{ color: string; textColor?: string }>`
   background-color: ${(props) => props.color};
   padding: 0 3px;
   ${(props) => (props.textColor ? `color: ${props.textColor};` : '')}

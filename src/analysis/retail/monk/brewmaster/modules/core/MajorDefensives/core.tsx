@@ -4,6 +4,9 @@ import Spell from 'common/SPELLS/Spell';
 import { Talent } from 'common/TALENTS/types';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { SpellLink, Tooltip } from 'interface';
+import { PerformanceMark } from 'interface/guide';
+import { CooldownExpandableItem } from 'interface/guide/components/CooldownExpandable';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AnyEvent,
@@ -11,8 +14,10 @@ import Events, {
   DamageEvent,
   FightEndEvent,
   RemoveBuffEvent,
+  ResourceActor,
 } from 'parser/core/Events';
 import BoringValue from 'parser/ui/BoringValueText';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { ReactNode } from 'react';
@@ -40,6 +45,10 @@ export type MitigationSegment = {
   tooltip: ReactNode;
 };
 
+export type MitigationChecklistItem = CooldownExpandableItem & {
+  performance: QualitativePerformance;
+};
+
 export function absoluteMitigation(event: DamageEvent, mitPct: number): number {
   const actualAmount = event.amount + (event.absorbed ?? 0) + (event.overkill ?? 0);
   const priorAmount = actualAmount * (1 / (1 - mitPct));
@@ -58,6 +67,7 @@ const MitigationRowContainer = styled.div`
   gap: 1em;
   align-items: center;
   min-width: 150px;
+  width: 150px;
 
   line-height: 1em;
   text-align: right;
@@ -73,6 +83,14 @@ const MitigationTooltipSegment = styled.div<{ color: string; width: number }>`
   display: inline-block;
   box-sizing: content-box;
   border-left: 1px solid #000;
+`;
+
+export const PerformanceUsageRow = styled.div`
+  padding-bottom: 0.5em;
+
+  & > :first-child {
+    margin-right: 0.5em;
+  }
 `;
 
 export const MitigationSegments = ({
@@ -128,6 +146,10 @@ export class MajorDefensive extends Analyzer {
 
   private talent: Talent;
   private buff: Spell;
+
+  get spell() {
+    return this.talent;
+  }
 
   appliesToEvent(buffEvent: ApplyBuffEvent): boolean {
     return buffEvent.ability.guid === this.buff.id;
@@ -188,6 +210,69 @@ export class MajorDefensive extends Analyzer {
         tooltip: 'Damage Mitigated',
       },
     ];
+  }
+
+  protected get firstSeenMaxHp(): number {
+    return (
+      this.owner.eventHistory.find(
+        (event): event is AnyEvent & { maxHitPoints: number } =>
+          'maxHitPoints' in event &&
+          event.resourceActor === ResourceActor.Target &&
+          event.targetID === this.selectedCombatant.id,
+      )?.maxHitPoints ?? 1
+    );
+  }
+
+  explainPerformance(mit: Mitigation): { perf: QualitativePerformance; explanation?: ReactNode } {
+    if (this.firstSeenMaxHp <= mit.amount) {
+      return {
+        perf: QualitativePerformance.Perfect,
+        explanation: 'Usage mitigated over 100% of your HP',
+      };
+    }
+
+    if (this.firstSeenMaxHp / 4 > mit.amount) {
+      return {
+        perf: QualitativePerformance.Ok,
+        explanation: 'Usage mitigated less than 25% of your HP',
+      };
+    }
+
+    return { perf: QualitativePerformance.Good };
+  }
+
+  // TODO: make abstract
+  description(): ReactNode {
+    return <>TODO</>;
+  }
+
+  mitigationPerformance(maxValue: number): BoxRowEntry[] {
+    return this.mitigationData.map((mit) => {
+      const { perf, explanation } = this.explainPerformance(mit);
+      return {
+        value: perf,
+        tooltip: (
+          <>
+            <PerformanceUsageRow>
+              <PerformanceMark perf={perf} /> {explanation ?? 'Good Usage'}
+            </PerformanceUsageRow>
+            <MitigationTooltipBody>
+              <MitigationRowContainer>
+                <strong>Time</strong>
+                <strong>Mit.</strong>
+              </MitigationRowContainer>
+              <MitigationRow
+                mitigation={mit}
+                segments={this.mitigationSegments(mit)}
+                fightStart={this.owner.fight.start_time}
+                maxValue={maxValue}
+                key={mit.start.timestamp}
+              />
+            </MitigationTooltipBody>
+          </>
+        ),
+      };
+    });
   }
 
   statistic(): ReactNode {

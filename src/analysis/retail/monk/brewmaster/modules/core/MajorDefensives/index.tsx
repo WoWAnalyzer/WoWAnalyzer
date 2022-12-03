@@ -1,5 +1,8 @@
 import {
+  BadColor,
   GoodColor,
+  OkColor,
+  PerformanceMark,
   Section,
   SubSection,
   useAnalyzer,
@@ -34,13 +37,23 @@ import Abilities from '../../Abilities';
 import { isApplicableUpdateSpellUsableEvent } from 'interface/report/Results/Timeline/Component';
 import { defensiveExpiration } from './DefensiveBuffLinkNormalizer';
 import styled from '@emotion/styled';
-import { SpellLink, Tooltip } from 'interface';
+import { SpellLink, Tooltip, TooltipElement } from 'interface';
 import { useCallback, useMemo, useState } from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import React from 'react';
-import { Mitigation, MitigationSegment, MitigationSegments } from './core';
+import {
+  MajorDefensive,
+  Mitigation,
+  MitigationSegment,
+  MitigationSegments,
+  PerformanceUsageRow,
+} from './core';
 import { formatDuration, formatNumber } from 'common/format';
-import CooldownExpandable from 'interface/guide/components/CooldownExpandable';
+import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import ExplanationRow from 'interface/guide/components/ExplanationRow';
+import { Highlight } from '../../spells/Shuffle/GuideSection';
 
 const MAJOR_ANALYZERS = [CelestialBrew, FortifyingBrew, DampenHarm, DiffuseMagic, ZenMeditation];
 
@@ -429,67 +442,93 @@ const BuffTimelineContainer = styled.div`
   margin-left: 48px;
 `;
 
-type MitigationData = { mitigation: Mitigation; segments: MitigationSegment[]; maxValue: number };
-
-const HeaderContainer = styled.div`
-  display: grid;
-  grid-template-columns: max-content 8em 4em 100px;
-  gap: 1em;
-  align-items: center;
-  align-content: center;
-`;
-
-const MitigationCooldownHeader = ({ mitigation, segments, maxValue }: MitigationData) => {
-  const fightStart = useInfo()?.fightStart ?? 0;
-  return (
-    <HeaderContainer>
-      <span>{formatDuration(mitigation.start.timestamp - fightStart)}</span>{' '}
-      <SpellLink id={mitigation.start.ability.guid} />{' '}
-      <span style={{ textAlign: 'right' }}>{formatNumber(mitigation.amount)}</span>{' '}
-      <MitigationSegments segments={segments} maxValue={maxValue} />
-    </HeaderContainer>
-  );
+const MissingCastBoxEntry = {
+  value: QualitativePerformance.Fail,
+  tooltip: (
+    <PerformanceUsageRow>
+      <PerformanceMark perf={QualitativePerformance.Fail} /> Potential cast went unused
+    </PerformanceUsageRow>
+  ),
 };
 
-const MitigationCooldownBreakdown = (props: MitigationData) => {
-  const mitigationSegmentItems = props.segments.map((segment) => ({
-    label: segment.tooltip,
-    result: (
-      <MitigationDataRow>
-        <span>{formatNumber(segment.amount)}</span>{' '}
-        <TooltipSegments segments={[segment]} maxValue={props.maxValue} />
-      </MitigationDataRow>
-    ),
-  }));
-  return (
-    <CooldownExpandable
-      header={<MitigationCooldownHeader {...props} />}
-      detailItems={mitigationSegmentItems}
-    />
-  );
+const PossibleMissingCastBoxEntry = {
+  value: QualitativePerformance.Ok,
+  tooltip: (
+    <PerformanceUsageRow>
+      <PerformanceMark perf={QualitativePerformance.Ok} /> Potential cast went unused, but may have
+      been intentionally saved to handle a mechanic.
+    </PerformanceUsageRow>
+  ),
 };
 
-const CooldownUsageList = () => {
-  const analyzers = useAnalyzers(MAJOR_ANALYZERS);
+const CooldownUsage = ({ analyzer }: { analyzer: MajorDefensive }) => {
   const maxValue = useMaxMitigationValue();
+  const possibleUses =
+    useAnalyzer(CastEfficiency)?.getCastEfficiencyForSpell(analyzer.spell)?.maxCasts ?? 0;
+  const performance = analyzer.mitigationPerformance(maxValue);
+  const actualCasts = performance.length;
 
-  const mitigations = analyzers.flatMap((analyzer) =>
-    analyzer.mitigations.map((mit) => ({ mit, segments: analyzer.mitigationSegments(mit) })),
-  );
+  if (actualCasts === 0 && possibleUses > 1) {
+    // if they didn't cast it and could have multiple times, we call all possible uses bad
+    //
+    // the possibleUses > 1 check excludes this from happening on very short fights (such as early wipes)
+    for (let i = 0; i < possibleUses; i += 1) {
+      performance.push(MissingCastBoxEntry);
+    }
+  } else {
+    // if they cast it at least once, have some forgiveness. up to half (rounded up)
+    // of possible casts get a yellow color. any beyond that are red.
+    for (let i = possibleUses; i > actualCasts; i -= 1) {
+      if (i > possibleUses / 2) {
+        performance.push(PossibleMissingCastBoxEntry);
+      } else {
+        performance.push(MissingCastBoxEntry);
+      }
+    }
+  }
 
   return (
-    <>
-      {mitigations
-        .sort((a, b) => a.mit.start.timestamp - b.mit.start.timestamp)
-        .map(({ mit, segments }, ix) => (
-          <MitigationCooldownBreakdown
-            key={ix}
-            mitigation={mit}
-            segments={segments}
-            maxValue={maxValue}
-          />
+    <SubSection>
+      <ExplanationRow>
+        <Explanation>{analyzer.description()}</Explanation>
+        <div>
+          <div>
+            <strong>Cast Breakdown</strong>{' '}
+            <small>
+              - These boxes each cast, colored by how much damage was mitigated. Missed casts are
+              also shown in{' '}
+              <TooltipElement content="Used for casts that may have been skipped in order to cover major damage events.">
+                <Highlight color={OkColor} textColor="black">
+                  yellow
+                </Highlight>
+              </TooltipElement>{' '}
+              or{' '}
+              <TooltipElement content="Used for casts that could have been used without impacting your other usage.">
+                <Highlight color={BadColor} textColor="white">
+                  red
+                </Highlight>
+              </TooltipElement>
+              .
+            </small>
+          </div>
+          <PerformanceBoxRow values={performance} />
+        </div>
+      </ExplanationRow>
+    </SubSection>
+  );
+};
+
+const AllCooldownUsageList = () => {
+  const analyzers = useAnalyzers(MAJOR_ANALYZERS);
+
+  return (
+    <div>
+      {analyzers
+        .filter((analyzer) => analyzer.active)
+        .map((analyzer) => (
+          <CooldownUsage key={analyzer.constructor.name} analyzer={analyzer} />
         ))}
-    </>
+    </div>
   );
 };
 
@@ -519,16 +558,14 @@ export default function MajorDefensivesSection(): JSX.Element | null {
         In Dragonflight, Brewmaster Monk has gained multiple major defensive cooldowns. Using these
         effectively is critical for your survival, especially while undergeared.
       </Explanation>
-      <SubSection>
+      <SubSection title="Timeline">
         <DamageMitigationChart onHover={onHover} />
         <BuffTimelineContainer>
           <BuffDisplay hoverKey={chartHover} />
           <AutoSizer disableHeight>{(props) => <DefensiveTimeline {...props} />}</AutoSizer>
         </BuffTimelineContainer>
       </SubSection>
-      <SubSection title="Cooldown Usages">
-        <CooldownUsageList />
-      </SubSection>
+      <AllCooldownUsageList />
     </Section>
   );
 }

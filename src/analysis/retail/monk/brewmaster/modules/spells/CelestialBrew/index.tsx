@@ -16,6 +16,8 @@ import BoringValue from 'parser/ui/BoringValueText';
 import FooterChart, { formatTime } from 'parser/ui/FooterChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { ReactNode } from 'react';
+import CountsAsBrew from '../../components/CountsAsBrew';
 import { MajorDefensive, Mitigation } from '../../core/MajorDefensives/core';
 import { damageEvent } from './normalizer';
 
@@ -97,6 +99,25 @@ class CelestialBrew extends MajorDefensive {
       this._expireTime = null;
       this._currentChiStacks = 0;
     }
+  }
+
+  description(): ReactNode {
+    return (
+      <div>
+        <p>
+          <SpellLink id={talents.CELESTIAL_BREW_TALENT} /> provides a low-cooldown shield for
+          30-100% of your health bar. <CountsAsBrew baseCooldown={60} lightBrewing /> To use it
+          effectively, you need to balance two goals: using it to <em>cover major damage events</em>
+          , and using it <em>often</em>.
+        </p>
+        <p>
+          If the <a href="#purifying-brew">previous section</a> shows many purifies for{' '}
+          <em>Large Hits</em> or <em>High Stagger</em>, it is <strong>strongly recommended</strong>{' '}
+          that you also use <SpellLink id={talents.IMPROVED_CELESTIAL_BREW_TALENT} /> to increase
+          the shield size by 2&ndash;3 times.
+        </p>
+      </div>
+    );
   }
 
   suggestions(when: When) {

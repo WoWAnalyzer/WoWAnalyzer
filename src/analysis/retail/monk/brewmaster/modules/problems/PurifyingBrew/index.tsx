@@ -400,7 +400,7 @@ export function PurifySection({
   }, [module]);
 
   return (
-    <SubSection title="Purifying Brew">
+    <SubSection title="Purifying Brew" id="purifying-brew">
       <p>
         The primary method of removing damage from your <SpellLink id={SPELLS.STAGGER.id} /> pool is
         casting <SpellLink id={talents.PURIFYING_BREW_TALENT.id} />. Your goal is twofold:

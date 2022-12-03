@@ -1,3 +1,4 @@
+import { formatDurationMinSec } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
@@ -10,6 +11,8 @@ import Events, {
   EventType,
   RemoveStaggerEvent,
 } from 'parser/core/Events';
+import { ReactNode } from 'react';
+import CountsAsBrew, { brewCooldownDisplay } from '../../components/CountsAsBrew';
 import { absoluteMitigation, MajorDefensive, Mitigation, MitigationSegment } from './core';
 
 export class FortifyingBrew extends MajorDefensive {
@@ -66,6 +69,32 @@ export class FortifyingBrew extends MajorDefensive {
     }
 
     this.fortBrewStaggerPool = Math.max(0, this.fortBrewStaggerPool - purifyAmount);
+  }
+
+  description(): ReactNode {
+    return (
+      <>
+        <p>
+          <SpellLink id={talents.FORTIFYING_BREW_TALENT} /> is a flexible cooldown that combines
+          with several talents for boosting its defensive power or reducing its cooldown.{' '}
+          <CountsAsBrew baseCooldown={60 * 6} />.<br />
+          <small>
+            Reduced to {formatDurationMinSec(brewCooldownDisplay(4 * 60))} with{' '}
+            <SpellLink id={talents.EXPEDITIOUS_FORTIFICATION_TALENT} />.
+          </small>
+        </p>
+        <p>
+          Its variable, medium-long cooldown makes it hard to plan usage times in advance, so it is
+          a good choice for a reactive cooldown if your other cooldowns can cover major damage.
+        </p>
+        <p>
+          <small>
+            <strong>Note:</strong> Calculating mitigation from{' '}
+            <SpellLink id={talents.IRONSHELL_BREW_TALENT} /> is not yet supported.
+          </small>
+        </p>
+      </>
+    );
   }
 
   mitigationSegments(mit: Mitigation): MitigationSegment[] {

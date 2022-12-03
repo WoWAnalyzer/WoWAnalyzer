@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
+import { SpellLink, TooltipElement } from 'interface';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   DamageEvent,
@@ -7,6 +8,7 @@ import Events, {
   DrainEvent,
   HealEvent,
 } from 'parser/core/Events';
+import { ReactNode } from 'react';
 import {
   MajorDefensive,
   absoluteMitigation,
@@ -59,6 +61,37 @@ class DampenHarm extends MajorDefensive {
 
   updateMaxHP(event: DamageEvent | ResourceChangeEvent | DrainEvent | HealEvent) {
     this.currentMaxHP = event.maxHitPoints || this.currentMaxHP;
+  }
+
+  description(): ReactNode {
+    return (
+      <>
+        <p>
+          <SpellLink id={talents.DAMPEN_HARM_TALENT} /> provides{' '}
+          <TooltipElement
+            hoverable
+            content={
+              <>
+                The damage reduction is based on the amount of damage you'd take <em>after</em>{' '}
+                applying Armor, Versatility, and Avoidance, but <em>before</em> reductions from
+                absorbs like <SpellLink id={talents.STAGGER_TALENT} />,{' '}
+                <SpellLink id={talents.CELESTIAL_BREW_TALENT} />, or{' '}
+                <SpellLink id={talents.LIFE_COCOON_TALENT} />.
+              </>
+            }
+          >
+            40-50% damage reduction
+          </TooltipElement>{' '}
+          in many common scenarios, making it quite powerful. However, it is very weak to{' '}
+          <em>damage-over-time</em> effects, which are only reduced by around 20%.
+        </p>
+        <p>
+          If you are planning out cooldown usage before pulling a boss, this is the most reliable
+          option for most encounters because of its consistent, low cooldown and good damage
+          reduction.
+        </p>
+      </>
+    );
   }
 }
 
