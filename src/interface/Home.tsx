@@ -142,34 +142,14 @@ const Home = () => {
         <ErrorBoundary>
           <Switch>
             <Route path="/" exact component={News} />
-            <Route
-              path="/news/:articleId"
-              render={({ match }) => (
-                <NewsPage articleId={decodeURI(match.params.articleId.replace(/\+/g, ' '))} />
-              )}
-            />
+            <Route path="/news/:articleId" component={NewsPage} />
             <Route path="/news" component={News} />
             <Route path="/specs" component={SpecList} />
             <Route path="/premium" component={Premium} />
             <Route path="/about" component={AboutPage} />
             <Route path="/help-wanted" component={HelpWanted} />
-            <Route
-              path="/contributor/:id"
-              render={({ match }) => (
-                <ContributorPage contributorId={decodeURI(match.params.id.replace(/\+/g, ' '))} />
-              )}
-            />
-            <Route
-              path="/search/:searchTerm?"
-              render={({ location }) => (
-                <Search
-                  query={
-                    decodeURIComponent(location.pathname.replace('/search/', '')) +
-                    decodeURIComponent(location.hash)
-                  }
-                />
-              )}
-            />
+            <Route path="/contributor/:id" component={ContributorPage} />
+            <Route path="/search/:searchTerm?" component={Search} />
             <Route component={NotFound} />
           </Switch>
         </ErrorBoundary>

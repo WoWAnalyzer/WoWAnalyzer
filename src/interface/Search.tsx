@@ -2,13 +2,13 @@ import { Trans } from '@lingui/macro';
 import DocumentTitle from 'interface/DocumentTitle';
 import { constructURL } from 'interface/ReportSelecter';
 import { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 
-interface Props {
-  query: string;
-}
-
-const Search = ({ query }: Props) => {
+const Search = () => {
+  const location = useLocation();
+  const query =
+    decodeURIComponent(location.pathname.replace('/search/', '')) +
+    decodeURIComponent(location.hash);
   const [valid, setValid] = useState<boolean>(false);
   const { replace } = useHistory();
   useEffect(() => {

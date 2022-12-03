@@ -2,7 +2,7 @@ import { Tooltip } from 'interface';
 import InfoIcon from 'interface/icons/Info';
 import DrilldownIcon from 'interface/icons/Link';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { ReactNode } from 'react';
+import { CSSProperties, MouseEventHandler, ReactNode } from 'react';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -36,6 +36,8 @@ interface Props {
    */
   className: string;
   expanded?: boolean;
+  style?: CSSProperties;
+  onClick?: MouseEventHandler<HTMLDivElement>;
 }
 
 class Statistic extends React.PureComponent<Props, { expanded?: boolean }> {

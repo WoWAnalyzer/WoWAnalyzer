@@ -6,6 +6,8 @@ import ManaValues from 'parser/shared/modules/ManaValues';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Component from './Component';
 import EssenceDetails from '../EssenceDetails';
+import EssenceBurst from '../../talents/EssenceBurst';
+import EmeraldBlossom from '../../talents/EmeraldBlossom';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -16,6 +18,8 @@ class Checklist extends BaseChecklist {
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     dreamBreath: DreamBreath,
     essenceDetails: EssenceDetails,
+    essenceBurst: EssenceBurst,
+    emeraldBlossom: EmeraldBlossom,
   };
 
   protected combatants!: Combatants;
@@ -23,6 +27,8 @@ class Checklist extends BaseChecklist {
   protected manaValues!: ManaValues;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
   protected dreamBreath!: DreamBreath;
+  protected emeraldBlossom!: EmeraldBlossom;
+  protected essenceBurst!: EssenceBurst;
   protected essenceDetails!: EssenceDetails;
 
   render() {
@@ -34,7 +40,9 @@ class Checklist extends BaseChecklist {
           ...this.preparationRuleAnalyzer.thresholds,
           manaLeft: this.manaValues.suggestionThresholds,
           dreamBreath: this.dreamBreath.suggestionThresholds,
+          emeraldBlossom: this.emeraldBlossom.suggestionThresholds,
           essenceDetails: this.essenceDetails.suggestionThresholds,
+          essenceBurst: this.essenceBurst.suggestionThresholds,
         }}
       />
     );

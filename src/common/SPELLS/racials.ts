@@ -293,6 +293,12 @@ const spells = spellIndexableList({
     name: 'Might of the Blackrock',
     icon: 'ability_racial_ancestralcall',
   },
+  //Dracthyr
+  AWAKENED: {
+    id: 365575,
+    name: 'Awakened',
+    icon: 'ability_racial_awakened',
+  },
 });
 
 export default spells;

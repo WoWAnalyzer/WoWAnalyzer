@@ -47,7 +47,10 @@ class Echo extends Analyzer {
       return;
     }
     const mapRef = this.isFromTaEcho(event) ? this.taEchoHealingBySpell : this.echoHealingBySpell;
-    mapRef.set(event.ability.guid, mapRef.get(event.ability.guid)! + (event.amount || 0));
+    mapRef.set(
+      event.ability.guid,
+      mapRef.get(event.ability.guid)! + (event.amount || 0) + (event.absorbed || 0),
+    );
   }
 
   isFromTaEcho(event: HealEvent) {
@@ -134,15 +137,6 @@ class Echo extends Analyzer {
         value: this.totalEchoHealingForSpell(TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id),
         valueTooltip: formatNumber(
           this.totalEchoHealingForSpell(TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id),
-        ),
-      },
-      {
-        color: SPELL_COLORS.FLUTTERING_SEEDLING,
-        label: 'Fluttering Seedling',
-        spellId: TALENTS_EVOKER.FLUTTERING_SEEDLINGS_TALENT.id,
-        value: this.totalEchoHealingForSpell(SPELLS.FLUTTERING_SEEDLINGS_HEAL.id),
-        valueTooltip: formatNumber(
-          this.totalEchoHealingForSpell(SPELLS.FLUTTERING_SEEDLINGS_HEAL.id),
         ),
       },
     ].filter((item) => {

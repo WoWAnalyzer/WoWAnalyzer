@@ -13,13 +13,13 @@ import TooltipProvider from 'interface/TooltipProvider';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
+import { useWaSelector } from 'interface/utils/useWaSelector';
+import { internetExplorer } from 'interface/actions/internetExplorer';
+import { isInternetExplorer } from 'interface/selectors/internetExplorer';
 
 import 'react-toggle/style.css';
 import './App.scss';
 import Hotkeys from './Hotkeys';
-import { useWaSelector } from 'interface/utils/useWaSelector';
-import { internetExplorer } from 'interface/actions/internetExplorer';
-import { isInternetExplorer } from 'interface/selectors/internetExplorer';
 
 const CharacterPage = lazyLoadComponent(() =>
   retryingPromise(() =>
@@ -84,26 +84,8 @@ const App = () => {
         )}
         {!isIE && (
           <Switch>
-            <Route
-              path="/character/:region/:realm/:name"
-              render={({ match }) => (
-                <CharacterPage
-                  region={decodeURI(match.params.region.replace(/\+/g, ' ')).toUpperCase()}
-                  realm={decodeURI(match.params.realm.replace(/\+/g, ' '))}
-                  name={decodeURI(match.params.name.replace(/\+/g, ' '))}
-                />
-              )}
-            />
-            <Route
-              path="/guild/:region/:realm/:name"
-              render={({ match }) => (
-                <GuildPage
-                  region={decodeURI(match.params.region.replace(/\+/g, ' ')).toUpperCase()}
-                  realm={decodeURI(match.params.realm.replace(/\+/g, ' '))}
-                  name={decodeURI(match.params.name.replace(/\+/g, ' '))}
-                />
-              )}
-            />
+            <Route path="/character/:region/:realm/:name" component={CharacterPage} />
+            <Route path="/guild/:region/:realm/:name" component={GuildPage} />
             <Route
               path="/report/:reportCode?/:fightId?/:player?/:resultTab?"
               component={ReportPage}

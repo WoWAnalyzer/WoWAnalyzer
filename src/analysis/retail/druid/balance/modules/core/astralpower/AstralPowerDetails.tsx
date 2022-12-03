@@ -6,8 +6,7 @@ import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/R
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
-import AstralPowerTracker from 'analysis/retail/druid/balance/modules/features/AstralPowerTracker';
+import AstralPowerTracker from 'analysis/retail/druid/balance/modules/core/astralpower/AstralPowerTracker';
 
 /**
  * Deals with tracking Astral Power overcap issues.

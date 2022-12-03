@@ -9,22 +9,21 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import Enemies from 'parser/shared/modules/Enemies';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import {
-  CooldownExpandable,
-  CooldownExpandableItem,
-} from 'analysis/retail/druid/restoration/Guide';
 import { PerformanceMark } from 'interface/guide';
 import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/guide/VulnerabilityExplanation';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { Trans } from '@lingui/macro';
+import CastBreakdownSubSection, {
+  Cast,
+} from 'analysis/retail/demonhunter/shared/guide/CastBreakdownSubSection';
+import { CooldownExpandableItem } from 'interface/guide/components/CooldownExpandable';
+import InitiativeExplanation from 'analysis/retail/demonhunter/havoc/guide/InitiativeExplanation';
 
 const GOOD_FRAILTY_STACKS = 3;
 const OK_FRAILTY_STACKS = 1;
 
-interface TheHuntCast {
-  timestamp: number;
+interface TheHuntCast extends Cast {
   damage: number;
   hasInitiativeOnCast: boolean;
   primaryTargetStacksOfFrailty: number;
@@ -147,138 +146,116 @@ class TheHunt extends Analyzer {
   }
 
   havocGuideCastBreakdown() {
-    const initiativeExplanation = (
-      <>
-        {' '}
-        Always use with the buff from <SpellLink id={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} /> so
-        that you benefit from the increased Critical Strike Chance.
-      </>
-    );
     const explanation = (
-      <>
+      <Trans id="guide.demonhunter.havoc.sections.cooldowns.theHunt.explanation">
         <strong>
           <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />
         </strong>{' '}
         is a powerful burst of damage that also provides some healing with the DoT that it applies.
-        {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.INITIATIVE_TALENT) &&
-          initiativeExplanation}
+        <InitiativeExplanation />
+      </Trans>
+    );
+
+    const theHuntCastHeaderConverter = (cast: TheHuntCast, _: number) => (
+      <>
+        @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
+        <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />
       </>
     );
+    const theHuntCastPerformanceConverter = (cast: TheHuntCast, _: number) => {
+      let initiativePerf = QualitativePerformance.Good;
+      if (
+        this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.INITIATIVE_TALENT) &&
+        !cast.hasInitiativeOnCast
+      ) {
+        initiativePerf = QualitativePerformance.Fail;
+      }
 
-    const data = (
-      <div>
-        <strong>Per-Cast Breakdown</strong>
-        <small> - click to expand</small>
+      const overallPerf = initiativePerf;
 
-        {this.theHuntTracker.map((cast, idx) => {
-          const header = (
+      const checklistItems: CooldownExpandableItem[] = [
+        {
+          label: (
             <>
-              @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />
+              Had <SpellLink id={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} /> buff
             </>
-          );
+          ),
+          result: <PerformanceMark perf={initiativePerf} />,
+        },
+      ];
+      return {
+        overallPerf,
+        checklistItems,
+      };
+    };
 
-          let initiativePerf = QualitativePerformance.Good;
-          if (
-            this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.INITIATIVE_TALENT) &&
-            !cast.hasInitiativeOnCast
-          ) {
-            initiativePerf = QualitativePerformance.Fail;
-          }
-
-          const overallPerf = initiativePerf;
-
-          const checklistItems: CooldownExpandableItem[] = [
-            {
-              label: (
-                <>
-                  Had <SpellLink id={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} /> buff
-                </>
-              ),
-              result: <PerformanceMark perf={initiativePerf} />,
-            },
-          ];
-
-          return (
-            <CooldownExpandable
-              header={header}
-              checklistItems={checklistItems}
-              perf={overallPerf}
-              key={idx}
-            />
-          );
-        })}
-      </div>
+    return (
+      <CastBreakdownSubSection
+        castPerformanceConverter={theHuntCastPerformanceConverter}
+        casts={this.theHuntTracker}
+        explanation={explanation}
+        headerConverter={theHuntCastHeaderConverter}
+      />
     );
-
-    return explanationAndDataSubsection(explanation, data);
   }
 
   vengeanceGuideCastBreakdown() {
     const explanation = (
-      <>
+      <Trans id="guide.demonhunter.vengeance.sections.cooldowns.theHunt.explanation">
         <strong>
           <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />
         </strong>{' '}
         is a powerful burst of damage that also provides some healing with the DoT that it applies.
-        {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.VULNERABILITY_TALENT) && (
-          <VulnerabilityExplanation numberOfFrailtyStacks={GOOD_FRAILTY_STACKS} />
-        )}
+        <VulnerabilityExplanation numberOfFrailtyStacks={GOOD_FRAILTY_STACKS} />
+      </Trans>
+    );
+
+    const theHuntCastHeaderConverter = (cast: TheHuntCast, _: number) => (
+      <>
+        @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
+        <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />
       </>
     );
+    const theHuntCastPerformanceConverter = (cast: TheHuntCast, _: number) => {
+      let frailtyPerf = QualitativePerformance.Good;
+      if (cast.primaryTargetStacksOfFrailty <= OK_FRAILTY_STACKS) {
+        frailtyPerf = QualitativePerformance.Fail;
+      } else if (cast.primaryTargetStacksOfFrailty < GOOD_FRAILTY_STACKS) {
+        frailtyPerf = QualitativePerformance.Ok;
+      }
 
-    const data = (
-      <RoundedPanel>
-        <strong>Per-Cast Breakdown</strong>
-        <small> - click to expand</small>
+      const overallPerf = frailtyPerf;
 
-        {this.theHuntTracker.map((cast, idx) => {
-          const header = (
+      const checklistItems: CooldownExpandableItem[] = [
+        {
+          label: (
             <>
-              @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />
+              At least {GOOD_FRAILTY_STACKS} stacks of <SpellLink id={SPELLS.FRAILTY} /> applied to
+              target
             </>
-          );
+          ),
+          result: <PerformanceMark perf={frailtyPerf} />,
+          details: (
+            <>
+              ({cast.primaryTargetStacksOfFrailty} stacks of <SpellLink id={SPELLS.FRAILTY} />)
+            </>
+          ),
+        },
+      ];
+      return {
+        overallPerf,
+        checklistItems,
+      };
+    };
 
-          let frailtyPerf = QualitativePerformance.Good;
-          if (cast.primaryTargetStacksOfFrailty <= OK_FRAILTY_STACKS) {
-            frailtyPerf = QualitativePerformance.Fail;
-          } else if (cast.primaryTargetStacksOfFrailty < GOOD_FRAILTY_STACKS) {
-            frailtyPerf = QualitativePerformance.Ok;
-          }
-
-          const overallPerf = frailtyPerf;
-
-          const checklistItems: CooldownExpandableItem[] = [
-            {
-              label: (
-                <>
-                  At least {GOOD_FRAILTY_STACKS} stacks of <SpellLink id={SPELLS.FRAILTY} /> applied
-                  to target
-                </>
-              ),
-              result: <PerformanceMark perf={frailtyPerf} />,
-              details: (
-                <>
-                  ({cast.primaryTargetStacksOfFrailty} stacks of <SpellLink id={SPELLS.FRAILTY} />)
-                </>
-              ),
-            },
-          ];
-
-          return (
-            <CooldownExpandable
-              header={header}
-              checklistItems={checklistItems}
-              perf={overallPerf}
-              key={idx}
-            />
-          );
-        })}
-      </RoundedPanel>
+    return (
+      <CastBreakdownSubSection
+        castPerformanceConverter={theHuntCastPerformanceConverter}
+        casts={this.theHuntTracker}
+        explanation={explanation}
+        headerConverter={theHuntCastHeaderConverter}
+      />
     );
-
-    return explanationAndDataSubsection(explanation, data);
   }
 }
 
