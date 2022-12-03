@@ -71,6 +71,7 @@ export default [
   change(date(2022, 11, 30), <>Add support for <ItemLink id={ITEMS.REFRESHING_HEALING_POTION_R3.id} />.</>, ToppleTheNun),
   change(date(2022, 11, 29), 'Remove analysis for Shadowlands dungeon/raid/crafted items.', ToppleTheNun),
   change(date(2022, 11, 28), 'Add chevron to cooldown expandables.', ToppleTheNun),
+  change(date(2022, 11, 27), 'Convert Character tab to TypeScript.', ToppleTheNun),
   change(date(2022, 11, 27), 'Add phials for Dragonflight.', ToppleTheNun),
   change(date(2022, 11, 26), 'Add potions for Dragonflight.', ToppleTheNun),
   change(date(2022, 11, 26), 'Add gems for Dragonflight.', ToppleTheNun),
