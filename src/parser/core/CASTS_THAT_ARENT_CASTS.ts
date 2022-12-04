@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import CLASSIC_SPELLS from 'common/SPELLS/classic';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 const spells: number[] = [
@@ -72,6 +73,11 @@ const spells: number[] = [
   SPELLS.CARVED_IVORY_KEEPSAKE.id,
   SPELLS.ANIMA_FIELD_EMITTER_BUFF.id,
   //endregion
+
+  // CLASSIC
+  // region Mage
+  CLASSIC_SPELLS.MISSILE_BARRAGE.id,
+  // endregion
 ];
 
 export default spells;
