@@ -7,7 +7,6 @@ import { getClassBySpecId } from 'game/CLASSES';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import RACES from 'game/RACES';
 import { findByBossId } from 'game/raids';
-import SOULBINDS from 'game/shadowlands/SOULBINDS';
 import SPECS, { Spec } from 'game/SPECS';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import {
@@ -19,10 +18,10 @@ import {
   SoulbindTrait,
   TalentEntry,
 } from 'parser/core/Events';
+import { TIERS } from 'game/TIERS';
 
 import Entity from './Entity';
 import { PlayerInfo } from './Player';
-import { TIERS } from 'game/TIERS';
 
 export interface CombatantInfo extends CombatantInfoEvent {
   name: string;
@@ -189,118 +188,100 @@ class Combatant extends Entity {
   //region Shadowlands Systems
 
   //region Covenants
+  /**
+   * @deprecated
+   */
   covenantsByCovenantID: { [key: number]: CombatantInfo['covenantID'] } = {};
 
-  _parseCovenant(covenantID: CombatantInfo['covenantID']) {
-    if (!covenantID) {
-      return;
-    }
-    this.covenantsByCovenantID[covenantID] = covenantID;
+  /**
+   * @deprecated
+   */
+  _parseCovenant(_: CombatantInfo['covenantID']) {
+    // deprecated so no-op
   }
 
-  hasCovenant(covenantID: CombatantInfo['covenantID']) {
-    return Boolean(this.covenantsByCovenantID[covenantID]);
+  /**
+   * @deprecated
+   */
+  hasCovenant(_: CombatantInfo['covenantID']) {
+    return false;
   }
-
   //endregion
 
   //region Soulbinds
+  /**
+   * @deprecated
+   */
   soulbindsBySoulbindID: { [key: number]: CombatantInfo['soulbindID'] } = {};
 
-  _parseSoulbind(soulbindID: CombatantInfo['soulbindID']) {
-    if (!soulbindID) {
-      return;
-    }
-    this.soulbindsBySoulbindID[soulbindID] = soulbindID;
+  /**
+   * @deprecated
+   */
+  _parseSoulbind(_: CombatantInfo['soulbindID']) {
+    // deprecated so no-op
   }
 
-  hasSoulbind(soulbindID: CombatantInfo['soulbindID']) {
-    return Boolean(this.soulbindsBySoulbindID[soulbindID]);
+  /**
+   * @deprecated
+   */
+  hasSoulbind(_: CombatantInfo['soulbindID']) {
+    return false;
   }
 
+  /**
+   * @deprecated
+   */
   soulbindTraitsByID: { [key: number]: SoulbindTrait } = {};
 
-  _parseSoulbindTraits(soulbindTraits: SoulbindTrait[] | undefined) {
-    if (soulbindTraits === undefined) {
-      return;
-    }
-    soulbindTraits.forEach((soulbindTrait: SoulbindTrait) => {
-      if (soulbindTrait.spellID !== 0) {
-        this.soulbindTraitsByID[soulbindTrait.spellID] = soulbindTrait;
-      }
-    });
+  /**
+   * @deprecated
+   */
+  _parseSoulbindTraits(_: SoulbindTrait[] | undefined) {
+    // deprecated so no-op
   }
 
-  hasSoulbindTrait(soulbindTraitID: number) {
-    return Boolean(this.soulbindTraitsByID[soulbindTraitID]);
+  /**
+   * @deprecated
+   */
+  hasSoulbindTrait(_: number) {
+    return false;
   }
-
   //endregion
 
   //region Conduits
+  /**
+   * @deprecated
+   */
   conduitsByConduitID: { [key: number]: Conduit } = {};
 
-  _parseConduits(conduits: Conduit[] | undefined) {
-    if (!conduits) {
-      return;
-    }
-
-    const ilvlToRankMapping: { [key: number]: number } = {
-      145: 1,
-      158: 2,
-      171: 3,
-      184: 4,
-      200: 5,
-      213: 6,
-      226: 7,
-      239: 8,
-      252: 9,
-      265: 10,
-      278: 11,
-      291: 12,
-      304: 13,
-      317: 14,
-      330: 15,
-    };
-
-    conduits.forEach((conduit: Conduit) => {
-      if (conduit.itemLevel == null) {
-        // Conduit has not been parsed to ilvl/rank, do it now
-        conduit.itemLevel = conduit.rank;
-        conduit.rank = ilvlToRankMapping[conduit.rank];
-
-        if (conduit.rank == null) {
-          // If rank is undefined after parsing, something has gone horribly wrong
-          console.error('Conduit rank not found', conduit);
-        }
-      }
-
-      this.conduitsByConduitID[conduit.spellID] = conduit;
-    });
+  /**
+   * @deprecated
+   */
+  _parseConduits(_: Conduit[] | undefined) {
+    // deprecated so no-op
   }
 
-  hasConduitBySpellID(spellId: number) {
-    return Boolean(this.conduitsByConduitID[spellId]);
+  /**
+   * @deprecated
+   */
+  hasConduitBySpellID(_: number) {
+    return false;
   }
 
-  conduitRankBySpellID(spellId: number): number {
-    if (!(spellId in this.conduitsByConduitID)) {
-      return 0;
-    }
-
-    return this.conduitsByConduitID[spellId].rank + (this.likelyHasEmpoweredConduits() ? 2 : 0);
+  /**
+   * @deprecated
+   */
+  conduitRankBySpellID(_: number): number {
+    return 0;
   }
 
+  /**
+   * @deprecated
+   */
   likelyHasEmpoweredConduits() {
-    if (!this._combatantInfo.soulbindID || !(this._combatantInfo.soulbindID in SOULBINDS)) {
-      return false;
-    }
-
-    return this.hasSoulbindTrait(SOULBINDS[this._combatantInfo.soulbindID].capstoneTraitID);
+    return false;
   }
-
   //endregion
-
   //endregion
 
   // region Gear
@@ -485,24 +466,13 @@ class Combatant extends Entity {
     return this._getGearItemBySlotId(GEAR_SLOTS.OFFHAND);
   }
 
-  private legendaries: Set<number> = new Set();
-  private scannedForLegendaries = false;
-
   /**
    * Each legendary is given a specific `effectID` that is the same regardless which slot it appears on.
    * This id is the same as the spell ID on Wowhead.
+   * @deprecated
    */
-  hasLegendary(legendary: LegendarySpell) {
-    if (!this.scannedForLegendaries && this.legendaries.size === 0) {
-      Object.values(this._gearItemsBySlotId).forEach((item) => {
-        if (item.effectID) {
-          this.legendaries.add(item.effectID);
-        }
-      });
-      this.scannedForLegendaries = true;
-    }
-
-    return this.legendaries.has(legendary.id);
+  hasLegendary(_: LegendarySpell) {
+    return false;
   }
 
   private itemMap: Map<number, Item> = new Map();

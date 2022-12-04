@@ -70,6 +70,7 @@ export default [
   change(date(2022, 11, 30), 'Add Vault of Incarnates to ZONES and remove Shadowlands raids from ZONES.', ToppleTheNun),
   change(date(2022, 11, 30), <>Add Evoker's <SpellLink id={SPELLS.FURY_OF_THE_ASPECTS} /> as a Bloodlust buff.</>, ToppleTheNun),
   change(date(2022, 11, 30), <>Add support for <ItemLink id={ITEMS.REFRESHING_HEALING_POTION_R3.id} />.</>, ToppleTheNun),
+  change(date(2022, 11, 29), 'Deprecate/disable access to Shadowlands covenants, soulbinds, conduits, and legendaries.', ToppleTheNun),
   change(date(2022, 11, 29), 'Fix encounter stats broken by the talent rework.', ToppleTheNun),
   change(date(2022, 11, 29), 'Remove analysis for Shadowlands dungeon/raid/crafted items.', ToppleTheNun),
   change(date(2022, 11, 28), 'Add chevron to cooldown expandables.', ToppleTheNun),
