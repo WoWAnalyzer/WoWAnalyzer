@@ -33,7 +33,6 @@ import Header from './Header';
 import ItemWarning from './ItemWarning';
 import ScrollToTop from './ScrollToTop';
 import { CombatLogParserProvider } from 'interface/report/CombatLogParserContext';
-import { isRetailExpansion } from 'game/Expansion';
 import ResultsContent from 'interface/report/Results/ResultsContent';
 
 interface PassedProps {
@@ -172,17 +171,6 @@ const Results = (props: PassedProps) => {
 
       {props.parser && props.parser.disabledModules && (
         <DegradedExperience disabledModules={props.parser.disabledModules} />
-      )}
-      {isRetailExpansion(props.config.expansion) && (
-        //Warning Message for Dragonflight Prepatch (Remove after Dragonflight Launch)
-        <div className="container">
-          <AlertWarning style={{ marginBottom: 30 }}>
-            In an effort to focus on Dragonflight and Vault of the Incarnates development, we will
-            be reducing support for Covenants, Conduits, legendaries, and other Shadowlands specific
-            items with the launch of Prepatch. As a result, analysis of Prepatch encounters may be
-            inaccurate.
-          </AlertWarning>
-        </div>
       )}
       {boss && boss.fight.resultsWarning && (
         <div className="container">

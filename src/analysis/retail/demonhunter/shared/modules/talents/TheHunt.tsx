@@ -18,6 +18,7 @@ import CastBreakdownSubSection, {
   Cast,
 } from 'analysis/retail/demonhunter/shared/guide/CastBreakdownSubSection';
 import { CooldownExpandableItem } from 'interface/guide/components/CooldownExpandable';
+import InitiativeExplanation from 'analysis/retail/demonhunter/havoc/guide/InitiativeExplanation';
 
 const GOOD_FRAILTY_STACKS = 3;
 const OK_FRAILTY_STACKS = 1;
@@ -145,22 +146,14 @@ class TheHunt extends Analyzer {
   }
 
   havocGuideCastBreakdown() {
-    const initiativeExplanation = (
-      <>
-        {' '}
-        Always use with the buff from <SpellLink id={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} /> so
-        that you benefit from the increased Critical Strike Chance.
-      </>
-    );
     const explanation = (
-      <>
+      <Trans id="guide.demonhunter.havoc.sections.cooldowns.theHunt.explanation">
         <strong>
           <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />
         </strong>{' '}
         is a powerful burst of damage that also provides some healing with the DoT that it applies.
-        {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.INITIATIVE_TALENT) &&
-          initiativeExplanation}
-      </>
+        <InitiativeExplanation />
+      </Trans>
     );
 
     const theHuntCastHeaderConverter = (cast: TheHuntCast, _: number) => (

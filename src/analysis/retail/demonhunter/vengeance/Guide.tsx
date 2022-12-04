@@ -139,8 +139,8 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
     >
       <AlertWarning>
         This section is under heavy development as work on the Vengeance rotation continues during
-        the Dragonflight pre-patch. It is currently a reasonable starting point, but may not match
-        the optimal rotation yet.
+        the Dragonflight launch. It is currently a reasonable starting point, but may not match the
+        optimal rotation yet.
       </AlertWarning>
       <p>
         <Trans id="guide.demonhunter.vengeance.sections.rotation.summary">

@@ -4,19 +4,22 @@ import WoWAnalyzerIcon from 'interface/icons/WoWAnalyzer';
 import { makeCharacterUrl, makeArmoryUrl } from 'interface/makeAnalyzerUrl';
 import Combatant from 'parser/core/Combatant';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { isRetailExpansion } from 'game/Expansion';
 
 import './CharacterTab.css';
 import CharacterRace from './CharacterRace';
 import CharacterStats from './CharacterStats';
 import PlayerInfo from './PlayerInfo';
 
-const CharacterTab = (props) => {
+interface Props {
+  combatant: Combatant;
+  statTracker: StatTracker;
+}
+const CharacterTab = (props: Props) => {
   const { statTracker, combatant } = props;
 
-  // HACK: this doesn't use the enum because i don't want to convert this to TS right now.
-  const isClassic = combatant.owner.config.expansion < 9;
+  const isClassic = !isRetailExpansion(combatant.owner.config.expansion);
 
   return (
     <div className="character-tab">
@@ -27,7 +30,7 @@ const CharacterTab = (props) => {
         <div className="col-sm-6">
           {!isClassic && <CharacterStats statTracker={statTracker} />}
 
-          {!isClassic && <CharacterRace race={combatant.race} />}
+          {!isClassic && combatant.race && <CharacterRace race={combatant.race} />}
 
           {!isClassic && (
             <>
@@ -62,11 +65,6 @@ const CharacterTab = (props) => {
       </div>
     </div>
   );
-};
-
-CharacterTab.propTypes = {
-  statTracker: PropTypes.instanceOf(StatTracker).isRequired,
-  combatant: PropTypes.instanceOf(Combatant).isRequired,
 };
 
 export default CharacterTab;
