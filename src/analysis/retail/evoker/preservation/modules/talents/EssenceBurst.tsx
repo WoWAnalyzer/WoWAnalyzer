@@ -79,7 +79,7 @@ class EssenceBurst extends Analyzer {
     ].filter((item) => {
       return item.value > 0;
     });
-    return items.length > 0 ? <DonutChart items={items} /> : null;
+    return <DonutChart items={items} />;
   }
 
   get suggestionThresholds() {
@@ -111,8 +111,7 @@ class EssenceBurst extends Analyzer {
   }
 
   statistic() {
-    const donutChart = this.renderDonutChart();
-    return donutChart ? (
+    return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
@@ -122,10 +121,10 @@ class EssenceBurst extends Analyzer {
           <label>
             <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> consumption by spell
           </label>
-          {donutChart}
+          {this.renderDonutChart()}
         </div>
       </Statistic>
-    ) : null;
+    );
   }
 }
 
