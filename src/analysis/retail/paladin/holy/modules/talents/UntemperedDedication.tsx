@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
-import conduits from 'common/SPELLS/shadowlands/conduits';
 import SpellLink from 'interface/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
@@ -43,13 +42,13 @@ class UntemperedDedication extends Analyzer {
     when(this.dropSuggestion).addSuggestion((suggest, actual) =>
       suggest(
         <span>
-          You dropped your <SpellLink id={SPELLS.UNTEMPERED_DEDICATION.id} /> stacks {actual} times.
-          Try to keep it up at all times, as this is a fairly large loss of healing. If the fight
-          has a large amount of downtime forcing these drops, take this suggestion with a grain of
-          salt.
+          You dropped your <SpellLink id={TALENTS.UNTEMPERED_DEDICATION_TALENT.id} /> stacks{' '}
+          {actual} times. Try to keep it up at all times, as this is a fairly large loss of healing.
+          If the fight has a large amount of downtime forcing these drops, take this suggestion with
+          a grain of salt.
         </span>,
       )
-        .icon(conduits.UNTEMPERED_DEDICATION.icon)
+        .icon(TALENTS.UNTEMPERED_DEDICATION_TALENT.icon)
         .actual(<>You lost your stacks {actual} times</>)
         .recommended(<>It is recommended to maintain 5 stacks at all times.</>),
     );

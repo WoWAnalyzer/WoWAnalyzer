@@ -70,6 +70,7 @@ export default [
   change(date(2022, 12, 5), <>Add support for <ItemLink id={ITEMS.FERAL_HIDE_DRUMS.id} />.</>, ToppleTheNun),
   change(date(2022, 12, 5), <>Add stats for <ItemLink id={ITEMS.DRACONIC_AUGMENT_RUNE.id} />.</>, ToppleTheNun),
   change(date(2022, 12, 5), 'Remove Shadowlands weapon enhancements from the accepted list.', ToppleTheNun),
+  change(date(2022, 12, 3), 'Remove usages of Shadowlands covenants, soulbinds, conduits, and legendaries.', ToppleTheNun),
   change(date(2022, 12, 3), 'Add Dragonflight launch as the current "patch".', ToppleTheNun),
   change(date(2022, 11, 30), 'Add Dragonflight Engineering enchantments and weapon enchancements.', ToppleTheNun),
   change(date(2022, 11, 30), <>Add support for <ItemLink id={ITEMS.DRACONIC_AUGMENT_RUNE.id} />.</>, ToppleTheNun),

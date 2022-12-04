@@ -20,7 +20,7 @@ class ColdFront extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.COLD_FRONT);
+    this.active = false;
     this.addEventListener(
       Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.COLD_FRONT_BUFF),
       this.onBuffApplied,

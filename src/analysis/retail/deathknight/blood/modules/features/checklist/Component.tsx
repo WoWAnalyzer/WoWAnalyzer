@@ -1,7 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -34,13 +33,10 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         })}
       >
         <AbilityRequirement spell={TALENTS.BLOOD_BOIL_TALENT.id} />
-        {combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT.id) &&
-          !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
-            <AbilityRequirement spell={SPELLS.DEATH_AND_DECAY.id} />
-          )}
-        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
-          <AbilityRequirement spell={SPELLS.DEATHS_DUE.id} />
+        {combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT.id) && !false && (
+          <AbilityRequirement spell={SPELLS.DEATH_AND_DECAY.id} />
         )}
+        {false && <AbilityRequirement spell={SPELLS.DEATHS_DUE.id} />}
         {combatant.hasTalent(TALENTS.BLOODDRINKER_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.BLOODDRINKER_TALENT.id} />
         )}

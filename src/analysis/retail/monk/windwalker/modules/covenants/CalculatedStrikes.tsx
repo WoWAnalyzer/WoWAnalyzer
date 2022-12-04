@@ -6,11 +6,11 @@ import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { ApplyDebuffEvent, CastEvent, DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 const MARK_OF_THE_CRANE_DURATION = 20000;
 const MAX_STACKS = 5;
@@ -48,7 +48,7 @@ class CalculatedStrikes extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.CALCULATED_STRIKES.id);
+    const conduitRank = 0;
     if (!conduitRank) {
       this.active = false;
       return;
@@ -141,9 +141,9 @@ class CalculatedStrikes extends Analyzer {
             </>
           }
         >
-          <ConduitSpellText spellId={SPELLS.CALCULATED_STRIKES.id}>
+          <BoringSpellValueText spellId={SPELLS.CALCULATED_STRIKES.id}>
             <ItemDamageDone amount={this.totalDamage} />
-          </ConduitSpellText>
+          </BoringSpellValueText>
         </Statistic>
       );
     }

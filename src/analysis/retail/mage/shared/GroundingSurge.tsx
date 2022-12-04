@@ -34,11 +34,11 @@ class GroundingSurge extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.GROUNDING_SURGE.id);
+    this.active = false;
     if (!this.active) {
       return;
     }
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.GROUNDING_SURGE.id);
+    this.conduitRank = 0;
     this.addEventListener(
       Events.interrupt.by(SELECTED_PLAYER).spell(SPELLS.COUNTERSPELL),
       this.onInterrupt,

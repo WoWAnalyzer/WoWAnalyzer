@@ -91,15 +91,7 @@ class RollTheBonesCastTracker extends Analyzer {
 
   categorizeCast(cast: RTBCast) {
     let combat_buffs_value = 0;
-    if (this.selectedCombatant.hasConduitBySpellID(SPELLS.SLEIGHT_OF_HAND.id)) {
-      // Players should aim to roll for at least 2 buffs if they're using the Sleight of Hand conduit,
-      // as such we use a lower value for the combat buffs to make sure no single buff outweighs a 2x roll.
-      cast.appliedBuffs.forEach(
-        (buff) => (combat_buffs_value += BUFF_VALUE_BY_ID[buff.id].sleight_of_hand),
-      );
-    } else {
-      cast.appliedBuffs.forEach((buff) => (combat_buffs_value += BUFF_VALUE_BY_ID[buff.id].base));
-    }
+    cast.appliedBuffs.forEach((buff) => (combat_buffs_value += BUFF_VALUE_BY_ID[buff.id].base));
     if (combat_buffs_value > 2) {
       return ROLL_THE_BONES_CATEGORIES.HIGH_VALUE;
     }

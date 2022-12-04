@@ -17,6 +17,7 @@ import {
   DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER,
   DAMAGE_AFFECTED_BY_PRIMORDIAL_POWER_NAIVELY,
 } from '../../constants';
+import { TIERS } from 'game/TIERS';
 
 const abilityColors = {
   [SPELLS.BLACKOUT_KICK.id]: '#88265e',
@@ -55,7 +56,7 @@ class PrimordialPotential extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has4Piece();
+    this.active = this.selectedCombatant.has4PieceByTier(TIERS.T28);
     if (!this.active) {
       return;
     }

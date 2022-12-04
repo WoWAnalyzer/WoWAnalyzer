@@ -3,7 +3,6 @@ import { CASTS_PER_RADIANT_SPARK } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
@@ -35,8 +34,8 @@ class RadiantSpark extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
-    this.hasHarmonicEcho = this.selectedCombatant.hasLegendary(SPELLS.HARMONIC_ECHO);
+    this.active = false;
+    this.hasHarmonicEcho = false;
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(CAST_SPELLS), this.onCast);
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RADIANT_SPARK),

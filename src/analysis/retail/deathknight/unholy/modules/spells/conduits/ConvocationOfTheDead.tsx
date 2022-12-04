@@ -3,10 +3,10 @@ import CooldownIcon from 'interface/icons/Cooldown';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 /**
  * When a Festering Wound bursts the cooldown of Apocalypse is reduced by 1.0 sec.
@@ -26,9 +26,7 @@ class ConvocationOfTheDead extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(
-      SPELLS.CONVOCATION_OF_THE_DEAD.id,
-    );
+    this.conduitRank = 0;
     if (!this.conduitRank) {
       this.active = false;
       return;
@@ -59,12 +57,12 @@ class ConvocationOfTheDead extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spellId={SPELLS.CONVOCATION_OF_THE_DEAD.id} rank={this.conduitRank}>
+        <BoringSpellValueText spellId={SPELLS.CONVOCATION_OF_THE_DEAD.id}>
           <CooldownIcon /> {this.cooldownReduction.toFixed(1)}s <small> of Apocalypse CDR</small>
           <br />
           <CooldownIcon /> {this.wastedCooldownReduction.toFixed(1)}s{' '}
           <small> of wasted Apocalypse CDR</small>
-        </ConduitSpellText>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

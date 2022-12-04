@@ -15,6 +15,7 @@ import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { TIERS } from 'game/TIERS';
 
 export default class SepulcherTierSet extends Analyzer {
   static dependencies = {
@@ -31,7 +32,7 @@ export default class SepulcherTierSet extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has4Piece();
+    this.active = this.selectedCombatant.has4PieceByTier(TIERS.T28);
 
     this.addEventListener(
       Events.damage.to(SELECTED_PLAYER),

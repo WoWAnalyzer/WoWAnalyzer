@@ -23,7 +23,7 @@ class DuskwalkersPatch extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.DUSKWALKERS_PATCH);
+    this.active = false;
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 

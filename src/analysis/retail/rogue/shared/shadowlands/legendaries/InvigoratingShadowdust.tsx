@@ -10,7 +10,6 @@ import {
   SHARED_ABILITY_COOLDOWNS,
   SUBTLETY_ABILITY_COOLDOWNS,
 } from 'analysis/retail/rogue/shared/constants';
-import legendaries from 'common/SPELLS/shadowlands/legendaries/rogue';
 
 /**
  * The Inigorating Shadowdust legendary reduces the cooldown of ALL abilities by 20 seconds after using Vanish. This is usable by all 3 Rogue specs.
@@ -38,7 +37,7 @@ class InvigoratingShadowdust extends Analyzer {
       ...ASSASSINATION_ABILITY_COOLDOWNS,
       ...OUTLAW_ABILITY_COOLDOWNS,
     ];
-    this.active = this.selectedCombatant.hasLegendary(legendaries.INVIGORATING_SHADOWDUST);
+    this.active = false;
     if (!this.active) {
       return;
     }

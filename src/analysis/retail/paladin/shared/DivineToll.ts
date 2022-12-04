@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -13,7 +12,7 @@ class DivineToll extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
+    this.active = false;
 
     if (!this.active) {
       return;

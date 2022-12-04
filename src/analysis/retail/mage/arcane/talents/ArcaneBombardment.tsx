@@ -23,7 +23,7 @@ class ArcaneBombardment extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.ARCANE_BOMBARDMENT);
+    this.active = false;
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_BARRAGE_TALENT),
       this.onBarrageDamage,

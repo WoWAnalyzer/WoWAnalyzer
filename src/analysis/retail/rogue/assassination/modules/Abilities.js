@@ -147,7 +147,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.SEPSIS_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        enabled: false,
         cooldown: 90,
         gcd: {
           base: 1000,
@@ -294,7 +294,7 @@ class Abilities extends CoreAbilities {
           base: 1000,
         },
         cooldown: 90,
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        enabled: false,
       },
       {
         spell: SPELLS.ECHOING_REPRIMAND.id,
@@ -303,7 +303,7 @@ class Abilities extends CoreAbilities {
           base: 1000,
         },
         cooldown: 45,
-        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        enabled: false,
       },
       {
         spell: SPELLS.SERRATED_BONE_SPIKE.id,
@@ -312,7 +312,7 @@ class Abilities extends CoreAbilities {
           base: 1000,
         },
         cooldown: 30,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        enabled: false,
       },
     ];
   }

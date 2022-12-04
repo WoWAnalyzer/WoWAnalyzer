@@ -1,19 +1,19 @@
 import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink, ConduitLink } from 'interface';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import conduitScaling from 'parser/core/conduitScaling';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, DamageEvent, RemoveBuffEvent, SummonEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { ABILITIES_CLONED_BY_SEF, ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 /**
  * Calculates the amount of damage that could have been added if an effect
@@ -62,9 +62,7 @@ class CoordinatedOffensive extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const conduitRank = this.selectedCombatant.conduitRankBySpellID(
-      SPELLS.COORDINATED_OFFENSIVE.id,
-    );
+    const conduitRank = 0;
     if (!conduitRank) {
       this.active = false;
       return;
@@ -199,9 +197,9 @@ class CoordinatedOffensive extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={tooltip}
       >
-        <ConduitSpellText spellId={SPELLS.COORDINATED_OFFENSIVE.id}>
+        <BoringSpellValueText spellId={SPELLS.COORDINATED_OFFENSIVE.id}>
           <ItemDamageDone amount={this.damageIncrease} />
-        </ConduitSpellText>
+        </BoringSpellValueText>
       </Statistic>
     );
   }
@@ -211,9 +209,8 @@ class CoordinatedOffensive extends Analyzer {
         <Trans id="monk.windwalker.suggestions.coordinatedOffensiveFixate">
           {' '}
           Use <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id} /> to benefit from{' '}
-          <ConduitLink id={SPELLS.COORDINATED_OFFENSIVE.id} />. You should fixate as soon as you
-          have 5 stacks of <SpellLink id={SPELLS.MARK_OF_THE_CRANE.id} /> or when all targets are
-          marked.
+          <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} />. You should fixate as soon as you have
+          5 stacks of <SpellLink id={SPELLS.MARK_OF_THE_CRANE.id} /> or when all targets are marked.
         </Trans>,
       )
         .icon(SPELLS.COORDINATED_OFFENSIVE.icon)

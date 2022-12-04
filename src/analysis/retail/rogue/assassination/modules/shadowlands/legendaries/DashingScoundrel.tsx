@@ -20,7 +20,7 @@ class DashingScoundrel extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.DASHING_SCOUNDREL_ITEM);
+    this.active = false;
     this.addEventListener(
       Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.DASHING_SCOUNDREL),
       this.onEnergize,

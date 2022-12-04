@@ -1,6 +1,5 @@
 import getAverageItemLevel from 'game/getAverageItemLevel';
 import { getClassName } from 'game/ROLES';
-import { getCovenantById } from 'game/shadowlands/COVENANTS';
 import { fetchCharacter } from 'interface/actions/characters';
 import Icon from 'interface/Icon';
 import { RootState } from 'interface/reducers';
@@ -69,11 +68,6 @@ const PlayerTile = ({ player, makeUrl, config }: Props) => {
   const spec = config?.spec;
   const build = getBuild(config, player.combatant);
   const missingBuild = config?.builds && !build;
-  const covenant = player.combatant.covenantID || null;
-  let covenantName: string | undefined = '';
-  if (covenant !== null) {
-    covenantName = getCovenantById(covenant)?.name;
-  }
   if (!config || missingBuild) {
     return (
       <span
@@ -131,11 +125,6 @@ const PlayerTile = ({ player, makeUrl, config }: Props) => {
           <small title={`${spec.specName} ${spec.className}`}>
             <SpecIcon spec={spec} /> {spec.specName} {spec.className}
           </small>
-          {covenant && (
-            <div className="flex-main text-muted text-small">
-              <Icon icon={getCovenantById(covenant)?.icon} /> {covenantName}
-            </div>
-          )}
           <div className="flex text-muted text-small">
             <div className="flex-main">
               <Icon icon="inv_helmet_03" /> {Math.round(getAverageItemLevel(player.combatant.gear))}

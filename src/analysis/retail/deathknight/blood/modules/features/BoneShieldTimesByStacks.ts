@@ -127,7 +127,7 @@ class BoneShieldStacksBySeconds extends Analyzer {
   }
 
   reduceDRWCooldown(stackDiff: number) {
-    if (!this.selectedCombatant.hasLegendary(SPELLS.CRIMSON_RUNE_WEAPON)) {
+    if (!this.selectedCombatant.hasTalent(TALENTS.INSATIABLE_BLADE_TALENT)) {
       return;
     }
     if (stackDiff >= 0) {
