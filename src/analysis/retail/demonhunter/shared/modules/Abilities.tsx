@@ -14,7 +14,7 @@ export default class Abilities extends CoreAbilities {
       {
         spell: SPELLS.GLIDE.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 1.5,
+        cooldown: 1,
         gcd: null,
       },
       {
@@ -32,7 +32,7 @@ export default class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SPECTRAL_SIGHT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
+        cooldown: 60,
         gcd: {
           base: 1500,
         },

@@ -108,6 +108,13 @@ class Abilities extends SharedAbilities {
 
       // Talents
       {
+        spell: TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 25,
+        // Not actually on the GCD but blocks all spells during its animation for 1 second. The issue is you can follow up any ability on the GCD with Vengeful Retreat, so it can still cause overlap.
+        gcd: null,
+      },
+      {
         spell: [
           SPELLS.SIGIL_OF_CHAINS_CONCENTRATED.id,
           TALENTS_DEMON_HUNTER.SIGIL_OF_CHAINS_TALENT.id,
@@ -200,7 +207,7 @@ class Abilities extends SharedAbilities {
       },
 
       {
-        spell: [SPELLS.THROW_GLAIVE_VENGEANCE.id, SPELLS.THROW_GLAIVE_VENGEANCE_MOTG.id],
+        spell: SPELLS.THROW_GLAIVE_VENGEANCE.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
           9 -
@@ -219,7 +226,11 @@ class Abilities extends SharedAbilities {
 
       // Misc
       {
-        spell: SPELLS.SOUL_FRAGMENT.id,
+        spell: [
+          SPELLS.SOUL_FRAGMENT.id,
+          SPELLS.SOUL_FRAGMENT_KILLING_BLOW.id,
+          SPELLS.SOUL_FRAGMENT_FODDER.id,
+        ],
         category: SPELL_CATEGORY.HIDDEN,
         gcd: null,
       },

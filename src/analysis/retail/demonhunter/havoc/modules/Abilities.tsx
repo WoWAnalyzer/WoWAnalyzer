@@ -161,12 +161,6 @@ class Abilities extends SharedAbilities {
           ),
         },
       },
-      {
-        spell: SPELLS.GLIDE.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 1.5,
-        gcd: null,
-      },
 
       // CC, interupts, and utility
       {
