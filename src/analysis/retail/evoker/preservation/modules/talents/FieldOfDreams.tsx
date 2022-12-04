@@ -7,11 +7,13 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { formatNumber } from 'common/format';
-import { SpellLink } from 'interface';
+import { SpellLink, TooltipElement } from 'interface';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { isFromFieldOfDreams } from '../../normalizers/CastLinkNormalizer';
+import { getHealEvents, isFromFieldOfDreams } from '../../normalizers/CastLinkNormalizer';
 
 class FieldOfDreams extends Analyzer {
+  countedTimestamps: Set<number> = new Set<number>();
+  numProcs: number = 0;
   totalHealing: number = 0;
   totalOverhealing: number = 0;
 
@@ -24,10 +26,16 @@ class FieldOfDreams extends Analyzer {
   }
 
   onEbHeal(event: HealEvent) {
-    if (isFromFieldOfDreams(event)) {
-      this.totalHealing += (event.amount || 0) + (event.absorbed || 0);
-      this.totalOverhealing += event.overheal || 0;
+    if (this.countedTimestamps.has(event.timestamp) || !isFromFieldOfDreams(event)) {
+      return;
     }
+    const allEvents = getHealEvents(event);
+    allEvents.forEach((ev) => {
+      this.totalHealing += (ev.amount || 0) + (ev.absorbed || 0);
+      this.totalOverhealing += ev.overheal || 0;
+    });
+    this.numProcs += 1;
+    this.countedTimestamps.add(event.timestamp);
   }
 
   statistic() {
@@ -39,15 +47,24 @@ class FieldOfDreams extends Analyzer {
         tooltip={
           <>
             <SpellLink id={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT.id} /> provided the following:
-            <ul>
-              <li>{formatNumber(this.totalHealing)} effective healing</li>
-              <li>{formatNumber(this.totalOverhealing)} overheal</li>
-            </ul>
           </>
         }
       >
         <TalentSpellText talent={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT}>
           <ItemHealingDone amount={this.totalHealing} />
+          <br />
+          <TooltipElement
+            content={
+              <ul>
+                <li>{formatNumber(this.totalHealing)} effective healing</li>
+                <li>{formatNumber(this.totalOverhealing)} overheal</li>
+              </ul>
+            }
+          >
+            <small>
+              {this.numProcs} extra <SpellLink id={SPELLS.EMERALD_BLOSSOM.id} /> procs
+            </small>
+          </TooltipElement>
         </TalentSpellText>
       </Statistic>
     );

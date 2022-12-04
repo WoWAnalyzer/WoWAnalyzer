@@ -30,7 +30,7 @@ export const HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses
 export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
 
 const CAST_BUFFER_MS = 100;
-const EB_BUFFER_MS = 2250;
+const EB_BUFFER_MS = 2000;
 const MAX_ECHO_DURATION = 20000; // 15s with 30% inc = 19s
 const TA_BUFFER_MS = 6000 + CAST_BUFFER_MS; //TA pulses over 6s at 0% haste
 
@@ -205,7 +205,7 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: EventType.Heal,
     referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
     referencedEventType: [EventType.RemoveBuff],
-    forwardBufferMs: EB_BUFFER_MS,
+    forwardBufferMs: EB_BUFFER_MS + 250,
     additionalCondition(linkingEvent, referencedEvent) {
       return HasRelatedEvent(referencedEvent, TA_ECHO_REMOVAL);
     },
@@ -216,16 +216,20 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
-  // link original EB heals to hardcast (i.e. not a field of dreams proc)
+  // link eb heal proc to fluttering heal
   {
-    linkRelation: FROM_HARDCAST,
-    reverseLinkRelation: FROM_HARDCAST,
-    linkingEventId: SPELLS.EMERALD_BLOSSOM_CAST.id,
-    linkingEventType: EventType.Cast,
-    referencedEventId: SPELLS.EMERALD_BLOSSOM.id,
+    linkRelation: FIELD_OF_DREAMS_PROC,
+    linkingEventId: SPELLS.EMERALD_BLOSSOM.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: SPELLS.FLUTTERING_SEEDLINGS_HEAL.id,
     referencedEventType: EventType.Heal,
-    anyTarget: true, // need to link all EB heals to original cast
-    forwardBufferMs: EB_BUFFER_MS,
+    anyTarget: true,
+    backwardBufferMs: EB_BUFFER_MS + 500,
+    maximumLinks: 1,
+    additionalCondition(linkingEvent, referencedEvent) {
+      const diff = EB_BUFFER_MS - (linkingEvent.timestamp - referencedEvent.timestamp);
+      return Math.abs(diff) < 150;
+    },
   },
   //link Call of Ysera Removal to the heals
   {
@@ -362,7 +366,7 @@ export function isFromLivingFlameCallOfYsera(event: HealEvent) {
 }
 
 export function isFromFieldOfDreams(event: HealEvent) {
-  return !HasRelatedEvent(event, FROM_HARDCAST);
+  return HasRelatedEvent(event, FIELD_OF_DREAMS_PROC);
 }
 
 export function getEssenceBurstConsumeAbility(
