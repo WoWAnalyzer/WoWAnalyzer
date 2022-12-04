@@ -21,13 +21,14 @@ export const ECHO_REMOVAL = 'EchoRemoval'; // for linking echo removal to echo a
 export const TA_ECHO_REMOVAL = 'TaEchoTemoval'; // for linking TA echo removal to echo apply
 export const ECHO_TEMPORAL_ANOMALY = 'TemporalAnomaly'; // for linking BuffApply/Heal to echo removal
 export const ECHO = 'Echo'; // for linking BuffApply/Heal to echo removal
+export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsumption'; // link essence cast to removing the essence burst buff
 export const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera'; // link DB hit to buff removal
 export const DREAM_BREATH_CALL_OF_YSERA_HOT = 'DreamBreathCallOfYseraHoT'; // link DB hot to buff removal
 export const FLUTTERING_SEEDLINGS_ECHO = 'FlutteringSeedlingsEcho'; // for linking seedling heal to EB echo
 export const FLUTTERING_SEEDLINGS_HARDCAST = 'FlutteringSeedlingsHardcast'; // for linking seedling heal to EB cast
+export const HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
 export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera'; // link buffed living flame to buff removal
 export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
-export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsumption'; // link essence cast to removing the essence burst buff
 
 const CAST_BUFFER_MS = 100;
 const EB_BUFFER_MS = 2000;
@@ -326,6 +327,39 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(TALENTS_EVOKER.ESSENCE_BURST_TALENT.id);
     },
   },
+  // group TA shields and EB heals together for easy batch processing
+  {
+    linkRelation: HEAL_GROUPING,
+    linkingEventId: [SPELLS.EMERALD_BLOSSOM.id, SPELLS.TEMPORAL_ANOMALY_SHIELD.id],
+    linkingEventType: [EventType.Heal, EventType.ApplyBuff],
+    referencedEventId: [SPELLS.EMERALD_BLOSSOM.id, SPELLS.TEMPORAL_ANOMALY_SHIELD.id],
+    referencedEventType: EventType.Heal,
+    anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent) {
+      if (
+        (linkingEvent as AbilityEvent<any>).ability.guid !==
+        (referencedEvent as AbilityEvent<any>).ability.guid
+      ) {
+        return false;
+      } else if (
+        linkingEvent.type === EventType.Heal &&
+        (linkingEvent as HealEvent).targetID === (referencedEvent as HealEvent).targetID
+      ) {
+        return false;
+      } else if (
+        linkingEvent.type === EventType.ApplyBuff &&
+        (linkingEvent as ApplyBuffEvent).targetID === (referencedEvent as ApplyBuffEvent).targetID
+      ) {
+        return false;
+      }
+      return (
+        !HasRelatedEvent(linkingEvent, ECHO) &&
+        !HasRelatedEvent(linkingEvent, ECHO_TEMPORAL_ANOMALY) &&
+        !HasRelatedEvent(referencedEvent, ECHO) &&
+        !HasRelatedEvent(referencedEvent, ECHO_TEMPORAL_ANOMALY)
+      );
+    },
+  },
 ];
 
 /**
@@ -376,6 +410,10 @@ export function getEssenceBurstConsumeAbility(
     return null;
   }
   return GetRelatedEvents(event, ESSENCE_BURST_CONSUME)[0] as CastEvent;
+}
+
+export function GetHealEvents(event: HealEvent) {
+  return [event].concat(GetRelatedEvents(event, HEAL_GROUPING) as HealEvent[]);
 }
 
 export default CastLinkNormalizer;
