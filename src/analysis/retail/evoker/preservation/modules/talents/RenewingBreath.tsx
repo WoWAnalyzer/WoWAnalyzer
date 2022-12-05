@@ -9,8 +9,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-
-const INCREASE_PER_POINT = 0.15;
+import { RENEWING_BREATH_INCREASE } from '../../constants';
 
 class RenewingBreath extends Analyzer {
   effectiveHealing: number = 0;
@@ -22,7 +21,7 @@ class RenewingBreath extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.RENEWING_BREATH_TALENT);
     this.totalIncrease =
       this.selectedCombatant.getTalentRank(TALENTS_EVOKER.RENEWING_BREATH_TALENT) *
-      INCREASE_PER_POINT;
+      RENEWING_BREATH_INCREASE;
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell([SPELLS.DREAM_BREATH_ECHO, SPELLS.DREAM_BREATH]),
       this.onHeal,
