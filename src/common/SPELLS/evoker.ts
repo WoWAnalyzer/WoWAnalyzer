@@ -89,6 +89,11 @@ const spells = spellIndexableList({
     name: 'Cycle of Life',
     icon: 'ability_monk_explodingjadeblossom',
   },
+  CYCLE_OF_LIFE_STACK: {
+    id: 388973,
+    name: 'Cycle of Life',
+    icon: 'ability_monk_explodingjadeblossom',
+  },
   DREAM_FLIGHT_HEAL: {
     id: 363502,
     name: 'Dream Flight',

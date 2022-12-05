@@ -37,14 +37,21 @@ class CycleOfLife extends Analyzer {
   }
 
   handleHeal(event: HealEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.CYCLE_OF_LIFE_BUFF.id)) {
+    if (
+      !this.selectedCombatant.hasBuff(SPELLS.CYCLE_OF_LIFE_BUFF.id) &&
+      !this.selectedCombatant.hasBuff(SPELLS.CYCLE_OF_LIFE_STACK.id)
+    ) {
       return;
     }
     const curVal = this.savedBySpell.has(event.ability.guid)
       ? this.savedBySpell.get(event.ability.guid)
       : 0;
     const amount = event.amount + (event.absorbed || 0) + (event.overheal || 0);
-    this.savedBySpell.set(event.ability.guid, curVal! + amount * CYCLE_OF_LIFE_PERCENT_SAVED);
+    const percentSaved = this.selectedCombatant.hasBuff(SPELLS.CYCLE_OF_LIFE_BUFF.id)
+      ? CYCLE_OF_LIFE_PERCENT_SAVED
+      : CYCLE_OF_LIFE_PERCENT_SAVED *
+        this.selectedCombatant.getBuffStacks(SPELLS.CYCLE_OF_LIFE_STACK.id);
+    this.savedBySpell.set(event.ability.guid, curVal! + amount * percentSaved);
   }
 
   getOtherHealing(items: Item[]) {
