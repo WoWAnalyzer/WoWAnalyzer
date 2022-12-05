@@ -27,6 +27,7 @@ import Echo from './modules/talents/Echo';
 import ResonatingSphere from './modules/talents/ResonatingSphere';
 import RenewingBreath from './modules/talents/RenewingBreath';
 import FieldOfDreams from './modules/talents/FieldOfDreams';
+import DreamFlight from './modules/talents/DreamFlight';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -57,6 +58,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //talents
     echo: Echo,
     dreamBreath: DreamBreath,
+    dreamFlight: DreamFlight,
     livingFlame: LivingFlame,
     masteryEffectiveness: MasteryEffectiveness,
     spiritBloom: Spiritbloom,
