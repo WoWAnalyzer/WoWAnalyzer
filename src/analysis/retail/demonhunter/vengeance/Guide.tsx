@@ -13,6 +13,7 @@ import FieryBrandSection from './modules/talents/FieryBrand/GuideSection';
 import VoidReaverSection from './modules/talents/VoidReaver/GuideSection';
 import MetamorphosisSection from './modules/spells/Metamorphosis/GuideSection';
 import CooldownGraphSubsection from './guide/CooldownGraphSubSection';
+import { PerformanceStrong } from 'analysis/retail/demonhunter/shared/guide/ExtraComponents';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -27,6 +28,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
 }
 
 function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
+  const percentAtFuryCap = modules.furyTracker.percentAtCap;
+  const percentAtFuryCapPerformance = modules.furyTracker.percentAtCapPerformance;
+  const percentAtFuryCapFormatted = formatPercentage(percentAtFuryCap, 1);
+
   return (
     <Section
       title={t({
@@ -49,8 +54,10 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
         <p>
           <Trans id="guide.demonhunter.vengeance.sections.resources.fury.chart">
             The chart below shows your Fury over the course of the encounter. You spent{' '}
-            <strong>{formatPercentage(modules.furyTracker.percentAtCap, 1)}%</strong> of the
-            encounter capped on Fury.
+            <PerformanceStrong performance={percentAtFuryCapPerformance}>
+              {percentAtFuryCapFormatted}%
+            </PerformanceStrong>{' '}
+            of the encounter capped on Fury.
           </Trans>
         </p>
         {modules.furyGraph.plot}

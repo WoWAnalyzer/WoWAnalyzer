@@ -5,8 +5,6 @@ import SPELLS from 'common/SPELLS/demonhunter';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { formatPercentage } from 'common/format';
 import { t, Trans } from '@lingui/macro';
 
 import CastSummaryAndBreakdown from '../../../guide/CastSummaryAndBreakdown';
@@ -18,30 +16,6 @@ const VengeanceGuideSection = () => {
   if (!info || !immolationAura) {
     return null;
   }
-
-  const numberOfImmolationAuras = immolationAura.castEntries.length;
-  const numberOfGoodImmolationAuras = immolationAura.castEntries.filter(
-    (it) => it.value === QualitativePerformance.Good,
-  ).length;
-  const numberOfBadImmolationAuras = immolationAura.castEntries.filter(
-    (it) => it.value === QualitativePerformance.Fail,
-  ).length;
-  const goodImmolationAuras = {
-    count: numberOfGoodImmolationAuras,
-    label: t({
-      id:
-        'guide.demonhunter.vengeance.sections.rotation.immolationAura.data.summary.performance.good',
-      message: 'Immolation Auras',
-    }),
-  };
-  const badImmolationAuras = {
-    count: numberOfBadImmolationAuras,
-    label: t({
-      id:
-        'guide.demonhunter.vengeance.sections.rotation.immolationAura.data.summary.performance.bad',
-      message: 'Bad Immolation Auras',
-    }),
-  };
 
   const explanation = (
     <p>
@@ -58,33 +32,46 @@ const VengeanceGuideSection = () => {
   );
   const data = (
     <div>
-      <Trans id="guide.demonhunter.vengeance.sections.rotation.immolationAura.data">
-        <p>
-          <strong>
-            {formatPercentage(numberOfGoodImmolationAuras / numberOfImmolationAuras, 1)}%
-          </strong>{' '}
-          of your <SpellLink id={SPELLS.IMMOLATION_AURA} /> casts were good.
-        </p>
-        <strong>Immolation Aura casts</strong>{' '}
-        <small>
-          - Green is a good cast, Red is a bad cast. Mouseover for more details. Click to expand.
-        </small>
-        <CastSummaryAndBreakdown
-          castEntries={immolationAura.castEntries}
-          good={goodImmolationAuras}
-          bad={badImmolationAuras}
-        />
-        <strong>Immolation Aura cast efficiency</strong>
-        <CastEfficiencyBar
-          spellId={SPELLS.IMMOLATION_AURA.id}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          minimizeIcons
-        />
-      </Trans>
+      <CastSummaryAndBreakdown
+        spell={SPELLS.IMMOLATION_AURA}
+        castEntries={immolationAura.castEntries}
+        goodLabel={t({
+          id:
+            'guide.demonhunter.vengeance.sections.rotation.immolationAura.data.summary.performance.good',
+          message: 'Immolation Auras',
+        })}
+        includeGoodCastPercentage
+        badLabel={t({
+          id:
+            'guide.demonhunter.vengeance.sections.rotation.immolationAura.data.summary.performance.bad',
+          message: 'Bad Immolation Auras',
+        })}
+      />
+      <strong>
+        <SpellLink id={SPELLS.IMMOLATION_AURA} />{' '}
+        <Trans id="guide.castEfficiency">cast efficiency</Trans>
+      </strong>
+      <CastEfficiencyBar
+        spellId={SPELLS.IMMOLATION_AURA.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        minimizeIcons
+      />
+    </div>
+  );
+  const noCastData = (
+    <div>
+      <p>
+        <Trans id="guide.demonhunter.vengeance.sections.rotation.immolationAura.noCast">
+          You did not cast Immolation Aura during this encounter.
+        </Trans>
+      </p>
     </div>
   );
 
-  return explanationAndDataSubsection(explanation, data);
+  return explanationAndDataSubsection(
+    explanation,
+    immolationAura.castEntries.length > 0 ? data : noCastData,
+  );
 };
 
 export default VengeanceGuideSection;

@@ -16,7 +16,6 @@ import {
 import { t, Trans } from '@lingui/macro';
 import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/demonhunter';
-import { formatPercentage } from 'common/format';
 import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/CastSummaryAndBreakdown';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
@@ -161,29 +160,6 @@ export default class SoulCleave extends Analyzer {
   }
 
   guideSubsection() {
-    const numberOfCasts = this.castEntries.length;
-    const numberOfGoodCasts = this.castEntries.filter(
-      (it) => it.value === QualitativePerformance.Good,
-    ).length;
-    const numberOfBadCasts = this.castEntries.filter(
-      (it) => it.value === QualitativePerformance.Fail,
-    ).length;
-    const goodCasts = {
-      count: numberOfGoodCasts,
-      label: t({
-        id:
-          'guide.demonhunter.vengeance.sections.rotation.soulCleave.data.summary.performance.good',
-        message: 'Soul Cleaves',
-      }),
-    };
-    const badCasts = {
-      count: numberOfBadCasts,
-      label: t({
-        id: 'guide.demonhunter.vengeance.sections.rotation.soulCleave.data.summary.performance.bad',
-        message: 'Bad Soul Cleaves',
-      }),
-    };
-
     const explanation = (
       <p>
         <Trans id="guide.demonhunter.vengeance.sections.rotation.soulCleave.explanation">
@@ -202,21 +178,35 @@ export default class SoulCleave extends Analyzer {
       </p>
     );
     const data = (
+      <CastSummaryAndBreakdown
+        spell={SPELLS.SOUL_CLEAVE}
+        castEntries={this.castEntries}
+        goodLabel={t({
+          id:
+            'guide.demonhunter.vengeance.sections.rotation.soulCleave.data.summary.performance.good',
+          message: 'Soul Cleaves',
+        })}
+        includeGoodCastPercentage
+        badLabel={t({
+          id:
+            'guide.demonhunter.vengeance.sections.rotation.soulCleave.data.summary.performance.bad',
+          message: 'Bad Soul Cleaves',
+        })}
+      />
+    );
+    const noCastData = (
       <div>
-        <Trans id="guide.demonhunter.vengeance.sections.rotation.soulCleave.data">
-          <p>
-            <strong>{formatPercentage(numberOfGoodCasts / numberOfCasts, 1)}%</strong> of your{' '}
-            <SpellLink id={SPELLS.SOUL_CLEAVE} /> casts were good.
-          </p>
-          <strong>Soul Cleave casts</strong>{' '}
-          <small>
-            - Green is a good cast, Red is a bad cast. Mouseover for more details. Click to expand.
-          </small>
-        </Trans>
-        <CastSummaryAndBreakdown castEntries={this.castEntries} good={goodCasts} bad={badCasts} />
+        <p>
+          <Trans id="guide.demonhunter.vengeance.sections.rotation.soulCleave.noCast">
+            You did not cast Soul Cleave during this encounter.
+          </Trans>
+        </p>
       </div>
     );
 
-    return explanationAndDataSubsection(explanation, data);
+    return explanationAndDataSubsection(
+      explanation,
+      this.castEntries.length > 0 ? data : noCastData,
+    );
   }
 }

@@ -44,8 +44,9 @@ const CastBreakdownSubSection = <T extends Cast>({
       })}
     </div>
   );
+  const noCastData = <p>You did not cast this ability during this encounter.</p>;
 
-  return explanationAndDataSubsection(explanation, data);
+  return explanationAndDataSubsection(explanation, casts.length > 0 ? data : noCastData);
 };
 
 export default CastBreakdownSubSection;
