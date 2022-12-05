@@ -31,6 +31,7 @@ export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
 
 const CAST_BUFFER_MS = 100;
 const EB_BUFFER_MS = 2000;
+const EB_VARIANCE_BUFFER = 150; // servers are bad and EB can take over or under 2s to actually trigger
 const MAX_ECHO_DURATION = 20000; // 15s with 30% inc = 19s
 const TA_BUFFER_MS = 6000 + CAST_BUFFER_MS; //TA pulses over 6s at 0% haste
 
@@ -228,7 +229,7 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     additionalCondition(linkingEvent, referencedEvent) {
       const diff = EB_BUFFER_MS - (linkingEvent.timestamp - referencedEvent.timestamp);
-      return Math.abs(diff) < 150;
+      return Math.abs(diff) < EB_VARIANCE_BUFFER;
     },
   },
   //link Call of Ysera Removal to the heals
