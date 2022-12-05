@@ -9,10 +9,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { ECHO_HEALS } from '../../constants';
+import { ECHO_HEALS, TIMELORD_INCREASE } from '../../constants';
 import Echo from './Echo';
-
-const INCREASE_PER_POINT = 0.25;
 
 class TimeLord extends Analyzer {
   static dependencies = {
@@ -27,7 +25,7 @@ class TimeLord extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.TIME_LORD_TALENT);
     this.totalIncrease =
-      this.selectedCombatant.getTalentRank(TALENTS_EVOKER.TIME_LORD_TALENT) * INCREASE_PER_POINT;
+      this.selectedCombatant.getTalentRank(TALENTS_EVOKER.TIME_LORD_TALENT) * TIMELORD_INCREASE;
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(ECHO_HEALS), this.handleEchoHeal);
   }
 

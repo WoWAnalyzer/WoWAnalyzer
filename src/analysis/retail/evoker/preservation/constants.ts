@@ -37,3 +37,4 @@ export const EMPATH_REGEN_FACTOR = 1;
 export const FLOW_STATE_FACTOR = 0.1;
 export const GRACE_PERIOD_INCREASE = 0.05;
 export const TIMELESS_MAGIC = 0.15;
+export const TIMELORD_INCREASE = 0.25;
