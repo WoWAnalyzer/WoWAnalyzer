@@ -8,6 +8,7 @@ import Component from './Component';
 import EssenceDetails from '../EssenceDetails';
 import EssenceBurst from '../../talents/EssenceBurst';
 import EmeraldBlossom from '../../talents/EmeraldBlossom';
+import DreamFlight from '../../talents/DreamFlight';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -17,6 +18,7 @@ class Checklist extends BaseChecklist {
     manaValues: ManaValues,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     dreamBreath: DreamBreath,
+    dreamFlight: DreamFlight,
     essenceDetails: EssenceDetails,
     essenceBurst: EssenceBurst,
     emeraldBlossom: EmeraldBlossom,
@@ -27,6 +29,7 @@ class Checklist extends BaseChecklist {
   protected manaValues!: ManaValues;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
   protected dreamBreath!: DreamBreath;
+  protected dreamFlight!: DreamFlight;
   protected emeraldBlossom!: EmeraldBlossom;
   protected essenceBurst!: EssenceBurst;
   protected essenceDetails!: EssenceDetails;
@@ -40,6 +43,7 @@ class Checklist extends BaseChecklist {
           ...this.preparationRuleAnalyzer.thresholds,
           manaLeft: this.manaValues.suggestionThresholds,
           dreamBreath: this.dreamBreath.suggestionThresholds,
+          dreamFlight: this.dreamFlight.suggestionThresholds,
           emeraldBlossom: this.emeraldBlossom.suggestionThresholds,
           essenceDetails: this.essenceDetails.suggestionThresholds,
           essenceBurst: this.essenceBurst.suggestionThresholds,
