@@ -132,13 +132,6 @@ class CycleOfLife extends Analyzer {
         valueTooltip: formatNumber(this.totalSavedBySpell(SPELLS.FLUTTERING_SEEDLINGS_HEAL.id)),
       },
       {
-        color: SPELL_COLORS.VERDANT_EMBRACE,
-        label: 'Verdant Embrace',
-        spellId: TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id,
-        value: this.totalSavedBySpell(SPELLS.VERDANT_EMBRACE_HEAL.id),
-        valueTooltip: formatNumber(this.totalSavedBySpell(SPELLS.VERDANT_EMBRACE_HEAL.id)),
-      },
-      {
         color: SPELL_COLORS.LIFEBIND,
         label: 'Lifebind',
         spellId: TALENTS_EVOKER.LIFEBIND_TALENT.id,
@@ -182,6 +175,13 @@ class CycleOfLife extends Analyzer {
           this.totalSavedBySpell(SPELLS.SPIRITBLOOM.id) +
             this.totalSavedBySpell(SPELLS.SPIRITBLOOM_SPLIT.id),
         ),
+      },
+      {
+        color: SPELL_COLORS.VERDANT_EMBRACE,
+        label: 'Verdant Embrace',
+        spellId: TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id,
+        value: this.totalSavedBySpell(SPELLS.VERDANT_EMBRACE_HEAL.id),
+        valueTooltip: formatNumber(this.totalSavedBySpell(SPELLS.VERDANT_EMBRACE_HEAL.id)),
       },
     ];
     const otherHealing = this.getOtherHealing(items);
