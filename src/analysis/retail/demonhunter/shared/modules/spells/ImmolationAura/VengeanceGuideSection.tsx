@@ -65,9 +65,9 @@ const VengeanceGuideSection = () => {
           </strong>{' '}
           of your <SpellLink id={SPELLS.IMMOLATION_AURA} /> casts were good.
         </p>
-        <strong>Immolation Aura casts</strong>
+        <strong>Immolation Aura casts</strong>{' '}
         <small>
-          Green is a good cast, Red is a bad cast. Mouseover for more details. Click to expand.
+          - Green is a good cast, Red is a bad cast. Mouseover for more details. Click to expand.
         </small>
         <CastSummaryAndBreakdown
           castEntries={immolationAura.castEntries}

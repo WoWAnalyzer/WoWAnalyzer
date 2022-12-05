@@ -52,6 +52,7 @@ import FelDevastation from './modules/talents/FelDevastation';
 import ImmolationAuraLinker from './normalizers/ImmolationAuraLinker';
 import SoulCleaveEventLinkNormalizer from './normalizers/SoulCleaveEventLinkNormalizer';
 import SpiritBombEventLinkNormalizer from './normalizers/SpiritBombEventLinkNormalizer';
+import SoulCleave from './modules/spells/SoulCleave';
 import Guide from './Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -115,6 +116,7 @@ class CombatLogParser extends CoreCombatLogParser {
     demonSpikes: DemonSpikes,
     infernalStrike: InfernalStrike,
     metamorphosis: Metamorphosis,
+    soulCleave: SoulCleave,
 
     // Stats
     soulsOvercap: SoulsOvercap,
