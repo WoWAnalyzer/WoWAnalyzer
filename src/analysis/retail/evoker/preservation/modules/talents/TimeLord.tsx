@@ -10,10 +10,15 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { ECHO_HEALS } from '../../constants';
+import Echo from './Echo';
 
 const INCREASE_PER_POINT = 0.25;
 
 class TimeLord extends Analyzer {
+  static dependencies = {
+    echo: Echo,
+  };
+  protected echo!: Echo;
   effectiveHealing: number = 0;
   totalIncrease: number = 0;
   overhealing: number = 0;
@@ -27,6 +32,9 @@ class TimeLord extends Analyzer {
   }
 
   handleEchoHeal(event: HealEvent) {
+    if (!this.echo.isEchoHeal(event)) {
+      return;
+    }
     this.effectiveHealing += calculateEffectiveHealing(event, this.totalIncrease);
     this.overhealing += calculateOverhealing(event, this.totalIncrease);
   }
