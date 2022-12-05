@@ -8,7 +8,7 @@ import DonutChart, { Item } from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { ECHO_HEALS, SPELL_COLORS } from '../../constants';
+import { CYCLE_OF_LIFE_PERCENT_SAVED, ECHO_HEALS, SPELL_COLORS } from '../../constants';
 
 const TRACKED_SPELL_IDS = [
   SPELLS.CYCLE_OF_LIFE_HEAL.id,
@@ -27,7 +27,6 @@ const TRACKED_SPELL_IDS = [
     return info.id;
   }),
 );
-const PERCENT_SAVED = 0.15;
 
 class CycleOfLife extends Analyzer {
   savedBySpell: Map<number, number> = new Map<number, number>();
@@ -45,7 +44,7 @@ class CycleOfLife extends Analyzer {
       ? this.savedBySpell.get(event.ability.guid)
       : 0;
     const amount = event.amount + (event.absorbed || 0) + (event.overheal || 0);
-    this.savedBySpell.set(event.ability.guid, curVal! + amount * PERCENT_SAVED);
+    this.savedBySpell.set(event.ability.guid, curVal! + amount * CYCLE_OF_LIFE_PERCENT_SAVED);
   }
 
   getOtherHealing(items: Item[]) {

@@ -37,6 +37,7 @@ export const REVERSION_BASE_DURATION = 12000;
 // talents
 export const CALL_OF_YSERA_DREAM_BREATH_INCREASE = 0.4;
 export const CALL_OF_YSERA_DREAM_LIVING_FLAME_INCREASE = 1;
+export const CYCLE_OF_LIFE_PERCENT_SAVED = 0.15;
 export const EMPATH_REGEN_FACTOR = 1;
 export const FLOW_STATE_FACTOR = 0.1;
 export const GRACE_PERIOD_INCREASE = 0.05;
