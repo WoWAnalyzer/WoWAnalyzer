@@ -64,7 +64,7 @@ class DreamFlight extends Analyzer {
           targets.
         </>,
       )
-        .icon(SPELLS.DREAM_BREATH.icon)
+        .icon(TALENTS_EVOKER.DREAM_FLIGHT_TALENT.icon)
         .actual(
           `${formatPercentage(this.percentOfGroupHit, 2)} ${t({
             id: 'evoker.preservation.suggestions.dreamFlight.targetsHit',
