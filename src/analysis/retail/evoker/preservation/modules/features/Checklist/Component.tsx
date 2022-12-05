@@ -33,6 +33,31 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
         <Requirement name="Essence Wasted" thresholds={thresholds.essenceDetails} />
       </Rule>
       <Rule
+        name="Use core abilities as often as possible"
+        description="Aim to keep core rotational abilities on cooldown to maximize healing"
+      >
+        <AbilityRequirement spell={SPELLS.DREAM_BREATH_CAST.id} />
+        {combatant.hasTalent(TALENTS_EVOKER.SPIRITBLOOM_TALENT) && (
+          <AbilityRequirement spell={SPELLS.SPIRITBLOOM_CAST.id} />
+        )}
+        {combatant.hasTalent(TALENTS_EVOKER.REVERSION_TALENT) && (
+          <AbilityRequirement spell={TALENTS_EVOKER.REVERSION_TALENT.id} />
+        )}
+      </Rule>
+      <Rule
+        name="Use your cooldowns effectively"
+        description="Try to use your powerful raid cooldowns effectively"
+      >
+        <Requirement
+          name={
+            <>
+              % of group hit with <SpellLink id={TALENTS_EVOKER.DREAM_FLIGHT_TALENT.id} />
+            </>
+          }
+          thresholds={thresholds.dreamFlight}
+        />
+      </Rule>
+      <Rule
         name="Use rotational spells based on talent selection"
         description={
           <>
@@ -52,30 +77,6 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
             }
             thresholds={thresholds.essenceBurstBuffApplies}
           ></Requirement>
-        )}
-      </Rule>
-      <Rule
-        name="Use your empowered spells wisely"
-        description={
-          <>
-            Empowered spells like <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} /> make up a
-            large portion of your healing. Be sure to use them often while keeping your overheal
-            low.
-          </>
-        }
-      >
-        {combatant.hasTalent(TALENTS_EVOKER.DREAM_BREATH_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.DREAM_BREATH_CAST.id} />
-        )}
-        {combatant.hasTalent(TALENTS_EVOKER.DREAM_BREATH_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} /> % Overheal
-              </>
-            }
-            thresholds={thresholds.dreamBreath}
-          />
         )}
       </Rule>
       <Rule
