@@ -66,7 +66,7 @@ class DreamFlight extends Analyzer {
       )
         .icon(TALENTS_EVOKER.DREAM_FLIGHT_TALENT.icon)
         .actual(
-          `${formatPercentage(this.percentOfGroupHit, 2)} ${t({
+          `${formatPercentage(this.percentOfGroupHit, 2)}${t({
             id: 'evoker.preservation.suggestions.dreamFlight.targetsHit',
             message: `% of group hit with Dream Flight`,
           })}`,
