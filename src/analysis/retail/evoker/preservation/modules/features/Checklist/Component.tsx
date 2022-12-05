@@ -48,14 +48,16 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
         name="Use your cooldowns effectively"
         description="Try to use your powerful raid cooldowns effectively"
       >
-        <Requirement
-          name={
-            <>
-              % of group hit with <SpellLink id={TALENTS_EVOKER.DREAM_FLIGHT_TALENT.id} />
-            </>
-          }
-          thresholds={thresholds.dreamFlight}
-        />
+        {combatant.hasTalent(TALENTS_EVOKER.DREAM_FLIGHT_TALENT) && (
+          <Requirement
+            name={
+              <>
+                % of group hit with <SpellLink id={TALENTS_EVOKER.DREAM_FLIGHT_TALENT.id} />
+              </>
+            }
+            thresholds={thresholds.dreamFlight}
+          />
+        )}
       </Rule>
       <Rule
         name="Use rotational spells based on talent selection"
