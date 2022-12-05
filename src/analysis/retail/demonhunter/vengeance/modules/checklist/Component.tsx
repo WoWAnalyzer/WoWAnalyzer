@@ -101,28 +101,6 @@ const VengeanceDemonHunterChecklist = (props: ChecklistProps) => {
           name={<SpellLink id={SPELLS.DEMON_SPIKES.id} />}
           thresholds={thresholds.demonSpikes}
         />
-        {!combatant.hasTalent(TALENTS_DEMON_HUNTER.FEED_THE_DEMON_TALENT.id) && (
-          <TalentRequirement
-            talent={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT}
-            name={
-              <>
-                <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id} /> casted at 4+ souls
-              </>
-            }
-            thresholds={thresholds.spiritBombSoulsConsume}
-          />
-        )}
-        {!combatant.hasTalent(TALENTS_DEMON_HUNTER.FEED_THE_DEMON_TALENT.id) && (
-          <TalentRequirement
-            talent={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT}
-            name={
-              <>
-                <SpellLink id={SPELLS.SOUL_CLEAVE.id} /> minimizing souls consumed
-              </>
-            }
-            thresholds={thresholds.soulCleaveSoulsConsumed}
-          />
-        )}
         <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT} />
       </Rule>
 
