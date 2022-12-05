@@ -277,7 +277,7 @@
   "guide.demonhunter.havoc.sections.resources.fury.summary": "Havoc's primary resource is Fury. Typically, ability use will be limited by Fury, not time. You should avoid capping Fury - lost Fury generation is lost DPS.",
   "guide.demonhunter.havoc.sections.resources.fury.title": "Fury",
   "guide.demonhunter.havoc.sections.resources.title": "Resource Use",
-  "guide.demonhunter.havoc.sections.rotation.summary": "Havoc's core rotation is performing <0>builder</0> abilites to generate Fury, then using a <1>spender</1> ability. Refer to the spec guide for <2>rotation details</2>. See below for spell usage details.",
+  "guide.demonhunter.havoc.sections.rotation.summary": "The Havoc rotation is driven by a <0>priority list</0>. When you are ready to use an ability, you should use the highest-priority ability that is available. Doing this improves your damage by prioritizing high-damage, high-impact spells like <1/> and <2/> over low-priority \"filler\" spells like <3/>.",
   "guide.demonhunter.vengeance.demonic.explanation": "It will grant <0/> for a short duration when cast due to <1/>.",
   "guide.demonhunter.vengeance.downInFlames.explanation": "Always cast one of your charges of <0/> before casting this ability so that you can benefit from <1/>.",
   "guide.demonhunter.vengeance.fieryDemise.explanation": "Always use when <0/> is applied to the target in order to maximise the damage dealt due to <1/>.<2/>",
