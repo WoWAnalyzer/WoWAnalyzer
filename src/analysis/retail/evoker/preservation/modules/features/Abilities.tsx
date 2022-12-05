@@ -17,6 +17,9 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.REVERSION_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.DREAM_BREATH_CAST.id,
@@ -25,6 +28,9 @@ class Abilities extends CoreAbilities {
         cooldown: 25,
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
         },
       },
       {
@@ -46,13 +52,16 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.TIME_DILATION_TALENT.id),
       },
       {
-        spell: TALENTS.SPIRITBLOOM_TALENT.id,
+        spell: SPELLS.SPIRITBLOOM_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 30,
         gcd: {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.SPIRITBLOOM_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: TALENTS.TEMPORAL_ANOMALY_TALENT.id,
@@ -90,6 +99,9 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.DREAM_FLIGHT_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: TALENTS.STASIS_TALENT.id,
