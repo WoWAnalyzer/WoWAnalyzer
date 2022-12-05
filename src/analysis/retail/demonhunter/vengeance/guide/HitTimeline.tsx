@@ -123,6 +123,7 @@ function HitTimeline({ hits, showSourceName, unmitigatedContent }: HitTimelinePr
             >
               <HitTimelineSlice
                 color={colorForPerformance(Number(hit.mitigated))}
+                onClick={() => console.log(hit.event)}
                 widthPct={blockWidth}
                 style={{
                   left: `${((hit.event.timestamp - info.fightStart) / info.fightDuration) * 100}%`,

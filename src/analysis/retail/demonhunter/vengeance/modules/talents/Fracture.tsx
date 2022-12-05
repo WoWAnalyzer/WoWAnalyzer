@@ -8,7 +8,6 @@ import { SpellLink } from 'interface';
 import Events, { CastEvent } from 'parser/core/Events';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import FuryTracker from 'analysis/retail/demonhunter/vengeance/modules/resourcetracker/FuryTracker';
-import { formatPercentage } from 'common/format';
 import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/CastSummaryAndBreakdown';
 import { UNRESTRAINED_FURY_SCALING } from 'analysis/retail/demonhunter/shared';
 import { TIERS } from 'game/TIERS';
@@ -187,28 +186,6 @@ export default class Fracture extends Analyzer {
   }
 
   guideSubsection() {
-    const numberOfFractures = this.castEntries.length;
-    const numberOfGoodFractures = this.castEntries.filter(
-      (it) => it.value === QualitativePerformance.Good,
-    ).length;
-    const numberOfBadFractures = this.castEntries.filter(
-      (it) => it.value === QualitativePerformance.Fail,
-    ).length;
-    const goodFractures = {
-      count: numberOfGoodFractures,
-      label: t({
-        id: 'guide.demonhunter.vengeance.sections.rotation.fracture.data.summary.performance.good',
-        message: 'Fractures',
-      }),
-    };
-    const badFractures = {
-      count: numberOfBadFractures,
-      label: t({
-        id: 'guide.demonhunter.vengeance.sections.rotation.fracture.data.summary.performance.bad',
-        message: 'Bad Fractures',
-      }),
-    };
-
     const explanation = (
       <p>
         <Trans id="guide.demonhunter.vengeance.sections.rotation.fracture.explanation">
@@ -223,26 +200,34 @@ export default class Fracture extends Analyzer {
       </p>
     );
     const data = (
+      <CastSummaryAndBreakdown
+        spell={TALENTS.FRACTURE_TALENT}
+        castEntries={this.castEntries}
+        goodLabel={t({
+          id:
+            'guide.demonhunter.vengeance.sections.rotation.fracture.data.summary.performance.good',
+          message: 'Fractures',
+        })}
+        includeGoodCastPercentage
+        badLabel={t({
+          id: 'guide.demonhunter.vengeance.sections.rotation.fracture.data.summary.performance.bad',
+          message: 'Bad Fractures',
+        })}
+      />
+    );
+    const noCastData = (
       <div>
-        <Trans id="guide.demonhunter.vengeance.sections.rotation.fracture.data">
-          <p>
-            <strong>{formatPercentage(numberOfGoodFractures / numberOfFractures, 1)}%</strong> of
-            your <SpellLink id={TALENTS.FRACTURE_TALENT} /> casts were good.
-          </p>
-          <strong>Fracture casts</strong>{' '}
-          <small>
-            - Green is a good cast, Red is a bad cast (too many Soul Fragments or too much Fury).
-            Mouseover for more details. Click to expand.
-          </small>
-        </Trans>
-        <CastSummaryAndBreakdown
-          castEntries={this.castEntries}
-          good={goodFractures}
-          bad={badFractures}
-        />
+        <p>
+          <Trans id="guide.demonhunter.vengeance.sections.rotation.fracture.noCast">
+            You did not cast Fracture during this encounter.
+          </Trans>
+        </p>
       </div>
     );
 
-    return explanationAndDataSubsection(explanation, data);
+    return explanationAndDataSubsection(
+      explanation,
+      this.castEntries.length > 0 ? data : noCastData,
+    );
   }
 }
