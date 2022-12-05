@@ -26,6 +26,7 @@ import EmeraldBlossom from './modules/talents/EmeraldBlossom';
 import Echo from './modules/talents/Echo';
 import ResonatingSphere from './modules/talents/ResonatingSphere';
 import RenewingBreath from './modules/talents/RenewingBreath';
+import FieldOfDreams from './modules/talents/FieldOfDreams';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -66,6 +67,7 @@ class CombatLogParser extends CoreCombatLogParser {
     emeraldBlossom: EmeraldBlossom,
     resonatingSphere: ResonatingSphere,
     renewingBreath: RenewingBreath,
+    fieldOfDreams: FieldOfDreams,
   };
 }
 
