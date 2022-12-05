@@ -43,7 +43,7 @@ class Checklist extends BaseChecklist {
           emeraldBlossom: this.emeraldBlossom.suggestionThresholds,
           essenceDetails: this.essenceDetails.suggestionThresholds,
           essenceBurst: this.essenceBurst.suggestionThresholds,
-          livingFlameCasts: this.essenceBurst.buffApplyThreshold,
+          essenceBurstBuffApplies: this.essenceBurst.buffApplyThreshold,
         }}
       />
     );

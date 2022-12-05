@@ -50,7 +50,7 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
                 <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> buffs applied
               </>
             }
-            thresholds={thresholds.livingFlameCasts}
+            thresholds={thresholds.essenceBurstBuffApplies}
           ></Requirement>
         )}
       </Rule>
