@@ -47,7 +47,8 @@ class TimeLord extends Analyzer {
           <>
             <ul>
               <li>
-                {formatNumber(this.effectiveHealing)} effective healing from{' '}
+                {formatNumber(this.effectiveHealing)} increased{' '}
+                <SpellLink id={TALENTS_EVOKER.ECHO_TALENT.id} /> healing from{' '}
                 <SpellLink id={TALENTS_EVOKER.TIME_LORD_TALENT} />
               </li>
               <li>
