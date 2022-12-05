@@ -33,6 +33,28 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
         <Requirement name="Essence Wasted" thresholds={thresholds.essenceDetails} />
       </Rule>
       <Rule
+        name="Select proper talents based on your playstyle"
+        description={
+          <>
+            Certain talents empower various playstyles and you should select talents accordingly.
+            For example, do not select talents that buff{' '}
+            <SpellLink id={SPELLS.LIVING_FLAME_CAST.id} /> if you do not plan on casting it
+            frequently.
+          </>
+        }
+      >
+        {combatant.hasTalent(TALENTS_EVOKER.ESSENCE_BURST_TALENT) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> buffs consumed
+              </>
+            }
+            thresholds={thresholds.livingFlameCasts}
+          ></Requirement>
+        )}
+      </Rule>
+      <Rule
         name="Use your empowered spells wisely"
         description={
           <>

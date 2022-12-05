@@ -5,6 +5,7 @@ import { Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 12, 4), <>Add suggestion for <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id}/> based on buffs consumed</>, Trevor),
   change(date(2022, 11, 29), <>Added <SpellLink id={SPELLS.EMERALD_BLOSSOM.id}/> module</>, Trevor),
   change(date(2022, 11, 27), <>Add modules for <SpellLink id={TALENTS_EVOKER.ECHO_TALENT.id}/> and <SpellLink id={TALENTS_EVOKER.RESONATING_SPHERE_TALENT.id}/></>, Trevor),
   change(date(2022, 11, 22), 'Cleanup Preservation Evoker files', Trevor),
