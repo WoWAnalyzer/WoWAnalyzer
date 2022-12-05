@@ -33,6 +33,28 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
         <Requirement name="Essence Wasted" thresholds={thresholds.essenceDetails} />
       </Rule>
       <Rule
+        name="Use rotational spells based on talent selection"
+        description={
+          <>
+            Certain talents empower your abilities to enhance your healing, try to utilize your
+            rotational spells more often for these benefits. For example, you should cast{' '}
+            <SpellLink id={SPELLS.LIVING_FLAME_CAST.id} /> frequently when talented into{' '}
+            <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} />.
+          </>
+        }
+      >
+        {combatant.hasTalent(TALENTS_EVOKER.ESSENCE_BURST_TALENT) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> buffs applied
+              </>
+            }
+            thresholds={thresholds.essenceBurstBuffApplies}
+          ></Requirement>
+        )}
+      </Rule>
+      <Rule
         name="Use your empowered spells wisely"
         description={
           <>

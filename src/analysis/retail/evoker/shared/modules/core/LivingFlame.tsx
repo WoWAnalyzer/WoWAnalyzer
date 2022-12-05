@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 
 class LivingFlame extends Analyzer {
   static dependencies = {
@@ -9,8 +9,9 @@ class LivingFlame extends Analyzer {
   };
   protected abilityTracker!: AbilityTracker;
 
-  livingFlameHealing = 0;
-  livingFlameDamage = 0;
+  livingFlameHealing: number = 0;
+  livingFlameDamage: number = 0;
+  numCasts: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -23,6 +24,14 @@ class LivingFlame extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LIVING_FLAME_DAMAGE),
       this.onDamage,
     );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIVING_FLAME_CAST),
+      this.onCast,
+    );
+  }
+
+  onCast(event: CastEvent) {
+    this.numCasts += 1;
   }
 
   onDamage(event: DamageEvent) {

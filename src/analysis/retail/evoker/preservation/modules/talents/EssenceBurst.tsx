@@ -92,6 +92,16 @@ class EssenceBurst extends Analyzer {
     };
   }
 
+  get buffApplyThreshold() {
+    return {
+      actual: this.totalConsumed + this.totalExpired,
+      isLessThan: {
+        major: 3,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
