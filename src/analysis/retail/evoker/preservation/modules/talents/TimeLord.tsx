@@ -10,16 +10,10 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { ECHO_HEALS } from '../../constants';
-import HotTrackerPrevoker from '../core/HotTrackerPrevoker';
 
 const INCREASE_PER_POINT = 0.25;
 
 class TimeLord extends Analyzer {
-  static dependencies = {
-    hotTracker: HotTrackerPrevoker,
-  };
-
-  protected hotTracker!: HotTrackerPrevoker;
   effectiveHealing: number = 0;
   totalIncrease: number = 0;
   overhealing: number = 0;
