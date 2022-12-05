@@ -118,7 +118,7 @@ export default class Fracture extends Analyzer {
     this.castEntries.push({ value: performance, tooltip });
   }
 
-  getCastFuryPerformance(event: CastEvent): [QualitativePerformance, ReactNode | null] {
+  getCastFuryPerformance(event: CastEvent): [QualitativePerformance, ReactNode] {
     const hasMetamorphosis = this.selectedCombatant.hasBuff(
       SPELLS.METAMORPHOSIS_TANK.id,
       event.timestamp,
@@ -150,7 +150,7 @@ export default class Fracture extends Analyzer {
     ];
   }
 
-  getCastSoulFragmentPerformance(event: CastEvent): [QualitativePerformance, ReactNode | null] {
+  getCastSoulFragmentPerformance(event: CastEvent): [QualitativePerformance, ReactNode] {
     const hasMetamorphosis = this.selectedCombatant.hasBuff(
       SPELLS.METAMORPHOSIS_TANK.id,
       event.timestamp,
@@ -229,9 +229,9 @@ export default class Fracture extends Analyzer {
             <strong>{formatPercentage(numberOfGoodFractures / numberOfFractures, 1)}%</strong> of
             your <SpellLink id={TALENTS.FRACTURE_TALENT} /> casts were good.
           </p>
-          <strong>Fracture casts</strong>
+          <strong>Fracture casts</strong>{' '}
           <small>
-            Green is a good cast, Red is a bad cast (too many Soul Fragments or too much Fury).
+            - Green is a good cast, Red is a bad cast (too many Soul Fragments or too much Fury).
             Mouseover for more details. Click to expand.
           </small>
         </Trans>

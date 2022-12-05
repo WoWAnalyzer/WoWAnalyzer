@@ -15,6 +15,7 @@ import lazyLoadComponent from 'common/lazyLoadComponent';
 import retryingPromise from 'common/retryingPromise';
 import ResultsLoadingIndicator from 'interface/report/Results/ResultsLoadingIndicator';
 import { ComponentProps } from 'react';
+import DIFFICULTIES from 'game/DIFFICULTIES';
 
 const TimelineTab = lazyLoadComponent(
   () =>
@@ -104,8 +105,7 @@ const ResultsContent = ({
           <EncounterStats
             config={config}
             currentBoss={parser.fight.boss}
-            difficulty={parser.fight.difficulty}
-            spec={parser.selectedCombatant._combatantInfo.specID}
+            difficulty={parser.fight.difficulty ?? DIFFICULTIES.LFR_RAID}
             duration={parser.fight.end_time - parser.fight.start_time}
             combatant={parser.selectedCombatant}
           />

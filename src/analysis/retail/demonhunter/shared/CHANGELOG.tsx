@@ -2,9 +2,11 @@ import { change, date } from 'common/changelog';
 import SpellLink from 'interface/SpellLink';
 import TALENTS from 'common/TALENTS/demonhunter';
 import { ToppleTheNun } from 'CONTRIBUTORS';
+import SPELLS from 'common/SPELLS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2022, 12, 4), <>Stop treating <SpellLink id={SPELLS.THE_HUNT_CHARGE}/> as a castable ability.</>, ToppleTheNun),
   change(date(2022, 11, 26), 'Improve talent checking in checklist.', ToppleTheNun),
   change(date(2022, 11, 21), <>Correctly handle <SpellLink id={TALENTS.THE_HUNT_TALENT} /> pre-casts.</>, ToppleTheNun),
 ];

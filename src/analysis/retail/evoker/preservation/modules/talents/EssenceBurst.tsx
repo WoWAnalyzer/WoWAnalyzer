@@ -79,7 +79,7 @@ class EssenceBurst extends Analyzer {
     ].filter((item) => {
       return item.value > 0;
     });
-    return <DonutChart items={items} />;
+    return items.length > 0 ? <DonutChart items={items} /> : null;
   }
 
   get suggestionThresholds() {
@@ -87,6 +87,16 @@ class EssenceBurst extends Analyzer {
       actual: this.totalExpired,
       isGreaterThan: {
         major: 0,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  get buffApplyThreshold() {
+    return {
+      actual: this.totalConsumed + this.totalExpired,
+      isLessThan: {
+        major: 3,
       },
       style: ThresholdStyle.NUMBER,
     };
@@ -111,6 +121,7 @@ class EssenceBurst extends Analyzer {
   }
 
   statistic() {
+    const donutChart = this.renderDonutChart();
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
@@ -121,7 +132,14 @@ class EssenceBurst extends Analyzer {
           <label>
             <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> consumption by spell
           </label>
-          {this.renderDonutChart()}
+          {donutChart ? (
+            donutChart
+          ) : (
+            <small>
+              You gained no <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> buffs during
+              the encounter
+            </small>
+          )}
         </div>
       </Statistic>
     );
