@@ -27,7 +27,6 @@ import FuryTracker from './modules/resourcetracker/FuryTracker';
 import DemonSpikes from './modules/spells/DemonSpikes';
 import InfernalStrike from './modules/spells/InfernalStrike';
 import ShearFracture from './modules/spells/ShearFracture';
-import SoulCleaveSoulsConsumed from './modules/spells/SoulCleaveSoulsConsumed';
 import SoulFragmentsConsume from './modules/statistics/SoulFragmentsConsume';
 import SoulsOvercap from './modules/statistics/SoulsOvercap';
 import AgonizingFlames from './modules/talents/AgonizingFlames';
@@ -37,7 +36,7 @@ import FeastOfSouls from './modules/talents/FeastOfSouls';
 import FeedTheDemon from './modules/talents/FeedTheDemon';
 import SoulBarrier from './modules/talents/SoulBarrier';
 import FrailtyDebuff from './modules/talents/FrailtyDebuff';
-import SpiritBombSoulsConsume from './modules/talents/SpiritBombSoulsConsume';
+import SpiritBomb from './modules/talents/SpiritBomb';
 import PainbringerBuff from './modules/talents/PainbringerBuff';
 import DarkglareBoon from './modules/talents/DarkglareBoon';
 import StokeTheFlames from './modules/talents/StokeTheFlames';
@@ -51,6 +50,9 @@ import Fracture from './modules/talents/Fracture';
 import SoulCarver from './modules/talents/SoulCarver';
 import FelDevastation from './modules/talents/FelDevastation';
 import ImmolationAuraLinker from './normalizers/ImmolationAuraLinker';
+import SoulCleaveEventLinkNormalizer from './normalizers/SoulCleaveEventLinkNormalizer';
+import SpiritBombEventLinkNormalizer from './normalizers/SpiritBombEventLinkNormalizer';
+import SoulCleave from './modules/spells/SoulCleave';
 import Guide from './Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -76,12 +78,14 @@ class CombatLogParser extends CoreCombatLogParser {
     // normalizers
     shearFractureNormalizer: ShearFractureNormalizer,
     immolationAuraLinker: ImmolationAuraLinker,
+    soulCleaveEventLinkNormalizer: SoulCleaveEventLinkNormalizer,
+    spiritBombEventLinkNormalizer: SpiritBombEventLinkNormalizer,
 
     // Talents
     painbringer: PainbringerBuff,
     frailtyDebuff: FrailtyDebuff,
     soulBarrier: SoulBarrier,
-    spiritBombSoulsConsume: SpiritBombSoulsConsume,
+    spiritBomb: SpiritBomb,
     feedTheDemon: FeedTheDemon,
     burningAlive: BurningAlive,
     feastOfSouls: FeastOfSouls,
@@ -110,9 +114,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spell
     immolationAura: ImmolationAura,
     demonSpikes: DemonSpikes,
-    soulCleaveSoulsConsumed: SoulCleaveSoulsConsumed,
     infernalStrike: InfernalStrike,
     metamorphosis: Metamorphosis,
+    soulCleave: SoulCleave,
 
     // Stats
     soulsOvercap: SoulsOvercap,

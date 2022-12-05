@@ -7,11 +7,9 @@ import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import FuryDetails from '../resourcetracker/FuryDetails';
 import DemonSpikes from '../spells/DemonSpikes';
 import ShearFracture from '../spells/ShearFracture';
-import SoulCleaveSoulsConsumed from '../spells/SoulCleaveSoulsConsumed';
 import SoulsOvercap from '../statistics/SoulsOvercap';
 import SoulBarrier from '../talents/SoulBarrier';
 import FrailtyDebuff from '../talents/FrailtyDebuff';
-import SpiritBombSoulsConsume from '../talents/SpiritBombSoulsConsume';
 import Component from './Component';
 import PainbringerBuff from '../talents/PainbringerBuff';
 
@@ -28,11 +26,9 @@ class Checklist extends BaseModule {
     frailtyDebuff: FrailtyDebuff,
 
     // Talents
-    spiritBombSoulsConsume: SpiritBombSoulsConsume,
     soulBarrier: SoulBarrier,
 
     // Spells
-    soulCleaveSoulsConsumed: SoulCleaveSoulsConsumed,
     demonSpikes: DemonSpikes,
     shearFracture: ShearFracture,
 
@@ -54,12 +50,10 @@ class Checklist extends BaseModule {
   //endregion
 
   //region Talents
-  protected spiritBombSoulsConsume!: SpiritBombSoulsConsume;
   protected soulBarrier!: SoulBarrier;
   //endregion
 
   //region Spells
-  protected soulCleaveSoulsConsumed!: SoulCleaveSoulsConsumed;
   protected demonSpikes!: DemonSpikes;
   protected shearFracture!: ShearFracture;
   //endregion
@@ -81,9 +75,7 @@ class Checklist extends BaseModule {
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           painbringerBuff: this.painbringerBuff.uptimeSuggestionThresholds,
           frailtyDebuff: this.frailtyDebuff.uptimeSuggestionThresholds,
-          spiritBombSoulsConsume: this.spiritBombSoulsConsume.suggestionThresholdsEfficiency,
           soulBarrier: this.soulBarrier.suggestionThresholdsEfficiency,
-          soulCleaveSoulsConsumed: this.soulCleaveSoulsConsumed.suggestionThresholdsEfficiency,
           demonSpikes: this.demonSpikes.suggestionThresholdsEfficiency,
           furyDetails: this.furyDetails.suggestionThresholds,
           soulsOvercap: this.soulsOvercap.suggestionThresholdsEfficiency,
