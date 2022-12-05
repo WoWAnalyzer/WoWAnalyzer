@@ -112,7 +112,7 @@ class EssenceBurst extends Analyzer {
 
   statistic() {
     const donutChart = this.renderDonutChart();
-    return donutChart ? (
+    return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
@@ -122,10 +122,17 @@ class EssenceBurst extends Analyzer {
           <label>
             <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> consumption by spell
           </label>
-          {donutChart}
+          {donutChart ? (
+            donutChart
+          ) : (
+            <small>
+              You gained no <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> buffs during
+              the encounter
+            </small>
+          )}
         </div>
       </Statistic>
-    ) : null;
+    );
   }
 }
 
