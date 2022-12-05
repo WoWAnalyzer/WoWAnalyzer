@@ -41,4 +41,5 @@ export const CYCLE_OF_LIFE_PERCENT_SAVED = 0.15;
 export const EMPATH_REGEN_FACTOR = 1;
 export const FLOW_STATE_FACTOR = 0.1;
 export const GRACE_PERIOD_INCREASE = 0.05;
+export const RENEWING_BREATH_INCREASE = 0.15;
 export const TIMELESS_MAGIC = 0.15;

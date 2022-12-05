@@ -64,6 +64,11 @@ const spells = spellIndexableList({
     name: 'Spiritbloom',
     icon: 'ability_evoker_spiritbloom2',
   },
+  SPIRITBLOOM_CAST: {
+    id: 382731,
+    name: 'Spiritbloom',
+    icon: 'ability_evoker_spiritbloom2',
+  },
   SPIRITBLOOM_SPLIT: {
     id: 367231,
     name: 'Spiritbloom',
