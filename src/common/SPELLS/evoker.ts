@@ -94,8 +94,8 @@ const spells = spellIndexableList({
     name: 'Cycle of Life',
     icon: 'ability_monk_explodingjadeblossom',
   },
-  CYCLE_OF_LIFE_STACK: {
-    id: 388973,
+  CYCLE_OF_LIFE_SUMMON: {
+    id: 371871,
     name: 'Cycle of Life',
     icon: 'ability_monk_explodingjadeblossom',
   },

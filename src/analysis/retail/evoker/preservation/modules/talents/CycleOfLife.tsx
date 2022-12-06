@@ -3,12 +3,17 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent } from 'parser/core/Events';
+import Events, { HealEvent, SummonEvent } from 'parser/core/Events';
 import DonutChart, { Item } from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { CYCLE_OF_LIFE_PERCENT_SAVED, ECHO_HEALS, SPELL_COLORS } from '../../constants';
+import {
+  CYCLE_OF_LIFE_PERCENT_SAVED,
+  CYCLE_OF_LIFE_SEED_DURATION,
+  ECHO_HEALS,
+  SPELL_COLORS,
+} from '../../constants';
 
 const TRACKED_SPELL_IDS = [
   SPELLS.CYCLE_OF_LIFE_HEAL.id,
@@ -30,28 +35,38 @@ const TRACKED_SPELL_IDS = [
 
 class CycleOfLife extends Analyzer {
   savedBySpell: Map<number, number> = new Map<number, number>();
+  seeds: number[] = []; // storing seed expiration times
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.CYCLE_OF_LIFE_TALENT);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handleHeal);
+    this.addEventListener(
+      Events.summon.by(SELECTED_PLAYER).spell(SPELLS.CYCLE_OF_LIFE_SUMMON),
+      this.onSummon,
+    );
+  }
+
+  onSummon(event: SummonEvent) {
+    this.seeds.push(event.timestamp + CYCLE_OF_LIFE_SEED_DURATION + 150); // buffer for lag
   }
 
   handleHeal(event: HealEvent) {
-    if (
-      !this.selectedCombatant.hasBuff(SPELLS.CYCLE_OF_LIFE_BUFF.id) &&
-      !this.selectedCombatant.hasBuff(SPELLS.CYCLE_OF_LIFE_STACK.id)
-    ) {
-      return;
-    }
     const curVal = this.savedBySpell.has(event.ability.guid)
       ? this.savedBySpell.get(event.ability.guid)
       : 0;
     const amount = event.amount + (event.absorbed || 0) + (event.overheal || 0);
-    const percentSaved = this.selectedCombatant.hasBuff(SPELLS.CYCLE_OF_LIFE_BUFF.id)
-      ? CYCLE_OF_LIFE_PERCENT_SAVED
-      : CYCLE_OF_LIFE_PERCENT_SAVED *
-        this.selectedCombatant.getBuffStacks(SPELLS.CYCLE_OF_LIFE_STACK.id);
+    const percentSaved = CYCLE_OF_LIFE_PERCENT_SAVED * this.getNumActiveSeeds(event.timestamp);
     this.savedBySpell.set(event.ability.guid, curVal! + amount * percentSaved);
+  }
+
+  getNumActiveSeeds(timestamp: number): number {
+    // prune old seeds
+    for (let i = this.seeds.length - 1; i >= 0; i -= 1) {
+      if (this.seeds[i] < timestamp) {
+        this.seeds.splice(i, 1);
+      }
+    }
+    return this.seeds.length;
   }
 
   getOtherHealing(items: Item[]) {
@@ -89,7 +104,9 @@ class CycleOfLife extends Analyzer {
         color: SPELL_COLORS.DREAM_BREATH,
         label: 'Dream Breath',
         spellId: TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
-        value: this.totalSavedBySpell(SPELLS.DREAM_BREATH_ECHO.id + SPELLS.DREAM_BREATH.id),
+        value:
+          this.totalSavedBySpell(SPELLS.DREAM_BREATH_ECHO.id) +
+          this.totalSavedBySpell(SPELLS.DREAM_BREATH.id),
         valueTooltip: formatNumber(this.totalSavedBySpell(SPELLS.DREAM_BREATH_ECHO.id)),
       },
       {
