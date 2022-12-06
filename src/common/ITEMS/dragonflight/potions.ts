@@ -1,7 +1,7 @@
 import { itemIndexableList } from 'common/ITEMS/Item';
 
 const potions = itemIndexableList({
-  // Air Potions
+  //region Air Potions
   AERATED_MANA_POTION_R1: {
     id: 191384,
     name: 'Aerated Mana Potion',
@@ -92,8 +92,9 @@ const potions = itemIndexableList({
     name: 'Residual Neural Channeling Agent',
     icon: 'inv_10_alchemy_bottle_shape1_yellow',
   },
+  //endregion
 
-  // Frost Potions
+  //region Frost Potions
   REFRESHING_HEALING_POTION_R1: {
     id: 191378,
     name: 'Refreshing Healing Potion',
@@ -184,8 +185,9 @@ const potions = itemIndexableList({
     name: 'Potion of Chilled Clarity',
     icon: 'inv_10_alchemy_bottle_shape4_green',
   },
+  //endregion
 
-  // Cauldron Potions
+  //region Cauldron Potions
   FLEETING_ELEMENTAL_POTION_OF_POWER_R1: {
     id: 191905,
     name: 'Fleeting Elemental Potion of Power',
@@ -216,8 +218,9 @@ const potions = itemIndexableList({
     name: 'Fleeting Elemental Potion of Ultimate Power',
     icon: 'trade_alchemy_dpotion_b20',
   },
+  //endregion
 
-  // Elemental Potions
+  //region Elemental Potions
   ELEMENTAL_POTION_OF_POWER_R1: {
     id: 191387,
     name: 'Elemental Potion of Power',
@@ -248,6 +251,7 @@ const potions = itemIndexableList({
     name: 'Elemental Potion of Ultimate Power',
     icon: 'trade_alchemy_dpotion_b20',
   },
+  //endregion
 });
 
 export default potions;
