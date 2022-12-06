@@ -48,7 +48,7 @@ class StatTracker extends Analyzer {
     // endregion
 
     // region Runes
-    [SPELLS.VEILED_AUGMENT_RUNE.id]: { strength: 18, agility: 18, intellect: 18 },
+    [SPELLS.DRACONIC_AUGMENT_RUNE.id]: { strength: 87, agility: 87, intellect: 87 },
     // endregion
 
     //region Flasks
