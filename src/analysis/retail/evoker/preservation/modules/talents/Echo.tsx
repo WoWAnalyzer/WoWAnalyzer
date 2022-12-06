@@ -33,24 +33,25 @@ class Echo extends Analyzer {
   }
 
   handleEchoHeal(event: HealEvent) {
+    if (!this.isEchoHeal(event)) {
+      return;
+    }
+    const spellID = event.ability.guid;
+    const mapRef = this.isFromTaEcho(event) ? this.taEchoHealingBySpell : this.echoHealingBySpell;
+    mapRef.set(spellID, mapRef.get(spellID)! + (event.amount || 0) + (event.absorbed || 0));
+  }
+
+  isEchoHeal(event: HealEvent) {
     const targetID = event.targetID;
     const spellID = event.ability.guid;
     if (event.tick) {
       if (!this.hotTracker.hots[targetID] || !this.hotTracker.hots[targetID][spellID]) {
-        return;
+        return false;
       }
       const hot = this.hotTracker.hots[targetID][spellID];
-      if (!this.hotTracker.fromEchoHardcast(hot) && !this.hotTracker.fromEchoTA(hot)) {
-        return;
-      }
-    } else if (!isFromTAEcho(event) && !isFromHardcastEcho(event)) {
-      return;
+      return this.hotTracker.fromEchoHardcast(hot) || this.hotTracker.fromEchoTA(hot);
     }
-    const mapRef = this.isFromTaEcho(event) ? this.taEchoHealingBySpell : this.echoHealingBySpell;
-    mapRef.set(
-      event.ability.guid,
-      mapRef.get(event.ability.guid)! + (event.amount || 0) + (event.absorbed || 0),
-    );
+    return isFromHardcastEcho(event) || isFromTAEcho(event);
   }
 
   isFromTaEcho(event: HealEvent) {

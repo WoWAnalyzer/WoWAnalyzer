@@ -8,10 +8,11 @@ import { t, Trans } from '@lingui/macro';
 import AlertInfo from 'interface/AlertInfo';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import SPELLS from 'common/SPELLS/demonhunter';
+import { PerformanceStrong } from 'analysis/retail/demonhunter/shared/guide/ExtraComponents';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
 import * as AplCheck from './apl/AplCheck';
 import CooldownGraphSubsection from './guide/CooldownGraphSubSection';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -25,6 +26,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
 }
 
 function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
+  const percentAtFuryCap = modules.furyTracker.percentAtCap;
+  const percentAtFuryCapPerformance = modules.furyTracker.percentAtCapPerformance;
+  const percentAtFuryCapFormatted = formatPercentage(percentAtFuryCap, 1);
   return (
     <Section
       title={t({
@@ -44,9 +48,15 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
             time. You should avoid capping Fury - lost Fury generation is lost DPS.
           </Trans>
         </p>
-        The chart below shows your Fury over the course of the encounter. You spent{' '}
-        <strong>{formatPercentage(modules.furyTracker.percentAtCap, 1)}%</strong> of the encounter
-        capped on Fury.
+        <p>
+          <Trans id="guide.demonhunter.havoc.sections.resources.fury.chart">
+            The chart below shows your Fury over the course of the encounter. You spent{' '}
+            <PerformanceStrong performance={percentAtFuryCapPerformance}>
+              {percentAtFuryCapFormatted}%
+            </PerformanceStrong>{' '}
+            of the encounter capped on Fury.
+          </Trans>
+        </p>
         {modules.furyGraph.plot}
       </SubSection>
     </Section>

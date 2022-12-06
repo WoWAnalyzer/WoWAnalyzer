@@ -7,6 +7,7 @@ import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 
 // prettier-ignore
 export default [
+  change(date(2022, 12, 5), 'Update Vengeance guide based on feedback from Fel Hammer.', ToppleTheNun),
   change(date(2022, 12, 4), 'Mark the Guide as the default view.', ToppleTheNun),
   change(date(2022, 12, 4), 'Remove recommended enchants.', ToppleTheNun),
   change(date(2022, 12, 4), <>Add <SpellLink id={SPELLS.SOUL_CLEAVE} /> and <SpellLink id={TALENTS.SPIRIT_BOMB_TALENT} /> per-cast breakdowns.</>, ToppleTheNun),

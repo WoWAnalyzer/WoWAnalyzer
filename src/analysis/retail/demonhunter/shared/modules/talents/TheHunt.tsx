@@ -124,6 +124,9 @@ class TheHunt extends Analyzer {
   }
 
   statistic() {
+    if (this.cast === 0) {
+      return null;
+    }
     return (
       <Statistic
         size="flexible"

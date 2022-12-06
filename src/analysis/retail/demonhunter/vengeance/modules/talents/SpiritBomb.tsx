@@ -191,29 +191,6 @@ export default class SpiritBomb extends Analyzer {
   }
 
   guideSubsection() {
-    const numberOfCasts = this.castEntries.length;
-    const numberOfGoodCasts = this.castEntries.filter(
-      (it) => it.value === QualitativePerformance.Good,
-    ).length;
-    const numberOfBadCasts = this.castEntries.filter(
-      (it) => it.value === QualitativePerformance.Fail,
-    ).length;
-    const goodCasts = {
-      count: numberOfGoodCasts,
-      label: t({
-        id:
-          'guide.demonhunter.vengeance.sections.rotation.spiritBomb.data.summary.performance.good',
-        message: 'Spirit Bombs',
-      }),
-    };
-    const badCasts = {
-      count: numberOfBadCasts,
-      label: t({
-        id: 'guide.demonhunter.vengeance.sections.rotation.spiritBomb.data.summary.performance.bad',
-        message: 'Bad Spirit Bombs',
-      }),
-    };
-
     const explanation = (
       <p>
         <Trans id="guide.demonhunter.vengeance.sections.rotation.spritBomb.explanation">
@@ -231,21 +208,35 @@ export default class SpiritBomb extends Analyzer {
       </p>
     );
     const data = (
+      <CastSummaryAndBreakdown
+        spell={TALENTS.SPIRIT_BOMB_TALENT}
+        castEntries={this.castEntries}
+        goodLabel={t({
+          id:
+            'guide.demonhunter.vengeance.sections.rotation.spiritBomb.data.summary.performance.good',
+          message: 'Spirit Bombs',
+        })}
+        includeGoodCastPercentage
+        badLabel={t({
+          id:
+            'guide.demonhunter.vengeance.sections.rotation.spiritBomb.data.summary.performance.bad',
+          message: 'Bad Spirit Bombs',
+        })}
+      />
+    );
+    const noCastData = (
       <div>
-        <Trans id="guide.demonhunter.vengeance.sections.rotation.spiritBomb.data">
-          <p>
-            <strong>{formatPercentage(numberOfGoodCasts / numberOfCasts, 1)}%</strong> of your{' '}
-            <SpellLink id={TALENTS.SPIRIT_BOMB_TALENT} /> casts were good.
-          </p>
-          <strong>Spirit Bomb casts</strong>{' '}
-          <small>
-            - Green is a good cast, Red is a bad cast. Mouseover for more details. Click to expand.
-          </small>
-        </Trans>
-        <CastSummaryAndBreakdown castEntries={this.castEntries} good={goodCasts} bad={badCasts} />
+        <p>
+          <Trans id="guide.demonhunter.vengeance.sections.rotation.spiritBomb.noCast">
+            You did not cast Spirit Bomb during this encounter.
+          </Trans>
+        </p>
       </div>
     );
 
-    return explanationAndDataSubsection(explanation, data);
+    return explanationAndDataSubsection(
+      explanation,
+      this.castEntries.length > 0 ? data : noCastData,
+    );
   }
 }
