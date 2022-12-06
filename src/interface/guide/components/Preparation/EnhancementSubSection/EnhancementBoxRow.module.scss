@@ -2,11 +2,11 @@
 
 $shadow: 0 0 0px 1px hsla(45, 100%, 60%, 0.7);
 
-.enchantment-block-row {
+.enhancement-block-row {
   display: flex;
   flex-direction: row;
 
-  .enchantment-block-column {
+  .enhancement-block-column {
     align-items: center;
     justify-content: center;
     display: flex;
@@ -14,7 +14,7 @@ $shadow: 0 0 0px 1px hsla(45, 100%, 60%, 0.7);
     flex: 1 1;
     margin: 0 0 0 2px;
 
-    .enchantment-block {
+    .enhancement-block {
       width: 100%;
       align-items: center;
       justify-content: center;
