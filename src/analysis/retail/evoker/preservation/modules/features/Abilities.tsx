@@ -25,7 +25,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DREAM_BREATH_CAST.id,
         enabled: combatant.hasTalent(TALENTS.DREAM_BREATH_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 25,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },

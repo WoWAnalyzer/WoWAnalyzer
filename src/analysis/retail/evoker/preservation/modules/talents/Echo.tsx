@@ -134,11 +134,9 @@ class Echo extends Analyzer {
       {
         color: SPELL_COLORS.VERDANT_EMBRACE,
         label: 'Verdant Embrace',
-        spellId: TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id,
-        value: this.totalEchoHealingForSpell(TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id),
-        valueTooltip: formatNumber(
-          this.totalEchoHealingForSpell(TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id),
-        ),
+        spellId: SPELLS.VERDANT_EMBRACE_HEAL.id,
+        value: this.totalEchoHealingForSpell(SPELLS.VERDANT_EMBRACE_HEAL.id),
+        valueTooltip: formatNumber(this.totalEchoHealingForSpell(SPELLS.VERDANT_EMBRACE_HEAL.id)),
       },
     ].filter((item) => {
       return item.value > 0;
