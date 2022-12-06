@@ -1,12 +1,13 @@
 import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Events, { CastEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import TalentSpellText from 'parser/ui/TalentSpellText';
+import { SpellLink } from 'interface';
 
 /**
  * Holy Word: Serenity and Holy Word: Sanctify gain an additional charge.
@@ -67,18 +68,19 @@ class MiracleWorker extends Analyzer {
         tooltip={
           <>
             This statistic shows the estimated number of extra casts granted from having an
-            additional charge of Holy Word: Serenity and Holy Word: Sanctify.
+            additional charge of <SpellLink id={TALENTS.HOLY_WORD_SERENITY_TALENT.id} /> and{' '}
+            <SpellLink id={TALENTS.HOLY_WORD_SANCTIFY_TALENT.id} />.
           </>
         }
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS.MIRACLE_WORKER_TALENT.id}>
+        <TalentSpellText talent={TALENTS.MIRACLE_WORKER_TALENT}>
           <>
             {extraSerenityCasts} extra Serenity cast{extraSerenityCasts > 1 ? 's' : ''}.
             <br />
             {extraSanctifyCasts} extra Sanctify cast{extraSanctifyCasts > 1 ? 's' : ''}.
           </>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

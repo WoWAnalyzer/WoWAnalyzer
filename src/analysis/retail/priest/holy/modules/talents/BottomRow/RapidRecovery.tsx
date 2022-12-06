@@ -1,12 +1,13 @@
 import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Events, { HealEvent } from 'parser/core/Events';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Renew from '../../spells/Renew';
+import TalentSpellText from 'parser/ui/TalentSpellText';
+import { SpellLink } from 'interface';
 
 const RAPID_RECOVERY_HEALING_INCREASE = 0.35;
 
@@ -61,15 +62,16 @@ class RapidRecovery extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            {this.ticksLost.toFixed(1)} ticks of renew lost to duration decrease.
+            {this.ticksLost.toFixed(1)} ticks of <SpellLink id={TALENTS.RENEW_TALENT.id} /> lost to
+            duration decrease.
             <br />
             This number is estimated by using the player's haste value at time of renew application.
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.RAPID_RECOVERY_TALENT.id}>
+        <TalentSpellText talent={TALENTS.RAPID_RECOVERY_TALENT}>
           ~ <ItemHealingDone amount={this.effectiveAdditionalHealing} />
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

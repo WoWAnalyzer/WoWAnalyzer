@@ -1,7 +1,6 @@
 import TALENTS from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Events, { HealEvent } from 'parser/core/Events';
@@ -9,8 +8,10 @@ import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/Eve
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
 import HIT_TYPES from 'game/HIT_TYPES';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const PONTIFEX_HEALING_INCREASE = 0.1;
+const PONTIFEX_MAX_STACKS = 2;
 
 /**
  * Critical heals from Flash Heal and Heal increase your healing done by
@@ -18,7 +19,6 @@ const PONTIFEX_HEALING_INCREASE = 0.1;
  */
 
 class Pontifex extends Analyzer {
-  rawAdditionalHealing: number = 0;
   effectiveAdditionalHealing: number = 0;
   overhealing: number = 0;
   wastedStacks = 0;
@@ -47,17 +47,18 @@ class Pontifex extends Analyzer {
   }
 
   get percentOverhealing() {
-    if (this.rawAdditionalHealing === 0) {
+    const rawHealing = this.effectiveAdditionalHealing + this.overhealing;
+    if (rawHealing === 0) {
       return 0;
     }
-    return this.overhealing / this.rawAdditionalHealing;
+    return this.overhealing / rawHealing;
   }
 
   onPontifexHealCast(event: HealEvent) {
     const pontifexBuffStacks = this.selectedCombatant.getBuffStacks(SPELLS.PONTIFEX_TALENT_BUFF.id);
 
     // Casted a FH or Heal with 2 stacks of Pontifex, and that cast crit.
-    if (event.hitType === HIT_TYPES.CRIT && pontifexBuffStacks === 2) {
+    if (event.hitType === HIT_TYPES.CRIT && pontifexBuffStacks === PONTIFEX_MAX_STACKS) {
       this.wastedStacks += 1;
     }
   }
@@ -68,11 +69,9 @@ class Pontifex extends Analyzer {
     // Casted a Holy word with at least one stack of Pontifex
     if (pontifexBuffStacks > 0) {
       const healingIncrease = PONTIFEX_HEALING_INCREASE * pontifexBuffStacks;
-      const rawHealAmount = event.amount * healingIncrease;
       const effectiveHealAmount = calculateEffectiveHealing(event, healingIncrease);
       const overHealAmount = calculateOverhealing(event, healingIncrease);
 
-      this.rawAdditionalHealing += rawHealAmount;
       this.effectiveAdditionalHealing += effectiveHealAmount;
       this.overhealing += overHealAmount;
     }
@@ -87,14 +86,14 @@ class Pontifex extends Analyzer {
           <>
             {this.wastedStacks} stacks of Pontifex wasted.
             <br />
-            Total Healing: {formatNumber(this.rawAdditionalHealing)} (
+            Total Healing: {formatNumber(this.effectiveAdditionalHealing + this.overhealing)} (
             {formatPercentage(this.percentOverhealing)}% OH)
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.PONTIFEX_TALENT.id}>
+        <TalentSpellText talent={TALENTS.PONTIFEX_TALENT}>
           <ItemHealingDone amount={this.effectiveAdditionalHealing} />
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }
