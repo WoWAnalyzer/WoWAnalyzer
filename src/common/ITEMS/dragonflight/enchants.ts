@@ -864,6 +864,62 @@ const enchants = enchantIndexableList({
     icon: 'inv_weapon_shortblade_08',
     effectId: 6534,
   },
+
+  // Leg Enhancements - Leatherworking
+  REINFORCED_ARMOR_KIT_R1: {
+    id: 193559,
+    name: 'Reinforced Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6491,
+  },
+  REINFORCED_ARMOR_KIT_R2: {
+    id: 193563,
+    name: 'Reinforced Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6492,
+  },
+  REINFORCED_ARMOR_KIT_R3: {
+    id: 193567,
+    name: 'Reinforced Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6493,
+  },
+  FROSTED_ARMOR_KIT_R1: {
+    id: 193556,
+    name: 'Frosted Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6494,
+  },
+  FROSTED_ARMOR_KIT_R2: {
+    id: 193560,
+    name: 'Frosted Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6495,
+  },
+  FROSTED_ARMOR_KIT_R3: {
+    id: 193564,
+    name: 'Frosted Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6496,
+  },
+  FIERCE_ARMOR_KIT_R1: {
+    id: 193557,
+    name: 'Fierce Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6488,
+  },
+  FIERCE_ARMOR_KIT_R2: {
+    id: 193561,
+    name: 'Fierce Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6489,
+  },
+  FIERCE_ARMOR_KIT_R3: {
+    id: 193565,
+    name: 'Fierce Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6490,
+  },
 });
 
 export default enchants;
