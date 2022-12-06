@@ -13,7 +13,7 @@ import typedKeys from 'common/typedKeys';
 // /report/YCNrxPnyHt9g6dhj/2-Mythic+Crawth+-+Kill+(1:45)/1-Sigilweaver/standard
 
 const LEG_SLOT = {
-  6: <Trans id="common.slots.legs">Weapon</Trans>,
+  6: <Trans id="common.slots.legs">Legs</Trans>,
 };
 
 class LegEnhancementChecker extends Analyzer {
@@ -150,16 +150,15 @@ class LegEnhancementChecker extends Analyzer {
       if (recommendedEnhancementNames) {
         return (
           <Trans id="shared.legEnhancementChecker.guide.weakEnhancement.labelWithRecommendation">
-            Your {slotName} has a cheap leg enhancement [{hasEnhancement}]. Apply a strong
-            enhancement to very easily increase your throughput slightly. Recommended:{' '}
-            {recommendedEnhancementNames}
+            Your {slotName} has a cheap leg enhancement. Apply a strong enhancement to very easily
+            increase your throughput slightly. Recommended: {recommendedEnhancementNames}
           </Trans>
         );
       }
       return (
         <Trans id="shared.legEnhancementChecker.guide.weakEnhancement.label">
-          Your {slotName} has a cheap leg enhancement [{hasEnhancement}]. Apply a strong enhancement
-          to very easily increase your throughput slightly.
+          Your {slotName} has a cheap leg enhancement. Apply a strong enhancement to very easily
+          increase your throughput slightly.
         </Trans>
       );
     }
@@ -215,13 +214,13 @@ class LegEnhancementChecker extends Analyzer {
         .isFalse()
         .addSuggestion((suggest, actual, recommended) =>
           suggest(
-            <Trans id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label">
+            <Trans id="shared.legEnhancementChecker.suggestions.noLegEnhancement.label">
               Your{' '}
               <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
                 {slotName}
               </ItemLink>{' '}
-              is missing a weapon enhancement (weapon oil/sharpening stone/weightstone). Apply an
-              enhancement to very easily increase your throughput slightly.
+              is missing a leg enhancement. Apply an enhancement to very easily increase your
+              throughput slightly.
             </Trans>,
           )
             .icon(item.icon)
@@ -233,14 +232,13 @@ class LegEnhancementChecker extends Analyzer {
         .isTrue()
         .addSuggestion((suggest, actual, recommended) =>
           suggest(
-            <Trans id="shared.weaponEnhancementChecker.suggestions.weakWeaponEnhancement.label">
+            <Trans id="shared.legEnhancementChecker.suggestion.weakEnhancement.label">
               Your
               <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
                 {slotName}
               </ItemLink>
-              has a cheap weapon enhancement [{hasEnhancement}] (weapon oil/sharpening
-              stone/weightstone). Apply a strong enhancement to very easily increase your throughput
-              slightly.
+              has a cheap leg enhancement. Apply a strong enhancement to very easily increase your
+              throughput slightly.
             </Trans>,
           )
             .icon(item.icon)

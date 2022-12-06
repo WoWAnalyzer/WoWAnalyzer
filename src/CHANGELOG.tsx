@@ -67,6 +67,7 @@ import SpellLink from 'interface/SpellLink';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 export default [
+  change(date(2022, 12, 6), 'Localize leg enhancements.', ToppleTheNun),
   change(date(2022, 12, 6), 'Add item/spell/analysis for missing tailoring leg enhancements.', ToppleTheNun),
   change(date(2022, 12, 6), 'Add analysis for leg enhancements.', ToppleTheNun),
   change(date(2022, 12, 6), 'Add item/spell data for leg enhancements.', ToppleTheNun),
