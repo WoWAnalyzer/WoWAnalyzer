@@ -107,7 +107,10 @@ class CycleOfLife extends Analyzer {
         value:
           this.totalSavedBySpell(SPELLS.DREAM_BREATH_ECHO.id) +
           this.totalSavedBySpell(SPELLS.DREAM_BREATH.id),
-        valueTooltip: formatNumber(this.totalSavedBySpell(SPELLS.DREAM_BREATH_ECHO.id)),
+        valueTooltip: formatNumber(
+          this.totalSavedBySpell(SPELLS.DREAM_BREATH_ECHO.id) +
+            this.totalSavedBySpell(SPELLS.DREAM_BREATH.id),
+        ),
       },
       {
         color: SPELL_COLORS.DREAM_FLIGHT,
