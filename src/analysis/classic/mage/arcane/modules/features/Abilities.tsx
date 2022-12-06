@@ -8,9 +8,14 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational
       {
-        spell: [SPELLS.ARCANE_MISSILES.id, ...SPELLS.ARCANE_MISSILES.lowRanks],
+        spell: [SPELLS.ARCANE_MISSILES_CHANNELED.id, ...SPELLS.ARCANE_MISSILES_CHANNELED.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 500, minimum: 1 }, // Tick gcd with Missile Barrage proc
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.ARCANE_MISSILES.id, ...SPELLS.ARCANE_MISSILES.lowRanks],
+        category: SPELL_CATEGORY.HIDDEN,
+        gcd: null,
       },
       {
         spell: [SPELLS.ARCANE_BLAST.id, ...SPELLS.ARCANE_BLAST.lowRanks],
@@ -23,6 +28,11 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
         enabled: combatant.talentPoints[0] >= 50,
+      },
+      {
+        spell: [SPELLS.MISSILE_BARRAGE.id],
+        category: SPELL_CATEGORY.HIDDEN,
+        gcd: null,
       },
 
       // Rotational AOE

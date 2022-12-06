@@ -14,6 +14,8 @@ import Checklist from './modules/checklist/Module';
 import PreparationRuleAnalyzer from 'parser/classic/modules/features/Checklist/PreparationRuleAnalyzer';
 // Spells
 import lowRankSpellsSuggestion from 'parser/classic/suggestions/lowRankSpells';
+// Normalizers
+import ArcaneMissilesNormalizer from './normalizers/ArcaneMissiles';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -33,6 +35,8 @@ class CombatLogParser extends BaseCombatLogParser {
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     // Spells
     lowRankSpells: lowRankSpellsSuggestion(lowRankSpells),
+    // Normalizers
+    arcaneMissilesNormalizer: ArcaneMissilesNormalizer,
   };
 }
 
