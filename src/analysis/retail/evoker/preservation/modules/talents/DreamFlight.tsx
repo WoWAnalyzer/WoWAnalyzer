@@ -40,6 +40,9 @@ class DreamFlight extends Analyzer {
   }
 
   get percentOfGroupHit() {
+    if (!this.numCasts) {
+      return 0;
+    }
     const averageHit = this.numApply / this.numCasts;
     return averageHit / Object.keys(this.combatants.getEntities()).length;
   }
