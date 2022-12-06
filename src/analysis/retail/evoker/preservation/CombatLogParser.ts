@@ -25,6 +25,7 @@ import EssenceBurst from './modules/talents/EssenceBurst';
 import EmeraldBlossom from './modules/talents/EmeraldBlossom';
 import Echo from './modules/talents/Echo';
 import ResonatingSphere from './modules/talents/ResonatingSphere';
+import TimeLord from './modules/talents/TimeLord';
 import RenewingBreath from './modules/talents/RenewingBreath';
 import FieldOfDreams from './modules/talents/FieldOfDreams';
 import DreamFlight from './modules/talents/DreamFlight';
@@ -68,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     essenceBurst: EssenceBurst,
     emeraldBlossom: EmeraldBlossom,
     resonatingSphere: ResonatingSphere,
+    timeLord: TimeLord,
     renewingBreath: RenewingBreath,
     fieldOfDreams: FieldOfDreams,
   };
