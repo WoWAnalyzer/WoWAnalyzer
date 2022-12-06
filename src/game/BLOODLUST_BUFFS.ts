@@ -9,6 +9,6 @@ const BLOODLUST_BUFFS: {
   [SPELLS.PRIMAL_RAGE_1.id]: 0.3, // Hunter pet BL
   [SPELLS.PRIMAL_RAGE_2.id]: 0.3, // Hunter pet BL
   [SPELLS.FURY_OF_THE_ASPECTS.id]: 0.3, // Evoker
-  // TODO: Add Feral Hide Drums
+  [SPELLS.FERAL_HIDE_DRUMS.id]: 0.15, // Leatherworking drums
 };
 export default BLOODLUST_BUFFS;
