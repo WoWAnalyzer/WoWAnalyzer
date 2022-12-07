@@ -8,9 +8,9 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 const COOLDOWN_REDUCTION_MS = [
   0,
@@ -44,8 +44,8 @@ class IcyPropulsion extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.ICY_PROPULSION.id);
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.ICY_PROPULSION.id);
+    this.active = false;
+    this.conduitRank = 0;
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
@@ -86,9 +86,9 @@ class IcyPropulsion extends Analyzer {
           </>
         }
       >
-        <ConduitSpellText spellId={SPELLS.ICY_PROPULSION.id} rank={this.conduitRank}>
+        <BoringSpellValueText spellId={SPELLS.ICY_PROPULSION.id}>
           <UptimeIcon /> {`${formatNumber(this.reductionSeconds)}s`} <small>Icy Veins CDR</small>
-        </ConduitSpellText>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

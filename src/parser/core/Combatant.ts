@@ -1,23 +1,14 @@
 import { Enchant } from 'common/ITEMS/Item';
-import { T28_TIER_GEAR_IDS, TIER_BY_CLASSES } from 'common/ITEMS/shadowlands';
+import { TIER_BY_CLASSES } from 'common/ITEMS/shadowlands';
 import { TIER_BY_CLASSES as DF_TIER_BY_CLASSES } from 'common/ITEMS/dragonflight';
 import { maybeGetSpell } from 'common/SPELLS';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 import { getClassBySpecId } from 'game/CLASSES';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import RACES from 'game/RACES';
 import { findByBossId } from 'game/raids';
 import SPECS, { Spec } from 'game/SPECS';
 import CombatLogParser from 'parser/core/CombatLogParser';
-import {
-  Buff,
-  CombatantInfoEvent,
-  Conduit,
-  EventType,
-  Item,
-  SoulbindTrait,
-  TalentEntry,
-} from 'parser/core/Events';
+import { Buff, CombatantInfoEvent, EventType, Item, TalentEntry } from 'parser/core/Events';
 import { TIERS } from 'game/TIERS';
 
 import Entity from './Entity';
@@ -112,10 +103,6 @@ class Combatant extends Entity {
     this._importTalentTree(combatantInfo.talentTree);
     this._parseGear(combatantInfo.gear);
     this._parsePrepullBuffs(combatantInfo.auras);
-    this._parseCovenant(combatantInfo.covenantID);
-    this._parseSoulbind(combatantInfo.soulbindID);
-    this._parseSoulbindTraits(combatantInfo.soulbindTraits);
-    this._parseConduits(combatantInfo.conduits);
   }
 
   // region Talents
@@ -184,105 +171,6 @@ class Combatant extends Entity {
 
     return false;
   }
-
-  //region Shadowlands Systems
-
-  //region Covenants
-  /**
-   * @deprecated
-   */
-  covenantsByCovenantID: { [key: number]: CombatantInfo['covenantID'] } = {};
-
-  /**
-   * @deprecated
-   */
-  _parseCovenant(_: CombatantInfo['covenantID']) {
-    // deprecated so no-op
-  }
-
-  /**
-   * @deprecated
-   */
-  hasCovenant(_: CombatantInfo['covenantID']) {
-    return false;
-  }
-  //endregion
-
-  //region Soulbinds
-  /**
-   * @deprecated
-   */
-  soulbindsBySoulbindID: { [key: number]: CombatantInfo['soulbindID'] } = {};
-
-  /**
-   * @deprecated
-   */
-  _parseSoulbind(_: CombatantInfo['soulbindID']) {
-    // deprecated so no-op
-  }
-
-  /**
-   * @deprecated
-   */
-  hasSoulbind(_: CombatantInfo['soulbindID']) {
-    return false;
-  }
-
-  /**
-   * @deprecated
-   */
-  soulbindTraitsByID: { [key: number]: SoulbindTrait } = {};
-
-  /**
-   * @deprecated
-   */
-  _parseSoulbindTraits(_: SoulbindTrait[] | undefined) {
-    // deprecated so no-op
-  }
-
-  /**
-   * @deprecated
-   */
-  hasSoulbindTrait(_: number) {
-    return false;
-  }
-  //endregion
-
-  //region Conduits
-  /**
-   * @deprecated
-   */
-  conduitsByConduitID: { [key: number]: Conduit } = {};
-
-  /**
-   * @deprecated
-   */
-  _parseConduits(_: Conduit[] | undefined) {
-    // deprecated so no-op
-  }
-
-  /**
-   * @deprecated
-   */
-  hasConduitBySpellID(_: number) {
-    return false;
-  }
-
-  /**
-   * @deprecated
-   */
-  conduitRankBySpellID(_: number): number {
-    return 0;
-  }
-
-  /**
-   * @deprecated
-   */
-  likelyHasEmpoweredConduits() {
-    return false;
-  }
-  //endregion
-  //endregion
 
   // region Gear
   _gearItemsBySlotId: { [key: number]: Item } = {};
@@ -466,15 +354,6 @@ class Combatant extends Entity {
     return this._getGearItemBySlotId(GEAR_SLOTS.OFFHAND);
   }
 
-  /**
-   * Each legendary is given a specific `effectID` that is the same regardless which slot it appears on.
-   * This id is the same as the spell ID on Wowhead.
-   * @deprecated
-   */
-  hasLegendary(_: LegendarySpell) {
-    return false;
-  }
-
   private itemMap: Map<number, Item> = new Map();
   private scannedForItems = false;
 
@@ -496,32 +375,11 @@ class Combatant extends Entity {
     return [this.head, this.shoulder, this.chest, this.legs, this.hands];
   }
 
-  /**
-   * @deprecated Use {@link setIdBySpecByTier} instead.
-   */
-  setIdBySpec(): T28_TIER_GEAR_IDS {
-    return TIER_BY_CLASSES[getClassBySpecId(this._combatantInfo.specID)];
-  }
-
   setIdBySpecByTier(tier: TIERS) {
     if (tier === TIERS.T28) {
       return TIER_BY_CLASSES[getClassBySpecId(this._combatantInfo.specID)];
     }
     return DF_TIER_BY_CLASSES[tier]?.[getClassBySpecId(this._combatantInfo.specID)];
-  }
-
-  /**
-   * @deprecated Use {@link has2PieceByTier} instead.
-   */
-  has2Piece(setId?: T28_TIER_GEAR_IDS) {
-    if (!setId) {
-      setId = this.setIdBySpec();
-    }
-    if (!setId) {
-      console.error("no setId passed and couldn't match spec to a setId");
-      return false;
-    }
-    return this.tierPieces.filter((gear) => gear?.setID === setId).length >= 2;
   }
 
   has2PieceByTier(tier: TIERS) {
@@ -531,20 +389,6 @@ class Combatant extends Entity {
       return false;
     }
     return this.tierPieces.filter((gear) => gear?.setID === setID).length >= 2;
-  }
-
-  /**
-   * @deprecated Use {@link has4PieceByTier} instead.
-   */
-  has4Piece(setId?: T28_TIER_GEAR_IDS) {
-    if (!setId) {
-      setId = this.setIdBySpec();
-    }
-    if (!setId) {
-      console.error("no setId passed and couldn't match spec to a setId");
-      return false;
-    }
-    return this.tierPieces.filter((gear) => gear?.setID === setId).length >= 4;
   }
 
   has4PieceByTier(tier: TIERS) {

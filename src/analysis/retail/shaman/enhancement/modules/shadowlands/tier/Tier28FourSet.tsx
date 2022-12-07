@@ -3,12 +3,13 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { TIERS } from 'game/TIERS';
 
 class Tier28FourSet extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.has4Piece();
+    this.active = this.selectedCombatant.has4PieceByTier(TIERS.T28);
   }
 
   get threshold() {

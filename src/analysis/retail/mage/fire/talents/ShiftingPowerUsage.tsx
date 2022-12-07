@@ -2,7 +2,6 @@ import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -22,9 +21,7 @@ class ShiftingPowerUsage extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active =
-      this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id) &&
-      this.selectedCombatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id);
+    this.active = false && this.selectedCombatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIFTING_POWER),
       this.onCast,

@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
@@ -565,15 +564,11 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FAE_TRANSFUSION.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown:
-          120 +
-          ESSENTIAL_EXTRACTION_EFFECT_BY_RANK[
-            combatant.conduitRankBySpellID(SPELLS.ESSENTIAL_EXTRACTION.id)
-          ],
+        cooldown: 120 + ESSENTIAL_EXTRACTION_EFFECT_BY_RANK[0],
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        enabled: false,
       },
       {
         spell: SPELLS.PRIMORDIAL_WAVE_CAST.id,
@@ -582,7 +577,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        enabled: false,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 1,
@@ -595,7 +590,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        enabled: false,
       },
       {
         spell: SPELLS.VESPER_TOTEM.id,
@@ -604,7 +599,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        enabled: false,
       },
       {
         spell: TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT.id,

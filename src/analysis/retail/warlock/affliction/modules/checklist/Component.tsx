@@ -1,7 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import shadowlandsSpells from 'common/SPELLS/shadowlands/covenants';
 import TALENTS from 'common/TALENTS/warlock';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -97,9 +95,6 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
           <AbilityRequirement spell={TALENTS.DARK_PACT_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.UNENDING_RESOLVE.id} />
-        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
-          <AbilityRequirement spell={shadowlandsSpells.SOULSHAPE.id} />
-        )}
       </Rule>
       <Rule
         name="Always be casting"

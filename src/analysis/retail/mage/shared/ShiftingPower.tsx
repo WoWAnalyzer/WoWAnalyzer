@@ -1,6 +1,5 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -12,25 +11,6 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { SHIFTING_POWER_MS_REDUCTION_PER_TICK, SHIFTING_POWER_REDUCTION_SPELLS } from './constants';
 
 const debug = false;
-const COOLDOWN_REDUCTION_MS = [
-  0,
-  1000,
-  1100,
-  1200,
-  1300,
-  1400,
-  1500,
-  1600,
-  1700,
-  1800,
-  1900,
-  2000,
-  2100,
-  2200,
-  2300,
-  2400,
-];
-
 class ShiftingPower extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
@@ -42,10 +22,8 @@ class ShiftingPower extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(
-      SPELLS.DISCIPLINE_OF_THE_GROVE.id,
-    );
+    this.active = false;
+    this.conduitRank = 0;
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIFTING_POWER_TICK),
       this.onShiftingPowerTick,
@@ -53,11 +31,7 @@ class ShiftingPower extends Analyzer {
   }
 
   onShiftingPowerTick(event: CastEvent) {
-    const reductionPerTick = this.selectedCombatant.hasConduitBySpellID(
-      SPELLS.DISCIPLINE_OF_THE_GROVE.id,
-    )
-      ? SHIFTING_POWER_MS_REDUCTION_PER_TICK + COOLDOWN_REDUCTION_MS[this.conduitRank]
-      : SHIFTING_POWER_MS_REDUCTION_PER_TICK;
+    const reductionPerTick = SHIFTING_POWER_MS_REDUCTION_PER_TICK;
     SHIFTING_POWER_REDUCTION_SPELLS.forEach((spell) => {
       if (this.spellUsable.isOnCooldown(spell.id)) {
         debug && this.log('Reduced ' + spell.name + ' by ' + reductionPerTick);

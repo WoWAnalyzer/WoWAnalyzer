@@ -35,7 +35,7 @@ class SunKingsBlessing extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.SUN_KINGS_BLESSING);
+    this.active = false;
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SUN_KINGS_BLESSING_BUFF_STACK),
       this.onStackRemoved,

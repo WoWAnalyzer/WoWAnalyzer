@@ -1090,8 +1090,14 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
   talentTree: TalentEntry[];
   talents: Spell[];
   pvpTalents: Spell[];
-  covenantID: number;
-  soulbindID: number;
+  /**
+   * @deprecated
+   */
+  covenantID?: number;
+  /**
+   * @deprecated
+   */
+  soulbindID?: number;
   /**
    * Represents expansion specific traits
    * Legion: Artifact Traits

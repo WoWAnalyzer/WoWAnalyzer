@@ -21,7 +21,7 @@ class Doomblade extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.DOOMBLADE);
+    this.active = false;
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MUTILATED_FLESH),
       this.onMutilatedFleshDamage,

@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -346,7 +345,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FLESHCRAFT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        enabled: false,
       },
     ];
   }

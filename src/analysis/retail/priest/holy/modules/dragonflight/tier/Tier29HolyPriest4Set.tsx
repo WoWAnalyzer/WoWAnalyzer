@@ -13,6 +13,7 @@ import { formatPercentage } from 'common/format';
 import Crit from 'parser/shared/modules/helpers/CritEffectBonus';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { TIERS } from 'game/TIERS';
 
 const TIER_CRIT_BONUS = 0.1;
 
@@ -31,7 +32,7 @@ class HolyPriestTier4Set extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    if (this.selectedCombatant.has4Piece()) {
+    if (this.selectedCombatant.has4PieceByTier(TIERS.T28)) {
       this.active = false;
       return;
     }

@@ -3,10 +3,10 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { HealEvent } from 'parser/core/Events';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 class DivertedEnergy extends Analyzer {
   conduitRank = 0;
@@ -15,8 +15,8 @@ class DivertedEnergy extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.DIVERTED_ENERGY.id);
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.DIVERTED_ENERGY.id);
+    this.active = false;
+    this.conduitRank = 0;
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.DIVERTED_ENERGY_HEAL),
       this.onDivertedEnergyHeal,
@@ -33,11 +33,11 @@ class DivertedEnergy extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <ConduitSpellText spellId={SPELLS.DIVERTED_ENERGY.id} rank={this.conduitRank}>
+        <BoringSpellValueText spellId={SPELLS.DIVERTED_ENERGY.id}>
           <ItemHealingDone amount={this.healingDone} />
           <br />
           {formatNumber(this.overhealing)} <small>Overhealing</small>
-        </ConduitSpellText>
+        </BoringSpellValueText>
       </Statistic>
     );
   }
