@@ -46,7 +46,7 @@ const spells = spellIndexableList({
     icon: 'inv_10_alchemy_bottle_shape2_black',
   },
   CRYSTALLINE_PHIAL_OF_PERCEPTION: {
-    id: 371458,
+    id: 371454,
     name: 'Crystalline Phial of Perception',
     icon: 'inv_10_alchemy_bottle_shape2_yellow',
   },
