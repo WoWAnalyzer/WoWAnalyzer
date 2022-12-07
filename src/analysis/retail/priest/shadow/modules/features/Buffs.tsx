@@ -22,7 +22,7 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.DARK_EVANGELISM_TALENT_BUFF.id,
-        triggeredBySpellId: TALENTS.DARK_EVANGELISM_TALENT.id,
+        //triggeredBySpellId: TALENTS.DARK_EVANGELISM_TALENT.id,  // If the log starts with the buff active, having this active causes "no ability available" error in PrePullCooldowns.
         enabled: combatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT.id),
         timelineHighlight: false,
       },
