@@ -27,6 +27,7 @@ export const DREAM_BREATH_CALL_OF_YSERA_HOT = 'DreamBreathCallOfYseraHoT'; // li
 export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera'; // link buffed living flame to buff removal
 export const FIELD_OF_DREAMS_PROC = 'FromFieldOfDreams'; // link EB heal to fluttering heal
 export const HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
+export const BUFF_GROUPING = 'BuffGrouping'; // link ApplyBuff events together
 export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
 
 const CAST_BUFFER_MS = 100;
@@ -329,15 +330,21 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
-  // link dream breath hot application to cast
+  // link dream breath applications together
   {
-    linkRelation: FROM_HARDCAST,
-    linkingEventId: [SPELLS.DREAM_BREATH.id],
-    linkingEventType: [EventType.ApplyBuff],
-    referencedEventId: [TALENTS_EVOKER.DREAM_BREATH_TALENT.id],
-    referencedEventType: [EventType.Cast],
-    backwardBufferMs: 2500, // there is some pretty big latency in logs, so being generous
+    linkRelation: BUFF_GROUPING,
+    linkingEventId: SPELLS.DREAM_BREATH.id,
+    linkingEventType: EventType.ApplyBuff,
+    referencedEventId: SPELLS.DREAM_BREATH.id,
+    referencedEventType: EventType.ApplyBuff,
     anyTarget: true,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        (linkingEvent as ApplyBuffEvent).targetID !== (referencedEvent as ApplyBuffEvent).targetID
+      );
+    },
   },
 ];
 
@@ -395,6 +402,10 @@ export function getEssenceBurstConsumeAbility(
 
 export function getHealEvents(event: HealEvent) {
   return [event].concat(GetRelatedEvents(event, HEAL_GROUPING) as HealEvent[]);
+}
+
+export function getBuffEvents(event: ApplyBuffEvent) {
+  return [event].concat(GetRelatedEvents(event, BUFF_GROUPING) as ApplyBuffEvent[]);
 }
 
 export default CastLinkNormalizer;
