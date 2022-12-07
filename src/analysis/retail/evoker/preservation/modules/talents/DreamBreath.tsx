@@ -1,15 +1,16 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { t } from '@lingui/macro';
 import { SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
-import { isFromHardcast } from '../../normalizers/CastLinkNormalizer';
+import { getBuffEvents } from '../../normalizers/CastLinkNormalizer';
 
 class DreamBreath extends Analyzer {
-  totalCasts: number = 0;
+  totalBreaths: number = 0;
   totalApplications: number = 0;
+  processedEvents: Set<ApplyBuffEvent> = new Set<ApplyBuffEvent>();
 
   constructor(options: Options) {
     super(options);
@@ -17,24 +18,22 @@ class DreamBreath extends Analyzer {
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DREAM_BREATH),
       this.onApply,
     );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.DREAM_BREATH_TALENT),
-      this.onCast,
-    );
   }
 
   onApply(event: ApplyBuffEvent) {
-    if (isFromHardcast(event)) {
-      this.totalApplications += 1;
+    if (this.processedEvents.has(event)) {
+      return;
     }
-  }
-
-  onCast(event: CastEvent) {
-    this.totalCasts += 1;
+    const events = getBuffEvents(event);
+    this.totalBreaths += 1;
+    this.totalApplications += events.length;
+    events.forEach((ev) => {
+      this.processedEvents.add(ev);
+    });
   }
 
   get averageTargetsHit() {
-    return this.totalApplications / this.totalCasts;
+    return this.totalApplications / this.totalBreaths;
   }
 
   get suggestionThresholds() {
