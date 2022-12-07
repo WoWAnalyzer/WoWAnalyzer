@@ -104,6 +104,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.HOLY_WORD_SANCTIFY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        charges: combatant.hasTalent(TALENTS.MIRACLE_WORKER_TALENT.id) ? 2 : 1,
         cooldown: 60, // reduced by PoH and Renew
         gcd: {
           base: 1500,
@@ -118,6 +119,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.HOLY_WORD_SERENITY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        charges: combatant.hasTalent(TALENTS.MIRACLE_WORKER_TALENT.id) ? 2 : 1,
         cooldown: 60, // reduced by Heal and Flash Heal
         gcd: {
           base: 1500,
