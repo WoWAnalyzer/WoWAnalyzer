@@ -9,6 +9,7 @@ import EssenceDetails from '../EssenceDetails';
 import EssenceBurst from '../../talents/EssenceBurst';
 import EmeraldBlossom from '../../talents/EmeraldBlossom';
 import DreamFlight from '../../talents/DreamFlight';
+import Echo from '../../talents/Echo';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -22,6 +23,7 @@ class Checklist extends BaseChecklist {
     essenceDetails: EssenceDetails,
     essenceBurst: EssenceBurst,
     emeraldBlossom: EmeraldBlossom,
+    echo: Echo,
   };
 
   protected combatants!: Combatants;
@@ -31,6 +33,7 @@ class Checklist extends BaseChecklist {
   protected dreamBreath!: DreamBreath;
   protected dreamFlight!: DreamFlight;
   protected emeraldBlossom!: EmeraldBlossom;
+  protected echo!: Echo;
   protected essenceBurst!: EssenceBurst;
   protected essenceDetails!: EssenceDetails;
 
@@ -44,6 +47,7 @@ class Checklist extends BaseChecklist {
           manaLeft: this.manaValues.suggestionThresholds,
           dreamBreath: this.dreamBreath.suggestionThresholds,
           dreamFlight: this.dreamFlight.suggestionThresholds,
+          echo: this.echo.suggestionThresholds,
           emeraldBlossom: this.emeraldBlossom.suggestionThresholds,
           essenceDetails: this.essenceDetails.suggestionThresholds,
           essenceBurst: this.essenceBurst.suggestionThresholds,

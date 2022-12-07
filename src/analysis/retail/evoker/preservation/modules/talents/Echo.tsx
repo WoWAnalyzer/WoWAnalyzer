@@ -1,15 +1,21 @@
-import { formatNumber } from 'common/format';
+import { t } from '@lingui/macro';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ECHO_HEALS, SPELL_COLORS } from '../../constants';
-import { isFromHardcastEcho, isFromTAEcho } from '../../normalizers/CastLinkNormalizer';
+import {
+  didEchoExpire,
+  isFromHardcastEcho,
+  isFromTAEcho,
+} from '../../normalizers/CastLinkNormalizer';
 import HotTrackerPrevoker from '../core/HotTrackerPrevoker';
 
 class Echo extends Analyzer {
@@ -22,6 +28,8 @@ class Echo extends Analyzer {
   // Map<spellId, totalHealing>, only update for echo healing
   echoHealingBySpell: Map<number, number> = new Map<number, number>();
   taEchoHealingBySpell: Map<number, number> = new Map<number, number>();
+  totalExpired: number = 0;
+  totalApplied: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -30,6 +38,28 @@ class Echo extends Analyzer {
       this.taEchoHealingBySpell.set(spell.id, 0);
     });
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(ECHO_HEALS), this.handleEchoHeal);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.ECHO_TALENT),
+      this.onApply,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.ECHO_TALENT),
+      this.onRemove,
+    );
+  }
+
+  onApply(event: ApplyBuffEvent) {
+    this.totalApplied += 1;
+  }
+
+  onRemove(event: RemoveBuffEvent) {
+    if (didEchoExpire(event)) {
+      this.totalExpired += 1;
+    }
+  }
+
+  get percentWasted() {
+    return this.totalExpired / this.totalApplied;
   }
 
   handleEchoHeal(event: HealEvent) {
@@ -65,6 +95,36 @@ class Echo extends Analyzer {
       return this.hotTracker.fromEchoTA(hot);
     }
     return isFromTAEcho(event);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.percentWasted,
+      isGreaterThan: {
+        major: 0.1,
+        average: 0.05,
+        minor: 0,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Try to avoid letting <SpellLink id={TALENTS_EVOKER.ECHO_TALENT.id} /> buffs expire.
+        </>,
+      )
+        .icon(TALENTS_EVOKER.ECHO_TALENT.icon)
+        .actual(
+          `${formatPercentage(actual)}${t({
+            id: 'evoker.preservation.suggestions.echo.wastedBuffs',
+            message: `% of Echo buffs wasted`,
+          })}`,
+        )
+        .recommended(`${formatPercentage(recommended, 0)}% wasted recommended`),
+    );
   }
 
   get totalTaEchoHealing() {
