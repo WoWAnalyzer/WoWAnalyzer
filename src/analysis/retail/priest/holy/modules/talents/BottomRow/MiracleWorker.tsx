@@ -67,8 +67,8 @@ class MiracleWorker extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            This statistic shows the estimated number of extra casts granted from having an
-            additional charge of <SpellLink id={TALENTS.HOLY_WORD_SERENITY_TALENT.id} /> and{' '}
+            The estimated number of additional casts granted from having an second charge of{' '}
+            <SpellLink id={TALENTS.HOLY_WORD_SERENITY_TALENT.id} /> and{' '}
             <SpellLink id={TALENTS.HOLY_WORD_SANCTIFY_TALENT.id} />.
           </>
         }
@@ -76,9 +76,17 @@ class MiracleWorker extends Analyzer {
       >
         <TalentSpellText talent={TALENTS.MIRACLE_WORKER_TALENT}>
           <>
-            {extraSerenityCasts} extra Serenity cast{extraSerenityCasts > 1 ? 's' : ''}.
+            {extraSerenityCasts}{' '}
+            <small>
+              extra <SpellLink id={TALENTS.HOLY_WORD_SERENITY_TALENT.id} /> cast
+              {extraSerenityCasts > 1 ? 's' : ''}.
+            </small>
             <br />
-            {extraSanctifyCasts} extra Sanctify cast{extraSanctifyCasts > 1 ? 's' : ''}.
+            {extraSanctifyCasts}{' '}
+            <small>
+              extra <SpellLink id={TALENTS.HOLY_WORD_SANCTIFY_TALENT.id} /> cast
+              {extraSerenityCasts > 1 ? 's' : ''}.
+            </small>
           </>
         </TalentSpellText>
       </Statistic>

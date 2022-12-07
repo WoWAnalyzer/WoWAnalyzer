@@ -45,7 +45,8 @@ class EmpoweredRenew extends Analyzer {
         tooltip={
           <>
             This includes the additional healing from{' '}
-            <SpellLink id={TALENTS.EMPOWERED_RENEW_TALENT.id} /> proccing mastery.
+            <SpellLink id={TALENTS.EMPOWERED_RENEW_TALENT.id} /> proccing{' '}
+            <SpellLink id={SPELLS.ECHO_OF_LIGHT_MASTERY.id} />.
           </>
         }
       >
