@@ -36,9 +36,9 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
         name="Use core abilities as often as possible"
         description="Aim to keep core rotational abilities on cooldown to maximize healing"
       >
-        <AbilityRequirement spell={SPELLS.DREAM_BREATH_CAST.id} />
+        <AbilityRequirement spell={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} />
         {combatant.hasTalent(TALENTS_EVOKER.SPIRITBLOOM_TALENT) && (
-          <AbilityRequirement spell={SPELLS.SPIRITBLOOM_CAST.id} />
+          <AbilityRequirement spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS_EVOKER.REVERSION_TALENT) && (
           <AbilityRequirement spell={TALENTS_EVOKER.REVERSION_TALENT.id} />
@@ -109,11 +109,19 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
         <Requirement
           name={
             <>
-              Average targets hit by
-              <SpellLink id={SPELLS.EMERALD_BLOSSOM.id} />
+              Average targets hit by <SpellLink id={SPELLS.EMERALD_BLOSSOM.id} />
             </>
           }
           thresholds={thresholds.emeraldBlossom}
+        />
+        <Requirement
+          name={
+            <>
+              Average targets hit by
+              <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} />
+            </>
+          }
+          thresholds={thresholds.dreamBreath}
         />
       </Rule>
       <PreparationRule thresholds={thresholds} />

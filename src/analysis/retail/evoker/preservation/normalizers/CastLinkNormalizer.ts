@@ -237,7 +237,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: DREAM_BREATH_CALL_OF_YSERA_HOT,
     linkingEventId: [SPELLS.DREAM_BREATH.id, SPELLS.DREAM_BREATH_ECHO.id],
     linkingEventType: [EventType.ApplyBuff, EventType.Heal],
-    referencedEventId: [SPELLS.DREAM_BREATH_CAST.id],
+    referencedEventId: [TALENTS_EVOKER.DREAM_BREATH_TALENT.id],
     referencedEventType: [EventType.RemoveBuff],
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
@@ -253,7 +253,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: DREAM_BREATH_CALL_OF_YSERA,
     linkingEventId: [SPELLS.CALL_OF_YSERA_BUFF.id],
     linkingEventType: [EventType.RemoveBuff],
-    referencedEventId: [SPELLS.DREAM_BREATH_CAST.id],
+    referencedEventId: [TALENTS_EVOKER.DREAM_BREATH_TALENT.id],
     referencedEventType: [EventType.RemoveBuff],
     maximumLinks: 1,
     isActive(c) {
@@ -329,6 +329,16 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
+  // link dream breath hot application to cast
+  {
+    linkRelation: FROM_HARDCAST,
+    linkingEventId: [SPELLS.DREAM_BREATH.id],
+    linkingEventType: [EventType.ApplyBuff],
+    referencedEventId: [TALENTS_EVOKER.DREAM_BREATH_TALENT.id],
+    referencedEventType: [EventType.Cast],
+    backwardBufferMs: 2500, // there is some pretty big latency in logs, so being generous
+    anyTarget: true,
+  },
 ];
 
 /**
@@ -368,6 +378,10 @@ export function isFromLivingFlameCallOfYsera(event: HealEvent) {
 
 export function isFromFieldOfDreams(event: HealEvent) {
   return HasRelatedEvent(event, FIELD_OF_DREAMS_PROC);
+}
+
+export function isFromHardcast(event: ApplyBuffEvent) {
+  return HasRelatedEvent(event, FROM_HARDCAST);
 }
 
 export function getEssenceBurstConsumeAbility(
