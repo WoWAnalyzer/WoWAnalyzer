@@ -7,65 +7,62 @@ import { Item } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import typedKeys from 'common/typedKeys';
 
 // Example logs with missing enhancement:
-// /report/XQrLTRC1bFWGAt3m/21-Mythic+The+Council+of+Blood+-+Wipe+10+(3:17)/Odsuv/standard
+// /report/YCNrxPnyHt9g6dhj/2-Mythic+Crawth+-+Kill+(1:45)/1-Sigilweaver/standard
 
-const WEAPON_SLOTS = {
-  15: <Trans id="common.slots.weapon">Weapon</Trans>,
-  16: <Trans id="common.slots.offhand">OffHand</Trans>,
+const LEG_SLOT = {
+  6: <Trans id="common.slots.legs">Legs</Trans>,
 };
 
-class WeaponEnhancementChecker extends Analyzer {
-  get WeaponSlots(): any {
-    return WEAPON_SLOTS;
+class LegEnhancementChecker extends Analyzer {
+  get LegSlot(): Record<number, JSX.Element> {
+    return LEG_SLOT;
   }
 
   get MaxEnchantIds(): number[] {
     return [];
   }
 
-  get enhanceableWeapons() {
-    return Object.keys(this.WeaponSlots).reduce((obj: { [key: number]: Item }, slot) => {
-      const item = this.selectedCombatant._getGearItemBySlotId(Number(slot));
+  get enhanceableLegs() {
+    return typedKeys(this.LegSlot).reduce<{ [key: number]: Item }>((obj, slot) => {
+      const item = this.selectedCombatant._getGearItemBySlotId(slot);
 
-      // If there is no offhand, disregard the item.
-      // If the icon has `offhand` in the name, we know it's not a weapon and doesn't need an enhancement.
-      // This is not an ideal way to determine if an offhand is a weapon.
-      if (item.id === 0 || item.icon.includes('offhand') || item.icon.includes('shield')) {
+      if (item.id === 0) {
         return obj;
       }
-      obj[Number(slot)] = this.selectedCombatant._getGearItemBySlotId(Number(slot));
+      obj[Number(slot)] = this.selectedCombatant._getGearItemBySlotId(slot);
 
       return obj;
     }, {});
   }
 
-  get numWeapons() {
-    return Object.keys(this.enhanceableWeapons).length || 1;
+  get numLegs() {
+    return Object.keys(this.enhanceableLegs).length || 1;
   }
 
-  get weaponsMissingEnhancement() {
-    const gear = this.enhanceableWeapons;
+  get legsMissingEnhancement() {
+    const gear = this.enhanceableLegs;
     return Object.keys(gear).length > 0
-      ? Object.keys(gear).filter((slot) => !this.hasEnhancement(gear[Number(slot)]))
+      ? typedKeys(gear).filter((slot) => !this.hasEnhancement(gear[slot]))
       : null;
   }
 
-  get numWeaponsMissingEnhancement() {
-    return this.weaponsMissingEnhancement ? this.weaponsMissingEnhancement.length : 1;
+  get numLegsMissingEnhancement() {
+    return this.legsMissingEnhancement ? this.legsMissingEnhancement.length : 1;
   }
 
-  get weaponsMissingMaxEnhancement() {
-    const gear = this.enhanceableWeapons;
+  get legsMissingMaxEnhancement() {
+    const gear = this.enhanceableLegs;
     return Object.keys(gear).filter(
       (slot) =>
         this.hasEnhancement(gear[Number(slot)]) && !this.hasMaxEnhancement(gear[Number(slot)]),
     );
   }
 
-  get numWeaponsMissingMaxEnhancement() {
-    return this.weaponsMissingMaxEnhancement.length;
+  get numLegsMissingMaxEnhancement() {
+    return this.legsMissingMaxEnhancement.length;
   }
 
   hasEnhancement(item: Item): number | null {
@@ -79,21 +76,20 @@ class WeaponEnhancementChecker extends Analyzer {
     return this.MaxEnchantIds.includes(item.temporaryEnchant);
   }
 
-  get weaponsEnhancedThreshold() {
+  get legsEnhancedThreshold() {
     return {
-      actual: this.numWeapons - this.numWeaponsMissingEnhancement,
-      max: this.numWeapons,
-      isLessThan: this.numWeapons,
+      actual: this.numLegs - this.numLegsMissingEnhancement,
+      max: this.numLegs,
+      isLessThan: this.numLegs,
       style: ThresholdStyle.NUMBER,
     };
   }
 
-  get bestWeaponEnhancementsThreshold() {
+  get bestLegEnhancementsThreshold() {
     return {
-      actual:
-        this.numWeapons - this.numWeaponsMissingEnhancement - this.numWeaponsMissingMaxEnhancement,
-      max: this.numWeapons,
-      isLessThan: this.numWeapons,
+      actual: this.numLegs - this.numLegsMissingEnhancement - this.numLegsMissingMaxEnhancement,
+      max: this.numLegs,
+      isLessThan: this.numLegs,
       style: ThresholdStyle.NUMBER,
     };
   }
@@ -137,65 +133,62 @@ class WeaponEnhancementChecker extends Analyzer {
         !recommendedEnhancementIds.includes(item.temporaryEnchant ?? 0)
       ) {
         return (
-          <Trans id="shared.enchantChecker.guide.strongEnhancement.labelWithRecommendation">
-            Your {slotName} has a strong enhancement (weapon oil/sharpening stone/weightstone) but
-            these are recommended: {recommendedEnhancementNames}
+          <Trans id="shared.legEnhancementChecker.guide.strongEnhancement.labelWithRecommendation">
+            Your {slotName} has a strong leg enhancement but these are recommended:{' '}
+            {recommendedEnhancementNames}
           </Trans>
         );
       }
       return (
-        <Trans id="shared.enchantChecker.guide.strongEnhancement.label">
-          Your {slotName} has a strong enhancement (weapon oil/sharpening stone/weightstone). Good
-          work!
+        <Trans id="shared.legEnhancementChecker.guide.strongEnhancement.label">
+          Your {slotName} has a strong leg enhancement (weapon oil/sharpening stone/weightstone).
+          Good work!
         </Trans>
       );
     }
     if (hasEnhancement) {
       if (recommendedEnhancementNames) {
         return (
-          <Trans id="shared.enchantChecker.guide.weakEnhancement.labelWithRecommendation">
-            Your {slotName} has a cheap weapon enhancement [{hasEnhancement}] (weapon oil/sharpening
-            stone/weightstone). Apply a strong enhancement to very easily increase your throughput
-            slightly. Recommended: {recommendedEnhancementNames}
+          <Trans id="shared.legEnhancementChecker.guide.weakEnhancement.labelWithRecommendation">
+            Your {slotName} has a cheap leg enhancement. Apply a strong enhancement to very easily
+            increase your throughput slightly. Recommended: {recommendedEnhancementNames}
           </Trans>
         );
       }
       return (
-        <Trans id="shared.enchantChecker.guide.weakEnhancement.label">
-          Your {slotName} has a cheap weapon enhancement [{hasEnhancement}] (weapon oil/sharpening
-          stone/weightstone). Apply a strong enhancement to very easily increase your throughput
-          slightly.
+        <Trans id="shared.legEnhancementChecker.guide.weakEnhancement.label">
+          Your {slotName} has a cheap leg enhancement. Apply a strong enhancement to very easily
+          increase your throughput slightly.
         </Trans>
       );
     }
     if (recommendedEnhancementNames) {
       return (
-        <Trans id="shared.enchantChecker.guide.noEnhancement.labelWithRecommendation">
-          Your {slotName} is missing a weapon enhancement (weapon oil/sharpening stone/weightstone).
-          Apply an enhancement to very easily increase your throughput slightly. Recommended:{' '}
-          {recommendedEnhancementNames}
+        <Trans id="shared.legEnhancementChecker.guide.noEnhancement.labelWithRecommendation">
+          Your {slotName} is missing a leg enhancement. Apply an enhancement to very easily increase
+          your throughput slightly. Recommended: {recommendedEnhancementNames}
         </Trans>
       );
     }
     return (
-      <Trans id="shared.enchantChecker.guide.noEnhancement.label">
-        Your {slotName} is missing a weapon enhancement (weapon oil/sharpening stone/weightstone).
-        Apply an enhancement to very easily increase your throughput slightly.
+      <Trans id="shared.legEnhancementChecker.guide.noEnhancement.label">
+        Your {slotName} is missing a leg enhancement. Apply an enhancement to very easily increase
+        your throughput slightly.
       </Trans>
     );
   }
 
-  getWeaponEnhancementBoxRowEntries(
-    recommendedWeaponEnhancements: Record<number, Enchant[]> = {},
+  getLegEnhancementBoxRowEntries(
+    recommendedLegEnhancements: Enchant[] = [],
   ): EnhancementBoxRowEntry[] {
-    const gear = this.enhanceableWeapons;
-    const enchantSlots: { [key: number]: JSX.Element } = this.WeaponSlots;
+    const gear = this.enhanceableLegs;
+    const enchantSlots: { [key: number]: JSX.Element } = this.LegSlot;
 
     return Object.keys(gear).map<EnhancementBoxRowEntry>((slot) => {
       const slotNumber = Number(slot);
       const item = gear[slotNumber];
       const slotName = enchantSlots[slotNumber];
-      const recommendedEnchantments = recommendedWeaponEnhancements[slotNumber];
+      const recommendedEnchantments = recommendedLegEnhancements;
       return {
         item,
         slotName: this.boxRowItemLink(item, slotName),
@@ -209,8 +202,8 @@ class WeaponEnhancementChecker extends Analyzer {
   }
 
   suggestions(when: When) {
-    const gear = this.enhanceableWeapons;
-    const weaponSlots: { [key: number]: JSX.Element } = this.WeaponSlots;
+    const gear = this.enhanceableLegs;
+    const weaponSlots: { [key: number]: JSX.Element } = this.LegSlot;
     // iterating with keys instead of value because the values don't store what slot is being looked at
     Object.keys(gear).forEach((slot) => {
       const item = gear[Number(slot)];
@@ -221,13 +214,13 @@ class WeaponEnhancementChecker extends Analyzer {
         .isFalse()
         .addSuggestion((suggest, actual, recommended) =>
           suggest(
-            <Trans id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label">
+            <Trans id="shared.legEnhancementChecker.suggestions.noLegEnhancement.label">
               Your{' '}
               <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
                 {slotName}
               </ItemLink>{' '}
-              is missing a weapon enhancement (weapon oil/sharpening stone/weightstone). Apply an
-              enhancement to very easily increase your throughput slightly.
+              is missing a leg enhancement. Apply an enhancement to very easily increase your
+              throughput slightly.
             </Trans>,
           )
             .icon(item.icon)
@@ -239,14 +232,13 @@ class WeaponEnhancementChecker extends Analyzer {
         .isTrue()
         .addSuggestion((suggest, actual, recommended) =>
           suggest(
-            <Trans id="shared.weaponEnhancementChecker.suggestions.weakWeaponEnhancement.label">
+            <Trans id="shared.legEnhancementChecker.suggestion.weakEnhancement.label">
               Your
               <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
                 {slotName}
               </ItemLink>
-              has a cheap weapon enhancement [{hasEnhancement}] (weapon oil/sharpening
-              stone/weightstone). Apply a strong enhancement to very easily increase your throughput
-              slightly.
+              has a cheap leg enhancement. Apply a strong enhancement to very easily increase your
+              throughput slightly.
             </Trans>,
           )
             .icon(item.icon)
@@ -256,4 +248,4 @@ class WeaponEnhancementChecker extends Analyzer {
   }
 }
 
-export default WeaponEnhancementChecker;
+export default LegEnhancementChecker;

@@ -84,8 +84,18 @@ const spells = spellIndexableList({
     name: 'Fluttering Seedlings',
     icon: 'inv_herbalism_70_yserallineseed',
   },
+  CYCLE_OF_LIFE_BUFF: {
+    id: 371877,
+    name: 'Cycle of Life',
+    icon: 'ability_monk_explodingjadeblossom',
+  },
   CYCLE_OF_LIFE_HEAL: {
     id: 371879,
+    name: 'Cycle of Life',
+    icon: 'ability_monk_explodingjadeblossom',
+  },
+  CYCLE_OF_LIFE_SUMMON: {
+    id: 371871,
     name: 'Cycle of Life',
     icon: 'ability_monk_explodingjadeblossom',
   },
@@ -93,6 +103,21 @@ const spells = spellIndexableList({
     id: 363502,
     name: 'Dream Flight',
     icon: 'ability_evoker_dreamflight',
+  },
+  EMERALD_COMMUNION_SELF: {
+    id: 370960,
+    name: 'Emerald Communion',
+    icon: 'ability_evoker_green_01',
+  },
+  EMERALD_COMMUNION_ALLY: {
+    id: 370984,
+    name: 'Emerald Communion',
+    icon: 'ability_evoker_green_01',
+  },
+  LIFEBIND_HEAL: {
+    id: 373268,
+    name: 'Lifebind',
+    icon: 'ability_evoker_hoverred',
   },
   // Shared
   BLESSING_OF_THE_BRONZE: {
@@ -186,6 +211,16 @@ const spells = spellIndexableList({
     id: 390386,
     name: 'Fury of the Aspects',
     icon: 'ability_evoker_furyoftheaspects',
+  },
+  RENEWING_BLAZE_HEAL: {
+    id: 374349,
+    name: 'Renewing Blaze',
+    icon: 'ability_evoker_masterylifebinder_red',
+  },
+  VERDANT_EMBRACE_HEAL: {
+    id: 361195,
+    name: 'Verdant Embrace',
+    icon: 'ability_evoker_rescue',
   },
 });
 

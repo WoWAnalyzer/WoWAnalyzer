@@ -15,6 +15,7 @@ import ModuleError from 'parser/core/ModuleError';
 import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
 import PotionChecker from 'parser/retail/modules/items/PotionChecker';
 import WeaponEnhancementChecker from 'parser/retail/modules/items/WeaponEnhancementChecker';
+import LegEnhancementChecker from 'parser/retail/modules/items/LegEnhancementChecker';
 import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
 import EnemiesHealth from 'parser/shared/modules/EnemiesHealth';
 import Haste from 'parser/shared/modules/Haste';
@@ -190,6 +191,7 @@ class CombatLogParser {
     healthPotion: HealthPotion,
     combatPotion: CombatPotion,
     weaponEnhancementChecker: WeaponEnhancementChecker,
+    legEnhancementChecker: LegEnhancementChecker,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
 
     // Racials

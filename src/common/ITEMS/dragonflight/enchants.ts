@@ -864,6 +864,118 @@ const enchants = enchantIndexableList({
     icon: 'inv_weapon_shortblade_08',
     effectId: 6534,
   },
+
+  // Leg Enhancements - Leatherworking
+  REINFORCED_ARMOR_KIT_R1: {
+    id: 193559,
+    name: 'Reinforced Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6491,
+  },
+  REINFORCED_ARMOR_KIT_R2: {
+    id: 193563,
+    name: 'Reinforced Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6492,
+  },
+  REINFORCED_ARMOR_KIT_R3: {
+    id: 193567,
+    name: 'Reinforced Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6493,
+  },
+  FROSTED_ARMOR_KIT_R1: {
+    id: 193556,
+    name: 'Frosted Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6494,
+  },
+  FROSTED_ARMOR_KIT_R2: {
+    id: 193560,
+    name: 'Frosted Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6495,
+  },
+  FROSTED_ARMOR_KIT_R3: {
+    id: 193564,
+    name: 'Frosted Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6496,
+  },
+  FIERCE_ARMOR_KIT_R1: {
+    id: 193557,
+    name: 'Fierce Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6488,
+  },
+  FIERCE_ARMOR_KIT_R2: {
+    id: 193561,
+    name: 'Fierce Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6489,
+  },
+  FIERCE_ARMOR_KIT_R3: {
+    id: 193565,
+    name: 'Fierce Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_color1',
+    effectId: 6490,
+  },
+
+  // Leg Enhancements - Tailoring
+  FROZEN_SPELLTHREAD_R1: {
+    id: 194011,
+    name: 'Frozen Spellthread',
+    icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color2',
+    effectId: 6488,
+  },
+  FROZEN_SPELLTHREAD_R2: {
+    id: 194012,
+    name: 'Frozen Spellthread',
+    icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color2',
+    effectId: 6489,
+  },
+  FROZEN_SPELLTHREAD_R3: {
+    id: 194013,
+    name: 'Frozen Spellthread',
+    icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color2',
+    effectId: 6490,
+  },
+  TEMPORAL_SPELLTHREAD_R1: {
+    id: 194014,
+    name: 'Temporal Spellthread',
+    icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color1',
+    effectId: 6488,
+  },
+  TEMPORAL_SPELLTHREAD_R2: {
+    id: 194015,
+    name: 'Temporal Spellthread',
+    icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color1',
+    effectId: 6489,
+  },
+  TEMPORAL_SPELLTHREAD_R3: {
+    id: 194016,
+    name: 'Temporal Spellthread',
+    icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color1',
+    effectId: 6490,
+  },
+  VIBRANT_SPELLTHREAD_R1: {
+    id: 194008,
+    name: 'Vibrant Spellthread',
+    icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color3',
+    effectId: 6488,
+  },
+  VIBRANT_SPELLTHREAD_R2: {
+    id: 194009,
+    name: 'Vibrant Spellthread',
+    icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color3',
+    effectId: 6489,
+  },
+  VIBRANT_SPELLTHREAD_R3: {
+    id: 194010,
+    name: 'Vibrant Spellthread',
+    icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color3',
+    effectId: 6490,
+  },
 });
 
 export default enchants;
