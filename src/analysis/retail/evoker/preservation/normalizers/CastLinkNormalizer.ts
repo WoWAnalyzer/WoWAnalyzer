@@ -27,6 +27,7 @@ export const DREAM_BREATH_CALL_OF_YSERA_HOT = 'DreamBreathCallOfYseraHoT'; // li
 export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera'; // link buffed living flame to buff removal
 export const FIELD_OF_DREAMS_PROC = 'FromFieldOfDreams'; // link EB heal to fluttering heal
 export const HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
+export const BUFF_GROUPING = 'BuffGrouping'; // link ApplyBuff events together
 export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
 
 const CAST_BUFFER_MS = 100;
@@ -237,7 +238,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: DREAM_BREATH_CALL_OF_YSERA_HOT,
     linkingEventId: [SPELLS.DREAM_BREATH.id, SPELLS.DREAM_BREATH_ECHO.id],
     linkingEventType: [EventType.ApplyBuff, EventType.Heal],
-    referencedEventId: [SPELLS.DREAM_BREATH_CAST.id],
+    referencedEventId: [TALENTS_EVOKER.DREAM_BREATH_TALENT.id],
     referencedEventType: [EventType.RemoveBuff],
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
@@ -253,7 +254,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: DREAM_BREATH_CALL_OF_YSERA,
     linkingEventId: [SPELLS.CALL_OF_YSERA_BUFF.id],
     linkingEventType: [EventType.RemoveBuff],
-    referencedEventId: [SPELLS.DREAM_BREATH_CAST.id],
+    referencedEventId: [TALENTS_EVOKER.DREAM_BREATH_TALENT.id],
     referencedEventType: [EventType.RemoveBuff],
     maximumLinks: 1,
     isActive(c) {
@@ -329,6 +330,22 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
+  // link dream breath applications together
+  {
+    linkRelation: BUFF_GROUPING,
+    linkingEventId: SPELLS.DREAM_BREATH.id,
+    linkingEventType: EventType.ApplyBuff,
+    referencedEventId: SPELLS.DREAM_BREATH.id,
+    referencedEventType: EventType.ApplyBuff,
+    anyTarget: true,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        (linkingEvent as ApplyBuffEvent).targetID !== (referencedEvent as ApplyBuffEvent).targetID
+      );
+    },
+  },
 ];
 
 /**
@@ -370,6 +387,10 @@ export function isFromFieldOfDreams(event: HealEvent) {
   return HasRelatedEvent(event, FIELD_OF_DREAMS_PROC);
 }
 
+export function isFromHardcast(event: ApplyBuffEvent) {
+  return HasRelatedEvent(event, FROM_HARDCAST);
+}
+
 export function getEssenceBurstConsumeAbility(
   event: RemoveBuffEvent | RemoveBuffStackEvent,
 ): null | CastEvent {
@@ -381,6 +402,10 @@ export function getEssenceBurstConsumeAbility(
 
 export function getHealEvents(event: HealEvent) {
   return [event].concat(GetRelatedEvents(event, HEAL_GROUPING) as HealEvent[]);
+}
+
+export function getBuffEvents(event: ApplyBuffEvent) {
+  return [event].concat(GetRelatedEvents(event, BUFF_GROUPING) as ApplyBuffEvent[]);
 }
 
 export default CastLinkNormalizer;

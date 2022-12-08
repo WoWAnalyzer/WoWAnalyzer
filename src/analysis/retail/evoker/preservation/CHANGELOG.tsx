@@ -5,6 +5,7 @@ import { Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 12, 6), <>Added suggestion based on average targets hit by <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id}/></> ,Trevor),
   change(date(2022, 12, 4), <>Mark Preservation Evoker as fully supported</>, Trevor),
   change(date(2022, 12, 4), <>Added <SpellLink id={TALENTS_EVOKER.CYCLE_OF_LIFE_TALENT.id}/> module</>, Trevor),
   change(date(2022, 12, 4), <>Added <SpellLink id={TALENTS_EVOKER.TIME_LORD_TALENT.id}/> module</>, Trevor),
