@@ -24,18 +24,18 @@ const SPELLPOWER_DATA_FILE = `./spellpower_${WOW_BUILD_NUMBER}.csv`;
 const classes: { [classId: number]: { name: string; baseMaxResource: number } } = {
   //TODO Non Mana users verification
   1: { name: 'Warrior', baseMaxResource: 1000 },
-  2: { name: 'Paladin', baseMaxResource: 10000 },
+  2: { name: 'Paladin', baseMaxResource: 50000 },
   3: { name: 'Hunter', baseMaxResource: 100 },
   4: { name: 'Rogue', baseMaxResource: 100 },
-  5: { name: 'Priest', baseMaxResource: 50000 },
+  5: { name: 'Priest', baseMaxResource: 250000 },
   6: { name: 'Death Knight', baseMaxResource: 1000 },
-  7: { name: 'Shaman', baseMaxResource: 10000 },
-  8: { name: 'Mage', baseMaxResource: 50000 },
-  9: { name: 'Warlock', baseMaxResource: 50000 },
-  10: { name: 'Monk', baseMaxResource: 50000 },
-  11: { name: 'Druid', baseMaxResource: 10000 },
+  7: { name: 'Shaman', baseMaxResource: 50000 },
+  8: { name: 'Mage', baseMaxResource: 250000 },
+  9: { name: 'Warlock', baseMaxResource: 250000 },
+  10: { name: 'Monk', baseMaxResource: 250000 },
+  11: { name: 'Druid', baseMaxResource: 50000 },
   12: { name: 'Demon Hunter', baseMaxResource: 100 },
-  13: { name: 'Evoker', baseMaxResource: 10000 },
+  13: { name: 'Evoker', baseMaxResource: 250000 },
 };
 
 async function generateTalents() {

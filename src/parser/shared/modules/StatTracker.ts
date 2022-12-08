@@ -168,14 +168,14 @@ class StatTracker extends Analyzer {
   statBaselineRatingPerPercent = {
     //TODO Update to level 70 values once DF has launched as we will need the old values during prepatch
     /** Secondaries */
-    [STAT.CRITICAL_STRIKE]: 35, //@ Level 70 180
-    [STAT.HASTE]: 33, //@ Level 70 170
-    [STAT.MASTERY]: 35, //@ Level 70 180
-    [STAT.VERSATILITY]: 40, //@ Level 70 205
+    [STAT.CRITICAL_STRIKE]: 180,
+    [STAT.HASTE]: 170,
+    [STAT.MASTERY]: 180,
+    [STAT.VERSATILITY]: 205,
     /** Tertiaries */
-    [STAT.AVOIDANCE]: 14, //@ Level 70 72
-    [STAT.LEECH]: 21, //@ Level 70 110
-    [STAT.SPEED]: 10, //@ Level 70 50
+    [STAT.AVOIDANCE]: 72,
+    [STAT.LEECH]: 110,
+    [STAT.SPEED]: 50,
   };
 
   /** Secondary stat scaling thresholds
