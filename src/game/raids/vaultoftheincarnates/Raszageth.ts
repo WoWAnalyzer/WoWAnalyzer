@@ -1,6 +1,6 @@
 import { Boss } from 'game/raids';
 
-import Background from './images/Raszageth.png';
+import Background from './images/raszageth.jpg';
 
 const Raszageth: Boss = {
   id: 2607,

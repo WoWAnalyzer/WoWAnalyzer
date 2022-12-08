@@ -1,6 +1,6 @@
 import { Boss } from 'game/raids';
 
-import Background from './images/Sennarth.png';
+import Background from './images/sennarth.jpg';
 
 const Sennarth: Boss = {
   id: 2592,
