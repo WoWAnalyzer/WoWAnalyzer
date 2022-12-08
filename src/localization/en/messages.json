@@ -275,7 +275,6 @@
   "guide.castSummaryAndBreakdown.header.badWithExtraExplanation": "Red is a bad cast ({badExtraExplanation})",
   "guide.castSummaryAndBreakdown.header.badWithoutExtraExplanation": "Red is a bad cast",
   "guide.castSummaryAndBreakdown.header.casts": "casts",
-  "guide.castSummaryAndBreakdown.header.explanation": "- {performanceExplanation}. Mouseover for more details. Click to expand.",
   "guide.castSummaryAndBreakdown.header.goodWithExtraExplanation": "Green is a good cast ({goodExtraExplanation})",
   "guide.castSummaryAndBreakdown.header.goodWithoutExtraExplanation": "Green is a good cast",
   "guide.castSummaryAndBreakdown.header.okWithExtraExplanation": "Yellow is an ok cast ({okExtraExplanation})",

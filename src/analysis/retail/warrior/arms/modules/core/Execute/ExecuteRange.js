@@ -25,9 +25,7 @@ class ExecuteRangeTracker extends Analyzer {
   lowerThreshold = this.selectedCombatant.hasTalent(SPELLS.MASSACRE_TALENT_ARMS.id)
     ? EXECUTE_RANGE_MASSACRE
     : EXECUTE_RANGE;
-  upperThreshold = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id)
-    ? EXECUTE_RANGE_VENTHYR
-    : 100;
+  upperThreshold = 100;
 
   constructor(...args) {
     super(...args);

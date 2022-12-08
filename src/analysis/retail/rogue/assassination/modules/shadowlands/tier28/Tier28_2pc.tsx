@@ -7,6 +7,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { TIERS } from 'game/TIERS';
 
 /**
  * Assassination Rogue Tier 28 - 2pc - Grudge Match
@@ -36,7 +37,7 @@ class Tier28_2pc extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has2Piece();
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T28);
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(POISON_BLEED_DOTS),

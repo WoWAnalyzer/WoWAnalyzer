@@ -38,34 +38,18 @@ const spells = spellIndexableList({
     name: 'Twin Guardian',
     icon: 'ability_skyreach_shielded',
   },
-
   TEMPORAL_ANOMALY_SHIELD: {
     id: 373862,
     name: 'Temporal Anomaly',
     icon: 'ability_evoker_temporalanomaly',
-  },
-  DREAM_BREATH_CAST: {
-    id: 382614,
-    name: 'Dream Breath',
-    icon: 'ability_evoker_dreambreath',
   },
   CALL_OF_YSERA_BUFF: {
     id: 373835,
     name: 'Call of Ysera',
     icon: '4096390',
   },
-  RENEWING_BREATH: {
-    id: 381923,
-    name: 'Renewing Breath',
-    icon: 'ability_evoker_dreambreath',
-  },
   SPIRITBLOOM: {
     id: 367230,
-    name: 'Spiritbloom',
-    icon: 'ability_evoker_spiritbloom2',
-  },
-  SPIRITBLOOM_CAST: {
-    id: 382731,
     name: 'Spiritbloom',
     icon: 'ability_evoker_spiritbloom2',
   },

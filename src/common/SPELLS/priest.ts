@@ -487,6 +487,11 @@ const spells = spellIndexableList({
     icon: 'spell_holy_chastise',
     manaCost: 5000,
   },
+  PONTIFEX_TALENT_BUFF: {
+    id: 390989,
+    name: 'Pontifex',
+    icon: 'spell_priest_pontifex',
+  },
   DIVINE_WORD_SANCTIFY_TALENT_HEAL: {
     id: 372787,
     name: 'Divine Word: Sanctuary',

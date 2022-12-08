@@ -53,7 +53,7 @@ const ArmsWarriorChecklist = ({
           </div>
         }
       />
-      {!combatant.hasLegendary(SPELLS.ENDURING_BLOW) && (
+      {!false && (
         <Rule
           name={
             <>

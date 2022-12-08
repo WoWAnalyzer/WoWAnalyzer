@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Combatant from 'parser/core/Combatant';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
@@ -302,8 +301,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SERRATED_BONE_SPIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-        charges: combatant.hasLegendary(SPELLS.DEATHSPIKE) ? 5 : 3,
+        enabled: false,
+        charges: 3,
         cooldown: 30,
         gcd: {
           static: standardGcd,
@@ -312,7 +311,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.SEPSIS_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        enabled: false,
         cooldown: 90,
         gcd: {
           static: standardGcd,
@@ -324,7 +323,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.ECHOING_REPRIMAND_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        enabled: false,
         gcd: {
           static: standardGcd,
         },
@@ -332,7 +331,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.FLAGELLATION_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        enabled: false,
         gcd: {
           static: standardGcd,
         },

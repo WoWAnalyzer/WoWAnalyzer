@@ -13,7 +13,7 @@ class TumblingWaves extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.TUMBLING_WAVES_CONDUIT.id);
+    this.active = false;
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TUMBLING_WAVES_BUFF),

@@ -7,13 +7,13 @@ import conduitScaling from 'parser/core/conduitScaling';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, DamageEvent, SummonEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 const XUENS_BOND_REDUCTION = 100;
 
@@ -34,7 +34,7 @@ class XuensBond extends Analyzer {
    */
   constructor(options: Options) {
     super(options);
-    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.XUENS_BOND.id);
+    const conduitRank = 0;
     if (!conduitRank) {
       this.active = false;
       return;
@@ -104,13 +104,13 @@ class XuensBond extends Analyzer {
           </>
         }
       >
-        <ConduitSpellText spellId={SPELLS.XUENS_BOND.id}>
+        <BoringSpellValueText spellId={SPELLS.XUENS_BOND.id}>
           <ItemDamageDone amount={this.totalDamage} />
           <br />
           <UptimeIcon /> {formatMilliseconds(this.XB_CDR_Used)} <small>Effective CDR</small>
           <br />
           <UptimeIcon /> {formatMilliseconds(this.XB_CDR_Wasted)} <small>Wasted CDR</small>
-        </ConduitSpellText>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

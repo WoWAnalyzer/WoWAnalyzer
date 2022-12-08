@@ -9,6 +9,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { TIERS } from 'game/TIERS';
 
 /** _Increases Fists of Fury damage by 40%_ */
 const FOF_INCREASE = 0.4;
@@ -19,7 +20,7 @@ class FistsOfPrimordium extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.has2Piece();
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T28);
     if (!this.active) {
       return;
     }

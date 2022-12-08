@@ -13,7 +13,7 @@ class SeedsOfRampantGrowth extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.SEEDS_OF_RAMPANT_GROWTH);
+    this.active = false;
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SEEDS_OF_RAMPANT_GROWTH_BUFF),

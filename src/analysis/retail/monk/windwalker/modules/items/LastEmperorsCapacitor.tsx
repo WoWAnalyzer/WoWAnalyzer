@@ -31,7 +31,7 @@ class LastEmperorsCapacitor extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.LAST_EMPERORS_CAPACITOR);
+    this.active = false;
     if (!this.active) {
       return;
     }

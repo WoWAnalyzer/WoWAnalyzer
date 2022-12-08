@@ -115,11 +115,17 @@ class CombatLogParser extends CoreCombatLogParser {
     HolyWordSalvation: Talents.BottomRow.HolyWordSalvation,
     Apotheosis: Talents.BottomRow.Apotheosis,
     AnsweredPrayers: Talents.BottomRow.AnsweredPrayers,
+    Pontifex: Talents.BottomRow.Pontifex,
     Lightweaver: Talents.BottomRow.Lightweaver,
 
     divineImage: Talents.BottomRow.DivineImage,
+    lightOfTheNaaru: Talents.BottomRow.LightOfTheNaaru,
+    harmoniousApparatus: Talents.BottomRow.HarmoniousApparatus,
     resonantWords: Talents.BottomRow.ResonantWords,
     TranslucentImage: TranslucentImage,
+    rapidRecovery: Talents.BottomRow.RapidRecovery,
+    empoweredRenew: Talents.BottomRow.EmpoweredRenew,
+    miracleWorker: Talents.BottomRow.MiracleWorker,
 
     BurningVehemence: Talents.TopRow.BurningVehemence,
 

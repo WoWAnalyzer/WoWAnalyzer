@@ -78,7 +78,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        enabled: !false,
       },
       {
         spell: [SPELLS.CONDEMN.id, SPELLS.CONDEMN_MASSACRE.id],
@@ -86,7 +86,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        enabled: false,
       },
       // Rotational AOE
       {
@@ -161,11 +161,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ANCIENT_AFTERSHOCK.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown:
-          90 -
-          (this.selectedCombatant.hasConduitBySpellID(SPELLS.DESTRUCTIVE_REVERBERATIONS.id)
-            ? 15
-            : 0),
+        cooldown: 90,
         gcd: {
           base: 1500,
         },
@@ -173,7 +169,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.7,
         },
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        enabled: false,
       },
       {
         spell: SPELLS.SPEAR_OF_BASTION.id,
@@ -186,7 +182,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.7,
         },
-        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        enabled: false,
       },
       // Others
       {
@@ -241,7 +237,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.7,
         },
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        enabled: false,
       },
       // Defensive
       {

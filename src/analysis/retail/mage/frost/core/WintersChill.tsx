@@ -3,7 +3,6 @@ import { MS_BUFFER_1000 } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
@@ -71,8 +70,8 @@ class WintersChill extends Analyzer {
     super(options);
     this.hasGlacialSpike = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT.id);
     this.hasEbonbolt = this.selectedCombatant.hasTalent(TALENTS.EBONBOLT_TALENT.id);
-    this.isKyrian = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
-    this.isVenthyr = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
+    this.isKyrian = false;
+    this.isVenthyr = false;
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(WINTERS_CHILL_PRECAST_DAMAGE),

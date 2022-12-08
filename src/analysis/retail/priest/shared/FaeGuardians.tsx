@@ -2,7 +2,6 @@ import ItemInsanityGained from 'analysis/retail/priest/shadow/interface/ItemInsa
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamageReduction } from 'parser/core/EventCalculateLib';
@@ -50,7 +49,7 @@ class FaeGuardians extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
+    this.active = false;
     if (!this.active) {
       return;
     }

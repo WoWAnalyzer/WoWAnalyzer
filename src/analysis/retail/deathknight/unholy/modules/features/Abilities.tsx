@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import talents from 'common/TALENTS/deathknight'
-import COVENANTS from 'game/shadowlands/COVENANTS';
+import talents from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
@@ -82,9 +81,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEATH_AND_DECAY.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled:
-          !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) &&
-          !combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
+        enabled: !false && !combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -334,7 +331,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        enabled: false,
       },
       {
         spell: SPELLS.DOOR_OF_SHADOWS.id,
@@ -343,7 +340,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        enabled: false,
       },
       {
         spell: SPELLS.ABOMINATION_LIMB.id,
@@ -356,13 +353,13 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        enabled: false,
       },
       {
         spell: SPELLS.FLESHCRAFT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
+        enabled: false,
       },
       {
         spell: SPELLS.SHACKLE_THE_UNWORTHY.id,
@@ -375,7 +372,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        enabled: false,
       },
       {
         spell: SPELLS.DEATHS_DUE.id,
@@ -388,9 +385,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-        enabled:
-          combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) &&
-          !combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
+        enabled: false && !combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
       },
       {
         spell: SPELLS.SOULSHAPE.id,
@@ -399,7 +394,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        enabled: false,
       },
     ];
   }

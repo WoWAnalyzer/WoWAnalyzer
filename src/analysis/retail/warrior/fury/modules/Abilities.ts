@@ -1,9 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/warrior';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import { TIERS } from 'game/TIERS';
 
 //https://www.warcraftlogs.com/reports/9Vw8TvjHNfXgWyP7#fight=19&type=summary&source=21 2+ cold steel hot blood
 
@@ -28,7 +28,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RAGING_BLOW.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => 8 / (1 + haste),
-        charges: combatant.has2Piece() ? 3 : 2,
+        charges: combatant.has2PieceByTier(TIERS.T28) ? 3 : 2,
         gcd: {
           base: 1500,
         },
@@ -47,7 +47,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        enabled: !false,
       },
       {
         spell: [
@@ -60,7 +60,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        enabled: false,
       },
       // Rotational AOE
       {
@@ -77,7 +77,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        enabled: false,
       },
       // Others
       {

@@ -28,7 +28,7 @@ class WitchDoctorsWolfBones extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.WITCH_DOCTORS_WOLF_BONES);
+    this.active = false;
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),

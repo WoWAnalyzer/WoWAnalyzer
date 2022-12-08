@@ -1,7 +1,6 @@
 import AtonementDamageSource from 'analysis/retail/priest/discipline/modules/features/AtonementDamageSource';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import { SpellIcon } from 'interface';
 import { TooltipElement } from 'interface';
@@ -125,7 +124,7 @@ class BoonOfTheAscended extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
+    this.active = false;
     if (!this.active) {
       return;
     }

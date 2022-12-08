@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -11,7 +10,7 @@ class SpearOfBastion extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
+    this.active = false;
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SPEAR_OF_BASTION_ENERGIZE),
