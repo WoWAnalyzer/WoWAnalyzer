@@ -14,7 +14,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { formatNumber } from 'common/format';
+import { formatDuration, formatNumber } from 'common/format';
 import { TooltipElement } from 'interface';
 
 const debug = false;
@@ -135,7 +135,7 @@ class Reversion extends Analyzer {
         tooltip={
           <ul>
             <li>Extra ticks: {this.reversionCritCount}</li>
-            <li>Extra duration from crits: {this.totalExtensionTime / 1000} seconds</li>
+            <li>Extra duration from crits: {formatDuration(this.totalExtensionTime)}</li>
             <li>Total healing from extensions: {formatNumber(this.totalAdditionalHealing)}</li>
           </ul>
         }
