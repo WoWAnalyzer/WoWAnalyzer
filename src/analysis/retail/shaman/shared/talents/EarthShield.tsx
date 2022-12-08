@@ -44,7 +44,7 @@ class EarthShield extends Analyzer {
       this.category = STATISTIC_CATEGORY.GENERAL;
     }
     // TODO: Update for dragonflight
-    // const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.EMBRACE_OF_EARTH.id);
+    // const conduitRank = 0;
     //
     // if (conduitRank) {
     //   this.earthShieldHealingIncrease += EMBRACE_OF_EARTH_RANKS[conduitRank] / 100;

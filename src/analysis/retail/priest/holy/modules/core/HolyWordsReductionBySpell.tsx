@@ -135,8 +135,9 @@ class HolyWordsReductionBySpell extends Analyzer {
             that your Holy Words passive has contributed (The other contributor being time).
             <br />
             <br />
-            Talents like <strong>Light of the Naaru</strong> and <strong>Apotheosis</strong> which
-            provide further CD reduction are taken into account when calculating these numbers.
+            Talents like <strong>Light of the Naaru</strong>, <strong>Harmonious Apparatus</strong>,
+            and <strong>Apotheosis</strong> which provide further CD reduction are taken into
+            account when calculating these numbers.
             <br />
             <br />
             If you have talented <strong>Holy Word Salvation</strong> both{' '}

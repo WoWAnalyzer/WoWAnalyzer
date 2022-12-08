@@ -16,10 +16,22 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2022, 12, 8), 'Updated rating per % values in StatTracker to 70 levels, and updated base mana pools in preparation for next talent regeneration', Putro),
+  change(date(2022, 12, 8), 'Add support for empowered cast log events.', ToppleTheNun),
+  change(date(2022, 12, 7), 'Update Vault of the Incarnates boss images.', ToppleTheNun),
+  change(date(2022, 12, 6), 'Add stat enhancements for some potions and phials.', ToppleTheNun),
+  change(date(2022, 12, 6), 'Add data for and analyze Dragonflight food.', ToppleTheNun),
+  change(date(2022, 12, 6), 'Update flask analysis to check phials instead.', ToppleTheNun),
+  change(date(2022, 12, 6), 'Localize leg enhancements.', ToppleTheNun),
+  change(date(2022, 12, 6), 'Add item/spell/analysis for missing tailoring leg enhancements.', ToppleTheNun),
+  change(date(2022, 12, 6), 'Add analysis for leg enhancements.', ToppleTheNun),
+  change(date(2022, 12, 6), 'Add item/spell data for leg enhancements.', ToppleTheNun),
+  change(date(2022, 12, 6), 'Add support for remaining potions.', ToppleTheNun),
   change(date(2022, 12, 5), <>Add support for <ItemLink id={ITEMS.FERAL_HIDE_DRUMS.id} />.</>, ToppleTheNun),
   change(date(2022, 12, 5), <>Add stats for <ItemLink id={ITEMS.DRACONIC_AUGMENT_RUNE.id} />.</>, ToppleTheNun),
   change(date(2022, 12, 5), 'Remove Shadowlands weapon enhancements from the accepted list.', ToppleTheNun),
   change(date(2022, 12, 3), 'Remove Shadowlands dungeons and raids.', ToppleTheNun),
+  change(date(2022, 12, 3), 'Remove usages of Shadowlands covenants, soulbinds, conduits, and legendaries.', ToppleTheNun),
   change(date(2022, 12, 3), 'Add Dragonflight launch as the current "patch".', ToppleTheNun),
   change(date(2022, 11, 30), 'Add Dragonflight Engineering enchantments and weapon enchancements.', ToppleTheNun),
   change(date(2022, 11, 30), <>Add support for <ItemLink id={ITEMS.DRACONIC_AUGMENT_RUNE.id} />.</>, ToppleTheNun),

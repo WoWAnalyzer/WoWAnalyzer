@@ -14,4 +14,5 @@ const items = spellIndexableList({
     icon: 'inv_10_skinning_consumable_leatherdrums_color1',
   },
 });
+
 export default items;

@@ -24,7 +24,7 @@ class ArcaneHarmony extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.ARCANE_HARMONY);
+    this.active = false;
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_BARRAGE_TALENT),
       this.onBarrageCast,

@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { Enchant } from 'common/SPELLS/Spell';
 import { ItemLink } from 'interface';
-import { WeaponEnhancementBoxRowEntry } from 'interface/guide/components/Preparation/WeaponEnhancementSubSection/WeaponEnhancementBoxRow';
+import { EnhancementBoxRowEntry } from 'interface/guide/components/Preparation/EnhancementSubSection/EnhancementBoxRow';
 import Analyzer from 'parser/core/Analyzer';
 import { Item } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
@@ -187,11 +187,11 @@ class WeaponEnhancementChecker extends Analyzer {
 
   getWeaponEnhancementBoxRowEntries(
     recommendedWeaponEnhancements: Record<number, Enchant[]> = {},
-  ): WeaponEnhancementBoxRowEntry[] {
+  ): EnhancementBoxRowEntry[] {
     const gear = this.enhanceableWeapons;
     const enchantSlots: { [key: number]: JSX.Element } = this.WeaponSlots;
 
-    return Object.keys(gear).map<WeaponEnhancementBoxRowEntry>((slot) => {
+    return Object.keys(gear).map<EnhancementBoxRowEntry>((slot) => {
       const slotNumber = Number(slot);
       const item = gear[slotNumber];
       const slotName = enchantSlots[slotNumber];

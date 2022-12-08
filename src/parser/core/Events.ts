@@ -43,6 +43,8 @@ export enum EventType {
   OrbGenerated = 'orb-generated',
   Create = 'create',
   Spellsteal = 'spellsteal',
+  EmpowerStart = 'empowerstart',
+  EmpowerEnd = 'empowerend',
 
   // Fabricated:
   Event = 'event', // everything
@@ -155,6 +157,8 @@ type MappedEventTypes = {
   [EventType.ExtraAttacks]: ExtraAttacksEvent;
   [EventType.Create]: CreateEvent;
   [EventType.Spellsteal]: SpellstealEvent;
+  [EventType.EmpowerStart]: EmpowerStartEvent;
+  [EventType.EmpowerEnd]: EmpowerEndEvent;
 
   // Fabricated:
   [EventType.FightEnd]: FightEndEvent;
@@ -448,6 +452,11 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
 
 export type CastEvent = BaseCastEvent<EventType.Cast>;
 export type FreeCastEvent = BaseCastEvent<EventType.FreeCast>;
+
+export type EmpowerStartEvent = BaseCastEvent<EventType.EmpowerStart>;
+export interface EmpowerEndEvent extends BaseCastEvent<EventType.EmpowerEnd> {
+  empowermentLevel: number;
+}
 
 export interface FilterCooldownInfoEvent extends BaseCastEvent<EventType.FilterCooldownInfo> {
   trigger: EventType;
@@ -1090,8 +1099,14 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
   talentTree: TalentEntry[];
   talents: Spell[];
   pvpTalents: Spell[];
-  covenantID: number;
-  soulbindID: number;
+  /**
+   * @deprecated
+   */
+  covenantID?: number;
+  /**
+   * @deprecated
+   */
+  soulbindID?: number;
   /**
    * Represents expansion specific traits
    * Legion: Artifact Traits
@@ -1386,6 +1401,12 @@ const Events = {
   },
   get spellsteal() {
     return new EventFilter(EventType.Spellsteal);
+  },
+  get empowerStart() {
+    return new EventFilter(EventType.EmpowerStart);
+  },
+  get empowerEnd() {
+    return new EventFilter(EventType.EmpowerEnd);
   },
 };
 

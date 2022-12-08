@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
@@ -343,7 +342,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 30,
-        enabled: !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        enabled: !false,
       },
       {
         spell: SPELLS.DEATH_COIL.id,

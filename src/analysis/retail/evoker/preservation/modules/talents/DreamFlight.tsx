@@ -18,6 +18,7 @@ class DreamFlight extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.DREAM_FLIGHT_TALENT);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DREAM_FLIGHT_HEAL),
       this.onApply,
@@ -40,6 +41,9 @@ class DreamFlight extends Analyzer {
   }
 
   get percentOfGroupHit() {
+    if (!this.numCasts) {
+      return 0;
+    }
     const averageHit = this.numApply / this.numCasts;
     return averageHit / Object.keys(this.combatants.getEntities()).length;
   }

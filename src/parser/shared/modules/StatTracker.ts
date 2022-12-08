@@ -38,63 +38,22 @@ class StatTracker extends Analyzer {
 
   static DEFAULT_BUFFS: StatBuffsByGuid = {
     // region Potions
-    [SPELLS.POTION_OF_SPECTRAL_AGILITY.id]: { agility: 190 },
-    [SPELLS.POTION_OF_SPECTRAL_INTELLECT.id]: { intellect: 190 },
-    [SPELLS.POTION_OF_SPECTRAL_STRENGTH.id]: { strength: 190 },
-    [SPELLS.POTION_OF_SPECTRAL_STAMINA.id]: { stamina: 285 },
-    [SPELLS.POTION_OF_HARDENED_SHADOWS.id]: { armor: 275 },
+    // TODO: Figure out how to make this work with multiple ranks of potions
+    [SPELLS.ELEMENTAL_POTION_OF_POWER.id]: { strength: 502, agility: 502, intellect: 502 },
+    [SPELLS.ELEMENTAL_POTION_OF_ULTIMATE_POWER.id]: { strength: 670, agility: 670, intellect: 670 },
     // endregion
 
     // region Runes
     [SPELLS.DRACONIC_AUGMENT_RUNE.id]: { strength: 87, agility: 87, intellect: 87 },
     // endregion
 
-    //region Flasks
-    [SPELLS.FLASK_OF_THE_CURRENTS.id]: { agility: 25 },
-    [SPELLS.FLASK_OF_ENDLESS_FATHOMS.id]: { intellect: 25 },
-    [SPELLS.FLASK_OF_THE_UNDERTOW.id]: { strength: 25 },
-    [SPELLS.FLASK_OF_THE_VAST_HORIZON.id]: { stamina: 38 },
-    [SPELLS.GREATER_FLASK_OF_THE_CURRENTS.id]: { agility: 38 },
-    [SPELLS.GREATER_FLASK_OF_ENDLESS_FATHOMS.id]: { intellect: 38 },
-    [SPELLS.GREATER_FLASK_OF_THE_UNDERTOW.id]: { strength: 38 },
-    [SPELLS.GREATER_FLASK_OF_THE_VAST_HORIZON.id]: { stamina: 57 },
-    [SPELLS.SPECTRAL_FLASK_OF_POWER.id]: { strength: 70, agility: 70, intellect: 70 },
-    [SPELLS.SPECTRAL_FLASK_OF_STAMINA.id]: { stamina: 105 },
+    //region Phials
+    // TODO: Figure out how to make this work with multiple ranks of potions
+    [SPELLS.CHARGED_PHIAL_OF_ALACRITY.id]: { speed: 630 },
+    [SPELLS.PHIAL_OF_TEPID_VERSATILITY.id]: { versatility: 632 },
     // endregion
 
     //region Food
-    [SPELLS.BOUNTIFUL_CAPTAIN_FEAST_INT.id]: { intellect: 15 },
-    [SPELLS.BOUNTIFUL_CAPTAIN_FEAST_STR.id]: { strength: 15 },
-    [SPELLS.BOUNTIFUL_CAPTAIN_FEAST_AGI.id]: { agility: 15 },
-    [SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_INT.id]: { intellect: 16 },
-    [SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_STR.id]: { strength: 16 },
-    [SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_AGI.id]: { agility: 16 },
-    [SPELLS.ABYSSAL_FRIED_RISSOLE.id]: { mastery: 14 },
-    [SPELLS.BIL_TONG.id]: { versatility: 14 },
-    [SPELLS.MECH_DOWELS_BIG_MECH.id]: { crit: 14 },
-    [SPELLS.BAKED_PORT_TATO.id]: { haste: 14 },
-    [SPELLS.FRAGRANT_KAKAVIA.id]: { stamina: 29 },
-    [SPELLS.BORALUS_BLOOD_SAUSAGE_AGI.id]: { agility: 13 },
-    [SPELLS.BORALUS_BLOOD_SAUSAGE_INT.id]: { intellect: 13 },
-    [SPELLS.BORALUS_BLOOD_SAUSAGE_STR.id]: { strength: 13 },
-    [SPELLS.WELL_FED_SEASONED_STEAK_AND_POTATOES.id]: { stamina: 22 },
-
-    [SPELLS.PICKLED_MEAT_SMOOTHIE.id]: { stamina: 14 },
-    [SPELLS.SWEET_SILVERGILL_SAUSAGES.id]: { versatility: 18 },
-    [SPELLS.BUTTERSCOTCH_MARINATED_RIBS.id]: { crit: 18 },
-    [SPELLS.MEATY_APPLE_DUMPLINGS.id]: { mastery: 18 },
-    [SPELLS.CINNAMON_BONEFISH_STEW.id]: { haste: 18 },
-    [SPELLS.BANANA_BEEF_PUDDING.id]: { stamina: 22 },
-    [SPELLS.STEAK_A_LA_MODE.id]: { versatility: 30 },
-    [SPELLS.TENEBROUS_CROWN_ROAST_ASPIC.id]: { haste: 30 },
-    [SPELLS.SPINEFIN_SOUFFLE_AND_FRIES.id]: { crit: 30 },
-    [SPELLS.IRIDESCENT_RAVIOLI_WITH_APPLE_SAUCE.id]: { mastery: 30 },
-    [SPELLS.SURPRISINGLY_PALATABLE_FEAST_INT.id]: { intellect: 18 },
-    [SPELLS.SURPRISINGLY_PALATABLE_FEAST_STR.id]: { strength: 18 },
-    [SPELLS.SURPRISINGLY_PALATABLE_FEAST_AGI.id]: { agility: 18 },
-    [SPELLS.FEAST_OF_GLUTTONOUS_HEDONISM_INT.id]: { intellect: 20 },
-    [SPELLS.FEAST_OF_GLUTTONOUS_HEDONISM_STR.id]: { strength: 20 },
-    [SPELLS.FEAST_OF_GLUTTONOUS_HEDONISM_AGI.id]: { agility: 20 },
     //endregion
 
     // region Conduits
@@ -163,14 +122,14 @@ class StatTracker extends Analyzer {
   statBaselineRatingPerPercent = {
     //TODO Update to level 70 values once DF has launched as we will need the old values during prepatch
     /** Secondaries */
-    [STAT.CRITICAL_STRIKE]: 35, //@ Level 70 180
-    [STAT.HASTE]: 33, //@ Level 70 170
-    [STAT.MASTERY]: 35, //@ Level 70 180
-    [STAT.VERSATILITY]: 40, //@ Level 70 205
+    [STAT.CRITICAL_STRIKE]: 180,
+    [STAT.HASTE]: 170,
+    [STAT.MASTERY]: 180,
+    [STAT.VERSATILITY]: 205,
     /** Tertiaries */
-    [STAT.AVOIDANCE]: 14, //@ Level 70 72
-    [STAT.LEECH]: 21, //@ Level 70 110
-    [STAT.SPEED]: 10, //@ Level 70 50
+    [STAT.AVOIDANCE]: 72,
+    [STAT.LEECH]: 110,
+    [STAT.SPEED]: 50,
   };
 
   /** Secondary stat scaling thresholds

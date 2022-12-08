@@ -3,10 +3,10 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { DamageEvent } from 'parser/core/Events';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 const DAMAGE_BONUS = [
   0,
@@ -33,8 +33,8 @@ class LethalPoisons extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.LETHAL_POISONS.id);
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.LETHAL_POISONS.id);
+    this.active = false;
+    this.conduitRank = 0;
 
     this.addEventListener(
       Events.damage
@@ -56,9 +56,9 @@ class LethalPoisons extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <ConduitSpellText spellId={SPELLS.LETHAL_POISONS.id} rank={this.conduitRank}>
+        <BoringSpellValueText spellId={SPELLS.LETHAL_POISONS.id}>
           <ItemDamageDone amount={this.bonusDamage} />
-        </ConduitSpellText>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

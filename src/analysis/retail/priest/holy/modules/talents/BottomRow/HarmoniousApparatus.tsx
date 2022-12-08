@@ -77,7 +77,7 @@ class HarmoniousApparatus extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             Serenity:{' '}

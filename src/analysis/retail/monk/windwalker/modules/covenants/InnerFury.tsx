@@ -4,11 +4,11 @@ import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/
 import conduitScaling from 'parser/core/conduitScaling';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 class InnerFury extends Analyzer {
   IF_MOD = 0;
@@ -18,7 +18,7 @@ class InnerFury extends Analyzer {
    */
   constructor(options: Options) {
     super(options);
-    const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.INNER_FURY.id);
+    const conduitRank = 0;
     if (!conduitRank) {
       this.active = false;
       return;
@@ -47,9 +47,9 @@ class InnerFury extends Analyzer {
           </>
         }
       >
-        <ConduitSpellText spellId={SPELLS.INNER_FURY.id}>
+        <BoringSpellValueText spellId={SPELLS.INNER_FURY.id}>
           <ItemDamageDone amount={this.totalDamage} />
-        </ConduitSpellText>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

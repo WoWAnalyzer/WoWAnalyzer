@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -20,7 +19,7 @@ class ChainHarvest extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
+    this.active = false;
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HARVEST_HEAL),

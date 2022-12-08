@@ -7,7 +7,7 @@ import GradiatedPerformanceBar, {
 import { Trans } from '@lingui/macro';
 import Spell from 'common/SPELLS/Spell';
 import SpellLink from 'interface/SpellLink';
-import { MouseoverForMoreDetails } from './CommonLinguiTranslations';
+import { ClickToExpand, MouseoverForMoreDetails } from './CommonLinguiTranslations';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
 
@@ -156,9 +156,7 @@ const CastSummaryAndBreakdown = ({
         <Trans id="guide.castSummaryAndBreakdown.header.casts">casts</Trans>
       </strong>{' '}
       <small>
-        <Trans id="guide.castSummaryAndBreakdown.header.explanation">
-          - {performanceExplanation}. Mouseover for more details. Click to expand.
-        </Trans>
+        - {performanceExplanation}. <MouseoverForMoreDetails /> <ClickToExpand />
       </small>
       <ControlledExpandable
         header={

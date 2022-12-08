@@ -39,7 +39,7 @@ class IceLance extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.hasGlacialFragments = this.selectedCombatant.hasLegendary(SPELLS.GLACIAL_FRAGMENTS);
+    this.hasGlacialFragments = false;
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ICE_LANCE_TALENT),
       this.onCast,

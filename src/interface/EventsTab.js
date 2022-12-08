@@ -44,6 +44,12 @@ const FILTERABLE_TYPES = {
     explanation:
       'Triggered whenever a cast was successful. Blizzard also sometimes uses this event type for mechanics and spell ticks or bolts.',
   },
+  empowerstart: {
+    name: 'Empower Start',
+  },
+  empowerend: {
+    name: 'Empower End',
+  },
   applybuff: {
     name: 'Buff Apply',
   },

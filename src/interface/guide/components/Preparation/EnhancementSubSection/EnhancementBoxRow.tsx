@@ -1,10 +1,11 @@
-import styles from './WeaponEnhancementBoxRow.module.scss';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import { CSSProperties, ReactNode } from 'react';
 import { Tooltip } from 'interface/index';
 import Icon from 'interface/Icon';
 import { Item } from 'parser/core/Events';
+
+import styles from './EnhancementBoxRow.module.scss';
 
 const getBlockClassName = (value: BoxRowEntry) => {
   switch (value.value) {
@@ -19,24 +20,24 @@ const getBlockClassName = (value: BoxRowEntry) => {
   }
 };
 
-export interface WeaponEnhancementBoxRowEntry {
+export interface EnhancementBoxRowEntry {
   item: Item;
   slotName: JSX.Element;
   value: QualitativePerformance;
   tooltip?: ReactNode; // TODO default tooltip
 }
 
-interface WeaponEnhancementBoxRowProps {
-  values: WeaponEnhancementBoxRowEntry[];
+interface Props {
+  values: EnhancementBoxRowEntry[];
   style?: CSSProperties;
 }
-const WeaponEnhancementBoxRow = ({ values }: WeaponEnhancementBoxRowProps) => {
+const EnhancementBoxRow = ({ values }: Props) => {
   return (
-    <div className={styles['enchantment-block-row']}>
+    <div className={styles['enhancement-block-row']}>
       {values.map((value, ix) => (
-        <div className={styles['enchantment-block-column']} key={ix}>
+        <div className={styles['enhancement-block-column']} key={ix}>
           <Tooltip content={value.tooltip}>
-            <div className={styles['enchantment-block'] + ' ' + getBlockClassName(value)}>
+            <div className={styles['enhancement-block'] + ' ' + getBlockClassName(value)}>
               <Icon icon={value.item.icon} />
             </div>
           </Tooltip>
@@ -47,4 +48,4 @@ const WeaponEnhancementBoxRow = ({ values }: WeaponEnhancementBoxRowProps) => {
   );
 };
 
-export default WeaponEnhancementBoxRow;
+export default EnhancementBoxRow;

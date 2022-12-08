@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import ConduitLink from 'interface/ConduitLink';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
@@ -69,7 +68,7 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           }
           thresholds={thresholds.fistsofFury}
         />
-        {combatant.hasLegendary(SPELLS.JADE_IGNITION) && (
+        {false && (
           <Requirement
             name={
               <>
@@ -165,7 +164,7 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           />
         )}
       </Rule>
-      {combatant.hasLegendary(SPELLS.LAST_EMPERORS_CAPACITOR) && (
+      {false && (
         <Rule
           name={
             <>
@@ -193,34 +192,33 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           />
         </Rule>
       )}
-      {combatant.hasConduitBySpellID(SPELLS.COORDINATED_OFFENSIVE.id) &&
-        !combatant.hasTalent(SPELLS.SERENITY_TALENT.id) && (
-          <Rule
+      {false && !combatant.hasTalent(SPELLS.SERENITY_TALENT.id) && (
+        <Rule
+          name={
+            <>
+              Fixate spirits to benefit from <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} />
+            </>
+          }
+          description={
+            <>
+              If you choose to use the <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> conduit,
+              you need to use <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id} /> to gain the
+              damage bonus, even if there is only one target. You should fixate as soon as you have
+              5 stacks of <SpellLink id={SPELLS.MARK_OF_THE_CRANE.id} /> or when all targets are
+              marked.
+            </>
+          }
+        >
+          <Requirement
             name={
               <>
-                Fixate spirits to benefit from <ConduitLink id={SPELLS.COORDINATED_OFFENSIVE.id} />
+                Percentage of possible <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> damage
               </>
             }
-            description={
-              <>
-                If you choose to use the <ConduitLink id={SPELLS.COORDINATED_OFFENSIVE.id} />{' '}
-                conduit, you need to use <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id} /> to
-                gain the damage bonus, even if there is only one target. You should fixate as soon
-                as you have 5 stacks of <SpellLink id={SPELLS.MARK_OF_THE_CRANE.id} /> or when all
-                targets are marked.
-              </>
-            }
-          >
-            <Requirement
-              name={
-                <>
-                  Percentage of possible <ConduitLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> damage
-                </>
-              }
-              thresholds={thresholds.coordinatedOffensiveDamageBenefit}
-            />
-          </Rule>
-        )}
+            thresholds={thresholds.coordinatedOffensiveDamageBenefit}
+          />
+        </Rule>
+      )}
       <Rule
         name="Use your defensive cooldowns effectively"
         description={
