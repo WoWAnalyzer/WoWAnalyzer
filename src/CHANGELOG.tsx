@@ -67,6 +67,7 @@ import SpellLink from 'interface/SpellLink';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 export default [
+  change(date(2022, 12, 8), 'Add support for empowered cast log events.', ToppleTheNun),
   change(date(2022, 12, 7), 'Update Vault of the Incarnates boss images.', ToppleTheNun),
   change(date(2022, 12, 6), 'Add stat enhancements for some potions and phials.', ToppleTheNun),
   change(date(2022, 12, 6), 'Add data for and analyze Dragonflight food.', ToppleTheNun),
