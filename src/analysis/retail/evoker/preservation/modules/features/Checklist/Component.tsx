@@ -89,12 +89,20 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> wasted stacks
+                Wasted <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> stacks
               </>
             }
             thresholds={thresholds.essenceBurst}
           />
         )}
+        <Requirement
+          name={
+            <>
+              Wasted <SpellLink id={TALENTS_EVOKER.ECHO_TALENT.id} /> buffs
+            </>
+          }
+          thresholds={thresholds.echo}
+        />
       </Rule>
       <Rule
         name="Maximize targets hit by AoE abilities"

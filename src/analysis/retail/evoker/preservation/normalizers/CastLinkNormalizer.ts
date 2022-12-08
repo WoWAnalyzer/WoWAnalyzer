@@ -112,6 +112,7 @@ const EVENT_LINKS: EventLink[] = [
   //link hardcast echo removal to hot application
   {
     linkRelation: ECHO,
+    reverseLinkRelation: ECHO,
     linkingEventId: [SPELLS.REVERSION_ECHO.id, SPELLS.DREAM_BREATH_ECHO.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
@@ -125,6 +126,7 @@ const EVENT_LINKS: EventLink[] = [
   //link TA echo removal to hot application
   {
     linkRelation: ECHO_TEMPORAL_ANOMALY,
+    reverseLinkRelation: ECHO_TEMPORAL_ANOMALY,
     linkingEventId: [SPELLS.REVERSION_ECHO.id, SPELLS.DREAM_BREATH_ECHO.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
@@ -145,6 +147,7 @@ const EVENT_LINKS: EventLink[] = [
   // link echo removal to echo heal (for non-hots)
   {
     linkRelation: ECHO,
+    reverseLinkRelation: ECHO,
     linkingEventId: [
       SPELLS.DREAM_BREATH_ECHO.id,
       SPELLS.EMERALD_BLOSSOM_ECHO.id,
@@ -165,6 +168,7 @@ const EVENT_LINKS: EventLink[] = [
   // link EB heal to echo remove
   {
     linkRelation: ECHO,
+    reverseLinkRelation: ECHO,
     linkingEventId: SPELLS.EMERALD_BLOSSOM_ECHO.id,
     linkingEventType: EventType.Heal,
     referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
@@ -177,6 +181,7 @@ const EVENT_LINKS: EventLink[] = [
   // link TA echo removal to echo heal (for non-hots)
   {
     linkRelation: ECHO_TEMPORAL_ANOMALY,
+    reverseLinkRelation: ECHO_TEMPORAL_ANOMALY,
     linkingEventId: [
       SPELLS.EMERALD_BLOSSOM_ECHO.id,
       SPELLS.SPIRITBLOOM_SPLIT.id,
@@ -203,6 +208,7 @@ const EVENT_LINKS: EventLink[] = [
   // special handling for TA Echo EB because it heals 3-5 targets and happens after 2s
   {
     linkRelation: ECHO_TEMPORAL_ANOMALY,
+    reverseLinkRelation: ECHO_TEMPORAL_ANOMALY,
     linkingEventId: SPELLS.EMERALD_BLOSSOM_ECHO.id,
     linkingEventType: EventType.Heal,
     referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
@@ -385,6 +391,10 @@ export function isFromLivingFlameCallOfYsera(event: HealEvent) {
 
 export function isFromFieldOfDreams(event: HealEvent) {
   return HasRelatedEvent(event, FIELD_OF_DREAMS_PROC);
+}
+
+export function didEchoExpire(event: RemoveBuffEvent) {
+  return !HasRelatedEvent(event, ECHO) && !HasRelatedEvent(event, ECHO_TEMPORAL_ANOMALY);
 }
 
 export function isFromHardcast(event: ApplyBuffEvent) {
