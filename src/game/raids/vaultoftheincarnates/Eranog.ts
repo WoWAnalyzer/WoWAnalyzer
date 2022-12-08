@@ -1,6 +1,6 @@
 import { Boss } from 'game/raids';
 
-import Background from './images/Eranog.png';
+import Background from './images/eranog.jpg';
 
 const Eranog: Boss = {
   id: 2587,
