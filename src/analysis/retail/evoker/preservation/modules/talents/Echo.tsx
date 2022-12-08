@@ -1,10 +1,10 @@
 import { t } from '@lingui/macro';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
@@ -39,27 +39,15 @@ class Echo extends Analyzer {
     });
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(ECHO_HEALS), this.handleEchoHeal);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.ECHO_TALENT),
-      this.onApply,
-    );
-    this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.ECHO_TALENT),
       this.onRemove,
     );
-  }
-
-  onApply(event: ApplyBuffEvent) {
-    this.totalApplied += 1;
   }
 
   onRemove(event: RemoveBuffEvent) {
     if (didEchoExpire(event)) {
       this.totalExpired += 1;
     }
-  }
-
-  get percentWasted() {
-    return this.totalExpired / this.totalApplied;
   }
 
   handleEchoHeal(event: HealEvent) {
@@ -99,13 +87,11 @@ class Echo extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: this.percentWasted,
+      actual: this.totalExpired,
       isGreaterThan: {
-        major: 0.1,
-        average: 0.05,
-        minor: 0,
+        major: 0,
       },
-      style: ThresholdStyle.PERCENTAGE,
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -118,12 +104,12 @@ class Echo extends Analyzer {
       )
         .icon(TALENTS_EVOKER.ECHO_TALENT.icon)
         .actual(
-          `${formatPercentage(actual)}${t({
+          `${actual} ${t({
             id: 'evoker.preservation.suggestions.echo.wastedBuffs',
-            message: `% of Echo buffs wasted`,
+            message: ` wasted Echo buff${actual > 1 ? 's' : ''}`,
           })}`,
         )
-        .recommended(`${formatPercentage(recommended, 0)}% wasted recommended`),
+        .recommended(`${recommended} wasted buffs recommended`),
     );
   }
 
