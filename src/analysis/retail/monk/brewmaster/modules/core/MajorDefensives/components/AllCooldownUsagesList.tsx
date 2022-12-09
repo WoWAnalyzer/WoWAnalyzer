@@ -152,73 +152,80 @@ const CooldownDetails = ({ analyzer, mit }: { analyzer: MajorDefensive; mit?: Mi
   return (
     <CooldownDetailsContainer>
       <table>
-        <tr>
-          <td>Total Mitigated</td>
-          <NumericColumn>{formatNumber(mit.amount)}</NumericColumn>
-          <td>
-            <SmallPassFailBar
-              pass={mit.amount}
-              total={analyzer.firstSeenMaxHp}
-              passTooltip="Amount of damage mitigated, relative to your maximum health"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td colSpan={3}>
-            <strong>Mitigation by Talent</strong>
-          </td>
-        </tr>
-        {segments.map((seg, ix) => (
-          <tr key={ix}>
-            <td style={{ width: '100%' }}>{seg.tooltip}</td>
-            <NumericColumn>{formatNumber(seg.amount)}</NumericColumn>
-            <TableSegmentContainer>
-              {ix > 0 && (
-                <MitigationTooltipSegment
-                  color="rgba(255, 255, 255, 0.05)"
-                  width={segments.slice(0, ix).reduce((a, b) => a + b.amount, 0) / maxValue}
-                />
-              )}
-              <MitigationTooltipSegment color={seg.color} width={seg.amount / maxValue} />
-              {ix < segments.length - 1 && (
-                <MitigationTooltipSegment
-                  color="rgba(255, 255, 255, 0.05)"
-                  width={segments.slice(ix + 1).reduce((a, b) => a + b.amount, 0) / maxValue}
-                />
-              )}
-            </TableSegmentContainer>
+        <tbody>
+          <tr>
+            <td>Total Mitigated</td>
+            <NumericColumn>{formatNumber(mit.amount)}</NumericColumn>
+            <td>
+              <SmallPassFailBar
+                pass={mit.amount}
+                total={analyzer.firstSeenMaxHp}
+                passTooltip="Amount of damage mitigated, relative to your maximum health"
+              />
+            </td>
           </tr>
-        ))}
-      </table>
-      <table>
-        <tr>
-          <td colSpan={3}>
-            <strong>Mitigation by Damage Source</strong>
-          </td>
-        </tr>
-        {damageTakenRows.map(([spellId, events], ix) => {
-          // FIXME: this is unchecked. possible undefined error
-          const keyEvent = events.find(({ event }) => HasAbility(event))!
-            .event as AbilityEvent<any>;
-          const rowColor = color(keyEvent.ability.type);
-
-          const mitigatedAmount = events.reduce((a, b) => a + b.mitigatedAmount, 0);
-
-          return (
+          <tr>
+            <td colSpan={3}>
+              <strong>Mitigation by Talent</strong>
+            </td>
+          </tr>
+          {segments.map((seg, ix) => (
             <tr key={ix}>
-              <td style={{ width: '1%' }}>
-                <DamageSourceLink showSourceName={spellId === 1 && splitMelees} event={keyEvent} />
-              </td>
-              <NumericColumn>{formatNumber(mitigatedAmount)}</NumericColumn>
+              <td style={{ width: '100%' }}>{seg.tooltip}</td>
+              <NumericColumn>{formatNumber(seg.amount)}</NumericColumn>
               <TableSegmentContainer>
-                <MitigationTooltipSegment
-                  color={rowColor}
-                  width={mitigatedAmount / maxDamageTaken}
-                />
+                {ix > 0 && (
+                  <MitigationTooltipSegment
+                    color="rgba(255, 255, 255, 0.05)"
+                    width={segments.slice(0, ix).reduce((a, b) => a + b.amount, 0) / maxValue}
+                  />
+                )}
+                <MitigationTooltipSegment color={seg.color} width={seg.amount / maxValue} />
+                {ix < segments.length - 1 && (
+                  <MitigationTooltipSegment
+                    color="rgba(255, 255, 255, 0.05)"
+                    width={segments.slice(ix + 1).reduce((a, b) => a + b.amount, 0) / maxValue}
+                  />
+                )}
               </TableSegmentContainer>
             </tr>
-          );
-        })}
+          ))}
+        </tbody>
+      </table>
+      <table>
+        <tbody>
+          <tr>
+            <td colSpan={3}>
+              <strong>Mitigation by Damage Source</strong>
+            </td>
+          </tr>
+          {damageTakenRows.map(([spellId, events], ix) => {
+            // FIXME: this is unchecked. possible undefined error
+            const keyEvent = events.find(({ event }) => HasAbility(event))!
+              .event as AbilityEvent<any>;
+            const rowColor = color(keyEvent.ability.type);
+
+            const mitigatedAmount = events.reduce((a, b) => a + b.mitigatedAmount, 0);
+
+            return (
+              <tr key={ix}>
+                <td style={{ width: '1%' }}>
+                  <DamageSourceLink
+                    showSourceName={spellId === 1 && splitMelees}
+                    event={keyEvent}
+                  />
+                </td>
+                <NumericColumn>{formatNumber(mitigatedAmount)}</NumericColumn>
+                <TableSegmentContainer>
+                  <MitigationTooltipSegment
+                    color={rowColor}
+                    width={mitigatedAmount / maxDamageTaken}
+                  />
+                </TableSegmentContainer>
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
     </CooldownDetailsContainer>
   );
