@@ -17,7 +17,7 @@ export function PerformanceBoxRow({ values, onClickBox }: PerformanceBoxRowProps
       {values.map((value, ix) => (
         <Tooltip key={ix} content={value.tooltip}>
           <div
-            className={'performance-block ' + getBlockClassName(value)}
+            className={`performance-block ${getBlockClassName(value)} ${value.className ?? ''}`}
             onClick={() => onClickBox?.(ix)}
             style={{
               width: size - 2, // minus 2 to account for margin
@@ -39,6 +39,7 @@ type PerformanceBoxRowProps = {
 export type BoxRowEntry = {
   value: QualitativePerformance;
   tooltip?: React.ReactNode | string; // TODO default tooltip
+  className?: string;
 };
 
 /** Gets the width a block should be so it fits neatly in one row */

@@ -56,6 +56,10 @@ const NoData = styled.div`
 const CooldownUsageDetailsContainer = styled.div`
   display: grid;
   grid-template-rows: max-content max-content 1fr;
+
+  & .performance-block.selected {
+    height: 1em;
+  }
 `;
 
 const TableSegmentContainer = styled.td`
@@ -80,7 +84,9 @@ const NumericColumn = styled.td`
 const CooldownDetailsContainer = styled.div`
   display: grid;
   margin-top: 1rem;
+  grid-template-areas: 'talent source';
   grid-template-columns: 40% 1fr;
+
   gap: 1rem;
   height: 100%;
   align-items: start;
@@ -150,7 +156,11 @@ const CooldownDetails = ({ analyzer, mit }: { analyzer: MajorDefensive; mit?: Mi
           <td>Total Mitigated</td>
           <NumericColumn>{formatNumber(mit.amount)}</NumericColumn>
           <td>
-            <SmallPassFailBar pass={mit.amount} total={analyzer.firstSeenMaxHp} />
+            <SmallPassFailBar
+              pass={mit.amount}
+              total={analyzer.firstSeenMaxHp}
+              passTooltip="Amount of damage mitigated, relative to your maximum health"
+            />
           </td>
         </tr>
         <tr>
@@ -278,7 +288,12 @@ const CooldownUsage = ({ analyzer }: { analyzer: MajorDefensive }) => {
               .
             </small>
           </div>
-          <PerformanceBoxRow values={performance} onClickBox={onClickBox} />
+          <PerformanceBoxRow
+            values={performance.map((p, ix) =>
+              ix === selectedMit ? { ...p, className: 'selected' } : p,
+            )}
+            onClickBox={onClickBox}
+          />
           <CooldownDetails
             mit={selectedMit !== undefined ? mitigations[selectedMit] : undefined}
             analyzer={analyzer}

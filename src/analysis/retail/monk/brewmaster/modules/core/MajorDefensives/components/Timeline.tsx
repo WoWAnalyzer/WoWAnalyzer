@@ -58,6 +58,25 @@ const MitigationDataRow = styled.div`
   margin-top: 0.4em;
 `;
 
+export const MitigationLabel = ({
+  mitigation,
+  long,
+}: {
+  mitigation: Mitigation;
+  long?: boolean;
+}) => {
+  const fightStart = useInfo()?.fightStart ?? 0;
+  return (
+    <>
+      <SpellLink id={mitigation.start.ability.guid} />
+      {long ? ', active from ' : ' @ '}
+      {formatDuration(mitigation.start.timestamp - fightStart)}
+      {long ? ' to ' : ' - '}
+      {formatDuration(mitigation.end.timestamp - fightStart)}
+    </>
+  );
+};
+
 const BuffTooltip = ({
   mitigation,
   segments,
@@ -67,14 +86,10 @@ const BuffTooltip = ({
   segments: MitigationSegment[];
   maxValue: number;
 }) => {
-  const fightStart = useInfo()?.fightStart ?? 0;
   return (
     <div>
       <div>
-        <SpellLink id={mitigation.start.ability.guid} />
-        {' @ '}
-        {formatDuration(mitigation.start.timestamp - fightStart)} -{' '}
-        {formatDuration(mitigation.end.timestamp - fightStart)}
+        <MitigationLabel mitigation={mitigation} />
       </div>
       <MitigationDataRow>
         <div>Mitigated {formatNumber(mitigation.amount)} Damage</div>
