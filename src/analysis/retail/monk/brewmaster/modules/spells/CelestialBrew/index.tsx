@@ -1,6 +1,7 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
+import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -18,12 +19,16 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ReactNode } from 'react';
 import CountsAsBrew from '../../components/CountsAsBrew';
-import { MajorDefensive, Mitigation } from '../../core/MajorDefensives/core';
+import { MajorDefensive, Mitigation, MitigationSegment } from '../../core/MajorDefensives/core';
 import { damageEvent } from './normalizer';
 
 const PURIFIED_CHI_PCT = 0.2;
 const PURIFIED_CHI_WINDOW = 150;
 
+/**
+ * The number of stacks needed to get a 100% bonus to the shield.
+ */
+const PURIFIED_CHI_STACKS_PER_100 = 5;
 const WASTED_THRESHOLD = 0.75;
 
 type AbsorbExtras = {
@@ -294,6 +299,38 @@ class CelestialBrew extends MajorDefensive {
   private _expireAbsorb(event: RemoveBuffEvent) {
     if (this.currentAbsorb) {
       this.currentAbsorb.wastedAmount = event.absorb || 0;
+    }
+  }
+
+  mitigationSegments(mit: Mitigation): MitigationSegment[] {
+    if (this.selectedCombatant.hasTalent(talents.IMPROVED_CELESTIAL_BREW_TALENT)) {
+      const absorb = this.absorbs.find((absorb) => absorb.start === mit.start)!;
+      const totalAmount = absorb.amount + absorb.wastedAmount;
+
+      const baseRatio =
+        PURIFIED_CHI_STACKS_PER_100 / (PURIFIED_CHI_STACKS_PER_100 + absorb.purifiedChiStacks);
+
+      const baseAmount = Math.min(totalAmount * baseRatio, absorb.amount);
+      const stackAmount = absorb.amount - baseAmount;
+
+      return [
+        {
+          amount: baseAmount,
+          color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
+          tooltip: (
+            <>
+              Base <SpellLink id={this.spell} />
+            </>
+          ),
+        },
+        {
+          amount: stackAmount,
+          color: color(MAGIC_SCHOOLS.ids.HOLY),
+          tooltip: <SpellLink id={talents.IMPROVED_CELESTIAL_BREW_TALENT} />,
+        },
+      ];
+    } else {
+      return super.mitigationSegments(mit);
     }
   }
 }

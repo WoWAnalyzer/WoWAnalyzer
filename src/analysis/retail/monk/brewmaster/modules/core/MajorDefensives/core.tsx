@@ -57,17 +57,17 @@ export function absoluteMitigation(event: DamageEvent, mitPct: number): number {
 
 const MitigationTooltipBody = 'div';
 const MitigationSegmentContainer = styled.div`
+  width: 100%;
   height: 1em;
   text-align: left;
   line-height: 1em;
+  background-color: rgba(255, 255, 255, 0.2);
 `;
 const MitigationRowContainer = styled.div`
   display: grid;
-  grid-template-columns: 2em 2em 1fr;
+  grid-template-columns: 2em 2em 100px;
   gap: 1em;
   align-items: center;
-  min-width: 150px;
-  width: 150px;
 
   line-height: 1em;
   text-align: right;
@@ -207,7 +207,11 @@ export class MajorDefensive extends Analyzer {
       {
         amount: mit.amount,
         color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
-        tooltip: 'Damage Mitigated',
+        tooltip: (
+          <>
+            Base <SpellLink id={this.spell} />
+          </>
+        ),
       },
     ];
   }

@@ -77,7 +77,8 @@ export class FortifyingBrew extends MajorDefensive {
         <p>
           <SpellLink id={talents.FORTIFYING_BREW_TALENT} /> is a flexible cooldown that combines
           with several talents for boosting its defensive power or reducing its cooldown.{' '}
-          <CountsAsBrew baseCooldown={60 * 6} />.<br />
+          <CountsAsBrew baseCooldown={60 * 6} />
+          <br />
           <small>
             Reduced to {formatDurationMinSec(brewCooldownDisplay(4 * 60))} with{' '}
             <SpellLink id={talents.EXPEDITIOUS_FORTIFICATION_TALENT} />.

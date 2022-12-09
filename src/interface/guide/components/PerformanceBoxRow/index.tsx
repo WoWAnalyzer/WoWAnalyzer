@@ -4,7 +4,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { useCallback, useState } from 'react';
 
 /** A row of boxes colored based on performance */
-export function PerformanceBoxRow({ values }: PerformanceBoxRowProps) {
+export function PerformanceBoxRow({ values, onClickBox }: PerformanceBoxRowProps) {
   // size boxes to fit in one row, if practically possible
   const [refWidth, setRefWidth] = useState(800);
   const ref = useCallback((node: HTMLDivElement) => {
@@ -18,6 +18,7 @@ export function PerformanceBoxRow({ values }: PerformanceBoxRowProps) {
         <Tooltip key={ix} content={value.tooltip}>
           <div
             className={'performance-block ' + getBlockClassName(value)}
+            onClick={() => onClickBox?.(ix)}
             style={{
               width: size - 2, // minus 2 to account for margin
             }}
@@ -31,6 +32,7 @@ export function PerformanceBoxRow({ values }: PerformanceBoxRowProps) {
 type PerformanceBoxRowProps = {
   values: BoxRowEntry[];
   style?: React.CSSProperties;
+  onClickBox?: (index: number) => void;
 };
 
 /** An entry for a PerformanceBoxRow */

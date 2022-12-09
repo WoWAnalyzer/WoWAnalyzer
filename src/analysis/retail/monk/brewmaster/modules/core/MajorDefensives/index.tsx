@@ -258,8 +258,8 @@ const BuffBarContainer = styled.div`
 
 const TooltipSegments = styled(MitigationSegments)`
   min-width: 100px;
+  width: 100px;
   display: inline-block;
-  background-color: rgba(255, 255, 255, 0.2);
 `;
 
 const MitigationDataRow = styled.div`
@@ -520,16 +520,12 @@ const CooldownDetails = ({ analyzer, mit }: { analyzer: MajorDefensive; mit?: Mi
   if (!mit) {
     return (
       <CooldownDetailsContainer>
-        <NoData>Click on a cast box above to view details.</NoData>
+        <NoData>Click on a box in the cast breakdown to view details.</NoData>
       </CooldownDetailsContainer>
     );
   }
 
   const segments = analyzer.mitigationSegments(mit);
-  const maxValue = Math.max.apply(
-    null,
-    segments.map((seg) => seg.amount),
-  );
 
   const damageTakenBreakdown = damageBreakdown(
     mit.mitigated,
@@ -562,6 +558,8 @@ const CooldownDetails = ({ analyzer, mit }: { analyzer: MajorDefensive; mit?: Mi
     damageTakenRows.map(([, events]) => events.reduce((a, b) => a + b.mitigatedAmount, 0)),
   );
 
+  const maxValue = Math.max(analyzer.firstSeenMaxHp, mit.amount);
+
   return (
     <CooldownDetailsContainer>
       <table>
@@ -582,7 +580,19 @@ const CooldownDetails = ({ analyzer, mit }: { analyzer: MajorDefensive; mit?: Mi
             <td style={{ width: '100%' }}>{seg.tooltip}</td>
             <NumericColumn>{formatNumber(seg.amount)}</NumericColumn>
             <TableSegmentContainer>
+              {ix > 0 && (
+                <MitigationTooltipSegment
+                  color="rgba(255, 255, 255, 0.05)"
+                  width={segments.slice(0, ix).reduce((a, b) => a + b.amount, 0) / maxValue}
+                />
+              )}
               <MitigationTooltipSegment color={seg.color} width={seg.amount / maxValue} />
+              {ix < segments.length - 1 && (
+                <MitigationTooltipSegment
+                  color="rgba(255, 255, 255, 0.05)"
+                  width={segments.slice(ix + 1).reduce((a, b) => a + b.amount, 0) / maxValue}
+                />
+              )}
             </TableSegmentContainer>
           </tr>
         ))}
@@ -622,6 +632,7 @@ const CooldownDetails = ({ analyzer, mit }: { analyzer: MajorDefensive; mit?: Mi
 };
 
 const CooldownUsage = ({ analyzer }: { analyzer: MajorDefensive }) => {
+  const [selectedMit, setSelectedMit] = useState<number | undefined>();
   const maxValue = useMaxMitigationValue();
   const castEfficiency = useAnalyzer(CastEfficiency)?.getCastEfficiencyForSpell(analyzer.spell);
   const possibleUses = castEfficiency?.maxCasts ?? 0;
@@ -647,6 +658,19 @@ const CooldownUsage = ({ analyzer }: { analyzer: MajorDefensive }) => {
     }
   }
 
+  const mitigations = analyzer.mitigations;
+
+  const onClickBox = useCallback(
+    (index) => {
+      if (index >= mitigations.length) {
+        setSelectedMit(undefined);
+      } else {
+        setSelectedMit(index);
+      }
+    },
+    [mitigations.length],
+  );
+
   return (
     <SubSection>
       <ExplanationRow>
@@ -671,8 +695,11 @@ const CooldownUsage = ({ analyzer }: { analyzer: MajorDefensive }) => {
               .
             </small>
           </div>
-          <PerformanceBoxRow values={performance} />
-          <CooldownDetails mit={analyzer.mitigations[0]} analyzer={analyzer} />
+          <PerformanceBoxRow values={performance} onClickBox={onClickBox} />
+          <CooldownDetails
+            mit={selectedMit !== undefined ? mitigations[selectedMit] : undefined}
+            analyzer={analyzer}
+          />
         </CooldownUsageDetailsContainer>
       </ExplanationRow>
     </SubSection>
