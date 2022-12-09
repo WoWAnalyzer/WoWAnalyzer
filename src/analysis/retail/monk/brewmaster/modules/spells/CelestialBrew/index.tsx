@@ -118,8 +118,7 @@ class CelestialBrew extends MajorDefensive {
         <p>
           If the <a href="#purifying-brew">previous section</a> shows many purifies for{' '}
           <em>Large Hits</em> or <em>High Stagger</em>, it is <strong>strongly recommended</strong>{' '}
-          that you also use <SpellLink id={talents.IMPROVED_CELESTIAL_BREW_TALENT} /> to increase
-          the shield size by 2&ndash;3 times.
+          that you also use <SpellLink id={talents.IMPROVED_CELESTIAL_BREW_TALENT} />.
         </p>
       </div>
     );

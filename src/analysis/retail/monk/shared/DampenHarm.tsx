@@ -86,9 +86,8 @@ class DampenHarm extends MajorDefensive {
           <em>damage-over-time</em> effects, which are only reduced by around 20%.
         </p>
         <p>
-          If you are planning out cooldown usage before pulling a boss, this is the most reliable
-          option for most encounters because of its consistent, low cooldown and good damage
-          reduction.
+          This will often be your first choice for planning cooldown usage because of its
+          consistent, low cooldown and good damage reduction.
         </p>
       </>
     );

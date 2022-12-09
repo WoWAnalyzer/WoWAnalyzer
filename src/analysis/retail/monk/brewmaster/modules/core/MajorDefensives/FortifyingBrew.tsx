@@ -77,21 +77,25 @@ export class FortifyingBrew extends MajorDefensive {
         <p>
           <SpellLink id={talents.FORTIFYING_BREW_TALENT} /> is a flexible cooldown that combines
           with several talents for boosting its defensive power or reducing its cooldown.{' '}
-          <CountsAsBrew baseCooldown={60 * 6} />
-          <br />
-          <small>
-            Reduced to {formatDurationMinSec(brewCooldownDisplay(4 * 60))} with{' '}
-            <SpellLink id={talents.EXPEDITIOUS_FORTIFICATION_TALENT} />.
-          </small>
+          <CountsAsBrew
+            baseCooldown={60 * 6}
+            cdTooltip={
+              <>
+                Reduced to {formatDurationMinSec(brewCooldownDisplay(4 * 60))} with{' '}
+                <SpellLink id={talents.EXPEDITIOUS_FORTIFICATION_TALENT} />.
+              </>
+            }
+          />
         </p>
         <p>
-          Its variable, medium-long cooldown makes it hard to plan usage times in advance, so it is
-          a good choice for a reactive cooldown if your other cooldowns can cover major damage.
+          Due to its variable cooldown, it is difficult to plan usage in advance&mdash;making it a
+          good choice for <em>reactive</em> use if your other cooldowns can cover major damage
+          events.
         </p>
         <p>
           <small>
-            <strong>Note:</strong> Calculating mitigation from{' '}
-            <SpellLink id={talents.IRONSHELL_BREW_TALENT} /> is not yet supported.
+            <strong>Note:</strong> <SpellLink id={talents.IRONSHELL_BREW_TALENT} /> is not yet
+            supported.
           </small>
         </p>
       </>
