@@ -174,7 +174,7 @@ class Lane extends PureComponent<Props> {
   render() {
     const { children, style, spell } = this.props;
 
-    if (!spell && children.length === 0) {
+    if ((!spell && children.length === 0) || this.props.secondWidth === 0) {
       return null;
     }
 
