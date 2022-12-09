@@ -17,12 +17,12 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.SHADOWY_INSIGHT_BUFF.id,
-        triggeredBySpellId: SPELLS.SHADOWY_INSIGHT.id,
+        //triggeredBySpellId: SPELLS.SHADOWY_INSIGHT.id, // If the log starts with the buff active, having this active causes "no ability available" error in PrePullCooldowns.
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.DARK_EVANGELISM_TALENT_BUFF.id,
-        triggeredBySpellId: TALENTS.DARK_EVANGELISM_TALENT.id,
+        triggeredBySpellId: SPELLS.MIND_FLAY.id,
         enabled: combatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT.id),
         timelineHighlight: false,
       },
