@@ -76,7 +76,7 @@ const MitigationRowContainer = styled.div`
 `;
 
 // we use content-box sizing with a border because that makes the hitbox bigger, so it is easier to read the tooltips.
-const MitigationTooltipSegment = styled.div<{ color: string; width: number }>`
+export const MitigationTooltipSegment = styled.div<{ color: string; width: number }>`
   background-color: ${(props) => props.color};
   width: calc(${(props) => Math.max(2, props.width * 100)}% - 1px);
   height: 100%;
@@ -212,7 +212,7 @@ export class MajorDefensive extends Analyzer {
     ];
   }
 
-  protected get firstSeenMaxHp(): number {
+  get firstSeenMaxHp(): number {
     return (
       this.owner.eventHistory.find(
         (event): event is AnyEvent & { maxHitPoints: number } =>
