@@ -1,6 +1,6 @@
 import { Section, SubSection } from 'interface/guide';
 import Explanation from 'interface/guide/components/Explanation';
-import CooldownUsageList from './components/CooldownUsageList';
+import AllCooldownUsagesList from './components/AllCooldownUsagesList';
 import Timeline from './components/Timeline';
 
 export default function MajorDefensivesSection(): JSX.Element | null {
@@ -13,7 +13,7 @@ export default function MajorDefensivesSection(): JSX.Element | null {
       <SubSection title="Timeline">
         <Timeline />
       </SubSection>
-      <CooldownUsageList />
+      <AllCooldownUsagesList />
     </Section>
   );
 }
