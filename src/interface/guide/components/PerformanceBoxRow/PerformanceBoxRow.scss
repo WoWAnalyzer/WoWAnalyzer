@@ -15,7 +15,7 @@ $shadow: 0 0 0px 1px hsla(45, 100%, 60%, 0.7);
     display: inline-block;
 
     &:hover {
-      box-shadow: $shadow !important;
+      box-shadow: $shadow;
     }
   }
 
