@@ -2,7 +2,7 @@ import { formatDurationMinSec } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
-import { SpellLink } from 'interface';
+import { SpellLink, TooltipElement } from 'interface';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventFilter from 'parser/core/EventFilter';
 import Events, {
@@ -89,8 +89,18 @@ export class FortifyingBrew extends MajorDefensive {
         </p>
         <p>
           Due to its variable cooldown, it is difficult to plan usage in advance&mdash;making it a
-          good choice for <em>reactive</em> use if your other cooldowns can cover major damage
-          events.
+          good choice for{' '}
+          <TooltipElement
+            content={
+              <>
+                A cooldown use is <strong>reactive</strong> if you are <em>reacting</em> to the
+                damage in the moment, not pre-planning your use before the fight.
+              </>
+            }
+          >
+            reactive
+          </TooltipElement>{' '}
+          use if your other cooldowns can cover major damage events.
         </p>
         <p>
           <small>
