@@ -72,6 +72,11 @@ export const DamageMitigationChart = React.memo(({ onHover }: { onHover: SignalL
       .concat(mitigationData),
   };
 
+  const maxHp =
+    physicalData.find((event) => event.maxHitPoints !== undefined)?.maxHitPoints ??
+    magicData.find((event) => event.maxHitPoints !== undefined)?.maxHitPoints ??
+    400000;
+
   const spec: VisualizationSpec = {
     layer: [
       {
@@ -108,7 +113,7 @@ export const DamageMitigationChart = React.memo(({ onHover }: { onHover: SignalL
       {
         mark: {
           type: 'area',
-          interpolate: 'cardinal',
+          interpolate: 'monotone',
           color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
           stroke: 'black',
           strokeWidth: 1.5,
@@ -151,7 +156,7 @@ export const DamageMitigationChart = React.memo(({ onHover }: { onHover: SignalL
             title: 'Damage Taken per Second',
             type: 'quantitative',
             axis: { format: '~s', grid: false },
-            scale: { zero: true, domainMin: 0 },
+            scale: { zero: true, domainMin: 0, domainMax: maxHp },
             stack: true,
           },
         },
