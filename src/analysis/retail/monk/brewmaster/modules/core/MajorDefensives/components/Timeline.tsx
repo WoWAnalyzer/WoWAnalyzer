@@ -239,6 +239,9 @@ const DefensiveTimeline = ({ width }: { width: number }) => {
           secondWidth={secondWidth}
           eventsBySpellId={eventsBySpellId}
           abilities={abilities!}
+          exactlySpells={MAJOR_DEFENSIVES.map(([talent]) => talent).filter(
+            info.combatant.hasTalent.bind(info.combatant),
+          )}
         />
       </SpellTimeline>
     </BareTimelineContainer>
