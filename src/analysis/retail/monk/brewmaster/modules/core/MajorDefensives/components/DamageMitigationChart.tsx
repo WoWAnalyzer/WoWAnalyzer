@@ -156,7 +156,7 @@ export const DamageMitigationChart = React.memo(({ onHover }: { onHover: SignalL
             title: 'Damage Taken per Second',
             type: 'quantitative',
             axis: { format: '~s', grid: false },
-            scale: { zero: true, domainMin: 0, domainMax: maxHp },
+            scale: { zero: true, domain: { unionWith: [0, maxHp] } },
             stack: true,
           },
         },
