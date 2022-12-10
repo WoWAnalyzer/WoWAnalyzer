@@ -1,5 +1,6 @@
 import { formatPercentage, formatThousands } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -16,6 +17,8 @@ class CircleOfHealing extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+
+    this.active = this.selectedCombatant.hasTalent(TALENTS.CIRCLE_OF_HEALING_TALENT.id);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CIRCLE_OF_HEALING_TALENT),
@@ -60,7 +63,8 @@ class CircleOfHealing extends Analyzer {
       <Statistic
         tooltip={
           <>
-            Coh Casts: {this.circleOfHealingCasts}
+            <SpellLink id={TALENTS.CIRCLE_OF_HEALING_TALENT.id} /> Casts:{' '}
+            {this.circleOfHealingCasts}
             <br />
             Total Healing: {formatThousands(this.circleOfHealingHealing)} (
             {formatPercentage(this.overHealPercent)}% OH)

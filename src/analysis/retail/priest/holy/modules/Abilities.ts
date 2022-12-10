@@ -17,7 +17,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.PRAYER_OF_MENDING_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => 11 / (1 + haste),
+        cooldown: (haste: number) => 12 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -166,7 +166,8 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.CIRCLE_OF_HEALING_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => 15 / (1 + haste),
+        cooldown: (haste: number) =>
+          (combatant.hasTalent(TALENTS.ORISON_TALENT) ? 12 : 15) / (1 + haste),
         gcd: {
           base: 1500,
         },
