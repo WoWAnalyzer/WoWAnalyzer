@@ -18,13 +18,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </Section>
       <Section title="Core Spells">
         {/* This section should cover effective usage of Holy's core spells */}
-        {/* Lightweaver section that highlights casts of heal with no LW buff, and casts of flash heal with 1 or 2 stacks of LW. */}
-        {/* PoH casts section that highlights good and bad casts of PoH. 
-          Good cast would be sanctify off cd, 5 targets hit, no full overheal, Prayer Circle buff active
-          Green if all are true, yellow if one is true
-          Red if more than one is true */}
         {/* Circle of Healing Casts, check targets hit  */}
         {/* PoM casted on cooldown, use castefficiency bar maybe? */}
+        {modules.Lightweaver.guideSubsection}
         {modules.prayerOfHealing.guideSubsection}
       </Section>
       <Section title="Healing Cooldowns">
