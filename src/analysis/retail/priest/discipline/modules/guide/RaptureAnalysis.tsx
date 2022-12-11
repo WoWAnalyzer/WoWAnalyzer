@@ -28,7 +28,7 @@ const ALLOWED_PRE_RAPTURE = [
   TALENTS_PRIEST.PURGE_THE_WICKED_TALENT.id,
 ];
 
-const PEMITTED_RAMP_STARTERS = [
+const PERMITTED_RAMP_STARTERS = [
   SPELLS.SHADOW_WORD_PAIN.id,
   TALENTS_PRIEST.PURGE_THE_WICKED_TALENT.id,
   TALENTS_PRIEST.RENEW_TALENT.id,
@@ -97,7 +97,7 @@ class RaptureAnalysis extends Analyzer {
       event.ability.guid === TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id &&
       !this.finishedRamping
     ) {
-      this.ramps[this.ramps.length - 1].rampHistory.push(event);
+      this.currentRamp.rampHistory.push(event);
       this.radianceCounter += 1;
       return;
     }
@@ -108,8 +108,8 @@ class RaptureAnalysis extends Analyzer {
       return;
     }
 
-    if (this.ramps[this.ramps.length - 1].timestamp + 12000 > event.timestamp) {
-      this.ramps[this.ramps.length - 1].rampHistory.push(event);
+    if (this.currentRamp.timestamp + 12000 > event.timestamp) {
+      this.currentRamp.rampHistory.push(event);
     } else {
       this.finishedRamping = true;
       this.cleanupRamp();
@@ -122,33 +122,31 @@ class RaptureAnalysis extends Analyzer {
       return;
     }
 
-    const lastRampCast = this.ramps[this.ramps.length - 1].rampHistory[
-      this.ramps[this.ramps.length - 1].rampHistory.length - 1
-    ];
+    const lastRampCast = this.currentRamp.rampHistory[this.currentRamp.rampHistory.length - 1];
     if (event.timestamp < lastRampCast.timestamp + 10000) {
-      this.ramps[this.ramps.length - 1].damageRotation.push(event);
+      this.currentRamp.damageRotation.push(event);
     }
   }
 
   // edits the ramp history array to only include the applicators(or bad damage casts if there are damage casts in between)
   cleanupRamp() {
     let radCasted = false;
-    this.ramps[this.ramps.length - 1].rampHistory.forEach((rampCast, ix) => {
+    this.currentRamp.rampHistory.forEach((rampCast, ix) => {
       if (rampCast.ability.guid === TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id) {
         radCasted = true;
         return;
       }
       if (radCasted && rampCast.ability.guid !== TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id) {
-        this.ramps[this.ramps.length - 1].rampHistory.splice(ix);
+        this.currentRamp.rampHistory.splice(ix);
       }
     });
 
-    this.cutSequence(this.ramps[this.ramps.length - 1].rampHistory);
+    this.cutSequence(this.currentRamp.rampHistory);
   }
 
   // figures out where the "ramp" actually starts
   cutSequence(ramp: CastEvent[]) {
-    while (!PEMITTED_RAMP_STARTERS.includes(ramp[0].ability.guid)) {
+    while (!PERMITTED_RAMP_STARTERS.includes(ramp[0].ability.guid)) {
       ramp.shift();
     }
     this.analyzeSequence(ramp);
@@ -156,7 +154,7 @@ class RaptureAnalysis extends Analyzer {
 
   analyzeSequence(ramp: CastEvent[]) {
     // check that only buttons to press pre evangelism were used
-    this.ramps[this.ramps.length - 1].badCastIndexes = this.checkForWrongCasts(ramp);
+    this.currentRamp.badCastIndexes = this.checkForWrongCasts(ramp);
     // TODO: check for downtime
   }
 
@@ -169,6 +167,10 @@ class RaptureAnalysis extends Analyzer {
         return null;
       })
       .filter(Number) as number[];
+  }
+
+  get currentRamp() {
+    return this.ramps[this.ramps.length - 1];
   }
 
   get guideCastBreakdown() {
