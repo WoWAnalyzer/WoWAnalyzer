@@ -13,8 +13,9 @@ import { ControlledExpandable, Icon, SpellLink, Tooltip } from 'interface';
 
 import { useState } from 'react';
 import { PassFailCheckmark } from 'interface/guide';
-import { ATONEMENT_DAMAGE_SOURCES } from '../../constants';
+import { ATONEMENT_DAMAGE_SOURCES, TE_GUIDE_FILTER, TE_SPELLS } from '../../constants';
 import PassFailBar from 'interface/guide/components/PassFailBar';
+import { isHolySpell, isShadowSpell } from '../spells/Helper';
 
 const ALLOWED_PRE_RAPTURE = [
   TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id,
@@ -67,7 +68,6 @@ class RaptureAnalysis extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.RAPTURE_TALENT),
       this.onRaptureCast,
@@ -80,7 +80,6 @@ class RaptureAnalysis extends Analyzer {
   // groups all the casts just before you cast evangelism
   onRaptureCast(event: CastEvent) {
     this.ramps.push({ timestamp: event.timestamp, rampHistory: [], damageRotation: [] });
-    console.log(this.ramps);
     this.finishedRamping = false;
     this.radianceCounter = 0;
   }
@@ -192,7 +191,7 @@ class RaptureAnalysis extends Analyzer {
         </>
       );
 
-      const spellSequence = ramp.rampHistory.map((cast, index) => {
+      const applicatorSequence = ramp.rampHistory.map((cast, index) => {
         const tooltipContent = (
           <>{ramp.badCastIndexes?.includes(index) ? badCastTooltip(index) : 'No issues found'}</>
         );
@@ -206,30 +205,6 @@ class RaptureAnalysis extends Analyzer {
         );
       });
 
-      const badCastOverview =
-        ramp.badCastIndexes?.length && ramp.badCastIndexes?.length > 0 ? (
-          <>
-            <div>
-              You cast {ramp.badCastIndexes?.length || 0} spells which are not optimally used while
-              ramping. Highlight over the red boxes to see which spells these were.
-            </div>
-          </>
-        ) : null;
-
-      const problemOverview = (
-        <>
-          <div>{badCastOverview}</div>
-        </>
-      );
-
-      const noProblems = (
-        <>
-          <div>
-            No major issues detected, however if you think there should be, please let us know!
-          </div>
-        </>
-      );
-
       const usedSchism =
         ramp.damageRotation.filter((cast) => cast.ability.guid === TALENTS_PRIEST.SCHISM_TALENT.id)
           .length > 0;
@@ -242,16 +217,33 @@ class RaptureAnalysis extends Analyzer {
         return ATONEMENT_DAMAGE_SOURCES[cast.ability.guid];
       }).length;
 
+      const checkHarsh = (damageSequence: CastEvent[]) => {
+        let harshPenances = 0;
+        const hasHarshDiscipline = (cast: CastEvent) => {
+          this.selectedCombatant.hasBuff(SPELLS.HARSH_DISCIPLINE_BUFF.id, cast.timestamp)
+            ? (harshPenances += 1)
+            : null;
+        };
+        damageSequence.forEach((cast) => {
+          cast.ability.guid === SPELLS.PENANCE_CAST.id ? hasHarshDiscipline(cast) : null;
+        });
+        return harshPenances > 0;
+      };
+
       const damageAnalysis = (
         <>
           Damage rotation breakdown:
-          <div>
-            Used <SpellLink id={TALENTS_PRIEST.SCHISM_TALENT.id} />{' '}
+          <div className="">
             <PassFailCheckmark pass={usedSchism} />
+            <span className="evangelism__damage-analysis">
+              Used <SpellLink id={TALENTS_PRIEST.SCHISM_TALENT.id} />
+            </span>{' '}
           </div>
           <div>
-            Used <SpellLink id={TALENTS_PRIEST.SCHISM_TALENT.id} /> early{' '}
             <PassFailCheckmark pass={earlySchism} />
+            <span className="evangelism__damage-analysis">
+              Used <SpellLink id={TALENTS_PRIEST.SCHISM_TALENT.id} /> early
+            </span>{' '}
           </div>
           <div>
             Used {atonementTransferred} / {ramp.damageRotation.length} damage spells to transfer{' '}
@@ -262,24 +254,114 @@ class RaptureAnalysis extends Analyzer {
               passTooltip="The number of spells cast which transfer atonement."
               failTooltip="The number of spells cast which do not transfer atonement."
             />
+            <div>
+              <PassFailCheckmark pass={checkHarsh(ramp.damageRotation)} />
+              <span className="evangelism__damage-analysis">
+                One or more <SpellLink id={SPELLS.PENANCE_CAST.id} /> empowered by{' '}
+                <SpellLink id={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT.id} />
+              </span>
+            </div>
           </div>
         </>
       );
+
+      const badDamageCastTooltip = (index: number) => (
+        <>
+          Once you have applied <SpellLink id={TALENTS_PRIEST.ATONEMENT_TALENT.id} />
+          s, it is important to get good value out of them by using many high damage spells. Casting
+          non damage spells should be avoided where possible.
+        </>
+      );
+
+      const badTeTooltip = () => (
+        <>
+          Cast not buffed by opposite spell school. Make sure to plan your damage rotation with{' '}
+          <SpellLink id={TALENTS_PRIEST.TWILIGHT_EQUILIBRIUM_TALENT.id} />
+        </>
+      );
+
+      const goodTeCast = (index: number) => {
+        // first cast cannot be buffed by TE - The buff is too short.
+        if (index === 0) {
+          return true;
+        }
+
+        if (TE_GUIDE_FILTER.includes(ramp.damageRotation[index].ability.guid)) {
+          //first cast is holy
+          if (isHolySpell(ramp.damageRotation[index].ability.guid)) {
+            // second cast also holy
+            if (isHolySpell(ramp.damageRotation[index - 1].ability.guid)) {
+              return false;
+            }
+          }
+
+          // first cast is shadow
+          if (isShadowSpell(ramp.damageRotation[index].ability.guid)) {
+            // second cast also Shadow
+            if (isShadowSpell(ramp.damageRotation[index - 1].ability.guid)) {
+              return false;
+            }
+          }
+        }
+
+        return true;
+      };
+
+      const teTooltip = (index: number) => {
+        const spell = ramp.damageRotation[index].ability.guid;
+        return TE_SPELLS().includes(spell) && goodTeCast(index) ? '' : badTeTooltip();
+      };
+
+      const damageSequence = ramp.damageRotation.map((cast, index) => {
+        const tooltipContent = () => {
+          const badCast = ATONEMENT_DAMAGE_SOURCES[cast.ability.guid]
+            ? null
+            : badDamageCastTooltip(index);
+          const badTe = TE_SPELLS().includes(cast.ability.guid) ? teTooltip(index) : null;
+
+          if (!badCast && !badTe) {
+            return <>No issues found.</>;
+          } else {
+            return (
+              <>
+                {badCast}
+                {badTe}
+              </>
+            );
+          }
+        };
+
+        const iconClass = `evang__icon ${
+          ATONEMENT_DAMAGE_SOURCES[cast.ability.guid] ? '' : '--fail'
+        } ${TE_SPELLS().includes(cast.ability.guid) && goodTeCast(index) ? '' : '--warning'}`;
+
+        return (
+          <Tooltip content={tooltipContent()} key={index} direction="up">
+            <div className="" data-place="top">
+              <Icon icon={cast.ability.abilityIcon} className={iconClass} />
+            </div>
+          </Tooltip>
+        );
+      });
 
       return (
         <ControlledExpandable
           header={header}
           element="section"
-          expanded={isExpanded}
+          expanded={!isExpanded}
           inverseExpanded={() => setIsExpanded(!isExpanded)}
           key={ix}
         >
           <div className="evang__container">
-            <div className="evang__applicator-half">
-              <div className="evang__cast-list">{spellSequence}</div>
-              {ramp.badCastIndexes?.length && ramp.badCastIndexes?.length > 0
-                ? problemOverview
-                : noProblems}
+            <div className="evang__left-section">
+              <div className="evang__applicator-half">
+                <h3>Applicators</h3>
+                <div className="evang__cast-list">{applicatorSequence}</div>
+              </div>
+              <div className="damage-container">
+                <h3>Damage Rotation</h3>
+                <div className="evang__cast-list">{damageSequence}</div>
+              </div>
             </div>
             <div>{damageAnalysis}</div>
           </div>

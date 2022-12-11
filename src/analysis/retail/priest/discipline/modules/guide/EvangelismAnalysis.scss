@@ -3,6 +3,10 @@
   height: 44px !important;
 }
 
+.evang__icon.--warning {
+  border: 4px solid #ce9f1e;
+}
+
 .evang__icon.--fail {
   border: 4px solid #ac1f39;
 }
@@ -18,5 +22,12 @@
 }
 
 .evang__applicator-half {
-  max-width: 50%;
+  margin-bottom: 16px;
+}
+
+.damage-container {
+}
+
+.evangelism__damage-analysis {
+  margin-left: 8px;
 }
