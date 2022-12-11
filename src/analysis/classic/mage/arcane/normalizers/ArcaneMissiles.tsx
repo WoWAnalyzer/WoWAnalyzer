@@ -36,6 +36,7 @@ function isArcaneMissilesEvent(event: AnyEvent) {
 }
 
 function createBeginChannelEvent(event: CastEvent): ArcaneMissilesBeginChannelEvent {
+  event.ability.guid = SPELLS.ARCANE_MISSILES_CHANNELED.id;
   const beginChannel: ArcaneMissilesBeginChannelEvent = {
     ...event,
     type: EventType.BeginChannel,
@@ -45,8 +46,6 @@ function createBeginChannelEvent(event: CastEvent): ArcaneMissilesBeginChannelEv
     arcaneMissilesCastEvents: [],
     arcaneMissilesDamageEvents: [],
   };
-  event.ability.guid = SPELLS.ARCANE_MISSILES_CHANNELED.id;
-
   return beginChannel;
 }
 
