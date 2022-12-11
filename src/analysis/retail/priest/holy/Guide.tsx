@@ -22,6 +22,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {/* PoM casted on cooldown, use castefficiency bar maybe? */}
         {modules.Lightweaver.guideSubsection}
         {modules.prayerOfHealing.guideSubsection}
+        {modules.prayerOfMending.guideSubsection}
       </Section>
       <Section title="Healing Cooldowns">
         <CooldownGraphSubsection modules={modules} events={events} info={info} />

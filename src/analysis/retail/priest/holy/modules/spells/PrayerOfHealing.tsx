@@ -30,15 +30,8 @@ class PrayerOfHealing extends Analyzer {
   prayerOfHealingOverhealing = 0;
   prayerOfHealingTargetsHit = 0;
 
-  // A perfect cast is when the following is true:
-  // - player has all PoH buffs available(prayer circle, sanctified prayers)
-  // - Sanctify is on CD
-  // - no targets fully overhealed
   perfectCasts = 0;
-  // A good cast is when no targets get overhealed,
-  // but one of the buffs is missing or sanctify is on CD
   goodCasts = 0;
-  // ok cast is when
   okCasts = 0;
   badCasts = 0;
 
