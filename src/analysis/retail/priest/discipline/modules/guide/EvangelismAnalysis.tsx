@@ -98,8 +98,8 @@ class EvangelismAnalysis extends Analyzer {
     if (this.ramps.length < 1) {
       return;
     }
-    if (event.timestamp < this.ramps[this.ramps.length - 1].timestamp + 10000) {
-      this.ramps[this.ramps.length - 1].damageRotation.push(event);
+    if (event.timestamp < this.currentRamp.timestamp + 10000) {
+      this.currentRamp.damageRotation.push(event);
     }
   }
   // figures out where the "ramp" actually starts
@@ -112,7 +112,7 @@ class EvangelismAnalysis extends Analyzer {
 
   analyzeSequence(ramp: CastEvent[]) {
     // check that only buttons to press pre evangelism were used
-    this.ramps[this.ramps.length - 1].badCastIndexes = this.checkForWrongCasts(ramp);
+    this.currentRamp.badCastIndexes = this.checkForWrongCasts(ramp);
     // TODO: check for downtime
   }
 
@@ -125,6 +125,10 @@ class EvangelismAnalysis extends Analyzer {
         return null;
       })
       .filter(Number) as number[];
+  }
+
+  get currentRamp() {
+    return this.ramps[this.ramps.length - 1];
   }
 
   get guideCastBreakdown() {
