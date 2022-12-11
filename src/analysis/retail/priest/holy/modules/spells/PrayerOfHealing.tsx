@@ -14,6 +14,7 @@ import { getHeals } from '../../normalizers/CastLinkNormalizer';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
+import { BadColor, OkColor, GoodColor, PerfectColor } from 'interface/guide';
 
 const POH_MAX_TARGETS_HIT = 0;
 
@@ -86,6 +87,7 @@ class PrayerOfHealing extends Analyzer {
     let fullyOverhealedTargets = 0;
     let targetsHit = 0;
     const healEvents = getHeals(event);
+    console.log(healEvents);
     for (const healEvent of getHeals(event)) {
       const totalEffectiveHealing = (healEvent.amount || 0) + (healEvent.absorbed || 0);
       this.prayerOfHealingTargetsHit += 1;
@@ -140,8 +142,8 @@ class PrayerOfHealing extends Analyzer {
         <b>
           <SpellLink id={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT.id} />
         </b>{' '}
-        is your primary filler spell. It will be the majority of healing casts in raid, but you
-        should try to only cast it when your holy words and other short cooldowns like{' '}
+        is your primary raid healing spell. It will be the majority of your healing casts in raid,
+        but you should try to only cast it when your holy words and other short cooldowns like{' '}
         <SpellLink id={TALENTS_PRIEST.PRAYER_OF_MENDING_TALENT.id} /> and{' '}
         <SpellLink id={TALENTS_PRIEST.CIRCLE_OF_HEALING_TALENT.id} /> are not available. If you are
         running the <SpellLink id={TALENTS_PRIEST.SANCTIFIED_PRAYERS_TALENT.id} /> and/or{' '}
@@ -164,7 +166,7 @@ class PrayerOfHealing extends Analyzer {
 
     const okCasts = {
       count: this.okCasts,
-      label: 'One or more available buffs are missing',
+      label: 'One or more available buffs missing',
     };
 
     const badCasts = {
@@ -178,22 +180,23 @@ class PrayerOfHealing extends Analyzer {
         <small>
           <ul>
             <li>
-              Blue is a perfect cast, where all talented Prayer of Healing buffs are applied and{' '}
+              <span style={{ color: PerfectColor }}>Blue</span> is a perfect cast, where all
+              talented Prayer of Healing buffs are applied and{' '}
               <SpellLink id={TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT.id} /> is on cooldown.{' '}
             </li>
             <li>
-              Green is a good cast, where all Prayer of Healing buffs are either applied or not
-              available to be applied, and{' '}
+              <span style={{ color: GoodColor }}>Green</span> is a good cast, where all Prayer of
+              Healing buffs are either applied or not available to be applied, and{' '}
               <SpellLink id={TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT.id} /> is on cooldown.
             </li>
             <li>
-              Yellow is an ok cast, where one or more Prayer of Healing buffs is available to be
-              applied.
+              <span style={{ color: OkColor }}>Yellow</span> is an ok cast, where one or more Prayer
+              of Healing buffs is available to be applied.
             </li>
             <li>
-              Red is a bad cast, where all buffs are available to be applied. Any cast where one or
-              more targets is fully overhealed, or any cast where less than 5 targets are hit, is
-              also considered a bad cast.
+              <span style={{ color: BadColor }}>Red</span> is a bad cast, where all buffs are
+              available to be applied. Any cast where one or more targets is fully overhealed, or
+              any cast where less than 5 targets are hit, is also considered a bad cast.
             </li>
           </ul>
         </small>

@@ -17,24 +17,34 @@ export const LIGHTWEAVER_APPLY = 'LightweaverApplication'; // link flash heal ca
 export const LIGHTWEAVER_CONSUME = 'LightweaverConumption'; // link heal cast to removing the lightweaver buff
 
 const EVENT_LINKS: EventLink[] = [
-  // Link certain heal casts to their heal events.
+  // Link single target heal casts to their heal events.
+  {
+    linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: FROM_HARDCAST,
+    linkingEventId: [SPELLS.GREATER_HEAL.id, SPELLS.FLASH_HEAL.id],
+    linkingEventType: EventType.Cast,
+    referencedEventId: [SPELLS.GREATER_HEAL.id, SPELLS.FLASH_HEAL.id],
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  // Link aoe heal casts to their multiple heal events.
   {
     linkRelation: FROM_HARDCAST,
     reverseLinkRelation: FROM_HARDCAST,
     linkingEventId: [
-      SPELLS.GREATER_HEAL.id,
-      SPELLS.FLASH_HEAL.id,
+      TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT.id,
       TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT.id,
     ],
     linkingEventType: EventType.Cast,
     referencedEventId: [
-      SPELLS.GREATER_HEAL.id,
-      SPELLS.FLASH_HEAL.id,
+      TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT.id,
       TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT.id,
     ],
     referencedEventType: EventType.Heal,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
   },
   // Link Lightweaver remove buff to heal event.
   {
