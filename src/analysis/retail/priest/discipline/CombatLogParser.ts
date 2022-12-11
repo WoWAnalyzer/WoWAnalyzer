@@ -59,6 +59,7 @@ import SelfAtonementAnalyzer from './modules/guide/SelfAtonementAnalysis';
 import ProtectiveLight from '../shared/ProtectiveLight';
 import ResplendentLight from './modules/spells/ResplendentLight';
 import TwilightEquilibrium from './modules/spells/TwilightEquilibrium';
+import RaptureAnalysis from './modules/guide/RaptureAnalysis';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -128,6 +129,7 @@ class CombatLogParser extends CoreCombatLogParser {
     selfAtonementAnalyzer: SelfAtonementAnalyzer,
     protectiveLight: ProtectiveLight,
     resplendentLight: ResplendentLight,
+    raptureAnalysis: RaptureAnalysis,
   };
   static guide = Guide;
 }

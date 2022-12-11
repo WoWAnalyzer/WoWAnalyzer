@@ -37,6 +37,20 @@ export default function Guide({
           {modules.evangelismAnalysis.guideCastBreakdown}
         </SubSection>
       </Section>
+      <Section title="Rapture Ramp">
+        When planning ramps for a raid encounter, the second most important ramp to plan for is one
+        using <SpellLink id={TALENTS_PRIEST.RAPTURE_TALENT.id} />. Rapture should be used separately
+        to <SpellLink id={TALENTS_PRIEST.EVANGELISM_TALENT.id} /> and also involve applying{' '}
+        <SpellLink id={TALENTS_PRIEST.ATONEMENT_TALENT.id} /> in its buff duration.
+        <SubSection title="Applicators">
+          The first step of an <SpellLink id={TALENTS_PRIEST.RAPTURE_TALENT.id} /> ramp is to apply{' '}
+          <strong> 7-9 </strong> atonements using <SpellLink id={SPELLS.POWER_WORD_SHIELD.id} />,{' '}
+          followed by one or two casts of{' '}
+          <SpellLink id={TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id} />. Below are your rapture
+          ramps with the most important issues highlighted.
+          {modules.raptureAnalysis.guideCastBreakdown}
+        </SubSection>
+      </Section>
     </>
   );
 }
