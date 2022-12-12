@@ -44,6 +44,7 @@ import { FortifyingBrew } from './modules/core/MajorDefensives/FortifyingBrew';
 import { DiffuseMagic } from './modules/core/MajorDefensives/DiffuseMagic';
 import DefensiveBuffs from './modules/core/MajorDefensives/DefensiveBuffs';
 import DefensiveBuffLinkNormalizer from './modules/core/MajorDefensives/DefensiveBuffLinkNormalizer';
+import StaggeringStrikes from './modules/talents/StaggeringStrikes';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -96,15 +97,12 @@ class CombatLogParser extends CoreCombatLogParser {
     staggerLink: StaggerLinkNormalizer,
     cbNorm: CelestialBrewNormalizer,
 
-    // Covenants
+    // Talents
     weaponsOfOrder: WeaponsOfOrder,
     bonedustBrew: BonedustBrew,
-
-    // Conduits
-    /// Potency
     scaldingBrew: ScaldingBrew,
     walkWithTheOx: WalkWithTheOx,
-    /// Finesse
+    staggeringStrikes: StaggeringStrikes,
 
     apl: AplCheck,
 
