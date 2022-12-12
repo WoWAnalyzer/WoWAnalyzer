@@ -26,7 +26,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLACKOUT_KICK_BRM.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 4,
+        cooldown: combatant.hasTalent(talents.FLUIDITY_OF_MOTION_TALENT) ? 3 : 4,
         castEfficiency: {
           suggestion: true,
         },
