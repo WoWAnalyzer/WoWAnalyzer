@@ -1,9 +1,9 @@
 import { Options } from 'parser/core/Analyzer';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import { ApplyBuffEvent, EventType, RemoveBuffEvent } from 'parser/core/Events';
+import { ApplyBuffEvent, EventType, GetRelatedEvents, RemoveBuffEvent } from 'parser/core/Events';
 import { buffId, MAJOR_DEFENSIVES } from './DefensiveBuffs';
 
-const relation = 'defensive-buff-removet';
+const relation = 'defensive-buff-remove';
 const reverseRelation = 'defensive-buff-apply';
 const links = MAJOR_DEFENSIVES.map(
   ([talent, buff]): EventLink => ({
@@ -28,10 +28,9 @@ export default class DefensiveBuffLinkNormalizer extends EventLinkNormalizer {
 }
 
 export function defensiveApplication(event: RemoveBuffEvent): ApplyBuffEvent | undefined {
-  return event._linkedEvents?.find((rel) => rel.relation === reverseRelation)
-    ?.event as ApplyBuffEvent;
+  return GetRelatedEvents(event, reverseRelation)[0] as ApplyBuffEvent | undefined;
 }
 
 export function defensiveExpiration(event: ApplyBuffEvent): RemoveBuffEvent | undefined {
-  return event._linkedEvents?.find((rel) => rel.relation === relation)?.event as RemoveBuffEvent;
+  return GetRelatedEvents(event, relation)[0] as RemoveBuffEvent | undefined;
 }
