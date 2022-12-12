@@ -45,6 +45,7 @@ import { DiffuseMagic } from './modules/core/MajorDefensives/DiffuseMagic';
 import DefensiveBuffs from './modules/core/MajorDefensives/DefensiveBuffs';
 import DefensiveBuffLinkNormalizer from './modules/core/MajorDefensives/DefensiveBuffLinkNormalizer';
 import StaggeringStrikes from './modules/talents/StaggeringStrikes';
+import QuickSip from './modules/talents/QuickSip';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -103,6 +104,7 @@ class CombatLogParser extends CoreCombatLogParser {
     scaldingBrew: ScaldingBrew,
     walkWithTheOx: WalkWithTheOx,
     staggeringStrikes: StaggeringStrikes,
+    quickSip: QuickSip,
 
     apl: AplCheck,
 
