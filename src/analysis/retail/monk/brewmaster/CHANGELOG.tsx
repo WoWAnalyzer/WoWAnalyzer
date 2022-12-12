@@ -18,6 +18,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2022, 12, 12), <>Added <em>internal</em> support for <SpellLink id={talents.STAGGER_TALENT} />-reducing talents (<SpellLink id={talents.QUICK_SIP_TALENT} />, <SpellLink id={talents.STAGGERING_STRIKES_TALENT} />, and <SpellLink id={talents.TRANQUIL_SPIRIT_TALENT} />). This ensures that Stagger tracking is correct across the spec. Statistics will be displayed in the future.</>, emallson),
   change(date(2022, 12, 9), <>Added analysis of major defensive cooldowns.</>, emallson),
   change(date(2022, 10, 22), <><SpellLink id={talents.SHUFFLE_TALENT} /> section update, plus miscellaneous Dragonflight cleanup.</>, emallson),
   change(date(2022, 9, 27), <>Add Rotation section to the new summary page.</>, emallson),
