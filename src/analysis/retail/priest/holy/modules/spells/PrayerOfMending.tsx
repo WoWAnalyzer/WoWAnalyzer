@@ -107,7 +107,6 @@ class PrayerOfMending extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
-    console.log(this.pomCasts);
     const explanation = (
       <p>
         <b>

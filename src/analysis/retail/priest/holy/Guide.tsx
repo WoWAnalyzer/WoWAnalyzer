@@ -19,10 +19,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Core Spells">
         {/* This section should cover effective usage of Holy's core spells */}
         {/* Circle of Healing Casts, check targets hit  */}
-        {/* PoM casted on cooldown, use castefficiency bar maybe? */}
         {modules.Lightweaver.guideSubsection}
         {modules.prayerOfHealing.guideSubsection}
         {modules.prayerOfMending.guideSubsection}
+        {modules.Halo.guideSubsectionHoly}
       </Section>
       <Section title="Healing Cooldowns">
         <CooldownGraphSubsection modules={modules} events={events} info={info} />
