@@ -47,6 +47,7 @@ import DefensiveBuffLinkNormalizer from './modules/core/MajorDefensives/Defensiv
 import StaggeringStrikes from './modules/talents/StaggeringStrikes';
 import QuickSip from './modules/talents/QuickSip';
 import TranquilSpirit from './modules/talents/TranquilSpirit';
+import Salsalabims from './modules/talents/Salsalabims';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -107,6 +108,7 @@ class CombatLogParser extends CoreCombatLogParser {
     staggeringStrikes: StaggeringStrikes,
     quickSip: QuickSip,
     tranquilSpirit: TranquilSpirit,
+    salsalabims: Salsalabims,
 
     apl: AplCheck,
 
