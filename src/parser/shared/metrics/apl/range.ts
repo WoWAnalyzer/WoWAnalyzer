@@ -46,7 +46,7 @@ import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { PlayerInfo } from './index';
 import { AbilityRange } from 'parser/core/modules/Abilities';
 
-const debug = false;
+const debug = true;
 
 const DEFAULT_HITBOX_SIZE = 0;
 // how far off we're willing to still consider "in range"

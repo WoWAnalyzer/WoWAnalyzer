@@ -51,6 +51,7 @@ import Salsalabims from './modules/talents/Salsalabims';
 import Attenuation from './modules/talents/Attenuation';
 import AnvilStave from './modules/talents/AnvilStave';
 import ChiSurge from './modules/talents/ChiSurge';
+import BreathOfFireDebuffTargetNormalizer from './modules/spells/BreathOfFire/normalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -102,6 +103,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ehNorm: ExpelHarmNorm,
     staggerLink: StaggerLinkNormalizer,
     cbNorm: CelestialBrewNormalizer,
+    bofNorm: BreathOfFireDebuffTargetNormalizer,
 
     // Talents
     weaponsOfOrder: WeaponsOfOrder,

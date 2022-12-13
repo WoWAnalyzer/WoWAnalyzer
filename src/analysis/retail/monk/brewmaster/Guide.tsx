@@ -45,7 +45,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           <SpellLink id={talents.KEG_SMASH_TALENT.id} /> over low-priority "filler" spells like{' '}
           <SpellLink id={SPELLS.TIGER_PALM.id} />.
         </p>
-        <AplSectionData checker={AplCheck.check} apl={AplCheck.apl} />
+        <AplSectionData checker={AplCheck.check} apl={AplCheck.apl(info)} />
       </Section>
       <ImprovedInvokeNiuzaoSection
         events={events}
