@@ -474,6 +474,11 @@ const spells = spellIndexableList({
     name: 'Evasive Stride',
     icon: 'ability_monk_uplift',
   },
+  COUNTERSTRIKE_BUFF: {
+    id: 383800,
+    name: 'Counterstrike',
+    icon: 'ability_monk_palmstrike',
+  },
 
   // Windwalker Spells
   COMBO_STRIKES: {
