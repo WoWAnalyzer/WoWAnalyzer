@@ -1,8 +1,13 @@
 import { change, date } from 'common/changelog';
+import TALENTS from 'common/TALENTS/mage';
+import { SpellLink } from 'interface';
 import { Sharrq, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 12, 13), <>Removed references to Infernal Cascade and replaced with <SpellLink id={TALENTS.FEEL_THE_BURN_TALENT} /> functionality.</>, Sharrq),
+  change(date(2022, 12, 13), <>Fixed <SpellLink id={TALENTS.SHIFTING_POWER_TALENT} /> functionality.</>, Sharrq),
+  change(date(2022, 12, 13), `General fixes for incorrect Spell IDs, leftover Shadowlands spells, etc.`, Sharrq),
   change(date(2022, 11, 13), `Initial pass on Dragonflight Compatability.`, Sharrq),
   change(date(2022, 11, 8), 'Remove Shadowlands covenant abilities from checklist.', ToppleTheNun),
   change(date(2022, 10, 30), `Update Dragonflight SPELLS, Abilities, and Buffs`, Sharrq),

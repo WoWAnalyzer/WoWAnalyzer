@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -16,14 +17,12 @@ class ShiftingPower extends Analyzer {
     spellUsable: SpellUsable,
   };
   protected spellUsable!: SpellUsable;
-  conduitRank: number;
 
   spellReductions: { [key: number]: number } = {};
 
   constructor(options: Options) {
     super(options);
-    this.active = false;
-    this.conduitRank = 0;
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIFTING_POWER_TICK),
       this.onShiftingPowerTick,
@@ -31,11 +30,13 @@ class ShiftingPower extends Analyzer {
   }
 
   onShiftingPowerTick(event: CastEvent) {
-    const reductionPerTick = SHIFTING_POWER_MS_REDUCTION_PER_TICK;
     SHIFTING_POWER_REDUCTION_SPELLS.forEach((spell) => {
       if (this.spellUsable.isOnCooldown(spell.id)) {
-        debug && this.log('Reduced ' + spell.name + ' by ' + reductionPerTick);
-        const reduction = this.spellUsable.reduceCooldown(spell.id, reductionPerTick);
+        debug && this.log('Reduced ' + spell.name + ' by ' + SHIFTING_POWER_MS_REDUCTION_PER_TICK);
+        const reduction = this.spellUsable.reduceCooldown(
+          spell.id,
+          SHIFTING_POWER_MS_REDUCTION_PER_TICK,
+        );
         this.spellReductions[spell.id] = this.spellReductions[spell.id]
           ? reduction + this.spellReductions[spell.id]
           : reduction;
@@ -45,8 +46,8 @@ class ShiftingPower extends Analyzer {
 
   statistic() {
     return (
-      <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.SHIFTING_POWER.id}>
+      <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
+        <BoringSpellValueText spellId={TALENTS.SHIFTING_POWER_TALENT.id}>
           <>
             <small>Cooldown Reduction by Spell</small>
             <br />

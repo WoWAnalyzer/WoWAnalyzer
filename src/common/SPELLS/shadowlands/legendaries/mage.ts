@@ -57,44 +57,6 @@ const legendaries = {
     icon: 'ability_bossmagistrix_timewarp2',
     bonusID: 6834,
   },
-  FEVERED_INCANTATION: {
-    id: 333030,
-    name: 'Fevered Incantation',
-    icon: 'inv_misc_enchantedpearld',
-    bonusID: 6931,
-  },
-  FEVERED_INCANTATION_BUFF: {
-    id: 333049,
-    name: 'Fevered Incantation',
-    icon: 'inv_misc_enchantedpearld',
-  },
-  FIRESTORM: {
-    id: 333097,
-    name: 'Firestorm',
-    icon: 'spell_fire_burnout',
-    bonusID: 6932,
-  },
-  FIRESTORM_BUFF: {
-    id: 333100,
-    name: 'Firestorm',
-    icon: 'spell_fire_burnout',
-  },
-  SUN_KINGS_BLESSING: {
-    id: 333313,
-    name: "Sun King's Blessing",
-    icon: 'ability_mage_firestarter',
-    bonusID: 6934,
-  },
-  SUN_KINGS_BLESSING_BUFF: {
-    id: 333315,
-    name: "Sun King's Blessing",
-    icon: 'ability_mage_firestarter',
-  },
-  SUN_KINGS_BLESSING_BUFF_STACK: {
-    id: 333314,
-    name: "Sun King's Blessing",
-    icon: 'ability_mage_firestarter',
-  },
   COLD_FRONT: {
     id: 327284,
     name: 'Cold Front',

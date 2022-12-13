@@ -98,11 +98,11 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             tooltip="In order to get the most out of your Combustion, you should always cast Meteor during Combustion. If Meteor will not come off cooldown before Combustion, then you should save Meteor for Combustion."
           />
         )}
-        {false && (
+        {combatant.hasTalent(TALENTS.FEEL_THE_BURN_TALENT) && (
           <Requirement
-            name="Infernal Cascade uptime at max stacks"
-            tooltip="When using the Infernal Cascade conduit, you need to adjust your Combustion rotation so that you can get to 2 stacks of Infernal Cascade as soon as possible, and stay at 2 stacks for the entire duration of Combustion. To accomplish this, once you get to 2 stacks of Infernal Cascade, alternate between using Phoenix Flames and Fire Blast to get Hot Streak until Combustion has ended. This way you are able to refresh Infernal Cascade throughout Combustion instead of using all your Fire Blast charges first and then letting the buff expire while you use your Phoenix Flames charges."
-            thresholds={thresholds.infernalCascadeMaxStacks}
+            name="Feel the Burn uptime at max stacks"
+            tooltip="When using the Feel the Burn talent, you need to adjust your Combustion rotation so that you can get to 3 stacks of Feel the Burn as soon as possible, and stay at 3 stacks for the entire duration of Combustion. To accomplish this, once you get to 3 stacks of Feel the Burn, alternate between using Phoenix Flames and Fire Blast to get Hot Streak until Combustion has ended. This way you are able to refresh Feel the Burn throughout Combustion instead of using all your Fire Blast charges first and then letting the buff expire while you use your Phoenix Flames charges."
+            thresholds={thresholds.feelTheBurnMaxStacks}
           />
         )}
       </Rule>

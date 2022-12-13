@@ -79,7 +79,7 @@ const spells = spellIndexableList({
     name: 'Arcane Intellect',
     icon: 'spell_holy_magicalsentry',
   },
-  ALTER_TIME: {
+  ALTER_TIME_RETURN: {
     id: 342247,
     name: 'Alter Time',
     icon: 'spell_mage_altertime',
@@ -88,6 +88,11 @@ const spells = spellIndexableList({
     id: 342246,
     name: 'Alter Time',
     icon: 'spell_mage_altertime',
+  },
+  SHIFTING_POWER_TICK: {
+    id: 382445,
+    name: 'Shifting Power',
+    icon: 'ability_ardenweald_mage',
   },
   POLYMORPH_SHEEP: {
     id: 118,
