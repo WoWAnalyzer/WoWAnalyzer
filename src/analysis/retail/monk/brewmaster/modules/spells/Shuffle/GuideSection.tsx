@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import styled from '@emotion/styled';
 import colorForPerformance from 'common/colorForPerformance';
 import SPELLS from 'common/SPELLS';
@@ -13,6 +14,7 @@ import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import TooltipProvider from 'interface/TooltipProvider';
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
 import Explanation from 'interface/guide/components/Explanation';
+import { AbilityEvent, SourcedEvent } from 'parser/core/Events';
 
 const HitTimelineContainer = styled.div`
   display: grid;
@@ -82,6 +84,44 @@ function HitTooltipContent({ hit }: { hit: TrackedHit }) {
   );
 }
 
+const damageSourceStyle: React.CSSProperties = {
+  overflowX: 'hidden',
+  textOverflow: 'ellipsis',
+  maxWidth: '100%',
+  whiteSpace: 'nowrap',
+};
+
+export function DamageSourceLink({
+  event,
+  showSourceName,
+}: {
+  event: AbilityEvent<any> & Partial<SourcedEvent<any>>;
+  showSourceName?: boolean;
+}): JSX.Element | null {
+  const enemies = useAnalyzer(Enemies);
+
+  const ability = event.ability;
+  const color = MAGIC_SCHOOLS.color(ability.type);
+
+  // this prevents unneeded re-renders of child components due to object identity differences
+  const style = useMemo(() => ({ ...damageSourceStyle, color }), [color]);
+
+  if (showSourceName) {
+    const enemy = enemies?.getSourceEntity(event);
+    return (
+      <a href={TooltipProvider.npc(enemy?.guid ?? 0)} style={style}>
+        {enemy?.name ?? 'Unknown'} ({ability.name})
+      </a>
+    );
+  } else {
+    return (
+      <SpellLink id={ability.guid} style={style}>
+        {ability.name}
+      </SpellLink>
+    );
+  }
+}
+
 function HitTimeline({ hits, showSourceName }: { hits: TrackedHit[]; showSourceName?: boolean }) {
   const info = useInfo()!;
   const enemies = useAnalyzer(Enemies);
@@ -89,35 +129,11 @@ function HitTimeline({ hits, showSourceName }: { hits: TrackedHit[]; showSourceN
   if (!enemies || hits.length === 0) {
     return null;
   }
-
-  const ability = hits[0].event.ability;
-  const color = MAGIC_SCHOOLS.color(ability.type);
-
   const blockWidth = 1 / 120;
-
-  const style: React.CSSProperties = {
-    color,
-    overflowX: 'hidden',
-    textOverflow: 'ellipsis',
-    maxWidth: '100%',
-    whiteSpace: 'nowrap',
-  };
-
-  const enemy = enemies.getSourceEntity(hits[0].event);
-
-  const link = showSourceName ? (
-    <a href={TooltipProvider.npc(enemy?.guid ?? 0)} style={style}>
-      {enemy?.name ?? 'Unknown'} ({ability.name})
-    </a>
-  ) : (
-    <SpellLink id={ability.guid} style={style}>
-      {ability.name}
-    </SpellLink>
-  );
 
   return (
     <HitTimelineContainer>
-      {link}
+      <DamageSourceLink showSourceName={showSourceName} event={hits[0].event} />
       <HitTimelineBar>
         {hits.map((hit, ix) => {
           return (
@@ -137,13 +153,40 @@ function HitTimeline({ hits, showSourceName }: { hits: TrackedHit[]; showSourceN
   );
 }
 
-const Highlight = styled.span<{ color: string; textColor?: string }>`
+export const Highlight = styled.span<{ color: string; textColor?: string }>`
   background-color: ${(props) => props.color};
   padding: 0 3px;
   ${(props) => (props.textColor ? `color: ${props.textColor};` : '')}
 `;
 
 const red = colorForPerformance(0);
+
+export function damageBreakdown<T>(
+  data: T[],
+  selectSpellId: (datum: T) => number,
+  selectSource: (datum: T) => string,
+): Map<number, Map<string, T[]>> {
+  const bySpell = new Map();
+  for (const datum of data) {
+    const ability = selectSpellId(datum);
+    let bySource = bySpell.get(ability);
+    if (!bySource) {
+      bySource = new Map();
+      bySpell.set(ability, bySource);
+    }
+
+    const source = selectSource(datum);
+    let hits = bySource.get(source);
+    if (!hits) {
+      hits = [];
+      bySource.set(source, hits);
+    }
+
+    hits.push(datum);
+  }
+
+  return bySpell;
+}
 
 function ShuffleOverview({ shuffle, info }: { shuffle: Shuffle; info: Info }): JSX.Element {
   const uptime = uptimeBarSubStatistic(
@@ -155,33 +198,13 @@ function ShuffleOverview({ shuffle, info }: { shuffle: Shuffle; info: Info }): J
     },
   );
 
-  const hitsBySpell = new Map<number, TrackedHit[]>();
+  const hitsBySpellRaw = damageBreakdown(
+    shuffle.hits,
+    (hit: TrackedHit) => hit.event.ability.guid,
+    (hit: TrackedHit) => encodeTargetString(hit.event.sourceID ?? 0),
+  );
 
-  for (const hit of shuffle.hits) {
-    let hitList = hitsBySpell.get(hit.event.ability.guid);
-    if (!hitList) {
-      hitList = [];
-      hitsBySpell.set(hit.event.ability.guid, hitList);
-    }
-
-    hitList.push(hit);
-  }
-
-  const meleesBySource = new Map<string, TrackedHit[]>();
-  for (const hit of hitsBySpell.get(1) ?? []) {
-    // we intentionally ignore source instance for visual grouping
-    const source = encodeTargetString(hit.event.sourceID!);
-    let hitList = meleesBySource.get(source);
-    if (!hitList) {
-      hitList = [];
-      meleesBySource.set(source, hitList);
-    }
-
-    hitList.push(hit);
-  }
-
-  // now remove melees
-  hitsBySpell.delete(1);
+  const meleesBySource = hitsBySpellRaw.get(1) ?? new Map();
 
   return (
     <div>
@@ -198,9 +221,11 @@ function ShuffleOverview({ shuffle, info }: { shuffle: Shuffle; info: Info }): J
       {Array.from(meleesBySource.entries()).map(([id, hits]) => (
         <HitTimeline hits={hits} key={id} showSourceName={meleesBySource.size > 1} />
       ))}
-      {Array.from(hitsBySpell.entries()).map(([id, hits]) => (
-        <HitTimeline hits={hits} key={id} />
-      ))}
+      {Array.from(hitsBySpellRaw.entries())
+        .filter(([id]) => id !== 1)
+        .map(([id, hits]) => (
+          <HitTimeline hits={Array.from(hits.values()).flat()} key={id} />
+        ))}
     </div>
   );
 }

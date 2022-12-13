@@ -38,6 +38,15 @@ import TigerPalm from './modules/spells/TigerPalm';
 import ExpelHarmNorm from './normalizers/ExpelHarm';
 import GiftOfTheOx from './normalizers/GiftOfTheOx';
 import StaggerLinkNormalizer from './modules/core/StaggerLinkNormalizer';
+import CelestialBrewNormalizer from './modules/spells/CelestialBrew/normalizer';
+import { ZenMeditation } from './modules/core/MajorDefensives/ZenMeditation';
+import { FortifyingBrew } from './modules/core/MajorDefensives/FortifyingBrew';
+import { DiffuseMagic } from './modules/core/MajorDefensives/DiffuseMagic';
+import DefensiveBuffs from './modules/core/MajorDefensives/DefensiveBuffs';
+import DefensiveBuffLinkNormalizer from './modules/core/MajorDefensives/DefensiveBuffLinkNormalizer';
+import StaggeringStrikes from './modules/talents/StaggeringStrikes';
+import QuickSip from './modules/talents/QuickSip';
+import TranquilSpirit from './modules/talents/TranquilSpirit';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -75,6 +84,11 @@ class CombatLogParser extends CoreCombatLogParser {
     gotox: GiftOfTheOxStat,
     shuffle: Shuffle,
     touchOfDeath: TouchOfDeath,
+    zenMed: ZenMeditation,
+    fortBrew: FortifyingBrew,
+    diffuseMagic: DiffuseMagic,
+    defensiveBuffs: DefensiveBuffs,
+    defensiveLinks: DefensiveBuffLinkNormalizer,
 
     // Items
     stormstoutsLastKeg: StormtoutsLastKeg,
@@ -83,16 +97,16 @@ class CombatLogParser extends CoreCombatLogParser {
     gotoxNorm: GiftOfTheOx,
     ehNorm: ExpelHarmNorm,
     staggerLink: StaggerLinkNormalizer,
+    cbNorm: CelestialBrewNormalizer,
 
-    // Covenants
+    // Talents
     weaponsOfOrder: WeaponsOfOrder,
     bonedustBrew: BonedustBrew,
-
-    // Conduits
-    /// Potency
     scaldingBrew: ScaldingBrew,
     walkWithTheOx: WalkWithTheOx,
-    /// Finesse
+    staggeringStrikes: StaggeringStrikes,
+    quickSip: QuickSip,
+    tranquilSpirit: TranquilSpirit,
 
     apl: AplCheck,
 

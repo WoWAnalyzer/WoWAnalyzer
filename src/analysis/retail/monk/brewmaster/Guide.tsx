@@ -9,6 +9,7 @@ import talents from 'common/TALENTS/monk';
 import * as AplCheck from './modules/core/AplCheck';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import { ImprovedInvokeNiuzaoSection } from './modules/problems/InvokeNiuzao';
+import MajorDefensivesSection from './modules/core/MajorDefensives';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -29,6 +30,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <ShuffleSection />
         <PurifySection module={modules.purifyProblems} events={events} info={info} />
       </Section>
+      <MajorDefensivesSection />
       <Section title="Core Rotation">
         <AlertWarning>
           This section is under heavy development as work on the Brewmaster rotation continues

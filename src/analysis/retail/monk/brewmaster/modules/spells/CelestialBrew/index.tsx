@@ -1,9 +1,10 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
+import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
   ApplyBuffEvent,
@@ -16,64 +17,77 @@ import BoringValue from 'parser/ui/BoringValueText';
 import FooterChart, { formatTime } from 'parser/ui/FooterChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { ReactNode } from 'react';
+import CountsAsBrew from '../../components/CountsAsBrew';
+import { MajorDefensive, Mitigation, MitigationSegment } from '../../core/MajorDefensives/core';
+import { damageEvent } from './normalizer';
 
 const PURIFIED_CHI_PCT = 0.2;
 const PURIFIED_CHI_WINDOW = 150;
 
+/**
+ * The number of stacks needed to get a 100% bonus to the shield.
+ */
+const PURIFIED_CHI_STACKS_PER_100 = 5;
 const WASTED_THRESHOLD = 0.75;
 
-type Absorb = {
-  cast: CastEvent;
-  timestamp: number; // timestamp relative to start time
-  amount: number;
-  wasted: number;
-  stacks: number;
+type AbsorbExtras = {
+  wastedAmount: number;
+  purifiedChiStacks: number;
 };
 
-class CelestialBrew extends Analyzer {
-  _absorbs: Absorb[];
-  _currentAbsorb?: Absorb;
-  _currentChiStacks: number = 0;
-  _expireTime: number | null = null;
+type Absorb = Mitigation & AbsorbExtras;
+
+class CelestialBrew extends MajorDefensive {
+  private _absorbs: AbsorbExtras[] = [];
+  private _currentChiStacks: number = 0;
+  private _expireTime: number | null = null;
 
   constructor(options: Options) {
-    super(options);
+    super({ talent: talents.CELESTIAL_BREW_TALENT }, options);
 
     this.active = this.selectedCombatant.hasTalent(talents.CELESTIAL_BREW_TALENT);
 
-    this._absorbs = [];
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(talents.CELESTIAL_BREW_TALENT),
+      this._resetAbsorb,
+    );
+
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(talents.CELESTIAL_BREW_TALENT),
+      this._expireAbsorb,
+    );
 
     this.addEventListener(
       Events.absorbed.by(SELECTED_PLAYER).spell(talents.CELESTIAL_BREW_TALENT),
       this._cbAbsorb,
     );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(talents.CELESTIAL_BREW_TALENT),
-      this._resetAbsorb,
-    );
-    this.addEventListener(
-      Events.removebuff.spell(talents.CELESTIAL_BREW_TALENT),
-      this._expireAbsorb,
-    );
-    this.addEventListener(
-      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.PURIFIED_CHI),
-      this._purifiedChiApplied,
-    );
-    this.addEventListener(
-      Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.PURIFIED_CHI),
-      this._purifiedChiStackApplied,
-    );
-    this.addEventListener(
-      Events.removebuff.spell(SPELLS.PURIFIED_CHI).to(SELECTED_PLAYER),
-      this._expirePurifiedChi,
-    );
-    this.addEventListener(Events.fightend, this._finalize);
+
+    if (this.selectedCombatant.hasTalent(talents.IMPROVED_CELESTIAL_BREW_TALENT)) {
+      this.addEventListener(
+        Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.PURIFIED_CHI),
+        this._purifiedChiApplied,
+      );
+      this.addEventListener(
+        Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.PURIFIED_CHI),
+        this._purifiedChiStackApplied,
+      );
+      this.addEventListener(
+        Events.removebuff.spell(SPELLS.PURIFIED_CHI).to(SELECTED_PLAYER),
+        this._expirePurifiedChi,
+      );
+    }
+  }
+
+  get absorbs(): Absorb[] {
+    return this.mitigations.map((mit, ix) => ({ ...mit, ...this._absorbs[ix] }));
   }
 
   get goodCastSuggestion() {
     const actual =
-      this._absorbs.filter(({ amount, wasted }) => amount / (amount + wasted) >= WASTED_THRESHOLD)
-        .length / this._absorbs.length;
+      this.absorbs.filter(
+        ({ amount, wastedAmount }) => amount / (amount + wastedAmount) >= WASTED_THRESHOLD,
+      ).length / this.absorbs.length;
     return {
       actual,
       isLessThan: {
@@ -90,6 +104,24 @@ class CelestialBrew extends Analyzer {
       this._expireTime = null;
       this._currentChiStacks = 0;
     }
+  }
+
+  description(): ReactNode {
+    return (
+      <div>
+        <p>
+          <SpellLink id={talents.CELESTIAL_BREW_TALENT} /> provides a low-cooldown shield for
+          30-100% of your health bar. <CountsAsBrew baseCooldown={60} lightBrewing /> To use it
+          effectively, you need to balance two goals: using it to <em>cover major damage events</em>
+          , and using it <em>often</em>.
+        </p>
+        <p>
+          If the <a href="#purifying-brew">previous section</a> shows many purifies for{' '}
+          <em>Large Hits</em> or <em>High Stagger</em>, it is <strong>strongly recommended</strong>{' '}
+          that you also use <SpellLink id={talents.IMPROVED_CELESTIAL_BREW_TALENT} />.
+        </p>
+      </div>
+    );
   }
 
   suggestions(when: When) {
@@ -110,14 +142,15 @@ class CelestialBrew extends Analyzer {
 
   statistic() {
     const avgAbsorb =
-      this._absorbs.length === 0
+      this.absorbs.length === 0
         ? 0
-        : this._absorbs.reduce((total, absorb) => total + absorb.amount, 0) / this._absorbs.length;
-    const wastedAbsorb = this._absorbs.reduce((total, absorb) => total + absorb.wasted, 0);
+        : this.absorbs.reduce((total, absorb) => total + absorb.amount, 0) / this.absorbs.length;
+    const wastedAbsorb = this.absorbs.reduce((total, absorb) => total + absorb.wastedAmount, 0);
     const avgStacks =
-      this._absorbs.length === 0
+      this.absorbs.length === 0
         ? 0
-        : this._absorbs.reduce((total, absorb) => total + absorb.stacks, 0) / this._absorbs.length;
+        : this.absorbs.reduce((total, absorb) => total + absorb.purifiedChiStacks, 0) /
+          this.absorbs.length;
 
     const spec = {
       mark: 'bar' as const,
@@ -212,7 +245,7 @@ class CelestialBrew extends Analyzer {
             <br />
             <FooterChart
               spec={spec}
-              data={this._absorbs.map((ev) => ({ ...ev, cast: undefined }))}
+              data={this.absorbs.map((ev) => ({ ...ev, cast: undefined }))}
             />
           </>
         </BoringValue>
@@ -234,45 +267,69 @@ class CelestialBrew extends Analyzer {
     this._currentChiStacks = event.stack;
   }
 
+  private get currentAbsorb(): AbsorbExtras | undefined {
+    return this._absorbs[this._absorbs.length - 1];
+  }
+
   private _resetAbsorb(cast: CastEvent) {
     this.expireChi(cast.timestamp);
 
-    if (this._currentAbsorb) {
-      this._absorbs.push(this._currentAbsorb);
-    }
-
-    this._currentAbsorb = {
-      cast,
-      timestamp: cast.timestamp - this.owner.fight.start_time,
-      amount: 0,
-      wasted: 0,
-      stacks: this._currentChiStacks,
-    };
+    this._absorbs.push({
+      wastedAmount: 0,
+      purifiedChiStacks: this._currentChiStacks,
+    });
 
     this._currentChiStacks = 0;
   }
 
   private _cbAbsorb(event: AbsorbedEvent) {
-    if (this._currentAbsorb === undefined) {
+    if (!this.defensiveActive) {
       console.error('CB absorb detected without CB active!', event);
       return;
     }
 
-    this._currentAbsorb.amount += event.amount;
+    this.recordMitigation({
+      // we try to put in the damage event, but worst case we plug in the absorb event
+      event: damageEvent(event) ?? event,
+      mitigatedAmount: event.amount,
+    });
   }
 
   private _expireAbsorb(event: RemoveBuffEvent) {
-    if (this._currentAbsorb === undefined) {
-      console.error('CB expired but was never applied!', event);
-      return;
+    if (this.currentAbsorb) {
+      this.currentAbsorb.wastedAmount = event.absorb || 0;
     }
-
-    this._currentAbsorb.wasted = event.absorb || 0;
   }
 
-  private _finalize() {
-    if (this._currentAbsorb) {
-      this._absorbs.push(this._currentAbsorb);
+  mitigationSegments(mit: Mitigation): MitigationSegment[] {
+    if (this.selectedCombatant.hasTalent(talents.IMPROVED_CELESTIAL_BREW_TALENT)) {
+      const absorb = this.absorbs.find((absorb) => absorb.start === mit.start)!;
+      const totalAmount = absorb.amount + absorb.wastedAmount;
+
+      const baseRatio =
+        PURIFIED_CHI_STACKS_PER_100 / (PURIFIED_CHI_STACKS_PER_100 + absorb.purifiedChiStacks);
+
+      const baseAmount = Math.min(totalAmount * baseRatio, absorb.amount);
+      const stackAmount = absorb.amount - baseAmount;
+
+      return [
+        {
+          amount: baseAmount,
+          color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
+          tooltip: (
+            <>
+              Base <SpellLink id={this.spell} />
+            </>
+          ),
+        },
+        {
+          amount: stackAmount,
+          color: color(MAGIC_SCHOOLS.ids.HOLY),
+          tooltip: <SpellLink id={talents.IMPROVED_CELESTIAL_BREW_TALENT} />,
+        },
+      ];
+    } else {
+      return super.mitigationSegments(mit);
     }
   }
 }

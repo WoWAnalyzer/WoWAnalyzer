@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro';
+import Spell from 'common/SPELLS/Spell';
 import Icon from 'interface/Icon';
 import SpellLink from 'interface/SpellLink';
 import Tooltip from 'interface/Tooltip';
@@ -12,12 +13,14 @@ import {
   RemoveBuffEvent,
   UpdateSpellUsableEvent,
   UpdateSpellUsableType,
+  HasAbility,
 } from 'parser/core/Events';
 import { Fragment, PureComponent } from 'react';
 
 const PREPHASE_BUFFER = 1000; //ms a prephase event gets displayed before the phase start
 
 type Props = {
+  spell?: Spell;
   children: AnyEvent[];
   fightStartTimestamp: number;
   fightEndTimestamp: number;
@@ -169,11 +172,21 @@ class Lane extends PureComponent<Props> {
   }
 
   render() {
-    const { children, style } = this.props;
+    const { children, style, spell } = this.props;
 
-    // FIXME the previous JS version of this assumed ability was available - fix types somehow?
-    const ability = (children[0] as AbilityEvent<any>).ability;
-    if (children[0].type === EventType.FilterCooldownInfo || children[0].type === EventType.Cast) {
+    if ((!spell && children.length === 0) || this.props.secondWidth === 0) {
+      return null;
+    }
+
+    const abilityEvent = children.find(HasAbility) as AbilityEvent<any> | undefined;
+    const abilityIcon = spell?.icon ?? abilityEvent?.ability.abilityIcon.replace('.jpg', '');
+    // we use the log name when possible for localization purposes
+    const abilityName = abilityEvent?.ability.name ?? spell?.name;
+
+    if (
+      children[0]?.type === EventType.FilterCooldownInfo ||
+      children[0]?.type === EventType.Cast
+    ) {
       //if first cast happened before phase
       const nextChildren = children.slice(1, children.length); //all children following the first cast
       const nextCast =
@@ -191,14 +204,10 @@ class Lane extends PureComponent<Props> {
       }
     }
 
-    if (children.length === 0) {
-      return null;
-    }
-
     return (
       <div className="lane" style={style}>
         <div className="legend">
-          <Icon icon={ability.abilityIcon.replace('.jpg', '')} alt={ability.name} />
+          <Icon icon={abilityIcon} alt={abilityName} />
         </div>
 
         {children.map((event) => this.renderEvent(event))}

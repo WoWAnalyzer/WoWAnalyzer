@@ -26,7 +26,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLACKOUT_KICK_BRM.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 4,
+        cooldown: combatant.hasTalent(talents.FLUIDITY_OF_MOTION_TALENT) ? 3 : 4,
         castEfficiency: {
           suggestion: true,
         },
@@ -187,7 +187,7 @@ class Abilities extends CoreAbilities {
         spell: talents.FORTIFYING_BREW_TALENT.id,
         buffSpellId: SPELLS.FORTIFYING_BREW_BRM_BUFF.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 420,
+        cooldown: combatant.hasTalent(talents.EXPEDITIOUS_FORTIFICATION_TALENT) ? 300 : 420,
         gcd: null,
       },
       {
@@ -203,6 +203,14 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120,
         enabled: combatant.hasTalent(talents.DAMPEN_HARM_TALENT.id),
+        gcd: null,
+      },
+      {
+        spell: talents.DIFFUSE_MAGIC_TALENT.id,
+        buffSpellId: talents.DIFFUSE_MAGIC_TALENT.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: 90,
+        enabled: combatant.hasTalent(talents.DIFFUSE_MAGIC_TALENT),
         gcd: null,
       },
       {
