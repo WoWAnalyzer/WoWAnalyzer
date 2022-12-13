@@ -50,6 +50,7 @@ import TranquilSpirit from './modules/talents/TranquilSpirit';
 import Salsalabims from './modules/talents/Salsalabims';
 import Attenuation from './modules/talents/Attenuation';
 import AnvilStave from './modules/talents/AnvilStave';
+import ChiSurge from './modules/talents/ChiSurge';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -113,6 +114,7 @@ class CombatLogParser extends CoreCombatLogParser {
     salsalabims: Salsalabims,
     attenuation: Attenuation,
     anvilStave: AnvilStave,
+    chiSurge: ChiSurge,
 
     apl: AplCheck,
 

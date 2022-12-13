@@ -479,6 +479,11 @@ const spells = spellIndexableList({
     name: 'Counterstrike',
     icon: 'ability_monk_palmstrike',
   },
+  CHI_SURGE_DEBUFF: {
+    id: 393786,
+    name: 'Chi Surge',
+    icon: 'ability_monk_chiexplosion',
+  },
 
   // Windwalker Spells
   COMBO_STRIKES: {
