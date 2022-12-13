@@ -13,12 +13,14 @@ import Abilities from '../Abilities';
 import BlackOxBrew from '../spells/BlackOxBrew';
 import KegSmash from '../spells/KegSmash';
 import TigerPalm from '../spells/TigerPalm';
+import AnvilStave from '../talents/AnvilStave';
 
 class BrewCDR extends Analyzer {
   static dependencies = {
     ks: KegSmash,
     tp: TigerPalm,
     bob: BlackOxBrew,
+    anvilStave: AnvilStave,
     abilities: Abilities,
   };
   _totalHaste = 0;
@@ -28,6 +30,7 @@ class BrewCDR extends Analyzer {
   protected tp!: TigerPalm;
   protected bob!: BlackOxBrew;
   protected abilities!: Abilities;
+  protected anvilStave!: AnvilStave;
 
   constructor(options: Options) {
     super(options);
@@ -50,10 +53,12 @@ class BrewCDR extends Analyzer {
     totalCDR += this.tp.cdr;
     // ...and BoB...
     totalCDR += this.bob.cdr[talents.PURIFYING_BREW_TALENT.id];
+    totalCDR += this.anvilStave.cdr;
     return totalCDR;
   }
 
   get maxTotalCDR() {
+    // some passive talents like anvil & stave don't track wasted cdr (yet?)
     return (
       this.ks.wastedCDR +
       this.ks.wastedBocCDR +
@@ -128,6 +133,12 @@ class BrewCDR extends Analyzer {
                     {(this.bob.wastedCDR[talents.PURIFYING_BREW_TALENT.id] / 1000).toFixed(2)}s
                   </strong>{' '}
                   wasted)
+                </li>
+              )}
+              {this.anvilStave.active && (
+                <li>
+                  {this.anvilStave.count} Anvil & Stave triggers -{' '}
+                  <strong>{(this.anvilStave.cdr / 1000).toFixed(2)}s</strong>
                 </li>
               )}
             </ul>

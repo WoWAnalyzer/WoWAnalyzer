@@ -49,6 +49,7 @@ import QuickSip from './modules/talents/QuickSip';
 import TranquilSpirit from './modules/talents/TranquilSpirit';
 import Salsalabims from './modules/talents/Salsalabims';
 import Attenuation from './modules/talents/Attenuation';
+import AnvilStave from './modules/talents/AnvilStave';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -111,6 +112,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tranquilSpirit: TranquilSpirit,
     salsalabims: Salsalabims,
     attenuation: Attenuation,
+    anvilStave: AnvilStave,
 
     apl: AplCheck,
 
