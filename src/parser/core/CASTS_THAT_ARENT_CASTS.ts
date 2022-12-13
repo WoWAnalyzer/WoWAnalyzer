@@ -49,7 +49,7 @@ const spells: number[] = [
 
   //region Mage
   SPELLS.RUNE_OF_POWER_BUFF.id,
-  SPELLS.DISCIPLINARY_COMMAND_BUFF.id,
+  SPELLS.SHIFTING_POWER_TICK.id,
   //endregion
 
   //region Covenants

@@ -58,7 +58,7 @@ export const apl = build([
   },
   {
     spell: SPELLS.FROSTBOLT,
-    condition: cnd.and(cnd.debuffMissing(SPELLS.MIRRORS_OF_TORMENT), precastFrostbolt),
+    condition: cnd.and(precastFrostbolt),
   },
   {
     spell: TALENTS.FLURRY_TALENT,

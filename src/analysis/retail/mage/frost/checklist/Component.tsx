@@ -196,11 +196,7 @@ const FrostMageChecklist = ({
         name="Use your damaging abilities effectively (Beta APL Check)"
         apl={apl}
         checkResults={checkResults}
-        cooldowns={[
-          TALENTS.ICY_VEINS_TALENT,
-          TALENTS.RUNE_OF_POWER_TALENT,
-          SPELLS.MIRRORS_OF_TORMENT,
-        ]}
+        cooldowns={[TALENTS.ICY_VEINS_TALENT, TALENTS.RUNE_OF_POWER_TALENT]}
         castEfficiency={castEfficiency}
       />
       <PreparationRule thresholds={thresholds}>
