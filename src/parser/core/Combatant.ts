@@ -1,6 +1,5 @@
 import { Enchant } from 'common/ITEMS/Item';
-import { TIER_BY_CLASSES } from 'common/ITEMS/shadowlands';
-import { TIER_BY_CLASSES as DF_TIER_BY_CLASSES } from 'common/ITEMS/dragonflight';
+import { TIER_BY_CLASSES } from 'common/ITEMS/dragonflight';
 import { maybeGetSpell } from 'common/SPELLS';
 import { getClassBySpecId } from 'game/CLASSES';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
@@ -376,10 +375,7 @@ class Combatant extends Entity {
   }
 
   setIdBySpecByTier(tier: TIERS) {
-    if (tier === TIERS.T28) {
-      return TIER_BY_CLASSES[getClassBySpecId(this._combatantInfo.specID)];
-    }
-    return DF_TIER_BY_CLASSES[tier]?.[getClassBySpecId(this._combatantInfo.specID)];
+    return TIER_BY_CLASSES[tier]?.[getClassBySpecId(this._combatantInfo.specID)];
   }
 
   has2PieceByTier(tier: TIERS) {
