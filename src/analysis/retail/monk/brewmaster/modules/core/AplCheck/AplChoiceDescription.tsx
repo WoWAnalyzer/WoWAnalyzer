@@ -83,14 +83,15 @@ const ChPDfBDescription = () => {
 const FallbackDescription = () => (
   <>
     <p>
-      The {aplTitle(BrewmasterApl.ChPDfB)} rotation is used when you don't have any
+      The {aplTitle(BrewmasterApl.Fallback)} rotation is used when you don't have any
       rotation-changing talents selected. You follow the core priority: high damage spells, then
-      low-damage "filler" spells.
+      low-damage "filler" spells. This is the simplest rotation, but practicing it will build good
+      habits that work with the other variations.
     </p>
     <AlertWarning>
       Using <SpellLink id={talents.CHARRED_PASSIONS_TALENT} /> or{' '}
-      <SpellLink id={talents.DRAGONFIRE_BREW_TALENT} /> is <strong>strongly recommended,</strong> as
-      both provide a large damage boost without making the rotation much more difficult.
+      <SpellLink id={talents.DRAGONFIRE_BREW_TALENT} /> is recommended, as both provide a large
+      damage boost without making the rotation much more difficult.
     </AlertWarning>
   </>
 );
