@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import { AlertWarning, SpellLink } from 'interface';
+import { useInfo } from 'interface/guide';
 import { BrewmasterApl } from '../AplCheck';
 
 const aplTitle = (choice: BrewmasterApl) => {
@@ -41,30 +42,43 @@ const BlackoutComboDescription = () => (
   </>
 );
 
-const ChPDfBDescription = () => (
-  <>
-    <p>
-      The {aplTitle(BrewmasterApl.ChPDfB)} rotation is idental to the core rotation, except that{' '}
-      <SpellLink id={talents.BREATH_OF_FIRE_TALENT} /> becomes much higher priority.
-    </p>
-    <p>
-      With <SpellLink id={talents.DRAGONFIRE_BREW_TALENT} />,{' '}
-      <SpellLink id={talents.BREATH_OF_FIRE_TALENT} /> becomes one of your most important spells. If
-      you're instead playing <SpellLink id={talents.CHARRED_PASSIONS_TALENT} />, then you cast{' '}
-      <SpellLink id={talents.BREATH_OF_FIRE_TALENT} /> as often as necessary to maintain the damage
-      buff from <SpellLink id={talents.CHARRED_PASSIONS_TALENT} />.
-    </p>
-    <p>
-      <small>
-        <strong>Note:</strong> In previous patches, it was a damage boost to cast{' '}
-        <SpellLink id={SPELLS.SPINNING_CRANE_KICK_BRM} /> instead of{' '}
-        <SpellLink id={SPELLS.TIGER_PALM} />. That is no longer the case&mdash;use{' '}
-        <SpellLink id={SPELLS.TIGER_PALM} /> in single-target and{' '}
-        <SpellLink id={SPELLS.SPINNING_CRANE_KICK_BRM} /> on AoE!
-      </small>
-    </p>
-  </>
-);
+const ChPDfBDescription = () => {
+  const info = useInfo();
+
+  return (
+    <>
+      <p>
+        The {aplTitle(BrewmasterApl.ChPDfB)} rotation is idental to the core rotation, except that{' '}
+        <SpellLink id={talents.BREATH_OF_FIRE_TALENT} /> becomes much higher priority.
+      </p>
+      {info?.combatant.hasTalent(talents.CHARRED_PASSIONS_TALENT) ? (
+        <>
+          <p>
+            When playing <SpellLink id={talents.CHARRED_PASSIONS_TALENT} />, you cast{' '}
+            <SpellLink id={talents.BREATH_OF_FIRE_TALENT} /> as often as necessary to maintain the{' '}
+            <SpellLink id={talents.CHARRED_PASSIONS_TALENT} /> damage buff.
+          </p>
+          <p>
+            <small>
+              <strong>Note:</strong> In previous patches, it was a damage boost to always use{' '}
+              <SpellLink id={SPELLS.SPINNING_CRANE_KICK_BRM} /> instead of{' '}
+              <SpellLink id={SPELLS.TIGER_PALM} /> when using{' '}
+              <SpellLink id={talents.CHARRED_PASSIONS_TALENT} />. That is no longer the
+              case&mdash;use <SpellLink id={SPELLS.TIGER_PALM} /> on single-target and{' '}
+              <SpellLink id={SPELLS.SPINNING_CRANE_KICK_BRM} /> on AoE!
+            </small>
+          </p>
+        </>
+      ) : (
+        <p>
+          With <SpellLink id={talents.DRAGONFIRE_BREW_TALENT} />,{' '}
+          <SpellLink id={talents.BREATH_OF_FIRE_TALENT} /> becomes one of your most important
+          spells. Cast it as often as possible.
+        </p>
+      )}
+    </>
+  );
+};
 
 const FallbackDescription = () => (
   <>

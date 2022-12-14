@@ -3,7 +3,7 @@ import { SpellLink } from 'interface';
 import ShuffleSection from './modules/spells/Shuffle/GuideSection';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CombatLogParser from './CombatLogParser';
-import { GuideProps, Section } from 'interface/guide';
+import { GuideProps, Section, SubSection } from 'interface/guide';
 import { PurifySection } from './modules/problems/PurifyingBrew';
 import talents from 'common/TALENTS/monk';
 import * as AplCheck from './modules/core/AplCheck';
@@ -51,11 +51,13 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           <SpellLink id={SPELLS.TIGER_PALM.id} />.
         </p>
         <AplChoiceDescription aplChoice={AplCheck.chooseApl(info)} />
-        <AplSectionData
-          checker={AplCheck.check}
-          apl={AplCheck.apl(info)}
-          violationExplainers={explainers}
-        />
+        <SubSection>
+          <AplSectionData
+            checker={AplCheck.check}
+            apl={AplCheck.apl(info)}
+            violationExplainers={explainers}
+          />
+        </SubSection>
       </Section>
       <ImprovedInvokeNiuzaoSection
         events={events}

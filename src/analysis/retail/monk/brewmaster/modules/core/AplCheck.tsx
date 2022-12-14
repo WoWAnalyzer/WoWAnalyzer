@@ -1,12 +1,13 @@
 import SPELLS from 'common/SPELLS';
 import { suggestion } from 'parser/core/Analyzer';
-import aplCheck, { Apl, build, CheckResult, PlayerInfo } from 'parser/shared/metrics/apl';
+import aplCheck, { Apl, build, CheckResult, PlayerInfo, tenseAlt } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 import talents from 'common/TALENTS/monk';
 import { AnyEvent } from 'parser/core/Events';
 import * as BoFLink from '../spells/BreathOfFire/normalizer';
 import * as BdbLink from '../talents/BonedustBrew/normalizer';
+import { SpellLink } from 'interface';
 
 const AOE_SCK = {
   spell: SPELLS.SPINNING_CRANE_KICK_BRM,
@@ -21,14 +22,17 @@ const AOE_SCK = {
 const commonTop = [
   {
     spell: talents.BONEDUST_BREW_TALENT,
-    condition: cnd.debuffMissing(
-      talents.BONEDUST_BREW_TALENT,
-      {
-        pandemicCap: 1,
-        duration: 10000,
-        timeRemaining: 1000,
-      },
-      { targetLinkRelation: BdbLink.debuffApplicationRelation },
+    condition: cnd.describe(
+      cnd.debuffMissing(
+        talents.BONEDUST_BREW_TALENT,
+        {
+          pandemicCap: 1,
+          duration: 10000,
+          timeRemaining: 1000,
+        },
+        { targetLinkRelation: BdbLink.debuffApplicationRelation },
+      ),
+      (tense) => <>any enemies {tenseAlt(tense, 'are', 'were')} missing the debuff</>,
     ),
   },
 ];
@@ -61,7 +65,15 @@ const rotation_boc = build([
   talents.RISING_SUN_KICK_TALENT,
   {
     spell: talents.BREATH_OF_FIRE_TALENT,
-    condition: cnd.and(cnd.buffPresent(SPELLS.BLACKOUT_COMBO_BUFF), bofMissingCondition),
+    condition: cnd.describe(
+      cnd.and(cnd.buffPresent(SPELLS.BLACKOUT_COMBO_BUFF), bofMissingCondition),
+      (tense) => (
+        <>
+          <SpellLink id={SPELLS.BLACKOUT_COMBO_BUFF} /> {tenseAlt(tense, 'is', 'was')} active and
+          the empowered debuff is missing.
+        </>
+      ),
+    ),
   },
   {
     spell: talents.KEG_SMASH_TALENT,
@@ -72,6 +84,21 @@ const rotation_boc = build([
     spell: talents.RUSHING_JADE_WIND_TALENT,
     // lack of pandemic stuff is intentional
     condition: cnd.buffMissing(talents.RUSHING_JADE_WIND_TALENT),
+  },
+  {
+    spell: talents.KEG_SMASH_TALENT,
+    condition: cnd.describe(
+      cnd.and(
+        cnd.hasTalent(talents.STORMSTOUTS_LAST_KEG_TALENT),
+        cnd.spellCharges(talents.KEG_SMASH_TALENT, { atLeast: 1 }),
+      ),
+      (tense) => (
+        <>
+          you {tenseAlt(tense, 'have', 'had')} at least 1 charge (with{' '}
+          <SpellLink id={talents.STORMSTOUTS_LAST_KEG_TALENT} />)
+        </>
+      ),
+    ),
   },
   ...commonBottom,
 ]);
@@ -84,7 +111,12 @@ const rotation_noBoC_chpdfb = build([
   },
   {
     spell: talents.BREATH_OF_FIRE_TALENT,
-    condition: bofMissingCondition,
+    condition: cnd.buffMissing(talents.CHARRED_PASSIONS_TALENT, {
+      duration: 8000,
+      // TODO: verify pandemic cap
+      pandemicCap: 8000,
+      timeRemaining: 1500,
+    }),
   },
   SPELLS.BLACKOUT_KICK_BRM,
   talents.KEG_SMASH_TALENT,
