@@ -3,14 +3,17 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { RefreshBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import RenewingMist from './RenewingMist';
 import Vivify from './Vivify';
 
 class VivaciousVivification extends Analyzer {
   static dependencies = {
     vivify: Vivify,
+    renewingMist: RenewingMist,
   };
+  protected renewingMist!: RenewingMist;
   protected vivify!: Vivify;
   currentRenewingMists: number = 0;
   totalCasts: number = 0;
@@ -27,27 +30,11 @@ class VivaciousVivification extends Analyzer {
       Events.refreshbuff.to(SELECTED_PLAYER).spell(SPELLS.VIVIFICATION_BUFF),
       this.onRefresh,
     );
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
-      this.onApplyRem,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
-      this.onRemoveRem,
-    );
-  }
-
-  onApplyRem(event: ApplyBuffEvent) {
-    this.currentRenewingMists += 1;
-  }
-
-  onRemoveRem(event: RemoveBuffEvent) {
-    this.currentRenewingMists -= 1;
   }
 
   onRefresh(event: RefreshBuffEvent) {
     // every refresh is a wasted buff application and the CD restarts
-    if (this.currentRenewingMists >= this.vivify.estimatedAverageReMs) {
+    if (this.renewingMist.currentRenewingMists >= this.vivify.estimatedAverageReMs) {
       this.wastedApplications += 1;
     }
   }
