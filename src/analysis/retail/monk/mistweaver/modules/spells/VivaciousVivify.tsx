@@ -47,7 +47,7 @@ class VivaciousVivification extends Analyzer {
 
   onRefresh(event: RefreshBuffEvent) {
     // every refresh is a wasted buff application and the CD restarts
-    if (this.currentRenewingMists > this.vivify.estimatedAverageReMs) {
+    if (this.currentRenewingMists >= this.vivify.estimatedAverageReMs) {
       this.wastedApplications += 1;
     }
   }
@@ -56,9 +56,9 @@ class VivaciousVivification extends Analyzer {
     return {
       actual: this.wastedApplications,
       isGreaterThan: {
-        minor: 0,
-        average: 3,
-        major: 5,
+        minor: 4,
+        average: 8,
+        major: 12,
       },
       recommended: 0,
       style: ThresholdStyle.NUMBER,
