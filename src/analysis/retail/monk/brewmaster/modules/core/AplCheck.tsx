@@ -113,17 +113,33 @@ const rotation_fallback = build([
   ...commonBottom,
 ]);
 
-export const apl = (info: PlayerInfo): Apl => {
+export enum BrewmasterApl {
+  BlackoutCombo,
+  ChPDfB,
+  Fallback,
+}
+
+export const chooseApl = (info: PlayerInfo): BrewmasterApl => {
   if (info.combatant.hasTalent(talents.BLACKOUT_COMBO_TALENT)) {
-    return rotation_boc;
+    return BrewmasterApl.BlackoutCombo;
   } else if (
     info.combatant.hasTalent(talents.DRAGONFIRE_BREW_TALENT) ||
     info.combatant.hasTalent(talents.CHARRED_PASSIONS_TALENT)
   ) {
-    return rotation_noBoC_chpdfb;
+    return BrewmasterApl.ChPDfB;
   } else {
-    return rotation_fallback;
+    return BrewmasterApl.Fallback;
   }
+};
+
+const apls: Record<BrewmasterApl, Apl> = {
+  [BrewmasterApl.BlackoutCombo]: rotation_boc,
+  [BrewmasterApl.ChPDfB]: rotation_noBoC_chpdfb,
+  [BrewmasterApl.Fallback]: rotation_fallback,
+};
+
+export const apl = (info: PlayerInfo): Apl => {
+  return apls[chooseApl(info)];
 };
 
 export const check = (events: AnyEvent[], info: PlayerInfo): CheckResult => {

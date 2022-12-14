@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import { AlertWarning, SpellLink } from 'interface';
+import { SpellLink } from 'interface';
 import ShuffleSection from './modules/spells/Shuffle/GuideSection';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CombatLogParser from './CombatLogParser';
@@ -12,6 +12,7 @@ import { ImprovedInvokeNiuzaoSection } from './modules/problems/InvokeNiuzao';
 import MajorDefensivesSection from './modules/core/MajorDefensives';
 import { defaultExplainers } from 'interface/guide/components/Apl/violations/claims';
 import explainSCK, { filterSCK } from './modules/core/AplCheck/explainSCK';
+import AplChoiceDescription from './modules/core/AplCheck/AplChoiceDescription';
 
 const explainers = {
   explainSCK,
@@ -41,19 +42,15 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </Section>
       <MajorDefensivesSection />
       <Section title="Core Rotation">
-        <AlertWarning>
-          This section is under heavy development as work on the Brewmaster rotation continues
-          during the Dragonflight pre-patch. It is currently a reasonable starting point, but may
-          not match the optimal rotation yet.
-        </AlertWarning>
         <p>
-          The Brewmaster rotation is driven by a <em>priority list</em>. When you are ready to use
-          an ability, you should use the highest-priority ability that is available. Doing this
-          improves your damage by prioritizing high-damage, high-impact spells like{' '}
+          The Brewmaster rotation is driven by a <em>priority list</em>. When using an ability, you
+          should try to use the one that is <em>highest</em> on the list. Doing this improves your
+          damage by prioritizing high-damage, high-impact spells like{' '}
           <SpellLink id={talents.RISING_SUN_KICK_TALENT.id} /> and{' '}
           <SpellLink id={talents.KEG_SMASH_TALENT.id} /> over low-priority "filler" spells like{' '}
           <SpellLink id={SPELLS.TIGER_PALM.id} />.
         </p>
+        <AplChoiceDescription aplChoice={AplCheck.chooseApl(info)} />
         <AplSectionData
           checker={AplCheck.check}
           apl={AplCheck.apl(info)}
