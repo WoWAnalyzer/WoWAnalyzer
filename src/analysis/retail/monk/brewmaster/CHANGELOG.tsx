@@ -18,6 +18,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2022, 12, 14), <>Updated Example Report on home page.</>, emallson),
   change(date(2022, 12, 14), <>Updated <strong>Core Rotation</strong> section to match latest updates to our rotation.</>, emallson),
   change(date(2022, 12, 12), <>Added <em>internal</em> support for many cooldown reduction talents (like <SpellLink id={talents.ANVIL__STAVE_TALENT} />, <SpellLink id={talents.FACE_PALM_TALENT} />, and <SpellLink id={talents.CHI_SURGE_TALENT} />)</>, emallson),
   change(date(2022, 12, 12), <>Added <em>internal</em> support for <SpellLink id={talents.STAGGER_TALENT} />-reducing talents (<SpellLink id={talents.QUICK_SIP_TALENT} />, <SpellLink id={talents.STAGGERING_STRIKES_TALENT} />, and <SpellLink id={talents.TRANQUIL_SPIRIT_TALENT} />). This ensures that Stagger tracking is correct across the spec. Statistics will be displayed in the future.</>, emallson),
