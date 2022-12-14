@@ -7,6 +7,7 @@ import { SpellLink } from 'interface';
 import { formatPercentage } from 'common/format';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -14,6 +15,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <ResourceUseSection modules={modules} events={events} info={info} />
       <CoreRotationSection modules={modules} events={events} info={info} />
       <CooldownSection modules={modules} events={events} info={info} />
+      <PreparationSection />
     </>
   );
 }

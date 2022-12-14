@@ -5,6 +5,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2022, 12, 14), <>Added Preparation Section to Guide.</>, Sref),
   change(date(2022, 12, 14), <>Bump patch compatibility to 10.0.2.</>, emallson),
   change(date(2022, 11, 19), <>Updated <SpellLink id={TALENTS_DRUID.NURTURING_DORMANCY_TALENT.id} /> to account for latest tuning changes, including duration cap.</>, Sref),
   change(date(2022, 11, 16), <>Added statistic for <SpellLink id={TALENTS_DRUID.DREAMSTATE_TALENT.id} />.</>, Phased),
