@@ -12,7 +12,8 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 // https://www.wowhead.com/uncategorized-spells/name:Vantus+Rune:?filter=29:21;42:2;0:80100
-const VANTUS_RUNE_VERSATILITY = 100;
+// TODO: Figure out how to make this work with ranks of Vantus Runes
+const VANTUS_RUNE_VERSATILITY = 267;
 const VERSATILITY_PER_PERCENT_THROUGHPUT = 40 * 100;
 const VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION = VERSATILITY_PER_PERCENT_THROUGHPUT * 2;
 const VANTUS_RUNE_PERCENTAGE_THROUGHPUT =
@@ -20,11 +21,7 @@ const VANTUS_RUNE_PERCENTAGE_THROUGHPUT =
 const VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION =
   VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION;
 
-const runes = [
-  ITEMS.VANTUS_RUNE_CASTLE_NATHRIA,
-  ITEMS.VANTUS_RUNE_SANCTUM_OF_DOMINATION,
-  ITEMS.VANTUS_RUNE_SEPULCHER,
-];
+const runes = [ITEMS.VANTUS_RUNE_VAULT];
 
 /**
  * @property {HealingDone} healingDone
