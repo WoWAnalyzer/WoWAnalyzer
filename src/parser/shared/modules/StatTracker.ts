@@ -54,6 +54,7 @@ class StatTracker extends Analyzer {
     // endregion
 
     //region Food
+    // Both Hoard and Banquet share their food buff ID with Fated Fortune Cookie.
     [SPELLS.FATED_FORTUNE_COOKIE.id]: { strength: 76, agility: 76, intellect: 76 },
     [SPELLS.BRAISED_BRUFFALON_BRISKET.id]: { stamina: 59, strength: 32 },
     [SPELLS.CHARRED_HORNSWOG_STEAKS.id]: { stamina: 39, strength: 22 },
@@ -72,9 +73,6 @@ class StatTracker extends Analyzer {
     [SPELLS.GREAT_CERULEAN_SEA.id]: { versatility: 45, mastery: 45 },
     [SPELLS.REVENGE_SERVED_COLD.id]: { crit: 45, versatility: 45 },
     [SPELLS.SIZZLING_SEAFOOD_MEDLEY.id]: { haste: 45, mastery: 45 },
-    // TODO: Update once spell ID is found
-    // [SPELLS.HOARD_OF_DRACONIC_DELICACIES.id]: { strength: 76, agility: 76, intellect: 76 },
-    // [SPELLS.GRAND_BANQUET_OF_THE_KALUAK.id]: { strength: 76, agility: 76, intellect: 76 },
     //endregion
 
     // region Conduits
