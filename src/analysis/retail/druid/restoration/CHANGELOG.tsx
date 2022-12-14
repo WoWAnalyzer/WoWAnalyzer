@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
-import { Sref, Phased } from 'CONTRIBUTORS';
+import { Sref, Phased, emallson } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2022, 12, 14), <>Bump patch compatibility to 10.0.2.</>, emallson),
   change(date(2022, 11, 19), <>Updated <SpellLink id={TALENTS_DRUID.NURTURING_DORMANCY_TALENT.id} /> to account for latest tuning changes, including duration cap.</>, Sref),
   change(date(2022, 11, 16), <>Added statistic for <SpellLink id={TALENTS_DRUID.DREAMSTATE_TALENT.id} />.</>, Phased),
   change(date(2022, 11, 13), <>Added cast efficiency numbers to Guide cooldown bars.</>, Sref),
