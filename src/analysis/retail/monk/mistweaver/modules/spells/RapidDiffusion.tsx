@@ -208,7 +208,8 @@ class RapidDiffusion extends Analyzer {
               </li>
             )}
             <li>
-              Additional Renewing Mist Total Throughput: {formatNumber(this.totalRemThroughput)}
+              Additional <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> Total Throughput:{' '}
+              {formatNumber(this.totalRemThroughput)}
             </li>
             <li>Extra Vivify Cleaves: {this.extraVivCleaves}</li>
             <li>Extra Vivify Healing: {formatNumber(this.totalVivifyThroughput)}</li>
