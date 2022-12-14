@@ -1,4 +1,4 @@
-import { BonedustBrew, TouchOfDeath, MysticTouch, DampenHarm } from 'analysis/retail/monk/shared';
+import { TouchOfDeath, MysticTouch, DampenHarm } from 'analysis/retail/monk/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
@@ -51,6 +51,8 @@ import Salsalabims from './modules/talents/Salsalabims';
 import Attenuation from './modules/talents/Attenuation';
 import AnvilStave from './modules/talents/AnvilStave';
 import ChiSurge from './modules/talents/ChiSurge';
+import BreathOfFireDebuffTargetNormalizer from './modules/spells/BreathOfFire/normalizer';
+import BonedustBrewCastLinkNormalizer from './modules/talents/BonedustBrew/normalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -102,10 +104,11 @@ class CombatLogParser extends CoreCombatLogParser {
     ehNorm: ExpelHarmNorm,
     staggerLink: StaggerLinkNormalizer,
     cbNorm: CelestialBrewNormalizer,
+    bofNorm: BreathOfFireDebuffTargetNormalizer,
+    bdbNorm: BonedustBrewCastLinkNormalizer,
 
     // Talents
     weaponsOfOrder: WeaponsOfOrder,
-    bonedustBrew: BonedustBrew,
     scaldingBrew: ScaldingBrew,
     walkWithTheOx: WalkWithTheOx,
     staggeringStrikes: StaggeringStrikes,
