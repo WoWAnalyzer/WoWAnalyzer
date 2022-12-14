@@ -10,6 +10,15 @@ import * as AplCheck from './modules/core/AplCheck';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import { ImprovedInvokeNiuzaoSection } from './modules/problems/InvokeNiuzao';
 import MajorDefensivesSection from './modules/core/MajorDefensives';
+import { defaultExplainers } from 'interface/guide/components/Apl/violations/claims';
+import explainSCK, { filterSCK } from './modules/core/AplCheck/explainSCK';
+
+const explainers = {
+  explainSCK,
+  overcast: defaultExplainers.overcastFillers,
+  // rethinking the lack of explainer priority here. we want to show custom text explaining the change to SCK, but doing so requires post-processing of the droppedRule results
+  dropped: filterSCK(defaultExplainers.droppedRule),
+};
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -45,7 +54,11 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           <SpellLink id={talents.KEG_SMASH_TALENT.id} /> over low-priority "filler" spells like{' '}
           <SpellLink id={SPELLS.TIGER_PALM.id} />.
         </p>
-        <AplSectionData checker={AplCheck.check} apl={AplCheck.apl(info)} />
+        <AplSectionData
+          checker={AplCheck.check}
+          apl={AplCheck.apl(info)}
+          violationExplainers={explainers}
+        />
       </Section>
       <ImprovedInvokeNiuzaoSection
         events={events}

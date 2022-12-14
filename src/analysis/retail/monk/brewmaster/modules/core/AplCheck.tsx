@@ -6,6 +6,7 @@ import * as cnd from 'parser/shared/metrics/apl/conditions';
 import talents from 'common/TALENTS/monk';
 import { AnyEvent } from 'parser/core/Events';
 import * as BoFLink from '../spells/BreathOfFire/normalizer';
+import * as BdbLink from '../talents/BonedustBrew/normalizer';
 
 const AOE_SCK = {
   spell: SPELLS.SPINNING_CRANE_KICK_BRM,
@@ -17,7 +18,20 @@ const AOE_SCK = {
   ),
 };
 
-const commonTop = [SPELLS.BONEDUST_BREW_CAST];
+const commonTop = [
+  {
+    spell: talents.BONEDUST_BREW_TALENT,
+    condition: cnd.debuffMissing(
+      talents.BONEDUST_BREW_TALENT,
+      {
+        pandemicCap: 1,
+        duration: 10000,
+        timeRemaining: 1000,
+      },
+      { targetLinkRelation: BdbLink.debuffApplicationRelation },
+    ),
+  },
+];
 const commonBottom = [
   AOE_SCK,
   SPELLS.TIGER_PALM,

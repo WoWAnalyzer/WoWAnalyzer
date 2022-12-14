@@ -127,6 +127,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: talents.BONEDUST_BREW_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 60,
+        gcd: { static: 1000 }, // TODO: verify gcd
+        enabled: combatant.hasTalent(talents.BONEDUST_BREW_TALENT),
+      },
+      {
         spell: talents.WEAPONS_OF_ORDER_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
