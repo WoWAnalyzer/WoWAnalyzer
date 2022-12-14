@@ -16,6 +16,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2022, 12, 14), 'Remove Shadowlands items.', ToppleTheNun),
   change(date(2022, 12, 14), 'Update Vantus Rune check to use Vault of the Incarnates Vantus Runes.', ToppleTheNun),
   change(date(2022, 12, 14), "Add spell data for Hoard of Draconic Delicacies and Grand Feast of the Kalu'ak.", ToppleTheNun),
   change(date(2022, 12, 13), 'Mark T28 tier set references as deprecated.', ToppleTheNun),
