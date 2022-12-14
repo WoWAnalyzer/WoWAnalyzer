@@ -118,15 +118,15 @@ const spells = spellIndexableList({
   //   name: "Yusa's Hearty Stew",
   //   icon: 'inv_cooking_10_heartystew',
   // },
-  // TODO: Get Spell ID
+
+  // Both Hoard and Banquet share their food buff ID with Fated Fortune Cookie.
   // HOARD_OF_DRACONIC_DELICACIES: {
-  //   id: 0,
+  //   id: 396092,
   //   name: 'Hoard of Draconic Delicacies',
   //   icon: 'inv_cooking_10_draconicdelicacies',
   // },
-  // TODO: Get Spell ID
   // GRAND_BANQUET_OF_THE_KALUAK: {
-  //   id: 0,
+  //   id: 396092,
   //   name: "Grand Banquet of the Kalu'ak",
   //   icon: 'inv_cooking_10_grandbanquet',
   // },

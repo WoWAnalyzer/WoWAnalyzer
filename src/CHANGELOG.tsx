@@ -16,6 +16,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2022, 12, 14), "Add spell data for Hoard of Draconic Delicacies and Grand Feast of the Kalu'ak.", ToppleTheNun),
   change(date(2022, 12, 13), 'Mark T28 tier set references as deprecated.', ToppleTheNun),
   change(date(2022, 12, 13), 'Add stat enhancements for foods except for feasts.', ToppleTheNun),
   change(date(2022, 12, 8), 'Updated rating per % values in StatTracker to 70 levels, and updated base mana pools in preparation for next talent regeneration', Putro),
