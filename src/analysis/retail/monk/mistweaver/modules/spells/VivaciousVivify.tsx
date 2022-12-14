@@ -57,8 +57,8 @@ class VivaciousVivification extends Analyzer {
       actual: this.wastedApplications,
       isGreaterThan: {
         minor: 0,
-        average: 5,
-        major: 8,
+        average: 3,
+        major: 5,
       },
       recommended: 0,
       style: ThresholdStyle.NUMBER,
