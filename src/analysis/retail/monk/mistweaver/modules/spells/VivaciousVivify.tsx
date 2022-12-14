@@ -78,7 +78,7 @@ class VivaciousVivification extends Analyzer {
         .actual(
           `${this.wastedApplications + ' '}${t({
             id: 'monk.mistweaver.suggestions.vivaciousVivification.wastedApplications',
-            message: `wasted applications with high Renewing Mist Counts`,
+            message: `wasted applications`,
           })}`,
         )
         .recommended(`0 wasted applications is recommended`),
