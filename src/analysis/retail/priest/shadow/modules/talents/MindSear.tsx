@@ -77,19 +77,21 @@ class MindSear extends Analyzer {
   }
 
   statistic() {
-    return (
-      <Statistic
-        category={STATISTIC_CATEGORY.TALENTS}
-        size="flexible"
-        tooltip={`Average targets hit: ${formatNumber(this.averageTargetsHit)}`}
-      >
-        <BoringSpellValueText spellId={TALENTS.MIND_SEAR_TALENT.id}>
-          <>
-            <ItemDamageDone amount={this.damage} />
-          </>
-        </BoringSpellValueText>
-      </Statistic>
-    );
+    if (this.damage !== 0) {
+      return (
+        <Statistic
+          category={STATISTIC_CATEGORY.TALENTS}
+          size="flexible"
+          tooltip={`Average targets hit: ${formatNumber(this.averageTargetsHit)}`}
+        >
+          <BoringSpellValueText spellId={TALENTS.MIND_SEAR_TALENT.id}>
+            <>
+              <ItemDamageDone amount={this.damage} />
+            </>
+          </BoringSpellValueText>
+        </Statistic>
+      );
+    }
   }
 }
 
