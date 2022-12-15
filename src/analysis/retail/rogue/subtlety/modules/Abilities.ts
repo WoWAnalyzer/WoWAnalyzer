@@ -2,9 +2,10 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 
 class Abilities extends CoreAbilities {
-  spellbook() {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
       // Rotational
@@ -84,7 +85,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHURIKEN_STORM_CP.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
-          static: null,
+          static: undefined,
         },
       },
       // Cooldowns
@@ -211,7 +212,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHADOW_STEP.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
-        charges: 1 + (combatant.hasTalent(TALENTS.SHADOWSTEP_SUBTLETY_TALENT.id) ? 1 : 0),
+        charges: 1 + (combatant.hasTalent(TALENTS.SHADOWSTEP_TALENT.id) ? 1 : 0),
         gcd: null,
       },
       {
