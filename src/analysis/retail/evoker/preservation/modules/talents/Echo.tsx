@@ -46,7 +46,6 @@ class Echo extends Analyzer {
 
   onRemove(event: RemoveBuffEvent) {
     if (didEchoExpire(event)) {
-      console.log('Echo expired at ' + this.owner.formatTimestamp(event.timestamp));
       this.totalExpired += 1;
     }
   }
