@@ -31,6 +31,7 @@ export const BUFF_GROUPING = 'BuffGrouping'; // link ApplyBuff events together
 export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
 
 const CAST_BUFFER_MS = 100;
+const ECHO_BUFFER = 500;
 const EB_BUFFER_MS = 2000;
 const EB_VARIANCE_BUFFER = 150; // servers are bad and EB can take over or under 2s to actually trigger
 const MAX_ECHO_DURATION = 20000; // 15s with 30% inc = 19s
@@ -117,8 +118,8 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
     referencedEventType: [EventType.RemoveBuff],
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: ECHO_BUFFER,
+    backwardBufferMs: ECHO_BUFFER,
     additionalCondition(linkedEvent, referencedEvent) {
       return HasRelatedEvent(referencedEvent, ECHO_REMOVAL);
     },
@@ -131,8 +132,8 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
     referencedEventType: [EventType.RemoveBuff],
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: ECHO_BUFFER,
+    backwardBufferMs: ECHO_BUFFER,
     additionalCondition(linkingEvent, referencedEvent) {
       return HasRelatedEvent(referencedEvent, TA_ECHO_REMOVAL);
     },
@@ -154,13 +155,13 @@ const EVENT_LINKS: EventLink[] = [
       SPELLS.LIVING_FLAME_HEAL.id,
       SPELLS.SPIRITBLOOM_SPLIT.id,
       SPELLS.SPIRITBLOOM.id,
-      TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id,
+      SPELLS.VERDANT_EMBRACE_HEAL.id,
     ],
     linkingEventType: [EventType.Heal],
     referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
     referencedEventType: [EventType.RemoveBuff],
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: ECHO_BUFFER,
+    backwardBufferMs: ECHO_BUFFER,
     additionalCondition(linkingEvent, referencedEvent) {
       return HasRelatedEvent(referencedEvent, ECHO_REMOVAL);
     },
@@ -173,7 +174,7 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: EventType.Heal,
     referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
     referencedEventType: [EventType.RemoveBuff],
-    backwardBufferMs: EB_BUFFER_MS,
+    backwardBufferMs: ECHO_BUFFER,
     additionalCondition(linkingEvent, referencedEvent) {
       return !HasRelatedEvent(referencedEvent, ECHO_REMOVAL);
     },
@@ -188,13 +189,13 @@ const EVENT_LINKS: EventLink[] = [
       SPELLS.SPIRITBLOOM.id,
       SPELLS.DREAM_BREATH_ECHO.id,
       SPELLS.LIVING_FLAME_HEAL.id,
-      TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id,
+      SPELLS.VERDANT_EMBRACE_HEAL.id,
     ],
     linkingEventType: EventType.Heal,
     referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
     referencedEventType: EventType.RemoveBuff,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: ECHO_BUFFER,
+    backwardBufferMs: ECHO_BUFFER,
     additionalCondition(linkingEvent, referencedEvent) {
       return HasRelatedEvent(referencedEvent, TA_ECHO_REMOVAL);
     },
