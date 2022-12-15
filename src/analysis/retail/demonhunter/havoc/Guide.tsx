@@ -1,5 +1,4 @@
 import { GuideProps, Section, SubSection } from 'interface/guide';
-import CombatLogParser from 'analysis/retail/demonhunter/vengeance/CombatLogParser';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import { formatPercentage } from 'common/format';
 import { AlertWarning, SpellLink } from 'interface';
@@ -12,6 +11,7 @@ import { PerformanceStrong } from 'analysis/retail/demonhunter/shared/guide/Extr
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
 import * as AplCheck from './apl/AplCheck';
+import CombatLogParser from './CombatLogParser';
 import CooldownGraphSubsection from './guide/CooldownGraphSubSection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {

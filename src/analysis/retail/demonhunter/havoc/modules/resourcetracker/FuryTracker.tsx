@@ -4,6 +4,7 @@ import { Options } from 'parser/core/Analyzer';
 import { CastEvent } from 'parser/core/Events';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 // Casting Eye Beam at over 50 when you have the Blind Fury talent is considered a waste.
 const BLIND_FURY_WASTE_CUTOFF = 50;
@@ -19,6 +20,20 @@ class FuryTracker extends ResourceTracker {
   constructor(options: Options) {
     super(options);
     this.resource = RESOURCE_TYPES.FURY;
+  }
+
+  get percentAtCapPerformance(): QualitativePerformance {
+    const percentAtCap = this.percentAtCap;
+    if (percentAtCap === 0) {
+      return QualitativePerformance.Perfect;
+    }
+    if (percentAtCap <= 0.05) {
+      return QualitativePerformance.Good;
+    }
+    if (percentAtCap <= 0.1) {
+      return QualitativePerformance.Ok;
+    }
+    return QualitativePerformance.Fail;
   }
 
   onCast(event: CastEvent) {
