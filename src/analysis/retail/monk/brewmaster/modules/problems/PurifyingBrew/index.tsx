@@ -145,9 +145,18 @@ export function PurifyProblem({
             calculate: 'datum.hit.newPooledDamage',
             as: 'newPooledDamage',
           },
+          {
+            calculate: '"Mitigated Hit"',
+            as: 'tooltipTitle',
+          },
         ],
         encoding: {
           tooltip: [
+            {
+              title: 'Type',
+              type: 'nominal',
+              field: 'tooltipTitle',
+            },
             {
               field: 'hit.amount',
               type: 'quantitative',
@@ -157,7 +166,7 @@ export function PurifyProblem({
             {
               field: 'ratio',
               type: 'quantitative',
-              title: 'Amount Purified',
+              title: '% Damage Purified',
               format: '.2~p',
             },
           ],
@@ -171,9 +180,18 @@ export function PurifyProblem({
             calculate: 'datum.newPooledDamage + datum.amount',
             as: 'newPooledDamage',
           },
+          {
+            calculate: '"Purify"',
+            as: 'tooltipTitle',
+          },
         ],
         encoding: {
           tooltip: [
+            {
+              field: 'tooltipTitle',
+              type: 'nominal',
+              title: 'Type',
+            },
             {
               field: 'amount',
               type: 'quantitative',
