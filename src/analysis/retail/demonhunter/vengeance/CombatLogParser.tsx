@@ -16,7 +16,6 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
-import Checklist from './modules/checklist/Module';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import MitigationCheck from './modules/features/MitigationCheck';
@@ -66,7 +65,6 @@ class CombatLogParser extends CoreCombatLogParser {
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
     soulFragmentsTracker: SoulFragmentsTracker,
-    checklist: Checklist,
 
     // Resource Tracker
     furyTracker: FuryTracker,
