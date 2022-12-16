@@ -11,7 +11,7 @@ import {
 } from 'analysis/retail/demonhunter/vengeance/guide/HitTimeline';
 import { t, Trans } from '@lingui/macro';
 
-export default function DemonSpikesSection() {
+export default function DemonSpikesSubSection() {
   const info = useInfo();
   const demonSpikes = useAnalyzer(DemonSpikes);
   if (!info || !demonSpikes) {

@@ -22,3 +22,5 @@ export interface Talent extends Spell {
 export type SpellList<T, SpellType extends Spell = Spell> = { [Key in keyof T]: SpellType };
 
 export const createTalentList = <T>(v: SpellList<T, Talent>): SpellList<T, Talent> => v;
+
+export const isTalent = (spell: Spell): spell is Talent => 'maxRanks' in spell;

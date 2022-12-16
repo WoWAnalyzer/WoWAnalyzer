@@ -7,9 +7,9 @@ import { PerformanceMark } from 'interface/guide';
 import Enemies from 'parser/shared/modules/Enemies';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
-import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/guide/VulnerabilityExplanation';
-import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/guide/FieryDemiseExplanation';
-import DemonicExplanation from 'analysis/retail/demonhunter/vengeance/guide/DemonicExplanation';
+import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/VulnerabilityExplanation';
+import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/FieryDemiseExplanation';
+import DemonicExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/DemonicExplanation';
 import { Trans } from '@lingui/macro';
 import CastBreakdownSubSection, {
   Cast,

@@ -22,7 +22,7 @@ import { t, Trans } from '@lingui/macro';
 import { SpellLink } from 'interface';
 import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/CastSummaryAndBreakdown';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/guide/FieryDemiseExplanation';
+import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/FieryDemiseExplanation';
 import {
   SPIRIT_BOMB_SOULS_IN_META,
   SPIRIT_BOMB_SOULS_OUT_OF_META,
