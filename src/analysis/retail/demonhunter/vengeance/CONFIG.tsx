@@ -71,6 +71,8 @@ const config: Config = {
   exampleReport: 'report/F4PVYkAGHhJaCgc9/7-Heroic+Huntsman+Altimor+-+Kill+(5:20)/Doggles/standard',
   // Default to using the Guide
   guideDefault: true,
+  // Only use the Guide
+  guideOnly: true,
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
