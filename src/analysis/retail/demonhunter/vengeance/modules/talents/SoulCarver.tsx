@@ -15,8 +15,8 @@ import CastBreakdownSubSection, {
 } from 'analysis/retail/demonhunter/shared/guide/CastBreakdownSubSection';
 import { CooldownExpandableItem } from 'interface/guide/components/CooldownExpandable';
 
-const GOOD_FRAILTY_STACKS = 6;
-const OK_FRAILTY_STACKS = 4;
+const GOOD_FRAILTY_STACKS = 5;
+const OK_FRAILTY_STACKS = 3;
 
 interface SoulCarverCast extends Cast {
   timestamp: number;
