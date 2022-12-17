@@ -32,7 +32,7 @@ const WINTERS_CHILL_PRECAST_DAMAGE = [
   SPELLS.GLACIAL_SPIKE_DAMAGE,
 ];
 
-const debug = true;
+const debug = false;
 
 class WintersChill extends Analyzer {
   static dependencies = {
