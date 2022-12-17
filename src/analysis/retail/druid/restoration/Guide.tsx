@@ -6,6 +6,7 @@ import { GapHighlight } from 'parser/ui/CooldownBar';
 import CombatLogParser from './CombatLogParser';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 
 /** Common 'rule line' point for the explanation/data in Core Spells section */
 export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
@@ -39,6 +40,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <HotGraphSubsection modules={modules} events={events} info={info} />
         <CooldownGraphSubsection modules={modules} events={events} info={info} />
         <CooldownBreakdownSubsection modules={modules} events={events} info={info} />
+        <PreparationSection />
       </Section>
     </>
   );

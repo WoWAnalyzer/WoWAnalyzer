@@ -41,11 +41,14 @@ export default {
         Icy Veins Guide
       </a>{' '}
       <br />
+      <a href="https://www.youtube.com/@Jedithtv" target="_blank" rel="noopener noreferrer">
+        Jedith's YouTube channel
+      </a>{' '}
+      <br />
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport:
-    '/report/Y9Z4RLcnNbz2TkAX/11-Mythic+Skolex,+the+Insatiable+Ravener+-+Kill+(5:02)/Felahunter',
+  exampleReport: '/report/zf9h3vJAFXY8w6tM/11-Heroic+Eranog+-+Kill+(3:49)/Jedith',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
