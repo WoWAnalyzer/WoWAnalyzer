@@ -1,9 +1,11 @@
 import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import { Sharrq } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2022, 12, 17), <>Fixed an error that was improperly counting <SpellLink id={SPELLS.WINTERS_CHILL} /> Shattered Casts and Pre Casts.</>, Sharrq),
   change(date(2022, 12, 13), <>Fixed timeline buff highlights for <SpellLink id={TALENTS.FINGERS_OF_FROST_TALENT} /> and <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT} />.</>, Sharrq),
   change(date(2022, 12, 13), <>Updated <SpellLink id={TALENTS.SHIFTING_POWER_TALENT} /> CDR Spell List.</>, Sharrq),
   change(date(2022, 12, 13), <>Fixed <SpellLink id={TALENTS.ICY_PROPULSION_TALENT} /> CDR tracking.</>, Sharrq),

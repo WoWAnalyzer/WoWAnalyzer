@@ -63,7 +63,6 @@ class MunchedProcs extends Analyzer {
   }
 
   get munchedPercent() {
-    this.log(this.totalFingersProcs);
     return this.munchedProcs / this.totalFingersProcs;
   }
 
