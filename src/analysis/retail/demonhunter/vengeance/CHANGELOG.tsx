@@ -7,6 +7,7 @@ import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 
 // prettier-ignore
 export default [
+  change(date(2022, 12, 18), 'Further refine defensive buff tracking.', ToppleTheNun),
   change(date(2022, 12, 18), 'Properly remove defensive buffs on death.', ToppleTheNun),
   change(date(2022, 12, 16), 'Disable the Checklist.', ToppleTheNun),
   change(date(2022, 12, 15), <>Reduce number of <SpellLink id={SPELLS.FRAILTY} /> required for a good <SpellLink id={TALENTS.SOUL_CARVER_TALENT} /> to 5.</>, ToppleTheNun),
