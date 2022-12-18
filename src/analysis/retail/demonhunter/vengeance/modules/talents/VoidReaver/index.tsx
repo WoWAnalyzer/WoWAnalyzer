@@ -3,12 +3,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { SpellLink } from 'interface';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  ApplyDebuffEvent,
-  DamageEvent,
-  DeathEvent,
-  RemoveDebuffEvent,
-} from 'parser/core/Events';
+import Events, { ApplyDebuffEvent, DamageEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import { Uptime } from 'parser/ui/UptimeBar';
@@ -44,7 +39,6 @@ export default class VoidReaver extends HitBasedAnalyzer {
       Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.FRAILTY),
       this.onFrailtyRemove,
     );
-    this.addEventListener(Events.death.to(SELECTED_PLAYER), this.onDeath);
     this.addEventListener(Events.fightend, this.finalize);
   }
 
@@ -131,20 +125,6 @@ export default class VoidReaver extends HitBasedAnalyzer {
       event,
       mitigated,
     });
-  }
-
-  private onDeath(event: DeathEvent) {
-    let uptime = this.uptime[this.uptime.length - 1];
-    if (!uptime) {
-      uptime = {
-        start: this.owner.fight.start_time,
-        end: event.timestamp,
-      };
-
-      this.uptime.push(uptime);
-    } else {
-      uptime.end = event.timestamp;
-    }
   }
 
   private finalize() {
