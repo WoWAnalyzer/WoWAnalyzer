@@ -2,7 +2,12 @@ import HitBasedAnalyzer from 'analysis/retail/demonhunter/vengeance/guide/HitBas
 import Enemies from 'parser/shared/modules/Enemies';
 import { Uptime } from 'parser/ui/UptimeBar';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  DamageEvent,
+  DeathEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
@@ -31,6 +36,7 @@ export default class Metamorphosis extends HitBasedAnalyzer {
       this.onMetamorphosisRemove,
     );
     this.addEventListener(Events.fightend, this.finalize);
+    this.addEventListener(Events.death.to(SELECTED_PLAYER), this.onDeath);
   }
 
   get suggestionThresholdsEfficiency(): NumberThreshold {
@@ -91,9 +97,26 @@ export default class Metamorphosis extends HitBasedAnalyzer {
     });
   }
 
+  private onDeath(event: DeathEvent) {
+    let uptime = this.uptime[this.uptime.length - 1];
+    if (!uptime) {
+      uptime = {
+        start: this.owner.fight.start_time,
+        end: event.timestamp,
+      };
+
+      this.uptime.push(uptime);
+    } else {
+      uptime.end = event.timestamp;
+    }
+  }
+
   private finalize() {
     const uptime = this.uptime[this.uptime.length - 1];
     if (!uptime) {
+      return;
+    }
+    if (uptime.end !== uptime.start) {
       return;
     }
 
