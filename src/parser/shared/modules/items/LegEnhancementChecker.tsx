@@ -66,14 +66,14 @@ class LegEnhancementChecker extends Analyzer {
   }
 
   hasEnhancement(item: Item): number | null {
-    return item.temporaryEnchant || null;
+    return item.permanentEnchant || null;
   }
 
   hasMaxEnhancement(item: Item) {
-    if (!item.temporaryEnchant) {
+    if (!item.permanentEnchant) {
       return false;
     }
-    return this.MaxEnchantIds.includes(item.temporaryEnchant);
+    return this.MaxEnchantIds.includes(item.permanentEnchant);
   }
 
   get legsEnhancedThreshold() {
@@ -101,7 +101,7 @@ class LegEnhancementChecker extends Analyzer {
     if (hasMaxEnhancement) {
       if (
         recommendedEnchantmentExists &&
-        recommendedEnhancements.includes(item.temporaryEnchant ?? 0)
+        recommendedEnhancements.includes(item.permanentEnchant ?? 0)
       ) {
         return QualitativePerformance.Perfect;
       }
@@ -130,7 +130,7 @@ class LegEnhancementChecker extends Analyzer {
       if (
         recommendedEnhancementIds &&
         recommendedEnhancementNames &&
-        !recommendedEnhancementIds.includes(item.temporaryEnchant ?? 0)
+        !recommendedEnhancementIds.includes(item.permanentEnchant ?? 0)
       ) {
         return (
           <Trans id="shared.legEnhancementChecker.guide.strongEnhancement.labelWithRecommendation">
