@@ -13,7 +13,7 @@ import { t, Trans } from '@lingui/macro';
 import Metamorphosis from './index';
 import DemonicSnippet from './DemonicSnippet';
 
-export default function MetamorphosisSection() {
+export default function MetamorphosisSubSection() {
   const info = useInfo();
   const metamorphosis = useAnalyzer(Metamorphosis);
   if (!info || !metamorphosis) {

@@ -8,7 +8,7 @@ import Explanation from 'interface/guide/components/Explanation';
 import { HitBasedOverview } from 'analysis/retail/demonhunter/vengeance/guide/HitTimeline';
 import { t, Trans } from '@lingui/macro';
 
-export default function VoidReaverSection() {
+export default function VoidReaverSubSection() {
   const info = useInfo();
   const voidReaver = useAnalyzer(VoidReaver);
   if (!info || !voidReaver || !info.combatant.hasTalent(TALENTS_DEMON_HUNTER.VOID_REAVER_TALENT)) {

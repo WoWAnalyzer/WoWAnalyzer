@@ -9,6 +9,7 @@ import Events, {
   UpdateSpellUsableEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { SpellLink } from 'interface';
 
 const debug = false;
 const NUM_EF_BOLTS = 18;
@@ -122,7 +123,11 @@ class EssenceFontCancelled extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(<>You cancelled Essence Font</>)
+      suggest(
+        <>
+          You cancelled <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} />
+        </>,
+      )
         .icon(TALENTS_MONK.ESSENCE_FONT_TALENT.icon)
         .actual(
           `${this.numCancelled} ${t({
