@@ -308,7 +308,6 @@ class Abilities extends CoreAbilities {
         },
         charges: 2,
       },
-
       {
         spell: SPELLS.RUNE_3.id,
         category: SPELL_CATEGORY.HIDDEN,
@@ -317,6 +316,19 @@ class Abilities extends CoreAbilities {
           return 10 / (1 + haste) / (1 + multiplier);
         },
         charges: 2,
+      },
+      {
+        spell: talents.ABOMINATION_LIMB_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 120,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+        enabled: false,
       },
     ];
   }
