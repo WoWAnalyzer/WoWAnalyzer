@@ -12,7 +12,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import Enemies from 'parser/shared/modules/Enemies';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PerformanceMark } from 'interface/guide';
-import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/guide/VulnerabilityExplanation';
+import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/VulnerabilityExplanation';
 import { Trans } from '@lingui/macro';
 import CastBreakdownSubSection, {
   Cast,
