@@ -1,12 +1,8 @@
 import {
   RuneDetails,
   RuneOfTheFallenCrusader,
-  RuneOfHysteria,
-  Superstrain,
-  SwarmingMist,
-  DeathsDue,
-  EternalHunger,
-} from 'analysis/deathknight';
+  RuneOfHysteria
+} from 'analysis/retail/deathknight/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
@@ -23,7 +19,6 @@ import WoundTracker from './modules/features/WoundTracker';
 import RunicPowerDetails from './modules/runicpower/RunicPowerDetails';
 import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
 import Apocalypse from './modules/spells/Apocalypse';
-import ConvocationOfTheDead from './modules/spells/conduits/ConvocationOfTheDead';
 import FesteringStrikeEfficiency from './modules/spells/FesteringStrikeEfficiency';
 import ScourgeStrikeEfficiency from './modules/spells/ScourgeStrikeEfficiency';
 import VirulentPlagueEfficiency from './modules/spells/VirulentPlagueEfficiency';
@@ -66,15 +61,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Runes
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
     runeOfHysteria: RuneOfHysteria,
-
-    // Legendaries
-    superStrain: Superstrain,
-
-    // Covenants
-    swarmingMist: SwarmingMist,
-    deathsDue: DeathsDue,
-    convocationOfTheDead: ConvocationOfTheDead,
-    eternalHunger: EternalHunger,
 
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,
   };

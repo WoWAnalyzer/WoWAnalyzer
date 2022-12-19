@@ -1991,3 +1991,16 @@ export const Squided: Contributor = {
     },
   ],
 };
+
+export const AlexanderJKremer: Contributor = {
+  nickname: 'Jammfheal',
+  github: 'alexanderjkremer',
+  discord: 'acousticschooler#0653',
+  mains: [
+    {
+      name: 'Jammfheal',
+      spec: SPECS.HOLY_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/jammfheal',
+    },
+  ],
+};

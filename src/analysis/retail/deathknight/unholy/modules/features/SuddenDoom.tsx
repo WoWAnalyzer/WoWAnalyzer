@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
@@ -59,7 +60,7 @@ class SuddenDoom extends Analyzer {
   }
 
   get optionalSuggestion() {
-    return this.selectedCombatant.hasTalent(SPELLS.ARMY_OF_THE_DAMNED_TALENT) ? (
+    return this.selectedCombatant.hasTalent(TALENTS.ARMY_OF_THE_DAMNED_TALENT) ? (
       <>
         , <SpellLink id={SPELLS.ARMY_OF_THE_DEAD.id} />, and <SpellLink id={SPELLS.APOCALYPSE.id} />
       </>
