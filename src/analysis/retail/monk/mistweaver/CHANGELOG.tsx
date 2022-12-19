@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 12, 18), <>Fix suggestion for <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id}/> usage based on talent selection</>, Trevor),
   change(date(2022, 12, 18), <>Add suggestion for <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT.id}/> buff uptime</>, Trevor),
   change(date(2022, 12, 14), <>Remove <SpellLink id={TALENTS_MONK.FAELINE_STOMP_TALENT.id}/> cast efficiency suggestion for Mistweaver</>, Trevor),
   change(date(2022, 12, 14), <>Update <SpellLink id={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT}/> module suggestion thresholds</>, Trevor),
