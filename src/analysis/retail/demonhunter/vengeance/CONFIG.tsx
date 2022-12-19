@@ -71,6 +71,8 @@ const config: Config = {
   exampleReport: 'report/WFqxPGv4XBQfTgy6/4-Heroic+Eranog+-+Kill+(3:25)/Artydh/standard',
   // Default to using the Guide
   guideDefault: true,
+  // Only use the Guide
+  guideOnly: true,
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
