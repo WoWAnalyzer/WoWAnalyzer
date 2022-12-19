@@ -102,6 +102,12 @@ const CooldownDetailsContainer = styled.div`
   }
   & > table td {
     padding-right: 1rem;
+
+    &:first-of-type {
+      max-width: 14em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 `;
 
@@ -171,7 +177,7 @@ const CooldownDetails = ({ analyzer, mit }: { analyzer: MajorDefensive; mit?: Mi
           </tr>
           {segments.map((seg, ix) => (
             <tr key={ix}>
-              <td style={{ width: '100%' }}>{seg.tooltip}</td>
+              <td>{seg.tooltip}</td>
               <NumericColumn>{formatNumber(seg.amount)}</NumericColumn>
               <TableSegmentContainer>
                 {ix > 0 && (
