@@ -8,7 +8,7 @@ const talents = createTalentList({
     name: 'Blazing Barrier',
     icon: 'ability_mage_moltenarmor',
     maxRanks: 1,
-    manaCost: 1500,
+    manaCost: 7500,
   },
   ICE_BLOCK_TALENT: { id: 45438, name: 'Ice Block', icon: 'spell_frost_frost', maxRanks: 1 },
   OVERFLOWING_ENERGY_TALENT: {
@@ -22,7 +22,7 @@ const talents = createTalentList({
     name: 'Invisibility',
     icon: 'ability_mage_invisibility',
     maxRanks: 1,
-    manaCost: 1500,
+    manaCost: 7500,
   },
   WINTERS_PROTECTION_TALENT: {
     id: 382424,
@@ -35,7 +35,7 @@ const talents = createTalentList({
     name: 'Spellsteal',
     icon: 'spell_arcane_arcane02',
     maxRanks: 1,
-    manaCost: 10500,
+    manaCost: 52500,
   },
   TEMPEST_BARRIER_TALENT: {
     id: 382289,
@@ -54,7 +54,7 @@ const talents = createTalentList({
     name: 'Remove Curse',
     icon: 'spell_nature_removecurse',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   ARCANE_WARDING_TALENT: {
     id: 383092,
@@ -67,7 +67,7 @@ const talents = createTalentList({
     name: 'Mirror Image',
     icon: 'spell_magic_lesserinvisibilty',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   INCANTERS_FLOW_TALENT: {
     id: 1463,
@@ -86,7 +86,7 @@ const talents = createTalentList({
     name: 'Alter Time',
     icon: 'spell_mage_altertime',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   CRYO_FREEZE_TALENT: {
     id: 382292,
@@ -117,9 +117,9 @@ const talents = createTalentList({
     name: 'Mass Polymorph',
     icon: 'spell_nature_doublepolymorph1',
     maxRanks: 1,
-    manaCost: 2000,
+    manaCost: 10000,
   },
-  SLOW_TALENT: { id: 31589, name: 'Slow', icon: 'spell_nature_slow', maxRanks: 1, manaCost: 500 },
+  SLOW_TALENT: { id: 31589, name: 'Slow', icon: 'spell_nature_slow', maxRanks: 1, manaCost: 2500 },
   MASTER_OF_TIME_TALENT: {
     id: 342249,
     name: 'Master of Time',
@@ -137,7 +137,7 @@ const talents = createTalentList({
     name: 'Ring of Frost',
     icon: 'spell_frost_ring_of_frost',
     maxRanks: 1,
-    manaCost: 4000,
+    manaCost: 20000,
   },
   ICE_NOVA_TALENT: { id: 157997, name: 'Ice Nova', icon: 'spell_mage_icenova', maxRanks: 1 },
   SHIMMER_TALENT: {
@@ -145,7 +145,7 @@ const talents = createTalentList({
     name: 'Shimmer',
     icon: 'spell_arcane_massdispel',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   ICE_FLOES_TALENT: { id: 108839, name: 'Ice Floes', icon: 'spell_mage_iceflows', maxRanks: 1 },
   MASS_SLOW_TALENT: {
@@ -238,14 +238,14 @@ const talents = createTalentList({
     name: "Dragon's Breath",
     icon: 'inv_misc_head_dragon_01',
     maxRanks: 1,
-    manaCost: 2000,
+    manaCost: 10000,
   },
   SHIFTING_POWER_TALENT: {
     id: 382440,
     name: 'Shifting Power',
     icon: 'ability_ardenweald_mage',
     maxRanks: 1,
-    manaCost: 2500,
+    manaCost: 12500,
   },
   FREEZING_COLD_TALENT: {
     id: 386763,
@@ -276,21 +276,21 @@ const talents = createTalentList({
     name: 'Meteor',
     icon: 'spell_mage_meteor',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   ICE_BARRIER_TALENT: {
     id: 11426,
     name: 'Ice Barrier',
     icon: 'spell_ice_lament',
     maxRanks: 1,
-    manaCost: 1500,
+    manaCost: 7500,
   },
   PRISMATIC_BARRIER_TALENT: {
     id: 235450,
     name: 'Prismatic Barrier',
     icon: 'spell_magearmor',
     maxRanks: 1,
-    manaCost: 1500,
+    manaCost: 7500,
   },
 
   //Fire
@@ -299,14 +299,14 @@ const talents = createTalentList({
     name: 'Pyroblast',
     icon: 'spell_fire_fireball02',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   FIRE_BLAST_TALENT: {
     id: 108853,
     name: 'Fire Blast',
     icon: 'spell_fire_fireball',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   FERVENT_FLICKERING_TALENT: {
     id: 387044,
@@ -319,7 +319,7 @@ const talents = createTalentList({
     name: 'Scorch',
     icon: 'spell_fire_soulburn',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   PHOENIX_FLAMES_TALENT: {
     id: 257541,
@@ -332,7 +332,7 @@ const talents = createTalentList({
     name: 'Flamestrike',
     icon: 'spell_fire_selfdestruct',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   SEARING_TOUCH_TALENT: {
     id: 269644,
@@ -390,14 +390,14 @@ const talents = createTalentList({
     name: 'Combustion',
     icon: 'spell_fire_sealoffire',
     maxRanks: 1,
-    manaCost: 5000,
+    manaCost: 25000,
   },
   LIVING_BOMB_TALENT: {
     id: 44457,
     name: 'Living Bomb',
     icon: 'ability_mage_livingbomb',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   INCENDIARY_ERUPTIONS_TALENT: {
     id: 383665,
@@ -491,21 +491,21 @@ const talents = createTalentList({
     name: 'Ice Lance',
     icon: 'spell_frost_frostblast',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   FROZEN_ORB_TALENT: {
     id: 84714,
     name: 'Frozen Orb',
     icon: 'spell_frost_frozenorb',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   BLIZZARD_TALENT: {
     id: 190356,
     name: 'Blizzard',
     icon: 'spell_frost_icestorm',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   FINGERS_OF_FROST_TALENT: {
     id: 112965,
@@ -518,7 +518,7 @@ const talents = createTalentList({
     name: 'Flurry',
     icon: 'ability_warlock_burningembersblue',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   SHATTER_TALENT: { id: 12982, name: 'Shatter', icon: 'spell_frost_frostshock', maxRanks: 1 },
   BRAIN_FREEZE_TALENT: {
@@ -558,7 +558,7 @@ const talents = createTalentList({
     name: 'Summon Water Elemental',
     icon: 'spell_frost_summonwaterelemental_2',
     maxRanks: 1,
-    manaCost: 1500,
+    manaCost: 7500,
   },
   ICE_CALLER_TALENT: { id: 236662, name: 'Ice Caller', icon: 'spell_frost_icestorm', maxRanks: 1 },
   BONE_CHILLING_TALENT: {
@@ -622,7 +622,7 @@ const talents = createTalentList({
     name: 'Comet Storm',
     icon: 'spell_mage_cometstorm2',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   FREEZING_RAIN_TALENT: {
     id: 270233,
@@ -641,7 +641,7 @@ const talents = createTalentList({
     name: 'Ray of Frost',
     icon: 'ability_mage_rayoffrost',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   SPLITTING_ICE_TALENT: {
     id: 56377,
@@ -697,7 +697,7 @@ const talents = createTalentList({
     name: 'Glacial Spike',
     icon: 'ability_mage_glacialspike',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
 
   //Arcane
@@ -712,21 +712,21 @@ const talents = createTalentList({
     name: 'Arcane Missiles',
     icon: 'spell_nature_starfall',
     maxRanks: 1,
-    manaCost: 7500,
+    manaCost: 37500,
   },
   ARCANE_ORB_TALENT: {
     id: 153626,
     name: 'Arcane Orb',
     icon: 'spell_mage_arcaneorb',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   CLEARCASTING_TALENT: {
     id: 79684,
     name: 'Clearcasting',
     icon: 'spell_shadow_manaburn',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   ARCANE_TEMPO_TALENT: {
     id: 383980,
@@ -826,7 +826,7 @@ const talents = createTalentList({
     name: 'Nether Tempest',
     icon: 'spell_mage_nethertempest',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   IMPROVED_PRISMATIC_BARRIER_TALENT: {
     id: 321745,
@@ -852,7 +852,7 @@ const talents = createTalentList({
     name: 'Touch of the Magi',
     icon: 'ability_mage_netherwindpresence',
     maxRanks: 1,
-    manaCost: 2500,
+    manaCost: 12500,
   },
   SUPERNOVA_TALENT: { id: 157980, name: 'Supernova', icon: 'spell_mage_supernova', maxRanks: 1 },
   EVOCATION_TALENT: { id: 12051, name: 'Evocation', icon: 'spell_nature_purge', maxRanks: 1 },
@@ -885,7 +885,7 @@ const talents = createTalentList({
     name: 'Conjure Mana Gem',
     icon: 'inv_misc_gem_sapphire_02',
     maxRanks: 1,
-    manaCost: 9000,
+    manaCost: 45000,
   },
   SIPHON_STORM_TALENT: {
     id: 384187,
@@ -904,7 +904,7 @@ const talents = createTalentList({
     name: 'Radiant Spark',
     icon: 'ability_bastion_mage',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   CONCENTRATION_TALENT: {
     id: 384374,
