@@ -52,6 +52,11 @@ import ImmolationAuraLinker from './normalizers/ImmolationAuraLinker';
 import SoulCleaveEventLinkNormalizer from './normalizers/SoulCleaveEventLinkNormalizer';
 import SpiritBombEventLinkNormalizer from './normalizers/SpiritBombEventLinkNormalizer';
 import SoulCleave from './modules/spells/SoulCleave';
+import DefensiveBuffs from './modules/core/MajorDefensives/DefensiveBuffs';
+import DefensiveBuffLinkNormalizer from './modules/core/MajorDefensives/DefensiveBuffLinkNormalizer';
+import FieryBrand2 from './modules/core/MajorDefensives/FieryBrand';
+import DemonSpikes2 from './modules/core/MajorDefensives/DemonSpikes';
+import Metamorphosis2 from './modules/core/MajorDefensives/Metamorphosis';
 import Guide from './Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -78,6 +83,7 @@ class CombatLogParser extends CoreCombatLogParser {
     immolationAuraLinker: ImmolationAuraLinker,
     soulCleaveEventLinkNormalizer: SoulCleaveEventLinkNormalizer,
     spiritBombEventLinkNormalizer: SpiritBombEventLinkNormalizer,
+    defensiveBuffLinkNormalizer: DefensiveBuffLinkNormalizer,
 
     // Talents
     painbringer: PainbringerBuff,
@@ -108,13 +114,17 @@ class CombatLogParser extends CoreCombatLogParser {
     fracture: Fracture,
     soulCarver: SoulCarver,
     felDevastation: FelDevastation,
+    fieryBrand2: FieryBrand2,
 
     // Spell
     immolationAura: ImmolationAura,
     demonSpikes: DemonSpikes,
     infernalStrike: InfernalStrike,
     metamorphosis: Metamorphosis,
+    metamorphosis2: Metamorphosis2,
     soulCleave: SoulCleave,
+    defensiveBuffs: DefensiveBuffs,
+    demonSpikes2: DemonSpikes2,
 
     // Stats
     soulsOvercap: SoulsOvercap,

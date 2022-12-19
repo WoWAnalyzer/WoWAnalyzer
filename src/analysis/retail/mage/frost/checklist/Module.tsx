@@ -69,7 +69,7 @@ class Checklist extends BaseChecklist {
           fingersOfFrostUtilization: this.iceLance.fingersProcUtilizationThresholds,
           iceLanceNotShattered: this.iceLance.nonShatteredIceLanceThresholds,
           wintersChillShatter: this.wintersChill.wintersChillShatterThresholds,
-          wintersChillHardCasts: this.wintersChill.wintersChillHardCastThresholds,
+          wintersChillHardCasts: this.wintersChill.wintersChillPreCastThresholds,
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,
           cancelledCasts: this.cancelledCasts.suggestionThresholds,
           runeOfPowerBuffUptime: this.runeOfPower.roundedSecondsSuggestionThresholds,

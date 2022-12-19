@@ -84,9 +84,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SHURIKEN_STORM_CP.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: {
-          static: undefined,
-        },
+        gcd: null,
       },
       // Cooldowns
       {

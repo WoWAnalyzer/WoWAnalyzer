@@ -7,13 +7,16 @@ import { AlertWarning, SpellLink } from 'interface';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import ImmolationAuraVengeanceGuideSection from 'analysis/retail/demonhunter/shared/modules/spells/ImmolationAura/VengeanceGuideSection';
 import { t, Trans } from '@lingui/macro';
-
-import DemonSpikesSection from './modules/spells/DemonSpikes/GuideSection';
-import FieryBrandSection from './modules/talents/FieryBrand/GuideSection';
-import VoidReaverSection from './modules/talents/VoidReaver/GuideSection';
-import MetamorphosisSection from './modules/spells/Metamorphosis/GuideSection';
-import CooldownGraphSubsection from './guide/CooldownGraphSubSection';
 import { PerformanceStrong } from 'analysis/retail/demonhunter/shared/guide/ExtraComponents';
+
+import DemonSpikesSubSection from './modules/spells/DemonSpikes/GuideSection';
+import FieryBrandSubSection from './modules/talents/FieryBrand/GuideSection';
+import VoidReaverSubSection from './modules/talents/VoidReaver/GuideSection';
+import MetamorphosisSubSection from './modules/spells/Metamorphosis/GuideSection';
+import CooldownGraphSubsection from './guide/CooldownGraphSubSection';
+import MajorDefensives from './modules/core/MajorDefensives';
+import EnableNewDefensivesSectionToggle from './guide/EnableNewDefensivesSectionToggle';
+import useVdhFeatureFlag from './guide/useVdhFeatureFlag';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -90,6 +93,7 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
 
 function MitigationSection() {
   const info = useInfo();
+  const [enabled, setEnabled] = useVdhFeatureFlag('major-defensives');
   if (!info) {
     return null;
   }
@@ -101,11 +105,26 @@ function MitigationSection() {
         message: 'Defensive Cooldowns and Mitigation',
       })}
     >
-      <MetamorphosisSection />
-      <DemonSpikesSection />
-      <FieryBrandSection />
-      <VoidReaverSection />
+      <div className="flex">
+        <div className="flex-main" />
+        <div className="flex-sub">
+          <EnableNewDefensivesSectionToggle enabled={enabled} setEnabled={setEnabled} />
+        </div>
+      </div>
+      {enabled && <MajorDefensives />}
+      {!enabled && <OldMitigationSection />}
     </Section>
+  );
+}
+
+function OldMitigationSection() {
+  return (
+    <>
+      <MetamorphosisSubSection />
+      <DemonSpikesSubSection />
+      <FieryBrandSubSection />
+      <VoidReaverSubSection />
+    </>
   );
 }
 
@@ -133,7 +152,8 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
         modules.fracture.guideSubsection()}
       <ImmolationAuraVengeanceGuideSection />
       {modules.soulCleave.guideSubsection()}
-      {modules.spiritBomb.guideSubsection()}
+      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT) &&
+        modules.spiritBomb.guideSubsection()}
     </Section>
   );
 }
