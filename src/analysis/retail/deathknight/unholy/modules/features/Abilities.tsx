@@ -328,7 +328,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-        enabled: false,
+        enabled: combatant.hasTalent(talents.ABOMINATION_LIMB_TALENT),
       },
     ];
   }
