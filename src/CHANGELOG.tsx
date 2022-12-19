@@ -17,6 +17,7 @@ import SpellLink from 'interface/SpellLink';
 
 export default [
   change(date(2022, 12, 19), 'Regenerate talents.', ToppleTheNun),
+  change(date(2022, 12, 14), 'Remove Shadowlands items.', ToppleTheNun),
   change(date(2022, 12, 17), 'Fixed an issue with forward event lookups in Event History.', Sharrq),
   change(date(2022, 12, 14), 'Correct effect IDs for Tailoring leg enhancements.', ToppleTheNun),
   change(date(2022, 12, 14), 'Update Vantus Rune check to use Vault of the Incarnates Vantus Runes.', ToppleTheNun),
