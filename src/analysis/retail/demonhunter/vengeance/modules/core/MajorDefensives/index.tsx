@@ -3,10 +3,15 @@ import Explanation from 'interface/guide/components/Explanation';
 import { TooltipElement } from 'interface';
 import SpellLink from 'interface/SpellLink';
 import TALENTS from 'common/TALENTS/demonhunter';
-import SPELLS from 'common/SPELLS/demonhunter';
-import Timeline from './components/Timeline';
-import AllCooldownUsagesList, { Highlight } from './components/AllCooldownUsagesList';
+import AllCooldownUsagesList, {
+  Highlight,
+} from 'interface/guide/components/MajorDefensives/AllCooldownUsagesList';
+import { Timeline } from 'interface/guide/components/MajorDefensives';
 import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
+
+import { MAJOR_ANALYZERS, TIMELINE_ANALYZERS } from './config';
+import { MAJOR_DEFENSIVES } from './DefensiveBuffs';
+import { defensiveExpiration } from './DefensiveBuffLinkNormalizer';
 
 const MajorDefensives = () => (
   <>
@@ -68,9 +73,13 @@ const MajorDefensives = () => (
       </Explanation>
     </SubSection>
     <SubSection title="Timeline">
-      <Timeline />
+      <Timeline
+        defensiveBuffExpiration={defensiveExpiration}
+        majorDefensiveAnalyzers={TIMELINE_ANALYZERS}
+        majorDefensives={MAJOR_DEFENSIVES}
+      />
     </SubSection>
-    <AllCooldownUsagesList />
+    <AllCooldownUsagesList majorDefensiveAnalyzers={MAJOR_ANALYZERS} />
   </>
 );
 

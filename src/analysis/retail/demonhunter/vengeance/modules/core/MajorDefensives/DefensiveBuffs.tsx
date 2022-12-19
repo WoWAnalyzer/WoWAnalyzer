@@ -1,16 +1,12 @@
 import SPELLS from 'common/SPELLS/demonhunter';
-import Spell from 'common/SPELLS/Spell';
 import Auras from 'parser/core/modules/Auras';
+import { buffId, MajorDefensiveSpellData } from 'interface/guide/components/MajorDefensives';
 
-export const MAJOR_DEFENSIVES: Array<[Spell, Spell | null, boolean]> = [
-  [SPELLS.METAMORPHOSIS_TANK, null, true],
-  [SPELLS.DEMON_SPIKES, SPELLS.DEMON_SPIKES_BUFF, true],
-  // [TALENTS.FIERY_BRAND_TALENT, SPELLS.FIERY_BRAND_DOT, false],
-  // [TALENTS.VOID_REAVER_TALENT, SPELLS.FRAILTY, false],
+// This is separate from
+export const MAJOR_DEFENSIVES: MajorDefensiveSpellData[] = [
+  { triggerSpell: SPELLS.METAMORPHOSIS_TANK, isBuff: true, bufferMs: 26000 },
+  // {triggerSpell: TALENTS.FIERY_BRAND_TALENT, appliedSpell: SPELLS.FIERY_BRAND_DOT, isBuff: false},
 ];
-
-export const buffId = ([talent, spell]: [Spell, Spell | null, boolean]): number =>
-  spell?.id ?? talent.id;
 
 export default class DefensiveBuffs extends Auras {
   auras() {

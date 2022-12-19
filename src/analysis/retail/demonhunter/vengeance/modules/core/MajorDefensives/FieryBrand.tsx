@@ -1,11 +1,14 @@
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/demonhunter';
-import { DebuffBasedMajorDefensive, absoluteMitigation } from './core';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { SpellLink } from 'interface';
 import { Trans } from '@lingui/macro';
 import { ReactNode } from 'react';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
+import {
+  absoluteMitigation,
+  DebuffBasedMajorDefensive,
+} from 'interface/guide/components/MajorDefensives';
 
 export default class FieryBrand extends DebuffBasedMajorDefensive {
   static dependencies = {

@@ -1,8 +1,12 @@
-import styled from '@emotion/styled';
-import { formatNumber } from 'common/format';
-import * as MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
-import { color } from 'game/MAGIC_SCHOOLS';
-import { SpellLink, TooltipElement } from 'interface';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import {
+  MajorDefensive,
+  MitigatedEvent,
+  Mitigation,
+  MitigationTooltipSegment,
+  PerformanceUsageRow,
+  useMaxMitigationValue,
+} from 'interface/guide/components/MajorDefensives/core';
 import {
   BadColor,
   OkColor,
@@ -10,13 +14,11 @@ import {
   SubSection,
   useAnalyzer,
   useAnalyzers,
-} from 'interface/guide';
-import Explanation from 'interface/guide/components/Explanation';
-import ExplanationRow from 'interface/guide/components/ExplanationRow';
+} from 'interface/guide/index';
+import styled from '@emotion/styled';
 import PassFailBar from 'interface/guide/components/PassFailBar';
-import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
-import { AbilityEvent, EventType, HasAbility, HasSource, SourcedEvent } from 'parser/core/Events';
-import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import { CSSProperties, useCallback, useMemo, useState } from 'react';
+import { AbilityEvent, HasAbility, HasSource, SourcedEvent } from 'parser/core/Events';
 import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { CSSProperties, useCallback, useMemo, useState } from 'react';
@@ -178,13 +180,7 @@ export function DamageSourceLink({
   }
 }
 
-const CooldownDetails = <ApplyEventType extends EventType, RemoveEventType extends EventType>({
-  analyzer,
-  mit,
-}: {
-  analyzer: MajorDefensive<ApplyEventType, RemoveEventType>;
-  mit?: Mitigation<ApplyEventType, RemoveEventType>;
-}) => {
+const CooldownDetails = ({ analyzer, mit }: { analyzer: MajorDefensive; mit?: Mitigation }) => {
   if (!mit) {
     return (
       <CooldownDetailsContainer>
@@ -282,11 +278,9 @@ const CooldownDetails = <ApplyEventType extends EventType, RemoveEventType exten
             const keyEvent = events.find(({ event }) => HasAbility(event))?.event as
               | AbilityEvent<any>
               | undefined;
-
             if (!keyEvent) {
               return null;
             }
-
             const rowColor = color(keyEvent.ability.type);
 
             const mitigatedAmount = events.reduce((a, b) => a + b.mitigatedAmount, 0);
@@ -315,13 +309,15 @@ const CooldownDetails = <ApplyEventType extends EventType, RemoveEventType exten
   );
 };
 
-const CooldownUsage = <ApplyEventType extends EventType, RemoveEventType extends EventType>({
+const CooldownUsage = <T extends typeof Analyzer>({
   analyzer,
+  majorDefensiveAnalyzers,
 }: {
-  analyzer: MajorDefensive<ApplyEventType, RemoveEventType>;
+  analyzer: MajorDefensive;
+  majorDefensiveAnalyzers: T[];
 }) => {
   const [selectedMit, setSelectedMit] = useState<number | undefined>();
-  const maxValue = useMaxMitigationValue();
+  const maxValue = useMaxMitigationValue(majorDefensiveAnalyzers);
   const castEfficiency = useAnalyzer(CastEfficiency)?.getCastEfficiencyForSpell(analyzer.spell);
   const possibleUses = castEfficiency?.maxCasts ?? 0;
   const performance = analyzer.mitigationPerformance(maxValue);
@@ -399,16 +395,28 @@ const CooldownUsage = <ApplyEventType extends EventType, RemoveEventType extends
   );
 };
 
-const AllCooldownUsageList = () => {
-  const analyzers = useAnalyzers(MAJOR_ANALYZERS);
+const AllCooldownUsageList = <T extends typeof Analyzer>({
+  majorDefensiveAnalyzers,
+}: {
+  majorDefensiveAnalyzers: T[];
+}) => {
+  const analyzers = useAnalyzers(majorDefensiveAnalyzers);
 
   return (
     <div>
       {analyzers
+        .filter(isDefined)
         .filter((analyzer) => analyzer.active)
-        .map((analyzer) => (
-          <CooldownUsage key={analyzer.constructor.name} analyzer={analyzer} />
-        ))}
+        .map((analyzer) =>
+          analyzer instanceof MajorDefensive ? (
+            <CooldownUsage
+              key={analyzer.constructor.name}
+              analyzer={analyzer}
+              majorDefensiveAnalyzers={majorDefensiveAnalyzers}
+            />
+          ) : undefined,
+        )
+        .filter(isDefined)}
     </div>
   );
 };

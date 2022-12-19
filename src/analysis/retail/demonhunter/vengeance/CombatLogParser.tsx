@@ -13,6 +13,8 @@ import {
   UnnaturalMalice,
 } from 'analysis/retail/demonhunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import DemonSoulBuff from 'analysis/retail/demonhunter/shared/modules/spells/DemonSoulBuff';
+import FodderToTheFlame from 'analysis/retail/demonhunter/shared/modules/talents/FodderToTheFlame';
 
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
@@ -55,11 +57,8 @@ import SoulCleave from './modules/spells/SoulCleave';
 import DefensiveBuffs from './modules/core/MajorDefensives/DefensiveBuffs';
 import DefensiveBuffLinkNormalizer from './modules/core/MajorDefensives/DefensiveBuffLinkNormalizer';
 import FieryBrand2 from './modules/core/MajorDefensives/FieryBrand';
-import DemonSpikes2 from './modules/core/MajorDefensives/DemonSpikes';
 import Metamorphosis2 from './modules/core/MajorDefensives/Metamorphosis';
 import Guide from './Guide';
-import DemonSoulBuff from 'analysis/retail/demonhunter/shared/modules/spells/DemonSoulBuff';
-import FodderToTheFlame from 'analysis/retail/demonhunter/shared/modules/talents/FodderToTheFlame';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -95,7 +94,6 @@ class CombatLogParser extends CoreCombatLogParser {
     metamorphosis2: Metamorphosis2,
     soulCleave: SoulCleave,
     defensiveBuffs: DefensiveBuffs,
-    demonSpikes2: DemonSpikes2,
     demonSoulBuff: DemonSoulBuff,
 
     // Talents

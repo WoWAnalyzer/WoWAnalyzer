@@ -4,7 +4,7 @@ import Spell from 'common/SPELLS/Spell';
 import { isTalent } from 'common/TALENTS/types';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { SpellLink, Tooltip } from 'interface';
-import { PerformanceMark } from 'interface/guide';
+import { PerformanceMark, useAnalyzers } from 'interface/guide';
 import { CooldownExpandableItem } from 'interface/guide/components/CooldownExpandable';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -20,9 +20,10 @@ import BoringValue from 'parser/ui/BoringValueText';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { ReactNode } from 'react';
+import { ReactNode, useMemo } from 'react';
 import Enemies from 'parser/shared/modules/Enemies';
 import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
+import { isDefined } from 'common/typeGuards';
 
 export type MitigatedEvent = {
   event: AnyEvent;
@@ -34,9 +35,9 @@ export type MajorDefensiveOptions = {
   appliedSpell?: Spell;
 };
 
-export type Mitigation<ApplyEventType extends EventType, RemoveEventType extends EventType> = {
-  start: BuffEvent<ApplyEventType>;
-  end: BuffEvent<RemoveEventType> | FightEndEvent;
+export type Mitigation = {
+  start: BuffEvent<EventType.ApplyBuff | EventType.ApplyDebuff>;
+  end: BuffEvent<EventType.RemoveBuff | EventType.RemoveDebuff> | FightEndEvent;
   mitigated: MitigatedEvent[];
   amount: number;
 };
@@ -120,13 +121,13 @@ export const MitigationSegments = ({
   </MitigationSegmentContainer>
 );
 
-const MitigationRow = <ApplyEventType extends EventType, RemoveEventType extends EventType>({
+const MitigationRow = ({
   mitigation,
   segments,
   maxValue,
   fightStart,
 }: {
-  mitigation: Mitigation<ApplyEventType, RemoveEventType>;
+  mitigation: Mitigation;
   segments: MitigationSegment[];
   maxValue: number;
   fightStart: number;
@@ -140,16 +141,23 @@ const MitigationRow = <ApplyEventType extends EventType, RemoveEventType extends
   );
 };
 
-export abstract class MajorDefensive<
-  ApplyEventType extends EventType,
-  RemoveEventType extends EventType
-> extends Analyzer {
+/**
+ * Represents a Major Defensive's spell information.
+ */
+export interface MajorDefensiveSpellData {
+  triggerSpell: Spell;
+  appliedSpell?: Spell;
+  bufferMs?: number;
+  isBuff: boolean;
+}
+
+export class MajorDefensive extends Analyzer {
   static dependencies = {};
 
-  protected mitigationData: Mitigation<ApplyEventType, RemoveEventType>[] = [];
+  protected mitigationData: Mitigation[] = [];
   protected triggerSpell: Spell;
   protected appliedSpell: Spell;
-  protected lastApply?: BuffEvent<ApplyEventType>;
+  protected lastApply?: BuffEvent<EventType.ApplyBuff | EventType.ApplyDebuff>;
   protected currentMitigation?: MitigatedEvent[];
 
   constructor({ triggerSpell, appliedSpell }: MajorDefensiveOptions, options: Options) {
@@ -166,9 +174,11 @@ export abstract class MajorDefensive<
     return this.triggerSpell;
   }
 
-  abstract description(): ReactNode;
+  description(): ReactNode {
+    return <>TODO</>;
+  }
 
-  appliesToEvent(buffEvent: BuffEvent<ApplyEventType>): boolean {
+  appliesToEvent(buffEvent: BuffEvent<EventType.ApplyBuff | EventType.ApplyDebuff>): boolean {
     return buffEvent.ability.guid === this.appliedSpell.id;
   }
 
@@ -176,7 +186,7 @@ export abstract class MajorDefensive<
     return this.mitigationData;
   }
 
-  mitigationSegments(mit: Mitigation<ApplyEventType, RemoveEventType>): MitigationSegment[] {
+  mitigationSegments(mit: Mitigation): MitigationSegment[] {
     return [
       {
         amount: mit.amount,
@@ -201,9 +211,7 @@ export abstract class MajorDefensive<
     );
   }
 
-  explainPerformance(
-    mit: Mitigation<ApplyEventType, RemoveEventType>,
-  ): { perf: QualitativePerformance; explanation?: ReactNode } {
+  explainPerformance(mit: Mitigation): { perf: QualitativePerformance; explanation?: ReactNode } {
     if (this.firstSeenMaxHp <= mit.amount) {
       return {
         perf: QualitativePerformance.Perfect,
@@ -295,12 +303,14 @@ export abstract class MajorDefensive<
     this.currentMitigation?.push(mitigation);
   }
 
-  protected onApply(event: BuffEvent<ApplyEventType>) {
+  protected onApply(event: BuffEvent<EventType.ApplyBuff | EventType.ApplyDebuff>) {
     this.lastApply = event;
     this.currentMitigation = [];
   }
 
-  protected onRemove(event: BuffEvent<RemoveEventType> | FightEndEvent) {
+  protected onRemove(
+    event: BuffEvent<EventType.RemoveBuff | EventType.RemoveDebuff> | FightEndEvent,
+  ) {
     if (!this.lastApply || !this.currentMitigation) {
       // no apply, nothing we can do. probably looking at a slice of a log
       return;
@@ -319,10 +329,7 @@ export abstract class MajorDefensive<
   }
 }
 
-export abstract class BuffBasedMajorDefensive extends MajorDefensive<
-  EventType.ApplyBuff,
-  EventType.RemoveBuff
-> {
+export class BuffBasedMajorDefensive extends MajorDefensive {
   static dependencies = {
     ...MajorDefensive.dependencies,
   };
@@ -339,15 +346,16 @@ export abstract class BuffBasedMajorDefensive extends MajorDefensive<
     );
   }
 
+  appliesToEvent(buffEvent: BuffEvent<EventType.ApplyBuff | EventType.ApplyDebuff>): boolean {
+    return buffEvent.type === EventType.ApplyBuff && super.appliesToEvent(buffEvent);
+  }
+
   get defensiveActive(): boolean {
     return this.lastApply !== undefined;
   }
 }
 
-export abstract class DebuffBasedMajorDefensive extends MajorDefensive<
-  EventType.ApplyDebuff,
-  EventType.RemoveDebuff
-> {
+export class DebuffBasedMajorDefensive extends MajorDefensive {
   static dependencies = {
     ...MajorDefensive.dependencies,
     enemies: Enemies,
@@ -367,6 +375,10 @@ export abstract class DebuffBasedMajorDefensive extends MajorDefensive<
     );
   }
 
+  appliesToEvent(buffEvent: BuffEvent<EventType.ApplyBuff | EventType.ApplyDebuff>): boolean {
+    return buffEvent.type === EventType.ApplyDebuff && super.appliesToEvent(buffEvent);
+  }
+
   isDefensiveActive(event: DamageEvent): boolean {
     if (shouldIgnore(this.enemies, event)) {
       return true;
@@ -380,6 +392,9 @@ export abstract class DebuffBasedMajorDefensive extends MajorDefensive<
   }
 }
 
+export const isMajorDefensive = (analyzer: Analyzer): analyzer is MajorDefensive =>
+  analyzer instanceof MajorDefensive;
+
 export const isBuffBasedMajorDefensive = (
   analyzer: Analyzer,
 ): analyzer is BuffBasedMajorDefensive => analyzer instanceof BuffBasedMajorDefensive;
@@ -387,3 +402,28 @@ export const isBuffBasedMajorDefensive = (
 export const isDebuffBasedMajorDefensive = (
   analyzer: Analyzer,
 ): analyzer is DebuffBasedMajorDefensive => analyzer instanceof DebuffBasedMajorDefensive;
+
+export const useMaxMitigationValue = <T extends typeof Analyzer>(moduleTypes: T[]) => {
+  const analyzers = useAnalyzers(moduleTypes);
+
+  return useMemo(
+    () =>
+      Math.max.apply(
+        null,
+        analyzers
+          ?.filter(isDefined)
+          ?.map((analyzer) =>
+            Math.max.apply(
+              null,
+              analyzer instanceof MajorDefensive
+                ? analyzer.mitigations.map((mit) => mit.amount)
+                : [0],
+            ),
+          ),
+      ),
+    [analyzers],
+  );
+};
+
+export const buffId = ({ triggerSpell, appliedSpell }: MajorDefensiveSpellData): number =>
+  appliedSpell?.id ?? triggerSpell.id;

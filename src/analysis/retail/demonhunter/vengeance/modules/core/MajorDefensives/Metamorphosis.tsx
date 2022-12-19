@@ -1,6 +1,5 @@
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/demonhunter';
-import { BuffBasedMajorDefensive } from './core';
 import Events, { DamageEvent } from 'parser/core/Events';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { SpellLink } from 'interface';
@@ -8,6 +7,7 @@ import { Trans } from '@lingui/macro';
 import { ReactNode } from 'react';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { getArmorMitigationForEvent } from 'parser/retail/armorMitigation';
+import { BuffBasedMajorDefensive } from 'interface/guide/components/MajorDefensives';
 
 export default class Metamorphosis extends BuffBasedMajorDefensive {
   static dependencies = {
