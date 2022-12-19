@@ -200,9 +200,14 @@ const CooldownDetails = ({ analyzer, mit }: { analyzer: MajorDefensive; mit?: Mi
             </td>
           </tr>
           {damageTakenRows.map(([spellId, events], ix) => {
-            // FIXME: this is unchecked. possible undefined error
-            const keyEvent = events.find(({ event }) => HasAbility(event))!
-              .event as AbilityEvent<any>;
+            const keyEvent = events.find(({ event }) => HasAbility(event))?.event as
+              | AbilityEvent<any>
+              | undefined;
+
+            if (!keyEvent) {
+              return null;
+            }
+
             const rowColor = color(keyEvent.ability.type);
 
             const mitigatedAmount = events.reduce((a, b) => a + b.mitigatedAmount, 0);
