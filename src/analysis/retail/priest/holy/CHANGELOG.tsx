@@ -6,6 +6,11 @@ import { SpellLink } from 'interface';
 
 export default [
   change(
+    date(2022, 12, 18),
+    <>Added initial holy priest guide for 10.0.</>,
+    Squided
+  ),
+  change(
     date(2022, 11, 28),
     <>
       Added support for {' '}

@@ -10,11 +10,12 @@ export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
-      <Section title="Holy Words">
-        {/* This section should cover effective usage of our holy words. */}
-        {/* Can have three sections, one for each holy words cast effectiveness */}
-        {/* A third section for going over wasted CDR */}
-      </Section>
+      {/* TODO: HOLY WORD GUIDE SECTION */}
+      {/* <Section title="Holy Words"> */}
+      {/* This section should cover effective usage of our holy words. */}
+      {/* Can have three sections, one for each holy words cast effectiveness */}
+      {/* A third section for going over wasted CDR */}
+      {/* </Section> */}
       <Section title="Core Spells">
         {/* This section should cover effective usage of Holy's core spells */}
         {/* Divine Word Casts, idk how to explore this.  */}
