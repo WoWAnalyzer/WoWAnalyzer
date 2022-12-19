@@ -35,11 +35,13 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventId: [
       TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT.id,
       TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT.id,
+      TALENTS_PRIEST.CIRCLE_OF_HEALING_TALENT.id,
     ],
     linkingEventType: EventType.Cast,
     referencedEventId: [
       TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT.id,
       TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT.id,
+      TALENTS_PRIEST.CIRCLE_OF_HEALING_TALENT.id,
     ],
     referencedEventType: EventType.Heal,
     forwardBufferMs: CAST_BUFFER_MS,

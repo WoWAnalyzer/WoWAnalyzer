@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 
@@ -18,10 +17,12 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </Section>
       <Section title="Core Spells">
         {/* This section should cover effective usage of Holy's core spells */}
-        {/* Circle of Healing Casts, check targets hit  */}
+        {/* Divine Word Casts, idk how to explore this.  */}
         {modules.Lightweaver.guideSubsection}
         {modules.prayerOfHealing.guideSubsection}
         {modules.prayerOfMending.guideSubsection}
+        {modules.circleOfHealing.guideSubsection}
+        {modules.DivineStar.guideSubsectionHoly}
         {modules.Halo.guideSubsectionHoly}
       </Section>
       <Section title="Healing Cooldowns">
@@ -38,16 +39,9 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       you waited to use them again. Grey segments show when the spell was available, yellow segments
       show when the spell was cooling down. Red segments highlight times when you could have fit a
       whole extra use of the cooldown.
-      {info.combatant.hasTalent(TALENTS_PRIEST.DIVINE_WORD_TALENT) && (
-        <CastEfficiencyBar
-          spellId={TALENTS_PRIEST.DIVINE_WORD_TALENT.id}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          useThresholds
-        />
-      )}
       {info.combatant.hasTalent(TALENTS_PRIEST.DIVINE_HYMN_TALENT.id) && (
         <CastEfficiencyBar
-          spellId={SPELLS.DIVINE_HYMN_HEAL.id}
+          spellId={TALENTS_PRIEST.DIVINE_HYMN_TALENT.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />
