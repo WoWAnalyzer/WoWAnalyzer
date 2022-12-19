@@ -14,7 +14,7 @@ const talents = createTalentList({
     name: 'Demonic Circle',
     icon: 'spell_shadow_demoniccirclesummon',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   BURNING_RUSH_TALENT: {
     id: 111400,
@@ -64,7 +64,7 @@ const talents = createTalentList({
     name: 'Mortal Coil',
     icon: 'ability_warlock_mortalcoil',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   AMPLIFY_CURSE_TALENT: {
     id: 328774,
@@ -101,7 +101,7 @@ const talents = createTalentList({
     name: 'Banish',
     icon: 'spell_shadow_cripple',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   TEACHINGS_OF_THE_SATYR_TALENT: {
     id: 387972,
@@ -132,7 +132,7 @@ const talents = createTalentList({
     name: 'Demonic Gateway',
     icon: 'spell_warlock_demonicportal_green',
     maxRanks: 1,
-    manaCost: 10000,
+    manaCost: 50000,
   },
   NIGHTMARE_TALENT: { id: 386648, name: 'Nightmare', icon: 'spell_shadow_possession', maxRanks: 2 },
   GREATER_BANISH_TALENT: {
@@ -159,7 +159,7 @@ const talents = createTalentList({
     name: 'Shadowfury',
     icon: 'ability_warlock_shadowfurytga',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   ICHOR_OF_DEVILS_TALENT: {
     id: 386664,
@@ -286,7 +286,7 @@ const talents = createTalentList({
     name: 'Unstable Affliction',
     icon: 'spell_shadow_unstableaffliction_3',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   SEED_OF_CORRUPTION_TALENT: {
     id: 27243,
@@ -350,14 +350,14 @@ const talents = createTalentList({
     name: 'Siphon Life',
     icon: 'spell_shadow_requiem',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   PHANTOM_SINGULARITY_TALENT: {
     id: 205179,
     name: 'Phantom Singularity',
     icon: 'inv_enchant_voidsphere',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   VILE_TAINT_TALENT: {
     id: 278350,
@@ -420,14 +420,14 @@ const talents = createTalentList({
     name: 'Haunt',
     icon: 'ability_warlock_haunt',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   SUMMON_DARKGLARE_TALENT: {
     id: 205180,
     name: 'Summon Darkglare',
     icon: 'inv_beholderwarlock',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   SOUL_ROT_TALENT: {
     id: 386997,
@@ -511,7 +511,7 @@ const talents = createTalentList({
     name: 'Conflagrate',
     icon: 'spell_fire_fireball',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   REVERSE_ENTROPY_TALENT: {
     id: 205148,
@@ -544,7 +544,7 @@ const talents = createTalentList({
     name: 'Havoc',
     icon: 'ability_warlock_baneofhavoc',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   PYROGENICS_TALENT: { id: 387095, name: 'Pyrogenics', icon: 'inv_jewelry_ring_65', maxRanks: 1 },
   ROARING_BLAZE_TALENT: {
@@ -570,7 +570,7 @@ const talents = createTalentList({
     name: 'Channel Demonfire',
     icon: 'spell_fire_ragnaros_lavaboltgreen',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   PANDEMONIUM_TALENT: {
     id: 387509,
@@ -596,14 +596,14 @@ const talents = createTalentList({
     name: 'Cataclysm',
     icon: 'achievement_zone_cataclysm',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   SOUL_FIRE_TALENT: {
     id: 6353,
     name: 'Soul Fire',
     icon: 'spell_fire_firebolt',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   SHADOWBURN_TALENT: {
     id: 17877,
@@ -673,7 +673,7 @@ const talents = createTalentList({
     name: 'Summon Infernal',
     icon: 'spell_shadow_summoninfernal',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   DIABOLIC_EMBERS_TALENT: {
     id: 387173,
@@ -761,7 +761,7 @@ const talents = createTalentList({
     name: 'Demonbolt',
     icon: 'inv__demonbolt',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   DREADLASH_TALENT: {
     id: 264078,
@@ -818,7 +818,7 @@ const talents = createTalentList({
     name: 'Implosion',
     icon: 'inv_implosion',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   SHADOWS_BITE_TALENT: {
     id: 387322,
@@ -886,7 +886,7 @@ const talents = createTalentList({
     name: 'Doom',
     icon: 'spell_shadow_auraofdarkness',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   DEMONIC_METEOR_TALENT: {
     id: 387396,
@@ -942,7 +942,7 @@ const talents = createTalentList({
     name: 'Summon Demonic Tyrant',
     icon: 'inv_summondemonictyrant',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   ANTORAN_ARMAMENTS_TALENT: {
     id: 387494,

@@ -665,7 +665,7 @@ const talents = createTalentList({
     name: 'Dreadblades',
     icon: 'inv_sword_1h_artifactskywall_d_01dual',
     maxRanks: 1,
-    energyCost: 50,
+    energyCost: 40,
   },
   PRECISE_CUTS_TALENT: {
     id: 381985,

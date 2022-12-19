@@ -3,13 +3,13 @@ import { createTalentList } from './types';
 
 const talents = createTalentList({
   //Shared
-  RENEW_TALENT: { id: 139, name: 'Renew', icon: 'spell_holy_renew', maxRanks: 1, manaCost: 500 },
+  RENEW_TALENT: { id: 139, name: 'Renew', icon: 'spell_holy_renew', maxRanks: 1, manaCost: 2500 },
   DISPEL_MAGIC_TALENT: {
     id: 528,
     name: 'Dispel Magic',
     icon: 'spell_nature_nullifydisease',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   SHADOWFIEND_TALENT: {
     id: 34433,
@@ -22,7 +22,7 @@ const talents = createTalentList({
     name: 'Prayer of Mending',
     icon: 'spell_holy_prayerofmendingtga',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   IMPROVED_FLASH_HEAL_TALENT: {
     id: 393870,
@@ -35,7 +35,7 @@ const talents = createTalentList({
     name: 'Purify Disease',
     icon: 'spell_holy_nullifydisease',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   PSYCHIC_VOICE_TALENT: {
     id: 196704,
@@ -61,7 +61,7 @@ const talents = createTalentList({
     name: 'Holy Nova',
     icon: 'spell_holy_holynova',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   PROTECTIVE_LIGHT_TALENT: {
     id: 193063,
@@ -106,14 +106,14 @@ const talents = createTalentList({
     name: 'Leap of Faith',
     icon: 'priest_spell_leapoffaith_a',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   SHACKLE_UNDEAD_TALENT: {
     id: 9484,
     name: 'Shackle Undead',
     icon: 'spell_nature_slow',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   SHEER_TERROR_TALENT: {
     id: 390919,
@@ -126,21 +126,21 @@ const talents = createTalentList({
     name: 'Void Tendrils',
     icon: 'spell_priest_voidtendrils',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   MIND_CONTROL_TALENT: {
     id: 605,
     name: 'Mind Control',
     icon: 'spell_shadow_shadowworddominate',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   DOMINATE_MIND_TALENT: {
     id: 205364,
     name: 'Dominate Mind',
     icon: 'spell_priest_void_flay',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   WORDS_OF_THE_PIOUS_TALENT: {
     id: 377438,
@@ -153,7 +153,7 @@ const talents = createTalentList({
     name: 'Mass Dispel',
     icon: 'spell_arcane_massdispel',
     maxRanks: 1,
-    manaCost: 4000,
+    manaCost: 20000,
   },
   MOVE_WITH_GRACE_TALENT: {
     id: 390620,
@@ -258,7 +258,7 @@ const talents = createTalentList({
     name: 'Halo',
     icon: 'ability_priest_halo_shadow',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   TRANSLUCENT_IMAGE_TALENT: {
     id: 373446,
@@ -271,7 +271,7 @@ const talents = createTalentList({
     name: 'Mindgames',
     icon: 'ability_revendreth_priest',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   SURGE_OF_LIGHT_TALENT: {
     id: 109186,
@@ -339,14 +339,14 @@ const talents = createTalentList({
     name: 'Divine Star',
     icon: 'spell_priest_divinestar',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   HALO_SHARED_TALENT: {
     id: 120517,
     name: 'Halo',
     icon: 'ability_priest_halo',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   INESCAPABLE_TORMENT_TALENT: {
     id: 373427,
@@ -615,14 +615,14 @@ const talents = createTalentList({
     name: 'Holy Word: Serenity',
     icon: 'spell_holy_persuitofjustice',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   PRAYER_OF_HEALING_TALENT: {
     id: 596,
     name: 'Prayer of Healing',
     icon: 'spell_holy_prayerofhealing02',
     maxRanks: 1,
-    manaCost: 2000,
+    manaCost: 10000,
   },
   GUARDIAN_SPIRIT_TALENT: {
     id: 47788,
@@ -636,14 +636,14 @@ const talents = createTalentList({
     name: 'Holy Word: Chastise',
     icon: 'spell_holy_chastise',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 5000,
   },
   HOLY_WORD_SANCTIFY_TALENT: {
     id: 34861,
     name: 'Holy Word: Sanctify',
     icon: 'spell_holy_divineprovidence',
     maxRanks: 1,
-    manaCost: 1500,
+    manaCost: 7500,
   },
   GUARDIAN_ANGEL_TALENT: {
     id: 200209,
@@ -669,7 +669,7 @@ const talents = createTalentList({
     name: 'Circle of Healing',
     icon: 'spell_holy_circleofrenewal',
     maxRanks: 1,
-    manaCost: 1500,
+    manaCost: 7500,
   },
   REVITALIZING_PRAYERS_TALENT: {
     id: 391208,
@@ -737,7 +737,7 @@ const talents = createTalentList({
     name: 'Divine Hymn',
     icon: 'spell_holy_divinehymn',
     maxRanks: 1,
-    manaCost: 2000,
+    manaCost: 10000,
   },
   ENLIGHTENMENT_TALENT: {
     id: 193155,
@@ -812,7 +812,7 @@ const talents = createTalentList({
     name: 'Holy Word: Salvation',
     icon: 'ability_priest_archangel',
     maxRanks: 1,
-    manaCost: 3000,
+    manaCost: 15000,
   },
   EMPOWERED_RENEW_TALENT: {
     id: 391339,
@@ -879,7 +879,7 @@ const talents = createTalentList({
     name: 'Lightwell',
     icon: 'spell_holy_summonlightwell',
     maxRanks: 1,
-    manaCost: 1500,
+    manaCost: 7500,
   },
   DIVINE_IMAGE_TALENT: {
     id: 392988,
@@ -908,14 +908,14 @@ const talents = createTalentList({
     name: 'Power Word: Radiance',
     icon: 'spell_priest_power_word',
     maxRanks: 1,
-    manaCost: 2500,
+    manaCost: 12500,
   },
   PAIN_SUPPRESSION_TALENT: {
     id: 33206,
     name: 'Pain Suppression',
     icon: 'spell_holy_painsupression',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   POWER_OF_THE_DARK_SIDE_TALENT: {
     id: 198068,
@@ -984,7 +984,7 @@ const talents = createTalentList({
     name: 'Power Word: Barrier',
     icon: 'spell_holy_powerwordbarrier',
     maxRanks: 1,
-    manaCost: 2000,
+    manaCost: 10000,
   },
   PAINFUL_PUNISHMENT_TALENT: {
     id: 390686,
@@ -1003,21 +1003,21 @@ const talents = createTalentList({
     name: 'Purge the Wicked',
     icon: 'ability_mage_firestarter',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 2500,
   },
   RAPTURE_TALENT: {
     id: 47536,
     name: 'Rapture',
     icon: 'spell_holy_rapture',
     maxRanks: 1,
-    manaCost: 1500,
+    manaCost: 7500,
   },
   SHADOW_COVENANT_TALENT: {
     id: 314867,
     name: 'Shadow Covenant',
     icon: 'spell_shadow_summonvoidwalker',
     maxRanks: 1,
-    manaCost: 2000,
+    manaCost: 10000,
   },
   REVEL_IN_PURITY_TALENT: {
     id: 373003,
