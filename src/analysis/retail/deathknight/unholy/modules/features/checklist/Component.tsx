@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -6,9 +7,13 @@ import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Che
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PropTypes from 'prop-types';
+import {
+  AbilityRequirementProps,
+  ChecklistProps,
+} from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 
-const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) => {
-  const AbilityRequirement = (props) => (
+const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+  const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
       {...props}
@@ -37,23 +42,23 @@ const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }) =
       >
         <AbilityRequirement spell={SPELLS.APOCALYPSE.id} />
         <AbilityRequirement spell={SPELLS.DARK_TRANSFORMATION.id} />
-        {combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.SOUL_REAPER_TALENT.id} />
+        {combatant.hasTalent(TALENTS.SOUL_REAPER_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.SOUL_REAPER_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.SUMMON_GARGOYLE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.SUMMON_GARGOYLE_TALENT.id} />
+        {combatant.hasTalent(TALENTS.SUMMON_GARGOYLE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.SUMMON_GARGOYLE_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.UNHOLY_ASSAULT_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.UNHOLY_ASSAULT_TALENT.id} />
+        {combatant.hasTalent(TALENTS.UNHOLY_ASSAULT_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.UNHOLY_ASSAULT_TALENT.id} />
         )}
         {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_RUNIC_POWER.id) && (
           <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_RUNIC_POWER.id} />
         )}
-        {combatant.hasTalent(SPELLS.UNHOLY_BLIGHT_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.UNHOLY_BLIGHT_TALENT.id} />
+        {combatant.hasTalent(TALENTS.UNHOLY_BLIGHT_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.UNHOLY_BLIGHT_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.DEFILE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.DEFILE_TALENT.id} />
+        {combatant.hasTalent(TALENTS.DEFILE_TALENT.id) && (
+          <AbilityRequirement spell={TALENTS.DEFILE_TALENT.id} />
         )}
       </Rule>
       <Rule

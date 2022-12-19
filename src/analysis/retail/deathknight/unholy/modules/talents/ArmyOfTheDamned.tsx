@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import CooldownIcon from 'interface/icons/Cooldown';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, FightEndEvent } from 'parser/core/Events';
@@ -23,7 +24,7 @@ class ArmyOfTheDamned extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ARMY_OF_THE_DAMNED_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ARMY_OF_THE_DAMNED_TALENT.id);
     if (!this.active) {
       return;
     }
@@ -67,7 +68,7 @@ class ArmyOfTheDamned extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.ARMY_OF_THE_DAMNED_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.ARMY_OF_THE_DAMNED_TALENT.id}>
           <>
             <CooldownIcon /> {this.totalApocalypseReductionMs / 1000}s{' '}
             <small> of Apocalypse CDR</small>
