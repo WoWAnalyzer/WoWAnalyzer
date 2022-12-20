@@ -65,7 +65,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.CONSUMPTION_TALENT.id,
         category: SPELL_CATEGORY.SEMI_DEFENSIVE,
-        enabled: combatant.hasTalent(TALENTS.CONSUMPTION_TALENT),
+        enabled: combatant.hasTalent(TALENTS.CONSUMPTION_TALENT.id),
         cooldown: 45,
         gcd: {
           base: 1500,

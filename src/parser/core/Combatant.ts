@@ -19,7 +19,6 @@ export interface CombatantInfo extends CombatantInfoEvent {
 
 type Spell = {
   id: number;
-  talentId?: number;
 };
 
 type Talent = {
