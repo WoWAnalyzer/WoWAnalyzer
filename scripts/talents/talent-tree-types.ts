@@ -31,6 +31,7 @@ type GenericTalentInterface = {
   icon: string;
   maxRanks: number;
   talentId: number;
+  __ignoreDuplication: true;
   spec?: string;
   reqPoints?: number;
   talentType?: ClassNodeType;

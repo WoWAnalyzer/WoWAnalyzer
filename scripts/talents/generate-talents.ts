@@ -70,6 +70,7 @@ async function generateTalents() {
           //Debugging values used for filtering later on
           spec: specTalents.specName,
           talentId: talentSpell.id,
+          __ignoreDuplication: true,
         };
 
         const entryInSpellPowerTable = spellpower.find(
@@ -107,6 +108,7 @@ async function generateTalents() {
           //talentType: specTalent.type,
           //Debugging values used for filtering later on
           spec: specTalents.specName,
+          __ignoreDuplication: true,
         };
         const entryInSpellPowerTable = spellpower.find(
           (e) => Number(e.SpellID) === talentSpell.spellId,

@@ -1,17 +1,10 @@
-import { useState } from 'react';
+import useSessionFeatureFlag from 'interface/useSessionFeatureFlag';
 
-const useVdhFeatureFlag = (featureFlag: string = '', featureFlagDefault?: boolean) => {
-  const sessionFeatureFlagSetting = window.sessionStorage?.getItem(
-    // This will filter out if featureFlag is an empty string
-    ['wowa-vdh-ff', featureFlag].filter((it) => it).join('-'),
+const useVdhFeatureFlag = (featureFlag: string, featureFlagDefault: boolean = false) => {
+  return useSessionFeatureFlag(
+    ['vdh', featureFlag].filter((it) => it).join('-'),
+    featureFlagDefault,
   );
-  const defaultFeatureFlagSetting = Boolean(featureFlagDefault);
-  const initialFeatureFlagSetting =
-    sessionFeatureFlagSetting === null
-      ? defaultFeatureFlagSetting
-      : Boolean(sessionFeatureFlagSetting);
-
-  return useState(initialFeatureFlagSetting);
 };
 
 export default useVdhFeatureFlag;

@@ -9,6 +9,7 @@ const talents = createTalentList({
     icon: 'spell_holy_layonhands',
     maxRanks: 1,
     talentId: 102583,
+    __ignoreDuplication: true,
   },
   BLESSING_OF_FREEDOM_TALENT: {
     id: 1044,
@@ -16,6 +17,7 @@ const talents = createTalentList({
     icon: 'spell_holy_sealofvalor',
     maxRanks: 1,
     talentId: 102587,
+    __ignoreDuplication: true,
     manaCost: 3500,
   },
   HAMMER_OF_WRATH_TALENT: {
@@ -24,6 +26,7 @@ const talents = createTalentList({
     icon: 'spell_paladin_hammerofwrath',
     maxRanks: 1,
     talentId: 102479,
+    __ignoreDuplication: true,
   },
   AURAS_OF_THE_RESOLUTE_TALENT: {
     id: 385633,
@@ -31,6 +34,7 @@ const talents = createTalentList({
     icon: 'spell_holy_devotionaura',
     maxRanks: 1,
     talentId: 102586,
+    __ignoreDuplication: true,
   },
   AURAS_OF_SWIFT_VENGEANCE_TALENT: {
     id: 385639,
@@ -38,6 +42,7 @@ const talents = createTalentList({
     icon: 'spell_holy_crusade',
     maxRanks: 1,
     talentId: 102588,
+    __ignoreDuplication: true,
   },
   REPENTANCE_TALENT: {
     id: 20066,
@@ -45,6 +50,7 @@ const talents = createTalentList({
     icon: 'spell_holy_prayerofhealing',
     maxRanks: 1,
     talentId: 102585,
+    __ignoreDuplication: true,
     manaCost: 3000,
   },
   BLINDING_LIGHT_TALENT: {
@@ -53,6 +59,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_blindinglight',
     maxRanks: 1,
     talentId: 102584,
+    __ignoreDuplication: true,
     manaCost: 3000,
   },
   DIVINE_STEED_TALENT: {
@@ -61,6 +68,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_divinesteed',
     maxRanks: 1,
     talentId: 102625,
+    __ignoreDuplication: true,
   },
   FIST_OF_JUSTICE_TALENT: {
     id: 234299,
@@ -68,6 +76,7 @@ const talents = createTalentList({
     icon: 'spell_holy_fistofjustice',
     maxRanks: 2,
     talentId: 102589,
+    __ignoreDuplication: true,
   },
   CLEANSE_TOXINS_TALENT: {
     id: 213644,
@@ -75,6 +84,7 @@ const talents = createTalentList({
     icon: 'spell_holy_renew',
     maxRanks: 1,
     talentId: 102476,
+    __ignoreDuplication: true,
     manaCost: 3250,
   },
   CAVALIER_TALENT: {
@@ -83,6 +93,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_divinesteed',
     maxRanks: 1,
     talentId: 102592,
+    __ignoreDuplication: true,
   },
   SEASONED_WARHORSE_TALENT: {
     id: 376996,
@@ -90,6 +101,7 @@ const talents = createTalentList({
     icon: 'spell_nature_swiftness',
     maxRanks: 1,
     talentId: 102624,
+    __ignoreDuplication: true,
   },
   SEAL_OF_THE_TEMPLAR_TALENT: {
     id: 377016,
@@ -97,6 +109,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_artofwar',
     maxRanks: 1,
     talentId: 102623,
+    __ignoreDuplication: true,
   },
   GREATER_JUDGMENT_SHARED_TALENT: {
     id: 231663,
@@ -104,6 +117,7 @@ const talents = createTalentList({
     icon: 'spell_holy_righteousfury',
     maxRanks: 1,
     talentId: 102590,
+    __ignoreDuplication: true,
   },
   HOLY_AEGIS_TALENT: {
     id: 385515,
@@ -111,6 +125,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_touchedbylight',
     maxRanks: 2,
     talentId: 102597,
+    __ignoreDuplication: true,
   },
   AVENGING_WRATH_TALENT: {
     id: 31884,
@@ -118,6 +133,7 @@ const talents = createTalentList({
     icon: 'spell_holy_avenginewrath',
     maxRanks: 1,
     talentId: 102593,
+    __ignoreDuplication: true,
   },
   TURN_EVIL_TALENT: {
     id: 10326,
@@ -125,6 +141,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_turnevil',
     maxRanks: 1,
     talentId: 102622,
+    __ignoreDuplication: true,
     manaCost: 5250,
   },
   REBUKE_TALENT: {
@@ -133,6 +150,7 @@ const talents = createTalentList({
     icon: 'spell_holy_rebuke',
     maxRanks: 1,
     talentId: 102591,
+    __ignoreDuplication: true,
   },
   GOLDEN_PATH_TALENT: {
     id: 377128,
@@ -140,6 +158,7 @@ const talents = createTalentList({
     icon: 'ability_priest_cascade',
     maxRanks: 1,
     talentId: 102598,
+    __ignoreDuplication: true,
   },
   JUDGMENT_OF_LIGHT_TALENT: {
     id: 183778,
@@ -147,6 +166,7 @@ const talents = createTalentList({
     icon: 'spell_holy_divineprovidence',
     maxRanks: 1,
     talentId: 102596,
+    __ignoreDuplication: true,
   },
   BLESSING_OF_SACRIFICE_TALENT: {
     id: 6940,
@@ -154,6 +174,7 @@ const talents = createTalentList({
     icon: 'spell_holy_sealofsacrifice',
     maxRanks: 1,
     talentId: 102602,
+    __ignoreDuplication: true,
     manaCost: 3500,
   },
   BLESSING_OF_PROTECTION_TALENT: {
@@ -162,6 +183,7 @@ const talents = createTalentList({
     icon: 'spell_holy_sealofprotection',
     maxRanks: 1,
     talentId: 102604,
+    __ignoreDuplication: true,
     manaCost: 7500,
   },
   SEAL_OF_REPRISAL_TALENT: {
@@ -170,6 +192,7 @@ const talents = createTalentList({
     icon: 'spell_holy_sealoffury',
     maxRanks: 2,
     talentId: 102621,
+    __ignoreDuplication: true,
   },
   SEAL_OF_MERCY_TALENT: {
     id: 384897,
@@ -177,6 +200,7 @@ const talents = createTalentList({
     icon: 'spell_holy_greaterblessingofsalvation',
     maxRanks: 2,
     talentId: 102599,
+    __ignoreDuplication: true,
   },
   AFTERIMAGE_TALENT: {
     id: 385414,
@@ -184,6 +208,7 @@ const talents = createTalentList({
     icon: 'spell_holy_aspiration',
     maxRanks: 1,
     talentId: 102601,
+    __ignoreDuplication: true,
   },
   SACRIFICE_OF_THE_JUST_TALENT: {
     id: 384820,
@@ -191,6 +216,7 @@ const talents = createTalentList({
     icon: 'spell_holy_sealofsacrifice',
     maxRanks: 1,
     talentId: 102595,
+    __ignoreDuplication: true,
   },
   RECOMPENSE_TALENT: {
     id: 384914,
@@ -198,6 +224,7 @@ const talents = createTalentList({
     icon: 'ability_racial_foregedinflames',
     maxRanks: 1,
     talentId: 102594,
+    __ignoreDuplication: true,
   },
   UNBREAKABLE_SPIRIT_TALENT: {
     id: 114154,
@@ -205,6 +232,7 @@ const talents = createTalentList({
     icon: 'spell_holy_holyguidance',
     maxRanks: 1,
     talentId: 102603,
+    __ignoreDuplication: true,
   },
   IMPROVED_BLESSING_OF_PROTECTION_TALENT: {
     id: 384909,
@@ -212,6 +240,7 @@ const talents = createTalentList({
     icon: 'spell_holy_sealofprotection',
     maxRanks: 1,
     talentId: 102606,
+    __ignoreDuplication: true,
   },
   INCANDESCENCE_TALENT: {
     id: 385464,
@@ -219,6 +248,7 @@ const talents = createTalentList({
     icon: 'inv_summerfest_firespirit',
     maxRanks: 1,
     talentId: 102620,
+    __ignoreDuplication: true,
   },
   TOUCH_OF_LIGHT_TALENT: {
     id: 385349,
@@ -226,6 +256,7 @@ const talents = createTalentList({
     icon: 'achievment_raid_houroftwilight',
     maxRanks: 1,
     talentId: 102619,
+    __ignoreDuplication: true,
   },
   SEAL_OF_CLARITY_TALENT: {
     id: 384815,
@@ -233,6 +264,7 @@ const talents = createTalentList({
     icon: 'spell_priest_power_word',
     maxRanks: 2,
     talentId: 102600,
+    __ignoreDuplication: true,
   },
   ASPIRATION_OF_DIVINITY_TALENT: {
     id: 385416,
@@ -240,6 +272,7 @@ const talents = createTalentList({
     icon: 'spell_holy_fanaticism',
     maxRanks: 2,
     talentId: 102613,
+    __ignoreDuplication: true,
   },
   DIVINE_PURPOSE_TALENT: {
     id: 223817,
@@ -247,6 +280,7 @@ const talents = createTalentList({
     icon: 'spell_holy_divinepurpose',
     maxRanks: 1,
     talentId: 102608,
+    __ignoreDuplication: true,
   },
   HOLY_AVENGER_TALENT: {
     id: 105809,
@@ -254,6 +288,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_holyavenger',
     maxRanks: 1,
     talentId: 102607,
+    __ignoreDuplication: true,
   },
   OBDURACY_TALENT: {
     id: 385427,
@@ -261,6 +296,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_speedoflight',
     maxRanks: 1,
     talentId: 102618,
+    __ignoreDuplication: true,
   },
   HALLOWED_GROUND_TALENT: {
     id: 377043,
@@ -268,6 +304,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_empoweredsealsrighteous',
     maxRanks: 1,
     talentId: 102478,
+    __ignoreDuplication: true,
   },
   OF_DUSK_AND_DAWN_TALENT: {
     id: 385125,
@@ -275,6 +312,7 @@ const talents = createTalentList({
     icon: 'spell_paladin_lightofdawn',
     maxRanks: 1,
     talentId: 102615,
+    __ignoreDuplication: true,
   },
   SEAL_OF_MIGHT_TALENT: {
     id: 385450,
@@ -282,6 +320,7 @@ const talents = createTalentList({
     icon: 'spell_holy_sealofwrath',
     maxRanks: 2,
     talentId: 102612,
+    __ignoreDuplication: true,
   },
   SEAL_OF_ALACRITY_TALENT: {
     id: 385425,
@@ -289,6 +328,7 @@ const talents = createTalentList({
     icon: 'spell_holy_sealofvengeance',
     maxRanks: 2,
     talentId: 102609,
+    __ignoreDuplication: true,
   },
   SEAL_OF_THE_CRUSADER_TALENT: {
     id: 385728,
@@ -296,6 +336,7 @@ const talents = createTalentList({
     icon: 'spell_holy_holysmite',
     maxRanks: 2,
     talentId: 102617,
+    __ignoreDuplication: true,
   },
   SEAL_OF_ORDER_TALENT: {
     id: 385129,
@@ -303,6 +344,7 @@ const talents = createTalentList({
     icon: 'spell_holy_sealofwisdom',
     maxRanks: 1,
     talentId: 102614,
+    __ignoreDuplication: true,
   },
   SANCTIFIED_WRATH_TALENT: {
     id: 31884,
@@ -310,6 +352,7 @@ const talents = createTalentList({
     icon: 'spell_holy_avenginewrath',
     maxRanks: 1,
     talentId: 102611,
+    __ignoreDuplication: true,
   },
   SERAPHIM_TALENT: {
     id: 152262,
@@ -317,6 +360,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_seraphim',
     maxRanks: 1,
     talentId: 102610,
+    __ignoreDuplication: true,
     holyPowerCost: 3,
   },
   ZEALOTS_PARAGON_TALENT: {
@@ -325,6 +369,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_conviction',
     maxRanks: 1,
     talentId: 102616,
+    __ignoreDuplication: true,
   },
   IMPROVED_CLEANSE_TALENT: {
     id: 393024,
@@ -332,6 +377,7 @@ const talents = createTalentList({
     icon: 'spell_holy_purify',
     maxRanks: 1,
     talentId: 102477,
+    __ignoreDuplication: true,
   },
   GREATER_JUDGMENT_HOLY_TALENT: {
     id: 231644,
@@ -339,6 +385,7 @@ const talents = createTalentList({
     icon: 'spell_holy_righteousfury',
     maxRanks: 1,
     talentId: 114292,
+    __ignoreDuplication: true,
   },
   CONSECRATED_GROUND_TALENT: {
     id: 204054,
@@ -346,6 +393,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_righteousvengeance',
     maxRanks: 1,
     talentId: 102508,
+    __ignoreDuplication: true,
   },
   RELENTLESS_INQUISITOR_TALENT: {
     id: 383388,
@@ -353,6 +401,7 @@ const talents = createTalentList({
     icon: 'spell_holy_mindvision',
     maxRanks: 2,
     talentId: 102575,
+    __ignoreDuplication: true,
   },
   AVENGING_WRATH_MIGHT_TALENT: {
     id: 31884,
@@ -360,6 +409,7 @@ const talents = createTalentList({
     icon: 'spell_holy_avenginewrath',
     maxRanks: 1,
     talentId: 102569,
+    __ignoreDuplication: true,
   },
   DIVINE_TOLL_TALENT: {
     id: 375576,
@@ -367,6 +417,7 @@ const talents = createTalentList({
     icon: 'ability_bastion_paladin',
     maxRanks: 1,
     talentId: 102563,
+    __ignoreDuplication: true,
     manaCost: 7500,
   },
   DIVINE_PROTECTION_TALENT: {
@@ -375,6 +426,7 @@ const talents = createTalentList({
     icon: 'spell_holy_divineprotection',
     maxRanks: 1,
     talentId: 102549,
+    __ignoreDuplication: true,
     manaCost: 1750,
   },
   EMPYREAN_LEGACY_TALENT: {
@@ -383,6 +435,7 @@ const talents = createTalentList({
     icon: 'item_holyspark',
     maxRanks: 1,
     talentId: 102576,
+    __ignoreDuplication: true,
   },
 
   //Protection
@@ -392,6 +445,7 @@ const talents = createTalentList({
     icon: 'spell_holy_avengersshield',
     maxRanks: 1,
     talentId: 102471,
+    __ignoreDuplication: true,
   },
   HAMMER_OF_THE_RIGHTEOUS_TALENT: {
     id: 53595,
@@ -399,6 +453,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_hammeroftherighteous',
     maxRanks: 1,
     talentId: 102431,
+    __ignoreDuplication: true,
   },
   BLESSED_HAMMER_TALENT: {
     id: 204019,
@@ -406,6 +461,7 @@ const talents = createTalentList({
     icon: 'paladin_retribution',
     maxRanks: 1,
     talentId: 102430,
+    __ignoreDuplication: true,
   },
   INNER_LIGHT_TALENT: {
     id: 386568,
@@ -413,6 +469,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_shieldofvengeance',
     maxRanks: 1,
     talentId: 102463,
+    __ignoreDuplication: true,
   },
   REDOUBT_TALENT: {
     id: 280373,
@@ -420,6 +477,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_shieldguard',
     maxRanks: 1,
     talentId: 102462,
+    __ignoreDuplication: true,
   },
   HOLY_SHIELD_TALENT: {
     id: 152261,
@@ -427,6 +485,7 @@ const talents = createTalentList({
     icon: 'inv_shield_1h_hyrja_d_01',
     maxRanks: 1,
     talentId: 102455,
+    __ignoreDuplication: true,
   },
   GRAND_CRUSADER_TALENT: {
     id: 85043,
@@ -434,6 +493,7 @@ const talents = createTalentList({
     icon: 'inv_helmet_74',
     maxRanks: 1,
     talentId: 102453,
+    __ignoreDuplication: true,
   },
   SHINING_LIGHT_TALENT: {
     id: 321136,
@@ -441,6 +501,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_toweroflight',
     maxRanks: 1,
     talentId: 102467,
+    __ignoreDuplication: true,
   },
   IMPROVED_LAY_ON_HANDS_TALENT: {
     id: 393027,
@@ -448,6 +509,7 @@ const talents = createTalentList({
     icon: 'spell_holy_layonhands',
     maxRanks: 1,
     talentId: 102458,
+    __ignoreDuplication: true,
   },
   INSPIRING_VANGUARD_TALENT: {
     id: 393022,
@@ -455,6 +517,7 @@ const talents = createTalentList({
     icon: 'inv_helmet_74',
     maxRanks: 1,
     talentId: 102439,
+    __ignoreDuplication: true,
   },
   ARDENT_DEFENDER_TALENT: {
     id: 31850,
@@ -462,6 +525,7 @@ const talents = createTalentList({
     icon: 'spell_holy_ardentdefender',
     maxRanks: 1,
     talentId: 102445,
+    __ignoreDuplication: true,
   },
   BARRICADE_OF_FAITH_TALENT: {
     id: 385726,
@@ -469,6 +533,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_barrieroffaith',
     maxRanks: 1,
     talentId: 102470,
+    __ignoreDuplication: true,
   },
   CONSECRATION_IN_FLAME_TALENT: {
     id: 379022,
@@ -476,6 +541,7 @@ const talents = createTalentList({
     icon: 'spell_fire_sealoffire',
     maxRanks: 1,
     talentId: 102432,
+    __ignoreDuplication: true,
   },
   IMPROVED_HOLY_SHIELD_TALENT: {
     id: 393030,
@@ -483,6 +549,7 @@ const talents = createTalentList({
     icon: 'inv_shield_1h_hyrja_d_01',
     maxRanks: 1,
     talentId: 102452,
+    __ignoreDuplication: true,
   },
   SANCTUARY_TALENT: {
     id: 379021,
@@ -490,6 +557,7 @@ const talents = createTalentList({
     icon: 'spell_holy_innerfire',
     maxRanks: 1,
     talentId: 102451,
+    __ignoreDuplication: true,
   },
   BULWARK_OF_ORDER_TALENT: {
     id: 209389,
@@ -497,6 +565,7 @@ const talents = createTalentList({
     icon: 'spell_holy_pureofheart',
     maxRanks: 2,
     talentId: 102468,
+    __ignoreDuplication: true,
   },
   IMPROVED_ARDENT_DEFENDER_TALENT: {
     id: 393114,
@@ -504,6 +573,7 @@ const talents = createTalentList({
     icon: 'spell_holy_ardentdefender',
     maxRanks: 1,
     talentId: 111887,
+    __ignoreDuplication: true,
   },
   BLESSING_OF_SPELLWARDING_TALENT: {
     id: 204018,
@@ -511,6 +581,7 @@ const talents = createTalentList({
     icon: 'spell_holy_blessingofprotection',
     maxRanks: 1,
     talentId: 111886,
+    __ignoreDuplication: true,
     manaCost: 7500,
   },
   LIGHT_OF_THE_TITANS_TALENT: {
@@ -519,6 +590,7 @@ const talents = createTalentList({
     icon: 'spell_paladin_lightofdawn',
     maxRanks: 2,
     talentId: 102472,
+    __ignoreDuplication: true,
   },
   STRENGTH_IN_ADVERSITY_TALENT: {
     id: 393071,
@@ -526,6 +598,7 @@ const talents = createTalentList({
     icon: 'spell_holy_weaponmastery',
     maxRanks: 1,
     talentId: 102461,
+    __ignoreDuplication: true,
   },
   CRUSADERS_RESOLVE_TALENT: {
     id: 380188,
@@ -533,6 +606,7 @@ const talents = createTalentList({
     icon: 'ability_priest_angelicbulwark',
     maxRanks: 1,
     talentId: 102460,
+    __ignoreDuplication: true,
   },
   TYRS_ENFORCER_TALENT: {
     id: 378285,
@@ -540,6 +614,7 @@ const talents = createTalentList({
     icon: 'spell_holy_persecution',
     maxRanks: 2,
     talentId: 102437,
+    __ignoreDuplication: true,
   },
   SENTINEL_TALENT: {
     id: 389539,
@@ -547,6 +622,7 @@ const talents = createTalentList({
     icon: 'spell_holy_holynova',
     maxRanks: 1,
     talentId: 102447,
+    __ignoreDuplication: true,
   },
   HAND_OF_THE_PROTECTOR_TALENT: {
     id: 315924,
@@ -554,6 +630,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_blessedhands',
     maxRanks: 1,
     talentId: 102438,
+    __ignoreDuplication: true,
   },
   STRENGTH_OF_CONVICTION_TALENT: {
     id: 379008,
@@ -561,6 +638,7 @@ const talents = createTalentList({
     icon: 'spell_holy_eyeforaneye',
     maxRanks: 2,
     talentId: 102450,
+    __ignoreDuplication: true,
   },
   RESOLUTE_DEFENDER_TALENT: {
     id: 385422,
@@ -568,6 +646,7 @@ const talents = createTalentList({
     icon: 'ability_crown_of_the_heavens_icon',
     maxRanks: 1,
     talentId: 102433,
+    __ignoreDuplication: true,
   },
   BASTION_OF_LIGHT_TALENT: {
     id: 378974,
@@ -575,6 +654,7 @@ const talents = createTalentList({
     icon: 'paladin_protection',
     maxRanks: 1,
     talentId: 102454,
+    __ignoreDuplication: true,
   },
   GUARDIAN_OF_ANCIENT_KINGS_TALENT: {
     id: 86659,
@@ -582,6 +662,7 @@ const talents = createTalentList({
     icon: 'spell_holy_heroism',
     maxRanks: 1,
     talentId: 102456,
+    __ignoreDuplication: true,
   },
   CRUSADERS_JUDGMENT_TALENT: {
     id: 204023,
@@ -589,6 +670,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_enlightenedjudgements',
     maxRanks: 1,
     talentId: 102436,
+    __ignoreDuplication: true,
   },
   UTHERS_COUNSEL_TALENT: {
     id: 378425,
@@ -596,6 +678,7 @@ const talents = createTalentList({
     icon: 'spell_holy_greaterblessingofsalvation',
     maxRanks: 1,
     talentId: 102469,
+    __ignoreDuplication: true,
   },
   FOCUSED_ENMITY_TALENT: {
     id: 378845,
@@ -603,6 +686,7 @@ const talents = createTalentList({
     icon: 'ability_priest_flashoflight',
     maxRanks: 1,
     talentId: 102435,
+    __ignoreDuplication: true,
   },
   SOARING_SHIELD_TALENT: {
     id: 378457,
@@ -610,6 +694,7 @@ const talents = createTalentList({
     icon: 'spell_burningbladeshaman_lavaslash',
     maxRanks: 1,
     talentId: 102434,
+    __ignoreDuplication: true,
   },
   GIFT_OF_THE_GOLDEN_VALKYR_TALENT: {
     id: 378279,
@@ -617,6 +702,7 @@ const talents = createTalentList({
     icon: 'inv_valkiergoldpet',
     maxRanks: 2,
     talentId: 102449,
+    __ignoreDuplication: true,
   },
   EYE_OF_TYR_TALENT: {
     id: 387174,
@@ -624,6 +710,7 @@ const talents = createTalentList({
     icon: 'inv_shield_1h_artifactnorgannon_d_01',
     maxRanks: 1,
     talentId: 102466,
+    __ignoreDuplication: true,
   },
   RIGHTEOUS_PROTECTOR_TALENT: {
     id: 204074,
@@ -631,6 +718,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_shieldofthetemplar',
     maxRanks: 2,
     talentId: 102440,
+    __ignoreDuplication: true,
   },
   FAITH_IN_THE_LIGHT_TALENT: {
     id: 379043,
@@ -638,6 +726,7 @@ const talents = createTalentList({
     icon: 'spell_holy_redemption',
     maxRanks: 2,
     talentId: 102444,
+    __ignoreDuplication: true,
   },
   FERREN_MARCUSS_FERVOR_TALENT: {
     id: 378762,
@@ -645,6 +734,7 @@ const talents = createTalentList({
     icon: 'spell_holy_sealofwrath',
     maxRanks: 2,
     talentId: 102446,
+    __ignoreDuplication: true,
   },
   FAITHS_ARMOR_TALENT: {
     id: 379017,
@@ -652,6 +742,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_shieldofvengeance',
     maxRanks: 1,
     talentId: 102464,
+    __ignoreDuplication: true,
   },
   FINAL_STAND_TALENT: {
     id: 204077,
@@ -659,6 +750,7 @@ const talents = createTalentList({
     icon: 'spell_holy_crusade',
     maxRanks: 1,
     talentId: 102473,
+    __ignoreDuplication: true,
   },
   MOMENT_OF_GLORY_TALENT: {
     id: 327193,
@@ -666,6 +758,7 @@ const talents = createTalentList({
     icon: 'spell_holy_aspiration',
     maxRanks: 1,
     talentId: 102474,
+    __ignoreDuplication: true,
   },
   BULWARK_OF_RIGHTEOUS_FURY_TALENT: {
     id: 386653,
@@ -673,6 +766,7 @@ const talents = createTalentList({
     icon: 'spell_holy_sealofrighteousness',
     maxRanks: 1,
     talentId: 102457,
+    __ignoreDuplication: true,
   },
   DIVINE_RESONANCE_PROTECTION_TALENT: {
     id: 386738,
@@ -680,6 +774,7 @@ const talents = createTalentList({
     icon: 'ability_mount_goatmountwhite',
     maxRanks: 1,
     talentId: 102443,
+    __ignoreDuplication: true,
   },
   QUICKENED_INVOCATIONS_TALENT: {
     id: 379391,
@@ -687,6 +782,7 @@ const talents = createTalentList({
     icon: 'spell_holy_pureofheart',
     maxRanks: 1,
     talentId: 102442,
+    __ignoreDuplication: true,
   },
 
   //Retribution
@@ -696,6 +792,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_bladeofjustice',
     maxRanks: 1,
     talentId: 102498,
+    __ignoreDuplication: true,
   },
   DIVINE_STORM_TALENT: {
     id: 53385,
@@ -703,6 +800,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_divinestorm',
     maxRanks: 1,
     talentId: 102501,
+    __ignoreDuplication: true,
     holyPowerCost: 3,
   },
   ART_OF_WAR_TALENT: {
@@ -711,6 +809,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_artofwar',
     maxRanks: 1,
     talentId: 102523,
+    __ignoreDuplication: true,
   },
   IMPROVED_JUDGMENT_TALENT: {
     id: 383228,
@@ -718,6 +817,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_judgementofthepure',
     maxRanks: 1,
     talentId: 102502,
+    __ignoreDuplication: true,
   },
   IMPROVED_CRUSADER_STRIKE_TALENT: {
     id: 383254,
@@ -725,6 +825,7 @@ const talents = createTalentList({
     icon: 'spell_holy_crusaderstrike',
     maxRanks: 1,
     talentId: 102500,
+    __ignoreDuplication: true,
   },
   HOLY_CRUSADER_TALENT: {
     id: 386967,
@@ -732,6 +833,7 @@ const talents = createTalentList({
     icon: 'spell_holy_power',
     maxRanks: 1,
     talentId: 102499,
+    __ignoreDuplication: true,
   },
   HOLY_BLADE_TALENT: {
     id: 383342,
@@ -739,6 +841,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_lightoftheprotector',
     maxRanks: 1,
     talentId: 102522,
+    __ignoreDuplication: true,
   },
   BLADE_OF_CONDEMNATION_TALENT: {
     id: 383263,
@@ -746,6 +849,7 @@ const talents = createTalentList({
     icon: 'ability_skyreach_spinning_blade',
     maxRanks: 1,
     talentId: 102482,
+    __ignoreDuplication: true,
   },
   EMPYREAN_POWER_TALENT: {
     id: 326732,
@@ -753,6 +857,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_sheathoflight',
     maxRanks: 1,
     talentId: 102504,
+    __ignoreDuplication: true,
   },
   SHIELD_OF_VENGEANCE_TALENT: {
     id: 184662,
@@ -760,6 +865,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_shieldofthetemplar',
     maxRanks: 1,
     talentId: 102521,
+    __ignoreDuplication: true,
   },
   BLADE_OF_WRATH_TALENT: {
     id: 231832,
@@ -767,6 +873,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_bladeofjustice',
     maxRanks: 1,
     talentId: 102491,
+    __ignoreDuplication: true,
   },
   HIGHLORDS_JUDGMENT_TALENT: {
     id: 383271,
@@ -774,6 +881,7 @@ const talents = createTalentList({
     icon: 'spell_holy_righteousfury',
     maxRanks: 2,
     talentId: 102505,
+    __ignoreDuplication: true,
   },
   RIGHTEOUS_VERDICT_TALENT: {
     id: 267610,
@@ -781,6 +889,7 @@ const talents = createTalentList({
     icon: 'spell_paladin_templarsverdict',
     maxRanks: 1,
     talentId: 102503,
+    __ignoreDuplication: true,
   },
   SANCTIFY_TALENT: {
     id: 382536,
@@ -788,6 +897,7 @@ const talents = createTalentList({
     icon: 'achievement_zone_firelands',
     maxRanks: 1,
     talentId: 102519,
+    __ignoreDuplication: true,
   },
   WAKE_OF_ASHES_TALENT: {
     id: 255937,
@@ -795,6 +905,7 @@ const talents = createTalentList({
     icon: 'inv_sword_2h_artifactashbringerfire_d_03',
     maxRanks: 1,
     talentId: 102495,
+    __ignoreDuplication: true,
   },
   CONSECRATED_BLADE_TALENT: {
     id: 382275,
@@ -802,6 +913,7 @@ const talents = createTalentList({
     icon: 'ability_mage_firestarter',
     maxRanks: 1,
     talentId: 102531,
+    __ignoreDuplication: true,
   },
   SEAL_OF_WRATH_TALENT: {
     id: 386901,
@@ -809,6 +921,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_empoweredsealstruth',
     maxRanks: 1,
     talentId: 102490,
+    __ignoreDuplication: true,
   },
   EXPURGATION_TALENT: {
     id: 383344,
@@ -816,6 +929,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_bladeofjusticeblue',
     maxRanks: 1,
     talentId: 102489,
+    __ignoreDuplication: true,
   },
   BOUNDLESS_JUDGMENT_TALENT: {
     id: 383876,
@@ -823,6 +937,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_judgementofthewise',
     maxRanks: 1,
     talentId: 102506,
+    __ignoreDuplication: true,
   },
   SANCTIFICATION_TALENT: {
     id: 382430,
@@ -830,6 +945,7 @@ const talents = createTalentList({
     icon: 'spell_holy_surgeoflight',
     maxRanks: 1,
     talentId: 102518,
+    __ignoreDuplication: true,
   },
   INNER_GRACE_TALENT: {
     id: 383334,
@@ -837,6 +953,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_toweroflight',
     maxRanks: 1,
     talentId: 102517,
+    __ignoreDuplication: true,
   },
   ASHES_TO_DUST_TALENT: {
     id: 383300,
@@ -844,6 +961,7 @@ const talents = createTalentList({
     icon: 'inv_sword_2h_artifactashbringerpurified_d_02',
     maxRanks: 1,
     talentId: 102494,
+    __ignoreDuplication: true,
   },
   RADIANT_DECREE_TALENT: {
     id: 384052,
@@ -851,6 +969,7 @@ const talents = createTalentList({
     icon: 'inv_sword_2h_artifactashbringerfire_d_02',
     maxRanks: 1,
     talentId: 102493,
+    __ignoreDuplication: true,
   },
   CRUSADE_TALENT: {
     id: 231895,
@@ -858,6 +977,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_sanctifiedwrath',
     maxRanks: 1,
     talentId: 102496,
+    __ignoreDuplication: true,
   },
   TRUTHS_WAKE_TALENT: {
     id: 383350,
@@ -865,6 +985,7 @@ const talents = createTalentList({
     icon: 'inv_mace_104',
     maxRanks: 1,
     talentId: 102492,
+    __ignoreDuplication: true,
   },
   ZEAL_TALENT: {
     id: 269569,
@@ -872,6 +993,7 @@ const talents = createTalentList({
     icon: 'spell_holy_sealofblood',
     maxRanks: 1,
     talentId: 102530,
+    __ignoreDuplication: true,
   },
   FIRES_OF_JUSTICE_TALENT: {
     id: 203316,
@@ -879,6 +1001,7 @@ const talents = createTalentList({
     icon: 'spell_holy_crusaderstrike',
     maxRanks: 1,
     talentId: 102529,
+    __ignoreDuplication: true,
   },
   SEALED_VERDICT_TALENT: {
     id: 387640,
@@ -886,6 +1009,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_swiftretribution',
     maxRanks: 2,
     talentId: 102488,
+    __ignoreDuplication: true,
   },
   SANCTIFIED_GROUND_TALENT: {
     id: 387479,
@@ -893,6 +1017,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_skirmisher',
     maxRanks: 1,
     talentId: 102507,
+    __ignoreDuplication: true,
   },
   EXORCISM_TALENT: {
     id: 383185,
@@ -900,6 +1025,7 @@ const talents = createTalentList({
     icon: 'spell_holy_excorcism_02',
     maxRanks: 1,
     talentId: 102516,
+    __ignoreDuplication: true,
   },
   HAND_OF_HINDRANCE_TALENT: {
     id: 183218,
@@ -907,6 +1033,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_handofhindrance',
     maxRanks: 1,
     talentId: 102515,
+    __ignoreDuplication: true,
     manaCost: 5000,
   },
   SELFLESS_HEALER_TALENT: {
@@ -915,6 +1042,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_gaurdedbythelight',
     maxRanks: 1,
     talentId: 102528,
+    __ignoreDuplication: true,
   },
   HEALING_HANDS_TALENT: {
     id: 326734,
@@ -922,6 +1050,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_infusionoflight',
     maxRanks: 1,
     talentId: 102527,
+    __ignoreDuplication: true,
   },
   TEMPEST_OF_THE_LIGHTBRINGER_TALENT: {
     id: 383396,
@@ -929,6 +1058,7 @@ const talents = createTalentList({
     icon: 'ability_malkorok_blightofyshaarj_yellow',
     maxRanks: 1,
     talentId: 102481,
+    __ignoreDuplication: true,
   },
   JUSTICARS_VENGEANCE_TALENT: {
     id: 215661,
@@ -936,6 +1066,7 @@ const talents = createTalentList({
     icon: 'spell_holy_retributionaura',
     maxRanks: 1,
     talentId: 102487,
+    __ignoreDuplication: true,
     holyPowerCost: 3,
   },
   EYE_FOR_AN_EYE_TALENT: {
@@ -944,6 +1075,7 @@ const talents = createTalentList({
     icon: 'spell_holy_weaponmastery',
     maxRanks: 1,
     talentId: 102486,
+    __ignoreDuplication: true,
   },
   ASHES_TO_ASHES_TALENT: {
     id: 383276,
@@ -951,6 +1083,7 @@ const talents = createTalentList({
     icon: 'inv_artifact_ashes_to_ashes',
     maxRanks: 2,
     talentId: 102526,
+    __ignoreDuplication: true,
   },
   TEMPLARS_VINDICATION_TALENT: {
     id: 383274,
@@ -958,6 +1091,7 @@ const talents = createTalentList({
     icon: 'ability_priest_evangelism',
     maxRanks: 2,
     talentId: 102485,
+    __ignoreDuplication: true,
   },
   EXECUTION_SENTENCE_TALENT: {
     id: 343527,
@@ -965,6 +1099,7 @@ const talents = createTalentList({
     icon: 'spell_paladin_executionsentence',
     maxRanks: 1,
     talentId: 102511,
+    __ignoreDuplication: true,
     holyPowerCost: 3,
   },
   VIRTUOUS_COMMAND_TALENT: {
@@ -973,6 +1108,7 @@ const talents = createTalentList({
     icon: 'spell_holy_sealofvengeance',
     maxRanks: 2,
     talentId: 102525,
+    __ignoreDuplication: true,
   },
   FINAL_VERDICT_TALENT: {
     id: 383328,
@@ -980,6 +1116,7 @@ const talents = createTalentList({
     icon: 'spell_paladin_templarsverdict',
     maxRanks: 1,
     talentId: 102484,
+    __ignoreDuplication: true,
     holyPowerCost: 3,
   },
   EXECUTIONERS_WILL_TALENT: {
@@ -988,6 +1125,7 @@ const talents = createTalentList({
     icon: 'inv_helm_plate_raidpaladinmythic_q_01',
     maxRanks: 1,
     talentId: 102510,
+    __ignoreDuplication: true,
   },
   EXECUTIONERS_WRATH_TALENT: {
     id: 387196,
@@ -995,6 +1133,7 @@ const talents = createTalentList({
     icon: 'inv_glove_plate_raidpaladinmythic_q_01',
     maxRanks: 1,
     talentId: 102509,
+    __ignoreDuplication: true,
   },
   DIVINE_RESONANCE_RETRIBUTION_TALENT: {
     id: 384027,
@@ -1002,6 +1141,7 @@ const talents = createTalentList({
     icon: 'ability_mount_goatmountwhite',
     maxRanks: 1,
     talentId: 102512,
+    __ignoreDuplication: true,
   },
   FINAL_RECKONING_TALENT: {
     id: 343721,
@@ -1009,6 +1149,7 @@ const talents = createTalentList({
     icon: 'spell_holy_blessedresillience',
     maxRanks: 1,
     talentId: 102524,
+    __ignoreDuplication: true,
   },
   VANGUARDS_MOMENTUM_TALENT: {
     id: 383314,
@@ -1016,6 +1157,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_speedoflight',
     maxRanks: 2,
     talentId: 102483,
+    __ignoreDuplication: true,
   },
 
   //Holy
@@ -1025,6 +1167,7 @@ const talents = createTalentList({
     icon: 'spell_holy_searinglight',
     maxRanks: 1,
     talentId: 102534,
+    __ignoreDuplication: true,
     manaCost: 8000,
   },
   HOLY_LIGHT_TALENT: {
@@ -1033,6 +1176,7 @@ const talents = createTalentList({
     icon: 'spell_holy_surgeoflight',
     maxRanks: 1,
     talentId: 102550,
+    __ignoreDuplication: true,
     manaCost: 8000,
   },
   LIGHT_OF_DAWN_TALENT: {
@@ -1041,6 +1185,7 @@ const talents = createTalentList({
     icon: 'spell_paladin_lightofdawn',
     maxRanks: 1,
     talentId: 102545,
+    __ignoreDuplication: true,
     holyPowerCost: 3,
   },
   ILLUMINATION_TALENT: {
@@ -1049,6 +1194,7 @@ const talents = createTalentList({
     icon: 'spell_paladin_clarityofpurpose',
     maxRanks: 1,
     talentId: 102555,
+    __ignoreDuplication: true,
   },
   DIVINE_INSIGHT_TALENT: {
     id: 392914,
@@ -1056,6 +1202,7 @@ const talents = createTalentList({
     icon: 'spell_holy_pureofheart',
     maxRanks: 1,
     talentId: 102554,
+    __ignoreDuplication: true,
   },
   UNENDING_LIGHT_TALENT: {
     id: 387998,
@@ -1063,6 +1210,7 @@ const talents = createTalentList({
     icon: 'spell_holy_holybolt',
     maxRanks: 1,
     talentId: 102544,
+    __ignoreDuplication: true,
   },
   BESTOW_FAITH_TALENT: {
     id: 223306,
@@ -1070,6 +1218,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_blessedmending',
     maxRanks: 1,
     talentId: 102543,
+    __ignoreDuplication: true,
     manaCost: 3000,
   },
   MOMENT_OF_COMPASSION_TALENT: {
@@ -1078,6 +1227,7 @@ const talents = createTalentList({
     icon: 'spell_holy_flashheal',
     maxRanks: 1,
     talentId: 102553,
+    __ignoreDuplication: true,
   },
   RESPLENDENT_LIGHT_TALENT: {
     id: 392902,
@@ -1085,6 +1235,7 @@ const talents = createTalentList({
     icon: 'ability_priest_voidshift',
     maxRanks: 1,
     talentId: 102552,
+    __ignoreDuplication: true,
   },
   TIRIONS_DEVOTION_TALENT: {
     id: 392928,
@@ -1092,6 +1243,7 @@ const talents = createTalentList({
     icon: 'spell_holy_holyguidance',
     maxRanks: 1,
     talentId: 102556,
+    __ignoreDuplication: true,
   },
   AURA_MASTERY_TALENT: {
     id: 31821,
@@ -1099,6 +1251,7 @@ const talents = createTalentList({
     icon: 'spell_holy_auramastery',
     maxRanks: 1,
     talentId: 102548,
+    __ignoreDuplication: true,
   },
   EMPYREAL_WARD_TALENT: {
     id: 387791,
@@ -1106,6 +1259,7 @@ const talents = createTalentList({
     icon: 'spell_holy_layonhands',
     maxRanks: 1,
     talentId: 102558,
+    __ignoreDuplication: true,
   },
   RULE_OF_LAW_TALENT: {
     id: 214202,
@@ -1113,6 +1267,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_longarmofthelaw',
     maxRanks: 1,
     talentId: 102541,
+    __ignoreDuplication: true,
   },
   DIVINE_FAVOR_TALENT: {
     id: 210294,
@@ -1120,6 +1275,7 @@ const talents = createTalentList({
     icon: 'spell_holy_heal',
     maxRanks: 1,
     talentId: 102551,
+    __ignoreDuplication: true,
   },
   SHINING_SAVIOR_TALENT: {
     id: 388005,
@@ -1127,6 +1283,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_sacredcleansing',
     maxRanks: 1,
     talentId: 102559,
+    __ignoreDuplication: true,
   },
   UNWAVERING_SPIRIT_TALENT: {
     id: 392911,
@@ -1134,6 +1291,7 @@ const talents = createTalentList({
     icon: 'spell_holy_fanaticism',
     maxRanks: 1,
     talentId: 102547,
+    __ignoreDuplication: true,
   },
   PROTECTION_OF_TYR_TALENT: {
     id: 200430,
@@ -1141,6 +1299,7 @@ const talents = createTalentList({
     icon: 'spell_holy_auramastery',
     maxRanks: 1,
     talentId: 102546,
+    __ignoreDuplication: true,
   },
   IMBUED_INFUSIONS_TALENT: {
     id: 392961,
@@ -1148,6 +1307,7 @@ const talents = createTalentList({
     icon: 'ability_priest_flashoflight',
     maxRanks: 1,
     talentId: 102536,
+    __ignoreDuplication: true,
   },
   LIGHTS_HAMMER_TALENT: {
     id: 114158,
@@ -1155,6 +1315,7 @@ const talents = createTalentList({
     icon: 'spell_paladin_lightshammer',
     maxRanks: 1,
     talentId: 102561,
+    __ignoreDuplication: true,
     manaCost: 9000,
   },
   HOLY_PRISM_TALENT: {
@@ -1163,6 +1324,7 @@ const talents = createTalentList({
     icon: 'spell_paladin_holyprism',
     maxRanks: 1,
     talentId: 102560,
+    __ignoreDuplication: true,
     manaCost: 6500,
   },
   SAVED_BY_THE_LIGHT_TALENT: {
@@ -1171,6 +1333,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_savedbythelight',
     maxRanks: 1,
     talentId: 102542,
+    __ignoreDuplication: true,
   },
   RADIANT_ONSLAUGHT_TALENT: {
     id: 231667,
@@ -1178,6 +1341,7 @@ const talents = createTalentList({
     icon: 'spell_holy_crusaderstrike',
     maxRanks: 1,
     talentId: 102557,
+    __ignoreDuplication: true,
   },
   TOWER_OF_RADIANCE_TALENT: {
     id: 231642,
@@ -1185,6 +1349,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_beaconoflight',
     maxRanks: 1,
     talentId: 102571,
+    __ignoreDuplication: true,
   },
   ECHOING_BLESSINGS_TALENT: {
     id: 387801,
@@ -1192,6 +1357,7 @@ const talents = createTalentList({
     icon: 'achievement_dungeon_heroic_gloryoftheraider',
     maxRanks: 1,
     talentId: 102535,
+    __ignoreDuplication: true,
   },
   LIGHT_OF_THE_MARTYR_TALENT: {
     id: 183998,
@@ -1199,6 +1365,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_lightofthemartyr',
     maxRanks: 1,
     talentId: 102540,
+    __ignoreDuplication: true,
     manaCost: 4500,
   },
   DIVINE_REVELATIONS_TALENT: {
@@ -1207,6 +1374,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_infusionoflight',
     maxRanks: 1,
     talentId: 102562,
+    __ignoreDuplication: true,
   },
   COMMANDING_LIGHT_TALENT: {
     id: 387781,
@@ -1214,6 +1382,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_beaconoflight',
     maxRanks: 2,
     talentId: 102564,
+    __ignoreDuplication: true,
   },
   SECOND_SUNRISE_TALENT: {
     id: 200482,
@@ -1221,6 +1390,7 @@ const talents = createTalentList({
     icon: 'spell_holy_lightsgrace',
     maxRanks: 2,
     talentId: 102567,
+    __ignoreDuplication: true,
   },
   DIVINE_GLIMPSE_TALENT: {
     id: 387805,
@@ -1228,6 +1398,7 @@ const talents = createTalentList({
     icon: 'spell_holy_healingaura',
     maxRanks: 2,
     talentId: 102570,
+    __ignoreDuplication: true,
   },
   UNTEMPERED_DEDICATION_TALENT: {
     id: 387814,
@@ -1235,6 +1406,7 @@ const talents = createTalentList({
     icon: 'achievement_admiral_of_the_light',
     maxRanks: 1,
     talentId: 102539,
+    __ignoreDuplication: true,
   },
   BEACON_OF_FAITH_TALENT: {
     id: 156910,
@@ -1242,6 +1414,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_beaconsoflight',
     maxRanks: 1,
     talentId: 102533,
+    __ignoreDuplication: true,
     manaCost: 1563,
   },
   BEACON_OF_VIRTUE_TALENT: {
@@ -1250,6 +1423,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_beaconofinsight',
     maxRanks: 1,
     talentId: 102532,
+    __ignoreDuplication: true,
     manaCost: 5000,
   },
   VENERATION_TALENT: {
@@ -1258,6 +1432,7 @@ const talents = createTalentList({
     icon: 'ability_crown_of_the_heavens_icon',
     maxRanks: 1,
     talentId: 102565,
+    __ignoreDuplication: true,
   },
   BREAKING_DAWN_TALENT: {
     id: 387879,
@@ -1265,6 +1440,7 @@ const talents = createTalentList({
     icon: 'spell_holy_rune',
     maxRanks: 1,
     talentId: 102566,
+    __ignoreDuplication: true,
   },
   AVENGING_CRUSADER_TALENT: {
     id: 216331,
@@ -1272,6 +1448,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_veneration',
     maxRanks: 1,
     talentId: 102568,
+    __ignoreDuplication: true,
     manaCost: 25000,
   },
   POWER_OF_THE_SILVER_HAND_TALENT: {
@@ -1280,6 +1457,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_blessedhands',
     maxRanks: 1,
     talentId: 102574,
+    __ignoreDuplication: true,
   },
   BARRIER_OF_FAITH_TALENT: {
     id: 148039,
@@ -1287,6 +1465,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_barrieroffaith',
     maxRanks: 1,
     talentId: 102537,
+    __ignoreDuplication: true,
     manaCost: 8000,
   },
   MARAADS_DYING_BREATH_TALENT: {
@@ -1295,6 +1474,7 @@ const talents = createTalentList({
     icon: 'paladin_icon_speedoflight',
     maxRanks: 1,
     talentId: 102538,
+    __ignoreDuplication: true,
   },
   DIVINE_RESONANCE_HOLY_TALENT: {
     id: 387893,
@@ -1302,6 +1482,7 @@ const talents = createTalentList({
     icon: 'ability_mount_goatmountwhite',
     maxRanks: 1,
     talentId: 102582,
+    __ignoreDuplication: true,
   },
   CRUSADERS_MIGHT_TALENT: {
     id: 196926,
@@ -1309,6 +1490,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_swiftretribution',
     maxRanks: 2,
     talentId: 102580,
+    __ignoreDuplication: true,
   },
   AWAKENING_TALENT: {
     id: 248033,
@@ -1316,6 +1498,7 @@ const talents = createTalentList({
     icon: 'inv_helm_plate_raidpaladin_n_01',
     maxRanks: 2,
     talentId: 102578,
+    __ignoreDuplication: true,
   },
   TYRS_DELIVERANCE_TALENT: {
     id: 200652,
@@ -1323,6 +1506,7 @@ const talents = createTalentList({
     icon: 'inv_mace_2h_artifactsilverhand_d_01',
     maxRanks: 1,
     talentId: 102573,
+    __ignoreDuplication: true,
     manaCost: 6000,
   },
   GLIMMER_OF_LIGHT_TALENT: {
@@ -1331,6 +1515,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_toweroflight',
     maxRanks: 1,
     talentId: 102581,
+    __ignoreDuplication: true,
   },
   BLESSING_OF_SUMMER_TALENT: {
     id: 388007,
@@ -1338,6 +1523,7 @@ const talents = createTalentList({
     icon: 'ability_ardenweald_paladin_summer',
     maxRanks: 1,
     talentId: 102579,
+    __ignoreDuplication: true,
     manaCost: 2500,
   },
   INFLORESCENCE_OF_THE_SUNWELL_TALENT: {
@@ -1346,6 +1532,7 @@ const talents = createTalentList({
     icon: 'spell_lfieblood',
     maxRanks: 1,
     talentId: 102577,
+    __ignoreDuplication: true,
   },
   BOUNDLESS_SALVATION_TALENT: {
     id: 392951,
@@ -1353,6 +1540,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_selflesshealer',
     maxRanks: 1,
     talentId: 102572,
+    __ignoreDuplication: true,
   },
 });
 

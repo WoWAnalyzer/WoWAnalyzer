@@ -18,6 +18,7 @@ export interface Talent extends Spell {
   reqPoints?: number;
   talentType?: ClassNodeType;
   spellType?: EntryType;
+  __ignoreDuplication: true;
 }
 
 export type SpellList<T, SpellType extends Spell = Spell> = { [Key in keyof T]: SpellType };

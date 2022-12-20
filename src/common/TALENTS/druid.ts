@@ -9,6 +9,7 @@ const talents = createTalentList({
     icon: 'ability_druid_disembowel',
     maxRanks: 1,
     talentId: 103277,
+    __ignoreDuplication: true,
     energyCost: 35,
   },
   FRENZIED_REGENERATION_TALENT: {
@@ -17,6 +18,7 @@ const talents = createTalentList({
     icon: 'ability_bullrush',
     maxRanks: 1,
     talentId: 103298,
+    __ignoreDuplication: true,
     rageCost: 10,
   },
   REJUVENATION_TALENT: {
@@ -25,6 +27,7 @@ const talents = createTalentList({
     icon: 'spell_nature_rejuvenation',
     maxRanks: 1,
     talentId: 103295,
+    __ignoreDuplication: true,
     manaCost: 6000,
   },
   STARFIRE_SHARED_TALENT: {
@@ -33,6 +36,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_starfire',
     maxRanks: 1,
     talentId: 112964,
+    __ignoreDuplication: true,
     manaCost: 1500,
   },
   THRASH_TALENT: {
@@ -41,6 +45,7 @@ const talents = createTalentList({
     icon: 'spell_druid_thrash',
     maxRanks: 1,
     talentId: 103301,
+    __ignoreDuplication: true,
   },
   IMPROVED_BARKSKIN_TALENT: {
     id: 327993,
@@ -48,6 +53,7 @@ const talents = createTalentList({
     icon: 'spell_nature_stoneclawtotem',
     maxRanks: 1,
     talentId: 103297,
+    __ignoreDuplication: true,
   },
   SWIFTMEND_TALENT: {
     id: 18562,
@@ -55,6 +61,7 @@ const talents = createTalentList({
     icon: 'inv_relics_idolofrejuvenation',
     maxRanks: 1,
     talentId: 103294,
+    __ignoreDuplication: true,
     manaCost: 4000,
   },
   STARSURGE_SHARED_TALENT: {
@@ -63,6 +70,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_arcane03',
     maxRanks: 1,
     talentId: 103278,
+    __ignoreDuplication: true,
     manaCost: 1500,
   },
   RIP_TALENT: {
@@ -71,6 +79,7 @@ const talents = createTalentList({
     icon: 'ability_ghoulfrenzy',
     maxRanks: 1,
     talentId: 103300,
+    __ignoreDuplication: true,
     energyCost: 20,
   },
   SWIPE_TALENT: {
@@ -79,6 +88,7 @@ const talents = createTalentList({
     icon: 'inv_misc_monsterclaw_03',
     maxRanks: 1,
     talentId: 103304,
+    __ignoreDuplication: true,
   },
   VERDANT_HEART_TALENT: {
     id: 301768,
@@ -86,6 +96,7 @@ const talents = createTalentList({
     icon: 'ability_bullrush',
     maxRanks: 1,
     talentId: 103296,
+    __ignoreDuplication: true,
   },
   IMPROVED_NATURES_CURE_TALENT: {
     id: 392378,
@@ -93,6 +104,7 @@ const talents = createTalentList({
     icon: 'ability_shaman_cleansespirit',
     maxRanks: 1,
     talentId: 103281,
+    __ignoreDuplication: true,
   },
   MOONKIN_FORM_SHARED_TALENT: {
     id: 197625,
@@ -100,6 +112,7 @@ const talents = createTalentList({
     icon: 'spell_nature_forceofnature',
     maxRanks: 1,
     talentId: 112966,
+    __ignoreDuplication: true,
   },
   MAIM_TALENT: {
     id: 22570,
@@ -107,6 +120,7 @@ const talents = createTalentList({
     icon: 'ability_druid_mangle.tga',
     maxRanks: 1,
     talentId: 103299,
+    __ignoreDuplication: true,
     energyCost: 30,
   },
   KILLER_INSTINCT_TALENT: {
@@ -115,6 +129,7 @@ const talents = createTalentList({
     icon: 'ability_druid_predatoryinstincts',
     maxRanks: 3,
     talentId: 103303,
+    __ignoreDuplication: true,
   },
   IRONFUR_TALENT: {
     id: 192081,
@@ -122,6 +137,7 @@ const talents = createTalentList({
     icon: 'ability_druid_ironfur',
     maxRanks: 1,
     talentId: 103305,
+    __ignoreDuplication: true,
     rageCost: 40,
   },
   NURTURING_INSTINCT_TALENT: {
@@ -130,6 +146,7 @@ const talents = createTalentList({
     icon: 'ability_druid_healinginstincts',
     maxRanks: 3,
     talentId: 103292,
+    __ignoreDuplication: true,
   },
   HIBERNATE_TALENT: {
     id: 2637,
@@ -137,6 +154,7 @@ const talents = createTalentList({
     icon: 'spell_nature_sleep',
     maxRanks: 1,
     talentId: 103289,
+    __ignoreDuplication: true,
     manaCost: 3000,
   },
   FELINE_SWIFTNESS_TALENT: {
@@ -145,6 +163,7 @@ const talents = createTalentList({
     icon: 'spell_druid_tirelesspursuit',
     maxRanks: 2,
     talentId: 103318,
+    __ignoreDuplication: true,
   },
   SKULL_BASH_TALENT: {
     id: 106839,
@@ -152,6 +171,7 @@ const talents = createTalentList({
     icon: 'inv_bone_skull_04',
     maxRanks: 1,
     talentId: 103302,
+    __ignoreDuplication: true,
   },
   THICK_HIDE_TALENT: {
     id: 16931,
@@ -159,6 +179,7 @@ const talents = createTalentList({
     icon: 'inv_misc_pelt_bear_03',
     maxRanks: 2,
     talentId: 103306,
+    __ignoreDuplication: true,
   },
   WILD_CHARGE_TALENT: {
     id: 102401,
@@ -166,6 +187,7 @@ const talents = createTalentList({
     icon: 'spell_druid_wildcharge',
     maxRanks: 1,
     talentId: 103276,
+    __ignoreDuplication: true,
   },
   TIGER_DASH_TALENT: {
     id: 252216,
@@ -173,6 +195,7 @@ const talents = createTalentList({
     icon: 'ability_druid_dash_orange',
     maxRanks: 1,
     talentId: 103275,
+    __ignoreDuplication: true,
   },
   NATURAL_RECOVERY_TALENT: {
     id: 377796,
@@ -180,6 +203,7 @@ const talents = createTalentList({
     icon: 'ability_druid_naturalperfection',
     maxRanks: 2,
     talentId: 103284,
+    __ignoreDuplication: true,
   },
   CYCLONE_TALENT: {
     id: 33786,
@@ -187,6 +211,7 @@ const talents = createTalentList({
     icon: 'spell_nature_earthbind',
     maxRanks: 1,
     talentId: 103291,
+    __ignoreDuplication: true,
     manaCost: 5000,
   },
   ASTRAL_INFLUENCE_TALENT: {
@@ -195,6 +220,7 @@ const talents = createTalentList({
     icon: 'ability_skyreach_lens_flare',
     maxRanks: 2,
     talentId: 103288,
+    __ignoreDuplication: true,
   },
   TIRELESS_PURSUIT_TALENT: {
     id: 377801,
@@ -202,6 +228,7 @@ const talents = createTalentList({
     icon: 'spell_druid_tirelesspursuit',
     maxRanks: 1,
     talentId: 103274,
+    __ignoreDuplication: true,
   },
   SOOTHE_TALENT: {
     id: 2908,
@@ -209,6 +236,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_beastsoothe',
     maxRanks: 1,
     talentId: 103307,
+    __ignoreDuplication: true,
     manaCost: 2800,
   },
   SUNFIRE_TALENT: {
@@ -217,6 +245,7 @@ const talents = createTalentList({
     icon: 'ability_mage_firestarter',
     maxRanks: 1,
     talentId: 103286,
+    __ignoreDuplication: true,
     manaCost: 6000,
   },
   TYPHOON_TALENT: {
@@ -225,6 +254,7 @@ const talents = createTalentList({
     icon: 'ability_druid_typhoon',
     maxRanks: 1,
     talentId: 103287,
+    __ignoreDuplication: true,
   },
   PRIMAL_FURY_TALENT: {
     id: 159286,
@@ -232,6 +262,7 @@ const talents = createTalentList({
     icon: 'ability_racial_cannibalize',
     maxRanks: 1,
     talentId: 103317,
+    __ignoreDuplication: true,
   },
   MATTED_FUR_TALENT: {
     id: 385786,
@@ -239,6 +270,7 @@ const talents = createTalentList({
     icon: 'spell_nature_stoneclawtotem',
     maxRanks: 1,
     talentId: 103314,
+    __ignoreDuplication: true,
   },
   STAMPEDING_ROAR_TALENT: {
     id: 106898,
@@ -246,6 +278,7 @@ const talents = createTalentList({
     icon: 'spell_druid_stampedingroar_cat',
     maxRanks: 1,
     talentId: 103312,
+    __ignoreDuplication: true,
   },
   WILD_GROWTH_TALENT: {
     id: 48438,
@@ -253,6 +286,7 @@ const talents = createTalentList({
     icon: 'ability_druid_flourish',
     maxRanks: 1,
     talentId: 103320,
+    __ignoreDuplication: true,
     manaCost: 11000,
   },
   IMPROVED_SUNFIRE_TALENT: {
@@ -261,6 +295,7 @@ const talents = createTalentList({
     icon: 'ability_mage_firestarter',
     maxRanks: 1,
     talentId: 103285,
+    __ignoreDuplication: true,
   },
   INCAPACITATING_ROAR_TALENT: {
     id: 99,
@@ -268,6 +303,7 @@ const talents = createTalentList({
     icon: 'ability_druid_demoralizingroar',
     maxRanks: 1,
     talentId: 103316,
+    __ignoreDuplication: true,
   },
   MIGHTY_BASH_TALENT: {
     id: 5211,
@@ -275,6 +311,7 @@ const talents = createTalentList({
     icon: 'ability_druid_bash',
     maxRanks: 1,
     talentId: 103315,
+    __ignoreDuplication: true,
   },
   URSINE_VIGOR_TALENT: {
     id: 377842,
@@ -282,6 +319,7 @@ const talents = createTalentList({
     icon: 'ability_druid_markofursol',
     maxRanks: 2,
     talentId: 103313,
+    __ignoreDuplication: true,
   },
   LYCARAS_TEACHINGS_TALENT: {
     id: 378988,
@@ -289,6 +327,7 @@ const talents = createTalentList({
     icon: 'inv_trinket_ardenweald_02_green',
     maxRanks: 3,
     talentId: 103311,
+    __ignoreDuplication: true,
   },
   IMPROVED_REJUVENATION_TALENT: {
     id: 231040,
@@ -296,6 +335,7 @@ const talents = createTalentList({
     icon: 'spell_nature_rejuvenation',
     maxRanks: 1,
     talentId: 103319,
+    __ignoreDuplication: true,
   },
   MASS_ENTANGLEMENT_TALENT: {
     id: 102359,
@@ -303,6 +343,7 @@ const talents = createTalentList({
     icon: 'spell_druid_massentanglement',
     maxRanks: 1,
     talentId: 103322,
+    __ignoreDuplication: true,
   },
   URSOLS_VORTEX_TALENT: {
     id: 102793,
@@ -310,6 +351,7 @@ const talents = createTalentList({
     icon: 'spell_druid_ursolsvortex',
     maxRanks: 1,
     talentId: 103321,
+    __ignoreDuplication: true,
   },
   WELL_HONED_INSTINCTS_TALENT: {
     id: 377847,
@@ -317,6 +359,7 @@ const talents = createTalentList({
     icon: 'ability_druid_tigersroar',
     maxRanks: 2,
     talentId: 103326,
+    __ignoreDuplication: true,
   },
   IMPROVED_STAMPEDING_ROAR_TALENT: {
     id: 288826,
@@ -324,6 +367,7 @@ const talents = createTalentList({
     icon: 'spell_druid_stamedingroar',
     maxRanks: 1,
     talentId: 103308,
+    __ignoreDuplication: true,
   },
   RENEWAL_TALENT: {
     id: 108238,
@@ -331,6 +375,7 @@ const talents = createTalentList({
     icon: 'spell_nature_natureblessing',
     maxRanks: 1,
     talentId: 103310,
+    __ignoreDuplication: true,
   },
   INNERVATE_TALENT: {
     id: 29166,
@@ -338,6 +383,7 @@ const talents = createTalentList({
     icon: 'spell_nature_lightning',
     maxRanks: 1,
     talentId: 103323,
+    __ignoreDuplication: true,
   },
   PROTECTOR_OF_THE_PACK_TALENT: {
     id: 378986,
@@ -345,6 +391,7 @@ const talents = createTalentList({
     icon: 'ability_druid_denmother',
     maxRanks: 1,
     talentId: 103325,
+    __ignoreDuplication: true,
   },
   HEART_OF_THE_WILD_TALENT: {
     id: 319454,
@@ -352,6 +399,7 @@ const talents = createTalentList({
     icon: 'spell_holy_blessingofagility',
     maxRanks: 1,
     talentId: 103309,
+    __ignoreDuplication: true,
   },
   NATURES_VIGIL_TALENT: {
     id: 124974,
@@ -359,6 +407,7 @@ const talents = createTalentList({
     icon: 'achievement_zone_feralas',
     maxRanks: 1,
     talentId: 103324,
+    __ignoreDuplication: true,
   },
   REMOVE_CORRUPTION_TALENT: {
     id: 2782,
@@ -366,6 +415,7 @@ const talents = createTalentList({
     icon: 'spell_holy_removecurse',
     maxRanks: 1,
     talentId: 103283,
+    __ignoreDuplication: true,
     manaCost: 3250,
   },
   STARFIRE_BALANCE_TALENT: {
@@ -374,6 +424,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_starfire',
     maxRanks: 1,
     talentId: 103279,
+    __ignoreDuplication: true,
   },
   STARSURGE_BALANCE_TALENT: {
     id: 78674,
@@ -381,6 +432,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_arcane03',
     maxRanks: 1,
     talentId: 103280,
+    __ignoreDuplication: true,
     lunarPowerCost: 400,
   },
   MOONKIN_FORM_BALANCE_TALENT: {
@@ -389,6 +441,7 @@ const talents = createTalentList({
     icon: 'spell_nature_forceofnature',
     maxRanks: 1,
     talentId: 103290,
+    __ignoreDuplication: true,
   },
   CONVOKE_THE_SPIRITS_TALENT: {
     id: 391528,
@@ -396,6 +449,7 @@ const talents = createTalentList({
     icon: 'ability_ardenweald_druid',
     maxRanks: 1,
     talentId: 109838,
+    __ignoreDuplication: true,
   },
   ADAPTIVE_SWARM_TALENT: {
     id: 391888,
@@ -403,6 +457,7 @@ const talents = createTalentList({
     icon: 'ability_maldraxxus_druid',
     maxRanks: 1,
     talentId: 103175,
+    __ignoreDuplication: true,
     manaCost: 2500,
   },
   CIRCLE_OF_LIFE_AND_DEATH_TALENT: {
@@ -411,6 +466,7 @@ const talents = createTalentList({
     icon: 'ability_druid_cyclone',
     maxRanks: 1,
     talentId: 109863,
+    __ignoreDuplication: true,
   },
   UNBRIDLED_SWARM_TALENT: {
     id: 391951,
@@ -418,6 +474,7 @@ const talents = createTalentList({
     icon: 'ability_maldraxxus_druid',
     maxRanks: 1,
     talentId: 103174,
+    __ignoreDuplication: true,
   },
   SURVIVAL_INSTINCTS_TALENT: {
     id: 61336,
@@ -425,6 +482,7 @@ const talents = createTalentList({
     icon: 'ability_druid_tigersroar',
     maxRanks: 1,
     talentId: 103193,
+    __ignoreDuplication: true,
   },
   BERSERK_RAVAGE_TALENT: {
     id: 50334,
@@ -432,6 +490,7 @@ const talents = createTalentList({
     icon: 'ability_druid_berserk',
     maxRanks: 1,
     talentId: 103216,
+    __ignoreDuplication: true,
   },
   BERSERK_UNCHECKED_AGGRESSION_TALENT: {
     id: 50334,
@@ -439,6 +498,7 @@ const talents = createTalentList({
     icon: 'ability_druid_berserk',
     maxRanks: 1,
     talentId: 103224,
+    __ignoreDuplication: true,
   },
   BERSERK_PERSISTENCE_TALENT: {
     id: 50334,
@@ -446,6 +506,7 @@ const talents = createTalentList({
     icon: 'ability_druid_berserk',
     maxRanks: 1,
     talentId: 103211,
+    __ignoreDuplication: true,
   },
 
   //Restoration
@@ -455,6 +516,7 @@ const talents = createTalentList({
     icon: 'inv_misc_herb_felblossom',
     maxRanks: 1,
     talentId: 103100,
+    __ignoreDuplication: true,
     manaCost: 4000,
   },
   YSERAS_GIFT_TALENT: {
@@ -463,6 +525,7 @@ const talents = createTalentList({
     icon: 'inv_misc_head_dragon_green',
     maxRanks: 1,
     talentId: 103099,
+    __ignoreDuplication: true,
   },
   NATURES_SWIFTNESS_TALENT: {
     id: 132158,
@@ -470,6 +533,7 @@ const talents = createTalentList({
     icon: 'spell_nature_ravenform',
     maxRanks: 1,
     talentId: 103101,
+    __ignoreDuplication: true,
   },
   OMEN_OF_CLARITY_RESTORATION_TALENT: {
     id: 113043,
@@ -477,6 +541,7 @@ const talents = createTalentList({
     icon: 'spell_nature_crystalball',
     maxRanks: 1,
     talentId: 103143,
+    __ignoreDuplication: true,
   },
   GROVE_TENDING_TALENT: {
     id: 383192,
@@ -484,6 +549,7 @@ const talents = createTalentList({
     icon: 'inv_relics_idolofrejuvenation',
     maxRanks: 1,
     talentId: 103098,
+    __ignoreDuplication: true,
   },
   NATURES_SPLENDOR_TALENT: {
     id: 392288,
@@ -491,6 +557,7 @@ const talents = createTalentList({
     icon: 'spell_nature_spiritarmor',
     maxRanks: 1,
     talentId: 103103,
+    __ignoreDuplication: true,
   },
   PASSING_SEASONS_TALENT: {
     id: 382550,
@@ -498,6 +565,7 @@ const talents = createTalentList({
     icon: 'spell_nature_ravenform',
     maxRanks: 1,
     talentId: 103102,
+    __ignoreDuplication: true,
   },
   FLASH_OF_CLARITY_TALENT: {
     id: 392220,
@@ -505,6 +573,7 @@ const talents = createTalentList({
     icon: 'spell_nature_crystalball',
     maxRanks: 1,
     talentId: 103142,
+    __ignoreDuplication: true,
   },
   WAKING_DREAM_TALENT: {
     id: 392221,
@@ -512,6 +581,7 @@ const talents = createTalentList({
     icon: 'inv_misc_head_dragon_green',
     maxRanks: 1,
     talentId: 103097,
+    __ignoreDuplication: true,
   },
   IMPROVED_REGROWTH_TALENT: {
     id: 231032,
@@ -519,6 +589,7 @@ const talents = createTalentList({
     icon: 'spell_nature_resistnature',
     maxRanks: 1,
     talentId: 103109,
+    __ignoreDuplication: true,
   },
   ABUNDANCE_TALENT: {
     id: 207383,
@@ -526,6 +597,7 @@ const talents = createTalentList({
     icon: 'ability_druid_empoweredrejuvination',
     maxRanks: 1,
     talentId: 103105,
+    __ignoreDuplication: true,
   },
   CENARION_WARD_TALENT: {
     id: 102351,
@@ -533,6 +605,7 @@ const talents = createTalentList({
     icon: 'ability_druid_naturalperfection',
     maxRanks: 1,
     talentId: 103104,
+    __ignoreDuplication: true,
     manaCost: 4600,
   },
   NOURISH_TALENT: {
@@ -541,6 +614,7 @@ const talents = createTalentList({
     icon: 'ability_druid_nourish',
     maxRanks: 1,
     talentId: 103094,
+    __ignoreDuplication: true,
     manaCost: 9000,
   },
   EFFLORESCENCE_TALENT: {
@@ -549,6 +623,7 @@ const talents = createTalentList({
     icon: 'inv_misc_herb_talandrasrose',
     maxRanks: 1,
     talentId: 103111,
+    __ignoreDuplication: true,
     manaCost: 8500,
   },
   TRANQUILITY_TALENT: {
@@ -557,6 +632,7 @@ const talents = createTalentList({
     icon: 'spell_nature_tranquility',
     maxRanks: 1,
     talentId: 103108,
+    __ignoreDuplication: true,
     manaCost: 9200,
   },
   IRONBARK_TALENT: {
@@ -565,6 +641,7 @@ const talents = createTalentList({
     icon: 'spell_druid_ironbark',
     maxRanks: 1,
     talentId: 103141,
+    __ignoreDuplication: true,
   },
   SOUL_OF_THE_FOREST_RESTORATION_TALENT: {
     id: 158478,
@@ -572,6 +649,7 @@ const talents = createTalentList({
     icon: 'ability_druid_manatree',
     maxRanks: 1,
     talentId: 103113,
+    __ignoreDuplication: true,
   },
   CULTIVATION_TALENT: {
     id: 200390,
@@ -579,6 +657,7 @@ const talents = createTalentList({
     icon: 'spell_nature_healingtouch',
     maxRanks: 1,
     talentId: 103110,
+    __ignoreDuplication: true,
   },
   INNER_PEACE_TALENT: {
     id: 197073,
@@ -586,6 +665,7 @@ const talents = createTalentList({
     icon: 'ability_druid_dreamstate',
     maxRanks: 1,
     talentId: 103107,
+    __ignoreDuplication: true,
   },
   DREAMSTATE_TALENT: {
     id: 392162,
@@ -593,6 +673,7 @@ const talents = createTalentList({
     icon: 'spell_unused',
     maxRanks: 1,
     talentId: 103106,
+    __ignoreDuplication: true,
   },
   IMPROVED_WILD_GROWTH_TALENT: {
     id: 328025,
@@ -600,6 +681,7 @@ const talents = createTalentList({
     icon: 'ability_druid_flourish',
     maxRanks: 1,
     talentId: 103096,
+    __ignoreDuplication: true,
   },
   STONEBARK_TALENT: {
     id: 197061,
@@ -607,6 +689,7 @@ const talents = createTalentList({
     icon: 'archaeology_5_0_crackedmogurunestone',
     maxRanks: 1,
     talentId: 103140,
+    __ignoreDuplication: true,
   },
   IMPROVED_IRONBARK_TALENT: {
     id: 382552,
@@ -614,6 +697,7 @@ const talents = createTalentList({
     icon: 'spell_druid_ironbark',
     maxRanks: 1,
     talentId: 103139,
+    __ignoreDuplication: true,
   },
   VERDANCY_TALENT: {
     id: 392325,
@@ -621,6 +705,7 @@ const talents = createTalentList({
     icon: 'inv_10_herb_seed_magiccolor5',
     maxRanks: 1,
     talentId: 103114,
+    __ignoreDuplication: true,
   },
   RAMPANT_GROWTH_TALENT: {
     id: 278515,
@@ -628,6 +713,7 @@ const talents = createTalentList({
     icon: 'spell_nature_resistnature',
     maxRanks: 1,
     talentId: 103112,
+    __ignoreDuplication: true,
   },
   REGENESIS_TALENT: {
     id: 383191,
@@ -635,6 +721,7 @@ const talents = createTalentList({
     icon: 'inv_misc_herb_liferoot_stem',
     maxRanks: 2,
     talentId: 103117,
+    __ignoreDuplication: true,
   },
   HARMONIOUS_BLOOMING_TALENT: {
     id: 392256,
@@ -642,6 +729,7 @@ const talents = createTalentList({
     icon: 'inv_misc_herb_felblossom',
     maxRanks: 2,
     talentId: 103121,
+    __ignoreDuplication: true,
   },
   UNSTOPPABLE_GROWTH_TALENT: {
     id: 382559,
@@ -649,6 +737,7 @@ const talents = createTalentList({
     icon: 'ability_druid_flourish',
     maxRanks: 2,
     talentId: 103138,
+    __ignoreDuplication: true,
   },
   REGENERATIVE_HEARTWOOD_TALENT: {
     id: 392116,
@@ -656,6 +745,7 @@ const talents = createTalentList({
     icon: 'spell_nature_naturetouchgrow',
     maxRanks: 1,
     talentId: 103131,
+    __ignoreDuplication: true,
   },
   SPRING_BLOSSOMS_TALENT: {
     id: 207385,
@@ -663,6 +753,7 @@ const talents = createTalentList({
     icon: 'inv_misc_trailofflowers',
     maxRanks: 1,
     talentId: 103116,
+    __ignoreDuplication: true,
   },
   OVERGROWTH_TALENT: {
     id: 203651,
@@ -670,6 +761,7 @@ const talents = createTalentList({
     icon: 'ability_druid_overgrowth',
     maxRanks: 1,
     talentId: 103115,
+    __ignoreDuplication: true,
     manaCost: 6000,
   },
   INCARNATION_TREE_OF_LIFE_TALENT: {
@@ -678,6 +770,7 @@ const talents = createTalentList({
     icon: 'ability_druid_improvedtreeform',
     maxRanks: 1,
     talentId: 103120,
+    __ignoreDuplication: true,
   },
   VERDANT_INFUSION_TALENT: {
     id: 392410,
@@ -685,6 +778,7 @@ const talents = createTalentList({
     icon: 'inv_relics_totemoflife',
     maxRanks: 1,
     talentId: 103137,
+    __ignoreDuplication: true,
   },
   FLOURISH_TALENT: {
     id: 197721,
@@ -692,6 +786,7 @@ const talents = createTalentList({
     icon: 'spell_druid_wildburst',
     maxRanks: 1,
     talentId: 103136,
+    __ignoreDuplication: true,
   },
   BUDDING_LEAVES_TALENT: {
     id: 392167,
@@ -699,6 +794,7 @@ const talents = createTalentList({
     icon: 'inv_misc_herb_fellotus',
     maxRanks: 2,
     talentId: 103128,
+    __ignoreDuplication: true,
   },
   CENARIUS_GUIDANCE_TALENT: {
     id: 393371,
@@ -706,6 +802,7 @@ const talents = createTalentList({
     icon: 'ability_druid_treeoflife',
     maxRanks: 1,
     talentId: 103118,
+    __ignoreDuplication: true,
   },
   EMBRACE_OF_THE_DREAM_TALENT: {
     id: 392124,
@@ -713,6 +810,7 @@ const talents = createTalentList({
     icon: 'ability_druid_healinginstincts',
     maxRanks: 2,
     talentId: 103126,
+    __ignoreDuplication: true,
   },
   LUXURIANT_SOIL_TALENT: {
     id: 392315,
@@ -720,6 +818,7 @@ const talents = createTalentList({
     icon: 'achievement_dungeon_everbloom',
     maxRanks: 2,
     talentId: 103124,
+    __ignoreDuplication: true,
   },
   NATURAL_WISDOM_TALENT: {
     id: 326228,
@@ -727,6 +826,7 @@ const talents = createTalentList({
     icon: 'spell_nature_lightning',
     maxRanks: 1,
     talentId: 103135,
+    __ignoreDuplication: true,
   },
   NURTURING_DORMANCY_TALENT: {
     id: 392099,
@@ -734,6 +834,7 @@ const talents = createTalentList({
     icon: 'ability_druid_replenish',
     maxRanks: 1,
     talentId: 103132,
+    __ignoreDuplication: true,
   },
   PHOTOSYNTHESIS_TALENT: {
     id: 274902,
@@ -741,6 +842,7 @@ const talents = createTalentList({
     icon: 'spell_lifegivingseed',
     maxRanks: 1,
     talentId: 103129,
+    __ignoreDuplication: true,
   },
   UNDERGROWTH_TALENT: {
     id: 392301,
@@ -748,6 +850,7 @@ const talents = createTalentList({
     icon: 'spell_druid_germination_rejuvenation',
     maxRanks: 1,
     talentId: 103095,
+    __ignoreDuplication: true,
   },
   GERMINATION_TALENT: {
     id: 155675,
@@ -755,6 +858,7 @@ const talents = createTalentList({
     icon: 'spell_druid_germination',
     maxRanks: 1,
     talentId: 103127,
+    __ignoreDuplication: true,
   },
   REFORESTATION_TALENT: {
     id: 392356,
@@ -762,6 +866,7 @@ const talents = createTalentList({
     icon: 'inv_herbalism_70_yserallineseed',
     maxRanks: 1,
     talentId: 103125,
+    __ignoreDuplication: true,
   },
   POWER_OF_THE_ARCHDRUID_TALENT: {
     id: 392302,
@@ -769,6 +874,7 @@ const talents = createTalentList({
     icon: 'spell_druid_rampantgrowth',
     maxRanks: 1,
     talentId: 103134,
+    __ignoreDuplication: true,
   },
   INVIGORATE_TALENT: {
     id: 392160,
@@ -776,6 +882,7 @@ const talents = createTalentList({
     icon: 'spell_nature_preservation',
     maxRanks: 1,
     talentId: 103133,
+    __ignoreDuplication: true,
     manaCost: 1000,
   },
 
@@ -786,6 +893,7 @@ const talents = createTalentList({
     icon: 'ability_mount_jungletiger',
     maxRanks: 1,
     talentId: 103188,
+    __ignoreDuplication: true,
   },
   OMEN_OF_CLARITY_FERAL_TALENT: {
     id: 16864,
@@ -793,6 +901,7 @@ const talents = createTalentList({
     icon: 'spell_nature_crystalball',
     maxRanks: 1,
     talentId: 103187,
+    __ignoreDuplication: true,
   },
   PRIMAL_CLAWS_TALENT: {
     id: 391037,
@@ -800,6 +909,7 @@ const talents = createTalentList({
     icon: 'ability_druid_rake',
     maxRanks: 2,
     talentId: 103144,
+    __ignoreDuplication: true,
   },
   PRIMAL_WRATH_TALENT: {
     id: 285381,
@@ -807,6 +917,7 @@ const talents = createTalentList({
     icon: 'artifactability_feraldruid_ashamanesbite',
     maxRanks: 1,
     talentId: 103184,
+    __ignoreDuplication: true,
     energyCost: 20,
   },
   MERCILESS_CLAWS_TALENT: {
@@ -815,6 +926,7 @@ const talents = createTalentList({
     icon: 'inv_misc_monsterclaw_03',
     maxRanks: 1,
     talentId: 103159,
+    __ignoreDuplication: true,
   },
   PREDATOR_TALENT: {
     id: 202021,
@@ -822,6 +934,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_catlikereflexes',
     maxRanks: 1,
     talentId: 103186,
+    __ignoreDuplication: true,
   },
   DOUBLE_CLAWED_RAKE_TALENT: {
     id: 391700,
@@ -829,6 +942,7 @@ const talents = createTalentList({
     icon: 'ability_druid_disembowel',
     maxRanks: 1,
     talentId: 103145,
+    __ignoreDuplication: true,
   },
   PROTECTIVE_GROWTH_TALENT: {
     id: 391947,
@@ -836,6 +950,7 @@ const talents = createTalentList({
     icon: 'spell_nature_resistnature',
     maxRanks: 1,
     talentId: 103158,
+    __ignoreDuplication: true,
   },
   LUNAR_INSPIRATION_TALENT: {
     id: 155580,
@@ -843,6 +958,7 @@ const talents = createTalentList({
     icon: 'spell_druid_lunarinspiration',
     maxRanks: 1,
     talentId: 103146,
+    __ignoreDuplication: true,
   },
   SABERTOOTH_TALENT: {
     id: 202031,
@@ -850,6 +966,7 @@ const talents = createTalentList({
     icon: 'inv_misc_monsterfang_01',
     maxRanks: 1,
     talentId: 103163,
+    __ignoreDuplication: true,
   },
   TIRELESS_ENERGY_TALENT: {
     id: 383352,
@@ -857,6 +974,7 @@ const talents = createTalentList({
     icon: 'spell_chargepositive',
     maxRanks: 2,
     talentId: 103185,
+    __ignoreDuplication: true,
   },
   POUNCING_STRIKES_TALENT: {
     id: 390772,
@@ -864,6 +982,7 @@ const talents = createTalentList({
     icon: 'ability_druid_prowl',
     maxRanks: 1,
     talentId: 103183,
+    __ignoreDuplication: true,
   },
   SUDDEN_AMBUSH_TALENT: {
     id: 384667,
@@ -871,6 +990,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_catlikereflexes',
     maxRanks: 2,
     talentId: 103165,
+    __ignoreDuplication: true,
   },
   RAMPANT_FEROCITY_TALENT: {
     id: 391709,
@@ -878,6 +998,7 @@ const talents = createTalentList({
     icon: 'ability_druid_primaltenacity',
     maxRanks: 1,
     talentId: 103160,
+    __ignoreDuplication: true,
   },
   BERSERK_TALENT: {
     id: 106951,
@@ -885,6 +1006,7 @@ const talents = createTalentList({
     icon: 'ability_druid_berserk',
     maxRanks: 1,
     talentId: 103162,
+    __ignoreDuplication: true,
   },
   TEAR_OPEN_WOUNDS_TALENT: {
     id: 391785,
@@ -892,6 +1014,7 @@ const talents = createTalentList({
     icon: 'artifactability_feraldruid_ashamanesbite',
     maxRanks: 1,
     talentId: 103148,
+    __ignoreDuplication: true,
   },
   TASTE_FOR_BLOOD_TALENT: {
     id: 384665,
@@ -899,6 +1022,7 @@ const talents = createTalentList({
     icon: 'ability_druid_ferociousbite',
     maxRanks: 2,
     talentId: 103182,
+    __ignoreDuplication: true,
   },
   PREDATORY_SWIFTNESS_TALENT: {
     id: 16974,
@@ -906,6 +1030,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_pet_cat',
     maxRanks: 1,
     talentId: 103167,
+    __ignoreDuplication: true,
   },
   MOMENT_OF_CLARITY_TALENT: {
     id: 236068,
@@ -913,6 +1038,7 @@ const talents = createTalentList({
     icon: 'spell_druid_momentofclarity',
     maxRanks: 1,
     talentId: 103161,
+    __ignoreDuplication: true,
   },
   INFECTED_WOUNDS_FERAL_TALENT: {
     id: 48484,
@@ -920,6 +1046,7 @@ const talents = createTalentList({
     icon: 'ability_druid_infectedwound',
     maxRanks: 1,
     talentId: 103164,
+    __ignoreDuplication: true,
   },
   DREADFUL_BLEEDING_TALENT: {
     id: 391045,
@@ -927,6 +1054,7 @@ const talents = createTalentList({
     icon: 'ability_ghoulfrenzy',
     maxRanks: 1,
     talentId: 103181,
+    __ignoreDuplication: true,
   },
   RELENTLESS_PREDATOR_TALENT: {
     id: 393771,
@@ -934,6 +1062,7 @@ const talents = createTalentList({
     icon: 'ability_druid_predatoryinstincts',
     maxRanks: 1,
     talentId: 103147,
+    __ignoreDuplication: true,
   },
   RAGING_FURY_TALENT: {
     id: 391078,
@@ -941,6 +1070,7 @@ const talents = createTalentList({
     icon: 'ability_druid_predatoryinstincts',
     maxRanks: 1,
     talentId: 103169,
+    __ignoreDuplication: true,
   },
   TIGERS_TENACITY_TALENT: {
     id: 391872,
@@ -948,6 +1078,7 @@ const talents = createTalentList({
     icon: 'ability_druid_healinginstincts',
     maxRanks: 1,
     talentId: 103168,
+    __ignoreDuplication: true,
   },
   BERSERK_HEART_OF_THE_LION_TALENT: {
     id: 391174,
@@ -955,6 +1086,7 @@ const talents = createTalentList({
     icon: 'ability_druid_berserk',
     maxRanks: 1,
     talentId: 103166,
+    __ignoreDuplication: true,
   },
   BERSERK_FRENZY_TALENT: {
     id: 384668,
@@ -962,6 +1094,7 @@ const talents = createTalentList({
     icon: 'ability_druid_berserk',
     maxRanks: 1,
     talentId: 103149,
+    __ignoreDuplication: true,
   },
   BRUTAL_SLASH_TALENT: {
     id: 202028,
@@ -969,6 +1102,7 @@ const talents = createTalentList({
     icon: 'ability_druid_ravage',
     maxRanks: 1,
     talentId: 103151,
+    __ignoreDuplication: true,
     energyCost: 25,
   },
   WILD_SLASHES_TALENT: {
@@ -977,6 +1111,7 @@ const talents = createTalentList({
     icon: 'ability_xavius_tormentingswipe',
     maxRanks: 1,
     talentId: 103150,
+    __ignoreDuplication: true,
   },
   CARNIVOROUS_INSTINCT_TALENT: {
     id: 390902,
@@ -984,6 +1119,7 @@ const talents = createTalentList({
     icon: 'ability_mount_jungletiger',
     maxRanks: 2,
     talentId: 103173,
+    __ignoreDuplication: true,
   },
   FRANTIC_MOMENTUM_TALENT: {
     id: 391875,
@@ -991,6 +1127,7 @@ const talents = createTalentList({
     icon: 'spell_druid_savagery',
     maxRanks: 2,
     talentId: 103179,
+    __ignoreDuplication: true,
   },
   CATS_CURIOSITY_TALENT: {
     id: 386318,
@@ -998,6 +1135,7 @@ const talents = createTalentList({
     icon: 'inv_jewelcrafting_gem_30',
     maxRanks: 2,
     talentId: 103155,
+    __ignoreDuplication: true,
   },
   LIONS_STRENGTH_TALENT: {
     id: 391972,
@@ -1005,6 +1143,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_masterscall',
     maxRanks: 1,
     talentId: 103172,
+    __ignoreDuplication: true,
   },
   BLOODTALONS_TALENT: {
     id: 319439,
@@ -1012,6 +1151,7 @@ const talents = createTalentList({
     icon: 'spell_druid_bloodythrash',
     maxRanks: 1,
     talentId: 103171,
+    __ignoreDuplication: true,
   },
   INCARNATION_AVATAR_OF_ASHAMANE_TALENT: {
     id: 102543,
@@ -1019,6 +1159,7 @@ const talents = createTalentList({
     icon: 'spell_druid_incarnation',
     maxRanks: 1,
     talentId: 103178,
+    __ignoreDuplication: true,
   },
   SOUL_OF_THE_FOREST_FERAL_TALENT: {
     id: 158476,
@@ -1026,6 +1167,7 @@ const talents = createTalentList({
     icon: 'ability_druid_manatree',
     maxRanks: 1,
     talentId: 103157,
+    __ignoreDuplication: true,
   },
   VEINRIPPER_TALENT: {
     id: 391978,
@@ -1033,6 +1175,7 @@ const talents = createTalentList({
     icon: 'inv_artifact_bloodoftheassassinated',
     maxRanks: 1,
     talentId: 103154,
+    __ignoreDuplication: true,
   },
   RIP_AND_TEAR_TALENT: {
     id: 391347,
@@ -1040,6 +1183,7 @@ const talents = createTalentList({
     icon: 'ability_ghoulfrenzy',
     maxRanks: 1,
     talentId: 103153,
+    __ignoreDuplication: true,
   },
   FERAL_FRENZY_TALENT: {
     id: 274837,
@@ -1047,6 +1191,7 @@ const talents = createTalentList({
     icon: 'ability_druid_rake',
     maxRanks: 1,
     talentId: 103170,
+    __ignoreDuplication: true,
     energyCost: 25,
   },
   ASHAMANES_GUIDANCE_TALENT: {
@@ -1055,6 +1200,7 @@ const talents = createTalentList({
     icon: 'spell_druid_incarnation',
     maxRanks: 1,
     talentId: 103176,
+    __ignoreDuplication: true,
   },
   APEX_PREDATORS_CRAVING_TALENT: {
     id: 391881,
@@ -1062,6 +1208,7 @@ const talents = createTalentList({
     icon: 'ability_druid_primaltenacity',
     maxRanks: 1,
     talentId: 103152,
+    __ignoreDuplication: true,
   },
 
   //Guardian
@@ -1071,6 +1218,7 @@ const talents = createTalentList({
     icon: 'ability_druid_maul',
     maxRanks: 1,
     talentId: 103191,
+    __ignoreDuplication: true,
     rageCost: 40,
   },
   GORE_TALENT: {
@@ -1079,6 +1227,7 @@ const talents = createTalentList({
     icon: 'spell_druid_bearhug',
     maxRanks: 1,
     talentId: 103190,
+    __ignoreDuplication: true,
   },
   BRAMBLES_TALENT: {
     id: 203953,
@@ -1086,6 +1235,7 @@ const talents = createTalentList({
     icon: 'inv_misc_thornnecklace',
     maxRanks: 1,
     talentId: 103231,
+    __ignoreDuplication: true,
   },
   BRISTLING_FUR_TALENT: {
     id: 155835,
@@ -1093,6 +1243,7 @@ const talents = createTalentList({
     icon: 'spell_druid_bristlingfur',
     maxRanks: 1,
     talentId: 103230,
+    __ignoreDuplication: true,
   },
   URSINE_ADEPT_TALENT: {
     id: 300346,
@@ -1100,6 +1251,7 @@ const talents = createTalentList({
     icon: 'talentspec_druid_feral_bear',
     maxRanks: 1,
     talentId: 103217,
+    __ignoreDuplication: true,
   },
   IMPROVED_SURVIVAL_INSTINCTS_TALENT: {
     id: 328767,
@@ -1107,6 +1259,7 @@ const talents = createTalentList({
     icon: 'ability_druid_tigersroar',
     maxRanks: 1,
     talentId: 103192,
+    __ignoreDuplication: true,
   },
   MANGLE_TALENT: {
     id: 231064,
@@ -1114,6 +1267,7 @@ const talents = createTalentList({
     icon: 'ability_druid_mangle2',
     maxRanks: 1,
     talentId: 103195,
+    __ignoreDuplication: true,
   },
   INNATE_RESOLVE_TALENT: {
     id: 377811,
@@ -1121,6 +1275,7 @@ const talents = createTalentList({
     icon: 'spell_nature_healingway',
     maxRanks: 1,
     talentId: 103229,
+    __ignoreDuplication: true,
   },
   INFECTED_WOUNDS_GUARDIAN_TALENT: {
     id: 345208,
@@ -1128,6 +1283,7 @@ const talents = createTalentList({
     icon: 'ability_druid_infectedwound',
     maxRanks: 1,
     talentId: 103232,
+    __ignoreDuplication: true,
   },
   URSOCS_ENDURANCE_TALENT: {
     id: 393611,
@@ -1135,6 +1291,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_pet_bear',
     maxRanks: 1,
     talentId: 103194,
+    __ignoreDuplication: true,
   },
   GORY_FUR_TALENT: {
     id: 200854,
@@ -1142,6 +1299,7 @@ const talents = createTalentList({
     icon: 'artifactability_guardiandruid_goryfur',
     maxRanks: 1,
     talentId: 103196,
+    __ignoreDuplication: true,
   },
   FLASHING_CLAWS_TALENT: {
     id: 393427,
@@ -1149,6 +1307,7 @@ const talents = createTalentList({
     icon: 'spell_druid_thrash',
     maxRanks: 2,
     talentId: 103226,
+    __ignoreDuplication: true,
   },
   VULNERABLE_FLESH_TALENT: {
     id: 372618,
@@ -1156,6 +1315,7 @@ const talents = createTalentList({
     icon: 'ability_druid_primalagression',
     maxRanks: 2,
     talentId: 103228,
+    __ignoreDuplication: true,
   },
   LAYERED_MANE_TALENT: {
     id: 384721,
@@ -1163,6 +1323,7 @@ const talents = createTalentList({
     icon: 'ability_druid_ironfur',
     maxRanks: 2,
     talentId: 103215,
+    __ignoreDuplication: true,
   },
   SURVIVAL_OF_THE_FITTEST_TALENT: {
     id: 203965,
@@ -1170,6 +1331,7 @@ const talents = createTalentList({
     icon: 'ability_druid_enrage',
     maxRanks: 2,
     talentId: 103210,
+    __ignoreDuplication: true,
   },
   EARTHWARDEN_TALENT: {
     id: 203974,
@@ -1177,6 +1339,7 @@ const talents = createTalentList({
     icon: 'spell_shaman_blessingofeternals',
     maxRanks: 1,
     talentId: 103225,
+    __ignoreDuplication: true,
   },
   VICIOUS_CYCLE_TALENT: {
     id: 371999,
@@ -1184,6 +1347,7 @@ const talents = createTalentList({
     icon: 'spell_druid_bearhug',
     maxRanks: 1,
     talentId: 103227,
+    __ignoreDuplication: true,
   },
   TOOTH_AND_CLAW_TALENT: {
     id: 135288,
@@ -1191,6 +1355,7 @@ const talents = createTalentList({
     icon: 'inv_misc_monsterfang_01',
     maxRanks: 1,
     talentId: 103197,
+    __ignoreDuplication: true,
   },
   FRONT_OF_THE_PACK_TALENT: {
     id: 377835,
@@ -1198,6 +1363,7 @@ const talents = createTalentList({
     icon: 'spell_druid_stampedingroar_cat',
     maxRanks: 1,
     talentId: 103189,
+    __ignoreDuplication: true,
   },
   REINFORCED_FUR_TALENT: {
     id: 393618,
@@ -1205,6 +1371,7 @@ const talents = createTalentList({
     icon: 'spell_druid_malfurionstenacity',
     maxRanks: 1,
     talentId: 103204,
+    __ignoreDuplication: true,
   },
   SOUL_OF_THE_FOREST_GUARDIAN_TALENT: {
     id: 158477,
@@ -1212,6 +1379,7 @@ const talents = createTalentList({
     icon: 'ability_druid_manatree',
     maxRanks: 1,
     talentId: 103208,
+    __ignoreDuplication: true,
   },
   AFTER_THE_WILDFIRE_TALENT: {
     id: 371905,
@@ -1219,6 +1387,7 @@ const talents = createTalentList({
     icon: 'spell_nature_naturetouchgrow',
     maxRanks: 1,
     talentId: 103206,
+    __ignoreDuplication: true,
   },
   GUARDIAN_OF_ELUNE_TALENT: {
     id: 155578,
@@ -1226,6 +1395,7 @@ const talents = createTalentList({
     icon: 'spell_druid_guardianofelune',
     maxRanks: 1,
     talentId: 103205,
+    __ignoreDuplication: true,
   },
   FURY_OF_NATURE_TALENT: {
     id: 370695,
@@ -1233,6 +1403,7 @@ const talents = createTalentList({
     icon: 'spell_nature_moonglow',
     maxRanks: 2,
     talentId: 103203,
+    __ignoreDuplication: true,
   },
   REINVIGORATION_TALENT: {
     id: 372945,
@@ -1240,6 +1411,7 @@ const talents = createTalentList({
     icon: 'ability_druid_overgrowth',
     maxRanks: 2,
     talentId: 103223,
+    __ignoreDuplication: true,
   },
   ELUNES_FAVORED_TALENT: {
     id: 370586,
@@ -1247,6 +1419,7 @@ const talents = createTalentList({
     icon: 'spell_holy_elunesgrace',
     maxRanks: 1,
     talentId: 103198,
+    __ignoreDuplication: true,
   },
   SCINTILLATING_MOONLIGHT_TALENT: {
     id: 238049,
@@ -1254,6 +1427,7 @@ const talents = createTalentList({
     icon: 'spell_nature_starfall',
     maxRanks: 2,
     talentId: 103213,
+    __ignoreDuplication: true,
   },
   URSOCS_FURY_TALENT: {
     id: 377210,
@@ -1261,6 +1435,7 @@ const talents = createTalentList({
     icon: 'achievement_emeraldnightmare_ursoc',
     maxRanks: 1,
     talentId: 103219,
+    __ignoreDuplication: true,
   },
   DREAM_OF_CENARIUS_TALENT: {
     id: 372119,
@@ -1268,6 +1443,7 @@ const talents = createTalentList({
     icon: 'ability_druid_dreamstate',
     maxRanks: 1,
     talentId: 103218,
+    __ignoreDuplication: true,
   },
   PULVERIZE_TALENT: {
     id: 80313,
@@ -1275,6 +1451,7 @@ const talents = createTalentList({
     icon: 'spell_druid_malfurionstenacity',
     maxRanks: 1,
     talentId: 103222,
+    __ignoreDuplication: true,
   },
   INCARNATION_GUARDIAN_OF_URSOC_TALENT: {
     id: 102558,
@@ -1282,6 +1459,7 @@ const talents = createTalentList({
     icon: 'spell_druid_incarnation',
     maxRanks: 1,
     talentId: 103201,
+    __ignoreDuplication: true,
   },
   BLOOD_FRENZY_TALENT: {
     id: 203962,
@@ -1289,6 +1467,7 @@ const talents = createTalentList({
     icon: 'ability_druid_primaltenacity',
     maxRanks: 1,
     talentId: 103209,
+    __ignoreDuplication: true,
   },
   GALACTIC_GUARDIAN_TALENT: {
     id: 203964,
@@ -1296,6 +1475,7 @@ const talents = createTalentList({
     icon: 'spell_frost_iceclaw',
     maxRanks: 1,
     talentId: 103214,
+    __ignoreDuplication: true,
   },
   TWIN_MOONFIRE_TALENT: {
     id: 372567,
@@ -1303,6 +1483,7 @@ const talents = createTalentList({
     icon: 'spell_nature_starfall',
     maxRanks: 1,
     talentId: 103212,
+    __ignoreDuplication: true,
   },
   REND_AND_TEAR_TALENT: {
     id: 204053,
@@ -1310,6 +1491,7 @@ const talents = createTalentList({
     icon: 'ability_druid_swipe',
     maxRanks: 1,
     talentId: 103221,
+    __ignoreDuplication: true,
   },
   UNTAMED_SAVAGERY_TALENT: {
     id: 372943,
@@ -1317,6 +1499,7 @@ const talents = createTalentList({
     icon: 'spell_druid_bloodythrash',
     maxRanks: 1,
     talentId: 103220,
+    __ignoreDuplication: true,
   },
   URSOCS_GUIDANCE_TALENT: {
     id: 393414,
@@ -1324,6 +1507,7 @@ const talents = createTalentList({
     icon: 'ability_ardenweald_druid',
     maxRanks: 1,
     talentId: 103199,
+    __ignoreDuplication: true,
   },
   RAGE_OF_THE_SLEEPER_TALENT: {
     id: 200851,
@@ -1331,6 +1515,7 @@ const talents = createTalentList({
     icon: 'inv_hand_1h_artifactursoc_d_01',
     maxRanks: 1,
     talentId: 103207,
+    __ignoreDuplication: true,
   },
 
   //Balance
@@ -1340,6 +1525,7 @@ const talents = createTalentList({
     icon: 'ability_druid_eclipseorange',
     maxRanks: 1,
     talentId: 109858,
+    __ignoreDuplication: true,
   },
   SHOOTING_STARS_TALENT: {
     id: 202342,
@@ -1347,6 +1533,7 @@ const talents = createTalentList({
     icon: 'spell_priest_divinestar_shadow2',
     maxRanks: 1,
     talentId: 109861,
+    __ignoreDuplication: true,
   },
   NATURES_BALANCE_TALENT: {
     id: 202430,
@@ -1354,6 +1541,7 @@ const talents = createTalentList({
     icon: 'ability_druid_balanceofpower',
     maxRanks: 1,
     talentId: 109862,
+    __ignoreDuplication: true,
   },
   STARFALL_TALENT: {
     id: 191034,
@@ -1361,6 +1549,7 @@ const talents = createTalentList({
     icon: 'ability_druid_starfall',
     maxRanks: 1,
     talentId: 109833,
+    __ignoreDuplication: true,
     lunarPowerCost: 500,
   },
   SOLSTICE_TALENT: {
@@ -1369,6 +1558,7 @@ const talents = createTalentList({
     icon: 'artifactability_balancedruid_moonandstars',
     maxRanks: 2,
     talentId: 109835,
+    __ignoreDuplication: true,
   },
   UMBRAL_INTENSITY_TALENT: {
     id: 383195,
@@ -1376,6 +1566,7 @@ const talents = createTalentList({
     icon: 'ability_druid_eclipse',
     maxRanks: 2,
     talentId: 109853,
+    __ignoreDuplication: true,
   },
   UMBRAL_EMBRACE_TALENT: {
     id: 393760,
@@ -1383,6 +1574,7 @@ const talents = createTalentList({
     icon: 'ability_druid_improvedmoonkinform',
     maxRanks: 2,
     talentId: 109850,
+    __ignoreDuplication: true,
   },
   AETHERIAL_KINDLING_TALENT: {
     id: 327541,
@@ -1390,6 +1582,7 @@ const talents = createTalentList({
     icon: 'ability_druid_starfall',
     maxRanks: 2,
     talentId: 109843,
+    __ignoreDuplication: true,
   },
   LUNAR_SHRAPNEL_TALENT: {
     id: 393868,
@@ -1397,6 +1590,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_arcane04',
     maxRanks: 1,
     talentId: 109868,
+    __ignoreDuplication: true,
   },
   STELLAR_FLARE_TALENT: {
     id: 202347,
@@ -1404,6 +1598,7 @@ const talents = createTalentList({
     icon: 'ability_druid_stellarflare',
     maxRanks: 1,
     talentId: 109841,
+    __ignoreDuplication: true,
   },
   SOLAR_BEAM_TALENT: {
     id: 78675,
@@ -1411,6 +1606,7 @@ const talents = createTalentList({
     icon: 'ability_vehicle_sonicshockwave',
     maxRanks: 1,
     talentId: 109867,
+    __ignoreDuplication: true,
     manaCost: 8400,
   },
   FORCE_OF_NATURE_TALENT: {
@@ -1419,6 +1615,7 @@ const talents = createTalentList({
     icon: 'ability_druid_forceofnature',
     maxRanks: 1,
     talentId: 109844,
+    __ignoreDuplication: true,
   },
   ORBIT_BREAKER_TALENT: {
     id: 383197,
@@ -1426,6 +1623,7 @@ const talents = createTalentList({
     icon: 'artifactability_balancedruid_moonandstars',
     maxRanks: 1,
     talentId: 109831,
+    __ignoreDuplication: true,
   },
   TWIN_MOONS_TALENT: {
     id: 279620,
@@ -1433,6 +1631,7 @@ const talents = createTalentList({
     icon: 'spell_nature_starfall',
     maxRanks: 1,
     talentId: 109842,
+    __ignoreDuplication: true,
   },
   LIGHT_OF_THE_SUN_TALENT: {
     id: 202918,
@@ -1440,6 +1639,7 @@ const talents = createTalentList({
     icon: 'ability_vehicle_sonicshockwave',
     maxRanks: 1,
     talentId: 109845,
+    __ignoreDuplication: true,
   },
   STELLAR_INNERVATION_TALENT: {
     id: 394115,
@@ -1447,6 +1647,7 @@ const talents = createTalentList({
     icon: 'sha_ability_mage_firestarter_nightborne',
     maxRanks: 1,
     talentId: 109865,
+    __ignoreDuplication: true,
   },
   STARWEAVER_TALENT: {
     id: 393940,
@@ -1454,6 +1655,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_invocation',
     maxRanks: 1,
     talentId: 109873,
+    __ignoreDuplication: true,
   },
   RATTLE_THE_STARS_TALENT: {
     id: 393954,
@@ -1461,6 +1663,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_arcane01',
     maxRanks: 1,
     talentId: 109872,
+    __ignoreDuplication: true,
   },
   WANING_TWILIGHT_TALENT: {
     id: 393956,
@@ -1468,6 +1671,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_twilight',
     maxRanks: 2,
     talentId: 109834,
+    __ignoreDuplication: true,
   },
   CELESTIAL_ALIGNMENT_TALENT: {
     id: 194223,
@@ -1475,6 +1679,7 @@ const talents = createTalentList({
     icon: 'spell_nature_natureguardian',
     maxRanks: 1,
     talentId: 109849,
+    __ignoreDuplication: true,
   },
   STARLORD_TALENT: {
     id: 202345,
@@ -1482,6 +1687,7 @@ const talents = createTalentList({
     icon: 'spell_shaman_measuredinsight',
     maxRanks: 2,
     talentId: 109832,
+    __ignoreDuplication: true,
   },
   ASTRAL_COMMUNION_TALENT: {
     id: 202359,
@@ -1489,6 +1695,7 @@ const talents = createTalentList({
     icon: 'talentspec_druid_balance',
     maxRanks: 1,
     talentId: 109871,
+    __ignoreDuplication: true,
   },
   NATURES_GRACE_TALENT: {
     id: 393958,
@@ -1496,6 +1703,7 @@ const talents = createTalentList({
     icon: 'spell_nature_naturesblessing',
     maxRanks: 1,
     talentId: 109857,
+    __ignoreDuplication: true,
   },
   ORBITAL_STRIKE_TALENT: {
     id: 390378,
@@ -1503,6 +1711,7 @@ const talents = createTalentList({
     icon: 'ability_druid_cresentburn',
     maxRanks: 1,
     talentId: 109856,
+    __ignoreDuplication: true,
   },
   PRIMORDIAL_ARCANIC_PULSAR_TALENT: {
     id: 393960,
@@ -1510,6 +1719,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_arcane03',
     maxRanks: 1,
     talentId: 109855,
+    __ignoreDuplication: true,
   },
   SOUL_OF_THE_FOREST_BALANCE_TALENT: {
     id: 114107,
@@ -1517,6 +1727,7 @@ const talents = createTalentList({
     icon: 'ability_druid_manatree',
     maxRanks: 1,
     talentId: 109846,
+    __ignoreDuplication: true,
   },
   WILD_MUSHROOM_TALENT: {
     id: 88747,
@@ -1524,6 +1735,7 @@ const talents = createTalentList({
     icon: 'druid_ability_wildmushroom_a',
     maxRanks: 1,
     talentId: 109854,
+    __ignoreDuplication: true,
   },
   INCARNATION_CHOSEN_OF_ELUNE_TALENT: {
     id: 394013,
@@ -1531,6 +1743,7 @@ const talents = createTalentList({
     icon: 'spell_druid_incarnation',
     maxRanks: 1,
     talentId: 109839,
+    __ignoreDuplication: true,
   },
   POWER_OF_GOLDRINN_TALENT: {
     id: 394046,
@@ -1538,6 +1751,7 @@ const talents = createTalentList({
     icon: 'inv_mount_spectralwolf',
     maxRanks: 1,
     talentId: 109840,
+    __ignoreDuplication: true,
   },
   FUNGAL_GROWTH_TALENT: {
     id: 392999,
@@ -1545,6 +1759,7 @@ const talents = createTalentList({
     icon: 'druid_ability_wildmushroom_b',
     maxRanks: 1,
     talentId: 109837,
+    __ignoreDuplication: true,
   },
   DENIZEN_OF_THE_DREAM_TALENT: {
     id: 394065,
@@ -1552,6 +1767,7 @@ const talents = createTalentList({
     icon: 'inv_faeriedragon2_orange',
     maxRanks: 1,
     talentId: 109852,
+    __ignoreDuplication: true,
   },
   ASTRAL_SMOLDER_TALENT: {
     id: 394058,
@@ -1559,6 +1775,7 @@ const talents = createTalentList({
     icon: 'spell_fire_bluefire',
     maxRanks: 2,
     talentId: 109836,
+    __ignoreDuplication: true,
   },
   ELUNES_GUIDANCE_TALENT: {
     id: 393991,
@@ -1566,6 +1783,7 @@ const talents = createTalentList({
     icon: 'ability_ardenweald_druid',
     maxRanks: 1,
     talentId: 109864,
+    __ignoreDuplication: true,
   },
   BALANCE_OF_ALL_THINGS_TALENT: {
     id: 394048,
@@ -1573,6 +1791,7 @@ const talents = createTalentList({
     icon: 'ability_druid_earthandsky',
     maxRanks: 2,
     talentId: 109848,
+    __ignoreDuplication: true,
   },
   NEW_MOON_TALENT: {
     id: 274281,
@@ -1580,6 +1799,7 @@ const talents = createTalentList({
     icon: 'artifactability_balancedruid_newmoon',
     maxRanks: 1,
     talentId: 109860,
+    __ignoreDuplication: true,
   },
   FURY_OF_ELUNE_TALENT: {
     id: 202770,
@@ -1587,6 +1807,7 @@ const talents = createTalentList({
     icon: 'ability_druid_dreamstate',
     maxRanks: 1,
     talentId: 109859,
+    __ignoreDuplication: true,
   },
   FRIEND_OF_THE_FAE_TALENT: {
     id: 394081,
@@ -1594,6 +1815,7 @@ const talents = createTalentList({
     icon: 'inv_elemental_primal_mana',
     maxRanks: 1,
     talentId: 109870,
+    __ignoreDuplication: true,
   },
   WARRIOR_OF_ELUNE_TALENT: {
     id: 202425,
@@ -1601,6 +1823,7 @@ const talents = createTalentList({
     icon: 'spell_holy_elunesgrace',
     maxRanks: 1,
     talentId: 109869,
+    __ignoreDuplication: true,
   },
   SUNDERED_FIRMAMENT_TALENT: {
     id: 394094,
@@ -1608,6 +1831,7 @@ const talents = createTalentList({
     icon: 'spell_druid_equinox',
     maxRanks: 1,
     talentId: 109851,
+    __ignoreDuplication: true,
   },
   RADIANT_MOONLIGHT_TALENT: {
     id: 394121,
@@ -1615,6 +1839,7 @@ const talents = createTalentList({
     icon: 'artifactability_balancedruid_fullmoon',
     maxRanks: 1,
     talentId: 109847,
+    __ignoreDuplication: true,
   },
 });
 

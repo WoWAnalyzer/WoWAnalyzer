@@ -21,7 +21,7 @@ import { combineQualitativePerformances } from 'common/combineQualitativePerform
 import { t, Trans } from '@lingui/macro';
 import { SpellLink } from 'interface';
 import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/CastSummaryAndBreakdown';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/FieryDemiseExplanation';
 import {
   SPIRIT_BOMB_SOULS_IN_META,
@@ -234,9 +234,11 @@ export default class SpiritBomb extends Analyzer {
       </div>
     );
 
-    return explanationAndDataSubsection(
-      explanation,
-      this.castEntries.length > 0 ? data : noCastData,
+    return (
+      <ExplanationAndDataSubSection
+        explanation={explanation}
+        data={this.castEntries.length > 0 ? data : noCastData}
+      />
     );
   }
 }
