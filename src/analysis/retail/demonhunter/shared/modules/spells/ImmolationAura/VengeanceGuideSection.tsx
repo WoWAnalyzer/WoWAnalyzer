@@ -10,7 +10,7 @@ import { t, Trans } from '@lingui/macro';
 import CastSummaryAndBreakdown from '../../../guide/CastSummaryAndBreakdown';
 import FalloutSnippet from './FalloutSnippet';
 
-const VengeanceGuideSection = ({ hideExplanation }: { hideExplanation: boolean }) => {
+const VengeanceGuideSection = () => {
   const info = useInfo();
   const immolationAura = useAnalyzer(ImmolationAura);
   if (!info || !immolationAura) {
@@ -72,7 +72,6 @@ const VengeanceGuideSection = ({ hideExplanation }: { hideExplanation: boolean }
     <ExplanationAndDataSubSection
       explanation={explanation}
       data={immolationAura.castEntries.length > 0 ? data : noCastData}
-      hideExplanation={hideExplanation}
     />
   );
 };

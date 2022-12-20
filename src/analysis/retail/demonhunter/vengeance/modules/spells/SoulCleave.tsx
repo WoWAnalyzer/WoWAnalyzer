@@ -159,7 +159,7 @@ export default class SoulCleave extends Analyzer {
     return [QualitativePerformance.Good, null];
   }
 
-  guideSubsection(hideExplanation: boolean) {
+  guideSubsection() {
     const explanation = (
       <p>
         <Trans id="guide.demonhunter.vengeance.sections.rotation.soulCleave.explanation">
@@ -208,7 +208,6 @@ export default class SoulCleave extends Analyzer {
       <ExplanationAndDataSubSection
         explanation={explanation}
         data={this.castEntries.length > 0 ? data : noCastData}
-        hideExplanation={hideExplanation}
       />
     );
   }

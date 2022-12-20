@@ -6,9 +6,11 @@ import TALENTS from 'common/TALENTS/demonhunter';
 import SPELLS from 'common/SPELLS/demonhunter';
 import Timeline from './components/Timeline';
 import AllCooldownUsagesList, { Highlight } from './components/AllCooldownUsagesList';
+import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
 
 const MajorDefensives = () => (
   <>
+    <HideExplanationsToggle id="hide-explanations-major-defensives" />
     <SubSection>
       <Explanation>
         <p>

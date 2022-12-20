@@ -9,6 +9,7 @@ import ImmolationAuraVengeanceGuideSection from 'analysis/retail/demonhunter/sha
 import { t, Trans } from '@lingui/macro';
 import { PerformanceStrong } from 'analysis/retail/demonhunter/shared/guide/ExtraComponents';
 import VerticallyAlignedToggle from 'interface/VerticallyAlignedToggle';
+import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
 
 import DemonSpikesSubSection from './modules/spells/DemonSpikes/GuideSection';
 import FieryBrandSubSection from './modules/talents/FieryBrand/GuideSection';
@@ -17,7 +18,6 @@ import MetamorphosisSubSection from './modules/spells/Metamorphosis/GuideSection
 import CooldownGraphSubsection from './guide/CooldownGraphSubSection';
 import MajorDefensives from './modules/core/MajorDefensives';
 import useVdhFeatureFlag from './guide/useVdhFeatureFlag';
-import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -127,6 +127,7 @@ function MitigationSection() {
 function OldMitigationSection() {
   return (
     <>
+      <HideExplanationsToggle id="hide-explanations-old-mitigation" />
       <MetamorphosisSubSection />
       <DemonSpikesSubSection />
       <FieryBrandSubSection />
@@ -136,10 +137,6 @@ function OldMitigationSection() {
 }
 
 function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
-  const [isHideExplanationEnabled, setHideExplanationEnabled] = useVdhFeatureFlag(
-    'rotation-explanation',
-  );
-
   return (
     <Section
       title={t({
@@ -161,17 +158,13 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
         </Trans>
       </p>
       <br />
-      <HideExplanationsToggle
-        hideExplanations={isHideExplanationEnabled}
-        setHideExplanations={setHideExplanationEnabled}
-        id="hide-rotation-explanations"
-      />
+      <HideExplanationsToggle id="hide-explanations-rotation" />
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT) &&
-        modules.fracture.guideSubsection(isHideExplanationEnabled)}
-      <ImmolationAuraVengeanceGuideSection hideExplanation={isHideExplanationEnabled} />
-      {modules.soulCleave.guideSubsection(isHideExplanationEnabled)}
+        modules.fracture.guideSubsection()}
+      <ImmolationAuraVengeanceGuideSection />
+      {modules.soulCleave.guideSubsection()}
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT) &&
-        modules.spiritBomb.guideSubsection(isHideExplanationEnabled)}
+        modules.spiritBomb.guideSubsection()}
     </Section>
   );
 }
@@ -193,6 +186,7 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
           <SpellLink id={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT.id} /> as often as possible.
         </Trans>
       </p>
+      <HideExplanationsToggle id="hide-explanations-cooldowns" />
       <CooldownGraphSubsection />
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT) &&
         modules.felDevastation.guideBreakdown()}

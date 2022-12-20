@@ -185,7 +185,7 @@ export default class Fracture extends Analyzer {
     ];
   }
 
-  guideSubsection(hideExplanation: boolean) {
+  guideSubsection() {
     const explanation = (
       <p>
         <Trans id="guide.demonhunter.vengeance.sections.rotation.fracture.explanation">
@@ -229,7 +229,6 @@ export default class Fracture extends Analyzer {
       <ExplanationAndDataSubSection
         explanation={explanation}
         data={this.castEntries.length > 0 ? data : noCastData}
-        hideExplanation={hideExplanation}
       />
     );
   }

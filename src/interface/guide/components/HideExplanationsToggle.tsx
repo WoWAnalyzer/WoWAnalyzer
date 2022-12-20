@@ -1,34 +1,34 @@
 import VerticallyAlignedToggle from 'interface/VerticallyAlignedToggle';
+import { useExplanationContext } from 'interface/guide/components/Explanation';
 
-interface Props {
-  hideExplanations: boolean;
-  setHideExplanations: (p: boolean) => void;
+interface HideExplanationToggleProps {
   id: string;
   label?: string;
   tooltipContent?: string;
 }
-const HideExplanationsToggle = ({
-  hideExplanations,
-  setHideExplanations,
+export const HideExplanationsToggle = ({
   id,
   label,
   tooltipContent,
-}: Props) => (
-  <div className="flex">
-    <div className="flex-main" />
-    <div className="flex-sub">
-      <VerticallyAlignedToggle
-        id={id}
-        enabled={hideExplanations}
-        setEnabled={setHideExplanations}
-        label={label ?? 'Hide Rotation Explanations'}
-        tooltipContent={
-          tooltipContent ??
-          "Enabling this feature will hide the explanations of what each ability does. Don't worry, you can always bring them back."
-        }
-      />
+}: HideExplanationToggleProps) => {
+  const { hideExplanations, setHideExplanations } = useExplanationContext();
+  return (
+    <div className="flex">
+      <div className="flex-main" />
+      <div className="flex-sub">
+        <VerticallyAlignedToggle
+          id={id}
+          enabled={hideExplanations}
+          setEnabled={setHideExplanations}
+          label={label ?? 'Hide Explanations'}
+          tooltipContent={
+            tooltipContent ??
+            "Enabling this feature will hide explanations throughout the Guide. Don't worry, you can always bring them back."
+          }
+        />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default HideExplanationsToggle;
