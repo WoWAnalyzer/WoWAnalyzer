@@ -9,6 +9,7 @@ const talents = createTalentList({
     icon: 'ability_earthen_pillar',
     maxRanks: 1,
     talentId: 87708,
+    __ignoreDuplication: true,
     manaCost: 7000,
   },
   OBSIDIAN_SCALES_TALENT: {
@@ -17,6 +18,7 @@ const talents = createTalentList({
     icon: 'inv_artifact_dragonscales',
     maxRanks: 1,
     talentId: 87702,
+    __ignoreDuplication: true,
   },
   EXPUNGE_TALENT: {
     id: 365585,
@@ -24,6 +26,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_fontofmagic_green',
     maxRanks: 1,
     talentId: 87716,
+    __ignoreDuplication: true,
     manaCost: 3250,
   },
   NATURAL_CONVERGENCE_TALENT: {
@@ -32,6 +35,7 @@ const talents = createTalentList({
     icon: 'spell_frost_frostblast',
     maxRanks: 1,
     talentId: 87709,
+    __ignoreDuplication: true,
   },
   PERMEATING_CHILL_TALENT: {
     id: 370897,
@@ -39,6 +43,7 @@ const talents = createTalentList({
     icon: 'spell_frost_coldhearted',
     maxRanks: 1,
     talentId: 87703,
+    __ignoreDuplication: true,
   },
   VERDANT_EMBRACE_TALENT: {
     id: 360995,
@@ -46,6 +51,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_rescue',
     maxRanks: 1,
     talentId: 87715,
+    __ignoreDuplication: true,
     manaCost: 7500,
   },
   FORGER_OF_MOUNTAINS_TALENT: {
@@ -54,6 +60,7 @@ const talents = createTalentList({
     icon: 'ability_earthen_pillar',
     maxRanks: 1,
     talentId: 87584,
+    __ignoreDuplication: true,
   },
   INNATE_MAGIC_TALENT: {
     id: 375520,
@@ -61,6 +68,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_innatemagic4',
     maxRanks: 2,
     talentId: 87710,
+    __ignoreDuplication: true,
   },
   OBSIDIAN_BULWARK_TALENT: {
     id: 375406,
@@ -68,6 +76,7 @@ const talents = createTalentList({
     icon: 'inv_shield_1h_revenantfire_d_01',
     maxRanks: 1,
     talentId: 87701,
+    __ignoreDuplication: true,
   },
   ENKINDLED_TALENT: {
     id: 375554,
@@ -75,6 +84,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_livingflame',
     maxRanks: 2,
     talentId: 87704,
+    __ignoreDuplication: true,
   },
   SCARLET_ADAPTATION_TALENT: {
     id: 372469,
@@ -82,6 +92,7 @@ const talents = createTalentList({
     icon: 'inv_bijou_red',
     maxRanks: 1,
     talentId: 87714,
+    __ignoreDuplication: true,
   },
   QUELL_TALENT: {
     id: 351338,
@@ -89,6 +100,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_quell',
     maxRanks: 1,
     talentId: 87692,
+    __ignoreDuplication: true,
   },
   RECALL_TALENT: {
     id: 371806,
@@ -96,6 +108,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_recall',
     maxRanks: 1,
     talentId: 87711,
+    __ignoreDuplication: true,
   },
   HEAVY_WINGBEATS_TALENT: {
     id: 368838,
@@ -103,6 +116,7 @@ const talents = createTalentList({
     icon: 'ability_racial_wingbuffet',
     maxRanks: 1,
     talentId: 87586,
+    __ignoreDuplication: true,
   },
   CLOBBERING_SWEEP_TALENT: {
     id: 375443,
@@ -110,6 +124,7 @@ const talents = createTalentList({
     icon: 'ability_racial_tailswipe',
     maxRanks: 1,
     talentId: 87585,
+    __ignoreDuplication: true,
   },
   TAILWIND_TALENT: {
     id: 375556,
@@ -117,6 +132,7 @@ const talents = createTalentList({
     icon: 'ability_skyreach_wind',
     maxRanks: 1,
     talentId: 87705,
+    __ignoreDuplication: true,
   },
   CAUTERIZING_FLAME_TALENT: {
     id: 374251,
@@ -124,6 +140,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_fontofmagic_red',
     maxRanks: 1,
     talentId: 87700,
+    __ignoreDuplication: true,
     manaCost: 3250,
   },
   ROAR_OF_EXHILARATION_TALENT: {
@@ -132,6 +149,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_mastertactitian',
     maxRanks: 1,
     talentId: 87691,
+    __ignoreDuplication: true,
   },
   INSTINCTIVE_ARCANA_TALENT: {
     id: 376164,
@@ -139,6 +157,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_studentofmagic',
     maxRanks: 2,
     talentId: 87693,
+    __ignoreDuplication: true,
   },
   TIP_THE_SCALES_TALENT: {
     id: 370553,
@@ -146,6 +165,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_tipthescales',
     maxRanks: 1,
     talentId: 87713,
+    __ignoreDuplication: true,
   },
   ATTUNED_TO_THE_DREAM_TALENT: {
     id: 376930,
@@ -153,6 +173,7 @@ const talents = createTalentList({
     icon: 'ability_rogue_imrovedrecuperate',
     maxRanks: 2,
     talentId: 87699,
+    __ignoreDuplication: true,
   },
   SLEEP_WALK_TALENT: {
     id: 360806,
@@ -160,6 +181,7 @@ const talents = createTalentList({
     icon: 'ability_xavius_dreamsimulacrum',
     maxRanks: 1,
     talentId: 87587,
+    __ignoreDuplication: true,
     manaCost: 6000,
   },
   DRACONIC_LEGACY_TALENT: {
@@ -168,6 +190,7 @@ const talents = createTalentList({
     icon: 'inv_helm_mail_dracthyrquest_b_02',
     maxRanks: 2,
     talentId: 87712,
+    __ignoreDuplication: true,
   },
   INHERENT_RESISTANCE_TALENT: {
     id: 375544,
@@ -175,6 +198,7 @@ const talents = createTalentList({
     icon: 'inv_misc_rubysanctum1',
     maxRanks: 2,
     talentId: 87697,
+    __ignoreDuplication: true,
   },
   EXTENDED_FLIGHT_TALENT: {
     id: 375517,
@@ -182,6 +206,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_hover',
     maxRanks: 2,
     talentId: 87706,
+    __ignoreDuplication: true,
   },
   BOUNTIFUL_BLOOM_TALENT: {
     id: 370886,
@@ -189,6 +214,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_emeraldblossom',
     maxRanks: 1,
     talentId: 87588,
+    __ignoreDuplication: true,
   },
   ANCIENT_FLAME_TALENT: {
     id: 369990,
@@ -196,6 +222,7 @@ const talents = createTalentList({
     icon: 'inv_elemental_mote_fire01',
     maxRanks: 1,
     talentId: 87698,
+    __ignoreDuplication: true,
   },
   BLAST_FURNACE_TALENT: {
     id: 375510,
@@ -203,6 +230,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_firebreath',
     maxRanks: 2,
     talentId: 87694,
+    __ignoreDuplication: true,
   },
   EXUBERANCE_TALENT: {
     id: 375542,
@@ -210,6 +238,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_hover2',
     maxRanks: 1,
     talentId: 87589,
+    __ignoreDuplication: true,
   },
   SOURCE_OF_MAGIC_TALENT: {
     id: 369459,
@@ -217,6 +246,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_blue_01',
     maxRanks: 1,
     talentId: 87696,
+    __ignoreDuplication: true,
   },
   WALLOPING_BLOW_TALENT: {
     id: 387341,
@@ -224,6 +254,7 @@ const talents = createTalentList({
     icon: 'inv_misc_monsterscales_06',
     maxRanks: 1,
     talentId: 87684,
+    __ignoreDuplication: true,
   },
   PANACEA_TALENT: {
     id: 387761,
@@ -231,6 +262,7 @@ const talents = createTalentList({
     icon: 'ability_druid_protectionofthegrove',
     maxRanks: 1,
     talentId: 87707,
+    __ignoreDuplication: true,
   },
   UNRAVEL_TALENT: {
     id: 368432,
@@ -238,6 +270,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_unravel',
     maxRanks: 1,
     talentId: 87690,
+    __ignoreDuplication: true,
     manaCost: 2500,
   },
   PROTRACTED_TALONS_TALENT: {
@@ -246,6 +279,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_azurestrike',
     maxRanks: 1,
     talentId: 87688,
+    __ignoreDuplication: true,
   },
   OPPRESSING_ROAR_TALENT: {
     id: 372048,
@@ -253,6 +287,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_oppressingroar',
     maxRanks: 1,
     talentId: 87695,
+    __ignoreDuplication: true,
   },
   REGENERATIVE_MAGIC_TALENT: {
     id: 387787,
@@ -260,6 +295,7 @@ const talents = createTalentList({
     icon: 'spell_frost_manarecharge',
     maxRanks: 1,
     talentId: 87677,
+    __ignoreDuplication: true,
   },
   RESCUE_TALENT: {
     id: 370665,
@@ -267,6 +303,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_flywithme',
     maxRanks: 1,
     talentId: 87685,
+    __ignoreDuplication: true,
   },
   LUSH_GROWTH_TALENT: {
     id: 375561,
@@ -274,6 +311,7 @@ const talents = createTalentList({
     icon: 'inv_staff_2h_bloodelf_c_01',
     maxRanks: 2,
     talentId: 87678,
+    __ignoreDuplication: true,
   },
   RENEWING_BLAZE_TALENT: {
     id: 374348,
@@ -281,6 +319,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_masterylifebinder_red',
     maxRanks: 1,
     talentId: 87679,
+    __ignoreDuplication: true,
   },
   LEAPING_FLAMES_TALENT: {
     id: 369939,
@@ -288,6 +327,7 @@ const talents = createTalentList({
     icon: 'spell_fire_flare',
     maxRanks: 1,
     talentId: 87689,
+    __ignoreDuplication: true,
   },
   OVERAWE_TALENT: {
     id: 374346,
@@ -295,6 +335,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_oppressingroar2',
     maxRanks: 1,
     talentId: 87687,
+    __ignoreDuplication: true,
   },
   AERIAL_MASTERY_TALENT: {
     id: 365933,
@@ -302,6 +343,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_aerialmastery',
     maxRanks: 1,
     talentId: 87686,
+    __ignoreDuplication: true,
   },
   TWIN_GUARDIAN_TALENT: {
     id: 370888,
@@ -309,6 +351,7 @@ const talents = createTalentList({
     icon: 'ability_skyreach_shielded',
     maxRanks: 1,
     talentId: 87683,
+    __ignoreDuplication: true,
   },
   FOCI_OF_LIFE_TALENT: {
     id: 375574,
@@ -316,6 +359,7 @@ const talents = createTalentList({
     icon: 'spell_fire_incinerate',
     maxRanks: 1,
     talentId: 87681,
+    __ignoreDuplication: true,
   },
   FIRE_WITHIN_TALENT: {
     id: 375577,
@@ -323,6 +367,7 @@ const talents = createTalentList({
     icon: 'item_sparkofragnoros',
     maxRanks: 1,
     talentId: 87680,
+    __ignoreDuplication: true,
   },
   TERROR_OF_THE_SKIES_TALENT: {
     id: 371032,
@@ -330,6 +375,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_terroroftheskies',
     maxRanks: 1,
     talentId: 87675,
+    __ignoreDuplication: true,
   },
   TIME_SPIRAL_TALENT: {
     id: 374968,
@@ -337,6 +383,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_timespiral',
     maxRanks: 1,
     talentId: 87676,
+    __ignoreDuplication: true,
   },
   ZEPHYR_TALENT: {
     id: 374227,
@@ -344,6 +391,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_hoverblack',
     maxRanks: 1,
     talentId: 87682,
+    __ignoreDuplication: true,
   },
   POWER_NEXUS_TALENT: {
     id: 369908,
@@ -351,6 +399,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_powernexus',
     maxRanks: 1,
     talentId: 87598,
+    __ignoreDuplication: true,
   },
   ESSENCE_ATTUNEMENT_TALENT: {
     id: 375722,
@@ -358,6 +407,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_essenceburststacks',
     maxRanks: 1,
     talentId: 87631,
+    __ignoreDuplication: true,
   },
   FONT_OF_MAGIC_TALENT: {
     id: 375783,
@@ -365,6 +415,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_fontofmagic',
     maxRanks: 1,
     talentId: 87596,
+    __ignoreDuplication: true,
   },
 
   //Devastation
@@ -374,6 +425,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_pyre',
     maxRanks: 1,
     talentId: 87669,
+    __ignoreDuplication: true,
     essenceCost: 3,
   },
   RUBY_ESSENCE_BURST_TALENT: {
@@ -382,6 +434,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_essenceburst4',
     maxRanks: 1,
     talentId: 87670,
+    __ignoreDuplication: true,
   },
   AZURE_ESSENCE_BURST_TALENT: {
     id: 375721,
@@ -389,6 +442,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_essenceburst2',
     maxRanks: 1,
     talentId: 87668,
+    __ignoreDuplication: true,
   },
   DENSE_ENERGY_TALENT: {
     id: 370962,
@@ -396,6 +450,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_pyre',
     maxRanks: 1,
     talentId: 87671,
+    __ignoreDuplication: true,
   },
   IMPOSING_PRESENCE_TALENT: {
     id: 371016,
@@ -403,6 +458,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_quell',
     maxRanks: 1,
     talentId: 87667,
+    __ignoreDuplication: true,
   },
   INNER_RADIANCE_TALENT: {
     id: 386405,
@@ -410,6 +466,7 @@ const talents = createTalentList({
     icon: 'spell_holy_spellwarding',
     maxRanks: 1,
     talentId: 87666,
+    __ignoreDuplication: true,
   },
   ETERNITY_SURGE_TALENT: {
     id: 359073,
@@ -417,6 +474,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_eternitysurge',
     maxRanks: 1,
     talentId: 87647,
+    __ignoreDuplication: true,
   },
   VOLATILITY_TALENT: {
     id: 369089,
@@ -424,6 +482,7 @@ const talents = createTalentList({
     icon: 'spell_fire_ragnaros_lavabolt',
     maxRanks: 2,
     talentId: 87672,
+    __ignoreDuplication: true,
   },
   DRAGONRAGE_TALENT: {
     id: 375087,
@@ -431,6 +490,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_dragonrage',
     maxRanks: 1,
     talentId: 87665,
+    __ignoreDuplication: true,
   },
   LAY_WASTE_TALENT: {
     id: 371034,
@@ -438,6 +498,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_deepbreath',
     maxRanks: 2,
     talentId: 87648,
+    __ignoreDuplication: true,
   },
   ARCANE_INTENSITY_TALENT: {
     id: 375618,
@@ -445,6 +506,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_disintegrate',
     maxRanks: 2,
     talentId: 87646,
+    __ignoreDuplication: true,
   },
   RUBY_EMBERS_TALENT: {
     id: 365937,
@@ -452,6 +514,7 @@ const talents = createTalentList({
     icon: 'inv_tradeskillitem_lessersorcerersfire',
     maxRanks: 1,
     talentId: 87674,
+    __ignoreDuplication: true,
   },
   ENGULFING_BLAZE_TALENT: {
     id: 370837,
@@ -459,6 +522,7 @@ const talents = createTalentList({
     icon: 'inv_inscription_pigment_ruby',
     maxRanks: 1,
     talentId: 87673,
+    __ignoreDuplication: true,
   },
   ANIMOSITY_TALENT: {
     id: 375797,
@@ -466,6 +530,7 @@ const talents = createTalentList({
     icon: 'spell_nature_shamanrage',
     maxRanks: 1,
     talentId: 87664,
+    __ignoreDuplication: true,
   },
   FIRESTORM_TALENT: {
     id: 368847,
@@ -473,6 +538,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_firestorm',
     maxRanks: 1,
     talentId: 87659,
+    __ignoreDuplication: true,
   },
   HEAT_WAVE_TALENT: {
     id: 375725,
@@ -480,6 +546,7 @@ const talents = createTalentList({
     icon: 'spell_fire_moltenblood',
     maxRanks: 2,
     talentId: 87661,
+    __ignoreDuplication: true,
   },
   TITANIC_WRATH_TALENT: {
     id: 386272,
@@ -487,6 +554,7 @@ const talents = createTalentList({
     icon: 'spell_fireresistancetotem_01',
     maxRanks: 2,
     talentId: 87663,
+    __ignoreDuplication: true,
   },
   HONED_AGGRESSION_TALENT: {
     id: 371038,
@@ -494,6 +562,7 @@ const talents = createTalentList({
     icon: 'spell_fire_blueimmolation',
     maxRanks: 2,
     talentId: 87650,
+    __ignoreDuplication: true,
   },
   ETERNITYS_SPAN_TALENT: {
     id: 375757,
@@ -501,6 +570,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_arcanetorrent',
     maxRanks: 1,
     talentId: 87645,
+    __ignoreDuplication: true,
   },
   EYE_OF_INFINITY_TALENT: {
     id: 369375,
@@ -508,6 +578,7 @@ const talents = createTalentList({
     icon: 'ability_socererking_arcanewrath',
     maxRanks: 1,
     talentId: 87640,
+    __ignoreDuplication: true,
   },
   CAUSALITY_TALENT: {
     id: 375777,
@@ -515,6 +586,7 @@ const talents = createTalentList({
     icon: 'spell_azerite_essence_16',
     maxRanks: 1,
     talentId: 87639,
+    __ignoreDuplication: true,
   },
   CATALYZE_TALENT: {
     id: 386283,
@@ -522,6 +594,7 @@ const talents = createTalentList({
     icon: 'spell_fire_masterofelements',
     maxRanks: 1,
     talentId: 87660,
+    __ignoreDuplication: true,
   },
   TYRANNY_TALENT: {
     id: 376888,
@@ -529,6 +602,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_dragonrage2',
     maxRanks: 1,
     talentId: 87662,
+    __ignoreDuplication: true,
   },
   CHARGED_BLAST_TALENT: {
     id: 370455,
@@ -536,6 +610,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_arcanepotency',
     maxRanks: 1,
     talentId: 87651,
+    __ignoreDuplication: true,
   },
   SHATTERING_STAR_TALENT: {
     id: 370452,
@@ -543,6 +618,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_chargedblast',
     maxRanks: 1,
     talentId: 87641,
+    __ignoreDuplication: true,
   },
   SNAPFIRE_TALENT: {
     id: 370783,
@@ -550,6 +626,7 @@ const talents = createTalentList({
     icon: 'spell_shaman_improvedfirenova',
     maxRanks: 1,
     talentId: 87658,
+    __ignoreDuplication: true,
   },
   ONYX_LEGACY_TALENT: {
     id: 386348,
@@ -557,6 +634,7 @@ const talents = createTalentList({
     icon: 'inv_misc_head_dragon_black',
     maxRanks: 1,
     talentId: 87654,
+    __ignoreDuplication: true,
   },
   SPELLWEAVERS_DOMINANCE_TALENT: {
     id: 370845,
@@ -564,6 +642,7 @@ const talents = createTalentList({
     icon: 'spell_shaman_shockinglava',
     maxRanks: 1,
     talentId: 87652,
+    __ignoreDuplication: true,
   },
   FOCUSING_IRIS_TALENT: {
     id: 386336,
@@ -571,6 +650,7 @@ const talents = createTalentList({
     icon: 'spell_mage_temporalshield',
     maxRanks: 1,
     talentId: 87643,
+    __ignoreDuplication: true,
   },
   ARCANE_VIGOR_TALENT: {
     id: 386342,
@@ -578,6 +658,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_arcane01',
     maxRanks: 1,
     talentId: 87642,
+    __ignoreDuplication: true,
   },
   BURNOUT_TALENT: {
     id: 375801,
@@ -585,6 +666,7 @@ const talents = createTalentList({
     icon: 'spell_fire_soulburn',
     maxRanks: 2,
     talentId: 87657,
+    __ignoreDuplication: true,
   },
   IMMINENT_DESTRUCTION_TALENT: {
     id: 370781,
@@ -592,6 +674,7 @@ const talents = createTalentList({
     icon: 'spell_burningbladeshaman_blazing_radiance',
     maxRanks: 2,
     talentId: 87655,
+    __ignoreDuplication: true,
   },
   SCINTILLATION_TALENT: {
     id: 370821,
@@ -599,6 +682,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_arcane03',
     maxRanks: 2,
     talentId: 87653,
+    __ignoreDuplication: true,
   },
   POWER_SWELL_TALENT: {
     id: 370839,
@@ -606,6 +690,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_powernexus2',
     maxRanks: 2,
     talentId: 87644,
+    __ignoreDuplication: true,
   },
   FEED_THE_FLAMES_TALENT: {
     id: 369846,
@@ -613,6 +698,7 @@ const talents = createTalentList({
     icon: 'mace_1h_blacksmithing_d_04_icon',
     maxRanks: 1,
     talentId: 87637,
+    __ignoreDuplication: true,
   },
   EVERBURNING_FLAME_TALENT: {
     id: 370819,
@@ -620,6 +706,7 @@ const talents = createTalentList({
     icon: 'spell_fire_burnout',
     maxRanks: 1,
     talentId: 87636,
+    __ignoreDuplication: true,
   },
   HOARDED_POWER_TALENT: {
     id: 375796,
@@ -627,6 +714,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_innatemagic2',
     maxRanks: 1,
     talentId: 87591,
+    __ignoreDuplication: true,
   },
   IRIDESCENCE_TALENT: {
     id: 370867,
@@ -634,6 +722,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_powerswell',
     maxRanks: 1,
     talentId: 87638,
+    __ignoreDuplication: true,
   },
 
   //Preservation
@@ -643,6 +732,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_echo',
     maxRanks: 1,
     talentId: 87628,
+    __ignoreDuplication: true,
     essenceCost: 2,
   },
   DREAM_BREATH_TALENT: {
@@ -651,6 +741,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_dreambreath',
     maxRanks: 1,
     talentId: 87627,
+    __ignoreDuplication: true,
     manaCost: 11250,
   },
   REVERSION_TALENT: {
@@ -659,6 +750,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_reversion',
     maxRanks: 1,
     talentId: 87629,
+    __ignoreDuplication: true,
     manaCost: 6250,
   },
   TEMPORAL_COMPRESSION_TALENT: {
@@ -667,6 +759,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_rewind2',
     maxRanks: 1,
     talentId: 87626,
+    __ignoreDuplication: true,
   },
   ESSENCE_BURST_TALENT: {
     id: 369297,
@@ -674,6 +767,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_essenceburst',
     maxRanks: 1,
     talentId: 87630,
+    __ignoreDuplication: true,
   },
   REWIND_TALENT: {
     id: 363534,
@@ -681,6 +775,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_rewind',
     maxRanks: 1,
     talentId: 87612,
+    __ignoreDuplication: true,
     manaCost: 12500,
   },
   SPIRITBLOOM_TALENT: {
@@ -689,6 +784,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_spiritbloom2',
     maxRanks: 1,
     talentId: 87625,
+    __ignoreDuplication: true,
     manaCost: 9500,
   },
   TIME_DILATION_TALENT: {
@@ -697,6 +793,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_timedilation',
     maxRanks: 1,
     talentId: 87613,
+    __ignoreDuplication: true,
     manaCost: 5000,
   },
   EMERALD_COMMUNION_TALENT: {
@@ -705,6 +802,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_green_01',
     maxRanks: 1,
     talentId: 87594,
+    __ignoreDuplication: true,
   },
   EMPATH_TALENT: {
     id: 376138,
@@ -712,6 +810,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_powernexus2',
     maxRanks: 1,
     talentId: 87624,
+    __ignoreDuplication: true,
   },
   SPIRITUAL_CLARITY_TALENT: {
     id: 376150,
@@ -719,6 +818,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_spiritbloom',
     maxRanks: 1,
     talentId: 87623,
+    __ignoreDuplication: true,
   },
   FLUTTERING_SEEDLINGS_TALENT: {
     id: 359793,
@@ -726,6 +826,7 @@ const talents = createTalentList({
     icon: 'inv_herbalism_70_yserallineseed',
     maxRanks: 2,
     talentId: 87632,
+    __ignoreDuplication: true,
   },
   LIFE_GIVERS_FLAME_TALENT: {
     id: 371426,
@@ -733,6 +834,7 @@ const talents = createTalentList({
     icon: 'item_sparkofragnoros',
     maxRanks: 2,
     talentId: 87616,
+    __ignoreDuplication: true,
   },
   GOLDEN_HOUR_TALENT: {
     id: 378196,
@@ -740,6 +842,7 @@ const talents = createTalentList({
     icon: 'inv_belt_armor_waistoftime_d_01',
     maxRanks: 1,
     talentId: 87614,
+    __ignoreDuplication: true,
   },
   DELAY_HARM_TALENT: {
     id: 376207,
@@ -747,6 +850,7 @@ const talents = createTalentList({
     icon: 'ability_racial_magicalresistance',
     maxRanks: 1,
     talentId: 87602,
+    __ignoreDuplication: true,
   },
   JUST_IN_TIME_TALENT: {
     id: 376204,
@@ -754,6 +858,7 @@ const talents = createTalentList({
     icon: 'inv_offhand_1h_artifactsilverhand_d_01',
     maxRanks: 1,
     talentId: 87601,
+    __ignoreDuplication: true,
   },
   TEMPORAL_ANOMALY_TALENT: {
     id: 373861,
@@ -761,6 +866,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_temporalanomaly',
     maxRanks: 1,
     talentId: 87611,
+    __ignoreDuplication: true,
     manaCost: 18750,
   },
   DREAMWALKER_TALENT: {
@@ -769,6 +875,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_onewithnature',
     maxRanks: 1,
     talentId: 87593,
+    __ignoreDuplication: true,
   },
   RUSH_OF_VITALITY_TALENT: {
     id: 377086,
@@ -776,6 +883,7 @@ const talents = createTalentList({
     icon: 'trade_enchanting_greatermysteriousessence',
     maxRanks: 1,
     talentId: 87592,
+    __ignoreDuplication: true,
   },
   EXHILARATING_BURST_TALENT: {
     id: 377100,
@@ -783,6 +891,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_essenceburst3',
     maxRanks: 2,
     talentId: 87595,
+    __ignoreDuplication: true,
   },
   FIELD_OF_DREAMS_TALENT: {
     id: 370062,
@@ -790,6 +899,7 @@ const talents = createTalentList({
     icon: 'inv_misc_herb_chamlotus',
     maxRanks: 1,
     talentId: 87633,
+    __ignoreDuplication: true,
   },
   LIFEFORCE_MENDER_TALENT: {
     id: 376179,
@@ -797,6 +907,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_dragonrage2',
     maxRanks: 2,
     talentId: 87617,
+    __ignoreDuplication: true,
   },
   TIME_LORD_TALENT: {
     id: 372527,
@@ -804,6 +915,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_innatemagic4',
     maxRanks: 2,
     talentId: 87615,
+    __ignoreDuplication: true,
   },
   FLOW_STATE_TALENT: {
     id: 385696,
@@ -811,6 +923,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_timespiral',
     maxRanks: 2,
     talentId: 87610,
+    __ignoreDuplication: true,
   },
   RESONATING_SPHERE_TALENT: {
     id: 376236,
@@ -818,6 +931,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_bronze_01',
     maxRanks: 1,
     talentId: 87609,
+    __ignoreDuplication: true,
   },
   NOZDORMUS_TEACHINGS_TALENT: {
     id: 376237,
@@ -825,6 +939,7 @@ const talents = createTalentList({
     icon: 'inv_misc_head_dragon_bronze',
     maxRanks: 1,
     talentId: 87608,
+    __ignoreDuplication: true,
   },
   CALL_OF_YSERA_TALENT: {
     id: 373834,
@@ -832,6 +947,7 @@ const talents = createTalentList({
     icon: '',
     maxRanks: 1,
     talentId: 87618,
+    __ignoreDuplication: true,
   },
   LIFEBIND_TALENT: {
     id: 373270,
@@ -839,6 +955,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_hoverred',
     maxRanks: 1,
     talentId: 87634,
+    __ignoreDuplication: true,
   },
   PUNCTUALITY_TALENT: {
     id: 371270,
@@ -846,6 +963,7 @@ const talents = createTalentList({
     icon: 'inv_offhand_1h_ulduarraid_d_01',
     maxRanks: 1,
     talentId: 87607,
+    __ignoreDuplication: true,
   },
   SPARK_OF_INSIGHT_TALENT: {
     id: 377099,
@@ -853,6 +971,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_essenceburst5',
     maxRanks: 1,
     talentId: 87635,
+    __ignoreDuplication: true,
   },
   OUROBOROS_TALENT: {
     id: 381921,
@@ -860,6 +979,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_innatemagic',
     maxRanks: 1,
     talentId: 87600,
+    __ignoreDuplication: true,
   },
   ERASURE_TALENT: {
     id: 376210,
@@ -867,6 +987,7 @@ const talents = createTalentList({
     icon: 'ability_bossmagistrix_timewarp2',
     maxRanks: 1,
     talentId: 87620,
+    __ignoreDuplication: true,
   },
   TEMPORAL_ARTIFICER_TALENT: {
     id: 381922,
@@ -874,6 +995,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_rewind',
     maxRanks: 1,
     talentId: 87619,
+    __ignoreDuplication: true,
   },
   ENERGY_LOOP_TALENT: {
     id: 372233,
@@ -881,6 +1003,7 @@ const talents = createTalentList({
     icon: 'inv_elemental_mote_mana',
     maxRanks: 1,
     talentId: 87606,
+    __ignoreDuplication: true,
   },
   TIME_OF_NEED_TALENT: {
     id: 368412,
@@ -888,6 +1011,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_masterylifebinder_bronze',
     maxRanks: 1,
     talentId: 87604,
+    __ignoreDuplication: true,
   },
   RENEWING_BREATH_TALENT: {
     id: 371257,
@@ -895,6 +1019,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_dreambreath',
     maxRanks: 2,
     talentId: 87599,
+    __ignoreDuplication: true,
   },
   GRACE_PERIOD_TALENT: {
     id: 376239,
@@ -902,6 +1027,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_reversion_green',
     maxRanks: 2,
     talentId: 87621,
+    __ignoreDuplication: true,
   },
   TIMELESS_MAGIC_TALENT: {
     id: 376240,
@@ -909,6 +1035,7 @@ const talents = createTalentList({
     icon: 'inv_artifact_xp05',
     maxRanks: 2,
     talentId: 87605,
+    __ignoreDuplication: true,
   },
   DREAM_FLIGHT_TALENT: {
     id: 359816,
@@ -916,6 +1043,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_dreamflight',
     maxRanks: 1,
     talentId: 87597,
+    __ignoreDuplication: true,
     manaCost: 10000,
   },
   CYCLE_OF_LIFE_TALENT: {
@@ -924,6 +1052,7 @@ const talents = createTalentList({
     icon: 'spell_lifegivingseed',
     maxRanks: 1,
     talentId: 87622,
+    __ignoreDuplication: true,
   },
   STASIS_TALENT: {
     id: 370537,
@@ -931,6 +1060,7 @@ const talents = createTalentList({
     icon: 'ability_evoker_stasis',
     maxRanks: 1,
     talentId: 87603,
+    __ignoreDuplication: true,
     manaCost: 10000,
   },
 });

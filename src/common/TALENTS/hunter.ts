@@ -9,6 +9,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_killcommand',
     maxRanks: 1,
     talentId: 100648,
+    __ignoreDuplication: true,
     focusCost: 30,
   },
   CONCUSSIVE_SHOT_TALENT: {
@@ -17,6 +18,7 @@ const talents = createTalentList({
     icon: 'spell_frost_stun',
     maxRanks: 1,
     talentId: 100616,
+    __ignoreDuplication: true,
   },
   KILL_SHOT_SHARED_TALENT: {
     id: 53351,
@@ -24,6 +26,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_assassinate2',
     maxRanks: 1,
     talentId: 100539,
+    __ignoreDuplication: true,
     focusCost: 10,
   },
   TRAILBLAZER_TALENT: {
@@ -32,6 +35,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_aspectmastery',
     maxRanks: 2,
     talentId: 100644,
+    __ignoreDuplication: true,
   },
   POSTHASTE_TALENT: {
     id: 109215,
@@ -39,6 +43,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_posthaste',
     maxRanks: 2,
     talentId: 100634,
+    __ignoreDuplication: true,
   },
   IMPROVED_KILL_SHOT_TALENT: {
     id: 343248,
@@ -46,6 +51,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_snipertraining',
     maxRanks: 1,
     talentId: 100643,
+    __ignoreDuplication: true,
   },
   WILDERNESS_MEDICINE_TALENT: {
     id: 343242,
@@ -53,6 +59,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_mendpet',
     maxRanks: 2,
     talentId: 100649,
+    __ignoreDuplication: true,
   },
   COUNTER_SHOT_TALENT: {
     id: 147362,
@@ -60,6 +67,7 @@ const talents = createTalentList({
     icon: 'inv_ammo_arrow_03',
     maxRanks: 1,
     talentId: 100624,
+    __ignoreDuplication: true,
   },
   NATURAL_MENDING_TALENT: {
     id: 270581,
@@ -67,6 +75,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_onewithnature',
     maxRanks: 2,
     talentId: 100638,
+    __ignoreDuplication: true,
   },
   TAR_TRAP_TALENT: {
     id: 187698,
@@ -74,6 +83,7 @@ const talents = createTalentList({
     icon: 'spell_yorsahj_bloodboil_black',
     maxRanks: 1,
     talentId: 100641,
+    __ignoreDuplication: true,
   },
   MISDIRECTION_TALENT: {
     id: 34477,
@@ -81,6 +91,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_misdirection',
     maxRanks: 1,
     talentId: 100637,
+    __ignoreDuplication: true,
   },
   SURVIVAL_OF_THE_FITTEST_TALENT: {
     id: 264735,
@@ -88,6 +99,7 @@ const talents = createTalentList({
     icon: 'spell_nature_spiritarmor',
     maxRanks: 1,
     talentId: 100523,
+    __ignoreDuplication: true,
   },
   TRANQUILIZING_SHOT_TALENT: {
     id: 19801,
@@ -95,6 +107,7 @@ const talents = createTalentList({
     icon: 'spell_nature_drowsy',
     maxRanks: 1,
     talentId: 100617,
+    __ignoreDuplication: true,
   },
   ENTRAPMENT_TALENT: {
     id: 393344,
@@ -102,6 +115,7 @@ const talents = createTalentList({
     icon: 'ability_ensnare',
     maxRanks: 1,
     talentId: 100692,
+    __ignoreDuplication: true,
   },
   IMPROVED_TRAPS_TALENT: {
     id: 343247,
@@ -109,6 +123,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_traplauncher',
     maxRanks: 2,
     talentId: 100636,
+    __ignoreDuplication: true,
   },
   LONE_SURVIVOR_TALENT: {
     id: 388039,
@@ -116,6 +131,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_huntervswild',
     maxRanks: 1,
     talentId: 100522,
+    __ignoreDuplication: true,
   },
   NATURES_ENDURANCE_TALENT: {
     id: 388042,
@@ -123,6 +139,7 @@ const talents = createTalentList({
     icon: 'spell_nature_protectionformnature',
     maxRanks: 1,
     talentId: 100521,
+    __ignoreDuplication: true,
   },
   BORN_TO_BE_WILD_TALENT: {
     id: 266921,
@@ -130,6 +147,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_aspectoftheviper',
     maxRanks: 2,
     talentId: 100646,
+    __ignoreDuplication: true,
   },
   SCARE_BEAST_TALENT: {
     id: 1513,
@@ -137,6 +155,7 @@ const talents = createTalentList({
     icon: 'ability_druid_cower',
     maxRanks: 1,
     talentId: 100640,
+    __ignoreDuplication: true,
     focusCost: 25,
   },
   IMPROVED_TRANQUILIZING_SHOT_TALENT: {
@@ -145,6 +164,7 @@ const talents = createTalentList({
     icon: 'hunter_pvp_vipersting',
     maxRanks: 1,
     talentId: 100632,
+    __ignoreDuplication: true,
   },
   INTIMIDATION_TALENT: {
     id: 19577,
@@ -152,6 +172,7 @@ const talents = createTalentList({
     icon: 'ability_devour',
     maxRanks: 1,
     talentId: 100621,
+    __ignoreDuplication: true,
   },
   HIGH_EXPLOSIVE_TRAP_TALENT: {
     id: 236776,
@@ -159,6 +180,7 @@ const talents = createTalentList({
     icon: 'spell_fire_selfdestruct',
     maxRanks: 1,
     talentId: 100620,
+    __ignoreDuplication: true,
   },
   SCATTER_SHOT_TALENT: {
     id: 213691,
@@ -166,6 +188,7 @@ const talents = createTalentList({
     icon: 'ability_golemstormbolt',
     maxRanks: 1,
     talentId: 100651,
+    __ignoreDuplication: true,
   },
   BINDING_SHOT_TALENT: {
     id: 109248,
@@ -173,6 +196,7 @@ const talents = createTalentList({
     icon: 'spell_shaman_bindelemental',
     maxRanks: 1,
     talentId: 100650,
+    __ignoreDuplication: true,
   },
   REJUVENATING_WIND_TALENT: {
     id: 385539,
@@ -180,6 +204,7 @@ const talents = createTalentList({
     icon: 'ability_druid_galewinds',
     maxRanks: 2,
     talentId: 100619,
+    __ignoreDuplication: true,
   },
   CAMOUFLAGE_TALENT: {
     id: 199483,
@@ -187,6 +212,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_camouflage',
     maxRanks: 1,
     talentId: 100647,
+    __ignoreDuplication: true,
   },
   SENTINEL_OWL_TALENT: {
     id: 388045,
@@ -194,6 +220,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_sentinelowl',
     maxRanks: 1,
     talentId: 100520,
+    __ignoreDuplication: true,
   },
   BINDING_SHACKLES_TALENT: {
     id: 321468,
@@ -201,6 +228,7 @@ const talents = createTalentList({
     icon: 'inv_misc_steelweaponchain',
     maxRanks: 1,
     talentId: 100633,
+    __ignoreDuplication: true,
   },
   HUNTERS_AVOIDANCE_TALENT: {
     id: 384799,
@@ -208,6 +236,7 @@ const talents = createTalentList({
     icon: 'rogue_burstofspeed',
     maxRanks: 1,
     talentId: 100536,
+    __ignoreDuplication: true,
   },
   PATHFINDING_TALENT: {
     id: 378002,
@@ -215,6 +244,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_displacement',
     maxRanks: 2,
     talentId: 100631,
+    __ignoreDuplication: true,
   },
   SENTINELS_PERCEPTION_TALENT: {
     id: 388056,
@@ -222,6 +252,7 @@ const talents = createTalentList({
     icon: 'spell_nature_sentinal',
     maxRanks: 1,
     talentId: 100519,
+    __ignoreDuplication: true,
   },
   SENTINELS_PROTECTION_TALENT: {
     id: 388057,
@@ -229,6 +260,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_pet_owl',
     maxRanks: 1,
     talentId: 100518,
+    __ignoreDuplication: true,
   },
   BEAST_MASTER_TALENT: {
     id: 378007,
@@ -236,6 +268,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_catlikereflexes',
     maxRanks: 2,
     talentId: 100639,
+    __ignoreDuplication: true,
   },
   KEEN_EYESIGHT_TALENT: {
     id: 378004,
@@ -243,6 +276,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_silenthunter',
     maxRanks: 2,
     talentId: 100635,
+    __ignoreDuplication: true,
   },
   MASTER_MARKSMAN_TALENT: {
     id: 260309,
@@ -250,6 +284,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_mastermarksman',
     maxRanks: 2,
     talentId: 100625,
+    __ignoreDuplication: true,
   },
   IMPROVED_KILL_COMMAND_TALENT: {
     id: 378010,
@@ -257,6 +292,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_ferociousinspiration',
     maxRanks: 2,
     talentId: 100645,
+    __ignoreDuplication: true,
   },
   SERRATED_SHOTS_TALENT: {
     id: 389882,
@@ -264,6 +300,7 @@ const talents = createTalentList({
     icon: 'ability_skeer_bloodletting',
     maxRanks: 2,
     talentId: 100513,
+    __ignoreDuplication: true,
   },
   ARCTIC_BOLA_TALENT: {
     id: 390231,
@@ -271,6 +308,7 @@ const talents = createTalentList({
     icon: 'inv_engineering_90_bola',
     maxRanks: 2,
     talentId: 100514,
+    __ignoreDuplication: true,
   },
   SERPENT_STING_TALENT: {
     id: 271788,
@@ -278,6 +316,7 @@ const talents = createTalentList({
     icon: 'spell_hunter_exoticmunitions_poisoned',
     maxRanks: 1,
     talentId: 100615,
+    __ignoreDuplication: true,
     focusCost: 10,
   },
   KILLER_INSTINCT_TALENT: {
@@ -286,6 +325,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_killcommand',
     maxRanks: 1,
     talentId: 100614,
+    __ignoreDuplication: true,
   },
   ALPHA_PREDATOR_TALENT: {
     id: 269737,
@@ -293,6 +333,7 @@ const talents = createTalentList({
     icon: 'spell_druid_savagery',
     maxRanks: 1,
     talentId: 100613,
+    __ignoreDuplication: true,
   },
   STEEL_TRAP_TALENT: {
     id: 162488,
@@ -300,6 +341,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_steeltrap',
     maxRanks: 1,
     talentId: 100618,
+    __ignoreDuplication: true,
   },
   STAMPEDE_TALENT: {
     id: 201430,
@@ -307,6 +349,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_bestialdiscipline',
     maxRanks: 1,
     talentId: 100629,
+    __ignoreDuplication: true,
   },
   DEATH_CHAKRAM_TALENT: {
     id: 375891,
@@ -314,6 +357,7 @@ const talents = createTalentList({
     icon: 'ability_maldraxxus_hunter',
     maxRanks: 1,
     talentId: 100628,
+    __ignoreDuplication: true,
   },
   EXPLOSIVE_SHOT_TALENT: {
     id: 212431,
@@ -321,6 +365,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_explosiveshot',
     maxRanks: 1,
     talentId: 100626,
+    __ignoreDuplication: true,
     focusCost: 20,
   },
   BARRAGE_TALENT: {
@@ -329,6 +374,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_rapidregeneration',
     maxRanks: 1,
     talentId: 100526,
+    __ignoreDuplication: true,
     focusCost: 60,
   },
   POISON_INJECTION_TALENT: {
@@ -337,6 +383,7 @@ const talents = createTalentList({
     icon: 'ability_poisonarrow',
     maxRanks: 1,
     talentId: 100623,
+    __ignoreDuplication: true,
   },
   HYDRAS_BITE_TALENT: {
     id: 260241,
@@ -344,6 +391,7 @@ const talents = createTalentList({
     icon: 'inv_hydrasbite',
     maxRanks: 1,
     talentId: 100622,
+    __ignoreDuplication: true,
   },
   KILL_COMMAND_SURVIVAL_TALENT: {
     id: 259489,
@@ -351,6 +399,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_killcommand',
     maxRanks: 1,
     talentId: 100542,
+    __ignoreDuplication: true,
   },
   KILL_SHOT_SURVIVAL_TALENT: {
     id: 320976,
@@ -358,6 +407,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_assassinate2',
     maxRanks: 1,
     talentId: 100537,
+    __ignoreDuplication: true,
     focusCost: 10,
   },
   MUZZLE_TALENT: {
@@ -366,6 +416,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_negate',
     maxRanks: 1,
     talentId: 100543,
+    __ignoreDuplication: true,
   },
   WAILING_ARROW_TALENT: {
     id: 392060,
@@ -373,6 +424,7 @@ const talents = createTalentList({
     icon: 'ability_theblackarrow',
     maxRanks: 1,
     talentId: 100652,
+    __ignoreDuplication: true,
     focusCost: 15,
   },
 
@@ -383,6 +435,7 @@ const talents = createTalentList({
     icon: 'inv_spear_07',
     maxRanks: 1,
     talentId: 100578,
+    __ignoreDuplication: true,
     focusCost: 35,
   },
   CRACK_SHOT_TALENT: {
@@ -391,6 +444,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_focusfire',
     maxRanks: 1,
     talentId: 100600,
+    __ignoreDuplication: true,
   },
   IMPROVED_STEADY_SHOT_TALENT: {
     id: 321018,
@@ -398,6 +452,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_improvedsteadyshot',
     maxRanks: 1,
     talentId: 100604,
+    __ignoreDuplication: true,
   },
   PRECISE_SHOTS_TALENT: {
     id: 260240,
@@ -405,6 +460,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_snipertraining',
     maxRanks: 2,
     talentId: 100582,
+    __ignoreDuplication: true,
   },
   RAPID_FIRE_TALENT: {
     id: 257044,
@@ -412,6 +468,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_efficiency',
     maxRanks: 1,
     talentId: 100585,
+    __ignoreDuplication: true,
   },
   LONE_WOLF_TALENT: {
     id: 155228,
@@ -419,6 +476,7 @@ const talents = createTalentList({
     icon: 'spell_hunter_lonewolf',
     maxRanks: 1,
     talentId: 100576,
+    __ignoreDuplication: true,
   },
   CHIMAERA_SHOT_TALENT: {
     id: 342049,
@@ -426,6 +484,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_chimerashot2',
     maxRanks: 1,
     talentId: 100627,
+    __ignoreDuplication: true,
     focusCost: 40,
   },
   STREAMLINE_TALENT: {
@@ -434,6 +493,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_aimedshot',
     maxRanks: 2,
     talentId: 100598,
+    __ignoreDuplication: true,
   },
   KILLER_ACCURACY_TALENT: {
     id: 378765,
@@ -441,6 +501,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_piercingshots',
     maxRanks: 2,
     talentId: 100606,
+    __ignoreDuplication: true,
   },
   HUNTERS_KNOWLEDGE_TALENT: {
     id: 378766,
@@ -448,6 +509,7 @@ const talents = createTalentList({
     icon: 'hunter_pvp_snipershot',
     maxRanks: 2,
     talentId: 100593,
+    __ignoreDuplication: true,
   },
   CAREFUL_AIM_TALENT: {
     id: 260228,
@@ -455,6 +517,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_zenarchery',
     maxRanks: 2,
     talentId: 100584,
+    __ignoreDuplication: true,
   },
   LETHAL_SHOTS_TALENT: {
     id: 260393,
@@ -462,6 +525,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_longshots',
     maxRanks: 1,
     talentId: 100603,
+    __ignoreDuplication: true,
   },
   SURGING_SHOTS_TALENT: {
     id: 391559,
@@ -469,6 +533,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_resistanceisfutile',
     maxRanks: 1,
     talentId: 100602,
+    __ignoreDuplication: true,
   },
   DEATHBLOW_TALENT: {
     id: 378769,
@@ -476,6 +541,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_runningshot',
     maxRanks: 1,
     talentId: 100588,
+    __ignoreDuplication: true,
   },
   TARGET_PRACTICE_TALENT: {
     id: 321287,
@@ -483,6 +549,7 @@ const talents = createTalentList({
     icon: 'buff_epichunter',
     maxRanks: 1,
     talentId: 100591,
+    __ignoreDuplication: true,
   },
   FOCUSED_AIM_TALENT: {
     id: 378767,
@@ -490,6 +557,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_mastermarksman',
     maxRanks: 2,
     talentId: 100601,
+    __ignoreDuplication: true,
   },
   MULTI_SHOT_MARKSMANSHIP_TALENT: {
     id: 257620,
@@ -497,6 +565,7 @@ const talents = createTalentList({
     icon: 'ability_upgrademoonglaive',
     maxRanks: 1,
     talentId: 100544,
+    __ignoreDuplication: true,
     focusCost: 20,
   },
   RAZOR_FRAGMENTS_TALENT: {
@@ -505,6 +574,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_razorwire',
     maxRanks: 1,
     talentId: 100535,
+    __ignoreDuplication: true,
   },
   DOUBLE_TAP_TALENT: {
     id: 260402,
@@ -512,6 +582,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_crossfire',
     maxRanks: 1,
     talentId: 100579,
+    __ignoreDuplication: true,
   },
   DEADEYE_TALENT: {
     id: 321460,
@@ -519,6 +590,7 @@ const talents = createTalentList({
     icon: 'spell_hunter_focusingshot',
     maxRanks: 1,
     talentId: 100597,
+    __ignoreDuplication: true,
   },
   BURSTING_SHOT_TALENT: {
     id: 186387,
@@ -526,6 +598,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_burstingshot',
     maxRanks: 1,
     talentId: 100577,
+    __ignoreDuplication: true,
     focusCost: 10,
   },
   TRICK_SHOTS_TALENT: {
@@ -534,6 +607,7 @@ const talents = createTalentList({
     icon: 'inv_trickshot',
     maxRanks: 1,
     talentId: 100580,
+    __ignoreDuplication: true,
   },
   BOMBARDMENT_TALENT: {
     id: 378880,
@@ -541,6 +615,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_thrillofthehunt',
     maxRanks: 1,
     talentId: 100594,
+    __ignoreDuplication: true,
   },
   VOLLEY_TALENT: {
     id: 260243,
@@ -548,6 +623,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_rapidkilling',
     maxRanks: 1,
     talentId: 100595,
+    __ignoreDuplication: true,
   },
   STEADY_FOCUS_TALENT: {
     id: 193533,
@@ -555,6 +631,7 @@ const talents = createTalentList({
     icon: 'hunter_pvp_snipershot',
     maxRanks: 2,
     talentId: 100596,
+    __ignoreDuplication: true,
   },
   SERPENTSTALKERS_TRICKERY_TALENT: {
     id: 378888,
@@ -562,6 +639,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_serpentswiftness',
     maxRanks: 1,
     talentId: 100586,
+    __ignoreDuplication: true,
   },
   QUICK_LOAD_TALENT: {
     id: 378771,
@@ -569,6 +647,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_wildquiver',
     maxRanks: 1,
     talentId: 100583,
+    __ignoreDuplication: true,
   },
   HEAVY_AMMO_TALENT: {
     id: 378910,
@@ -576,6 +655,7 @@ const talents = createTalentList({
     icon: 'inv_ammo_bullet_04',
     maxRanks: 1,
     talentId: 100611,
+    __ignoreDuplication: true,
   },
   LIGHT_AMMO_TALENT: {
     id: 378913,
@@ -583,6 +663,7 @@ const talents = createTalentList({
     icon: 'ships_ability_armorpiercingammo',
     maxRanks: 1,
     talentId: 100610,
+    __ignoreDuplication: true,
   },
   TRUESHOT_TALENT: {
     id: 288613,
@@ -590,6 +671,7 @@ const talents = createTalentList({
     icon: 'ability_trueshot',
     maxRanks: 1,
     talentId: 100587,
+    __ignoreDuplication: true,
   },
   LOCK_AND_LOAD_TALENT: {
     id: 194595,
@@ -597,6 +679,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_lockandload',
     maxRanks: 1,
     talentId: 100589,
+    __ignoreDuplication: true,
   },
   BULLSEYE_TALENT: {
     id: 204089,
@@ -604,6 +687,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_focusedaim',
     maxRanks: 2,
     talentId: 100581,
+    __ignoreDuplication: true,
   },
   BULLETSTORM_TALENT: {
     id: 389019,
@@ -611,6 +695,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_markedshot',
     maxRanks: 1,
     talentId: 100517,
+    __ignoreDuplication: true,
   },
   SHARPSHOOTER_TALENT: {
     id: 378907,
@@ -618,6 +703,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_aimedshot',
     maxRanks: 2,
     talentId: 100592,
+    __ignoreDuplication: true,
   },
   EAGLETALONS_TRUE_FOCUS_TALENT: {
     id: 389449,
@@ -625,6 +711,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_aspectoftheironhawk',
     maxRanks: 2,
     talentId: 100607,
+    __ignoreDuplication: true,
   },
   LEGACY_OF_THE_WINDRUNNERS_TALENT: {
     id: 190852,
@@ -632,6 +719,7 @@ const talents = createTalentList({
     icon: 'artifactability_marksmanhunter_legacyofthewindrunners',
     maxRanks: 2,
     talentId: 100605,
+    __ignoreDuplication: true,
   },
   SALVO_TALENT: {
     id: 384791,
@@ -639,6 +727,7 @@ const talents = createTalentList({
     icon: 'spell_hunter_exoticmunitions_incendiary',
     maxRanks: 1,
     talentId: 100534,
+    __ignoreDuplication: true,
   },
   CALLING_THE_SHOTS_TALENT: {
     id: 260404,
@@ -646,6 +735,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_assassinate',
     maxRanks: 1,
     talentId: 100609,
+    __ignoreDuplication: true,
   },
   UNERRING_VISION_TALENT: {
     id: 386878,
@@ -653,6 +743,7 @@ const talents = createTalentList({
     icon: 'spell_hunter_exoticmunitions_frozen',
     maxRanks: 1,
     talentId: 100608,
+    __ignoreDuplication: true,
   },
   WINDRUNNERS_BARRAGE_TALENT: {
     id: 389866,
@@ -660,6 +751,7 @@ const talents = createTalentList({
     icon: 'inv_ammo_arrow_06',
     maxRanks: 1,
     talentId: 100512,
+    __ignoreDuplication: true,
   },
   READINESS_TALENT: {
     id: 389865,
@@ -667,6 +759,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_readiness',
     maxRanks: 1,
     talentId: 100511,
+    __ignoreDuplication: true,
   },
   WINDRUNNERS_GUIDANCE_TALENT: {
     id: 378905,
@@ -674,6 +767,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_laceration',
     maxRanks: 1,
     talentId: 100599,
+    __ignoreDuplication: true,
   },
 
   //Beast Mastery
@@ -683,6 +777,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_cobrashot',
     maxRanks: 1,
     talentId: 100663,
+    __ignoreDuplication: true,
     focusCost: 35,
   },
   PACK_TACTICS_TALENT: {
@@ -691,6 +786,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_invigeration',
     maxRanks: 1,
     talentId: 100672,
+    __ignoreDuplication: true,
   },
   MULTI_SHOT_BEAST_MASTERY_TALENT: {
     id: 2643,
@@ -698,6 +794,7 @@ const talents = createTalentList({
     icon: 'ability_upgrademoonglaive',
     maxRanks: 1,
     talentId: 100630,
+    __ignoreDuplication: true,
     focusCost: 40,
   },
   BARBED_SHOT_TALENT: {
@@ -706,6 +803,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_barbedshot',
     maxRanks: 1,
     talentId: 100683,
+    __ignoreDuplication: true,
   },
   ASPECT_OF_THE_BEAST_TALENT: {
     id: 191384,
@@ -713,6 +811,7 @@ const talents = createTalentList({
     icon: 'ability_deathwing_assualtaspects',
     maxRanks: 1,
     talentId: 100658,
+    __ignoreDuplication: true,
   },
   KINDRED_SPIRITS_TALENT: {
     id: 56315,
@@ -720,6 +819,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_separationanxiety',
     maxRanks: 2,
     talentId: 100671,
+    __ignoreDuplication: true,
   },
   TRAINING_EXPERT_TALENT: {
     id: 378209,
@@ -727,6 +827,7 @@ const talents = createTalentList({
     icon: 'spell_hunter_adaptation',
     maxRanks: 2,
     talentId: 100662,
+    __ignoreDuplication: true,
   },
   ANIMAL_COMPANION_TALENT: {
     id: 267116,
@@ -734,6 +835,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_bestialdiscipline',
     maxRanks: 1,
     talentId: 100661,
+    __ignoreDuplication: true,
   },
   BEAST_CLEAVE_TALENT: {
     id: 115939,
@@ -741,6 +843,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_sickem',
     maxRanks: 2,
     talentId: 100670,
+    __ignoreDuplication: true,
   },
   KILLER_COMMAND_TALENT: {
     id: 378740,
@@ -748,6 +851,7 @@ const talents = createTalentList({
     icon: 'ability_physical_taunt',
     maxRanks: 2,
     talentId: 100653,
+    __ignoreDuplication: true,
   },
   SHARP_BARBS_TALENT: {
     id: 378205,
@@ -755,6 +859,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_laceration',
     maxRanks: 2,
     talentId: 100659,
+    __ignoreDuplication: true,
   },
   COBRA_STING_TALENT: {
     id: 378750,
@@ -762,6 +867,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_cobrashot',
     maxRanks: 2,
     talentId: 100655,
+    __ignoreDuplication: true,
   },
   THRILL_OF_THE_HUNT_TALENT: {
     id: 257944,
@@ -769,6 +875,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_thrillofthehunt',
     maxRanks: 3,
     talentId: 100679,
+    __ignoreDuplication: true,
   },
   KILL_CLEAVE_TALENT: {
     id: 378207,
@@ -776,6 +883,7 @@ const talents = createTalentList({
     icon: 'spell_druid_bloodythrash',
     maxRanks: 1,
     talentId: 100668,
+    __ignoreDuplication: true,
   },
   A_MURDER_OF_CROWS_TALENT: {
     id: 131894,
@@ -783,6 +891,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_murderofcrows',
     maxRanks: 1,
     talentId: 100657,
+    __ignoreDuplication: true,
     focusCost: 30,
   },
   BLOODSHED_TALENT: {
@@ -791,6 +900,7 @@ const talents = createTalentList({
     icon: 'ability_druid_primaltenacity',
     maxRanks: 1,
     talentId: 100525,
+    __ignoreDuplication: true,
   },
   COBRA_SENSES_TALENT: {
     id: 378244,
@@ -798,6 +908,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_cobrastrikes',
     maxRanks: 1,
     talentId: 100678,
+    __ignoreDuplication: true,
   },
   DIRE_BEAST_TALENT: {
     id: 120679,
@@ -805,6 +916,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_longevity',
     maxRanks: 1,
     talentId: 100673,
+    __ignoreDuplication: true,
   },
   BESTIAL_WRATH_TALENT: {
     id: 19574,
@@ -812,6 +924,7 @@ const talents = createTalentList({
     icon: 'ability_druid_ferociousbite',
     maxRanks: 1,
     talentId: 100669,
+    __ignoreDuplication: true,
   },
   WAR_ORDERS_TALENT: {
     id: 393933,
@@ -819,6 +932,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_barbedshot',
     maxRanks: 2,
     talentId: 100666,
+    __ignoreDuplication: true,
   },
   HUNTERS_PREY_TALENT: {
     id: 378210,
@@ -826,6 +940,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_assassinate',
     maxRanks: 1,
     talentId: 100665,
+    __ignoreDuplication: true,
   },
   STOMP_TALENT: {
     id: 199530,
@@ -833,6 +948,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_thunderstruck',
     maxRanks: 2,
     talentId: 100656,
+    __ignoreDuplication: true,
   },
   BARBED_WRATH_TALENT: {
     id: 231548,
@@ -840,6 +956,7 @@ const talents = createTalentList({
     icon: 'ability_druid_ferociousbite',
     maxRanks: 1,
     talentId: 100524,
+    __ignoreDuplication: true,
   },
   WILD_CALL_TALENT: {
     id: 185789,
@@ -847,6 +964,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_masterscall',
     maxRanks: 1,
     talentId: 100681,
+    __ignoreDuplication: true,
   },
   ASPECT_OF_THE_WILD_TALENT: {
     id: 193530,
@@ -854,6 +972,7 @@ const talents = createTalentList({
     icon: 'spell_nature_protectionformnature',
     maxRanks: 1,
     talentId: 100664,
+    __ignoreDuplication: true,
   },
   DIRE_COMMAND_TALENT: {
     id: 378743,
@@ -861,6 +980,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_ferociousinspiration',
     maxRanks: 3,
     talentId: 100667,
+    __ignoreDuplication: true,
   },
   SCENT_OF_BLOOD_TALENT: {
     id: 193532,
@@ -868,6 +988,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_lifedrain',
     maxRanks: 2,
     talentId: 100680,
+    __ignoreDuplication: true,
   },
   ONE_WITH_THE_PACK_TALENT: {
     id: 199528,
@@ -875,6 +996,7 @@ const talents = createTalentList({
     icon: 'icon_upgradestone_beast_uncommon',
     maxRanks: 2,
     talentId: 100674,
+    __ignoreDuplication: true,
   },
   MASTER_HANDLER_TALENT: {
     id: 389654,
@@ -882,6 +1004,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_beastwithin',
     maxRanks: 1,
     talentId: 100677,
+    __ignoreDuplication: true,
   },
   SNAKE_BITE_TALENT: {
     id: 389660,
@@ -889,6 +1012,7 @@ const talents = createTalentList({
     icon: 'inv_waepon_bow_zulgrub_d_01',
     maxRanks: 1,
     talentId: 100516,
+    __ignoreDuplication: true,
   },
   DIRE_FRENZY_TALENT: {
     id: 385810,
@@ -896,6 +1020,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_huntervswild',
     maxRanks: 2,
     talentId: 100527,
+    __ignoreDuplication: true,
   },
   BRUTAL_COMPANION_TALENT: {
     id: 386870,
@@ -903,6 +1028,7 @@ const talents = createTalentList({
     icon: 'ability_druid_rake',
     maxRanks: 1,
     talentId: 100515,
+    __ignoreDuplication: true,
   },
   CALL_OF_THE_WILD_TALENT: {
     id: 359844,
@@ -910,6 +1036,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_callofthewild',
     maxRanks: 1,
     talentId: 100682,
+    __ignoreDuplication: true,
   },
   DIRE_PACK_TALENT: {
     id: 378745,
@@ -917,6 +1044,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_sickem',
     maxRanks: 1,
     talentId: 100654,
+    __ignoreDuplication: true,
   },
   KILLER_COBRA_TALENT: {
     id: 199532,
@@ -924,6 +1052,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_snaketrap',
     maxRanks: 1,
     talentId: 100676,
+    __ignoreDuplication: true,
   },
   PIERCING_FANGS_TALENT: {
     id: 392053,
@@ -931,6 +1060,7 @@ const talents = createTalentList({
     icon: 'inv_misc_monsterfang_02',
     maxRanks: 1,
     talentId: 100675,
+    __ignoreDuplication: true,
   },
   WILD_INSTINCTS_TALENT: {
     id: 378442,
@@ -938,6 +1068,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_beastwithin',
     maxRanks: 1,
     talentId: 100660,
+    __ignoreDuplication: true,
   },
   BLOODY_FRENZY_TALENT: {
     id: 378739,
@@ -945,6 +1076,7 @@ const talents = createTalentList({
     icon: 'ability_racial_cannibalize',
     maxRanks: 1,
     talentId: 100612,
+    __ignoreDuplication: true,
   },
 
   //Survival
@@ -954,6 +1086,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_raptorstrike',
     maxRanks: 1,
     talentId: 100551,
+    __ignoreDuplication: true,
     focusCost: 30,
   },
   WILDFIRE_BOMB_TALENT: {
@@ -962,6 +1095,7 @@ const talents = createTalentList({
     icon: 'inv_wildfirebomb',
     maxRanks: 1,
     talentId: 100568,
+    __ignoreDuplication: true,
   },
   TIP_OF_THE_SPEAR_TALENT: {
     id: 260285,
@@ -969,6 +1103,7 @@ const talents = createTalentList({
     icon: 'ability_bossmannoroth_glaivethrust',
     maxRanks: 2,
     talentId: 100554,
+    __ignoreDuplication: true,
   },
   FEROCITY_TALENT: {
     id: 378916,
@@ -976,6 +1111,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_sickem',
     maxRanks: 1,
     talentId: 100549,
+    __ignoreDuplication: true,
   },
   FLANKERS_ADVANTAGE_TALENT: {
     id: 263186,
@@ -983,6 +1119,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_killcommand',
     maxRanks: 1,
     talentId: 100565,
+    __ignoreDuplication: true,
   },
   HARPOON_TALENT: {
     id: 190925,
@@ -990,6 +1127,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_harpoon',
     maxRanks: 1,
     talentId: 100546,
+    __ignoreDuplication: true,
   },
   ENERGETIC_ALLY_TALENT: {
     id: 378961,
@@ -997,6 +1135,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_invigeration',
     maxRanks: 1,
     talentId: 100560,
+    __ignoreDuplication: true,
   },
   BLOODSEEKER_TALENT: {
     id: 260248,
@@ -1004,6 +1143,7 @@ const talents = createTalentList({
     icon: 'ability_druid_primaltenacity',
     maxRanks: 1,
     talentId: 100564,
+    __ignoreDuplication: true,
   },
   ASPECT_OF_THE_EAGLE_TALENT: {
     id: 186289,
@@ -1011,6 +1151,7 @@ const talents = createTalentList({
     icon: 'spell_hunter_aspectoftheironhawk',
     maxRanks: 1,
     talentId: 100562,
+    __ignoreDuplication: true,
   },
   TERMS_OF_ENGAGEMENT_TALENT: {
     id: 265895,
@@ -1018,6 +1159,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_harpoon',
     maxRanks: 1,
     talentId: 100567,
+    __ignoreDuplication: true,
   },
   GUERRILLA_TACTICS_TALENT: {
     id: 264332,
@@ -1025,6 +1167,7 @@ const talents = createTalentList({
     icon: 'spell_mage_flameorb',
     maxRanks: 1,
     talentId: 100572,
+    __ignoreDuplication: true,
   },
   LUNGE_TALENT: {
     id: 378934,
@@ -1032,6 +1175,7 @@ const talents = createTalentList({
     icon: 'ability_bossmannoroth_glaivethrust',
     maxRanks: 1,
     talentId: 100550,
+    __ignoreDuplication: true,
   },
   CARVE_TALENT: {
     id: 187708,
@@ -1039,6 +1183,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_carve',
     maxRanks: 1,
     talentId: 100553,
+    __ignoreDuplication: true,
     focusCost: 35,
   },
   BUTCHERY_TALENT: {
@@ -1047,6 +1192,7 @@ const talents = createTalentList({
     icon: 'ability_butcher_cleave',
     maxRanks: 1,
     talentId: 100552,
+    __ignoreDuplication: true,
     focusCost: 30,
   },
   MONGOOSE_BITE_TALENT: {
@@ -1055,6 +1201,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_mongoosebite',
     maxRanks: 1,
     talentId: 100566,
+    __ignoreDuplication: true,
     focusCost: 30,
   },
   INTENSE_FOCUS_TALENT: {
@@ -1063,6 +1210,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_mastertactitian',
     maxRanks: 1,
     talentId: 100531,
+    __ignoreDuplication: true,
   },
   IMPROVED_WILDFIRE_BOMB_TALENT: {
     id: 321290,
@@ -1070,6 +1218,7 @@ const talents = createTalentList({
     icon: 'inv_eng_bombfire',
     maxRanks: 2,
     talentId: 100555,
+    __ignoreDuplication: true,
   },
   FRENZY_STRIKES_TALENT: {
     id: 294029,
@@ -1077,6 +1226,7 @@ const talents = createTalentList({
     icon: 'ability_demonhunter_manabreak',
     maxRanks: 1,
     talentId: 100548,
+    __ignoreDuplication: true,
   },
   FLANKING_STRIKE_TALENT: {
     id: 269751,
@@ -1084,6 +1234,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_invigeration',
     maxRanks: 1,
     talentId: 100545,
+    __ignoreDuplication: true,
   },
   SPEAR_FOCUS_TALENT: {
     id: 378953,
@@ -1091,6 +1242,7 @@ const talents = createTalentList({
     icon: 'inv_polearm_2h_heirloomspear_c_01',
     maxRanks: 2,
     talentId: 100558,
+    __ignoreDuplication: true,
   },
   VIPERS_VENOM_TALENT: {
     id: 268501,
@@ -1098,6 +1250,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_potentvenom',
     maxRanks: 2,
     talentId: 100530,
+    __ignoreDuplication: true,
   },
   SHARP_EDGES_TALENT: {
     id: 378948,
@@ -1105,6 +1258,7 @@ const talents = createTalentList({
     icon: 'inv_polearm_2h_kultirasharpoon_a_01',
     maxRanks: 2,
     talentId: 100547,
+    __ignoreDuplication: true,
   },
   SWEEPING_SPEAR_TALENT: {
     id: 378950,
@@ -1112,6 +1266,7 @@ const talents = createTalentList({
     icon: 'spell_warrior_wildstrike',
     maxRanks: 2,
     talentId: 100561,
+    __ignoreDuplication: true,
   },
   TACTICAL_ADVANTAGE_TALENT: {
     id: 378951,
@@ -1119,6 +1274,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_zenarchery',
     maxRanks: 2,
     talentId: 100556,
+    __ignoreDuplication: true,
   },
   BLOODY_CLAWS_TALENT: {
     id: 385737,
@@ -1126,6 +1282,7 @@ const talents = createTalentList({
     icon: 'ability_druid_disembowel',
     maxRanks: 2,
     talentId: 100532,
+    __ignoreDuplication: true,
   },
   WILDFIRE_INFUSION_TALENT: {
     id: 271014,
@@ -1133,6 +1290,7 @@ const talents = createTalentList({
     icon: 'inv_misc_5potionbag_special',
     maxRanks: 1,
     talentId: 100575,
+    __ignoreDuplication: true,
   },
   QUICK_SHOT_TALENT: {
     id: 378940,
@@ -1140,6 +1298,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_fervor',
     maxRanks: 1,
     talentId: 100573,
+    __ignoreDuplication: true,
   },
   COORDINATED_ASSAULT_TALENT: {
     id: 360952,
@@ -1147,6 +1306,7 @@ const talents = createTalentList({
     icon: 'inv__coordinatedassault',
     maxRanks: 1,
     talentId: 100570,
+    __ignoreDuplication: true,
   },
   KILLER_COMPANION_TALENT: {
     id: 378955,
@@ -1154,6 +1314,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_masterscall',
     maxRanks: 2,
     talentId: 100559,
+    __ignoreDuplication: true,
   },
   FURY_OF_THE_EAGLE_TALENT: {
     id: 203415,
@@ -1161,6 +1322,7 @@ const talents = createTalentList({
     icon: 'inv_polearm_2h_artifacteagle_d_01',
     maxRanks: 1,
     talentId: 100557,
+    __ignoreDuplication: true,
   },
   RANGER_TALENT: {
     id: 385695,
@@ -1168,6 +1330,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_thrillofthehunt',
     maxRanks: 2,
     talentId: 100529,
+    __ignoreDuplication: true,
   },
   COORDINATED_KILL_TALENT: {
     id: 385739,
@@ -1175,6 +1338,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_pet_goto',
     maxRanks: 2,
     talentId: 100528,
+    __ignoreDuplication: true,
   },
   EXPLOSIVES_EXPERT_TALENT: {
     id: 378937,
@@ -1182,6 +1346,7 @@ const talents = createTalentList({
     icon: 'inv_misc_bomb_05',
     maxRanks: 2,
     talentId: 100563,
+    __ignoreDuplication: true,
   },
   SPEARHEAD_TALENT: {
     id: 360966,
@@ -1189,6 +1354,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_spearhead',
     maxRanks: 1,
     talentId: 100571,
+    __ignoreDuplication: true,
   },
   RUTHLESS_MARAUDER_TALENT: {
     id: 385718,
@@ -1196,6 +1362,7 @@ const talents = createTalentList({
     icon: 'ability_rogue_findweakness',
     maxRanks: 3,
     talentId: 100533,
+    __ignoreDuplication: true,
   },
   BIRDS_OF_PREY_TALENT: {
     id: 260331,
@@ -1203,6 +1370,7 @@ const talents = createTalentList({
     icon: 'spell_hunter_aspectofthehawk',
     maxRanks: 1,
     talentId: 100569,
+    __ignoreDuplication: true,
   },
   BOMBARDIER_TALENT: {
     id: 389880,
@@ -1210,6 +1378,7 @@ const talents = createTalentList({
     icon: 'inv_eng_bombfire',
     maxRanks: 1,
     talentId: 100510,
+    __ignoreDuplication: true,
   },
   DEADLY_DUO_TALENT: {
     id: 378962,
@@ -1217,6 +1386,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_separationanxiety',
     maxRanks: 2,
     talentId: 100574,
+    __ignoreDuplication: true,
   },
 });
 

@@ -9,6 +9,7 @@ const talents = createTalentList({
     icon: 'ability_racial_avatar',
     maxRanks: 1,
     talentId: 112182,
+    __ignoreDuplication: true,
   },
   DEFENSIVE_STANCE_TALENT: {
     id: 386208,
@@ -16,6 +17,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_defensivestance',
     maxRanks: 1,
     talentId: 112187,
+    __ignoreDuplication: true,
   },
   BERSERKER_RAGE_TALENT: {
     id: 18499,
@@ -23,6 +25,7 @@ const talents = createTalentList({
     icon: 'spell_nature_ancestralguardian',
     maxRanks: 1,
     talentId: 112239,
+    __ignoreDuplication: true,
   },
   IMPENDING_VICTORY_TALENT: {
     id: 202168,
@@ -30,6 +33,7 @@ const talents = createTalentList({
     icon: 'spell_impending_victory',
     maxRanks: 1,
     talentId: 112183,
+    __ignoreDuplication: true,
     rageCost: 10,
   },
   WAR_MACHINE_FURY_TALENT: {
@@ -38,6 +42,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_rapidkilling',
     maxRanks: 1,
     talentId: 112254,
+    __ignoreDuplication: true,
   },
   INTERVENE_TALENT: {
     id: 3411,
@@ -45,6 +50,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_victoryrush',
     maxRanks: 1,
     talentId: 112186,
+    __ignoreDuplication: true,
   },
   RALLYING_CRY_TALENT: {
     id: 97462,
@@ -52,6 +58,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_rallyingcry',
     maxRanks: 1,
     talentId: 112188,
+    __ignoreDuplication: true,
   },
   BERSERKER_SHOUT_TALENT: {
     id: 384100,
@@ -59,6 +66,7 @@ const talents = createTalentList({
     icon: 'spell_nature_ancestralguardian',
     maxRanks: 1,
     talentId: 112211,
+    __ignoreDuplication: true,
   },
   PIERCING_HOWL_TALENT: {
     id: 12323,
@@ -66,6 +74,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_deathscream',
     maxRanks: 1,
     talentId: 112210,
+    __ignoreDuplication: true,
   },
   FAST_FOOTWORK_TALENT: {
     id: 382260,
@@ -73,6 +82,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_posthaste',
     maxRanks: 1,
     talentId: 112238,
+    __ignoreDuplication: true,
   },
   SPELL_REFLECTION_TALENT: {
     id: 23920,
@@ -80,6 +90,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_shieldreflection',
     maxRanks: 1,
     talentId: 112253,
+    __ignoreDuplication: true,
   },
   LEECHING_STRIKES_TALENT: {
     id: 382258,
@@ -87,6 +98,7 @@ const talents = createTalentList({
     icon: 'inv_artifact_bloodoftheassassinated',
     maxRanks: 1,
     talentId: 112206,
+    __ignoreDuplication: true,
   },
   INSPIRING_PRESENCE_TALENT: {
     id: 382310,
@@ -94,6 +106,7 @@ const talents = createTalentList({
     icon: 'ability_toughness',
     maxRanks: 1,
     talentId: 112190,
+    __ignoreDuplication: true,
   },
   SECOND_WIND_TALENT: {
     id: 29838,
@@ -101,6 +114,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_harass',
     maxRanks: 1,
     talentId: 112189,
+    __ignoreDuplication: true,
   },
   FROTHING_BERSERKER_FURY_TALENT: {
     id: 215571,
@@ -108,6 +122,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_furyintheblood',
     maxRanks: 1,
     talentId: 112213,
+    __ignoreDuplication: true,
   },
   HEROIC_LEAP_TALENT: {
     id: 6544,
@@ -115,6 +130,7 @@ const talents = createTalentList({
     icon: 'ability_heroicleap',
     maxRanks: 1,
     talentId: 112208,
+    __ignoreDuplication: true,
   },
   INTIMIDATING_SHOUT_TALENT: {
     id: 5246,
@@ -122,6 +138,7 @@ const talents = createTalentList({
     icon: 'ability_golemthunderclap',
     maxRanks: 1,
     talentId: 112252,
+    __ignoreDuplication: true,
   },
   THUNDER_CLAP_SHARED_TALENT: {
     id: 396719,
@@ -129,6 +146,7 @@ const talents = createTalentList({
     icon: 'spell_nature_thunderclap',
     maxRanks: 1,
     talentId: 114296,
+    __ignoreDuplication: true,
     rageCost: 30,
   },
   FURIOUS_BLOWS_TALENT: {
@@ -137,6 +155,7 @@ const talents = createTalentList({
     icon: 'ability_ghoulfrenzy',
     maxRanks: 1,
     talentId: 112197,
+    __ignoreDuplication: true,
   },
   WRECKING_THROW_TALENT: {
     id: 384110,
@@ -144,6 +163,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_mastercleaver',
     maxRanks: 1,
     talentId: 112215,
+    __ignoreDuplication: true,
   },
   SHATTERING_THROW_TALENT: {
     id: 64382,
@@ -151,6 +171,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_shatteringthrow',
     maxRanks: 1,
     talentId: 112214,
+    __ignoreDuplication: true,
   },
   CRUSHING_FORCE_SHARED_TALENT: {
     id: 382764,
@@ -158,6 +179,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_unholystrength',
     maxRanks: 2,
     talentId: 112209,
+    __ignoreDuplication: true,
   },
   PAIN_AND_GAIN_TALENT: {
     id: 382549,
@@ -165,6 +187,7 @@ const talents = createTalentList({
     icon: 'spell_holy_painsupression',
     maxRanks: 1,
     talentId: 112217,
+    __ignoreDuplication: true,
   },
   CACOPHONOUS_ROAR_TALENT: {
     id: 382954,
@@ -172,6 +195,7 @@ const talents = createTalentList({
     icon: 'ability_fomor_boss_shout',
     maxRanks: 1,
     talentId: 112251,
+    __ignoreDuplication: true,
   },
   MENACE_TALENT: {
     id: 275338,
@@ -179,6 +203,7 @@ const talents = createTalentList({
     icon: 'ability_golemthunderclap',
     maxRanks: 1,
     talentId: 112250,
+    __ignoreDuplication: true,
   },
   STORM_BOLT_TALENT: {
     id: 107570,
@@ -186,6 +211,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_stormbolt',
     maxRanks: 1,
     talentId: 112198,
+    __ignoreDuplication: true,
   },
   OVERWHELMING_RAGE_TALENT: {
     id: 382767,
@@ -193,6 +219,7 @@ const talents = createTalentList({
     icon: 'racial_orc_berserkerstrength',
     maxRanks: 2,
     talentId: 112245,
+    __ignoreDuplication: true,
   },
   SIDEARM_TALENT: {
     id: 384404,
@@ -200,6 +227,7 @@ const talents = createTalentList({
     icon: 'inv_throwingaxe_06',
     maxRanks: 1,
     talentId: 112192,
+    __ignoreDuplication: true,
   },
   CONCUSSIVE_BLOWS_TALENT: {
     id: 383115,
@@ -207,6 +235,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_intervene',
     maxRanks: 1,
     talentId: 112191,
+    __ignoreDuplication: true,
   },
   REINFORCED_PLATES_TALENT: {
     id: 382939,
@@ -214,6 +243,7 @@ const talents = createTalentList({
     icon: 'inv_chest_plate04',
     maxRanks: 1,
     talentId: 112235,
+    __ignoreDuplication: true,
   },
   BOUNDING_STRIDE_TALENT: {
     id: 202163,
@@ -221,6 +251,7 @@ const talents = createTalentList({
     icon: 'ability_heroicleap',
     maxRanks: 1,
     talentId: 112219,
+    __ignoreDuplication: true,
   },
   BLOOD_AND_THUNDER_TALENT: {
     id: 384277,
@@ -228,6 +259,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_bloodandthunder',
     maxRanks: 1,
     talentId: 112204,
+    __ignoreDuplication: true,
   },
   CRACKLING_THUNDER_TALENT: {
     id: 203201,
@@ -235,6 +267,7 @@ const talents = createTalentList({
     icon: 'ability_thunderking_overcharge',
     maxRanks: 1,
     talentId: 112203,
+    __ignoreDuplication: true,
   },
   BARBARIC_TRAINING_FURY_TALENT: {
     id: 390674,
@@ -242,6 +275,7 @@ const talents = createTalentList({
     icon: 'ability_garrosh_whirling_corruption',
     maxRanks: 1,
     talentId: 114294,
+    __ignoreDuplication: true,
   },
   HONED_REFLEXES_FURY_TALENT: {
     id: 391270,
@@ -249,6 +283,7 @@ const talents = createTalentList({
     icon: 'spell_holy_borrowedtime',
     maxRanks: 1,
     talentId: 112234,
+    __ignoreDuplication: true,
   },
   BITTER_IMMUNITY_TALENT: {
     id: 383762,
@@ -256,6 +291,7 @@ const talents = createTalentList({
     icon: 'spell_nature_shamanrage',
     maxRanks: 1,
     talentId: 112220,
+    __ignoreDuplication: true,
   },
   DOUBLE_TIME_TALENT: {
     id: 103827,
@@ -263,6 +299,7 @@ const talents = createTalentList({
     icon: 'inv_misc_horn_04',
     maxRanks: 1,
     talentId: 112249,
+    __ignoreDuplication: true,
   },
   TITANIC_THROW_TALENT: {
     id: 384090,
@@ -270,6 +307,7 @@ const talents = createTalentList({
     icon: 'inv_axe_66',
     maxRanks: 1,
     talentId: 112202,
+    __ignoreDuplication: true,
   },
   SEISMIC_REVERBERATION_TALENT: {
     id: 382956,
@@ -277,6 +315,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_bloodnova',
     maxRanks: 1,
     talentId: 112201,
+    __ignoreDuplication: true,
   },
   ARMORED_TO_THE_TEETH_SHARED_TALENT: {
     id: 384124,
@@ -284,6 +323,7 @@ const talents = createTalentList({
     icon: 'inv_shoulder_22',
     maxRanks: 2,
     talentId: 112233,
+    __ignoreDuplication: true,
   },
   WILD_STRIKES_TALENT: {
     id: 382946,
@@ -291,6 +331,7 @@ const talents = createTalentList({
     icon: 'ability_rogue_sprint',
     maxRanks: 2,
     talentId: 112224,
+    __ignoreDuplication: true,
   },
   DUAL_WIELD_SPECIALIZATION_TALENT: {
     id: 382900,
@@ -298,6 +339,7 @@ const talents = createTalentList({
     icon: 'ability_dualwield',
     maxRanks: 1,
     talentId: 112240,
+    __ignoreDuplication: true,
   },
   CRUEL_STRIKES_TALENT: {
     id: 392777,
@@ -305,6 +347,7 @@ const talents = createTalentList({
     icon: 'ability_criticalstrike',
     maxRanks: 2,
     talentId: 112248,
+    __ignoreDuplication: true,
   },
   ENDURANCE_TRAINING_FURY_TALENT: {
     id: 391997,
@@ -312,6 +355,7 @@ const talents = createTalentList({
     icon: 'spell_nature_unyeildingstamina',
     maxRanks: 1,
     talentId: 112243,
+    __ignoreDuplication: true,
   },
   AVATAR_TALENT: {
     id: 107574,
@@ -319,6 +363,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_avatar',
     maxRanks: 1,
     talentId: 112232,
+    __ignoreDuplication: true,
   },
   THUNDEROUS_ROAR_TALENT: {
     id: 384318,
@@ -326,6 +371,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_dragonroar',
     maxRanks: 1,
     talentId: 112223,
+    __ignoreDuplication: true,
   },
   SPEAR_OF_BASTION_TALENT: {
     id: 376079,
@@ -333,6 +379,7 @@ const talents = createTalentList({
     icon: 'ability_bastion_warrior',
     maxRanks: 1,
     talentId: 112247,
+    __ignoreDuplication: true,
   },
   SHOCKWAVE_TALENT: {
     id: 46968,
@@ -340,6 +387,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_shockwave',
     maxRanks: 1,
     talentId: 112242,
+    __ignoreDuplication: true,
   },
   BERSERKERS_TORMENT_TALENT: {
     id: 390123,
@@ -347,6 +395,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_innerrage',
     maxRanks: 1,
     talentId: 112227,
+    __ignoreDuplication: true,
   },
   TITANS_TORMENT_TALENT: {
     id: 390135,
@@ -354,6 +403,7 @@ const talents = createTalentList({
     icon: '70_inscription_vantus_rune_odyn',
     maxRanks: 1,
     talentId: 112226,
+    __ignoreDuplication: true,
   },
   UPROAR_TALENT: {
     id: 391572,
@@ -361,6 +411,7 @@ const talents = createTalentList({
     icon: 'inv_misc_head_dragon_01',
     maxRanks: 1,
     talentId: 112221,
+    __ignoreDuplication: true,
   },
   THUNDEROUS_WORDS_TALENT: {
     id: 384969,
@@ -368,6 +419,7 @@ const talents = createTalentList({
     icon: 'spell_nature_earthquake',
     maxRanks: 1,
     talentId: 112222,
+    __ignoreDuplication: true,
   },
   PIERCING_VERDICT_TALENT: {
     id: 382948,
@@ -375,6 +427,7 @@ const talents = createTalentList({
     icon: 'spell_animabastion_missile',
     maxRanks: 1,
     talentId: 112246,
+    __ignoreDuplication: true,
   },
   ELYSIAN_MIGHT_TALENT: {
     id: 386285,
@@ -382,6 +435,7 @@ const talents = createTalentList({
     icon: 'ability_bastion_warrior',
     maxRanks: 1,
     talentId: 112180,
+    __ignoreDuplication: true,
   },
   RUMBLING_EARTH_TALENT: {
     id: 275339,
@@ -389,6 +443,7 @@ const talents = createTalentList({
     icon: 'spell_shaman_earthquake',
     maxRanks: 1,
     talentId: 112241,
+    __ignoreDuplication: true,
   },
   SONIC_BOOM_TALENT: {
     id: 390725,
@@ -396,6 +451,7 @@ const talents = createTalentList({
     icon: 'spell_nature_unrelentingstorm',
     maxRanks: 1,
     talentId: 112178,
+    __ignoreDuplication: true,
   },
   BATTLE_STANCE_TALENT: {
     id: 386164,
@@ -403,6 +459,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_offensivestance',
     maxRanks: 1,
     talentId: 112184,
+    __ignoreDuplication: true,
   },
   WAR_MACHINE_PROTECTION_TALENT: {
     id: 316733,
@@ -410,6 +467,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_rapidkilling',
     maxRanks: 1,
     talentId: 112207,
+    __ignoreDuplication: true,
   },
   FROTHING_BERSERKER_PROTECTION_TALENT: {
     id: 392790,
@@ -417,6 +475,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_furyintheblood',
     maxRanks: 1,
     talentId: 112237,
+    __ignoreDuplication: true,
   },
   THUNDER_CLAP_PROTECTION_TALENT: {
     id: 6343,
@@ -424,6 +483,7 @@ const talents = createTalentList({
     icon: 'spell_nature_thunderclap',
     maxRanks: 1,
     talentId: 112205,
+    __ignoreDuplication: true,
   },
   CRUSHING_FORCE_PROTECTION_TALENT: {
     id: 390642,
@@ -431,6 +491,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_unholystrength',
     maxRanks: 2,
     talentId: 112236,
+    __ignoreDuplication: true,
   },
   BARBARIC_TRAINING_PROTECTION_TALENT: {
     id: 390675,
@@ -438,6 +499,7 @@ const talents = createTalentList({
     icon: 'ability_garrosh_whirling_corruption',
     maxRanks: 1,
     talentId: 112244,
+    __ignoreDuplication: true,
   },
   HONED_REFLEXES_PROTECTION_TALENT: {
     id: 391271,
@@ -445,6 +507,7 @@ const talents = createTalentList({
     icon: 'spell_holy_borrowedtime',
     maxRanks: 1,
     talentId: 112225,
+    __ignoreDuplication: true,
   },
   ARMORED_TO_THE_TEETH_PROTECTION_TALENT: {
     id: 394855,
@@ -452,6 +515,7 @@ const talents = createTalentList({
     icon: 'inv_shoulder_22',
     maxRanks: 2,
     talentId: 112109,
+    __ignoreDuplication: true,
   },
   ONE_HANDED_WEAPON_SPECIALIZATION_TALENT: {
     id: 382895,
@@ -459,6 +523,7 @@ const talents = createTalentList({
     icon: 'inv_sword_20',
     maxRanks: 1,
     talentId: 112181,
+    __ignoreDuplication: true,
   },
   ENDURANCE_TRAINING_SHARED_TALENT: {
     id: 382940,
@@ -466,6 +531,7 @@ const talents = createTalentList({
     icon: 'spell_nature_unyeildingstamina',
     maxRanks: 1,
     talentId: 112199,
+    __ignoreDuplication: true,
   },
   IMMOVABLE_OBJECT_TALENT: {
     id: 394307,
@@ -473,6 +539,7 @@ const talents = createTalentList({
     icon: 'spell_frost_chillingarmor',
     maxRanks: 1,
     talentId: 112231,
+    __ignoreDuplication: true,
   },
   UNSTOPPABLE_FORCE_TALENT: {
     id: 275336,
@@ -480,6 +547,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_thunderstruck',
     maxRanks: 1,
     talentId: 112230,
+    __ignoreDuplication: true,
   },
   WAR_MACHINE_ARMS_TALENT: {
     id: 262231,
@@ -487,6 +555,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_rapidkilling',
     maxRanks: 1,
     talentId: 112185,
+    __ignoreDuplication: true,
   },
   FROTHING_BERSERKER_ARMS_TALENT: {
     id: 392792,
@@ -494,6 +563,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_furyintheblood',
     maxRanks: 1,
     talentId: 112216,
+    __ignoreDuplication: true,
   },
   BARBARIC_TRAINING_ARMS_TALENT: {
     id: 383082,
@@ -501,6 +571,7 @@ const talents = createTalentList({
     icon: 'ability_garrosh_whirling_corruption',
     maxRanks: 1,
     talentId: 114293,
+    __ignoreDuplication: true,
   },
   HONED_REFLEXES_ARMS_TALENT: {
     id: 382461,
@@ -508,6 +579,7 @@ const talents = createTalentList({
     icon: 'spell_holy_borrowedtime',
     maxRanks: 1,
     talentId: 112218,
+    __ignoreDuplication: true,
   },
   TWO_HANDED_WEAPON_SPECIALIZATION_TALENT: {
     id: 382896,
@@ -515,6 +587,7 @@ const talents = createTalentList({
     icon: 'inv_axe_09',
     maxRanks: 1,
     talentId: 112179,
+    __ignoreDuplication: true,
   },
   BLADEMASTERS_TORMENT_TALENT: {
     id: 390138,
@@ -522,6 +595,7 @@ const talents = createTalentList({
     icon: 'spell_nature_mirrorimage',
     maxRanks: 1,
     talentId: 112229,
+    __ignoreDuplication: true,
   },
   WARLORDS_TORMENT_TALENT: {
     id: 390140,
@@ -529,6 +603,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_innerrage',
     maxRanks: 1,
     talentId: 112228,
+    __ignoreDuplication: true,
   },
   ANGER_MANAGEMENT_TALENT: {
     id: 152278,
@@ -536,6 +611,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_angermanagement',
     maxRanks: 1,
     talentId: 112143,
+    __ignoreDuplication: true,
   },
   RAVAGER_TALENT: {
     id: 228920,
@@ -543,6 +619,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_ravager',
     maxRanks: 1,
     talentId: 112304,
+    __ignoreDuplication: true,
   },
   STORM_OF_STEEL_TALENT: {
     id: 382953,
@@ -550,6 +627,7 @@ const talents = createTalentList({
     icon: 'ability_creature_cursed_04',
     maxRanks: 1,
     talentId: 112303,
+    __ignoreDuplication: true,
   },
   HURRICANE_TALENT: {
     id: 390563,
@@ -557,6 +635,7 @@ const talents = createTalentList({
     icon: 'ability_skyreach_wind',
     maxRanks: 1,
     talentId: 112312,
+    __ignoreDuplication: true,
   },
   BLOODSURGE_TALENT: {
     id: 384361,
@@ -564,6 +643,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_bloodsurge',
     maxRanks: 1,
     talentId: 112129,
+    __ignoreDuplication: true,
   },
   FUELED_BY_VIOLENCE_TALENT: {
     id: 383103,
@@ -571,6 +651,7 @@ const talents = createTalentList({
     icon: 'ability_demonhunter_bloodlet',
     maxRanks: 1,
     talentId: 112127,
+    __ignoreDuplication: true,
   },
   SUDDEN_DEATH_SHARED_TALENT: {
     id: 29725,
@@ -578,6 +659,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_improveddisciplines',
     maxRanks: 1,
     talentId: 112126,
+    __ignoreDuplication: true,
   },
   MASSACRE_SHARED_TALENT: {
     id: 281001,
@@ -585,6 +667,7 @@ const talents = createTalentList({
     icon: 'inv_sword_48',
     maxRanks: 1,
     talentId: 112145,
+    __ignoreDuplication: true,
   },
 
   //Fury
@@ -594,6 +677,7 @@ const talents = createTalentList({
     icon: 'spell_nature_bloodlust',
     maxRanks: 1,
     talentId: 112261,
+    __ignoreDuplication: true,
   },
   RAGING_BLOW_TALENT: {
     id: 85288,
@@ -601,6 +685,7 @@ const talents = createTalentList({
     icon: 'warrior_wild_strike',
     maxRanks: 1,
     talentId: 112265,
+    __ignoreDuplication: true,
   },
   IMPROVED_ENRAGE_TALENT: {
     id: 383848,
@@ -608,6 +693,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_unholyfrenzy',
     maxRanks: 1,
     talentId: 112267,
+    __ignoreDuplication: true,
   },
   ENRAGED_REGENERATION_TALENT: {
     id: 184364,
@@ -615,6 +701,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_focusedrage',
     maxRanks: 1,
     talentId: 112264,
+    __ignoreDuplication: true,
   },
   IMPROVED_EXECUTE_FURY_TALENT: {
     id: 316402,
@@ -622,6 +709,7 @@ const talents = createTalentList({
     icon: 'inv_sword_48',
     maxRanks: 1,
     talentId: 112301,
+    __ignoreDuplication: true,
   },
   IMPROVED_BLOODTHIRST_TALENT: {
     id: 383852,
@@ -629,6 +717,7 @@ const talents = createTalentList({
     icon: 'spell_nature_bloodlust',
     maxRanks: 1,
     talentId: 112266,
+    __ignoreDuplication: true,
   },
   FRESH_MEAT_TALENT: {
     id: 215568,
@@ -636,6 +725,7 @@ const talents = createTalentList({
     icon: 'ability_deathwing_bloodcorruption_death',
     maxRanks: 1,
     talentId: 112268,
+    __ignoreDuplication: true,
   },
   WARPAINT_TALENT: {
     id: 208154,
@@ -643,6 +733,7 @@ const talents = createTalentList({
     icon: 'ability_rogue_preparation',
     maxRanks: 1,
     talentId: 112263,
+    __ignoreDuplication: true,
   },
   INVIGORATING_FURY_TALENT: {
     id: 383468,
@@ -650,6 +741,7 @@ const talents = createTalentList({
     icon: 'spell_misc_emotionangry',
     maxRanks: 1,
     talentId: 112262,
+    __ignoreDuplication: true,
   },
   SUDDEN_DEATH_FURY_TALENT: {
     id: 280721,
@@ -657,6 +749,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_improveddisciplines',
     maxRanks: 1,
     talentId: 112300,
+    __ignoreDuplication: true,
   },
   IMPROVED_RAGING_BLOW_TALENT: {
     id: 383854,
@@ -664,6 +757,7 @@ const talents = createTalentList({
     icon: 'warrior_wild_strike',
     maxRanks: 1,
     talentId: 112259,
+    __ignoreDuplication: true,
   },
   FOCUS_IN_CHAOS_TALENT: {
     id: 383486,
@@ -671,6 +765,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_mastermarksman',
     maxRanks: 1,
     talentId: 112272,
+    __ignoreDuplication: true,
   },
   RAMPAGE_TALENT: {
     id: 184367,
@@ -678,6 +773,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_rampage',
     maxRanks: 1,
     talentId: 112277,
+    __ignoreDuplication: true,
     rageCost: 80,
   },
   CRUELTY_TALENT: {
@@ -686,6 +782,7 @@ const talents = createTalentList({
     icon: 'spell_nature_focusedmind',
     maxRanks: 1,
     talentId: 112299,
+    __ignoreDuplication: true,
   },
   SINGLE_MINDED_FURY_TALENT: {
     id: 81099,
@@ -693,6 +790,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_singlemindedfury',
     maxRanks: 1,
     talentId: 112269,
+    __ignoreDuplication: true,
   },
   COLD_STEEL_HOT_BLOOD_TALENT: {
     id: 383959,
@@ -700,6 +798,7 @@ const talents = createTalentList({
     icon: 'ability_rogue_hungerforblood',
     maxRanks: 1,
     talentId: 112271,
+    __ignoreDuplication: true,
   },
   VICIOUS_CONTEMPT_TALENT: {
     id: 383885,
@@ -707,6 +806,7 @@ const talents = createTalentList({
     icon: 'ability_ironmaidens_sorkasprey',
     maxRanks: 2,
     talentId: 112273,
+    __ignoreDuplication: true,
   },
   FRENZY_TALENT: {
     id: 335077,
@@ -714,6 +814,7 @@ const talents = createTalentList({
     icon: 'ability_rogue_bloodyeye',
     maxRanks: 1,
     talentId: 112275,
+    __ignoreDuplication: true,
   },
   HACK_AND_SLASH_TALENT: {
     id: 383877,
@@ -721,6 +822,7 @@ const talents = createTalentList({
     icon: 'ability_rogue_rollthebones02',
     maxRanks: 1,
     talentId: 112276,
+    __ignoreDuplication: true,
   },
   SLAUGHTERING_STRIKES_TALENT: {
     id: 388004,
@@ -728,6 +830,7 @@ const talents = createTalentList({
     icon: 'inv_axe_2h_orcwarrior_c_01',
     maxRanks: 1,
     talentId: 112280,
+    __ignoreDuplication: true,
   },
   ASHEN_JUGGERNAUT_TALENT: {
     id: 392536,
@@ -735,6 +838,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_skirmisher',
     maxRanks: 1,
     talentId: 112278,
+    __ignoreDuplication: true,
   },
   IMPROVED_WHIRLWIND_TALENT: {
     id: 12950,
@@ -742,6 +846,7 @@ const talents = createTalentList({
     icon: 'ability_whirlwind',
     maxRanks: 1,
     talentId: 112298,
+    __ignoreDuplication: true,
   },
   WRATH_AND_FURY_TALENT: {
     id: 392936,
@@ -749,6 +854,7 @@ const talents = createTalentList({
     icon: 'inv_sword_2h_artifactarathor_d_03',
     maxRanks: 1,
     talentId: 112255,
+    __ignoreDuplication: true,
   },
   FRENZIED_FLURRY_TALENT: {
     id: 383605,
@@ -756,6 +862,7 @@ const talents = createTalentList({
     icon: 'ability_ghoulfrenzy',
     maxRanks: 1,
     talentId: 112293,
+    __ignoreDuplication: true,
   },
   BLOODBORNE_FURY_TALENT: {
     id: 385703,
@@ -763,6 +870,7 @@ const talents = createTalentList({
     icon: 'inv_artifact_bloodoftheassassinated',
     maxRanks: 1,
     talentId: 112270,
+    __ignoreDuplication: true,
   },
   BLOODCRAZE_TALENT: {
     id: 393950,
@@ -770,6 +878,7 @@ const talents = createTalentList({
     icon: 'ability_creature_cursed_02',
     maxRanks: 1,
     talentId: 112274,
+    __ignoreDuplication: true,
   },
   RECKLESSNESS_TALENT: {
     id: 1719,
@@ -777,6 +886,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_innerrage',
     maxRanks: 1,
     talentId: 112281,
+    __ignoreDuplication: true,
   },
   MASSACRE_FURY_TALENT: {
     id: 206315,
@@ -784,6 +894,7 @@ const talents = createTalentList({
     icon: 'inv_sword_48',
     maxRanks: 1,
     talentId: 112279,
+    __ignoreDuplication: true,
   },
   MEAT_CLEAVER_TALENT: {
     id: 280392,
@@ -791,6 +902,7 @@ const talents = createTalentList({
     icon: 'ability_whirlwind',
     maxRanks: 1,
     talentId: 112260,
+    __ignoreDuplication: true,
   },
   RAGING_ARMAMENTS_TALENT: {
     id: 388049,
@@ -798,6 +910,7 @@ const talents = createTalentList({
     icon: 'achievement_arena_2v2_5',
     maxRanks: 1,
     talentId: 112297,
+    __ignoreDuplication: true,
   },
   DEFT_EXPERIENCE_FURY_TALENT: {
     id: 383295,
@@ -805,6 +918,7 @@ const talents = createTalentList({
     icon: 'inv_misc_book_07',
     maxRanks: 2,
     talentId: 112292,
+    __ignoreDuplication: true,
   },
   SWIFT_STRIKES_TALENT: {
     id: 383459,
@@ -812,6 +926,7 @@ const talents = createTalentList({
     icon: 'ability_rogue_sprint',
     maxRanks: 2,
     talentId: 112286,
+    __ignoreDuplication: true,
   },
   CRITICAL_THINKING_FURY_TALENT: {
     id: 383297,
@@ -819,6 +934,7 @@ const talents = createTalentList({
     icon: 'ability_criticalstrike',
     maxRanks: 2,
     talentId: 112296,
+    __ignoreDuplication: true,
   },
   STORM_OF_SWORDS_FURY_TALENT: {
     id: 388903,
@@ -826,6 +942,7 @@ const talents = createTalentList({
     icon: 'ability_skyreach_fourblades',
     maxRanks: 1,
     talentId: 112291,
+    __ignoreDuplication: true,
   },
   ODYNS_FURY_TALENT: {
     id: 385059,
@@ -833,6 +950,7 @@ const talents = createTalentList({
     icon: 'inv_sword_1h_artifactvigfus_d_01',
     maxRanks: 1,
     talentId: 112289,
+    __ignoreDuplication: true,
   },
   RECKLESS_ABANDON_TALENT: {
     id: 396749,
@@ -840,6 +958,7 @@ const talents = createTalentList({
     icon: 'spell_fire_incinerate',
     maxRanks: 1,
     talentId: 112284,
+    __ignoreDuplication: true,
   },
   ONSLAUGHT_TALENT: {
     id: 315720,
@@ -847,6 +966,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_trauma',
     maxRanks: 1,
     talentId: 112295,
+    __ignoreDuplication: true,
   },
   ANNIHILATOR_TALENT: {
     id: 383916,
@@ -854,6 +974,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_annihilator',
     maxRanks: 1,
     talentId: 112290,
+    __ignoreDuplication: true,
   },
   DANCING_BLADES_TALENT: {
     id: 391683,
@@ -861,6 +982,7 @@ const talents = createTalentList({
     icon: 'inv_sword_1h_artifactvigfus_d_01dual',
     maxRanks: 1,
     talentId: 112288,
+    __ignoreDuplication: true,
   },
   TITANIC_RAGE_TALENT: {
     id: 394329,
@@ -868,6 +990,7 @@ const talents = createTalentList({
     icon: 'inv_sword_1h_artifactvigfus_d_02',
     maxRanks: 1,
     talentId: 112287,
+    __ignoreDuplication: true,
   },
   UNBRIDLED_FEROCITY_TALENT: {
     id: 389603,
@@ -875,6 +998,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_endlessrage',
     maxRanks: 1,
     talentId: 112283,
+    __ignoreDuplication: true,
   },
   DEPTHS_OF_INSANITY_TALENT: {
     id: 383922,
@@ -882,6 +1006,7 @@ const talents = createTalentList({
     icon: 'racial_troll_berserk',
     maxRanks: 1,
     talentId: 112282,
+    __ignoreDuplication: true,
   },
   TENDERIZE_TALENT: {
     id: 388933,
@@ -889,6 +1014,7 @@ const talents = createTalentList({
     icon: 'inv_mace_1h_blacksmithing_b_01_black',
     maxRanks: 1,
     talentId: 112294,
+    __ignoreDuplication: true,
   },
 
   //Protection
@@ -898,6 +1024,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_renewedvigor',
     maxRanks: 1,
     talentId: 112149,
+    __ignoreDuplication: true,
     rageCost: 40,
   },
   REVENGE_TALENT: {
@@ -906,6 +1033,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_revenge',
     maxRanks: 1,
     talentId: 112152,
+    __ignoreDuplication: true,
     rageCost: 20,
   },
   DEMORALIZING_SHOUT_TALENT: {
@@ -914,6 +1042,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_warcry',
     maxRanks: 1,
     talentId: 112159,
+    __ignoreDuplication: true,
   },
   DEVASTATOR_TALENT: {
     id: 236279,
@@ -921,6 +1050,7 @@ const talents = createTalentList({
     icon: 'inv_sword_11',
     maxRanks: 1,
     talentId: 112153,
+    __ignoreDuplication: true,
   },
   LAST_STAND_TALENT: {
     id: 12975,
@@ -928,6 +1058,7 @@ const talents = createTalentList({
     icon: 'spell_holy_ashestoashes',
     maxRanks: 1,
     talentId: 112151,
+    __ignoreDuplication: true,
   },
   IMPROVED_HEROIC_THROW_TALENT: {
     id: 386034,
@@ -935,6 +1066,7 @@ const talents = createTalentList({
     icon: 'inv_axe_66',
     maxRanks: 1,
     talentId: 112160,
+    __ignoreDuplication: true,
   },
   BEST_SERVED_COLD_TALENT: {
     id: 202560,
@@ -942,6 +1074,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_revenge',
     maxRanks: 1,
     talentId: 112158,
+    __ignoreDuplication: true,
   },
   STRATEGIST_TALENT: {
     id: 384041,
@@ -949,6 +1082,7 @@ const talents = createTalentList({
     icon: 'inv_shield_05',
     maxRanks: 1,
     talentId: 112157,
+    __ignoreDuplication: true,
   },
   BRACE_FOR_IMPACT_TALENT: {
     id: 386030,
@@ -956,6 +1090,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_shieldguard',
     maxRanks: 1,
     talentId: 112150,
+    __ignoreDuplication: true,
   },
   UNNERVING_FOCUS_TALENT: {
     id: 384042,
@@ -963,6 +1098,7 @@ const talents = createTalentList({
     icon: 'rogue_shadowfocus',
     maxRanks: 1,
     talentId: 112327,
+    __ignoreDuplication: true,
   },
   CHALLENGING_SHOUT_TALENT: {
     id: 1161,
@@ -970,6 +1106,7 @@ const talents = createTalentList({
     icon: 'ability_bullrush',
     maxRanks: 1,
     talentId: 112163,
+    __ignoreDuplication: true,
   },
   INSTIGATE_TALENT: {
     id: 394311,
@@ -977,6 +1114,7 @@ const talents = createTalentList({
     icon: 'ability_rogue_dismantle',
     maxRanks: 1,
     talentId: 112155,
+    __ignoreDuplication: true,
   },
   REND_PROTECTION_TALENT: {
     id: 394062,
@@ -984,6 +1122,7 @@ const talents = createTalentList({
     icon: 'ability_gouge',
     maxRanks: 1,
     talentId: 112156,
+    __ignoreDuplication: true,
     rageCost: 30,
   },
   BRUTAL_VITALITY_TALENT: {
@@ -992,6 +1131,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_renewedvigor',
     maxRanks: 1,
     talentId: 112325,
+    __ignoreDuplication: true,
   },
   DISRUPTING_SHOUT_TALENT: {
     id: 386071,
@@ -999,6 +1139,7 @@ const talents = createTalentList({
     icon: 'ability_bullrush',
     maxRanks: 1,
     talentId: 112161,
+    __ignoreDuplication: true,
   },
   SHOW_OF_FORCE_TALENT: {
     id: 385843,
@@ -1006,6 +1147,7 @@ const talents = createTalentList({
     icon: 'ability_rogue_reinforcedleather',
     maxRanks: 1,
     talentId: 112177,
+    __ignoreDuplication: true,
   },
   THUNDERLORD_TALENT: {
     id: 385840,
@@ -1013,6 +1155,7 @@ const talents = createTalentList({
     icon: 'ability_vehicle_electrocharge',
     maxRanks: 1,
     talentId: 112162,
+    __ignoreDuplication: true,
   },
   SHIELD_WALL_TALENT: {
     id: 871,
@@ -1020,6 +1163,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_shieldwall',
     maxRanks: 1,
     talentId: 112167,
+    __ignoreDuplication: true,
   },
   BOLSTER_TALENT: {
     id: 280001,
@@ -1027,6 +1171,7 @@ const talents = createTalentList({
     icon: 'shield_draenorcrafted_d_02_c_alliance',
     maxRanks: 1,
     talentId: 112115,
+    __ignoreDuplication: true,
   },
   TOUGH_AS_NAILS_TALENT: {
     id: 385888,
@@ -1034,6 +1179,7 @@ const talents = createTalentList({
     icon: 'inv_titanium_shield_spike',
     maxRanks: 1,
     talentId: 112324,
+    __ignoreDuplication: true,
   },
   SPELL_BLOCK_TALENT: {
     id: 392966,
@@ -1041,6 +1187,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_shieldbreak',
     maxRanks: 1,
     talentId: 112110,
+    __ignoreDuplication: true,
   },
   BLOODBORNE_PROTECTION_TALENT: {
     id: 385704,
@@ -1048,6 +1195,7 @@ const talents = createTalentList({
     icon: 'inv_artifact_bloodoftheassassinated',
     maxRanks: 2,
     talentId: 112321,
+    __ignoreDuplication: true,
   },
   HEAVY_REPERCUSSIONS_TALENT: {
     id: 203177,
@@ -1055,6 +1203,7 @@ const talents = createTalentList({
     icon: 'inv_shield_32',
     maxRanks: 1,
     talentId: 112176,
+    __ignoreDuplication: true,
   },
   INTO_THE_FRAY_TALENT: {
     id: 202603,
@@ -1062,6 +1211,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_bloodfrenzy',
     maxRanks: 1,
     talentId: 112175,
+    __ignoreDuplication: true,
   },
   ENDURING_DEFENSES_TALENT: {
     id: 386027,
@@ -1069,6 +1219,7 @@ const talents = createTalentList({
     icon: 'ability_defend',
     maxRanks: 1,
     talentId: 112169,
+    __ignoreDuplication: true,
   },
   DEFENDERS_AEGIS_TALENT: {
     id: 397103,
@@ -1076,6 +1227,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_stalwartprotector',
     maxRanks: 1,
     talentId: 112165,
+    __ignoreDuplication: true,
   },
   IMPENETRABLE_WALL_TALENT: {
     id: 384072,
@@ -1083,6 +1235,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_shieldguard',
     maxRanks: 1,
     talentId: 112164,
+    __ignoreDuplication: true,
   },
   PUNISH_TALENT: {
     id: 275334,
@@ -1090,6 +1243,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_sanguinfortitude',
     maxRanks: 1,
     talentId: 112323,
+    __ignoreDuplication: true,
   },
   JUGGERNAUT_PROTECTION_TALENT: {
     id: 393967,
@@ -1097,6 +1251,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_skirmisher',
     maxRanks: 1,
     talentId: 112322,
+    __ignoreDuplication: true,
   },
   FOCUSED_VIGOR_TALENT: {
     id: 384067,
@@ -1104,6 +1259,7 @@ const talents = createTalentList({
     icon: 'spell_nature_strength',
     maxRanks: 1,
     talentId: 112174,
+    __ignoreDuplication: true,
   },
   SHIELD_SPECIALIZATION_TALENT: {
     id: 386011,
@@ -1111,6 +1267,7 @@ const talents = createTalentList({
     icon: 'inv_shield_76',
     maxRanks: 2,
     talentId: 112171,
+    __ignoreDuplication: true,
   },
   ENDURING_ALACRITY_TALENT: {
     id: 384063,
@@ -1118,6 +1275,7 @@ const talents = createTalentList({
     icon: 'spell_nature_unyeildingstamina',
     maxRanks: 1,
     talentId: 112305,
+    __ignoreDuplication: true,
   },
   SHIELD_CHARGE_TALENT: {
     id: 385952,
@@ -1125,6 +1283,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_shieldcharge',
     maxRanks: 1,
     talentId: 112173,
+    __ignoreDuplication: true,
   },
   BOOMING_VOICE_TALENT: {
     id: 202743,
@@ -1132,6 +1291,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_commandingshout',
     maxRanks: 1,
     talentId: 112170,
+    __ignoreDuplication: true,
   },
   INDOMITABLE_TALENT: {
     id: 202095,
@@ -1139,6 +1299,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_intensifyrage',
     maxRanks: 1,
     talentId: 112306,
+    __ignoreDuplication: true,
   },
   VIOLENT_OUTBURST_TALENT: {
     id: 386477,
@@ -1146,6 +1307,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_furiousresolve',
     maxRanks: 1,
     talentId: 112116,
+    __ignoreDuplication: true,
   },
   BATTERING_RAM_TALENT: {
     id: 394312,
@@ -1153,6 +1315,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_bullrush',
     maxRanks: 1,
     talentId: 112113,
+    __ignoreDuplication: true,
   },
   CHAMPIONS_BULWARK_TALENT: {
     id: 386328,
@@ -1160,6 +1323,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_shieldmastery',
     maxRanks: 1,
     talentId: 112172,
+    __ignoreDuplication: true,
   },
   BATTLE_SCARRED_VETERAN_TALENT: {
     id: 386394,
@@ -1167,6 +1331,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_endlessrage',
     maxRanks: 1,
     talentId: 112307,
+    __ignoreDuplication: true,
   },
   DANCE_OF_DEATH_PROTECTION_TALENT: {
     id: 393965,
@@ -1174,6 +1339,7 @@ const talents = createTalentList({
     icon: 'ability_butcher_whirl',
     maxRanks: 1,
     talentId: 112302,
+    __ignoreDuplication: true,
   },
 
   //Arms
@@ -1183,6 +1349,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_savageblow',
     maxRanks: 1,
     talentId: 112122,
+    __ignoreDuplication: true,
     rageCost: 30,
   },
   OVERPOWER_TALENT: {
@@ -1191,6 +1358,7 @@ const talents = createTalentList({
     icon: 'ability_meleedamage',
     maxRanks: 1,
     talentId: 112123,
+    __ignoreDuplication: true,
   },
   MARTIAL_PROWESS_TALENT: {
     id: 316440,
@@ -1198,6 +1366,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_weaponmastery',
     maxRanks: 1,
     talentId: 112130,
+    __ignoreDuplication: true,
   },
   DIE_BY_THE_SWORD_TALENT: {
     id: 118038,
@@ -1205,6 +1374,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_challange',
     maxRanks: 1,
     talentId: 112128,
+    __ignoreDuplication: true,
   },
   IMPROVED_EXECUTE_ARMS_TALENT: {
     id: 316405,
@@ -1212,6 +1382,7 @@ const talents = createTalentList({
     icon: 'inv_sword_48',
     maxRanks: 1,
     talentId: 112125,
+    __ignoreDuplication: true,
   },
   IMPROVED_OVERPOWER_TALENT: {
     id: 385571,
@@ -1219,6 +1390,7 @@ const talents = createTalentList({
     icon: 'ability_meleedamage',
     maxRanks: 1,
     talentId: 112131,
+    __ignoreDuplication: true,
   },
   STORM_WALL_TALENT: {
     id: 388807,
@@ -1226,6 +1398,7 @@ const talents = createTalentList({
     icon: 'spell_sandstorm',
     maxRanks: 1,
     talentId: 112121,
+    __ignoreDuplication: true,
   },
   FERVOR_OF_BATTLE_TALENT: {
     id: 202316,
@@ -1233,6 +1406,7 @@ const talents = createTalentList({
     icon: 'ability_rogue_waylay',
     maxRanks: 1,
     talentId: 112124,
+    __ignoreDuplication: true,
   },
   TACTICIAN_TALENT: {
     id: 184783,
@@ -1240,6 +1414,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_unrelentingassault',
     maxRanks: 1,
     talentId: 112134,
+    __ignoreDuplication: true,
   },
   COLOSSUS_SMASH_TALENT: {
     id: 167105,
@@ -1247,6 +1422,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_colossussmash',
     maxRanks: 1,
     talentId: 112144,
+    __ignoreDuplication: true,
   },
   IMPALE_TALENT: {
     id: 383430,
@@ -1254,6 +1430,7 @@ const talents = createTalentList({
     icon: 'ability_searingarrow',
     maxRanks: 1,
     talentId: 112146,
+    __ignoreDuplication: true,
   },
   SKULLSPLITTER_TALENT: {
     id: 260643,
@@ -1261,6 +1438,7 @@ const talents = createTalentList({
     icon: 'inv_skullsplitter',
     maxRanks: 1,
     talentId: 112133,
+    __ignoreDuplication: true,
   },
   REND_ARMS_TALENT: {
     id: 772,
@@ -1268,6 +1446,7 @@ const talents = createTalentList({
     icon: 'ability_gouge',
     maxRanks: 1,
     talentId: 112136,
+    __ignoreDuplication: true,
     rageCost: 30,
   },
   EXHILARATING_BLOWS_TALENT: {
@@ -1276,6 +1455,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_igniteweapon',
     maxRanks: 1,
     talentId: 112138,
+    __ignoreDuplication: true,
   },
   SWEEPING_STRIKES_TALENT: {
     id: 260708,
@@ -1283,6 +1463,7 @@ const talents = createTalentList({
     icon: 'ability_rogue_slicedice',
     maxRanks: 1,
     talentId: 112120,
+    __ignoreDuplication: true,
   },
   CLEAVE_TALENT: {
     id: 845,
@@ -1290,6 +1471,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_cleave',
     maxRanks: 1,
     talentId: 112147,
+    __ignoreDuplication: true,
     rageCost: 20,
   },
   TIDE_OF_BLOOD_TALENT: {
@@ -1298,6 +1480,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_bloodboil',
     maxRanks: 1,
     talentId: 112132,
+    __ignoreDuplication: true,
   },
   BLOODBORNE_ARMS_TALENT: {
     id: 383287,
@@ -1305,6 +1488,7 @@ const talents = createTalentList({
     icon: 'inv_artifact_bloodoftheassassinated',
     maxRanks: 2,
     talentId: 112135,
+    __ignoreDuplication: true,
   },
   DREADNAUGHT_TALENT: {
     id: 262150,
@@ -1312,6 +1496,7 @@ const talents = createTalentList({
     icon: 'inv_sword_05',
     maxRanks: 1,
     talentId: 112137,
+    __ignoreDuplication: true,
   },
   IN_FOR_THE_KILL_TALENT: {
     id: 248621,
@@ -1319,6 +1504,7 @@ const talents = createTalentList({
     icon: 'ability_blackhand_marked4death',
     maxRanks: 1,
     talentId: 112142,
+    __ignoreDuplication: true,
   },
   TEST_OF_MIGHT_TALENT: {
     id: 385008,
@@ -1326,6 +1512,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_strengthofarms',
     maxRanks: 1,
     talentId: 112141,
+    __ignoreDuplication: true,
   },
   BLUNT_INSTRUMENTS_TALENT: {
     id: 383442,
@@ -1333,6 +1520,7 @@ const talents = createTalentList({
     icon: 'inv_mace_01',
     maxRanks: 1,
     talentId: 112140,
+    __ignoreDuplication: true,
   },
   WARBREAKER_TALENT: {
     id: 262161,
@@ -1340,6 +1528,7 @@ const talents = createTalentList({
     icon: 'inv_warbreaker',
     maxRanks: 1,
     talentId: 112139,
+    __ignoreDuplication: true,
   },
   IMPROVED_MORTAL_STRIKE_TALENT: {
     id: 385573,
@@ -1347,6 +1536,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_savageblow',
     maxRanks: 1,
     talentId: 112316,
+    __ignoreDuplication: true,
   },
   STORM_OF_SWORDS_ARMS_TALENT: {
     id: 385512,
@@ -1354,6 +1544,7 @@ const talents = createTalentList({
     icon: 'ability_skyreach_fourblades',
     maxRanks: 1,
     talentId: 112119,
+    __ignoreDuplication: true,
   },
   COLLATERAL_DAMAGE_TALENT: {
     id: 334779,
@@ -1361,6 +1552,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_incite',
     maxRanks: 1,
     talentId: 112118,
+    __ignoreDuplication: true,
   },
   REAPING_SWINGS_TALENT: {
     id: 383293,
@@ -1368,6 +1560,7 @@ const talents = createTalentList({
     icon: 'ability_rogue_cuttothechase',
     maxRanks: 1,
     talentId: 112148,
+    __ignoreDuplication: true,
   },
   DEFT_EXPERIENCE_ARMS_TALENT: {
     id: 389308,
@@ -1375,6 +1568,7 @@ const talents = createTalentList({
     icon: 'inv_misc_book_07',
     maxRanks: 2,
     talentId: 112309,
+    __ignoreDuplication: true,
   },
   VALOR_IN_VICTORY_TALENT: {
     id: 383338,
@@ -1382,6 +1576,7 @@ const talents = createTalentList({
     icon: 'spell_holy_summonchampion',
     maxRanks: 2,
     talentId: 112315,
+    __ignoreDuplication: true,
   },
   CRITICAL_THINKING_ARMS_TALENT: {
     id: 389306,
@@ -1389,6 +1584,7 @@ const talents = createTalentList({
     icon: 'ability_criticalstrike',
     maxRanks: 2,
     talentId: 112317,
+    __ignoreDuplication: true,
   },
   BLOODLETTING_TALENT: {
     id: 383154,
@@ -1396,6 +1592,7 @@ const talents = createTalentList({
     icon: 'ability_skeer_bloodletting',
     maxRanks: 1,
     talentId: 112310,
+    __ignoreDuplication: true,
   },
   BATTLELORD_TALENT: {
     id: 386630,
@@ -1403,6 +1600,7 @@ const talents = createTalentList({
     icon: 'ability_pvp_hardiness',
     maxRanks: 1,
     talentId: 112308,
+    __ignoreDuplication: true,
   },
   BLADESTORM_TALENT: {
     id: 227847,
@@ -1410,6 +1608,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_bladestorm',
     maxRanks: 1,
     talentId: 112314,
+    __ignoreDuplication: true,
   },
   SHARPENED_BLADES_TALENT: {
     id: 383341,
@@ -1417,6 +1616,7 @@ const talents = createTalentList({
     icon: 'inv_sword_27',
     maxRanks: 1,
     talentId: 112320,
+    __ignoreDuplication: true,
   },
   EXECUTIONERS_PRECISION_TALENT: {
     id: 386634,
@@ -1424,6 +1624,7 @@ const talents = createTalentList({
     icon: 'inv_sword_48',
     maxRanks: 1,
     talentId: 112318,
+    __ignoreDuplication: true,
   },
   FATALITY_TALENT: {
     id: 383703,
@@ -1431,6 +1632,7 @@ const talents = createTalentList({
     icon: 'achievement_bg_killingblow_berserker',
     maxRanks: 1,
     talentId: 112311,
+    __ignoreDuplication: true,
   },
   DANCE_OF_DEATH_ARMS_TALENT: {
     id: 390713,
@@ -1438,6 +1640,7 @@ const talents = createTalentList({
     icon: 'ability_butcher_whirl',
     maxRanks: 1,
     talentId: 112114,
+    __ignoreDuplication: true,
   },
   UNHINGED_TALENT: {
     id: 386628,
@@ -1445,6 +1648,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_savageblow',
     maxRanks: 1,
     talentId: 112313,
+    __ignoreDuplication: true,
   },
   MERCILESS_BONEGRINDER_TALENT: {
     id: 383317,
@@ -1452,6 +1656,7 @@ const talents = createTalentList({
     icon: 'ability_ironmaidens_whirlofblood',
     maxRanks: 1,
     talentId: 112117,
+    __ignoreDuplication: true,
   },
   JUGGERNAUT_ARMS_TALENT: {
     id: 383292,
@@ -1459,6 +1664,7 @@ const talents = createTalentList({
     icon: 'warrior_talent_icon_skirmisher',
     maxRanks: 1,
     talentId: 112319,
+    __ignoreDuplication: true,
   },
 });
 
