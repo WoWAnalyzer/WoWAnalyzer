@@ -106,8 +106,10 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
         name="Use your procs effectively"
         description={
           <>
-            Many talents add procs to increase the power of your abilities. Make sure to use all of
-            them to maximize the damage these talents can give you, and gain extra insanity.
+            Many talents add procs to increase the power of your abilities. Make sure to use them to
+            maximize the damage these talents can give you, and gain extra insanity.
+            <br /> For <SpellLink id={TALENTS.MIND_FLAY_INSANITY_TALENT.id} />, its important to
+            fully channel the cast whenever it is used.
           </>
         }
       >
@@ -155,11 +157,22 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           />
         )}
 
+        {combatant.hasTalent(TALENTS.MIND_FLAY_INSANITY_TALENT.id) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id} /> canceled ticks{' '}
+              </>
+            }
+            thresholds={thresholds.mindFlayInsanity}
+          />
+        )}
+
         {combatant.hasTalent(TALENTS.MIND_DEVOURER_TALENT.id) && (
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS.MIND_DEVOURER_TALENT.id} /> wasted
+                <SpellLink id={TALENTS.MIND_DEVOURER_TALENT.id} /> wasted{' '}
               </>
             }
             thresholds={thresholds.mindDevourer}
