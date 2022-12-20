@@ -517,6 +517,11 @@ export const DoxAshe: Contributor = {
   github: 'DoxAshe',
   discord: 'DoxAshe#8269',
 };
+export const Vireve: Contributor = {
+  nickname: 'Vireve',
+  github: 'JeaneC',
+  discord: 'Vireve#1186',
+};
 export const Anatta336: Contributor = {
   nickname: 'Anatta336',
   github: 'Anatta336',
