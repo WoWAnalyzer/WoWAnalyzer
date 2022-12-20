@@ -101,7 +101,7 @@ const talents = createTalentList({
     name: 'Banish',
     icon: 'spell_shadow_cripple',
     maxRanks: 1,
-    manaCost: 2500,
+    manaCost: 3750,
   },
   TEACHINGS_OF_THE_SATYR_TALENT: {
     id: 387972,
@@ -570,7 +570,7 @@ const talents = createTalentList({
     name: 'Channel Demonfire',
     icon: 'spell_fire_ragnaros_lavaboltgreen',
     maxRanks: 1,
-    manaCost: 2500,
+    manaCost: 3750,
   },
   PANDEMONIUM_TALENT: {
     id: 387509,

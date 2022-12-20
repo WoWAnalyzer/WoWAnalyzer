@@ -8,7 +8,7 @@ const talents = createTalentList({
     name: 'Landslide',
     icon: 'ability_earthen_pillar',
     maxRanks: 1,
-    manaCost: 5000,
+    manaCost: 7000,
   },
   OBSIDIAN_SCALES_TALENT: {
     id: 363916,
@@ -21,7 +21,7 @@ const talents = createTalentList({
     name: 'Expunge',
     icon: 'ability_evoker_fontofmagic_green',
     maxRanks: 1,
-    manaCost: 2500,
+    manaCost: 3250,
   },
   NATURAL_CONVERGENCE_TALENT: {
     id: 369913,
@@ -92,7 +92,7 @@ const talents = createTalentList({
     name: 'Cauterizing Flame',
     icon: 'ability_evoker_fontofmagic_red',
     maxRanks: 1,
-    manaCost: 2500,
+    manaCost: 3250,
   },
   ROAR_OF_EXHILARATION_TALENT: {
     id: 375507,
@@ -123,7 +123,7 @@ const talents = createTalentList({
     name: 'Sleep Walk',
     icon: 'ability_xavius_dreamsimulacrum',
     maxRanks: 1,
-    manaCost: 5000,
+    manaCost: 6000,
   },
   DRACONIC_LEGACY_TALENT: {
     id: 376166,
@@ -510,14 +510,14 @@ const talents = createTalentList({
     name: 'Dream Breath',
     icon: 'ability_evoker_dreambreath',
     maxRanks: 1,
-    manaCost: 10000,
+    manaCost: 11250,
   },
   REVERSION_TALENT: {
     id: 366155,
     name: 'Reversion',
     icon: 'ability_evoker_reversion',
     maxRanks: 1,
-    manaCost: 5000,
+    manaCost: 6250,
   },
   TEMPORAL_COMPRESSION_TALENT: {
     id: 362874,
@@ -543,7 +543,7 @@ const talents = createTalentList({
     name: 'Spiritbloom',
     icon: 'ability_evoker_spiritbloom2',
     maxRanks: 1,
-    manaCost: 7500,
+    manaCost: 9500,
   },
   TIME_DILATION_TALENT: {
     id: 357170,
@@ -600,7 +600,7 @@ const talents = createTalentList({
     name: 'Temporal Anomaly',
     icon: 'ability_evoker_temporalanomaly',
     maxRanks: 1,
-    manaCost: 17500,
+    manaCost: 18750,
   },
   DREAMWALKER_TALENT: {
     id: 377082,

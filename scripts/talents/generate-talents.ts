@@ -72,10 +72,10 @@ async function generateTalents() {
         };
 
         const entryInSpellPowerTable = spellpower.find(
-          (e) => parseInt(e.SpellID) === talentSpell.spellId,
+          (e) => Number(e.SpellID) === talentSpell.spellId,
         );
         if (entryInSpellPowerTable) {
-          const resourceId = parseInt(entryInSpellPowerTable.PowerType);
+          const resourceId = Number(entryInSpellPowerTable.PowerType);
           const resourceName = ResourceTypes[resourceId];
           const resourceCostKey = `${camalize(resourceName)}Cost` as ResourceCostType;
           talentObjectByClass[className]['Shared'][talentKey][resourceCostKey] = findResourceCost(
@@ -107,10 +107,10 @@ async function generateTalents() {
           spec: specTalents.specName,
         };
         const entryInSpellPowerTable = spellpower.find(
-          (e) => parseInt(e.SpellID) === talentSpell.spellId,
+          (e) => Number(e.SpellID) === talentSpell.spellId,
         );
         if (entryInSpellPowerTable) {
-          const resourceId = parseInt(entryInSpellPowerTable.PowerType);
+          const resourceId = Number(entryInSpellPowerTable.PowerType);
           const resourceName = ResourceTypes[resourceId];
           const resourceCostKey = `${camalize(resourceName)}Cost` as ResourceCostType;
           talentObjectByClass[className][specTalents.specName][talentKey][

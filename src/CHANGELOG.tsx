@@ -16,6 +16,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2022, 12,20), 'Fix an issue with talents that cost a decimal % of base mana', Putro),
   change(date(2022, 12, 19), 'Fix rendering issue with performance boxes on Brewmaster Monk and Restoration Druid summaries.', emallson),
   change(date(2022, 12, 19), 'Regenerate talents.', ToppleTheNun),
   change(date(2022, 12, 14), 'Remove Shadowlands items.', ToppleTheNun),
