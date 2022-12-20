@@ -9,6 +9,7 @@ const talents = createTalentList({
     icon: 'spell_holy_renew',
     maxRanks: 1,
     talentId: 103869,
+    __ignoreDuplication: true,
     manaCost: 4500,
   },
   DISPEL_MAGIC_TALENT: {
@@ -17,6 +18,7 @@ const talents = createTalentList({
     icon: 'spell_nature_nullifydisease',
     maxRanks: 1,
     talentId: 103867,
+    __ignoreDuplication: true,
     manaCost: 4000,
   },
   SHADOWFIEND_TALENT: {
@@ -25,6 +27,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_shadowfiend',
     maxRanks: 1,
     talentId: 103865,
+    __ignoreDuplication: true,
   },
   PRAYER_OF_MENDING_TALENT: {
     id: 33076,
@@ -32,6 +35,7 @@ const talents = createTalentList({
     icon: 'spell_holy_prayerofmendingtga',
     maxRanks: 1,
     talentId: 103870,
+    __ignoreDuplication: true,
     manaCost: 5000,
   },
   IMPROVED_FLASH_HEAL_TALENT: {
@@ -40,6 +44,7 @@ const talents = createTalentList({
     icon: 'spell_holy_heal',
     maxRanks: 1,
     talentId: 103866,
+    __ignoreDuplication: true,
   },
   PURIFY_DISEASE_TALENT: {
     id: 213634,
@@ -47,6 +52,7 @@ const talents = createTalentList({
     icon: 'spell_holy_nullifydisease',
     maxRanks: 1,
     talentId: 103854,
+    __ignoreDuplication: true,
     manaCost: 3250,
   },
   PSYCHIC_VOICE_TALENT: {
@@ -55,6 +61,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_commandingshout',
     maxRanks: 1,
     talentId: 103845,
+    __ignoreDuplication: true,
   },
   SHADOW_WORD_DEATH_TALENT: {
     id: 32379,
@@ -62,6 +69,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_demonicfortitude',
     maxRanks: 1,
     talentId: 103864,
+    __ignoreDuplication: true,
     manaCost: 0,
   },
   FOCUSED_MENDING_TALENT: {
@@ -70,6 +78,7 @@ const talents = createTalentList({
     icon: 'achievement_bg_returnxflags_def_wsg',
     maxRanks: 1,
     talentId: 103871,
+    __ignoreDuplication: true,
   },
   HOLY_NOVA_TALENT: {
     id: 132157,
@@ -77,6 +86,7 @@ const talents = createTalentList({
     icon: 'spell_holy_holynova',
     maxRanks: 1,
     talentId: 103851,
+    __ignoreDuplication: true,
     manaCost: 4000,
   },
   PROTECTIVE_LIGHT_TALENT: {
@@ -85,6 +95,7 @@ const talents = createTalentList({
     icon: 'spell_holy_holyprotection',
     maxRanks: 1,
     talentId: 103858,
+    __ignoreDuplication: true,
   },
   FROM_DARKNESS_COMES_LIGHT_TALENT: {
     id: 390615,
@@ -92,6 +103,7 @@ const talents = createTalentList({
     icon: 'spell_holy_flashheal',
     maxRanks: 1,
     talentId: 103857,
+    __ignoreDuplication: true,
   },
   ANGELIC_FEATHER_TALENT: {
     id: 121536,
@@ -99,6 +111,7 @@ const talents = createTalentList({
     icon: 'ability_priest_angelicfeather',
     maxRanks: 1,
     talentId: 103853,
+    __ignoreDuplication: true,
   },
   PHANTASM_TALENT: {
     id: 108942,
@@ -106,6 +119,7 @@ const talents = createTalentList({
     icon: 'ability_priest_phantasm',
     maxRanks: 1,
     talentId: 103834,
+    __ignoreDuplication: true,
   },
   DEATH_AND_MADNESS_TALENT: {
     id: 321291,
@@ -113,6 +127,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_demonicfortitude',
     maxRanks: 1,
     talentId: 103863,
+    __ignoreDuplication: true,
   },
   SPELL_WARDING_TALENT: {
     id: 390667,
@@ -120,6 +135,7 @@ const talents = createTalentList({
     icon: 'spell_holy_spellwarding',
     maxRanks: 1,
     talentId: 103872,
+    __ignoreDuplication: true,
   },
   BLESSED_RECOVERY_TALENT: {
     id: 390767,
@@ -127,6 +143,7 @@ const talents = createTalentList({
     icon: 'spell_holy_blessedrecovery',
     maxRanks: 1,
     talentId: 103677,
+    __ignoreDuplication: true,
   },
   RHAPSODY_TALENT: {
     id: 390622,
@@ -134,6 +151,7 @@ const talents = createTalentList({
     icon: 'spell_holy_holynova',
     maxRanks: 1,
     talentId: 103850,
+    __ignoreDuplication: true,
   },
   LEAP_OF_FAITH_TALENT: {
     id: 73325,
@@ -141,6 +159,7 @@ const talents = createTalentList({
     icon: 'priest_spell_leapoffaith_a',
     maxRanks: 1,
     talentId: 103868,
+    __ignoreDuplication: true,
     manaCost: 6500,
   },
   SHACKLE_UNDEAD_TALENT: {
@@ -149,6 +168,7 @@ const talents = createTalentList({
     icon: 'spell_nature_slow',
     maxRanks: 1,
     talentId: 103843,
+    __ignoreDuplication: true,
     manaCost: 3000,
   },
   SHEER_TERROR_TALENT: {
@@ -157,6 +177,7 @@ const talents = createTalentList({
     icon: 'spell_nzinsanity_fearofdeath',
     maxRanks: 1,
     talentId: 103860,
+    __ignoreDuplication: true,
   },
   VOID_TENDRILS_TALENT: {
     id: 108920,
@@ -164,6 +185,7 @@ const talents = createTalentList({
     icon: 'spell_priest_voidtendrils',
     maxRanks: 1,
     talentId: 103859,
+    __ignoreDuplication: true,
     manaCost: 2500,
   },
   MIND_CONTROL_TALENT: {
@@ -172,6 +194,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_shadowworddominate',
     maxRanks: 1,
     talentId: 103862,
+    __ignoreDuplication: true,
     manaCost: 5000,
   },
   DOMINATE_MIND_TALENT: {
@@ -180,6 +203,7 @@ const talents = createTalentList({
     icon: 'spell_priest_void_flay',
     maxRanks: 1,
     talentId: 103678,
+    __ignoreDuplication: true,
     manaCost: 5000,
   },
   WORDS_OF_THE_PIOUS_TALENT: {
@@ -188,6 +212,7 @@ const talents = createTalentList({
     icon: 'ability_priest_clarityofwill',
     maxRanks: 1,
     talentId: 103873,
+    __ignoreDuplication: true,
   },
   MASS_DISPEL_TALENT: {
     id: 32375,
@@ -195,6 +220,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_massdispel',
     maxRanks: 1,
     talentId: 103849,
+    __ignoreDuplication: true,
     manaCost: 20000,
   },
   MOVE_WITH_GRACE_TALENT: {
@@ -203,6 +229,7 @@ const talents = createTalentList({
     icon: 'ability_priest_savinggrace',
     maxRanks: 1,
     talentId: 103852,
+    __ignoreDuplication: true,
   },
   POWER_INFUSION_TALENT: {
     id: 10060,
@@ -210,6 +237,7 @@ const talents = createTalentList({
     icon: 'spell_holy_powerinfusion',
     maxRanks: 1,
     talentId: 103844,
+    __ignoreDuplication: true,
   },
   VAMPIRIC_EMBRACE_TALENT: {
     id: 15286,
@@ -217,6 +245,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_unsummonbuilding',
     maxRanks: 1,
     talentId: 103841,
+    __ignoreDuplication: true,
   },
   TITHE_EVASION_TALENT: {
     id: 373223,
@@ -224,6 +253,7 @@ const talents = createTalentList({
     icon: 'spell_nzinsanity_bloodthirst',
     maxRanks: 1,
     talentId: 103838,
+    __ignoreDuplication: true,
   },
   INSPIRATION_TALENT: {
     id: 390676,
@@ -231,6 +261,7 @@ const talents = createTalentList({
     icon: 'spell_holy_layonhands',
     maxRanks: 1,
     talentId: 103846,
+    __ignoreDuplication: true,
   },
   IMPROVED_MASS_DISPEL_TALENT: {
     id: 341167,
@@ -238,6 +269,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_massdispel',
     maxRanks: 1,
     talentId: 103848,
+    __ignoreDuplication: true,
   },
   BODY_AND_SOUL_TALENT: {
     id: 64129,
@@ -245,6 +277,7 @@ const talents = createTalentList({
     icon: 'spell_holy_symbolofhope',
     maxRanks: 1,
     talentId: 103856,
+    __ignoreDuplication: true,
   },
   TWINS_OF_THE_SUN_PRIESTESS_TALENT: {
     id: 373466,
@@ -252,6 +285,7 @@ const talents = createTalentList({
     icon: 'spell_fire_felflamering_red',
     maxRanks: 1,
     talentId: 103832,
+    __ignoreDuplication: true,
   },
   VOID_SHIELD_TALENT: {
     id: 280749,
@@ -259,6 +293,7 @@ const talents = createTalentList({
     icon: 'inv_enchant_voidsphere',
     maxRanks: 1,
     talentId: 103842,
+    __ignoreDuplication: true,
   },
   SANLAYN_TALENT: {
     id: 199855,
@@ -266,6 +301,7 @@ const talents = createTalentList({
     icon: 'achievement_boss_lanathel',
     maxRanks: 1,
     talentId: 103840,
+    __ignoreDuplication: true,
   },
   APATHY_TALENT: {
     id: 390668,
@@ -273,6 +309,7 @@ const talents = createTalentList({
     icon: 'ability_rogue_masterofsubtlety',
     maxRanks: 1,
     talentId: 103839,
+    __ignoreDuplication: true,
   },
   UNWAVERING_WILL_TALENT: {
     id: 373456,
@@ -280,6 +317,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_unrelentingassault',
     maxRanks: 2,
     talentId: 103847,
+    __ignoreDuplication: true,
   },
   TWIST_OF_FATE_TALENT: {
     id: 390972,
@@ -287,6 +325,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_mindtwisting',
     maxRanks: 2,
     talentId: 103833,
+    __ignoreDuplication: true,
   },
   THROES_OF_PAIN_TALENT: {
     id: 377422,
@@ -294,6 +333,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_haunting',
     maxRanks: 2,
     talentId: 103861,
+    __ignoreDuplication: true,
   },
   ANGELS_MERCY_TALENT: {
     id: 238100,
@@ -301,6 +341,7 @@ const talents = createTalentList({
     icon: 'spell_holy_testoffaith',
     maxRanks: 1,
     talentId: 103825,
+    __ignoreDuplication: true,
   },
   BINDING_HEALS_TALENT: {
     id: 368275,
@@ -308,6 +349,7 @@ const talents = createTalentList({
     icon: 'spell_holy_blindingheal',
     maxRanks: 1,
     talentId: 103824,
+    __ignoreDuplication: true,
   },
   DIVINE_STAR_SHADOW_TALENT: {
     id: 122121,
@@ -315,6 +357,7 @@ const talents = createTalentList({
     icon: 'spell_priest_divinestar_shadow2',
     maxRanks: 1,
     talentId: 103828,
+    __ignoreDuplication: true,
     manaCost: 0,
   },
   HALO_SHADOW_TALENT: {
@@ -323,6 +366,7 @@ const talents = createTalentList({
     icon: 'ability_priest_halo_shadow',
     maxRanks: 1,
     talentId: 103827,
+    __ignoreDuplication: true,
     manaCost: 2500,
   },
   TRANSLUCENT_IMAGE_TALENT: {
@@ -331,6 +375,7 @@ const talents = createTalentList({
     icon: 'spell_nature_invisibilty',
     maxRanks: 1,
     talentId: 103835,
+    __ignoreDuplication: true,
   },
   MINDGAMES_TALENT: {
     id: 375901,
@@ -338,6 +383,7 @@ const talents = createTalentList({
     icon: 'ability_revendreth_priest',
     maxRanks: 1,
     talentId: 103837,
+    __ignoreDuplication: true,
     manaCost: 5000,
   },
   SURGE_OF_LIGHT_TALENT: {
@@ -346,6 +392,7 @@ const talents = createTalentList({
     icon: 'spell_holy_surgeoflight',
     maxRanks: 2,
     talentId: 103823,
+    __ignoreDuplication: true,
   },
   LIGHTS_INSPIRATION_TALENT: {
     id: 373450,
@@ -353,6 +400,7 @@ const talents = createTalentList({
     icon: 'spell_holy_restoration',
     maxRanks: 2,
     talentId: 103826,
+    __ignoreDuplication: true,
   },
   CRYSTALLINE_REFLECTION_TALENT: {
     id: 373457,
@@ -360,6 +408,7 @@ const talents = createTalentList({
     icon: 'ability_priest_reflectiveshield',
     maxRanks: 2,
     talentId: 103829,
+    __ignoreDuplication: true,
   },
   IMPROVED_FADE_TALENT: {
     id: 390670,
@@ -367,6 +416,7 @@ const talents = createTalentList({
     icon: 'spell_magic_lesserinvisibilty',
     maxRanks: 2,
     talentId: 103836,
+    __ignoreDuplication: true,
   },
   MANIPULATION_TALENT: {
     id: 390996,
@@ -374,6 +424,7 @@ const talents = createTalentList({
     icon: 'ability_revendreth_priest',
     maxRanks: 2,
     talentId: 103818,
+    __ignoreDuplication: true,
   },
   POWER_WORD_LIFE_TALENT: {
     id: 373481,
@@ -381,6 +432,7 @@ const talents = createTalentList({
     icon: 'ability_priest_holywordlife',
     maxRanks: 1,
     talentId: 103822,
+    __ignoreDuplication: true,
     manaCost: 0,
   },
   ANGELIC_BULWARK_TALENT: {
@@ -389,6 +441,7 @@ const talents = createTalentList({
     icon: 'ability_priest_angelicbulwark',
     maxRanks: 1,
     talentId: 103821,
+    __ignoreDuplication: true,
   },
   VOID_SHIFT_TALENT: {
     id: 108968,
@@ -396,6 +449,7 @@ const talents = createTalentList({
     icon: 'spell_priest_voidshift',
     maxRanks: 1,
     talentId: 103820,
+    __ignoreDuplication: true,
   },
   SHATTERED_PERCEPTIONS_TALENT: {
     id: 391112,
@@ -403,6 +457,7 @@ const talents = createTalentList({
     icon: 'spell_animarevendreth_debuff',
     maxRanks: 1,
     talentId: 103819,
+    __ignoreDuplication: true,
   },
   IMPROVED_PURIFY_TALENT: {
     id: 390632,
@@ -410,6 +465,7 @@ const talents = createTalentList({
     icon: 'spell_holy_nullifydisease',
     maxRanks: 1,
     talentId: 103855,
+    __ignoreDuplication: true,
   },
   DIVINE_STAR_SHARED_TALENT: {
     id: 110744,
@@ -417,6 +473,7 @@ const talents = createTalentList({
     icon: 'spell_priest_divinestar',
     maxRanks: 1,
     talentId: 103831,
+    __ignoreDuplication: true,
     manaCost: 5000,
   },
   HALO_SHARED_TALENT: {
@@ -425,6 +482,7 @@ const talents = createTalentList({
     icon: 'ability_priest_halo',
     maxRanks: 1,
     talentId: 103830,
+    __ignoreDuplication: true,
     manaCost: 6750,
   },
   INESCAPABLE_TORMENT_TALENT: {
@@ -433,6 +491,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_chilltouch',
     maxRanks: 2,
     talentId: 103712,
+    __ignoreDuplication: true,
   },
 
   //Shadow
@@ -442,6 +501,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_devouringplague',
     maxRanks: 1,
     talentId: 103808,
+    __ignoreDuplication: true,
     insanityCost: 5000,
   },
   DISPERSION_TALENT: {
@@ -450,6 +510,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_dispersion',
     maxRanks: 1,
     talentId: 103806,
+    __ignoreDuplication: true,
   },
   SHADOWY_APPARITIONS_TALENT: {
     id: 341491,
@@ -457,6 +518,7 @@ const talents = createTalentList({
     icon: 'ability_priest_shadowyapparition',
     maxRanks: 1,
     talentId: 103809,
+    __ignoreDuplication: true,
   },
   SILENCE_TALENT: {
     id: 15487,
@@ -464,6 +526,7 @@ const talents = createTalentList({
     icon: 'ability_priest_silence',
     maxRanks: 1,
     talentId: 103792,
+    __ignoreDuplication: true,
   },
   INTANGIBILITY_TALENT: {
     id: 288733,
@@ -471,6 +534,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_dispersion',
     maxRanks: 1,
     talentId: 103801,
+    __ignoreDuplication: true,
   },
   MENTAL_FORTITUDE_TALENT: {
     id: 377065,
@@ -478,6 +542,7 @@ const talents = createTalentList({
     icon: 'ability_priest_clarityofpower',
     maxRanks: 1,
     talentId: 103800,
+    __ignoreDuplication: true,
   },
   MISERY_TALENT: {
     id: 238558,
@@ -485,6 +550,7 @@ const talents = createTalentList({
     icon: 'ability_rogue_envelopingshadows',
     maxRanks: 1,
     talentId: 103791,
+    __ignoreDuplication: true,
   },
   DARK_VOID_TALENT: {
     id: 263346,
@@ -492,6 +558,7 @@ const talents = createTalentList({
     icon: 'inv_elemental_primal_shadow',
     maxRanks: 1,
     talentId: 103790,
+    __ignoreDuplication: true,
   },
   LAST_WORD_TALENT: {
     id: 263716,
@@ -499,6 +566,7 @@ const talents = createTalentList({
     icon: 'ability_priest_silence',
     maxRanks: 1,
     talentId: 103794,
+    __ignoreDuplication: true,
   },
   PSYCHIC_HORROR_TALENT: {
     id: 64044,
@@ -506,6 +574,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_psychichorrors',
     maxRanks: 1,
     talentId: 103793,
+    __ignoreDuplication: true,
   },
   COALESCING_SHADOWS_TALENT: {
     id: 391242,
@@ -513,6 +582,7 @@ const talents = createTalentList({
     icon: 'spell_priest_shadoworbs',
     maxRanks: 1,
     talentId: 103795,
+    __ignoreDuplication: true,
   },
   MIND_SEAR_TALENT: {
     id: 48045,
@@ -520,6 +590,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_mindshear',
     maxRanks: 1,
     talentId: 103807,
+    __ignoreDuplication: true,
     insanityCost: 0,
   },
   MIND_SPIKE_TALENT: {
@@ -528,6 +599,7 @@ const talents = createTalentList({
     icon: 'spell_priest_mindspike',
     maxRanks: 1,
     talentId: 103812,
+    __ignoreDuplication: true,
   },
   PUPPET_MASTER_TALENT: {
     id: 377387,
@@ -535,6 +607,7 @@ const talents = createTalentList({
     icon: 'ability_rogue_masterofsubtlety',
     maxRanks: 1,
     talentId: 103785,
+    __ignoreDuplication: true,
   },
   MENTAL_DECAY_TALENT: {
     id: 375994,
@@ -542,6 +615,7 @@ const talents = createTalentList({
     icon: 'ability_kaztik_dominatemind',
     maxRanks: 1,
     talentId: 103804,
+    __ignoreDuplication: true,
   },
   DARK_ASCENSION_TALENT: {
     id: 391109,
@@ -549,6 +623,7 @@ const talents = createTalentList({
     icon: 'ability_priest_darkarchangel',
     maxRanks: 1,
     talentId: 103680,
+    __ignoreDuplication: true,
   },
   VOID_ERUPTION_TALENT: {
     id: 228260,
@@ -556,6 +631,7 @@ const talents = createTalentList({
     icon: 'spell_priest_void_blast',
     maxRanks: 1,
     talentId: 103674,
+    __ignoreDuplication: true,
   },
   UNFURLING_DARKNESS_TALENT: {
     id: 341273,
@@ -563,6 +639,7 @@ const talents = createTalentList({
     icon: 'spell_priest_shadow_mend',
     maxRanks: 1,
     talentId: 103799,
+    __ignoreDuplication: true,
   },
   SURGE_OF_DARKNESS_TALENT: {
     id: 162448,
@@ -570,6 +647,7 @@ const talents = createTalentList({
     icon: 'ability_priest_surgeofdarkness',
     maxRanks: 1,
     talentId: 103813,
+    __ignoreDuplication: true,
   },
   HARNESSED_SHADOWS_TALENT: {
     id: 391296,
@@ -577,6 +655,7 @@ const talents = createTalentList({
     icon: 'inv_chaos_orb',
     maxRanks: 1,
     talentId: 103786,
+    __ignoreDuplication: true,
   },
   SHADOWY_INSIGHT_TALENT: {
     id: 375888,
@@ -584,6 +663,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_possession',
     maxRanks: 1,
     talentId: 103805,
+    __ignoreDuplication: true,
   },
   ANCIENT_MADNESS_TALENT: {
     id: 341240,
@@ -591,6 +671,7 @@ const talents = createTalentList({
     icon: 'spell_priest_void_flay',
     maxRanks: 2,
     talentId: 103798,
+    __ignoreDuplication: true,
   },
   SHADOW_CRASH_TALENT: {
     id: 205385,
@@ -598,6 +679,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_shadowfury',
     maxRanks: 1,
     talentId: 103803,
+    __ignoreDuplication: true,
   },
   MIND_MELT_TALENT: {
     id: 391090,
@@ -605,6 +687,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_skull',
     maxRanks: 1,
     talentId: 103682,
+    __ignoreDuplication: true,
   },
   MADDENING_TOUCH_TALENT: {
     id: 391228,
@@ -612,6 +695,7 @@ const talents = createTalentList({
     icon: 'spell_holy_stoicism',
     maxRanks: 2,
     talentId: 103784,
+    __ignoreDuplication: true,
   },
   DARK_EVANGELISM_TALENT: {
     id: 391095,
@@ -619,6 +703,7 @@ const talents = createTalentList({
     icon: 'spell_mage_presenceofmind',
     maxRanks: 2,
     talentId: 103802,
+    __ignoreDuplication: true,
   },
   AUSPICIOUS_SPIRITS_TALENT: {
     id: 155271,
@@ -626,6 +711,7 @@ const talents = createTalentList({
     icon: 'ability_priest_auspiciousspirits',
     maxRanks: 1,
     talentId: 103811,
+    __ignoreDuplication: true,
   },
   TORMENTED_SPIRITS_TALENT: {
     id: 391284,
@@ -633,6 +719,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_painandsuffering',
     maxRanks: 1,
     talentId: 103810,
+    __ignoreDuplication: true,
   },
   PSYCHIC_LINK_TALENT: {
     id: 199484,
@@ -640,6 +727,7 @@ const talents = createTalentList({
     icon: 'ability_priest_psychiclink',
     maxRanks: 2,
     talentId: 103814,
+    __ignoreDuplication: true,
   },
   WHISPERS_OF_THE_DAMNED_TALENT: {
     id: 391137,
@@ -647,6 +735,7 @@ const talents = createTalentList({
     icon: 'inv_misc_eye_03',
     maxRanks: 2,
     talentId: 103686,
+    __ignoreDuplication: true,
   },
   MINDBENDER_SHADOW_TALENT: {
     id: 200174,
@@ -654,6 +743,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_soulleech_3',
     maxRanks: 1,
     talentId: 103788,
+    __ignoreDuplication: true,
   },
   DEATHSPEAKER_TALENT: {
     id: 392507,
@@ -661,6 +751,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_demonicfortitude',
     maxRanks: 1,
     talentId: 103815,
+    __ignoreDuplication: true,
   },
   MIND_FLAY_INSANITY_TALENT: {
     id: 391399,
@@ -668,6 +759,7 @@ const talents = createTalentList({
     icon: 'spell_fire_twilightflamebreath',
     maxRanks: 1,
     talentId: 103681,
+    __ignoreDuplication: true,
   },
   ENCROACHING_SHADOWS_TALENT: {
     id: 391235,
@@ -675,6 +767,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_coneofsilence',
     maxRanks: 1,
     talentId: 103685,
+    __ignoreDuplication: true,
   },
   DAMNATION_TALENT: {
     id: 341374,
@@ -682,6 +775,7 @@ const talents = createTalentList({
     icon: 'ability_warlock_eradication',
     maxRanks: 1,
     talentId: 103796,
+    __ignoreDuplication: true,
   },
   VOID_TORRENT_TALENT: {
     id: 263165,
@@ -689,6 +783,7 @@ const talents = createTalentList({
     icon: 'spell_priest_voidsear',
     maxRanks: 1,
     talentId: 103679,
+    __ignoreDuplication: true,
   },
   SCREAMS_OF_THE_VOID_TALENT: {
     id: 375767,
@@ -696,6 +791,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_siphonmana',
     maxRanks: 2,
     talentId: 103789,
+    __ignoreDuplication: true,
   },
   PAIN_OF_DEATH_TALENT: {
     id: 391288,
@@ -703,6 +799,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_deadofnight',
     maxRanks: 2,
     talentId: 103816,
+    __ignoreDuplication: true,
   },
   MIND_DEVOURER_TALENT: {
     id: 373202,
@@ -710,6 +807,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_mindmastery',
     maxRanks: 2,
     talentId: 103684,
+    __ignoreDuplication: true,
   },
   INSIDIOUS_IRE_TALENT: {
     id: 373212,
@@ -717,6 +815,7 @@ const talents = createTalentList({
     icon: 'spell_fire_twilightcano',
     maxRanks: 2,
     talentId: 103683,
+    __ignoreDuplication: true,
   },
   MALEDICTION_TALENT: {
     id: 373221,
@@ -724,6 +823,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_deathsembrace',
     maxRanks: 2,
     talentId: 103797,
+    __ignoreDuplication: true,
   },
   IDOL_OF_YSHAARJ_TALENT: {
     id: 373310,
@@ -731,6 +831,7 @@ const talents = createTalentList({
     icon: 'achievement_raid_terraceofendlessspring04',
     maxRanks: 1,
     talentId: 103787,
+    __ignoreDuplication: true,
   },
   IDOL_OF_CTHUN_TALENT: {
     id: 377349,
@@ -738,6 +839,7 @@ const talents = createTalentList({
     icon: 'achievement_boss_cthun',
     maxRanks: 1,
     talentId: 103782,
+    __ignoreDuplication: true,
   },
   IDOL_OF_YOGG_SARON_TALENT: {
     id: 373273,
@@ -745,6 +847,7 @@ const talents = createTalentList({
     icon: 'achievement_boss_heraldvolazj',
     maxRanks: 1,
     talentId: 103817,
+    __ignoreDuplication: true,
   },
   IDOL_OF_NZOTH_TALENT: {
     id: 373280,
@@ -752,6 +855,7 @@ const talents = createTalentList({
     icon: 'achievement_nzothraid_nzoth',
     maxRanks: 1,
     talentId: 103781,
+    __ignoreDuplication: true,
   },
 
   //Holy
@@ -761,6 +865,7 @@ const talents = createTalentList({
     icon: 'spell_holy_persuitofjustice',
     maxRanks: 1,
     talentId: 103775,
+    __ignoreDuplication: true,
     manaCost: 6250,
   },
   PRAYER_OF_HEALING_TALENT: {
@@ -769,6 +874,7 @@ const talents = createTalentList({
     icon: 'spell_holy_prayerofhealing02',
     maxRanks: 1,
     talentId: 103766,
+    __ignoreDuplication: true,
     manaCost: 11000,
   },
   GUARDIAN_SPIRIT_TALENT: {
@@ -777,6 +883,7 @@ const talents = createTalentList({
     icon: 'spell_holy_guardianspirit',
     maxRanks: 1,
     talentId: 103774,
+    __ignoreDuplication: true,
     manaCost: 0,
   },
   HOLY_WORD_CHASTISE_TALENT: {
@@ -785,6 +892,7 @@ const talents = createTalentList({
     icon: 'spell_holy_chastise',
     maxRanks: 1,
     talentId: 103776,
+    __ignoreDuplication: true,
     manaCost: 5000,
   },
   HOLY_WORD_SANCTIFY_TALENT: {
@@ -793,6 +901,7 @@ const talents = createTalentList({
     icon: 'spell_holy_divineprovidence',
     maxRanks: 1,
     talentId: 103767,
+    __ignoreDuplication: true,
     manaCost: 8750,
   },
   GUARDIAN_ANGEL_TALENT: {
@@ -801,6 +910,7 @@ const talents = createTalentList({
     icon: 'ability_priest_pathofthedevout',
     maxRanks: 1,
     talentId: 103773,
+    __ignoreDuplication: true,
   },
   GUARDIANS_OF_THE_LIGHT_TALENT: {
     id: 196437,
@@ -808,6 +918,7 @@ const talents = createTalentList({
     icon: 'spell_holy_guardianspirit',
     maxRanks: 1,
     talentId: 103772,
+    __ignoreDuplication: true,
   },
   CENSURE_TALENT: {
     id: 200199,
@@ -815,6 +926,7 @@ const talents = createTalentList({
     icon: 'spell_holy_eyeforaneye',
     maxRanks: 1,
     talentId: 103753,
+    __ignoreDuplication: true,
   },
   BURNING_VEHEMENCE_TALENT: {
     id: 372307,
@@ -822,6 +934,7 @@ const talents = createTalentList({
     icon: 'spell_nature_unleashedrage',
     maxRanks: 1,
     talentId: 103777,
+    __ignoreDuplication: true,
   },
   CIRCLE_OF_HEALING_TALENT: {
     id: 204883,
@@ -829,6 +942,7 @@ const talents = createTalentList({
     icon: 'spell_holy_circleofrenewal',
     maxRanks: 1,
     talentId: 103758,
+    __ignoreDuplication: true,
     manaCost: 8250,
   },
   REVITALIZING_PRAYERS_TALENT: {
@@ -837,6 +951,7 @@ const talents = createTalentList({
     icon: 'inv_staff_2h_artifacttome_d_06',
     maxRanks: 1,
     talentId: 103769,
+    __ignoreDuplication: true,
   },
   SANCTIFIED_PRAYERS_TALENT: {
     id: 196489,
@@ -844,6 +959,7 @@ const talents = createTalentList({
     icon: 'spell_holy_pureofheart',
     maxRanks: 1,
     talentId: 103768,
+    __ignoreDuplication: true,
   },
   COSMIC_RIPPLE_TALENT: {
     id: 238136,
@@ -851,6 +967,7 @@ const talents = createTalentList({
     icon: 'spell_holy_summonlightwell',
     maxRanks: 1,
     talentId: 103765,
+    __ignoreDuplication: true,
   },
   AFTERLIFE_TALENT: {
     id: 196707,
@@ -858,6 +975,7 @@ const talents = createTalentList({
     icon: 'inv_enchant_essencemagiclarge',
     maxRanks: 1,
     talentId: 103771,
+    __ignoreDuplication: true,
   },
   RENEWED_FAITH_TALENT: {
     id: 341997,
@@ -865,6 +983,7 @@ const talents = createTalentList({
     icon: 'ability_pvp_innerrenewal',
     maxRanks: 1,
     talentId: 103754,
+    __ignoreDuplication: true,
   },
   EMPYREAL_BLAZE_TALENT: {
     id: 372616,
@@ -872,6 +991,7 @@ const talents = createTalentList({
     icon: 'spell_fire_ragnaros_lavabolt',
     maxRanks: 1,
     talentId: 103739,
+    __ignoreDuplication: true,
     manaCost: 500,
   },
   PRAYER_CIRCLE_TALENT: {
@@ -880,6 +1000,7 @@ const talents = createTalentList({
     icon: 'spell_paladin_divinecircle',
     maxRanks: 1,
     talentId: 103760,
+    __ignoreDuplication: true,
   },
   HEALING_CHORUS_TALENT: {
     id: 390881,
@@ -887,6 +1008,7 @@ const talents = createTalentList({
     icon: 'spell_holy_circleofrenewal',
     maxRanks: 1,
     talentId: 103759,
+    __ignoreDuplication: true,
   },
   PRAYERFUL_LITANY_TALENT: {
     id: 391209,
@@ -894,6 +1016,7 @@ const talents = createTalentList({
     icon: 'spell_holy_prayerofhealing02',
     maxRanks: 1,
     talentId: 103757,
+    __ignoreDuplication: true,
   },
   TRAIL_OF_LIGHT_TALENT: {
     id: 200128,
@@ -901,6 +1024,7 @@ const talents = createTalentList({
     icon: 'ability_priest_wordsofmeaning',
     maxRanks: 2,
     talentId: 103770,
+    __ignoreDuplication: true,
   },
   DIVINE_HYMN_TALENT: {
     id: 64843,
@@ -908,6 +1032,7 @@ const talents = createTalentList({
     icon: 'spell_holy_divinehymn',
     maxRanks: 1,
     talentId: 103755,
+    __ignoreDuplication: true,
     manaCost: 11000,
   },
   ENLIGHTENMENT_TALENT: {
@@ -916,6 +1041,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_mindmastery',
     maxRanks: 1,
     talentId: 103752,
+    __ignoreDuplication: true,
   },
   BENEDICTION_TALENT: {
     id: 193157,
@@ -923,6 +1049,7 @@ const talents = createTalentList({
     icon: 'spell_monk_diffusemagic',
     maxRanks: 1,
     talentId: 103779,
+    __ignoreDuplication: true,
   },
   HOLY_MENDING_TALENT: {
     id: 391154,
@@ -930,6 +1057,7 @@ const talents = createTalentList({
     icon: 'spell_holy_healingfocus',
     maxRanks: 1,
     talentId: 103778,
+    __ignoreDuplication: true,
   },
   ORISON_TALENT: {
     id: 390947,
@@ -937,6 +1065,7 @@ const talents = createTalentList({
     icon: 'spell_holy_fanaticism',
     maxRanks: 1,
     talentId: 103761,
+    __ignoreDuplication: true,
   },
   EVERLASTING_LIGHT_TALENT: {
     id: 391161,
@@ -944,6 +1073,7 @@ const talents = createTalentList({
     icon: 'inv_mace_1h_artifactheartofkure_d_01',
     maxRanks: 1,
     talentId: 103756,
+    __ignoreDuplication: true,
   },
   GALES_OF_SONG_TALENT: {
     id: 372370,
@@ -951,6 +1081,7 @@ const talents = createTalentList({
     icon: 'inv_misc_volatileair',
     maxRanks: 2,
     talentId: 103747,
+    __ignoreDuplication: true,
   },
   SYMBOL_OF_HOPE_TALENT: {
     id: 64901,
@@ -958,6 +1089,7 @@ const talents = createTalentList({
     icon: 'spell_holy_symbolofhope',
     maxRanks: 1,
     talentId: 103751,
+    __ignoreDuplication: true,
   },
   DIVINE_SERVICE_TALENT: {
     id: 391233,
@@ -965,6 +1097,7 @@ const talents = createTalentList({
     icon: 'spell_holy_prayerofspirit',
     maxRanks: 1,
     talentId: 103780,
+    __ignoreDuplication: true,
   },
   CRISIS_MANAGEMENT_TALENT: {
     id: 390954,
@@ -972,6 +1105,7 @@ const talents = createTalentList({
     icon: 'spell_holy_flashheal',
     maxRanks: 2,
     talentId: 103762,
+    __ignoreDuplication: true,
   },
   PRISMATIC_ECHOES_TALENT: {
     id: 390967,
@@ -979,6 +1113,7 @@ const talents = createTalentList({
     icon: 'spell_holy_aspiration',
     maxRanks: 2,
     talentId: 103748,
+    __ignoreDuplication: true,
   },
   PRAYERS_OF_THE_VIRTUOUS_TALENT: {
     id: 390977,
@@ -986,6 +1121,7 @@ const talents = createTalentList({
     icon: 'spell_holy_prayerofmendingtga',
     maxRanks: 2,
     talentId: 103750,
+    __ignoreDuplication: true,
   },
   PONTIFEX_TALENT: {
     id: 390980,
@@ -993,6 +1129,7 @@ const talents = createTalentList({
     icon: 'spell_priest_pontifex',
     maxRanks: 1,
     talentId: 103763,
+    __ignoreDuplication: true,
   },
   APOTHEOSIS_TALENT: {
     id: 200183,
@@ -1000,6 +1137,7 @@ const talents = createTalentList({
     icon: 'ability_priest_ascension',
     maxRanks: 1,
     talentId: 103743,
+    __ignoreDuplication: true,
   },
   HOLY_WORD_SALVATION_TALENT: {
     id: 265202,
@@ -1007,6 +1145,7 @@ const talents = createTalentList({
     icon: 'ability_priest_archangel',
     maxRanks: 1,
     talentId: 103742,
+    __ignoreDuplication: true,
     manaCost: 15000,
   },
   EMPOWERED_RENEW_TALENT: {
@@ -1015,6 +1154,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_infusionoflight',
     maxRanks: 1,
     talentId: 103746,
+    __ignoreDuplication: true,
   },
   RAPID_RECOVERY_TALENT: {
     id: 391368,
@@ -1022,6 +1162,7 @@ const talents = createTalentList({
     icon: 'spell_holy_renew',
     maxRanks: 1,
     talentId: 103745,
+    __ignoreDuplication: true,
   },
   SAY_YOUR_PRAYERS_TALENT: {
     id: 391186,
@@ -1029,6 +1170,7 @@ const talents = createTalentList({
     icon: 'ability_priest_bindingprayers',
     maxRanks: 1,
     talentId: 103749,
+    __ignoreDuplication: true,
   },
   RESONANT_WORDS_TALENT: {
     id: 372309,
@@ -1036,6 +1178,7 @@ const talents = createTalentList({
     icon: 'spell_holy_holybolt',
     maxRanks: 2,
     talentId: 103735,
+    __ignoreDuplication: true,
   },
   DESPERATE_TIMES_TALENT: {
     id: 391381,
@@ -1043,6 +1186,7 @@ const talents = createTalentList({
     icon: 'ability_pvp_defenderoftheweak',
     maxRanks: 2,
     talentId: 103741,
+    __ignoreDuplication: true,
   },
   LIGHT_OF_THE_NAARU_TALENT: {
     id: 196985,
@@ -1050,6 +1194,7 @@ const talents = createTalentList({
     icon: 'inv_pet_naaru',
     maxRanks: 2,
     talentId: 103764,
+    __ignoreDuplication: true,
   },
   HARMONIOUS_APPARATUS_TALENT: {
     id: 390994,
@@ -1057,6 +1202,7 @@ const talents = createTalentList({
     icon: 'spell_holy_serendipity',
     maxRanks: 2,
     talentId: 103744,
+    __ignoreDuplication: true,
   },
   SEARING_LIGHT_TALENT: {
     id: 372611,
@@ -1064,6 +1210,7 @@ const talents = createTalentList({
     icon: 'inv_summerfest_firespirit',
     maxRanks: 2,
     talentId: 103738,
+    __ignoreDuplication: true,
   },
   ANSWERED_PRAYERS_TALENT: {
     id: 391387,
@@ -1071,6 +1218,7 @@ const talents = createTalentList({
     icon: 'inv_staff_2h_artifactheartofkure_d_06',
     maxRanks: 2,
     talentId: 103740,
+    __ignoreDuplication: true,
   },
   LIGHTWEAVER_TALENT: {
     id: 390992,
@@ -1078,6 +1226,7 @@ const talents = createTalentList({
     icon: 'spell_holy_greaterheal',
     maxRanks: 1,
     talentId: 103734,
+    __ignoreDuplication: true,
   },
   LIGHTWELL_TALENT: {
     id: 372835,
@@ -1085,6 +1234,7 @@ const talents = createTalentList({
     icon: 'spell_holy_summonlightwell',
     maxRanks: 1,
     talentId: 103733,
+    __ignoreDuplication: true,
     manaCost: 9250,
   },
   DIVINE_IMAGE_TALENT: {
@@ -1093,6 +1243,7 @@ const talents = createTalentList({
     icon: 'inv_staff_2h_artifactheartofkure_d_04',
     maxRanks: 1,
     talentId: 103736,
+    __ignoreDuplication: true,
   },
   DIVINE_WORD_TALENT: {
     id: 372760,
@@ -1100,6 +1251,7 @@ const talents = createTalentList({
     icon: 'spell_priest_chakra',
     maxRanks: 1,
     talentId: 103675,
+    __ignoreDuplication: true,
   },
   MIRACLE_WORKER_TALENT: {
     id: 235587,
@@ -1107,6 +1259,7 @@ const talents = createTalentList({
     icon: 'spell_holy_persuitofjustice',
     maxRanks: 1,
     talentId: 103737,
+    __ignoreDuplication: true,
   },
   RESTITUTION_TALENT: {
     id: 391124,
@@ -1114,6 +1267,7 @@ const talents = createTalentList({
     icon: 'inv_staff_2h_artifactheartofkure_d_03',
     maxRanks: 1,
     talentId: 103676,
+    __ignoreDuplication: true,
   },
 
   //Discipline
@@ -1123,6 +1277,7 @@ const talents = createTalentList({
     icon: 'ability_priest_atonement',
     maxRanks: 1,
     talentId: 103723,
+    __ignoreDuplication: true,
   },
   POWER_WORD_RADIANCE_TALENT: {
     id: 194509,
@@ -1130,6 +1285,7 @@ const talents = createTalentList({
     icon: 'spell_priest_power_word',
     maxRanks: 1,
     talentId: 103722,
+    __ignoreDuplication: true,
     manaCost: 13750,
   },
   PAIN_SUPPRESSION_TALENT: {
@@ -1138,6 +1294,7 @@ const talents = createTalentList({
     icon: 'spell_holy_painsupression',
     maxRanks: 1,
     talentId: 103713,
+    __ignoreDuplication: true,
     manaCost: 4000,
   },
   POWER_OF_THE_DARK_SIDE_TALENT: {
@@ -1146,6 +1303,7 @@ const talents = createTalentList({
     icon: 'inv_artifact_powerofthedarkside',
     maxRanks: 1,
     talentId: 103724,
+    __ignoreDuplication: true,
   },
   LIGHTS_PROMISE_TALENT: {
     id: 322115,
@@ -1153,6 +1311,7 @@ const talents = createTalentList({
     icon: 'spell_priest_power_word',
     maxRanks: 1,
     talentId: 103721,
+    __ignoreDuplication: true,
   },
   MAKE_AMENDS_TALENT: {
     id: 391079,
@@ -1160,6 +1319,7 @@ const talents = createTalentList({
     icon: 'spell_holy_penance',
     maxRanks: 1,
     talentId: 108225,
+    __ignoreDuplication: true,
   },
   PAIN_TRANSFORMATION_TALENT: {
     id: 372991,
@@ -1167,6 +1327,7 @@ const talents = createTalentList({
     icon: 'spell_holy_blessedrecovery',
     maxRanks: 1,
     talentId: 103715,
+    __ignoreDuplication: true,
   },
   PROTECTOR_OF_THE_FRAIL_TALENT: {
     id: 373035,
@@ -1174,6 +1335,7 @@ const talents = createTalentList({
     icon: 'ability_racial_forceshield',
     maxRanks: 1,
     talentId: 103714,
+    __ignoreDuplication: true,
   },
   DARK_INDULGENCE_TALENT: {
     id: 372972,
@@ -1181,6 +1343,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_painandsuffering',
     maxRanks: 1,
     talentId: 103725,
+    __ignoreDuplication: true,
   },
   SCHISM_TALENT: {
     id: 214621,
@@ -1188,6 +1351,7 @@ const talents = createTalentList({
     icon: 'spell_warlock_focusshadow',
     maxRanks: 1,
     talentId: 103704,
+    __ignoreDuplication: true,
     manaCost: 0,
   },
   BRIGHT_PUPIL_TALENT: {
@@ -1196,6 +1360,7 @@ const talents = createTalentList({
     icon: 'spell_holy_surgeoflight',
     maxRanks: 1,
     talentId: 103720,
+    __ignoreDuplication: true,
   },
   ENDURING_LUMINESCENCE_TALENT: {
     id: 390685,
@@ -1203,6 +1368,7 @@ const talents = createTalentList({
     icon: 'ability_priest_holybolts01',
     maxRanks: 1,
     talentId: 103719,
+    __ignoreDuplication: true,
   },
   SHIELD_DISCIPLINE_TALENT: {
     id: 197045,
@@ -1210,6 +1376,7 @@ const talents = createTalentList({
     icon: 'spell_holy_divineprotection',
     maxRanks: 1,
     talentId: 103717,
+    __ignoreDuplication: true,
   },
   POWER_WORD_SOLACE_TALENT: {
     id: 129250,
@@ -1217,6 +1384,7 @@ const talents = createTalentList({
     icon: 'ability_priest_flashoflight',
     maxRanks: 1,
     talentId: 103716,
+    __ignoreDuplication: true,
   },
   POWER_WORD_BARRIER_TALENT: {
     id: 62618,
@@ -1224,6 +1392,7 @@ const talents = createTalentList({
     icon: 'spell_holy_powerwordbarrier',
     maxRanks: 1,
     talentId: 103687,
+    __ignoreDuplication: true,
     manaCost: 10000,
   },
   PAINFUL_PUNISHMENT_TALENT: {
@@ -1232,6 +1401,7 @@ const talents = createTalentList({
     icon: 'ability_priest_clarityofpower',
     maxRanks: 1,
     talentId: 103726,
+    __ignoreDuplication: true,
   },
   MALICIOUS_INTENT_TALENT: {
     id: 372969,
@@ -1239,6 +1409,7 @@ const talents = createTalentList({
     icon: 'ability_demonhunter_darkness',
     maxRanks: 1,
     talentId: 103705,
+    __ignoreDuplication: true,
   },
   PURGE_THE_WICKED_TALENT: {
     id: 204197,
@@ -1246,6 +1417,7 @@ const talents = createTalentList({
     icon: 'ability_mage_firestarter',
     maxRanks: 1,
     talentId: 103718,
+    __ignoreDuplication: true,
     manaCost: 4500,
   },
   RAPTURE_TALENT: {
@@ -1254,6 +1426,7 @@ const talents = createTalentList({
     icon: 'spell_holy_rapture',
     maxRanks: 1,
     talentId: 103727,
+    __ignoreDuplication: true,
     manaCost: 7750,
   },
   SHADOW_COVENANT_TALENT: {
@@ -1262,6 +1435,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_summonvoidwalker',
     maxRanks: 1,
     talentId: 103706,
+    __ignoreDuplication: true,
     manaCost: 11250,
   },
   REVEL_IN_PURITY_TALENT: {
@@ -1270,6 +1444,7 @@ const talents = createTalentList({
     icon: 'spell_fire_felflamering_red',
     maxRanks: 1,
     talentId: 103690,
+    __ignoreDuplication: true,
   },
   CONTRITION_TALENT: {
     id: 197419,
@@ -1277,6 +1452,7 @@ const talents = createTalentList({
     icon: 'ability_priest_savinggrace',
     maxRanks: 2,
     talentId: 103728,
+    __ignoreDuplication: true,
   },
   EXALTATION_TALENT: {
     id: 373042,
@@ -1284,6 +1460,7 @@ const talents = createTalentList({
     icon: 'spell_holy_spiritualguidence',
     maxRanks: 1,
     talentId: 103701,
+    __ignoreDuplication: true,
   },
   INDEMNITY_TALENT: {
     id: 373049,
@@ -1291,6 +1468,7 @@ const talents = createTalentList({
     icon: 'ability_priest_clarityofwill',
     maxRanks: 1,
     talentId: 108226,
+    __ignoreDuplication: true,
   },
   PAIN_AND_SUFFERING_TALENT: {
     id: 390689,
@@ -1298,6 +1476,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_shadowwordpain',
     maxRanks: 2,
     talentId: 103703,
+    __ignoreDuplication: true,
   },
   EMBRACE_SHADOW_TALENT: {
     id: 372985,
@@ -1305,6 +1484,7 @@ const talents = createTalentList({
     icon: 'spell_warlock_demonsoul',
     maxRanks: 1,
     talentId: 103708,
+    __ignoreDuplication: true,
   },
   TWILIGHT_CORRUPTION_TALENT: {
     id: 373065,
@@ -1312,6 +1492,7 @@ const talents = createTalentList({
     icon: 'spell_fire_twilightimmolation',
     maxRanks: 1,
     talentId: 103707,
+    __ignoreDuplication: true,
   },
   BORROWED_TIME_TALENT: {
     id: 390691,
@@ -1319,6 +1500,7 @@ const talents = createTalentList({
     icon: 'spell_holy_borrowedtime',
     maxRanks: 2,
     talentId: 103729,
+    __ignoreDuplication: true,
   },
   CASTIGATION_TALENT: {
     id: 193134,
@@ -1326,6 +1508,7 @@ const talents = createTalentList({
     icon: 'spell_holy_searinglightpriest',
     maxRanks: 1,
     talentId: 103702,
+    __ignoreDuplication: true,
   },
   STOLEN_PSYCHE_TALENT: {
     id: 373054,
@@ -1333,6 +1516,7 @@ const talents = createTalentList({
     icon: 'ability_priest_surgeofdarkness',
     maxRanks: 2,
     talentId: 103709,
+    __ignoreDuplication: true,
   },
   TRAIN_OF_THOUGHT_TALENT: {
     id: 390693,
@@ -1340,6 +1524,7 @@ const talents = createTalentList({
     icon: 'ability_mage_studentofthemind',
     maxRanks: 1,
     talentId: 103731,
+    __ignoreDuplication: true,
   },
   LIGHTS_WRATH_TALENT: {
     id: 373178,
@@ -1347,6 +1532,7 @@ const talents = createTalentList({
     icon: 'inv_staff_2h_artifacttome_d_01',
     maxRanks: 1,
     talentId: 103700,
+    __ignoreDuplication: true,
   },
   LENIENCE_TALENT: {
     id: 238063,
@@ -1354,6 +1540,7 @@ const talents = createTalentList({
     icon: 'ability_priest_atonement',
     maxRanks: 1,
     talentId: 103692,
+    __ignoreDuplication: true,
   },
   EVANGELISM_TALENT: {
     id: 246287,
@@ -1361,6 +1548,7 @@ const talents = createTalentList({
     icon: 'spell_holy_divineillumination',
     maxRanks: 1,
     talentId: 103691,
+    __ignoreDuplication: true,
   },
   MINDBENDER_DISCIPLINE_TALENT: {
     id: 123040,
@@ -1368,6 +1556,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_soulleech_3',
     maxRanks: 1,
     talentId: 103710,
+    __ignoreDuplication: true,
   },
   DIVINE_AEGIS_TALENT: {
     id: 47515,
@@ -1375,6 +1564,7 @@ const talents = createTalentList({
     icon: 'spell_holy_devineaegis',
     maxRanks: 2,
     talentId: 103732,
+    __ignoreDuplication: true,
   },
   BLAZE_OF_LIGHT_TALENT: {
     id: 215768,
@@ -1382,6 +1572,7 @@ const talents = createTalentList({
     icon: 'spell_holy_searinglight',
     maxRanks: 2,
     talentId: 103693,
+    __ignoreDuplication: true,
   },
   RESPLENDENT_LIGHT_TALENT: {
     id: 390765,
@@ -1389,6 +1580,7 @@ const talents = createTalentList({
     icon: 'inv_staff_2h_artifacttome_d_01',
     maxRanks: 2,
     talentId: 103699,
+    __ignoreDuplication: true,
   },
   HARSH_DISCIPLINE_TALENT: {
     id: 373180,
@@ -1396,6 +1588,7 @@ const talents = createTalentList({
     icon: 'ability_paladin_handoflight',
     maxRanks: 2,
     talentId: 103697,
+    __ignoreDuplication: true,
   },
   EXPIATION_TALENT: {
     id: 390832,
@@ -1403,6 +1596,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_shadowpower',
     maxRanks: 2,
     talentId: 103711,
+    __ignoreDuplication: true,
   },
   AEGIS_OF_WRATH_TALENT: {
     id: 238135,
@@ -1410,6 +1604,7 @@ const talents = createTalentList({
     icon: 'spell_holy_powerwordshield',
     maxRanks: 1,
     talentId: 103688,
+    __ignoreDuplication: true,
   },
   WEAL_AND_WOE_TALENT: {
     id: 390786,
@@ -1417,6 +1612,7 @@ const talents = createTalentList({
     icon: 'spell_priest_burningwill',
     maxRanks: 1,
     talentId: 103694,
+    __ignoreDuplication: true,
   },
   WRATH_UNLEASHED_TALENT: {
     id: 390781,
@@ -1424,6 +1620,7 @@ const talents = createTalentList({
     icon: 'spell_priest_divinestar_holy',
     maxRanks: 1,
     talentId: 103698,
+    __ignoreDuplication: true,
   },
   TWILIGHT_EQUILIBRIUM_TALENT: {
     id: 390705,
@@ -1431,6 +1628,7 @@ const talents = createTalentList({
     icon: 'ability_priest_innerlightandshadow',
     maxRanks: 1,
     talentId: 103696,
+    __ignoreDuplication: true,
   },
   VOID_SUMMONER_TALENT: {
     id: 390770,
@@ -1438,6 +1636,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_shadowfiend',
     maxRanks: 1,
     talentId: 103695,
+    __ignoreDuplication: true,
   },
 });
 
