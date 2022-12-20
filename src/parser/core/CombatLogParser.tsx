@@ -88,6 +88,7 @@ import ParseResults from './ParseResults';
 import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
 import Report from './Report';
+import { ExplanationContextProvider } from 'interface/guide/components/Explanation';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -761,7 +762,9 @@ class CombatLogParser {
     return () => (
       <GuideContainer>
         <GuideContext.Provider value={props}>
-          <Component {...props} />
+          <ExplanationContextProvider>
+            <Component {...props} />
+          </ExplanationContextProvider>
         </GuideContext.Provider>
       </GuideContainer>
     );
