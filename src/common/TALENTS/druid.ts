@@ -155,7 +155,7 @@ const talents = createTalentList({
     name: 'Soothe',
     icon: 'ability_hunter_beastsoothe',
     maxRanks: 1,
-    manaCost: 2500,
+    manaCost: 2800,
   },
   SUNFIRE_TALENT: {
     id: 93402,
@@ -270,7 +270,7 @@ const talents = createTalentList({
     name: 'Remove Corruption',
     icon: 'spell_holy_removecurse',
     maxRanks: 1,
-    manaCost: 3000,
+    manaCost: 3250,
   },
   STARFIRE_BALANCE_TALENT: {
     id: 194153,
@@ -402,7 +402,7 @@ const talents = createTalentList({
     name: 'Cenarion Ward',
     icon: 'ability_druid_naturalperfection',
     maxRanks: 1,
-    manaCost: 4500,
+    manaCost: 4600,
   },
   NOURISH_TALENT: {
     id: 50464,
@@ -423,7 +423,7 @@ const talents = createTalentList({
     name: 'Tranquility',
     icon: 'spell_nature_tranquility',
     maxRanks: 1,
-    manaCost: 9000,
+    manaCost: 9200,
   },
   IRONBARK_TALENT: { id: 102342, name: 'Ironbark', icon: 'spell_druid_ironbark', maxRanks: 1 },
   SOUL_OF_THE_FOREST_RESTORATION_TALENT: {
@@ -1111,7 +1111,7 @@ const talents = createTalentList({
     name: 'Solar Beam',
     icon: 'ability_vehicle_sonicshockwave',
     maxRanks: 1,
-    manaCost: 8000,
+    manaCost: 8400,
   },
   FORCE_OF_NATURE_TALENT: {
     id: 205636,

@@ -121,7 +121,7 @@ export function findResourceCost(
   baseMaxResource: number,
 ) {
   if (parseInt(entryInSpellPowerTable.PowerCostPct) > 0) {
-    return Math.round((parseInt(entryInSpellPowerTable.PowerCostPct) / 100) * baseMaxResource);
+    return Math.round((Number(entryInSpellPowerTable.PowerCostPct) / 100) * baseMaxResource);
   } else if (
     [
       ResourceTypes.RunicPower,
@@ -130,8 +130,8 @@ export function findResourceCost(
       ResourceTypes.Pain,
     ].includes(resourceId)
   ) {
-    return parseInt(entryInSpellPowerTable.ManaCost) / 10;
+    return Number(entryInSpellPowerTable.ManaCost) / 10;
   } else {
-    return parseInt(entryInSpellPowerTable.ManaCost);
+    return Number(entryInSpellPowerTable.ManaCost);
   }
 }

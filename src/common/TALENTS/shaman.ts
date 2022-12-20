@@ -15,7 +15,7 @@ const talents = createTalentList({
     name: 'Lava Burst',
     icon: 'spell_shaman_lavaburst',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 1250,
   },
   ASTRAL_SHIFT_TALENT: {
     id: 108271,
@@ -99,7 +99,7 @@ const talents = createTalentList({
     name: 'Cleanse Spirit',
     icon: 'ability_shaman_cleansespirit',
     maxRanks: 1,
-    manaCost: 3000,
+    manaCost: 3250,
   },
   FOCUSED_INSIGHT_TALENT: {
     id: 381666,
@@ -118,7 +118,7 @@ const talents = createTalentList({
     name: "Spiritwalker's Grace",
     icon: 'spell_shaman_spiritwalkersgrace',
     maxRanks: 1,
-    manaCost: 7000,
+    manaCost: 7050,
   },
   ANCESTRAL_DEFENSE_TALENT: {
     id: 382947,
@@ -131,7 +131,7 @@ const talents = createTalentList({
     name: 'Tremor Totem',
     icon: 'spell_nature_tremortotem',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 1150,
   },
   STATIC_CHARGE_TALENT: {
     id: 265046,
@@ -177,7 +177,7 @@ const talents = createTalentList({
     name: 'Earthgrab Totem',
     icon: 'spell_nature_stranglevines',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 1250,
   },
   HEX_TALENT: { id: 51514, name: 'Hex', icon: 'spell_shaman_hex', maxRanks: 1 },
   NATURES_FURY_TALENT: {
@@ -290,7 +290,7 @@ const talents = createTalentList({
     name: 'Mana Spring Totem',
     icon: 'spell_nature_manaregentotem',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 750,
   },
   THUNDERSHOCK_TALENT: {
     id: 378779,
@@ -309,7 +309,7 @@ const talents = createTalentList({
     name: 'Poison Cleansing Totem',
     icon: 'spell_nature_poisoncleansingtotem',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 1250,
   },
   TOTEMIC_RECALL_TALENT: {
     id: 108285,
@@ -328,14 +328,14 @@ const talents = createTalentList({
     name: 'Stoneskin Totem',
     icon: 'ability_shaman_stoneskintotem',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 750,
   },
   TRANQUIL_AIR_TOTEM_TALENT: {
     id: 383019,
     name: 'Tranquil Air Totem',
     icon: 'ability_shaman_tranquilmindtotem',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 750,
   },
   CALL_OF_THE_ELEMENTS_TALENT: {
     id: 383011,
@@ -366,7 +366,7 @@ const talents = createTalentList({
     name: 'Elemental Blast',
     icon: 'shaman_talent_elementalblast',
     maxRanks: 1,
-    manaCost: 1000,
+    manaCost: 1375,
   },
   PRIMORDIAL_WAVE_TALENT: {
     id: 375982,
@@ -475,7 +475,7 @@ const talents = createTalentList({
     name: 'Ice Strike',
     icon: 'spell_frost_frostbolt',
     maxRanks: 1,
-    manaCost: 1500,
+    manaCost: 1650,
   },
   HAILSTORM_TALENT: { id: 334195, name: 'Hailstorm', icon: 'spell_frost_icestorm', maxRanks: 1 },
   FIRE_NOVA_TALENT: {
@@ -509,7 +509,7 @@ const talents = createTalentList({
     name: 'Windfury Totem',
     icon: 'spell_nature_windfury',
     maxRanks: 1,
-    manaCost: 500,
+    manaCost: 750,
   },
   SWIRLING_MAELSTROM_TALENT: {
     id: 384359,
@@ -671,7 +671,7 @@ const talents = createTalentList({
     name: 'Healing Rain',
     icon: 'spell_nature_giftofthewaterspirit',
     maxRanks: 1,
-    manaCost: 10500,
+    manaCost: 10800,
   },
   STORMKEEPER_RESTORATION_TALENT: {
     id: 383009,
@@ -752,7 +752,7 @@ const talents = createTalentList({
     name: 'Cloudburst Totem',
     icon: 'ability_shaman_condensationtotem',
     maxRanks: 1,
-    manaCost: 4000,
+    manaCost: 4300,
   },
   WAVESPEAKERS_BLESSING_TALENT: {
     id: 381946,
@@ -765,7 +765,7 @@ const talents = createTalentList({
     name: 'Healing Tide Totem',
     icon: 'ability_shaman_healingtide',
     maxRanks: 1,
-    manaCost: 2500,
+    manaCost: 2800,
   },
   MANA_TIDE_TOTEM_TALENT: {
     id: 16191,
@@ -1061,7 +1061,7 @@ const talents = createTalentList({
     name: 'Liquid Magma Totem',
     icon: 'spell_shaman_spewlava',
     maxRanks: 1,
-    manaCost: 1500,
+    manaCost: 1750,
   },
   ECHOES_OF_GREAT_SUNDERING_TALENT: {
     id: 384087,

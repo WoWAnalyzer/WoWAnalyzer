@@ -54,7 +54,7 @@ const talents = createTalentList({
     name: 'Remove Curse',
     icon: 'spell_nature_removecurse',
     maxRanks: 1,
-    manaCost: 2500,
+    manaCost: 3250,
   },
   ARCANE_WARDING_TALENT: {
     id: 383092,
@@ -332,7 +332,7 @@ const talents = createTalentList({
     name: 'Flamestrike',
     icon: 'spell_fire_selfdestruct',
     maxRanks: 1,
-    manaCost: 5000,
+    manaCost: 6250,
   },
   SEARING_TOUCH_TALENT: {
     id: 269644,
@@ -397,7 +397,7 @@ const talents = createTalentList({
     name: 'Living Bomb',
     icon: 'ability_mage_livingbomb',
     maxRanks: 1,
-    manaCost: 2500,
+    manaCost: 3750,
   },
   INCENDIARY_ERUPTIONS_TALENT: {
     id: 383665,
@@ -505,7 +505,7 @@ const talents = createTalentList({
     name: 'Blizzard',
     icon: 'spell_frost_icestorm',
     maxRanks: 1,
-    manaCost: 5000,
+    manaCost: 6250,
   },
   FINGERS_OF_FROST_TALENT: {
     id: 112965,
@@ -826,7 +826,7 @@ const talents = createTalentList({
     name: 'Nether Tempest',
     icon: 'spell_mage_nethertempest',
     maxRanks: 1,
-    manaCost: 2500,
+    manaCost: 3750,
   },
   IMPROVED_PRISMATIC_BARRIER_TALENT: {
     id: 321745,
