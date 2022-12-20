@@ -1,11 +1,14 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_EVOKER } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, GetRelatedEvents, RefreshBuffEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import HotTracker from 'parser/shared/modules/HotTracker';
 import {
+  ECHO_TEMPORAL_ANOMALY,
   isFromDreamBreathCallOfYsera,
   isFromHardcastEcho,
+  isFromStasis,
   isFromTAEcho,
 } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerPrevoker from '../core/HotTrackerPrevoker';
@@ -23,6 +26,8 @@ class HotAttributor extends Analyzer {
 
   echoHardcastAttrib = HotTracker.getNewAttribution('Echo Hardcast');
   echoTemporalAnomalyAttrib = HotTracker.getNewAttribution('Echo Temporal Anomaly');
+  echoTAStasisAttrib = HotTracker.getNewAttribution('Echo Temporal Anomaly from Stasis');
+  stasisAttrib = HotTracker.getNewAttribution('Stasis HOT');
   callOfYseraAttrib = HotTracker.getNewAttribution('Call Of Ysera');
   constructor(options: Options) {
     super(options);
@@ -33,6 +38,10 @@ class HotAttributor extends Analyzer {
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.DREAM_BREATH, SPELLS.DREAM_BREATH_ECHO]),
       this.onApplyDreamBreath,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.REVERSION_TALENT),
+      this.onApplyReversion,
     );
   }
 
@@ -50,13 +59,25 @@ class HotAttributor extends Analyzer {
         console.log(
           `Attributed TA ${event.ability.name} at ${this.owner.formatTimestamp(event.timestamp)}`,
         );
-      this.hotTracker.addAttributionFromApply(this.echoTemporalAnomalyAttrib, event);
+      const echoApply = GetRelatedEvents(event, ECHO_TEMPORAL_ANOMALY)[0];
+      isFromStasis(echoApply as ApplyBuffEvent)
+        ? this.hotTracker.addAttributionFromApply(this.echoTAStasisAttrib, event)
+        : this.hotTracker.addAttributionFromApply(this.echoTemporalAnomalyAttrib, event);
     }
   }
 
   onApplyDreamBreath(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (isFromDreamBreathCallOfYsera(event)) {
       this.hotTracker.addAttributionFromApply(this.callOfYseraAttrib, event);
+    }
+    if (isFromStasis(event)) {
+      this.hotTracker.addAttributionFromApply(this.stasisAttrib, event);
+    }
+  }
+
+  onApplyReversion(event: ApplyBuffEvent | RefreshBuffEvent) {
+    if (isFromStasis(event)) {
+      this.hotTracker.addAttributionFromApply(this.stasisAttrib, event);
     }
   }
 }
