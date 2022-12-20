@@ -11,11 +11,13 @@ import {
   Sref,
   Tialyss,
   ToppleTheNun,
+  Vireve,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2022, 12, 19), 'Fixed an issue for tracking leg enhancements.', Vireve),
   change(date(2022, 12, 19), 'Fix rendering issue with performance boxes on Brewmaster Monk and Restoration Druid summaries.', emallson),
   change(date(2022, 12, 19), 'Regenerate talents.', ToppleTheNun),
   change(date(2022, 12, 14), 'Remove Shadowlands items.', ToppleTheNun),
