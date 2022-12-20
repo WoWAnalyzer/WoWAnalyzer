@@ -105,7 +105,6 @@ class SoothingMist extends Analyzer {
 
   castSoothingMist(event: CastEvent) {
     if (this.soomInProgress) {
-      //if they refresh soom for some stupid reason
       this.endStamp = event.timestamp;
       this.checkChannelTiming();
       this.castsInSoom = 0;
@@ -139,8 +138,13 @@ class SoothingMist extends Analyzer {
     duration -= this.startGCD;
 
     this.castsInSoom -= duration / this.assumedGCD;
-
-    if (this.castsInSoom < 0) {
+    if (
+      this.castsInSoom < 0 &&
+      !(
+        this.selectedCombatant.hasTalent(TALENTS_MONK.UNISON_TALENT.id) &&
+        this.selectedCombatant.hasTalent(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.id)
+      )
+    ) {
       this.badSooms += 1;
     }
   }
