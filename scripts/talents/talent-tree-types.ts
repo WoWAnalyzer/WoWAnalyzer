@@ -30,6 +30,7 @@ type GenericTalentInterface = {
   name: string;
   icon: string;
   maxRanks: number;
+  talentId: number;
   spec?: string;
   reqPoints?: number;
   talentType?: ClassNodeType;

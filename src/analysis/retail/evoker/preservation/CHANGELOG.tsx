@@ -5,6 +5,8 @@ import { Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 12, 14), <>Improved accuracy of <SpellLink id={TALENTS_EVOKER.ECHO_TALENT}/> module</>, Trevor),
+  change(date(2022, 12, 14), <>Updated Mastery Effectiveness to include the value of the healing done in the effectiveness evaluation</>, Vohrr),
   change(date(2022, 12, 7), <>Fix load condition for <SpellLink id={TALENTS_EVOKER.DREAM_FLIGHT_TALENT.id}/></>, Trevor),
   change(date(2022, 12, 6), <>Added checklist item for expired <SpellLink id={TALENTS_EVOKER.ECHO_TALENT.id}/> buffs</>, Trevor),
   change(date(2022, 12, 6), <>Added suggestion based on average targets hit by <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id}/></> ,Trevor),

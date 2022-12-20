@@ -1,6 +1,5 @@
 import { Enchant } from 'common/ITEMS/Item';
-import { TIER_BY_CLASSES } from 'common/ITEMS/shadowlands';
-import { TIER_BY_CLASSES as DF_TIER_BY_CLASSES } from 'common/ITEMS/dragonflight';
+import { TIER_BY_CLASSES } from 'common/ITEMS/dragonflight';
 import { maybeGetSpell } from 'common/SPELLS';
 import { getClassBySpecId } from 'game/CLASSES';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
@@ -20,6 +19,10 @@ export interface CombatantInfo extends CombatantInfoEvent {
 
 type Spell = {
   id: number;
+};
+
+type Talent = {
+  talentId: number;
 };
 
 export type Race = {
@@ -115,9 +118,11 @@ class Combatant extends Entity {
   }
 
   private treeTalentsBySpellId: Map<number, TalentEntry> = new Map();
+  private treeTalentsByTalentId: Map<number, TalentEntry> = new Map();
   private _importTalentTree(talents: TalentEntry[]) {
     talents?.forEach((talent) => {
       this.treeTalentsBySpellId.set(talent.spellID, talent);
+      this.treeTalentsByTalentId.set(talent.id, talent);
     });
   }
 
@@ -126,6 +131,16 @@ class Combatant extends Entity {
   hasTalent(spell: number | Spell): boolean {
     const spellId = typeof spell === 'number' ? spell : spell.id;
     return this.treeTalentsBySpellId.has(spellId);
+  }
+
+  /**
+   * Certain talents have the same SpellID and can only be distinguished by their TalentID.
+   * In the raidbots generated file, and in the WarcraftLogs API CombatantInfo, the field simply called 'id'.
+   * Returns true if this combatant has the specified talent at any given rank.
+   */
+  hasTalentByTalentId(spell: number | Talent): boolean {
+    const talentId = typeof spell === 'number' ? spell : spell.talentId;
+    return this.treeTalentsByTalentId.has(talentId);
   }
 
   /**
@@ -376,10 +391,7 @@ class Combatant extends Entity {
   }
 
   setIdBySpecByTier(tier: TIERS) {
-    if (tier === TIERS.T28) {
-      return TIER_BY_CLASSES[getClassBySpecId(this._combatantInfo.specID)];
-    }
-    return DF_TIER_BY_CLASSES[tier]?.[getClassBySpecId(this._combatantInfo.specID)];
+    return TIER_BY_CLASSES[tier]?.[getClassBySpecId(this._combatantInfo.specID)];
   }
 
   has2PieceByTier(tier: TIERS) {

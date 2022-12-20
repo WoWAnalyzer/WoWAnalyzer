@@ -21,7 +21,9 @@ class PowerSiphonNormalizer extends EventsNormalizer {
       return events;
     }
 
-    let lastPowerSiphonCast: CastEvent & { __modified?: boolean, activeImpsAfterCast?: string[] } | null = null;
+    let lastPowerSiphonCast:
+      | (CastEvent & { __modified?: boolean; activeImpsAfterCast?: string[] })
+      | null = null;
     let activeImpsAfterCast: string[] = [];
 
     for (let i = 0; i < events.length; i += 1) {
@@ -56,8 +58,10 @@ class PowerSiphonNormalizer extends EventsNormalizer {
       }
     }
     // modify the last PS cast
-    lastPowerSiphonCast!.activeImpsAfterCast = [...activeImpsAfterCast];
-    lastPowerSiphonCast!.__modified = true;
+    if (lastPowerSiphonCast) {
+      lastPowerSiphonCast.activeImpsAfterCast = [...activeImpsAfterCast];
+      lastPowerSiphonCast.__modified = true;
+    }
     debug &&
       console.log(
         'PS casts after normalizing',

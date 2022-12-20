@@ -13,6 +13,9 @@ $shadow: 0 0 0px 1px hsla(45, 100%, 60%, 0.7);
   .performance-block {
     height: 0.8em;
     display: inline-block;
+    flex-grow: 1;
+    max-width: 60px;
+    min-width: 10px;
 
     &:hover {
       box-shadow: $shadow;

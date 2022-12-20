@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/deathknight';
 import talents from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
@@ -20,7 +20,7 @@ class Abilities extends CoreAbilities {
 
       {
         spell: SPELLS.SCOURGE_STRIKE.id,
-        enabled: !combatant.hasTalent(SPELLS.CLAWING_SHADOWS_TALENT.id),
+        enabled: !combatant.hasTalent(talents.CLAWING_SHADOWS_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -28,8 +28,8 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell: SPELLS.CLAWING_SHADOWS_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.CLAWING_SHADOWS_TALENT.id),
+        spell: talents.CLAWING_SHADOWS_TALENT.id,
+        enabled: combatant.hasTalent(talents.CLAWING_SHADOWS_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -81,7 +81,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEATH_AND_DECAY.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled: !false && !combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
+        enabled: !combatant.hasTalent(talents.DEFILE_TALENT.id),
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -109,13 +109,13 @@ class Abilities extends CoreAbilities {
       },
 
       {
-        spell: [SPELLS.SUMMON_GARGOYLE_TALENT.id, SPELLS.DARK_ARBITER_TALENT_GLYPH.id],
+        spell: [talents.SUMMON_GARGOYLE_TALENT.id, SPELLS.DARK_ARBITER_TALENT_GLYPH.id],
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.SUMMON_GARGOYLE_TALENT.id),
+        enabled: combatant.hasTalent(talents.SUMMON_GARGOYLE_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -137,7 +137,7 @@ class Abilities extends CoreAbilities {
 
       // defensives
       {
-        spell: SPELLS.SACRIFICIAL_PACT.id,
+        spell: talents.SACRIFICIAL_PACT_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120,
         gcd: {
@@ -153,7 +153,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: talents.ANTI_MAGIC_ZONE_TALENT.id,
-        buffSpellId: talents.ANTI_MAGIC_ZONE_TALENT_BUFF.id,
+        buffSpellId: talents.ANTI_MAGIC_ZONE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120,
         gcd: null,
@@ -175,32 +175,32 @@ class Abilities extends CoreAbilities {
       },
       // talents
       {
-        spell: SPELLS.DEFILE_TALENT.id,
+        spell: talents.DEFILE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 20,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
+        enabled: combatant.hasTalent(talents.DEFILE_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
       },
       {
-        spell: SPELLS.UNHOLY_ASSAULT_TALENT.id,
+        spell: talents.UNHOLY_ASSAULT_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 75,
-        enabled: combatant.hasTalent(SPELLS.UNHOLY_ASSAULT_TALENT.id),
+        enabled: combatant.hasTalent(talents.UNHOLY_ASSAULT_TALENT.id),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
       },
       {
-        spell: SPELLS.UNHOLY_BLIGHT_TALENT.id,
+        spell: talents.UNHOLY_BLIGHT_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: combatant.hasTalent(SPELLS.UNHOLY_BLIGHT_TALENT.id),
+        enabled: combatant.hasTalent(talents.UNHOLY_BLIGHT_TALENT.id),
         cooldown: 45,
         gcd: {
           base: 1500,
@@ -259,7 +259,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: talents.CONTROL_UNDEAD_TALENTS.id,
+        spell: talents.CONTROL_UNDEAD_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
@@ -308,7 +308,6 @@ class Abilities extends CoreAbilities {
         },
         charges: 2,
       },
-
       {
         spell: SPELLS.RUNE_3.id,
         category: SPELL_CATEGORY.HIDDEN,
@@ -318,32 +317,8 @@ class Abilities extends CoreAbilities {
         },
         charges: 2,
       },
-
-      // covenants
       {
-        spell: SPELLS.SWARMING_MIST.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-        enabled: false,
-      },
-      {
-        spell: SPELLS.DOOR_OF_SHADOWS.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        enabled: false,
-      },
-      {
-        spell: SPELLS.ABOMINATION_LIMB.id,
+        spell: talents.ABOMINATION_LIMB_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         gcd: {
@@ -353,48 +328,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-        enabled: false,
-      },
-      {
-        spell: SPELLS.FLESHCRAFT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120,
-        enabled: false,
-      },
-      {
-        spell: SPELLS.SHACKLE_THE_UNWORTHY.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-        enabled: false,
-      },
-      {
-        spell: SPELLS.DEATHS_DUE.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-        enabled: false && !combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
-      },
-      {
-        spell: SPELLS.SOULSHAPE.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        enabled: false,
+        enabled: combatant.hasTalent(talents.ABOMINATION_LIMB_TALENT),
       },
     ];
   }

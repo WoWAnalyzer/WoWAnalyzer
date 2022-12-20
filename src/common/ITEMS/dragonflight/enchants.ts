@@ -926,55 +926,69 @@ const enchants = enchantIndexableList({
     id: 194011,
     name: 'Frozen Spellthread',
     icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color2',
-    effectId: 6488,
+    effectId: 6539,
   },
   FROZEN_SPELLTHREAD_R2: {
     id: 194012,
     name: 'Frozen Spellthread',
     icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color2',
-    effectId: 6489,
+    effectId: 6540,
   },
   FROZEN_SPELLTHREAD_R3: {
     id: 194013,
     name: 'Frozen Spellthread',
     icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color2',
-    effectId: 6490,
+    effectId: 6541,
   },
   TEMPORAL_SPELLTHREAD_R1: {
     id: 194014,
     name: 'Temporal Spellthread',
     icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color1',
-    effectId: 6488,
+    effectId: 6542,
   },
   TEMPORAL_SPELLTHREAD_R2: {
     id: 194015,
     name: 'Temporal Spellthread',
     icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color1',
-    effectId: 6489,
+    effectId: 6543,
   },
   TEMPORAL_SPELLTHREAD_R3: {
     id: 194016,
     name: 'Temporal Spellthread',
     icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color1',
-    effectId: 6490,
+    effectId: 6544,
   },
   VIBRANT_SPELLTHREAD_R1: {
     id: 194008,
     name: 'Vibrant Spellthread',
     icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color3',
-    effectId: 6488,
+    effectId: 6536,
   },
   VIBRANT_SPELLTHREAD_R2: {
     id: 194009,
     name: 'Vibrant Spellthread',
     icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color3',
-    effectId: 6489,
+    effectId: 6537,
   },
   VIBRANT_SPELLTHREAD_R3: {
     id: 194010,
     name: 'Vibrant Spellthread',
     icon: 'inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color3',
-    effectId: 6490,
+    effectId: 6538,
+  },
+
+  //Shaman Only
+  FLAMETONGUE_WEAPON: {
+    id: 334294,
+    name: 'Flametongue Weapon',
+    icon: 'spell_fire_flametounge',
+    effectId: 5400,
+  },
+  WINDFURY_WEAPON: {
+    id: 334302,
+    name: 'Flametongue Weapon',
+    icon: 'spell_fire_flametounge',
+    effectId: 5401,
   },
 });
 

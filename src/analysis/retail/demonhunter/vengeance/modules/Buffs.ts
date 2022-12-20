@@ -21,7 +21,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.FIERY_BRAND_DEBUFF.id,
+        spellId: SPELLS.FIERY_BRAND_DOT.id,
         triggeredBySpellId: TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.id),
         timelineHighlight: true,

@@ -102,6 +102,12 @@ const CooldownDetailsContainer = styled.div`
   }
   & > table td {
     padding-right: 1rem;
+
+    &:first-of-type {
+      max-width: 14em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 `;
 
@@ -171,7 +177,7 @@ const CooldownDetails = ({ analyzer, mit }: { analyzer: MajorDefensive; mit?: Mi
           </tr>
           {segments.map((seg, ix) => (
             <tr key={ix}>
-              <td style={{ width: '100%' }}>{seg.tooltip}</td>
+              <td>{seg.tooltip}</td>
               <NumericColumn>{formatNumber(seg.amount)}</NumericColumn>
               <TableSegmentContainer>
                 {ix > 0 && (
@@ -200,9 +206,14 @@ const CooldownDetails = ({ analyzer, mit }: { analyzer: MajorDefensive; mit?: Mi
             </td>
           </tr>
           {damageTakenRows.map(([spellId, events], ix) => {
-            // FIXME: this is unchecked. possible undefined error
-            const keyEvent = events.find(({ event }) => HasAbility(event))!
-              .event as AbilityEvent<any>;
+            const keyEvent = events.find(({ event }) => HasAbility(event))?.event as
+              | AbilityEvent<any>
+              | undefined;
+
+            if (!keyEvent) {
+              return null;
+            }
+
             const rowColor = color(keyEvent.ability.type);
 
             const mitigatedAmount = events.reduce((a, b) => a + b.mitigatedAmount, 0);

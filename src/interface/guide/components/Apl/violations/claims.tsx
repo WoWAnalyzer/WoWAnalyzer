@@ -95,7 +95,7 @@ function EventTimestamp({ event }: { event: AnyEvent }) {
   );
 }
 
-const ActualCastDescription = ({ event }: { event: Violation['actualCast'] }) => (
+export const ActualCastDescription = ({ event }: { event: Violation['actualCast'] }) => (
   <>
     At <EventTimestamp event={event} /> into the fight, you cast{' '}
     <SpellLink id={event.ability.guid} />
@@ -118,7 +118,7 @@ const overcastFillers: ViolationExplainer<InternalRule> = {
       (rule, index) =>
         rule.condition === undefined &&
         rule.spell.type === TargetType.Spell &&
-        index > (2 * apl.rules.length) / 3,
+        index >= (2 * apl.rules.length) / 3,
     );
     const claimsByRule: Map<InternalRule, Set<Violation>> = new Map();
 

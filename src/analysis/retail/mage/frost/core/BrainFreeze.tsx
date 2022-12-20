@@ -41,15 +41,15 @@ class BrainFreeze extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.BRAIN_FREEZE_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BRAIN_FREEZE_BUFF),
       this.brainFreezeApplied,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS.BRAIN_FREEZE_TALENT),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BRAIN_FREEZE_BUFF),
       this.brainFreezeRefreshed,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.BRAIN_FREEZE_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BRAIN_FREEZE_BUFF),
       this.brainFreezeRemoved,
     );
     this.addEventListener(
@@ -84,7 +84,7 @@ class BrainFreeze extends Analyzer {
 
   onFlurryCast(event: CastEvent) {
     const enemy = this.enemies.getEntity(event);
-    if (!this.selectedCombatant.hasBuff(TALENTS.BRAIN_FREEZE_TALENT.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.BRAIN_FREEZE_BUFF.id)) {
       this.flurryHardCast += 1;
     } else if (enemy && enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
       this.flurryOverlapped += 1;

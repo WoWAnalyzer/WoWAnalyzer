@@ -49,7 +49,7 @@ players focus on fixing things that will be the highest impact.
 
 Second, each mistake is shown only once. This is done by having the _most
 common_ problem explain the mistake. Other problems that claimed the mistake
-skip it. This helps keep players from getting overwhelmed (which oculd happen
+skip it. This helps keep players from getting overwhelmed (which could happen
 if we showed a large number of mistakes) or from being distracted by the same
 mistake being shown repeatedly.
 

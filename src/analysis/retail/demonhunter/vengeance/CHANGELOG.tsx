@@ -7,6 +7,12 @@ import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 
 // prettier-ignore
 export default [
+  change(date(2022, 12, 19), 'Add opt-in toggle for new defensives section.', ToppleTheNun),
+  change(date(2022, 12, 18), 'Further refine defensive buff tracking.', ToppleTheNun),
+  change(date(2022, 12, 18), 'Properly remove defensive buffs on death.', ToppleTheNun),
+  change(date(2022, 12, 16), 'Disable the Checklist.', ToppleTheNun),
+  change(date(2022, 12, 15), 'Remove "Return to Normal View" link from the Guide.', ToppleTheNun),
+  change(date(2022, 12, 15), <>Reduce number of <SpellLink id={SPELLS.FRAILTY} /> required for a good <SpellLink id={TALENTS.SOUL_CARVER_TALENT} /> to 5.</>, ToppleTheNun),
   change(date(2022, 12, 5), 'Update Vengeance guide based on feedback from Fel Hammer.', ToppleTheNun),
   change(date(2022, 12, 4), 'Mark the Guide as the default view.', ToppleTheNun),
   change(date(2022, 12, 4), 'Remove recommended enchants.', ToppleTheNun),

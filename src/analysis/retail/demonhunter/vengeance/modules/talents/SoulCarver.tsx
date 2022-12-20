@@ -7,16 +7,16 @@ import { PerformanceMark } from 'interface/guide';
 import Enemies from 'parser/shared/modules/Enemies';
 import Events, { CastEvent } from 'parser/core/Events';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
-import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/guide/VulnerabilityExplanation';
-import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/guide/FieryDemiseExplanation';
+import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/VulnerabilityExplanation';
+import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/FieryDemiseExplanation';
 import { Trans } from '@lingui/macro';
 import CastBreakdownSubSection, {
   Cast,
 } from 'analysis/retail/demonhunter/shared/guide/CastBreakdownSubSection';
 import { CooldownExpandableItem } from 'interface/guide/components/CooldownExpandable';
 
-const GOOD_FRAILTY_STACKS = 6;
-const OK_FRAILTY_STACKS = 4;
+const GOOD_FRAILTY_STACKS = 5;
+const OK_FRAILTY_STACKS = 3;
 
 interface SoulCarverCast extends Cast {
   timestamp: number;

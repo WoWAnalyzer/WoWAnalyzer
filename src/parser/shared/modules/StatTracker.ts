@@ -54,6 +54,25 @@ class StatTracker extends Analyzer {
     // endregion
 
     //region Food
+    // Both Hoard and Banquet share their food buff ID with Fated Fortune Cookie.
+    [SPELLS.FATED_FORTUNE_COOKIE.id]: { strength: 76, agility: 76, intellect: 76 },
+    [SPELLS.BRAISED_BRUFFALON_BRISKET.id]: { stamina: 59, strength: 32 },
+    [SPELLS.CHARRED_HORNSWOG_STEAKS.id]: { stamina: 39, strength: 22 },
+    [SPELLS.RIVERSIDE_PICNIC.id]: { stamina: 59, agility: 32 },
+    [SPELLS.SCRAMBLED_BASILISK_EGGS.id]: { stamina: 39, strength: 22 },
+    [SPELLS.ROAST_DUCK_DELIGHT.id]: { stamina: 59, intellect: 32 },
+    [SPELLS.THRICE_SPICED_MAMMOTH_KABOB.id]: { stamina: 39, intellect: 22 },
+    [SPELLS.SALTED_MEAT_MASH.id]: { stamina: 90 },
+    [SPELLS.HOPEFULLY_HEALTHY.id]: { stamina: 60 },
+    [SPELLS.FILET_OF_FANGS.id]: { crit: 70 },
+    [SPELLS.SALT_BAKED_FISHCAKE.id]: { mastery: 70 },
+    [SPELLS.SEAMOTH_SURPRISE.id]: { versatility: 70 },
+    [SPELLS.TIMELY_DEMISE.id]: { haste: 70 },
+    [SPELLS.AROMATIC_SEAFOOD_PLATTER.id]: { haste: 45, versatility: 45 },
+    [SPELLS.FIESTY_FISH_STICKS.id]: { haste: 45, crit: 45 },
+    [SPELLS.GREAT_CERULEAN_SEA.id]: { versatility: 45, mastery: 45 },
+    [SPELLS.REVENGE_SERVED_COLD.id]: { crit: 45, versatility: 45 },
+    [SPELLS.SIZZLING_SEAFOOD_MEDLEY.id]: { haste: 45, mastery: 45 },
     //endregion
 
     // region Conduits

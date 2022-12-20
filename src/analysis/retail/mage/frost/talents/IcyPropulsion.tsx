@@ -12,24 +12,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
-const COOLDOWN_REDUCTION_MS = [
-  0,
-  750,
-  830,
-  900,
-  980,
-  1005,
-  1130,
-  1200,
-  1280,
-  1350,
-  1430,
-  1500,
-  1580,
-  1650,
-  1730,
-  1800,
-];
+const COOLDOWN_REDUCTION_MS = 1000;
 
 class IcyPropulsion extends Analyzer {
   static dependencies = {
@@ -44,8 +27,7 @@ class IcyPropulsion extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = false;
-    this.conduitRank = 0;
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ICY_PROPULSION_TALENT);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
@@ -60,7 +42,7 @@ class IcyPropulsion extends Analyzer {
 
     this.cooldownReduction += this.spellUsable.reduceCooldown(
       TALENTS.ICY_VEINS_TALENT.id,
-      COOLDOWN_REDUCTION_MS[this.conduitRank],
+      COOLDOWN_REDUCTION_MS,
     );
   }
 

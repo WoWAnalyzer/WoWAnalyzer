@@ -11,7 +11,7 @@ import {
 } from 'analysis/retail/demonhunter/vengeance/guide/HitTimeline';
 import { t, Trans } from '@lingui/macro';
 
-export default function FieryBrandSection() {
+export default function FieryBrandSubSection() {
   const info = useInfo();
   const fieryBrand = useAnalyzer(FieryBrand);
   if (!info || !fieryBrand) {

@@ -47,8 +47,7 @@ const HIGHER_FOOD_IDS: number[] = [
   SPELLS.GREAT_CERULEAN_SEA.id,
   SPELLS.REVENGE_SERVED_COLD.id,
   SPELLS.SIZZLING_SEAFOOD_MEDLEY.id,
-  SPELLS.HOARD_OF_DRACONIC_DELICACIES.id,
-  SPELLS.GRAND_BANQUET_OF_THE_KALUAK.id,
+  // SPELLS.YUSAS_HEARTY_STEW.id,
   SPELLS.FATED_FORTUNE_COOKIE.id,
 ].filter((id) => id !== 0);
 
@@ -107,9 +106,7 @@ class FoodChecker extends Analyzer {
       importance = SUGGESTION_IMPORTANCE.MAJOR;
     }
     when(this.higherFoodSuggestionThresholds).addSuggestion((suggest) =>
-      suggest(suggestionText)
-        .icon(SPELLS.GRAND_BANQUET_OF_THE_KALUAK.icon)
-        .staticImportance(importance),
+      suggest(suggestionText).icon(SPELLS.FATED_FORTUNE_COOKIE.icon).staticImportance(importance),
     );
   }
 }

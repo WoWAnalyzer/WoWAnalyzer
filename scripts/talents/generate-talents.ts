@@ -17,8 +17,8 @@ import {
   ResourceTypes,
 } from './talent-tree-types';
 
-const WOW_BUILD_NUMBER = '10.0.2.46781';
-const TALENT_DATA_URL = 'https://www.raidbots.com/static/data/beta/new-talent-trees.json';
+const WOW_BUILD_NUMBER = '10.0.2.47187';
+const TALENT_DATA_URL = 'https://www.raidbots.com/static/data/live/talents.json';
 const SPELLPOWER_DATA_FILE = `./spellpower_${WOW_BUILD_NUMBER}.csv`;
 
 const classes: { [classId: number]: { name: string; baseMaxResource: number } } = {
@@ -69,13 +69,14 @@ async function generateTalents() {
           //talentType: classTalent.type,
           //Debugging values used for filtering later on
           spec: specTalents.specName,
+          talentId: talentSpell.id,
         };
 
         const entryInSpellPowerTable = spellpower.find(
-          (e) => parseInt(e.SpellID) === talentSpell.spellId,
+          (e) => Number(e.SpellID) === talentSpell.spellId,
         );
         if (entryInSpellPowerTable) {
-          const resourceId = parseInt(entryInSpellPowerTable.PowerType);
+          const resourceId = Number(entryInSpellPowerTable.PowerType);
           const resourceName = ResourceTypes[resourceId];
           const resourceCostKey = `${camalize(resourceName)}Cost` as ResourceCostType;
           talentObjectByClass[className]['Shared'][talentKey][resourceCostKey] = findResourceCost(
@@ -100,6 +101,7 @@ async function generateTalents() {
           icon: talentSpell.icon,
           //additional DF tree information
           maxRanks: talentSpell.maxRanks,
+          talentId: talentSpell.id,
           //reqPoints: specTalent.reqPoints ?? 0,
           //spellType: talentSpell.type,
           //talentType: specTalent.type,
@@ -107,10 +109,10 @@ async function generateTalents() {
           spec: specTalents.specName,
         };
         const entryInSpellPowerTable = spellpower.find(
-          (e) => parseInt(e.SpellID) === talentSpell.spellId,
+          (e) => Number(e.SpellID) === talentSpell.spellId,
         );
         if (entryInSpellPowerTable) {
-          const resourceId = parseInt(entryInSpellPowerTable.PowerType);
+          const resourceId = Number(entryInSpellPowerTable.PowerType);
           const resourceName = ResourceTypes[resourceId];
           const resourceCostKey = `${camalize(resourceName)}Cost` as ResourceCostType;
           talentObjectByClass[className][specTalents.specName][talentKey][
@@ -159,7 +161,9 @@ async function generateTalents() {
           Object.values(cleanedTalentObjectByClass[lowerCasedClassName]).flatMap(
             (addedSpecTalents) => {
               return Object.values(addedSpecTalents).filter(
-                (singleAddedTalent) => singleAddedTalent.id === talent.id,
+                (singleAddedTalent) =>
+                  singleAddedTalent.id === talent.id &&
+                  singleAddedTalent.talentId === talent.talentId,
               );
             },
           ).length > 0;

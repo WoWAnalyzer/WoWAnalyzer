@@ -71,13 +71,16 @@ const ReportLoader = ({ children }: Props) => {
   const handleRefresh = useCallback(() => {
     if (reportCode) {
       // noinspection JSIgnoredPromiseFromCall
-      loadReport(reportCode, REFRESH_BY_DEFAULT);
+      loadReport(reportCode, true);
     }
   }, [loadReport, reportCode]);
 
   useEffect(() => {
-    handleRefresh();
-  }, [handleRefresh]);
+    if (reportCode) {
+      // noinspection JSIgnoredPromiseFromCall
+      loadReport(reportCode, REFRESH_BY_DEFAULT);
+    }
+  }, [loadReport, reportCode]);
 
   if (error) {
     return handleApiError(error, () => {

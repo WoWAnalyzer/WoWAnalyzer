@@ -11,11 +11,24 @@ import {
   Sref,
   Tialyss,
   ToppleTheNun,
+  Vireve,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2022, 12, 20), 'Export additional information for each talent to help identify talents that affect the same spell (such as Berserk: X talents for Guardian Druid).', Putro),
+  change(date(2022, 12, 19), 'Fixed an issue for tracking leg enhancements.', Vireve),
+  change(date(2022, 12, 20), 'Fix an issue with talents that cost a decimal % of base mana', Putro),
+  change(date(2022, 12, 19), 'Fix rendering issue with performance boxes on Brewmaster Monk and Restoration Druid summaries.', emallson),
+  change(date(2022, 12, 19), 'Regenerate talents.', ToppleTheNun),
+  change(date(2022, 12, 14), 'Remove Shadowlands items.', ToppleTheNun),
+  change(date(2022, 12, 17), 'Fixed an issue with forward event lookups in Event History.', Sharrq),
+  change(date(2022, 12, 14), 'Correct effect IDs for Tailoring leg enhancements.', ToppleTheNun),
+  change(date(2022, 12, 14), 'Update Vantus Rune check to use Vault of the Incarnates Vantus Runes.', ToppleTheNun),
+  change(date(2022, 12, 14), "Add spell data for Hoard of Draconic Delicacies and Grand Feast of the Kalu'ak.", ToppleTheNun),
+  change(date(2022, 12, 13), 'Mark T28 tier set references as deprecated.', ToppleTheNun),
+  change(date(2022, 12, 13), 'Add stat enhancements for foods except for feasts.', ToppleTheNun),
   change(date(2022, 12, 8), 'Updated rating per % values in StatTracker to 70 levels, and updated base mana pools in preparation for next talent regeneration', Putro),
   change(date(2022, 12, 8), 'Add support for empowered cast log events.', ToppleTheNun),
   change(date(2022, 12, 7), 'Update Vault of the Incarnates boss images.', ToppleTheNun),
