@@ -21,6 +21,10 @@ type Spell = {
   id: number;
 };
 
+type Talent = {
+  talentId: number;
+};
+
 export type Race = {
   id: number;
   mask?: number;
@@ -114,9 +118,11 @@ class Combatant extends Entity {
   }
 
   private treeTalentsBySpellId: Map<number, TalentEntry> = new Map();
+  private treeTalentsByTalentId: Map<number, TalentEntry> = new Map();
   private _importTalentTree(talents: TalentEntry[]) {
     talents?.forEach((talent) => {
       this.treeTalentsBySpellId.set(talent.spellID, talent);
+      this.treeTalentsByTalentId.set(talent.id, talent);
     });
   }
 
@@ -125,6 +131,16 @@ class Combatant extends Entity {
   hasTalent(spell: number | Spell): boolean {
     const spellId = typeof spell === 'number' ? spell : spell.id;
     return this.treeTalentsBySpellId.has(spellId);
+  }
+
+  /**
+   * Certain talents have the same SpellID and can only be distinguished by their TalentID.
+   * In the raidbots generated file, and in the WarcraftLogs API CombatantInfo, the field simply called 'id'.
+   * Returns true if this combatant has the specified talent at any given rank.
+   */
+  hasTalentByTalentId(spell: number | Talent): boolean {
+    const talentId = typeof spell === 'number' ? spell : spell.talentId;
+    return this.treeTalentsByTalentId.has(talentId);
   }
 
   /**
