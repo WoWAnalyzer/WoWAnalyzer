@@ -17,7 +17,7 @@ import { t, Trans } from '@lingui/macro';
 import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/demonhunter';
 import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/CastSummaryAndBreakdown';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 
 export default class SoulCleave extends Analyzer {
   static dependencies = {
@@ -159,7 +159,7 @@ export default class SoulCleave extends Analyzer {
     return [QualitativePerformance.Good, null];
   }
 
-  guideSubsection() {
+  guideSubsection(hideExplanation: boolean) {
     const explanation = (
       <p>
         <Trans id="guide.demonhunter.vengeance.sections.rotation.soulCleave.explanation">
@@ -204,9 +204,12 @@ export default class SoulCleave extends Analyzer {
       </div>
     );
 
-    return explanationAndDataSubsection(
-      explanation,
-      this.castEntries.length > 0 ? data : noCastData,
+    return (
+      <ExplanationAndDataSubSection
+        explanation={explanation}
+        data={this.castEntries.length > 0 ? data : noCastData}
+        hideExplanation={hideExplanation}
+      />
     );
   }
 }

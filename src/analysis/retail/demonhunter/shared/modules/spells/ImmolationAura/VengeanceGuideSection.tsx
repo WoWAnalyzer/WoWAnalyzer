@@ -4,13 +4,13 @@ import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS/demonhunter';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 import { t, Trans } from '@lingui/macro';
 
 import CastSummaryAndBreakdown from '../../../guide/CastSummaryAndBreakdown';
 import FalloutSnippet from './FalloutSnippet';
 
-const VengeanceGuideSection = () => {
+const VengeanceGuideSection = ({ hideExplanation }: { hideExplanation: boolean }) => {
   const info = useInfo();
   const immolationAura = useAnalyzer(ImmolationAura);
   if (!info || !immolationAura) {
@@ -68,9 +68,12 @@ const VengeanceGuideSection = () => {
     </div>
   );
 
-  return explanationAndDataSubsection(
-    explanation,
-    immolationAura.castEntries.length > 0 ? data : noCastData,
+  return (
+    <ExplanationAndDataSubSection
+      explanation={explanation}
+      data={immolationAura.castEntries.length > 0 ? data : noCastData}
+      hideExplanation={hideExplanation}
+    />
   );
 };
 

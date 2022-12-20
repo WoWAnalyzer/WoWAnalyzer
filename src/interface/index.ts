@@ -14,3 +14,4 @@ export { default as ErrorBoundary } from './ErrorBoundary';
 export { default as Tooltip, TooltipElement } from './Tooltip';
 export { default as makeAnalyzerUrl } from './makeAnalyzerUrl';
 export { Expandable, ControlledExpandable } from './Expandable';
+export { default as VerticallyAlignedToggle } from './VerticallyAlignedToggle';

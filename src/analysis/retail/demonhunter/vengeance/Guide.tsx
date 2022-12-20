@@ -8,6 +8,7 @@ import PreparationSection from 'interface/guide/components/Preparation/Preparati
 import ImmolationAuraVengeanceGuideSection from 'analysis/retail/demonhunter/shared/modules/spells/ImmolationAura/VengeanceGuideSection';
 import { t, Trans } from '@lingui/macro';
 import { PerformanceStrong } from 'analysis/retail/demonhunter/shared/guide/ExtraComponents';
+import VerticallyAlignedToggle from 'interface/VerticallyAlignedToggle';
 
 import DemonSpikesSubSection from './modules/spells/DemonSpikes/GuideSection';
 import FieryBrandSubSection from './modules/talents/FieryBrand/GuideSection';
@@ -15,8 +16,8 @@ import VoidReaverSubSection from './modules/talents/VoidReaver/GuideSection';
 import MetamorphosisSubSection from './modules/spells/Metamorphosis/GuideSection';
 import CooldownGraphSubsection from './guide/CooldownGraphSubSection';
 import MajorDefensives from './modules/core/MajorDefensives';
-import EnableNewDefensivesSectionToggle from './guide/EnableNewDefensivesSectionToggle';
 import useVdhFeatureFlag from './guide/useVdhFeatureFlag';
+import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -108,7 +109,13 @@ function MitigationSection() {
       <div className="flex">
         <div className="flex-main" />
         <div className="flex-sub">
-          <EnableNewDefensivesSectionToggle enabled={enabled} setEnabled={setEnabled} />
+          <VerticallyAlignedToggle
+            id="enable-new-defensives-section-toggle"
+            enabled={enabled}
+            setEnabled={setEnabled}
+            label="View In-Flight Content"
+            tooltipContent="Only click this if you're okay with seeing under-development features. If things don't work how you expect, you can always turn this back off."
+          />
         </div>
       </div>
       {enabled && <MajorDefensives />}
@@ -129,6 +136,10 @@ function OldMitigationSection() {
 }
 
 function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+  const [isHideExplanationEnabled, setHideExplanationEnabled] = useVdhFeatureFlag(
+    'rotation-explanation',
+  );
+
   return (
     <Section
       title={t({
@@ -141,6 +152,7 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
         the Dragonflight launch. It is currently a reasonable starting point, but may not match the
         optimal rotation yet.
       </AlertWarning>
+      <br />
       <p>
         <Trans id="guide.demonhunter.vengeance.sections.rotation.summary">
           Vengeance's core rotation involves <strong>building</strong> and then{' '}
@@ -148,12 +160,18 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
           s, which heal for 6% of damage taken in the 5 seconds before they are absorbed.
         </Trans>
       </p>
+      <br />
+      <HideExplanationsToggle
+        hideExplanations={isHideExplanationEnabled}
+        setHideExplanations={setHideExplanationEnabled}
+        id="hide-rotation-explanations"
+      />
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT) &&
-        modules.fracture.guideSubsection()}
-      <ImmolationAuraVengeanceGuideSection />
-      {modules.soulCleave.guideSubsection()}
+        modules.fracture.guideSubsection(isHideExplanationEnabled)}
+      <ImmolationAuraVengeanceGuideSection hideExplanation={isHideExplanationEnabled} />
+      {modules.soulCleave.guideSubsection(isHideExplanationEnabled)}
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT) &&
-        modules.spiritBomb.guideSubsection()}
+        modules.spiritBomb.guideSubsection(isHideExplanationEnabled)}
     </Section>
   );
 }
