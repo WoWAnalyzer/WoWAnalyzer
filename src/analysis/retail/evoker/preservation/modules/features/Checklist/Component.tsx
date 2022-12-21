@@ -36,9 +36,9 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
         name="Use core abilities as often as possible"
         description="Aim to keep core rotational abilities on cooldown to maximize healing"
       >
-        <AbilityRequirement spell={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} />
+        <AbilityRequirement spell={SPELLS.DREAM_BREATH_EMPOWER.id} />
         {combatant.hasTalent(TALENTS_EVOKER.SPIRITBLOOM_TALENT) && (
-          <AbilityRequirement spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT.id} />
+          <AbilityRequirement spell={SPELLS.SPIRITBLOOM_EMPOWER.id} />
         )}
         {combatant.hasTalent(TALENTS_EVOKER.REVERSION_TALENT) && (
           <AbilityRequirement spell={TALENTS_EVOKER.REVERSION_TALENT.id} />
