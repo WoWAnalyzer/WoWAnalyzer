@@ -5,7 +5,6 @@ import { Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
-  change(date(2022, 12, 20), <>Fix cast efficiency tracking for empowered spells</>, Trevor),
   change(date(2022, 12, 14), <>Improved accuracy of <SpellLink id={TALENTS_EVOKER.ECHO_TALENT}/> module</>, Trevor),
   change(date(2022, 12, 14), <>Updated Mastery Effectiveness to include the value of the healing done in the effectiveness evaluation</>, Vohrr),
   change(date(2022, 12, 7), <>Fix load condition for <SpellLink id={TALENTS_EVOKER.DREAM_FLIGHT_TALENT.id}/></>, Trevor),

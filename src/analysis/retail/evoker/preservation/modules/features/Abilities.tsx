@@ -1,5 +1,4 @@
 import TALENTS from 'common/TALENTS/evoker';
-import SPELLS from 'common/SPELLS';
 import CoreAbilities from 'analysis/retail/evoker/shared/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
@@ -22,7 +21,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.DREAM_BREATH_EMPOWER.id,
+        spell: TALENTS.DREAM_BREATH_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.DREAM_BREATH_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 30,
@@ -52,7 +51,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.TIME_DILATION_TALENT.id),
       },
       {
-        spell: SPELLS.SPIRITBLOOM_EMPOWER.id,
+        spell: TALENTS.SPIRITBLOOM_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 30,
         gcd: {
