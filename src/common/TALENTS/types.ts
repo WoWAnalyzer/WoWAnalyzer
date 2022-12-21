@@ -13,12 +13,11 @@ enum EntryType {
 
 export interface Talent extends Spell {
   maxRanks: number;
-  talentId: number;
+  entryIds: number[];
   //These three are currently not exported in the script - but they could be if we deem the information necessary
   reqPoints?: number;
   talentType?: ClassNodeType;
   spellType?: EntryType;
-  __ignoreDuplication: true;
 }
 
 export type SpellList<T, SpellType extends Spell = Spell> = { [Key in keyof T]: SpellType };
