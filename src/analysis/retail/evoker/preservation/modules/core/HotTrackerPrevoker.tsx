@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { Options } from 'parser/core/Analyzer';
-import { HealEvent } from 'parser/core/Events';
 import HotTracker, { Tracker, HotInfo } from 'parser/shared/modules/HotTracker';
 import {
   REVERSION_BASE_DURATION,
@@ -41,21 +40,6 @@ class HotTrackerPrevoker extends HotTracker {
   fromCallOfYsera(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
       return attr.name.includes('Call Of Ysera');
-    });
-  }
-
-  isFromStasis(event: HealEvent): boolean {
-    if (!event.tick) {
-      return false;
-    }
-    const targetID = event.targetID;
-    const spellID = event.ability.guid;
-    if (!this.hots[targetID] || !this.hots[targetID][spellID]) {
-      return false;
-    }
-    const hot = this.hots[targetID][spellID];
-    return hot.attributions.some((attr) => {
-      return attr.name === 'Stasis';
     });
   }
 

@@ -28,7 +28,7 @@ export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera'; // link buff
 export const FIELD_OF_DREAMS_PROC = 'FromFieldOfDreams'; // link EB heal to fluttering heal
 export const HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
 export const BUFF_GROUPING = 'BuffGrouping'; // link ApplyBuff events together
-export const STASIS = 'Stasis';
+export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
 
 const CAST_BUFFER_MS = 100;
 const ECHO_BUFFER = 500;
@@ -36,7 +36,6 @@ const EB_BUFFER_MS = 2000;
 const EB_VARIANCE_BUFFER = 150; // servers are bad and EB can take over or under 2s to actually trigger
 const MAX_ECHO_DURATION = 20000; // 15s with 30% inc = 19s
 const TA_BUFFER_MS = 6000 + CAST_BUFFER_MS; //TA pulses over 6s at 0% haste
-const STASIS_BUFFER = 1000;
 
 /*
   This file is for attributing echo applications to hard casts or to temporal anomaly.
@@ -48,7 +47,7 @@ const EVENT_LINKS: EventLink[] = [
   /* ECHO CAST TO ECHO APPLY LINKING */
   //link shield apply to cast event
   {
-    linkRelation: FROM_HARDCAST,
+    linkRelation: SHIELD_FROM_TA_CAST,
     linkingEventId: [SPELLS.TEMPORAL_ANOMALY_SHIELD.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: [TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT.id],
@@ -76,7 +75,6 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.TEMPORAL_ANOMALY_SHIELD.id,
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    reverseLinkRelation: FROM_TEMPORAL_ANOMALY,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     isActive(c) {
@@ -355,87 +353,6 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
-  // STASIS LINKING
-  // stasis buffs
-  {
-    linkRelation: STASIS,
-    linkingEventId: SPELLS.STASIS_BUFF.id,
-    linkingEventType: EventType.RemoveBuff,
-    referencedEventId: [
-      SPELLS.DREAM_BREATH.id,
-      TALENTS_EVOKER.REVERSION_TALENT.id,
-      TALENTS_EVOKER.ECHO_TALENT.id,
-    ],
-    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    reverseLinkRelation: STASIS,
-    forwardBufferMs: STASIS_BUFFER,
-  },
-  // stasis 1 time heals
-  {
-    linkRelation: STASIS,
-    linkingEventId: SPELLS.STASIS_BUFF.id,
-    linkingEventType: EventType.RemoveBuff,
-    referencedEventId: [
-      SPELLS.SPIRITBLOOM.id,
-      SPELLS.SPIRITBLOOM_SPLIT.id,
-      SPELLS.LIVING_FLAME_HEAL.id,
-      SPELLS.DREAM_BREATH.id,
-      SPELLS.VERDANT_EMBRACE_HEAL.id,
-    ],
-    referencedEventType: EventType.Heal,
-    reverseLinkRelation: STASIS,
-    forwardBufferMs: STASIS_BUFFER,
-    additionalCondition(linkedEvent, referencedEvent) {
-      return !HasRelatedEvent(referencedEvent, FROM_HARDCAST);
-    },
-  },
-  // stasis emerald blossom
-  {
-    linkRelation: STASIS,
-    linkingEventId: SPELLS.STASIS_BUFF.id,
-    linkingEventType: EventType.RemoveBuff,
-    referencedEventId: [
-      SPELLS.DREAM_BREATH.id,
-      TALENTS_EVOKER.REVERSION_TALENT.id,
-      TALENTS_EVOKER.ECHO_TALENT.id,
-    ],
-    referencedEventType: EventType.Heal,
-    reverseLinkRelation: STASIS,
-    forwardBufferMs: STASIS_BUFFER + EB_BUFFER_MS,
-    additionalCondition(linkedEvent, referencedEvent) {
-      return (
-        !HasRelatedEvent(referencedEvent, FROM_HARDCAST) &&
-        !HasRelatedEvent(referencedEvent, FIELD_OF_DREAMS_PROC)
-      );
-    },
-  },
-  {
-    linkRelation: STASIS,
-    linkingEventId: SPELLS.STASIS_BUFF.id,
-    linkingEventType: EventType.RemoveBuff,
-    referencedEventId: [
-      SPELLS.DREAM_BREATH.id,
-      TALENTS_EVOKER.REVERSION_TALENT.id,
-      TALENTS_EVOKER.ECHO_TALENT.id,
-    ],
-    referencedEventType: EventType.ApplyBuff,
-    reverseLinkRelation: STASIS,
-    forwardBufferMs: STASIS_BUFFER,
-  },
-  // stasis TA applies
-  // stasis buffs
-  {
-    linkRelation: STASIS,
-    linkingEventId: SPELLS.STASIS_BUFF.id,
-    linkingEventType: EventType.RemoveBuff,
-    referencedEventId: SPELLS.TEMPORAL_ANOMALY_SHIELD.id,
-    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    reverseLinkRelation: STASIS,
-    forwardBufferMs: STASIS_BUFFER + TA_BUFFER_MS,
-    additionalCondition(linkedEvent, referencedEvent) {
-      return !HasRelatedEvent(referencedEvent, FROM_HARDCAST);
-    },
-  },
 ];
 
 /**
@@ -460,22 +377,6 @@ export function isFromHardcastEcho(event: AbilityEvent<any>): boolean {
 
 export function isFromTAEcho(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
   return HasRelatedEvent(event, ECHO_TEMPORAL_ANOMALY);
-}
-
-export function isEchoHealFromStasis(event: HealEvent) {
-  // heal could be from a stasis echo
-  if (HasRelatedEvent(event, ECHO_REMOVAL)) {
-    const echoBuff = GetRelatedEvents(event, ECHO_REMOVAL)[0];
-    return HasRelatedEvent(echoBuff, STASIS);
-  } else if (HasRelatedEvent(event, ECHO_TEMPORAL_ANOMALY)) {
-    const echoBuff = GetRelatedEvents(event, ECHO_TEMPORAL_ANOMALY)[0];
-    return HasRelatedEvent(echoBuff, STASIS);
-  }
-  return false;
-}
-
-export function isFromStasis(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
-  return HasRelatedEvent(event, STASIS);
 }
 
 export function isFromDreamBreathCallOfYsera(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
