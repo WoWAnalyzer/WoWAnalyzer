@@ -8,7 +8,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { getHealEvents, isFromFieldOfDreams } from '../../normalizers/CastLinkNormalizer';
+import { getHealEvents } from '../../normalizers/CastLinkNormalizer';
 import { SpellLink } from 'interface';
 import { formatNumber } from 'common/format';
 import { t } from '@lingui/macro';
@@ -20,7 +20,7 @@ class EmeraldBlossom extends Analyzer {
   bountifulBloomHealing: number = 0;
   bountifulBloomOverhealing: number = 0;
   extraBountifulHits: number = 0;
-  numCasts: number = 0;
+  numBlossoms: number = 0;
   totalHits: number = 0;
   totalHealing: number = 0;
   totalOverhealing: number = 0;
@@ -38,11 +38,11 @@ class EmeraldBlossom extends Analyzer {
   }
 
   get averageNumTargets() {
-    return this.totalHits / this.numCasts;
+    return this.totalHits / this.numBlossoms;
   }
 
   get averageExtraTargets() {
-    return this.extraBountifulHits / this.numCasts;
+    return this.extraBountifulHits / this.numBlossoms;
   }
 
   // batch process all healevents for single cast to easily decide which to attribute to bountiful
@@ -52,11 +52,8 @@ class EmeraldBlossom extends Analyzer {
     }
 
     const allHealingEvents = getHealEvents(event);
-    if (!isFromFieldOfDreams(event)) {
-      this.numCasts += 1;
-      this.totalHits += allHealingEvents.length;
-    }
-
+    this.totalHits += allHealingEvents.length;
+    this.numBlossoms += 1;
     for (let i = 0; i < allHealingEvents.length; i += 1) {
       const ev = allHealingEvents[i];
       this.totalHealing += (ev.amount || 0) + (ev.absorbed || 0);

@@ -312,6 +312,8 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: [SPELLS.EMERALD_BLOSSOM.id, SPELLS.TEMPORAL_ANOMALY_SHIELD.id],
     referencedEventType: EventType.Heal,
     anyTarget: true,
+    forwardBufferMs: 25,
+    backwardBufferMs: 25,
     additionalCondition(linkingEvent, referencedEvent) {
       if (
         (linkingEvent as AbilityEvent<any>).ability.guid !==
