@@ -32,7 +32,7 @@ class Abilities extends CoreAbilities {
       //endregion
       //region Damage Spells
       {
-        spell: SPELLS.FIRE_BREATH.id,
+        spell: SPELLS.FIRE_BREATH_EMPOWER.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
         cooldown: 30,
         gcd: {
