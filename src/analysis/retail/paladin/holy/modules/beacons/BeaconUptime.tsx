@@ -379,14 +379,14 @@ class BeaconUptime extends Analyzer {
   }
 
   _endOfFight(event: FightEndEvent) {
-    if (this.hasBoL) {
-      this._handleBoLEvents(event);
-      return;
-    }
-
     if (this.hasBoF) {
       this._handleBoLEvents(event);
       this._handleBoFEvents(event);
+      return;
+    }
+
+    if (this.hasBoL) {
+      this._handleBoLEvents(event);
       return;
     }
 

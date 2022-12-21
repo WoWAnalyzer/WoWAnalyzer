@@ -9,6 +9,7 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import HolyPowerTracker from './HolyPowerTracker';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const holyPowerIcon = 'inv_helmet_96';
 
@@ -16,6 +17,8 @@ class HolyPowerDetails extends Analyzer {
   static dependencies = {
     holyPowerTracker: HolyPowerTracker,
   };
+
+  protected holyPowerTracker!: HolyPowerTracker;
 
   get wastedHolyPowerPercent() {
     return (
@@ -32,11 +35,11 @@ class HolyPowerDetails extends Analyzer {
         average: 0.95,
         major: 0.92,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(`You wasted ${formatNumber(this.holyPowerTracker.wasted)} Holy Power.`)
         .icon(holyPowerIcon)
@@ -64,8 +67,8 @@ class HolyPowerDetails extends Analyzer {
           label="Holy Power Wasted"
         />
       </Statistic>,
-      <Panel key="Panel" title="Holy power usage" pad={false}>
-        <ResourceBreakdown tracker={this.holyPowerTracker} resourceName="Holy Power" showSpenders />
+      <Panel key="Panel" title="Holy power usage" pad={false} position={120}>
+        <ResourceBreakdown tracker={this.holyPowerTracker} showSpenders />
       </Panel>,
     ];
   }
