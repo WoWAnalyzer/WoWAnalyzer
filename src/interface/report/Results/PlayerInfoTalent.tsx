@@ -13,7 +13,6 @@ const FALLBACK_ICON = 'inv_misc_questionmark';
 const PlayerInfoTalent = ({ talentEntry }: Props) => {
   const talent = getTalentFromEntry(talentEntry);
   if (!talent) {
-    console.log(talentEntry);
     return (
       <>
         <div className="talent-icon">

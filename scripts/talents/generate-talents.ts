@@ -176,8 +176,7 @@ async function generateTalents() {
         return collidingTalents;
       }
 
-      // only spec or only class talents are present, but we might have multiple from the same spec (hi shaman!)
-      // or multiple variations across class trees
+      // attempt to merge talents into a single one. ideally, we merge them all and can just produce a single talent object
       const result: typeof classTalents = [];
       while (collidingTalents.length > 0) {
         const next = collidingTalents.shift()!;
