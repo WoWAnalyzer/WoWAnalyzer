@@ -52,20 +52,29 @@ class DivineStar extends Analyzer {
   }
 
   get guideSubsectionHoly(): JSX.Element {
+    // if player isn't running divine star, don't show guide section
+    if (!this.selectedCombatant.hasTalent(TALENTS.DIVINE_STAR_SHARED_TALENT)) {
+      return <></>;
+    }
     const explanation = (
-      <p>
-        <b>
-          <SpellLink id={TALENTS.DIVINE_STAR_SHARED_TALENT.id} />
-        </b>{' '}
-        is a strong group heal on a short length cooldown. You will want to cast this on cooldown,
-        only holding it for a few seconds if everyone is full health and you know group damage will
-        happen soon. This spell will only perform well if you are casting it on cooldown and your
-        raid is stacked together for most of the fight. If you are struggling to cast this on
-        cooldown, or are on a fight with a lot of spread out healing, try swapping to Halo instead.
-      </p>
+      <>
+        <p>
+          <b>
+            <SpellLink id={TALENTS.DIVINE_STAR_SHARED_TALENT.id} />
+          </b>{' '}
+          is a strong group heal on a short length cooldown. You will want to cast this on cooldown,
+          only holding it for a few seconds if everyone is full health and you know group damage
+          will happen soon.
+        </p>
+        <p>
+          This spell will only perform well if you are casting it on cooldown and your raid is
+          stacked together for most of the fight. If you are struggling to cast this on cooldown, or
+          are on a fight with a lot of spread out healing, try swapping to Halo instead.
+        </p>
+      </>
     );
 
-    const data = <CastEfficiencyPanel spell={SPELLS.HALO_TALENT} useThresholds />;
+    const data = <CastEfficiencyPanel spell={TALENTS.DIVINE_STAR_SHARED_TALENT} useThresholds />;
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }

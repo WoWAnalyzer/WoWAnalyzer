@@ -44,6 +44,10 @@ class Halo extends Analyzer {
   }
 
   get guideSubsectionHoly(): JSX.Element {
+    // if player isn't running halo, don't show guide section
+    if (!this.selectedCombatant.hasTalent(SPELLS.HALO_TALENT.id)) {
+      return <></>;
+    }
     const explanation = (
       <p>
         <b>

@@ -10,7 +10,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/priest/holy/Guide';
-import { getHeals } from '../../normalizers/CastLinkNormalizer';
+import { getCircleOfHealingEvents } from '../../normalizers/CastLinkNormalizer';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 import { BadColor, OkColor, GoodColor } from 'interface/guide';
 import CastEfficiencyPanel from 'interface/guide/components/CastEfficiencyPanel';
@@ -57,7 +57,7 @@ class CircleOfHealing extends Analyzer {
 
   onCohCast(event: CastEvent) {
     // get linked heal events for this cast
-    const heals = getHeals(event);
+    const heals = getCircleOfHealingEvents(event);
     let targetsHit = 0;
     let healing = 0;
     let overhealing = 0;
