@@ -606,7 +606,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [112300],
   },
-  SUDDEN_DEATH_PROTECTION_TALENT: {
+  SUDDEN_DEATH_SPEC_TALENT: {
     id: 29725,
     name: 'Sudden Death',
     icon: 'ability_warrior_improveddisciplines',
@@ -754,7 +754,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [112279],
   },
-  MASSACRE_PROTECTION_TALENT: {
+  MASSACRE_SPEC_TALENT: {
     id: 281001,
     name: 'Massacre',
     icon: 'inv_sword_48',

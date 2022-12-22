@@ -144,14 +144,14 @@ const talents = createTalentList({
     name: 'Shadowstep',
     icon: 'ability_rogue_shadowstep',
     maxRanks: 1,
-    entryIds: [112583, 112617],
+    entryIds: [112583],
   },
-  SHADOWSTEP_ASSASSINATION_TALENT: {
+  SHADOWSTEP_SPEC_TALENT: {
     id: 36554,
     name: 'Shadowstep',
     icon: 'ability_rogue_shadowstep',
     maxRanks: 1,
-    entryIds: [112675],
+    entryIds: [112675, 112617],
   },
   SUBTERFUGE_TALENT: {
     id: 108208,

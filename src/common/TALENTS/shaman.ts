@@ -281,12 +281,20 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101979],
   },
-  HEALING_STREAM_TOTEM_TALENT: {
+  HEALING_STREAM_TOTEM_SHARED_TALENT: {
     id: 5394,
     name: 'Healing Stream Totem',
     icon: 'inv_spear_04',
     maxRanks: 1,
-    entryIds: [101998, 101900],
+    entryIds: [101998],
+    manaCost: 4500,
+  },
+  HEALING_STREAM_TOTEM_RESTORATION_TALENT: {
+    id: 5394,
+    name: 'Healing Stream Totem',
+    icon: 'inv_spear_04',
+    maxRanks: 1,
+    entryIds: [101900],
     manaCost: 4500,
   },
   IMPROVED_LIGHTNING_BOLT_TALENT: {
@@ -586,7 +594,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101800],
   },
-  REFRESHING_WATERS_RESTORATION_TALENT: {
+  REFRESHING_WATERS_SPEC_TALENT: {
     id: 378211,
     name: 'Refreshing Waters',
     icon: 'ability_shaman_fortifyingwaters',

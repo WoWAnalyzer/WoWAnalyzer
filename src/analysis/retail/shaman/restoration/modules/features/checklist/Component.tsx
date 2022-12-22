@@ -35,8 +35,8 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           <Trans id="shaman.restoration.checklist.efficientSpells.description">
             Spells such as <SpellLink id={TALENTS.RIPTIDE_TALENT.id} />,{' '}
             <SpellLink id={TALENTS.HEALING_RAIN_TALENT.id} /> and{' '}
-            <SpellLink id={TALENTS.HEALING_STREAM_TOTEM_TALENT.id} /> are your most efficient spells
-            available. Try to cast them as much as possible without overhealing.{' '}
+            <SpellLink id={TALENTS.HEALING_STREAM_TOTEM_SHARED_TALENT.id} /> are your most efficient
+            spells available. Try to cast them as much as possible without overhealing.{' '}
             <TooltipElement
               content={t({
                 id: 'shaman.restoration.checklist.efficientSpells.description.tooltip',
@@ -64,8 +64,8 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           <AbilityRequirement spell={TALENTS.HEALING_RAIN_TALENT.id} />
         )}
         {!combatant.hasTalent(TALENTS.CLOUDBURST_TOTEM_TALENT.id) &&
-          combatant.hasTalent(TALENTS.HEALING_STREAM_TOTEM_TALENT.id) && (
-            <AbilityRequirement spell={TALENTS.HEALING_STREAM_TOTEM_TALENT.id} />
+          combatant.hasTalent(TALENTS.HEALING_STREAM_TOTEM_SHARED_TALENT.id) && (
+            <AbilityRequirement spell={TALENTS.HEALING_STREAM_TOTEM_SHARED_TALENT.id} />
           )}
         {combatant.hasTalent(TALENTS.CLOUDBURST_TOTEM_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.CLOUDBURST_TOTEM_TALENT.id} />
@@ -104,9 +104,9 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           </Trans>
         }
       >
-        {combatant.hasTalent(TALENTS.HEALING_STREAM_TOTEM_TALENT.id) &&
+        {combatant.hasTalent(TALENTS.HEALING_STREAM_TOTEM_SHARED_TALENT.id) &&
           !combatant.hasTalent(TALENTS.CLOUDBURST_TOTEM_TALENT.id) && (
-            <AbilityRequirement spell={TALENTS.HEALING_STREAM_TOTEM_TALENT.id} />
+            <AbilityRequirement spell={TALENTS.HEALING_STREAM_TOTEM_SHARED_TALENT.id} />
           )}
         {combatant.hasTalent(TALENTS.SPIRIT_LINK_TOTEM_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.SPIRIT_LINK_TOTEM_TALENT.id} />

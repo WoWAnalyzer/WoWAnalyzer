@@ -328,8 +328,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_SHAMAN.HEALING_STREAM_TOTEM_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.HEALING_STREAM_TOTEM_TALENT.id),
+        spell: TALENTS_SHAMAN.HEALING_STREAM_TOTEM_SHARED_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.HEALING_STREAM_TOTEM_SHARED_TALENT),
         category: SPELL_CATEGORY.OTHERS,
         cooldown:
           30 -

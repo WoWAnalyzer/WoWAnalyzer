@@ -210,8 +210,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHADOW_STEP.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
-        charges: 1 + (combatant.hasTalent(TALENTS.SHADOWSTEP_TALENT.id) ? 1 : 0),
+        charges: combatant.getRepeatedTalentCount(TALENTS.SHADOWSTEP_SHARED_TALENT),
         gcd: null,
+        enabled: combatant.hasTalent(TALENTS.SHADOWSTEP_SHARED_TALENT),
       },
       {
         spell: SPELLS.SPRINT.id,

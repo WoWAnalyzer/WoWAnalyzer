@@ -91,9 +91,13 @@ const entryToSpell = (
  * - they must have the same name
  * - they must have the same spell id
  * - they must occur for different specs
+ * - they cannot be across different tree types (e.g. class + spec)
  */
 const canSafelyMerge = (left: GenericTalentInterface, right: GenericTalentInterface): boolean =>
-  left.name === right.name && left.id === right.id && left.spec !== right.spec;
+  left.name === right.name &&
+  left.id === right.id &&
+  left.spec !== right.spec &&
+  left.sourceTree === right.sourceTree;
 
 /**
  * Merge talent objects without confirming the validity. Left-biased.
@@ -172,18 +176,6 @@ async function generateTalents() {
         return collidingTalents;
       }
 
-      const hasMixedTalents =
-        collidingTalents.some((talent) => talent.value.spec === 'class') &&
-        !collidingTalents.every((talent) => talent.value.spec === 'class');
-
-      if (hasMixedTalents) {
-        // we're going to forcibly disambiguate when a class talent & spec talent are present.
-        return collidingTalents.map((talent) => ({
-          key: talent.conflictKey,
-          value: talent.value,
-        }));
-      }
-
       // only spec or only class talents are present, but we might have multiple from the same spec (hi shaman!)
       // or multiple variations across class trees
       const result: typeof classTalents = [];
@@ -193,6 +185,14 @@ async function generateTalents() {
         if (target) {
           // there exists a talent that we can merge this into. do so
           target.value = blindMergeTalents(target.value, next.value);
+          if (
+            target.value.spec !== next.value.spec &&
+            target.value.sourceTree === 'spec' &&
+            next.value.sourceTree === 'spec'
+          ) {
+            // replace the conflictKey for future steps. this is basically a shadowstep special case
+            target.conflictKey = createTalentKey(target.value.name, 'Spec');
+          }
         } else {
           // no valid merge target. append to result list
           result.push(next);
