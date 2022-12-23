@@ -9,7 +9,7 @@ import Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [xizbow, CamClark],
+  contributors: [CamClark],
   expansion: Expansion.Dragonflight,
   patchCompatibility: '10.0.0',
   isPartial: true,
