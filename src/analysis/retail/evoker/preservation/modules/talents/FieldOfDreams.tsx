@@ -19,6 +19,7 @@ class FieldOfDreams extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EMERALD_BLOSSOM),
       this.onEbHeal,
