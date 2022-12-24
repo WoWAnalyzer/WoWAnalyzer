@@ -44,11 +44,6 @@ class FieldOfDreams extends Analyzer {
         position={STATISTIC_ORDER.CORE(5)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={
-          <>
-            <SpellLink id={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT.id} /> provided the following:
-          </>
-        }
       >
         <TalentSpellText talent={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT}>
           <ItemHealingDone amount={this.totalHealing} />
