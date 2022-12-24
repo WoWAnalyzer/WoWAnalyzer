@@ -13,7 +13,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import CombustionPreCastDelay from './CombustionPreCastDelay';
+import CombustionPreCastDelay from './Combustion';
 
 class CombustionActiveTime extends Analyzer {
   static dependencies = {

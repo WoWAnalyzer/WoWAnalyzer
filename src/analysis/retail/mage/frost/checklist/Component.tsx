@@ -2,7 +2,6 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
-import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
@@ -12,13 +11,7 @@ import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Che
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 
-const FrostMageChecklist = ({
-  combatant,
-  castEfficiency,
-  thresholds,
-  apl,
-  checkResults,
-}: ChecklistProps & AplRuleProps) => {
+const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
@@ -192,17 +185,6 @@ const FrostMageChecklist = ({
           thresholds={thresholds.icyVeinsActiveTime}
         />
       </Rule>
-      <AplRule
-        name="Use your damaging abilities effectively (Beta APL Check)"
-        apl={apl}
-        checkResults={checkResults}
-        cooldowns={[
-          TALENTS.ICY_VEINS_TALENT,
-          TALENTS.RUNE_OF_POWER_TALENT,
-          SPELLS.MIRRORS_OF_TORMENT,
-        ]}
-        castEfficiency={castEfficiency}
-      />
       <PreparationRule thresholds={thresholds}>
         <Requirement name="Arcane Intellect active" thresholds={thresholds.arcaneIntellectUptime} />
       </PreparationRule>

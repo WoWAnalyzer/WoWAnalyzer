@@ -256,6 +256,11 @@ const spells = spellIndexableList({
     name: "Yu'lon's Whisper",
     icon: 'ability_monk_chiexplosion',
   },
+  ZEN_PULSE_HEAL: {
+    id: 198487,
+    name: 'Zen Pulse',
+    icon: 'ability_monk_forcesphere',
+  },
   FAELINE_STOMP_HEAL: {
     id: 388207,
     name: 'Faeline Stomp',
@@ -468,6 +473,16 @@ const spells = spellIndexableList({
     id: 343764,
     name: 'Evasive Stride',
     icon: 'ability_monk_uplift',
+  },
+  COUNTERSTRIKE_BUFF: {
+    id: 383800,
+    name: 'Counterstrike',
+    icon: 'ability_monk_palmstrike',
+  },
+  CHI_SURGE_DEBUFF: {
+    id: 393786,
+    name: 'Chi Surge',
+    icon: 'ability_monk_chiexplosion',
   },
 
   // Windwalker Spells

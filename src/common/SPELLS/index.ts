@@ -30,6 +30,7 @@ import PALADIN from './paladin';
 import PRIEST from './priest';
 import RACIALS from './racials';
 import ROGUE from './rogue';
+import DRAGONFLIGHT from './dragonflight';
 import SHADOWLANDS from './shadowlands';
 import SHAMAN from './shaman';
 import Spell, { Enchant } from './Spell';
@@ -59,6 +60,7 @@ const ABILITIES = {
   ...WARLOCK,
   ...WARRIOR,
   ...SHADOWLANDS,
+  ...DRAGONFLIGHT,
 } as const;
 
 const InternalSpellTable = indexById<Spell | Enchant, typeof ABILITIES>(ABILITIES);

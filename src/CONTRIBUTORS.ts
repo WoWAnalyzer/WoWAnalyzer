@@ -517,6 +517,11 @@ export const DoxAshe: Contributor = {
   github: 'DoxAshe',
   discord: 'DoxAshe#8269',
 };
+export const Vireve: Contributor = {
+  nickname: 'Vireve',
+  github: 'JeaneC',
+  discord: 'Vireve#1186',
+};
 export const Anatta336: Contributor = {
   nickname: 'Anatta336',
   github: 'Anatta336',
@@ -1988,6 +1993,19 @@ export const Squided: Contributor = {
       name: 'Squided',
       spec: SPECS.HOLY_PRIEST,
       link: 'https://worldofwarcraft.com/en-us/character/us/area-52/Squided',
+    },
+  ],
+};
+
+export const AlexanderJKremer: Contributor = {
+  nickname: 'Jammfheal',
+  github: 'alexanderjkremer',
+  discord: 'acousticschooler#0653',
+  mains: [
+    {
+      name: 'Jammfheal',
+      spec: SPECS.HOLY_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/jammfheal',
     },
   ],
 };

@@ -8,6 +8,9 @@ import { SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
 
 export default [
+  change(date(2022, 12, 12), <>Improved tracking of buffs in timelines and added <SpellLink id={TALENTS.DARK_ASCENSION_TALENT}/> and <SpellLink id={SPELLS.VOIDFORM}/> to tracked cooldowns</>,DoxAshe),
+  change(date(2022, 12, 7), <>Fixed error with <SpellLink id={TALENTS.DARK_EVANGELISM_TALENT}/> if the buff exists prepull</>,DoxAshe),
+  change(date(2022, 11, 29), <>Improved proc checklist section and fixed some missing icons for the procs </>,DoxAshe),
   change(date(2022, 11, 24), <>Added checklist section and suggestions for using procs </>,DoxAshe),
   change(date(2022, 11, 15), <>Added support for new Dragonflight talents</>,DoxAshe),
   change(date(2022, 11, 6), <>Updated spells and talents for Dragonflight</>,DoxAshe),

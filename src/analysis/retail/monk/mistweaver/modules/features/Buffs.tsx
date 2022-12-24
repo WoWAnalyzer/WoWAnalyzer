@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import CoreAuras from 'parser/core/modules/Auras';
 
 class Buffs extends CoreAuras {
@@ -44,17 +43,17 @@ class Buffs extends CoreAuras {
       //Covenants
       {
         spellId: SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id,
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        enabled: false,
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.BONEDUST_BREW_CAST.id,
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        enabled: combatant.hasTalent(TALENTS_MONK.BONEDUST_BREW_TALENT),
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.FALLEN_ORDER_CAST.id,
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        enabled: false,
         timelineHighlight: true,
       },
 

@@ -18,7 +18,6 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 import Checklist from './checklist/Module';
 import Abilities from './core/Abilities';
 import AlwaysBeCasting from './core/AlwaysBeCasting';
-import AplCheck from './core/apl';
 import BrainFreeze from './core/BrainFreeze';
 import Buffs from './core/Buffs';
 import CooldownThroughputTracker from './core/CooldownThroughputTracker';
@@ -89,8 +88,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
-
-    apl: AplCheck,
   };
 }
 

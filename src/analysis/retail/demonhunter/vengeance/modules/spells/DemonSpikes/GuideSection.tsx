@@ -9,8 +9,9 @@ import {
   HitBasedOverview,
   red,
 } from 'analysis/retail/demonhunter/vengeance/guide/HitTimeline';
+import { t, Trans } from '@lingui/macro';
 
-export default function DemonSpikesSection() {
+export default function DemonSpikesSubSection() {
   const info = useInfo();
   const demonSpikes = useAnalyzer(DemonSpikes);
   if (!info || !demonSpikes) {
@@ -18,18 +19,27 @@ export default function DemonSpikesSection() {
   }
 
   return (
-    <SubSection title="Demon Spikes">
+    <SubSection
+      title={t({
+        id: 'guide.demonhunter.vengeance.sections.defensives.demonSpikes.title',
+        message: 'Demon Spikes',
+      })}
+    >
       <ExplanationRow>
         <Explanation>
           <p>
-            <SpellLink id={SPELLS.DEMON_SPIKES} /> nearly <strong>doubles</strong> the amount of
-            armor that you have and is critical to have up while tanking.
+            <Trans id="guide.demonhunter.vengeance.sections.defensives.demonSpikes.explanation.summary">
+              <SpellLink id={SPELLS.DEMON_SPIKES} /> nearly <strong>doubles</strong> the amount of
+              armor that you have and is critical to have up while tanking.
+            </Trans>
           </p>
           <p>
-            This chart shows your <SpellLink id={SPELLS.DEMON_SPIKES} /> uptime along with the
-            damage that you took. <strong>You do not need 100% uptime!</strong> However, physical
-            damage taken without <SpellLink id={SPELLS.DEMON_SPIKES} /> active (shown in{' '}
-            <Highlight color={red}>red</Highlight>) is very dangerous!
+            <Trans id="guide.demonhunter.vengeance.sections.defensives.demonSpikes.explanation.graph">
+              This chart shows your <SpellLink id={SPELLS.DEMON_SPIKES} /> uptime along with the
+              damage that you took. <strong>You do not need 100% uptime!</strong> However, physical
+              damage taken without <SpellLink id={SPELLS.DEMON_SPIKES} /> active (shown in{' '}
+              <Highlight color={red}>red</Highlight>) is very dangerous!
+            </Trans>
           </p>
         </Explanation>
         <HitBasedOverview
@@ -37,9 +47,9 @@ export default function DemonSpikesSection() {
           hitBasedAnalyzer={demonSpikes}
           spell={SPELLS.DEMON_SPIKES}
           unmitigatedContent={
-            <>
+            <Trans id="guide.demonhunter.vengeance.sections.defensives.demonSpikes.data.unmitigated">
               <SpellLink id={SPELLS.DEMON_SPIKES} /> would have reduced this by a decent amount.
-            </>
+            </Trans>
           }
         />
       </ExplanationRow>

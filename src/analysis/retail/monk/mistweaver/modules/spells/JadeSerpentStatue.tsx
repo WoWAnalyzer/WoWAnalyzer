@@ -60,9 +60,9 @@ class JadeSerpentStatue extends Analyzer {
     return {
       actual: this.jadeSerpentStatueUptime,
       isLessThan: {
-        minor: 0.85,
-        average: 0.75,
-        major: 0.65,
+        minor: 0.35,
+        average: 0.3,
+        major: 0.25,
       },
       style: ThresholdStyle.PERCENTAGE,
     };

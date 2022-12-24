@@ -1,5 +1,4 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { ResourceIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent, RemoveDebuffEvent } from 'parser/core/Events';
@@ -25,7 +24,7 @@ class SerratedBoneSpike extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
+    this.active = false;
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)

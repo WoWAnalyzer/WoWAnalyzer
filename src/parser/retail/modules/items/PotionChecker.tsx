@@ -1,6 +1,6 @@
 import { Trans } from '@lingui/macro';
-import ITEMS from 'common/ITEMS';
-import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS/dragonflight/potions';
+import SPELLS from 'common/SPELLS/dragonflight/potions';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPECS from 'game/SPECS';
 import { ItemLink } from 'interface';
@@ -27,7 +27,7 @@ const AGI_SPECS: number[] = [
   SPECS.WINDWALKER_MONK.id,
   SPECS.VENGEANCE_DEMON_HUNTER.id,
   SPECS.HAVOC_DEMON_HUNTER.id,
-  SPECS.SURVIVAL_HUNTER.id, //They use agi pot for AoE
+  SPECS.SURVIVAL_HUNTER.id,
 ];
 
 const STR_SPECS: number[] = [
@@ -35,15 +35,15 @@ const STR_SPECS: number[] = [
   SPECS.PROTECTION_WARRIOR.id,
   SPECS.BLOOD_DEATH_KNIGHT.id,
   SPECS.RETRIBUTION_PALADIN.id,
-  SPECS.ARMS_WARRIOR.id, //They use str pot for AoE
-  SPECS.FURY_WARRIOR.id, //They use str pot for AoE
+  SPECS.ARMS_WARRIOR.id,
+  SPECS.FURY_WARRIOR.id,
   SPECS.FROST_DEATH_KNIGHT.id,
   SPECS.UNHOLY_DEATH_KNIGHT.id,
 ];
 
 const INT_SPECS: number[] = [
-  SPECS.SHADOW_PRIEST.id, //They use int pot for AoE
-  SPECS.FROST_MAGE.id, //They use int pot for AoE
+  SPECS.SHADOW_PRIEST.id,
+  SPECS.FROST_MAGE.id,
   SPECS.AFFLICTION_WARLOCK.id,
   SPECS.DEMONOLOGY_WARLOCK.id,
   SPECS.DESTRUCTION_WARLOCK.id,
@@ -62,56 +62,50 @@ const HEALER_SPECS: number[] = [
   SPECS.RESTORATION_SHAMAN.id,
 ];
 
-const DEATHLY_FIXATION: number[] = [
-  //Deathly Fixation Potion specs
+const BOTTLED_PUTRESCENCE: number[] = [
+  // Bottled Putrescence specs
 ];
 
-const EMPOWERED_EXORCISMS: number[] = [
-  //Empowered Exorcism Potion Specs
+const POTION_OF_FROZEN_FOCUS: number[] = [
+  // Potion of Frozen Focus specs
 ];
 
-const PHANTOM_FIRE: number[] = [
-  //Phantom Fire Potion Specs
+const RESIDUAL_NEURAL_CHANNELING_AGENT: number[] = [
+  // Residual Neural Channeling Agent specs
 ];
 
-const DIVINE_AWAKENING: number[] = [
-  //Divine Awakening Potion Specs
+const DELICATE_SUSPENSION_OF_SPORES: number[] = [
+  // Delicate Suspension of Spores specs
 ];
 
-const SACRIFICIAL_ANIMA: number[] = [
-  //Sacrificial Anima Potion Specs
+const POTION_OF_CHILLED_CLARITY: number[] = [
+  // Potion of Chilled Clarity specs
 ];
 
-const WEAK_POTIONS: number[] = [SPELLS.SPIRITUAL_MANA_POTION.id];
+// TODO: Determine how we can tell if a potion was R1 or R2
+const WEAK_POTIONS: number[] = [];
 
 const STRONG_POTIONS: number[] = [
-  SPELLS.POTION_OF_SPECTRAL_AGILITY.id,
-  SPELLS.POTION_OF_SPECTRAL_INTELLECT.id,
-  SPELLS.POTION_OF_SPECTRAL_STRENGTH.id,
-  SPELLS.POTION_OF_SPECTRAL_STAMINA.id,
-  SPELLS.POTION_OF_DEATHLY_FIXATION.id,
-  SPELLS.POTION_OF_EMPOWERED_EXORCISMS.id,
-  SPELLS.POTION_OF_PHANTOM_FIRE.id,
-  SPELLS.POTION_OF_DIVINE_AWAKENING.id,
-  SPELLS.POTION_OF_SACRIFICIAL_ANIMA.id,
-  SPELLS.POTION_OF_SPIRITUAL_CLARITY.id,
-  SPELLS.POTION_OF_PHANTOM_FIRE.id,
+  SPELLS.REFRESHING_HEALING_POTION.id,
+  SPELLS.POTION_OF_WITHERING_VITALITY.id,
+  SPELLS.AERATED_MANA_POTION.id,
+  SPELLS.ELEMENTAL_POTION_OF_ULTIMATE_POWER.id,
+  SPELLS.ELEMENTAL_POTION_OF_POWER.id,
+  SPELLS.BOTTLED_PUTRESCENCE.id,
+  SPELLS.POTION_OF_FROZEN_FOCUS.id,
+  SPELLS.RESIDUAL_NEURAL_CHANNELING_AGENT.id,
+  SPELLS.DELICATE_SUSPENSION_OF_SPORES.id,
+  SPELLS.POTION_OF_CHILLED_CLARITY.id,
 ];
 
 export const COMBAT_POTIONS: number[] = [
-  SPELLS.POTION_OF_SPECTRAL_AGILITY.id,
-  SPELLS.POTION_OF_SPECTRAL_INTELLECT.id,
-  SPELLS.POTION_OF_SPECTRAL_STRENGTH.id,
-  SPELLS.POTION_OF_SPECTRAL_STAMINA.id,
-  SPELLS.POTION_OF_DEATHLY_FIXATION.id,
-  SPELLS.POTION_OF_EMPOWERED_EXORCISMS.id,
-  SPELLS.POTION_OF_PHANTOM_FIRE.id,
-  SPELLS.POTION_OF_DIVINE_AWAKENING.id,
-  SPELLS.POTION_OF_SACRIFICIAL_ANIMA.id,
-  SPELLS.SPIRITUAL_MANA_POTION.id,
-  SPELLS.SPIRITUAL_REJUVENATION_POTION.id,
-  SPELLS.POTION_OF_SPIRITUAL_CLARITY.id,
-  SPELLS.POTION_OF_HARDENED_SHADOWS.id,
+  SPELLS.ELEMENTAL_POTION_OF_ULTIMATE_POWER.id,
+  SPELLS.ELEMENTAL_POTION_OF_POWER.id,
+  SPELLS.BOTTLED_PUTRESCENCE.id,
+  SPELLS.POTION_OF_FROZEN_FOCUS.id,
+  SPELLS.RESIDUAL_NEURAL_CHANNELING_AGENT.id,
+  SPELLS.DELICATE_SUSPENSION_OF_SPORES.id,
+  SPELLS.POTION_OF_CHILLED_CLARITY.id,
 ];
 
 const COMMON_MANA_POTION_AMOUNT = 11084;
@@ -120,10 +114,10 @@ class PotionChecker extends Analyzer {
   potionsUsed = 0;
   weakPotionsUsed = 0;
   strongPotionsUsed = 0;
-  potionId = ITEMS.POTION_OF_SPECTRAL_INTELLECT.id; //Giving it an initial value to prevent crashing
-  potionIcon = ITEMS.POTION_OF_SPECTRAL_INTELLECT.icon; //Giving it an initial value to prevent crashing
-  strongPotionId = ITEMS.POTION_OF_SPECTRAL_INTELLECT.id;
-  strongPotionIcon = ITEMS.POTION_OF_SPECTRAL_INTELLECT.icon;
+  potionId = ITEMS.ELEMENTAL_POTION_OF_POWER_R3.id; // Giving it an initial value to prevent crashing
+  potionIcon = ITEMS.ELEMENTAL_POTION_OF_POWER_R3.icon; // Giving it an initial value to prevent crashing
+  strongPotionId = ITEMS.ELEMENTAL_POTION_OF_POWER_R3.id;
+  strongPotionIcon = ITEMS.ELEMENTAL_POTION_OF_POWER_R3.icon;
   neededManaSecondPotion = false;
   addedSuggestionText = false;
   isHealer = false;
@@ -221,35 +215,35 @@ class PotionChecker extends Analyzer {
   }
 
   potionAdjuster(specID: number) {
-    if (DEATHLY_FIXATION.includes(specID)) {
-      this.potionId = ITEMS.POTION_OF_DEATHLY_FIXATION.id;
-      this.potionIcon = ITEMS.POTION_OF_DEATHLY_FIXATION.icon;
+    if (BOTTLED_PUTRESCENCE.includes(specID)) {
+      this.potionId = ITEMS.BOTTLED_PUTRESCENCE_R3.id;
+      this.potionIcon = ITEMS.BOTTLED_PUTRESCENCE_R3.icon;
       this.addedSuggestionText = true;
-    } else if (EMPOWERED_EXORCISMS.includes(specID)) {
-      this.potionId = ITEMS.POTION_OF_EMPOWERED_EXORCISMS.id;
-      this.potionIcon = ITEMS.POTION_OF_EMPOWERED_EXORCISMS.icon;
+    } else if (POTION_OF_FROZEN_FOCUS.includes(specID)) {
+      this.potionId = ITEMS.POTION_OF_FROZEN_FOCUS_R3.id;
+      this.potionIcon = ITEMS.POTION_OF_FROZEN_FOCUS_R3.icon;
       this.addedSuggestionText = true;
-    } else if (PHANTOM_FIRE.includes(specID)) {
-      this.potionId = ITEMS.POTION_OF_PHANTOM_FIRE.id;
-      this.potionIcon = ITEMS.POTION_OF_PHANTOM_FIRE.icon;
+    } else if (RESIDUAL_NEURAL_CHANNELING_AGENT.includes(specID)) {
+      this.potionId = ITEMS.RESIDUAL_NEURAL_CHANNELING_AGENT_R3.id;
+      this.potionIcon = ITEMS.RESIDUAL_NEURAL_CHANNELING_AGENT_R3.icon;
       this.addedSuggestionText = true;
-    } else if (DIVINE_AWAKENING.includes(specID)) {
-      this.potionId = ITEMS.POTION_OF_DIVINE_AWAKENING.id;
-      this.potionIcon = ITEMS.POTION_OF_DIVINE_AWAKENING.icon;
+    } else if (DELICATE_SUSPENSION_OF_SPORES.includes(specID)) {
+      this.potionId = ITEMS.DELICATE_SUSPENSION_OF_SPORES_R3.id;
+      this.potionIcon = ITEMS.DELICATE_SUSPENSION_OF_SPORES_R3.icon;
       this.addedSuggestionText = true;
-    } else if (SACRIFICIAL_ANIMA.includes(specID)) {
-      this.potionId = ITEMS.POTION_OF_SACRIFICIAL_ANIMA.id;
-      this.potionIcon = ITEMS.POTION_OF_SACRIFICIAL_ANIMA.icon;
+    } else if (POTION_OF_CHILLED_CLARITY.includes(specID)) {
+      this.potionId = ITEMS.POTION_OF_CHILLED_CLARITY_R3.id;
+      this.potionIcon = ITEMS.POTION_OF_CHILLED_CLARITY_R3.icon;
       this.addedSuggestionText = true;
     } else if (AGI_SPECS.includes(specID)) {
-      this.potionId = ITEMS.POTION_OF_SPECTRAL_AGILITY.id;
-      this.potionIcon = ITEMS.POTION_OF_SPECTRAL_AGILITY.icon;
+      this.potionId = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.id;
+      this.potionIcon = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.icon;
     } else if (STR_SPECS.includes(specID)) {
-      this.potionId = ITEMS.POTION_OF_SPECTRAL_STRENGTH.id;
-      this.potionIcon = ITEMS.POTION_OF_SPECTRAL_STRENGTH.icon;
+      this.potionId = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.id;
+      this.potionIcon = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.icon;
     } else if (INT_SPECS.includes(specID)) {
-      this.potionId = ITEMS.POTION_OF_SPECTRAL_INTELLECT.id;
-      this.potionIcon = ITEMS.POTION_OF_SPECTRAL_INTELLECT.icon;
+      this.potionId = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.id;
+      this.potionIcon = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.icon;
     } else if (HEALER_SPECS.includes(specID)) {
       this.isHealer = true;
     }
@@ -257,14 +251,14 @@ class PotionChecker extends Analyzer {
 
   setStrongPotionForSpec(specID: number) {
     if (AGI_SPECS.includes(specID)) {
-      this.strongPotionId = ITEMS.POTION_OF_SPECTRAL_AGILITY.id;
-      this.strongPotionIcon = ITEMS.POTION_OF_SPECTRAL_AGILITY.icon;
+      this.strongPotionId = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.id;
+      this.strongPotionIcon = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.icon;
     } else if (STR_SPECS.includes(specID)) {
-      this.strongPotionId = ITEMS.POTION_OF_SPECTRAL_STRENGTH.id;
-      this.strongPotionIcon = ITEMS.POTION_OF_SPECTRAL_STRENGTH.icon;
+      this.strongPotionId = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.id;
+      this.strongPotionIcon = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.icon;
     } else if (INT_SPECS.includes(specID)) {
-      this.strongPotionId = ITEMS.POTION_OF_SPECTRAL_INTELLECT.id;
-      this.strongPotionIcon = ITEMS.POTION_OF_SPECTRAL_INTELLECT.icon;
+      this.strongPotionId = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.id;
+      this.strongPotionIcon = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.icon;
     }
   }
 

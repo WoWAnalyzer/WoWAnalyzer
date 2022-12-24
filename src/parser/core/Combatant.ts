@@ -1,28 +1,17 @@
 import { Enchant } from 'common/ITEMS/Item';
-import { T28_TIER_GEAR_IDS, TIER_BY_CLASSES } from 'common/ITEMS/shadowlands';
-import { TIER_BY_CLASSES as DF_TIER_BY_CLASSES } from 'common/ITEMS/dragonflight';
+import { TIER_BY_CLASSES } from 'common/ITEMS/dragonflight';
 import { maybeGetSpell } from 'common/SPELLS';
-import { LegendarySpell } from 'common/SPELLS/Spell';
 import { getClassBySpecId } from 'game/CLASSES';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import RACES from 'game/RACES';
 import { findByBossId } from 'game/raids';
-import SOULBINDS from 'game/shadowlands/SOULBINDS';
 import SPECS, { Spec } from 'game/SPECS';
 import CombatLogParser from 'parser/core/CombatLogParser';
-import {
-  Buff,
-  CombatantInfoEvent,
-  Conduit,
-  EventType,
-  Item,
-  SoulbindTrait,
-  TalentEntry,
-} from 'parser/core/Events';
+import { Buff, CombatantInfoEvent, EventType, Item, TalentEntry } from 'parser/core/Events';
+import { TIERS } from 'game/TIERS';
 
 import Entity from './Entity';
 import { PlayerInfo } from './Player';
-import { TIERS } from 'game/TIERS';
 
 export interface CombatantInfo extends CombatantInfoEvent {
   name: string;
@@ -30,6 +19,10 @@ export interface CombatantInfo extends CombatantInfoEvent {
 
 type Spell = {
   id: number;
+};
+
+type Talent = {
+  talentId: number;
 };
 
 export type Race = {
@@ -113,10 +106,6 @@ class Combatant extends Entity {
     this._importTalentTree(combatantInfo.talentTree);
     this._parseGear(combatantInfo.gear);
     this._parsePrepullBuffs(combatantInfo.auras);
-    this._parseCovenant(combatantInfo.covenantID);
-    this._parseSoulbind(combatantInfo.soulbindID);
-    this._parseSoulbindTraits(combatantInfo.soulbindTraits);
-    this._parseConduits(combatantInfo.conduits);
   }
 
   // region Talents
@@ -129,9 +118,11 @@ class Combatant extends Entity {
   }
 
   private treeTalentsBySpellId: Map<number, TalentEntry> = new Map();
+  private treeTalentsByTalentId: Map<number, TalentEntry> = new Map();
   private _importTalentTree(talents: TalentEntry[]) {
     talents?.forEach((talent) => {
       this.treeTalentsBySpellId.set(talent.spellID, talent);
+      this.treeTalentsByTalentId.set(talent.id, talent);
     });
   }
 
@@ -140,6 +131,16 @@ class Combatant extends Entity {
   hasTalent(spell: number | Spell): boolean {
     const spellId = typeof spell === 'number' ? spell : spell.id;
     return this.treeTalentsBySpellId.has(spellId);
+  }
+
+  /**
+   * Certain talents have the same SpellID and can only be distinguished by their TalentID.
+   * In the raidbots generated file, and in the WarcraftLogs API CombatantInfo, the field simply called 'id'.
+   * Returns true if this combatant has the specified talent at any given rank.
+   */
+  hasTalentByTalentId(spell: number | Talent): boolean {
+    const talentId = typeof spell === 'number' ? spell : spell.talentId;
+    return this.treeTalentsByTalentId.has(talentId);
   }
 
   /**
@@ -185,123 +186,6 @@ class Combatant extends Entity {
 
     return false;
   }
-
-  //region Shadowlands Systems
-
-  //region Covenants
-  covenantsByCovenantID: { [key: number]: CombatantInfo['covenantID'] } = {};
-
-  _parseCovenant(covenantID: CombatantInfo['covenantID']) {
-    if (!covenantID) {
-      return;
-    }
-    this.covenantsByCovenantID[covenantID] = covenantID;
-  }
-
-  hasCovenant(covenantID: CombatantInfo['covenantID']) {
-    return Boolean(this.covenantsByCovenantID[covenantID]);
-  }
-
-  //endregion
-
-  //region Soulbinds
-  soulbindsBySoulbindID: { [key: number]: CombatantInfo['soulbindID'] } = {};
-
-  _parseSoulbind(soulbindID: CombatantInfo['soulbindID']) {
-    if (!soulbindID) {
-      return;
-    }
-    this.soulbindsBySoulbindID[soulbindID] = soulbindID;
-  }
-
-  hasSoulbind(soulbindID: CombatantInfo['soulbindID']) {
-    return Boolean(this.soulbindsBySoulbindID[soulbindID]);
-  }
-
-  soulbindTraitsByID: { [key: number]: SoulbindTrait } = {};
-
-  _parseSoulbindTraits(soulbindTraits: SoulbindTrait[] | undefined) {
-    if (soulbindTraits === undefined) {
-      return;
-    }
-    soulbindTraits.forEach((soulbindTrait: SoulbindTrait) => {
-      if (soulbindTrait.spellID !== 0) {
-        this.soulbindTraitsByID[soulbindTrait.spellID] = soulbindTrait;
-      }
-    });
-  }
-
-  hasSoulbindTrait(soulbindTraitID: number) {
-    return Boolean(this.soulbindTraitsByID[soulbindTraitID]);
-  }
-
-  //endregion
-
-  //region Conduits
-  conduitsByConduitID: { [key: number]: Conduit } = {};
-
-  _parseConduits(conduits: Conduit[] | undefined) {
-    if (!conduits) {
-      return;
-    }
-
-    const ilvlToRankMapping: { [key: number]: number } = {
-      145: 1,
-      158: 2,
-      171: 3,
-      184: 4,
-      200: 5,
-      213: 6,
-      226: 7,
-      239: 8,
-      252: 9,
-      265: 10,
-      278: 11,
-      291: 12,
-      304: 13,
-      317: 14,
-      330: 15,
-    };
-
-    conduits.forEach((conduit: Conduit) => {
-      if (conduit.itemLevel == null) {
-        // Conduit has not been parsed to ilvl/rank, do it now
-        conduit.itemLevel = conduit.rank;
-        conduit.rank = ilvlToRankMapping[conduit.rank];
-
-        if (conduit.rank == null) {
-          // If rank is undefined after parsing, something has gone horribly wrong
-          console.error('Conduit rank not found', conduit);
-        }
-      }
-
-      this.conduitsByConduitID[conduit.spellID] = conduit;
-    });
-  }
-
-  hasConduitBySpellID(spellId: number) {
-    return Boolean(this.conduitsByConduitID[spellId]);
-  }
-
-  conduitRankBySpellID(spellId: number): number {
-    if (!(spellId in this.conduitsByConduitID)) {
-      return 0;
-    }
-
-    return this.conduitsByConduitID[spellId].rank + (this.likelyHasEmpoweredConduits() ? 2 : 0);
-  }
-
-  likelyHasEmpoweredConduits() {
-    if (!this._combatantInfo.soulbindID || !(this._combatantInfo.soulbindID in SOULBINDS)) {
-      return false;
-    }
-
-    return this.hasSoulbindTrait(SOULBINDS[this._combatantInfo.soulbindID].capstoneTraitID);
-  }
-
-  //endregion
-
-  //endregion
 
   // region Gear
   _gearItemsBySlotId: { [key: number]: Item } = {};
@@ -485,26 +369,6 @@ class Combatant extends Entity {
     return this._getGearItemBySlotId(GEAR_SLOTS.OFFHAND);
   }
 
-  private legendaries: Set<number> = new Set();
-  private scannedForLegendaries = false;
-
-  /**
-   * Each legendary is given a specific `effectID` that is the same regardless which slot it appears on.
-   * This id is the same as the spell ID on Wowhead.
-   */
-  hasLegendary(legendary: LegendarySpell) {
-    if (!this.scannedForLegendaries && this.legendaries.size === 0) {
-      Object.values(this._gearItemsBySlotId).forEach((item) => {
-        if (item.effectID) {
-          this.legendaries.add(item.effectID);
-        }
-      });
-      this.scannedForLegendaries = true;
-    }
-
-    return this.legendaries.has(legendary.id);
-  }
-
   private itemMap: Map<number, Item> = new Map();
   private scannedForItems = false;
 
@@ -526,32 +390,8 @@ class Combatant extends Entity {
     return [this.head, this.shoulder, this.chest, this.legs, this.hands];
   }
 
-  /**
-   * @deprecated Use {@link setIdBySpecByTier} instead.
-   */
-  setIdBySpec(): T28_TIER_GEAR_IDS {
-    return TIER_BY_CLASSES[getClassBySpecId(this._combatantInfo.specID)];
-  }
-
   setIdBySpecByTier(tier: TIERS) {
-    if (tier === TIERS.T28) {
-      return TIER_BY_CLASSES[getClassBySpecId(this._combatantInfo.specID)];
-    }
-    return DF_TIER_BY_CLASSES[tier]?.[getClassBySpecId(this._combatantInfo.specID)];
-  }
-
-  /**
-   * @deprecated Use {@link has2PieceByTier} instead.
-   */
-  has2Piece(setId?: T28_TIER_GEAR_IDS) {
-    if (!setId) {
-      setId = this.setIdBySpec();
-    }
-    if (!setId) {
-      console.error("no setId passed and couldn't match spec to a setId");
-      return false;
-    }
-    return this.tierPieces.filter((gear) => gear?.setID === setId).length >= 2;
+    return TIER_BY_CLASSES[tier]?.[getClassBySpecId(this._combatantInfo.specID)];
   }
 
   has2PieceByTier(tier: TIERS) {
@@ -561,20 +401,6 @@ class Combatant extends Entity {
       return false;
     }
     return this.tierPieces.filter((gear) => gear?.setID === setID).length >= 2;
-  }
-
-  /**
-   * @deprecated Use {@link has4PieceByTier} instead.
-   */
-  has4Piece(setId?: T28_TIER_GEAR_IDS) {
-    if (!setId) {
-      setId = this.setIdBySpec();
-    }
-    if (!setId) {
-      console.error("no setId passed and couldn't match spec to a setId");
-      return false;
-    }
-    return this.tierPieces.filter((gear) => gear?.setID === setId).length >= 4;
   }
 
   has4PieceByTier(tier: TIERS) {

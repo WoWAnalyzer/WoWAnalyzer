@@ -1,9 +1,27 @@
 import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 12, 23), <>Fix tooltip for <SpellLink id={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT.id}/></>, Trevor),
+  change(date(2022, 12, 21), <>Improved accuracy of <SpellLink id={TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT}/> module</>, Trevor),
+  change(date(2022, 12, 14), <>Improved accuracy of <SpellLink id={TALENTS_EVOKER.ECHO_TALENT}/> module</>, Trevor),
+  change(date(2022, 12, 14), <>Updated Mastery Effectiveness to include the value of the healing done in the effectiveness evaluation</>, Vohrr),
+  change(date(2022, 12, 7), <>Fix load condition for <SpellLink id={TALENTS_EVOKER.DREAM_FLIGHT_TALENT.id}/></>, Trevor),
+  change(date(2022, 12, 6), <>Added checklist item for expired <SpellLink id={TALENTS_EVOKER.ECHO_TALENT.id}/> buffs</>, Trevor),
+  change(date(2022, 12, 6), <>Added suggestion based on average targets hit by <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id}/></> ,Trevor),
+  change(date(2022, 12, 4), <>Mark Preservation Evoker as fully supported</>, Trevor),
+  change(date(2022, 12, 4), <>Added <SpellLink id={TALENTS_EVOKER.CYCLE_OF_LIFE_TALENT.id}/> module</>, Trevor),
+  change(date(2022, 12, 4), <>Added <SpellLink id={TALENTS_EVOKER.TIME_LORD_TALENT.id}/> module</>, Trevor),
+  change(date(2022, 12, 4), <>Add <SpellLink id={TALENTS_EVOKER.DREAM_FLIGHT_TALENT.id}/> module and update checklist</>, Trevor),
+  change(date(2022, 12, 4), <>Add <SpellLink id={TALENTS_EVOKER.RENEWING_BREATH_TALENT.id}/> module</>, Trevor),
+  change(date(2022, 12, 4), <>Added module for <SpellLink id={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT.id}/></>, Trevor),
+  change(date(2022, 12, 4), <>Add suggestion for <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id}/> based on buffs consumed</>, Trevor),
+  change(date(2022, 12, 3), <>Fixed empty <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id}/> chart when player never gains the buff</>, Trevor),
+  change(date(2022, 11, 29), <>Added <SpellLink id={SPELLS.EMERALD_BLOSSOM.id}/> module</>, Trevor),
+  change(date(2022, 11, 27), <>Add modules for <SpellLink id={TALENTS_EVOKER.ECHO_TALENT.id}/> and <SpellLink id={TALENTS_EVOKER.RESONATING_SPHERE_TALENT.id}/></>, Trevor),
   change(date(2022, 11, 22), 'Cleanup Preservation Evoker files', Trevor),
   change(date(2022, 11, 22), <>Added <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT}/> module</>, Trevor),
   change(date(2022, 11, 21), 'Updated contributor and support status for Preservation', Vohrr),

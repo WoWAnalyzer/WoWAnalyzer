@@ -1,6 +1,6 @@
 import { Boss } from 'game/raids';
 
-import Background from './images/Terros.png';
+import Background from './images/terros.jpg';
 
 const Terros: Boss = {
   id: 2639,

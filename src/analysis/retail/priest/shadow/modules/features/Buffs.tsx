@@ -10,19 +10,28 @@ class Buffs extends CoreAuras {
     // This should include ALL buffs that can be applied by your spec.
     // This data can be used by various kinds of modules to improve their results, and modules added in the future may rely on buffs that aren't used today.
     return [
+      //Cooldowns
       {
         spellId: SPELLS.VOIDFORM_BUFF.id,
         triggeredBySpellId: SPELLS.VOID_ERUPTION.id,
+        enabled: combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT.id),
         timelineHighlight: true,
       },
       {
+        spellId: SPELLS.DARK_ASCENSION_BUFF.id,
+        triggeredBySpellId: TALENTS.DARK_ASCENSION_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.DARK_ASCENSION_TALENT.id),
+        timelineHighlight: true,
+      },
+
+      //Talents
+      {
         spellId: SPELLS.SHADOWY_INSIGHT_BUFF.id,
-        triggeredBySpellId: SPELLS.SHADOWY_INSIGHT.id,
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.DARK_EVANGELISM_TALENT_BUFF.id,
-        triggeredBySpellId: TALENTS.DARK_EVANGELISM_TALENT.id,
+        triggeredBySpellId: SPELLS.MIND_FLAY.id,
         enabled: combatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT.id),
         timelineHighlight: false,
       },
@@ -39,8 +48,15 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.VAMPIRIC_EMBRACE.id,
+        spellId: SPELLS.DEATHSPEAKER_TALENT_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT.id),
         timelineHighlight: true,
+      },
+
+      //Utility and Defensive
+      {
+        spellId: SPELLS.VAMPIRIC_EMBRACE.id,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.DISPERSION.id,
@@ -49,20 +65,21 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.POWER_WORD_SHIELD.id,
         triggeredBySpellId: SPELLS.POWER_WORD_SHIELD.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.FADE.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.DESPERATE_PRAYER.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.MIND_CONTROL.id,
         timelineHighlight: true,
       },
+      //Bloodlust
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,

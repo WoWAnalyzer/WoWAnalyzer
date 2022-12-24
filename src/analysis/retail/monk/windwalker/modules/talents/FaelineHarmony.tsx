@@ -29,7 +29,7 @@ class FaelineHarmony extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.FAELINE_HARMONY);
+    this.active = false;
     if (this.active) {
       this.addEventListener(
         Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET),

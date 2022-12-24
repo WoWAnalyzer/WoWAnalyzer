@@ -41,7 +41,20 @@ export const RISING_MIST_EXTENSION = 4000;
 
 export const LIFECYCLES_MANA_PERC_REDUCTION = 0.25;
 
+export const ATTRIBUTION_STRINGS = {
+  BOUNCED: 'Bounced',
+  HARDCAST_ENVELOPING_MIST: 'Enveloping Mist Hardcast',
+  MISTY_PEAKS_ENVELOPING_MIST: 'Enveloping Mist Misty Peaks Proc',
+  HARDCAST_RENEWING_MIST: 'Renewing Mist Hardcast',
+  RAPID_DIFFUSION_RENEWING_MIST: 'Renewing Mist Rapid Diffusion',
+  DANCING_MIST_RENEWING_MIST: 'Renewing Mist Dancing Mist',
+  MISTS_OF_LIFE_RENEWING_MIST: 'Renewing Mist Mists of Life',
+  HARDCAST_ESSENCE_FONT: 'Essence Font Hardcast',
+};
+
 export const SPELL_COLORS = {
+  DANCING_MIST: '#42e7fc',
+  RAPID_DIFFUSION: '#127847',
   ESSENCE_FONT: '#1f77b4',
   ESSENCE_FONT_BUFF: '#aec7e8',
   GUSTS_OF_MISTS: '#ff7f0e',

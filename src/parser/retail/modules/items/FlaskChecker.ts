@@ -1,20 +1,28 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/dragonflight/phials';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
-const MIN_FLASK_IDS = [
-  SPELLS.GREATER_FLASK_OF_THE_CURRENTS.id,
-  SPELLS.GREATER_FLASK_OF_ENDLESS_FATHOMS.id,
-  SPELLS.GREATER_FLASK_OF_THE_UNDERTOW.id,
-  SPELLS.GREATER_FLASK_OF_THE_VAST_HORIZON.id,
+// TODO: Determine how we can tell if a phial was R1 or R2
+const MIN_FLASK_IDS: number[] = [
+  SPELLS.AERATED_PHIAL_OF_QUICK_HANDS.id,
+  SPELLS.AERATED_PHIAL_OF_DEFTNESS.id,
+  SPELLS.CRYSTALLINE_PHIAL_OF_PERCEPTION.id,
+  SPELLS.STEAMING_PHIAL_OF_FINESSE.id,
 ];
 
-const MAX_FLASK_IDS = [
-  SPELLS.SPECTRAL_FLASK_OF_POWER.id,
-  SPELLS.SPECTRAL_FLASK_OF_STAMINA.id,
-  SPELLS.ETERNAL_FLASK.id,
+const MAX_FLASK_IDS: number[] = [
+  SPELLS.CHARGED_PHIAL_OF_ALACRITY.id,
+  SPELLS.PHIAL_OF_CHARGED_ISOLATION.id,
+  SPELLS.PHIAL_OF_STATIC_EMPOWERMENT.id,
+  SPELLS.PHIAL_OF_STILL_AIR.id,
+  SPELLS.PHIAL_OF_THE_EYE_IN_THE_STORM.id,
+  SPELLS.PHIAL_OF_TEPID_VERSATILITY.id,
+  SPELLS.PHIAL_OF_GLACIAL_FURY.id,
+  SPELLS.ICED_PHIAL_OF_CORRUPTING_RAGE.id,
+  SPELLS.PHIAL_OF_ICY_PRESERVATION.id,
+  SPELLS.PHIAL_OF_ELEMENTAL_CHAOS.id,
 ];
 
 class FlaskChecker extends Analyzer {
@@ -58,14 +66,14 @@ class FlaskChecker extends Analyzer {
       suggest(
         'You did not have a flask up before combat. Having a flask during combat increases your primary stat significantly.',
       )
-        .icon(SPELLS.SPECTRAL_FLASK_OF_POWER.icon)
+        .icon(SPELLS.PHIAL_OF_GLACIAL_FURY.icon)
         .staticImportance(SUGGESTION_IMPORTANCE.MINOR),
     );
     when(this.flaskStrengthSuggestion).addSuggestion((suggest) =>
       suggest(
         'You did not have the best flask active when starting the fight. Using the best flask available is an easy way to improve performance.',
       )
-        .icon(SPELLS.SPECTRAL_FLASK_OF_POWER.icon)
+        .icon(SPELLS.PHIAL_OF_GLACIAL_FURY.icon)
         .staticImportance(SUGGESTION_IMPORTANCE.MINOR),
     );
   }

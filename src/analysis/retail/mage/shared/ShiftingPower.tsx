@@ -1,6 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
+import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -12,40 +12,17 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { SHIFTING_POWER_MS_REDUCTION_PER_TICK, SHIFTING_POWER_REDUCTION_SPELLS } from './constants';
 
 const debug = false;
-const COOLDOWN_REDUCTION_MS = [
-  0,
-  1000,
-  1100,
-  1200,
-  1300,
-  1400,
-  1500,
-  1600,
-  1700,
-  1800,
-  1900,
-  2000,
-  2100,
-  2200,
-  2300,
-  2400,
-];
-
 class ShiftingPower extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
   protected spellUsable!: SpellUsable;
-  conduitRank: number;
 
   spellReductions: { [key: number]: number } = {};
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id);
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(
-      SPELLS.DISCIPLINE_OF_THE_GROVE.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIFTING_POWER_TICK),
       this.onShiftingPowerTick,
@@ -53,15 +30,13 @@ class ShiftingPower extends Analyzer {
   }
 
   onShiftingPowerTick(event: CastEvent) {
-    const reductionPerTick = this.selectedCombatant.hasConduitBySpellID(
-      SPELLS.DISCIPLINE_OF_THE_GROVE.id,
-    )
-      ? SHIFTING_POWER_MS_REDUCTION_PER_TICK + COOLDOWN_REDUCTION_MS[this.conduitRank]
-      : SHIFTING_POWER_MS_REDUCTION_PER_TICK;
     SHIFTING_POWER_REDUCTION_SPELLS.forEach((spell) => {
       if (this.spellUsable.isOnCooldown(spell.id)) {
-        debug && this.log('Reduced ' + spell.name + ' by ' + reductionPerTick);
-        const reduction = this.spellUsable.reduceCooldown(spell.id, reductionPerTick);
+        debug && this.log('Reduced ' + spell.name + ' by ' + SHIFTING_POWER_MS_REDUCTION_PER_TICK);
+        const reduction = this.spellUsable.reduceCooldown(
+          spell.id,
+          SHIFTING_POWER_MS_REDUCTION_PER_TICK,
+        );
         this.spellReductions[spell.id] = this.spellReductions[spell.id]
           ? reduction + this.spellReductions[spell.id]
           : reduction;
@@ -71,8 +46,8 @@ class ShiftingPower extends Analyzer {
 
   statistic() {
     return (
-      <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.SHIFTING_POWER.id}>
+      <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
+        <BoringSpellValueText spellId={TALENTS.SHIFTING_POWER_TALENT.id}>
           <>
             <small>Cooldown Reduction by Spell</small>
             <br />

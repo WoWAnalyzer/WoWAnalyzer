@@ -4,12 +4,12 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
-import { SpellIcon } from 'interface';
-import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 import { DANCING_MIST_CHANCE, RAPID_DIFFUSION_DURATION } from '../../constants';
 
 const RAPID_DIFFUSION_SPELLS = [
@@ -162,32 +162,35 @@ class Vivify extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(20)}
-        icon={<SpellIcon id={SPELLS.VIVIFY.id} />}
-        value={`${this.averageRemPerVivify.toFixed(2)}`}
-        label={
-          <TooltipElement
-            content={
-              <>
-                Healing Breakdown:
-                <ul>
-                  <li>
-                    {formatNumber(this.mainTargetHealing + this.cleaveHealing)} overall healing from
-                    Vivify.
-                  </li>
-                  <li>
-                    {formatNumber(this.cleaveHealing)} portion of your Vivify healing to REM
-                    targets.
-                  </li>
-                </ul>
-              </>
-            }
-          >
-            Avg REMs per Cast
-          </TooltipElement>
+        size="flexible"
+        tooltip={
+          <>
+            Healing Breakdown:
+            <ul>
+              <li>
+                {formatNumber(this.mainTargetHealing + this.cleaveHealing)} overall healing from
+                <SpellLink id={SPELLS.VIVIFY.id} />.
+              </li>
+              <li>
+                {formatNumber(this.cleaveHealing)} portion of your{' '}
+                <SpellLink id={SPELLS.VIVIFY.id} /> healing to{' '}
+                <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> targets.
+              </li>
+            </ul>
+          </>
         }
-      />
+      >
+        <TalentSpellText talent={TALENTS_MONK.RENEWING_MIST_TALENT}>
+          <>
+            {this.averageRemPerVivify.toFixed(2)}{' '}
+            <small>
+              Average Cleaves per <SpellLink id={SPELLS.VIVIFY.id} />
+            </small>
+          </>
+        </TalentSpellText>
+      </Statistic>
     );
   }
 }

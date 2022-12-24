@@ -3,7 +3,6 @@ import { CASTS_PER_RADIANT_SPARK } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
@@ -35,8 +34,8 @@ class RadiantSpark extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
-    this.hasHarmonicEcho = this.selectedCombatant.hasLegendary(SPELLS.HARMONIC_ECHO);
+    this.active = false;
+    this.hasHarmonicEcho = this.selectedCombatant.hasTalent(TALENTS.HARMONIC_ECHO_TALENT);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(CAST_SPELLS), this.onCast);
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RADIANT_SPARK),
@@ -103,9 +102,10 @@ class RadiantSpark extends Analyzer {
           s, you should use the damage buff from <SpellLink id={SPELLS.RADIANT_SPARK.id} /> to
           increase their damage even further. So, you should ensure that you are getting{' '}
           {CASTS_PER_RADIANT_SPARK} ({CASTS_PER_RADIANT_SPARK - 1} with{' '}
-          <SpellLink id={SPELLS.HARMONIC_ECHO.id} />) <SpellLink id={SPELLS.ARCANE_BLAST.id} />{' '}
-          casts in before <SpellLink id={SPELLS.RADIANT_SPARK.id} /> ends. Alternatively, if there
-          is {AOE_TARGET_THRESHOLD} targets or more, you can use{' '}
+          <SpellLink id={TALENTS.HARMONIC_ECHO_TALENT.id} />){' '}
+          <SpellLink id={SPELLS.ARCANE_BLAST.id} /> casts in before{' '}
+          <SpellLink id={SPELLS.RADIANT_SPARK.id} /> ends. Alternatively, if there is{' '}
+          {AOE_TARGET_THRESHOLD} targets or more, you can use{' '}
           <SpellLink id={SPELLS.ARCANE_EXPLOSION.id} />,{' '}
           <SpellLink id={TALENTS.ARCANE_ORB_TALENT.id} />, and{' '}
           <SpellLink id={TALENTS.ARCANE_BARRAGE_TALENT.id} /> instead of{' '}

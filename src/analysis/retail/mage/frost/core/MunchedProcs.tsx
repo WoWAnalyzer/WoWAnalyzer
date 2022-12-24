@@ -33,11 +33,11 @@ class MunchedProcs extends Analyzer {
       this.onIceLanceDamage,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.FINGERS_OF_FROST_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FINGERS_OF_FROST_BUFF),
       this.onFingersProc,
     );
     this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(TALENTS.FINGERS_OF_FROST_TALENT),
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.FINGERS_OF_FROST_BUFF),
       this.onFingersProc,
     );
   }
@@ -53,9 +53,7 @@ class MunchedProcs extends Analyzer {
       undefined,
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ICE_LANCE_TALENT),
     )[0];
-    if (
-      this.selectedCombatant.hasBuff(TALENTS.FINGERS_OF_FROST_TALENT.id, iceLanceCast.timestamp)
-    ) {
+    if (this.selectedCombatant.hasBuff(SPELLS.FINGERS_OF_FROST_BUFF.id, iceLanceCast.timestamp)) {
       this.munchedProcs += 1;
     }
   }
@@ -65,7 +63,6 @@ class MunchedProcs extends Analyzer {
   }
 
   get munchedPercent() {
-    this.log(this.totalFingersProcs);
     return this.munchedProcs / this.totalFingersProcs;
   }
 

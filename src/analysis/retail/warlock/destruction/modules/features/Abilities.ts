@@ -4,25 +4,6 @@ import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-
-const FEL_CELERITY_REDUCTION_SEC: { [rank: number]: number } = {
-  1: 48,
-  2: 51,
-  3: 54,
-  4: 57,
-  5: 60,
-  6: 63,
-  7: 66,
-  8: 69,
-  9: 72,
-  10: 75,
-  11: 78,
-  12: 81,
-  13: 84,
-  14: 87,
-  15: 90,
-};
-
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
@@ -345,9 +326,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FEL_DOMINATION.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasConduitBySpellID(SPELLS.FEL_CELERITY.id)
-          ? 180 - FEL_CELERITY_REDUCTION_SEC[combatant.conduitRankBySpellID(SPELLS.FEL_CELERITY.id)]
-          : 180,
+        cooldown: 180,
         gcd: {
           base: 1500,
         },

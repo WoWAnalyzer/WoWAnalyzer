@@ -73,6 +73,21 @@ const spells = spellIndexableList({
     name: 'Hyperthermia',
     icon: 'spell_fire_burnout',
   },
+  FEVERED_INCANTATION_BUFF: {
+    id: 383811,
+    name: 'Fevered Incantation',
+    icon: 'inv_misc_enchantedpearld',
+  },
+  SUN_KINGS_BLESSING_BUFF: {
+    id: 383883,
+    name: "Sun King's Blessing",
+    icon: 'ability_mage_firestarter',
+  },
+  SUN_KINGS_BLESSING_BUFF_STACK: {
+    id: 383882,
+    name: "Sun King's Blessing",
+    icon: 'ability_mage_firestarter',
+  },
 });
 
 export default spells;

@@ -1,9 +1,10 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 
 class RenewingMist extends Analyzer {
+  currentRenewingMists: number = 0;
   totalHealing: number = 0;
   totalOverhealing: number = 0;
   totalAbsorbs: number = 0;
@@ -26,6 +27,22 @@ class RenewingMist extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
       this.handleRenewingMist,
     );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
+      this.onApplyRem,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
+      this.onRemoveRem,
+    );
+  }
+
+  onApplyRem(event: ApplyBuffEvent) {
+    this.currentRenewingMists += 1;
+  }
+
+  onRemoveRem(event: RemoveBuffEvent) {
+    this.currentRenewingMists -= 1;
   }
 
   castRenewingMist(event: CastEvent) {

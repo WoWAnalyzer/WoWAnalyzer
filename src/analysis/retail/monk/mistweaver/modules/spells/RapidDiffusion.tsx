@@ -1,7 +1,7 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { TALENTS_MONK } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
-import Events, { ApplyBuffEvent, HealEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import HotTrackerMW from '../core/HotTrackerMW';
 import MistyPeaks from './MistyPeaks';
 import Vivify from './Vivify';
@@ -12,8 +12,10 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import SpellLink from 'interface/SpellLink';
 import Combatants from 'parser/shared/modules/Combatants';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import { TooltipElement } from 'interface';
+import { isFromMistyPeaks } from '../../normalizers/CastLinkNormalizer';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 class RapidDiffusion extends Analyzer {
   get totalRemThroughput() {
@@ -22,6 +24,14 @@ class RapidDiffusion extends Analyzer {
 
   get totalVivifyThroughput() {
     return this.extraVivHealing + this.extraVivAbsorbed;
+  }
+
+  get mistyPeaksHealingFromRapidDiffusion() {
+    return this.extraMistyPeaksHealing + this.extraMistyPeaksAbsorb;
+  }
+
+  get totalHealing() {
+    return this.totalRemThroughput + this.totalVivifyThroughput;
   }
 
   static dependencies = {
@@ -43,6 +53,8 @@ class RapidDiffusion extends Analyzer {
   extraVivHealing: number = 0;
   extraVivOverhealing: number = 0;
   extraVivAbsorbed: number = 0;
+  extraMistyPeaksHealing: number = 0;
+  extraMistyPeaksAbsorb: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -59,6 +71,18 @@ class RapidDiffusion extends Analyzer {
       this.handleReMHeal,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleVivify);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
+      this.handleEnvApply,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
+      this.handleEnvApply,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
+      this.onEnvHeal,
+    );
   }
 
   handleReMApply(event: ApplyBuffEvent) {
@@ -93,10 +117,15 @@ class RapidDiffusion extends Analyzer {
 
   handleVivify(event: HealEvent) {
     const targetId = event.targetID;
+    //check for rem on the target
     if (
       !this.hotTracker.hots[targetId] ||
       !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]
     ) {
+      return;
+    }
+    // only count cleave hit on main target
+    if (this.vivify.lastCastTarget === targetId && this.vivify.mainTargetHitsToCount > 0) {
       return;
     }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
@@ -108,6 +137,56 @@ class RapidDiffusion extends Analyzer {
     }
   }
 
+  handleEnvApply(event: ApplyBuffEvent | RefreshBuffEvent) {
+    const playerId = event.targetID;
+    if (
+      !this.hotTracker.hots[playerId] ||
+      !this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id]
+    ) {
+      return;
+    }
+    const remHot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
+    if (this.hotTracker.fromRapidDiffusion(remHot)) {
+      if (isFromMistyPeaks(event)) {
+        this.extraMistyPeaksProcs += 1;
+      }
+    }
+  }
+  onEnvHeal(event: HealEvent) {
+    const playerId = event.targetID;
+    if (
+      !this.hotTracker.hots[playerId] ||
+      !this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id]
+    ) {
+      return;
+    }
+    const remHot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
+    if (this.hotTracker.fromRapidDiffusion(remHot)) {
+      if (
+        !this.hotTracker.hots[playerId] ||
+        !this.hotTracker.hots[playerId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id]
+      ) {
+        return;
+      }
+      const hot = this.hotTracker.hots[playerId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
+      if (this.hotTracker.fromMistyPeaks(hot)) {
+        this.extraMistyPeaksHealing += event.amount || 0;
+        this.extraMistyPeaksAbsorb += event.absorbed || 0;
+      }
+    }
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT.id} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
+        )} %`}
+      />
+    );
+  }
+
   statistic() {
     return (
       <Statistic
@@ -116,8 +195,21 @@ class RapidDiffusion extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <ul>
+            {this.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT) && (
+              <li>
+                Extra <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id} /> procs:{' '}
+                {formatNumber(this.extraMistyPeaksProcs)}
+              </li>
+            )}
+            {this.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT) && (
+              <li>
+                Extra <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id} /> healing:{' '}
+                {formatNumber(this.mistyPeaksHealingFromRapidDiffusion)}
+              </li>
+            )}
             <li>
-              Additional Renewing Mist Total Throughput: {formatNumber(this.totalRemThroughput)}
+              Additional <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> Total Throughput:{' '}
+              {formatNumber(this.totalRemThroughput)}
             </li>
             <li>Extra Vivify Cleaves: {this.extraVivCleaves}</li>
             <li>Extra Vivify Healing: {formatNumber(this.totalVivifyThroughput)}</li>
@@ -125,7 +217,7 @@ class RapidDiffusion extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_MONK.RAPID_DIFFUSION_TALENT}>
-          <ItemHealingDone amount={this.totalRemThroughput + this.totalVivifyThroughput} />
+          <ItemHealingDone amount={this.totalHealing} />
           <br />
           <TooltipElement
             content={

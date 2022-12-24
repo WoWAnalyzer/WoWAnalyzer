@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -91,10 +90,10 @@ const AssassinationRogueChecklist = ({ combatant, castEfficiency, thresholds }) 
         {combatant.hasTalent(TALENTS.MARKED_FOR_DEATH_TALENT.id) && (
           <AbilityRequirement spell={TALENTS.MARKED_FOR_DEATH_TALENT.id} />
         )}
-        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
+        {combatant.hasTalent(TALENTS.SEPSIS_TALENT) && (
           <AbilityRequirement spell={TALENTS.SEPSIS_TALENT.id} />
         )}
-        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
+        {combatant.hasTalent(TALENTS.FLAGELLATION_TALENT) && (
           <AbilityRequirement spell={TALENTS.FLAGELLATION_TALENT.id} />
         )}
       </Rule>

@@ -20,7 +20,7 @@ class ColdFront extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.COLD_FRONT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.COLD_FRONT_TALENT);
     this.addEventListener(
       Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.COLD_FRONT_BUFF),
       this.onBuffApplied,
@@ -45,7 +45,7 @@ class ColdFront extends Analyzer {
         size="flexible"
         tooltip="This shows the number of extra Frozen Orb casts that were gained by using the Cold Front legendary effect."
       >
-        <BoringSpellValueText spellId={SPELLS.COLD_FRONT.id}>
+        <BoringSpellValueText spellId={TALENTS.COLD_FRONT_TALENT.id}>
           <SpellIcon id={TALENTS.FROZEN_ORB_TALENT.id} /> {`${formatNumber(this.bonusFrozenOrbs)}`}{' '}
           <small>Extra Frozen Orbs</small>
         </BoringSpellValueText>

@@ -81,22 +81,22 @@ class SurgeOfDarkness extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: this.procsWasted / this.procsGained,
+      actual: this.procsWasted,
       isGreaterThan: {
         minor: 0,
-        average: 0,
-        major: 0.1,
+        average: 0.5,
+        major: 1.1,
       },
-      style: ThresholdStyle.PERCENTAGE,
+      style: ThresholdStyle.NUMBER,
     };
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+    when(this.suggestionThresholds).addSuggestion((suggest) =>
       suggest(
         <>
           You wasted {this.procsWasted} out of {this.procsGained}{' '}
-          <SpellLink id={TALENTS.SURGE_OF_DARKNESS_TALENT.id} /> procs.
+          <SpellLink id={SPELLS.SURGE_OF_DARKNESS_TALENT_BUFF.id} /> procs.
         </>,
       )
         .icon(TALENTS.SURGE_OF_DARKNESS_TALENT.icon)
@@ -106,7 +106,7 @@ class SurgeOfDarkness extends Analyzer {
             message: `You wasted ${this.procsWasted} out of ${this.procsGained} Surge of Darkness procs.`,
           }),
         )
-        .recommended(`${recommended} is recommended.`),
+        .recommended(`0 is recommended.`),
     );
   }
 

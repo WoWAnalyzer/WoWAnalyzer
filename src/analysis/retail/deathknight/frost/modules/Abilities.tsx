@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
@@ -31,7 +30,9 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 120,
-        charges: combatant.getRepeatedTalentCount(talents.EMPOWER_RUNE_WEAPON_TALENT),
+        charges:
+          Number(combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT)) +
+          Number(combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT)),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -44,7 +45,9 @@ class Abilities extends CoreAbilities {
           ),
         },
         timelineSortIndex: 1,
-        enabled: combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_TALENT.id),
+        enabled:
+          combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT) ||
+          combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT),
       },
       {
         spell: talents.HORN_OF_WINTER_TALENT.id,
@@ -343,7 +346,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 30,
-        enabled: !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        enabled: !false,
       },
       {
         spell: SPELLS.DEATH_COIL.id,

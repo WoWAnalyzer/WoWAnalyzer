@@ -38,26 +38,15 @@ const spells = spellIndexableList({
     name: 'Twin Guardian',
     icon: 'ability_skyreach_shielded',
   },
-
   TEMPORAL_ANOMALY_SHIELD: {
     id: 373862,
     name: 'Temporal Anomaly',
     icon: 'ability_evoker_temporalanomaly',
   },
-  DREAM_BREATH_CAST: {
-    id: 382614,
-    name: 'Dream Breath',
-    icon: 'ability_evoker_dreambreath',
-  },
   CALL_OF_YSERA_BUFF: {
     id: 373835,
     name: 'Call of Ysera',
     icon: '4096390',
-  },
-  RENEWING_BREATH: {
-    id: 381923,
-    name: 'Renewing Breath',
-    icon: 'ability_evoker_dreambreath',
   },
   SPIRITBLOOM: {
     id: 367230,
@@ -79,8 +68,18 @@ const spells = spellIndexableList({
     name: 'Fluttering Seedlings',
     icon: 'inv_herbalism_70_yserallineseed',
   },
+  CYCLE_OF_LIFE_BUFF: {
+    id: 371877,
+    name: 'Cycle of Life',
+    icon: 'ability_monk_explodingjadeblossom',
+  },
   CYCLE_OF_LIFE_HEAL: {
     id: 371879,
+    name: 'Cycle of Life',
+    icon: 'ability_monk_explodingjadeblossom',
+  },
+  CYCLE_OF_LIFE_SUMMON: {
+    id: 371871,
     name: 'Cycle of Life',
     icon: 'ability_monk_explodingjadeblossom',
   },
@@ -88,6 +87,21 @@ const spells = spellIndexableList({
     id: 363502,
     name: 'Dream Flight',
     icon: 'ability_evoker_dreamflight',
+  },
+  EMERALD_COMMUNION_SELF: {
+    id: 370960,
+    name: 'Emerald Communion',
+    icon: 'ability_evoker_green_01',
+  },
+  EMERALD_COMMUNION_ALLY: {
+    id: 370984,
+    name: 'Emerald Communion',
+    icon: 'ability_evoker_green_01',
+  },
+  LIFEBIND_HEAL: {
+    id: 373268,
+    name: 'Lifebind',
+    icon: 'ability_evoker_hoverred',
   },
   // Shared
   BLESSING_OF_THE_BRONZE: {
@@ -176,6 +190,21 @@ const spells = spellIndexableList({
     id: 381773,
     name: 'Permeating Chill',
     icon: 'spell_frost_coldhearted',
+  },
+  FURY_OF_THE_ASPECTS: {
+    id: 390386,
+    name: 'Fury of the Aspects',
+    icon: 'ability_evoker_furyoftheaspects',
+  },
+  RENEWING_BLAZE_HEAL: {
+    id: 374349,
+    name: 'Renewing Blaze',
+    icon: 'ability_evoker_masterylifebinder_red',
+  },
+  VERDANT_EMBRACE_HEAL: {
+    id: 361195,
+    name: 'Verdant Embrace',
+    icon: 'ability_evoker_rescue',
   },
 });
 

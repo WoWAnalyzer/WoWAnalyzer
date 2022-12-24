@@ -3,7 +3,6 @@ import { ARCANE_CHARGE_MAX_STACKS, ARCANE_HARMONY_MAX_STACKS } from 'analysis/re
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -43,8 +42,8 @@ class ArcanePowerPreReqs extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.hasArcaneHarmony = this.selectedCombatant.hasLegendary(SPELLS.ARCANE_HARMONY);
-    this.isKyrian = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
+    this.hasArcaneHarmony = false;
+    this.isKyrian = false;
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_SURGE_TALENT),
       this.onArcanePower,

@@ -24,7 +24,6 @@
     "./src/parser/core/tests",
     "./**/*.test.ts",
     "./**/*.test.tsx",
-    "src/analysis/retail/deathknight/unholy",
     "src/analysis/retail/druid/guardian",
     "src/analysis/retail/monk/windwalker",
     "src/analysis/retail/paladin/protection",
@@ -33,7 +32,6 @@
     "src/analysis/retail/warrior/arms"
   ],
   "files": [
-    "src/analysis/retail/deathknight/unholy/CONFIG.tsx",
     "src/analysis/retail/druid/guardian/CONFIG.tsx",
     "src/analysis/retail/monk/windwalker/CONFIG.tsx",
     "src/analysis/retail/paladin/protection/CONFIG.tsx",

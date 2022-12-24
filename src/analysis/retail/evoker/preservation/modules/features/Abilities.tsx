@@ -1,7 +1,6 @@
 import TALENTS from 'common/TALENTS/evoker';
 import CoreAbilities from 'analysis/retail/evoker/shared/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import SPELLS from 'common/SPELLS';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 
 class Abilities extends CoreAbilities {
@@ -17,14 +16,20 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.REVERSION_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
-        spell: SPELLS.DREAM_BREATH_CAST.id,
+        spell: TALENTS.DREAM_BREATH_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.DREAM_BREATH_TALENT.id),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 25,
+        cooldown: 30,
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
         },
       },
       {
@@ -53,6 +58,9 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.SPIRITBLOOM_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: TALENTS.TEMPORAL_ANOMALY_TALENT.id,
@@ -90,6 +98,9 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.DREAM_FLIGHT_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: TALENTS.STASIS_TALENT.id,

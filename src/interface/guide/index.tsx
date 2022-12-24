@@ -144,8 +144,13 @@ export default Guide;
  * use the same structure. If you're building a section of your guide, you
  * probably want `Section` instead.
  */
-export const SectionHeader = ({ children }: { children: React.ReactNode }) => (
-  <header className="flex">
+// eslint-disable-next-line react/prop-types
+export const SectionHeader = ({
+  children,
+  className,
+  ...props
+}: React.ComponentProps<'header'>) => (
+  <header className={`flex ${className ?? ''}`} {...props}>
     <div className="flex-main name">{children}</div>
     <div className="flex-sub chevron">
       <DropdownIcon />
@@ -291,14 +296,10 @@ export const GuideContainer = ({ children }: { children: React.ReactNode }) => (
  * A section within a section. This can be nested (so you'd have a
  * sub-sub-section). Don't go too crazy with that.
  */
-export const SubSection = ({
-  children,
-  title,
-  style,
-}: React.PropsWithChildren<{ title?: string; style?: React.CSSProperties }>) => (
-  <section className="subsection">
+export const SubSection = ({ children, title, id, ...props }: React.ComponentProps<'div'>) => (
+  <section className="subsection" id={id}>
     <header>{title || ''}</header>
-    <div style={style}>{children}</div>
+    <div {...props}>{children}</div>
   </section>
 );
 

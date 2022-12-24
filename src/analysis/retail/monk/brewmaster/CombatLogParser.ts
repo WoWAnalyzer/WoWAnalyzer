@@ -1,4 +1,4 @@
-import { BonedustBrew, TouchOfDeath, MysticTouch, DampenHarm } from 'analysis/retail/monk/shared';
+import { TouchOfDeath, MysticTouch, DampenHarm } from 'analysis/retail/monk/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
@@ -38,6 +38,21 @@ import TigerPalm from './modules/spells/TigerPalm';
 import ExpelHarmNorm from './normalizers/ExpelHarm';
 import GiftOfTheOx from './normalizers/GiftOfTheOx';
 import StaggerLinkNormalizer from './modules/core/StaggerLinkNormalizer';
+import CelestialBrewNormalizer from './modules/spells/CelestialBrew/normalizer';
+import { ZenMeditation } from './modules/core/MajorDefensives/ZenMeditation';
+import { FortifyingBrew } from './modules/core/MajorDefensives/FortifyingBrew';
+import { DiffuseMagic } from './modules/core/MajorDefensives/DiffuseMagic';
+import DefensiveBuffs from './modules/core/MajorDefensives/DefensiveBuffs';
+import DefensiveBuffLinkNormalizer from './modules/core/MajorDefensives/DefensiveBuffLinkNormalizer';
+import StaggeringStrikes from './modules/talents/StaggeringStrikes';
+import QuickSip from './modules/talents/QuickSip';
+import TranquilSpirit from './modules/talents/TranquilSpirit';
+import Salsalabims from './modules/talents/Salsalabims';
+import Attenuation from './modules/talents/Attenuation';
+import AnvilStave from './modules/talents/AnvilStave';
+import ChiSurge from './modules/talents/ChiSurge';
+import BreathOfFireDebuffTargetNormalizer from './modules/spells/BreathOfFire/normalizer';
+import BonedustBrewCastLinkNormalizer from './modules/talents/BonedustBrew/normalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -75,6 +90,11 @@ class CombatLogParser extends CoreCombatLogParser {
     gotox: GiftOfTheOxStat,
     shuffle: Shuffle,
     touchOfDeath: TouchOfDeath,
+    zenMed: ZenMeditation,
+    fortBrew: FortifyingBrew,
+    diffuseMagic: DiffuseMagic,
+    defensiveBuffs: DefensiveBuffs,
+    defensiveLinks: DefensiveBuffLinkNormalizer,
 
     // Items
     stormstoutsLastKeg: StormtoutsLastKeg,
@@ -83,16 +103,21 @@ class CombatLogParser extends CoreCombatLogParser {
     gotoxNorm: GiftOfTheOx,
     ehNorm: ExpelHarmNorm,
     staggerLink: StaggerLinkNormalizer,
+    cbNorm: CelestialBrewNormalizer,
+    bofNorm: BreathOfFireDebuffTargetNormalizer,
+    bdbNorm: BonedustBrewCastLinkNormalizer,
 
-    // Covenants
+    // Talents
     weaponsOfOrder: WeaponsOfOrder,
-    bonedustBrew: BonedustBrew,
-
-    // Conduits
-    /// Potency
     scaldingBrew: ScaldingBrew,
     walkWithTheOx: WalkWithTheOx,
-    /// Finesse
+    staggeringStrikes: StaggeringStrikes,
+    quickSip: QuickSip,
+    tranquilSpirit: TranquilSpirit,
+    salsalabims: Salsalabims,
+    attenuation: Attenuation,
+    anvilStave: AnvilStave,
+    chiSurge: ChiSurge,
 
     apl: AplCheck,
 

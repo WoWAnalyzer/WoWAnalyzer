@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { ISpellpower, ITalentObjectByClass, ResourceTypes } from './talent-tree-types';
+import { GenericTalentInterface, ISpellpower, ResourceTypes } from './talent-tree-types';
 
 const debug = false;
 /**
@@ -64,22 +64,21 @@ export async function readCsvFromUrl(url: string) {
   return res;
 }
 
-export function printTalents(talentObj: ITalentObjectByClass[string]) {
+export function printTalents(
+  talentObj: Array<{ key: string; value: GenericTalentInterface }> | undefined,
+) {
   if (!talentObj) {
     return "\n//Class doesn't exist in data yet\n";
   }
-  return Object.entries(talentObj)
-    .map(([specName, specTalents]) => {
-      const header = `\n  //${specName}`;
-      const talents = Object.keys(specTalents)
-        .map((talent) => {
-          //Spec was only used during generation, so we remove it before writing to file
-          delete specTalents[talent].spec;
-          return `${talent}: ${JSON.stringify(specTalents[talent])},`;
-        })
-        .join('\n');
-
-      return [header, talents].join('\n');
+  return talentObj
+    .map(({ key, value }) => {
+      //Spec was only used during generation, so we remove it before writing to file
+      delete value.spec;
+      delete value.sourceTree;
+      // deduplicate the entry ids. this is not done at earlier steps so we can tell when a talent
+      // is repeated across trees for the shared/spec disambiguation method
+      value.entryIds = Array.from(new Set(value.entryIds));
+      return `${key}: ${JSON.stringify(value)},`;
     })
     .join('\n');
 }
@@ -97,7 +96,6 @@ export function createTalentKey(talentName: string, specName?: string) {
     //.replace(/ *\([^)]*\) */g, '') //Remove all contents within a ()
     //.replace(/ *\[[^)]*\] */g, '') // Remove all contents within []
     .replace(/([,':[\]()/+%&])/g, '') // Remove ,':[]()/+% symbols
-    .replace(/[0-9]/g, '') //Remove any numbers
     .trim() //Remove any weird whitespaces that might remain
     .replace(/([ -])/g, '_'); // Transform - into _
 
@@ -121,7 +119,7 @@ export function findResourceCost(
   baseMaxResource: number,
 ) {
   if (parseInt(entryInSpellPowerTable.PowerCostPct) > 0) {
-    return Math.round((parseInt(entryInSpellPowerTable.PowerCostPct) / 100) * baseMaxResource);
+    return Math.round((Number(entryInSpellPowerTable.PowerCostPct) / 100) * baseMaxResource);
   } else if (
     [
       ResourceTypes.RunicPower,
@@ -130,8 +128,8 @@ export function findResourceCost(
       ResourceTypes.Pain,
     ].includes(resourceId)
   ) {
-    return parseInt(entryInSpellPowerTable.ManaCost) / 10;
+    return Number(entryInSpellPowerTable.ManaCost) / 10;
   } else {
-    return parseInt(entryInSpellPowerTable.ManaCost);
+    return Number(entryInSpellPowerTable.ManaCost);
   }
 }

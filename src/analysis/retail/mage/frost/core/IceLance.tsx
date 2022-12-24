@@ -27,7 +27,6 @@ class IceLance extends Analyzer {
   protected eventHistory!: EventHistory;
   protected spellUsable!: SpellUsable;
 
-  hasGlacialFragments: boolean;
   hadFingersProc = false;
   iceLanceTargetId = '';
   nonShatteredCasts = 0;
@@ -39,7 +38,6 @@ class IceLance extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.hasGlacialFragments = this.selectedCombatant.hasLegendary(SPELLS.GLACIAL_FRAGMENTS);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ICE_LANCE_TALENT),
       this.onCast,
@@ -49,7 +47,7 @@ class IceLance extends Analyzer {
       this.onDamage,
     );
     this.addEventListener(
-      Events.changebuffstack.by(SELECTED_PLAYER).spell(TALENTS.FINGERS_OF_FROST_TALENT),
+      Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.FINGERS_OF_FROST_BUFF),
       this.onFingersStackChange,
     );
   }
@@ -60,7 +58,7 @@ class IceLance extends Analyzer {
       this.iceLanceTargetId = encodeTargetString(event.targetID, event.targetInstance);
     }
     this.hadFingersProc = false;
-    if (this.selectedCombatant.hasBuff(TALENTS.FINGERS_OF_FROST_TALENT.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.FINGERS_OF_FROST_BUFF.id)) {
       this.hadFingersProc = true;
     }
   }
@@ -68,17 +66,6 @@ class IceLance extends Analyzer {
   onDamage(event: DamageEvent) {
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
     if (this.iceLanceTargetId !== damageTarget) {
-      return;
-    }
-
-    //If the player has Glacial Fragments, Blizzard is active (checking its CD because the spell lasts as long as it's cooldown), and the target is in a Blizzard, then do not count it against the player
-    const recentBlizzardHit = this.eventHistory.last(
-      1,
-      1000,
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLIZZARD_DAMAGE),
-    )[0];
-    const blizzardOnCooldown = this.spellUsable.isOnCooldown(TALENTS.BLIZZARD_TALENT.id);
-    if (this.hasGlacialFragments && recentBlizzardHit && blizzardOnCooldown) {
       return;
     }
 

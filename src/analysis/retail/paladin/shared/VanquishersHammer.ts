@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -13,7 +12,7 @@ class VanquishersHammer extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
+    this.active = false;
 
     if (!this.active) {
       return;
@@ -23,7 +22,7 @@ class VanquishersHammer extends Analyzer {
       spell: SPELLS.VANQUISHERS_HAMMER.id,
       category: SPELL_CATEGORY.COOLDOWNS,
       cooldown: 30,
-      charges: this.selectedCombatant.hasLegendary(SPELLS.DUTY_BOUND_GAVEL) ? 2 : 1,
+      charges: 1,
       gcd: {
         base: 1500,
       },

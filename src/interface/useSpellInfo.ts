@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/browser';
 import makeApiUrl from 'common/makeApiUrl';
 import SPELLS, { maybeGetSpell } from 'common/SPELLS';
 import { useEffect } from 'react';
@@ -17,15 +18,17 @@ const useSpellInfo = (spell: number | Spell) => {
     isPaused: () => argumentAsSpell !== undefined,
   });
 
-  if (error) {
-    throw error;
-  }
-
   useEffect(() => {
     if (data) {
       SPELLS[spellId] = data;
     }
   }, [data, spellId]);
+
+  if (error) {
+    Sentry.captureException(error);
+    console.error(error);
+    return argumentAsSpell;
+  }
 
   return argumentAsSpell ?? data;
 };
