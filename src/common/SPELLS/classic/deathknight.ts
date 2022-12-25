@@ -292,6 +292,11 @@ const spells = spellIndexableList({
     name: 'Hungering Cold',
     icon: 'inv_staff_15',
   },
+  ICY_TALONS_BUFF: {
+    id: 58578,
+    name: 'Icy Talons',
+    icon: 'spell_deathknight_icytalons',
+  },
   LICHBORNE: {
     id: 49039,
     name: 'Lichborne',
