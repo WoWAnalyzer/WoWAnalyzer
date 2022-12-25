@@ -17,6 +17,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2022, 12, 25), 'Add spells and update files for Classic Hunters (no functionality yet).', jazminite),
   change(date(2022, 12, 20), 'Ignore duplicate spell IDs for talents during development.', ToppleTheNun),
   change(date(2022, 12, 20), 'Export additional information for each talent to help identify talents that affect the same spell (such as Berserk: X talents for Guardian Druid).', Putro),
   change(date(2022, 12, 19), 'Fixed an issue for tracking leg enhancements.', Vireve),

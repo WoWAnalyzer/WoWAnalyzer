@@ -1,7 +1,6 @@
 import { AnyEvent, EventType } from 'parser/core/Events';
 import metric, { Info } from 'parser/core/metric';
-
-import * as SPELLS from '../SPELLS';
+import SPELLS from 'common/SPELLS/classic/hunter';
 
 /**
  * Returns the max amount of Kill Command casts considering the buff uptime.
@@ -20,14 +19,14 @@ const killCommandMaxCasts = (
     if (
       event.type === EventType.ApplyBuff &&
       event.targetID === playerId &&
-      event.ability.guid === SPELLS.KILL_COMMAND
+      event.ability.guid === SPELLS.KILL_COMMAND.id
     ) {
       lastAppliedAt = event.timestamp;
     }
     if (
       event.type === EventType.RemoveBuff &&
       event.targetID === playerId &&
-      event.ability.guid === SPELLS.KILL_COMMAND
+      event.ability.guid === SPELLS.KILL_COMMAND.id
     ) {
       if (max > 0 && lastAppliedAt === undefined) {
         // RemoveBuff should only be possible for prepull buffs, afterwards it can not occur
