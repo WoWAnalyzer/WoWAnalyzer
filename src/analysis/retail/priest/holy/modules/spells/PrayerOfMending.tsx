@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/priest';
+import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -7,6 +7,10 @@ import Events, {
   ChangeBuffStackEvent,
   HealEvent,
 } from 'parser/core/Events';
+import { SpellLink } from 'interface';
+import CastEfficiencyPanel from 'interface/guide/components/CastEfficiencyPanel';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/priest/holy/Guide';
 
 class PrayerOfMending extends Analyzer {
   totalPoMHealing = 0;
@@ -100,6 +104,25 @@ class PrayerOfMending extends Analyzer {
     } else {
       this.pomRemovalCount += 1;
     }
+  }
+
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS_PRIEST.PRAYER_OF_MENDING_TALENT.id} />
+        </b>{' '}
+        is one of our most efficient spells and should be cast on cooldown. It is a heal that is
+        triggered on the target when they take damage, and then bounces to a new target. Because its
+        heal is triggered by damage, the active tank is a good target to cast this on.
+      </p>
+    );
+
+    const data = (
+      <CastEfficiencyPanel spell={TALENTS_PRIEST.PRAYER_OF_MENDING_TALENT} useThresholds />
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 }
 
