@@ -1,7 +1,7 @@
 import { SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
-import { GuideProps, Section, SubSection } from 'interface/guide';
+import { GuideProps, Section, SubSection, useAnalyzer } from 'interface/guide';
 import CombatLogParser from '../../CombatLogParser';
 import EmbeddedTimelineContainer, {
   SpellTimeline,
@@ -10,8 +10,14 @@ import Casts, { isApplicableEvent } from 'interface/report/Results/Timeline/Cast
 
 import { RageWindowCounter } from '../abilities/DragonRage';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import { formatDurationMinSec } from 'common/format';
+
 export function DragonRageSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   const rageWindows = Object.values(modules.dragonRage.rageWindowCounters);
+  const castEffic = useAnalyzer(CastEfficiency)?.getCastEfficiencyForSpellId(
+    TALENTS_EVOKER.DRAGONRAGE_TALENT.id,
+  );
 
   return (
     <Section title="Dragon Rage">
@@ -35,12 +41,15 @@ export function DragonRageSection({ modules, events, info }: GuideProps<typeof C
         <SpellLink id={SPELLS.AZURE_STRIKE.id} /> or <SpellLink id={SPELLS.LIVING_FLAME_CAST} /> if{' '}
         <SpellLink id={TALENTS_EVOKER.BURNOUT_TALENT.id} /> is talented and up.
       </p>
+
       <SubSection title="Current Limits">
         <p>
           You can gaurantee <strong>at least 2 casts</strong> of{' '}
           <SpellLink id={SPELLS.FIRE_BREATH.id} /> and{' '}
-          <SpellLink id={TALENTS_EVOKER.ETERNITY_SURGE_TALENT.id} />, but reaching more than that
-          requires lust, haste, and RNG. To understand this better checkout the{' '}
+          <SpellLink id={TALENTS_EVOKER.ETERNITY_SURGE_TALENT.id} /> by holding them if{' '}
+          <SpellLink id={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} /> is coming up in 10~15s (check out
+          the rotation above). But reaching more than that requires lust, haste, and RNG. To
+          understand this better checkout the{' '}
           <a href="https://www.wowhead.com/guide/classes/evoker/devastation/rotation-cooldowns-pve-dps#maximizing-dragonrage">
             Maximizing Dragonrage
           </a>{' '}
@@ -63,7 +72,12 @@ export function DragonRageSection({ modules, events, info }: GuideProps<typeof C
         }
 
         return (
-          <SubSection key={index} title={`Dragon Rage Window ${index + 1}`}>
+          <SubSection
+            key={index}
+            title={`Dragon Rage Window ${index + 1} out of ${
+              castEffic?.maxCasts
+            } (${formatDurationMinSec((window.end - window.start) / 1000)})`}
+          >
             <ExplanationAndDataSubSection
               explanationPercent={30}
               explanation={<Statistics window={window} />}
@@ -95,24 +109,22 @@ export function DragonRageSection({ modules, events, info }: GuideProps<typeof C
 // Need something prettier lol
 function Statistics({ window }: { window: RageWindowCounter }) {
   return (
-    <p>
-      <ul>
-        <li>
-          <SpellLink id={SPELLS.FIRE_BREATH.id} /> - {window.fireBreaths} casts
-        </li>
-        <li>
-          <SpellLink id={SPELLS.ETERNITY_SURGE.id} /> - {window.eternitySurges} casts
-        </li>
-        <li>
-          <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> - {window.essenceBursts} casts
-        </li>
-        <li>
-          <SpellLink id={SPELLS.DISINTEGRATE.id} /> - {window.disintegrateTicks} ticks
-        </li>
-        <li>
-          <SpellLink id={TALENTS_EVOKER.PYRE_TALENT.id} /> - {window.pyres} casts
-        </li>
-      </ul>
-    </p>
+    <ul>
+      <li>
+        <SpellLink id={SPELLS.FIRE_BREATH.id} /> - {window.fireBreaths}/2 casts
+      </li>
+      <li>
+        <SpellLink id={SPELLS.ETERNITY_SURGE.id} /> - {window.eternitySurges}/2 casts
+      </li>
+      <li>
+        <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> - {window.essenceBursts} casts
+      </li>
+      <li>
+        <SpellLink id={SPELLS.DISINTEGRATE.id} /> - {window.disintegrateTicks} ticks
+      </li>
+      <li>
+        <SpellLink id={TALENTS_EVOKER.PYRE_TALENT.id} /> - {window.pyres} casts
+      </li>
+    </ul>
   );
 }

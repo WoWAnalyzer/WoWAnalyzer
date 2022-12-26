@@ -37,7 +37,6 @@ class DragonRage extends Analyzer {
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(DRAGONRAGE_TALENT),
       (event) => {
-        console.log('applied');
         this.inDragonRageWindow = true;
         this.totalCasts += 1;
         this.rageWindowCounters[this.totalCasts] = {
