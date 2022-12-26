@@ -323,6 +323,11 @@ const spells = spellIndexableList({
     name: 'Focus Magic',
     icon: 'spell_arcane_studentofmagic',
   },
+  INCANTERS_ABSORPTION: {
+    id: 44413,
+    name: "Incanter's Absorption",
+    icon: 'spell_arcane_studentofmagic',
+  },
   MISSILE_BARRAGE: {
     id: 44401,
     name: 'Missile Barrage',
