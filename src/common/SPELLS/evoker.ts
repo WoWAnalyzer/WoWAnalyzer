@@ -103,6 +103,23 @@ const spells = spellIndexableList({
     name: 'Lifebind',
     icon: 'ability_evoker_hoverred',
   },
+  // Devestation Spells
+  ETERNITY_SURGE: {
+    id: 359073,
+    name: 'Eternity Surge',
+    icon: 'ability_evoker_eternitysurge',
+  },
+  ETERNITY_SURGE_FONT: {
+    id: 382411,
+    name: 'Eternity Surge',
+    icon: 'ability_evoker_eternitysurge',
+  },
+  SHATTERING_STAR: {
+    id: 370452,
+    name: 'Shattering Star',
+    icon: 'ability_evoker_chargedblast',
+  },
+
   // Shared
   BLESSING_OF_THE_BRONZE: {
     id: 364342,
@@ -168,6 +185,11 @@ const spells = spellIndexableList({
   },
   FIRE_BREATH: {
     id: 357208,
+    name: 'Fire Breath',
+    icon: 'ability_evoker_firebreath',
+  },
+  FIRE_BREATH_FONT: {
+    id: 382266,
     name: 'Fire Breath',
     icon: 'ability_evoker_firebreath',
   },
