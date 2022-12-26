@@ -78,6 +78,11 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: null,
       },
+      {
+        spell: [SPELLS.MIND_FREEZE.id],
+        category: SPELL_CATEGORY.DEFENSIVE,
+        gcd: null,
+      },
       // Other spells (not apart of the normal rotation)
       {
         spell: [SPELLS.RAISE_DEAD.id],
