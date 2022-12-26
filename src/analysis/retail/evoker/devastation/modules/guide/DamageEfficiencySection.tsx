@@ -1,11 +1,12 @@
 import { GuideProps, Section, SubSection } from 'interface/guide';
-import { SpellLink } from 'interface';
+import { ResourceLink, SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import CombatLogParser from '../../CombatLogParser';
 import SPELLS from 'common/SPELLS';
 
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 const EXPLANATION_PERCENTAGE = 70;
 function PassFail({ pass, total }: { pass: number; total: number }) {
@@ -24,6 +25,7 @@ export function DamageEfficiency(props: GuideProps<typeof CombatLogParser>) {
     <Section title="Damage Efficiency">
       <DisintegrateSubsection {...props} />
       <NoWastedProcsSubsection {...props} />
+      <ShatteringStarSubsection {...props} />
     </Section>
   );
 }
@@ -125,3 +127,26 @@ function NoWastedProcsSubsection({ modules }: GuideProps<typeof CombatLogParser>
     </SubSection>
   );
 }
+
+function ShatteringStarSubsection({ modules }: GuideProps<typeof CombatLogParser>) {
+  return (
+    <SubSection title="Shattering Store (coming soon)">
+      <p>
+        <SpellLink id={TALENTS_EVOKER.SHATTERING_STAR_TALENT} /> provides us with a small window
+        where our damage gets amplified. To maximize this window aim to have at least 1-2 uses of{' '}
+        <SpellLink id={SPELLS.DISINTEGRATE} /> or <SpellLink id={SPELLS.PYRE} /> by pooling{' '}
+        <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} /> and/or{' '}
+        <SpellLink id={SPELLS.ESSENCE_BURST_BUFF.id} /> when{' '}
+        <SpellLink id={TALENTS_EVOKER.SHATTERING_STAR_TALENT.id} /> is nearing CD. For more tips,
+        check out mentions of Shattering Star in the{' '}
+        <a href="https://www.wowhead.com/guide/classes/evoker/devastation/rotation-cooldowns-pve-dps">
+          Wowhead guide
+        </a>
+        .
+      </p>
+      <p>More analysis on window per window coverage coming soon.</p>
+    </SubSection>
+  );
+}
+
+// https://www.icy-veins.com/wow/devastation-evoker-pve-dps-rotation-cooldowns-abilities
