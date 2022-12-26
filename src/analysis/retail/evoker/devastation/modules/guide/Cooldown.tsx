@@ -6,7 +6,7 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import SPELLS from 'common/SPELLS';
 import { GapHighlight } from 'parser/ui/CooldownBar';
-import CombatLogParser from 'parser/core/CombatLogParser';
+import CombatLogParser from '../../CombatLogParser';
 import { SpellLink } from 'interface';
 
 export function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
@@ -23,15 +23,16 @@ export function CooldownSection({ modules, info }: GuideProps<typeof CombatLogPa
         These cooldowns are essential for maximizing your damage output. Top performing Evokers are
         able to acheive 100% efficiency with <SpellLink id={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} />,{' '}
         <SpellLink id={SPELLS.FIRE_BREATH.id} />, and <SpellLink id={SPELLS.ETERNITY_SURGE.id} />.
+        If talented into <SpellLink id={TALENTS_EVOKER.SHATTERING_STAR_TALENT.id} /> aim for 80%
+        efficiency.
       </p>
       <p>
         Legend
         <ul>
           <li>Gray - Spell was available</li>
           <li>Yellow - Spell was on cooldown</li>
-          <li>Red - Spell was available and potentially contributed to efficiency</li>
+          <li>Red - Spell was available and potentially affected your effieciency</li>
         </ul>
-        Simply put, Red is bad if efficiency is not 100%.
       </p>
       <CastEfficiencyBar
         spellId={TALENTS_EVOKER.DRAGONRAGE_TALENT.id}

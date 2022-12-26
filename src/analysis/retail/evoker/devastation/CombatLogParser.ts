@@ -2,11 +2,15 @@ import MainCombatLogParser from 'parser/core/CombatLogParser';
 
 import Abilities from './modules/Abilities';
 
-import ShatteringStar from './modules/talents/ShatteringStar';
+import ShatteringStar from './modules/abilities/ShatteringStar';
 import Guide from './Guide';
 import AplCheck from './modules/AplCheck';
 import EssenceTracker from '../preservation/modules/features/EssenceTracker';
-import EssenceGraph from './modules/guide/EssenceGraph';
+import EssenceGraph from './modules/guide/EssenceGraph/EssenceGraph';
+import Disintegrate from './modules/abilities/Disintegrate';
+import EssenceBurst from './modules/abilities/EssenceBurst';
+import Burnout from './modules/abilities/Burnout';
+import DragonRage from './modules/abilities/DragonRage';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -16,8 +20,12 @@ class CombatLogParser extends MainCombatLogParser {
     essenceTracker: EssenceTracker,
     essenceGraph: EssenceGraph,
 
-    // talents
+    // abilities & talents
+    disintegrate: Disintegrate,
     shatteringStar: ShatteringStar,
+    essenceBurst: EssenceBurst,
+    burnout: Burnout,
+    dragonRage: DragonRage,
 
     apls: AplCheck,
   };

@@ -1,18 +1,25 @@
 import SPELLS from 'common/SPELLS';
 import { suggestion } from 'parser/core/Analyzer';
-import aplCheck, { Apl, build, CheckResult, PlayerInfo } from 'parser/shared/metrics/apl';
+import aplCheck, { Apl, build, CheckResult, PlayerInfo, Rule } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import TALENTS from 'common/TALENTS/evoker';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 
-import { AnyEvent } from 'parser/core/Events';
+import { AnyEvent, EventType } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 const avoidIfDragonRageSoon = (time: number) => {
   return cnd.spellCooldownRemaining(TALENTS.DRAGONRAGE_TALENT, { atLeast: time });
 };
 
-const default_rotation = build([
+const hasEssenceRequirement = (resources: number) => {
+  return cnd.or(
+    cnd.hasResource(RESOURCE_TYPES.ESSENCE, { atLeast: resources }),
+    cnd.buffPresent(TALENTS.ESSENCE_BURST_ATTUNED_TALENT),
+  );
+};
+
+const COMMON_TOP: Rule[] = [
   {
     spell: SPELLS.FIRE_BREATH,
     condition: avoidIfDragonRageSoon(10000),
@@ -33,16 +40,45 @@ const default_rotation = build([
     spell: SPELLS.ETERNITY_SURGE_FONT,
     condition: avoidIfDragonRageSoon(15000),
   },
+];
+
+export const COMMON_BOTTOM: Rule[] = [
   {
-    spell: SPELLS.DISINTEGRATE,
-    condition: cnd.or(
-      cnd.hasResource(RESOURCE_TYPES.ESSENCE, { atLeast: 3 }),
-      cnd.buffPresent(TALENTS.ESSENCE_BURST_TALENT),
+    spell: SPELLS.LIVING_FLAME_CAST,
+    condition: cnd.buffPresent(TALENTS.BURNOUT_TALENT),
+  },
+  {
+    spell: SPELLS.AZURE_STRIKE,
+    condition: cnd.targetsHit(
+      { atLeast: 3 },
+      { lookahead: 1000, targetType: EventType.Damage, targetSpell: SPELLS.AZURE_STRIKE },
     ),
   },
-  SPELLS.DISINTEGRATE,
+  {
+    spell: SPELLS.AZURE_STRIKE,
+    condition: cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
+  },
   SPELLS.LIVING_FLAME_CAST,
-  SPELLS.LIVING_FLAME_DAMAGE,
+];
+
+const default_rotation = build([
+  ...COMMON_TOP,
+
+  {
+    spell: TALENTS.PYRE_TALENT,
+    condition: cnd.and(
+      hasEssenceRequirement(2),
+      cnd.targetsHit(
+        { atLeast: 3 },
+        { lookahead: 2000, targetType: EventType.Damage, targetSpell: SPELLS.PYRE },
+      ),
+    ),
+  },
+  {
+    spell: SPELLS.DISINTEGRATE,
+    condition: hasEssenceRequirement(3),
+  },
+  ...COMMON_BOTTOM,
 ]);
 
 export const apl = (): Apl => {

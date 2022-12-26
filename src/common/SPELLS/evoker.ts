@@ -109,6 +109,16 @@ const spells = spellIndexableList({
     name: 'Eternity Surge',
     icon: 'ability_evoker_eternitysurge',
   },
+  PYRE: {
+    id: 357212,
+    name: 'Pyre',
+    icon: 'ability_evoker_pyre',
+  },
+  CHARGED_BLAST: {
+    id: 370454,
+    name: 'Charged Blast',
+    icon: 'spell_arcane_arcanepotency',
+  },
   ETERNITY_SURGE_FONT: {
     id: 382411,
     name: 'Eternity Surge',
@@ -227,6 +237,11 @@ const spells = spellIndexableList({
     id: 361195,
     name: 'Verdant Embrace',
     icon: 'ability_evoker_rescue',
+  },
+  GIANT_SLAYER_MASTERY: {
+    id: 362980,
+    name: 'Mastery: Giantkiller',
+    icon: ' ability_evoker_masterygiantkiller',
   },
 });
 

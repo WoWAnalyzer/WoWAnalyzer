@@ -577,7 +577,7 @@ const talents = createTalentList({
     entryIds: [87642],
   },
   BURNOUT_TALENT: {
-    id: 375801,
+    id: 375802,
     name: 'Burnout',
     icon: 'spell_fire_soulburn',
     maxRanks: 2,
@@ -665,6 +665,13 @@ const talents = createTalentList({
   },
   ESSENCE_BURST_TALENT: {
     id: 369297,
+    name: 'Essence Burst',
+    icon: 'ability_evoker_essenceburst',
+    maxRanks: 1,
+    entryIds: [87630],
+  },
+  ESSENCE_BURST_ATTUNED_TALENT: {
+    id: 359618,
     name: 'Essence Burst',
     icon: 'ability_evoker_essenceburst',
     maxRanks: 1,

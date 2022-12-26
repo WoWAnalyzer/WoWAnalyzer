@@ -47,7 +47,7 @@ class EssenceGraph extends ResourceGraph {
       mark: {
         type: 'line' as const,
         interpolate: 'step' as const,
-        color: 'rgb(54, 194, 80)' as const,
+        color: '#33937F' as const,
       },
       config: {
         view: {},

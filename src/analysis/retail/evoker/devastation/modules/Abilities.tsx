@@ -32,7 +32,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30,
         gcd: {
-          base: 1500,
+          base: 500,
         },
         castEfficiency: {
           suggestion: true,
