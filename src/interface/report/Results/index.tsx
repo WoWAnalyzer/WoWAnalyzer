@@ -23,6 +23,9 @@ import Report from 'parser/core/Report';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
+import { CombatLogParserProvider } from 'interface/report/CombatLogParserContext';
+import ResultsContent from 'interface/report/Results/ResultsContent';
+import Expansion from 'game/Expansion';
 
 import './Results.scss';
 import BOSS_PHASES_STATE from '../BOSS_PHASES_STATE';
@@ -32,8 +35,6 @@ import DegradedExperience from './DegradedExperience';
 import Header from './Header';
 import ItemWarning from './ItemWarning';
 import ScrollToTop from './ScrollToTop';
-import { CombatLogParserProvider } from 'interface/report/CombatLogParserContext';
-import ResultsContent from 'interface/report/Results/ResultsContent';
 
 interface PassedProps {
   parser: CombatLogParser;
@@ -103,15 +104,14 @@ const Results = (props: PassedProps) => {
   // on game version change
   useEffect(() => {
     // Kind of ugly but also very working. We should replace the TooltipProvider class with a context that is used by SpellLink to make this easier to manipulate.
-    switch (props.report.gameVersion) {
-      case 4:
+    switch (wclGameVersionToExpansion(props.report.gameVersion)) {
+      case Expansion.WrathOfTheLichKing:
         TooltipProvider.baseUrl = 'https://www.wowhead.com/wotlk/';
         break;
-      case 3:
+      case Expansion.TheBurningCrusade:
         TooltipProvider.baseUrl = 'https://tbc.wowhead.com/';
         break;
       default:
-        TooltipProvider.baseUrl = 'https://www.wowhead.com/beta/';
         break;
     }
   }, [props.report.gameVersion]);
