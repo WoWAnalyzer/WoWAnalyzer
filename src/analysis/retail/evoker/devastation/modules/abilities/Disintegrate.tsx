@@ -19,33 +19,38 @@ class Disintegrate extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(DRAGONRAGE_TALENT), () => {
-      this.inDragonRageWindow = true;
-    });
-
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(DRAGONRAGE_TALENT), () => {
-      this.inDragonRageWindow = false;
-    });
-
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell([DISINTEGRATE].map((spell) => ({ id: spell.id }))),
-      () => {
-        this.totalTicks += 1;
-        if (this.inDragonRageWindow) {
-          this.dragonRageTicks += 1;
-        }
-      },
+      Events.applybuff.by(SELECTED_PLAYER).spell(DRAGONRAGE_TALENT),
+      this.onToggleDragonRageWindow(true),
     );
 
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([DISINTEGRATE].map((spell) => ({ id: spell.id }))),
-      () => {
-        this.totalCasts += 1;
-        if (this.inDragonRageWindow) {
-          this.dragonRageCasts += 1;
-        }
-      },
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(DRAGONRAGE_TALENT), () =>
+      this.onToggleDragonRageWindow(false),
     );
+
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(DISINTEGRATE), () =>
+      this.onDamage(),
+    );
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(DISINTEGRATE), this.onCast);
+  }
+
+  onToggleDragonRageWindow(value: boolean) {
+    return () => (this.inDragonRageWindow = value);
+  }
+
+  onDamage() {
+    this.totalTicks += 1;
+    if (this.inDragonRageWindow) {
+      this.dragonRageTicks += 1;
+    }
+  }
+
+  onCast() {
+    this.totalCasts += 1;
+    if (this.inDragonRageWindow) {
+      this.dragonRageCasts += 1;
+    }
   }
 
   get tickData() {

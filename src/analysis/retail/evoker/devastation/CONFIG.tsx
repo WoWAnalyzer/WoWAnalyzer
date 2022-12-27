@@ -17,7 +17,7 @@ export default {
     <>
       <p>
         Hello, and welcome to the Devastation Analyzer! This analyzer is maintained by{' '}
-        <code>Vireve</code> , a former priest whose loving the new class!
+        <code>Vireve</code> , a former priest who's loving the new class!
       </p>
       <p>
         If you have questions about the output or want to help contribute, please hit me up in the{' '}
@@ -27,7 +27,7 @@ export default {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/jwhR9KzTZQvdn4ap/11-Normal+Terros+-+Kill+(6:25)/Malygoated/standard',
+  exampleReport: '/report/7aMydgXf319RnwVt/5-Normal+Terros+-+Kill+(4:36)/Vorgon/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

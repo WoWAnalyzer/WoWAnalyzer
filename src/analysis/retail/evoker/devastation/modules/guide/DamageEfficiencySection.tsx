@@ -130,7 +130,7 @@ function NoWastedProcsSubsection({ modules }: GuideProps<typeof CombatLogParser>
 
 function ShatteringStarSubsection({ modules }: GuideProps<typeof CombatLogParser>) {
   return (
-    <SubSection title="Shattering Store (coming soon)">
+    <SubSection title="Shattering Star (coming soon)">
       <p>
         <SpellLink id={TALENTS_EVOKER.SHATTERING_STAR_TALENT} /> provides us with a small window
         where our damage gets amplified. To maximize this window aim to have at least 1-2 uses of{' '}

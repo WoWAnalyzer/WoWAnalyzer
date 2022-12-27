@@ -100,21 +100,24 @@ class ShatteringStar extends Analyzer {
 
     const currentWindow = this.damageCounters[this.totalCasts];
 
-    switch (damageEvent.ability.name) {
-      case DISINTEGRATE.name:
+    switch (damageEvent.ability.guid) {
+      case DISINTEGRATE.id:
         currentWindow.disintegrate += damageEvent.amount;
         break;
-      case FIRE_BREATH.name:
+      case FIRE_BREATH.id:
+      case FIRE_BREATH_FONT.id:
         currentWindow.fireBreath += damageEvent.amount;
         break;
-      case ETERNITY_SURGE.name:
+      case ETERNITY_SURGE.id:
+      case ETERNITY_SURGE_FONT.id:
         currentWindow.eternitySurge += damageEvent.amount;
         break;
-      case LIVING_FLAME_DAMAGE.name:
-        currentWindow.fireBreath += damageEvent.amount;
+      case LIVING_FLAME_CAST.id:
+      case LIVING_FLAME_DAMAGE.id:
+        currentWindow.livingFlame += damageEvent.amount;
         break;
-      case AZURE_STRIKE.name:
-        currentWindow.fireBreath += damageEvent.amount;
+      case AZURE_STRIKE.id:
+        currentWindow.azureStrike += damageEvent.amount;
         break;
       default:
         break;
