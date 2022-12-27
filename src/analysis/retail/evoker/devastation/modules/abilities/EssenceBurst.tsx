@@ -1,18 +1,12 @@
+import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  ApplyBuffEvent,
-  ApplyBuffStackEvent,
-  RemoveBuffEvent,
-  RemoveBuffStackEvent,
-} from 'parser/core/Events';
+import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent } from 'parser/core/Events';
+import { isFromEssenceBurst } from '../normalizers/CastLinkNormalizer';
 
-const ESSENCE_BURST_DURATION = 15000;
 class EssenceBurst extends Analyzer {
   procs: number = 0;
-  expiredProcs: number = 0;
-
-  lastProcTime: number = 0;
+  consumedProcs: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -31,30 +25,23 @@ class EssenceBurst extends Analyzer {
     );
 
     this.addEventListener(
-      Events.removebuff
-        .by(SELECTED_PLAYER)
-        .spell([TALENTS_EVOKER.ESSENCE_BURST_TALENT, TALENTS_EVOKER.ESSENCE_BURST_ATTUNED_TALENT]),
-      this.onRemoveBuff,
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.DISINTEGRATE, SPELLS.PYRE]),
+      this.onEssenceSpend,
     );
+  }
 
-    this.addEventListener(
-      Events.removebuffstack
-        .by(SELECTED_PLAYER)
-        .spell([TALENTS_EVOKER.ESSENCE_BURST_TALENT, TALENTS_EVOKER.ESSENCE_BURST_ATTUNED_TALENT]),
-      this.onRemoveBuff,
-    );
+  onEssenceSpend(event: CastEvent) {
+    if (isFromEssenceBurst(event)) {
+      this.consumedProcs += 1;
+    }
   }
 
   onApplyBuff(event: ApplyBuffEvent | ApplyBuffStackEvent) {
     this.procs += 1;
-    this.lastProcTime = event.timestamp;
   }
 
-  onRemoveBuff(event: RemoveBuffEvent | RemoveBuffStackEvent) {
-    const durationHeld = event.timestamp - this.lastProcTime;
-    if (durationHeld > ESSENCE_BURST_DURATION) {
-      this.expiredProcs += 1;
-    }
+  get wastedProcs() {
+    return this.procs - this.consumedProcs;
   }
 }
 

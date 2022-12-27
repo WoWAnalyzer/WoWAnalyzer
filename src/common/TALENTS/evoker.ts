@@ -577,7 +577,7 @@ const talents = createTalentList({
     entryIds: [87642],
   },
   BURNOUT_TALENT: {
-    id: 375802,
+    id: 375801,
     name: 'Burnout',
     icon: 'spell_fire_soulburn',
     maxRanks: 2,

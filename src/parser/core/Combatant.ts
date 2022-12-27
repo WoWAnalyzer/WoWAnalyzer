@@ -130,6 +130,7 @@ class Combatant extends Entity {
    *  points in the talent, even when not the maximum number of points. */
   hasTalent(spell: number | Spell): boolean {
     const spellId = typeof spell === 'number' ? spell : spell.id;
+    console.log(spellId, this.treeTalentsBySpellId);
     return this.treeTalentsBySpellId.has(spellId);
   }
 

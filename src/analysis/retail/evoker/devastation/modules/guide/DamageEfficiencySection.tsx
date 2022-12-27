@@ -101,10 +101,7 @@ function NoWastedProcsSubsection({ modules }: GuideProps<typeof CombatLogParser>
           </p>
         }
         data={
-          <PassFail
-            pass={modules.essenceBurst.procs - modules.essenceBurst.expiredProcs}
-            total={modules.essenceBurst.procs}
-          />
+          <PassFail pass={modules.essenceBurst.consumedProcs} total={modules.essenceBurst.procs} />
         }
       />
       <ExplanationAndDataSubSection
@@ -117,12 +114,7 @@ function NoWastedProcsSubsection({ modules }: GuideProps<typeof CombatLogParser>
             window.
           </p>
         }
-        data={
-          <PassFail
-            pass={modules.burnout.procs - modules.burnout.expiredProcs}
-            total={modules.burnout.procs}
-          />
-        }
+        data={<PassFail pass={modules.burnout.consumedProcs} total={modules.burnout.procs} />}
       />
     </SubSection>
   );

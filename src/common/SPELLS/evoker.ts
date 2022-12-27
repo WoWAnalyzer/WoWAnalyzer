@@ -178,6 +178,11 @@ const spells = spellIndexableList({
     essenceCost: 3,
     manaCost: 12000,
   },
+  BURNOUT_BUFF: {
+    id: 375802,
+    name: 'Burnout',
+    icon: 'spell_fire_soulburn',
+  },
   ESSENCE_BURST_BUFF: {
     id: 369299,
     name: 'Essence Burst',

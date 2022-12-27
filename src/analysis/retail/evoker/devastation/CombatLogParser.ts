@@ -11,10 +11,14 @@ import Disintegrate from './modules/abilities/Disintegrate';
 import EssenceBurst from './modules/abilities/EssenceBurst';
 import Burnout from './modules/abilities/Burnout';
 import DragonRage from './modules/abilities/DragonRage';
+import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     abilities: Abilities,
+
+    // Normalizer
+    castLinkNormalizer: CastLinkNormalizer,
 
     //features
     essenceTracker: EssenceTracker,
