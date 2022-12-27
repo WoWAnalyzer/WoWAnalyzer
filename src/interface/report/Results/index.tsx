@@ -138,6 +138,7 @@ const Results = (props: PassedProps) => {
         TooltipProvider.baseUrl = 'https://tbc.wowhead.com/';
         break;
       default:
+        TooltipProvider.baseUrl = 'https://wowhead.com/';
         break;
     }
   }, [props.report.gameVersion]);
