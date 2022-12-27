@@ -36,7 +36,7 @@ export function DamageEfficiency(props: GuideProps<typeof CombatLogParser>) {
 
 function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>) {
   const tickData = modules.disintegrate.tickData;
-
+  console.log({ tickData });
   if (tickData.regularTicks === 0) {
     return null;
   }

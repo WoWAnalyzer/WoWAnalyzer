@@ -24,7 +24,8 @@ class Disintegrate extends Analyzer {
       this.onToggleDragonRageWindow(true),
     );
 
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(DRAGONRAGE_TALENT), () =>
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(DRAGONRAGE_TALENT),
       this.onToggleDragonRageWindow(false),
     );
 
