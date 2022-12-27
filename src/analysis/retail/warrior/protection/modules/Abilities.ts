@@ -10,7 +10,7 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.DEVASTATE.id,
-        enabled: !combatant.hasTalent(TALENTS.DEVASTATOR_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS.DEVASTATOR_TALENT),
         gcd: {
           base: 1500,
         },
@@ -69,7 +69,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL, // 6 / (1 + haste)
         cooldown: (haste) => {
           if (
-            combatant.hasTalent(TALENTS.UNSTOPPABLE_FORCE_TALENT.id) &&
+            combatant.hasTalent(TALENTS.UNSTOPPABLE_FORCE_TALENT) &&
             combatant.hasBuff(TALENTS.AVATAR_TALENT.id)
           ) {
             return 6 / 2 / (1 + haste);
@@ -111,7 +111,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.LAST_STAND.id,
         buffSpellId: SPELLS.LAST_STAND.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(TALENTS.BOLSTER_TALENT.id) ? 180 - 60 : 180,
+        cooldown: combatant.hasTalent(TALENTS.BOLSTER_TALENT) ? 180 - 60 : 180,
         timelineSortIndex: 9,
       },
       {
@@ -132,7 +132,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(TALENTS.BOUNDING_STRIDE_TALENT.id) ? 45 - 15 : 45,
+        cooldown: combatant.hasTalent(TALENTS.BOUNDING_STRIDE_TALENT) ? 45 - 15 : 45,
       },
       {
         spell: SPELLS.HEROIC_THROW.id,
@@ -159,12 +159,12 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.VICTORY_RUSH.id,
-        enabled: !combatant.hasTalent(TALENTS.IMPENDING_VICTORY_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS.IMPENDING_VICTORY_TALENT),
         category: SPELL_CATEGORY.OTHERS,
       },
       {
         spell: TALENTS.STORM_BOLT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.STORM_BOLT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.STORM_BOLT_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
@@ -183,7 +183,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.IMPENDING_VICTORY_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.IMPENDING_VICTORY_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.IMPENDING_VICTORY_TALENT),
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
@@ -192,7 +192,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.RAVAGER_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.RAVAGER_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.RAVAGER_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
@@ -206,7 +206,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.THUNDEROUS_ROAR_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.THUNDEROUS_ROAR_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.THUNDEROUS_ROAR_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
@@ -229,8 +229,8 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 20 - (combatant.hasTalent(TALENTS.DOUBLE_TIME_TALENT.id) ? 3 : 0),
-        charges: 1 + (combatant.hasTalent(TALENTS.DOUBLE_TIME_TALENT.id) ? 1 : 0),
+        cooldown: 20 - (combatant.hasTalent(TALENTS.DOUBLE_TIME_TALENT) ? 3 : 0),
+        charges: 1 + (combatant.hasTalent(TALENTS.DOUBLE_TIME_TALENT) ? 1 : 0),
         timelineSortIndex: 9,
       },
       {

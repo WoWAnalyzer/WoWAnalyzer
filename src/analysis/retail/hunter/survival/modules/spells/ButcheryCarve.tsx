@@ -35,11 +35,11 @@ class ButcheryCarve extends Analyzer {
   wastedReductionMs: number = 0;
   targetsHit: number = 0;
   casts: number = 0;
-  spellKnown: Spell = this.selectedCombatant.hasTalent(TALENTS.BUTCHERY_TALENT.id)
+  spellKnown: Spell = this.selectedCombatant.hasTalent(TALENTS.BUTCHERY_TALENT)
     ? TALENTS.BUTCHERY_TALENT
     : SPELLS.CARVE;
   damage: number = 0;
-  bombSpellKnown: number = this.selectedCombatant.hasTalent(TALENTS.WILDFIRE_INFUSION_TALENT.id)
+  bombSpellKnown: number = this.selectedCombatant.hasTalent(TALENTS.WILDFIRE_INFUSION_TALENT)
     ? TALENTS.WILDFIRE_INFUSION_TALENT.id
     : SPELLS.WILDFIRE_BOMB.id;
 

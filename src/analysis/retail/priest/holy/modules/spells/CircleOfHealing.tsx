@@ -33,9 +33,9 @@ class CircleOfHealing extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS.CIRCLE_OF_HEALING_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.CIRCLE_OF_HEALING_TALENT);
 
-    this.orisonActive = this.selectedCombatant.hasTalent(TALENTS.ORISON_TALENT.id);
+    this.orisonActive = this.selectedCombatant.hasTalent(TALENTS.ORISON_TALENT);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CIRCLE_OF_HEALING_TALENT),

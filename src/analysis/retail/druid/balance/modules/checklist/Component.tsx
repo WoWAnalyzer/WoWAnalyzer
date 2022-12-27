@@ -89,7 +89,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         }
         thresholds={thresholds.sunfireRefresh}
       />
-      {combatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_TALENT.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_TALENT) && (
         <Requirement
           name={
             <>
@@ -99,7 +99,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
           thresholds={thresholds.stellarFlareUptime}
         />
       )}
-      {combatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_TALENT.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_TALENT) && (
         <Requirement
           name={
             <>
@@ -159,7 +159,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         frequently as possible throughout a fight. A cooldown should be held on to only if a priority
         DPS phase is coming soon. Holding cooldowns too long will hurt your DPS."
     >
-      {combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id) ? (
+      {combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT) ? (
         <AbilityRequirement spell={TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id} />
       ) : (
         <AbilityRequirement spell={SPELLS.CELESTIAL_ALIGNMENT.id} />
@@ -167,16 +167,16 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
       {combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) && (
         <AbilityRequirement spell={SPELLS.CONVOKE_SPIRITS.id} />
       )}
-      {combatant.hasTalent(TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.FORCE_OF_NATURE_TALENT) && (
         <AbilityRequirement spell={TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id} />
       )}
-      {combatant.hasTalent(TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT) && (
         <AbilityRequirement spell={TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT.id} />
       )}
-      {combatant.hasTalent(TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.FURY_OF_ELUNE_TALENT) && (
         <AbilityRequirement spell={TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id} />
       )}
-      {combatant.hasTalent(TALENTS_DRUID.NEW_MOON_TALENT.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.NEW_MOON_TALENT) && (
         <AbilityRequirement spell={TALENTS_DRUID.NEW_MOON_TALENT.id} />
       )}
     </Rule>
@@ -193,7 +193,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         <AbilityRequirement spell={TALENTS_DRUID.INNERVATE_TALENT.id} />
       )}
       <AbilityRequirement spell={SPELLS.BARKSKIN.id} />
-      {combatant.hasTalent(TALENTS_DRUID.RENEWAL_TALENT.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.RENEWAL_TALENT) && (
         <AbilityRequirement spell={TALENTS_DRUID.RENEWAL_TALENT.id} />
       )}
     </Rule>

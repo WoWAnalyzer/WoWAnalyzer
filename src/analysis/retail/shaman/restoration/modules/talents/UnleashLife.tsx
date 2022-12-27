@@ -77,7 +77,7 @@ class UnleashLife extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT);
 
     const spellFilter = [
       TALENTS.UNLEASH_LIFE_TALENT,

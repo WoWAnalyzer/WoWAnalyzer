@@ -29,7 +29,7 @@ class NaturesGuardian extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.NATURES_GUARDIAN_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.NATURES_GUARDIAN_TALENT);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.NATURES_GUARDIAN_HEAL),

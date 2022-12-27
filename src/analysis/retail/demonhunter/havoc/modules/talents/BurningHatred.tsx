@@ -21,7 +21,7 @@ export default class BurningHatred extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.BURNING_HATRED_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.BURNING_HATRED_TALENT);
     if (!this.active) {
       return;
     }

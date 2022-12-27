@@ -25,7 +25,7 @@ class Mindgames extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active =
-      this.selectedCombatant.hasTalent(TALENTS_PRIEST.MINDGAMES_TALENT.id) &&
+      this.selectedCombatant.hasTalent(TALENTS_PRIEST.MINDGAMES_TALENT) &&
       this.selectedCombatant.spec === SPECS.DISCIPLINE_PRIEST;
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);

@@ -35,36 +35,36 @@ class Buffs extends CoreAuras {
       {
         spellId: TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id,
         triggeredBySpellId: TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.DARKNESS_TALENT),
       },
       {
         spellId: SPELLS.SIGIL_OF_FLAME_DEBUFF.id,
         triggeredBySpellId: SPELLS.SIGIL_OF_FLAME_PRECISE.id,
         enabled:
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id) &&
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT.id),
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT) &&
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT),
       },
       {
         spellId: SPELLS.SIGIL_OF_FLAME_DEBUFF.id,
         triggeredBySpellId: SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id,
         enabled:
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id) &&
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id),
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT) &&
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT),
       },
       {
         spellId: SPELLS.SIGIL_OF_FLAME_DEBUFF.id,
         triggeredBySpellId: TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id,
         enabled:
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id) &&
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT) &&
           !(
-            combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT.id) ||
-            combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id)
+            combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT) ||
+            combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT)
           ),
       },
       {
         spellId: TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT.id,
         triggeredBySpellId: TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT),
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),

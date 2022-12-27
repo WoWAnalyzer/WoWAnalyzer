@@ -41,7 +41,7 @@ class MistyPeaks extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.envmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT.id)
+    this.envmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
       ? 0.4
       : 0.3;
     this.addEventListener(

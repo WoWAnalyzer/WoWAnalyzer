@@ -16,7 +16,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 60,
-        enabled: combatant.hasTalent(talents.PILLAR_OF_FROST_TALENT.id),
+        enabled: combatant.hasTalent(talents.PILLAR_OF_FROST_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
@@ -60,7 +60,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-        enabled: combatant.hasTalent(talents.HORN_OF_WINTER_TALENT.id),
+        enabled: combatant.hasTalent(talents.HORN_OF_WINTER_TALENT),
       },
       {
         spell: talents.BREATH_OF_SINDRAGOSA_TALENT.id,
@@ -75,7 +75,7 @@ class Abilities extends CoreAbilities {
             'You should only save this if there is a mechanic you will need to deal with in the next 30 seconds or if you need to save it for a particular phase',
         },
         timelineSortIndex: 2,
-        enabled: combatant.hasTalent(talents.BREATH_OF_SINDRAGOSA_TALENT.id),
+        enabled: combatant.hasTalent(talents.BREATH_OF_SINDRAGOSA_TALENT),
       },
       {
         spell: talents.FROSTWYRMS_FURY_TALENT.id,
@@ -95,7 +95,7 @@ class Abilities extends CoreAbilities {
             </>
           ),
         },
-        enabled: combatant.hasTalent(talents.FROSTWYRMS_FURY_TALENT.id),
+        enabled: combatant.hasTalent(talents.FROSTWYRMS_FURY_TALENT),
       },
       {
         spell: SPELLS.RAISE_DEAD_BLOOD_FROST.id,
@@ -121,7 +121,7 @@ class Abilities extends CoreAbilities {
             </>
           ),
         },
-        enabled: combatant.hasTalent(talents.CHILL_STREAK_TALENT.id),
+        enabled: combatant.hasTalent(talents.CHILL_STREAK_TALENT),
       },
       {
         spell: talents.ABOMINATION_LIMB_TALENT.id,
@@ -130,7 +130,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 120,
-        enabled: combatant.hasTalent(talents.ABOMINATION_LIMB_TALENT.id),
+        enabled: combatant.hasTalent(talents.ABOMINATION_LIMB_TALENT),
       },
       {
         spell: SPELLS.RAISE_DEAD_BLOOD_FROST.id,
@@ -158,7 +158,7 @@ class Abilities extends CoreAbilities {
           suggestion: false,
           recommendedEfficiency: 0.9,
         },
-        enabled: combatant.hasTalent(talents.REMORSELESS_WINTER_TALENT.id),
+        enabled: combatant.hasTalent(talents.REMORSELESS_WINTER_TALENT),
       },
       {
         spell: talents.HOWLING_BLAST_TALENT.id,
@@ -180,7 +180,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(talents.FROSTSCYTHE_TALENT.id),
+        enabled: combatant.hasTalent(talents.FROSTSCYTHE_TALENT),
       },
       {
         spell: talents.GLACIAL_ADVANCE_TALENT.id,
@@ -189,7 +189,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(talents.GLACIAL_ADVANCE_TALENT.id),
+        enabled: combatant.hasTalent(talents.GLACIAL_ADVANCE_TALENT),
       },
       {
         spell: talents.SACRIFICIAL_PACT_TALENT.id,
@@ -198,7 +198,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(talents.SACRIFICIAL_PACT_TALENT.id),
+        enabled: combatant.hasTalent(talents.SACRIFICIAL_PACT_TALENT),
       },
 
       // DEFENSIVE
@@ -207,9 +207,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: talents.ANTI_MAGIC_SHELL_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: null,
-        cooldown: combatant.hasTalent(talents.ANTI_MAGIC_BARRIER_TALENT.id) ? 40 : 60,
+        cooldown: combatant.hasTalent(talents.ANTI_MAGIC_BARRIER_TALENT) ? 40 : 60,
         isDefensive: true,
-        enabled: combatant.hasTalent(talents.ANTI_MAGIC_SHELL_TALENT.id),
+        enabled: combatant.hasTalent(talents.ANTI_MAGIC_SHELL_TALENT),
       },
       {
         spell: talents.ICEBOUND_FORTITUDE_TALENT.id,
@@ -218,7 +218,7 @@ class Abilities extends CoreAbilities {
         gcd: null,
         cooldown: 180,
         isDefensive: true,
-        enabled: combatant.hasTalent(talents.ICEBOUND_FORTITUDE_TALENT.id),
+        enabled: combatant.hasTalent(talents.ICEBOUND_FORTITUDE_TALENT),
       },
       {
         spell: talents.DEATH_STRIKE_TALENT.id,
@@ -235,7 +235,7 @@ class Abilities extends CoreAbilities {
         gcd: null,
         cooldown: 120,
         isDefensive: true,
-        enabled: combatant.hasTalent(talents.DEATH_STRIKE_TALENT.id),
+        enabled: combatant.hasTalent(talents.DEATH_STRIKE_TALENT),
       },
       {
         spell: talents.ANTI_MAGIC_ZONE_TALENT.id,
@@ -264,7 +264,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: talents.CHAINS_OF_ICE_TALENT.id,
-        category: combatant.hasTalent(talents.COLD_HEART_TALENT.id)
+        category: combatant.hasTalent(talents.COLD_HEART_TALENT)
           ? SPELL_CATEGORY.ROTATIONAL
           : SPELL_CATEGORY.UTILITY,
         gcd: {
@@ -274,7 +274,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEATHS_ADVANCE.id,
         category: SPELL_CATEGORY.UTILITY,
-        charges: combatant.hasTalent(talents.DEATHS_ECHO_TALENT.id) ? 2 : 1,
+        charges: combatant.hasTalent(talents.DEATHS_ECHO_TALENT) ? 2 : 1,
         gcd: null,
         cooldown: 45,
       },
@@ -327,7 +327,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 60,
-        enabled: combatant.hasTalent(talents.BLINDING_SLEET_TALENT.id),
+        enabled: combatant.hasTalent(talents.BLINDING_SLEET_TALENT),
       },
       {
         spell: talents.WRAITH_WALK_TALENT.id,
@@ -336,12 +336,12 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 60,
-        enabled: combatant.hasTalent(talents.WRAITH_WALK_TALENT.id),
+        enabled: combatant.hasTalent(talents.WRAITH_WALK_TALENT),
       },
       {
         spell: SPELLS.DEATH_AND_DECAY.id,
         category: SPELL_CATEGORY.UTILITY,
-        charges: combatant.hasTalent(talents.DEATHS_ECHO_TALENT.id) ? 2 : 1,
+        charges: combatant.hasTalent(talents.DEATHS_ECHO_TALENT) ? 2 : 1,
         gcd: {
           base: 1500,
         },

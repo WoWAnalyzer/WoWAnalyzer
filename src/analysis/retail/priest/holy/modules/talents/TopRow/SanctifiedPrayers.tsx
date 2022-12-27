@@ -31,7 +31,7 @@ class SanctifiedPrayers extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SANCTIFIED_PRAYERS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SANCTIFIED_PRAYERS_TALENT);
 
     if (this.active) {
       this.addEventListener(

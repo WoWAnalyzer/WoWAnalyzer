@@ -36,9 +36,9 @@ class SplittingIce extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SPLITTING_ICE_TALENT.id);
-    this.hasGlacialSpike = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT.id);
-    this.hasEbonbolt = this.selectedCombatant.hasTalent(TALENTS.EBONBOLT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SPLITTING_ICE_TALENT);
+    this.hasGlacialSpike = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT);
+    this.hasEbonbolt = this.selectedCombatant.hasTalent(TALENTS.EBONBOLT_TALENT);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPLITTABLE_CASTS), this.onCast);
     this.addEventListener(

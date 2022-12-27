@@ -32,7 +32,7 @@ const TalentSpellText = ({ talent, children, className }: Props) => {
     combatLogParser: { selectedCombatant },
   } = useCombatLogParser();
   const spellId = talent.id;
-  const rank = selectedCombatant.getTalentRank(spellId);
+  const rank = selectedCombatant.getTalentRank(talent);
   const maxRanks = talent.maxRanks;
   return (
     <div className={`pad boring-text ${className || ''}`}>

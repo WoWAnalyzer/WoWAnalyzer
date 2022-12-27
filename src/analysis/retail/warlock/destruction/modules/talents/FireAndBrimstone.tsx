@@ -30,7 +30,7 @@ class FireAndBrimstone extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.FIRE_AND_BRIMSTONE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.FIRE_AND_BRIMSTONE_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INCINERATE),
       this.onIncinerateCast,

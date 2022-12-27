@@ -46,7 +46,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MOONFIRE_FERAL.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_TALENT),
         gcd: {
           base: 1000,
         },
@@ -66,7 +66,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_DRUID.PRIMAL_WRATH_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled: combatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_TALENT),
         gcd: {
           static: 1000,
         },
@@ -75,7 +75,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SWIPE_CAT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled: !combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT),
         gcd: {
           static: 1000,
         },
@@ -85,7 +85,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_DRUID.BRUTAL_SLASH_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL, // when taken, still used on single target
-        enabled: combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT),
         cooldown: (haste: number) => 8 / (1 + haste),
         charges: 3,
         castEfficiency: {
@@ -103,7 +103,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SWIPE_BEAR.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled: !combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT),
         gcd: {
           base: 1500,
         },
@@ -115,7 +115,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
-        enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -132,7 +132,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BERSERK.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
-        enabled: !combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -174,7 +174,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_DRUID.FERAL_FRENZY_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.FERAL_FRENZY_TALENT),
         cooldown: 45,
         castEfficiency: {
           suggestion: true,
@@ -229,7 +229,7 @@ class Abilities extends CoreAbilities {
         ],
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 15,
-        enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.WILD_CHARGE_TALENT),
         gcd: null,
         timelineSortIndex: 42,
       },

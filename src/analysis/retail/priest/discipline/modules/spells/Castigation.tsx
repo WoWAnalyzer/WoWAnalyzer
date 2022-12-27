@@ -32,7 +32,7 @@ class Castigation extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CASTIGATION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CASTIGATION_TALENT);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtone);

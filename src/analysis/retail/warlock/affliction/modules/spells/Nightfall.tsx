@@ -15,7 +15,7 @@ class Nightfall extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.NIGHTFALL_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.NIGHTFALL_TALENT);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.NIGHTFALL_BUFF),
       this.onNightfallApplyRefresh,

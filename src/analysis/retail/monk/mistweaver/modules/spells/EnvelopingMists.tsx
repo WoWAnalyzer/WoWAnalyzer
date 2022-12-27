@@ -26,7 +26,7 @@ class EnvelopingMists extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.evmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT.id)
+    this.evmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
       ? 0.4
       : 0.3;
     this.addEventListener(

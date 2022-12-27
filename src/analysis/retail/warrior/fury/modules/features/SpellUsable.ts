@@ -14,7 +14,7 @@ class SpellUsable extends CoreSpellUsable {
 
   constructor(options: Options) {
     super(options);
-    this.hasSuddenDeath = this.selectedCombatant.hasTalent(talents.SUDDEN_DEATH_FURY_TALENT.id);
+    this.hasSuddenDeath = this.selectedCombatant.hasTalent(talents.SUDDEN_DEATH_FURY_TALENT);
   }
 
   onCast(event: CastEvent) {
