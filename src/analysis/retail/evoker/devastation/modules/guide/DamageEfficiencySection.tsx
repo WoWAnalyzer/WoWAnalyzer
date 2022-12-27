@@ -1,4 +1,4 @@
-import { GuideProps, Section, SubSection } from 'interface/guide';
+import { GuideProps, PassFailCheckmark, Section, SubSection } from 'interface/guide';
 import { ResourceLink, SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import CombatLogParser from '../../CombatLogParser';
@@ -7,14 +7,18 @@ import SPELLS from 'common/SPELLS';
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import DonutChart from 'parser/ui/DonutChart';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 
 const EXPLANATION_PERCENTAGE = 70;
-function PassFail({ pass, total }: { pass: number; total: number }) {
+function PassFail({ value, total, passed }: { value: number; total: number; passed: boolean }) {
   return (
     <div>
-      <PassFailBar pass={pass} total={total} />
+      <PassFailBar pass={value} total={total} />
+      &nbsp; <PassFailCheckmark pass={passed} />
       <p>
-        {pass} / {total} ({((pass / total) * 100).toFixed(2)}%)
+        {value} / {total} ({((value / total) * 100).toFixed(2)}%)
       </p>
     </div>
   );
@@ -61,7 +65,13 @@ function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>)
             <p>You should not be dropping any ticks here.</p>
           </div>
         }
-        data={<PassFail pass={tickData.regularTicks} total={tickData.totalPossibleRegularTicks} />}
+        data={
+          <PassFail
+            value={tickData.regularTicks}
+            total={tickData.totalPossibleRegularTicks}
+            passed={tickData.regularTickRatio > 0.95}
+          />
+        }
       />
 
       <ExplanationAndDataSubSection
@@ -73,14 +83,17 @@ function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>)
               <SpellLink id={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} />
             </p>
             <p>
-              Dropping ticks is more acceptable here if your goal is to consume{' '}
-              <SpellLink id={SPELLS.ESSENCE_BURST_BUFF} /> procs faster in hopes of getting an
-              extended window.
+              Aim to drop 70%-85% of ticks so you can consume{' '}
+              <SpellLink id={SPELLS.ESSENCE_BURST_BUFF} /> procs faster (read Dragonrage section).
             </p>
           </div>
         }
         data={
-          <PassFail pass={tickData.dragonRageTicks} total={tickData.totalPossibleDragonRageTicks} />
+          <PassFail
+            value={tickData.dragonRageTicks}
+            total={tickData.totalPossibleDragonRageTicks}
+            passed={tickData.dragonRageTickRatio > 0.85 || tickData.dragonRageTickRatio > 0.7}
+          />
         }
       />
     </SubSection>
@@ -101,7 +114,11 @@ function NoWastedProcsSubsection({ modules }: GuideProps<typeof CombatLogParser>
           </p>
         }
         data={
-          <PassFail pass={modules.essenceBurst.consumedProcs} total={modules.essenceBurst.procs} />
+          <PassFail
+            value={modules.essenceBurst.consumedProcs}
+            total={modules.essenceBurst.procs}
+            passed={modules.essenceBurst.consumedProcs === modules.essenceBurst.procs}
+          />
         }
       />
       <ExplanationAndDataSubSection
@@ -114,7 +131,13 @@ function NoWastedProcsSubsection({ modules }: GuideProps<typeof CombatLogParser>
             window.
           </p>
         }
-        data={<PassFail pass={modules.burnout.consumedProcs} total={modules.burnout.procs} />}
+        data={
+          <PassFail
+            value={modules.burnout.consumedProcs}
+            total={modules.burnout.procs}
+            passed={modules.burnout.consumedProcs === modules.burnout.procs}
+          />
+        }
       />
     </SubSection>
   );
@@ -122,21 +145,38 @@ function NoWastedProcsSubsection({ modules }: GuideProps<typeof CombatLogParser>
 
 function ShatteringStarSubsection({ modules }: GuideProps<typeof CombatLogParser>) {
   return (
-    <SubSection title="Shattering Star (coming soon)">
+    <SubSection title="Shattering Star">
       <p>
         <SpellLink id={TALENTS_EVOKER.SHATTERING_STAR_TALENT} /> provides us with a small window
         where our damage gets amplified. To maximize this window aim to have at least 1-2 uses of{' '}
         <SpellLink id={SPELLS.DISINTEGRATE} /> or <SpellLink id={SPELLS.PYRE} /> by pooling{' '}
         <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} /> and/or{' '}
         <SpellLink id={SPELLS.ESSENCE_BURST_BUFF.id} /> when{' '}
-        <SpellLink id={TALENTS_EVOKER.SHATTERING_STAR_TALENT.id} /> is nearing CD. For more tips,
-        check out mentions of Shattering Star in the{' '}
+        <SpellLink id={TALENTS_EVOKER.SHATTERING_STAR_TALENT.id} /> is nearing CD. Using{' '}
+        <SpellLink id={SPELLS.ETERNITY_SURGE} /> is also good, but don't hold the CD for this
+        window. For more tips, check out mentions of Shattering Star in the{' '}
         <a href="https://www.wowhead.com/guide/classes/evoker/devastation/rotation-cooldowns-pve-dps">
           Wowhead guide
         </a>
         .
       </p>
-      <p>More analysis on window per window coverage coming soon.</p>
+      <ExplanationAndDataSubSection
+        explanationPercent={EXPLANATION_PERCENTAGE}
+        explanation={
+          <RoundedPanel>
+            <strong>Per cast breakdown</strong>
+            <small> Try to get 2+ strong spells as much as possible!</small>
+
+            <PerformanceBoxRow values={modules.shatteringStar.windowEntries} />
+          </RoundedPanel>
+        }
+        data={
+          <div>
+            <strong>Summary</strong>
+            <DonutChart items={modules.shatteringStar.donutItems} />
+          </div>
+        }
+      />
     </SubSection>
   );
 }

@@ -54,11 +54,19 @@ class Disintegrate extends Analyzer {
   }
 
   get tickData() {
+    const regularTicks = this.totalTicks - this.dragonRageTicks;
+    const totalPossibleRegularTicks =
+      (this.totalCasts - this.dragonRageCasts) * TICKS_PER_DISINTEGRATE;
+    const dragonRageTicks = this.dragonRageTicks;
+    const totalPossibleDragonRageTicks = this.dragonRageCasts * TICKS_PER_DISINTEGRATE;
+
     return {
-      regularTicks: this.totalTicks - this.dragonRageTicks,
-      totalPossibleRegularTicks: (this.totalCasts - this.dragonRageCasts) * TICKS_PER_DISINTEGRATE,
-      dragonRageTicks: this.dragonRageTicks,
-      totalPossibleDragonRageTicks: this.dragonRageCasts * TICKS_PER_DISINTEGRATE,
+      regularTicks,
+      totalPossibleRegularTicks,
+      regularTickRatio: regularTicks / totalPossibleRegularTicks,
+      dragonRageTicks,
+      totalPossibleDragonRageTicks,
+      dragonRageTickRatio: dragonRageTicks / totalPossibleDragonRageTicks,
     };
   }
 }
