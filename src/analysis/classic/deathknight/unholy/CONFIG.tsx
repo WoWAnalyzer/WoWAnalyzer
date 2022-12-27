@@ -11,29 +11,22 @@ const CONFIG: Config = {
   expansion: Expansion.WrathOfTheLichKing,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '3.4.0',
-  isPartial: true,
+  isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Welcome! Thank you for checking out WoWAnalyzer. The Classic Unholy Death Knight spec is
-      currently seeking contributors.
+      Welcome! Thanks for checking out WoWAnalyzer. The Classic Unholy Death Knight guide is seeking
+      a maintainer.
       <br />
-      Please see the public{' '}
-      <a
-        href="https://github.com/WoWAnalyzer/WoWAnalyzer"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        GitHub Repo
-      </a>{' '}
-      . Thanks!
+      See the public GitHub repo or join our community Discord for information about contributing.
+      Thanks!
     </>
   ),
   pages: {
     overview: {
       hideChecklist: false,
-      text: <>Classic WotLK support is still a Work in Progress.</>,
+      text: <>The Classic Unholy Death Knight guide is seeking a maintainer.</>,
       type: 'info',
     },
   },
