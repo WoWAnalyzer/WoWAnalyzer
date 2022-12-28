@@ -25,11 +25,9 @@ class MendingProliferation extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.mendingProlifHealingIncrease = this.selectedCombatant.hasTalent(
-      TALENTS_MONK.MIST_WRAP_TALENT.id,
-    )
-      ? ENVELOPING_MIST_INCREASE + MISTWRAP_INCREASE
-      : ENVELOPING_MIST_INCREASE;
+    this.mendingProlifHealingIncrease =
+      ENVELOPING_MIST_INCREASE +
+      MISTWRAP_INCREASE * this.selectedCombatant.getTalentRank(TALENTS_MONK.MIST_WRAP_TALENT);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handleHeal);
   }
 
