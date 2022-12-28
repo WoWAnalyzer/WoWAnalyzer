@@ -25,7 +25,6 @@ import EarthShield from 'analysis/retail/shaman/shared/talents/EarthShield';
 import Hailstorm from './modules/talents/Hailstorm';
 import FireNova from './modules/talents/FireNova';
 import NaturesGuardian from './modules/talents/NaturesGuardian';
-import CrashingStorm from './modules/talents/CrashingStorm';
 import Sundering from './modules/talents/Sundering';
 import ElementalSpirits from './modules/talents/ElementalSpirits';
 import ElementalAssault from './modules/talents/ElementalAssault';
@@ -72,7 +71,6 @@ class CombatLogParser extends CoreCombatLogParser {
     elementalAssault: ElementalAssault,
     hailstorm: Hailstorm,
     fireNova: FireNova,
-    crashingStorm: CrashingStorm,
     sundering: Sundering,
     elementalSpirits: ElementalSpirits,
     feralSpirit: FeralSpirit,
