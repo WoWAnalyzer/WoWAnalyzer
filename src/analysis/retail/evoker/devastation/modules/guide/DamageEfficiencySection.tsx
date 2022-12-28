@@ -104,7 +104,7 @@ function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>)
             value={tickData.dragonRageTicks}
             total={tickData.totalPossibleDragonRageTicks}
             customTotal={tickData.totalPossibleDragonRageTicks * 0.75}
-            passed={tickData.dragonRageTickRatio > 0.85 || tickData.dragonRageTickRatio > 0.7}
+            passed={tickData.dragonRageTickRatio < 0.85 && tickData.dragonRageTickRatio > 0.7}
           />
         }
       />
