@@ -17,7 +17,7 @@ class Warpaint extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(talents.WARPAINT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.WARPAINT_TALENT);
 
     if (!this.active) {
       return;

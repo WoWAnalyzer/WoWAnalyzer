@@ -27,7 +27,7 @@ class AspectOfTheBeast extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ASPECT_OF_THE_BEAST_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ASPECT_OF_THE_BEAST_TALENT);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET), this.onPetHeal);
   }

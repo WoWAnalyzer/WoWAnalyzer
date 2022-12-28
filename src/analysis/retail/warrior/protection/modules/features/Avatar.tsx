@@ -18,7 +18,7 @@ class Avatar extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.AVATAR_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.AVATAR_TALENT);
     if (!this.active) {
       return;
     }

@@ -17,7 +17,7 @@ class ChiTracker extends ResourceTracker {
     super(options);
     this.resource = RESOURCE_TYPES.CHI;
 
-    if (this.selectedCombatant.hasTalent(SPELLS.ASCENSION_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.ASCENSION_TALENT)) {
       this.maxResource = 6;
     }
   }

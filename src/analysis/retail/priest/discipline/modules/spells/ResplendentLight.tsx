@@ -31,15 +31,13 @@ class ResplendentLight extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.RESPLENDENT_LIGHT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.RESPLENDENT_LIGHT_TALENT);
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtonement);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.LIGHTS_WRATH_TALENT),
       this.onDamage,
     );
-    this.talentRank = this.selectedCombatant.getTalentRank(
-      TALENTS_PRIEST.RESPLENDENT_LIGHT_TALENT.id,
-    );
+    this.talentRank = this.selectedCombatant.getTalentRank(TALENTS_PRIEST.RESPLENDENT_LIGHT_TALENT);
     this.resplendentLightIncrease = this.talentRank * RESPLENDENT_LIGHT_RANK_INCREASE;
   }
 

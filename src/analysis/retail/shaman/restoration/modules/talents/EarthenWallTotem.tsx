@@ -43,7 +43,7 @@ class EarthenWallTotem extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.EARTHEN_WALL_TOTEM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.EARTHEN_WALL_TOTEM_TALENT);
     this.isMaghar =
       this.selectedCombatant.race && this.selectedCombatant.race.name === "Mag'har Orc";
 

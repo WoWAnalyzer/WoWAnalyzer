@@ -20,7 +20,7 @@ class MasterMarksman extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.MASTER_MARKSMAN_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.MASTER_MARKSMAN_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MASTER_MARKSMAN_DEBUFF),
       this.onDebuffDamage,

@@ -29,12 +29,12 @@ class HarshDiscipline extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT);
     if (!this.active) {
       return;
     }
 
-    this.expectedBolts = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CASTIGATION_TALENT.id)
+    this.expectedBolts = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CASTIGATION_TALENT)
       ? 4
       : 3;
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtone);
@@ -100,7 +100,7 @@ class HarshDiscipline extends Analyzer {
         <>
           <BoringSpellValueText spellId={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT.id}>
             <span>
-              Rank {this.selectedCombatant.getTalentRank(TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT.id)}
+              Rank {this.selectedCombatant.getTalentRank(TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT)}
               <br />
             </span>
             <ItemHealingDone amount={this.harshAtonement + this.harshDirect} /> <br />

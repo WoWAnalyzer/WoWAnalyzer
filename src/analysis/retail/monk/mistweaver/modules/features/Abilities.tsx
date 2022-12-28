@@ -59,7 +59,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_MONK.MANA_TEA_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
-        enabled: combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -69,7 +69,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_MONK.CHI_BURST_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
-        enabled: combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -82,7 +82,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_MONK.CHI_WAVE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 15,
-        enabled: combatant.hasTalent(TALENTS_MONK.CHI_WAVE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_MONK.CHI_WAVE_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -123,7 +123,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: combatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT),
         cooldown: combatant.hasTalent(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT) ? 60 : 180,
         gcd: {
           base: 1500,
@@ -136,7 +136,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT),
         cooldown: combatant.hasTalent(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT) ? 60 : 180,
         gcd: {
           base: 1500,
@@ -178,7 +178,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id,
         category: SPELL_CATEGORY.OTHERS,
-        enabled: combatant.hasTalent(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT),
         gcd: {
           base: 1500,
         },
@@ -187,7 +187,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.id,
         category: SPELL_CATEGORY.OTHERS,
-        enabled: combatant.hasTalent(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT),
         gcd: {
           base: 1500,
         },
@@ -209,14 +209,14 @@ class Abilities extends CoreAbilities {
         buffSpellId: TALENTS_MONK.DIFFUSE_MAGIC_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 90,
-        enabled: combatant.hasTalent(TALENTS_MONK.DIFFUSE_MAGIC_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_MONK.DIFFUSE_MAGIC_TALENT),
       },
       {
         spell: TALENTS_MONK.DAMPEN_HARM_TALENT.id,
         buffSpellId: TALENTS_MONK.DAMPEN_HARM_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120,
-        enabled: combatant.hasTalent(TALENTS_MONK.DAMPEN_HARM_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_MONK.DAMPEN_HARM_TALENT),
       },
       {
         spell: TALENTS_MONK.FORTIFYING_BREW_TALENT.id,
@@ -230,7 +230,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         charges: 2,
         cooldown: 30,
-        enabled: combatant.hasTalent(TALENTS_MONK.HEALING_ELIXIR_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_MONK.HEALING_ELIXIR_TALENT),
       },
       {
         spell: SPELLS.DETOX.id,
@@ -253,7 +253,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_MONK.RING_OF_PEACE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
-        enabled: combatant.hasTalent(TALENTS_MONK.RING_OF_PEACE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_MONK.RING_OF_PEACE_TALENT),
         gcd: {
           base: 1500,
         },
@@ -262,7 +262,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LEG_SWEEP.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(TALENTS_MONK.TIGER_TAIL_SWEEP_TALENT.id) ? 50 : 60,
+        cooldown: combatant.hasTalent(TALENTS_MONK.TIGER_TAIL_SWEEP_TALENT) ? 50 : 60,
         gcd: {
           base: 1500,
         },
@@ -271,16 +271,16 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ROLL.id,
         category: SPELL_CATEGORY.UTILITY,
-        charges: combatant.hasTalent(TALENTS_MONK.CELERITY_TALENT.id) ? 3 : 2,
-        cooldown: combatant.hasTalent(TALENTS_MONK.CELERITY_TALENT.id) ? 15 : 20,
-        enabled: !combatant.hasTalent(TALENTS_MONK.CHI_TORPEDO_TALENT.id),
+        charges: combatant.hasTalent(TALENTS_MONK.CELERITY_TALENT) ? 3 : 2,
+        cooldown: combatant.hasTalent(TALENTS_MONK.CELERITY_TALENT) ? 15 : 20,
+        enabled: !combatant.hasTalent(TALENTS_MONK.CHI_TORPEDO_TALENT),
       },
       {
         spell: TALENTS_MONK.CHI_TORPEDO_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         charges: 2,
         cooldown: 20,
-        enabled: combatant.hasTalent(TALENTS_MONK.CHI_TORPEDO_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_MONK.CHI_TORPEDO_TALENT),
       },
       {
         spell: TALENTS_MONK.TIGERS_LUST_TALENT.id,
@@ -289,7 +289,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_MONK.TIGERS_LUST_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_MONK.TIGERS_LUST_TALENT),
       },
       {
         spell: TALENTS_MONK.TRANSCENDENCE_TALENT.id,
@@ -335,7 +335,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id),
+          suggestion: combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT),
         },
         timelineSortIndex: 100,
       },

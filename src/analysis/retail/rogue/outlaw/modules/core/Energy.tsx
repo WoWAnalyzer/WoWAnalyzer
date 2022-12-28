@@ -26,7 +26,7 @@ class Energy extends Analyzer {
       ),
     });
 
-    if (this.selectedCombatant.hasTalent(TALENTS.BLADE_RUSH_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.BLADE_RUSH_TALENT)) {
       resourceSuggest(when, this.energyTracker, {
         spell: SPELLS.BLADE_RUSH_TALENT_BUFF,
         minor: 0.05,

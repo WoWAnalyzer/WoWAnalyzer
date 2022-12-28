@@ -32,7 +32,7 @@ class Wellspring extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.WELLSPRING_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.WELLSPRING_TALENT);
 
     this.addEventListener(
       Events.begincast.by(SELECTED_PLAYER).spell(TALENTS.WELLSPRING_TALENT),

@@ -37,6 +37,9 @@ import Talents from './modules/talents';
 import TwoSet from './modules/dragonflight/tier/Tier29HolyPriest2Set';
 import FourSet from './modules/dragonflight/tier/Tier29HolyPriest4Set';
 import ProtectiveLight from '../shared/ProtectiveLight';
+import PrayerOfHealing from './modules/spells/PrayerOfHealing';
+import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
+import Guide from './Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -44,6 +47,9 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     lowHealthHealing: LowHealthHealing,
     abilityTracker: AbilityTracker,
+
+    // Normalizers
+    castLinkNormalizer: CastLinkNormalizer,
 
     // Generic healer things
     manaLevelChart: ManaLevelChart,
@@ -74,6 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
     holyWordSalvation: HolyWordSalvationCooldown,
     statWeights: StatWeights,
     circleOfHealing: CircleOfHealing,
+    prayerOfHealing: PrayerOfHealing,
 
     spiritOfRedemption: SpiritOfRedemption,
     renew: Renew,
@@ -134,6 +141,8 @@ class CombatLogParser extends CoreCombatLogParser {
     hpmDetails: HealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;

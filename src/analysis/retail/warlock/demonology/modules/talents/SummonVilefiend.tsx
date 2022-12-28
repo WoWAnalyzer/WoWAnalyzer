@@ -19,7 +19,7 @@ class SummonVilefiend extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SUMMON_VILEFIEND_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SUMMON_VILEFIEND_TALENT);
   }
 
   statistic() {

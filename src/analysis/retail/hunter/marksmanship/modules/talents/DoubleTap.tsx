@@ -22,7 +22,7 @@ class DoubleTap extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.DOUBLE_TAP_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.DOUBLE_TAP_TALENT);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.DOUBLE_TAP_TALENT),
       this.onDoubleTapApplication,

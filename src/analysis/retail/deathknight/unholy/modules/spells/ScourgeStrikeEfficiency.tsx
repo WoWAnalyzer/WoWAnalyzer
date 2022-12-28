@@ -24,7 +24,7 @@ class ScourgeStrikeEfficiency extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.activeSpell = this.selectedCombatant.hasTalent(TALENTS.CLAWING_SHADOWS_TALENT.id)
+    this.activeSpell = this.selectedCombatant.hasTalent(TALENTS.CLAWING_SHADOWS_TALENT)
       ? TALENTS.CLAWING_SHADOWS_TALENT
       : SPELLS.SCOURGE_STRIKE;
 

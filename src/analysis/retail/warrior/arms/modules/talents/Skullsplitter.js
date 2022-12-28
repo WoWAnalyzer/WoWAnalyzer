@@ -16,7 +16,7 @@ class Skullsplitter extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SKULLSPLITTER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SKULLSPLITTER_TALENT);
   }
 
   subStatistic() {

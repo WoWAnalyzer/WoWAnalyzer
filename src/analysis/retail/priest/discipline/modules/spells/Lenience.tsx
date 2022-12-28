@@ -14,7 +14,7 @@ class Lenience extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.LENIENCE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.LENIENCE_TALENT);
   }
 
   get damageReducedDuringLenience() {

@@ -51,7 +51,7 @@ class SoulShardTracker extends ResourceTracker {
     this.resource = Object.assign({}, RESOURCE_TYPES.SOUL_SHARDS);
     this.resource.name = 'Soul Shard Fragments';
     // this.current = 30;
-    this.hasInferno = this.selectedCombatant.hasTalent(TALENTS.INFERNO_TALENT.id);
+    this.hasInferno = this.selectedCombatant.hasTalent(TALENTS.INFERNO_TALENT);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.any, this.onEvent);
     this.addEventListener(Events.fightend, this.onFightend);

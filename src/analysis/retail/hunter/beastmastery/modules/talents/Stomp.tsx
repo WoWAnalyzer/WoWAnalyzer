@@ -30,8 +30,8 @@ class Stomp extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.STOMP_TALENT.id);
-    this.hasAC = this.selectedCombatant.hasTalent(TALENTS.ANIMAL_COMPANION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.STOMP_TALENT);
+    this.hasAC = this.selectedCombatant.hasTalent(TALENTS.ANIMAL_COMPANION_TALENT);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(TALENTS.BARBED_SHOT_TALENT), () => {
       this.casts += 1;
     });

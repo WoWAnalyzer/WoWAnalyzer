@@ -29,7 +29,7 @@ class Blindside extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BLINDSIDE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.BLINDSIDE_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.BLINDSIDE_TALENT, SPELLS.MUTILATE]),
       this.onCast,

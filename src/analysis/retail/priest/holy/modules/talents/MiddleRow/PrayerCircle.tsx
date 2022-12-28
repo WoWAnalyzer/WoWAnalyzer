@@ -25,7 +25,7 @@ class PrayerCircle extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.PRAYER_CIRCLE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.PRAYER_CIRCLE_TALENT);
 
     if (this.active) {
       this.addEventListener(

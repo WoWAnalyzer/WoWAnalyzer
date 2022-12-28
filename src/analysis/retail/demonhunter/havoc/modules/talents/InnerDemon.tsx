@@ -13,7 +13,7 @@ export default class InnerDemon extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.INNER_DEMON_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.INNER_DEMON_TALENT);
     if (!this.active) {
       return;
     }

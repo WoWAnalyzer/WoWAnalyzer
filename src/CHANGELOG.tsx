@@ -17,9 +17,11 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2022, 12, 27), 'Refactor talent helper functions (hasTalent, getRepeatedTalentCount and getTalentRank) inside Combatant to only accept Talent objects.', Putro),
   change(date(2022, 12, 25), 'Fix broken lazy-loaded statistics.', ToppleTheNun),
   change(date(2022, 12, 25), 'Remove Refreshing Healing Potion and Potion of Withering Vitality from combat potion checking.', ToppleTheNun),
   change(date(2022, 12, 25), 'Stop using Wowhead beta links for Dragonflight content.', ToppleTheNun),
+  change(date(2022, 12, 23), 'Add spells and re-arrange files for Classic Druids (no functionality yet).', jazminite),
   change(date(2022, 12, 20), 'Ignore duplicate spell IDs for talents during development.', ToppleTheNun),
   change(date(2022, 12, 20), 'Export additional information for each talent to help identify talents that affect the same spell (such as Berserk: X talents for Guardian Druid).', Putro),
   change(date(2022, 12, 19), 'Fixed an issue for tracking leg enhancements.', Vireve),

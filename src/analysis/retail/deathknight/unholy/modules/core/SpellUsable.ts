@@ -17,7 +17,7 @@ class SpellUsable extends CoreSpellUsable {
 
   constructor(options: Options) {
     super(options);
-    this.hasAotd = this.selectedCombatant.hasTalent(TALENTS.ARMY_OF_THE_DAMNED_TALENT.id);
+    this.hasAotd = this.selectedCombatant.hasTalent(TALENTS.ARMY_OF_THE_DAMNED_TALENT);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.APOCALYPSE_TALENT),

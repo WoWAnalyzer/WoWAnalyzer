@@ -11,7 +11,7 @@ class BlackPowder extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.BLACK_POWDER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BLACK_POWDER_TALENT);
     if (!this.active) {
       return;
     }

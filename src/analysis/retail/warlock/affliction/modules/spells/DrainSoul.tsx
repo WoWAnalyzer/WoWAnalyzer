@@ -51,7 +51,7 @@ class DrainSoul extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.DRAIN_SOUL_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DRAIN_SOUL_TALENT);
     this.addEventListener(
       Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_SOUL_KILL_SHARD_GEN),
       this.onDrainSoulEnergize,

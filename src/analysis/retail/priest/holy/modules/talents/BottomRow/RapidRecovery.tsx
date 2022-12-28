@@ -26,7 +26,7 @@ class RapidRecovery extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.RAPID_RECOVERY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.RAPID_RECOVERY_TALENT);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(TALENTS.RENEW_TALENT),

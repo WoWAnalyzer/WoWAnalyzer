@@ -22,7 +22,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 class SteadyFocus extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.STEADY_FOCUS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.STEADY_FOCUS_TALENT);
   }
 
   get uptime() {

@@ -46,7 +46,7 @@ class RunicPowerTracker extends ResourceTracker {
   }
 
   reduceCooldown(cost: number) {
-    if (!this.selectedCombatant.hasTalent(TALENTS.RED_THIRST_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(TALENTS.RED_THIRST_TALENT)) {
       return;
     }
 

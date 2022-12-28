@@ -20,7 +20,7 @@ class RuptureSnapshot extends Snapshot {
   constructor(options: Options) {
     super(options);
     const combatant = this.selectedCombatant;
-    if (combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id)) {
+    if (combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT)) {
       this.active = false;
     }
     this.addEventListener(

@@ -14,7 +14,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.PYRE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.PYRE_TALENT),
       },
       {
         spell: TALENTS.FIRESTORM_TALENT.id,
@@ -23,7 +23,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.FIRESTORM_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.FIRESTORM_TALENT),
       },
       {
         spell: combatant.hasTalent(TALENTS.FONT_OF_MAGIC_TALENT)
@@ -38,7 +38,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.95,
         },
-        enabled: combatant.hasTalent(TALENTS.ETERNITY_SURGE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.ETERNITY_SURGE_TALENT),
       },
       {
         spell: TALENTS.DRAGONRAGE_TALENT.id,

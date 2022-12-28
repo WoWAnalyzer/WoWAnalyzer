@@ -28,7 +28,7 @@ class CrusadersMight extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.CRUSADERS_MIGHT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.CRUSADERS_MIGHT_TALENT);
     if (!this.active) {
       return;
     }
@@ -51,7 +51,7 @@ class CrusadersMight extends Analyzer {
       const holyShockCooldown =
         7500 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
       if (
-        this.selectedCombatant.hasTalent(TALENTS.SANCTIFIED_WRATH_TALENT.id) &&
+        this.selectedCombatant.hasTalent(TALENTS.SANCTIFIED_WRATH_TALENT) &&
         this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id, event.timestamp)
       ) {
         this.holyShocksCastsLost += 1;

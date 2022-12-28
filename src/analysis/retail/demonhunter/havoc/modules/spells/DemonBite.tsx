@@ -21,7 +21,7 @@ class DemonBite extends Analyzer {
   constructor(options: Options) {
     super(options);
     //The Demon Blades talent replaces the ability Demon Bite if picked
-    this.active = !this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT.id);
+    this.active = !this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT);
     if (!this.active) {
       return;
     }
