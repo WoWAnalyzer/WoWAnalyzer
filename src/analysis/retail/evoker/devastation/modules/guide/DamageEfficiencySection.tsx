@@ -12,10 +12,20 @@ import DonutChart from 'parser/ui/DonutChart';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 
 const EXPLANATION_PERCENTAGE = 70;
-function PassFail({ value, total, passed }: { value: number; total: number; passed: boolean }) {
+function PassFail({
+  value,
+  total,
+  passed,
+  customTotal,
+}: {
+  value: number;
+  total: number;
+  passed: boolean;
+  customTotal?: number;
+}) {
   return (
     <div>
-      <PassFailBar pass={value} total={total} />
+      <PassFailBar pass={value} total={customTotal ?? total} />
       &nbsp; <PassFailCheckmark pass={passed} />
       <p>
         {value} / {total} ({((value / total) * 100).toFixed(2)}%)
@@ -42,15 +52,16 @@ function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>)
   }
 
   return (
-    <SubSection title="Clipping Disintegrate">
+    <SubSection title="Clipping/Chaining Disintegrate">
       <p>
-        It's possible to clip <SpellLink id={SPELLS.DISINTEGRATE.id} /> short and still achieve the
-        full amount of damage (see{' '}
-        <a href="https://www.wowhead.com/guide/classes/evoker/devastation/faq">
-          Disintegrate ticks
+        It's possible to cut <SpellLink id={SPELLS.DISINTEGRATE.id} /> short by recasting{' '}
+        <SpellLink id={SPELLS.DISINTEGRATE.id} /> after the 2nd to last tick. This is called
+        chaining and will still give you the full amount of damage (see{' '}
+        <a href="https://www.wowhead.com/guide/classes/evoker/devastation/rotation-cooldowns-pve-dps#chaining-disintegrate-casts">
+          Chaining Disintegrate casts
         </a>{' '}
-        section on wowhead). Clipping is essential for mastery over Devastation, but the risk of
-        failing can impact your DPS as your primary damage dealer is{' '}
+        section on wowhead). Clipping/chaining is essential for mastery over Devastation, but the
+        risk of failing can impact your DPS as your primary damage dealer is{' '}
         <SpellLink id={SPELLS.DISINTEGRATE.id} /> for Single Target. e.g 90% efficiency means a 10%
         DPS loss for Disintegrate, which can be a 5% DPS loss overall.
       </p>
@@ -92,6 +103,7 @@ function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>)
           <PassFail
             value={tickData.dragonRageTicks}
             total={tickData.totalPossibleDragonRageTicks}
+            customTotal={tickData.totalPossibleDragonRageTicks * 0.75}
             passed={tickData.dragonRageTickRatio > 0.85 || tickData.dragonRageTickRatio > 0.7}
           />
         }
@@ -116,7 +128,7 @@ function NoWastedProcsSubsection({ modules }: GuideProps<typeof CombatLogParser>
         data={
           <PassFail
             value={modules.essenceBurst.consumedProcs}
-            total={modules.essenceBurst.procs}
+            total={Math.max(modules.essenceBurst.procs, modules.essenceBurst.consumedProcs)}
             passed={modules.essenceBurst.consumedProcs === modules.essenceBurst.procs}
           />
         }
@@ -134,7 +146,7 @@ function NoWastedProcsSubsection({ modules }: GuideProps<typeof CombatLogParser>
         data={
           <PassFail
             value={modules.burnout.consumedProcs}
-            total={modules.burnout.procs}
+            total={Math.max(modules.burnout.procs, modules.burnout.consumedProcs)}
             passed={modules.burnout.consumedProcs === modules.burnout.procs}
           />
         }
