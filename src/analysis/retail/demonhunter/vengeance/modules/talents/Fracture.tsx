@@ -14,22 +14,22 @@ import { TIERS } from 'game/TIERS';
 import { ReactNode } from 'react';
 import { t, Trans } from '@lingui/macro';
 
-// Fracture fury gen (no T29): 25
-// Metamorphosis Fracture fury gen (no T29): 45
-// Fracture fury gen (w/ T29): 30
-// Metamorphosis Fracture fury gen (w/ T29): 54
+// Fracture fury gen (no T30): 25
+// Metamorphosis Fracture fury gen (no T30): 45
+// Fracture fury gen (w/ T30): 30
+// Metamorphosis Fracture fury gen (w/ T30): 54
 const DEFAULT_IN_META_FURY_LIMIT = 55;
 const DEFAULT_NOT_META_FURY_LIMIT = 75;
-const T29_IN_META_FURY_LIMIT = 46;
-const T29_NOT_META_FURY_LIMIT = 70;
+const T30_IN_META_FURY_LIMIT = 46;
+const T30_NOT_META_FURY_LIMIT = 70;
 
 const IN_META_SOUL_FRAGMENTS_LIMIT = 3;
 const NOT_META_SOUL_FRAGMENTS_LIMIT = 4;
 
-const getMetaInitialFuryLimit = (hasT292Pc: boolean) =>
-  hasT292Pc ? T29_IN_META_FURY_LIMIT : DEFAULT_IN_META_FURY_LIMIT;
-const getNonMetaInitialFuryLimit = (hasT292Pc: boolean) =>
-  hasT292Pc ? T29_NOT_META_FURY_LIMIT : DEFAULT_NOT_META_FURY_LIMIT;
+const getMetaInitialFuryLimit = (hasT302Pc: boolean) =>
+  hasT302Pc ? T30_IN_META_FURY_LIMIT : DEFAULT_IN_META_FURY_LIMIT;
+const getNonMetaInitialFuryLimit = (hasT302Pc: boolean) =>
+  hasT302Pc ? T30_NOT_META_FURY_LIMIT : DEFAULT_NOT_META_FURY_LIMIT;
 
 export default class Fracture extends Analyzer {
   static dependencies = {
@@ -50,15 +50,15 @@ export default class Fracture extends Analyzer {
       return;
     }
 
-    const hasT292Pc = this.selectedCombatant.has2PieceByTier(TIERS.T29);
+    const hasT302Pc = this.selectedCombatant.has2PieceByTier(TIERS.T30);
 
     this.inMetaFuryLimit =
-      getMetaInitialFuryLimit(hasT292Pc) +
+      getMetaInitialFuryLimit(hasT302Pc) +
       UNRESTRAINED_FURY_SCALING[
         this.selectedCombatant.getTalentRank(TALENTS.UNRESTRAINED_FURY_TALENT)
       ];
     this.notMetaFuryLimit =
-      getNonMetaInitialFuryLimit(hasT292Pc) +
+      getNonMetaInitialFuryLimit(hasT302Pc) +
       UNRESTRAINED_FURY_SCALING[
         this.selectedCombatant.getTalentRank(TALENTS.UNRESTRAINED_FURY_TALENT)
       ];
@@ -77,7 +77,7 @@ export default class Fracture extends Analyzer {
       SPELLS.METAMORPHOSIS_TANK.id,
       event.timestamp,
     );
-    const hasT292Piece = this.selectedCombatant.has2PieceByTier(TIERS.T29);
+    const hasT302Piece = this.selectedCombatant.has2PieceByTier(TIERS.T30);
     const targetName = this.owner.getTargetName(event);
 
     const [furyPerformance, furyPerformanceNote] = this.getCastFuryPerformance(event);
@@ -103,9 +103,9 @@ export default class Fracture extends Analyzer {
             <br />
           </>
         )}
-        {hasT292Piece && (
+        {hasT302Piece && (
           <>
-            Wearing T29 2-piece, increasing Fury Gen by 20%
+            Wearing T30 2-piece, increasing Fury Gen by 20%
             <br />
           </>
         )}

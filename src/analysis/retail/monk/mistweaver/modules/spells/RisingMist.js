@@ -18,7 +18,7 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 import HotTrackerMW from '../core/HotTrackerMW';
 import Vivify from './Vivify';
-import T29TierSet from '../dragonflight/tier/T29MWTier';
+import T30TierSet from '../dragonflight/tier/T30MWTier';
 import { isFromMistsOfLife } from '../../normalizers/CastLinkNormalizer';
 
 const debug = false;
@@ -91,7 +91,7 @@ class RisingMist extends Analyzer {
     abilityTracker: AbilityTracker,
     spellUsable: SpellUsable,
     vivify: Vivify,
-    t29TierSet: T29TierSet,
+    t30TierSet: T30TierSet,
   };
   risingMistCount = 0;
   risingMists = [];

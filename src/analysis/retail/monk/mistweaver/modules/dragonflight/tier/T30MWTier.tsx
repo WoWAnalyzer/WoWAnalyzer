@@ -34,7 +34,7 @@ const FOUR_PIECE_SPELLS = [
 
 const EXTENSION_ATTRIB = HotTracker.getNewAttribution(ATTRIBUTION_PREFIX);
 
-class T29TierSet extends Analyzer {
+class T30TierSet extends Analyzer {
   static dependencies = {
     hotTracker: HotTrackerMW,
   };
@@ -50,8 +50,8 @@ class T29TierSet extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.has2Piece = this.selectedCombatant.has2PieceByTier(TIERS.T29);
-    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.T29) && this.has2Piece;
+    this.has2Piece = this.selectedCombatant.has2PieceByTier(TIERS.T30);
+    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.T30) && this.has2Piece;
     this.active = this.has2Piece;
     if (!this.active) {
       return;
@@ -184,7 +184,7 @@ class T29TierSet extends Analyzer {
           </ul>
         }
       >
-        <BoringValueText label="T29 Tier Set">
+        <BoringValueText label="T30 Tier Set">
           <h4>2 Piece</h4>
           <ItemHealingDone amount={this.twoPieceHealing} />
           {this.has4Piece && (
@@ -199,4 +199,4 @@ class T29TierSet extends Analyzer {
   }
 }
 
-export default T29TierSet;
+export default T30TierSet;
