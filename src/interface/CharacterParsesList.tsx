@@ -33,7 +33,6 @@ export interface Parse {
   character_name: string;
   talents: Spell[];
   gear: Item[];
-  // legendaryEffects: Spell[];
   advanced: boolean;
 }
 
