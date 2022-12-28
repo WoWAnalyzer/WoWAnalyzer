@@ -1,12 +1,18 @@
 import renderer from 'react-test-renderer';
+import { Provider as ReduxProvider } from 'react-redux';
 
 import { ConditionDescription } from './annotate';
 import { buffPresent } from './conditions';
+import store from 'store';
 
 describe('ConditionDescription', () => {
   it('should return no description for unconditional rules', () => {
     const content = renderer
-      .create(<ConditionDescription rule={{ id: 1, name: 'Test', icon: '' }} />)
+      .create(
+        <ReduxProvider store={store}>
+          <ConditionDescription rule={{ id: 1, name: 'Test', icon: '' }} />
+        </ReduxProvider>,
+      )
       .toJSON();
     expect(content).toBeNull();
   });
@@ -17,7 +23,13 @@ describe('ConditionDescription', () => {
       condition: buffPresent({ id: 2, name: 'Buff', icon: '' }),
     };
 
-    const content = renderer.create(<ConditionDescription rule={rule} />).toJSON();
+    const content = renderer
+      .create(
+        <ReduxProvider store={store}>
+          <ConditionDescription rule={rule} />
+        </ReduxProvider>,
+      )
+      .toJSON();
 
     expect(content).toMatchSnapshot();
   });
