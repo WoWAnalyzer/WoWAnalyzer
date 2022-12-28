@@ -767,6 +767,12 @@ const spells = spellIndexableList({
     icon: 'spell_priest_mindspike',
   },
 
+  IDOL_OF_NZOTH_DAMAGE: {
+    id: 373304,
+    name: 'Echoing Void',
+    icon: 'Inv_inscription_80_vantusrune_nyalotha',
+  },
+
   // Disc
   SPIRIT_SHELL_TALENT_BUFF: {
     id: 114908,
