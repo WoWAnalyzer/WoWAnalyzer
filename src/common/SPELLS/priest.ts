@@ -755,6 +755,18 @@ const spells = spellIndexableList({
     icon: 'spell_shadow_siphonmana',
   },
 
+  IDOL_OF_YOGG_SARON_VOID_SPIKE_DAMAGE: {
+    id: 373279,
+    name: 'Void Spike',
+    icon: 'spell_priest_mindspike',
+  },
+
+  IDOL_OF_YOGG_SARON_VOID_SPIKE_CLEAVE_DAMAGE: {
+    id: 396895,
+    name: 'Void Spike',
+    icon: 'spell_priest_mindspike',
+  },
+
   // Disc
   SPIRIT_SHELL_TALENT_BUFF: {
     id: 114908,

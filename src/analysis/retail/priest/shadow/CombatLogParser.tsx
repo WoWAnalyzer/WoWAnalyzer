@@ -43,6 +43,7 @@ import MindFlayInsanity from './modules/talents/MindFlayInsanity';
 import MindSear from './modules/talents/MindSear';
 import MindDevourer from './modules/talents/MindDevourer';
 import IdolOfCthun from './modules/talents/IdolOfCthun';
+import IdolOfYoggSaron from './modules/talents/IdolOfYoggSaron';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -93,6 +94,7 @@ class CombatLogParser extends MainCombatLogParser {
     surgeOfDarkness: SurgeOfDarkness,
     deathspeaker: Deathspeaker,
     idolOfCthun: IdolOfCthun,
+    idolOfYoggSaron: IdolOfYoggSaron,
 
     // normalizers:
     shadowfiendNormalizer: ShadowfiendNormalizer,
