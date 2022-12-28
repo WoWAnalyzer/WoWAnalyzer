@@ -74,6 +74,7 @@ import T29TierSet from './modules/dragonflight/tier/T29MWTier';
 import DancingMists from './modules/spells/DancingMists';
 import MistyPeaksHealingBreakdown from './modules/features/MistyPeaksHealingBreakdown';
 import TalentHealingStatistic from './modules/features/TalentHealingStatistic';
+import MendingProliferation from './modules/spells/MendingProliferation';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -158,6 +159,7 @@ class CombatLogParser extends CoreCombatLogParser {
     unison: Unison,
     rapidDiffusion: RapidDiffusion,
     dancingMists: DancingMists,
+    mendingProliferation: MendingProliferation,
 
     // Borrowed Power
     t29TierSet: T29TierSet,
