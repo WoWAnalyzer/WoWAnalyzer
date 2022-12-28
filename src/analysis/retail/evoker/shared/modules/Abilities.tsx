@@ -32,7 +32,7 @@ class Abilities extends CoreAbilities {
       //endregion
       //region Damage Spells
       {
-        spell: combatant.hasTalent(TALENTS.FONT_OF_MAGIC_TALENT.id)
+        spell: combatant.hasTalent(TALENTS.FONT_OF_MAGIC_TALENT)
           ? SPELLS.FIRE_BREATH_FONT.id
           : SPELLS.FIRE_BREATH.id,
         category:

@@ -52,7 +52,7 @@ class Abilities extends CoreAbilities {
           majorIssueEfficiency: 0.9,
           recommendedEfficiency: 0.95,
         },
-        enabled: combatant.hasTalent(TALENTS.DRAGONRAGE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.DRAGONRAGE_TALENT),
       },
       {
         spell: TALENTS.SHATTERING_STAR_TALENT.id,
@@ -65,7 +65,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.8,
         },
-        enabled: combatant.hasTalent(TALENTS.SHATTERING_STAR_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SHATTERING_STAR_TALENT),
       },
       ...super.spellbook(),
     ];
