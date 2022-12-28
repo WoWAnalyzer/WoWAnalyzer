@@ -49,11 +49,11 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
           }
           thresholds={thresholds.shieldBlock}
         />
-        {combatant.hasTalent(TALENTS.BOOMING_VOICE_TALENT.id) &&
-          combatant.hasTalent(TALENTS.DEMORALIZING_SHOUT_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.BOOMING_VOICE_TALENT) &&
+          combatant.hasTalent(TALENTS.DEMORALIZING_SHOUT_TALENT) && (
             <AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />
           )}
-        {combatant.hasTalent(TALENTS.THUNDEROUS_ROAR_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.THUNDEROUS_ROAR_TALENT) && (
           <AbilityRequirement spell={TALENTS.THUNDEROUS_ROAR_TALENT.id} />
         )}
       </Rule>
@@ -77,8 +77,8 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
           }
           thresholds={thresholds.spellReflect}
         />
-        {!combatant.hasTalent(TALENTS.BOOMING_VOICE_TALENT.id) &&
-          combatant.hasTalent(TALENTS.DEMORALIZING_SHOUT_TALENT.id) && (
+        {!combatant.hasTalent(TALENTS.BOOMING_VOICE_TALENT) &&
+          combatant.hasTalent(TALENTS.DEMORALIZING_SHOUT_TALENT) && (
             <AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />
           )}
       </Rule>
@@ -98,7 +98,7 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
       >
         <AbilityRequirement spell={TALENTS.AVATAR_TALENT.id} />
         <AbilityRequirement spell={TALENTS.DEMORALIZING_SHOUT_TALENT.id} />
-        {combatant.hasTalent(TALENTS.RAVAGER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RAVAGER_TALENT) && (
           <AbilityRequirement spell={TALENTS.RAVAGER_TALENT.id} />
         )}
       </Rule>
@@ -126,7 +126,7 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
           </>
         }
       >
-        {combatant.hasTalent(TALENTS.RALLYING_CRY_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RALLYING_CRY_TALENT) && (
           <AbilityRequirement spell={SPELLS.RALLYING_CRY.id} />
         )}
       </Rule>

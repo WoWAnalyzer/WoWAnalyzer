@@ -19,9 +19,9 @@ class Overload extends Analyzer {
 
     this.getAbility = (spellId) => this.abilityTracker.getAbility(spellId);
 
-    this.hasIcefury = this.selectedCombatant.hasTalent(TALENTS.ICEFURY_TALENT.id);
+    this.hasIcefury = this.selectedCombatant.hasTalent(TALENTS.ICEFURY_TALENT);
     this.hasElementalBlast = this.selectedCombatant.hasTalent(
-      TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
+      TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
     );
 
     this.spells = [

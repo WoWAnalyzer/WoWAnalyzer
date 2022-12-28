@@ -13,7 +13,7 @@ class SpellFocusCost extends SpellResourceCost {
 
   constructor(options: Options) {
     super(options);
-    this.lockAndLoad = this.selectedCombatant.hasTalent(TALENTS.LOCK_AND_LOAD_TALENT.id);
+    this.lockAndLoad = this.selectedCombatant.hasTalent(TALENTS.LOCK_AND_LOAD_TALENT);
   }
 
   getResourceCost(event: CastEvent) {

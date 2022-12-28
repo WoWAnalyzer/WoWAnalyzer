@@ -15,7 +15,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
-        enabled: !combatant.hasTalent(TALENTS.GLOOMBLADE_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS.GLOOMBLADE_TALENT),
       },
       {
         spell: TALENTS.GLOOMBLADE_TALENT.id,
@@ -23,7 +23,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
-        enabled: combatant.hasTalent(TALENTS.GLOOMBLADE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.GLOOMBLADE_TALENT),
       },
       {
         spell: SPELLS.EVISCERATE.id,
@@ -103,7 +103,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.SEPSIS_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.SEPSIS_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SEPSIS_TALENT),
         cooldown: 90,
         gcd: {
           base: 1000,
@@ -117,7 +117,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         buffSpellId: SPELLS.SHADOW_DANCE_BUFF.id,
         cooldown: 60,
-        charges: 1 + (combatant.hasTalent(TALENTS.SHADOW_DANCE_TALENT.id) ? 1 : 0),
+        charges: 1 + (combatant.hasTalent(TALENTS.SHADOW_DANCE_TALENT) ? 1 : 0),
         gcd: null,
         castEfficiency: {
           suggestion: true,
@@ -141,7 +141,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
         gcd: null,
-        enabled: combatant.hasTalent(TALENTS.MARKED_FOR_DEATH_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.MARKED_FOR_DEATH_TALENT),
       },
       {
         spell: TALENTS.SECRET_TECHNIQUE_TALENT.id,
@@ -153,7 +153,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        enabled: combatant.hasTalent(TALENTS.SECRET_TECHNIQUE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SECRET_TECHNIQUE_TALENT),
       },
       {
         spell: TALENTS.SHURIKEN_TORNADO_TALENT.id,
@@ -165,7 +165,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        enabled: combatant.hasTalent(TALENTS.SHURIKEN_TORNADO_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SHURIKEN_TORNADO_TALENT),
       },
       // Defensive
       {

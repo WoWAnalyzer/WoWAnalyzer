@@ -20,7 +20,7 @@ const MAX_STACKS = 6;
 class HitCombo extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.HIT_COMBO_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.HIT_COMBO_TALENT);
     if (this.active) {
       this.addEventListener(
         Events.damage

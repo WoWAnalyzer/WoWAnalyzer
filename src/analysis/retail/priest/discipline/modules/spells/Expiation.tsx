@@ -25,7 +25,7 @@ class Expiation extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.EXPIATION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.EXPIATION_TALENT);
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtonement);
 
     this.addEventListener(
@@ -38,7 +38,7 @@ class Expiation extends Analyzer {
         ]),
       this.onDamage,
     );
-    this.talentRank = this.selectedCombatant.getTalentRank(TALENTS_PRIEST.EXPIATION_TALENT.id);
+    this.talentRank = this.selectedCombatant.getTalentRank(TALENTS_PRIEST.EXPIATION_TALENT);
     this.expiationIncrease = this.talentRank * EXPIATION_RANK_INCREASE;
   }
 

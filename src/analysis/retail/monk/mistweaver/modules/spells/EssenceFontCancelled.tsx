@@ -42,7 +42,7 @@ class EssenceFontCancelled extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
       this.onApply,
     );
-    this.hasUpwelling = this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT.id);
+    this.hasUpwelling = this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT);
   }
 
   castEssenceFont(event: CastEvent) {

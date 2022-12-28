@@ -6,6 +6,9 @@ export const RESTORATION_COLORS = {
   HEALING_WAVE: '#146585',
   HEALING_SURGE: '#40b3bf',
   RIPTIDE: '#a3dbce',
+  HEALING_RAIN: '#21a2d5',
+  WELLSPRING: '#515c61',
+  DOWNPOUR: '#3b6760',
   UNUSED: '#CC3D20',
 };
 

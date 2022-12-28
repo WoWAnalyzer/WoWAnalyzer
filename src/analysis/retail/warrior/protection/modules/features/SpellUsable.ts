@@ -16,7 +16,7 @@ class SpellUsable extends CoreSpellUsable {
 
   constructor(options: Options) {
     super(options);
-    this.hasDevastator = this.selectedCombatant.hasTalent(TALENTS.DEVASTATOR_TALENT.id);
+    this.hasDevastator = this.selectedCombatant.hasTalent(TALENTS.DEVASTATOR_TALENT);
   }
 
   onCast(event: CastEvent) {

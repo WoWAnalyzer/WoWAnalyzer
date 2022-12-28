@@ -33,7 +33,7 @@ class DefensiveStance extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(WARRIOR_TALENTS.DEFENSIVE_STANCE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(WARRIOR_TALENTS.DEFENSIVE_STANCE_TALENT);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._onDamageTaken);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this._onDamageDealt);
   }

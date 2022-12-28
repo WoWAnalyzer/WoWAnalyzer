@@ -20,7 +20,7 @@ class Abilities extends CoreAbilities {
 
       {
         spell: SPELLS.SCOURGE_STRIKE.id,
-        enabled: !combatant.hasTalent(talents.CLAWING_SHADOWS_TALENT.id),
+        enabled: !combatant.hasTalent(talents.CLAWING_SHADOWS_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -29,7 +29,7 @@ class Abilities extends CoreAbilities {
 
       {
         spell: talents.CLAWING_SHADOWS_TALENT.id,
-        enabled: combatant.hasTalent(talents.CLAWING_SHADOWS_TALENT.id),
+        enabled: combatant.hasTalent(talents.CLAWING_SHADOWS_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -81,7 +81,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEATH_AND_DECAY.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled: !combatant.hasTalent(talents.DEFILE_TALENT.id),
+        enabled: !combatant.hasTalent(talents.DEFILE_TALENT),
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -115,7 +115,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(talents.SUMMON_GARGOYLE_TALENT.id),
+        enabled: combatant.hasTalent(talents.SUMMON_GARGOYLE_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -181,7 +181,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(talents.DEFILE_TALENT.id),
+        enabled: combatant.hasTalent(talents.DEFILE_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -191,7 +191,7 @@ class Abilities extends CoreAbilities {
         spell: talents.UNHOLY_ASSAULT_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 75,
-        enabled: combatant.hasTalent(talents.UNHOLY_ASSAULT_TALENT.id),
+        enabled: combatant.hasTalent(talents.UNHOLY_ASSAULT_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -200,7 +200,7 @@ class Abilities extends CoreAbilities {
       {
         spell: talents.UNHOLY_BLIGHT_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: combatant.hasTalent(talents.UNHOLY_BLIGHT_TALENT.id),
+        enabled: combatant.hasTalent(talents.UNHOLY_BLIGHT_TALENT),
         cooldown: 45,
         gcd: {
           base: 1500,
@@ -213,7 +213,7 @@ class Abilities extends CoreAbilities {
       {
         spell: talents.DEATH_STRIKE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        enabled: combatant.hasTalent(talents.DEATH_STRIKE_TALENT.id),
+        enabled: combatant.hasTalent(talents.DEATH_STRIKE_TALENT),
         cooldown: 120,
         gcd: {
           base: 1500,
@@ -230,7 +230,7 @@ class Abilities extends CoreAbilities {
       {
         spell: talents.WRAITH_WALK_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(talents.WRAITH_WALK_TALENT.id),
+        enabled: combatant.hasTalent(talents.WRAITH_WALK_TALENT),
         gcd: {
           base: 1500,
         },

@@ -55,7 +55,7 @@ const EnhancementShamanChecklist = (props: ChecklistProps & AplRuleProps) => {
         }
       >
         <AbilityRequirement spell={TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id} />
-        {combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT) && (
           <AbilityRequirement spell={TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id} />
         )}
         {false && <AbilityRequirement spell={SPELLS.VESPER_TOTEM.id} />}

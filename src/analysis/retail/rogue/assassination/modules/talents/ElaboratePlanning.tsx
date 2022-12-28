@@ -24,7 +24,7 @@ class ElaboratePlanning extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ELABORATE_PLANNING_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.ELABORATE_PLANNING_TALENT);
     if (!this.active) {
       return;
     }

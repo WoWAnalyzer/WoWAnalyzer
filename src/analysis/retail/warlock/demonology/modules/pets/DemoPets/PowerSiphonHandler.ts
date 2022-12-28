@@ -19,7 +19,7 @@ class PowerSiphonHandler extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.POWER_SIPHON_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.POWER_SIPHON_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.POWER_SIPHON_TALENT),
       this.onPowerSiphonCast,
@@ -34,7 +34,10 @@ class PowerSiphonHandler extends Analyzer {
     // filters out only those that aren't active after the cast (they can't be killed because they're casting in the future)
     const currentImps = this.demoPets.currentPets
       .filter((pet) => isWildImp(pet.guid) && !pet.shouldImplode)
-      .sort((imp1, imp2) => (imp1.currentEnergy || 0) - (imp2.currentEnergy || 0) || imp1.spawn - imp2.spawn);
+      .sort(
+        (imp1, imp2) =>
+          (imp1.currentEnergy || 0) - (imp2.currentEnergy || 0) || imp1.spawn - imp2.spawn,
+      );
     const filtered = currentImps.filter(
       (imp) => !event.activeImpsAfterCast?.includes(encodeTargetString(imp.id, imp.instance)),
     );

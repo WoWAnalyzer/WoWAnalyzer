@@ -30,7 +30,7 @@ class BindingShot extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active =
-      this.selectedCombatant.hasTalent(TALENTS.BINDING_SHOT_TALENT.id) ||
+      this.selectedCombatant.hasTalent(TALENTS.BINDING_SHOT_TALENT) ||
       this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER;
     this.category =
       this.selectedCombatant.spec === SPECS.MARKSMANSHIP_HUNTER

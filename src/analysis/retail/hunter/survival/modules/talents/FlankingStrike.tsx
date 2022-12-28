@@ -31,7 +31,7 @@ class FlankingStrike extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS.FLANKING_STRIKE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.FLANKING_STRIKE_TALENT);
 
     this.flankingStrikes.push({
       name: this.selectedCombatant.name,

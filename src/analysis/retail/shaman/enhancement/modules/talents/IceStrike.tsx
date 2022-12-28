@@ -30,7 +30,7 @@ class IceStrike extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ICE_STRIKE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ICE_STRIKE_TALENT);
 
     if (!this.active) {
       return;

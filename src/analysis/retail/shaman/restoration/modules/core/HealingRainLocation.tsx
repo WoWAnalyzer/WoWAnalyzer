@@ -37,7 +37,7 @@ class HealingRainLocation extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.HEALING_RAIN_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HEALING_RAIN_TALENT);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL),

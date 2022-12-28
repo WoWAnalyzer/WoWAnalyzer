@@ -21,7 +21,7 @@ class Frostscythe extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.FROSTSCYTHE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.FROSTSCYTHE_TALENT);
     if (!this.active) {
       return;
     }
@@ -80,9 +80,9 @@ class Frostscythe extends Analyzer {
     when(this.efficencyThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={talents.FROSTSCYTHE_TALENT.id} /> efficiency can be improved. Only cast
-          Frostscythe if you have a <SpellLink id={SPELLS.KILLING_MACHINE.id} icon /> proc or you
-          can hit 2+ targets.
+          Your <SpellLink id={talents.FROSTSCYTHE_TALENT.id} /> efficiency can be improved. Only
+          cast Frostscythe if you have a <SpellLink id={SPELLS.KILLING_MACHINE.id} icon /> proc or
+          you can hit 2+ targets.
         </>,
       )
         .icon(talents.FROSTSCYTHE_TALENT.icon)

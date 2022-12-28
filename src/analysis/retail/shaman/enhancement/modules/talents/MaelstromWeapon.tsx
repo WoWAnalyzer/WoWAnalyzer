@@ -45,7 +45,7 @@ class MaelstromWeapon extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.MAELSTROM_WEAPON_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.MAELSTROM_WEAPON_TALENT);
 
     if (!this.active) {
       return;

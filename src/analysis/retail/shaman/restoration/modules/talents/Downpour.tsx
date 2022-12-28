@@ -40,7 +40,7 @@ class Downpour extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT);
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._onHeal);
   }

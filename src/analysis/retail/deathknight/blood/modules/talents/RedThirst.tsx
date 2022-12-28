@@ -22,7 +22,7 @@ class RedThirst extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.RED_THIRST_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.RED_THIRST_TALENT);
 
     if (!this.active) {
       return;

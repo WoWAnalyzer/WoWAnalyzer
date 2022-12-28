@@ -26,7 +26,7 @@ class AshesToAshesProbability extends Analyzer {
 
   constructor(args: Options) {
     super(args);
-    this.chance = this.selectedCombatant.hasTalent(SPELLS.BLADE_OF_WRATH_TALENT.id) ? 0.24 : 0.12;
+    this.chance = this.selectedCombatant.hasTalent(SPELLS.BLADE_OF_WRATH_TALENT) ? 0.24 : 0.12;
 
     this.active = this.selectedCombatant.has4PieceByTier(TIERS.T28);
 

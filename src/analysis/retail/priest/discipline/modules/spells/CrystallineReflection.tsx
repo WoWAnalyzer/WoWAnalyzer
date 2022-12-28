@@ -24,13 +24,13 @@ class CrystallineReflection extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CRYSTALLINE_REFLECTION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CRYSTALLINE_REFLECTION_TALENT);
 
     if (!this.active) {
       return;
     }
     this.talentRank = this.selectedCombatant.getTalentRank(
-      TALENTS_PRIEST.CRYSTALLINE_REFLECTION_TALENT.id,
+      TALENTS_PRIEST.CRYSTALLINE_REFLECTION_TALENT,
     );
     this.crIncrease = this.talentRank * CRYSTALLINE_REFLECTION_RANK_INCREASE;
   }

@@ -22,7 +22,7 @@ class Avatar extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.AVATAR_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.AVATAR_TALENT);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this._onDamage);
   }
 

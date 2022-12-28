@@ -29,7 +29,7 @@ class MeteorCombustion extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.METEOR_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.METEOR_TALENT);
     if (!this.active) {
       return;
     }

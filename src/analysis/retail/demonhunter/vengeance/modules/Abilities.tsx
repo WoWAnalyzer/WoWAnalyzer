@@ -38,17 +38,17 @@ class Abilities extends SharedAbilities {
       },
       {
         spell: [
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT.id)
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT)
             ? TALENTS_DEMON_HUNTER.FRACTURE_TALENT.id
             : SPELLS.SHEAR.id,
         ],
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT.id)
+        cooldown: combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT)
           ? (haste) => 4.5 / (1 + haste)
           : 0,
-        charges: combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT.id) ? 2 : 0,
+        charges: combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT) ? 2 : 0,
         castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT.id),
+          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT),
           recommendedEfficiency: 0.9,
         },
         gcd: {
@@ -81,9 +81,9 @@ class Abilities extends SharedAbilities {
         cooldown:
           60 -
           DOWN_IN_FLAMES_CDR_SCALING[
-            combatant.getTalentRank(TALENTS_DEMON_HUNTER.DOWN_IN_FLAMES_TALENT.id)
+            combatant.getTalentRank(TALENTS_DEMON_HUNTER.DOWN_IN_FLAMES_TALENT)
           ],
-        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.DOWN_IN_FLAMES_TALENT.id) ? 1 : 0),
+        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.DOWN_IN_FLAMES_TALENT) ? 1 : 0),
         gcd: {
           base: 1500,
         },
@@ -100,7 +100,7 @@ class Abilities extends SharedAbilities {
         cooldown: (haste) => 20 / (1 + haste),
         charges: 2,
         castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.RETALIATION_TALENT.id),
+          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.RETALIATION_TALENT),
           recommendedEfficiency: 0.5,
         },
         isDefensive: true,
@@ -120,7 +120,7 @@ class Abilities extends SharedAbilities {
           TALENTS_DEMON_HUNTER.SIGIL_OF_CHAINS_TALENT.id,
           SPELLS.SIGIL_OF_CHAINS_PRECISE.id,
         ],
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_CHAINS_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_CHAINS_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 90,
         gcd: {
@@ -136,7 +136,7 @@ class Abilities extends SharedAbilities {
       },
       {
         spell: TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT),
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 30,
         gcd: {
@@ -150,7 +150,7 @@ class Abilities extends SharedAbilities {
       },
       {
         spell: TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.FELBLADE_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 15 / (1 + haste),
         gcd: {
@@ -183,7 +183,7 @@ class Abilities extends SharedAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -202,7 +202,7 @@ class Abilities extends SharedAbilities {
         spell: SPELLS.INFERNAL_STRIKE.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: getInfernalStrikeCooldown(combatant),
-        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.BLAZING_PATH_TALENT.id) ? 1 : 0),
+        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.BLAZING_PATH_TALENT) ? 1 : 0),
         enabled: false, // TODO: change this to true, when infernal strike logging is working, see infernalstrike module for more details.
       },
 
