@@ -44,7 +44,7 @@ class SweepingStrikes extends Analyzer {
   _castSweepingStrikes(event) {
     this.totalCasts += 1;
 
-    const spell = this.selectedCombatant.hasTalent(SPELLS.WARBREAKER_TALENT.id)
+    const spell = this.selectedCombatant.hasTalent(SPELLS.WARBREAKER_TALENT)
       ? SPELLS.WARBREAKER_TALENT
       : SPELLS.COLOSSUS_SMASH;
     const spellCd = this.abilities.getAbility(spell.id).cooldown;

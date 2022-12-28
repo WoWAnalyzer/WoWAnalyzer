@@ -47,7 +47,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: talents.RISING_SUN_KICK_TALENT.id,
-        enabled: combatant.hasTalent(talents.RISING_SUN_KICK_TALENT.id),
+        enabled: combatant.hasTalent(talents.RISING_SUN_KICK_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 10 / (1 + haste),
         gcd: {
@@ -71,7 +71,7 @@ class Abilities extends CoreAbilities {
         spell: talents.RUSHING_JADE_WIND_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 6 / (1 + haste),
-        enabled: combatant.hasTalent(talents.RUSHING_JADE_WIND_TALENT.id),
+        enabled: combatant.hasTalent(talents.RUSHING_JADE_WIND_TALENT),
         buffSpellId: talents.RUSHING_JADE_WIND_TALENT.id,
         gcd: {
           static: 1000,
@@ -81,7 +81,7 @@ class Abilities extends CoreAbilities {
         spell: talents.CHI_BURST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30,
-        enabled: combatant.hasTalent(talents.CHI_BURST_TALENT.id),
+        enabled: combatant.hasTalent(talents.CHI_BURST_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -93,7 +93,7 @@ class Abilities extends CoreAbilities {
         spell: talents.CHI_WAVE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 15,
-        enabled: combatant.hasTalent(talents.CHI_WAVE_TALENT.id),
+        enabled: combatant.hasTalent(talents.CHI_WAVE_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -179,7 +179,7 @@ class Abilities extends CoreAbilities {
           suggestion: false,
           recommendedEfficiency: 0.7,
         },
-        enabled: combatant.hasTalent(talents.BLACK_OX_BREW_TALENT.id),
+        enabled: combatant.hasTalent(talents.BLACK_OX_BREW_TALENT),
         gcd: null,
       },
       {
@@ -201,7 +201,7 @@ class Abilities extends CoreAbilities {
         spell: talents.HEALING_ELIXIR_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
-        enabled: combatant.hasTalent(talents.HEALING_ELIXIR_TALENT.id),
+        enabled: combatant.hasTalent(talents.HEALING_ELIXIR_TALENT),
         gcd: null,
       },
       {
@@ -209,7 +209,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: talents.DAMPEN_HARM_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120,
-        enabled: combatant.hasTalent(talents.DAMPEN_HARM_TALENT.id),
+        enabled: combatant.hasTalent(talents.DAMPEN_HARM_TALENT),
         gcd: null,
       },
       {
@@ -231,7 +231,7 @@ class Abilities extends CoreAbilities {
       {
         spell: talents.RING_OF_PEACE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(talents.RING_OF_PEACE_TALENT.id),
+        enabled: combatant.hasTalent(talents.RING_OF_PEACE_TALENT),
         gcd: {
           // This was tested in-game (in Legion): it does NOT have a static GCD but a base GCD of 1sec and scales with Haste
           base: 1500,
@@ -240,7 +240,7 @@ class Abilities extends CoreAbilities {
       {
         spell: talents.CHI_TORPEDO_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(talents.CHI_TORPEDO_TALENT.id),
+        enabled: combatant.hasTalent(talents.CHI_TORPEDO_TALENT),
         cooldown: 20,
         charges: 1 + Number(combatant.hasTalent(talents.IMPROVED_ROLL_TALENT)),
         // Both Roll and Chi Torpedo don't actually have a GCD but block all spells during its animation for about the same duration, so maybe time it in-game and mark it as channeling instead? The issue is you can follow up any ability on the GCD with chi torpedo/roll, so it can still cause overlap.
@@ -249,11 +249,11 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ROLL.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: !combatant.hasTalent(talents.CHI_TORPEDO_TALENT.id),
-        cooldown: combatant.hasTalent(talents.CELERITY_TALENT.id) ? 15 : 20,
+        enabled: !combatant.hasTalent(talents.CHI_TORPEDO_TALENT),
+        cooldown: combatant.hasTalent(talents.CELERITY_TALENT) ? 15 : 20,
         charges:
           1 +
-          Number(combatant.hasTalent(talents.CELERITY_TALENT.id)) +
+          Number(combatant.hasTalent(talents.CELERITY_TALENT)) +
           Number(combatant.hasTalent(talents.IMPROVED_ROLL_TALENT)),
         // Both Roll and Chi Torpedo don't actually have a GCD but block all spells during its animation for about the same duration, so maybe time it in-game and mark it as channeling instead? The issue is you can follow up any ability on the GCD with chi torpedo/roll, so it can still cause overlap.
         gcd: null,
@@ -276,7 +276,7 @@ class Abilities extends CoreAbilities {
       {
         spell: talents.SUMMON_BLACK_OX_STATUE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(talents.SUMMON_BLACK_OX_STATUE_TALENT.id),
+        enabled: combatant.hasTalent(talents.SUMMON_BLACK_OX_STATUE_TALENT),
         gcd: {
           static: 1000,
         },
@@ -284,7 +284,7 @@ class Abilities extends CoreAbilities {
       {
         spell: talents.SUMMON_WHITE_TIGER_STATUE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: combatant.hasTalent(talents.SUMMON_WHITE_TIGER_STATUE_TALENT.id),
+        enabled: combatant.hasTalent(talents.SUMMON_WHITE_TIGER_STATUE_TALENT),
         gcd: {
           static: 1000,
         },
@@ -301,7 +301,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LEG_SWEEP.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(talents.TIGER_TAIL_SWEEP_TALENT.id) ? 50 : 60,
+        cooldown: combatant.hasTalent(talents.TIGER_TAIL_SWEEP_TALENT) ? 50 : 60,
         gcd: {
           static: 1000,
         },
@@ -339,7 +339,7 @@ class Abilities extends CoreAbilities {
       {
         spell: talents.TIGERS_LUST_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(talents.TIGERS_LUST_TALENT.id),
+        enabled: combatant.hasTalent(talents.TIGERS_LUST_TALENT),
         cooldown: 30,
         gcd: {
           static: 1000,

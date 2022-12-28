@@ -22,7 +22,7 @@ class TwinsOfTheSunPriestess extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(
-      TALENTS_PRIEST.TWINS_OF_THE_SUN_PRIESTESS_TALENT.id,
+      TALENTS_PRIEST.TWINS_OF_THE_SUN_PRIESTESS_TALENT,
     );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.POWER_INFUSION_TALENT),

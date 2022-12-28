@@ -23,7 +23,7 @@ class CastsInStealthBase extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.backstabSpell = this.selectedCombatant.hasTalent(TALENTS.GLOOMBLADE_TALENT.id)
+    this.backstabSpell = this.selectedCombatant.hasTalent(TALENTS.GLOOMBLADE_TALENT)
       ? TALENTS.GLOOMBLADE_TALENT
       : SPELLS.BACKSTAB;
     this.badStealthSpells = [this.backstabSpell];

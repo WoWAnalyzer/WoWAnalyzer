@@ -27,7 +27,7 @@ export default class ShearFracture extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    if (this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT)) {
       this.cast = TALENTS_DEMON_HUNTER.FRACTURE_TALENT;
     }
     this.addEventListener(

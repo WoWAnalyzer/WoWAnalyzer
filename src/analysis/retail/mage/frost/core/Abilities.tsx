@@ -43,7 +43,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.GLACIAL_SPIKE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT),
         gcd: {
           base: 1500,
         },
@@ -57,7 +57,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 80,
-        enabled: combatant.hasTalent(TALENTS.RAY_OF_FROST_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.RAY_OF_FROST_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -71,7 +71,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 30,
-        enabled: combatant.hasTalent(TALENTS.COMET_STORM_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.COMET_STORM_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -83,10 +83,10 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.EBONBOLT_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 45,
-        enabled: combatant.hasTalent(TALENTS.EBONBOLT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.EBONBOLT_TALENT),
         castEfficiency: {
           //If using Glacial Spike, it is recommended to hold Ebonbolt as an emergency proc if GS is available and you dont have a Brain Freeze Proc. Therefore, with good luck, it is possible to go the entire fight without casting Ebonbolt.
-          suggestion: !combatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT.id),
+          suggestion: !combatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT),
           recommendedEfficiency: 0.9,
         },
         timelineSortIndex: 6,
@@ -148,7 +148,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.SUMMON_WATER_ELEMENTAL_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SUMMON_WATER_ELEMENTAL_TALENT),
         cooldown: 30,
       },
       ...super.spellbook(),

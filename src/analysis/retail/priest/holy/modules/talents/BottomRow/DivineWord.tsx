@@ -50,7 +50,7 @@ class DivineWord extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    if (!this.selectedCombatant.hasTalent(TALENTS.DIVINE_WORD_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(TALENTS.DIVINE_WORD_TALENT)) {
       this.active = false;
       return;
     }

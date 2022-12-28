@@ -48,43 +48,43 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           talent={TALENTS_DEMON_HUNTER.MOMENTUM_TALENT}
           actualCast={SPELLS.FEL_RUSH_CAST}
         />
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_TALENT) && (
           <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} />
         )}
         <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.FELBLADE_TALENT} />
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT) && (
           <TalentCastEfficiencyRequirement
             talent={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT}
             actualCast={SPELLS.SIGIL_OF_FLAME_PRECISE}
           />
         )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT) && (
           <TalentCastEfficiencyRequirement
             talent={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT}
             actualCast={SPELLS.SIGIL_OF_FLAME_CONCENTRATED}
           />
         )}
         {!(
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT.id) ||
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id)
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT) ||
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT)
         ) && (
           <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT} />
         )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT) && (
           <TalentCastEfficiencyRequirement
             talent={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT}
             actualCast={SPELLS.ELYSIAN_DECREE_PRECISE}
           />
         )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT) && (
           <TalentCastEfficiencyRequirement
             talent={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT}
             actualCast={SPELLS.ELYSIAN_DECREE_CONCENTRATED}
           />
         )}
         {!(
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT.id) ||
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id)
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT) ||
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT)
         ) && (
           <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT} />
         )}

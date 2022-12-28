@@ -14,7 +14,7 @@ class ImpendingVicory extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.IMPENDING_VICTORY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.IMPENDING_VICTORY_TALENT);
 
     if (!this.active) {
       return;

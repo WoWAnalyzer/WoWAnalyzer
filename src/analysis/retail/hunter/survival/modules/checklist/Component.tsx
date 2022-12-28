@@ -45,23 +45,23 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         <AbilityRequirement spell={SPELLS.KILL_COMMAND_CAST_SV.id} />
         <AbilityRequirement spell={SPELLS.COORDINATED_ASSAULT.id} />
 
-        {combatant.hasTalent(TALENTS.FLANKING_STRIKE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.FLANKING_STRIKE_TALENT) && (
           <AbilityRequirement spell={TALENTS.FLANKING_STRIKE_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.A_MURDER_OF_CROWS_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.A_MURDER_OF_CROWS_TALENT) && (
           <AbilityRequirement spell={TALENTS.A_MURDER_OF_CROWS_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.WILDFIRE_INFUSION_TALENT.id) ? (
+        {combatant.hasTalent(TALENTS.WILDFIRE_INFUSION_TALENT) ? (
           <AbilityRequirement spell={TALENTS.WILDFIRE_INFUSION_TALENT.id} />
         ) : (
           <AbilityRequirement spell={SPELLS.WILDFIRE_BOMB.id} />
         )}
-        {combatant.hasTalent(TALENTS.DEATH_CHAKRAM_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.DEATH_CHAKRAM_TALENT) && (
           <AbilityRequirement spell={TALENTS.DEATH_CHAKRAM_TALENT.id} />
         )}
       </Rule>
 
-      {combatant.hasTalent(TALENTS.MONGOOSE_BITE_TALENT.id) ? (
+      {combatant.hasTalent(TALENTS.MONGOOSE_BITE_TALENT) ? (
         <Rule
           name="Mongoose Bite usage"
           description={
@@ -105,7 +105,7 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           </>
         }
       >
-        {combatant.hasTalent(TALENTS.BIRDS_OF_PREY_TALENT.id) ? (
+        {combatant.hasTalent(TALENTS.BIRDS_OF_PREY_TALENT) ? (
           <Requirement
             name={
               <>
@@ -126,7 +126,7 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           <>
             As a DPS, you should try to reduce the delay between casting spells, and stay off
             resource capping as much as possible. If everything is on cooldown, try and use{' '}
-            {combatant.hasTalent(TALENTS.MONGOOSE_BITE_TALENT.id) ? (
+            {combatant.hasTalent(TALENTS.MONGOOSE_BITE_TALENT) ? (
               <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} />
             ) : (
               <SpellLink id={TALENTS.RAPTOR_STRIKE_TALENT.id} />

@@ -23,8 +23,8 @@ class MeteorRune extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const hasMeteor = this.selectedCombatant.hasTalent(TALENTS.METEOR_TALENT.id);
-    const hasRuneOfPower = this.selectedCombatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id);
+    const hasMeteor = this.selectedCombatant.hasTalent(TALENTS.METEOR_TALENT);
+    const hasRuneOfPower = this.selectedCombatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT);
     this.active = hasMeteor && hasRuneOfPower;
     if (!this.active) {
       return;

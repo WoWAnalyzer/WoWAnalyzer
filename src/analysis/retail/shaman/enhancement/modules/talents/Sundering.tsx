@@ -38,7 +38,7 @@ class Sundering extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.SUNDERING_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.SUNDERING_TALENT);
 
     if (!this.active) {
       return;

@@ -18,7 +18,7 @@ class BindingHeals extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS.BINDING_HEALS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BINDING_HEALS_TALENT);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.BINDING_HEALS_TALENT_HEAL),

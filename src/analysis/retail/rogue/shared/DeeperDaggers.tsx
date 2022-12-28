@@ -14,7 +14,7 @@ class DeeperDaggers extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.DEEPER_DAGGERS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DEEPER_DAGGERS_TALENT);
   }
 
   get percentUptime() {

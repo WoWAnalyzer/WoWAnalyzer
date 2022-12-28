@@ -20,7 +20,7 @@ class MindFlayInsanity extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.MIND_FLAY_INSANITY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.MIND_FLAY_INSANITY_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE),
       this.onCast,

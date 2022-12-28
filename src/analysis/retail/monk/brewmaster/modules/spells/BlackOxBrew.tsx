@@ -44,7 +44,7 @@ class BlackOxBrew extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.BLACK_OX_BREW_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.BLACK_OX_BREW_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(talents.BLACK_OX_BREW_TALENT),
       this.onCast,

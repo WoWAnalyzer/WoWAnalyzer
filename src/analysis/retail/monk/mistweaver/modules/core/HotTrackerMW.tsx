@@ -27,17 +27,15 @@ class HotTrackerMW extends HotTracker {
 
   constructor(options: Options) {
     super(options);
-    this.mistwrapActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT.id);
-    this.upwellingActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT.id);
+    this.mistwrapActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT);
+    this.upwellingActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT);
     this.rapidDiffusionActive = this.owner.selectedCombatant.hasTalent(
-      TALENTS_MONK.RAPID_DIFFUSION_TALENT.id,
+      TALENTS_MONK.RAPID_DIFFUSION_TALENT,
     );
     this.rapidDiffusionRank = this.owner.selectedCombatant.getTalentRank(
       TALENTS_MONK.RAPID_DIFFUSION_TALENT,
     );
-    this.risingMistActive = this.owner.selectedCombatant.hasTalent(
-      TALENTS_MONK.RISING_MIST_TALENT.id,
-    );
+    this.risingMistActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT);
   }
 
   fromMistyPeaks(hot: Tracker): boolean {
@@ -101,9 +99,9 @@ class HotTrackerMW extends HotTracker {
   _calculateMaxRemDuration(combatant: Combatant): number {
     return combatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)
       ? (REM_BASE_DURATION + TFT_REM_EXTRA_DURATION) *
-          (combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id) ? RISING_MIST : 1)
+          (combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT) ? RISING_MIST : 1)
       : REM_BASE_DURATION *
-          (combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id) ? RISING_MIST : 1);
+          (combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT) ? RISING_MIST : 1);
   }
 
   _generateHotInfo(): HotInfo[] {
@@ -117,7 +115,7 @@ class HotTrackerMW extends HotTracker {
         tickPeriod: 2000,
         maxDuration: this._calculateMaxRemDuration,
         bouncy: true,
-        procDuration: this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT.id)
+        procDuration: this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT)
           ? RAPID_DIFFUSION *
             this.selectedCombatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT)
           : undefined,
@@ -128,10 +126,10 @@ class HotTrackerMW extends HotTracker {
         tickPeriod: 1000,
         maxDuration:
           envMistDuration *
-          (this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id)
+          (this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)
             ? RISING_MIST
             : 1),
-        procDuration: this.owner.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT.id)
+        procDuration: this.owner.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT)
           ? MISTY_PEAKS_DURATION *
               this.selectedCombatant.getTalentRank(TALENTS_MONK.MISTY_PEAKS_TALENT) +
             ENV_BASE_DURATION // misty peaks can be extended for 100% of base env duration
@@ -143,7 +141,7 @@ class HotTrackerMW extends HotTracker {
         tickPeriod: 2000,
         maxDuration:
           essenceFontDuration *
-          (this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id)
+          (this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)
             ? RISING_MIST
             : 1),
       },
@@ -153,7 +151,7 @@ class HotTrackerMW extends HotTracker {
         tickPeriod: 2000,
         maxDuration:
           essenceFontDuration *
-          (this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id)
+          (this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)
             ? RISING_MIST
             : 1),
       },

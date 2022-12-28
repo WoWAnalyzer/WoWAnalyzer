@@ -17,7 +17,7 @@ class Ravager extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS);
   }
 
   subStatistic() {

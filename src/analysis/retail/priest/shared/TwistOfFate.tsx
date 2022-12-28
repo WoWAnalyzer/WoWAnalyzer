@@ -24,8 +24,8 @@ class TwistOfFate extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.twistOfFateIncrease =
-      this.selectedCombatant.getTalentRank(TALENTS_PRIEST.TWIST_OF_FATE_TALENT.id) * 0.05;
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.TWIST_OF_FATE_TALENT.id);
+      this.selectedCombatant.getTalentRank(TALENTS_PRIEST.TWIST_OF_FATE_TALENT) * 0.05;
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.TWIST_OF_FATE_TALENT);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorb);

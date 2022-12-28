@@ -124,7 +124,7 @@ class Revival extends Analyzer {
       },
     ];
 
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.UPLIFTED_SPIRITS_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.UPLIFTED_SPIRITS_TALENT)) {
       items.push({
         color: SPELL_COLORS.UPLIFTED_SPIRITS,
         label: 'Uplifted Spirits',

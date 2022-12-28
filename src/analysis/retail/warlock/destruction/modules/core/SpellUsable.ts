@@ -34,8 +34,8 @@ class SpellUsable extends CoreSpellUsable {
 
   constructor(options: Options) {
     super(options);
-    this.hasSB = this.selectedCombatant.hasTalent(TALENTS.SHADOWBURN_TALENT.id);
-    this.hasSF = this.selectedCombatant.hasTalent(TALENTS.SOUL_FIRE_TALENT.id);
+    this.hasSB = this.selectedCombatant.hasTalent(TALENTS.SHADOWBURN_TALENT);
+    this.hasSF = this.selectedCombatant.hasTalent(TALENTS.SOUL_FIRE_TALENT);
     this.addEventListener(Events.SpendResource.by(SELECTED_PLAYER), this.onSpendResource);
     this.addEventListener(
       Events.applydebuff.by(SELECTED_PLAYER).spell(TALENTS.SHADOWBURN_TALENT),

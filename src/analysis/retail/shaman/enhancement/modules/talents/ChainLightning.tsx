@@ -24,7 +24,7 @@ class ChainLightning extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT);
 
     if (!this.active) {
       return;

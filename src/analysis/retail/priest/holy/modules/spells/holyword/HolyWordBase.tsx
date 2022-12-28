@@ -54,7 +54,7 @@ class HolyWordBase extends Analyzer {
     super(options);
 
     // Set up proper serendipity reduction values
-    if (this.selectedCombatant.hasTalent(TALENTS.LIGHT_OF_THE_NAARU_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.LIGHT_OF_THE_NAARU_TALENT)) {
       this.lightOfTheNaruActive = true;
       this.lightOfTheNaruMultiplier =
         this.selectedCombatant.getTalentRank(TALENTS.LIGHT_OF_THE_NAARU_TALENT) *

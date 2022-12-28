@@ -58,7 +58,7 @@ class HighTide extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.HIGH_TIDE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HIGH_TIDE_TALENT);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(TALENTS.CHAIN_HEAL_TALENT),

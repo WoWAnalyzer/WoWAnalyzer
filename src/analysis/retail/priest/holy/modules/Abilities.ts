@@ -46,7 +46,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.APOTHEOSIS_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
-        enabled: combatant.hasTalent(TALENTS.APOTHEOSIS_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.APOTHEOSIS_TALENT),
         gcd: {
           base: 1500,
         },
@@ -90,7 +90,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.HOLY_WORD_SALVATION_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 720, // reduced by Sanctify and Serenity
-        enabled: combatant.hasTalent(TALENTS.HOLY_WORD_SALVATION_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.HOLY_WORD_SALVATION_TALENT),
         gcd: {
           base: 1500,
         },
@@ -104,7 +104,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.HOLY_WORD_SANCTIFY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        charges: combatant.hasTalent(TALENTS.MIRACLE_WORKER_TALENT.id) ? 2 : 1,
+        charges: combatant.hasTalent(TALENTS.MIRACLE_WORKER_TALENT) ? 2 : 1,
         cooldown: 60, // reduced by PoH and Renew
         gcd: {
           base: 1500,
@@ -119,7 +119,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.HOLY_WORD_SERENITY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        charges: combatant.hasTalent(TALENTS.MIRACLE_WORKER_TALENT.id) ? 2 : 1,
+        charges: combatant.hasTalent(TALENTS.MIRACLE_WORKER_TALENT) ? 2 : 1,
         cooldown: 60, // reduced by Heal and Flash Heal
         gcd: {
           base: 1500,
@@ -135,7 +135,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.DIVINE_STAR_SHARED_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 15,
-        enabled: combatant.hasTalent(TALENTS.DIVINE_STAR_SHARED_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.DIVINE_STAR_SHARED_TALENT),
         gcd: {
           base: 1500,
         },
@@ -151,7 +151,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HALO_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 40,
-        enabled: combatant.hasTalent(SPELLS.HALO_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.HALO_SHARED_TALENT),
         gcd: {
           base: 1500,
         },
@@ -280,7 +280,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PSYCHIC_SCREAM.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(TALENTS.PSYCHIC_VOICE_TALENT.id) ? 30 : 60,
+        cooldown: combatant.hasTalent(TALENTS.PSYCHIC_VOICE_TALENT) ? 30 : 60,
         gcd: {
           base: 1500,
         },
@@ -306,7 +306,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         charges: 3,
         cooldown: 20,
-        enabled: combatant.hasTalent(TALENTS.ANGELIC_FEATHER_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.ANGELIC_FEATHER_TALENT),
         gcd: {
           base: 1500,
         },

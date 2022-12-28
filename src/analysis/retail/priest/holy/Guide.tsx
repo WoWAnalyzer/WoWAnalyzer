@@ -40,21 +40,21 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       you waited to use them again. Grey segments show when the spell was available, yellow segments
       show when the spell was cooling down. Red segments highlight times when you could have fit a
       whole extra use of the cooldown.
-      {info.combatant.hasTalent(TALENTS_PRIEST.DIVINE_HYMN_TALENT.id) && (
+      {info.combatant.hasTalent(TALENTS_PRIEST.DIVINE_HYMN_TALENT) && (
         <CastEfficiencyBar
           spellId={TALENTS_PRIEST.DIVINE_HYMN_TALENT.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />
       )}
-      {info.combatant.hasTalent(TALENTS_PRIEST.APOTHEOSIS_TALENT.id) && (
+      {info.combatant.hasTalent(TALENTS_PRIEST.APOTHEOSIS_TALENT) && (
         <CastEfficiencyBar
           spellId={TALENTS_PRIEST.APOTHEOSIS_TALENT.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />
       )}
-      {info.combatant.hasTalent(TALENTS_PRIEST.HOLY_WORD_SALVATION_TALENT.id) && (
+      {info.combatant.hasTalent(TALENTS_PRIEST.HOLY_WORD_SALVATION_TALENT) && (
         <CastEfficiencyBar
           spellId={TALENTS_PRIEST.HOLY_WORD_SALVATION_TALENT.id}
           gapHighlightMode={GapHighlight.FullCooldown}

@@ -11,6 +11,7 @@ import { SpellLink } from 'interface';
 import CastEfficiencyPanel from 'interface/guide/components/CastEfficiencyPanel';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/priest/holy/Guide';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 
 // Example Log: /report/hRd3mpK1yTQ2tDJM/1-Mythic+MOTHER+-+Kill+(2:24)/14-丶寶寶小喵
 class Halo extends Analyzer {
@@ -21,7 +22,7 @@ class Halo extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.HALO_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.HALO_SHARED_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.HALO_DAMAGE),
       this.onDamage,
@@ -45,7 +46,7 @@ class Halo extends Analyzer {
 
   get guideSubsectionHoly(): JSX.Element {
     // if player isn't running halo, don't show guide section
-    if (!this.selectedCombatant.hasTalent(SPELLS.HALO_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(TALENTS_PRIEST.HALO_SHARED_TALENT)) {
       return <></>;
     }
     const explanation = (

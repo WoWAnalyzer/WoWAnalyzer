@@ -24,7 +24,7 @@ class Crusade extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.CRUSADE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.CRUSADE_TALENT);
     if (!this.active) {
       return;
     }

@@ -56,7 +56,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
         />
         {/**The threshold value of DP needs to be reevalulated for Dragonflight */}
 
-        {combatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT) && (
           <DotUptime
             id={TALENTS.DARK_EVANGELISM_TALENT.id}
             thresholds={thresholds.darkEvangelism}
@@ -73,30 +73,30 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           </Fragment>
         }
       >
-        {combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT) && (
           <AbilityRequirement spell={SPELLS.VOID_BOLT.id} />
         )}
 
         <AbilityRequirement spell={SPELLS.MIND_BLAST.id} />
         <AbilityRequirement spell={TALENTS.SHADOW_WORD_DEATH_TALENT.id} />
 
-        {combatant.hasTalent(TALENTS.VOID_TORRENT_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.VOID_TORRENT_TALENT) && (
           <AbilityRequirement spell={TALENTS.VOID_TORRENT_TALENT.id} />
         )}
 
-        {combatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT) && (
           <AbilityRequirement spell={TALENTS.SHADOW_CRASH_TALENT.id} />
         )}
 
-        {combatant.hasTalent(TALENTS.DARK_VOID_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.DARK_VOID_TALENT) && (
           <AbilityRequirement spell={TALENTS.DARK_VOID_TALENT.id} />
         )}
 
-        {combatant.hasTalent(TALENTS.DAMNATION_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.DAMNATION_TALENT) && (
           <AbilityRequirement spell={TALENTS.DAMNATION_TALENT.id} />
         )}
 
-        {combatant.hasTalent(TALENTS.MINDGAMES_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.MINDGAMES_TALENT) && (
           <AbilityRequirement spell={TALENTS.MINDGAMES_TALENT.id} />
         )}
         {/**TODO: Mindgames CD reduction from talents*/}
@@ -113,7 +113,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           </>
         }
       >
-        {combatant.hasTalent(TALENTS.SHADOWY_INSIGHT_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SHADOWY_INSIGHT_TALENT) && (
           <Requirement
             name={
               <>
@@ -124,7 +124,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           />
         )}
 
-        {combatant.hasTalent(TALENTS.UNFURLING_DARKNESS_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.UNFURLING_DARKNESS_TALENT) && (
           <Requirement
             name={
               <>
@@ -135,7 +135,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           />
         )}
 
-        {combatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT) && (
           <Requirement
             name={
               <>
@@ -146,7 +146,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           />
         )}
 
-        {combatant.hasTalent(TALENTS.SURGE_OF_DARKNESS_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SURGE_OF_DARKNESS_TALENT) && (
           <Requirement
             name={
               <>
@@ -157,7 +157,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           />
         )}
 
-        {combatant.hasTalent(TALENTS.MIND_FLAY_INSANITY_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.MIND_FLAY_INSANITY_TALENT) && (
           <Requirement
             name={
               <>
@@ -168,7 +168,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           />
         )}
 
-        {combatant.hasTalent(TALENTS.MIND_DEVOURER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.MIND_DEVOURER_TALENT) && (
           <Requirement
             name={
               <>
@@ -189,19 +189,19 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           </Fragment>
         }
       >
-        {combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT) && (
           <AbilityRequirement spell={TALENTS.VOID_ERUPTION_TALENT.id} />
         )}
 
-        {combatant.hasTalent(TALENTS.DARK_ASCENSION_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.DARK_ASCENSION_TALENT) && (
           <AbilityRequirement spell={TALENTS.DARK_ASCENSION_TALENT.id} />
         )}
 
-        {combatant.hasTalent(TALENTS.POWER_INFUSION_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.POWER_INFUSION_TALENT) && (
           <AbilityRequirement spell={TALENTS.POWER_INFUSION_TALENT.id} />
         )}
 
-        {combatant.hasTalent(TALENTS.MINDBENDER_SHADOW_TALENT.id) ? (
+        {combatant.hasTalent(TALENTS.MINDBENDER_SHADOW_TALENT) ? (
           <AbilityRequirement spell={TALENTS.MINDBENDER_SHADOW_TALENT.id} />
         ) : (
           <AbilityRequirement spell={SPELLS.SHADOWFIEND.id} />

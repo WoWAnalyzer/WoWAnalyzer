@@ -40,7 +40,7 @@ class Stormflurry extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.STORMFLURRY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.STORMFLURRY_TALENT);
 
     if (!this.active) {
       return;
@@ -86,7 +86,7 @@ class Stormflurry extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={`You had ${this.extraHits} extra Stormstrike${
-          this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id)
+          this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT)
             ? `/Windstrike`
             : ``
         } hits (+${formatPercentage(this.extraHits / this.totalStormstrikeCasts)}%).`}
