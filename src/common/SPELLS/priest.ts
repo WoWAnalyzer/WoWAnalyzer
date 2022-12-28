@@ -743,6 +743,18 @@ const spells = spellIndexableList({
     icon: 'spell_fire_twilightflamebreath',
   },
 
+  IDOL_OF_CTHUN_MIND_FLAY_DAMAGE: {
+    id: 193473,
+    name: 'Mind Flay',
+    icon: 'spell_shadow_siphonmana',
+  },
+
+  IDOL_OF_CTHUN_MIND_SEAR_DAMAGE: {
+    id: 394979,
+    name: 'Mind Sear',
+    icon: 'spell_shadow_siphonmana',
+  },
+
   // Disc
   SPIRIT_SHELL_TALENT_BUFF: {
     id: 114908,
