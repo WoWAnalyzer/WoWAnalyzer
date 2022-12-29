@@ -206,6 +206,11 @@ const spells = spellIndexableList({
     name: 'Verdant Embrace',
     icon: 'ability_evoker_rescue',
   },
+  EXHIL_BURST_BUFF: {
+    id: 377102,
+    name: 'Exhilarating Burst',
+    icon: 'ability_evoker_essenceburst3',
+  },
 });
 
 export default spells;
