@@ -257,6 +257,7 @@ const spells = spellIndexableList({
     id: 362980,
     name: 'Mastery: Giantkiller',
     icon: ' ability_evoker_masterygiantkiller',
+  },
   EXHIL_BURST_BUFF: {
     id: 377102,
     name: 'Exhilarating Burst',
