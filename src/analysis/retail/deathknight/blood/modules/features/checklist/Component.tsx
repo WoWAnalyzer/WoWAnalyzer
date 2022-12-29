@@ -33,14 +33,14 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         })}
       >
         <AbilityRequirement spell={TALENTS.BLOOD_BOIL_TALENT.id} />
-        {combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT.id) && !false && (
+        {combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT) && !false && (
           <AbilityRequirement spell={SPELLS.DEATH_AND_DECAY.id} />
         )}
         {false && <AbilityRequirement spell={SPELLS.DEATHS_DUE.id} />}
-        {combatant.hasTalent(TALENTS.BLOODDRINKER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.BLOODDRINKER_TALENT) && (
           <AbilityRequirement spell={TALENTS.BLOODDRINKER_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT) && (
           <Requirement
             name={
               <Trans id="deathknight.blood.checklist.useShortCd.crimsonScourge">
@@ -106,7 +106,7 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         })}
       >
         <AbilityRequirement spell={TALENTS.DANCING_RUNE_WEAPON_TALENT.id} />
-        {combatant.hasTalent(TALENTS.CONSUMPTION_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.CONSUMPTION_TALENT) && (
           <Requirement
             name={
               <Trans id="deathknight.blood.checklist.offensiveCd.consumption">
@@ -116,7 +116,7 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
             thresholds={thresholds.consumption}
           />
         )}
-        {combatant.hasTalent(TALENTS.BONESTORM_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.BONESTORM_TALENT) && (
           <Requirement
             name={
               <Trans id="deathknight.blood.checklist.offensiveCd.bonestorm">
@@ -146,7 +146,7 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
           }
           thresholds={thresholds.bloodPlague}
         />
-        {combatant.hasTalent(TALENTS.MARK_OF_BLOOD_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.MARK_OF_BLOOD_TALENT) && (
           <Requirement
             name={
               <Trans id="deathknight.blood.checklist.buffsDebuffs.markOfBlood">
@@ -187,10 +187,10 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         <AbilityRequirement spell={TALENTS.VAMPIRIC_BLOOD_TALENT.id} />
         <AbilityRequirement spell={TALENTS.ICEBOUND_FORTITUDE_TALENT.id} />
         <AbilityRequirement spell={TALENTS.ANTI_MAGIC_SHELL_TALENT.id} />
-        {combatant.hasTalent(TALENTS.RUNE_TAP_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RUNE_TAP_TALENT) && (
           <AbilityRequirement spell={TALENTS.RUNE_TAP_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.TOMBSTONE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.TOMBSTONE_TALENT) && (
           <AbilityRequirement spell={TALENTS.TOMBSTONE_TALENT.id} />
         )}
       </Rule>

@@ -23,7 +23,7 @@ class ShadowCrash extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_CRASH_TALENT_DAMAGE),
       this.onDamage,

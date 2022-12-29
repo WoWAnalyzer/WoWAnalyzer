@@ -1841,19 +1841,14 @@ export const Tialyss: Contributor = {
   github: 'mfield',
 };
 
-export const xunai: Contributor = {
-  nickname: 'xunai',
+export const xunni: Contributor = {
+  nickname: 'xunni',
   github: 'sorrellp',
   mains: [
     {
-      name: 'Xunai',
+      name: 'Xunni',
       spec: SPECS.ENHANCEMENT_SHAMAN,
-      link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/xunai',
-    },
-    {
-      name: 'Ikoogra',
-      spec: SPECS.ENHANCEMENT_SHAMAN,
-      link: 'https://worldofwarcraft.com/en-us/character/us/tichondrius/ikoogra',
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/xunni',
     },
   ],
 };
@@ -2008,4 +2003,10 @@ export const AlexanderJKremer: Contributor = {
       link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/jammfheal',
     },
   ],
+};
+export const Fassbrause: Contributor = {
+  nickname: 'Fassbrause',
+  github: 'Fassbrause',
+  discord: 'Burgerflipper#7351',
+  avatar: avatar('fassbrause-avatar.jpg'),
 };

@@ -12,7 +12,7 @@ import UptimeBar, { Uptime } from 'parser/ui/UptimeBar';
 class RuleOfLaw extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.RULE_OF_LAW_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.RULE_OF_LAW_TALENT);
   }
 
   get uptime() {

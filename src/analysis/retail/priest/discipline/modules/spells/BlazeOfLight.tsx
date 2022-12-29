@@ -28,7 +28,7 @@ class BlazeOfLight extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.BLAZE_OF_LIGHT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.BLAZE_OF_LIGHT_TALENT);
 
     this.blazeOfLightIncrease =
       BLAZE_OF_LIGHT_INCREASE[

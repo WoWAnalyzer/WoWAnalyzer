@@ -16,10 +16,10 @@ class HotTrackerPrevoker extends HotTracker {
   constructor(options: Options) {
     super(options);
     this.timelessMagicActive = this.owner.selectedCombatant.hasTalent(
-      TALENTS_EVOKER.TIMELESS_MAGIC_TALENT.id,
+      TALENTS_EVOKER.TIMELESS_MAGIC_TALENT,
     );
     this.fontOfMagicActive = this.owner.selectedCombatant.hasTalent(
-      TALENTS_EVOKER.FONT_OF_MAGIC_TALENT.id,
+      TALENTS_EVOKER.FONT_OF_MAGIC_TALENT,
     );
   }
 
@@ -49,7 +49,7 @@ class HotTrackerPrevoker extends HotTracker {
       REVERSION_BASE_DURATION *
       (1 +
         TIMELESS_MAGIC *
-          this.selectedCombatant.getTalentRank(TALENTS_EVOKER.TIMELESS_MAGIC_TALENT.id));
+          this.selectedCombatant.getTalentRank(TALENTS_EVOKER.TIMELESS_MAGIC_TALENT));
     const dreamBreathDuration = this.fontOfMagicActive
       ? DREAM_BREATH_MIN_DURATION
       : DREAM_BREATH_MIN_DURATION + DREAM_BREATH_MIN_DURATION;

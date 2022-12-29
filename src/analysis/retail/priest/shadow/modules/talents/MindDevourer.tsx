@@ -27,7 +27,7 @@ class MindDevourer extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.MIND_DEVOURER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.MIND_DEVOURER_TALENT);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MIND_DEVOURER_TALENT_BUFF),
       this.onBuffApplied,

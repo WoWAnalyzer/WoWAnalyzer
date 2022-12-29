@@ -146,7 +146,7 @@ function RotationSection() {
           The Havoc rotation is driven by a <em>priority list</em>. When you are ready to use an
           ability, you should use the highest-priority ability that is available. Doing this
           improves your damage by prioritizing high-damage, high-impact spells like{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id} /> and{' '}
+          <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} /> and{' '}
           <SpellLink id={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT} /> over low-priority "filler" spells
           like <SpellLink id={SPELLS.THROW_GLAIVE_HAVOC.id} />.
         </Trans>

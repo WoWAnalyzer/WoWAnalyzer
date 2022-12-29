@@ -36,7 +36,7 @@ class BlackoutCombo extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.BLACKOUT_COMBO_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.BLACKOUT_COMBO_TALENT);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_COMBO_BUFF),
       this.onApplyBuff,

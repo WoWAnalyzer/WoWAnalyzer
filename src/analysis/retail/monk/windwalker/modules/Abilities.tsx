@@ -42,7 +42,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
-        enabled: combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
@@ -57,7 +57,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
-        enabled: combatant.hasTalent(SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -95,7 +95,7 @@ class Abilities extends CoreAbilities {
           base: 1000,
           minimum: 750,
         },
-        enabled: combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.CHI_WAVE_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.65,
@@ -116,7 +116,7 @@ class Abilities extends CoreAbilities {
           base: 1000,
           minimum: 750,
         },
-        enabled: combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.CHI_BURST_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -137,7 +137,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
-        enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND.id),
+        enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND),
       },
       // cooldowns
       {
@@ -158,7 +158,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: null,
-        enabled: combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.SERENITY_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -169,7 +169,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: null,
-        enabled: !combatant.hasTalent(SPELLS.SERENITY_TALENT.id),
+        enabled: !combatant.hasTalent(SPELLS.SERENITY_TALENT),
         charges: 2,
         castEfficiency: {
           suggestion: true,
@@ -194,7 +194,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         gcd: null,
-        enabled: combatant.hasTalent(SPELLS.ENERGIZING_ELIXIR_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.ENERGIZING_ELIXIR_TALENT),
       },
       // Utility
       {
@@ -229,10 +229,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ROLL.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(SPELLS.CELERITY_TALENT.id) ? 15 : 20,
+        cooldown: combatant.hasTalent(SPELLS.CELERITY_TALENT) ? 15 : 20,
         gcd: null,
-        charges: combatant.hasTalent(SPELLS.CELERITY_TALENT.id) ? 3 : 2,
-        enabled: !combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT.id),
+        charges: combatant.hasTalent(SPELLS.CELERITY_TALENT) ? 3 : 2,
+        enabled: !combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT),
       },
       {
         spell: SPELLS.CHI_TORPEDO_TALENT.id,
@@ -240,7 +240,7 @@ class Abilities extends CoreAbilities {
         cooldown: 20,
         gcd: null,
         charges: 2,
-        enabled: combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT),
       },
       {
         spell: SPELLS.FLYING_SERPENT_KICK.id,
@@ -257,7 +257,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
-        enabled: combatant.hasTalent(SPELLS.TIGERS_LUST_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.TIGERS_LUST_TALENT),
       },
       {
         spell: SPELLS.TRANSCENDENCE.id,
@@ -328,7 +328,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 90,
         gcd: null,
-        enabled: combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT),
       },
       {
         spell: SPELLS.DAMPEN_HARM_TALENT.id,
@@ -336,7 +336,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 90,
         gcd: null,
-        enabled: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT),
       },
     ];
   }

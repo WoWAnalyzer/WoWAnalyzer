@@ -19,7 +19,7 @@ class ViolentOutburstCastRatio extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.VIOLENT_OUTBURST_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.VIOLENT_OUTBURST_TALENT);
     if (!this.active) {
       return;
     }

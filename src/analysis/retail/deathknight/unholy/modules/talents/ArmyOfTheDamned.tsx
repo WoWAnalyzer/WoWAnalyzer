@@ -24,7 +24,7 @@ class ArmyOfTheDamned extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ARMY_OF_THE_DAMNED_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ARMY_OF_THE_DAMNED_TALENT);
     if (!this.active) {
       return;
     }

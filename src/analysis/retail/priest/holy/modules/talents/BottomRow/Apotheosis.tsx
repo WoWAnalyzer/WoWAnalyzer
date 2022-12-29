@@ -26,7 +26,7 @@ class Apotheosis extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.APOTHEOSIS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.APOTHEOSIS_TALENT);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.APOTHEOSIS_TALENT),
       this.onApplyBuff,

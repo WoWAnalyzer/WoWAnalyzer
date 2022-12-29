@@ -14,7 +14,7 @@ class Tier28FourSet extends Analyzer {
 
   get threshold() {
     return {
-      actual: this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_SPIRITS_TALENT.id),
+      actual: this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_SPIRITS_TALENT),
       isEqual: false,
       style: ThresholdStyle.BOOLEAN,
     };

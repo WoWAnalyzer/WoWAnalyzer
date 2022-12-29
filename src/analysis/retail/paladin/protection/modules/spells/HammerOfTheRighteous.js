@@ -21,7 +21,7 @@ export default class HammerOfTheRighteous extends Analyzer {
 
   constructor(props) {
     super(props);
-    if (this.selectedCombatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT)) {
       this.activeSpell = SPELLS.BLESSED_HAMMER_TALENT;
     }
 

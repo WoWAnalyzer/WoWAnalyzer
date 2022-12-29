@@ -18,7 +18,7 @@ class RevitalizingPrayers extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    if (!this.selectedCombatant.hasTalent(TALENTS.REVITALIZING_PRAYERS_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(TALENTS.REVITALIZING_PRAYERS_TALENT)) {
       this.active = false;
       return;
     }

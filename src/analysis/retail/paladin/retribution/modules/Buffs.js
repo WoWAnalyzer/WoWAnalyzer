@@ -8,7 +8,7 @@ class Buffs extends CoreAuras {
     return [
       {
         spellId: SPELLS.EMPYREAN_POWER_TALENT_BUFF.id,
-        enabled: combatant.hasTalent(SPELLS.EMPYREAN_POWER_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.EMPYREAN_POWER_TALENT),
         timelineHighlight: true,
       },
       {

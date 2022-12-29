@@ -33,7 +33,7 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
 
   constructor(options: Options) {
     super(SPELLS.MOONFIRE_FERAL, SPELLS.MOONFIRE_FERAL, [TIGERS_FURY_SPEC], options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_TALENT);
   }
 
   getDotExpectedDuration(): number {

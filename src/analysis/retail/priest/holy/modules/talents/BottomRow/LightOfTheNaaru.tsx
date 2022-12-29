@@ -21,7 +21,7 @@ class LightOfTheNaaru extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.LIGHT_OF_THE_NAARU_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.LIGHT_OF_THE_NAARU_TALENT);
   }
 
   statistic() {

@@ -5,6 +5,8 @@ import { Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 12, 28), <>Add module for <SpellLink id={TALENTS_EVOKER.EXHILARATING_BURST_TALENT.id}/></>, Trevor),
+  change(date(2022, 12, 24), <>Add consumption counts to <SpellLink id={TALENTS_EVOKER.ECHO_TALENT.id}/> module</>, Trevor),
   change(date(2022, 12, 24), <>Fix load condition for <SpellLink id={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT.id}/></>, Trevor),
   change(date(2022, 12, 23), <>Fix tooltip for <SpellLink id={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT.id}/></>, Trevor),
   change(date(2022, 12, 21), <>Improved accuracy of <SpellLink id={TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT}/> module</>, Trevor),

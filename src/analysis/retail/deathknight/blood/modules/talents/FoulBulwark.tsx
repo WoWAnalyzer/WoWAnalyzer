@@ -20,7 +20,7 @@ class FoulBulwark extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.FOUL_BULWARK_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.FOUL_BULWARK_TALENT);
   }
 
   get boneShieldTimesByStack() {

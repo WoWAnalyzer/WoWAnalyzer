@@ -41,7 +41,7 @@ class Pyroclasm extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.PYROCLASM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.PYROCLASM_TALENT);
     this.addEventListener(
       Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF),
       this.onPyroclasmApplied,
@@ -97,9 +97,7 @@ class Pyroclasm extends Analyzer {
     }
 
     const currentFireBlastCharges = this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id);
-    const maxFireBlastCharges = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT.id)
-      ? 3
-      : 2;
+    const maxFireBlastCharges = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT) ? 3 : 2;
     const currentPhoenixFlamesCharges = this.spellUsable.chargesAvailable(
       TALENTS.PHOENIX_FLAMES_TALENT.id,
     );

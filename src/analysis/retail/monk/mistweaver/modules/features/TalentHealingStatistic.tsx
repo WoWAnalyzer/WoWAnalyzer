@@ -44,37 +44,37 @@ class TalentHealingStatistic extends Analyzer {
 
   buildTalentList() {
     const talentList = [];
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)) {
       talentList.push(this.invokeChiji.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT)) {
       talentList.push(this.invokeYulon.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
       talentList.push(this.risingMist.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT)) {
       talentList.push(this.upwelling.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT)) {
       talentList.push(this.mistyPeaks.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.DANCING_MISTS_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.DANCING_MISTS_TALENT)) {
       talentList.push(this.dancingMists.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT)) {
       talentList.push(this.rapidDiffusion.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.CLOUDED_FOCUS_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.CLOUDED_FOCUS_TALENT)) {
       talentList.push(this.cloudedFocus.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.SAVE_THEM_ALL_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.SAVE_THEM_ALL_TALENT)) {
       talentList.push(this.saveThemAll.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.UNISON_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.UNISON_TALENT)) {
       talentList.push(this.unison.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.MISTS_OF_LIFE_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.MISTS_OF_LIFE_TALENT)) {
       talentList.push(this.mistsOfLife.subStatistic());
     }
     const sortedTalentList = talentList.sort(

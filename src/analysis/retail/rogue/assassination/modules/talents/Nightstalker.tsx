@@ -32,7 +32,7 @@ class Nightstalker extends StealthCasts {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT);
     if (!this.active) {
       return;
     }

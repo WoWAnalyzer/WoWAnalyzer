@@ -21,7 +21,7 @@ class NaturesGuardian extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.NATURES_GUARDIAN_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.NATURES_GUARDIAN_TALENT);
 
     if (!this.active) {
       return;

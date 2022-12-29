@@ -23,7 +23,7 @@ class Bonestorm extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.BONESTORM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BONESTORM_TALENT);
 
     if (!this.active) {
       return;

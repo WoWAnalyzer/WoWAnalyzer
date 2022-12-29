@@ -20,7 +20,7 @@ class RapidDecomposition extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT);
     if (!this.active) {
       return;
     }

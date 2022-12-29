@@ -32,13 +32,13 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
       >
         <AbilityRequirement spell={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />
         <AbilityRequirement spell={SPELLS.FISTS_OF_FURY_CAST.id} />
-        {combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id) && (
+        {combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT) && (
           <AbilityRequirement spell={SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id) && (
+        {combatant.hasTalent(SPELLS.CHI_WAVE_TALENT) && (
           <AbilityRequirement spell={SPELLS.CHI_WAVE_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id) && (
+        {combatant.hasTalent(SPELLS.CHI_BURST_TALENT) && (
           <AbilityRequirement spell={SPELLS.CHI_BURST_TALENT.id} />
         )}
       </Rule>
@@ -91,10 +91,10 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
       >
         <AbilityRequirement spell={SPELLS.TOUCH_OF_DEATH.id} />
         <AbilityRequirement spell={SPELLS.TOUCH_OF_KARMA_CAST.id} />
-        {!combatant.hasTalent(SPELLS.SERENITY_TALENT.id) && (
+        {!combatant.hasTalent(SPELLS.SERENITY_TALENT) && (
           <AbilityRequirement spell={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} />
         )}
-        {combatant.hasTalent(SPELLS.SERENITY_TALENT.id) && (
+        {combatant.hasTalent(SPELLS.SERENITY_TALENT) && (
           <AbilityRequirement spell={SPELLS.SERENITY_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.INVOKE_XUEN_THE_WHITE_TIGER.id} />
@@ -120,10 +120,10 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         }
       >
         <AbilityRequirement spell={SPELLS.EXPEL_HARM.id} />
-        {combatant.hasTalent(SPELLS.ENERGIZING_ELIXIR_TALENT.id) && (
+        {combatant.hasTalent(SPELLS.ENERGIZING_ELIXIR_TALENT) && (
           <AbilityRequirement spell={SPELLS.ENERGIZING_ELIXIR_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT.id) && (
+        {combatant.hasTalent(SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT) && (
           <AbilityRequirement spell={SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT.id} />
         )}
         <Requirement
@@ -192,7 +192,7 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           />
         </Rule>
       )}
-      {false && !combatant.hasTalent(SPELLS.SERENITY_TALENT.id) && (
+      {false && !combatant.hasTalent(SPELLS.SERENITY_TALENT) && (
         <Rule
           name={
             <>
@@ -232,10 +232,10 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         }
       >
         <AbilityRequirement spell={SPELLS.TOUCH_OF_KARMA_CAST.id} />
-        {combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT.id) && (
+        {combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT) && (
           <AbilityRequirement spell={SPELLS.DIFFUSE_MAGIC_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id) && (
+        {combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT) && (
           <AbilityRequirement spell={SPELLS.DAMPEN_HARM_TALENT.id} />
         )}
         <Requirement

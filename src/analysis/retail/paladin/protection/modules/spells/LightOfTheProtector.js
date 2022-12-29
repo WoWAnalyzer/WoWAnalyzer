@@ -40,7 +40,7 @@ export default class LightOfTheProtector extends Analyzer {
 
   constructor(props) {
     super(props);
-    if (this.selectedCombatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT)) {
       this.activeSpell = SPELLS.HAND_OF_THE_PROTECTOR_TALENT;
       this.addEventListener(
         Events.cast.by(SELECTED_PLAYER).to(SELECTED_PLAYER).spell(this.activeSpell),
@@ -58,7 +58,7 @@ export default class LightOfTheProtector extends Analyzer {
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._startDelayTimer);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(this.activeSpell), this._countHeal);
 
-    if (this.selectedCombatant.hasTalent(SPELLS.RIGHTEOUS_PROTECTOR_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.RIGHTEOUS_PROTECTOR_TALENT)) {
       this.addEventListener(
         Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_OF_THE_RIGHTEOUS),
         this._updateDelayRP,

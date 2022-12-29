@@ -39,7 +39,7 @@ class AMurderOfCrows extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.A_MURDER_OF_CROWS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.A_MURDER_OF_CROWS_TALENT);
     if (this.active) {
       (options.abilities as Abilities).add({
         spell: TALENTS.A_MURDER_OF_CROWS_TALENT.id,
