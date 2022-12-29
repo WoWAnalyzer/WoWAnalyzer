@@ -86,7 +86,7 @@ class IdolOfYshaarj extends Analyzer {
               <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_VIOLENCE.id} />
             </body>
           </>
-          {/*the tooltip on wowhead doesn't match the tooltip on the in game buff, so the extra text is required.*/}
+          {/*the tooltip on wowhead doesn't match the tooltip on the in game buff, so the extra text is required to show which effect is which.*/}
         </BoringSpellValueText>
       </Statistic>
     );
