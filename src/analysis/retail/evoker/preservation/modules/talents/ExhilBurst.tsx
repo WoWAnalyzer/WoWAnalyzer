@@ -16,8 +16,9 @@ class ExhilBurst extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.EXHILARATING_BURST_TALENT);
-    this.totalBoost =
+    const critInc =
       this.selectedCombatant.getTalentRank(TALENTS_EVOKER.EXHILARATING_BURST_TALENT) * 0.15;
+    this.totalBoost = critInc / (2 + critInc);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
