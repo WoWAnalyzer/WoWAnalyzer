@@ -45,6 +45,7 @@ import MindDevourer from './modules/talents/MindDevourer';
 import IdolOfCthun from './modules/talents/IdolOfCthun';
 import IdolOfYoggSaron from './modules/talents/IdolOfYoggSaron';
 import IdolOfNzoth from './modules/talents/IdolOfNzoth';
+import IdolOfYshaarj from './modules/talents/IdolOfYshaarj';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -97,6 +98,7 @@ class CombatLogParser extends MainCombatLogParser {
     idolOfCthun: IdolOfCthun,
     idolOfYoggSaron: IdolOfYoggSaron,
     idolOfNzoth: IdolOfNzoth,
+    idolOfYshaarj: IdolOfYshaarj,
 
     // normalizers:
     shadowfiendNormalizer: ShadowfiendNormalizer,

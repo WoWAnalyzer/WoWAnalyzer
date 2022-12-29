@@ -770,7 +770,37 @@ const spells = spellIndexableList({
   IDOL_OF_NZOTH_DAMAGE: {
     id: 373304,
     name: 'Echoing Void',
-    icon: 'Inv_inscription_80_vantusrune_nyalotha',
+    icon: 'inv_inscription_80_vantusrune_nyalotha',
+  },
+
+  IDOL_OF_YSHAARJ_BUFF_PRIDE: {
+    id: 373316,
+    name: 'Devoured Pride',
+    icon: 'sha_ability_rogue_envelopingshadows',
+  },
+
+  IDOL_OF_YSHAARJ_BUFF_DESPAIR: {
+    id: 373317,
+    name: 'Devoured Despair',
+    icon: 'sha_ability_rogue_envelopingshadows_nightborne',
+  },
+
+  IDOL_OF_YSHAARJ_BUFF_ANGER: {
+    id: 373318,
+    name: 'Devoured Anger',
+    icon: 'sha_ability_rogue_envelopingshadows_nightmare',
+  },
+
+  IDOL_OF_YSHAARJ_BUFF_FEAR: {
+    id: 373319,
+    name: 'Devoured Fear',
+    icon: 'sha_spell_warlock_demonsoul_nightborne',
+  },
+
+  IDOL_OF_YSHAARJ_BUFF_VIOLENCE: {
+    id: 373320,
+    name: 'Devoured Violence',
+    icon: 'sha_spell_warlock_demonsoul',
   },
 
   // Disc
