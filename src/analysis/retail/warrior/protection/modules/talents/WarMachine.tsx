@@ -18,7 +18,7 @@ class WarMachine extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_PROTECTION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_PROTECTION_TALENT);
   }
 
   statistic() {

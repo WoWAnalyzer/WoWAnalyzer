@@ -36,7 +36,7 @@ class VoidTorrent extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.VOID_TORRENT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.VOID_TORRENT_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.VOID_TORRENT_TALENT),
       this.onCast,

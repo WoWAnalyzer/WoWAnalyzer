@@ -27,7 +27,7 @@ class ComboStrikes extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.hasHitCombo = this.selectedCombatant.hasTalent(SPELLS.HIT_COMBO_TALENT.id);
+    this.hasHitCombo = this.selectedCombatant.hasTalent(SPELLS.HIT_COMBO_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_MASTERY),
       this.onMasteryCast,

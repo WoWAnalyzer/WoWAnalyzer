@@ -65,7 +65,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.CONSUMPTION_TALENT.id,
         category: SPELL_CATEGORY.SEMI_DEFENSIVE,
-        enabled: combatant.hasTalent(TALENTS.CONSUMPTION_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.CONSUMPTION_TALENT),
         cooldown: 45,
         gcd: {
           base: 1500,
@@ -97,7 +97,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.BLOODDRINKER_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.BLOODDRINKER_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -130,7 +130,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT),
         cooldown: 15,
         castEfficiency: {
           suggestion: true,
@@ -145,7 +145,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT),
         cooldown: 15,
         timelineSortIndex: 5,
       },
@@ -170,7 +170,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.ANTI_MAGIC_SHELL_TALENT.id,
         buffSpellId: TALENTS.ANTI_MAGIC_SHELL_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(TALENTS.ANTI_MAGIC_BARRIER_TALENT.id) ? 60 - 15 : 60,
+        cooldown: combatant.hasTalent(TALENTS.ANTI_MAGIC_BARRIER_TALENT) ? 60 - 15 : 60,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
@@ -211,7 +211,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.WRAITH_WALK_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.WRAITH_WALK_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.WRAITH_WALK_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
@@ -225,7 +225,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: combatant.hasTalent(TALENTS.TIGHTENING_GRASP_TALENT.id) ? 90 : 120,
+        cooldown: combatant.hasTalent(TALENTS.TIGHTENING_GRASP_TALENT) ? 90 : 120,
         timelineSortIndex: 11,
       },
       {
@@ -276,7 +276,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.TOMBSTONE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        enabled: combatant.hasTalent(TALENTS.TOMBSTONE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.TOMBSTONE_TALENT),
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -314,7 +314,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.BLOOD_TAP_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.BLOOD_TAP_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.BLOOD_TAP_TALENT),
         cooldown: 60,
         charges: 2,
         castEfficiency: {
@@ -331,7 +331,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.BONESTORM_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled: combatant.hasTalent(TALENTS.BONESTORM_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.BONESTORM_TALENT),
         cooldown: 60,
         gcd: {
           base: 1500,

@@ -29,7 +29,7 @@ class Ascendance extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT);
     if (!this.active) {
       return;
     }
@@ -60,7 +60,7 @@ class Ascendance extends Analyzer {
   }
 
   statistic() {
-    const hasEB = this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT.id);
+    const hasEB = this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT);
 
     return (
       <Statistic
@@ -94,9 +94,7 @@ class Ascendance extends Analyzer {
 
   suggestions(when: When) {
     const abilities = `Lava Burst ${
-      this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT.id)
-        ? `, Elemental Blast `
-        : ``
+      this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT) ? `, Elemental Blast ` : ``
     } and Earth Shock`;
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(<span>Maximize your damage during ascendance by only using ${abilities}.</span>)

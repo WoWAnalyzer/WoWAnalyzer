@@ -37,7 +37,7 @@ class LethalShots extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.LETHAL_SHOTS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.LETHAL_SHOTS_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM]),
       this.castChecker,

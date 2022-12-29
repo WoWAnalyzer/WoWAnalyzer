@@ -18,7 +18,7 @@ class Unison extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.UNISON_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.UNISON_TALENT);
     if (!this.active) {
       return;
     }
@@ -26,7 +26,7 @@ class Unison extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.UNISON_HEAL),
       this.unisonHeal,
     );
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT)) {
       this.addEventListener(
         Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.UNISON_HEAL),
         this.jssUnisonHeal,

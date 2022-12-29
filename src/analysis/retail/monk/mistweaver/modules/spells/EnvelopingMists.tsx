@@ -9,6 +9,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { ENVELOPING_MIST_INCREASE, MISTWRAP_INCREASE } from '../../constants';
 
 const UNAFFECTED_SPELLS: number[] = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
@@ -26,9 +27,9 @@ class EnvelopingMists extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.evmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT.id)
-      ? 0.4
-      : 0.3;
+    this.evmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
+      ? ENVELOPING_MIST_INCREASE + MISTWRAP_INCREASE
+      : ENVELOPING_MIST_INCREASE;
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
       this.castEnvelopingMist,

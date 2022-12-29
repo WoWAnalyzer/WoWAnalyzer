@@ -24,7 +24,7 @@ class GracePeriod extends Analyzer {
   overhealFromIncrease: number = 0;
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.GRACE_PERIOD_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.GRACE_PERIOD_TALENT);
     if (!this.active) {
       return;
     }

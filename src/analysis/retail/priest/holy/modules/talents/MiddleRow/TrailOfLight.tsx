@@ -16,7 +16,7 @@ class TrailOfLight extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.TRAIL_OF_LIGHT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.TRAIL_OF_LIGHT_TALENT);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.TRAIL_OF_LIGHT_TALENT_HEAL),
       this.onHeal,

@@ -15,7 +15,7 @@ class HolyAvenger extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS.HOLY_AVENGER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HOLY_AVENGER_TALENT);
 
     if (!this.active) {
       return;

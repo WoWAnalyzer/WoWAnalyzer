@@ -29,7 +29,7 @@ class NaturalMending extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.NATURAL_MENDING_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.NATURAL_MENDING_TALENT);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 

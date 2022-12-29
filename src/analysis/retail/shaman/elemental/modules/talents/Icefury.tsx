@@ -14,7 +14,7 @@ class Icefury extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ICEFURY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ICEFURY_TALENT);
     if (!this.active) {
       return;
     }

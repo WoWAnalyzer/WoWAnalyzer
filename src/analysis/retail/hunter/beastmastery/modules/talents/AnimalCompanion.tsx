@@ -24,7 +24,7 @@ class AnimalCompanion extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ANIMAL_COMPANION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ANIMAL_COMPANION_TALENT);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.petDamage);
     this.addEventListener(Events.fightend, this.onFightEnd);

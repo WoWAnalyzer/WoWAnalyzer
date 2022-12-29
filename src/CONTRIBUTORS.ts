@@ -2004,3 +2004,9 @@ export const AlexanderJKremer: Contributor = {
     },
   ],
 };
+export const Fassbrause: Contributor = {
+  nickname: 'Fassbrause',
+  github: 'Fassbrause',
+  discord: 'Burgerflipper#7351',
+  avatar: avatar('fassbrause-avatar.jpg'),
+};

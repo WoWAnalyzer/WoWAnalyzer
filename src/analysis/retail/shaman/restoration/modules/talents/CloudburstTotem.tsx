@@ -38,7 +38,7 @@ class CloudburstTotem extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.CLOUDBURST_TOTEM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.CLOUDBURST_TOTEM_TALENT);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CLOUDBURST_TOTEM_HEAL),

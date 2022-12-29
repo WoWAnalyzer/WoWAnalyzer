@@ -52,7 +52,7 @@ class VirulentPlagueEfficiency extends Analyzer {
   }
 
   get VirulentDuration() {
-    return this.selectedCombatant.hasTalent(TALENTS.EBON_FEVER_TALENT.id) ? 13.65 : 27.3;
+    return this.selectedCombatant.hasTalent(TALENTS.EBON_FEVER_TALENT) ? 13.65 : 27.3;
   }
 
   onRefresh(event: RefreshDebuffEvent) {

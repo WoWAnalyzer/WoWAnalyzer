@@ -32,7 +32,7 @@ class Lifecycles extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.LIFECYCLES_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.LIFECYCLES_TALENT);
     if (!this.active) {
       return;
     }

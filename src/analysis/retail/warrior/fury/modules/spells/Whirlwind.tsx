@@ -34,7 +34,7 @@ class Whirlwind extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.executeThreshold = this.selectedCombatant.hasTalent(talents.MASSACRE_FURY_TALENT.id)
+    this.executeThreshold = this.selectedCombatant.hasTalent(talents.MASSACRE_FURY_TALENT)
       ? 0.35
       : 0.2;
 

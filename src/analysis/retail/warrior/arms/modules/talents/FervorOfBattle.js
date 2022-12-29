@@ -26,7 +26,7 @@ class FervorOfBattle extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FERVOR_OF_BATTLE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FERVOR_OF_BATTLE_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WHIRLWIND),
       this._onWhirlwindCast,

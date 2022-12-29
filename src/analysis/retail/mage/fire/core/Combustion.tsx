@@ -227,9 +227,9 @@ class CombustionCasts extends Analyzer {
         <>
           You cast <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> {this.lowFireBlastCharges()}{' '}
           times with less than{' '}
-          {this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT.id) ? '2' : '1'} charges of{' '}
+          {this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT) ? '2' : '1'} charges of{' '}
           <SpellLink id={SPELLS.FIRE_BLAST.id} />. Make sure you are saving at least{' '}
-          {this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT.id) ? '2' : '1'} charges while
+          {this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT) ? '2' : '1'} charges while
           Combustion is on cooldown so you can get as many <SpellLink id={SPELLS.HOT_STREAK.id} />{' '}
           procs as possible before Combustion ends.
         </>,

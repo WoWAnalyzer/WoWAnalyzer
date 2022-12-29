@@ -66,7 +66,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     isActive(c) {
-      return c.hasTalent(TALENTS_PRIEST.LIGHTWEAVER_TALENT.id);
+      return c.hasTalent(TALENTS_PRIEST.LIGHTWEAVER_TALENT);
     },
   },
 ];

@@ -45,7 +45,7 @@ class Tombstone extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.TOMBSTONE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.TOMBSTONE_TALENT);
 
     if (!this.active) {
       return;

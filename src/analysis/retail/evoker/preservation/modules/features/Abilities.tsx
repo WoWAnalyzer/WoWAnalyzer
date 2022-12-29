@@ -11,18 +11,18 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.REVERSION_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 9,
-        charges: combatant.hasTalent(TALENTS.PUNCTUALITY_TALENT.id) ? 2 : 1,
+        charges: combatant.hasTalent(TALENTS.PUNCTUALITY_TALENT) ? 2 : 1,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.REVERSION_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.REVERSION_TALENT),
         castEfficiency: {
           suggestion: true,
         },
       },
       {
         spell: TALENTS.DREAM_BREATH_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.DREAM_BREATH_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.DREAM_BREATH_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 30,
         gcd: {
@@ -34,7 +34,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.ECHO_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.ECHO_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.ECHO_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 0,
         gcd: {
@@ -48,7 +48,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.TIME_DILATION_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.TIME_DILATION_TALENT),
       },
       {
         spell: TALENTS.SPIRITBLOOM_TALENT.id,
@@ -57,7 +57,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.SPIRITBLOOM_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SPIRITBLOOM_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -69,17 +69,17 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.TEMPORAL_ANOMALY_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.TEMPORAL_ANOMALY_TALENT),
       },
       {
         spell: TALENTS.REWIND_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: combatant.hasTalent(TALENTS.TEMPORAL_ARTIFICER_TALENT.id) ? 180 : 240,
-        charges: combatant.hasTalent(TALENTS.ERASURE_TALENT.id) ? 2 : 1,
+        cooldown: combatant.hasTalent(TALENTS.TEMPORAL_ARTIFICER_TALENT) ? 180 : 240,
+        charges: combatant.hasTalent(TALENTS.ERASURE_TALENT) ? 2 : 1,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.REWIND_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.REWIND_TALENT),
       },
       {
         spell: TALENTS.EMERALD_COMMUNION_TALENT.id,
@@ -88,7 +88,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.EMERALD_COMMUNION_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.EMERALD_COMMUNION_TALENT),
       },
       {
         spell: TALENTS.DREAM_FLIGHT_TALENT.id,
@@ -97,7 +97,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.DREAM_FLIGHT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.DREAM_FLIGHT_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -109,7 +109,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 0,
         },
-        enabled: combatant.hasTalent(TALENTS.STASIS_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.STASIS_TALENT),
       },
       ...super.spellbook(),
     ];

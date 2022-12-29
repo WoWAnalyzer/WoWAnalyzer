@@ -28,7 +28,7 @@ class TwilightEquilibrium extends Analyzer {
     super(options);
 
     this.active = false;
-    // this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.TWILIGHT_EQUILIBRIUM_TALENT.id);
+    // this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.TWILIGHT_EQUILIBRIUM_TALENT);
 
     if (!this.active) {
       return;

@@ -53,7 +53,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
 
   naturalRegenRate() {
     let regen = super.naturalRegenRate();
-    if (this.selectedCombatant.hasTalent(TALENTS.VIGOR_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.VIGOR_TALENT)) {
       regen *= VIGOR_REGEN_MULTIPLIER;
     }
     return regen;
@@ -61,7 +61,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
 
   currentMaxResource() {
     let max = BASE_ENERGY_MAX;
-    if (this.selectedCombatant.hasTalent(TALENTS.VIGOR_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.VIGOR_TALENT)) {
       max += VIGOR_MAX_ADDITION;
     }
     // What should be x.5 becomes x in-game.

@@ -30,7 +30,7 @@ export const apl = build([
     spell: SPELLS.KILL_SHOT_MM_BM,
     condition: buffPresent(TALENTS.HUNTERS_PREY_TALENT),
   },
-  SPELLS.WAILING_ARROW_CAST,
+  TALENTS.WAILING_ARROW_TALENT,
   {
     spell: TALENTS.DEATH_CHAKRAM_TALENT,
     condition: and(

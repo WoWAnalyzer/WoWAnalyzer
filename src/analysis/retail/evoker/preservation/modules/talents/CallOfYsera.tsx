@@ -45,7 +45,7 @@ class CallOfYsera extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT);
     if (!this.active) {
       return;
     }

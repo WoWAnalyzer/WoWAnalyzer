@@ -67,7 +67,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS_DRUID.MASS_ENTANGLEMENT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.MASS_ENTANGLEMENT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.MASS_ENTANGLEMENT_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
@@ -83,7 +83,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.URSOLS_VORTEX.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.URSOLS_VORTEX_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.URSOLS_VORTEX_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
         gcd: {
@@ -148,7 +148,7 @@ class Abilities extends CoreAbilities {
           SPELLS.HEART_OF_THE_WILD_GUARDIAN_AFFINITY.id,
           SPELLS.HEART_OF_THE_WILD_RESTO_AFFINITY.id,
         ],
-        enabled: combatant.hasTalent(TALENTS_DRUID.HEART_OF_THE_WILD_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.HEART_OF_THE_WILD_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 300,
         gcd: {
@@ -164,7 +164,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.INNERVATE.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.INNERVATE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.INNERVATE_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
         gcd: null,
@@ -233,7 +233,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DASH.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: !combatant.hasTalent(TALENTS_DRUID.TIGER_DASH_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS_DRUID.TIGER_DASH_TALENT),
         cooldown: 120,
         gcd: {
           static: combatant.hasBuff(SPELLS.CAT_FORM.id) ? 0 : 1500,
@@ -242,7 +242,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_DRUID.TIGER_DASH_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS_DRUID.TIGER_DASH_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.TIGER_DASH_TALENT),
         cooldown: 45,
         gcd: {
           static: combatant.hasBuff(SPELLS.CAT_FORM.id) ? 0 : 1500,
@@ -280,7 +280,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.MOONKIN_FORM.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.MOONKIN_FORM_BALANCE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.MOONKIN_FORM_BALANCE_TALENT),
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,

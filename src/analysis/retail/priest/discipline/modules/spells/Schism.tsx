@@ -34,7 +34,7 @@ class Schism extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.SCHISM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.SCHISM_TALENT);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtonement);

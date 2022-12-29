@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import { Adoraci, niseko, Abelito75, Shamorisse, Vetyst, Arlie } from 'CONTRIBUTORS';
+import { Adoraci, niseko, Abelito75, Shamorisse, Vetyst, Arlie, Fassbrause } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 12, 24), <>Added <SpellLink id={TALENTS.HEALING_RAIN_TALENT}></SpellLink>, <SpellLink id={TALENTS.DOWNPOUR_TALENT}></SpellLink> and <SpellLink id={TALENTS.WELLSPRING_TALENT}></SpellLink> to the <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT}></SpellLink> buff usage breakdown.</>, Fassbrause),
   change(date(2022, 11, 7), <>Added a statistic to display the healing gained from <SpellLink id={TALENTS.UNDERCURRENT_TALENT.id} />.</>, niseko),
   change(date(2022, 11, 6), <>Add support for <SpellLink id={TALENTS.FLASH_FLOOD_TALENT.id}/> haste increases per rank.</>, Arlie),
   change(date(2022, 10, 29), <>Converted Shadowlands spells and talents to Dragonflight versions</>, Arlie),

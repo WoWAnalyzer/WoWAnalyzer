@@ -28,7 +28,7 @@ class SurgeOfPower extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_POWER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_POWER_TALENT);
     if (!this.active) {
       return;
     }

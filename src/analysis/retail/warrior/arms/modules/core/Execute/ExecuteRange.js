@@ -22,7 +22,7 @@ class ExecuteRangeTracker extends Analyzer {
   execPhaseDuration = 0;
   lastHitInExecPhase = 0;
 
-  lowerThreshold = this.selectedCombatant.hasTalent(SPELLS.MASSACRE_TALENT_ARMS.id)
+  lowerThreshold = this.selectedCombatant.hasTalent(SPELLS.MASSACRE_TALENT_ARMS)
     ? EXECUTE_RANGE_MASSACRE
     : EXECUTE_RANGE;
   upperThreshold = 100;
