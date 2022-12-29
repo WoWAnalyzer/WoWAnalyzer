@@ -20,13 +20,11 @@ import ForcefulWinds from './modules/talents/ForcefulWinds';
 import Stormflurry from './modules/talents/Stormflurry';
 import ElementalBlast from 'analysis/retail/shaman/shared/ElementalBlast';
 import HotHand from './modules/talents/HotHand';
-import IceStrike from './modules/talents/IceStrike';
 import SpiritWolf from 'analysis/retail/shaman/shared/talents/SpiritWolf';
 import EarthShield from 'analysis/retail/shaman/shared/talents/EarthShield';
 import Hailstorm from './modules/talents/Hailstorm';
 import FireNova from './modules/talents/FireNova';
 import NaturesGuardian from './modules/talents/NaturesGuardian';
-import CrashingStorm from './modules/talents/CrashingStorm';
 import Sundering from './modules/talents/Sundering';
 import ElementalSpirits from './modules/talents/ElementalSpirits';
 import ElementalAssault from './modules/talents/ElementalAssault';
@@ -70,11 +68,9 @@ class CombatLogParser extends CoreCombatLogParser {
     elementalBlast: ElementalBlast,
     stormflurry: Stormflurry,
     hotHand: HotHand,
-    iceStrike: IceStrike,
     elementalAssault: ElementalAssault,
     hailstorm: Hailstorm,
     fireNova: FireNova,
-    crashingStorm: CrashingStorm,
     sundering: Sundering,
     elementalSpirits: ElementalSpirits,
     feralSpirit: FeralSpirit,
