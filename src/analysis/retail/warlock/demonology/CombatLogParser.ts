@@ -1,6 +1,7 @@
 import { DemonicCirclesCreated } from 'analysis/retail/warlock/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+import DemonologyWarlockVaultOfTheIncarnates4Set from './modules/dragonflight/tier/VaultOfTheIncarnates4Set';
 
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -83,6 +84,8 @@ class CombatLogParser extends CoreCombatLogParser {
     sacrificedSouls: SacrificedSouls,
     netherPortal: NetherPortal,
     felCovenant: FelCovenant,
+
+    vaultOfTheIncarnates4Set: DemonologyWarlockVaultOfTheIncarnates4Set,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
