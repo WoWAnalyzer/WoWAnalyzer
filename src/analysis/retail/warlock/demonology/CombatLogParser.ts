@@ -26,6 +26,7 @@ import DemonicCalling from './modules/talents/DemonicCalling';
 import DemonicStrength from './modules/talents/DemonicStrength';
 import Doom from './modules/talents/Doom';
 import Dreadlash from './modules/talents/Dreadlash';
+import FelCovenant from './modules/talents/FelCovenant';
 import FromTheShadows from './modules/talents/FromTheShadows';
 import GrimoireFelguard from './modules/talents/GrimoireFelguard';
 import InnerDemons from './modules/talents/InnerDemons';
@@ -83,6 +84,7 @@ class CombatLogParser extends CoreCombatLogParser {
     grimoireFelguard: GrimoireFelguard,
     sacrificedSouls: SacrificedSouls,
     netherPortal: NetherPortal,
+    felCovenant: FelCovenant,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
