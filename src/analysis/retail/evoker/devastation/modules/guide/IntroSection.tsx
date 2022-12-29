@@ -9,7 +9,8 @@ export function IntroSection() {
         <a href="https://www.wowhead.com/guide/classes/evoker/devastation/overview-pve-dps">
           Wowhead
         </a>
-        , <a href="https://www.icy-veins.com/wow/devastation-monk-pve-dps-guide">Icy Veins</a>, and{' '}
+        , <a href="https://www.icy-veins.com/wow/devastation-monk-pve-dps-guide">Icy Veins</a>,{' '}
+        <a href="https://jereico.com/devastation-evoker-guide/">Jereico's Evoker Compendium</a> and{' '}
         <a href="https://discord.com/invite/evoker">Evoker Discord</a>.
       </p>
       <p>
