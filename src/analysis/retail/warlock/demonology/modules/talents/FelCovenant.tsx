@@ -17,10 +17,6 @@ class FelCovenant extends Analyzer {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(FelCovenant.talent);
-
-    if (!this.active) {
-      return;
-    }
   }
 
   get uptime() {
