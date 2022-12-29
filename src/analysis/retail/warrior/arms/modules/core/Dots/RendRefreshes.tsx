@@ -40,7 +40,7 @@ class RendAnalyzer extends EarlyDotRefreshesCore {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.REND_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.REND_TALENT);
   }
 
   suggestions(when: When) {

@@ -17,7 +17,7 @@ class Penance extends Analyzer {
 
   constructor(options) {
     super(options);
-    this._defaultBolts = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CASTIGATION_TALENT.id)
+    this._defaultBolts = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CASTIGATION_TALENT)
       ? 4
       : 3;
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_CAST), this.onCast);

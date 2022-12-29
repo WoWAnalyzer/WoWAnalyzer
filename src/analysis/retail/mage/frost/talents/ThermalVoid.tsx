@@ -16,7 +16,7 @@ const BASE_DURATION = 20_000;
 class ThermalVoid extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.THERMAL_VOID_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.THERMAL_VOID_TALENT);
   }
 
   statistic() {

@@ -16,7 +16,7 @@ class SecondWind extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SECOND_WIND_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SECOND_WIND_TALENT);
   }
 
   subStatistic() {

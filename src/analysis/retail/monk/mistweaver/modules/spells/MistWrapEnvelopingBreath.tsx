@@ -30,7 +30,7 @@ class MistWrapEnvelopingBreath extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT);
     if (!this.active) {
       return;
     }

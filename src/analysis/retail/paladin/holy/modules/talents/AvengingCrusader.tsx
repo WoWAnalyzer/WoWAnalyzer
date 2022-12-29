@@ -32,7 +32,7 @@ class AvengingCrusader extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT);
     if (!this.active) {
       return;
     }

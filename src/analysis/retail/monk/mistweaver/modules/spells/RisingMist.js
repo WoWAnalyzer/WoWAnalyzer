@@ -119,8 +119,8 @@ class RisingMist extends Analyzer {
 
   constructor(...options) {
     super(...options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id);
-    this.evmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT.id)
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT);
+    this.evmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
       ? 0.4
       : 0.3;
     if (!this.active) {

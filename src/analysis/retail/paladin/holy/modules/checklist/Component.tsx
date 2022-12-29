@@ -70,22 +70,22 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           </Trans>
         }
       >
-        {combatant.hasTalent(TALENTS.HOLY_SHOCK_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.HOLY_SHOCK_TALENT) && (
           <AbilityRequirement spell={TALENTS.HOLY_SHOCK_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.HAMMER_OF_WRATH_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.HAMMER_OF_WRATH_TALENT) && (
           <AbilityRequirement spell={TALENTS.HAMMER_OF_WRATH_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.BESTOW_FAITH_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.BESTOW_FAITH_TALENT) && (
           <AbilityRequirement spell={TALENTS.BESTOW_FAITH_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.LIGHTS_HAMMER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.LIGHTS_HAMMER_TALENT) && (
           <AbilityRequirement spell={TALENTS.LIGHTS_HAMMER_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.CRUSADERS_MIGHT_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.CRUSADERS_MIGHT_TALENT) && (
           <AbilityRequirement spell={TALENTS.CRUSADERS_MIGHT_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.HOLY_PRISM_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.HOLY_PRISM_TALENT) && (
           <AbilityRequirement spell={TALENTS.HOLY_PRISM_TALENT.id} />
         )}
       </Rule>
@@ -110,17 +110,17 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         }
       >
         {/* Avenging Crusader replaces Avenging Wrath */}
-        {!combatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT.id) && (
+        {!combatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT) && (
           <AbilityRequirement spell={SPELLS.AVENGING_WRATH.id} />
         )}
-        {combatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT) && (
           <AbilityRequirement spell={TALENTS.AVENGING_CRUSADER_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.HOLY_AVENGER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.HOLY_AVENGER_TALENT) && (
           <AbilityRequirement spell={TALENTS.HOLY_AVENGER_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.AURA_MASTERY.id} />
-        {combatant.hasTalent(TALENTS.RULE_OF_LAW_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RULE_OF_LAW_TALENT) && (
           <AbilityRequirement spell={TALENTS.RULE_OF_LAW_TALENT.id} />
         )}
         {false && <AbilityRequirement spell={SPELLS.ASHEN_HALLOW.id} />}
@@ -174,7 +174,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           }
           thresholds={thresholds.fillerFlashOfLight}
         />
-        {combatant.hasTalent(TALENTS.HOLY_SHOCK_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.HOLY_SHOCK_TALENT) && (
           <AbilityRequirement spell={TALENTS.HOLY_SHOCK_TALENT.id} />
         )}
       </Rule>
@@ -191,7 +191,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           </Trans>
         }
       >
-        {!combatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT.id) && (
+        {!combatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT) && (
           <Requirement
             name={
               <Trans id="paladin.holy.modules.checklist.beaconOfLightAppliedPrepull">
@@ -205,7 +205,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             thresholds={thresholds.beaconUptimeBoL}
           />
         )}
-        {!combatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT.id) && (
+        {!combatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT) && (
           <Requirement
             name={
               <Trans id="paladin.holy.modules.checklist.beaconOfVirtueTalentUptime">
@@ -219,7 +219,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             thresholds={thresholds.beaconUptimeBoLUptime}
           />
         )}
-        {combatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT) && (
           <Requirement
             name={
               <Trans id="paladin.holy.modules.checklist.beaconOfFaithTalentAppliedPrepull">
@@ -233,7 +233,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             thresholds={thresholds.beaconUptimeBoF}
           />
         )}
-        {combatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT) && (
           <Requirement
             name={
               <Trans id="paladin.holy.modules.checklist.beaconOfFaithTalentUptime">
@@ -328,16 +328,16 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           </Trans>
         }
       >
-        {combatant.hasTalent(TALENTS.DIVINE_STEED_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.DIVINE_STEED_TALENT) && (
           <AbilityRequirement spell={TALENTS.DIVINE_STEED_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.DIVINE_PROTECTION_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.DIVINE_PROTECTION_TALENT) && (
           <AbilityRequirement spell={TALENTS.DIVINE_PROTECTION_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.BLESSING_OF_SACRIFICE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.BLESSING_OF_SACRIFICE_TALENT) && (
           <AbilityRequirement spell={TALENTS.BLESSING_OF_SACRIFICE_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.LAY_ON_HANDS_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.LAY_ON_HANDS_TALENT) && (
           <AbilityRequirement spell={TALENTS.LAY_ON_HANDS_TALENT.id} />
         )}
       </Rule>

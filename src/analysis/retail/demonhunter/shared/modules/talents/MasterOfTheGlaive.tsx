@@ -16,7 +16,7 @@ class MasterOfTheGlaive extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.MASTER_OF_THE_GLAIVE_TALENT.id,
+      TALENTS_DEMON_HUNTER.MASTER_OF_THE_GLAIVE_TALENT,
     );
     if (!this.active) {
       return;

@@ -14,7 +14,7 @@ class PhantomSingularity extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.PHANTOM_SINGULARITY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.PHANTOM_SINGULARITY_TALENT);
   }
 
   statistic() {

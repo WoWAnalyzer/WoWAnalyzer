@@ -86,7 +86,7 @@ class SoulShardDetails extends Analyzer {
         <Panel>
           <AlertWarning style={{ marginLeft: 0, marginRight: 0 }}>
             Due to the technical limitations and randomness of Immolate
-            {this.selectedCombatant.hasTalent(TALENTS.INFERNO_TALENT.id)
+            {this.selectedCombatant.hasTalent(TALENTS.INFERNO_TALENT)
               ? ' and Rain of Fire with Inferno talent'
               : ''}
             , we can't accurately determine the amount of generated Soul Shard Fragments, but we

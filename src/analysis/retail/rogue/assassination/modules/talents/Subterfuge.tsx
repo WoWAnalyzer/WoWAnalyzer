@@ -23,7 +23,7 @@ class Subterfuge extends StealthCasts {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT);
   }
 
   get bonusDamage() {

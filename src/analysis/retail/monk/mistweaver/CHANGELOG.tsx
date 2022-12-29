@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 12, 27), <>Added <SpellLink id={TALENTS_MONK.MENDING_PROLIFERATION_TALENT.id}/> module.</>, Vohrr),
   change(date(2022, 12, 20), <>Fix suggestion for <SpellLink id={TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.id}/></>, Vohrr),
   change(date(2022, 12, 18), <>Fix suggestion for <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id}/> usage based on talent selection</>, Trevor),
   change(date(2022, 12, 18), <>Add suggestion for <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT.id}/> buff uptime</>, Trevor),

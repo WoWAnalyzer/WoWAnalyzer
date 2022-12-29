@@ -87,10 +87,10 @@ class Snapshot extends Analyzer {
         'Snapshot should be extended and provided with spellCastId, debuffId and spellIcon.',
       );
     }
-    if (this.selectedCombatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT)) {
       this.talentName = 'Nightstalker';
       this.multiplier = NIGHTSTALKER_MULTIPLIER;
-    } else if (this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id)) {
+    } else if (this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT)) {
       this.talentName = 'Subterfuge';
       this.multiplier = SUBTERFUGE_MULTIPLIER;
     } else {

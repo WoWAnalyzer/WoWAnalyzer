@@ -62,16 +62,16 @@ class Renew extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    if (this.selectedCombatant.hasTalent(TALENTS.HOLY_WORD_SALVATION_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.HOLY_WORD_SALVATION_TALENT)) {
       this.salvationActive = true;
     }
-    if (this.selectedCombatant.hasTalent(TALENTS.BENEDICTION_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.BENEDICTION_TALENT)) {
       this.benedictionActive = true;
     }
-    if (this.selectedCombatant.hasTalent(TALENTS.REVITALIZING_PRAYERS_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.REVITALIZING_PRAYERS_TALENT)) {
       this.revitalizingPrayersActive = true;
     }
-    if (this.selectedCombatant.hasTalent(TALENTS.RAPID_RECOVERY_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.RAPID_RECOVERY_TALENT)) {
       this.rapidRecoveryActive = true;
       // if rapid recovery is active, renews from revitilizing prayers are 5 seconds
       this.revitalizingPrayersRenewFraction = 5 / 12;
@@ -222,16 +222,16 @@ class Renew extends Analyzer {
     if (this.lastGCD && this.movedSinceCast(event)) {
       // We are moving, but do we have any other better instant cast spells?
       const sanctifyOnCooldown =
-        this.selectedCombatant.hasTalent(TALENTS.HOLY_WORD_SANCTIFY_TALENT.id) &&
+        this.selectedCombatant.hasTalent(TALENTS.HOLY_WORD_SANCTIFY_TALENT) &&
         this.spellUsable.isOnCooldown(TALENTS.HOLY_WORD_SANCTIFY_TALENT.id);
       const serenityOnCooldown =
-        this.selectedCombatant.hasTalent(TALENTS.HOLY_WORD_SERENITY_TALENT.id) &&
+        this.selectedCombatant.hasTalent(TALENTS.HOLY_WORD_SERENITY_TALENT) &&
         this.spellUsable.isOnCooldown(TALENTS.HOLY_WORD_SERENITY_TALENT.id);
       const cohOnCooldown =
-        this.selectedCombatant.hasTalent(TALENTS.CIRCLE_OF_HEALING_TALENT.id) &&
+        this.selectedCombatant.hasTalent(TALENTS.CIRCLE_OF_HEALING_TALENT) &&
         this.spellUsable.isOnCooldown(TALENTS.CIRCLE_OF_HEALING_TALENT.id);
       const pomOnCooldown =
-        this.selectedCombatant.hasTalent(TALENTS.PRAYER_OF_MENDING_TALENT.id) &&
+        this.selectedCombatant.hasTalent(TALENTS.PRAYER_OF_MENDING_TALENT) &&
         this.spellUsable.isOnCooldown(TALENTS.PRAYER_OF_MENDING_TALENT.id);
 
       if (sanctifyOnCooldown && serenityOnCooldown && cohOnCooldown && pomOnCooldown) {

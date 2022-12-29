@@ -14,13 +14,13 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.VOIDFORM_BUFF.id,
         triggeredBySpellId: SPELLS.VOID_ERUPTION.id,
-        enabled: combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT),
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.DARK_ASCENSION_BUFF.id,
         triggeredBySpellId: TALENTS.DARK_ASCENSION_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.DARK_ASCENSION_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.DARK_ASCENSION_TALENT),
         timelineHighlight: true,
       },
 
@@ -32,24 +32,24 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.DARK_EVANGELISM_TALENT_BUFF.id,
         triggeredBySpellId: SPELLS.MIND_FLAY.id,
-        enabled: combatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT),
         timelineHighlight: false,
       },
       {
         spellId: SPELLS.UNFURLING_DARKNESS_BUFF.id,
         triggeredBySpellId: SPELLS.VAMPIRIC_TOUCH.id,
-        enabled: combatant.hasTalent(TALENTS.UNFURLING_DARKNESS_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.UNFURLING_DARKNESS_TALENT),
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.DEATH_AND_MADNESS_BUFF.id,
         triggeredBySpellId: TALENTS.SHADOW_WORD_DEATH_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.DEATH_AND_MADNESS_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.DEATH_AND_MADNESS_TALENT),
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.DEATHSPEAKER_TALENT_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT),
         timelineHighlight: true,
       },
 

@@ -13,7 +13,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.PYRE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.PYRE_TALENT),
       },
       {
         spell: TALENTS.FIRESTORM_TALENT.id,
@@ -22,7 +22,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.FIRESTORM_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.FIRESTORM_TALENT),
       },
       {
         spell: TALENTS.ETERNITY_SURGE_TALENT.id,
@@ -31,7 +31,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.ETERNITY_SURGE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.ETERNITY_SURGE_TALENT),
       },
       {
         spell: TALENTS.DRAGONRAGE_TALENT.id,
@@ -40,7 +40,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.DRAGONRAGE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.DRAGONRAGE_TALENT),
       },
       {
         spell: TALENTS.SHATTERING_STAR_TALENT.id,
@@ -49,7 +49,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.SHATTERING_STAR_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SHATTERING_STAR_TALENT),
       },
       ...super.spellbook(),
     ];

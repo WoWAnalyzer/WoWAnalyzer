@@ -70,7 +70,7 @@ class CoordinatedOffensive extends Analyzer {
 
     this.CO_MOD = conduitScaling(0.088, conduitRank);
 
-    this.hasSerenity = this.selectedCombatant.hasTalent(SPELLS.SERENITY_TALENT.id);
+    this.hasSerenity = this.selectedCombatant.hasTalent(SPELLS.SERENITY_TALENT);
 
     if (!this.hasSerenity) {
       //summon events (need to track this to get melees)

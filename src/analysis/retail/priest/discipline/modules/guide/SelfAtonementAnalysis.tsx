@@ -19,7 +19,7 @@ class SelfAtonementAnalyzer extends Analyzer {
   totalCasts = 0;
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.BINDING_HEALS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.BINDING_HEALS_TALENT);
 
     this.addEventListener(
       Events.cast

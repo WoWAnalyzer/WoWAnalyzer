@@ -20,7 +20,7 @@ class SanctifiedWrath extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT_RETRIBUTION.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT_RETRIBUTION);
     if (!this.active) {
       return;
     }

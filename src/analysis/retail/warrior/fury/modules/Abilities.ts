@@ -86,7 +86,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasTalent(SPELLS.IMPENDING_VICTORY_TALENT_HEAL.id),
+        enabled: !combatant.hasTalent(talents.IMPENDING_VICTORY_TALENT),
       },
       {
         spell: SPELLS.IMPENDING_VICTORY_TALENT_HEAL.id,
@@ -95,7 +95,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.IMPENDING_VICTORY_TALENT_HEAL.id),
+        enabled: combatant.hasTalent(talents.IMPENDING_VICTORY_TALENT),
       },
       // Cooldown
       {
@@ -143,14 +143,14 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHARGE.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 20 - (combatant.hasTalent(talents.DOUBLE_TIME_TALENT.id) ? 3 : 0),
-        charges: 1 + (combatant.hasTalent(talents.DOUBLE_TIME_TALENT.id) ? 1 : 0),
+        cooldown: 20 - (combatant.hasTalent(talents.DOUBLE_TIME_TALENT) ? 3 : 0),
+        charges: 1 + (combatant.hasTalent(talents.DOUBLE_TIME_TALENT) ? 1 : 0),
       },
       {
         spell: SPELLS.HEROIC_LEAP.id,
         category: SPELL_CATEGORY.UTILITY,
         buffSpellId: SPELLS.BOUNDING_STRIDE_BUFF.id,
-        cooldown: 45 - (combatant.hasTalent(talents.BOUNDING_STRIDE_TALENT.id) ? 15 : 0),
+        cooldown: 45 - (combatant.hasTalent(talents.BOUNDING_STRIDE_TALENT) ? 15 : 0),
         charges: 1,
         gcd: null,
       },
@@ -167,7 +167,7 @@ class Abilities extends CoreAbilities {
           extraSuggestion:
             "If you're picking a utility talent over something that increases your mobility or survivability, you better use it.",
         },
-        enabled: combatant.hasTalent(talents.STORM_BOLT_TALENT.id),
+        enabled: combatant.hasTalent(talents.STORM_BOLT_TALENT),
       },
       {
         spell: SPELLS.PUMMEL.id,

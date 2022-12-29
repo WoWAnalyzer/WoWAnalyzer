@@ -97,7 +97,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: (haste: any) => 12 / (1 + haste),
-        enabled: combatant.hasTalent(TALENTS.LIVING_BOMB_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.LIVING_BOMB_TALENT),
       },
 
       // Cooldowns

@@ -28,6 +28,7 @@ import WARRIOR from './warrior';
 // Other
 import Engineering from './engineering';
 import Racials from './racials';
+import Tailoring from './tailoring';
 
 const ABILITIES = {
   ...DEATH_KNIGHT,
@@ -41,6 +42,7 @@ const ABILITIES = {
   ...WARRIOR,
   ...Engineering,
   ...Racials,
+  ...Tailoring,
 } as const;
 
 const InternalSpellTable = indexById<Spell | Enchant, typeof ABILITIES>(ABILITIES);

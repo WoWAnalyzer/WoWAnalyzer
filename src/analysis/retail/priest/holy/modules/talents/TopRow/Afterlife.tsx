@@ -24,7 +24,7 @@ class Afterlife extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.AFTERLIFE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.AFTERLIFE_TALENT);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_OF_REDEMPTION_BUFF),
       this.onApplyBuff,

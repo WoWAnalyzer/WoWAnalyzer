@@ -1,11 +1,12 @@
 import { change, date } from 'common/changelog';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import SPELLS  from 'common/SPELLS'
-import { Hana } from 'CONTRIBUTORS';
+import { Hana, ToppleTheNun } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2022, 12, 26), 'Disable Twilight Equilibrium analyzer.', ToppleTheNun),
   change(date(2022, 12, 11), <><SpellLink id={TALENTS_PRIEST.RAPTURE_TALENT.id}/> added to guide.</>, Hana),
   change(date(2022, 11, 26), <>Enabled <SpellLink id={TALENTS_PRIEST.BLAZE_OF_LIGHT_TALENT.id}/>.</>, Hana),
   change(date(2022, 11, 23), <>Support for <SpellLink id={TALENTS_PRIEST.TWILIGHT_EQUILIBRIUM_TALENT.id}/>.</>, Hana),

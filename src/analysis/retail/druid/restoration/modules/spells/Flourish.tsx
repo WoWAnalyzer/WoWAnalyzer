@@ -262,7 +262,7 @@ class Flourish extends Analyzer {
   }
 
   statistic() {
-    if (!this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT)) {
       return; // module needs to stay active for convoke, but we shouldn't display stat
     }
     return (

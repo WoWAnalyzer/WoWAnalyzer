@@ -23,7 +23,7 @@ class CrashingStorm extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.CRASHING_STORMS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.CRASHING_STORMS_TALENT);
 
     if (!this.active) {
       return;

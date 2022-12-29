@@ -3,23 +3,23 @@ import { formatPercentage } from 'common/format';
 import { Options } from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
-
-import lowRankSpells, { LowRankSpells } from '../../lowRankSpells';
-import * as SPELLS from '../../SPELLS';
+import { lowRankSpells } from 'analysis/classic/druid/shared';
+import { LowRankSpells } from 'analysis/classic/druid/shared/lowRankSpells';
+import SPELLS from 'common/SPELLS/classic/druid';
 
 class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   static HEALING_ABILITIES_ON_GCD: number[] = [
-    SPELLS.TRANQUILITY,
-    SPELLS.REMOVE_CURSE,
-    SPELLS.REJUVENATION,
-    SPELLS.REGROWTH,
-    SPELLS.REBIRTH,
-    SPELLS.MARK_OF_THE_WILD,
-    SPELLS.LIFEBLOOM,
-    SPELLS.INNERVATE,
-    SPELLS.HEALING_TOUCH,
-    SPELLS.CURE_POISON,
-    SPELLS.ABOLISH_POISON,
+    SPELLS.TRANQUILITY.id,
+    SPELLS.REMOVE_CURSE.id,
+    SPELLS.REJUVENATION.id,
+    SPELLS.REGROWTH.id,
+    SPELLS.REBIRTH.id,
+    SPELLS.MARK_OF_THE_WILD.id,
+    SPELLS.LIFEBLOOM.id,
+    SPELLS.INNERVATE.id,
+    SPELLS.HEALING_TOUCH.id,
+    SPELLS.CURE_POISON.id,
+    SPELLS.ABOLISH_POISON.id,
   ];
 
   constructor(options: Options) {

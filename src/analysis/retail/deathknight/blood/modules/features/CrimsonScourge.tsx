@@ -95,7 +95,7 @@ class CrimsonScourge extends Analyzer {
   }
 
   suggestions(when: When) {
-    if (this.selectedCombatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT)) {
       return;
     }
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>

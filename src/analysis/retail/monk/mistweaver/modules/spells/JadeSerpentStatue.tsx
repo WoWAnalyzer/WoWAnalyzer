@@ -26,9 +26,7 @@ class JadeSerpentStatue extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT);
     if (!this.active) {
       return;
     }

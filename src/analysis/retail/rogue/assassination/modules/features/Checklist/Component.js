@@ -68,7 +68,7 @@ const AssassinationRogueChecklist = ({ combatant, castEfficiency, thresholds }) 
           name="Energy regeneration efficiency"
           thresholds={thresholds.energyCapEfficiency}
         />
-        {combatant.hasTalent(SPELLS.BLINDSIDE_TALENT.id) && (
+        {combatant.hasTalent(SPELLS.BLINDSIDE_TALENT) && (
           <Requirement
             name={
               <>
@@ -84,10 +84,10 @@ const AssassinationRogueChecklist = ({ combatant, castEfficiency, thresholds }) 
         description="Your cooldowns are a major contributor to your DPS, and should be used as frequently as possible throughout a fight. A cooldown should be held on to only if a priority DPS phase is coming soon. Holding cooldowns too long will hurt your DPS."
       >
         <AbilityRequirement spell={SPELLS.VENDETTA.id} />
-        {combatant.hasTalent(SPELLS.EXSANGUINATE_TALENT.id) && (
+        {combatant.hasTalent(SPELLS.EXSANGUINATE_TALENT) && (
           <AbilityRequirement spell={SPELLS.EXSANGUINATE_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.MARKED_FOR_DEATH_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.MARKED_FOR_DEATH_TALENT) && (
           <AbilityRequirement spell={TALENTS.MARKED_FOR_DEATH_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS.SEPSIS_TALENT) && (
@@ -102,7 +102,7 @@ const AssassinationRogueChecklist = ({ combatant, castEfficiency, thresholds }) 
         description="Your level 30 talent turns Vanish into a powerful DPS cooldown, significantly buffing the next 1-3 casts. Making sure to cast the correct abilities during this short window is important to maximizing your DPS. Check Suggestions for more details."
       >
         <AbilityRequirement spell={SPELLS.VANISH.id} />
-        {combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) && (
+        {combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT) && (
           <Requirement
             name={
               <>
@@ -113,7 +113,7 @@ const AssassinationRogueChecklist = ({ combatant, castEfficiency, thresholds }) 
             thresholds={thresholds.subterfugeEfficiency}
           />
         )}
-        {combatant.hasTalent(SPELLS.MASTER_ASSASSIN_TALENT.id) && (
+        {combatant.hasTalent(SPELLS.MASTER_ASSASSIN_TALENT) && (
           <Requirement
             name={
               <>
@@ -123,7 +123,7 @@ const AssassinationRogueChecklist = ({ combatant, castEfficiency, thresholds }) 
             thresholds={thresholds.masterAssassinEfficiency}
           />
         )}
-        {combatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT.id) && (
+        {combatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT) && (
           <Requirement
             name={
               <>
@@ -134,7 +134,7 @@ const AssassinationRogueChecklist = ({ combatant, castEfficiency, thresholds }) 
             thresholds={thresholds.nightstalkerEfficiency}
           />
         )}
-        {combatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT.id) && (
+        {combatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT) && (
           <Requirement
             name={
               <>
@@ -145,7 +145,7 @@ const AssassinationRogueChecklist = ({ combatant, castEfficiency, thresholds }) 
             thresholds={thresholds.nightstalkerOpenerEfficiency}
           />
         )}
-        {combatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT.id) && (
+        {combatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT) && (
           <Requirement
             name={
               <>
@@ -155,8 +155,8 @@ const AssassinationRogueChecklist = ({ combatant, castEfficiency, thresholds }) 
             thresholds={thresholds.garroteSnapshotEfficiency}
           />
         )}
-        {(combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ||
-          combatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT.id)) && (
+        {(combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT) ||
+          combatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT)) && (
           <Requirement
             name={
               <>

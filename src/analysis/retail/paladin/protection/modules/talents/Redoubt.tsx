@@ -19,7 +19,7 @@ class Redoubt extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.REDOUBT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.REDOUBT_TALENT);
     if (!this.active) {
       return;
     }

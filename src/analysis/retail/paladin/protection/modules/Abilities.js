@@ -24,7 +24,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         charges: 3,
-        enabled: combatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT),
         castEfficiency: {
           suggestion: false,
           recommendedEfficiency: 0.9,
@@ -61,7 +61,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id),
+        enabled: !combatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT),
         castEfficiency: {
           suggestion: false,
         },
@@ -70,7 +70,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.JUDGMENT_CAST_PROTECTION.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 6 / (1 + haste),
-        charges: combatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id) ? 2 : 1,
+        charges: combatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT) ? 2 : 1,
         gcd: {
           base: 1500,
         },
@@ -90,7 +90,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ARDENT_DEFENDER.id,
         buffSpellId: SPELLS.ARDENT_DEFENDER.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120 * (combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.7 : 1),
+        cooldown: 120 * (combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT) ? 0.7 : 1),
         castEfficiency: {
           suggestion: true,
         },
@@ -115,7 +115,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.SERAPHIM_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.SERAPHIM_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -151,7 +151,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DIVINE_STEED.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
-        charges: combatant.hasTalent(SPELLS.CAVALIER_TALENT.id) ? 2 : 1,
+        charges: combatant.hasTalent(SPELLS.CAVALIER_TALENT) ? 2 : 1,
         gcd: {
           base: 1500,
         },
@@ -172,7 +172,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasTalent(SPELLS.BLESSING_OF_SPELLWARDING_TALENT.id),
+        enabled: !combatant.hasTalent(SPELLS.BLESSING_OF_SPELLWARDING_TALENT),
       },
       {
         spell: SPELLS.BLESSING_OF_SPELLWARDING_TALENT.id,
@@ -181,7 +181,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.BLESSING_OF_SPELLWARDING_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.BLESSING_OF_SPELLWARDING_TALENT),
       },
       {
         spell: TALENTS_PALADIN.BLESSING_OF_SACRIFICE_TALENT.id,
@@ -229,7 +229,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.BLINDING_LIGHT_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.BLINDING_LIGHT_TALENT),
       },
       {
         spell: SPELLS.REPENTANCE_TALENT.id,
@@ -238,13 +238,13 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.REPENTANCE_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.REPENTANCE_TALENT),
       },
       {
         spell: SPELLS.DIVINE_SHIELD.id,
         buffSpellId: SPELLS.DIVINE_SHIELD.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 300 * (combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.7 : 1),
+        cooldown: 300 * (combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT) ? 0.7 : 1),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.6,
@@ -252,7 +252,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.FINAL_STAND_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.FINAL_STAND_TALENT),
       },
     ];
   }

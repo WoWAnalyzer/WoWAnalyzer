@@ -36,8 +36,8 @@ class SuddenDeath extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(talents.SUDDEN_DEATH_FURY_TALENT.id);
-    this.executeThreshold = this.selectedCombatant.hasTalent(talents.MASSACRE_FURY_TALENT.id)
+    this.active = this.selectedCombatant.hasTalent(talents.SUDDEN_DEATH_FURY_TALENT);
+    this.executeThreshold = this.selectedCombatant.hasTalent(talents.MASSACRE_FURY_TALENT)
       ? 0.35
       : this.executeThreshold;
 
