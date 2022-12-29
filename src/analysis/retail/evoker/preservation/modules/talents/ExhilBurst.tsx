@@ -15,9 +15,9 @@ class ExhilBurst extends Analyzer {
   totalHealing: number = 0;
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.EXHILARATING_BURST_TALENT);
     this.totalBoost =
-      this.selectedCombatant.getTalentRank(TALENTS_EVOKER.CALL_OF_YSERA_TALENT) * 0.15;
+      this.selectedCombatant.getTalentRank(TALENTS_EVOKER.EXHILARATING_BURST_TALENT) * 0.15;
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
