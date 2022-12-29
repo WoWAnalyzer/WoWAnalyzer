@@ -17,6 +17,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2022, 12, 28), 'Allow fetching Vault of the Incarnates parses.', ToppleTheNun),
   change(date(2022, 12, 27), 'Refactor talent helper functions (hasTalent, getRepeatedTalentCount and getTalentRank) inside Combatant to only accept Talent objects.', Putro),
   change(date(2022, 12, 26), 'Fix tooltips breaking if you switched from Classic logs to Retail logs.', ToppleTheNun),
   change(date(2022, 12, 25), 'Fix broken lazy-loaded statistics.', ToppleTheNun),
