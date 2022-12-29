@@ -1,18 +1,11 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Spell from 'common/SPELLS/Spell';
 import { TIERS } from 'game/TIERS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-
-const BLAZING_METEOR: Spell = {
-  id: 394776,
-  name: 'Blazing Meteor',
-  icon: 'ability_warlock_handofguldan',
-};
 
 /**
  * Demon Bolt has a chance to make your next Hand of Gul'dan instant and deal 150% increased damage.
@@ -33,15 +26,15 @@ class DemonologyWarlockVaultOfTheIncarnates4Set extends Analyzer {
     this.active = this.selectedCombatant.has4PieceByTier(TIERS.T29);
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(BLAZING_METEOR),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLAZING_METEOR),
       this.onApplyBuff,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(BLAZING_METEOR),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BLAZING_METEOR),
       this.onRefreshBuff,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(BLAZING_METEOR),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BLAZING_METEOR),
       this.onRemoveBuff,
     );
     this.addEventListener(
@@ -84,7 +77,7 @@ class DemonologyWarlockVaultOfTheIncarnates4Set extends Analyzer {
         }
         size="flexible"
       >
-        <BoringSpellValueText spellId={BLAZING_METEOR.id}>
+        <BoringSpellValueText spellId={SPELLS.BLAZING_METEOR.id}>
           {this.applications}{' '}
           <small>
             effective proc(s) (

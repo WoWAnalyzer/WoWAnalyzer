@@ -638,6 +638,13 @@ const spells = spellIndexableList({
     icon: 'spell_warlock_summonwrathguard',
   },
 
+  // Tier set bonuses
+  BLAZING_METEOR: {
+    id: 394776,
+    name: 'Blazing Meteor',
+    icon: 'ability_warlock_handofguldan',
+  },
+
   // -----------
   // DESTRUCTION
   // -----------
