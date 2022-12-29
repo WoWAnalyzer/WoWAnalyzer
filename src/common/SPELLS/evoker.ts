@@ -114,6 +114,11 @@ const spells = spellIndexableList({
     name: 'Pyre',
     icon: 'ability_evoker_pyre',
   },
+  PYRE_DENSE_TALENT: {
+    id: 357211,
+    name: 'Pyre',
+    icon: 'ability_evoker_pyre',
+  },
   CHARGED_BLAST: {
     id: 370454,
     name: 'Charged Blast',
@@ -182,6 +187,11 @@ const spells = spellIndexableList({
     id: 375802,
     name: 'Burnout',
     icon: 'spell_fire_soulburn',
+  },
+  SNAPFIRE_BUFF: {
+    id: 370818,
+    name: 'Snapfire',
+    icon: 'spell_shaman_improvedfirenova',
   },
   ESSENCE_BURST_BUFF: {
     id: 369299,

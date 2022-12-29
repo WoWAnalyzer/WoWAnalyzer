@@ -12,6 +12,7 @@ import EssenceBurst from './modules/abilities/EssenceBurst';
 import Burnout from './modules/abilities/Burnout';
 import DragonRage from './modules/abilities/DragonRage';
 import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
+import Snapfire from './modules/abilities/Snapfire';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -30,6 +31,7 @@ class CombatLogParser extends MainCombatLogParser {
     essenceBurst: EssenceBurst,
     burnout: Burnout,
     dragonRage: DragonRage,
+    snapfire: Snapfire,
 
     apls: AplCheck,
   };

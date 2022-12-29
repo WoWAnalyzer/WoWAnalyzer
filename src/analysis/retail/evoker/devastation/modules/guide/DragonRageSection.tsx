@@ -55,6 +55,13 @@ export function DragonRageSection({ modules, events, info }: GuideProps<typeof C
           </a>{' '}
           section on wowhead.
         </p>
+        {info.combatant.hasTalent(TALENTS_EVOKER.EVERBURNING_FLAME_TALENT) && (
+          <p>
+            Since you have <SpellLink id={TALENTS_EVOKER.EVERBURNING_FLAME_TALENT.id} /> over{' '}
+            <SpellLink id={TALENTS_EVOKER.FEED_THE_FLAMES_TALENT.id} /> it could be harder to reach
+            4 empowered spells in a DR window.
+          </p>
+        )}
       </SubSection>
       {rageWindows.map((window, index) => {
         const relevantEvents = events
@@ -80,7 +87,12 @@ export function DragonRageSection({ modules, events, info }: GuideProps<typeof C
           >
             <ExplanationAndDataSubSection
               explanationPercent={30}
-              explanation={<Statistics window={window} />}
+              explanation={
+                <Statistics
+                  window={window}
+                  hasFeedTheFlames={info.combatant.hasTalent(TALENTS_EVOKER.FEED_THE_FLAMES_TALENT)}
+                />
+              }
               data={
                 <div style={{ overflowX: 'auto' }}>
                   <EmbeddedTimelineContainer
@@ -107,11 +119,18 @@ export function DragonRageSection({ modules, events, info }: GuideProps<typeof C
 }
 
 // Need something prettier lol
-function Statistics({ window }: { window: RageWindowCounter }) {
+function Statistics({
+  window,
+  hasFeedTheFlames,
+}: {
+  window: RageWindowCounter;
+  hasFeedTheFlames?: boolean;
+}) {
   return (
     <ul>
       <li>
-        <SpellLink id={SPELLS.FIRE_BREATH.id} /> - {window.fireBreaths}/2 casts
+        <SpellLink id={SPELLS.FIRE_BREATH.id} /> - {window.fireBreaths}/{hasFeedTheFlames ? 2 : 1}{' '}
+        casts
       </li>
       <li>
         <SpellLink id={SPELLS.ETERNITY_SURGE.id} /> - {window.eternitySurges}/2 casts

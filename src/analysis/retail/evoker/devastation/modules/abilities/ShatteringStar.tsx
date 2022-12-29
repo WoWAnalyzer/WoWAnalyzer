@@ -18,6 +18,7 @@ const {
   AZURE_STRIKE,
   SHATTERING_STAR,
   PYRE,
+  PYRE_DENSE_TALENT,
 } = SPELLS;
 
 const { DRAGONRAGE_TALENT } = TALENTS_EVOKER;
@@ -65,19 +66,18 @@ class ShatteringStar extends Analyzer {
     this.addEventListener(
       Events.cast
         .by(SELECTED_PLAYER)
-        .spell(
-          [
-            DISINTEGRATE,
-            FIRE_BREATH,
-            FIRE_BREATH_FONT,
-            ETERNITY_SURGE,
-            ETERNITY_SURGE_FONT,
-            LIVING_FLAME_DAMAGE,
-            LIVING_FLAME_CAST,
-            AZURE_STRIKE,
-            PYRE,
-          ].map((spell) => ({ id: spell.id })),
-        ),
+        .spell([
+          DISINTEGRATE,
+          FIRE_BREATH,
+          FIRE_BREATH_FONT,
+          ETERNITY_SURGE,
+          ETERNITY_SURGE_FONT,
+          LIVING_FLAME_DAMAGE,
+          LIVING_FLAME_CAST,
+          AZURE_STRIKE,
+          PYRE,
+          PYRE_DENSE_TALENT,
+        ]),
       this.onCast,
     );
   }
@@ -142,6 +142,10 @@ class ShatteringStar extends Analyzer {
     const currentWindow = this.currentDamageCounter;
 
     switch (castEvent.ability.guid) {
+      case PYRE.id:
+      case PYRE_DENSE_TALENT.id:
+        currentWindow.pyre += 1;
+        break;
       case DISINTEGRATE.id:
         currentWindow.disintegrate += 1;
         break;

@@ -25,9 +25,18 @@ class EssenceBurst extends Analyzer {
     );
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.DISINTEGRATE, SPELLS.PYRE]),
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.DISINTEGRATE, SPELLS.PYRE, SPELLS.PYRE_DENSE_TALENT]),
       this.onEssenceSpend,
     );
+    this.addEventListener(Events.fightend, this.onFightEnd);
+  }
+
+  onFightEnd() {
+    this.procs -=
+      this.selectedCombatant.getBuffStacks(TALENTS_EVOKER.ESSENCE_BURST_TALENT.id) +
+      this.selectedCombatant.getBuffStacks(TALENTS_EVOKER.ESSENCE_BURST_ATTUNED_TALENT.id);
   }
 
   onEssenceSpend(event: CastEvent) {

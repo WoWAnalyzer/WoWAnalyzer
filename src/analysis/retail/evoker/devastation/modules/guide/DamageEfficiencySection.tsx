@@ -46,7 +46,6 @@ export function DamageEfficiency(props: GuideProps<typeof CombatLogParser>) {
 
 function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>) {
   const tickData = modules.disintegrate.tickData;
-  console.log({ tickData });
   if (tickData.regularTicks === 0) {
     return null;
   }
@@ -112,7 +111,7 @@ function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>)
   );
 }
 
-function NoWastedProcsSubsection({ modules }: GuideProps<typeof CombatLogParser>) {
+function NoWastedProcsSubsection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <SubSection title="No Wasted Procs">
       <ExplanationAndDataSubSection
@@ -129,7 +128,10 @@ function NoWastedProcsSubsection({ modules }: GuideProps<typeof CombatLogParser>
           <PassFail
             value={modules.essenceBurst.consumedProcs}
             total={Math.max(modules.essenceBurst.procs, modules.essenceBurst.consumedProcs)}
-            passed={modules.essenceBurst.consumedProcs === modules.essenceBurst.procs}
+            passed={
+              modules.essenceBurst.consumedProcs ===
+              Math.max(modules.essenceBurst.procs, modules.essenceBurst.consumedProcs)
+            }
           />
         }
       />
@@ -147,15 +149,43 @@ function NoWastedProcsSubsection({ modules }: GuideProps<typeof CombatLogParser>
           <PassFail
             value={modules.burnout.consumedProcs}
             total={Math.max(modules.burnout.procs, modules.burnout.consumedProcs)}
-            passed={modules.burnout.consumedProcs === modules.burnout.procs}
+            passed={
+              modules.burnout.consumedProcs ===
+              Math.max(modules.burnout.procs, modules.burnout.consumedProcs)
+            }
           />
         }
       />
+      {info.combatant.hasTalent(TALENTS_EVOKER.SNAPFIRE_TALENT) && (
+        <ExplanationAndDataSubSection
+          explanationPercent={EXPLANATION_PERCENTAGE}
+          explanation={
+            <p>
+              <SpellLink id={TALENTS_EVOKER.SNAPFIRE_TALENT.id} /> procs allow you to cast{' '}
+              <SpellLink id={TALENTS_EVOKER.FIRESTORM_TALENT.id} />. None should to go waste
+            </p>
+          }
+          data={
+            <PassFail
+              value={modules.snapfire.consumedProcs}
+              total={Math.max(modules.snapfire.procs, modules.snapfire.consumedProcs)}
+              passed={
+                modules.snapfire.consumedProcs ===
+                Math.max(modules.snapfire.procs, modules.snapfire.consumedProcs)
+              }
+            />
+          }
+        />
+      )}
     </SubSection>
   );
 }
 
-function ShatteringStarSubsection({ modules }: GuideProps<typeof CombatLogParser>) {
+function ShatteringStarSubsection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+  if (!info.combatant.hasTalent(TALENTS_EVOKER.SHATTERING_STAR_TALENT)) {
+    return null;
+  }
+
   return (
     <SubSection title="Shattering Star">
       <p>

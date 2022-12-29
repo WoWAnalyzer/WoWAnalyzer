@@ -46,11 +46,21 @@ export function CooldownSection({ modules, info }: GuideProps<typeof CombatLogPa
         spellId={hasFontTalent ? SPELLS.ETERNITY_SURGE_FONT.id : SPELLS.ETERNITY_SURGE.id}
         gapHighlightMode={GapHighlight.FullCooldown}
       />
-
-      <CastEfficiencyBar
-        spellId={TALENTS_EVOKER.SHATTERING_STAR_TALENT.id}
-        gapHighlightMode={GapHighlight.All}
-      />
+      {info.combatant.hasTalent(TALENTS_EVOKER.SHATTERING_STAR_TALENT) && (
+        <CastEfficiencyBar
+          spellId={TALENTS_EVOKER.SHATTERING_STAR_TALENT.id}
+          gapHighlightMode={GapHighlight.All}
+        />
+      )}
+      {info.combatant.hasTalent(TALENTS_EVOKER.FIRESTORM_TALENT) && (
+        <CastEfficiencyBar
+          spellId={TALENTS_EVOKER.FIRESTORM_TALENT.id}
+          gapHighlightMode={GapHighlight.All}
+        />
+      )}
+      {info.combatant.hasTalent(TALENTS_EVOKER.ONYX_LEGACY_TALENT) && (
+        <CastEfficiencyBar spellId={SPELLS.DEEP_BREATH.id} gapHighlightMode={GapHighlight.All} />
+      )}
     </Section>
   );
 }

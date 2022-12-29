@@ -23,6 +23,11 @@ class Burnout extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.LIVING_FLAME_CAST, SPELLS.LIVING_FLAME_DAMAGE]),
       this.onLivingFlameCast,
     );
+    this.addEventListener(Events.fightend, this.onFightEnd);
+  }
+
+  onFightEnd() {
+    this.procs -= this.selectedCombatant.getBuffStacks(SPELLS.BURNOUT_BUFF.id);
   }
 
   onApplyBuff(event: ApplyBuffStackEvent | ApplyBuffEvent) {
