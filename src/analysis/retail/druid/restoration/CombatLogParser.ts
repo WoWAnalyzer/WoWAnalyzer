@@ -57,6 +57,7 @@ import RampantGrowth from 'analysis/retail/druid/restoration/modules/spells/Ramp
 import Overgrowth from 'analysis/retail/druid/restoration/modules/spells/Overgrowth';
 import BuddingLeaves from 'analysis/retail/druid/restoration/modules/spells/BuddingLeaves';
 import Dreamstate from 'analysis/retail/druid/restoration/modules/spells/Dreamstate';
+import Dragonflight2pc from 'analysis/retail/druid/restoration/modules/spells/Dragonflight2pc';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -125,6 +126,9 @@ class CombatLogParser extends CoreCombatLogParser {
     manaTracker: ManaTracker,
     hpmDetails: RestoDruidHealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
+
+    //Tier
+    Dragonflight2pc: Dragonflight2pc,
   };
 
   static guide = Guide;
