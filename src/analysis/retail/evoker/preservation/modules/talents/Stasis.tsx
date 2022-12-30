@@ -1,15 +1,19 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent, RemoveBuffEvent } from 'parser/core/Events';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Events, { CastEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentSpellText from 'parser/ui/TalentSpellText';
-import { ECHO_HEALS } from '../../constants';
-import { isEchoHealFromStasis, isFromStasis } from '../../normalizers/CastLinkNormalizer';
+import { getStasisSpell } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerPrevoker from '../core/HotTrackerPrevoker';
+
+interface StasisInfo {
+  castTime: number; // when stasis is originally cast
+  consumeTime: number; // when stasis is consumed
+  spells: number[]; // spells that player cast with stasis
+}
 
 class Stasis extends Analyzer {
   static dependencies = {
@@ -18,73 +22,82 @@ class Stasis extends Analyzer {
 
   protected hotTracker!: HotTrackerPrevoker;
 
-  totalHealing: number = 0;
-  totalOverhealing: number = 0;
-
+  stasisInfos: StasisInfo[] = [];
+  curInfo: StasisInfo | null = null;
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.STASIS_TALENT.id);
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.DREAM_BREATH, TALENTS_EVOKER.REVERSION_TALENT]),
-      this.handleHotHeal,
-    );
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(ECHO_HEALS), this.handleEchoHeal);
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.STASIS_BUFF),
       this.onBuffRemoval,
     );
     this.addEventListener(
-      Events.heal
-        .by(SELECTED_PLAYER)
-        .spell([
-          SPELLS.EMERALD_BLOSSOM,
-          SPELLS.SPIRITBLOOM,
-          SPELLS.SPIRITBLOOM_SPLIT,
-          SPELLS.LIVING_FLAME_HEAL,
-          SPELLS.DREAM_BREATH,
-          SPELLS.VERDANT_EMBRACE_HEAL,
-        ]),
-      this.handleRegularHeal,
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.STASIS_TALENT),
+      this.onStackRemoval,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.STASIS_TALENT),
+      this.onStackRemoval,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.STASIS_TALENT),
+      this.onCast,
     );
   }
 
-  handleHotHeal(event: HealEvent) {
-    if (this.hotTracker.isFromStasis(event)) {
-      this.totalHealing += event.amount;
-      this.totalOverhealing += event.overheal || 0;
-    }
+  onCast(event: CastEvent) {
+    this.curInfo = { castTime: event.timestamp, consumeTime: 0, spells: [] };
   }
 
-  handleEchoHeal(event: HealEvent) {
-    if (!isEchoHealFromStasis(event)) {
-      return;
+  onStackRemoval(event: RemoveBuffStackEvent | RemoveBuffEvent) {
+    const spell = getStasisSpell(event);
+    if (spell) {
+      this.curInfo!.spells.push(spell);
     }
-    this.totalHealing += event.amount;
-    this.totalOverhealing += event.overheal || 0;
-  }
-
-  handleRegularHeal(event: HealEvent) {
-    if (!isFromStasis(event)) {
-      return;
-    }
-    this.totalHealing += event.amount;
-    this.totalOverhealing += event.overheal || 0;
   }
 
   onBuffRemoval(event: RemoveBuffEvent) {
-    console.log(event._linkedEvents);
+    this.curInfo!.consumeTime = event.timestamp;
+    this.stasisInfos.push(this.curInfo!);
+    this.curInfo = null;
   }
 
   statistic() {
+    console.log(this.stasisInfos);
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <TalentSpellText talent={TALENTS_EVOKER.STASIS_TALENT}>
-          <ItemHealingDone amount={this.totalHealing} />
-        </TalentSpellText>
+        <SpellLink id={TALENTS_EVOKER.STASIS_TALENT.id} /> <small>spell breakdown</small> <br />
+        <br />
+        <table className="table table-condensed">
+          <thead>
+            <tr>
+              <th>Cast #</th>
+              <th>Cast Time</th>
+              <th>Consume Time</th>
+              <th>Spells In Cast</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.stasisInfos.map((info, index) => (
+              <tr key={index}>
+                <th scope="row">{index}</th>
+                <td>{this.owner.formatTimestamp(info.castTime)}</td>
+                <td>{this.owner.formatTimestamp(info.consumeTime)}</td>
+                <td>
+                  {info.spells.map((spellid, idx2) => (
+                    <>
+                      <SpellLink key={idx2} id={spellid} /> <br />
+                    </>
+                  ))}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </Statistic>
     );
   }
