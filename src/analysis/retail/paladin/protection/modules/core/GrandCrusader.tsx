@@ -74,7 +74,7 @@ class GrandCrusader extends Analyzer {
 
     // reset Judgment CD if the CJ talent is selected
     if (
-      this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id) &&
+      this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT) &&
       spellUsable.isOnCooldown(SPELLS.JUDGMENT_CAST_PROTECTION.id) &&
       this._lastResetSource !== null
     ) {

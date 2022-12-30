@@ -34,20 +34,20 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklist
       >
         <AbilityRequirement spell={TALENTS.ICY_VEINS_TALENT.id} />
         <AbilityRequirement spell={TALENTS.FROZEN_ORB_TALENT.id} />
-        {combatant.hasTalent(TALENTS.EBONBOLT_TALENT.id) &&
-          !combatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.EBONBOLT_TALENT) &&
+          !combatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT) && (
             <AbilityRequirement spell={TALENTS.EBONBOLT_TALENT.id} />
           )}
-        {combatant.hasTalent(TALENTS.COMET_STORM_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.COMET_STORM_TALENT) && (
           <AbilityRequirement spell={TALENTS.COMET_STORM_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) && (
           <AbilityRequirement spell={TALENTS.RUNE_OF_POWER_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.RAY_OF_FROST_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RAY_OF_FROST_TALENT) && (
           <AbilityRequirement spell={TALENTS.RAY_OF_FROST_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.ICE_NOVA_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.ICE_NOVA_TALENT) && (
           <AbilityRequirement spell={TALENTS.ICE_NOVA_TALENT.id} />
         )}
       </Rule>
@@ -141,7 +141,7 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklist
           </>
         }
       >
-        {combatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT) && (
           <Requirement
             name="Glacial Spike utilization"
             thresholds={thresholds.glacialSpikeUtilization}
@@ -152,14 +152,14 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklist
         name="Use your talents effectively"
         description="Regardless of which talents you select, you should ensure that you are utilizing them properly. If you are having trouble effectively using a particular talent, you should consider taking a different talent that you can utilize properly or focus on effectively using the talents that you have selected."
       >
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) && (
           <Requirement
             name="Rune of Power uptime"
             thresholds={thresholds.runeOfPowerBuffUptime}
             tooltip="Using Rune of Power effectively means being able to stay within the range of it for it's entire duration. If you are unable to do so or if you frequently have to move out of the range of the buff, consider taking a different talent instead."
           />
         )}
-        {!combatant.hasTalent(TALENTS.LONELY_WINTER_TALENT.id) && (
+        {!combatant.hasTalent(TALENTS.LONELY_WINTER_TALENT) && (
           <Requirement
             name="Water Elemental utilization"
             thresholds={thresholds.waterElementalUptime}

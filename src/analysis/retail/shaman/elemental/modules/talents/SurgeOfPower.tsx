@@ -28,7 +28,7 @@ class SurgeOfPower extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_POWER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_POWER_TALENT);
     if (!this.active) {
       return;
     }
@@ -58,7 +58,7 @@ class SurgeOfPower extends Analyzer {
   _onCast(event: CastEvent) {
     // cast lightning bolt with only SK buff active
     if (
-      this.selectedCombatant.hasBuff(TALENTS.STORMKEEPER_ELEMENTAL_TALENT.id, event.timestamp) &&
+      this.selectedCombatant.hasBuff(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id, event.timestamp) &&
       event.ability.guid === SPELLS.LIGHTNING_BOLT.id
     ) {
       this.skCasts += 1;
@@ -74,7 +74,7 @@ class SurgeOfPower extends Analyzer {
 
     // cast lightning bolt with SoP and SK buffs active
     if (
-      this.selectedCombatant.hasBuff(TALENTS.STORMKEEPER_ELEMENTAL_TALENT.id, event.timestamp) &&
+      this.selectedCombatant.hasBuff(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id, event.timestamp) &&
       event.ability.guid === SPELLS.LIGHTNING_BOLT.id
     ) {
       this.skSopCasts += 1;

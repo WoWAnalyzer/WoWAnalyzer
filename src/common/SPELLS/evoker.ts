@@ -201,11 +201,6 @@ const spells = spellIndexableList({
     name: 'Renewing Blaze',
     icon: 'ability_evoker_masterylifebinder_red',
   },
-  STASIS_BUFF: {
-    id: 370562,
-    name: 'Stasis',
-    icon: 'ability_evoker_stasis',
-  },
   VERDANT_EMBRACE_HEAL: {
     id: 361195,
     name: 'Verdant Embrace',

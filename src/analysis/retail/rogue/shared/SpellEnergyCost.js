@@ -13,7 +13,7 @@ class SpellEnergyCost extends SpellResourceCost {
 
   constructor(...args) {
     super(...args);
-    this.discountShadowFocus = this.selectedCombatant.hasTalent(TALENTS.SHADOW_FOCUS_TALENT.id);
+    this.discountShadowFocus = this.selectedCombatant.hasTalent(TALENTS.SHADOW_FOCUS_TALENT);
   }
 
   getResourceCost(event) {

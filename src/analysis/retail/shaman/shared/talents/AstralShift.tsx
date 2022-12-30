@@ -18,13 +18,13 @@ class AstralShift extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASTRAL_SHIFT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASTRAL_SHIFT_TALENT);
 
     if (!this.active) {
       return;
     }
 
-    if (this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASTRAL_BULWARK_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASTRAL_BULWARK_TALENT)) {
       this.damageReductionPct += ASTRAL_BULWARK_ADDED_DR;
     }
 

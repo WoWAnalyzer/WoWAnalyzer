@@ -20,7 +20,7 @@ class DemonicAppetite extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.DEMONIC_APPETITE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.DEMONIC_APPETITE_TALENT);
     if (!this.active) {
       return;
     }

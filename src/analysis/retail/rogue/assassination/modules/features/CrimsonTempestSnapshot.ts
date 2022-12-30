@@ -25,8 +25,8 @@ class CrimsonTempestSnapshot extends Snapshot {
     super(options);
     const combatant = this.selectedCombatant;
     if (
-      combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) ||
-      !combatant.hasTalent(SPELLS.CRIMSON_TEMPEST_TALENT.id)
+      combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT) ||
+      !combatant.hasTalent(SPELLS.CRIMSON_TEMPEST_TALENT)
     ) {
       this.active = false;
     }

@@ -23,7 +23,7 @@ class ArcaneOrb extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ARCANE_ORB_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ARCANE_ORB_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_ORB_TALENT),
       this.onOrbCast,

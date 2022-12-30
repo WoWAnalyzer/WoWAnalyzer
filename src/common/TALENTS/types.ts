@@ -13,6 +13,7 @@ enum EntryType {
 
 export interface Talent extends Spell {
   maxRanks: number;
+  entryIds: number[];
   //These three are currently not exported in the script - but they could be if we deem the information necessary
   reqPoints?: number;
   talentType?: ClassNodeType;

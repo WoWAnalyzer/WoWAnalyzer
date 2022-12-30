@@ -63,7 +63,7 @@ class DivinePurpose extends Analyzer {
 
   constructor(args: Options) {
     super(args);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.DIVINE_PURPOSE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DIVINE_PURPOSE_TALENT);
 
     if (!this.active) {
       return;

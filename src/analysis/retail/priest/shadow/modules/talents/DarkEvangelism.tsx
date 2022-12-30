@@ -11,7 +11,7 @@ import SPELLS from 'common/SPELLS';
 class DarkEvangelism extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT);
   }
   static dependencies = {
     enemies: Enemies,

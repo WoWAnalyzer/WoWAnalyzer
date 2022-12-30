@@ -20,17 +20,17 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS.MASTER_OF_THE_ELEMENTS_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.MASTER_OF_THE_ELEMENTS_TALENT),
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.SURGE_OF_POWER_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS.SURGE_OF_POWER_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SURGE_OF_POWER_TALENT),
         timelineHighlight: true,
       },
       {
-        spellId: TALENTS.STORMKEEPER_ELEMENTAL_TALENT.id,
-        triggeredBySpellId: TALENTS.STORMKEEPER_ELEMENTAL_TALENT.id,
+        spellId: TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id,
+        triggeredBySpellId: TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id,
         timelineHighlight: true,
       },
       {

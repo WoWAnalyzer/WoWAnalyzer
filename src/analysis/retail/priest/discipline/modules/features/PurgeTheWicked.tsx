@@ -65,7 +65,7 @@ class PurgeTheWicked extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.PURGE_THE_WICKED_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.PURGE_THE_WICKED_TALENT)) {
       this.dotSpell = SPELLS.PURGE_THE_WICKED_BUFF;
       if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.REVEL_IN_PURITY_TALENT)) {
         this.revelInPurityActive = true;

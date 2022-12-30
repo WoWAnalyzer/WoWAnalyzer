@@ -1064,6 +1064,7 @@ export interface TalentEntry {
   spellID: number;
   rank: number;
   icon?: string;
+  spellType?: number;
 }
 
 export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {

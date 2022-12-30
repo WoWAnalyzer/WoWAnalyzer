@@ -21,7 +21,7 @@ class EchoingReprimand extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ECHOING_REPRIMAND_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ECHOING_REPRIMAND_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS.ECHOING_REPRIMAND_TALENT),
       this.onDamage,

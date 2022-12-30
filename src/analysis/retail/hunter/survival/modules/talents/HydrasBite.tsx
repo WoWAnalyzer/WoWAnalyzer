@@ -34,7 +34,7 @@ class HydrasBite extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS.HYDRAS_BITE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HYDRAS_BITE_TALENT);
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SERPENT_STING_SV),

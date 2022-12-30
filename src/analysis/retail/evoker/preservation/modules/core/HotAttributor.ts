@@ -23,7 +23,6 @@ class HotAttributor extends Analyzer {
 
   echoHardcastAttrib = HotTracker.getNewAttribution('Echo Hardcast');
   echoTemporalAnomalyAttrib = HotTracker.getNewAttribution('Echo Temporal Anomaly');
-  echoTAStasisAttrib = HotTracker.getNewAttribution('Echo Temporal Anomaly from Stasis');
   callOfYseraAttrib = HotTracker.getNewAttribution('Call Of Ysera');
   constructor(options: Options) {
     super(options);

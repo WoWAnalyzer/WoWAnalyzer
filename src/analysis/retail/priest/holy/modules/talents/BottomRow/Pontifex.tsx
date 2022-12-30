@@ -25,7 +25,7 @@ class Pontifex extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.PONTIFEX_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.PONTIFEX_TALENT);
 
     // Healing spells that give stacks of Pontifex buff
     this.addEventListener(

@@ -1,25 +1,28 @@
 import Tooltip from 'interface/Tooltip';
 import InformationIcon from 'interface/icons/Information';
 import Toggle from 'react-toggle';
+import { ReactNode } from 'react';
 
-interface EnableNewDefensivesSectionToggleProps {
+interface VerticallyAlignedToggleProps {
   enabled: boolean;
   setEnabled: (p: boolean) => void;
+  id: string;
+  label: ReactNode;
+  tooltipContent: ReactNode;
 }
-const EnableNewDefensivesSectionToggle = ({
+const VerticallyAlignedToggle = ({
   enabled,
   setEnabled,
-}: EnableNewDefensivesSectionToggleProps) => (
+  id,
+  label,
+  tooltipContent,
+}: VerticallyAlignedToggleProps) => (
   <div className="flex toggle-control" style={{ alignItems: 'center', padding: '5px 0' }}>
-    <label
-      className="flex-main"
-      htmlFor="enable-new-defensives-section-toggle"
-      style={{ marginBottom: '-0.35em' }}
-    >
-      View In-Flight Content
+    <label className="flex-main" htmlFor={id} style={{ marginBottom: '-0.35em' }}>
+      {label}
     </label>
     <div className="flex-sub" style={{ marginBottom: '-0.35em', padding: '0 10px' }}>
-      <Tooltip content="Only click this if you're okay with seeing under-development features. If things don't work how you expect, you can always turn this back off.">
+      <Tooltip content={tooltipContent}>
         <div>
           <InformationIcon style={{ fontSize: '1.4em' }} />
         </div>
@@ -29,10 +32,10 @@ const EnableNewDefensivesSectionToggle = ({
       checked={enabled}
       icons={false}
       onChange={(event) => setEnabled(event.target.checked)}
-      id="enable-new-defensives-section-toggle"
+      id={id}
       className="flex-sub"
     />
   </div>
 );
 
-export default EnableNewDefensivesSectionToggle;
+export default VerticallyAlignedToggle;

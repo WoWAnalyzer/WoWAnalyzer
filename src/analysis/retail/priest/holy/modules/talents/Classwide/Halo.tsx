@@ -7,6 +7,11 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { SpellLink } from 'interface';
+import CastEfficiencyPanel from 'interface/guide/components/CastEfficiencyPanel';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/priest/holy/Guide';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 
 // Example Log: /report/hRd3mpK1yTQ2tDJM/1-Mythic+MOTHER+-+Kill+(2:24)/14-丶寶寶小喵
 class Halo extends Analyzer {
@@ -17,7 +22,7 @@ class Halo extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.HALO_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.HALO_SHARED_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.HALO_DAMAGE),
       this.onDamage,
@@ -37,6 +42,27 @@ class Halo extends Analyzer {
 
   onCast(event: CastEvent) {
     this.haloCasts += 1;
+  }
+
+  get guideSubsectionHoly(): JSX.Element {
+    // if player isn't running halo, don't show guide section
+    if (!this.selectedCombatant.hasTalent(TALENTS_PRIEST.HALO_SHARED_TALENT)) {
+      return <></>;
+    }
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={SPELLS.HALO_TALENT.id} />
+        </b>{' '}
+        is a strong group heal on a medium length cooldown. You will want to cast this whenever the
+        majority of the raid is injured. However, do not hold on to this cooldown too long to not
+        miss any potential casts.
+      </p>
+    );
+
+    const data = <CastEfficiencyPanel spell={SPELLS.HALO_TALENT} useThresholds />;
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   statistic() {

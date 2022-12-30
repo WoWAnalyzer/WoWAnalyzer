@@ -22,7 +22,7 @@ class ShiftingPowerUsage extends Analyzer {
     super(options);
     this.active =
       this.selectedCombatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) &&
-      this.selectedCombatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id);
+      this.selectedCombatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHIFTING_POWER_TALENT),
       this.onCast,

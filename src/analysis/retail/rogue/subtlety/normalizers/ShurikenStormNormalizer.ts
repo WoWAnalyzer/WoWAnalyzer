@@ -26,7 +26,7 @@ class ShurikenStormNormalizer extends EventsNormalizer {
 
     //Player CP Pool
     let cpPool = 5;
-    if (this.selectedCombatant.hasTalent(TALENTS.DEEPER_STRATAGEM_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.DEEPER_STRATAGEM_TALENT)) {
       cpPool += 1;
     }
 

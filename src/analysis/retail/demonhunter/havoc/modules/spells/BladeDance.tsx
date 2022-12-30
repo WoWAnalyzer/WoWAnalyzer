@@ -17,8 +17,8 @@ class BladeDance extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = !(
-      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_TALENT.id) ||
-      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FIRST_BLOOD_TALENT.id)
+      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FIRST_BLOOD_TALENT)
     );
     if (!this.active) {
       return;

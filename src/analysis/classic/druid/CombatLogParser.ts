@@ -6,7 +6,7 @@ import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
 import lowRankSpellsSuggestion from 'parser/classic/suggestions/lowRankSpells';
 
-import lowRankSpells from './lowRankSpells';
+import { lowRankSpells } from 'analysis/classic/druid/shared';
 import Abilities from './modules/Abilities';
 import Checklist from './modules/checklist/Module';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';

@@ -3,7 +3,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import TALENTS from 'common/TALENTS/demonhunter';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 import { SpellLink } from 'interface';
 import Events, { CastEvent } from 'parser/core/Events';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
@@ -225,9 +225,11 @@ export default class Fracture extends Analyzer {
       </div>
     );
 
-    return explanationAndDataSubsection(
-      explanation,
-      this.castEntries.length > 0 ? data : noCastData,
+    return (
+      <ExplanationAndDataSubSection
+        explanation={explanation}
+        data={this.castEntries.length > 0 ? data : noCastData}
+      />
     );
   }
 }

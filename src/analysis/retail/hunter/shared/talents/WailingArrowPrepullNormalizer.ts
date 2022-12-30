@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import { AnyEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
@@ -18,7 +19,7 @@ class WailingArrowPrepullNormalizer extends EventsNormalizer {
         (event.type === EventType.BeginCast ||
           event.type === EventType.Cast ||
           event.type === EventType.Damage) &&
-        (event.ability.guid === SPELLS.WAILING_ARROW_CAST.id ||
+        (event.ability.guid === TALENTS_HUNTER.WAILING_ARROW_TALENT.id ||
           event.ability.guid === SPELLS.WAILING_ARROW_DAMAGE.id)
       ) {
         if (event.type === EventType.BeginCast) {
@@ -58,7 +59,7 @@ class WailingArrowPrepullNormalizer extends EventsNormalizer {
                 name: event.ability.name,
                 type: event.ability.type,
                 abilityIcon: event.ability.abilityIcon,
-                guid: SPELLS.WAILING_ARROW_CAST.id,
+                guid: TALENTS_HUNTER.WAILING_ARROW_TALENT.id,
               },
               timestamp: this.owner.fight.start_time - 1500,
               type: EventType.BeginCast,
@@ -70,7 +71,7 @@ class WailingArrowPrepullNormalizer extends EventsNormalizer {
                 name: event.ability.name,
                 type: event.ability.type,
                 abilityIcon: event.ability.abilityIcon,
-                guid: SPELLS.WAILING_ARROW_CAST.id,
+                guid: TALENTS_HUNTER.WAILING_ARROW_TALENT.id,
               },
               timestamp: this.owner.fight.start_time,
               type: EventType.Cast,

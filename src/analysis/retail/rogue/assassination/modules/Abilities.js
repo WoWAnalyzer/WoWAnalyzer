@@ -22,7 +22,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         // During the Subterfuge buff (from the talent), the spell has no cd
         cooldown: () => {
-          if (!combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id)) {
+          if (!combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT)) {
             return 6;
           } else {
             const hasStealth =
@@ -89,7 +89,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        enabled: combatant.hasTalent(TALENTS.MARKED_FOR_DEATH_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.MARKED_FOR_DEATH_TALENT),
       },
       {
         spell: SPELLS.CRIMSON_TEMPEST_TALENT.id,
@@ -98,7 +98,7 @@ class Abilities extends CoreAbilities {
           static: 1000,
         },
         buffSpellId: SPELLS.CRIMSON_TEMPEST_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.CRIMSON_TEMPEST_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.CRIMSON_TEMPEST_TALENT),
       },
       // Rotational AOE
       {
@@ -128,7 +128,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        buffSpellId: combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id)
+        buffSpellId: combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT)
           ? SPELLS.SUBTERFUGE_BUFF.id
           : SPELLS.MASTER_ASSASSIN_BUFF.id,
       },
@@ -139,7 +139,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
-        enabled: combatant.hasTalent(SPELLS.EXSANGUINATE_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.EXSANGUINATE_TALENT),
         castEfficiency: {
           suggestion: true,
         },

@@ -27,7 +27,7 @@ class AncestralProtectionTotem extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = Boolean(
-      this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id),
+      this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_PROTECTION_TOTEM_TALENT),
     );
   }
 

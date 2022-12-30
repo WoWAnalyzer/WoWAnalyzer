@@ -17,7 +17,7 @@ class MomentOfGlory extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.MOMENT_OF_GLORY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.MOMENT_OF_GLORY_TALENT);
     if (!this.active) {
       return;
     }

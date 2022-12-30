@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { Options } from 'parser/core/Analyzer';
-import { HealEvent } from 'parser/core/Events';
 import HotTracker, { Tracker, HotInfo } from 'parser/shared/modules/HotTracker';
 import {
   REVERSION_BASE_DURATION,
@@ -17,10 +16,10 @@ class HotTrackerPrevoker extends HotTracker {
   constructor(options: Options) {
     super(options);
     this.timelessMagicActive = this.owner.selectedCombatant.hasTalent(
-      TALENTS_EVOKER.TIMELESS_MAGIC_TALENT.id,
+      TALENTS_EVOKER.TIMELESS_MAGIC_TALENT,
     );
     this.fontOfMagicActive = this.owner.selectedCombatant.hasTalent(
-      TALENTS_EVOKER.FONT_OF_MAGIC_TALENT.id,
+      TALENTS_EVOKER.FONT_OF_MAGIC_TALENT,
     );
   }
 
@@ -44,28 +43,13 @@ class HotTrackerPrevoker extends HotTracker {
     });
   }
 
-  isFromStasis(event: HealEvent): boolean {
-    if (!event.tick) {
-      return false;
-    }
-    const targetID = event.targetID;
-    const spellID = event.ability.guid;
-    if (!this.hots[targetID] || !this.hots[targetID][spellID]) {
-      return false;
-    }
-    const hot = this.hots[targetID][spellID];
-    return hot.attributions.some((attr) => {
-      return attr.name === 'Stasis';
-    });
-  }
-
   _generateHotInfo(): HotInfo[] {
     // must be generated dynamically because it reads from traits
     const reversionDuration =
       REVERSION_BASE_DURATION *
       (1 +
         TIMELESS_MAGIC *
-          this.selectedCombatant.getTalentRank(TALENTS_EVOKER.TIMELESS_MAGIC_TALENT.id));
+          this.selectedCombatant.getTalentRank(TALENTS_EVOKER.TIMELESS_MAGIC_TALENT));
     const dreamBreathDuration = this.fontOfMagicActive
       ? DREAM_BREATH_MIN_DURATION
       : DREAM_BREATH_MIN_DURATION + DREAM_BREATH_MIN_DURATION;

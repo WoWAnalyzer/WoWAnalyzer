@@ -22,7 +22,7 @@ class ImpendingVictory extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.IMPENDING_VICTORY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.IMPENDING_VICTORY_TALENT);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.IMPENDING_VICTORY_TALENT_HEAL),
       this._onImpendingVictoryHeal,

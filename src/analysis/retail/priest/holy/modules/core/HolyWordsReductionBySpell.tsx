@@ -30,9 +30,9 @@ class HolyWordsReductionBySpell extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.lightOfTheNaaruActive = this.selectedCombatant.hasTalent(
-      TALENTS.LIGHT_OF_THE_NAARU_TALENT.id,
+      TALENTS.LIGHT_OF_THE_NAARU_TALENT,
     );
-    this.apotheosisActive = this.selectedCombatant.hasTalent(TALENTS.APOTHEOSIS_TALENT.id);
+    this.apotheosisActive = this.selectedCombatant.hasTalent(TALENTS.APOTHEOSIS_TALENT);
     this.harmoniousApparatusActive = this.selectedCombatant.hasTalent(
       TALENTS.HARMONIOUS_APPARATUS_TALENT,
     );

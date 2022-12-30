@@ -31,7 +31,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
 
   naturalRegenRate() {
     let regen = super.naturalRegenRate();
-    if (this.selectedCombatant.hasTalent(SPELLS.ASCENSION_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.ASCENSION_TALENT)) {
       regen *= ASCENSION_REGEN_MULTIPLIER;
     }
     // Energizing Elixir adds 15 energy per second regen for 5 seconds, not increased by haste
@@ -43,7 +43,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
 
   currentMaxResource() {
     let max = BASE_ENERGY_MAX;
-    if (this.selectedCombatant.hasTalent(SPELLS.ASCENSION_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(SPELLS.ASCENSION_TALENT)) {
       max += ASCENSION_ENERGY_MAX_ADDITION;
     }
     // What should be x.5 becomes x in-game.

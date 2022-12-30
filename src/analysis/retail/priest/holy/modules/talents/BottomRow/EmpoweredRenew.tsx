@@ -25,7 +25,7 @@ class EmpoweredRenew extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.EMPOWERED_RENEW_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.EMPOWERED_RENEW_TALENT);
   }
 
   get effectiveHealing() {

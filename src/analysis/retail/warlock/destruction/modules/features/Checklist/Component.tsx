@@ -80,7 +80,7 @@ const DestructionWarlockChecklist = ({
         name="Use your cooldowns and talents"
         description="Be mindful of your talent choices and use them when it's appropriate. It's okay to hold on a cooldown for a little bit when the encounter requires it (burn phases or priority targets), but generally speaking you should use them as much as you can."
       >
-        {combatant.hasTalent(TALENTS.ERADICATION_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.ERADICATION_TALENT) && (
           <Requirement
             name={
               <>
@@ -90,16 +90,16 @@ const DestructionWarlockChecklist = ({
             thresholds={thresholds.eradication}
           />
         )}
-        {combatant.hasTalent(TALENTS.SHADOWBURN_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SHADOWBURN_TALENT) && (
           <AbilityRequirement spell={TALENTS.SHADOWBURN_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.CATACLYSM_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.CATACLYSM_TALENT) && (
           <AbilityRequirement spell={TALENTS.CATACLYSM_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.CHANNEL_DEMONFIRE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.CHANNEL_DEMONFIRE_TALENT) && (
           <AbilityRequirement spell={TALENTS.CHANNEL_DEMONFIRE_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.SOUL_FIRE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SOUL_FIRE_TALENT) && (
           <AbilityRequirement spell={TALENTS.SOUL_FIRE_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.SUMMON_INFERNAL.id} />
@@ -121,7 +121,7 @@ const DestructionWarlockChecklist = ({
         }
       >
         <AbilityRequirement spell={SPELLS.DEMONIC_CIRCLE_TELEPORT.id} />
-        {combatant.hasTalent(TALENTS.DARK_PACT_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.DARK_PACT_TALENT) && (
           <AbilityRequirement spell={TALENTS.DARK_PACT_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.UNENDING_RESOLVE.id} />

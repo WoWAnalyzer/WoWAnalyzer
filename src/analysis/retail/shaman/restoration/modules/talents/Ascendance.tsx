@@ -18,7 +18,7 @@ class Ascendance extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_RESTORATION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_RESTORATION_TALENT);
 
     this.addEventListener(
       Events.heal
