@@ -1,15 +1,10 @@
 import App from 'interface/App';
-import createReducers from 'interface/reducers';
 import RootErrorBoundary from 'interface/RootErrorBoundary';
 import { ReactNode } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
-import { applyMiddleware, createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from 'redux-thunk';
+import { store } from 'store';
 
 import I18nProvider from './localization/I18nProvider';
-
-const store = createStore(createReducers(), composeWithDevTools(applyMiddleware(thunk)));
 
 interface Props {
   children?: ReactNode;

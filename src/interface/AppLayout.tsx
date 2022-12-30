@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useWaDispatch } from 'interface/utils/useWaDispatch';
 import { useWaSelector } from 'interface/utils/useWaSelector';
 import { isInternetExplorer } from 'interface/selectors/internetExplorer';
 import { getOpenModals } from 'interface/selectors/openModals';
@@ -22,7 +22,7 @@ function detectInternetExplorer() {
 }
 
 const AppLayout = () => {
-  const dispatch = useDispatch();
+  const dispatch = useWaDispatch();
   const isIE = useWaSelector((state) => isInternetExplorer(state));
   const openModals = useWaSelector((state) => getOpenModals(state));
 

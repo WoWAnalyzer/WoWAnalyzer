@@ -10,11 +10,12 @@ import CharacterProfile from 'parser/core/CharacterProfile';
 import Player from 'parser/core/Player';
 import getBuild from 'parser/getBuild';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { isSupportedRegion } from 'common/regions';
 import { CLASSIC_EXPANSION } from 'game/Expansion';
 import getConfig from 'parser/getConfig';
+import { useWaDispatch } from 'interface/utils/useWaDispatch';
 
 interface Props {
   player: Player;
@@ -26,7 +27,7 @@ const PlayerTile = ({ player, makeUrl, config }: Props) => {
   const characterInfo = useSelector<RootState, CharacterProfile>((state) =>
     getCharacterById(state, player.guid),
   );
-  const dispatch = useDispatch();
+  const dispatch = useWaDispatch();
 
   useEffect(() => {
     const load = async () => {

@@ -1,14 +1,27 @@
 import { captureException } from 'common/errorLogger';
+import { ThunkAction } from 'redux-thunk';
+import type { RootState } from 'store';
+import { AnyAction } from 'redux';
+
+export interface User {
+  name: string;
+  avatar?: string;
+  premium: boolean;
+  github?: {
+    premium?: boolean;
+    expires?: string;
+  };
+}
 
 export const SET_USER = 'SET_USER';
-function setUser(user) {
+function setUser(user: User | null) {
   return {
     type: SET_USER,
     payload: user,
   };
 }
 
-export function logout() {
+export function logout(): ThunkAction<void, RootState, unknown, AnyAction> {
   return (dispatch) => {
     dispatch(setUser(null));
     return fetch(`${process.env.REACT_APP_SERVER_BASE}logout`, {
@@ -21,7 +34,7 @@ export function logout() {
   };
 }
 
-export function fetchUser() {
+export function fetchUser(): ThunkAction<void, RootState, unknown, AnyAction> {
   return (dispatch) =>
     fetch(`${process.env.REACT_APP_SERVER_BASE}user`, {
       credentials: 'include',
