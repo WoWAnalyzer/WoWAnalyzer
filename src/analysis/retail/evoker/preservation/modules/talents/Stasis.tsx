@@ -26,7 +26,7 @@ class Stasis extends Analyzer {
   curInfo: StasisInfo | null = null;
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.STASIS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.STASIS_TALENT);
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.STASIS_BUFF),
       this.onBuffRemoval,

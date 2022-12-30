@@ -206,6 +206,11 @@ const spells = spellIndexableList({
     name: 'Verdant Embrace',
     icon: 'ability_evoker_rescue',
   },
+  STASIS_BUFF: {
+    id: 370564,
+    name: 'Stasis',
+    icon: 'ability_evoker_stasis',
+  },
 });
 
 export default spells;
