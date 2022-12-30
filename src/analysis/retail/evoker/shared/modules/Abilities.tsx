@@ -32,12 +32,23 @@ class Abilities extends CoreAbilities {
       //endregion
       //region Damage Spells
       {
-        spell: SPELLS.FIRE_BREATH.id,
-        category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
+        spell: combatant.hasTalent(TALENTS.FONT_OF_MAGIC_TALENT)
+          ? SPELLS.FIRE_BREATH_FONT.id
+          : SPELLS.FIRE_BREATH.id,
+        category:
+          combatant.spec === SPECS.PRESERVATION_EVOKER
+            ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
+            : SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30,
         gcd: {
           base: 500,
         },
+        ...(combatant.spec === SPECS.DEVASTATION_EVOKER && {
+          castEfficiency: {
+            suggestion: true,
+            recommendedEfficiency: 0.95,
+          },
+        }),
       },
       {
         spell: SPELLS.LIVING_FLAME_CAST.id,
