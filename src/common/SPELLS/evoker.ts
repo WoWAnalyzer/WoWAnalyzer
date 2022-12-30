@@ -253,6 +253,11 @@ const spells = spellIndexableList({
     name: 'Verdant Embrace',
     icon: 'ability_evoker_rescue',
   },
+  STASIS_BUFF: {
+    id: 370562,
+    name: 'Stasis',
+    icon: 'ability_evoker_stasis',
+  },
   GIANT_SLAYER_MASTERY: {
     id: 362980,
     name: 'Mastery: Giantkiller',

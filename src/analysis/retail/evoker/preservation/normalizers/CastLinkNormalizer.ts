@@ -6,6 +6,7 @@ import {
   AbilityEvent,
   ApplyBuffEvent,
   CastEvent,
+  EmpowerEndEvent,
   EventType,
   GetRelatedEvents,
   HasRelatedEvent,
@@ -14,6 +15,7 @@ import {
   RemoveBuffEvent,
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
+import { STASIS_CAST_IDS } from '../constants';
 
 export const FROM_HARDCAST = 'FromHardcast'; // for linking a buffapply or heal to its cast
 export const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly'; // for linking TA echo apply to TA shield apply
@@ -29,6 +31,7 @@ export const FIELD_OF_DREAMS_PROC = 'FromFieldOfDreams'; // link EB heal to flut
 export const HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
 export const BUFF_GROUPING = 'BuffGrouping'; // link ApplyBuff events together
 export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
+export const STASIS = 'Stasis';
 
 const CAST_BUFFER_MS = 100;
 const ECHO_BUFFER = 500;
@@ -372,6 +375,17 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
+  // stasis stack removal to cast
+  {
+    linkRelation: STASIS,
+    linkingEventId: TALENTS_EVOKER.STASIS_TALENT.id,
+    linkingEventType: [EventType.RemoveBuffStack, EventType.RemoveBuff],
+    referencedEventId: STASIS_CAST_IDS,
+    referencedEventType: [EventType.Cast, EventType.EmpowerEnd],
+    backwardBufferMs: 500,
+    anyTarget: true,
+    maximumLinks: 1,
+  },
 ];
 
 /**
@@ -436,6 +450,17 @@ export function getHealEvents(event: HealEvent) {
 
 export function getBuffEvents(event: ApplyBuffEvent) {
   return [event].concat(GetRelatedEvents(event, BUFF_GROUPING) as ApplyBuffEvent[]);
+}
+
+export function getStasisSpell(event: RemoveBuffStackEvent | RemoveBuffEvent): number | null {
+  const relatedEvents = GetRelatedEvents(event, STASIS);
+  if (!relatedEvents.length) {
+    return null;
+  }
+  if (relatedEvents[0].type === EventType.Cast) {
+    return (relatedEvents[0] as CastEvent).ability.guid;
+  }
+  return (relatedEvents[0] as EmpowerEndEvent).ability.guid;
 }
 
 export default CastLinkNormalizer;

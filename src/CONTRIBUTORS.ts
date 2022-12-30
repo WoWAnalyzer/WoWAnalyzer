@@ -1765,13 +1765,7 @@ export const Trevor: Contributor = {
   nickname: 'Trevor',
   discord: 'Trevor#9816',
   github: 'trevorm4',
-  mains: [
-    {
-      name: 'Sardent',
-      spec: SPECS.MISTWEAVER_MONK,
-      link: 'https://worldofwarcraft.com/en-us/character/us/tichondrius/Sardent',
-    },
-  ],
+  avatar: avatar('Trevor-avatar.png'),
 };
 
 export const Jeff: Contributor = {
