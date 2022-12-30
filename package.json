@@ -48,7 +48,7 @@
     "@lingui/cli": "3.14.0",
     "@lingui/loader": "3.14.0",
     "@martijnhols/eslint-config": "^5.1.0",
-    "@sentry/browser": "^5.30.0",
+    "@sentry/browser": "^7.28.1",
     "@types/enzyme": "^3.10.12",
     "@types/jest": "^24.9.1",
     "@types/node": "^18.6.1",
