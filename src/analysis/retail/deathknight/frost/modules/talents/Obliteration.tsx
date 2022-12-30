@@ -1,13 +1,11 @@
-import {
-  CooldownExpandable,
-  CooldownExpandableItem,
-} from 'analysis/retail/druid/restoration/Guide';
 import spells from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
-import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
 import { PassFailCheckmark, PerformanceMark } from 'interface/guide';
+import CooldownExpandable, {
+  CooldownExpandableItem,
+} from 'interface/guide/components/CooldownExpandable';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import SpellLink from 'interface/SpellLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -55,34 +53,41 @@ class Obliteration extends Analyzer {
       this.globalCooldown.isOnGlobalCooldown(event.ability.guid)
     ) {
       let value = QualitativePerformance.Fail;
+      let tooltip = `You cast ${event.ability.name} instead of Obliterate while Killing Machine was up`;
       if (this.selectedCombatant.hasBuff(spells.KILLING_MACHINE.id, event.timestamp, 0, 100)) {
         if (event.ability.guid === talents.OBLITERATE_TALENT.id) {
           this.goodGcds += 1;
-          value = QualitativePerformance.Perfect;
+          value = QualitativePerformance.Good;
+          tooltip = `You consumed Killing Machine with Obliterate`;
         } else {
           this.badGcds += 1;
         }
-      }
-      else if (event.ability.guid === talents.FROST_STRIKE_TALENT.id && 
-        !this.selectedCombatant.hasBuff(talents.RIME_TALENT.id, event.timestamp)){
+      } else if (
+        event.ability.guid === talents.FROST_STRIKE_TALENT.id &&
+        !this.selectedCombatant.hasBuff(talents.RIME_TALENT.id, event.timestamp)
+      ) {
+        tooltip = `You used Frost Strike to proc Killing Machine`;
+        value = QualitativePerformance.Good;
+      } else if (
+        event.ability.guid === talents.HOWLING_BLAST_TALENT.id &&
+        this.selectedCombatant.hasBuff(talents.RIME_TALENT.id, event.timestamp)
+      ) {
+        tooltip = `You consumed a Rime proc to proc Killing Machine`;
         value = QualitativePerformance.Good;
       }
-      else if (event.ability.guid === talents.HOWLING_BLAST_TALENT.id && 
-        (this.selectedCombatant.hasBuff(talents.RIME_TALENT.id, event.timestamp))) {
-          value = QualitativePerformance.Good;
-        }
 
       this.pillarWindows[this.pillarWindows.length - 1].push({
         value,
-        tooltip
-      })
+        tooltip: tooltip,
+      });
     }
   }
 
   onPillarStart(event: CastEvent) {
     this.currentPillarTimestamp = event.timestamp;
     const rwRefreshed =
-      this.spellUsable.cooldownRemaining(talents.REMORSELESS_WINTER_TALENT.id) > 12000;
+      this.spellUsable.cooldownRemaining(talents.REMORSELESS_WINTER_TALENT.id) > 12000 ||
+      !this.selectedCombatant.hasTalent(talents.REMORSELESS_WINTER_TALENT.id);
     const runeOneCharges = this.spellUsable.chargesAvailable(-101);
     const runeTwoCharges = this.spellUsable.chargesAvailable(-102);
     const runeThreeCharges = this.spellUsable.chargesAvailable(-103);
@@ -92,7 +97,7 @@ class Obliteration extends Analyzer {
       timestamp: event.timestamp,
       runesAtStart: runesAvailable,
       remorselessWinterRefreshed: rwRefreshed,
-    })
+    });
 
     this.pillarWindows.push([]);
   }
@@ -123,25 +128,41 @@ class Obliteration extends Analyzer {
         <b>
           <SpellLink id={talents.OBLITERATION_TALENT.id} />
         </b>{' '}
-        turns <SpellLink id={talents.PILLAR_OF_FROST_TALENT.id}/> into your main damage cooldown that requires you play in a specific way to optimize the number of guaranteed
-        <SpellLink id={talents.KILLING_MACHINE_TALENT.id}/>s that you get.
+        turns <SpellLink id={talents.PILLAR_OF_FROST_TALENT.id} /> into your main damage cooldown
+        that requires you play in a specific way to optimize the number of guaranteed
+        <SpellLink id={talents.KILLING_MACHINE_TALENT.id} />s that you get.
       </p>
-    )
+    );
 
     const data = (
       <div>
         <strong>GCDs in Pillar of Frost</strong>
+        {this.pillarWindows.map((entry) => {
+          console.log(entry);
+          return (
+            <>
+              <PerformanceBoxRow values={entry} /> foo{' '}
+            </>
+          );
+        })}
       </div>
-    )
+    );
+
+    return explanationAndDataSubsection(explanation, data);
   }
 
   get guideCastBreakdown() {
     const explanation = (
       <p>
-        <strong><SpellLink id={talents.OBLITERATION_TALENT.id}/></strong>
-        turns <SpellLink id={talents.PILLAR_OF_FROST_TALENT.id}/> into your main damage cooldown that requires you play in a specific way to optimize the number of guaranteed
-        <SpellLink id={talents.KILLING_MACHINE_TALENT.id}/>s that you get.  To ensure no GCDs are wasted while Pillar of Frost is active, you should aim to have Runes pooled 
-        and to put <SpellLink id={talents.REMORSELESS_WINTER_TALENT.id}/> on cooldown before casting Pillar of Frost.
+        <strong>
+          <SpellLink id={talents.OBLITERATION_TALENT.id} />
+        </strong>
+        turns <SpellLink id={talents.PILLAR_OF_FROST_TALENT.id} /> into your main damage cooldown
+        that requires you play in a specific way to optimize the number of guaranteed
+        <SpellLink id={talents.KILLING_MACHINE_TALENT.id} />s that you get. To ensure no GCDs are
+        wasted while Pillar of Frost is active, you should aim to have Runes pooled and to put{' '}
+        <SpellLink id={talents.REMORSELESS_WINTER_TALENT.id} /> on cooldown before casting Pillar of
+        Frost.
       </p>
     );
 
@@ -170,15 +191,16 @@ class Obliteration extends Analyzer {
               : QualitativePerformance.Fail;
 
           const checklistItems: CooldownExpandableItem[] = [];
-          checklistItems.push({
-            label: (
-              <>
-                <SpellLink id={talents.REMORSELESS_WINTER_TALENT.id} /> refreshed
-              </>
-            ),
-            result: <PassFailCheckmark pass={cast.remorselessWinterRefreshed} />,
-          });
-
+          if (this.selectedCombatant.hasTalent(talents.REMORSELESS_WINTER_TALENT.id)) {
+            checklistItems.push({
+              label: (
+                <>
+                  <SpellLink id={talents.REMORSELESS_WINTER_TALENT.id} /> refreshed
+                </>
+              ),
+              result: <PassFailCheckmark pass={cast.remorselessWinterRefreshed} />,
+            });
+          }
           checklistItems.push({
             label: 'Sufficient Runes pooled',
             result: <PerformanceMark perf={runesPooled} />,

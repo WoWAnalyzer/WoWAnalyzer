@@ -116,11 +116,16 @@ function CooldownsSubsection({ modules, events, info }: GuideProps<typeof Combat
   );
 }
 
-  function CooldownBreakdownSubsection({ modules, events, info}: GuideProps<typeof CombatLogParser>) {
-    const hasObliteration = info.combatant.hasTalent(talents.OBLITERATION_TALENT);
-    return (
-      <SubSection>
-        {hasObliteration && modules.obliteration.guideCastBreakdown}
-      </SubSection>
-    )
-  }
+function CooldownBreakdownSubsection({
+  modules,
+  events,
+  info,
+}: GuideProps<typeof CombatLogParser>) {
+  const hasObliteration = info.combatant.hasTalent(talents.OBLITERATION_TALENT);
+  return (
+    <SubSection>
+      {hasObliteration && modules.obliteration.guideCastBreakdown}
+      {hasObliteration && modules.obliteration.guideSubsection}
+    </SubSection>
+  );
+}
