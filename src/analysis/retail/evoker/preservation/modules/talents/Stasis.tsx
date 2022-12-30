@@ -50,9 +50,11 @@ class Stasis extends Analyzer {
   }
 
   onBuffRemoval(event: RemoveBuffEvent) {
-    this.curInfo!.consumeTime = event.timestamp;
-    this.stasisInfos.push(this.curInfo!);
-    this.curInfo = null;
+    if (this.curInfo) {
+      this.curInfo!.consumeTime = event.timestamp;
+      this.stasisInfos.push(this.curInfo!);
+      this.curInfo = null;
+    }
   }
 
   statistic() {
