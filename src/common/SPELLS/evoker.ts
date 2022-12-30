@@ -103,6 +103,38 @@ const spells = spellIndexableList({
     name: 'Lifebind',
     icon: 'ability_evoker_hoverred',
   },
+  // Devestation Spells
+  ETERNITY_SURGE: {
+    id: 359073,
+    name: 'Eternity Surge',
+    icon: 'ability_evoker_eternitysurge',
+  },
+  PYRE: {
+    id: 357212,
+    name: 'Pyre',
+    icon: 'ability_evoker_pyre',
+  },
+  PYRE_DENSE_TALENT: {
+    id: 357211,
+    name: 'Pyre',
+    icon: 'ability_evoker_pyre',
+  },
+  CHARGED_BLAST: {
+    id: 370454,
+    name: 'Charged Blast',
+    icon: 'spell_arcane_arcanepotency',
+  },
+  ETERNITY_SURGE_FONT: {
+    id: 382411,
+    name: 'Eternity Surge',
+    icon: 'ability_evoker_eternitysurge',
+  },
+  SHATTERING_STAR: {
+    id: 370452,
+    name: 'Shattering Star',
+    icon: 'ability_evoker_chargedblast',
+  },
+
   // Shared
   BLESSING_OF_THE_BRONZE: {
     id: 364342,
@@ -151,6 +183,16 @@ const spells = spellIndexableList({
     essenceCost: 3,
     manaCost: 12000,
   },
+  BURNOUT_BUFF: {
+    id: 375802,
+    name: 'Burnout',
+    icon: 'spell_fire_soulburn',
+  },
+  SNAPFIRE_BUFF: {
+    id: 370818,
+    name: 'Snapfire',
+    icon: 'spell_shaman_improvedfirenova',
+  },
   ESSENCE_BURST_BUFF: {
     id: 369299,
     name: 'Essence Burst',
@@ -168,6 +210,11 @@ const spells = spellIndexableList({
   },
   FIRE_BREATH: {
     id: 357208,
+    name: 'Fire Breath',
+    icon: 'ability_evoker_firebreath',
+  },
+  FIRE_BREATH_FONT: {
+    id: 382266,
     name: 'Fire Breath',
     icon: 'ability_evoker_firebreath',
   },
@@ -205,6 +252,11 @@ const spells = spellIndexableList({
     id: 361195,
     name: 'Verdant Embrace',
     icon: 'ability_evoker_rescue',
+  },
+  GIANT_SLAYER_MASTERY: {
+    id: 362980,
+    name: 'Mastery: Giantkiller',
+    icon: ' ability_evoker_masterygiantkiller',
   },
   EXHIL_BURST_BUFF: {
     id: 377102,
