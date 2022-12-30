@@ -1,4 +1,4 @@
-const { override, babelInclude, addBabelPlugin, getBabelLoader } = require('customize-cra');
+const { override, babelInclude, getBabelLoader } = require('customize-cra');
 const path = require('path');
 
 const disablePlugins = (plugins) => (config) => ({
@@ -21,6 +21,18 @@ const fixLingui = () => (config) => {
   return config;
 };
 
+const ignoreOrderMiniCssExtractPlugin = (config) => {
+  const webpackEnv = process.env.NODE_ENV;
+  if (webpackEnv === 'production') {
+    const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+    const instanceOfMiniCssExtractPlugin = config.plugins.find(
+      (plugin) => plugin instanceof MiniCssExtractPlugin,
+    );
+    instanceOfMiniCssExtractPlugin.options.ignoreOrder = true;
+  }
+  return config;
+};
+
 function addEmotion(config) {
   const loader = getBabelLoader(config);
   loader.options.plugins = ['@emotion', ...loader.options.plugins];
@@ -31,6 +43,7 @@ module.exports = override(
   addEmotion,
   babelInclude([path.resolve('./src')]),
   fixLingui(),
+  ignoreOrderMiniCssExtractPlugin,
   // customize-cra's disableEsLint disables the rules, but disabling the entire
   // plugin seem to give us more performance.
   process.env.DISABLE_AUTOMATIC_ESLINT && disablePlugins(['ESLintWebpackPlugin']),
