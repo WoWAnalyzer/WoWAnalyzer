@@ -92,7 +92,7 @@ const browserRouter = createBrowserRouter(
         <Route index element={<News />} />
         <Route path="news">
           <Route path=":articleId" element={<NewsPage />} />
-          <Route path="" element={<News />} />
+          <Route index element={<News />} />
         </Route>
         <Route path="specs" element={<SpecList />} />
         <Route path="premium" element={<Premium />} />
