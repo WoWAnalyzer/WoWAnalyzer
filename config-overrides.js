@@ -21,6 +21,8 @@ const fixLingui = () => (config) => {
   return config;
 };
 
+// Needed to ignore the mini-css-extract-plugin warnings which can not be fixed with a good solution
+// See https://stackoverflow.com/a/67579319
 const ignoreOrderMiniCssExtractPlugin = (config) => {
   const webpackEnv = process.env.NODE_ENV;
   if (webpackEnv === 'production') {
