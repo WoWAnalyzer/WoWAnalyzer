@@ -44,7 +44,8 @@
     "vega-lite": "^5.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.0",
+    "@babel/core": "^7.20.7",
+    "@babel/plugin-proposal-private-property-in-object": "^7.20.5",
     "@emotion/babel-plugin": "^11.10.5",
     "@lingui/cli": "3.14.0",
     "@lingui/loader": "3.14.0",
