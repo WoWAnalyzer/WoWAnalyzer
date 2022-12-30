@@ -254,7 +254,7 @@ const spells = spellIndexableList({
     icon: 'ability_evoker_rescue',
   },
   STASIS_BUFF: {
-    id: 370564,
+    id: 370562,
     name: 'Stasis',
     icon: 'ability_evoker_stasis',
   },

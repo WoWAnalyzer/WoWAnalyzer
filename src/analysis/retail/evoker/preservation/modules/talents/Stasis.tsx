@@ -7,7 +7,6 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { getStasisSpell } from '../../normalizers/CastLinkNormalizer';
-import HotTrackerPrevoker from '../core/HotTrackerPrevoker';
 
 interface StasisInfo {
   castTime: number; // when stasis is originally cast
@@ -16,12 +15,6 @@ interface StasisInfo {
 }
 
 class Stasis extends Analyzer {
-  static dependencies = {
-    hotTracker: HotTrackerPrevoker,
-  };
-
-  protected hotTracker!: HotTrackerPrevoker;
-
   stasisInfos: StasisInfo[] = [];
   curInfo: StasisInfo | null = null;
   constructor(options: Options) {
@@ -78,7 +71,7 @@ class Stasis extends Analyzer {
               <th>Cast #</th>
               <th>Cast Time</th>
               <th>Consume Time</th>
-              <th>Spells In Cast</th>
+              <th>Spells</th>
             </tr>
           </thead>
           <tbody>
