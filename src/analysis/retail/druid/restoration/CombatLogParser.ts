@@ -128,7 +128,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hpmTracker: HealingEfficiencyTracker,
 
     //Tier
-    VotI2pc: VotI2pc,
+    voti2pc: VotI2pc,
   };
 
   static guide = Guide;

@@ -51,8 +51,7 @@ class VotI2pc extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.has2Piece = this.selectedCombatant.has2PieceByTier(TIERS.T29);
-    this.active = this.has2Piece;
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T29);
     if (!this.active) {
       return;
     }
@@ -64,7 +63,7 @@ class VotI2pc extends Analyzer {
 
   handle2PcHeal(event: HealEvent) {
     if (event.hitType === HIT_TYPES.CRIT) {
-      this.twoPieceHealing += calculateEffectiveHealing(event, this.critIncrease);
+      this.twoPieceHealing += calculateEffectiveHealing(event, this.critIncrease) / 2;
     }
   }
 
