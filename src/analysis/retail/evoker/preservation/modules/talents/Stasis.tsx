@@ -56,14 +56,14 @@ class Stasis extends Analyzer {
   }
 
   statistic() {
-    console.log(this.stasisInfos);
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        wide
       >
-        <SpellLink id={TALENTS_EVOKER.STASIS_TALENT.id} /> <small>spell breakdown</small> <br />
+        <SpellLink id={TALENTS_EVOKER.STASIS_TALENT.id} /> <small>spell breakdown</small>
         <br />
         <table className="table table-condensed">
           <thead>
@@ -77,7 +77,7 @@ class Stasis extends Analyzer {
           <tbody>
             {this.stasisInfos.map((info, index) => (
               <tr key={index}>
-                <th scope="row">{index}</th>
+                <th scope="row">{index + 1}</th>
                 <td>{this.owner.formatTimestamp(info.castTime)}</td>
                 <td>{this.owner.formatTimestamp(info.consumeTime)}</td>
                 <td>
