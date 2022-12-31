@@ -9,7 +9,7 @@ import CombatLogParser from '../../CombatLogParser';
 
 export function CoreRotation({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
-    <Section title="Core Rotation">
+    <Section title="Core Rotation (Experimental)">
       <p>
         The Devastation rotation is driven by a priority list. The priority list is primarily around
         using your empowered spells: <SpellLink id={SPELLS.FIRE_BREATH.id} /> and{' '}
