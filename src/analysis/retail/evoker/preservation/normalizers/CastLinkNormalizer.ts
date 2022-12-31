@@ -265,8 +265,8 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: DREAM_BREATH_CALL_OF_YSERA_HOT,
     linkingEventId: [SPELLS.DREAM_BREATH.id, SPELLS.DREAM_BREATH_ECHO.id],
     linkingEventType: [EventType.ApplyBuff, EventType.Heal],
-    referencedEventId: [TALENTS_EVOKER.DREAM_BREATH_TALENT.id],
-    referencedEventType: [EventType.RemoveBuff],
+    referencedEventId: TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
+    referencedEventType: EventType.EmpowerEnd,
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
     isActive(c) {
@@ -279,10 +279,10 @@ const EVENT_LINKS: EventLink[] = [
   //link Call of Ysera Removal to Dream Breath cast that consumed it
   {
     linkRelation: DREAM_BREATH_CALL_OF_YSERA,
-    linkingEventId: [SPELLS.CALL_OF_YSERA_BUFF.id],
-    linkingEventType: [EventType.RemoveBuff],
-    referencedEventId: [TALENTS_EVOKER.DREAM_BREATH_TALENT.id],
-    referencedEventType: [EventType.RemoveBuff],
+    linkingEventId: SPELLS.CALL_OF_YSERA_BUFF.id,
+    linkingEventType: EventType.RemoveBuff,
+    referencedEventId: TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
+    referencedEventType: EventType.EmpowerEnd,
     maximumLinks: 1,
     isActive(c) {
       return (
@@ -294,10 +294,10 @@ const EVENT_LINKS: EventLink[] = [
   //link Call of Ysera Removal to Living Flame heal that consumed it
   {
     linkRelation: LIVING_FLAME_CALL_OF_YSERA,
-    linkingEventId: [SPELLS.LIVING_FLAME_HEAL.id],
-    linkingEventType: [EventType.Heal],
-    referencedEventId: [SPELLS.CALL_OF_YSERA_BUFF.id],
-    referencedEventType: [EventType.RemoveBuff],
+    linkingEventId: SPELLS.LIVING_FLAME_HEAL.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: SPELLS.CALL_OF_YSERA_BUFF.id,
+    referencedEventType: EventType.RemoveBuff,
     backwardBufferMs: 1100,
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
