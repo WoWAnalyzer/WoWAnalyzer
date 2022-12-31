@@ -504,7 +504,6 @@ export function getStasisSpell(event: RemoveBuffStackEvent | RemoveBuffEvent): n
   if (!relatedEvents.length) {
     return null;
   }
-  console.log(event, relatedEvents[0]);
   if (relatedEvents[0].type === EventType.Cast) {
     return (relatedEvents[0] as CastEvent).ability.guid;
   }
