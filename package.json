@@ -46,7 +46,7 @@
     "@martijnhols/eslint-config": "^5.1.0",
     "@sentry/browser": "^7.28.1",
     "@types/enzyme": "^3.10.12",
-    "@types/jest": "^24.9.1",
+    "@types/jest": "^27.5.2",
     "@types/node": "^18.11.18",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
