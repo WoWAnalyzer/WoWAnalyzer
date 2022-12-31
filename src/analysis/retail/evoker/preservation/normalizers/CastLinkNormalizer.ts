@@ -20,6 +20,7 @@ import { STASIS_CAST_IDS } from '../constants';
 export const FROM_HARDCAST = 'FromHardcast'; // for linking a buffapply or heal to its cast
 export const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly'; // for linking TA echo apply to TA shield apply
 export const ECHO_REMOVAL = 'EchoRemoval'; // for linking echo removal to echo apply
+export const EMPOWERED_CAST = 'EmpoweredCast'; // link empowerend to cast
 export const TA_ECHO_REMOVAL = 'TaEchoTemoval'; // for linking TA echo removal to echo apply
 export const ECHO_TEMPORAL_ANOMALY = 'TemporalAnomaly'; // for linking BuffApply/Heal to echo removal
 export const ECHO = 'Echo'; // for linking BuffApply/Heal to echo removal
@@ -70,6 +71,25 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.Cast],
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    linkRelation: EMPOWERED_CAST,
+    linkingEventId: [TALENTS_EVOKER.SPIRITBLOOM_TALENT.id, TALENTS_EVOKER.DREAM_BREATH_TALENT.id],
+    linkingEventType: EventType.Cast,
+    referencedEventId: [
+      TALENTS_EVOKER.SPIRITBLOOM_TALENT.id,
+      TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
+    ],
+    referencedEventType: EventType.EmpowerEnd,
+    reverseLinkRelation: EMPOWERED_CAST,
+    forwardBufferMs: 5000,
+    anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        (linkingEvent as CastEvent).ability.guid ===
+        (referencedEvent as EmpowerEndEvent).ability.guid
+      );
+    },
   },
   //link echo apply to the Temporal Anomaly shield application
   {
@@ -378,13 +398,40 @@ const EVENT_LINKS: EventLink[] = [
   // stasis stack removal to cast
   {
     linkRelation: STASIS,
+    reverseLinkRelation: STASIS,
     linkingEventId: TALENTS_EVOKER.STASIS_TALENT.id,
     linkingEventType: [EventType.RemoveBuffStack, EventType.RemoveBuff],
     referencedEventId: STASIS_CAST_IDS,
-    referencedEventType: [EventType.Cast, EventType.EmpowerEnd],
+    referencedEventType: EventType.Cast,
     backwardBufferMs: 500,
     anyTarget: true,
     maximumLinks: 1,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        !HasRelatedEvent(referencedEvent, EMPOWERED_CAST) &&
+        !HasRelatedEvent(referencedEvent, STASIS)
+      );
+    },
+  },
+  {
+    linkRelation: STASIS,
+    reverseLinkRelation: STASIS,
+    linkingEventId: TALENTS_EVOKER.STASIS_TALENT.id,
+    linkingEventType: [EventType.RemoveBuffStack, EventType.RemoveBuff],
+    referencedEventId: [
+      TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
+      TALENTS_EVOKER.SPIRITBLOOM_TALENT.id,
+    ],
+    referencedEventType: EventType.EmpowerEnd,
+    backwardBufferMs: 500,
+    anyTarget: true,
+    maximumLinks: 1,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        HasRelatedEvent(referencedEvent, EMPOWERED_CAST) &&
+        !HasRelatedEvent(referencedEvent, STASIS)
+      );
+    },
   },
 ];
 
@@ -457,6 +504,7 @@ export function getStasisSpell(event: RemoveBuffStackEvent | RemoveBuffEvent): n
   if (!relatedEvents.length) {
     return null;
   }
+  console.log(event, relatedEvents[0]);
   if (relatedEvents[0].type === EventType.Cast) {
     return (relatedEvents[0] as CastEvent).ability.guid;
   }

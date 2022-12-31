@@ -5,6 +5,7 @@ import { Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 12, 30), <>Improve accuracy of <SpellLink id={TALENTS_EVOKER.STASIS_TALENT.id}/> module</>, Trevor),
   change(date(2022, 12, 30), <>Fix degraded experience in <SpellLink id={TALENTS_EVOKER.STASIS_TALENT.id}/> spell breakdown</>, Trevor),
   change(date(2022, 12, 30), <>Add module for <SpellLink id={TALENTS_EVOKER.STASIS_TALENT.id}/> spell breakdown</>, Trevor),
   change(date(2022, 12, 28), <>Add module for <SpellLink id={TALENTS_EVOKER.EXHILARATING_BURST_TALENT.id}/></>, Trevor),
