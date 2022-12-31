@@ -12682,10 +12682,10 @@ sass-text-stroke@1.2.0:
   resolved "https://registry.yarnpkg.com/sass-text-stroke/-/sass-text-stroke-1.2.0.tgz#953f89e2c950598693dbe7db08556c4544a7fc38"
   integrity sha512-ONTtMJFE6Xx8PcSrbwGtrh7okdVtGY8yQpMqKZ2mQLFtWweedtndi240JnNGzOQ7Er7TMN7e+UulMqYGKoPVAA==
 
-sass@^1.49.7:
-  version "1.49.7"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.49.7.tgz#22a86a50552b9b11f71404dfad1b9ff44c6b0c49"
-  integrity sha512-13dml55EMIR2rS4d/RDHHP0sXMY3+30e1TKsyXaSz3iLWVoDWEoboY8WzJd5JMnxrRHffKO3wq2mpJ0jxRJiEQ==
+sass@^1.57.1:
+  version "1.57.1"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.57.1.tgz#dfafd46eb3ab94817145e8825208ecf7281119b5"
+  integrity sha512-O2+LwLS79op7GI0xZ8fqzF7X2m/m8WFfI02dHOdsK5R2ECeS5F62zrwg/relM1rjSLy7Vd/DiMNIvPrQGsA0jw==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
     immutable "^4.0.0"
