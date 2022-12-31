@@ -33,7 +33,7 @@
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.2",
     "sass-text-stroke": "1.2.0",
-    "swr": "^0.5.7",
+    "swr": "^2.0.0",
     "universal-cookie": "^4.0.4",
     "vega": "~5.22.1",
     "vega-lite": "^5.6.0"
