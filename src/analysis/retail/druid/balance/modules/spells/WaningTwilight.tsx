@@ -12,6 +12,7 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
+import { TrackedBuffEvent } from 'parser/core/Entity';
 
 const WANING_TWILIGHT_BONUS_DAMAGE = 0.04;
 export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
@@ -66,6 +67,22 @@ class WaningTwilight extends Analyzer {
     }
   }
 
+  private get uptimePerc() {
+    const events: OpenTimePeriod[] = [];
+    const entities = this.enemies.getEntities();
+    Object.values(entities).forEach((enemy) => {
+      enemy
+        .getBuffHistory(SPELLS.WANING_TWILIGHT.id, this.selectedCombatant.id)
+        .forEach((buff: TrackedBuffEvent) => {
+          events.push({
+            start: buff.start,
+            end: buff.end ?? this.owner.fight.end_time,
+          });
+        });
+    });
+    return events;
+  }
+
   statistic() {
     this.waningTwilightUptime =
       this.enemies.getBuffUptime(SPELLS.WANING_TWILIGHT.id) / this.owner.fightDuration;
@@ -105,7 +122,7 @@ class WaningTwilight extends Analyzer {
       this.owner.fight,
       {
         spells: [SPELLS.WANING_TWILIGHT],
-        uptimes: mergeTimePeriods(this.waningTwilightUptimes, this.owner.currentTimestamp),
+        uptimes: mergeTimePeriods(this.uptimePerc, this.owner.currentTimestamp),
         color: WT_COLOR,
       },
       [],
