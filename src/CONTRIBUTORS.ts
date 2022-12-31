@@ -1847,6 +1847,18 @@ export const xunni: Contributor = {
   ],
 };
 
+export const Taum: Contributor = {
+  nickname: 'Taum',
+  github: 'Taum',
+  mains: [
+    {
+      name: 'Taum',
+      spec: SPECS.ENHANCEMENT_SHAMAN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/Shm',
+    },
+  ],
+};
+
 export const AndreasAlbert: Contributor = {
   nickname: 'AndreasAlbert',
   github: 'AndreasAlbert',
