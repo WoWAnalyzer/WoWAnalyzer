@@ -65,7 +65,8 @@
     "enzyme": "^3.11.0",
     "eslint-plugin-progress": "^0.0.1",
     "eslint-plugin-wowanalyzer": "file:./packages/eslint-plugin-wowanalyzer",
-    "husky": "^4.3.8",
+    "husky": "^8.0.0",
+    "is-ci": "^3.0.1",
     "jest-canvas-mock": "^2.3.1",
     "jest-enzyme": "^7.1.2",
     "lint-staged": "13.1.0",
@@ -98,7 +99,8 @@
     "lint:fix": "yarn lint --fix",
     "extract": "lingui extract --overwrite --clean",
     "script": "set NODE_ENV=development&&babel-node",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "prepare": "is-ci || husky install"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,json,md,mdx,yml,graphql,scss,css}": [
@@ -107,11 +109,6 @@
     "*.{ts,tsx,js,jsx}": [
       "yarn --silent lint:fix"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint-staged"
-    }
   },
   "browserslist": {
     "production": [
