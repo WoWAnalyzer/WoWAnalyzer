@@ -31,6 +31,7 @@
     "react-vega": "^7.4.4",
     "react-virtualized": "^9.22.3",
     "redux": "^4.1.2",
+    "redux-thunk": "^2.4.2",
     "sass-text-stroke": "1.2.0",
     "swr": "^0.5.7",
     "universal-cookie": "^4.0.4",
