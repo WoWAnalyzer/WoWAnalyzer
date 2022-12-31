@@ -24,7 +24,7 @@
     "react-masonry-component": "^6.3.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.6.1",
-    "react-select-search": "^2.2.4",
+    "react-select-search": "^4.1.6",
     "react-textfit": "^1.1.1",
     "react-toggle": "^4.1.2",
     "react-transition-group": "^1.2.1",
