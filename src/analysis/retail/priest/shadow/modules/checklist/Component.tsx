@@ -108,6 +108,8 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           <>
             Many talents add procs to increase the power of your abilities. Make sure to use them to
             maximize the damage these talents can give you, and gain extra insanity.
+            <SpellLink id={TALENTS.SURGE_OF_DARKNESS_TALENT.id} /> is a low priority. If you had a
+            higher priority spells available, it is better to not use these procs.
             <br /> For <SpellLink id={TALENTS.MIND_FLAY_INSANITY_TALENT.id} />, its important to
             fully channel the cast whenever it is used.
           </>

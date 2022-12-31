@@ -12,6 +12,9 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
+
 class MindFlayInsanity extends Analyzer {
   damage = 0;
   insanityGained = 0;
@@ -106,6 +109,38 @@ class MindFlayInsanity extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const goodSD = {
+      count: this.ticks,
+      label: 'Used Ticks',
+    };
+
+    const badSD = {
+      count: this.ticksWasted,
+      label: 'Canceled Ticks',
+    };
+
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS.MIND_FLAY_INSANITY_TALENT.id} />
+        </b>{' '}
+        is gained everytime you cast <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} />.<br />
+        This proc is low priority. If you have higher priority spells available, cast them instead,
+        even if it causes this proc to be overwriten or unused. When you do use this spell, it
+        should be fully channeled.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <strong>Mind Flay Insanity breakdown</strong>
+        <GradiatedPerformanceBar good={goodSD} bad={badSD} />
+      </div>
+    );
+    return explanationAndDataSubsection(explanation, data, 50);
   }
 }
 

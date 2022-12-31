@@ -8,6 +8,8 @@ import MainCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
 
+import Guide from 'analysis/retail/priest/shadow/Guide';
+
 import Abilities from './modules/Abilities';
 import Checklist from './modules/checklist/Module';
 import AbilityTracker from './modules/core/AbilityTracker';
@@ -47,6 +49,8 @@ import IdolOfYoggSaron from './modules/talents/IdolOfYoggSaron';
 import IdolOfNzoth from './modules/talents/IdolOfNzoth';
 import IdolOfYshaarj from './modules/talents/IdolOfYshaarj';
 
+import InsanityGuide from './modules/guide/InsanityGuide';
+
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // core
@@ -58,6 +62,7 @@ class CombatLogParser extends MainCombatLogParser {
     // resources:
     insanityTracker: InsanityTracker,
     insanityUsage: InsanityUsage,
+    insanityGuide: InsanityGuide,
 
     // features:
     abilities: Abilities,
@@ -108,6 +113,8 @@ class CombatLogParser extends MainCombatLogParser {
 
     arcaneTorrent: [ArcaneTorrent, { active: false }] as const,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;

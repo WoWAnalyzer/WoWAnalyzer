@@ -1,11 +1,13 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon, SpellLink } from 'interface';
+import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
-import UptimeBar from 'parser/ui/UptimeBar';
+import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
+
+const BAR_COLOR = '#9933cc';
 
 class VampiricTouch extends Analyzer {
   static dependencies = {
@@ -48,25 +50,16 @@ class VampiricTouch extends Analyzer {
     );
   }
 
+  get uptimeHistory() {
+    return this.enemies.getDebuffHistory(SPELLS.VAMPIRIC_TOUCH.id);
+  }
+
   subStatistic() {
-    const history = this.enemies.getDebuffHistory(SPELLS.VAMPIRIC_TOUCH.id);
-    return (
-      <div className="flex">
-        <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.VAMPIRIC_TOUCH.id} />
-        </div>
-        <div className="flex-sub value" style={{ width: 140 }}>
-          {formatPercentage(this.uptime, 0)}% <small>uptime</small>
-        </div>
-        <div className="flex-main chart" style={{ padding: 15 }}>
-          <UptimeBar
-            uptimeHistory={history}
-            start={this.owner.fight.start_time}
-            end={this.owner.fight.end_time}
-          />
-        </div>
-      </div>
-    );
+    return uptimeBarSubStatistic(this.owner.fight, {
+      spells: [SPELLS.VAMPIRIC_TOUCH],
+      uptimes: this.uptimeHistory,
+      color: BAR_COLOR,
+    });
   }
 }
 

@@ -1,12 +1,15 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
-import { SpellIcon, SpellLink } from 'interface';
+import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
-import UptimeBar, { Uptime } from 'parser/ui/UptimeBar';
+import { Uptime } from 'parser/ui/UptimeBar';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
+import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
+
+const BAR_COLOR = '#9933cc';
 
 class DarkEvangelism extends Analyzer {
   constructor(options: Options) {
@@ -56,7 +59,7 @@ class DarkEvangelism extends Analyzer {
     );
   }
 
-  subStatistic() {
+  get uptimeHistory() {
     const history = this.selectedCombatant.getBuffHistory(SPELLS.DARK_EVANGELISM_TALENT_BUFF.id);
     const uptime: Uptime[] = [];
 
@@ -66,24 +69,15 @@ class DarkEvangelism extends Analyzer {
         end: buff.end || 0,
       });
     });
-
-    return (
-      <div className="flex">
-        <div className="flex-sub icon">
-          <SpellIcon id={TALENTS.DARK_EVANGELISM_TALENT.id} />
-        </div>
-        <div className="flex-sub value" style={{ width: 140 }}>
-          {formatPercentage(this.uptime, 0)}% <small>uptime</small>
-        </div>
-        <div className="flex-main chart" style={{ padding: 15 }}>
-          <UptimeBar
-            uptimeHistory={uptime}
-            start={this.owner.fight.start_time}
-            end={this.owner.fight.end_time}
-          />
-        </div>
-      </div>
-    );
+    return uptime;
+  }
+  //TODO: fix percentage for protype view
+  subStatistic() {
+    return uptimeBarSubStatistic(this.owner.fight, {
+      spells: [SPELLS.DARK_EVANGELISM_TALENT_BUFF],
+      uptimes: this.uptimeHistory,
+      color: BAR_COLOR,
+    });
   }
 }
 

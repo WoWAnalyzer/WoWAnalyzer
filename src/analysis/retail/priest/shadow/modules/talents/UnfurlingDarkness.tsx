@@ -11,6 +11,9 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
+
 // Example Log https://www.warcraftlogs.com/reports/ctvYK32ZhbDqLmX8#fight=30&type=damage-done
 
 class UnfurlingDarkness extends Analyzer {
@@ -95,6 +98,37 @@ class UnfurlingDarkness extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const goodUD = {
+      count: this.getProcsUsed(),
+      label: 'Unfurling Darkness procs used',
+    };
+
+    const badUD = {
+      count: this.procsWasted,
+      label: 'ShadowyInsight procs wasted',
+    };
+
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS.SHADOWY_INSIGHT_TALENT.id} />
+        </b>{' '}
+        is gained by casting <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} />.<br />
+        Cast <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> while the buff is active to avoid wasting
+        procs.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <strong>Unfurling Darkness breakdown</strong>
+        <GradiatedPerformanceBar good={goodUD} bad={badUD} />
+      </div>
+    );
+    return explanationAndDataSubsection(explanation, data, 50);
   }
 }
 

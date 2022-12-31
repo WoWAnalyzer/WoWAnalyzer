@@ -7,7 +7,10 @@ import ShadowWordPain from '../spells/ShadowWordPain';
 import VampiricTouch from '../spells/VampiricTouch';
 import DarkEvangelism from '../talents/DarkEvangelism';
 
-class DotUptimeStatisticBox extends Analyzer {
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+
+class DotUptimes extends Analyzer {
   static dependencies = {
     vampiricTouch: VampiricTouch,
     shadowWordPain: ShadowWordPain,
@@ -29,6 +32,22 @@ class DotUptimeStatisticBox extends Analyzer {
       </StatisticBar>
     );
   }
+
+  get guideSubsection() {
+    const explanation = <p>Maintian your dots</p>;
+
+    const data = (
+      <RoundedPanel>
+        <strong>DoT Uptimes; Dark Evangelism uptime is not calculated correctly here.</strong>
+        {this.vampiricTouch.subStatistic()}
+        {this.shadowWordPain.subStatistic()}
+        {this.devouringPlague.subStatistic()}
+        {this.darkEvangelism.active && this.darkEvangelism.subStatistic()}
+      </RoundedPanel>
+    );
+
+    return explanationAndDataSubsection(explanation, data);
+  }
 }
 
-export default DotUptimeStatisticBox;
+export default DotUptimes;
