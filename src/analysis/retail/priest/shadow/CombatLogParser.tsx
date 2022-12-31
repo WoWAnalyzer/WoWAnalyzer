@@ -49,7 +49,7 @@ import IdolOfYoggSaron from './modules/talents/IdolOfYoggSaron';
 import IdolOfNzoth from './modules/talents/IdolOfNzoth';
 import IdolOfYshaarj from './modules/talents/IdolOfYshaarj';
 
-import InsanityGuide from './modules/guide/InsanityGuide';
+//import InsanityGuide from './modules/guide/InsanityGuide';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -62,7 +62,7 @@ class CombatLogParser extends MainCombatLogParser {
     // resources:
     insanityTracker: InsanityTracker,
     insanityUsage: InsanityUsage,
-    insanityGuide: InsanityGuide,
+    //insanityGuide: InsanityGuide,
 
     // features:
     abilities: Abilities,

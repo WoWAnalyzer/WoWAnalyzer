@@ -6,6 +6,7 @@ import CombatLogParser from './CombatLogParser';
 //import { SpellLink } from 'interface';
 
 import CooldownGraphSubsection from './modules/guide/CooldownGraphSubSection';
+import CoreGraphSubsection from './modules/guide/CoreGraphSubSection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -20,7 +21,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <SubSection title="Insanity">
           <p>
             Gain Insanity by using abilities. Spend it on devouring plague or mind sear
-            {/TODO: *modules.insanityGuide.plot*/}
+            {/*TODO: *modules.insanityGuide.plot*/}
           </p>
         </SubSection>
       </Section>
@@ -48,9 +49,13 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         )}
       </Section>
 
+      <Section title="Core">
+        <CoreGraphSubsection />
+      </Section>
+
       <Section title="Cooldowns">
-          <CooldownGraphSubsection />
-        </Section>
+        <CooldownGraphSubsection />
+      </Section>
     </>
   );
 }
