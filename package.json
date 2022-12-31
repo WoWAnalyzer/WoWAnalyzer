@@ -14,7 +14,7 @@
     "@types/react-toggle": "^4.0.3",
     "@wowanalyzer/react-tooltip-lite": "^3.1.1",
     "es6-error": "^4.1.1",
-    "make-plural": "^6.2.2",
+    "make-plural": "^7.2.0",
     "prop-types": "^15.7.2",
     "rc-slider": "^10.0.0",
     "react": "^17.0.2",
