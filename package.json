@@ -61,7 +61,6 @@
     "cross-env": "^7.0.3",
     "customize-cra": "^1.0.0",
     "decompress": "^4.2.1",
-    "dotenv": "^6.2.0",
     "enzyme": "^3.11.0",
     "eslint-plugin-progress": "^0.0.1",
     "eslint-plugin-wowanalyzer": "file:./packages/eslint-plugin-wowanalyzer",
