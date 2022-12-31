@@ -18,7 +18,7 @@
     "prop-types": "^15.7.2",
     "rc-slider": "^10.0.0",
     "react": "^17.0.2",
-    "react-animate-height": "^2.0.23",
+    "react-animate-height": "^3.1.0",
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
     "react-masonry-component": "^6.3.0",
