@@ -26,6 +26,7 @@ const fixLingui = () => (config) => {
 const ignoreOrderMiniCssExtractPlugin = (config) => {
   const webpackEnv = process.env.NODE_ENV;
   if (webpackEnv === 'production') {
+    // eslint-disable-next-line import/no-extraneous-dependencies
     const MiniCssExtractPlugin = require('mini-css-extract-plugin');
     const instanceOfMiniCssExtractPlugin = config.plugins.find(
       (plugin) => plugin instanceof MiniCssExtractPlugin,
