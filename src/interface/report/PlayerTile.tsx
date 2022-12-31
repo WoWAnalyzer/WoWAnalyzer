@@ -2,20 +2,18 @@ import getAverageItemLevel from 'game/getAverageItemLevel';
 import { getClassName } from 'game/ROLES';
 import { fetchCharacter } from 'interface/actions/characters';
 import Icon from 'interface/Icon';
-import { RootState } from 'interface/reducers';
 import { getCharacterById } from 'interface/selectors/characters';
 import SpecIcon from 'interface/SpecIcon';
 import Config from 'parser/Config';
-import CharacterProfile from 'parser/core/CharacterProfile';
 import Player from 'parser/core/Player';
 import getBuild from 'parser/getBuild';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { isSupportedRegion } from 'common/regions';
 import { CLASSIC_EXPANSION } from 'game/Expansion';
 import getConfig from 'parser/getConfig';
 import { useWaDispatch } from 'interface/utils/useWaDispatch';
+import { useWaSelector } from 'interface/utils/useWaSelector';
 
 interface Props {
   player: Player;
@@ -24,9 +22,7 @@ interface Props {
 }
 
 const PlayerTile = ({ player, makeUrl, config }: Props) => {
-  const characterInfo = useSelector<RootState, CharacterProfile>((state) =>
-    getCharacterById(state, player.guid),
-  );
+  const characterInfo = useWaSelector((state) => getCharacterById(state, player.guid));
   const dispatch = useWaDispatch();
 
   useEffect(() => {

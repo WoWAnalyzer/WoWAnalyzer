@@ -1,6 +1,6 @@
-import { RootState } from 'interface/reducers';
 import { getReport } from 'interface/selectors/report';
 import Report from 'parser/core/Report';
+import { RootState } from 'store';
 
 export const getFightFromReport = (report: Report, fightId: number) => {
   if (!report.fights) {

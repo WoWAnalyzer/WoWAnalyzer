@@ -1,4 +1,4 @@
-import { RootState } from 'interface/reducers';
+import { RootState } from 'store';
 
 export const getSpecsIgnoredNotSupportedWarning = (state: RootState) =>
   state.specsIgnoredNotSupportedWarning;

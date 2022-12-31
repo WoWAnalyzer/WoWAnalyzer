@@ -5,7 +5,6 @@ import { getOpenModals } from 'interface/selectors/openModals';
 import { useEffect } from 'react';
 import { internetExplorer } from 'interface/actions/internetExplorer';
 import { fetchUser } from 'interface/actions/user';
-import TooltipProvider from 'interface/TooltipProvider';
 import FullscreenError from 'interface/FullscreenError';
 import { t } from '@lingui/macro';
 import { Outlet } from 'react-router-dom';
@@ -35,10 +34,6 @@ const AppLayout = () => {
       dispatch(fetchUser());
     }
   }, [dispatch]);
-
-  useEffect(() => {
-    TooltipProvider.load();
-  }, []);
 
   return (
     <>

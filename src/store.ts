@@ -9,6 +9,7 @@ import specsIgnoredNotSupportedWarning from 'interface/reducers/specsIgnoredNotS
 import openModals from 'interface/reducers/openModals';
 import charactersById from 'interface/reducers/charactersById';
 import reportCodesIgnoredPreviousPatchWarning from 'interface/reducers/reportCodesIgnoredPreviousPatchWarning';
+import tooltips from 'interface/reducers/tooltips';
 
 export const store = configureStore({
   reducer: {
@@ -23,6 +24,7 @@ export const store = configureStore({
     language,
     specsIgnoredNotSupportedWarning,
     openModals,
+    tooltips,
 
     // Caching
     charactersById,
