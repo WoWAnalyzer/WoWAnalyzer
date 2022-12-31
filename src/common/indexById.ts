@@ -1,11 +1,10 @@
 import { shallowEqual } from 'react-redux';
+import typedKeys from 'common/typedKeys';
 
 interface BaseIndexableObj {
   id: number;
   __ignoreDuplication?: boolean;
 }
-
-const typedKeys = <T>(obj: T) => Object.keys(obj) as Array<keyof typeof obj>;
 
 type RestrictedTable<T, E> = {
   [Key in keyof E]: E[Key] extends T ? E[Key] : never;
@@ -13,7 +12,7 @@ type RestrictedTable<T, E> = {
 
 type IndexedRestrictedTable<
   ValueT extends BaseIndexableObj,
-  Map extends RestrictedTable<ValueT, any>
+  Map extends RestrictedTable<ValueT, any>,
 > = RestrictedTable<ValueT, Map> & Record<number, ValueT>;
 
 const indexById = <ValueT extends BaseIndexableObj, Map extends RestrictedTable<ValueT, any>>(
@@ -40,13 +39,14 @@ const indexById = <ValueT extends BaseIndexableObj, Map extends RestrictedTable<
 /**
  * Assert that `value` is a `RestrictedTable<T, E>` where `T` is fixed and `E` is inferred.
  */
-export const asRestrictedTable = <T extends BaseIndexableObj>() => <E>(
-  value: RestrictedTable<T, E>,
-): RestrictedTable<T, E> => value;
+export const asRestrictedTable =
+  <T extends BaseIndexableObj>() =>
+  <E>(value: RestrictedTable<T, E>): RestrictedTable<T, E> =>
+    value;
 
 export const indexOnlyById = <
   ValueT extends BaseIndexableObj,
-  Map extends RestrictedTable<ValueT, any>
+  Map extends RestrictedTable<ValueT, any>,
 >(
   arg: Map,
 ): Record<number, ValueT> => {
@@ -74,7 +74,7 @@ export const indexOnlyById = <
 
 export const proxyRestrictedTable = <
   ValueT extends BaseIndexableObj,
-  Map extends RestrictedTable<ValueT, any>
+  Map extends RestrictedTable<ValueT, any>,
 >(
   restrictedTable: IndexedRestrictedTable<ValueT, Map>,
   valueBeingAccessed: string,

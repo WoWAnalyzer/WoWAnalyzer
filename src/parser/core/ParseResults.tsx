@@ -310,10 +310,10 @@ interface BaseNumberThreshold extends Threshold<number> {
   max?: number;
   // Require exactly one of the below
   isEqual: number;
-  isLessThan: ThresholdRange;
-  isGreaterThan: ThresholdRange;
-  isGreaterThanOrEqual: ThresholdRange;
-  isLessThanOrEqual: ThresholdRange;
+  isLessThan: number | ThresholdRange;
+  isGreaterThan: number | ThresholdRange;
+  isGreaterThanOrEqual: number | ThresholdRange;
+  isLessThanOrEqual: number | ThresholdRange;
 }
 
 export type NumberThreshold = RequireExactlyOne<

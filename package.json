@@ -78,11 +78,13 @@
     "react-test-renderer": "^17.0.2",
     "sass": "^1.57.1",
     "ts-node": "^10.9.1",
-    "typescript": "^4.5.2"
+    "typescript": "^4.9.4"
   },
   "resolutions": {
     "@lingui/cli": "3.14.0",
     "@lingui/core": "3.14.0",
+    "@typescript-eslint/eslint-plugin": "^5.47.1",
+    "@typescript-eslint/parser": "^5.47.1",
     "eslint-plugin-react": "^7.26.1",
     "prettier-plugin-tailwindcss": "0.1.7"
   },
