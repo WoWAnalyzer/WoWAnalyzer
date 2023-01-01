@@ -1,6 +1,7 @@
 import { Talent } from 'common/TALENTS/types';
 import { SubSection, useAnalyzer, useInfo } from 'interface/guide';
 import TALENTS from 'common/TALENTS/priest';
+//import SPELLS from 'common/SPELLS/priest';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';

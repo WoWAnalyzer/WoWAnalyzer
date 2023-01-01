@@ -45,7 +45,7 @@ const CoreGraphSubsection = () => {
 
   return (
     <SubSection>
-      <Trans id="guide.priest.shadow.sections.cooldowns.graph">
+      <Trans id="guide.priest.shadow.sections.core.graph">
         <strong>Core Graph</strong> - this graph shows when you used your cooldowns and how long you
         waited to use them again. Grey segments show when the spell was available, yellow segments
         show when the spell was cooling down. Red segments highlight times when you could have fit a
