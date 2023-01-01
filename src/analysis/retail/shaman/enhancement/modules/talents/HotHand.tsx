@@ -1,6 +1,7 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { ApplyBuffEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
@@ -74,7 +75,6 @@ class HotHand extends Analyzer {
     // on application both resets the CD and applies a mod rate
     this.spellUsable.endCooldown(TALENTS_SHAMAN.LAVA_LASH_TALENT.id);
     this.spellUsable.applyCooldownRateChange(TALENTS_SHAMAN.LAVA_LASH_TALENT.id, HOT_HAND.MOD_RATE);
-
     this.hotHandActive.startInterval(event.timestamp);
   }
 
@@ -117,7 +117,7 @@ class HotHand extends Analyzer {
         tooltip={
           <ul>  
             <li>Gained buff {this.hotHandActive.intervalsCount} times ({formatPercentage(this.timePercentageHotHandsActive)}% uptime)</li>
-            <li>{this.buffedCasts} total Lava Lash casts with Hot Hand buff</li>
+            <li>{this.buffedCasts} total <SpellLink id={TALENTS_SHAMAN.LAVA_LASH_TALENT}/> casts with Hot Hand buff</li>
           </ul>
         }
         category={STATISTIC_CATEGORY.TALENTS}
