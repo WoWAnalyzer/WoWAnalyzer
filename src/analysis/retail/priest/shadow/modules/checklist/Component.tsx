@@ -43,8 +43,8 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
             <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} />, and{' '}
             <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> increase all your damage through{' '}
             <SpellLink id={SPELLS.MASTERY_SHADOW_WEAVING.id} />. If you are talented into{' '}
-            <SpellLink id={TALENTS.DARK_EVANGELISM_TALENT} />, make sure to maintain 5 stacks of the
-            effect.
+            <SpellLink id={TALENTS.DARK_EVANGELISM_TALENT} />, do not alter your rotation to
+            maintain the effect.
           </Fragment>
         }
       >

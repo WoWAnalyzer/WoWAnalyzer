@@ -14,9 +14,11 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Core">
         <SubSection title="Insanity Usage">{modules.dotUptimes.guideSubsectionDP}</SubSection>
         <SubSection title="Dot Uptime">{modules.dotUptimes.guideSubsection}</SubSection>
-        {info.combatant.hasTalent(talents.DARK_EVANGELISM_TALENT) && (
-          <SubSection title="Dark Evangelism">{modules.dotUptimes.guideSubsectionDE}</SubSection>
-        )}
+        {/* This information does not alter the rotation, maybe should be taken out.
+          {info.combatant.hasTalent(talents.DARK_EVANGELISM_TALENT) && (
+            <SubSection title="Dark Evangelism">{modules.dotUptimes.guideSubsectionDE}</SubSection>
+          )}
+        */}
       </Section>
 
       <Section title="Cooldowns">
