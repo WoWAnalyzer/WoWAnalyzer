@@ -2,6 +2,7 @@ import { Talent } from 'common/TALENTS/types';
 import { SubSection, useAnalyzer, useInfo } from 'interface/guide';
 import TALENTS from 'common/TALENTS/priest';
 //import SPELLS from 'common/SPELLS/priest';
+
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
@@ -13,13 +14,16 @@ type Cooldown = {
 };
 
 const cooldownsToCheck: Cooldown[] = [
-  { talent: TALENTS.POWER_INFUSION_TALENT },
-  { talent: TALENTS.DARK_ASCENSION_TALENT },
-  { talent: TALENTS.VOID_ERUPTION_TALENT },
-  { talent: TALENTS.MINDBENDER_SHADOW_TALENT },
+  //{ talent: SPELLS.MIND_BLAST },
+  //{ talent: TALENTS.SHADOW_WORD_DEATH_TALENT },
+  { talent: TALENTS.SHADOW_CRASH_TALENT },
+  { talent: TALENTS.VOID_TORRENT_TALENT },
+  { talent: TALENTS.DAMNATION_TALENT },
+  { talent: TALENTS.DARK_VOID_TALENT },
+  { talent: TALENTS.MINDGAMES_TALENT },
 ];
 
-const CooldownGraphSubsection = () => {
+const ShortCooldownGraphSubsection = () => {
   const info = useInfo();
   const castEfficiency = useAnalyzer(CastEfficiency);
   if (!info || !castEfficiency) {
@@ -42,11 +46,9 @@ const CooldownGraphSubsection = () => {
 
   return (
     <SubSection>
-      <Trans id="guide.priest.shadow.sections.cooldowns.graph">
+      <Trans id="guide.priest.shadow.sections.core.graph">
         <strong>Cooldown Graph</strong> - this graph shows when you used your cooldowns and how long
-        you waited to use them again. Grey segments show when the spell was available, yellow
-        segments show when the spell was cooling down. Red segments highlight times when you could
-        have fit a whole extra use of the cooldown.
+        you waited to use them again. These spells should be used on cooldown.
       </Trans>
       {cooldowns.map((cooldownCheck) => (
         <CastEfficiencyBar
@@ -60,4 +62,4 @@ const CooldownGraphSubsection = () => {
   );
 };
 
-export default CooldownGraphSubsection;
+export default ShortCooldownGraphSubsection;

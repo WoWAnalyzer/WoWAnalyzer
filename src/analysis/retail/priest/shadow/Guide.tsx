@@ -5,25 +5,27 @@ import CombatLogParser from './CombatLogParser';
 //import { CooldownBar, GapHighlight } from 'parser/ui/CooldownBar';
 //import { SpellLink } from 'interface';
 
-import CooldownGraphSubsection from './modules/guide/CooldownGraphSubSection';
+import LongCooldownGraphSubsection from './modules/guide/LongCooldownGraphSubSection';
+import ShortCooldownGraphSubsection from './modules/guide/ShortCooldownGraphSubSection';
 import CoreGraphSubsection from './modules/guide/CoreGraphSubSection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
       <Section title="Core">
-        <SubSection title="Insanity Usage">{modules.dotUptimes.guideSubsectionDP}</SubSection>
-        <SubSection title="Dot Uptime">{modules.dotUptimes.guideSubsection}</SubSection>
+        {modules.dotUptimes.guideSubsectionDP}
+        {modules.dotUptimes.guideSubsection}
         {/* This information does not alter the rotation, maybe should be taken out.
           {info.combatant.hasTalent(talents.DARK_EVANGELISM_TALENT) && (
             <SubSection title="Dark Evangelism">{modules.dotUptimes.guideSubsectionDE}</SubSection>
-          )}
+          )}  
         */}
       </Section>
 
       <Section title="Cooldowns">
         <CoreGraphSubsection />
-        <CooldownGraphSubsection />
+        <ShortCooldownGraphSubsection />
+        <LongCooldownGraphSubsection />
       </Section>
 
       <Section title="Proc Usage">
@@ -42,7 +44,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </Section>
 
       <Section title="Action Priority List">
-        <p> Coming Soon! </p>
+        <p>
+          {' '}
+          <SubSection>Coming Soon!</SubSection>{' '}
+        </p>
       </Section>
     </>
   );
