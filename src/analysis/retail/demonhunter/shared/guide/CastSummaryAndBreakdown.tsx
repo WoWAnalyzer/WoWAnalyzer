@@ -11,6 +11,8 @@ import { ClickToExpand, MouseoverForMoreDetails } from './CommonLinguiTranslatio
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
 
+import styles from './CastSummaryAndBreakdown.module.scss';
+
 const toGradiatedPerformanceBarProp = (
   count: number,
   label: string | undefined,
@@ -118,7 +120,7 @@ const CastSummaryAndBreakdown = ({
     ));
 
   return (
-    <div style={{ marginBottom: 10 }}>
+    <div className={styles.castSummaryAndBreakdown}>
       {includePerfectCastPercentage && (
         <CastPerformanceSummary
           casts={perfect}

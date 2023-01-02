@@ -6,6 +6,7 @@ import {
   AbilityEvent,
   ApplyBuffEvent,
   CastEvent,
+  EmpowerEndEvent,
   EventType,
   GetRelatedEvents,
   HasRelatedEvent,
@@ -14,10 +15,12 @@ import {
   RemoveBuffEvent,
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
+import { STASIS_CAST_IDS } from '../constants';
 
 export const FROM_HARDCAST = 'FromHardcast'; // for linking a buffapply or heal to its cast
 export const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly'; // for linking TA echo apply to TA shield apply
 export const ECHO_REMOVAL = 'EchoRemoval'; // for linking echo removal to echo apply
+export const EMPOWERED_CAST = 'EmpoweredCast'; // link empowerend to cast
 export const TA_ECHO_REMOVAL = 'TaEchoTemoval'; // for linking TA echo removal to echo apply
 export const ECHO_TEMPORAL_ANOMALY = 'TemporalAnomaly'; // for linking BuffApply/Heal to echo removal
 export const ECHO = 'Echo'; // for linking BuffApply/Heal to echo removal
@@ -29,6 +32,7 @@ export const FIELD_OF_DREAMS_PROC = 'FromFieldOfDreams'; // link EB heal to flut
 export const HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
 export const BUFF_GROUPING = 'BuffGrouping'; // link ApplyBuff events together
 export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
+export const STASIS = 'Stasis';
 
 const CAST_BUFFER_MS = 100;
 const ECHO_BUFFER = 500;
@@ -67,6 +71,25 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.Cast],
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    linkRelation: EMPOWERED_CAST,
+    linkingEventId: [TALENTS_EVOKER.SPIRITBLOOM_TALENT.id, TALENTS_EVOKER.DREAM_BREATH_TALENT.id],
+    linkingEventType: EventType.Cast,
+    referencedEventId: [
+      TALENTS_EVOKER.SPIRITBLOOM_TALENT.id,
+      TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
+    ],
+    referencedEventType: EventType.EmpowerEnd,
+    reverseLinkRelation: EMPOWERED_CAST,
+    forwardBufferMs: 5000,
+    anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        (linkingEvent as CastEvent).ability.guid ===
+        (referencedEvent as EmpowerEndEvent).ability.guid
+      );
+    },
   },
   //link echo apply to the Temporal Anomaly shield application
   {
@@ -262,8 +285,8 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: DREAM_BREATH_CALL_OF_YSERA_HOT,
     linkingEventId: [SPELLS.DREAM_BREATH.id, SPELLS.DREAM_BREATH_ECHO.id],
     linkingEventType: [EventType.ApplyBuff, EventType.Heal],
-    referencedEventId: [TALENTS_EVOKER.DREAM_BREATH_TALENT.id],
-    referencedEventType: [EventType.RemoveBuff],
+    referencedEventId: TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
+    referencedEventType: EventType.EmpowerEnd,
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
     isActive(c) {
@@ -276,10 +299,10 @@ const EVENT_LINKS: EventLink[] = [
   //link Call of Ysera Removal to Dream Breath cast that consumed it
   {
     linkRelation: DREAM_BREATH_CALL_OF_YSERA,
-    linkingEventId: [SPELLS.CALL_OF_YSERA_BUFF.id],
-    linkingEventType: [EventType.RemoveBuff],
-    referencedEventId: [TALENTS_EVOKER.DREAM_BREATH_TALENT.id],
-    referencedEventType: [EventType.RemoveBuff],
+    linkingEventId: SPELLS.CALL_OF_YSERA_BUFF.id,
+    linkingEventType: EventType.RemoveBuff,
+    referencedEventId: TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
+    referencedEventType: EventType.EmpowerEnd,
     maximumLinks: 1,
     isActive(c) {
       return (
@@ -291,10 +314,10 @@ const EVENT_LINKS: EventLink[] = [
   //link Call of Ysera Removal to Living Flame heal that consumed it
   {
     linkRelation: LIVING_FLAME_CALL_OF_YSERA,
-    linkingEventId: [SPELLS.LIVING_FLAME_HEAL.id],
-    linkingEventType: [EventType.Heal],
-    referencedEventId: [SPELLS.CALL_OF_YSERA_BUFF.id],
-    referencedEventType: [EventType.RemoveBuff],
+    linkingEventId: SPELLS.LIVING_FLAME_HEAL.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: SPELLS.CALL_OF_YSERA_BUFF.id,
+    referencedEventType: EventType.RemoveBuff,
     backwardBufferMs: 1100,
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
@@ -372,6 +395,44 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
+  // stasis stack removal to cast
+  {
+    linkRelation: STASIS,
+    reverseLinkRelation: STASIS,
+    linkingEventId: TALENTS_EVOKER.STASIS_TALENT.id,
+    linkingEventType: [EventType.RemoveBuffStack, EventType.RemoveBuff],
+    referencedEventId: STASIS_CAST_IDS,
+    referencedEventType: EventType.Cast,
+    backwardBufferMs: 500,
+    anyTarget: true,
+    maximumLinks: 1,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        !HasRelatedEvent(referencedEvent, EMPOWERED_CAST) &&
+        !HasRelatedEvent(referencedEvent, STASIS)
+      );
+    },
+  },
+  {
+    linkRelation: STASIS,
+    reverseLinkRelation: STASIS,
+    linkingEventId: TALENTS_EVOKER.STASIS_TALENT.id,
+    linkingEventType: [EventType.RemoveBuffStack, EventType.RemoveBuff],
+    referencedEventId: [
+      TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
+      TALENTS_EVOKER.SPIRITBLOOM_TALENT.id,
+    ],
+    referencedEventType: EventType.EmpowerEnd,
+    backwardBufferMs: 500,
+    anyTarget: true,
+    maximumLinks: 1,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        HasRelatedEvent(referencedEvent, EMPOWERED_CAST) &&
+        !HasRelatedEvent(referencedEvent, STASIS)
+      );
+    },
+  },
 ];
 
 /**
@@ -436,6 +497,17 @@ export function getHealEvents(event: HealEvent) {
 
 export function getBuffEvents(event: ApplyBuffEvent) {
   return [event].concat(GetRelatedEvents(event, BUFF_GROUPING) as ApplyBuffEvent[]);
+}
+
+export function getStasisSpell(event: RemoveBuffStackEvent | RemoveBuffEvent): number | null {
+  const relatedEvents = GetRelatedEvents(event, STASIS);
+  if (!relatedEvents.length) {
+    return null;
+  }
+  if (relatedEvents[0].type === EventType.Cast) {
+    return (relatedEvents[0] as CastEvent).ability.guid;
+  }
+  return (relatedEvents[0] as EmpowerEndEvent).ability.guid;
 }
 
 export default CastLinkNormalizer;

@@ -1765,13 +1765,7 @@ export const Trevor: Contributor = {
   nickname: 'Trevor',
   discord: 'Trevor#9816',
   github: 'trevorm4',
-  mains: [
-    {
-      name: 'Sardent',
-      spec: SPECS.MISTWEAVER_MONK,
-      link: 'https://worldofwarcraft.com/en-us/character/us/tichondrius/Sardent',
-    },
-  ],
+  avatar: avatar('Trevor-avatar.png'),
 };
 
 export const Jeff: Contributor = {
@@ -1849,6 +1843,18 @@ export const xunni: Contributor = {
       name: 'Xunni',
       spec: SPECS.ENHANCEMENT_SHAMAN,
       link: 'https://worldofwarcraft.com/en-us/character/us/area-52/xunni',
+    },
+  ],
+};
+
+export const Taum: Contributor = {
+  nickname: 'Taum',
+  github: 'Taum',
+  mains: [
+    {
+      name: 'Taum',
+      spec: SPECS.ENHANCEMENT_SHAMAN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/Shm',
     },
   ],
 };
