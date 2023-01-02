@@ -1,5 +1,4 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import SPELLS from 'common/SPELLS';
 import { TIERS } from 'game/TIERS';
 import Events, { HealEvent } from 'parser/core/Events';
@@ -41,8 +40,8 @@ class VotI2pc extends Analyzer {
     return this.stats.currentCritPercentage;
   }
 
-  get healingIncrease() {
-    return TWO_PIECE_CRIT_BONUS / (TWO_PIECE_CRIT_BONUS + this.critPercentage) / 2; // divide by 2 because it only affects crit part of the heal
+  get critIncrease() {
+    return TWO_PIECE_CRIT_BONUS / (TWO_PIECE_CRIT_BONUS + this.critPercentage);
   }
 
   get totalHealing() {
@@ -63,7 +62,7 @@ class VotI2pc extends Analyzer {
 
   handle2PcHeal(event: HealEvent) {
     if (event.hitType === HIT_TYPES.CRIT) {
-      this.twoPieceHealing += calculateEffectiveHealing(event, this.healingIncrease);
+      this.twoPieceHealing += (event.amount / 2) * this.critIncrease;
     }
   }
 
