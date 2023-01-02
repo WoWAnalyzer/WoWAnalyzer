@@ -97,7 +97,7 @@ class HotHand extends Analyzer {
       return;
     }
 
-    this.buffedCasts += 1
+    this.buffedCasts += 1;
     this.buffedLavaLashDamage += calculateEffectiveDamage(event, HOT_HAND.INCREASE);
   }
 
@@ -106,7 +106,7 @@ class HotHand extends Analyzer {
   }
 
   get castsPerSecond() {
-    return this.buffedCasts / (this.hotHandActive.intervalsCount);
+    return this.buffedCasts / this.hotHandActive.intervalsCount;
   }
 
   statistic() {
@@ -115,9 +115,15 @@ class HotHand extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         size="flexible"
         tooltip={
-          <ul>  
-            <li>Gained buff {this.hotHandActive.intervalsCount} times ({formatPercentage(this.timePercentageHotHandsActive)}% uptime)</li>
-            <li>{this.buffedCasts} total <SpellLink id={TALENTS_SHAMAN.LAVA_LASH_TALENT}/> casts with Hot Hand buff</li>
+          <ul>
+            <li>
+              Gained buff {this.hotHandActive.intervalsCount} times (
+              {formatPercentage(this.timePercentageHotHandsActive)}% uptime)
+            </li>
+            <li>
+              {this.buffedCasts} total <SpellLink id={TALENTS_SHAMAN.LAVA_LASH_TALENT} /> casts with
+              Hot Hand buff
+            </li>
           </ul>
         }
         category={STATISTIC_CATEGORY.TALENTS}
@@ -126,7 +132,7 @@ class HotHand extends Analyzer {
           <>
             <ItemDamageDone amount={this.buffedLavaLashDamage} />
             <br />
-            {(this.castsPerSecond).toFixed(2)} <small>average casts per proc</small>
+            {this.castsPerSecond.toFixed(2)} <small>average casts per proc</small>
             <br />
           </>
         </BoringSpellValueText>
