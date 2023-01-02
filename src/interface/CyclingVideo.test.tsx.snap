@@ -3,7 +3,6 @@
 exports[`CyclingVideo matches snapshot 1`] = `
 <video
   autoPlay={true}
-  key="1"
   muted={true}
   onEnded={[Function]}
 >
@@ -17,7 +16,6 @@ exports[`CyclingVideo matches snapshot 1`] = `
 exports[`CyclingVideo passes unrecognized props 1`] = `
 <video
   autoPlay={true}
-  key="1"
   muted={true}
   onEnded={[Function]}
   style={

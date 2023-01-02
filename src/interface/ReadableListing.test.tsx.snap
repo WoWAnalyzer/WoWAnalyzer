@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReadableList doesn't mutate a single item 1`] = `<div />`;
+
+exports[`ReadableList merges four items with two "," and an "and" 1`] = `
+Array [
+  <div />,
+  ", ",
+  <div />,
+  ", ",
+  <div />,
+  " and ",
+  <div />,
+]
+`;
+
+exports[`ReadableList merges three items with a "," and an "and" 1`] = `
+Array [
+  <div />,
+  ", ",
+  <div />,
+  " and ",
+  <div />,
+]
+`;
+
+exports[`ReadableList merges two items with an "and" 1`] = `
+Array [
+  <div />,
+  " and ",
+  <div />,
+]
+`;

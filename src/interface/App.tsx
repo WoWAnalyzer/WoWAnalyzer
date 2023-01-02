@@ -5,6 +5,7 @@ import PrivacyPage from 'interface/PrivacyPage';
 import ReportPage from 'interface/report';
 import {
   createBrowserRouter,
+  createMemoryRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
@@ -78,34 +79,35 @@ const Search = lazyLoadComponent(() =>
   ),
 );
 
-const browserRouter = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<AppLayout />}>
-      <Route path="character/:region/:realm/:name" element={<CharacterPage />} />
-      <Route path="guild/:region/:realm/:name" element={<GuildPage />} />
-      <Route
-        path="report/:reportCode/:fightId?/:player?/:build?/:resultTab?"
-        element={<ReportPage />}
-      />
-      <Route path="privacy" element={<PrivacyPage />} />
-      <Route element={<HomePage />}>
+const appRoutes = createRoutesFromElements(
+  <Route path="/" element={<AppLayout />}>
+    <Route path="character/:region/:realm/:name" element={<CharacterPage />} />
+    <Route path="guild/:region/:realm/:name" element={<GuildPage />} />
+    <Route
+      path="report/:reportCode/:fightId?/:player?/:build?/:resultTab?"
+      element={<ReportPage />}
+    />
+    <Route path="privacy" element={<PrivacyPage />} />
+    <Route element={<HomePage />}>
+      <Route index element={<News />} />
+      <Route path="news">
+        <Route path=":articleId" element={<NewsPage />} />
         <Route index element={<News />} />
-        <Route path="news">
-          <Route path=":articleId" element={<NewsPage />} />
-          <Route index element={<News />} />
-        </Route>
-        <Route path="specs" element={<SpecList />} />
-        <Route path="premium" element={<Premium />} />
-        <Route path="about" element={<AboutPage />} />
-        <Route path="help-wanted" element={<HelpWanted />} />
-        <Route path="contributor/:id" element={<ContributorPage />} />
-        <Route path="search/:searchTerm?" element={<Search />} />
-        <Route path="*" element={<NotFound />} />
       </Route>
-    </Route>,
-  ),
+      <Route path="specs" element={<SpecList />} />
+      <Route path="premium" element={<Premium />} />
+      <Route path="about" element={<AboutPage />} />
+      <Route path="help-wanted" element={<HelpWanted />} />
+      <Route path="contributor/:id" element={<ContributorPage />} />
+      <Route path="search/:searchTerm?" element={<Search />} />
+      <Route path="*" element={<NotFound />} />
+    </Route>
+  </Route>,
 );
 
-const App = () => <RouterProvider router={browserRouter} />;
+const router =
+  process.env.NODE_ENV === 'test' ? createMemoryRouter(appRoutes) : createBrowserRouter(appRoutes);
+
+const App = () => <RouterProvider router={router} />;
 
 export default App;
