@@ -41,8 +41,8 @@ class VotI2pc extends Analyzer {
     return this.stats.currentCritPercentage;
   }
 
-  get critIncrease() {
-    return TWO_PIECE_CRIT_BONUS / (TWO_PIECE_CRIT_BONUS + this.critPercentage);
+  get healingIncrease() {
+    return TWO_PIECE_CRIT_BONUS / (TWO_PIECE_CRIT_BONUS + this.critPercentage) / 2; // divide by 2 because it only affects crit part of the heal
   }
 
   get totalHealing() {
@@ -63,7 +63,7 @@ class VotI2pc extends Analyzer {
 
   handle2PcHeal(event: HealEvent) {
     if (event.hitType === HIT_TYPES.CRIT) {
-      this.twoPieceHealing += calculateEffectiveHealing(event, this.critIncrease) / 2;
+      this.twoPieceHealing += calculateEffectiveHealing(event, this.healingIncrease);
     }
   }
 
