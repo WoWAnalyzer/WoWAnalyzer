@@ -2,7 +2,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import Events, { ApplyDebuffEvent, DamageEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -24,11 +24,8 @@ class WaningTwilight extends Analyzer {
   };
   protected enemies!: Enemies;
 
-  missedDamage = 0;
   damageGotten = 0;
-  waningTwilightUptime = 0;
   talentRank: number;
-  waningTwilightUptimes: OpenTimePeriod[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -36,22 +33,6 @@ class WaningTwilight extends Analyzer {
     this.talentRank = this.selectedCombatant.getTalentRank(TALENTS_DRUID.WANING_TWILIGHT_TALENT);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
-    this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.WANING_TWILIGHT),
-      this.onApplyWaningTwilight,
-    );
-    this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.WANING_TWILIGHT),
-      this.onRemoveWaningTwilight,
-    );
-  }
-
-  onApplyWaningTwilight(event: ApplyDebuffEvent) {
-    this.waningTwilightUptimes.push({ start: event.timestamp });
-  }
-
-  onRemoveWaningTwilight(event: RemoveDebuffEvent) {
-    this.waningTwilightUptimes[this.waningTwilightUptimes.length - 1].end = event.timestamp;
   }
 
   onDamage(event: DamageEvent) {
@@ -62,8 +43,6 @@ class WaningTwilight extends Analyzer {
         event,
         WANING_TWILIGHT_BONUS_DAMAGE * this.talentRank,
       );
-    } else {
-      this.missedDamage += event.amount * 0.04;
     }
   }
 
@@ -84,16 +63,21 @@ class WaningTwilight extends Analyzer {
   }
 
   statistic() {
-    this.waningTwilightUptime =
-      this.enemies.getBuffUptime(SPELLS.WANING_TWILIGHT.id) / this.owner.fightDuration;
-    console.log(this.owner.fightDuration);
+    const waningTwilightUptime = formatPercentage(
+      this.enemies.getBuffUptime(SPELLS.WANING_TWILIGHT.id) / this.owner.fightDuration,
+    );
+    const dpsAdded = formatNumber(this.damageGotten / (this.owner.fightDuration / 1000));
     return (
-      <Statistic position={STATISTIC_ORDER.CORE(7)} size="flexible">
+      <Statistic
+        position={STATISTIC_ORDER.CORE(7)}
+        size="flexible"
+        tooltip={`You had ${waningTwilightUptime}% uptime on this talent which added ${dpsAdded} to your DPS.`}
+      >
         <BoringSpellValueText spellId={TALENTS_DRUID.WANING_TWILIGHT_TALENT.id}>
           <>
-            {formatPercentage(this.waningTwilightUptime)} % <small> uptime</small>
+            {waningTwilightUptime}% <small> uptime</small>
             <br />
-            {formatNumber(this.damageGotten / (this.owner.fightDuration / 1000))} <small>DPS</small>
+            {dpsAdded} <small>DPS</small>
           </>
         </BoringSpellValueText>
       </Statistic>
