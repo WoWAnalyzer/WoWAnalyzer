@@ -5,9 +5,7 @@ import CombatLogParser from './CombatLogParser';
 //import { CooldownBar, GapHighlight } from 'parser/ui/CooldownBar';
 //import { SpellLink } from 'interface';
 
-import LongCooldownGraphSubsection from './modules/guide/LongCooldownGraphSubSection';
-import ShortCooldownGraphSubsection from './modules/guide/ShortCooldownGraphSubSection';
-import CoreGraphSubsection from './modules/guide/CoreGraphSubSection';
+import CooldownGraphSubsection from './modules/guide/CooldownGraphSubsection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -20,12 +18,13 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             <SubSection title="Dark Evangelism">{modules.dotUptimes.guideSubsectionDE}</SubSection>
           )}  
         */}
+        <CooldownGraphSubsection.CoreCooldownsGraph />
       </Section>
 
       <Section title="Cooldowns">
-        <CoreGraphSubsection />
-        <ShortCooldownGraphSubsection />
-        <LongCooldownGraphSubsection />
+        <CooldownGraphSubsection.ShortCooldownsGraph />
+        <CooldownGraphSubsection.LongCooldownsGraph />
+        <CooldownGraphSubsection.CoreCooldownsGraph />
       </Section>
 
       <Section title="Proc Usage">
