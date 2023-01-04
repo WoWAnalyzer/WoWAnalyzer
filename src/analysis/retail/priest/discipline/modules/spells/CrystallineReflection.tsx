@@ -47,12 +47,12 @@ class CrystallineReflection extends Analyzer {
     };
 
     const tierDetails = {
-      color: '#fcba03',
-      label: 'Aegis Of Wrath',
-      spellId: TALENTS_PRIEST.AEGIS_OF_WRATH_TALENT.id,
-      value: this.powerWordShield.aegisValue * this.crIncrease,
+      color: '#0CD368',
+      label: 'Shield Of Absolution(4p)',
+      spellId: SPELLS.SHIELD_OF_ABSOLUTION_BUFF.id,
+      value: this.powerWordShield.t29pValue * this.crIncrease,
       valueTooltip: `${formatThousands(
-        ((this.powerWordShield.aegisValue * this.crIncrease) / this.owner.fightDuration) * 1000,
+        ((this.powerWordShield.t29pValue * this.crIncrease) / this.owner.fightDuration) * 1000,
       )} DPS`,
     };
 
