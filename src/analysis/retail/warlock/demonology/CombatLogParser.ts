@@ -34,6 +34,7 @@ import NetherPortal from './modules/talents/NetherPortal';
 import PowerSiphonNormalizer from './modules/talents/normalizers/PowerSiphonNormalizer';
 import PowerSiphon from './modules/talents/PowerSiphon';
 import SacrificedSouls from './modules/talents/SacrificedSouls';
+import ShadowsBite from './modules/talents/ShadowsBite';
 import SoulConduit from './modules/talents/SoulConduit';
 import SoulStrike from './modules/talents/SoulStrike';
 import SummonVilefiend from './modules/talents/SummonVilefiend';
@@ -84,6 +85,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sacrificedSouls: SacrificedSouls,
     netherPortal: NetherPortal,
     felCovenant: FelCovenant,
+    shadowsBite: ShadowsBite,
 
     vaultOfTheIncarnates4Set: DemonologyWarlockVaultOfTheIncarnates4Set,
 
