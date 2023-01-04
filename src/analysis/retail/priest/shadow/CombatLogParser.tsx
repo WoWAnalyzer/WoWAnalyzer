@@ -19,8 +19,6 @@ import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import ShadowyInsight from './modules/features/ShadowyInsight';
 import DotUptimes from './modules/features/DotUptimes';
-import SkippableCasts from './modules/features/SkippableCasts';
-import VoidBoltUsage from './modules/features/VoidBoltUsage';
 import Voidform from './modules/features/Voidform';
 import InsanityTracker from './modules/resources/InsanityTracker';
 import InsanityUsage from './modules/resources/InsanityUsage';
@@ -70,9 +68,9 @@ class CombatLogParser extends MainCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     checklist: Checklist,
     dotUptimes: DotUptimes,
-    skippableCasts: SkippableCasts,
+    //skippableCasts: SkippableCasts,
     shadowyInsight: ShadowyInsight,
-    voidBoltUsage: VoidBoltUsage,
+    //voidBoltUsage: VoidBoltUsage,
     voidform: Voidform,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
 

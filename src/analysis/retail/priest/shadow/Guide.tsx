@@ -19,6 +19,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           )}  
         */}
         <CooldownGraphSubsection.CoreCooldownsGraph />
+        {modules.dotUptimes.guideSubsectionDE}
       </Section>
 
       <Section title="Cooldowns">
