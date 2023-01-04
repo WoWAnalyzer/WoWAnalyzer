@@ -31,13 +31,13 @@ class InsanityUsage extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: this.wastePercentage,
+      actual: this.wasted,
       isGreaterThan: {
-        minor: 0,
-        average: 0.02,
-        major: 0.04,
+        minor: 50,
+        average: 100,
+        major: 150,
       },
-      style: ThresholdStyle.PERCENTAGE,
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -45,9 +45,10 @@ class InsanityUsage extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You wasted {this.wasted} <ResourceLink id={RESOURCE_TYPES.INSANITY.id} /> by overcapping
-          at max insanity. Since <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> is your main source
-          of damage and the damage stacks from early refreshing, you should always use{' '}
+          You wasted {formatPercentage(this.wastePercentage)}%{' '}
+          <ResourceLink id={RESOURCE_TYPES.INSANITY.id} /> by overcapping at max insanity. Since{' '}
+          <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> is your main source of damage and the damage
+          stacks from early refreshing, you should always use{' '}
           <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> when at risk of overcapping.
         </>,
       )
@@ -55,10 +56,10 @@ class InsanityUsage extends Analyzer {
         .actual(
           t({
             id: 'priest.shadow.suggestions.insanity.usage',
-            message: `You wasted ${formatPercentage(actual)}% of your Insanity due to overcapping.`,
+            message: `You wasted ${this.wasted} of your Insanity due to overcapping.`,
           }),
         )
-        .recommended(`${recommended}% is recommended.`),
+        .recommended(`Less than ${recommended} is recommended.`),
     );
   }
 
