@@ -4,6 +4,7 @@ import talents from 'common/TALENTS/priest';
 import CombatLogParser from './CombatLogParser';
 //import { CooldownBar, GapHighlight } from 'parser/ui/CooldownBar';
 //import { SpellLink } from 'interface';
+import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 
 import CooldownGraphSubsection from './modules/guide/CooldownGraphSubsection';
 
@@ -48,6 +49,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           <SubSection>Coming Soon!</SubSection>{' '}
         </p>
       </Section>
+
+      <PreparationSection />
     </>
   );
 }
