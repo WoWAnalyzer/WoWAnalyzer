@@ -38,6 +38,7 @@ interface Props {
   badLabel?: string;
   badExtraExplanation?: string;
   includeBadCastPercentage?: boolean;
+  onClickBox?: (index: number) => void;
 }
 
 const CastSummaryAndBreakdown = ({
@@ -55,6 +56,7 @@ const CastSummaryAndBreakdown = ({
   badLabel,
   badExtraExplanation,
   includeBadCastPercentage,
+  onClickBox,
 }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -176,7 +178,7 @@ const CastSummaryAndBreakdown = ({
         <small>
           <MouseoverForMoreDetails />
         </small>
-        <PerformanceBoxRow values={castEntries} />
+        <PerformanceBoxRow onClickBox={onClickBox} values={castEntries} />
       </ControlledExpandable>
     </div>
   );
