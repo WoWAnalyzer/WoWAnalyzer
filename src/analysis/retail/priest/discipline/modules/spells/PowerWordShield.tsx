@@ -56,7 +56,7 @@ class PowerWordShield extends Analyzer {
     this.hasAegis = this.selectedCombatant.hasTalent(TALENTS_PRIEST.AEGIS_OF_WRATH_TALENT);
 
     this.has4p = this.selectedCombatant.has4PieceByTier(TIERS.T29);
-
+    console.log(this.has4p);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_SHIELD),
       this.onShieldApplication,
