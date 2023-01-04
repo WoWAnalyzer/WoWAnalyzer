@@ -53,20 +53,7 @@ class SoulShardDetails extends Analyzer {
   statistic() {
     const shardsWasted = this.soulShardTracker.wasted;
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(3)}
-        size="flexible"
-        tooltip={
-          <>
-            In order for Focus Magic to compete with the other talents on that row, you need to
-            ensure you are getting as much uptime out of the buff as possible. Therefore, if you
-            forget to put the buff on another player or if they player you gave it to is not getting
-            crits very often, then you might need to consider giving the buff to someone else.
-            Ideally, you should aim to trade buffs with another mage who has also taken Focus Magic
-            so you both get the full benefit.
-          </>
-        }
-      >
+      <Statistic position={STATISTIC_ORDER.CORE(3)} size="flexible">
         <BoringSpellValueText spellId={SPELLS.SOUL_SHARDS.id}>
           {shardsWasted} <small>Wasted Soul Shards</small>
         </BoringSpellValueText>
