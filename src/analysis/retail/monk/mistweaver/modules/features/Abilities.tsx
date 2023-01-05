@@ -173,8 +173,13 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 12,
         timelineSortIndex: 2,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT)
+            ? 0.4
+            : 0.72,
+        },
       },
-
       {
         spell: TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id,
         category: SPELL_CATEGORY.OTHERS,
