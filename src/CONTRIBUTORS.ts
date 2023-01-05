@@ -2016,3 +2016,16 @@ export const Fassbrause: Contributor = {
   discord: 'Burgerflipper#7351',
   avatar: avatar('fassbrause-avatar.jpg'),
 };
+export const Greedyhugs: Contributor = {
+  nickname: 'Greedy',
+  github: 'Matt41531',
+  discord: 'MildcatMatt#9089',
+  avatar: avatar('greedyhugs-avatar.jpg'),
+  mains: [
+    {
+      name: 'Greedyhugs',
+      spec: SPECS.PROTECTION_WARRIOR,
+      link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/greedyhugs',
+    },
+  ],
+};
