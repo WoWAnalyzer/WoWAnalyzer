@@ -13,9 +13,9 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import { TrackedBuffEvent } from 'parser/core/Entity';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../constants';
 
 const WANING_TWILIGHT_BONUS_DAMAGE = 0.04;
-export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
 const WT_COLOR = '#00bb44';
 
 class WaningTwilight extends Analyzer {
@@ -24,25 +24,24 @@ class WaningTwilight extends Analyzer {
   };
   protected enemies!: Enemies;
 
-  damageGotten = 0;
-  talentRank: number;
+  totalDamage = 0;
+  bonusDamageMod: number;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.WANING_TWILIGHT_TALENT);
-    this.talentRank = this.selectedCombatant.getTalentRank(TALENTS_DRUID.WANING_TWILIGHT_TALENT);
+    this.bonusDamageMod =
+      this.selectedCombatant.getTalentRank(TALENTS_DRUID.WANING_TWILIGHT_TALENT) *
+      WANING_TWILIGHT_BONUS_DAMAGE;
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
   onDamage(event: DamageEvent) {
     const target = this.enemies.enemies[`${event.targetID}.0`];
-    const hasWaningTwilight = target?.hasBuff(393957);
+    const hasWaningTwilight = target?.hasBuff(SPELLS.WANING_TWILIGHT.id);
     if (hasWaningTwilight) {
-      this.damageGotten += calculateEffectiveDamage(
-        event,
-        WANING_TWILIGHT_BONUS_DAMAGE * this.talentRank,
-      );
+      this.totalDamage += calculateEffectiveDamage(event, this.bonusDamageMod);
     }
   }
 
@@ -66,7 +65,7 @@ class WaningTwilight extends Analyzer {
     const waningTwilightUptime = formatPercentage(
       this.enemies.getBuffUptime(SPELLS.WANING_TWILIGHT.id) / this.owner.fightDuration,
     );
-    const dpsAdded = formatNumber(this.damageGotten / (this.owner.fightDuration / 1000));
+    const dpsAdded = formatNumber(this.totalDamage / (this.owner.fightDuration / 1000));
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(7)}
