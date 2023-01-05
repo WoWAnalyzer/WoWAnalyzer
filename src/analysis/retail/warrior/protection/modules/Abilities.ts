@@ -277,6 +277,10 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 90,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
         timelineSortIndex: 9,
       },
     ];

@@ -26,7 +26,7 @@ class AngerManagement extends Analyzer {
   wastedReduction: { [spellId: number]: number } = {};
   effectiveReduction: { [spellId: number]: number } = {};
   protected spellUsable!: SpellUsable;
-  COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT: any[] = [];
+  COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT: number[] = [];
 
   constructor(options: Options) {
     super(options);

@@ -11,6 +11,7 @@ import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Che
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import TALENTS from 'common/TALENTS/warrior';
+import TalentCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/TalentCastEfficiencyRequirement';
 
 const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
@@ -67,15 +68,9 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
           </>
         }
       >
-        {combatant.hasTalent(TALENTS.SHIELD_WALL_TALENT) && (
-          <AbilityRequirement spell={TALENTS.SHIELD_WALL_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS.LAST_STAND_TALENT) && (
-          <AbilityRequirement spell={TALENTS.LAST_STAND_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS.BITTER_IMMUNITY_TALENT) && (
-          <AbilityRequirement spell={TALENTS.BITTER_IMMUNITY_TALENT.id} />
-        )}
+        <TalentCastEfficiencyRequirement talent={TALENTS.SHIELD_WALL_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.LAST_STAND_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.BITTER_IMMUNITY_TALENT} />
         <Requirement
           name={
             <>
@@ -103,21 +98,11 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
           </>
         }
       >
-        {combatant.hasTalent(TALENTS.AVATAR_TALENT) && (
-          <AbilityRequirement spell={TALENTS.AVATAR_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS.DEMORALIZING_SHOUT_TALENT) && (
-          <AbilityRequirement spell={TALENTS.DEMORALIZING_SHOUT_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS.RAVAGER_TALENT) && (
-          <AbilityRequirement spell={TALENTS.RAVAGER_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS.SHIELD_CHARGE_TALENT) && (
-          <AbilityRequirement spell={TALENTS.SHIELD_CHARGE_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS.SPEAR_OF_BASTION_TALENT) && (
-          <AbilityRequirement spell={TALENTS.SPEAR_OF_BASTION_TALENT.id} />
-        )}
+        <TalentCastEfficiencyRequirement talent={TALENTS.AVATAR_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.DEMORALIZING_SHOUT_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.RAVAGER_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.SHIELD_CHARGE_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.SPEAR_OF_BASTION_TALENT} />
         {combatant.hasTalent(TALENTS.SONIC_BOOM_TALENT) && (
           <AbilityRequirement spell={TALENTS.SHOCKWAVE_TALENT.id} />
         )}
