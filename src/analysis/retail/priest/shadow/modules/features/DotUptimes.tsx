@@ -76,7 +76,7 @@ class DotUptimes extends Analyzer {
     const explanation = (
       <p>
         This is the uptime of <SpellLink id={SPELLS.DARK_EVANGELISM_TALENT_BUFF.id} />. You should
-        not adjust your rotation to managing this buff. The percent uptime is very incorrect.
+        not adjust your rotation to maintain this buff.
       </p>
     );
 
