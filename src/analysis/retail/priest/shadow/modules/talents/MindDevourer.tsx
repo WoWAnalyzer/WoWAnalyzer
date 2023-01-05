@@ -134,7 +134,7 @@ class MindDevourer extends Analyzer {
         <br />
         Before the buff expires, cast <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> or fully channel{' '}
         <SpellLink id={TALENTS.MIND_SEAR_TALENT.id} /> on two or more targets. While you have this
-        active, avoid using <SpellLink id={SPELLS.MIND_BLAST.id} />, as it may overwrite it.
+        active, be careful using <SpellLink id={SPELLS.MIND_BLAST.id} />, as it may overwrite it.
       </p>
     );
 

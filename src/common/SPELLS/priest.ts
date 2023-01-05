@@ -743,6 +743,12 @@ const spells = spellIndexableList({
     icon: 'spell_fire_twilightflamebreath',
   },
 
+  MIND_FLAY_INSANITY_TALENT_BUFF: {
+    id: 391401,
+    name: 'Mind Flay: Insanity',
+    icon: 'spell_fire_twilightflamebreath',
+  },
+
   IDOL_OF_CTHUN_MIND_FLAY_DAMAGE: {
     id: 193473,
     name: 'Mind Flay',

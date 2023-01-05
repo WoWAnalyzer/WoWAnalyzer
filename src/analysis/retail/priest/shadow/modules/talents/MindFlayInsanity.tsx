@@ -20,6 +20,7 @@ class MindFlayInsanity extends Analyzer {
   insanityGained = 0;
   casts = 0;
   ticks = 0;
+  buffs = 0;
 
   constructor(options: Options) {
     super(options);
@@ -36,6 +37,14 @@ class MindFlayInsanity extends Analyzer {
       Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE),
       this.onEnergize,
     );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF),
+      this.onBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF),
+      this.onBuff,
+    );
   }
 
   //regardless of haste, a full channel of this spell ticks 4 times.
@@ -44,6 +53,9 @@ class MindFlayInsanity extends Analyzer {
   }
   get ticksWasted() {
     return this.casts * 4 - this.ticks;
+  }
+  get buffsUnused() {
+    return this.buffs - this.casts;
   }
 
   get suggestionThresholds() {
@@ -56,6 +68,10 @@ class MindFlayInsanity extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
+  }
+
+  onBuff() {
+    this.buffs += 1;
   }
 
   onCast() {
@@ -112,14 +128,24 @@ class MindFlayInsanity extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
-    const goodSD = {
+    const goodMFI = {
       count: this.ticks,
       label: 'Used Ticks',
     };
 
-    const badSD = {
+    const badMFI = {
       count: this.ticksWasted,
       label: 'Canceled Ticks',
+    };
+
+    const usedMFI = {
+      count: this.casts,
+      label: 'Buffs Used',
+    };
+
+    const unusedMFI = {
+      count: this.buffsUnused,
+      label: 'Buffs Unused',
     };
 
     const explanation = (
@@ -137,7 +163,8 @@ class MindFlayInsanity extends Analyzer {
     const data = (
       <div>
         <strong>Mind Flay Insanity breakdown</strong>
-        <GradiatedPerformanceBar good={goodSD} bad={badSD} />
+        <GradiatedPerformanceBar good={goodMFI} bad={badMFI} />
+        <GradiatedPerformanceBar perfect={usedMFI} ok={unusedMFI} />
       </div>
     );
     return explanationAndDataSubsection(explanation, data, 50);
