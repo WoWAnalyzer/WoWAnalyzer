@@ -28,13 +28,17 @@ import {
   SPIRIT_BOMB_SOULS_OUT_OF_META,
 } from 'analysis/retail/demonhunter/vengeance/constants';
 
+type SpiritBombBoxRowEntry = BoxRowEntry & {
+  event: CastEvent;
+};
+
 export default class SpiritBomb extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
 
   enemies!: Enemies;
-  private castEntries: BoxRowEntry[] = [];
+  private castEntries: SpiritBombBoxRowEntry[] = [];
   private soulsConsumedByAmount = Array.from({ length: 6 }, () => 0);
   constructor(options: Options) {
     super(options);
@@ -70,7 +74,7 @@ export default class SpiritBomb extends Analyzer {
       </>
     );
 
-    this.castEntries.push({ value: performance, tooltip });
+    this.castEntries.push({ value: performance, tooltip, event });
   }
 
   getCastSingleTargetPerformance(event: CastEvent): [QualitativePerformance, ReactNode] {
@@ -128,7 +132,7 @@ export default class SpiritBomb extends Analyzer {
     return [
       QualitativePerformance.Fail,
       <>
-        Cast at {amountOfStacksConsumed} Soul Fragments. Recommended: {SPIRIT_BOMB_SOULS_IN_META}+
+        Cast at {amountOfStacksConsumed} Soul Fragments. Recommended: {SPIRIT_BOMB_SOULS_OUT_OF_META}+
         <br />
       </>,
     ];

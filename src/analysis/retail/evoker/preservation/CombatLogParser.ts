@@ -30,6 +30,8 @@ import TimeLord from './modules/talents/TimeLord';
 import RenewingBreath from './modules/talents/RenewingBreath';
 import FieldOfDreams from './modules/talents/FieldOfDreams';
 import DreamFlight from './modules/talents/DreamFlight';
+import ExhilBurst from './modules/talents/ExhilBurst';
+import Stasis from './modules/talents/Stasis';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -74,6 +76,8 @@ class CombatLogParser extends CoreCombatLogParser {
     timeLord: TimeLord,
     renewingBreath: RenewingBreath,
     fieldOfDreams: FieldOfDreams,
+    exhilBurst: ExhilBurst,
+    stasis: Stasis,
   };
 }
 

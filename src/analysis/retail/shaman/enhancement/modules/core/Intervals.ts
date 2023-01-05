@@ -13,6 +13,10 @@ export class Intervals {
     return this.intervals.reduce((acc, interval) => acc + interval.duration, 0);
   }
 
+  get intervalsCount() {
+    return this.intervals.length;
+  }
+
   private get isLastIntervalInProgress() {
     const length = this.intervals.length;
     if (length === 0) {
