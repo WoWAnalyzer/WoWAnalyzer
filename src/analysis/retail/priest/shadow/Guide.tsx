@@ -22,7 +22,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             <SubSection title="Dark Evangelism">{modules.dotUptimes.guideSubsectionDE}</SubSection>
           )}  
         */}
-        {/* TODO: Needs a new SW:D tracker, and add Mindblast.
+        {/* TODO: SW:D only during execute, and add Mindblast.
           <CooldownGraphSubsection.CoreCooldownsGraph />
         */}
       </Section>
