@@ -19,4 +19,21 @@ export type Contributor = {
   links?: { [name: string]: string };
 };
 
-export default Object.assign({}, contributors) as Record<string, Contributor>;
+const indexContributorsByNickname = (
+  accumulator: Record<string, Contributor>,
+  contributor: Contributor,
+) => {
+  if (process.env.NODE_ENV === 'development') {
+    if (accumulator[contributor.nickname]) {
+      throw new Error(`A contributor with this nickname already exists: ${contributor.nickname}`);
+    }
+  }
+  return { ...accumulator, [contributor.nickname]: contributor };
+};
+
+const contributorsByNickname: Record<string, Contributor> = Object.values(contributors).reduce(
+  indexContributorsByNickname,
+  {},
+);
+
+export default contributorsByNickname;
