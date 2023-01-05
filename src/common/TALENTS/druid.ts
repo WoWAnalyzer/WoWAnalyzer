@@ -1517,7 +1517,7 @@ const talents = createTalentList({
     entryIds: [109854],
   },
   INCARNATION_CHOSEN_OF_ELUNE_TALENT: {
-    id: 394013,
+    id: 102560,
     name: 'Incarnation: Chosen of Elune',
     icon: 'spell_druid_incarnation',
     maxRanks: 1,

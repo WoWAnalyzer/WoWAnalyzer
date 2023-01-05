@@ -328,14 +328,14 @@ export const aryu: Contributor = {
   github: 'Yuyz0112',
 };
 export const Hartra344: Contributor = {
-  nickname: 'Hartra344',
+  nickname: 'Mokaba',
   github: 'Hartra344',
-  discord: 'Erlaris#8483',
+  discord: 'Mokaba#0001',
   mains: [
     {
-      name: 'Erlaris',
-      spec: SPECS.HOLY_PRIEST,
-      link: 'https://worldofwarcraft.com/en-us/character/area-52/Erlaris',
+      name: 'Mokaba',
+      spec: SPECS.BALANCE_DRUID,
+      link: 'https://worldofwarcraft.com/en-us/character/thrall/mokaba',
     },
   ],
 };
