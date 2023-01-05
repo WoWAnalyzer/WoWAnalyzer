@@ -69,22 +69,33 @@ class IdolOfYshaarj extends Analyzer {
       >
         <BoringSpellValueText spellId={TALENTS.IDOL_OF_YSHAARJ_TALENT.id}>
           <>
-            <body>
-              {this.pride} Healthy. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_PRIDE.id} />
-            </body>
-            <body>
-              {this.despair} Stunned. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_DESPAIR.id} />
-            </body>
-            <body>
-              {this.anger} Enraged. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_ANGER.id} />
-            </body>
-            <body>
-              {this.fear} Feared. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_FEAR.id} />
-            </body>
-            <body>
-              {this.getBuffViolence()} No State.{' '}
-              <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_VIOLENCE.id} />
-            </body>
+            <p>
+              {this.pride}{' '}
+              <small>
+                Healthy. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_PRIDE.id} />
+              </small>
+              <br />
+              {this.despair}{' '}
+              <small>
+                Stunned. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_DESPAIR.id} />
+              </small>
+              <br />
+              {this.anger}{' '}
+              <small>
+                Enraged. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_ANGER.id} />
+              </small>
+              <br />
+              {this.fear}{' '}
+              <small>
+                Feared.
+                <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_FEAR.id} />
+              </small>
+              <br />
+              {this.getBuffViolence()}{' '}
+              <small>
+                No State. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_VIOLENCE.id} />
+              </small>
+            </p>
           </>
           {/*the tooltip on wowhead doesn't match the tooltip on the in game buff, so the extra text is required to show which effect is which.*/}
         </BoringSpellValueText>
