@@ -8,7 +8,8 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class TeachingsOfTheMonestary extends Analyzer {
-  stackList: number[] = [];
+  numCasts: number = 0;
+  totalStacks: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -17,13 +18,12 @@ class TeachingsOfTheMonestary extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    const numStacks = this.selectedCombatant.getBuffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY.id);
-    console.log(this.owner.formatTimestamp(event.timestamp), numStacks);
-    this.stackList.push(numStacks);
+    this.numCasts += 1;
+    this.totalStacks += this.selectedCombatant.getBuffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY.id);
   }
 
   get averageStacks() {
-    return this.stackList.reduce((prev, cur) => prev + cur, 0) / this.stackList.length;
+    return this.totalStacks / this.numCasts;
   }
 
   statistic() {
