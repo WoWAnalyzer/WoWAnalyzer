@@ -46,8 +46,7 @@ import IdolOfCthun from './modules/talents/IdolOfCthun';
 import IdolOfYoggSaron from './modules/talents/IdolOfYoggSaron';
 import IdolOfNzoth from './modules/talents/IdolOfNzoth';
 import IdolOfYshaarj from './modules/talents/IdolOfYshaarj';
-
-//import InsanityGuide from './modules/guide/InsanityGuide';
+import InsanityGraph from './modules/guide/InsanityGraph';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -60,7 +59,7 @@ class CombatLogParser extends MainCombatLogParser {
     // resources:
     insanityTracker: InsanityTracker,
     insanityUsage: InsanityUsage,
-    //insanityGuide: InsanityGuide,
+    insanityGraph: InsanityGraph,
 
     // features:
     abilities: Abilities,
@@ -68,9 +67,7 @@ class CombatLogParser extends MainCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     checklist: Checklist,
     dotUptimes: DotUptimes,
-    //skippableCasts: SkippableCasts,
     shadowyInsight: ShadowyInsight,
-    //voidBoltUsage: VoidBoltUsage,
     voidform: Voidform,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
 
