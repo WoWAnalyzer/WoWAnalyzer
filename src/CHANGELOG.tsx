@@ -21,6 +21,7 @@ export default [
   change(date(2022, 12, 28), 'Allow fetching Vault of the Incarnates parses.', ToppleTheNun),
   change(date(2022, 12, 27), 'Refactor talent helper functions (hasTalent, getRepeatedTalentCount and getTalentRank) inside Combatant to only accept Talent objects.', Putro),
   change(date(2022, 12, 26), 'Fix tooltips breaking if you switched from Classic logs to Retail logs.', ToppleTheNun),
+  change(date(2022, 12, 25), 'Add spells and update files for Classic Hunters (no functionality yet).', jazminite),
   change(date(2022, 12, 25), 'Fix broken lazy-loaded statistics.', ToppleTheNun),
   change(date(2022, 12, 25), 'Remove Refreshing Healing Potion and Potion of Withering Vitality from combat potion checking.', ToppleTheNun),
   change(date(2022, 12, 25), 'Stop using Wowhead beta links for Dragonflight content.', ToppleTheNun),
