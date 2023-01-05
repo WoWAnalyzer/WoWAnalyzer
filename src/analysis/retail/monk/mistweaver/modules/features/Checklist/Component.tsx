@@ -70,6 +70,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         {combatant.hasTalent(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT) && (
           <AbilityRequirement spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} />
         )}
+        <AbilityRequirement spell={TALENTS_MONK.ESSENCE_FONT_TALENT.id} />
         {combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) && (
           <AbilityRequirement spell={TALENTS_MONK.MANA_TEA_TALENT.id} />
         )}
