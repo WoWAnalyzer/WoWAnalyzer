@@ -177,7 +177,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT)
             ? 0.4
-            : 0.8,
+            : 0.72,
         },
       },
       {
