@@ -33,6 +33,11 @@ const spells = spellIndexableList({
     name: 'Dream Breath',
     icon: 'ability_evoker_dreambreath',
   },
+  DREAM_BREATH_FONT: {
+    id: 382614,
+    name: 'Dream Breath',
+    icon: 'ability_evoker_dreambreath',
+  },
   TWIN_GUARDIAN_SHIELD: {
     id: 370889,
     name: 'Twin Guardian',
@@ -50,6 +55,11 @@ const spells = spellIndexableList({
   },
   SPIRITBLOOM: {
     id: 367230,
+    name: 'Spiritbloom',
+    icon: 'ability_evoker_spiritbloom2',
+  },
+  SPIRITBLOOM_FONT: {
+    id: 382731,
     name: 'Spiritbloom',
     icon: 'ability_evoker_spiritbloom2',
   },
@@ -252,6 +262,11 @@ const spells = spellIndexableList({
     id: 361195,
     name: 'Verdant Embrace',
     icon: 'ability_evoker_rescue',
+  },
+  STASIS_BUFF: {
+    id: 370562,
+    name: 'Stasis',
+    icon: 'ability_evoker_stasis',
   },
   GIANT_SLAYER_MASTERY: {
     id: 362980,

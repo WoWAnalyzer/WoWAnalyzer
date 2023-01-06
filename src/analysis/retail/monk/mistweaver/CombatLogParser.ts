@@ -5,6 +5,7 @@ import {
   TouchOfDeath,
   DampenHarm,
   SaveThemAll,
+  TeachingsOfTheMonestary,
 } from 'analysis/retail/monk/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
@@ -160,6 +161,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rapidDiffusion: RapidDiffusion,
     dancingMists: DancingMists,
     mendingProliferation: MendingProliferation,
+    teachingsOfTheMonestary: TeachingsOfTheMonestary,
 
     // Borrowed Power
     t29TierSet: T29TierSet,

@@ -67,9 +67,10 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
       <SubSection>TODO - SPENDER USE</SubSection>
       {modules.dotUptimes.guideSubsection}
       <SubSection>
-        TODO - TALENT STUFF - talents w/ gameplay impact:
-        <br />
-        Starweaver, Rattle the Stars, Waning Twilight (kinda), Wild Mushroom, New Moon, ...?
+        TODO - Add Guide explanation for waning twilight and it's importance
+        {modules.waningTwilight.guideSubsection}
+        TODO - TALENT STUFF - talents w/ gameplay impact: Starweaver, Rattle the Stars, Waning
+        Twilight (kinda), Wild Mushroom, New Moon, ...?
       </SubSection>
     </Section>
   );

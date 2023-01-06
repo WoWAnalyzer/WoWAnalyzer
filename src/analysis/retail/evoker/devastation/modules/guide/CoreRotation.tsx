@@ -9,7 +9,7 @@ import CombatLogParser from '../../CombatLogParser';
 
 export function CoreRotation({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
-    <Section title="Core Rotation">
+    <Section title="Core Rotation (Experimental)">
       <p>
         The Devastation rotation is driven by a priority list. The priority list is primarily around
         using your empowered spells: <SpellLink id={SPELLS.FIRE_BREATH.id} /> and{' '}
@@ -19,12 +19,25 @@ export function CoreRotation({ modules, info }: GuideProps<typeof CombatLogParse
         <SpellLink id={TALENTS_EVOKER.PYRE_TALENT.id} /> for AoE.
       </p>
 
+      <p>
+        This Action Priority List (APL) is based off the simple{' '}
+        <a href="https://www.wowhead.com/guide/classes/evoker/devastation/rotation-cooldowns-pve-dps#single-target">
+          Single Target
+        </a>{' '}
+        and{' '}
+        <a href="https://www.wowhead.com/guide/classes/evoker/devastation/rotation-cooldowns-pve-dps#multi-target">
+          Multi-Target
+        </a>{' '}
+        rotation on Wowhead.
+      </p>
       <AplSectionData checker={AplCheck.check} apl={AplCheck.apl()} />
       <hr />
       <p>
         As mentioned before use the accuracy here as a reference point to compare to other logs.
-        Some examples the accuracy misses out on are
+        It's not as precise as the raidbots APL because then there would be more steps here to
+        explain and would be complex to follow. Some examples the accuracy misses out on are
         <ul>
+          <li>the opener</li>
           <li>boss mechanics that force you to move or change targets</li>
           <li>
             saving up <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} /> for{' '}
