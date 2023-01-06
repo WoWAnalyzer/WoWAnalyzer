@@ -3,6 +3,9 @@ import { formatPercentage } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { SubSection } from 'interface/guide';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { PerformanceStrong } from 'analysis/retail/priest/shadow/modules/guide/ExtraComponents';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   position = STATISTIC_ORDER.CORE(6);
@@ -32,6 +35,44 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           }),
         )
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
+    );
+  }
+
+  get DowntimePerformance(): QualitativePerformance {
+    const downtime = this.downtimePercentage;
+    if (downtime <= 0.1) {
+      return QualitativePerformance.Perfect;
+    }
+    if (downtime <= 0.15) {
+      return QualitativePerformance.Good;
+    }
+    if (downtime <= 0.2) {
+      return QualitativePerformance.Ok;
+    }
+    return QualitativePerformance.Fail;
+  }
+
+  guideSubsection() {
+    return (
+      <SubSection>
+        <p>
+          <em>
+            <b>
+              Continuously casting throughout an encounter is the single most important thing for
+              achieving good DPS as a caster.
+            </b>
+          </em>
+          <br />
+          Some fights have unavoidable downtime due to phase transitions and the like, so in these
+          cases 0% downtime will not be possible - do the best you can.
+        </p>
+        Active Time:{' '}
+        <PerformanceStrong performance={this.DowntimePerformance}>
+          {formatPercentage(this.activeTimePercentage, 1)}%
+        </PerformanceStrong>{' '}
+        <br />
+        TODO ACTIVE TIME GRAPH
+      </SubSection>
     );
   }
 }
