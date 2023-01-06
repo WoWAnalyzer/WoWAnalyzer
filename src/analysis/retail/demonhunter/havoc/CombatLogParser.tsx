@@ -56,6 +56,8 @@ import EssenceBreakNormalizer from './normalizers/EssenceBreakNormalizer';
 import FuryGraph from './modules/resourcetracker/FuryGraph';
 import AplCheck from './apl/AplCheck';
 import Guide from './Guide';
+import DemonSoulBuff from 'analysis/retail/demonhunter/shared/modules/spells/DemonSoulBuff';
+import FodderToTheFlame from 'analysis/retail/demonhunter/shared/modules/talents/FodderToTheFlame';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -81,6 +83,7 @@ class CombatLogParser extends CoreCombatLogParser {
     bladeDance: BladeDance,
     blur: Blur,
     immolationAura: ImmolationAura,
+    demonSoulBuff: DemonSoulBuff,
 
     //Talents
     felblade: Felblade,
@@ -117,6 +120,7 @@ class CombatLogParser extends CoreCombatLogParser {
     swallowedAnger: SwallowedAnger,
     flamesOfFury: FlamesOfFury,
     disruptingFury: DisruptingFury,
+    fodderToTheFlame: FodderToTheFlame,
 
     // Resources
     furyTracker: FuryTracker,

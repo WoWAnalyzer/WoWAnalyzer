@@ -7,6 +7,7 @@ import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 
 // prettier-ignore
 export default [
+  change(date(2023, 1, 3), <>Fix Soul Fragment detection for <SpellLink id={TALENTS.SPIRIT_BOMB_TALENT} />.</>, ToppleTheNun),
   change(date(2022, 12, 19), 'Add opt-in toggle for hiding rotation explanations.', ToppleTheNun),
   change(date(2022, 12, 19), 'Add opt-in toggle for new defensives section.', ToppleTheNun),
   change(date(2022, 12, 18), 'Further refine defensive buff tracking.', ToppleTheNun),

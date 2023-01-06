@@ -11,6 +11,8 @@ import { ClickToExpand, MouseoverForMoreDetails } from './CommonLinguiTranslatio
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
 
+import styles from './CastSummaryAndBreakdown.module.scss';
+
 const toGradiatedPerformanceBarProp = (
   count: number,
   label: string | undefined,
@@ -36,6 +38,7 @@ interface Props {
   badLabel?: string;
   badExtraExplanation?: string;
   includeBadCastPercentage?: boolean;
+  onClickBox?: (index: number) => void;
 }
 
 const CastSummaryAndBreakdown = ({
@@ -53,6 +56,7 @@ const CastSummaryAndBreakdown = ({
   badLabel,
   badExtraExplanation,
   includeBadCastPercentage,
+  onClickBox,
 }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -118,7 +122,7 @@ const CastSummaryAndBreakdown = ({
     ));
 
   return (
-    <div style={{ marginBottom: 10 }}>
+    <div className={styles.castSummaryAndBreakdown}>
       {includePerfectCastPercentage && (
         <CastPerformanceSummary
           casts={perfect}
@@ -174,7 +178,7 @@ const CastSummaryAndBreakdown = ({
         <small>
           <MouseoverForMoreDetails />
         </small>
-        <PerformanceBoxRow values={castEntries} />
+        <PerformanceBoxRow onClickBox={onClickBox} values={castEntries} />
       </ControlledExpandable>
     </div>
   );

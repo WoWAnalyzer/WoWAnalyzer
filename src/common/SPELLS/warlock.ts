@@ -369,6 +369,11 @@ const spells = spellIndexableList({
     name: 'Demonic Power',
     icon: 'achievement_boss_argus_maleeredar',
   },
+  FEL_COVENANT_BUFF: {
+    id: 387437,
+    name: 'Fel Covenant',
+    icon: 'spell_shadow_detectinvisibility',
+  },
 
   // Pet abilities
   // Following 2 abilities are the same for Grimoire: Felguard
@@ -631,6 +636,13 @@ const spells = spellIndexableList({
     id: 112870,
     name: 'Summon Wrathguard',
     icon: 'spell_warlock_summonwrathguard',
+  },
+
+  // Tier set bonuses
+  BLAZING_METEOR: {
+    id: 394776,
+    name: 'Blazing Meteor',
+    icon: 'ability_warlock_handofguldan',
   },
 
   // -----------
