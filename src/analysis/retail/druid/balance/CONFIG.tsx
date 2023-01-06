@@ -1,4 +1,4 @@
-import { Sref } from 'CONTRIBUTORS';
+import { Hartra344, Sref } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 
@@ -6,7 +6,7 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
-  contributors: [Sref],
+  contributors: [Sref, Hartra344],
   expansion: Expansion.Dragonflight,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '10.0.2',
@@ -16,9 +16,8 @@ export default {
   description: (
     <>
       Hello Moonkins! This tool is intended to show major statistics and potential issues in your
-      rotation. The Balance Druid analyzer is mostly updated for Shadowlands but the most important
-      information is present - like DoT uptime, Eclipse usage and usage of the (most popular)
-      Balance of All Things legendary should give you a quick overview about your performance.
+      rotation. The Balance Druid analyzer is mostly updated for Dragonflight but the most important
+      information is present - like DoT uptime.
       <br />
       <br />
       If you have any idea on what is missing, we would be happy if you let us know directly. For
@@ -35,18 +34,18 @@ export default {
       </a>{' '}
       or{' '}
       <a
-        href="https://www.dreamgrove.gg/balance/2020-12-08-9.0_faq/"
+        href="https://www.dreamgrove.gg/balance/compendium/"
         target="_blank"
         rel="noopener noreferrer"
       >
-        DreamGrove.gg | 9.0.5 FAQ
+        DreamGrove.gg | 10.0.0 Compendium
       </a>
       .
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   // TODO update to DF log
-  exampleReport: '/report/vcFyx8LtGCJdj1Z4/46-Heroic+Hungering+Destroyer+-+Kill+(5:06)/Jamcow',
+  exampleReport: '/report/H1C8GXPWxMqtvaVz/23-5+Terros/Mokaba',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
