@@ -45,8 +45,8 @@ const CoreCooldownsGraph = () => {
 const ShortCooldownsGraph = () => {
   const message = (
     <Trans id="guide.priest.shadow.sections.shortcooldowns.graph">
-      <strong>Cooldown Graph</strong> - this graph shows when you used your cooldowns and how long
-      you waited to use them again. These spells should be used on cooldown.
+      <strong>Short Cooldowns</strong> - this graph shows when you used your cooldowns and how long
+      you waited to use them again. Try to use these seplls on cooldown.
     </Trans>
   );
   return CooldownGraphSubsection(shortCooldowns, message);
@@ -55,9 +55,9 @@ const ShortCooldownsGraph = () => {
 const LongCooldownsGraph = () => {
   const message = (
     <Trans id="guide.priest.shadow.sections.longcooldowns.graph">
-      <strong>Major Cooldown Graph</strong> - this graph shows when you used your cooldowns and how
-      long you waited to use them again. You should use these cooldowns together to maximize the
-      damage they can deal.
+      <strong>Major Cooldowns</strong> - this graph shows when you used your cooldowns and how long
+      you waited to use them again. You should use these cooldowns together to maximize the damage
+      they can deal.
     </Trans>
   );
   return CooldownGraphSubsection(longCooldowns, message);
