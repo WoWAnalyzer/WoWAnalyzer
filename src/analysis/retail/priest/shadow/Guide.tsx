@@ -12,12 +12,13 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <ResourceSubsection.ResourceSubsection modules={modules} events={events} info={info} />
         {modules.dotUptimes.guideSubsectionDP}
         {modules.dotUptimes.guideSubsection}
+
+        {/* Since Dark Evangelism does not effect the rotation, maybe this section should be removed */}
         {info.combatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT) &&
           modules.dotUptimes.guideSubsectionDE}
 
-        {/* TODO: SW:D only during execute, and add Mindblast.
-          <CooldownGraphSubsection.CoreCooldownsGraph />
-        */}
+        {/* TODO: Add mindblast, and SW:D only during execute*/}
+        <CooldownGraphSubsection.CoreCooldownsGraph />
       </Section>
 
       <Section title="Cooldowns">
@@ -41,9 +42,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </Section>
 
       <Section title="Action Priority List">
-        <p>
-          <SubSection>Coming Soon!</SubSection>
-        </p>
+        <SubSection>Coming Soon!</SubSection>
       </Section>
 
       <PreparationSection />

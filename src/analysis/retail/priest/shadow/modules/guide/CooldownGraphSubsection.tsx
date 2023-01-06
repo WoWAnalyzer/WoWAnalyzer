@@ -14,7 +14,7 @@ type Cooldown = {
 
 const coreCooldowns: Cooldown[] = [
   //{ talent: SPELLS.MIND_BLAST },
-  { talent: TALENTS.SHADOW_WORD_DEATH_TALENT },
+  //{ talent: TALENTS.SHADOW_WORD_DEATH_TALENT },
 ];
 
 const shortCooldowns: Cooldown[] = [
