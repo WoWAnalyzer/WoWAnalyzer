@@ -81,12 +81,17 @@ class Upwelling extends Analyzer {
     );
   }
 
-  get averageExtraBolts() {
+  get averageStacks() {
     return this.extraBolts / this.castEF;
   }
 
   get lostEfHealing() {
-    return (this.baseEfHealing * this.averageExtraBolts) / (BASE_BOLTS + 1);
+    if (this.averageStacks < 12) {
+      // number of bolts is 1:1 with normal ef if less than 12 stacks
+      return 0;
+    }
+    const wastedBolts = this.averageStacks - 12;
+    return this.baseEfHealing * (1 - wastedBolts / 6);
   }
 
   get totalHealingAll() {
@@ -217,12 +222,8 @@ class Upwelling extends Analyzer {
         this.masteryOverhealing += event.overheal || 0;
         this.masteryAbsorbed += event.absorbed || 0;
       }
-    } else {
-      if (!this.masteryTickTock) {
-        this.baseEfHealing += event.amount;
-      }
+      this.masteryTickTock = !this.masteryTickTock;
     }
-    this.masteryTickTock = !this.masteryTickTock;
   }
 
   subStatistic() {
@@ -269,7 +270,10 @@ class Upwelling extends Analyzer {
                 Extra Mastery Healing: {formatNumber(this.masteryHealing)} (
                 {formatPercentage(this.overhealingMastery)}% overhealing)
               </li>
-              <li>Average number of extra bolts: {this.averageExtraBolts.toFixed(2)}</li>
+              <li>
+                Average <SpellLink id={TALENTS_MONK.UPWELLING_TALENT} /> stacks:{' '}
+                {this.averageStacks.toFixed(2)}
+              </li>
             </ul>
           </>
         }
