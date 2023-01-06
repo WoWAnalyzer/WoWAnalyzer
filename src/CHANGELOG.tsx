@@ -17,6 +17,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 1, 5), 'Make weapon enhancement suggestions more readable.', ToppleTheNun),
   change(date(2023, 1, 5), 'Fix changelogs showing some contributors as invalid.', ToppleTheNun),
   change(date(2023, 1, 1), 'Add Pull Request template.', jazminite),
   change(date(2022, 12, 28), 'Allow fetching Vault of the Incarnates parses.', ToppleTheNun),
