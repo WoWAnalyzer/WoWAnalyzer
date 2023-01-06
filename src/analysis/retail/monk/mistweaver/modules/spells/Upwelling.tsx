@@ -174,7 +174,7 @@ class Upwelling extends Analyzer {
       this.extraBolts += 1;
       this.fromExtraBolts.add(targetID);
     } else {
-      this.baseEfHealing += event.amount || 0;
+      this.baseEfHealing += (event.amount || 0) + (event.absorbed || 0);
     }
     this.boltCount += 1; //increase current bolt
   }
