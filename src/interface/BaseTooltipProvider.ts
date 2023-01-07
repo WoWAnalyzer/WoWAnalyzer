@@ -20,6 +20,12 @@ class BaseTooltipProvider {
   static itemRelative(id: number, details: any) {
     throw new Error('NotImplemented');
   }
+  static itemSet(...args: [number, any]) {
+    return `${this.baseUrl}${this.itemSetRelative(...args)}`;
+  }
+  static itemSetRelative(id: number, details: any) {
+    throw new Error('NotImplemented');
+  }
   static resource(...args: [number]) {
     return `${this.baseUrl}${this.resourceRelative(...args)}`;
   }

@@ -1057,6 +1057,12 @@ const spells = spellIndexableList({
     name: 'Sudden Ambush',
     icon: 'ability_hunter_catlikereflexes',
   },
+  // Buff procced by T29 4pc
+  SHARPENED_CLAWS: {
+    id: 394465,
+    name: 'Sharpened Claws',
+    icon: 'inv_misc_monsterfang_01',
+  },
 });
 
 export default spells;

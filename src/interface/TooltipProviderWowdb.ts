@@ -29,6 +29,9 @@ class TooltipProviderWowdb extends Base {
       return `${base}?${queryString.join('&')}`;
     }
   }
+  static itemSetRelative(id: number) {
+    return `item-set/${id}`;
+  }
   static resource(id: number) {
     // Wowdb doesn't have nice pages for resources
     return `https://www.wowhead.com/${RESOURCE_TYPES[id].url}`;

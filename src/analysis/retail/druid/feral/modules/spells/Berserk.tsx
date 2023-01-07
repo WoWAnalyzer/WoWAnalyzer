@@ -17,7 +17,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { cdSpell, FINISHERS } from 'analysis/retail/druid/feral/constants';
+import { cdSpell, CONVOKE_FB_CPS, FINISHERS } from 'analysis/retail/druid/feral/constants';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { formatNumber, formatPercentage } from 'common/format';
 import getResourceSpent from 'parser/core/getResourceSpent';
@@ -33,7 +33,6 @@ import CooldownExpandable, {
 } from 'interface/guide/components/CooldownExpandable';
 
 const BERSERK_CDR_MS = 700;
-const CONVOKE_BITE_CPS = 4;
 const BERSERK_HARDCAST_DURATION = 20_000;
 const INCARN_HARDCAST_DURATION = 30_000;
 
@@ -137,7 +136,7 @@ class Berserk extends Analyzer {
 
   onBiteDamage(_: DamageEvent) {
     if (this.hasHeartOfTheLion && isConvoking(this.selectedCombatant)) {
-      this._tallyReduction(CONVOKE_BITE_CPS);
+      this._tallyReduction(CONVOKE_FB_CPS);
     }
   }
 

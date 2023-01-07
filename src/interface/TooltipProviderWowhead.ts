@@ -42,6 +42,9 @@ class TooltipProviderWowhead extends Base {
       return queryString.join('&');
     }
   }
+  static itemSetRelative(id: number) {
+    return `item-set=${id}`;
+  }
   static resourceRelative(id: number) {
     return RESOURCE_TYPES[id].url;
   }
