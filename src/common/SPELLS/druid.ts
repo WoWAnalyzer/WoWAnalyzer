@@ -1057,6 +1057,12 @@ const spells = spellIndexableList({
     name: 'Sudden Ambush',
     icon: 'ability_hunter_catlikereflexes',
   },
+  WANING_TWILIGHT: {
+    // Debuff on enemy when druid has waning twilight talent and 3 periodic effects on enemy.
+    id: 393957,
+    name: 'Waning Twilight',
+    icon: 'spell_shadow_twilight',
+  },
 });
 
 export default spells;

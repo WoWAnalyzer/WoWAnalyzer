@@ -73,7 +73,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SPEAR_OF_BASTION.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 60,
+        cooldown: 90,
         gcd: {
           base: 1500,
         },

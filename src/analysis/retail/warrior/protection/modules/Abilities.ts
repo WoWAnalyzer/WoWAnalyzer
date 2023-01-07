@@ -197,7 +197,8 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 45,
+        cooldown: 90,
+        charges: 1 + (combatant.hasTalent(TALENTS.STORM_OF_STEEL_TALENT) ? 1 : 0),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -211,7 +212,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 35,
+        cooldown: 90 - (combatant.hasTalent(TALENTS.UPROAR_TALENT) ? 30 : 0),
         timelineSortIndex: 9,
       },
       {
@@ -240,6 +241,46 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 30,
+        timelineSortIndex: 9,
+      },
+      {
+        spell: TALENTS.SHIELD_CHARGE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.SHIELD_CHARGE_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 45,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+        timelineSortIndex: 9,
+      },
+      {
+        spell: TALENTS.SHOCKWAVE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.SHOCKWAVE_TALENT),
+        category: combatant.hasTalent(TALENTS.SONIC_BOOM_TALENT)
+          ? SPELL_CATEGORY.COOLDOWNS
+          : SPELL_CATEGORY.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 40 - (combatant.hasTalent(TALENTS.RUMBLING_EARTH_TALENT) ? 15 : 0),
+        timelineSortIndex: 9,
+      },
+      {
+        spell: TALENTS.SPEAR_OF_BASTION_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.SPEAR_OF_BASTION_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 90,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
         timelineSortIndex: 9,
       },
     ];

@@ -58,6 +58,8 @@ import FieryBrand2 from './modules/core/MajorDefensives/FieryBrand';
 import DemonSpikes2 from './modules/core/MajorDefensives/DemonSpikes';
 import Metamorphosis2 from './modules/core/MajorDefensives/Metamorphosis';
 import Guide from './Guide';
+import DemonSoulBuff from 'analysis/retail/demonhunter/shared/modules/spells/DemonSoulBuff';
+import FodderToTheFlame from 'analysis/retail/demonhunter/shared/modules/talents/FodderToTheFlame';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -84,6 +86,17 @@ class CombatLogParser extends CoreCombatLogParser {
     soulCleaveEventLinkNormalizer: SoulCleaveEventLinkNormalizer,
     spiritBombEventLinkNormalizer: SpiritBombEventLinkNormalizer,
     defensiveBuffLinkNormalizer: DefensiveBuffLinkNormalizer,
+
+    // Spell
+    immolationAura: ImmolationAura,
+    demonSpikes: DemonSpikes,
+    infernalStrike: InfernalStrike,
+    metamorphosis: Metamorphosis,
+    metamorphosis2: Metamorphosis2,
+    soulCleave: SoulCleave,
+    defensiveBuffs: DefensiveBuffs,
+    demonSpikes2: DemonSpikes2,
+    demonSoulBuff: DemonSoulBuff,
 
     // Talents
     painbringer: PainbringerBuff,
@@ -115,16 +128,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soulCarver: SoulCarver,
     felDevastation: FelDevastation,
     fieryBrand2: FieryBrand2,
-
-    // Spell
-    immolationAura: ImmolationAura,
-    demonSpikes: DemonSpikes,
-    infernalStrike: InfernalStrike,
-    metamorphosis: Metamorphosis,
-    metamorphosis2: Metamorphosis2,
-    soulCleave: SoulCleave,
-    defensiveBuffs: DefensiveBuffs,
-    demonSpikes2: DemonSpikes2,
+    fodderToTheFlame: FodderToTheFlame,
 
     // Stats
     soulsOvercap: SoulsOvercap,

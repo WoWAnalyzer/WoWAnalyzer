@@ -24,6 +24,7 @@ import AstralPowerTracker from 'analysis/retail/druid/balance/modules/core/astra
 import AstralPowerDetails from 'analysis/retail/druid/balance/modules/core/astralpower/AstralPowerDetails';
 import Guide from 'analysis/retail/druid/balance/Guide';
 import AstralPowerGraph from 'analysis/retail/druid/balance/modules/core/astralpower/AstralPowerGraph';
+import WaningTwilight from './modules/spells/WaningTwilight';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -55,6 +56,7 @@ class CombatLogParser extends MainCombatLogParser {
     twinMoons: TwinMoons,
     starlord: Starlord,
     soulOfTheForest: SoulOfTheForest,
+    waningTwilight: WaningTwilight,
     //Covenants
     convokeSpiritsBalance: ConvokeSpiritsBalance,
   };
