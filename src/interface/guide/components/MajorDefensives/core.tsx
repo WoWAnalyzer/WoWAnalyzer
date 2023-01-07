@@ -8,14 +8,7 @@ import { PerformanceMark, useAnalyzers } from 'interface/guide';
 import { CooldownExpandableItem } from 'interface/guide/components/CooldownExpandable';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  AnyEvent,
-  BuffEvent,
-  DamageEvent,
-  EventType,
-  FightEndEvent,
-  ResourceActor,
-} from 'parser/core/Events';
+import Events, { AnyEvent, BuffEvent, DamageEvent, EventType, FightEndEvent, ResourceActor } from 'parser/core/Events';
 import BoringValue from 'parser/ui/BoringValueText';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
@@ -33,6 +26,7 @@ export type MitigatedEvent = {
 export type MajorDefensiveOptions = {
   triggerSpell: Spell;
   appliedSpell?: Spell;
+  isBuff?: boolean;
 };
 
 export type Mitigation = {
@@ -152,22 +146,43 @@ export interface MajorDefensiveSpellData {
 }
 
 export class MajorDefensive extends Analyzer {
-  static dependencies = {};
+  static dependencies = {
+    enemies: Enemies,
+  };
 
+  isBuff: boolean;
   protected mitigationData: Mitigation[] = [];
   protected triggerSpell: Spell;
   protected appliedSpell: Spell;
   protected lastApply?: BuffEvent<EventType.ApplyBuff | EventType.ApplyDebuff>;
   protected currentMitigation?: MitigatedEvent[];
+  protected enemies!: Enemies;
 
-  constructor({ triggerSpell, appliedSpell }: MajorDefensiveOptions, options: Options) {
+  constructor({ triggerSpell, appliedSpell, isBuff = true }: MajorDefensiveOptions, options: Options) {
     super(options);
     this.active =
       !isTalent(triggerSpell) ||
       (isTalent(triggerSpell) && this.selectedCombatant.hasTalent(triggerSpell));
+    this.isBuff = isBuff;
     this.triggerSpell = triggerSpell;
     this.appliedSpell = appliedSpell ?? triggerSpell;
     this.addEventListener(Events.fightend, this.onRemove);
+    this.addEventListener(
+      Events.applybuff.spell(this.appliedSpell).by(SELECTED_PLAYER),
+      this.onApply,
+    );
+    this.addEventListener(
+      Events.removebuff.spell(this.appliedSpell).by(SELECTED_PLAYER),
+      this.onRemove,
+    );
+    this.addEventListener(
+      Events.applydebuff.spell(this.appliedSpell).by(SELECTED_PLAYER),
+      this.onApply,
+    );
+    this.addEventListener(
+      Events.removedebuff.spell(this.appliedSpell).by(SELECTED_PLAYER),
+      this.onRemove,
+    );
   }
 
   get spell() {
@@ -209,6 +224,21 @@ export class MajorDefensive extends Analyzer {
           event.targetID === this.selectedCombatant.id,
       )?.maxHitPoints ?? 1
     );
+  }
+
+  isDefensiveActive(event: DamageEvent, shouldCheckEnemyBuff: boolean = false): boolean {
+    if (!shouldCheckEnemyBuff) {
+      return this.lastApply !== undefined;
+    }
+    if (shouldIgnore(this.enemies, event)) {
+      return true;
+    }
+    const enemy = this.enemies.getSourceEntity(event);
+    if (!enemy) {
+      return true;
+    }
+
+    return this.lastApply !== undefined && enemy.hasBuff(this.appliedSpell.id, event.timestamp);
   }
 
   explainPerformance(mit: Mitigation): { perf: QualitativePerformance; explanation?: ReactNode } {
@@ -329,79 +359,8 @@ export class MajorDefensive extends Analyzer {
   }
 }
 
-export class BuffBasedMajorDefensive extends MajorDefensive {
-  static dependencies = {
-    ...MajorDefensive.dependencies,
-  };
-
-  constructor(majorDefensiveOptions: MajorDefensiveOptions, options: Options) {
-    super(majorDefensiveOptions, options);
-    this.addEventListener(
-      Events.applybuff.spell(this.appliedSpell).by(SELECTED_PLAYER),
-      this.onApply,
-    );
-    this.addEventListener(
-      Events.removebuff.spell(this.appliedSpell).by(SELECTED_PLAYER),
-      this.onRemove,
-    );
-  }
-
-  appliesToEvent(buffEvent: BuffEvent<EventType.ApplyBuff | EventType.ApplyDebuff>): boolean {
-    return buffEvent.type === EventType.ApplyBuff && super.appliesToEvent(buffEvent);
-  }
-
-  get defensiveActive(): boolean {
-    return this.lastApply !== undefined;
-  }
-}
-
-export class DebuffBasedMajorDefensive extends MajorDefensive {
-  static dependencies = {
-    ...MajorDefensive.dependencies,
-    enemies: Enemies,
-  };
-
-  protected enemies!: Enemies;
-
-  constructor(majorDefensiveOptions: MajorDefensiveOptions, options: Options) {
-    super(majorDefensiveOptions, options);
-    this.addEventListener(
-      Events.applydebuff.spell(this.appliedSpell).by(SELECTED_PLAYER),
-      this.onApply,
-    );
-    this.addEventListener(
-      Events.removedebuff.spell(this.appliedSpell).by(SELECTED_PLAYER),
-      this.onRemove,
-    );
-  }
-
-  appliesToEvent(buffEvent: BuffEvent<EventType.ApplyBuff | EventType.ApplyDebuff>): boolean {
-    return buffEvent.type === EventType.ApplyDebuff && super.appliesToEvent(buffEvent);
-  }
-
-  isDefensiveActive(event: DamageEvent): boolean {
-    if (shouldIgnore(this.enemies, event)) {
-      return true;
-    }
-    const enemy = this.enemies.getSourceEntity(event);
-    if (!enemy) {
-      return true;
-    }
-
-    return this.lastApply !== undefined && enemy.hasBuff(this.appliedSpell.id, event.timestamp);
-  }
-}
-
 export const isMajorDefensive = (analyzer: Analyzer): analyzer is MajorDefensive =>
   analyzer instanceof MajorDefensive;
-
-export const isBuffBasedMajorDefensive = (
-  analyzer: Analyzer,
-): analyzer is BuffBasedMajorDefensive => analyzer instanceof BuffBasedMajorDefensive;
-
-export const isDebuffBasedMajorDefensive = (
-  analyzer: Analyzer,
-): analyzer is DebuffBasedMajorDefensive => analyzer instanceof DebuffBasedMajorDefensive;
 
 export const useMaxMitigationValue = <T extends typeof Analyzer>(moduleTypes: T[]) => {
   const analyzers = useAnalyzers(moduleTypes);

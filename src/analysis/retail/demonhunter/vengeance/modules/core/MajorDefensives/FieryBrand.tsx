@@ -5,14 +5,11 @@ import { SpellLink } from 'interface';
 import { Trans } from '@lingui/macro';
 import { ReactNode } from 'react';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
-import {
-  absoluteMitigation,
-  DebuffBasedMajorDefensive,
-} from 'interface/guide/components/MajorDefensives';
+import { absoluteMitigation, MajorDefensive } from 'interface/guide/components/MajorDefensives';
 
-export default class FieryBrand extends DebuffBasedMajorDefensive {
+export default class FieryBrand extends MajorDefensive {
   static dependencies = {
-    ...DebuffBasedMajorDefensive.dependencies,
+    ...MajorDefensive.dependencies,
   };
 
   constructor(options: Options) {
@@ -20,6 +17,7 @@ export default class FieryBrand extends DebuffBasedMajorDefensive {
       {
         triggerSpell: TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT,
         appliedSpell: SPELLS.FIERY_BRAND_DOT,
+        isBuff: false,
       },
       options,
     );
@@ -27,7 +25,7 @@ export default class FieryBrand extends DebuffBasedMajorDefensive {
   }
 
   private recordDamage(event: DamageEvent) {
-    if (!this.isDefensiveActive(event) || event.sourceIsFriendly) {
+    if (!this.isDefensiveActive(event, true) || event.sourceIsFriendly) {
       return;
     }
 

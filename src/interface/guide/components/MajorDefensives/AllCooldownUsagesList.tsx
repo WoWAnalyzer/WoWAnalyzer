@@ -1,3 +1,16 @@
+import {
+  BadColor,
+  OkColor,
+  PerformanceMark,
+  SubSection,
+  useAnalyzer,
+  useAnalyzers,
+} from 'interface/guide';
+import styled from '@emotion/styled';
+import PassFailBar from 'interface/guide/components/PassFailBar';
+import { CSSProperties, useCallback, useMemo, useState } from 'react';
+import { AbilityEvent, HasAbility, HasSource, SourcedEvent } from 'parser/core/Events';
+import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import {
   MajorDefensive,
@@ -6,32 +19,18 @@ import {
   MitigationTooltipSegment,
   PerformanceUsageRow,
   useMaxMitigationValue,
-} from 'interface/guide/components/MajorDefensives/core';
-import {
-  BadColor,
-  OkColor,
-  PerformanceMark,
-  SubSection,
-  useAnalyzer,
-  useAnalyzers,
-} from 'interface/guide/index';
-import styled from '@emotion/styled';
-import PassFailBar from 'interface/guide/components/PassFailBar';
-import { CSSProperties, useCallback, useMemo, useState } from 'react';
-import { AbilityEvent, HasAbility, HasSource, SourcedEvent } from 'parser/core/Events';
-import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { CSSProperties, useCallback, useMemo, useState } from 'react';
-import { MAJOR_ANALYZERS } from '../config';
-import {
-  MajorDefensive,
-  MitigatedEvent,
-  Mitigation,
-  MitigationTooltipSegment,
-  PerformanceUsageRow,
-} from '../core';
-import { useMaxMitigationValue } from './Timeline';
+} from './core';
 import useTooltip from 'interface/useTooltip';
+import * as MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
+import SpellLink from 'interface/SpellLink';
+import { formatNumber } from 'common/format';
+import Analyzer from 'parser/core/Analyzer';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import ExplanationRow from 'interface/guide/components/ExplanationRow';
+import Explanation from '../Explanation';
+import { TooltipElement } from 'interface/Tooltip';
+import { PerformanceBoxRow } from '../PerformanceBoxRow';
+import { isDefined } from 'common/typeGuards';
 
 const MissingCastBoxEntry = {
   value: QualitativePerformance.Fail,
@@ -281,7 +280,7 @@ const CooldownDetails = ({ analyzer, mit }: { analyzer: MajorDefensive; mit?: Mi
             if (!keyEvent) {
               return null;
             }
-            const rowColor = color(keyEvent.ability.type);
+            const rowColor = MAGIC_SCHOOLS.color(keyEvent.ability.type);
 
             const mitigatedAmount = events.reduce((a, b) => a + b.mitigatedAmount, 0);
 

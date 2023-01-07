@@ -25,7 +25,7 @@ import { AutoSizer } from 'react-virtualized';
 
 import {
   buffId,
-  isBuffBasedMajorDefensive,
+  isMajorDefensive,
   MajorDefensiveSpellData,
   Mitigation,
   MitigationSegment,
@@ -133,9 +133,9 @@ const BuffDisplay = <T extends typeof Analyzer>({
       const analyzer = analyzers
         ?.filter(isDefined)
         ?.find((analyzer) =>
-          isBuffBasedMajorDefensive(analyzer) ? analyzer.appliesToEvent(event) : undefined,
+          isMajorDefensive(analyzer) ? analyzer.appliesToEvent(event) : undefined,
         );
-      if (!analyzer || !isBuffBasedMajorDefensive(analyzer)) {
+      if (!analyzer || !isMajorDefensive(analyzer) || !analyzer.isBuff) {
         return undefined;
       }
 

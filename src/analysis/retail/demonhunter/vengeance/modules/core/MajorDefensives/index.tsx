@@ -2,6 +2,7 @@ import { GoodColor, SubSection } from 'interface/guide';
 import Explanation from 'interface/guide/components/Explanation';
 import { TooltipElement } from 'interface';
 import SpellLink from 'interface/SpellLink';
+import SPELLS from 'common/SPELLS/demonhunter';
 import TALENTS from 'common/TALENTS/demonhunter';
 import AllCooldownUsagesList, {
   Highlight,

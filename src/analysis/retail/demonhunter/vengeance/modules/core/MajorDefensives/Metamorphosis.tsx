@@ -7,11 +7,11 @@ import { Trans } from '@lingui/macro';
 import { ReactNode } from 'react';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { getArmorMitigationForEvent } from 'parser/retail/armorMitigation';
-import { BuffBasedMajorDefensive } from 'interface/guide/components/MajorDefensives';
+import { MajorDefensive } from 'interface/guide/components/MajorDefensives';
 
-export default class Metamorphosis extends BuffBasedMajorDefensive {
+export default class Metamorphosis extends MajorDefensive {
   static dependencies = {
-    ...BuffBasedMajorDefensive.dependencies,
+    ...MajorDefensive.dependencies,
     statTracker: StatTracker,
   };
 
@@ -29,7 +29,7 @@ export default class Metamorphosis extends BuffBasedMajorDefensive {
 
   private recordDamage(event: DamageEvent) {
     if (
-      !this.defensiveActive ||
+      !this.isDefensiveActive(event) ||
       event.sourceIsFriendly ||
       event.ability.type !== MAGIC_SCHOOLS.ids.PHYSICAL
     ) {
