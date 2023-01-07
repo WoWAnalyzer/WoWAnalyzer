@@ -13,6 +13,7 @@ import {
 import NotFound from 'interface/NotFound';
 
 import AppLayout from './AppLayout';
+import RootErrorBoundary from 'interface/RootErrorBoundary';
 
 const CharacterPage = lazyLoadComponent(() =>
   retryingPromise(() =>
@@ -80,7 +81,7 @@ const Search = lazyLoadComponent(() =>
 );
 
 const appRoutes = createRoutesFromElements(
-  <Route path="/" element={<AppLayout />}>
+  <Route path="/" element={<AppLayout />} errorElement={<RootErrorBoundary />}>
     <Route path="character/:region/:realm/:name" element={<CharacterPage />} />
     <Route path="guild/:region/:realm/:name" element={<GuildPage />} />
     <Route
