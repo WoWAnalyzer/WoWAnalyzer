@@ -45,6 +45,7 @@ class Upwelling extends Analyzer {
   masteryHealing: number = 0;
   masteryOverhealing: number = 0;
   masteryAbsorbed: number = 0;
+  baseEfHealing: number = 0; // count healing from base ef and then subtract it out at end to account for missing ef casts
   protected hotTracker!: HotTrackerMW;
 
   constructor(options: Options) {
@@ -80,13 +81,27 @@ class Upwelling extends Analyzer {
     );
   }
 
+  get averageStacks() {
+    return this.extraBolts / this.castEF;
+  }
+
+  get lostEfHealing() {
+    if (this.averageStacks < 12) {
+      // number of bolts is 1:1 with normal ef if less than 12 stacks
+      return 0;
+    }
+    const wastedBolts = this.averageStacks - 12;
+    return this.baseEfHealing * (1 - wastedBolts / 6);
+  }
+
   get totalHealingAll() {
     return (
       this.totalHealing +
       this.totalAbsorbs +
       this.efHotHeal +
       this.masteryHealing +
-      this.masteryAbsorbed
+      this.masteryAbsorbed -
+      this.lostEfHealing
     );
   }
 
@@ -140,6 +155,8 @@ class Upwelling extends Analyzer {
       //check if its an extra bolt from ef or was part of the core 18
       this.efHotHeal += (event.amount || 0) + (event.absorbed || 0);
       this.efHotOverheal += event.overheal || 0;
+    } else {
+      this.baseEfHealing += (event.amount || 0) + (event.absorbed || 0);
     }
   }
 
@@ -156,6 +173,8 @@ class Upwelling extends Analyzer {
       this.totalAbsorbs += event.absorbed || 0;
       this.extraBolts += 1;
       this.fromExtraBolts.add(targetID);
+    } else {
+      this.baseEfHealing += (event.amount || 0) + (event.absorbed || 0);
     }
     this.boltCount += 1; //increase current bolt
   }
@@ -228,8 +247,12 @@ class Upwelling extends Analyzer {
           <>
             <div>
               Counts healing from extra bolts, healing from the extra 4 second of a hot on a normal
-              bolt (first 18), healing from the full hot on upwelling bolts (post 18), and any
-              mastery event from the hot under the same idea as hot counting
+              bolt (first 18), healing from the full hot on{' '}
+              <SpellLink id={TALENTS_MONK.UPWELLING_TALENT} /> bolts (post 18), and any mastery
+              event from the hot under the same idea as hot counting. We then subtract out the
+              healing from estimated missed casts of{' '}
+              <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> to account for less casts from
+              utilizing <SpellLink id={TALENTS_MONK.UPWELLING_TALENT} /> stacks.
             </div>
             <ul>
               <li>Extra Bolts: {formatNumber(this.extraBolts)}</li>
@@ -246,6 +269,10 @@ class Upwelling extends Analyzer {
               <li>
                 Extra Mastery Healing: {formatNumber(this.masteryHealing)} (
                 {formatPercentage(this.overhealingMastery)}% overhealing)
+              </li>
+              <li>
+                Average <SpellLink id={TALENTS_MONK.UPWELLING_TALENT} /> stacks:{' '}
+                {this.averageStacks.toFixed(2)}
               </li>
             </ul>
           </>
