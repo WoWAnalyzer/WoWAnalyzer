@@ -19,6 +19,7 @@ import SpellLink from 'interface/SpellLink';
 export default [
   change(date(2023, 1, 5), 'Fix changelogs showing some contributors as invalid.', ToppleTheNun),
   change(date(2023, 1, 1), 'Add Pull Request template.', jazminite),
+  change(date(2022, 12, 30), 'Add commonly used Classic P1 trinkets with buff procs.', jazminite),
   change(date(2022, 12, 28), 'Allow fetching Vault of the Incarnates parses.', ToppleTheNun),
   change(date(2022, 12, 27), 'Refactor talent helper functions (hasTalent, getRepeatedTalentCount and getTalentRank) inside Combatant to only accept Talent objects.', Putro),
   change(date(2022, 12, 26), 'Fix tooltips breaking if you switched from Classic logs to Retail logs.', ToppleTheNun),
