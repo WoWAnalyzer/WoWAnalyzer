@@ -1,9 +1,9 @@
 import renderer from 'react-test-renderer';
 import { Provider as ReduxProvider } from 'react-redux';
+import { store } from 'store';
 
 import { ConditionDescription } from './annotate';
 import { buffPresent } from './conditions';
-import store from 'store';
 
 describe('ConditionDescription', () => {
   it('should return no description for unconditional rules', () => {
