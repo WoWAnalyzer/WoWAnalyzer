@@ -40,9 +40,11 @@ class DotUptimes extends Analyzer {
   get guideSubsection() {
     const explanation = (
       <p>
-        It's important to keep your DoTs up on the boss. In addition to dealing damage,{' '}
-        <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} />, <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} />,
-        and <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> increase all your damage through{' '}
+        <b>
+          Keep your DoTs up on the boss. <br />
+        </b>
+        In addition to dealing damage, <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> and{' '}
+        <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} />, increase all your damage through{' '}
         <SpellLink id={SPELLS.MASTERY_SHADOW_WEAVING.id} />.
       </p>
     );
@@ -60,9 +62,13 @@ class DotUptimes extends Analyzer {
   get guideSubsectionDP() {
     const explanation = (
       <p>
-        It's important to keep your DoTs up on the boss. In addition to dealing damage,{' '}
-        <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} />, <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} />,
-        and <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> increase all your damage through{' '}
+        <b>
+          Maximize the uptime of <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> while not
+          wasting insanity.
+        </b>
+        <br />
+        Unlike most DoTs when reapplied, any remaining damage will be added to the new effect. In
+        addition to dealing damage, it increases all your damage through{' '}
         <SpellLink id={SPELLS.MASTERY_SHADOW_WEAVING.id} />.
       </p>
     );

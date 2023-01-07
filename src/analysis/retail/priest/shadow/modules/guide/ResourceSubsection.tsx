@@ -8,27 +8,25 @@ import { formatPercentage } from 'common/format';
 import CombatLogParser from 'analysis/retail/priest/shadow/CombatLogParser';
 
 function ResourceSubsection({ modules }: GuideProps<typeof CombatLogParser>) {
-  const InsanityWasted = modules.insanityUsage.wasted;
-  const InsanityWastedPercent = modules.insanityUsage.wastePercentage;
-  const InsanityWastedPercentFormatted = formatPercentage(InsanityWastedPercent, 1);
-  const InsanityWastedPerformance = modules.insanityTracker.WastedInsanityPerformance;
-
   return (
     <SubSection>
       <p>
-        <Trans id="guide.priest.shadow.sections.resources.insanity.summary">
-          Shadow's primary resource is Insanity. You should avoid capping insanity by using{' '}
-          <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> or{' '}
-          <SpellLink id={TALENTS.MIND_SEAR_TALENT.id} /> on three or more targets.
-        </Trans>
+        <b>
+          <Trans id="guide.priest.shadow.sections.resources.insanity.summary">
+            You should avoid capping insanity by using{' '}
+            <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> or{' '}
+            <SpellLink id={TALENTS.MIND_SEAR_TALENT.id} /> on three or more targets.
+          </Trans>
+        </b>
       </p>
       <p>
         <Trans id="guide.priest.shadow.sections.resources.insanity.chart">
-          The chart below shows your Insanity over the course of the encounter. You wasted{' '}
-          <PerformanceStrong performance={InsanityWastedPerformance}>
-            {InsanityWasted} ({InsanityWastedPercentFormatted}%)
+          You wasted{' '}
+          <PerformanceStrong performance={modules.insanityTracker.WastedInsanityPerformance}>
+            {modules.insanityUsage.wasted} (
+            {formatPercentage(modules.insanityUsage.wastePercentage, 1)}%)
           </PerformanceStrong>{' '}
-          of your Insanity.
+          of your Insanity. The chart below shows your Insanity over the course of the encounter.
         </Trans>
       </p>
       {/*modules.insanityGraph.plot*/}

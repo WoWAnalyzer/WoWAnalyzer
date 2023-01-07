@@ -153,9 +153,9 @@ class MindFlayInsanity extends Analyzer {
         <b>
           <SpellLink id={TALENTS.MIND_FLAY_INSANITY_TALENT.id} />
         </b>{' '}
-        is gained everytime you cast <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} />.<br />
+        is gained every time you cast <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} />.<br />
         This proc is low priority. If you have higher priority spells available, cast them instead,
-        even if it causes this proc to be overwriten or unused. When you do use this spell, it
+        even if it causes this proc to be overwritten or unused. When you do use this spell, it
         should be fully channeled.
       </p>
     );

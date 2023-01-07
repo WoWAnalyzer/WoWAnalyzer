@@ -17,7 +17,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT) &&
           modules.dotUptimes.guideSubsectionDE}
 
-        {/* TODO: Add mindblast, and SW:D only during execute*/}
+        {/* TODO: Add Mindblast, and SW:D only during execute*/}
         <CooldownGraphSubsection.CoreCooldownsGraph />
 
         {modules.alwaysBeCasting.guideSubsection()}
@@ -33,6 +33,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.shadowyInsight.guideSubsection}
         {info.combatant.hasTalent(TALENTS.MIND_DEVOURER_TALENT) &&
           modules.mindDevourer.guideSubsection}
+        {/*Mind Flay Insanity may not need total procs gained, maybe should be edited*/}
         {info.combatant.hasTalent(TALENTS.MIND_FLAY_INSANITY_TALENT) &&
           modules.mindFlayInsanity.guideSubsection}
         {info.combatant.hasTalent(TALENTS.SURGE_OF_DARKNESS_TALENT) &&

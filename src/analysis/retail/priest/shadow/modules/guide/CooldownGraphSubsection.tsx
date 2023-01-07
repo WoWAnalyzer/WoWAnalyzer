@@ -46,7 +46,7 @@ const ShortCooldownsGraph = () => {
   const message = (
     <Trans id="guide.priest.shadow.sections.shortcooldowns.graph">
       <strong>Short Cooldowns</strong> - this graph shows when you used your cooldowns and how long
-      you waited to use them again. Try to use these seplls on cooldown.
+      you waited to use them again. Try to use these spells on cooldown.
     </Trans>
   );
   return CooldownGraphSubsection(shortCooldowns, message);
