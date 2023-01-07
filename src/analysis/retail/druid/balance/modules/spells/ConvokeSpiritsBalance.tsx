@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class ConvokeSpiritsBalance extends ConvokeSpirits {
@@ -16,9 +15,8 @@ class ConvokeSpiritsBalance extends ConvokeSpirits {
     return (
       <Statistic
         wide
-        position={STATISTIC_ORDER.CORE()}
+        position={STATISTIC_ORDER.CORE(8)}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={
           <>
             <strong>
