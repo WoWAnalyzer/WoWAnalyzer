@@ -1,4 +1,4 @@
-import { APPEND_REPORT_HISTORY, ReportHistory } from 'interface/actions/reportHistory';
+import { APPEND_REPORT_HISTORY, ReportHistoryEntry } from 'interface/actions/reportHistory';
 import Cookies from 'universal-cookie';
 import { AnyAction } from 'redux';
 
@@ -9,9 +9,12 @@ const cookieOptions = {
   path: '/',
   maxAge: 86400 * 365, // 1 year
 };
-const defaultState = cookies.get<ReportHistory[]>(COOKIE_NAME) || [];
+const defaultState = cookies.get<ReportHistoryEntry[]>(COOKIE_NAME) || [];
 
-export default function reportHistory(state: ReportHistory[] = defaultState, action: AnyAction) {
+export default function reportHistory(
+  state: ReportHistoryEntry[] = defaultState,
+  action: AnyAction,
+) {
   switch (action.type) {
     case APPEND_REPORT_HISTORY: {
       let newState = [

@@ -1,4 +1,4 @@
-export interface ReportHistory {
+export interface ReportHistoryEntry {
   code: string;
   title?: string;
   start?: number;
@@ -14,7 +14,7 @@ export interface ReportHistory {
 }
 
 export const APPEND_REPORT_HISTORY = 'APPEND_REPORT_HISTORY';
-export function appendReportHistory(report: ReportHistory) {
+export function appendReportHistory(report: ReportHistoryEntry) {
   return {
     type: APPEND_REPORT_HISTORY,
     payload: report,
