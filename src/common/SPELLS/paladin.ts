@@ -123,6 +123,11 @@ const spells = spellIndexableList({
     icon: 'spell_holy_flashheal',
     manaCost: 2200,
   },
+  HOLY_SHOCK_CAST: {
+    id: 20473,
+    name: 'Holy Shock',
+    icon: 'spell_holy_searinglight',
+  },
   HOLY_SHOCK_HEAL: {
     id: 25914,
     name: 'Holy Shock',
@@ -244,6 +249,11 @@ const spells = spellIndexableList({
     id: 325984,
     name: 'Glimmer of Light',
     icon: 'ability_paladin_toweroflight',
+  },
+  GOLDEN_PATH_HEAL_TALENT: {
+    id: 377129,
+    name: 'Golden Path',
+    icon: 'ability_priest_cascade',
   },
 
   // Retribution Paladin:

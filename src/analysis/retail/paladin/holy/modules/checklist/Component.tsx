@@ -37,17 +37,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         }
         description={
           <Trans id="paladin.holy.modules.checklist.usePrimarySpells.description">
-            <SpellLink id={TALENTS.HOLY_SHOCK_TALENT.id} />
-            {combatant.hasTalent(TALENTS.BESTOW_FAITH_TALENT) ? (
-              <SpellLink id={TALENTS.BESTOW_FAITH_TALENT.id} />
-            ) : (
-              ''
-            )}{' '}
-            {combatant.hasTalent(TALENTS.CRUSADERS_MIGHT_TALENT) ? (
-              <SpellLink id={SPELLS.CRUSADER_STRIKE.id} />
-            ) : (
-              ''
-            )}{' '}
+            <SpellLink id={SPELLS.HOLY_SHOCK_HEAL.id} />
             is your most efficient healing spell available. Try to cast them as much as possible
             without overhealing.
             <TooltipElement
@@ -83,7 +73,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           <AbilityRequirement spell={TALENTS.LIGHTS_HAMMER_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS.CRUSADERS_MIGHT_TALENT) && (
-          <AbilityRequirement spell={TALENTS.CRUSADERS_MIGHT_TALENT.id} />
+          <AbilityRequirement spell={SPELLS.CRUSADER_STRIKE.id} />
         )}
         {combatant.hasTalent(TALENTS.HOLY_PRISM_TALENT) && (
           <AbilityRequirement spell={TALENTS.HOLY_PRISM_TALENT.id} />
@@ -247,6 +237,20 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             thresholds={thresholds.beaconUptimeBoFUptime}
           />
         )}
+        {combatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT) && (
+          <Requirement
+            name={
+              <Trans id="paladin.holy.modules.checklist.beaconOfVirtueTalentUptime">
+                <SpellLink
+                  id={TALENTS.BEACON_OF_VIRTUE_TALENT.id}
+                  onClick={(e) => e.preventDefault()}
+                />{' '}
+                Uptime
+              </Trans>
+            }
+            thresholds={thresholds.beaconUptimeBoVUptime}
+          />
+        )}
         <Requirement
           name={
             <Trans id="paladin.holy.modules.checklist.directBeaconHealing">
@@ -350,7 +354,6 @@ HolyPaladinChecklist.propTypes = {
   castEfficiency: PropTypes.object.isRequired,
   combatant: PropTypes.shape({
     hasTalent: PropTypes.func.isRequired,
-    hasCovenant: PropTypes.func.isRequired,
   }).isRequired,
   thresholds: PropTypes.object.isRequired,
   owner: PropTypes.object.isRequired,

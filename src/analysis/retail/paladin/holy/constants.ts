@@ -58,23 +58,26 @@ export const BEACON_TRANSFERING_ABILITIES = {
     player.hasBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id) ? 1 : undefined,
   [TALENTS.HOLY_LIGHT_TALENT.id]: 1,
   [TALENTS.BESTOW_FAITH_TALENT.id]: 1,
+  [SPELLS.GOLDEN_PATH_HEAL_TALENT.id]: 1,
 };
 
 export function getBeaconSpellFactor(spellID: number, player: Combatant): number | undefined {
-  const spell = BEACON_TRANSFERING_ABILITIES[spellID];
-  if (!spell) {
+  const factor = BEACON_TRANSFERING_ABILITIES[spellID];
+  if (!factor) {
     return undefined;
   }
 
-  if (typeof spell === 'function') {
-    return spell(player);
+  if (typeof factor === 'function') {
+    return factor(player);
   }
 
-  return spell;
+  return factor;
 }
 
 export const BEACON_TYPES = {
-  BEACON_OF_FATH: TALENTS.BEACON_OF_FAITH_TALENT.id,
-  GLIMMER_OF_LIGHT_TALENT: SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id,
-  BEACON_OF_VIRTUE: TALENTS.BEACON_OF_VIRTUE_TALENT.id,
-};
+  BEACON_OF_LIGHT: [SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id],
+  BEACON_OF_FATH: [SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id, TALENTS.BEACON_OF_FAITH_TALENT.id],
+  BEACON_OF_VIRTUE: [TALENTS.BEACON_OF_VIRTUE_TALENT.id],
+} as const;
+
+export type BeaconType = keyof typeof BEACON_TYPES;

@@ -982,6 +982,14 @@ export interface SpellstealEvent extends Event<EventType.Spellsteal> {
   targetIsFriendly: boolean;
 }
 
+export interface BeaconAppliedEvent extends Event<EventType.BeaconApplied> {
+  trigger: ApplyBuffEvent;
+}
+
+export interface BeaconRemovedEvent extends Event<EventType.BeaconRemoved> {
+  trigger: RemoveBuffEvent;
+}
+
 export type PhaseEvent = BasePhaseEvent<EventType.PhaseStart | EventType.PhaseEnd>;
 
 export type PhaseStartEvent = BasePhaseEvent<EventType.PhaseStart>;
@@ -1387,6 +1395,12 @@ const Events = {
   },
   get BeaconTransferFailed() {
     return new EventFilter(EventType.BeaconTransferFailed);
+  },
+  get BeaconApplied() {
+    return new EventFilter(EventType.BeaconApplied);
+  },
+  get BeaconRemoved() {
+    return new EventFilter(EventType.BeaconRemoved);
   },
   get feedheal() {
     return new EventFilter(EventType.FeedHeal);
