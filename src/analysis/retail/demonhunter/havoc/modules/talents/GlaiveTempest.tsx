@@ -14,7 +14,7 @@ class GlaiveTempest extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_TALENT);
     if (!this.active) {
       return;
     }

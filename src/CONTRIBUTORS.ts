@@ -328,14 +328,14 @@ export const aryu: Contributor = {
   github: 'Yuyz0112',
 };
 export const Hartra344: Contributor = {
-  nickname: 'Hartra344',
+  nickname: 'Mokaba',
   github: 'Hartra344',
-  discord: 'Erlaris#8483',
+  discord: 'Mokaba#0001',
   mains: [
     {
-      name: 'Erlaris',
-      spec: SPECS.HOLY_PRIEST,
-      link: 'https://worldofwarcraft.com/en-us/character/area-52/Erlaris',
+      name: 'Mokaba',
+      spec: SPECS.BALANCE_DRUID,
+      link: 'https://worldofwarcraft.com/en-us/character/thrall/mokaba',
     },
   ],
 };
@@ -1765,13 +1765,7 @@ export const Trevor: Contributor = {
   nickname: 'Trevor',
   discord: 'Trevor#9816',
   github: 'trevorm4',
-  mains: [
-    {
-      name: 'Sardent',
-      spec: SPECS.MISTWEAVER_MONK,
-      link: 'https://worldofwarcraft.com/en-us/character/us/tichondrius/Sardent',
-    },
-  ],
+  avatar: avatar('Trevor-avatar.png'),
 };
 
 export const Jeff: Contributor = {
@@ -1841,19 +1835,26 @@ export const Tialyss: Contributor = {
   github: 'mfield',
 };
 
-export const xunai: Contributor = {
-  nickname: 'xunai',
+export const xunni: Contributor = {
+  nickname: 'xunni',
   github: 'sorrellp',
   mains: [
     {
-      name: 'Xunai',
+      name: 'Xunni',
       spec: SPECS.ENHANCEMENT_SHAMAN,
-      link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/xunai',
+      link: 'https://worldofwarcraft.com/en-us/character/us/area-52/xunni',
     },
+  ],
+};
+
+export const Taum: Contributor = {
+  nickname: 'Taum',
+  github: 'Taum',
+  mains: [
     {
-      name: 'Ikoogra',
+      name: 'Taum',
       spec: SPECS.ENHANCEMENT_SHAMAN,
-      link: 'https://worldofwarcraft.com/en-us/character/us/tichondrius/ikoogra',
+      link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/Shm',
     },
   ],
 };
@@ -2014,4 +2015,17 @@ export const Fassbrause: Contributor = {
   github: 'Fassbrause',
   discord: 'Burgerflipper#7351',
   avatar: avatar('fassbrause-avatar.jpg'),
+};
+export const Greedyhugs: Contributor = {
+  nickname: 'Greedy',
+  github: 'Matt41531',
+  discord: 'MildcatMatt#9089',
+  avatar: avatar('greedyhugs-avatar.jpg'),
+  mains: [
+    {
+      name: 'Greedyhugs',
+      spec: SPECS.PROTECTION_WARRIOR,
+      link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/greedyhugs',
+    },
+  ],
 };

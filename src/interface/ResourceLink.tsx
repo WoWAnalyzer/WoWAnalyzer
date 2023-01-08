@@ -1,9 +1,8 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import TooltipProvider from 'interface/TooltipProvider';
-import { useEffect, useState } from 'react';
 import * as React from 'react';
 
 import ResourceIcon from './ResourceIcon';
+import useTooltip from 'interface/useTooltip';
 
 interface Props {
   id: number;
@@ -13,13 +12,8 @@ interface Props {
 }
 
 const ResourceLink = ({ icon = true, ...props }: Props) => {
-  const [elem, setElem] = useState<HTMLAnchorElement | null>(null);
-
-  useEffect(() => {
-    TooltipProvider.refresh(elem);
-  });
-
   const { id, children, category = undefined, ...other } = props;
+  const { resource: resourceTooltip } = useTooltip();
 
   if (process.env.NODE_ENV === 'development' && !children && !RESOURCE_TYPES[id]) {
     throw new Error(`Unknown spell: ${id}`);
@@ -27,13 +21,10 @@ const ResourceLink = ({ icon = true, ...props }: Props) => {
 
   return (
     <a
-      href={TooltipProvider.resource(id)}
+      href={resourceTooltip(id)}
       target="_blank"
       rel="noopener noreferrer"
       className={category}
-      ref={(elem) => {
-        setElem(elem);
-      }}
       {...other}
     >
       {icon && <ResourceIcon id={id} noLink />} {children || RESOURCE_TYPES[id].name}

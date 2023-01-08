@@ -21,7 +21,7 @@ class FirstAvenger extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FIRST_AVENGER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FIRST_AVENGER_TALENT);
     if (!this.active) {
       return;
     }

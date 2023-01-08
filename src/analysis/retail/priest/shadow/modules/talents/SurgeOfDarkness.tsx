@@ -33,7 +33,7 @@ class SurgeOfDarkness extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_DARKNESS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_DARKNESS_TALENT);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SURGE_OF_DARKNESS_TALENT_BUFF),

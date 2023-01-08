@@ -115,7 +115,7 @@ class BeaconUptime extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = !this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT.id);
+    this.active = !this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT);
     if (!this.active) {
       return;
     }
@@ -126,10 +126,10 @@ class BeaconUptime extends Analyzer {
     this.addEventListener(Events.fightend, this._endOfFight);
 
     // this is really has divine purpose talent
-    this.hasBoL = this.selectedCombatant.hasTalent(TALENTS.GLIMMER_OF_LIGHT_TALENT.id);
+    this.hasBoL = this.selectedCombatant.hasTalent(TALENTS.GLIMMER_OF_LIGHT_TALENT);
 
-    this.hasBoF = this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT.id);
-    this.hasBoV = this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT.id);
+    this.hasBoF = this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT);
+    this.hasBoV = this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT);
 
     this.idBoL = SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id;
     this.idBoF = TALENTS.BEACON_OF_FAITH_TALENT.id;

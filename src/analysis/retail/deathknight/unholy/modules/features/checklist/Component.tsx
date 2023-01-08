@@ -42,22 +42,22 @@ const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: C
       >
         <AbilityRequirement spell={SPELLS.APOCALYPSE.id} />
         <AbilityRequirement spell={SPELLS.DARK_TRANSFORMATION.id} />
-        {combatant.hasTalent(TALENTS.SOUL_REAPER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SOUL_REAPER_TALENT) && (
           <AbilityRequirement spell={TALENTS.SOUL_REAPER_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.SUMMON_GARGOYLE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SUMMON_GARGOYLE_TALENT) && (
           <AbilityRequirement spell={TALENTS.SUMMON_GARGOYLE_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.UNHOLY_ASSAULT_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.UNHOLY_ASSAULT_TALENT) && (
           <AbilityRequirement spell={TALENTS.UNHOLY_ASSAULT_TALENT.id} />
         )}
         {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_RUNIC_POWER.id) && (
           <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_RUNIC_POWER.id} />
         )}
-        {combatant.hasTalent(TALENTS.UNHOLY_BLIGHT_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.UNHOLY_BLIGHT_TALENT) && (
           <AbilityRequirement spell={TALENTS.UNHOLY_BLIGHT_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.DEFILE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.DEFILE_TALENT) && (
           <AbilityRequirement spell={TALENTS.DEFILE_TALENT.id} />
         )}
       </Rule>

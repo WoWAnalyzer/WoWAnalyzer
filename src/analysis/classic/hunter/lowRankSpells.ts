@@ -1,14 +1,14 @@
-import * as SPELLS from './SPELLS';
+import SPELLS from 'common/SPELLS/classic/hunter';
 
-export default {
-  [SPELLS.ARCANE_SHOT]: [3044, 14281, 14282, 14283, 14284, 14285, 14286, 14287],
-  [SPELLS.MULTI_SHOT]: [2643, 14288, 14289, 14290, 25294],
-  [SPELLS.AIMED_SHOT]: [19434, 20900, 20901, 20902, 20903, 20904],
-  [SPELLS.RAPTOR_STRIKE]: [2973, 14260, 14261, 14262, 14263, 14264, 14265, 14266],
-  [SPELLS.SERPENT_STING]: [1978, 13549, 13550, 13551, 13552, 13553, 13554, 13555, 25295],
-  [SPELLS.DISTRACTING_SHOT]: [20736, 14274, 15629, 15630, 15631, 15632],
-  [SPELLS.ASPECT_OF_THE_HAWK]: [13165, 14318, 14319, 14320, 14321, 14322, 25296],
-  [SPELLS.HUNTERS_MARK]: [19421, 19422, 19423, 19424],
-  [SPELLS.EXPLOSIVE_TRAP]: [13813, 14316, 14317],
-  [SPELLS.MEND_PET]: [136, 3111, 3661, 3662, 13542, 13543, 13544],
-};
+const lowRankSpells = Object.entries(SPELLS).reduce((result, [str, obj]) => {
+  if (obj.lowRanks) {
+    Object.assign(result, { [obj.id]: [...obj.lowRanks] });
+  }
+  return result;
+}, {});
+
+export default lowRankSpells;
+
+export interface LowRankSpells {
+  [primarySpellId: number]: number[];
+}

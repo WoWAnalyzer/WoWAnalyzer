@@ -20,7 +20,7 @@ class RuleOfThrees extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.RULE_OF_THREES_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.RULE_OF_THREES_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_BARRAGE_TALENT),
       this.onBarrageCast,

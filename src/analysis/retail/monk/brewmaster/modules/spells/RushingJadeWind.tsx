@@ -29,7 +29,7 @@ class RushingJadeWind extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.RUSHING_JADE_WIND_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.RUSHING_JADE_WIND_TALENT);
   }
 
   suggestions(when: When) {

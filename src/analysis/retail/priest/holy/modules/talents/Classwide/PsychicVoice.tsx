@@ -14,7 +14,7 @@ class PsychicVoice extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.PSYCHIC_VOICE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.PSYCHIC_VOICE_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PSYCHIC_SCREAM),
       this.onCast,

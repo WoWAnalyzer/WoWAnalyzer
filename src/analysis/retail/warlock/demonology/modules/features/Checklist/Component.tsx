@@ -48,40 +48,56 @@ const DemonologyWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
           name={<SpellLink id={SPELLS.FELSTORM_BUFF.id} />}
           thresholds={thresholds.felstorm}
         />
-        {combatant.hasTalent(TALENTS.BILESCOURGE_BOMBERS_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.BILESCOURGE_BOMBERS_TALENT) && (
           <AbilityRequirement spell={TALENTS.BILESCOURGE_BOMBERS_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.POWER_SIPHON_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.POWER_SIPHON_TALENT) && (
           <AbilityRequirement spell={TALENTS.POWER_SIPHON_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.DOOM_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.DOOM_TALENT) && (
           <DotUptime id={TALENTS.DOOM_TALENT.id} thresholds={thresholds.doom} />
         )}
-        {combatant.hasTalent(TALENTS.SOUL_STRIKE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SOUL_STRIKE_TALENT) && (
           <AbilityRequirement spell={TALENTS.SOUL_STRIKE_TALENT.id} />
         )}
       </Rule>
       <Rule name="Don't cap your Soul Shards" description="Avoid overcapping Soul Shards.">
-        <Requirement
-          name="Wasted shards per minute"
-          thresholds={thresholds.soulShards}
-        />
+        <Requirement name="Wasted shards per minute" thresholds={thresholds.soulShards} />
       </Rule>
+      {combatant.hasTalent(TALENTS.FEL_COVENANT_TALENT) && (
+        <Rule
+          name="Keep Fel Covenant buff up"
+          description={
+            <>
+              You should aim to have 100% uptime on <SpellLink id={SPELLS.FEL_COVENANT_BUFF.id} />
+            </>
+          }
+        >
+          <Requirement
+            name={
+              <>
+                <SpellLink id={TALENTS.FEL_COVENANT_TALENT.id} /> uptime
+              </>
+            }
+            thresholds={thresholds.felCovenant}
+          />
+        </Rule>
+      )}
       <Rule
         name="Use your cooldowns"
         description="Be mindful of your cooldowns if you are specced into them and use them when it's appropriate. It's okay to hold a cooldown for a little bit when the encounter requires it (burn phases), but generally speaking you should use them as much as you can."
       >
         <AbilityRequirement spell={SPELLS.SUMMON_DEMONIC_TYRANT.id} />
-        {combatant.hasTalent(TALENTS.DEMONIC_STRENGTH_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.DEMONIC_STRENGTH_TALENT) && (
           <AbilityRequirement spell={TALENTS.DEMONIC_STRENGTH_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.SUMMON_VILEFIEND_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SUMMON_VILEFIEND_TALENT) && (
           <AbilityRequirement spell={TALENTS.SUMMON_VILEFIEND_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.GRIMOIRE_FELGUARD_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.GRIMOIRE_FELGUARD_TALENT) && (
           <AbilityRequirement spell={TALENTS.GRIMOIRE_FELGUARD_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.NETHER_PORTAL_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.NETHER_PORTAL_TALENT) && (
           <AbilityRequirement spell={TALENTS.NETHER_PORTAL_TALENT.id} />
         )}
       </Rule>
@@ -102,7 +118,7 @@ const DemonologyWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
         }
       >
         <AbilityRequirement spell={SPELLS.DEMONIC_CIRCLE_TELEPORT.id} />
-        {combatant.hasTalent(TALENTS.DARK_PACT_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.DARK_PACT_TALENT) && (
           <AbilityRequirement spell={TALENTS.DARK_PACT_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.UNENDING_RESOLVE.id} />

@@ -29,7 +29,7 @@ class RighteousProtector extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.RIGHTEOUS_PROTECTOR_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.RIGHTEOUS_PROTECTOR_TALENT);
     if (!this.active) {
       return;
     }

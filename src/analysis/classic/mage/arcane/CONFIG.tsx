@@ -15,13 +15,13 @@ const config: Config = {
   expansion: Expansion.WrathOfTheLichKing,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '3.4.0',
-  isPartial: true,
+  isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Welcome! Thank you for using WoWAnalyzer to improve your overall Arcane Mage game play. The
-      tool is under active development and may provide suggestions that are strange.
+      Welcome! Thanks for using WoWAnalyzer to improve your overall Arcane Mage game play. The tool
+      is under active development and may provide suggestions that are strange.
       <br />
       If you have any suggestions or comments, please submit a{' '}
       <a
@@ -42,7 +42,7 @@ const config: Config = {
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/ghKA9Dj8qardP31W/6-Normal+Patchwerk+-+Kill+(2:02)/Jurgy',
+  exampleReport: '/report/GCKaR184npYPM3WF/57-Normal+Patchwerk+-+Kill+(1:29)/Bouncycastle',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

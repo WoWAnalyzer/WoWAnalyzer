@@ -38,7 +38,7 @@ class RuneOfPower extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    if (this.selectedCombatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT)) {
       this.hasROP = true;
       this.addEventListener(
         Events.cast

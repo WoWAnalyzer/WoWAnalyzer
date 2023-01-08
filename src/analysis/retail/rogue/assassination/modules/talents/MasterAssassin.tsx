@@ -37,7 +37,7 @@ class MasterAssassin extends StealthCasts {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_ASSASSIN_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_ASSASSIN_TALENT);
     if (!this.active) {
       return;
     }

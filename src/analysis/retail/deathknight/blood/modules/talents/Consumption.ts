@@ -6,7 +6,7 @@ class Consumption extends AoESpellEfficiency {
   constructor(options: Options) {
     super(options);
     this.ability = TALENTS.CONSUMPTION_TALENT;
-    this.active = this.selectedCombatant.hasTalent(TALENTS.CONSUMPTION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.CONSUMPTION_TALENT);
   }
 }
 

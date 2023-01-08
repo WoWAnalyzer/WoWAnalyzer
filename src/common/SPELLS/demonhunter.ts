@@ -155,6 +155,16 @@ const spells = spellIndexableList({
     name: 'Master of the Glaive Debuff',
     icon: 'inv_glaive_1h_demonhunter_a_01',
   },
+  DEMON_SOUL_BUFF_NON_FODDER: {
+    id: 163073,
+    name: 'Demon Soul',
+    icon: 'ability_warlock_improvedsoulleech',
+  },
+  DEMON_SOUL_BUFF_FODDER: {
+    id: 347765,
+    name: 'Demon Soul',
+    icon: 'spell_shadow_soulleech_3',
+  },
   //endregion
 
   //region Vengeance
@@ -524,6 +534,11 @@ const spells = spellIndexableList({
     id: 390137,
     name: 'Inner Demon',
     icon: 'spell_deathknight_plaguestrike',
+  },
+  EYE_BEAM_DAMAGE: {
+    id: 198030,
+    name: 'Eye Beam',
+    icon: 'ability_demonhunter_eyebeam',
   },
   //endregion
 });

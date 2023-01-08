@@ -20,7 +20,7 @@ class WarMachine extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.WAR_MACHINE_TALENT_ARMS.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.WAR_MACHINE_TALENT_ARMS);
   }
 
   subStatistic() {

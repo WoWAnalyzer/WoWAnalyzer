@@ -22,7 +22,7 @@ class DarkVoid extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.DARK_VOID_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DARK_VOID_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS.DARK_VOID_TALENT),
       this.onDamage,

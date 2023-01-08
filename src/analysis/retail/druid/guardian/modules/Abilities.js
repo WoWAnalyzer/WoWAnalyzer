@@ -73,7 +73,7 @@ class Abilities extends CoreAbilities {
         antiFillerSpam: {
           isFiller: (event, selectedCombatant, targets) => {
             if (
-              combatant.hasTalent(SPELLS.GALACTIC_GUARDIAN_TALENT.id) &&
+              combatant.hasTalent(SPELLS.GALACTIC_GUARDIAN_TALENT) &&
               selectedCombatant.hasBuff(SPELLS.GALACTIC_GUARDIAN.id)
             ) {
               return false;
@@ -121,7 +121,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SHRED.id,
         // Technically available baseline, but it is never used without FA
-        enabled: combatant.hasTalent(SPELLS.FERAL_AFFINITY_TALENT_GUARDIAN.id),
+        enabled: combatant.hasTalent(SPELLS.FERAL_AFFINITY_TALENT_GUARDIAN),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1000,
@@ -129,7 +129,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RAKE.id,
-        enabled: combatant.hasTalent(SPELLS.FERAL_AFFINITY_TALENT_GUARDIAN.id),
+        enabled: combatant.hasTalent(SPELLS.FERAL_AFFINITY_TALENT_GUARDIAN),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1000,
@@ -137,7 +137,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RIP.id,
-        enabled: combatant.hasTalent(SPELLS.FERAL_AFFINITY_TALENT_GUARDIAN.id),
+        enabled: combatant.hasTalent(SPELLS.FERAL_AFFINITY_TALENT_GUARDIAN),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1000,
@@ -145,7 +145,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FEROCIOUS_BITE.id,
-        enabled: combatant.hasTalent(SPELLS.FERAL_AFFINITY_TALENT_GUARDIAN.id),
+        enabled: combatant.hasTalent(SPELLS.FERAL_AFFINITY_TALENT_GUARDIAN),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           static: 1000,
@@ -156,9 +156,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SURVIVAL_INSTINCTS.id,
         buffSpellId: SPELLS.SURVIVAL_INSTINCTS.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id)
-          ? 240 - 240 / 3
-          : 240,
+        cooldown: combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT) ? 240 - 240 / 3 : 240,
         charges: 2,
         timelineSortIndex: 9,
       },
@@ -169,7 +167,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 180,
-        enabled: combatant.hasTalent(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT),
         timelineSortIndex: 9,
       },
       {
@@ -181,20 +179,20 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 40,
-        enabled: combatant.hasTalent(SPELLS.BRISTLING_FUR_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.BRISTLING_FUR_TALENT),
         timelineSortIndex: 9,
       },
       {
         spell: SPELLS.PULVERIZE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        enabled: combatant.hasTalent(SPELLS.PULVERIZE_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.PULVERIZE_TALENT),
         gcd: {
           base: 1500,
         },
         antiFillerSpam: {
           // A spell must meet these conditions to be castable
           isHighPriority: ({ timestamp, targetID }, selectedCombatant, targets) => {
-            const pulverizeTalented = combatant.hasTalent(SPELLS.PULVERIZE_TALENT.id);
+            const pulverizeTalented = combatant.hasTalent(SPELLS.PULVERIZE_TALENT);
             const target = targets.find((t) => t.id === targetID);
             if (!target) {
               return false;
@@ -214,7 +212,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MASS_ENTANGLEMENT_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.MASS_ENTANGLEMENT_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.MASS_ENTANGLEMENT_TALENT),
         cooldown: 30,
         gcd: {
           base: 1500,
@@ -223,7 +221,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MIGHTY_BASH_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(SPELLS.MIGHTY_BASH_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.MIGHTY_BASH_TALENT),
         cooldown: 50,
         gcd: {
           base: 1500,
@@ -240,14 +238,14 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 15,
         gcd: null,
-        enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT),
       },
       {
         spell: SPELLS.TIGER_DASH_TALENT.id,
         buffSpellId: SPELLS.TIGER_DASH_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
-        enabled: combatant.hasTalent(SPELLS.TIGER_DASH_TALENT.id),
+        enabled: combatant.hasTalent(SPELLS.TIGER_DASH_TALENT),
         gcd: {
           base: 1500,
         },

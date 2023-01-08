@@ -72,14 +72,14 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
           useThresholds
         />
       )}
-      {info.combatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT.id) && (
+      {info.combatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT) && (
         <CastEfficiencyBar
           spellId={TALENTS_DRUID.FLOURISH_TALENT.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />
       )}
-      {info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id) && (
+      {info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT) && (
         <CastEfficiencyBar
           spellId={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id}
           gapHighlightMode={GapHighlight.FullCooldown}
@@ -111,9 +111,9 @@ function CooldownBreakdownSubsection({
       <p />
       {info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) &&
         modules.convokeSpirits.guideCastBreakdown}
-      {info.combatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT.id) &&
+      {info.combatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT) &&
         modules.flourish.guideCastBreakdown}
-      {info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id) &&
+      {info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT) &&
         modules.treeOfLife.guideCastBreakdown}
       {modules.tranquility.guideCastBreakdown}
       {modules.innervate.guideCastBreakdown}

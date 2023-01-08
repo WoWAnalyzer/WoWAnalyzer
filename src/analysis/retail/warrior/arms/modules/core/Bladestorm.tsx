@@ -144,7 +144,7 @@ class Bladestorm extends Analyzer {
     // Bladestorm should be aligned with Warbreaker
     badCast =
       badCast ||
-      (this.selectedCombatant.hasTalent(SPELLS.WARBREAKER_TALENT.id) &&
+      (this.selectedCombatant.hasTalent(SPELLS.WARBREAKER_TALENT) &&
         this.spellUsable.isAvailable(SPELLS.WARBREAKER_TALENT.id)) ||
       this.spellUsable.cooldownRemaining(SPELLS.WARBREAKER_TALENT.id) < WARBREAKER_FOREGIVENESS;
 
@@ -156,7 +156,7 @@ class Bladestorm extends Analyzer {
     // Bladestorm should be aligned with Avatar
     badCast =
       badCast ||
-      (this.selectedCombatant.hasTalent(SPELLS.AVATAR_TALENT.id) &&
+      (this.selectedCombatant.hasTalent(SPELLS.AVATAR_TALENT) &&
         this.spellUsable.isAvailable(SPELLS.AVATAR_TALENT.id)) ||
       this.spellUsable.cooldownRemaining(SPELLS.AVATAR_TALENT.id) < AVATAR_FORGIVENESS;
 

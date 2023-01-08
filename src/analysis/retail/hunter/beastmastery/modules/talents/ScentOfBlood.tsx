@@ -27,8 +27,8 @@ class ScentOfBlood extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SCENT_OF_BLOOD_TALENT.id);
-    this.shotRecharges = this.selectedCombatant.getTalentRank(TALENTS.SCENT_OF_BLOOD_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SCENT_OF_BLOOD_TALENT);
+    this.shotRecharges = this.selectedCombatant.getTalentRank(TALENTS.SCENT_OF_BLOOD_TALENT);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.BESTIAL_WRATH_TALENT),

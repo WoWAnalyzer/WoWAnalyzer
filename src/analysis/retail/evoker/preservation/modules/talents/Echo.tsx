@@ -4,7 +4,12 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  CastEvent,
+  GetRelatedEvents,
+  HealEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
@@ -13,6 +18,8 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ECHO_HEALS, SPELL_COLORS } from '../../constants';
 import {
   didEchoExpire,
+  ECHO,
+  ECHO_TEMPORAL_ANOMALY,
   isFromHardcastEcho,
   isFromTAEcho,
 } from '../../normalizers/CastLinkNormalizer';
@@ -25,6 +32,7 @@ class Echo extends Analyzer {
 
   protected hotTracker!: HotTrackerPrevoker;
 
+  consumptionsBySpell: Map<number, number> = new Map<number, number>();
   // Map<spellId, totalHealing>, only update for echo healing
   echoHealingBySpell: Map<number, number> = new Map<number, number>();
   taEchoHealingBySpell: Map<number, number> = new Map<number, number>();
@@ -36,6 +44,7 @@ class Echo extends Analyzer {
     ECHO_HEALS.forEach((spell) => {
       this.echoHealingBySpell.set(spell.id, 0);
       this.taEchoHealingBySpell.set(spell.id, 0);
+      this.consumptionsBySpell.set(spell.id, 0);
     });
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(ECHO_HEALS), this.handleEchoHeal);
     this.addEventListener(
@@ -47,6 +56,13 @@ class Echo extends Analyzer {
   onRemove(event: RemoveBuffEvent) {
     if (didEchoExpire(event)) {
       this.totalExpired += 1;
+    } else {
+      // consumed echo with a spell
+      const relatedEvents = GetRelatedEvents(event, ECHO).concat(
+        GetRelatedEvents(event, ECHO_TEMPORAL_ANOMALY),
+      );
+      const spellID = (relatedEvents[0] as CastEvent).ability.guid;
+      this.consumptionsBySpell.set(spellID, this.consumptionsBySpell.get(spellID)! + 1);
     }
   }
 
@@ -142,7 +158,11 @@ class Echo extends Analyzer {
         label: 'Dream Breath',
         spellId: TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
         value: this.totalEchoHealingForSpell(SPELLS.DREAM_BREATH_ECHO.id),
-        valueTooltip: formatNumber(this.totalEchoHealingForSpell(SPELLS.DREAM_BREATH_ECHO.id)),
+        valueTooltip:
+          formatNumber(this.totalEchoHealingForSpell(SPELLS.DREAM_BREATH_ECHO.id)) +
+          ' in ' +
+          this.consumptionsBySpell.get(SPELLS.DREAM_BREATH_ECHO.id) +
+          ' consumptions',
       },
       {
         color: SPELL_COLORS.SPIRITBLOOM,
@@ -151,38 +171,59 @@ class Echo extends Analyzer {
         value:
           this.totalEchoHealingForSpell(SPELLS.SPIRITBLOOM.id) +
           this.totalEchoHealingForSpell(SPELLS.SPIRITBLOOM_SPLIT.id),
-        valueTooltip: formatNumber(
-          this.totalEchoHealingForSpell(SPELLS.SPIRITBLOOM.id) +
-            this.totalEchoHealingForSpell(SPELLS.SPIRITBLOOM_SPLIT.id),
-        ),
+        valueTooltip:
+          formatNumber(
+            this.totalEchoHealingForSpell(SPELLS.SPIRITBLOOM.id) +
+              this.totalEchoHealingForSpell(SPELLS.SPIRITBLOOM_SPLIT.id),
+          ) +
+          ' in ' +
+          (this.consumptionsBySpell.get(SPELLS.SPIRITBLOOM.id)! +
+            this.consumptionsBySpell.get(SPELLS.SPIRITBLOOM_SPLIT.id)!) +
+          ' consumptions',
       },
       {
         color: SPELL_COLORS.LIVING_FLAME,
         label: 'Living Flame',
         spellId: SPELLS.LIVING_FLAME_HEAL.id,
         value: this.totalEchoHealingForSpell(SPELLS.LIVING_FLAME_HEAL.id),
-        valueTooltip: formatNumber(this.totalEchoHealingForSpell(SPELLS.LIVING_FLAME_HEAL.id)),
+        valueTooltip:
+          formatNumber(this.totalEchoHealingForSpell(SPELLS.LIVING_FLAME_HEAL.id)) +
+          ' in ' +
+          this.consumptionsBySpell.get(SPELLS.LIVING_FLAME_HEAL.id) +
+          ' consumptions',
       },
       {
         color: SPELL_COLORS.REVERSION,
         label: 'Reversion',
         spellId: TALENTS_EVOKER.REVERSION_TALENT.id,
         value: this.totalEchoHealingForSpell(SPELLS.REVERSION_ECHO.id),
-        valueTooltip: formatNumber(this.totalEchoHealingForSpell(SPELLS.REVERSION_ECHO.id)),
+        valueTooltip:
+          formatNumber(this.totalEchoHealingForSpell(SPELLS.REVERSION_ECHO.id)) +
+          ' in ' +
+          this.consumptionsBySpell.get(SPELLS.REVERSION_ECHO.id) +
+          ' consumptions',
       },
       {
         color: SPELL_COLORS.EMERALD_BLOSSOM,
         label: 'Emerald Blossom',
         spellId: SPELLS.EMERALD_BLOSSOM.id,
         value: this.totalEchoHealingForSpell(SPELLS.EMERALD_BLOSSOM_ECHO.id),
-        valueTooltip: formatNumber(this.totalEchoHealingForSpell(SPELLS.EMERALD_BLOSSOM_ECHO.id)),
+        valueTooltip:
+          formatNumber(this.totalEchoHealingForSpell(SPELLS.EMERALD_BLOSSOM_ECHO.id)) +
+          ' in ' +
+          this.consumptionsBySpell.get(SPELLS.EMERALD_BLOSSOM_ECHO.id) +
+          ' consumptions',
       },
       {
         color: SPELL_COLORS.VERDANT_EMBRACE,
         label: 'Verdant Embrace',
         spellId: SPELLS.VERDANT_EMBRACE_HEAL.id,
         value: this.totalEchoHealingForSpell(SPELLS.VERDANT_EMBRACE_HEAL.id),
-        valueTooltip: formatNumber(this.totalEchoHealingForSpell(SPELLS.VERDANT_EMBRACE_HEAL.id)),
+        valueTooltip:
+          formatNumber(this.totalEchoHealingForSpell(SPELLS.VERDANT_EMBRACE_HEAL.id)) +
+          ' in ' +
+          this.consumptionsBySpell.get(SPELLS.VERDANT_EMBRACE_HEAL.id) +
+          ' consumptions',
       },
     ].filter((item) => {
       return item.value > 0;

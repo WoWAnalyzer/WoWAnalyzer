@@ -29,7 +29,7 @@ class AngerManagement extends Analyzer {
     spellUsable: SpellUsable,
   };
   cooldownsAffected = [
-    this.selectedCombatant.hasTalent(SPELLS.WARBREAKER_TALENT.id)
+    this.selectedCombatant.hasTalent(SPELLS.WARBREAKER_TALENT)
       ? SPELLS.WARBREAKER_TALENT.id
       : SPELLS.COLOSSUS_SMASH.id,
     SPELLS.BLADESTORM.id,
@@ -40,7 +40,7 @@ class AngerManagement extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.ANGER_MANAGEMENT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.ANGER_MANAGEMENT_TALENT);
     this.cooldownsAffected.forEach((e) => {
       this.wastedReduction[e] = 0;
       this.effectiveReduction[e] = 0;

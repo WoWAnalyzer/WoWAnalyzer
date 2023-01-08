@@ -20,7 +20,7 @@ class MarkOfBlood extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.MARK_OF_BLOOD_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.MARK_OF_BLOOD_TALENT);
   }
 
   get uptime() {

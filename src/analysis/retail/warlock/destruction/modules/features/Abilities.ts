@@ -20,7 +20,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.CHANNEL_DEMONFIRE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 25 / (1 + haste),
-        enabled: combatant.hasTalent(TALENTS.CHANNEL_DEMONFIRE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.CHANNEL_DEMONFIRE_TALENT),
         gcd: {
           base: 1500,
         },
@@ -53,7 +53,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.SOUL_FIRE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.SOUL_FIRE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SOUL_FIRE_TALENT),
         cooldown: 45, // TODO: further shortened via spending soul shards
         castEfficiency: {
           suggestion: true,
@@ -65,7 +65,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 12 / (1 + haste),
         charges: 2,
-        enabled: combatant.hasTalent(TALENTS.SHADOWBURN_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SHADOWBURN_TALENT),
         gcd: {
           base: 1500,
         },
@@ -113,7 +113,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.CATACLYSM_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 30,
-        enabled: combatant.hasTalent(TALENTS.CATACLYSM_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.CATACLYSM_TALENT),
         castEfficiency: {
           suggestion: false,
         },
@@ -149,7 +149,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
         gcd: null,
-        enabled: combatant.hasTalent(TALENTS.DARK_PACT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.DARK_PACT_TALENT),
         castEfficiency: {
           suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,
@@ -164,7 +164,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.BURNING_RUSH_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS.BURNING_RUSH_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.BURNING_RUSH_TALENT),
         gcd: {
           base: 1500,
         },
@@ -181,7 +181,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.MORTAL_COIL_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
-        enabled: combatant.hasTalent(TALENTS.MORTAL_COIL_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.MORTAL_COIL_TALENT),
         gcd: {
           base: 1500,
         },
@@ -227,7 +227,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.GRIMOIRE_OF_SACRIFICE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
-        enabled: combatant.hasTalent(TALENTS.GRIMOIRE_OF_SACRIFICE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.GRIMOIRE_OF_SACRIFICE_TALENT),
         gcd: {
           base: 1500,
         },
@@ -318,7 +318,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SHADOWFURY.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(TALENTS.DARKFURY_TALENT.id) ? 45 : 60,
+        cooldown: combatant.hasTalent(TALENTS.DARKFURY_TALENT) ? 45 : 60,
         gcd: {
           base: 1500,
         },
@@ -341,7 +341,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.HOWL_OF_TERROR_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS.HOWL_OF_TERROR_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.HOWL_OF_TERROR_TALENT),
         cooldown: 40,
         gcd: {
           base: 1500,

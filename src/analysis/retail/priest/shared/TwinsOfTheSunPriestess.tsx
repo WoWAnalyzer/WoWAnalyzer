@@ -22,7 +22,7 @@ class TwinsOfTheSunPriestess extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(
-      TALENTS_PRIEST.TWINS_OF_THE_SUN_PRIESTESS_TALENT.id,
+      TALENTS_PRIEST.TWINS_OF_THE_SUN_PRIESTESS_TALENT,
     );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.POWER_INFUSION_TALENT),
@@ -61,8 +61,8 @@ class TwinsOfTheSunPriestess extends Analyzer {
         <>
           You had {this.badCasts} bad {castsPlural} of{' '}
           <SpellLink id={TALENTS.POWER_INFUSION_TALENT.id} /> by using it on yourself. When taking
-          this legendary, make sure to always use it on an ally. By using it on yourself, you lose
-          out on a free <SpellLink id={TALENTS.POWER_INFUSION_TALENT.id} /> for a raid member.
+          this talent, make sure to always use it on an ally. By using it on yourself, you lose out
+          on a free <SpellLink id={TALENTS.POWER_INFUSION_TALENT.id} /> for a raid member.
         </>,
       )
         .icon(TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT.icon)

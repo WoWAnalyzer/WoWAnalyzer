@@ -16,7 +16,7 @@ class MasterPoisoner extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_POISONER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_POISONER_TALENT);
     if (!this.active) {
       return;
     }

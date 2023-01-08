@@ -12,6 +12,7 @@ import { TIERS } from 'game/TIERS';
 
 import Entity from './Entity';
 import { PlayerInfo } from './Player';
+import { Talent } from 'common/TALENTS/types';
 
 export interface CombatantInfo extends CombatantInfoEvent {
   name: string;
@@ -19,10 +20,6 @@ export interface CombatantInfo extends CombatantInfoEvent {
 
 type Spell = {
   id: number;
-};
-
-type Talent = {
-  talentId: number;
 };
 
 export type Race = {
@@ -117,46 +114,35 @@ class Combatant extends Entity {
     });
   }
 
-  private treeTalentsBySpellId: Map<number, TalentEntry> = new Map();
-  private treeTalentsByTalentId: Map<number, TalentEntry> = new Map();
+  private treeTalentsByEntryId: Map<number, TalentEntry> = new Map();
   private _importTalentTree(talents: TalentEntry[]) {
     talents?.forEach((talent) => {
-      this.treeTalentsBySpellId.set(talent.spellID, talent);
-      this.treeTalentsByTalentId.set(talent.id, talent);
+      this.treeTalentsByEntryId.set(talent.id, talent);
     });
   }
 
   /** Returns true iff this combatant has the specified talent. Will be true for any number of
    *  points in the talent, even when not the maximum number of points. */
-  hasTalent(spell: number | Spell): boolean {
-    const spellId = typeof spell === 'number' ? spell : spell.id;
-    return this.treeTalentsBySpellId.has(spellId);
-  }
-
-  /**
-   * Certain talents have the same SpellID and can only be distinguished by their TalentID.
-   * In the raidbots generated file, and in the WarcraftLogs API CombatantInfo, the field simply called 'id'.
-   * Returns true if this combatant has the specified talent at any given rank.
-   */
-  hasTalentByTalentId(spell: number | Talent): boolean {
-    const talentId = typeof spell === 'number' ? spell : spell.talentId;
-    return this.treeTalentsByTalentId.has(talentId);
+  hasTalent(talent: Talent): boolean {
+    return talent.entryIds.filter((entryId) => this.treeTalentsByEntryId.has(entryId)).length > 0;
   }
 
   /**
    * Return the number of times that a talent has been taken for repeated
    * talents (like Empower Rune Weapon or Stormkeeper).
    */
-  getRepeatedTalentCount(spell: number | Spell): number {
-    const spellId = typeof spell === 'number' ? spell : spell.id;
-    return this._combatantInfo.talentTree?.filter((entry) => entry.spellID === spellId).length ?? 0;
+  getRepeatedTalentCount(talent: Talent): number {
+    return this._combatantInfo.talentTree.filter((entry) => entry.spellID === talent.id).length;
   }
 
   /** Returns the number of points the combatant has in the specified talent. If the talent
    *  hasn't been picked at all, this will be zero. */
-  getTalentRank(spell: number | Spell) {
-    const spellId = typeof spell === 'number' ? spell : spell.id;
-    return this.treeTalentsBySpellId.get(spellId)?.rank ?? 0;
+  getTalentRank(talent: Talent) {
+    const foundEntryId = talent.entryIds.find((entryId) => this.treeTalentsByEntryId.has(entryId));
+    if (!foundEntryId) {
+      return 0;
+    }
+    return this.treeTalentsByEntryId.get(foundEntryId)?.rank ?? 0;
   }
 
   /**

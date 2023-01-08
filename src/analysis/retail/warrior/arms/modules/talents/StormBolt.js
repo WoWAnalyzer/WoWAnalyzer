@@ -19,7 +19,7 @@ class StormBolt extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.STORM_BOLT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.STORM_BOLT_TALENT);
     this.addEventListener(
       Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.STORM_BOLT_TALENT_DEBUFF),
       this._onStun,

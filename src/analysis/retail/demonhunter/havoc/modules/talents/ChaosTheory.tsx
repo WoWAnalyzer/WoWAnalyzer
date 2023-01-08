@@ -12,7 +12,7 @@ class ChaosTheory extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.CHAOS_THEORY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.CHAOS_THEORY_TALENT);
   }
 
   get buffUptime() {

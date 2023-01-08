@@ -8,6 +8,10 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { SpellLink } from 'interface';
+import CastEfficiencyPanel from 'interface/guide/components/CastEfficiencyPanel';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/priest/holy/Guide';
 
 // Example Log: /report/mWZ6TG9JgjPQVdbA/9-Mythic+Zek'voz+-+Kill+(7:24)/1-Allyseia`Ø
 class DivineStar extends Analyzer {
@@ -18,7 +22,7 @@ class DivineStar extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.DIVINE_STAR_SHARED_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DIVINE_STAR_SHARED_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell([SPELLS.DIVINE_STAR_HEAL, SPELLS.DIVINE_STAR_DAMAGE]),
       this.onDamage,
@@ -45,6 +49,34 @@ class DivineStar extends Analyzer {
 
   onCast(event: CastEvent) {
     this.divineStarCasts += 1;
+  }
+
+  get guideSubsectionHoly(): JSX.Element {
+    // if player isn't running divine star, don't show guide section
+    if (!this.selectedCombatant.hasTalent(TALENTS.DIVINE_STAR_SHARED_TALENT)) {
+      return <></>;
+    }
+    const explanation = (
+      <>
+        <p>
+          <b>
+            <SpellLink id={TALENTS.DIVINE_STAR_SHARED_TALENT.id} />
+          </b>{' '}
+          is a strong group heal on a short length cooldown. You will want to cast this on cooldown,
+          only holding it for a few seconds if everyone is full health and you know group damage
+          will happen soon.
+        </p>
+        <p>
+          This spell will only perform well if you are casting it on cooldown and your raid is
+          stacked together for most of the fight. If you are struggling to cast this on cooldown, or
+          are on a fight with a lot of spread out healing, try swapping to Halo instead.
+        </p>
+      </>
+    );
+
+    const data = <CastEfficiencyPanel spell={TALENTS.DIVINE_STAR_SHARED_TALENT} useThresholds />;
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
   statistic() {

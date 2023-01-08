@@ -30,7 +30,7 @@ class Deathspeaker extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DEATHSPEAKER_TALENT_BUFF),
       this.onBuffApplied,

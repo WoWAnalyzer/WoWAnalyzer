@@ -24,18 +24,38 @@ class CrystallineReflection extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CRYSTALLINE_REFLECTION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CRYSTALLINE_REFLECTION_TALENT);
 
     if (!this.active) {
       return;
     }
     this.talentRank = this.selectedCombatant.getTalentRank(
-      TALENTS_PRIEST.CRYSTALLINE_REFLECTION_TALENT.id,
+      TALENTS_PRIEST.CRYSTALLINE_REFLECTION_TALENT,
     );
     this.crIncrease = this.talentRank * CRYSTALLINE_REFLECTION_RANK_INCREASE;
   }
 
   renderCrystallineReflectionChart() {
+    const aegisDetails = {
+      color: '#fcba03',
+      label: 'Aegis Of Wrath',
+      spellId: TALENTS_PRIEST.AEGIS_OF_WRATH_TALENT.id,
+      value: this.powerWordShield.aegisValue * this.crIncrease,
+      valueTooltip: `${formatThousands(
+        ((this.powerWordShield.aegisValue * this.crIncrease) / this.owner.fightDuration) * 1000,
+      )} DPS`,
+    };
+
+    const tierDetails = {
+      color: '#0CD368',
+      label: 'Shield Of Absolution(4p)',
+      spellId: SPELLS.SHIELD_OF_ABSOLUTION_BUFF.id,
+      value: this.powerWordShield.t29pValue * this.crIncrease,
+      valueTooltip: `${formatThousands(
+        ((this.powerWordShield.t29pValue * this.crIncrease) / this.owner.fightDuration) * 1000,
+      )} DPS`,
+    };
+
     const items = [
       {
         color: '#fff',
@@ -46,25 +66,15 @@ class CrystallineReflection extends Analyzer {
           ((this.powerWordShield.pwsValue * this.crIncrease) / this.owner.fightDuration) * 1000,
         )} DPS`,
       },
-      {
-        color: '#fcba03',
-        label: 'Aegis Of Wrath',
-        spellId: TALENTS_PRIEST.AEGIS_OF_WRATH_TALENT.id,
-        value: this.powerWordShield.aegisValue * this.crIncrease,
-        valueTooltip: `${formatThousands(
-          ((this.powerWordShield.aegisValue * this.crIncrease) / this.owner.fightDuration) * 1000,
-        )} DPS`,
-      },
-      {
-        color: '#0cd368',
-        label: 'Shield Of Absolution (4p)',
-        spellId: SPELLS.SHIELD_OF_ABSOLUTION_BUFF.id,
-        value: this.powerWordShield.t29pValue * this.crIncrease,
-        valueTooltip: `${formatThousands(
-          ((this.powerWordShield.t29pValue * this.crIncrease) / this.owner.fightDuration) * 1000,
-        )} DPS`,
-      },
     ];
+
+    if (this.powerWordShield.has4p) {
+      items.push(tierDetails);
+    }
+
+    if (this.powerWordShield.hasAegis) {
+      items.push(aegisDetails);
+    }
 
     return <DonutChart items={items} />;
   }

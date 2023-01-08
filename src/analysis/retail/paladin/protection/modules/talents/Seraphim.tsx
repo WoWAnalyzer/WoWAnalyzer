@@ -35,7 +35,7 @@ class Seraphim extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SERAPHIM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SERAPHIM_TALENT);
     if (!this.active) {
       return;
     }

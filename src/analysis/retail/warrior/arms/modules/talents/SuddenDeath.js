@@ -16,7 +16,7 @@ class SuddenDeath extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SUDDEN_DEATH_TALENT_ARMS.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.SUDDEN_DEATH_TALENT_ARMS);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EXECUTE_DAMAGE),
       this._onExecuteDamage,

@@ -19,7 +19,7 @@ import { AbilityEvent, EventType, HasAbility, HasSource, SourcedEvent } from 'pa
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { useCallback, useMemo, useState, CSSProperties } from 'react';
+import { CSSProperties, useCallback, useMemo, useState } from 'react';
 import { MAJOR_ANALYZERS } from '../config';
 import {
   MajorDefensive,
@@ -29,7 +29,7 @@ import {
   PerformanceUsageRow,
 } from '../core';
 import { useMaxMitigationValue } from './Timeline';
-import TooltipProvider from 'interface/TooltipProvider';
+import useTooltip from 'interface/useTooltip';
 
 const MissingCastBoxEntry = {
   value: QualitativePerformance.Fail,
@@ -160,11 +160,12 @@ export function DamageSourceLink({
 
   // this prevents unneeded re-renders of child components due to object identity differences
   const style = useMemo(() => ({ ...damageSourceStyle, color }), [color]);
+  const { npc: npcTooltip } = useTooltip();
 
   if (showSourceName) {
     const enemy = enemies?.getSourceEntity(event);
     return (
-      <a href={TooltipProvider.npc(enemy?.guid ?? 0)} style={style}>
+      <a href={npcTooltip(enemy?.guid ?? 0)} style={style}>
         {enemy?.name ?? 'Unknown'} ({ability.name})
       </a>
     );

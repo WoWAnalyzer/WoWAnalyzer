@@ -1,10 +1,12 @@
 import { change, date } from 'common/changelog';
-import { Sref, Phased, emallson } from 'CONTRIBUTORS';
+import { Sref, Phased, emallson, Trevor } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2022, 12, 30), <>Improve accuracy of 2 piece module </>, Trevor),
+  change(date(2022, 12, 29), <>Added statistic for Vault of the Incarnates 2 Piece. </>, Phased),
   change(date(2022, 12, 14), <>Added Preparation Section to Guide.</>, Sref),
   change(date(2022, 12, 14), <>Bump patch compatibility to 10.0.2.</>, emallson),
   change(date(2022, 11, 19), <>Updated <SpellLink id={TALENTS_DRUID.NURTURING_DORMANCY_TALENT.id} /> to account for latest tuning changes, including duration cap.</>, Sref),

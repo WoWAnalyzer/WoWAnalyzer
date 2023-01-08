@@ -5,6 +5,7 @@ import {
   TouchOfDeath,
   DampenHarm,
   SaveThemAll,
+  TeachingsOfTheMonestary,
 } from 'analysis/retail/monk/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
@@ -74,6 +75,7 @@ import T29TierSet from './modules/dragonflight/tier/T29MWTier';
 import DancingMists from './modules/spells/DancingMists';
 import MistyPeaksHealingBreakdown from './modules/features/MistyPeaksHealingBreakdown';
 import TalentHealingStatistic from './modules/features/TalentHealingStatistic';
+import MendingProliferation from './modules/spells/MendingProliferation';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -158,6 +160,8 @@ class CombatLogParser extends CoreCombatLogParser {
     unison: Unison,
     rapidDiffusion: RapidDiffusion,
     dancingMists: DancingMists,
+    mendingProliferation: MendingProliferation,
+    teachingsOfTheMonestary: TeachingsOfTheMonestary,
 
     // Borrowed Power
     t29TierSet: T29TierSet,

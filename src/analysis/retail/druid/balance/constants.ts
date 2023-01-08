@@ -27,3 +27,5 @@ export function cooldownAbility(combatant: Combatant): Spell {
     ? TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT
     : SPELLS.CELESTIAL_ALIGNMENT;
 }
+
+export const GUIDE_CORE_EXPLANATION_PERCENT = 40;

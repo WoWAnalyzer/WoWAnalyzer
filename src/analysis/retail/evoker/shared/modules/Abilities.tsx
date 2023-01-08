@@ -32,12 +32,23 @@ class Abilities extends CoreAbilities {
       //endregion
       //region Damage Spells
       {
-        spell: SPELLS.FIRE_BREATH.id,
-        category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
+        spell: combatant.hasTalent(TALENTS.FONT_OF_MAGIC_TALENT)
+          ? SPELLS.FIRE_BREATH_FONT.id
+          : SPELLS.FIRE_BREATH.id,
+        category:
+          combatant.spec === SPECS.PRESERVATION_EVOKER
+            ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
+            : SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30,
         gcd: {
           base: 500,
         },
+        ...(combatant.spec === SPECS.DEVASTATION_EVOKER && {
+          castEfficiency: {
+            suggestion: true,
+            recommendedEfficiency: 0.95,
+          },
+        }),
       },
       {
         spell: SPELLS.LIVING_FLAME_CAST.id,
@@ -77,14 +88,14 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.LANDSLIDE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.LANDSLIDE_TALENT),
       },
       {
         spell: TALENTS.OBSIDIAN_SCALES_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 90,
-        charges: combatant.hasTalent(TALENTS.OBSIDIAN_BULWARK_TALENT.id) ? 2 : 1,
-        enabled: combatant.hasTalent(TALENTS.OBSIDIAN_SCALES_TALENT.id),
+        charges: combatant.hasTalent(TALENTS.OBSIDIAN_BULWARK_TALENT) ? 2 : 1,
+        enabled: combatant.hasTalent(TALENTS.OBSIDIAN_SCALES_TALENT),
       },
       {
         spell: TALENTS.VERDANT_EMBRACE_TALENT.id,
@@ -93,7 +104,7 @@ class Abilities extends CoreAbilities {
             ? SPELL_CATEGORY.ROTATIONAL
             : SPELL_CATEGORY.COOLDOWNS,
         cooldown: 24,
-        enabled: combatant.hasTalent(TALENTS.VERDANT_EMBRACE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.VERDANT_EMBRACE_TALENT),
         gcd: {
           base: 1500,
         },
@@ -102,7 +113,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.CAUTERIZING_FLAME_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
-        enabled: combatant.hasTalent(TALENTS.CAUTERIZING_FLAME_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.CAUTERIZING_FLAME_TALENT),
         gcd: {
           base: 1500,
         },
@@ -111,19 +122,19 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.TIP_THE_SCALES_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
-        enabled: combatant.hasTalent(TALENTS.TIP_THE_SCALES_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.TIP_THE_SCALES_TALENT),
       },
       {
         spell: TALENTS.RENEWING_BLAZE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 90,
-        enabled: combatant.hasTalent(TALENTS.RENEWING_BLAZE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.RENEWING_BLAZE_TALENT),
       },
       {
         spell: TALENTS.ZEPHYR_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 120,
-        enabled: combatant.hasTalent(TALENTS.ZEPHYR_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.ZEPHYR_TALENT),
         gcd: {
           base: 1500,
         },
@@ -134,7 +145,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.EXPUNGE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 8,
-        enabled: combatant.hasTalent(TALENTS.EXPUNGE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.EXPUNGE_TALENT),
         gcd: {
           base: 1500,
         },
@@ -146,19 +157,19 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.SLEEP_WALK_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SLEEP_WALK_TALENT),
       },
       {
         spell: TALENTS.QUELL_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 40,
-        enabled: combatant.hasTalent(TALENTS.QUELL_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.QUELL_TALENT),
       },
       {
         spell: TALENTS.UNRAVEL_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 9,
-        enabled: combatant.hasTalent(TALENTS.UNRAVEL_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.UNRAVEL_TALENT),
         gcd: {
           base: 1500,
         },
@@ -167,13 +178,13 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.OPPRESSING_ROAR_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 120,
-        enabled: combatant.hasTalent(TALENTS.OPPRESSING_ROAR_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.OPPRESSING_ROAR_TALENT),
       },
       {
         spell: TALENTS.RESCUE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
-        enabled: combatant.hasTalent(TALENTS.RESCUE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.RESCUE_TALENT),
         gcd: {
           base: 1500,
         },
@@ -182,7 +193,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.TIME_SPIRAL_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 120,
-        enabled: combatant.hasTalent(TALENTS.TIME_SPIRAL_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.TIME_SPIRAL_TALENT),
         gcd: {
           base: 1500,
         },
@@ -191,7 +202,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HOVER.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 35,
-        charges: combatant.hasTalent(TALENTS.AERIAL_MASTERY_TALENT.id) ? 2 : 1,
+        charges: combatant.hasTalent(TALENTS.AERIAL_MASTERY_TALENT) ? 2 : 1,
         gcd: null,
         enabled: true,
       },
@@ -211,7 +222,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.SOURCE_OF_MAGIC_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SOURCE_OF_MAGIC_TALENT),
       },
       //endregion
     ];

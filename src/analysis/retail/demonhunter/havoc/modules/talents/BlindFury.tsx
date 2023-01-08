@@ -20,14 +20,14 @@ class BlindFury extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT);
     if (!this.active) {
       return;
     }
     this.maxFury =
       BASE_MAX_FURY +
       UNRESTRAINED_FURY_SCALING[
-        this.selectedCombatant.getTalentRank(TALENTS_DEMON_HUNTER.UNRESTRAINED_FURY_TALENT.id)
+        this.selectedCombatant.getTalentRank(TALENTS_DEMON_HUNTER.UNRESTRAINED_FURY_TALENT)
       ];
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT),

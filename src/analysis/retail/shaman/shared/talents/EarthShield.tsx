@@ -33,8 +33,7 @@ class EarthShield extends Analyzer {
   constructor(options: Options) {
     super(options);
     const isRsham = this.selectedCombatant.specId === SPECS.RESTORATION_SHAMAN.id;
-    this.active =
-      isRsham || this.selectedCombatant.hasTalent(TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id);
+    this.active = isRsham || this.selectedCombatant.hasTalent(TALENTS_SHAMAN.EARTH_SHIELD_TALENT);
 
     if (!this.active) {
       return;

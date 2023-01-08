@@ -33,9 +33,9 @@ class ThunderFocusTea extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT);
     const secretInfusionRank = this.selectedCombatant.getTalentRank(
-      TALENTS_MONK.SECRET_INFUSION_TALENT.id,
+      TALENTS_MONK.SECRET_INFUSION_TALENT,
     );
     switch (secretInfusionRank) {
       case 1: {
@@ -50,7 +50,7 @@ class ThunderFocusTea extends Analyzer {
         Haste.HASTE_BUFFS[SPELLS.SECRET_INFUSION_HASTE_BUFF.id] = 0;
       }
     }
-    this.ftActive = this.selectedCombatant.hasTalent(TALENTS_MONK.FOCUSED_THUNDER_TALENT.id);
+    this.ftActive = this.selectedCombatant.hasTalent(TALENTS_MONK.FOCUSED_THUNDER_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT),
       this.tftCast,
@@ -61,7 +61,7 @@ class ThunderFocusTea extends Analyzer {
         TALENTS_MONK.RENEWING_MIST_TALENT.id,
         TALENTS_MONK.ESSENCE_FONT_TALENT.id,
       ]; // only haste buff
-    } else if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id)) {
+    } else if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
       this.correctSpells = [
         TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
         TALENTS_MONK.RENEWING_MIST_TALENT.id,
