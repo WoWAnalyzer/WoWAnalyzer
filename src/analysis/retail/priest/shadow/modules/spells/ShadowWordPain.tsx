@@ -106,7 +106,6 @@ class ShadowWordPain extends Analyzer {
               {' '}
               {this.formatPercentUptime(primaryUptime, totalFightTime)}{' '}
             </PerformanceStrong>{' '}
-            <small>uptime</small>
           </div>
           <div className="flex-main chart">
             <UptimeBar

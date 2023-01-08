@@ -8,9 +8,11 @@ import ResourceSubsection from './modules/guide/ResourceSubsection';
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
-      <Section title="Core">
+      <Section title="Insanity">
         <ResourceSubsection.ResourceSubsection modules={modules} events={events} info={info} />
         {modules.dotUptimes.guideSubsectionDP}
+      </Section>
+      <Section title="Core">
         {modules.dotUptimes.guideSubsection}
 
         {/* Since Dark Evangelism does not effect the rotation, maybe this section should be removed */}
