@@ -8,15 +8,15 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
+const DAMAGE_BUFF_PER_STACK = 0.04;
+
 /**
  * Each Soul Shard spent on Hand of Gul'dan increases the damage of your next Call Dreadstalkers by 4%.
  */
 
 class DreadCalling extends Analyzer {
-  callDreadstalkersCasts: number = 0;
-  dreadCallingStacksConsumed: number = 0;
-
-  DAMAGE_BUFF_PER_STACK = 0.04;
+  _callDreadstalkersCasts: number = 0;
+  _dreadCallingStacksConsumed: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -30,17 +30,25 @@ class DreadCalling extends Analyzer {
   }
 
   onCallDreadstalkersCast(event: CastEvent) {
-    this.callDreadstalkersCasts += 1;
+    this._callDreadstalkersCasts += 1;
 
-    this.dreadCallingStacksConsumed += this.selectedCombatant.getBuffStacks(
+    this._dreadCallingStacksConsumed += this.selectedCombatant.getBuffStacks(
       SPELLS.DREAD_CALLING_BUFF.id,
       event.timestamp,
     );
   }
 
+  get dreadCallingStacksConsumed() {
+    return this._dreadCallingStacksConsumed;
+  }
+
+  get callDreadstalkersCasts() {
+    return this._callDreadstalkersCasts;
+  }
+
   statistic() {
     const averageNumberOfStacks = this.dreadCallingStacksConsumed / this.callDreadstalkersCasts;
-    const averageDamageBuff = this.DAMAGE_BUFF_PER_STACK * averageNumberOfStacks;
+    const averageDamageBuff = DAMAGE_BUFF_PER_STACK * averageNumberOfStacks;
 
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
