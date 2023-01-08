@@ -1,5 +1,6 @@
 import { CSSProperties } from 'react';
 import * as React from 'react';
+import useTooltip from 'interface/useTooltip';
 
 interface Props extends Omit<React.HTMLAttributes<HTMLAnchorElement>, 'id'> {
   id: number;
@@ -12,9 +13,10 @@ interface Props extends Omit<React.HTMLAttributes<HTMLAnchorElement>, 'id'> {
 
 const ItemSetLink = React.forwardRef<HTMLAnchorElement, Props>(
   ({ id, children, icon = true, iconStyle, ilvl, rank, ...other }: Props, ref) => {
+    const { itemSet: itemSetTooltip } = useTooltip();
     return (
       <a
-        href={TooltipProvider.itemSet(id, undefined)}
+        href={itemSetTooltip(id)}
         target="_blank"
         rel="noopener noreferrer"
         ref={ref}

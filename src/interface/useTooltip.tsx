@@ -23,8 +23,7 @@ export const itemRelative = (id: number, details: any): string => {
   }
 };
 
-// this impl doesn't use details, but might want them in the future...
-export const itemSetRelative = (id: number, details: any): string => {
+export const itemSetRelative = (id: number): string => {
   return `item-set=${id}`;
 };
 
@@ -55,7 +54,7 @@ export const spellRelative = (id: number, details: any): string => {
 
 export interface TooltipHelpers {
   item: (...args: [number, any]) => string;
-  itemSet: (...args: [number, any]) => string;
+  itemSet: (id: number) => string;
   npc: (id: number) => string;
   resource: (...args: [number]) => string;
   spell: (...args: [number, any]) => string;
@@ -66,7 +65,7 @@ const useTooltip = (): TooltipHelpers => {
 
   return {
     item: (...args) => `${baseUrl}${itemRelative(...args)}`,
-    itemSet: (...args) => `${baseUrl}${itemSetRelative(...args)}`,
+    itemSet: (id) => `${baseUrl}${itemSetRelative(id)}`,
     npc: (id) => `${baseUrl}${npcRelative(id)}`,
     resource: (...args) => `${baseUrl}${resourceRelative(...args)}`,
     spell: (...args) => `${baseUrl}${spellRelative(...args)}`,
