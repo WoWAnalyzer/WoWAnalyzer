@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 1, 8), <>Improve accuracy of <SpellLink id={TALENTS_MONK.UPWELLING_TALENT.id}/> module.</>, Trevor),
   change(date(2023, 1, 6), <>Improve accuracy of <SpellLink id={TALENTS_MONK.UPWELLING_TALENT.id}/> module.</>, Trevor),
   change(date(2023, 1, 5), <>Update <SpellLink id={TALENTS_MONK.UPWELLING_TALENT.id}/> to subtract out estimated healing from missed casts.</>, Trevor),
   change(date(2023, 1, 5), <>Added statistic for average <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT.id}/> stacks.</>, Trevor),

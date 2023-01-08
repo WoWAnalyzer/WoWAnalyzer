@@ -218,8 +218,12 @@ class Upwelling extends Analyzer {
         this.masteryOverhealing += event.overheal || 0;
         this.masteryAbsorbed += event.absorbed || 0;
       }
-      this.masteryTickTock = !this.masteryTickTock;
+    } else {
+      if (!this.masteryTickTock) {
+        this.baseEfHealing += event.amount;
+      }
     }
+    this.masteryTickTock = !this.masteryTickTock;
   }
 
   subStatistic() {
