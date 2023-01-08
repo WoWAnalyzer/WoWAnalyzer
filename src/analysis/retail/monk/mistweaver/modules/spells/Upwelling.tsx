@@ -216,7 +216,7 @@ class Upwelling extends Analyzer {
         this.masteryOverhealing += event.overheal || 0;
         this.masteryAbsorbed += event.absorbed || 0;
       }
-    } else if (!this.fromExtraBolts.has(targetID) && !fromExtraDuration) {
+    } else if ((efHot || flsHot) && !this.fromExtraBolts.has(targetID) && !fromExtraDuration) {
       // base ef mastery event
       if (!this.masteryTickTock) {
         this.baseEfHealing += event.amount;
