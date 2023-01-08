@@ -36,9 +36,21 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
         name="Use core abilities as often as possible"
         description="Aim to keep core rotational abilities on cooldown to maximize healing"
       >
-        <AbilityRequirement spell={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} />
+        <AbilityRequirement
+          spell={
+            combatant.hasTalent(TALENTS_EVOKER.FONT_OF_MAGIC_TALENT)
+              ? SPELLS.DREAM_BREATH_FONT.id
+              : TALENTS_EVOKER.DREAM_BREATH_TALENT.id
+          }
+        />
         {combatant.hasTalent(TALENTS_EVOKER.SPIRITBLOOM_TALENT) && (
-          <AbilityRequirement spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT.id} />
+          <AbilityRequirement
+            spell={
+              combatant.hasTalent(TALENTS_EVOKER.FONT_OF_MAGIC_TALENT)
+                ? SPELLS.SPIRITBLOOM_FONT.id
+                : TALENTS_EVOKER.SPIRITBLOOM_TALENT.id
+            }
+          />
         )}
         {combatant.hasTalent(TALENTS_EVOKER.REVERSION_TALENT) && (
           <AbilityRequirement spell={TALENTS_EVOKER.REVERSION_TALENT.id} />
@@ -79,6 +91,16 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
             }
             thresholds={thresholds.essenceBurstBuffApplies}
           ></Requirement>
+        )}
+        {combatant.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT) && (
+          <Requirement
+            name={
+              <>
+                Wasted <SpellLink id={TALENTS_EVOKER.CALL_OF_YSERA_TALENT} /> buffs
+              </>
+            }
+            thresholds={thresholds.callOfYsera}
+          />
         )}
       </Rule>
       <Rule

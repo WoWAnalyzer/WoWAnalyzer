@@ -328,14 +328,14 @@ export const aryu: Contributor = {
   github: 'Yuyz0112',
 };
 export const Hartra344: Contributor = {
-  nickname: 'Hartra344',
+  nickname: 'Mokaba',
   github: 'Hartra344',
-  discord: 'Erlaris#8483',
+  discord: 'Mokaba#0001',
   mains: [
     {
-      name: 'Erlaris',
-      spec: SPECS.HOLY_PRIEST,
-      link: 'https://worldofwarcraft.com/en-us/character/area-52/Erlaris',
+      name: 'Mokaba',
+      spec: SPECS.BALANCE_DRUID,
+      link: 'https://worldofwarcraft.com/en-us/character/thrall/mokaba',
     },
   ],
 };
@@ -2015,4 +2015,17 @@ export const Fassbrause: Contributor = {
   github: 'Fassbrause',
   discord: 'Burgerflipper#7351',
   avatar: avatar('fassbrause-avatar.jpg'),
+};
+export const Greedyhugs: Contributor = {
+  nickname: 'Greedy',
+  github: 'Matt41531',
+  discord: 'MildcatMatt#9089',
+  avatar: avatar('greedyhugs-avatar.jpg'),
+  mains: [
+    {
+      name: 'Greedyhugs',
+      spec: SPECS.PROTECTION_WARRIOR,
+      link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/greedyhugs',
+    },
+  ],
 };

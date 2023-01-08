@@ -11,6 +11,7 @@ import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Che
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import TALENTS from 'common/TALENTS/warrior';
+import TalentCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/TalentCastEfficiencyRequirement';
 
 const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
@@ -67,8 +68,9 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.SHIELD_WALL.id} />
-        <AbilityRequirement spell={SPELLS.LAST_STAND.id} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.SHIELD_WALL_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.LAST_STAND_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.BITTER_IMMUNITY_TALENT} />
         <Requirement
           name={
             <>
@@ -96,10 +98,13 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
           </>
         }
       >
-        <AbilityRequirement spell={TALENTS.AVATAR_TALENT.id} />
-        <AbilityRequirement spell={TALENTS.DEMORALIZING_SHOUT_TALENT.id} />
-        {combatant.hasTalent(TALENTS.RAVAGER_TALENT) && (
-          <AbilityRequirement spell={TALENTS.RAVAGER_TALENT.id} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.AVATAR_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.DEMORALIZING_SHOUT_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.RAVAGER_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.SHIELD_CHARGE_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.SPEAR_OF_BASTION_TALENT} />
+        {combatant.hasTalent(TALENTS.SONIC_BOOM_TALENT) && (
+          <AbilityRequirement spell={TALENTS.SHOCKWAVE_TALENT.id} />
         )}
       </Rule>
 

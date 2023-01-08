@@ -9,7 +9,6 @@ import PortalTarget from 'interface/PortalTarget';
 import PrivacyPage from 'interface/PrivacyPage';
 import ReportPage from 'interface/report';
 import { getOpenModals } from 'interface/selectors/openModals';
-import TooltipProvider from 'interface/TooltipProvider';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
@@ -55,10 +54,6 @@ const App = () => {
       dispatch(fetchUser());
     }
   }, [dispatch]);
-
-  useEffect(() => {
-    TooltipProvider.load();
-  }, []);
 
   return (
     <>

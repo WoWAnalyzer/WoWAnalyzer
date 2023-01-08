@@ -1,10 +1,10 @@
 import getItemQualityLabel from 'common/getItemQualityLabel';
 import ITEMS from 'common/ITEMS';
-import TooltipProvider from 'interface/TooltipProvider';
-import { AnchorHTMLAttributes, useEffect, useState } from 'react';
 import * as React from 'react';
+import { AnchorHTMLAttributes } from 'react';
 
 import ItemIcon from './ItemIcon';
+import useTooltip from './useTooltip';
 
 interface Props extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'id'> {
   id: number;
@@ -19,11 +19,7 @@ interface Props extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'id'> {
 export const EPIC_ITEMS_ILVL = 184;
 
 const ItemLink = (props: Props) => {
-  const [elem, setElem] = useState<HTMLAnchorElement | null>(null);
-
-  useEffect(() => {
-    TooltipProvider.refresh(elem);
-  }, [elem, props.id]);
+  const { item: itemTooltip } = useTooltip();
 
   const { id, children, details, ...others } = props;
   delete others.icon;
@@ -42,13 +38,10 @@ const ItemLink = (props: Props) => {
 
   return (
     <a
-      href={TooltipProvider.item(id, details)}
+      href={itemTooltip(id, details)}
       target="_blank"
       rel="noopener noreferrer"
       className={getItemQualityLabel(quality) + 'item-link-text'}
-      ref={(elem) => {
-        setElem(elem);
-      }}
       {...others}
     >
       {props.icon && (
