@@ -13,8 +13,7 @@ interface PerformanceStrongProps extends ComponentProps<typeof ColoredStrong> {
 }
 export const PerformanceStrong = ({ performance, ...others }: PerformanceStrongProps) => (
   <>
+    <PerformanceMark perf={performance} />{' '}
     <ColoredStrong color={qualitativePerformanceToColor(performance)} {...others} />
-    &nbsp;
-    <PerformanceMark perf={performance} />
   </>
 );
