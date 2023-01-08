@@ -18,6 +18,7 @@ import Spell, { Enchant } from '../Spell';
 // Classes
 import DEATH_KNIGHT from './deathknight';
 import DRUID from './druid';
+import HUNTER from './hunter';
 import MAGE from './mage';
 import PALADIN from './paladin';
 import PRIEST from './priest';
@@ -32,6 +33,7 @@ import Tailoring from './tailoring';
 const ABILITIES = {
   ...DEATH_KNIGHT,
   ...DRUID,
+  ...HUNTER,
   ...MAGE,
   ...PALADIN,
   ...PRIEST,

@@ -8,6 +8,7 @@ import { ReportCodesIgnoredPreviousPatchWarning } from 'interface/reducers/repor
 import { SpecsIgnoredNotSupportedWarningState } from 'interface/reducers/specsIgnoredNotSupportedWarning';
 import { combineReducers } from 'redux';
 import { InternetExplorerState } from 'interface/reducers/internetExplorer';
+import { TooltipsState } from 'interface/reducers/tooltips';
 
 export interface RootState {
   internetExplorer: InternetExplorerState;
@@ -20,6 +21,7 @@ export interface RootState {
   openModals: ModalState;
   charactersById: CharactersByIdState;
   reportCodesIgnoredPreviousPatchWarning: ReportCodesIgnoredPreviousPatchWarning;
+  tooltips: TooltipsState;
 }
 
 const createReducers = () =>
@@ -35,6 +37,7 @@ const createReducers = () =>
     language: require('./language').default,
     specsIgnoredNotSupportedWarning: require('./specsIgnoredNotSupportedWarning').default,
     openModals: require('./openModals').default,
+    tooltips: require('./tooltips').default,
 
     // Caching
     charactersById: require('./charactersById').default,

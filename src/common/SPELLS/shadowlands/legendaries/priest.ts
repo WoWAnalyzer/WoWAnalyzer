@@ -55,11 +55,13 @@ const legendaries = {
     icon: 'achievement_boss_yoggsaron_01',
     bonusID: 6983,
   },
+  /* Conflicts with new Idol of Chtun
   ETERNAL_CALL_TO_THE_VOID_MIND_FLAY_DAMAGE: {
     id: 193473,
     name: 'Mind Flay',
     icon: 'spell_shadow_siphonmana',
   },
+  */
   ETERNAL_CALL_TO_THE_VOID_MIND_SEAR_DAMAGE: {
     id: 344752,
     name: 'Mind Sear',

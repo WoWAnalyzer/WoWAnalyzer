@@ -780,6 +780,12 @@ const spells = spellIndexableList({
     name: 'Fury of Elune',
     icon: 'ability_druid_dreamstate',
   },
+  WANING_TWILIGHT: {
+    // Debuff on enemy when druid has waning twilight talent and 3 periodic effects on enemy.
+    id: 393957,
+    name: 'Waning Twilight',
+    icon: 'spell_shadow_twilight',
+  },
 
   /////////////////////////////////////////////////////////////////////////////
   // FERAL / CAT

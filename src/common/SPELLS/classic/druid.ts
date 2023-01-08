@@ -411,7 +411,7 @@ const spells = spellIndexableList({
     icon: 'ability_druid_tigersroar',
   },
   // Restoration
-  NATURES_SWIFTNESS: {
+  NATURES_SWIFTNESS_DRUID: {
     id: 17116,
     name: "Nature's Swiftness",
     icon: 'spell_nature_ravenform',

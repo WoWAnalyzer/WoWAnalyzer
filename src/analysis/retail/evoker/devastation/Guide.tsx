@@ -12,11 +12,11 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   return (
     <>
       <IntroSection />
-      <CoreRotation modules={modules} info={info} events={events} />
       <CooldownSection modules={modules} info={info} events={events} />
       <DragonRageSection modules={modules} info={info} events={events} />
       <DamageEfficiency modules={modules} info={info} events={events} />
       <EssenceGraphSection modules={modules} info={info} events={events} />
+      <CoreRotation modules={modules} info={info} events={events} />
       <PreparationSection />
     </>
   );

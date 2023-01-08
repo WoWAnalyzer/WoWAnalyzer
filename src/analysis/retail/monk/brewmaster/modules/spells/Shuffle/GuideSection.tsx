@@ -11,10 +11,10 @@ import * as MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import talents from 'common/TALENTS/monk';
 import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
-import TooltipProvider from 'interface/TooltipProvider';
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
 import Explanation from 'interface/guide/components/Explanation';
 import { AbilityEvent, SourcedEvent } from 'parser/core/Events';
+import useTooltip from 'interface/useTooltip';
 
 const HitTimelineContainer = styled.div`
   display: grid;
@@ -105,11 +105,12 @@ export function DamageSourceLink({
 
   // this prevents unneeded re-renders of child components due to object identity differences
   const style = useMemo(() => ({ ...damageSourceStyle, color }), [color]);
+  const { npc: npcTooltip } = useTooltip();
 
   if (showSourceName) {
     const enemy = enemies?.getSourceEntity(event);
     return (
-      <a href={TooltipProvider.npc(enemy?.guid ?? 0)} style={style}>
+      <a href={npcTooltip(enemy?.guid ?? 0)} style={style}>
         {enemy?.name ?? 'Unknown'} ({ability.name})
       </a>
     );

@@ -74,11 +74,18 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: EMPOWERED_CAST,
-    linkingEventId: [TALENTS_EVOKER.SPIRITBLOOM_TALENT.id, TALENTS_EVOKER.DREAM_BREATH_TALENT.id],
+    linkingEventId: [
+      TALENTS_EVOKER.SPIRITBLOOM_TALENT.id,
+      TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
+      SPELLS.SPIRITBLOOM_FONT.id,
+      SPELLS.DREAM_BREATH_FONT.id,
+    ],
     linkingEventType: EventType.Cast,
     referencedEventId: [
       TALENTS_EVOKER.SPIRITBLOOM_TALENT.id,
       TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
+      SPELLS.SPIRITBLOOM_FONT.id,
+      SPELLS.DREAM_BREATH_FONT.id,
     ],
     referencedEventType: EventType.EmpowerEnd,
     reverseLinkRelation: EMPOWERED_CAST,
@@ -285,7 +292,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: DREAM_BREATH_CALL_OF_YSERA_HOT,
     linkingEventId: [SPELLS.DREAM_BREATH.id, SPELLS.DREAM_BREATH_ECHO.id],
     linkingEventType: [EventType.ApplyBuff, EventType.Heal],
-    referencedEventId: TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
+    referencedEventId: [TALENTS_EVOKER.DREAM_BREATH_TALENT.id, SPELLS.DREAM_BREATH_FONT.id],
     referencedEventType: EventType.EmpowerEnd,
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
@@ -301,7 +308,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: DREAM_BREATH_CALL_OF_YSERA,
     linkingEventId: SPELLS.CALL_OF_YSERA_BUFF.id,
     linkingEventType: EventType.RemoveBuff,
-    referencedEventId: TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
+    referencedEventId: [TALENTS_EVOKER.DREAM_BREATH_TALENT.id, SPELLS.DREAM_BREATH_FONT.id],
     referencedEventType: EventType.EmpowerEnd,
     maximumLinks: 1,
     isActive(c) {
@@ -421,6 +428,8 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: [
       TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
       TALENTS_EVOKER.SPIRITBLOOM_TALENT.id,
+      SPELLS.DREAM_BREATH_FONT.id,
+      SPELLS.SPIRITBLOOM_FONT.id,
     ],
     referencedEventType: EventType.EmpowerEnd,
     backwardBufferMs: 500,

@@ -13,7 +13,6 @@ import { Filter } from 'interface/report/hooks/useTimeEventFilter';
 import REPORT_HISTORY_TYPES from 'interface/REPORT_HISTORY_TYPES';
 import { getResultTab } from 'interface/selectors/url/report';
 import Tooltip from 'interface/Tooltip';
-import TooltipProvider from 'interface/TooltipProvider';
 import Config from 'parser/Config';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import CombatLogParser from 'parser/core/CombatLogParser';
@@ -28,6 +27,7 @@ import ResultsContent from 'interface/report/Results/ResultsContent';
 import { ResultsContext } from 'interface/report/Results/ResultsContext';
 import ParseResults from 'parser/core/ParseResults';
 import Expansion from 'game/Expansion';
+import { reset, setBaseUrl } from 'interface/actions/tooltips';
 
 import './Results.scss';
 import BOSS_PHASES_STATE from '../BOSS_PHASES_STATE';
@@ -132,16 +132,16 @@ const Results = (props: PassedProps) => {
     // Kind of ugly but also very working. We should replace the TooltipProvider class with a context that is used by SpellLink to make this easier to manipulate.
     switch (wclGameVersionToExpansion(props.report.gameVersion)) {
       case Expansion.WrathOfTheLichKing:
-        TooltipProvider.baseUrl = 'https://www.wowhead.com/wotlk/';
+        dispatch(setBaseUrl('https://www.wowhead.com/wotlk/'));
         break;
       case Expansion.TheBurningCrusade:
-        TooltipProvider.baseUrl = 'https://tbc.wowhead.com/';
+        dispatch(setBaseUrl('https://tbc.wowhead.com/'));
         break;
       default:
-        TooltipProvider.baseUrl = 'https://wowhead.com/';
+        dispatch(reset());
         break;
     }
-  }, [props.report.gameVersion]);
+  }, [dispatch, props.report.gameVersion]);
 
   // on tab change
   useEffect(() => {

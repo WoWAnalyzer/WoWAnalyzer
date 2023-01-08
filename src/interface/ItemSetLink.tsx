@@ -1,4 +1,3 @@
-import TooltipProvider from 'interface/TooltipProvider';
 import { CSSProperties } from 'react';
 import * as React from 'react';
 

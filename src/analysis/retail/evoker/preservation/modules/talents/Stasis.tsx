@@ -2,7 +2,12 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
+import Events, {
+  CastEvent,
+  EventType,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+} from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -43,6 +48,16 @@ class Stasis extends Analyzer {
   }
 
   onStackRemoval(event: RemoveBuffStackEvent | RemoveBuffEvent) {
+    if (!this.curInfo) {
+      // stasis was cast pre-pull
+      const numStacks =
+        event.type === EventType.RemoveBuffStack ? (event as RemoveBuffStackEvent).stack : 0;
+      this.curInfo = {
+        castTime: this.owner.fight.start_time,
+        consumeTime: 0,
+        spells: Array(numStacks).fill(0),
+      };
+    }
     const spell = getStasisSpell(event);
     if (spell) {
       this.curInfo!.spells.push(spell);
@@ -55,6 +70,22 @@ class Stasis extends Analyzer {
       this.stasisInfos.push(this.curInfo!);
       this.curInfo = null;
     }
+  }
+
+  getSpellLink(key: number, spellid: number) {
+    if (spellid === 0) {
+      return (
+        <>
+          Unknown spell cast before pull <br />
+        </>
+      );
+    }
+    return (
+      <>
+        <SpellLink key={key} id={spellid} />
+        <br />
+      </>
+    );
   }
 
   statistic() {
@@ -82,13 +113,7 @@ class Stasis extends Analyzer {
                 <th scope="row">{index + 1}</th>
                 <td>{this.owner.formatTimestamp(info.castTime)}</td>
                 <td>{this.owner.formatTimestamp(info.consumeTime)}</td>
-                <td>
-                  {info.spells.map((spellid, idx2) => (
-                    <>
-                      <SpellLink key={idx2} id={spellid} /> <br />
-                    </>
-                  ))}
-                </td>
+                <td>{info.spells.map((spellid, idx2) => this.getSpellLink(idx2, spellid))}</td>
               </tr>
             ))}
           </tbody>
