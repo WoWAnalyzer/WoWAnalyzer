@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS/druid';
 
 export default [
+  change(date(2023, 1, 8), <>Added statistics for VotI tier set</>, Sref),
   change(date(2022, 12, 14), <>Added Preparation Section to Guide.</>, Sref),
   change(date(2022, 12, 14), <>Bumped patch compatibility to 10.0.2.</>, emallson),
   change(date(2022, 11, 19), <>Added per-Berserk breakdown to Guide, and fixed an issue where Berserk CDR was being applied even when player wasn't talented for <SpellLink id={TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT.id} /></>, Sref),
