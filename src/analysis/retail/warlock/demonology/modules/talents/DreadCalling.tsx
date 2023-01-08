@@ -4,9 +4,9 @@ import { TALENTS_WARLOCK } from 'common/TALENTS';
 import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const DAMAGE_BUFF_PER_STACK = 0.04;
 
@@ -52,14 +52,14 @@ class DreadCalling extends Analyzer {
 
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
-        <BoringSpellValueText spellId={TALENTS_WARLOCK.DREAD_CALLING_TALENT.id}>
+        <TalentSpellText talent={TALENTS_WARLOCK.DREAD_CALLING_TALENT}>
           {formatPercentage(averageDamageBuff, 0)}%{' '}
           <TooltipElement
             content={`${averageNumberOfStacks.toFixed(2)} stacks per cast on average`}
           >
             <small>average buff on Call Dreadstalkers</small>
           </TooltipElement>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }
