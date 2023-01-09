@@ -13,6 +13,7 @@ import Burnout from './modules/abilities/Burnout';
 import DragonRage from './modules/abilities/DragonRage';
 import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
 import Snapfire from './modules/abilities/Snapfire';
+import Essence from '../shared/modules/core/Essence';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -22,6 +23,7 @@ class CombatLogParser extends MainCombatLogParser {
     castLinkNormalizer: CastLinkNormalizer,
 
     //features
+    essence: Essence,
     essenceTracker: EssenceTracker,
     essenceGraph: EssenceGraph,
 

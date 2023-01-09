@@ -1,7 +1,8 @@
 import { change, date } from 'common/changelog';
-import { Tyndi, Vireve } from 'CONTRIBUTORS';
+import { Tyndi, Vireve, Trevor } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2023, 1, 8), <>Add essence spent breakdown</>, Trevor),
   change(date(2022, 12, 31), 'Move rotation module further down and mark experimental', Vireve),
   change(date(2022, 12, 25), 'Initialize a primitive guide for Devastation!', Vireve),
   change(date(2022, 10, 25), 'Updated abilities list to include all available abilities.', Tyndi),

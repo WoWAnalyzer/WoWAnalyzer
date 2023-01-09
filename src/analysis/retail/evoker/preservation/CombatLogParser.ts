@@ -32,6 +32,7 @@ import FieldOfDreams from './modules/talents/FieldOfDreams';
 import DreamFlight from './modules/talents/DreamFlight';
 import ExhilBurst from './modules/talents/ExhilBurst';
 import Stasis from './modules/talents/Stasis';
+import Essence from '../shared/modules/core/Essence';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -58,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //core
     hotTrackerPrevoker: HotTrackerPrevoker,
     hotAttributor: HotAttributor,
+    essence: Essence,
 
     //talents
     echo: Echo,
