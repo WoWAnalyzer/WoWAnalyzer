@@ -207,19 +207,22 @@ class Upwelling extends Analyzer {
     const flsHot = this.hotTracker.hots[targetID][SPELLS.FAELINE_STOMP_ESSENCE_FONT.id];
 
     //do they have the hot
-    if (
-      this.fromExtraBolts.has(targetID) ||
-      this.fromExtraDuration(event, efHot) ||
-      this.fromExtraDuration(event, flsHot)
-    ) {
+    const fromExtraDuration =
+      this.fromExtraDuration(event, efHot) || this.fromExtraDuration(event, flsHot);
+    if (this.fromExtraBolts.has(targetID) || fromExtraDuration) {
       if (!this.masteryTickTock) {
         this.masteryHit += 1;
         this.masteryHealing += event.amount || 0;
         this.masteryOverhealing += event.overheal || 0;
         this.masteryAbsorbed += event.absorbed || 0;
       }
-      this.masteryTickTock = !this.masteryTickTock;
+    } else if ((efHot || flsHot) && !this.fromExtraBolts.has(targetID) && !fromExtraDuration) {
+      // base ef mastery event
+      if (!this.masteryTickTock) {
+        this.baseEfHealing += event.amount + (event.absorbed || 0);
+      }
     }
+    this.masteryTickTock = !this.masteryTickTock;
   }
 
   subStatistic() {
