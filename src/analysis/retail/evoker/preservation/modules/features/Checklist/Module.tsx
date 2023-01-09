@@ -10,12 +10,14 @@ import EssenceBurst from '../../talents/EssenceBurst';
 import EmeraldBlossom from '../../talents/EmeraldBlossom';
 import DreamFlight from '../../talents/DreamFlight';
 import Echo from '../../talents/Echo';
+import CallOfYsera from '../../talents/CallOfYsera';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
     ...BaseChecklist.dependencies,
     combatants: Combatants,
     castEfficiency: CastEfficiency,
+    callOfYsera: CallOfYsera,
     manaValues: ManaValues,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     dreamBreath: DreamBreath,
@@ -26,6 +28,7 @@ class Checklist extends BaseChecklist {
     echo: Echo,
   };
 
+  protected callOfYsera!: CallOfYsera;
   protected combatants!: Combatants;
   protected castEfficiency!: CastEfficiency;
   protected manaValues!: ManaValues;
@@ -45,6 +48,7 @@ class Checklist extends BaseChecklist {
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
           manaLeft: this.manaValues.suggestionThresholds,
+          callOfYsera: this.callOfYsera.badCastsThresholds,
           dreamBreath: this.dreamBreath.suggestionThresholds,
           dreamFlight: this.dreamFlight.suggestionThresholds,
           echo: this.echo.suggestionThresholds,
