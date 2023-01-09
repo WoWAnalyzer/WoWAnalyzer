@@ -12,8 +12,8 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
  */
 
 class ShadowsBite extends Analyzer {
-  totalCasts: number = 0;
-  buffedCasts: number = 0;
+  private totalCasts: number = 0;
+  private buffedCasts: number = 0;
 
   constructor(options: Options) {
     super(options);

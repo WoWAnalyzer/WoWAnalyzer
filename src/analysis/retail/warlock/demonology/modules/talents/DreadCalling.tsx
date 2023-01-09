@@ -15,8 +15,8 @@ const DAMAGE_BUFF_PER_STACK = 0.04;
  */
 
 class DreadCalling extends Analyzer {
-  totalCasts: number = 0;
-  buffStacksConsumed: number = 0;
+  private totalCasts: number = 0;
+  private buffStacksConsumed: number = 0;
 
   constructor(options: Options) {
     super(options);
