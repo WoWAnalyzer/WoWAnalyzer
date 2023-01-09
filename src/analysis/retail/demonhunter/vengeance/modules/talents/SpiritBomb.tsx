@@ -132,7 +132,8 @@ export default class SpiritBomb extends Analyzer {
     return [
       QualitativePerformance.Fail,
       <>
-        Cast at {amountOfStacksConsumed} Soul Fragments. Recommended: {SPIRIT_BOMB_SOULS_OUT_OF_META}+
+        Cast at {amountOfStacksConsumed} Soul Fragments. Recommended:{' '}
+        {SPIRIT_BOMB_SOULS_OUT_OF_META}+
         <br />
       </>,
     ];
