@@ -148,6 +148,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: combatant.hasTalent(TALENTS_DRUID.ASHAMANES_GUIDANCE_TALENT) ? 60 : 120,
+        enabled: combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT),
         gcd: {
           base: druidGcd,
         },
@@ -156,6 +157,22 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
           averageIssueEfficiency: 0.8,
           majorIssueEfficiency: 0.6,
+        },
+      },
+      {
+        spell: SPELLS.ADAPTIVE_SWARM.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 25,
+        gcd: {
+          base: druidGcd,
+        },
+        // Swarm sometimes best not to cast purely on CD in single target encounters
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.7,
+          averageIssueEfficiency: 0.5,
+          majorIssueEfficiency: 0.3,
         },
       },
       {
