@@ -10,7 +10,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PerformanceStrong } from 'analysis/retail/priest/shadow/modules/guide/ExtraComponents';
 import { SpellIcon } from 'interface';
 
-const BAR_COLOR = '#9933cc';
+const BAR_COLOR = '#6600CC';
 
 /*
   Shadow word pain can be created by:

@@ -11,7 +11,7 @@ import UptimeBar, { Uptime } from 'parser/ui/UptimeBar';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { PerformanceStrong } from 'analysis/retail/priest/shadow/modules/guide/ExtraComponents';
 
-const BAR_COLOR = '#9933cc';
+const BAR_COLOR = '#6600CC';
 
 class VampiricTouch extends Analyzer {
   static dependencies = {

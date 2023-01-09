@@ -1,7 +1,7 @@
 import ResourceGraph from 'parser/shared/modules/ResourceGraph';
 import InsanityTracker from '../resources/InsanityTracker';
 
-const LINE_COLOR = '#5dd7fc';
+const LINE_COLOR = '#6600CC';
 const SCALE_FACTOR = 0.01; // in events all values are x100
 
 class InsanityGraph extends ResourceGraph {

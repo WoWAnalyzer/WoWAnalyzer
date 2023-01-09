@@ -9,7 +9,7 @@ import SPELLS from 'common/SPELLS';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import { TrackedBuffEvent } from 'parser/core/Entity';
 
-const BAR_COLOR = '#9933cc';
+const BAR_COLOR = '#6600CC';
 
 class DarkEvangelism extends Analyzer {
   constructor(options: Options) {
