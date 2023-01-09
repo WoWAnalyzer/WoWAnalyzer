@@ -11,9 +11,9 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import NotFound from 'interface/NotFound';
+import RouterErrorBoundary from 'interface/RouterErrorBoundary';
 
 import AppLayout from './AppLayout';
-import RootErrorBoundary from 'interface/RootErrorBoundary';
 
 const CharacterPage = lazyLoadComponent(() =>
   retryingPromise(() =>
@@ -81,7 +81,7 @@ const Search = lazyLoadComponent(() =>
 );
 
 const appRoutes = createRoutesFromElements(
-  <Route path="/" element={<AppLayout />} errorElement={<RootErrorBoundary />}>
+  <Route path="/" element={<AppLayout />} errorElement={<RouterErrorBoundary />}>
     <Route path="character/:region/:realm/:name" element={<CharacterPage />} />
     <Route path="guild/:region/:realm/:name" element={<GuildPage />} />
     <Route
