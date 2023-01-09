@@ -164,7 +164,7 @@ class MindFlayInsanity extends Analyzer {
       <div>
         <strong>Mind Flay Insanity breakdown</strong>
         <GradiatedPerformanceBar good={goodMFI} bad={badMFI} />
-        <GradiatedPerformanceBar perfect={usedMFI} ok={unusedMFI} />
+        <GradiatedPerformanceBar good={usedMFI} ok={unusedMFI} />
       </div>
     );
     return explanationAndDataSubsection(explanation, data, 50);
