@@ -25,6 +25,7 @@ import BilescourgeBombers from './modules/talents/BilescourgeBombers';
 import DemonicCalling from './modules/talents/DemonicCalling';
 import DemonicStrength from './modules/talents/DemonicStrength';
 import Doom from './modules/talents/Doom';
+import DreadCalling from './modules/talents/DreadCalling';
 import Dreadlash from './modules/talents/Dreadlash';
 import FelCovenant from './modules/talents/FelCovenant';
 import FromTheShadows from './modules/talents/FromTheShadows';
@@ -34,6 +35,7 @@ import NetherPortal from './modules/talents/NetherPortal';
 import PowerSiphonNormalizer from './modules/talents/normalizers/PowerSiphonNormalizer';
 import PowerSiphon from './modules/talents/PowerSiphon';
 import SacrificedSouls from './modules/talents/SacrificedSouls';
+import ShadowsBite from './modules/talents/ShadowsBite';
 import SoulConduit from './modules/talents/SoulConduit';
 import SoulStrike from './modules/talents/SoulStrike';
 import SummonVilefiend from './modules/talents/SummonVilefiend';
@@ -84,6 +86,8 @@ class CombatLogParser extends CoreCombatLogParser {
     sacrificedSouls: SacrificedSouls,
     netherPortal: NetherPortal,
     felCovenant: FelCovenant,
+    shadowsBite: ShadowsBite,
+    dreadCalling: DreadCalling,
 
     vaultOfTheIncarnates4Set: DemonologyWarlockVaultOfTheIncarnates4Set,
 

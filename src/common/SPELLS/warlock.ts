@@ -507,6 +507,16 @@ const spells = spellIndexableList({
     name: 'Demonic Consumption(cast)',
     icon: 'spell_warlock_soulburn',
   },
+  SHADOWS_BITE_BUFF: {
+    id: 387327,
+    name: "Shadow's Bite",
+    icon: 'spell_shadow_painspike',
+  },
+  DREAD_CALLING_BUFF: {
+    id: 387393,
+    name: 'Dread Calling',
+    icon: 'inv-felhound3-shadow-mount',
+  },
 
   // Demonology shard generating effects
   SHADOW_BOLT_SHARD_GEN: {

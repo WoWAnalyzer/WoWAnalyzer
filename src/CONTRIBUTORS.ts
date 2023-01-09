@@ -1164,9 +1164,9 @@ export const Mae: Contributor = {
   avatar: avatar('Mae_avatar.png'),
   mains: [
     {
-      name: 'Maerstrom',
-      spec: SPECS.RESTORATION_SHAMAN,
-      link: 'https://worldofwarcraft.com/en-gb/character/eu/draenor/maerstrom',
+      name: 'Maelock',
+      spec: SPECS.DEMONOLOGY_WARLOCK,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/stormscale/maelock',
     },
   ],
 };

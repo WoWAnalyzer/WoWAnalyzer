@@ -4,6 +4,7 @@ import { Sharrq, Zeboot, ToppleTheNun, Jonfanz, Mae } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 1, 4), "Add support for Shadow's Bite and Dread Calling talents", Mae),
   change(date(2022, 12, 29), 'Add support for Fel Covenant and 4 piece set bonus', Mae),
   change(date(2022, 12, 15), 'Fix crash caused by no Power Siphon casts being present in a log.', ToppleTheNun),
   change(date(2022, 10, 18), 'Update spec for Dragonflight', Jonfanz),
