@@ -12,8 +12,8 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
  */
 
 class ShadowsBite extends Analyzer {
-  _totalDemonboltCasts: number = 0;
-  _buffedDemonboltCasts: number = 0;
+  totalCasts: number = 0;
+  buffedCasts: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -27,19 +27,19 @@ class ShadowsBite extends Analyzer {
   }
 
   onDemonboltCast(event: CastEvent) {
-    this._totalDemonboltCasts += 1;
+    this.totalCasts += 1;
 
     if (this.selectedCombatant.hasBuff(SPELLS.SHADOWS_BITE_BUFF.id, event.timestamp)) {
-      this._buffedDemonboltCasts += 1;
+      this.buffedCasts += 1;
     }
   }
 
   get totalDemonboltCasts() {
-    return this._totalDemonboltCasts;
+    return this.totalCasts;
   }
 
   get buffedDemonboltCasts() {
-    return this._buffedDemonboltCasts;
+    return this.buffedCasts;
   }
 
   statistic() {

@@ -15,8 +15,8 @@ const DAMAGE_BUFF_PER_STACK = 0.04;
  */
 
 class DreadCalling extends Analyzer {
-  _callDreadstalkersCasts: number = 0;
-  _dreadCallingStacksConsumed: number = 0;
+  totalCasts: number = 0;
+  buffStacksConsumed: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -30,20 +30,20 @@ class DreadCalling extends Analyzer {
   }
 
   onCallDreadstalkersCast(event: CastEvent) {
-    this._callDreadstalkersCasts += 1;
+    this.totalCasts += 1;
 
-    this._dreadCallingStacksConsumed += this.selectedCombatant.getBuffStacks(
+    this.buffStacksConsumed += this.selectedCombatant.getBuffStacks(
       SPELLS.DREAD_CALLING_BUFF.id,
       event.timestamp,
     );
   }
 
   get dreadCallingStacksConsumed() {
-    return this._dreadCallingStacksConsumed;
+    return this.buffStacksConsumed;
   }
 
   get callDreadstalkersCasts() {
-    return this._callDreadstalkersCasts;
+    return this.totalCasts;
   }
 
   statistic() {
