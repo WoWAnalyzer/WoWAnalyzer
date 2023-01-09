@@ -106,7 +106,7 @@ class CastBehavior extends Analyzer {
   statistic() {
     return (
       <StatisticGroup category={STATISTIC_CATEGORY.GENERAL} large={false} wide={false} style={{}}>
-        <Statistic ultrawide>
+        <Statistic ultrawide size="flexible">
           <div className="pad">
             <label>
               <Trans id="shaman.restoration.castBehaviour.statistic.tidalWaves">
