@@ -2,6 +2,8 @@ import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { Panel } from 'interface';
+import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import { SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -80,11 +82,10 @@ class InsanityUsage extends Analyzer {
     );
   }
 
-  /*
   tab() {
     return {
-      title: 'Fury Usage',
-      url: 'fury-usage',
+      title: 'Insanity',
+      url: 'insanity-usage',
       render: () => (
         <Panel>
           <ResourceBreakdown tracker={this.insanityTracker} showSpenders />
@@ -92,7 +93,6 @@ class InsanityUsage extends Analyzer {
       ),
     };
   }
-  */
 }
 
 export default InsanityUsage;

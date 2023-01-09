@@ -1,8 +1,8 @@
 import ResourceGraph from 'parser/shared/modules/ResourceGraph';
 import InsanityTracker from '../resources/InsanityTracker';
 
-//const LINE_COLOR = '#5dd7fc';
-//const SCALE_FACTOR = 0.1; // in events all values are x10
+const LINE_COLOR = '#5dd7fc';
+const SCALE_FACTOR = 0.01; // in events all values are x100
 
 class InsanityGraph extends ResourceGraph {
   static dependencies = {
@@ -15,7 +15,7 @@ class InsanityGraph extends ResourceGraph {
   tracker() {
     return this.insanityTracker;
   }
-  /*
+
   lineColor() {
     return LINE_COLOR;
   }
@@ -23,7 +23,6 @@ class InsanityGraph extends ResourceGraph {
   scaleFactor() {
     return SCALE_FACTOR;
   }
-  */
 }
 
 export default InsanityGraph;
