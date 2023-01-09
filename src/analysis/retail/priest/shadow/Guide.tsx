@@ -4,25 +4,29 @@ import CombatLogParser from './CombatLogParser';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import CooldownGraphSubsection from './modules/guide/CooldownGraphSubsection';
 import ResourceSubsection from './modules/guide/ResourceSubsection';
+import CastingSubsection from './modules/guide/CastingSubsection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
       <Section title="Insanity">
-        <ResourceSubsection.ResourceSubsection modules={modules} events={events} info={info} />
+        <ResourceSubsection.ResourceSubsection modules={modules} events={events} info={info} />{' '}
+        {/* TODO: Get Insanity Graph working*/}
         {modules.dotUptimes.guideSubsectionDP}
       </Section>
-      <Section title="Core">
+      <Section title="DoTs">
         {modules.dotUptimes.guideSubsection}
 
         {/* Since Dark Evangelism does not effect the rotation, maybe this section should be removed */}
         {info.combatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT) &&
           modules.dotUptimes.guideSubsectionDE}
+      </Section>
 
+      <Section title="Core">
         {/* TODO: Add Mindblast, and SW:D only during execute*/}
         <CooldownGraphSubsection.CoreCooldownsGraph />
 
-        {modules.alwaysBeCasting.guideSubsection()}
+        <CastingSubsection.CastingSubsection modules={modules} events={events} info={info} />
       </Section>
 
       <Section title="Cooldowns">

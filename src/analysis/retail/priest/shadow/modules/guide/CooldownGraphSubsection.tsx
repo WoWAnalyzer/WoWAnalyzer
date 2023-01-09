@@ -36,7 +36,7 @@ const CoreCooldownsGraph = () => {
   const message = (
     <Trans id="guide.priest.shadow.sections.corecooldowns.graph">
       <strong>Core Graph</strong> - Spells such as these are your most important spells. Try to cast
-      them as much as possible. Currently not visualized or calculated correctly
+      them as much as possible. TODO: Visualize and calculate correctly.
     </Trans>
   );
   return CooldownGraphSubsection(coreCooldowns, message);

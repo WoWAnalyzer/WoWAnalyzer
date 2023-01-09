@@ -7,6 +7,7 @@ import {
 import MainCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
+import CancelledCasts from './modules/features/CancelledCasts';
 
 import Guide from 'analysis/retail/priest/shadow/Guide';
 
@@ -55,6 +56,7 @@ class CombatLogParser extends MainCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
+    cancelledCasts: CancelledCasts,
 
     // resources:
     insanityTracker: InsanityTracker,
