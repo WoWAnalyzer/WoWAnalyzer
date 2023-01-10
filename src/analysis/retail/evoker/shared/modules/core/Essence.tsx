@@ -94,7 +94,7 @@ class Essence extends Analyzer {
         category={STATISTIC_CATEGORY.GENERAL}
       >
         <div className="pad">
-          <label>Essence spending by spell</label>
+          <label>Essence spent by spell</label>
           {this.renderDonutChart()}
         </div>
       </Statistic>
