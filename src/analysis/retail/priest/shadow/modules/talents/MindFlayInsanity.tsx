@@ -11,6 +11,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import UptimeIcon from 'interface/icons/Uptime';
 
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
@@ -119,6 +120,7 @@ class MindFlayInsanity extends Analyzer {
       >
         <BoringSpellValueText spellId={TALENTS.MIND_FLAY_INSANITY_TALENT.id}>
           <>
+            <UptimeIcon /> {this.casts} <small>buffs used out of {this.buffs} </small> <br />
             <ItemDamageDone amount={this.damage} /> <br />
             <Insanity /> {this.insanityGained} <small>Insanity generated</small>
           </>
@@ -138,6 +140,7 @@ class MindFlayInsanity extends Analyzer {
       label: 'Canceled Ticks',
     };
 
+    /* If needed in the future, these can be used for a GradiatedPerformanceBar that tracks how many time the buff was used or wasted.
     const usedMFI = {
       count: this.casts,
       label: 'Buffs Used',
@@ -147,7 +150,7 @@ class MindFlayInsanity extends Analyzer {
       count: this.buffsUnused,
       label: 'Buffs Unused',
     };
-
+  */
     const explanation = (
       <p>
         <b>
@@ -162,9 +165,8 @@ class MindFlayInsanity extends Analyzer {
 
     const data = (
       <div>
-        <strong>Mind Flay Insanity breakdown</strong>
+        <strong>Mind Flay Insanity Channels</strong>
         <GradiatedPerformanceBar good={goodMFI} bad={badMFI} />
-        <GradiatedPerformanceBar good={usedMFI} ok={unusedMFI} />
       </div>
     );
     return explanationAndDataSubsection(explanation, data, 50);
