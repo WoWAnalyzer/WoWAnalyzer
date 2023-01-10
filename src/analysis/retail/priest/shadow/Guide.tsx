@@ -14,13 +14,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {/* TODO: Get Insanity Graph working*/}
         {modules.dotUptimes.guideSubsectionDP}
       </Section>
-      <Section title="DoTs">
-        {modules.dotUptimes.guideSubsection}
-
-        {/* Since Dark Evangelism does not effect the rotation, maybe this section should be removed */}
-        {info.combatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT) &&
-          modules.dotUptimes.guideSubsectionDE}
-      </Section>
+      <Section title="DoTs">{modules.dotUptimes.guideSubsection}</Section>
 
       <Section title="Core">
         {/* TODO: Add Mindblast, and SW:D only during execute*/}
