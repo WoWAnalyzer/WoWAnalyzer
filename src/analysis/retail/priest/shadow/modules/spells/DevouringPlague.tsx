@@ -7,7 +7,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 
-const BAR_COLOR = '#6600CC';
+const BAR_COLOR = '#9933cc';
 
 class DevouringPlague extends Analyzer {
   static dependencies = {
