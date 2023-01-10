@@ -9,18 +9,20 @@ import CastingSubsection from './modules/guide/CastingSubsection';
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
-      <Section title="Insanity">
-        <ResourceSubsection.ResourceSubsection modules={modules} events={events} info={info} />{' '}
-        {/* TODO: Get Insanity Graph working*/}
-        {modules.dotUptimes.guideSubsectionDP}
-      </Section>
-      <Section title="DoTs">{modules.dotUptimes.guideSubsection}</Section>
-
       <Section title="Core">
-        {/* TODO: Add Mindblast, and SW:D only during execute*/}
-        <CooldownGraphSubsection.CoreCooldownsGraph />
+        <Section title="Insanity">
+          <ResourceSubsection.ResourceSubsection modules={modules} events={events} info={info} />{' '}
+          {/* TODO: Get Insanity Graph working*/}
+          {modules.dotUptimes.guideSubsectionDP}
+        </Section>
+        <Section title="DoTs">{modules.dotUptimes.guideSubsection}</Section>
 
-        <CastingSubsection.CastingSubsection modules={modules} events={events} info={info} />
+        <Section title="Spells">
+          {/* TODO: Add Mindblast, and SW:D only during execute*/}
+          <CooldownGraphSubsection.CoreCooldownsGraph />
+
+          <CastingSubsection.CastingSubsection modules={modules} events={events} info={info} />
+        </Section>
       </Section>
 
       <Section title="Cooldowns">
