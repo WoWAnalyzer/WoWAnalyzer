@@ -23,7 +23,6 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: [SPELLS.ATONEMENT_HEAL_CRIT.id, SPELLS.ATONEMENT_HEAL_NON_CRIT.id],
     referencedEventType: EventType.Heal,
     forwardBufferMs: BUFFER_MS,
-    backwardBufferMs: 0,
     anyTarget: true,
   },
 ];

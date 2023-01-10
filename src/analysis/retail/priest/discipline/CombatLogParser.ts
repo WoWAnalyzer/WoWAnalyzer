@@ -69,7 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     shadowfiendNormalizer: ShadowfiendNormalizer,
     powerWordRadianceNormalizer: PowerWordRadianceNormalizer,
     manifestedTwilightNormalizer: ManifestedTwilightNormalizer,
-    atonementNormalize: AtonementNormalizer,
+    atonementNormalizer: AtonementNormalizer,
 
     spellUsable: SpellUsable,
     spellManaCost: SpellManaCost,
