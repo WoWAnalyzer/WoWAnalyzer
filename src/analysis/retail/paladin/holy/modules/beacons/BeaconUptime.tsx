@@ -196,7 +196,7 @@ class BeaconUptime extends BeaconAnalyzer {
 
   onRemove(event: BeaconRemovedEvent) {
     const beaconId = event.trigger.ability.guid;
-    const stillActive = this.beaconTargets.specificBeaconTargets(beaconId);
+    const stillActive = this.beaconTargets.getNumBeaconTargetsForBeaconId(beaconId);
     if (stillActive === 0) {
       this.beaconRemoved(beaconId, event.timestamp);
     }
@@ -205,7 +205,8 @@ class BeaconUptime extends BeaconAnalyzer {
   onEnd() {
     this.beaconBuffIds.forEach(
       (id) =>
-        this.beaconTargets.specificBeaconTargets(id) > 0 && this.beaconRemoved(id, this.fightEnd),
+        this.beaconTargets.getNumBeaconTargetsForBeaconId(id) > 0 &&
+        this.beaconRemoved(id, this.fightEnd),
     );
   }
 
