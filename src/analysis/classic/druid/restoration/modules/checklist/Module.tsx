@@ -1,26 +1,36 @@
+// Core
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
+import Component from './Component';
+// Shared
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
+import CombatPotionChecker from 'parser/classic/modules/items/CombatPotionChecker';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import PreparationRuleAnalyzer from 'parser/classic/modules/features/Checklist/PreparationRuleAnalyzer';
-
+// Features
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
-import Component from './Component';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
+    // Core
     ...BaseChecklist.dependencies,
-    combatants: Combatants,
+    // Shared
     castEfficiency: CastEfficiency,
+    combatants: Combatants,
+    combatPotionChecker: CombatPotionChecker,
     manaValues: ManaValues,
-    alwaysBeCasting: AlwaysBeCasting,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
+    // Features
+    alwaysBeCasting: AlwaysBeCasting,
   };
 
-  protected combatants!: Combatants;
+  // Shared
   protected castEfficiency!: CastEfficiency;
-  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected combatants!: Combatants;
+  protected combatPotionChecker!: CombatPotionChecker;
   protected manaValues!: ManaValues;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  // Features
   protected alwaysBeCasting!: AlwaysBeCasting;
 
   render() {
