@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { BeaconHealEvent, HealEvent } from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -16,12 +17,15 @@ import BeaconHealSource from '../beacons/BeaconHealSource';
  *
  *  You become the ultimate crusader of light, increasing your Crusader Strike, Judgment, and auto-attack damage by 30%.
  *  Crusader Strike and Judgment cool down 30% faster and heal up to 3 injured allies for 250% of the damage they deal. Lasts 20 sec.
- *  Example Log: https://www.warcraftlogs.com/reports/QNJxrchLwB3WtXqP#fight=last&type=healing&source=7
+ *  Example Log: https://www.warcraftlogs.com/reports/Ht1XgQxaCGc8kbrA#fight=4&type=healing&source=13
  */
 class AvengingCrusader extends Analyzer {
   static dependencies = {
     beaconHealSource: BeaconHealSource,
+    spellUsable: SpellUsable,
   };
+
+  protected spellUsable!: SpellUsable;
 
   healing = 0;
   healingTransfered = 0;
@@ -45,6 +49,15 @@ class AvengingCrusader extends Analyzer {
       this.onCrit,
     );
     this.addEventListener(Events.beacontransfer.by(SELECTED_PLAYER), this.onBeaconTransfer);
+
+    this.addEventListener(
+      Events.applybuff.spell(TALENTS.AVENGING_CRUSADER_TALENT),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.removebuff.spell(TALENTS.AVENGING_CRUSADER_TALENT),
+      this.onRemoveBuff,
+    );
   }
 
   onHit(event: HealEvent) {
@@ -68,6 +81,20 @@ class AvengingCrusader extends Analyzer {
     }
     this.healingTransfered += event.amount + (event.absorbed || 0);
     this.beaconOverhealing += event.overheal || 0;
+  }
+
+  onApplyBuff() {
+    this.spellUsable.applyCooldownRateChange(
+      [SPELLS.JUDGMENT_CAST_HOLY.id, SPELLS.CRUSADER_STRIKE.id],
+      1.3,
+    );
+  }
+
+  onRemoveBuff() {
+    this.spellUsable.removeCooldownRateChange(
+      [SPELLS.JUDGMENT_CAST_HOLY.id, SPELLS.CRUSADER_STRIKE.id],
+      1.3,
+    );
   }
 
   get critRate() {
