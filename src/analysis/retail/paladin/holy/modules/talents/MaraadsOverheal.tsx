@@ -60,10 +60,10 @@ class MaraadsOverheal extends Analyzer {
     when(this.overhealSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to avoid casting <SpellLink id={SPELLS.MARAADS_DYING_BREATH.id} /> buffed
-          <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when a large portion of it would
-          overheal. If you are finding that this is happening very frequently, consider using a
-          different legendary.
+          Try to avoid casting <SpellLink id={SPELLS.MARAADS_DYING_BREATH} /> buffed
+          <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR} /> when a large portion of it would overheal.
+          If you are finding that this is happening very frequently, consider using a different
+          legendary.
         </>,
       )
         .icon(SPELLS.MARAADS_DYING_BREATH.icon)

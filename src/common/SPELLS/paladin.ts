@@ -123,11 +123,6 @@ const spells = spellIndexableList({
     icon: 'spell_holy_flashheal',
     manaCost: 2200,
   },
-  HOLY_SHOCK_CAST: {
-    id: 20473,
-    name: 'Holy Shock',
-    icon: 'spell_holy_searinglight',
-  },
   HOLY_SHOCK_HEAL: {
     id: 25914,
     name: 'Holy Shock',

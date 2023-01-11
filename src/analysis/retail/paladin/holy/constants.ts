@@ -74,10 +74,17 @@ export function getBeaconSpellFactor(spellID: number, player: Combatant): number
   return factor;
 }
 
-export const BEACON_TYPES = {
-  BEACON_OF_LIGHT: [SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id],
-  BEACON_OF_FATH: [SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id, TALENTS.BEACON_OF_FAITH_TALENT.id],
-  BEACON_OF_VIRTUE: [TALENTS.BEACON_OF_VIRTUE_TALENT.id],
-} as const;
+export const enum BEACON_TYPE {
+  BEACON_OF_LIGHT,
+  BEACON_OF_FAITH,
+  BEACON_OF_VIRTUE,
+}
 
-export type BeaconType = keyof typeof BEACON_TYPES;
+export const BEACON_SPELL_IDS: Record<BEACON_TYPE, readonly number[]> = {
+  [BEACON_TYPE.BEACON_OF_LIGHT]: [SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id],
+  [BEACON_TYPE.BEACON_OF_FAITH]: [
+    SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id,
+    TALENTS.BEACON_OF_FAITH_TALENT.id,
+  ],
+  [BEACON_TYPE.BEACON_OF_VIRTUE]: [TALENTS.BEACON_OF_VIRTUE_TALENT.id],
+} as const;

@@ -77,7 +77,7 @@ class Abilities extends CoreAbilities {
           suggestion: combatant.hasTalent(TALENTS.JUDGMENT_OF_LIGHT_TALENT),
           extraSuggestion: (
             <Trans id="paladin.holy.modules.abilities.judgmentOfLightTalent">
-              You should cast it whenever <SpellLink id={TALENTS.JUDGMENT_OF_LIGHT_TALENT.id} /> has
+              You should cast it whenever <SpellLink id={TALENTS.JUDGMENT_OF_LIGHT_TALENT} /> has
               dropped, which is usually on cooldown without delay. Alternatively you can ignore the
               debuff and just cast it whenever Judgment is available; there's nothing wrong with
               ignoring unimportant things to focus on important things.
@@ -133,9 +133,9 @@ class Abilities extends CoreAbilities {
           suggestion: combatant.hasTalent(TALENTS.CRUSADERS_MIGHT_TALENT),
           extraSuggestion: (
             <Trans id="paladin.holy.modules.abilities.crusadersMightTalent">
-              When you are using <SpellLink id={TALENTS.CRUSADERS_MIGHT_TALENT.id} /> it is
-              important to use <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> often enough to benefit
-              from the talent. Use a different talent if you are unable to.
+              When you are using <SpellLink id={TALENTS.CRUSADERS_MIGHT_TALENT} /> it is important
+              to use <SpellLink id={SPELLS.CRUSADER_STRIKE} /> often enough to benefit from the
+              talent. Use a different talent if you are unable to.
             </Trans>
           ),
           recommendedEfficiency: 0.35,

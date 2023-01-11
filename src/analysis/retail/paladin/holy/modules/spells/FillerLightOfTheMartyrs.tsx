@@ -85,7 +85,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
     when(this.cpmSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="paladin.holy.modules.fillerLightOfTheMatyrs.suggestion">
-          You cast many <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />
+          You cast many <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR} />
           s. Light of the Martyr is an inefficient spell to cast, try to only cast Light of the
           Martyr when it will save someone's life or when moving and all other instant cast spells
           are on cooldown.
@@ -107,8 +107,8 @@ class FillerLightOfTheMartyrs extends Analyzer {
     when(this.inefficientCpmSuggestionThresholds).addSuggestion((suggest, actual) =>
       suggest(
         <Trans id="paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion">
-          You cast {this.inefficientCasts.length} <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />s
-          while <SpellLink id={TALENTS.HOLY_SHOCK_TALENT.id} /> was{' '}
+          You cast {this.inefficientCasts.length} <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR} />s
+          while <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} /> was{' '}
           <TooltipElement
             content={t({
               id:
@@ -122,8 +122,8 @@ class FillerLightOfTheMartyrs extends Analyzer {
           {this.inefficientCasts
             .map((event) => this.owner.formatTimestamp(event.timestamp))
             .join(', ')}
-          ). Try to <b>never</b> cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when
-          something else is available
+          ). Try to <b>never</b> cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR} /> when something
+          else is available
           <TooltipElement
             content={t({
               id: 'paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion.exceptions',
