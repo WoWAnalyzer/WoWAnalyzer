@@ -455,12 +455,10 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: LIFEBIND_HEAL,
-    reverseLinkRelation: LIFEBIND_HEAL,
     linkingEventId: SPELLS.LIFEBIND_HEAL.id,
     linkingEventType: EventType.Heal,
     referencedEventId: CORE_HEALING_SPELLS,
     referencedEventType: EventType.Heal,
-    backwardBufferMs: 500,
     anyTarget: true,
     maximumLinks: 1,
     additionalCondition(linkingEvent, referencedEvent) {
