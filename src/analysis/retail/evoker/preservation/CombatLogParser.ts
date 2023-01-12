@@ -32,6 +32,7 @@ import FieldOfDreams from './modules/talents/FieldOfDreams';
 import DreamFlight from './modules/talents/DreamFlight';
 import ExhilBurst from './modules/talents/ExhilBurst';
 import Stasis from './modules/talents/Stasis';
+import Lifebind from './modules/talents/Lifebind';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -78,6 +79,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fieldOfDreams: FieldOfDreams,
     exhilBurst: ExhilBurst,
     stasis: Stasis,
+    lifebind: Lifebind,
   };
 }
 
