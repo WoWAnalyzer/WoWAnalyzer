@@ -19,13 +19,17 @@ import TALENTS from 'common/TALENTS/demonhunter';
 import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/CastSummaryAndBreakdown';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 
+type SoulCleaveBoxRowEntry = BoxRowEntry & {
+  event: CastEvent;
+};
+
 export default class SoulCleave extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
 
   enemies!: Enemies;
-  private castEntries: BoxRowEntry[] = [];
+  private castEntries: SoulCleaveBoxRowEntry[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -52,7 +56,7 @@ export default class SoulCleave extends Analyzer {
       </>
     );
 
-    this.castEntries.push({ value: performance, tooltip });
+    this.castEntries.push({ value: performance, tooltip, event });
   }
 
   getCastFieryDemisePerformance(event: CastEvent): [QualitativePerformance, ReactNode] {
