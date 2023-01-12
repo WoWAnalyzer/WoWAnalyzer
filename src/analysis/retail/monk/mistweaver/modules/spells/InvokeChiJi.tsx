@@ -112,8 +112,11 @@ class InvokeChiJi extends Analyzer {
     if (this.chijiActive) {
       this.chijiGlobals += 1;
       //if timebetween globals is longer than the gcd add the difference to the missed gcd tally
-      //we only care about accounting for channels of essence font, other than that it should be the gcd during chiji
-      if (event.ability.guid === TALENTS_MONK.ESSENCE_FONT_TALENT.id) {
+      //we only care about accounting casts of essence font or fls, other than that it should be the gcd during chiji
+      if (
+        event.ability.guid === TALENTS_MONK.ESSENCE_FONT_TALENT.id ||
+        event.ability.guid === TALENTS_MONK.FAELINE_STOMP_TALENT.id
+      ) {
         this.efGcd = event.duration;
       } else if (event.timestamp - this.lastGlobal > event.duration) {
         this.missedGlobals += (event.timestamp - this.lastGlobal - event.duration) / event.duration;
