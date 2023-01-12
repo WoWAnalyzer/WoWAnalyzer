@@ -227,6 +227,7 @@ export default class SpiritBomb extends Analyzer {
             'guide.demonhunter.vengeance.sections.rotation.spiritBomb.data.summary.performance.bad',
           message: 'Bad Spirit Bombs',
         })}
+        onClickBox={(idx) => console.log(this.castEntries[idx].event)}
       />
     );
     const noCastData = (

@@ -31,13 +31,17 @@ const getMetaInitialFuryLimit = (hasT292Pc: boolean) =>
 const getNonMetaInitialFuryLimit = (hasT292Pc: boolean) =>
   hasT292Pc ? T29_NOT_META_FURY_LIMIT : DEFAULT_NOT_META_FURY_LIMIT;
 
+type FractureBoxRowEntry = BoxRowEntry & {
+  event: CastEvent;
+};
+
 export default class Fracture extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     furyTracker: FuryTracker,
   };
 
-  castEntries: BoxRowEntry[] = [];
+  castEntries: FractureBoxRowEntry[] = [];
   inMetaFuryLimit = getMetaInitialFuryLimit(false);
   notMetaFuryLimit = getNonMetaInitialFuryLimit(false);
   protected enemies!: Enemies;
@@ -114,7 +118,7 @@ export default class Fracture extends Analyzer {
       </>
     );
 
-    this.castEntries.push({ value: performance, tooltip });
+    this.castEntries.push({ value: performance, tooltip, event });
   }
 
   getCastFuryPerformance(event: CastEvent): [QualitativePerformance, ReactNode] {
@@ -213,6 +217,7 @@ export default class Fracture extends Analyzer {
           id: 'guide.demonhunter.vengeance.sections.rotation.fracture.data.summary.performance.bad',
           message: 'Bad Fractures',
         })}
+        onClickBox={(idx) => console.log(this.castEntries[idx].event)}
       />
     );
     const noCastData = (
