@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { AbsorbedEvent } from 'parser/core/Events';
@@ -28,7 +29,7 @@ class TempestBarrier extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.TEMPEST_BARRIER.id}>
+        <BoringSpellValueText spellId={TALENTS.TEMPEST_BARRIER_TALENT.id}>
           {formatNumber(this.damageAbsorbed)} <small>Damage absorbed</small>
         </BoringSpellValueText>
       </Statistic>

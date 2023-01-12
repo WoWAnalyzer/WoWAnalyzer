@@ -342,7 +342,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RUNE_1.id,
         category: SPELL_CATEGORY.HIDDEN,
         cooldown: (haste) => {
-          const multiplier = combatant.hasBuff(SPELLS.CRIMSON_RUNE_WEAPON_BUFF.id) ? 0.4 : 0;
+          const multiplier = 0;
           return 10 / (1 + haste) / (1 + multiplier);
         },
         charges: 2,
@@ -351,7 +351,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RUNE_2.id,
         category: SPELL_CATEGORY.HIDDEN,
         cooldown: (haste) => {
-          const multiplier = combatant.hasBuff(SPELLS.CRIMSON_RUNE_WEAPON_BUFF.id) ? 0.4 : 0;
+          const multiplier = 0;
           return 10 / (1 + haste) / (1 + multiplier);
         },
         charges: 2,
@@ -360,7 +360,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RUNE_3.id,
         category: SPELL_CATEGORY.HIDDEN,
         cooldown: (haste) => {
-          const multiplier = combatant.hasBuff(SPELLS.CRIMSON_RUNE_WEAPON_BUFF.id) ? 0.4 : 0;
+          const multiplier = 0;
           return 10 / (1 + haste) / (1 + multiplier);
         },
         charges: 2,
@@ -368,29 +368,7 @@ class Abilities extends CoreAbilities {
 
       // covenants
       {
-        spell: SPELLS.SWARMING_MIST.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-        enabled: false,
-      },
-      {
-        spell: SPELLS.DOOR_OF_SHADOWS.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        enabled: false,
-      },
-      {
-        spell: SPELLS.ABOMINATION_LIMB.id,
+        spell: TALENTS.ABOMINATION_LIMB_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         gcd: {
@@ -399,43 +377,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-        },
-        enabled: false,
-      },
-      {
-        spell: SPELLS.FLESHCRAFT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120,
-        enabled: false,
-      },
-      {
-        spell: SPELLS.SHACKLE_THE_UNWORTHY.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-        enabled: false,
-      },
-      {
-        spell: SPELLS.DEATHS_DUE.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 15,
-        gcd: {
-          base: 1500,
-        },
-        enabled: false,
-      },
-      {
-        spell: SPELLS.SOULSHAPE.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
         },
         enabled: false,
       },

@@ -19,7 +19,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     TALENTS.EARTH_SHIELD_TALENT.id,
     TALENTS.DOWNPOUR_TALENT.id,
     TALENTS.MANA_TIDE_TOTEM_TALENT.id,
-    SPELLS.PRIMORDIAL_WAVE_CAST.id,
+    TALENTS.PRIMORDIAL_WAVE_TALENT.id,
   ];
 }
 

@@ -1,7 +1,5 @@
-import SPELLS from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
-import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 class VanquishersHammer extends Analyzer {
   static dependencies = {
@@ -18,19 +16,19 @@ class VanquishersHammer extends Analyzer {
       return;
     }
 
-    (options.abilities as Abilities).add({
-      spell: SPELLS.VANQUISHERS_HAMMER.id,
-      category: SPELL_CATEGORY.COOLDOWNS,
-      cooldown: 30,
-      charges: 1,
-      gcd: {
-        base: 1500,
-      },
-      castEfficiency: {
-        suggestion: true,
-        recommendedEfficiency: 0.8,
-      },
-    });
+    // (options.abilities as Abilities).add({
+    //   spell: SPELLS.VANQUISHERS_HAMMER.id,
+    //   category: SPELL_CATEGORY.COOLDOWNS,
+    //   cooldown: 30,
+    //   charges: 1,
+    //   gcd: {
+    //     base: 1500,
+    //   },
+    //   castEfficiency: {
+    //     suggestion: true,
+    //     recommendedEfficiency: 0.8,
+    //   },
+    // });
   }
 }
 

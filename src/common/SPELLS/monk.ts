@@ -80,6 +80,16 @@ const spells = spellIndexableList({
     name: 'Save Them All',
     icon: 'inv_weapon_hand_22',
   },
+  BONEDUST_BREW_DAMAGE: {
+    id: 325217,
+    name: 'Bonedust Brew',
+    icon: 'ability_maldraxxus_monk',
+  },
+  BONEDUST_BREW_HEAL: {
+    id: 325218,
+    name: 'Bonedust Brew',
+    icon: 'ability_maldraxxus_monk',
+  },
 
   // Mistweaver Monk Spells
   CLOUDED_FOCUS_BUFF: {
@@ -266,6 +276,11 @@ const spells = spellIndexableList({
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
   },
+  FAELINE_STOMP_PULSE_DAMAGE: {
+    id: 327264,
+    name: 'Faeline Stomp',
+    icon: 'ability_ardenweald_monk',
+  },
   FAELINE_STOMP_ESSENCE_FONT: {
     id: 344006,
     name: 'Faeline Stomp',
@@ -275,6 +290,16 @@ const spells = spellIndexableList({
     id: 388203,
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
+  },
+  BONEDUST_BREW_GUST_OF_MIST: {
+    id: 328748,
+    name: 'Bonedust Brew',
+    icon: 'ability_maldraxxus_monk',
+  },
+  NOURISHING_CHI_BUFF: {
+    id: 387766,
+    name: 'Nourishing Chi',
+    icon: 'inv_misc_gem_pearl_06',
   },
 
   // Brewmaster
@@ -467,6 +492,16 @@ const spells = spellIndexableList({
     id: 202126,
     name: 'Hot Trub',
     icon: 'spell_brew_dark',
+  },
+  CTA_INVOKE_NIUZAO_BUFF: {
+    id: 358520,
+    name: 'Invoke Niuzao, the Black Ox',
+    icon: 'spell_monk_brewmaster_spec',
+  },
+  WEAPONS_OF_ORDER_BUFF_AND_HEAL: {
+    id: 387184,
+    name: 'Weapons of Order',
+    icon: 'ability_bastion_monk',
   },
   // Conduits
   EVASIVE_STRIDE_HEAL: {

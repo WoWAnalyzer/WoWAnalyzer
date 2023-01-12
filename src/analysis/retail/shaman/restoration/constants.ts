@@ -78,8 +78,8 @@ export const NATURES_FOCUS_RANKS = [
 // TODO: Create list for Ancestral Guidance (should be all BASE + Ascendance + CBT)
 const SHAMAN_BASE_ABILITIES = [
   SPELLS.HEALING_SURGE,
-  SPELLS.CHAIN_HARVEST_HEAL,
-  SPELLS.PRIMORDIAL_WAVE_HEAL,
+  // Cannot find any logs with the heal
+  // SPELLS.PRIMORDIAL_WAVE_HEAL,
 
   TALENTS.HEALING_WAVE_TALENT,
   TALENTS.CHAIN_HEAL_TALENT,
