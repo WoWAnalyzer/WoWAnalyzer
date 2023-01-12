@@ -278,6 +278,11 @@ const spells = spellIndexableList({
     name: 'Exhilarating Burst',
     icon: 'ability_evoker_essenceburst3',
   },
+  LIFEBIND_BUFF: {
+    id: 373267,
+    name: 'Lifebind',
+    icon: 'ability_evoker_hoverred',
+  },
 });
 
 export default spells;

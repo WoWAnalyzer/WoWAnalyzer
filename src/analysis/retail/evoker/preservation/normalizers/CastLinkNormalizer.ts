@@ -27,6 +27,8 @@ export const ECHO = 'Echo'; // for linking BuffApply/Heal to echo removal
 export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsumption'; // link essence cast to removing the essence burst buff
 export const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera'; // link DB hit to buff removal
 export const DREAM_BREATH_CALL_OF_YSERA_HOT = 'DreamBreathCallOfYseraHoT'; // link DB hot to buff removal
+export const LIFEBIND_APPLY = 'LifebindApply';
+export const LIFEBIND_HEAL = 'LifebindHeal';
 export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera'; // link buffed living flame to buff removal
 export const FIELD_OF_DREAMS_PROC = 'FromFieldOfDreams'; // link EB heal to fluttering heal
 export const HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
@@ -38,6 +40,7 @@ const CAST_BUFFER_MS = 100;
 const ECHO_BUFFER = 500;
 const EB_BUFFER_MS = 2000;
 const EB_VARIANCE_BUFFER = 150; // servers are bad and EB can take over or under 2s to actually trigger
+const LIFEBIND_BUFFER = 5000 + CAST_BUFFER_MS; // 5s duration
 const MAX_ECHO_DURATION = 20000; // 15s with 30% inc = 19s
 const TA_BUFFER_MS = 6000 + CAST_BUFFER_MS; //TA pulses over 6s at 0% haste
 
@@ -442,6 +445,44 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
+  {
+    linkRelation: LIFEBIND_APPLY,
+    linkingEventId: SPELLS.LIFEBIND_HEAL.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: SPELLS.LIFEBIND_BUFF.id,
+    referencedEventType: EventType.ApplyBuff,
+    backwardBufferMs: LIFEBIND_BUFFER,
+  },
+  {
+    linkRelation: LIFEBIND_HEAL,
+    reverseLinkRelation: LIFEBIND_HEAL,
+    linkingEventId: SPELLS.LIFEBIND_HEAL.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: [
+      SPELLS.EMERALD_BLOSSOM.id,
+      SPELLS.EMERALD_BLOSSOM_ECHO.id,
+      TALENTS_EVOKER.REVERSION_TALENT.id,
+      SPELLS.REVERSION_ECHO.id,
+      SPELLS.SPIRITBLOOM.id,
+      SPELLS.SPIRITBLOOM_SPLIT.id,
+      SPELLS.DREAM_BREATH.id,
+      SPELLS.VERDANT_EMBRACE_HEAL.id,
+      SPELLS.LIVING_FLAME_HEAL.id,
+      SPELLS.DREAM_FLIGHT_HEAL.id,
+      SPELLS.RENEWING_BLAZE_HEAL.id,
+      TALENTS_EVOKER.REWIND_TALENT.id,
+      SPELLS.CYCLE_OF_LIFE_HEAL.id,
+      SPELLS.EMERALD_COMMUNION_SELF.id,
+      SPELLS.EMERALD_COMMUNION_ALLY.id,
+    ], // listen to our core spells
+    referencedEventType: EventType.Heal,
+    backwardBufferMs: 500,
+    anyTarget: true,
+    maximumLinks: 1,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return HasRelatedEvent(linkingEvent, LIFEBIND_APPLY); // make sure the heal is on someone with lifebind buff
+    },
+  },
 ];
 
 /**
@@ -498,6 +539,13 @@ export function getEssenceBurstConsumeAbility(
     return null;
   }
   return GetRelatedEvents(event, ESSENCE_BURST_CONSUME)[0] as CastEvent;
+}
+
+export function getHealForLifebindHeal(event: HealEvent): HealEvent | null {
+  if (!HasRelatedEvent(event, LIFEBIND_HEAL)) {
+    return null;
+  }
+  return GetRelatedEvents(event, LIFEBIND_HEAL)[0] as HealEvent;
 }
 
 export function getHealEvents(event: HealEvent) {

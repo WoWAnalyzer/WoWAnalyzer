@@ -5,6 +5,7 @@ import { Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 1, 11), <>Add module for <SpellLink id={TALENTS_EVOKER.LIFEBIND_TALENT}/></>, Trevor),
   change(date(2023, 1, 8), <>Add checklist items for <SpellLink id={TALENTS_EVOKER.CALL_OF_YSERA_TALENT}/></>, Trevor),
   change(date(2023, 1, 4), <>Fix modules related to empowered spells when talented into <SpellLink id={TALENTS_EVOKER.FONT_OF_MAGIC_TALENT}/></>, Trevor),
   change(date(2023, 1, 2), <>Fix crash in <SpellLink id={TALENTS_EVOKER.STASIS_TALENT.id}/> module when stasis is cast pre-pull</>, Trevor),
