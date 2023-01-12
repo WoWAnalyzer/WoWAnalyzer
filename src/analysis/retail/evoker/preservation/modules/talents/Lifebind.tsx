@@ -121,7 +121,9 @@ class Lifebind extends Analyzer {
         label: 'Other',
         spellId: 0,
         value: this.healingForSpell(0),
-        valueTooltip: formatNumber(this.healingForSpell(0)),
+        valueTooltip:
+          formatNumber(this.healingForSpell(0)) +
+          ' (This includes items, trinkets, and other sources of non-spell healing)',
       },
     ].filter((item) => {
       return item.value > 0;
