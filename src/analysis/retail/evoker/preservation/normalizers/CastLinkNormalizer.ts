@@ -15,7 +15,7 @@ import {
   RemoveBuffEvent,
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
-import { STASIS_CAST_IDS } from '../constants';
+import { CORE_HEALING_SPELLS, STASIS_CAST_IDS } from '../constants';
 
 export const FROM_HARDCAST = 'FromHardcast'; // for linking a buffapply or heal to its cast
 export const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly'; // for linking TA echo apply to TA shield apply
@@ -458,23 +458,7 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: LIFEBIND_HEAL,
     linkingEventId: SPELLS.LIFEBIND_HEAL.id,
     linkingEventType: EventType.Heal,
-    referencedEventId: [
-      SPELLS.EMERALD_BLOSSOM.id,
-      SPELLS.EMERALD_BLOSSOM_ECHO.id,
-      TALENTS_EVOKER.REVERSION_TALENT.id,
-      SPELLS.REVERSION_ECHO.id,
-      SPELLS.SPIRITBLOOM.id,
-      SPELLS.SPIRITBLOOM_SPLIT.id,
-      SPELLS.DREAM_BREATH.id,
-      SPELLS.VERDANT_EMBRACE_HEAL.id,
-      SPELLS.LIVING_FLAME_HEAL.id,
-      SPELLS.DREAM_FLIGHT_HEAL.id,
-      SPELLS.RENEWING_BLAZE_HEAL.id,
-      TALENTS_EVOKER.REWIND_TALENT.id,
-      SPELLS.CYCLE_OF_LIFE_HEAL.id,
-      SPELLS.EMERALD_COMMUNION_SELF.id,
-      SPELLS.EMERALD_COMMUNION_ALLY.id,
-    ], // listen to our core spells
+    referencedEventId: CORE_HEALING_SPELLS,
     referencedEventType: EventType.Heal,
     backwardBufferMs: 500,
     anyTarget: true,
