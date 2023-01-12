@@ -58,7 +58,6 @@ const ABILITIES = {
   ...SHAMAN,
   ...WARLOCK,
   ...WARRIOR,
-  // ...SHADOWLANDS,
   ...DRAGONFLIGHT,
 } as const;
 
