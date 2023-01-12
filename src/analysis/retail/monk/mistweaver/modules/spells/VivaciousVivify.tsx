@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { RefreshBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import InvokeChiJi from './InvokeChiJi';
 import RenewingMist from './RenewingMist';
 import Vivify from './Vivify';
 
@@ -12,7 +13,9 @@ class VivaciousVivification extends Analyzer {
   static dependencies = {
     vivify: Vivify,
     renewingMist: RenewingMist,
+    invokeChiji: InvokeChiJi,
   };
+  protected invokeChiji!: InvokeChiJi;
   protected renewingMist!: RenewingMist;
   protected vivify!: Vivify;
   currentRenewingMists: number = 0;
@@ -33,8 +36,12 @@ class VivaciousVivification extends Analyzer {
   }
 
   onRefresh(event: RefreshBuffEvent) {
-    // every refresh is a wasted buff application and the CD restarts
-    if (this.renewingMist.currentRenewingMists >= this.vivify.estimatedAverageReMs) {
+    // every refresh is a wasted buff application and the CD restarts. ignore refreshes during cooldown windows
+    if (
+      this.renewingMist.currentRenewingMists >= this.vivify.estimatedAverageReMs &&
+      (!this.invokeChiji.chijiActive ||
+        !this.selectedCombatant.hasBuff(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id))
+    ) {
       this.wastedApplications += 1;
     }
   }
