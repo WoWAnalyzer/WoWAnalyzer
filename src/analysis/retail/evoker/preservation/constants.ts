@@ -1,3 +1,4 @@
+import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 
@@ -12,6 +13,7 @@ export const SPELL_COLORS = {
   FLUTTERING_SEEDLING: '#ffff00',
   LIVING_FLAME: '#880e0b',
   LIFEBIND: '#bf0a30',
+  GOLDEN_HOUR: '#ffbfa0',
   SPIRITBLOOM: '#fe85ff',
   TA_ECHO: '#6711ad',
   RENEWING_BLAZE: '#680c07',
@@ -20,7 +22,7 @@ export const SPELL_COLORS = {
   VERDANT_EMBRACE: '#96ffd8',
 };
 
-export const CORE_HEALING_SPELLS = [
+export const DUPLICATION_SPELLS = [
   SPELLS.EMERALD_BLOSSOM.id,
   SPELLS.EMERALD_BLOSSOM_ECHO.id,
   TALENTS_EVOKER.REVERSION_TALENT.id,
@@ -39,7 +41,8 @@ export const CORE_HEALING_SPELLS = [
   SPELLS.EMERALD_COMMUNION_ALLY.id,
   SPELLS.FLUTTERING_SEEDLINGS_HEAL.id,
   TALENTS_EVOKER.ECHO_TALENT.id,
-];
+  ITEMS.BROODKEEPERS_PROMISE_HEAL.id, // adding this here because everyone is running it
+]; // common spell ids that trigger heal duplication for Cycle of Life and Lifebind
 
 // heal events that can be caused by an echo heal
 export const ECHO_HEALS = [
