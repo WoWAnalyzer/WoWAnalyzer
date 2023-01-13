@@ -2,20 +2,16 @@ import articles from 'articles';
 import DocumentTitle from 'interface/DocumentTitle';
 import NotFound from 'interface/NotFound';
 import { Fragment } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import makeNewsUrl from './makeNewsUrl';
 import NewsArticleLoader from './NewsArticleLoader';
 import 'interface/NewsPage.scss';
 
-interface MatchParams {
-  articleId: string;
-}
-
 const NewsPage = () => {
-  const match = useRouteMatch<MatchParams>('/news/:articleId');
-  const articleId = decodeURI(match?.params.articleId.replace(/\+/g, ' ') ?? '');
-  const fileName = articles[articleId];
+  const { articleId } = useParams();
+  const decodedArticleId = decodeURI(articleId?.replace(/\+/g, ' ') ?? '');
+  const fileName = articles[decodedArticleId];
 
   if (!fileName) {
     return <NotFound />;

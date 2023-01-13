@@ -1,11 +1,11 @@
 import { Dummy } from 'CONTRIBUTORS';
-import { shallow } from 'enzyme';
+import renderer from 'react-test-renderer';
 
 import ContributorDetails from './ContributorDetails';
 
 describe('ContributorDetails', () => {
   it('matches snapshot', () => {
-    const tree = shallow(<ContributorDetails contributorId={Dummy.nickname} />);
+    const tree = renderer.create(<ContributorDetails contributorId={Dummy.nickname} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

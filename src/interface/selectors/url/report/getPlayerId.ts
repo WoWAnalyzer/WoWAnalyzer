@@ -1,12 +1,16 @@
-import getMatch from './getMatch';
+import { getMatchWithPlayer } from './getMatch';
 
-export default (pathname: string) => {
-  const match = getMatch(pathname);
-  if (match && match.params.player) {
-    const playerId = Number(match.params.player.split('-')[0]);
+export const getPlayerIdFromParam = (param: string | null | undefined) => {
+  if (param) {
+    const playerId = Number(param.split('-')[0]);
     if (playerId) {
       return playerId;
     }
   }
   return null;
+};
+
+export default (pathname: string) => {
+  const match = getMatchWithPlayer(pathname);
+  return getPlayerIdFromParam(match?.params?.player);
 };

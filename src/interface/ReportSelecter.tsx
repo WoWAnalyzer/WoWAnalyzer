@@ -1,6 +1,6 @@
 import { Trans, t } from '@lingui/macro';
 import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import REGION_CODES from './REGION_CODES';
 import Tooltip from './Tooltip';
@@ -76,7 +76,7 @@ export function constructURL(value: string) {
 const ReportSelecter = () => {
   const [reportCode, setReportCode] = useState<string>('');
   const reportCodeRef = useRef<HTMLInputElement>(null);
-  const { push } = useHistory();
+  const navigate = useNavigate();
   useEffect(() => {
     reportCodeRef.current?.focus();
   }, []);
@@ -88,9 +88,9 @@ const ReportSelecter = () => {
         return;
       }
 
-      push(constructedURL);
+      navigate(constructedURL);
     },
-    [push],
+    [navigate],
   );
 
   useEffect(() => {

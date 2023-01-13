@@ -17,21 +17,22 @@ import { generateFakeCombatantInfo } from 'interface/report/CombatantInfoFaker';
 import RaidCompositionDetails from 'interface/report/RaidCompositionDetails';
 import ReportDurationWarning, { MAX_REPORT_DURATION } from 'interface/report/ReportDurationWarning';
 import ReportRaidBuffList from 'interface/ReportRaidBuffList';
-import { getPlayerId, getPlayerName } from 'interface/selectors/url/report';
 import Tooltip from 'interface/Tooltip';
 import { CombatantInfoEvent } from 'parser/core/Events';
 import { WCLFight } from 'parser/core/Fight';
 import Report from 'parser/core/Report';
 import getBuild from 'parser/getBuild';
 import getConfig from 'parser/getConfig';
-import { Link, useHistory, useLocation } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-
-import handleApiError from './handleApiError';
-import PlayerSelection from './PlayerSelection';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { PlayerProvider } from 'interface/report/context/PlayerContext';
 import { useReport } from 'interface/report/context/ReportContext';
 import { useFight } from 'interface/report/context/FightContext';
+import DocumentTitle from 'interface/DocumentTitle';
+
+import handleApiError from './handleApiError';
+import PlayerSelection from './PlayerSelection';
+import { getPlayerIdFromParam } from 'interface/selectors/url/report/getPlayerId';
+import { getPlayerNameFromParam } from 'interface/selectors/url/report/getPlayerName';
 
 const FAKE_PLAYER_IF_DEV_ENV = false;
 
@@ -107,10 +108,10 @@ const PlayerLoader = ({ children }: Props) => {
   ] = useReducer(fcReducer, defaultState);
   const { report: selectedReport } = useReport();
   const { fight: selectedFight } = useFight();
-  const history = useHistory();
-  const location = useLocation();
-  const playerId = getPlayerId(location.pathname);
-  const playerName = getPlayerName(location.pathname);
+  const { player: playerParam } = useParams();
+  const navigate = useNavigate();
+  const playerId = getPlayerIdFromParam(playerParam);
+  const playerName = getPlayerNameFromParam(playerParam);
 
   const loadCombatants = useCallback(
     async (report: Report, fight: WCLFight) => {
@@ -199,7 +200,6 @@ const PlayerLoader = ({ children }: Props) => {
 
   useEffect(() => {
     if (selectedFight.id !== combatantsFightId) {
-      console.log('Dispatching reset');
       dispatchFC({ type: 'reset' });
     }
   }, [combatantsFightId, selectedFight.id]);
@@ -219,7 +219,7 @@ const PlayerLoader = ({ children }: Props) => {
       dispatchFC({ type: 'reset' });
       // We need to set the combatants in the global state so the NavigationBar, which is not a child of this component, can also use it
       setCombatants(null);
-      history.push(makeAnalyzerUrl());
+      navigate(makeAnalyzerUrl());
     });
   };
 
@@ -385,16 +385,14 @@ const PlayerLoader = ({ children }: Props) => {
 
   return (
     <>
-      <Helmet>
-        <title>
-          {t({
-            id: 'interface.report.render.documentTitle',
-            message: `${getFightName(selectedReport, selectedFight)} by ${player.name} in ${
-              selectedReport.title
-            }`,
-          })}
-        </title>
-      </Helmet>
+      <DocumentTitle
+        title={t({
+          id: 'interface.report.render.documentTitle',
+          message: `${getFightName(selectedReport, selectedFight)} by ${player.name} in ${
+            selectedReport.title
+          }`,
+        })}
+      />
 
       <PlayerProvider player={player} combatant={combatant} combatants={combatants}>
         {children}
