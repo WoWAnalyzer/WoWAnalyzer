@@ -2029,3 +2029,7 @@ export const Greedyhugs: Contributor = {
     },
   ],
 };
+export const Heisenburger: Contributor = {
+  nickname: 'Heisenburger',
+  github: 'Heisenburger505',
+};

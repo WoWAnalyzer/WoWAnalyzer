@@ -1,5 +1,5 @@
 import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import HIT_TYPES from 'game/HIT_TYPES';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -22,12 +22,12 @@ class HolyShieldSpellBlock extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.HOLY_SHIELD_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HOLY_SHIELD_TALENT);
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.HOLY_SHIELD_TALENT),
+      Events.absorbed.by(SELECTED_PLAYER).spell(TALENTS.HOLY_SHIELD_TALENT),
       this.trackHolyShieldAbsorbs,
     );
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.trackSpellsHitPlayer);
@@ -43,7 +43,7 @@ class HolyShieldSpellBlock extends Analyzer {
   }
 
   trackHolyShieldAbsorbs(event: AbsorbedEvent) {
-    if (event.ability.guid === SPELLS.HOLY_SHIELD_TALENT.id) {
+    if (event.ability.guid === TALENTS.HOLY_SHIELD_TALENT.id) {
       this.holyShieldProcsCount += 1;
     }
   }
@@ -66,7 +66,7 @@ class HolyShieldSpellBlock extends Analyzer {
         }
       >
         <BoringSpellValue
-          spellId={SPELLS.HOLY_SHIELD_TALENT.id}
+          spellId={TALENTS.HOLY_SHIELD_TALENT.id}
           value={this.holyShieldProcsCount}
           label="Spells Blocked"
         />
