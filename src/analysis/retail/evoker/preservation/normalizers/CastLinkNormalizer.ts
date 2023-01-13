@@ -15,7 +15,7 @@ import {
   RemoveBuffEvent,
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
-import { CORE_HEALING_SPELLS, STASIS_CAST_IDS } from '../constants';
+import { DUPLICATION_SPELLS, STASIS_CAST_IDS } from '../constants';
 
 export const FROM_HARDCAST = 'FromHardcast'; // for linking a buffapply or heal to its cast
 export const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly'; // for linking TA echo apply to TA shield apply
@@ -457,10 +457,12 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: LIFEBIND_HEAL,
     linkingEventId: SPELLS.LIFEBIND_HEAL.id,
     linkingEventType: EventType.Heal,
-    referencedEventId: CORE_HEALING_SPELLS,
+    referencedEventId: DUPLICATION_SPELLS,
     referencedEventType: EventType.Heal,
     anyTarget: true,
     maximumLinks: 1,
+    backwardBufferMs: 50,
+    forwardBufferMs: 50,
     additionalCondition(linkingEvent, referencedEvent) {
       return HasRelatedEvent(linkingEvent, LIFEBIND_APPLY); // make sure the heal is on someone with lifebind buff
     },
@@ -525,6 +527,7 @@ export function getEssenceBurstConsumeAbility(
 
 export function getHealForLifebindHeal(event: HealEvent): HealEvent | null {
   if (!HasRelatedEvent(event, LIFEBIND_HEAL)) {
+    event.__modified = false;
     return null;
   }
   return GetRelatedEvents(event, LIFEBIND_HEAL)[0] as HealEvent;
