@@ -6,6 +6,7 @@ import {
   jazminite,
   Jonfanz,
   Khadaj,
+  Lapideas,
   Putro,
   Sharrq,
   Sref,
@@ -17,7 +18,8 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
-  change(date(2022, 1, 7), 'Remove support for Wowdb tooltips.', ToppleTheNun),
+  change(date(2023, 1, 15), 'Overhauls enchants recommendations (removing gloves, adding bracers & boots).', Lapideas),
+  change(date(2023, 1, 7), 'Remove support for Wowdb tooltips.', ToppleTheNun),
   change(date(2023, 1, 5), 'Make weapon enhancement suggestions more readable.', ToppleTheNun),
   change(date(2023, 1, 5), 'Fix changelogs showing some contributors as invalid.', ToppleTheNun),
   change(date(2023, 1, 1), 'Add Pull Request template.', jazminite),

@@ -2029,3 +2029,22 @@ export const Greedyhugs: Contributor = {
     },
   ],
 };
+export const Lapideas: Contributor = {
+  nickname: 'Lapideas',
+  github: 'jeremyzahner',
+  discord: 'Lapideas#0161',
+  mains: [
+    {
+      name: 'Lapideas',
+      spec: SPECS.PROTECTION_WARRIOR,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/blackmoore/lapideas',
+    },
+  ],
+  alts: [
+    {
+      name: 'Miasmo',
+      spec: SPECS.RESTORATION_DRUID,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/blackmoore/miasmo',
+    },
+  ],
+};
