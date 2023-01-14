@@ -8,6 +8,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { TALENTS_MONK } from 'common/TALENTS';
 
 import { BLACKOUT_KICK_COOLDOWN_REDUCTION_MS } from '../../constants';
 
@@ -58,7 +59,7 @@ class BlackoutKick extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    if (this.selectedCombatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.WHIRLING_DRAGON_PUNCH_TALENT)) {
       this.IMPORTANT_SPELLS.push(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id);
     }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK), this.onCast);
@@ -73,7 +74,7 @@ class BlackoutKick extends Analyzer {
      * We probably wouldn't care too much about wasting the extra CDR anyway
      */
     const currentCooldownReductionMS =
-      (this.selectedCombatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1) *
+      (this.selectedCombatant.hasBuff(TALENTS_MONK.SERENITY_TALENT.id) ? 0.5 : 1) *
       BLACKOUT_KICK_COOLDOWN_REDUCTION_MS;
     if (
       availableImportantCast.length > 0 &&

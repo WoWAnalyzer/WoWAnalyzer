@@ -1,10 +1,5 @@
 import {
-  FallenOrder,
   TouchOfDeath,
-  FaelineStomp,
-  FaelineHarmony,
-  SinisterTeachings,
-  ImbuedReflections,
   InvokersDelight,
   MysticTouch,
   DampenHarm,
@@ -16,11 +11,7 @@ import Channeling from 'parser/shared/normalizers/Channeling';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import GlobalCooldown from './modules/core/GlobalCooldown';
-import CalculatedStrikes from './modules/covenants/CalculatedStrikes';
-import CoordinatedOffensive from './modules/covenants/CoordinatedOffensive';
-import InnerFury from './modules/covenants/InnerFury';
-import WeaponsOfOrderWindwalker from './modules/covenants/WeaponsOfOrder';
-import XuensBond from './modules/covenants/XuensBond';
+// import WeaponsOfOrderWindwalker from './modules/covenants/WeaponsOfOrder';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -44,9 +35,9 @@ import TouchOfKarma from './modules/spells/TouchOfKarma';
 import DanceOfChiJi from './modules/talents/DanceOfChiJi';
 import HitCombo from './modules/talents/HitCombo';
 import Serenity from './modules/talents/Serenity';
+
 // Tier Set Bonuses
-import FistsOfPrimordium from './modules/tier/FistsOfPrimordium';
-import PrimordialPotential from './modules/tier/PrimordialPotential';
+// todo: add t29 tier sets
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -89,22 +80,6 @@ class CombatLogParser extends CoreCombatLogParser {
     invokersDelight: InvokersDelight,
     jadeIgnition: JadeIgnition,
     xuensBattleGear: XuensBattlegear,
-
-    // Tier Set Bonuses
-    fistsOfPrimordium: FistsOfPrimordium,
-    primordialPotential: PrimordialPotential,
-
-    // Covenants
-    fallenOrder: FallenOrder,
-    weaponsOfOrder: WeaponsOfOrderWindwalker,
-    faelineStomp: FaelineStomp,
-    faelineHarmony: FaelineHarmony,
-    sinisterTeachings: SinisterTeachings,
-    imbuedReflections: ImbuedReflections,
-    xuensBond: XuensBond,
-    innerFury: InnerFury,
-    coordinatedOffensive: CoordinatedOffensive,
-    calculatedStrikes: CalculatedStrikes,
   };
 }
 
