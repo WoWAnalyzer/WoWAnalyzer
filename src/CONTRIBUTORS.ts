@@ -2048,3 +2048,16 @@ export const Lapideas: Contributor = {
     },
   ],
 };
+export const Durpn: Contributor = {
+  nickname: 'Durpn',
+  github: 'smvoss',
+  discord: 'Durpn#1336',
+  avatar: avatar('durpn-avatar.png'),
+  mains: [
+    {
+      name: 'Durpn',
+      spec: SPECS.WINDWALKER_MONK,
+      link: 'https://worldofwarcraft.com/en-us/character/us/tichondrius/durpn',
+    },
+  ],
+};
