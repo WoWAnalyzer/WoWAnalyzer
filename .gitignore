@@ -52,7 +52,11 @@ temp
 *.swp
 
 
-# Coverage Reports 
+# Coverage Reports
 coverage/*
 
 .log
+
+/test-results/
+/playwright-report/
+/playwright/.cache/
