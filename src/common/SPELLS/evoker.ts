@@ -51,7 +51,7 @@ const spells = spellIndexableList({
   CALL_OF_YSERA_BUFF: {
     id: 373835,
     name: 'Call of Ysera',
-    icon: '',
+    icon: 'inv_drakemountemerald',
   },
   SPIRITBLOOM: {
     id: 367230,
