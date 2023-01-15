@@ -17,23 +17,27 @@ const PerformancePercentage = ({
   perfectPercentage,
   goodPercentage,
   okPercentage,
-}: Props) => (
-  <TooltipElement
-    content={
-      <>
-        <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect usage ={' '}
-        {formatPercentage(perfectPercentage, 0)}%
-        <br />
-        <PerformanceMark perf={QualitativePerformance.Good} /> Good usage &lt;={' '}
-        {formatPercentage(goodPercentage, 0)}%
-        <br />
-        <PerformanceMark perf={QualitativePerformance.Ok} /> OK usage &lt;={' '}
-        {formatPercentage(okPercentage, 0)}%
-      </>
-    }
-  >
-    <PerformanceStrong performance={performance}>{formatPercentage(value)}%</PerformanceStrong>
-  </TooltipElement>
-);
+}: Props) => {
+  const perfectSign = perfectPercentage > 0 ? '<=' : '=';
+
+  return (
+    <TooltipElement
+      content={
+        <>
+          <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect usage {perfectSign}{' '}
+          {formatPercentage(perfectPercentage, 0)}%
+          <br />
+          <PerformanceMark perf={QualitativePerformance.Good} /> Good usage &lt;={' '}
+          {formatPercentage(goodPercentage, 0)}%
+          <br />
+          <PerformanceMark perf={QualitativePerformance.Ok} /> OK usage &lt;={' '}
+          {formatPercentage(okPercentage, 0)}%
+        </>
+      }
+    >
+      <PerformanceStrong performance={performance}>{formatPercentage(value)}%</PerformanceStrong>
+    </TooltipElement>
+  );
+};
 
 export default PerformancePercentage;

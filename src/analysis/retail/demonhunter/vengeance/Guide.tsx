@@ -8,6 +8,7 @@ import ImmolationAuraVengeanceGuideSection from 'analysis/retail/demonhunter/sha
 import { t, Trans } from '@lingui/macro';
 import VerticallyAlignedToggle from 'interface/VerticallyAlignedToggle';
 import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
+import FuryCapWaste from 'analysis/retail/demonhunter/shared/guide/FuryCapWaste';
 
 import DemonSpikesSubSection from './modules/spells/DemonSpikes/GuideSection';
 import FieryBrandSubSection from './modules/talents/FieryBrand/GuideSection';
@@ -16,7 +17,12 @@ import MetamorphosisSubSection from './modules/spells/Metamorphosis/GuideSection
 import CooldownGraphSubsection from './guide/CooldownGraphSubSection';
 import MajorDefensives from './modules/core/MajorDefensives';
 import useVdhFeatureFlag from './guide/useVdhFeatureFlag';
-import FuryCapWaste from 'analysis/retail/demonhunter/shared/guide/FuryCapWaste';
+import {
+  GOOD_TIME_AT_FURY_CAP,
+  OK_TIME_AT_FURY_CAP,
+  PERFECT_TIME_AT_FURY_CAP,
+} from './modules/resourcetracker/FuryTracker';
+import CooldownUsage from 'analysis/retail/demonhunter/shared/guide/MajorCooldowns/CooldownUsage';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -57,6 +63,9 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
         <FuryCapWaste
           percentAtCap={percentAtFuryCap}
           percentAtCapPerformance={percentAtFuryCapPerformance}
+          perfectTimeAtFuryCap={PERFECT_TIME_AT_FURY_CAP}
+          goodTimeAtFuryCap={GOOD_TIME_AT_FURY_CAP}
+          okTimeAtFuryCap={OK_TIME_AT_FURY_CAP}
           wasted={furyWasted}
         />
         {modules.furyGraph.plot}
@@ -183,12 +192,15 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       </p>
       <HideExplanationsToggle id="hide-explanations-cooldowns" />
       <CooldownGraphSubsection />
-      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT) &&
-        modules.felDevastation.guideBreakdown()}
-      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT) &&
-        modules.theHunt.vengeanceGuideCastBreakdown()}
-      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT) &&
-        modules.soulCarver.guideBreakdown()}
+      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT) && (
+        <CooldownUsage analyzer={modules.felDevastation} />
+      )}
+      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT) && (
+        <CooldownUsage analyzer={modules.theHunt} />
+      )}
+      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT) && (
+        <CooldownUsage analyzer={modules.soulCarver} />
+      )}
     </Section>
   );
 }
