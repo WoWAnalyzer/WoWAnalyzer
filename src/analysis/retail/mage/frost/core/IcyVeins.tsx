@@ -103,10 +103,10 @@ class IcyVeins extends Analyzer {
         tooltip={
           <>
             When using Icy Veins, you should ensure you are getting the most out of it by using
-            every second of the cooldown as any time spent not casting anything is lost damage.
-            While sometimes this will be out of your control due to boss mechanics, you should try
-            to minimize that risk by using your cooldowns when you are least likely to get
-            interrupted or the boss is vulnerable.
+            every second of the cooldown as any time spent not casting anything is lost damage and
+            will result in less cooldown reduction on Icy Veins. While sometimes this will be out of
+            your control due to boss mechanics, you should try to minimize that risk by using your
+            cooldowns when you are least likely to get interrupted or the boss is vulnerable.
           </>
         }
       >

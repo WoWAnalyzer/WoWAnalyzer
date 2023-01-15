@@ -1,16 +1,11 @@
 import { Trans } from '@lingui/macro';
-import { MS_BUFFER_100 } from 'analysis/retail/mage/shared';
+import { SharedCode } from 'analysis/retail/mage/shared';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, {
-  CastEvent,
-  ApplyBuffEvent,
-  RemoveBuffEvent,
-  RefreshBuffEvent,
-} from 'parser/core/Events';
+import Analyzer from 'parser/core/Analyzer';
+import { EventType } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import EventHistory from 'parser/shared/modules/EventHistory';
@@ -18,85 +13,54 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-const debug = false;
-
 class BrainFreeze extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     eventHistory: EventHistory,
+    sharedCode: SharedCode,
   };
-  protected eventHistory!: EventHistory;
   protected enemies!: Enemies;
+  protected eventHistory!: EventHistory;
+  protected sharedCode!: SharedCode;
 
-  usedProcs = 0;
-  overwrittenProcs = 0;
-  expiredProcs = 0;
-  totalProcs = 0;
-  flurryHardCast = 0;
-  flurryOverlapped = 0;
+  overlappedFlurries = () => {
+    let casts = this.eventHistory.getEvents(EventType.Cast, {
+      searchBackwards: true,
+      spell: TALENTS.FLURRY_TALENT,
+    });
+    casts = casts.filter((c) => {
+      const enemy = this.enemies.getEntity(c);
+      return enemy && enemy.hasBuff(SPELLS.WINTERS_CHILL.id);
+    });
+    return casts.length || 0;
+  };
 
-  // Tracks whether the last brain freeze generator to be cast was Ebonbolt or Frostbolt
-  wasLastGeneratorEB = false;
-
-  constructor(options: Options) {
-    super(options);
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BRAIN_FREEZE_BUFF),
-      this.brainFreezeApplied,
-    );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BRAIN_FREEZE_BUFF),
-      this.brainFreezeRefreshed,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BRAIN_FREEZE_BUFF),
-      this.brainFreezeRemoved,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.FLURRY_TALENT),
-      this.onFlurryCast,
+  get expiredProcs() {
+    return (
+      this.sharedCode.getExpiredProcs(SPELLS.BRAIN_FREEZE_BUFF, TALENTS.FLURRY_TALENT).length || 0
     );
   }
 
-  brainFreezeApplied(event: ApplyBuffEvent) {
-    this.totalProcs += 1;
-  }
-
-  brainFreezeRefreshed(event: RefreshBuffEvent) {
-    this.totalProcs += 1;
-    this.overwrittenProcs += 1;
-    debug && this.debug('Brain Freeze overwritten');
-  }
-
-  brainFreezeRemoved(event: RemoveBuffEvent) {
-    const previousSpell = this.eventHistory.last(
-      1,
-      MS_BUFFER_100,
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.FLURRY_TALENT),
+  get totalProcs() {
+    return (
+      this.eventHistory.getEvents(EventType.ApplyBuff, {
+        searchBackwards: true,
+        spell: SPELLS.BRAIN_FREEZE_BUFF,
+      }).length || 0
     );
-    if (previousSpell.length !== 0) {
-      this.usedProcs += 1;
-    } else {
-      this.expiredProcs += 1; // If Flurry was not the spell that was cast immediately before this, then the proc must have expired.
-      debug && this.debug('Brain Freeze proc expired');
-    }
   }
 
-  onFlurryCast(event: CastEvent) {
-    const enemy = this.enemies.getEntity(event);
-    if (!this.selectedCombatant.hasBuff(SPELLS.BRAIN_FREEZE_BUFF.id)) {
-      this.flurryHardCast += 1;
-    } else if (enemy && enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
-      this.flurryOverlapped += 1;
-    }
-  }
-
-  get wastedProcs() {
-    return this.overwrittenProcs + this.expiredProcs;
+  get overwrittenProcs() {
+    return (
+      this.eventHistory.getEvents(EventType.RefreshBuff, {
+        searchBackwards: true,
+        spell: SPELLS.BRAIN_FREEZE_BUFF,
+      }).length || 0
+    );
   }
 
   get wastedPercent() {
-    return this.wastedProcs / this.totalProcs || 0;
+    return (this.overwrittenProcs + this.expiredProcs) / this.totalProcs || 0;
   }
 
   get utilPercent() {
@@ -141,21 +105,9 @@ class BrainFreeze extends Analyzer {
     };
   }
 
-  get flurryWithoutBrainFreezeThresholds() {
-    return {
-      actual: this.flurryHardCast,
-      isGreaterThan: {
-        minor: 0,
-        average: 0,
-        major: 3,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
   get overlappedFlurryThresholds() {
     return {
-      actual: this.flurryOverlapped,
+      actual: this.overlappedFlurries(),
       isGreaterThan: {
         average: 0,
         major: 3,
@@ -200,34 +152,16 @@ class BrainFreeze extends Analyzer {
         )
         .recommended(`Letting none expire is recommended`),
     );
-    when(this.flurryWithoutBrainFreezeThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You cast <SpellLink id={TALENTS.FLURRY_TALENT.id} /> without{' '}
-          <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> {actual} times.{' '}
-          <SpellLink id={TALENTS.FLURRY_TALENT.id} /> does not debuff the target with{' '}
-          <SpellLink id={SPELLS.WINTERS_CHILL.id} /> unless you have a{' '}
-          <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> proc, so you should never cast{' '}
-          <SpellLink id={TALENTS.FLURRY_TALENT.id} /> unless you have{' '}
-          <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} />.
-        </>,
-      )
-        .icon(TALENTS.FLURRY_TALENT.icon)
-        .actual(
-          <Trans id="mage.frost.suggestions.brainFreeze.casts">{formatNumber(actual)} casts</Trans>,
-        )
-        .recommended(`Casting none is recommended`),
-    );
     when(this.overlappedFlurryThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You used a <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> proc via casting{' '}
-          <SpellLink id={TALENTS.FLURRY_TALENT.id} /> while the target still had the{' '}
-          <SpellLink id={SPELLS.WINTERS_CHILL.id} /> debuff on them {this.flurryOverlapped} times.
-          Using <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> applies 2 stacks of{' '}
+          You cast <SpellLink id={TALENTS.FLURRY_TALENT} /> and applied{' '}
+          <SpellLink id={SPELLS.WINTERS_CHILL} /> while the target still had the{' '}
+          <SpellLink id={SPELLS.WINTERS_CHILL.id} /> debuff on them {this.overlappedFlurries()}{' '}
+          times. Casting <SpellLink id={TALENTS.FLURRY_TALENT} /> applies 2 stacks of{' '}
           <SpellLink id={SPELLS.WINTERS_CHILL.id} /> to the target so you should always ensure you
-          are spending both stacks before you use another{' '}
-          <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> proc.
+          are spending both stacks before you cast <SpellLink id={TALENTS.FLURRY_TALENT} /> and
+          apply <SpellLink id={SPELLS.WINTERS_CHILL} /> again.
         </>,
       )
         .icon(TALENTS.FLURRY_TALENT.icon)
@@ -247,7 +181,7 @@ class BrainFreeze extends Analyzer {
           <>
             You got {this.totalProcs} total procs.
             <ul>
-              <li>{this.usedProcs} used</li>
+              <li>{this.totalProcs - this.expiredProcs} used</li>
               <li>{this.overwrittenProcs} overwritten</li>
               <li>{this.expiredProcs} expired</li>
             </ul>
