@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import { Sharrq } from 'CONTRIBUTORS';
 
 export default [
+	change(date(2023, 1, 14), `Added a link to Toegrinder's Mage Hub guide on the About page. Removed link to Icy Veins and Altered Time forums.`, Sharrq),
 	change(date(2023, 1, 14), `Upgraded Frost Mage support to 10.0.2 and marked as Supported. Also removed Dambroda from spec maintainers.`, Sharrq),
 	change(date(2023, 1, 14), `Reviewed all Suggestions, Tooltips, and Checklist items to ensure the wording is accurate for Dragonflight`, Sharrq),
 	change(date(2023, 1, 14), <>Removed <SpellLink id={TALENTS.BLAST_WAVE_TALENT} /> and <SpellLink id={TALENTS.ICE_NOVA_TALENT} /> from Cast Efficiency.</>, Sharrq),

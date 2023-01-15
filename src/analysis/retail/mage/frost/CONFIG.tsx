@@ -21,27 +21,18 @@ const config: Config = {
         Mage Class Discord
       </a>{' '}
       <br />
-      <a href="https://www.altered-time.com/forum/" target="_blank" rel="noopener noreferrer">
-        Altered Time (Mage Forums/Guides)
+      <a href="https://www.mage-hub.com/frost" target="_blank" rel="noopener noreferrer">
+        Mage Hub Guide (Mage Guides/Sims)
       </a>{' '}
       <br />
       <a href="https://www.wowhead.com/frost-mage-guide" target="_blank" rel="noopener noreferrer">
         Wowhead (Frost Mage Guide)
       </a>{' '}
       <br />
-      <a
-        href="https://www.icy-veins.com/wow/frost-mage-pve-dps-guide"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Icy Veins (Frost Mage Guide)
-      </a>{' '}
-      <br />
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport:
-    '/report/ydqQLTvJfCNtcDYR/13-Normal+Dausegne,+the+Fallen+Oracle+-+Kill+(4:22)/Arcanfrost/standard',
+  exampleReport: '/report/d23LNg8XqhFZKWGk/17-Heroic+Terros+-+Kill+(5:42)/Critsangel/standard',
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.FROST_MAGE,
