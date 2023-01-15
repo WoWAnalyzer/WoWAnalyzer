@@ -10,20 +10,21 @@ import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer'
 import SPELLS from 'common/SPELLS';
 import { ATONEMENT_DAMAGE_IDS } from '../constants';
 
-const BUFFER_MS = 200;
+const BUFFER_MS = 500;
 const ATONEMENT_DAMAGE_EVENT = 'AtonementDamageEvent';
 const ATONEMENT_HEAL_EVENT = 'AtonementHealEvent';
 
 const EVENT_LINKS: EventLink[] = [
   {
-    linkRelation: ATONEMENT_HEAL_EVENT,
-    reverseLinkRelation: ATONEMENT_DAMAGE_EVENT,
-    linkingEventId: ATONEMENT_DAMAGE_IDS,
-    linkingEventType: EventType.Damage,
-    referencedEventId: [SPELLS.ATONEMENT_HEAL_CRIT.id, SPELLS.ATONEMENT_HEAL_NON_CRIT.id],
-    referencedEventType: EventType.Heal,
-    forwardBufferMs: BUFFER_MS,
+    linkRelation: ATONEMENT_DAMAGE_EVENT,
+    reverseLinkRelation: ATONEMENT_HEAL_EVENT,
+    linkingEventId: [SPELLS.ATONEMENT_HEAL_CRIT.id, SPELLS.ATONEMENT_HEAL_NON_CRIT.id],
+    linkingEventType: EventType.Heal,
+    referencedEventId: ATONEMENT_DAMAGE_IDS,
+    referencedEventType: EventType.Damage,
+    backwardBufferMs: BUFFER_MS,
     anyTarget: true,
+    maximumLinks: 1,
   },
 ];
 
