@@ -27,8 +27,9 @@ export const ECHO = 'Echo'; // for linking BuffApply/Heal to echo removal
 export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsumption'; // link essence cast to removing the essence burst buff
 export const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera'; // link DB hit to buff removal
 export const DREAM_BREATH_CALL_OF_YSERA_HOT = 'DreamBreathCallOfYseraHoT'; // link DB hot to buff removal
-export const LIFEBIND_APPLY = 'LifebindApply';
-export const LIFEBIND_HEAL = 'LifebindHeal';
+export const LIFEBIND = 'Lifebind'; // link lifebind buff apply to lifebind heal event
+export const LIFEBIND_APPLY = 'LifebindApply'; // link lifebind apply to verdant embrace
+export const LIFEBIND_HEAL = 'LifebindHeal'; // link lifebind heal to trigger heal event
 export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera'; // link buffed living flame to buff removal
 export const FIELD_OF_DREAMS_PROC = 'FromFieldOfDreams'; // link EB heal to fluttering heal
 export const HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
@@ -446,12 +447,22 @@ const EVENT_LINKS: EventLink[] = [
     },
   },
   {
-    linkRelation: LIFEBIND_APPLY,
+    linkRelation: LIFEBIND,
     linkingEventId: SPELLS.LIFEBIND_HEAL.id,
     linkingEventType: EventType.Heal,
     referencedEventId: SPELLS.LIFEBIND_BUFF.id,
     referencedEventType: EventType.ApplyBuff,
     backwardBufferMs: LIFEBIND_BUFFER,
+  },
+  {
+    linkRelation: LIFEBIND_APPLY,
+    reverseLinkRelation: LIFEBIND_APPLY,
+    linkingEventId: SPELLS.LIFEBIND_BUFF.id,
+    linkingEventType: EventType.ApplyBuff,
+    referencedEventId: SPELLS.VERDANT_EMBRACE_HEAL.id,
+    referencedEventType: EventType.Heal,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
   },
   {
     linkRelation: LIFEBIND_HEAL,
@@ -464,7 +475,7 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: 50,
     forwardBufferMs: 50,
     additionalCondition(linkingEvent, referencedEvent) {
-      return HasRelatedEvent(linkingEvent, LIFEBIND_APPLY); // make sure the heal is on someone with lifebind buff
+      return HasRelatedEvent(linkingEvent, LIFEBIND); // make sure the heal is on someone with lifebind buff
     },
   },
 ];
@@ -531,6 +542,34 @@ export function getHealForLifebindHeal(event: HealEvent): HealEvent | null {
     return null;
   }
   return GetRelatedEvents(event, LIFEBIND_HEAL)[0] as HealEvent;
+}
+
+export function isLifebindHealFromEcho(event: HealEvent) {
+  if (!HasRelatedEvent(event, LIFEBIND)) {
+    return false;
+  }
+  const lifebindApplyEvent = GetRelatedEvents(event, LIFEBIND)[0] as ApplyBuffEvent;
+  const veHeal = GetRelatedEvents(lifebindApplyEvent, LIFEBIND_APPLY)[0] as HealEvent;
+  if (!veHeal) {
+    // prepull
+    return false;
+  }
+  console.log(veHeal);
+  return HasRelatedEvent(veHeal, ECHO);
+}
+
+export function isLifebindHealFromTaEcho(event: HealEvent) {
+  if (!HasRelatedEvent(event, LIFEBIND)) {
+    return false;
+  }
+  const lifebindApplyEvent = GetRelatedEvents(event, LIFEBIND)[0] as ApplyBuffEvent;
+  const veHeal = GetRelatedEvents(lifebindApplyEvent, LIFEBIND_APPLY)[0] as HealEvent;
+  if (!veHeal) {
+    // prepull
+    return false;
+  }
+  console.log(veHeal);
+  return HasRelatedEvent(veHeal, ECHO_TEMPORAL_ANOMALY);
 }
 
 export function getHealEvents(event: HealEvent) {

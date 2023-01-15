@@ -22,6 +22,8 @@ import {
   ECHO_TEMPORAL_ANOMALY,
   isFromHardcastEcho,
   isFromTAEcho,
+  isLifebindHealFromEcho,
+  isLifebindHealFromTaEcho,
 } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerPrevoker from '../core/HotTrackerPrevoker';
 
@@ -48,6 +50,10 @@ class Echo extends Analyzer {
     });
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(ECHO_HEALS), this.handleEchoHeal);
     this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIFEBIND_HEAL),
+      this.lifebindHeal,
+    );
+    this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.ECHO_TALENT),
       this.onRemove,
     );
@@ -66,6 +72,21 @@ class Echo extends Analyzer {
     }
   }
 
+  lifebindHeal(event: HealEvent) {
+    const spellID = event.ability.guid;
+    if (this.isFromTaEcho(event)) {
+      this.taEchoHealingBySpell.set(
+        spellID,
+        this.taEchoHealingBySpell.get(spellID) ?? 0 + event.amount,
+      );
+    } else if (this.isEchoHeal(event)) {
+      this.echoHealingBySpell.set(
+        spellID,
+        this.echoHealingBySpell.get(spellID) ?? 0 + event.amount,
+      );
+    }
+  }
+
   handleEchoHeal(event: HealEvent) {
     if (!this.isEchoHeal(event)) {
       return;
@@ -78,6 +99,9 @@ class Echo extends Analyzer {
   isEchoHeal(event: HealEvent) {
     const targetID = event.targetID;
     const spellID = event.ability.guid;
+    if (spellID === SPELLS.LIFEBIND_HEAL.id) {
+      return isLifebindHealFromEcho(event);
+    }
     if (event.tick) {
       if (!this.hotTracker.hots[targetID] || !this.hotTracker.hots[targetID][spellID]) {
         return false;
@@ -91,6 +115,9 @@ class Echo extends Analyzer {
   isFromTaEcho(event: HealEvent) {
     const targetID = event.targetID;
     const spellID = event.ability.guid;
+    if (spellID === SPELLS.LIFEBIND_HEAL.id) {
+      return isLifebindHealFromTaEcho(event);
+    }
     if (event.tick) {
       if (!this.hotTracker.hots[targetID] || !this.hotTracker.hots[targetID][spellID]) {
         return;
@@ -218,12 +245,19 @@ class Echo extends Analyzer {
         color: SPELL_COLORS.VERDANT_EMBRACE,
         label: 'Verdant Embrace',
         spellId: SPELLS.VERDANT_EMBRACE_HEAL.id,
-        value: this.totalEchoHealingForSpell(SPELLS.VERDANT_EMBRACE_HEAL.id),
-        valueTooltip:
-          formatNumber(this.totalEchoHealingForSpell(SPELLS.VERDANT_EMBRACE_HEAL.id)) +
-          ' in ' +
-          this.consumptionsBySpell.get(SPELLS.VERDANT_EMBRACE_HEAL.id) +
-          ' consumptions',
+        value:
+          this.totalEchoHealingForSpell(SPELLS.VERDANT_EMBRACE_HEAL.id) +
+          this.totalEchoHealingForSpell(SPELLS.LIFEBIND_HEAL.id),
+        valueTooltip: (
+          <>
+            <SpellLink id={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> healing:{' '}
+            {formatNumber(this.totalEchoHealingForSpell(SPELLS.VERDANT_EMBRACE_HEAL.id))} <br />
+            and <SpellLink id={TALENTS_EVOKER.LIFEBIND_TALENT} /> healing:{' '}
+            {formatNumber(this.totalEchoHealingForSpell(SPELLS.LIFEBIND_HEAL.id))} <br />
+            in
+            {this.consumptionsBySpell.get(SPELLS.VERDANT_EMBRACE_HEAL.id) + ' consumptions'},
+          </>
+        ),
       },
     ].filter((item) => {
       return item.value > 0;
