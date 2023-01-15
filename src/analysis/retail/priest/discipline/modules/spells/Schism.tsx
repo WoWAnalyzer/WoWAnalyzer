@@ -1,11 +1,8 @@
-import AtonementAnalyzer, {
-  AtonementAnalyzerEvent,
-} from 'analysis/retail/priest/discipline/modules/core/AtonementAnalyzer';
 import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { TALENTS_PRIEST } from 'common/TALENTS';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -16,6 +13,18 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import AtonementDamageSource from '../features/AtonementDamageSource';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { getDamageEvent } from '../../normalizers/AtonementTracker';
+import SPELLS from 'common/SPELLS';
+import { ATONEMENT_DAMAGE_IDS } from '../../constants';
+
+const NON_AMPED_DAMAGE = [
+  SPELLS.MAGIC_MELEE.id,
+  TALENTS_PRIEST.INESCAPABLE_TORMENT_TALENT.id,
+  SPELLS.LIGHTSPAWN_MELEE.id,
+  TALENTS_PRIEST.CRYSTALLINE_REFLECTION_TALENT.id,
+];
+
+const SCHISM_DAMAGE_IDS = ATONEMENT_DAMAGE_IDS.filter((spell) => !NON_AMPED_DAMAGE.includes(spell));
 
 class Schism extends Analyzer {
   protected enemies!: Enemies;
@@ -37,25 +46,35 @@ class Schism extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.SCHISM_TALENT);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
-    this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtonement);
+    this.addEventListener(
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.ATONEMENT_HEAL_CRIT, SPELLS.ATONEMENT_HEAL_NON_CRIT]),
+      this.onHeal,
+    );
   }
 
-  private onAtonement(event: AtonementAnalyzerEvent) {
-    const { healEvent, damageEvent } = event;
-    if (!damageEvent) {
+  onHeal(event: HealEvent) {
+    if (!getDamageEvent(event)) {
       return;
     }
+    const damageEvent = getDamageEvent(event);
     const target = this.enemies.getEntity(damageEvent);
-    if (!target?.hasBuff(TALENTS_PRIEST.SCHISM_TALENT.id)) {
+
+    if (
+      !target?.hasBuff(TALENTS_PRIEST.SCHISM_TALENT.id) ||
+      NON_AMPED_DAMAGE.includes(damageEvent.ability.guid)
+    ) {
       return;
     }
 
     // Schism isn't buffed by itself, so requires a different path
     if (damageEvent.ability.guid === TALENTS_PRIEST.SCHISM_TALENT.id) {
-      this.healing += healEvent.amount;
+      this.healing += event.amount;
+      return;
     }
 
-    this.healing += calculateEffectiveHealing(healEvent, Schism.bonus);
+    this.healing += calculateEffectiveHealing(event, Schism.bonus);
   }
 
   /**
@@ -65,6 +84,10 @@ class Schism extends Analyzer {
   private onDamage(event: DamageEvent) {
     const spellId = event.ability.guid;
     const target = this.enemies.getEntity(event);
+
+    if (!SCHISM_DAMAGE_IDS.includes(event.ability.guid)) {
+      return;
+    }
 
     if (spellId === TALENTS_PRIEST.SCHISM_TALENT.id) {
       this.directDamage += event.amount + (event.absorbed || 0);
