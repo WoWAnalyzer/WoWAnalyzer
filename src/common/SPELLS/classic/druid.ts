@@ -359,10 +359,20 @@ const spells = spellIndexableList({
     icon: 'spell_nature_insectswarm',
     lowRanks: [27013, 24977, 24976, 24975, 24974, 5570],
   },
+  MOONKIN_AURA: {
+    id: 24907,
+    name: 'Moonkin Aura',
+    icon: 'spell_nature_moonglow',
+  },
   MOONKIN_FORM: {
     id: 24858,
     name: 'Moonkin Form',
     icon: 'spell_nature_forceofnature',
+  },
+  NATURES_GRACE_BUFF: {
+    id: 16886,
+    name: "Nature's Grace",
+    icon: 'spell_nature_naturesblessing',
   },
   STARFALL: {
     id: 53201,
