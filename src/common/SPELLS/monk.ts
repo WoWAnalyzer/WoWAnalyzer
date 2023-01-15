@@ -246,7 +246,7 @@ const spells = spellIndexableList({
     name: 'Uplifted Spirits',
     icon: 'monk_stance_wiseserpent',
   },
-  WHIRLING_DRAGON_PUNCH_TALENT_TICK: {
+  WHIRLING_DRAGON_PUNCH_TALENT: {
     id: 158221,
     name: 'Whirling Dragon Punch',
     icon: 'ability_monk_hurricanestrike',
@@ -580,16 +580,6 @@ const spells = spellIndexableList({
     id: 228287,
     name: 'Mark of the Crane',
     icon: 'ability_monk_cranekick_new',
-  },
-  FIST_OF_THE_WHITE_TIGER_SECOND: {
-    id: 261977,
-    name: 'Fist of the White Tiger',
-    icon: 'ability_monk_jab',
-  },
-  FIST_OF_THE_WHITE_TIGER_ENERGIZE: {
-    id: 261978,
-    name: 'Fist of the White Tiger',
-    icon: 'inv_fistofthewhitetiger',
   },
   CHI_BURST_ENERGIZE: {
     id: 261682,

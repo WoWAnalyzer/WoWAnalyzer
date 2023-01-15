@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
+import { TALENTS_MONK } from 'common/TALENTS';
 
 class Buffs extends CoreAuras {
   auras() {
@@ -10,7 +11,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.SERENITY_TALENT.id,
+        spellId: TALENTS_MONK.SERENITY_TALENT.id,
         timelineHighlight: true,
       },
       {

@@ -10,6 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
+import { TALENTS_MONK } from 'common/TALENTS';
 
 const DAMAGE_MULTIPLIER = 0.2;
 
@@ -36,14 +37,14 @@ class Serenity extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SERENITY_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.SERENITY_TALENT);
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SERENITY_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.SERENITY_TALENT),
       this.onSerenityStart,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SERENITY_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.SERENITY_TALENT),
       this.onSerenityEnd,
     );
     this.addEventListener(
@@ -79,7 +80,7 @@ class Serenity extends Analyzer {
   }
 
   onAffectedDamage(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.SERENITY_TALENT.id)) {
+    if (!this.selectedCombatant.hasBuff(TALENTS_MONK.SERENITY_TALENT.id)) {
       return;
     }
     this.damageGain += calculateEffectiveDamage(event, DAMAGE_MULTIPLIER);
@@ -103,7 +104,7 @@ class Serenity extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SERENITY_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_MONK.SERENITY_TALENT.id}>
           <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageGain))} % of
