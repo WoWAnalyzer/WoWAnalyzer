@@ -181,7 +181,7 @@ class BrainFreeze extends Analyzer {
           <>
             You got {this.totalProcs} total procs.
             <ul>
-              <li>{this.totalProcs - this.expiredProcs} used</li>
+              <li>{this.totalProcs - this.expiredProcs - this.overwrittenProcs} used</li>
               <li>{this.overwrittenProcs} overwritten</li>
               <li>{this.expiredProcs} expired</li>
             </ul>
