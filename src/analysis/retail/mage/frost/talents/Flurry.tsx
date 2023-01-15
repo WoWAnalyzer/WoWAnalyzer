@@ -5,9 +5,9 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-const REDUCTION_MS = 300;
+const REDUCTION_MS = 30000;
 
-class FrozenOrb extends Analyzer {
+class Flurry extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
@@ -15,18 +15,17 @@ class FrozenOrb extends Analyzer {
 
   constructor(props: Options) {
     super(props);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ICE_CALLER_TALENT);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLIZZARD_DAMAGE),
-      this._reduceCooldown,
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BRAIN_FREEZE_BUFF),
+      this._gainCharge,
     );
   }
 
-  _reduceCooldown() {
-    if (this.spellUsable.isOnCooldown(TALENTS.FROZEN_ORB_TALENT.id)) {
-      this.spellUsable.reduceCooldown(TALENTS.FROZEN_ORB_TALENT.id, REDUCTION_MS);
+  _gainCharge() {
+    if (this.spellUsable.isOnCooldown(TALENTS.FLURRY_TALENT.id)) {
+      this.spellUsable.reduceCooldown(TALENTS.FLURRY_TALENT.id, REDUCTION_MS);
     }
   }
 }
 
-export default FrozenOrb;
+export default Flurry;

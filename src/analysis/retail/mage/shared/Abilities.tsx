@@ -60,10 +60,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 25,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
       },
       {
         spell: TALENTS.METEOR_TALENT.id,
@@ -86,10 +82,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 25,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
         timelineSortIndex: 9,
         //damageSpellIds: [SPELLS.ICE_NOVA_TALENT.id], // needs verification
       },
