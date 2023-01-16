@@ -23,7 +23,6 @@ class Castigation extends Analyzer {
 
   healing = 0;
   damage = 0;
-  testHealing = 0;
 
   constructor(options: Options) {
     super(options);
@@ -61,7 +60,7 @@ class Castigation extends Analyzer {
     if (event.ability.guid !== SPELLS.PENANCE.id || event.penanceBoltNumber !== 3) {
       return;
     }
-    console.log(event);
+
     this.damage += event.amount;
   }
 
