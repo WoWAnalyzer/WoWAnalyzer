@@ -1,7 +1,7 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
-import { Durpn, Juko8, Abelito75, Talby, Hursti, nullDozzer, kate, Vetyst } from 'CONTRIBUTORS';
+import { Durpn, Hursti } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
