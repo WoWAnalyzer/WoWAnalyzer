@@ -23,7 +23,6 @@ export default [
   change(date(2023, 1, 14), "Fixed an issue where the Events tab wouldn't load", Sref),
   change(date(2023, 1, 7), 'Update dependencies.', ToppleTheNun),
   change(date(2023, 1, 7), 'Remove support for Wowdb tooltips.', ToppleTheNun),
-  change(date(2023, 1, 7), 'Remove support for Wowdb tooltips.', ToppleTheNun),
   change(date(2023, 1, 5), 'Make weapon enhancement suggestions more readable.', ToppleTheNun),
   change(date(2023, 1, 5), 'Fix changelogs showing some contributors as invalid.', ToppleTheNun),
   change(date(2023, 1, 1), 'Add Pull Request template.', jazminite),
