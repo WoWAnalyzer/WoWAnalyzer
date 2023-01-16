@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warrior';
 //import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
@@ -35,9 +36,8 @@ const ArmsWarriorChecklist = ({
         name="Rotation Efficiency"
         cooldowns={[
           SPELLS.COLOSSUS_SMASH,
-          SPELLS.WARBREAKER_TALENT,
-          SPELLS.AVATAR_TALENT,
-          SPELLS.DEADLY_CALM_TALENT,
+          TALENTS.WARBREAKER_TALENT,
+          TALENTS.AVATAR_TALENT,
           SPELLS.ANCIENT_AFTERSHOCK,
           SPELLS.SPEAR_OF_BASTION,
           SPELLS.CONQUERORS_BANNER,
@@ -48,7 +48,7 @@ const ArmsWarriorChecklist = ({
             mistakes will compound themselves and result in a large final DPS loss. Use the graphic
             below to see if you are making small rotational mistakes.
             <strong> NOTE:</strong> The priority list below does not include{' '}
-            <SpellLink id={SPELLS.REND_TALENT.id} icon />
+            <SpellLink id={TALENTS.REND_ARMS_TALENT.id} icon />
             <br />
           </div>
         }
@@ -61,11 +61,11 @@ const ArmsWarriorChecklist = ({
             </>
           }
           description={
+            //removed: <SpellLink id={SPELLS.MASSACRE_TALENT_ARMS.id} />) . It should only be used during the
+            //execution phase to refresh{' '}
             <>
               You should cast <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> as much as possible
               when the target is above 20% (or 35% with{' '}
-              <SpellLink id={SPELLS.MASSACRE_TALENT_ARMS.id} />) . It should only be used during the
-              execution phase to refresh{' '}
               <SpellLink id={SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF.id} icon /> as{' '}
               <SpellLink id={SPELLS.EXECUTE.id} /> is more rage efficient than Mortal Strike.
             </>
