@@ -8,6 +8,7 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
+    const UNHOLY_COMMAND_SCALING = [0, 8, 15];
     return [
       // roational
       {
@@ -55,7 +56,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DARK_TRANSFORMATION.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60 - combatant.getTalentRank(talents.UNHOLY_COMMAND_TALENT) * 7.5,
+        cooldown:
+          60 - UNHOLY_COMMAND_SCALING[combatant.getTalentRank(talents.UNHOLY_COMMAND_TALENT)],
         gcd: {
           base: 1500,
         },
