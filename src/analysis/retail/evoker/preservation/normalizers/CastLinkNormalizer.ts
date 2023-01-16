@@ -502,6 +502,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
   },
 ];
 
@@ -587,7 +588,11 @@ export function getEchoTypeForLifebind(event: HealEvent): ECHO_TYPE {
 }
 
 export function getEchoTypeForGoldenHour(event: HealEvent): ECHO_TYPE {
-  const reversionApply = GetRelatedEvents(event, GOLDEN_HOUR)[0] as ApplyBuffEvent;
+  const events = GetRelatedEvents(event, GOLDEN_HOUR);
+  const reversionApply =
+    events[0].type === EventType.RefreshBuff
+      ? (events[0] as RefreshBuffEvent)
+      : (events[0] as ApplyBuffEvent);
   if (isFromHardcastEcho(reversionApply)) {
     return ECHO_TYPE.HARDCAST;
   } else if (isFromTAEcho(reversionApply)) {
