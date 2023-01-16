@@ -226,6 +226,7 @@ class MasteryEffectiveness extends Analyzer {
     );
   }
 
+  // TODO: add shielding logic when it becomes accurate
   statistic() {
     return (
       <Statistic
@@ -236,9 +237,6 @@ class MasteryEffectiveness extends Analyzer {
           <>
             {this.totalShieldEventsAffectedByMastery} out of {this.totalShieldEvents} shields were
             affected by mastery.
-            <br />
-            {this.totalEventsAffectedByMastery} out of {this.totalEvents} heals were affected by
-            mastery.
           </>
         }
       >
