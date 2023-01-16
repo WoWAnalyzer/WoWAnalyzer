@@ -1,12 +1,13 @@
 import { t } from '@lingui/macro';
 import { formatNumber, formatThousands } from 'common/format';
-import { default as WARRIOR_TALENTS } from 'common/TALENTS/warrior';
+import TALENTS from 'common/TALENTS/warrior';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import { Tooltip } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { When } from 'parser/core/ParseResults';
 
 /**
  * A defensive combat state that reduces all damage you take by 20%,
@@ -31,14 +32,14 @@ class DefensiveStance extends Analyzer {
   totalDamageMitigated = 0;
   totalDamageLost = 0;
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(WARRIOR_TALENTS.DEFENSIVE_STANCE_TALENT);
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DEFENSIVE_STANCE_TALENT);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._onDamageTaken);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this._onDamageDealt);
   }
 
-  perSecond(amount) {
+  perSecond(amount: number) {
     return (amount / this.owner.fightDuration) * 1000;
   }
 
@@ -52,16 +53,16 @@ class DefensiveStance extends Analyzer {
     return tradeoff;
   }
 
-  _onDamageTaken(event) {
-    if (this.selectedCombatant.hasBuff(WARRIOR_TALENTS.DEFENSIVE_STANCE_TALENT.id)) {
+  _onDamageTaken(event: DamageEvent) {
+    if (this.selectedCombatant.hasBuff(TALENTS.DEFENSIVE_STANCE_TALENT.id)) {
       const preMitigatedDefensiveStance =
-        (event.amount + event.absorbed) / (1 - DEFENSIVE_STANCE_DR);
+        (event.amount + (event.absorbed || 0)) / (1 - DEFENSIVE_STANCE_DR);
       this.totalDamageMitigated += preMitigatedDefensiveStance * DEFENSIVE_STANCE_DR;
     }
   }
 
-  _onDamageDealt(event) {
-    if (this.selectedCombatant.hasBuff(WARRIOR_TALENTS.DEFENSIVE_STANCE_TALENT.id)) {
+  _onDamageDealt(event: DamageEvent) {
+    if (this.selectedCombatant.hasBuff(TALENTS.DEFENSIVE_STANCE_TALENT.id)) {
       const damageDone = event.amount / (1 - DEFENSIVE_STANCE_DL);
       this.totalDamageLost += damageDone * DEFENSIVE_STANCE_DL;
     }
@@ -96,7 +97,7 @@ class DefensiveStance extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE(5)}
-        icon={<SpellIcon id={WARRIOR_TALENTS.DEFENSIVE_STANCE_TALENT.id} />}
+        icon={<SpellIcon id={TALENTS.DEFENSIVE_STANCE_TALENT.id} />}
         value={`≈${formatNumber(this.drps)} DRPS, ${formatNumber(this.dlps)} DLPS`}
         label="Damage reduced & lost"
         tooltip={
@@ -115,14 +116,14 @@ class DefensiveStance extends Analyzer {
     );
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.totalDamageLost)
       .isGreaterThan(this.totalDamageMitigated)
       .addSuggestion((suggest, dl, dr) =>
         suggest(
           'While Defensive Stance was up, your damage done was reduced by more than the damage you mitigated. Ensure that you are only using Defensive Stance when you are about to take a lot of damage and that you cancel it quickly to minimize the time spent dealing less damage.',
         )
-          .icon(WARRIOR_TALENTS.DEFENSIVE_STANCE_TALENT.icon)
+          .icon(TALENTS.DEFENSIVE_STANCE_TALENT.icon)
           .actual(
             t({
               id: 'warrior.arms.suggestions.defensiveStance',
@@ -141,10 +142,10 @@ class DefensiveStance extends Analyzer {
         suggest(
           <>
             {' '}
-            You never used <SpellLink id={WARRIOR_TALENTS.DEFENSIVE_STANCE_TALENT.id} />. Try to use
-            it to reduce incoming damage or use another talent that would be more useful.{' '}
+            You never used <SpellLink id={TALENTS.DEFENSIVE_STANCE_TALENT.id} />. Try to use it to
+            reduce incoming damage or use another talent that would be more useful.{' '}
           </>,
-        ).icon(WARRIOR_TALENTS.DEFENSIVE_STANCE_TALENT.icon),
+        ).icon(TALENTS.DEFENSIVE_STANCE_TALENT.icon),
       );
   }
 }

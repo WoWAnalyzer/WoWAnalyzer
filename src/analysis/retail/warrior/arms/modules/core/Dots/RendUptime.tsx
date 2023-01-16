@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warrior';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { Options } from 'parser/core/EventSubscriber';
@@ -20,7 +20,7 @@ class RendUptime extends Analyzer {
   protected enemies!: Enemies;
 
   get uptime() {
-    return this.enemies.getBuffUptime(SPELLS.REND_TALENT.id) / this.owner.fightDuration;
+    return this.enemies.getBuffUptime(TALENTS.REND_ARMS_TALENT.id) / this.owner.fightDuration;
   }
 
   get suggestionThresholds() {
@@ -37,18 +37,18 @@ class RendUptime extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.REND_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.REND_ARMS_TALENT);
   }
 
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.REND_TALENT.id} /> uptime can be improved. If you choose this
-          talent, you better use it !
+          Your <SpellLink id={TALENTS.REND_ARMS_TALENT.id} /> uptime can be improved. If you choose
+          this talent, you better use it !
         </>,
       )
-        .icon(SPELLS.REND_TALENT.icon)
+        .icon(TALENTS.REND_ARMS_TALENT.icon)
         .actual(
           t({
             id: 'warrior.arms.suggestions.rend.uptime',
@@ -60,11 +60,11 @@ class RendUptime extends Analyzer {
   }
 
   subStatistic() {
-    const history = this.enemies.getDebuffHistory(SPELLS.REND_TALENT.id);
+    const history = this.enemies.getDebuffHistory(TALENTS.REND_ARMS_TALENT.id);
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.REND_TALENT.id} />
+          <SpellIcon id={TALENTS.REND_ARMS_TALENT.id} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)}% <small>uptime</small>

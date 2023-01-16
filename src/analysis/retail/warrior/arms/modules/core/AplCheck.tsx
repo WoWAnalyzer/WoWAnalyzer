@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warrior';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { suggestion } from 'parser/core/Analyzer';
 import aplCheck, { build } from 'parser/shared/metrics/apl';
@@ -49,26 +50,26 @@ export const apl = build([
   { spell: SPELLS.EXECUTE, condition: cnd.buffPresent(SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF) },
   // Skull Splitter No Execute: <55 rage and no sudden death
   {
-    spell: SPELLS.SKULLSPLITTER_TALENT,
+    spell: TALENTS.SKULLSPLITTER_TALENT,
     condition: cnd.and(
       cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 55 }),
-      cnd.buffMissing(SPELLS.DEADLY_CALM_TALENT),
+      //cnd.buffMissing(SPELLS.DEADLY_CALM_TALENT),
       cnd.not(cnd.inExecute()),
     ),
   },
   // Skull Splitter Execute: <45 rage
   {
-    spell: SPELLS.SKULLSPLITTER_TALENT,
+    spell: TALENTS.SKULLSPLITTER_TALENT,
     condition: cnd.and(cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 45 }), cnd.inExecute()),
   },
   SPELLS.OVERPOWER,
   SPELLS.MORTAL_STRIKE,
-  { spell: SPELLS.WHIRLWIND, condition: cnd.hasTalent(SPELLS.FERVOR_OF_BATTLE_TALENT) },
+  { spell: SPELLS.WHIRLWIND, condition: cnd.hasTalent(TALENTS.FERVOR_OF_BATTLE_TALENT) },
   { spell: SPELLS.EXECUTE, condition: cnd.inExecute() },
   //not fervor + (rage > 50 / cs debuff / not eb lego)
   // this might be a bit much
   //SPELLS.SLAM,
-  { spell: SPELLS.SLAM, condition: cnd.not(cnd.hasTalent(SPELLS.FERVOR_OF_BATTLE_TALENT)) },
+  { spell: SPELLS.SLAM, condition: cnd.not(cnd.hasTalent(TALENTS.FERVOR_OF_BATTLE_TALENT)) },
   /* {
     spell: SPELLS.SLAM,
     condition: cnd.and(

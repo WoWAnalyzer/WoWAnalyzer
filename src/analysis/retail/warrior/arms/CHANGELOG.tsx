@@ -1,13 +1,14 @@
 
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warrior'
 import { Abelito75, carglass, Carrottopp, Otthopsy, bandit } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
   change(date(2022, 2, 26), <>Change Arms Warrior patch compatibility to 9.2</>, Carrottopp),
   change(date(2022, 2, 26), <>Added more abilites into rotational cooldown tracker.</>, Carrottopp),
-  change(date(2022, 2, 7), <>Updated <SpellLink id={SPELLS.REND_TALENT.id} icon /> and <SpellLink id={SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF.id} icon /> dot refresh modules.</>, Carrottopp),
+  change(date(2022, 2, 7), <>Updated <SpellLink id={TALENTS.REND_ARMS_TALENT.id} icon /> and <SpellLink id={SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF.id} icon /> dot refresh modules.</>, Carrottopp),
   change(date(2022, 2, 5), <>Added a module for better suggestions of <SpellLink id={SPELLS.BLADESTORM.id} icon /> usage.</>, Carrottopp),
   change(date(2021, 11, 8), <>Fixed SpellLink issue for Signet Of Tormented Kings.</>, Abelito75),
   change(date(2021, 10, 29), <>Initial Arms APL added. (Still WIP)</>, bandit),

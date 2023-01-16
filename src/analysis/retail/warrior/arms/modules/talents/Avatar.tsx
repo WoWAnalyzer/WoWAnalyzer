@@ -1,9 +1,9 @@
 import { formatPercentage, formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warrior';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import Events from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 /**
@@ -20,16 +20,16 @@ class Avatar extends Analyzer {
 
   totalDamages = 0;
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.AVATAR_TALENT);
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.AVATAR_TALENT);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this._onDamage);
   }
 
-  _onDamage(event) {
+  _onDamage(event: DamageEvent) {
     if (
       event.targetIsFriendly ||
-      !this.selectedCombatant.hasBuff(SPELLS.AVATAR_TALENT.id, event.timestamp)
+      !this.selectedCombatant.hasBuff(TALENTS.AVATAR_TALENT.id, event.timestamp)
     ) {
       return;
     }
@@ -41,7 +41,7 @@ class Avatar extends Analyzer {
       <StatisticListBoxItem
         title={
           <>
-            <SpellLink id={SPELLS.AVATAR_TALENT.id} /> bonus damage
+            <SpellLink id={TALENTS.AVATAR_TALENT.id} /> bonus damage
           </>
         }
         value={`${formatThousands(this.dps)} DPS`}

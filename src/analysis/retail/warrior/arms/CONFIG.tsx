@@ -3,12 +3,12 @@ import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import Config from 'parser/Config';
 
-// import CHANGELOG from './CHANGELOG';
+import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
-  contributors: [Carrottopp],
-  expansion: Expansion.Shadowlands,
+  contributors: [Carrottopp], //-- Note: credit me later when i actually do something.
+  expansion: Expansion.Dragonflight,
   // The WoW client patch this spec was last updated.
   patchCompatibility: null,
   isPartial: true,
@@ -42,12 +42,12 @@ const config: Config = {
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.ARMS_WARRIOR,
   // The contents of your changelog.
-  changelog: [],
+  changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  // parser: () =>
-  //   import('./CombatLogParser' /* webpackChunkName: "ArmsWarrior" */).then(
-  //     (exports) => exports.default,
-  //   ),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "ArmsWarrior" */).then(
+      (exports) => exports.default,
+    ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

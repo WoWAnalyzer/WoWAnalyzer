@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warrior';
 import { SpellLink } from 'interface';
 import { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -59,7 +60,7 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
     // Refreshes from Colossus Smash/Warbreaker/Bladestorm dont count against you
     if (
       dot.castId === SPELLS.BLADESTORM.id ||
-      dot.castId === SPELLS.WARBREAKER_TALENT.id ||
+      dot.castId === TALENTS.WARBREAKER_TALENT.id ||
       dot.castId === SPELLS.COLOSSUS_SMASH.id
     ) {
       this.lastCastGoodExtension = true;
@@ -70,14 +71,8 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
     if (
       dot &&
       dot.castId === SPELLS.MORTAL_STRIKE.id &&
-      (!this.executeRange.isTargetInExecuteRange({
-        targetID: event.targetID,
-        targetInstance: event.targetInstance,
-      }) ||
-        (this.executeRange.isTargetInExecuteRange({
-          targetID: event.targetID,
-          targetInstance: event.targetInstance,
-        }) &&
+      (!this.executeRange.isTargetInExecuteRange(event.targetID || 0, event.targetInstance || 0) ||
+        (this.executeRange.isTargetInExecuteRange(event.targetID || 0, event.targetInstance || 0) &&
           false &&
           this.hasTwoOverpowerStacks()))
     ) {

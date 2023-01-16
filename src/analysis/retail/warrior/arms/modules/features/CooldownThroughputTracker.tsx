@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warrior';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
@@ -7,15 +7,11 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.SWEEPING_STRIKES.id,
+      spell: TALENTS.SWEEPING_STRIKES_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
-      spell: SPELLS.AVATAR_TALENT.id,
-      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
-    },
-    {
-      spell: SPELLS.DEADLY_CALM_TALENT.id,
+      spell: TALENTS.AVATAR_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];
@@ -23,12 +19,12 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static castCooldowns = [
     ...CoreCooldownThroughputTracker.castCooldowns,
     {
-      spell: SPELLS.WARBREAKER_TALENT.id,
+      spell: TALENTS.WARBREAKER_TALENT.id,
       duration: 10,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
-      spell: SPELLS.COLOSSUS_SMASH.id,
+      spell: TALENTS.COLOSSUS_SMASH_TALENT.id,
       duration: 10,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },

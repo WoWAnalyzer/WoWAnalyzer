@@ -1,7 +1,8 @@
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warrior';
 import { SpellLink } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
@@ -14,9 +15,11 @@ class SecondWind extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SECOND_WIND_TALENT);
+  protected abilityTracker!: AbilityTracker;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SECOND_WIND_TALENT);
   }
 
   subStatistic() {
@@ -26,7 +29,7 @@ class SecondWind extends Analyzer {
       <StatisticListBoxItem
         title={
           <>
-            <SpellLink id={SPELLS.SECOND_WIND_TALENT.id} /> health restored
+            <SpellLink id={TALENTS.SECOND_WIND_TALENT.id} /> health restored
           </>
         }
         value={formatThousands(heal)}
