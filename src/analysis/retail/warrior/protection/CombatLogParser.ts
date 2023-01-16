@@ -31,6 +31,7 @@ import IntoTheFray from './modules/talents/IntoTheFray';
 import Punish from './modules/talents/Punish';
 import WarMachine from './modules/talents/WarMachine';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
+import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
 
 //legendaries
 
@@ -73,6 +74,7 @@ class CombatLogParser extends CoreCombatLogParser {
     violentOutburstCastRatio: ViolentOutburstCastRatio,
     violentOutburstTimeBetweenBuffs: ViolentOutburstTimeBetweenBuffs,
     spellReflection: SpellReflection,
+    impendingVictory: ImpendingVictory,
   };
 }
 

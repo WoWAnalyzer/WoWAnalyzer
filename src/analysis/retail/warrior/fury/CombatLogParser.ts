@@ -22,6 +22,7 @@ import RecklessAbandon from './modules/talents/RecklessAbandon';
 import SuddenDeath from './modules/talents/SuddenDeath';
 import Warpaint from './modules/talents/Warpaint';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
+import ImpendingVictory2 from '../shared/modules/talents/ImpendingVictory';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -53,6 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
     warpaint: Warpaint,
     spearofBastion: SpearOfBastion,
     spellReflection: SpellReflection,
+    impendingVictory2: ImpendingVictory2,
   };
 }
 
