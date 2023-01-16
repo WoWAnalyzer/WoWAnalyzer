@@ -754,6 +754,11 @@ const spells = spellIndexableList({
     name: 'Channel Demonfire',
     icon: 'spell_fire_ragnaros_lavaboltgreen',
   },
+  ROLLING_HAVOC_BUFF: {
+    id: 387570,
+    name: 'Rolling Havoc',
+    icon: 'warlock_pvp_banehavoc',
+  },
 });
 
 export default spells;
