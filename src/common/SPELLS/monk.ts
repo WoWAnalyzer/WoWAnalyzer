@@ -206,6 +206,11 @@ const spells = spellIndexableList({
     name: 'Lifecycles (Enveloping Mist)',
     icon: 'spell_monk_envelopingmist',
   },
+  SHEILUN_CLOUD_BUFF: {
+    id: 399510,
+    name: "Sheilun's Gift",
+    icon: 'inv_staff_2h_artifactshaohao_d_01',
+  },
   SPIRIT_OF_THE_CRANE_BUFF: {
     id: 210803,
     name: 'Spirit of the Crane',

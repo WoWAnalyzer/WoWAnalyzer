@@ -1339,6 +1339,13 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101487],
   },
+  SHEILUNS_GIFT_TALENT: {
+    id: 399491,
+    name: "Sheilun's Gift",
+    icon: 'inv_staff_2h_artifactshaohao_d_01',
+    maxRanks: 1,
+    entryIds: [101392],
+  },
 });
 
 export default talents;
