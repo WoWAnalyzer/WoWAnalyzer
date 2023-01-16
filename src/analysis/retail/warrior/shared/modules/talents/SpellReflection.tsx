@@ -63,8 +63,8 @@ class SpellReflection extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            This is the sum of the damage mitigated by Spell Reflection. Average:{' '}
-            {formatNumber(this.averageMitigationPerCast)}
+            This is the sum of the damage mitigated by Spell Reflection. Total uses:{' '}
+            {this.totalCasts}
           </>
         }
       >
@@ -76,7 +76,9 @@ class SpellReflection extends Analyzer {
           }
         >
           <>
-            {this.totalMitigation} <small>damage</small>
+            {formatNumber(this.totalMitigation)} <small>total</small>
+            <br />
+            {formatNumber(this.averageMitigationPerCast)} <small>average</small>
           </>
         </BoringValueText>
       </Statistic>
