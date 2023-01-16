@@ -30,6 +30,7 @@ import HeavyRepercussions from './modules/talents/HeavyRepercussions';
 import IntoTheFray from './modules/talents/IntoTheFray';
 import Punish from './modules/talents/Punish';
 import WarMachine from './modules/talents/WarMachine';
+import SpellReflection from '../shared/modules/talents/SpellReflection';
 
 //legendaries
 
@@ -71,6 +72,7 @@ class CombatLogParser extends CoreCombatLogParser {
     thunderlord: Thunderlord,
     violentOutburstCastRatio: ViolentOutburstCastRatio,
     violentOutburstTimeBetweenBuffs: ViolentOutburstTimeBetweenBuffs,
+    spellReflection: SpellReflection,
   };
 }
 

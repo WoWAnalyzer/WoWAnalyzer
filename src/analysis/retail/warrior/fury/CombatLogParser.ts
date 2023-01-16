@@ -21,6 +21,7 @@ import MeatCleaver from './modules/talents/MeatCleaver';
 import RecklessAbandon from './modules/talents/RecklessAbandon';
 import SuddenDeath from './modules/talents/SuddenDeath';
 import Warpaint from './modules/talents/Warpaint';
+import SpellReflection from '../shared/modules/talents/SpellReflection';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -43,6 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     missedRampage: MissedRampage,
     recklessness: Recklessness,
 
+    //talents
     angerManagement: AngerManagement,
     impendingVictory: ImpendingVicory,
     meatCleaver: MeatCleaver,
@@ -50,6 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
     suddenDeath: SuddenDeath,
     warpaint: Warpaint,
     spearofBastion: SpearOfBastion,
+    spellReflection: SpellReflection,
   };
 }
 

@@ -38,6 +38,7 @@ import Warbreaker from './modules/talents/Warbreaker';
 import WarMachine from './modules/talents/WarMachine';
 import BattlelordBuff from './normalizers/BattlelordBuff';
 import OverpowerStacks from './normalizers/OverpowerStacks';
+import SpellReflection from '../shared/modules/talents/SpellReflection';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -92,6 +93,7 @@ class CombatLogParser extends CoreCombatLogParser {
     warbreaker: Warbreaker,
     avatar: Avatar,
     ravager: Ravager,
+    spellReflection: SpellReflection,
 
     // Shadowlands
     signetofTormentedKings: SignetOfTormentedKings,
