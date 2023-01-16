@@ -55,7 +55,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DARK_TRANSFORMATION.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
+        cooldown: 60 - combatant.getTalentRank(talents.UNHOLY_COMMAND_TALENT) * 7.5,
         gcd: {
           base: 1500,
         },
@@ -92,13 +92,13 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.APOCALYPSE.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 75,
+        cooldown: combatant.hasTalent(talents.ARMY_OF_THE_DAMNED_TALENT) ? 45 : 90,
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.95,
+          recommendedEfficiency: 0.9,
           extraSuggestion: (
             <span>
               Making sure to use <SpellLink id={SPELLS.APOCALYPSE.id} /> immediately after it's
@@ -190,7 +190,7 @@ class Abilities extends CoreAbilities {
       {
         spell: talents.UNHOLY_ASSAULT_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 75,
+        cooldown: 90,
         enabled: combatant.hasTalent(talents.UNHOLY_ASSAULT_TALENT),
         castEfficiency: {
           suggestion: true,
