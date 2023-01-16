@@ -185,6 +185,14 @@ export const Khazak: Contributor = {
 export const Bicepspump: Contributor = {
   nickname: 'Bicepspump',
   github: 'Bicepspump',
+  discord: '💪Bicepspump💪#6318',
+  mains: [
+    {
+      name: 'Bicepspump',
+      spec: SPECS.UNHOLY_DEATH_KNIGHT,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/kazzak/Bicepspump',
+    },
+  ],
 };
 export const Mamtooth: Contributor = {
   nickname: 'Mamtooth',
