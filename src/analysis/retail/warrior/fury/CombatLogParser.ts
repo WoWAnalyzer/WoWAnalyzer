@@ -16,13 +16,13 @@ import MissedRampage from './modules/spells/MissedRampage';
 import Recklessness from './modules/spells/Recklessness';
 import WhirlWind from './modules/spells/Whirlwind';
 import AngerManagement from './modules/talents/AngerManagement';
-import ImpendingVicory from './modules/talents/ImpendingVictory';
+//import ImpendingVicory from './modules/talents/ImpendingVictory';
 import MeatCleaver from './modules/talents/MeatCleaver';
 import RecklessAbandon from './modules/talents/RecklessAbandon';
 import SuddenDeath from './modules/talents/SuddenDeath';
 import Warpaint from './modules/talents/Warpaint';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
-import ImpendingVictory2 from '../shared/modules/talents/ImpendingVictory';
+import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -47,14 +47,14 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //talents
     angerManagement: AngerManagement,
-    impendingVictory: ImpendingVicory,
+    //impendingVictory: ImpendingVicory,
     meatCleaver: MeatCleaver,
     recklessAbandon: RecklessAbandon,
     suddenDeath: SuddenDeath,
     warpaint: Warpaint,
     spearofBastion: SpearOfBastion,
     spellReflection: SpellReflection,
-    impendingVictory2: ImpendingVictory2,
+    impendingVictory: ImpendingVictory,
   };
 }
 
