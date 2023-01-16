@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import talents from 'common/TALENTS/warrior';
+import TALENTS from 'common/TALENTS/warrior';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -17,7 +17,7 @@ class SpellReflection extends Analyzer {
   //only show do this analyzer when you have the spell reflection talent.
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.SPELL_REFLECTION_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SPELL_REFLECTION_TALENT);
     if (!this.active) {
       return;
     }
@@ -71,7 +71,7 @@ class SpellReflection extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={talents.SPELL_REFLECTION_TALENT} /> Damage mitigated
+              <SpellLink id={TALENTS.SPELL_REFLECTION_TALENT} /> Damage mitigated
             </>
           }
         >

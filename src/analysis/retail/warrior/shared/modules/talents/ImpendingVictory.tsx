@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import talents from 'common/TALENTS/warrior';
+import TALENTS from 'common/TALENTS/warrior';
 import Events, { HealEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -16,7 +16,7 @@ class ImpendingVictory extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.IMPENDING_VICTORY_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.IMPENDING_VICTORY_TALENT);
     if (!this.active) {
       return;
     }
@@ -50,7 +50,7 @@ class ImpendingVictory extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={talents.IMPENDING_VICTORY_TALENT.id} /> Healing done
+              <SpellLink id={TALENTS.IMPENDING_VICTORY_TALENT.id} /> Healing done
             </>
           }
         >
