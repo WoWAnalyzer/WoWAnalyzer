@@ -5,6 +5,7 @@ import { Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 1, 11), <>Disable shielding calculation for <SpellLink id={SPELLS.MASTERY_LIFEBINDER.id}/> module</>, Trevor),
   change(date(2023, 1, 14), <>Add <SpellLink id={TALENTS_EVOKER.LIFEBIND_TALENT}/> and <SpellLink id={TALENTS_EVOKER.GOLDEN_HOUR_TALENT}/> attribution for <SpellLink id={TALENTS_EVOKER.ECHO_TALENT}/> module</>, Trevor),
   change(date(2023, 1, 11), <>Improve <SpellLink id={TALENTS_EVOKER.LIFEBIND_TALENT}/> module</>, Trevor),
   change(date(2023, 1, 11), <>Add module for <SpellLink id={TALENTS_EVOKER.LIFEBIND_TALENT}/></>, Trevor),
