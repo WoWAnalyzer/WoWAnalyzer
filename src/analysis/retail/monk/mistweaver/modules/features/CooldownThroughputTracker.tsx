@@ -31,15 +31,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
     },
-    {
-      spell: SPELLS.FALLEN_ORDER_CAST.id,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.HEALING,
-        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-        BUILT_IN_SUMMARY_TYPES.MANA,
-      ],
-      startBufferMS: 3100,
-    },
   ];
 
   static ignoredSpells = [

@@ -1,31 +1,23 @@
 import AtonementDamageSource from 'analysis/retail/priest/discipline/modules/features/AtonementDamageSource';
 import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
-import { SpellIcon } from 'interface';
-import { TooltipElement } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
+import { SpellIcon, TooltipElement } from 'interface';
+import Analyzer from 'parser/core/Analyzer';
+import { DamageEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import Abilities from 'parser/core/modules/Abilities';
-import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-const DAMAGING_SPELL_IDS = [
-  SPELLS.ASCENDED_BLAST.id,
-  SPELLS.ASCENDED_NOVA.id,
-  SPELLS.ASCENDED_ERUPTION.id,
-];
+// const DAMAGING_SPELL_IDS = [
+//   SPELLS.ASCENDED_BLAST.id,
+//   SPELLS.ASCENDED_NOVA.id,
+//   SPELLS.ASCENDED_ERUPTION.id,
+// ];
 
-const HEALING_SPELL_ID_MAP = {
-  [SPELLS.ASCENDED_BLAST_HEAL.id]: SPELLS.ASCENDED_BLAST.id,
-  [SPELLS.ASCENDED_NOVA_HEAL.id]: SPELLS.ASCENDED_NOVA.id,
-  [SPELLS.ASCENDED_ERUPTION_HEAL.id]: SPELLS.ASCENDED_ERUPTION.id,
-};
+// const HEALING_SPELL_ID_MAP = {
+//   [SPELLS.ASCENDED_BLAST_HEAL.id]: SPELLS.ASCENDED_BLAST.id,
+//   [SPELLS.ASCENDED_NOVA_HEAL.id]: SPELLS.ASCENDED_NOVA.id,
+//   [SPELLS.ASCENDED_ERUPTION_HEAL.id]: SPELLS.ASCENDED_ERUPTION.id,
+// };
 
 interface AscendedSpellTracker {
   casts: number;
@@ -54,36 +46,36 @@ class BoonOfTheAscended extends Analyzer {
   atonementDamageSource: AtonementDamageSource | null = null;
 
   ascendedSpellTracker: { [spellId: number]: AscendedSpellTracker } = {
-    [SPELLS.ASCENDED_BLAST.id]: {
-      casts: 0,
-      friendlyHits: 0,
-      enemyHits: 0,
-      healingDone: 0,
-      overHealingDone: 0,
-      atonmentHealingDone: 0,
-      atonementOverHealingDone: 0,
-      damageDone: 0,
-    },
-    [SPELLS.ASCENDED_NOVA.id]: {
-      casts: 0,
-      friendlyHits: 0,
-      enemyHits: 0,
-      healingDone: 0,
-      overHealingDone: 0,
-      atonmentHealingDone: 0,
-      atonementOverHealingDone: 0,
-      damageDone: 0,
-    },
-    [SPELLS.ASCENDED_ERUPTION.id]: {
-      casts: 0,
-      friendlyHits: 0,
-      enemyHits: 0,
-      healingDone: 0,
-      overHealingDone: 0,
-      atonmentHealingDone: 0,
-      atonementOverHealingDone: 0,
-      damageDone: 0,
-    },
+    // [SPELLS.ASCENDED_BLAST.id]: {
+    //   casts: 0,
+    //   friendlyHits: 0,
+    //   enemyHits: 0,
+    //   healingDone: 0,
+    //   overHealingDone: 0,
+    //   atonmentHealingDone: 0,
+    //   atonementOverHealingDone: 0,
+    //   damageDone: 0,
+    // },
+    // [SPELLS.ASCENDED_NOVA.id]: {
+    //   casts: 0,
+    //   friendlyHits: 0,
+    //   enemyHits: 0,
+    //   healingDone: 0,
+    //   overHealingDone: 0,
+    //   atonmentHealingDone: 0,
+    //   atonementOverHealingDone: 0,
+    //   damageDone: 0,
+    // },
+    // [SPELLS.ASCENDED_ERUPTION.id]: {
+    //   casts: 0,
+    //   friendlyHits: 0,
+    //   enemyHits: 0,
+    //   healingDone: 0,
+    //   overHealingDone: 0,
+    //   atonmentHealingDone: 0,
+    //   atonementOverHealingDone: 0,
+    //   damageDone: 0,
+    // },
   };
 
   get totalDamage() {
@@ -129,89 +121,89 @@ class BoonOfTheAscended extends Analyzer {
       return;
     }
 
-    const castEfficiency =
-      this.selectedCombatant.spec === SPECS.SHADOW_PRIEST
-        ? {
-            suggestion: true,
-            recommendedEfficiency: 0.9,
-            averageIssueEfficiency: 0.8,
-            majorIssueEfficiency: 0.7,
-          }
-        : {
-            suggestion: true,
-            recommendedEfficiency: 0.8,
-            averageIssueEfficiency: 0.6,
-            majorIssueEfficiency: 0.4,
-          };
-    (options.abilities as Abilities).add({
-      spell: SPELLS.BOON_OF_THE_ASCENDED.id,
-      category: SPELL_CATEGORY.ROTATIONAL,
-      cooldown: 180,
-      enabled: true,
-      gcd: {
-        base: 1500,
-      },
-      castEfficiency: castEfficiency,
-    });
-    (options.abilities as Abilities).add({
-      spell: SPELLS.ASCENDED_BLAST.id,
-      category: SPELL_CATEGORY.ROTATIONAL,
-      enabled: true,
-      gcd: {
-        base: 1000,
-      },
-    });
-    (options.abilities as Abilities).add({
-      spell: SPELLS.ASCENDED_NOVA.id,
-      category: SPELL_CATEGORY.ROTATIONAL,
-      enabled: true,
-      gcd: {
-        base: 1000,
-      },
-    });
-    (options.abilities as Abilities).add({
-      spell: SPELLS.ASCENDED_ERUPTION.id,
-      category: SPELL_CATEGORY.ROTATIONAL,
-      enabled: true,
-      gcd: {
-        base: 0,
-      },
-    });
+    // const castEfficiency =
+    //   this.selectedCombatant.spec === SPECS.SHADOW_PRIEST
+    //     ? {
+    //         suggestion: true,
+    //         recommendedEfficiency: 0.9,
+    //         averageIssueEfficiency: 0.8,
+    //         majorIssueEfficiency: 0.7,
+    //       }
+    //     : {
+    //         suggestion: true,
+    //         recommendedEfficiency: 0.8,
+    //         averageIssueEfficiency: 0.6,
+    //         majorIssueEfficiency: 0.4,
+    //       };
+    // (options.abilities as Abilities).add({
+    //   spell: SPELLS.BOON_OF_THE_ASCENDED.id,
+    //   category: SPELL_CATEGORY.ROTATIONAL,
+    //   cooldown: 180,
+    //   enabled: true,
+    //   gcd: {
+    //     base: 1500,
+    //   },
+    //   castEfficiency: castEfficiency,
+    // });
+    // (options.abilities as Abilities).add({
+    //   spell: SPELLS.ASCENDED_BLAST.id,
+    //   category: SPELL_CATEGORY.ROTATIONAL,
+    //   enabled: true,
+    //   gcd: {
+    //     base: 1000,
+    //   },
+    // });
+    // (options.abilities as Abilities).add({
+    //   spell: SPELLS.ASCENDED_NOVA.id,
+    //   category: SPELL_CATEGORY.ROTATIONAL,
+    //   enabled: true,
+    //   gcd: {
+    //     base: 1000,
+    //   },
+    // });
+    // (options.abilities as Abilities).add({
+    //   spell: SPELLS.ASCENDED_ERUPTION.id,
+    //   category: SPELL_CATEGORY.ROTATIONAL,
+    //   enabled: true,
+    //   gcd: {
+    //     base: 0,
+    //   },
+    // });
 
-    if (this.isDisc) {
-      this.atonementDamageSource = this.owner.getModule(AtonementDamageSource);
-      this.addEventListener(
-        Events.heal
-          .by(SELECTED_PLAYER)
-          .spell([SPELLS.ATONEMENT_HEAL_NON_CRIT, SPELLS.ATONEMENT_HEAL_CRIT]),
-        this.onAtonmentHeal,
-      );
-    }
+    // if (this.isDisc) {
+    //   this.atonementDamageSource = this.owner.getModule(AtonementDamageSource);
+    //   this.addEventListener(
+    //     Events.heal
+    //       .by(SELECTED_PLAYER)
+    //       .spell([SPELLS.ATONEMENT_HEAL_NON_CRIT, SPELLS.ATONEMENT_HEAL_CRIT]),
+    //     this.onAtonmentHeal,
+    //   );
+    // }
 
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BOON_OF_THE_ASCENDED),
-      this.onCast,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BOON_OF_THE_ASCENDED),
-      this.onBuffRemove,
-    );
-    this.addEventListener(
-      Events.damage
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.ASCENDED_BLAST, SPELLS.ASCENDED_NOVA, SPELLS.ASCENDED_ERUPTION]),
-      this.onDamage,
-    );
-    this.addEventListener(
-      Events.heal
-        .by(SELECTED_PLAYER)
-        .spell([
-          SPELLS.ASCENDED_BLAST_HEAL,
-          SPELLS.ASCENDED_NOVA_HEAL,
-          SPELLS.ASCENDED_ERUPTION_HEAL,
-        ]),
-      this.onNormalHeal,
-    );
+    // this.addEventListener(
+    //   Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BOON_OF_THE_ASCENDED),
+    //   this.onCast,
+    // );
+    // this.addEventListener(
+    //   Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BOON_OF_THE_ASCENDED),
+    //   this.onBuffRemove,
+    // );
+    // this.addEventListener(
+    //   Events.damage
+    //     .by(SELECTED_PLAYER)
+    //     .spell([SPELLS.ASCENDED_BLAST, SPELLS.ASCENDED_NOVA, SPELLS.ASCENDED_ERUPTION]),
+    //   this.onDamage,
+    // );
+    // this.addEventListener(
+    //   Events.heal
+    //     .by(SELECTED_PLAYER)
+    //     .spell([
+    //       SPELLS.ASCENDED_BLAST_HEAL,
+    //       SPELLS.ASCENDED_NOVA_HEAL,
+    //       SPELLS.ASCENDED_ERUPTION_HEAL,
+    //     ]),
+    //   this.onNormalHeal,
+    // );
   }
 
   onCast() {
@@ -224,46 +216,46 @@ class BoonOfTheAscended extends Analyzer {
     this.ascendedSpellTracker[event.ability.guid].enemyHits += 1;
   }
 
-  onAtonmentHeal(event: HealEvent) {
-    if (!this.atonementDamageSource) {
-      return;
-    }
-    const atonenementDamageEvent = this.atonementDamageSource.event;
-    if (
-      !atonenementDamageEvent ||
-      !DAMAGING_SPELL_IDS.includes(atonenementDamageEvent.ability.guid)
-    ) {
-      return;
-    }
+  // onAtonmentHeal(event: HealEvent) {
+  //   if (!this.atonementDamageSource) {
+  //     return;
+  //   }
+  //   const atonenementDamageEvent = this.atonementDamageSource.event;
+  //   if (
+  //     !atonenementDamageEvent ||
+  //     !DAMAGING_SPELL_IDS.includes(atonenementDamageEvent.ability.guid)
+  //   ) {
+  //     return;
+  //   }
+  //
+  //   this.ascendedSpellTracker[atonenementDamageEvent.ability.guid].atonmentHealingDone +=
+  //     event.amount;
+  //   // TODO: Fix Spirit Shell
+  //   if (!this.selectedCombatant.hasBuff(SPELLS.SPIRIT_SHELL_TALENT_BUFF.id)) {
+  //     this.ascendedSpellTracker[atonenementDamageEvent.ability.guid].atonmentHealingDone +=
+  //       event.absorb || 0;
+  //   }
+  //
+  //   this.ascendedSpellTracker[atonenementDamageEvent.ability.guid].atonementOverHealingDone +=
+  //     event.overheal || 0;
+  // }
 
-    this.ascendedSpellTracker[atonenementDamageEvent.ability.guid].atonmentHealingDone +=
-      event.amount;
-    // TODO: Fix Spirit Shell
-    if (!this.selectedCombatant.hasBuff(SPELLS.SPIRIT_SHELL_TALENT_BUFF.id)) {
-      this.ascendedSpellTracker[atonenementDamageEvent.ability.guid].atonmentHealingDone +=
-        event.absorb || 0;
-    }
-
-    this.ascendedSpellTracker[atonenementDamageEvent.ability.guid].atonementOverHealingDone +=
-      event.overheal || 0;
-  }
-
-  onNormalHeal(event: HealEvent) {
-    this.ascendedSpellTracker[HEALING_SPELL_ID_MAP[event.ability.guid]].healingDone += event.amount;
-    // TODO: Fix Spirit Shell
-    if (!this.selectedCombatant.hasBuff(SPELLS.SPIRIT_SHELL_TALENT_BUFF.id)) {
-      this.ascendedSpellTracker[HEALING_SPELL_ID_MAP[event.ability.guid]].healingDone +=
-        event.absorb || 0;
-    }
-
-    this.ascendedSpellTracker[HEALING_SPELL_ID_MAP[event.ability.guid]].overHealingDone +=
-      event.overheal || 0;
-    this.ascendedSpellTracker[HEALING_SPELL_ID_MAP[event.ability.guid]].friendlyHits += 1;
-  }
+  // onNormalHeal(event: HealEvent) {
+  //   this.ascendedSpellTracker[HEALING_SPELL_ID_MAP[event.ability.guid]].healingDone += event.amount;
+  //   // TODO: Fix Spirit Shell
+  //   if (!this.selectedCombatant.hasBuff(SPELLS.SPIRIT_SHELL_TALENT_BUFF.id)) {
+  //     this.ascendedSpellTracker[HEALING_SPELL_ID_MAP[event.ability.guid]].healingDone +=
+  //       event.absorb || 0;
+  //   }
+  //
+  //   this.ascendedSpellTracker[HEALING_SPELL_ID_MAP[event.ability.guid]].overHealingDone +=
+  //     event.overheal || 0;
+  //   this.ascendedSpellTracker[HEALING_SPELL_ID_MAP[event.ability.guid]].friendlyHits += 1;
+  // }
 
   onBuffRemove() {
     // This has an accurate buff count until after this event resolves.
-    this.stackTracker.push(this.selectedCombatant.getBuffStacks(SPELLS.BOON_OF_THE_ASCENDED.id));
+    // this.stackTracker.push(this.selectedCombatant.getBuffStacks(SPELLS.BOON_OF_THE_ASCENDED.id));
   }
 
   getOverhealingPercent(totalHealing: number, totalOverHealing: number) {
@@ -307,54 +299,54 @@ class BoonOfTheAscended extends Analyzer {
     ));
   }
 
-  statistic() {
-    return (
-      <Statistic
-        wide={this.isDisc}
-        size="flexible"
-        tooltip={
-          <>
-            Total Casts: {this.castCount}
-            <br />
-            Average Boon Stacks: {this.averageStacks}
-          </>
-        }
-        dropdown={
-          <table className={this.isDisc ? 'table' : 'table table-condensed'}>
-            <thead>
-              <tr>
-                <th>Spell</th>
-                <th>Healing</th>
-                {this.isDisc && <th>Atonement Healing</th>}
-                <th>Damage</th>
-
-                <th>
-                  <TooltipElement
-                    content={
-                      <>
-                        <span style={{ color: 'green' }}>Friendly</span> |{' '}
-                        <span style={{ color: 'red' }}>Enemy</span>
-                      </>
-                    }
-                  >
-                    Targets Hit
-                  </TooltipElement>
-                </th>
-              </tr>
-            </thead>
-            <tbody>{this.spellTable()}</tbody>
-          </table>
-        }
-        category={STATISTIC_CATEGORY.COVENANTS}
-      >
-        <BoringSpellValueText spellId={SPELLS.BOON_OF_THE_ASCENDED.id}>
-          <ItemHealingDone amount={this.totalAtonementHealing + this.totalDirectHealing} />
-          <br />
-          <ItemDamageDone amount={this.totalDamage} />
-        </BoringSpellValueText>
-      </Statistic>
-    );
-  }
+  // statistic() {
+  //   return (
+  //     <Statistic
+  //       wide={this.isDisc}
+  //       size="flexible"
+  //       tooltip={
+  //         <>
+  //           Total Casts: {this.castCount}
+  //           <br />
+  //           Average Boon Stacks: {this.averageStacks}
+  //         </>
+  //       }
+  //       dropdown={
+  //         <table className={this.isDisc ? 'table' : 'table table-condensed'}>
+  //           <thead>
+  //             <tr>
+  //               <th>Spell</th>
+  //               <th>Healing</th>
+  //               {this.isDisc && <th>Atonement Healing</th>}
+  //               <th>Damage</th>
+  //
+  //               <th>
+  //                 <TooltipElement
+  //                   content={
+  //                     <>
+  //                       <span style={{ color: 'green' }}>Friendly</span> |{' '}
+  //                       <span style={{ color: 'red' }}>Enemy</span>
+  //                     </>
+  //                   }
+  //                 >
+  //                   Targets Hit
+  //                 </TooltipElement>
+  //               </th>
+  //             </tr>
+  //           </thead>
+  //           <tbody>{this.spellTable()}</tbody>
+  //         </table>
+  //       }
+  //       category={STATISTIC_CATEGORY.COVENANTS}
+  //     >
+  //       <BoringSpellValueText spellId={SPELLS.BOON_OF_THE_ASCENDED.id}>
+  //         <ItemHealingDone amount={this.totalAtonementHealing + this.totalDirectHealing} />
+  //         <br />
+  //         <ItemDamageDone amount={this.totalDamage} />
+  //       </BoringSpellValueText>
+  //     </Statistic>
+  //   );
+  // }
 }
 
 export default BoonOfTheAscended;

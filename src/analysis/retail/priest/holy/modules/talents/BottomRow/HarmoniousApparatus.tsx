@@ -92,7 +92,7 @@ class HarmoniousApparatus extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.HARMONIOUS_APPARATUS.id}>
+        <BoringSpellValueText spellId={TALENTS.HARMONIOUS_APPARATUS_TALENT.id}>
           {Math.ceil(totalHealingSpellReduction / 1000)}s{' '}
           <small>Healing Spell Cooldown Reduction</small>
         </BoringSpellValueText>

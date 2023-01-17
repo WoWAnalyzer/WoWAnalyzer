@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -49,7 +48,7 @@ class Reverberation extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.REVERBERATION.id}>
+        <BoringSpellValueText spellId={TALENTS.REVERBERATION_TALENT.id}>
           <ItemDamageDone amount={this.bonusDamage} />
         </BoringSpellValueText>
       </Statistic>

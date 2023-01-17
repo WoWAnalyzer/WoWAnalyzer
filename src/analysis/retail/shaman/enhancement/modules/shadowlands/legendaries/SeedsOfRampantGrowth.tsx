@@ -1,6 +1,5 @@
-import SPELLS from 'common/SPELLS';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent } from 'parser/core/Events';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import { ApplyBuffEvent, ApplyBuffStackEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
@@ -15,15 +14,15 @@ class SeedsOfRampantGrowth extends Analyzer {
     super(options);
     this.active = false;
 
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SEEDS_OF_RAMPANT_GROWTH_BUFF),
-      this.reduceFeralSpiritCooldown,
-    );
-
-    this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.SEEDS_OF_RAMPANT_GROWTH_BUFF),
-      this.reduceFeralSpiritCooldown,
-    );
+    // this.addEventListener(
+    //   Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SEEDS_OF_RAMPANT_GROWTH_BUFF),
+    //   this.reduceFeralSpiritCooldown,
+    // );
+    //
+    // this.addEventListener(
+    //   Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.SEEDS_OF_RAMPANT_GROWTH_BUFF),
+    //   this.reduceFeralSpiritCooldown,
+    // );
   }
 
   reduceFeralSpiritCooldown(event: ApplyBuffStackEvent | ApplyBuffEvent) {

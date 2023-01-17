@@ -380,7 +380,7 @@ class Bloodtalons extends Analyzer {
               )}
               {this.hasApex && (
                 <li>
-                  <SpellLink id={SPELLS.APEX_PREDATORS_CRAVING.id} />:{' '}
+                  <SpellLink id={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT.id} />:{' '}
                   <strong>
                     {this.apexBitesWithBt} / {this.apexBites}
                   </strong>
