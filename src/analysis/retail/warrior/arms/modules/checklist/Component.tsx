@@ -33,14 +33,7 @@ const ArmsWarriorChecklist = ({
         checkResults={checkResults}
         castEfficiency={castEfficiency}
         name="Rotation Efficiency"
-        cooldowns={[
-          SPELLS.COLOSSUS_SMASH,
-          TALENTS.WARBREAKER_TALENT,
-          TALENTS.AVATAR_TALENT,
-          SPELLS.ANCIENT_AFTERSHOCK,
-          SPELLS.SPEAR_OF_BASTION,
-          SPELLS.CONQUERORS_BANNER,
-        ]}
+        cooldowns={[SPELLS.COLOSSUS_SMASH, TALENTS.WARBREAKER_TALENT, TALENTS.AVATAR_TALENT]}
         description={
           <div style={{ color: 'white' }}>
             Warrior has a simple rotation. That does not mean the class is trivial to play. Small

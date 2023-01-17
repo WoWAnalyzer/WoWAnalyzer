@@ -24,7 +24,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.OVERPOWER.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 12,
+        cooldown: 12 - (combatant.hasTalent(TALENTS.HONED_REFLEXES_ARMS_TALENT) ? 1 : 0),
         charges: 1 + (combatant.hasTalent(TALENTS.DREADNAUGHT_TALENT) ? 1 : 0),
         gcd: {
           base: 1500,
@@ -139,18 +139,27 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.BLADESTORM_TALENT),
         buffSpellId: SPELLS.BLADESTORM.id,
       },
+      //{ //-- is missing in the TALENTS section for warriors. needs to be added.
+      //  spell: SPELLS.SPEAR_OF_BASTION.id,
+      //  category: SPELL_CATEGORY.ROTATIONAL_AOE,
+      //  cooldown: 60,
+      //  gcd: {
+      //    base: 1500,
+      //  },
+      //  castEfficiency: {
+      //    suggestion: true,
+      //    recommendedEfficiency: 0.7,
+      //  },
+      //  enabled: combatant.hasTalent(TALENTS.SPEAR_OF_BASTION_TALENT),
+      //},
       {
-        spell: SPELLS.SPEAR_OF_BASTION.id,
+        spell: SPELLS.THUNDER_CLAP.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 60,
+        cooldown: 6,
         gcd: {
           base: 1500,
         },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.7,
-        },
-        enabled: combatant.hasTalent(TALENTS.SPEAR_OF_BASTION_TALENT),
+        enabled: combatant.hasTalent(TALENTS.THUNDER_CLAP_SHARED_TALENT),
       },
       // Others
       {
@@ -164,7 +173,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.IMPENDING_VICTORY_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 30,
+        cooldown: 25,
         gcd: {
           base: 1500,
         },
@@ -186,7 +195,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.DEFENSIVE_STANCE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 6,
+        cooldown: 3,
         gcd: null,
         enabled: combatant.hasTalent(TALENTS.DEFENSIVE_STANCE_TALENT),
         buffSpellId: TALENTS.DEFENSIVE_STANCE_TALENT.id,
@@ -194,7 +203,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DIE_BY_THE_SWORD.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 180,
+        cooldown: combatant.hasTalent(TALENTS.VALOR_IN_VICTORY_TALENT) ? 90 : 120,
         gcd: null,
         castEfficiency: {
           suggestion: false,
@@ -240,6 +249,24 @@ class Abilities extends CoreAbilities {
       },
       // Utility
       {
+        spell: TALENTS.WRECKING_THROW_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 45,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.WRECKING_THROW_TALENT),
+      },
+      {
+        spell: TALENTS.SHATTERING_THROW_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 180,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.SHATTERING_THROW_TALENT),
+      },
+      {
         spell: SPELLS.CHARGE.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 20 - (combatant.hasTalent(TALENTS.DOUBLE_TIME_TALENT) ? 3 : 0),
@@ -284,7 +311,10 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PUMMEL.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 15,
+        cooldown:
+          15 -
+          (combatant.hasTalent(TALENTS.HONED_REFLEXES_ARMS_TALENT) ? 1 : 0) -
+          (combatant.hasTalent(TALENTS.CONCUSSIVE_BLOWS_TALENT) ? 1 : 0),
         gcd: null,
       },
       {
@@ -310,6 +340,15 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.INTIMIDATING_SHOUT_TALENT),
+      },
+      {
+        spell: SPELLS.PIERCING_HOWL.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.PIERCING_HOWL_TALENT),
       },
       {
         spell: SPELLS.HAMSTRING.id,

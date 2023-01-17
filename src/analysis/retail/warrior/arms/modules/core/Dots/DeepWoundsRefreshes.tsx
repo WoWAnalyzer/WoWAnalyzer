@@ -97,8 +97,6 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
             <SpellLink id={SPELLS.EXECUTE.id} icon /> range. Try to prioritize{' '}
             <SpellLink id={SPELLS.EXECUTE.id} icon /> as it deals more damage than{' '}
             <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> unless you have the
-            <SpellLink id={SPELLS.ENDURING_BLOW.id} icon /> legendary, then you should only
-            prioritize Mortal Strike in execute range with two stacks of{' '}
             <SpellLink id={SPELLS.OVERPOWER.id} icon />.
           </>,
         )
