@@ -9,7 +9,7 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 import SpellUsable from './modules/core/SpellUsable';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Backdraft from './modules/features/Backdraft';
+import Backdraft from './modules/talents/Backdraft';
 import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Havoc from './modules/features/Havoc';
