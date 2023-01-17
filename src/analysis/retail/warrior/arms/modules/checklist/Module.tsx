@@ -49,9 +49,10 @@ class Checklist extends BaseChecklist {
           deepWounds: this.deepWoundsUptime.suggestionThresholds,
           rend: this.rendUptime.suggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
-          goodMortalStrike: this.mortalStrike.goodMortalStrikeThresholds,
-          notEnoughMortalStrike: this.mortalStrike.notEnoughMortalStrikeThresholds,
-          tooMuchMortalStrike: this.mortalStrike.tooMuchMortalStrikeThresholds,
+          mortalStrikeUsage: this.mortalStrike.mortalStrikeUsageThresholds,
+          //goodMortalStrike: this.mortalStrike.goodMortalStrikeThresholds,
+          //notEnoughMortalStrike: this.mortalStrike.notEnoughMortalStrikeThresholds,
+          //tooMuchMortalStrike: this.mortalStrike.tooMuchMortalStrikeThresholds,
           badSweepingStrikes: this.sweepingStrikes.suggestionThresholds,
           badBladestorms: this.bladestorm.suggestionThresholds,
         }}

@@ -17,7 +17,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: false, // Suggestions are in MortalStrike.js
+          suggestion: false, // Suggestions are in MortalStrike.tsx
           recommendedEfficiency: 0.8,
         },
       },
@@ -105,7 +105,8 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.CLEAVE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: (haste: number) => 9 / (1 + haste),
+        cooldown: (haste: number) =>
+          (combatant.hasTalent(TALENTS.REAPING_SWINGS_TALENT) ? 3 : 6) / (1 + haste),
         gcd: {
           base: 1500,
         },
