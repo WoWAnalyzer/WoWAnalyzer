@@ -38,6 +38,7 @@ import WarMachine from './modules/talents/WarMachine';
 import BattlelordBuff from './normalizers/BattlelordBuff';
 import OverpowerStacks from './normalizers/OverpowerStacks';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
+import FatalMark from './modules/talents/FatalMark';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -93,6 +94,7 @@ class CombatLogParser extends CoreCombatLogParser {
     avatar: Avatar,
     //ravager: Ravager,
     spellReflection: SpellReflection,
+    fatalMark: FatalMark,
 
     apl: AplCheck,
   };
