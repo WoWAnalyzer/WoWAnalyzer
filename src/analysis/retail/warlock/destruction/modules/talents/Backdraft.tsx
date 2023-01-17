@@ -1,13 +1,14 @@
 import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
+import TALENTS from 'common/TALENTS/warlock';
+import { SpellLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-
+import TalentSpellText from 'parser/ui/TalentSpellText';
 const debug = false;
 
 const BUFF_DURATION = 10000;
@@ -33,13 +34,30 @@ class Backdraft extends Analyzer {
   _currentStacks = 0;
   _expectedBuffEnd = 0;
   wastedStacks = 0;
+  _buffedChaosBoltCasts = 0;
+  _buffedIncinerateCasts = 0;
+  _buffedSoulFireCasts = 0;
 
   constructor(options: Options) {
     super(options);
 
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BACKDRAFT_TALENT);
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CONFLAGRATE),
       this.onConflagrateCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INCINERATE),
+      this.onIncinerateCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHAOS_BOLT),
+      this.onChaosBoltCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SOUL_FIRE_TALENT),
+      this.onSoulFireCast,
     );
     this.addEventListener(
       Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.BACKDRAFT),
@@ -61,6 +79,24 @@ class Backdraft extends Analyzer {
     this._expectedBuffEnd = event.timestamp + BUFF_DURATION;
   }
 
+  onIncinerateCast(event: CastEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.BACKDRAFT.id)) {
+      this._buffedIncinerateCasts += 1;
+    }
+  }
+
+  onChaosBoltCast(event: CastEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.BACKDRAFT.id)) {
+      this._buffedChaosBoltCasts += 1;
+    }
+  }
+
+  onSoulFireCast(event: CastEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.BACKDRAFT.id)) {
+      this._buffedSoulFireCasts += 1;
+    }
+  }
+
   onBackdraftRemoveStack() {
     this._currentStacks -= 1;
   }
@@ -72,6 +108,29 @@ class Backdraft extends Analyzer {
       this.wastedStacks += this._currentStacks;
     }
     this._currentStacks = 0;
+  }
+
+  get buffedChaosBoltCasts() {
+    return this._buffedChaosBoltCasts;
+  }
+  get buffedIncinerateCasts() {
+    return this._buffedIncinerateCasts;
+  }
+  get buffedSoulFireCasts() {
+    return this._buffedSoulFireCasts;
+  }
+  get totalBuffedCasts() {
+    return this.buffedChaosBoltCasts + this.buffedIncinerateCasts + this.buffedSoulFireCasts;
+  }
+  get percentageOfChaosBoltAmongBuffedCasts() {
+    return this.buffedChaosBoltCasts / this.totalBuffedCasts;
+  }
+  get percentageOfSoulFireAmongBuffedCasts() {
+    return this.buffedSoulFireCasts / this.totalBuffedCasts;
+  }
+
+  get hasSoulFireTalent() {
+    return this.selectedCombatant.hasTalent(TALENTS.SOUL_FIRE_TALENT);
   }
 
   suggestions(when: When) {
@@ -95,10 +154,24 @@ class Backdraft extends Analyzer {
 
   statistic() {
     return (
-      <Statistic size="small" category={STATISTIC_CATEGORY.TALENTS}>
-        <BoringSpellValueText spellId={SPELLS.BACKDRAFT.id}>
+      <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
+        <TalentSpellText talent={TALENTS.BACKDRAFT_TALENT}>
           {this.wastedStacks} <small>Wasted procs</small>
-        </BoringSpellValueText>
+          <br />
+          {formatPercentage(this.percentageOfChaosBoltAmongBuffedCasts, 0)}%
+          <TooltipElement content={`${this.buffedChaosBoltCasts}/${this.totalBuffedCasts}`}>
+            <small> buffed casts - Chaos Bolt</small>
+          </TooltipElement>
+          {this.hasSoulFireTalent ? (
+            <>
+              <br />
+              {formatPercentage(this.percentageOfSoulFireAmongBuffedCasts, 0)}%
+              <TooltipElement content={`${this.buffedSoulFireCasts}/${this.totalBuffedCasts}`}>
+                <small> buffed casts - Soul Fire</small>
+              </TooltipElement>
+            </>
+          ) : null}
+        </TalentSpellText>
       </Statistic>
     );
   }
