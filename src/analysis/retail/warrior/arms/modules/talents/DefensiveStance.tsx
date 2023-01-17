@@ -10,13 +10,13 @@ import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { When } from 'parser/core/ParseResults';
 
 /**
- * A defensive combat state that reduces all damage you take by 20%,
+ * A defensive combat state that reduces all damage you take by 15%,
  * and all damage you deal by 10%. Lasts 0 sec.
  */
 
 // TODO: Add a suggestion regarding having this up too little
 
-const DEFENSIVE_STANCE_DR = 0.2;
+const DEFENSIVE_STANCE_DR = 0.15; //has been nerfed because of prot warrior, who never uses it
 const DEFENSIVE_STANCE_DL = 0.1;
 const MAX_WIDTH = 0.9;
 
@@ -34,6 +34,7 @@ class DefensiveStance extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    // -- NOTE: defensive stance will be baseline as of 10.0.5. no talent check anymore.
     this.active = this.selectedCombatant.hasTalent(TALENTS.DEFENSIVE_STANCE_TALENT);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._onDamageTaken);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this._onDamageDealt);
@@ -143,7 +144,8 @@ class DefensiveStance extends Analyzer {
           <>
             {' '}
             You never used <SpellLink id={TALENTS.DEFENSIVE_STANCE_TALENT.id} />. Try to use it to
-            reduce incoming damage or use another talent that would be more useful.{' '}
+            reduce incoming damage or use another talent that would be more useful. Hint: A macro to
+            easily switch between stances can be useful!
           </>,
         ).icon(TALENTS.DEFENSIVE_STANCE_TALENT.icon),
       );

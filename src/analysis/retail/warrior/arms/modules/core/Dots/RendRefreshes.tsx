@@ -10,7 +10,7 @@ import EarlyDotRefreshesCore from 'parser/shared/modules/earlydotrefreshes/Early
 const DOTS = [
   {
     name: 'Rend',
-    debuffId: TALENTS.REND_ARMS_TALENT.id,
+    debuffId: SPELLS.REND_DOT_ARMS.id,
     castId: TALENTS.REND_ARMS_TALENT.id,
     duration: 15000,
   },
