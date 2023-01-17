@@ -651,6 +651,36 @@ const spells = spellIndexableList({
     name: 'Dance of Chi-Ji',
     icon: 'ability_monk_quitornado',
   },
+  JADE_IGNITION_BUFF: {
+    id: 393057,
+    name: 'Chi Energy',
+    icon: 'ability_monk_chiexplosion',
+  },
+  JADE_IGNITION_DAMAGE: {
+    id: 393056,
+    name: 'Chi Explosion',
+    icon: 'ability_monk_chiexplosion',
+  },
+  LAST_EMPERORS_CAPACITOR_BUFF: {
+    id: 393039,
+    name: "Last Emperor's Capacitor",
+    icon: 'ability_monk_cracklingjadelightning',
+  },
+  PRESSURE_POINT_BUFF: {
+    id: 393053,
+    name: 'Pressure Point',
+    icon: 'monk_stance_whitetiger',
+  },
+  FAELINE_HARMONY_DEBUFF: {
+    id: 395414,
+    name: 'Fae Exposure',
+    icon: 'ability_ardenweald_monk',
+  },
+  FAELINE_HARMONY_BUFF: {
+    id: 395413,
+    name: 'Fae Exposure',
+    icon: 'ability_ardenweald_monk',
+  },
   // Tier 28, 2P Set-Bonus
   FISTS_OF_PRIMORDIUM: {
     id: 364418,
