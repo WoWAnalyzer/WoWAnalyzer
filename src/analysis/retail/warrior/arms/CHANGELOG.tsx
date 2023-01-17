@@ -1,11 +1,11 @@
-
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior'
-import { Abelito75, carglass, Carrottopp, Otthopsy, bandit } from 'CONTRIBUTORS';
+import { Abelito75, carglass, Carrottopp, Otthopsy, bandit, Toreole } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 1, 17), <>WIP updating Arms Warrior for Dragonflight 10.0.5</>, Toreole),
   change(date(2022, 2, 26), <>Change Arms Warrior patch compatibility to 9.2</>, Carrottopp),
   change(date(2022, 2, 26), <>Added more abilites into rotational cooldown tracker.</>, Carrottopp),
   change(date(2022, 2, 7), <>Updated <SpellLink id={TALENTS.REND_ARMS_TALENT.id} icon /> and <SpellLink id={SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF.id} icon /> dot refresh modules.</>, Carrottopp),

@@ -831,7 +831,7 @@ const talents = createTalentList({
   CALL_OF_YSERA_TALENT: {
     id: 373834,
     name: 'Call of Ysera',
-    icon: '',
+    icon: 'inv_drakemountemerald',
     maxRanks: 1,
     entryIds: [87618],
   },

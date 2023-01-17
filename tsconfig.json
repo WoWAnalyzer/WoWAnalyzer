@@ -31,9 +31,14 @@
   ],
   "files": [
     "src/analysis/retail/druid/guardian/CONFIG.tsx",
+    "src/analysis/retail/druid/guardian/CHANGELOG.tsx",
     "src/analysis/retail/paladin/protection/CONFIG.tsx",
+    "src/analysis/retail/paladin/protection/CHANGELOG.tsx",
     "src/analysis/retail/paladin/retribution/CONFIG.tsx",
-    "src/analysis/retail/priest/shadow/CONFIG.tsx"
+    "src/analysis/retail/paladin/retribution/CHANGELOG.tsx",
+    "src/analysis/retail/paladin/retribution/CHANGELOG.tsx",
+    "src/analysis/retail/rogue/assassination/CONFIG.tsx",
+    "src/analysis/retail/rogue/assassination/CHANGELOG.tsx",
   ],
   "ts-node": {
     // these options are overrides used only by ts-node

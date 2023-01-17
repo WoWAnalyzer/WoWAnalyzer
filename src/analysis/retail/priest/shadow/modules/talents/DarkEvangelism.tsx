@@ -1,12 +1,15 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
-import { SpellIcon, SpellLink } from 'interface';
+import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
-import UptimeBar, { Uptime } from 'parser/ui/UptimeBar';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SPELLS from 'common/SPELLS';
+import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
+import { TrackedBuffEvent } from 'parser/core/Entity';
+
+const BAR_COLOR = '#6600CC';
 
 class DarkEvangelism extends Analyzer {
   constructor(options: Options) {
@@ -56,34 +59,75 @@ class DarkEvangelism extends Analyzer {
     );
   }
 
-  subStatistic() {
-    const history = this.selectedCombatant.getBuffHistory(SPELLS.DARK_EVANGELISM_TALENT_BUFF.id);
-    const uptime: Uptime[] = [];
+  // This gets an uptime history for a buff on the player in the same way enemies.getDebuffHistory does for a debuff on an enemy.
+  // By doing so, I can pass this into the same uptime bar that I do for my debuffs.
+  // This seems like it would be very useful for many specs, but I couldn't find a function that does exactly this.
+  get uptimeHistory() {
+    type TempBuffInfo = {
+      timestamp: number;
+      type: 'apply' | 'remove';
+      buff: TrackedBuffEvent;
+    };
+    const events: TempBuffInfo[] = [];
 
-    history.forEach((buff) => {
-      uptime.push({
-        start: buff.start,
-        end: buff.end || 0,
+    const buffHistory = this.selectedCombatant.getBuffHistory(
+      SPELLS.DARK_EVANGELISM_TALENT_BUFF.id,
+    );
+    buffHistory.forEach((buff) => {
+      events.push({
+        timestamp: buff.start,
+        type: 'apply',
+        buff,
+      });
+      events.push({
+        timestamp: buff.end !== null ? buff.end : this.owner.currentTimestamp, // buff end is null if it's still active, it can also be 0 if buff ended at pull
+        type: 'remove',
+        buff,
       });
     });
 
-    return (
-      <div className="flex">
-        <div className="flex-sub icon">
-          <SpellIcon id={TALENTS.DARK_EVANGELISM_TALENT.id} />
-        </div>
-        <div className="flex-sub value" style={{ width: 140 }}>
-          {formatPercentage(this.uptime, 0)}% <small>uptime</small>
-        </div>
-        <div className="flex-main chart" style={{ padding: 15 }}>
-          <UptimeBar
-            uptimeHistory={uptime}
-            start={this.owner.fight.start_time}
-            end={this.owner.fight.end_time}
-          />
-        </div>
-      </div>
-    );
+    type PlayerBuffHistory = {
+      start: number;
+      end: number;
+    };
+
+    const history: PlayerBuffHistory[] = [];
+    let current: PlayerBuffHistory | null = null;
+    let active = 0;
+
+    events
+      .sort((a, b) => a.timestamp - b.timestamp)
+      .forEach((event) => {
+        if (event.type === 'apply') {
+          if (current === null) {
+            current = { start: event.timestamp, end: this.owner.currentTimestamp };
+          }
+          active += 1;
+        }
+        if (event.type === 'remove') {
+          active -= 1;
+          if (active === 0) {
+            // We know for a fact that there will be a temp 'apply' before a temp 'remove'
+            // because of the previous forEach, so its safe to non-null assert these
+            current!.end = event.timestamp;
+            history.push(current!);
+            current = null;
+          }
+        }
+      });
+    // if buff lasted till end of combat, maybe doesn't ever happen due to some normalizing
+    if (current !== null) {
+      history.push(current);
+    }
+    return history;
+  }
+
+  subStatistic() {
+    return uptimeBarSubStatistic(this.owner.fight, {
+      spells: [SPELLS.DARK_EVANGELISM_TALENT_BUFF],
+      uptimes: this.uptimeHistory,
+      color: BAR_COLOR,
+    });
   }
 }
 

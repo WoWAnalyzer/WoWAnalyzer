@@ -4,10 +4,8 @@ import {
   DivinePurpose,
   HolyPowerTracker,
   HolyPowerDetails,
-  AshenHallow,
   DivineToll,
   HolyPowerPerMinute,
-  VanquishersHammer,
 } from 'analysis/retail/paladin/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
@@ -97,9 +95,7 @@ class CombatLogParser extends CoreCombatLogParser {
     glimmerOfLight: GlimmerOfLight,
     MaraadsCastRatio: MaraadsCastRatio,
     MaraadsOverheal: MaraadsOverheal,
-    ashenHallow: AshenHallow,
     divineToll: DivineToll,
-    vanquishersHammer: VanquishersHammer,
     UntemperedDedication: UntemperedDedication,
 
     // HolyPower

@@ -58,6 +58,10 @@ const ZONES: Zone[] = [
         compact: '10.0',
         default: true,
       },
+      {
+        name: '10.0.5',
+        compact: '10.0.5',
+      },
     ],
   },
 ];

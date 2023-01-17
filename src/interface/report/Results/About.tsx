@@ -1,4 +1,4 @@
-import { Trans, Plural } from '@lingui/macro';
+import { Plural, Trans } from '@lingui/macro';
 import isLatestPatch from 'game/isLatestPatch';
 import AlertWarning from 'interface/AlertWarning';
 import Contributor from 'interface/ContributorButton';
@@ -6,10 +6,6 @@ import Panel from 'interface/Panel';
 import ReadableListing from 'interface/ReadableListing';
 import Config from 'parser/Config';
 import { Link } from 'react-router-dom';
-import { makeAnalyzerUrl } from 'interface/index';
-import { useReport } from 'interface/report/context/ReportContext';
-import { useFight } from 'interface/report/context/FightContext';
-import { usePlayer } from 'interface/report/context/PlayerContext';
 
 interface Props {
   config: Config;
@@ -32,14 +28,7 @@ const About = ({ config }: Props) => {
         </Trans>
       }
       actions={
-        <Link
-          to={makeAnalyzerUrl(
-            useReport()!.report,
-            useFight()!.fight.id,
-            usePlayer().player.id,
-            'events',
-          )}
-        >
+        <Link to="../events">
           <Trans id="interface.report.results.about.viewEvents">View all events</Trans>
         </Link>
       }

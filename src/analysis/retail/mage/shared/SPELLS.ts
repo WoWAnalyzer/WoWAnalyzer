@@ -169,6 +169,16 @@ const spells = spellIndexableList({
     name: 'Polymorph',
     icon: 'inv_duckbaby_mallard',
   },
+  DIVERTED_ENERGY_HEAL: {
+    id: 382272,
+    name: 'Diverted Energy',
+    icon: 'inv_soulbarrier'
+  },
+  TEMPEST_BARRIER_ABSORB: {
+    id: 382290,
+    name: 'Tempest Barrier',
+    icon: 'inv_shield_1h_artifactstormfist_d_04',
+  },
 });
 
 export default spells;

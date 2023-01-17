@@ -48,7 +48,7 @@ class StatTracker extends Analyzer {
     // endregion
 
     //region Phials
-    // TODO: Figure out how to make this work with multiple ranks of potions
+    // TODO: Figure out how to make this work with multiple ranks of phials
     [SPELLS.CHARGED_PHIAL_OF_ALACRITY.id]: { speed: 630 },
     [SPELLS.PHIAL_OF_TEPID_VERSATILITY.id]: { versatility: 632 },
     // endregion
@@ -74,11 +74,6 @@ class StatTracker extends Analyzer {
     [SPELLS.REVENGE_SERVED_COLD.id]: { crit: 45, versatility: 45 },
     [SPELLS.SIZZLING_SEAFOOD_MEDLEY.id]: { haste: 45, mastery: 45 },
     //endregion
-
-    // region Conduits
-    [SPELLS.REDIRECTED_ANIMA.id]: { mastery: 25 },
-    [SPELLS.SOOTHING_SHADE.id]: { mastery: 550 },
-    // endregion
 
     // region Misc
     [SPELLS.JACINS_RUSE.id]: { mastery: 48 },
@@ -132,6 +127,8 @@ class StatTracker extends Analyzer {
   statMultiplierBuffs: StatMultipliersByGuid = {
     [SPELLS.ARCANE_INTELLECT.id]: { intellect: 1.05 },
     [SPELLS.BATTLE_SHOUT.id]: { strength: 1.05, agility: 1.05 },
+
+    [SPELLS.INITIATIVE_BUFF.id]: { crit: 1.12 },
 
     // Highmountain Tauren 1% Buff
     [SPELLS.MOUNTAINEER.id]: { versatility: 1.01 },

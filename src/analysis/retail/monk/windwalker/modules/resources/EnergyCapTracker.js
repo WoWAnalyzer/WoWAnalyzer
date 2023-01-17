@@ -12,6 +12,7 @@ const ASCENSION_REGEN_MULTIPLIER = 1.1;
 
 const BASE_ENERGY_MAX = 100;
 const ASCENSION_ENERGY_MAX_ADDITION = 20;
+const INNER_PEACE_ENERGY_MAX_ADDITION = 10;
 
 const RESOURCE_REFUND_ON_MISS = 0.8;
 
@@ -41,6 +42,9 @@ class EnergyCapTracker extends RegenResourceCapTracker {
     let max = BASE_ENERGY_MAX;
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.ASCENSION_TALENT)) {
       max += ASCENSION_ENERGY_MAX_ADDITION;
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.INNER_PEACE_TALENT)) {
+      max += INNER_PEACE_ENERGY_MAX_ADDITION;
     }
     // What should be x.5 becomes x in-game.
     return Math.floor(max);

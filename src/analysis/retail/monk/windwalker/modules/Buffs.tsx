@@ -18,10 +18,10 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id,
         timelineHighlight: true,
       },
-      {
-        spellId: SPELLS.WEAPONS_OF_ORDER_CHI_DISCOUNT.id,
-        timelineHighlight: true,
-      },
+      // {
+      //   spellId: SPELLS.WEAPONS_OF_ORDER_CHI_DISCOUNT.id,
+      //   timelineHighlight: true,
+      // },
       {
         spellId: SPELLS.TOUCH_OF_KARMA_CAST.id,
         timelineHighlight: true,

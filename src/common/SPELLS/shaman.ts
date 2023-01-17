@@ -723,6 +723,11 @@ const spells = spellIndexableList({
     name: 'Earthliving Weapon',
     icon: 'spell_shaman_giftearthmother',
   },
+  PRIMORDIAL_WAVE_BUFF: {
+    id: 375986,
+    name: 'Primordial Wave',
+    icon: 'ability_maldraxxus_shaman',
+  },
 });
 
 export default spells;

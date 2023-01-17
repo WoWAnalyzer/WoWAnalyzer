@@ -58,10 +58,7 @@ const EnhancementShamanChecklist = (props: ChecklistProps & AplRuleProps) => {
         {combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT) && (
           <AbilityRequirement spell={TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id} />
         )}
-        {false && <AbilityRequirement spell={SPELLS.VESPER_TOTEM.id} />}
-        {false && <AbilityRequirement spell={SPELLS.PRIMORDIAL_WAVE_CAST.id} />}
-        {false && <AbilityRequirement spell={SPELLS.FAE_TRANSFUSION.id} />}
-        {false && <AbilityRequirement spell={SPELLS.CHAIN_HARVEST.id} />}
+        {false && <AbilityRequirement spell={TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT.id} />}
       </Rule>
       <Rule
         name="Keep your Windfury Totem active"
@@ -96,10 +93,7 @@ const EnhancementShamanChecklist = (props: ChecklistProps & AplRuleProps) => {
           // TODO: Enable talent as spell
           // TALENTS_SHAMAN.FERAL_SPIRIT_TALENT,
           // TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT,
-          SPELLS.VESPER_TOTEM,
-          SPELLS.PRIMORDIAL_WAVE_CAST,
-          SPELLS.FAE_TRANSFUSION,
-          SPELLS.CHAIN_HARVEST,
+          TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT,
         ]}
       />
       <PreparationRule thresholds={thresholds} />

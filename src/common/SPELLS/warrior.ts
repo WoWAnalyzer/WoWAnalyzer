@@ -275,6 +275,11 @@ const spells = spellIndexableList({
     name: 'Impending Victory',
     icon: 'spell_impending_victory',
   },
+  SPEAR_OF_BASTION_ENERGIZE: {
+    id: 376080,
+    name: 'Spear of Bastion',
+    icon: 'ability_bastion_warrior',
+  },
 
   // Arms:
   BLADESTORM: {

@@ -2,7 +2,7 @@ import lazyLoadComponent from 'common/lazyLoadComponent';
 import retryingPromise from 'common/retryingPromise';
 import HomePage from 'interface/Home';
 import PrivacyPage from 'interface/PrivacyPage';
-import ReportPage from 'interface/report';
+import ReportLayout from 'interface/report';
 import {
   createBrowserRouter,
   createMemoryRouter,
@@ -12,6 +12,15 @@ import {
 } from 'react-router-dom';
 import NotFound from 'interface/NotFound';
 import RouterErrorBoundary from 'interface/RouterErrorBoundary';
+import {
+  AboutTab,
+  CharacterTab,
+  DefaultTab,
+  EventsTab,
+  OverviewTab,
+  StatisticsTab,
+  TimelineTab,
+} from 'interface/report/Results/ResultsContent';
 
 import AppLayout from './AppLayout';
 
@@ -84,10 +93,16 @@ const appRoutes = createRoutesFromElements(
   <Route path="/" element={<AppLayout />} errorElement={<RouterErrorBoundary />}>
     <Route path="character/:region/:realm/:name" element={<CharacterPage />} />
     <Route path="guild/:region/:realm/:name" element={<GuildPage />} />
-    <Route
-      path="report/:reportCode/:fightId?/:player?/:build?/:resultTab?"
-      element={<ReportPage />}
-    />
+    <Route path="report/:reportCode/:fightId?/:player?/:build?" element={<ReportLayout />}>
+      <Route index element={<OverviewTab />} />
+      <Route path="overview" element={<OverviewTab />} />
+      <Route path="statistics" element={<StatisticsTab />} />
+      <Route path="timeline" element={<TimelineTab />} />
+      <Route path="events" element={<EventsTab />} />
+      <Route path="character" element={<CharacterTab />} />
+      <Route path="about" element={<AboutTab />} />
+      <Route path=":resultTab" element={<DefaultTab />} />
+    </Route>
     <Route path="privacy" element={<PrivacyPage />} />
     <Route element={<HomePage />}>
       <Route index element={<News />} />

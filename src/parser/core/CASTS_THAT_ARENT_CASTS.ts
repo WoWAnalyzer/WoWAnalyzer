@@ -23,12 +23,9 @@ const spells: number[] = [
   TALENTS_SHAMAN.SPIRITWALKERS_GRACE_TALENT.id,
 
   //region Consumables
-  SPELLS.SHADOWCORE_OIL_BLAST.id,
   //endregion
 
   //region Enchants
-  SPELLS.SINFUL_REVELATION_PROC.id,
-  SPELLS.CELESTIAL_GUIDANCE_CAST.id,
   //endregion
 
   //region Death Knight
@@ -36,8 +33,6 @@ const spells: number[] = [
   SPELLS.RUNE_1.id,
   SPELLS.RUNE_2.id,
   SPELLS.RUNE_3.id,
-  SPELLS.ABOMINATION_LIMB_HIDDEN_CAST.id,
-  SPELLS.ABOMINATION_LIMB_GRIP.id,
   SPELLS.ABOMINATION_LIMB_TICK.id,
   SPELLS.ABOMINATION_LIMB_GRIP_TICK.id,
   //endregion
@@ -50,12 +45,6 @@ const spells: number[] = [
   //region Mage
   SPELLS.RUNE_OF_POWER_BUFF.id,
   SPELLS.SHIFTING_POWER_TICK.id,
-  //endregion
-
-  //region Covenants
-  SPELLS.COMBAT_MEDITATION_TRIGGER.id, //The Spell ID when Combat Meditation from Kyrian Soulbind triggers, so that there is now a soul ready to pick up
-  SPELLS.COMBAT_MEDITATION_PICK_UP.id, //The Spell ID that is "cast" when an orb is picked up
-  SPELLS.SOOTHING_SHADE.id, //The Spell ID when Theotar's soulbind proc "casts"
   //endregion
 
   //region Demon Hunter

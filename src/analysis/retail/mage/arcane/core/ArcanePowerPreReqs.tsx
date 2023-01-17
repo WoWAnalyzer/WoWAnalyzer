@@ -87,7 +87,7 @@ class ArcanePowerPreReqs extends Analyzer {
     }
 
     //Checks if Radiant Spark is active (if the player is Kyrian)
-    if (this.isKyrian && !this.selectedCombatant.hasBuff(SPELLS.RADIANT_SPARK.id)) {
+    if (this.isKyrian && !this.selectedCombatant.hasBuff(TALENTS.RADIANT_SPARK_TALENT.id)) {
       debug && this.log('Radiant Spark is not active');
       badCooldownUse = true;
       this.failedChecks += 1;
@@ -172,7 +172,7 @@ class ArcanePowerPreReqs extends Analyzer {
             )}
             {this.isKyrian && (
               <li>
-                <SpellLink id={SPELLS.RADIANT_SPARK.id} /> is active. - You failed this{' '}
+                <SpellLink id={TALENTS.RADIANT_SPARK_TALENT.id} /> is active. - You failed this{' '}
                 {this.noRadiantSpark} times.
               </li>
             )}
@@ -217,7 +217,7 @@ class ArcanePowerPreReqs extends Analyzer {
               )}
               {this.hasArcaneHarmony && (
                 <li>
-                  <SpellLink id={SPELLS.RADIANT_SPARK.id} /> is active - Missed{' '}
+                  <SpellLink id={TALENTS.RADIANT_SPARK_TALENT.id} /> is active - Missed{' '}
                   {this.noRadiantSpark} times
                 </li>
               )}
