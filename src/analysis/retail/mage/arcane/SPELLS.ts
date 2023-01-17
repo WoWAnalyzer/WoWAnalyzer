@@ -77,6 +77,11 @@ const spells = spellIndexableList({
     name: 'Arcane Surge',
     icon: 'ability_mage_arcanesurge',
   },
+  ARCANE_HARMONY_BUFF: {
+    id: 384455,
+    name: 'Arcane Harmony',
+    icon: 'ability_creature_cursed_04',
+  },
 });
 
 export default spells;

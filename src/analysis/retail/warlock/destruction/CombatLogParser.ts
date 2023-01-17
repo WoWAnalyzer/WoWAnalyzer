@@ -26,6 +26,7 @@ import Inferno from './modules/talents/Inferno';
 import InternalCombustion from './modules/talents/InternalCombustion';
 import ReverseEntropy from './modules/talents/ReverseEntropy';
 import RoaringBlaze from './modules/talents/RoaringBlaze';
+import RollingHavoc from './modules/talents/RollingHavoc';
 import Shadowburn from './modules/talents/Shadowburn';
 import SoulConduit from './modules/talents/SoulConduit';
 import SoulFire from './modules/talents/SoulFire';
@@ -66,6 +67,7 @@ class CombatLogParser extends CoreCombatLogParser {
     grimoireOfSacrifice: GrimoireOfSacrifice,
     soulConduit: SoulConduit,
     channelDemonfire: ChannelDemonfire,
+    rollingHavoc: RollingHavoc,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

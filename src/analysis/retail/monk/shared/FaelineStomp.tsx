@@ -43,7 +43,7 @@ class FaelineStomp extends Analyzer {
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.FAELINE_STOMP_HEAL, SPELLS.FAELINE_STOMP_PULSE_DAMAGE]),
+        .spell([SPELLS.FAELINE_STOMP_HEAL, TALENTS_MONK.FAELINE_STOMP_TALENT]),
       this.damage,
     );
     this.addEventListener(

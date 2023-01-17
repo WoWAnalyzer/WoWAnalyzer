@@ -25,7 +25,7 @@ export default class Attenuation extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(talents.ATTENUATION_TALENT);
 
-    this.addEventListener(Events.cast.spell(SPELLS.BONEDUST_BREW_CAST), this.resetTriggerCount);
+    this.addEventListener(Events.cast.spell(talents.BONEDUST_BREW_TALENT), this.resetTriggerCount);
     this.addEventListener(
       Events.damage.spell(SPELLS.BONEDUST_BREW_DAMAGE).by(SELECTED_PLAYER),
       this.reduceCooldown,
@@ -47,7 +47,7 @@ export default class Attenuation extends Analyzer {
 
     this.triggersSinceCast += 1;
     this.totalCdr += this.spellUsable.reduceCooldown(
-      SPELLS.BONEDUST_BREW_CAST.id,
+      talents.BONEDUST_BREW_TALENT.id,
       CDR_MS,
       event.timestamp,
     );

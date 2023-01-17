@@ -26,12 +26,12 @@ class FaelineStompHealing extends Analyzer {
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FAELINE_STOMP_CAST),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.FAELINE_STOMP_TALENT),
       this.casts,
     );
 
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FAELINE_STOMP_DAMAGE_AND_HEAL),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.FAELINE_STOMP_HEAL),
       this.stompHeal,
     );
 

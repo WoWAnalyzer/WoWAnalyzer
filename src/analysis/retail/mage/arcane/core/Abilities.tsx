@@ -150,7 +150,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.RADIANT_SPARK.id,
+        spell: TALENTS.RADIANT_SPARK_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT),
         gcd: {

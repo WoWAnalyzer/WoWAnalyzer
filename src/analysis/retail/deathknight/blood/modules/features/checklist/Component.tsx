@@ -36,7 +36,6 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         {combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT) && !false && (
           <AbilityRequirement spell={SPELLS.DEATH_AND_DECAY.id} />
         )}
-        {false && <AbilityRequirement spell={SPELLS.DEATHS_DUE.id} />}
         {combatant.hasTalent(TALENTS.BLOODDRINKER_TALENT) && (
           <AbilityRequirement spell={TALENTS.BLOODDRINKER_TALENT.id} />
         )}

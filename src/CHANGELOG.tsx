@@ -18,9 +18,11 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
-  change(date(2023, 1, 14), 'Refactor result page rendering.', ToppleTheNun),
+  change(date(2023, 1, 16), 'Refactor result page rendering.', ToppleTheNun),
+  change(date(2023, 1, 16), 'Remove remaining references to Shadowlands spells except for foods.', ToppleTheNun),
   change(date(2023, 1, 14), "Fixed an issue where the Events tab wouldn't load", Sref),
   change(date(2023, 1, 15), 'Overhauls enchants recommendations (removing gloves, adding bracers & boots).', Lapideas),
+  change(date(2023, 1, 14), "Fixed an issue where the Events tab wouldn't load", Sref),
   change(date(2023, 1, 7), 'Update dependencies.', ToppleTheNun),
   change(date(2023, 1, 7), 'Remove support for Wowdb tooltips.', ToppleTheNun),
   change(date(2023, 1, 5), 'Make weapon enhancement suggestions more readable.', ToppleTheNun),

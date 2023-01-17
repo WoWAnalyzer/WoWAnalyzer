@@ -185,6 +185,14 @@ export const Khazak: Contributor = {
 export const Bicepspump: Contributor = {
   nickname: 'Bicepspump',
   github: 'Bicepspump',
+  discord: '💪Bicepspump💪#6318',
+  mains: [
+    {
+      name: 'Bicepspump',
+      spec: SPECS.UNHOLY_DEATH_KNIGHT,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/kazzak/Bicepspump',
+    },
+  ],
 };
 export const Mamtooth: Contributor = {
   nickname: 'Mamtooth',
@@ -2045,6 +2053,19 @@ export const Lapideas: Contributor = {
       name: 'Miasmo',
       spec: SPECS.RESTORATION_DRUID,
       link: 'https://worldofwarcraft.com/en-gb/character/eu/blackmoore/miasmo',
+    },
+  ],
+};
+export const Durpn: Contributor = {
+  nickname: 'Durpn',
+  github: 'smvoss',
+  discord: 'Durpn#1336',
+  avatar: avatar('durpn-avatar.png'),
+  mains: [
+    {
+      name: 'Durpn',
+      spec: SPECS.WINDWALKER_MONK,
+      link: 'https://worldofwarcraft.com/en-us/character/us/tichondrius/durpn',
     },
   ],
 };
