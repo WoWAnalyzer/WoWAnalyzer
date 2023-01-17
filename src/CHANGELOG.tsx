@@ -18,6 +18,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 1, 17), 'Add 10.0.5 patch information.', ToppleTheNun),
   change(date(2023, 1, 16), 'Refactor result page rendering.', ToppleTheNun),
   change(date(2023, 1, 16), 'Remove remaining references to Shadowlands spells except for foods.', ToppleTheNun),
   change(date(2023, 1, 15), 'Overhauls enchants recommendations (removing gloves, adding bracers & boots).', Lapideas),
