@@ -764,6 +764,11 @@ const spells = spellIndexableList({
     name: "Madness of Azh'Aqir",
     icon: 'ability_warlock_chaosbolt',
   },
+  FLASHPOINT_BUFF: {
+    id: 387263,
+    name: 'Flashpoint',
+    icon: 'spell_fire_moltenblood',
+  },
 });
 
 export default spells;
