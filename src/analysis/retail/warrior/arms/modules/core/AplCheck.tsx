@@ -53,7 +53,6 @@ export const apl = build([
     spell: TALENTS.SKULLSPLITTER_TALENT,
     condition: cnd.and(
       cnd.hasResource(RESOURCE_TYPES.RAGE, { atMost: 55 }),
-      //cnd.buffMissing(SPELLS.DEADLY_CALM_TALENT),
       cnd.not(cnd.inExecute()),
     ),
   },

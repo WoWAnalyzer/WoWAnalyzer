@@ -59,10 +59,6 @@ class FatalMark extends Analyzer {
     this.totalDamage += event.amount;
   }
 
-  //private getTargetIdentifier(targetID: number, targetInstance: number): string {
-  //  return targetID.toString() + '-' + targetInstance.toString();
-  //}
-
   statistic() {
     return (
       <Statistic

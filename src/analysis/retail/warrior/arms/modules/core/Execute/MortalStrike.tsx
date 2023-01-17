@@ -43,42 +43,6 @@ class MortalStrikeAnalyzer extends Analyzer {
     };
   }
 
-  //this bit is irrelevant now.
-  // You want to keep Deep wounds active on your target when in execution phase, without overcasting Mortal Strike
-  //get notEnoughMortalStrikeThresholds() {
-  //  const cd = 12000; //Deep wounds duration
-  //  const max = calculateMaxCasts(cd, this.executeRange.executionPhaseDuration());
-  //  const maxCast =
-  //    this.mortalStrikesInExecuteRange / max > 1 ? this.mortalStrikesInExecuteRange : max;
-
-  //  return {
-  //    actual: this.mortalStrikesInExecuteRange / maxCast,
-  //    isLessThan: {
-  //      minor: 0.9,
-  //      average: 0.8,
-  //      major: 0.6,
-  //    },
-  //    style: ThresholdStyle.PERCENTAGE,
-  //  };
-  //}
-
-  //get tooMuchMortalStrikeThresholds() {
-  //  const cd = 12000; //Deep wounds duration
-  //  const max = calculateMaxCasts(cd, this.executeRange.executionPhaseDuration());
-  //  const maxCast =
-  //    this.mortalStrikesInExecuteRange / max > 1 ? this.mortalStrikesInExecuteRange : max;
-
-  //  return {
-  //    actual: 1 - this.mortalStrikesInExecuteRange / maxCast,
-  //    isGreaterThan: {
-  //      minor: 1,
-  //      average: 1.15,
-  //      major: (maxCast + 1) / maxCast,
-  //    },
-  //    style: ThresholdStyle.PERCENTAGE,
-  //  };
-  //}
-
   constructor(options: Options) {
     super(options);
     this.addEventListener(
@@ -91,10 +55,6 @@ class MortalStrikeAnalyzer extends Analyzer {
     this.mortalStrikeCasts += 1;
     if (this.executeRange.isTargetInExecuteRange(event.targetID || 0, event.targetInstance || 0)) {
       this.mortalStrikesInExecuteRange += 1;
-
-      //event.meta = event.meta || {};
-      //event.meta.isInefficientCast = true;
-      //event.meta.inefficientCastReason = 'This Mortal Strike was used on a target in Execute range.';
     } else {
       this.mortalStrikesOutsideExecuteRange += 1;
     }
@@ -124,24 +84,6 @@ class MortalStrikeAnalyzer extends Analyzer {
         )
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
-    //when(this.goodMortalStrikeThresholds).addSuggestion((suggest, actual, recommended) =>
-    //  suggest(
-    //    <>
-    //      Try to cast <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> more often when the target is
-    //      outside execute range.
-    //    </>,
-    //  )
-    //    .icon(SPELLS.MORTAL_STRIKE.icon)
-    //    .actual(
-    //      t({
-    //        id: 'warrior.arms.suggestions.motalStrike.outsideExecute',
-    //        message: `Mortal Strike was used ${formatPercentage(
-    //          actual,
-    //        )}% of the time on a target outside execute range.`,
-    //      }),
-    //    )
-    //    .recommended(`${formatPercentage(recommended)}% is recommended`),
-    //);
   }
 }
 

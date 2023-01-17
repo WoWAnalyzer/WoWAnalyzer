@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
-//import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
@@ -61,8 +60,6 @@ const ArmsWarriorChecklist = ({
             </>
           }
           description={
-            //removed: <SpellLink id={SPELLS.MASSACRE_TALENT_ARMS.id} />) . It should only be used during the
-            //execution phase to refresh{' '}
             <>
               Try to use as many <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> as possible. It is
               generally your strongest hitting ability, unless you are in{' '}
@@ -80,24 +77,6 @@ const ArmsWarriorChecklist = ({
             }
             thresholds={thresholds.mortalStrikeUsage}
           />
-          {/*<Requirement*/}
-          {/*  name={*/}
-          {/*    <>*/}
-          {/*      <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> which should have been{' '}*/}
-          {/*      <SpellLink id={SPELLS.EXECUTE.id} icon />*/}
-          {/*    </>*/}
-          {/*  }*/}
-          {/*  thresholds={thresholds.tooMuchMortalStrike}*/}
-          {/*/>*/}
-          {/*<Requirement*/}
-          {/*  name={*/}
-          {/*    <>*/}
-          {/*      <SpellLink id={SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF.id} icon /> refreshed with{' '}*/}
-          {/*      <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> during execution phase*/}
-          {/*    </>*/}
-          {/*  }*/}
-          {/*  thresholds={thresholds.notEnoughMortalStrike}*/}
-          {/*/>*/}
         </Rule>
       )}
       <Rule

@@ -21,7 +21,6 @@ class RendUptime extends Analyzer {
   protected enemies!: Enemies;
 
   get uptime() {
-    //hardcoded to test this.
     return this.enemies.getBuffUptime(SPELLS.REND_DOT_ARMS.id) / this.owner.fightDuration;
   }
 

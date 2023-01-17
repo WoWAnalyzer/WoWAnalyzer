@@ -64,7 +64,8 @@ class SpellReflection extends Analyzer {
         tooltip={
           <>
             This is the sum of the damage mitigated by Spell Reflection. Total uses:{' '}
-            {this.totalCasts}
+            {this.totalCasts}. This is purely based on the 20% magic damage reduction and does not
+            include fully reflected spells.
           </>
         }
       >

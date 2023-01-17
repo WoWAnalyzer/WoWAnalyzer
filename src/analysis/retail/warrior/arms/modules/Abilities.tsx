@@ -66,7 +66,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.SKULLSPLITTER_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => 22, /// (1 + haste), no longer scales with haste
+        cooldown: 22,
         gcd: {
           base: 1500,
         },
@@ -80,14 +80,6 @@ class Abilities extends CoreAbilities {
         },
         enabled: !false,
       },
-      //{
-      //  spell: [SPELLS.CONDEMN.id, SPELLS.CONDEMN_MASSACRE.id],
-      //  category: SPELL_CATEGORY.ROTATIONAL,
-      //  gcd: {
-      //    base: 1500,
-      //  },
-      //  enabled: false,
-      //},
       // Rotational AOE
       {
         spell: TALENTS.WARBREAKER_TALENT.id,
@@ -147,32 +139,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.BLADESTORM_TALENT),
         buffSpellId: SPELLS.BLADESTORM.id,
       },
-      //{
-      //  spell: SPELLS.RAVAGER_TALENT_ARMS.id,
-      //  category: SPELL_CATEGORY.ROTATIONAL_AOE,
-      //  cooldown: 60,
-      //  gcd: {
-      //    base: 1500,
-      //  },
-      //  castEfficiency: {
-      //    suggestion: true,
-      //    recommendedEfficiency: 0.7,
-      //  },
-      //  enabled: combatant.hasTalent(SPELLS.RAVAGER_TALENT_ARMS), // Replaces Bladestorm
-      //},
-      //{
-      //  spell: SPELLS.ANCIENT_AFTERSHOCK.id,
-      //  category: SPELL_CATEGORY.ROTATIONAL_AOE,
-      //  cooldown: 90,
-      //  gcd: {
-      //    base: 1500,
-      //  },
-      //  castEfficiency: {
-      //    suggestion: true,
-      //    recommendedEfficiency: 0.7,
-      //  },
-      //  enabled: false,
-      //},
       {
         spell: SPELLS.SPEAR_OF_BASTION.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
@@ -216,31 +182,6 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(TALENTS.AVATAR_TALENT),
       },
-      //{
-      //  spell: SPELLS.DEADLY_CALM_TALENT.id,
-      //  category: SPELL_CATEGORY.COOLDOWNS,
-      //  cooldown: 60,
-      //  gcd: null,
-      //  castEfficiency: {
-      //    suggestion: true,
-      //    recommendedEfficiency: 0.9,
-      //  },
-      //  enabled: combatant.hasTalent(SPELLS.DEADLY_CALM_TALENT),
-      //  buffSpellId: SPELLS.DEADLY_CALM_TALENT.id,
-      //},
-      //{
-      //  spell: SPELLS.CONQUERORS_BANNER.id,
-      //  category: SPELL_CATEGORY.COOLDOWNS,
-      //  cooldown: 180,
-      //  gcd: {
-      //    base: 1500,
-      //  },
-      //  castEfficiency: {
-      //    suggestion: true,
-      //    recommendedEfficiency: 0.7,
-      //  },
-      //  enabled: false,
-      //},
       // Defensive
       {
         spell: TALENTS.DEFENSIVE_STANCE_TALENT.id,
@@ -346,13 +287,13 @@ class Abilities extends CoreAbilities {
         cooldown: 15,
         gcd: null,
       },
-      //{
-      //  spell: SPELLS.BERSERKER_RAGE.id,
-      //  category: SPELL_CATEGORY.UTILITY,
-      //  cooldown: 60,
-      //  gcd: null,
-      //  buffSpellId: SPELLS.BERSERKER_RAGE.id,
-      //},
+      {
+        spell: SPELLS.BERSERKER_RAGE.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 60,
+        gcd: null,
+        buffSpellId: SPELLS.BERSERKER_RAGE.id,
+      },
       {
         spell: SPELLS.HEROIC_THROW.id,
         category: SPELL_CATEGORY.UTILITY,
