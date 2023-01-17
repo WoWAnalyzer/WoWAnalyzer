@@ -46,6 +46,9 @@ class ChainHeal extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.CHAIN_HEAL_TALENT);
+    if (this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_REACH_TALENT)) {
+      this.maxTargets = 5;
+    }
     this.suggestedTargets = this.maxTargets * CHAIN_HEAL_TARGET_EFFICIENCY;
 
     this.addEventListener(
@@ -169,7 +172,8 @@ class ChainHeal extends Analyzer {
               <Trans id="shaman.restoration.chainHeal.averageTargets.tooltip">
                 The average number of targets healed by Chain Heal out of the maximum amount of
                 targets. You cast a total of {this.casts} Chain Heals, which healed an average of{' '}
-                {this.avgHits.toFixed(2)} out of {this.maxTargets} targets.
+                {this.avgHits.toFixed(2)} out of {this.maxTargets} targets. Keep in mind, that
+                Unleash Life can increase the maximum number of targets by 1.
               </Trans>
             }
           >
