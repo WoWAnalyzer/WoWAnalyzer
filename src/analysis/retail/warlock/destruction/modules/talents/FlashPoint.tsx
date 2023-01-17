@@ -26,7 +26,7 @@ class FlashPoint extends Analyzer {
 
   statistic() {
     return (
-      <Statistic category={STATISTIC_CATEGORY.TALENTS}>
+      <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
         <TalentSpellText talent={FlashPoint.talent}>
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
         </TalentSpellText>
