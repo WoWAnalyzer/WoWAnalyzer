@@ -6,7 +6,7 @@ import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 const debug = false;
 
@@ -95,7 +95,7 @@ class Backdraft extends Analyzer {
 
   statistic() {
     return (
-      <Statistic size="small" position={STATISTIC_ORDER.CORE(4)}>
+      <Statistic size="small" category={STATISTIC_CATEGORY.TALENTS}>
         <BoringSpellValueText spellId={SPELLS.BACKDRAFT.id}>
           {this.wastedStacks} <small>Wasted procs</small>
         </BoringSpellValueText>

@@ -1,11 +1,11 @@
-import { formatThousands, formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 class Havoc extends Analyzer {
   get dps() {
@@ -42,7 +42,7 @@ class Havoc extends Analyzer {
 
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(5)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="small"
         tooltip={
           <>

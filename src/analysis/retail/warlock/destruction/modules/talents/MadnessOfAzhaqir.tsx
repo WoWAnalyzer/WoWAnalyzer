@@ -6,7 +6,7 @@ import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class MadnessOfAzhaqir extends Analyzer {
@@ -53,7 +53,7 @@ class MadnessOfAzhaqir extends Analyzer {
 
   statistic() {
     return (
-      <Statistic position={STATISTIC_ORDER.CORE()}>
+      <Statistic category={STATISTIC_CATEGORY.TALENTS}>
         <TalentSpellText talent={MadnessOfAzhaqir.talent}>
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           <br />
