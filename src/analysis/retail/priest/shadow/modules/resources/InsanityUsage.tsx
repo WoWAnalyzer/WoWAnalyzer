@@ -8,8 +8,6 @@ import { SpellLink } from 'interface';
 import { ResourceLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-//import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
-//import { Panel } from 'interface';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
 
