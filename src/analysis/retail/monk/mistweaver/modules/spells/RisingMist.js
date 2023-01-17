@@ -231,7 +231,10 @@ class RisingMist extends Analyzer {
         const attribution = newRisingMist;
         const hot = this.hotTracker.hots[playerId][spellId];
 
-        if (isFromMistsOfLife(hot)) {
+        if (
+          this.hotTracker.fromRapidDiffusion(hot) ||
+          (spellId === SPELLS.RENEWING_MIST_HEAL.id && isFromMistsOfLife(hot))
+        ) {
           return;
         }
 

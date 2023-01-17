@@ -204,6 +204,11 @@ class HotAttributor extends Analyzer {
         console.log(
           ' Rapid Diffusion Renewing Mist at ' + this.owner.formatTimestamp(event.timestamp, 3),
           'on ' + this.combatants.getEntity(event)?.name,
+          ' expected expiration: ' +
+            this.owner.formatTimestamp(
+              event.timestamp + Number(this.hotTracker.hotInfo[event.ability.guid].procDuration),
+              3,
+            ),
         );
         break;
       }
