@@ -1,13 +1,13 @@
-import { formatThousands, formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
+import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import UptimeIcon from 'interface/icons/Uptime';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 /*
   Roaring Blaze (Tier 90 Destruction talent):
@@ -49,7 +49,7 @@ class RoaringBlaze extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`${formatThousands(this.damage)} damage`}
       >
-        <BoringSpellValueText spellId={TALENTS.ROARING_BLAZE_TALENT.id}>
+        <TalentSpellText talent={TALENTS.ROARING_BLAZE_TALENT}>
           {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total
@@ -57,7 +57,7 @@ class RoaringBlaze extends Analyzer {
           <br />
           <UptimeIcon />
           {formatPercentage(this.uptime, 0)}%<small> uptime</small>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

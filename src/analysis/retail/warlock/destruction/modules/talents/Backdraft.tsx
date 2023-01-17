@@ -1,14 +1,14 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-
+import TalentSpellText from 'parser/ui/TalentSpellText';
 const debug = false;
 
 const BUFF_DURATION = 10000;
@@ -132,14 +132,14 @@ class Backdraft extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS}>
-        <BoringSpellValueText spellId={SPELLS.BACKDRAFT.id}>
+        <TalentSpellText talent={TALENTS.BACKDRAFT_TALENT}>
           {this.wastedStacks} <small>Wasted procs</small>
           <br />
           {formatPercentage(this.percentageOfChaosBoltsAmongBuffedCasts, 0)}%
           <TooltipElement content={`${this.buffedChaosBoltCasts}/${this.totalBuffedCasts}`}>
             <small> buffed casts - Chaos Bolt</small>
           </TooltipElement>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }
