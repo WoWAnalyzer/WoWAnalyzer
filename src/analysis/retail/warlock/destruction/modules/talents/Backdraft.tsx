@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
+import { SpellLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -33,6 +34,8 @@ class Backdraft extends Analyzer {
   _currentStacks = 0;
   _expectedBuffEnd = 0;
   wastedStacks = 0;
+  _buffedChaosBoltCasts = 0;
+  _buffedIncinerateCasts = 0;
 
   constructor(options: Options) {
     super(options);
@@ -40,6 +43,14 @@ class Backdraft extends Analyzer {
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CONFLAGRATE),
       this.onConflagrateCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INCINERATE),
+      this.onIncinerateCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHAOS_BOLT),
+      this.onChaosBoltCast,
     );
     this.addEventListener(
       Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.BACKDRAFT),
@@ -61,6 +72,18 @@ class Backdraft extends Analyzer {
     this._expectedBuffEnd = event.timestamp + BUFF_DURATION;
   }
 
+  onIncinerateCast(event: CastEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.BACKDRAFT.id)) {
+      this._buffedIncinerateCasts += 1;
+    }
+  }
+
+  onChaosBoltCast(event: CastEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.BACKDRAFT.id)) {
+      this._buffedChaosBoltCasts += 1;
+    }
+  }
+
   onBackdraftRemoveStack() {
     this._currentStacks -= 1;
   }
@@ -72,6 +95,19 @@ class Backdraft extends Analyzer {
       this.wastedStacks += this._currentStacks;
     }
     this._currentStacks = 0;
+  }
+
+  get buffedChaosBoltCasts() {
+    return this._buffedChaosBoltCasts;
+  }
+  get buffedIncinerateCasts() {
+    return this._buffedIncinerateCasts;
+  }
+  get totalBuffedCasts() {
+    return this.buffedChaosBoltCasts + this.buffedIncinerateCasts;
+  }
+  get percentageOfChaosBoltsAmongBuffedCasts() {
+    return this.buffedChaosBoltCasts / this.totalBuffedCasts;
   }
 
   suggestions(when: When) {
@@ -95,9 +131,14 @@ class Backdraft extends Analyzer {
 
   statistic() {
     return (
-      <Statistic size="small" category={STATISTIC_CATEGORY.TALENTS}>
+      <Statistic category={STATISTIC_CATEGORY.TALENTS}>
         <BoringSpellValueText spellId={SPELLS.BACKDRAFT.id}>
           {this.wastedStacks} <small>Wasted procs</small>
+          <br />
+          {formatPercentage(this.percentageOfChaosBoltsAmongBuffedCasts, 0)}%
+          <TooltipElement content={`${this.buffedChaosBoltCasts}/${this.totalBuffedCasts}`}>
+            <small> buffed casts - Chaos Bolt</small>
+          </TooltipElement>
         </BoringSpellValueText>
       </Statistic>
     );
