@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/warrior';
+import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { Options } from 'parser/core/EventSubscriber';
@@ -20,7 +21,8 @@ class RendUptime extends Analyzer {
   protected enemies!: Enemies;
 
   get uptime() {
-    return this.enemies.getBuffUptime(TALENTS.REND_ARMS_TALENT.id) / this.owner.fightDuration;
+    //hardcoded to test this.
+    return this.enemies.getBuffUptime(SPELLS.REND_DOT_ARMS.id) / this.owner.fightDuration;
   }
 
   get suggestionThresholds() {
@@ -60,7 +62,7 @@ class RendUptime extends Analyzer {
   }
 
   subStatistic() {
-    const history = this.enemies.getDebuffHistory(TALENTS.REND_ARMS_TALENT.id);
+    const history = this.enemies.getDebuffHistory(SPELLS.REND_DOT_ARMS.id);
     return (
       <div className="flex">
         <div className="flex-sub icon">

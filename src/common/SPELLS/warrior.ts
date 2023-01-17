@@ -536,6 +536,11 @@ const spells = spellIndexableList({
     name: 'Fatal Mark',
     icon: 'achievemnt_bg_killingblow_berserker',
   },
+  REND_DOT_ARMS: {
+    id: 388539,
+    name: 'Rend',
+    icon: 'ability_gouge',
+  },
 });
 
 export default spells;
