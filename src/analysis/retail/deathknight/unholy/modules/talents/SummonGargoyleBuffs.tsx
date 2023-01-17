@@ -46,6 +46,7 @@ class SummonGargoyleBuffs extends Analyzer {
   }
 
   onBuffCast(event: CastEvent) {
+    console.log(event.ability.name);
     if (
       this.gargoyleActive === true &&
       this.spellUsable.cooldownRemaining(SPELLS.SUMMON_GARGOYLE.id, event.timestamp) < 155000
@@ -60,7 +61,11 @@ class SummonGargoyleBuffs extends Analyzer {
       this.totalGargoyleCasts += 1;
     }
     if (this.gargoyleActive === true) {
-      this.currentGargoyleRunicPower += 30;
+      if (event.ability.name === 'Death Strike') {
+        this.currentGargoyleRunicPower += 45;
+      } else {
+        this.currentGargoyleRunicPower += 30;
+      }
     }
   }
 
