@@ -126,7 +126,6 @@ class RattleTheStars extends Analyzer {
 
   handleDamage(event: DamageEvent) {
     const buffStacks = this.selectedCombatant.getBuffStacks(SPELLS.RATTLED_STARS.id);
-    console.log(buffStacks);
     this.totalAddedDamage += calculateEffectiveDamage(
       event,
       buffStacks * PERCENT_DAMAGE_INCREASE_PER_STACK,
@@ -134,12 +133,15 @@ class RattleTheStars extends Analyzer {
   }
 
   statistic() {
-    console.log(this.totalAddedDamage);
+    const dpsIncrease = this.totalAddedDamage / (this.owner.fightDuration / 1000);
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(7)}
         wide
         size="flexible"
+        tooltip={`This approximate DPS increase of ${formatNumber(
+          dpsIncrease,
+        )} on considers the damage increase from the talent, not increased Starsurge or Starfall usages from astral power that was saved`}
         dropdown={
           <>
             <table className="table table-condensed">
@@ -174,9 +176,7 @@ class RattleTheStars extends Analyzer {
           <>
             <HasteIcon /> {formatNumber(this.totalAPSaved)} <small>Astral Power Saved</small>
             <br />
-            <HasteIcon /> {formatNumber(
-              this.totalAddedDamage / (this.owner.fightDuration / 1000),
-            )}{' '}
+            <HasteIcon /> {formatNumber(dpsIncrease)}
             <small> approx. DPS added</small>
           </>
         </BoringSpellValueText>
