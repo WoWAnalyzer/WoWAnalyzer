@@ -163,6 +163,16 @@ const spells = spellIndexableList({
     name: 'Frenzied Regeneration',
     icon: 'ability_bullrush',
   },
+  RATTLED_STARS: {
+    id: 393955,
+    name: 'Rattled Stars',
+    icon: 'spell_arcane_arcane01',
+  },
+  INCARNATION_CHOSEN_OF_ELUNE: {
+    id: 102560,
+    name: 'Incarnation: Chosen of Elune',
+    icon: 'spell_druid_incarnation',
+  },
   BEAR_FORM: {
     id: 5487,
     name: 'Bear Form',
@@ -789,12 +799,12 @@ const spells = spellIndexableList({
   BALANCE_OF_ALL_THINGS_LUNAR: {
     id: 394050,
     name: 'Balance of All Things',
-    icon: 'ability_druid_earthandsky'
+    icon: 'ability_druid_earthandsky',
   },
   BALANCE_OF_ALL_THINGS_SOLAR: {
     id: 394049,
     name: 'Balance of All Things',
-    icon: 'ability_druid_earthandsky'
+    icon: 'ability_druid_earthandsky',
   },
 
   /////////////////////////////////////////////////////////////////////////////
