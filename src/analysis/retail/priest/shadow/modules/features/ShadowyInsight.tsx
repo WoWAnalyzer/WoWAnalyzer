@@ -50,6 +50,7 @@ class ShadowyInsight extends Analyzer {
 
   onBuffApplied(event: ApplyBuffEvent) {
     this.abilities.increaseMaxCharges(event, SPELLS.MIND_BLAST.id, 1);
+    this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, false, true);
 
     this.procsGained += 1; // Add a proc to the counter
   }
