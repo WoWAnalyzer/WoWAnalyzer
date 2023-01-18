@@ -81,14 +81,14 @@ class SummonGargoyleBuffs extends Analyzer {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
           <span>
-            You are buffing <SpellLink id={SPELLS.SUMMON_GARGOYLE.id} /> with too few{' '}
+            You are buffing <SpellLink id={TALENTS.SUMMON_GARGOYLE_TALENT.id} /> with too few{' '}
             <SpellLink id={SPELLS.DEATH_COIL.id} />
             s. Try to prioritise generating Runic Power and spending it on as many{' '}
             <SpellLink id={SPELLS.DEATH_COIL.id} />s as possible once{' '}
-            <SpellLink id={SPELLS.SUMMON_GARGOYLE.id} /> has been used!
+            <SpellLink id={TALENTS.SUMMON_GARGOYLE_TALENT.id} /> has been used!
           </span>,
         )
-          .icon(SPELLS.SUMMON_GARGOYLE.icon)
+          .icon(TALENTS.SUMMON_GARGOYLE_TALENT.icon)
           .actual(
             t({
               id: 'deathknight.unholy.suggestions.summongargoyle.buffing',
@@ -108,7 +108,7 @@ class SummonGargoyleBuffs extends Analyzer {
         position={STATISTIC_ORDER.CORE(6)}
         size="flexible"
       >
-        <BoringSpellValueText spellId={SPELLS.SUMMON_GARGOYLE.id}>
+        <BoringSpellValueText spellId={TALENTS.SUMMON_GARGOYLE_TALENT.id}>
           <>
             {this.averageBuffAmount} <small>Runic Power buffed on averge</small>
           </>
