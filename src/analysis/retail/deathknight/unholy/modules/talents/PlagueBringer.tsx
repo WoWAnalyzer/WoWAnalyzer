@@ -2,8 +2,7 @@ import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RemoveBuffEvent, FightEndEvent } from 'parser/core/Events';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -22,40 +21,21 @@ class PlagueBringer extends Analyzer {
     if (!this.active) {
       return;
     }
+  }
 
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PLAGUEBRINGER_BUFF),
-      this.onBuffEvent,
+  get averageBuffUptime() {
+    return (
+      this.selectedCombatant.getBuffUptime(SPELLS.PLAGUEBRINGER_BUFF.id) / this.owner.fightDuration
     );
-
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PLAGUEBRINGER_BUFF),
-      this.onRemoveBuffEvent,
-    );
-
-    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  onBuffEvent(event: ApplyBuffEvent) {
-    this.lastBuffTime = event.timestamp;
-    this.buffIsUp = true;
-  }
-
-  onRemoveBuffEvent(event: RemoveBuffEvent) {
-    this.totalBuffTime += event.timestamp - this.lastBuffTime;
-    this.buffIsUp = false;
-  }
-
-  onFightEnd(event: FightEndEvent) {
-    if (this.buffIsUp === true) {
-      this.totalBuffTime += event.timestamp - this.lastBuffTime;
-    }
+  get totalBuffUptime() {
+    return Math.round(this.selectedCombatant.getBuffUptime(SPELLS.PLAGUEBRINGER_BUFF.id) / 1000);
   }
 
   suggestions(when: When) {
-    const averageBuffUptime = Number(this.totalBuffTime / this.owner.fightDuration);
     // Plaguebringer should have 90% uptime or more
-    when(averageBuffUptime)
+    when(this.averageBuffUptime)
       .isLessThan(0.9)
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
@@ -68,7 +48,9 @@ class PlagueBringer extends Analyzer {
           .actual(
             t({
               id: 'deathknight.unholy.suggestions.plaguebringer.uptime',
-              message: `Plaguebringer was up ${(averageBuffUptime * 100).toFixed(2)}% of the time`,
+              message: `Plaguebringer was up ${formatPercentage(
+                this.averageBuffUptime,
+              )}% of the time`,
             }),
           )
           .recommended(`${recommended * 100}% is recommended`)
@@ -78,18 +60,17 @@ class PlagueBringer extends Analyzer {
   }
 
   statistic() {
-    const averageBuffUptime = Number(this.totalBuffTime / this.owner.fightDuration);
     return (
       <Statistic
-        tooltip={`Your Plaguebringer was up ${(this.totalBuffTime / 1000).toFixed(0)} out of ${(
-          this.owner.fightDuration / 1000
-        ).toFixed(0)} seconds`}
+        tooltip={`Your Plaguebringer was up ${this.totalBuffUptime} out of ${Math.round(
+          this.owner.fightDuration / 1000,
+        )} seconds`}
         position={STATISTIC_ORDER.CORE(1)}
         size="flexible"
       >
         <BoringSpellValueText spellId={TALENTS.PLAGUEBRINGER_TALENT.id}>
           <>
-            {formatPercentage(averageBuffUptime)}% <small>Plaguebringer uptime</small>
+            {formatPercentage(this.averageBuffUptime)}% <small>Plaguebringer uptime</small>
           </>
         </BoringSpellValueText>
       </Statistic>
