@@ -114,7 +114,7 @@ class UnfurlingDarkness extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS.SHADOWY_INSIGHT_TALENT.id} />
+          <SpellLink id={TALENTS.UNFURLING_DARKNESS_TALENT.id} />
         </b>{' '}
         is gained by casting <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} />.<br />
         Cast <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> while the buff is active to avoid wasting
