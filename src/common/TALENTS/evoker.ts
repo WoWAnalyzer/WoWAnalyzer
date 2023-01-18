@@ -670,13 +670,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [87630],
   },
-  ESSENCE_BURST_ATTUNED_TALENT: {
-    id: 359618,
-    name: 'Essence Burst',
-    icon: 'ability_evoker_essenceburst',
-    maxRanks: 1,
-    entryIds: [87630],
-  },
   REWIND_TALENT: {
     id: 363534,
     name: 'Rewind',
@@ -831,7 +824,7 @@ const talents = createTalentList({
   CALL_OF_YSERA_TALENT: {
     id: 373834,
     name: 'Call of Ysera',
-    icon: 'inv_drakemountemerald',
+    icon: '',
     maxRanks: 1,
     entryIds: [87618],
   },
