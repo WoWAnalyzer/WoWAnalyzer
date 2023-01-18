@@ -29,7 +29,6 @@ class Voidform extends Analyzer {
 
   enterVoidform(event: ApplyBuffEvent) {
     this.abilities.increaseMaxCharges(event, SPELLS.MIND_BLAST.id, 1);
-    console.log('voidform');
     if (this.spellUsable.isOnCooldown(SPELLS.MIND_BLAST.id)) {
       this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, false, true);
       //Voidform can restore another charges if the spell is still on cooldown after the first.
