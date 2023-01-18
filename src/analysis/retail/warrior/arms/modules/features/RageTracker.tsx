@@ -19,7 +19,10 @@ class RageUsage extends ResourceTracker {
     this.resource = RESOURCE_TYPES.RAGE;
     this.usesWarlordsTorment = this.selectedCombatant.hasTalent(TALENTS.WARLORDS_TORMENT_TALENT);
     this.usesWarMachine = this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_ARMS_TALENT);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE), this.onDamage);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE),
+      this.onAutoAttackDamage,
+    );
     //the rage refund from improved execute.
     if (!this.selectedCombatant.hasTalent(TALENTS.IMPROVED_EXECUTE_ARMS_TALENT)) {
       return;
@@ -54,7 +57,7 @@ class RageUsage extends ResourceTracker {
     }
   }
 
-  onDamage(event: DamageEvent) {
+  onAutoAttackDamage(event: DamageEvent) {
     if (event.ability.guid !== 1 || event.timestamp === this.lastMeleeTimestamp) {
       return;
     }
