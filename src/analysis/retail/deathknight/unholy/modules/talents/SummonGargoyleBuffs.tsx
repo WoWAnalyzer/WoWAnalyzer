@@ -117,7 +117,7 @@ class SummonGargoyleBuffs extends Analyzer {
       >
         <BoringSpellValueText spellId={SPELLS.SUMMON_GARGOYLE.id}>
           <>
-            {averageBuffAmount} <small>average Runic Power buffed</small>
+            {averageBuffAmount} <small>Runic Power buffed on averge</small>
           </>
         </BoringSpellValueText>
       </Statistic>
