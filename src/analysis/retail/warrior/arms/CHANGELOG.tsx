@@ -5,6 +5,7 @@ import { Abelito75, carglass, Carrottopp, Otthopsy, bandit, Toreole } from 'CONT
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 1, 18), <>Fixed Rage Tracking massively overestimating rage generation</>, Toreole),
   change(date(2023, 1, 17), <>WIP updating Arms Warrior for Dragonflight 10.0.5</>, Toreole),
   change(date(2022, 2, 26), <>Change Arms Warrior patch compatibility to 9.2</>, Carrottopp),
   change(date(2022, 2, 26), <>Added more abilites into rotational cooldown tracker.</>, Carrottopp),

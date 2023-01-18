@@ -22,6 +22,14 @@ class RageUsage extends ResourceTracker {
     this.usesWarlordsTorment = this.selectedCombatant.hasTalent(TALENTS.WARLORDS_TORMENT_TALENT);
     this.usesWarMachine = this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_ARMS_TALENT);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE), this.onDamage);
+    //the rage refund from improved execute.
+    if (!this.selectedCombatant.hasTalent(TALENTS.IMPROVED_EXECUTE_ARMS_TALENT)) {
+      return;
+    }
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EXECUTE_GLYPHED),
+      this.onCastExecute,
+    );
   }
 
   getAdjustedCost(event: CastEvent) {
@@ -33,6 +41,19 @@ class RageUsage extends ResourceTracker {
       return;
     }
     return resource.cost;
+  }
+
+  onCastExecute(event: CastEvent) {
+    //the cost for execute is multiplied by 10 to avoid floating point numbers.
+    //just divide it by 10 again to get the more accurate number.
+    const cost = (this.getAdjustedCost(event) || 0) / 10;
+    if (cost !== 0) {
+      this.processInvisibleEnergize(
+        SPELLS.EXECUTE.id,
+        cost / 10, //always assume the target survives, get 10% refund.
+        event.timestamp,
+      );
+    }
   }
 
   onDamage(event: DamageEvent) {

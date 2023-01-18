@@ -64,7 +64,7 @@ class RageDetails extends Analyzer {
         label="Rage wasted"
         tooltip={`${this.rageTracker.wasted} out of ${
           this.rageTracker.wasted + this.rageTracker.generated
-        } rage wasted. melee count: ${this.rageTracker.meleeCount}`}
+        } rage wasted.`}
       />
     );
   }
