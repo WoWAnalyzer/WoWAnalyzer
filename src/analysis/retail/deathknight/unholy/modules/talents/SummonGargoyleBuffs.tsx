@@ -17,10 +17,11 @@ class SummonGargoyleBuffs extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  totalGargoyleCasts = 0; // Number of fully completed gargoyles used
-  currentGargoyleRunicPower = 0; // Keeps track of Runic Power used on current active Gargoyle
-  totalGargoyleRunicPower = 0; // Total Runic Power spend on all fully completed Gargoyles
-  gargoyleActive = false; // Boolean to keep track of Gargoyle being active or not
+  totalGargoyleCasts = 0; // Number of fully completed gargoyles used.
+  currentGargoyleRunicPower = 0; // Keeps track of Runic Power used on current active Gargoyle.
+  totalGargoyleRunicPower = 0; // Total Runic Power spend on all fully completed Gargoyles.
+  gargoyleActive = false; // Boolean to keep track of Gargoyle being active or not.
+  gargoyleEnd = 0; // Keeps track of when Gargoyle should end.
 
   constructor(options: Options) {
     super(options);
@@ -45,23 +46,22 @@ class SummonGargoyleBuffs extends Analyzer {
     );
   }
 
+  get averageBuffAmount() {
+    return Math.round(this.totalGargoyleRunicPower / this.totalGargoyleCasts);
+  }
+
   onBuffCast(event: CastEvent) {
-    console.log(event.ability.name);
-    if (
-      this.gargoyleActive === true &&
-      this.spellUsable.cooldownRemaining(SPELLS.SUMMON_GARGOYLE.id, event.timestamp) < 155000
-    ) {
-      /* Gargoyle is active and cooldown is less than 2min35 seconds ->
+    if (this.gargoyleActive === true) {
+      if (event.timestamp > this.gargoyleEnd) {
+        /* Gargoyle is active and has been up for more than 25 seconds ->
 		A full Gargoyle has just ended. Add temporary Runic Power to total,
 		set gargoyleActive to false iterate number of Gargoyle casts by one
 		and reset the current Gargoyle Runic Power counter.*/
-      this.gargoyleActive = false;
-      this.totalGargoyleRunicPower += this.currentGargoyleRunicPower;
-      this.currentGargoyleRunicPower = 0;
-      this.totalGargoyleCasts += 1;
-    }
-    if (this.gargoyleActive === true) {
-      if (event.ability.name === 'Death Strike') {
+        this.gargoyleActive = false;
+        this.totalGargoyleRunicPower += this.currentGargoyleRunicPower;
+        this.currentGargoyleRunicPower = 0;
+        this.totalGargoyleCasts += 1;
+      } else if (event.ability.guid === SPELLS.DEATH_STRIKE_HEAL.id) {
         this.currentGargoyleRunicPower += 45;
       } else {
         this.currentGargoyleRunicPower += 30;
@@ -71,16 +71,12 @@ class SummonGargoyleBuffs extends Analyzer {
 
   onGargCast(event: CastEvent) {
     this.gargoyleActive = true;
+    this.gargoyleEnd = event.timestamp + 25000;
   }
 
   suggestions(when: When) {
-    console.log(this.totalGargoyleCasts);
-    console.log(this.totalGargoyleRunicPower);
-    const averageBuffAmount = Number(
-      (this.totalGargoyleRunicPower / this.totalGargoyleCasts).toFixed(1),
-    );
     // Buffing the gargoyle by at least 350 Runic Power on average is recommended
-    when(averageBuffAmount)
+    when(this.averageBuffAmount)
       .isLessThan(400)
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
@@ -96,7 +92,7 @@ class SummonGargoyleBuffs extends Analyzer {
           .actual(
             t({
               id: 'deathknight.unholy.suggestions.summongargoyle.buffing',
-              message: `Gargoyle was buffed with an average ${averageBuffAmount} Runic Power`,
+              message: `Gargoyle was buffed with an average ${this.averageBuffAmount} Runic Power`,
             }),
           )
           .recommended(`${recommended} is recommended`)
@@ -106,18 +102,15 @@ class SummonGargoyleBuffs extends Analyzer {
   }
 
   statistic() {
-    const averageBuffAmount = Number(
-      (this.totalGargoyleRunicPower / this.totalGargoyleCasts).toFixed(1),
-    );
     return (
       <Statistic
-        tooltip={`You buffed ${this.totalGargoyleCasts} Gargoyle(s) with an average of ${averageBuffAmount} Runic Power.`}
+        tooltip={`You buffed ${this.totalGargoyleCasts} Gargoyle(s) with an average of ${this.averageBuffAmount} Runic Power.`}
         position={STATISTIC_ORDER.CORE(6)}
         size="flexible"
       >
         <BoringSpellValueText spellId={SPELLS.SUMMON_GARGOYLE.id}>
           <>
-            {averageBuffAmount} <small>Runic Power buffed on averge</small>
+            {this.averageBuffAmount} <small>Runic Power buffed on averge</small>
           </>
         </BoringSpellValueText>
       </Statistic>
