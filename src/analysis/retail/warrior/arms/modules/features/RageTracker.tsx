@@ -9,8 +9,6 @@ import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/Res
 const RAGE_PER_MELEE_HIT = 25;
 
 class RageUsage extends ResourceTracker {
-  lastMeleeTaken = 0;
-  meleeCount = 0;
   lastMeleeTimestamp = 0;
 
   private usesWarlordsTorment = false;
@@ -61,7 +59,6 @@ class RageUsage extends ResourceTracker {
       return;
     }
     this.lastMeleeTimestamp = event.timestamp;
-    this.meleeCount += 1;
 
     const rageMultiplier =
       this.usesWarlordsTorment &&
