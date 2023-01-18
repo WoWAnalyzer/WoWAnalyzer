@@ -1,7 +1,8 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warrior';
 import { SpellLink } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 /**
@@ -18,9 +19,9 @@ class WarMachine extends Analyzer {
     );
   }
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.WAR_MACHINE_TALENT_ARMS);
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_ARMS_TALENT);
   }
 
   subStatistic() {
@@ -28,7 +29,7 @@ class WarMachine extends Analyzer {
       <StatisticListBoxItem
         title={
           <>
-            <SpellLink id={SPELLS.WAR_MACHINE_TALENT_ARMS.id} /> uptime
+            <SpellLink id={TALENTS.WAR_MACHINE_ARMS_TALENT.id} /> uptime
           </>
         }
         value={`${formatPercentage(this.uptime)} %`}

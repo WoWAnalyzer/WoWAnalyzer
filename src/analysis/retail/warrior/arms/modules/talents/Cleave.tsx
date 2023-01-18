@@ -1,7 +1,7 @@
 import { formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warrior';
 import { SpellLink } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
@@ -15,20 +15,22 @@ class Cleave extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.CLEAVE_TALENT);
+  protected abilityTracker!: AbilityTracker;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.CLEAVE_TALENT);
   }
 
   subStatistic() {
-    const Cleave = this.abilityTracker.getAbility(SPELLS.CLEAVE_TALENT.id);
+    const Cleave = this.abilityTracker.getAbility(TALENTS.CLEAVE_TALENT.id);
     const total = Cleave.damageEffective || 0;
     const avg = total / (Cleave.casts || 1);
     return (
       <StatisticListBoxItem
         title={
           <>
-            Average <SpellLink id={SPELLS.CLEAVE_TALENT.id} /> damage
+            Average <SpellLink id={TALENTS.CLEAVE_TALENT.id} /> damage
           </>
         }
         value={formatThousands(avg)}

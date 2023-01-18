@@ -1,7 +1,8 @@
 import { formatNumber, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warrior';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
@@ -15,11 +16,13 @@ class StormBolt extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
+  protected abilityTracker!: AbilityTracker;
+
   stun = 0;
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.STORM_BOLT_TALENT);
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.STORM_BOLT_TALENT);
     this.addEventListener(
       Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.STORM_BOLT_TALENT_DEBUFF),
       this._onStun,
@@ -31,13 +34,13 @@ class StormBolt extends Analyzer {
   }
 
   subStatistic() {
-    const stormBolt = this.abilityTracker.getAbility(SPELLS.STORM_BOLT_TALENT.id);
+    const stormBolt = this.abilityTracker.getAbility(TALENTS.STORM_BOLT_TALENT.id);
     const total = stormBolt.damageEffective || 0;
     return (
       <StatisticListBoxItem
         title={
           <>
-            <SpellLink id={SPELLS.STORM_BOLT_TALENT.id} /> Stun
+            <SpellLink id={TALENTS.STORM_BOLT_TALENT.id} /> Stun
           </>
         }
         value={formatNumber(this.stun)}

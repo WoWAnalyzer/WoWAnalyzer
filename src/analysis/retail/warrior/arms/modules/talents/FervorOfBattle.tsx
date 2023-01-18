@@ -1,9 +1,10 @@
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warrior';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 /**
@@ -24,9 +25,9 @@ class FervorOfBattle extends Analyzer {
   lastWhirlwindCast = 0;
   whirlwind = 0;
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FERVOR_OF_BATTLE_TALENT);
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.FERVOR_OF_BATTLE_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WHIRLWIND),
       this._onWhirlwindCast,
@@ -39,11 +40,11 @@ class FervorOfBattle extends Analyzer {
     );
   }
 
-  _onWhirlwindCast(event) {
+  _onWhirlwindCast(event: CastEvent) {
     this.lastWhirlwindCast = event.timestamp;
   }
 
-  _onFobDamage(event) {
+  _onFobDamage(event: DamageEvent) {
     const guid = event.ability.guid;
     if (guid === SPELLS.WHIRLWIND_DAMAGE_1.id || guid === SPELLS.WHIRLWIND_DAMAGE_2_3.id) {
       this.bonusDamage += calculateEffectiveDamage(event, WHIRLWIND_DAMAGE_BONUS);
@@ -57,7 +58,7 @@ class FervorOfBattle extends Analyzer {
       <StatisticListBoxItem
         title={
           <>
-            <SpellLink id={SPELLS.FERVOR_OF_BATTLE_TALENT.id} /> bonus damage
+            <SpellLink id={TALENTS.FERVOR_OF_BATTLE_TALENT.id} /> bonus damage
           </>
         }
         value={`${formatThousands(this.dps)} DPS`}

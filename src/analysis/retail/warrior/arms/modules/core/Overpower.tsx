@@ -3,10 +3,11 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 
 import SpellUsable from '../features/SpellUsable';
 import ExecuteRange from './Execute/ExecuteRange';
@@ -20,6 +21,27 @@ import ExecuteRange from './Execute/ExecuteRange';
  */
 
 class OverpowerAnalyzer extends Analyzer {
+  static dependencies = {
+    executeRange: ExecuteRange,
+    enemies: Enemies,
+    spellUsable: SpellUsable,
+  };
+
+  protected executeRange!: ExecuteRange;
+  protected enemies!: Enemies;
+  protected spellUsable!: SpellUsable;
+
+  overpowerCasts = 0;
+  wastedProc = 0;
+
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.OVERPOWER),
+      this._onOverpowerCast,
+    );
+  }
+
   get WastedOverpowerThresholds() {
     return {
       actual: this.wastedProc / this.overpowerCasts,
@@ -28,27 +50,10 @@ class OverpowerAnalyzer extends Analyzer {
         average: 0.05,
         major: 0.1,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
-
-  static dependencies = {
-    executeRange: ExecuteRange,
-    enemies: Enemies,
-    spellUsable: SpellUsable,
-  };
-  overpowerCasts = 0;
-  wastedProc = 0;
-
-  constructor(...args) {
-    super(...args);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.OVERPOWER),
-      this._onOverpowerCast,
-    );
-  }
-
-  _onOverpowerCast(event) {
+  _onOverpowerCast(event: CastEvent) {
     this.overpowerCasts += 1;
     const overpower = this.selectedCombatant.getBuff(SPELLS.OVERPOWER.id);
 
@@ -63,7 +68,7 @@ class OverpowerAnalyzer extends Analyzer {
     }
 
     // if not in execute and stacks were at two when overpower was casted then a proc is considered wasted
-    if (!this.executeRange.isTargetInExecuteRange(event)) {
+    if (!this.executeRange.isTargetInExecuteRange(event.targetID || 0, event.targetInstance || 0)) {
       this.wastedProc += 1;
 
       event.meta = event.meta || {};
@@ -73,7 +78,7 @@ class OverpowerAnalyzer extends Analyzer {
     }
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     when(this.WastedOverpowerThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>

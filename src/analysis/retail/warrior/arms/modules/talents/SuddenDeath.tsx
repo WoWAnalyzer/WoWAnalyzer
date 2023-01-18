@@ -1,8 +1,9 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warrior';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Events, { DamageEvent } from 'parser/core/Events';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 /**
@@ -14,9 +15,9 @@ class SuddenDeath extends Analyzer {
   totalProc = 0;
   totalDamages = 0;
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SUDDEN_DEATH_TALENT_ARMS);
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SUDDEN_DEATH_SPEC_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EXECUTE_DAMAGE),
       this._onExecuteDamage,
@@ -31,7 +32,7 @@ class SuddenDeath extends Analyzer {
     );
   }
 
-  _onExecuteDamage(event) {
+  _onExecuteDamage(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.SUDDEN_DEATH_ARMS_TALENT_BUFF.id)) {
       return;
     }
@@ -48,7 +49,7 @@ class SuddenDeath extends Analyzer {
         title={
           <>
             <SpellLink id={SPELLS.EXECUTE_DAMAGE.id} /> with{' '}
-            <SpellLink id={SPELLS.SUDDEN_DEATH_TALENT_ARMS.id} /> damage
+            <SpellLink id={TALENTS.SUDDEN_DEATH_SPEC_TALENT.id} /> damage
           </>
         }
         value={formatNumber(this.totalDamages)}

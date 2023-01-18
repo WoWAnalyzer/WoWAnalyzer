@@ -1,9 +1,10 @@
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warrior';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import Events from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
@@ -23,19 +24,22 @@ class Warbreaker extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
+
+  protected enemies!: Enemies;
+
   totalDamages = 0;
 
-  constructor(...args) {
-    super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.WARBREAKER_TALENT);
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.WARBREAKER_TALENT);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this._onDamage);
   }
 
-  _onDamage(event) {
+  _onDamage(event: DamageEvent) {
     if (event.targetIsFriendly) {
       return;
     }
-    if (event.ability.guid === SPELLS.WARBREAKER_TALENT.id) {
+    if (event.ability.guid === TALENTS.WARBREAKER_TALENT.id) {
       this.totalDamages += (event.amount || 0) + (event.absorbed || 0);
     }
     const target = this.enemies.getEntity(event);
@@ -49,7 +53,7 @@ class Warbreaker extends Analyzer {
       <StatisticListBoxItem
         title={
           <>
-            <SpellLink id={SPELLS.WARBREAKER_TALENT.id} /> bonus damage
+            <SpellLink id={TALENTS.WARBREAKER_TALENT.id} /> bonus damage
           </>
         }
         value={`${formatThousands(this.dps)} DPS`}

@@ -1302,6 +1302,19 @@ export const Carrottopp: Contributor = {
   ],
 };
 
+export const Toreole: Contributor = {
+  nickname: 'Toreole',
+  github: 'Toreole',
+  discord: 'Toreole#0001',
+  mains: [
+    {
+      name: 'Crowfield',
+      spec: SPECS.ARMS_WARRIOR,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/silvermoon/crowfield',
+    },
+  ],
+};
+
 export const Vexxra: Contributor = {
   nickname: 'Vexxra',
   github: 'vexxra',

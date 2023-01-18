@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warrior';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
@@ -144,9 +145,9 @@ class Bladestorm extends Analyzer {
     // Bladestorm should be aligned with Warbreaker
     badCast =
       badCast ||
-      (this.selectedCombatant.hasTalent(SPELLS.WARBREAKER_TALENT) &&
-        this.spellUsable.isAvailable(SPELLS.WARBREAKER_TALENT.id)) ||
-      this.spellUsable.cooldownRemaining(SPELLS.WARBREAKER_TALENT.id) < WARBREAKER_FOREGIVENESS;
+      (this.selectedCombatant.hasTalent(TALENTS.WARBREAKER_TALENT) &&
+        this.spellUsable.isAvailable(TALENTS.WARBREAKER_TALENT.id)) ||
+      this.spellUsable.cooldownRemaining(TALENTS.WARBREAKER_TALENT.id) < WARBREAKER_FOREGIVENESS;
 
     if (badCast && !this.currentCast.text) {
       this.currentCast.text =
@@ -156,9 +157,9 @@ class Bladestorm extends Analyzer {
     // Bladestorm should be aligned with Avatar
     badCast =
       badCast ||
-      (this.selectedCombatant.hasTalent(SPELLS.AVATAR_TALENT) &&
-        this.spellUsable.isAvailable(SPELLS.AVATAR_TALENT.id)) ||
-      this.spellUsable.cooldownRemaining(SPELLS.AVATAR_TALENT.id) < AVATAR_FORGIVENESS;
+      (this.selectedCombatant.hasTalent(TALENTS.AVATAR_TALENT) &&
+        this.spellUsable.isAvailable(TALENTS.AVATAR_TALENT.id)) ||
+      this.spellUsable.cooldownRemaining(TALENTS.AVATAR_TALENT.id) < AVATAR_FORGIVENESS;
 
     if (badCast && !this.currentCast.text) {
       this.currentCast.text =
@@ -180,8 +181,8 @@ class Bladestorm extends Analyzer {
           Do not cast <SpellLink id={SPELLS.BLADESTORM.id} /> when you have rage to spend during
           single target fights. In multi-target situations, Bladestorm should not overlap with{' '}
           <SpellLink id={SPELLS.SWEEPING_STRIKES.id} /> and you should try to align Bladestorm with
-          cooldowns such as <SpellLink id={SPELLS.AVATAR_TALENT.id} /> and{' '}
-          <SpellLink id={SPELLS.WARBREAKER_TALENT.id} />
+          cooldowns such as <SpellLink id={TALENTS.AVATAR_TALENT.id} /> and{' '}
+          <SpellLink id={TALENTS.WARBREAKER_TALENT.id} />
         </>,
       )
         .icon(SPELLS.BLADESTORM.icon)
