@@ -10,10 +10,6 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { formatPercentage } from 'common/format';
 
 class PlagueBringer extends Analyzer {
-  lastBuffTime = 0;
-  totalBuffTime = 0;
-  buffIsUp = false;
-
   constructor(options: Options) {
     super(options);
 
