@@ -41,7 +41,7 @@ class SummonGargoyleBuffs extends Analyzer {
     this.addEventListener(
       Events.cast
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.SUMMON_GARGOYLE, SPELLS.DARK_ARBITER_TALENT_GLYPH]),
+        .spell([TALENTS.SUMMON_GARGOYLE_TALENT, SPELLS.DARK_ARBITER_TALENT_GLYPH]),
       this.onGargCast,
     );
   }

@@ -301,12 +301,6 @@ const spells = spellIndexableList({
     icon: 'achievement_boss_svalasorrowgrave',
   },
 
-  SUMMON_GARGOYLE: {
-    id: 49206,
-    name: 'Summon Gargoyle',
-    icon: 'ability_deathknight_summongargoyle',
-  },
-
   EPIDEMIC: {
     id: 207317,
     name: 'Epidemic',
