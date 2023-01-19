@@ -155,8 +155,7 @@ class RattleTheStars extends Analyzer {
                   <th>Stacks</th>
                   <th>Starsurges</th>
                   <th>Starfalls</th>
-                  <th>Time (s)</th>
-                  <th>Time (%)</th>
+                  <th>Uptime</th>
                 </tr>
               </thead>
               <tbody>
@@ -165,8 +164,6 @@ class RattleTheStars extends Analyzer {
                     <th>{i} Stacks</th>
                     <td>{this.buffedStarsurges[i]}</td>
                     <td>{this.buffedStarfalls[i]}</td>
-                    <td>6</td>
-                    <td>{formatDuration(e.reduce((a, b) => a + b, 0))}</td>
                     <td>
                       {formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%
                     </td>
