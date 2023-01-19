@@ -43,6 +43,7 @@ class RattleTheStars extends Analyzer {
       this.selectedCombatant.hasBuff(SPELLS.INCARNATION_CHOSEN_OF_ELUNE.id)
     );
   }
+
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.RATTLE_THE_STARS_TALENT);
@@ -107,19 +108,22 @@ class RattleTheStars extends Analyzer {
   }
 
   handleStarsurgeCast(event: CastEvent) {
-    this.totalAPSaved +=
-      (STARSURGE_BASE_COST -
-        (this.elunedGuidanceDiscountActive ? STARSURGE_ELUNES_GUIDANCE_DISCOUNT : 0)) *
-      PERCENT_AP_SAVED_PER_STACK;
-
+    if (this.selectedCombatant.hasBuff(SPELLS.TOUCH_THE_COSMOS.id)) {
+      this.totalAPSaved +=
+        (STARSURGE_BASE_COST -
+          (this.elunedGuidanceDiscountActive ? STARSURGE_ELUNES_GUIDANCE_DISCOUNT : 0)) *
+        PERCENT_AP_SAVED_PER_STACK;
+    }
     this.buffedStarsurges[this.lastStacks] = this.buffedStarsurges[this.lastStacks] + 1;
   }
 
   handleStarfallCast(event: CastEvent) {
-    this.totalAPSaved +=
-      (STARFALL_BASE_COST -
-        (this.elunedGuidanceDiscountActive ? STARFALL_ELUNES_GUIDANCE_DISCOUNT : 0)) *
-      PERCENT_AP_SAVED_PER_STACK;
+    if (!this.selectedCombatant.hasBuff(SPELLS.TOUCH_THE_COSMOS.id)) {
+      this.totalAPSaved +=
+        (STARFALL_BASE_COST -
+          (this.elunedGuidanceDiscountActive ? STARFALL_ELUNES_GUIDANCE_DISCOUNT : 0)) *
+        PERCENT_AP_SAVED_PER_STACK;
+    }
     this.buffedStarfalls[this.lastStacks] = this.buffedStarfalls[this.lastStacks] + 1;
   }
 

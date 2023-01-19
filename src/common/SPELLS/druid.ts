@@ -440,6 +440,12 @@ const spells = spellIndexableList({
     name: 'Ephemeral Incarnation',
     icon: 'spell_progenitor_orb2',
   },
+  //Tier 29 Balance set bonus proc
+  TOUCH_THE_COSMOS: {
+    id: 394414,
+    name: 'Touch the Cosmos',
+    icon: 'ability_bossgorefiend_touchofdoom',
+  },
   RENEWING_BLOOM: {
     // HoT procced by T28 2pc
     id: 364686,
