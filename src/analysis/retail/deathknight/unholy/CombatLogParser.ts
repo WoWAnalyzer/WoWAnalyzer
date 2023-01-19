@@ -25,6 +25,7 @@ import VirulentPlagueEfficiency from './modules/spells/VirulentPlagueEfficiency'
 import ArmyOfTheDamned from './modules/talents/ArmyOfTheDamned';
 import SoulReaper from './modules/talents/SoulReaper';
 import SummonGargoyleBuffs from './modules/talents/SummonGargoyleBuffs';
+import PlagueBringer from './modules/talents/PlagueBringer';
 
 // Covenants
 
@@ -51,6 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soulReaper: SoulReaper,
     armyOfTheDamned: ArmyOfTheDamned,
     summonGargoyleBuffs: SummonGargoyleBuffs,
+    plagueBringer: PlagueBringer,
 
     // RunicPower
     runicPowerTracker: RunicPowerTracker,

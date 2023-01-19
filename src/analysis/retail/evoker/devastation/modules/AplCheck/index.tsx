@@ -15,7 +15,7 @@ const avoidIfDragonRageSoon = (time: number) => {
 const hasEssenceRequirement = (resources: number) => {
   return cnd.or(
     cnd.hasResource(RESOURCE_TYPES.ESSENCE, { atLeast: resources }),
-    cnd.buffPresent(TALENTS.ESSENCE_BURST_ATTUNED_TALENT),
+    cnd.buffPresent(SPELLS.ESSENCE_BURST_DEV_BUFF),
   );
 };
 

@@ -144,6 +144,11 @@ const spells = spellIndexableList({
     name: 'Shattering Star',
     icon: 'ability_evoker_chargedblast',
   },
+  ESSENCE_BURST_DEV_BUFF: {
+    id: 359618,
+    name: 'Essence Burst',
+    icon: 'ability_evoker_essenceburst',
+  },
 
   // Shared
   BLESSING_OF_THE_BRONZE: {

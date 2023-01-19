@@ -27,8 +27,7 @@
     "src/analysis/retail/druid/guardian",
     "src/analysis/retail/paladin/protection",
     "src/analysis/retail/paladin/retribution",
-    "src/analysis/retail/rogue/assassination",
-    "src/analysis/retail/warrior/arms"
+    "src/analysis/retail/rogue/assassination"
   ],
   "files": [
     "src/analysis/retail/druid/guardian/CONFIG.tsx",
@@ -40,8 +39,6 @@
     "src/analysis/retail/paladin/retribution/CHANGELOG.tsx",
     "src/analysis/retail/rogue/assassination/CONFIG.tsx",
     "src/analysis/retail/rogue/assassination/CHANGELOG.tsx",
-    "src/analysis/retail/warrior/arms/CONFIG.tsx",
-    "src/analysis/retail/warrior/arms/CHANGELOG.tsx"
   ],
   "ts-node": {
     // these options are overrides used only by ts-node

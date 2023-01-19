@@ -894,7 +894,7 @@
   "priest.shadow.suggestions.deathspeaker.efficiency": "You wasted {0} out of {1} DeathSpeaker procs.",
   "priest.shadow.suggestions.devouringPlague.uptime": "{0}% Devouring Plauge uptime",
   "priest.shadow.suggestions.dispersion.uptime": "{0}% Dispersion uptime",
-  "priest.shadow.suggestions.insanity.usage": "You wasted {0}% of your Insanity due to overcapping.",
+  "priest.shadow.suggestions.insanity.usage": "You wasted {0} of your Insanity due to overcapping.",
   "priest.shadow.suggestions.mindDevourer.efficiency": "You wasted {0} out of {1} of Mind Devourer procs.",
   "priest.shadow.suggestions.mindFlayInsanity.ticksLost": "Lost {0} ticks of Mind Flay: Insanity.",
   "priest.shadow.suggestions.shadowWordPain.shadowWeavingUptime": "{0}% Shadow Word: Pain uptime at 5 stacks",

@@ -7,7 +7,7 @@ import SoulShardDetails from '../../soulshards/SoulShardDetails';
 import SoulShardTracker from '../../soulshards/SoulShardTracker';
 import Eradication from '../../talents/Eradication';
 import AlwaysBeCasting from '../AlwaysBeCasting';
-import Backdraft from '../Backdraft';
+import Backdraft from '../../talents/Backdraft';
 import ImmolateUptime from '../ImmolateUptime';
 import Component from './Component';
 
