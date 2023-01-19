@@ -1,7 +1,9 @@
 import { Talent } from 'common/TALENTS/types';
+import Spell from 'common/SPELLS/Spell';
+
 import { SubSection, useAnalyzer, useInfo } from 'interface/guide';
 import TALENTS from 'common/TALENTS/priest';
-//import SPELLS from 'common/SPELLS/priest';
+import SPELLS from 'common/SPELLS/priest';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
@@ -12,8 +14,12 @@ type Cooldown = {
   extraTalents?: Talent[];
 };
 
-const coreCooldowns: Cooldown[] = [
-  //{ talent: SPELLS.MIND_BLAST },
+type Cool = {
+  spell: Spell;
+};
+
+const coreCooldowns: Cool[] = [
+  { spell: SPELLS.MIND_BLAST },
   //{ talent: TALENTS.SHADOW_WORD_DEATH_TALENT },
 ];
 
@@ -39,7 +45,7 @@ const CoreCooldownsGraph = () => {
       them as much as possible. TODO: Visualize and calculate correctly.
     </Trans>
   );
-  return CooldownGraphSubsection(coreCooldowns, message);
+  return CoreCooldownGraphSubsection(coreCooldowns, message);
 };
 
 const ShortCooldownsGraph = () => {
@@ -92,6 +98,35 @@ const CooldownGraphSubsection = (cooldownsToCheck: Cooldown[], message: JSX.Elem
         <CastEfficiencyBar
           key={cooldownCheck.talent.id}
           spellId={cooldownCheck.talent.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          minimizeIcons={hasTooManyCasts}
+        />
+      ))}
+    </SubSection>
+  );
+};
+
+const CoreCooldownGraphSubsection = (cooldownsToCheck: Cool[], message: JSX.Element) => {
+  const info = useInfo();
+  const castEfficiency = useAnalyzer(CastEfficiency);
+  if (!info || !castEfficiency) {
+    return null;
+  }
+  const cooldowns = cooldownsToCheck;
+
+  const hasTooManyCasts = cooldowns.some((cooldown) => {
+    const casts = castEfficiency.getCastEfficiencyForSpell(cooldown.spell)?.casts ?? 0;
+    return casts >= 10;
+  });
+
+  return (
+    <SubSection>
+      {message}
+
+      {cooldowns.map((cooldownCheck) => (
+        <CastEfficiencyBar
+          key={cooldownCheck.spell.id}
+          spellId={cooldownCheck.spell.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           minimizeIcons={hasTooManyCasts}
         />
