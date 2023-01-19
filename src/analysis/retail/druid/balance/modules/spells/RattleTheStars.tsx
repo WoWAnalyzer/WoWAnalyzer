@@ -36,7 +36,7 @@ class RattleTheStars extends Analyzer {
   totalAPSaved = 0;
   lastUpdate = this.owner.fight.start_time;
   totalAddedDamage = 0;
-
+  inTouchOfCosmosProc = false;
   private get elunedGuidanceDiscountActive() {
     return (
       this.selectedCombatant.hasTalent(TALENTS_DRUID.ELUNES_GUIDANCE_TALENT) &&
@@ -108,11 +108,12 @@ class RattleTheStars extends Analyzer {
   }
 
   handleStarsurgeCast(event: CastEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.TOUCH_THE_COSMOS.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.TOUCH_THE_COSMOS.id)) {
       this.totalAPSaved +=
         (STARSURGE_BASE_COST -
           (this.elunedGuidanceDiscountActive ? STARSURGE_ELUNES_GUIDANCE_DISCOUNT : 0)) *
-        PERCENT_AP_SAVED_PER_STACK;
+        PERCENT_AP_SAVED_PER_STACK *
+        this.selectedCombatant.getBuffStacks(SPELLS.RATTLED_STARS.id);
     }
     this.buffedStarsurges[this.lastStacks] = this.buffedStarsurges[this.lastStacks] + 1;
   }
@@ -122,7 +123,8 @@ class RattleTheStars extends Analyzer {
       this.totalAPSaved +=
         (STARFALL_BASE_COST -
           (this.elunedGuidanceDiscountActive ? STARFALL_ELUNES_GUIDANCE_DISCOUNT : 0)) *
-        PERCENT_AP_SAVED_PER_STACK;
+        PERCENT_AP_SAVED_PER_STACK *
+        this.selectedCombatant.getBuffStacks(SPELLS.RATTLED_STARS.id);
     }
     this.buffedStarfalls[this.lastStacks] = this.buffedStarfalls[this.lastStacks] + 1;
   }
