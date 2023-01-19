@@ -174,9 +174,9 @@ class RattleTheStars extends Analyzer {
       >
         <BoringSpellValueText spellId={TALENTS_DRUID.RATTLE_THE_STARS_TALENT.id}>
           <>
-            <HasteIcon /> {formatNumber(this.totalAPSaved)} <small>Astral Power Saved</small>
+            {formatNumber(this.totalAPSaved)} <small>Astral Power Saved</small>
             <br />
-            <HasteIcon /> {formatNumber(dpsIncrease)}
+            {formatNumber(dpsIncrease)}
             <small> approx. DPS added</small>
           </>
         </BoringSpellValueText>
