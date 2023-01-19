@@ -20,7 +20,7 @@ type Cool = {
 
 const coreCooldowns: Cool[] = [
   { spell: SPELLS.MIND_BLAST },
-  //{ talent: TALENTS.SHADOW_WORD_DEATH_TALENT },
+  { spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
 ];
 
 const shortCooldowns: Cooldown[] = [
@@ -41,8 +41,13 @@ const longCooldowns: Cooldown[] = [
 const CoreCooldownsGraph = () => {
   const message = (
     <Trans id="guide.priest.shadow.sections.corecooldowns.graph">
-      <strong>Core Graph</strong> - Spells such as these are your most important spells. Try to cast
-      them as much as possible. TODO: Visualize and calculate correctly.
+      <strong>Core Graph</strong> - Mindblast is a core spell that should be keept on cooldown as
+      much as possible. The same is true for Shadow Word: Death during execute. These spells should
+      also both be used when Mindbender is active with Inescapable Torment talented.
+      <br />
+      TODO: Hide non-execute phase SW:D Cooldown graph. (It's efficiency is correctly calculated
+      only during execute) <br />
+      TODO: Double check efficiency calculations
     </Trans>
   );
   return CoreCooldownGraphSubsection(coreCooldowns, message);
