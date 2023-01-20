@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
+import { TIERS } from 'game/TIERS';
 import { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
@@ -29,6 +30,12 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     super(options);
     if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.ENERGY_LOOP_TALENT)) {
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.DISINTEGRATE.id);
+    }
+    if (
+      this.selectedCombatant.has2PieceByTier(TIERS.T29) ||
+      this.selectedCombatant.hasTalent(TALENTS_EVOKER.LIFE_GIVERS_FLAME_TALENT)
+    ) {
+      this.HEALING_ABILITIES_ON_GCD.push(SPELLS.FIRE_BREATH.id);
     }
   }
 
