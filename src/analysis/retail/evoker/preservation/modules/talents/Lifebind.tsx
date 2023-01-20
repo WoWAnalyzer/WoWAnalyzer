@@ -167,9 +167,13 @@ class Lifebind extends Analyzer {
           formatNumber(this.healingForSpell(0)) +
           ' (This includes misc items, trinkets, and other sources of non-spell healing)',
       },
-    ].filter((item) => {
-      return item.value > 0;
-    });
+    ]
+      .filter((item) => {
+        return item.value > 0;
+      })
+      .sort((a, b) => {
+        return Math.sign(b.value - a.value);
+      });
     return <DonutChart items={items} />;
   }
 

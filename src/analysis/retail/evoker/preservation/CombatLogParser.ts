@@ -33,6 +33,7 @@ import DreamFlight from './modules/talents/DreamFlight';
 import ExhilBurst from './modules/talents/ExhilBurst';
 import Stasis from './modules/talents/Stasis';
 import Lifebind from './modules/talents/Lifebind';
+import EnergyLoop from './modules/talents/EnergyLoop';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -80,6 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
     exhilBurst: ExhilBurst,
     stasis: Stasis,
     lifebind: Lifebind,
+    energyLoop: EnergyLoop,
   };
 }
 
