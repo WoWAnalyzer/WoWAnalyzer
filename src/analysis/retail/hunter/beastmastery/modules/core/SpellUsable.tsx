@@ -58,22 +58,12 @@ class SpellUsable extends CoreSpellUsable {
     const spellId = triggerEvent.ability.guid;
     if (spellId === TALENTS.BARBED_SHOT_TALENT.id) {
       if (this.isOnCooldown(spellId) && this.chargesAvailable(spellId) === 0) {
-        this.endCooldown(
-          spellId,
-          this.lastPotentialTriggerForBarbedShotReset
-            ? this.lastPotentialTriggerForBarbedShotReset.timestamp
-            : undefined,
-        );
+        this.endCooldown(spellId, this.lastPotentialTriggerForBarbedShotReset?.timestamp);
       }
     }
     if (spellId === TALENTS.KILL_COMMAND_SHARED_TALENT.id && this._has4pc) {
       if (this.isOnCooldown(spellId) && this.chargesAvailable(spellId) === 0) {
-        this.endCooldown(
-          spellId,
-          this.lastPotentialTriggerForKillCommandReset
-            ? this.lastPotentialTriggerForKillCommandReset.timestamp
-            : undefined,
-        );
+        this.endCooldown(spellId, this.lastPotentialTriggerForKillCommandReset?.timestamp);
       }
     }
 
