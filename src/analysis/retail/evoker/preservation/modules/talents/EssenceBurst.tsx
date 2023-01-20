@@ -25,6 +25,8 @@ const MANA_COSTS: { [name: string]: number } = {
   Disintegrate: 0,
 };
 
+const TOTAL_MANA = 250000;
+
 class EssenceBurst extends Analyzer {
   totalConsumed: number = 0;
   totalExpired: number = 0;
@@ -53,7 +55,7 @@ class EssenceBurst extends Analyzer {
       const spellName = consumeAbility.ability.name;
       this.totalConsumed += 1;
       this.essenceSaved += ESSENCE_COSTS[spellName];
-      this.manaSaved += MANA_COSTS[spellName] * 250000;
+      this.manaSaved += MANA_COSTS[spellName] * TOTAL_MANA;
       this.consumptionCount[spellName] += 1;
     } else if (event.type === EventType.RemoveBuff) {
       this.totalExpired += 1;
