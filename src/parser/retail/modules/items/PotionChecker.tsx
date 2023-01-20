@@ -10,7 +10,7 @@ import Events, { ApplyBuffEvent, CastEvent, FilterCooldownInfoEvent } from 'pars
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
-const debug = true;
+const debug = false;
 
 // these suggestions are all based on Icy Veins guide recommendations, i.e. which potion to use in which situation.
 // most guides recommend to use Battle Potion of Primary Stat, but I have broken out the class/spec combos whose guides
