@@ -441,6 +441,12 @@ const spells = spellIndexableList({
     name: "Nature's Essence",
     icon: 'ability_druid_flourish',
   },
+  // proc from Resto Druid T29 4pc
+  CRITICAL_GROWTH: {
+    id: 394565,
+    name: 'Critical Growth',
+    icon: 'ability_druid_flourish',
+  },
 
   /////////////////////////////////////////////////////////////////////////////
   // GUARDIAN / BEAR
