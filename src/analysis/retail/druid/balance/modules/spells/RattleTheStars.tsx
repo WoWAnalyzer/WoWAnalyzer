@@ -178,6 +178,7 @@ class RattleTheStars extends Analyzer {
           <>
             {formatNumber(this.totalAPSaved)} <small>Astral Power Saved</small>
             <br />
+            {'>'}
             {formatNumber(dpsIncrease)} <small>approx. DPS added</small>
           </>
         </BoringSpellValueText>
