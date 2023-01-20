@@ -20,7 +20,7 @@ class SpellUsable extends CoreSpellUsable {
 
   lastPotentialTriggerForBarbedShotReset: AnyEvent | null = null;
   lastPotentialTriggerForKillCommandReset: AnyEvent | null = null;
-  _has4pc: boolean = false;
+  private _has4pc: boolean = false;
 
   constructor(options: Options) {
     super(options);
