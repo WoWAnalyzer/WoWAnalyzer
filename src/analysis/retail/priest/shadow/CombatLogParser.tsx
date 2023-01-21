@@ -49,6 +49,8 @@ import IdolOfNzoth from './modules/talents/IdolOfNzoth';
 import IdolOfYshaarj from './modules/talents/IdolOfYshaarj';
 import InsanityGraph from './modules/guide/InsanityGraph';
 
+import FourSet from './modules/tier/Tier29ShadowPriest4Set';
+
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // core
@@ -107,6 +109,9 @@ class CombatLogParser extends MainCombatLogParser {
 
     // covenants:
     mindgames: Mindgames,
+
+    //Tier
+    fourSet: FourSet,
 
     arcaneTorrent: [ArcaneTorrent, { active: false }] as const,
   };
