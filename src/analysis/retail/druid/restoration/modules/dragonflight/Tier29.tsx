@@ -1,17 +1,18 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { TIERS } from 'game/TIERS';
-import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import HIT_TYPES from 'game/HIT_TYPES';
-import { formatNumber } from 'common/format';
 import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import ItemSetLink from 'interface/ItemSetLink';
 import { DRUID_T29_ID } from 'common/ITEMS/dragonflight';
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import SpellLink from 'interface/SpellLink';
 
 const TWO_PIECE_CRIT_BONUS = 0.08;
 
@@ -27,6 +28,7 @@ const TWO_PIECE_SPELLS = [
 
 const FOUR_PIECE_WG_BOOST_PER_STACK = 0.05;
 const FOUR_PIECE_FALL_BUFFER = 100;
+const FOUR_PIECE_NS_CDR = 2000;
 
 /**
  * **Resto Druid T29 (Vault of the Incarnates)**
@@ -42,15 +44,19 @@ class Tier29 extends Analyzer {
   static dependencies = {
     stats: StatTracker,
     hotTracker: HotTrackerRestoDruid,
+    spellUsable: SpellUsable,
   };
   protected stats!: StatTracker;
   protected hotTracker!: HotTrackerRestoDruid;
+  protected spellUsable!: SpellUsable;
 
   has4pc: boolean;
 
   total2pcHealing: number = 0;
 
   wg4pcAttributor = HotTrackerRestoDruid.getNewAttribution('T29 4pc Wild Growth');
+  effectiveNaturesSwiftnessCdr = 0;
+  nsCasts = 0;
 
   constructor(options: Options) {
     super(options);
@@ -68,6 +74,14 @@ class Tier29 extends Analyzer {
       this.addEventListener(
         Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.WILD_GROWTH),
         this.onWgApply,
+      );
+      this.addEventListener(
+        Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_HOT_HEAL),
+        this.onLbHeal,
+      );
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.NATURES_SWIFTNESS),
+        this.onNsCast,
       );
     }
   }
@@ -93,6 +107,19 @@ class Tier29 extends Analyzer {
     }
   }
 
+  onLbHeal(event: HealEvent) {
+    if (event.hitType === HIT_TYPES.CRIT) {
+      this.effectiveNaturesSwiftnessCdr += this.spellUsable.reduceCooldown(
+        SPELLS.NATURES_SWIFTNESS.id,
+        FOUR_PIECE_NS_CDR,
+      );
+    }
+  }
+
+  onNsCast(_: CastEvent) {
+    this.nsCasts += 1;
+  }
+
   get critIncrease() {
     return TWO_PIECE_CRIT_BONUS / (TWO_PIECE_CRIT_BONUS + this.stats.currentCritPercentage);
   }
@@ -105,7 +132,28 @@ class Tier29 extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={
           <>
-            Total healing from 2 Piece: <strong>{formatNumber(this.total2pcHealing)} </strong>
+            <p>2pc healing amount assumes expected-value extra crits added to the listed spells.</p>
+            {this.has4pc && (
+              <p>
+                4pc healing amount counts only the boost to <SpellLink id={SPELLS.WILD_GROWTH.id} />
+                .<br />
+                {this.nsCasts === 0 ? (
+                  <>
+                    The second part of your 4pc bonus had no effect because you never used{' '}
+                    <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} />!
+                  </>
+                ) : (
+                  <>
+                    In addition, <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} /> cooldown was reduced
+                    by an average of{' '}
+                    <strong>
+                      {(this.effectiveNaturesSwiftnessCdr / this.nsCasts / 1000).toFixed(1)}s per
+                      cast
+                    </strong>
+                  </>
+                )}
+              </p>
+            )}
           </>
         }
       >
