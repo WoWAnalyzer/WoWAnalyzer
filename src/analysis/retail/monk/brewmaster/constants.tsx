@@ -1,6 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 
+export const MAGIC_STAGGER_EFFECTIVENESS = 0.45;
+
 export const BREWS = [
   talents.PURIFYING_BREW_TALENT,
   talents.FORTIFYING_BREW_TALENT,
