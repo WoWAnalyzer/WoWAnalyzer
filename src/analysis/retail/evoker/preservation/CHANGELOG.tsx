@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 export default [
   change(date(2023, 1, 20), <>Add <SpellLink id={TALENTS_EVOKER.ENERGY_LOOP_TALENT}/> module</>, Trevor),
+  change(date(2023, 1, 19), <>Add ABC module</>, Trevor),
   change(date(2023, 1, 11), <>Fix <SpellLink id={SPELLS.MASTERY_LIFEBINDER.id}/> tooltip</>, Trevor),
   change(date(2023, 1, 11), <>Disable shielding calculation for <SpellLink id={SPELLS.MASTERY_LIFEBINDER.id}/> module</>, Trevor),
   change(date(2023, 1, 14), <>Add <SpellLink id={TALENTS_EVOKER.LIFEBIND_TALENT}/> and <SpellLink id={TALENTS_EVOKER.GOLDEN_HOUR_TALENT}/> attribution for <SpellLink id={TALENTS_EVOKER.ECHO_TALENT}/> module</>, Trevor),

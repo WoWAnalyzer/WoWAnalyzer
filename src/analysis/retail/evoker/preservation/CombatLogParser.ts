@@ -34,6 +34,7 @@ import ExhilBurst from './modules/talents/ExhilBurst';
 import Stasis from './modules/talents/Stasis';
 import Lifebind from './modules/talents/Lifebind';
 import EnergyLoop from './modules/talents/EnergyLoop';
+import AlwaysBeCasting from './modules/core/AlwaysBeCasting';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -58,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
 
     //core
+    alwaysBeCasting: AlwaysBeCasting,
     hotTrackerPrevoker: HotTrackerPrevoker,
     hotAttributor: HotAttributor,
 
