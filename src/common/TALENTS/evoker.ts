@@ -639,6 +639,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [87628],
     essenceCost: 2,
+    manaCost: 4250,
   },
   DREAM_BREATH_TALENT: {
     id: 355936,
