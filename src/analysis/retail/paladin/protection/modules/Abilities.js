@@ -98,7 +98,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT.id,
+        spell: [
+          TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT.id,
+          SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id,
+        ],
         buffSpellId: [
           TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT.id,
           SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id,
