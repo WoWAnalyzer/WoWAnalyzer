@@ -19,9 +19,12 @@ import {
   TalentEntry,
 } from './talent-tree-types';
 
-const WOW_BUILD_NUMBER = '10.0.2.47187';
-const TALENT_DATA_URL = 'https://www.raidbots.com/static/data/live/talents.json';
-const SPELLPOWER_DATA_FILE = `./spellpower_${WOW_BUILD_NUMBER}.csv`;
+const LIVE_WOW_BUILD_NUMBER = '10.0.2.47631';
+const LIVE_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/live/talents.json';
+const LIVE_SPELLPOWER_DATA_FILE = `./spellpower_${LIVE_WOW_BUILD_NUMBER}.csv`;
+const PTR_WOW_BUILD_NUMBER = '10.0.5.47621';
+const PTR_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/ptr/talents.json';
+const PTR_SPELLPOWER_DATA_FILE = `./spellpower_${PTR_WOW_BUILD_NUMBER}.csv`;
 
 const classes: { [classId: number]: { name: string; baseMaxResource: number } } = {
   //TODO Non Mana users verification
@@ -110,9 +113,13 @@ const blindMergeTalents = (
   entryIds: [...left.entryIds, ...right.entryIds],
 });
 
-async function generateTalents() {
-  const talents: ITalentTree[] = await readJsonFromUrl(TALENT_DATA_URL);
-  const spellpower: ISpellpower[] = csvToObject(readCsvFromFile(SPELLPOWER_DATA_FILE));
+async function generateTalents(isPTR: boolean = false) {
+  const talents: ITalentTree[] = await readJsonFromUrl(
+    isPTR ? PTR_TALENT_DATA_URL : LIVE_TALENT_DATA_URL,
+  );
+  const spellpower: ISpellpower[] = csvToObject(
+    readCsvFromFile(isPTR ? PTR_SPELLPOWER_DATA_FILE : LIVE_SPELLPOWER_DATA_FILE),
+  );
 
   const talentsByClass = talents.reduce((map: Record<string, ITalentTree[]>, tree) => {
     if (!map[tree.className]) {
@@ -313,5 +320,7 @@ ${Object.values(classes)
   );
 }
 
-generateTalents();
+const isPTR = process.argv.includes('--ptr');
+
+generateTalents(isPTR);
 generateIndex();

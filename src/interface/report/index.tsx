@@ -23,6 +23,7 @@ import SupportChecker from './SupportChecker';
 import { useReport } from 'interface/report/context/ReportContext';
 import { usePlayer } from 'interface/report/context/PlayerContext';
 import { useFight } from 'interface/report/context/FightContext';
+import { LoadingStatus } from 'interface/report/Results/ResultsContext';
 
 const ResultsLoader = () => {
   const config = useConfig();
@@ -39,10 +40,9 @@ const ResultsLoader = () => {
   const events = useEvents({ report, fight, player });
   const isLoadingEvents = events == null;
 
-  const {
-    loadingState: bossPhaseEventsLoadingState,
-    events: bossPhaseEvents,
-  } = useBossPhaseEvents({ report, fight });
+  const { loadingState: bossPhaseEventsLoadingState, events: bossPhaseEvents } = useBossPhaseEvents(
+    { report, fight },
+  );
 
   const { characterProfile, isLoading: isLoadingCharacterProfile } = useCharacterProfile({
     report,
@@ -117,7 +117,11 @@ const ResultsLoader = () => {
   // isLoadingParser => parserClass == null
   // isLoadingCharacterProfile => characterProfile == null
   // isFilteringEvents => events == null
-  const { isLoading: isParsingEvents, progress: parsingEventsProgress, parser } = useEventParser({
+  const {
+    isLoading: isParsingEvents,
+    progress: parsingEventsProgress,
+    parser,
+  } = useEventParser({
     report,
     fight: filteredFight,
     config,
@@ -142,22 +146,26 @@ const ResultsLoader = () => {
     (!isFilteringEvents ? 0.05 : 0) +
     parsingEventsProgress! * 0.75;
 
+  const loadingStatus: LoadingStatus = {
+    progress: progress,
+    isLoadingParser: isLoadingParser,
+    isLoadingEvents: isLoadingEvents,
+    bossPhaseEventsLoadingState: bossPhaseEventsLoadingState,
+    isLoadingCharacterProfile: isLoadingCharacterProfile,
+    isLoadingPhases: isLoadingPhases,
+    isFilteringEvents: isFilteringEvents,
+    parsingState: parsingState,
+  };
+
   return (
     <Results
       config={config}
-      isLoadingParser={isLoadingParser}
-      isLoadingEvents={isLoadingEvents}
-      bossPhaseEventsLoadingState={bossPhaseEventsLoadingState}
-      isLoadingCharacterProfile={isLoadingCharacterProfile}
-      parsingState={parsingState}
-      progress={progress}
+      loadingStatus={loadingStatus}
       report={report}
       fight={filteredFight || { offset_time: 0, filtered: false, ...fight }} //if no filtered fight has been parsed yet, pass previous fight object alongside 0 offset time and no filtering
       player={player}
       characterProfile={characterProfile!}
       parser={parser!}
-      isLoadingPhases={isLoadingPhases}
-      isFilteringEvents={isFilteringEvents}
       phases={phases}
       selectedPhase={selectedPhase}
       selectedInstance={selectedInstance}
@@ -172,7 +180,7 @@ const ResultsLoader = () => {
   );
 };
 
-const Report = () => (
+const ReportLayout = () => (
   // TODO: Error boundary so all sub components don't need the errorHandler with the silly withRouter dependency. Instead just throw the error and let the boundary catch it - if possible.
   <>
     <NavigationBar />
@@ -197,4 +205,4 @@ const Report = () => (
   </>
 );
 
-export default Report;
+export default ReportLayout;

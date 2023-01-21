@@ -77,7 +77,6 @@ class CombatLogParser extends CoreCombatLogParser {
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
     holyPowerPerMinute: HolyPowerPerMinute,
-
     apl: AplCheck,
   };
 }

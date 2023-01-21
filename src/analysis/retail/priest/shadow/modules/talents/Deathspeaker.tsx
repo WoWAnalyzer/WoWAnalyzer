@@ -12,6 +12,9 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
+
 // Example Log https://www.warcraftlogs.com/reports/ctvYK32ZhbDqLmX8#fight=30&type=damage-done
 
 class Deathspeaker extends Analyzer {
@@ -101,6 +104,37 @@ class Deathspeaker extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const goodDS = {
+      count: this.getProcsUsed(),
+      label: 'Deathspeaker procs used',
+    };
+
+    const badDS = {
+      count: this.procsWasted,
+      label: 'Deathspeaker procs wasted',
+    };
+
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS.DEATHSPEAKER_TALENT.id} />
+        </b>{' '}
+        is gained randomly from <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> damage. <br />
+        Cast <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> while the buff is active to
+        avoid wasting procs.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <strong>Death Speaker breakdown</strong>
+        <GradiatedPerformanceBar good={goodDS} bad={badDS} />
+      </div>
+    );
+    return explanationAndDataSubsection(explanation, data, 50);
   }
 }
 

@@ -13,10 +13,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: ESSENCE_BURST_CONSUME,
     reverseLinkRelation: ESSENCE_BURST_CONSUME,
-    linkingEventId: [
-      TALENTS_EVOKER.ESSENCE_BURST_TALENT.id,
-      TALENTS_EVOKER.ESSENCE_BURST_ATTUNED_TALENT.id,
-    ],
+    linkingEventId: [TALENTS_EVOKER.ESSENCE_BURST_TALENT.id, SPELLS.ESSENCE_BURST_DEV_BUFF.id],
     linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
     referencedEventId: SPELLS.DISINTEGRATE.id,
 
@@ -28,10 +25,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: ESSENCE_BURST_CONSUME,
     reverseLinkRelation: ESSENCE_BURST_CONSUME,
-    linkingEventId: [
-      TALENTS_EVOKER.ESSENCE_BURST_TALENT.id,
-      TALENTS_EVOKER.ESSENCE_BURST_ATTUNED_TALENT.id,
-    ],
+    linkingEventId: [TALENTS_EVOKER.ESSENCE_BURST_TALENT.id, SPELLS.ESSENCE_BURST_DEV_BUFF.id],
     linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
     referencedEventId: [SPELLS.PYRE.id, SPELLS.PYRE_DENSE_TALENT.id],
     referencedEventType: EventType.Cast,

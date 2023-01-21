@@ -8,6 +8,7 @@ import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { TALENTS_MONK } from 'common/TALENTS';
 
 const DAMAGE_MODIFIER = 1;
 const STORM_EARTH_AND_FIRE_CAST_BUFFER = 200;
@@ -18,7 +19,7 @@ class DANCE_OF_CHI_JI extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DANCE_OF_CHI_JI_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.DANCE_OF_CHI_JI_TALENT);
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER | SELECTED_PLAYER_PET)
@@ -78,7 +79,7 @@ class DANCE_OF_CHI_JI extends Analyzer {
         size="flexible"
         tooltip={<>Total damage increase: {formatNumber(this.damageGain)}</>}
       >
-        <BoringSpellValueText spellId={SPELLS.DANCE_OF_CHI_JI_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_MONK.DANCE_OF_CHI_JI_TALENT.id}>
           <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageGain))} % of

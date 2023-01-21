@@ -10,4 +10,7 @@ export { default as SwallowedAnger } from './modules/talents/SwallowedAnger';
 export { default as UnnaturalMalice } from './modules/talents/UnnaturalMalice';
 export { default as FlamesOfFury } from './modules/talents/FlamesOfFury';
 export { default as DisruptingFury } from './modules/talents/DisruptingFury';
+export { default as DemonSoulBuff } from './modules/spells/DemonSoulBuff';
+export { default as FodderToTheFlame } from './modules/talents/FodderToTheFlame';
+export { default as TheHuntNormalizer, getChargeImpact } from './normalizers/TheHuntNormalizer';
 export * from './constants';

@@ -243,10 +243,9 @@ class WintersChill extends Analyzer {
     when(this.wintersChillPreCastThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You failed to use a pre-cast ability before spending your{' '}
-          <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> {this.missedPreCasts} times (
-          {formatPercentage(1 - actual)}%). Because of the travel time of{' '}
-          <SpellLink id={TALENTS.FLURRY_TALENT.id} />, you should cast a damaging ability such as{' '}
+          You failed to use a pre-cast ability before <SpellLink id={TALENTS.FLURRY_TALENT.id} />{' '}
+          {this.missedPreCasts} times ({formatPercentage(1 - actual)}%). Because of the travel time
+          of <SpellLink id={TALENTS.FLURRY_TALENT.id} />, you should cast a damaging ability such as{' '}
           <SpellLink id={SPELLS.FROSTBOLT.id} />{' '}
           {this.hasEbonbolt ? (
             <>
@@ -255,12 +254,10 @@ class WintersChill extends Analyzer {
           ) : (
             ''
           )}{' '}
-          immediately before using your instant cast <SpellLink id={TALENTS.FLURRY_TALENT.id} />.
-          Doing this will allow your pre-cast ability to hit the target after{' '}
+          immediately before using <SpellLink id={TALENTS.FLURRY_TALENT.id} />. Doing this will
+          allow your pre-cast ability to hit the target after{' '}
           <SpellLink id={TALENTS.FLURRY_TALENT.id} /> (unless you are standing too close to the
-          target) allowing it to benefit from <SpellLink id={TALENTS.SHATTER_TALENT.id} />. If you
-          are a Kyrian, it is also acceptable to pre-cast <SpellLink id={SPELLS.RADIANT_SPARK.id} />{' '}
-          instead.
+          target) allowing it to benefit from <SpellLink id={TALENTS.SHATTER_TALENT.id} />.
         </>,
       )
         .icon(SPELLS.FROSTBOLT.icon)
@@ -281,13 +278,13 @@ class WintersChill extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            When using your Brain Freeze procs, you should always ensure that you have something
-            immediately before it (Like Frostbolt, Ebonbolt, or Radiant Spark) as well as 2 Ice
-            Lance Casts (Or Glacial Spike + Ice Lance) immediately after to get the most out of the
-            Winter's Chill debuff that is applied to the target. Doing so will allow the cast before
-            and the 2 casts after to all benefit from Shatter. Note that if you are very close to
-            your target, then the ability you used immediately before Flurry might hit the target
-            too quickly and not get shattered.
+            When casting Flurry, you should always ensure that you have something immediately before
+            it (Like Frostbolt or Ebonbolt) as well as 2 Ice Lance Casts (Or Glacial Spike + Ice
+            Lance) immediately after to get the most out of the Winter's Chill debuff that is
+            applied to the target. Doing so will allow the cast before and the 2 casts after to all
+            benefit from Shatter. Note that if you are very close to your target, then the ability
+            you used immediately before Flurry might hit the target too quickly and not get
+            shattered.
           </>
         }
       >

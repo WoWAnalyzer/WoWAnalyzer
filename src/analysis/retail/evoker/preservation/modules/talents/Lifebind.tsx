@@ -1,4 +1,5 @@
 import { formatNumber } from 'common/format';
+import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -13,7 +14,6 @@ import { getHealForLifebindHeal } from '../../normalizers/CastLinkNormalizer';
 
 class Lifebind extends Analyzer {
   healingBySpell: Map<number, number> = new Map<number, number>();
-
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.LIFEBIND_TALENT);
@@ -77,6 +77,13 @@ class Lifebind extends Analyzer {
           this.healingForSpell(SPELLS.REVERSION_ECHO.id) +
             this.healingForSpell(TALENTS_EVOKER.REVERSION_TALENT.id),
         ),
+      },
+      {
+        color: '#301934',
+        label: "Broodkeeper's Promise",
+        spellId: ITEMS.BROODKEEPERS_PROMISE_HEAL.id,
+        value: this.healingForSpell(ITEMS.BROODKEEPERS_PROMISE_HEAL.id),
+        valueTooltip: formatNumber(this.healingForSpell(ITEMS.BROODKEEPERS_PROMISE_HEAL.id)),
       },
       {
         color: SPELL_COLORS.EMERALD_BLOSSOM,
@@ -158,7 +165,7 @@ class Lifebind extends Analyzer {
         value: this.healingForSpell(0),
         valueTooltip:
           formatNumber(this.healingForSpell(0)) +
-          ' (This includes items, trinkets, and other sources of non-spell healing)',
+          ' (This includes misc items, trinkets, and other sources of non-spell healing)',
       },
     ].filter((item) => {
       return item.value > 0;

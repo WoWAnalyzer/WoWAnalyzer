@@ -11,6 +11,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { TALENTS_MONK } from 'common/TALENTS';
 
 const FISTS_OF_FURY_COOLDOWN_REDUCTION_MS = 5000;
 
@@ -41,7 +42,7 @@ class XuensBattlegear extends Analyzer {
   }
 
   onRisingSunKickHit(event: DamageEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.PRESSURE_POINT.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.PRESSURE_POINT_BUFF.id)) {
       this.buffedHits += 1;
     }
     const isCrit = event.hitType === HIT_TYPES.CRIT || event.hitType === HIT_TYPES.BLOCKED_CRIT;
@@ -85,7 +86,7 @@ class XuensBattlegear extends Analyzer {
       suggest(
         'You are wasting cooldown reduction by casting Rising Sun Kick while having Fists of Fury available',
       )
-        .icon(SPELLS.XUENS_BATTLEGEAR.icon)
+        .icon(TALENTS_MONK.XUENS_BATTLEGEAR_TALENT.icon)
         .actual(
           t({
             id: 'monk.windwalker.suggestions.xuensBattlegear.cdrWasted',
@@ -103,7 +104,7 @@ class XuensBattlegear extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spellId={SPELLS.XUENS_BATTLEGEAR.id}>
+        <BoringSpellValueText spellId={TALENTS_MONK.XUENS_BATTLEGEAR_TALENT.id}>
           <span>
             <SpellIcon
               id={SPELLS.FISTS_OF_FURY_CAST.id}
