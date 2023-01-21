@@ -5,6 +5,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2023, 1, 21), <>Added statistic for Vault of the Incarnates 4 Piece. </>, Sref),
   change(date(2022, 12, 30), <>Improve accuracy of 2 piece module </>, Trevor),
   change(date(2022, 12, 29), <>Added statistic for Vault of the Incarnates 2 Piece. </>, Phased),
   change(date(2022, 12, 14), <>Added Preparation Section to Guide.</>, Sref),
