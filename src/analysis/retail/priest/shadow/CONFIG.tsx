@@ -38,7 +38,8 @@ export default {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: 'report/AhN1GYjF934Qv8dy/9-Normal+Dathea,+Ascended+-+Kill+(6:34)/Doxashe/standard',
+  exampleReport:
+    'report/z4AKb3FGgnk1tmwr/5-Normal+Sennarth,+The+Cold+Breath+-+Kill+(4:38)/Doxashe/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
