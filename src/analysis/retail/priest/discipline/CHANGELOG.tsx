@@ -6,6 +6,10 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 1, 15), <><SpellLink id={TALENTS_PRIEST.CASTIGATION_TALENT.id}/> module no longer uses Atonement event.</>, Hana),
+  change(date(2023, 1, 15), <><SpellLink id={TALENTS_PRIEST.SCHISM_TALENT.id}/> module no longer uses Atonement event.</>, Hana),
+  change(date(2023, 1, 14), <><SpellLink id={SPELLS.SINS_OF_THE_MANY.id}/> module no longer uses Atonement event.</>, Hana),
+  change(date(2023, 1, 10), <><SpellLink id={TALENTS_PRIEST.ATONEMENT_TALENT.id}/> refactor begun - added normalizer to create links between events.</>, Hana),
   change(date(2023, 1, 4), <><SpellLink id={TALENTS_PRIEST.CRYSTALLINE_REFLECTION_TALENT.id}/> bugfixes.</>, Hana),
   change(date(2022, 12, 26), 'Disable Twilight Equilibrium analyzer.', ToppleTheNun),
   change(date(2022, 12, 11), <><SpellLink id={TALENTS_PRIEST.RAPTURE_TALENT.id}/> added to guide.</>, Hana),

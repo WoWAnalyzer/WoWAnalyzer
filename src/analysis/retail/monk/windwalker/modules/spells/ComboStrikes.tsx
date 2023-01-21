@@ -9,6 +9,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { TALENTS_MONK } from 'common/TALENTS';
 
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 
@@ -27,7 +28,7 @@ class ComboStrikes extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.hasHitCombo = this.selectedCombatant.hasTalent(SPELLS.HIT_COMBO_TALENT);
+    this.hasHitCombo = this.selectedCombatant.hasTalent(TALENTS_MONK.HIT_COMBO_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_MASTERY),
       this.onMasteryCast,

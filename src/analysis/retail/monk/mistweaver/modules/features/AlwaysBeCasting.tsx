@@ -23,10 +23,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.EXPEL_HARM.id,
     TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id,
     //covenants
-    SPELLS.WEAPONS_OF_ORDER_CAST.id,
-    SPELLS.BONEDUST_BREW_CAST.id,
-    SPELLS.FAELINE_STOMP_CAST.id,
-    SPELLS.FALLEN_ORDER_CAST.id,
+    TALENTS_MONK.BONEDUST_BREW_TALENT.id,
+    TALENTS_MONK.FAELINE_STOMP_TALENT.id,
   ];
   constructor(options: Options) {
     super(options);

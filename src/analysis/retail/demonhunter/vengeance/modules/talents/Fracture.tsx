@@ -31,13 +31,17 @@ const getMetaInitialFuryLimit = (hasT292Pc: boolean) =>
 const getNonMetaInitialFuryLimit = (hasT292Pc: boolean) =>
   hasT292Pc ? T29_NOT_META_FURY_LIMIT : DEFAULT_NOT_META_FURY_LIMIT;
 
+type FractureBoxRowEntry = BoxRowEntry & {
+  event: CastEvent;
+};
+
 export default class Fracture extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     furyTracker: FuryTracker,
   };
 
-  castEntries: BoxRowEntry[] = [];
+  castEntries: FractureBoxRowEntry[] = [];
   inMetaFuryLimit = getMetaInitialFuryLimit(false);
   notMetaFuryLimit = getNonMetaInitialFuryLimit(false);
   protected enemies!: Enemies;
@@ -81,10 +85,8 @@ export default class Fracture extends Analyzer {
     const targetName = this.owner.getTargetName(event);
 
     const [furyPerformance, furyPerformanceNote] = this.getCastFuryPerformance(event);
-    const [
-      soulFragmentPerformance,
-      soulFragmentPerformanceNote,
-    ] = this.getCastSoulFragmentPerformance(event);
+    const [soulFragmentPerformance, soulFragmentPerformanceNote] =
+      this.getCastSoulFragmentPerformance(event);
     const performance =
       furyPerformance === QualitativePerformance.Good &&
       soulFragmentPerformance === QualitativePerformance.Good
@@ -114,7 +116,7 @@ export default class Fracture extends Analyzer {
       </>
     );
 
-    this.castEntries.push({ value: performance, tooltip });
+    this.castEntries.push({ value: performance, tooltip, event });
   }
 
   getCastFuryPerformance(event: CastEvent): [QualitativePerformance, ReactNode] {
@@ -204,8 +206,7 @@ export default class Fracture extends Analyzer {
         spell={TALENTS.FRACTURE_TALENT}
         castEntries={this.castEntries}
         goodLabel={t({
-          id:
-            'guide.demonhunter.vengeance.sections.rotation.fracture.data.summary.performance.good',
+          id: 'guide.demonhunter.vengeance.sections.rotation.fracture.data.summary.performance.good',
           message: 'Fractures',
         })}
         includeGoodCastPercentage
@@ -213,6 +214,7 @@ export default class Fracture extends Analyzer {
           id: 'guide.demonhunter.vengeance.sections.rotation.fracture.data.summary.performance.bad',
           message: 'Bad Fractures',
         })}
+        onClickBox={(idx) => console.log(this.castEntries[idx].event)}
       />
     );
     const noCastData = (

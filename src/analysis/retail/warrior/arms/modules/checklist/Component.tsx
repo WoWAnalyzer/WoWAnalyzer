@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-//import COVENANTS from 'game/shadowlands/COVENANTS';
+import TALENTS from 'common/TALENTS/warrior';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
@@ -33,22 +33,14 @@ const ArmsWarriorChecklist = ({
         checkResults={checkResults}
         castEfficiency={castEfficiency}
         name="Rotation Efficiency"
-        cooldowns={[
-          SPELLS.COLOSSUS_SMASH,
-          SPELLS.WARBREAKER_TALENT,
-          SPELLS.AVATAR_TALENT,
-          SPELLS.DEADLY_CALM_TALENT,
-          SPELLS.ANCIENT_AFTERSHOCK,
-          SPELLS.SPEAR_OF_BASTION,
-          SPELLS.CONQUERORS_BANNER,
-        ]}
+        cooldowns={[SPELLS.COLOSSUS_SMASH, TALENTS.WARBREAKER_TALENT, TALENTS.AVATAR_TALENT]}
         description={
           <div style={{ color: 'white' }}>
             Warrior has a simple rotation. That does not mean the class is trivial to play. Small
             mistakes will compound themselves and result in a large final DPS loss. Use the graphic
             below to see if you are making small rotational mistakes.
             <strong> NOTE:</strong> The priority list below does not include{' '}
-            <SpellLink id={SPELLS.REND_TALENT.id} icon />
+            <SpellLink id={TALENTS.REND_ARMS_TALENT.id} icon />
             <br />
           </div>
         }
@@ -62,40 +54,21 @@ const ArmsWarriorChecklist = ({
           }
           description={
             <>
-              You should cast <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> as much as possible
-              when the target is above 20% (or 35% with{' '}
-              <SpellLink id={SPELLS.MASSACRE_TALENT_ARMS.id} />) . It should only be used during the
-              execution phase to refresh{' '}
-              <SpellLink id={SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF.id} icon /> as{' '}
-              <SpellLink id={SPELLS.EXECUTE.id} /> is more rage efficient than Mortal Strike.
+              Try to use as many <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> as possible. It is
+              generally your strongest hitting ability, unless you are in{' '}
+              <SpellLink id={SPELLS.EXECUTE} /> range and do not have the{' '}
+              <SpellLink id={TALENTS.EXECUTIONERS_PRECISION_TALENT} /> talent. Especially with the
+              4-set bonus in Season 1 of Dragonflight, where keeping up your buff up is important.
             </>
           }
         >
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> outside execution phase
+                <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> uses
               </>
             }
-            thresholds={thresholds.goodMortalStrike}
-          />
-          <Requirement
-            name={
-              <>
-                <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> which should have been{' '}
-                <SpellLink id={SPELLS.EXECUTE.id} icon />
-              </>
-            }
-            thresholds={thresholds.tooMuchMortalStrike}
-          />
-          <Requirement
-            name={
-              <>
-                <SpellLink id={SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF.id} icon /> refreshed with{' '}
-                <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> during execution phase
-              </>
-            }
-            thresholds={thresholds.notEnoughMortalStrike}
+            thresholds={thresholds.mortalStrikeUsage}
           />
         </Rule>
       )}

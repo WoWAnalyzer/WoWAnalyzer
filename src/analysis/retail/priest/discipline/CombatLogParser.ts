@@ -60,6 +60,7 @@ import ProtectiveLight from '../shared/ProtectiveLight';
 import ResplendentLight from './modules/spells/ResplendentLight';
 import TwilightEquilibrium from './modules/spells/TwilightEquilibrium';
 import RaptureAnalysis from './modules/guide/RaptureAnalysis';
+import AtonementNormalizer from './normalizers/AtonementTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -68,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     shadowfiendNormalizer: ShadowfiendNormalizer,
     powerWordRadianceNormalizer: PowerWordRadianceNormalizer,
     manifestedTwilightNormalizer: ManifestedTwilightNormalizer,
+    atonementNormalizer: AtonementNormalizer,
 
     spellUsable: SpellUsable,
     spellManaCost: SpellManaCost,

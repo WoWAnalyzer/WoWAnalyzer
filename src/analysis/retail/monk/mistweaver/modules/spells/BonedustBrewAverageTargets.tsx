@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
@@ -29,17 +28,17 @@ class BonedustBrewAverageTargets extends Analyzer {
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BONEDUST_BREW_CAST),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.BONEDUST_BREW_TALENT),
       this.cast,
     );
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BONEDUST_BREW_CAST),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.BONEDUST_BREW_TALENT),
       this.friendlyBuffs,
     );
 
     this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.BONEDUST_BREW_CAST),
+      Events.applydebuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.BONEDUST_BREW_TALENT),
       this.enemyDebuffs,
     );
   }
@@ -72,7 +71,7 @@ class BonedustBrewAverageTargets extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         dropdown={this.baseTable}
       >
-        <BoringSpellValueText spellId={SPELLS.BONEDUST_BREW_CAST.id}>
+        <BoringSpellValueText spellId={TALENTS_MONK.BONEDUST_BREW_TALENT.id}>
           <>
             {(this.totalBuffs / this.totalCasts).toFixed(2)}{' '}
             <small>average allies hit per cast</small>

@@ -20,6 +20,9 @@ import {
   didEchoExpire,
   ECHO,
   ECHO_TEMPORAL_ANOMALY,
+  ECHO_TYPE,
+  getEchoTypeForGoldenHour,
+  getEchoTypeForLifebind,
   isFromHardcastEcho,
   isFromTAEcho,
 } from '../../normalizers/CastLinkNormalizer';
@@ -78,6 +81,11 @@ class Echo extends Analyzer {
   isEchoHeal(event: HealEvent) {
     const targetID = event.targetID;
     const spellID = event.ability.guid;
+    if (spellID === SPELLS.LIFEBIND_HEAL.id) {
+      return getEchoTypeForLifebind(event) !== ECHO_TYPE.NONE;
+    } else if (spellID === SPELLS.GOLDEN_HOUR_HEAL.id) {
+      return getEchoTypeForGoldenHour(event) !== ECHO_TYPE.NONE;
+    }
     if (event.tick) {
       if (!this.hotTracker.hots[targetID] || !this.hotTracker.hots[targetID][spellID]) {
         return false;
@@ -91,6 +99,11 @@ class Echo extends Analyzer {
   isFromTaEcho(event: HealEvent) {
     const targetID = event.targetID;
     const spellID = event.ability.guid;
+    if (spellID === SPELLS.LIFEBIND_HEAL.id) {
+      return getEchoTypeForLifebind(event) === ECHO_TYPE.TA;
+    } else if (spellID === SPELLS.GOLDEN_HOUR_HEAL.id) {
+      return getEchoTypeForGoldenHour(event) === ECHO_TYPE.TA;
+    }
     if (event.tick) {
       if (!this.hotTracker.hots[targetID] || !this.hotTracker.hots[targetID][spellID]) {
         return;
@@ -196,12 +209,18 @@ class Echo extends Analyzer {
         color: SPELL_COLORS.REVERSION,
         label: 'Reversion',
         spellId: TALENTS_EVOKER.REVERSION_TALENT.id,
-        value: this.totalEchoHealingForSpell(SPELLS.REVERSION_ECHO.id),
-        valueTooltip:
-          formatNumber(this.totalEchoHealingForSpell(SPELLS.REVERSION_ECHO.id)) +
-          ' in ' +
-          this.consumptionsBySpell.get(SPELLS.REVERSION_ECHO.id) +
-          ' consumptions',
+        value:
+          this.totalEchoHealingForSpell(SPELLS.REVERSION_ECHO.id) +
+          this.totalEchoHealingForSpell(SPELLS.GOLDEN_HOUR_HEAL.id),
+        valueTooltip: (
+          <>
+            <SpellLink id={TALENTS_EVOKER.REVERSION_TALENT} /> healing:{' '}
+            {formatNumber(this.totalEchoHealingForSpell(SPELLS.REVERSION_ECHO.id))} <br />
+            and <SpellLink id={TALENTS_EVOKER.GOLDEN_HOUR_TALENT} /> healing:{' '}
+            {formatNumber(this.totalEchoHealingForSpell(SPELLS.GOLDEN_HOUR_HEAL.id))} <br />
+            in {this.consumptionsBySpell.get(SPELLS.REVERSION_ECHO.id) + ' consumptions'}
+          </>
+        ),
       },
       {
         color: SPELL_COLORS.EMERALD_BLOSSOM,
@@ -218,12 +237,18 @@ class Echo extends Analyzer {
         color: SPELL_COLORS.VERDANT_EMBRACE,
         label: 'Verdant Embrace',
         spellId: SPELLS.VERDANT_EMBRACE_HEAL.id,
-        value: this.totalEchoHealingForSpell(SPELLS.VERDANT_EMBRACE_HEAL.id),
-        valueTooltip:
-          formatNumber(this.totalEchoHealingForSpell(SPELLS.VERDANT_EMBRACE_HEAL.id)) +
-          ' in ' +
-          this.consumptionsBySpell.get(SPELLS.VERDANT_EMBRACE_HEAL.id) +
-          ' consumptions',
+        value:
+          this.totalEchoHealingForSpell(SPELLS.VERDANT_EMBRACE_HEAL.id) +
+          this.totalEchoHealingForSpell(SPELLS.LIFEBIND_HEAL.id),
+        valueTooltip: (
+          <>
+            <SpellLink id={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> healing:{' '}
+            {formatNumber(this.totalEchoHealingForSpell(SPELLS.VERDANT_EMBRACE_HEAL.id))} <br />
+            and <SpellLink id={TALENTS_EVOKER.LIFEBIND_TALENT} /> healing:{' '}
+            {formatNumber(this.totalEchoHealingForSpell(SPELLS.LIFEBIND_HEAL.id))} <br />
+            in {this.consumptionsBySpell.get(SPELLS.VERDANT_EMBRACE_HEAL.id) + ' consumptions'}
+          </>
+        ),
       },
     ].filter((item) => {
       return item.value > 0;

@@ -267,7 +267,7 @@ class FoodChecker extends Analyzer {
   suggestions(when: When) {
     when(this.higherFoodSuggestionThresholds).addSuggestion((suggest) =>
       suggest(this.SuggestionText)
-        .icon(SPELLS.FEAST_OF_GLUTTONOUS_HEDONISM_INT.icon)
+        .icon(SPELLS.FATED_FORTUNE_COOKIE.icon)
         .staticImportance(this.suggestionImportance),
     );
   }

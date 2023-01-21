@@ -10,11 +10,12 @@ import {
   ShatteredRestoration,
   SwallowedAnger,
   TheHunt,
+  TheHuntNormalizer,
   UnnaturalMalice,
+  DemonSoulBuff,
+  FodderToTheFlame,
 } from 'analysis/retail/demonhunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DemonSoulBuff from 'analysis/retail/demonhunter/shared/modules/spells/DemonSoulBuff';
-import FodderToTheFlame from 'analysis/retail/demonhunter/shared/modules/talents/FodderToTheFlame';
 
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
@@ -59,6 +60,7 @@ import DefensiveBuffLinkNormalizer from './modules/core/MajorDefensives/Defensiv
 import FieryBrand2 from './modules/core/MajorDefensives/FieryBrand';
 import Metamorphosis2 from './modules/core/MajorDefensives/Metamorphosis';
 import Guide from './Guide';
+import FelDevastationNormalizer from './normalizers/FelDevastationNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -85,6 +87,8 @@ class CombatLogParser extends CoreCombatLogParser {
     soulCleaveEventLinkNormalizer: SoulCleaveEventLinkNormalizer,
     spiritBombEventLinkNormalizer: SpiritBombEventLinkNormalizer,
     defensiveBuffLinkNormalizer: DefensiveBuffLinkNormalizer,
+    theHuntNormalizer: TheHuntNormalizer,
+    felDevastationNormalizer: FelDevastationNormalizer,
 
     // Spell
     immolationAura: ImmolationAura,

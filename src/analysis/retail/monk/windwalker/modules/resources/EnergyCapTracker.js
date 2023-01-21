@@ -5,13 +5,14 @@ import { Icon } from 'interface';
 import { Tooltip } from 'interface';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { TALENTS_MONK } from 'common/TALENTS';
 
 const BASE_ENERGY_REGEN = 10;
 const ASCENSION_REGEN_MULTIPLIER = 1.1;
-const EE_REGEN_ADDITION = 15;
 
 const BASE_ENERGY_MAX = 100;
 const ASCENSION_ENERGY_MAX_ADDITION = 20;
+const INNER_PEACE_ENERGY_MAX_ADDITION = 10;
 
 const RESOURCE_REFUND_ON_MISS = 0.8;
 
@@ -27,24 +28,23 @@ class EnergyCapTracker extends RegenResourceCapTracker {
   static isRegenHasted = true;
   static cumulativeEventWindow = 400;
   static resourceRefundOnMiss = RESOURCE_REFUND_ON_MISS;
-  static buffsChangeRegen = [SPELLS.ENERGIZING_ELIXIR_TALENT.id];
+  static buffsChangeRegen = [];
 
   naturalRegenRate() {
     let regen = super.naturalRegenRate();
-    if (this.selectedCombatant.hasTalent(SPELLS.ASCENSION_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.ASCENSION_TALENT)) {
       regen *= ASCENSION_REGEN_MULTIPLIER;
-    }
-    // Energizing Elixir adds 15 energy per second regen for 5 seconds, not increased by haste
-    if (this.combatantHasBuffActive(SPELLS.ENERGIZING_ELIXIR_TALENT.id)) {
-      regen += EE_REGEN_ADDITION;
     }
     return regen;
   }
 
   currentMaxResource() {
     let max = BASE_ENERGY_MAX;
-    if (this.selectedCombatant.hasTalent(SPELLS.ASCENSION_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.ASCENSION_TALENT)) {
       max += ASCENSION_ENERGY_MAX_ADDITION;
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.INNER_PEACE_TALENT)) {
+      max += INNER_PEACE_ENERGY_MAX_ADDITION;
     }
     // What should be x.5 becomes x in-game.
     return Math.floor(max);

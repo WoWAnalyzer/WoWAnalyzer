@@ -21,15 +21,14 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import RageDetail from './modules/features/RageDetails';
 import RageTracker from './modules/features/RageTracker';
 import SpellUsable from './modules/features/SpellUsable';
-import SignetOfTormentedKings from './modules/shadowlands/legendaries/SignetOfTormentedKings';
-import Talents from './modules/talents';
+//import Talents from './modules/talents';
 import AngerManagement from './modules/talents/AngerManagement';
 import Avatar from './modules/talents/Avatar';
 import Cleave from './modules/talents/Cleave';
 import DefensiveStance from './modules/talents/DefensiveStance';
 import FervorOfBattle from './modules/talents/FervorOfBattle';
-import ImpendingVictory from './modules/talents/ImpendingVictory';
-import Ravager from './modules/talents/Ravager';
+import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
+//import Ravager from './modules/talents/Ravager';
 import SecondWind from './modules/talents/SecondWind';
 import Skullsplitter from './modules/talents/Skullsplitter';
 import StormBolt from './modules/talents/StormBolt';
@@ -38,6 +37,8 @@ import Warbreaker from './modules/talents/Warbreaker';
 import WarMachine from './modules/talents/WarMachine';
 import BattlelordBuff from './normalizers/BattlelordBuff';
 import OverpowerStacks from './normalizers/OverpowerStacks';
+import SpellReflection from '../shared/modules/talents/SpellReflection';
+import FatalMark from './modules/talents/FatalMark';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -78,7 +79,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rendRefreshes: RendRefreshes,
 
     // Talents
-    talents: Talents,
+    //talents: Talents,
     angerManagement: AngerManagement,
     defensiveStance: DefensiveStance,
     skullsplitter: Skullsplitter,
@@ -91,10 +92,9 @@ class CombatLogParser extends CoreCombatLogParser {
     cleave: Cleave,
     warbreaker: Warbreaker,
     avatar: Avatar,
-    ravager: Ravager,
-
-    // Shadowlands
-    signetofTormentedKings: SignetOfTormentedKings,
+    //ravager: Ravager,
+    spellReflection: SpellReflection,
+    fatalMark: FatalMark,
 
     apl: AplCheck,
   };

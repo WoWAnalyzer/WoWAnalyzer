@@ -51,7 +51,7 @@ const spells = spellIndexableList({
   CALL_OF_YSERA_BUFF: {
     id: 373835,
     name: 'Call of Ysera',
-    icon: '4096390',
+    icon: 'inv_drakemountemerald',
   },
   SPIRITBLOOM: {
     id: 367230,
@@ -143,6 +143,11 @@ const spells = spellIndexableList({
     id: 370452,
     name: 'Shattering Star',
     icon: 'ability_evoker_chargedblast',
+  },
+  ESSENCE_BURST_DEV_BUFF: {
+    id: 359618,
+    name: 'Essence Burst',
+    icon: 'ability_evoker_essenceburst',
   },
 
   // Shared
@@ -277,6 +282,11 @@ const spells = spellIndexableList({
     id: 377102,
     name: 'Exhilarating Burst',
     icon: 'ability_evoker_essenceburst3',
+  },
+  LIFEBIND_BUFF: {
+    id: 373267,
+    name: 'Lifebind',
+    icon: 'ability_evoker_hoverred',
   },
 });
 

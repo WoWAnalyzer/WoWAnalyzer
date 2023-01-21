@@ -42,24 +42,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
-        enabled: combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT),
+        enabled: combatant.hasTalent(TALENTS_MONK.WHIRLING_DRAGON_PUNCH_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
           extraSuggestion:
             'Delaying the cast somewhat to line up with add spawns is acceptable, however.',
-        },
-      },
-      {
-        spell: SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
-        gcd: {
-          static: 1000,
-        },
-        enabled: combatant.hasTalent(SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT),
-        castEfficiency: {
-          suggestion: true,
         },
       },
       {
@@ -88,14 +76,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.CHI_WAVE_TALENT.id,
+        spell: SPELLS.CHI_WAVE_TALENT_DAMAGE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 15,
         gcd: {
           base: 1000,
           minimum: 750,
         },
-        enabled: combatant.hasTalent(SPELLS.CHI_WAVE_TALENT),
+        enabled: combatant.hasTalent(TALENTS_MONK.CHI_WAVE_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.65,
@@ -109,14 +97,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.CHI_BURST_TALENT.id,
+        spell: TALENTS_MONK.CHI_BURST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30,
         gcd: {
           base: 1000,
           minimum: 750,
         },
-        enabled: combatant.hasTalent(SPELLS.CHI_BURST_TALENT),
+        enabled: combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -131,13 +119,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.RUSHING_JADE_WIND_TALENT.id,
+        spell: TALENTS_MONK.RUSHING_JADE_WIND_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: (haste) => 6 / (1 + haste),
         gcd: {
           static: 1000,
         },
-        enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND),
+        enabled: combatant.hasTalent(TALENTS_MONK.RUSHING_JADE_WIND_TALENT),
       },
       // cooldowns
       {
@@ -154,11 +142,11 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SERENITY_TALENT.id,
+        spell: TALENTS_MONK.SERENITY_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: null,
-        enabled: combatant.hasTalent(SPELLS.SERENITY_TALENT),
+        enabled: combatant.hasTalent(TALENTS_MONK.SERENITY_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
@@ -169,7 +157,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: null,
-        enabled: !combatant.hasTalent(SPELLS.SERENITY_TALENT),
+        enabled: combatant.hasTalent(TALENTS_MONK.STORM_EARTH_AND_FIRE_TALENT),
         charges: 2,
         castEfficiency: {
           suggestion: true,
@@ -189,16 +177,9 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.95,
         },
       },
-      {
-        spell: SPELLS.ENERGIZING_ELIXIR_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        gcd: null,
-        enabled: combatant.hasTalent(SPELLS.ENERGIZING_ELIXIR_TALENT),
-      },
       // Utility
       {
-        spell: SPELLS.RING_OF_PEACE_TALENT.id,
+        spell: TALENTS_MONK.RING_OF_PEACE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1000,
@@ -213,7 +194,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.PARALYSIS.id,
+        spell: TALENTS_MONK.PARALYSIS_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           static: 1000,
@@ -229,18 +210,18 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ROLL.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(SPELLS.CELERITY_TALENT) ? 15 : 20,
+        cooldown: combatant.hasTalent(TALENTS_MONK.CELERITY_TALENT) ? 15 : 20,
         gcd: null,
-        charges: combatant.hasTalent(SPELLS.CELERITY_TALENT) ? 3 : 2,
-        enabled: !combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT),
+        charges: combatant.hasTalent(TALENTS_MONK.IMPROVED_ROLL_TALENT) ? 3 : 2,
+        enabled: !combatant.hasTalent(TALENTS_MONK.CHI_TORPEDO_TALENT),
       },
       {
-        spell: SPELLS.CHI_TORPEDO_TALENT.id,
+        spell: TALENTS_MONK.CHI_TORPEDO_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 20,
         gcd: null,
-        charges: 2,
-        enabled: combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT),
+        charges: combatant.hasTalent(TALENTS_MONK.IMPROVED_ROLL_TALENT) ? 3 : 2,
+        enabled: combatant.hasTalent(TALENTS_MONK.CHI_TORPEDO_TALENT),
       },
       {
         spell: SPELLS.FLYING_SERPENT_KICK.id,
@@ -251,16 +232,16 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.TIGERS_LUST_TALENT.id,
+        spell: TALENTS_MONK.TIGERS_LUST_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
           static: 1000,
         },
-        enabled: combatant.hasTalent(SPELLS.TIGERS_LUST_TALENT),
+        enabled: combatant.hasTalent(TALENTS_MONK.TIGERS_LUST_TALENT),
       },
       {
-        spell: SPELLS.TRANSCENDENCE.id,
+        spell: TALENTS_MONK.TRANSCENDENCE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           static: 1000,
@@ -292,7 +273,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SPEAR_HAND_STRIKE.id,
+        spell: TALENTS_MONK.SPEAR_HAND_STRIKE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
       },
@@ -316,27 +297,28 @@ class Abilities extends CoreAbilities {
       },
       // Defensives
       {
-        spell: SPELLS.FORTIFYING_BREW.id,
-        buffSpellId: SPELLS.FORTIFYING_BREW.id,
+        spell: TALENTS_MONK.FORTIFYING_BREW_TALENT.id,
+        buffSpellId: TALENTS_MONK.FORTIFYING_BREW_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120,
+        cooldown: combatant.hasTalent(TALENTS_MONK.IRONSHELL_BREW_TALENT) ? 240 : 360,
+        enabled: combatant.hasTalent(TALENTS_MONK.FORTIFYING_BREW_TALENT),
         gcd: null,
       },
       {
-        spell: SPELLS.DIFFUSE_MAGIC_TALENT.id,
-        buffSpellId: SPELLS.DIFFUSE_MAGIC_TALENT.id,
+        spell: TALENTS_MONK.DIFFUSE_MAGIC_TALENT.id,
+        buffSpellId: TALENTS_MONK.DIFFUSE_MAGIC_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 90,
         gcd: null,
-        enabled: combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT),
+        enabled: combatant.hasTalent(TALENTS_MONK.DIFFUSE_MAGIC_TALENT),
       },
       {
-        spell: SPELLS.DAMPEN_HARM_TALENT.id,
-        buffSpellId: SPELLS.DAMPEN_HARM_TALENT.id,
+        spell: TALENTS_MONK.DAMPEN_HARM_TALENT.id,
+        buffSpellId: TALENTS_MONK.DAMPEN_HARM_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 90,
         gcd: null,
-        enabled: combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT),
+        enabled: combatant.hasTalent(TALENTS_MONK.DAMPEN_HARM_TALENT),
       },
     ];
   }

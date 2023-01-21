@@ -1,4 +1,4 @@
-import { RootState } from 'interface/reducers';
+import { RootState } from 'store';
 
 export const getUser = (state: RootState) => state.user;
 export const hasPremium = (state: RootState) => {

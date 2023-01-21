@@ -156,7 +156,8 @@ class SuddenAmbush extends Analyzer {
             Buff Utilization: <strong>{formatPercentage(this.saUtil, 1)}%</strong>
             <ul>
               <li>
-                <SpellIcon id={SPELLS.SUDDEN_AMBUSH.id} /> Used: <strong>{this.saUsed}</strong>
+                <SpellIcon id={TALENTS_DRUID.SUDDEN_AMBUSH_TALENT.id} /> Used:{' '}
+                <strong>{this.saUsed}</strong>
               </li>
               <li>
                 <CrossIcon /> Overwritten: <strong>{this.saOverwritten}</strong>

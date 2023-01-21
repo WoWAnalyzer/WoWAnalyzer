@@ -1,3 +1,4 @@
+import { t } from '@lingui/macro';
 import LivingFlame from 'analysis/retail/evoker/shared/modules/core/LivingFlame';
 import { SPELL_COLORS } from 'analysis/retail/monk/mistweaver/constants';
 import { formatNumber, formatThousands } from 'common/format';
@@ -6,7 +7,8 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import Events, { HealEvent } from 'parser/core/Events';
+import Events, { EmpowerEndEvent, HealEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import DonutChart from 'parser/ui/DonutChart';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -38,6 +40,7 @@ class CallOfYsera extends Analyzer {
   extraBreathHoTHealing: number = 0;
   buffedLivingFlames: number = 0;
   extraLivingFlameHealing: number = 0;
+  empoweredDbCasts: number = 0;
 
   get totalBreathHealing() {
     return this.extraBreathHealing + this.extraBreathHoTHealing;
@@ -49,6 +52,10 @@ class CallOfYsera extends Analyzer {
     if (!this.active) {
       return;
     }
+    this.addEventListener(
+      Events.empowerEnd.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.DREAM_BREATH_TALENT),
+      this.onDBCast,
+    );
     //dream breath and dream breath echo healing
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell([SPELLS.DREAM_BREATH, SPELLS.DREAM_BREATH_ECHO]),
@@ -64,6 +71,60 @@ class CallOfYsera extends Analyzer {
     //verdant embrace echoes each apply their own call of ysera buff, these are always applied after the initial cast and show up in the log as refresh buff events
 
     //empowered spell cast ids are applied as removed as a buff event for the duration of their empower
+  }
+
+  onDBCast(event: EmpowerEndEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.CALL_OF_YSERA_BUFF.id)) {
+      this.empoweredDbCasts += 1;
+    }
+  }
+
+  get percentDbBuffed() {
+    return (this.empoweredDbCasts / this.dreamBreath.totalBreaths) * 100;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.percentDbBuffed,
+      isLessThan: {
+        minor: 80,
+        average: 70,
+        major: 60,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  get badCastsThresholds() {
+    return {
+      actual: this.buffedLivingFlames,
+      isGreaterThan: {
+        minor: 0,
+        average: 3,
+        major: 5,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Try to empower all <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> casts using the{' '}
+          <SpellLink id={TALENTS_EVOKER.CALL_OF_YSERA_TALENT} /> buff and avoid using it on{' '}
+          <SpellLink id={SPELLS.LIVING_FLAME_CAST.id} />
+        </>,
+      )
+        .icon(TALENTS_EVOKER.DREAM_BREATH_TALENT.icon)
+        .actual(
+          `${this.percentDbBuffed.toFixed(1)}${t({
+            id: 'evoker.preservation.suggestions.callOfYsera.percentBuffed',
+            message: `% of casts buffed`,
+          })}`,
+        )
+        .recommended(`at least ${recommended}% buffed recommended`),
+    );
   }
 
   onDreamBreathHeal(event: HealEvent) {

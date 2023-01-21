@@ -47,13 +47,8 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.BONEDUST_BREW_CAST.id,
+        spellId: TALENTS_MONK.BONEDUST_BREW_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_MONK.BONEDUST_BREW_TALENT),
-        timelineHighlight: true,
-      },
-      {
-        spellId: SPELLS.FALLEN_ORDER_CAST.id,
-        enabled: false,
         timelineHighlight: true,
       },
 

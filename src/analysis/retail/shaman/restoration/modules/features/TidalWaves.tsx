@@ -28,6 +28,10 @@ class TidalWaves extends Analyzer {
       Events.begincast.by(SELECTED_PLAYER).spell(TALENTS.HEALING_WAVE_TALENT),
       this._onHealingWave,
     );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CHAIN_HEAL_TALENT),
+      this._onChainHeal,
+    );
   }
 
   _onHealingSurge(event: CastEvent) {
@@ -48,6 +52,19 @@ class TidalWaves extends Analyzer {
       return;
     }
 
+    const hasTw = this.selectedCombatant.hasBuff(
+      SPELLS.TIDAL_WAVES_BUFF.id,
+      event.timestamp,
+      0,
+      TIDAL_WAVES_BUFF_MINIMAL_ACTIVE_TIME,
+    );
+    if (hasTw) {
+      const cast = this.abilityTracker.getAbility(event.ability.guid, event.ability);
+      cast.healingTwHits = (cast.healingTwHits || 0) + 1;
+    }
+  }
+
+  _onChainHeal(event: CastEvent) {
     const hasTw = this.selectedCombatant.hasBuff(
       SPELLS.TIDAL_WAVES_BUFF.id,
       event.timestamp,
@@ -96,13 +113,13 @@ class TidalWaves extends Analyzer {
     const healingSurge = this.abilityTracker.getAbility(SPELLS.HEALING_SURGE.id);
     const chainHeal = this.abilityTracker.getAbility(TALENTS.CHAIN_HEAL_TALENT.id);
 
-    const chainHealCasts = chainHeal.casts || 0;
     const riptideCasts = riptide.casts || 0;
-    const totalTwGenerated = riptideCasts + chainHealCasts;
+    const totalTwGenerated = riptideCasts * 2;
     const twHealingWaves = healingWave.healingTwHits || 0;
     const twHealingSurges = healingSurge.healingTwHits || 0;
+    const twChainHeals = chainHeal.healingTwHits || 0;
 
-    const totalTwUsed = twHealingWaves + twHealingSurges;
+    const totalTwUsed = twHealingWaves + twHealingSurges + twChainHeals;
 
     const unusedTwRate = 1 - totalTwUsed / totalTwGenerated;
 

@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS/demonhunter';
 
 // prettier-ignore
 export default [
+  change(date(2023, 1, 7), 'Add wasted Fury to Resource Usage section of Guide.', ToppleTheNun),
   change(date(2022, 12, 30), 'Wrap performance box rows in cast breakdowns.', ToppleTheNun),
   change(date(2022, 12, 29), <>Add statistic for damage added by <SpellLink id={SPELLS.DEMON_SOUL_BUFF_NON_FODDER}/>, <SpellLink id={SPELLS.DEMON_SOUL_BUFF_FODDER}/>, and <SpellLink id={TALENTS.FODDER_TO_THE_FLAME_TALENT} />.</>, ToppleTheNun),
   change(date(2022, 12, 7), 'Fix cast breakdowns showing "[object Object]" in summary.', ToppleTheNun),

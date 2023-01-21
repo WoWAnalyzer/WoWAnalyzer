@@ -19,13 +19,17 @@ import TALENTS from 'common/TALENTS/demonhunter';
 import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/CastSummaryAndBreakdown';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 
+type SoulCleaveBoxRowEntry = BoxRowEntry & {
+  event: CastEvent;
+};
+
 export default class SoulCleave extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
 
   enemies!: Enemies;
-  private castEntries: BoxRowEntry[] = [];
+  private castEntries: SoulCleaveBoxRowEntry[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -34,10 +38,8 @@ export default class SoulCleave extends Analyzer {
 
   onCast(event: CastEvent) {
     const [fieryDemisePerformance, fieryDemiseNote] = this.getCastFieryDemisePerformance(event);
-    const [
-      spiritBombBetterPerformance,
-      spiritBombBetterNote,
-    ] = this.getCastWhenSpiritBombBetterPerformance(event);
+    const [spiritBombBetterPerformance, spiritBombBetterNote] =
+      this.getCastWhenSpiritBombBetterPerformance(event);
     const performance = combineQualitativePerformances([
       fieryDemisePerformance,
       spiritBombBetterPerformance,
@@ -52,7 +54,7 @@ export default class SoulCleave extends Analyzer {
       </>
     );
 
-    this.castEntries.push({ value: performance, tooltip });
+    this.castEntries.push({ value: performance, tooltip, event });
   }
 
   getCastFieryDemisePerformance(event: CastEvent): [QualitativePerformance, ReactNode] {
@@ -182,14 +184,12 @@ export default class SoulCleave extends Analyzer {
         spell={SPELLS.SOUL_CLEAVE}
         castEntries={this.castEntries}
         goodLabel={t({
-          id:
-            'guide.demonhunter.vengeance.sections.rotation.soulCleave.data.summary.performance.good',
+          id: 'guide.demonhunter.vengeance.sections.rotation.soulCleave.data.summary.performance.good',
           message: 'Soul Cleaves',
         })}
         includeGoodCastPercentage
         badLabel={t({
-          id:
-            'guide.demonhunter.vengeance.sections.rotation.soulCleave.data.summary.performance.bad',
+          id: 'guide.demonhunter.vengeance.sections.rotation.soulCleave.data.summary.performance.bad',
           message: 'Bad Soul Cleaves',
         })}
       />

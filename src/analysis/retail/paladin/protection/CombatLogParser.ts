@@ -3,9 +3,7 @@ import {
   HolyPowerTracker,
   HolyPowerDetails,
   DivineToll,
-  AshenHallow,
   HolyPowerPerMinute,
-  VanquishersHammer,
 } from 'analysis/retail/paladin/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -85,8 +83,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Covenant Abilities
     divineToll: DivineToll,
-    ashenHallow: AshenHallow,
-    vanquishersHammer: VanquishersHammer,
 
     // Tier Set
     sepulcherSet: SepulcherTierSet,
