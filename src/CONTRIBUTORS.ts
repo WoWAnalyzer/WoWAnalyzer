@@ -2050,6 +2050,10 @@ export const Greedyhugs: Contributor = {
     },
   ],
 };
+export const Heisenburger: Contributor = {
+  nickname: 'Heisenburger',
+  github: 'Heisenburger505',
+};
 export const Lapideas: Contributor = {
   nickname: 'Lapideas',
   github: 'jeremyzahner',

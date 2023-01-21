@@ -28,7 +28,8 @@ const config: Config = {
       (such as <SpellLink id={TALENTS.HOLY_SHOCK_TALENT.id} /> and{' '}
       <SpellLink id={TALENTS.LIGHT_OF_DAWN_TALENT.id} />
       ). Finally, don't cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> unless there's nothing
-      else to cast, or you're playing with <SpellLink id={TALENTS.MARAADS_DYING_BREATH_TALENT.id} />.
+      else to cast, or you're playing with <SpellLink id={TALENTS.MARAADS_DYING_BREATH_TALENT.id} />
+      .
       <br />
       <br />
       If you want to learn more about Holy Paladins, join the Paladin community at the{' '}

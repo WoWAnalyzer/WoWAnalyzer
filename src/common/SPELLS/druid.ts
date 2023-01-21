@@ -795,12 +795,12 @@ const spells = spellIndexableList({
   BALANCE_OF_ALL_THINGS_LUNAR: {
     id: 394050,
     name: 'Balance of All Things',
-    icon: 'ability_druid_earthandsky'
+    icon: 'ability_druid_earthandsky',
   },
   BALANCE_OF_ALL_THINGS_SOLAR: {
     id: 394049,
     name: 'Balance of All Things',
-    icon: 'ability_druid_earthandsky'
+    icon: 'ability_druid_earthandsky',
   },
 
   /////////////////////////////////////////////////////////////////////////////

@@ -1,5 +1,5 @@
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import { maybeGetSpell } from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbilityEvent,
@@ -23,7 +23,7 @@ const DEBUG = false;
 export const COOLDOWN_LAG_MARGIN = 150;
 
 function spellName(spellId: number) {
-  return SPELLS[spellId] ? SPELLS[spellId].name : '???';
+  return maybeGetSpell(spellId)?.name ?? '???';
 }
 
 /**
@@ -678,15 +678,15 @@ class SpellUsable extends Analyzer {
     updateType: UpdateSpellUsableType,
     combatantId: number,
   ): UpdateSpellUsableEvent {
-    const spell = SPELLS[canonicalSpellId];
+    const spell = maybeGetSpell(canonicalSpellId);
 
     const event: UpdateSpellUsableEvent = {
       type: EventType.UpdateSpellUsable,
       timestamp,
       ability: {
         guid: canonicalSpellId,
-        name: spell.name ?? '',
-        abilityIcon: spell.icon ?? '',
+        name: spell?.name ?? '',
+        abilityIcon: spell?.icon ?? '',
       },
       updateType,
       isOnCooldown: info.maxCharges > info.chargesAvailable,
