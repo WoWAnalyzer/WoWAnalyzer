@@ -1,19 +1,22 @@
 import talents from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
+import {
+  absoluteMitigation,
+  MajorDefensive,
+} from 'interface/guide/components/MajorDefensives/core';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { ReactNode } from 'react';
-import { absoluteMitigation, MajorDefensive } from './core';
 
 export class ZenMeditation extends MajorDefensive {
   constructor(options: Options) {
-    super({ talent: talents.ZEN_MEDITATION_TALENT }, options);
+    super({ triggerSpell: talents.ZEN_MEDITATION_TALENT }, options);
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.recordDamage);
   }
 
   private recordDamage(event: DamageEvent) {
-    if (this.defensiveActive && !event.sourceIsFriendly) {
+    if (this.isDefensiveActive(event) && !event.sourceIsFriendly) {
       this.recordMitigation({
         event,
         mitigatedAmount: absoluteMitigation(event, 0.6),

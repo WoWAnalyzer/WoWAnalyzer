@@ -8,7 +8,14 @@ import { PerformanceMark, useAnalyzers } from 'interface/guide';
 import { CooldownExpandableItem } from 'interface/guide/components/CooldownExpandable';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { AnyEvent, BuffEvent, DamageEvent, EventType, FightEndEvent, ResourceActor } from 'parser/core/Events';
+import Events, {
+  AnyEvent,
+  BuffEvent,
+  DamageEvent,
+  EventType,
+  FightEndEvent,
+  ResourceActor,
+} from 'parser/core/Events';
 import BoringValue from 'parser/ui/BoringValueText';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
@@ -158,7 +165,10 @@ export class MajorDefensive extends Analyzer {
   protected currentMitigation?: MitigatedEvent[];
   protected enemies!: Enemies;
 
-  constructor({ triggerSpell, appliedSpell, isBuff = true }: MajorDefensiveOptions, options: Options) {
+  constructor(
+    { triggerSpell, appliedSpell, isBuff = true }: MajorDefensiveOptions,
+    options: Options,
+  ) {
     super(options);
     this.active =
       !isTalent(triggerSpell) ||
@@ -226,11 +236,11 @@ export class MajorDefensive extends Analyzer {
     );
   }
 
-  isDefensiveActive(event: DamageEvent, shouldCheckEnemyBuff: boolean = false): boolean {
+  isDefensiveActive(event: AnyEvent, shouldCheckEnemyBuff: boolean = false): boolean {
     if (!shouldCheckEnemyBuff) {
       return this.lastApply !== undefined;
     }
-    if (shouldIgnore(this.enemies, event)) {
+    if (event.type === EventType.Damage && shouldIgnore(this.enemies, event)) {
       return true;
     }
     const enemy = this.enemies.getSourceEntity(event);

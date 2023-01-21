@@ -3,6 +3,12 @@ import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { SpellLink, TooltipElement } from 'interface';
+import {
+  absoluteMitigation,
+  MajorDefensive,
+  Mitigation,
+  MitigationSegment,
+} from 'interface/guide/components/MajorDefensives/core';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventFilter from 'parser/core/EventFilter';
 import Events, {
@@ -13,7 +19,6 @@ import Events, {
 } from 'parser/core/Events';
 import { ReactNode } from 'react';
 import CountsAsBrew, { brewCooldownDisplay } from '../../components/CountsAsBrew';
-import { absoluteMitigation, MajorDefensive, Mitigation, MitigationSegment } from './core';
 
 export class FortifyingBrew extends MajorDefensive {
   private fortBrewStaggerPool: number = 0;
@@ -21,7 +26,10 @@ export class FortifyingBrew extends MajorDefensive {
 
   constructor(options: Options) {
     super(
-      { talent: talents.FORTIFYING_BREW_TALENT, buffSpell: SPELLS.FORTIFYING_BREW_BRM_BUFF },
+      {
+        triggerSpell: talents.FORTIFYING_BREW_TALENT,
+        appliedSpell: SPELLS.FORTIFYING_BREW_BRM_BUFF,
+      },
       options,
     );
 
@@ -36,7 +44,7 @@ export class FortifyingBrew extends MajorDefensive {
   }
 
   private recordDamage(event: DamageEvent) {
-    if (this.defensiveActive && !event.sourceIsFriendly) {
+    if (this.isDefensiveActive(event) && !event.sourceIsFriendly) {
       this.recordMitigation({
         event,
         mitigatedAmount: absoluteMitigation(event, 0.2),
@@ -45,7 +53,7 @@ export class FortifyingBrew extends MajorDefensive {
   }
 
   private recordStagger(event: AddStaggerEvent) {
-    if (this.defensiveActive) {
+    if (this.isDefensiveActive(event)) {
       this.fortBrewStaggerPool += 0.15 * event.amount;
     }
   }
@@ -61,7 +69,7 @@ export class FortifyingBrew extends MajorDefensive {
     const purifyRatio = event.amount / (event.amount + event.newPooledDamage);
     const purifyAmount = Math.ceil(purifyRatio * this.fortBrewStaggerPool);
 
-    if (this.defensiveActive && event.trigger?.ability.guid !== SPELLS.STAGGER_TAKEN.id) {
+    if (this.isDefensiveActive(event) && event.trigger?.ability.guid !== SPELLS.STAGGER_TAKEN.id) {
       this.recordMitigation({
         event,
         mitigatedAmount: purifyAmount * (this.hasGaiPlins ? 1.25 : 1),

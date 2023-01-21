@@ -1,23 +1,26 @@
+import { isTalent } from 'common/TALENTS/types';
+import { buffId } from 'interface/guide/components/MajorDefensives';
 import { Options } from 'parser/core/Analyzer';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { ApplyBuffEvent, EventType, GetRelatedEvents, RemoveBuffEvent } from 'parser/core/Events';
-import { buffId, MAJOR_DEFENSIVES } from './DefensiveBuffs';
+import { MAJOR_DEFENSIVES } from './DefensiveBuffs';
 
 const relation = 'defensive-buff-remove';
 const reverseRelation = 'defensive-buff-apply';
 const links = MAJOR_DEFENSIVES.map(
-  ([talent, buff]): EventLink => ({
+  (defensive): EventLink => ({
     linkRelation: relation,
     reverseLinkRelation: reverseRelation,
     linkingEventType: EventType.ApplyBuff,
-    linkingEventId: buffId([talent, buff]),
+    linkingEventId: buffId(defensive),
     referencedEventType: EventType.RemoveBuff,
-    referencedEventId: buffId([talent, buff]),
+    referencedEventId: buffId(defensive),
     anySource: false,
     anyTarget: false,
     maximumLinks: 1,
     forwardBufferMs: 20000,
-    isActive: (combatant) => combatant.hasTalent(talent),
+    isActive: (combatant) =>
+      !isTalent(defensive.triggerSpell) || combatant.hasTalent(defensive.triggerSpell),
   }),
 );
 

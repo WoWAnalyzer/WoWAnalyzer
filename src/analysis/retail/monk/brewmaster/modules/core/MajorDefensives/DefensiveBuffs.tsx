@@ -1,18 +1,31 @@
 import SPELLS from 'common/SPELLS';
-import Spell from 'common/SPELLS/Spell';
 import talents from 'common/TALENTS/monk';
-import { Talent } from 'common/TALENTS/types';
 import Auras from 'parser/core/modules/Auras';
+import { buffId, MajorDefensiveSpellData } from 'interface/guide/components/MajorDefensives';
 
-export const MAJOR_DEFENSIVES: Array<[Talent, Spell | null]> = [
-  [talents.CELESTIAL_BREW_TALENT, null],
-  [talents.FORTIFYING_BREW_TALENT, SPELLS.FORTIFYING_BREW_BRM_BUFF],
-  [talents.DAMPEN_HARM_TALENT, null],
-  [talents.DIFFUSE_MAGIC_TALENT, null],
-  [talents.ZEN_MEDITATION_TALENT, null],
+export const MAJOR_DEFENSIVES: MajorDefensiveSpellData[] = [
+  {
+    triggerSpell: talents.CELESTIAL_BREW_TALENT,
+    isBuff: true,
+  },
+  {
+    triggerSpell: talents.FORTIFYING_BREW_TALENT,
+    appliedSpell: SPELLS.FORTIFYING_BREW_BRM_BUFF,
+    isBuff: true,
+  },
+  {
+    triggerSpell: talents.DAMPEN_HARM_TALENT,
+    isBuff: true,
+  },
+  {
+    triggerSpell: talents.DIFFUSE_MAGIC_TALENT,
+    isBuff: true,
+  },
+  {
+    triggerSpell: talents.ZEN_MEDITATION_TALENT,
+    isBuff: true,
+  },
 ];
-
-export const buffId = ([talent, spell]: [Talent, Spell | null]): number => spell?.id ?? talent.id;
 
 export default class DefensiveBuffs extends Auras {
   auras() {

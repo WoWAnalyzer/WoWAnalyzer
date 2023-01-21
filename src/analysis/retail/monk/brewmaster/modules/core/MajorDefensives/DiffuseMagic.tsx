@@ -1,20 +1,25 @@
 import talents from 'common/TALENTS/monk';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { SpellLink } from 'interface';
+import {
+  absoluteMitigation,
+  MajorDefensive,
+  Mitigation,
+  MitigationSegment,
+} from 'interface/guide/components/MajorDefensives/core';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { ReactNode } from 'react';
-import { absoluteMitigation, MajorDefensive, Mitigation, MitigationSegment } from './core';
 
 export class DiffuseMagic extends MajorDefensive {
   constructor(options: Options) {
-    super({ talent: talents.DIFFUSE_MAGIC_TALENT }, options);
+    super({ triggerSpell: talents.DIFFUSE_MAGIC_TALENT }, options);
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.recordDamage);
   }
 
   private recordDamage(event: DamageEvent) {
-    if (!this.defensiveActive || event.ability.type === MAGIC_SCHOOLS.ids.PHYSICAL) {
+    if (!this.isDefensiveActive(event) || event.ability.type === MAGIC_SCHOOLS.ids.PHYSICAL) {
       return;
     }
 

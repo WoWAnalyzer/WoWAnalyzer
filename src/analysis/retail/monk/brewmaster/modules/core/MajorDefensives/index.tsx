@@ -1,9 +1,11 @@
 import { TooltipElement } from 'interface';
 import { GoodColor, Section, SubSection } from 'interface/guide';
 import Explanation from 'interface/guide/components/Explanation';
+import { AllCooldownUsagesList, Timeline } from 'interface/guide/components/MajorDefensives';
 import { Highlight } from '../../spells/Shuffle/GuideSection';
-import AllCooldownUsagesList from './components/AllCooldownUsagesList';
-import Timeline from './components/Timeline';
+import { MAJOR_ANALYZERS } from './config';
+import { defensiveExpiration } from './DefensiveBuffLinkNormalizer';
+import { MAJOR_DEFENSIVES } from './DefensiveBuffs';
 
 export default function MajorDefensivesSection(): JSX.Element | null {
   return (
@@ -51,9 +53,13 @@ export default function MajorDefensivesSection(): JSX.Element | null {
         </ol>
       </Explanation>
       <SubSection title="Timeline">
-        <Timeline />
+        <Timeline
+          defensiveBuffExpiration={defensiveExpiration}
+          majorDefensives={MAJOR_DEFENSIVES}
+          majorDefensiveAnalyzers={MAJOR_ANALYZERS}
+        />
       </SubSection>
-      <AllCooldownUsagesList />
+      <AllCooldownUsagesList majorDefensiveAnalyzers={MAJOR_ANALYZERS} />
     </Section>
   );
 }

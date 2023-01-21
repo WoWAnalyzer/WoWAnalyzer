@@ -4,6 +4,11 @@ import talents from 'common/TALENTS/monk';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
+import {
+  MajorDefensive,
+  Mitigation,
+  MitigationSegment,
+} from 'interface/guide/components/MajorDefensives/core';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
@@ -19,7 +24,6 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ReactNode } from 'react';
 import CountsAsBrew from '../../components/CountsAsBrew';
-import { MajorDefensive, Mitigation, MitigationSegment } from '../../core/MajorDefensives/core';
 import { damageEvent } from './normalizer';
 
 const PURIFIED_CHI_PCT = 0.2;
@@ -44,7 +48,7 @@ class CelestialBrew extends MajorDefensive {
   private _expireTime: number | null = null;
 
   constructor(options: Options) {
-    super({ talent: talents.CELESTIAL_BREW_TALENT }, options);
+    super({ triggerSpell: talents.CELESTIAL_BREW_TALENT }, options);
 
     this.active = this.selectedCombatant.hasTalent(talents.CELESTIAL_BREW_TALENT);
 
@@ -283,7 +287,7 @@ class CelestialBrew extends MajorDefensive {
   }
 
   private _cbAbsorb(event: AbsorbedEvent) {
-    if (!this.defensiveActive) {
+    if (!this.isDefensiveActive(event)) {
       console.error('CB absorb detected without CB active!', event);
       return;
     }
