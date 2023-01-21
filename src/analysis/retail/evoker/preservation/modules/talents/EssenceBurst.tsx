@@ -20,12 +20,10 @@ const ESSENCE_COSTS: { [name: string]: number } = {
 };
 
 const MANA_COSTS: { [name: string]: number } = {
-  'Emerald Blossom': 0.048,
-  Echo: 0.017,
+  'Emerald Blossom': SPELLS.EMERALD_BLOSSOM_CAST.manaCost,
+  Echo: TALENTS_EVOKER.ECHO_TALENT.manaCost!,
   Disintegrate: 0,
 };
-
-const TOTAL_MANA = 250000;
 
 class EssenceBurst extends Analyzer {
   totalConsumed: number = 0;
@@ -55,7 +53,7 @@ class EssenceBurst extends Analyzer {
       const spellName = consumeAbility.ability.name;
       this.totalConsumed += 1;
       this.essenceSaved += ESSENCE_COSTS[spellName];
-      this.manaSaved += MANA_COSTS[spellName] * TOTAL_MANA;
+      this.manaSaved += MANA_COSTS[spellName];
       this.consumptionCount[spellName] += 1;
     } else if (event.type === EventType.RemoveBuff) {
       this.totalExpired += 1;
