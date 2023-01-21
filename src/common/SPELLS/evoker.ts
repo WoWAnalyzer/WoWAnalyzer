@@ -288,6 +288,11 @@ const spells = spellIndexableList({
     name: 'Lifebind',
     icon: 'ability_evoker_hoverred',
   },
+  ENERGY_LOOP_BUFF: {
+    id: 372234,
+    name: 'Energy Loop',
+    icon: 'inv_elemental_mote_mana',
+  },
 });
 
 export default spells;

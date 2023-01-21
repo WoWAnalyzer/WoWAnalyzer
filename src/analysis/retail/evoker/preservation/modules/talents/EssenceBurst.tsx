@@ -11,6 +11,7 @@ import { SPELL_COLORS } from 'analysis/retail/evoker/preservation/constants';
 import DonutChart from 'parser/ui/DonutChart';
 import { SpellLink } from 'interface';
 import { t } from '@lingui/macro';
+import ItemManaGained from 'parser/ui/ItemManaGained';
 
 const ESSENCE_COSTS: { [name: string]: number } = {
   'Emerald Blossom': 3,
@@ -18,10 +19,17 @@ const ESSENCE_COSTS: { [name: string]: number } = {
   Disintegrate: 3,
 };
 
+const MANA_COSTS: { [name: string]: number } = {
+  'Emerald Blossom': SPELLS.EMERALD_BLOSSOM_CAST.manaCost,
+  Echo: TALENTS_EVOKER.ECHO_TALENT.manaCost!,
+  Disintegrate: 0,
+};
+
 class EssenceBurst extends Analyzer {
   totalConsumed: number = 0;
   totalExpired: number = 0;
   essenceSaved: number = 0;
+  manaSaved: number = 0;
   consumptionCount: { [name: string]: number } = { 'Emerald Blossom': 0, Echo: 0, Disintegrate: 0 };
 
   constructor(options: Options) {
@@ -45,12 +53,17 @@ class EssenceBurst extends Analyzer {
       const spellName = consumeAbility.ability.name;
       this.totalConsumed += 1;
       this.essenceSaved += ESSENCE_COSTS[spellName];
+      this.manaSaved += MANA_COSTS[spellName];
       this.consumptionCount[spellName] += 1;
     } else if (event.type === EventType.RemoveBuff) {
       this.totalExpired += 1;
     } else {
       this.totalExpired += (event as RemoveBuffStackEvent).stack;
     }
+  }
+
+  get averageManaSavedForHealingSpells() {
+    return this.manaSaved / (this.totalConsumed - this.consumptionCount.Disintegrate);
   }
 
   renderDonutChart() {
@@ -124,7 +137,7 @@ class EssenceBurst extends Analyzer {
     const donutChart = this.renderDonutChart();
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(13)}
+        position={STATISTIC_ORDER.CORE(4)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
@@ -140,6 +153,7 @@ class EssenceBurst extends Analyzer {
               the encounter
             </small>
           )}
+          <ItemManaGained amount={this.manaSaved} useAbbrev />
         </div>
       </Statistic>
     );
