@@ -98,8 +98,11 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id,
-        buffSpellId: SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id,
+        spell: TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT.id,
+        buffSpellId: [
+          TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT.id,
+          SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id,
+        ],
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 300,
         castEfficiency: {
@@ -171,7 +174,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasTalent(TALENTS.BLESSING_OF_SPELLWARDING_TALENT),
+        enabled: combatant.hasTalent(TALENTS.BLESSING_OF_PROTECTION_TALENT),
       },
       {
         spell: TALENTS.BLESSING_OF_SPELLWARDING_TALENT.id,

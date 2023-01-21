@@ -21,16 +21,16 @@ class FirstAvenger extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.FERREN_MARCUSS_FERVOR_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SOARING_SHIELD_TALENT);
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.AVENGERS_SHIELD_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SOARING_SHIELD_TALENT),
       this.trackAvengersShieldCasts,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.AVENGERS_SHIELD_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.SOARING_SHIELD_TALENT),
       this.trackAvengersShieldHits,
     );
   }
@@ -97,7 +97,7 @@ class FirstAvenger extends Analyzer {
         tooltip={
           <>
             You hit on average <b>{formatNumber(this.averageHitsPerCast)}</b> enemies per cast of{' '}
-            <SpellLink id={TALENTS.AVENGERS_SHIELD_TALENT.id} />
+            <SpellLink id={TALENTS.SOARING_SHIELD_TALENT.id} />
             <br />
             The extra hits from taking First Avenger contributed{' '}
             <b>{formatNumber(this.totalExtraDamage)}</b> total extra damage.
@@ -105,11 +105,11 @@ class FirstAvenger extends Analyzer {
         }
       >
         <BoringSpellValue
-          spellId={TALENTS.FERREN_MARCUSS_FERVOR_TALENT.id}
+          spellId={TALENTS.SOARING_SHIELD_TALENT.id}
           value={formatNumber(this.averageExtraDamage)}
           label={
             <>
-              Average extra damage per cast of <SpellLink id={TALENTS.AVENGERS_SHIELD_TALENT.id} />.
+              Average extra damage per cast of <SpellLink id={TALENTS.SOARING_SHIELD_TALENT.id} />.
             </>
           }
         />

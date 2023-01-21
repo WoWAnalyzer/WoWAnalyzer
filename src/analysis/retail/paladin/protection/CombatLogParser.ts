@@ -40,7 +40,7 @@ class CombatLogParser extends CoreCombatLogParser {
     grandCrusader: GrandCrusader,
     haste: Haste,
 
-    // // Spells
+    // Spells
     lightOfTheProtector: LightOfTheProtector,
     hotr: HammerOfTheRighteous,
     wordOfGlory: WordOfGlory,
@@ -73,7 +73,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
 
-    // // HolyPower
+    // HolyPower
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
     holyPowerPerMinute: HolyPowerPerMinute,
