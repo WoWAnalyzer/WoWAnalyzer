@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2023, 1, 21), <>Update <SpellLink id={talents.CELESTIAL_BREW_TALENT} /> and <SpellLink id={talents.STAGGER_TALENT} /> for the recent hotfix buffs.</>, emallson),
   change(date(2023, 1, 14), <>Don't count repeated <SpellLink id={talents.BLACKOUT_COMBO_TALENT} /> applications as wasted when using <SpellLink id={talents.SHADOWBOXING_TREADS_BREWMASTER_TALENT} />.</>, emallson),
   change(date(2022, 12, 16), <>Improve labeling of points on <SpellLink id={talents.PURIFYING_BREW_TALENT} /> chart.</>, emallson),
   change(date(2022, 12, 14), <>Updated Example Report on home page.</>, emallson),
