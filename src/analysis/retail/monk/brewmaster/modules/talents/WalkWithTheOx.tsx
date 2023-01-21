@@ -32,7 +32,7 @@ export default class WalkWithTheOx extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.rank = 0;
+    this.rank = this.selectedCombatant.getTalentRank(talents.WALK_WITH_THE_OX_TALENT);
     if (!this.rank) {
       this.active = false;
       return;

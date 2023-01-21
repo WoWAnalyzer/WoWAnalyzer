@@ -31,45 +31,7 @@ export const SPELLS_WHICH_REMOVE_BOC = [
   talents.PURIFYING_BREW_TALENT,
 ];
 
-export const BASE_AGI = 1468;
-
-// Conduits
-export const WALK_WITH_THE_OX_DAMAGE_INCREASE = [
-  0,
-  0.25,
-  0.275,
-  0.3,
-  0.325,
-  0.35,
-  0.375,
-  0.4,
-  0.425,
-  0.45,
-  0.475,
-  0.5,
-  0.525,
-  0.55,
-  0.575,
-  0.6,
-];
-export const CELESTIAL_EFFERVESCENCE_HEALING_INCREASE = [
-  0,
-  0.188,
-  0.206,
-  0.225,
-  0.244,
-  0.263,
-  0.281,
-  0.3,
-  0.319,
-  0.338,
-  0.356,
-  0.375,
-  0.394,
-  0.413,
-  0.431,
-  0.45,
-];
+export const WALK_WITH_THE_OX_DAMAGE_INCREASE = [0, 0.1, 0.2];
 
 // Legendaries
 export const STORMSTOUTS_LK_MODIFIER = 0.3;
