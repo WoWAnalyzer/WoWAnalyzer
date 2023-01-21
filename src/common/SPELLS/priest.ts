@@ -62,6 +62,7 @@ const spells = spellIndexableList({
     name: 'Mastery: Grace',
     icon: 'spell_holy_hopeandgrace',
   },
+
   PENANCE: {
     id: 47666,
     name: 'Penance',
@@ -73,6 +74,18 @@ const spells = spellIndexableList({
     id: 47750,
     name: 'Penance',
     icon: 'spell_holy_penance',
+    manaCost: 4000,
+  },
+  DARK_REPRIMAND_HEAL: {
+    id: 400187,
+    name: 'Dark Reprimand',
+    icon: 'inv_artifact_powerofthedarkside',
+    manaCost: 4000,
+  },
+  DARK_REPRIMAND_DAMAGE: {
+    id: 373130,
+    name: 'Dark Reprimand',
+    icon: 'inv_artifact_powerofthedarkside',
     manaCost: 4000,
   },
   PENANCE_CAST: {
@@ -264,6 +277,31 @@ const spells = spellIndexableList({
     id: 122128,
     name: 'Halo',
     icon: 'spell_priest_divinestar',
+  },
+  SHADOW_DIVINE_STAR_HEAL: {
+    id: 390981,
+    name: 'Divine Star',
+    icon: 'spell_priest_divinestar_shadow2',
+  },
+  SHADOW_DIVINE_STAR_DAMAGE: {
+    id: 390845,
+    name: 'Divine Star',
+    icon: 'spell_priest_divinestar_shadow2',
+  },
+  SHADOW_HALO_HEAL: {
+    id: 390971,
+    name: 'Halo',
+    icon: 'ability_priest_halo_shadow',
+  },
+  SHADOW_HALO_DAMAGE: {
+    id: 390964,
+    name: 'Halo',
+    icon: 'ability_priest_halo_shadow',
+  },
+  SHADOW_COVENANT_BUFF: {
+    id: 322105,
+    name: 'Shadow Covenant',
+    icon: 'spell_shadow_summonvoidwalker',
   },
   CONTRITION_HEAL: {
     id: 270501,

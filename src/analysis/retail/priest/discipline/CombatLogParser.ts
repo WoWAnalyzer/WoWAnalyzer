@@ -61,6 +61,7 @@ import ResplendentLight from './modules/spells/ResplendentLight';
 import TwilightEquilibrium from './modules/spells/TwilightEquilibrium';
 import RaptureAnalysis from './modules/guide/RaptureAnalysis';
 import AtonementNormalizer from './normalizers/AtonementTracker';
+import ShadowCovenant from './modules/spells/ShadowCovenant';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -115,6 +116,7 @@ class CombatLogParser extends CoreCombatLogParser {
     grace: Grace,
     sinsOfTheMany: SinsOfTheMany,
     schism: Schism,
+    shadowCovenant: ShadowCovenant,
     mindgames: Mindgames,
     harshDiscipline: HarshDiscipline,
     indemnity: Indemnity,
