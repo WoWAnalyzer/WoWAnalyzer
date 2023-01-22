@@ -20,7 +20,7 @@ import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import ShadowyInsight from './modules/spells/ShadowyInsight';
 import DotUptimes from './modules/features/DotUptimes';
-import Voidform from './modules/features/Voidform';
+import Voidform from './modules/spells/Voidform';
 import InsanityTracker from './modules/resources/InsanityTracker';
 import InsanityUsage from './modules/resources/InsanityUsage';
 import DevouringPlague from './modules/spells/DevouringPlague';
