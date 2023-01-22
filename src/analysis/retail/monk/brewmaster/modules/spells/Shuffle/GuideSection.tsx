@@ -15,6 +15,7 @@ import ExplanationRow from 'interface/guide/components/ExplanationRow';
 import Explanation from 'interface/guide/components/Explanation';
 import { AbilityEvent, SourcedEvent } from 'parser/core/Events';
 import useTooltip from 'interface/useTooltip';
+import { MAGIC_STAGGER_EFFECTIVENESS } from '../../../constants';
 
 const HitTimelineContainer = styled.div`
   display: grid;
@@ -57,8 +58,9 @@ function HitTooltipContent({ hit }: { hit: TrackedHit }) {
 
   // Stagger absorb is 170-180% as strong with Shuffle up within the range of
   // reasonable Agility values. This works out to 60-70% "damage reduction"
-  const lowEndPct = isMagic ? 0.3 : 0.6;
-  const highEndPct = isMagic ? 0.4 : 0.7;
+  const modifier = isMagic ? MAGIC_STAGGER_EFFECTIVENESS : 1;
+  const lowEndPct = 0.6 * modifier;
+  const highEndPct = 0.7 * modifier;
 
   return (
     <div>

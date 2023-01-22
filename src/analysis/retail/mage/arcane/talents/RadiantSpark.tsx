@@ -77,7 +77,10 @@ class RadiantSpark extends Analyzer {
   }
 
   get radiantSparkUtilization() {
-    return 1 - this.badRadiantSpark / this.abilityTracker.getAbility(TALENTS.RADIANT_SPARK_TALENT.id).casts;
+    return (
+      1 -
+      this.badRadiantSpark / this.abilityTracker.getAbility(TALENTS.RADIANT_SPARK_TALENT.id).casts
+    );
   }
 
   get radiantSparkUsageThresholds() {
@@ -99,8 +102,10 @@ class RadiantSpark extends Analyzer {
           You did not properly utilize <SpellLink id={TALENTS.RADIANT_SPARK_TALENT.id} />{' '}
           {this.badRadiantSpark} times. Because <SpellLink id={SPELLS.ARCANE_BLAST.id} /> hits very
           hard at 4 <SpellLink id={SPELLS.ARCANE_CHARGE.id} />
-          s, you should use the damage buff from <SpellLink id={TALENTS.RADIANT_SPARK_TALENT.id} /> to
-          increase their damage even further. So, you should ensure that you are getting{' '}
+          s, you should use the damage buff from <SpellLink
+            id={TALENTS.RADIANT_SPARK_TALENT.id}
+          />{' '}
+          to increase their damage even further. So, you should ensure that you are getting{' '}
           {CASTS_PER_RADIANT_SPARK} ({CASTS_PER_RADIANT_SPARK - 1} with{' '}
           <SpellLink id={TALENTS.HARMONIC_ECHO_TALENT.id} />){' '}
           <SpellLink id={SPELLS.ARCANE_BLAST.id} /> casts in before{' '}

@@ -33,6 +33,11 @@ export const BLOODSHED_DAMAGE_AMP = 0.15;
 /** Dire Beast */
 //Dire Beast increases haste by 5% while active
 export const DIRE_BEAST_HASTE_PERCENT = 0.05;
+//Dire Beast lasts for 8 seconds baseline
+export const DIRE_BEAST_BASE_DURATION = 8000;
+/** Dire Frenzy */
+//Dire Frenzy increases the duration of Dire Beast by 1 second per rank (up to 2 seconds)
+export const DIRE_FRENZY_INCREASE_DB_TIME = [0, 1000, 2000];
 /** Aspect of the Beast */
 //Aspect of the Beast increase pet damage and healing done by 30%
 export const AOTB_MULTIPLIER = 0.3;
@@ -127,8 +132,8 @@ export const LIST_OF_FOCUS_SPENDERS_BM = [
 
 //region Legendaries
 /** Dire Command */
-//Dire Command has a 30% chance to summon a dire beast
-export const DIRE_COMMAND_PROC_CHANCE = 0.3;
+//Dire Command has a 10% chance to summon a dire beast per rank
+export const DIRE_COMMAND_PROC_CHANCE = [0, 0.1, 0.2, 0.3];
 /** Flamewaker's Cobra Sting */
 //Flamewaker's Cobra Sting has a 50% chance to reduce focus cost of next Kill Command by 100%
 export const FLAMEWAKERS_PROC_CHANCE = 0.5;

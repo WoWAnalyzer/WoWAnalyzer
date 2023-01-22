@@ -172,7 +172,7 @@ const spells = spellIndexableList({
   DIVERTED_ENERGY_HEAL: {
     id: 382272,
     name: 'Diverted Energy',
-    icon: 'inv_soulbarrier'
+    icon: 'inv_soulbarrier',
   },
   TEMPEST_BARRIER_ABSORB: {
     id: 382290,

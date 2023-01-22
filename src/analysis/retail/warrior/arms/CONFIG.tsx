@@ -2,6 +2,7 @@ import { Carrottopp, Toreole } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import Config from 'parser/Config';
+import { AlertWarning } from 'interface';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -16,6 +17,10 @@ const config: Config = {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
+      <AlertWarning>
+        The APL is still a mess right now, so do not pay attention to the Rotation Efficiency, or
+        the Suggestions in the Timeline.
+      </AlertWarning>
       Hey I've been hard at work making this analyzer for you. I hope the suggestions give you
       useful pointers to improve your performance. Remember: focus on improving only one or two
       important things at a time. Improving isn't easy and will need your full focus until it
