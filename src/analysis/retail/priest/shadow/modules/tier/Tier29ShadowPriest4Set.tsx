@@ -57,7 +57,6 @@ class ShadowPriestTierSet extends Analyzer {
     if (this.is4SetActive) {
       this.uptime4Set += Event.timestamp - this.timestampOfLast4SetActivation;
     }
-    console.log('fight over');
   }
 
   statistic() {
