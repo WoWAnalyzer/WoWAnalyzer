@@ -11,9 +11,10 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import SPELLS from 'common/SPELLS';
-import { getDamageEvent } from '../../normalizers/AtonementTracker';
-import ScovSourceDonut from './ShadowCovenant/ShadowCovSourceDonut';
+import { getDamageEvent } from '../../../normalizers/AtonementTracker';
+import ScovSourceDonut from './ShadowCovSourceDonut';
 import { SpellLink } from 'interface';
+import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 
 const SHADOW_BUFFED_HEALS = [
   SPELLS.DARK_REPRIMAND_HEAL.id,
@@ -59,9 +60,9 @@ class ShadowCovenant extends Analyzer {
     if (
       !this.selectedCombatant.hasBuff(SPELLS.SHADOW_COVENANT_BUFF.id) ||
       // Shadow spells only
-      damageEvent.ability.type !== 32 ||
+      damageEvent.ability.type !== MAGIC_SCHOOLS.ids.SHADOW ||
       // no pets here
-      damageEvent.ability.guid === -32
+      damageEvent.ability.guid === -MAGIC_SCHOOLS.ids.SHADOW
     ) {
       return;
     }
@@ -105,9 +106,9 @@ class ShadowCovenant extends Analyzer {
     if (
       !this.selectedCombatant.hasBuff(SPELLS.SHADOW_COVENANT_BUFF.id) ||
       // Shadow spells only
-      event.ability.type !== 32 ||
+      event.ability.type !== MAGIC_SCHOOLS.ids.SHADOW ||
       // no pets here
-      event.ability.guid === -32
+      event.ability.guid === -MAGIC_SCHOOLS.ids.SHADOW
     ) {
       return;
     }

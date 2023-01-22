@@ -1,3 +1,5 @@
+import SPELLS from 'common/SPELLS';
+import { TALENTS_PRIEST } from 'common/TALENTS';
 import { formatThousands } from 'common/format';
 import { Ability } from 'parser/core/Events';
 import DonutChart from 'parser/ui/DonutChart';
@@ -15,10 +17,17 @@ interface ScovSourceGraphItem {
   valueTooltip?: string | number;
 }
 
-/**
- * I'm not writing color values for every possible spell here
- * https://gist.github.com/bendc/76c48ce53299e6078a76
- */
+const COLORS = {
+  [SPELLS.MIND_BLAST.id]: '#FF8B13',
+  [TALENTS_PRIEST.MINDGAMES_TALENT.id]: '#6F1AB6',
+  [SPELLS.DIVINE_STAR_DAMAGE.id]: '#3D1766',
+  [SPELLS.HALO_DAMAGE.id]: '#3D1766',
+  [TALENTS_PRIEST.SCHISM_TALENT.id]: '#A31ACB',
+  [SPELLS.DARK_REPRIMAND_DAMAGE.id]: '#3C79F5',
+  [TALENTS_PRIEST.SHADOW_WORD_DEATH_TALENT.id]: '#820000',
+  [SPELLS.SHADOW_WORD_PAIN.id]: '#9A86A4',
+};
+
 const randomInt = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 const randomColor = () => {
@@ -36,7 +45,7 @@ function generateHealingItems(
     const healingDone = healingMap.get(ability.guid) || 0;
 
     return {
-      color: `${randomColor()}`,
+      color: `${COLORS[ability.guid] || randomColor()}`,
       spellId: ability.guid,
       label: ability.name,
       value: healingDone,
