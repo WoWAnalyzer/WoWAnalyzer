@@ -3,19 +3,16 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import ManaIcon from 'interface/icons/Mana';
-import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
+import { IsPenanceDamageEvent } from './Helper';
+import { getDamageEvent } from '../../normalizers/AtonementTracker';
 
-// Mutating the events from years ago, just unlucky
-interface DirtyDamageEvent extends DamageEvent {
-  penanceBoltNumber?: number;
-}
 interface DirtyHealEvent extends HealEvent {
   penanceBoltNumber?: number;
 }
@@ -25,6 +22,7 @@ class HarshDiscipline extends Analyzer {
   private harshAtonement = 0;
   private harshDirect = 0;
   private harshPenances = 0;
+  private testAtonement = 0;
 
   constructor(options: Options) {
     super(options);
@@ -37,7 +35,12 @@ class HarshDiscipline extends Analyzer {
     this.expectedBolts = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CASTIGATION_TALENT)
       ? 4
       : 3;
-    this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtone);
+    this.addEventListener(
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.ATONEMENT_HEAL_CRIT, SPELLS.ATONEMENT_HEAL_NON_CRIT]),
+      this.onAtoneHeal,
+    );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_HEAL), this.onHeal);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_CAST),
@@ -51,16 +54,20 @@ class HarshDiscipline extends Analyzer {
     }
   }
 
-  onAtone(event: AtonementAnalyzerEvent) {
-    const { penanceBoltNumber } = event.damageEvent as DirtyDamageEvent;
-    if (typeof penanceBoltNumber !== 'number') {
+  onAtoneHeal(event: HealEvent) {
+    if (!getDamageEvent(event)) {
       return;
     }
-    if (penanceBoltNumber + 1 <= this.expectedBolts) {
+    const damageEvent = getDamageEvent(event);
+
+    if (!IsPenanceDamageEvent(damageEvent)) {
       return;
     }
 
-    this.harshAtonement += event.healEvent.amount;
+    if (damageEvent.penanceBoltNumber + 1 <= this.expectedBolts) {
+      return;
+    }
+    this.harshAtonement += event.amount;
   }
 
   onHeal(event: HealEvent) {
