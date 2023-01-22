@@ -18,7 +18,7 @@ import GlobalCooldown from './modules/core/GlobalCooldown';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import ShadowyInsight from './modules/features/ShadowyInsight';
+import ShadowyInsight from './modules/spells/ShadowyInsight';
 import DotUptimes from './modules/features/DotUptimes';
 import Voidform from './modules/features/Voidform';
 import InsanityTracker from './modules/resources/InsanityTracker';
