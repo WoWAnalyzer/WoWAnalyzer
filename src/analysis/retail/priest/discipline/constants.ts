@@ -84,9 +84,6 @@ export const ATONEMENT_SOURCE_FILTER: SpellFilter = [
   SPELLS.MIND_BLAST,
   TALENTS_PRIEST.MINDGAMES_TALENT,
   SPELLS.MINDGAMES_HEAL_REVERSAL,
-  SPELLS.ASCENDED_BLAST,
-  SPELLS.ASCENDED_NOVA,
-  SPELLS.ASCENDED_ERUPTION,
 ];
 
 // Spells which are consumed by the holy buff of Twilight Equilibrium

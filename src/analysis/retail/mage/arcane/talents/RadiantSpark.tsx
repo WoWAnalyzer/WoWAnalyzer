@@ -38,14 +38,14 @@ class RadiantSpark extends Analyzer {
     this.hasHarmonicEcho = this.selectedCombatant.hasTalent(TALENTS.HARMONIC_ECHO_TALENT);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(CAST_SPELLS), this.onCast);
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RADIANT_SPARK),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.RADIANT_SPARK_TALENT),
       this.onRadiantSparkRemoved,
     );
   }
 
   onCast(event: CastEvent) {
     //If Radiant Spark is not active, then we do not need to check the Arcane Blast cast.
-    if (!this.selectedCombatant.hasBuff(SPELLS.RADIANT_SPARK.id)) {
+    if (!this.selectedCombatant.hasBuff(TALENTS.RADIANT_SPARK_TALENT.id)) {
       return;
     }
 
@@ -77,7 +77,10 @@ class RadiantSpark extends Analyzer {
   }
 
   get radiantSparkUtilization() {
-    return 1 - this.badRadiantSpark / this.abilityTracker.getAbility(SPELLS.RADIANT_SPARK.id).casts;
+    return (
+      1 -
+      this.badRadiantSpark / this.abilityTracker.getAbility(TALENTS.RADIANT_SPARK_TALENT.id).casts
+    );
   }
 
   get radiantSparkUsageThresholds() {
@@ -96,15 +99,17 @@ class RadiantSpark extends Analyzer {
     when(this.radiantSparkUsageThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You did not properly utilize <SpellLink id={SPELLS.RADIANT_SPARK.id} />{' '}
+          You did not properly utilize <SpellLink id={TALENTS.RADIANT_SPARK_TALENT.id} />{' '}
           {this.badRadiantSpark} times. Because <SpellLink id={SPELLS.ARCANE_BLAST.id} /> hits very
           hard at 4 <SpellLink id={SPELLS.ARCANE_CHARGE.id} />
-          s, you should use the damage buff from <SpellLink id={SPELLS.RADIANT_SPARK.id} /> to
-          increase their damage even further. So, you should ensure that you are getting{' '}
+          s, you should use the damage buff from <SpellLink
+            id={TALENTS.RADIANT_SPARK_TALENT.id}
+          />{' '}
+          to increase their damage even further. So, you should ensure that you are getting{' '}
           {CASTS_PER_RADIANT_SPARK} ({CASTS_PER_RADIANT_SPARK - 1} with{' '}
           <SpellLink id={TALENTS.HARMONIC_ECHO_TALENT.id} />){' '}
           <SpellLink id={SPELLS.ARCANE_BLAST.id} /> casts in before{' '}
-          <SpellLink id={SPELLS.RADIANT_SPARK.id} /> ends. Alternatively, if there is{' '}
+          <SpellLink id={TALENTS.RADIANT_SPARK_TALENT.id} /> ends. Alternatively, if there is{' '}
           {AOE_TARGET_THRESHOLD} targets or more, you can use{' '}
           <SpellLink id={SPELLS.ARCANE_EXPLOSION.id} />,{' '}
           <SpellLink id={TALENTS.ARCANE_ORB_TALENT.id} />, and{' '}
@@ -112,7 +117,7 @@ class RadiantSpark extends Analyzer {
           <SpellLink id={SPELLS.ARCANE_BLAST.id} />.
         </>,
       )
-        .icon(SPELLS.RADIANT_SPARK.icon)
+        .icon(TALENTS.RADIANT_SPARK_TALENT.icon)
         .actual(
           <Trans id="mage.arcane.suggestions.radiantSpark.utilization">
             {formatPercentage(this.radiantSparkUtilization)}% Utilization

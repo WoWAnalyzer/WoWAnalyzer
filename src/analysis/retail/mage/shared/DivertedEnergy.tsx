@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { HealEvent } from 'parser/core/Events';
@@ -33,7 +34,7 @@ class DivertedEnergy extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.DIVERTED_ENERGY.id}>
+        <BoringSpellValueText spellId={TALENTS.DIVERTED_ENERGY_TALENT.id}>
           <ItemHealingDone amount={this.healingDone} />
           <br />
           {formatNumber(this.overhealing)} <small>Overhealing</small>

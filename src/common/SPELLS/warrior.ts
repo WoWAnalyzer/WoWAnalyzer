@@ -275,6 +275,11 @@ const spells = spellIndexableList({
     name: 'Impending Victory',
     icon: 'spell_impending_victory',
   },
+  SPEAR_OF_BASTION_ENERGIZE: {
+    id: 376080,
+    name: 'Spear of Bastion',
+    icon: 'ability_bastion_warrior',
+  },
 
   // Arms:
   BLADESTORM: {
@@ -523,6 +528,23 @@ const spells = spellIndexableList({
     id: 386478,
     name: 'Violent Outburst',
     icon: 'ability_warrior_furiousresolve',
+  },
+
+  //Fatality talent is split into 3 IDs, the talent (703), and these two.
+  FATAL_MARK_DEBUFF: {
+    id: 383704,
+    name: 'Fatal Mark',
+    icon: 'achievement_bg_killingblow_berserker',
+  },
+  FATAL_MARK_DAMAGE: {
+    id: 383706,
+    name: 'Fatal Mark',
+    icon: 'achievemnt_bg_killingblow_berserker',
+  },
+  REND_DOT_ARMS: {
+    id: 388539,
+    name: 'Rend',
+    icon: 'ability_gouge',
   },
 });
 

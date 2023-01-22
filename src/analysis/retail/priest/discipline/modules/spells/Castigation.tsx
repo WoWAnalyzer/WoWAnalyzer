@@ -9,16 +9,12 @@ import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import Penance from './Penance';
-import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
 import Statistic from 'parser/ui/Statistic';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
-interface DirtyDamageEvent extends DamageEvent {
-  penanceBoltNumber?: number;
-}
+import { getDamageEvent } from '../../normalizers/AtonementTracker';
 
 class Castigation extends Analyzer {
   static dependencies = {
@@ -28,14 +24,32 @@ class Castigation extends Analyzer {
   healing = 0;
   damage = 0;
 
-  _isCastigationBolt = false;
-
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CASTIGATION_TALENT);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
-    this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtone);
+    this.addEventListener(
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.ATONEMENT_HEAL_CRIT, SPELLS.ATONEMENT_HEAL_NON_CRIT]),
+      this.onAtoneHeal,
+    );
+  }
+
+  onAtoneHeal(event: HealEvent) {
+    if (!getDamageEvent(event)) {
+      return;
+    }
+    const damageEvent = getDamageEvent(event);
+    if (!IsPenanceDamageEvent(damageEvent)) {
+      return;
+    }
+
+    if (damageEvent.ability.guid !== SPELLS.PENANCE.id || damageEvent.penanceBoltNumber !== 3) {
+      return;
+    }
+    this.healing += event.amount;
   }
 
   onDamage(event: DamageEvent) {
@@ -44,11 +58,9 @@ class Castigation extends Analyzer {
     }
 
     if (event.ability.guid !== SPELLS.PENANCE.id || event.penanceBoltNumber !== 3) {
-      this._isCastigationBolt = false;
       return;
     }
 
-    this._isCastigationBolt = true;
     this.damage += event.amount;
   }
 
@@ -64,19 +76,6 @@ class Castigation extends Analyzer {
       if (event.penanceBoltNumber === 3) {
         this.healing += event.amount;
       }
-    }
-  }
-
-  onAtone(event: AtonementAnalyzerEvent) {
-    if (event.damageEvent?.ability.guid !== SPELLS.PENANCE.id) {
-      return;
-    }
-    const { penanceBoltNumber } = event.damageEvent as DirtyDamageEvent;
-    if (penanceBoltNumber !== 3) {
-      return;
-    }
-    if (this._isCastigationBolt) {
-      this.healing += event.healEvent.amount;
     }
   }
 

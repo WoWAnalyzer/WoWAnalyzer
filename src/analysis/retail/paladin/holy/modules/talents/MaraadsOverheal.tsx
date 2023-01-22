@@ -60,13 +60,13 @@ class MaraadsOverheal extends Analyzer {
     when(this.overhealSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to avoid casting <SpellLink id={SPELLS.MARAADS_DYING_BREATH.id} /> buffed
+          Try to avoid casting <SpellLink id={TALENTS.MARAADS_DYING_BREATH_TALENT.id} /> buffed
           <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when a large portion of it would
           overheal. If you are finding that this is happening very frequently, consider using a
           different legendary.
         </>,
       )
-        .icon(SPELLS.MARAADS_DYING_BREATH.icon)
+        .icon(TALENTS.MARAADS_DYING_BREATH_TALENT.icon)
         .actual(`${formatPercentage(actual)}% of your casts overhealed by more than 50%`)
         .recommended(`< ${formatPercentage(recommended)}% is recommended`),
     );

@@ -179,7 +179,7 @@ export default function ChecklistRule(props: Props) {
                   key={ix}
                   name={
                     <>
-                      <strong>{ix}.</strong> <RuleDescription rule={rule} />
+                      <strong>{ix + 1}.</strong> <RuleDescription rule={rule} />
                     </>
                   }
                   thresholds={thresh}

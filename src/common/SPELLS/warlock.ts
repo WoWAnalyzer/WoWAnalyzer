@@ -754,6 +754,21 @@ const spells = spellIndexableList({
     name: 'Channel Demonfire',
     icon: 'spell_fire_ragnaros_lavaboltgreen',
   },
+  ROLLING_HAVOC_BUFF: {
+    id: 387570,
+    name: 'Rolling Havoc',
+    icon: 'warlock_pvp_banehavoc',
+  },
+  MADNESS_OF_AZHAQIR_BUFF: {
+    id: 387409,
+    name: "Madness of Azh'Aqir",
+    icon: 'ability_warlock_chaosbolt',
+  },
+  FLASHPOINT_BUFF: {
+    id: 387263,
+    name: 'Flashpoint',
+    icon: 'spell_fire_moltenblood',
+  },
 });
 
 export default spells;

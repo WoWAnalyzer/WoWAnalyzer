@@ -441,6 +441,12 @@ const spells = spellIndexableList({
     name: "Nature's Essence",
     icon: 'ability_druid_flourish',
   },
+  // proc from Resto Druid T29 4pc
+  CRITICAL_GROWTH: {
+    id: 394565,
+    name: 'Critical Growth',
+    icon: 'ability_druid_flourish',
+  },
 
   /////////////////////////////////////////////////////////////////////////////
   // GUARDIAN / BEAR
@@ -785,6 +791,16 @@ const spells = spellIndexableList({
     id: 393957,
     name: 'Waning Twilight',
     icon: 'spell_shadow_twilight',
+  },
+  BALANCE_OF_ALL_THINGS_LUNAR: {
+    id: 394050,
+    name: 'Balance of All Things',
+    icon: 'ability_druid_earthandsky',
+  },
+  BALANCE_OF_ALL_THINGS_SOLAR: {
+    id: 394049,
+    name: 'Balance of All Things',
+    icon: 'ability_druid_earthandsky',
   },
 
   /////////////////////////////////////////////////////////////////////////////

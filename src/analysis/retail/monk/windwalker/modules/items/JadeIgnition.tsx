@@ -1,6 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
@@ -94,7 +95,7 @@ class JadeIgnition extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spellId={SPELLS.JADE_IGNITION.id}>
+        <BoringSpellValueText spellId={TALENTS.JADE_IGNITION_TALENT.id}>
           <ItemDamageDone amount={this.damageDone} />
           <br />
           {formatPercentage(this.stackUsage, 0)}% <small>Stacks used</small>
@@ -112,7 +113,7 @@ class JadeIgnition extends Analyzer {
           Fury at full stacks
         </Trans>,
       )
-        .icon(SPELLS.JADE_IGNITION.icon)
+        .icon(TALENTS.JADE_IGNITION_TALENT.icon)
         .actual(`${formatPercentage(actual, 0)}% Stacks used`)
         .recommended(`${formatPercentage(recommended, 0)}% Stacks used is recommended`),
     );

@@ -6,6 +6,7 @@ import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 
 // prettier-ignore
 export default [
+  change(date(2023, 1, 15), 'Update Fury waste recommendations and Guide.', ToppleTheNun),
   change(date(2022, 12, 15), 'Fix Guide crashing.', ToppleTheNun),
   change(date(2022, 12, 5), 'Add very basic APL.', ToppleTheNun),
   change(date(2022, 11, 30), 'Clean up and internationalize Guide.', ToppleTheNun),
