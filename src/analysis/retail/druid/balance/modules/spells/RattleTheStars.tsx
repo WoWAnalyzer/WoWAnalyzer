@@ -23,6 +23,7 @@ import {
   STARSURGE_BASE_COST,
   STARSURGE_ELUNES_GUIDANCE_DISCOUNT,
 } from '../../constants';
+import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 
 const MAX_STACKS = 2;
 export const PERCENT_DAMAGE_INCREASE_PER_STACK = 0.1;
@@ -178,8 +179,7 @@ class RattleTheStars extends Analyzer {
           <>
             {formatNumber(this.totalAPSaved)} <small>Astral Power Saved</small>
             <br />
-            {'>'}
-            {formatNumber(dpsIncrease)} <small>approx. DPS added</small>
+            <ItemPercentDamageDone greaterThan amount={this.totalAddedDamage} />
           </>
         </BoringSpellValueText>
       </Statistic>
