@@ -47,7 +47,7 @@ const CoreCooldownsGraph = () => {
       <br />
       TODO: Hide non-execute phase SW:D Cooldown graph. (It's efficiency is correctly calculated
       only during execute) <br />
-      TODO: Double check efficiency calculations
+      TODO: Mind Blast efficency and graph is incorrect
     </Trans>
   );
   return CoreCooldownGraphSubsection(coreCooldowns, message);
