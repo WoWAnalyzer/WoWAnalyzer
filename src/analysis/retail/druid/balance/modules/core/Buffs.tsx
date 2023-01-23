@@ -41,6 +41,14 @@ class Buffs extends CoreAuras {
         timelineHighlight: false,
       },
       {
+        spellId: SPELLS.GATHERING_STARSTUFF.id, // T29 - 2P
+        timelineHighlight: false,
+      },
+      {
+        spellId: SPELLS.CONVOKE_SPIRITS.id,
+        timelineHighlight: false,
+      },
+      {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },
