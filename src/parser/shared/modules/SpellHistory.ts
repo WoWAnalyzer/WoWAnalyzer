@@ -66,7 +66,8 @@ class SpellHistory extends Analyzer {
   }
 
   private append(event: SpellHistoryEvent) {
-    const spellId = event.ability.guid;
+    const rawSpellId = event.ability.guid;
+    const spellId = this.abilities.getAbility(rawSpellId)?.primarySpell ?? rawSpellId;
     const history = this.getAbility(spellId);
     if (history) {
       history.push(event);

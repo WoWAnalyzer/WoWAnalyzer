@@ -45,6 +45,7 @@ import Stampede from './modules/talents/Stampede';
 import Stomp from './modules/talents/Stomp';
 import ThrillOfTheHunt from './modules/talents/ThrillOfTheHunt';
 import MasterMarksman from '../shared/talents/MasterMarksman';
+import DireCommandNormalizer from './normalizers/DireCommandNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -69,6 +70,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizers
     wailingArrowPrepullNormalizer: WailingArrowPrepullNormalizer,
+    direCommandNormalizer: DireCommandNormalizer,
 
     //DeathTracker
     deathTracker: DeathTracker,
