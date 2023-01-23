@@ -238,10 +238,10 @@ class WeaponEnhancementChecker extends Analyzer {
         .addSuggestion((suggest, actual, recommended) =>
           suggest(
             <Trans id="shared.weaponEnhancementChecker.suggestions.weakWeaponEnhancement.label">
-              Your
+              Your{' '}
               <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
                 {slotName}
-              </ItemLink>
+              </ItemLink>{' '}
               has a cheap weapon enhancement (rune/sharpening stone/weightstone). Apply a strong
               enhancement to very easily increase your throughput slightly.
             </Trans>,

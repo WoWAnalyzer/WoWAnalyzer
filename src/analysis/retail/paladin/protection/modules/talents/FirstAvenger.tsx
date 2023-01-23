@@ -1,5 +1,5 @@
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
@@ -21,16 +21,16 @@ class FirstAvenger extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FIRST_AVENGER_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SOARING_SHIELD_TALENT);
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AVENGERS_SHIELD),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SOARING_SHIELD_TALENT),
       this.trackAvengersShieldCasts,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AVENGERS_SHIELD),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.SOARING_SHIELD_TALENT),
       this.trackAvengersShieldHits,
     );
   }
@@ -97,7 +97,7 @@ class FirstAvenger extends Analyzer {
         tooltip={
           <>
             You hit on average <b>{formatNumber(this.averageHitsPerCast)}</b> enemies per cast of{' '}
-            <SpellLink id={SPELLS.AVENGERS_SHIELD.id} />
+            <SpellLink id={TALENTS.SOARING_SHIELD_TALENT.id} />
             <br />
             The extra hits from taking First Avenger contributed{' '}
             <b>{formatNumber(this.totalExtraDamage)}</b> total extra damage.
@@ -105,11 +105,11 @@ class FirstAvenger extends Analyzer {
         }
       >
         <BoringSpellValue
-          spellId={SPELLS.FIRST_AVENGER_TALENT.id}
+          spellId={TALENTS.SOARING_SHIELD_TALENT.id}
           value={formatNumber(this.averageExtraDamage)}
           label={
             <>
-              Average extra damage per cast of <SpellLink id={SPELLS.AVENGERS_SHIELD.id} />.
+              Average extra damage per cast of <SpellLink id={TALENTS.SOARING_SHIELD_TALENT.id} />.
             </>
           }
         />

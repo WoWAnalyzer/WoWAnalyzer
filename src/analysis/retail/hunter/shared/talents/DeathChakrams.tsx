@@ -69,7 +69,7 @@ class DeathChakrams extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
-        category={STATISTIC_CATEGORY.COVENANTS}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spellId={TALENTS.DEATH_CHAKRAM_TALENT.id}>
           <>

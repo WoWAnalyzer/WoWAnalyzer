@@ -250,9 +250,13 @@ class Echo extends Analyzer {
           </>
         ),
       },
-    ].filter((item) => {
-      return item.value > 0;
-    });
+    ]
+      .filter((item) => {
+        return item.value > 0;
+      })
+      .sort((a, b) => {
+        return Math.sign(b.value - a.value);
+      });
     return <DonutChart items={items} />;
   }
 
