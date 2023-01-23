@@ -15,7 +15,6 @@ import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-//import { TALENTS_DRUID } from 'common/TALENTS';
 import { TIERS } from 'game/TIERS';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { SpellLink } from 'interface';
@@ -45,21 +44,12 @@ class GatheringStarstuff extends Analyzer {
   gastConsumptionTimestamp: number | null = null;
   gastCurrentStacks = 0;
   totalStacks = 0;
-  countCast = 0;
-  countDamage = 0;
   //Wrath
   listCastWrath: number[];
-  //  listDamageWrath: number[];
   listCastWrathTimestamps: number[];
-  //  listCastWrathTimestamps2: number[];
-  //  listDamageWrathTimestamps2: number[];
-  //Cast
+  //Starfire
   listCastStarfire: number[];
-  //  listDamageStarfire: number[];
   listCastStarfireTimestamps: number[];
-  //  listDamageStarfireTimestamps: number[];
-  //  listSize: number[];
-  //  listSizeTimestamps: number[];
 
   constructor(options: Options) {
     super(options);
@@ -68,22 +58,13 @@ class GatheringStarstuff extends Analyzer {
     this.stacksWhenCast = Array.from({ length: GATHERING_STARSTUFF.MAX_STACKS + 1 }, (x) => [0]);
     this.listCastWrath = [];
     this.listCastWrathTimestamps = [];
-    //    this.listCastWrathTimestamps2 = [];
-    //    this.listDamageWrathTimestamps2 = [];
-    //    this.listDamageWrath = [];
-    //    this.listDamageWrathTimestamps = [];
     this.listCastStarfire = [];
     this.listCastStarfireTimestamps = [];
-    //    this.listDamageStarfire = [];
-    //    this.listDamageStarfireTimestamps = [];
-    //    this.listSize = [];
-    //    this.listSizeTimestamps = [];
 
     Object.values(GATHERING_STARSTUFF.AFFECTED_CAST).forEach((spell) => {
       this.gastBuffedAbilities[spell.id] = 0;
     });
 
-    //    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(GATHERING_STARSTUFF.TRIGGER_CAST), this.onCastTrigger);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(GATHERING_STARSTUFF.AFFECTED_CAST),
       this.onCast,
@@ -116,28 +97,32 @@ class GatheringStarstuff extends Analyzer {
     this.addEventListener(Events.fightend, this.handleStacks);
   }
 
+  // As stacks are consumed when the cast end but the damage are done when the spell lands, we need
+  // to match CastEvent (on which we obtain the number of stacks) with their respective DamageEvent.
+  // To do so we list all CastEvent and when a DamageEvent is read we check with the first CastEvent
+  // on the list if they are in an acceptable time frame. If so we know how many stacks are associated
+  // with a DamageEvent. We can then discard the first CastEvent and go on with our Event. If not,
+  // we either discard the damage event if it's to early (can happen with precast or convoke
+  // cast) or the cast event if it's to late (can happen with a targt dying after the cast but
+  // before the spell lands).
+
   onCast(event: CastEvent) {
     const stacks = this.selectedCombatant.getBuff(SPELLS.GATHERING_STARSTUFF.id)?.stacks;
     this.gastCurrentStacks = stacks ?? 0;
     if (this.gastCurrentStacks > 0) {
+      //Track which abilities are buffed
       this.gastBuffedAbilities[event.ability.guid] += 1;
-      //  this.countCast+=1;
     }
     if (event.ability.guid === SPELLS.WRATH_MOONKIN.id) {
+      //Append a Wrath CastEvent and keep its timestamp
       this.listCastWrath.push(this.gastCurrentStacks);
       this.listCastWrathTimestamps.push(event.timestamp);
-      //  this.listCastWrathTimestamps2.push(event.timestamp);
-      //  console.log('size - '+this.listCastWrath.length);
-      //  this.listSize.push(this.listCastWrath.length);
-      //  this.listSizeTimestamps.push(event.timestamp);
     }
     if (event.ability.guid === SPELLS.STARFIRE.id) {
+      //Append a Starfire CastEvent and keep its timestamp
       this.listCastStarfire.push(this.gastCurrentStacks);
       this.listCastStarfireTimestamps.push(event.timestamp);
     }
-    //  console.log("onCast");
-    //  console.log(event.timestamp);
-    //  console.log(this.listCastWrath.length);
   }
 
   onDamage(event: DamageEvent) {
@@ -145,43 +130,38 @@ class GatheringStarstuff extends Analyzer {
 
     //Wrath
     if (event.ability.guid === SPELLS.WRATH_MOONKIN.id) {
-      //  this.listDamageWrathTimestamps2.push(event.timestamp);
       while (checkCastList) {
-        console.log('onDamage -- Wrath');
         if (!this.listCastWrath) {
-          //          this.listSize.push(0);
-          //          this.listSizeTimestamps.push(event.timestamp);
+          // No CastEvent remaining, discard this source of damage. Ex: Wraths from Convoke
           return;
         }
         if (
           event.timestamp < (this.listCastWrathTimestamps[0] + GATHERING_STARSTUFF.WRATH_MIN || 0)
         ) {
-          //          this.listSize.push(this.listCastWrath.length);
-          //          this.listSizeTimestamps.push(event.timestamp);
+          // DamageEvent before a CastEvent, discard this source of damage.
           return;
         }
         if (
           event.timestamp >
           (this.listCastWrathTimestamps[0] || Infinity) + GATHERING_STARSTUFF.WRATH_DELAY
         ) {
+          // DamageEvent to long after a CastEvent, discard this CastEvent
+          // (this is why their is a while loop) and try the next one.
           this.listCastWrath.shift();
           this.listCastWrathTimestamps.shift();
         } else {
+          // DamageEvent and CastEvent are within an acceptable timeframe, match theem together
           const stacks = this.listCastWrath.shift();
-          //        console.log('size - '+this.listCastWrath.length)
-          //        this.listSize.push(this.listCastWrath.length);
-          //        this.listSizeTimestamps.push(event.timestamp);
           this.totalDamage += calculateEffectiveDamage(
             event,
             stacks ?? 0 * GATHERING_STARSTUFF.DAMAGE_PER_STACK,
           );
           this.listCastWrathTimestamps.shift();
           checkCastList = false;
-          //    if (stacks??0>0){this.countDamage+=1;}
         }
       }
     }
-    //Starfire
+    //Starfire - same as with Wrath but less complexity since there is no travel time
     if (event.ability.guid === SPELLS.STARFIRE.id) {
       if (!this.listCastStarfire) {
         return;
@@ -201,16 +181,13 @@ class GatheringStarstuff extends Analyzer {
         stacks ?? 0 * GATHERING_STARSTUFF.DAMAGE_PER_STACK,
       );
       this.listCastStarfireTimestamps.shift();
-      //  if (stacks??0>0){this.countDamage+=1;}
     }
   }
 
   onEndConvoke(event: RemoveBuffEvent) {
-    //  console.log("onEndConvoke")
+    //Reset stacks after convoke to minimize the impact of Wrath cast during Convoke
     this.listCastWrath = [];
     this.listCastWrathTimestamps = [];
-    //  this.listSize.push(this.listCastWrath.length);
-    //  this.listSizeTimestamps.push(event.timestamp);
   }
 
   handleStacks(
@@ -224,13 +201,6 @@ class GatheringStarstuff extends Analyzer {
   ) {
     this.buffStacks[this.lastStacks].push(event.timestamp - this.lastUpdate);
     if (event.type === EventType.FightEnd) {
-      // console.log("Cast");
-      // console.log(this.listCastWrathTimestamps2);
-      // console.log("Damage");
-      // console.log(this.listDamageWrathTimestamps2);
-      // console.log("Size");
-      // console.log(this.listSize);
-      // console.log(this.listSizeTimestamps);
       return;
     }
     if (event.type === EventType.RefreshBuff) {
@@ -250,7 +220,6 @@ class GatheringStarstuff extends Analyzer {
   }
 
   statistic() {
-    //const dpsAdded = formatNumber(this.totalDamage / (this.owner.fightDuration / 1000));
     const wastePercentage = formatPercentage(this.alreadyMaxStacksWhenCast / this.totalStacks);
     return (
       <Statistic
