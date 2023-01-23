@@ -35,6 +35,7 @@ import Stasis from './modules/talents/Stasis';
 import Lifebind from './modules/talents/Lifebind';
 import EnergyLoop from './modules/talents/EnergyLoop';
 import AlwaysBeCasting from './modules/core/AlwaysBeCasting';
+import FontOfMagic from './modules/talents/FontOfMagic';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -84,6 +85,7 @@ class CombatLogParser extends CoreCombatLogParser {
     stasis: Stasis,
     lifebind: Lifebind,
     energyLoop: EnergyLoop,
+    fontOfMagic: FontOfMagic,
   };
 }
 
