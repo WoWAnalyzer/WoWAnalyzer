@@ -41,7 +41,7 @@ class FontOfMagic extends Analyzer {
     this.totalHealing += fontEvent.amount + (fontEvent.absorbed || 0);
     this.totalOverhealing += fontEvent.overheal || 0;
 
-    this.countedTimestamps.add(event.timestamp);
+    allHealingEvents.forEach((ev) => this.countedTimestamps.add(ev.timestamp));
   }
 
   statistic() {
