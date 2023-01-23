@@ -17,7 +17,8 @@ export async function readJsonFromUrl<T>(url: string): Promise<T> {
 }
 
 export function csvToObject<T>(csvString: string): T[] {
-  const lines = csvString.split('\n');
+  // /\r?\n/ for better Windows support
+  const lines = csvString.split(/\r?\n/);
 
   const result: T[] = [];
 

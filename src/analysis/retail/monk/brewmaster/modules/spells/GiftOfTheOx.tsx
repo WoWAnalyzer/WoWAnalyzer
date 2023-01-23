@@ -4,16 +4,12 @@ import talents from 'common/TALENTS/monk';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, Event, EventType, HealEvent } from 'parser/core/Events';
-import { calculatePrimaryStat } from 'parser/core/stats';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { BASE_AGI, GIFT_OF_THE_OX_SPELLS } from '../../constants';
-
-const WDPS_BASE_ILVL = 310;
-const WDPS_310_AGI_POLEARM = 122.8;
+import { GIFT_OF_THE_OX_SPELLS } from '../../constants';
 
 /**
  * Gift of the Ox
@@ -33,11 +29,6 @@ export default class GiftOfTheOx extends Analyzer {
   protected stats!: StatTracker;
 
   totalHealing = 0;
-  agiBonusHealing = 0;
-  wdpsBonusHealing = 0;
-  _baseAgiHealing = 0;
-  masteryBonusHealing = 0;
-  _wdps = 0;
 
   orbsGenerated = 0;
   orbsConsumed = 0;
@@ -61,12 +52,6 @@ export default class GiftOfTheOx extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(GIFT_OF_THE_OX_SPELLS),
       this._gotoxHeal,
     );
-
-    this._wdps = calculatePrimaryStat(
-      WDPS_BASE_ILVL,
-      WDPS_310_AGI_POLEARM,
-      this.selectedCombatant.mainHand.itemLevel,
-    );
   }
 
   _orbGenerated(event: Event<EventType.OrbGenerated>) {
@@ -82,28 +67,6 @@ export default class GiftOfTheOx extends Analyzer {
     this.orbsConsumed += 1;
     const amount = event.amount + (event.absorbed || 0);
     this.totalHealing += amount;
-
-    // so the formula for the healing is
-    //
-    // Heal = 1.5 * (6 * WDPS + BonusAgi + BaseAgi) * Mastery * Vers
-    //
-    // With BaseAgi known, we get:
-    //
-    // BonusHeal = 1.5 * (6 * WDPS + BonusAgi + BaseAgi) * Mastery * Vers - 1.5 * (6 * WDPS + BaseAgi) * Mastery * Vers
-    //           = Heal * (1 - (6 WDPS + BaseAgi) / (6 WDPS + BonusAgi + BaseAgi))
-    //           = Heal * (BonusAgi / (6 WDPS + BonusAgi + BaseAgi))
-    //
-    // and similar for bonus WDPS healing and base agi healing
-    const denom = 6 * this._wdps + this.stats.currentAgilityRating;
-    this.agiBonusHealing += (amount * (this.stats.currentAgilityRating - BASE_AGI)) / denom;
-    this.wdpsBonusHealing += (amount * 6 * this._wdps) / denom;
-    this._baseAgiHealing += (amount * BASE_AGI) / denom;
-    // MasteryBonusHeal = 1.5 * AP * (1 + BonusMastery + BaseMastery) * Vers - 1.5 * AP * (1 + BaseMastery) * Vers
-    //                  = Heal * (1 - (1 + BaseMastery) / (1 + BonusMastery + BaseMastery))
-    //                  = Heal * BonusMastery / (1 + BonusMastery + BaseMastery)
-    this.masteryBonusHealing +=
-      (amount * (this.stats.currentMasteryPercentage - this.stats.masteryPercentage(0, true))) /
-      (1 + this.stats.currentMasteryPercentage);
 
     if (event.timestamp === this._lastEHTimestamp) {
       this.expelHarmOrbsConsumed += 1;

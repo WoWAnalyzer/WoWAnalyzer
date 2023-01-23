@@ -1,5 +1,5 @@
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -17,13 +17,13 @@ class MomentOfGlory extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.MOMENT_OF_GLORY_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.MOMENT_OF_GLORY_TALENT);
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AVENGERS_SHIELD),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.AVENGERS_SHIELD_TALENT),
       this.trackASDamage,
     );
   }
@@ -31,7 +31,7 @@ class MomentOfGlory extends Analyzer {
   trackASDamage(event: DamageEvent): void {
     if (
       !this.selectedCombatant.hasBuff(
-        SPELLS.MOMENT_OF_GLORY_TALENT.id,
+        TALENTS.MOMENT_OF_GLORY_TALENT.id,
         event.timestamp,
         undefined,
         undefined,
@@ -58,13 +58,13 @@ class MomentOfGlory extends Analyzer {
         tooltip={
           <>
             You hit <b>{formatNumber(this.damageBoostedHits)}</b> targets with a{' '}
-            <SpellLink id={SPELLS.AVENGERS_SHIELD.id} /> boosted with{' '}
-            <SpellLink id={SPELLS.MOMENT_OF_GLORY_TALENT.id} />.
+            <SpellLink id={TALENTS.AVENGERS_SHIELD_TALENT.id} /> boosted with{' '}
+            <SpellLink id={TALENTS.MOMENT_OF_GLORY_TALENT.id} />.
           </>
         }
       >
         <BoringSpellValue
-          spellId={SPELLS.MOMENT_OF_GLORY_TALENT.id}
+          spellId={TALENTS.MOMENT_OF_GLORY_TALENT.id}
           value={formatNumber(this.totalExtraDamage)}
           label="Extra Damage"
         />

@@ -99,7 +99,7 @@ class EmeraldBlossom extends Analyzer {
   }
 
   statistic() {
-    return this.hasBountiful ? (
+    return this.hasBountiful && this.averageExtraTargets > 0 ? (
       <Statistic
         size="flexible"
         position={STATISTIC_ORDER.CORE(1)}

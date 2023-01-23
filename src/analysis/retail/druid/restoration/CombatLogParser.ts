@@ -57,7 +57,7 @@ import RampantGrowth from 'analysis/retail/druid/restoration/modules/spells/Ramp
 import Overgrowth from 'analysis/retail/druid/restoration/modules/spells/Overgrowth';
 import BuddingLeaves from 'analysis/retail/druid/restoration/modules/spells/BuddingLeaves';
 import Dreamstate from 'analysis/retail/druid/restoration/modules/spells/Dreamstate';
-import VotI2pc from 'analysis/retail/druid/restoration/modules/spells/VotI2pc';
+import Tier29 from 'analysis/retail/druid/restoration/modules/dragonflight/Tier29';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -128,7 +128,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hpmTracker: HealingEfficiencyTracker,
 
     //Tier
-    voti2pc: VotI2pc,
+    tier29: Tier29,
   };
 
   static guide = Guide;

@@ -1,6 +1,6 @@
 import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -34,10 +34,19 @@ class ScentOfBlood extends Analyzer {
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.BESTIAL_WRATH_TALENT),
       this.bestialWrathApplication,
     );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS.BESTIAL_WRATH_TALENT),
+      this.bestialWrathApplication,
+    );
   }
 
-  bestialWrathApplication() {
+  bestialWrathApplication(event: ApplyBuffEvent | RefreshBuffEvent) {
     const chargesAvailable = this.spellUsable.chargesAvailable(TALENTS.BARBED_SHOT_TALENT.id);
+    if (this.shotRecharges === 2) {
+      this.spellUsable.endCooldown(TALENTS.BARBED_SHOT_TALENT.id, event.timestamp, false, true);
+    } else {
+      this.spellUsable.endCooldown(TALENTS.BARBED_SHOT_TALENT.id);
+    }
     this.chargesGained += this.shotRecharges - chargesAvailable;
     this.chargesWasted += chargesAvailable;
   }

@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
@@ -19,7 +20,7 @@ class Redoubt extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.REDOUBT_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.REDOUBT_TALENT);
     if (!this.active) {
       return;
     }
@@ -61,7 +62,7 @@ class Redoubt extends Analyzer {
         }
       >
         <BoringSpellValue
-          spellId={SPELLS.REDOUBT_TALENT.id}
+          spellId={TALENTS.REDOUBT_TALENT.id}
           value={formatNumber(this.averageStacks)}
           label="Average Stacks"
         />

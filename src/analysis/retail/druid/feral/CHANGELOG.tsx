@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS/druid';
 
 export default [
+  change(date(2023, 1, 20), <>Fixed a bug where the Guide could crash when Berserk is pre-cast.</>, Sref),
   change(date(2023, 1, 8), <>Added statistics for VotI tier set</>, Sref),
   change(date(2023, 1, 8), <>Fixed a bug where <SpellLink id={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id} /> would show in the Statistic / Details cooldown bar even when it wasn't talented, and where <SpellLink id={TALENTS_DRUID.ADAPTIVE_SWARM_TALENT.id} /> would never show.</>, Sref),
   change(date(2022, 12, 14), <>Added Preparation Section to Guide.</>, Sref),
