@@ -5,6 +5,7 @@ import { Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 1, 20), <>Add <SpellLink id={TALENTS_EVOKER.FONT_OF_MAGIC_TALENT}/> module and fix some event linking when it is talented</>, Trevor),
   change(date(2023, 1, 20), <>Fix <SpellLink id={TALENTS_EVOKER.ENERGY_LOOP_TALENT}/> module</>, Trevor),
   change(date(2023, 1, 20), <>Add <SpellLink id={TALENTS_EVOKER.ENERGY_LOOP_TALENT}/> module</>, Trevor),
   change(date(2023, 1, 19), <>Add ABC module</>, Trevor),

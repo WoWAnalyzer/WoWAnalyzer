@@ -169,7 +169,7 @@ class Lifebind extends Analyzer {
       },
     ]
       .filter((item) => {
-        return item.value > 0;
+        return item.value > 0 && item.value >= this.healingForSpell(0);
       })
       .sort((a, b) => {
         return Math.sign(b.value - a.value);
