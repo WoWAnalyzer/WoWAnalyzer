@@ -135,7 +135,7 @@ export function InvokeNiuzaoSummaryChart({
     value: 'transparent',
   };
 
-  const stompSelection = {
+  const stompSelection: Partial<UnitSpec<Field>> = {
     params: [
       {
         name: 'selectedStomp',

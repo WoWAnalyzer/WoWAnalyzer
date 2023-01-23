@@ -28,7 +28,9 @@ export default {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/CpDZB9q7tvFdXPMj/14-Heroic+Terros+-+Kill+(4:21)/69-Taurawolo/standard',
-  guideDefault: true,
+  //Only show the guide since restoration druid no longer has a supported checklist
+  //This will also default to the guide
+  guideOnly: true,
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

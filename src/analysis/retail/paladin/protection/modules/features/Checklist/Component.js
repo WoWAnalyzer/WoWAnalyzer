@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import AplRule from 'parser/shared/metrics/apl/ChecklistRule';
@@ -35,8 +36,8 @@ const ProtectionPaladinChecklist = (props) => {
             a flat amount and use it as a rotational filler if necessary.
             <br />
             Use <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> to smooth out your physical
-            damage taken. <SpellLink id={SPELLS.ARDENT_DEFENDER.id} /> can be used either as a
-            cooldown to mitigate boss abilities or to cover time when{' '}
+            damage taken. <SpellLink id={TALENTS.ARDENT_DEFENDER_TALENT.id} /> can be used either as
+            a cooldown to mitigate boss abilities or to cover time when{' '}
             <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> is unavailable.
           </>
         }
@@ -69,10 +70,10 @@ const ProtectionPaladinChecklist = (props) => {
         description={
           <>
             You should use <SpellLink id={SPELLS.WORD_OF_GLORY.id} /> to heal yourself (or others,
-            with <SpellLink id={SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id} />
+            with <SpellLink id={TALENTS.HAND_OF_THE_PROTECTOR_TALENT.id} />
             ). However, you should <b>not</b> do this at the expense of{' '}
             <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> uptime. Instead, take advantage of{' '}
-            <SpellLink id={SPELLS.SHINING_LIGHT_DESC.id} /> to make most of your{' '}
+            <SpellLink id={SPELLS.SHINING_LIGHT.id} /> to make most of your{' '}
             <SpellLink id={SPELLS.WORD_OF_GLORY.id} /> casts free.
             <br />
             <em>Section under construction.</em>
@@ -91,7 +92,7 @@ const ProtectionPaladinChecklist = (props) => {
         <Requirement
           name={
             <>
-              Free casts from <SpellLink id={SPELLS.SHINING_LIGHT_DESC.id} /> wasted
+              Free casts from <SpellLink id={SPELLS.SHINING_LIGHT.id} /> wasted
             </>
           }
           tooltip="A cast is wasted if the Shining Light buff expires without being used."
@@ -100,16 +101,7 @@ const ProtectionPaladinChecklist = (props) => {
       </Rule>
       <AplRule
         {...props}
-        cooldowns={[
-          SPELLS.AVENGING_WRATH,
-          SPELLS.ASHEN_HALLOW,
-          SPELLS.DIVINE_TOLL,
-          SPELLS.SERAPHIM_TALENT,
-          SPELLS.BLESSING_OF_SUMMER,
-          SPELLS.BLESSING_OF_AUTUMN,
-          SPELLS.BLESSING_OF_WINTER,
-          SPELLS.BLESSING_OF_SPRING,
-        ]}
+        cooldowns={[SPELLS.AVENGING_WRATH, TALENTS.DIVINE_TOLL_TALENT, TALENTS.SERAPHIM_TALENT]}
       />
       <PreparationRule thresholds={thresholds} />
     </Checklist>

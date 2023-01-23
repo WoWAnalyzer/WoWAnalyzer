@@ -25,7 +25,11 @@ import AstralPowerDetails from 'analysis/retail/druid/balance/modules/core/astra
 import Guide from 'analysis/retail/druid/balance/Guide';
 import AstralPowerGraph from 'analysis/retail/druid/balance/modules/core/astralpower/AstralPowerGraph';
 import WaningTwilight from './modules/spells/WaningTwilight';
+<<<<<<< HEAD
 import GatheringStarstuff from 'analysis/retail/druid/balance/modules/spells/GatheringStarstuff';
+=======
+import RattleTheStars from './modules/spells/RattleTheStars';
+>>>>>>> dragonflight
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -60,8 +64,12 @@ class CombatLogParser extends MainCombatLogParser {
     waningTwilight: WaningTwilight,
     //Covenants
     convokeSpiritsBalance: ConvokeSpiritsBalance,
+<<<<<<< HEAD
     //Tier set
     gatheringStarstuff: GatheringStarstuff,
+=======
+    rattleTheStars: RattleTheStars,
+>>>>>>> dragonflight
   };
 
   static guide = Guide;

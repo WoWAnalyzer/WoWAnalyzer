@@ -3,14 +3,16 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
-const { DISINTEGRATE, FIRE_BREATH, FIRE_BREATH_FONT, ETERNITY_SURGE, ETERNITY_SURGE_FONT } = SPELLS;
-
 const {
-  DRAGONRAGE_TALENT,
-  ESSENCE_BURST_ATTUNED_TALENT,
-  ESSENCE_BURST_TALENT,
-  PYRE_TALENT,
-} = TALENTS_EVOKER;
+  DISINTEGRATE,
+  FIRE_BREATH,
+  FIRE_BREATH_FONT,
+  ETERNITY_SURGE,
+  ETERNITY_SURGE_FONT,
+  ESSENCE_BURST_DEV_BUFF,
+} = SPELLS;
+
+const { DRAGONRAGE_TALENT, ESSENCE_BURST_TALENT, PYRE_TALENT } = TALENTS_EVOKER;
 
 export type RageWindowCounter = {
   start: number;
@@ -59,9 +61,7 @@ class DragonRage extends Analyzer {
     );
 
     this.addEventListener(
-      Events.applybuff
-        .by(SELECTED_PLAYER)
-        .spell([ESSENCE_BURST_ATTUNED_TALENT, ESSENCE_BURST_TALENT]),
+      Events.applybuff.by(SELECTED_PLAYER).spell([ESSENCE_BURST_DEV_BUFF, ESSENCE_BURST_TALENT]),
       () => {
         if (!this.inDragonRageWindow) {
           return;

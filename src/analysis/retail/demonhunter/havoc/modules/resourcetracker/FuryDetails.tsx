@@ -27,9 +27,9 @@ class FuryDetails extends Analyzer {
     return {
       actual: this.wastedFuryPercent,
       isGreaterThan: {
-        minor: 0.03,
-        average: 0.07,
-        major: 0.1,
+        minor: 0.15,
+        average: 0.2,
+        major: 0.25,
       },
       style: ThresholdStyle.PERCENTAGE,
     };

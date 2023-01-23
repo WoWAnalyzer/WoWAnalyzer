@@ -1,4 +1,4 @@
-import { Trans, Plural } from '@lingui/macro';
+import { Plural, Trans } from '@lingui/macro';
 import isLatestPatch from 'game/isLatestPatch';
 import AlertWarning from 'interface/AlertWarning';
 import Contributor from 'interface/ContributorButton';
@@ -28,7 +28,7 @@ const About = ({ config }: Props) => {
         </Trans>
       }
       actions={
-        <Link to="events">
+        <Link to="../events">
           <Trans id="interface.report.results.about.viewEvents">View all events</Trans>
         </Link>
       }

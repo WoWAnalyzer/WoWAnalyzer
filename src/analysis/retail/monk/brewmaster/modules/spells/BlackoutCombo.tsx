@@ -15,6 +15,7 @@ import { SPELLS_WHICH_REMOVE_BOC } from '../../constants';
 
 const debug = false;
 const BOC_DURATION = 15000;
+const REFRESH_BUFFER = 500;
 
 class BlackoutCombo extends Analyzer {
   get dpsWasteThreshold() {
@@ -59,6 +60,10 @@ class BlackoutCombo extends Analyzer {
 
   onRefreshBuff(event: AnyEvent) {
     debug && console.log('Blackout combo refreshed');
+
+    if (event.timestamp - this.lastBlackoutComboCast < REFRESH_BUFFER) {
+      return; // handle repeated buff applications from Shadowboxing Treads AoE
+    }
     this.blackoutComboBuffs += 1;
     this.lastBlackoutComboCast = event.timestamp;
   }

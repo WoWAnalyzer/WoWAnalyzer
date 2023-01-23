@@ -163,6 +163,16 @@ const spells = spellIndexableList({
     name: 'Frenzied Regeneration',
     icon: 'ability_bullrush',
   },
+  RATTLED_STARS: {
+    id: 393955,
+    name: 'Rattled Stars',
+    icon: 'spell_arcane_arcane01',
+  },
+  INCARNATION_CHOSEN_OF_ELUNE: {
+    id: 102560,
+    name: 'Incarnation: Chosen of Elune',
+    icon: 'spell_druid_incarnation',
+  },
   BEAR_FORM: {
     id: 5487,
     name: 'Bear Form',
@@ -430,6 +440,12 @@ const spells = spellIndexableList({
     name: 'Ephemeral Incarnation',
     icon: 'spell_progenitor_orb2',
   },
+  //Tier 29 Balance set bonus proc
+  TOUCH_THE_COSMOS: {
+    id: 394414,
+    name: 'Touch the Cosmos',
+    icon: 'ability_bossgorefiend_touchofdoom',
+  },
   RENEWING_BLOOM: {
     // HoT procced by T28 2pc
     id: 364686,
@@ -439,6 +455,12 @@ const spells = spellIndexableList({
   NATURES_ESSENCE_TRAIT: {
     id: 189787,
     name: "Nature's Essence",
+    icon: 'ability_druid_flourish',
+  },
+  // proc from Resto Druid T29 4pc
+  CRITICAL_GROWTH: {
+    id: 394565,
+    name: 'Critical Growth',
     icon: 'ability_druid_flourish',
   },
 
@@ -786,11 +808,23 @@ const spells = spellIndexableList({
     name: 'Waning Twilight',
     icon: 'spell_shadow_twilight',
   },
+<<<<<<< HEAD
   GATHERING_STARSTUFF: {
     // Buff from dragonflight T29 2p
     id: 394412,
     name: 'Gathering Starstuff - T29 2P',
     icon: 'spell_nature_wrathv2',
+=======
+  BALANCE_OF_ALL_THINGS_LUNAR: {
+    id: 394050,
+    name: 'Balance of All Things',
+    icon: 'ability_druid_earthandsky',
+  },
+  BALANCE_OF_ALL_THINGS_SOLAR: {
+    id: 394049,
+    name: 'Balance of All Things',
+    icon: 'ability_druid_earthandsky',
+>>>>>>> dragonflight
   },
 
   /////////////////////////////////////////////////////////////////////////////

@@ -4,13 +4,12 @@ import { fetchFights, LogNotFoundError } from 'common/fetchWclApi';
 import { setReport } from 'interface/actions/report';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
-import { getFightId, getReportCode } from 'interface/selectors/url/report';
 import Report from 'parser/core/Report';
 import { ReactNode, useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ReportProvider } from 'interface/report/context/ReportContext';
-import { Helmet } from 'react-helmet';
+import DocumentTitle from 'interface/DocumentTitle';
 
 import handleApiError from './handleApiError';
 
@@ -87,9 +86,8 @@ interface Props {
   children: ReactNode;
 }
 const ReportLoader = ({ children }: Props) => {
-  const location = useLocation();
-  const history = useHistory();
-  const reportCode = getReportCode(location.pathname);
+  const navigate = useNavigate();
+  const { reportCode, fightId } = useParams();
   const dispatch = useDispatch();
   const [error, setError] = useState<Error | null>(null);
   const [report, setReportState] = useState<Report | null>(null);
@@ -98,7 +96,6 @@ const ReportLoader = ({ children }: Props) => {
     'report:last-force-refresh',
     null,
   );
-  const fightId = getFightId(location.pathname);
 
   const updateState = useCallback(
     (error: Error | null, report: Report | null) => {
@@ -146,9 +143,10 @@ const ReportLoader = ({ children }: Props) => {
   }, [loadReport, reportCode]);
 
   useEffect(() => {
+    const fightIdAsNumber = fightId ? Number(fightId) : null;
     if (reportCode) {
       const refresh = shouldForceRefresh(
-        fightId,
+        fightIdAsNumber,
         lastForceRefreshTimestamp ? Number(lastForceRefreshTimestamp) : 0,
       );
       if (refresh) {
@@ -165,7 +163,7 @@ const ReportLoader = ({ children }: Props) => {
   if (error) {
     return handleApiError(error, () => {
       resetState();
-      history.push(makeAnalyzerUrl());
+      navigate(makeAnalyzerUrl());
     });
   }
   if (!report) {
@@ -181,9 +179,7 @@ const ReportLoader = ({ children }: Props) => {
 
   return (
     <>
-      <Helmet>
-        <title>{report.title}</title>
-      </Helmet>
+      <DocumentTitle title={report.title} />
 
       <ReportProvider report={report} refreshReport={handleRefresh}>
         {children}

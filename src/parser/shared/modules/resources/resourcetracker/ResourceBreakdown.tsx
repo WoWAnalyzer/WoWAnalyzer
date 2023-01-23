@@ -9,7 +9,7 @@ import ResourceTracker from './ResourceTracker';
 interface Props {
   /** Associated tracker module that holds the resource data */
   tracker: ResourceTracker;
-  /** Iff true, there will be a separate section showing resources spent */
+  /** If true, there will be a separate section showing resources spent */
   showSpenders: boolean;
   /** If true, the spenders section will show the number of casts that consumed
    *  the maxResources. (This is primarily for something like Combo Points) */

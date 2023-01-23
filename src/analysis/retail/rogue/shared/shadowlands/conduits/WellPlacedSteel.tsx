@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
@@ -10,22 +11,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 const DAMAGE_BONUS = [
-  0,
-  0.1,
-  0.12,
-  0.13,
-  0.14,
-  0.15,
-  0.16,
-  0.17,
-  0.18,
-  0.19,
-  0.2,
-  0.21,
-  0.22,
-  0.23,
-  0.24,
-  0.25,
+  0, 0.1, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.2, 0.21, 0.22, 0.23, 0.24, 0.25,
 ];
 
 class WellPlacedSteel extends Analyzer {
@@ -66,7 +52,7 @@ class WellPlacedSteel extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.WELLPLACED_STEEL.id}>
+        <BoringSpellValueText spellId={TALENTS.IMPROVED_SHIV_TALENT.id}>
           <ItemDamageDone amount={this.bonusDamage} />
         </BoringSpellValueText>
       </Statistic>

@@ -1,5 +1,6 @@
 import { formatMilliseconds, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -34,9 +35,9 @@ class OvercapShieldOfTheRighteous extends Analyzer {
   overcapRecords: OvercapRecord[] = [];
 
   hpGeneratingSpells = [
-    SPELLS.BLESSED_HAMMER_TALENT,
-    SPELLS.HAMMER_OF_THE_RIGHTEOUS,
-    SPELLS.HAMMER_OF_WRATH,
+    TALENTS.BLESSED_HAMMER_TALENT,
+    TALENTS.HAMMER_OF_THE_RIGHTEOUS_TALENT,
+    TALENTS.HAMMER_OF_WRATH_TALENT,
     SPELLS.JUDGMENT_CAST_PROTECTION,
   ];
 

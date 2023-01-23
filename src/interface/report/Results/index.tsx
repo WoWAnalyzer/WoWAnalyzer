@@ -21,10 +21,9 @@ import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { CombatLogParserProvider } from 'interface/report/CombatLogParserContext';
-import ResultsContent from 'interface/report/Results/ResultsContent';
-import { ResultsContext } from 'interface/report/Results/ResultsContext';
+import { LoadingStatus, ResultsContext } from 'interface/report/Results/ResultsContext';
 import ParseResults from 'parser/core/ParseResults';
 import Expansion from 'game/Expansion';
 import { reset, setBaseUrl } from 'interface/actions/tooltips';
@@ -52,14 +51,7 @@ interface PassedProps {
   report: Report;
   fight: Fight;
   player: PlayerInfo;
-  isLoadingParser?: boolean;
-  isLoadingEvents?: boolean;
-  isLoadingPhases?: boolean;
-  isFilteringEvents?: boolean;
-  bossPhaseEventsLoadingState?: BOSS_PHASES_STATE;
-  isLoadingCharacterProfile?: boolean;
-  parsingState?: EVENT_PARSING_STATE;
-  progress?: number;
+  loadingStatus: LoadingStatus;
   premium?: boolean;
   config: Config;
 }
@@ -81,21 +73,21 @@ const Results = (props: PassedProps) => {
 
   const isLoading = useMemo(
     () =>
-      props.isLoadingParser ||
-      props.isLoadingEvents ||
-      props.bossPhaseEventsLoadingState === BOSS_PHASES_STATE.LOADING ||
-      props.isLoadingCharacterProfile ||
-      props.isLoadingPhases ||
-      props.isFilteringEvents ||
-      props.parsingState !== EVENT_PARSING_STATE.DONE,
+      props.loadingStatus.isLoadingParser ||
+      props.loadingStatus.isLoadingEvents ||
+      props.loadingStatus.bossPhaseEventsLoadingState === BOSS_PHASES_STATE.LOADING ||
+      props.loadingStatus.isLoadingCharacterProfile ||
+      props.loadingStatus.isLoadingPhases ||
+      props.loadingStatus.isFilteringEvents ||
+      props.loadingStatus.parsingState !== EVENT_PARSING_STATE.DONE,
     [
-      props.bossPhaseEventsLoadingState,
-      props.isFilteringEvents,
-      props.isLoadingCharacterProfile,
-      props.isLoadingEvents,
-      props.isLoadingParser,
-      props.isLoadingPhases,
-      props.parsingState,
+      props.loadingStatus.bossPhaseEventsLoadingState,
+      props.loadingStatus.isFilteringEvents,
+      props.loadingStatus.isLoadingCharacterProfile,
+      props.loadingStatus.isLoadingEvents,
+      props.loadingStatus.isLoadingParser,
+      props.loadingStatus.isLoadingPhases,
+      props.loadingStatus.parsingState,
     ],
   );
 
@@ -173,7 +165,16 @@ const Results = (props: PassedProps) => {
   const reportDuration = props.report.end - props.report.start;
 
   return (
-    <ResultsContext.Provider value={{ results, generateResults }}>
+    <ResultsContext.Provider
+      value={{
+        adjustForDowntime,
+        setAdjustForDowntime,
+        generateResults,
+        isLoading,
+        loadingStatus: props.loadingStatus,
+        results,
+      }}
+    >
       <div className={`results boss-${props.fight.boss}`}>
         <Header
           config={props.config}
@@ -232,23 +233,7 @@ const Results = (props: PassedProps) => {
           </div>
         )}
         <CombatLogParserProvider combatLogParser={props.parser}>
-          <ResultsContent
-            config={props.config}
-            isLoading={isLoading}
-            parser={props.parser}
-            results={results}
-            selectedTab={selectedTab}
-            adjustForDowntime={adjustForDowntime}
-            setAdjustForDowntime={setAdjustForDowntime}
-            progress={props.progress}
-            isLoadingParser={props.isLoadingParser}
-            isLoadingEvents={props.isLoadingEvents}
-            bossPhaseEventsLoadingState={props.bossPhaseEventsLoadingState}
-            isLoadingCharacterProfile={props.isLoadingCharacterProfile}
-            isLoadingPhases={props.isLoadingPhases}
-            isFilteringEvents={props.isFilteringEvents}
-            parsingState={props.parsingState}
-          />
+          <Outlet />
         </CombatLogParserProvider>
 
         <div className="container" style={{ marginTop: 40 }}>

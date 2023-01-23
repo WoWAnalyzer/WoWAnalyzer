@@ -5,12 +5,12 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
-import { MOLTEN_ASSAULT_SCALING, ESSENTIAL_EXTRACTION_EFFECT_BY_RANK } from '../constants';
+import { MOLTEN_ASSAULT_SCALING } from '../constants';
 
 import {
-  TOTEMIC_SURGE_SCALING,
-  GWTF_SW_SCALING,
   GWTF_GOW_SCALING,
+  GWTF_SW_SCALING,
+  TOTEMIC_SURGE_SCALING,
 } from 'analysis/retail/shaman/shared/constants';
 
 class Abilities extends CoreAbilities {
@@ -551,16 +551,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FAE_TRANSFUSION.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120 + ESSENTIAL_EXTRACTION_EFFECT_BY_RANK[0],
-        gcd: {
-          base: 1500,
-        },
-        enabled: false,
-      },
-      {
-        spell: SPELLS.PRIMORDIAL_WAVE_CAST.id,
+        spell: TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 45,
         gcd: {
@@ -571,24 +562,6 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 1,
         },
-      },
-      {
-        spell: SPELLS.CHAIN_HARVEST.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
-        gcd: {
-          base: 1500,
-        },
-        enabled: false,
-      },
-      {
-        spell: SPELLS.VESPER_TOTEM.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        enabled: false,
       },
       {
         spell: TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT.id,

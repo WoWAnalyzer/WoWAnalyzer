@@ -299,7 +299,7 @@ class Abilities extends CoreAbilities {
       },
       // Covenant Abilities
       {
-        spell: SPELLS.SERRATED_BONE_SPIKE.id,
+        spell: TALENTS.SERRATED_BONE_SPIKE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: false,
         charges: 3,

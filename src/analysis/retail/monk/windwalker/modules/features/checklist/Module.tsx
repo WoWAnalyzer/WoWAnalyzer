@@ -3,7 +3,6 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
-import CoordinatedOffensive from '../../covenants/CoordinatedOffensive';
 import JadeIgnition from '../../items/JadeIgnition';
 import LastEmperorsCapacitor from '../../items/LastEmperorsCapacitor';
 import ChiDetails from '../../resources/ChiDetails';
@@ -33,8 +32,6 @@ class Checklist extends BaseChecklist {
 
     lastEmperorsCapacitor: LastEmperorsCapacitor,
     jadeIgnition: JadeIgnition,
-
-    coordinatedOffensive: CoordinatedOffensive,
   };
 
   protected combatants!: Combatants;
@@ -49,7 +46,6 @@ class Checklist extends BaseChecklist {
   protected chiDetails!: ChiDetails;
   protected lastEmperorsCapacitor!: LastEmperorsCapacitor;
   protected jadeIgnition!: JadeIgnition;
-  protected coordinatedOffensive!: CoordinatedOffensive;
 
   render() {
     return (
@@ -68,13 +64,11 @@ class Checklist extends BaseChecklist {
           hitCombo: this.hitCombo.suggestionThresholds,
           chiDetails: this.chiDetails.suggestionThresholds,
 
-          lastEmperorsCapacitorAverageStacks: this.lastEmperorsCapacitor
-            .averageStacksSuggestionThresholds,
-          lastEmperorsCapacitorWastedStacks: this.lastEmperorsCapacitor
-            .wastedStacksSuggestionThresholds,
+          lastEmperorsCapacitorAverageStacks:
+            this.lastEmperorsCapacitor.averageStacksSuggestionThresholds,
+          lastEmperorsCapacitorWastedStacks:
+            this.lastEmperorsCapacitor.wastedStacksSuggestionThresholds,
           jadeIgnition: this.jadeIgnition.suggestionThresholds,
-
-          coordinatedOffensiveDamageBenefit: this.coordinatedOffensive.damageBenefitThreshold,
         }}
       />
     );

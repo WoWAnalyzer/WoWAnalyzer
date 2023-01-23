@@ -17,6 +17,9 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
+
 // Example log: /report/JAPL1zpDfN7W8wck/33-Heroic+The+Council+of+Blood+-+Kill+(5:46)/Mayrim/standard/statistics
 class SurgeOfDarkness extends Analyzer {
   static dependencies = {
@@ -84,8 +87,8 @@ class SurgeOfDarkness extends Analyzer {
       actual: this.procsWasted,
       isGreaterThan: {
         minor: 0,
-        average: 0.5,
-        major: 1.1,
+        average: 5,
+        major: 10,
       },
       style: ThresholdStyle.NUMBER,
     };
@@ -95,8 +98,10 @@ class SurgeOfDarkness extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest) =>
       suggest(
         <>
-          You wasted {this.procsWasted} out of {this.procsGained}{' '}
-          <SpellLink id={SPELLS.SURGE_OF_DARKNESS_TALENT_BUFF.id} /> procs.
+          You used {this.procsUsed} out of {this.procsGained}{' '}
+          <SpellLink id={SPELLS.SURGE_OF_DARKNESS_TALENT_BUFF.id} /> procs. This proc is low
+          priorty. If you have higher priority spells available, it is better to not use these
+          procs.
         </>,
       )
         .icon(TALENTS.SURGE_OF_DARKNESS_TALENT.icon)
@@ -120,6 +125,39 @@ class SurgeOfDarkness extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const goodSD = {
+      count: this.procsUsed,
+      label: 'Surge of Darkness procs used',
+    };
+
+    const badSD = {
+      count: this.procsWasted,
+      label: 'Surge of Darkness procs unused',
+    };
+
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={SPELLS.SURGE_OF_DARKNESS_TALENT_BUFF.id} />
+        </b>{' '}
+        is gained randomly from <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> and{' '}
+        <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> damage.
+        <br />
+        This proc is low priorty. If you have higher priority spells available, cast them instead,
+        even if it causes this proc to go unused.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <strong>Surge of Darkness breakdown</strong>
+        <GradiatedPerformanceBar good={goodSD} ok={badSD} />
+      </div>
+    );
+    return explanationAndDataSubsection(explanation, data, 50);
   }
 }
 

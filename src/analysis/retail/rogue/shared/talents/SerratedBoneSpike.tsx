@@ -9,6 +9,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 
 class SerratedBoneSpike extends Analyzer {
   static dependencies = {
@@ -28,7 +29,7 @@ class SerratedBoneSpike extends Analyzer {
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.SERRATED_BONE_SPIKE, SPELLS.SERRATED_BONE_SPIKE_DEBUFF]),
+        .spell([TALENTS.SERRATED_BONE_SPIKE_TALENT, SPELLS.SERRATED_BONE_SPIKE_DEBUFF]),
       this.onDamage,
     );
     this.addEventListener(
@@ -53,13 +54,13 @@ class SerratedBoneSpike extends Analyzer {
   }
 
   onSBSRemoveDebuff(event: RemoveDebuffEvent) {
-    if (this.spellUsable.isOnCooldown(SPELLS.SERRATED_BONE_SPIKE.id)) {
+    if (this.spellUsable.isOnCooldown(TALENTS.SERRATED_BONE_SPIKE_TALENT.id)) {
       const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(
-        SPELLS.SERRATED_BONE_SPIKE.id,
+        TALENTS.SERRATED_BONE_SPIKE_TALENT.id,
       );
       if (expectedCooldownDuration) {
         this.spellUsable.reduceCooldown(
-          SPELLS.SERRATED_BONE_SPIKE.id,
+          TALENTS.SERRATED_BONE_SPIKE_TALENT.id,
           expectedCooldownDuration,
           event.timestamp,
         );

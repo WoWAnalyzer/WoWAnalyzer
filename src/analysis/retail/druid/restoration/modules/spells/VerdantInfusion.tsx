@@ -106,7 +106,7 @@ class VerdantInfusion extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.VERDANT_INFUSION.id}>
+        <BoringSpellValueText spellId={TALENTS_DRUID.VERDANT_INFUSION_TALENT.id}>
           <ItemPercentHealingDone amount={this.attribution.healing} />
           <br />
         </BoringSpellValueText>

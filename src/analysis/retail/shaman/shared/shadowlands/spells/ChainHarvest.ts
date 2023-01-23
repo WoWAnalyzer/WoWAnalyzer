@@ -1,10 +1,9 @@
-import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import { DamageEvent, HealEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-const cooldownDecrease = 5000;
+// const cooldownDecrease = 5000;
 
 /**
  * CD is reduced by crits
@@ -21,15 +20,15 @@ class ChainHarvest extends Analyzer {
     super(options);
     this.active = false;
 
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HARVEST_HEAL),
-      this.reduceCooldownOnCriticalHit,
-    );
-
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HARVEST_DAMAGE),
-      this.reduceCooldownOnCriticalHit,
-    );
+    // this.addEventListener(
+    //   Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HARVEST_HEAL),
+    //   this.reduceCooldownOnCriticalHit,
+    // );
+    //
+    // this.addEventListener(
+    //   Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HARVEST_DAMAGE),
+    //   this.reduceCooldownOnCriticalHit,
+    // );
   }
 
   reduceCooldownOnCriticalHit(event: HealEvent | DamageEvent) {
@@ -37,9 +36,9 @@ class ChainHarvest extends Analyzer {
       return;
     }
 
-    if (this.spellUsable.isOnCooldown(SPELLS.CHAIN_HARVEST.id)) {
-      this.spellUsable.reduceCooldown(SPELLS.CHAIN_HARVEST.id, cooldownDecrease);
-    }
+    // if (this.spellUsable.isOnCooldown(SPELLS.CHAIN_HARVEST.id)) {
+    //   this.spellUsable.reduceCooldown(SPELLS.CHAIN_HARVEST.id, cooldownDecrease);
+    // }
   }
 }
 

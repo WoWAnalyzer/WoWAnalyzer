@@ -121,7 +121,7 @@ class Combatant extends Entity {
     });
   }
 
-  /** Returns true iff this combatant has the specified talent. Will be true for any number of
+  /** Returns true if this combatant has the specified talent. Will be true for any number of
    *  points in the talent, even when not the maximum number of points. */
   hasTalent(talent: Talent): boolean {
     return talent.entryIds.filter((entryId) => this.treeTalentsByEntryId.has(entryId)).length > 0;

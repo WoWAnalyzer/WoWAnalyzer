@@ -59,13 +59,12 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklist
             you are <SpellLink id={TALENTS.SHATTER_TALENT.id} />
             ing as many of your spells as possible. The key aspect of this is taking advantage of
             the <SpellLink id={SPELLS.WINTERS_CHILL.id} /> debuff. Winter's Chill is applied to the
-            target when you use a <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> proc and makes
-            the target act as if it is frozen for a short duration of time. Therefore, you should
-            cast a rotational ability like <SpellLink id={SPELLS.FROSTBOLT.id} />,{' '}
+            target when you cast <SpellLink id={TALENTS.FLURRY_TALENT.id} /> and makes the target
+            act as if it is frozen for a short duration of time. Therefore, you should cast a
+            rotational ability like <SpellLink id={SPELLS.FROSTBOLT.id} />,{' '}
             <SpellLink id={TALENTS.EBONBOLT_TALENT.id} />, or{' '}
-            <SpellLink id={TALENTS.GLACIAL_SPIKE_TALENT.id} />, followed immediately by the Brain
-            Freeze buffed Flurry and then end with two{' '}
-            <SpellLink id={TALENTS.ICE_LANCE_TALENT.id} />
+            <SpellLink id={TALENTS.GLACIAL_SPIKE_TALENT.id} />, followed immediately by Flurry and
+            then end with two <SpellLink id={TALENTS.ICE_LANCE_TALENT.id} />
             s. Against non-boss enemies, you can also utilize other things like{' '}
             <SpellLink id={SPELLS.FROST_NOVA.id} /> or your pet's{' '}
             <SpellLink id={SPELLS.FREEZE.id} /> to shatter spells as well.
@@ -75,12 +74,12 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklist
         <Requirement
           name="Ice Lance into Winter's Chill"
           thresholds={thresholds.wintersChillShatter}
-          tooltip="Using Brain Freeze will apply the Winter's Chill debuff to the target which causes your spells to act as if the target is frozen. Therefore, you should always cast Ice Lance twice after every instant cast Flurry so that the Ice Lance hits the target while Winter's Chill is up."
+          tooltip="Casting Flurry will apply the Winter's Chill debuff to the target which causes your spells to act as if the target is frozen. Therefore, you should always cast Ice Lance twice after every Flurry cast so that the Ice Lance hits the target while Winter's Chill is up."
         />
         <Requirement
           name="Hardcast into Winter's Chill"
           thresholds={thresholds.wintersChillHardCasts}
-          tooltip="Flurry travels faster than your other spells, so you can pre-cast Frostbolt, Ebonbolt, or Glacial Spike before using your instant cast Flurry. This will result in the pre-cast spell landing in the Winter's Chill debuff and dealing bonus shatter damage. If you are Kyrian, you can also use Radiant Spark instead of a Pre-cast ability."
+          tooltip="Flurry travels faster than your other spells, so you can pre-cast Frostbolt, Ebonbolt, or Glacial Spike before casting Flurry. This will result in the pre-cast spell landing in the Winter's Chill debuff and dealing bonus shatter damage."
         />
       </Rule>
       <Rule
@@ -122,22 +121,21 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklist
         name="Use Glacial Spike properly"
         description={
           <>
-            <SpellLink id={TALENTS.GLACIAL_SPIKE_TALENT.id} /> is one of the most impactful talents
-            that you can choose and it plays a large part in your rotation; So you should always
+            When talented into <SpellLink id={TALENTS.GLACIAL_SPIKE_TALENT.id} /> you should always
             ensure that you are getting the most out of it, because a large part of your damage will
             come from making sure that you are handling Glacial Spike properly. As a rule, once you
-            have Glacial Spike available, you should not cast it unless you have a{' '}
-            <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> proc to use alongside it (
+            have Glacial Spike available, you should not cast it unless you can cast{' '}
+            <SpellLink id={TALENTS.FLURRY_TALENT.id} /> alongside it (
             <SpellLink id={TALENTS.GLACIAL_SPIKE_TALENT.id} /> {'>'}{' '}
             <SpellLink id={TALENTS.FLURRY_TALENT.id} /> {'>'}
             <SpellLink id={TALENTS.ICE_LANCE_TALENT.id} />) or if you also have the{' '}
             <SpellLink id={TALENTS.SPLITTING_ICE_TALENT.id} /> and the Glacial Spike will hit a
             second target. If neither of those are true, then you should continue casting{' '}
-            <SpellLink id={SPELLS.FROSTBOLT.id} /> until you have a{' '}
-            <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> proc. If you are consistently in
-            situations where you are waiting to get a Brain Freeze proc, then consider taking the{' '}
-            <SpellLink id={TALENTS.EBONBOLT_TALENT.id} /> talent and saving it for when you need to
-            generate a proc to use with Glacial Spike.
+            <SpellLink id={SPELLS.FROSTBOLT.id} /> until <SpellLink id={TALENTS.FLURRY_TALENT.id} />{' '}
+            is available or you get a <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT} /> proc. If you
+            are consistently in situations where you are waiting to get a Brain Freeze proc, then
+            consider taking the <SpellLink id={TALENTS.EBONBOLT_TALENT.id} /> talent and saving it
+            for when you need to generate a proc to use with Glacial Spike.
           </>
         }
       >

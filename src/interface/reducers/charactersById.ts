@@ -6,7 +6,7 @@ export interface CharactersByIdState {
   [guid: number]: CharacterProfile;
 }
 
-export default function charactersById(state = {}, action: AnyAction) {
+export default function charactersById(state: CharactersByIdState = {}, action: AnyAction) {
   switch (action.type) {
     case STORE_CHARACTER:
       return {

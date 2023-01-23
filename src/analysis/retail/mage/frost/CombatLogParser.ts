@@ -10,6 +10,7 @@ import {
   TempestBarrier,
   MasterOfTime,
   TimeAnomaly,
+  SharedCode,
 } from 'analysis/retail/mage/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -29,6 +30,7 @@ import WintersChill from './core/WintersChill';
 //Talents
 import ColdSnap from './talents/ColdSnap';
 import FrozenOrb from './talents/FrozenOrb';
+import Flurry from './talents/Flurry';
 import WaterElemental from './talents/WaterElemental';
 import ColdFront from './talents/ColdFront';
 import IcyPropulsion from './talents/IcyPropulsion';
@@ -52,6 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Core
     abilities: Abilities,
+    sharedCode: SharedCode,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
     cooldownThroughputTracker: CooldownThroughputTracker,
@@ -73,6 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     icyPropulsion: IcyPropulsion,
     coldFront: ColdFront,
     mirrorImage: MirrorImage,
+    flurry: Flurry,
     frozenOrb: FrozenOrb,
     coldSnap: ColdSnap,
 
