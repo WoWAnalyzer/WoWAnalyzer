@@ -14,11 +14,11 @@ type Cooldown = {
   extraTalents?: Talent[];
 };
 
-type Cool = {
+type SpellCooldown = {
   spell: Spell;
 };
 
-const coreCooldowns: Cool[] = [
+const coreCooldowns: SpellCooldown[] = [
   { spell: SPELLS.MIND_BLAST },
   //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
 ];
@@ -47,7 +47,7 @@ const CoreCooldownsGraph = () => {
       also both be used when Mindbender is active with Inescapable Torment talented.
       <br />
       TODO: Add execute phase SW:D. <br />
-      TODO: Mind Blast's number of casts is incorrect, but efficency and graph are correct.
+      TODO: Mind Blast's number of casts is incorrect.
     </Trans>
   );
   return CoreCooldownGraphSubsection(coreCooldowns, message);
@@ -58,6 +58,9 @@ const ShortCooldownsGraph = () => {
     <Trans id="guide.priest.shadow.sections.shortcooldowns.graph">
       <strong>Short Cooldowns</strong> - this graph shows when you used your cooldowns and how long
       you waited to use them again. Try to use these spells on cooldown.
+      <br />
+      TODO: Fix missing casts that occurred before encounter start. (common when opening with Shadow
+      Crash.)
     </Trans>
   );
   return CooldownGraphSubsection(shortCooldowns, message);
@@ -111,7 +114,7 @@ const CooldownGraphSubsection = (cooldownsToCheck: Cooldown[], message: JSX.Elem
   );
 };
 
-const CoreCooldownGraphSubsection = (cooldownsToCheck: Cool[], message: JSX.Element) => {
+const CoreCooldownGraphSubsection = (cooldownsToCheck: SpellCooldown[], message: JSX.Element) => {
   const info = useInfo();
   const castEfficiency = useAnalyzer(CastEfficiency);
   if (!info || !castEfficiency) {
