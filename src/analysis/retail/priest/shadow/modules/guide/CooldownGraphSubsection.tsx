@@ -1,6 +1,6 @@
 import { Talent } from 'common/TALENTS/types';
 import Spell from 'common/SPELLS/Spell';
-
+import { SpellLink } from 'interface';
 import { SubSection, useAnalyzer, useInfo } from 'interface/guide';
 import TALENTS from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS/priest';
@@ -41,13 +41,13 @@ const longCooldowns: Cooldown[] = [
 const CoreCooldownsGraph = () => {
   const message = (
     <Trans id="guide.priest.shadow.sections.corecooldowns.graph">
-      <strong>Core Graph</strong> - Mindblast is a core spell that should be keept on cooldown as
-      much as possible. The same is true for Shadow Word: Death during execute. These spells should
+      <strong>Core Graph</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
+      should be keept on cooldown as much as possible. The same is true for{' '}
+      <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> during execute. These spells should
       also both be used when Mindbender is active with Inescapable Torment talented.
       <br />
-      TODO: Hide non-execute phase SW:D Cooldown graph. (It's efficiency is correctly calculated
-      only during execute) <br />
-      TODO: Mind Blast efficency and graph is incorrect
+      TODO: Add execute phase SW:D. <br />
+      TODO: Mind Blast's number of casts is incorrect, but efficency and graph are correct.
     </Trans>
   );
   return CoreCooldownGraphSubsection(coreCooldowns, message);

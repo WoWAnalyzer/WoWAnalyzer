@@ -26,20 +26,13 @@ class Voidform extends Analyzer {
   }
 
   enterVoidform(event: ApplyBuffEvent) {
-    //Voidform can restore two charges of mindblast.
-    //There are other ways to restore all charges, but this keeps track of the number of charges restored.
+    //Voidform restores all charges of mindblast.
     this.casts += 1;
-    if (this.spellUsable.isOnCooldown(SPELLS.MIND_BLAST.id)) {
-      this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, false, false);
-      this.mindblast += 1;
-      if (this.spellUsable.isOnCooldown(SPELLS.MIND_BLAST.id)) {
-        this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, false, false);
-        this.mindblast += 1;
-      }
-    }
+    this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, true, true);
+    //TODO: Track number of mindblast charges restored.
   }
 
-  //currenlty unused, but will be used to calculate missed recharges of mindblast when using Voidform
+  /*currenlty unused, but will be used to calculate missed recharges of mindblast when using Voidform
   get gainedMB() {
     return this.mindblast;
   }
@@ -47,6 +40,7 @@ class Voidform extends Analyzer {
   get potentialMB() {
     return this.casts * 2;
   }
+  */
 }
 
 export default Voidform;
