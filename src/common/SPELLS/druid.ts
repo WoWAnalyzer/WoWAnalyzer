@@ -808,13 +808,12 @@ const spells = spellIndexableList({
     name: 'Waning Twilight',
     icon: 'spell_shadow_twilight',
   },
-<<<<<<< HEAD
   GATHERING_STARSTUFF: {
     // Buff from dragonflight T29 2p
     id: 394412,
     name: 'Gathering Starstuff - T29 2P',
     icon: 'spell_nature_wrathv2',
-=======
+  },
   BALANCE_OF_ALL_THINGS_LUNAR: {
     id: 394050,
     name: 'Balance of All Things',
@@ -824,7 +823,6 @@ const spells = spellIndexableList({
     id: 394049,
     name: 'Balance of All Things',
     icon: 'ability_druid_earthandsky',
->>>>>>> dragonflight
   },
 
   /////////////////////////////////////////////////////////////////////////////
