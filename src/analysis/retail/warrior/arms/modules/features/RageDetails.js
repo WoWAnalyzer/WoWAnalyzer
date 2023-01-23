@@ -62,7 +62,7 @@ class RageDetails extends Analyzer {
         icon={<Icon icon="spell_nature_reincarnation" />}
         value={`${formatPercentage(this.wastedPercent)} %`}
         label="Rage wasted"
-        tooltip={`${this.rageTracker.wasted} out of ${Math.round(
+        tooltip={`${Math.round(this.rageTracker.wasted)} out of ${Math.round(
           this.rageTracker.wasted + this.rageTracker.generated,
         )} rage wasted.`}
       />

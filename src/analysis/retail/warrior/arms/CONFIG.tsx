@@ -1,8 +1,9 @@
 import { Carrottopp, Toreole } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
+import TALENTS from 'common/TALENTS/warrior';
 import Config from 'parser/Config';
-import { AlertWarning } from 'interface';
+import { AlertWarning, SpellLink } from 'interface';
 
 import CHANGELOG from './CHANGELOG';
 
@@ -20,6 +21,10 @@ const config: Config = {
       <AlertWarning>
         The APL is still a mess right now, so do not pay attention to the Rotation Efficiency, or
         the Suggestions in the Timeline.
+      </AlertWarning>
+      <AlertWarning>
+        The 'Rage usage' breakdown currently uses the wrong amount of Rage spent for Slam when using{' '}
+        <SpellLink id={TALENTS.BARBARIC_TRAINING_ARMS_TALENT.id} />.
       </AlertWarning>
       Hey I've been hard at work making this analyzer for you. I hope the suggestions give you
       useful pointers to improve your performance. Remember: focus on improving only one or two
