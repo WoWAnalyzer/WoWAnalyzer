@@ -28,6 +28,8 @@ class ShadowyInsight extends Analyzer {
 
   procsGained = 0;
   procsUsed = 0;
+  maxCasts = 0;
+  casts = 0;
 
   constructor(options: Options) {
     super(options);
@@ -50,11 +52,9 @@ class ShadowyInsight extends Analyzer {
 
   onBuffApplied(event: ApplyBuffEvent) {
     this.abilities.increaseMaxCharges(event, SPELLS.MIND_BLAST.id, 1);
-    this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, false, true);
-    //Including this fixes the error caused by spellusable thinking it had no available charges.
-    //However, this makes mindblast efficency incorrect by the number of procs, and causes its cooldown graph to be wrong.
+    this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, false, false);
 
-    this.procsGained += 1; // Add a proc to the counter
+    this.procsGained += 1;
   }
 
   onBuffRemoved(event: RemoveBuffEvent) {

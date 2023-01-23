@@ -13,6 +13,9 @@ class Voidform extends Analyzer {
   protected abilities!: Abilities;
   protected spellUsable!: SpellUsable;
 
+  mindblast = 0;
+  casts = 0;
+
   constructor(options: Options) {
     super(options);
 
@@ -24,12 +27,25 @@ class Voidform extends Analyzer {
 
   enterVoidform(event: ApplyBuffEvent) {
     //Voidform can restore two charges of mindblast.
+    //There are other ways to restore all charges, but this keeps track of the number of charges restored.
+    this.casts += 1;
     if (this.spellUsable.isOnCooldown(SPELLS.MIND_BLAST.id)) {
-      this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, false, true);
+      this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, false, false);
+      this.mindblast += 1;
       if (this.spellUsable.isOnCooldown(SPELLS.MIND_BLAST.id)) {
-        this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, false, true);
+        this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, false, false);
+        this.mindblast += 1;
       }
     }
+  }
+
+  //currenlty unused, but will be used to calculate missed recharges of mindblast when using Voidform
+  get gainedMB() {
+    return this.mindblast;
+  }
+
+  get potentialMB() {
+    return this.casts * 2;
   }
 }
 
