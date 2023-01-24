@@ -36,6 +36,7 @@ import Lifebind from './modules/talents/Lifebind';
 import EnergyLoop from './modules/talents/EnergyLoop';
 import AlwaysBeCasting from './modules/core/AlwaysBeCasting';
 import FontOfMagic from './modules/talents/FontOfMagic';
+import EmeraldCommunion from './modules/talents/EmeraldCommunion';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -86,6 +87,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lifebind: Lifebind,
     energyLoop: EnergyLoop,
     fontOfMagic: FontOfMagic,
+    emeraldCommunion: EmeraldCommunion,
   };
 }
 

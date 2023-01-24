@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -14,10 +14,19 @@ import { getHealForLifebindHeal } from '../../normalizers/CastLinkNormalizer';
 
 class Lifebind extends Analyzer {
   healingBySpell: Map<number, number> = new Map<number, number>();
+  curNumLifebinds: number = 0;
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.LIFEBIND_TALENT);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIFEBIND_HEAL), this.onHeal);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.LIFEBIND_BUFF),
+      this.onApply,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.LIFEBIND_BUFF),
+      this.onRemove,
+    );
   }
 
   onHeal(event: HealEvent) {
@@ -27,6 +36,14 @@ class Lifebind extends Analyzer {
       spellID,
       (this.healingBySpell.get(spellID) ?? 0) + event.amount + (event.absorbed || 0),
     );
+  }
+
+  onApply(event: ApplyBuffEvent) {
+    this.curNumLifebinds += 1;
+  }
+
+  onRemove(event: RemoveBuffEvent) {
+    this.curNumLifebinds -= 1;
   }
 
   healingForSpell(spellId: number): number {
