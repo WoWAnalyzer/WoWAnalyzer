@@ -39,6 +39,13 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [112632],
   },
+  CHEAT_DEATH_TALENT: {
+    id: 31230,
+    name: 'Cheat Death',
+    icon: 'ability_rogue_cheatdeath',
+    maxRanks: 1,
+    entryIds: [114737],
+  },
   CLOAK_OF_SHADOWS_TALENT: {
     id: 31224,
     name: 'Cloak of Shadows',
