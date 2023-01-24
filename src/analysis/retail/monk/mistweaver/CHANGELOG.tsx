@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 1, 24), <>Removed Bonedust Brew modules and references for Mistweaver for 10.0.5</>, Vohrr),
   change(date(2023, 1, 12), <>Improve accuracy of <SpellLink id={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT.id}/> module and the <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id}/> missed GCDs tally.</>, Vohrr),
   change(date(2023, 1, 8), <>Improve accuracy of <SpellLink id={TALENTS_MONK.UPWELLING_TALENT.id}/> module.</>, Trevor),
   change(date(2023, 1, 6), <>Improve accuracy of <SpellLink id={TALENTS_MONK.UPWELLING_TALENT.id}/> module.</>, Trevor),
