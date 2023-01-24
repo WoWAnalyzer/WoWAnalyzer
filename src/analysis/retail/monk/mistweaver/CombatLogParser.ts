@@ -31,7 +31,6 @@ import REMGraph from './modules/features/REMGraph';
 import JadeBond from './modules/spells/JadeBond';
 import NourishingChi from './modules/spells/NourishingChi';
 import RisingSunRevival from './modules/spells/UpliftedSpirits';
-import BonedustBrewAverageTargets from './modules/spells/BonedustBrewAverageTargets';
 import FaelineStompHealing from './modules/spells/FaelineStompHealing';
 import AncientTeachingsoftheMonastery from './modules/spells/AncientTeachingsoftheMonastery';
 import CloudedFocus from './modules/spells/CloudedFocus';
@@ -124,7 +123,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // MW Talents
     ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
-    bonedustBrewAverageTargets: BonedustBrewAverageTargets,
     cloudedFocus: CloudedFocus,
     envelopingBreath: EnvelopingBreath,
     envelopingMists: EnvelopingMists,

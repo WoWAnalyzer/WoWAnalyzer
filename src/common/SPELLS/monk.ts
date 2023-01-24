@@ -216,6 +216,11 @@ const spells = spellIndexableList({
     name: 'Lifecycles (Enveloping Mist)',
     icon: 'spell_monk_envelopingmist',
   },
+  SHEILUN_CLOUD_BUFF: {
+    id: 399510,
+    name: "Sheilun's Gift",
+    icon: 'inv_staff_2h_artifactshaohao_d_01',
+  },
   SPIRIT_OF_THE_CRANE_BUFF: {
     id: 210803,
     name: 'Spirit of the Crane',
@@ -290,11 +295,6 @@ const spells = spellIndexableList({
     id: 388203,
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
-  },
-  BONEDUST_BREW_GUST_OF_MIST: {
-    id: 328748,
-    name: 'Bonedust Brew',
-    icon: 'ability_maldraxxus_monk',
   },
   NOURISHING_CHI_BUFF: {
     id: 387766,
