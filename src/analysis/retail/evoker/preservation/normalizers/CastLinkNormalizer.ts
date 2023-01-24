@@ -51,6 +51,7 @@ const EB_VARIANCE_BUFFER = 150; // servers are bad and EB can take over or under
 const LIFEBIND_BUFFER = 5000 + CAST_BUFFER_MS; // 5s duration
 const MAX_ECHO_DURATION = 20000; // 15s with 30% inc = 19s
 const TA_BUFFER_MS = 6000 + CAST_BUFFER_MS; //TA pulses over 6s at 0% haste
+const STASIS_BUFFER = 1000;
 
 /*
   This file is for attributing echo applications to hard casts or to temporal anomaly.
@@ -431,7 +432,7 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.RemoveBuffStack, EventType.RemoveBuff],
     referencedEventId: STASIS_CAST_IDS,
     referencedEventType: EventType.Cast,
-    backwardBufferMs: 500,
+    backwardBufferMs: STASIS_BUFFER,
     anyTarget: true,
     maximumLinks: 1,
     additionalCondition(linkingEvent, referencedEvent) {
@@ -453,7 +454,7 @@ const EVENT_LINKS: EventLink[] = [
       SPELLS.SPIRITBLOOM_FONT.id,
     ],
     referencedEventType: EventType.EmpowerEnd,
-    backwardBufferMs: 500,
+    backwardBufferMs: STASIS_BUFFER,
     anyTarget: true,
     maximumLinks: 1,
     additionalCondition(linkingEvent, referencedEvent) {
