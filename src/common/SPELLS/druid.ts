@@ -443,7 +443,7 @@ const spells = spellIndexableList({
   //Tier 29 Balance set bonus proc
   TOUCH_THE_COSMOS: {
     id: 394414,
-    name: 'Touch the Cosmos',
+    name: 'Touch the Cosmos - T29 4P',
     icon: 'ability_bossgorefiend_touchofdoom',
   },
   RENEWING_BLOOM: {
