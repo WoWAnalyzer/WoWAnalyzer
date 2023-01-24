@@ -41,6 +41,10 @@ class Buffs extends CoreAuras {
         timelineHighlight: false,
       },
       {
+        spellId: SPELLS.TOUCH_THE_COSMOS.id,
+        timelineHighlight: false,
+      },
+      {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },
