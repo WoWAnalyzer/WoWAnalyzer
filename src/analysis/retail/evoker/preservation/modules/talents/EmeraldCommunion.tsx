@@ -54,9 +54,7 @@ class EmeraldCommunion extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You do not have a sufficient number of <SpellLink id={TALENTS_EVOKER.LIFEBIND_TALENT} />{' '}
-          buffs out when using <SpellLink id={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />. Try to
-          make sure that you buff as many players as possible with{' '}
+          Try to make sure that you buff as many players as possible with{' '}
           <SpellLink id={TALENTS_EVOKER.LIFEBIND_TALENT} /> prior to casting{' '}
           <SpellLink id={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />.
         </>,
