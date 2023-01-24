@@ -168,6 +168,16 @@ const spells = spellIndexableList({
     name: 'Rattled Stars',
     icon: 'spell_arcane_arcane01',
   },
+  STARWEAVERS_WARP: {
+    id: 393942,
+    name: "Starweaver's Warp",
+    icon: 'ability_druid_stellarflare',
+  },
+  STARWEAVERS_WEFT: {
+    id: 393944,
+    name: "Starweaver's Weft",
+    icon: 'spell_arcane_invocation',
+  },
   INCARNATION_CHOSEN_OF_ELUNE: {
     id: 102560,
     name: 'Incarnation: Chosen of Elune',
