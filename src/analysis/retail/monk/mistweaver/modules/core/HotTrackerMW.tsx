@@ -117,7 +117,8 @@ class HotTrackerMW extends HotTracker {
         bouncy: true,
         procDuration: this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT)
           ? RAPID_DIFFUSION *
-            this.selectedCombatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT)
+            this.selectedCombatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT) *
+            (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT) ? RISING_MIST : 1)
           : undefined,
       },
       {
