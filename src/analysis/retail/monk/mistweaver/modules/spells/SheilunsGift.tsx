@@ -7,18 +7,31 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import { isFromEssenceFont, isFromSheilunsGift } from '../../normalizers/CastLinkNormalizer';
 
 class SheilunsGift extends Analyzer {
   numCasts: number = 0;
   totalStacks: number = 0;
   totalHealing: number = 0;
+  gomHealing: number = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.SHEILUNS_GIFT_TALENT),
       this.onCast,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.SHEILUNS_GIFT_TALENT),
+      this.onHeal,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
+      this.masterySheilunsGift,
     );
   }
 
@@ -29,6 +42,12 @@ class SheilunsGift extends Analyzer {
 
   onHeal(event: HealEvent) {
     this.totalHealing += event.amount;
+  }
+
+  masterySheilunsGift(event: HealEvent) {
+    if (isFromSheilunsGift(event) && !isFromEssenceFont(event)) {
+      this.gomHealing += (event.amount || 0) + (event.absorbed || 0);
+    }
   }
 
   get averageClouds() {
