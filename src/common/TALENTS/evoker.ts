@@ -639,6 +639,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [87628],
     essenceCost: 2,
+    manaCost: 4250,
   },
   DREAM_BREATH_TALENT: {
     id: 355936,
@@ -665,13 +666,6 @@ const talents = createTalentList({
   },
   ESSENCE_BURST_TALENT: {
     id: 369297,
-    name: 'Essence Burst',
-    icon: 'ability_evoker_essenceburst',
-    maxRanks: 1,
-    entryIds: [87630],
-  },
-  ESSENCE_BURST_ATTUNED_TALENT: {
-    id: 359618,
     name: 'Essence Burst',
     icon: 'ability_evoker_essenceburst',
     maxRanks: 1,
@@ -831,7 +825,7 @@ const talents = createTalentList({
   CALL_OF_YSERA_TALENT: {
     id: 373834,
     name: 'Call of Ysera',
-    icon: 'inv_drakemountemerald',
+    icon: '',
     maxRanks: 1,
     entryIds: [87618],
   },

@@ -30,7 +30,7 @@ type Props = {
   spellId: number;
   /** Gap highlight mode - see {@link GapHighlight} */
   gapHighlightMode: GapHighlight;
-  /** Iff true, spell uses will be represented by a minimal white line instead of the spell icon.
+  /** If true, spell uses will be represented by a minimal white line instead of the spell icon.
    *  Useful for spells on CD shorter than 30s where the icons might be too closely packed to
    *  be usable */
   minimizeIcons?: boolean;

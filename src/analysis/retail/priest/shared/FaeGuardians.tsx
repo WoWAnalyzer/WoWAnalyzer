@@ -1,7 +1,12 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamageReduction } from 'parser/core/EventCalculateLib';
-import { ApplyBuffEvent, DamageEvent, RemoveBuffEvent, ResourceChangeEvent } from 'parser/core/Events';
+import {
+  ApplyBuffEvent,
+  DamageEvent,
+  RemoveBuffEvent,
+  ResourceChangeEvent,
+} from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import Combatants from 'parser/shared/modules/Combatants';
 

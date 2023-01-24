@@ -296,11 +296,6 @@ const spells = spellIndexableList({
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
   },
-  BONEDUST_BREW_GUST_OF_MIST: {
-    id: 328748,
-    name: 'Bonedust Brew',
-    icon: 'ability_maldraxxus_monk',
-  },
   NOURISHING_CHI_BUFF: {
     id: 387766,
     name: 'Nourishing Chi',

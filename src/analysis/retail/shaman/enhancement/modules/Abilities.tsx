@@ -7,7 +7,11 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 import { MOLTEN_ASSAULT_SCALING } from '../constants';
 
-import { GWTF_GOW_SCALING, GWTF_SW_SCALING, TOTEMIC_SURGE_SCALING } from 'analysis/retail/shaman/shared/constants';
+import {
+  GWTF_GOW_SCALING,
+  GWTF_SW_SCALING,
+  TOTEMIC_SURGE_SCALING,
+} from 'analysis/retail/shaman/shared/constants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {

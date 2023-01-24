@@ -18,7 +18,7 @@ const PotionPanel = () => {
   const strongPotionId = potionChecker.strongPotionId;
 
   const performance =
-    potionsUsed === maxPotions && weakPotionsUsed === 0
+    potionsUsed >= maxPotions && weakPotionsUsed === 0
       ? QualitativePerformance.Good
       : QualitativePerformance.Fail;
 
@@ -33,7 +33,10 @@ const PotionPanel = () => {
         </div>
       </PanelHeader>
       {performance === QualitativePerformance.Good && (
-        <p>You used the appropriate amount of potions during this fight! Good work!</p>
+        <p>
+          You used the appropriate amount of potions ({potionsUsed}/{maxPotions}) during this fight!
+          Good work!
+        </p>
       )}
       {performance === QualitativePerformance.Fail && (
         <p>

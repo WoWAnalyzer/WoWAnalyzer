@@ -602,26 +602,32 @@ export default class ResourceTracker extends Analyzer {
 
   /** Gets resource data for a specific segment of time
    *  @param startTime the segment's start time (inclusive).
-   *    Must be no earlier than the fight's start.
+   *    Will be clamped to fightStart if earlier than it.
    *  @param endTime the segment's end time (exclusive).
-   *    Must be later than startTime and no later than the current time.
+   *    Must be later than startTime and will be clamped to current time if later than it.
    * */
   generateSegmentData(startTime: number, endTime: number) {
-    if (startTime < this.fightData.startTimestamp) {
-      throw new Error(
-        `Tried to generate segment with startTime ${startTime}, but fight start is ${this.fightData.startTimestamp}`,
-      );
-    } else if (endTime <= startTime) {
+    if (endTime <= startTime) {
       throw new Error(
         `Tried to generate segment with endTime ${endTime} not after startTime ${startTime}`,
       );
-    } else if (endTime > this.owner.currentTimestamp) {
-      throw new Error(
-        `Tried to generate segment with endTime ${endTime}, but current time is ${this.owner.currentTimestamp}`,
+    }
+
+    if (startTime < this.fightData.startTimestamp) {
+      console.warn(
+        `Tried to generate segment with startTime @ ${startTime}, which is before fightStart @ ${this.fightData.startTimestamp}. Segment start will be clamped to fightStart.`,
+      );
+    }
+    if (endTime > this.owner.currentTimestamp) {
+      console.warn(
+        `Tried to generate segment with endTime @ ${endTime}, which is after currentTime @ ${this.owner.currentTimestamp}. Segment end will be clamped to currentTime.`,
       );
     }
 
-    const segmentData = new SegmentData(startTime, endTime);
+    const clampedStartTime = Math.max(startTime, this.fightData.startTimestamp);
+    const clampedEndTime = Math.min(endTime, this.owner.currentTimestamp);
+
+    const segmentData = new SegmentData(clampedStartTime, clampedEndTime);
 
     // true iff we have already added the first update inside the segment
     let addedFirstInside = false;
@@ -636,9 +642,9 @@ export default class ResourceTracker extends Analyzer {
      *   rate waste that happened after the last update inside the segment
      */
     this.resourceUpdates.forEach((u, ix) => {
-      if (u.timestamp < startTime) {
+      if (u.timestamp < clampedStartTime) {
         lastBeforeEnd = u;
-      } else if (u.timestamp >= startTime && u.timestamp < endTime) {
+      } else if (u.timestamp >= clampedStartTime && u.timestamp < clampedEndTime) {
         // we're inside the segment
         if (!addedFirstInside && (u.rateWaste || 0) > 0 && ix > 0) {
           // The first update inside the segment has rate waste, which counts waste since the prev
@@ -649,7 +655,7 @@ export default class ResourceTracker extends Analyzer {
           // rate in order to get the correct value for this time period.
           const modifiedUpdate = { ...u }; // copy because we don't want to modify the original data
           modifiedUpdate.rateWaste =
-            ((u.timestamp - startTime) / 1000) * this.resourceUpdates[ix - 1].rate;
+            ((u.timestamp - clampedStartTime) / 1000) * this.resourceUpdates[ix - 1].rate;
           segmentData._pushUpdate(modifiedUpdate);
           lastBeforeEnd = modifiedUpdate;
         } else {
@@ -665,7 +671,7 @@ export default class ResourceTracker extends Analyzer {
       // there were no resource updates happening before or during our segment - impossible to make meaningful data
       segmentData._pushUpdate({
         type: 'end',
-        timestamp: endTime,
+        timestamp: clampedEndTime,
         change: 0,
         current: 0,
         max: this.maxResource,
@@ -677,12 +683,13 @@ export default class ResourceTracker extends Analyzer {
     } else {
       // add end update with info from last update before the end time
       const rawResourcesAtEnd =
-        lastBeforeEnd.current + (lastBeforeEnd.rate * (endTime - lastBeforeEnd.timestamp)) / 1000;
+        lastBeforeEnd.current +
+        (lastBeforeEnd.rate * (clampedEndTime - lastBeforeEnd.timestamp)) / 1000;
       const resourcesAtEnd = Math.min(lastBeforeEnd.max, rawResourcesAtEnd);
       const rateWasteToEnd = Math.max(0, rawResourcesAtEnd - lastBeforeEnd.max);
       segmentData._pushUpdate({
         type: 'end',
-        timestamp: endTime,
+        timestamp: clampedEndTime,
         change: 0,
         current: resourcesAtEnd,
         max: lastBeforeEnd.max,
