@@ -14,7 +14,7 @@ const talents = createTalentList({
     name: 'Defensive Stance',
     icon: 'ability_warrior_defensivestance',
     maxRanks: 1,
-    entryIds: [112187],
+    entryIds: [114644, 112187, 114643],
   },
   BERSERKER_RAGE_TALENT: {
     id: 18499,
@@ -396,12 +396,19 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [112200, 112199],
   },
-  AVATAR_TALENT: {
+  AVATAR_SHARED_TALENT: {
     id: 107574,
     name: 'Avatar',
     icon: 'warrior_talent_icon_avatar',
     maxRanks: 1,
-    entryIds: [112232],
+    entryIds: [114770, 112232],
+  },
+  AVATAR_PROTECTION_TALENT: {
+    id: 401150,
+    name: 'Avatar',
+    icon: 'warrior_talent_icon_avatar',
+    maxRanks: 1,
+    entryIds: [114769],
   },
   THUNDEROUS_ROAR_TALENT: {
     id: 384318,
@@ -920,7 +927,7 @@ const talents = createTalentList({
     name: 'Ignore Pain',
     icon: 'ability_warrior_renewedvigor',
     maxRanks: 1,
-    entryIds: [112149],
+    entryIds: [112149, 114738],
     rageCost: 40,
   },
   REVENGE_TALENT: {
@@ -1225,7 +1232,7 @@ const talents = createTalentList({
     name: 'Dance of Death',
     icon: 'ability_butcher_whirl',
     maxRanks: 1,
-    entryIds: [112114],
+    entryIds: [114639],
   },
   MORTAL_STRIKE_TALENT: {
     id: 12294,
@@ -1305,6 +1312,20 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [112133],
   },
+  IMPROVED_SLAM_TALENT: {
+    id: 400205,
+    name: 'Improved Slam',
+    icon: 'ability_warrior_decisivestrike',
+    maxRanks: 1,
+    entryIds: [114733],
+  },
+  SPITEFUL_SERENITY_TALENT: {
+    id: 400314,
+    name: 'Spiteful Serenity',
+    icon: 'inv_helmet_08',
+    maxRanks: 1,
+    entryIds: [114642],
+  },
   EXHILARATING_BLOWS_TALENT: {
     id: 383219,
     name: 'Exhilarating Blows',
@@ -1312,12 +1333,19 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [112138],
   },
-  SWEEPING_STRIKES_TALENT: {
-    id: 260708,
-    name: 'Sweeping Strikes',
+  IMPROVED_SWEEPING_STRIKES_TALENT: {
+    id: 383155,
+    name: 'Improved Sweeping Strikes',
     icon: 'ability_rogue_slicedice',
     maxRanks: 1,
-    entryIds: [112120],
+    entryIds: [114641],
+  },
+  STRENGTH_OF_ARMS_TALENT: {
+    id: 400803,
+    name: 'Strength of Arms',
+    icon: 'inv_gauntlets_26',
+    maxRanks: 1,
+    entryIds: [114739],
   },
   CLEAVE_TALENT: {
     id: 845,
@@ -1369,13 +1397,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [112139],
   },
-  IMPROVED_MORTAL_STRIKE_TALENT: {
-    id: 385573,
-    name: 'Improved Mortal Strike',
-    icon: 'ability_warrior_savageblow',
-    maxRanks: 1,
-    entryIds: [112316],
-  },
   COLLATERAL_DAMAGE_TALENT: {
     id: 334779,
     name: 'Collateral Damage',
@@ -1394,8 +1415,15 @@ const talents = createTalentList({
     id: 383338,
     name: 'Valor in Victory',
     icon: 'spell_holy_summonchampion',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [112315],
+  },
+  BATTLELORD_TALENT: {
+    id: 386630,
+    name: 'Battlelord',
+    icon: 'ability_pvp_hardiness',
+    maxRanks: 1,
+    entryIds: [114740],
   },
   BLOODLETTING_TALENT: {
     id: 383154,
@@ -1403,13 +1431,6 @@ const talents = createTalentList({
     icon: 'ability_skeer_bloodletting',
     maxRanks: 1,
     entryIds: [112310],
-  },
-  BATTLELORD_TALENT: {
-    id: 386630,
-    name: 'Battlelord',
-    icon: 'ability_pvp_hardiness',
-    maxRanks: 1,
-    entryIds: [112308],
   },
   BLADESTORM_TALENT: {
     id: 227847,
@@ -1424,13 +1445,6 @@ const talents = createTalentList({
     icon: 'inv_sword_27',
     maxRanks: 1,
     entryIds: [112320],
-  },
-  EXECUTIONERS_PRECISION_TALENT: {
-    id: 386634,
-    name: "Executioner's Precision",
-    icon: 'inv_sword_48',
-    maxRanks: 1,
-    entryIds: [112318],
   },
   FATALITY_TALENT: {
     id: 383703,
@@ -1452,6 +1466,13 @@ const talents = createTalentList({
     icon: 'ability_ironmaidens_whirlofblood',
     maxRanks: 1,
     entryIds: [112117],
+  },
+  EXECUTIONERS_PRECISION_TALENT: {
+    id: 386634,
+    name: "Executioner's Precision",
+    icon: 'inv_sword_48',
+    maxRanks: 1,
+    entryIds: [112318],
   },
 });
 

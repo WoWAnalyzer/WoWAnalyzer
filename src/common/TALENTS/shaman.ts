@@ -321,7 +321,7 @@ const talents = createTalentList({
   GUST_OF_WIND_TALENT: {
     id: 192063,
     name: 'Gust of Wind',
-    icon: 'ability_skyreach_four_wind',
+    icon: 'inv_misc_volatileair',
     maxRanks: 1,
     entryIds: [101982],
   },
@@ -367,9 +367,9 @@ const talents = createTalentList({
     maxRanks: 2,
     entryIds: [101984],
   },
-  MANA_SPRING_TOTEM_TALENT: {
+  MANA_SPRING_TALENT: {
     id: 381930,
-    name: 'Mana Spring Totem',
+    name: 'Mana Spring',
     icon: 'spell_nature_manaregentotem',
     maxRanks: 1,
     entryIds: [102001],
@@ -641,7 +641,7 @@ const talents = createTalentList({
   STORMBLAST_TALENT: {
     id: 319930,
     name: 'Stormblast',
-    icon: 'spell_nature_stormreach',
+    icon: 'spell_shaman_focusedstrikes',
     maxRanks: 1,
     entryIds: [101825],
   },

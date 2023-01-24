@@ -313,7 +313,7 @@ const talents = createTalentList({
   SANCTIFIED_WRATH_TALENT: {
     id: 31884,
     name: 'Sanctified Wrath',
-    icon: 'spell_holy_avenginewrath',
+    icon: 'ability_paladin_judgementsofthejust',
     maxRanks: 1,
     entryIds: [102611],
   },

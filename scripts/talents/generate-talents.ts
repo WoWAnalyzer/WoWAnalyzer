@@ -19,10 +19,10 @@ import {
   TalentEntry,
 } from './talent-tree-types';
 
-const LIVE_WOW_BUILD_NUMBER = '10.0.2.47631';
+const LIVE_WOW_BUILD_NUMBER = '10.0.5.47777';
 const LIVE_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/live/talents.json';
 const LIVE_SPELLPOWER_DATA_FILE = `./spellpower_${LIVE_WOW_BUILD_NUMBER}.csv`;
-const PTR_WOW_BUILD_NUMBER = '10.0.5.47621';
+const PTR_WOW_BUILD_NUMBER = '10.0.5.47777';
 const PTR_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/ptr/talents.json';
 const PTR_SPELLPOWER_DATA_FILE = `./spellpower_${PTR_WOW_BUILD_NUMBER}.csv`;
 

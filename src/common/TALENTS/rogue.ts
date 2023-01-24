@@ -32,13 +32,12 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [112657],
   },
-  FEINT_TALENT: {
-    id: 1966,
-    name: 'Feint',
-    icon: 'ability_rogue_feint',
+  ELUSIVENESS_TALENT: {
+    id: 79008,
+    name: 'Elusiveness',
+    icon: 'ability_rogue_turnthetables',
     maxRanks: 1,
     entryIds: [112632],
-    energyCost: 35,
   },
   CLOAK_OF_SHADOWS_TALENT: {
     id: 31224,
@@ -174,19 +173,12 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [112633],
   },
-  ELUSIVENESS_TALENT: {
-    id: 79008,
-    name: 'Elusiveness',
-    icon: 'ability_rogue_turnthetables',
+  UNBREAKABLE_STRIDE_TALENT: {
+    id: 400804,
+    name: 'Unbreakable Stride',
+    icon: 'ability_rogue_trip',
     maxRanks: 1,
     entryIds: [112638],
-  },
-  CHEAT_DEATH_TALENT: {
-    id: 31230,
-    name: 'Cheat Death',
-    icon: 'ability_rogue_cheatdeath',
-    maxRanks: 1,
-    entryIds: [112637],
   },
   RUSHED_SETUP_TALENT: {
     id: 378803,
@@ -589,7 +581,7 @@ const talents = createTalentList({
     id: 381797,
     name: 'Dashing Scoundrel',
     icon: 'ability_rogue_venomouswounds',
-    maxRanks: 3,
+    maxRanks: 2,
     entryIds: [112659],
   },
   SCENT_OF_BLOOD_TALENT: {
@@ -599,13 +591,12 @@ const talents = createTalentList({
     maxRanks: 3,
     entryIds: [112668],
   },
-  KINGSBANE_TALENT: {
-    id: 385627,
-    name: 'Kingsbane',
-    icon: 'inv_knife_1h_artifactgarona_d_01',
+  ARTERIAL_PRECISION_TALENT: {
+    id: 400783,
+    name: 'Arterial Precision',
+    icon: 'ability_rogue_surpriseattack',
     maxRanks: 1,
     entryIds: [112677],
-    energyCost: 35,
   },
   DRAGON_TEMPERED_BLADES_TALENT: {
     id: 381801,
@@ -613,6 +604,14 @@ const talents = createTalentList({
     icon: 'spell_fire_flameblades',
     maxRanks: 1,
     entryIds: [112658],
+  },
+  KINGSBANE_TALENT: {
+    id: 385627,
+    name: 'Kingsbane',
+    icon: 'inv_knife_1h_artifactgarona_d_01',
+    maxRanks: 1,
+    entryIds: [114736],
+    energyCost: 35,
   },
   INDISCRIMINATE_CARNAGE_TALENT: {
     id: 381802,

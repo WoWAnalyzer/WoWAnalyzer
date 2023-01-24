@@ -308,17 +308,17 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [91434],
   },
-  SUMMON_SOULKEEPER_TALENT: {
-    id: 386256,
-    name: 'Summon Soulkeeper',
-    icon: 'spell_fel_elementaldevastation',
-    maxRanks: 1,
-    entryIds: [91448],
-  },
   INQUISITORS_GAZE_TALENT: {
     id: 386344,
     name: "Inquisitor's Gaze",
     icon: 'inv_pet_inquisitoreye',
+    maxRanks: 1,
+    entryIds: [91448],
+  },
+  SUMMON_SOULKEEPER_TALENT: {
+    id: 386256,
+    name: 'Summon Soulkeeper',
+    icon: 'spell_fel_elementaldevastation',
     maxRanks: 1,
     entryIds: [91427],
   },
@@ -442,12 +442,12 @@ const talents = createTalentList({
     entryIds: [91556],
     soulShardsCost: 1,
   },
-  SOUL_TAP_TALENT: {
-    id: 387073,
-    name: 'Soul Tap',
-    icon: 'spell_shadow_burningspirit',
+  PANDEMIC_INVOCATION_TALENT: {
+    id: 386759,
+    name: 'Pandemic Invocation',
+    icon: 'spell_shadow_unsummonbuilding',
     maxRanks: 1,
-    entryIds: [91563],
+    entryIds: [91573],
   },
   INEVITABLE_DEMISE_TALENT: {
     id: 334319,
@@ -478,12 +478,12 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [91576, 91484],
   },
-  PANDEMIC_INVOCATION_TALENT: {
-    id: 386759,
-    name: 'Pandemic Invocation',
-    icon: 'spell_shadow_unsummonbuilding',
+  FOCUSED_MALIGNANCY_TALENT: {
+    id: 399668,
+    name: 'Focused Malignancy',
+    icon: 'spell_shadow_unstableaffliction_3_purple',
     maxRanks: 2,
-    entryIds: [91573],
+    entryIds: [91563],
   },
   WITHERING_BOLT_TALENT: {
     id: 386976,

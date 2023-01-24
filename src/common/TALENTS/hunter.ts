@@ -503,12 +503,12 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [100535],
   },
-  DOUBLE_TAP_TALENT: {
-    id: 260402,
-    name: 'Double Tap',
-    icon: 'ability_hunter_crossfire',
-    maxRanks: 1,
-    entryIds: [100579],
+  STEADY_FOCUS_TALENT: {
+    id: 193533,
+    name: 'Steady Focus',
+    icon: 'hunter_pvp_snipershot',
+    maxRanks: 2,
+    entryIds: [100596],
   },
   DEADEYE_TALENT: {
     id: 321460,
@@ -546,12 +546,12 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [100595],
   },
-  STEADY_FOCUS_TALENT: {
-    id: 193533,
-    name: 'Steady Focus',
-    icon: 'hunter_pvp_snipershot',
-    maxRanks: 2,
-    entryIds: [100596],
+  TACTICAL_RELOAD_TALENT: {
+    id: 400472,
+    name: 'Tactical Reload',
+    icon: 'ability_hunter_crossfire',
+    maxRanks: 1,
+    entryIds: [100579],
   },
   SERPENTSTALKERS_TRICKERY_TALENT: {
     id: 378888,
@@ -639,7 +639,7 @@ const talents = createTalentList({
     entryIds: [100605],
   },
   SALVO_TALENT: {
-    id: 384791,
+    id: 400456,
     name: 'Salvo',
     icon: 'spell_hunter_exoticmunitions_incendiary',
     maxRanks: 1,

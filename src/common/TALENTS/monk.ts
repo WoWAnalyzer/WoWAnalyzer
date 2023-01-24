@@ -513,6 +513,13 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101389],
   },
+  BURST_OF_LIFE_TALENT: {
+    id: 399226,
+    name: 'Burst of Life',
+    icon: 'ability_monk_counteractmagic',
+    maxRanks: 1,
+    entryIds: [114297],
+  },
   YULONS_WHISPER_TALENT: {
     id: 388038,
     name: "Yu'lon's Whisper",
@@ -613,12 +620,12 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101400],
   },
-  BONEDUST_BREW_TALENT: {
-    id: 386276,
-    name: 'Bonedust Brew',
-    icon: 'ability_maldraxxus_monk',
+  SHEILUNS_GIFT_TALENT: {
+    id: 399491,
+    name: "Sheilun's Gift",
+    icon: 'inv_staff_2h_artifactshaohao_d_01',
     maxRanks: 1,
-    entryIds: [101392, 101552, 101485],
+    entryIds: [101392],
   },
   ANCIENT_CONCORDANCE_TALENT: {
     id: 388740,
@@ -655,19 +662,19 @@ const talents = createTalentList({
     maxRanks: 2,
     entryIds: [101399],
   },
-  BOUNTIFUL_BREW_TALENT: {
-    id: 386949,
-    name: 'Bountiful Brew',
-    icon: 'spell_animamaldraxxus_wave',
+  VEIL_OF_PRIDE_TALENT: {
+    id: 400053,
+    name: 'Veil of Pride',
+    icon: 'ability_monk_vivify',
     maxRanks: 1,
-    entryIds: [101405, 101551],
+    entryIds: [101405],
   },
-  ATTENUATION_TALENT: {
-    id: 386941,
-    name: 'Attenuation',
-    icon: 'spell_animamaldraxxus_nova',
+  SHAOHAOS_LESSONS_TALENT: {
+    id: 400089,
+    name: "Shaohao's Lessons",
+    icon: 'ability_monk_dematerialize',
     maxRanks: 1,
-    entryIds: [101404, 101550, 101484],
+    entryIds: [101404],
   },
   AWAKENED_FAELINE_TALENT: {
     id: 388779,
@@ -733,13 +740,6 @@ const talents = createTalentList({
     entryIds: [101451],
     energyCost: 40,
   },
-  STAGGER_TALENT: {
-    id: 115069,
-    name: 'Stagger',
-    icon: 'monk_stance_drunkenox',
-    maxRanks: 1,
-    entryIds: [101454],
-  },
   PURIFYING_BREW_TALENT: {
     id: 119582,
     name: 'Purifying Brew',
@@ -754,6 +754,34 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101455],
   },
+  STAGGERING_STRIKES_TALENT: {
+    id: 387625,
+    name: 'Staggering Strikes',
+    icon: 'ability_monk_blackoutstrike',
+    maxRanks: 1,
+    entryIds: [101459],
+  },
+  GIFT_OF_THE_OX_TALENT: {
+    id: 124502,
+    name: 'Gift of the Ox',
+    icon: 'ability_druid_giftoftheearthmother',
+    maxRanks: 1,
+    entryIds: [101452],
+  },
+  SPIRIT_OF_THE_OX_TALENT: {
+    id: 400629,
+    name: 'Spirit of the Ox',
+    icon: 'ability_titankeeper_cleansingorb',
+    maxRanks: 1,
+    entryIds: [114729],
+  },
+  QUICK_SIP_TALENT: {
+    id: 388505,
+    name: 'Quick Sip',
+    icon: 'achievement_faction_brewmaster',
+    maxRanks: 1,
+    entryIds: [101456],
+  },
   HIT_SCHEME_TALENT: {
     id: 383695,
     name: 'Hit Scheme',
@@ -761,19 +789,12 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101461],
   },
-  GIFT_OF_THE_OX_TALENT: {
-    id: 124502,
-    name: 'Gift of the Ox',
-    icon: 'ability_druid_giftoftheearthmother',
-    maxRanks: 2,
-    entryIds: [101452],
-  },
-  QUICK_SIP_TALENT: {
-    id: 388505,
-    name: 'Quick Sip',
-    icon: 'achievement_faction_brewmaster',
-    maxRanks: 2,
-    entryIds: [101456],
+  SPECIAL_DELIVERY_TALENT: {
+    id: 196730,
+    name: 'Special Delivery',
+    icon: 'achievement_brewery_2',
+    maxRanks: 1,
+    entryIds: [101548],
   },
   RUSHING_JADE_WIND_TALENT: {
     id: 116847,
@@ -782,13 +803,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101549, 101436],
     chiCost: 1,
-  },
-  SPECIAL_DELIVERY_TALENT: {
-    id: 196730,
-    name: 'Special Delivery',
-    icon: 'achievement_brewery_2',
-    maxRanks: 1,
-    entryIds: [101548],
   },
   CELESTIAL_FLAMES_TALENT: {
     id: 325177,
@@ -804,18 +818,11 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101463],
   },
-  STAGGERING_STRIKES_TALENT: {
-    id: 387625,
-    name: 'Staggering Strikes',
-    icon: 'ability_monk_blackoutstrike',
-    maxRanks: 2,
-    entryIds: [101459],
-  },
   GRACEFUL_EXIT_TALENT: {
     id: 387256,
     name: 'Graceful Exit',
     icon: 'ability_rogue_sprint_blue',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [101457],
   },
   ZEN_MEDITATION_TALENT: {
@@ -863,7 +870,7 @@ const talents = createTalentList({
   GAI_PLINS_IMPERIAL_BREW_TALENT: {
     id: 383700,
     name: "Gai Plin's Imperial Brew",
-    icon: 'inv_misc_beer_05',
+    icon: 'inv_misc_beer_06',
     maxRanks: 1,
     entryIds: [101545],
   },
@@ -916,19 +923,19 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101470],
   },
-  BLACK_OX_BREW_TALENT: {
-    id: 115399,
-    name: 'Black Ox Brew',
-    icon: 'ability_monk_chibrew',
-    maxRanks: 1,
-    entryIds: [101450],
-  },
   BOB_AND_WEAVE_TALENT: {
     id: 280515,
     name: 'Bob and Weave',
     icon: 'ability_creature_cursed_04',
     maxRanks: 1,
     entryIds: [101449],
+  },
+  BLACK_OX_BREW_TALENT: {
+    id: 115399,
+    name: 'Black Ox Brew',
+    icon: 'ability_monk_chibrew',
+    maxRanks: 1,
+    entryIds: [101450],
   },
   INVOKE_NIUZAO_THE_BLACK_OX_TALENT: {
     id: 132578,
@@ -1014,6 +1021,13 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101441],
   },
+  BONEDUST_BREW_TALENT: {
+    id: 386276,
+    name: 'Bonedust Brew',
+    icon: 'ability_maldraxxus_monk',
+    maxRanks: 1,
+    entryIds: [101552, 101485],
+  },
   IMPROVED_INVOKE_NIUZAO_THE_BLACK_OX_TALENT: {
     id: 322740,
     name: 'Improved Invoke Niuzao, the Black Ox',
@@ -1042,6 +1056,20 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101539],
     manaCost: 12500,
+  },
+  BOUNTIFUL_BREW_TALENT: {
+    id: 386949,
+    name: 'Bountiful Brew',
+    icon: 'spell_animamaldraxxus_wave',
+    maxRanks: 1,
+    entryIds: [101551],
+  },
+  ATTENUATION_TALENT: {
+    id: 386941,
+    name: 'Attenuation',
+    icon: 'spell_animamaldraxxus_nova',
+    maxRanks: 1,
+    entryIds: [101550, 101484],
   },
   STORMSTOUTS_LAST_KEG_TALENT: {
     id: 383707,

@@ -55,6 +55,13 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103845],
   },
+  PETRIFYING_SCREAM_TALENT: {
+    id: 55676,
+    name: 'Petrifying Scream',
+    icon: 'spell_shadow_psychichorrors',
+    maxRanks: 1,
+    entryIds: [114588],
+  },
   SHADOW_WORD_DEATH_TALENT: {
     id: 32379,
     name: 'Shadow Word: Death',
@@ -210,12 +217,19 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103844],
   },
+  SANGUINE_TEACHINGS_TALENT: {
+    id: 373218,
+    name: 'Sanguine Teachings',
+    icon: 'inv_archaeology_80_zandalari_sanguinetotem',
+    maxRanks: 1,
+    entryIds: [103841],
+  },
   VAMPIRIC_EMBRACE_TALENT: {
     id: 15286,
     name: 'Vampiric Embrace',
     icon: 'spell_shadow_unsummonbuilding',
     maxRanks: 1,
-    entryIds: [103841],
+    entryIds: [114735],
   },
   TITHE_EVASION_TALENT: {
     id: 373223,
@@ -818,12 +832,13 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103753],
   },
-  BURNING_VEHEMENCE_TALENT: {
-    id: 372307,
-    name: 'Burning Vehemence',
-    icon: 'spell_nature_unleashedrage',
+  EMPYREAL_BLAZE_TALENT: {
+    id: 372616,
+    name: 'Empyreal Blaze',
+    icon: 'ability_priest_empyrealblaze',
     maxRanks: 1,
     entryIds: [103777],
+    manaCost: 500,
   },
   CIRCLE_OF_HEALING_TALENT: {
     id: 204883,
@@ -868,13 +883,12 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103754],
   },
-  EMPYREAL_BLAZE_TALENT: {
-    id: 372616,
-    name: 'Empyreal Blaze',
-    icon: 'spell_fire_ragnaros_lavabolt',
+  SEARING_LIGHT_TALENT: {
+    id: 372611,
+    name: 'Searing Light',
+    icon: 'inv_summerfest_firespirit',
     maxRanks: 1,
     entryIds: [103739],
-    manaCost: 500,
   },
   PRAYER_CIRCLE_TALENT: {
     id: 321377,
@@ -1060,10 +1074,10 @@ const talents = createTalentList({
     maxRanks: 2,
     entryIds: [103744],
   },
-  SEARING_LIGHT_TALENT: {
-    id: 372611,
-    name: 'Searing Light',
-    icon: 'inv_summerfest_firespirit',
+  BURNING_VEHEMENCE_TALENT: {
+    id: 372307,
+    name: 'Burning Vehemence',
+    icon: 'ability_paladin_sacredcleansing',
     maxRanks: 2,
     entryIds: [103738],
   },
@@ -1178,7 +1192,7 @@ const talents = createTalentList({
   DARK_INDULGENCE_TALENT: {
     id: 372972,
     name: 'Dark Indulgence',
-    icon: 'spell_shadow_painandsuffering',
+    icon: 'spell_shadow_unholyfrenzy',
     maxRanks: 1,
     entryIds: [103725],
   },
@@ -1327,9 +1341,9 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103702],
   },
-  STOLEN_PSYCHE_TALENT: {
+  ABYSSAL_REVERIE_TALENT: {
     id: 373054,
-    name: 'Stolen Psyche',
+    name: 'Abyssal Reverie',
     icon: 'ability_priest_surgeofdarkness',
     maxRanks: 2,
     entryIds: [103709],

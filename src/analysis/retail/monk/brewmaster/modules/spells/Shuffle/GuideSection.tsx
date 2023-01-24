@@ -9,7 +9,6 @@ import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import Shuffle, { TrackedHit } from './index';
 import * as MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
-import talents from 'common/TALENTS/monk';
 import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
 import Explanation from 'interface/guide/components/Explanation';
@@ -79,7 +78,7 @@ function HitTooltipContent({ hit }: { hit: TrackedHit }) {
           </strong>{' '}
           (to {formatNumber((1 - highEndPct) * hit.event.amount)}&ndash;
           {formatNumber((1 - lowEndPct) * hit.event.amount)}) by increasing the amount absorbed by{' '}
-          <SpellLink id={talents.STAGGER_TALENT} />.
+          <SpellLink id={SPELLS.STAGGER} />.
         </div>
       )}
     </div>
@@ -243,10 +242,9 @@ export default function ShuffleSection(): JSX.Element {
         <Explanation>
           <p>
             <SpellLink id={SPELLS.SHUFFLE} /> nearly <strong>doubles</strong> the amount of damage
-            that is absorbed by <SpellLink id={talents.STAGGER_TALENT} />, and is critical to have
-            up while tanking. It is applied automatically by your core rotational abilities&mdash;so
-            as long as you are doing your rotation, you should have{' '}
-            <SpellLink id={SPELLS.SHUFFLE} />.
+            that is absorbed by <SpellLink id={SPELLS.STAGGER} />, and is critical to have up while
+            tanking. It is applied automatically by your core rotational abilities&mdash;so as long
+            as you are doing your rotation, you should have <SpellLink id={SPELLS.SHUFFLE} />.
           </p>
           <p>
             This chart shows your <SpellLink id={SPELLS.SHUFFLE} /> uptime along with the damage
