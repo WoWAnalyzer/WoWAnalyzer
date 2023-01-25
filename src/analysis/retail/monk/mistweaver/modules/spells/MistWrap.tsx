@@ -55,9 +55,20 @@ class MistWrap extends Analyzer {
     }
 
     const hot = this.hotTracker.hots[targetId][spellId];
-    if (hot && hot?.start + ENVELOPING_BASE_DURATION < event.timestamp) {
-      this.effectiveHealing += event.amount + (event.absorbed || 0);
-      this.overHealing += event.overheal || 0;
+    if (hot) {
+      if (hot.start + ENVELOPING_BASE_DURATION < event.timestamp && hot.extensions?.length === 0) {
+        this.effectiveHealing += event.amount + (event.absorbed || 0);
+        this.overHealing += event.overheal || 0;
+      } else {
+        let totalExtension = 0;
+        Object.keys(hot.extensions).forEach((idx, index) => {
+          totalExtension += hot.extensions[index].amount;
+        });
+        if (hot.start + ENVELOPING_BASE_DURATION + totalExtension < event.timestamp) {
+          this.effectiveHealing += event.amount + (event.absorbed || 0);
+          this.overHealing += event.overheal || 0;
+        }
+      }
     }
   }
 
@@ -78,7 +89,7 @@ class MistWrap extends Analyzer {
     if (envMistHot && spellId !== TALENTS_MONK.ENVELOPING_MIST_TALENT.id) {
       if (
         envMistHot.start + ENVELOPING_BASE_DURATION < event.timestamp &&
-        envMistHot.extensions.length === 0
+        envMistHot.extensions?.length === 0
       ) {
         this.envMistHealingBoost += calculateEffectiveHealing(event, MISTWRAP_INCREASE);
       } else {
