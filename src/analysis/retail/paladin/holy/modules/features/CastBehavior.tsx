@@ -83,7 +83,7 @@ class CastBehavior extends Analyzer {
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
     const holyLight = getAbility(TALENTS.HOLY_LIGHT_TALENT.id);
-    const lightOfTheMartyr = getAbility(SPELLS.LIGHT_OF_THE_MARTYR.id);
+    const lightOfTheMartyr = getAbility(TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id);
 
     const iolFlashOfLights = flashOfLight.healingIolHits || 0;
     const iolHolyLights = holyLight.healingIolHits || 0;
@@ -113,8 +113,8 @@ class CastBehavior extends Analyzer {
         },
         {
           color: '#A93226',
-          label: SPELLS.LIGHT_OF_THE_MARTYR.name,
-          spellId: SPELLS.LIGHT_OF_THE_MARTYR.id,
+          label: TALENTS.LIGHT_OF_THE_MARTYR_TALENT.name,
+          spellId: TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id,
           value: fillerLightOfTheMartyrHeals,
         },
       ];

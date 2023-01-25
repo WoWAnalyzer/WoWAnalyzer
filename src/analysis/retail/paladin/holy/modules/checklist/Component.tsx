@@ -127,7 +127,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         }
         description={
           <Trans id="paladin.holy.modules.checklist.avoidFillerSpells.description">
-            <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR} /> and{' '}
+            <SpellLink id={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} /> and{' '}
             <SpellLink id={SPELLS.FLASH_OF_LIGHT} /> are inefficient spells to cast compared to the
             alternatives. Try to only cast them when it will save someone's life or when you have to
             move and all other instant cast spells are on cooldown.

@@ -1,5 +1,4 @@
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellLink } from 'interface';

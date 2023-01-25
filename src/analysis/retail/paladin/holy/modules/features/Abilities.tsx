@@ -255,7 +255,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.LAY_ON_HANDS_TALENT),
       },
       {
-        spell: SPELLS.LIGHT_OF_THE_MARTYR.id,
+        spell: TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
