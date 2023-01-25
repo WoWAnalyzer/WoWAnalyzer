@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
-import { isFromEssenceFont, isFromRenewingMist } from '../../normalizers/CastLinkNormalizer';
+import { isFromRenewingMist } from '../../normalizers/CastLinkNormalizer';
 
 class RenewingMist extends Analyzer {
   currentRenewingMists: number = 0;
@@ -40,7 +40,7 @@ class RenewingMist extends Analyzer {
   }
 
   handleGustsOfMists(event: HealEvent) {
-    if (isFromRenewingMist(event) && !isFromEssenceFont(event)) {
+    if (isFromRenewingMist(event)) {
       this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
     }
   }

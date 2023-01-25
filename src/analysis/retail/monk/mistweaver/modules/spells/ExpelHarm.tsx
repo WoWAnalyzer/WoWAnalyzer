@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
-import { isFromEssenceFont, isFromExpelHarm } from '../../normalizers/CastLinkNormalizer';
+import { isFromExpelHarm } from '../../normalizers/CastLinkNormalizer';
 
 class ExpelHarm extends Analyzer {
   selfHealing: number = 0;
@@ -37,7 +37,7 @@ class ExpelHarm extends Analyzer {
   }
 
   handleMastery(event: HealEvent) {
-    if (isFromExpelHarm(event) && !isFromEssenceFont(event)) {
+    if (isFromExpelHarm(event)) {
       this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
     }
   }

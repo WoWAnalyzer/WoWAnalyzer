@@ -11,7 +11,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { SPELL_COLORS } from '../../constants';
 import UpliftedSpirits from './UpliftedSpirits';
-import { isFromEssenceFont, isFromRevival } from '../../normalizers/CastLinkNormalizer';
+import { isFromRevival } from '../../normalizers/CastLinkNormalizer';
 
 class Revival extends Analyzer {
   static dependencies = {
@@ -65,7 +65,7 @@ class Revival extends Analyzer {
   }
 
   handleGustsOfMists(event: HealEvent) {
-    if (isFromRevival(event) && !isFromEssenceFont(event)) {
+    if (isFromRevival(event)) {
       this.gustsHealing += event.amount + (event.absorbed || 0);
       this.gustOverHealing += event.overheal || 0;
     }

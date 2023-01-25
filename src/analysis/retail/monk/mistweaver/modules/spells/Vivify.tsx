@@ -11,7 +11,7 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { DANCING_MIST_CHANCE, RAPID_DIFFUSION_DURATION } from '../../constants';
-import { isFromEssenceFont, isFromVivify } from '../../normalizers/CastLinkNormalizer';
+import { isFromVivify } from '../../normalizers/CastLinkNormalizer';
 
 const RAPID_DIFFUSION_SPELLS = [
   TALENTS_MONK.ENVELOPING_MIST_TALENT,
@@ -131,7 +131,7 @@ class Vivify extends Analyzer {
   }
 
   handleMastery(event: HealEvent) {
-    if (isFromVivify(event) && !isFromEssenceFont(event)) {
+    if (isFromVivify(event)) {
       this.gomHealing += (event.amount || 0) + (event.absorbed || 0);
       this.gomOverhealing += event.overheal || 0;
     }

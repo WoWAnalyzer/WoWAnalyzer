@@ -8,7 +8,7 @@ import Events, { CastEvent, FightEndEvent, HealEvent, RemoveBuffEvent } from 'pa
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import { isFromEssenceFont, isFromSoothingMist } from '../../normalizers/CastLinkNormalizer';
+import { isFromSoothingMist } from '../../normalizers/CastLinkNormalizer';
 
 class SoothingMist extends Analyzer {
   static dependencies = {
@@ -86,7 +86,7 @@ class SoothingMist extends Analyzer {
   }
 
   masterySoothingMist(event: HealEvent) {
-    if (isFromSoothingMist(event) && !isFromEssenceFont(event)) {
+    if (isFromSoothingMist(event)) {
       this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
     }
   }

@@ -363,35 +363,35 @@ export function isFromDancingMists(event: ApplyBuffEvent | RefreshBuffEvent): bo
 }
 
 export function isFromEnvelopingMist(event: HealEvent) {
-  return HasRelatedEvent(event, ENVELOPING_MIST_GOM);
+  return HasRelatedEvent(event, ENVELOPING_MIST_GOM) && !isFromEssenceFont(event);
 }
 
 export function isFromRenewingMist(event: HealEvent) {
-  return HasRelatedEvent(event, RENEWING_MIST_GOM);
+  return HasRelatedEvent(event, RENEWING_MIST_GOM) && !isFromEssenceFont(event);
 }
 
 export function isFromVivify(event: HealEvent) {
-  return HasRelatedEvent(event, VIVIFY_GOM);
+  return HasRelatedEvent(event, VIVIFY_GOM) && !isFromEssenceFont(event);
 }
 
 export function isFromSheilunsGift(event: HealEvent) {
-  return HasRelatedEvent(event, SHEILUNS_GIFT_GOM);
+  return HasRelatedEvent(event, SHEILUNS_GIFT_GOM) && !isFromEssenceFont(event);
 }
 
 export function isFromRevival(event: HealEvent) {
-  return HasRelatedEvent(event, REVIVAL_GOM);
+  return HasRelatedEvent(event, REVIVAL_GOM) && !isFromEssenceFont(event);
 }
 
 export function isFromZenPulse(event: HealEvent) {
-  return HasRelatedEvent(event, ZEN_PULSE_GOM);
+  return HasRelatedEvent(event, ZEN_PULSE_GOM) && !isFromEssenceFont(event);
 }
 
 export function isFromExpelHarm(event: HealEvent) {
-  return HasRelatedEvent(event, EXPEL_HARM_GOM);
+  return HasRelatedEvent(event, EXPEL_HARM_GOM) && !isFromEssenceFont(event);
 }
 
 export function isFromSoothingMist(event: HealEvent) {
-  return HasRelatedEvent(event, SOOM_GOM);
+  return HasRelatedEvent(event, SOOM_GOM) && !isFromEssenceFont(event);
 }
 
 export function isFromEssenceFont(event: HealEvent) {

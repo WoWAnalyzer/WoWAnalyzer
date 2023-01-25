@@ -10,7 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ENVELOPING_MIST_INCREASE, MISTWRAP_INCREASE } from '../../constants';
-import { isFromEnvelopingMist, isFromEssenceFont } from '../../normalizers/CastLinkNormalizer';
+import { isFromEnvelopingMist } from '../../normalizers/CastLinkNormalizer';
 
 const UNAFFECTED_SPELLS: number[] = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
@@ -37,7 +37,7 @@ class EnvelopingMists extends Analyzer {
   }
 
   masteryEnvelopingMist(event: HealEvent) {
-    if (isFromEnvelopingMist(event) && !isFromEssenceFont(event)) {
+    if (isFromEnvelopingMist(event)) {
       this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
     }
   }

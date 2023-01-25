@@ -7,7 +7,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { isFromEssenceFont, isFromSheilunsGift } from '../../normalizers/CastLinkNormalizer';
+import { isFromSheilunsGift } from '../../normalizers/CastLinkNormalizer';
 
 class SheilunsGift extends Analyzer {
   numCasts: number = 0;
@@ -45,7 +45,7 @@ class SheilunsGift extends Analyzer {
   }
 
   masterySheilunsGift(event: HealEvent) {
-    if (isFromSheilunsGift(event) && !isFromEssenceFont(event)) {
+    if (isFromSheilunsGift(event)) {
       this.gomHealing += (event.amount || 0) + (event.absorbed || 0);
     }
   }
