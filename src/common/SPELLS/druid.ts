@@ -163,6 +163,16 @@ const spells = spellIndexableList({
     name: 'Frenzied Regeneration',
     icon: 'ability_bullrush',
   },
+  RATTLED_STARS: {
+    id: 393955,
+    name: 'Rattled Stars',
+    icon: 'spell_arcane_arcane01',
+  },
+  INCARNATION_CHOSEN_OF_ELUNE: {
+    id: 102560,
+    name: 'Incarnation: Chosen of Elune',
+    icon: 'spell_druid_incarnation',
+  },
   BEAR_FORM: {
     id: 5487,
     name: 'Bear Form',
@@ -429,6 +439,12 @@ const spells = spellIndexableList({
     id: 363495,
     name: 'Ephemeral Incarnation',
     icon: 'spell_progenitor_orb2',
+  },
+  //Tier 29 Balance set bonus proc
+  TOUCH_THE_COSMOS: {
+    id: 394414,
+    name: 'Touch the Cosmos',
+    icon: 'ability_bossgorefiend_touchofdoom',
   },
   RENEWING_BLOOM: {
     // HoT procced by T28 2pc
