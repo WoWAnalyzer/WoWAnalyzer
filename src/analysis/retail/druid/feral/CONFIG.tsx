@@ -34,7 +34,7 @@ export default {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/86gmvqGADF49xcfj/9-Heroic+Terros+-+Kill+(5:43)/Rebek/standard',
+  exampleReport: '/report/nKgjXCLPNABhk6GV/32-Heroic+Eranog+-+Kill+(2:44)/Azlann/standard',
   guideDefault: true,
 
   // Don't change anything below this line;
