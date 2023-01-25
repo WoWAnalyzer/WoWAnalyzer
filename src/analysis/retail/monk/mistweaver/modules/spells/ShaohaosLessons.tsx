@@ -2,16 +2,17 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import HIT_TYPES from 'game/HIT_TYPES';
+import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import BoringValueText from 'parser/ui/BoringValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const DESPAIR_CRIT_INCREASE = 0.3;
 const DOUBT_INCREASE = 0.35;
@@ -113,11 +114,17 @@ class ShaohaosLessons extends Analyzer {
           </>
         }
       >
-        <TalentSpellText talent={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT}>
+        <BoringValueText
+          label={
+            <>
+              <SpellIcon id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT.id} /> Shaohao's Lessons
+            </>
+          }
+        >
           <ItemHealingDone amount={this.totalHealing} /> <br />
           <ItemDamageDone amount={this.doubtDamage} /> <br />
           {formatPercentage(this.averageHasteIncrease, 1)}% <small>average haste increase</small>
-        </TalentSpellText>
+        </BoringValueText>
       </Statistic>
     );
   }
