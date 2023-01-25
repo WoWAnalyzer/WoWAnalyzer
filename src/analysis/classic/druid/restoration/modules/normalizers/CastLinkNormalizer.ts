@@ -11,6 +11,7 @@ import {
   HealEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
+  ResourceChangeEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
@@ -22,6 +23,8 @@ export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_EXPIRING_LIFEBLOOM = 'FromExpiringLifebloom';
 export const CAUSED_BLOOM = 'CausedBloom';
 export const CAUSED_TICK = 'CausedTick';
+export const REGEN_FROM_LIFEBLOOM = 'RegenFromLifebloom';
+export const CAUSED_REGEN = 'CausedRegen';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -95,6 +98,16 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
   },
+  {
+    linkRelation: CAUSED_REGEN,
+    reverseLinkRelation: REGEN_FROM_LIFEBLOOM,
+    linkingEventId: SPELLS.LIFEBLOOM.id,
+    linkingEventType: EventType.RemoveBuff,
+    referencedEventId: SPELL_EFFECTS.LIFEBLOOM_BLOOM_REGEN,
+    referencedEventType: EventType.ResourceChange,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+  },
 ];
 
 /**
@@ -153,6 +166,12 @@ export function causedBloom(event: RemoveBuffEvent | RefreshBuffEvent): boolean 
  *  cast ID `TRANQUILITY_CAST`. */
 export function getTranquilityTicks(event: CastEvent): AnyEvent[] {
   return GetRelatedEvents(event, CAUSED_TICK);
+}
+
+export function getBloomCausingRegen(event: ResourceChangeEvent): RemoveBuffEvent | undefined {
+  return GetRelatedEvents(event, REGEN_FROM_LIFEBLOOM)
+    .filter((e): e is RemoveBuffEvent => e.type === EventType.RemoveBuff)
+    .pop();
 }
 
 export default CastLinkNormalizer;

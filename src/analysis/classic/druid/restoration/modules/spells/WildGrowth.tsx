@@ -173,7 +173,7 @@ class WildGrowth extends Analyzer {
     return (
       <Statistic
         size="flexible"
-        position={STATISTIC_ORDER.CORE(19)} // chosen for fixed ordering of general stats
+        position={STATISTIC_ORDER.CORE(51)} // chosen for fixed ordering of general stats
         tooltip={
           <>
             This is the average number of effective hits per Wild Growth cast. Because its healing

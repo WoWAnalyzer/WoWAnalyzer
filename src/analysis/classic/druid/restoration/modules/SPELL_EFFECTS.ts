@@ -4,5 +4,6 @@ export const REVITALIZE_ENERGY = 48540;
 export const REVITALIZE_RUNIC_POWER = 48543;
 
 export const LIFEBLOOM_BLOOM_HEAL = 33778;
+export const LIFEBLOOM_BLOOM_REGEN = 64372;
 
 export const CLEARCASTING = 16870;

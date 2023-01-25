@@ -211,7 +211,7 @@ class Rejuvenation extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(18)} // chosen for fixed ordering of general stats
+        position={STATISTIC_ORDER.CORE(50)} // chosen for fixed ordering of general stats
         size="flexible"
         tooltip={
           <>

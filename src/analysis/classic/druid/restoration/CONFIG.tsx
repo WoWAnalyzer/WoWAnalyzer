@@ -43,6 +43,8 @@ const config: Config = {
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.CLASSIC_DRUID_RESTORATION,
 
+  guideDefault: true,
+
   // USE CAUTION when changing anything below this line.
   // The contents of your changelog.
   changelog: CHANGELOG,

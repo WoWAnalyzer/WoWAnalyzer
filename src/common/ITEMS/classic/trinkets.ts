@@ -139,6 +139,13 @@ const items = itemIndexableList({
     buffId: 60064,
     buffName: 'Now is the Time!',
   },
+  SOUL_PRESERVER: {
+    id: 37111,
+    name: 'Soul Preserver',
+    icon: 'inv_misc_orb_03',
+    buffId: 60513,
+    buffName: 'Healing Trance',
+  },
 });
 
 export default items;

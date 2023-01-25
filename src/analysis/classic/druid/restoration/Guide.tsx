@@ -13,6 +13,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.rejuvenation.guideSubsection}
         {modules.wildGrowth.guideSubsection}
         {modules.swiftmend.guideSubsection}
+        {modules.lifebloom.guideSubsection}
       </Section>
       <Section title="Healing Cooldowns">
         <HotGraphSubsection modules={modules} events={events} info={info} />
