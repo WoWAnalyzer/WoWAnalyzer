@@ -134,10 +134,11 @@ class ShaohaosLessons extends Analyzer {
   }
 
   get averageHasteIncrease() {
-    const percentUptime =
-      this.selectedCombatant.getBuffUptime(SPELLS.LESSON_OF_FEAR_BUFF.id) /
-      this.owner.fightDuration;
-    return percentUptime * FEAR_HASTE_INCREASE;
+    return (
+      (this.selectedCombatant.getBuffUptime(SPELLS.LESSON_OF_FEAR_BUFF.id) /
+        this.owner.fightDuration) *
+      FEAR_HASTE_INCREASE
+    );
   }
 
   statistic() {
