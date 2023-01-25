@@ -12,7 +12,7 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { MISTWRAP_INCREASE } from '../../constants';
+import { ENVELOPING_MIST_INCREASE, MISTWRAP_INCREASE } from '../../constants';
 import HotTrackerMW from '../core/HotTrackerMW';
 
 const ENVELOPING_BASE_DURATION = 6000;
@@ -85,24 +85,29 @@ class MistWrap extends Analyzer {
 
     const envMistHot = this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
     const envBreathHot = this.hotTracker.hots[targetId][SPELLS.ENVELOPING_BREATH_HEAL.id];
-
+    //handle envelop mist bonus healing
     if (envMistHot && spellId !== TALENTS_MONK.ENVELOPING_MIST_TALENT.id) {
-      if (
-        envMistHot.start + ENVELOPING_BASE_DURATION < event.timestamp &&
-        envMistHot.extensions?.length === 0
-      ) {
-        this.envMistHealingBoost += calculateEffectiveHealing(event, MISTWRAP_INCREASE);
+      //check for extensions
+      if (envMistHot.extensions?.length === 0) {
+        //bonus healing is 40% from additional time or 10% from additional healing based on timestamp
+        this.envMistHealingBoost +=
+          envMistHot.start + ENVELOPING_BASE_DURATION < event.timestamp
+            ? calculateEffectiveHealing(event, ENVELOPING_MIST_INCREASE + MISTWRAP_INCREASE)
+            : calculateEffectiveHealing(event, MISTWRAP_INCREASE);
       } else {
+        //get total extensions and apply bonus healing
         let totalExtension = 0;
         Object.keys(envMistHot.extensions).forEach((idx, index) => {
           totalExtension += envMistHot.extensions[index].amount;
         });
-        if (envMistHot.start + ENVELOPING_BASE_DURATION + totalExtension < event.timestamp) {
-          this.envMistHealingBoost += calculateEffectiveHealing(event, MISTWRAP_INCREASE);
-        }
+        //bonus healing is 40% from additional time or 10% from additional healing based on timestamp
+        this.envMistHealingBoost +=
+          envMistHot.start + ENVELOPING_BASE_DURATION + totalExtension < event.timestamp
+            ? calculateEffectiveHealing(event, ENVELOPING_MIST_INCREASE + MISTWRAP_INCREASE)
+            : calculateEffectiveHealing(event, MISTWRAP_INCREASE);
       }
     }
-
+    //handle envelop breath bonus healing
     if (
       envBreathHot &&
       envBreathHot.start + ENVELOPING_BASE_DURATION < event.timestamp &&
