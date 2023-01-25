@@ -160,9 +160,9 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
                           This is the full amount of purified damage that contributed to any{' '}
                           <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />. Niuzao takes 25% of this
                           amount as the base bonus damage, which may then be increased by effects
-                          like <SpellLink id={talents.WALK_WITH_THE_OX_TALENT.id} />. Purified damage that
-                          expired before the next <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />{' '}
-                          is not counted.
+                          like <SpellLink id={talents.WALK_WITH_THE_OX_TALENT.id} />. Purified
+                          damage that expired before the next{' '}
+                          <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> is not counted.
                         </>
                       }
                     >

@@ -281,6 +281,12 @@ const spells = spellIndexableList({
     icon: 'spell_yorsahj_bloodboil_purpleoil',
   },
 
+  PLAGUEBRINGER_BUFF: {
+    id: 390178,
+    name: 'Plaguebringer',
+    icon: 'spell_deathknight_plaguestrike',
+  },
+
   // scourge strike has one cast event but two damage events, the cast and physical
   // damage happen on id 55090, the shadow damage is on id 70890
   SCOURGE_STRIKE: {

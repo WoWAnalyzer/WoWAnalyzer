@@ -18,6 +18,11 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 1, 24), "Fixed an issue where Guide pages weren't showing by default", Sref),
+  change(date(2023, 1, 20), <>Adjust maximum combat potion usages to account for <SpellLink id={SPELLS.ALACRITOUS_ALCHEMIST_STONE} />.</>, ToppleTheNun),
+  change(date(2023, 1, 18), 'Add missing 3* weapon enhancements.', ToppleTheNun),
+  change(date(2023, 1, 17), 'Add ability to generate PTR talents and add documentation on how to do so.', ToppleTheNun),
+  change(date(2023, 1, 17), 'Add 10.0.5 patch information.', ToppleTheNun),
   change(date(2023, 1, 16), 'Refactor result page rendering.', ToppleTheNun),
   change(date(2023, 1, 16), 'Remove remaining references to Shadowlands spells except for foods.', ToppleTheNun),
   change(date(2023, 1, 15), 'Overhauls enchants recommendations (removing gloves, adding bracers & boots).', Lapideas),

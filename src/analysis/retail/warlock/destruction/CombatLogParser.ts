@@ -9,10 +9,10 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 import SpellUsable from './modules/core/SpellUsable';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Backdraft from './modules/features/Backdraft';
+import Backdraft from './modules/talents/Backdraft';
 import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import Havoc from './modules/features/Havoc';
+import Havoc from './modules/talents/Havoc';
 import ImmolateUptime from './modules/features/ImmolateUptime';
 import RainOfFire from './modules/features/RainOfFire';
 import SoulShardDetails from './modules/soulshards/SoulShardDetails';
@@ -24,12 +24,14 @@ import FireAndBrimstone from './modules/talents/FireAndBrimstone';
 import Flashover from './modules/talents/Flashover';
 import Inferno from './modules/talents/Inferno';
 import InternalCombustion from './modules/talents/InternalCombustion';
+import MadnessOfAzhaqir from './modules/talents/MadnessOfAzhaqir';
 import ReverseEntropy from './modules/talents/ReverseEntropy';
 import RoaringBlaze from './modules/talents/RoaringBlaze';
 import RollingHavoc from './modules/talents/RollingHavoc';
 import Shadowburn from './modules/talents/Shadowburn';
 import SoulConduit from './modules/talents/SoulConduit';
 import SoulFire from './modules/talents/SoulFire';
+import FlashPoint from './modules/talents/FlashPoint';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -68,6 +70,8 @@ class CombatLogParser extends CoreCombatLogParser {
     soulConduit: SoulConduit,
     channelDemonfire: ChannelDemonfire,
     rollingHavoc: RollingHavoc,
+    madnessOfAzhaqir: MadnessOfAzhaqir,
+    flashPoint: FlashPoint,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

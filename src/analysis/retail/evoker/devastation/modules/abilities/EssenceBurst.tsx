@@ -14,13 +14,13 @@ class EssenceBurst extends Analyzer {
     this.addEventListener(
       Events.applybuff
         .by(SELECTED_PLAYER)
-        .spell([TALENTS_EVOKER.ESSENCE_BURST_TALENT, TALENTS_EVOKER.ESSENCE_BURST_ATTUNED_TALENT]),
+        .spell([TALENTS_EVOKER.ESSENCE_BURST_TALENT, SPELLS.ESSENCE_BURST_DEV_BUFF]),
       this.onApplyBuff,
     );
     this.addEventListener(
       Events.applybuffstack
         .by(SELECTED_PLAYER)
-        .spell([TALENTS_EVOKER.ESSENCE_BURST_TALENT, TALENTS_EVOKER.ESSENCE_BURST_ATTUNED_TALENT]),
+        .spell([TALENTS_EVOKER.ESSENCE_BURST_TALENT, SPELLS.ESSENCE_BURST_DEV_BUFF]),
       this.onApplyBuff,
     );
 
@@ -36,7 +36,7 @@ class EssenceBurst extends Analyzer {
   onFightEnd() {
     this.procs -=
       this.selectedCombatant.getBuffStacks(TALENTS_EVOKER.ESSENCE_BURST_TALENT.id) +
-      this.selectedCombatant.getBuffStacks(TALENTS_EVOKER.ESSENCE_BURST_ATTUNED_TALENT.id);
+      this.selectedCombatant.getBuffStacks(SPELLS.ESSENCE_BURST_DEV_BUFF.id);
   }
 
   onEssenceSpend(event: CastEvent) {

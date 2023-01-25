@@ -7,6 +7,9 @@ import {
 import MainCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
+import CancelledCasts from './modules/features/CancelledCasts';
+
+import Guide from 'analysis/retail/priest/shadow/Guide';
 
 import Abilities from './modules/Abilities';
 import Checklist from './modules/checklist/Module';
@@ -17,8 +20,6 @@ import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import ShadowyInsight from './modules/features/ShadowyInsight';
 import DotUptimes from './modules/features/DotUptimes';
-import SkippableCasts from './modules/features/SkippableCasts';
-import VoidBoltUsage from './modules/features/VoidBoltUsage';
 import Voidform from './modules/features/Voidform';
 import InsanityTracker from './modules/resources/InsanityTracker';
 import InsanityUsage from './modules/resources/InsanityUsage';
@@ -46,6 +47,7 @@ import IdolOfCthun from './modules/talents/IdolOfCthun';
 import IdolOfYoggSaron from './modules/talents/IdolOfYoggSaron';
 import IdolOfNzoth from './modules/talents/IdolOfNzoth';
 import IdolOfYshaarj from './modules/talents/IdolOfYshaarj';
+import InsanityGraph from './modules/guide/InsanityGraph';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -54,10 +56,12 @@ class CombatLogParser extends MainCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
+    cancelledCasts: CancelledCasts,
 
     // resources:
     insanityTracker: InsanityTracker,
     insanityUsage: InsanityUsage,
+    insanityGraph: InsanityGraph,
 
     // features:
     abilities: Abilities,
@@ -65,9 +69,7 @@ class CombatLogParser extends MainCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     checklist: Checklist,
     dotUptimes: DotUptimes,
-    skippableCasts: SkippableCasts,
     shadowyInsight: ShadowyInsight,
-    voidBoltUsage: VoidBoltUsage,
     voidform: Voidform,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
 
@@ -108,6 +110,8 @@ class CombatLogParser extends MainCombatLogParser {
 
     arcaneTorrent: [ArcaneTorrent, { active: false }] as const,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;

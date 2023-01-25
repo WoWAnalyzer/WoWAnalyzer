@@ -109,10 +109,11 @@ class MaraadsCastRatio extends Analyzer {
     when(this.notEnoughLOTMSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to avoid wasting the <SpellLink id={TALENTS.MARAADS_DYING_BREATH_TALENT.id} /> proc, either by
-          overwriting it or by allowing it to time out, as you are wasting a large amount of healing
-          by wasting it. If you are frequently unable to find a suitable target for your buffed{' '}
-          <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />, consider using a different legendary.
+          Try to avoid wasting the <SpellLink id={TALENTS.MARAADS_DYING_BREATH_TALENT.id} /> proc,
+          either by overwriting it or by allowing it to time out, as you are wasting a large amount
+          of healing by wasting it. If you are frequently unable to find a suitable target for your
+          buffed <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />, consider using a different
+          legendary.
         </>,
       )
         .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)

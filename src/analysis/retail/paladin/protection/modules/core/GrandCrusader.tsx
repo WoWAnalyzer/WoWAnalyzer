@@ -1,5 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
@@ -28,7 +29,7 @@ class GrandCrusader extends Analyzer {
     this.addEventListener(
       Events.cast
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.HAMMER_OF_THE_RIGHTEOUS, SPELLS.BLESSED_HAMMER_TALENT]),
+        .spell([TALENTS.HAMMER_OF_THE_RIGHTEOUS_TALENT, TALENTS.BLESSED_HAMMER_TALENT]),
       this.trackGrandCrusaderChanceCasts,
     );
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.trackGrandCrusaderChanceHits);
@@ -42,7 +43,7 @@ class GrandCrusader extends Analyzer {
 
   trackGrandCrusaderChanceCasts(event: CastEvent) {
     if (
-      ![SPELLS.HAMMER_OF_THE_RIGHTEOUS.id, SPELLS.BLESSED_HAMMER_TALENT.id].includes(
+      ![TALENTS.HAMMER_OF_THE_RIGHTEOUS_TALENT.id, TALENTS.BLESSED_HAMMER_TALENT.id].includes(
         event.ability.guid,
       )
     ) {
@@ -68,13 +69,13 @@ class GrandCrusader extends Analyzer {
 
   resetCooldowns(spellUsable: SpellUsable, event: CastEvent | DamageEvent) {
     // reset AS cd
-    if (spellUsable.isOnCooldown(SPELLS.AVENGERS_SHIELD.id)) {
-      spellUsable.endCooldown(SPELLS.AVENGERS_SHIELD.id, this._lastResetSource?.timestamp);
+    if (spellUsable.isOnCooldown(TALENTS.AVENGERS_SHIELD_TALENT.id)) {
+      spellUsable.endCooldown(TALENTS.AVENGERS_SHIELD_TALENT.id, this._lastResetSource?.timestamp);
     }
 
     // reset Judgment CD if the CJ talent is selected
     if (
-      this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT) &&
+      this.selectedCombatant.hasTalent(TALENTS.CRUSADERS_JUDGMENT_TALENT) &&
       spellUsable.isOnCooldown(SPELLS.JUDGMENT_CAST_PROTECTION.id) &&
       this._lastResetSource !== null
     ) {
@@ -135,7 +136,7 @@ class GrandCrusader extends Analyzer {
         }
       >
         <BoringSpellValue
-          spellId={SPELLS.GRAND_CRUSADER.id}
+          spellId={TALENTS.GRAND_CRUSADER_TALENT.id}
           value={`${this._totalResets} Resets`}
           label="Grand Crusader"
         />

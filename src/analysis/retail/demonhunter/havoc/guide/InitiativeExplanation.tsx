@@ -15,8 +15,9 @@ const InitiativeExplanation = ({ lineBreak }: Props) => {
     <>
       {lineBreak ? <br /> : ' '}
       <Trans id="guide.demonhunter.havoc.initiative.explanation">
-        Always use with the buff from <SpellLink id={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} /> so
-        that you benefit from the increased Critical Strike Chance.
+        Always use after casting <SpellLink id={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} /> so
+        that you benefit from the increased critical strike chance provided by{' '}
+        <SpellLink id={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} />.
       </Trans>
     </>
   );
