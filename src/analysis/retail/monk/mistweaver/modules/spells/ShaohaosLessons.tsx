@@ -27,7 +27,6 @@ class ShaohaosLessons extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
-  buffCount: Map<number, number> = new Map<number, number>();
   angerDamage: number = 0;
   angerHealing: number = 0;
   despairDamage: number = 0;
