@@ -116,7 +116,6 @@ class Abilities extends CoreAbilities {
           base: 750,
         },
         buffSpellId: SPELLS.SWEEPING_STRIKES.id,
-        enabled: combatant.hasTalent(TALENTS.SWEEPING_STRIKES_TALENT),
       },
       {
         spell: SPELLS.WHIRLWIND.id,
@@ -181,7 +180,7 @@ class Abilities extends CoreAbilities {
       },
       // Cooldowns
       {
-        spell: TALENTS.AVATAR_TALENT.id,
+        spell: TALENTS.AVATAR_SHARED_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: null,
@@ -189,7 +188,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-        enabled: combatant.hasTalent(TALENTS.AVATAR_TALENT),
+        enabled: combatant.hasTalent(TALENTS.AVATAR_SHARED_TALENT),
       },
       // Defensive
       {

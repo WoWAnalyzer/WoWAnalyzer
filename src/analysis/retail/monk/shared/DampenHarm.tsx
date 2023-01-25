@@ -74,7 +74,7 @@ class DampenHarm extends MajorDefensive {
               <>
                 The damage reduction is based on the amount of damage you'd take <em>after</em>{' '}
                 applying Armor, Versatility, and Avoidance, but <em>before</em> reductions from
-                absorbs like <SpellLink id={talents.STAGGER_TALENT} />,{' '}
+                absorbs like <SpellLink id={SPELLS.STAGGER} />,{' '}
                 <SpellLink id={talents.CELESTIAL_BREW_TALENT} />, or{' '}
                 <SpellLink id={talents.LIFE_COCOON_TALENT} />.
               </>
