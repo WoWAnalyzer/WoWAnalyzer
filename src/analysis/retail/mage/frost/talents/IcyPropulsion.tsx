@@ -1,5 +1,4 @@
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import HIT_TYPES from 'game/HIT_TYPES';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -67,7 +66,7 @@ class IcyPropulsion extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.ICY_PROPULSION.id}>
+        <BoringSpellValueText spellId={TALENTS.ICY_PROPULSION_TALENT.id}>
           <UptimeIcon /> {`${formatNumber(this.reductionSeconds)}s`} <small>Icy Veins CDR</small>
         </BoringSpellValueText>
       </Statistic>

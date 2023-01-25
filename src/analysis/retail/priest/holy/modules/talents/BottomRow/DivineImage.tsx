@@ -1,6 +1,5 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
-import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -73,7 +72,7 @@ class DivineImage extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.DIVINE_IMAGE.id}>
+        <BoringSpellValueText spellId={TALENTS.DIVINE_IMAGE_TALENT.id}>
           <ItemHealingDone amount={this.totalHealing} />
           <br />
           <ItemDamageDone amount={this.totalDamage} />

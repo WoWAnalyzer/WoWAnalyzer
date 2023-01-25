@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warrior';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -25,7 +26,7 @@ class SpearOfBastion extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.SPEAR_OF_BASTION.id}>
+        <BoringSpellValueText spellId={TALENTS.SPEAR_OF_BASTION_TALENT.id}>
           {this.owner.formatItemDamageDone(this._spearOfBastionDamage)}
         </BoringSpellValueText>
       </Statistic>

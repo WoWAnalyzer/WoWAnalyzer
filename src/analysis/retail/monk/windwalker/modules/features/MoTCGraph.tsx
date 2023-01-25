@@ -11,6 +11,7 @@ import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import Panel from 'parser/ui/Panel';
 import { VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
+import { TALENTS_MONK } from 'common/TALENTS';
 
 type SpellTracker = {
   timestamp: number;
@@ -45,12 +46,12 @@ class MoTCGraph extends Analyzer {
     );
 
     this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.BONEDUST_BREW_CAST),
+      Events.applydebuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.BONEDUST_BREW_TALENT),
       this.bdbApplied,
     );
 
     this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.BONEDUST_BREW_CAST),
+      Events.removedebuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.BONEDUST_BREW_TALENT),
       this.bdbRemoved,
     );
 

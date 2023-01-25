@@ -31,7 +31,6 @@ import REMGraph from './modules/features/REMGraph';
 import JadeBond from './modules/spells/JadeBond';
 import NourishingChi from './modules/spells/NourishingChi';
 import RisingSunRevival from './modules/spells/UpliftedSpirits';
-import BonedustBrewAverageTargets from './modules/spells/BonedustBrewAverageTargets';
 import FaelineStompHealing from './modules/spells/FaelineStompHealing';
 import AncientTeachingsoftheMonastery from './modules/spells/AncientTeachingsoftheMonastery';
 import CloudedFocus from './modules/spells/CloudedFocus';
@@ -76,6 +75,7 @@ import DancingMists from './modules/spells/DancingMists';
 import MistyPeaksHealingBreakdown from './modules/features/MistyPeaksHealingBreakdown';
 import TalentHealingStatistic from './modules/features/TalentHealingStatistic';
 import MendingProliferation from './modules/spells/MendingProliferation';
+import SheilunsGift from './modules/spells/SheilunsGift';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -124,7 +124,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // MW Talents
     ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
-    bonedustBrewAverageTargets: BonedustBrewAverageTargets,
     cloudedFocus: CloudedFocus,
     envelopingBreath: EnvelopingBreath,
     envelopingMists: EnvelopingMists,
@@ -162,6 +161,7 @@ class CombatLogParser extends CoreCombatLogParser {
     dancingMists: DancingMists,
     mendingProliferation: MendingProliferation,
     teachingsOfTheMonestary: TeachingsOfTheMonestary,
+    sheilunsGift: SheilunsGift,
 
     // Borrowed Power
     t29TierSet: T29TierSet,

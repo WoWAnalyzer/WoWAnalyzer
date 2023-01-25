@@ -8,7 +8,6 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-const AOTD_APOCALYPSE_REDUCTION_MS = 1000;
 const AOTD_ARMY_REDUCTION_MS = 5000;
 
 class ArmyOfTheDamned extends Analyzer {
@@ -18,7 +17,6 @@ class ArmyOfTheDamned extends Analyzer {
 
   protected spellUsable!: SpellUsable;
 
-  totalApocalypseReductionMs: number = 0;
   totalArmyReductionMs: number = 0;
 
   constructor(options: Options) {
@@ -36,15 +34,6 @@ class ArmyOfTheDamned extends Analyzer {
   }
 
   onCdrCast(event: CastEvent) {
-    if (this.spellUsable.isOnCooldown(SPELLS.APOCALYPSE.id)) {
-      this.spellUsable.reduceCooldown(
-        SPELLS.APOCALYPSE.id,
-        AOTD_APOCALYPSE_REDUCTION_MS,
-        event.timestamp,
-      );
-      this.totalApocalypseReductionMs += AOTD_APOCALYPSE_REDUCTION_MS;
-    }
-
     if (this.spellUsable.isOnCooldown(SPELLS.ARMY_OF_THE_DEAD.id)) {
       this.spellUsable.reduceCooldown(
         SPELLS.ARMY_OF_THE_DEAD.id,
@@ -59,10 +48,6 @@ class ArmyOfTheDamned extends Analyzer {
     if (this.spellUsable.isOnCooldown(SPELLS.ARMY_OF_THE_DEAD.id)) {
       this.spellUsable.endCooldown(SPELLS.ARMY_OF_THE_DEAD.id);
     }
-
-    if (this.spellUsable.isOnCooldown(SPELLS.APOCALYPSE.id)) {
-      this.spellUsable.endCooldown(SPELLS.APOCALYPSE.id);
-    }
   }
 
   statistic() {
@@ -70,9 +55,6 @@ class ArmyOfTheDamned extends Analyzer {
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
         <BoringSpellValueText spellId={TALENTS.ARMY_OF_THE_DAMNED_TALENT.id}>
           <>
-            <CooldownIcon /> {this.totalApocalypseReductionMs / 1000}s{' '}
-            <small> of Apocalypse CDR</small>
-            <br />
             <CooldownIcon /> {this.totalArmyReductionMs / 1000}s{' '}
             <small> of Army of the Dead CDR</small>
           </>

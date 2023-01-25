@@ -4,15 +4,14 @@ import { Talent } from 'common/TALENTS/types';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { SPELL_COLORS } from '../../constants';
 import UpliftedSpirits from './UpliftedSpirits';
-
-const BUFFER = 500;
+import { isFromRevival } from '../../normalizers/CastLinkNormalizer';
 
 class Revival extends Analyzer {
   static dependencies = {
@@ -28,11 +27,6 @@ class Revival extends Analyzer {
   gustsHealing: number = 0;
   gustOverHealing: number = 0;
 
-  bdbMasteryHeal: number = 0;
-  bdbMasteryOverHealing: number = 0;
-
-  lastRevival: number = Number.MIN_SAFE_INTEGER;
-
   constructor(options: Options) {
     super(options);
     this.active =
@@ -42,18 +36,7 @@ class Revival extends Analyzer {
     if (!this.active) {
       return;
     }
-
     this.activeTalent = this.getRevivalTalent();
-
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.REVIVAL_TALENT),
-      this.revivalCast,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RESTORAL_TALENT),
-      this.revivalCast,
-    );
-
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.REVIVAL_TALENT),
       this.handleRevivalDirect,
@@ -68,11 +51,6 @@ class Revival extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
       this.handleGustsOfMists,
     );
-
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.BONEDUST_BREW_GUST_OF_MIST),
-      this.handleBDBGustsOfMist,
-    );
   }
 
   getRevivalTalent() {
@@ -81,28 +59,15 @@ class Revival extends Analyzer {
       : TALENTS_MONK.REVIVAL_TALENT;
   }
 
-  revivalCast(event: CastEvent) {
-    this.lastRevival = event.timestamp + BUFFER;
-  }
-
   handleRevivalDirect(event: HealEvent) {
-    if (this.lastRevival > event.timestamp) {
-      this.revivalDirectHealing += event.amount + (event.absorbed || 0);
-      this.revivalDirectOverHealing += event.overheal || 0;
-    }
+    this.revivalDirectHealing += event.amount + (event.absorbed || 0);
+    this.revivalDirectOverHealing += event.overheal || 0;
   }
 
   handleGustsOfMists(event: HealEvent) {
-    if (this.lastRevival > event.timestamp) {
+    if (isFromRevival(event)) {
       this.gustsHealing += event.amount + (event.absorbed || 0);
       this.gustOverHealing += event.overheal || 0;
-    }
-  }
-
-  handleBDBGustsOfMist(event: HealEvent) {
-    if (this.lastRevival > event.timestamp) {
-      this.bdbMasteryHeal += event.amount + (event.absorbed || 0);
-      this.bdbMasteryOverHealing += event.overheal || 0;
     }
   }
 
@@ -131,16 +96,6 @@ class Revival extends Analyzer {
         spellId: TALENTS_MONK.UPLIFTED_SPIRITS_TALENT.id,
         value: this.upliftedSpirits.usHealing,
         valueTooltip: formatThousands(this.upliftedSpirits.usHealing),
-      });
-    }
-
-    if (this.selectedCombatant.hasTalent(TALENTS_MONK.BONEDUST_BREW_TALENT)) {
-      items.push({
-        color: SPELL_COLORS.BONEDUST_BREW_GUST_OF_MIST,
-        label: 'Gust Of Mist (bdb)',
-        spellId: SPELLS.BONEDUST_BREW_GUST_OF_MIST.id,
-        value: this.bdbMasteryHeal,
-        valueTooltip: formatThousands(this.bdbMasteryHeal),
       });
     }
 

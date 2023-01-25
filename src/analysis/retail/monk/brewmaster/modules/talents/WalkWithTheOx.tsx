@@ -32,7 +32,7 @@ export default class WalkWithTheOx extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.rank = 0;
+    this.rank = this.selectedCombatant.getTalentRank(talents.WALK_WITH_THE_OX_TALENT);
     if (!this.rank) {
       this.active = false;
       return;
@@ -107,7 +107,7 @@ export default class WalkWithTheOx extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spellId={SPELLS.WALK_WITH_THE_OX.id}>
+        <BoringSpellValueText spellId={talents.WALK_WITH_THE_OX_TALENT.id}>
           <>
             <ItemDamageDone amount={this.additionalDamage} />
             <br />

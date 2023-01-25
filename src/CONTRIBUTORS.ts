@@ -185,6 +185,14 @@ export const Khazak: Contributor = {
 export const Bicepspump: Contributor = {
   nickname: 'Bicepspump',
   github: 'Bicepspump',
+  discord: '💪Bicepspump💪#6318',
+  mains: [
+    {
+      name: 'Bicepspump',
+      spec: SPECS.UNHOLY_DEATH_KNIGHT,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/kazzak/Bicepspump',
+    },
+  ],
 };
 export const Mamtooth: Contributor = {
   nickname: 'Mamtooth',
@@ -1294,6 +1302,19 @@ export const Carrottopp: Contributor = {
   ],
 };
 
+export const Toreole: Contributor = {
+  nickname: 'Toreole',
+  github: 'Toreole',
+  discord: 'Toreole#0001',
+  mains: [
+    {
+      name: 'Crowfield',
+      spec: SPECS.ARMS_WARRIOR,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/silvermoon/crowfield',
+    },
+  ],
+};
+
 export const Vexxra: Contributor = {
   nickname: 'Vexxra',
   github: 'vexxra',
@@ -2028,6 +2049,10 @@ export const Greedyhugs: Contributor = {
       link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/greedyhugs',
     },
   ],
+};
+export const Heisenburger: Contributor = {
+  nickname: 'Heisenburger',
+  github: 'Heisenburger505',
 };
 export const Lapideas: Contributor = {
   nickname: 'Lapideas',

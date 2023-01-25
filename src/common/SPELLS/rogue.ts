@@ -18,6 +18,11 @@ const spells = spellIndexableList({
     name: 'Riposte',
     icon: 'ability_parry',
   },
+  FEINT: {
+    id: 1966,
+    name: 'Feint',
+    icon: 'ability_rogue_feint',
+  },
 
   // General spells
   KICK: {
@@ -226,6 +231,11 @@ const spells = spellIndexableList({
     name: 'The First of the Dead',
     icon: 'inv_glove_cloth_raidwarlockmythic_q_01',
   },
+  DEEPER_DAGGERS_BUFF: {
+    id: 383405,
+    name: 'Deeper Daggers',
+    icon: 'ability_rogue_focusedattacks',
+  },
 
   // Sets
 
@@ -320,6 +330,16 @@ const spells = spellIndexableList({
     id: 185565,
     name: 'Poisoned Knife',
     icon: 'ability_rogue_poisonedknife',
+  },
+  SERRATED_BONE_SPIKE_DEBUFF: {
+    id: 394036,
+    name: 'Serrated Bone Spike',
+    icon: 'ability_maldraxxus_rogue',
+  },
+  SERRATED_BONE_SPIKE_ENERGIZE: {
+    id: 394038,
+    name: 'Serrated Bone Spike',
+    icon: 'ability_maldraxxus_rogue',
   },
 
   //Finishers

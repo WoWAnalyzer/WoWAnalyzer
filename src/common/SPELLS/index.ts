@@ -31,7 +31,6 @@ import PRIEST from './priest';
 import RACIALS from './racials';
 import ROGUE from './rogue';
 import DRAGONFLIGHT from './dragonflight';
-import SHADOWLANDS from './shadowlands';
 import SHAMAN from './shaman';
 import Spell, { Enchant } from './Spell';
 import WARLOCK from './warlock';
@@ -59,7 +58,6 @@ const ABILITIES = {
   ...SHAMAN,
   ...WARLOCK,
   ...WARRIOR,
-  ...SHADOWLANDS,
   ...DRAGONFLIGHT,
 } as const;
 

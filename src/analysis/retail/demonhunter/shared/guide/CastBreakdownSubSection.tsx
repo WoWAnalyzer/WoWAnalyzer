@@ -4,9 +4,10 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
+import { CastEvent } from 'parser/core/Events';
 
 export interface Cast {
-  timestamp: number;
+  event: CastEvent;
 }
 
 export interface CastPerformance {

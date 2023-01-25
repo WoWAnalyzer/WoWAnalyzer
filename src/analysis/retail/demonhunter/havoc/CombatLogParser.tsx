@@ -11,6 +11,9 @@ import {
   SwallowedAnger,
   TheHunt,
   UnnaturalMalice,
+  DemonSoulBuff,
+  FodderToTheFlame,
+  TheHuntNormalizer,
 } from 'analysis/retail/demonhunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -54,10 +57,8 @@ import GrowingInferno from './modules/talents/GrowingInferno';
 import BurningHatred from './modules/talents/BurningHatred';
 import EssenceBreakNormalizer from './normalizers/EssenceBreakNormalizer';
 import FuryGraph from './modules/resourcetracker/FuryGraph';
-import AplCheck from './apl/AplCheck';
 import Guide from './Guide';
-import DemonSoulBuff from 'analysis/retail/demonhunter/shared/modules/spells/DemonSoulBuff';
-import FodderToTheFlame from 'analysis/retail/demonhunter/shared/modules/talents/FodderToTheFlame';
+import TheHuntVengefulRetreatNormalizer from './normalizers/TheHuntVengefulRetreatNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -70,6 +71,8 @@ class CombatLogParser extends CoreCombatLogParser {
     //Normalizer
     eyeBeamNormalizer: EyeBeam,
     essenceBreakNormalizer: EssenceBreakNormalizer,
+    theHuntNormalizer: TheHuntNormalizer,
+    theHuntVengefulRetreatNormalizer: TheHuntVengefulRetreatNormalizer,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -126,8 +129,6 @@ class CombatLogParser extends CoreCombatLogParser {
     furyTracker: FuryTracker,
     furyDetails: FuryDetails,
     furyGraph: FuryGraph,
-
-    apl: AplCheck,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

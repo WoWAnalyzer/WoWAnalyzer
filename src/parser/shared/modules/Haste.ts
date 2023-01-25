@@ -47,12 +47,14 @@ class Haste extends Analyzer {
     [SPELLS.BERSERKING.id]: 0.1,
     [SPELLS.IN_FOR_THE_KILL_TALENT_BUFF.id]: 0.1,
     [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
-    [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
-    [SPELLS.FURIOUS_GAZE.id]: 0.15, // Havoc DH haste buff from fully channeling a cast of Eye Beam
     [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
     [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
-    [SPELLS.EUPHORIA.id]: 0.2, //Buff from Thrill Seeker (Nadjia Soulbind Venthyr)
-    [SPELLS.FIELD_OF_BLOSSOMS_BUFF.id]: 0.15, // Buff from Field of Blossoms (Dreamweaver Soulbind Night Fae)
+    [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15, // Frost DK
+
+    //region Demon Hunter
+    [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
+    [SPELLS.FURIOUS_GAZE.id]: 0.1, // Havoc DH haste buff from fully channeling a cast of Eye Beam
+    //endregion
 
     //region Death Knight Hate Buffs
     [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15,
@@ -65,9 +67,6 @@ class Haste extends Analyzer {
       hastePerStack: 0.04,
     },
     [SPELLS.CELESTIAL_ALIGNMENT.id]: 0.1,
-    [SPELLS.RAVENOUS_FRENZY.id]: {
-      hastePerStack: 0.01,
-    },
     [SPELLS.FRANTIC_MOMENTUM.id]: 0.1, // TODO check for possible tuning updates
     //endregion
 

@@ -49,19 +49,6 @@ class Abilities extends CoreAbilities {
         },
         enabled: !false,
       },
-      {
-        spell: [
-          SPELLS.CONDEMN.id,
-          SPELLS.CONDEMN_MASSACRE.id,
-          SPELLS.CONDEMN_FURY.id,
-          SPELLS.CONDEMN_FURY_MASSACRE.id,
-        ],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        enabled: false,
-      },
       // Rotational AOE
       {
         spell: SPELLS.WHIRLWIND_FURY_CAST.id,
@@ -71,7 +58,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SPEAR_OF_BASTION.id,
+        spell: talents.SPEAR_OF_BASTION_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 90,
         gcd: {

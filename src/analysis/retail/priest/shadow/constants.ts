@@ -19,6 +19,3 @@ export const VOID_TORRENT_INSANITY_PER_SECOND = 20;
 export const VOID_TORRENT_INSANITY_PER_TICK = 15;
 
 export const VOID_FORM_ACTIVATORS = [TALENTS.VOID_ERUPTION_TALENT.id];
-
-// Abilities that don't show waste in resource gain
-export const SHADOW_SPELLS_WITHOUT_WASTE = [TALENTS.VOID_TORRENT_TALENT.id];
