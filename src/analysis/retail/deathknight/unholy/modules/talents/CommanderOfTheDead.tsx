@@ -13,7 +13,13 @@ import { formatPercentage } from 'common/format';
 class CommanderOfTheDead extends Analyzer {
   commanderBuffs = 0;
   petSummons = 0;
-  petSummonNames = ['Army of the Dead', 'Dark Arbiter', 'Summon Gargoyle', 'Army of the Damned'];
+  petSummonIDs = [
+    SPELLS.MAGUS_SUMMON.id,
+    SPELLS.APOC_SUMMON.id,
+    SPELLS.ARMY_SUMMON.id,
+    TALENTS.SUMMON_GARGOYLE_TALENT.id,
+    SPELLS.DARK_ARBITER_TALENT_GLYPH.id,
+  ];
   buffedPets: string[] = [];
 
   constructor(options: Options) {
@@ -46,8 +52,7 @@ class CommanderOfTheDead extends Analyzer {
   }
 
   onSummonEvent(event: SummonEvent) {
-    console.log(event);
-    if (this.petSummonNames.includes(event.ability.name)) {
+    if (this.petSummonIDs.includes(event.ability.guid)) {
       this.petSummons += 1;
     }
   }
