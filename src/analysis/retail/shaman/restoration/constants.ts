@@ -22,55 +22,13 @@ export const HEALING_WAVE_CAST_TIME = 2.5;
 // Conduit Ranks
 export const SWIRLING_CURRENTS_RANKS = [20, 21, 23, 24, 26, 28, 29, 30, 31, 33, 34, 36, 37, 39, 40];
 export const HEAVY_RAINFALL_RANKS = [
-  75,
-  80,
-  85,
-  90,
-  95,
-  100,
-  105,
-  110,
-  115,
-  120,
-  125,
-  130,
-  135,
-  140,
-  145,
+  75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145,
 ];
 export const EMBRACE_OF_EARTH_RANKS = [
-  5,
-  5.5,
-  6,
-  6.5,
-  7,
-  7.5,
-  8,
-  8.5,
-  9,
-  9.5,
-  10,
-  10.5,
-  11,
-  11.5,
-  12,
+  5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12,
 ];
 export const NATURES_FOCUS_RANKS = [
-  10,
-  10.66,
-  11.33,
-  12,
-  12.66,
-  13.33,
-  14,
-  15,
-  16,
-  16.66,
-  17.33,
-  18,
-  18.66,
-  19.33,
-  20,
+  10, 10.66, 11.33, 12, 12.66, 13.33, 14, 15, 16, 16.66, 17.33, 18, 18.66, 19.33, 20,
 ];
 
 // Your normal healing toolkit, default spells and talents
@@ -78,8 +36,8 @@ export const NATURES_FOCUS_RANKS = [
 // TODO: Create list for Ancestral Guidance (should be all BASE + Ascendance + CBT)
 const SHAMAN_BASE_ABILITIES = [
   SPELLS.HEALING_SURGE,
-  SPELLS.CHAIN_HARVEST_HEAL,
-  SPELLS.PRIMORDIAL_WAVE_HEAL,
+  // Cannot find any logs with the heal
+  // SPELLS.PRIMORDIAL_WAVE_HEAL,
 
   TALENTS.HEALING_WAVE_TALENT,
   TALENTS.CHAIN_HEAL_TALENT,

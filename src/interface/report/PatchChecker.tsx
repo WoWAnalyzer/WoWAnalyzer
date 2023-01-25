@@ -4,17 +4,16 @@ import DiscordButton from 'interface/DiscordButton';
 import GitHubButton from 'interface/GitHubButton';
 import Icon from 'interface/Icon';
 import Panel from 'interface/Panel';
-import { RootState } from 'interface/reducers';
-import { getReportCodesIgnoredPreviousPatchWarning } from 'interface/selectors/skipPreviousPatchWarning';
 import Tooltip from 'interface/Tooltip';
 import * as React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { wclGameVersionToExpansion } from 'game/VERSIONS';
 import { useReport } from 'interface/report/context/ReportContext';
 
 import Background from './images/weirdnelf.png';
 import PATCHES, { Patch } from './PATCHES';
+import { useWaDispatch } from 'interface/utils/useWaDispatch';
+import { useWaSelector } from 'interface/utils/useWaSelector';
 
 const makePreviousPatchUrl = (patch: Patch) => {
   // Handle the case where we don't need a URL prefix
@@ -27,15 +26,15 @@ const makePreviousPatchUrl = (patch: Patch) => {
 
 interface Props {
   children: React.ReactNode;
-  ignorePreviousPatchWarning: (code: string) => void;
-  ignored: string[];
 }
 
-const PatchChecker = ({ children, ignorePreviousPatchWarning, ignored }: Props) => {
+const PatchChecker = ({ children }: Props) => {
   const { report } = useReport();
+  const dispatch = useWaDispatch();
+  const ignored = useWaSelector((state) => state.reportCodesIgnoredPreviousPatchWarning);
 
   const handleClickContinue = () => {
-    ignorePreviousPatchWarning(report.code);
+    dispatch(ignorePreviousPatchWarning(report.code));
   };
   const isContinue = ignored.includes(report.code);
 
@@ -160,9 +159,4 @@ const PatchChecker = ({ children, ignorePreviousPatchWarning, ignored }: Props) 
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
-  ignored: getReportCodesIgnoredPreviousPatchWarning(state),
-});
-export default connect(mapStateToProps, {
-  ignorePreviousPatchWarning,
-})(PatchChecker);
+export default PatchChecker;

@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -19,7 +19,7 @@ class DivineToll extends Analyzer {
     }
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.DIVINE_TOLL.id,
+      spell: TALENTS.DIVINE_TOLL_TALENT.id,
       category: SPELL_CATEGORY.COOLDOWNS,
       cooldown: 60,
       gcd: {

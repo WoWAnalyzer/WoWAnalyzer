@@ -1,6 +1,7 @@
-import SPELLS from 'common/SPELLS/classic/deathknight';
-import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
+import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
+import ITEM_BUFFS from 'game/classic/ITEM_BUFFS';
+import SPELLS from 'common/SPELLS/classic/deathknight';
 
 class Buffs extends CoreAuras {
   auras() {
@@ -23,6 +24,10 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
+        timelineHighlight: true,
+      },
+      {
+        spellId: Object.keys(ITEM_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },
     ];

@@ -92,6 +92,16 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
             thresholds={thresholds.essenceBurstBuffApplies}
           ></Requirement>
         )}
+        {combatant.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT) && (
+          <Requirement
+            name={
+              <>
+                Wasted <SpellLink id={TALENTS_EVOKER.CALL_OF_YSERA_TALENT} /> buffs
+              </>
+            }
+            thresholds={thresholds.callOfYsera}
+          />
+        )}
       </Rule>
       <Rule
         name="Use your procs and short CDs"

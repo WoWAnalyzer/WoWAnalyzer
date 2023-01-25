@@ -13,7 +13,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import { SpellLink } from 'interface';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
-const BASE_BOLTS = 17; //18 base but we start counting at 0 so 18th on bolt count = 19th bolt
+const BASE_BOLTS = 18;
 
 /**
  * Upwelling is a talent that increases essence font's hot by 4 seconds and for every second off cooldown up to 18 seconds it provides an extra bolt for the next ef cast
@@ -86,12 +86,8 @@ class Upwelling extends Analyzer {
   }
 
   get lostEfHealing() {
-    if (this.averageStacks < 12) {
-      // number of bolts is 1:1 with normal ef if less than 12 stacks
-      return 0;
-    }
-    const wastedBolts = this.averageStacks - 12;
-    return this.baseEfHealing * (1 - wastedBolts / 6);
+    const lostBolts = this.averageStacks / 2; // you lose .5 bolts a second
+    return this.baseEfHealing * (lostBolts / BASE_BOLTS);
   }
 
   get totalHealingAll() {
@@ -166,7 +162,7 @@ class Upwelling extends Analyzer {
       return;
     }
     this.totalBolts += 1; //told number of bolts
-    if (this.boltCount > BASE_BOLTS) {
+    if (this.boltCount + 1 > BASE_BOLTS) {
       //only get bolts that are from upwelling
       this.totalHealing += event.amount || 0;
       this.totalOverhealing += event.overheal || 0;
@@ -186,7 +182,7 @@ class Upwelling extends Analyzer {
   }
 
   applyBuff(event: ApplyBuffEvent) {
-    if (this.boltCount > BASE_BOLTS) {
+    if (this.boltCount + 1 > BASE_BOLTS) {
       //Hots from extra bolts
       this.extraHots += 1;
     }
@@ -211,19 +207,22 @@ class Upwelling extends Analyzer {
     const flsHot = this.hotTracker.hots[targetID][SPELLS.FAELINE_STOMP_ESSENCE_FONT.id];
 
     //do they have the hot
-    if (
-      this.fromExtraBolts.has(targetID) ||
-      this.fromExtraDuration(event, efHot) ||
-      this.fromExtraDuration(event, flsHot)
-    ) {
+    const fromExtraDuration =
+      this.fromExtraDuration(event, efHot) || this.fromExtraDuration(event, flsHot);
+    if (this.fromExtraBolts.has(targetID) || fromExtraDuration) {
       if (!this.masteryTickTock) {
         this.masteryHit += 1;
         this.masteryHealing += event.amount || 0;
         this.masteryOverhealing += event.overheal || 0;
         this.masteryAbsorbed += event.absorbed || 0;
       }
-      this.masteryTickTock = !this.masteryTickTock;
+    } else if ((efHot || flsHot) && !this.fromExtraBolts.has(targetID) && !fromExtraDuration) {
+      // base ef mastery event
+      if (!this.masteryTickTock) {
+        this.baseEfHealing += event.amount + (event.absorbed || 0);
+      }
     }
+    this.masteryTickTock = !this.masteryTickTock;
   }
 
   subStatistic() {

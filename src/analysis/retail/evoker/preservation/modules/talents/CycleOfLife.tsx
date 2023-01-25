@@ -94,7 +94,7 @@ class CycleOfLife extends Analyzer {
   renderDonutChart() {
     const items = [
       {
-        color: '#fafad2',
+        color: SPELL_COLORS.CYCLE_OF_LIFE,
         label: 'Cycle of Life',
         spellId: TALENTS_EVOKER.CYCLE_OF_LIFE_TALENT.id,
         value: this.totalSavedBySpell(SPELLS.CYCLE_OF_LIFE_HEAL.id),

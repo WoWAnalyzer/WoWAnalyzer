@@ -3,7 +3,7 @@ import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import Config from 'parser/Config';
 
-// import CHANGELOG from './CHANGELOG';
+import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
   contributors: [Juko8, Skeletor],
@@ -47,7 +47,7 @@ const config: Config = {
     '/report/XWL82zKpNdFykwGg/11-Mythic+Hungering+Destroyer+-+Kill+(5:06)/Zïwak/standard',
 
   spec: SPECS.RETRIBUTION_PALADIN,
-  changelog: [],
+  changelog: CHANGELOG,
   // parser: () =>
   //   import('./CombatLogParser' /* webpackChunkName: "RetributionPaladin" */).then(
   //     (exports) => exports.default,

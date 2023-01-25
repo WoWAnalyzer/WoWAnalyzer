@@ -507,6 +507,16 @@ const spells = spellIndexableList({
     name: 'Demonic Consumption(cast)',
     icon: 'spell_warlock_soulburn',
   },
+  SHADOWS_BITE_BUFF: {
+    id: 387327,
+    name: "Shadow's Bite",
+    icon: 'spell_shadow_painspike',
+  },
+  DREAD_CALLING_BUFF: {
+    id: 387393,
+    name: 'Dread Calling',
+    icon: 'inv-felhound3-shadow-mount',
+  },
 
   // Demonology shard generating effects
   SHADOW_BOLT_SHARD_GEN: {
@@ -743,6 +753,21 @@ const spells = spellIndexableList({
     id: 196448,
     name: 'Channel Demonfire',
     icon: 'spell_fire_ragnaros_lavaboltgreen',
+  },
+  ROLLING_HAVOC_BUFF: {
+    id: 387570,
+    name: 'Rolling Havoc',
+    icon: 'warlock_pvp_banehavoc',
+  },
+  MADNESS_OF_AZHAQIR_BUFF: {
+    id: 387409,
+    name: "Madness of Azh'Aqir",
+    icon: 'ability_warlock_chaosbolt',
+  },
+  FLASHPOINT_BUFF: {
+    id: 387263,
+    name: 'Flashpoint',
+    icon: 'spell_fire_moltenblood',
   },
 });
 

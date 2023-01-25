@@ -8,6 +8,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { TALENTS_MONK } from 'common/TALENTS';
 
 const MARK_OF_THE_CRANE_DURATION = 20000;
 const MOD_PER_STACK = 0.18;
@@ -16,7 +17,6 @@ const MARKING_SPELLS = [
   SPELLS.TIGER_PALM,
   SPELLS.BLACKOUT_KICK,
   TALENTS_MONK.RISING_SUN_KICK_TALENT,
-  SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT,
 ];
 
 interface MarkOfTheCrane {

@@ -15,6 +15,7 @@ class FrozenOrb extends Analyzer {
 
   constructor(props: Options) {
     super(props);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ICE_CALLER_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLIZZARD_DAMAGE),
       this._reduceCooldown,

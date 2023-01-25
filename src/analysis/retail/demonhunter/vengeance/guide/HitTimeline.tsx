@@ -5,7 +5,6 @@ import { formatDuration, formatNumber } from 'common/format';
 import { SpellLink, Tooltip } from 'interface';
 import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import * as MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
-import TooltipProvider from 'interface/TooltipProvider';
 import colorForPerformance from 'common/colorForPerformance';
 import { Info } from 'parser/core/metric';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
@@ -13,6 +12,7 @@ import HitBasedAnalyzer, {
   TrackedHit,
 } from 'analysis/retail/demonhunter/vengeance/guide/HitBasedAnalyzer';
 import Spell from 'common/SPELLS/Spell';
+import useTooltip from 'interface/useTooltip';
 
 const HitTimelineContainer = styled.div`
   display: grid;
@@ -79,6 +79,7 @@ interface HitTimelineProps {
 function HitTimeline({ hits, showSourceName, unmitigatedContent }: HitTimelineProps) {
   const info = useInfo();
   const enemies = useAnalyzer(Enemies);
+  const { npc: npcTooltip } = useTooltip();
 
   if (!info || !enemies || hits.length === 0) {
     return null;
@@ -100,7 +101,7 @@ function HitTimeline({ hits, showSourceName, unmitigatedContent }: HitTimelinePr
   const enemy = enemies.getSourceEntity(hits[0].event);
 
   const link = showSourceName ? (
-    <a href={TooltipProvider.npc(enemy?.guid ?? 0)} style={style}>
+    <a href={npcTooltip(enemy?.guid ?? 0)} style={style}>
       {enemy?.name ?? 'Unknown'} ({ability.name})
     </a>
   ) : (

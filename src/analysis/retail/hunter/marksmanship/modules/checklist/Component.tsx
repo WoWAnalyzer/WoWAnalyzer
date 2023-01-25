@@ -48,8 +48,6 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
         <AbilityRequirement spell={SPELLS.TRUESHOT.id} />
         <TalentCastEfficiencyRequirement talent={TALENTS_HUNTER.KILL_SHOT_SHARED_TALENT} />
 
-        <TalentCastEfficiencyRequirement talent={TALENTS_HUNTER.DOUBLE_TAP_TALENT} />
-
         <TalentCastEfficiencyRequirement talent={TALENTS_HUNTER.EXPLOSIVE_SHOT_TALENT} />
 
         <TalentCastEfficiencyRequirement talent={TALENTS_HUNTER.BARRAGE_TALENT} />

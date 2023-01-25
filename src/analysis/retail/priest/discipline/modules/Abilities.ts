@@ -341,12 +341,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
-      {
-        spell: SPELLS.FLESHCRAFT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120,
-        enabled: false,
-      },
     ];
   }
 }

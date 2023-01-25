@@ -29,13 +29,13 @@ class CastBehavior extends Analyzer {
     const healingSurge = this.abilityTracker.getAbility(SPELLS.HEALING_SURGE.id);
     const chainHeal = this.abilityTracker.getAbility(TALENTS.CHAIN_HEAL_TALENT.id);
 
-    const chainHealCasts = chainHeal.casts || 0;
     const riptideCasts = riptide.casts || 0;
-    const totalTwGenerated = riptideCasts + chainHealCasts;
+    const totalTwGenerated = riptideCasts * 2;
     const twHealingWaves = healingWave.healingTwHits || 0;
     const twHealingSurges = healingSurge.healingTwHits || 0;
+    const twChainHeals = chainHeal.healingTwHits || 0;
 
-    const totalTwUsed = twHealingWaves + twHealingSurges;
+    const totalTwUsed = twHealingWaves + twHealingSurges + twChainHeals;
     const unusedTw = totalTwGenerated - totalTwUsed;
 
     const items = [
@@ -52,13 +52,19 @@ class CastBehavior extends Analyzer {
         value: twHealingSurges,
       },
       {
+        color: RESTORATION_COLORS.CHAIN_HEAL,
+        label: <Trans id="shaman.restoration.spell.chainHeal">Chain Heal</Trans>,
+        spellId: TALENTS.CHAIN_HEAL_TALENT.id,
+        value: twChainHeals,
+      },
+      {
         color: RESTORATION_COLORS.UNUSED,
         label: <Trans id="shaman.restoration.castBehaviour.unusedTW">Unused Tidal Waves</Trans>,
         tooltip: (
           <Trans id="shaman.restoration.castBehaviour.unusedTW.tooltip">
             The amount of Tidal Waves you did not use out of the total available. You cast{' '}
-            {riptideCasts} Riptides and {chainHealCasts} Chain Heals which gave you{' '}
-            {totalTwGenerated} Tidal Waves charges, of which you used ${totalTwUsed}.
+            {riptideCasts} Riptides which gave you {totalTwGenerated} Tidal Waves charges, of which
+            you used ${totalTwUsed}.
           </Trans>
         ),
         value: unusedTw,
@@ -100,7 +106,7 @@ class CastBehavior extends Analyzer {
   statistic() {
     return (
       <StatisticGroup category={STATISTIC_CATEGORY.GENERAL} large={false} wide={false} style={{}}>
-        <Statistic ultrawide>
+        <Statistic ultrawide size="flexible">
           <div className="pad">
             <label>
               <Trans id="shaman.restoration.castBehaviour.statistic.tidalWaves">

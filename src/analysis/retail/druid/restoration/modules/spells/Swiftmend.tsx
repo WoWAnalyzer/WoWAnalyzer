@@ -193,7 +193,7 @@ class Swiftmend extends Analyzer {
         )}
         {this.hasVi && (
           <>
-            <SpellLink id={SPELLS.VERDANT_INFUSION.id} />
+            <SpellLink id={TALENTS_DRUID.VERDANT_INFUSION_TALENT.id} />
             &nbsp;
           </>
         )}

@@ -132,10 +132,10 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           <AbilityRequirement
             name={
               <>
-                <SpellLink id={SPELLS.RADIANT_SPARK} /> Cast Efficiency
+                <SpellLink id={TALENTS.RADIANT_SPARK_TALENT} /> Cast Efficiency
               </>
             }
-            spell={SPELLS.RADIANT_SPARK.id}
+            spell={TALENTS.RADIANT_SPARK_TALENT.id}
           />
         )}
         {combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT) && (

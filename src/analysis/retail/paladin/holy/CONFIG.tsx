@@ -27,8 +27,10 @@ const config: Config = {
       decent throughput and not run OOM) and <b>hit those buttons</b> that have short cooldowns
       (such as <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} /> and{' '}
       <SpellLink id={TALENTS.LIGHT_OF_DAWN_TALENT} />
-      ). Finally, don't cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR} /> unless there's nothing
-      else to cast, or you're playing with <SpellLink id={SPELLS.MARAADS_DYING_BREATH} />.
+      ). Finally, don't cast <SpellLink id={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} /> unless there's
+      nothing else to cast, or you're playing with{' '}
+      <SpellLink id={TALENTS.MARAADS_DYING_BREATH_TALENT} />
+      .
       <br />
       <br />
       If you want to learn more about Holy Paladins, join the Paladin community at the{' '}

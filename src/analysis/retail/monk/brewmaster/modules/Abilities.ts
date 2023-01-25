@@ -162,7 +162,8 @@ class Abilities extends CoreAbilities {
       {
         spell: talents.CELESTIAL_BREW_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(talents.CELESTIAL_BREW_TALENT) ? 48 : 60,
+        cooldown: 45 * (combatant.hasTalent(talents.LIGHT_BREWING_TALENT) ? 0.8 : 1),
+        enabled: combatant.hasTalent(talents.CELESTIAL_BREW_TALENT),
         gcd: {
           base: 1000,
         },

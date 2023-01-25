@@ -2,12 +2,13 @@ import SPELLS from 'common/SPELLS';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
+import { TALENTS_MONK } from 'common/TALENTS';
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.SERENITY_TALENT.id,
+      spell: TALENTS_MONK.SERENITY_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];

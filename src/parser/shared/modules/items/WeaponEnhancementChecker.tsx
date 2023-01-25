@@ -138,15 +138,14 @@ class WeaponEnhancementChecker extends Analyzer {
       ) {
         return (
           <Trans id="shared.enchantChecker.guide.strongEnhancement.labelWithRecommendation">
-            Your {slotName} has a strong enhancement (weapon oil/sharpening stone/weightstone) but
-            these are recommended: {recommendedEnhancementNames}
+            Your {slotName} has a strong enhancement (rune/sharpening stone/weightstone) but these
+            are recommended: {recommendedEnhancementNames}
           </Trans>
         );
       }
       return (
         <Trans id="shared.enchantChecker.guide.strongEnhancement.label">
-          Your {slotName} has a strong enhancement (weapon oil/sharpening stone/weightstone). Good
-          work!
+          Your {slotName} has a strong enhancement (rune/sharpening stone/weightstone). Good work!
         </Trans>
       );
     }
@@ -154,33 +153,32 @@ class WeaponEnhancementChecker extends Analyzer {
       if (recommendedEnhancementNames) {
         return (
           <Trans id="shared.enchantChecker.guide.weakEnhancement.labelWithRecommendation">
-            Your {slotName} has a cheap weapon enhancement [{hasEnhancement}] (weapon oil/sharpening
-            stone/weightstone). Apply a strong enhancement to very easily increase your throughput
-            slightly. Recommended: {recommendedEnhancementNames}
+            Your {slotName} has a cheap weapon enhancement (rune/sharpening stone/weightstone).
+            Apply a strong enhancement to very easily increase your throughput slightly.
+            Recommended: {recommendedEnhancementNames}
           </Trans>
         );
       }
       return (
         <Trans id="shared.enchantChecker.guide.weakEnhancement.label">
-          Your {slotName} has a cheap weapon enhancement [{hasEnhancement}] (weapon oil/sharpening
-          stone/weightstone). Apply a strong enhancement to very easily increase your throughput
-          slightly.
+          Your {slotName} has a cheap weapon enhancement (rune/sharpening stone/weightstone). Apply
+          a strong enhancement to very easily increase your throughput slightly.
         </Trans>
       );
     }
     if (recommendedEnhancementNames) {
       return (
         <Trans id="shared.enchantChecker.guide.noEnhancement.labelWithRecommendation">
-          Your {slotName} is missing a weapon enhancement (weapon oil/sharpening stone/weightstone).
-          Apply an enhancement to very easily increase your throughput slightly. Recommended:{' '}
+          Your {slotName} is missing a weapon enhancement (rune/sharpening stone/weightstone). Apply
+          an enhancement to very easily increase your throughput slightly. Recommended:{' '}
           {recommendedEnhancementNames}
         </Trans>
       );
     }
     return (
       <Trans id="shared.enchantChecker.guide.noEnhancement.label">
-        Your {slotName} is missing a weapon enhancement (weapon oil/sharpening stone/weightstone).
-        Apply an enhancement to very easily increase your throughput slightly.
+        Your {slotName} is missing a weapon enhancement (rune/sharpening stone/weightstone). Apply
+        an enhancement to very easily increase your throughput slightly.
       </Trans>
     );
   }
@@ -226,7 +224,7 @@ class WeaponEnhancementChecker extends Analyzer {
               <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
                 {slotName}
               </ItemLink>{' '}
-              is missing a weapon enhancement (weapon oil/sharpening stone/weightstone). Apply an
+              is missing a weapon enhancement (rune/sharpening stone/weightstone). Apply an
               enhancement to very easily increase your throughput slightly.
             </Trans>,
           )
@@ -240,13 +238,12 @@ class WeaponEnhancementChecker extends Analyzer {
         .addSuggestion((suggest, actual, recommended) =>
           suggest(
             <Trans id="shared.weaponEnhancementChecker.suggestions.weakWeaponEnhancement.label">
-              Your
+              Your{' '}
               <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
                 {slotName}
-              </ItemLink>
-              has a cheap weapon enhancement [{hasEnhancement}] (weapon oil/sharpening
-              stone/weightstone). Apply a strong enhancement to very easily increase your throughput
-              slightly.
+              </ItemLink>{' '}
+              has a cheap weapon enhancement (rune/sharpening stone/weightstone). Apply a strong
+              enhancement to very easily increase your throughput slightly.
             </Trans>,
           )
             .icon(item.icon)

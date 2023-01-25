@@ -300,7 +300,8 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_TALENT),
         cooldown: 45,
-        healSpellIds: [SPELLS.PRIMORDIAL_WAVE_HEAL.id],
+        // Cannot find any logs with the heal
+        // healSpellIds: [SPELLS.PRIMORDIAL_WAVE_HEAL.id],
       },
       {
         spell: SPELLS.PURIFY_SPIRIT.id,

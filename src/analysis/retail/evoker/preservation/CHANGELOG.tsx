@@ -5,6 +5,18 @@ import { Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 1, 23), <>Add lag tolerance to <SpellLink id={TALENTS_EVOKER.STASIS_TALENT}/> module</>, Trevor),
+  change(date(2023, 1, 23), <>Add <SpellLink id={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT}/> module for <SpellLink id={TALENTS_EVOKER.LIFEBIND_TALENT}/> ramp suggestion</>, Trevor),
+  change(date(2023, 1, 20), <>Add <SpellLink id={TALENTS_EVOKER.FONT_OF_MAGIC_TALENT}/> module and fix some event linking when it is talented</>, Trevor),
+  change(date(2023, 1, 20), <>Fix <SpellLink id={TALENTS_EVOKER.ENERGY_LOOP_TALENT}/> module</>, Trevor),
+  change(date(2023, 1, 20), <>Add <SpellLink id={TALENTS_EVOKER.ENERGY_LOOP_TALENT}/> module</>, Trevor),
+  change(date(2023, 1, 19), <>Add ABC module</>, Trevor),
+  change(date(2023, 1, 11), <>Fix <SpellLink id={SPELLS.MASTERY_LIFEBINDER.id}/> tooltip</>, Trevor),
+  change(date(2023, 1, 11), <>Disable shielding calculation for <SpellLink id={SPELLS.MASTERY_LIFEBINDER.id}/> module</>, Trevor),
+  change(date(2023, 1, 14), <>Add <SpellLink id={TALENTS_EVOKER.LIFEBIND_TALENT}/> and <SpellLink id={TALENTS_EVOKER.GOLDEN_HOUR_TALENT}/> attribution for <SpellLink id={TALENTS_EVOKER.ECHO_TALENT}/> module</>, Trevor),
+  change(date(2023, 1, 11), <>Improve <SpellLink id={TALENTS_EVOKER.LIFEBIND_TALENT}/> module</>, Trevor),
+  change(date(2023, 1, 11), <>Add module for <SpellLink id={TALENTS_EVOKER.LIFEBIND_TALENT}/></>, Trevor),
+  change(date(2023, 1, 8), <>Add checklist items for <SpellLink id={TALENTS_EVOKER.CALL_OF_YSERA_TALENT}/></>, Trevor),
   change(date(2023, 1, 4), <>Fix modules related to empowered spells when talented into <SpellLink id={TALENTS_EVOKER.FONT_OF_MAGIC_TALENT}/></>, Trevor),
   change(date(2023, 1, 2), <>Fix crash in <SpellLink id={TALENTS_EVOKER.STASIS_TALENT.id}/> module when stasis is cast pre-pull</>, Trevor),
   change(date(2022, 12, 30), <>Refactor module for <SpellLink id={TALENTS_EVOKER.CALL_OF_YSERA_TALENT.id}/> event linking</>, Trevor),

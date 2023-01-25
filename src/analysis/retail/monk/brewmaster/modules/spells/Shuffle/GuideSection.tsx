@@ -9,12 +9,12 @@ import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import Shuffle, { TrackedHit } from './index';
 import * as MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
-import talents from 'common/TALENTS/monk';
 import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
-import TooltipProvider from 'interface/TooltipProvider';
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
 import Explanation from 'interface/guide/components/Explanation';
 import { AbilityEvent, SourcedEvent } from 'parser/core/Events';
+import useTooltip from 'interface/useTooltip';
+import { MAGIC_STAGGER_EFFECTIVENESS } from '../../../constants';
 
 const HitTimelineContainer = styled.div`
   display: grid;
@@ -57,8 +57,9 @@ function HitTooltipContent({ hit }: { hit: TrackedHit }) {
 
   // Stagger absorb is 170-180% as strong with Shuffle up within the range of
   // reasonable Agility values. This works out to 60-70% "damage reduction"
-  const lowEndPct = isMagic ? 0.3 : 0.6;
-  const highEndPct = isMagic ? 0.4 : 0.7;
+  const modifier = isMagic ? MAGIC_STAGGER_EFFECTIVENESS : 1;
+  const lowEndPct = 0.6 * modifier;
+  const highEndPct = 0.7 * modifier;
 
   return (
     <div>
@@ -77,7 +78,7 @@ function HitTooltipContent({ hit }: { hit: TrackedHit }) {
           </strong>{' '}
           (to {formatNumber((1 - highEndPct) * hit.event.amount)}&ndash;
           {formatNumber((1 - lowEndPct) * hit.event.amount)}) by increasing the amount absorbed by{' '}
-          <SpellLink id={talents.STAGGER_TALENT} />.
+          <SpellLink id={SPELLS.STAGGER} />.
         </div>
       )}
     </div>
@@ -105,11 +106,12 @@ export function DamageSourceLink({
 
   // this prevents unneeded re-renders of child components due to object identity differences
   const style = useMemo(() => ({ ...damageSourceStyle, color }), [color]);
+  const { npc: npcTooltip } = useTooltip();
 
   if (showSourceName) {
     const enemy = enemies?.getSourceEntity(event);
     return (
-      <a href={TooltipProvider.npc(enemy?.guid ?? 0)} style={style}>
+      <a href={npcTooltip(enemy?.guid ?? 0)} style={style}>
         {enemy?.name ?? 'Unknown'} ({ability.name})
       </a>
     );
@@ -240,10 +242,9 @@ export default function ShuffleSection(): JSX.Element {
         <Explanation>
           <p>
             <SpellLink id={SPELLS.SHUFFLE} /> nearly <strong>doubles</strong> the amount of damage
-            that is absorbed by <SpellLink id={talents.STAGGER_TALENT} />, and is critical to have
-            up while tanking. It is applied automatically by your core rotational abilities&mdash;so
-            as long as you are doing your rotation, you should have{' '}
-            <SpellLink id={SPELLS.SHUFFLE} />.
+            that is absorbed by <SpellLink id={SPELLS.STAGGER} />, and is critical to have up while
+            tanking. It is applied automatically by your core rotational abilities&mdash;so as long
+            as you are doing your rotation, you should have <SpellLink id={SPELLS.SHUFFLE} />.
           </p>
           <p>
             This chart shows your <SpellLink id={SPELLS.SHUFFLE} /> uptime along with the damage

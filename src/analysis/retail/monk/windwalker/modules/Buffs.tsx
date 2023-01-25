@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
+import { TALENTS_MONK } from 'common/TALENTS';
 
 class Buffs extends CoreAuras {
   auras() {
@@ -10,17 +11,17 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.SERENITY_TALENT.id,
+        spellId: TALENTS_MONK.SERENITY_TALENT.id,
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id,
         timelineHighlight: true,
       },
-      {
-        spellId: SPELLS.WEAPONS_OF_ORDER_CHI_DISCOUNT.id,
-        timelineHighlight: true,
-      },
+      // {
+      //   spellId: SPELLS.WEAPONS_OF_ORDER_CHI_DISCOUNT.id,
+      //   timelineHighlight: true,
+      // },
       {
         spellId: SPELLS.TOUCH_OF_KARMA_CAST.id,
         timelineHighlight: true,

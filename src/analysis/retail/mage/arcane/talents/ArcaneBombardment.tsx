@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -43,7 +42,7 @@ class ArcaneBombardment extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.ARCANE_BOMBARDMENT.id}>
+        <BoringSpellValueText spellId={TALENTS.ARCANE_BOMBARDMENT_TALENT.id}>
           <ItemDamageDone amount={this.bonusDamage} />
           <br />
         </BoringSpellValueText>

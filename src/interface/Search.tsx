@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import DocumentTitle from 'interface/DocumentTitle';
 import { constructURL } from 'interface/ReportSelecter';
 import { useEffect, useState } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Search = () => {
   const location = useLocation();
@@ -10,15 +10,15 @@ const Search = () => {
     decodeURIComponent(location.pathname.replace('/search/', '')) +
     decodeURIComponent(location.hash);
   const [valid, setValid] = useState<boolean>(false);
-  const { replace } = useHistory();
+  const navigate = useNavigate();
   useEffect(() => {
     const constructedURL = constructURL(query);
     if (constructedURL) {
-      replace(constructedURL); //attempt redirect to report analysis if one was found
+      navigate(constructedURL, { replace: true }); //attempt redirect to report analysis if one was found
     } else {
       setValid(false);
     }
-  }, [replace, setValid, query]);
+  }, [navigate, setValid, query]);
 
   return (
     <div className="container">

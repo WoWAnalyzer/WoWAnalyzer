@@ -13,6 +13,7 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
+import { TALENTS_MONK } from 'common/TALENTS';
 
 const MOD_PER_STACK = 0.01;
 const MAX_STACKS = 6;
@@ -20,7 +21,7 @@ const MAX_STACKS = 6;
 class HitCombo extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.HIT_COMBO_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.HIT_COMBO_TALENT);
     if (this.active) {
       this.addEventListener(
         Events.damage
@@ -69,12 +70,12 @@ class HitCombo extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          You let your <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} /> buff drop by casting a spell
-          twice in a row. Dropping this buff is a large DPS decrease so be mindful of the spells
-          being cast.
+          You let your <SpellLink id={TALENTS_MONK.HIT_COMBO_TALENT.id} /> buff drop by casting a
+          spell twice in a row. Dropping this buff is a large DPS decrease so be mindful of the
+          spells being cast.
         </span>,
       )
-        .icon(SPELLS.HIT_COMBO_TALENT.icon)
+        .icon(TALENTS_MONK.HIT_COMBO_TALENT.icon)
         .actual(
           t({
             id: 'monk.windwalker.suggestions.hitCombo.uptime',
@@ -98,7 +99,7 @@ class HitCombo extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.HIT_COMBO_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_MONK.HIT_COMBO_TALENT.id}>
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Weighted uptime</small>
           <br />
           <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}

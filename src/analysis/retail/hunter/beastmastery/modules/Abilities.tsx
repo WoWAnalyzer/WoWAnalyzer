@@ -99,7 +99,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.DIRE_BEAST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.DIRE_BEAST_TALENT),
-        cooldown: 15,
+        cooldown: 20,
         gcd: {
           base: 1500,
         },

@@ -64,7 +64,6 @@ class Checklist extends BaseChecklist {
           brainFreezeUtilization: this.brainFreeze.brainFreezeUtilizationThresholds,
           brainFreezeOverwrites: this.brainFreeze.brainFreezeOverwritenThresholds,
           brainFreezeExpired: this.brainFreeze.brainFreezeExpiredThresholds,
-          brainFreezeUnbuffedFlurry: this.brainFreeze.flurryWithoutBrainFreezeThresholds,
           glacialSpikeUtilization: this.glacialSpike.glacialSpikeUtilizationThresholds,
           fingersOfFrostUtilization: this.iceLance.fingersProcUtilizationThresholds,
           iceLanceNotShattered: this.iceLance.nonShatteredIceLanceThresholds,

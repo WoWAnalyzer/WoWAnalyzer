@@ -5,6 +5,9 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS/druid';
 
 export default [
+  change(date(2023, 1, 20), <>Fixed a bug where the Guide could crash when Berserk is pre-cast.</>, Sref),
+  change(date(2023, 1, 8), <>Added statistics for VotI tier set</>, Sref),
+  change(date(2023, 1, 8), <>Fixed a bug where <SpellLink id={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id} /> would show in the Statistic / Details cooldown bar even when it wasn't talented, and where <SpellLink id={TALENTS_DRUID.ADAPTIVE_SWARM_TALENT.id} /> would never show.</>, Sref),
   change(date(2022, 12, 14), <>Added Preparation Section to Guide.</>, Sref),
   change(date(2022, 12, 14), <>Bumped patch compatibility to 10.0.2.</>, emallson),
   change(date(2022, 11, 19), <>Added per-Berserk breakdown to Guide, and fixed an issue where Berserk CDR was being applied even when player wasn't talented for <SpellLink id={TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT.id} /></>, Sref),
@@ -23,7 +26,7 @@ export default [
   change(date(2022, 10, 16), <>Added statistics for <SpellLink id={TALENTS_DRUID.DOUBLE_CLAWED_RAKE_TALENT.id} />, <SpellLink id={TALENTS_DRUID.SABERTOOTH_TALENT.id} />, and <SpellLink id={TALENTS_DRUID.SUDDEN_AMBUSH_TALENT.id} /></>, Sref),
   change(date(2022, 10, 12), <><SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} /> - updated Statistic and added Guide section.</>, Sref),
   change(date(2022, 10, 9), <>Added statistic for <SpellLink id={TALENTS_DRUID.RAMPANT_FEROCITY_TALENT.id} />. <SpellLink id={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT.id} /> and <SpellLink id={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id} /> now account for Rampant Ferocity hits procced by them. Updated modules to to account for balance changes in Beta build 45969.</>, Sref),
-  change(date(2022, 10, 8), <>Made Guide default (Checklist removed), and filled in sections for <SpellLink id={SPELLS.RAKE.id} /> and <SpellLink id={SPELLS.RIP.id} />. Fixed duration tracking for DoTs when <SpellLink id={TALENTS_DRUID.CIRCLE_OF_LIFE_AND_DEATH_TALENT.id} /> or <SpellLink id={TALENTS_DRUID.VEINRIPPER_TALENT.id} /> is talented.</>, Sref),
+  change(date(2022, 10, 8), <>Made Guide default (Checklist removed), and filled in sections for <SpellLink id={SPELLS.RAKE.id} /> and <SpellLink id={SPELLS.RIP.id} />. Fixed duration tracking for DoTs when <SpellLink id={TALENTS_DRUID.CIRCLE_OF_LIFE_AND_DEATH_FERAL_TALENT.id} /> or <SpellLink id={TALENTS_DRUID.VEINRIPPER_TALENT.id} /> is talented.</>, Sref),
   change(date(2022, 10, 1), <>Fixed inaccuracies in Energy cap tracking. Added rough outline for Guide.</>, Sref),
   change(date(2022, 9, 23), <>Updates for this week's Beta build.</>, Sref),
   change(date(2022, 9, 16), <>Initial updates for Dragonflight Talent system.</>, Sref),

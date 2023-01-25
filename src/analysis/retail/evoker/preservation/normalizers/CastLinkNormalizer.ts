@@ -15,7 +15,7 @@ import {
   RemoveBuffEvent,
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
-import { STASIS_CAST_IDS } from '../constants';
+import { DUPLICATION_SPELLS, STASIS_CAST_IDS } from '../constants';
 
 export const FROM_HARDCAST = 'FromHardcast'; // for linking a buffapply or heal to its cast
 export const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly'; // for linking TA echo apply to TA shield apply
@@ -27,19 +27,31 @@ export const ECHO = 'Echo'; // for linking BuffApply/Heal to echo removal
 export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsumption'; // link essence cast to removing the essence burst buff
 export const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera'; // link DB hit to buff removal
 export const DREAM_BREATH_CALL_OF_YSERA_HOT = 'DreamBreathCallOfYseraHoT'; // link DB hot to buff removal
-export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera'; // link buffed living flame to buff removal
 export const FIELD_OF_DREAMS_PROC = 'FromFieldOfDreams'; // link EB heal to fluttering heal
+export const GOLDEN_HOUR = 'GoldenHour'; // link GH heal to reversion application
+export const LIFEBIND = 'Lifebind'; // link lifebind buff apply to lifebind heal event
+export const LIFEBIND_APPLY = 'LifebindApply'; // link lifebind apply to verdant embrace
+export const LIFEBIND_HEAL = 'LifebindHeal'; // link lifebind heal to trigger heal event
+export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera'; // link buffed living flame to buff removal
 export const HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
 export const BUFF_GROUPING = 'BuffGrouping'; // link ApplyBuff events together
 export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
 export const STASIS = 'Stasis';
 
+export enum ECHO_TYPE {
+  NONE,
+  TA,
+  HARDCAST,
+}
+
 const CAST_BUFFER_MS = 100;
 const ECHO_BUFFER = 500;
 const EB_BUFFER_MS = 2000;
 const EB_VARIANCE_BUFFER = 150; // servers are bad and EB can take over or under 2s to actually trigger
+const LIFEBIND_BUFFER = 5000 + CAST_BUFFER_MS; // 5s duration
 const MAX_ECHO_DURATION = 20000; // 15s with 30% inc = 19s
 const TA_BUFFER_MS = 6000 + CAST_BUFFER_MS; //TA pulses over 6s at 0% haste
+const STASIS_BUFFER = 1000;
 
 /*
   This file is for attributing echo applications to hard casts or to temporal anomaly.
@@ -193,6 +205,7 @@ const EVENT_LINKS: EventLink[] = [
       SPELLS.EMERALD_BLOSSOM_ECHO.id,
       SPELLS.LIVING_FLAME_HEAL.id,
       SPELLS.SPIRITBLOOM_SPLIT.id,
+      SPELLS.SPIRITBLOOM_FONT.id,
       SPELLS.SPIRITBLOOM.id,
       SPELLS.VERDANT_EMBRACE_HEAL.id,
     ],
@@ -227,6 +240,7 @@ const EVENT_LINKS: EventLink[] = [
       SPELLS.EMERALD_BLOSSOM_ECHO.id,
       SPELLS.SPIRITBLOOM_SPLIT.id,
       SPELLS.SPIRITBLOOM.id,
+      SPELLS.SPIRITBLOOM_FONT.id,
       SPELLS.DREAM_BREATH_ECHO.id,
       SPELLS.LIVING_FLAME_HEAL.id,
       SPELLS.VERDANT_EMBRACE_HEAL.id,
@@ -354,9 +368,17 @@ const EVENT_LINKS: EventLink[] = [
   // group TA shields and EB heals together for easy batch processing
   {
     linkRelation: HEAL_GROUPING,
-    linkingEventId: [SPELLS.EMERALD_BLOSSOM.id, SPELLS.TEMPORAL_ANOMALY_SHIELD.id],
+    linkingEventId: [
+      SPELLS.EMERALD_BLOSSOM.id,
+      SPELLS.TEMPORAL_ANOMALY_SHIELD.id,
+      SPELLS.SPIRITBLOOM_SPLIT.id,
+    ],
     linkingEventType: [EventType.Heal, EventType.ApplyBuff],
-    referencedEventId: [SPELLS.EMERALD_BLOSSOM.id, SPELLS.TEMPORAL_ANOMALY_SHIELD.id],
+    referencedEventId: [
+      SPELLS.EMERALD_BLOSSOM.id,
+      SPELLS.TEMPORAL_ANOMALY_SHIELD.id,
+      SPELLS.SPIRITBLOOM_SPLIT.id,
+    ],
     referencedEventType: EventType.Heal,
     anyTarget: true,
     forwardBufferMs: 25,
@@ -410,7 +432,7 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.RemoveBuffStack, EventType.RemoveBuff],
     referencedEventId: STASIS_CAST_IDS,
     referencedEventType: EventType.Cast,
-    backwardBufferMs: 500,
+    backwardBufferMs: STASIS_BUFFER,
     anyTarget: true,
     maximumLinks: 1,
     additionalCondition(linkingEvent, referencedEvent) {
@@ -432,7 +454,7 @@ const EVENT_LINKS: EventLink[] = [
       SPELLS.SPIRITBLOOM_FONT.id,
     ],
     referencedEventType: EventType.EmpowerEnd,
-    backwardBufferMs: 500,
+    backwardBufferMs: STASIS_BUFFER,
     anyTarget: true,
     maximumLinks: 1,
     additionalCondition(linkingEvent, referencedEvent) {
@@ -441,6 +463,57 @@ const EVENT_LINKS: EventLink[] = [
         !HasRelatedEvent(referencedEvent, STASIS)
       );
     },
+  },
+  {
+    linkRelation: LIFEBIND,
+    linkingEventId: SPELLS.LIFEBIND_HEAL.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: SPELLS.LIFEBIND_BUFF.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    backwardBufferMs: LIFEBIND_BUFFER,
+  },
+  {
+    linkRelation: LIFEBIND_APPLY,
+    reverseLinkRelation: LIFEBIND_APPLY,
+    linkingEventId: SPELLS.LIFEBIND_BUFF.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: SPELLS.VERDANT_EMBRACE_HEAL.id,
+    referencedEventType: EventType.Heal,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent) {
+      // ve applies lifebind to player and target but there is no ve heal on player
+      const applyEvent = linkingEvent as ApplyBuffEvent;
+      return (
+        applyEvent.targetID === (referencedEvent as HealEvent).targetID ||
+        applyEvent.targetID === applyEvent.sourceID
+      );
+    },
+  },
+  {
+    linkRelation: LIFEBIND_HEAL,
+    linkingEventId: SPELLS.LIFEBIND_HEAL.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: DUPLICATION_SPELLS,
+    referencedEventType: EventType.Heal,
+    anyTarget: true,
+    maximumLinks: 1,
+    backwardBufferMs: 50,
+    forwardBufferMs: 50,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return HasRelatedEvent(linkingEvent, LIFEBIND); // make sure the heal is on someone with lifebind buff
+    },
+  },
+  {
+    linkRelation: GOLDEN_HOUR,
+    linkingEventId: SPELLS.GOLDEN_HOUR_HEAL.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: [TALENTS_EVOKER.REVERSION_TALENT.id, SPELLS.REVERSION_ECHO.id],
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
   },
 ];
 
@@ -498,6 +571,45 @@ export function getEssenceBurstConsumeAbility(
     return null;
   }
   return GetRelatedEvents(event, ESSENCE_BURST_CONSUME)[0] as CastEvent;
+}
+
+export function getHealForLifebindHeal(event: HealEvent): HealEvent | null {
+  if (!HasRelatedEvent(event, LIFEBIND_HEAL)) {
+    event.__modified = false;
+    return null;
+  }
+  return GetRelatedEvents(event, LIFEBIND_HEAL)[0] as HealEvent;
+}
+
+export function getEchoTypeForLifebind(event: HealEvent): ECHO_TYPE {
+  if (!HasRelatedEvent(event, LIFEBIND) || event.targetID === event.sourceID) {
+    return ECHO_TYPE.NONE;
+  }
+  const lifebindApplyEvent = GetRelatedEvents(event, LIFEBIND)[0] as ApplyBuffEvent;
+  if (lifebindApplyEvent.prepull) {
+    return ECHO_TYPE.NONE;
+  }
+  const veHeal = GetRelatedEvents(lifebindApplyEvent, LIFEBIND_APPLY)[0] as HealEvent;
+  if (HasRelatedEvent(veHeal, ECHO)) {
+    return ECHO_TYPE.HARDCAST;
+  } else if (HasRelatedEvent(veHeal, ECHO_TEMPORAL_ANOMALY)) {
+    return ECHO_TYPE.TA;
+  }
+  return ECHO_TYPE.NONE;
+}
+
+export function getEchoTypeForGoldenHour(event: HealEvent): ECHO_TYPE {
+  const events = GetRelatedEvents(event, GOLDEN_HOUR);
+  const reversionApply =
+    events[0].type === EventType.RefreshBuff
+      ? (events[0] as RefreshBuffEvent)
+      : (events[0] as ApplyBuffEvent);
+  if (isFromHardcastEcho(reversionApply)) {
+    return ECHO_TYPE.HARDCAST;
+  } else if (isFromTAEcho(reversionApply)) {
+    return ECHO_TYPE.TA;
+  }
+  return ECHO_TYPE.NONE;
 }
 
 export function getHealEvents(event: HealEvent) {

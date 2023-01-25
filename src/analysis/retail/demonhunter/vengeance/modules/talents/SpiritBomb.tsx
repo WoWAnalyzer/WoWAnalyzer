@@ -132,7 +132,8 @@ export default class SpiritBomb extends Analyzer {
     return [
       QualitativePerformance.Fail,
       <>
-        Cast at {amountOfStacksConsumed} Soul Fragments. Recommended: {SPIRIT_BOMB_SOULS_OUT_OF_META}+
+        Cast at {amountOfStacksConsumed} Soul Fragments. Recommended:{' '}
+        {SPIRIT_BOMB_SOULS_OUT_OF_META}+
         <br />
       </>,
     ];
@@ -226,6 +227,7 @@ export default class SpiritBomb extends Analyzer {
             'guide.demonhunter.vengeance.sections.rotation.spiritBomb.data.summary.performance.bad',
           message: 'Bad Spirit Bombs',
         })}
+        onClickBox={(idx) => console.log(this.castEntries[idx].event)}
       />
     );
     const noCastData = (

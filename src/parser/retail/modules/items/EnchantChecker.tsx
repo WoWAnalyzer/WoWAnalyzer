@@ -38,6 +38,7 @@ const STR_SPECS = [
 const AGI_ENCHANTABLE_SLOTS = {
   4: <Trans id="common.slots.chest">Chest</Trans>,
   7: <Trans id="common.slots.boots">Boots</Trans>,
+  8: <Trans id="common.slots.bracers">Bracers</Trans>,
   10: <Trans id="common.slots.ring">Ring</Trans>,
   11: <Trans id="common.slots.ring">Ring</Trans>,
   14: <Trans id="common.slots.cloak">Cloak</Trans>,
@@ -47,7 +48,8 @@ const AGI_ENCHANTABLE_SLOTS = {
 
 const STR_ENCHANTABLE_SLOTS = {
   4: <Trans id="common.slots.chest">Chest</Trans>,
-  9: <Trans id="common.slots.gloves">Gloves</Trans>,
+  7: <Trans id="common.slots.boots">Boots</Trans>,
+  8: <Trans id="common.slots.bracers">Bracers</Trans>,
   10: <Trans id="common.slots.ring">Ring</Trans>,
   11: <Trans id="common.slots.ring">Ring</Trans>,
   14: <Trans id="common.slots.cloak">Cloak</Trans>,
@@ -57,6 +59,7 @@ const STR_ENCHANTABLE_SLOTS = {
 
 const INT_ENCHANTABLE_SLOTS = {
   4: <Trans id="common.slots.chest">Chest</Trans>,
+  7: <Trans id="common.slots.boots">Boots</Trans>,
   8: <Trans id="common.slots.bracers">Bracers</Trans>,
   10: <Trans id="common.slots.ring">Ring</Trans>,
   11: <Trans id="common.slots.ring">Ring</Trans>,

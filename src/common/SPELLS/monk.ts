@@ -80,6 +80,16 @@ const spells = spellIndexableList({
     name: 'Save Them All',
     icon: 'inv_weapon_hand_22',
   },
+  BONEDUST_BREW_DAMAGE: {
+    id: 325217,
+    name: 'Bonedust Brew',
+    icon: 'ability_maldraxxus_monk',
+  },
+  BONEDUST_BREW_HEAL: {
+    id: 325218,
+    name: 'Bonedust Brew',
+    icon: 'ability_maldraxxus_monk',
+  },
 
   // Mistweaver Monk Spells
   CLOUDED_FOCUS_BUFF: {
@@ -206,6 +216,41 @@ const spells = spellIndexableList({
     name: 'Lifecycles (Enveloping Mist)',
     icon: 'spell_monk_envelopingmist',
   },
+  SHEILUN_CLOUD_BUFF: {
+    id: 399510,
+    name: "Sheilun's Gift",
+    icon: 'inv_staff_2h_artifactshaohao_d_01',
+  },
+  LESSON_OF_DOUBT_BUFF: {
+    id: 400097,
+    name: 'Lesson of Doubt',
+    icon: 'sha_ability_warrior_bloodnova',
+  },
+  LESSON_OF_DESPAIR_BUFF: {
+    id: 400100,
+    name: 'Lesson of Doubt',
+    icon: 'sha_ability_rogue_envelopingshadows',
+  },
+  LESSON_OF_FEAR_BUFF: {
+    id: 400103,
+    name: 'Lesson of Doubt',
+    icon: 'sha_ability_rogue_bloodyeye_nightborne',
+  },
+  LESSON_OF_ANGER_BUFF: {
+    id: 400106,
+    name: 'Lesson of Doubt',
+    icon: 'sha_ability_rogue_envelopingshadows_nightmare',
+  },
+  LESSON_OF_ANGER_DAMAGE: {
+    id: 400145,
+    name: 'Lesson of Doubt',
+    icon: 'sha_ability_rogue_envelopingshadows_nightmare',
+  },
+  LESSON_OF_ANGER_HEAL: {
+    id: 400146,
+    name: 'Lesson of Doubt',
+    icon: 'sha_ability_rogue_envelopingshadows_nightmare',
+  },
   SPIRIT_OF_THE_CRANE_BUFF: {
     id: 210803,
     name: 'Spirit of the Crane',
@@ -246,7 +291,7 @@ const spells = spellIndexableList({
     name: 'Uplifted Spirits',
     icon: 'monk_stance_wiseserpent',
   },
-  WHIRLING_DRAGON_PUNCH_TALENT_TICK: {
+  WHIRLING_DRAGON_PUNCH_TALENT: {
     id: 158221,
     name: 'Whirling Dragon Punch',
     icon: 'ability_monk_hurricanestrike',
@@ -266,6 +311,11 @@ const spells = spellIndexableList({
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
   },
+  FAELINE_STOMP_PULSE_DAMAGE: {
+    id: 327264,
+    name: 'Faeline Stomp',
+    icon: 'ability_ardenweald_monk',
+  },
   FAELINE_STOMP_ESSENCE_FONT: {
     id: 344006,
     name: 'Faeline Stomp',
@@ -275,6 +325,11 @@ const spells = spellIndexableList({
     id: 388203,
     name: 'Faeline Stomp',
     icon: 'ability_ardenweald_monk',
+  },
+  NOURISHING_CHI_BUFF: {
+    id: 387766,
+    name: 'Nourishing Chi',
+    icon: 'inv_misc_gem_pearl_06',
   },
 
   // Brewmaster
@@ -468,6 +523,16 @@ const spells = spellIndexableList({
     name: 'Hot Trub',
     icon: 'spell_brew_dark',
   },
+  CTA_INVOKE_NIUZAO_BUFF: {
+    id: 358520,
+    name: 'Invoke Niuzao, the Black Ox',
+    icon: 'spell_monk_brewmaster_spec',
+  },
+  WEAPONS_OF_ORDER_BUFF_AND_HEAL: {
+    id: 387184,
+    name: 'Weapons of Order',
+    icon: 'ability_bastion_monk',
+  },
   // Conduits
   EVASIVE_STRIDE_HEAL: {
     id: 343764,
@@ -581,16 +646,6 @@ const spells = spellIndexableList({
     name: 'Mark of the Crane',
     icon: 'ability_monk_cranekick_new',
   },
-  FIST_OF_THE_WHITE_TIGER_SECOND: {
-    id: 261977,
-    name: 'Fist of the White Tiger',
-    icon: 'ability_monk_jab',
-  },
-  FIST_OF_THE_WHITE_TIGER_ENERGIZE: {
-    id: 261978,
-    name: 'Fist of the White Tiger',
-    icon: 'inv_fistofthewhitetiger',
-  },
   CHI_BURST_ENERGIZE: {
     id: 261682,
     name: 'Chi Burst',
@@ -625,6 +680,36 @@ const spells = spellIndexableList({
     id: 325202,
     name: 'Dance of Chi-Ji',
     icon: 'ability_monk_quitornado',
+  },
+  JADE_IGNITION_BUFF: {
+    id: 393057,
+    name: 'Chi Energy',
+    icon: 'ability_monk_chiexplosion',
+  },
+  JADE_IGNITION_DAMAGE: {
+    id: 393056,
+    name: 'Chi Explosion',
+    icon: 'ability_monk_chiexplosion',
+  },
+  LAST_EMPERORS_CAPACITOR_BUFF: {
+    id: 393039,
+    name: "Last Emperor's Capacitor",
+    icon: 'ability_monk_cracklingjadelightning',
+  },
+  PRESSURE_POINT_BUFF: {
+    id: 393053,
+    name: 'Pressure Point',
+    icon: 'monk_stance_whitetiger',
+  },
+  FAELINE_HARMONY_DEBUFF: {
+    id: 395414,
+    name: 'Fae Exposure',
+    icon: 'ability_ardenweald_monk',
+  },
+  FAELINE_HARMONY_BUFF: {
+    id: 395413,
+    name: 'Fae Exposure',
+    icon: 'ability_ardenweald_monk',
   },
   // Tier 28, 2P Set-Bonus
   FISTS_OF_PRIMORDIUM: {
