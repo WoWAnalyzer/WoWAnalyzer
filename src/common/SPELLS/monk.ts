@@ -221,6 +221,31 @@ const spells = spellIndexableList({
     name: "Sheilun's Gift",
     icon: 'inv_staff_2h_artifactshaohao_d_01',
   },
+  LESSON_OF_DOUBT_BUFF: {
+    id: 400097,
+    name: 'Lesson of Doubt',
+    icon: 'sha_ability_warrior_bloodnova',
+  },
+  LESSON_OF_DESPAIR_BUFF: {
+    id: 400100,
+    name: 'Lesson of Doubt',
+    icon: 'sha_ability_warrior_bloodnova',
+  },
+  LESSON_OF_FEAR_BUFF: {
+    id: 400103,
+    name: 'Lesson of Doubt',
+    icon: 'sha_ability_warrior_bloodnova',
+  },
+  LESSON_OF_ANGER_BUFF: {
+    id: 400106,
+    name: 'Lesson of Doubt',
+    icon: 'sha_ability_warrior_bloodnova',
+  },
+  LESSON_OF_ANGER_HEAL: {
+    id: 400146,
+    name: 'Lesson of Doubt',
+    icon: 'sha_ability_warrior_bloodnova',
+  },
   SPIRIT_OF_THE_CRANE_BUFF: {
     id: 210803,
     name: 'Spirit of the Crane',
