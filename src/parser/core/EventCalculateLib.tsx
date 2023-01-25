@@ -42,6 +42,27 @@ export function calculateEffectiveHealing(
 }
 
 /**
+ * Calculate what percent of a heal damage event can be attributed to a percent crit increase
+ * @param event a crit heal event
+ * @param currentCrit current crit percentage (excluding crit buff)
+ * @param percentCritIncrease percent buff to calculate effect of
+ * @return amount of crit heal attributable to percent crit increase
+ */
+export function calculateEffectiveHealingFromCritIncrease(
+  event: LightWeightHealingEvent,
+  currentCrit: number,
+  percentCritIncrease: number,
+) {
+  const amount = event.amount;
+  const absorbed = event.absorbed || 0;
+  const overheal = event.overheal || 0;
+  const nonOverheal = amount + absorbed;
+  const raw = amount + absorbed + overheal;
+  const effectiveCritHeal = Math.max(0, nonOverheal - raw / 2);
+  return effectiveCritHeal * (percentCritIncrease / (percentCritIncrease + currentCrit));
+}
+
+/**
  * Calculates the overhealing attributable to a percent healing buff.
  * The bonus healing is considered 'marginal' and will be consumed first when encountering overheal.
  *
@@ -163,6 +184,27 @@ export function calculateEffectiveDamageReduction(event: DamageEvent, reduction:
 export function calculateEffectiveDamage(event: DamageEvent, increase: number): number {
   const raw = (event.amount || 0) + (event.absorbed || 0);
   return raw - raw / (1 + increase);
+}
+
+/**
+ * Calculate what percent of a crit damage event can be attributed to a percent crit increase
+ * @param event a crit damage event
+ * @param currentCrit current crit percentage (excluding crit buff)
+ * @param percentCritIncrease percent buff to calculate effect of
+ * @return amount of crit damage attributable to percent crit increase
+ */
+export function calculateEffectiveDamageFromCritIncrease(
+  event: DamageEvent,
+  currentCrit: number,
+  percentCritIncrease: number,
+) {
+  const amount = event.amount;
+  const absorbed = event.absorbed || 0;
+  const overkill = event.overkill || 0;
+  const nonOverkill = amount + absorbed;
+  const raw = amount + absorbed + overkill;
+  const effectiveCritHeal = Math.max(0, nonOverkill - raw / 2);
+  return effectiveCritHeal * (percentCritIncrease / (percentCritIncrease + currentCrit));
 }
 
 /**

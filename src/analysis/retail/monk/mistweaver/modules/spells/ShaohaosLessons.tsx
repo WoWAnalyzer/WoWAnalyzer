@@ -6,8 +6,10 @@ import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import {
   calculateEffectiveDamage,
+  calculateEffectiveDamageFromCritIncrease,
   calculateEffectiveDamageReduction,
   calculateEffectiveHealing,
+  calculateEffectiveHealingFromCritIncrease,
 } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent, EventType, HealEvent } from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -103,13 +105,18 @@ class ShaohaosLessons extends Analyzer {
     if (this.curHpPercent < 0.5 || event.hitType !== HIT_TYPES.CRIT) {
       return;
     }
-    const critAmount = event.amount / 2; // crit = 200% heal
-    const critIncrease =
-      DESPAIR_CRIT_INCREASE / (this.statTracker.currentCritPercentage + DESPAIR_CRIT_INCREASE);
     if (event.type === EventType.Heal) {
-      this.despairHealing += critAmount * critIncrease;
+      this.despairHealing += calculateEffectiveHealingFromCritIncrease(
+        event,
+        this.statTracker.currentCritPercentage,
+        DESPAIR_CRIT_INCREASE,
+      );
     } else {
-      this.despairDamage += critAmount * critIncrease;
+      this.despairDamage += calculateEffectiveDamageFromCritIncrease(
+        event,
+        this.statTracker.currentCritPercentage,
+        DESPAIR_CRIT_INCREASE,
+      );
     }
   }
 
