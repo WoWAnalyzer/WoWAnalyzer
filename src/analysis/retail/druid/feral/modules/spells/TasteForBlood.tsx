@@ -22,13 +22,13 @@ const BLEED_SPELL_IDS = [
   SPELLS.FRENZIED_ASSAULT.id,
 ];
 
-const BOOST_PER_BLEED_PER_RANK = 0.02;
+const BOOST_PER_BLEED_PER_RANK = 0.05;
 
 /**
  * **Taste for Blood**
  * Spec Talent
  *
- * Ferocious Bite deals (2 / 4)% increased damage for each of your Bleeds on the target.
+ * Ferocious Bite deals 5% increased damage for each of your Bleeds on the target.
  */
 class TasteForBlood extends Analyzer {
   static dependencies = {
