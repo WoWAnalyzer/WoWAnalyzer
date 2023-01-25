@@ -109,7 +109,7 @@ const PATCHES: Patch[] = [
     name: '10.0.2 Dragonflight Launch',
     timestamp: 1669676400000, // GMT: Monday, 28 November 2022 23:00:00
     urlPrefix: '',
-    isCurrent: true,
+    isCurrent: false,
     gameVersion: 1, // retail
     expansion: Expansion.Dragonflight,
   },

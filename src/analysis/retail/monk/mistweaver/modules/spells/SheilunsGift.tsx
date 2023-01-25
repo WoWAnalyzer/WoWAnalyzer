@@ -57,13 +57,13 @@ class SheilunsGift extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(5)}
+        position={STATISTIC_ORDER.OPTIONAL(4)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <TalentSpellText talent={TALENTS_MONK.SHEILUNS_GIFT_TALENT}>
           <ItemHealingDone amount={this.totalHealing} /> <br />
-          {this.averageClouds.toFixed(1)} average clouds
+          {this.averageClouds.toFixed(1)} <small>average clouds</small>
         </TalentSpellText>
       </Statistic>
     );
