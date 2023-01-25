@@ -75,6 +75,7 @@ import DancingMists from './modules/spells/DancingMists';
 import MistyPeaksHealingBreakdown from './modules/features/MistyPeaksHealingBreakdown';
 import TalentHealingStatistic from './modules/features/TalentHealingStatistic';
 import MendingProliferation from './modules/spells/MendingProliferation';
+import SheilunsGift from './modules/spells/SheilunsGift';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -160,6 +161,7 @@ class CombatLogParser extends CoreCombatLogParser {
     dancingMists: DancingMists,
     mendingProliferation: MendingProliferation,
     teachingsOfTheMonestary: TeachingsOfTheMonestary,
+    sheilunsGift: SheilunsGift,
 
     // Borrowed Power
     t29TierSet: T29TierSet,
