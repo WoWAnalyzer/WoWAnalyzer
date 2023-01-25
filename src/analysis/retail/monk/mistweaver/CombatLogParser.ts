@@ -77,6 +77,7 @@ import MendingProliferation from './modules/spells/MendingProliferation';
 import SheilunsGift from './modules/spells/SheilunsGift';
 import MistWrap from './modules/spells/MistWrap';
 import ShaohaosLessons from './modules/spells/ShaohaosLessons';
+import VeilOfPride from './modules/spells/VeilOfPride';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -164,6 +165,7 @@ class CombatLogParser extends CoreCombatLogParser {
     teachingsOfTheMonestary: TeachingsOfTheMonestary,
     sheilunsGift: SheilunsGift,
     shaohaosLessons: ShaohaosLessons,
+    veilOfPride: VeilOfPride,
 
     // Borrowed Power
     t29TierSet: T29TierSet,
