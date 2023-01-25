@@ -1,4 +1,4 @@
-import talents from 'common/TALENTS/monk';
+import SPELLS from 'common/SPELLS';
 import { Options } from 'parser/core/Analyzer';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { AbsorbedEvent, DamageEvent, EventType } from 'parser/core/Events';
@@ -8,7 +8,7 @@ export const StaggerAbsorb = 'StaggerAbsorb';
 const staggerLinks: EventLink[] = [
   {
     linkRelation: StaggerDamageSource,
-    linkingEventId: talents.STAGGER_TALENT.id,
+    linkingEventId: SPELLS.STAGGER.id,
     linkingEventType: EventType.Absorbed,
     referencedEventId: null,
     referencedEventType: EventType.Damage,

@@ -216,6 +216,41 @@ const spells = spellIndexableList({
     name: 'Lifecycles (Enveloping Mist)',
     icon: 'spell_monk_envelopingmist',
   },
+  SHEILUN_CLOUD_BUFF: {
+    id: 399510,
+    name: "Sheilun's Gift",
+    icon: 'inv_staff_2h_artifactshaohao_d_01',
+  },
+  LESSON_OF_DOUBT_BUFF: {
+    id: 400097,
+    name: 'Lesson of Doubt',
+    icon: 'sha_ability_warrior_bloodnova',
+  },
+  LESSON_OF_DESPAIR_BUFF: {
+    id: 400100,
+    name: 'Lesson of Doubt',
+    icon: 'sha_ability_rogue_envelopingshadows',
+  },
+  LESSON_OF_FEAR_BUFF: {
+    id: 400103,
+    name: 'Lesson of Doubt',
+    icon: 'sha_ability_rogue_bloodyeye_nightborne',
+  },
+  LESSON_OF_ANGER_BUFF: {
+    id: 400106,
+    name: 'Lesson of Doubt',
+    icon: 'sha_ability_rogue_envelopingshadows_nightmare',
+  },
+  LESSON_OF_ANGER_DAMAGE: {
+    id: 400145,
+    name: 'Lesson of Doubt',
+    icon: 'sha_ability_rogue_envelopingshadows_nightmare',
+  },
+  LESSON_OF_ANGER_HEAL: {
+    id: 400146,
+    name: 'Lesson of Doubt',
+    icon: 'sha_ability_rogue_envelopingshadows_nightmare',
+  },
   SPIRIT_OF_THE_CRANE_BUFF: {
     id: 210803,
     name: 'Spirit of the Crane',

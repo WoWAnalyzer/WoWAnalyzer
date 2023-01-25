@@ -55,7 +55,6 @@ import InvokeChiJi from './modules/spells/InvokeChiJi';
 import JadeSerpentStatue from './modules/spells/JadeSerpentStatue';
 import Lifecycles from './modules/spells/Lifecycles';
 import ManaTea from './modules/spells/ManaTea';
-import MistWrapEnvelopingBreath from './modules/spells/MistWrapEnvelopingBreath';
 import MistyPeaks from './modules/spells/MistyPeaks';
 import MistsOfLife from './modules/spells/MistsOfLife';
 import RefreshingJadeWind from './modules/spells/RefreshingJadeWind';
@@ -75,6 +74,10 @@ import DancingMists from './modules/spells/DancingMists';
 import MistyPeaksHealingBreakdown from './modules/features/MistyPeaksHealingBreakdown';
 import TalentHealingStatistic from './modules/features/TalentHealingStatistic';
 import MendingProliferation from './modules/spells/MendingProliferation';
+import SheilunsGift from './modules/spells/SheilunsGift';
+import MistWrap from './modules/spells/MistWrap';
+import ShaohaosLessons from './modules/spells/ShaohaosLessons';
+import VeilOfPride from './modules/spells/VeilOfPride';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -139,7 +142,7 @@ class CombatLogParser extends CoreCombatLogParser {
     jadeSerpentStatue: JadeSerpentStatue,
     jadeBond: JadeBond,
     lifecycles: Lifecycles,
-    mistWrapEnvelopingBreath: MistWrapEnvelopingBreath,
+    mistWrap: MistWrap,
     manaTea: ManaTea,
     mistsOfLife: MistsOfLife,
     mistyPeaks: MistyPeaks,
@@ -160,6 +163,9 @@ class CombatLogParser extends CoreCombatLogParser {
     dancingMists: DancingMists,
     mendingProliferation: MendingProliferation,
     teachingsOfTheMonestary: TeachingsOfTheMonestary,
+    sheilunsGift: SheilunsGift,
+    shaohaosLessons: ShaohaosLessons,
+    veilOfPride: VeilOfPride,
 
     // Borrowed Power
     t29TierSet: T29TierSet,

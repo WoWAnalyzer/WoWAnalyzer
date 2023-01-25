@@ -89,7 +89,7 @@ class HotTrackerRestoDruid extends HotTracker {
 
   _generateHotInfo(): HotInfo[] {
     const hasCircle = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.CIRCLE_OF_LIFE_AND_DEATH_TALENT,
+      TALENTS_DRUID.CIRCLE_OF_LIFE_AND_DEATH_SPEC_TALENT,
     );
     const hasImpRejuv = this.selectedCombatant.hasTalent(
       TALENTS_DRUID.IMPROVED_REJUVENATION_TALENT,

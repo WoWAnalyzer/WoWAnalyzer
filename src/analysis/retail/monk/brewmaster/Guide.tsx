@@ -26,7 +26,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     <>
       <Section title="Stagger Management">
         <p>
-          Brewmaster's core defensive loop uses <SpellLink id={talents.STAGGER_TALENT} /> plus{' '}
+          Brewmaster's core defensive loop uses <SpellLink id={SPELLS.STAGGER} /> plus{' '}
           <SpellLink id={SPELLS.SHUFFLE} /> to convert 60-70% of burst damage into a much less
           dangerous damage-over-time effect (the <em>Stagger pool</em>). We have a variety of ways
           to reduce the damage of this DoT&mdash;the most important of which is{' '}
