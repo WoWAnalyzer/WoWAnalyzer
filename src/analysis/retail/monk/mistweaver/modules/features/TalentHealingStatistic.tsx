@@ -15,6 +15,7 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import Upwelling from '../spells/Upwelling';
 import Unison from '../spells/Unison';
 import MistsOfLife from '../spells/MistsOfLife';
+import MistWrap from '../spells/MistWrap';
 
 class TalentHealingStatistic extends Analyzer {
   static dependencies = {
@@ -29,6 +30,7 @@ class TalentHealingStatistic extends Analyzer {
     cloudedFocus: CloudedFocus,
     unison: Unison,
     mistsOfLife: MistsOfLife,
+    mistWrap: MistWrap,
   };
   protected risingMist!: RisingMist;
   protected upwelling!: Upwelling;
@@ -41,6 +43,7 @@ class TalentHealingStatistic extends Analyzer {
   protected unison!: Unison;
   protected cloudedFocus!: CloudedFocus;
   protected mistsOfLife!: MistsOfLife;
+  protected mistWrap!: MistWrap;
 
   buildTalentList() {
     const talentList = [];
@@ -76,6 +79,9 @@ class TalentHealingStatistic extends Analyzer {
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.MISTS_OF_LIFE_TALENT)) {
       talentList.push(this.mistsOfLife.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)) {
+      talentList.push(this.mistWrap.subStatistic());
     }
     const sortedTalentList = talentList.sort(
       (a, b) => parseFloat(b.props.value) - parseFloat(a.props.value),
