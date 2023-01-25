@@ -75,13 +75,23 @@ class MistWrap extends Analyzer {
     const envMistHot = this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
     const envBreathHot = this.hotTracker.hots[targetId][SPELLS.ENVELOPING_BREATH_HEAL.id];
 
-    if (
-      envMistHot &&
-      envMistHot.start + ENVELOPING_BASE_DURATION < event.timestamp &&
-      spellId !== TALENTS_MONK.ENVELOPING_MIST_TALENT.id
-    ) {
-      this.envMistHealingBoost += calculateEffectiveHealing(event, MISTWRAP_INCREASE);
+    if (envMistHot && spellId !== TALENTS_MONK.ENVELOPING_MIST_TALENT.id) {
+      if (
+        envMistHot.start + ENVELOPING_BASE_DURATION < event.timestamp &&
+        envMistHot.extensions.length === 0
+      ) {
+        this.envMistHealingBoost += calculateEffectiveHealing(event, MISTWRAP_INCREASE);
+      } else {
+        let totalExtension = 0;
+        Object.keys(envMistHot.extensions).forEach((idx, index) => {
+          totalExtension += envMistHot.extensions[index].amount;
+        });
+        if (envMistHot.start + ENVELOPING_BASE_DURATION + totalExtension < event.timestamp) {
+          this.envMistHealingBoost += calculateEffectiveHealing(event, MISTWRAP_INCREASE);
+        }
+      }
     }
+
     if (
       envBreathHot &&
       envBreathHot.start + ENVELOPING_BASE_DURATION < event.timestamp &&
