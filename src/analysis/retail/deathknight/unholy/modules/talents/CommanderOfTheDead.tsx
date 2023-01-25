@@ -21,6 +21,7 @@ class CommanderOfTheDead extends Analyzer {
     SPELLS.DARK_ARBITER_TALENT_GLYPH.id,
   ];
   buffedPets: string[] = [];
+  summonedPets: string[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -41,18 +42,34 @@ class CommanderOfTheDead extends Analyzer {
   onBuffEvent(event: ApplyBuffEvent) {
     let summonId = '';
     if (event.targetInstance) {
-      summonId = event.targetID.toString() + '|' + event.targetInstance.toString(); // This is needed since the buff sometimes applies twice to the same summon
+      summonId = event.targetID.toString() + '|' + event.targetInstance.toString(); // This is needed since the buff sometimes applies twice to the same summon.
     } else {
       summonId = event.targetID.toString();
     }
+    if (!this.summonedPets.includes(summonId)) {
+      // This is the rare case of a pet being summoned without a summon event (potentially pre-combat).
+      this.summonedPets.push(summonId);
+      this.petSummons += 1;
+    }
     if (!this.buffedPets.includes(summonId)) {
+      // Account for the case of double-buffing the same mob.
       this.commanderBuffs += 1;
       this.buffedPets.push(summonId);
+      console.log('Buffed!');
+      console.log(this.commanderBuffs);
     }
   }
 
   onSummonEvent(event: SummonEvent) {
     if (this.petSummonIDs.includes(event.ability.guid)) {
+      // We keep track of what has been summoned in case of a buff event on a minion that doesn't have a proper summon event.
+      let summonId = '';
+      if (event.targetInstance) {
+        summonId = event.targetID.toString() + '|' + event.targetInstance.toString();
+      } else {
+        summonId = event.targetID.toString();
+      }
+      this.summonedPets.push(summonId);
       this.petSummons += 1;
     }
   }
