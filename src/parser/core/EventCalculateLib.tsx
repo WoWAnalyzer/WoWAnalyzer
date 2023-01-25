@@ -58,8 +58,10 @@ export function calculateEffectiveHealingFromCritIncrease(
   const overheal = event.overheal || 0;
   const nonOverheal = amount + absorbed;
   const raw = amount + absorbed + overheal;
+  const baseCritHeal = (raw / 2) * (currentCrit / (percentCritIncrease + currentCrit));
   const effectiveCritHeal = Math.max(0, nonOverheal - raw / 2);
-  return effectiveCritHeal * (percentCritIncrease / (percentCritIncrease + currentCrit));
+  const effectiveBaseCritHeal = Math.max(0, effectiveCritHeal - baseCritHeal);
+  return Math.max(0, effectiveCritHeal - effectiveBaseCritHeal);
 }
 
 /**
@@ -203,8 +205,10 @@ export function calculateEffectiveDamageFromCritIncrease(
   const overkill = event.overkill || 0;
   const nonOverkill = amount + absorbed;
   const raw = amount + absorbed + overkill;
-  const effectiveCritHeal = Math.max(0, nonOverkill - raw / 2);
-  return effectiveCritHeal * (percentCritIncrease / (percentCritIncrease + currentCrit));
+  const baseCritDmg = (raw / 2) * (currentCrit / (percentCritIncrease + currentCrit));
+  const effectiveCritDmg = Math.max(0, nonOverkill - raw / 2);
+  const effectiveBaseCritDmg = Math.max(0, effectiveCritDmg - baseCritDmg);
+  return Math.max(0, effectiveCritDmg - effectiveBaseCritDmg);
 }
 
 /**
