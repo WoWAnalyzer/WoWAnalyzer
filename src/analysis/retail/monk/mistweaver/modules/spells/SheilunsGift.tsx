@@ -4,12 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  ApplyBuffStackEvent,
-  CastEvent,
-  HealEvent,
-  RefreshBuffEvent,
-} from 'parser/core/Events';
+import Events, { CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -45,10 +40,6 @@ class SheilunsGift extends Analyzer {
       this.masterySheilunsGift,
     );
     this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.SHEILUN_CLOUD_BUFF),
-      this.onStackGained,
-    );
-    this.addEventListener(
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.SHEILUN_CLOUD_BUFF),
       this.onBuffRefresh,
     );
@@ -63,14 +54,10 @@ class SheilunsGift extends Analyzer {
     this.baseHealing += event.amount;
   }
 
-  onStackGained(event: ApplyBuffStackEvent) {
-    if (this.curClouds < 10) {
-      return;
-    }
-    this.cloudsLost += 1;
-  }
-
   onBuffRefresh(event: RefreshBuffEvent) {
+    if (this.curClouds === 10) {
+      this.cloudsLost += 1;
+    }
     this.curClouds = this.selectedCombatant.getBuffStacks(SPELLS.SHEILUN_CLOUD_BUFF.id);
   }
 
