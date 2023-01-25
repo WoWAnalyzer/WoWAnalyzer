@@ -1,6 +1,6 @@
 import { formatMilliseconds, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { TALENTS_MAGE, TALENTS_PRIEST } from 'common/TALENTS';
+import { TALENTS_DEATH_KNIGHT, TALENTS_MAGE, TALENTS_PRIEST } from 'common/TALENTS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
@@ -51,9 +51,14 @@ class Haste extends Analyzer {
     [SPELLS.FURIOUS_GAZE.id]: 0.15, // Havoc DH haste buff from fully channeling a cast of Eye Beam
     [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
     [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
-    [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15, // Frost DK
     [SPELLS.EUPHORIA.id]: 0.2, //Buff from Thrill Seeker (Nadjia Soulbind Venthyr)
     [SPELLS.FIELD_OF_BLOSSOMS_BUFF.id]: 0.15, // Buff from Field of Blossoms (Dreamweaver Soulbind Night Fae)
+
+    //region Death Knight Hate Buffs
+    [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15,
+    [TALENTS_DEATH_KNIGHT.UNHOLY_ASSAULT_TALENT.id]: 0.3,
+    [SPELLS.T29_GHOULISH_INFUSION.id]: 0.08,
+    //endregion
 
     //region Druid Haste Buffs
     [SPELLS.STARLORD.id]: {
