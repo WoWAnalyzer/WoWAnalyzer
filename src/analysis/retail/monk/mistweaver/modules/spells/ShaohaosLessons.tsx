@@ -1,11 +1,15 @@
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
+import {
+  calculateEffectiveDamage,
+  calculateEffectiveDamageReduction,
+  calculateEffectiveHealing,
+} from 'parser/core/EventCalculateLib';
+import Events, { DamageEvent, EventType, HealEvent } from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringValueText from 'parser/ui/BoringValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -17,17 +21,21 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 const DESPAIR_CRIT_INCREASE = 0.3;
 const DOUBT_INCREASE = 0.35;
 const FEAR_HASTE_INCREASE = 0.25;
+const FEAR_MITIGATION_PERCENT = 0.15;
 
 class ShaohaosLessons extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
   buffCount: Map<number, number> = new Map<number, number>();
+  angerDamage: number = 0;
   angerHealing: number = 0;
+  despairDamage: number = 0;
   despairHealing: number = 0;
   doubtDamage: number = 0;
   doubtHealing: number = 0;
   curHpPercent: number = 0;
+  fearMitigated: number = 0;
   protected statTracker!: StatTracker;
   constructor(options: Options) {
     super(options);
@@ -36,9 +44,14 @@ class ShaohaosLessons extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LESSON_OF_ANGER_HEAL),
       this.handleHealAnger,
     );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LESSON_OF_ANGER_DAMAGE),
+      this.handleDamageAnger,
+    );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handleHealDoubt);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.handleDamageDoubt);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handleHealDespair);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handleDespair);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.handleDespair);
     this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.healTaken);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.damageTaken);
   }
@@ -48,7 +61,14 @@ class ShaohaosLessons extends Analyzer {
   }
 
   damageTaken(event: DamageEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.LESSON_OF_FEAR_BUFF.id)) {
+      this.fearMitigated += calculateEffectiveDamageReduction(event, FEAR_MITIGATION_PERCENT);
+    }
     this.curHpPercent = event.hitPoints! / event.maxHitPoints!;
+  }
+
+  handleDamageAnger(event: DamageEvent) {
+    this.angerDamage += event.amount + (event.absorbed || 0);
   }
 
   handleHealAnger(event: HealEvent) {
@@ -77,7 +97,7 @@ class ShaohaosLessons extends Analyzer {
     this.doubtDamage += calculateEffectiveDamage(event, damageIncrease);
   }
 
-  handleHealDespair(event: HealEvent) {
+  handleDespair(event: HealEvent | DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.LESSON_OF_DESPAIR_BUFF.id)) {
       return;
     }
@@ -87,7 +107,15 @@ class ShaohaosLessons extends Analyzer {
     const critAmount = event.amount / 2; // crit = 200% heal
     const critIncrease =
       DESPAIR_CRIT_INCREASE / (this.statTracker.currentCritPercentage + DESPAIR_CRIT_INCREASE);
-    this.despairHealing += critAmount * critIncrease;
+    if (event.type === EventType.Heal) {
+      this.despairHealing += critAmount * critIncrease;
+    } else {
+      this.despairDamage += critAmount * critIncrease;
+    }
+  }
+
+  get totalDamage() {
+    return this.angerDamage + this.despairDamage + this.doubtDamage;
   }
 
   get totalHealing() {
@@ -122,7 +150,10 @@ class ShaohaosLessons extends Analyzer {
           }
         >
           <ItemHealingDone amount={this.totalHealing} /> <br />
-          <ItemDamageDone amount={this.doubtDamage} /> <br />
+          <ItemDamageDone amount={this.totalDamage} /> <br />
+          <img alt="Damage Mitigated" src="/img/shield.png" className="icon" />{' '}
+          {formatNumber(this.fearMitigated)} <small> damage mitigated</small>
+          <br />
           {formatPercentage(this.averageHasteIncrease, 1)}% <small>average haste increase</small>
         </BoringValueText>
       </Statistic>

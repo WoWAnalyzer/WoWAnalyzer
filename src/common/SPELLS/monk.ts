@@ -241,6 +241,11 @@ const spells = spellIndexableList({
     name: 'Lesson of Doubt',
     icon: 'sha_ability_warrior_bloodnova',
   },
+  LESSON_OF_ANGER_DAMAGE: {
+    id: 400145,
+    name: 'Lesson of Doubt',
+    icon: 'sha_ability_warrior_bloodnova',
+  },
   LESSON_OF_ANGER_HEAL: {
     id: 400146,
     name: 'Lesson of Doubt',
