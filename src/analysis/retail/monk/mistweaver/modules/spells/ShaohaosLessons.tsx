@@ -11,7 +11,7 @@ import {
   calculateEffectiveHealing,
   calculateEffectiveHealingFromCritIncrease,
 } from 'parser/core/EventCalculateLib';
-import Events, { DamageEvent, EventType, HealEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, EventType, HealEvent } from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringValueText from 'parser/ui/BoringValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -55,6 +55,11 @@ class ShaohaosLessons extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.handleDespair);
     this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.healTaken);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.damageTaken);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.handleCast);
+  }
+
+  handleCast(event: CastEvent) {
+    this.curHpPercent = event.hitPoints! / event.maxHitPoints!;
   }
 
   healTaken(event: HealEvent) {
