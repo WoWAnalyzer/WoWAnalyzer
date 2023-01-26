@@ -846,6 +846,12 @@ const spells = spellIndexableList({
     name: 'Devoured Violence',
     icon: 'sha_spell_warlock_demonsoul',
   },
+  //Shadow Tier
+  SHADOW_PRIEST_TIER_29_4_SET_BUFF: {
+    id: 394963,
+    name: 'Dark Reveries',
+    icon: 'inv_mace_1h_artifactheartofkure_d_05',
+  },
 
   // Disc
   SPIRIT_SHELL_TALENT_BUFF: {
