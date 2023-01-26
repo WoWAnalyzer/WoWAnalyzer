@@ -1,4 +1,3 @@
-import { assert } from 'console';
 import fs from 'fs';
 
 import {
@@ -11,18 +10,20 @@ import {
   readJsonFromUrl,
 } from './talent-tree-helpers';
 import {
+  ClassNodeType,
   GenericTalentInterface,
   ISpellpower,
   ITalentTree,
   ResourceCostType,
   ResourceTypes,
   TalentEntry,
+  TalentNode,
 } from './talent-tree-types';
 
-const LIVE_WOW_BUILD_NUMBER = '10.0.2.47631';
+const LIVE_WOW_BUILD_NUMBER = '10.0.5.47777';
 const LIVE_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/live/talents.json';
 const LIVE_SPELLPOWER_DATA_FILE = `./spellpower_${LIVE_WOW_BUILD_NUMBER}.csv`;
-const PTR_WOW_BUILD_NUMBER = '10.0.5.47621';
+const PTR_WOW_BUILD_NUMBER = '10.0.5.47777';
 const PTR_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/ptr/talents.json';
 const PTR_SPELLPOWER_DATA_FILE = `./spellpower_${PTR_WOW_BUILD_NUMBER}.csv`;
 
@@ -113,6 +114,15 @@ const blindMergeTalents = (
   entryIds: [...left.entryIds, ...right.entryIds],
 });
 
+function nodeEntries(node: TalentNode): TalentEntry[] {
+  if (node.type === ClassNodeType.Choice) {
+    return node.entries;
+  } else {
+    // this deals with Unbreakable Stride / Cheat Death being a "single" node with an orphaned Cheat Death choice
+    return node.entries.slice(0, 1);
+  }
+}
+
 async function generateTalents(isPTR: boolean = false) {
   const talents: ITalentTree[] = await readJsonFromUrl(
     isPTR ? PTR_TALENT_DATA_URL : LIVE_TALENT_DATA_URL,
@@ -138,7 +148,7 @@ async function generateTalents(isPTR: boolean = false) {
   }> = Object.entries(talentsByClass).flatMap(([className, trees]) => {
     const specTalents = trees.flatMap((tree) =>
       tree.specNodes.flatMap((node) =>
-        node.entries
+        nodeEntries(node)
           .filter((entry) => entry.spellId && entry.name)
           .map((entry) => ({
             key: createTalentKey(entry.name!),
@@ -151,7 +161,7 @@ async function generateTalents(isPTR: boolean = false) {
     // we have to process ALL class nodes, not just the first tree due to (basically) Warriors.
     const classTalents: typeof specTalents = trees.flatMap((tree) =>
       tree.classNodes.flatMap((node) =>
-        node.entries
+        nodeEntries(node)
           .filter((entry) => entry.spellId && entry.name)
           .map((entry) => ({
             key: createTalentKey(entry.name!),
@@ -224,7 +234,12 @@ async function generateTalents(isPTR: boolean = false) {
         new Set(result.map((talent) => talent.value.spec)).size === result.length
       ) {
         // there should be up to 1 talent with multiple entry ids
-        assert(result.filter((talent) => talent.value.entryIds.length > 1).length <= 1);
+        if (result.filter((talent) => talent.value.entryIds.length > 1).length > 1) {
+          console.dir(result, { depth: null });
+          throw new Error(
+            `unable to generate talents for ${className}: ${result[0].value.name} has multiple nodes with multiple entries`,
+          );
+        }
 
         return result.map((talent) => {
           if (talent.value.entryIds.length > 1) {
@@ -272,8 +287,10 @@ async function generateTalents(isPTR: boolean = false) {
       }
 
       // give up
-      assert(false);
-      return []; // unreachable, but fixes a typescript issue
+      console.dir(result, { depth: null });
+      throw new Error(
+        `unable to generate talents for ${className}: ${result[0].value.name} cannot be built`,
+      );
     });
 
     return {

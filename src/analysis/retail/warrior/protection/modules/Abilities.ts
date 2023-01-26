@@ -70,7 +70,7 @@ class Abilities extends CoreAbilities {
         cooldown: (haste) => {
           if (
             combatant.hasTalent(TALENTS.UNSTOPPABLE_FORCE_TALENT) &&
-            combatant.hasBuff(TALENTS.AVATAR_TALENT.id)
+            combatant.hasBuff(TALENTS.AVATAR_PROTECTION_TALENT.id)
           ) {
             return 6 / 2 / (1 + haste);
           }
@@ -172,8 +172,8 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
       },
       {
-        spell: TALENTS.AVATAR_TALENT.id,
-        buffSpellId: TALENTS.AVATAR_TALENT.id,
+        spell: TALENTS.AVATAR_PROTECTION_TALENT.id,
+        buffSpellId: TALENTS.AVATAR_PROTECTION_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,

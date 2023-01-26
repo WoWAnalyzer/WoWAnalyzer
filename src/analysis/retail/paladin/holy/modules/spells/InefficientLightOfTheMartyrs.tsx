@@ -17,11 +17,11 @@ class InefficientLightOfTheMartyrs extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_THE_MARTYR),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.LIGHT_OF_THE_MARTYR_TALENT),
       this.handleCast,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_THE_MARTYR),
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.LIGHT_OF_THE_MARTYR_TALENT),
       this.handleHeal,
     );
     this.addEventListener(

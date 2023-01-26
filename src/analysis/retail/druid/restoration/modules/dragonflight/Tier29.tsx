@@ -13,6 +13,7 @@ import { DRUID_T29_ID } from 'common/ITEMS/dragonflight';
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SpellLink from 'interface/SpellLink';
+import { calculateEffectiveHealingFromCritIncrease } from 'parser/core/EventCalculateLib';
 
 const TWO_PIECE_CRIT_BONUS = 0.08;
 
@@ -88,7 +89,11 @@ class Tier29 extends Analyzer {
 
   on2pcHeal(event: HealEvent) {
     if (event.hitType === HIT_TYPES.CRIT) {
-      this.total2pcHealing += (event.amount / 2) * this.critIncrease;
+      this.total2pcHealing += calculateEffectiveHealingFromCritIncrease(
+        event,
+        this.stats.currentCritPercentage,
+        TWO_PIECE_CRIT_BONUS,
+      );
     }
   }
 
@@ -118,10 +123,6 @@ class Tier29 extends Analyzer {
 
   onNsCast(_: CastEvent) {
     this.nsCasts += 1;
-  }
-
-  get critIncrease() {
-    return TWO_PIECE_CRIT_BONUS / (TWO_PIECE_CRIT_BONUS + this.stats.currentCritPercentage);
   }
 
   statistic() {

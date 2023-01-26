@@ -54,7 +54,7 @@ export interface ITalentTree {
   specNodes: TalentNode[];
 }
 
-interface TalentNode {
+export interface TalentNode {
   id: number;
   name: string;
   type: ClassNodeType;
@@ -82,7 +82,7 @@ enum EntryType {
   Passive = 'passive',
 }
 
-enum ClassNodeType {
+export enum ClassNodeType {
   Choice = 'choice',
   Single = 'single',
   Tiered = 'tiered',

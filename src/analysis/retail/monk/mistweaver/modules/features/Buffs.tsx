@@ -39,19 +39,6 @@ class Buffs extends CoreAuras {
         enabled: combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT),
         timelineHighlight: true,
       },
-
-      //Covenants
-      {
-        spellId: SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id,
-        enabled: false,
-        timelineHighlight: true,
-      },
-      {
-        spellId: TALENTS_MONK.BONEDUST_BREW_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_MONK.BONEDUST_BREW_TALENT),
-        timelineHighlight: true,
-      },
-
       // Utility
       {
         spellId: TALENTS_MONK.TIGERS_LUST_TALENT.id,
