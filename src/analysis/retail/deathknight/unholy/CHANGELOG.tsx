@@ -4,6 +4,7 @@ import { AlexanderJKremer, Bicepspump, Khazak } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 1, 18), 'Moved from partial to full support', Bicepspump),
   change(date(2023, 1, 24), `Added ${<SpellLink id={SPELLS.T29_GHOULISH_INFUSION}/>}'s haste buff`, Khazak),
   change(date(2023, 1, 18), 'Added Plaguebringer Tracker', Bicepspump),
   change(date(2023, 1, 17), 'Added module for tracking Summon Gargoyle Empowerment', Bicepspump),
