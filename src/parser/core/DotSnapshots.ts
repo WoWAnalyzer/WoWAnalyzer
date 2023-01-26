@@ -102,16 +102,16 @@ abstract class DotSnapshots extends Analyzer {
   ): void;
 
   onApplyDot(event: ApplyDebuffEvent | RefreshDebuffEvent) {
-    this._startDot(event);
+    this.startDot(event);
   }
 
   onRemoveDot(event: RemoveDebuffEvent | RefreshDebuffEvent) {
-    this._finishDot(event);
+    this.finishDot(event);
   }
 
   onRefreshDot(event: RefreshDebuffEvent) {
-    const prev = this._finishDot(event);
-    this._startDot(event, prev);
+    const prev = this.finishDot(event);
+    this.startDot(event, prev);
   }
 
   getUptimesForTarget(event: TargettedEvent<any>): DotUptime[] {
@@ -122,7 +122,7 @@ abstract class DotSnapshots extends Analyzer {
     return this.snapshotsByTarget[targetString];
   }
 
-  _startDot(event: ApplyDebuffEvent | RefreshDebuffEvent, previousUptime?: DotUptime) {
+  private startDot(event: ApplyDebuffEvent | RefreshDebuffEvent, previousUptime?: DotUptime) {
     const uptimes = this.getUptimesForTarget(event);
 
     const duration = this.getDotExpectedDuration(event);
@@ -139,7 +139,7 @@ abstract class DotSnapshots extends Analyzer {
     const expectedEnd = event.timestamp + newDuration;
 
     // call DoT specific handlers
-    const snapshots = this._getActiveSnapshots(event.timestamp);
+    const snapshots = this.getActiveSnapshots(event.timestamp);
     const power = snapshots.reduce((acc, ss) => acc * (1 + ss.boostStrength), 1);
     const previousSnapshots = previousUptime ? previousUptime.snapshots : null;
     const prevPower =
@@ -165,7 +165,7 @@ abstract class DotSnapshots extends Analyzer {
     });
   }
 
-  _finishDot(event: RemoveDebuffEvent | RefreshDebuffEvent): DotUptime | undefined {
+  private finishDot(event: RemoveDebuffEvent | RefreshDebuffEvent): DotUptime | undefined {
     const uptimes = this.getUptimesForTarget(event);
     if (uptimes.length > 0) {
       const latestUptime = uptimes[uptimes.length - 1];
@@ -177,12 +177,12 @@ abstract class DotSnapshots extends Analyzer {
     }
   }
 
-  _getActiveSnapshots(timestamp: number): SnapshotSpec[] {
+  private getActiveSnapshots(timestamp: number): SnapshotSpec[] {
     return this.applicableSnapshots.filter((as) => as.isPresent(this.selectedCombatant, timestamp));
   }
 
   get snapshotUptimes(): UptimeBarSpec[] {
-    return this.applicableSnapshots.map((as) => this._getSnapshotUptimesForBuff(as));
+    return this.applicableSnapshots.map((as) => this.getSnapshotUptimesForBuff(as));
   }
 
   /** Gets the specific uptime periods where at least one active DoT has the given snapshot */
@@ -223,7 +223,7 @@ abstract class DotSnapshots extends Analyzer {
   }
 
   /** Builds an uptime bar for the given shapshot spec */
-  _getSnapshotUptimesForBuff(spec: SnapshotSpec): UptimeBarSpec {
+  protected getSnapshotUptimesForBuff(spec: SnapshotSpec): UptimeBarSpec {
     return {
       uptimes: this.getSnapshotCombinedUptimes(spec.name),
       color: spec.displayColor,
