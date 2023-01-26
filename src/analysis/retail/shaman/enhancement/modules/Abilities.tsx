@@ -338,19 +338,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_SHAMAN.MANA_SPRING_TOTEM_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.MANA_SPRING_TOTEM_TALENT),
-        category: SPELL_CATEGORY.OTHERS,
-        cooldown:
-          45 - TOTEMIC_SURGE_SCALING[combatant.getTalentRank(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT)],
-        gcd: {
-          static: 1000,
-        },
-        castEfficiency: {
-          suggestion: false,
-        },
-      },
-      {
         spell: TALENTS_SHAMAN.POISON_CLEANSING_TOTEM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.POISON_CLEANSING_TOTEM_TALENT),
         category: SPELL_CATEGORY.OTHERS,

@@ -137,6 +137,12 @@ class HotTrackerMW extends HotTracker {
           : undefined,
       },
       {
+        spell: SPELLS.ENVELOPING_BREATH_HEAL,
+        duration: envMistDuration,
+        tickPeriod: 1000,
+        maxDuration: envMistDuration,
+      },
+      {
         spell: SPELLS.ESSENCE_FONT_BUFF,
         duration: essenceFontDuration,
         tickPeriod: 2000,

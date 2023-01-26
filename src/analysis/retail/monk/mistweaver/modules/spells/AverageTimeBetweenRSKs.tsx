@@ -6,6 +6,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import RisingSunKick from './RisingSunKick';
+import RisingMist from './RisingMist';
+import { SpellLink } from 'interface';
 
 /*
  * Add in Statistic box to show average time between RSK casts when Rising Mist is talented.
@@ -13,8 +15,10 @@ import RisingSunKick from './RisingSunKick';
 class TimeBetweenRSKs extends Analyzer {
   static dependencies = {
     risingSunKick: RisingSunKick,
+    risingMist: RisingMist,
   };
 
+  protected risingMist!: RisingMist;
   protected risingSunKick!: RisingSunKick;
   totalRSKCasts: number = 0;
   firstRSKTimestamp: number = 0;
@@ -64,7 +68,14 @@ class TimeBetweenRSKs extends Analyzer {
       >
         <TalentSpellText talent={TALENTS_MONK.RISING_SUN_KICK_TALENT}>
           <>
-            {this.averageTimeBetweenRSKSeconds} <small>Average Time Between casts</small>
+            {this.averageTimeBetweenRSKSeconds} <small>average time between casts</small>
+          </>
+          <br />
+          <>
+            {this.risingMist.averageTargetsPerRSKCast()}{' '}
+            <small>
+              average <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id} /> hits per cast
+            </small>
           </>
           <br />
           <>{this.risingSunKick.subStatistic()}</>

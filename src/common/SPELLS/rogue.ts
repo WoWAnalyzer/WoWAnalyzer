@@ -18,6 +18,11 @@ const spells = spellIndexableList({
     name: 'Riposte',
     icon: 'ability_parry',
   },
+  FEINT: {
+    id: 1966,
+    name: 'Feint',
+    icon: 'ability_rogue_feint',
+  },
 
   // General spells
   KICK: {

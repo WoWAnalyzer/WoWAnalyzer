@@ -19,9 +19,9 @@ class StolenPsyche extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.STOLEN_PSYCHE_TALENT);
+    this.active = false;
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtonement);
-    this.talentRank = this.selectedCombatant.getTalentRank(TALENTS_PRIEST.STOLEN_PSYCHE_TALENT);
+    this.talentRank = 0;
     this.stolenPsycheIncrease = this.talentRank * STOLEN_PSYCHE_RANK_INCREASE;
   }
 
@@ -42,7 +42,7 @@ class StolenPsyche extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(15)}
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS_PRIEST.STOLEN_PSYCHE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS_PRIEST.ABYSSAL_REVERIE_TALENT.id}>
           <>
             <ItemHealingDone amount={this.healing} /> <br />
           </>
