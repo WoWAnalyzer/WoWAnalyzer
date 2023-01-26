@@ -6,6 +6,13 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 1, 25), <>Add <SpellLink id={TALENTS_MONK.VEIL_OF_PRIDE_TALENT}/> module</>, Trevor),
+  change(date(2023, 1, 25), <>Fixed but with <SpellLink id={TALENTS_MONK.MIST_WRAP_TALENT.id}/> module.</>, Vohrr),
+  change(date(2023, 1, 25), <>Reworked <SpellLink id={TALENTS_MONK.MIST_WRAP_TALENT.id}/> module to show all healing contribution and not just from <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id}/>. </>, Vohrr),
+  change(date(2023, 1, 24), <>Add <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT}/> module</>, Trevor),
+  change(date(2023, 1, 24), <>Updated <SpellLink id={SPELLS.GUSTS_OF_MISTS}/> breakdown to include <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT}/> and improved accuracy.</>, Vohrr),
+  change(date(2023, 1, 24), <>Removed Bonedust Brew modules and references for Mistweaver for 10.0.5</>, Vohrr),
+  change(date(2023, 1, 16), <>Add <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT}/> module and update extension logic for <SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT}/></>, Trevor),
   change(date(2023, 1, 12), <>Improve accuracy of <SpellLink id={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT.id}/> module and the <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id}/> missed GCDs tally.</>, Vohrr),
   change(date(2023, 1, 8), <>Improve accuracy of <SpellLink id={TALENTS_MONK.UPWELLING_TALENT.id}/> module.</>, Trevor),
   change(date(2023, 1, 6), <>Improve accuracy of <SpellLink id={TALENTS_MONK.UPWELLING_TALENT.id}/> module.</>, Trevor),

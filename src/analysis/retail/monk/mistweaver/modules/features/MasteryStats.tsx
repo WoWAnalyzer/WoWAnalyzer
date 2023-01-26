@@ -13,6 +13,7 @@ import EssenceFont from '../spells/EssenceFont';
 import ExpelHarm from '../spells/ExpelHarm';
 import RenewingMist from '../spells/RenewingMist';
 import Revival from '../spells/Revival';
+import SheilunsGift from '../spells/SheilunsGift';
 import SoothingMist from '../spells/SoothingMist';
 import Vivify from '../spells/Vivify';
 
@@ -25,6 +26,7 @@ class MasteryStats extends Analyzer {
     vivify: Vivify,
     expelHarm: ExpelHarm,
     revival: Revival,
+    sheilunsGift: SheilunsGift,
   };
 
   protected essenceFont!: EssenceFont;
@@ -34,6 +36,7 @@ class MasteryStats extends Analyzer {
   protected vivify!: Vivify;
   protected expelHarm!: ExpelHarm;
   protected revival!: Revival;
+  protected sheilunsGift!: SheilunsGift;
 
   get totalMasteryHealing() {
     return (
@@ -43,7 +46,8 @@ class MasteryStats extends Analyzer {
       (this.soothingMist.gustsHealing || 0) +
       (this.essenceFont.gomHealing || 0) +
       (this.expelHarm.gustsHealing || 0) +
-      this.revival.gustsHealing
+      (this.revival.gustsHealing || 0) +
+      (this.sheilunsGift.gomHealing || 0)
     );
   }
 
@@ -99,6 +103,16 @@ class MasteryStats extends Analyzer {
         valueTooltip: formatThousands(this.revival.gustsHealing),
       },
     ];
+
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT)) {
+      items.push({
+        color: SPELL_COLORS.ALTERNATE_GUST_OF_MIST,
+        label: 'Sheiluns Gift',
+        spellId: TALENTS_MONK.SHEILUNS_GIFT_TALENT.id,
+        value: this.sheilunsGift.gomHealing,
+        valueTooltip: formatThousands(this.sheilunsGift.gomHealing),
+      });
+    }
 
     return <DonutChart items={items} />;
   }
