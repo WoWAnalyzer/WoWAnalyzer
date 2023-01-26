@@ -47,7 +47,6 @@ const CoreCooldownsGraph = () => {
       also both be used when Mindbender is active with Inescapable Torment talented.
       <br />
       TODO: Add execute phase SW:D. <br />
-      TODO: Mind Blast's number of casts is incorrect.
     </Trans>
   );
   return CoreCooldownGraphSubsection(coreCooldowns, message);
