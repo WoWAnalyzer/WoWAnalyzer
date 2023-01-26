@@ -2,7 +2,7 @@ import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import CoreHitCountAoE, { SpellAoeTracker } from 'parser/core/HitCountAoE';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ReactNode } from 'react';
-import { GoodColor, PerfectColor, SubSection, VeryBadColor } from 'interface/guide';
+import { BadColor, GoodColor, PerfectColor, SubSection, VeryBadColor } from 'interface/guide';
 import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
 import { getHitCount } from '../../normalizers/CastLinkNormalizer';
@@ -17,7 +17,10 @@ export default class HitCountAoE extends CoreHitCountAoE {
   constructor(options: Options) {
     super(options);
 
-    this.fanOfKnivesTracker = this.registerAoeTracker(this.newAoeTracker(SPELLS.FAN_OF_KNIVES));
+    this.fanOfKnivesTracker = this.registerAoeTracker({
+      ...this.newAoeTracker(SPELLS.FAN_OF_KNIVES),
+      twoHitCasts: 0,
+    });
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FAN_OF_KNIVES),
       this.onFanOfKnivesCast,
@@ -46,13 +49,13 @@ export default class HitCountAoE extends CoreHitCountAoE {
     const items = [
       {
         color: PerfectColor,
-        label: 'Hit 2+ Targets',
-        value: this.fanOfKnivesTracker.multiHitCasts,
+        label: 'Hit 3+ Targets',
+        value: this.fanOfKnivesTracker.multiHitCasts - this.fanOfKnivesTracker.twoHitCasts,
       },
       {
-        color: GoodColor,
-        label: 'Hit 1 Target',
-        value: this.fanOfKnivesTracker.oneHitCasts,
+        color: BadColor,
+        label: 'Hit 1-2 Targets',
+        value: this.fanOfKnivesTracker.oneHitCasts + this.fanOfKnivesTracker.twoHitCasts,
       },
       {
         color: VeryBadColor,
@@ -102,7 +105,7 @@ export default class HitCountAoE extends CoreHitCountAoE {
               <strong>
                 <SpellLink id={SPELLS.FAN_OF_KNIVES} />{' '}
               </strong>{' '}
-              should only be used on multiple targets.
+              should only be used on three or more targets.
             </div>
             {this.fanOfKnivesChart}
           </RoundedPanel>
@@ -138,9 +141,21 @@ export default class HitCountAoE extends CoreHitCountAoE {
           <li>
             <strong>{tracker.oneHitCasts}</strong> hit one target
           </li>
-          <li>
-            <strong>{tracker.multiHitCasts}</strong> hit multiple targets
-          </li>
+          {isFanOfKnivesAoETracker(tracker) ? (
+            <>
+              <li>
+                <strong>{tracker.twoHitCasts}</strong> hit two targets
+              </li>
+              <li>
+                <strong>{tracker.multiHitCasts - tracker.twoHitCasts}</strong> hit three-plus
+                targets
+              </li>
+            </>
+          ) : (
+            <li>
+              <strong>{tracker.multiHitCasts}</strong> hit multiple targets
+            </li>
+          )}
         </ul>
       </>
     );
@@ -148,6 +163,10 @@ export default class HitCountAoE extends CoreHitCountAoE {
 
   private onFanOfKnivesCast(event: CastEvent) {
     this.onAoeCast(event, this.fanOfKnivesTracker);
+    const hits = this.getHitCountForCast(event);
+    if (hits === 2) {
+      this.fanOfKnivesTracker.twoHitCasts += 1;
+    }
   }
 
   private onCrimsonTempestCast(event: CastEvent) {
@@ -157,5 +176,10 @@ export default class HitCountAoE extends CoreHitCountAoE {
   }
 }
 
-type FanOfKnivesAoETracker = SpellAoeTracker;
+type FanOfKnivesAoETracker = SpellAoeTracker & {
+  twoHitCasts: number;
+};
+const isFanOfKnivesAoETracker = (tracker: SpellAoeTracker): tracker is FanOfKnivesAoETracker =>
+  'twoHitCasts' in tracker && typeof tracker.twoHitCasts === 'number';
+
 type CrimsonTempestAoETracker = SpellAoeTracker;
