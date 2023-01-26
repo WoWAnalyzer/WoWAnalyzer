@@ -6,6 +6,8 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 1, 22), <><SpellLink id={TALENTS_PRIEST.MINDGAMES_TALENT.id}/> module no longer uses Atonement event.</>, Hana),
+  change(date(2023, 1, 21), <><SpellLink id={TALENTS_PRIEST.SHADOW_COVENANT_TALENT.id}/> module.</>, Hana),
   change(date(2023, 1, 15), <><SpellLink id={TALENTS_PRIEST.CASTIGATION_TALENT.id}/> module no longer uses Atonement event.</>, Hana),
   change(date(2023, 1, 15), <><SpellLink id={TALENTS_PRIEST.SCHISM_TALENT.id}/> module no longer uses Atonement event.</>, Hana),
   change(date(2023, 1, 14), <><SpellLink id={SPELLS.SINS_OF_THE_MANY.id}/> module no longer uses Atonement event.</>, Hana),
@@ -39,7 +41,7 @@ export default [
   change(date(2022, 10, 16), <>Fixed <SpellLink id={TALENTS_PRIEST.CONTRITION_TALENT.id}/>.</>, Hana),
   change(date(2022, 10, 15), <>Reorganised talents display</>, Hana),
   change(date(2022, 10, 15), <><SpellLink id={SPELLS.POWER_WORD_SHIELD.id}/> bugfixes. </>, Hana),
-  change(date(2022, 10, 15), <>Added <SpellLink id={TALENTS_PRIEST.STOLEN_PSYCHE_TALENT.id}/>.</>, Hana),
+  change(date(2022, 10, 15), <>Added Stolen Psyche.</>, Hana),
   change(date(2022, 10, 11), <>Added <SpellLink id={TALENTS_PRIEST.CRYSTALLINE_REFLECTION_TALENT.id}/> module showing it's damage breakdown.</>, Hana),
   change(date(2022, 10, 10), <>Added generic <SpellLink id={SPELLS.POWER_WORD_SHIELD.id}/> module which handles attribution of it's amplifiers</>, Hana),
   change(date(2022, 10, 8), <>Added <SpellLink id={TALENTS_PRIEST.AEGIS_OF_WRATH_TALENT.id}/>.</>, Hana),

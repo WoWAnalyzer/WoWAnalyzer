@@ -42,7 +42,7 @@ const Overview = ({ guide: GuideComponent, checklist, issues }: Props) => {
   const configOnlyGuideSetting = Boolean(config.guideOnly);
   let initialGuideSetting =
     sessionGuideSetting === null ? configGuideSetting : Boolean(sessionGuideSetting);
-  if (configGuideSetting && configOnlyGuideSetting) {
+  if (configGuideSetting || configOnlyGuideSetting) {
     initialGuideSetting = true;
   }
 

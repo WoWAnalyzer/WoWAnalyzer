@@ -27,7 +27,7 @@ class MaraadsCastRatio extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.cast.spell(SPELLS.LIGHT_OF_THE_MARTYR).by(SELECTED_PLAYER),
+      Events.cast.spell(TALENTS.LIGHT_OF_THE_MARTYR_TALENT).by(SELECTED_PLAYER),
       this.LOTMcast,
     );
     this.addEventListener(
@@ -97,25 +97,26 @@ class MaraadsCastRatio extends Analyzer {
     when(this.unbuffedLOTMSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to avoid casting unbuffed <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />, as it is a
-          very inefficient spell when it isn't buffed by{' '}
-          <SpellLink id={TALENTS.MARAADS_DYING_BREATH_TALENT.id} />.
+          Try to avoid casting unbuffed <SpellLink id={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} />, as it
+          is a very inefficient spell when it isn't buffed by{' '}
+          <SpellLink id={TALENTS.MARAADS_DYING_BREATH_TALENT} />.
         </>,
       )
-        .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
+        .icon(TALENTS.LIGHT_OF_THE_MARTYR_TALENT.icon)
         .actual(`${formatPercentage(actual)}% of your casts were unbuffed by Maraad's Dying Breath`)
         .recommended(`< ${formatPercentage(recommended)}% is recommended`),
     );
     when(this.notEnoughLOTMSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to avoid wasting the <SpellLink id={TALENTS.MARAADS_DYING_BREATH_TALENT.id} /> proc, either by
-          overwriting it or by allowing it to time out, as you are wasting a large amount of healing
-          by wasting it. If you are frequently unable to find a suitable target for your buffed{' '}
-          <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />, consider using a different legendary.
+          Try to avoid wasting the <SpellLink id={TALENTS.MARAADS_DYING_BREATH_TALENT} /> proc,
+          either by overwriting it or by allowing it to time out, as you are wasting a large amount
+          of healing by wasting it. If you are frequently unable to find a suitable target for your
+          buffed <SpellLink id={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} />, consider using a different
+          legendary.
         </>,
       )
-        .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
+        .icon(TALENTS.LIGHT_OF_THE_MARTYR_TALENT.icon)
         .actual(`You wasted ${formatPercentage(actual)}% of your Maraad's Dying Breath procs`)
         .recommended(`< ${formatPercentage(recommended)}% is recommended`),
     );

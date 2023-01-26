@@ -74,8 +74,8 @@ export default class ScaldingBrew extends Analyzer {
           isInefficientCast: true,
           inefficientCastReason: (
             <>
-              This cast did not benefit from <SpellLink id={talents.SCALDING_BREW_TALENT.id} /> or freshly
-              apply the <SpellLink id={talents.KEG_SMASH_TALENT.id} /> debuff.
+              This cast did not benefit from <SpellLink id={talents.SCALDING_BREW_TALENT.id} /> or
+              freshly apply the <SpellLink id={talents.KEG_SMASH_TALENT.id} /> debuff.
             </>
           ),
         };

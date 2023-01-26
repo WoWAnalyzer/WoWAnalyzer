@@ -22,9 +22,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
     SPELLS.EXPEL_HARM.id,
     TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id,
-    //covenants
-    TALENTS_MONK.BONEDUST_BREW_TALENT.id,
     TALENTS_MONK.FAELINE_STOMP_TALENT.id,
+    TALENTS_MONK.ZEN_PULSE_TALENT.id,
   ];
   constructor(options: Options) {
     super(options);
@@ -45,6 +44,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK_DAMAGE.id);
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.BLACKOUT_KICK.id);
     }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.AWAKENED_FAELINE_TALENT)) {
+      this.HEALING_ABILITIES_ON_GCD.push(SPELLS.SPINNING_CRANE_KICK.id);
+      this.HEALING_ABILITIES_ON_GCD.push(SPELLS.SPINNING_CRANE_KICK_DAMAGE.id);
+    }
   }
 
   handleChijiStart(event: CastEvent) {
@@ -52,6 +55,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     this.HEALING_ABILITIES_ON_GCD.push(TALENTS_MONK.RISING_SUN_KICK_TALENT.id);
     this.HEALING_ABILITIES_ON_GCD.push(SPELLS.RISING_SUN_KICK_DAMAGE.id);
     this.HEALING_ABILITIES_ON_GCD.push(SPELLS.BLACKOUT_KICK.id);
+    this.HEALING_ABILITIES_ON_GCD.push(SPELLS.SPINNING_CRANE_KICK.id);
+    this.HEALING_ABILITIES_ON_GCD.push(SPELLS.SPINNING_CRANE_KICK_DAMAGE.id);
   }
 
   handleChijiDeath(event: DeathEvent) {
@@ -59,6 +64,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     const rskSpot = this.HEALING_ABILITIES_ON_GCD.indexOf(TALENTS_MONK.RISING_SUN_KICK_TALENT.id);
     const rskTwoSpot = this.HEALING_ABILITIES_ON_GCD.indexOf(SPELLS.RISING_SUN_KICK_DAMAGE.id);
     const bokSpot = this.HEALING_ABILITIES_ON_GCD.indexOf(SPELLS.BLACKOUT_KICK.id);
+    const sckSpot = this.HEALING_ABILITIES_ON_GCD.indexOf(SPELLS.SPINNING_CRANE_KICK.id);
+    const sckSpotTwo = this.HEALING_ABILITIES_ON_GCD.indexOf(SPELLS.SPINNING_CRANE_KICK_DAMAGE.id);
     //if tp isn't there then we don't want to mess with this
     if (tpSpot === -1) {
       return;
@@ -67,6 +74,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     delete this.HEALING_ABILITIES_ON_GCD[rskSpot];
     delete this.HEALING_ABILITIES_ON_GCD[rskTwoSpot];
     delete this.HEALING_ABILITIES_ON_GCD[bokSpot];
+    if (sckSpot !== -1) {
+      delete this.HEALING_ABILITIES_ON_GCD[sckSpot];
+      delete this.HEALING_ABILITIES_ON_GCD[sckSpotTwo];
+    }
   }
 
   get nonHealingTimeSuggestionThresholds() {

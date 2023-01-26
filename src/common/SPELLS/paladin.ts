@@ -138,12 +138,6 @@ const spells = spellIndexableList({
     name: 'Light of Dawn',
     icon: 'spell_paladin_lightofdawn',
   },
-  LIGHT_OF_THE_MARTYR: {
-    id: 183998,
-    name: 'Light of the Martyr',
-    icon: 'ability_paladin_lightofthemartyr',
-    manaCost: 700,
-  },
   LIGHT_OF_THE_MARTYR_DAMAGE_TAKEN: {
     id: 196917,
     name: 'Light of the Martyr',
@@ -244,6 +238,11 @@ const spells = spellIndexableList({
     id: 325984,
     name: 'Glimmer of Light',
     icon: 'ability_paladin_toweroflight',
+  },
+  GOLDEN_PATH_HEAL_TALENT: {
+    id: 377129,
+    name: 'Golden Path',
+    icon: 'ability_priest_cascade',
   },
   UNTEMPERED_DEDICATION_BUFF: {
     id: 387815,

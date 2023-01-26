@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HasSource } from 'parser/core/Events';
@@ -24,7 +25,7 @@ class BlessedHammerDamageReduction extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BLESSED_HAMMER_TALENT);
     if (!this.active) {
       return;
     }
@@ -80,12 +81,12 @@ class BlessedHammerDamageReduction extends Analyzer {
         tooltip={
           <>
             Average <b>{formatNumber(this.averageHitReduction)}</b> damage reduced per hit affected
-            by <SpellLink id={SPELLS.BLESSED_HAMMER_TALENT.id} />.
+            by <SpellLink id={TALENTS.BLESSED_HAMMER_TALENT.id} />.
           </>
         }
       >
         <BoringSpellValue
-          spellId={SPELLS.BLESSED_HAMMER_TALENT.id}
+          spellId={TALENTS.BLESSED_HAMMER_TALENT.id}
           value={formatNumber(this.totalReducedDamage)}
           label={`Reduced damage from ${this.reducedDamageHits} hits.`}
         />

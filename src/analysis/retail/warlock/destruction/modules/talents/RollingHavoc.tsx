@@ -4,7 +4,7 @@ import TALENTS from 'common/TALENTS/warlock';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Statistic from 'parser/ui/Statistic';
-import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class RollingHavoc extends Analyzer {
@@ -23,7 +23,7 @@ class RollingHavoc extends Analyzer {
 
   statistic() {
     return (
-      <Statistic position={STATISTIC_ORDER.CORE()}>
+      <Statistic category={STATISTIC_CATEGORY.TALENTS}>
         <TalentSpellText talent={RollingHavoc.talent}>
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
         </TalentSpellText>

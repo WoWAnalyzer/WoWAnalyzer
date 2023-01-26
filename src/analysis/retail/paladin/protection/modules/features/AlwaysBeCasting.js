@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -28,7 +29,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
             Your downtime can be improved. Try to cast more, for example by reducing the delay
             between casting spells. Even if you have to move, try to cast something instant with
             range like <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> or{' '}
-            <SpellLink id={SPELLS.AVENGERS_SHIELD.id} icon />.
+            <SpellLink id={TALENTS.AVENGERS_SHIELD_TALENT.id} icon />.
           </>,
         )
           .icon('spell_mage_altertime')

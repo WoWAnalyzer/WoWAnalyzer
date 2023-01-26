@@ -58,7 +58,7 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.CRIMSON_VIAL.id,
       },
       {
-        spellId: TALENTS.FEINT_TALENT.id,
+        spellId: SPELLS.FEINT.id,
       },
       {
         spellId: SPELLS.RIPOSTE.id,

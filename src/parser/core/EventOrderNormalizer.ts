@@ -140,13 +140,13 @@ export type EventOrder = {
    * Should be set to the minimum possible value to avoid false positives.
    * Defaults to 0 ms when omitted. */
   bufferMs?: number;
-  /** Iff true, the two events may be swapped even with different sources.
+  /** If true, the two events may be swapped even with different sources.
    * In most cases this should be false, and will default to false when omitted */
   anySource?: boolean;
-  /** Iff true, the two events may be swapped even with different targets.
+  /** If true, the two events may be swapped even with different targets.
    * In most cases this should be false, and will default to false when omitted */
   anyTarget?: boolean;
-  /** Iff true, and the reordered events have different timestamps,
+  /** If true, and the reordered events have different timestamps,
    * the 'after' event will have its timestamp pushed forward to match the 'before' event.
    * Defaults to 'false' when omitted. */
   updateTimestamp?: boolean;

@@ -180,9 +180,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.FEINT_TALENT.id,
+        spell: SPELLS.FEINT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        buffSpellId: TALENTS.FEINT_TALENT.id,
+        buffSpellId: SPELLS.FEINT.id,
         cooldown: 15,
         gcd: {
           static: standardGcd,

@@ -759,6 +759,16 @@ const spells = spellIndexableList({
     name: 'Rolling Havoc',
     icon: 'warlock_pvp_banehavoc',
   },
+  MADNESS_OF_AZHAQIR_BUFF: {
+    id: 387409,
+    name: "Madness of Azh'Aqir",
+    icon: 'ability_warlock_chaosbolt',
+  },
+  FLASHPOINT_BUFF: {
+    id: 387263,
+    name: 'Flashpoint',
+    icon: 'spell_fire_moltenblood',
+  },
 });
 
 export default spells;

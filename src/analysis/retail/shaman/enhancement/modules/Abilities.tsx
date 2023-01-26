@@ -7,7 +7,11 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 import { MOLTEN_ASSAULT_SCALING } from '../constants';
 
-import { GWTF_GOW_SCALING, GWTF_SW_SCALING, TOTEMIC_SURGE_SCALING } from 'analysis/retail/shaman/shared/constants';
+import {
+  GWTF_GOW_SCALING,
+  GWTF_SW_SCALING,
+  TOTEMIC_SURGE_SCALING,
+} from 'analysis/retail/shaman/shared/constants';
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -326,19 +330,6 @@ class Abilities extends CoreAbilities {
         cooldown:
           30 - TOTEMIC_SURGE_SCALING[combatant.getTalentRank(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT)],
         charges: 1,
-        gcd: {
-          static: 1000,
-        },
-        castEfficiency: {
-          suggestion: false,
-        },
-      },
-      {
-        spell: TALENTS_SHAMAN.MANA_SPRING_TOTEM_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.MANA_SPRING_TOTEM_TALENT),
-        category: SPELL_CATEGORY.OTHERS,
-        cooldown:
-          45 - TOTEMIC_SURGE_SCALING[combatant.getTalentRank(TALENTS_SHAMAN.TOTEMIC_SURGE_TALENT)],
         gcd: {
           static: 1000,
         },

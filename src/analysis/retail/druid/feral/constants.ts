@@ -86,7 +86,9 @@ export const CIRCLE_DOT_DURATION_MULT = 0.75;
 /** Gets the multiplier to apply to a DoT's duration depending on if player is using
  *  the 'Circle of Life and Death' talent */
 function getCircleMult(c: Combatant): number {
-  return c.hasTalent(TALENTS_DRUID.CIRCLE_OF_LIFE_AND_DEATH_TALENT) ? CIRCLE_DOT_DURATION_MULT : 1;
+  return c.hasTalent(TALENTS_DRUID.CIRCLE_OF_LIFE_AND_DEATH_FERAL_TALENT)
+    ? CIRCLE_DOT_DURATION_MULT
+    : 1;
 }
 
 export const VEINRIPPER_DURATION_MULT = 1.25;

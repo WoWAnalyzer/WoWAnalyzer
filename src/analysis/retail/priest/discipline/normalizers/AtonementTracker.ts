@@ -24,6 +24,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Damage,
     backwardBufferMs: BUFFER_MS,
     anyTarget: true,
+    anySource: true,
     maximumLinks: 1,
   },
 ];
