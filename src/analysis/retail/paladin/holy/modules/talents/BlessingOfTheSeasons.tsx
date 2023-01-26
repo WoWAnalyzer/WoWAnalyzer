@@ -29,12 +29,10 @@ export class BlessingOfTheSeasons extends Analyzer {
   }
 
   onApplyAutumn() {
-    console.log('blessing of autumn start');
     this.spellUsable.applyCooldownRateChange('ALL', 1.3);
   }
 
   onRemoveAutumn() {
-    console.log('blessing of autumn end');
     this.spellUsable.removeCooldownRateChange('ALL', 1.3);
   }
 }
