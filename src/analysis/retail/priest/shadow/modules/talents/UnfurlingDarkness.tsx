@@ -108,7 +108,7 @@ class UnfurlingDarkness extends Analyzer {
 
     const badUD = {
       count: this.procsWasted,
-      label: 'ShadowyInsight procs wasted',
+      label: 'Unfurling Darkness procs wasted',
     };
 
     const explanation = (

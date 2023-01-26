@@ -28,8 +28,6 @@ class ShadowyInsight extends Analyzer {
 
   procsGained = 0;
   procsUsed = 0;
-  maxCasts = 0;
-  casts = 0;
 
   constructor(options: Options) {
     super(options);
@@ -45,26 +43,43 @@ class ShadowyInsight extends Analyzer {
     );
 
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.MIND_DEVOURER_TALENT_BUFF),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOWY_INSIGHT_BUFF),
       this.onBuffRefreshed,
     );
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST), this.onCast);
   }
 
   onBuffApplied(event: ApplyBuffEvent) {
     this.abilities.increaseMaxCharges(event, SPELLS.MIND_BLAST.id, 1);
     this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, false, false);
-
     this.procsGained += 1;
+  }
+
+  onCast() {
+    /*for debuging. Sometimes chargesAvailable, and chargesOnCooldown don't correctly add up to getMaxCharges.
+    /if(Math.abs(this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id)) + Math.abs(this.spellUsable.chargesOnCooldown(SPELLS.MIND_BLAST.id)) != this.abilities.getMaxCharges(SPELLS.MIND_BLAST.id)){
+    /  console.log("ERROR",this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id),"/",this.spellUsable.chargesOnCooldown(SPELLS.MIND_BLAST.id),"max:",this.abilities.getMaxCharges(SPELLS.MIND_BLAST.id));
+    /}
+    */
   }
 
   onBuffRemoved(event: RemoveBuffEvent) {
     this.abilities.decreaseMaxCharges(event, SPELLS.MIND_BLAST.id, 1);
+
+    if (this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id) === 2) {
+      // In certain circumstances, if you have 2 charges available after the buff, you can end up having negative charges spellUsable.onCooldown
+      // Resting the cooldown entirely fixes the issue.
+      this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, true, true);
+    }
 
     if (
       this.eventHistory.last(1, 100, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST))
         .length === 0
     ) {
       // If MB is not instant, it's not a proc
+      // There may be a case where the debuff times out but both charges of mind blast haven't recharged causing a window where the spell is thought to be castable but isn't.
+      // For most haste values this would not be possible.
       return;
     }
 
