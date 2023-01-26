@@ -1,8 +1,8 @@
 import { PerformanceMark } from 'interface/guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { PerformanceStrong } from 'analysis/retail/demonhunter/shared/guide/ExtraComponents';
 import { TooltipElement } from 'interface';
 import { formatPercentage } from 'common/format';
+import PerformanceStrong from 'interface/PerformanceStrong';
 
 interface Props {
   performance: QualitativePerformance;

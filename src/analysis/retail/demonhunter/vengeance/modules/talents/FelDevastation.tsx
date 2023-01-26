@@ -10,13 +10,8 @@ import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/modu
 import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/FieryDemiseExplanation';
 import DemonicExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/DemonicExplanation';
 import { Trans } from '@lingui/macro';
-import {
-  CheckedUsageInfo,
-  CooldownCast,
-  CooldownUse,
-  MajorCooldown,
-  UsageInfo,
-} from 'analysis/retail/demonhunter/shared/guide/MajorCooldowns/core';
+import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
+import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { getDamageEvents } from 'analysis/retail/demonhunter/vengeance/normalizers/FelDevastationNormalizer';
 import { isDefined } from 'common/typeGuards';
 
@@ -29,7 +24,7 @@ interface FelDevastationDamage {
   hasFieryBrandDebuff: boolean;
 }
 
-interface FelDevastationCooldownCast extends CooldownCast {
+interface FelDevastationCooldownCast extends SpellCast {
   damage: FelDevastationDamage[];
 }
 
@@ -42,7 +37,7 @@ export default class FelDevastation extends MajorCooldown<FelDevastationCooldown
   protected enemies!: Enemies;
 
   constructor(options: Options) {
-    super({ talent: TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT }, options);
+    super({ spell: TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT }, options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT),
@@ -70,7 +65,7 @@ export default class FelDevastation extends MajorCooldown<FelDevastationCooldown
     );
   }
 
-  explainPerformance(cast: FelDevastationCooldownCast): CooldownUse {
+  explainPerformance(cast: FelDevastationCooldownCast): SpellUse {
     const {
       performance: frailtyPerf,
       summary: frailtyLabel,
@@ -85,10 +80,11 @@ export default class FelDevastation extends MajorCooldown<FelDevastationCooldown
     const overallPerf = combineQualitativePerformances(
       [frailtyPerf, fieryDemisePerf].filter(isDefined),
     );
-    const checklistItems: CheckedUsageInfo[] = [];
+    const checklistItems: ChecklistUsageInfo[] = [];
     if (frailtyPerf && frailtyLabel && frailtyDetails) {
       checklistItems.push({
         check: 'frailty',
+        timestamp: cast.event.timestamp,
         performance: frailtyPerf,
         summary: frailtyLabel,
         details: frailtyDetails,
@@ -97,6 +93,7 @@ export default class FelDevastation extends MajorCooldown<FelDevastationCooldown
     if (fieryDemisePerf && fieryDemiseLabel && fieryDemiseDetails) {
       checklistItems.push({
         check: 'fiery-demise',
+        timestamp: cast.event.timestamp,
         performance: fieryDemisePerf,
         summary: fieryDemiseLabel,
         details: fieryDemiseDetails,
@@ -280,7 +277,7 @@ export default class FelDevastation extends MajorCooldown<FelDevastationCooldown
             Only {atLeastOneTargetHasOkFrailty.targetStacksOfFrailty} stack(s) of{' '}
             <SpellLink id={SPELLS.FRAILTY} /> applied to 1+ target(s). Try applying at least{' '}
             {PERFECT_FRAILTY_STACKS} stack(s) of <SpellLink id={SPELLS.FRAILTY} /> before casting{' '}
-            <SpellLink id={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />.
+            <SpellLink id={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT} />.
           </div>
         ),
       };
@@ -297,7 +294,7 @@ export default class FelDevastation extends MajorCooldown<FelDevastationCooldown
           Only {mostStacksOfFrailty} stack(s) of <SpellLink id={SPELLS.FRAILTY} /> applied to
           target. Try applying at least {PERFECT_FRAILTY_STACKS} stack(s) of{' '}
           <SpellLink id={SPELLS.FRAILTY} /> before casting{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />.
+          <SpellLink id={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT} />.
         </div>
       ),
     };

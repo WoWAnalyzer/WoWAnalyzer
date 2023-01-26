@@ -25,19 +25,14 @@ import { combineQualitativePerformances } from 'common/combineQualitativePerform
 import { ReactNode } from 'react';
 import NoDemonicExplanation from 'analysis/retail/demonhunter/havoc/guide/NoDemonicExplanation';
 import { isDefined } from 'common/typeGuards';
-import {
-  CheckedUsageInfo,
-  CooldownCast,
-  CooldownUse,
-  MajorCooldown,
-  UsageInfo,
-} from 'analysis/retail/demonhunter/shared/guide/MajorCooldowns/core';
+import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
+import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
 
 /*
   example report: https://www.warcraftlogs.com/reports/8gAWrDqPhVj6BZkQ/#fight=29&source=7
  */
 
-interface EssenceBreakCooldownCast extends CooldownCast {
+interface EssenceBreakCooldownCast extends SpellCast {
   buffedCasts: number;
   deathSweepCasts: number;
   annihilationCasts: number;
@@ -73,7 +68,7 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
   private talentDamage = 0;
 
   constructor(options: Options) {
-    super({ talent: TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT }, options);
+    super({ spell: TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT }, options);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT),
       this.onCast,
@@ -241,7 +236,7 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
     );
   }
 
-  explainPerformance(cast: EssenceBreakCooldownCast): CooldownUse {
+  explainPerformance(cast: EssenceBreakCooldownCast): SpellUse {
     if (!this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.DEMONIC_TALENT)) {
       return {
         event: cast.event,
@@ -251,6 +246,7 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
           {
             check: 'demonic',
             performance: QualitativePerformance.Fail,
+            timestamp: cast.event.timestamp,
             summary: (
               <>
                 Did not have <SpellLink id={TALENTS_DEMON_HUNTER.DEMONIC_TALENT} /> talented
@@ -284,9 +280,10 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
       [initiativePerf, essbWindowPerf].filter(isDefined),
     );
 
-    const checklistItems: CheckedUsageInfo[] = [
+    const checklistItems: ChecklistUsageInfo[] = [
       {
         check: 'buffed-casts',
+        timestamp: cast.event.timestamp,
         performance: essbWindowPerf,
         summary: essbWindowLabel,
         details: essbWindowDetails,
@@ -295,6 +292,7 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
     if (initiativePerf && initiativeLabel && initiativeDetails) {
       checklistItems.push({
         check: 'initiative',
+        timestamp: cast.event.timestamp,
         performance: initiativePerf,
         summary: initiativeLabel,
         details: initiativeDetails,
