@@ -121,6 +121,11 @@ class ShadowCovenant extends Analyzer {
       return;
     }
 
+    // Shadow covenant only buffs expiation if you aren't talented into PTW
+    if (event.ability.guid === SPELLS.EXPIATION_DAMAGE.id && this.hasPtw) {
+      return;
+    }
+
     this.damage += calculateEffectiveDamage(event, this.bonus);
   }
 
