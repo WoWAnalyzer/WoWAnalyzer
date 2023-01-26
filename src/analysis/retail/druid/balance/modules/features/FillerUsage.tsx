@@ -27,10 +27,6 @@ const DEBUG = false;
  * the number of targets hit by Starfire.
  */
 class FillerUsage extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
-  };
-  protected enemies!: Enemies;
   // none at start of fight and also during / after CA
   lastEclipse: 'none' | 'solar' | 'lunar' = 'none';
 
@@ -45,13 +41,19 @@ class FillerUsage extends Analyzer {
 
   onStarfire(event: CastEvent) {
     this.totalFillerCasts += 1;
-    if (this.lastEclipse === 'solar' && hardcastTargetsHit(event) < STARFIRE_TARGETS_FOR_SOLAR) {
+    if (
+      !(
+        this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_LUNAR.id) ||
+        this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_SOLAR.id) ||
+        cooldownAbility(this.selectedCombatant).id
+      ) &&
+      hardcastTargetsHit(event) < STARFIRE_TARGETS_FOR_SOLAR
+    ) {
       DEBUG && console.log('Bad Starfire @ ' + this.owner.formatTimestamp(event.timestamp));
       this.badFillerCasts += 1;
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = `This was the wrong filler for the situation! During or after a Solar Eclipse,
-        you should use Wrath unless you can hit at least ${STARFIRE_TARGETS_FOR_SOLAR} targets.`;
+      event.meta.inefficientCastReason = `This was the wrong filler for the situation! you should use Wrath when out of eclipse and also in eclipse unless you can hit at least ${STARFIRE_TARGETS_FOR_SOLAR} targets.`;
     }
   }
 
