@@ -7,12 +7,9 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { SpellLink } from 'interface';
+import { STARFALL_BASE_COST, STARSURGE_BASE_COST } from '../../constants';
 
-const STARWEAVER = {
-  STARSURGE_COST: 40,
-  STARFALL_COST: 50,
-  AFFECTED_CAST: [SPELLS.STARSURGE_MOONKIN, SPELLS.STARFALL_CAST],
-};
+const AFFECTED_CAST = [SPELLS.STARSURGE_MOONKIN, SPELLS.STARFALL_CAST];
 
 class Starweaver extends Analyzer {
   freeAbilities: { [key: number]: number } = {};
@@ -22,14 +19,11 @@ class Starweaver extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.STARWEAVER_TALENT);
 
-    Object.values(STARWEAVER.AFFECTED_CAST).forEach((spell) => {
+    Object.values(AFFECTED_CAST).forEach((spell) => {
       this.freeAbilities[spell.id] = 0;
     });
 
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(STARWEAVER.AFFECTED_CAST),
-      this.onCast,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(AFFECTED_CAST), this.onCast);
   }
 
   onCast(event: CastEvent) {
@@ -40,11 +34,11 @@ class Starweaver extends Analyzer {
       return;
     }
     if (hasStarweaverWeft && event.ability.guid === SPELLS.STARSURGE_MOONKIN.id) {
-      this.savedAP += STARWEAVER.STARSURGE_COST;
+      this.savedAP += STARSURGE_BASE_COST;
       this.freeAbilities[event.ability.guid] += 1;
     }
     if (hasStarweaverWarp && event.ability.guid === SPELLS.STARFALL_CAST.id) {
-      this.savedAP += STARWEAVER.STARFALL_COST;
+      this.savedAP += STARFALL_BASE_COST;
       this.freeAbilities[event.ability.guid] += 1;
     }
   }
