@@ -9,7 +9,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { cooldownAbility } from '../../constants';
 import { hardcastTargetsHit } from '../../normalizers/CastLinkNormalizer';
 
-// minimum targets Starfire must hit for it to be worth to cast during Solar Eclipse
+// minimum targets Starfire must hit for it to be worth to cast in lunar eclipse/CA
 export const STARFIRE_TARGETS_FOR_SOLAR = 2;
 
 const MINOR_THRESHOLD = 0;
@@ -18,17 +18,7 @@ const MAJOR_THRESHOLD = 0.1;
 
 const DEBUG = false;
 
-/**
- * Balance has two 'filler' spells - Wrath and Starfire.
- * Which to use is dicated by the Eclipse cycle - Wrath during and after Solar Eclipse,
- * and Starfire during and after Lunar Eclipse.
- *
- * This module tracks that the correct filler is used. Relies on CastLinkNormalizer to determine
- * the number of targets hit by Starfire.
- */
 class FillerUsage extends Analyzer {
-  // none at start of fight and also during / after CA
-  lastEclipse: 'none' | 'solar' | 'lunar' = 'none';
 
   totalFillerCasts: number = 0;
   badFillerCasts: number = 0;
