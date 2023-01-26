@@ -68,7 +68,7 @@ class TimeBetweenRSKs extends Analyzer {
       >
         <TalentSpellText talent={TALENTS_MONK.RISING_SUN_KICK_TALENT}>
           <>
-            {this.averageTimeBetweenRSKSeconds} <small>Average Time Between casts</small>
+            {this.averageTimeBetweenRSKSeconds} <small>average time between casts</small>
           </>
           <br />
           <>
