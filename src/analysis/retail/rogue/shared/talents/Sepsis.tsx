@@ -5,10 +5,10 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, RemoveDebuffEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const COOLDOWN_REDUCTION_MS = 30_000;
 const DOT_END_BUFFER_MS = 300;
@@ -89,7 +89,7 @@ class Sepsis extends Analyzer {
       <>
         <Statistic
           size="flexible"
-          category={STATISTIC_CATEGORY.COVENANTS}
+          category={STATISTIC_CATEGORY.TALENTS}
           tooltip={
             <ul>
               <li>{formatNumber(this.damage)} damage done by Sepsis Ability</li>
@@ -97,9 +97,9 @@ class Sepsis extends Analyzer {
             </ul>
           }
         >
-          <BoringSpellValueText spellId={TALENTS.SEPSIS_TALENT.id}>
+          <TalentSpellText talent={TALENTS.SEPSIS_TALENT}>
             <ItemDamageDone amount={this.damage + this.poisonDamage} />
-          </BoringSpellValueText>
+          </TalentSpellText>
         </Statistic>
       </>
     );

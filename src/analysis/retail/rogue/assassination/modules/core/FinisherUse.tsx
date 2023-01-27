@@ -1,17 +1,24 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { BadColor, GoodColor } from 'interface/guide';
-import { ResourceLink } from 'interface';
+import { BadColor, GoodColor, OkColor } from 'interface/guide';
+import { ResourceLink, SpellLink } from 'interface';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import getResourceSpent from 'parser/core/getResourceSpent';
-import { FINISHERS, getMaxComboPoints } from '../../constants';
+import TALENTS from 'common/TALENTS/rogue';
+
+import { FINISHERS, getMaxComboPoints, isAnimachargedFinisherCast } from '../../constants';
+import { formatDurationMillisMinSec } from 'common/format';
+
+const OPENER_MAX_DURATION_MS = 15000;
 
 export default class FinisherUse extends Analyzer {
   totalFinisherCasts = 0;
+  animachargedCasts = 0;
   lowCpFinisherCasts = 0;
+  openerLowCpFinisherCasts = 0;
 
   constructor(options: Options) {
     super(options);
@@ -19,7 +26,12 @@ export default class FinisherUse extends Analyzer {
   }
 
   get maxCpFinishers() {
-    return this.totalFinisherCasts - this.lowCpFinisherCasts;
+    return (
+      this.totalFinisherCasts -
+      this.animachargedCasts -
+      this.lowCpFinisherCasts -
+      this.openerLowCpFinisherCasts
+    );
   }
 
   get chart() {
@@ -33,11 +45,36 @@ export default class FinisherUse extends Analyzer {
         ),
       },
       {
+        color: OkColor,
+        label: 'Low CP Opener Finishers',
+        value: this.openerLowCpFinisherCasts,
+        tooltip: (
+          <>
+            This includes low CP finisher casts in the first{' '}
+            {formatDurationMillisMinSec(OPENER_MAX_DURATION_MS)} of an encounter.
+          </>
+        ),
+      },
+      {
         color: BadColor,
         label: 'Low CP Finishers',
         value: this.lowCpFinisherCasts,
       },
     ];
+
+    if (this.selectedCombatant.hasTalent(TALENTS.ECHOING_REPRIMAND_TALENT)) {
+      items.push({
+        color: '#40DDF9',
+        label: 'Animacharged Finishers',
+        value: this.animachargedCasts,
+        tooltip: (
+          <>
+            This includes finishers cast using an Animacharged CP from{' '}
+            <SpellLink id={TALENTS.ECHOING_REPRIMAND_TALENT} />.
+          </>
+        ),
+      });
+    }
 
     return <DonutChart items={items} />;
   }
@@ -60,9 +97,19 @@ export default class FinisherUse extends Analyzer {
     if (cpsSpent === 0) {
       return;
     }
+
+    const timeIntoEncounter = event.timestamp - this.owner.fight.start_time;
+    const isInOpener = timeIntoEncounter <= OPENER_MAX_DURATION_MS;
+
     this.totalFinisherCasts += 1;
-    if (cpsSpent < getMaxComboPoints(this.selectedCombatant) - 1) {
-      this.lowCpFinisherCasts += 1;
+    if (isAnimachargedFinisherCast(this.selectedCombatant, event)) {
+      this.animachargedCasts += 1;
+    } else if (cpsSpent < getMaxComboPoints(this.selectedCombatant) - 1) {
+      if (isInOpener) {
+        this.openerLowCpFinisherCasts += 1;
+      } else {
+        this.lowCpFinisherCasts += 1;
+      }
     }
   }
 }

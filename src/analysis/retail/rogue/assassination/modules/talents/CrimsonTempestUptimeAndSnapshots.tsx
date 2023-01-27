@@ -5,6 +5,7 @@ import DotSnapshots, { SnapshotSpec } from 'parser/core/DotSnapshots';
 import { NIGHTSTALKER_SPEC } from '../core/Snapshots';
 import { ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import {
+  animachargedCheckedUsageInfo,
   CRIMSON_TEMPEST_BASE_DURATION,
   getCrimsonTempestDuration,
   getCrimsonTempestFullDuration,
@@ -19,6 +20,7 @@ import { ChecklistUsageInfo, SpellUse, spellUseToBoxRowEntry } from 'parser/core
 import SpellUsageSubSection from 'parser/core/SpellUsage/SpellUsageSubSection';
 
 import { getHardcast } from '../../normalizers/CastLinkNormalizer';
+import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 
 export default class CrimsonTempestUptimeAndSnapshots extends DotSnapshots {
   static dependencies = {
@@ -154,13 +156,22 @@ export default class CrimsonTempestUptimeAndSnapshots extends DotSnapshots {
     //   </>
     // );
 
+    const actualChecklistItems = animachargedCheckedUsageInfo(
+      this.selectedCombatant,
+      cast,
+      checklistItems,
+    );
+    const actualPerformance = combineQualitativePerformances(
+      actualChecklistItems.map((it) => it.performance),
+    );
+
     this.cooldownUses.push({
       event: cast,
-      performance: snapshotPerformance,
-      checklistItems: checklistItems,
+      performance: actualPerformance,
+      checklistItems: actualChecklistItems,
       performanceExplanation:
-        snapshotPerformance !== QualitativePerformance.Fail
-          ? `${snapshotPerformance} Usage`
+        actualPerformance !== QualitativePerformance.Fail
+          ? `${actualPerformance} Usage`
           : 'Bad Usage',
     });
 
