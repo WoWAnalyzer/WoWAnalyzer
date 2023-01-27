@@ -1,14 +1,24 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { SuggestionFactory, ThresholdStyle, When } from 'parser/core/ParseResults';
 import { RequirementThresholds } from 'parser/shared/modules/features/Checklist/Requirement';
+import BaseFlaskChecker from 'parser/shared/modules/items/FlaskChecker';
 
-const FLASK_IDS = [
+const MAX_FLASK_IDS = [
   54212, // https://www.wowhead.com/wotlk/spell=54212/flask-of-pure-mojo
   53758, // https://www.wowhead.com/wotlk/spell=53758/flask-of-stoneblood
   53755, // https://www.wowhead.com/wotlk/spell=53755/flask-of-the-frost-wyrm
   53760, // https://www.wowhead.com/wotlk/spell=53760/flask-of-endless-rage
+];
+
+const MIN_FLASK_IDS = [
+  28520, // https://www.wowhead.com/wotlk/spell=28520/flask-of-relentless-assault
+  28521, // https://www.wowhead.com/wotlk/spell=28521/flask-of-blinding-light
+  67019, // https://www.wowhead.com/wotlk/spell=67019/flask-of-the-north
+  28540, // https://www.wowhead.com/wotlk/spell=28540/flask-of-pure-death
+  28519, // https://www.wowhead.com/wotlk/spell=28519/flask-of-mighty-restoration
+  17627, // https://www.wowhead.com/wotlk/item=13511/flask-of-distilled-wisdom
 ];
 
 const GUARDIAN_ELIXIR_IDS = [
@@ -33,8 +43,8 @@ const BATTLE_ELIXIR_IDS = [
   53747, // https://www.wowhead.com/wotlk/spell=53747/elixir-of-spirit
 ];
 
-class FlaskChecker extends Analyzer {
-  flaskId: number | null = null;
+class FlaskChecker extends BaseFlaskChecker {
+  //flaskBuffId: number | null = null;
   guardianElixirId: number | null = null;
   battleElixirId: number | null = null;
 
@@ -43,11 +53,19 @@ class FlaskChecker extends Analyzer {
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this.onApplybuff);
   }
 
+  get MinFlaskIds(): number[] {
+    return MIN_FLASK_IDS;
+  }
+
+  get MaxFlaskIds(): number[] {
+    return MAX_FLASK_IDS;
+  }
+
   onApplybuff(event: ApplyBuffEvent) {
+    super.onApplybuff(event);
+
     const spellId = event.ability.guid;
-    if (FLASK_IDS.includes(spellId) && event.prepull) {
-      this.flaskId = spellId;
-    }
+
     if (GUARDIAN_ELIXIR_IDS.includes(spellId) && event.prepull) {
       this.guardianElixirId = spellId;
     }
@@ -58,7 +76,7 @@ class FlaskChecker extends Analyzer {
 
   get FlaskSuggestionThresholds(): RequirementThresholds {
     return {
-      actual: Boolean(this.flaskId) || Boolean(this.guardianElixirId && this.battleElixirId),
+      actual: Boolean(this.flaskBuffId) || Boolean(this.guardianElixirId && this.battleElixirId),
       isEqual: false,
       style: ThresholdStyle.BOOLEAN,
     };
@@ -66,7 +84,7 @@ class FlaskChecker extends Analyzer {
 
   get GuardianElixirSuggestionThresholds(): RequirementThresholds {
     return {
-      actual: !this.flaskId && !this.guardianElixirId,
+      actual: !this.flaskBuffId && !this.guardianElixirId,
       isEqual: true,
       style: ThresholdStyle.BOOLEAN,
     };
@@ -74,7 +92,7 @@ class FlaskChecker extends Analyzer {
 
   get BattleElixirSuggestionThresholds(): RequirementThresholds {
     return {
-      actual: !this.flaskId && !this.battleElixirId,
+      actual: !this.flaskBuffId && !this.battleElixirId,
       isEqual: true,
       style: ThresholdStyle.BOOLEAN,
     };
