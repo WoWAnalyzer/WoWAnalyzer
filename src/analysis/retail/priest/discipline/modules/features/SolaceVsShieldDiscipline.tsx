@@ -13,6 +13,10 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import './SolaceVsShieldDiscipline.scss';
 
+const SHIELD_DISC_MANA_RETURN_PERCENT = 0.005;
+
+const SOLACE_MANA_RETURN_PERCENT = 0.01;
+
 class SolaceVsShieldDiscipline extends Analyzer {
   consumedShields = 0;
   solaceCasts = 0;
@@ -83,7 +87,10 @@ class SolaceVsShieldDiscipline extends Analyzer {
             </div>
             <div id="solace-info">
               <div className="solace-number">
-                {formatThousands(this.solaceCasts * (this.maxMana * 0.01 + SPELLS.SMITE.manaCost))}
+                {formatThousands(
+                  this.solaceCasts *
+                    (this.maxMana * SOLACE_MANA_RETURN_PERCENT + SPELLS.SMITE.manaCost),
+                )}
               </div>
 
               <small>
@@ -98,7 +105,9 @@ class SolaceVsShieldDiscipline extends Analyzer {
               <SpellIcon id={TALENTS_PRIEST.SHIELD_DISCIPLINE_TALENT.id} />
             </div>
             <div id="solace-info">
-              {formatThousands(this.consumedShields * (this.maxMana * 0.005))}
+              {formatThousands(
+                this.consumedShields * (this.maxMana * SHIELD_DISC_MANA_RETURN_PERCENT),
+              )}
               <small>
                 <Trans id="priest.discipline.statistics.solace.shieldDisciplinePotential">
                   Shield Discipline potential return
