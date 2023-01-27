@@ -546,6 +546,13 @@ const spells = spellIndexableList({
     name: 'Rend',
     icon: 'ability_gouge',
   },
+
+  //T29 Arms 4-set buff
+  STRIKE_VULNERABILITIES_BUFF: {
+    id: 394173,
+    name: 'Strike Vulnerabilities',
+    icon: 'ability_criticalstrike',
+  },
 });
 
 export default spells;
