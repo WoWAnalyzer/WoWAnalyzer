@@ -157,9 +157,9 @@ class Bladestorm extends Analyzer {
     // Bladestorm should be aligned with Avatar
     badCast =
       badCast ||
-      (this.selectedCombatant.hasTalent(TALENTS.AVATAR_TALENT) &&
-        this.spellUsable.isAvailable(TALENTS.AVATAR_TALENT.id)) ||
-      this.spellUsable.cooldownRemaining(TALENTS.AVATAR_TALENT.id) < AVATAR_FORGIVENESS;
+      (this.selectedCombatant.hasTalent(TALENTS.AVATAR_SHARED_TALENT) &&
+        this.spellUsable.isAvailable(TALENTS.AVATAR_SHARED_TALENT.id)) ||
+      this.spellUsable.cooldownRemaining(TALENTS.AVATAR_SHARED_TALENT.id) < AVATAR_FORGIVENESS;
 
     if (badCast && !this.currentCast.text) {
       this.currentCast.text =
@@ -181,7 +181,7 @@ class Bladestorm extends Analyzer {
           Do not cast <SpellLink id={SPELLS.BLADESTORM.id} /> when you have rage to spend during
           single target fights. In multi-target situations, Bladestorm should not overlap with{' '}
           <SpellLink id={SPELLS.SWEEPING_STRIKES.id} /> and you should try to align Bladestorm with
-          cooldowns such as <SpellLink id={TALENTS.AVATAR_TALENT.id} /> and{' '}
+          cooldowns such as <SpellLink id={TALENTS.AVATAR_SHARED_TALENT.id} /> and{' '}
           <SpellLink id={TALENTS.WARBREAKER_TALENT.id} />
         </>,
       )

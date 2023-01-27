@@ -17,7 +17,7 @@ const BUFFER_MS = 50;
  * **Rampant Ferocity**
  * Spec Talent
  *
- * Ferocious Bite hits all nearby enemies affected by your Rip for 20% of the damage dealt.
+ * Ferocious Bite hits all nearby enemies affected by your Rip for 35% of the damage dealt.
  * Damage reduced beyond 5 target.
  */
 class RampantFerocity extends Analyzer {

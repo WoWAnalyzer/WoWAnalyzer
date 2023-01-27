@@ -10,7 +10,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { DRUID_COOLDOWNS } from 'analysis/retail/druid/restoration/constants';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
-const CDR_PER_TICK = 3000;
+const CDR_PER_TICK = 4000;
 
 class Dreamstate extends Analyzer {
   static dependencies = {

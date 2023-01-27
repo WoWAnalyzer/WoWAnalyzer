@@ -117,7 +117,8 @@ class HotTrackerMW extends HotTracker {
         bouncy: true,
         procDuration: this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT)
           ? RAPID_DIFFUSION *
-            this.selectedCombatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT)
+            this.selectedCombatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT) *
+            (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT) ? RISING_MIST : 1)
           : undefined,
       },
       {
@@ -134,6 +135,12 @@ class HotTrackerMW extends HotTracker {
               this.selectedCombatant.getTalentRank(TALENTS_MONK.MISTY_PEAKS_TALENT) +
             ENV_BASE_DURATION // misty peaks can be extended for 100% of base env duration
           : undefined,
+      },
+      {
+        spell: SPELLS.ENVELOPING_BREATH_HEAL,
+        duration: envMistDuration,
+        tickPeriod: 1000,
+        maxDuration: envMistDuration,
       },
       {
         spell: SPELLS.ESSENCE_FONT_BUFF,

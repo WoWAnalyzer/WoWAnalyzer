@@ -18,9 +18,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <Section title="DoTs">{modules.dotUptimes.guideSubsection}</Section>
 
         <Section title="Spells">
-          {/* TODO: Add Mindblast, and SW:D only during execute*/}
           <CooldownGraphSubsection.CoreCooldownsGraph />
-
           <CastingSubsection.CastingSubsection modules={modules} events={events} info={info} />
         </Section>
       </Section>

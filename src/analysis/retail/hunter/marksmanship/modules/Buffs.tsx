@@ -27,11 +27,6 @@ class Buffs extends CoreAuras {
         triggeredBySpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
       },
       {
-        spellId: TALENTS_HUNTER.DOUBLE_TAP_TALENT.id,
-        timelineHighlight: true,
-        triggeredBySpellId: TALENTS_HUNTER.DOUBLE_TAP_TALENT.id,
-      },
-      {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
       },

@@ -140,7 +140,7 @@ class DirectBeaconHealing extends Analyzer {
         <div className="pad">
           <div className="pull-right">
             <PlusIcon /> <UpArrowIcon style={{ transform: 'rotate(90deg)' }} />{' '}
-            <SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} />
+            <SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF} />
           </div>
           <label>
             <Trans id="paladin.holy.modules.beacons.directBeaconHealing.directBeaconHealing">

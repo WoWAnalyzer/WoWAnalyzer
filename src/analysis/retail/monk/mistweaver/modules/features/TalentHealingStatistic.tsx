@@ -15,6 +15,10 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import Upwelling from '../spells/Upwelling';
 import Unison from '../spells/Unison';
 import MistsOfLife from '../spells/MistsOfLife';
+import MistWrap from '../spells/MistWrap';
+import SheilunsGift from '../spells/SheilunsGift';
+import ShaohaosLessons from '../spells/ShaohaosLessons';
+import VeilOfPride from '../spells/VeilOfPride';
 
 class TalentHealingStatistic extends Analyzer {
   static dependencies = {
@@ -29,6 +33,10 @@ class TalentHealingStatistic extends Analyzer {
     cloudedFocus: CloudedFocus,
     unison: Unison,
     mistsOfLife: MistsOfLife,
+    mistWrap: MistWrap,
+    sheiluns: SheilunsGift,
+    shaohaos: ShaohaosLessons,
+    veilOfPride: VeilOfPride,
   };
   protected risingMist!: RisingMist;
   protected upwelling!: Upwelling;
@@ -41,6 +49,10 @@ class TalentHealingStatistic extends Analyzer {
   protected unison!: Unison;
   protected cloudedFocus!: CloudedFocus;
   protected mistsOfLife!: MistsOfLife;
+  protected mistWrap!: MistWrap;
+  protected sheiluns!: SheilunsGift;
+  protected shaohaos!: ShaohaosLessons;
+  protected veilOfPride!: VeilOfPride;
 
   buildTalentList() {
     const talentList = [];
@@ -76,6 +88,18 @@ class TalentHealingStatistic extends Analyzer {
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.MISTS_OF_LIFE_TALENT)) {
       talentList.push(this.mistsOfLife.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)) {
+      talentList.push(this.mistWrap.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT)) {
+      talentList.push(this.sheiluns.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT)) {
+      talentList.push(this.shaohaos.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.VEIL_OF_PRIDE_TALENT)) {
+      talentList.push(this.veilOfPride.subStatistic());
     }
     const sortedTalentList = talentList.sort(
       (a, b) => parseFloat(b.props.value) - parseFloat(a.props.value),

@@ -11,6 +11,7 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { DANCING_MIST_CHANCE, RAPID_DIFFUSION_DURATION } from '../../constants';
+import { isFromVivify } from '../../normalizers/CastLinkNormalizer';
 
 const RAPID_DIFFUSION_SPELLS = [
   TALENTS_MONK.ENVELOPING_MIST_TALENT,
@@ -31,9 +32,7 @@ class Vivify extends Analyzer {
 
   gomHealing: number = 0;
   gomOverhealing: number = 0;
-
   lastCastTarget: number = 0;
-  gomToCount: number = 0;
 
   expectedAverageReMs: number = 0;
   rdCasts: number = 0;
@@ -115,7 +114,6 @@ class Vivify extends Analyzer {
 
   vivCast(event: CastEvent) {
     this.casts += 1;
-    this.gomToCount += 1;
     this.mainTargetHitsToCount += 1;
     this.lastCastTarget = event.targetID || 0;
   }
@@ -133,10 +131,9 @@ class Vivify extends Analyzer {
   }
 
   handleMastery(event: HealEvent) {
-    if (this.lastCastTarget === event.targetID && this.gomToCount > 0) {
+    if (isFromVivify(event)) {
       this.gomHealing += (event.amount || 0) + (event.absorbed || 0);
       this.gomOverhealing += event.overheal || 0;
-      this.gomToCount -= 1;
     }
   }
   suggestions(when: When) {

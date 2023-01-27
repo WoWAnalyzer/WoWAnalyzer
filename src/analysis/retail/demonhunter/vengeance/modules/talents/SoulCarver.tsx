@@ -9,20 +9,15 @@ import { combineQualitativePerformances } from 'common/combineQualitativePerform
 import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/VulnerabilityExplanation';
 import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/FieryDemiseExplanation';
 import { Trans } from '@lingui/macro';
-import {
-  CheckedUsageInfo,
-  CooldownCast,
-  CooldownUse,
-  MajorCooldown,
-  UsageInfo,
-} from 'analysis/retail/demonhunter/shared/guide/MajorCooldowns/core';
+import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
+import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { isDefined } from 'common/typeGuards';
 
 const PERFECT_FRAILTY_STACKS = 5;
 const GOOD_FRAILTY_STACKS = 3;
 const OK_FRAILTY_STACKS = 1;
 
-interface SoulCarverCooldownCast extends CooldownCast {
+interface SoulCarverCooldownCast extends SpellCast {
   primaryTargetStacksOfFrailty: number;
   hasFieryBrandDebuff: boolean;
 }
@@ -36,7 +31,7 @@ export default class SoulCarver extends MajorCooldown<SoulCarverCooldownCast> {
   protected enemies!: Enemies;
 
   constructor(options: Options) {
-    super({ talent: TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT }, options);
+    super({ spell: TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT }, options);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT),
       this.onCast,
@@ -56,7 +51,7 @@ export default class SoulCarver extends MajorCooldown<SoulCarverCooldownCast> {
     );
   }
 
-  explainPerformance(cast: SoulCarverCooldownCast): CooldownUse {
+  explainPerformance(cast: SoulCarverCooldownCast): SpellUse {
     const {
       performance: frailtyPerf,
       summary: frailtyLabel,
@@ -71,10 +66,11 @@ export default class SoulCarver extends MajorCooldown<SoulCarverCooldownCast> {
     const overallPerf = combineQualitativePerformances(
       [frailtyPerf, fieryDemisePerf].filter(isDefined),
     );
-    const checklistItems: CheckedUsageInfo[] = [];
+    const checklistItems: ChecklistUsageInfo[] = [];
     if (frailtyPerf && frailtyLabel && frailtyDetails) {
       checklistItems.push({
         check: 'frailty',
+        timestamp: cast.event.timestamp,
         performance: frailtyPerf,
         summary: frailtyLabel,
         details: frailtyDetails,
@@ -83,6 +79,7 @@ export default class SoulCarver extends MajorCooldown<SoulCarverCooldownCast> {
     if (fieryDemisePerf && fieryDemiseLabel && fieryDemiseDetails) {
       checklistItems.push({
         check: 'fiery-demise',
+        timestamp: cast.event.timestamp,
         performance: fieryDemisePerf,
         summary: fieryDemiseLabel,
         details: fieryDemiseDetails,

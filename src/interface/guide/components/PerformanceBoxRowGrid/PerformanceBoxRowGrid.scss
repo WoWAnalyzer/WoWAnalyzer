@@ -1,0 +1,39 @@
+@import 'interface/guide/Guide';
+@import 'interface/Theme.scss';
+
+$shadow: 0 0 0px 1px hsla(45, 100%, 60%, 0.7);
+
+.performance-block-row-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  margin: 2px 0;
+  gap: 2px;
+
+  .performance-block {
+    height: 0.8em;
+    display: inline-block;
+
+    &:hover {
+      box-shadow: $shadow;
+    }
+    &.selected {
+      box-shadow: 0 0 0 2px $primaryColor;
+    }
+  }
+
+  .perfect-block {
+    background-color: $perfect-perf-color;
+  }
+
+  .good-block {
+    background-color: $good-perf-color;
+  }
+
+  .ok-block {
+    background-color: $ok-perf-color;
+  }
+
+  .bad-block {
+    background-color: $bad-perf-color;
+  }
+}

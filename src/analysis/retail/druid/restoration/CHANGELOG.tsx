@@ -5,6 +5,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2023, 1, 25), <>Updated numbers for 10.0.5 changes.</>, Sref),
   change(date(2023, 1, 21), <>Added statistic for Vault of the Incarnates 4 Piece. </>, Sref),
   change(date(2022, 12, 30), <>Improve accuracy of 2 piece module </>, Trevor),
   change(date(2022, 12, 29), <>Added statistic for Vault of the Incarnates 2 Piece. </>, Phased),
@@ -14,7 +15,7 @@ export default [
   change(date(2022, 11, 16), <>Added statistic for <SpellLink id={TALENTS_DRUID.DREAMSTATE_TALENT.id} />.</>, Phased),
   change(date(2022, 11, 13), <>Added cast efficiency numbers to Guide cooldown bars.</>, Sref),
   change(date(2022, 10, 31), <>Added statistic for <SpellLink id={TALENTS_DRUID.BUDDING_LEAVES_TALENT.id} /></>, Sref),
-  change(date(2022, 10, 30), <>Fixed an issue where tracked HoT durations were not scaling correctly with <SpellLink id={TALENTS_DRUID.GERMINATION_TALENT.id} /> and <SpellLink id={TALENTS_DRUID.CIRCLE_OF_LIFE_AND_DEATH_TALENT.id} /></>, Sref),
+  change(date(2022, 10, 30), <>Fixed an issue where tracked HoT durations were not scaling correctly with <SpellLink id={TALENTS_DRUID.GERMINATION_TALENT.id} /> and <SpellLink id={TALENTS_DRUID.CIRCLE_OF_LIFE_AND_DEATH_SPEC_TALENT.id} /></>, Sref),
   change(date(2022, 10, 30), <>Added talent point count to <SpellLink id={TALENTS_DRUID.REGENESIS_TALENT.id} /> and cleaned up some unintended console spam.</>, Sref),
   change(date(2022, 10, 28), <>Rearranged Guide's 'Cooldown Breakdown' section for improved readability</>, Sref),
   change(date(2022, 10, 25), <>Updated numbers to account for pre-patch tuning pass.</>, Sref),

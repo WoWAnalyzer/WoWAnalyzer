@@ -1,4 +1,3 @@
-import { EnergyCapTracker } from 'analysis/retail/rogue/shared'; // todo use the outlaw cap tracker once available
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -7,6 +6,7 @@ import Events, { CastEvent } from 'parser/core/Events';
 import TALENTS from 'common/TALENTS/rogue';
 
 import { ROLL_THE_BONES_BUFFS, ROLL_THE_BONES_DURATION } from '../../constants';
+import OutlawEnergyCapTracker from 'analysis/retail/rogue/outlaw/modules/core/OutlawEnergyCapTracker';
 
 export const ROLL_THE_BONES_CATEGORIES = {
   LOW_VALUE: 'low',
@@ -68,9 +68,9 @@ class RollTheBonesCastTracker extends Analyzer {
   }
 
   static dependencies = {
-    energyCapTracker: EnergyCapTracker,
+    energyCapTracker: OutlawEnergyCapTracker,
   };
-  protected energyCapTracker!: EnergyCapTracker;
+  protected energyCapTracker!: OutlawEnergyCapTracker;
 
   rolltheBonesCastEvents: RTBCast[] = [];
   rolltheBonesCastValues = Object.values(ROLL_THE_BONES_CATEGORIES).reduce(

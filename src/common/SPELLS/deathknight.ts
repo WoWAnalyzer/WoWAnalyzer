@@ -331,6 +331,12 @@ const spells = spellIndexableList({
     icon: 'spell_shadow_painspike',
   },
 
+  T29_GHOULISH_INFUSION: {
+    id: 394899,
+    name: 'Ghoulish Infusion',
+    icon: 'spell_necro_deathsknell',
+  },
+
   // Shared:
   RUNEFORGING: {
     id: 53428,

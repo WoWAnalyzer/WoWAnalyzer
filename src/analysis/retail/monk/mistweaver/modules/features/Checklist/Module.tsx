@@ -22,6 +22,7 @@ import AlwaysBeCasting from '../AlwaysBeCasting';
 import Component from './Component';
 import VivaciousVivification from '../../spells/VivaciousVivify';
 import AncientTeachingsoftheMonastery from '../../spells/AncientTeachingsoftheMonastery';
+import SheilunsGift from '../../spells/SheilunsGift';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -47,6 +48,7 @@ class Checklist extends BaseChecklist {
     EssenceFontCancelled: EssenceFontCancelled,
     vivaciousVivification: VivaciousVivification,
     ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
+    sheiluns: SheilunsGift,
   };
   protected combatants!: Combatants;
   protected castEfficiency!: CastEfficiency;
@@ -69,6 +71,7 @@ class Checklist extends BaseChecklist {
   protected EssenceFontCancelled!: EssenceFontCancelled;
   protected vivaciousVivification!: VivaciousVivification;
   protected ancientTeachingsoftheMonastery!: AncientTeachingsoftheMonastery;
+  protected sheiluns!: SheilunsGift;
 
   render() {
     return (
@@ -77,8 +80,8 @@ class Checklist extends BaseChecklist {
         castEfficiency={this.castEfficiency}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
-          nonHealingTimeSuggestionThresholds: this.alwaysBeCasting
-            .nonHealingTimeSuggestionThresholds,
+          nonHealingTimeSuggestionThresholds:
+            this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           manaLeft: this.manaValues.suggestionThresholds,
           essenceFont: this.EssenceFontTargetsHit.suggestionThresholds,
@@ -98,6 +101,7 @@ class Checklist extends BaseChecklist {
           EssenceFontCancelled: this.EssenceFontCancelled.suggestionThresholds,
           vivaciousVivification: this.vivaciousVivification.suggestionThresholds,
           ancientTeachings: this.ancientTeachingsoftheMonastery.suggestionThresholds,
+          sheiluns: this.sheiluns.suggestionThresholds,
         }}
       />
     );

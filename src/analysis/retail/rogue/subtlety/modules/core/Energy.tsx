@@ -16,9 +16,7 @@ class Energy extends Analyzer {
 
   get energyThresholds() {
     return {
-      actual:
-        (this.energyTracker.wasted + this.energyCapTracker.missedRegen) /
-        (this.energyTracker.generated + this.energyCapTracker.naturalRegen),
+      actual: this.energyTracker.wasted / this.energyTracker.generated,
       isGreaterThan: {
         minor: 0.033,
         average: 0.066,
