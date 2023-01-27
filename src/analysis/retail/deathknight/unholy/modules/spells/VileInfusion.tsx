@@ -24,12 +24,12 @@ class VileInfusion extends Analyzer {
     }
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.VILE_INFUSION_BUFF),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.T29_VILE_INFUSION_BUFF),
       this.onBuffEvent,
     );
 
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.VILE_INFUSION_BUFF),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.T29_VILE_INFUSION_BUFF),
       this.onRemoveBuff,
     );
 
@@ -63,7 +63,7 @@ class VileInfusion extends Analyzer {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
           <span>
-            You are not keeping up your <SpellLink id={SPELLS.VILE_INFUSION_BUFF.id} /> enough.{' '}
+            You are not keeping up your <SpellLink id={SPELLS.T29_VILE_INFUSION_BUFF.id} /> enough.{' '}
             Prioritise maintaining it by bursting <SpellLink id={SPELLS.FESTERING_WOUND.id} />
             s.
           </span>,
@@ -92,7 +92,7 @@ class VileInfusion extends Analyzer {
         position={STATISTIC_ORDER.CORE(1)}
         size="flexible"
       >
-        <BoringSpellValueText spellId={SPELLS.VILE_INFUSION_BUFF.id}>
+        <BoringSpellValueText spellId={SPELLS.T29_VILE_INFUSION_BUFF.id}>
           <>
             {formatPercentage(this.averageBuffUptime)}% <small>Vile Infusion uptime</small>
           </>
