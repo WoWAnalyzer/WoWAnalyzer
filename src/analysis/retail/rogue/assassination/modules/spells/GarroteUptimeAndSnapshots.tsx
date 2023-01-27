@@ -6,6 +6,7 @@ import DotSnapshots, { SnapshotSpec } from 'parser/core/DotSnapshots';
 import { IMPROVED_GARROTE_SPEC, NIGHTSTALKER_SPEC } from '../core/Snapshots';
 import { ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import {
+  animachargedCheckedUsageInfo,
   getGarroteDuration,
   SNAPSHOT_DOWNGRADE_BUFFER,
 } from 'analysis/retail/rogue/assassination/constants';
@@ -17,6 +18,7 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { formatDurationMillisMinSec } from 'common/format';
 import { ChecklistUsageInfo, SpellUse, spellUseToBoxRowEntry } from 'parser/core/SpellUsage/core';
 import SpellUsageSubSection from 'parser/core/SpellUsage/SpellUsageSubSection';
+import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 
 export default class GarroteUptimeAndSnapshots extends DotSnapshots {
   static dependencies = {
@@ -135,13 +137,22 @@ export default class GarroteUptimeAndSnapshots extends DotSnapshots {
     //   </>
     // );
 
+    const actualChecklistItems = animachargedCheckedUsageInfo(
+      this.selectedCombatant,
+      cast,
+      checklistItems,
+    );
+    const actualPerformance = combineQualitativePerformances(
+      actualChecklistItems.map((it) => it.performance),
+    );
+
     this.cooldownUses.push({
       event: cast,
-      performance: snapshotPerformance,
-      checklistItems: checklistItems,
+      performance: actualPerformance,
+      checklistItems: actualChecklistItems,
       performanceExplanation:
-        snapshotPerformance !== QualitativePerformance.Fail
-          ? `${snapshotPerformance} Usage`
+        actualPerformance !== QualitativePerformance.Fail
+          ? `${actualPerformance} Usage`
           : 'Bad Usage',
     });
 

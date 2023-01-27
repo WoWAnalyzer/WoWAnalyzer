@@ -7,10 +7,9 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import getResourceSpent from 'parser/core/getResourceSpent';
-import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
 
-import { FINISHERS, getMaxComboPoints } from '../../constants';
+import { FINISHERS, getMaxComboPoints, isAnimachargedFinisherCast } from '../../constants';
 import { formatDurationMillisMinSec } from 'common/format';
 
 const OPENER_MAX_DURATION_MS = 15000;
@@ -99,27 +98,11 @@ export default class FinisherUse extends Analyzer {
       return;
     }
 
-    const hasAnimacharged2CP = this.selectedCombatant.hasBuff(
-      SPELLS.ANIMACHARGED_CP2.id,
-      event.timestamp,
-    );
-    const hasAnimacharged3CP = this.selectedCombatant.hasBuff(
-      SPELLS.ANIMACHARGED_CP3.id,
-      event.timestamp,
-    );
-    const hasAnimacharged4CP = this.selectedCombatant.hasBuff(
-      SPELLS.ANIMACHARGED_CP4.id,
-      event.timestamp,
-    );
     const timeIntoEncounter = event.timestamp - this.owner.fight.start_time;
     const isInOpener = timeIntoEncounter <= OPENER_MAX_DURATION_MS;
 
     this.totalFinisherCasts += 1;
-    if (hasAnimacharged2CP && cpsSpent === 2) {
-      this.animachargedCasts += 1;
-    } else if (hasAnimacharged3CP && cpsSpent === 3) {
-      this.animachargedCasts += 1;
-    } else if (hasAnimacharged4CP && cpsSpent === 4) {
+    if (isAnimachargedFinisherCast(this.selectedCombatant, event)) {
       this.animachargedCasts += 1;
     } else if (cpsSpent < getMaxComboPoints(this.selectedCombatant) - 1) {
       if (isInOpener) {
