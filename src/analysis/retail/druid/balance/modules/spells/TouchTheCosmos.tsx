@@ -6,45 +6,24 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TIERS } from 'game/TIERS';
-// import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { SpellLink } from 'interface';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STARFALL_BASE_COST, STARSURGE_BASE_COST } from '../../constants';
-
-// const TOUCH_COSMOS = {
-//   DAMAGE_BONUS: 0.35,
-//   STARSURGE_DELAY: 3200,
-//   STARSURGE_MIN: 100,
-
-//   AFFECTED_CAST: [SPELLS.STARSURGE_MOONKIN, SPELLS.STARFALL_CAST],
-//   AFFECTED_DAMAGE: [SPELLS.STARSURGE_MOONKIN, SPELLS.STARFALL],
-// };
 
 const AFFECTED_CAST = [SPELLS.STARSURGE_MOONKIN, SPELLS.STARFALL_CAST];
 class TouchTheCosmos extends Analyzer {
   totalDamage = 0;
   totcBuffedAbilities: { [key: number]: number } = {};
-  // totcActivationTimestamp: number | null = null;
-  // totcConsumptionTimestamp: number | null = null;
-  // listCastStarsurge: number[];
-  // listCastStarsurgeTimestamps: number[];
   savedAP = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.has4PieceByTier(TIERS.T29);
-    // this.listCastStarsurge = [];
-    // this.listCastStarsurgeTimestamps = [];
 
     Object.values(AFFECTED_CAST).forEach((spell) => {
       this.totcBuffedAbilities[spell.id] = 0;
     });
-
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(AFFECTED_CAST), this.onCast);
-    // this.addEventListener(
-    //   Events.damage.by(SELECTED_PLAYER).spell(TOUCH_COSMOS.AFFECTED_DAMAGE),
-    //   this.onDamage,
-    // );
   }
 
   onCast(event: CastEvent) {
@@ -55,9 +34,6 @@ class TouchTheCosmos extends Analyzer {
 
     this.totcBuffedAbilities[event.ability.guid] += 1;
     if (event.ability.guid === SPELLS.STARSURGE_MOONKIN.id) {
-      //Append a Starsurge CastEvent and keep its timestamp
-      // this.listCastStarsurge.push(1);
-      // this.listCastStarsurgeTimestamps.push(event.timestamp);
       this.savedAP += STARSURGE_BASE_COST;
     }
     if (event.ability.guid === SPELLS.STARFALL_CAST.id) {
@@ -65,47 +41,7 @@ class TouchTheCosmos extends Analyzer {
     }
   }
 
-  // onDamage(event: DamageEvent) {
-  //   let checkCastList = true;
-
-  //   //Starsurge
-  //   if (event.ability.guid === SPELLS.STARSURGE_MOONKIN.id) {
-  //     while (checkCastList) {
-  //       if (!this.listCastStarsurge) {
-  //         // No CastEvent remaining, discard this source of damage. Ex: Wraths from Convoke
-  //         return;
-  //       }
-  //       if (
-  //         event.timestamp < (this.listCastStarsurgeTimestamps[0] + TOUCH_COSMOS.STARSURGE_MIN || 0)
-  //       ) {
-  //         // DamageEvent before a CastEvent, discard this source of damage.
-  //         return;
-  //       }
-  //       if (
-  //         event.timestamp >
-  //         (this.listCastStarsurgeTimestamps[0] || Infinity) + TOUCH_COSMOS.STARSURGE_DELAY
-  //       ) {
-  //         // DamageEvent to long after a CastEvent, discard this CastEvent
-  //         // (this is why their is a while loop) and try the next one.
-  //         this.listCastStarsurge.shift();
-  //         this.listCastStarsurgeTimestamps.shift();
-  //       } else {
-  //         // DamageEvent and CastEvent are within an acceptable timeframe, match theem together
-  //         this.listCastStarsurge.shift();
-  //         this.totalDamage += calculateEffectiveDamage(event, TOUCH_COSMOS.DAMAGE_BONUS);
-  //         this.listCastStarsurgeTimestamps.shift();
-  //         checkCastList = false;
-  //       }
-  //     }
-  //   }
-  //   //Starfall
-  //   if (event.ability.guid === SPELLS.STARFALL.id) {
-  //     return;
-  //   }
-  // }
-
   statistic() {
-    // const dpsAdded = this.totalDamage / (this.owner.fightDuration / 1000);
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(11)}
