@@ -59,7 +59,7 @@ class EmeraldCommunion extends Analyzer {
           <SpellLink id={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />.
         </>,
       )
-        .icon(TALENTS_EVOKER.DREAM_FLIGHT_TALENT.icon)
+        .icon(TALENTS_EVOKER.EMERALD_COMMUNION_TALENT.icon)
         .actual(
           `${formatPercentage(this.percentWithLifebindOnCast, 2)}${t({
             id: 'evoker.preservation.suggestions.emeraldCommunion.numLifebinds',
