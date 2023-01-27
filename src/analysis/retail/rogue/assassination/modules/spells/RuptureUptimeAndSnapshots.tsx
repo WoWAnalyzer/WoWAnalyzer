@@ -15,7 +15,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { formatDurationMillisMinSec } from 'common/format';
-import { ChecklistUsageInfo, SpellUse, spellUseToBoxRowEntry } from 'parser/core/SpellUsage/core';
+import { SpellUse, spellUseToBoxRowEntry } from 'parser/core/SpellUsage/core';
 import SpellUsageSubSection from 'parser/core/SpellUsage/SpellUsageSubSection';
 
 import { getHardcast } from '../../normalizers/CastLinkNormalizer';
@@ -108,7 +108,7 @@ export default class RuptureUptimeAndSnapshots extends DotSnapshots {
       );
     }
 
-    const checklistItems: ChecklistUsageInfo[] = [
+    const actualChecklistItems = animachargedCheckedUsageInfo(this.selectedCombatant, cast, [
       {
         check: 'snapshot',
         timestamp: cast.timestamp,
@@ -116,42 +116,7 @@ export default class RuptureUptimeAndSnapshots extends DotSnapshots {
         summary: snapshotSummary,
         details: snapshotDetails,
       },
-    ];
-
-    // const tooltip = (
-    //   <>
-    //     @ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
-    //     <strong>{targetName || 'unknown'}</strong>
-    //     <br />
-    //     {prevSnapshotNames !== null && (
-    //       <>
-    //         Refreshed on target w/ {(remainingOnPrev / 1000).toFixed(1)}s remaining{' '}
-    //         {clipped > 0 && (
-    //           <>
-    //             <strong>- Clipped {(clipped / 1000).toFixed(1)}s!</strong>
-    //           </>
-    //         )}
-    //         <br />
-    //       </>
-    //     )}
-    //     Snapshots: <strong>{snapshotNames.length === 0 ? 'NONE' : snapshotNames.join(', ')}</strong>
-    //     <br />
-    //     {prevSnapshotNames !== null && (
-    //       <>
-    //         Prev Snapshots:{' '}
-    //         <strong>
-    //           {prevSnapshotNames.length === 0 ? 'NONE' : prevSnapshotNames.join(', ')}
-    //         </strong>
-    //       </>
-    //     )}
-    //   </>
-    // );
-
-    const actualChecklistItems = animachargedCheckedUsageInfo(
-      this.selectedCombatant,
-      cast,
-      checklistItems,
-    );
+    ]);
     const actualPerformance = combineQualitativePerformances(
       actualChecklistItems.map((it) => it.performance),
     );

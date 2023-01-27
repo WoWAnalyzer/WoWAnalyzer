@@ -441,6 +441,11 @@ const spells = spellIndexableList({
     name: 'Toxic Blade',
     icon: 'inv_weapon_shortblade_62',
   },
+  IMPROVED_GARROTE_BUFF: {
+    id: 392403,
+    name: 'Improved Garrote',
+    icon: 'ability_rogue_garrote',
+  },
 
   // Sets
   ASSA_ROGUE_TIER_28_2P_SET_BONUS: {
