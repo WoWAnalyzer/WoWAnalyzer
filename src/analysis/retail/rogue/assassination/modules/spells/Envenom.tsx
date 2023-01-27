@@ -9,7 +9,10 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { formatDurationMillisMinSec } from 'common/format';
 import { ReactNode } from 'react';
 import SpellLink from 'interface/SpellLink';
-import { getMaxComboPoints } from 'analysis/retail/rogue/assassination/constants';
+import {
+  animachargedCheckedUsageInfo,
+  getMaxComboPoints,
+} from 'analysis/retail/rogue/assassination/constants';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import SpellUsageSubSection from 'parser/core/SpellUsage/SpellUsageSubSection';
 
@@ -53,6 +56,13 @@ export default class Envenom extends Analyzer {
         explanation={explanation}
         performance={performances}
         uses={this.cooldownUses}
+        castBreakdownSmallText={
+          <>
+            {' '}
+            - Blue is an Animacharged cast, Green is a good cast, Yellow is an ok cast, Red is a bad
+            cast.
+          </>
+        }
       />
     );
   }
@@ -127,7 +137,6 @@ export default class Envenom extends Analyzer {
       );
     }
 
-    const overallPerf = combineQualitativePerformances([rupturePerformance, cpsPerformance]);
     const checklistItems: ChecklistUsageInfo[] = [
       {
         check: 'rupture',
@@ -145,12 +154,23 @@ export default class Envenom extends Analyzer {
       },
     ];
 
+    const actualChecklistItems = animachargedCheckedUsageInfo(
+      this.selectedCombatant,
+      event,
+      checklistItems,
+    );
+    const actualPerformance = combineQualitativePerformances(
+      actualChecklistItems.map((it) => it.performance),
+    );
+
     this.cooldownUses.push({
       event,
-      performance: overallPerf,
-      checklistItems,
+      performance: actualPerformance,
+      checklistItems: actualChecklistItems,
       performanceExplanation:
-        overallPerf !== QualitativePerformance.Fail ? `${overallPerf} Usage` : 'Bad Usage',
+        actualPerformance !== QualitativePerformance.Fail
+          ? `${actualPerformance} Usage`
+          : 'Bad Usage',
     });
 
     // TODO also highlight 'bad' Envenoms in the timeline
