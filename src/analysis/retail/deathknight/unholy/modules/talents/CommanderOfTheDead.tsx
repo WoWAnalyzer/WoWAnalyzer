@@ -40,12 +40,9 @@ class CommanderOfTheDead extends Analyzer {
   }
 
   onBuffEvent(event: ApplyBuffEvent) {
-    let summonId = '';
-    if (event.targetInstance) {
-      summonId = event.targetID.toString() + '|' + event.targetInstance.toString(); // This is needed since the buff sometimes applies twice to the same summon.
-    } else {
-      summonId = event.targetID.toString();
-    }
+    const summonId = event.targetInstance
+      ? event.targetID.toString() + '|' + event.targetInstance.toString()
+      : event.targetID.toString(); // This is needed since the buff sometimes applies twice to the same summon.
     if (!this.summonedPets.includes(summonId)) {
       // This is the rare case of a pet being summoned without a summon event (potentially pre-combat).
       this.summonedPets.push(summonId);
@@ -55,29 +52,27 @@ class CommanderOfTheDead extends Analyzer {
       // Account for the case of double-buffing the same mob.
       this.commanderBuffs += 1;
       this.buffedPets.push(summonId);
-      console.log('Buffed!');
-      console.log(this.commanderBuffs);
     }
   }
 
   onSummonEvent(event: SummonEvent) {
     if (this.petSummonIDs.includes(event.ability.guid)) {
       // We keep track of what has been summoned in case of a buff event on a minion that doesn't have a proper summon event.
-      let summonId = '';
-      if (event.targetInstance) {
-        summonId = event.targetID.toString() + '|' + event.targetInstance.toString();
-      } else {
-        summonId = event.targetID.toString();
-      }
+      const summonId = event.targetInstance
+        ? event.targetID.toString() + '|' + event.targetInstance.toString()
+        : event.targetID.toString();
       this.summonedPets.push(summonId);
       this.petSummons += 1;
     }
   }
 
+  get averageSummonBuffed() {
+    return Number(this.commanderBuffs / this.petSummons);
+  }
+
   suggestions(when: When) {
-    const averageSummonBuffed = Number(this.commanderBuffs / this.petSummons);
     // Buffing your pets with Commander of the Dead is vital to do optial DPS
-    when(averageSummonBuffed)
+    when(this.averageSummonBuffed)
       .isLessThan(1)
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
@@ -94,19 +89,18 @@ class CommanderOfTheDead extends Analyzer {
           .actual(
             t({
               id: 'deathknight.unholy.suggestions.commanderofthedead.efficiency',
-              message: `An average ${(averageSummonBuffed * 100).toFixed(
-                2,
+              message: `An average ${formatPercentage(
+                this.averageSummonBuffed,
               )}% of summons were buffed with Commander of the Dead`,
             }),
           )
-          .recommended(`${recommended * 100}% is recommended`)
+          .recommended(`${formatPercentage(recommended)}% is recommended`)
           .regular(recommended - 0.05)
           .major(recommended - 0.1),
       );
   }
 
   statistic() {
-    const averageSummonBuffed = Number(this.commanderBuffs / this.petSummons);
     return (
       <Statistic
         tooltip={`You buffed ${this.commanderBuffs} out of ${this.petSummons} pets buffed with Commander of the Dead`}
@@ -115,7 +109,7 @@ class CommanderOfTheDead extends Analyzer {
       >
         <BoringSpellValueText spellId={SPELLS.COMMANDER_OF_THE_DEAD_BUFF.id}>
           <>
-            {formatPercentage(averageSummonBuffed)}%{' '}
+            {formatPercentage(this.averageSummonBuffed)}%{' '}
             <small>of pets buffed with Commander of the Dead</small>
           </>
         </BoringSpellValueText>
