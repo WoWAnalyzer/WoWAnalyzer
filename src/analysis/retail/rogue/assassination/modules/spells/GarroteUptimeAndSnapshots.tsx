@@ -3,7 +3,7 @@ import { SpellLink } from 'interface';
 import { Options } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import DotSnapshots, { SnapshotSpec } from 'parser/core/DotSnapshots';
-import { IMPROVED_GARROTE_SPEC, NIGHTSTALKER_SPEC } from '../core/Snapshots';
+import { IMPROVED_GARROTE_SPEC } from '../core/Snapshots';
 import { ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import {
   animachargedCheckedUsageInfo,
@@ -31,7 +31,7 @@ export default class GarroteUptimeAndSnapshots extends DotSnapshots {
   protected enemies!: Enemies;
 
   constructor(options: Options) {
-    super(SPELLS.GARROTE, SPELLS.GARROTE, [NIGHTSTALKER_SPEC, IMPROVED_GARROTE_SPEC], options);
+    super(SPELLS.GARROTE, SPELLS.GARROTE, [IMPROVED_GARROTE_SPEC], options);
   }
 
   getDotExpectedDuration(event: ApplyDebuffEvent | RefreshDebuffEvent): number {
@@ -172,7 +172,6 @@ export default class GarroteUptimeAndSnapshots extends DotSnapshots {
         </strong>{' '}
         is your highest damage-per-energy single target builder. Try to keep it active on all
         targets (except when in a many-target AoE situation). Garrote snapshots{' '}
-        <SpellLink id={TALENTS.NIGHTSTALKER_TALENT.id} /> and{' '}
         <SpellLink id={TALENTS.IMPROVED_GARROTE_TALENT.id} /> - when forced to refresh with a weaker
         snapshot, try to wait until the last moment in order to overwrite the minimum amount of the
         stronger DoT.
@@ -218,6 +217,7 @@ export default class GarroteUptimeAndSnapshots extends DotSnapshots {
       },
       this.snapshotUptimes,
       SubPercentageStyle.RELATIVE,
+      true,
     );
   }
 }

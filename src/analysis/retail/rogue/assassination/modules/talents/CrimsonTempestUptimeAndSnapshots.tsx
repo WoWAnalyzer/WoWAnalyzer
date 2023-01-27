@@ -2,7 +2,6 @@ import { SpellLink } from 'interface';
 import { Options } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import DotSnapshots, { SnapshotSpec } from 'parser/core/DotSnapshots';
-import { NIGHTSTALKER_SPEC } from '../core/Snapshots';
 import { ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import {
   animachargedCheckedUsageInfo,
@@ -33,12 +32,7 @@ export default class CrimsonTempestUptimeAndSnapshots extends DotSnapshots {
   protected enemies!: Enemies;
 
   constructor(options: Options) {
-    super(
-      TALENTS.CRIMSON_TEMPEST_TALENT,
-      TALENTS.CRIMSON_TEMPEST_TALENT,
-      [NIGHTSTALKER_SPEC],
-      options,
-    );
+    super(TALENTS.CRIMSON_TEMPEST_TALENT, TALENTS.CRIMSON_TEMPEST_TALENT, [], options);
   }
 
   getDotExpectedDuration(event: ApplyDebuffEvent | RefreshDebuffEvent): number {
@@ -215,8 +209,9 @@ export default class CrimsonTempestUptimeAndSnapshots extends DotSnapshots {
         castBreakdownSmallText={
           <>
             {' '}
-            - Green is a good cast, Yellow is an ok cast (clipped duration but upgraded snapshot),
-            Red is a bad cast (clipped duration or downgraded snapshot w/ &gt;
+            - Blue is an Animacharged cast, Green is a good cast, Yellow is an ok cast (clipped
+            duration but upgraded snapshot), Red is a bad cast (clipped duration or downgraded
+            snapshot w/ &gt;
             {formatDurationMillisMinSec(SNAPSHOT_DOWNGRADE_BUFFER)} remaining).
           </>
         }

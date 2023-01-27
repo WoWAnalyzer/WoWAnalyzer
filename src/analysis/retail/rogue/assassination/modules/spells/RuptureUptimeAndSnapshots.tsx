@@ -3,7 +3,6 @@ import { SpellLink } from 'interface';
 import { Options } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import DotSnapshots, { SnapshotSpec } from 'parser/core/DotSnapshots';
-import { NIGHTSTALKER_SPEC } from '../core/Snapshots';
 import { ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import {
   animachargedCheckedUsageInfo,
@@ -33,7 +32,7 @@ export default class RuptureUptimeAndSnapshots extends DotSnapshots {
   protected enemies!: Enemies;
 
   constructor(options: Options) {
-    super(SPELLS.RUPTURE, SPELLS.RUPTURE, [NIGHTSTALKER_SPEC], options);
+    super(SPELLS.RUPTURE, SPELLS.RUPTURE, [], options);
   }
 
   getDotExpectedDuration(event: ApplyDebuffEvent | RefreshDebuffEvent): number {
@@ -207,8 +206,9 @@ export default class RuptureUptimeAndSnapshots extends DotSnapshots {
         castBreakdownSmallText={
           <>
             {' '}
-            - Green is a good cast, Yellow is an ok cast (clipped duration but upgraded snapshot),
-            Red is a bad cast (clipped duration or downgraded snapshot w/ &gt;
+            - Blue is an Animacharged cast, Green is a good cast, Yellow is an ok cast (clipped
+            duration but upgraded snapshot), Red is a bad cast (clipped duration or downgraded
+            snapshot w/ &gt;
             {formatDurationMillisMinSec(SNAPSHOT_DOWNGRADE_BUFFER)} remaining).
           </>
         }
