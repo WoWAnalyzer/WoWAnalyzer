@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { Hartra344, Sref, ToppleTheNun, ap2355 } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
-import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2023, 1, 24), <>Added statistics support for <SpellLink id={SPELLS.TOUCH_THE_COSMOS} /></>, ap2355 ),
   change(date(2023, 1, 24), <>Added statistics support for <SpellLink id={TALENTS_DRUID.STARWEAVER_TALENT} /></>, ap2355 ),
   change(date(2023, 1, 23), <>Added statistics support for <SpellLink id={SPELLS.GATHERING_STARSTUFF} /></>, ap2355 ),
   change(date(2023, 1, 18), <>Added statistics support for <SpellLink id={TALENTS_DRUID.RATTLE_THE_STARS_TALENT} /></>, Hartra344 ),
