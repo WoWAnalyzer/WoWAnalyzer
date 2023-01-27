@@ -28,7 +28,8 @@ export default {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/bxFnaCzR972tcqLQ/2-Mythic+Eranog+-+Kill+(2:31)/Seldom',
+  exampleReport:
+    '/report/Fdfk6LPncg17BHAr/13-Heroic+Raszageth+the+Storm-Eater+-+Kill+(9:24)/Xanq/standard',
   guideDefault: true,
   guideOnly: true,
 

@@ -39,12 +39,14 @@ import BattlelordBuff from './normalizers/BattlelordBuff';
 import OverpowerStacks from './normalizers/OverpowerStacks';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
 import FatalMark from './modules/talents/FatalMark';
+import ExecuteNormalizer from './normalizers/ExecuteNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizers
     overpowerStacks: OverpowerStacks,
     battlelordBuff: BattlelordBuff,
+    executeNormalizer: ExecuteNormalizer,
 
     // WarriorCore
     abilities: Abilities,

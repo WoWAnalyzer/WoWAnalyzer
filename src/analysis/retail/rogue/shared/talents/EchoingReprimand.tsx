@@ -5,10 +5,10 @@ import { ResourceIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class EchoingReprimand extends Analyzer {
   static dependencies = {
@@ -50,13 +50,13 @@ class EchoingReprimand extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`${formatNumber(this.damage)} total damage done.`}
       >
-        <BoringSpellValueText spellId={TALENTS.ECHOING_REPRIMAND_TALENT.id}>
+        <TalentSpellText talent={TALENTS.ECHOING_REPRIMAND_TALENT}>
           <ItemDamageDone amount={this.damage} />
           <br />
           <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink />
           {this.comboPointsGained}/{this.comboPointsWasted + this.comboPointsGained}
           <small> Combo Points gained</small>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }
