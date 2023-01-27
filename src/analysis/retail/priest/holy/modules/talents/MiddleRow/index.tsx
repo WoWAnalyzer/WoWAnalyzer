@@ -5,6 +5,7 @@ import PrayerCircle from './PrayerCircle';
 import RevitalizingPrayers from './RevitalizingPrayers';
 import TrailOfLight from './TrailOfLight';
 import EverlastingLight from './EverlastingLight';
+import PrayerfulLitany from './PrayerfulLitany';
 
 export {
   Benediction,
@@ -14,4 +15,5 @@ export {
   TrailOfLight,
   RevitalizingPrayers,
   EverlastingLight,
+  PrayerfulLitany,
 };
