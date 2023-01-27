@@ -129,19 +129,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.DOUBLE_TAP_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 60,
-        enabled: combatant.hasTalent(TALENTS.DOUBLE_TAP_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-      },
-      {
         spell: TALENTS.BARRAGE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 20,

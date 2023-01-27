@@ -1,5 +1,4 @@
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellLink } from 'interface';
@@ -20,11 +19,11 @@ class MaraadsOverheal extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.cast.spell(SPELLS.LIGHT_OF_THE_MARTYR).by(SELECTED_PLAYER),
+      Events.cast.spell(TALENTS.LIGHT_OF_THE_MARTYR_TALENT).by(SELECTED_PLAYER),
       this.cast,
     );
     this.addEventListener(
-      Events.heal.spell(SPELLS.LIGHT_OF_THE_MARTYR).by(SELECTED_PLAYER),
+      Events.heal.spell(TALENTS.LIGHT_OF_THE_MARTYR_TALENT).by(SELECTED_PLAYER),
       this.heal,
     );
   }
@@ -60,8 +59,8 @@ class MaraadsOverheal extends Analyzer {
     when(this.overhealSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to avoid casting <SpellLink id={TALENTS.MARAADS_DYING_BREATH_TALENT.id} /> buffed
-          <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when a large portion of it would
+          Try to avoid casting <SpellLink id={TALENTS.MARAADS_DYING_BREATH_TALENT} /> buffed
+          <SpellLink id={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} /> when a large portion of it would
           overheal. If you are finding that this is happening very frequently, consider using a
           different legendary.
         </>,

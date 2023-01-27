@@ -19,6 +19,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.REVERSION_TALENT),
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.6,
         },
       },
       {

@@ -30,7 +30,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
  * **Sudden Ambush**
  * Spec Talent
  *
- * Finishing moves have a (5 / 10)% chance per combo point spent to make your next Rake or Shred
+ * Finishing moves have a 6% chance per combo point spent to make your next Rake or Shred
  * deal damage as though you were stealthed.
  */
 class SuddenAmbush extends Analyzer {

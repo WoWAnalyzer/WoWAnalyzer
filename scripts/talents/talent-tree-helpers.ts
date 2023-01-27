@@ -72,6 +72,15 @@ export function printTalents(
     return "\n//Class doesn't exist in data yet\n";
   }
   return talentObj
+    .sort((a, b) => {
+      if (a.key < b.key) {
+        return -1;
+      } else if (a.key > b.key) {
+        return 1;
+      } else {
+        return 0;
+      }
+    })
     .map(({ key, value }) => {
       //Spec was only used during generation, so we remove it before writing to file
       delete value.spec;
