@@ -31,7 +31,7 @@ export type BoxRowEntry = {
   className?: string;
 };
 
-function getBlockClassName(value: BoxRowEntry) {
+export function getBlockClassName(value: BoxRowEntry) {
   switch (value.value) {
     case QualitativePerformance.Perfect:
       return 'perfect-block';

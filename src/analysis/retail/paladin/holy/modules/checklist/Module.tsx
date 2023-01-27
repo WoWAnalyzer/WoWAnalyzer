@@ -50,10 +50,11 @@ class Checklist extends BaseChecklist {
             .nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           directBeaconHealing: this.directBeaconHealing.suggestionThresholds,
-          beaconUptimeBoL: this.beaconUptime.suggestionThresholdsBoL,
+          beaconUptimeBoL: this.beaconUptime.suggestionThresholdsBoLPrepull,
           beaconUptimeBoLUptime: this.beaconUptime.suggestionThresholdsBoLUptime,
-          beaconUptimeBoF: this.beaconUptime.suggestionThresholdsBoF,
+          beaconUptimeBoF: this.beaconUptime.suggestionThresholdsBoFPrepull,
           beaconUptimeBoFUptime: this.beaconUptime.suggestionThresholdsBoFUptime,
+          beaconUptimeBoVUptime: this.beaconUptime.suggestionThresholdsBoVUptime,
           fillerLightOfTheMartyrsCpm: this.fillerLightOfTheMartyrs.cpmSuggestionThresholds,
           fillerLightOfTheMartyrsInefficientCpm: this.fillerLightOfTheMartyrs
             .inefficientCpmSuggestionThresholds,

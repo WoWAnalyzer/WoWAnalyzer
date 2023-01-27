@@ -347,6 +347,10 @@ export const Hartra344: Contributor = {
     },
   ],
 };
+export const ap2355: Contributor = {
+  nickname: 'Aulzahr',
+  github: 'ap2355',
+};
 export const strel: Contributor = {
   nickname: 'strel',
   github: 'unknown',

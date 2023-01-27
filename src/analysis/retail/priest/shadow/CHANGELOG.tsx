@@ -5,6 +5,7 @@ import { DoxAshe } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 1, 23), <>Added statistic for T29 four piece and fixed <SpellLink id={SPELLS.MIND_BLAST}/> maximum casts with <SpellLink id={TALENTS.SHADOWY_INSIGHT_TALENT}/> talented</>,DoxAshe),
   change(date(2023, 1, 8), <>Setup an initial version of Guide </>,DoxAshe),
   change(date(2022, 12, 29), <>Created statistics for <SpellLink id={TALENTS.IDOL_OF_CTHUN_TALENT}/>, <SpellLink id={TALENTS.IDOL_OF_NZOTH_TALENT}/>, <SpellLink id={TALENTS.IDOL_OF_YOGG_SARON_TALENT}/>, and <SpellLink id={TALENTS.IDOL_OF_YSHAARJ_TALENT}/> </>,DoxAshe),
   change(date(2022, 12, 20), <>Added <SpellLink id={TALENTS.MIND_FLAY_INSANITY_TALENT}/> to proc checklist</>,DoxAshe),

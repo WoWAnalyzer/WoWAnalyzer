@@ -6,6 +6,9 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 1, 27), <>Add <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT}/> to checklist</>, Trevor),
+  change(date(2023, 1 , 26), <>Added average <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id}/> hits per cast of <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id}/>.</>, Vohrr),
+  change(date(2023, 1, 26), <>Update breakdown for <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT.id}/>.</>, Vohrr),
   change(date(2023, 1, 25), <>Add <SpellLink id={TALENTS_MONK.VEIL_OF_PRIDE_TALENT}/> module</>, Trevor),
   change(date(2023, 1, 25), <>Fixed but with <SpellLink id={TALENTS_MONK.MIST_WRAP_TALENT.id}/> module.</>, Vohrr),
   change(date(2023, 1, 25), <>Reworked <SpellLink id={TALENTS_MONK.MIST_WRAP_TALENT.id}/> module to show all healing contribution and not just from <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id}/>. </>, Vohrr),

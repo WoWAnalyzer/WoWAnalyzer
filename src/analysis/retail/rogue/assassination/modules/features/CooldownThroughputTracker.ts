@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
@@ -7,15 +7,11 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.VENDETTA.id,
+      spell: TALENTS.DEATHMARK_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
-      spell: SPELLS.SUBTERFUGE_BUFF.id,
-      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
-    },
-    {
-      spell: SPELLS.MASTER_ASSASSIN_BUFF.id,
+      spell: TALENTS.INDISCRIMINATE_CARNAGE_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
   ];

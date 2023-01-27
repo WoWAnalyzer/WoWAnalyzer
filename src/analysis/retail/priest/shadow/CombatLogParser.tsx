@@ -18,9 +18,9 @@ import GlobalCooldown from './modules/core/GlobalCooldown';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import ShadowyInsight from './modules/features/ShadowyInsight';
+import ShadowyInsight from './modules/spells/ShadowyInsight';
 import DotUptimes from './modules/features/DotUptimes';
-import Voidform from './modules/features/Voidform';
+import Voidform from './modules/spells/Voidform';
 import InsanityTracker from './modules/resources/InsanityTracker';
 import InsanityUsage from './modules/resources/InsanityUsage';
 import DevouringPlague from './modules/spells/DevouringPlague';
@@ -48,6 +48,8 @@ import IdolOfYoggSaron from './modules/talents/IdolOfYoggSaron';
 import IdolOfNzoth from './modules/talents/IdolOfNzoth';
 import IdolOfYshaarj from './modules/talents/IdolOfYshaarj';
 import InsanityGraph from './modules/guide/InsanityGraph';
+
+import FourSet from './modules/tier/Tier29ShadowPriest4Set';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -107,6 +109,9 @@ class CombatLogParser extends MainCombatLogParser {
 
     // covenants:
     mindgames: Mindgames,
+
+    //Tier
+    fourSet: FourSet,
 
     arcaneTorrent: [ArcaneTorrent, { active: false }] as const,
   };

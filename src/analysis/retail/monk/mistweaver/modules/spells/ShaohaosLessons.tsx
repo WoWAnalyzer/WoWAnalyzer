@@ -161,8 +161,24 @@ class ShaohaosLessons extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            Note: Haste increase is not included in HPS as a haste buff cannot be directly
-            attributed to a healing increase
+            <ul>
+              <li>
+                Note: Lesson of Fear's (haste) increase is not included in HPS as a haste buff
+                cannot be directly attributed to a healing increase
+              </li>
+            </ul>
+            Healing:
+            <ul>
+              <li>Anger: {formatNumber(this.angerHealing)}</li>
+              <li>Despair: {formatNumber(this.despairHealing)}</li>
+              <li>Doubt: {formatNumber(this.doubtHealing)}</li>
+            </ul>
+            Damage:
+            <ul>
+              <li>Anger: {formatNumber(this.angerDamage)}</li>
+              <li>Despair: {formatNumber(this.despairDamage)}</li>
+              <li>Doubt: {formatNumber(this.doubtDamage)}</li>
+            </ul>
           </>
         }
       >
@@ -172,6 +188,7 @@ class ShaohaosLessons extends Analyzer {
           <img alt="Damage Mitigated" src="/img/shield.png" className="icon" />{' '}
           {formatNumber(this.fearMitigated)} <small> damage mitigated</small>
           <br />
+          <img alt="" src="/img/wheelchair.png" className="icon" />{' '}
           {formatPercentage(this.averageHasteIncrease, 1)}% <small>average haste increase</small>
         </TalentSpellText>
       </Statistic>
