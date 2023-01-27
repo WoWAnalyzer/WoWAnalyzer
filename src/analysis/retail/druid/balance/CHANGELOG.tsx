@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { Hartra344, Sref, ToppleTheNun, ap2355 } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
-import SPELLS from 'common/SPELLS';
 
 export default [
   change(date(2023, 1, 24), <>Added statistics support for <SpellLink id={SPELLS.TOUCH_THE_COSMOS} /></>, ap2355 ),
