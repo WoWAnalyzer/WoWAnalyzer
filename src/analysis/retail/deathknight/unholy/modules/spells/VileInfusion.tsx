@@ -84,8 +84,6 @@ class VileInfusion extends Analyzer {
   }
 
   statistic() {
-    console.log(this);
-    console.log(this.selectedCombatant);
     return (
       <Statistic
         tooltip={`Your Vile Infusion was up ${Math.round(this.totalBuffTime)} out of ${Math.round(
