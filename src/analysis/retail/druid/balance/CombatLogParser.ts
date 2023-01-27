@@ -27,7 +27,9 @@ import AstralPowerGraph from 'analysis/retail/druid/balance/modules/core/astralp
 import WaningTwilight from './modules/spells/WaningTwilight';
 import GatheringStarstuff from 'analysis/retail/druid/balance/modules/spells/GatheringStarstuff';
 import RattleTheStars from './modules/spells/RattleTheStars';
+import TouchTheCosmos from './modules/spells/TouchTheCosmos';
 import Starweaver from './modules/spells/Starweaver';
+
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -61,10 +63,11 @@ class CombatLogParser extends MainCombatLogParser {
     soulOfTheForest: SoulOfTheForest,
     waningTwilight: WaningTwilight,
     convokeSpiritsBalance: ConvokeSpiritsBalance,
-    //Tier set
-    gatheringStarstuff: GatheringStarstuff,
     rattleTheStars: RattleTheStars,
     starweaver: Starweaver,
+    //Tier set
+    gatheringStarstuff: GatheringStarstuff,
+    touchTheCosmos: TouchTheCosmos,
   };
 
   static guide = Guide;

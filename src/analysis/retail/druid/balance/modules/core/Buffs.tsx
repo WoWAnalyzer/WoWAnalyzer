@@ -41,6 +41,10 @@ class Buffs extends CoreAuras {
         timelineHighlight: false,
       },
       {
+        spellId: SPELLS.TOUCH_THE_COSMOS.id,
+        timelineHighlight: false,
+      },
+      {
         spellId: SPELLS.GATHERING_STARSTUFF.id, // T29 - 2P
         timelineHighlight: false,
       },
