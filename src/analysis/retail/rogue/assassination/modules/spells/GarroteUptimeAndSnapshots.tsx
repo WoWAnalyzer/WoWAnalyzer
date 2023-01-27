@@ -70,7 +70,25 @@ export default class GarroteUptimeAndSnapshots extends DotSnapshots {
 
     let snapshotPerformance: QualitativePerformance = QualitativePerformance.Good;
     let snapshotSummary = <div>Good snapshot usage</div>;
-    let snapshotDetails = <div>Good snapshot usage.</div>;
+    let snapshotDetails = (
+      <div>
+        Good snapshot usage.
+        <br />
+        Snapshots:{' '}
+        <strong>
+          {snapshots.length === 0 ? 'NONE' : snapshots.map((it) => it.name).join(', ')}
+        </strong>
+        {prevSnapshots != null && (
+          <>
+            <br />
+            Previous Snapshots:{' '}
+            <strong>
+              {prevSnapshots.length === 0 ? 'NONE' : prevSnapshots.map((it) => it.name).join(', ')}
+            </strong>
+          </>
+        )}
+      </div>
+    );
     if (wasUnacceptableDowngrade) {
       snapshotPerformance = QualitativePerformance.Fail;
       snapshotSummary = <div>Unacceptable downgrade of snapshot</div>;
@@ -78,10 +96,29 @@ export default class GarroteUptimeAndSnapshots extends DotSnapshots {
         <div>
           Unacceptable downgrade of snapshot. Try not to overwrite your snapshotted Garrote unless
           it's within the last {formatDurationMillisMinSec(SNAPSHOT_DOWNGRADE_BUFFER)}.
+          <br />
+          Snapshots:{' '}
+          <strong>
+            {snapshots.length === 0 ? 'NONE' : snapshots.map((it) => it.name).join(', ')}
+          </strong>
+          {prevSnapshots != null && (
+            <>
+              <br />
+              Previous Snapshots:{' '}
+              <strong>
+                {prevSnapshots.length === 0
+                  ? 'NONE'
+                  : prevSnapshots.map((it) => it.name).join(', ')}
+              </strong>
+            </>
+          )}
         </div>
       );
     }
-    if (clipped > 0) {
+    if (
+      clipped > 0 &&
+      !snapshots.some((snapshot) => snapshot.name === IMPROVED_GARROTE_SPEC.name)
+    ) {
       snapshotPerformance = wasUpgrade ? QualitativePerformance.Ok : QualitativePerformance.Fail;
       snapshotSummary = wasUpgrade ? (
         <div>Clipped but upgraded existing snapshotted Garrote</div>
@@ -94,7 +131,25 @@ export default class GarroteUptimeAndSnapshots extends DotSnapshots {
           Garotte.
         </div>
       ) : (
-        <div>Clipped existing snapshotted Garrote. Try not to clip your snapshotted Garotte.</div>
+        <div>
+          Clipped existing snapshotted Garrote. Try not to clip your snapshotted Garotte.
+          <br />
+          Snapshots:{' '}
+          <strong>
+            {snapshots.length === 0 ? 'NONE' : snapshots.map((it) => it.name).join(', ')}
+          </strong>
+          {prevSnapshots != null && (
+            <>
+              <br />
+              Previous Snapshots:{' '}
+              <strong>
+                {prevSnapshots.length === 0
+                  ? 'NONE'
+                  : prevSnapshots.map((it) => it.name).join(', ')}
+              </strong>
+            </>
+          )}
+        </div>
       );
     }
 
@@ -107,35 +162,6 @@ export default class GarroteUptimeAndSnapshots extends DotSnapshots {
         details: snapshotDetails,
       },
     ];
-
-    // const tooltip = (
-    //   <>
-    //     @ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
-    //     <strong>{targetName || 'unknown'}</strong>
-    //     <br />
-    //     {prevSnapshotNames !== null && (
-    //       <>
-    //         Refreshed on target w/ {(remainingOnPrev / 1000).toFixed(1)}s remaining{' '}
-    //         {clipped > 0 && (
-    //           <>
-    //             <strong>- Clipped {(clipped / 1000).toFixed(1)}s!</strong>
-    //           </>
-    //         )}
-    //         <br />
-    //       </>
-    //     )}
-    //     Snapshots: <strong>{snapshotNames.length === 0 ? 'NONE' : snapshotNames.join(', ')}</strong>
-    //     <br />
-    //     {prevSnapshotNames !== null && (
-    //       <>
-    //         Prev Snapshots:{' '}
-    //         <strong>
-    //           {prevSnapshotNames.length === 0 ? 'NONE' : prevSnapshotNames.join(', ')}
-    //         </strong>
-    //       </>
-    //     )}
-    //   </>
-    // );
 
     const actualChecklistItems = animachargedCheckedUsageInfo(
       this.selectedCombatant,
