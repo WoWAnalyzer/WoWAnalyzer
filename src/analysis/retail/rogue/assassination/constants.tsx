@@ -5,6 +5,8 @@ import getResourceSpent from 'parser/core/getResourceSpent';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Combatant from 'parser/core/Combatant';
 import Spell from 'common/SPELLS/Spell';
+import { ChecklistUsageInfo } from 'parser/core/SpellUsage/core';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 // from https://www.wowhead.com/spell=137037/assassination-rogue
 export const ABILITIES_AFFECTED_BY_DAMAGE_INCREASES = [
@@ -91,3 +93,43 @@ export const FINISHERS: Spell[] = [
   SPELLS.SLICE_AND_DICE,
   SPELLS.KIDNEY_SHOT,
 ];
+
+export const isAnimachargedFinisherCast = (c: Combatant, event: CastEvent): boolean => {
+  const cpsSpent = getResourceSpent(event, RESOURCE_TYPES.COMBO_POINTS);
+  const hasAnimacharged2CP = c.hasBuff(SPELLS.ANIMACHARGED_CP2.id, event.timestamp);
+  const hasAnimacharged3CP = c.hasBuff(SPELLS.ANIMACHARGED_CP3.id, event.timestamp);
+  const hasAnimacharged4CP = c.hasBuff(SPELLS.ANIMACHARGED_CP4.id, event.timestamp);
+
+  if (cpsSpent === 2 && hasAnimacharged2CP) {
+    return true;
+  }
+  if (cpsSpent === 3 && hasAnimacharged3CP) {
+    return true;
+  }
+  if (cpsSpent === 4 && hasAnimacharged4CP) {
+    return true;
+  }
+  return false;
+};
+
+export const AnimachargedFinisherSummary = () => <div>Consumed Animacharged CP</div>;
+export const AnimachargedFinisherDetails = () => <div>You consumed an Animacharged CP.</div>;
+
+export const animachargedCheckedUsageInfo = (
+  c: Combatant,
+  event: CastEvent,
+  previousCheckedUsageInfo: ChecklistUsageInfo[],
+): ChecklistUsageInfo[] => {
+  if (!isAnimachargedFinisherCast(c, event)) {
+    return previousCheckedUsageInfo;
+  }
+  return [
+    {
+      check: 'animacharged',
+      performance: QualitativePerformance.Perfect,
+      timestamp: event.timestamp,
+      summary: <AnimachargedFinisherSummary />,
+      details: <AnimachargedFinisherDetails />,
+    },
+  ];
+};
