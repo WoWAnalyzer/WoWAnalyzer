@@ -258,7 +258,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SWIPE_CAT.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        enabled: combatant.hasTalent(TALENTS_DRUID.SWIPE_TALENT),
         gcd: {
           static: 1000,
         },
@@ -266,7 +265,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SWIPE_BEAR.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        enabled: combatant.hasTalent(TALENTS_DRUID.SWIPE_TALENT),
         gcd: {
           base: 1500,
         },

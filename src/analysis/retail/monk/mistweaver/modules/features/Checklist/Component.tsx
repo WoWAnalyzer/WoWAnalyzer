@@ -255,6 +255,14 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           }
           thresholds={thresholds.vivaciousVivification}
         />
+        <Requirement
+          name={
+            <>
+              <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT.id} /> wasted clouds
+            </>
+          }
+          thresholds={thresholds.sheiluns}
+        />
       </Rule>
 
       <Rule

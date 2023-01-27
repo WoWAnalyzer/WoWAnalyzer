@@ -1,5 +1,4 @@
 import { GuideProps, Section, SubSection, useInfo } from 'interface/guide';
-import CombatLogParser from 'analysis/retail/demonhunter/vengeance/CombatLogParser';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { AlertWarning, SpellLink } from 'interface';
@@ -9,7 +8,9 @@ import { t, Trans } from '@lingui/macro';
 import VerticallyAlignedToggle from 'interface/VerticallyAlignedToggle';
 import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
 import FuryCapWaste from 'analysis/retail/demonhunter/shared/guide/FuryCapWaste';
+import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 
+import CombatLogParser from './CombatLogParser';
 import DemonSpikesSubSection from './modules/spells/DemonSpikes/GuideSection';
 import FieryBrandSubSection from './modules/talents/FieryBrand/GuideSection';
 import VoidReaverSubSection from './modules/talents/VoidReaver/GuideSection';
@@ -22,7 +23,6 @@ import {
   OK_TIME_AT_FURY_CAP,
   PERFECT_TIME_AT_FURY_CAP,
 } from './modules/resourcetracker/FuryTracker';
-import CooldownUsage from 'analysis/retail/demonhunter/shared/guide/MajorCooldowns/CooldownUsage';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (

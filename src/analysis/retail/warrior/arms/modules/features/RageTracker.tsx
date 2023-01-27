@@ -5,6 +5,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
+import { damageEvent } from '../../normalizers/ExecuteNormalizer';
 
 const RAGE_PER_MELEE_HIT = 25;
 
@@ -28,7 +29,7 @@ class RageUsage extends ResourceTracker {
       return;
     }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EXECUTE_GLYPHED),
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.EXECUTE_GLYPHED, SPELLS.EXECUTE]),
       this.onCastExecute,
     );
   }
@@ -41,19 +42,18 @@ class RageUsage extends ResourceTracker {
     if (!resource) {
       return;
     }
-    return resource.cost;
+    return (resource.cost || 0) / 10;
   }
 
   onCastExecute(event: CastEvent) {
     //the cost for execute is multiplied by 10 to avoid floating point numbers.
     //just divide it by 10 again to get the more accurate number.
-    const cost = (this.getAdjustedCost(event) || 0) / 10;
-    if (cost !== 0) {
-      this.processInvisibleEnergize(
-        SPELLS.EXECUTE.id,
-        cost / 10, //always assume the target survives, get 10% refund.
-        event.timestamp,
-      );
+    const cost = this.getAdjustedCost(event) || 0;
+    //making rage refund based on overkill.
+    const linkedDamageEvent = damageEvent(event);
+    const overkill = linkedDamageEvent.overkill || -1;
+    if (cost !== 0 && overkill <= 0) {
+      this.processInvisibleEnergize(SPELLS.EXECUTE.id, cost / 10, event.timestamp);
     }
   }
 

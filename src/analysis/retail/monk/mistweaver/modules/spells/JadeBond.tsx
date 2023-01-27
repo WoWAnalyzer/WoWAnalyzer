@@ -38,13 +38,7 @@ class JadeBond extends Analyzer {
     }
 
     this.addEventListener(
-      Events.heal
-        .by(SELECTED_PLAYER)
-        .spell([
-          SPELLS.GUSTS_OF_MISTS,
-          SPELLS.GUST_OF_MISTS_CHIJI,
-          SPELLS.BONEDUST_BREW_GUST_OF_MIST,
-        ]),
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.GUSTS_OF_MISTS, SPELLS.GUST_OF_MISTS_CHIJI]),
       this.gustProcingSpell,
     );
 

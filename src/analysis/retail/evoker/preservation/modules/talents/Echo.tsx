@@ -183,15 +183,18 @@ class Echo extends Analyzer {
         spellId: TALENTS_EVOKER.SPIRITBLOOM_TALENT.id,
         value:
           this.totalEchoHealingForSpell(SPELLS.SPIRITBLOOM.id) +
-          this.totalEchoHealingForSpell(SPELLS.SPIRITBLOOM_SPLIT.id),
+          this.totalEchoHealingForSpell(SPELLS.SPIRITBLOOM_SPLIT.id) +
+          this.totalEchoHealingForSpell(SPELLS.SPIRITBLOOM_FONT.id),
         valueTooltip:
           formatNumber(
             this.totalEchoHealingForSpell(SPELLS.SPIRITBLOOM.id) +
-              this.totalEchoHealingForSpell(SPELLS.SPIRITBLOOM_SPLIT.id),
+              this.totalEchoHealingForSpell(SPELLS.SPIRITBLOOM_SPLIT.id) +
+              this.totalEchoHealingForSpell(SPELLS.SPIRITBLOOM_FONT.id),
           ) +
           ' in ' +
           (this.consumptionsBySpell.get(SPELLS.SPIRITBLOOM.id)! +
-            this.consumptionsBySpell.get(SPELLS.SPIRITBLOOM_SPLIT.id)!) +
+            this.consumptionsBySpell.get(SPELLS.SPIRITBLOOM_SPLIT.id)! +
+            this.consumptionsBySpell.get(SPELLS.SPIRITBLOOM_FONT.id)!) +
           ' consumptions',
       },
       {
