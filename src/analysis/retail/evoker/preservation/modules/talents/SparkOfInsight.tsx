@@ -61,7 +61,8 @@ class SparkOfInsight extends Analyzer {
 
   onEbRefresh(event: RefreshBuffEvent) {
     if (didSparkProcEssenceBurst(event)) {
-      this.wastedProcs;
+      this.wastedProcs += 1;
+      this.totalSparkProcs += 1;
     }
   }
 
