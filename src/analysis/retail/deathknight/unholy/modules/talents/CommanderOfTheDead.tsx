@@ -4,6 +4,7 @@ import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, SummonEvent } from 'parser/core/Events';
+import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 import { When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -40,9 +41,7 @@ class CommanderOfTheDead extends Analyzer {
   }
 
   onBuffEvent(event: ApplyBuffEvent) {
-    const summonId = event.targetInstance
-      ? event.targetID.toString() + '|' + event.targetInstance.toString()
-      : event.targetID.toString(); // This is needed since the buff sometimes applies twice to the same summon.
+    const summonId = encodeEventTargetString(event) || ''; // This is needed since the buff sometimes applies twice to the same summon.
     if (!this.summonedPets.includes(summonId)) {
       // This is the rare case of a pet being summoned without a summon event (potentially pre-combat).
       this.summonedPets.push(summonId);
@@ -58,9 +57,7 @@ class CommanderOfTheDead extends Analyzer {
   onSummonEvent(event: SummonEvent) {
     if (this.petSummonIDs.includes(event.ability.guid)) {
       // We keep track of what has been summoned in case of a buff event on a minion that doesn't have a proper summon event.
-      const summonId = event.targetInstance
-        ? event.targetID.toString() + '|' + event.targetInstance.toString()
-        : event.targetID.toString();
+      const summonId = encodeEventTargetString(event) || '';
       this.summonedPets.push(summonId);
       this.petSummons += 1;
     }
