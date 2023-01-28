@@ -46,6 +46,11 @@ class ShaohaosLessons extends Analyzer {
   };
   angerDamage: number = 0;
   angerHealing: number = 0;
+  applyCount: Map<number, number> = new Map<number, number>(
+    BUFFS.map((spell) => {
+      return [spell.id, 0];
+    }),
+  );
   curHpPercent: number = 0;
   durationCount: Map<number, number> = new Map<number, number>(
     BUFFS.map((spell) => {
@@ -86,7 +91,9 @@ class ShaohaosLessons extends Analyzer {
   }
 
   onApply(event: ApplyBuffEvent) {
-    this.lastApplyTime.set(event.ability.guid, event.timestamp);
+    const buffId = event.ability.guid;
+    this.lastApplyTime.set(buffId, event.timestamp);
+    this.applyCount.set(buffId, this.applyCount.get(buffId)! + 1);
   }
 
   onRemove(event: RemoveBuffEvent) {
@@ -197,12 +204,13 @@ class ShaohaosLessons extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            Note: Lesson of Fear's (haste) increase is not included in HPS/DPS as a haste buff
-            cannot be directly attributed to a healing increase
+            Note: Haste increase from <SpellLink id={SPELLS.LESSON_OF_FEAR_BUFF} /> is not included
+            in HPS/DPS as a haste buff cannot be directly attributed to a healing/damage increase
             <table className="table table-condensed">
               <thead>
                 <tr>
                   <th>Buff</th>
+                  <th>Count</th>
                   <th>Duration</th>
                   <th>Damage</th>
                   <th>Healing</th>
@@ -213,6 +221,7 @@ class ShaohaosLessons extends Analyzer {
                   <td>
                     <SpellLink id={SPELLS.LESSON_OF_ANGER_BUFF} />
                   </td>
+                  <td>{this.applyCount.get(SPELLS.LESSON_OF_ANGER_BUFF.id)!}</td>
                   <td>{formatDuration(this.durationCount.get(SPELLS.LESSON_OF_ANGER_BUFF.id)!)}</td>
                   <td>{formatNumber(this.angerDamage)}</td>
                   <td>{formatNumber(this.angerHealing)}</td>
@@ -221,6 +230,7 @@ class ShaohaosLessons extends Analyzer {
                   <td>
                     <SpellLink id={SPELLS.LESSON_OF_DESPAIR_BUFF} />
                   </td>
+                  <td>{this.applyCount.get(SPELLS.LESSON_OF_DESPAIR_BUFF.id)!}</td>
                   <td>
                     {formatDuration(this.durationCount.get(SPELLS.LESSON_OF_DESPAIR_BUFF.id)!)}
                   </td>
@@ -231,6 +241,7 @@ class ShaohaosLessons extends Analyzer {
                   <td>
                     <SpellLink id={SPELLS.LESSON_OF_DOUBT_BUFF} />
                   </td>
+                  <td>{this.applyCount.get(SPELLS.LESSON_OF_DOUBT_BUFF.id)!}</td>
                   <td>{formatDuration(this.durationCount.get(SPELLS.LESSON_OF_DOUBT_BUFF.id)!)}</td>
                   <td>{formatNumber(this.doubtHealing)}</td>
                   <td>{formatNumber(this.doubtDamage)}</td>
@@ -239,6 +250,7 @@ class ShaohaosLessons extends Analyzer {
                   <td>
                     <SpellLink id={SPELLS.LESSON_OF_FEAR_BUFF} />
                   </td>
+                  <td>{this.applyCount.get(SPELLS.LESSON_OF_FEAR_BUFF.id)!}</td>
                   <td>{formatDuration(this.durationCount.get(SPELLS.LESSON_OF_FEAR_BUFF.id)!)}</td>
                   <td>N/A</td>
                   <td>N/A</td>
