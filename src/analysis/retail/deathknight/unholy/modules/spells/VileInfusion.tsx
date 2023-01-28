@@ -1,14 +1,14 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RemoveBuffEvent, FightEndEvent } from 'parser/core/Events';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import { When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { formatPercentage } from 'common/format';
 import { TIERS } from 'game/TIERS';
+import Pets from 'parser/shared/modules/Pets';
 
 class VileInfusion extends Analyzer {
   lastBuffTime = 0;
@@ -22,38 +22,14 @@ class VileInfusion extends Analyzer {
     if (!this.active) {
       return;
     }
-
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.T29_VILE_INFUSION_BUFF),
-      this.onBuffEvent,
-    );
-
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.T29_VILE_INFUSION_BUFF),
-      this.onRemoveBuff,
-    );
-
-    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  onBuffEvent(event: ApplyBuffEvent) {
-    this.lastBuffTime = event.timestamp;
-    this.buffIsUp = true;
-  }
-
-  onRemoveBuff(event: RemoveBuffEvent) {
-    this.totalBuffTime += (event.timestamp - this.lastBuffTime) / 1000;
-    this.buffIsUp = false;
-  }
-
-  onFightEnd(event: FightEndEvent) {
-    if (this.buffIsUp === true) {
-      this.totalBuffTime += (event.timestamp - this.lastBuffTime) / 1000;
-    }
-  }
-
+  static dependencies = {
+    pets: Pets,
+  };
+  protected pets!: Pets;
   get averageBuffUptime() {
-    return this.totalBuffTime / (this.owner.fightDuration / 1000);
+    return this.pets.getBuffUptime(SPELLS.T29_VILE_INFUSION_BUFF.id) / this.owner.fightDuration;
   }
 
   suggestions(when: When) {
