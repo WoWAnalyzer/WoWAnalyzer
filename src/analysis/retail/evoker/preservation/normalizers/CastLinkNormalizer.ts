@@ -36,6 +36,7 @@ export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera'; // link buff
 export const HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
 export const BUFF_GROUPING = 'BuffGrouping'; // link ApplyBuff events together
 export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
+export const SPARK_OF_INSIGHT = 'SparkOfInsight'; // link TC stack removals to Spark
 export const STASIS = 'Stasis';
 
 export enum ECHO_TYPE {
@@ -515,6 +516,17 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     maximumLinks: 1,
   },
+  {
+    linkRelation: SPARK_OF_INSIGHT,
+    reverseLinkRelation: SPARK_OF_INSIGHT,
+    linkingEventId: SPELLS.ESSENCE_BURST_BUFF.id,
+    linkingEventType: EventType.ApplyBuff,
+    referencedEventId: SPELLS.TEMPORAL_COMPRESSION_BUFF.id,
+    referencedEventType: EventType.RemoveBuff,
+    isActive(c) {
+      return c.hasTalent(TALENTS_EVOKER.SPARK_OF_INSIGHT_TALENT);
+    },
+  },
 ];
 
 /**
@@ -629,6 +641,10 @@ export function getStasisSpell(event: RemoveBuffStackEvent | RemoveBuffEvent): n
     return (relatedEvents[0] as CastEvent).ability.guid;
   }
   return (relatedEvents[0] as EmpowerEndEvent).ability.guid;
+}
+
+export function didSparkProcEssenceBurst(event: ApplyBuffEvent | RemoveBuffEvent) {
+  return HasRelatedEvent(event, SPARK_OF_INSIGHT);
 }
 
 export default CastLinkNormalizer;

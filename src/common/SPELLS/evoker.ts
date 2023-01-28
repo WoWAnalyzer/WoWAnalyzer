@@ -293,6 +293,11 @@ const spells = spellIndexableList({
     name: 'Energy Loop',
     icon: 'inv_elemental_mote_mana',
   },
+  TEMPORAL_COMPRESSION_BUFF: {
+    id: 362877,
+    name: 'Temporal Compression',
+    icon: 'ability_evoker_rewind2',
+  },
 });
 
 export default spells;
