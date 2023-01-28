@@ -13,13 +13,13 @@ import { SpellLink } from 'interface';
 import { t } from '@lingui/macro';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 
-const ESSENCE_COSTS: { [name: string]: number } = {
+export const ESSENCE_COSTS: { [name: string]: number } = {
   'Emerald Blossom': 3,
   Echo: 2,
   Disintegrate: 3,
 };
 
-const MANA_COSTS: { [name: string]: number } = {
+export const MANA_COSTS: { [name: string]: number } = {
   'Emerald Blossom': SPELLS.EMERALD_BLOSSOM_CAST.manaCost,
   Echo: TALENTS_EVOKER.ECHO_TALENT.manaCost!,
   Disintegrate: 0,
