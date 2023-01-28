@@ -163,21 +163,6 @@ const spells = spellIndexableList({
     name: 'Frenzied Regeneration',
     icon: 'ability_bullrush',
   },
-  RATTLED_STARS: {
-    id: 393955,
-    name: 'Rattled Stars',
-    icon: 'spell_arcane_arcane01',
-  },
-  STARWEAVERS_WARP: {
-    id: 393942,
-    name: "Starweaver's Warp",
-    icon: 'ability_druid_stellarflare',
-  },
-  STARWEAVERS_WEFT: {
-    id: 393944,
-    name: "Starweaver's Weft",
-    icon: 'spell_arcane_invocation',
-  },
   INCARNATION_CHOSEN_OF_ELUNE: {
     id: 102560,
     name: 'Incarnation: Chosen of Elune',
@@ -833,6 +818,26 @@ const spells = spellIndexableList({
     id: 394049,
     name: 'Balance of All Things',
     icon: 'ability_druid_earthandsky',
+  },
+  FRIEND_OF_THE_FAE: {
+    id: 394083,
+    name: 'Friend of the Fae',
+    icon: 'inv_elemental_primal_mana',
+  },
+  RATTLED_STARS: {
+    id: 393955,
+    name: 'Rattled Stars',
+    icon: 'spell_arcane_arcane01',
+  },
+  STARWEAVERS_WARP: {
+    id: 393942,
+    name: "Starweaver's Warp",
+    icon: 'ability_druid_stellarflare',
+  },
+  STARWEAVERS_WEFT: {
+    id: 393944,
+    name: "Starweaver's Weft",
+    icon: 'spell_arcane_invocation',
   },
 
   /////////////////////////////////////////////////////////////////////////////
