@@ -4,14 +4,14 @@ import { TALENTS_PRIEST } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import ManaIcon from 'interface/icons/Mana';
-import { IsPenanceDamageEvent } from './Helper';
+import { PenanceDamageEvent } from './Helper';
 import { getDamageEvent } from '../../normalizers/AtonementTracker';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 interface DirtyHealEvent extends HealEvent {
   penanceBoltNumber?: number;
@@ -22,7 +22,6 @@ class HarshDiscipline extends Analyzer {
   private harshAtonement = 0;
   private harshDirect = 0;
   private harshPenances = 0;
-  private testAtonement = 0;
 
   constructor(options: Options) {
     super(options);
@@ -41,9 +40,12 @@ class HarshDiscipline extends Analyzer {
         .spell([SPELLS.ATONEMENT_HEAL_CRIT, SPELLS.ATONEMENT_HEAL_NON_CRIT]),
       this.onAtoneHeal,
     );
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_HEAL), this.onHeal);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_CAST),
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.PENANCE_HEAL, SPELLS.DARK_REPRIMAND_HEAL]),
+      this.onHeal,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PENANCE_CAST, SPELLS.DARK_REPRIMAND_CAST]),
       this.checkHarsh,
     );
   }
@@ -58,13 +60,16 @@ class HarshDiscipline extends Analyzer {
     if (!getDamageEvent(event)) {
       return;
     }
-    const damageEvent = getDamageEvent(event);
+    const damageEvent = getDamageEvent(event) as PenanceDamageEvent;
 
-    if (!IsPenanceDamageEvent(damageEvent)) {
+    if (
+      damageEvent.ability.guid !== SPELLS.DARK_REPRIMAND_DAMAGE.id &&
+      damageEvent.ability.guid !== SPELLS.PENANCE.id
+    ) {
       return;
     }
 
-    if (damageEvent.penanceBoltNumber + 1 <= this.expectedBolts) {
+    if (damageEvent.penanceBoltNumber < this.expectedBolts) {
       return;
     }
     this.harshAtonement += event.amount;
@@ -75,7 +80,7 @@ class HarshDiscipline extends Analyzer {
     if (typeof penanceBoltNumber !== 'number') {
       return;
     }
-    if (penanceBoltNumber + 1 <= this.expectedBolts) {
+    if (penanceBoltNumber < this.expectedBolts) {
       return;
     }
 
@@ -105,14 +110,10 @@ class HarshDiscipline extends Analyzer {
         }
       >
         <>
-          <BoringSpellValueText spellId={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT.id}>
-            <span>
-              Rank {this.selectedCombatant.getTalentRank(TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT)}
-              <br />
-            </span>
+          <TalentSpellText talent={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT}>
             <ItemHealingDone amount={this.harshAtonement + this.harshDirect} /> <br />
             <ManaIcon /> {formatThousands(manaSaved)} mana
-          </BoringSpellValueText>
+          </TalentSpellText>
         </>
       </Statistic>
     );
