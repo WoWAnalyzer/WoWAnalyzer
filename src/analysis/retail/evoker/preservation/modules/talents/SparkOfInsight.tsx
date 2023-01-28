@@ -17,25 +17,14 @@ import {
   didSparkProcEssenceBurst,
   getEssenceBurstConsumeAbility,
 } from '../../normalizers/CastLinkNormalizer';
-
-const ESSENCE_COSTS: { [name: string]: number } = {
-  'Emerald Blossom': 3,
-  Echo: 2,
-  Disintegrate: 3,
-};
-
-const MANA_COSTS: { [name: string]: number } = {
-  'Emerald Blossom': SPELLS.EMERALD_BLOSSOM_CAST.manaCost,
-  Echo: TALENTS_EVOKER.ECHO_TALENT.manaCost!,
-  Disintegrate: 0,
-};
+import { ESSENCE_COSTS, MANA_COSTS } from './EssenceBurst';
 
 class SparkOfInsight extends Analyzer {
   currentTcStacks: number = 0;
+  essenceSaved: number = 0;
+  manaSaved: number = 0;
   totalSparkProcs: number = 0;
   wastedStacks: number = 0;
-  manaSaved: number = 0;
-  essenceSaved: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -85,7 +74,6 @@ class SparkOfInsight extends Analyzer {
   }
 
   statistic() {
-    console.log(this.totalSparkProcs);
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(5)}
