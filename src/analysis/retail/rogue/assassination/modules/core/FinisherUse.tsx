@@ -9,10 +9,13 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import TALENTS from 'common/TALENTS/rogue';
 
-import { FINISHERS, getMaxComboPoints, isAnimachargedFinisherCast } from '../../constants';
+import {
+  FINISHERS,
+  getMaxComboPoints,
+  isAnimachargedFinisherCast,
+  OPENER_MAX_DURATION_MS,
+} from '../../constants';
 import { formatDurationMillisMinSec } from 'common/format';
-
-const OPENER_MAX_DURATION_MS = 15000;
 
 export default class FinisherUse extends Analyzer {
   totalFinisherCasts = 0;
