@@ -8,6 +8,7 @@ import {
   animachargedCheckedUsageInfo,
   getRuptureDuration,
   getRuptureFullDuration,
+  OPENER_MAX_DURATION_MS,
   RUPTURE_BASE_DURATION,
   SNAPSHOT_DOWNGRADE_BUFFER,
 } from 'analysis/retail/rogue/assassination/constants';
@@ -38,7 +39,7 @@ export default class RuptureUptimeAndSnapshots extends DotSnapshots {
   getDotExpectedDuration(event: ApplyDebuffEvent | RefreshDebuffEvent): number {
     const fromHardcast = getHardcast(event);
     if (fromHardcast) {
-      return getRuptureDuration(fromHardcast);
+      return getRuptureDuration(this.selectedCombatant, fromHardcast);
     }
 
     console.warn(
@@ -71,12 +72,11 @@ export default class RuptureUptimeAndSnapshots extends DotSnapshots {
     }
 
     // log the cast
-    // const targetName = this.owner.getTargetName(cast);
-    // const snapshotNames = snapshots.map((ss) => ss.name);
-    // const prevSnapshotNames = prevSnapshots === null ? null : prevSnapshots.map((ss) => ss.name);
     const wasUnacceptableDowngrade =
       prevPower > power && remainingOnPrev > SNAPSHOT_DOWNGRADE_BUFFER;
     const wasUpgrade = prevPower < power;
+    const timeIntoEncounter = cast.timestamp - this.owner.fight.start_time;
+    const isInOpener = timeIntoEncounter <= OPENER_MAX_DURATION_MS;
 
     let snapshotPerformance: QualitativePerformance = QualitativePerformance.Good;
     let snapshotSummary = <div>Good snapshot usage</div>;
@@ -92,20 +92,26 @@ export default class RuptureUptimeAndSnapshots extends DotSnapshots {
       );
     }
     if (clipped > 0) {
-      snapshotPerformance = wasUpgrade ? QualitativePerformance.Ok : QualitativePerformance.Fail;
-      snapshotSummary = wasUpgrade ? (
-        <div>Clipped but upgraded existing snapshotted Rupture</div>
-      ) : (
-        <div>Clipped existing snapshotted Rupture</div>
-      );
-      snapshotDetails = wasUpgrade ? (
-        <div>
-          Clipped but upgraded existing snapshotted Rupture. Try not to clip your snapshotted
-          Rupture.
-        </div>
-      ) : (
-        <div>Clipped existing snapshotted Rupture. Try not to clip your snapshotted Rupture.</div>
-      );
+      if (isInOpener) {
+        snapshotPerformance = QualitativePerformance.Ok;
+        snapshotSummary = <div>Clipped but upgraded existing snapshotted Rupture</div>;
+        snapshotDetails = (
+          <div>Clipped existing Rupture. It was during your opener so it's okay.</div>
+        );
+      } else if (wasUpgrade) {
+        snapshotPerformance = QualitativePerformance.Ok;
+        snapshotSummary = <div>Clipped but upgraded existing snapshotted Rupture</div>;
+        snapshotDetails = (
+          <div>
+            Clipped but upgraded existing snapshotted Rupture. Try not to clip your snapshotted
+            Rupture.
+          </div>
+        );
+      } else {
+        snapshotPerformance = QualitativePerformance.Fail;
+        snapshotSummary = <div>Clipped existing Rupture</div>;
+        snapshotDetails = <div>Clipped existing Rupture. Try not to clip your Rupture.</div>;
+      }
     }
 
     const actualChecklistItems = animachargedCheckedUsageInfo(this.selectedCombatant, cast, [

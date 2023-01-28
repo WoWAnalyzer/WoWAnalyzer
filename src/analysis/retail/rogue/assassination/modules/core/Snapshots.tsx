@@ -1,6 +1,7 @@
 import { BUFF_DROP_BUFFER, StaticSnapshotSpec } from 'parser/core/DotSnapshots';
 import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
+import { GoodColor } from 'interface/guide';
 
 // Improved Garrote works off of 3s from last stealth drop
 const IMPROVED_GARROTE_STEALTH_BUFFER = 3000 + BUFF_DROP_BUFFER;
@@ -15,6 +16,6 @@ export const IMPROVED_GARROTE_SPEC: StaticSnapshotSpec = {
     c.hasBuff(SPELLS.VANISH_BUFF.id, timestamp, IMPROVED_GARROTE_STEALTH_BUFFER) ||
     c.hasBuff(SPELLS.SHADOW_DANCE_BUFF.id, timestamp, IMPROVED_GARROTE_STEALTH_BUFFER) ||
     c.hasBuff(SPELLS.IMPROVED_GARROTE_BUFF.id, timestamp, IMPROVED_GARROTE_STEALTH_BUFFER),
-  displayColor: '#dd0022',
+  displayColor: GoodColor,
   boostStrength: () => 0.5,
 };

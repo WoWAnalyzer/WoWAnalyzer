@@ -15,16 +15,19 @@ import {
 } from 'analysis/retail/rogue/assassination/constants';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import SpellUsageSubSection from 'parser/core/SpellUsage/SpellUsageSubSection';
+import Enemies from 'parser/shared/modules/Enemies';
 
 const MIN_ACCEPTABLE_TIME_LEFT_ON_RUPTURE_MS = 5000;
 
 export default class Envenom extends Analyzer {
   static dependencies = {
+    enemies: Enemies,
     ruptureUptimeAndSnapshots: RuptureUptimeAndSnapshots,
   };
 
   cooldownUses: SpellUse[] = [];
 
+  protected enemies!: Enemies;
   protected ruptureUptimeAndSnapshots!: RuptureUptimeAndSnapshots;
 
   constructor(options: Options) {

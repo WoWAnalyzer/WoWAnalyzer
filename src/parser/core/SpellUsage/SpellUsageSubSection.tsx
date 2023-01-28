@@ -103,6 +103,7 @@ type SpellUsageSubSectionProps = Omit<ComponentPropsWithoutRef<typeof SubSection
   explanation: ReactNode;
   performance: BoxRowEntry[];
   uses: SpellUse[];
+  onPerformanceBoxClick?: (use: SpellUse | undefined) => void;
 };
 
 /**
@@ -117,6 +118,7 @@ const SpellUsageSubSection = ({
   explanation,
   performance,
   uses,
+  onPerformanceBoxClick,
   ...others
 }: SpellUsageSubSectionProps) => {
   const [selectedUse, setSelectedUse] = useState<number | undefined>();
@@ -125,11 +127,13 @@ const SpellUsageSubSection = ({
     (index) => {
       if (index >= uses.length) {
         setSelectedUse(undefined);
+        onPerformanceBoxClick?.(undefined);
       } else {
         setSelectedUse(index);
+        onPerformanceBoxClick?.(uses[index]);
       }
     },
-    [uses.length],
+    [onPerformanceBoxClick, uses],
   );
 
   return (
