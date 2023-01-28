@@ -47,6 +47,11 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1000,
         },
+        castEfficiency: {
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.6,
+        },
       },
       {
         spell: SPELLS.MUTILATE.id,
@@ -154,6 +159,11 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1000,
         },
+        castEfficiency: {
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.6,
+        },
       },
       {
         spell: TALENTS.EXSANGUINATE_TALENT.id,
@@ -162,6 +172,11 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.EXSANGUINATE_TALENT),
         gcd: {
           base: 1000,
+        },
+        castEfficiency: {
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.6,
         },
       },
       {
@@ -172,17 +187,32 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1000,
         },
+        castEfficiency: {
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.6,
+        },
       },
       {
         spell: SPELLS.VANISH.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 2 * 60,
+        castEfficiency: {
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.6,
+        },
       },
       {
         spell: TALENTS.INDISCRIMINATE_CARNAGE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 45,
         enabled: combatant.hasTalent(TALENTS.INDISCRIMINATE_CARNAGE_TALENT),
+        castEfficiency: {
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.6,
+        },
       },
       {
         spell: TALENTS.KINGSBANE_TALENT.id,
@@ -192,18 +222,33 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1000,
         },
+        castEfficiency: {
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.6,
+        },
       },
       {
         spell: TALENTS.COLD_BLOOD_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 45,
         enabled: combatant.hasTalent(TALENTS.COLD_BLOOD_TALENT),
+        castEfficiency: {
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.6,
+        },
       },
       {
         spell: TALENTS.MARKED_FOR_DEATH_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         enabled: combatant.hasTalent(TALENTS.MARKED_FOR_DEATH_TALENT),
+        castEfficiency: {
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.6,
+        },
       },
       // endregion
     ];

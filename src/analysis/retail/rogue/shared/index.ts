@@ -20,3 +20,4 @@ export { default as Sepsis } from './talents/Sepsis';
 export { default as StealthAbilityFollowingSepsis } from './StealthAbilityFollowingSepsis';
 export { default as Reverberation } from './talents/Reverberation';
 export { default as Flagellation } from './talents/Flagellation';
+export { default as ThistleTeaCastLinkNormalizer } from './talents/ThistleTeaCastLinkNormalizer';

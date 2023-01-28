@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 export default [
   change(date(2023, 1, 27), <>Adjusted filler suggestions to better align with Dragonflight recommendations</>, Hartra344 ),
+  change(date(2023, 1, 27), <>Added statistics support for <SpellLink id={TALENTS_DRUID.FRIEND_OF_THE_FAE_TALENT} /></>, ap2355 ),
   change(date(2023, 1, 24), <>Added statistics support for <SpellLink id={SPELLS.TOUCH_THE_COSMOS} /></>, ap2355 ),
   change(date(2023, 1, 24), <>Added statistics support for <SpellLink id={TALENTS_DRUID.STARWEAVER_TALENT} /></>, ap2355 ),
   change(date(2023, 1, 23), <>Added statistics support for <SpellLink id={SPELLS.GATHERING_STARSTUFF} /></>, ap2355 ),

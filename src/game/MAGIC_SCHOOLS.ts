@@ -16,6 +16,7 @@ const MAGIC_SCHOOLS: {
     40: 'Plague',
     48: 'Shadowfrost',
     64: 'Arcane',
+    72: 'Astral',
     96: 'Spellshadow',
     100: 'Special',
     124: 'Chaos',
@@ -29,6 +30,7 @@ const MAGIC_SCHOOLS: {
     FROST: 16,
     SHADOW: 32,
     ARCANE: 64,
+    ASTRAL: 72,
   },
 };
 
