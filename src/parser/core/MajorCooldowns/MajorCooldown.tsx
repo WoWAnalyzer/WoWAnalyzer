@@ -2,7 +2,12 @@ import { ReactNode } from 'react';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { isTalent, Talent } from 'common/TALENTS/types';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
-import { SpellUse, spellUseToBoxRowEntry } from 'parser/core/SpellUsage/core';
+import {
+  ChecklistUsageInfo,
+  SpellUse,
+  spellUseToBoxRowEntry,
+  UsageInfo,
+} from 'parser/core/SpellUsage/core';
 import { CastEvent } from 'parser/core/Events';
 import Spell from 'common/SPELLS/Spell';
 
@@ -16,6 +21,17 @@ export interface SpellCast {
 interface CooldownOptions {
   spell: Talent;
 }
+
+export const createChecklistItem = <Cast extends SpellCast>(
+  check: string,
+  cast: Cast,
+  usageInfo: UsageInfo | undefined,
+): ChecklistUsageInfo | undefined => {
+  if (!usageInfo) {
+    return undefined;
+  }
+  return { check, timestamp: cast.event.timestamp, ...usageInfo };
+};
 
 /**
  * An abstract analyzer to make data about major cooldown casts easy to convert into a relatively
