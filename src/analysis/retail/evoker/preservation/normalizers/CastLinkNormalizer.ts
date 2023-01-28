@@ -520,7 +520,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: SPARK_OF_INSIGHT,
     reverseLinkRelation: SPARK_OF_INSIGHT,
     linkingEventId: SPELLS.ESSENCE_BURST_BUFF.id,
-    linkingEventType: EventType.ApplyBuff,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.TEMPORAL_COMPRESSION_BUFF.id,
     referencedEventType: EventType.RemoveBuff,
     isActive(c) {
@@ -643,7 +643,9 @@ export function getStasisSpell(event: RemoveBuffStackEvent | RemoveBuffEvent): n
   return (relatedEvents[0] as EmpowerEndEvent).ability.guid;
 }
 
-export function didSparkProcEssenceBurst(event: ApplyBuffEvent | RemoveBuffEvent) {
+export function didSparkProcEssenceBurst(
+  event: ApplyBuffEvent | RemoveBuffEvent | RefreshBuffEvent,
+) {
   return HasRelatedEvent(event, SPARK_OF_INSIGHT);
 }
 

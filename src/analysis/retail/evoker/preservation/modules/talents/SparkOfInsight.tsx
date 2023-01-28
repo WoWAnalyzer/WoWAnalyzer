@@ -5,6 +5,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
+  RefreshBuffEvent,
   RemoveBuffEvent,
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
@@ -25,6 +26,7 @@ class SparkOfInsight extends Analyzer {
   manaSaved: number = 0;
   totalSparkProcs: number = 0;
   wastedStacks: number = 0;
+  wastedProcs: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -32,6 +34,10 @@ class SparkOfInsight extends Analyzer {
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_BURST_BUFF),
       this.onApply,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_BURST_BUFF),
+      this.onEbRefresh,
     );
     this.addEventListener(
       Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.TEMPORAL_COMPRESSION_BUFF),
@@ -50,6 +56,12 @@ class SparkOfInsight extends Analyzer {
   onApply(event: ApplyBuffEvent) {
     if (didSparkProcEssenceBurst(event)) {
       this.totalSparkProcs += 1;
+    }
+  }
+
+  onEbRefresh(event: RefreshBuffEvent) {
+    if (didSparkProcEssenceBurst(event)) {
+      this.wastedProcs;
     }
   }
 
@@ -84,6 +96,11 @@ class SparkOfInsight extends Analyzer {
           {this.totalSparkProcs}{' '}
           <small>
             extra <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> procs
+          </small>
+          <br />
+          {this.wastedProcs}{' '}
+          <small>
+            wasted <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> procs
           </small>
           <br />
           {this.wastedStacks} <small>wasted stacks</small>
