@@ -228,27 +228,27 @@ const spells = spellIndexableList({
   },
   LESSON_OF_DESPAIR_BUFF: {
     id: 400100,
-    name: 'Lesson of Doubt',
+    name: 'Lesson of Despair',
     icon: 'sha_ability_rogue_envelopingshadows',
   },
   LESSON_OF_FEAR_BUFF: {
     id: 400103,
-    name: 'Lesson of Doubt',
+    name: 'Lesson of Fear',
     icon: 'sha_ability_rogue_bloodyeye_nightborne',
   },
   LESSON_OF_ANGER_BUFF: {
     id: 400106,
-    name: 'Lesson of Doubt',
+    name: 'Lesson of Anger',
     icon: 'sha_ability_rogue_envelopingshadows_nightmare',
   },
   LESSON_OF_ANGER_DAMAGE: {
     id: 400145,
-    name: 'Lesson of Doubt',
+    name: 'Lesson of Anger',
     icon: 'sha_ability_rogue_envelopingshadows_nightmare',
   },
   LESSON_OF_ANGER_HEAL: {
     id: 400146,
-    name: 'Lesson of Doubt',
+    name: 'Lesson of Anger',
     icon: 'sha_ability_rogue_envelopingshadows_nightmare',
   },
   SPIRIT_OF_THE_CRANE_BUFF: {
