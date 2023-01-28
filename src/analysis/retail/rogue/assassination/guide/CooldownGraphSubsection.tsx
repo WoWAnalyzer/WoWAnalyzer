@@ -1,4 +1,4 @@
-import { Talent } from 'common/TALENTS/types';
+import { isTalent, Talent } from 'common/TALENTS/types';
 import { SubSection, useAnalyzer, useInfo } from 'interface/guide';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import { Trans } from '@lingui/macro';
@@ -6,18 +6,21 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
+import Spell from 'common/SPELLS/Spell';
 
 type Cooldown = {
-  talent: Talent;
+  spell: Spell;
   extraTalents?: Talent[];
 };
 
 const cooldownsToCheck: Cooldown[] = [
-  { talent: TALENTS.KINGSBANE_TALENT },
-  { talent: TALENTS.EXSANGUINATE_TALENT },
-  { talent: TALENTS.DEATHMARK_TALENT },
-  { talent: TALENTS.ECHOING_REPRIMAND_TALENT },
-  { talent: TALENTS.INDISCRIMINATE_CARNAGE_TALENT },
+  { spell: SPELLS.VANISH },
+  { spell: SPELLS.SHIV },
+  { spell: TALENTS.KINGSBANE_TALENT },
+  { spell: TALENTS.EXSANGUINATE_TALENT },
+  { spell: TALENTS.DEATHMARK_TALENT },
+  { spell: TALENTS.ECHOING_REPRIMAND_TALENT },
+  { spell: TALENTS.INDISCRIMINATE_CARNAGE_TALENT },
 ];
 
 const CooldownGraphSubsection = () => {
@@ -28,7 +31,7 @@ const CooldownGraphSubsection = () => {
   }
 
   const cooldowns = cooldownsToCheck.filter((cooldown) => {
-    const hasTalent = info.combatant.hasTalent(cooldown.talent);
+    const hasTalent = !isTalent(cooldown.spell) || info.combatant.hasTalent(cooldown.spell);
     const hasExtraTalents =
       cooldown.extraTalents?.reduce(
         (acc, talent) => acc && info.combatant.hasTalent(talent),
@@ -37,7 +40,7 @@ const CooldownGraphSubsection = () => {
     return hasTalent && hasExtraTalents;
   });
   const hasTooManyCasts = cooldowns.some((cooldown) => {
-    const casts = castEfficiency.getCastEfficiencyForSpell(cooldown.talent)?.casts ?? 0;
+    const casts = castEfficiency.getCastEfficiencyForSpell(cooldown.spell)?.casts ?? 0;
     return casts >= 10;
   });
 
@@ -49,17 +52,13 @@ const CooldownGraphSubsection = () => {
         segments show when the spell was cooling down. Red segments highlight times when you could
         have fit a whole extra use of the cooldown.
       </Trans>
-      <CastEfficiencyBar
-        spellId={SPELLS.VANISH.id}
-        gapHighlightMode={GapHighlight.FullCooldown}
-        minimizeIcons={hasTooManyCasts}
-      />
       {cooldowns.map((cooldownCheck) => (
         <CastEfficiencyBar
-          key={cooldownCheck.talent.id}
-          spellId={cooldownCheck.talent.id}
+          key={cooldownCheck.spell.id}
+          spellId={cooldownCheck.spell.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           minimizeIcons={hasTooManyCasts}
+          useThresholds
         />
       ))}
     </SubSection>
