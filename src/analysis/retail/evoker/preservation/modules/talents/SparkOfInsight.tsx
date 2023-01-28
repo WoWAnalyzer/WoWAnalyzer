@@ -100,7 +100,7 @@ class SparkOfInsight extends Analyzer {
           <br />
           {this.wastedProcs}{' '}
           <small>
-            wasted <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> procs
+            wasted <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> refreshes
           </small>
           <br />
           {this.wastedStacks} <small>wasted stacks</small>
