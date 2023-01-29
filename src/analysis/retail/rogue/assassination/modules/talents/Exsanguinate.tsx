@@ -7,7 +7,7 @@ import { ReactNode } from 'react';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent, HasTarget } from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
 import SpellLink from 'interface/SpellLink';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -15,20 +15,35 @@ import { isDefined } from 'common/typeGuards';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
+import GarroteUptimeAndSnapshots from '../spells/GarroteUptimeAndSnapshots';
+import RuptureUptimeAndSnapshots from '../spells/RuptureUptimeAndSnapshots';
+import { isInOpener } from 'analysis/retail/rogue/assassination/constants';
+import { formatDurationMillisMinSec } from 'common/format';
+
+const OK_DURATION_ON_GARROTE = 18000;
+const FAIL_DURATION_ON_GARROTE = 6000;
+const OK_DURATION_ON_RUPTURE = 32000;
+const FAIL_DURATION_ON_RUPTURE = 10666;
+
 interface ExsanguinateCast extends SpellCast {
   targetHadDeathmarkActiveOnCast: boolean;
   targetHadRuptureOnCast: boolean;
   targetHadGarroteOnCast: boolean;
-  targetHadCrimsonTempestOnCast: boolean;
+  targetTimeLeftOnGarrote: number;
+  targetTimeLeftOnRupture: number;
 }
 
 export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
   static dependencies = {
     ...MajorCooldown.dependencies,
     enemies: Enemies,
+    garroteUptimeAndSnapshots: GarroteUptimeAndSnapshots,
+    ruptureUptimeAndSnapshots: RuptureUptimeAndSnapshots,
   };
 
   protected enemies!: Enemies;
+  protected garroteUptimeAndSnapshots!: GarroteUptimeAndSnapshots;
+  protected ruptureUptimeAndSnapshots!: RuptureUptimeAndSnapshots;
 
   constructor(options: Options) {
     super({ spell: TALENTS.EXSANGUINATE_TALENT }, options);
@@ -74,17 +89,11 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
       cast,
       this.garrotePerformance(cast),
     );
-    const crimsonTempestChecklistItem = createChecklistItem(
-      'crimsonTempest',
-      cast,
-      this.crimsonTempestPerformance(cast),
-    );
 
     const checklistItems = [
       deathmarkChecklistItem,
       ruptureChecklistItem,
       garroteChecklistItem,
-      crimsonTempestChecklistItem,
     ].filter(isDefined);
     const performance = combineQualitativePerformances(
       checklistItems.map((item) => item.performance),
@@ -144,7 +153,8 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
         performance: QualitativePerformance.Fail,
         summary: (
           <div>
-            Cast while target has <SpellLink id={SPELLS.RUPTURE} /> applied
+            Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_RUPTURE)}+ left on{' '}
+            <SpellLink id={SPELLS.RUPTURE} />
           </div>
         ),
         details: (
@@ -155,17 +165,97 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
         ),
       };
     }
+    if (cast.targetTimeLeftOnRupture < FAIL_DURATION_ON_RUPTURE) {
+      if (isInOpener(cast.event, this.owner.fight)) {
+        return {
+          performance: QualitativePerformance.Ok,
+          summary: (
+            <div>
+              Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_RUPTURE)}+ left on{' '}
+              <SpellLink id={SPELLS.RUPTURE} />
+            </div>
+          ),
+          details: (
+            <div>
+              You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
+              {formatDurationMillisMinSec(cast.targetTimeLeftOnRupture)} left on{' '}
+              <SpellLink id={SPELLS.RUPTURE} />. You were in your opener, so this is okay.
+            </div>
+          ),
+        };
+      }
+      return {
+        performance: QualitativePerformance.Fail,
+        summary: (
+          <div>
+            Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_RUPTURE)}+ left on{' '}
+            <SpellLink id={SPELLS.RUPTURE} />
+          </div>
+        ),
+        details: (
+          <div>
+            You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
+            {formatDurationMillisMinSec(cast.targetTimeLeftOnRupture)} left on{' '}
+            <SpellLink id={SPELLS.RUPTURE} />. Try to have{' '}
+            {formatDurationMillisMinSec(OK_DURATION_ON_RUPTURE)}+ left on{' '}
+            <SpellLink id={SPELLS.RUPTURE} /> when casting{' '}
+            <SpellLink id={TALENTS.EXSANGUINATE_TALENT} />.
+          </div>
+        ),
+      };
+    }
+    if (cast.targetTimeLeftOnRupture < OK_DURATION_ON_RUPTURE) {
+      if (isInOpener(cast.event, this.owner.fight)) {
+        return {
+          performance: QualitativePerformance.Ok,
+          summary: (
+            <div>
+              Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_RUPTURE)}+ left on{' '}
+              <SpellLink id={SPELLS.RUPTURE} />
+            </div>
+          ),
+          details: (
+            <div>
+              You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
+              {formatDurationMillisMinSec(cast.targetTimeLeftOnRupture)} left on{' '}
+              <SpellLink id={SPELLS.RUPTURE} />. You were in your opener, so this is okay.
+            </div>
+          ),
+        };
+      }
+      return {
+        performance: QualitativePerformance.Ok,
+        summary: (
+          <div>
+            Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_RUPTURE)}+ left on{' '}
+            <SpellLink id={SPELLS.RUPTURE} />
+          </div>
+        ),
+        details: (
+          <div>
+            You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
+            {formatDurationMillisMinSec(cast.targetTimeLeftOnRupture)} left on{' '}
+            <SpellLink id={SPELLS.RUPTURE} />. Try to have{' '}
+            {formatDurationMillisMinSec(OK_DURATION_ON_RUPTURE)}+ left on{' '}
+            <SpellLink id={SPELLS.RUPTURE} /> when casting{' '}
+            <SpellLink id={TALENTS.EXSANGUINATE_TALENT} />.
+          </div>
+        ),
+      };
+    }
     return {
       performance: QualitativePerformance.Good,
       summary: (
         <div>
-          Cast while target has <SpellLink id={SPELLS.RUPTURE} /> applied
+          Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_RUPTURE)}+ left on{' '}
+          <SpellLink id={SPELLS.RUPTURE} />
         </div>
       ),
       details: (
         <div>
           You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
-          <SpellLink id={SPELLS.RUPTURE} /> applied.
+          {formatDurationMillisMinSec(cast.targetTimeLeftOnRupture)} left on{' '}
+          <SpellLink id={SPELLS.RUPTURE} />.
         </div>
       ),
     };
@@ -177,7 +267,8 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
         performance: QualitativePerformance.Fail,
         summary: (
           <div>
-            Cast while target has <SpellLink id={SPELLS.GARROTE} /> applied
+            Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_GARROTE)}+ left on{' '}
+            <SpellLink id={SPELLS.GARROTE} />
           </div>
         ),
         details: (
@@ -188,38 +279,80 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
         ),
       };
     }
-    return {
-      performance: QualitativePerformance.Good,
-      summary: (
-        <div>
-          Cast while target has <SpellLink id={SPELLS.GARROTE} /> applied
-        </div>
-      ),
-      details: (
-        <div>
-          You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
-          <SpellLink id={SPELLS.GARROTE} /> applied.
-        </div>
-      ),
-    };
-  }
-
-  private crimsonTempestPerformance(cast: ExsanguinateCast): UsageInfo | undefined {
-    if (!this.selectedCombatant.hasTalent(TALENTS.CRIMSON_TEMPEST_TALENT)) {
-      return undefined;
-    }
-    if (!cast.targetHadCrimsonTempestOnCast) {
+    if (cast.targetTimeLeftOnGarrote < FAIL_DURATION_ON_GARROTE) {
+      if (isInOpener(cast.event, this.owner.fight)) {
+        return {
+          performance: QualitativePerformance.Ok,
+          summary: (
+            <div>
+              Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_GARROTE)}+ left on{' '}
+              <SpellLink id={SPELLS.GARROTE} />
+            </div>
+          ),
+          details: (
+            <div>
+              You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
+              {formatDurationMillisMinSec(cast.targetTimeLeftOnGarrote)} left on{' '}
+              <SpellLink id={SPELLS.GARROTE} />. You were in your opener, so this is okay.
+            </div>
+          ),
+        };
+      }
       return {
-        performance: QualitativePerformance.Ok,
+        performance: QualitativePerformance.Fail,
         summary: (
           <div>
-            Cast while target has <SpellLink id={TALENTS.CRIMSON_TEMPEST_TALENT} /> applied
+            Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_GARROTE)}+ left on{' '}
+            <SpellLink id={SPELLS.GARROTE} />
           </div>
         ),
         details: (
           <div>
-            You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target did not have{' '}
-            <SpellLink id={TALENTS.CRIMSON_TEMPEST_TALENT} /> applied.
+            You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
+            {formatDurationMillisMinSec(cast.targetTimeLeftOnGarrote)} left on{' '}
+            <SpellLink id={SPELLS.GARROTE} />. Try to have{' '}
+            {formatDurationMillisMinSec(OK_DURATION_ON_GARROTE)}+ left on{' '}
+            <SpellLink id={SPELLS.GARROTE} /> when casting{' '}
+            <SpellLink id={TALENTS.EXSANGUINATE_TALENT} />.
+          </div>
+        ),
+      };
+    }
+    if (cast.targetTimeLeftOnGarrote < OK_DURATION_ON_GARROTE) {
+      if (isInOpener(cast.event, this.owner.fight)) {
+        return {
+          performance: QualitativePerformance.Ok,
+          summary: (
+            <div>
+              Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_GARROTE)}+ left on{' '}
+              <SpellLink id={SPELLS.GARROTE} />
+            </div>
+          ),
+          details: (
+            <div>
+              You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
+              {formatDurationMillisMinSec(cast.targetTimeLeftOnGarrote)} left on{' '}
+              <SpellLink id={SPELLS.GARROTE} />. You were in your opener, so this is okay.
+            </div>
+          ),
+        };
+      }
+      return {
+        performance: QualitativePerformance.Ok,
+        summary: (
+          <div>
+            Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_GARROTE)}+ left on{' '}
+            <SpellLink id={SPELLS.GARROTE} />
+          </div>
+        ),
+        details: (
+          <div>
+            You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
+            {formatDurationMillisMinSec(cast.targetTimeLeftOnGarrote)} left on{' '}
+            <SpellLink id={SPELLS.GARROTE} />. Try to have{' '}
+            {formatDurationMillisMinSec(OK_DURATION_ON_GARROTE)}+ left on{' '}
+            <SpellLink id={SPELLS.GARROTE} /> when casting{' '}
+            <SpellLink id={TALENTS.EXSANGUINATE_TALENT} />.
           </div>
         ),
       };
@@ -228,13 +361,15 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
       performance: QualitativePerformance.Good,
       summary: (
         <div>
-          Cast while target has <SpellLink id={TALENTS.CRIMSON_TEMPEST_TALENT} /> applied
+          Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_GARROTE)}+ left on{' '}
+          <SpellLink id={SPELLS.GARROTE} />
         </div>
       ),
       details: (
         <div>
           You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
-          <SpellLink id={TALENTS.CRIMSON_TEMPEST_TALENT} /> applied.
+          {formatDurationMillisMinSec(cast.targetTimeLeftOnGarrote)} left on{' '}
+          <SpellLink id={SPELLS.GARROTE} />.
         </div>
       ),
     };
@@ -244,17 +379,21 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
     const enemy = this.enemies.getEntity(event);
     const targetHadDeathmarkActiveOnCast =
       enemy?.hasBuff(TALENTS.DEATHMARK_TALENT.id, event.timestamp) ?? false;
-    const targetHadRuptureOnCast = enemy?.hasBuff(SPELLS.RUPTURE.id, event.timestamp) ?? false;
     const targetHadGarroteOnCast = enemy?.hasBuff(SPELLS.GARROTE.id, event.timestamp) ?? false;
-    const targetHadCrimsonTempestOnCast =
-      enemy?.hasBuff(TALENTS.CRIMSON_TEMPEST_TALENT.id, event.timestamp) ?? false;
-
+    const targetHadRuptureOnCast = enemy?.hasBuff(SPELLS.RUPTURE.id, event.timestamp) ?? false;
+    const targetTimeLeftOnGarrote = HasTarget(event)
+      ? this.garroteUptimeAndSnapshots.getTimeRemaining(event)
+      : 0;
+    const targetTimeLeftOnRupture = HasTarget(event)
+      ? this.ruptureUptimeAndSnapshots.getTimeRemaining(event)
+      : 0;
     this.recordCooldown({
       event,
       targetHadDeathmarkActiveOnCast,
       targetHadRuptureOnCast,
       targetHadGarroteOnCast,
-      targetHadCrimsonTempestOnCast,
+      targetTimeLeftOnGarrote,
+      targetTimeLeftOnRupture,
     });
   }
 }

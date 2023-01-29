@@ -5,7 +5,7 @@ import { SpellUse, spellUseToBoxRowEntry } from 'parser/core/SpellUsage/core';
 import Events, { CastEvent } from 'parser/core/Events';
 import { getResourceChange } from 'analysis/retail/rogue/shared/talents/ThistleTeaCastLinkNormalizer';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { OPENER_MAX_DURATION_MS } from 'analysis/retail/rogue/assassination/constants';
+import { isInOpener } from 'analysis/retail/rogue/assassination/constants';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import ResourceLink from 'interface/ResourceLink';
 import SpellLink from 'interface/SpellLink';
@@ -87,9 +87,6 @@ export default class ThistleTea extends Analyzer {
       return; // we didn't get energy from the cast
     }
 
-    const timeIntoEncounter = event.timestamp - this.owner.fight.start_time;
-    const isInOpener = timeIntoEncounter <= OPENER_MAX_DURATION_MS;
-
     const wasted = resourceChange.waste;
     const gained = resourceChange.resourceChange - resourceChange.waste;
 
@@ -105,7 +102,7 @@ export default class ThistleTea extends Analyzer {
       </div>
     );
     if (wasted > 0) {
-      if (isInOpener) {
+      if (isInOpener(event, this.owner.fight)) {
         performance = QualitativePerformance.Ok;
         details = (
           <div>
