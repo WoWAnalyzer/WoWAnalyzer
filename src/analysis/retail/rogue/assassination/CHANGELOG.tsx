@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
 
 export default [
+  change(date(2023, 1, 28), 'Fix reference to Fury in Guide.', ToppleTheNun),
   change(date(2023, 1, 28), <>Update <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> to check duration of <SpellLink id={SPELLS.GARROTE} /> and <SpellLink id={SPELLS.RUPTURE} />.</>, ToppleTheNun),
   change(date(2023, 1, 28), <>Add breakdown of <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> usage to Guide.</>, ToppleTheNun),
   change(date(2023, 1, 28), <>Add details for <SpellLink id={TALENTS.THISTLE_TEA_TALENT} /> usage to Guide.</>, ToppleTheNun),
