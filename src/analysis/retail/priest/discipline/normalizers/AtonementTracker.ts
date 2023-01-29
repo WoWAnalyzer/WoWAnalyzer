@@ -25,9 +25,17 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: BUFFER_MS,
     anyTarget: true,
     anySource: true,
-    maximumLinks: 1,
+    additionalCondition(linkingEvent, referencedEvent) {
+      const healEvent = linkingEvent as HealEvent;
+      const damageEvent = referencedEvent as DamageEvent;
+      return !checkAtonementTargetsHealed(damageEvent).includes(healEvent.targetID);
+    },
   },
 ];
+
+export function checkAtonementTargetsHealed(damageEvent: DamageEvent): number[] {
+  return getHealEvents(damageEvent).map((healEvent) => healEvent.targetID);
+}
 
 class AtonementNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
@@ -41,6 +49,10 @@ export function hasAtonementDamageEvent(event: HealEvent): boolean {
 
 export function getDamageEvent(event: HealEvent) {
   return GetRelatedEvents(event, ATONEMENT_DAMAGE_EVENT)[0] as DamageEvent;
+}
+
+export function getHealEvents(event: DamageEvent) {
+  return GetRelatedEvents(event, ATONEMENT_HEAL_EVENT) as HealEvent[];
 }
 
 export default AtonementNormalizer;
