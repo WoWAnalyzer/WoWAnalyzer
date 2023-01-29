@@ -379,11 +379,15 @@ const spells = spellIndexableList({
     icon: 'ability_priest_halo',
     manaCost: 1350,
   },
-
   EXPIATION_DAMAGE: {
     id: 390844,
     name: 'Expiation',
     icon: 'spell-shadow-shadowpower',
+  },
+  BURNING_VEHEMENCE_DAMAGE: {
+    id: 400370,
+    name: 'Burning Vehemence',
+    icon: 'ability_paladin_sacredcleansing',
   },
 
   // Holy Priest Spells

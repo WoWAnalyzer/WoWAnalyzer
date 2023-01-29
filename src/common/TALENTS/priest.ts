@@ -142,13 +142,6 @@ const talents = createTalentList({
     maxRanks: 2,
     entryIds: [103738],
   },
-  BURNING_VEHEMENCE_TALENT_DAMAGE: {
-    id: 400370,
-    name: 'Burning Vehemence',
-    icon: 'ability_paladin_sacredcleansing',
-    maxRanks: 2,
-    entryIds: [103738],
-  },
   CASTIGATION_TALENT: {
     id: 193134,
     name: 'Castigation',

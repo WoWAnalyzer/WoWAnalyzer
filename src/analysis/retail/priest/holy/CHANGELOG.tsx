@@ -6,7 +6,7 @@ import { SpellLink } from 'interface';
 export default [
   change(
     date(2023, 1, 24),
-    <>Update spec for patch 10.0.5.</>,
+    <>Updated for patch 10.0.5.</>,
     Squided
   ),
   change(

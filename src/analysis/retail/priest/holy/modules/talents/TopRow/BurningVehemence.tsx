@@ -24,7 +24,7 @@ class BurningVehemence extends Analyzer {
       ];
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.HOLY_FIRE), this.onDamage);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.BURNING_VEHEMENCE_TALENT_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BURNING_VEHEMENCE_DAMAGE),
       this.onCleaveDamage,
     );
   }
