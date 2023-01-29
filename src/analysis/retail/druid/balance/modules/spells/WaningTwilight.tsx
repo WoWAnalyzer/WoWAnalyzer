@@ -14,6 +14,8 @@ import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import { TrackedBuffEvent } from 'parser/core/Entity';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../constants';
+import UptimeIcon from 'interface/icons/Uptime';
+import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 
 const WANING_TWILIGHT_BONUS_DAMAGE = 0.04;
 const WT_COLOR = '#00bb44';
@@ -74,9 +76,9 @@ class WaningTwilight extends Analyzer {
       >
         <BoringSpellValueText spellId={TALENTS_DRUID.WANING_TWILIGHT_TALENT.id}>
           <>
-            {waningTwilightUptime}% <small> uptime</small>
+            <UptimeIcon /> {waningTwilightUptime}% <small> uptime</small>
             <br />
-            {dpsAdded} <small>DPS</small>
+            <ItemPercentDamageDone greaterThan amount={this.totalDamage} />
           </>
         </BoringSpellValueText>
       </Statistic>

@@ -4,12 +4,13 @@ import { t, Trans } from '@lingui/macro';
 import EnergyCapWaste from 'analysis/retail/rogue/shared/guide/EnergyCapWaste';
 import TALENTS from 'common/TALENTS/rogue';
 import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
-
-import CombatLogParser from './CombatLogParser';
-import CooldownGraphSubsection from './guide/CooldownGraphSubsection';
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
+
+import CombatLogParser from './CombatLogParser';
+import CooldownGraphSubsection from './guide/CooldownGraphSubsection';
+import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -105,12 +106,13 @@ function CoreRotationSection({ modules, info }: GuideProps<typeof CombatLogParse
       {info.combatant.hasTalent(TALENTS.CRIMSON_TEMPEST_TALENT) &&
         modules.crimsonTempestUptimeAndSnapshots.guideSubsection}
       {modules.garroteUptimeAndSnapshots.guideSubsection}
+      {info.combatant.hasTalent(TALENTS.THISTLE_TEA_TALENT) && modules.thistleTea.guideSubsection}
       {modules.hitCountAoe.guideSubsection}
     </Section>
   );
 }
 
-function CooldownSection(_: GuideProps<typeof CombatLogParser>) {
+function CooldownSection({ info, modules }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section
       title={t({
@@ -125,6 +127,9 @@ function CooldownSection(_: GuideProps<typeof CombatLogParser>) {
         particularly important to use <SpellLink id={SPELLS.VANISH.id} /> as often as possible.
       </p>
       <CooldownGraphSubsection />
+      {info.combatant.hasTalent(TALENTS.EXSANGUINATE_TALENT) && (
+        <CooldownUsage analyzer={modules.exsanguinate} />
+      )}
     </Section>
   );
 }

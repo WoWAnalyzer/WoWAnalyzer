@@ -6,11 +6,11 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
-import { CA_BUFF, cooldownAbility } from '../../constants';
+import { cooldownAbility } from '../../constants';
 import { hardcastTargetsHit } from '../../normalizers/CastLinkNormalizer';
 
-// minimum targets Starfire must hit for it to be worth to cast during Solar Eclipse
-export const STARFIRE_TARGETS_FOR_SOLAR = 6;
+// minimum targets Starfire must hit for it to be worth to cast in lunar eclipse/CA
+export const STARFIRE_TARGETS_FOR_SOLAR = 2;
 
 const MINOR_THRESHOLD = 0;
 const AVERAGE_THRESHOLD = 0.05;
@@ -18,17 +18,7 @@ const MAJOR_THRESHOLD = 0.1;
 
 const DEBUG = false;
 
-/**
- * Balance has two 'filler' spells - Wrath and Starfire.
- * Which to use is dicated by the Eclipse cycle - Wrath during and after Solar Eclipse,
- * and Starfire during and after Lunar Eclipse.
- *
- * This module tracks that the correct filler is used. Relies on CastLinkNormalizer to determine
- * the number of targets hit by Starfire.
- */
 class FillerUsage extends Analyzer {
-  // none at start of fight and also during / after CA
-  lastEclipse: 'none' | 'solar' | 'lunar' = 'none';
 
   totalFillerCasts: number = 0;
   badFillerCasts: number = 0;
@@ -36,60 +26,24 @@ class FillerUsage extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ECLIPSE_SOLAR),
-      this.onSolarEclipse,
-    );
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ECLIPSE_LUNAR),
-      this.onLunarEclipse,
-    );
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(CA_BUFF), this.onCa);
-
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WRATH_MOONKIN),
-      this.onWrath,
-    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STARFIRE), this.onStarfire);
-  }
-
-  onSolarEclipse() {
-    if (!this.selectedCombatant.hasBuff(cooldownAbility(this.selectedCombatant).id)) {
-      this.lastEclipse = 'solar';
-    }
-  }
-
-  onLunarEclipse() {
-    if (!this.selectedCombatant.hasBuff(cooldownAbility(this.selectedCombatant).id)) {
-      this.lastEclipse = 'lunar';
-    }
-  }
-
-  onCa() {
-    this.lastEclipse = 'none';
-  }
-
-  onWrath(event: CastEvent) {
-    this.totalFillerCasts += 1;
-    if (this.lastEclipse === 'lunar') {
-      DEBUG && console.log('Bad Wrath @ ' + this.owner.formatTimestamp(event.timestamp));
-      this.badFillerCasts += 1;
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = `This was the wrong filler for the situation! During or after a Lunar Eclipse,
-        you should use Starfire`;
-    }
   }
 
   onStarfire(event: CastEvent) {
     this.totalFillerCasts += 1;
-    if (this.lastEclipse === 'solar' && hardcastTargetsHit(event) < STARFIRE_TARGETS_FOR_SOLAR) {
+    if (
+      !(
+        this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_LUNAR.id) ||
+        this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_SOLAR.id) ||
+        cooldownAbility(this.selectedCombatant).id
+      ) &&
+      hardcastTargetsHit(event) < STARFIRE_TARGETS_FOR_SOLAR
+    ) {
       DEBUG && console.log('Bad Starfire @ ' + this.owner.formatTimestamp(event.timestamp));
       this.badFillerCasts += 1;
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = `This was the wrong filler for the situation! During or after a Solar Eclipse,
-        you should use Wrath unless you can hit at least ${STARFIRE_TARGETS_FOR_SOLAR} targets.`;
+      event.meta.inefficientCastReason = `This was the wrong filler for the situation! you should use Wrath when out of eclipse and also in eclipse unless you can hit at least ${STARFIRE_TARGETS_FOR_SOLAR} targets.`;
     }
   }
 

@@ -1,12 +1,13 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
-import { CastEvent } from 'parser/core/Events';
+import { AnyEvent, CastEvent } from 'parser/core/Events';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Combatant from 'parser/core/Combatant';
 import Spell from 'common/SPELLS/Spell';
 import { ChecklistUsageInfo } from 'parser/core/SpellUsage/core';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import Fight from 'parser/core/Fight';
 
 // from https://www.wowhead.com/spell=137037/assassination-rogue
 export const ABILITIES_AFFECTED_BY_DAMAGE_INCREASES = [
@@ -46,17 +47,30 @@ export const NIGHTSTALKER_BLACKLIST = [
 export const GARROTE_BASE_DURATION = 18000;
 export const getGarroteDuration = (): number => GARROTE_BASE_DURATION;
 
-export const getMaxComboPoints = (c: Combatant) =>
-  5 + c.getTalentRank(TALENTS.DEEPER_STRATAGEM_TALENT);
+export const animachargedFinisherComboPoints = 7;
+
+export const getMaxComboPoints = (c: Combatant) => {
+  return 5 + c.getTalentRank(TALENTS.DEEPER_STRATAGEM_TALENT);
+};
 
 export const RUPTURE_BASE_DURATION = 4000;
 export const RUPTURE_DURATION_PR_CP_SPENT = 4000;
-export const getRuptureDuration = (cast: CastEvent): number =>
-  RUPTURE_BASE_DURATION +
-  RUPTURE_DURATION_PR_CP_SPENT * getResourceSpent(cast, RESOURCE_TYPES.COMBO_POINTS);
+export const getRuptureDuration = (c: Combatant, cast: CastEvent): number => {
+  if (isAnimachargedFinisherCast(c, cast)) {
+    return getRuptureFullDuration(c);
+  }
+  return (
+    RUPTURE_BASE_DURATION +
+    RUPTURE_DURATION_PR_CP_SPENT * getResourceSpent(cast, RESOURCE_TYPES.COMBO_POINTS)
+  );
+};
 
-export const getRuptureFullDuration = (c: Combatant) =>
-  RUPTURE_BASE_DURATION + RUPTURE_DURATION_PR_CP_SPENT * getMaxComboPoints(c);
+export const getRuptureFullDuration = (c: Combatant) => {
+  if (c.hasTalent(TALENTS.ECHOING_REPRIMAND_TALENT)) {
+    return RUPTURE_BASE_DURATION + RUPTURE_DURATION_PR_CP_SPENT * animachargedFinisherComboPoints;
+  }
+  return RUPTURE_BASE_DURATION + RUPTURE_DURATION_PR_CP_SPENT * getMaxComboPoints(c);
+};
 
 export const CRIMSON_TEMPEST_BASE_DURATION = 2000;
 export const CRIMSON_TEMPEST_DURATION_PR_CP_SPENT = 2000;
@@ -64,11 +78,22 @@ export const getCrimsonTempestDuration = (cast: CastEvent): number =>
   CRIMSON_TEMPEST_BASE_DURATION +
   CRIMSON_TEMPEST_DURATION_PR_CP_SPENT * getResourceSpent(cast, RESOURCE_TYPES.COMBO_POINTS);
 
-export const getCrimsonTempestFullDuration = (c: Combatant) =>
-  CRIMSON_TEMPEST_BASE_DURATION + CRIMSON_TEMPEST_DURATION_PR_CP_SPENT * getMaxComboPoints(c);
+export const getCrimsonTempestFullDuration = (c: Combatant) => {
+  if (c.hasTalent(TALENTS.ECHOING_REPRIMAND_TALENT)) {
+    return (
+      CRIMSON_TEMPEST_BASE_DURATION +
+      CRIMSON_TEMPEST_DURATION_PR_CP_SPENT * animachargedFinisherComboPoints
+    );
+  }
+  return (
+    CRIMSON_TEMPEST_BASE_DURATION + CRIMSON_TEMPEST_DURATION_PR_CP_SPENT * getMaxComboPoints(c)
+  );
+};
 
 /** Max time left on a DoT for us to not yell if snapshot is downgraded */
 export const SNAPSHOT_DOWNGRADE_BUFFER = 2000;
+
+export const OPENER_MAX_DURATION_MS = 15000;
 
 export const BUILDERS: Spell[] = [
   SPELLS.MUTILATE,
@@ -133,3 +158,8 @@ export const animachargedCheckedUsageInfo = (
     },
   ];
 };
+
+export const pandemicMaxDuration = (duration: number) => duration * 1.3;
+
+export const isInOpener = (event: AnyEvent, fight: Fight) =>
+  event.timestamp - fight.start_time <= OPENER_MAX_DURATION_MS;

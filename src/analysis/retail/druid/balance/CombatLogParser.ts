@@ -29,7 +29,7 @@ import GatheringStarstuff from 'analysis/retail/druid/balance/modules/spells/Gat
 import RattleTheStars from './modules/spells/RattleTheStars';
 import TouchTheCosmos from './modules/spells/TouchTheCosmos';
 import Starweaver from './modules/spells/Starweaver';
-
+import FriendOfTheFae from './modules/spells/FriendOfTheFae';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -65,6 +65,7 @@ class CombatLogParser extends MainCombatLogParser {
     convokeSpiritsBalance: ConvokeSpiritsBalance,
     rattleTheStars: RattleTheStars,
     starweaver: Starweaver,
+    firendOfTheFae: FriendOfTheFae,
     //Tier set
     gatheringStarstuff: GatheringStarstuff,
     touchTheCosmos: TouchTheCosmos,
