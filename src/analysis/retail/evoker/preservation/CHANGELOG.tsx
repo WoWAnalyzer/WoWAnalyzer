@@ -5,6 +5,7 @@ import { Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 1, 29), <>Fix degraded experience</>, Trevor),
   change(date(2023, 1, 28), <>Add <SpellLink id={TALENTS_EVOKER.SPARK_OF_INSIGHT_TALENT}/> module</>, Trevor),
   change(date(2023, 1, 25), <>Fix an icon and change efficiency recommendation for <SpellLink id={TALENTS_EVOKER.REVERSION_TALENT}/></>, Trevor),
   change(date(2023, 1, 25), <>Mark Preservation Evoker as up to date for 10.0.5</>, Trevor),
