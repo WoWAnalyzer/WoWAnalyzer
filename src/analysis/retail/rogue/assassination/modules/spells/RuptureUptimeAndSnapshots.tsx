@@ -8,7 +8,7 @@ import {
   animachargedCheckedUsageInfo,
   getRuptureDuration,
   getRuptureFullDuration,
-  OPENER_MAX_DURATION_MS,
+  isInOpener,
   RUPTURE_BASE_DURATION,
   SNAPSHOT_DOWNGRADE_BUFFER,
 } from 'analysis/retail/rogue/assassination/constants';
@@ -75,8 +75,6 @@ export default class RuptureUptimeAndSnapshots extends DotSnapshots {
     const wasUnacceptableDowngrade =
       prevPower > power && remainingOnPrev > SNAPSHOT_DOWNGRADE_BUFFER;
     const wasUpgrade = prevPower < power;
-    const timeIntoEncounter = cast.timestamp - this.owner.fight.start_time;
-    const isInOpener = timeIntoEncounter <= OPENER_MAX_DURATION_MS;
 
     let snapshotPerformance: QualitativePerformance = QualitativePerformance.Good;
     let snapshotSummary = <div>Good snapshot usage</div>;
@@ -92,7 +90,7 @@ export default class RuptureUptimeAndSnapshots extends DotSnapshots {
       );
     }
     if (clipped > 0) {
-      if (isInOpener) {
+      if (isInOpener(cast, this.owner.fight)) {
         snapshotPerformance = QualitativePerformance.Ok;
         snapshotSummary = <div>Clipped but upgraded existing snapshotted Rupture</div>;
         snapshotDetails = (

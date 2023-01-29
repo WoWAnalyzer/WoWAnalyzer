@@ -13,6 +13,7 @@ import {
   FINISHERS,
   getMaxComboPoints,
   isAnimachargedFinisherCast,
+  isInOpener,
   OPENER_MAX_DURATION_MS,
 } from '../../constants';
 import { formatDurationMillisMinSec } from 'common/format';
@@ -101,14 +102,11 @@ export default class FinisherUse extends Analyzer {
       return;
     }
 
-    const timeIntoEncounter = event.timestamp - this.owner.fight.start_time;
-    const isInOpener = timeIntoEncounter <= OPENER_MAX_DURATION_MS;
-
     this.totalFinisherCasts += 1;
     if (isAnimachargedFinisherCast(this.selectedCombatant, event)) {
       this.animachargedCasts += 1;
     } else if (cpsSpent < getMaxComboPoints(this.selectedCombatant) - 1) {
-      if (isInOpener) {
+      if (isInOpener(event, this.owner.fight)) {
         this.openerLowCpFinisherCasts += 1;
       } else {
         this.lowCpFinisherCasts += 1;

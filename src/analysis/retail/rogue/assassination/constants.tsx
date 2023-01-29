@@ -1,12 +1,13 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
-import { CastEvent } from 'parser/core/Events';
+import { AnyEvent, CastEvent } from 'parser/core/Events';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Combatant from 'parser/core/Combatant';
 import Spell from 'common/SPELLS/Spell';
 import { ChecklistUsageInfo } from 'parser/core/SpellUsage/core';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import Fight from 'parser/core/Fight';
 
 // from https://www.wowhead.com/spell=137037/assassination-rogue
 export const ABILITIES_AFFECTED_BY_DAMAGE_INCREASES = [
@@ -159,3 +160,6 @@ export const animachargedCheckedUsageInfo = (
 };
 
 export const pandemicMaxDuration = (duration: number) => duration * 1.3;
+
+export const isInOpener = (event: AnyEvent, fight: Fight) =>
+  event.timestamp - fight.start_time <= OPENER_MAX_DURATION_MS;
