@@ -512,8 +512,8 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: EventType.Heal,
     referencedEventId: [TALENTS_EVOKER.REVERSION_TALENT.id, SPELLS.REVERSION_ECHO.id],
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    backwardBufferMs: CAST_BUFFER_MS,
-    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: ECHO_BUFFER,
+    forwardBufferMs: ECHO_BUFFER,
     maximumLinks: 1,
   },
   {
