@@ -9,6 +9,7 @@ export default [
   change(date(2023, 1, 27), <><SpellLink id={TALENTS_PRIEST.BLAZE_OF_LIGHT_TALENT.id}/> module no longer uses Atonement event.</>, Hana),
   change(date(2023, 1, 27), <>Begun 10.0.5 changes, updated <SpellLink id={SPELLS.SINS_OF_THE_MANY.id}/> and<SpellLink id={TALENTS_PRIEST.SHADOW_COVENANT_TALENT.id}/>. Bugfix for Solace vs Shield discipline module. </>, Hana),
   change(date(2023, 1, 22), <><SpellLink id={TALENTS_PRIEST.MINDGAMES_TALENT.id}/> module no longer uses Atonement event.</>, Hana),
+  change(date(2023, 1, 22), <><SpellLink id={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT.id}/> module no longer uses Atonement event.</>, Hana),
   change(date(2023, 1, 21), <><SpellLink id={TALENTS_PRIEST.SHADOW_COVENANT_TALENT.id}/> module.</>, Hana),
   change(date(2023, 1, 15), <><SpellLink id={TALENTS_PRIEST.CASTIGATION_TALENT.id}/> module no longer uses Atonement event.</>, Hana),
   change(date(2023, 1, 15), <><SpellLink id={TALENTS_PRIEST.SCHISM_TALENT.id}/> module no longer uses Atonement event.</>, Hana),
