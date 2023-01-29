@@ -47,7 +47,7 @@ const EnergyCapWaste = ({
   return (
     <p>
       <Trans id="guide.rogue.sections.resources.energy.chart">
-        The chart below shows your Fury over the course of the encounter. You spent{' '}
+        The chart below shows your Energy over the course of the encounter. You spent{' '}
         <PerformancePercentage
           performance={performance}
           perfectPercentage={perfectTimeAtCap}
