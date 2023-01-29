@@ -47,7 +47,6 @@ import Expiation from './modules/spells/Expiation';
 import PowerWordShield from './modules/spells/PowerWordShield';
 import AegisOfWrath from './modules/spells/AegisOfWrath';
 import CrystallineReflection from './modules/spells/CrystallineReflection';
-import StolenPsyche from './modules/spells/StolenPsyche';
 import PainAndSuffering from './modules/spells/PainAndSuffering';
 import ThroesOfPain from './modules/spells/ThroesOfPain';
 import MaliciousIntent from './modules/spells/MaliciousIntent';
@@ -62,6 +61,7 @@ import TwilightEquilibrium from './modules/spells/TwilightEquilibrium';
 import RaptureAnalysis from './modules/guide/RaptureAnalysis';
 import AtonementNormalizer from './normalizers/AtonementTracker';
 import ShadowCovenant from './modules/spells/ShadowCovenant/ShadowCovenant';
+import AbyssalReverie from './modules/spells/AbyssalReverie';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -122,7 +122,6 @@ class CombatLogParser extends CoreCombatLogParser {
     indemnity: Indemnity,
     expiation: Expiation,
     powerWordShield: PowerWordShield,
-    stolenPsyche: StolenPsyche,
     twilightEqilibrium: TwilightEquilibrium,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
     painAndSuffering: PainAndSuffering,
@@ -134,6 +133,7 @@ class CombatLogParser extends CoreCombatLogParser {
     protectiveLight: ProtectiveLight,
     resplendentLight: ResplendentLight,
     raptureAnalysis: RaptureAnalysis,
+    abyssalReverie: AbyssalReverie,
   };
   static guide = Guide;
 }
