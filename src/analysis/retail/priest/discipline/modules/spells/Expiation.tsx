@@ -49,7 +49,6 @@ class Expiation extends Analyzer {
   }
 
   onAtoneHeal(event: HealEvent) {
-    // new atonement code
     if (!getDamageEvent(event)) {
       return;
     }
