@@ -39,6 +39,10 @@ const longCooldowns: Cooldown[] = [
 ];
 
 const CoreCooldownsGraph = () => {
+  const info = useInfo();
+  if (info!.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT)) {
+    coreCooldowns.push({ spell: SPELLS.VOID_BOLT });
+  }
   const message = (
     <Trans id="guide.priest.shadow.sections.corecooldowns.graph">
       <strong>Core Graph</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
@@ -49,6 +53,7 @@ const CoreCooldownsGraph = () => {
       TODO: Add execute phase SW:D. <br />
     </Trans>
   );
+
   return CoreCooldownGraphSubsection(coreCooldowns, message);
 };
 
@@ -107,6 +112,7 @@ const CooldownGraphSubsection = (cooldownsToCheck: Cooldown[], message: JSX.Elem
           spellId={cooldownCheck.talent.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           minimizeIcons={hasTooManyCasts}
+          useThresholds
         />
       ))}
     </SubSection>
@@ -134,7 +140,7 @@ const CoreCooldownGraphSubsection = (cooldownsToCheck: SpellCooldown[], message:
         <CastEfficiencyBar
           key={cooldownCheck.spell.id}
           spellId={cooldownCheck.spell.id}
-          gapHighlightMode={GapHighlight.FullCooldown}
+          gapHighlightMode={GapHighlight.None}
           minimizeIcons={hasTooManyCasts}
         />
       ))}
