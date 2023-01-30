@@ -18,6 +18,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 1, 30), "Correct an issue with accessing undefined values in GetRelatedEvents, HasRelatedEvent and AddRelatedEvent", Putro),
   change(date(2023, 1, 26), 'Update performance box rows to use CSS grid instead of flexbox.', ToppleTheNun),
   change(date(2023, 1, 25), 'Bump retail patch to 10.0.5.', ToppleTheNun),
   change(date(2023, 1, 24), "Fixed an issue where Guide pages weren't showing by default", Sref),
