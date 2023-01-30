@@ -1,6 +1,5 @@
 import PreciseShots from 'analysis/retail/hunter/marksmanship/modules/spells/PreciseShots';
 import CallingTheShots from 'analysis/retail/hunter/marksmanship/modules/talents/CallingTheShots';
-import DeadEye from 'analysis/retail/hunter/marksmanship/modules/talents/DeadEye';
 import LethalShots from 'analysis/retail/hunter/marksmanship/modules/talents/LethalShots';
 import SerpentSting from 'analysis/retail/hunter/shared/talents/SerpentSting';
 import SteadyFocus from 'analysis/retail/hunter/marksmanship/modules/talents/SteadyFocus';
@@ -35,7 +34,6 @@ class Checklist extends BaseChecklist {
     lethalShots: LethalShots,
     serpentSting: SerpentSting,
     callingTheShots: CallingTheShots,
-    deadEye: DeadEye,
     //endregion
 
     //region Resources
@@ -61,7 +59,6 @@ class Checklist extends BaseChecklist {
   protected lethalShots!: LethalShots;
   protected serpentSting!: SerpentSting;
   protected callingTheShots!: CallingTheShots;
-  protected deadEye!: DeadEye;
   //endregion
 
   //region Resources
@@ -94,7 +91,6 @@ class Checklist extends BaseChecklist {
           lethalShotsThresholds: this.lethalShots.wastedPotentialCDR,
           serpentStingUptimeThresholds: this.serpentSting.uptimeThreshold,
           serpentStingNonPandemicThresholds: this.serpentSting.nonPandemicThreshold,
-          deadEyeThresholds: this.deadEye.deadEyeEfficacyThresholds,
           callingTheShotsThresholds: this.callingTheShots.callingTheShotsEfficacyThresholds,
           //endregion
 
