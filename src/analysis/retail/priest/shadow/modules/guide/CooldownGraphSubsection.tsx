@@ -39,11 +39,7 @@ const longCooldowns: Cooldown[] = [
 ];
 
 const CoreCooldownsGraph = () => {
-  const info = useInfo();
-  if (info!.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT)) {
-    coreCooldowns.push({ spell: SPELLS.VOID_BOLT });
-  }
-  const message = (
+  let message = (
     <Trans id="guide.priest.shadow.sections.corecooldowns.graph">
       <strong>Core Graph</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
       should be keept on cooldown as much as possible. The same is true for{' '}
@@ -53,6 +49,23 @@ const CoreCooldownsGraph = () => {
       TODO: Add execute phase SW:D. <br />
     </Trans>
   );
+
+  const info = useInfo();
+  if (info!.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT)) {
+    coreCooldowns.push({ spell: SPELLS.VOID_BOLT });
+    message = (
+      <Trans id="guide.priest.shadow.sections.corecooldowns.graph">
+        <strong>Core Graph</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
+        should be keept on cooldown as much as possible. The same is true for{' '}
+        <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> during execute. These spells should
+        also both be used when Mindbender is active with Inescapable Torment talented.
+        <br />
+        During <SpellLink id={SPELLS.VOIDFORM.id} /> you gain access to{' '}
+        <SpellLink id={SPELLS.VOID_BOLT.id} />, a powerful spell that should be cast when available.
+        <br /> TODO: Add execute phase SW:D. <br />
+      </Trans>
+    );
+  }
 
   return CoreCooldownGraphSubsection(coreCooldowns, message);
 };
