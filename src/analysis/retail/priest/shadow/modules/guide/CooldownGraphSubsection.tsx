@@ -54,7 +54,7 @@ const CoreCooldownsGraph = () => {
       should also both be used when <SpellLink id={TALENTS.MINDBENDER_SHADOW_TALENT.id} /> is active
       with <SpellLink id={TALENTS.INESCAPABLE_TORMENT_TALENT.id} /> talented.
       <br />
-      TODO: Add execute phase SW:D. <br />
+      TODO: Efficency for SW:D should only be for the execute phase. <br />
     </Trans>
   );
 
@@ -63,14 +63,16 @@ const CoreCooldownsGraph = () => {
     coreCooldown = coreCooldownsVB;
     message = (
       <Trans id="guide.priest.shadow.sections.corecooldowns.graph">
-        <strong>Core Graph</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
+        <strong>Core Spells</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
         should be keept on cooldown as much as possible. The same is true for{' '}
-        <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> during execute. These spells should
-        also both be used when Mindbender is active with Inescapable Torment talented.
+        <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> only during execute. These spells
+        should also both be used when <SpellLink id={TALENTS.MINDBENDER_SHADOW_TALENT.id} /> is
+        active with <SpellLink id={TALENTS.INESCAPABLE_TORMENT_TALENT.id} /> talented.
         <br />
         During <SpellLink id={SPELLS.VOIDFORM.id} /> you gain access to{' '}
         <SpellLink id={SPELLS.VOID_BOLT.id} />, a powerful spell that should be cast when available.
-        <br /> TODO: Add execute phase SW:D. <br />
+        <br />
+        TODO: Efficency for SW:D should only be for the execute phase. <br />
       </Trans>
     );
   }
@@ -83,9 +85,6 @@ const ShortCooldownsGraph = () => {
     <Trans id="guide.priest.shadow.sections.shortcooldowns.graph">
       <strong>Short Cooldowns</strong> - this graph shows when you used your cooldowns and how long
       you waited to use them again. Try to use these spells on cooldown.
-      <br />
-      TODO: Fix missing casts that occurred before encounter start. (common when opening with Shadow
-      Crash.)
     </Trans>
   );
   return CooldownGraphSubsection(shortCooldowns, message);
@@ -95,8 +94,8 @@ const LongCooldownsGraph = () => {
   const message = (
     <Trans id="guide.priest.shadow.sections.longcooldowns.graph">
       <strong>Major Cooldowns</strong> - this graph shows when you used your cooldowns and how long
-      you waited to use them again. You should use these cooldowns together to maximize the damage
-      they can deal.
+      you waited to use them again. You should use these cooldowns together when possible to
+      maximize the damage they can deal.
     </Trans>
   );
   return CooldownGraphSubsection(longCooldowns, message);

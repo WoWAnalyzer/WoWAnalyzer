@@ -18,6 +18,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <Section title="DoTs">{modules.dotUptimes.guideSubsection}</Section>
 
         <Section title="Spells">
+          {/* TODO: Fix SW:D efficency*/}
           <CooldownGraphSubsection.CoreCooldownsGraph />
           {/* TODO: Add Active Time graph*/}
           <CastingSubsection.CastingSubsection modules={modules} events={events} info={info} />
@@ -25,6 +26,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </Section>
 
       <Section title="Cooldowns">
+        {/* TODO: fix precast shadow crash*/}
         <CooldownGraphSubsection.ShortCooldownsGraph />
         <CooldownGraphSubsection.LongCooldownsGraph />
       </Section>
