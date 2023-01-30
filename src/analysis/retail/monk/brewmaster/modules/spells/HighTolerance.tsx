@@ -11,9 +11,9 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 export const HIGH_TOLERANCE_HASTE = {
-  [SPELLS.LIGHT_STAGGER_DEBUFF.id]: 0.08,
-  [SPELLS.MODERATE_STAGGER_DEBUFF.id]: 0.12,
-  [SPELLS.HEAVY_STAGGER_DEBUFF.id]: 0.15,
+  [SPELLS.LIGHT_STAGGER_DEBUFF.id]: 0.05,
+  [SPELLS.MODERATE_STAGGER_DEBUFF.id]: 0.07,
+  [SPELLS.HEAVY_STAGGER_DEBUFF.id]: 0.1,
 };
 
 function hasHighTolerance(combatant: Combatant) {
@@ -25,9 +25,9 @@ function hasteFnGenerator(value: number) {
 }
 
 export const HIGH_TOLERANCE_HASTE_FNS = {
-  [SPELLS.LIGHT_STAGGER_DEBUFF.id]: hasteFnGenerator(0.08),
-  [SPELLS.MODERATE_STAGGER_DEBUFF.id]: hasteFnGenerator(0.12),
-  [SPELLS.HEAVY_STAGGER_DEBUFF.id]: hasteFnGenerator(0.15),
+  [SPELLS.LIGHT_STAGGER_DEBUFF.id]: hasteFnGenerator(0.05),
+  [SPELLS.MODERATE_STAGGER_DEBUFF.id]: hasteFnGenerator(0.07),
+  [SPELLS.HEAVY_STAGGER_DEBUFF.id]: hasteFnGenerator(0.1),
 };
 
 class HighTolerance extends Analyzer {
