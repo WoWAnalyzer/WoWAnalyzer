@@ -18,6 +18,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 1, 30), 'Lookup Classic spec by talent tree IF the icon is generic. Generic icons occur when the player changes talents during raid.', jazminite),
   change(date(2023, 1, 25), 'Bump retail patch to 10.0.5.', ToppleTheNun),
   change(date(2023, 1, 24), "Fixed an issue where Guide pages weren't showing by default", Sref),
   change(date(2023, 1, 20), <>Adjust maximum combat potion usages to account for <SpellLink id={SPELLS.ALACRITOUS_ALCHEMIST_STONE} />.</>, ToppleTheNun),

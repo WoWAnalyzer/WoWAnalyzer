@@ -22,6 +22,7 @@ export interface Spec {
     spec: number;
   };
   icon?: string; // Classic only due to specId being 0
+  tree?: number; // Classic only for multiple spec users
 }
 
 const specIndexableList = asRestrictedTable<Spec>();
@@ -1110,6 +1111,7 @@ const SPECS = specIndexableList({
       spec: 1,
     },
     icon: 'DeathKnight-Blood',
+    tree: 0,
   },
   CLASSIC_DEATH_KNIGHT_FROST: {
     id: 399,
@@ -1130,6 +1132,7 @@ const SPECS = specIndexableList({
       spec: 2,
     },
     icon: 'DeathKnight-Frost',
+    tree: 1,
   },
   CLASSIC_DEATH_KNIGHT_UNHOLY: {
     id: 400,
@@ -1150,6 +1153,7 @@ const SPECS = specIndexableList({
       spec: 3,
     },
     icon: 'DeathKnight-Unholy',
+    tree: 2,
   },
   CLASSIC_SHAMAN_ELEMENTAL: {
     // wowhead id is 261 but that's the same id as retail Subtlety Rogue
@@ -1233,6 +1237,7 @@ const SPECS = specIndexableList({
       spec: 1,
     },
     icon: 'Mage-Arcane',
+    tree: 0,
   },
   CLASSIC_MAGE_FIRE: {
     id: 41,
@@ -1253,6 +1258,7 @@ const SPECS = specIndexableList({
       spec: 2,
     },
     icon: 'Mage-Fire',
+    tree: 1,
   },
   CLASSIC_MAGE_FROST: {
     id: 61,
@@ -1273,6 +1279,7 @@ const SPECS = specIndexableList({
       spec: 3,
     },
     icon: 'Mage-Frost',
+    tree: 2,
   },
   CLASSIC_WARLOCK_AFFLICTION: {
     id: 302,
@@ -1293,6 +1300,7 @@ const SPECS = specIndexableList({
       spec: 1,
     },
     icon: 'Warlock-Affliction',
+    tree: 0,
   },
   CLASSIC_WARLOCK_DEMONOLOGY: {
     id: 303,
@@ -1313,6 +1321,7 @@ const SPECS = specIndexableList({
       spec: 2,
     },
     icon: 'Warlock-Demonology',
+    tree: 1,
   },
   CLASSIC_WARLOCK_DESTRUCTION: {
     id: 301,
@@ -1333,6 +1342,7 @@ const SPECS = specIndexableList({
       spec: 3,
     },
     icon: 'Warlock-Destruction',
+    tree: 3,
   },
   CLASSIC_DRUID_BALANCE: {
     id: 283,
@@ -1353,6 +1363,7 @@ const SPECS = specIndexableList({
       spec: 1,
     },
     icon: 'Druid-Balance',
+    tree: 0,
   },
   CLASSIC_DRUID_FERAL_COMBAT: {
     id: 281,
@@ -1373,6 +1384,7 @@ const SPECS = specIndexableList({
       spec: 2,
     },
     icon: 'Druid-Feral',
+    tree: 1,
   },
   CLASSIC_DRUID_RESTORATION: {
     id: 282,
@@ -1393,6 +1405,7 @@ const SPECS = specIndexableList({
       spec: 3,
     },
     icon: 'Druid-Restoration',
+    tree: 2,
   },
   CLASSIC_DRUID_GUARDIAN: {
     id: 284,
