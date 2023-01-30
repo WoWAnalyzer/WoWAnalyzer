@@ -26,8 +26,7 @@ function ResourceSubsection({ modules }: GuideProps<typeof CombatLogParser>) {
             {modules.insanityUsage.wasted} (
             {formatPercentage(modules.insanityUsage.wastePercentage, 1)}%)
           </PerformanceStrong>{' '}
-          of your Insanity. TODO: The chart below shows your Insanity over the course of the
-          encounter.
+          of your Insanity. The chart below shows your Insanity over the course of the encounter.
         </Trans>
       </p>
       {modules.insanityGraph.plot}
