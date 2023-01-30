@@ -22,8 +22,6 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
     />
   );
 
-  console.log(props);
-
   return (
     <Checklist>
       <Rule
