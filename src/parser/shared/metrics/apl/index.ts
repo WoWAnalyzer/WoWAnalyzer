@@ -270,10 +270,10 @@ function ruleApplies(
     }
 
     if (spellIsCast && !spellInRange) {
-      //console.warn(
-      //  `APL: Spell was cast but we thought it was out of range: ${spell.id} (${spell.name})`,
-      //  event,
-      //);
+      console.warn(
+        `APL: Spell was cast but we thought it was out of range: ${spell.id} (${spell.name})`,
+        event,
+      );
     }
 
     const conditionSatisfied =
@@ -422,12 +422,12 @@ const aplCheck = (apl: Apl) =>
               ) &&
               process.env.NODE_ENV === 'development'
             ) {
-              //console.warn(
-              //  'inconsistent ability state in APL checker:',
-              //  spells(rule).map((spell) => result.abilityState[spell.id]),
-              //  rule,
-              //  event,
-              //);
+              console.warn(
+                'inconsistent ability state in APL checker:',
+                spells(rule).map((spell) => result.abilityState[spell.id]),
+                rule,
+                event,
+              );
             }
             if (spells(rule).some((spell) => spell.id === event.ability.guid)) {
               // the player cast the correct spell

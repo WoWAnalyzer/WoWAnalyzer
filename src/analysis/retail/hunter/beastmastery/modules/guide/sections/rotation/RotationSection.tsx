@@ -4,9 +4,11 @@ import CombatLogParser from 'analysis/retail/hunter/beastmastery/CombatLogParser
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import TALENTS from 'common/TALENTS/hunter';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'interface/SpellLink';
+import { MAX_FRENZY_STACKS } from 'analysis/retail/hunter/beastmastery/constants';
 
 export default function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
-  //
   return (
     <Section
       title={t({
@@ -68,7 +70,9 @@ export default function RotationSection({ modules, info }: GuideProps<typeof Com
       >
         <p>
           <Trans id="guide.hunter.beastmastery.sections.rotation.frenzy.summary">
-            This graph shows the number of stacks of Frenzy you had
+            This graph shows the number of stacks of{' '}
+            <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} /> you had. You want to maintain{' '}
+            {MAX_FRENZY_STACKS} stacks as much as possible to maximize your damage.
           </Trans>
         </p>
         {modules.frenzyBuffStackGraph.plot}
