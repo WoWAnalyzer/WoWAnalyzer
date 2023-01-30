@@ -108,6 +108,11 @@ const spells = spellIndexableList({
     name: 'Bloodshed',
     icon: 'ability_hunter_killcommand',
   },
+  CALL_OF_THE_WILD_TEMPORARY_PET_BUFF: {
+    id: 361582,
+    name: 'Call of the Wild',
+    icon: 'ability_hunter_pet_assist',
+  },
   //endregion
 
   //region Marksmanship
