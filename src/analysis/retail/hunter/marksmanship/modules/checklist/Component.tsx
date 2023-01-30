@@ -22,6 +22,8 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
     />
   );
 
+  console.log(props);
+
   return (
     <Checklist>
       <Rule
@@ -99,18 +101,6 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
               </>
             }
             thresholds={thresholds.callingTheShotsThresholds}
-          />
-        )}
-
-        {combatant.hasTalent(TALENTS_HUNTER.DEADEYE_TALENT) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={SPELLS.AIMED_SHOT.id} /> recharge efficiency from{' '}
-                <SpellLink id={TALENTS_HUNTER.DEADEYE_TALENT.id} />
-              </>
-            }
-            thresholds={thresholds.deadEyeThresholds}
           />
         )}
 
