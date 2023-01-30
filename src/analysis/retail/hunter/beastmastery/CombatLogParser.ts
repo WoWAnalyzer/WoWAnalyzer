@@ -49,6 +49,7 @@ import Guide from './modules/guide/Guide';
 import FrenzyBuffStackTracker from './modules/guide/sections/rotation/FrenzyBuffStackTracker';
 import FrenzyBuffStackGraph from './modules/guide/sections/rotation/FrenzyBuffStackGraph';
 import FocusGraph from './modules/guide/sections/resources/FocusGraph';
+import BarbedShotNormalizer from './normalizers/BarbedShotNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
@@ -80,6 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Normalizers
     wailingArrowPrepullNormalizer: WailingArrowPrepullNormalizer,
     direCommandNormalizer: DireCommandNormalizer,
+    barbedShotNormalizer: BarbedShotNormalizer,
 
     //DeathTracker
     deathTracker: DeathTracker,

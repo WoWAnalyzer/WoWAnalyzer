@@ -8,7 +8,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   return (
     <>
       <ResourceUseSection {...modules} />
-      <RotationSection {...modules} />
+      <RotationSection modules={modules} events={events} info={info} />
       <PreparationSection />
     </>
   );

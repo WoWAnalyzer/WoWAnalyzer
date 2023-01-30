@@ -1,8 +1,11 @@
 import { t, Trans } from '@lingui/macro';
-import { ModulesOf, Section, SubSection } from 'interface/guide';
+import { GuideProps, Section, SubSection } from 'interface/guide';
 import CombatLogParser from 'analysis/retail/hunter/beastmastery/CombatLogParser';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import TALENTS from 'common/TALENTS/hunter';
 
-export default function RotationSection(modules: ModulesOf<typeof CombatLogParser>) {
+export default function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   //
   return (
     <Section
@@ -13,16 +16,50 @@ export default function RotationSection(modules: ModulesOf<typeof CombatLogParse
     >
       <SubSection
         title={t({
-          id: 'guide.hunter.beastmastery.sections.rotation.corerotation.title',
+          id: 'guide.hunter.beastmastery.sections.rotation.core.title',
           message: 'Core Rotation',
         })}
-      ></SubSection>
+      >
+        {info.combatant.hasTalent(TALENTS.BARBED_SHOT_TALENT) &&
+          modules.barbedShot.guideSubsection()}
+      </SubSection>
       <SubSection
         title={t({
           id: 'guide.hunter.beastmastery.sections.rotation.cooldowns.title',
           message: 'Cooldowns',
         })}
-      ></SubSection>
+      >
+        <Trans id="guide.hunter.beastmastery.sections.rotation.core.graph">
+          <strong>Cooldown Graph</strong> - this graph shows when you used your cooldowns and how
+          long you waited to use them again. Grey segments show when the spell was available, yellow
+          segments show when the spell was cooling down. Red segments highlight times when you could
+          have fit a whole extra use of the cooldown.
+        </Trans>
+        {info.combatant.hasTalent(TALENTS.BESTIAL_WRATH_TALENT) && (
+          <CastEfficiencyBar
+            spellId={TALENTS.BESTIAL_WRATH_TALENT.id}
+            gapHighlightMode={GapHighlight.FullCooldown}
+          />
+        )}
+        {info.combatant.hasTalent(TALENTS.DEATH_CHAKRAM_TALENT) && (
+          <CastEfficiencyBar
+            spellId={TALENTS.DEATH_CHAKRAM_TALENT.id}
+            gapHighlightMode={GapHighlight.FullCooldown}
+          />
+        )}
+        {info.combatant.hasTalent(TALENTS.DIRE_BEAST_TALENT) && (
+          <CastEfficiencyBar
+            spellId={TALENTS.DIRE_BEAST_TALENT.id}
+            gapHighlightMode={GapHighlight.FullCooldown}
+          />
+        )}
+        {info.combatant.hasTalent(TALENTS.BLOODSHED_TALENT) && (
+          <CastEfficiencyBar
+            spellId={TALENTS.BLOODSHED_TALENT.id}
+            gapHighlightMode={GapHighlight.FullCooldown}
+          />
+        )}
+      </SubSection>
       <SubSection
         title={t({
           id: 'guide.hunter.beastmastery.sections.rotation.frenzy.title',
