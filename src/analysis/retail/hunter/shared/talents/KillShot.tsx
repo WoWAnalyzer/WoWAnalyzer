@@ -19,7 +19,6 @@ class KillShot extends ExecuteHelper {
   static executeSources = SELECTED_PLAYER;
   static lowerThreshold = KILL_SHOT_EXECUTE_RANGE;
   static singleExecuteEnablers: Spell[] = [TALENTS.HUNTERS_PREY_TALENT, SPELLS.DEATHBLOW_BUFF];
-  static executeOutsideRangeEnablers: Spell[] = [SPELLS.DEATHBLOW_BUFF];
   static modifiesDamage = false;
 
   static dependencies = {
