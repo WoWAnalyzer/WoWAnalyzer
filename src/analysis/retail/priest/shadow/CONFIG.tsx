@@ -1,4 +1,4 @@
-import { Adoraci, DoxAshe } from 'CONTRIBUTORS';
+import { DoxAshe } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 
@@ -6,7 +6,7 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
-  contributors: [DoxAshe, Adoraci],
+  contributors: [DoxAshe],
   expansion: Expansion.Dragonflight,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '10.0.5',
@@ -38,8 +38,8 @@ export default {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport:
-    'report/z4AKb3FGgnk1tmwr/5-Normal+Sennarth,+The+Cold+Breath+-+Kill+(4:38)/Doxashe/standard',
+  exampleReport: 'report/DrWLJFZzBRV67PcK/8-Normal+Terros+-+Kill+(3:24)/Doxashe/standard',
+  guideDefault: true,
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

@@ -48,10 +48,11 @@ const CoreCooldownsGraph = () => {
   let coreCooldown = coreCooldowns;
   let message = (
     <Trans id="guide.priest.shadow.sections.corecooldowns.graph">
-      <strong>Core Graph</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
+      <strong>Core Spells</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
       should be keept on cooldown as much as possible. The same is true for{' '}
-      <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> during execute. These spells should
-      also both be used when Mindbender is active with Inescapable Torment talented.
+      <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> only during execute. These spells
+      should also both be used when <SpellLink id={TALENTS.MINDBENDER_SHADOW_TALENT.id} /> is active
+      with <SpellLink id={TALENTS.INESCAPABLE_TORMENT_TALENT.id} /> talented.
       <br />
       TODO: Add execute phase SW:D. <br />
     </Trans>
