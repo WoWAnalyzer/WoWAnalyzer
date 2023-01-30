@@ -30,7 +30,7 @@ function ResourceSubsection({ modules }: GuideProps<typeof CombatLogParser>) {
           encounter.
         </Trans>
       </p>
-      {/*modules.insanityGraph.plot*/} {/* I don't know why this isn't working */}
+      {modules.insanityGraph.plot}
     </SubSection>
   );
 }
