@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
+import { TIERS } from 'game/TIERS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AddStaggerEvent,
@@ -19,6 +20,7 @@ import HighTolerance, { HIGH_TOLERANCE_HASTE } from '../spells/HighTolerance';
 type StaggerEventType = EventType.AddStagger | EventType.RemoveStagger;
 
 const PURIFY_BASE = 0.5;
+const T29_PURIFY_BONUS = 0.03;
 
 const STAGGER_THRESHOLDS = {
   HEAVY: 0.6,
@@ -45,11 +47,15 @@ class StaggerFabricator extends Analyzer {
   protected ht!: HighTolerance;
   protected haste!: Haste;
 
+  private _has4pcT29 = false;
+
   constructor(options: Options) {
     super(options);
 
     //count as uninitialized if fight didn't start at actual fight start time (aka phase)
     this._initialized = (this.owner.fight.offset_time || 0) === 0;
+
+    this._has4pcT29 = this.selectedCombatant.has4PieceByTier(TIERS.T29);
 
     this.addEventListener(Events.cast.spell(talents.PURIFYING_BREW_TALENT), this._pbCast);
     this.addEventListener(Events.absorbed, this._absorb);
@@ -64,7 +70,10 @@ class StaggerFabricator extends Analyzer {
   }
 
   get purifyPercentage() {
-    return PURIFY_BASE;
+    const t29Bonus = this._has4pcT29
+      ? this.selectedCombatant.getBuffStacks(SPELLS.BREWMASTERS_RHYTHM_BUFF.id)
+      : 0;
+    return PURIFY_BASE + t29Bonus * T29_PURIFY_BONUS;
   }
 
   addStagger(event: MaxHPEvent, amount: number) {

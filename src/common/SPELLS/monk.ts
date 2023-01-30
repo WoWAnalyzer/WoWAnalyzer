@@ -549,6 +549,12 @@ const spells = spellIndexableList({
     name: 'Chi Surge',
     icon: 'ability_monk_chiexplosion',
   },
+  // Tier 29 2-set bonus
+  BREWMASTERS_RHYTHM_BUFF: {
+    id: 394797,
+    name: "Brewmaster's Rhythm",
+    icon: 'ability_monk_standingkick',
+  },
 
   // Windwalker Spells
   COMBO_STRIKES: {
