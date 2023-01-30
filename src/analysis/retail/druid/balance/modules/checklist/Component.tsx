@@ -89,7 +89,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         }
         thresholds={thresholds.sunfireRefresh}
       />
-      {combatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_TALENT.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_TALENT) && (
         <Requirement
           name={
             <>
@@ -99,7 +99,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
           thresholds={thresholds.stellarFlareUptime}
         />
       )}
-      {combatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_TALENT.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_TALENT) && (
         <Requirement
           name={
             <>
@@ -117,19 +117,14 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
       name="Use Eclipse"
       description={
         <>
-          <SpellLink id={SPELLS.ECLIPSE.id} /> is a major contributor to your damage and dictates
-          which filler spell you should be using. You should cast{' '}
-          <SpellLink id={SPELLS.WRATH_MOONKIN.id} /> during and after{' '}
-          <SpellLink id={SPELLS.ECLIPSE_SOLAR.id} /> while you should cast
-          <SpellLink id={SPELLS.STARFIRE.id} /> during and after{' '}
-          <SpellLink id={SPELLS.ECLIPSE_LUNAR.id} />. You should also hold your Astral Power until
-          the start of an Eclipse at which point you should dump it into{' '}
-          <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> (in single target situations).
-          <br />
-          <br />
-          In multi target situations, you should use <SpellLink id={SPELLS.STARFALL_CAST.id} /> as
-          your Astral Power spender and when you can hit 6 or more targets it's even correct to use{' '}
-          <SpellLink id={SPELLS.STARFIRE.id} /> during <SpellLink id={SPELLS.ECLIPSE_SOLAR.id} />
+          Getting into <SpellLink id={SPELLS.ECLIPSE.id} /> quickly is a major contributor to your
+          damage. It procs our 4 piece <SpellLink id={SPELLS.TOUCH_THE_COSMOS.id} /> as well as many
+          elements of our talent tree such as
+          <SpellLink id={SPELLS.BALANCE_OF_ALL_THINGS_LUNAR.id} />. Which filler you use in eclipse
+          is now less important than just getting into eclipse in general, however as a rule of
+          thumb we should always enter <SpellLink id={SPELLS.ECLIPSE_LUNAR.id} /> even in single
+          target and we should always cast <SpellLink id={SPELLS.WRATH.id} /> in single target and{' '}
+          <SpellLink id={SPELLS.STARFIRE.id} /> if there are 2 or more targets.
         </>
       }
     >
@@ -159,7 +154,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         frequently as possible throughout a fight. A cooldown should be held on to only if a priority
         DPS phase is coming soon. Holding cooldowns too long will hurt your DPS."
     >
-      {combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id) ? (
+      {combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT) ? (
         <AbilityRequirement spell={TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id} />
       ) : (
         <AbilityRequirement spell={SPELLS.CELESTIAL_ALIGNMENT.id} />
@@ -167,16 +162,16 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
       {combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) && (
         <AbilityRequirement spell={SPELLS.CONVOKE_SPIRITS.id} />
       )}
-      {combatant.hasTalent(TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.FORCE_OF_NATURE_TALENT) && (
         <AbilityRequirement spell={TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id} />
       )}
-      {combatant.hasTalent(TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT) && (
         <AbilityRequirement spell={TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT.id} />
       )}
-      {combatant.hasTalent(TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.FURY_OF_ELUNE_TALENT) && (
         <AbilityRequirement spell={TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id} />
       )}
-      {combatant.hasTalent(TALENTS_DRUID.NEW_MOON_TALENT.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.NEW_MOON_TALENT) && (
         <AbilityRequirement spell={TALENTS_DRUID.NEW_MOON_TALENT.id} />
       )}
     </Rule>
@@ -193,7 +188,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         <AbilityRequirement spell={TALENTS_DRUID.INNERVATE_TALENT.id} />
       )}
       <AbilityRequirement spell={SPELLS.BARKSKIN.id} />
-      {combatant.hasTalent(TALENTS_DRUID.RENEWAL_TALENT.id) && (
+      {combatant.hasTalent(TALENTS_DRUID.RENEWAL_TALENT) && (
         <AbilityRequirement spell={TALENTS_DRUID.RENEWAL_TALENT.id} />
       )}
     </Rule>

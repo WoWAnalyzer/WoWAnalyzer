@@ -8,8 +8,7 @@ import {
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-
-import * as SPELLS from '../SPELLS';
+import SPELLS from 'common/SPELLS/classic/hunter';
 
 /**
  * Kill Command applies an invisible buff in-game whenever the player crits.
@@ -30,7 +29,7 @@ class KillCommandNormalizer extends EventsNormalizer {
     const buffDuration = 5 * 1000;
     const ability: Ability = {
       abilityIcon: 'ability_hunter_killcommand',
-      guid: SPELLS.KILL_COMMAND,
+      guid: SPELLS.KILL_COMMAND.id,
       name: 'Kill Command',
       type: 2,
     };

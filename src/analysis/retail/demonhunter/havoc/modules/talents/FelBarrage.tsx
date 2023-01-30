@@ -21,7 +21,7 @@ class FelBarrage extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT);
     if (!this.active) {
       return;
     }

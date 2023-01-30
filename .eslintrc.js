@@ -53,5 +53,12 @@ module.exports = {
         '@typescript-eslint/no-unused-expressions': 'off',
       },
     },
+    {
+      // disable propTypes checking in typescript files. many false positives with destructuring
+      files: ['**/*.tsx', '**/*.ts'],
+      rules: {
+        'react/prop-types': 'off',
+      },
+    },
   ],
 };

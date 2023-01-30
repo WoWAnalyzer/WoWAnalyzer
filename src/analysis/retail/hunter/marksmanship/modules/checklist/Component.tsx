@@ -48,8 +48,6 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
         <AbilityRequirement spell={SPELLS.TRUESHOT.id} />
         <TalentCastEfficiencyRequirement talent={TALENTS_HUNTER.KILL_SHOT_SHARED_TALENT} />
 
-        <TalentCastEfficiencyRequirement talent={TALENTS_HUNTER.DOUBLE_TAP_TALENT} />
-
         <TalentCastEfficiencyRequirement talent={TALENTS_HUNTER.EXPLOSIVE_SHOT_TALENT} />
 
         <TalentCastEfficiencyRequirement talent={TALENTS_HUNTER.BARRAGE_TALENT} />
@@ -70,7 +68,7 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
           thresholds={thresholds.preciseShotsThresholds}
         />
 
-        {combatant.hasTalent(TALENTS_HUNTER.SERPENT_STING_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_HUNTER.SERPENT_STING_TALENT) && (
           <Requirement
             name={
               <>
@@ -81,7 +79,7 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
           />
         )}
 
-        {combatant.hasTalent(TALENTS_HUNTER.SERPENT_STING_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_HUNTER.SERPENT_STING_TALENT) && (
           <Requirement
             name={
               <>
@@ -93,7 +91,7 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
           />
         )}
 
-        {combatant.hasTalent(TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT) && (
           <Requirement
             name={
               <>
@@ -104,7 +102,7 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
           />
         )}
 
-        {combatant.hasTalent(TALENTS_HUNTER.DEADEYE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_HUNTER.DEADEYE_TALENT) && (
           <Requirement
             name={
               <>
@@ -116,7 +114,7 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
           />
         )}
 
-        {combatant.hasTalent(TALENTS_HUNTER.LETHAL_SHOTS_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_HUNTER.LETHAL_SHOTS_TALENT) && (
           <Requirement
             name={
               <>
@@ -128,7 +126,7 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
           />
         )}
 
-        {combatant.hasTalent(TALENTS_HUNTER.STEADY_FOCUS_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_HUNTER.STEADY_FOCUS_TALENT) && (
           <Requirement
             name={
               <>
@@ -161,7 +159,7 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
           <>
             Capping on Focus is a loss of potential DPS, as you could've used that Focus for a
             damaging ability at a later point. If everything is on cooldown, try and use{' '}
-            {combatant.hasTalent(TALENTS_HUNTER.CHIMAERA_SHOT_TALENT.id) ? (
+            {combatant.hasTalent(TALENTS_HUNTER.CHIMAERA_SHOT_TALENT) ? (
               <SpellLink id={TALENTS_HUNTER.CHIMAERA_SHOT_TALENT.id} />
             ) : (
               <SpellLink id={SPELLS.ARCANE_SHOT.id} />

@@ -18,7 +18,7 @@ class DeathAndMadness extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.DEATH_AND_MADNESS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DEATH_AND_MADNESS_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_WORD_DEATH_TALENT),
       this.onCast,

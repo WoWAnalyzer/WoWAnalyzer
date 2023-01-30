@@ -12,9 +12,7 @@ import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
 import AlwaysBeCasting from '../core/AlwaysBeCasting';
 import CombustionActiveTime from '../core/CombustionActiveTime';
-import CombustionCharges from '../core/CombustionCharges';
-import CombustionPreCastDelay from '../core/CombustionPreCastDelay';
-import CombustionSpellUsage from '../core/CombustionSpellUsage';
+import Combustion from '../core/Combustion';
 import HeatingUp from '../core/HeatingUp';
 import HotStreak from '../core/HotStreak';
 import Pyroclasm from '../talents/Pyroclasm';
@@ -28,10 +26,8 @@ class Checklist extends BaseChecklist {
   static dependencies = {
     ...BaseChecklist.dependencies,
     combatants: Combatants,
-    combustionCharges: CombustionCharges,
-    combustionSpellUsage: CombustionSpellUsage,
+    combustion: Combustion,
     combustionActiveTime: CombustionActiveTime,
-    combustionPreCastDelay: CombustionPreCastDelay,
     heatingUp: HeatingUp,
     hotStreak: HotStreak,
     pyroclasm: Pyroclasm,
@@ -49,10 +45,8 @@ class Checklist extends BaseChecklist {
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
   };
   protected combatants!: Combatants;
-  protected combustionCharges!: CombustionCharges;
-  protected combustionSpellUsage!: CombustionSpellUsage;
+  protected combustion!: Combustion;
   protected combustionActiveTime!: CombustionActiveTime;
-  protected combustionPreCastDelay!: CombustionPreCastDelay;
   protected heatingUp!: HeatingUp;
   protected hotStreak!: HotStreak;
   protected pyroclasm!: Pyroclasm;
@@ -78,12 +72,11 @@ class Checklist extends BaseChecklist {
           ...this.preparationRuleAnalyzer.thresholds,
 
           downtimeSuggestionThresholds: this.alwaysBeCasting.suggestionThresholds,
-          phoenixFlamesCombustionCharges: this.combustionCharges.phoenixFlamesThresholds,
-          fireBlastCombustionCharges: this.combustionCharges.fireBlastThresholds,
-          fireballSpellUsageDuringCombustion: this.combustionSpellUsage
-            .fireballDuringCombustionThresholds,
+          phoenixFlamesCombustionCharges: this.combustion.phoenixFlamesThresholds,
+          fireBlastCombustionCharges: this.combustion.fireBlastThresholds,
+          fireballSpellUsageDuringCombustion: this.combustion.fireballDuringCombustionThresholds,
           combustionActiveTime: this.combustionActiveTime.combustionActiveTimeThresholds,
-          combustionPreCastDelay: this.combustionPreCastDelay.combustionCastDelayThresholds,
+          combustionPreCastDelay: this.combustion.combustionCastDelayThresholds,
           fireBlastHeatingUpUsage: this.heatingUp.fireBlastUtilSuggestionThresholds,
           phoenixFlamesHeatingUpUsage: this.heatingUp.phoenixFlamesUtilSuggestionThresholds,
           hotStreakUtilization: this.hotStreak.hotStreakUtilizationThresholds,
@@ -93,7 +86,7 @@ class Checklist extends BaseChecklist {
           searingTouchUtilization: this.searingTouch.executeSuggestionThreshold,
           meteorEfficiency: this.meteor.meteorEfficiencySuggestionThresholds,
           meteorUtilization: this.meteorRune.meteorUtilSuggestionThresholds,
-          infernalCascadeMaxStacks: this.feelTheBurn.maxStackUptimeThresholds,
+          feelTheBurnMaxStacks: this.feelTheBurn.maxStackUptimeThresholds,
           shiftingPowerUsage: this.shiftingPowerUsage.shiftingPowerUsageThresholds,
           meteorCombustionUtilization: this.meteorCombustion.meteorCombustionSuggestionThresholds,
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,

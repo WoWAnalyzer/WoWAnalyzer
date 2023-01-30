@@ -1,18 +1,11 @@
 import { Trans } from '@lingui/macro';
-import { MS_BUFFER_1000 } from 'analysis/retail/mage/shared';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, {
-  DamageEvent,
-  ApplyDebuffEvent,
-  RemoveDebuffEvent,
-  FightEndEvent,
-} from 'parser/core/Events';
+import Analyzer from 'parser/core/Analyzer';
+import { EventType } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import EventHistory from 'parser/shared/modules/EventHistory';
@@ -31,7 +24,6 @@ const WINTERS_CHILL_PRECAST_CASTS = [
   SPELLS.FROSTBOLT,
   TALENTS.EBONBOLT_TALENT,
   TALENTS.GLACIAL_SPIKE_TALENT,
-  SPELLS.RADIANT_SPARK,
 ];
 
 const WINTERS_CHILL_PRECAST_DAMAGE = [
@@ -50,169 +42,153 @@ class WintersChill extends Analyzer {
   protected enemies!: Enemies;
   protected eventHistory!: EventHistory;
 
-  hasGlacialSpike: boolean;
-  hasEbonbolt: boolean;
-  isKyrian: boolean;
-  isVenthyr: boolean;
+  hasGlacialSpike: boolean = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT);
+  hasEbonbolt: boolean = this.selectedCombatant.hasTalent(TALENTS.EBONBOLT_TALENT);
 
-  wintersChillApplied = false;
-  buffRemovedTimestamp = 0;
-  missedPreCasts = 0;
-  missedShatters = 0;
-  totalChillStacks = 0;
-  preCastFound = false;
-  preCastIgnored = false;
-  preCastID = 0;
-  preCastTimestamp = 0;
-  shatteredCasts = 0;
-  shatteredCastIDs: number[] = [];
+  wintersChillHardCasts = () => {
+    let debuffApplies = this.eventHistory.getEvents(EventType.ApplyDebuff, {
+      searchBackwards: true,
+      spell: SPELLS.WINTERS_CHILL,
+    });
 
-  constructor(options: Options) {
-    super(options);
-    this.hasGlacialSpike = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT.id);
-    this.hasEbonbolt = this.selectedCombatant.hasTalent(TALENTS.EBONBOLT_TALENT.id);
-    this.isKyrian = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
-    this.isVenthyr = this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id);
-
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(WINTERS_CHILL_PRECAST_DAMAGE),
-      this.onWintersChillPreCast,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(WINTERS_CHILL_SPENDERS),
-      this.onWintersChillSpender,
-    );
-    this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.WINTERS_CHILL),
-      this.onWintersChillApplied,
-    );
-    this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.WINTERS_CHILL),
-      this.onWintersChillRemoved,
-    );
-    this.addEventListener(Events.fightend, this.onFinished);
-  }
-
-  onWintersChillApplied(event: ApplyDebuffEvent) {
-    //If Winters Chill is still applied (it was reapplied before it was fully used up) then we need to check usage before we reset debuff
-    if (this.wintersChillApplied) {
-      if (!this.preCastFound && !this.preCastIgnored) {
-        this.missedPreCasts += 1;
-        debug && this.log('MISSED PRE CAST');
+    //Filter out buffs where there was not a valid precast before Winter's Chill was applied or the precast didnt land in Winter's Chill
+    debuffApplies = debuffApplies.filter((e) => {
+      const debuffRemoved = this.eventHistory.getEvents(EventType.RemoveDebuff, {
+        searchBackwards: false,
+        spell: SPELLS.WINTERS_CHILL,
+        count: 1,
+        startTimestamp: e.timestamp,
+      })[0];
+      const preCast = this.eventHistory.getEvents(EventType.Cast, {
+        searchBackwards: true,
+        spell: WINTERS_CHILL_PRECAST_CASTS,
+        count: 1,
+        startTimestamp: e.timestamp,
+        duration: 1000,
+      })[0];
+      if (!preCast) {
+        debug &&
+          this.log(
+            'PRECAST NOT FOUND @' + formatDuration(e.timestamp - this.owner.fight.start_time),
+          );
+        return false;
       }
-      this.missedShatters += 2 - this.shatteredCasts;
-    }
 
-    this.wintersChillApplied = true;
-    this.preCastFound = false;
-    this.preCastIgnored = false;
-    this.preCastID = 0;
-    this.preCastTimestamp = 0;
-    this.shatteredCasts = 0;
-    this.shatteredCastIDs = [];
-    this.totalChillStacks += 2;
-    const preCast = this.eventHistory.last(
-      1,
-      1000,
-      Events.cast.by(SELECTED_PLAYER).spell(WINTERS_CHILL_PRECAST_CASTS),
-    )[0];
-    if (preCast) {
-      this.preCastID = preCast.ability.guid;
-      this.preCastTimestamp = preCast.timestamp;
-    }
-  }
+      //Check to see if the precast landed in Winter's Chill
+      const duration = debuffRemoved
+        ? debuffRemoved.timestamp - e.timestamp
+        : this.owner.fight.end_time - e.timestamp;
+      const damageEvents = this.eventHistory.getEvents(EventType.Damage, {
+        searchBackwards: false,
+        spell: WINTERS_CHILL_PRECAST_DAMAGE,
+        startTimestamp: preCast.timestamp,
+        duration: duration,
+      });
+      if (!damageEvents || damageEvents.length === 0) {
+        debug &&
+          this.log(
+            'PRECAST DAMAGE NOT FOUND @' +
+              formatDuration(e.timestamp - this.owner.fight.start_time),
+          );
+        return false;
+      }
 
-  onWintersChillPreCast(event: DamageEvent) {
-    const enemy = this.enemies.getEntity(event);
-    if (!enemy || !enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
-      return;
-    }
+      //Check if the target had Winter's Chill
+      let preCastHits = 0;
+      damageEvents.forEach((d) => {
+        const enemy = this.enemies.getEntity(d);
+        if (enemy && enemy.hasBuff(SPELLS.WINTERS_CHILL.id, d.timestamp)) {
+          preCastHits += 1;
+        }
+      });
+      if (preCastHits < 1) {
+        debug &&
+          this.log(
+            'PRECAST DAMAGE NOT SHATTERED @ ' +
+              formatDuration(e.timestamp - this.owner.fight.start_time),
+          );
+        return false;
+      }
+      return true;
+    });
+    return debuffApplies.length;
+  };
 
-    //Ensure that the precast we found when Winter's Chill was applied actually landed into Winter's Chill
-    if (event.timestamp - this.preCastTimestamp < MS_BUFFER_1000) {
-      this.preCastFound = true;
-    }
+  wintersChillShatters = () => {
+    let debuffApplies = this.eventHistory.getEvents(EventType.ApplyDebuff, {
+      searchBackwards: true,
+      spell: SPELLS.WINTERS_CHILL,
+    });
 
-    //If the player is Kyrian and used Radiant Spark as their precast, ignore the precast check
-    if (this.preCastID === SPELLS.RADIANT_SPARK.id) {
-      this.preCastIgnored = true;
-      debug && this.log('PRE CAST IGNORED');
-    }
-  }
+    //Filter out buffs where both stacks of Winter's Chill were used before Winter's Chill expired
+    debuffApplies = debuffApplies.filter((e) => {
+      const debuffRemoved = this.eventHistory.getEvents(EventType.RemoveDebuff, {
+        searchBackwards: false,
+        spell: SPELLS.WINTERS_CHILL,
+        count: 1,
+        startTimestamp: e.timestamp,
+      })[0];
+      const duration = debuffRemoved
+        ? debuffRemoved.timestamp - e.timestamp
+        : this.owner.fight.end_time - e.timestamp;
+      const damageEvents = this.eventHistory.getEvents(EventType.Damage, {
+        searchBackwards: false,
+        spell: WINTERS_CHILL_SPENDERS,
+        startTimestamp: e.timestamp,
+        duration: duration,
+      });
+      if (!damageEvents) {
+        return false;
+      }
 
-  onWintersChillSpender(event: DamageEvent) {
-    const enemy = this.enemies.getEntity(event);
-    if (!enemy || !enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
-      return;
-    }
-
-    //If the player is Venthyr and the target has Mirrors of Torment, then we need to ignore the precast
-    //We are doing this here because it is the only events where we can get the target debuffs
-    if (enemy.hasBuff(SPELLS.MIRRORS_OF_TORMENT.id)) {
-      this.preCastIgnored = true;
-      debug && this.log('PRE CAST IGNORED');
-    }
-
-    this.shatteredCasts += 1;
-    this.shatteredCastIDs.push(event.ability.guid);
-  }
-
-  onWintersChillRemoved(event: RemoveDebuffEvent) {
-    if (!this.preCastFound && !this.preCastIgnored) {
-      this.missedPreCasts += 1;
-      debug && this.log('MISSED PRE CAST');
-    }
-    this.missedShatters += 2 - this.shatteredCasts;
-
-    this.wintersChillApplied = false;
-    this.buffRemovedTimestamp = event.timestamp;
-
-    if (debug) {
-      this.log('Pre Cast Found: ' + this.preCastFound);
-      this.log('Pre Cast Ignored: ' + this.preCastIgnored);
-      this.log('Pre Cast ID: ' + this.preCastID);
-      this.log('Pre Cast Timestamp: ' + this.preCastTimestamp);
-      this.log('Shattered Casts: ' + this.shatteredCasts);
-      this.log('Shattered Cast IDs: ' + this.shatteredCastIDs);
-    }
-  }
-
-  onFinished(event: FightEndEvent) {
-    if (event.timestamp !== this.buffRemovedTimestamp) {
-      return;
-    }
-
-    //If there was a Winters Chill applied that had not been removed yet when the fight ended, adjust the total chill stacks and missed shatters to account for what the player didnt have time to use
-    //Only reduce the total and missed numbers by the amount that was unused. So if they shattered one of the 2 casts then only reduce by 1.
-    this.totalChillStacks -= 2 - this.shatteredCasts;
-    this.missedShatters -= 2 - this.shatteredCasts;
-  }
+      //Check if the target had Winter's Chill
+      let shatteredCasts = 0;
+      damageEvents.forEach((d) => {
+        const enemy = this.enemies.getEntity(d);
+        if (enemy && enemy.hasBuff(SPELLS.WINTERS_CHILL.id, d.timestamp)) {
+          shatteredCasts += 1;
+        }
+      });
+      debug &&
+        this.log(
+          'Shattered Casts: ' +
+            shatteredCasts +
+            ' @ ' +
+            formatDuration(e.timestamp - this.owner.fight.start_time),
+        );
+      return shatteredCasts >= 2;
+    });
+    return debuffApplies.length;
+  };
 
   get totalProcs() {
-    return this.totalChillStacks / 2;
+    return this.eventHistory.getEvents(EventType.ApplyDebuff, {
+      searchBackwards: true,
+      spell: SPELLS.WINTERS_CHILL,
+    }).length;
   }
 
-  get shatterMissedPercent() {
-    return this.missedShatters / this.totalChillStacks;
+  get missedShatters() {
+    return this.totalProcs - this.wintersChillShatters();
   }
 
-  get shatterUtil() {
-    return 1 - this.shatterMissedPercent;
+  get shatterPercent() {
+    return this.wintersChillShatters() / this.totalProcs || 0;
   }
 
-  get precastMissedPercent() {
-    return this.missedPreCasts / this.totalProcs || 0;
+  get missedPreCasts() {
+    return this.totalProcs - this.wintersChillHardCasts();
   }
 
-  get precastUtil() {
-    return 1 - this.precastMissedPercent;
+  get preCastPercent() {
+    return this.wintersChillHardCasts() / this.totalProcs || 0;
   }
 
   // less strict than the ice lance suggestion both because it's less important,
   // and also because using a Brain Freeze after being forced to move is a good excuse for missing the hardcast.
-  get wintersChillHardCastThresholds() {
+  get wintersChillPreCastThresholds() {
     return {
-      actual: this.precastUtil,
+      actual: this.preCastPercent,
       isLessThan: {
         minor: 0.9,
         average: 0.8,
@@ -224,7 +200,7 @@ class WintersChill extends Analyzer {
 
   get wintersChillShatterThresholds() {
     return {
-      actual: this.shatterUtil,
+      actual: this.shatterPercent,
       isLessThan: {
         minor: 0.95,
         average: 0.85,
@@ -239,8 +215,8 @@ class WintersChill extends Analyzer {
       suggest(
         <>
           You failed to properly take advantage of <SpellLink id={SPELLS.WINTERS_CHILL.id} /> on
-          your target {this.missedShatters} times ({formatPercentage(this.shatterMissedPercent)}%).
-          After debuffing the target via <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> and{' '}
+          your target {this.missedShatters} times ({formatPercentage(1 - actual)}%). After debuffing
+          the target via <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> and{' '}
           <SpellLink id={TALENTS.FLURRY_TALENT.id} />, you should ensure that you hit the target
           with{' '}
           {this.hasGlacialSpike ? (
@@ -259,19 +235,17 @@ class WintersChill extends Analyzer {
         .icon(TALENTS.ICE_LANCE_TALENT.icon)
         .actual(
           <Trans id="mage.frost.suggestions.wintersChill.notShatteredIceLance">
-            {formatPercentage(this.shatterMissedPercent)}% Winter's Chill not shattered with Ice
-            Lance
+            {formatPercentage(1 - actual)}% Winter's Chill not shattered with Ice Lance
           </Trans>,
         )
         .recommended(`${formatPercentage(1 - recommended)}% is recommended`),
     );
-    when(this.wintersChillHardCastThresholds).addSuggestion((suggest, actual, recommended) =>
+    when(this.wintersChillPreCastThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You failed to use a pre-cast ability before spending your{' '}
-          <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> {this.missedPreCasts} times (
-          {formatPercentage(this.precastMissedPercent)}%). Because of the travel time of{' '}
-          <SpellLink id={TALENTS.FLURRY_TALENT.id} />, you should cast a damaging ability such as{' '}
+          You failed to use a pre-cast ability before <SpellLink id={TALENTS.FLURRY_TALENT.id} />{' '}
+          {this.missedPreCasts} times ({formatPercentage(1 - actual)}%). Because of the travel time
+          of <SpellLink id={TALENTS.FLURRY_TALENT.id} />, you should cast a damaging ability such as{' '}
           <SpellLink id={SPELLS.FROSTBOLT.id} />{' '}
           {this.hasEbonbolt ? (
             <>
@@ -280,19 +254,17 @@ class WintersChill extends Analyzer {
           ) : (
             ''
           )}{' '}
-          immediately before using your instant cast <SpellLink id={TALENTS.FLURRY_TALENT.id} />.
-          Doing this will allow your pre-cast ability to hit the target after{' '}
+          immediately before using <SpellLink id={TALENTS.FLURRY_TALENT.id} />. Doing this will
+          allow your pre-cast ability to hit the target after{' '}
           <SpellLink id={TALENTS.FLURRY_TALENT.id} /> (unless you are standing too close to the
-          target) allowing it to benefit from <SpellLink id={TALENTS.SHATTER_TALENT.id} />. If you
-          are a Kyrian, it is also acceptable to pre-cast <SpellLink id={SPELLS.RADIANT_SPARK.id} />{' '}
-          instead.
+          target) allowing it to benefit from <SpellLink id={TALENTS.SHATTER_TALENT.id} />.
         </>,
       )
         .icon(SPELLS.FROSTBOLT.icon)
         .actual(
           <Trans id="mage.frost.suggestions.wintersChill.notShattered">
-            {formatPercentage(this.precastMissedPercent)}% Winter's Chill not shattered with
-            Frostbolt, Glacial Spike, or Ebonbolt
+            {formatPercentage(1 - actual)}% Winter's Chill not shattered with Frostbolt, Glacial
+            Spike, or Ebonbolt
           </Trans>,
         )
         .recommended(`${formatPercentage(1 - recommended)}% is recommended`),
@@ -306,21 +278,21 @@ class WintersChill extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            When using your Brain Freeze procs, you should always ensure that you have something
-            immediately before it (Like Frostbolt, Ebonbolt, or Radiant Spark) as well as 2 Ice
-            Lance Casts (Or Glacial Spike + Ice Lance) immediately after to get the most out of the
-            Winter's Chill debuff that is applied to the target. Doing so will allow the cast before
-            and the 2 casts after to all benefit from Shatter. Note that if you are very close to
-            your target, then the ability you used immediately before Flurry might hit the target
-            too quickly and not get shattered.
+            When casting Flurry, you should always ensure that you have something immediately before
+            it (Like Frostbolt or Ebonbolt) as well as 2 Ice Lance Casts (Or Glacial Spike + Ice
+            Lance) immediately after to get the most out of the Winter's Chill debuff that is
+            applied to the target. Doing so will allow the cast before and the 2 casts after to all
+            benefit from Shatter. Note that if you are very close to your target, then the ability
+            you used immediately before Flurry might hit the target too quickly and not get
+            shattered.
           </>
         }
       >
         <BoringSpellValueText spellId={SPELLS.WINTERS_CHILL.id}>
-          <SpellIcon id={SPELLS.WINTERS_CHILL.id} /> {formatPercentage(this.shatterUtil, 0)}%{' '}
+          <SpellIcon id={SPELLS.WINTERS_CHILL.id} /> {formatPercentage(this.shatterPercent, 0)}%{' '}
           <small>Spells shattered</small>
           <br />
-          <SpellIcon id={SPELLS.FROSTBOLT.id} /> {formatPercentage(this.precastUtil, 0)}%{' '}
+          <SpellIcon id={SPELLS.FROSTBOLT.id} /> {formatPercentage(this.preCastPercent, 0)}%{' '}
           <small>Pre-casts shattered</small>
         </BoringSpellValueText>
       </Statistic>

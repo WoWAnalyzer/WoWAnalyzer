@@ -32,7 +32,7 @@ class AgonyUptime extends Analyzer {
   }
 
   suggestions(when: When) {
-    const text = this.selectedCombatant.hasTalent(TALENTS.WRITHE_IN_AGONY_TALENT.id) ? (
+    const text = this.selectedCombatant.hasTalent(TALENTS.WRITHE_IN_AGONY_TALENT) ? (
       <>
         Your <SpellLink id={SPELLS.AGONY.id} /> uptime can be improved as it is your main source of
         Soul Shards. Try to pay more attention to your Agony on the boss, especially since you're

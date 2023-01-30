@@ -19,7 +19,8 @@ class Stormkeeper extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.STORMKEEPER_ELEMENTAL_TALENT.id);
+    this.active =
+      this.selectedCombatant.getRepeatedTalentCount(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT) > 0;
     if (!this.active) {
       return;
     }
@@ -30,7 +31,7 @@ class Stormkeeper extends Analyzer {
   }
 
   onSKDamage(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(TALENTS.STORMKEEPER_ELEMENTAL_TALENT.id)) {
+    if (!this.selectedCombatant.hasBuff(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id)) {
       return;
     }
 
@@ -40,7 +41,7 @@ class Stormkeeper extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
-        <BoringSpellValueText spellId={TALENTS.STORMKEEPER_ELEMENTAL_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damageDoneByBuffedCasts} />
           </>

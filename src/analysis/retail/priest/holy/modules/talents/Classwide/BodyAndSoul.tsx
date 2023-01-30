@@ -11,7 +11,7 @@ class BodyAndSoul extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.BODY_AND_SOUL_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BODY_AND_SOUL_TALENT);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.BODY_AND_SOUL_TALENT),

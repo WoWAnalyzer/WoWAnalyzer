@@ -48,10 +48,10 @@ const config: Config = {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  // parser: () =>
-  //   import(
-  //     'analysis/retail/hunter/survival/CombatLogParser' /* webpackChunkName: "SurvivalHunter" */
-  //   ).then((exports) => exports.default),
+  parser: () =>
+    import(
+      'analysis/retail/hunter/survival/CombatLogParser' /* webpackChunkName: "SurvivalHunter" */
+    ).then((exports) => exports.default),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

@@ -5,13 +5,13 @@ import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { WALK_WITH_THE_OX_DAMAGE_INCREASE } from '../../constants';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 const COOLDOWN_REDUCTION = 500;
 
@@ -32,7 +32,7 @@ export default class WalkWithTheOx extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.rank = this.selectedCombatant.conduitRankBySpellID(SPELLS.WALK_WITH_THE_OX.id);
+    this.rank = this.selectedCombatant.getTalentRank(talents.WALK_WITH_THE_OX_TALENT);
     if (!this.rank) {
       this.active = false;
       return;
@@ -107,13 +107,13 @@ export default class WalkWithTheOx extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <ConduitSpellText spellId={SPELLS.WALK_WITH_THE_OX.id} rank={this.rank}>
+        <BoringSpellValueText spellId={talents.WALK_WITH_THE_OX_TALENT.id}>
           <>
             <ItemDamageDone amount={this.additionalDamage} />
             <br />
             {formatNumber(this.effCdr / 1000)}s<small> total Invoke Niuzao CDR</small>
           </>
-        </ConduitSpellText>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

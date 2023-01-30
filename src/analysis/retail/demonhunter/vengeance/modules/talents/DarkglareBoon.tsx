@@ -15,7 +15,7 @@ export default class DarkglareBoon extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.DARKGLARE_BOON_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.DARKGLARE_BOON_TALENT);
     if (!this.active) {
       return;
     }

@@ -1,4 +1,5 @@
 import talents from 'common/TALENTS/monk';
+import Talent from 'common/TALENTS/types';
 
 import RushingJadeWind from './RushingJadeWind';
 
@@ -7,7 +8,9 @@ const talentlessCombatant = {
 };
 
 const talentedCombatant = {
-  hasTalent: (id) => id === talents.RUSHING_JADE_WIND_TALENT.id,
+  hasTalent: (talent: Talent) =>
+    talent.entryIds.filter((entryId) => talents.RUSHING_JADE_WIND_TALENT.entryIds.includes(entryId))
+      .length > 0,
 };
 const parser = {
   byPlayer: () => true,

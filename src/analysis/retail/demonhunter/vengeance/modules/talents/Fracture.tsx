@@ -3,22 +3,21 @@ import Enemies from 'parser/shared/modules/Enemies';
 import TALENTS from 'common/TALENTS/demonhunter';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 import { SpellLink } from 'interface';
 import Events, { CastEvent } from 'parser/core/Events';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import FuryTracker from 'analysis/retail/demonhunter/vengeance/modules/resourcetracker/FuryTracker';
-import { formatPercentage } from 'common/format';
-import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/vengeance/guide/CastSummaryAndBreakdown';
+import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/CastSummaryAndBreakdown';
 import { UNRESTRAINED_FURY_SCALING } from 'analysis/retail/demonhunter/shared';
 import { TIERS } from 'game/TIERS';
 import { ReactNode } from 'react';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { t, Trans } from '@lingui/macro';
 
-// Fracture fury gen (no tier): 25
-// Metamorphosis Fracture fury gen (no tier): 45
-// Fracture fury gen (w/ tier): 30
-// Metamorphosis Fracture fury gen (w/ tier): 54
+// Fracture fury gen (no T29): 25
+// Metamorphosis Fracture fury gen (no T29): 45
+// Fracture fury gen (w/ T29): 30
+// Metamorphosis Fracture fury gen (w/ T29): 54
 const DEFAULT_IN_META_FURY_LIMIT = 55;
 const DEFAULT_NOT_META_FURY_LIMIT = 75;
 const T29_IN_META_FURY_LIMIT = 46;
@@ -32,13 +31,17 @@ const getMetaInitialFuryLimit = (hasT292Pc: boolean) =>
 const getNonMetaInitialFuryLimit = (hasT292Pc: boolean) =>
   hasT292Pc ? T29_NOT_META_FURY_LIMIT : DEFAULT_NOT_META_FURY_LIMIT;
 
+type FractureBoxRowEntry = BoxRowEntry & {
+  event: CastEvent;
+};
+
 export default class Fracture extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     furyTracker: FuryTracker,
   };
 
-  castEntries: BoxRowEntry[] = [];
+  castEntries: FractureBoxRowEntry[] = [];
   inMetaFuryLimit = getMetaInitialFuryLimit(false);
   notMetaFuryLimit = getNonMetaInitialFuryLimit(false);
   protected enemies!: Enemies;
@@ -115,10 +118,10 @@ export default class Fracture extends Analyzer {
       </>
     );
 
-    this.castEntries.push({ value: performance, tooltip });
+    this.castEntries.push({ value: performance, tooltip, event });
   }
 
-  getCastFuryPerformance(event: CastEvent): [QualitativePerformance, ReactNode | null] {
+  getCastFuryPerformance(event: CastEvent): [QualitativePerformance, ReactNode] {
     const hasMetamorphosis = this.selectedCombatant.hasBuff(
       SPELLS.METAMORPHOSIS_TANK.id,
       event.timestamp,
@@ -150,7 +153,7 @@ export default class Fracture extends Analyzer {
     ];
   }
 
-  getCastSoulFragmentPerformance(event: CastEvent): [QualitativePerformance, ReactNode | null] {
+  getCastSoulFragmentPerformance(event: CastEvent): [QualitativePerformance, ReactNode] {
     const hasMetamorphosis = this.selectedCombatant.hasBuff(
       SPELLS.METAMORPHOSIS_TANK.id,
       event.timestamp,
@@ -187,52 +190,51 @@ export default class Fracture extends Analyzer {
   }
 
   guideSubsection() {
-    const numberOfFractures = this.castEntries.length;
-    const numberOfGoodFractures = this.castEntries.filter(
-      (it) => it.value === QualitativePerformance.Good,
-    ).length;
-    const numberOfBadFractures = this.castEntries.filter(
-      (it) => it.value === QualitativePerformance.Fail,
-    ).length;
-    const goodFractures = {
-      count: numberOfGoodFractures,
-      label: 'Fractures',
-    };
-    const badFractures = {
-      count: numberOfBadFractures,
-      label: 'Bad Fractures',
-    };
-
     const explanation = (
       <p>
-        <strong>
-          <SpellLink id={TALENTS.FRACTURE_TALENT} />
-        </strong>{' '}
-        is your primary <strong>builder</strong> for <strong>Fury</strong> and{' '}
-        <strong>Soul Fragments</strong>. Cast it when you have less than 4 Soul Fragments and less
-        than {this.notMetaFuryLimit} Fury. In <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />, cast it
-        when you have less than 3 Soul Fragments and less than {this.inMetaFuryLimit} Fury.
+        <Trans id="guide.demonhunter.vengeance.sections.rotation.fracture.explanation">
+          <strong>
+            <SpellLink id={TALENTS.FRACTURE_TALENT} />
+          </strong>{' '}
+          is your primary <strong>builder</strong> for <strong>Fury</strong> and{' '}
+          <strong>Soul Fragments</strong>. Cast it when you have less than 4 Soul Fragments and less
+          than {this.notMetaFuryLimit} Fury. In <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />, cast
+          it when you have less than 3 Soul Fragments and less than {this.inMetaFuryLimit} Fury.
+        </Trans>
       </p>
     );
     const data = (
-      <RoundedPanel>
+      <CastSummaryAndBreakdown
+        spell={TALENTS.FRACTURE_TALENT}
+        castEntries={this.castEntries}
+        goodLabel={t({
+          id:
+            'guide.demonhunter.vengeance.sections.rotation.fracture.data.summary.performance.good',
+          message: 'Fractures',
+        })}
+        includeGoodCastPercentage
+        badLabel={t({
+          id: 'guide.demonhunter.vengeance.sections.rotation.fracture.data.summary.performance.bad',
+          message: 'Bad Fractures',
+        })}
+        onClickBox={(idx) => console.log(this.castEntries[idx].event)}
+      />
+    );
+    const noCastData = (
+      <div>
         <p>
-          <strong>{formatPercentage(numberOfGoodFractures / numberOfFractures, 1)}%</strong> of your{' '}
-          <SpellLink id={TALENTS.FRACTURE_TALENT} /> casts were good.
+          <Trans id="guide.demonhunter.vengeance.sections.rotation.fracture.noCast">
+            You did not cast Fracture during this encounter.
+          </Trans>
         </p>
-        <strong>Fracture casts</strong>
-        <small>
-          Green is a good cast, Red is a bad cast (too many Soul Fragments or too much Fury).
-          Mouseover for more details. Click to expand.
-        </small>
-        <CastSummaryAndBreakdown
-          castEntries={this.castEntries}
-          good={goodFractures}
-          bad={badFractures}
-        />
-      </RoundedPanel>
+      </div>
     );
 
-    return explanationAndDataSubsection(explanation, data);
+    return (
+      <ExplanationAndDataSubSection
+        explanation={explanation}
+        data={this.castEntries.length > 0 ? data : noCastData}
+      />
+    );
   }
 }

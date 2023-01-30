@@ -1,5 +1,4 @@
 export { default as Icon } from './Icon';
-export { default as ConduitLink } from './ConduitLink';
 export { default as SpellLink } from './SpellLink';
 export { default as SpellIcon } from './SpellIcon';
 export { default as ItemLink } from './ItemLink';
@@ -15,3 +14,4 @@ export { default as ErrorBoundary } from './ErrorBoundary';
 export { default as Tooltip, TooltipElement } from './Tooltip';
 export { default as makeAnalyzerUrl } from './makeAnalyzerUrl';
 export { Expandable, ControlledExpandable } from './Expandable';
+export { default as VerticallyAlignedToggle } from './VerticallyAlignedToggle';

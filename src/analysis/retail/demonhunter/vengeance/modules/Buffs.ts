@@ -21,81 +21,81 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.FIERY_BRAND_DEBUFF.id,
+        spellId: SPELLS.FIERY_BRAND_DOT.id,
         triggeredBySpellId: TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT),
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.FRAILTY.id,
         triggeredBySpellId: TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT),
       },
       {
         spellId: SPELLS.FRAILTY.id,
         triggeredBySpellId: SPELLS.SOUL_CLEAVE.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.VOID_REAVER_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.VOID_REAVER_TALENT),
       },
       {
         spellId: SPELLS.FRAILTY.id,
         triggeredBySpellId: SPELLS.SIGIL_OF_FLAME_PRECISE.id,
         enabled:
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id) &&
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.FRAILTY_TALENT.id) &&
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT.id),
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT) &&
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.FRAILTY_TALENT) &&
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT),
       },
       {
         spellId: SPELLS.FRAILTY.id,
         triggeredBySpellId: SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id,
         enabled:
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id) &&
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.FRAILTY_TALENT.id) &&
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id),
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT) &&
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.FRAILTY_TALENT) &&
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT),
       },
       {
         spellId: SPELLS.FRAILTY.id,
         triggeredBySpellId: TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id,
         enabled:
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id) &&
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.FRAILTY_TALENT.id) &&
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT) &&
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.FRAILTY_TALENT) &&
           !(
-            combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT.id) ||
-            combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id)
+            combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT) ||
+            combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT)
           ),
       },
       {
         spellId: SPELLS.SIGIL_OF_FLAME_DEBUFF.id,
         triggeredBySpellId: SPELLS.SIGIL_OF_FLAME_PRECISE.id,
         enabled:
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id) &&
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT.id),
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT) &&
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT),
       },
       {
         spellId: SPELLS.SIGIL_OF_FLAME_DEBUFF.id,
         triggeredBySpellId: SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id,
         enabled:
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id) &&
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id),
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT) &&
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT),
       },
       {
         spellId: SPELLS.SIGIL_OF_FLAME_DEBUFF.id,
         triggeredBySpellId: TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id,
         enabled:
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id) &&
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT) &&
           !(
-            combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT.id) ||
-            combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id)
+            combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT) ||
+            combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT)
           ),
       },
       {
         spellId: TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id,
         triggeredBySpellId: TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT),
       },
       {
         spellId: TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id,
         triggeredBySpellId: TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.DARKNESS_TALENT),
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),

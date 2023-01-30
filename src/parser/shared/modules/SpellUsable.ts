@@ -1,5 +1,5 @@
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import { maybeGetSpell } from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbilityEvent,
@@ -23,7 +23,7 @@ const DEBUG = false;
 export const COOLDOWN_LAG_MARGIN = 150;
 
 function spellName(spellId: number) {
-  return SPELLS[spellId] ? SPELLS[spellId].name : '???';
+  return maybeGetSpell(spellId)?.name ?? '???';
 }
 
 /**
@@ -265,8 +265,8 @@ class SpellUsable extends Analyzer {
    *     if different from currentTimestamp.
    * @param {boolean} resetCooldown if the cooldown's progress should be reset.
    *     This field is only relevant for spells with more than one charge.
-   *     iff true, a charge will be added and cooldown progress will be set back to zero.
-   *     iff false, a charge will be added and cooldown progress will be retained.
+   *     if true, a charge will be added and cooldown progress will be set back to zero.
+   *     if false, a charge will be added and cooldown progress will be retained.
    *     'Restore charge' effects typically do not reset the cooldown (pass false to this field),
    *     while natural cooldown expiration and effects do (pass true to this field).
    * @param {boolean} restoreAllCharges if all charges should be restored rather than just one.
@@ -678,15 +678,15 @@ class SpellUsable extends Analyzer {
     updateType: UpdateSpellUsableType,
     combatantId: number,
   ): UpdateSpellUsableEvent {
-    const spell = SPELLS[canonicalSpellId];
+    const spell = maybeGetSpell(canonicalSpellId);
 
     const event: UpdateSpellUsableEvent = {
       type: EventType.UpdateSpellUsable,
       timestamp,
       ability: {
         guid: canonicalSpellId,
-        name: spell.name ?? '',
-        abilityIcon: spell.icon ?? '',
+        name: spell?.name ?? '',
+        abilityIcon: spell?.icon ?? '',
       },
       updateType,
       isOnCooldown: info.maxCharges > info.chargesAvailable,

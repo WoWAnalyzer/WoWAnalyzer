@@ -39,8 +39,12 @@ const Overview = ({ guide: GuideComponent, checklist, issues }: Props) => {
 
   const sessionGuideSetting = window.sessionStorage?.getItem('guideMode');
   const configGuideSetting = Boolean(config.guideDefault);
-  const initialGuideSetting =
+  const configOnlyGuideSetting = Boolean(config.guideOnly);
+  let initialGuideSetting =
     sessionGuideSetting === null ? configGuideSetting : Boolean(sessionGuideSetting);
+  if (configGuideSetting || configOnlyGuideSetting) {
+    initialGuideSetting = true;
+  }
 
   const [guideMode, setGuideMode] = React.useState(initialGuideSetting);
 
@@ -66,11 +70,13 @@ const Overview = ({ guide: GuideComponent, checklist, issues }: Props) => {
 
   return guideMode && GuideComponent ? (
     <div className="container" style={{ display: 'grid' }}>
-      <PrototypeSwitcher
-        defaultGuide={configGuideSetting}
-        guideMode={guideMode}
-        setGuideMode={setMode}
-      />
+      {!configOnlyGuideSetting && (
+        <PrototypeSwitcher
+          defaultGuide={configGuideSetting}
+          guideMode={guideMode}
+          setGuideMode={setMode}
+        />
+      )}
       <GuideComponent />
     </div>
   ) : (

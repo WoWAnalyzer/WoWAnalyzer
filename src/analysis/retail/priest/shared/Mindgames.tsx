@@ -5,7 +5,6 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import SPECS from 'game/SPECS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -50,9 +49,7 @@ class Mindgames extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active =
-      this.selectedCombatant.hasCovenant(COVENANTS.VENTHYR.id) &&
-      this.selectedCombatant.spec !== SPECS.DISCIPLINE_PRIEST;
+    this.active = false && this.selectedCombatant.spec !== SPECS.DISCIPLINE_PRIEST;
 
     if (!this.active) {
       return;

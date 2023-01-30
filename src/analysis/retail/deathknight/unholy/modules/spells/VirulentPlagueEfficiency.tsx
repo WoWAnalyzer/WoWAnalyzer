@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -51,7 +52,7 @@ class VirulentPlagueEfficiency extends Analyzer {
   }
 
   get VirulentDuration() {
-    return this.selectedCombatant.hasTalent(SPELLS.EBON_FEVER_TALENT.id) ? 13.65 : 27.3;
+    return this.selectedCombatant.hasTalent(TALENTS.EBON_FEVER_TALENT) ? 13.65 : 27.3;
   }
 
   onRefresh(event: RefreshDebuffEvent) {

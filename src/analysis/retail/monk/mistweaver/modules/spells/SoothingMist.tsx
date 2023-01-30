@@ -8,15 +8,14 @@ import Events, { CastEvent, FightEndEvent, HealEvent, RemoveBuffEvent } from 'pa
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import { isFromSoothingMist } from '../../normalizers/CastLinkNormalizer';
 
 class SoothingMist extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
   soomTicks: number = 0;
-  gustProc: number = 0;
   gustsHealing: number = 0;
-  lastSoomTickTimestamp: number = 0;
   startStamp: number = 0;
   endStamp: number = 0;
   soomInProgress: boolean = false;
@@ -84,15 +83,10 @@ class SoothingMist extends Analyzer {
 
   handleSoothingMist(event: HealEvent) {
     this.soomTicks += 1;
-    this.lastSoomTickTimestamp = event.timestamp;
   }
 
   masterySoothingMist(event: HealEvent) {
-    if (
-      this.lastSoomTickTimestamp === event.timestamp &&
-      this.gustProc < Math.ceil(this.soomTicks / 8)
-    ) {
-      this.gustProc += 1;
+    if (isFromSoothingMist(event)) {
       this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
     }
   }
@@ -105,7 +99,6 @@ class SoothingMist extends Analyzer {
 
   castSoothingMist(event: CastEvent) {
     if (this.soomInProgress) {
-      //if they refresh soom for some stupid reason
       this.endStamp = event.timestamp;
       this.checkChannelTiming();
       this.castsInSoom = 0;
@@ -139,8 +132,13 @@ class SoothingMist extends Analyzer {
     duration -= this.startGCD;
 
     this.castsInSoom -= duration / this.assumedGCD;
-
-    if (this.castsInSoom < 0) {
+    if (
+      this.castsInSoom < 0 &&
+      !(
+        this.selectedCombatant.hasTalent(TALENTS_MONK.UNISON_TALENT) &&
+        this.selectedCombatant.hasTalent(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT)
+      )
+    ) {
       this.badSooms += 1;
     }
   }

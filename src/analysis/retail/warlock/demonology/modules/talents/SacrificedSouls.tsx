@@ -37,7 +37,7 @@ class SacrificedSouls extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SACRIFICED_SOULS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SACRIFICED_SOULS_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.SHADOW_BOLT_DEMO, SPELLS.DEMONBOLT]),
       this.handleCast,
@@ -97,7 +97,7 @@ class SacrificedSouls extends Analyzer {
   }
 
   statistic() {
-    const hasPS = this.selectedCombatant.hasTalent(TALENTS.POWER_SIPHON_TALENT.id);
+    const hasPS = this.selectedCombatant.hasTalent(TALENTS.POWER_SIPHON_TALENT);
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}

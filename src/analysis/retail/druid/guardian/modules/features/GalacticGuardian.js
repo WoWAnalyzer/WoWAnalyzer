@@ -22,7 +22,7 @@ class GalacticGuardian extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.GALACTIC_GUARDIAN_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.GALACTIC_GUARDIAN_TALENT);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GALACTIC_GUARDIAN),
       this.onApplyBuff,

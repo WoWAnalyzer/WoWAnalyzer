@@ -144,7 +144,7 @@ class Statistic extends React.PureComponent<Props, { expanded?: boolean }> {
             {dropdown && this.renderDropdown(dropdown)}
           </div>
           {tooltip && (
-            <Tooltip content={tooltip}>
+            <Tooltip content={tooltip} hoverable>
               <div className="detail-corner" data-place="top">
                 <InfoIcon />
               </div>

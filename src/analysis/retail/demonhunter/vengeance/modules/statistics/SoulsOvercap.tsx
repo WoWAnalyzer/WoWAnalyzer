@@ -24,8 +24,8 @@ class SoulsOvercap extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active =
-      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id) &&
-      !this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FEED_THE_DEMON_TALENT.id);
+      this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT) &&
+      !this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FEED_THE_DEMON_TALENT);
   }
 
   get suggestionThresholdsEfficiency(): NumberThreshold {

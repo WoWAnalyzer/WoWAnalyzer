@@ -1,70 +1,50 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Events, { HealEvent } from 'parser/core/Events';
-import { formatPercentage } from 'common/format';
+import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { t } from '@lingui/macro';
 import { SpellLink } from 'interface';
+import { TALENTS_EVOKER } from 'common/TALENTS';
+import { getBuffEvents } from '../../normalizers/CastLinkNormalizer';
 
 class DreamBreath extends Analyzer {
-  get calculateHotOverHealing() {
-    return formatPercentage(
-      this.breathHotOverHealing / (this.breathHotHealing + this.breathHotOverHealing),
-    );
-  }
-
-  get calculateHitOverHealing() {
-    return formatPercentage(this.breathOverhealing / (this.breathHealing + this.breathOverhealing));
-  }
-
-  static dependencies = {
-    abilityTracker: AbilityTracker,
-  };
-  protected abilityTracker!: AbilityTracker;
-
-  breathHealing: number = 0;
-  breathOverhealing: number = 0;
-  breathHotHealing: number = 0;
-  breathHotOverHealing: number = 0;
-
-  totalHealing: number = 0;
-  totalOverhealing: number = 0;
+  totalBreaths: number = 0;
+  totalApplications: number = 0;
+  processedEvents: Set<ApplyBuffEvent> = new Set<ApplyBuffEvent>();
 
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.DREAM_BREATH, SPELLS.DREAM_BREATH_ECHO]),
-      this.onHeal,
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DREAM_BREATH),
+      this.onApply,
     );
   }
 
-  onHeal(event: HealEvent) {
-    if (event.tick) {
-      this.breathHotHealing += event.amount + (event.absorbed || 0);
-      this.breathHotOverHealing += event.overheal || 0;
-    } else {
-      this.breathHealing += event.amount + (event.absorbed || 0);
-      this.breathOverhealing += event.overheal || 0;
+  onApply(event: ApplyBuffEvent) {
+    if (this.processedEvents.has(event)) {
+      return;
     }
-    // total healing
-    this.totalHealing += event.amount + (event.absorbed || 0);
-    this.totalOverhealing += event.overheal || 0;
+    const events = getBuffEvents(event);
+    this.totalBreaths += 1;
+    this.totalApplications += events.length;
+    events.forEach((ev) => {
+      this.processedEvents.add(ev);
+    });
   }
 
-  get overhealPercent() {
-    return this.totalOverhealing / (this.totalHealing + this.totalOverhealing);
+  get averageTargetsHit() {
+    return this.totalApplications / this.totalBreaths;
   }
 
   get suggestionThresholds() {
     return {
-      actual: this.overhealPercent,
-      isGreaterThan: {
-        minor: 35,
-        average: 40,
-        major: 50,
+      actual: this.averageTargetsHit,
+      isLessThan: {
+        minor: 5,
+        average: 4,
+        major: 3,
       },
-      style: ThresholdStyle.PERCENTAGE,
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -72,17 +52,18 @@ class DreamBreath extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.DREAM_BREATH.id} /> is creating a large amount of overheal.
+          Try to maximize the amount of targets hit by{' '}
+          <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} />
         </>,
       )
-        .icon(SPELLS.DREAM_BREATH.icon)
+        .icon(TALENTS_EVOKER.DREAM_BREATH_TALENT.icon)
         .actual(
-          `${formatPercentage(this.totalOverhealing, 2)} + ' '${t({
-            id: 'evoker.preservation.suggestions.dreamBreath.totalOverhealing',
-            message: ` Dream Breath overhealing`,
+          `${this.averageTargetsHit.toFixed(1)} ${t({
+            id: 'evoker.preservation.suggestions.dreamBreath.avgTargetsHit',
+            message: ` average targets hit`,
           })}`,
         )
-        .recommended(`${recommended} overheal or less recommended`),
+        .recommended(`at least ${recommended} targets hit recommended`),
     );
   }
 }

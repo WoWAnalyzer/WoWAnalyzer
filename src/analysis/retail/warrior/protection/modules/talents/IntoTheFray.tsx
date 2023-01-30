@@ -28,7 +28,7 @@ class IntoTheFray extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.INTO_THE_FRAY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.INTO_THE_FRAY_TALENT);
     if (!this.active) {
       return;
     }

@@ -13,7 +13,7 @@ class Torrent extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.TORRENT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.TORRENT_TALENT);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),

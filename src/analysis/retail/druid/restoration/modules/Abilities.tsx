@@ -20,7 +20,7 @@ class Abilities extends CoreAbilities {
       // Rotational
       {
         spell: TALENTS_DRUID.CENARION_WARD_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.CENARION_WARD_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.CENARION_WARD_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30,
         gcd: {
@@ -35,7 +35,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.WILD_GROWTH.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.WILD_GROWTH_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.WILD_GROWTH_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 10,
         gcd: {
@@ -44,7 +44,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.EFFLORESCENCE_CAST.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.EFFLORESCENCE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.EFFLORESCENCE_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
@@ -77,7 +77,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LIFEBLOOM_HOT_HEAL.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: !combatant.hasTalent(TALENTS_DRUID.UNDERGROWTH_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS_DRUID.UNDERGROWTH_TALENT),
         gcd: {
           base: 1500,
         },
@@ -86,7 +86,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LIFEBLOOM_UNDERGROWTH_HOT_HEAL.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS_DRUID.UNDERGROWTH_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.UNDERGROWTH_TALENT),
         gcd: {
           base: 1500,
         },
@@ -106,7 +106,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.TRANQUILITY_CAST.id,
         enabled: combatant.hasTalent(TALENTS_DRUID.TRANQUILITY_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: combatant.hasTalent(TALENTS_DRUID.INNER_PEACE_TALENT.id) ? 120 : 180,
+        cooldown: combatant.hasTalent(TALENTS_DRUID.INNER_PEACE_TALENT) ? 120 : 180,
         gcd: {
           base: 1500,
         },
@@ -126,7 +126,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS_DRUID.OVERGROWTH_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.OVERGROWTH_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.OVERGROWTH_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         gcd: {
@@ -242,7 +242,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.THRASH_BEAR.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        enabled: combatant.hasTalent(TALENTS_DRUID.THRASH_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.THRASH_TALENT),
         gcd: {
           base: 1500,
         },
@@ -250,7 +250,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.THRASH_FERAL.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        enabled: combatant.hasTalent(TALENTS_DRUID.THRASH_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.THRASH_TALENT),
         gcd: {
           static: 1000,
         },
@@ -258,7 +258,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SWIPE_CAT.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        enabled: combatant.hasTalent(TALENTS_DRUID.SWIPE_TALENT.id),
         gcd: {
           static: 1000,
         },
@@ -266,7 +265,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SWIPE_BEAR.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        enabled: combatant.hasTalent(TALENTS_DRUID.SWIPE_TALENT.id),
         gcd: {
           base: 1500,
         },
@@ -274,7 +272,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RIP.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        enabled: combatant.hasTalent(TALENTS_DRUID.RIP_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.RIP_TALENT),
         gcd: {
           static: 1000,
         },
@@ -289,7 +287,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RAKE.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        enabled: combatant.hasTalent(TALENTS_DRUID.RAKE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.RAKE_TALENT),
         gcd: {
           static: 1000,
         },
@@ -297,7 +295,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STARSURGE_AFFINITY.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        enabled: combatant.hasTalent(TALENTS_DRUID.STARSURGE_SHARED_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.STARSURGE_SHARED_TALENT),
         cooldown: 10,
         gcd: {
           base: 1500,
@@ -306,7 +304,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STARFIRE_AFFINITY.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
-        enabled: combatant.hasTalent(TALENTS_DRUID.STARFIRE_SHARED_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.STARFIRE_SHARED_TALENT),
         gcd: {
           base: 1500,
         },

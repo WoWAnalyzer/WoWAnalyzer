@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
+import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HasTarget } from 'parser/core/Events';
@@ -23,8 +24,8 @@ class ScourgeStrikeEfficiency extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.activeSpell = this.selectedCombatant.hasTalent(SPELLS.CLAWING_SHADOWS_TALENT.id)
-      ? SPELLS.CLAWING_SHADOWS_TALENT
+    this.activeSpell = this.selectedCombatant.hasTalent(TALENTS.CLAWING_SHADOWS_TALENT)
+      ? TALENTS.CLAWING_SHADOWS_TALENT
       : SPELLS.SCOURGE_STRIKE;
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.activeSpell), this.onCast);

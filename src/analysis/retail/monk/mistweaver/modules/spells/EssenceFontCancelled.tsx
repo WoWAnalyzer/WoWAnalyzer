@@ -9,6 +9,7 @@ import Events, {
   UpdateSpellUsableEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { SpellLink } from 'interface';
 
 const debug = false;
 const NUM_EF_BOLTS = 18;
@@ -41,7 +42,7 @@ class EssenceFontCancelled extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
       this.onApply,
     );
-    this.hasUpwelling = this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT.id);
+    this.hasUpwelling = this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT);
   }
 
   castEssenceFont(event: CastEvent) {
@@ -122,7 +123,11 @@ class EssenceFontCancelled extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(<>You cancelled Essence Font</>)
+      suggest(
+        <>
+          You cancelled <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} />
+        </>,
+      )
         .icon(TALENTS_MONK.ESSENCE_FONT_TALENT.icon)
         .actual(
           `${this.numCancelled} ${t({

@@ -148,20 +148,21 @@ class FeelTheBurn extends Analyzer {
     when(this.maxStackUptimeThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.INFERNAL_CASCADE.id} /> buff was at {MAX_STACKS} stacks for{' '}
-          {formatPercentage(this.maxStackPercent)}% of your Combustion Uptime. Because so much of
-          your damage comes from your Combustion, it is important that you adjust your rotation to
-          maintain {MAX_STACKS} stacks of <SpellLink id={SPELLS.INFERNAL_CASCADE.id} /> for as much
-          of your <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> as possible. This can be done by
-          alternating between using <SpellLink id={SPELLS.FIRE_BLAST.id} /> and{' '}
+          Your <SpellLink id={TALENTS.FEEL_THE_BURN_TALENT.id} /> buff was at {MAX_STACKS} stacks
+          for {formatPercentage(this.maxStackPercent)}% of your Combustion Uptime. Because so much
+          of your damage comes from your Combustion, it is important that you adjust your rotation
+          to maintain {MAX_STACKS} stacks of <SpellLink id={TALENTS.FEEL_THE_BURN_TALENT.id} /> for
+          as much of your <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> as possible. This can be
+          done by alternating between using <SpellLink id={SPELLS.FIRE_BLAST.id} /> and{' '}
           <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} /> to generate{' '}
           <SpellLink id={SPELLS.HOT_STREAK.id} /> instead of using all the charges of one, and then
           all the charges of the other. <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />s that were
-          proc'd by <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} /> are not included in this, unless
-          you used the proc to extend an existing <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />.
+          proc'd by <SpellLink id={TALENTS.SUN_KINGS_BLESSING_TALENT.id} /> are not included in
+          this, unless you used the proc to extend an existing{' '}
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />.
         </>,
       )
-        .icon(SPELLS.INFERNAL_CASCADE.icon)
+        .icon(TALENTS.FEEL_THE_BURN_TALENT.icon)
         .actual(
           <Trans id="mage.fire.suggestions.feelTheBurn.maxStackPercent">
             {formatPercentage(actual)}% utilization

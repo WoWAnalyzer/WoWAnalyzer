@@ -53,7 +53,7 @@ class BornToBeWild extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.BORN_TO_BE_WILD_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BORN_TO_BE_WILD_TALENT);
     this.hasEagle = this.selectedCombatant.spec === SPECS.SURVIVAL_HUNTER;
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(BORN_TO_BE_WILD_AFFECTED_SPELLS),

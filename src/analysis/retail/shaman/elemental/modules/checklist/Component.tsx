@@ -39,25 +39,26 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
           </>
         }
       >
-        {combatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT) && (
           <AbilityRequirement spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id} />
         )}
-        {!combatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id) && (
+        {!combatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT) && (
           <AbilityRequirement spell={TALENTS.FIRE_ELEMENTAL_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT) && (
           <AbilityRequirement spell={TALENTS.STORM_ELEMENTAL_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.ICEFURY_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.ICEFURY_TALENT) && (
           <AbilityRequirement spell={TALENTS.ICEFURY_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.STORMKEEPER_ELEMENTAL_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS.STORMKEEPER_ELEMENTAL_TALENT.id} />
+        {(combatant.hasTalent(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT) ||
+          combatant.hasTalent(TALENTS.STORMKEEPER_2_ELEMENTAL_TALENT)) && (
+          <AbilityRequirement spell={TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.LIQUID_MAGMA_TOTEM_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.LIQUID_MAGMA_TOTEM_TALENT) && (
           <AbilityRequirement spell={TALENTS.LIQUID_MAGMA_TOTEM_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT) && (
           <AbilityRequirement spell={TALENTS.ELEMENTAL_BLAST_TALENT.id} />
         )}
       </Rule>
@@ -112,7 +113,7 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
           thresholds={thresholds.flameShockRefreshes}
         />
       </Rule>
-      {combatant.hasTalent(TALENTS.ICEFURY_TALENT.id) && (
+      {combatant.hasTalent(TALENTS.ICEFURY_TALENT) && (
         <Rule
           name="Utilize all Icefury Stacks"
           description={
@@ -122,7 +123,7 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
               the talent by consuming all 4 <SpellLink id={TALENTS.ICEFURY_TALENT.id} /> buff stacks
               with <SpellLink id={TALENTS.FROST_SHOCK_TALENT.id} /> casts during the buff's
               duration.
-              {combatant.hasTalent(TALENTS.MASTER_OF_THE_ELEMENTS_TALENT.id) && (
+              {combatant.hasTalent(TALENTS.MASTER_OF_THE_ELEMENTS_TALENT) && (
                 <>
                   {' '}
                   While you should try to buff as many <SpellLink
@@ -156,7 +157,7 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
               's damage comes from spamming <SpellLink id={TALENTS.LAVA_BURST_TALENT.id} /> during
               it's duration. Only use <SpellLink id={TALENTS.LAVA_BURST_TALENT.id} /> and{' '}
               <SpellLink id={TALENTS.EARTH_SHOCK_TALENT.id} /> while it is up.
-              {combatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id) && (
+              {combatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT) && (
                 <>
                   {' '}
                   Use <SpellLink id={TALENTS.LAVA_BURST_TALENT.id} /> as much as you can. Only use{' '}

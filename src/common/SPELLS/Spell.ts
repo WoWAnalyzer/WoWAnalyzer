@@ -37,6 +37,9 @@ export default interface Spell {
   lowRanks?: Array<number>;
 }
 
+/**
+ * @deprecated
+ */
 export interface LegendarySpell extends Spell {
   bonusID?: number;
 }

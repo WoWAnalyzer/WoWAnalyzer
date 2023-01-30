@@ -28,9 +28,7 @@ export default class AnyMeansNecessary extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.ANY_MEANS_NECESSARY_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.ANY_MEANS_NECESSARY_TALENT);
     if (!this.active) {
       return;
     }

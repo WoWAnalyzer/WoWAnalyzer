@@ -12,7 +12,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 class ArcaneFamiliar extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ARCANE_FAMILIAR_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ARCANE_FAMILIAR_TALENT);
   }
 
   get uptime() {

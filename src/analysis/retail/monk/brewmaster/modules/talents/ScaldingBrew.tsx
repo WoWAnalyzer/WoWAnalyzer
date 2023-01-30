@@ -6,11 +6,11 @@ import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent, CastEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import Enemies from 'parser/shared/modules/Enemies';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 const DAMAGE_AMP_PER_RANK = 0.0075;
 const BASE_DAMAGE_AMP = 0.075;
@@ -37,7 +37,7 @@ export default class ScaldingBrew extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.rank = this.selectedCombatant.conduitRankBySpellID(SPELLS.SCALDING_BREW.id);
+    this.rank = 0;
     if (!this.rank) {
       this.active = false;
       return;
@@ -74,8 +74,8 @@ export default class ScaldingBrew extends Analyzer {
           isInefficientCast: true,
           inefficientCastReason: (
             <>
-              This cast did not benefit from <SpellLink id={SPELLS.SCALDING_BREW.id} /> or freshly
-              apply the <SpellLink id={talents.KEG_SMASH_TALENT.id} /> debuff.
+              This cast did not benefit from <SpellLink id={talents.SCALDING_BREW_TALENT.id} /> or
+              freshly apply the <SpellLink id={talents.KEG_SMASH_TALENT.id} /> debuff.
             </>
           ),
         };
@@ -91,11 +91,11 @@ export default class ScaldingBrew extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={`${this.missedHits} of your Keg Smash hits (besides the initial debuff application) were without the Breath of Fire debuff.`}
       >
-        <ConduitSpellText spellId={SPELLS.SCALDING_BREW.id} rank={this.rank!}>
+        <BoringSpellValueText spellId={talents.SCALDING_BREW_TALENT.id}>
           <>
             <ItemDamageDone amount={this.bonusDamage} />
           </>
-        </ConduitSpellText>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

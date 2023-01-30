@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -29,7 +30,7 @@ class RighteousProtector extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.RIGHTEOUS_PROTECTOR_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.RIGHTEOUS_PROTECTOR_TALENT);
     if (!this.active) {
       return;
     }
@@ -48,7 +49,7 @@ class RighteousProtector extends Analyzer {
       this.avengingWrathReductionWasted += REDUCTION_TIME;
     }
     if (
-      this.spellUsable.isOnCooldown(SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id) ||
+      this.spellUsable.isOnCooldown(TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT.id) ||
       this.spellUsable.isOnCooldown(SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id)
     ) {
       const reduction = this.guardianReduction;
@@ -67,7 +68,10 @@ class RighteousProtector extends Analyzer {
    */
   get guardianReduction(): number {
     try {
-      return this.spellUsable.reduceCooldown(SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id, REDUCTION_TIME);
+      return this.spellUsable.reduceCooldown(
+        TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT.id,
+        REDUCTION_TIME,
+      );
     } catch (e) {
       return this.spellUsable.reduceCooldown(
         SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id,
@@ -83,14 +87,14 @@ class RighteousProtector extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.RIGHTEOUS_PROTECTOR_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.RIGHTEOUS_PROTECTOR_TALENT.id}>
           <SpellIcon id={SPELLS.AVENGING_WRATH.id} />{' '}
           {formatNumber(this.avengingWrathReduced / SECOND)}s{' '}
           <small>
             CD Reduction ({formatNumber(this.avengingWrathReductionWasted / SECOND)}s wasted)
           </small>
           <br />
-          <SpellIcon id={SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id} />{' '}
+          <SpellIcon id={TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT.id} />{' '}
           {formatNumber(this.guardianOfAncientKingsReduced / SECOND)}s{' '}
           <small>
             CD Reduction ({formatNumber(this.guardianOfAncientKingsWasted / SECOND)}s wasted)

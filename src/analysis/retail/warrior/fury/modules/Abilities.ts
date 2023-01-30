@@ -1,9 +1,9 @@
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/warrior';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import { TIERS } from 'game/TIERS';
 
 //https://www.warcraftlogs.com/reports/9Vw8TvjHNfXgWyP7#fight=19&type=summary&source=21 2+ cold steel hot blood
 
@@ -28,7 +28,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RAGING_BLOW.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => 8 / (1 + haste),
-        charges: combatant.has2Piece() ? 3 : 2,
+        charges: combatant.has2PieceByTier(TIERS.T28) ? 3 : 2,
         gcd: {
           base: 1500,
         },
@@ -47,20 +47,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasCovenant(COVENANTS.VENTHYR.id),
-      },
-      {
-        spell: [
-          SPELLS.CONDEMN.id,
-          SPELLS.CONDEMN_MASSACRE.id,
-          SPELLS.CONDEMN_FURY.id,
-          SPELLS.CONDEMN_FURY_MASSACRE.id,
-        ],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        enabled: !false,
       },
       // Rotational AOE
       {
@@ -71,13 +58,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SPEAR_OF_BASTION.id,
+        spell: talents.SPEAR_OF_BASTION_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 60,
+        cooldown: 90,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        enabled: false,
       },
       // Others
       {
@@ -86,7 +73,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasTalent(SPELLS.IMPENDING_VICTORY_TALENT_HEAL.id),
+        enabled: !combatant.hasTalent(talents.IMPENDING_VICTORY_TALENT),
       },
       {
         spell: SPELLS.IMPENDING_VICTORY_TALENT_HEAL.id,
@@ -95,7 +82,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.IMPENDING_VICTORY_TALENT_HEAL.id),
+        enabled: combatant.hasTalent(talents.IMPENDING_VICTORY_TALENT),
       },
       // Cooldown
       {
@@ -143,14 +130,14 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHARGE.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 20 - (combatant.hasTalent(talents.DOUBLE_TIME_TALENT.id) ? 3 : 0),
-        charges: 1 + (combatant.hasTalent(talents.DOUBLE_TIME_TALENT.id) ? 1 : 0),
+        cooldown: 20 - (combatant.hasTalent(talents.DOUBLE_TIME_TALENT) ? 3 : 0),
+        charges: 1 + (combatant.hasTalent(talents.DOUBLE_TIME_TALENT) ? 1 : 0),
       },
       {
         spell: SPELLS.HEROIC_LEAP.id,
         category: SPELL_CATEGORY.UTILITY,
         buffSpellId: SPELLS.BOUNDING_STRIDE_BUFF.id,
-        cooldown: 45 - (combatant.hasTalent(talents.BOUNDING_STRIDE_TALENT.id) ? 15 : 0),
+        cooldown: 45 - (combatant.hasTalent(talents.BOUNDING_STRIDE_TALENT) ? 15 : 0),
         charges: 1,
         gcd: null,
       },
@@ -167,7 +154,7 @@ class Abilities extends CoreAbilities {
           extraSuggestion:
             "If you're picking a utility talent over something that increases your mobility or survivability, you better use it.",
         },
-        enabled: combatant.hasTalent(talents.STORM_BOLT_TALENT.id),
+        enabled: combatant.hasTalent(talents.STORM_BOLT_TALENT),
       },
       {
         spell: SPELLS.PUMMEL.id,

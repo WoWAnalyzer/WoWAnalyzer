@@ -18,7 +18,7 @@ class TimeAnomaly extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.TIME_ANOMALY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.TIME_ANOMALY_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_BARRAGE_TALENT),
       this.onBarrageCast,

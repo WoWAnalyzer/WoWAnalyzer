@@ -1,10 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import SPECS from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -28,23 +26,11 @@ class FaelineStomp extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT);
 
     if (!this.active) {
       return;
     }
-
-    (options.abilities as Abilities).add({
-      spell: TALENTS_MONK.FAELINE_STOMP_TALENT.id,
-      category: SPELL_CATEGORY.ROTATIONAL,
-      cooldown: 30,
-      gcd:
-        this.selectedCombatant.spec === SPECS.MISTWEAVER_MONK ? { base: 1500 } : { static: 1000 },
-      castEfficiency: {
-        suggestion: true,
-        recommendedEfficiency: 0.8,
-      },
-    });
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.FAELINE_STOMP_TALENT),
@@ -57,7 +43,7 @@ class FaelineStomp extends Analyzer {
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.FAELINE_STOMP_HEAL, SPELLS.FAELINE_STOMP_PULSE_DAMAGE]),
+        .spell([SPELLS.FAELINE_STOMP_HEAL, TALENTS_MONK.FAELINE_STOMP_TALENT]),
       this.damage,
     );
     this.addEventListener(

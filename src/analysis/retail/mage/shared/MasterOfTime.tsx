@@ -13,7 +13,7 @@ class MasterOfTime extends Analyzer {
 
   constructor(props: Options) {
     super(props);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.MASTER_OF_TIME_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.MASTER_OF_TIME_TALENT);
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ALTER_TIME_BUFF),
       this.resetBlink,

@@ -1,5 +1,7 @@
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, {
@@ -12,6 +14,7 @@ import Events, {
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
@@ -86,6 +89,17 @@ class CloudedFocus extends Analyzer {
 
   removeBuff(event: RemoveBuffEvent) {
     this.stacks = 0;
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink id={TALENTS_MONK.CLOUDED_FOCUS_TALENT.id} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.healingDone),
+        )} %`}
+      />
+    );
   }
 
   statistic() {

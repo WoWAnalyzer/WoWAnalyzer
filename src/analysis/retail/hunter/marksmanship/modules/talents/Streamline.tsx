@@ -36,7 +36,7 @@ class Streamline extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.STREAMLINE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.STREAMLINE_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAPID_FIRE_DAMAGE),
       this.onRapidFireDamage,

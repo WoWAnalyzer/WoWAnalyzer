@@ -13,7 +13,6 @@ import OTHERS from './others';
 import PALADIN from './paladin';
 import PRIEST from './priest';
 import ROGUE from './rogue';
-import SHADOWLANDS from './shadowlands';
 import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
@@ -38,7 +37,7 @@ const ITEMS = {
     CLASSIC,
   ),
   //Any non class-specific items
-  ...safeMerge(OTHERS, SHADOWLANDS, DRAGONFLIGHT),
+  ...safeMerge(OTHERS, DRAGONFLIGHT),
 };
 
 export default indexById<Item | Enchant, typeof ITEMS>(ITEMS);

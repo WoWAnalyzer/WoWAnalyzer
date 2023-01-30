@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
@@ -56,21 +55,10 @@ const EnhancementShamanChecklist = (props: ChecklistProps & AplRuleProps) => {
         }
       >
         <AbilityRequirement spell={TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id} />
-        {combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT) && (
           <AbilityRequirement spell={TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id} />
         )}
-        {combatant.hasCovenant(COVENANTS.KYRIAN.id) && (
-          <AbilityRequirement spell={SPELLS.VESPER_TOTEM.id} />
-        )}
-        {combatant.hasCovenant(COVENANTS.NECROLORD.id) && (
-          <AbilityRequirement spell={SPELLS.PRIMORDIAL_WAVE_CAST.id} />
-        )}
-        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
-          <AbilityRequirement spell={SPELLS.FAE_TRANSFUSION.id} />
-        )}
-        {combatant.hasCovenant(COVENANTS.VENTHYR.id) && (
-          <AbilityRequirement spell={SPELLS.CHAIN_HARVEST.id} />
-        )}
+        {false && <AbilityRequirement spell={TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT.id} />}
       </Rule>
       <Rule
         name="Keep your Windfury Totem active"
@@ -105,10 +93,7 @@ const EnhancementShamanChecklist = (props: ChecklistProps & AplRuleProps) => {
           // TODO: Enable talent as spell
           // TALENTS_SHAMAN.FERAL_SPIRIT_TALENT,
           // TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT,
-          SPELLS.VESPER_TOTEM,
-          SPELLS.PRIMORDIAL_WAVE_CAST,
-          SPELLS.FAE_TRANSFUSION,
-          SPELLS.CHAIN_HARVEST,
+          TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT,
         ]}
       />
       <PreparationRule thresholds={thresholds} />

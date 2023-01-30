@@ -174,8 +174,6 @@ jobs:
           yarn lingui compile
       - name: Production build
         run: |
-          # Needed to ignore the mini-css-extract-plugin warnings which can not be fixed with a good solution
-          CI=false
           REACT_APP_ENVIRONMENT_NAME=${GITHUB_REF##*/}
           REACT_APP_VERSION=$GITHUB_SHA
           # We already ran ESLint in a separate step

@@ -28,7 +28,7 @@ class CrusadersMight extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.CRUSADERS_MIGHT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.CRUSADERS_MIGHT_TALENT);
     if (!this.active) {
       return;
     }
@@ -51,7 +51,7 @@ class CrusadersMight extends Analyzer {
       const holyShockCooldown =
         7500 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
       if (
-        this.selectedCombatant.hasTalent(TALENTS.SANCTIFIED_WRATH_TALENT.id) &&
+        this.selectedCombatant.hasTalent(TALENTS.SANCTIFIED_WRATH_TALENT) &&
         this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id, event.timestamp)
       ) {
         this.holyShocksCastsLost += 1;
@@ -90,13 +90,13 @@ class CrusadersMight extends Analyzer {
       suggest(
         <>
           <Trans id="paladin.holy.modules.talents.crusadersMight.suggestion">
-            You cast <SpellLink id={SPELLS.CRUSADER_STRIKE.id} />{' '}
-            {this.wastedHolyShockReductionCount} times when
-            <SpellLink id={TALENTS.HOLY_SHOCK_TALENT.id} /> was off cooldown.{' '}
-            <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> should be used to reduce the cooldown of
-            <SpellLink id={TALENTS.HOLY_SHOCK_TALENT.id} /> and should never be cast when{' '}
-            <SpellLink id={TALENTS.HOLY_SHOCK_TALENT.id} /> is avalible. This is a core component of
-            the <SpellLink id={TALENTS.GLIMMER_OF_LIGHT_TALENT.id} />{' '}
+            You cast <SpellLink id={SPELLS.CRUSADER_STRIKE} /> {this.wastedHolyShockReductionCount}{' '}
+            times when
+            <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} /> was off cooldown.{' '}
+            <SpellLink id={SPELLS.CRUSADER_STRIKE} /> should be used to reduce the cooldown of
+            <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} /> and should never be cast when{' '}
+            <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} /> is avalible. This is a core component of
+            the <SpellLink id={TALENTS.GLIMMER_OF_LIGHT_TALENT} />{' '}
             <a
               href="https://questionablyepic.com/glimmer-of-light/"
               target="_blank"
@@ -134,12 +134,12 @@ class CrusadersMight extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(75)}
-        icon={<SpellIcon id={TALENTS.CRUSADERS_MIGHT_TALENT.id} />}
+        icon={<SpellIcon id={TALENTS.CRUSADERS_MIGHT_TALENT} />}
         value={
           <>
             {formatSeconds((this.effectiveHolyShockReductionMs / 1000).toFixed(1))}{' '}
             <SpellIcon
-              id={TALENTS.HOLY_SHOCK_TALENT.id}
+              id={TALENTS.HOLY_SHOCK_TALENT}
               style={{
                 height: '1.3em',
                 marginTop: '-.1em',

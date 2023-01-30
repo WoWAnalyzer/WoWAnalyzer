@@ -1,23 +1,18 @@
 import SPELLS from 'common/SPELLS';
-import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { isFromRenewingMist } from '../../normalizers/CastLinkNormalizer';
 
 class RenewingMist extends Analyzer {
+  currentRenewingMists: number = 0;
   totalHealing: number = 0;
   totalOverhealing: number = 0;
   totalAbsorbs: number = 0;
   gustsHealing: number = 0;
-  lastCastTarget: number = 0;
   healingHits: number = 0;
-  numberToCount: number = 0;
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RENEWING_MIST_TALENT),
-      this.castRenewingMist,
-    );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
       this.handleGustsOfMists,
@@ -26,17 +21,27 @@ class RenewingMist extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
       this.handleRenewingMist,
     );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
+      this.onApplyRem,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
+      this.onRemoveRem,
+    );
   }
 
-  castRenewingMist(event: CastEvent) {
-    this.numberToCount += 1;
-    this.lastCastTarget = event.targetID || 0;
+  onApplyRem(event: ApplyBuffEvent) {
+    this.currentRenewingMists += 1;
+  }
+
+  onRemoveRem(event: RemoveBuffEvent) {
+    this.currentRenewingMists -= 1;
   }
 
   handleGustsOfMists(event: HealEvent) {
-    if (this.lastCastTarget === event.targetID && this.numberToCount > 0) {
+    if (isFromRenewingMist(event)) {
       this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
-      this.numberToCount -= 1;
     }
   }
 

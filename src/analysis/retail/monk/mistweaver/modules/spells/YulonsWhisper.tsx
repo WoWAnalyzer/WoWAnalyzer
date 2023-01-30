@@ -53,10 +53,10 @@ class YulonsWhisper extends Analyzer {
     return {
       actual: this.averageYWCount,
       isLessThan: {
-        minor: 5,
-        average: 4,
+        minor: 4,
+        average: 3,
       },
-      recommended: 5.5,
+      recommended: 4.5,
       style: ThresholdStyle.NUMBER,
     };
   }

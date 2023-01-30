@@ -12,7 +12,7 @@ import UptimeBar, { Uptime } from 'parser/ui/UptimeBar';
 class RuleOfLaw extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.RULE_OF_LAW_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.RULE_OF_LAW_TALENT);
   }
 
   get uptime() {
@@ -36,8 +36,8 @@ class RuleOfLaw extends Analyzer {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="paladin.holy.modules.talents.ruleOfLaw.suggestion">
-          Your <SpellLink id={TALENTS.RULE_OF_LAW_TALENT.id} /> uptime can be improved. Try keeping
-          at least 1 charge on cooldown; you should (almost) never be at max charges.
+          Your <SpellLink id={TALENTS.RULE_OF_LAW_TALENT} /> uptime can be improved. Try keeping at
+          least 1 charge on cooldown; you should (almost) never be at max charges.
         </Trans>,
       )
         .icon(TALENTS.RULE_OF_LAW_TALENT.icon)
@@ -69,7 +69,7 @@ class RuleOfLaw extends Analyzer {
       <StatisticBar position={STATISTIC_ORDER.CORE(31)} wide>
         <div className="flex">
           <div className="flex-sub icon">
-            <SpellIcon id={TALENTS.RULE_OF_LAW_TALENT.id} />
+            <SpellIcon id={TALENTS.RULE_OF_LAW_TALENT} />
           </div>
           <div className="flex-sub value">
             <Trans id="paladin.holy.modules.talents.ruleOfLaw.smallUptime">

@@ -34,8 +34,8 @@ class PrimalFireElemental extends Analyzer {
       [SPELLS.FIRE_ELEMENTAL_FIRE_BLAST.id]: false,
     };
     this.active =
-      this.selectedCombatant.hasTalent(TALENTS.PRIMAL_ELEMENTALIST_TALENT.id) &&
-      !this.selectedCombatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id);
+      this.selectedCombatant.hasTalent(TALENTS.PRIMAL_ELEMENTALIST_TALENT) &&
+      !this.selectedCombatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT);
 
     if (!this.active) {
       return;

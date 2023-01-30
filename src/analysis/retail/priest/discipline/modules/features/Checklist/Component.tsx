@@ -43,16 +43,16 @@ const DisciplinePriestChecklist = ({
         }
       >
         <AbilityRequirement spell={SPELLS.PENANCE_CAST.id} />
-        {combatant.hasTalent(TALENTS.SCHISM_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SCHISM_TALENT) && (
           <AbilityRequirement spell={TALENTS.SCHISM_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS.POWER_WORD_SOLACE_TALENT) && (
           <AbilityRequirement spell={TALENTS.POWER_WORD_SOLACE_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.DIVINE_STAR_SHARED_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.DIVINE_STAR_SHARED_TALENT) && (
           <AbilityRequirement spell={TALENTS.DIVINE_STAR_SHARED_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.SHADOW_COVENANT_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SHADOW_COVENANT_TALENT) && (
           <AbilityRequirement spell={TALENTS.SHADOW_COVENANT_TALENT.id} />
         )}
       </Rule>
@@ -67,16 +67,16 @@ const DisciplinePriestChecklist = ({
           </>
         }
       >
-        {!combatant.hasTalent(TALENTS.MINDBENDER_DISCIPLINE_TALENT.id) && (
+        {!combatant.hasTalent(TALENTS.MINDBENDER_DISCIPLINE_TALENT) && (
           <AbilityRequirement spell={SPELLS.SHADOWFIEND.id} />
         )}
-        {combatant.hasTalent(TALENTS.MINDBENDER_DISCIPLINE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.MINDBENDER_DISCIPLINE_TALENT) && (
           <AbilityRequirement spell={TALENTS.MINDBENDER_DISCIPLINE_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.HALO_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.HALO_SHARED_TALENT) && (
           <AbilityRequirement spell={SPELLS.HALO_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.EVANGELISM_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.EVANGELISM_TALENT) && (
           <AbilityRequirement spell={TALENTS.EVANGELISM_TALENT.id} />
         )}
         {/* We can't detect race, so disable this when it has never been cast. */}

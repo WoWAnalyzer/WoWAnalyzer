@@ -17,18 +17,30 @@ class Penance extends Analyzer {
 
   constructor(options) {
     super(options);
-    this._defaultBolts = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CASTIGATION_TALENT.id)
+    this._defaultBolts = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CASTIGATION_TALENT)
       ? 4
       : 3;
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_CAST), this.onCast);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PENANCE), this.onDamage);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_HEAL), this.onHeal);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PENANCE_CAST, SPELLS.DARK_REPRIMAND_CAST]),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.PENANCE, SPELLS.DARK_REPRIMAND_DAMAGE]),
+      this.onDamage,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.PENANCE_HEAL, SPELLS.DARK_REPRIMAND_HEAL]),
+      this.onHeal,
+    );
   }
 
   static isPenance = (spellId) =>
     spellId === SPELLS.PENANCE.id ||
+    spellId === SPELLS.DARK_REPRIMAND_DAMAGE.id ||
     spellId === SPELLS.PENANCE_HEAL.id ||
-    spellId === SPELLS.PENANCE_CAST.id;
+    spellId === SPELLS.DARK_REPRIMAND_HEAL.id ||
+    spellId === SPELLS.PENANCE_CAST.id ||
+    spellId === SPELLS.DARK_REPRIMAND_CAST.id;
 
   onDamage(event) {
     event.penanceBoltNumber = this._boltCount;
@@ -73,7 +85,8 @@ class Penance extends Analyzer {
           value={this._missedBolts}
           label={
             <>
-              Wasted <SpellLink id={SPELLS.PENANCE.id} /> bolts
+              Wasted <SpellLink id={SPELLS.PENANCE.id} /> or{' '}
+              <SpellLink id={SPELLS.DARK_REPRIMAND_CAST.id} /> bolts.
             </>
           }
         />

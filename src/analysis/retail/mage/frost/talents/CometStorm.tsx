@@ -27,7 +27,7 @@ class CometStorm extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.COMET_STORM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.COMET_STORM_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.COMET_STORM_TALENT),
       this.onCometStormCast,
@@ -91,10 +91,10 @@ class CometStorm extends Analyzer {
           casts {this.badCometStormCast} times. Because the projectiles from{' '}
           <SpellLink id={TALENTS.COMET_STORM_TALENT.id} /> no longer remove your stacks of{' '}
           <SpellLink id={SPELLS.WINTERS_CHILL.id} />, you should always cast{' '}
-          <SpellLink id={TALENTS.COMET_STORM_TALENT.id} /> immediately after using your{' '}
-          <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> proc on{' '}
-          <SpellLink id={TALENTS.FLURRY_TALENT.id} />. This way there is time for most/all of the
-          comets to hit the target before <SpellLink id={SPELLS.WINTERS_CHILL.id} /> expires.
+          <SpellLink id={TALENTS.COMET_STORM_TALENT.id} /> immediately after casting{' '}
+          <SpellLink id={TALENTS.FLURRY_TALENT.id} /> and applying{' '}
+          <SpellLink id={SPELLS.WINTERS_CHILL} />. This way there is time for most/all of the comets
+          to hit the target before <SpellLink id={SPELLS.WINTERS_CHILL.id} /> expires.
           Alternatively, if <SpellLink id={TALENTS.COMET_STORM_TALENT.id} /> will hit at least{' '}
           {COMET_STORM_AOE_MIN_TARGETS} targets, then it is acceptable to use it without{' '}
           <SpellLink id={TALENTS.SHATTER_TALENT.id} />/<SpellLink id={SPELLS.WINTERS_CHILL.id} />

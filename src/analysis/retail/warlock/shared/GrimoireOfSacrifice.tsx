@@ -37,7 +37,7 @@ class GrimoireOfSacrifice extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.GRIMOIRE_OF_SACRIFICE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.GRIMOIRE_OF_SACRIFICE_TALENT);
   }
 
   suggestions(when: When) {

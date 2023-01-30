@@ -24,7 +24,7 @@ class ExplosiveShot extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.EXPLOSIVE_SHOT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.EXPLOSIVE_SHOT_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.EXPLOSIVE_SHOT_TALENT),
       this.onCast,

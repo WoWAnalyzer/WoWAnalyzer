@@ -136,13 +136,13 @@ class PrimordialWave extends Analyzer {
           <tbody>
             <th>
               <div className="panel-heading value">Total Healing</div>
-              <BoringSpellValueText spellId={SPELLS.PRIMORDIAL_WAVE_CAST.id}>
+              <BoringSpellValueText spellId={TALENTS.PRIMORDIAL_WAVE_TALENT.id}>
                 <ItemHealingDone amount={totalHealing} />
               </BoringSpellValueText>
             </th>
             <th>
               <div className="panel-heading value">Breakdown</div>
-              <BoringSpellValueText spellId={SPELLS.PRIMORDIAL_WAVE_CAST.id}>
+              <BoringSpellValueText spellId={TALENTS.PRIMORDIAL_WAVE_TALENT.id}>
                 <ItemHealingDone amount={this.healing} />
                 <br />
                 <img src="/img/healing.png" alt="Overhealing" className="icon" />{' '}

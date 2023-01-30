@@ -26,7 +26,7 @@ class Hemostasis extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.HEMOSTASIS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HEMOSTASIS_TALENT);
     if (!this.active) {
       return;
     }

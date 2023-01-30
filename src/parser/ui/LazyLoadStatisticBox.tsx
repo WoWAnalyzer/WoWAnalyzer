@@ -2,6 +2,7 @@ import { ReactNode, useState } from 'react';
 
 import StatisticBox from './StatisticBox';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { useResults } from 'interface/report/Results/ResultsContext';
 
 export { STATISTIC_ORDER } from './StatisticBox';
 
@@ -31,6 +32,7 @@ interface Props {
 const LazyLoadStatisticBox = ({ loader, value, children, ...others }: Props) => {
   const [loaded, setLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { generateResults } = useResults();
 
   const handleClick = () => {
     if (loaded) {
@@ -40,6 +42,7 @@ const LazyLoadStatisticBox = ({ loader, value, children, ...others }: Props) => 
     loader().then((result) => {
       setLoading(false);
       setLoaded(true);
+      generateResults();
       return result;
     });
   };

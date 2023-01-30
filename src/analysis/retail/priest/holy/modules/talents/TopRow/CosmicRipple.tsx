@@ -19,7 +19,7 @@ class CosmicRipple extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.COSMIC_RIPPLE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.COSMIC_RIPPLE_TALENT);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.COSMIC_RIPPLE_HEAL),
       this.onHeal,

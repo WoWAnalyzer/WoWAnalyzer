@@ -1,5 +1,5 @@
 import { t, Trans } from '@lingui/macro';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -12,6 +12,7 @@ import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { TIERS } from 'game/TIERS';
 
 const SUGGESTED_MIN_TARGETS_FOR_BONESTORM = 1.5;
 const SUGGESTED_RUNIC_POWER_SPENT = 100;
@@ -22,7 +23,7 @@ class Bonestorm extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.BONESTORM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BONESTORM_TALENT);
 
     if (!this.active) {
       return;
@@ -67,7 +68,7 @@ class Bonestorm extends Analyzer {
   }
 
   get goodBonestormCasts() {
-    if (this.selectedCombatant.has2Piece()) {
+    if (this.selectedCombatant.has2PieceByTier(TIERS.T28)) {
       return this.bsCasts.filter((cast) => cast.cost / 10 === SUGGESTED_RUNIC_POWER_SPENT).length;
     } else {
       return this.bsCasts.filter(
@@ -93,7 +94,7 @@ class Bonestorm extends Analyzer {
   }
 
   suggestions(when: When) {
-    if (this.selectedCombatant.has2Piece()) {
+    if (this.selectedCombatant.has2PieceByTier(TIERS.T28)) {
       when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
           <Trans id="deathknight.blood.bonestorm.suggestion.2p.suggestion">

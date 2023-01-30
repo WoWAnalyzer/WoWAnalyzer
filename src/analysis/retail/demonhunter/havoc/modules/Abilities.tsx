@@ -30,7 +30,7 @@ class Abilities extends SharedAbilities {
       },
       {
         spell: SPELLS.DEMONS_BITE.id,
-        enabled: !combatant.hasTalent(TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -52,7 +52,7 @@ class Abilities extends SharedAbilities {
       },
       {
         spell: [SPELLS.BLADE_DANCE.id, SPELLS.DEATH_SWEEP.id],
-        category: combatant.hasTalent(TALENTS_DEMON_HUNTER.FIRST_BLOOD_TALENT.id)
+        category: combatant.hasTalent(TALENTS_DEMON_HUNTER.FIRST_BLOOD_TALENT)
           ? SPELL_CATEGORY.ROTATIONAL
           : SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: (haste) =>
@@ -66,8 +66,8 @@ class Abilities extends SharedAbilities {
         },
         castEfficiency: {
           suggestion:
-            combatant.hasTalent(TALENTS_DEMON_HUNTER.FIRST_BLOOD_TALENT.id) ||
-            combatant.hasTalent(TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_TALENT.id),
+            combatant.hasTalent(TALENTS_DEMON_HUNTER.FIRST_BLOOD_TALENT) ||
+            combatant.hasTalent(TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_TALENT),
           recommendedEfficiency: 0.95,
           extraSuggestion: (
             <>
@@ -82,7 +82,7 @@ class Abilities extends SharedAbilities {
       },
       {
         spell: TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 40,
         gcd: {
@@ -123,16 +123,16 @@ class Abilities extends SharedAbilities {
       // Movement
       {
         spell: SPELLS.FEL_RUSH_CAST.id, //Becomes a rotational ability with the Momentum talent
-        category: combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_TALENT.id)
+        category: combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_TALENT)
           ? SPELL_CATEGORY.ROTATIONAL
           : SPELL_CATEGORY.UTILITY,
-        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.BLAZING_PATH_TALENT.id) ? 1 : 0),
+        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.BLAZING_PATH_TALENT) ? 1 : 0),
         cooldown: getFelRushCooldown(combatant),
         gcd: {
           static: 250,
         },
         castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_TALENT.id),
+          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_TALENT),
           recommendedEfficiency: 0.95,
           extraSuggestion: (
             <>
@@ -144,14 +144,14 @@ class Abilities extends SharedAbilities {
       },
       {
         spell: TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT.id, // Becomes a rotational ability with the Momentum talent
-        category: combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_TALENT.id)
+        category: combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_TALENT)
           ? SPELL_CATEGORY.ROTATIONAL
           : SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT.id) ? 20 : 25,
+        cooldown: combatant.hasTalent(TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT) ? 20 : 25,
         // Not actually on the GCD but blocks all spells during its animation for 1 second. The issue is you can follow up any ability on the GCD with Vengeful Retreat, so it can still cause overlap.
         gcd: null,
         castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT.id),
+          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT),
           recommendedEfficiency: 0.95,
           extraSuggestion: (
             <>
@@ -161,17 +161,11 @@ class Abilities extends SharedAbilities {
           ),
         },
       },
-      {
-        spell: SPELLS.GLIDE.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 1.5,
-        gcd: null,
-      },
 
       // CC, interupts, and utility
       {
         spell: TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
@@ -201,7 +195,7 @@ class Abilities extends SharedAbilities {
       },
       {
         spell: TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
         gcd: {
@@ -215,7 +209,7 @@ class Abilities extends SharedAbilities {
       },
       {
         spell: TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: (haste) => 20 / (1 + haste),
         gcd: {
@@ -254,7 +248,7 @@ class Abilities extends SharedAbilities {
       },
       {
         spell: TALENTS_DEMON_HUNTER.NETHERWALK_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.NETHERWALK_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.NETHERWALK_TALENT),
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 180,
         gcd: {

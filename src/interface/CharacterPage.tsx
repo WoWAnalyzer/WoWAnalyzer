@@ -1,23 +1,24 @@
-import DocumentTitle from 'interface/DocumentTitle';
 import NavigationBar from 'interface/NavigationBar';
+import { useParams } from 'react-router-dom';
+import DocumentTitle from 'interface/DocumentTitle';
 
 import CharacterParses from './CharacterParses';
-import { Region } from 'common/regions';
 
-interface CharacterPageProps {
-  region: Region;
-  realm: string;
-  name: string;
-}
+const CharacterPage = () => {
+  const { region, realm, name } = useParams();
+  const regionDecoded = decodeURI(region?.replace(/\+/g, ' ') ?? '').toUpperCase();
+  const realmDecoded = decodeURI(realm?.replace(/\+/g, ' ') ?? '');
+  const nameDecoded = decodeURI(name?.replace(/\+/g, ' ') ?? '');
 
-const CharacterPage = ({ region, realm, name, ...others }: CharacterPageProps) => (
-  <>
-    <DocumentTitle title={`${name}-${realm} (${region})`} />
+  return (
+    <>
+      <DocumentTitle title={`${nameDecoded}-${realmDecoded} (${regionDecoded})`} />
 
-    <NavigationBar />
+      <NavigationBar />
 
-    <CharacterParses region={region} realm={realm} name={name} {...others} />
-  </>
-);
+      <CharacterParses region={regionDecoded} realm={realmDecoded} name={nameDecoded} />
+    </>
+  );
+};
 
 export default CharacterPage;

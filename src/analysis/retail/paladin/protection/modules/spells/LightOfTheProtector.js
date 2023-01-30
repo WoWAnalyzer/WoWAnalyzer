@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -40,8 +41,8 @@ export default class LightOfTheProtector extends Analyzer {
 
   constructor(props) {
     super(props);
-    if (this.selectedCombatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id)) {
-      this.activeSpell = SPELLS.HAND_OF_THE_PROTECTOR_TALENT;
+    if (this.selectedCombatant.hasTalent(TALENTS.HAND_OF_THE_PROTECTOR_TALENT)) {
+      this.activeSpell = TALENTS.HAND_OF_THE_PROTECTOR_TALENT;
       this.addEventListener(
         Events.cast.by(SELECTED_PLAYER).to(SELECTED_PLAYER).spell(this.activeSpell),
         this._countDelay,
@@ -58,7 +59,7 @@ export default class LightOfTheProtector extends Analyzer {
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._startDelayTimer);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(this.activeSpell), this._countHeal);
 
-    if (this.selectedCombatant.hasTalent(SPELLS.RIGHTEOUS_PROTECTOR_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.RIGHTEOUS_PROTECTOR_TALENT)) {
       this.addEventListener(
         Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_OF_THE_RIGHTEOUS),
         this._updateDelayRP,

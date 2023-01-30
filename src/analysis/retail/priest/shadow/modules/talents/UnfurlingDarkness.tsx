@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -11,6 +10,9 @@ import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 
 // Example Log https://www.warcraftlogs.com/reports/ctvYK32ZhbDqLmX8#fight=30&type=damage-done
 
@@ -28,7 +30,7 @@ class UnfurlingDarkness extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.UNFURLING_DARKNESS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.UNFURLING_DARKNESS_TALENT);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.UNFURLING_DARKNESS_BUFF),
       this.onBuffApplied,
@@ -57,34 +59,32 @@ class UnfurlingDarkness extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: this.procsWasted / this.procsGained,
+      actual: this.procsWasted,
       isGreaterThan: {
         minor: 0,
-        average: 0,
-        major: 0.05,
+        average: 0.5,
+        major: 1.1,
       },
-      style: ThresholdStyle.PERCENTAGE,
+      style: ThresholdStyle.NUMBER,
     };
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+    when(this.suggestionThresholds).addSuggestion((suggest) =>
       suggest(
         <>
-          You wasted {formatPercentage(actual)}% of{' '}
+          You wasted {this.procsWasted} out of {this.procsGained}{' '}
           <SpellLink id={TALENTS.UNFURLING_DARKNESS_TALENT.id} /> procs.{' '}
         </>,
       )
-        .icon(TALENTS.UNFURLING_DARKNESS_TALENT.icon)
+        .icon(SPELLS.UNFURLING_DARKNESS_BUFF.icon)
         .actual(
           t({
             id: 'priest.shadow.suggestions.unfurlingDarkness.efficiency',
-            message: `Wasted ${formatPercentage(
-              actual,
-            )}% of Unfurling Darkness procs. If you're not getting enough uses from Unfurling Darkness, you'll likely benefit more from using a different talent.`,
+            message: `You wasted ${this.procsWasted} out of ${this.procsGained} Unfurling Darkness procs.`,
           }),
         )
-        .recommended(`<${formatPercentage(recommended)}% is recommended.`),
+        .recommended(`0 is recommended.`),
     );
   }
 
@@ -98,6 +98,37 @@ class UnfurlingDarkness extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const goodUD = {
+      count: this.getProcsUsed(),
+      label: 'Unfurling Darkness procs used',
+    };
+
+    const badUD = {
+      count: this.procsWasted,
+      label: 'Unfurling Darkness procs wasted',
+    };
+
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS.UNFURLING_DARKNESS_TALENT.id} />
+        </b>{' '}
+        is gained by casting <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} />.<br />
+        Cast <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> while the buff is active to avoid wasting
+        procs.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <strong>Unfurling Darkness breakdown</strong>
+        <GradiatedPerformanceBar good={goodUD} bad={badUD} />
+      </div>
+    );
+    return explanationAndDataSubsection(explanation, data, 50);
   }
 }
 

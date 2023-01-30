@@ -71,7 +71,7 @@ class WildImpEnergyHandler extends Analyzer {
     // there's very little possibility these statements wouldn't return an object, Hand of Guldan is a key part of rotation
     const wildImpID = this._toId(PETS.WILD_IMP_HOG.guid);
     wildImpID && this._wildImpIds.push(wildImpID);
-    if (this.selectedCombatant.hasTalent(TALENTS.INNER_DEMONS_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.INNER_DEMONS_TALENT)) {
       // and Inner Demons passively summons these Wild Imps
       const innerDemonWildImpID = this._toId(PETS.WILD_IMP_INNER_DEMONS.guid);
       innerDemonWildImpID && this._wildImpIds.push(innerDemonWildImpID);

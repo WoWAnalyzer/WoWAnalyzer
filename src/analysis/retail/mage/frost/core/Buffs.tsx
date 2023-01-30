@@ -11,12 +11,12 @@ class Buffs extends CoreAuras {
     // This data can be used by various kinds of modules to improve their results, and modules added in the future may rely on buffs that aren't used today.
     return [
       {
-        spellId: TALENTS.BRAIN_FREEZE_TALENT.id,
+        spellId: SPELLS.BRAIN_FREEZE_BUFF.id,
         enabled: combatant.hasTalent(TALENTS.BRAIN_FREEZE_TALENT),
         timelineHighlight: true,
       },
       {
-        spellId: TALENTS.FINGERS_OF_FROST_TALENT.id,
+        spellId: SPELLS.FINGERS_OF_FROST_BUFF.id,
         enabled: combatant.hasTalent(TALENTS.FINGERS_OF_FROST_TALENT),
         timelineHighlight: true,
       },

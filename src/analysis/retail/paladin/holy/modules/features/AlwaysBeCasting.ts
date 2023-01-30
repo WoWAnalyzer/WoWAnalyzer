@@ -15,7 +15,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     super(options);
 
     this.HEALING_ABILITIES_ON_GCD.push(SPELLS.FLASH_OF_LIGHT.id);
-    this.HEALING_ABILITIES_ON_GCD.push(SPELLS.LIGHT_OF_THE_MARTYR.id);
+    this.HEALING_ABILITIES_ON_GCD.push(TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id);
     this.HEALING_ABILITIES_ON_GCD.push(SPELLS.WORD_OF_GLORY.id);
     this.HEALING_ABILITIES_ON_GCD.push(TALENTS.HOLY_LIGHT_TALENT.id);
     this.HEALING_ABILITIES_ON_GCD.push(TALENTS.HOLY_SHOCK_TALENT.id);
@@ -25,13 +25,13 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     this.HEALING_ABILITIES_ON_GCD.push(TALENTS.HOLY_PRISM_TALENT.id);
     this.HEALING_ABILITIES_ON_GCD.push(TALENTS.LIGHTS_HAMMER_TALENT.id);
 
-    this.hasAC = this.selectedCombatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT.id);
+    this.hasAC = this.selectedCombatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT);
 
-    if (this.selectedCombatant.hasTalent(TALENTS.CRUSADERS_MIGHT_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.CRUSADERS_MIGHT_TALENT)) {
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.CRUSADER_STRIKE.id);
     }
 
-    if (this.selectedCombatant.hasTalent(TALENTS.JUDGMENT_OF_LIGHT_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.JUDGMENT_OF_LIGHT_TALENT)) {
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.JUDGMENT_CAST_HOLY.id);
     }
   }

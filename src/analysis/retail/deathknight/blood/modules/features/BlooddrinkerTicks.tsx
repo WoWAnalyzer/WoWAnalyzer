@@ -27,7 +27,7 @@ class Blooddrinker extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.BLOODDRINKER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BLOODDRINKER_TALENT);
 
     if (!this.active) {
       return;

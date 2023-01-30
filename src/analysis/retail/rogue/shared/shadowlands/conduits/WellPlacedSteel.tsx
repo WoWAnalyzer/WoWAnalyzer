@@ -1,31 +1,17 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 const DAMAGE_BONUS = [
-  0,
-  0.1,
-  0.12,
-  0.13,
-  0.14,
-  0.15,
-  0.16,
-  0.17,
-  0.18,
-  0.19,
-  0.2,
-  0.21,
-  0.22,
-  0.23,
-  0.24,
-  0.25,
+  0, 0.1, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.2, 0.21, 0.22, 0.23, 0.24, 0.25,
 ];
 
 class WellPlacedSteel extends Analyzer {
@@ -39,8 +25,8 @@ class WellPlacedSteel extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.WELLPLACED_STEEL.id);
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.WELLPLACED_STEEL.id);
+    this.active = false;
+    this.conduitRank = 0;
 
     this.addEventListener(
       Events.damage
@@ -66,9 +52,9 @@ class WellPlacedSteel extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <ConduitSpellText spellId={SPELLS.WELLPLACED_STEEL.id} rank={this.conduitRank}>
+        <BoringSpellValueText spellId={TALENTS.IMPROVED_SHIV_TALENT.id}>
           <ItemDamageDone amount={this.bonusDamage} />
-        </ConduitSpellText>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

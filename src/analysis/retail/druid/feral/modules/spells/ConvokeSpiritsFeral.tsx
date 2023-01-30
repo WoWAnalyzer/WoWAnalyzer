@@ -7,10 +7,9 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import {
-  CooldownExpandable,
+import CooldownExpandable, {
   CooldownExpandableItem,
-} from 'analysis/retail/druid/restoration/Guide';
+} from 'interface/guide/components/CooldownExpandable';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ApplyBuffEvent } from 'parser/core/Events';
 import ComboPointTracker from 'analysis/retail/druid/feral/modules/core/combopoints/ComboPointTracker';

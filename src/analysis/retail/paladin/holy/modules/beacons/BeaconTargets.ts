@@ -1,17 +1,16 @@
 import TALENTS from 'common/TALENTS/paladin';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyBuffEvent, RemoveBuffEvent, EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Combatants from 'parser/shared/modules/Combatants';
 
-import { BEACON_TYPES } from '../../constants';
-
-const BEACONS = Object.values(BEACON_TYPES);
+import BeaconAnalyzer from './BeaconAnalyzer';
 
 const debug = false;
 
-class BeaconTargets extends Analyzer {
+class BeaconTargets extends BeaconAnalyzer {
   static dependencies = {
+    ...BeaconAnalyzer.dependencies,
     eventEmitter: EventEmitter,
     combatants: Combatants,
   };
@@ -20,10 +19,14 @@ class BeaconTargets extends Analyzer {
   protected combatants!: Combatants;
 
   currentBeaconTargets: number[] = [];
+  currentBeaconTargetsByBeaconId: { [beaconId: number]: number[] } = {};
   maxBeacons = 1;
 
   hasBeacon(playerId: number) {
     return this.currentBeaconTargets.includes(playerId);
+  }
+  getNumBeaconTargetsForBeaconId(beaconId: number) {
+    return (this.currentBeaconTargetsByBeaconId[beaconId] ?? []).length;
   }
   get numBeaconsActive() {
     return this.currentBeaconTargets.length;
@@ -34,9 +37,9 @@ class BeaconTargets extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    if (this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT)) {
       this.maxBeacons = 2;
-    } else if (this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT.id)) {
+    } else if (this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT)) {
       this.maxBeacons = 4;
     }
 
@@ -46,12 +49,13 @@ class BeaconTargets extends Analyzer {
 
   onApplyBuff(event: ApplyBuffEvent) {
     const spellId = event.ability.guid;
-    if (!BEACONS.includes(spellId)) {
+    if (!this.beaconBuffIds.includes(spellId)) {
       return;
     }
     const targetId = event.targetID;
     if (!this.currentBeaconTargets.includes(targetId)) {
       this.currentBeaconTargets.push(targetId);
+      (this.currentBeaconTargetsByBeaconId[spellId] ??= []).push(targetId);
       debug &&
         console.log(
           `%c${this.combatants.players[targetId].name} gained a beacon`,
@@ -60,7 +64,7 @@ class BeaconTargets extends Analyzer {
         );
       this.eventEmitter.fabricateEvent(
         {
-          type: 'beacon_applied',
+          type: EventType.BeaconApplied,
           timestamp: event.timestamp,
           sourceID: event.sourceID,
           targetID: event.targetID,
@@ -80,11 +84,14 @@ class BeaconTargets extends Analyzer {
   }
   onRemoveBuff(event: RemoveBuffEvent) {
     const spellId = event.ability.guid;
-    if (!BEACONS.includes(spellId)) {
+    if (!this.beaconBuffIds.includes(spellId)) {
       return;
     }
     const targetId = event.targetID;
     this.currentBeaconTargets = this.currentBeaconTargets.filter((id) => id !== targetId);
+    this.currentBeaconTargetsByBeaconId[spellId] = (
+      this.currentBeaconTargetsByBeaconId[spellId] ?? []
+    ).filter((id) => id !== targetId);
     debug &&
       console.log(
         `%c${this.combatants.players[targetId].name} lost a beacon`,
@@ -93,7 +100,7 @@ class BeaconTargets extends Analyzer {
       );
     this.eventEmitter.fabricateEvent(
       {
-        type: 'beacon_removed',
+        type: EventType.BeaconRemoved,
         timestamp: event.timestamp,
         sourceID: event.sourceID,
         targetID: event.targetID,

@@ -13,7 +13,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 class Voracious extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.VORACIOUS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.VORACIOUS_TALENT);
   }
 
   get uptime() {

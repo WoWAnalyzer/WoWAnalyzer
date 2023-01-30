@@ -22,6 +22,7 @@ const DAMAGE_INCREASE_FROM_CHASTISE = 0.5;
 const HOLY_FIRE_APPLICATION_DURATION = 7;
 const HEALING_INCREASE_FROM_SERENITY = 0.3;
 const CRIT_INCREASE_FROM_SERENITY = 0.2;
+const ACTIVATOR_SPELL_INCREASE = 0.3;
 
 // Example Logs: /report/VXr2kgALF3Rj6Q4M/11-Mythic+Anduin+Wrynn+-+Kill+(5:12)/Litena/standard/statistics
 // /report/xq2FvfVCJh6YLjzZ/2-Mythic+Vigilant+Guardian+-+Kill+(4:40)/Ashelya/standard/statistics
@@ -49,7 +50,7 @@ class DivineWord extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    if (!this.selectedCombatant.hasTalent(TALENTS.DIVINE_WORD_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(TALENTS.DIVINE_WORD_TALENT)) {
       this.active = false;
       return;
     }
@@ -116,8 +117,7 @@ class DivineWord extends Analyzer {
       this.sanctifyHealing += event.amount;
       this.sanctifyOverhealing += event.overheal || 0;
       return;
-    }
-    if (
+    } else if (
       this.selectedCombatant.hasBuff(SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF.id) &&
       (spellId === SPELLS.GREATER_HEAL.id ||
         spellId === SPELLS.FLASH_HEAL.id ||
@@ -132,18 +132,20 @@ class DivineWord extends Analyzer {
         (1 + percentIncreaseFromIncreasedCrit) * (1 + HEALING_INCREASE_FROM_SERENITY) - 1;
       this.serenityHealing += calculateEffectiveHealing(event, healingIncreaseTotal);
       this.serenityOverhealing += calculateOverhealing(event, healingIncreaseTotal);
-    }
-  }
-
-  onDamage(event: DamageEvent) {
-    if (
-      ABILITIES_THAT_WORK_WITH_DIVINE_FAVOR_CHASTISE.includes(event.ability.guid) &&
-      this.selectedCombatant.hasBuff(SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF.id)
+    } else if (
+      spellId === TALENTS.HOLY_WORD_SERENITY_TALENT.id &&
+      this.selectedCombatant.hasBuff(TALENTS.DIVINE_WORD_TALENT.id)
     ) {
-      this.chastiseDamage += calculateEffectiveDamage(event, DAMAGE_INCREASE_FROM_CHASTISE);
+      this.serenityHealing += calculateEffectiveHealing(event, ACTIVATOR_SPELL_INCREASE);
+      this.serenityOverhealing += calculateOverhealing(event, ACTIVATOR_SPELL_INCREASE);
+    } else if (
+      spellId === TALENTS.HOLY_WORD_SANCTIFY_TALENT.id &&
+      this.selectedCombatant.hasBuff(TALENTS.DIVINE_WORD_TALENT.id)
+    ) {
+      this.sanctifyHealing += calculateEffectiveHealing(event, ACTIVATOR_SPELL_INCREASE);
+      this.sanctifyOverhealing += calculateOverhealing(event, ACTIVATOR_SPELL_INCREASE);
     }
   }
-
   onActivatorCast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (this.selectedCombatant.hasBuff(TALENTS.DIVINE_WORD_TALENT.id)) {
@@ -158,6 +160,21 @@ class DivineWord extends Analyzer {
           this.sanctifyWordUse += 1;
           break;
       }
+    }
+  }
+
+  onDamage(event: DamageEvent) {
+    const spellId = event.ability.guid;
+    if (
+      spellId === TALENTS.HOLY_WORD_CHASTISE_TALENT.id &&
+      this.selectedCombatant.hasBuff(TALENTS.DIVINE_WORD_TALENT.id)
+    ) {
+      this.chastiseDamage += calculateEffectiveDamage(event, ACTIVATOR_SPELL_INCREASE);
+    } else if (
+      ABILITIES_THAT_WORK_WITH_DIVINE_FAVOR_CHASTISE.includes(event.ability.guid) &&
+      this.selectedCombatant.hasBuff(SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF.id)
+    ) {
+      this.chastiseDamage += calculateEffectiveDamage(event, DAMAGE_INCREASE_FROM_CHASTISE);
     }
   }
 
@@ -190,6 +207,8 @@ class DivineWord extends Analyzer {
             <br />
             The <strong> Holy fire's </strong> damage from the dot that is applied by smite is not
             included in the damage.
+            <br />
+            The extra effectiveness from the activating <strong>Holy Word</strong> is included.
           </>
         }
         size="flexible"

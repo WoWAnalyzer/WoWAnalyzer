@@ -92,6 +92,11 @@ interface Config {
    * If omitted, Checklist will be the default.
    */
   guideDefault?: boolean;
+  /**
+   * Indicates if only the new Guide should be accessible. Requires {@link guideDefault} to be
+   * `true`. If omitted, Checklist will be accessible.
+   */
+  guideOnly?: boolean;
 
   // Don't change values for props below this line;
   /**

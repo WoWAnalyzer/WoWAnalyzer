@@ -23,7 +23,7 @@ class MissingBeacons extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = !this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT.id);
+    this.active = !this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT);
     if (!this.active) {
       return;
     }
@@ -56,7 +56,7 @@ class MissingBeacons extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.UNIMPORTANT(0)}
-        icon={<SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} />}
+        icon={<SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF} />}
         value={
           <span style={{ fontSize: '75%' }}>
             <Trans id="paladin.holy.modules.beacons.missingBeacons.lostBeaconHealing">

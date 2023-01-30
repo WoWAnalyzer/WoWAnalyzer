@@ -9,9 +9,13 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 
 const MAX_EVERLASTING_LIGHT_BUFF = 0.15;
 
+/**
+ * Heal restores up to 15% additional health, based on your missing mana.
+ */
 class EverlastingLight extends Analyzer {
   currentHealingBonus: number = 0;
   rawAdditionalHealing: number = 0;
@@ -20,7 +24,7 @@ class EverlastingLight extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.EVERLASTING_LIGHT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.EVERLASTING_LIGHT_TALENT);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.GREATER_HEAL), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GREATER_HEAL), this.onHeal);
   }
@@ -47,8 +51,8 @@ class EverlastingLight extends Analyzer {
   onHeal(event: HealEvent) {
     if (this.currentHealingBonus > 0) {
       const rawHealAmount = event.amount * this.currentHealingBonus;
-      const effectiveHealAmount = Math.max(0, rawHealAmount - (event.overheal || 0));
-      const overHealAmount = rawHealAmount - effectiveHealAmount;
+      const effectiveHealAmount = calculateEffectiveHealing(event, this.currentHealingBonus);
+      const overHealAmount = calculateOverhealing(event, this.currentHealingBonus);
 
       this.rawAdditionalHealing += rawHealAmount;
       this.effectiveAdditionalHealing += effectiveHealAmount;

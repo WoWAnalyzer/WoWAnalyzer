@@ -22,7 +22,7 @@ class SoulFire extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SOUL_FIRE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SOUL_FIRE_TALENT);
   }
 
   statistic() {

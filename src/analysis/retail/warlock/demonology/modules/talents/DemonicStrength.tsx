@@ -24,7 +24,7 @@ class DemonicStrength extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.DEMONIC_STRENGTH_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DEMONIC_STRENGTH_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.FELSTORM_DAMAGE),
       this.handleFelstormDamage,

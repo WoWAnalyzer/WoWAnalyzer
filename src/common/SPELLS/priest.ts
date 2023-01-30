@@ -62,6 +62,7 @@ const spells = spellIndexableList({
     name: 'Mastery: Grace',
     icon: 'spell_holy_hopeandgrace',
   },
+
   PENANCE: {
     id: 47666,
     name: 'Penance',
@@ -73,6 +74,24 @@ const spells = spellIndexableList({
     id: 47750,
     name: 'Penance',
     icon: 'spell_holy_penance',
+    manaCost: 4000,
+  },
+  DARK_REPRIMAND_HEAL: {
+    id: 400187,
+    name: 'Dark Reprimand',
+    icon: 'inv_artifact_powerofthedarkside',
+    manaCost: 4000,
+  },
+  DARK_REPRIMAND_DAMAGE: {
+    id: 373130,
+    name: 'Dark Reprimand',
+    icon: 'inv_artifact_powerofthedarkside',
+    manaCost: 4000,
+  },
+  DARK_REPRIMAND_CAST: {
+    id: 400169,
+    name: 'Dark Reprimand',
+    icon: 'inv_artifact_powerofthedarkside',
     manaCost: 4000,
   },
   PENANCE_CAST: {
@@ -265,6 +284,31 @@ const spells = spellIndexableList({
     name: 'Halo',
     icon: 'spell_priest_divinestar',
   },
+  SHADOW_DIVINE_STAR_HEAL: {
+    id: 390981,
+    name: 'Divine Star',
+    icon: 'spell_priest_divinestar_shadow2',
+  },
+  SHADOW_DIVINE_STAR_DAMAGE: {
+    id: 390845,
+    name: 'Divine Star',
+    icon: 'spell_priest_divinestar_shadow2',
+  },
+  SHADOW_HALO_HEAL: {
+    id: 390971,
+    name: 'Halo',
+    icon: 'ability_priest_halo_shadow',
+  },
+  SHADOW_HALO_DAMAGE: {
+    id: 390964,
+    name: 'Halo',
+    icon: 'ability_priest_halo_shadow',
+  },
+  SHADOW_COVENANT_BUFF: {
+    id: 322105,
+    name: 'Shadow Covenant',
+    icon: 'spell_shadow_summonvoidwalker',
+  },
   CONTRITION_HEAL: {
     id: 270501,
     name: 'Contrition',
@@ -275,7 +319,16 @@ const spells = spellIndexableList({
     name: 'Contrition',
     icon: 'ability_priest_savinggrace',
   },
-
+  TWILIGHT_EQUILIBRIUM_SHADOW_BUFF: {
+    id: 390707,
+    name: 'Twilight Equilibrium',
+    icon: 'ability_priest_innerlightandshadow',
+  },
+  TWILIGHT_EQUILIBRIUM_HOLY_BUFF: {
+    id: 390706,
+    name: 'Twilight Equilibrium',
+    icon: 'ability_priest_innerlightandshadow',
+  },
   MANIFESTED_TWILIGHT_BUFF_2P: {
     id: 363943,
     name: 'Manifested Twilight',
@@ -478,6 +531,11 @@ const spells = spellIndexableList({
     icon: 'spell_holy_chastise',
     manaCost: 5000,
   },
+  PONTIFEX_TALENT_BUFF: {
+    id: 390989,
+    name: 'Pontifex',
+    icon: 'spell_priest_pontifex',
+  },
   DIVINE_WORD_SANCTIFY_TALENT_HEAL: {
     id: 372787,
     name: 'Divine Word: Sanctuary',
@@ -636,6 +694,12 @@ const spells = spellIndexableList({
     icon: 'spell_priest_voidform',
   },
 
+  DARK_ASCENSION_BUFF: {
+    id: 391109,
+    name: 'Dark Ascension',
+    icon: 'ability_priest_darkarchangel',
+  },
+
   DARK_THOUGHTS: {
     id: 341205,
     name: 'Dark Thoughts',
@@ -721,6 +785,78 @@ const spells = spellIndexableList({
     id: 391403,
     name: 'Mind Flay: Insanity',
     icon: 'spell_fire_twilightflamebreath',
+  },
+
+  MIND_FLAY_INSANITY_TALENT_BUFF: {
+    id: 391401,
+    name: 'Mind Flay: Insanity',
+    icon: 'spell_fire_twilightflamebreath',
+  },
+
+  IDOL_OF_CTHUN_MIND_FLAY_DAMAGE: {
+    id: 193473,
+    name: 'Mind Flay',
+    icon: 'spell_shadow_siphonmana',
+  },
+
+  IDOL_OF_CTHUN_MIND_SEAR_DAMAGE: {
+    id: 394979,
+    name: 'Mind Sear',
+    icon: 'spell_shadow_siphonmana',
+  },
+
+  IDOL_OF_YOGG_SARON_VOID_SPIKE_DAMAGE: {
+    id: 373279,
+    name: 'Void Spike',
+    icon: 'spell_priest_mindspike',
+  },
+
+  IDOL_OF_YOGG_SARON_VOID_SPIKE_CLEAVE_DAMAGE: {
+    id: 396895,
+    name: 'Void Spike',
+    icon: 'spell_priest_mindspike',
+  },
+
+  IDOL_OF_NZOTH_DAMAGE: {
+    id: 373304,
+    name: 'Echoing Void',
+    icon: 'inv_inscription_80_vantusrune_nyalotha',
+  },
+
+  IDOL_OF_YSHAARJ_BUFF_PRIDE: {
+    id: 373316,
+    name: 'Devoured Pride',
+    icon: 'sha_ability_rogue_envelopingshadows',
+  },
+
+  IDOL_OF_YSHAARJ_BUFF_DESPAIR: {
+    id: 373317,
+    name: 'Devoured Despair',
+    icon: 'sha_ability_rogue_envelopingshadows_nightborne',
+  },
+
+  IDOL_OF_YSHAARJ_BUFF_ANGER: {
+    id: 373318,
+    name: 'Devoured Anger',
+    icon: 'sha_ability_rogue_envelopingshadows_nightmare',
+  },
+
+  IDOL_OF_YSHAARJ_BUFF_FEAR: {
+    id: 373319,
+    name: 'Devoured Fear',
+    icon: 'sha_spell_warlock_demonsoul_nightborne',
+  },
+
+  IDOL_OF_YSHAARJ_BUFF_VIOLENCE: {
+    id: 373320,
+    name: 'Devoured Violence',
+    icon: 'sha_spell_warlock_demonsoul',
+  },
+  //Shadow Tier
+  SHADOW_PRIEST_TIER_29_4_SET_BUFF: {
+    id: 394963,
+    name: 'Dark Reveries',
+    icon: 'inv_mace_1h_artifactheartofkure_d_05',
   },
 
   // Disc

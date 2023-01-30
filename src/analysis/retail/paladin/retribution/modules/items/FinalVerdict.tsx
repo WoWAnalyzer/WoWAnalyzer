@@ -20,7 +20,7 @@ class FinalVerdict extends Analyzer {
     },
   ) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.FINAL_VERDICT);
+    this.active = false;
     if (!this.active) {
       return;
     }

@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Combatant from 'parser/core/Combatant';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
@@ -65,7 +64,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        enabled: combatant.hasTalent(TALENTS.MARKED_FOR_DEATH_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.MARKED_FOR_DEATH_TALENT),
       },
       {
         spell: TALENTS.GHOSTLY_STRIKE_TALENT.id,
@@ -78,7 +77,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.95,
         },
-        enabled: combatant.hasTalent(TALENTS.GHOSTLY_STRIKE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.GHOSTLY_STRIKE_TALENT),
       },
       {
         spell: SPELLS.BETWEEN_THE_EYES.id,
@@ -117,7 +116,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
           extraSuggestion: `Using Dreadblades on cooldown is very important and should only be delayed when you know you won't be able to attack for the majority of it's duration.`,
         },
-        enabled: combatant.hasTalent(TALENTS.DREADBLADES_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.DREADBLADES_TALENT),
       },
       {
         spell: TALENTS.ADRENALINE_RUSH_TALENT.id,
@@ -145,7 +144,7 @@ class Abilities extends CoreAbilities {
             </>
           ),
         },
-        enabled: combatant.hasTalent(TALENTS.BLADE_RUSH_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.BLADE_RUSH_TALENT),
       },
       {
         spell: TALENTS.KILLING_SPREE_TALENT.id,
@@ -163,7 +162,7 @@ class Abilities extends CoreAbilities {
             </>
           ),
         },
-        enabled: combatant.hasTalent(TALENTS.KILLING_SPREE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.KILLING_SPREE_TALENT),
       },
       // Defensive
       {
@@ -181,9 +180,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.FEINT_TALENT.id,
+        spell: SPELLS.FEINT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        buffSpellId: TALENTS.FEINT_TALENT.id,
+        buffSpellId: SPELLS.FEINT.id,
         cooldown: 15,
         gcd: {
           static: standardGcd,
@@ -228,7 +227,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.GRAPPLING_HOOK_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60 - (combatant.hasTalent(TALENTS.RETRACTABLE_HOOK_TALENT.id) ? 30 : 0),
+        cooldown: 60 - (combatant.hasTalent(TALENTS.RETRACTABLE_HOOK_TALENT) ? 30 : 0),
         gcd: null,
       },
       {
@@ -258,7 +257,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.BLIND_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 120 - (combatant.hasTalent(TALENTS.BLINDING_POWDER_TALENT.id) ? 30 : 0),
+        cooldown: 120 - (combatant.hasTalent(TALENTS.BLINDING_POWDER_TALENT) ? 30 : 0),
         gcd: {
           static: standardGcd,
         },
@@ -300,10 +299,10 @@ class Abilities extends CoreAbilities {
       },
       // Covenant Abilities
       {
-        spell: SPELLS.SERRATED_BONE_SPIKE.id,
+        spell: TALENTS.SERRATED_BONE_SPIKE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-        charges: combatant.hasLegendary(SPELLS.DEATHSPIKE) ? 5 : 3,
+        enabled: false,
+        charges: 3,
         cooldown: 30,
         gcd: {
           static: standardGcd,
@@ -312,7 +311,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.SEPSIS_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        enabled: false,
         cooldown: 90,
         gcd: {
           static: standardGcd,
@@ -324,7 +323,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.ECHOING_REPRIMAND_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
+        enabled: false,
         gcd: {
           static: standardGcd,
         },
@@ -332,7 +331,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.FLAGELLATION_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        enabled: false,
         gcd: {
           static: standardGcd,
         },

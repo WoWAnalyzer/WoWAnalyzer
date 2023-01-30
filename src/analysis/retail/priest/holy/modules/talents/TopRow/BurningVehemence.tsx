@@ -17,7 +17,7 @@ class BurningVehemence extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.BURNING_VEHEMENCE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BURNING_VEHEMENCE_TALENT);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_FIRE), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.HOLY_FIRE), this.onDamage);
   }

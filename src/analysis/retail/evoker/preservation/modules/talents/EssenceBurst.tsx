@@ -11,17 +11,25 @@ import { SPELL_COLORS } from 'analysis/retail/evoker/preservation/constants';
 import DonutChart from 'parser/ui/DonutChart';
 import { SpellLink } from 'interface';
 import { t } from '@lingui/macro';
+import ItemManaGained from 'parser/ui/ItemManaGained';
 
-const ESSENCE_COSTS: { [name: string]: number } = {
+export const ESSENCE_COSTS: { [name: string]: number } = {
   'Emerald Blossom': 3,
   Echo: 2,
   Disintegrate: 3,
+};
+
+export const MANA_COSTS: { [name: string]: number } = {
+  'Emerald Blossom': SPELLS.EMERALD_BLOSSOM_CAST.manaCost,
+  Echo: TALENTS_EVOKER.ECHO_TALENT.manaCost!,
+  Disintegrate: 0,
 };
 
 class EssenceBurst extends Analyzer {
   totalConsumed: number = 0;
   totalExpired: number = 0;
   essenceSaved: number = 0;
+  manaSaved: number = 0;
   consumptionCount: { [name: string]: number } = { 'Emerald Blossom': 0, Echo: 0, Disintegrate: 0 };
 
   constructor(options: Options) {
@@ -45,12 +53,17 @@ class EssenceBurst extends Analyzer {
       const spellName = consumeAbility.ability.name;
       this.totalConsumed += 1;
       this.essenceSaved += ESSENCE_COSTS[spellName];
+      this.manaSaved += MANA_COSTS[spellName];
       this.consumptionCount[spellName] += 1;
     } else if (event.type === EventType.RemoveBuff) {
       this.totalExpired += 1;
     } else {
       this.totalExpired += (event as RemoveBuffStackEvent).stack;
     }
+  }
+
+  get averageManaSavedForHealingSpells() {
+    return this.manaSaved / (this.totalConsumed - this.consumptionCount.Disintegrate);
   }
 
   renderDonutChart() {
@@ -79,7 +92,7 @@ class EssenceBurst extends Analyzer {
     ].filter((item) => {
       return item.value > 0;
     });
-    return <DonutChart items={items} />;
+    return items.length > 0 ? <DonutChart items={items} /> : null;
   }
 
   get suggestionThresholds() {
@@ -87,6 +100,16 @@ class EssenceBurst extends Analyzer {
       actual: this.totalExpired,
       isGreaterThan: {
         major: 0,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  get buffApplyThreshold() {
+    return {
+      actual: this.totalConsumed + this.totalExpired,
+      isLessThan: {
+        major: 3,
       },
       style: ThresholdStyle.NUMBER,
     };
@@ -111,9 +134,10 @@ class EssenceBurst extends Analyzer {
   }
 
   statistic() {
+    const donutChart = this.renderDonutChart();
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(13)}
+        position={STATISTIC_ORDER.CORE(4)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
@@ -121,7 +145,15 @@ class EssenceBurst extends Analyzer {
           <label>
             <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> consumption by spell
           </label>
-          {this.renderDonutChart()}
+          {donutChart ? (
+            donutChart
+          ) : (
+            <small>
+              You gained no <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> buffs during
+              the encounter
+            </small>
+          )}
+          <ItemManaGained amount={this.manaSaved} useAbbrev />
         </div>
       </Statistic>
     );

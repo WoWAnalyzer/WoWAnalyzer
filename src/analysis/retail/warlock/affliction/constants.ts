@@ -22,7 +22,7 @@ const affectedByCreepingDeath = [
 ] as const;
 
 export const getDotDurations = (combatant: Combatant): Record<number, number> =>
-  combatant.hasTalent(TALENTS.CREEPING_DEATH_TALENT.id)
+  combatant.hasTalent(TALENTS.CREEPING_DEATH_TALENT)
     ? Object.fromEntries(
         Object.entries(defaultDurations).map(([key, value]) => [
           key,

@@ -23,13 +23,13 @@ class SummonDemonicTyrant extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.demonicTyrantPower = [];
-    this._hasReignOfTyranny = this.selectedCombatant.hasTalent(TALENTS.REIGN_OF_TYRANNY_TALENT.id);
+    this._hasReignOfTyranny = this.selectedCombatant.hasTalent(TALENTS.REIGN_OF_TYRANNY_TALENT);
     this._petsPerCast = [];
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DEMONIC_TYRANT),
       this.summonDemonicTyrantCast,
     );
-    this._hasReignOfTyranny = this.selectedCombatant.hasTalent(TALENTS.REIGN_OF_TYRANNY_TALENT.id);
+    this._hasReignOfTyranny = this.selectedCombatant.hasTalent(TALENTS.REIGN_OF_TYRANNY_TALENT);
   }
 
   summonDemonicTyrantCast() {

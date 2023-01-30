@@ -11,14 +11,14 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 class Pulverize extends Analyzer {
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.PULVERIZE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.PULVERIZE_TALENT);
   }
 
   suggestions(when) {
     const pulverizeUptimePercentage =
       this.selectedCombatant.getBuffUptime(SPELLS.PULVERIZE_BUFF.id) / this.owner.fightDuration;
 
-    this.selectedCombatant.hasTalent(SPELLS.PULVERIZE_TALENT.id) &&
+    this.selectedCombatant.hasTalent(SPELLS.PULVERIZE_TALENT) &&
       when(pulverizeUptimePercentage)
         .isLessThan(0.9)
         .addSuggestion((suggest, actual, recommended) =>

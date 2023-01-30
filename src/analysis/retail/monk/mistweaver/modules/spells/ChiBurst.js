@@ -37,7 +37,7 @@ class ChiBurst extends Analyzer {
 
   constructor(...options) {
     super(...options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT);
     this.raidSize = Object.keys(this.combatants.players).length;
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.CHI_BURST_TALENT),

@@ -60,15 +60,110 @@ const spells = spellIndexableList({
     name: 'Charred Warblades',
     icon: 'ability_demonhunter_fierybrand',
   },
-  RAGEFIRE: {
-    id: 390197,
-    name: 'Ragefire',
-    icon: 'spell_fire_fireballgreen',
+  THE_HUNT_CHARGE: {
+    id: 370966,
+    name: 'The Hunt',
+    icon: 'ability_ardenweald_demonhunter',
   },
-  INNER_DEMON: {
-    id: 390137,
-    name: 'Inner Demon',
-    icon: 'spell_deathknight_plaguestrike',
+  THE_HUNT_DOT: {
+    id: 370969,
+    name: 'The Hunt',
+    icon: 'ability_ardenweald_demonhunter',
+  },
+  THE_HUNT_HEAL: {
+    id: 370971,
+    name: 'The Hunt',
+    icon: 'ability_ardenweald_demonhunter',
+  },
+  FLAMES_OF_FURY_FURY_GEN: {
+    id: 395001,
+    name: 'Flames of Fury',
+    icon: 'ability_demonhunter_sigilofinquisition',
+  },
+  DISRUPTING_FURY_FURY_GEN: {
+    id: 218903,
+    name: 'Disrupt',
+    icon: 'ability_demonhunter_consumemagic',
+  },
+  IMMOLATION_AURA: {
+    id: 258920,
+    name: 'Immolation Aura',
+    icon: 'ability_demonhunter_immolation',
+  },
+  IMMOLATION_AURA_INITIAL_HIT_DAMAGE: {
+    id: 258921,
+    name: 'Immolation Aura First Strike',
+    icon: 'ability_demonhunter_immolation',
+  },
+  IMMOLATION_AURA_BUFF_DAMAGE: {
+    id: 258922,
+    name: 'Immolation Aura Second Strike',
+    icon: 'ability_demonhunter_immolation',
+  },
+  INFERNAL_ARMOR: {
+    id: 320344,
+    name: 'Infernal Armor',
+    icon: 'ability_demonhunter_immolation',
+  },
+  TORMENT: {
+    id: 185245,
+    name: 'Torment',
+    icon: 'ability_demonhunter_torment',
+  },
+  SPECTRAL_SIGHT: {
+    id: 188501,
+    name: 'Spectral Sight',
+    icon: 'ability_demonhunter_spectralsight',
+  },
+  CONSUME_MAGIC: {
+    id: 278326,
+    name: 'Consume Magic',
+    icon: 'spell_misc_zandalari_council_soulswap',
+  },
+  DISRUPT: {
+    id: 183752,
+    name: 'Disrupt',
+    icon: 'ability_demonhunter_consumemagic',
+  },
+  ELYSIAN_DECREE_PRECISE: {
+    id: 389815,
+    name: 'Elysian Decree',
+    icon: 'ability_bastion_demonhunter',
+  },
+  ELYSIAN_DECREE_CONCENTRATED: {
+    id: 389858,
+    name: 'Elysian Decree',
+    icon: 'ability_bastion_demonhunter',
+  },
+  ELYSIAN_DECREE_DAMAGE: {
+    id: 389860,
+    name: 'Elysian Decree',
+    icon: 'ability_bastion_demonhunter',
+  },
+  FODDER_TO_THE_FLAME: {
+    id: 350570,
+    name: 'Fodder to the Flame',
+    icon: 'ability_maldraxxus_demonhunter',
+  },
+  FODDER_TO_THE_FLAME_DAMAGE: {
+    id: 350631,
+    name: 'Fodder to the Flame',
+    icon: 'ability_maldraxxus_demonhunter',
+  },
+  MASTER_OF_THE_GLAIVE_DEBUFF: {
+    id: 213405,
+    name: 'Master of the Glaive Debuff',
+    icon: 'inv_glaive_1h_demonhunter_a_01',
+  },
+  DEMON_SOUL_BUFF_NON_FODDER: {
+    id: 163073,
+    name: 'Demon Soul',
+    icon: 'ability_warlock_improvedsoulleech',
+  },
+  DEMON_SOUL_BUFF_FODDER: {
+    id: 347765,
+    name: 'Demon Soul',
+    icon: 'spell_shadow_soulleech_3',
   },
   //endregion
 
@@ -104,6 +199,11 @@ const spells = spellIndexableList({
   SOUL_FRAGMENT_KILLING_BLOW: {
     id: 204062,
     name: 'Soul Fragment(from killing blow)',
+    icon: 'spell_shadow_soulgem',
+  },
+  SOUL_FRAGMENT_FODDER: {
+    id: 328957,
+    name: 'Soul Fragment',
     icon: 'spell_shadow_soulgem',
   },
   SOUL_FRAGMENT_STACK: {
@@ -146,26 +246,6 @@ const spells = spellIndexableList({
     name: 'Soul Cleave',
     icon: 'ability_demonhunter_soulcleave',
   },
-  IMMOLATION_AURA: {
-    id: 258920,
-    name: 'Immolation Aura',
-    icon: 'ability_demonhunter_immolation',
-  },
-  IMMOLATION_AURA_INITIAL_HIT_DAMAGE: {
-    id: 258921,
-    name: 'Immolation Aura First Strike',
-    icon: 'ability_demonhunter_immolation',
-  },
-  IMMOLATION_AURA_BUFF_DAMAGE: {
-    id: 258922,
-    name: 'Immolation Aura Second Strike',
-    icon: 'ability_demonhunter_immolation',
-  },
-  INFERNAL_ARMOR: {
-    id: 320344,
-    name: 'Infernal Armor',
-    icon: 'ability_demonhunter_immolation',
-  },
   INFERNAL_STRIKE: {
     id: 189110,
     name: 'Infernal Strike',
@@ -176,20 +256,10 @@ const spells = spellIndexableList({
     name: 'Throw Glaive',
     icon: 'ability_demonhunter_throwglaive',
   },
-  THROW_GLAIVE_VENGEANCE_MOTG: {
+  THROW_GLAIVE_VENGEANCE_DAMAGE: {
     id: 346665,
     name: 'Throw Glaive',
     icon: 'ability_demonhunter_throwglaive',
-  },
-  TORMENT: {
-    id: 185245,
-    name: 'Torment',
-    icon: 'ability_demonhunter_torment',
-  },
-  SPECTRAL_SIGHT: {
-    id: 188501,
-    name: 'Spectral Sight',
-    icon: 'ability_demonhunter_spectralsight',
   },
   // Ticks that Fiery Brand does due to the Burning Alive talent
   FIERY_BRAND_DOT: {
@@ -246,6 +316,11 @@ const spells = spellIndexableList({
     id: 389807,
     name: 'Sigil of Chains',
     icon: 'ability_demonhunter_sigilofchains',
+  },
+  SOUL_CARVER_OFF_HAND: {
+    id: 214743,
+    name: 'Soul Carver',
+    icon: 'inv_glaive_1h_artifactaldrochi_d_01',
   },
   //endregion
 
@@ -342,16 +417,6 @@ const spells = spellIndexableList({
     name: 'Furious Gaze',
     icon: 'spell_warlock_soulburn',
   },
-  CONSUME_MAGIC: {
-    id: 278326,
-    name: 'Consume Magic',
-    icon: 'spell_misc_zandalari_council_soulswap',
-  },
-  DISRUPT: {
-    id: 183752,
-    name: 'Disrupt',
-    icon: 'ability_demonhunter_consumemagic',
-  },
   METAMORPHOSIS_HAVOC_BUFF: {
     id: 162264,
     name: 'Metamorphosis',
@@ -395,11 +460,6 @@ const spells = spellIndexableList({
     name: 'Fel Barrage',
     icon: 'inv_felbarrage',
   },
-  MASTER_OF_THE_GLAIVE_DEBUFF: {
-    id: 213405,
-    name: 'Master of the Glaive Debuff',
-    icon: 'inv_glaive_1h_demonhunter_a_01',
-  },
   ESSENCE_BREAK_DAMAGE: {
     id: 320338,
     name: 'Essence Break',
@@ -414,46 +474,6 @@ const spells = spellIndexableList({
     id: 347462,
     name: 'Unbound Chaos',
     icon: 'artifactability_vengeancedemonhunter_painbringer',
-  },
-  ELYSIAN_DECREE_PRECISE: {
-    id: 389815,
-    name: 'Elysian Decree',
-    icon: 'ability_bastion_demonhunter',
-  },
-  ELYSIAN_DECREE_CONCENTRATED: {
-    id: 389858,
-    name: 'Elysian Decree',
-    icon: 'ability_bastion_demonhunter',
-  },
-  ELYSIAN_DECREE_DAMAGE: {
-    id: 389860,
-    name: 'Elysian Decree',
-    icon: 'ability_bastion_demonhunter',
-  },
-  FODDER_TO_THE_FLAME: {
-    id: 350570,
-    name: 'Fodder to the Flame',
-    icon: 'ability_maldraxxus_demonhunter',
-  },
-  FODDER_TO_THE_FLAME_DAMAGE: {
-    id: 350631,
-    name: 'Fodder to the Flame',
-    icon: 'ability_maldraxxus_demonhunter',
-  },
-  THE_HUNT_CHARGE: {
-    id: 370966,
-    name: 'The Hunt',
-    icon: 'ability_ardenweald_demonhunter',
-  },
-  THE_HUNT_DOT: {
-    id: 370969,
-    name: 'The Hunt',
-    icon: 'ability_ardenweald_demonhunter',
-  },
-  THE_HUNT_HEAL: {
-    id: 370971,
-    name: 'The Hunt',
-    icon: 'ability_ardenweald_demonhunter',
   },
   CHAOS_THEORY: {
     id: 337551,
@@ -505,15 +525,20 @@ const spells = spellIndexableList({
     name: 'Fel Devastation',
     icon: 'ability_demonhunter_feldevastation',
   },
-  FLAMES_OF_FURY_FURY_GEN: {
-    id: 395001,
-    name: 'Flames of Fury',
-    icon: 'ability_demonhunter_sigilofinquisition',
+  RAGEFIRE: {
+    id: 390197,
+    name: 'Ragefire',
+    icon: 'spell_fire_fireballgreen',
   },
-  DISRUPTING_FURY_FURY_GEN: {
-    id: 218903,
-    name: 'Disrupt',
-    icon: 'ability_demonhunter_consumemagic',
+  INNER_DEMON: {
+    id: 390137,
+    name: 'Inner Demon',
+    icon: 'spell_deathknight_plaguestrike',
+  },
+  EYE_BEAM_DAMAGE: {
+    id: 198030,
+    name: 'Eye Beam',
+    icon: 'ability_demonhunter_eyebeam',
   },
   //endregion
 });

@@ -21,7 +21,7 @@ class GuardianAngel extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.GUARDIAN_ANGEL_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.GUARDIAN_ANGEL_TALENT);
 
     if (!this.active) {
       return;

@@ -26,7 +26,7 @@ class Flashover extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.IMPROVED_CONFLAGRATE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.IMPROVED_CONFLAGRATE_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CONFLAGRATE),
       this.onConflagrateDamage,

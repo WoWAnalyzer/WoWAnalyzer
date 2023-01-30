@@ -35,11 +35,9 @@ class BlockCheck extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.bolster = this.selectedCombatant.hasTalent(TALENTS.BOLSTER_TALENT.id);
-    const reprisal = this.selectedCombatant.hasLegendary(SPELLS.REPRISAL);
-    const heavyRepercussions = this.selectedCombatant.hasTalent(
-      TALENTS.HEAVY_REPERCUSSIONS_TALENT.id,
-    );
+    this.bolster = this.selectedCombatant.hasTalent(TALENTS.BOLSTER_TALENT);
+    const reprisal = false;
+    const heavyRepercussions = this.selectedCombatant.hasTalent(TALENTS.HEAVY_REPERCUSSIONS_TALENT);
 
     if (this.bolster && reprisal) {
       this.minor = 0.8;

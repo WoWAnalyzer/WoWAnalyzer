@@ -64,7 +64,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_DRUID.STELLAR_FLARE_TALENT.id,
         buffSpellId: TALENTS_DRUID.STELLAR_FLARE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.STELLAR_FLARE_TALENT),
         gcd: {
           base: 1500,
         },
@@ -77,7 +77,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
-        enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -89,7 +89,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.CELESTIAL_ALIGNMENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
-        enabled: !combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -101,7 +101,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 45,
-        enabled: combatant.hasTalent(TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.WARRIOR_OF_ELUNE_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
@@ -112,7 +112,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
-        enabled: combatant.hasTalent(TALENTS_DRUID.FORCE_OF_NATURE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.FORCE_OF_NATURE_TALENT),
         gcd: {
           base: 1500,
         },
@@ -126,7 +126,7 @@ class Abilities extends CoreAbilities {
         spell: [TALENTS_DRUID.NEW_MOON_TALENT.id, SPELLS.HALF_MOON.id, SPELLS.FULL_MOON.id],
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 20,
-        enabled: combatant.hasTalent(TALENTS_DRUID.NEW_MOON_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.NEW_MOON_TALENT),
         gcd: {
           base: 1500,
         },
@@ -152,7 +152,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 60,
-        enabled: combatant.hasTalent(TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.FURY_OF_ELUNE_TALENT),
         gcd: {
           base: 1500,
         },
@@ -184,7 +184,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 15,
         gcd: null,
-        enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.WILD_CHARGE_TALENT),
         timelineSortIndex: 14,
       },
       {
@@ -202,7 +202,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SWIFTMEND.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        enabled: combatant.hasTalent(TALENTS_DRUID.SWIFTMEND_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.SWIFTMEND_TALENT),
         gcd: {
           base: 1500,
         },
@@ -210,7 +210,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.REJUVENATION.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS_DRUID.REJUVENATION_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.REJUVENATION_TALENT),
         gcd: {
           base: 1500,
         },
@@ -218,7 +218,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.WILD_GROWTH.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS_DRUID.WILD_GROWTH_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DRUID.WILD_GROWTH_TALENT),
         gcd: {
           base: 1500,
         },

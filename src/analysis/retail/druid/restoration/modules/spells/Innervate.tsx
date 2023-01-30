@@ -10,11 +10,10 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import {
-  CooldownExpandable,
+import CooldownExpandable, {
   CooldownExpandableItem,
-  GUIDE_CORE_EXPLANATION_PERCENT,
-} from 'analysis/retail/druid/restoration/Guide';
+} from 'interface/guide/components/CooldownExpandable';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/druid/restoration/Guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 

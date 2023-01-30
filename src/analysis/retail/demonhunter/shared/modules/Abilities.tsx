@@ -14,7 +14,7 @@ export default class Abilities extends CoreAbilities {
       {
         spell: SPELLS.GLIDE.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 1.5,
+        cooldown: 1,
         gcd: null,
       },
       {
@@ -32,7 +32,7 @@ export default class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SPECTRAL_SIGHT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
+        cooldown: 60,
         gcd: {
           base: 1500,
         },
@@ -41,7 +41,7 @@ export default class Abilities extends CoreAbilities {
       // Talents
       {
         spell: TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.FELBLADE_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         // Felblade cooldown can be reset by Demon Bite. But its CD reset is not any event, so can't track if it resets or not.
         cooldown: (haste) => 15 / (1 + haste),
@@ -57,9 +57,9 @@ export default class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS_DEMON_HUNTER.CHAOS_NOVA_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.CHAOS_NOVA_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.CHAOS_NOVA_TALENT),
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(TALENTS_DEMON_HUNTER.UNLEASHED_POWER_TALENT.id) ? 40 : 60,
+        cooldown: combatant.hasTalent(TALENTS_DEMON_HUNTER.UNLEASHED_POWER_TALENT) ? 40 : 60,
         gcd: {
           base: 1500,
         },
@@ -75,7 +75,7 @@ export default class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: {
@@ -96,11 +96,11 @@ export default class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.DARKNESS_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.DARKNESS_TALENT),
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown:
           300 -
-          PITCH_BLACK_SCALING[combatant.getTalentRank(TALENTS_DEMON_HUNTER.PITCH_BLACK_TALENT.id)],
+          PITCH_BLACK_SCALING[combatant.getTalentRank(TALENTS_DEMON_HUNTER.PITCH_BLACK_TALENT)],
         gcd: {
           base: 1500,
         },
@@ -116,8 +116,7 @@ export default class Abilities extends CoreAbilities {
         enabled: this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_SILENCE_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
-          60 *
-          (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
+          60 * (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT) ? 0.2 : 0)),
         gcd: {
           base: 1500,
         },
@@ -131,13 +130,12 @@ export default class Abilities extends CoreAbilities {
         enabled: this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
-          60 *
-          (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
+          60 * (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT) ? 0.2 : 0)),
         gcd: {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.MISERY_IN_DEFEAT_TALENT.id),
+          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.MISERY_IN_DEFEAT_TALENT),
           recommendedEfficiency: 0.9,
           extraSuggestion: `Cast on cooldown for a dps increase.`,
         },
@@ -150,8 +148,7 @@ export default class Abilities extends CoreAbilities {
         ],
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown:
-          30 *
-          (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
+          30 * (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT) ? 0.2 : 0)),
         gcd: {
           base: 1500,
         },
@@ -169,12 +166,11 @@ export default class Abilities extends CoreAbilities {
         ],
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown:
-          60 *
-          (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT.id) ? 0.2 : 0)),
+          60 * (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT) ? 0.2 : 0)),
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,

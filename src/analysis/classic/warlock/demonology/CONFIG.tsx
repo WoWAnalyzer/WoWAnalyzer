@@ -11,7 +11,7 @@ const CONFIG: Config = {
   expansion: Expansion.WrathOfTheLichKing,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '3.4.0',
-  isPartial: true,
+  isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
@@ -38,7 +38,7 @@ const CONFIG: Config = {
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/dyg2xpXQ9DNh1kzT/10-Normal+Patchwerk+-+Kill+(2:05)/Fon',
+  exampleReport: '/report/4ZDJXHcwWGtYvPmk/25-Normal+Gluth+-+Kill+(1:22)/Jazminites',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

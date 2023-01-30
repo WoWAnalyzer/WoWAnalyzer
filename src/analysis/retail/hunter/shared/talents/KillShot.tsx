@@ -45,7 +45,7 @@ class KillShot extends ExecuteHelper {
     (options.abilities as Abilities).add({
       spell: this.activeKillShotSpell.id,
       category: SPELL_CATEGORY.ROTATIONAL,
-      charges: this.selectedCombatant.hasTalent(TALENTS.DEADEYE_TALENT.id) ? 2 : 1,
+      charges: this.selectedCombatant.hasTalent(TALENTS.DEADEYE_TALENT) ? 2 : 1,
       cooldown: 10,
       gcd: {
         base: 1500,
@@ -60,7 +60,7 @@ class KillShot extends ExecuteHelper {
 
   adjustMaxCasts() {
     this.maxCasts += Math.ceil(this.totalExecuteDuration / 10000);
-    if (this.selectedCombatant.hasTalent(TALENTS.DEADEYE_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.DEADEYE_TALENT)) {
       this.maxCasts += 1;
     }
     this.maxCasts += this.singleExecuteEnablerApplications;

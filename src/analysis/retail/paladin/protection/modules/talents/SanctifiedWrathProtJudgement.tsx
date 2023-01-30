@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
@@ -19,7 +20,7 @@ class SanctifiedWrathProtJudgement extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT_PROTECTION.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SANCTIFIED_WRATH_TALENT);
     if (!this.active) {
       return;
     }
@@ -66,7 +67,7 @@ class SanctifiedWrathProtJudgement extends Analyzer {
    * @returns Number of wasted Holy Power due to Sanctified Wrath talent.
    */
   wasteDueToSanctifiedWrath(event: ResourceChangeEvent): number {
-    const hasHA: boolean = this.selectedCombatant.hasBuff(SPELLS.HOLY_AVENGER_TALENT.id);
+    const hasHA: boolean = this.selectedCombatant.hasBuff(TALENTS.HOLY_AVENGER_TALENT.id);
     const hpChange: number = event.resourceChange;
     const preCastHP = this.MAX_HOLY_POWER - (hpChange - event.waste);
     const wasCrit: boolean =
@@ -96,7 +97,7 @@ class SanctifiedWrathProtJudgement extends Analyzer {
         }
       >
         <BoringSpellValue
-          spellId={SPELLS.SANCTIFIED_WRATH_TALENT_PROTECTION.id}
+          spellId={TALENTS.SANCTIFIED_WRATH_TALENT.id}
           value={formatNumber(bonusHP)}
           label="Extra Holy Power"
         />

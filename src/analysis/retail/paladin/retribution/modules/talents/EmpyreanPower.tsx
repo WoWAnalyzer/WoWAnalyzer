@@ -31,7 +31,7 @@ class EmpyreanPower extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.EMPYREAN_POWER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.EMPYREAN_POWER_TALENT);
 
     if (!this.active) {
       return;

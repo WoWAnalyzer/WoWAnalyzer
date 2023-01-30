@@ -25,7 +25,7 @@ class KillerInstinct extends ExecuteHelper {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.KILLER_INSTINCT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.KILLER_INSTINCT_TALENT);
   }
 
   statistic() {

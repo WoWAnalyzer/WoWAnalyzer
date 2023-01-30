@@ -10,6 +10,7 @@ import {
   TempestBarrier,
   MasterOfTime,
   TimeAnomaly,
+  SharedCode,
 } from 'analysis/retail/mage/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -18,7 +19,6 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 import Checklist from './checklist/Module';
 import Abilities from './core/Abilities';
 import AlwaysBeCasting from './core/AlwaysBeCasting';
-import AplCheck from './core/apl';
 import BrainFreeze from './core/BrainFreeze';
 import Buffs from './core/Buffs';
 import CooldownThroughputTracker from './core/CooldownThroughputTracker';
@@ -30,6 +30,7 @@ import WintersChill from './core/WintersChill';
 //Talents
 import ColdSnap from './talents/ColdSnap';
 import FrozenOrb from './talents/FrozenOrb';
+import Flurry from './talents/Flurry';
 import WaterElemental from './talents/WaterElemental';
 import ColdFront from './talents/ColdFront';
 import IcyPropulsion from './talents/IcyPropulsion';
@@ -53,6 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Core
     abilities: Abilities,
+    sharedCode: SharedCode,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
     cooldownThroughputTracker: CooldownThroughputTracker,
@@ -74,6 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     icyPropulsion: IcyPropulsion,
     coldFront: ColdFront,
     mirrorImage: MirrorImage,
+    flurry: Flurry,
     frozenOrb: FrozenOrb,
     coldSnap: ColdSnap,
 
@@ -89,8 +92,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
-
-    apl: AplCheck,
   };
 }
 

@@ -5,10 +5,12 @@ import Combatants from 'parser/shared/modules/Combatants';
 import HotTracker from 'parser/shared/modules/HotTracker';
 import {
   isFromDreamBreathCallOfYsera,
-  isFromHardcast,
-  isFromTemporalAnomaly,
+  isFromHardcastEcho,
+  isFromTAEcho,
 } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerPrevoker from '../core/HotTrackerPrevoker';
+
+const debug = false;
 
 class HotAttributor extends Analyzer {
   static dependencies = {
@@ -35,9 +37,19 @@ class HotAttributor extends Analyzer {
   }
 
   onApplyEchoHot(event: ApplyBuffEvent | RefreshBuffEvent) {
-    if (isFromHardcast(event)) {
+    if (isFromHardcastEcho(event)) {
+      debug &&
+        console.log(
+          `Attributed Hardcast ${event.ability.name} at ${this.owner.formatTimestamp(
+            event.timestamp,
+          )}`,
+        );
       this.hotTracker.addAttributionFromApply(this.echoHardcastAttrib, event);
-    } else if (isFromTemporalAnomaly(event)) {
+    } else if (isFromTAEcho(event)) {
+      debug &&
+        console.log(
+          `Attributed TA ${event.ability.name} at ${this.owner.formatTimestamp(event.timestamp)}`,
+        );
       this.hotTracker.addAttributionFromApply(this.echoTemporalAnomalyAttrib, event);
     }
   }

@@ -11,9 +11,9 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/warrior';
 
-const COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT = [
-  TALENTS.AVATAR_TALENT.id,
-  TALENTS.SHIELD_WALL_TALENT.id,
+const POSSIBLE_TALENTS_AFFECTED_BY_ANGER_MANAGEMENT = [
+  TALENTS.AVATAR_PROTECTION_TALENT,
+  TALENTS.SHIELD_WALL_TALENT,
 ];
 const RAGE_NEEDED_FOR_A_PROC = 10;
 const CDR_PER_PROC = 1000; // ms
@@ -26,15 +26,21 @@ class AngerManagement extends Analyzer {
   wastedReduction: { [spellId: number]: number } = {};
   effectiveReduction: { [spellId: number]: number } = {};
   protected spellUsable!: SpellUsable;
+  COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT: number[] = [];
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ANGER_MANAGEMENT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ANGER_MANAGEMENT_TALENT);
     if (!this.active) {
       return;
     }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
-    COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach((e) => {
+    POSSIBLE_TALENTS_AFFECTED_BY_ANGER_MANAGEMENT.forEach((e) => {
+      if (this.selectedCombatant.hasTalent(e)) {
+        this.COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.push(e.id);
+      }
+    });
+    this.COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach((e) => {
       this.wastedReduction[e] = 0;
       this.effectiveReduction[e] = 0;
     });
@@ -47,7 +53,7 @@ class AngerManagement extends Analyzer {
     }
     const rageSpend = classResources.cost / RAGE_NEEDED_FOR_A_PROC;
     const reduction = (rageSpend / RAGE_NEEDED_FOR_A_PROC) * CDR_PER_PROC;
-    COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach((e) => {
+    this.COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach((e) => {
       if (!this.spellUsable.isOnCooldown(e)) {
         this.wastedReduction[e] += reduction;
       } else {
@@ -70,7 +76,7 @@ class AngerManagement extends Analyzer {
           </tr>
         </thead>
         <tbody>
-          {COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.map((value) => (
+          {this.COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.map((value) => (
             <tr key={value}>
               <td>
                 <SpellLink id={SPELLS[value].id} />

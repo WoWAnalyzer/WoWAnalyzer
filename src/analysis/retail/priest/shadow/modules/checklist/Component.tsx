@@ -43,8 +43,8 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
             <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} />, and{' '}
             <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> increase all your damage through{' '}
             <SpellLink id={SPELLS.MASTERY_SHADOW_WEAVING.id} />. If you are talented into{' '}
-            <SpellLink id={TALENTS.DARK_EVANGELISM_TALENT} />, make sure to maintain 5 stacks of the
-            effect.
+            <SpellLink id={TALENTS.DARK_EVANGELISM_TALENT} />, do not alter your rotation to
+            maintain the effect.
           </Fragment>
         }
       >
@@ -56,7 +56,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
         />
         {/**The threshold value of DP needs to be reevalulated for Dragonflight */}
 
-        {combatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT) && (
           <DotUptime
             id={TALENTS.DARK_EVANGELISM_TALENT.id}
             thresholds={thresholds.darkEvangelism}
@@ -73,30 +73,30 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           </Fragment>
         }
       >
-        {combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT) && (
           <AbilityRequirement spell={SPELLS.VOID_BOLT.id} />
         )}
 
         <AbilityRequirement spell={SPELLS.MIND_BLAST.id} />
         <AbilityRequirement spell={TALENTS.SHADOW_WORD_DEATH_TALENT.id} />
 
-        {combatant.hasTalent(TALENTS.VOID_TORRENT_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.VOID_TORRENT_TALENT) && (
           <AbilityRequirement spell={TALENTS.VOID_TORRENT_TALENT.id} />
         )}
 
-        {combatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT) && (
           <AbilityRequirement spell={TALENTS.SHADOW_CRASH_TALENT.id} />
         )}
 
-        {combatant.hasTalent(TALENTS.DARK_VOID_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.DARK_VOID_TALENT) && (
           <AbilityRequirement spell={TALENTS.DARK_VOID_TALENT.id} />
         )}
 
-        {combatant.hasTalent(TALENTS.DAMNATION_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.DAMNATION_TALENT) && (
           <AbilityRequirement spell={TALENTS.DAMNATION_TALENT.id} />
         )}
 
-        {combatant.hasTalent(TALENTS.MINDGAMES_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.MINDGAMES_TALENT) && (
           <AbilityRequirement spell={TALENTS.MINDGAMES_TALENT.id} />
         )}
         {/**TODO: Mindgames CD reduction from talents*/}
@@ -106,12 +106,16 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
         name="Use your procs effectively"
         description={
           <>
-            Many talents add procs to increase the power of your abilities. Make sure to use all of
-            them to maximize the damage these talents can give you, and gain extra insanity.
+            Many talents add procs to increase the power of your abilities. Make sure to use them to
+            maximize the damage these talents can give you, and gain extra insanity.
+            <SpellLink id={TALENTS.SURGE_OF_DARKNESS_TALENT.id} /> is a low priority. If you had a
+            higher priority spells available, it is better to not use these procs.
+            <br /> For <SpellLink id={TALENTS.MIND_FLAY_INSANITY_TALENT.id} />, its important to
+            fully channel the cast whenever it is used.
           </>
         }
       >
-        {combatant.hasTalent(TALENTS.SHADOWY_INSIGHT_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SHADOWY_INSIGHT_TALENT) && (
           <Requirement
             name={
               <>
@@ -122,7 +126,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           />
         )}
 
-        {combatant.hasTalent(TALENTS.UNFURLING_DARKNESS_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.UNFURLING_DARKNESS_TALENT) && (
           <Requirement
             name={
               <>
@@ -133,7 +137,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           />
         )}
 
-        {combatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT) && (
           <Requirement
             name={
               <>
@@ -144,7 +148,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           />
         )}
 
-        {combatant.hasTalent(TALENTS.SURGE_OF_DARKNESS_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SURGE_OF_DARKNESS_TALENT) && (
           <Requirement
             name={
               <>
@@ -155,11 +159,22 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           />
         )}
 
-        {combatant.hasTalent(TALENTS.MIND_DEVOURER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.MIND_FLAY_INSANITY_TALENT) && (
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS.MIND_DEVOURER_TALENT.id} /> wasted
+                <SpellLink id={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id} /> canceled ticks{' '}
+              </>
+            }
+            thresholds={thresholds.mindFlayInsanity}
+          />
+        )}
+
+        {combatant.hasTalent(TALENTS.MIND_DEVOURER_TALENT) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={TALENTS.MIND_DEVOURER_TALENT.id} /> wasted{' '}
               </>
             }
             thresholds={thresholds.mindDevourer}
@@ -176,19 +191,19 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           </Fragment>
         }
       >
-        {combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT) && (
           <AbilityRequirement spell={TALENTS.VOID_ERUPTION_TALENT.id} />
         )}
 
-        {combatant.hasTalent(TALENTS.DARK_ASCENSION_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.DARK_ASCENSION_TALENT) && (
           <AbilityRequirement spell={TALENTS.DARK_ASCENSION_TALENT.id} />
         )}
 
-        {combatant.hasTalent(TALENTS.POWER_INFUSION_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.POWER_INFUSION_TALENT) && (
           <AbilityRequirement spell={TALENTS.POWER_INFUSION_TALENT.id} />
         )}
 
-        {combatant.hasTalent(TALENTS.MINDBENDER_SHADOW_TALENT.id) ? (
+        {combatant.hasTalent(TALENTS.MINDBENDER_SHADOW_TALENT) ? (
           <AbilityRequirement spell={TALENTS.MINDBENDER_SHADOW_TALENT.id} />
         ) : (
           <AbilityRequirement spell={SPELLS.SHADOWFIEND.id} />

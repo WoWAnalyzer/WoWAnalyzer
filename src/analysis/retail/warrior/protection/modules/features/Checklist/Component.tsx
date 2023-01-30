@@ -11,6 +11,7 @@ import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Che
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import TALENTS from 'common/TALENTS/warrior';
+import TalentCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/TalentCastEfficiencyRequirement';
 
 const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
@@ -49,11 +50,11 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
           }
           thresholds={thresholds.shieldBlock}
         />
-        {combatant.hasTalent(TALENTS.BOOMING_VOICE_TALENT.id) &&
-          combatant.hasTalent(TALENTS.DEMORALIZING_SHOUT_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.BOOMING_VOICE_TALENT) &&
+          combatant.hasTalent(TALENTS.DEMORALIZING_SHOUT_TALENT) && (
             <AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />
           )}
-        {combatant.hasTalent(TALENTS.THUNDEROUS_ROAR_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.THUNDEROUS_ROAR_TALENT) && (
           <AbilityRequirement spell={TALENTS.THUNDEROUS_ROAR_TALENT.id} />
         )}
       </Rule>
@@ -67,8 +68,9 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.SHIELD_WALL.id} />
-        <AbilityRequirement spell={SPELLS.LAST_STAND.id} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.SHIELD_WALL_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.LAST_STAND_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.BITTER_IMMUNITY_TALENT} />
         <Requirement
           name={
             <>
@@ -77,8 +79,8 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
           }
           thresholds={thresholds.spellReflect}
         />
-        {!combatant.hasTalent(TALENTS.BOOMING_VOICE_TALENT.id) &&
-          combatant.hasTalent(TALENTS.DEMORALIZING_SHOUT_TALENT.id) && (
+        {!combatant.hasTalent(TALENTS.BOOMING_VOICE_TALENT) &&
+          combatant.hasTalent(TALENTS.DEMORALIZING_SHOUT_TALENT) && (
             <AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />
           )}
       </Rule>
@@ -87,8 +89,8 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
         name="Offensive Cooldowns"
         description={
           <>
-            Using <SpellLink id={TALENTS.AVATAR_TALENT.id} /> as often as possible is very important
-            because it will increase your overall damage a lot and provides 30{' '}
+            Using <SpellLink id={TALENTS.AVATAR_PROTECTION_TALENT.id} /> as often as possible is
+            very important because it will increase your overall damage a lot and provides 30{' '}
             <ResourceLink id={RESOURCE_TYPES.RAGE.id} />.<br /> If you are also using{' '}
             <SpellLink id={TALENTS.UNSTOPPABLE_FORCE_TALENT.id} /> remember that{' '}
             <SpellLink id={TALENTS.THUNDER_CLAP_PROTECTION_TALENT.id} /> will have a reduced
@@ -96,10 +98,13 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
           </>
         }
       >
-        <AbilityRequirement spell={TALENTS.AVATAR_TALENT.id} />
-        <AbilityRequirement spell={TALENTS.DEMORALIZING_SHOUT_TALENT.id} />
-        {combatant.hasTalent(TALENTS.RAVAGER_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS.RAVAGER_TALENT.id} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.AVATAR_PROTECTION_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.DEMORALIZING_SHOUT_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.RAVAGER_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.SHIELD_CHARGE_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS.SPEAR_OF_BASTION_TALENT} />
+        {combatant.hasTalent(TALENTS.SONIC_BOOM_TALENT) && (
+          <AbilityRequirement spell={TALENTS.SHOCKWAVE_TALENT.id} />
         )}
       </Rule>
 
@@ -126,7 +131,7 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
           </>
         }
       >
-        {combatant.hasTalent(TALENTS.RALLYING_CRY_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RALLYING_CRY_TALENT) && (
           <AbilityRequirement spell={SPELLS.RALLYING_CRY.id} />
         )}
       </Rule>

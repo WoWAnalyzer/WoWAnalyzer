@@ -67,7 +67,7 @@ class Eradication extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ERADICATION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ERADICATION_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.INCINERATE, SPELLS.CHAOS_BOLT]),
       this.onTravelSpellCast,

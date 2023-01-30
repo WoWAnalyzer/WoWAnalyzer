@@ -17,7 +17,7 @@ class Focus extends Analyzer {
     const mmFocusExtraSuggestion = (
       <>
         Try to keep focus below max by using <SpellLink id={SPELLS.AIMED_SHOT.id} />,{' '}
-        {this.selectedCombatant.hasTalent(TALENTS_HUNTER.CHIMAERA_SHOT_TALENT.id) ? (
+        {this.selectedCombatant.hasTalent(TALENTS_HUNTER.CHIMAERA_SHOT_TALENT) ? (
           <SpellLink id={TALENTS_HUNTER.CHIMAERA_SHOT_TALENT.id} />
         ) : (
           <SpellLink id={SPELLS.ARCANE_SHOT.id} />

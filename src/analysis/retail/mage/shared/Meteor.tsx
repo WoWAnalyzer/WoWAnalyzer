@@ -27,7 +27,7 @@ class Meteor extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.METEOR_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.METEOR_TALENT);
   }
 
   get totalMeteorCasts() {

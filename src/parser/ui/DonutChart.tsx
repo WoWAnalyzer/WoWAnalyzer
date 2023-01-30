@@ -7,7 +7,7 @@ import { VisualizationSpec } from 'react-vega';
 
 import 'parser/ui/DonutChart.scss';
 
-type Item = {
+export type Item = {
   label: React.ReactNode;
   tooltip?: React.ReactNode;
   color: string;

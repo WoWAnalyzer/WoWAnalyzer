@@ -3,20 +3,19 @@ import { Enchant } from 'common/ITEMS/Item';
 import BaseWeaponEnhancementChecker from 'parser/shared/modules/items/WeaponEnhancementChecker';
 
 // Example logs with missing enhancement:
-// /report/XQrLTRC1bFWGAt3m/21-Mythic+The+Council+of+Blood+-+Wipe+10+(3:17)/Odsuv/standard
+// /report/tqbL2gBn8HvWAmrK/73-Mythic+Echo+of+Doragosa+-+Kill+(1:42)/Xepheris/standard/overview
 
 const MAX_ENHANCEMENT_IDS = [
-  // Shadowlands (Remove after Dragonflight Launch)
-  ITEMS.SHADOWCORE_OIL,
-  ITEMS.EMBALMERS_OIL,
-  ITEMS.SHADED_SHARPENING_STONE,
-  ITEMS.SHADED_WEIGHTSTONE,
-  ITEMS.FLAMETONGUE_WEAPON,
-  ITEMS.WINDFURY_WEAPON,
-
   // Dragonflight
   ITEMS.PRIMAL_WHETSTONE_R3,
   ITEMS.PRIMAL_WEIGHTSTONE_R3,
+  ITEMS.HOWLING_RUNE_R3,
+  ITEMS.BUZZING_RUNE_R3,
+  ITEMS.CHIRPING_RUNE_R3,
+  ITEMS.COMPLETELY_SAFE_ROCKETS_R3,
+  ITEMS.ENDLESS_STACK_OF_NEEDLES_R3,
+  ITEMS.FLAMETONGUE_WEAPON,
+  ITEMS.WINDFURY_WEAPON,
 ].map((item) => (item as Enchant).effectId);
 
 class WeaponEnhancementChecker extends BaseWeaponEnhancementChecker {

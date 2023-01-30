@@ -33,7 +33,7 @@ class CallingTheShots extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
   }
 

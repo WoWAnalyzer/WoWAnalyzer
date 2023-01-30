@@ -3,7 +3,7 @@ import Expansion from './Expansion';
 // The current version of the game. Used to check spec patch compatibility and as a caching key.
 const VERSIONS: Partial<{ [expansion in Expansion]: string }> = {
   [Expansion.WrathOfTheLichKing]: '3.4.0',
-  [Expansion.Dragonflight]: '10.0.2',
+  [Expansion.Dragonflight]: '10.0.5',
 };
 
 export default VERSIONS;

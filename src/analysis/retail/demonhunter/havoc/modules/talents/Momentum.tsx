@@ -17,7 +17,7 @@ example report: https://www.warcraftlogs.com/reports/1HRhNZa2cCkgK9AV/#fight=48&
 class Momentum extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_TALENT);
   }
 
   get buffUptime() {

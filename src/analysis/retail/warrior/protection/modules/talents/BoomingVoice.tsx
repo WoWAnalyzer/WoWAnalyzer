@@ -29,7 +29,7 @@ class BoomingVoice extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.BOOMING_VOICE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BOOMING_VOICE_TALENT);
     if (!this.active) {
       return;
     }

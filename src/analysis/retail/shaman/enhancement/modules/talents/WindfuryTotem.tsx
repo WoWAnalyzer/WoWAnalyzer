@@ -13,7 +13,7 @@ class WindfuryTotem extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT);
 
     if (!this.active) {
       return;

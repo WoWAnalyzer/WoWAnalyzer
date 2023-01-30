@@ -55,20 +55,16 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.BLAST_WAVE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled: combatant.hasTalent(TALENTS.BLAST_WAVE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.BLAST_WAVE_TALENT),
         gcd: {
           base: 1500,
         },
         cooldown: 25,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
       },
       {
         spell: TALENTS.METEOR_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.METEOR_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.METEOR_TALENT),
         gcd: {
           base: 1500,
         },
@@ -81,15 +77,11 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.ICE_NOVA_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.ICE_NOVA_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.ICE_NOVA_TALENT),
         gcd: {
           base: 1500,
         },
         cooldown: 25,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
         timelineSortIndex: 9,
         //damageSpellIds: [SPELLS.ICE_NOVA_TALENT.id], // needs verification
       },
@@ -99,7 +91,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.RUNE_OF_POWER_TALENT.id,
         buffSpellId: SPELLS.RUNE_OF_POWER_BUFF.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT),
         gcd: {
           base: 1500,
         },
@@ -214,7 +206,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLINK.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: !combatant.hasTalent(TALENTS.SHIMMER_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS.SHIMMER_TALENT),
         cooldown: 15 - combatant.getTalentRank(TALENTS.FLOW_OF_TIME_TALENT),
         gcd: {
           base: 1500,
@@ -223,7 +215,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.DISPLACEMENT_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS.DISPLACEMENT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.DISPLACEMENT_TALENT),
         cooldown: 45,
         gcd: {
           base: 1500,
@@ -232,7 +224,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.SHIMMER_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS.SHIMMER_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SHIMMER_TALENT),
         cooldown: 25 - combatant.getTalentRank(TALENTS.FLOW_OF_TIME_TALENT),
         charges: 2,
         gcd: null,
@@ -240,7 +232,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.ICE_FLOES_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS.ICE_FLOES_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.ICE_FLOES_TALENT),
         cooldown: 20,
         charges: 3,
         gcd: null,

@@ -17,7 +17,7 @@ export const HIGH_TOLERANCE_HASTE = {
 };
 
 function hasHighTolerance(combatant: Combatant) {
-  return combatant.hasTalent(talents.HIGH_TOLERANCE_TALENT.id);
+  return combatant.hasTalent(talents.HIGH_TOLERANCE_TALENT);
 }
 
 function hasteFnGenerator(value: number) {

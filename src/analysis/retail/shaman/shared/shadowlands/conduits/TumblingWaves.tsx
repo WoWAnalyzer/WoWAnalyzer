@@ -1,6 +1,5 @@
-import SPELLS from 'common/SPELLS';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import TALENTS from 'common/TALENTS/shaman';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 class TumblingWaves extends Analyzer {
@@ -13,17 +12,17 @@ class TumblingWaves extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.TUMBLING_WAVES_CONDUIT.id);
+    this.active = false;
 
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TUMBLING_WAVES_BUFF),
-      this.onApplyBuff,
-    );
+    // this.addEventListener(
+    //   Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TUMBLING_WAVES_BUFF),
+    //   this.onApplyBuff,
+    // );
   }
 
   onApplyBuff() {
-    if (this.spellUsable.isOnCooldown(SPELLS.PRIMORDIAL_WAVE_CAST.id)) {
-      this.spellUsable.endCooldown(SPELLS.PRIMORDIAL_WAVE_CAST.id);
+    if (this.spellUsable.isOnCooldown(TALENTS.PRIMORDIAL_WAVE_TALENT.id)) {
+      this.spellUsable.endCooldown(TALENTS.PRIMORDIAL_WAVE_TALENT.id);
     }
   }
 }

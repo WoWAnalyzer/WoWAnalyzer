@@ -3,10 +3,13 @@ import { SpellLink } from 'interface';
 
 import { Condition, tenseAlt } from '../index';
 
+/**
+ * @deprecated
+ */
 export default function hasConduit(conduit: Spell): Condition<boolean> {
   return {
     key: `hasConduit-${conduit.id}`,
-    init: ({ combatant }) => combatant.hasConduitBySpellID(conduit.id),
+    init: () => false,
     update: (state) => state,
     validate: (state) => state,
     describe: (tense) => (

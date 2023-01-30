@@ -24,8 +24,8 @@ class ArcaneMissiles extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = !this.selectedCombatant.hasLegendary(SPELLS.ARCANE_HARMONY);
-    this.hasArcaneEcho = this.selectedCombatant.hasTalent(TALENTS.ARCANE_ECHO_TALENT.id);
+    this.active = true;
+    this.hasArcaneEcho = this.selectedCombatant.hasTalent(TALENTS.ARCANE_ECHO_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_MISSILES_TALENT),
       this.onMissilesCast,

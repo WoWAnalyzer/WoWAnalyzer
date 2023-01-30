@@ -84,7 +84,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.ASPECT_OF_THE_WILD_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.ASPECT_OF_THE_WILD_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.ASPECT_OF_THE_WILD_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         gcd: {
@@ -98,8 +98,8 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.DIRE_BEAST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.DIRE_BEAST_TALENT.id),
-        cooldown: 15,
+        enabled: combatant.hasTalent(TALENTS.DIRE_BEAST_TALENT),
+        cooldown: 20,
         gcd: {
           base: 1500,
         },
@@ -111,7 +111,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.BARRAGE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.BARRAGE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.BARRAGE_TALENT),
         cooldown: 20,
         gcd: {
           base: 1500,
@@ -124,7 +124,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.STAMPEDE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.STAMPEDE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.STAMPEDE_TALENT),
         cooldown: 120,
         gcd: {
           base: 1500,
@@ -137,7 +137,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.BLOODSHED_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.BLOODSHED_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.BLOODSHED_TALENT),
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -151,7 +151,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.CAMOUFLAGE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
-        enabled: combatant.hasTalent(TALENTS.CAMOUFLAGE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.CAMOUFLAGE_TALENT),
         gcd: {
           base: 1500,
         },
@@ -159,7 +159,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.WAILING_ARROW_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.WAILING_ARROW_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.WAILING_ARROW_TALENT),
         gcd: {
           base: 1500,
         },
@@ -180,9 +180,7 @@ class Abilities extends CoreAbilities {
         cooldown:
           180 *
           (1 -
-            BORN_TO_BE_WILD_CD_REDUCTION[
-              combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT.id)
-            ]),
+            BORN_TO_BE_WILD_CD_REDUCTION[combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT)]),
         gcd: {
           static: 0,
         },
@@ -214,9 +212,7 @@ class Abilities extends CoreAbilities {
         cooldown:
           180 *
           (1 -
-            BORN_TO_BE_WILD_CD_REDUCTION[
-              combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT.id)
-            ]),
+            BORN_TO_BE_WILD_CD_REDUCTION[combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT)]),
         gcd: {
           static: 0,
         },

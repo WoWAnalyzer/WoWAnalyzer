@@ -28,7 +28,7 @@ class WitchDoctorsWolfBones extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.WITCH_DOCTORS_WOLF_BONES);
+    this.active = false;
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
@@ -76,7 +76,7 @@ class WitchDoctorsWolfBones extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spellId={SPELLS.WITCH_DOCTORS_WOLF_BONES.id}>
+        <BoringSpellValueText spellId={TALENTS_SHAMAN.WITCH_DOCTORS_ANCESTRY_TALENT.id}>
           <>
             <CooldownIcon /> {formatDuration(this.totalCdrGained)}s{' '}
             <small> of Feral Spirit CDR</small>

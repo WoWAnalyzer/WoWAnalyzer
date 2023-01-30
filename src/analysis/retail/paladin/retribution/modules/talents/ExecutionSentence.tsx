@@ -18,7 +18,7 @@ class ExecutionSentence extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.EXECUTION_SENTENCE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.EXECUTION_SENTENCE_TALENT);
 
     // event listeners
   }

@@ -42,7 +42,7 @@ class Hailstorm extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.HAILSTORM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.HAILSTORM_TALENT);
 
     if (!this.active) {
       return;

@@ -57,6 +57,7 @@ import RampantGrowth from 'analysis/retail/druid/restoration/modules/spells/Ramp
 import Overgrowth from 'analysis/retail/druid/restoration/modules/spells/Overgrowth';
 import BuddingLeaves from 'analysis/retail/druid/restoration/modules/spells/BuddingLeaves';
 import Dreamstate from 'analysis/retail/druid/restoration/modules/spells/Dreamstate';
+import Tier29 from 'analysis/retail/druid/restoration/modules/dragonflight/Tier29';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -119,12 +120,15 @@ class CombatLogParser extends CoreCombatLogParser {
     rampantGrowth: RampantGrowth,
     overgrowth: Overgrowth,
     buddingLeaves: BuddingLeaves,
-    Dreamstate: Dreamstate,
+    dreamstate: Dreamstate,
 
     // Mana Tab
     manaTracker: ManaTracker,
     hpmDetails: RestoDruidHealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
+
+    //Tier
+    tier29: Tier29,
   };
 
   static guide = Guide;

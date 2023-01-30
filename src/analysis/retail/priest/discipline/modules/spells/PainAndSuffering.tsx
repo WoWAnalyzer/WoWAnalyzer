@@ -24,7 +24,7 @@ class PainAndSuffering extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.PAIN_AND_SUFFERING_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.PAIN_AND_SUFFERING_TALENT);
     this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtonement);
 
     this.addEventListener(

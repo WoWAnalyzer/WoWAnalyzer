@@ -1,6 +1,7 @@
 import { DemonicCirclesCreated } from 'analysis/retail/warlock/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+import DemonologyWarlockVaultOfTheIncarnates4Set from './modules/dragonflight/tier/VaultOfTheIncarnates4Set';
 
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -20,12 +21,13 @@ import PrepullPetNormalizer from './modules/pets/normalizers/PrepullPetNormalize
 import SummonOrderNormalizer from './modules/pets/normalizers/SummonOrderNormalizer';
 import SoulShardDetails from './modules/resources/SoulShardDetails';
 import SoulShardTracker from './modules/resources/SoulShardTracker';
-import TalentStatisticBox from './modules/talents';
 import BilescourgeBombers from './modules/talents/BilescourgeBombers';
 import DemonicCalling from './modules/talents/DemonicCalling';
 import DemonicStrength from './modules/talents/DemonicStrength';
 import Doom from './modules/talents/Doom';
+import DreadCalling from './modules/talents/DreadCalling';
 import Dreadlash from './modules/talents/Dreadlash';
+import FelCovenant from './modules/talents/FelCovenant';
 import FromTheShadows from './modules/talents/FromTheShadows';
 import GrimoireFelguard from './modules/talents/GrimoireFelguard';
 import InnerDemons from './modules/talents/InnerDemons';
@@ -33,6 +35,7 @@ import NetherPortal from './modules/talents/NetherPortal';
 import PowerSiphonNormalizer from './modules/talents/normalizers/PowerSiphonNormalizer';
 import PowerSiphon from './modules/talents/PowerSiphon';
 import SacrificedSouls from './modules/talents/SacrificedSouls';
+import ShadowsBite from './modules/talents/ShadowsBite';
 import SoulConduit from './modules/talents/SoulConduit';
 import SoulStrike from './modules/talents/SoulStrike';
 import SummonVilefiend from './modules/talents/SummonVilefiend';
@@ -68,7 +71,6 @@ class CombatLogParser extends CoreCombatLogParser {
     powerSiphonNormalizer: PowerSiphonNormalizer,
 
     // Talents
-    talents: TalentStatisticBox,
     dreadlash: Dreadlash,
     demonicStrength: DemonicStrength,
     bilescourgeBombers: BilescourgeBombers,
@@ -83,6 +85,11 @@ class CombatLogParser extends CoreCombatLogParser {
     grimoireFelguard: GrimoireFelguard,
     sacrificedSouls: SacrificedSouls,
     netherPortal: NetherPortal,
+    felCovenant: FelCovenant,
+    shadowsBite: ShadowsBite,
+    dreadCalling: DreadCalling,
+
+    vaultOfTheIncarnates4Set: DemonologyWarlockVaultOfTheIncarnates4Set,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

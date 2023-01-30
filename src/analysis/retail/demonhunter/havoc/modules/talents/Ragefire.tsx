@@ -13,7 +13,7 @@ export default class Ragefire extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.RAGEFIRE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.RAGEFIRE_TALENT);
     if (!this.active) {
       return;
     }

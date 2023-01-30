@@ -1,13 +1,12 @@
 import SPELLS from 'common/SPELLS';
-import { ControlledExpandable, SpellLink } from 'interface';
-import { GuideProps, PerformanceMark, Section, SubSection } from 'interface/guide';
+import { SpellLink } from 'interface';
+import { GuideProps, Section, SubSection } from 'interface/guide';
 import { GapHighlight } from 'parser/ui/CooldownBar';
-import { useState } from 'react';
 
 import CombatLogParser from './CombatLogParser';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 
 /** Common 'rule line' point for the explanation/data in Core Spells section */
 export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
@@ -41,6 +40,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <HotGraphSubsection modules={modules} events={events} info={info} />
         <CooldownGraphSubsection modules={modules} events={events} info={info} />
         <CooldownBreakdownSubsection modules={modules} events={events} info={info} />
+        <PreparationSection />
       </Section>
     </>
   );
@@ -72,14 +72,14 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
           useThresholds
         />
       )}
-      {info.combatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT.id) && (
+      {info.combatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT) && (
         <CastEfficiencyBar
           spellId={TALENTS_DRUID.FLOURISH_TALENT.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />
       )}
-      {info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id) && (
+      {info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT) && (
         <CastEfficiencyBar
           spellId={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id}
           gapHighlightMode={GapHighlight.FullCooldown}
@@ -111,88 +111,12 @@ function CooldownBreakdownSubsection({
       <p />
       {info.combatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) &&
         modules.convokeSpirits.guideCastBreakdown}
-      {info.combatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT.id) &&
+      {info.combatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT) &&
         modules.flourish.guideCastBreakdown}
-      {info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id) &&
+      {info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT) &&
         modules.treeOfLife.guideCastBreakdown}
       {modules.tranquility.guideCastBreakdown}
       {modules.innervate.guideCastBreakdown}
     </SubSection>
   );
-}
-
-// TODO replace this with a properly styled and better implemented version in core modules
-export function CooldownExpandable({
-  header,
-  checklistItems,
-  detailItems,
-  perf,
-}: {
-  header: React.ReactNode;
-  checklistItems?: CooldownExpandableItem[];
-  detailItems?: CooldownExpandableItem[];
-  perf?: QualitativePerformance;
-}): JSX.Element {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const combinedHeader =
-    perf !== undefined ? (
-      <div>
-        {header} &mdash; <PerformanceMark perf={perf} />
-      </div>
-    ) : (
-      header
-    );
-  return (
-    <ControlledExpandable
-      header={combinedHeader}
-      element="section"
-      expanded={isExpanded}
-      inverseExpanded={() => setIsExpanded(!isExpanded)}
-    >
-      <div>
-        {checklistItems && checklistItems.length !== 0 && (
-          <section>
-            <header style={{ fontWeight: 'bold' }}>Checklist</header>
-            <tbody>
-              <table>
-                {checklistItems.map((item, ix) => (
-                  <tr key={'checklist-' + ix}>
-                    <td style={{ paddingRight: '1em', paddingLeft: '1em', minWidth: '25em' }}>
-                      {item.label}
-                    </td>
-                    <td style={{ paddingRight: '1em', textAlign: 'right' }}>{item.result}</td>
-                    {item.details && <td style={{ paddingRight: '1em' }}>{item.details}</td>}
-                  </tr>
-                ))}
-              </table>
-            </tbody>
-          </section>
-        )}
-        {detailItems && detailItems.length !== 0 && (
-          <section>
-            <tbody>
-              <header style={{ fontWeight: 'bold' }}>Details</header>
-              <table>
-                {detailItems.map((item, ix) => (
-                  <tr key={'details-' + ix}>
-                    <td style={{ paddingRight: '1em', paddingLeft: '1em', minWidth: '25em' }}>
-                      {item.label}
-                    </td>
-                    <td style={{ paddingRight: '1em', textAlign: 'right' }}>{item.result}</td>
-                    {item.details && <td style={{ paddingRight: '1em' }}>{item.details}</td>}
-                  </tr>
-                ))}
-              </table>
-            </tbody>
-          </section>
-        )}
-      </div>
-    </ControlledExpandable>
-  );
-}
-
-export interface CooldownExpandableItem {
-  label: React.ReactNode;
-  result: React.ReactNode;
-  details?: React.ReactNode;
 }

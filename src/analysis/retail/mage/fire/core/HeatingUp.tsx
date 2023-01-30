@@ -28,9 +28,9 @@ class HeatingUp extends Analyzer {
   protected cooldownHistory!: CooldownHistory;
   protected eventHistory!: EventHistory;
 
-  hasFirestarter: boolean = this.selectedCombatant.hasTalent(TALENTS.FIRESTARTER_TALENT.id);
-  hasSearingTouch: boolean = this.selectedCombatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT.id);
-  hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT.id);
+  hasFirestarter: boolean = this.selectedCombatant.hasTalent(TALENTS.FIRESTARTER_TALENT);
+  hasSearingTouch: boolean = this.selectedCombatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT);
+  hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT);
 
   phoenixFlamesDuringHotStreak = () =>
     this.eventHistory.getEventsWithBuff(

@@ -20,7 +20,7 @@ class Dreadlash extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.DREADLASH_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DREADLASH_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.DREADBITE),
       this.handleDreadbite,

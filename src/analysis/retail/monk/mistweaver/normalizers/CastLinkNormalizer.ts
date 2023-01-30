@@ -11,20 +11,32 @@ import {
   HasRelatedEvent,
   RemoveBuffEvent,
   RefreshBuffEvent,
+  HealEvent,
 } from 'parser/core/Events';
 
 export const APPLIED_HEAL = 'AppliedHeal';
+export const FORCE_BOUNCE = 'ForceBounce';
+export const OVERHEAL_BOUNCE = 'OverhealBounce';
 export const BOUNCED = 'Bounced';
 export const FROM_DANCING_MISTS = 'FromDM';
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_MISTY_PEAKS = 'FromMistyPeaks';
 export const FROM_MISTS_OF_LIFE = 'FromMOL';
 export const FROM_RAPID_DIFFUSION = 'FromRD'; // can be linked to env mist or rsk cast
+export const ENVELOPING_MIST_GOM = 'EnvGOM';
+export const RENEWING_MIST_GOM = 'ReMGOM';
+export const VIVIFY_GOM = 'ViVGOM';
+export const REVIVAL_GOM = 'RevivalGOM';
+export const ZEN_PULSE_GOM = 'ZPGOM';
+export const SHEILUNS_GIFT_GOM = 'SGGOM';
+export const EXPEL_HARM_GOM = 'EHGOM';
+export const SOOM_GOM = 'SoomGOM';
 
 const RAPID_DIFFUSION_BUFFER_MS = 300;
+const DANCING_MIST_BUFFER_MS = 120;
 const CAST_BUFFER_MS = 100;
 const MAX_REM_DURATION = 77000;
-const FOUND_REMS = new Set();
+const FOUND_REMS: Map<string, number | null> = new Map();
 
 /*
   This file is for attributing Renewing Mist and Enveloping Mist applications to hard casts.
@@ -43,16 +55,13 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
-  // link Enveloping Mist apply to its cast
+  //link the remove buff event to cast - aka the Renewing Mist 'push'
   {
-    linkRelation: FROM_HARDCAST,
-    reverseLinkRelation: APPLIED_HEAL,
-    linkingEventId: [TALENTS_MONK.ENVELOPING_MIST_TALENT.id, SPELLS.ENVELOPING_MIST_TFT.id],
-    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
-    referencedEventType: EventType.Cast,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
+    linkRelation: FORCE_BOUNCE,
+    linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
+    linkingEventType: [EventType.RemoveBuff],
+    referencedEventId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
+    referencedEventType: [EventType.Cast],
   },
   // link renewing mist apply to the target it was removed from
   {
@@ -106,16 +115,37 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: [SPELLS.RENEWING_MIST_HEAL.id],
     referencedEventType: [EventType.ApplyBuff],
     anyTarget: true,
-    backwardBufferMs: 50,
-    forwardBufferMs: 50,
+    backwardBufferMs: DANCING_MIST_BUFFER_MS,
+    forwardBufferMs: DANCING_MIST_BUFFER_MS,
+    maximumLinks: 1,
     additionalCondition(linkingEvent, referencedEvent) {
       return (
         (linkingEvent as ApplyBuffEvent).targetID !==
-          (referencedEvent as ApplyBuffEvent).targetID && !HasRelatedEvent(linkingEvent, BOUNCED)
+          (referencedEvent as ApplyBuffEvent).targetID &&
+        !HasRelatedEvent(linkingEvent, FORCE_BOUNCE)
       );
     },
     isActive(c) {
       return c.hasTalent(TALENTS_MONK.DANCING_MISTS_TALENT);
+    },
+  },
+  // From LC on target with Mists of Life talented
+  {
+    linkRelation: FROM_MISTS_OF_LIFE,
+    linkingEventId: [TALENTS_MONK.ENVELOPING_MIST_TALENT.id, SPELLS.RENEWING_MIST_HEAL.id],
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: TALENTS_MONK.LIFE_COCOON_TALENT.id,
+    referencedEventType: [EventType.Cast],
+    backwardBufferMs: 500,
+    forwardBufferMs: 50,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        !HasRelatedEvent(linkingEvent, FROM_HARDCAST) &&
+        !HasRelatedEvent(referencedEvent, FROM_HARDCAST)
+      );
+    },
+    isActive: (c) => {
+      return c.hasTalent(TALENTS_MONK.MISTS_OF_LIFE_TALENT);
     },
   },
   // misty peaks proc from a ReM hot event
@@ -133,24 +163,103 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT);
     },
   },
-  // From LC on target with Mists of Life talented
+  // link Enveloping Mist apply to its cast
   {
-    isActive: (c) => {
-      return c.hasTalent(TALENTS_MONK.MISTS_OF_LIFE_TALENT);
-    },
-    linkRelation: FROM_MISTS_OF_LIFE,
-    linkingEventId: [TALENTS_MONK.ENVELOPING_MIST_TALENT.id, SPELLS.RENEWING_MIST_HEAL.id],
+    linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: APPLIED_HEAL,
+    linkingEventId: [TALENTS_MONK.ENVELOPING_MIST_TALENT.id, SPELLS.ENVELOPING_MIST_TFT.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: TALENTS_MONK.LIFE_COCOON_TALENT.id,
-    referencedEventType: [EventType.Cast],
-    backwardBufferMs: 500,
-    forwardBufferMs: 50,
-    additionalCondition(linkingEvent, referencedEvent) {
-      return (
-        !HasRelatedEvent(linkingEvent, FROM_HARDCAST) &&
-        !HasRelatedEvent(referencedEvent, FROM_HARDCAST)
-      );
+    referencedEventId: TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  //Mastery event linking
+  {
+    linkRelation: ENVELOPING_MIST_GOM,
+    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    linkingEventType: [EventType.Heal],
+    referencedEventId: TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
+    referencedEventType: EventType.Cast,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+  },
+  {
+    linkRelation: RENEWING_MIST_GOM,
+    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    linkingEventType: [EventType.Heal],
+    referencedEventId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
+    referencedEventType: EventType.Cast,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+  },
+  {
+    linkRelation: VIVIFY_GOM,
+    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    linkingEventType: [EventType.Heal],
+    referencedEventId: SPELLS.VIVIFY.id,
+    referencedEventType: EventType.Cast,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+  },
+  {
+    linkRelation: ZEN_PULSE_GOM,
+    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    linkingEventType: [EventType.Heal],
+    referencedEventId: TALENTS_MONK.ZEN_PULSE_TALENT.id,
+    referencedEventType: EventType.Cast,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.ZEN_PULSE_TALENT);
     },
+  },
+  {
+    linkRelation: EXPEL_HARM_GOM,
+    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    linkingEventType: [EventType.Heal],
+    referencedEventId: SPELLS.EXPEL_HARM.id,
+    referencedEventType: EventType.Heal,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+  },
+  {
+    linkRelation: SOOM_GOM,
+    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    linkingEventType: [EventType.Heal],
+    referencedEventId: TALENTS_MONK.SOOTHING_MIST_TALENT.id,
+    referencedEventType: EventType.Heal,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+  },
+  {
+    linkRelation: SHEILUNS_GIFT_GOM,
+    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    linkingEventType: [EventType.Heal],
+    referencedEventId: TALENTS_MONK.SHEILUNS_GIFT_TALENT.id,
+    referencedEventType: EventType.Heal,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT);
+    },
+  },
+  {
+    linkRelation: REVIVAL_GOM,
+    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    linkingEventType: [EventType.Heal],
+    referencedEventId: [TALENTS_MONK.REVIVAL_TALENT.id, TALENTS_MONK.RESTORAL_TALENT.id],
+    referencedEventType: EventType.Heal,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
   },
 ];
 
@@ -187,10 +296,14 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
   }
   // 2nd ReM application is the duplicated event
   if (HasRelatedEvent(event, FROM_DANCING_MISTS)) {
-    if (FOUND_REMS.has(event.timestamp)) {
+    const dmRem = FOUND_REMS.get(FROM_HARDCAST);
+    if (
+      dmRem! - DANCING_MIST_BUFFER_MS <= event.timestamp &&
+      event.timestamp <= dmRem! + DANCING_MIST_BUFFER_MS
+    ) {
       return false;
     } else {
-      FOUND_REMS.add(event.timestamp);
+      FOUND_REMS.set(FROM_HARDCAST, event.timestamp);
     }
   }
   if (HasRelatedEvent(event, FROM_HARDCAST)) {
@@ -214,17 +327,28 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
   return false;
 }
 
+export function isForceBounce(event: ApplyBuffEvent | RefreshBuffEvent) {
+  return HasRelatedEvent(event, FORCE_BOUNCE);
+}
+
 export function isFromMistyPeaks(event: ApplyBuffEvent | RefreshBuffEvent) {
   return HasRelatedEvent(event, FROM_MISTY_PEAKS);
 }
 
 export function isFromRapidDiffusion(event: ApplyBuffEvent | RefreshBuffEvent) {
-  if (HasRelatedEvent(event, FROM_HARDCAST)) {
+  if (HasRelatedEvent(event, FROM_HARDCAST) || HasRelatedEvent(event, FROM_MISTS_OF_LIFE)) {
     return false;
   }
+  // 2nd ReM application is the duplicated event
   if (HasRelatedEvent(event, FROM_DANCING_MISTS)) {
-    if (FOUND_REMS.has(event.timestamp)) {
+    const dmRem = FOUND_REMS.get(FROM_RAPID_DIFFUSION);
+    if (
+      dmRem! - DANCING_MIST_BUFFER_MS <= event.timestamp &&
+      event.timestamp <= dmRem! + DANCING_MIST_BUFFER_MS
+    ) {
       return false;
+    } else {
+      FOUND_REMS.set(FROM_RAPID_DIFFUSION, event.timestamp);
     }
   }
   return HasRelatedEvent(event, FROM_RAPID_DIFFUSION);
@@ -232,6 +356,54 @@ export function isFromRapidDiffusion(event: ApplyBuffEvent | RefreshBuffEvent) {
 
 export function isFromMistsOfLife(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
   return HasRelatedEvent(event, FROM_MISTS_OF_LIFE);
+}
+
+export function isFromDancingMists(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
+  return HasRelatedEvent(event, FROM_DANCING_MISTS) && !HasRelatedEvent(event, FROM_MISTS_OF_LIFE);
+}
+
+export function isFromEnvelopingMist(event: HealEvent) {
+  return HasRelatedEvent(event, ENVELOPING_MIST_GOM) && !isFromEssenceFont(event);
+}
+
+export function isFromRenewingMist(event: HealEvent) {
+  return HasRelatedEvent(event, RENEWING_MIST_GOM) && !isFromEssenceFont(event);
+}
+
+export function isFromVivify(event: HealEvent) {
+  return HasRelatedEvent(event, VIVIFY_GOM) && !isFromEssenceFont(event);
+}
+
+export function isFromSheilunsGift(event: HealEvent) {
+  return HasRelatedEvent(event, SHEILUNS_GIFT_GOM) && !isFromEssenceFont(event);
+}
+
+export function isFromRevival(event: HealEvent) {
+  return HasRelatedEvent(event, REVIVAL_GOM) && !isFromEssenceFont(event);
+}
+
+export function isFromZenPulse(event: HealEvent) {
+  return HasRelatedEvent(event, ZEN_PULSE_GOM) && !isFromEssenceFont(event);
+}
+
+export function isFromExpelHarm(event: HealEvent) {
+  return HasRelatedEvent(event, EXPEL_HARM_GOM) && !isFromEssenceFont(event);
+}
+
+export function isFromSoothingMist(event: HealEvent) {
+  return HasRelatedEvent(event, SOOM_GOM) && !isFromEssenceFont(event);
+}
+
+export function isFromEssenceFont(event: HealEvent) {
+  return (
+    !HasRelatedEvent(event, EXPEL_HARM_GOM) &&
+    !HasRelatedEvent(event, ZEN_PULSE_GOM) &&
+    !HasRelatedEvent(event, REVIVAL_GOM) &&
+    !HasRelatedEvent(event, SHEILUNS_GIFT_GOM) &&
+    !HasRelatedEvent(event, VIVIFY_GOM) &&
+    !HasRelatedEvent(event, RENEWING_MIST_GOM) &&
+    !HasRelatedEvent(event, ENVELOPING_MIST_GOM)
+  );
 }
 
 export default CastLinkNormalizer;

@@ -2,6 +2,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, {
   AbsorbedEvent,
   ApplyBuffEvent,
@@ -11,6 +12,7 @@ import Events, {
 } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -43,9 +45,10 @@ class MasteryEffectiveness extends Analyzer {
 
   protected combatants!: Combatants;
   protected statTracker!: StatTracker;
-
+  masteryAffectedHealing: number = 0;
+  nonMasteryAffectedHealing: number = 0;
   totalHealingEffectedByMastery: number = 0;
-
+  additionalHealingFromMastery: number = 0;
   private prevokerHealthPercent: number = 0;
   private prevokerMaxHealth: number = 0;
   private anomalyShieldApplications: Map<number, ShieldInfo | null> = new Map();
@@ -201,6 +204,11 @@ class MasteryEffectiveness extends Analyzer {
     //check to see if this is a mastery event
     if (this.prevokerHealthPercent >= targetPlayerHealthPercent) {
       this.totalEventsAffectedByMastery += 1;
+      this.masteryAffectedHealing += event.amount + (event.absorbed || 0);
+      const mastery = this.statTracker.currentMasteryPercentage;
+      this.additionalHealingFromMastery += calculateEffectiveHealing(event, mastery);
+    } else {
+      this.nonMasteryAffectedHealing += event.amount + (event.absorbed || 0);
     }
   }
 
@@ -214,8 +222,7 @@ class MasteryEffectiveness extends Analyzer {
 
   get percentOfHealingAffectedByMastery() {
     return (
-      (this.totalEventsAffectedByMastery + this.totalShieldEventsAffectedByMastery) /
-      (this.totalEvents + this.totalShieldEvents)
+      this.masteryAffectedHealing / (this.masteryAffectedHealing + this.nonMasteryAffectedHealing)
     );
   }
 
@@ -227,9 +234,6 @@ class MasteryEffectiveness extends Analyzer {
         category={STATISTIC_CATEGORY.GENERAL}
         tooltip={
           <>
-            {this.totalShieldEventsAffectedByMastery} out of {this.totalShieldEvents} shields were
-            affected by mastery.
-            <br />
             {this.totalEventsAffectedByMastery} out of {this.totalEvents} heals were affected by
             mastery.
           </>
@@ -242,6 +246,9 @@ class MasteryEffectiveness extends Analyzer {
           <div className="value">
             {formatPercentage(this.percentOfHealingAffectedByMastery)}%
             <small> of Healing Affected</small>
+          </div>
+          <div className="value">
+            <ItemHealingDone amount={this.additionalHealingFromMastery} />
           </div>
         </div>
       </Statistic>

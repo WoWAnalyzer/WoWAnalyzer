@@ -15,12 +15,12 @@ class SoulStrike extends Analyzer {
     soulShardTracker: SoulShardTracker,
   };
 
-  soulShardTracker!: SoulShardTracker
+  soulShardTracker!: SoulShardTracker;
   damage = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SOUL_STRIKE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SOUL_STRIKE_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.SOUL_STRIKE_DAMAGE),
       this.handleSoulStrikeDamage,

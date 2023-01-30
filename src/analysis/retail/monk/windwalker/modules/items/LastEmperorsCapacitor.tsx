@@ -12,6 +12,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import { CHI_SPENDERS } from '../../constants';
+import { TALENTS_MONK } from 'common/TALENTS';
 
 const MAX_STACKS = 20;
 
@@ -31,7 +32,7 @@ class LastEmperorsCapacitor extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.LAST_EMPERORS_CAPACITOR);
+    this.active = false;
     if (!this.active) {
       return;
     }
@@ -139,7 +140,7 @@ class LastEmperorsCapacitor extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.LAST_EMPERORS_CAPACITOR.id}>
+        <BoringSpellValueText spellId={TALENTS_MONK.LAST_EMPERORS_CAPACITOR_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>
@@ -155,7 +156,7 @@ class LastEmperorsCapacitor extends Analyzer {
           chi spenders while at 20 stacks{' '}
         </Trans>,
       )
-        .icon(SPELLS.LAST_EMPERORS_CAPACITOR.icon)
+        .icon(TALENTS_MONK.LAST_EMPERORS_CAPACITOR_TALENT.icon)
         .actual(
           t({
             id: 'monk.windwalker.modules.items.lastEmperorsCapacitor.wastedStacks.actual',
@@ -177,7 +178,7 @@ class LastEmperorsCapacitor extends Analyzer {
           used when you cast <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} /> was low{' '}
         </Trans>,
       )
-        .icon(SPELLS.LAST_EMPERORS_CAPACITOR.icon)
+        .icon(TALENTS_MONK.LAST_EMPERORS_CAPACITOR_TALENT.icon)
         .actual(
           t({
             id: 'monk.windwalker.modules.items.lastEmperorsCapacitor.averageStacks.actual',

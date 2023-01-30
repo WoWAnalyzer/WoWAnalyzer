@@ -135,10 +135,10 @@ export function RuleSpellsDescription({ rule }: { rule: AplRule }): JSX.Element 
   return (
     <>
       {spells(rule).map((spell, index) => (
-        <>
+        <React.Fragment key={index}>
           {index > 0 ? ' or ' : ''}
           <SpellLink id={spell.id} />
-        </>
+        </React.Fragment>
       ))}
     </>
   );
@@ -179,7 +179,7 @@ export default function ChecklistRule(props: Props) {
                   key={ix}
                   name={
                     <>
-                      <strong>{ix}.</strong> <RuleDescription rule={rule} />
+                      <strong>{ix + 1}.</strong> <RuleDescription rule={rule} />
                     </>
                   }
                   thresholds={thresh}

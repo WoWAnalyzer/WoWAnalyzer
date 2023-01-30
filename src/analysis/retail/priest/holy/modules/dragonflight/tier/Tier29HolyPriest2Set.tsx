@@ -6,6 +6,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Events, { HealEvent } from 'parser/core/Events';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { TIERS } from 'game/TIERS';
 
 const TIER_CAST_TIME_REDUCTION = 1;
 const TIER_HOLY_WORD_REDUCTION = 2;
@@ -26,7 +27,7 @@ class HolyPriestTier2Set extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    if (this.selectedCombatant.has2Piece()) {
+    if (this.selectedCombatant.has2PieceByTier(TIERS.T28)) {
       this.active = false;
       return;
     }

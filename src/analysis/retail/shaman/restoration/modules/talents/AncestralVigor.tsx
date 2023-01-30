@@ -32,7 +32,7 @@ class AncestralVigor extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = Boolean(this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_VIGOR_TALENT.id));
+    this.active = Boolean(this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_VIGOR_TALENT));
   }
 
   // recursively fetch events until no nextPageTimestamp is returned
@@ -92,7 +92,7 @@ class AncestralVigor extends Analyzer {
     );
     if (
       restoShamans &&
-      restoShamans.some((shaman) => shaman.hasTalent(TALENTS.ANCESTRAL_VIGOR_TALENT.id))
+      restoShamans.some((shaman) => shaman.hasTalent(TALENTS.ANCESTRAL_VIGOR_TALENT))
     ) {
       this.disableStatistics = true;
     }

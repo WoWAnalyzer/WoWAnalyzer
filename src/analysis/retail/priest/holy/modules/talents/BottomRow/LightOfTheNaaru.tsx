@@ -21,7 +21,7 @@ class LightOfTheNaaru extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.LIGHT_OF_THE_NAARU_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.LIGHT_OF_THE_NAARU_TALENT);
   }
 
   statistic() {
@@ -43,11 +43,10 @@ class LightOfTheNaaru extends Analyzer {
         <BoringSpellValueText spellId={TALENTS.LIGHT_OF_THE_NAARU_TALENT.id}>
           {Math.ceil(
             (this.sanctify.lightOfTheNaaruCooldownReduction +
-              this.serenity.lightOfTheNaaruCooldownReduction +
-              this.chastise.lightOfTheNaaruCooldownReduction) /
+              this.serenity.lightOfTheNaaruCooldownReduction) /
               1000,
           )}
-          s <small>Cooldown Reduction</small>
+          s <small>Healing Spell Cooldown Reduction</small>
         </BoringSpellValueText>
       </Statistic>
     );

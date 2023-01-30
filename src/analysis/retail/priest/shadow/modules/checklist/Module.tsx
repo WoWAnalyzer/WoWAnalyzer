@@ -9,10 +9,11 @@ import ShadowWordPain from '../spells/ShadowWordPain';
 import VampiricTouch from '../spells/VampiricTouch';
 import DevouringPlague from '../spells/DevouringPlague';
 import DarkEvangelism from '../talents/DarkEvangelism';
-import ShadowyInsight from '../features/ShadowyInsight';
+import ShadowyInsight from '../spells/ShadowyInsight';
 import UnfurlingDarkness from '../talents/UnfurlingDarkness';
 import Deathspeaker from '../talents/Deathspeaker';
 import SurgeOfDarkness from '../talents/SurgeOfDarkness';
+import MindFlayInsanity from '../talents/MindFlayInsanity';
 import MindDevourer from '../talents/MindDevourer';
 
 import Component from './Component';
@@ -34,6 +35,7 @@ class Checklist extends BaseChecklist {
     deathspeaker: Deathspeaker,
     mindDevourer: MindDevourer,
     surgeOfDarkness: SurgeOfDarkness,
+    mindFlayInsanity: MindFlayInsanity,
   };
 
   protected combatants!: Combatants;
@@ -50,6 +52,7 @@ class Checklist extends BaseChecklist {
   protected deathspeaker!: Deathspeaker;
   protected mindDevourer!: MindDevourer;
   protected surgeOfDarkness!: SurgeOfDarkness;
+  protected mindFlayInsanity!: MindFlayInsanity;
 
   render() {
     return (
@@ -70,6 +73,7 @@ class Checklist extends BaseChecklist {
           deathspeaker: this.deathspeaker.suggestionThresholds,
           mindDevourer: this.mindDevourer.suggestionThresholds,
           surgeOfDarkness: this.surgeOfDarkness.suggestionThresholds,
+          mindFlayInsanity: this.mindFlayInsanity.suggestionThresholds,
         }}
       />
     );

@@ -16,26 +16,27 @@ class HotTrackerPrevoker extends HotTracker {
   constructor(options: Options) {
     super(options);
     this.timelessMagicActive = this.owner.selectedCombatant.hasTalent(
-      TALENTS_EVOKER.TIMELESS_MAGIC_TALENT.id,
+      TALENTS_EVOKER.TIMELESS_MAGIC_TALENT,
     );
     this.fontOfMagicActive = this.owner.selectedCombatant.hasTalent(
-      TALENTS_EVOKER.FONT_OF_MAGIC_TALENT.id,
+      TALENTS_EVOKER.FONT_OF_MAGIC_TALENT,
     );
   }
 
   //from echo
-  fromEcho(hot: Tracker): boolean {
+  fromEchoHardcast(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
-      return attr.name.includes('Echo');
+      return attr.name.startsWith('Echo Hardcast');
     });
   }
 
   //from hardcast
-  fromHardcast(hot: Tracker): boolean {
+  fromEchoTA(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
-      return attr.name.includes('Hardcast');
+      return attr.name.startsWith('Echo Temporal Anomaly');
     });
   }
+
   fromCallOfYsera(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
       return attr.name.includes('Call Of Ysera');
@@ -48,7 +49,7 @@ class HotTrackerPrevoker extends HotTracker {
       REVERSION_BASE_DURATION *
       (1 +
         TIMELESS_MAGIC *
-          this.selectedCombatant.getTalentRank(TALENTS_EVOKER.TIMELESS_MAGIC_TALENT.id));
+          this.selectedCombatant.getTalentRank(TALENTS_EVOKER.TIMELESS_MAGIC_TALENT));
     const dreamBreathDuration = this.fontOfMagicActive
       ? DREAM_BREATH_MIN_DURATION
       : DREAM_BREATH_MIN_DURATION + DREAM_BREATH_MIN_DURATION;

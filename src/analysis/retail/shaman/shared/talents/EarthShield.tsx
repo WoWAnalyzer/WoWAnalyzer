@@ -33,8 +33,7 @@ class EarthShield extends Analyzer {
   constructor(options: Options) {
     super(options);
     const isRsham = this.selectedCombatant.specId === SPECS.RESTORATION_SHAMAN.id;
-    this.active =
-      isRsham || this.selectedCombatant.hasTalent(TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id);
+    this.active = isRsham || this.selectedCombatant.hasTalent(TALENTS_SHAMAN.EARTH_SHIELD_TALENT);
 
     if (!this.active) {
       return;
@@ -44,7 +43,7 @@ class EarthShield extends Analyzer {
       this.category = STATISTIC_CATEGORY.GENERAL;
     }
     // TODO: Update for dragonflight
-    // const conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.EMBRACE_OF_EARTH.id);
+    // const conduitRank = 0;
     //
     // if (conduitRank) {
     //   this.earthShieldHealingIncrease += EMBRACE_OF_EARTH_RANKS[conduitRank] / 100;

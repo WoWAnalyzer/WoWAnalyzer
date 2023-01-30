@@ -91,18 +91,18 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           tooltip="In order to get a head start on your Combustion cooldown, it is recommended to pre-cast an ability (like Fireball) and activate Combustion during that pre-cast. In order to minimize the delay after you activate Combustion, and to prevent losing a GCD during Combustion, it is recommended that you activate Combustion within the last 0.7 seconds of that pre-cast ability. If you do not want to adjust your gameplay or if you cannot accomplish this due to latency, you can tell RaidBots to use a different delay value by entering apl_variable.combustion_cast_remains=value (where value is the delay in seconds ... i.e. 1.1 or 0.9) in the Custom APL section."
           thresholds={thresholds.combustionPreCastDelay}
         />
-        {combatant.hasTalent(TALENTS.METEOR_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.METEOR_TALENT) && (
           <Requirement
             name="Meteor Utilization During Combustion"
             thresholds={thresholds.meteorCombustionUtilization}
             tooltip="In order to get the most out of your Combustion, you should always cast Meteor during Combustion. If Meteor will not come off cooldown before Combustion, then you should save Meteor for Combustion."
           />
         )}
-        {combatant.hasConduitBySpellID(SPELLS.INFERNAL_CASCADE.id) && (
+        {combatant.hasTalent(TALENTS.FEEL_THE_BURN_TALENT) && (
           <Requirement
-            name="Infernal Cascade uptime at max stacks"
-            tooltip="When using the Infernal Cascade conduit, you need to adjust your Combustion rotation so that you can get to 2 stacks of Infernal Cascade as soon as possible, and stay at 2 stacks for the entire duration of Combustion. To accomplish this, once you get to 2 stacks of Infernal Cascade, alternate between using Phoenix Flames and Fire Blast to get Hot Streak until Combustion has ended. This way you are able to refresh Infernal Cascade throughout Combustion instead of using all your Fire Blast charges first and then letting the buff expire while you use your Phoenix Flames charges."
-            thresholds={thresholds.infernalCascadeMaxStacks}
+            name="Feel the Burn uptime at max stacks"
+            tooltip="When using the Feel the Burn talent, you need to adjust your Combustion rotation so that you can get to 3 stacks of Feel the Burn as soon as possible, and stay at 3 stacks for the entire duration of Combustion. To accomplish this, once you get to 3 stacks of Feel the Burn, alternate between using Phoenix Flames and Fire Blast to get Hot Streak until Combustion has ended. This way you are able to refresh Feel the Burn throughout Combustion instead of using all your Fire Blast charges first and then letting the buff expire while you use your Phoenix Flames charges."
+            thresholds={thresholds.feelTheBurnMaxStacks}
           />
         )}
       </Rule>
@@ -180,7 +180,7 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           }
           spell={TALENTS.PHOENIX_FLAMES_TALENT.id}
         />
-        {combatant.hasTalent(TALENTS.BLAST_WAVE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.BLAST_WAVE_TALENT) && (
           <AbilityRequirement
             name={
               <>
@@ -190,7 +190,7 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             spell={TALENTS.BLAST_WAVE_TALENT.id}
           />
         )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) && (
           <AbilityRequirement
             name={
               <>
@@ -200,7 +200,7 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             spell={TALENTS.RUNE_OF_POWER_TALENT.id}
           />
         )}
-        {combatant.hasTalent(TALENTS.LIVING_BOMB_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.LIVING_BOMB_TALENT) && (
           <AbilityRequirement
             name={
               <>
@@ -210,7 +210,7 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             spell={TALENTS.LIVING_BOMB_TALENT.id}
           />
         )}
-        {combatant.hasTalent(TALENTS.METEOR_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.METEOR_TALENT) && (
           <Requirement
             name={
               <>
@@ -220,43 +220,43 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             thresholds={thresholds.meteorEfficiency}
           />
         )}
-        {combatant.hasTalent(TALENTS.PYROCLASM_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.PYROCLASM_TALENT) && (
           <Requirement
             name="Pyroclasm procs used"
             thresholds={thresholds.pyroclasmUtilization}
             tooltip="Pyroclasm has a chance to give you a buff that makes your next non instant Pyroblast deal 225% additional damage. You should ensure that you are using these procs (especially during Combustion) somewhat quickly to ensure you dont waste or overwrite any of these procs."
           />
         )}
-        {combatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT) && (
           <Requirement
             name="Spell usage during Searing Touch"
             thresholds={thresholds.searingTouchUtilization}
             tooltip="Searing Touch causes Scorch to deal 150% additional damage and be guaranteed to crit when the target is under 30% health. Therefore it is important that when the target is under 30% health, you cast Scorch instead of Fireball."
           />
         )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) && (
           <Requirement
             name="Average time spent inside Rune of Power"
             thresholds={thresholds.runeOfPowerBuffUptime}
             tooltip="Using Rune of Power effectively means being able to stay within the range of it for it's entire duration. If you are unable to do so or if you frequently have to move out of the range of the buff, then either plan out a more optimal time or place to be using your Rune of Power, or consider taking a different talent instead."
           />
         )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) && (
           <Requirement
             name="Rune of Power overlapped casts"
             thresholds={thresholds.runeOfPowerOverlaps}
             tooltip="Casting your major cooldown (Combustion) automatically drops a Rune of Power at your feet, so you do not need to manually cast it before using Combustion. Because of this you should wait to use Rune of Power until after Combustion ends, or use it far enough before Combustion so that it will end before Combustion is cast to wasting uptime by having your runes overlapped."
           />
         )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id) &&
-          combatant.hasTalent(TALENTS.METEOR_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) &&
+          combatant.hasTalent(TALENTS.METEOR_TALENT) && (
             <Requirement
               name="Meteor Overall Utilization"
               thresholds={thresholds.meteorUtilization}
               tooltip="In order to get the most out of your Meteor casts, you should only cast Meteor while you are buffed by Rune of Power."
             />
           )}
-        {combatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) && (
           <Requirement
             name="Shifting Power proper usage"
             thresholds={thresholds.shiftingPowerUsage}

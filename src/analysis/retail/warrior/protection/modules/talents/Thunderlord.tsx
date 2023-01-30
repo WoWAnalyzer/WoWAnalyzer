@@ -28,7 +28,7 @@ class Thunderlord extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.THUNDERLORD_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.THUNDERLORD_TALENT);
     if (!this.active) {
       return;
     }

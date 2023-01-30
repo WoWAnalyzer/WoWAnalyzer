@@ -37,13 +37,13 @@ const SubRogueChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         <AbilityRequirement spell={SPELLS.SHADOW_DANCE.id} />
         <AbilityRequirement spell={SPELLS.SYMBOLS_OF_DEATH.id} />
         <AbilityRequirement spell={TALENTS.SHADOW_BLADES_TALENT.id} />
-        {combatant.hasTalent(TALENTS.SECRET_TECHNIQUE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SECRET_TECHNIQUE_TALENT) && (
           <AbilityRequirement spell={TALENTS.SECRET_TECHNIQUE_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.SEPSIS_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SEPSIS_TALENT) && (
           <AbilityRequirement spell={TALENTS.SEPSIS_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.FLAGELLATION_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.FLAGELLATION_TALENT) && (
           <AbilityRequirement spell={TALENTS.FLAGELLATION_TALENT.id} />
         )}
       </Rule>

@@ -31,11 +31,11 @@ class HotStreak extends Analyzer {
   protected eventHistory!: EventHistory;
   protected sharedCode!: SharedCode;
 
-  hasPyroclasm: boolean = this.selectedCombatant.hasTalent(TALENTS.PYROCLASM_TALENT.id);
-  hasFirestarter: boolean = this.selectedCombatant.hasTalent(TALENTS.FIRESTARTER_TALENT.id);
-  hasSearingTouch: boolean = this.selectedCombatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT.id);
+  hasPyroclasm: boolean = this.selectedCombatant.hasTalent(TALENTS.PYROCLASM_TALENT);
+  hasFirestarter: boolean = this.selectedCombatant.hasTalent(TALENTS.FIRESTARTER_TALENT);
+  hasSearingTouch: boolean = this.selectedCombatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT);
   hasHyperthermia: boolean = this.selectedCombatant.hasTalent(TALENTS.HYPERTHERMIA_TALENT);
-  hasPyromaniac: boolean = this.selectedCombatant.hasTalent(TALENTS.PYROMANIAC_TALENT.id);
+  hasPyromaniac: boolean = this.selectedCombatant.hasTalent(TALENTS.PYROMANIAC_TALENT);
 
   expiredProcs = () =>
     this.sharedCode.getExpiredProcs(SPELLS.HOT_STREAK, [

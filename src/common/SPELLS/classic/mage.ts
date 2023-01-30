@@ -47,6 +47,12 @@ const spells = spellIndexableList({
     lowRanks: [27126, 10157, 10156, 1461, 1460, 1459],
   },
   ARCANE_MISSILES: {
+    id: 42845,
+    name: 'Arcane Missiles',
+    icon: 'spell_nature_starfall',
+    lowRanks: [42844, 38703, 38700, 27076, 25346, 10274, 10273, 8418, 8419, 7270, 7269, 7268],
+  },
+  ARCANE_MISSILES_CHANNELED: {
     id: 42846,
     name: 'Arcane Missiles',
     icon: 'spell_nature_starfall',
@@ -316,6 +322,22 @@ const spells = spellIndexableList({
     id: 54646,
     name: 'Focus Magic',
     icon: 'spell_arcane_studentofmagic',
+  },
+  INCANTERS_ABSORPTION: {
+    id: 44413,
+    name: "Incanter's Absorption",
+    icon: 'spell_arcane_studentofmagic',
+  },
+  MISSILE_BARRAGE: {
+    id: 44401,
+    name: 'Missile Barrage',
+    icon: 'ability_mage_arcanebarrage',
+  },
+  MISSILE_BARRAGE_CHANNELED: {
+    id: 54490,
+    name: 'Missile Barrage',
+    icon: 'ability_mage_arcanebarrage',
+    lowRanks: [54489, 54488, 54486, 44404],
   },
   PRESENCE_OF_MIND: {
     id: 12043,

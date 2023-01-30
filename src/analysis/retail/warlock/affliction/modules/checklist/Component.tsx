@@ -1,7 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import shadowlandsSpells from 'common/SPELLS/shadowlands/covenants';
 import TALENTS from 'common/TALENTS/warlock';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -42,14 +40,14 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
         <DotUptime id={SPELLS.AGONY.id} thresholds={thresholds.agony} />
         <DotUptime id={SPELLS.CORRUPTION_CAST.id} thresholds={thresholds.corruption} />
         <DotUptime id={SPELLS.UNSTABLE_AFFLICTION.id} thresholds={thresholds.unstableAffliction} />
-        {combatant.hasTalent(TALENTS.SHADOW_EMBRACE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SHADOW_EMBRACE_TALENT) && (
           <DotUptime id={TALENTS.SHADOW_EMBRACE_TALENT.id} thresholds={thresholds.shadowEmbrace} />
         )}
         <DotUptime id={TALENTS.SHADOW_EMBRACE_TALENT.id} thresholds={thresholds.shadowEmbrace} />
-        {combatant.hasTalent(TALENTS.SIPHON_LIFE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SIPHON_LIFE_TALENT) && (
           <DotUptime id={TALENTS.SIPHON_LIFE_TALENT.id} thresholds={thresholds.siphonLife} />
         )}
-        {combatant.hasTalent(TALENTS.HAUNT_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.HAUNT_TALENT) && (
           <DotUptime id={TALENTS.HAUNT_TALENT.id} thresholds={thresholds.haunt} />
         )}
       </Rule>
@@ -63,16 +61,16 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
         name="Use your cooldowns"
         description="Be mindful of your cooldowns if you are specced into them and use them when it's appropriate. It's okay to hold a cooldown for a little bit when the encounter requires it (burn phases), but generally speaking you should use them as much as you can."
       >
-        {combatant.hasTalent(TALENTS.SUMMON_DARKGLARE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SUMMON_DARKGLARE_TALENT) && (
           <AbilityRequirement spell={SPELLS.SUMMON_DARKGLARE.id} />
         )}
-        {combatant.hasTalent(TALENTS.VILE_TAINT_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.VILE_TAINT_TALENT) && (
           <AbilityRequirement spell={TALENTS.VILE_TAINT_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.PHANTOM_SINGULARITY_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.PHANTOM_SINGULARITY_TALENT) && (
           <AbilityRequirement spell={TALENTS.PHANTOM_SINGULARITY_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.SOUL_ROT_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SOUL_ROT_TALENT) && (
           <AbilityRequirement spell={TALENTS.SOUL_ROT_TALENT.id} />
         )}
       </Rule>
@@ -93,13 +91,10 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
         }
       >
         <AbilityRequirement spell={SPELLS.DEMONIC_CIRCLE_TELEPORT.id} />
-        {combatant.hasTalent(TALENTS.DARK_PACT_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.DARK_PACT_TALENT) && (
           <AbilityRequirement spell={TALENTS.DARK_PACT_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.UNENDING_RESOLVE.id} />
-        {combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) && (
-          <AbilityRequirement spell={shadowlandsSpells.SOULSHAPE.id} />
-        )}
       </Rule>
       <Rule
         name="Always be casting"

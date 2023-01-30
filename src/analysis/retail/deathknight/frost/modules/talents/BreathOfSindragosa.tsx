@@ -20,7 +20,7 @@ class BreathOfSindragosa extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.BREATH_OF_SINDRAGOSA_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.BREATH_OF_SINDRAGOSA_TALENT);
     if (!this.active) {
       return;
     }

@@ -17,7 +17,7 @@ class Heartbreaker extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.HEARTBREAKER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HEARTBREAKER_TALENT);
     if (!this.active) {
       return;
     }

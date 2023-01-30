@@ -50,6 +50,38 @@ export function formatDuration(duration: number, precision: number = 0): string 
 }
 
 /**
+ * Like `formatDuration`, but formats it as "Xm Ys".
+ */
+export function formatDurationMinSec(duration: number): string {
+  const minutes = Math.floor(duration / 60);
+  const seconds = duration % 60;
+
+  if (minutes > 0) {
+    return `${minutes}m ${seconds}s`;
+  } else {
+    return `${seconds}s`;
+  }
+}
+
+/**
+ * Like `formatDurationMinSec` but accepts duration in milliseconds.
+ */
+export function formatDurationMillisMinSec(duration: number, precision: number = 0): string {
+  const totalSeconds = duration / 1000;
+  const neg = totalSeconds < 0 ? '-' : '';
+  const posSeconds = Math.abs(totalSeconds);
+  const minutes = Math.floor(posSeconds / 60);
+  const mult = Math.pow(10, precision);
+  const rest = (Math.floor((posSeconds % 60) * mult) / mult).toFixed(precision);
+  const seconds = Number(rest) < 10 ? `${rest}` : rest;
+
+  if (minutes !== 0) {
+    return `${neg}${minutes}m ${seconds}`;
+  }
+  return `${neg}${seconds}s`;
+}
+
+/**
  * Formats a duration in milliseconds to be a String expressed as minutes, seconds, and milliseconds.
  * Formatting maintains ordering but is pretty ugly, mostly suitable for debug logging instead of user facing content.
  * Ex. 317327 => 05:17.327

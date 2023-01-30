@@ -17,7 +17,7 @@ export default class AgonizingFlames extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.AGONIZING_FLAMES_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.AGONIZING_FLAMES_TALENT);
 
     if (!this.active) {
       return;

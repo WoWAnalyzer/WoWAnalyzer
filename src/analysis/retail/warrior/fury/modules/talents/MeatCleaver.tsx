@@ -27,7 +27,7 @@ class MeatCleaver extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.MEAT_CLEAVER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.MEAT_CLEAVER_TALENT);
     if (!this.active) {
       return;
     }

@@ -56,7 +56,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.SUPERNOVA_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.SUPERNOVA_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SUPERNOVA_TALENT),
         gcd: {
           base: 1500,
         },
@@ -69,7 +69,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.NETHER_TEMPEST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.NETHER_TEMPEST_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.NETHER_TEMPEST_TALENT),
         gcd: {
           base: 1500,
         },
@@ -77,7 +77,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.ARCANE_ORB_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled: combatant.hasTalent(TALENTS.ARCANE_ORB_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.ARCANE_ORB_TALENT),
         gcd: {
           base: 1500,
         },
@@ -94,7 +94,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.ARCANE_FAMILIAR_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: combatant.hasTalent(TALENTS.ARCANE_FAMILIAR_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.ARCANE_FAMILIAR_TALENT),
         gcd: {
           base: 1500,
         },
@@ -150,7 +150,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.RADIANT_SPARK.id,
+        spell: TALENTS.RADIANT_SPARK_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT),
         gcd: {

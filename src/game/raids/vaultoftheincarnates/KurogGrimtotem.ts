@@ -1,6 +1,6 @@
 import { Boss } from 'game/raids';
 
-import Background from './images/KurogGrimtotem.png';
+import Background from './images/kurog.jpg';
 
 const KurogGrimtotem: Boss = {
   id: 2605,

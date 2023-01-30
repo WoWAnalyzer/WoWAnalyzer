@@ -4,13 +4,14 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
-import { SpellIcon } from 'interface';
-import { TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import Statistic from 'parser/ui/Statistic';
+import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 import { DANCING_MIST_CHANCE, RAPID_DIFFUSION_DURATION } from '../../constants';
+import { isFromVivify } from '../../normalizers/CastLinkNormalizer';
 
 const RAPID_DIFFUSION_SPELLS = [
   TALENTS_MONK.ENVELOPING_MIST_TALENT,
@@ -31,9 +32,7 @@ class Vivify extends Analyzer {
 
   gomHealing: number = 0;
   gomOverhealing: number = 0;
-
   lastCastTarget: number = 0;
-  gomToCount: number = 0;
 
   expectedAverageReMs: number = 0;
   rdCasts: number = 0;
@@ -115,7 +114,6 @@ class Vivify extends Analyzer {
 
   vivCast(event: CastEvent) {
     this.casts += 1;
-    this.gomToCount += 1;
     this.mainTargetHitsToCount += 1;
     this.lastCastTarget = event.targetID || 0;
   }
@@ -133,10 +131,9 @@ class Vivify extends Analyzer {
   }
 
   handleMastery(event: HealEvent) {
-    if (this.lastCastTarget === event.targetID && this.gomToCount > 0) {
+    if (isFromVivify(event)) {
       this.gomHealing += (event.amount || 0) + (event.absorbed || 0);
       this.gomOverhealing += event.overheal || 0;
-      this.gomToCount -= 1;
     }
   }
   suggestions(when: When) {
@@ -162,32 +159,35 @@ class Vivify extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(20)}
-        icon={<SpellIcon id={SPELLS.VIVIFY.id} />}
-        value={`${this.averageRemPerVivify.toFixed(2)}`}
-        label={
-          <TooltipElement
-            content={
-              <>
-                Healing Breakdown:
-                <ul>
-                  <li>
-                    {formatNumber(this.mainTargetHealing + this.cleaveHealing)} overall healing from
-                    Vivify.
-                  </li>
-                  <li>
-                    {formatNumber(this.cleaveHealing)} portion of your Vivify healing to REM
-                    targets.
-                  </li>
-                </ul>
-              </>
-            }
-          >
-            Avg REMs per Cast
-          </TooltipElement>
+        size="flexible"
+        tooltip={
+          <>
+            Healing Breakdown:
+            <ul>
+              <li>
+                {formatNumber(this.mainTargetHealing + this.cleaveHealing)} overall healing from
+                <SpellLink id={SPELLS.VIVIFY.id} />.
+              </li>
+              <li>
+                {formatNumber(this.cleaveHealing)} portion of your{' '}
+                <SpellLink id={SPELLS.VIVIFY.id} /> healing to{' '}
+                <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> targets.
+              </li>
+            </ul>
+          </>
         }
-      />
+      >
+        <TalentSpellText talent={TALENTS_MONK.RENEWING_MIST_TALENT}>
+          <>
+            {this.averageRemPerVivify.toFixed(2)}{' '}
+            <small>
+              Average Cleaves per <SpellLink id={SPELLS.VIVIFY.id} />
+            </small>
+          </>
+        </TalentSpellText>
+      </Statistic>
     );
   }
 }

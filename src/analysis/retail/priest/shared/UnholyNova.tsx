@@ -1,18 +1,7 @@
-import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
-import SPECS from 'game/SPECS';
-import { SpellLink } from 'interface';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyDebuffEvent, CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import { ApplyDebuffEvent, CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { ThresholdStyle } from 'parser/core/ParseResults';
 
 const APPLICATION_THRESHOLD = 5000;
 
@@ -60,53 +49,53 @@ class UnholyNova extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
+    this.active = false;
     if (!this.active) {
       return;
     }
 
-    const castEfficiency =
-      this.selectedCombatant.spec === SPECS.SHADOW_PRIEST
-        ? {
-            suggestion: true,
-            recommendedEfficiency: 0.9,
-            averageIssueEfficiency: 0.8,
-            majorIssueEfficiency: 0.7,
-          }
-        : {
-            suggestion: true,
-            recommendedEfficiency: 0.8,
-            averageIssueEfficiency: 0.6,
-            majorIssueEfficiency: 0.4,
-          };
-    (options.abilities as Abilities).add({
-      spell: SPELLS.UNHOLY_NOVA.id,
-      category: SPELL_CATEGORY.COOLDOWNS,
-      cooldown: 60,
-      enabled: true,
-      gcd: {
-        base: 1500,
-      },
-      castEfficiency: castEfficiency,
-    });
-
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_NOVA), this.onCast);
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_TRANSFUSION_DAMAGE),
-      this.onDamage,
-    );
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_NOVA_BUFF),
-      this.onHeal,
-    );
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_TRANSFUSION),
-      this.onHeal,
-    );
-    this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_TRANSFUSION_DAMAGE),
-      this.onApplyDebuff,
-    );
+    // const castEfficiency =
+    //   this.selectedCombatant.spec === SPECS.SHADOW_PRIEST
+    //     ? {
+    //         suggestion: true,
+    //         recommendedEfficiency: 0.9,
+    //         averageIssueEfficiency: 0.8,
+    //         majorIssueEfficiency: 0.7,
+    //       }
+    //     : {
+    //         suggestion: true,
+    //         recommendedEfficiency: 0.8,
+    //         averageIssueEfficiency: 0.6,
+    //         majorIssueEfficiency: 0.4,
+    //       };
+    // (options.abilities as Abilities).add({
+    //   spell: SPELLS.UNHOLY_NOVA.id,
+    //   category: SPELL_CATEGORY.COOLDOWNS,
+    //   cooldown: 60,
+    //   enabled: true,
+    //   gcd: {
+    //     base: 1500,
+    //   },
+    //   castEfficiency: castEfficiency,
+    // });
+    //
+    // this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_NOVA), this.onCast);
+    // this.addEventListener(
+    //   Events.damage.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_TRANSFUSION_DAMAGE),
+    //   this.onDamage,
+    // );
+    // this.addEventListener(
+    //   Events.heal.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_NOVA_BUFF),
+    //   this.onHeal,
+    // );
+    // this.addEventListener(
+    //   Events.heal.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_TRANSFUSION),
+    //   this.onHeal,
+    // );
+    // this.addEventListener(
+    //   Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.UNHOLY_TRANSFUSION_DAMAGE),
+    //   this.onApplyDebuff,
+    // );
   }
 
   onCast(event: CastEvent) {
@@ -138,59 +127,59 @@ class UnholyNova extends Analyzer {
     };
   }
 
-  suggestions(when: When) {
-    when(this.efficiencySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          <span>
-            Try not to miss with <SpellLink id={SPELLS.UNHOLY_NOVA.id} />.
-          </span>
-          <br />
-          <span>
-            <SpellLink id={SPELLS.UNHOLY_NOVA.id} /> is a projectile that targets the ground where
-            your target is currently standing. If your target moves or becomes untargetable, Unholy
-            Nova can completely miss. Try and avoid casting Unholy Nova when the target is about to
-            move.
-          </span>
-        </>,
-      )
-        .icon(SPELLS.UNHOLY_NOVA.icon)
-        .actual(`${this.totalMisses} misses out of ${this.totalCasts} total casts.`)
-        .recommended(`0 misses is recommended`),
-    );
-  }
+  // suggestions(when: When) {
+  //   when(this.efficiencySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+  //     suggest(
+  //       <>
+  //         <span>
+  //           Try not to miss with <SpellLink id={SPELLS.UNHOLY_NOVA.id} />.
+  //         </span>
+  //         <br />
+  //         <span>
+  //           <SpellLink id={SPELLS.UNHOLY_NOVA.id} /> is a projectile that targets the ground where
+  //           your target is currently standing. If your target moves or becomes untargetable, Unholy
+  //           Nova can completely miss. Try and avoid casting Unholy Nova when the target is about to
+  //           move.
+  //         </span>
+  //       </>,
+  //     )
+  //       .icon(SPELLS.UNHOLY_NOVA.icon)
+  //       .actual(`${this.totalMisses} misses out of ${this.totalCasts} total casts.`)
+  //       .recommended(`0 misses is recommended`),
+  //   );
+  // }
 
-  statistic() {
-    return (
-      <Statistic
-        category={STATISTIC_CATEGORY.COVENANTS}
-        size="flexible"
-        tooltip={
-          <>
-            <>Enemies hit per cast: {(this.totalApplications / this.totalCasts).toFixed(2)}</>
-            <br />
-            <>Complete misses: {this.totalMisses}</>
-            <br />
-            <>
-              Total Healing: {formatNumber(this.totalHealing)} (
-              {formatPercentage(
-                this.totalOverHealing / (this.totalHealing + this.totalOverHealing),
-              )}
-              % OH)
-            </>
-          </>
-        }
-      >
-        <BoringSpellValueText spellId={SPELLS.UNHOLY_NOVA.id}>
-          <>
-            <ItemDamageDone amount={this.totalDamage} />
-            <br />
-            <ItemHealingDone amount={this.totalHealing} />
-          </>
-        </BoringSpellValueText>
-      </Statistic>
-    );
-  }
+  // statistic() {
+  //   return (
+  //     <Statistic
+  //       category={STATISTIC_CATEGORY.COVENANTS}
+  //       size="flexible"
+  //       tooltip={
+  //         <>
+  //           <>Enemies hit per cast: {(this.totalApplications / this.totalCasts).toFixed(2)}</>
+  //           <br />
+  //           <>Complete misses: {this.totalMisses}</>
+  //           <br />
+  //           <>
+  //             Total Healing: {formatNumber(this.totalHealing)} (
+  //             {formatPercentage(
+  //               this.totalOverHealing / (this.totalHealing + this.totalOverHealing),
+  //             )}
+  //             % OH)
+  //           </>
+  //         </>
+  //       }
+  //     >
+  //       <BoringSpellValueText spellId={SPELLS.UNHOLY_NOVA.id}>
+  //         <>
+  //           <ItemDamageDone amount={this.totalDamage} />
+  //           <br />
+  //           <ItemHealingDone amount={this.totalHealing} />
+  //         </>
+  //       </BoringSpellValueText>
+  //     </Statistic>
+  //   );
+  // }
 }
 
 export default UnholyNova;

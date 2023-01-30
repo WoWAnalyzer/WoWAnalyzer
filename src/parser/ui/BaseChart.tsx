@@ -1,4 +1,5 @@
 import { VegaLite, VisualizationSpec } from 'react-vega';
+import { VegaLiteProps } from 'react-vega/lib/VegaLite';
 import { Config } from 'vega-lite';
 
 export const defaultConfig = {
@@ -25,6 +26,7 @@ export interface Props {
   width?: number;
   height?: number;
   renderer?: 'canvas' | 'svg';
+  signalListeners?: VegaLiteProps['signalListeners'];
 }
 
 export function formatTime(field: string = 'datum.timestamp') {

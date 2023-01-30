@@ -1,7 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  CastEvent,
+  RefreshBuffEvent,
+} from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -23,7 +28,7 @@ class PowerSiphon extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.POWER_SIPHON_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.POWER_SIPHON_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.POWER_SIPHON_TALENT),
       this.handlePowerSiphonCast,

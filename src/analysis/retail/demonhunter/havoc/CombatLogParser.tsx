@@ -11,6 +11,9 @@ import {
   SwallowedAnger,
   TheHunt,
   UnnaturalMalice,
+  DemonSoulBuff,
+  FodderToTheFlame,
+  TheHuntNormalizer,
 } from 'analysis/retail/demonhunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -55,6 +58,7 @@ import BurningHatred from './modules/talents/BurningHatred';
 import EssenceBreakNormalizer from './normalizers/EssenceBreakNormalizer';
 import FuryGraph from './modules/resourcetracker/FuryGraph';
 import Guide from './Guide';
+import TheHuntVengefulRetreatNormalizer from './normalizers/TheHuntVengefulRetreatNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -67,6 +71,8 @@ class CombatLogParser extends CoreCombatLogParser {
     //Normalizer
     eyeBeamNormalizer: EyeBeam,
     essenceBreakNormalizer: EssenceBreakNormalizer,
+    theHuntNormalizer: TheHuntNormalizer,
+    theHuntVengefulRetreatNormalizer: TheHuntVengefulRetreatNormalizer,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -80,6 +86,7 @@ class CombatLogParser extends CoreCombatLogParser {
     bladeDance: BladeDance,
     blur: Blur,
     immolationAura: ImmolationAura,
+    demonSoulBuff: DemonSoulBuff,
 
     //Talents
     felblade: Felblade,
@@ -116,6 +123,7 @@ class CombatLogParser extends CoreCombatLogParser {
     swallowedAnger: SwallowedAnger,
     flamesOfFury: FlamesOfFury,
     disruptingFury: DisruptingFury,
+    fodderToTheFlame: FodderToTheFlame,
 
     // Resources
     furyTracker: FuryTracker,

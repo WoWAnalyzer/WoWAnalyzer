@@ -57,7 +57,7 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
             like{' '}
             <SpellLink
               id={
-                combatant.hasTalent(SPELLS.CRUSADE_TALENT.id)
+                combatant.hasTalent(SPELLS.CRUSADE_TALENT)
                   ? SPELLS.CRUSADE_TALENT.id
                   : SPELLS.AVENGING_WRATH.id
               }
@@ -67,19 +67,19 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
           </>
         }
       >
-        {combatant.hasTalent(SPELLS.CRUSADE_TALENT.id) && (
+        {combatant.hasTalent(SPELLS.CRUSADE_TALENT) && (
           <AbilityRequirement spell={SPELLS.CRUSADE_TALENT.id} />
         )}
-        {!combatant.hasTalent(SPELLS.CRUSADE_TALENT.id) && (
+        {!combatant.hasTalent(SPELLS.CRUSADE_TALENT) && (
           <AbilityRequirement spell={SPELLS.AVENGING_WRATH.id} />
         )}
-        {combatant.hasTalent(SPELLS.WAKE_OF_ASHES.id) && (
+        {combatant.hasTalent(SPELLS.WAKE_OF_ASHES) && (
           <AbilityRequirement spell={SPELLS.WAKE_OF_ASHES.id} />
         )}
-        {combatant.hasTalent(SPELLS.EXECUTION_SENTENCE_TALENT.id) && (
+        {combatant.hasTalent(SPELLS.EXECUTION_SENTENCE_TALENT) && (
           <AbilityRequirement spell={SPELLS.EXECUTION_SENTENCE_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.CRUSADE_TALENT.id) && (
+        {combatant.hasTalent(SPELLS.CRUSADE_TALENT) && (
           <Requirement
             name={
               <>
@@ -116,7 +116,7 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
           }
           thresholds={thresholds.judgment}
         />
-        {combatant.hasTalent(SPELLS.RIGHTEOUS_VERDICT_TALENT.id) && (
+        {combatant.hasTalent(SPELLS.RIGHTEOUS_VERDICT_TALENT) && (
           <Requirement
             name={
               <>

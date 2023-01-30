@@ -2,35 +2,42 @@ import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { BeaconTransferFailedEvent, HealEvent } from 'parser/core/Events';
 
-import { getBeaconSpellFactor, BEACON_TYPES } from '../../constants';
+import { getBeaconSpellFactor } from '../../constants';
+
+// 30% of eligible healing is transfered by default
+const BEACON_TRANSFER_FACTOR = 0.3;
+// Commanding Light talent (2 ranks) can increase beacon transfer up to 50%
+const COMMANDING_LIGHT_BONUS_PER_POINT = 0.1;
+
+// Beacon of Faith imposes a 30% penalty on transfer
+const BEACON_OF_FAITH_PENALTY = 0.3;
 
 class BeaconTransferFactor extends Analyzer {
-  beaconType = BEACON_TYPES.BEACON_OF_VIRTUE;
+  beaconFactor = BEACON_TRANSFER_FACTOR;
 
   constructor(options: Options) {
     super(options);
-    if (this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT.id)) {
-      this.beaconType = BEACON_TYPES.BEACON_OF_FATH;
+    const commandingLightRank = this.selectedCombatant.getTalentRank(
+      TALENTS.COMMANDING_LIGHT_TALENT,
+    );
+    this.beaconFactor += COMMANDING_LIGHT_BONUS_PER_POINT * commandingLightRank;
+
+    // Beacon of Faith penalty has to be applied after Commanding Light bonus
+    if (this.selectedCombatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT)) {
+      this.beaconFactor *= 1 - BEACON_OF_FAITH_PENALTY;
     }
   }
 
   getFactor(healEvent: HealEvent | BeaconTransferFailedEvent, beaconHealEvent = null) {
     const spellId = healEvent.ability.guid;
-    // base beacon transfer factor
-    let beaconFactor = 0.5;
 
     // Spell specific transfer factor
     const spellFactor = getBeaconSpellFactor(spellId, this.selectedCombatant);
     if (!spellFactor) {
       return 0;
     }
-    beaconFactor *= spellFactor;
-    // Passive adjustments
-    if (this.beaconType === BEACON_TYPES.BEACON_OF_FATH) {
-      beaconFactor *= 0.7;
-    }
 
-    return beaconFactor;
+    return this.beaconFactor * spellFactor;
   }
   getExpectedTransfer(healEvent: HealEvent | BeaconTransferFailedEvent) {
     // Beacons work off raw healing

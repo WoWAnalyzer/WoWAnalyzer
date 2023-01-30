@@ -26,12 +26,6 @@ class Stormbringer extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.STORMBRINGER.id);
-
-    if (!this.active) {
-      return;
-    }
-
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.STORMBRINGER_BUFF),
       this.onStormbringerApplied,

@@ -46,7 +46,7 @@ class MongooseBite extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS.MONGOOSE_BITE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.MONGOOSE_BITE_TALENT);
 
     this.mongooseBiteStacks = Array.from({ length: MONGOOSE_BITE_MAX_STACKS + 1 }, (x) => 0);
 

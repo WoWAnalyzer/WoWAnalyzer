@@ -1,21 +1,21 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import {
-  CooldownExpandable,
-  CooldownExpandableItem,
-} from 'analysis/retail/druid/restoration/Guide';
-import { PerformanceMark } from 'interface/guide';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import Enemies from 'parser/shared/modules/Enemies';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import { combineQualitativePerformances } from 'analysis/retail/demonhunter/vengeance/guide/combineQualitativePerformances';
-import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/guide/VulnerabilityExplanation';
-import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/guide/FieryDemiseExplanation';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
+import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/VulnerabilityExplanation';
+import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/FieryDemiseExplanation';
+import DemonicExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/DemonicExplanation';
+import { Trans } from '@lingui/macro';
+import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
+import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
+import { getDamageEvents } from 'analysis/retail/demonhunter/vengeance/normalizers/FelDevastationNormalizer';
+import { isDefined } from 'common/typeGuards';
 
+const PERFECT_FRAILTY_STACKS = 3;
 const GOOD_FRAILTY_STACKS = 2;
 const OK_FRAILTY_STACKS = 1;
 
@@ -24,147 +24,279 @@ interface FelDevastationDamage {
   hasFieryBrandDebuff: boolean;
 }
 
-interface FelDevastationCast {
-  timestamp: number;
+interface FelDevastationCooldownCast extends SpellCast {
   damage: FelDevastationDamage[];
 }
 
-export default class FelDevastation extends Analyzer {
+export default class FelDevastation extends MajorCooldown<FelDevastationCooldownCast> {
   static dependencies = {
+    ...MajorCooldown.dependencies,
     enemies: Enemies,
   };
-
-  cast = 0;
-  felDevastationTracker: FelDevastationCast[] = [];
 
   protected enemies!: Enemies;
 
   constructor(options: Options) {
-    super(options);
+    super({ spell: TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT }, options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT);
-    if (!this.active) {
-      return;
-    }
-
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT),
       this.onCast,
     );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT),
-      this.onDamage,
+  }
+
+  description() {
+    return (
+      <>
+        <section style={{ marginBottom: 20 }}>
+          <Trans id="guide.demonhunter.vengeance.sections.cooldowns.felDevastation.explanation">
+            <strong>
+              <SpellLink id={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT} />
+            </strong>{' '}
+            is a large burst of damage and healing.
+          </Trans>
+        </section>
+        <section>
+          <DemonicExplanation lineBreak />
+          <VulnerabilityExplanation lineBreak numberOfFrailtyStacks={PERFECT_FRAILTY_STACKS} />
+          <FieryDemiseExplanation includeDownInFlames lineBreak />
+        </section>
+      </>
     );
   }
 
-  onCast(event: CastEvent) {
-    this.cast += 1;
-    this.felDevastationTracker[this.cast] = {
-      timestamp: event.timestamp,
-      damage: [],
+  explainPerformance(cast: FelDevastationCooldownCast): SpellUse {
+    const {
+      performance: frailtyPerf,
+      summary: frailtyLabel,
+      details: frailtyDetails,
+    } = this.frailtyPerformance(cast) ?? {};
+    const {
+      performance: fieryDemisePerf,
+      summary: fieryDemiseLabel,
+      details: fieryDemiseDetails,
+    } = this.fieryDemisePerformance(cast) ?? {};
+
+    const overallPerf = combineQualitativePerformances(
+      [frailtyPerf, fieryDemisePerf].filter(isDefined),
+    );
+    const checklistItems: ChecklistUsageInfo[] = [];
+    if (frailtyPerf && frailtyLabel && frailtyDetails) {
+      checklistItems.push({
+        check: 'frailty',
+        timestamp: cast.event.timestamp,
+        performance: frailtyPerf,
+        summary: frailtyLabel,
+        details: frailtyDetails,
+      });
+    }
+    if (fieryDemisePerf && fieryDemiseLabel && fieryDemiseDetails) {
+      checklistItems.push({
+        check: 'fiery-demise',
+        timestamp: cast.event.timestamp,
+        performance: fieryDemisePerf,
+        summary: fieryDemiseLabel,
+        details: fieryDemiseDetails,
+      });
+    }
+
+    return {
+      event: cast.event,
+      checklistItems: checklistItems,
+      performance: overallPerf,
+      performanceExplanation:
+        overallPerf !== QualitativePerformance.Fail ? `${overallPerf} Usage` : 'Bad Usage',
     };
   }
 
-  onDamage(event: DamageEvent) {
-    const enemy = this.enemies.getEntity(event);
-    if (!enemy) {
-      return;
-    }
-    this.felDevastationTracker[this.cast].damage.push({
-      targetStacksOfFrailty: enemy.getBuffStacks(SPELLS.FRAILTY.id, event.timestamp),
-      hasFieryBrandDebuff: enemy.hasBuff(SPELLS.FIERY_BRAND_DOT.id, event.timestamp),
+  private onCast(event: CastEvent) {
+    this.recordCooldown({
+      event,
+      damage: getDamageEvents(event).map((event) => ({
+        targetStacksOfFrailty: this.getTargetStacksOfFrailty(event),
+        hasFieryBrandDebuff: this.doesTargetHaveFieryBrand(event),
+      })),
     });
   }
 
-  guideBreakdown() {
-    const demonicExplanation = (
-      <>
-        {' '}
-        It will grant <SpellLink id={SPELLS.METAMORPHOSIS_TANK} /> for a short duration when cast
-        due to <SpellLink id={TALENTS_DEMON_HUNTER.DEMONIC_TALENT} />.
-      </>
+  private getTargetStacksOfFrailty(event: DamageEvent | undefined) {
+    if (!event) {
+      return 0;
+    }
+    const enemy = this.enemies.getEntity(event);
+    if (!enemy) {
+      return 0;
+    }
+    return enemy.getBuffStacks(SPELLS.FRAILTY.id, event.timestamp);
+  }
+
+  private doesTargetHaveFieryBrand(event: DamageEvent | undefined) {
+    if (!event) {
+      return false;
+    }
+    const enemy = this.enemies.getEntity(event);
+    if (!enemy) {
+      return false;
+    }
+    return enemy.hasBuff(SPELLS.FRAILTY.id, event.timestamp);
+  }
+
+  private fieryDemisePerformance(cast: FelDevastationCooldownCast): UsageInfo | undefined {
+    if (!this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT)) {
+      return undefined;
+    }
+    if (!cast.damage.some((it) => it.hasFieryBrandDebuff)) {
+      return {
+        performance: QualitativePerformance.Fail,
+        summary: (
+          <div>
+            <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> not applied to target
+          </div>
+        ),
+        details: (
+          <div>
+            <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> not applied to target. Make
+            sure to apply <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> before casting{' '}
+            <SpellLink id={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} /> so that you benefit from{' '}
+            <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT} />.
+          </div>
+        ),
+      };
+    }
+    return {
+      performance: QualitativePerformance.Perfect,
+      summary: (
+        <div>
+          <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> applied to target
+        </div>
+      ),
+      details: (
+        <div>
+          <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> applied to target.
+        </div>
+      ),
+    };
+  }
+
+  private frailtyPerformance(cast: FelDevastationCooldownCast): UsageInfo | undefined {
+    if (!this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.VULNERABILITY_TALENT)) {
+      return undefined;
+    }
+    if (!this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SOULCRUSH_TALENT)) {
+      const atLeastOneTargetHasFrailty = cast.damage.some((it) => it.targetStacksOfFrailty > 0);
+      if (atLeastOneTargetHasFrailty) {
+        return {
+          performance: QualitativePerformance.Perfect,
+          summary: (
+            <div>
+              <SpellLink id={SPELLS.FRAILTY} /> applied to target(s)
+            </div>
+          ),
+          details: (
+            <div>
+              <SpellLink id={SPELLS.FRAILTY} /> applied to target(s).
+            </div>
+          ),
+        };
+      }
+      return {
+        performance: QualitativePerformance.Fail,
+        summary: (
+          <div>
+            <SpellLink id={SPELLS.FRAILTY} /> not applied to target(s)
+          </div>
+        ),
+        details: (
+          <div>
+            <SpellLink id={SPELLS.FRAILTY} /> not applied to target(s). Make sure to apply{' '}
+            <SpellLink id={SPELLS.FRAILTY} /> before casting{' '}
+            <SpellLink id={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />.
+          </div>
+        ),
+      };
+    }
+
+    const atLeastOneTargetHasPerfectFrailty = cast.damage.find(
+      (it) => it.targetStacksOfFrailty >= PERFECT_FRAILTY_STACKS,
     );
-    const explanation = (
-      <>
-        <strong>
-          <SpellLink id={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT} />
-        </strong>{' '}
-        is a large burst of damage and healing.
-        {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.DEMONIC_TALENT) &&
-          demonicExplanation}
-        {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.VULNERABILITY_TALENT) && (
-          <VulnerabilityExplanation numberOfFrailtyStacks={GOOD_FRAILTY_STACKS} />
-        )}
-        {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT) && (
-          <FieryDemiseExplanation combatant={this.selectedCombatant} includeDownInFlames />
-        )}
-      </>
+    const atLeastOneTargetHasGoodFrailty = cast.damage.find(
+      (it) => it.targetStacksOfFrailty >= GOOD_FRAILTY_STACKS,
     );
-
-    const data = (
-      <RoundedPanel>
-        <strong>Per-Cast Breakdown</strong>
-        <small> - click to expand</small>
-
-        {this.felDevastationTracker.map((cast, idx) => {
-          const header = (
-            <>
-              @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT} />
-            </>
-          );
-
-          const hasFieryDemise = this.selectedCombatant.hasTalent(
-            TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT,
-          );
-
-          let frailtyPerf = QualitativePerformance.Good;
-          if (cast.damage.some((it) => it.targetStacksOfFrailty < GOOD_FRAILTY_STACKS)) {
-            frailtyPerf = QualitativePerformance.Ok;
-          } else if (cast.damage.some((it) => it.targetStacksOfFrailty <= OK_FRAILTY_STACKS)) {
-            frailtyPerf = QualitativePerformance.Fail;
-          }
-
-          let fieryBrandPerf = QualitativePerformance.Good;
-          if (hasFieryDemise && !cast.damage.some((it) => it.hasFieryBrandDebuff)) {
-            fieryBrandPerf = QualitativePerformance.Fail;
-          }
-
-          const overallPerf = combineQualitativePerformances([frailtyPerf, fieryBrandPerf]);
-
-          const checklistItems: CooldownExpandableItem[] = [
-            {
-              label: (
-                <>
-                  At least {GOOD_FRAILTY_STACKS} stacks of <SpellLink id={SPELLS.FRAILTY} /> applied
-                  to at least one target
-                </>
-              ),
-              result: <PerformanceMark perf={frailtyPerf} />,
-            },
-          ];
-          if (hasFieryDemise) {
-            checklistItems.push({
-              label: (
-                <>
-                  <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> applied to target
-                </>
-              ),
-              result: <PerformanceMark perf={fieryBrandPerf} />,
-            });
-          }
-
-          return (
-            <CooldownExpandable
-              header={header}
-              checklistItems={checklistItems}
-              perf={overallPerf}
-              key={idx}
-            />
-          );
-        })}
-      </RoundedPanel>
+    const atLeastOneTargetHasOkFrailty = cast.damage.find(
+      (it) => it.targetStacksOfFrailty >= OK_FRAILTY_STACKS,
     );
+    const mostStacksOfFrailty = Math.max(...cast.damage.map((it) => it.targetStacksOfFrailty));
 
-    return explanationAndDataSubsection(explanation, data);
+    if (atLeastOneTargetHasPerfectFrailty) {
+      return {
+        performance: QualitativePerformance.Perfect,
+        summary: (
+          <div>
+            {atLeastOneTargetHasPerfectFrailty.targetStacksOfFrailty} stack(s) of{' '}
+            <SpellLink id={SPELLS.FRAILTY} /> applied to 1+ target(s).
+          </div>
+        ),
+        details: (
+          <div>
+            {atLeastOneTargetHasPerfectFrailty.targetStacksOfFrailty} stack(s) of{' '}
+            <SpellLink id={SPELLS.FRAILTY} /> applied to 1+ target(s).
+          </div>
+        ),
+      };
+    }
+    if (atLeastOneTargetHasGoodFrailty) {
+      return {
+        performance: QualitativePerformance.Good,
+        summary: (
+          <div>
+            {atLeastOneTargetHasGoodFrailty.targetStacksOfFrailty} stack(s) of{' '}
+            <SpellLink id={SPELLS.FRAILTY} /> applied to 1+ target(s)
+          </div>
+        ),
+        details: (
+          <div>
+            Only {atLeastOneTargetHasGoodFrailty.targetStacksOfFrailty} stack(s) of{' '}
+            <SpellLink id={SPELLS.FRAILTY} /> applied to 1+ target(s). Try applying at least{' '}
+            {PERFECT_FRAILTY_STACKS} stack(s) of <SpellLink id={SPELLS.FRAILTY} /> before casting{' '}
+            <SpellLink id={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />.
+          </div>
+        ),
+      };
+    }
+    if (atLeastOneTargetHasOkFrailty) {
+      return {
+        performance: QualitativePerformance.Ok,
+        summary: (
+          <div>
+            {atLeastOneTargetHasOkFrailty.targetStacksOfFrailty} stack(s) of{' '}
+            <SpellLink id={SPELLS.FRAILTY} /> applied to 1+ target
+          </div>
+        ),
+        details: (
+          <div>
+            Only {atLeastOneTargetHasOkFrailty.targetStacksOfFrailty} stack(s) of{' '}
+            <SpellLink id={SPELLS.FRAILTY} /> applied to 1+ target(s). Try applying at least{' '}
+            {PERFECT_FRAILTY_STACKS} stack(s) of <SpellLink id={SPELLS.FRAILTY} /> before casting{' '}
+            <SpellLink id={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT} />.
+          </div>
+        ),
+      };
+    }
+    return {
+      performance: QualitativePerformance.Fail,
+      summary: (
+        <div>
+          {mostStacksOfFrailty} stack(s) of <SpellLink id={SPELLS.FRAILTY} /> applied to target
+        </div>
+      ),
+      details: (
+        <div>
+          Only {mostStacksOfFrailty} stack(s) of <SpellLink id={SPELLS.FRAILTY} /> applied to
+          target. Try applying at least {PERFECT_FRAILTY_STACKS} stack(s) of{' '}
+          <SpellLink id={SPELLS.FRAILTY} /> before casting{' '}
+          <SpellLink id={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT} />.
+        </div>
+      ),
+    };
   }
 }

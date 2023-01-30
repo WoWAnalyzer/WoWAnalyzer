@@ -10,8 +10,8 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-import AtonementAnalyzer from '../core/AtonementAnalyzer';
 import AtonementDamageSource from '../features/AtonementDamageSource';
+import { getDamageEvent } from '../../normalizers/AtonementTracker';
 
 class Mindgames extends Analyzer {
   static dependencies = {
@@ -25,7 +25,7 @@ class Mindgames extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active =
-      this.selectedCombatant.hasTalent(TALENTS_PRIEST.MINDGAMES_TALENT.id) &&
+      this.selectedCombatant.hasTalent(TALENTS_PRIEST.MINDGAMES_TALENT) &&
       this.selectedCombatant.spec === SPECS.DISCIPLINE_PRIEST;
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
@@ -33,7 +33,27 @@ class Mindgames extends Analyzer {
       Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.MINDGAMES_ABSORB),
       this.onMindgamesAbsorbed,
     );
-    this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtonement);
+    this.addEventListener(
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.ATONEMENT_HEAL_CRIT, SPELLS.ATONEMENT_HEAL_NON_CRIT]),
+      this.onAtoneHeal,
+    );
+  }
+
+  onAtoneHeal(event: any) {
+    if (!getDamageEvent(event)) {
+      return;
+    }
+    const damageEvent = getDamageEvent(event);
+
+    if (
+      damageEvent.ability.guid !== TALENTS_PRIEST.MINDGAMES_TALENT.id &&
+      damageEvent.ability.guid !== SPELLS.MINDGAMES_HEAL_REVERSAL.id
+    ) {
+      return;
+    }
+    this.atonementHealing += event.amount + (event.absorbed || 0);
   }
 
   onAtonement(event: any) {

@@ -29,7 +29,7 @@ class SoulBarrier extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT);
     this.addEventListener(
       Events.applybuff.to(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT),
       this.onApplyBuff,

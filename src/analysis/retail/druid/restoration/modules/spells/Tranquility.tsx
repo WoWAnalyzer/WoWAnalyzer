@@ -6,11 +6,10 @@ import InformationIcon from 'interface/icons/Information';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 
-import {
-  CooldownExpandable,
+import CooldownExpandable, {
   CooldownExpandableItem,
-  GUIDE_CORE_EXPLANATION_PERCENT,
-} from 'analysis/retail/druid/restoration/Guide';
+} from 'interface/guide/components/CooldownExpandable';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/druid/restoration/Guide';
 import { getTranquilityTicks } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';

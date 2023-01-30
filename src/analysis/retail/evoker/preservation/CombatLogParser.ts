@@ -22,6 +22,22 @@ import GracePeriod from './modules/talents/GracePeriod';
 import Reversion from './modules/talents/Reversion';
 import CallOfYsera from './modules/talents/CallOfYsera';
 import EssenceBurst from './modules/talents/EssenceBurst';
+import EmeraldBlossom from './modules/talents/EmeraldBlossom';
+import Echo from './modules/talents/Echo';
+import ResonatingSphere from './modules/talents/ResonatingSphere';
+import CycleOfLife from './modules/talents/CycleOfLife';
+import TimeLord from './modules/talents/TimeLord';
+import RenewingBreath from './modules/talents/RenewingBreath';
+import FieldOfDreams from './modules/talents/FieldOfDreams';
+import DreamFlight from './modules/talents/DreamFlight';
+import ExhilBurst from './modules/talents/ExhilBurst';
+import Stasis from './modules/talents/Stasis';
+import Lifebind from './modules/talents/Lifebind';
+import EnergyLoop from './modules/talents/EnergyLoop';
+import AlwaysBeCasting from './modules/core/AlwaysBeCasting';
+import FontOfMagic from './modules/talents/FontOfMagic';
+import EmeraldCommunion from './modules/talents/EmeraldCommunion';
+import SparkOfInsight from './modules/talents/SparkOfInsight';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -44,12 +60,16 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //features
     checklist: Checklist,
+
     //core
+    alwaysBeCasting: AlwaysBeCasting,
     hotTrackerPrevoker: HotTrackerPrevoker,
     hotAttributor: HotAttributor,
 
     //talents
+    echo: Echo,
     dreamBreath: DreamBreath,
+    dreamFlight: DreamFlight,
     livingFlame: LivingFlame,
     masteryEffectiveness: MasteryEffectiveness,
     spiritBloom: Spiritbloom,
@@ -57,6 +77,19 @@ class CombatLogParser extends CoreCombatLogParser {
     reversion: Reversion,
     callOfYsera: CallOfYsera,
     essenceBurst: EssenceBurst,
+    emeraldBlossom: EmeraldBlossom,
+    resonatingSphere: ResonatingSphere,
+    cycleOfLife: CycleOfLife,
+    timeLord: TimeLord,
+    renewingBreath: RenewingBreath,
+    fieldOfDreams: FieldOfDreams,
+    exhilBurst: ExhilBurst,
+    stasis: Stasis,
+    lifebind: Lifebind,
+    energyLoop: EnergyLoop,
+    fontOfMagic: FontOfMagic,
+    emeraldCommunion: EmeraldCommunion,
+    sparkOfInsight: SparkOfInsight,
   };
 }
 

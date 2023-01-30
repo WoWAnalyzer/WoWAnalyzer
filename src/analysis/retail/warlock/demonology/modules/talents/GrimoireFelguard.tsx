@@ -21,7 +21,7 @@ class GrimoireFelguard extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.GRIMOIRE_FELGUARD_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.GRIMOIRE_FELGUARD_TALENT);
   }
 
   statistic() {

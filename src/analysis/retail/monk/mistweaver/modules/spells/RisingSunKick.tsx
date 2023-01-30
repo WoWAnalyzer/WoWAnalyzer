@@ -49,7 +49,7 @@ class RisingSunKick extends Analyzer {
   subStatistic() {
     return (
       <>
-        {this.rskResets} <small>Resets</small>
+        {this.rskResets} <small>resets</small>
       </>
     );
   }

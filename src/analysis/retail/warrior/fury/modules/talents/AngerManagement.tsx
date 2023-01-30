@@ -25,7 +25,7 @@ class AngerManagement extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.ANGER_MANAGEMENT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.ANGER_MANAGEMENT_TALENT);
 
     if (!this.active) {
       return;

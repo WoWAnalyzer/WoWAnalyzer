@@ -65,37 +65,35 @@ class TalentStatisticBox extends Analyzer {
         bodyStyle={{}} // idk
       >
         <div style={{ borderBottom: 0, marginBottom: 0, paddingBottom: 0 }} />
-        {this.selectedCombatant.hasTalent(TALENTS.TORRENT_TALENT.id)
+        {this.selectedCombatant.hasTalent(TALENTS.TORRENT_TALENT)
           ? this.torrent.subStatistic()
           : ''}
-        {this.selectedCombatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT.id)
+        {this.selectedCombatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT)
           ? this.unleashLife.subStatistic()
           : ''}
-        {this.selectedCombatant.hasTalent(TALENTS.UNDULATION_TALENT.id)
+        {this.selectedCombatant.hasTalent(TALENTS.UNDULATION_TALENT)
           ? this.undulation.subStatistic()
           : ''}
-        {this.selectedCombatant.hasTalent(TALENTS.DELUGE_TALENT.id)
-          ? this.deluge.subStatistic()
-          : ''}
-        {this.selectedCombatant.hasTalent(TALENTS.EARTHEN_WALL_TOTEM_TALENT.id)
+        {this.selectedCombatant.hasTalent(TALENTS.DELUGE_TALENT) ? this.deluge.subStatistic() : ''}
+        {this.selectedCombatant.hasTalent(TALENTS.EARTHEN_WALL_TOTEM_TALENT)
           ? this.earthenWallTotem.subStatistic()
           : ''}
-        {this.selectedCombatant.hasTalent(TALENTS.NATURES_GUARDIAN_TALENT.id)
+        {this.selectedCombatant.hasTalent(TALENTS.NATURES_GUARDIAN_TALENT)
           ? this.naturesGuardian.subStatistic()
           : ''}
-        {this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT.id)
+        {this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT)
           ? this.downpour.subStatistic()
           : ''}
-        {this.selectedCombatant.hasTalent(TALENTS.CLOUDBURST_TOTEM_TALENT.id)
+        {this.selectedCombatant.hasTalent(TALENTS.CLOUDBURST_TOTEM_TALENT)
           ? this.cloudburstTotem.subStatistic()
           : ''}
-        {this.selectedCombatant.hasTalent(TALENTS.HIGH_TIDE_TALENT.id)
+        {this.selectedCombatant.hasTalent(TALENTS.HIGH_TIDE_TALENT)
           ? this.highTide.subStatistic()
           : ''}
-        {this.selectedCombatant.hasTalent(TALENTS.WELLSPRING_TALENT.id)
+        {this.selectedCombatant.hasTalent(TALENTS.WELLSPRING_TALENT)
           ? this.wellspring.subStatistic()
           : ''}
-        {this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_RESTORATION_TALENT.id)
+        {this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_RESTORATION_TALENT)
           ? this.ascendance.subStatistic()
           : ''}
       </StatisticsListBox>

@@ -13,6 +13,25 @@ import Casts, { isApplicableEvent } from './Casts';
 import Cooldowns from './Cooldowns';
 import TimeIndicators from './TimeIndicators';
 
+export function isApplicableUpdateSpellUsableEvent(event, startTime) {
+  if (
+    event.updateType !== UpdateSpellUsableType.EndCooldown &&
+    event.updateType !== UpdateSpellUsableType.RestoreCharge
+  ) {
+    // begincooldown is unnecessary since endcooldown includes the start time
+    return false;
+  }
+  if (event.updateType === UpdateSpellUsableType.RestoreCharge && event.timestamp < startTime) {
+    //ignore restore charge events if they happen before the phase
+    return false;
+  }
+  const spellId = event.ability.guid;
+  if (CASTS_THAT_ARENT_CASTS.includes(spellId)) {
+    return false;
+  }
+  return true;
+}
+
 class Timeline extends PureComponent {
   static propTypes = {
     abilities: PropTypes.instanceOf(Abilities).isRequired,
@@ -74,7 +93,7 @@ class Timeline extends PureComponent {
       case EventType.Cast:
         return this.isApplicableCastEvent(event);
       case EventType.UpdateSpellUsable:
-        return this.isApplicableUpdateSpellUsableEvent(event);
+        return isApplicableUpdateSpellUsableEvent(event, this.start);
       case EventType.ApplyBuff:
       case EventType.RemoveBuff:
         return this.isApplicableBuffEvent(event);
@@ -98,24 +117,6 @@ class Timeline extends PureComponent {
       return false;
     }
     if (event.timestamp >= this.end) {
-      return false;
-    }
-    return true;
-  }
-  isApplicableUpdateSpellUsableEvent(event) {
-    if (
-      event.updateType !== UpdateSpellUsableType.EndCooldown &&
-      event.updateType !== UpdateSpellUsableType.RestoreCharge
-    ) {
-      // begincooldown is unnecessary since endcooldown includes the start time
-      return false;
-    }
-    if (event.updateType === UpdateSpellUsableType.RestoreCharge && event.timestamp < this.start) {
-      //ignore restore charge events if they happen before the phase
-      return false;
-    }
-    const spellId = event.ability.guid;
-    if (CASTS_THAT_ARENT_CASTS.includes(spellId)) {
       return false;
     }
     return true;

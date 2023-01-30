@@ -1,8 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -23,10 +21,10 @@ class ShiftingPowerUsage extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active =
-      this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id) &&
-      this.selectedCombatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT.id);
+      this.selectedCombatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) &&
+      this.selectedCombatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIFTING_POWER),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHIFTING_POWER_TALENT),
       this.onCast,
     );
   }
@@ -41,7 +39,9 @@ class ShiftingPowerUsage extends Analyzer {
   }
 
   get percentUsage() {
-    return 1 - this.badUses / this.abilityTracker.getAbility(SPELLS.SHIFTING_POWER.id).casts;
+    return (
+      1 - this.badUses / this.abilityTracker.getAbility(TALENTS.SHIFTING_POWER_TALENT.id).casts
+    );
   }
 
   get shiftingPowerUsageThresholds() {
@@ -59,16 +59,17 @@ class ShiftingPowerUsage extends Analyzer {
     when(this.shiftingPowerUsageThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You used <SpellLink id={SPELLS.SHIFTING_POWER.id} /> while some critical abilities (
+          You used <SpellLink id={TALENTS.SHIFTING_POWER_TALENT.id} /> while some critical abilities
+          (
           <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> and{' '}
           <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} />) were not on cooldown. Since{' '}
-          <SpellLink id={SPELLS.SHIFTING_POWER.id} /> will reduce the cooldown on these spells by a
-          decent amount, you want to ensure that you do not cast it unless both{' '}
+          <SpellLink id={TALENTS.SHIFTING_POWER_TALENT.id} /> will reduce the cooldown on these
+          spells by a decent amount, you want to ensure that you do not cast it unless both{' '}
           <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> and{' '}
           <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> are on cooldown.
         </>,
       )
-        .icon(SPELLS.SHIFTING_POWER.icon)
+        .icon(TALENTS.SHIFTING_POWER_TALENT.icon)
         .actual(
           <Trans id="mage.fire.suggestions.shiftingPowerUsage.usagePercent">
             {formatPercentage(actual)}% utilization

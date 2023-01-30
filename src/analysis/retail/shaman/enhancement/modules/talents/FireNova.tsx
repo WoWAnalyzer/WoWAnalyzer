@@ -24,7 +24,7 @@ class FireNova extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.FIRE_NOVA_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.FIRE_NOVA_TALENT);
 
     if (!this.active) {
       return;

@@ -14,9 +14,7 @@ class CollectiveAnguish extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.COLLECTIVE_ANGUISH_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.COLLECTIVE_ANGUISH_TALENT);
     if (!this.active) {
       return;
     }

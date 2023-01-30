@@ -16,9 +16,7 @@ export default class CharredWarblades extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.CHARRED_WARBLADES_TALENT.id,
-    );
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.CHARRED_WARBLADES_TALENT);
     if (!this.active) {
       return;
     }

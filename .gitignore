@@ -54,6 +54,5 @@ temp
 
 # Coverage Reports 
 coverage/*
-!coverage/lcov.info
 
 .log

@@ -131,7 +131,7 @@ const BeastMasteryChecklist = (props: ChecklistProps & AplRuleProps) => {
           }
           thresholds={thresholds.beastCleaveThresholds}
         />
-        {combatant.hasTalent(TALENTS.KILLER_COBRA_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.KILLER_COBRA_TALENT) && (
           <Requirement
             name={
               <>

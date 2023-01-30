@@ -1,15 +1,15 @@
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { ResourceIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, ResourceChangeEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import Events, { DamageEvent, RemoveDebuffEvent, ResourceChangeEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class SerratedBoneSpike extends Analyzer {
   static dependencies = {
@@ -25,11 +25,11 @@ class SerratedBoneSpike extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasCovenant(COVENANTS.NECROLORD.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SERRATED_BONE_SPIKE_TALENT);
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.SERRATED_BONE_SPIKE, SPELLS.SERRATED_BONE_SPIKE_DEBUFF]),
+        .spell([TALENTS.SERRATED_BONE_SPIKE_TALENT, SPELLS.SERRATED_BONE_SPIKE_DEBUFF]),
       this.onDamage,
     );
     this.addEventListener(
@@ -54,13 +54,13 @@ class SerratedBoneSpike extends Analyzer {
   }
 
   onSBSRemoveDebuff(event: RemoveDebuffEvent) {
-    if (this.spellUsable.isOnCooldown(SPELLS.SERRATED_BONE_SPIKE.id)) {
+    if (this.spellUsable.isOnCooldown(TALENTS.SERRATED_BONE_SPIKE_TALENT.id)) {
       const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(
-        SPELLS.SERRATED_BONE_SPIKE.id,
+        TALENTS.SERRATED_BONE_SPIKE_TALENT.id,
       );
       if (expectedCooldownDuration) {
         this.spellUsable.reduceCooldown(
-          SPELLS.SERRATED_BONE_SPIKE.id,
+          TALENTS.SERRATED_BONE_SPIKE_TALENT.id,
           expectedCooldownDuration,
           event.timestamp,
         );
@@ -70,16 +70,14 @@ class SerratedBoneSpike extends Analyzer {
 
   statistic() {
     return (
-      <Statistic size="flexible" category={STATISTIC_CATEGORY.COVENANTS}>
-        <BoringSpellValueText spellId={SPELLS.SERRATED_BONE_SPIKE_DEBUFF.id}>
-          <>
-            <ItemDamageDone amount={this.damage} />
-            <br />
-            <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink />
-            {this.comboPointsGained}/{this.comboPointsWasted + this.comboPointsGained}
-            <small> gained Combo Points</small>
-          </>
-        </BoringSpellValueText>
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
+        <TalentSpellText talent={TALENTS.SERRATED_BONE_SPIKE_TALENT}>
+          <ItemDamageDone amount={this.damage} />
+          <br />
+          <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink />
+          {this.comboPointsGained}/{this.comboPointsWasted + this.comboPointsGained}
+          <small> gained Combo Points</small>
+        </TalentSpellText>
       </Statistic>
     );
   }

@@ -18,6 +18,11 @@ const spells = spellIndexableList({
     name: 'Riposte',
     icon: 'ability_parry',
   },
+  FEINT: {
+    id: 1966,
+    name: 'Feint',
+    icon: 'ability_rogue_feint',
+  },
 
   // General spells
   KICK: {
@@ -105,7 +110,6 @@ const spells = spellIndexableList({
     name: 'Shiv',
     icon: 'inv_throwingknife_04',
   },
-
   SEPSIS_FINAL_DMG: {
     id: 394026,
     name: 'Sepsis',
@@ -115,6 +119,21 @@ const spells = spellIndexableList({
     id: 375939,
     name: 'Sepsis',
     icon: 'ability_ardenweald_rogue',
+  },
+  ANIMACHARGED_CP2: {
+    id: 323558,
+    name: 'Echoing Reprimand',
+    icon: 'ability_bastion_rogue',
+  },
+  ANIMACHARGED_CP3: {
+    id: 323559,
+    name: 'Echoing Reprimand',
+    icon: 'ability_bastion_rogue',
+  },
+  ANIMACHARGED_CP4: {
+    id: 323560,
+    name: 'Echoing Reprimand',
+    icon: 'ability_bastion_rogue',
   },
   // Subtlety spells
   // Combo point generating damage ability
@@ -226,6 +245,11 @@ const spells = spellIndexableList({
     name: 'The First of the Dead',
     icon: 'inv_glove_cloth_raidwarlockmythic_q_01',
   },
+  DEEPER_DAGGERS_BUFF: {
+    id: 383405,
+    name: 'Deeper Daggers',
+    icon: 'ability_rogue_focusedattacks',
+  },
 
   // Sets
 
@@ -321,6 +345,16 @@ const spells = spellIndexableList({
     name: 'Poisoned Knife',
     icon: 'ability_rogue_poisonedknife',
   },
+  SERRATED_BONE_SPIKE_DEBUFF: {
+    id: 394036,
+    name: 'Serrated Bone Spike',
+    icon: 'ability_maldraxxus_rogue',
+  },
+  SERRATED_BONE_SPIKE_ENERGIZE: {
+    id: 394038,
+    name: 'Serrated Bone Spike',
+    icon: 'ability_maldraxxus_rogue',
+  },
 
   //Finishers
   ENVENOM: {
@@ -406,6 +440,11 @@ const spells = spellIndexableList({
     id: 245389,
     name: 'Toxic Blade',
     icon: 'inv_weapon_shortblade_62',
+  },
+  IMPROVED_GARROTE_BUFF: {
+    id: 392403,
+    name: 'Improved Garrote',
+    icon: 'ability_rogue_garrote',
   },
 
   // Sets

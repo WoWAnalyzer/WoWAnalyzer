@@ -1,6 +1,6 @@
 import { Boss } from 'game/raids';
 
-import Background from './images/BroodkeeperDiurna.png';
+import Background from './images/broodkeeper.jpg';
 
 const BroodkeeperDiurna: Boss = {
   id: 2614,

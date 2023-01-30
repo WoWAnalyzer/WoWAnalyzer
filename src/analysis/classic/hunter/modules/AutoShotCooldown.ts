@@ -2,11 +2,8 @@ import COMMON_SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AutoAttackCooldownEvent, CastEvent, EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
+import SPELLS from 'common/SPELLS/classic/hunter';
 
-import { Build } from '../CONFIG';
-import * as SPELLS from '../SPELLS';
-
-const DRUM_OF_BATTLE_BUFF = 35476;
 const HASTE_POTION_BUFF = 28507;
 const DRAGONSPINE_FLURRY_BUFF = 34775;
 const THUNDERING_SKYFIRE_DIAMOND_BUFF = 39959; // meta gem
@@ -15,10 +12,7 @@ const HASTE_RATING_PER_PERCENT = 15.7;
 const baseHaste = 0.15; // quiver
 const serpentSwiftnessHaste = 0.2;
 const hasteBuffs = {
-  [SPELLS.QUICK_SHOTS]: 0.15,
-  [SPELLS.RAPID_FIRE]: 0.4,
-  [SPELLS.ABACUS_HASTE_BUFF]: 260 / HASTE_RATING_PER_PERCENT / 100,
-  [DRUM_OF_BATTLE_BUFF]: 80 / HASTE_RATING_PER_PERCENT / 100,
+  [SPELLS.RAPID_FIRE.id]: 0.4,
   [DRAGONSPINE_FLURRY_BUFF]: 325 / HASTE_RATING_PER_PERCENT / 100,
   [HASTE_POTION_BUFF]: 400 / HASTE_RATING_PER_PERCENT / 100,
   [COMMON_SPELLS.BLOODLUST.id]: 0.3,
@@ -179,11 +173,11 @@ class AutoShotCooldown extends Analyzer {
     const rangedWeapon = this.rangedWeapon;
     this.active = rangedWeapon && weaponSpeeds[rangedWeapon.id] !== undefined;
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell({ id: SPELLS.AUTO_SHOT }),
+      Events.cast.by(SELECTED_PLAYER).spell({ id: SPELLS.AUTO_SHOT.id }),
       this.onAutoShot,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell({ id: SPELLS.STEADY_SHOT }),
+      Events.cast.by(SELECTED_PLAYER).spell({ id: SPELLS.STEADY_SHOT.id }),
       this.onSteadyShot,
     );
   }
@@ -193,9 +187,7 @@ class AutoShotCooldown extends Analyzer {
   }
   get currentHaste() {
     let haste = 1 * (1 + baseHaste);
-    if (this.owner.build === Build.DEFAULT) {
-      haste *= 1 + serpentSwiftnessHaste;
-    }
+    haste *= 1 + serpentSwiftnessHaste;
     Object.keys(hasteBuffs)
       .map(Number)
       .forEach((spellId) => {

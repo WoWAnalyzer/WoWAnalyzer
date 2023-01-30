@@ -32,7 +32,7 @@ class WaterElemental extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = !this.selectedCombatant.hasTalent(TALENTS.LONELY_WINTER_TALENT.id);
+    this.active = !this.selectedCombatant.hasTalent(TALENTS.LONELY_WINTER_TALENT);
 
     this.addEventListener(
       Events.begincast.by(SELECTED_PLAYER_PET).spell(SPELLS.WATERBOLT),

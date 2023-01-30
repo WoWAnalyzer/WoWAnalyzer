@@ -13,7 +13,7 @@ class BilescourgeBombers extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.BILESCOURGE_BOMBERS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BILESCOURGE_BOMBERS_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BILESCOURGE_BOMBERS_DAMAGE),
       this.handleBilescourgeDamage,

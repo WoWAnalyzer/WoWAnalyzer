@@ -26,7 +26,7 @@ class Contrition extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CONTRITION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.CONTRITION_TALENT);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell([SPELLS.CONTRITION_HEAL, SPELLS.PENANCE_HEAL]),
       this.onHeal,

@@ -124,20 +124,20 @@ const OutlawRogueChecklist = ({
         description="Your cooldowns are a major contributor to your DPS, and should be used as frequently as possible throughout a fight. A cooldown should be held on to only if a priority DPS phase is coming soon. Holding cooldowns too long will hurt your DPS."
       >
         <AbilityRequirement spell={TALENTS.ADRENALINE_RUSH_TALENT.id} />
-        {combatant.hasTalent(TALENTS.GHOSTLY_STRIKE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.GHOSTLY_STRIKE_TALENT) && (
           <AbilityRequirement spell={TALENTS.GHOSTLY_STRIKE_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.MARKED_FOR_DEATH_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.MARKED_FOR_DEATH_TALENT) && (
           <AbilityRequirement spell={TALENTS.MARKED_FOR_DEATH_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.BLADE_RUSH_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.BLADE_RUSH_TALENT) && (
           <AbilityRequirement spell={TALENTS.BLADE_RUSH_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.KILLING_SPREE_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.KILLING_SPREE_TALENT) && (
           <AbilityRequirement spell={TALENTS.KILLING_SPREE_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.VANISH.id} />
-        {combatant.hasTalent(TALENTS.SEPSIS_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.SEPSIS_TALENT) && (
           <AbilityRequirement spell={TALENTS.SEPSIS_TALENT.id} />
         )}
       </Rule>

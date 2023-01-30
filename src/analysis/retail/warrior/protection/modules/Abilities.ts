@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -11,7 +10,7 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.DEVASTATE.id,
-        enabled: !combatant.hasTalent(TALENTS.DEVASTATOR_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS.DEVASTATOR_TALENT),
         gcd: {
           base: 1500,
         },
@@ -36,7 +35,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.EXECUTE.id,
-        enabled: !combatant.hasCovenant(COVENANTS.VENTHYR.id),
+        enabled: !false,
         gcd: {
           base: 1500,
         },
@@ -70,8 +69,8 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL, // 6 / (1 + haste)
         cooldown: (haste) => {
           if (
-            combatant.hasTalent(TALENTS.UNSTOPPABLE_FORCE_TALENT.id) &&
-            combatant.hasBuff(TALENTS.AVATAR_TALENT.id)
+            combatant.hasTalent(TALENTS.UNSTOPPABLE_FORCE_TALENT) &&
+            combatant.hasBuff(TALENTS.AVATAR_PROTECTION_TALENT.id)
           ) {
             return 6 / 2 / (1 + haste);
           }
@@ -112,7 +111,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.LAST_STAND.id,
         buffSpellId: SPELLS.LAST_STAND.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(TALENTS.BOLSTER_TALENT.id) ? 180 - 60 : 180,
+        cooldown: combatant.hasTalent(TALENTS.BOLSTER_TALENT) ? 180 - 60 : 180,
         timelineSortIndex: 9,
       },
       {
@@ -133,7 +132,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(TALENTS.BOUNDING_STRIDE_TALENT.id) ? 45 - 15 : 45,
+        cooldown: combatant.hasTalent(TALENTS.BOUNDING_STRIDE_TALENT) ? 45 - 15 : 45,
       },
       {
         spell: SPELLS.HEROIC_THROW.id,
@@ -160,12 +159,12 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.VICTORY_RUSH.id,
-        enabled: !combatant.hasTalent(TALENTS.IMPENDING_VICTORY_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS.IMPENDING_VICTORY_TALENT),
         category: SPELL_CATEGORY.OTHERS,
       },
       {
         spell: TALENTS.STORM_BOLT_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.STORM_BOLT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.STORM_BOLT_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
@@ -173,8 +172,8 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
       },
       {
-        spell: TALENTS.AVATAR_TALENT.id,
-        buffSpellId: TALENTS.AVATAR_TALENT.id,
+        spell: TALENTS.AVATAR_PROTECTION_TALENT.id,
+        buffSpellId: TALENTS.AVATAR_PROTECTION_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
@@ -184,7 +183,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.IMPENDING_VICTORY_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.IMPENDING_VICTORY_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.IMPENDING_VICTORY_TALENT),
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
           base: 1500,
@@ -193,12 +192,13 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.RAVAGER_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.RAVAGER_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.RAVAGER_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
         },
-        cooldown: 45,
+        cooldown: 90,
+        charges: 1 + (combatant.hasTalent(TALENTS.STORM_OF_STEEL_TALENT) ? 1 : 0),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -207,12 +207,12 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.THUNDEROUS_ROAR_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.THUNDEROUS_ROAR_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.THUNDEROUS_ROAR_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: {
           base: 1500,
         },
-        cooldown: 35,
+        cooldown: 90 - (combatant.hasTalent(TALENTS.UPROAR_TALENT) ? 30 : 0),
         timelineSortIndex: 9,
       },
       {
@@ -230,8 +230,8 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 20 - (combatant.hasTalent(TALENTS.DOUBLE_TIME_TALENT.id) ? 3 : 0),
-        charges: 1 + (combatant.hasTalent(TALENTS.DOUBLE_TIME_TALENT.id) ? 1 : 0),
+        cooldown: 20 - (combatant.hasTalent(TALENTS.DOUBLE_TIME_TALENT) ? 3 : 0),
+        charges: 1 + (combatant.hasTalent(TALENTS.DOUBLE_TIME_TALENT) ? 1 : 0),
         timelineSortIndex: 9,
       },
       {
@@ -241,6 +241,46 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 30,
+        timelineSortIndex: 9,
+      },
+      {
+        spell: TALENTS.SHIELD_CHARGE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.SHIELD_CHARGE_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 45,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+        timelineSortIndex: 9,
+      },
+      {
+        spell: TALENTS.SHOCKWAVE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.SHOCKWAVE_TALENT),
+        category: combatant.hasTalent(TALENTS.SONIC_BOOM_TALENT)
+          ? SPELL_CATEGORY.COOLDOWNS
+          : SPELL_CATEGORY.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 40 - (combatant.hasTalent(TALENTS.RUMBLING_EARTH_TALENT) ? 15 : 0),
+        timelineSortIndex: 9,
+      },
+      {
+        spell: TALENTS.SPEAR_OF_BASTION_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.SPEAR_OF_BASTION_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 90,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
         timelineSortIndex: 9,
       },
     ];

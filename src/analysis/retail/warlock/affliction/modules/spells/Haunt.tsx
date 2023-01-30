@@ -46,7 +46,7 @@ class Haunt extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.HAUNT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HAUNT_TALENT);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 

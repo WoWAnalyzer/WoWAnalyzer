@@ -3,7 +3,6 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
 import Spell from 'common/SPELLS/Spell';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
@@ -35,9 +34,7 @@ class DeathsCaress extends Analyzer {
   dcCasts = 0;
   cast: DeathsCaressCast[] = [];
 
-  DD_ABILITY: Spell = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id)
-    ? SPELLS.DEATHS_DUE
-    : SPELLS.DEATH_AND_DECAY;
+  DD_ABILITY: Spell = SPELLS.DEATH_AND_DECAY;
 
   spellsThatShouldBeUsedFirst = [this.DD_ABILITY.id];
 
@@ -51,7 +48,7 @@ class DeathsCaress extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS.DEATHS_CARESS_TALENT),
       this.onDamage,
     );
-    if (this.selectedCombatant.hasTalent(TALENTS.BLOODDRINKER_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.BLOODDRINKER_TALENT)) {
       this.spellsThatShouldBeUsedFirst.push(TALENTS.BLOODDRINKER_TALENT.id);
     }
   }

@@ -138,12 +138,6 @@ const spells = spellIndexableList({
     name: 'Light of Dawn',
     icon: 'spell_paladin_lightofdawn',
   },
-  LIGHT_OF_THE_MARTYR: {
-    id: 183998,
-    name: 'Light of the Martyr',
-    icon: 'ability_paladin_lightofthemartyr',
-    manaCost: 700,
-  },
   LIGHT_OF_THE_MARTYR_DAMAGE_TAKEN: {
     id: 196917,
     name: 'Light of the Martyr',
@@ -245,6 +239,21 @@ const spells = spellIndexableList({
     name: 'Glimmer of Light',
     icon: 'ability_paladin_toweroflight',
   },
+  GOLDEN_PATH_HEAL_TALENT: {
+    id: 377129,
+    name: 'Golden Path',
+    icon: 'ability_priest_cascade',
+  },
+  UNTEMPERED_DEDICATION_BUFF: {
+    id: 387815,
+    name: 'Untempered Dedication',
+    icon: 'achievement_admiral_of_the_light',
+  },
+  MARAADS_DYING_BREATH_BUFF: {
+    id: 388019,
+    name: "Maraad's Dying Breath",
+    icon: 'paladin_icon_speedoflight',
+  },
 
   // Retribution Paladin:
   JUDGMENT_DEBUFF: {
@@ -321,6 +330,18 @@ const spells = spellIndexableList({
     id: 326733,
     name: 'Empyrean Power',
     icon: 'ability_paladin_sheathoflight',
+  },
+  FINAL_VERDICT_RESET: {
+    // TODO: Make this actually correct, I could not find any logs with the ability
+    id: 337228,
+    name: 'Final Verdict',
+    icon: 'spell_paladin_hammerofwrath',
+  },
+  FINAL_VERDICT_FINISHER: {
+    // TODO: Make this actually correct, I could not find any logs with the ability
+    id: 336872,
+    name: 'Final Verdict',
+    icon: 'spell_paladin_templarsverdict',
   },
 
   // Protection

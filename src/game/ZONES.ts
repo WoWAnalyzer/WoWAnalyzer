@@ -1,6 +1,6 @@
 // a butchered version of https://www.warcraftlogs.com:443/v1/zones
-// only includes the raids from Shadowlands (showing older logs wouldn't make sense)
-import sepulcher from 'game/raids/sepulcher';
+// only includes the raids from Dragonflight (showing older logs wouldn't make sense)
+import vaultOfTheIncarnates from 'game/raids/vaultoftheincarnates';
 
 // TODO: Refactor this (it's kind of strange and feels misplaced)
 
@@ -33,165 +33,34 @@ interface Zone {
 
 const ZONES: Zone[] = [
   {
-    id: 26,
-    name: 'Castle Nathria',
-    frozen: true,
-    encounters: [
-      {
-        id: 2398,
-        name: 'Shriekwing',
-      },
-      {
-        id: 2418,
-        name: 'Huntsman Altimor',
-      },
-      {
-        id: 2383,
-        name: 'Hungering Destroyer',
-      },
-      {
-        id: 2402,
-        name: "Sun King's Salvation",
-      },
-      {
-        id: 2405,
-        name: "Artificer Xy'mox",
-      },
-      {
-        id: 2406,
-        name: 'Lady Inerva Darkvein',
-      },
-      {
-        id: 2412,
-        name: 'The Council of Blood',
-      },
-      {
-        id: 2399,
-        name: 'Sludgefist',
-      },
-      {
-        id: 2417,
-        name: 'Stone Legion Generals',
-      },
-      {
-        id: 2407,
-        name: 'Sire Denathrius',
-      },
-    ],
-    brackets: {
-      min: 173,
-      max: 230,
-      bucket: 3,
-      type: 'Item Level',
-    },
-    partitions: [
-      {
-        name: '9.0',
-        compact: '9.0',
-      },
-      {
-        name: '9.0.5',
-        compact: '9.0.5',
-        default: true,
-      },
-      {
-        name: '9.1',
-        compact: '9.1',
-      },
-    ],
-  },
-  {
-    id: 28,
-    name: 'Sanctum of Domination',
+    id: 31,
+    name: 'Vault of the Incarnates',
     frozen: false,
     encounters: [
-      {
-        id: 2423,
-        name: 'The Tarragrue',
-      },
-      {
-        id: 2433,
-        name: 'The Eye of the Jailer',
-      },
-      {
-        id: 2429,
-        name: 'The Nine',
-      },
-      {
-        id: 2432,
-        name: "Remnant of Ner'zhul",
-      },
-      {
-        id: 2434,
-        name: 'Soulrender Dormazain',
-      },
-      {
-        id: 2430,
-        name: 'Painsmith Raznal',
-      },
-      {
-        id: 2436,
-        name: 'Guardian of the First Ones',
-      },
-      {
-        id: 2431,
-        name: 'Fatescribe Roh-Kalo',
-      },
-      {
-        id: 2422,
-        name: "Kel'Thuzad",
-      },
-      {
-        id: 2435,
-        name: 'Sylvanas Windrunner',
-      },
+      vaultOfTheIncarnates.bosses.Eranog,
+      vaultOfTheIncarnates.bosses.Terros,
+      vaultOfTheIncarnates.bosses.PrimalCouncil,
+      vaultOfTheIncarnates.bosses.Sennarth,
+      vaultOfTheIncarnates.bosses.Dathea,
+      vaultOfTheIncarnates.bosses.KurogGrimtotem,
+      vaultOfTheIncarnates.bosses.BroodkeeperDiurna,
+      vaultOfTheIncarnates.bosses.Raszageth,
     ],
     brackets: {
-      min: 203,
-      max: 260,
+      min: 376,
+      max: 424,
       bucket: 3,
       type: 'Item Level',
     },
     partitions: [
       {
-        name: '9.1',
-        compact: '9.1',
-      },
-      {
-        name: '9.1.5',
-        compact: '9.1.5',
+        name: '10.0',
+        compact: '10.0',
         default: true,
       },
-    ],
-  },
-  {
-    id: 29,
-    name: 'Sepulcher of the First Ones',
-    frozen: false,
-    encounters: [
-      sepulcher.bosses.VigilantGuardian,
-      sepulcher.bosses.Dausegne,
-      sepulcher.bosses.Xymox,
-      sepulcher.bosses.PrototypePantheon,
-      sepulcher.bosses.Skolex,
-      sepulcher.bosses.Halondrus,
-      sepulcher.bosses.Lihuvim,
-      sepulcher.bosses.Anduin,
-      sepulcher.bosses.LordsOfDread,
-      sepulcher.bosses.Rygelon,
-      sepulcher.bosses.Jailer,
-    ],
-    brackets: {
-      min: 236,
-      max: 280,
-      bucket: 3,
-      type: 'Item Level',
-    },
-    partitions: [
       {
-        name: '9.2',
-        compact: '9.2',
-        default: true,
+        name: '10.0.5',
+        compact: '10.0.5',
       },
     ],
   },

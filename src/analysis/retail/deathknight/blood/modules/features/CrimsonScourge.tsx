@@ -3,7 +3,6 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/deathknight';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
@@ -29,9 +28,7 @@ class CrimsonScourge extends Analyzer {
   freeDeathAndDecayCounter = 0;
   endOfCombatCast = false;
 
-  DD_ABILITY: Spell = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id)
-    ? SPELLS.DEATHS_DUE
-    : SPELLS.DEATH_AND_DECAY;
+  DD_ABILITY: Spell = SPELLS.DEATH_AND_DECAY;
 
   constructor(options: Options) {
     super(options);
@@ -98,7 +95,7 @@ class CrimsonScourge extends Analyzer {
   }
 
   suggestions(when: When) {
-    if (this.selectedCombatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT)) {
       return;
     }
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>

@@ -72,7 +72,7 @@ class Darkglare extends Analyzer {
     super(options);
     this._dotDurations = getDotDurations(this.selectedCombatant);
     // if player has Absolute Corruption, disregard the Corruption duration (it's permanent debuff then)
-    this._hasAC = this.selectedCombatant.hasTalent(TALENTS.ABSOLUTE_CORRUPTION_TALENT.id);
+    this._hasAC = this.selectedCombatant.hasTalent(TALENTS.ABSOLUTE_CORRUPTION_TALENT);
     if (this._hasAC) {
       delete this._dotDurations[SPELLS.CORRUPTION_DEBUFF.id];
     }

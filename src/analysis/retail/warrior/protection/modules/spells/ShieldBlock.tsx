@@ -17,8 +17,8 @@ class ShieldBlock extends Analyzer {
   shieldBlocksOverall: OverallData[] = [];
   goodCast = 0;
   badCast = 0;
-  bolster = this.selectedCombatant.hasTalent(TALENTS.BOLSTER_TALENT.id);
-  ssNeeded = !this.selectedCombatant.hasTalent(TALENTS.DEVASTATOR_TALENT.id) ? 0 : 1;
+  bolster = this.selectedCombatant.hasTalent(TALENTS.BOLSTER_TALENT);
+  ssNeeded = !this.selectedCombatant.hasTalent(TALENTS.DEVASTATOR_TALENT) ? 0 : 1;
 
   constructor(options: Options) {
     super(options);

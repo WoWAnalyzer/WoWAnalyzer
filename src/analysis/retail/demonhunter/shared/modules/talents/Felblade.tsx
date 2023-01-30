@@ -21,7 +21,7 @@ class Felblade extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FELBLADE_TALENT);
     if (!this.active) {
       return;
     }

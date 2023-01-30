@@ -47,16 +47,21 @@ import Expiation from './modules/spells/Expiation';
 import PowerWordShield from './modules/spells/PowerWordShield';
 import AegisOfWrath from './modules/spells/AegisOfWrath';
 import CrystallineReflection from './modules/spells/CrystallineReflection';
-import StolenPsyche from './modules/spells/StolenPsyche';
 import PainAndSuffering from './modules/spells/PainAndSuffering';
 import ThroesOfPain from './modules/spells/ThroesOfPain';
 import MaliciousIntent from './modules/spells/MaliciousIntent';
 import PowerWordRadiance from './modules/spells/PowerWordRadiance';
 import EvangelismAnalysis from './modules/guide/EvangelismAnalysis';
 import Guide from './Guide';
+import BlazeOfLight from './modules/spells/BlazeOfLight/BlazeOfLight';
 import SelfAtonementAnalyzer from './modules/guide/SelfAtonementAnalysis';
 import ProtectiveLight from '../shared/ProtectiveLight';
 import ResplendentLight from './modules/spells/ResplendentLight';
+import TwilightEquilibrium from './modules/spells/TwilightEquilibrium';
+import RaptureAnalysis from './modules/guide/RaptureAnalysis';
+import AtonementNormalizer from './normalizers/AtonementTracker';
+import ShadowCovenant from './modules/spells/ShadowCovenant/ShadowCovenant';
+import AbyssalReverie from './modules/spells/AbyssalReverie';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -65,6 +70,7 @@ class CombatLogParser extends CoreCombatLogParser {
     shadowfiendNormalizer: ShadowfiendNormalizer,
     powerWordRadianceNormalizer: PowerWordRadianceNormalizer,
     manifestedTwilightNormalizer: ManifestedTwilightNormalizer,
+    atonementNormalizer: AtonementNormalizer,
 
     spellUsable: SpellUsable,
     spellManaCost: SpellManaCost,
@@ -110,20 +116,24 @@ class CombatLogParser extends CoreCombatLogParser {
     grace: Grace,
     sinsOfTheMany: SinsOfTheMany,
     schism: Schism,
+    shadowCovenant: ShadowCovenant,
     mindgames: Mindgames,
     harshDiscipline: HarshDiscipline,
     indemnity: Indemnity,
     expiation: Expiation,
     powerWordShield: PowerWordShield,
-    stolenPsyche: StolenPsyche,
+    twilightEqilibrium: TwilightEquilibrium,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
     painAndSuffering: PainAndSuffering,
     throesOfPain: ThroesOfPain,
     maliciousIntent: MaliciousIntent,
     evangelismAnalysis: EvangelismAnalysis,
+    blazeOfLight: BlazeOfLight,
     selfAtonementAnalyzer: SelfAtonementAnalyzer,
     protectiveLight: ProtectiveLight,
     resplendentLight: ResplendentLight,
+    raptureAnalysis: RaptureAnalysis,
+    abyssalReverie: AbyssalReverie,
   };
   static guide = Guide;
 }

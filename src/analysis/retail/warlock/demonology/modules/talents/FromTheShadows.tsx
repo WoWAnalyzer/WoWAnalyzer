@@ -26,7 +26,7 @@ class FromTheShadows extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.FROM_THE_SHADOWS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.FROM_THE_SHADOWS_TALENT);
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)

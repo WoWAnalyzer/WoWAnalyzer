@@ -2,11 +2,7 @@ import {
   RuneDetails,
   RuneOfTheFallenCrusader,
   RuneOfHysteria,
-  Superstrain,
-  SwarmingMist,
-  DeathsDue,
-  EternalHunger,
-} from 'analysis/deathknight';
+} from 'analysis/retail/deathknight/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Channeling from 'parser/shared/normalizers/Channeling';
@@ -23,12 +19,13 @@ import WoundTracker from './modules/features/WoundTracker';
 import RunicPowerDetails from './modules/runicpower/RunicPowerDetails';
 import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
 import Apocalypse from './modules/spells/Apocalypse';
-import ConvocationOfTheDead from './modules/spells/conduits/ConvocationOfTheDead';
 import FesteringStrikeEfficiency from './modules/spells/FesteringStrikeEfficiency';
 import ScourgeStrikeEfficiency from './modules/spells/ScourgeStrikeEfficiency';
 import VirulentPlagueEfficiency from './modules/spells/VirulentPlagueEfficiency';
 import ArmyOfTheDamned from './modules/talents/ArmyOfTheDamned';
 import SoulReaper from './modules/talents/SoulReaper';
+import SummonGargoyleBuffs from './modules/talents/SummonGargoyleBuffs';
+import PlagueBringer from './modules/talents/PlagueBringer';
 
 // Covenants
 
@@ -54,6 +51,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     soulReaper: SoulReaper,
     armyOfTheDamned: ArmyOfTheDamned,
+    summonGargoyleBuffs: SummonGargoyleBuffs,
+    plagueBringer: PlagueBringer,
 
     // RunicPower
     runicPowerTracker: RunicPowerTracker,
@@ -66,15 +65,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Runes
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
     runeOfHysteria: RuneOfHysteria,
-
-    // Legendaries
-    superStrain: Superstrain,
-
-    // Covenants
-    swarmingMist: SwarmingMist,
-    deathsDue: DeathsDue,
-    convocationOfTheDead: ConvocationOfTheDead,
-    eternalHunger: EternalHunger,
 
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }] as const,
   };

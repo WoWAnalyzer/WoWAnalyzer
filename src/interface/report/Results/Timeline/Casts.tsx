@@ -27,7 +27,17 @@ const isApplicableCastEvent = (event: CastEvent | BeginChannelEvent | FreeCastEv
   }
   return true;
 };
-export const isApplicableEvent = (playerId: number) => (event: AnyEvent) => {
+
+type ApplicableCastEvent =
+  | CastEvent
+  | FreeCastEvent
+  | BeginChannelEvent
+  | EndChannelEvent
+  | GlobalCooldownEvent
+  | AutoAttackCooldownEvent;
+export const isApplicableEvent = (playerId: number) => (
+  event: AnyEvent,
+): event is ApplicableCastEvent => {
   // we don't use `HasSource` because not every event has the full SourcedEvent field set
   if (!('sourceID' in event) || event.sourceID !== playerId) {
     // Ignore pet/boss casts

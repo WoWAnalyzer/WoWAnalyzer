@@ -1,3 +1,4 @@
+import Spell from 'common/SPELLS/Spell';
 import { AnyEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import { PureComponent } from 'react';
@@ -11,6 +12,12 @@ interface Props {
   secondWidth: number;
   eventsBySpellId: Map<number, AnyEvent[]>;
   abilities: Abilities;
+  /**
+   * Show exactly a set of spells, even if not cast or if other spells are present in `eventsBySpellId`.
+   *
+   * Used for guides.
+   */
+  exactlySpells?: Spell[];
 }
 
 class Cooldowns extends PureComponent<Props> {
@@ -24,7 +31,10 @@ class Cooldowns extends PureComponent<Props> {
   }
 
   renderLanes(eventsBySpellId: Map<number, AnyEvent[]>, growUp: boolean) {
-    return Array.from(eventsBySpellId)
+    const entries: Array<[number, AnyEvent[]]> =
+      this.props.exactlySpells?.map((spell) => [spell.id, eventsBySpellId.get(spell.id) ?? []]) ??
+      Array.from(eventsBySpellId);
+    return entries
       .sort((a, b) => this.getSortIndex(growUp ? b : a) - this.getSortIndex(growUp ? a : b))
       .map((item) => this.renderLane(item));
   }
@@ -32,6 +42,7 @@ class Cooldowns extends PureComponent<Props> {
     return (
       <Lane
         key={spellId}
+        spell={this.props.exactlySpells?.find((spell) => spell.id === spellId)}
         fightStartTimestamp={this.props.start}
         fightEndTimestamp={this.props.end}
         secondWidth={this.props.secondWidth}

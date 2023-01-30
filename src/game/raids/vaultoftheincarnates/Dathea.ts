@@ -1,6 +1,6 @@
 import { Boss } from 'game/raids';
 
-import Background from './images/Dathea.png';
+import Background from './images/dathea.jpg';
 
 const Dathea: Boss = {
   id: 2635,

@@ -34,7 +34,7 @@ class ImpenetrableWall extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.IMPENETRABLE_WALL_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.IMPENETRABLE_WALL_TALENT);
     if (!this.active) {
       return;
     }
@@ -73,7 +73,7 @@ class ImpenetrableWall extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.THE_WALL.id}>
+        <BoringSpellValueText spellId={TALENTS.IMPENETRABLE_WALL_TALENT.id}>
           {this.effectiveRage} <small>rage</small> <br />
           {formatDuration(this.effectiveCDR)} <small>cdr</small>
         </BoringSpellValueText>

@@ -1,10 +1,10 @@
-import SPELLS from 'common/SPELLS';
 import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
+import TALENTS from 'common/TALENTS/deathknight';
+import SPELLS from 'common/SPELLS';
 
 const AOTD_PET_ID = 365;
-const DEATH_COIL_RANK_2_REDUCTION = 1000;
 
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {
@@ -16,19 +16,15 @@ class SpellUsable extends CoreSpellUsable {
 
   constructor(options: Options) {
     super(options);
-    this.hasAotd = this.selectedCombatant.hasTalent(SPELLS.ARMY_OF_THE_DAMNED_TALENT.id);
+    this.hasAotd = this.selectedCombatant.hasTalent(TALENTS.ARMY_OF_THE_DAMNED_TALENT);
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.APOCALYPSE),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.APOCALYPSE_TALENT),
       this.onApocalypseCast,
     );
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.MELEE),
       this.onArmyDamage,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATH_COIL),
-      this.onDeathCoilCast,
     );
   }
 
@@ -43,18 +39,8 @@ class SpellUsable extends CoreSpellUsable {
       return;
     }
 
-    if (!this.isOnCooldown(SPELLS.ARMY_OF_THE_DEAD.id)) {
-      this.beginCooldown(event, SPELLS.ARMY_OF_THE_DEAD.id);
-    }
-  }
-
-  onDeathCoilCast(event: CastEvent) {
-    if (this.isOnCooldown(SPELLS.DARK_TRANSFORMATION.id)) {
-      this.reduceCooldown(
-        SPELLS.DARK_TRANSFORMATION.id,
-        DEATH_COIL_RANK_2_REDUCTION,
-        event.timestamp,
-      );
+    if (!this.isOnCooldown(TALENTS.ARMY_OF_THE_DEAD_TALENT.id)) {
+      this.beginCooldown(event, TALENTS.ARMY_OF_THE_DEAD_TALENT.id);
     }
   }
 }

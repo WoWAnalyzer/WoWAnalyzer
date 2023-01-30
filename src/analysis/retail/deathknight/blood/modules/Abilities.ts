@@ -1,7 +1,6 @@
 import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
@@ -66,7 +65,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.CONSUMPTION_TALENT.id,
         category: SPELL_CATEGORY.SEMI_DEFENSIVE,
-        enabled: combatant.hasTalent(TALENTS.CONSUMPTION_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.CONSUMPTION_TALENT),
         cooldown: 45,
         gcd: {
           base: 1500,
@@ -98,7 +97,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.BLOODDRINKER_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.BLOODDRINKER_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -131,9 +130,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled:
-          !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) &&
-          combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT),
         cooldown: 15,
         castEfficiency: {
           suggestion: true,
@@ -148,9 +145,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled:
-          !combatant.hasCovenant(COVENANTS.NIGHT_FAE.id) &&
-          !combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT),
         cooldown: 15,
         timelineSortIndex: 5,
       },
@@ -175,7 +170,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.ANTI_MAGIC_SHELL_TALENT.id,
         buffSpellId: TALENTS.ANTI_MAGIC_SHELL_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(TALENTS.ANTI_MAGIC_BARRIER_TALENT.id) ? 60 - 15 : 60,
+        cooldown: combatant.hasTalent(TALENTS.ANTI_MAGIC_BARRIER_TALENT) ? 60 - 15 : 60,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
@@ -216,7 +211,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.WRAITH_WALK_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.WRAITH_WALK_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.WRAITH_WALK_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,
@@ -230,7 +225,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: combatant.hasTalent(TALENTS.TIGHTENING_GRASP_TALENT.id) ? 90 : 120,
+        cooldown: combatant.hasTalent(TALENTS.TIGHTENING_GRASP_TALENT) ? 90 : 120,
         timelineSortIndex: 11,
       },
       {
@@ -281,7 +276,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.TOMBSTONE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        enabled: combatant.hasTalent(TALENTS.TOMBSTONE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.TOMBSTONE_TALENT),
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -319,7 +314,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.BLOOD_TAP_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.BLOOD_TAP_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.BLOOD_TAP_TALENT),
         cooldown: 60,
         charges: 2,
         castEfficiency: {
@@ -336,7 +331,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.BONESTORM_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled: combatant.hasTalent(TALENTS.BONESTORM_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.BONESTORM_TALENT),
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -347,7 +342,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RUNE_1.id,
         category: SPELL_CATEGORY.HIDDEN,
         cooldown: (haste) => {
-          const multiplier = combatant.hasBuff(SPELLS.CRIMSON_RUNE_WEAPON_BUFF.id) ? 0.4 : 0;
+          const multiplier = 0;
           return 10 / (1 + haste) / (1 + multiplier);
         },
         charges: 2,
@@ -356,7 +351,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RUNE_2.id,
         category: SPELL_CATEGORY.HIDDEN,
         cooldown: (haste) => {
-          const multiplier = combatant.hasBuff(SPELLS.CRIMSON_RUNE_WEAPON_BUFF.id) ? 0.4 : 0;
+          const multiplier = 0;
           return 10 / (1 + haste) / (1 + multiplier);
         },
         charges: 2,
@@ -365,7 +360,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RUNE_3.id,
         category: SPELL_CATEGORY.HIDDEN,
         cooldown: (haste) => {
-          const multiplier = combatant.hasBuff(SPELLS.CRIMSON_RUNE_WEAPON_BUFF.id) ? 0.4 : 0;
+          const multiplier = 0;
           return 10 / (1 + haste) / (1 + multiplier);
         },
         charges: 2,
@@ -373,29 +368,7 @@ class Abilities extends CoreAbilities {
 
       // covenants
       {
-        spell: SPELLS.SWARMING_MIST.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
-      },
-      {
-        spell: SPELLS.DOOR_OF_SHADOWS.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.VENTHYR.id),
-      },
-      {
-        spell: SPELLS.ABOMINATION_LIMB.id,
+        spell: TALENTS.ABOMINATION_LIMB_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
         gcd: {
@@ -405,44 +378,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-      },
-      {
-        spell: SPELLS.FLESHCRAFT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
-      },
-      {
-        spell: SPELLS.SHACKLE_THE_UNWORTHY.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.KYRIAN.id),
-      },
-      {
-        spell: SPELLS.DEATHS_DUE.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 15,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
-      },
-      {
-        spell: SPELLS.SOULSHAPE.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasCovenant(COVENANTS.NIGHT_FAE.id),
+        enabled: false,
       },
     ];
   }

@@ -1,19 +1,21 @@
-import DocumentTitle from 'interface/DocumentTitle';
 import GuildReports from 'interface/GuildReports';
 import NavigationBar from 'interface/NavigationBar';
+import { useParams } from 'react-router-dom';
+import DocumentTitle from 'interface/DocumentTitle';
 
-interface GuildPageProps {
-  region: string;
-  realm: string;
-  name: string;
-}
+const GuildPage = () => {
+  const { region, realm, name } = useParams();
+  const regionDecoded = decodeURI(region?.replace(/\+/g, ' ') ?? '').toUpperCase();
+  const realmDecoded = decodeURI(realm?.replace(/\+/g, ' ') ?? '');
+  const nameDecoded = decodeURI(name?.replace(/\+/g, ' ') ?? '');
 
-const GuildPage = ({ region, realm, name, ...others }: GuildPageProps) => (
-  <>
-    <DocumentTitle title={`${name}-${realm} (${region})`} />
-    <NavigationBar />
-    <GuildReports region={region} realm={realm} name={name} {...others} />
-  </>
-);
+  return (
+    <>
+      <DocumentTitle title={`${nameDecoded}-${realmDecoded} (${nameDecoded})`} />
+      <NavigationBar />
+      <GuildReports region={regionDecoded} realm={realmDecoded} name={nameDecoded} />
+    </>
+  );
+};
 
 export default GuildPage;

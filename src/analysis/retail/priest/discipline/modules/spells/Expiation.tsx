@@ -3,15 +3,15 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { Options } from 'parser/core/Module';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { SpellLink } from 'interface';
-import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
 import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import { getDamageEvent } from '../../normalizers/AtonementTracker';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const EXPIATION_RANK_INCREASE = 0.1;
 class Expiation extends Analyzer {
@@ -25,8 +25,14 @@ class Expiation extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.EXPIATION_TALENT.id);
-    this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtonement);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.EXPIATION_TALENT);
+
+    this.addEventListener(
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.ATONEMENT_HEAL_CRIT, SPELLS.ATONEMENT_HEAL_NON_CRIT]),
+      this.onAtoneHeal,
+    );
 
     this.addEventListener(
       Events.damage
@@ -38,12 +44,15 @@ class Expiation extends Analyzer {
         ]),
       this.onDamage,
     );
-    this.talentRank = this.selectedCombatant.getTalentRank(TALENTS_PRIEST.EXPIATION_TALENT.id);
+    this.talentRank = this.selectedCombatant.getTalentRank(TALENTS_PRIEST.EXPIATION_TALENT);
     this.expiationIncrease = this.talentRank * EXPIATION_RANK_INCREASE;
   }
 
-  onAtonement(event: AtonementAnalyzerEvent) {
-    const { healEvent, damageEvent } = event;
+  onAtoneHeal(event: HealEvent) {
+    if (!getDamageEvent(event)) {
+      return;
+    }
+    const damageEvent = getDamageEvent(event);
 
     if (
       damageEvent?.ability.guid !== SPELLS.EXPIATION_DAMAGE.id &&
@@ -54,15 +63,15 @@ class Expiation extends Analyzer {
     }
 
     if (damageEvent.ability.guid === SPELLS.EXPIATION_DAMAGE.id) {
-      this.expiationHealing += healEvent.amount;
+      this.expiationHealing += event.amount;
     }
 
     if (damageEvent.ability.guid === SPELLS.MIND_BLAST.id) {
-      this.mindBlastHealing += calculateEffectiveHealing(healEvent, this.expiationIncrease);
+      this.mindBlastHealing += calculateEffectiveHealing(event, this.expiationIncrease);
     }
 
     if (damageEvent.ability.guid === TALENTS_PRIEST.SHADOW_WORD_DEATH_TALENT.id) {
-      this.deathHealing += calculateEffectiveHealing(healEvent, this.expiationIncrease);
+      this.deathHealing += calculateEffectiveHealing(event, this.expiationIncrease);
     }
   }
 
@@ -92,7 +101,7 @@ class Expiation extends Analyzer {
                 {formatNumber(this.deathHealing)}{' '}
               </li>
               <li>
-                <SpellLink id={SPELLS.MIND_BLAST.id} />: {formatNumber(this.mindBlastHealing)}{' '}
+                <SpellLink id={SPELLS.MIND_BLAST.id} />:{formatNumber(this.mindBlastHealing)}{' '}
               </li>
             </ul>
             The bonus damage to <SpellLink id={SPELLS.MIND_BLAST.id} /> and{' '}
@@ -102,12 +111,12 @@ class Expiation extends Analyzer {
         }
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS_PRIEST.EXPIATION_TALENT.id}>
+        <TalentSpellText talent={TALENTS_PRIEST.EXPIATION_TALENT}>
           <>
             <ItemHealingDone amount={totalHealing} /> <br />
             <ItemDamageDone amount={this.bonusDamage + this.expiationDamage} />
           </>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

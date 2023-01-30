@@ -1,5 +1,4 @@
 import { formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import HIT_TYPES from 'game/HIT_TYPES';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -8,28 +7,11 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import ConduitSpellText from 'parser/ui/ConduitSpellText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
-const COOLDOWN_REDUCTION_MS = [
-  0,
-  750,
-  830,
-  900,
-  980,
-  1005,
-  1130,
-  1200,
-  1280,
-  1350,
-  1430,
-  1500,
-  1580,
-  1650,
-  1730,
-  1800,
-];
+const COOLDOWN_REDUCTION_MS = 1000;
 
 class IcyPropulsion extends Analyzer {
   static dependencies = {
@@ -44,14 +26,12 @@ class IcyPropulsion extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasConduitBySpellID(SPELLS.ICY_PROPULSION.id);
-    this.conduitRank = this.selectedCombatant.conduitRankBySpellID(SPELLS.ICY_PROPULSION.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ICY_PROPULSION_TALENT);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
   onDamage(event: DamageEvent) {
     if (
-      !this.selectedCombatant.hasBuff(TALENTS.ICY_VEINS_TALENT.id) ||
       event.hitType !== HIT_TYPES.CRIT ||
       !this.spellUsable.isOnCooldown(TALENTS.ICY_VEINS_TALENT.id)
     ) {
@@ -60,7 +40,7 @@ class IcyPropulsion extends Analyzer {
 
     this.cooldownReduction += this.spellUsable.reduceCooldown(
       TALENTS.ICY_VEINS_TALENT.id,
-      COOLDOWN_REDUCTION_MS[this.conduitRank],
+      COOLDOWN_REDUCTION_MS,
     );
   }
 
@@ -86,9 +66,9 @@ class IcyPropulsion extends Analyzer {
           </>
         }
       >
-        <ConduitSpellText spellId={SPELLS.ICY_PROPULSION.id} rank={this.conduitRank}>
+        <BoringSpellValueText spellId={TALENTS.ICY_PROPULSION_TALENT.id}>
           <UptimeIcon /> {`${formatNumber(this.reductionSeconds)}s`} <small>Icy Veins CDR</small>
-        </ConduitSpellText>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

@@ -32,7 +32,7 @@ class Barrage extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.BARRAGE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BARRAGE_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.BARRAGE_TALENT),
       this.onCast,

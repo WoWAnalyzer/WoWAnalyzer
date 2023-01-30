@@ -1,9 +1,11 @@
-import { formatThousands } from 'common/format';
+import { t } from '@lingui/macro';
+import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -22,9 +24,6 @@ class AncientTeachingsoftheMonastery extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT);
-    if (!this.active) {
-      return;
-    }
 
     this.addEventListener(
       Events.damage
@@ -102,6 +101,39 @@ class AncientTeachingsoftheMonastery extends Analyzer {
     ];
 
     return <DonutChart items={items} />;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.selectedCombatant.getBuffUptime(SPELLS.ATOTM_BUFF.id) / this.owner.fightDuration,
+      isLessThan: {
+        minor: 0.8,
+        average: 0.7,
+        major: 0.6,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You had suboptimal <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT.id} /> buff
+          uptime, try using <SpellLink id={TALENTS_MONK.FAELINE_STOMP_TALENT.id} /> and{' '}
+          <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> more frequently in order to
+          maintain the buff
+        </>,
+      )
+        .icon(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT.icon)
+        .actual(
+          `${formatPercentage(actual)}${t({
+            id: 'monk.mistweaver.suggestions.ancientTeachings.uptime',
+            message: `% uptime`,
+          })}`,
+        )
+        .recommended(`${formatPercentage(recommended, 0)}% or better is recommended`),
+    );
   }
 
   statistic() {

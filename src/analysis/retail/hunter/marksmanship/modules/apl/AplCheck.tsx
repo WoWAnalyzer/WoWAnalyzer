@@ -38,10 +38,6 @@ export const apl = build([
     spell: SPELLS.KILL_SHOT_MM_BM,
     condition: inExecute(0.2),
   },
-  {
-    spell: TALENTS_HUNTER.DOUBLE_TAP_TALENT,
-    condition: hasTalent(TALENTS_HUNTER.DOUBLE_TAP_TALENT),
-  },
   TALENTS_HUNTER.EXPLOSIVE_SHOT_TALENT,
   {
     spell: TALENTS_HUNTER.DEATH_CHAKRAM_TALENT,

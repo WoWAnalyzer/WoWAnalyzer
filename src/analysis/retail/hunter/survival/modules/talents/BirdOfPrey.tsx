@@ -36,7 +36,7 @@ class BirdOfPrey extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS.BIRDS_OF_PREY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.BIRDS_OF_PREY_TALENT);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
     this.addEventListener(

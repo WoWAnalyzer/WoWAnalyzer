@@ -17,7 +17,7 @@ class FelEruption extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT);
     if (!this.active) {
       return;
     }

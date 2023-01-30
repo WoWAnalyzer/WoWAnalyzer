@@ -1,21 +1,15 @@
-import { useRouteMatch } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import DocumentTitle from 'interface/DocumentTitle';
 
 import Details from './ContributorDetails';
-import { Helmet } from 'react-helmet';
-
-interface MatchParams {
-  id: string;
-}
 
 const ContributorPage = () => {
-  const match = useRouteMatch<MatchParams>('/contributor/:id');
-  const contributorId = decodeURI(match?.params.id.replace(/\+/g, ' ') ?? '');
+  const { id } = useParams();
+  const contributorId = decodeURI(id?.replace(/\+/g, ' ') ?? '');
 
   return (
     <div className="container">
-      <Helmet>
-        <title>{contributorId}</title>
-      </Helmet>
+      <DocumentTitle title={contributorId} />
 
       <Details ownPage contributorId={contributorId} />
     </div>

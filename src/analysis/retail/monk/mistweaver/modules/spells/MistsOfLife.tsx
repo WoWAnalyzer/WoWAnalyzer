@@ -9,11 +9,12 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import SpellLink from 'interface/SpellLink';
 import Combatants from 'parser/shared/modules/Combatants';
 import HotTracker from 'parser/shared/modules/HotTracker';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 const UNAFFECTED_SPELLS = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
 
@@ -25,10 +26,10 @@ class MistsOfLife extends Analyzer {
   hotTracker!: HotTrackerMW;
   combatants!: Combatants;
   numEnv: number = 0;
-  extraEnvmApplications: number = 0;
   extraEnvmHealing: number = 0;
   extraEnvmOverHealing: number = 0;
   extraEnvmAbsorbed: number = 0;
+  extraMistyPeaksHealing: number = 0;
   extraRemApplications: number = 0;
   extraRemHealing: number = 0;
   extraRemOverHealing: number = 0;
@@ -49,7 +50,7 @@ class MistsOfLife extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.envmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT.id)
+    this.envmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
       ? 0.4
       : 0.3;
     this.addEventListener(
@@ -99,6 +100,7 @@ class MistsOfLife extends Analyzer {
   }
 
   handleEnvHeal(event: HealEvent) {
+    //handle envelop healing from MoL
     const playerId = event.targetID;
     if (
       !this.hotTracker.hots[playerId] ||
@@ -112,6 +114,19 @@ class MistsOfLife extends Analyzer {
       this.extraEnvmHealing += event.amount || 0;
       this.extraEnvmOverHealing += event.overheal || 0;
       this.extraEnvmAbsorbed += event.absorbed || 0;
+    }
+    //track misty peaks procs from MoL ReM
+    if (
+      !this.hotTracker.hots[playerId] ||
+      !this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id]
+    ) {
+      return;
+    }
+    const remHot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
+    if (this.hotTracker.fromMistsOfLife(remHot)) {
+      if (this.hotTracker.fromMistyPeaks(hot)) {
+        this.extraMistyPeaksHealing += event.amount + (event.absorbed || 0);
+      }
     }
   }
 
@@ -198,6 +213,17 @@ class MistsOfLife extends Analyzer {
       this.extraEnvmAbsorbed +
       this.extraRemAbsorbed +
       this.extraVivAbsorbed
+    );
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink id={TALENTS_MONK.MISTS_OF_LIFE_TALENT.id} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
+        )} %`}
+      />
     );
   }
 

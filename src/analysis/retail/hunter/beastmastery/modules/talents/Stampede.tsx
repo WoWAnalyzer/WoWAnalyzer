@@ -28,7 +28,7 @@ class Stampede extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.STAMPEDE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.STAMPEDE_TALENT);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.STAMPEDE_TALENT),
       this.onStampedeApply,

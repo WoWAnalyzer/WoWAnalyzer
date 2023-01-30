@@ -1,5 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { SpellIcon, SpellLink } from 'interface';
 import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -13,6 +14,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { RISING_MIST_EXTENSION } from '../../constants';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 import HotTrackerMW from '../core/HotTrackerMW';
 import Vivify from './Vivify';
@@ -59,7 +61,7 @@ class RisingMist extends Analyzer {
   }
 
   get averageHealing() {
-    return this.risingMistCount === 0 ? 0 : this.totalHealing / this.risingMistCount;
+    return this.risingMistCount === 0 ? 0 : this.directHealing / this.risingMistCount;
   }
 
   get averageTargetsPerRM() {
@@ -117,8 +119,8 @@ class RisingMist extends Analyzer {
 
   constructor(...options) {
     super(...options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT.id);
-    this.evmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT.id)
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT);
+    this.evmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
       ? 0.4
       : 0.3;
     if (!this.active) {
@@ -128,12 +130,20 @@ class RisingMist extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RISING_SUN_KICK_TALENT),
       this.extendHots,
     );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RISING_MIST_HEAL),
+      this.countRisingMistHits,
+    );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleVivify);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.calculateEnv); //gotta just look at all heals tbh
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell([SPELLS.GUST_OF_MISTS_CHIJI, SPELLS.GUSTS_OF_MISTS]),
       this.handleMastery,
     );
+  }
+
+  countRisingMistHits(event) {
+    this.targetCount += 1;
   }
 
   handleMastery(event) {
@@ -229,10 +239,7 @@ class RisingMist extends Analyzer {
         const attribution = newRisingMist;
         const hot = this.hotTracker.hots[playerId][spellId];
 
-        if (
-          this.hotTracker.fromRapidDiffusion(hot) ||
-          (spellId === SPELLS.RENEWING_MIST_HEAL.id && isFromMistsOfLife(hot))
-        ) {
+        if (this.hotTracker.fromRapidDiffusion(hot)) {
           return;
         }
 
@@ -262,9 +269,21 @@ class RisingMist extends Analyzer {
         }
       });
     });
-    if (foundTarget) {
-      this.targetCount += 1;
-    }
+  }
+
+  averageTargetsPerRSKCast() {
+    return <>{formatNumber(this.averageTargetsPerRM)}</>;
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
+        )} %`}
+      />
+    );
   }
 
   statistic() {
@@ -278,7 +297,10 @@ class RisingMist extends Analyzer {
             Your {this.risingMistCount} Rising Sun Kick casts contributed the following healing:
             <ul>
               <li>HoT Extension Healing: {formatNumber(this.hotHealing)}</li>
-              <li>Rising Mist Direct Healing: {formatNumber(this.directHealing)}</li>
+              <li>
+                Rising Mist Direct Healing: {formatNumber(this.directHealing)} (
+                {formatNumber(this.averageHealing)} per cast)
+              </li>
               <li>Average HoT Extension Seconds per cast: {this.averageExtension.toFixed(2)}</li>
               <ul>
                 <li>Essence Font HoTs Extended: {this.efCount}</li>

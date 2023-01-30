@@ -18,7 +18,7 @@ class Netherwalk extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.NETHERWALK_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.NETHERWALK_TALENT);
     if (!this.active) {
       return;
     }

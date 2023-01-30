@@ -13,7 +13,7 @@ export default class Soulrend extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SOULREND_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SOULREND_TALENT);
     if (!this.active) {
       return;
     }

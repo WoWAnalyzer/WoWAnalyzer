@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/deathknight';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { FightEndEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
@@ -29,18 +30,18 @@ class SoulReaper extends ExecuteHelper {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SOUL_REAPER_TALENT);
     if (!this.active) {
       return;
     }
 
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
     const ctor = this.constructor as typeof ExecuteHelper;
-    ctor.executeSpells.push(SPELLS.SOUL_REAPER_TALENT);
+    ctor.executeSpells.push(TALENTS.SOUL_REAPER_TALENT);
     ctor.executeSpells.push(SPELLS.SOUL_REAPER_TALENT_SECOND_HIT);
 
     (options.abilities as Abilities).add({
-      spell: SPELLS.SOUL_REAPER_TALENT.id,
+      spell: TALENTS.SOUL_REAPER_TALENT.id,
       category: SPELL_CATEGORY.ROTATIONAL,
       cooldown: 6,
       gcd: {
@@ -68,7 +69,7 @@ class SoulReaper extends ExecuteHelper {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.SOUL_REAPER_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.SOUL_REAPER_TALENT.id}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

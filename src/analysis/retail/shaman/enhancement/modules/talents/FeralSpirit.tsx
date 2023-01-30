@@ -21,7 +21,7 @@ class FeralSpirit extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.FERAL_SPIRIT_TALENT);
 
     if (!this.active) {
       return;

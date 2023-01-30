@@ -1,129 +1,75 @@
 import {
   ComboPointDetails,
   ComboPointTracker,
-  EchoingReprimand,
-  EnergyCapTracker,
   EnergyDetails,
   EnergyTracker,
-  EssenceOfBloodfang,
-  Flagellation,
-  InvigoratingShadowdust,
-  LashingScars,
-  Obedience,
-  Reverberation,
-  Sepsis,
-  StealthAbilityFollowingSepsis,
-  SerratedBoneSpike,
   SpellEnergyCost,
   SpellUsable,
-  WellPlacedSteel,
+  ThistleTeaCastLinkNormalizer,
 } from 'analysis/retail/rogue/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+import ComboPointGraph from 'analysis/retail/rogue/shared/ComboPointGraph';
+import EnergyGraph from 'analysis/retail/rogue/shared/EnergyGraph';
 
 import Abilities from './modules/Abilities';
-import ComboPoints from './modules/core/ComboPoints';
-import Energy from './modules/core/Energy';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import CrimsonTempestSnapshot from './modules/features/CrimsonTempestSnapshot';
-import GarroteSnapshot from './modules/features/GarroteSnapshot';
-import RuptureSnapshot from './modules/features/RuptureSnapshot';
-import LethalPoisons from './modules/shadowlands/conduits/LethalPoisons';
-import MaimMangle from './modules/shadowlands/conduits/MaimMangle';
-import PoisonedKatar from './modules/shadowlands/conduits/PoisonedKatar';
-import DashingScoundrel from './modules/shadowlands/legendaries/DashingScoundrel';
-import Doomblade from './modules/shadowlands/legendaries/Doomblade';
-import DuskwalkersPatch from './modules/shadowlands/legendaries/DuskwalkersPatch';
-import Tier28_2pc from './modules/shadowlands/tier28/Tier28_2pc';
-import EarlyDotRefresh from './modules/spells/EarlyDotRefresh';
-import EnvenomUptime from './modules/spells/EnvenomUptime';
-import GarroteUptime from './modules/spells/GarroteUptime';
-import RuptureUptime from './modules/spells/RuptureUptime';
-import Blindside from './modules/talents/Blindside';
-import ElaboratePlanning from './modules/talents/ElaboratePlanning';
-import MasterAssassin from './modules/talents/MasterAssassin';
-import MasterPoisoner from './modules/talents/MasterPoisoner';
-import Nightstalker from './modules/talents/Nightstalker';
-import Subterfuge from './modules/talents/Subterfuge';
-import GarroteNormalizer from './normalizers/GarroteNormalizer';
-import GarroteOpenerNormalizer from './normalizers/GarroteOpenerNormalizer';
-
-//Conduits
+import GarroteUptimeAndSnapshots from './modules/spells/GarroteUptimeAndSnapshots';
+import RuptureUptimeAndSnapshots from './modules/spells/RuptureUptimeAndSnapshots';
+import CrimsonTempestUptimeAndSnapshots from './modules/talents/CrimsonTempestUptimeAndSnapshots';
+import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
+import DotUptimesAndSnapshots from './modules/features/DotUptimesAndSnapshots';
+import BuilderUse from './modules/core/BuilderUse';
+import FinisherUse from './modules/core/FinisherUse';
+import HitCountAoE from './modules/core/HitCountAoE';
+import Envenom from './modules/spells/Envenom';
+import Exsanguinate from './modules/talents/Exsanguinate';
+import ThistleTea from './modules/talents/ThistleTea';
+import Guide from './Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-    //Normalizers
-    garroteNormalizer: GarroteNormalizer,
-    garroteOpenerNormalizer: GarroteOpenerNormalizer,
-
-    //Feature
+    // Feature
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    checklist: Checklist,
     spellUsable: SpellUsable,
 
-    //Resource
+    // Normalizers
+    castLinkNormalizer: CastLinkNormalizer,
+    thistleTeaCastLinkNormalizer: ThistleTeaCastLinkNormalizer,
+
+    // Resource
     comboPointTracker: ComboPointTracker,
     comboPointDetails: ComboPointDetails,
-    comboPoints: ComboPoints,
+    comboPointGraph: ComboPointGraph,
     energyTracker: EnergyTracker,
-    energyCapTracker: EnergyCapTracker,
     energyDetails: EnergyDetails,
-    energy: Energy,
+    energyGraph: EnergyGraph,
     spellEnergyCost: SpellEnergyCost,
 
-    //Core
-    envenomUptime: EnvenomUptime,
-    garroteUptime: GarroteUptime,
-    ruptureUptime: RuptureUptime,
-    earlyDotRefresh: EarlyDotRefresh,
+    // Core
+    builderUse: BuilderUse,
+    finisherUse: FinisherUse,
+    hitCountAoe: HitCountAoE,
+    dotUptimesAndSnapshots: DotUptimesAndSnapshots,
 
-    garroteSnapshot: GarroteSnapshot,
-    ruptureSnapshot: RuptureSnapshot,
-    crimsonTempestSnapshot: CrimsonTempestSnapshot,
+    // Spells
+    garroteUptimeAndSnapshots: GarroteUptimeAndSnapshots,
+    ruptureUptimeAndSnapshots: RuptureUptimeAndSnapshots,
+    envenom: Envenom,
 
-    //Casts
-
-    //Talents
-    blindside: Blindside,
-    elaboratePlanning: ElaboratePlanning,
-    masterPoisoner: MasterPoisoner,
-    nightstalker: Nightstalker,
-    subterfuge: Subterfuge,
-    masterAssassin: MasterAssassin,
-
-    // Covenants
-    serratedBoneSpike: SerratedBoneSpike,
-    echoingReprimand: EchoingReprimand,
-    flagellation: Flagellation,
-    sepsis: Sepsis,
-    stealthAbilityFollowingSepsis: StealthAbilityFollowingSepsis,
-
-    // Conduits
-    wellPlacedSteel: WellPlacedSteel,
-    lashingScars: LashingScars,
-    lethalPoisons: LethalPoisons,
-    maimMangle: MaimMangle,
-    poisonedKatar: PoisonedKatar,
-    reverberation: Reverberation,
-
-    // Legendaries
-    dashingScoundrel: DashingScoundrel,
-    duskwalkersPatch: DuskwalkersPatch,
-    essenceOfBloodfang: EssenceOfBloodfang,
-    invigoratingShadowdust: InvigoratingShadowdust,
-    doomblade: Doomblade,
-
-    obedience: Obedience,
-
-    tier28_2pc: Tier28_2pc,
+    // Talents
+    crimsonTempestUptimeAndSnapshots: CrimsonTempestUptimeAndSnapshots,
+    exsanguinate: Exsanguinate,
+    thistleTea: ThistleTea,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;

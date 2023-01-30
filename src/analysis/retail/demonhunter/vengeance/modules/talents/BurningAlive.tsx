@@ -15,7 +15,7 @@ class BurningAlive extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.BURNING_ALIVE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.BURNING_ALIVE_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FIERY_BRAND_DOT),
       this.onDamage,

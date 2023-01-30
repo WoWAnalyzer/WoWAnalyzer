@@ -38,10 +38,10 @@ const HolyPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         <AbilityRequirement spell={TALENTS.PRAYER_OF_MENDING_TALENT.id} />
         <AbilityRequirement spell={TALENTS.CIRCLE_OF_HEALING_TALENT.id} />
 
-        {combatant.hasTalent(TALENTS.DIVINE_STAR_SHARED_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.DIVINE_STAR_SHARED_TALENT) && (
           <AbilityRequirement spell={TALENTS.DIVINE_STAR_SHARED_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.HALO_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.HALO_SHARED_TALENT) && (
           <AbilityRequirement spell={SPELLS.HALO_TALENT.id} />
         )}
       </Rule>
@@ -62,10 +62,10 @@ const HolyPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         <AbilityRequirement spell={TALENTS.SYMBOL_OF_HOPE_TALENT.id} />
         <AbilityRequirement spell={TALENTS.POWER_INFUSION_TALENT.id} />
 
-        {combatant.hasTalent(TALENTS.HOLY_WORD_SALVATION_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.HOLY_WORD_SALVATION_TALENT) && (
           <AbilityRequirement spell={TALENTS.HOLY_WORD_SALVATION_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.APOTHEOSIS_TALENT.id) && (
+        {combatant.hasTalent(TALENTS.APOTHEOSIS_TALENT) && (
           <AbilityRequirement spell={TALENTS.APOTHEOSIS_TALENT.id} />
         )}
 

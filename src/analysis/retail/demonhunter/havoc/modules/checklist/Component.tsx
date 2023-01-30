@@ -10,6 +10,8 @@ import {
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
+import TalentCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/TalentCastEfficiencyRequirement';
+import TalentRequirement from 'parser/shared/modules/features/Checklist/TalentRequirement';
 
 const HavocDemonHunterChecklist = (props: ChecklistProps) => {
   const { combatant, castEfficiency, thresholds } = props;
@@ -37,41 +39,60 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           </>
         }
       >
-        {combatant.hasTalent(SPELLS.IMMOLATION_AURA.id) && (
-          <AbilityRequirement spell={SPELLS.IMMOLATION_AURA.id} />
+        <AbilityRequirement spell={SPELLS.IMMOLATION_AURA.id} />
+        <TalentCastEfficiencyRequirement
+          talent={TALENTS_DEMON_HUNTER.FIRST_BLOOD_TALENT}
+          actualCast={SPELLS.BLADE_DANCE}
+        />
+        <TalentCastEfficiencyRequirement
+          talent={TALENTS_DEMON_HUNTER.MOMENTUM_TALENT}
+          actualCast={SPELLS.FEL_RUSH_CAST}
+        />
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_TALENT) && (
+          <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} />
         )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FIRST_BLOOD_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.BLADE_DANCE.id} />
+        <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.FELBLADE_TALENT} />
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT) && (
+          <TalentCastEfficiencyRequirement
+            talent={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT}
+            actualCast={SPELLS.SIGIL_OF_FLAME_PRECISE}
+          />
         )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.FEL_RUSH_CAST.id} />
-        )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_TALENT.id) &&
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT.id) && (
-            <AbilityRequirement spell={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT.id} />
-          )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.SIGIL_OF_FLAME_PRECISE.id} />
-        )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} />
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT) && (
+          <TalentCastEfficiencyRequirement
+            talent={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT}
+            actualCast={SPELLS.SIGIL_OF_FLAME_CONCENTRATED}
+          />
         )}
         {!(
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT.id) ||
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT.id)
-        ) && <AbilityRequirement spell={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id} />}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id} />
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT) ||
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT)
+        ) && (
+          <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT} />
         )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id} />
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT) && (
+          <TalentCastEfficiencyRequirement
+            talent={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT}
+            actualCast={SPELLS.ELYSIAN_DECREE_PRECISE}
+          />
         )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.SOULREND_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.THROW_GLAIVE_HAVOC.id} />
+        {combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT) && (
+          <TalentCastEfficiencyRequirement
+            talent={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT}
+            actualCast={SPELLS.ELYSIAN_DECREE_CONCENTRATED}
+          />
         )}
+        {!(
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT) ||
+          combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT)
+        ) && (
+          <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT} />
+        )}
+        <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />
+        <TalentCastEfficiencyRequirement
+          talent={TALENTS_DEMON_HUNTER.SOULREND_TALENT}
+          actualCast={SPELLS.THROW_GLAIVE_HAVOC}
+        />
       </Rule>
 
       <Rule
@@ -89,46 +110,42 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           </>
         }
       >
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT.id} /> bad casts
-              </>
-            }
-            thresholds={thresholds.blindFuryBadCasts}
-          />
-        )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.DEMONIC_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={TALENTS_DEMON_HUNTER.DEMONIC_TALENT.id} /> bad casts
-              </>
-            }
-            thresholds={thresholds.demonicBadCasts}
-          />
-        )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.id} /> bad casts
-              </>
-            }
-            thresholds={thresholds.felEruptionBadCasts}
-          />
-        )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.id} /> bad casts
-              </>
-            }
-            thresholds={thresholds.felBarrageBadCasts}
-          />
-        )}
+        <TalentRequirement
+          talent={TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT}
+          name={
+            <>
+              <SpellLink id={TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT.id} /> bad casts
+            </>
+          }
+          thresholds={thresholds.blindFuryBadCasts}
+        />
+        <TalentRequirement
+          talent={TALENTS_DEMON_HUNTER.DEMONIC_TALENT}
+          name={
+            <>
+              <SpellLink id={TALENTS_DEMON_HUNTER.DEMONIC_TALENT.id} /> bad casts
+            </>
+          }
+          thresholds={thresholds.demonicBadCasts}
+        />
+        <TalentRequirement
+          talent={TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT}
+          name={
+            <>
+              <SpellLink id={TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.id} /> bad casts
+            </>
+          }
+          thresholds={thresholds.felEruptionBadCasts}
+        />
+        <TalentRequirement
+          talent={TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT}
+          name={
+            <>
+              <SpellLink id={TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.id} /> bad casts
+            </>
+          }
+          thresholds={thresholds.felBarrageBadCasts}
+        />
       </Rule>
 
       <Rule
@@ -146,16 +163,15 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           </>
         }
       >
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={TALENTS_DEMON_HUNTER.MOMENTUM_TALENT.id} /> buff uptime
-              </>
-            }
-            thresholds={thresholds.momentumBuffUptime}
-          />
-        )}
+        <TalentRequirement
+          talent={TALENTS_DEMON_HUNTER.MOMENTUM_TALENT}
+          name={
+            <>
+              <SpellLink id={TALENTS_DEMON_HUNTER.MOMENTUM_TALENT.id} /> buff uptime
+            </>
+          }
+          thresholds={thresholds.momentumBuffUptime}
+        />
       </Rule>
 
       <Rule
@@ -175,15 +191,10 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
         }
       >
         <AbilityRequirement spell={SPELLS.METAMORPHOSIS_HAVOC.id} />
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.id) && (
-          <AbilityRequirement spell={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.id} />
-        )}
+        <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} />
+        <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_TALENT} />
       </Rule>
 
       <Rule
@@ -203,54 +214,52 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
       >
         <Requirement name="Total Fury Efficiency" thresholds={thresholds.totalFuryWasted} />
 
-        <Requirement
+        {!combatant.hasTalent(TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={SPELLS.DEMONS_BITE.id} /> wasted Fury
+              </>
+            }
+            thresholds={thresholds.demonBiteFury}
+          />
+        )}
+        <TalentRequirement
+          talent={TALENTS_DEMON_HUNTER.BURNING_HATRED_TALENT}
           name={
             <>
-              <SpellLink id={SPELLS.DEMONS_BITE.id} /> wasted Fury
+              <SpellLink id={SPELLS.IMMOLATION_AURA.id} /> Fury wasted
             </>
           }
-          thresholds={thresholds.demonBiteFury}
+          thresholds={thresholds.immolationAuraEfficiency}
         />
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.BURNING_HATRED_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={SPELLS.IMMOLATION_AURA.id} /> Fury wasted
-              </>
-            }
-            thresholds={thresholds.immolationAuraEfficiency}
-          />
-        )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id} /> Fury wasted
-              </>
-            }
-            thresholds={thresholds.felbladeEfficiency}
-          />
-        )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.DEMONIC_APPETITE_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={TALENTS_DEMON_HUNTER.DEMONIC_APPETITE_TALENT.id} /> Fury wasted
-              </>
-            }
-            thresholds={thresholds.demonicAppetiteEfficiency}
-          />
-        )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT.id) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT.id} /> Fury wasted
-              </>
-            }
-            thresholds={thresholds.demonBladesEfficiency}
-          />
-        )}
+        <TalentRequirement
+          talent={TALENTS_DEMON_HUNTER.FELBLADE_TALENT}
+          name={
+            <>
+              <SpellLink id={TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id} /> Fury wasted
+            </>
+          }
+          thresholds={thresholds.felbladeEfficiency}
+        />
+        <TalentRequirement
+          talent={TALENTS_DEMON_HUNTER.DEMONIC_APPETITE_TALENT}
+          name={
+            <>
+              <SpellLink id={TALENTS_DEMON_HUNTER.DEMONIC_APPETITE_TALENT.id} /> Fury wasted
+            </>
+          }
+          thresholds={thresholds.demonicAppetiteEfficiency}
+        />
+        <TalentRequirement
+          talent={TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT}
+          name={
+            <>
+              <SpellLink id={TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT.id} /> Fury wasted
+            </>
+          }
+          thresholds={thresholds.demonBladesEfficiency}
+        />
       </Rule>
 
       <PreparationRule thresholds={thresholds} />

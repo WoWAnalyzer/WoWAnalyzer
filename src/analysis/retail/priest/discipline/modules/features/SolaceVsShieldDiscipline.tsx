@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { RemoveBuffEvent, CastEvent } from 'parser/core/Events';
+import Events, { RemoveBuffEvent, CastEvent, ResourceChangeEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -13,9 +13,14 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import './SolaceVsShieldDiscipline.scss';
 
+const SHIELD_DISC_MANA_RETURN_PERCENT = 0.005;
+
+const SOLACE_MANA_RETURN_PERCENT = 0.01;
+
 class SolaceVsShieldDiscipline extends Analyzer {
   consumedShields = 0;
   solaceCasts = 0;
+  maxMana = 0;
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT);
@@ -30,6 +35,14 @@ class SolaceVsShieldDiscipline extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT),
       this.onSolaceCast,
     );
+    this.addEventListener(Events.resourcechange.by(SELECTED_PLAYER), this.checkMaxMana);
+  }
+
+  checkMaxMana(event: ResourceChangeEvent) {
+    if (this.maxMana > 0) {
+      return;
+    }
+    this.maxMana = event.classResources[0].max;
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
@@ -73,7 +86,12 @@ class SolaceVsShieldDiscipline extends Analyzer {
               <SpellIcon id={TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT.id} />
             </div>
             <div id="solace-info">
-              <div className="solace-number">{formatThousands(this.solaceCasts * 700)}</div>
+              <div className="solace-number">
+                {formatThousands(
+                  this.solaceCasts *
+                    (this.maxMana * SOLACE_MANA_RETURN_PERCENT + SPELLS.SMITE.manaCost),
+                )}
+              </div>
 
               <small>
                 <Trans id="priest.discipline.statistics.solace.manaRestored">
@@ -87,7 +105,9 @@ class SolaceVsShieldDiscipline extends Analyzer {
               <SpellIcon id={TALENTS_PRIEST.SHIELD_DISCIPLINE_TALENT.id} />
             </div>
             <div id="solace-info">
-              {formatThousands(this.consumedShields * 250)}
+              {formatThousands(
+                this.consumedShields * (this.maxMana * SHIELD_DISC_MANA_RETURN_PERCENT),
+              )}
               <small>
                 <Trans id="priest.discipline.statistics.solace.shieldDisciplinePotential">
                   Shield Discipline potential return

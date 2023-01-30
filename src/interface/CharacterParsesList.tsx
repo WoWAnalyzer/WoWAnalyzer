@@ -33,7 +33,6 @@ export interface Parse {
   character_name: string;
   talents: Spell[];
   gear: Item[];
-  legendaryEffects: Spell[];
   advanced: boolean;
 }
 
@@ -120,19 +119,11 @@ class CharacterParsesList extends PureComponent<CharacterParsesListProps> {
                       {this.formatPerformance(elem)}
                     </div>
                   </div>
-                  <div className="col-md-1 text-center">
-                    {elem.advanced && (
-                      <>
-                        <div>{elem.legendaryEffects.map(this.renderLegendaryEffect)}</div>
-                        <div>{elem.gear.filter(this.itemFilter).map(this.renderItem)}</div>
-                      </>
-                    )}
-                  </div>
-                  <div className="col-md-3 flex wrapable">
+                  <div className="col-md-4 flex wrapable">
                     {elem.advanced &&
                       elem.talents.map((talent) => (
                         <div key={talent.id} className="flex-sub">
-                          <SpellIcon id={talent.id} style={styles.icon} />
+                          <SpellIcon id={talent} style={styles.icon} />
                         </div>
                       ))}
                   </div>

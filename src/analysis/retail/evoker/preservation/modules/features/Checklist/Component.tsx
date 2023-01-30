@@ -33,26 +33,73 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
         <Requirement name="Essence Wasted" thresholds={thresholds.essenceDetails} />
       </Rule>
       <Rule
-        name="Use your empowered spells wisely"
-        description={
-          <>
-            Empowered spells like <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} /> make up a
-            large portion of your healing. Be sure to use them often while keeping your overheal
-            low.
-          </>
-        }
+        name="Use core abilities as often as possible"
+        description="Aim to keep core rotational abilities on cooldown to maximize healing"
       >
-        {combatant.hasTalent(TALENTS_EVOKER.DREAM_BREATH_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.DREAM_BREATH_CAST.id} />
+        <AbilityRequirement
+          spell={
+            combatant.hasTalent(TALENTS_EVOKER.FONT_OF_MAGIC_TALENT)
+              ? SPELLS.DREAM_BREATH_FONT.id
+              : TALENTS_EVOKER.DREAM_BREATH_TALENT.id
+          }
+        />
+        {combatant.hasTalent(TALENTS_EVOKER.SPIRITBLOOM_TALENT) && (
+          <AbilityRequirement
+            spell={
+              combatant.hasTalent(TALENTS_EVOKER.FONT_OF_MAGIC_TALENT)
+                ? SPELLS.SPIRITBLOOM_FONT.id
+                : TALENTS_EVOKER.SPIRITBLOOM_TALENT.id
+            }
+          />
         )}
-        {combatant.hasTalent(TALENTS_EVOKER.DREAM_BREATH_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_EVOKER.REVERSION_TALENT) && (
+          <AbilityRequirement spell={TALENTS_EVOKER.REVERSION_TALENT.id} />
+        )}
+      </Rule>
+      <Rule
+        name="Use your cooldowns effectively"
+        description="Try to use your powerful raid cooldowns effectively"
+      >
+        {combatant.hasTalent(TALENTS_EVOKER.DREAM_FLIGHT_TALENT) && (
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} /> % Overheal
+                % of group hit with <SpellLink id={TALENTS_EVOKER.DREAM_FLIGHT_TALENT.id} />
               </>
             }
-            thresholds={thresholds.dreamBreath}
+            thresholds={thresholds.dreamFlight}
+          />
+        )}
+      </Rule>
+      <Rule
+        name="Use rotational spells based on talent selection"
+        description={
+          <>
+            Certain talents empower your abilities to enhance your healing, try to utilize your
+            rotational spells more often for these benefits. For example, you should cast{' '}
+            <SpellLink id={SPELLS.LIVING_FLAME_CAST.id} /> frequently when talented into{' '}
+            <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} />.
+          </>
+        }
+      >
+        {combatant.hasTalent(TALENTS_EVOKER.ESSENCE_BURST_TALENT) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> buffs applied
+              </>
+            }
+            thresholds={thresholds.essenceBurstBuffApplies}
+          ></Requirement>
+        )}
+        {combatant.hasTalent(TALENTS_EVOKER.CALL_OF_YSERA_TALENT) && (
+          <Requirement
+            name={
+              <>
+                Wasted <SpellLink id={TALENTS_EVOKER.CALL_OF_YSERA_TALENT} /> buffs
+              </>
+            }
+            thresholds={thresholds.callOfYsera}
           />
         )}
       </Rule>
@@ -64,12 +111,48 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> wasted stacks
+                Wasted <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> stacks
               </>
             }
             thresholds={thresholds.essenceBurst}
           />
         )}
+        <Requirement
+          name={
+            <>
+              Wasted <SpellLink id={TALENTS_EVOKER.ECHO_TALENT.id} /> buffs
+            </>
+          }
+          thresholds={thresholds.echo}
+        />
+      </Rule>
+      <Rule
+        name="Maximize targets hit by AoE abilities"
+        description={
+          <>
+            Try to hit as many targets as possible with AoE spells such as{' '}
+            <SpellLink id={SPELLS.EMERALD_BLOSSOM.id} /> and{' '}
+            <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} />
+          </>
+        }
+      >
+        <Requirement
+          name={
+            <>
+              Average targets hit by <SpellLink id={SPELLS.EMERALD_BLOSSOM.id} />
+            </>
+          }
+          thresholds={thresholds.emeraldBlossom}
+        />
+        <Requirement
+          name={
+            <>
+              Average targets hit by
+              <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} />
+            </>
+          }
+          thresholds={thresholds.dreamBreath}
+        />
       </Rule>
       <PreparationRule thresholds={thresholds} />
     </Checklist>

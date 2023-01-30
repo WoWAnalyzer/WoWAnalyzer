@@ -21,7 +21,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.HAUNT_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 15,
-        enabled: combatant.hasTalent(TALENTS.HAUNT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.HAUNT_TALENT),
         gcd: {
           base: 1500,
         },
@@ -60,7 +60,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.SIPHON_LIFE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.SIPHON_LIFE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SIPHON_LIFE_TALENT),
         gcd: {
           base: 1500,
         },
@@ -76,7 +76,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DRAIN_SOUL_DEBUFF.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.DRAIN_SOUL_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.DRAIN_SOUL_TALENT),
         gcd: {
           base: 1500,
         },
@@ -85,7 +85,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.PHANTOM_SINGULARITY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 45,
-        enabled: combatant.hasTalent(TALENTS.PHANTOM_SINGULARITY_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.PHANTOM_SINGULARITY_TALENT),
         gcd: {
           base: 1500,
         },
@@ -97,7 +97,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.SEED_OF_CORRUPTION_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled: combatant.hasTalent(TALENTS.SEED_OF_CORRUPTION_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SEED_OF_CORRUPTION_TALENT),
         gcd: {
           base: 1500,
         },
@@ -108,7 +108,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.VILE_TAINT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.VILE_TAINT_TALENT),
         cooldown: 20,
         castEfficiency: {
           suggestion: false,
@@ -122,7 +122,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.SOUL_ROT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.SOUL_ROT_TALENT),
         // TODO: how to account for soul-eater's gluttony
         cooldown: 40,
         castEfficiency: {
@@ -164,7 +164,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 60,
         gcd: null,
-        enabled: combatant.hasTalent(TALENTS.DARK_PACT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.DARK_PACT_TALENT),
         castEfficiency: {
           suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,
@@ -178,7 +178,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.BURNING_RUSH_TALENT.id,
         buffSpellId: TALENTS.BURNING_RUSH_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS.BURNING_RUSH_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.BURNING_RUSH_TALENT),
         gcd: {
           base: 1500,
         },
@@ -194,7 +194,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.MORTAL_COIL_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
-        enabled: combatant.hasTalent(TALENTS.MORTAL_COIL_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.MORTAL_COIL_TALENT),
         gcd: {
           base: 1500,
         },
@@ -240,7 +240,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.GRIMOIRE_OF_SACRIFICE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
-        enabled: combatant.hasTalent(TALENTS.GRIMOIRE_OF_SACRIFICE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.GRIMOIRE_OF_SACRIFICE_TALENT),
         gcd: {
           base: 1500,
         },
@@ -334,7 +334,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: combatant.hasTalent(TALENTS.DARKFURY_TALENT.id) ? 45 : 60,
+        cooldown: combatant.hasTalent(TALENTS.DARKFURY_TALENT) ? 45 : 60,
       },
       {
         spell: SPELLS.UNENDING_BREATH.id,
@@ -354,7 +354,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.HOWL_OF_TERROR_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS.HOWL_OF_TERROR_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.HOWL_OF_TERROR_TALENT),
         cooldown: 40,
         gcd: {
           base: 1500,

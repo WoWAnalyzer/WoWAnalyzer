@@ -27,7 +27,7 @@ class HeavyRepercussions extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.HEAVY_REPERCUSSIONS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HEAVY_REPERCUSSIONS_TALENT);
     if (!this.active) {
       return;
     }

@@ -34,7 +34,7 @@ const ORDER_BY = {
   DPS: 1,
   PERCENTILE: 2,
 };
-const DEFAULT_ZONE = 29; // DEFAULT_ZONE changed from 28 to 29 folowing the 9.2 patch.
+const DEFAULT_ZONE = 31; // DEFAULT_ZONE changed from 29 to 31 folowing the 10.0.2 patch.
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';
 const ERRORS = {
@@ -231,9 +231,6 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       character_name: elem.characterName,
       talents: elem.talents,
       gear: elem.gear,
-      legendaryEffects: elem.legendaryEffects
-        // the effects can come in different order. Sort for most consistent view
-        .sort((a, b) => b.id - a.id),
       advanced: Object.values(elem.talents).filter((talent) => talent.id === null).length === 0,
     }));
 

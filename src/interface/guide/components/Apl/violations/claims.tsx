@@ -2,7 +2,6 @@ import { Trans } from '@lingui/macro';
 import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import { useAnalyzer, useInfo } from 'interface/guide';
-import TooltipProvider from 'interface/TooltipProvider';
 import { AnyEvent } from 'parser/core/Events';
 import {
   Apl,
@@ -15,6 +14,7 @@ import {
 } from 'parser/shared/metrics/apl';
 import { ConditionDescription } from 'parser/shared/metrics/apl/annotate';
 import Enemies from 'parser/shared/modules/Enemies';
+import useTooltip from 'interface/useTooltip';
 
 export type AplProblemData<T> = {
   claims: Set<Violation>;
@@ -61,6 +61,7 @@ const defaultClaimFilter = (
 
 function TargetName({ event }: { event: AnyEvent }) {
   const combatants = useAnalyzer(Enemies);
+  const { npc: npcTooltip } = useTooltip();
 
   if (!combatants) {
     return null;
@@ -72,7 +73,7 @@ function TargetName({ event }: { event: AnyEvent }) {
     return <span className="spell-link-text">Unknown</span>;
   }
 
-  return <a href={TooltipProvider.npc(enemy.guid)}>{enemy.name}</a>;
+  return <a href={npcTooltip(enemy.guid)}>{enemy.name}</a>;
 }
 
 function EventTimestamp({ event }: { event: AnyEvent }) {
@@ -95,7 +96,7 @@ function EventTimestamp({ event }: { event: AnyEvent }) {
   );
 }
 
-const ActualCastDescription = ({ event }: { event: Violation['actualCast'] }) => (
+export const ActualCastDescription = ({ event }: { event: Violation['actualCast'] }) => (
   <>
     At <EventTimestamp event={event} /> into the fight, you cast{' '}
     <SpellLink id={event.ability.guid} />
@@ -118,7 +119,7 @@ const overcastFillers: ViolationExplainer<InternalRule> = {
       (rule, index) =>
         rule.condition === undefined &&
         rule.spell.type === TargetType.Spell &&
-        index > (2 * apl.rules.length) / 3,
+        index >= (2 * apl.rules.length) / 3,
     );
     const claimsByRule: Map<InternalRule, Set<Violation>> = new Map();
 

@@ -18,14 +18,14 @@ export default class ShatteredRestoration extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.SHATTERED_RESTORATION_TALENT.id,
+      TALENTS_DEMON_HUNTER.SHATTERED_RESTORATION_TALENT,
     );
     if (!this.active) {
       return;
     }
 
     this.rank = this.selectedCombatant.getTalentRank(
-      TALENTS_DEMON_HUNTER.SHATTERED_RESTORATION_TALENT.id,
+      TALENTS_DEMON_HUNTER.SHATTERED_RESTORATION_TALENT,
     );
 
     this.addEventListener(

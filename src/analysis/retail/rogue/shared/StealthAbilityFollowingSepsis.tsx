@@ -39,7 +39,7 @@ class StealthAbilityFollowingSepsis extends Analyzer {
         ? SPELLS.AMBUSH
         : SPELLS.SHADOWSTRIKE;
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SEPSIS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SEPSIS_TALENT);
     if (!this.active) {
       return;
     }

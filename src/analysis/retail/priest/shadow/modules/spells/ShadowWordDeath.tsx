@@ -48,7 +48,7 @@ class ShadowWordDeath extends ExecuteHelper {
       this.abilities.getAbility(TALENTS.SHADOW_WORD_DEATH_TALENT.id)!.cooldown * 1000;
     const ExecuteCasts = Math.ceil(this.totalExecuteDuration / cooldown);
 
-    if (this.selectedCombatant.hasTalent(TALENTS.DEATH_AND_MADNESS_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.DEATH_AND_MADNESS_TALENT)) {
       //The Death and Madness talent lets you cast twice each cooldown.
       this.maxCasts += ExecuteCasts;
     }

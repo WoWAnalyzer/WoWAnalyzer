@@ -7,6 +7,22 @@ import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 
 // prettier-ignore
 export default [
+  change(date(2023, 1, 11), 'Log cast summary and breakdown events when clicked.', ToppleTheNun),
+  change(date(2023, 1, 3), <>Fix Soul Fragment detection for <SpellLink id={TALENTS.SPIRIT_BOMB_TALENT} />.</>, ToppleTheNun),
+  change(date(2022, 12, 19), 'Add opt-in toggle for hiding rotation explanations.', ToppleTheNun),
+  change(date(2022, 12, 19), 'Add opt-in toggle for new defensives section.', ToppleTheNun),
+  change(date(2022, 12, 18), 'Further refine defensive buff tracking.', ToppleTheNun),
+  change(date(2022, 12, 18), 'Properly remove defensive buffs on death.', ToppleTheNun),
+  change(date(2022, 12, 16), 'Disable the Checklist.', ToppleTheNun),
+  change(date(2022, 12, 15), 'Remove "Return to Normal View" link from the Guide.', ToppleTheNun),
+  change(date(2022, 12, 15), <>Reduce number of <SpellLink id={SPELLS.FRAILTY} /> required for a good <SpellLink id={TALENTS.SOUL_CARVER_TALENT} /> to 5.</>, ToppleTheNun),
+  change(date(2022, 12, 5), 'Update Vengeance guide based on feedback from Fel Hammer.', ToppleTheNun),
+  change(date(2022, 12, 4), 'Mark the Guide as the default view.', ToppleTheNun),
+  change(date(2022, 12, 4), 'Remove recommended enchants.', ToppleTheNun),
+  change(date(2022, 12, 4), <>Add <SpellLink id={SPELLS.SOUL_CLEAVE} /> and <SpellLink id={TALENTS.SPIRIT_BOMB_TALENT} /> per-cast breakdowns.</>, ToppleTheNun),
+  change(date(2022, 12, 4), <>Hide <SpellLink id={TALENTS.SPIRIT_BOMB_TALENT} /> statistic when there are no casts of it. Remove <SpellLink id={TALENTS.SPIRIT_BOMB_TALENT} /> and <SpellLink id={SPELLS.SOUL_CLEAVE} /> defensive checklist items.</>, ToppleTheNun),
+  change(date(2022, 11, 28), 'Remove gray backgrounds from most subsections in Guide.', ToppleTheNun),
+  change(date(2022, 11, 27), 'Re-organize and internationalize Guide.', ToppleTheNun),
   change(date(2022, 11, 21), <>Fix degradation of <SpellLink id={TALENTS.THE_HUNT_TALENT} /> due to pre-casts.</>, ToppleTheNun),
   change(date(2022, 11, 20), <>Automatically minimize icons on cooldown graphs if any cooldown was cast 10 or more times.</>, ToppleTheNun),
   change(date(2022, 11, 20), <>Add per-cast breakdown for <SpellLink id={SPELLS.IMMOLATION_AURA} /> to the Guide.</>, ToppleTheNun),

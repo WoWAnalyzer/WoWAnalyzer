@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import ConduitLink from 'interface/ConduitLink';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
@@ -10,6 +9,7 @@ import {
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
+import { TALENTS_MONK } from 'common/TALENTS';
 
 const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
@@ -33,14 +33,14 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
       >
         <AbilityRequirement spell={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />
         <AbilityRequirement spell={SPELLS.FISTS_OF_FURY_CAST.id} />
-        {combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id) && (
+        {combatant.hasTalent(TALENTS_MONK.WHIRLING_DRAGON_PUNCH_TALENT) && (
           <AbilityRequirement spell={SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.CHI_WAVE_TALENT.id} />
+        {combatant.hasTalent(TALENTS_MONK.CHI_WAVE_TALENT) && (
+          <AbilityRequirement spell={TALENTS_MONK.CHI_WAVE_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.CHI_BURST_TALENT.id} />
+        {combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT) && (
+          <AbilityRequirement spell={TALENTS_MONK.CHI_BURST_TALENT.id} />
         )}
       </Rule>
       <Rule
@@ -69,7 +69,7 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           }
           thresholds={thresholds.fistsofFury}
         />
-        {combatant.hasLegendary(SPELLS.JADE_IGNITION) && (
+        {false && (
           <Requirement
             name={
               <>
@@ -92,11 +92,11 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
       >
         <AbilityRequirement spell={SPELLS.TOUCH_OF_DEATH.id} />
         <AbilityRequirement spell={SPELLS.TOUCH_OF_KARMA_CAST.id} />
-        {!combatant.hasTalent(SPELLS.SERENITY_TALENT.id) && (
+        {!combatant.hasTalent(TALENTS_MONK.SERENITY_TALENT) && (
           <AbilityRequirement spell={SPELLS.STORM_EARTH_AND_FIRE_CAST.id} />
         )}
-        {combatant.hasTalent(SPELLS.SERENITY_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.SERENITY_TALENT.id} />
+        {combatant.hasTalent(TALENTS_MONK.SERENITY_TALENT) && (
+          <AbilityRequirement spell={TALENTS_MONK.SERENITY_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.INVOKE_XUEN_THE_WHITE_TIGER.id} />
         <Requirement
@@ -121,12 +121,6 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         }
       >
         <AbilityRequirement spell={SPELLS.EXPEL_HARM.id} />
-        {combatant.hasTalent(SPELLS.ENERGIZING_ELIXIR_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.ENERGIZING_ELIXIR_TALENT.id} />
-        )}
-        {combatant.hasTalent(SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT.id} />
-        )}
         <Requirement
           name={
             <>
@@ -142,7 +136,8 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         description={
           <>
             Using the same damaging ability twice in a row will lose mastery benefit on the second
-            cast and drop the <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} icon /> buff if specced.
+            cast and drop the <SpellLink id={TALENTS_MONK.HIT_COMBO_TALENT.id} icon /> buff if
+            specced.
           </>
         }
       >
@@ -154,22 +149,22 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           }
           thresholds={thresholds.comboStrikes}
         />
-        {combatant.hasTalent(SPELLS.HIT_COMBO_TALENT) && (
+        {combatant.hasTalent(TALENTS_MONK.HIT_COMBO_TALENT) && (
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} /> uptime
+                <SpellLink id={TALENTS_MONK.HIT_COMBO_TALENT.id} /> uptime
               </>
             }
             thresholds={thresholds.hitCombo}
           />
         )}
       </Rule>
-      {combatant.hasLegendary(SPELLS.LAST_EMPERORS_CAPACITOR) && (
+      {false && (
         <Rule
           name={
             <>
-              Utilize <SpellLink id={SPELLS.LAST_EMPERORS_CAPACITOR.id} /> effectively
+              Utilize <SpellLink id={TALENTS_MONK.LAST_EMPERORS_CAPACITOR_TALENT.id} /> effectively
             </>
           }
           description={
@@ -193,52 +188,52 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           />
         </Rule>
       )}
-      {combatant.hasConduitBySpellID(SPELLS.COORDINATED_OFFENSIVE.id) &&
-        !combatant.hasTalent(SPELLS.SERENITY_TALENT.id) && (
-          <Rule
-            name={
-              <>
-                Fixate spirits to benefit from <ConduitLink id={SPELLS.COORDINATED_OFFENSIVE.id} />
-              </>
-            }
-            description={
-              <>
-                If you choose to use the <ConduitLink id={SPELLS.COORDINATED_OFFENSIVE.id} />{' '}
-                conduit, you need to use <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id} /> to
-                gain the damage bonus, even if there is only one target. You should fixate as soon
-                as you have 5 stacks of <SpellLink id={SPELLS.MARK_OF_THE_CRANE.id} /> or when all
-                targets are marked.
-              </>
-            }
-          >
-            <Requirement
-              name={
-                <>
-                  Percentage of possible <ConduitLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> damage
-                </>
-              }
-              thresholds={thresholds.coordinatedOffensiveDamageBenefit}
-            />
-          </Rule>
-        )}
+      {/*{false && !combatant.hasTalent(TALENTS_MONK.SERENITY_TALENT) && (*/}
+      {/*  <Rule*/}
+      {/*    name={*/}
+      {/*      <>*/}
+      {/*        Fixate spirits to benefit from <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} />*/}
+      {/*      </>*/}
+      {/*    }*/}
+      {/*    description={*/}
+      {/*      <>*/}
+      {/*        If you choose to use the <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> conduit,*/}
+      {/*        you need to use <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id} /> to gain the*/}
+      {/*        damage bonus, even if there is only one target. You should fixate as soon as you have*/}
+      {/*        5 stacks of <SpellLink id={SPELLS.MARK_OF_THE_CRANE.id} /> or when all targets are*/}
+      {/*        marked.*/}
+      {/*      </>*/}
+      {/*    }*/}
+      {/*  >*/}
+      {/*    <Requirement*/}
+      {/*      name={*/}
+      {/*        <>*/}
+      {/*          Percentage of possible <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> damage*/}
+      {/*        </>*/}
+      {/*      }*/}
+      {/*      thresholds={thresholds.coordinatedOffensiveDamageBenefit}*/}
+      {/*    />*/}
+      {/*  </Rule>*/}
+      {/*)}*/}
       <Rule
         name="Use your defensive cooldowns effectively"
         description={
           <>
             Make sure you use your defensive cooldowns at appropriate times throughout the fight.
             Make sure to use <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> as much as possible to
-            maximize its offensive benefit and use <SpellLink id={SPELLS.DIFFUSE_MAGIC_TALENT.id} />
-            /<SpellLink id={SPELLS.DAMPEN_HARM_TALENT.id} icon /> for dangerous periods of damage
-            intake.
+            maximize its offensive benefit and use{' '}
+            <SpellLink id={TALENTS_MONK.DIFFUSE_MAGIC_TALENT.id} />
+            /<SpellLink id={TALENTS_MONK.DAMPEN_HARM_TALENT.id} icon /> for dangerous periods of
+            damage intake.
           </>
         }
       >
         <AbilityRequirement spell={SPELLS.TOUCH_OF_KARMA_CAST.id} />
-        {combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.DIFFUSE_MAGIC_TALENT.id} />
+        {combatant.hasTalent(TALENTS_MONK.DIFFUSE_MAGIC_TALENT) && (
+          <AbilityRequirement spell={TALENTS_MONK.DIFFUSE_MAGIC_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id) && (
-          <AbilityRequirement spell={SPELLS.DAMPEN_HARM_TALENT.id} />
+        {combatant.hasTalent(TALENTS_MONK.DAMPEN_HARM_TALENT) && (
+          <AbilityRequirement spell={TALENTS_MONK.DAMPEN_HARM_TALENT.id} />
         )}
         <Requirement
           name={

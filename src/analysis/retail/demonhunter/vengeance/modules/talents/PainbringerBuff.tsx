@@ -15,7 +15,7 @@ export default class PainbringerBuff extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.PAINBRINGER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.PAINBRINGER_TALENT);
   }
 
   get uptime() {

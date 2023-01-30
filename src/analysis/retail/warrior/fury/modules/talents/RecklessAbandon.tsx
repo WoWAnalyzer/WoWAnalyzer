@@ -18,7 +18,7 @@ class RecklessAbandon extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(talents.RECKLESSNESS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.RECKLESSNESS_TALENT);
 
     if (!this.active) {
       return;

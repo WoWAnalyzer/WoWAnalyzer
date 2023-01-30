@@ -41,6 +41,26 @@ export interface WCLRanking {
   regionName: string;
   hidden: boolean;
   itemLevel: number;
+  talents: WCLRankingTalent[];
+  gear: WCLRankingGear[];
+}
+
+export interface WCLRankingTalent {
+  name: string;
+  id: number;
+  talentID: number;
+  points: number;
+  icon: string;
+}
+
+export interface WCLRankingGear {
+  name: string;
+  quality?: string;
+  id: number;
+  icon: string;
+  itemLevel?: string;
+  bonusIds?: string[];
+  gems?: { id: string; itemLevel: string }[];
 }
 
 export interface WCLHealing {

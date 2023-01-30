@@ -22,7 +22,7 @@ class AlphaPredator extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ALPHA_PREDATOR_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ALPHA_PREDATOR_TALENT);
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_DAMAGE_SV),

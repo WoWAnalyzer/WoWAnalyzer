@@ -96,6 +96,9 @@ export default class Metamorphosis extends HitBasedAnalyzer {
     if (!uptime) {
       return;
     }
+    if (uptime.end !== uptime.start) {
+      return;
+    }
 
     uptime.end = this.owner.fight.end_time;
   }

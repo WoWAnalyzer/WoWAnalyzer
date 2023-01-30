@@ -9,11 +9,19 @@ export default {
   contributors: [Trevor, Tyndi, Vohrr],
   expansion: Expansion.Dragonflight,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '10.0.2',
-  isPartial: true,
+  patchCompatibility: '10.0.5',
+  isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
-  description: <>Hi! This is just a setup and not meant to be a functional parser.....Yet!</>,
+  description: (
+    <>
+      Hello all! Thanks so much for taking the time use this tool as a way to improve your play. The
+      goal is to provide targeted suggestions to improve your overall Preservation Evoker play.
+      <br />
+      The core elements of the class have been implemented, but if you have any suggestions then
+      feel free to make a Github issue.
+    </>
+  ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '',
 

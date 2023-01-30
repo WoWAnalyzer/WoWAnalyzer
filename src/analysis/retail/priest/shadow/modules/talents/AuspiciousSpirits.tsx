@@ -18,7 +18,7 @@ class AuspiciousSpirits extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.AUSPICIOUS_SPIRITS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.AUSPICIOUS_SPIRITS_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOWY_APPARITION_DAMAGE),
       this.onApparitionDamage,

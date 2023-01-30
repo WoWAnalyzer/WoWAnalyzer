@@ -26,7 +26,7 @@ const PANDEMIC_EXTRA = 0.3;
 /** tolerated difference between expected and actual HoT fall before a 'mismatch' is logged */
 const EXPECTED_REMOVAL_THRESHOLD = 200;
 /** tolerated latency between a buff remove and buff apply event for a bouncing hot */
-const BOUNCE_THRESHOLD = 50;
+const BOUNCE_THRESHOLD = 65;
 // this class does a lot, a few different debug areas to cut down on the spam while debugging
 const debug = false;
 const bounceDebug = false;
@@ -411,15 +411,20 @@ abstract class HotTracker extends Analyzer {
           if (timeBetween <= BOUNCE_THRESHOLD) {
             bounceDebug &&
               console.log(
-                'Applied a bouncing hot at ' + this.owner.formatTimestamp(event.timestamp, 3),
+                'Applied a bouncing hot at ' +
+                  this.owner.formatTimestamp(event.timestamp, 3) +
+                  ' on ' +
+                  this.combatants.getEntity(event)?.name,
               );
+            //duration is not lost due to latency between events -- account for it
+            hot.maxDuration! += timeBetween;
             this.hots[targetId][spellId] = hot;
             this.bouncingHots.shift();
             return;
           }
           bounceDebug &&
             console.log(
-              'Bouncing Hot lost due to no eligible jump targets, player death, etc' +
+              'Bouncing Hot lost due to no eligible jump targets, player death, expiration ' +
                 this.owner.formatTimestamp(lastBounce, 3),
             );
           this.bouncingHots.shift();
@@ -598,6 +603,11 @@ abstract class HotTracker extends Analyzer {
 
     if (this.hotInfo[spellId].bouncy && this.hots[targetId][spellId].end > event.timestamp) {
       // if this is a HoT that bounces, push it on to the bounce stack
+      this.addAttribution(
+        HotTracker.getNewAttribution('Bounced'),
+        event.targetID,
+        event.ability.guid,
+      );
       this.hots[targetId][spellId].lastBounce = event.timestamp;
       this.bouncingHots.push(this.hots[targetId][spellId]);
       bounceDebug &&

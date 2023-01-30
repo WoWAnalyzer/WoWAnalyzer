@@ -5,7 +5,6 @@ import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
 import AlwaysBeCasting from '../core/AlwaysBeCasting';
-import { apl, check } from '../core/apl';
 import BrainFreeze from '../core/BrainFreeze';
 import IceLance from '../core/IceLance';
 import IcyVeins from '../core/IcyVeins';
@@ -52,13 +51,10 @@ class Checklist extends BaseChecklist {
   protected waterElemental!: WaterElemental;
 
   render() {
-    const checkResults = check(this.owner.eventHistory, this.owner.info);
     return (
       <Component
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
-        checkResults={checkResults}
-        apl={apl}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
 
@@ -68,12 +64,11 @@ class Checklist extends BaseChecklist {
           brainFreezeUtilization: this.brainFreeze.brainFreezeUtilizationThresholds,
           brainFreezeOverwrites: this.brainFreeze.brainFreezeOverwritenThresholds,
           brainFreezeExpired: this.brainFreeze.brainFreezeExpiredThresholds,
-          brainFreezeUnbuffedFlurry: this.brainFreeze.flurryWithoutBrainFreezeThresholds,
           glacialSpikeUtilization: this.glacialSpike.glacialSpikeUtilizationThresholds,
           fingersOfFrostUtilization: this.iceLance.fingersProcUtilizationThresholds,
           iceLanceNotShattered: this.iceLance.nonShatteredIceLanceThresholds,
           wintersChillShatter: this.wintersChill.wintersChillShatterThresholds,
-          wintersChillHardCasts: this.wintersChill.wintersChillHardCastThresholds,
+          wintersChillHardCasts: this.wintersChill.wintersChillPreCastThresholds,
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,
           cancelledCasts: this.cancelledCasts.suggestionThresholds,
           runeOfPowerBuffUptime: this.runeOfPower.roundedSecondsSuggestionThresholds,

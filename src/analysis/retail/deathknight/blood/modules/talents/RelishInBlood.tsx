@@ -19,7 +19,7 @@ class RelishInBlood extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.RELISH_IN_BLOOD_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.RELISH_IN_BLOOD_TALENT);
 
     if (!this.active) {
       return;

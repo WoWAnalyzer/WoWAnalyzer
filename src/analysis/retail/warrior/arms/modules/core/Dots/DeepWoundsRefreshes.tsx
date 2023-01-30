@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/warrior';
 import { SpellLink } from 'interface';
 import { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -59,7 +60,7 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
     // Refreshes from Colossus Smash/Warbreaker/Bladestorm dont count against you
     if (
       dot.castId === SPELLS.BLADESTORM.id ||
-      dot.castId === SPELLS.WARBREAKER_TALENT.id ||
+      dot.castId === TALENTS.WARBREAKER_TALENT.id ||
       dot.castId === SPELLS.COLOSSUS_SMASH.id
     ) {
       this.lastCastGoodExtension = true;
@@ -70,15 +71,9 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
     if (
       dot &&
       dot.castId === SPELLS.MORTAL_STRIKE.id &&
-      (!this.executeRange.isTargetInExecuteRange({
-        targetID: event.targetID,
-        targetInstance: event.targetInstance,
-      }) ||
-        (this.executeRange.isTargetInExecuteRange({
-          targetID: event.targetID,
-          targetInstance: event.targetInstance,
-        }) &&
-          this.selectedCombatant.hasLegendary(SPELLS.ENDURING_BLOW) &&
+      (!this.executeRange.isTargetInExecuteRange(event.targetID || 0, event.targetInstance || 0) ||
+        (this.executeRange.isTargetInExecuteRange(event.targetID || 0, event.targetInstance || 0) &&
+          false &&
           this.hasTwoOverpowerStacks()))
     ) {
       this.lastCastGoodExtension = true;
@@ -102,8 +97,6 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
             <SpellLink id={SPELLS.EXECUTE.id} icon /> range. Try to prioritize{' '}
             <SpellLink id={SPELLS.EXECUTE.id} icon /> as it deals more damage than{' '}
             <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> unless you have the
-            <SpellLink id={SPELLS.ENDURING_BLOW.id} icon /> legendary, then you should only
-            prioritize Mortal Strike in execute range with two stacks of{' '}
             <SpellLink id={SPELLS.OVERPOWER.id} icon />.
           </>,
         )

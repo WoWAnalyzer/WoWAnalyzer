@@ -62,12 +62,12 @@ class FlashFlood extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.FLASH_FLOOD_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.FLASH_FLOOD_TALENT);
     this.flashFloodHaste =
-      this.selectedCombatant.getTalentRank(TALENTS.FLASH_FLOOD_TALENT.id) *
+      this.selectedCombatant.getTalentRank(TALENTS.FLASH_FLOOD_TALENT) *
       FLASH_FLOOD_CAST_SPEED_MODIFIER;
 
-    if (this.selectedCombatant.hasTalent(TALENTS.WELLSPRING_TALENT.id)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.WELLSPRING_TALENT)) {
       //-- always below GCD
       this.spellsConsumingFlashFlood[TALENTS.WELLSPRING_TALENT.id] = {
         timesBuffed: 0,

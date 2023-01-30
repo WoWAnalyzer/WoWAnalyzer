@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -12,6 +11,9 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 
 // Example Log https://www.warcraftlogs.com/reports/ctvYK32ZhbDqLmX8#fight=30&type=damage-done
 
@@ -31,7 +33,7 @@ class Deathspeaker extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DEATHSPEAKER_TALENT_BUFF),
       this.onBuffApplied,
@@ -63,21 +65,21 @@ class Deathspeaker extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: this.procsWasted / this.procsGained,
+      actual: this.procsWasted,
       isGreaterThan: {
         minor: 0,
-        average: 0,
-        major: 0.05,
+        average: 0.5,
+        major: 1.1,
       },
-      style: ThresholdStyle.PERCENTAGE,
+      style: ThresholdStyle.NUMBER,
     };
   }
 
   suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+    when(this.suggestionThresholds).addSuggestion((suggest) =>
       suggest(
         <>
-          You wasted {formatPercentage(actual)}% of{' '}
+          You wasted {this.procsWasted} out of {this.procsGained}{' '}
           <SpellLink id={TALENTS.DEATHSPEAKER_TALENT.id} /> procs.{' '}
         </>,
       )
@@ -85,10 +87,10 @@ class Deathspeaker extends Analyzer {
         .actual(
           t({
             id: 'priest.shadow.suggestions.deathspeaker.efficiency',
-            message: `Wasted ${formatPercentage(actual)}% of DeathSpeaker procs.`,
+            message: `You wasted ${this.procsWasted} out of ${this.procsGained} DeathSpeaker procs.`,
           }),
         )
-        .recommended(`<${formatPercentage(recommended)}% is recommended.`),
+        .recommended(`<0 is recommended.`),
     );
   }
 
@@ -102,6 +104,37 @@ class Deathspeaker extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const goodDS = {
+      count: this.getProcsUsed(),
+      label: 'Deathspeaker procs used',
+    };
+
+    const badDS = {
+      count: this.procsWasted,
+      label: 'Deathspeaker procs wasted',
+    };
+
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS.DEATHSPEAKER_TALENT.id} />
+        </b>{' '}
+        is gained randomly from <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> damage. <br />
+        Cast <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> while the buff is active to
+        avoid wasting procs.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <strong>Death Speaker breakdown</strong>
+        <GradiatedPerformanceBar good={goodDS} bad={badDS} />
+      </div>
+    );
+    return explanationAndDataSubsection(explanation, data, 50);
   }
 }
 

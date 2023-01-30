@@ -30,7 +30,7 @@ class SpellUsable extends CoreSpellUsable {
 
   constructor(options: Options) {
     super(options);
-    this.hasIcecap = this.selectedCombatant.hasTalent(talents.ICECAP_TALENT.id);
+    this.hasIcecap = this.selectedCombatant.hasTalent(talents.ICECAP_TALENT);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(ICECAP_ABILITIES), this.onDamage);
   }
 

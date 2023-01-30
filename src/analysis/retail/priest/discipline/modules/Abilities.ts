@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -41,7 +40,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.POWER_WORD_RADIANCE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: this.selectedCombatant.hasTalent(TALENTS_PRIEST.BRIGHT_PUPIL_TALENT.id) ? 15 : 20,
+        cooldown: this.selectedCombatant.hasTalent(TALENTS_PRIEST.BRIGHT_PUPIL_TALENT) ? 15 : 20,
         charges: 2,
         gcd: {
           base: 1500,
@@ -57,7 +56,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_PRIEST.EVANGELISM_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_PRIEST.EVANGELISM_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -77,7 +76,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_PRIEST.SCHISM_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_PRIEST.SCHISM_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -89,7 +88,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -101,7 +100,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_PRIEST.DIVINE_STAR_SHARED_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_PRIEST.DIVINE_STAR_SHARED_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -113,7 +112,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(SPELLS.HALO_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.HALO_SHARED_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -126,7 +125,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -138,7 +137,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_PRIEST.LIGHTS_WRATH_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_PRIEST.LIGHTS_WRATH_TALENT),
       },
       {
         spell: TALENTS_PRIEST.POWER_WORD_LIFE_TALENT.id,
@@ -163,7 +162,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !combatant.hasTalent(TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -197,7 +196,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SHADOW_WORD_PAIN.id,
         category: SPELL_CATEGORY.OTHERS,
-        enabled: !combatant.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id),
+        enabled: !combatant.hasTalent(TALENTS.PURGE_THE_WICKED_TALENT),
         gcd: {
           base: 1500,
         },
@@ -205,7 +204,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PURGE_THE_WICKED_TALENT.id,
         category: SPELL_CATEGORY.OTHERS,
-        enabled: combatant.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS.PURGE_THE_WICKED_TALENT),
         gcd: {
           base: 1500,
         },
@@ -226,7 +225,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_PRIEST.ANGELIC_FEATHER_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_PRIEST.ANGELIC_FEATHER_TALENT),
       },
       {
         spell: SPELLS.FADE.id,
@@ -241,7 +240,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MIND_CONTROL.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(TALENTS_PRIEST.DOMINATE_MIND_TALENT.id) ? 120 : 0,
+        cooldown: combatant.hasTalent(TALENTS_PRIEST.DOMINATE_MIND_TALENT) ? 120 : 0,
       },
       {
         spell: SPELLS.MASS_DISPEL.id,
@@ -276,7 +275,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PSYCHIC_SCREAM.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60 - (combatant.hasTalent(TALENTS_PRIEST.PSYCHIC_VOICE_TALENT.id) ? 30 : 0),
+        cooldown: 60 - (combatant.hasTalent(TALENTS_PRIEST.PSYCHIC_VOICE_TALENT) ? 30 : 0),
       },
       {
         spell: SPELLS.SHADOW_MEND.id,
@@ -295,7 +294,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-        enabled: combatant.hasTalent(TALENTS_PRIEST.SHADOW_COVENANT_TALENT.id),
+        enabled: combatant.hasTalent(TALENTS_PRIEST.SHADOW_COVENANT_TALENT),
       },
       {
         spell: SPELLS.LEVITATE.id,
@@ -341,12 +340,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-      },
-      {
-        spell: SPELLS.FLESHCRAFT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120,
-        enabled: combatant.hasCovenant(COVENANTS.NECROLORD.id),
       },
     ];
   }

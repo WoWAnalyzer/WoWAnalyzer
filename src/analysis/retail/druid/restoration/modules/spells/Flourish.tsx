@@ -14,12 +14,11 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { FLOURISH_INCREASED_RATE } from 'analysis/retail/druid/restoration/constants';
-import {
-  CooldownExpandable,
+import CooldownExpandable, {
   CooldownExpandableItem,
-  GUIDE_CORE_EXPLANATION_PERCENT,
-} from 'analysis/retail/druid/restoration/Guide';
+} from 'interface/guide/components/CooldownExpandable';
+import { FLOURISH_INCREASED_RATE } from 'analysis/retail/druid/restoration/constants';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/druid/restoration/Guide';
 import { isFromHardcast } from 'analysis/retail/druid/restoration/normalizers/CastLinkNormalizer';
 import HotTrackerRestoDruid from 'analysis/retail/druid/restoration/modules/core/hottracking/HotTrackerRestoDruid';
 import ConvokeSpiritsResto from 'analysis/retail/druid/restoration/modules/spells/ConvokeSpiritsResto';
@@ -263,7 +262,7 @@ class Flourish extends Analyzer {
   }
 
   statistic() {
-    if (!this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT)) {
       return; // module needs to stay active for convoke, but we shouldn't display stat
     }
     return (

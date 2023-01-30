@@ -1,12 +1,6 @@
 /* eslint-disable react/display-name */
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import Enzyme from 'enzyme';
-import 'jest-enzyme'; // better matchers
 import 'jest-canvas-mock';
-
-Enzyme.configure({
-  adapter: new Adapter(),
-});
+import '@testing-library/jest-dom';
 
 // Fixes tests in Jest 27: https://github.com/prisma/prisma/issues/8558#issuecomment-1006100001
 global.setImmediate = (fun) => setTimeout(fun, 0);
@@ -23,11 +17,12 @@ jest.mock('react-router-dom', () => ({
   Link: (props) => <link {...props} />,
   Route: (props) => <route {...props} />,
   Switch: (props) => <switch {...props} />,
-  withRouter: (Component) => (props) => (
-    <routerified>
-      <Component {...props} />
-    </routerified>
-  ),
+  withRouter: (Component) => (props) =>
+    (
+      <routerified>
+        <Component {...props} />
+      </routerified>
+    ),
 }));
 
 jest.mock('@lingui/core', () => ({

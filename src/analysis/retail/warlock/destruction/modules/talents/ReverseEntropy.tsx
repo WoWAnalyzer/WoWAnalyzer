@@ -17,7 +17,7 @@ class ReverseEntropy extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.REVERSE_ENTROPY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.REVERSE_ENTROPY_TALENT);
   }
 
   statistic() {

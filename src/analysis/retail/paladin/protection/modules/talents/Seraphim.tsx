@@ -1,5 +1,5 @@
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
 import HasteIcon from 'interface/icons/Haste';
 import MasteryIcon from 'interface/icons/Mastery';
@@ -35,19 +35,19 @@ class Seraphim extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.SERAPHIM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SERAPHIM_TALENT);
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.SERAPHIM_TALENT),
+      Events.applybuff.to(SELECTED_PLAYER).spell(TALENTS.SERAPHIM_TALENT),
       this.onSeraphimGain,
     );
   }
 
   get uptime(): number {
     return (
-      this.selectedCombatant.getBuffUptime(SPELLS.SERAPHIM_TALENT.id) / this.owner.fightDuration
+      this.selectedCombatant.getBuffUptime(TALENTS.SERAPHIM_TALENT.id) / this.owner.fightDuration
     );
   }
 
@@ -105,7 +105,7 @@ class Seraphim extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.SERAPHIM_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.SERAPHIM_TALENT.id}>
           <UptimeIcon /> {formatPercentage(this.uptime, 0)}% <small>uptime</small>
           <br />
           <HasteIcon /> {formatPercentage(this.averageHasteGain)}%{' '}

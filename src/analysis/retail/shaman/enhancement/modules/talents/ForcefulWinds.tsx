@@ -23,7 +23,7 @@ class ForcefulWinds extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.FORCEFUL_WINDS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.FORCEFUL_WINDS_TALENT);
 
     if (!this.active) {
       return;

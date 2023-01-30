@@ -66,6 +66,18 @@ class UnleashLife extends Analyzer {
       healing: 0,
       castAmount: 0,
     },
+    [TALENTS.WELLSPRING_TALENT.id]: {
+      healing: 0,
+      castAmount: 0,
+    },
+    [TALENTS.HEALING_RAIN_TALENT.id]: {
+      healing: 0,
+      castAmount: 0,
+    },
+    [TALENTS.DOWNPOUR_TALENT.id]: {
+      healing: 0,
+      castAmount: 0,
+    },
   };
 
   unleashLifeCasts = 0;
@@ -77,7 +89,7 @@ class UnleashLife extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT);
 
     const spellFilter = [
       TALENTS.UNLEASH_LIFE_TALENT,
@@ -85,6 +97,9 @@ class UnleashLife extends Analyzer {
       TALENTS.CHAIN_HEAL_TALENT,
       TALENTS.HEALING_WAVE_TALENT,
       SPELLS.HEALING_SURGE,
+      TALENTS.WELLSPRING_TALENT,
+      TALENTS.HEALING_RAIN_TALENT,
+      TALENTS.DOWNPOUR_TALENT,
     ]; // TODO ADD CHAIN HARVEST
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(spellFilter), this._onHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(spellFilter), this._onCast);
@@ -244,6 +259,24 @@ class UnleashLife extends Analyzer {
         label: <Trans id="shaman.restoration.spell.riptide">Riptide</Trans>,
         spellId: TALENTS.RIPTIDE_TALENT.id,
         value: this.healingBuff[TALENTS.RIPTIDE_TALENT.id].castAmount,
+      },
+      {
+        color: RESTORATION_COLORS.HEALING_RAIN,
+        label: <Trans id="shaman.restoration.spell.healing_rain">Healing Rain</Trans>,
+        spellId: TALENTS.HEALING_RAIN_TALENT.id,
+        value: this.healingBuff[TALENTS.HEALING_RAIN_TALENT.id].castAmount,
+      },
+      {
+        color: RESTORATION_COLORS.WELLSPRING,
+        label: <Trans id="shaman.restoration.spell.wellspring">Wellspring</Trans>,
+        spellId: TALENTS.WELLSPRING_TALENT.id,
+        value: this.healingBuff[TALENTS.WELLSPRING_TALENT.id].castAmount,
+      },
+      {
+        color: RESTORATION_COLORS.DOWNPOUR,
+        label: <Trans id="shaman.restoration.spell.downpour">Downpour</Trans>,
+        spellId: TALENTS.DOWNPOUR_TALENT.id,
+        value: this.healingBuff[TALENTS.DOWNPOUR_TALENT.id].castAmount,
       },
       {
         color: RESTORATION_COLORS.UNUSED,

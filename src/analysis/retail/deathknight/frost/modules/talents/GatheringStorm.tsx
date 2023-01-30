@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import talents from 'common/TALENTS/deathknight'
+import talents from 'common/TALENTS/deathknight';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -32,7 +32,7 @@ class GatheringStorm extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.GATHERING_STORM_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(talents.GATHERING_STORM_TALENT);
     if (!this.active) {
       return;
     }

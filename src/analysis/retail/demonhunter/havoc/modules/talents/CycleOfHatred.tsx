@@ -33,7 +33,7 @@ class CycleOfHatred extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.CYCLE_OF_HATRED_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.CYCLE_OF_HATRED_TALENT);
     if (!this.active) {
       return;
     }
@@ -48,7 +48,7 @@ class CycleOfHatred extends Analyzer {
       TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id,
       MS_IN_SECOND *
         CYCLE_OF_HATRED_SCALING[
-          this.selectedCombatant.getTalentRank(TALENTS_DEMON_HUNTER.CYCLE_OF_HATRED_TALENT.id)
+          this.selectedCombatant.getTalentRank(TALENTS_DEMON_HUNTER.CYCLE_OF_HATRED_TALENT)
         ],
     );
     this.totalCooldownReduction += effectiveReduction;

@@ -23,10 +23,10 @@ class OneWithThePack extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ONE_WITH_THE_PACK_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ONE_WITH_THE_PACK_TALENT);
     // 20% from the previous talent (Wild Call) + 5% per rank
     this.resetPercent =
-      0.2 + this.selectedCombatant.getTalentRank(TALENTS.ONE_WITH_THE_PACK_TALENT.id) * 0.05;
+      0.2 + this.selectedCombatant.getTalentRank(TALENTS.ONE_WITH_THE_PACK_TALENT) * 0.05;
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AUTO_SHOT),
       this.onAutoShotDamage,

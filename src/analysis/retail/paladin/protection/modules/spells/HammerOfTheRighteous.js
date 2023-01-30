@@ -1,13 +1,14 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-const BETTER_SPELLS = [SPELLS.JUDGMENT_CAST_PROTECTION.id, SPELLS.AVENGERS_SHIELD.id];
+const BETTER_SPELLS = [SPELLS.JUDGMENT_CAST_PROTECTION.id, TALENTS.AVENGERS_SHIELD_TALENT.id];
 
 export default class HammerOfTheRighteous extends Analyzer {
   static dependencies = {
@@ -15,14 +16,14 @@ export default class HammerOfTheRighteous extends Analyzer {
     spells: SpellUsable,
   };
 
-  activeSpell = SPELLS.HAMMER_OF_THE_RIGHTEOUS;
+  activeSpell = TALENTS.HAMMER_OF_THE_RIGHTEOUS_TALENT;
   _badCasts = 0;
   _casts = 0;
 
   constructor(props) {
     super(props);
-    if (this.selectedCombatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id)) {
-      this.activeSpell = SPELLS.BLESSED_HAMMER_TALENT;
+    if (this.selectedCombatant.hasTalent(TALENTS.BLESSED_HAMMER_TALENT)) {
+      this.activeSpell = TALENTS.BLESSED_HAMMER_TALENT;
     }
 
     this.addEventListener(
@@ -61,9 +62,9 @@ export default class HammerOfTheRighteous extends Analyzer {
       suggest(
         <>
           You should avoid casting <SpellLink id={this.activeSpell.id} /> while better spells
-          (namely <SpellLink id={SPELLS.JUDGMENT_CAST_PROTECTION.id} /> and{' '}
-          <SpellLink id={SPELLS.AVENGERS_SHIELD.id} />) are available. This is a <em>filler</em>{' '}
-          ability and should only be used when you have no better spells to cast.
+          (namely <SpellLink id={TALENTS.IMPROVED_JUDGMENT_TALENT.id} /> and{' '}
+          <SpellLink id={TALENTS.AVENGERS_SHIELD_TALENT.id} />) are available. This is a{' '}
+          <em>filler</em> ability and should only be used when you have no better spells to cast.
         </>,
       )
         .icon(this.activeSpell.icon)

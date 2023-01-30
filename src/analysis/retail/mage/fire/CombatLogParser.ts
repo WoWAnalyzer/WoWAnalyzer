@@ -26,11 +26,8 @@ import Abilities from './core/Abilities';
 import AlwaysBeCasting from './core/AlwaysBeCasting';
 import Buffs from './core/Buffs';
 import CooldownThroughputTracker from './core/CooldownThroughputTracker';
+import Combustion from './core/Combustion';
 import CombustionActiveTime from './core/CombustionActiveTime';
-import CombustionCasts from './core/CombustionCasts';
-import CombustionCharges from './core/CombustionCharges';
-import CombustionPreCastDelay from './core/CombustionPreCastDelay';
-import CombustionSpellUsage from './core/CombustionSpellUsage';
 import HeatingUp from './core/HeatingUp';
 import HotStreak from './core/HotStreak';
 
@@ -77,11 +74,8 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneIntellect: ArcaneIntellect,
     heatingUp: HeatingUp,
     hotStreak: HotStreak,
-    combustionCasts: CombustionCasts,
-    combustionCharges: CombustionCharges,
-    combustionSpellUsage: CombustionSpellUsage,
+    combustion: Combustion,
     combustionActiveTime: CombustionActiveTime,
-    combustionPreCastDelay: CombustionPreCastDelay,
 
     //Talents - Fire
     phoenixFlames: PhoenixFlames,

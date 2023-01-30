@@ -14,17 +14,16 @@ const BUFF_DURATION = 20000;
 const debug = false;
 
 class DemonicCalling extends Analyzer {
-
   static dependencies = {
     spellUsable: SpellUsable,
   };
-  spellUsable!: SpellUsable
+  spellUsable!: SpellUsable;
   wastedProcs = 0;
   _expectedBuffEnd: number | null = null;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.DEMONIC_CALLING_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.DEMONIC_CALLING_TALENT);
     this.addEventListener(
       Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.DEMONIC_CALLING_BUFF),
       this.applyDemonicCallingBuff,

@@ -35,7 +35,7 @@ class SunKingsBlessing extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasLegendary(SPELLS.SUN_KINGS_BLESSING);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SUN_KINGS_BLESSING_TALENT);
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SUN_KINGS_BLESSING_BUFF_STACK),
       this.onStackRemoved,
@@ -163,22 +163,22 @@ class SunKingsBlessing extends Analyzer {
           You used <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> while{' '}
           <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> was already active{' '}
           {this.combustionCastDuringCombustion} times. When using{' '}
-          <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} /> and{' '}
+          <SpellLink id={TALENTS.SUN_KINGS_BLESSING_TALENT.id} /> and{' '}
           <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> at the same time, you want to ensure that{' '}
           <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> is activated first by using{' '}
           <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> just before your hard cast{' '}
           <SpellLink id={TALENTS.PYROBLAST_TALENT.id} /> finishes casting. This is due to an odd
           interaction where if <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> is used while{' '}
           <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> is already active (via{' '}
-          <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} />) then the time remaining on{' '}
+          <SpellLink id={TALENTS.SUN_KINGS_BLESSING_TALENT.id} />) then the time remaining on{' '}
           <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> will be reset to{' '}
           {COMBUSTION_DURATION / 1000}sec instead of adding to it. But if{' '}
-          <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} /> is activated after{' '}
+          <SpellLink id={TALENTS.SUN_KINGS_BLESSING_TALENT.id} /> is activated after{' '}
           <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> it will add {SKB_COMBUST_DURATION / 1000}
           sec to your <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />.
         </>,
       )
-        .icon(SPELLS.SUN_KINGS_BLESSING.icon)
+        .icon(TALENTS.SUN_KINGS_BLESSING_TALENT.icon)
         .actual(
           <Trans id="mage.fire.suggestions.sunKingsBlessing.combustionDuringCombustion">
             {formatNumber(actual)} bad uses
@@ -189,14 +189,15 @@ class SunKingsBlessing extends Analyzer {
     when(this.sunKingExpireThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You let <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} /> expire {this.expiredBuffs} times (
-          {formatPercentage(this.percentSunKingBuffExpired)}% of total{' '}
-          <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} /> buffs). While this is sometimes
+          You let <SpellLink id={TALENTS.SUN_KINGS_BLESSING_TALENT.id} /> expire {this.expiredBuffs}{' '}
+          times ({formatPercentage(this.percentSunKingBuffExpired)}% of total{' '}
+          <SpellLink id={TALENTS.SUN_KINGS_BLESSING_TALENT.id} /> buffs). While this is sometimes
           unavoidable, try to ensure you are using your{' '}
-          <SpellLink id={SPELLS.SUN_KINGS_BLESSING.id} /> procs instead of letting them expire.
+          <SpellLink id={TALENTS.SUN_KINGS_BLESSING_TALENT.id} /> procs instead of letting them
+          expire.
         </>,
       )
-        .icon(SPELLS.SUN_KINGS_BLESSING.icon)
+        .icon(TALENTS.SUN_KINGS_BLESSING_TALENT.icon)
         .actual(
           <Trans id="mage.fire.suggestions.sunKingsBlessing.expiredProcs">
             {formatPercentage(actual)}% expired procs

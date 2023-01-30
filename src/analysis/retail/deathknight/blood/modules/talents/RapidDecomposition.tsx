@@ -2,7 +2,6 @@ import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/deathknight';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -17,13 +16,11 @@ class RapidDecomposition extends Analyzer {
   dndDamage = 0;
   totalDamage = 0;
 
-  DD_DAMAGE_TICK: Spell = this.selectedCombatant.hasCovenant(COVENANTS.NIGHT_FAE.id)
-    ? SPELLS.DEATHS_DUE_DAMAGE_TICK
-    : SPELLS.DEATH_AND_DECAY_DAMAGE_TICK;
+  DD_DAMAGE_TICK: Spell = SPELLS.DEATH_AND_DECAY_DAMAGE_TICK;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.RAPID_DECOMPOSITION_TALENT);
     if (!this.active) {
       return;
     }

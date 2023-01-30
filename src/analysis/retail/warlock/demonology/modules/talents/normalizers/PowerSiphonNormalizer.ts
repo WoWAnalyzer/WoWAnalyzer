@@ -17,11 +17,13 @@ class PowerSiphonNormalizer extends EventsNormalizer {
   // This normalizer looks at Power Siphon casts, and looks for Wild Imp activity AFTER the cast, storing which Wild Imps were active AFTER the cast
   // If I can store the info inside the PS cast (with __modified flag) I should be able to correctly filter Imps that should actually die in the DemoPets.js Analyzer
   normalize(events: AnyEvent[]) {
-    if (!this.selectedCombatant.hasTalent(TALENTS.POWER_SIPHON_TALENT.id)) {
+    if (!this.selectedCombatant.hasTalent(TALENTS.POWER_SIPHON_TALENT)) {
       return events;
     }
 
-    let lastPowerSiphonCast: CastEvent & { __modified?: boolean, activeImpsAfterCast?: string[] } | null = null;
+    let lastPowerSiphonCast:
+      | (CastEvent & { __modified?: boolean; activeImpsAfterCast?: string[] })
+      | null = null;
     let activeImpsAfterCast: string[] = [];
 
     for (let i = 0; i < events.length; i += 1) {
@@ -56,8 +58,10 @@ class PowerSiphonNormalizer extends EventsNormalizer {
       }
     }
     // modify the last PS cast
-    lastPowerSiphonCast!.activeImpsAfterCast = [...activeImpsAfterCast];
-    lastPowerSiphonCast!.__modified = true;
+    if (lastPowerSiphonCast) {
+      lastPowerSiphonCast.activeImpsAfterCast = [...activeImpsAfterCast];
+      lastPowerSiphonCast.__modified = true;
+    }
     debug &&
       console.log(
         'PS casts after normalizing',

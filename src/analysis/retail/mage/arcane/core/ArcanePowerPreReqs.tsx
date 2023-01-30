@@ -3,7 +3,6 @@ import { ARCANE_CHARGE_MAX_STACKS, ARCANE_HARMONY_MAX_STACKS } from 'analysis/re
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import COVENANTS from 'game/shadowlands/COVENANTS';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -43,8 +42,8 @@ class ArcanePowerPreReqs extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.hasArcaneHarmony = this.selectedCombatant.hasLegendary(SPELLS.ARCANE_HARMONY);
-    this.isKyrian = this.selectedCombatant.hasCovenant(COVENANTS.KYRIAN.id);
+    this.hasArcaneHarmony = false;
+    this.isKyrian = false;
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_SURGE_TALENT),
       this.onArcanePower,
@@ -88,7 +87,7 @@ class ArcanePowerPreReqs extends Analyzer {
     }
 
     //Checks if Radiant Spark is active (if the player is Kyrian)
-    if (this.isKyrian && !this.selectedCombatant.hasBuff(SPELLS.RADIANT_SPARK.id)) {
+    if (this.isKyrian && !this.selectedCombatant.hasBuff(TALENTS.RADIANT_SPARK_TALENT.id)) {
       debug && this.log('Radiant Spark is not active');
       badCooldownUse = true;
       this.failedChecks += 1;
@@ -173,7 +172,7 @@ class ArcanePowerPreReqs extends Analyzer {
             )}
             {this.isKyrian && (
               <li>
-                <SpellLink id={SPELLS.RADIANT_SPARK.id} /> is active. - You failed this{' '}
+                <SpellLink id={TALENTS.RADIANT_SPARK_TALENT.id} /> is active. - You failed this{' '}
                 {this.noRadiantSpark} times.
               </li>
             )}
@@ -218,7 +217,7 @@ class ArcanePowerPreReqs extends Analyzer {
               )}
               {this.hasArcaneHarmony && (
                 <li>
-                  <SpellLink id={SPELLS.RADIANT_SPARK.id} /> is active - Missed{' '}
+                  <SpellLink id={TALENTS.RADIANT_SPARK_TALENT.id} /> is active - Missed{' '}
                   {this.noRadiantSpark} times
                 </li>
               )}

@@ -24,7 +24,7 @@ class VileTaint extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.VILE_TAINT_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.VILE_TAINT_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.VILE_TAINT_TALENT),
       this.onVileTaintCast,

@@ -26,11 +26,9 @@ class InnerDemons extends Analyzer {
     return wildImps + other;
   }
 
-
-
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.INNER_DEMONS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.INNER_DEMONS_TALENT);
   }
 
   statistic() {

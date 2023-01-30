@@ -37,9 +37,9 @@ class RollTheBonesEfficiency extends Analyzer {
     const delayedRolls = this.rollTheBonesCastTracker.rolltheBonesCastValues[
       ROLL_THE_BONES_CATEGORIES.LOW_VALUE
     ].filter((cast: RTBCast) => cast.RTBIsDelayed).length;
-    const totalRolls = this.rollTheBonesCastTracker.rolltheBonesCastValues[
-      ROLL_THE_BONES_CATEGORIES.LOW_VALUE
-    ].length;
+    const totalRolls =
+      this.rollTheBonesCastTracker.rolltheBonesCastValues[ROLL_THE_BONES_CATEGORIES.LOW_VALUE]
+        .length;
 
     return totalRolls - delayedRolls;
   }
@@ -66,8 +66,8 @@ class RollTheBonesEfficiency extends Analyzer {
           <>
             If you roll a single buff and it's not one of the two highest value, try to reroll it as
             soon as you can. If you roll a single buff and use{' '}
-            <SpellLink id={SPELLS.SLEIGHT_OF_HAND.id} /> reroll any single roll, regardless of the
-            buff.
+            <SpellLink id={TALENTS.SLEIGHT_OF_HAND_TALENT.id} /> reroll any single roll, regardless
+            of the buff.
           </>
         ),
         suggestionThresholds: this.rollSuggestionThreshold(
@@ -84,7 +84,8 @@ class RollTheBonesEfficiency extends Analyzer {
           <>
             If you ever roll a high value buff or multiple bufss, try to leave keep them as long as
             possible, refreshing with less than 3 seconds remaining. If you're using
-            <SpellLink id={SPELLS.SLEIGHT_OF_HAND.id} /> no single buff is considered high value.
+            <SpellLink id={TALENTS.SLEIGHT_OF_HAND_TALENT.id} /> no single buff is considered high
+            value.
           </>
         ),
         suggestionThresholds: this.rollSuggestionThreshold(
@@ -102,7 +103,7 @@ class RollTheBonesEfficiency extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ROLL_THE_BONES_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.DISPATCH, SPELLS.BETWEEN_THE_EYES]),
       this.onCast,

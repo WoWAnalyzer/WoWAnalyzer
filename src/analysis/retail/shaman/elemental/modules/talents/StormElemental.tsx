@@ -32,7 +32,7 @@ class StormElemental extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT);
     if (!this.active) {
       return;
     }

@@ -1,6 +1,6 @@
 import { Boss } from 'game/raids';
 
-import Background from './images/PrimalCouncil.png';
+import Background from './images/primalcouncil.jpg';
 
 const PrimalCouncil: Boss = {
   id: 2590,

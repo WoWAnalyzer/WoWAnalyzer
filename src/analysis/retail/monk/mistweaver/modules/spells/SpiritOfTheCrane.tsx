@@ -38,7 +38,7 @@ class SpiritOfTheCrane extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.SPIRIT_OF_THE_CRANE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.SPIRIT_OF_THE_CRANE_TALENT);
 
     if (!this.active) {
       return;

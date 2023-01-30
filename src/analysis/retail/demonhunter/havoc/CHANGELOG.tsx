@@ -6,6 +6,10 @@ import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 
 // prettier-ignore
 export default [
+  change(date(2023, 1, 15), 'Update Fury waste recommendations and Guide.', ToppleTheNun),
+  change(date(2022, 12, 15), 'Fix Guide crashing.', ToppleTheNun),
+  change(date(2022, 12, 5), 'Add very basic APL.', ToppleTheNun),
+  change(date(2022, 11, 30), 'Clean up and internationalize Guide.', ToppleTheNun),
   change(date(2022, 11, 21), <>Fix degradation of <SpellLink id={TALENTS.THE_HUNT_TALENT} /> due to pre-casts.</>, ToppleTheNun),
   change(date(2022, 11, 14), <>Add <SpellLink id={TALENTS.THE_HUNT_TALENT}/> cast breakdown to the Guide.</>, ToppleTheNun),
   change(date(2022, 11, 10), <>Prevent <SpellLink id={TALENTS.SIGIL_OF_MISERY_TALENT}/> and <SpellLink id={TALENTS.SIGIL_OF_SILENCE_TALENT}/> from appearing in statistics if untalented.</>, ToppleTheNun),

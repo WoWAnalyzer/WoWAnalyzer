@@ -1,8 +1,8 @@
 import SpellIcon from 'interface/SpellIcon';
 import SpellLink from 'interface/SpellLink';
 import { TalentEntry } from 'parser/core/Events';
-import maybeGetTalent from 'common/TALENTS/maybeGetTalent';
 import Icon from 'interface/Icon';
+import getTalentFromEntry from 'common/TALENTS/getTalentFromEntry';
 
 interface Props {
   talentEntry: TalentEntry;
@@ -11,7 +11,7 @@ interface Props {
 const FALLBACK_ICON = 'inv_misc_questionmark';
 
 const PlayerInfoTalent = ({ talentEntry }: Props) => {
-  const talent = maybeGetTalent(talentEntry.spellID);
+  const talent = getTalentFromEntry(talentEntry);
   if (!talent) {
     return (
       <>

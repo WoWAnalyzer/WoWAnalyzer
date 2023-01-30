@@ -18,7 +18,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 class Trailblazer extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.TRAILBLAZER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.TRAILBLAZER_TALENT);
   }
 
   get percentUptime() {

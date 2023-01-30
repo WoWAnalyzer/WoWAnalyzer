@@ -5,6 +5,7 @@ import {
   TouchOfDeath,
   DampenHarm,
   SaveThemAll,
+  TeachingsOfTheMonestary,
 } from 'analysis/retail/monk/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
@@ -30,7 +31,6 @@ import REMGraph from './modules/features/REMGraph';
 import JadeBond from './modules/spells/JadeBond';
 import NourishingChi from './modules/spells/NourishingChi';
 import RisingSunRevival from './modules/spells/UpliftedSpirits';
-import BonedustBrewAverageTargets from './modules/spells/BonedustBrewAverageTargets';
 import FaelineStompHealing from './modules/spells/FaelineStompHealing';
 import AncientTeachingsoftheMonastery from './modules/spells/AncientTeachingsoftheMonastery';
 import CloudedFocus from './modules/spells/CloudedFocus';
@@ -55,7 +55,6 @@ import InvokeChiJi from './modules/spells/InvokeChiJi';
 import JadeSerpentStatue from './modules/spells/JadeSerpentStatue';
 import Lifecycles from './modules/spells/Lifecycles';
 import ManaTea from './modules/spells/ManaTea';
-import MistWrapEnvelopingBreath from './modules/spells/MistWrapEnvelopingBreath';
 import MistyPeaks from './modules/spells/MistyPeaks';
 import MistsOfLife from './modules/spells/MistsOfLife';
 import RefreshingJadeWind from './modules/spells/RefreshingJadeWind';
@@ -71,6 +70,14 @@ import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import Unison from './modules/spells/Unison';
 import RapidDiffusion from './modules/spells/RapidDiffusion';
 import T29TierSet from './modules/dragonflight/tier/T29MWTier';
+import DancingMists from './modules/spells/DancingMists';
+import MistyPeaksHealingBreakdown from './modules/features/MistyPeaksHealingBreakdown';
+import TalentHealingStatistic from './modules/features/TalentHealingStatistic';
+import MendingProliferation from './modules/spells/MendingProliferation';
+import SheilunsGift from './modules/spells/SheilunsGift';
+import MistWrap from './modules/spells/MistWrap';
+import ShaohaosLessons from './modules/spells/ShaohaosLessons';
+import VeilOfPride from './modules/spells/VeilOfPride';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -100,8 +107,10 @@ class CombatLogParser extends CoreCombatLogParser {
     masteryStats: MasteryStats,
     buffs: Buffs,
     essenceFontHealingBreakDown: EssenceFontHealingBreakdown,
+    mistyPeaksHealingBreakdown: MistyPeaksHealingBreakdown,
     averageTimeBetweenRSKSs: AverageTimeBetweenRSKSs,
     remGraph: REMGraph,
+    talentHealingStatistic: TalentHealingStatistic,
 
     // Base Spells
     spinningCraneKick: SpinningCraneKick,
@@ -117,7 +126,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // MW Talents
     ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
-    bonedustBrewAverageTargets: BonedustBrewAverageTargets,
     cloudedFocus: CloudedFocus,
     envelopingBreath: EnvelopingBreath,
     envelopingMists: EnvelopingMists,
@@ -134,7 +142,7 @@ class CombatLogParser extends CoreCombatLogParser {
     jadeSerpentStatue: JadeSerpentStatue,
     jadeBond: JadeBond,
     lifecycles: Lifecycles,
-    mistWrapEnvelopingBreath: MistWrapEnvelopingBreath,
+    mistWrap: MistWrap,
     manaTea: ManaTea,
     mistsOfLife: MistsOfLife,
     mistyPeaks: MistyPeaks,
@@ -152,6 +160,12 @@ class CombatLogParser extends CoreCombatLogParser {
     yulonsWhisper: YulonsWhisper,
     unison: Unison,
     rapidDiffusion: RapidDiffusion,
+    dancingMists: DancingMists,
+    mendingProliferation: MendingProliferation,
+    teachingsOfTheMonestary: TeachingsOfTheMonestary,
+    sheilunsGift: SheilunsGift,
+    shaohaosLessons: ShaohaosLessons,
+    veilOfPride: VeilOfPride,
 
     // Borrowed Power
     t29TierSet: T29TierSet,

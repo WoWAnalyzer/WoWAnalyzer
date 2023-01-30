@@ -71,9 +71,7 @@ class ImmolationAura extends Analyzer {
         }
       >
         <BoringSpellValueText spellId={SPELLS.IMMOLATION_AURA.id}>
-          <>
-            <UptimeIcon /> {formatPercentage(immolationAuraUptimePercentage)}% <small>uptime</small>
-          </>
+          <UptimeIcon /> {formatPercentage(immolationAuraUptimePercentage)}% <small>uptime</small>
         </BoringSpellValueText>
       </Statistic>
     );

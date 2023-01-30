@@ -6,7 +6,7 @@ class ThunderousRoar extends AoESpellEfficiency {
   constructor(options: Options) {
     super(options);
     this.ability = TALENTS.THUNDEROUS_ROAR_TALENT;
-    this.active = this.selectedCombatant.hasTalent(this.ability.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.THUNDEROUS_ROAR_TALENT);
   }
 }
 

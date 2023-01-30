@@ -37,7 +37,7 @@ const FrostDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         }
       >
         <AbilityRequirement spell={talents.PILLAR_OF_FROST_TALENT.id} />
-        {combatant.hasTalent(talents.BREATH_OF_SINDRAGOSA_TALENT.id) && (
+        {combatant.hasTalent(talents.BREATH_OF_SINDRAGOSA_TALENT) && (
           <AbilityRequirement spell={talents.BREATH_OF_SINDRAGOSA_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.EMPOWER_RUNE_WEAPON.id} />
@@ -69,8 +69,8 @@ const FrostDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         description={
           <>
             Death Knights are a resource based class, relying on Runes and Runic Power to cast core
-            abilities. Cast <SpellLink id={talents.FROST_STRIKE_TALENT.id} /> when you have 73+ Runic
-            Power to avoid overcapping.
+            abilities. Cast <SpellLink id={talents.FROST_STRIKE_TALENT.id} /> when you have 73+
+            Runic Power to avoid overcapping.
           </>
         }
       >

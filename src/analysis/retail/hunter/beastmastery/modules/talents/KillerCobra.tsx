@@ -31,7 +31,7 @@ class KillerCobra extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.KILLER_COBRA_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.KILLER_COBRA_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.COBRA_SHOT_TALENT),
       this.onCobraCast,

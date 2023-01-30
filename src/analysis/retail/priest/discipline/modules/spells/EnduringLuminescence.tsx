@@ -39,7 +39,7 @@ class EnduringLuminescense extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.ENDURING_LUMINESCENCE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.ENDURING_LUMINESCENCE_TALENT);
 
     if (!this.active) {
       return;

@@ -13,7 +13,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 export default class Initiative extends Analyzer {
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.INITIATIVE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.INITIATIVE_TALENT);
   }
 
   get buffUptime() {

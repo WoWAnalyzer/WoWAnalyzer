@@ -1,4 +1,3 @@
-import { EnergyCapTracker } from 'analysis/retail/rogue/shared'; // todo use the outlaw cap tracker once available
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -7,6 +6,7 @@ import Events, { CastEvent } from 'parser/core/Events';
 import TALENTS from 'common/TALENTS/rogue';
 
 import { ROLL_THE_BONES_BUFFS, ROLL_THE_BONES_DURATION } from '../../constants';
+import OutlawEnergyCapTracker from 'analysis/retail/rogue/outlaw/modules/core/OutlawEnergyCapTracker';
 
 export const ROLL_THE_BONES_CATEGORIES = {
   LOW_VALUE: 'low',
@@ -68,9 +68,9 @@ class RollTheBonesCastTracker extends Analyzer {
   }
 
   static dependencies = {
-    energyCapTracker: EnergyCapTracker,
+    energyCapTracker: OutlawEnergyCapTracker,
   };
-  protected energyCapTracker!: EnergyCapTracker;
+  protected energyCapTracker!: OutlawEnergyCapTracker;
 
   rolltheBonesCastEvents: RTBCast[] = [];
   rolltheBonesCastValues = Object.values(ROLL_THE_BONES_CATEGORIES).reduce(
@@ -91,15 +91,7 @@ class RollTheBonesCastTracker extends Analyzer {
 
   categorizeCast(cast: RTBCast) {
     let combat_buffs_value = 0;
-    if (this.selectedCombatant.hasConduitBySpellID(SPELLS.SLEIGHT_OF_HAND.id)) {
-      // Players should aim to roll for at least 2 buffs if they're using the Sleight of Hand conduit,
-      // as such we use a lower value for the combat buffs to make sure no single buff outweighs a 2x roll.
-      cast.appliedBuffs.forEach(
-        (buff) => (combat_buffs_value += BUFF_VALUE_BY_ID[buff.id].sleight_of_hand),
-      );
-    } else {
-      cast.appliedBuffs.forEach((buff) => (combat_buffs_value += BUFF_VALUE_BY_ID[buff.id].base));
-    }
+    cast.appliedBuffs.forEach((buff) => (combat_buffs_value += BUFF_VALUE_BY_ID[buff.id].base));
     if (combat_buffs_value > 2) {
       return ROLL_THE_BONES_CATEGORIES.HIGH_VALUE;
     }

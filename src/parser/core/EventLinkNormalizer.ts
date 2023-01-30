@@ -35,15 +35,15 @@ export type EventLink = {
   /** The maximum allowed timestamp difference *backward in time from the linking event to the
    * referenced event* in order for a link to be made. Defaults to 0 ms when omitted. */
   backwardBufferMs?: number;
-  /** Iff true, the two events may be linked even with different sources.
+  /** If true, the two events may be linked even with different sources.
    * In most cases this should be false, and will default to false when omitted */
   anySource?: boolean;
-  /** Iff true, the two events may be linked even with different targets.
+  /** If true, the two events may be linked even with different targets.
    * In most cases this should be false, and will default to false when omitted */
   anyTarget?: boolean;
-  /** Iff defined, links will also be added from the referenced event to the linking event using this relation. */
+  /** If defined, links will also be added from the referenced event to the linking event using this relation. */
   reverseLinkRelation?: string;
-  /** Iff defined, this spec will create at most the given number of links to matching reference events.
+  /** If defined, this spec will create at most the given number of links to matching reference events.
    *  This maximum applies only to this spec (not other specs on the same event), and applies
    *  only *from the linkingEvent* (the same referenceEvent can be pointed to used any number of times).
    *  Scan for referenced events starts forward from the linking event first, then back
@@ -51,10 +51,10 @@ export type EventLink = {
    *  Usually, including this field will not be needed! Proper time and target constraints should
    *  make false positives impossible - only need to use this when situations require it.
    *  By default, any number of links can be made if they meet the parameters */
-  maximumLinks?: number;
-  /** Iff defined, this predicate will also be called with the candidate events and iff false no link will be made */
+  maximumLinks?: number | ((c: Combatant) => number);
+  /** If defined, this predicate will also be called with the candidate events and iff false no link will be made */
   additionalCondition?: (linkingEvent: AnyEvent, referencedEvent: AnyEvent) => boolean;
-  /** Iff defined, this predicate will be called with the selected combatant to determine if this
+  /** If defined, this predicate will be called with the selected combatant to determine if this
    *  spec should be run. Will be called only once at the start of the normalize function.
    *  Useful if using a list of interdependent specs where some are talent dependent.
    *  Defaults to 'true' when omitted. */
@@ -159,6 +159,10 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
           // if we find a match of a linking ability
           if (this._isLinking(el, event)) {
             let linksMade = 0;
+            const maxLinks =
+              typeof el.maximumLinks == 'function'
+                ? el.maximumLinks(this.selectedCombatant)
+                : el.maximumLinks;
             // loop forwards up to forwardBuffer and add links
             for (let forwardIndex = eventIndex; forwardIndex < events.length; forwardIndex += 1) {
               const forwardEvent = events[forwardIndex];
@@ -169,7 +173,7 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
                 break;
               }
               linksMade += this._checkAndLink(el, event, forwardEvent);
-              if (el.maximumLinks && el.maximumLinks <= linksMade) {
+              if (maxLinks && maxLinks <= linksMade) {
                 return;
               }
             }
@@ -183,7 +187,7 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
                 break;
               }
               linksMade += this._checkAndLink(el, event, backwardEvent);
-              if (el.maximumLinks && el.maximumLinks <= linksMade) {
+              if (maxLinks && maxLinks <= linksMade) {
                 return;
               }
             }

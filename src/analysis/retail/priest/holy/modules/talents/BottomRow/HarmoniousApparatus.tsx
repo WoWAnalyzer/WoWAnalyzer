@@ -21,7 +21,7 @@ class HarmoniousApparatus extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.HARMONIOUS_APPARATUS_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HARMONIOUS_APPARATUS_TALENT);
   }
 
   get reductionForAllSpells() {
@@ -77,7 +77,7 @@ class HarmoniousApparatus extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
+        category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
             Serenity:{' '}
@@ -92,7 +92,7 @@ class HarmoniousApparatus extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.HARMONIOUS_APPARATUS.id}>
+        <BoringSpellValueText spellId={TALENTS.HARMONIOUS_APPARATUS_TALENT.id}>
           {Math.ceil(totalHealingSpellReduction / 1000)}s{' '}
           <small>Healing Spell Cooldown Reduction</small>
         </BoringSpellValueText>

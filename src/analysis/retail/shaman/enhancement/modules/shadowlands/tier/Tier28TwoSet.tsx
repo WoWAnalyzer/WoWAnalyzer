@@ -7,6 +7,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
+import { TIERS } from 'game/TIERS';
 
 const FERAL_SPIRIT_SPELLS = [
   SPELLS.FERAL_SPIRIT_LIGHTNING_TIER,
@@ -21,7 +22,7 @@ class Tier28TwoSet extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.has2Piece();
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T28);
     if (!this.active) {
       return;
     }

@@ -20,7 +20,7 @@ class Volley extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.VOLLEY_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.VOLLEY_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.VOLLEY_DAMAGE),
       this.onVolleyDamage,

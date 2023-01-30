@@ -13,7 +13,7 @@ class WailingArrow extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.WAILING_ARROW_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.WAILING_ARROW_TALENT);
     if (!this.active) {
       return;
     }
@@ -32,9 +32,9 @@ class WailingArrow extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.WAILING_ARROW_CAST.id}>
+        <BoringSpellValueText spellId={TALENTS.WAILING_ARROW_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>
