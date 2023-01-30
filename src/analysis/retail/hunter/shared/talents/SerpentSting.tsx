@@ -9,6 +9,7 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyDebuffEvent,
+  CastEvent,
   DamageEvent,
   RefreshDebuffEvent,
   RemoveDebuffEvent,
@@ -21,6 +22,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { ONE_SECOND_IN_MS } from '../constants';
 
 /**
  * Fire a shot that poisons your target, causing them to take (16.5% of Attack power) Nature damage instantly and an additional (99% of Attack power) Nature damage over 18 sec.
@@ -40,6 +42,7 @@ class SerpentSting extends Analyzer {
   timesRefreshed: number = 0;
   nonPandemicRefresh: number = 0;
   casts: number = 0;
+  castTimestamp: number = 0;
 
   protected enemies!: Enemies;
 
@@ -98,8 +101,9 @@ class SerpentSting extends Analyzer {
     };
   }
 
-  onCast() {
+  onCast(event: CastEvent) {
     this.casts += 1;
+    this.castTimestamp = event.timestamp;
   }
 
   onDamage(event: DamageEvent) {
@@ -128,6 +132,9 @@ class SerpentSting extends Analyzer {
   }
 
   onRefreshDebuff(event: RefreshDebuffEvent) {
+    if (event.timestamp > this.castTimestamp + ONE_SECOND_IN_MS) {
+      return;
+    }
     let targetInstance = event.targetInstance;
     if (targetInstance === undefined) {
       targetInstance = 1;
@@ -145,9 +152,8 @@ class SerpentSting extends Analyzer {
         Math.min(SERPENT_STING_MM_BASE_DURATION * SERPENT_STING_MM_PANDEMIC, timeRemaining) +
         SERPENT_STING_MM_BASE_DURATION;
       this.serpentStingTargets[serpentStingTarget].timestamp = event.timestamp;
-      this.serpentStingTargets[
-        serpentStingTarget
-      ].serpentStingDuration = pandemicSerpentStingDuration;
+      this.serpentStingTargets[serpentStingTarget].serpentStingDuration =
+        pandemicSerpentStingDuration;
     }
   }
 
