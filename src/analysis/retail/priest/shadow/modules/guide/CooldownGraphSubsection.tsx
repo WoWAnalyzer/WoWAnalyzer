@@ -20,7 +20,7 @@ type SpellCooldown = {
 
 const coreCooldowns: SpellCooldown[] = [
   { spell: SPELLS.MIND_BLAST },
-  //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
+  { spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
 ];
 
 const shortCooldowns: Cooldown[] = [
