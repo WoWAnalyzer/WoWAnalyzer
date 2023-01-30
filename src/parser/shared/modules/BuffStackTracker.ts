@@ -1,24 +1,25 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Spell from 'common/SPELLS/Spell';
-import Events, { ApplyBuffEvent, ChangeBuffStackEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  Ability,
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  FightEndEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+} from 'parser/core/Events';
 
 type BuffStackUpdate = {
   /** What triggered this update */
-  type: BuffStackChange;
+  type: string;
   /** This update's timestamp */
   timestamp: number;
   /** Instant change of resources with this update (negative indicates a spend or drain)
-   *  This is the 'effective' change only, any overcap goes in changeWaste */
+   *  This is the 'effective' change only */
   change: number;
   /** Amount of resource the player has AFTER the change */
   current: number;
 };
-
-type BuffStackChange =
-  /** Player gained a buff stack */
-  | 'apply'
-  /** Player lost a buff stack */
-  | 'remove';
 
 const DEBUG = false;
 
@@ -28,16 +29,44 @@ export default class BuffStackTracker extends Analyzer {
   //
 
   /** The spell to track */
-  buff!: Spell;
+  static trackedBuff: Spell | Spell[];
+
+  /** Whether the module should look at player (default) or at pets when tracking buffs */
+  static trackPets = false;
 
   /** Time ordered list of buff stack updates */
   buffStackUpdates: BuffStackUpdate[] = [];
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this.onApplyBuff);
-    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER), this.onRemoveBuff);
-    this.addEventListener(Events.changebuffstack.to(SELECTED_PLAYER), this.onChangeBuffStack);
+    const trackTarget = !this.trackPets ? SELECTED_PLAYER : SELECTED_PLAYER_PET;
+    this.addEventListener(
+      Events.applybuff.to(trackTarget).spell(this.trackedBuff),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.applybuffstack.to(trackTarget).spell(this.trackedBuff),
+      this.onApplyBuffStack,
+    );
+    this.addEventListener(
+      Events.removebuff.to(trackTarget).spell(this.trackedBuff),
+      this.onRemoveBuff,
+    );
+    this.addEventListener(
+      Events.removebuffstack.to(trackTarget).spell(this.trackedBuff),
+      this.onRemoveBuffStack,
+    );
+    this.addEventListener(Events.fightend, this.onFightEnd);
+  }
+
+  get trackPets() {
+    const ctor = this.constructor as typeof BuffStackTracker;
+    return ctor.trackPets;
+  }
+
+  get trackedBuff() {
+    const ctor = this.constructor as typeof BuffStackTracker;
+    return ctor.trackedBuff;
   }
 
   /** The player's buff stack amount at the current timestamp */
@@ -51,54 +80,66 @@ export default class BuffStackTracker extends Analyzer {
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
-    const spellId = event.ability.guid;
-
-    if (spellId !== this.buff.id) {
-      return;
-    }
-
-    this._buffStackUpdate('apply', 1);
+    this._logAndPushUpdate(
+      {
+        type: event.type,
+        timestamp: event.timestamp,
+        change: 1,
+        current: 1,
+      },
+      event.ability,
+    );
   }
 
-  onChangeBuffStack(event: ChangeBuffStackEvent) {
-    const spellId = event.ability.guid;
-
-    if (spellId !== this.buff.id) {
-      return;
-    }
-
-    const type = event.newStacks - event.oldStacks > 0 ? 'apply' : 'remove';
-    this._buffStackUpdate(type, event.newStacks - event.oldStacks);
+  onApplyBuffStack(event: ApplyBuffStackEvent) {
+    this._logAndPushUpdate(
+      {
+        type: event.type,
+        timestamp: event.timestamp,
+        change: event.stack - this.current,
+        current: event.stack,
+      },
+      event.ability,
+    );
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
-    const spellId = event.ability.guid;
-
-    if (spellId !== this.buff.id) {
-      return;
-    }
-
-    this._buffStackUpdate('remove', -1);
+    this._logAndPushUpdate(
+      {
+        type: event.type,
+        timestamp: event.timestamp,
+        change: -this.current,
+        current: 0,
+      },
+      event.ability,
+    );
   }
 
-  _buffStackUpdate(type: BuffStackChange, change: number) {
-    const timestamp = this.owner.currentTimestamp;
+  onRemoveBuffStack(event: RemoveBuffStackEvent) {
+    this._logAndPushUpdate(
+      {
+        type: event.type,
+        timestamp: event.timestamp,
+        change: event.stack - this.current,
+        current: event.stack,
+      },
+      event.ability,
+    );
+  }
 
-    const beforeAmount = this.current;
-    const current = beforeAmount + change;
-
+  onFightEnd(event: FightEndEvent) {
     this._logAndPushUpdate({
-      type,
-      timestamp,
-      change,
-      current,
+      type: event.type,
+      timestamp: event.timestamp,
+      change: -this.current,
+      current: 0,
     });
   }
 
-  _logAndPushUpdate(update: BuffStackUpdate) {
+  _logAndPushUpdate(update: BuffStackUpdate, spell?: Ability) {
     if (DEBUG) {
       console.log(
-        'Update for ' + this.buff.name + ' @ ' + this.owner.formatTimestamp(update.timestamp, 1),
+        'Update for ' + spell?.name + ' @ ' + this.owner.formatTimestamp(update.timestamp, 1),
         update,
       );
     }

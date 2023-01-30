@@ -49,6 +49,11 @@ const config: Config = {
     ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
+
+  //Guide is NOT default while being developed and tested
+  guideDefault: false,
+  //Guide only will turn true when guide is ready to be published and replace checklist fully
+  guideOnly: false,
 };
 
 export default config;
