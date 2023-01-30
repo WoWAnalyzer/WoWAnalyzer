@@ -301,6 +301,12 @@ const spells = spellIndexableList({
     icon: 'ability_creature_disease_02',
   },
 
+  T29_VILE_INFUSION_BUFF: {
+    id: 394863,
+    name: 'Vile Infusion',
+    icon: 'spell_necro_deathsknell',
+  },
+
   DARK_ARBITER_TALENT_GLYPH: {
     id: 207349,
     name: 'Dark Arbiter',
