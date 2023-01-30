@@ -23,6 +23,12 @@ const coreCooldowns: SpellCooldown[] = [
   { spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
 ];
 
+const coreCooldownsVB: SpellCooldown[] = [
+  { spell: SPELLS.MIND_BLAST },
+  { spell: SPELLS.VOID_BOLT },
+  { spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
+];
+
 const shortCooldowns: Cooldown[] = [
   { talent: TALENTS.SHADOW_CRASH_TALENT },
   { talent: TALENTS.VOID_TORRENT_TALENT },
@@ -39,6 +45,7 @@ const longCooldowns: Cooldown[] = [
 ];
 
 const CoreCooldownsGraph = () => {
+  let coreCooldown = coreCooldowns;
   let message = (
     <Trans id="guide.priest.shadow.sections.corecooldowns.graph">
       <strong>Core Graph</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
@@ -52,7 +59,7 @@ const CoreCooldownsGraph = () => {
 
   const info = useInfo();
   if (info!.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT)) {
-    coreCooldowns.push({ spell: SPELLS.VOID_BOLT });
+    coreCooldown = coreCooldownsVB;
     message = (
       <Trans id="guide.priest.shadow.sections.corecooldowns.graph">
         <strong>Core Graph</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
@@ -67,7 +74,7 @@ const CoreCooldownsGraph = () => {
     );
   }
 
-  return CoreCooldownGraphSubsection(coreCooldowns, message);
+  return CoreCooldownGraphSubsection(coreCooldown, message);
 };
 
 const ShortCooldownsGraph = () => {
