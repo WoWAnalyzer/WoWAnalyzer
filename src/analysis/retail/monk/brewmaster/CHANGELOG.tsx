@@ -6,6 +6,8 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2023, 1, 30), <>Fix calculation of haste bonus from <SpellLink id={talents.HIGH_TOLERANCE_TALENT} /></>, emallson),
+  change(date(2023, 1, 30), <>Support T29 buff to <SpellLink id={talents.PURIFYING_BREW_TALENT} /></>, emallson),
   change(date(2023, 1, 21), <>Update <SpellLink id={talents.CELESTIAL_BREW_TALENT} /> and <SpellLink id={SPELLS.STAGGER} /> for the recent hotfix buffs.</>, emallson),
   change(date(2023, 1, 14), <>Don't count repeated <SpellLink id={talents.BLACKOUT_COMBO_TALENT} /> applications as wasted when using <SpellLink id={talents.SHADOWBOXING_TREADS_BREWMASTER_TALENT} />.</>, emallson),
   change(date(2022, 12, 16), <>Improve labeling of points on <SpellLink id={talents.PURIFYING_BREW_TALENT} /> chart.</>, emallson),
