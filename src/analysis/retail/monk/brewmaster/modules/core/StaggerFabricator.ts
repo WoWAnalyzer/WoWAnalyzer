@@ -28,6 +28,11 @@ const STAGGER_THRESHOLDS = {
   LIGHT: 0.0,
 };
 
+type PurifyBreakdown = {
+  base: number;
+  [key: number]: number;
+};
+
 export type MaxHPEvent = AnyEvent & { maxHitPoints?: number };
 
 /**
@@ -69,11 +74,14 @@ class StaggerFabricator extends Analyzer {
     return this._staggerPool;
   }
 
-  get purifyPercentage() {
-    const t29Bonus = this._has4pcT29
+  purifyPercentage(): PurifyBreakdown {
+    const t29Stacks = this._has4pcT29
       ? this.selectedCombatant.getBuffStacks(SPELLS.BREWMASTERS_RHYTHM_BUFF.id)
       : 0;
-    return PURIFY_BASE + t29Bonus * T29_PURIFY_BONUS;
+    return {
+      base: PURIFY_BASE,
+      [SPELLS.BREWMASTERS_RHYTHM_BUFF.id]: t29Stacks * T29_PURIFY_BONUS,
+    };
   }
 
   addStagger(event: MaxHPEvent, amount: number) {
@@ -85,7 +93,7 @@ class StaggerFabricator extends Analyzer {
     }
   }
 
-  removeStagger(event: MaxHPEvent, amount: number) {
+  removeStagger(event: MaxHPEvent, amount: number, sourceBreakdown?: PurifyBreakdown) {
     this._staggerPool -= amount;
     const overage = this._staggerPool < 0 ? this._staggerPool : 0;
     // sometimes a stagger tick is recorded immediately after death.
@@ -93,7 +101,15 @@ class StaggerFabricator extends Analyzer {
     //
     // other sources of flat reduction may also hit this condition
     this._staggerPool = Math.max(this._staggerPool, 0);
-    const staggerEvent = this._fab(EventType.RemoveStagger, event, amount, overage);
+    const staggerEvent = this._fab(
+      EventType.RemoveStagger,
+      event,
+      amount,
+      overage,
+    ) as RemoveStaggerEvent;
+    if (sourceBreakdown) {
+      staggerEvent.sourceBreakdown = sourceBreakdown;
+    }
     this.eventEmitter.fabricateEvent(staggerEvent, event);
     if (this.ht && this.ht.active) {
       this._updateHaste(event, staggerEvent);
@@ -181,8 +197,9 @@ class StaggerFabricator extends Analyzer {
       this._lastKnownMaxHp = event.maxHitPoints;
     }
 
-    const amount = this._staggerPool * this.purifyPercentage;
-    this.removeStagger(event, amount);
+    const totalPct = Object.values(this.purifyPercentage()).reduce((a, b) => a + b, 0);
+    const amount = this._staggerPool * totalPct;
+    this.removeStagger(event, amount, this.purifyPercentage());
   }
 
   private _death(event: DeathEvent) {
