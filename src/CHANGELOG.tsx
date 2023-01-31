@@ -19,6 +19,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 1, 30), 'Update retail talent data', emallson),
   change(date(2023, 1, 30), <>Fixed potion checker for <SpellLink id={ITEMS.POTION_OF_CHILLED_CLARITY_R3}/></>, Trevor),
   change(date(2023, 1, 30), "Correct an issue with accessing undefined values in GetRelatedEvents, HasRelatedEvent and AddRelatedEvent", Putro),
   change(date(2023, 1, 26), 'Update performance box rows to use CSS grid instead of flexbox.', ToppleTheNun),
