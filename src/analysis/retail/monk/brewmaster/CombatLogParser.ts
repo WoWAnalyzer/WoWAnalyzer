@@ -53,6 +53,7 @@ import AnvilStave from './modules/talents/AnvilStave';
 import ChiSurge from './modules/talents/ChiSurge';
 import BreathOfFireDebuffTargetNormalizer from './modules/spells/BreathOfFire/normalizer';
 import BonedustBrewCastLinkNormalizer from './modules/talents/BonedustBrew/normalizer';
+import BrewmasterT29FourSet from './modules/items/Tier29/FourSet';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -98,6 +99,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Items
     stormstoutsLastKeg: StormtoutsLastKeg,
+    t29fourSet: BrewmasterT29FourSet,
 
     // normalizers
     gotoxNorm: GiftOfTheOx,
