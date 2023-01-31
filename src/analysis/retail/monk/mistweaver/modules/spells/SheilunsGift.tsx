@@ -95,7 +95,7 @@ class SheilunsGift extends Analyzer {
         .icon(TALENTS_MONK.SHEILUNS_GIFT_TALENT.icon)
         .actual(
           `${this.cloudsLost} ${t({
-            id: 'monk.mistweaver.suggestions.sheilunsGift.cloudsLost',
+            id: 'monk.mistweaver.suggestions.sheiluns.cloudsLost',
             message: ` lost cloud from overcapping` + (this.cloudsLost > 1 ? 's' : ''),
           })}`,
         )
