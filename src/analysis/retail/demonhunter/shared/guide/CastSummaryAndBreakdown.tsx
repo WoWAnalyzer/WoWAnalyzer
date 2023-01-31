@@ -10,8 +10,11 @@ import SpellLink from 'interface/SpellLink';
 import { ClickToExpand, MouseoverForMoreDetails } from './CommonLinguiTranslations';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
+import styled from '@emotion/styled';
 
-import styles from './CastSummaryAndBreakdown.module.scss';
+const CastSummaryAndBreakdownContainer = styled.div`
+  margin-bottom: 10px;
+`;
 
 const toGradiatedPerformanceBarProp = (
   count: number,
@@ -122,7 +125,7 @@ const CastSummaryAndBreakdown = ({
     ));
 
   return (
-    <div className={styles.castSummaryAndBreakdown}>
+    <CastSummaryAndBreakdownContainer>
       {includePerfectCastPercentage && (
         <CastPerformanceSummary
           casts={perfect}
@@ -180,7 +183,7 @@ const CastSummaryAndBreakdown = ({
         </small>
         <PerformanceBoxRow onClickBox={onClickBox} values={castEntries} />
       </ControlledExpandable>
-    </div>
+    </CastSummaryAndBreakdownContainer>
   );
 };
 

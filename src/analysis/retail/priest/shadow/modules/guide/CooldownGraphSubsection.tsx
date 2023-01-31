@@ -1,7 +1,9 @@
 import { Talent } from 'common/TALENTS/types';
+import Spell from 'common/SPELLS/Spell';
+import { SpellLink } from 'interface';
 import { SubSection, useAnalyzer, useInfo } from 'interface/guide';
 import TALENTS from 'common/TALENTS/priest';
-//import SPELLS from 'common/SPELLS/priest';
+import SPELLS from 'common/SPELLS/priest';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
@@ -12,9 +14,13 @@ type Cooldown = {
   extraTalents?: Talent[];
 };
 
-const coreCooldowns: Cooldown[] = [
-  //{ talent: SPELLS.MIND_BLAST },
-  //{ talent: TALENTS.SHADOW_WORD_DEATH_TALENT },
+type SpellCooldown = {
+  spell: Spell;
+};
+
+const coreCooldowns: SpellCooldown[] = [
+  { spell: SPELLS.MIND_BLAST },
+  //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
 ];
 
 const shortCooldowns: Cooldown[] = [
@@ -35,11 +41,15 @@ const longCooldowns: Cooldown[] = [
 const CoreCooldownsGraph = () => {
   const message = (
     <Trans id="guide.priest.shadow.sections.corecooldowns.graph">
-      <strong>Core Graph</strong> - Spells such as these are your most important spells. Try to cast
-      them as much as possible. TODO: Visualize and calculate correctly.
+      <strong>Core Graph</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
+      should be keept on cooldown as much as possible. The same is true for{' '}
+      <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> during execute. These spells should
+      also both be used when Mindbender is active with Inescapable Torment talented.
+      <br />
+      TODO: Add execute phase SW:D. <br />
     </Trans>
   );
-  return CooldownGraphSubsection(coreCooldowns, message);
+  return CoreCooldownGraphSubsection(coreCooldowns, message);
 };
 
 const ShortCooldownsGraph = () => {
@@ -47,6 +57,9 @@ const ShortCooldownsGraph = () => {
     <Trans id="guide.priest.shadow.sections.shortcooldowns.graph">
       <strong>Short Cooldowns</strong> - this graph shows when you used your cooldowns and how long
       you waited to use them again. Try to use these spells on cooldown.
+      <br />
+      TODO: Fix missing casts that occurred before encounter start. (common when opening with Shadow
+      Crash.)
     </Trans>
   );
   return CooldownGraphSubsection(shortCooldowns, message);
@@ -92,6 +105,35 @@ const CooldownGraphSubsection = (cooldownsToCheck: Cooldown[], message: JSX.Elem
         <CastEfficiencyBar
           key={cooldownCheck.talent.id}
           spellId={cooldownCheck.talent.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          minimizeIcons={hasTooManyCasts}
+        />
+      ))}
+    </SubSection>
+  );
+};
+
+const CoreCooldownGraphSubsection = (cooldownsToCheck: SpellCooldown[], message: JSX.Element) => {
+  const info = useInfo();
+  const castEfficiency = useAnalyzer(CastEfficiency);
+  if (!info || !castEfficiency) {
+    return null;
+  }
+  const cooldowns = cooldownsToCheck;
+
+  const hasTooManyCasts = cooldowns.some((cooldown) => {
+    const casts = castEfficiency.getCastEfficiencyForSpell(cooldown.spell)?.casts ?? 0;
+    return casts >= 10;
+  });
+
+  return (
+    <SubSection>
+      {message}
+
+      {cooldowns.map((cooldownCheck) => (
+        <CastEfficiencyBar
+          key={cooldownCheck.spell.id}
+          spellId={cooldownCheck.spell.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           minimizeIcons={hasTooManyCasts}
         />

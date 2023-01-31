@@ -1,6 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -61,7 +61,7 @@ class RisingMist extends Analyzer {
   }
 
   get averageHealing() {
-    return this.risingMistCount === 0 ? 0 : this.totalHealing / this.risingMistCount;
+    return this.risingMistCount === 0 ? 0 : this.directHealing / this.risingMistCount;
   }
 
   get averageTargetsPerRM() {
@@ -130,12 +130,20 @@ class RisingMist extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RISING_SUN_KICK_TALENT),
       this.extendHots,
     );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RISING_MIST_HEAL),
+      this.countRisingMistHits,
+    );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleVivify);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.calculateEnv); //gotta just look at all heals tbh
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell([SPELLS.GUST_OF_MISTS_CHIJI, SPELLS.GUSTS_OF_MISTS]),
       this.handleMastery,
     );
+  }
+
+  countRisingMistHits(event) {
+    this.targetCount += 1;
   }
 
   handleMastery(event) {
@@ -261,9 +269,10 @@ class RisingMist extends Analyzer {
         }
       });
     });
-    if (foundTarget) {
-      this.targetCount += 1;
-    }
+  }
+
+  averageTargetsPerRSKCast() {
+    return <>{formatNumber(this.averageTargetsPerRM)}</>;
   }
 
   subStatistic() {
@@ -288,7 +297,10 @@ class RisingMist extends Analyzer {
             Your {this.risingMistCount} Rising Sun Kick casts contributed the following healing:
             <ul>
               <li>HoT Extension Healing: {formatNumber(this.hotHealing)}</li>
-              <li>Rising Mist Direct Healing: {formatNumber(this.directHealing)}</li>
+              <li>
+                Rising Mist Direct Healing: {formatNumber(this.directHealing)} (
+                {formatNumber(this.averageHealing)} per cast)
+              </li>
               <li>Average HoT Extension Seconds per cast: {this.averageExtension.toFixed(2)}</li>
               <ul>
                 <li>Essence Font HoTs Extended: {this.efCount}</li>

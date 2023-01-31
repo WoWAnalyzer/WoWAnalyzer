@@ -88,6 +88,12 @@ const spells = spellIndexableList({
     icon: 'inv_artifact_powerofthedarkside',
     manaCost: 4000,
   },
+  DARK_REPRIMAND_CAST: {
+    id: 400169,
+    name: 'Dark Reprimand',
+    icon: 'inv_artifact_powerofthedarkside',
+    manaCost: 4000,
+  },
   PENANCE_CAST: {
     id: 47540,
     name: 'Penance',
@@ -845,6 +851,12 @@ const spells = spellIndexableList({
     id: 373320,
     name: 'Devoured Violence',
     icon: 'sha_spell_warlock_demonsoul',
+  },
+  //Shadow Tier
+  SHADOW_PRIEST_TIER_29_4_SET_BUFF: {
+    id: 394963,
+    name: 'Dark Reveries',
+    icon: 'inv_mace_1h_artifactheartofkure_d_05',
   },
 
   // Disc

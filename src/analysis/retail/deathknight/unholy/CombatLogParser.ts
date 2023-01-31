@@ -27,6 +27,7 @@ import SoulReaper from './modules/talents/SoulReaper';
 import CommanderOfTheDead from './modules/talents/CommanderOfTheDead';
 import SummonGargoyleBuffs from './modules/talents/SummonGargoyleBuffs';
 import PlagueBringer from './modules/talents/PlagueBringer';
+import VileInfusion from './modules/spells/VileInfusion';
 
 // Covenants
 
@@ -48,6 +49,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spellUsable: SpellUsable,
     suddenDoom: SuddenDoom,
     unholyRuneForge: UnholyRuneForgeChecker,
+    fileInfusion: VileInfusion,
 
     // Talents
     soulReaper: SoulReaper,

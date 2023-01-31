@@ -9,7 +9,7 @@ import ShadowWordPain from '../spells/ShadowWordPain';
 import VampiricTouch from '../spells/VampiricTouch';
 import DevouringPlague from '../spells/DevouringPlague';
 import DarkEvangelism from '../talents/DarkEvangelism';
-import ShadowyInsight from '../features/ShadowyInsight';
+import ShadowyInsight from '../spells/ShadowyInsight';
 import UnfurlingDarkness from '../talents/UnfurlingDarkness';
 import Deathspeaker from '../talents/Deathspeaker';
 import SurgeOfDarkness from '../talents/SurgeOfDarkness';

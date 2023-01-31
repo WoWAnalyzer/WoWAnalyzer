@@ -19,6 +19,7 @@ class TestCombatLogParser extends CombatLogParser {
     hasBuff: jest.fn(() => true),
     hasTalent: jest.fn(() => true),
     hasFinger: jest.fn(() => true),
+    has4PieceByTier: jest.fn(() => false),
     id: 1,
   };
   get selectedCombatant() {

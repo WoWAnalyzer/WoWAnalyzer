@@ -14,13 +14,8 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/VulnerabilityExplanation';
 import { Trans } from '@lingui/macro';
 import InitiativeExplanation from 'analysis/retail/demonhunter/havoc/guide/InitiativeExplanation';
-import {
-  CheckedUsageInfo,
-  CooldownCast,
-  CooldownUse,
-  MajorCooldown,
-  UsageInfo,
-} from 'analysis/retail/demonhunter/shared/guide/MajorCooldowns/core';
+import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
+import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
 import SPECS from 'game/SPECS';
 import {
   getAppliedDots,
@@ -35,7 +30,7 @@ const PERFECT_FRAILTY_STACKS = 5;
 const GOOD_FRAILTY_STACKS = 3;
 const OK_FRAILTY_STACKS = 1;
 
-interface TheHuntCooldownCast extends CooldownCast {
+interface TheHuntCooldownCast extends SpellCast {
   damage: number;
   hasInitiativeOnCast: boolean;
   primaryTargetStacksOfFrailty: number;
@@ -54,7 +49,7 @@ class TheHunt extends MajorCooldown<TheHuntCooldownCast> {
   protected enemies!: Enemies;
 
   constructor(options: Options) {
-    super({ talent: TALENTS_DEMON_HUNTER.THE_HUNT_TALENT }, options);
+    super({ spell: TALENTS_DEMON_HUNTER.THE_HUNT_TALENT }, options);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell([SPELLS.THE_HUNT_HEAL]),
@@ -116,7 +111,7 @@ class TheHunt extends MajorCooldown<TheHuntCooldownCast> {
     );
   }
 
-  explainPerformance(cast: TheHuntCooldownCast): CooldownUse {
+  explainPerformance(cast: TheHuntCooldownCast): SpellUse {
     const isHavoc = this.owner.config.spec === SPECS.HAVOC_DEMON_HUNTER;
     if (isHavoc) {
       return this.explainHavocPerformance(cast);
@@ -124,7 +119,7 @@ class TheHunt extends MajorCooldown<TheHuntCooldownCast> {
     return this.explainVengeancePerformance(cast);
   }
 
-  private explainHavocPerformance(cast: TheHuntCooldownCast): CooldownUse {
+  private explainHavocPerformance(cast: TheHuntCooldownCast): SpellUse {
     const {
       performance: initiativePerf,
       summary: initiativeLabel,
@@ -132,10 +127,11 @@ class TheHunt extends MajorCooldown<TheHuntCooldownCast> {
     } = this.initiativePerformance(cast) ?? {};
 
     const overallPerf = combineQualitativePerformances([initiativePerf].filter(isDefined));
-    const checklistItems: CheckedUsageInfo[] = [];
+    const checklistItems: ChecklistUsageInfo[] = [];
     if (initiativePerf && initiativeLabel && initiativeDetails) {
       checklistItems.push({
         check: 'initiative',
+        timestamp: cast.event.timestamp,
         performance: initiativePerf,
         summary: initiativeLabel,
         details: initiativeDetails,
@@ -151,7 +147,7 @@ class TheHunt extends MajorCooldown<TheHuntCooldownCast> {
     };
   }
 
-  private explainVengeancePerformance(cast: TheHuntCooldownCast): CooldownUse {
+  private explainVengeancePerformance(cast: TheHuntCooldownCast): SpellUse {
     const {
       performance: frailtyPerf,
       summary: frailtyLabel,
@@ -159,10 +155,11 @@ class TheHunt extends MajorCooldown<TheHuntCooldownCast> {
     } = this.frailtyPerformance(cast) ?? {};
 
     const overallPerf = combineQualitativePerformances([frailtyPerf].filter(isDefined));
-    const checklistItems: CheckedUsageInfo[] = [];
+    const checklistItems: ChecklistUsageInfo[] = [];
     if (frailtyPerf && frailtyLabel && frailtyDetails) {
       checklistItems.push({
         check: 'frailty',
+        timestamp: cast.event.timestamp,
         performance: frailtyPerf,
         summary: frailtyLabel,
         details: frailtyDetails,
