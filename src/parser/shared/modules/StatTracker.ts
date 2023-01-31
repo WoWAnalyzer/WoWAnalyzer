@@ -1,7 +1,7 @@
 import { formatMilliseconds } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
-import SPECS from 'game/SPECS';
+import SPECS, { isRetailSpec, specMasteryCoefficient } from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
 import { SpellInfo } from 'parser/core/EventFilter';
@@ -525,18 +525,15 @@ class StatTracker extends Analyzer {
 
   get baseMasteryPercentage() {
     const spellPoints = 8; // Spellpoint is a unit of mastery, each class has 8 base Spellpoints
-    let mastery = (spellPoints * (this.selectedCombatant.spec?.masteryCoefficient || 1)) / 100;
+    let mastery = (spellPoints * (specMasteryCoefficient(this.selectedCombatant.spec) || 1)) / 100;
     if (this.selectedCombatant.race === RACES.Dracthyr) {
       mastery += 0.018;
     }
     return mastery;
   }
 
-  get hasMasteryCoefficient() {
-    if (!this.selectedCombatant.spec || !this.selectedCombatant.spec.masteryCoefficient) {
-      return null;
-    }
-    return this.selectedCombatant.spec.masteryCoefficient;
+  get hasMasteryCoefficient(): boolean {
+    return this.selectedCombatant.spec !== undefined && isRetailSpec(this.selectedCombatant.spec);
   }
 
   get baseVersatilityPercentage() {
@@ -664,7 +661,7 @@ class StatTracker extends Analyzer {
         this.statBaselineRatingPerPercent[STAT.MASTERY],
         false,
         true,
-        this.selectedCombatant.spec?.masteryCoefficient || 1,
+        specMasteryCoefficient(this.selectedCombatant.spec) || 1,
       )
     );
   }

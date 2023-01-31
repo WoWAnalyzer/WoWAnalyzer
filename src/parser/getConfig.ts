@@ -1,4 +1,5 @@
 import Expansion from 'game/Expansion';
+import { isClassicSpec } from 'game/SPECS';
 import AVAILABLE_CONFIGS from 'parser';
 import { CombatantInfoEvent } from './core/Events';
 
@@ -20,17 +21,23 @@ export default function getConfig(
     );
     if (!config && player.icon) {
       config = expansionConfigs.find(
-        (config) => config.spec.type === player.type && config.spec.icon === player.icon,
+        (config) =>
+          isClassicSpec(config.spec) &&
+          config.spec.type === player.type &&
+          config.spec.icon === player.icon,
       );
     }
   }
   // Classic Tree lookup
   if (!config && player.type === player.icon && combatant) {
     if (combatant.talents) {
-      const talents = Object.entries(combatant.talents).map(([k, v]) => v.id);
+      const talents = Object.entries(combatant.talents).map(([, v]) => v.id);
       const maxTalent = talents.indexOf(Math.max(...talents));
       config = expansionConfigs.find(
-        (config) => config.spec.type === player.type && config.spec.tree === maxTalent,
+        (config) =>
+          isClassicSpec(config.spec) &&
+          config.spec.type === player.type &&
+          config.spec.treeIndex === maxTalent,
       );
     }
   }

@@ -15,17 +15,35 @@ interface BaseSpec {
   ranking: { class: number; spec: number };
 }
 
-interface RetailSpec extends BaseSpec {
-  masterySpellId?: number;
-  masteryCoefficient?: number;
+export interface RetailSpec extends BaseSpec {
+  masterySpellId: number;
+  masteryCoefficient: number;
 }
 
-interface ClassicSpec extends BaseSpec {
+export interface ClassicSpec extends BaseSpec {
+  // old-style classic analyzers that haven't been ported to spec-based ones yet
+  // do not have these properties
   icon?: string;
   treeIndex?: number; // which tree (0,1,2) is for this spec. used as a fallback to try to do SOMETHING
 }
 
 export type Spec = RetailSpec | ClassicSpec;
+
+export function isRetailSpec(spec: Spec): spec is RetailSpec {
+  return 'masterySpellId' in spec;
+}
+
+export function isClassicSpec(spec: Spec): spec is ClassicSpec {
+  return !isRetailSpec(spec);
+}
+
+export function specMasteryCoefficient(spec: Spec | undefined): number | undefined {
+  if (spec && isRetailSpec(spec)) {
+    return spec.masteryCoefficient;
+  } else {
+    return undefined;
+  }
+}
 
 const specIndexableList = asRestrictedTable<Spec>();
 
