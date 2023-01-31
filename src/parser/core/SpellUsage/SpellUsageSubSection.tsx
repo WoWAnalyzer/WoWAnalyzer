@@ -5,8 +5,7 @@ import { ComponentPropsWithoutRef, Fragment, ReactNode, useCallback, useState } 
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
 import Explanation from 'interface/guide/components/Explanation';
 import { TooltipElement } from 'interface';
-import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
-import PerformanceBoxRowGrid from 'interface/guide/components/PerformanceBoxRowGrid';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 
 import { SpellUse } from './core';
 
@@ -103,6 +102,7 @@ type SpellUsageSubSectionProps = Omit<ComponentPropsWithoutRef<typeof SubSection
   explanation: ReactNode;
   performance: BoxRowEntry[];
   uses: SpellUse[];
+  onPerformanceBoxClick?: (use: SpellUse | undefined) => void;
 };
 
 /**
@@ -117,6 +117,7 @@ const SpellUsageSubSection = ({
   explanation,
   performance,
   uses,
+  onPerformanceBoxClick,
   ...others
 }: SpellUsageSubSectionProps) => {
   const [selectedUse, setSelectedUse] = useState<number | undefined>();
@@ -125,11 +126,13 @@ const SpellUsageSubSection = ({
     (index) => {
       if (index >= uses.length) {
         setSelectedUse(undefined);
+        onPerformanceBoxClick?.(undefined);
       } else {
         setSelectedUse(index);
+        onPerformanceBoxClick?.(uses[index]);
       }
     },
-    [uses.length],
+    [onPerformanceBoxClick, uses],
   );
 
   return (
@@ -148,7 +151,7 @@ const SpellUsageSubSection = ({
               )}
             </small>
           </div>
-          <PerformanceBoxRowGrid
+          <PerformanceBoxRow
             values={performance.map((p, ix) =>
               ix === selectedUse ? { ...p, className: 'selected' } : p,
             )}

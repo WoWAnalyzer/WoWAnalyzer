@@ -227,6 +227,30 @@ const spells = spellIndexableList({
     icon: 'spell_deathknight_armyofthedead',
   },
 
+  COMMANDER_OF_THE_DEAD_BUFF: {
+    id: 390264,
+    name: 'Commander of the Dead',
+    icon: 'spell_shadow_fumble',
+  },
+
+  MAGUS_SUMMON: {
+    id: 317776,
+    name: 'Army of the Damned',
+    icon: '"artifactability_unholydeathknight_deathsembrace',
+  },
+
+  APOC_SUMMON: {
+    id: 275430,
+    name: 'Army of the Dead',
+    icon: 'artifactability_unholydeathknight_deathsembrace',
+  },
+
+  ARMY_SUMMON: {
+    id: 42651,
+    name: 'Army of the Dead',
+    icon: 'spell_shadow_coneofsilence',
+  },
+
   DARK_TRANSFORMATION: {
     id: 63560,
     name: 'Dark Transformation',
@@ -299,6 +323,12 @@ const spells = spellIndexableList({
     id: 191587,
     name: 'Virulent Plague',
     icon: 'ability_creature_disease_02',
+  },
+
+  T29_VILE_INFUSION_BUFF: {
+    id: 394863,
+    name: 'Vile Infusion',
+    icon: 'spell_necro_deathsknell',
   },
 
   DARK_ARBITER_TALENT_GLYPH: {

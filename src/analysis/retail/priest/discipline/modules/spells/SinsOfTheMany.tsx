@@ -21,7 +21,7 @@ const SINS_OF_THE_MANY_FLOOR_BONUS = 0.01;
  * Hence this map with the values for each Atonement count.
  */
 const BONUS_DAMAGE_ARRAY = [
-  0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 0.26, 0.22, 0.18, 0.15, 0.12, 0.09, 0.07, 0.05, 0.04, 0.03, 0.025,
+  0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.35, 0.3, 0.25, 0.2, 0.15, 0.11, 0.08, 0.05, 0.04, 0.03, 0.025,
   0.02, 0.015, 0.0125, 0.01,
 ];
 

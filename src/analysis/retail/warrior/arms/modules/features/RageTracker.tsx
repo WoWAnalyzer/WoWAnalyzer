@@ -51,7 +51,7 @@ class RageUsage extends ResourceTracker {
     const cost = this.getAdjustedCost(event) || 0;
     //making rage refund based on overkill.
     const linkedDamageEvent = damageEvent(event);
-    const overkill = linkedDamageEvent.overkill || -1;
+    const overkill = linkedDamageEvent?.overkill || -1;
     if (cost !== 0 && overkill <= 0) {
       this.processInvisibleEnergize(SPELLS.EXECUTE.id, cost / 10, event.timestamp);
     }

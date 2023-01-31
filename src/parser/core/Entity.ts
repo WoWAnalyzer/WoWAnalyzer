@@ -204,7 +204,7 @@ class Entity {
    * @param {number} maxBuffLength - the maximum number of ms a buff can have.
    * @param {number | null} sourceId - source ID the buff must have come from, or any source if null.
    */
-  getRemaingBuffTimeAtApplication(
+  getRemainingBuffTimeAtApplication(
     spellId: number,
     baseBuffLength: number,
     maxBuffLength: number,
@@ -253,7 +253,7 @@ class Entity {
     timestamp: number,
     sourceId: number | null = null,
   ): number {
-    const buffApplicationTimes: Map<number, number> = this.getRemaingBuffTimeAtApplication(
+    const buffApplicationTimes: Map<number, number> = this.getRemainingBuffTimeAtApplication(
       spellId,
       baseBuffLength,
       maxBuffLength,

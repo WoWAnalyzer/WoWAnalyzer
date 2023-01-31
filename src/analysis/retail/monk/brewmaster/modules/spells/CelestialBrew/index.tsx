@@ -14,7 +14,6 @@ import Events, {
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringValue from 'parser/ui/BoringValueText';
-import FooterChart, { formatTime } from 'parser/ui/FooterChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ReactNode } from 'react';
@@ -152,72 +151,6 @@ class CelestialBrew extends MajorDefensive {
         : this.absorbs.reduce((total, absorb) => total + absorb.purifiedChiStacks, 0) /
           this.absorbs.length;
 
-    const spec = {
-      mark: 'bar' as const,
-      transform: [
-        {
-          fold: ['amount', 'wasted'],
-        },
-        {
-          calculate: 'datum.timestamp / 60000',
-          as: 'time_min',
-        },
-        {
-          calculate: formatTime(),
-          as: 'time_label',
-        },
-      ],
-      encoding: {
-        x: {
-          field: 'time_min',
-          type: 'quantitative' as const,
-          axis: {
-            title: null,
-            labelExpr: formatTime('(datum.value * 60000)'),
-            grid: false,
-          },
-          scale: { zero: true },
-        },
-        y: {
-          field: 'value',
-          type: 'quantitative' as const,
-          title: null,
-          axis: {
-            format: '~s',
-            tickCount: 3,
-            grid: false,
-          },
-          stack: true,
-        },
-        color: {
-          field: 'key',
-          type: 'nominal' as const,
-          legend: null,
-          scale: {
-            domain: ['amount', 'wasted'],
-            range: ['rgb(112, 181, 112)', 'rgb(255, 128, 0)'],
-          },
-        },
-        order: { field: 'key' },
-        tooltip: [
-          { field: 'time_label', type: 'nominal' as const, title: 'Time' },
-          { field: 'stacks', type: 'ordinal' as const, title: 'Purified Chi Stacks' },
-          {
-            field: 'amount',
-            type: 'quantitative' as const,
-            title: 'Damage Absorbed',
-            format: '.3~s',
-          },
-          {
-            field: 'wasted',
-            type: 'quantitative' as const,
-            title: 'Absorb Wasted',
-            format: '.3~s',
-          },
-        ],
-      },
-    };
-
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
@@ -240,14 +173,7 @@ class CelestialBrew extends MajorDefensive {
             </>
           }
         >
-          <>
-            {formatNumber(avgAbsorb)}
-            <br />
-            <FooterChart
-              spec={spec}
-              data={this.absorbs.map((ev) => ({ ...ev, cast: undefined }))}
-            />
-          </>
+          {formatNumber(avgAbsorb)}
         </BoringValue>
       </Statistic>
     );

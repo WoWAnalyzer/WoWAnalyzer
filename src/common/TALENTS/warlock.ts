@@ -695,7 +695,7 @@ const talents = createTalentList({
     name: "Inquisitor's Gaze",
     icon: 'inv_pet_inquisitoreye',
     maxRanks: 1,
-    entryIds: [91448],
+    entryIds: [91427],
   },
   INTERNAL_COMBUSTION_TALENT: {
     id: 266134,
@@ -1138,7 +1138,7 @@ const talents = createTalentList({
     name: 'Summon Soulkeeper',
     icon: 'spell_fel_elementaldevastation',
     maxRanks: 1,
-    entryIds: [91427],
+    entryIds: [91448],
   },
   SUMMON_VILEFIEND_TALENT: {
     id: 264119,

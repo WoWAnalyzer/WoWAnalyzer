@@ -40,6 +40,8 @@ class DireCommandNormalizer extends EventsNormalizer {
           fixedEvents.push({
             ...event,
             type: EventType.FreeCast,
+            __modified: true,
+            __reordered: true,
           });
           break;
         }
@@ -60,7 +62,7 @@ class DireCommandNormalizer extends EventsNormalizer {
             break;
           }
           fixedEvents.splice(idx, 1);
-          fixedEvents.splice(backwardsIndex, 0, event);
+          fixedEvents.splice(backwardsIndex, 0, { ...event, __reordered: true });
           break;
         }
       }

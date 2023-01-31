@@ -3,12 +3,12 @@ import { SpellLink } from 'interface';
 import { Options } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import DotSnapshots, { SnapshotSpec } from 'parser/core/DotSnapshots';
-import { NIGHTSTALKER_SPEC } from '../core/Snapshots';
 import { ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import {
   animachargedCheckedUsageInfo,
   getRuptureDuration,
   getRuptureFullDuration,
+  isInOpener,
   RUPTURE_BASE_DURATION,
   SNAPSHOT_DOWNGRADE_BUFFER,
 } from 'analysis/retail/rogue/assassination/constants';
@@ -16,7 +16,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { formatDurationMillisMinSec } from 'common/format';
-import { ChecklistUsageInfo, SpellUse, spellUseToBoxRowEntry } from 'parser/core/SpellUsage/core';
+import { SpellUse, spellUseToBoxRowEntry } from 'parser/core/SpellUsage/core';
 import SpellUsageSubSection from 'parser/core/SpellUsage/SpellUsageSubSection';
 
 import { getHardcast } from '../../normalizers/CastLinkNormalizer';
@@ -33,13 +33,13 @@ export default class RuptureUptimeAndSnapshots extends DotSnapshots {
   protected enemies!: Enemies;
 
   constructor(options: Options) {
-    super(SPELLS.RUPTURE, SPELLS.RUPTURE, [NIGHTSTALKER_SPEC], options);
+    super(SPELLS.RUPTURE, SPELLS.RUPTURE, [], options);
   }
 
   getDotExpectedDuration(event: ApplyDebuffEvent | RefreshDebuffEvent): number {
     const fromHardcast = getHardcast(event);
     if (fromHardcast) {
-      return getRuptureDuration(fromHardcast);
+      return getRuptureDuration(this.selectedCombatant, fromHardcast);
     }
 
     console.warn(
@@ -72,9 +72,6 @@ export default class RuptureUptimeAndSnapshots extends DotSnapshots {
     }
 
     // log the cast
-    // const targetName = this.owner.getTargetName(cast);
-    // const snapshotNames = snapshots.map((ss) => ss.name);
-    // const prevSnapshotNames = prevSnapshots === null ? null : prevSnapshots.map((ss) => ss.name);
     const wasUnacceptableDowngrade =
       prevPower > power && remainingOnPrev > SNAPSHOT_DOWNGRADE_BUFFER;
     const wasUpgrade = prevPower < power;
@@ -93,23 +90,29 @@ export default class RuptureUptimeAndSnapshots extends DotSnapshots {
       );
     }
     if (clipped > 0) {
-      snapshotPerformance = wasUpgrade ? QualitativePerformance.Ok : QualitativePerformance.Fail;
-      snapshotSummary = wasUpgrade ? (
-        <div>Clipped but upgraded existing snapshotted Rupture</div>
-      ) : (
-        <div>Clipped existing snapshotted Rupture</div>
-      );
-      snapshotDetails = wasUpgrade ? (
-        <div>
-          Clipped but upgraded existing snapshotted Rupture. Try not to clip your snapshotted
-          Rupture.
-        </div>
-      ) : (
-        <div>Clipped existing snapshotted Rupture. Try not to clip your snapshotted Rupture.</div>
-      );
+      if (isInOpener(cast, this.owner.fight)) {
+        snapshotPerformance = QualitativePerformance.Ok;
+        snapshotSummary = <div>Clipped but upgraded existing snapshotted Rupture</div>;
+        snapshotDetails = (
+          <div>Clipped existing Rupture. It was during your opener so it's okay.</div>
+        );
+      } else if (wasUpgrade) {
+        snapshotPerformance = QualitativePerformance.Ok;
+        snapshotSummary = <div>Clipped but upgraded existing snapshotted Rupture</div>;
+        snapshotDetails = (
+          <div>
+            Clipped but upgraded existing snapshotted Rupture. Try not to clip your snapshotted
+            Rupture.
+          </div>
+        );
+      } else {
+        snapshotPerformance = QualitativePerformance.Fail;
+        snapshotSummary = <div>Clipped existing Rupture</div>;
+        snapshotDetails = <div>Clipped existing Rupture. Try not to clip your Rupture.</div>;
+      }
     }
 
-    const checklistItems: ChecklistUsageInfo[] = [
+    const actualChecklistItems = animachargedCheckedUsageInfo(this.selectedCombatant, cast, [
       {
         check: 'snapshot',
         timestamp: cast.timestamp,
@@ -117,42 +120,7 @@ export default class RuptureUptimeAndSnapshots extends DotSnapshots {
         summary: snapshotSummary,
         details: snapshotDetails,
       },
-    ];
-
-    // const tooltip = (
-    //   <>
-    //     @ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
-    //     <strong>{targetName || 'unknown'}</strong>
-    //     <br />
-    //     {prevSnapshotNames !== null && (
-    //       <>
-    //         Refreshed on target w/ {(remainingOnPrev / 1000).toFixed(1)}s remaining{' '}
-    //         {clipped > 0 && (
-    //           <>
-    //             <strong>- Clipped {(clipped / 1000).toFixed(1)}s!</strong>
-    //           </>
-    //         )}
-    //         <br />
-    //       </>
-    //     )}
-    //     Snapshots: <strong>{snapshotNames.length === 0 ? 'NONE' : snapshotNames.join(', ')}</strong>
-    //     <br />
-    //     {prevSnapshotNames !== null && (
-    //       <>
-    //         Prev Snapshots:{' '}
-    //         <strong>
-    //           {prevSnapshotNames.length === 0 ? 'NONE' : prevSnapshotNames.join(', ')}
-    //         </strong>
-    //       </>
-    //     )}
-    //   </>
-    // );
-
-    const actualChecklistItems = animachargedCheckedUsageInfo(
-      this.selectedCombatant,
-      cast,
-      checklistItems,
-    );
+    ]);
     const actualPerformance = combineQualitativePerformances(
       actualChecklistItems.map((it) => it.performance),
     );
@@ -207,8 +175,9 @@ export default class RuptureUptimeAndSnapshots extends DotSnapshots {
         castBreakdownSmallText={
           <>
             {' '}
-            - Green is a good cast, Yellow is an ok cast (clipped duration but upgraded snapshot),
-            Red is a bad cast (clipped duration or downgraded snapshot w/ &gt;
+            - Blue is an Animacharged cast, Green is a good cast, Yellow is an ok cast (clipped
+            duration but upgraded snapshot), Red is a bad cast (clipped duration or downgraded
+            snapshot w/ &gt;
             {formatDurationMillisMinSec(SNAPSHOT_DOWNGRADE_BUFFER)} remaining).
           </>
         }
