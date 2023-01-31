@@ -75,6 +75,11 @@ class Haste extends Analyzer {
     [SPELLS.STEADY_FOCUS_BUFF.id]: 0.07,
     //endregion
 
+    //region Paladin
+    [SPELLS.RELENTLESS_INQUISITOR_TALENT_BUFF.id]: {
+      hastePerStack: 0.01,
+    },
+
     //region Priest
     [TALENTS_PRIEST.POWER_INFUSION_TALENT.id]: 0.25,
     [SPELLS.BORROWED_TIME_BUFF.id]: 0.08,

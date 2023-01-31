@@ -99,6 +99,21 @@ const spells = spellIndexableList({
     name: 'Sense Undead',
     icon: 'spell_holy_senseundead',
   },
+  BLESSING_OF_DUSK: {
+    id: 385126,
+    name: 'Blessing of Dusk',
+    icon: 'achievement_zone_newshadowmoonvalley',
+  },
+  BLESSING_OF_DAWN: {
+    id: 385127,
+    name: 'Blessing of Dawn',
+    icon: 'achievement_zone_valeofeternalblossoms',
+  },
+  RELENTLESS_INQUISITOR_TALENT_BUFF: {
+    id: 383389,
+    name: 'Relentless Inquisitor',
+    icon: 'spell_holy_mindvision',
+  },
 
   // Holy Paladin:
   MASTERY_LIGHTBRINGER: {
@@ -253,6 +268,26 @@ const spells = spellIndexableList({
     id: 388019,
     name: "Maraad's Dying Breath",
     icon: 'paladin_icon_speedoflight',
+  },
+  BLESSING_OF_SUMMER_TALENT: {
+    id: 388007,
+    name: 'Blessing of Summer',
+    icon: 'ability_ardenweald_paladin_summer',
+  },
+  BLESSING_OF_AUTUMN_TALENT: {
+    id: 388010,
+    name: 'Blessing of Autumn',
+    icon: 'ability_ardenweald_paladin_autumn',
+  },
+  BLESSING_OF_WINTER_TALENT: {
+    id: 388011,
+    name: 'Blessing of Winter',
+    icon: 'ability_ardenweald_paladin_winter',
+  },
+  BLESSING_OF_SPRING_TALENT: {
+    id: 388013,
+    name: 'Blessing of Sprint',
+    icon: 'ability_ardenweald_paladin_spring',
   },
 
   // Retribution Paladin:

@@ -6,21 +6,25 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
-const COOLDOWN_REDUCTION_MS = 1500;
+const COOLDOWN_REDUCTION_MS_PER_POINT = 1000;
 
 class CrusadersMight extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
     statTracker: StatTracker,
+    globalCooldown: GlobalCooldown,
   };
 
   protected spellUsable!: SpellUsable;
   protected statTracker!: StatTracker;
+  protected globalCooldown!: GlobalCooldown;
 
+  talentedCooldownReductionMs = 0;
   effectiveHolyShockReductionMs = 0;
   wastedHolyShockReductionMs = 0;
   wastedHolyShockReductionCount = 0;
@@ -28,7 +32,10 @@ class CrusadersMight extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.CRUSADERS_MIGHT_TALENT);
+    this.talentedCooldownReductionMs =
+      this.selectedCombatant.getTalentRank(TALENTS.CRUSADERS_MIGHT_TALENT) *
+      COOLDOWN_REDUCTION_MS_PER_POINT;
+    this.active = this.talentedCooldownReductionMs > 0;
     if (!this.active) {
       return;
     }
@@ -39,29 +46,24 @@ class CrusadersMight extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    const holyShockisOnCooldown = this.spellUsable.isOnCooldown(TALENTS.HOLY_SHOCK_TALENT.id);
-    if (holyShockisOnCooldown) {
-      const reductionMs = this.spellUsable.reduceCooldown(
-        TALENTS.HOLY_SHOCK_TALENT.id,
-        COOLDOWN_REDUCTION_MS,
-      );
-      this.effectiveHolyShockReductionMs += reductionMs;
-      this.wastedHolyShockReductionMs += COOLDOWN_REDUCTION_MS - reductionMs;
-    } else {
-      const holyShockCooldown =
-        7500 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
-      if (
-        this.selectedCombatant.hasTalent(TALENTS.SANCTIFIED_WRATH_TALENT) &&
-        this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id, event.timestamp)
-      ) {
-        this.holyShocksCastsLost += 1;
-      } else {
-        this.holyShocksCastsLost += COOLDOWN_REDUCTION_MS / holyShockCooldown;
-      }
-      this.wastedHolyShockReductionMs += COOLDOWN_REDUCTION_MS;
-      this.wastedHolyShockReductionCount += 1;
+    const effectiveCdr = this.spellUsable.reduceCooldown(
+      TALENTS.HOLY_SHOCK_TALENT.id,
+      this.talentedCooldownReductionMs,
+    );
+    const wastedCdr = this.talentedCooldownReductionMs - effectiveCdr;
 
-      // mark the event on the timeline //
+    this.effectiveHolyShockReductionMs += effectiveCdr;
+    this.wastedHolyShockReductionMs += wastedCdr;
+
+    if (effectiveCdr === 0) {
+      this.wastedHolyShockReductionCount += 1;
+      const timeWasted =
+        this.talentedCooldownReductionMs +
+        this.globalCooldown.getGlobalCooldownDuration(SPELLS.CRUSADER_STRIKE.id);
+      const holyShockCooldown = this.spellUsable.fullCooldownDuration(TALENTS.HOLY_SHOCK_TALENT.id);
+      this.holyShocksCastsLost += timeWasted / holyShockCooldown;
+
+      // mark the event on the timeline
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = (
