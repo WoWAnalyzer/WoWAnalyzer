@@ -24,6 +24,6 @@ class ExecuteNormalizer extends EventLinkNormalizer {
 
 export default ExecuteNormalizer;
 
-export function damageEvent(event: CastEvent): DamageEvent {
+export function damageEvent(event: CastEvent): DamageEvent | undefined {
   return event._linkedEvents?.find((rel) => rel.relation === relation)?.event as DamageEvent;
 }
