@@ -1,6 +1,8 @@
 import { Tooltip } from 'interface/index';
-import './PerformanceBoxRow.scss';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { ReactNode } from 'react';
+
+import './PerformanceBoxRow.scss';
 
 /** A row of boxes colored based on performance */
 export function PerformanceBoxRow({ values, onClickBox }: PerformanceBoxRowProps) {
@@ -20,14 +22,13 @@ export function PerformanceBoxRow({ values, onClickBox }: PerformanceBoxRowProps
 
 type PerformanceBoxRowProps = {
   values: BoxRowEntry[];
-  style?: React.CSSProperties;
   onClickBox?: (index: number) => void;
 };
 
 /** An entry for a PerformanceBoxRow */
 export type BoxRowEntry = {
   value: QualitativePerformance;
-  tooltip?: React.ReactNode | string; // TODO default tooltip
+  tooltip?: ReactNode | string;
   className?: string;
 };
 

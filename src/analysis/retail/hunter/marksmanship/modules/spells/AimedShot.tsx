@@ -1,8 +1,4 @@
-import {
-  DEAD_EYE_AIMED_SHOT_RECHARGE_INCREASE,
-  TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE,
-} from 'analysis/retail/hunter/marksmanship/constants';
-import DeadEye from 'analysis/retail/hunter/marksmanship/modules/talents/DeadEye';
+import { TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE } from 'analysis/retail/hunter/marksmanship/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -28,7 +24,6 @@ class AimedShot extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
     abilities: Abilities,
-    deadEye: DeadEye,
   };
 
   lastReductionTimestamp: number = 0;
@@ -40,7 +35,6 @@ class AimedShot extends Analyzer {
 
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
-  protected deadEye!: DeadEye;
 
   constructor(options: Options) {
     super(options);
@@ -48,24 +42,21 @@ class AimedShot extends Analyzer {
     this.addEventListener(Events.any, this.onEvent);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onCast);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.TRUESHOT, SPELLS.DEAD_EYE_BUFF]),
+      Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.TRUESHOT]),
       this.onAffectingBuffChange,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell([SPELLS.TRUESHOT, SPELLS.DEAD_EYE_BUFF]),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell([SPELLS.TRUESHOT]),
       this.onAffectingBuffChange,
     );
     this.addEventListener(
-      Events.removebuff.to(SELECTED_PLAYER).spell([SPELLS.TRUESHOT, SPELLS.DEAD_EYE_BUFF]),
+      Events.removebuff.to(SELECTED_PLAYER).spell([SPELLS.TRUESHOT]),
       this.onAffectingBuffChange,
     );
   }
 
   onEvent(event: AnyEvent) {
-    if (
-      !this.selectedCombatant.hasBuff(SPELLS.DEAD_EYE_BUFF.id) &&
-      !this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)
-    ) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       return;
     }
     if (!this.spellUsable.isOnCooldown(SPELLS.AIMED_SHOT.id)) {
@@ -81,9 +72,6 @@ class AimedShot extends Analyzer {
     let modRate = 1;
     if (this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       modRate /= 1 + TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE;
-    }
-    if (this.selectedCombatant.hasBuff(SPELLS.DEAD_EYE_BUFF.id)) {
-      modRate /= 1 + DEAD_EYE_AIMED_SHOT_RECHARGE_INCREASE;
     }
     const spellReductionSpeed = 1 / modRate - 1;
     debug &&
@@ -107,18 +95,6 @@ class AimedShot extends Analyzer {
     );
     this.effectiveCDRFromTrueshotDeadEye += effectiveReductionMs;
     this.wastedCDRFromTrueshotDeadEye += effectiveReductionMs - maxReductionMs;
-    if (this.selectedCombatant.hasBuff(SPELLS.DEAD_EYE_BUFF.id)) {
-      this.attributeDeadEyeAimedShotCDR(effectiveReductionMs, maxReductionMs);
-    }
-  }
-
-  attributeDeadEyeAimedShotCDR(effectiveReductionMs: number, maxReductionMs: number) {
-    if (this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
-      effectiveReductionMs = effectiveReductionMs / (1 + TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE);
-      maxReductionMs = maxReductionMs / (1 + TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE);
-    }
-    this.deadEye.deadEyeEffectiveCDR += effectiveReductionMs;
-    this.deadEye.deadEyePotentialCDR += maxReductionMs;
   }
 
   onAffectingBuffChange(event: ApplyBuffEvent | RefreshBuffEvent | RemoveBuffEvent) {
@@ -135,7 +111,6 @@ class AimedShot extends Analyzer {
     if (expectedCooldownDuration) {
       this.totalCooldown += expectedCooldownDuration;
       this.casts += 1;
-      this.deadEye.averageAimedShotCD = this.totalCooldown / this.casts;
     }
 
     if (event.meta === undefined) {

@@ -95,7 +95,7 @@ class BornToBeWild extends Analyzer {
             it provided for you.
             <ul>
               <li>
-                Survival of the Fittest:
+                Survival of the Fittest:{' '}
                 {formatNumber(
                   this._spells[TALENTS.SURVIVAL_OF_THE_FITTEST_TALENT.id].effectiveCDR / 1000,
                 )}

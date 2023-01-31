@@ -108,6 +108,11 @@ const spells = spellIndexableList({
     name: 'Bloodshed',
     icon: 'ability_hunter_killcommand',
   },
+  CALL_OF_THE_WILD_TEMPORARY_PET_BUFF: {
+    id: 361582,
+    name: 'Call of the Wild',
+    icon: 'ability_hunter_pet_assist',
+  },
   //endregion
 
   //region Marksmanship
@@ -211,11 +216,6 @@ const spells = spellIndexableList({
     name: 'Lone Wolf',
     icon: 'spell_hunter_lonewolf',
   },
-  DEAD_EYE_BUFF: {
-    id: 321461,
-    name: 'Dead Eye',
-    icon: 'buff_epichunter',
-  },
   STREAMLINE_BUFF: {
     id: 342076,
     name: 'Streamline',
@@ -230,6 +230,11 @@ const spells = spellIndexableList({
     id: 344121,
     name: 'Chimaera Shot',
     icon: 'ability_hunter_chimerashot2',
+  },
+  DEATHBLOW_BUFF: {
+    id: 378770,
+    name: 'Deathblow',
+    icon: 'ability_hunter_runningshot',
   },
   //endregion
 

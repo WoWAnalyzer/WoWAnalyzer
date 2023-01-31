@@ -60,8 +60,19 @@ const spells = spellIndexableList({
     name: 'Delicate Suspension of Spores',
     icon: 'inv_misc_food_96_zangarcaps',
   },
-  POTION_OF_CHILLED_CLARITY: {
+  // each rank has different duration and thus different spell id
+  POTION_OF_CHILLED_CLARITY_R1: {
     id: 371149,
+    name: 'Potion of Chilled Clarity',
+    icon: 'ui_profession_alchemy',
+  },
+  POTION_OF_CHILLED_CLARITY_R2: {
+    id: 371151,
+    name: 'Potion of Chilled Clarity',
+    icon: 'ui_profession_alchemy',
+  },
+  POTION_OF_CHILLED_CLARITY_R3: {
+    id: 371152,
     name: 'Potion of Chilled Clarity',
     icon: 'ui_profession_alchemy',
   },
