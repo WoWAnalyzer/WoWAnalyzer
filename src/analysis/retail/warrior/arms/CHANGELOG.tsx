@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 export default [
   change(date(2023, 1, 30), 'Fixed a crashing bug in the rage tracker.', emallson),
+  change(date(2023, 1, 27), <>Updated Ability list for 10.0.5; Added Skullsplitter bleed damage contribution</>, Toreole),
   change(date(2023, 1, 26), <>Improved Execute rage refund calculation more reliable</>, Toreole),
   change(date(2023, 1, 18), <>Fixed Rage Tracking massively overestimating rage generation</>, Toreole),
   change(date(2023, 1, 17), <>WIP updating Arms Warrior for Dragonflight 10.0.5</>, Toreole),

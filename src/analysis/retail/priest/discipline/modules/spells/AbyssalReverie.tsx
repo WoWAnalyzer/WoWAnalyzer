@@ -31,7 +31,9 @@ class AbyssalReverie extends Analyzer {
         .spell([SPELLS.ATONEMENT_HEAL_CRIT, SPELLS.ATONEMENT_HEAL_NON_CRIT]),
       this.onAtoneHeal,
     );
-    this.abyssalReverieIncrease = this.selectedCombatant.getTalentRank(TALENTS_PRIEST.ABYSSAL_REVERIE_TALENT) * ABYSSAL_REVERIE_INCREASE;
+    this.abyssalReverieIncrease =
+      this.selectedCombatant.getTalentRank(TALENTS_PRIEST.ABYSSAL_REVERIE_TALENT) *
+      ABYSSAL_REVERIE_INCREASE;
   }
 
   onAtoneHeal(event: HealEvent) {
