@@ -125,6 +125,7 @@ export interface RemoveStaggerEvent extends Event<EventType.RemoveStagger> {
   overheal: number;
   newPooledDamage: number;
   trigger?: CastEvent | DeathEvent;
+  sourceBreakdown?: { base: number } & Record<number, number>;
 }
 
 type MappedEventTypes = {

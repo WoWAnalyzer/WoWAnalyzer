@@ -11,6 +11,8 @@ import metric, { Info } from 'parser/core/metric';
 import { ReactChild } from 'react';
 import { initLocationState, LocationState, isInRange, updateLocationState } from './range';
 
+const debug = false;
+
 export type PlayerInfo = Pick<Info, 'playerId' | 'combatant' | 'abilities' | 'defaultRange'>;
 export enum Tense {
   Past,
@@ -269,7 +271,7 @@ function ruleApplies(
       return false;
     }
 
-    if (spellIsCast && !spellInRange) {
+    if (debug && spellIsCast && !spellInRange) {
       console.warn(
         `APL: Spell was cast but we thought it was out of range: ${spell.id} (${spell.name})`,
         event,

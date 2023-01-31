@@ -227,6 +227,30 @@ const spells = spellIndexableList({
     icon: 'spell_deathknight_armyofthedead',
   },
 
+  COMMANDER_OF_THE_DEAD_BUFF: {
+    id: 390264,
+    name: 'Commander of the Dead',
+    icon: 'spell_shadow_fumble',
+  },
+
+  MAGUS_SUMMON: {
+    id: 317776,
+    name: 'Army of the Damned',
+    icon: '"artifactability_unholydeathknight_deathsembrace',
+  },
+
+  APOC_SUMMON: {
+    id: 275430,
+    name: 'Army of the Dead',
+    icon: 'artifactability_unholydeathknight_deathsembrace',
+  },
+
+  ARMY_SUMMON: {
+    id: 42651,
+    name: 'Army of the Dead',
+    icon: 'spell_shadow_coneofsilence',
+  },
+
   DARK_TRANSFORMATION: {
     id: 63560,
     name: 'Dark Transformation',

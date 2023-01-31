@@ -180,7 +180,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [87628],
     essenceCost: 2,
-    manaCost: 4250,
   },
   EMERALD_COMMUNION_TALENT: {
     id: 370960,
