@@ -148,7 +148,7 @@ const talents = createTalentList({
     name: 'Brutal Slash',
     icon: 'ability_druid_ravage',
     maxRanks: 1,
-    entryIds: [103150],
+    entryIds: [103151],
     energyCost: 25,
   },
   BUDDING_LEAVES_TALENT: {
@@ -578,7 +578,7 @@ const talents = createTalentList({
     entryIds: [103178],
   },
   INCARNATION_CHOSEN_OF_ELUNE_TALENT: {
-    id: 102560,
+    id: 394013,
     name: 'Incarnation: Chosen of Elune',
     icon: 'spell_druid_incarnation',
     maxRanks: 1,
@@ -1661,7 +1661,7 @@ const talents = createTalentList({
     name: 'Wild Slashes',
     icon: 'ability_xavius_tormentingswipe',
     maxRanks: 1,
-    entryIds: [103151],
+    entryIds: [103150],
   },
   WILD_SYNTHESIS_TALENT: {
     id: 400533,
