@@ -4,26 +4,28 @@ import indexById, { asRestrictedTable } from 'common/indexById';
 import PRIMARY_STATS from './PRIMARY_STATS';
 import ROLES from './ROLES';
 
-export interface Spec {
+interface BaseSpec {
   id: number;
-  /**
-   * The "type" as provided in the player object by WCL. Used for expansions without specs, such as TBC.
-   */
   type?: string;
   index: number;
   className: string;
   specName?: string;
   role: number;
   primaryStat: string;
+  ranking: { class: number; spec: number };
+}
+
+interface RetailSpec extends BaseSpec {
   masterySpellId?: number;
   masteryCoefficient?: number;
-  ranking: {
-    class: number;
-    spec: number;
-  };
-  icon?: string; // Classic only due to specId being 0
-  tree?: number; // Classic only for multiple spec users
 }
+
+interface ClassicSpec extends BaseSpec {
+  icon?: string;
+  treeIndex?: number; // which tree (0,1,2) is for this spec. used as a fallback to try to do SOMETHING
+}
+
+export type Spec = RetailSpec | ClassicSpec;
 
 const specIndexableList = asRestrictedTable<Spec>();
 
@@ -811,6 +813,7 @@ const SPECS = specIndexableList({
       spec: 1,
     },
     icon: 'Warrior-Arms',
+    treeIndex: 0,
   },
   CLASSIC_WARRIOR_FURY: {
     id: 164,
@@ -831,6 +834,7 @@ const SPECS = specIndexableList({
       spec: 2,
     },
     icon: 'Warrior-Fury',
+    treeIndex: 1,
   },
   CLASSIC_WARRIOR_PROTECTION: {
     id: 163,
@@ -851,6 +855,7 @@ const SPECS = specIndexableList({
       spec: 3,
     },
     icon: 'Warrior-Protection',
+    treeIndex: 2,
   },
   CLASSIC_PALADIN_HOLY: {
     id: 382,
@@ -871,6 +876,7 @@ const SPECS = specIndexableList({
       spec: 1,
     },
     icon: 'Paladin-Holy',
+    treeIndex: 0,
   },
   CLASSIC_PALADIN_PROTECTION: {
     id: 383,
@@ -891,6 +897,7 @@ const SPECS = specIndexableList({
       spec: 2,
     },
     icon: 'Paladin-Protection',
+    treeIndex: 1,
   },
   CLASSIC_PALADIN_RETRIBUTION: {
     id: 381,
@@ -911,6 +918,7 @@ const SPECS = specIndexableList({
       spec: 3,
     },
     icon: 'Paladin-Retribution',
+    treeIndex: 2,
   },
   CLASSIC_HUNTER_BEAST_MASTERY: {
     id: 361,
@@ -931,6 +939,7 @@ const SPECS = specIndexableList({
       spec: 1,
     },
     icon: 'Hunter-BeastMastery',
+    treeIndex: 0,
   },
   CLASSIC_HUNTER_MARKSMANSHIP: {
     id: 363,
@@ -951,6 +960,7 @@ const SPECS = specIndexableList({
       spec: 2,
     },
     icon: 'Hunter-Marksmanship',
+    treeIndex: 1,
   },
   CLASSIC_HUNTER_SURVIVAL: {
     id: 362,
@@ -971,6 +981,7 @@ const SPECS = specIndexableList({
       spec: 3,
     },
     icon: 'Hunter-Survival',
+    treeIndex: 2,
   },
   CLASSIC_ROGUE_ASSASSINATION: {
     id: 182,
@@ -991,6 +1002,7 @@ const SPECS = specIndexableList({
       spec: 1,
     },
     icon: 'Rogue-Assassination',
+    treeIndex: 0,
   },
   CLASSIC_ROGUE_COMBAT: {
     id: 181,
@@ -1011,6 +1023,7 @@ const SPECS = specIndexableList({
       spec: 2,
     },
     icon: 'Rogue-Combat',
+    treeIndex: 1,
   },
   CLASSIC_ROGUE_SUBTLETY: {
     id: 183,
@@ -1031,6 +1044,7 @@ const SPECS = specIndexableList({
       spec: 3,
     },
     icon: 'Rogue-Subtlety',
+    treeIndex: 2,
   },
   CLASSIC_PRIEST_DISCIPLINE: {
     id: 201,
@@ -1051,6 +1065,7 @@ const SPECS = specIndexableList({
       spec: 1,
     },
     icon: 'Priest-Discipline',
+    treeIndex: 0,
   },
   CLASSIC_PRIEST_HOLY: {
     id: 202,
@@ -1071,6 +1086,7 @@ const SPECS = specIndexableList({
       spec: 2,
     },
     icon: 'Priest-Holy',
+    treeIndex: 1,
   },
   CLASSIC_PRIEST_SHADOW: {
     id: 203,
@@ -1091,6 +1107,7 @@ const SPECS = specIndexableList({
       spec: 3,
     },
     icon: 'Priest-Shadow',
+    treeIndex: 2,
   },
   CLASSIC_DEATH_KNIGHT_BLOOD: {
     id: 398,
@@ -1111,7 +1128,7 @@ const SPECS = specIndexableList({
       spec: 1,
     },
     icon: 'DeathKnight-Blood',
-    tree: 0,
+    treeIndex: 0,
   },
   CLASSIC_DEATH_KNIGHT_FROST: {
     id: 399,
@@ -1132,7 +1149,7 @@ const SPECS = specIndexableList({
       spec: 2,
     },
     icon: 'DeathKnight-Frost',
-    tree: 1,
+    treeIndex: 1,
   },
   CLASSIC_DEATH_KNIGHT_UNHOLY: {
     id: 400,
@@ -1153,7 +1170,7 @@ const SPECS = specIndexableList({
       spec: 3,
     },
     icon: 'DeathKnight-Unholy',
-    tree: 2,
+    treeIndex: 2,
   },
   CLASSIC_SHAMAN_ELEMENTAL: {
     // wowhead id is 261 but that's the same id as retail Subtlety Rogue
@@ -1175,6 +1192,7 @@ const SPECS = specIndexableList({
       spec: 1,
     },
     icon: 'Shaman-Elemental',
+    treeIndex: 0,
   },
   CLASSIC_SHAMAN_ENHANCEMENT: {
     // wowhead id is 263 but that's the same id as retail Enhancement Shaman
@@ -1196,6 +1214,7 @@ const SPECS = specIndexableList({
       spec: 2,
     },
     icon: 'Shaman-Enhancement',
+    treeIndex: 1,
   },
   CLASSIC_SHAMAN_RESTORATION: {
     // wowhead id is 262 but that's the same id as retail Restoration Shaman
@@ -1217,6 +1236,7 @@ const SPECS = specIndexableList({
       spec: 3,
     },
     icon: 'Shaman-Restoration',
+    treeIndex: 2,
   },
   CLASSIC_MAGE_ARCANE: {
     id: 81,
@@ -1237,7 +1257,7 @@ const SPECS = specIndexableList({
       spec: 1,
     },
     icon: 'Mage-Arcane',
-    tree: 0,
+    treeIndex: 0,
   },
   CLASSIC_MAGE_FIRE: {
     id: 41,
@@ -1258,7 +1278,7 @@ const SPECS = specIndexableList({
       spec: 2,
     },
     icon: 'Mage-Fire',
-    tree: 1,
+    treeIndex: 1,
   },
   CLASSIC_MAGE_FROST: {
     id: 61,
@@ -1279,7 +1299,7 @@ const SPECS = specIndexableList({
       spec: 3,
     },
     icon: 'Mage-Frost',
-    tree: 2,
+    treeIndex: 2,
   },
   CLASSIC_WARLOCK_AFFLICTION: {
     id: 302,
@@ -1300,7 +1320,7 @@ const SPECS = specIndexableList({
       spec: 1,
     },
     icon: 'Warlock-Affliction',
-    tree: 0,
+    treeIndex: 0,
   },
   CLASSIC_WARLOCK_DEMONOLOGY: {
     id: 303,
@@ -1321,7 +1341,7 @@ const SPECS = specIndexableList({
       spec: 2,
     },
     icon: 'Warlock-Demonology',
-    tree: 1,
+    treeIndex: 1,
   },
   CLASSIC_WARLOCK_DESTRUCTION: {
     id: 301,
@@ -1342,7 +1362,7 @@ const SPECS = specIndexableList({
       spec: 3,
     },
     icon: 'Warlock-Destruction',
-    tree: 2,
+    treeIndex: 2,
   },
   CLASSIC_DRUID_BALANCE: {
     id: 283,
@@ -1363,7 +1383,7 @@ const SPECS = specIndexableList({
       spec: 1,
     },
     icon: 'Druid-Balance',
-    tree: 0,
+    treeIndex: 0,
   },
   CLASSIC_DRUID_FERAL_COMBAT: {
     id: 281,
@@ -1384,7 +1404,7 @@ const SPECS = specIndexableList({
       spec: 2,
     },
     icon: 'Druid-Feral',
-    tree: 1,
+    treeIndex: 1,
   },
   CLASSIC_DRUID_RESTORATION: {
     id: 282,
@@ -1405,7 +1425,7 @@ const SPECS = specIndexableList({
       spec: 3,
     },
     icon: 'Druid-Restoration',
-    tree: 2,
+    treeIndex: 2,
   },
   CLASSIC_DRUID_GUARDIAN: {
     id: 284,
