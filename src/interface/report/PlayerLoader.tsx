@@ -312,8 +312,6 @@ const PlayerLoader = ({ children }: Props) => {
           }),
         );
       } else if (!config || missingBuild) {
-        console.log(config);
-        console.log(missingBuild);
         alert(
           t({
             id: 'interface.report.render.notSupported',

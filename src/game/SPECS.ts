@@ -1342,7 +1342,7 @@ const SPECS = specIndexableList({
       spec: 3,
     },
     icon: 'Warlock-Destruction',
-    tree: 3,
+    tree: 2,
   },
   CLASSIC_DRUID_BALANCE: {
     id: 283,
