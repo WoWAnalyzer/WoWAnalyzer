@@ -28,6 +28,7 @@ import WARRIOR from './warrior';
 // Other
 import Engineering from './engineering';
 import Racials from './racials';
+import Raids from './raids';
 import Tailoring from './tailoring';
 
 const ABILITIES = {
@@ -42,6 +43,7 @@ const ABILITIES = {
   ...WARRIOR,
   ...Engineering,
   ...Racials,
+  ...Raids,
   ...Tailoring,
 } as const;
 
