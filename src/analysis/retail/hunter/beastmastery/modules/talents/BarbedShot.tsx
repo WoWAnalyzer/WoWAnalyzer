@@ -140,11 +140,18 @@ class BarbedShot extends Analyzer {
     };
   }
 
-  handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent) {
+  handleStacks(
+    event:
+      | RemoveBuffEvent
+      | ApplyBuffEvent
+      | ApplyBuffStackEvent
+      | FightEndEvent
+      | RefreshBuffEvent,
+  ) {
     this.barbedShotStacks[this.lastBarbedShotStack].push(
       event.timestamp - this.lastBarbedShotUpdate,
     );
-    if (event.type === EventType.FightEnd) {
+    if (event.type === EventType.FightEnd || event.type === EventType.RefreshBuff) {
       return;
     }
     this.lastBarbedShotUpdate = event.timestamp;
@@ -152,6 +159,7 @@ class BarbedShot extends Analyzer {
   }
 
   onRefresh(event: RefreshBuffEvent) {
+    this.handleStacks(event);
     this.lastBarbedShotUpdate = event.timestamp;
   }
 
