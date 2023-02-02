@@ -93,7 +93,7 @@ class SheilunsGift extends Analyzer {
       )
         .icon(TALENTS_MONK.SHEILUNS_GIFT_TALENT.icon)
         .actual(
-          `${this.cloudsLost} lost cloud from overcapping + ${this.cloudsLost > 1 ? 's' : ''}`,
+          `${this.cloudsLost} lost cloud` + (this.cloudsLost > 1 ? 's' : '') + ` from overcapping`,
         )
         .recommended(`0 lost clouds is recommended`),
     );
