@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
@@ -93,12 +92,7 @@ class SheilunsGift extends Analyzer {
         </>,
       )
         .icon(TALENTS_MONK.SHEILUNS_GIFT_TALENT.icon)
-        .actual(
-          `${this.cloudsLost} ${t({
-            id: 'monk.mistweaver.suggestions.sheiluns.cloudsLost',
-            message: ` lost cloud from overcapping` + (this.cloudsLost > 1 ? 's' : ''),
-          })}`,
-        )
+        .actual(`${this.cloudsLost} lost cloud${this.cloudsLost > 1 ? 's' : ''} from overcapping`)
         .recommended(`0 lost clouds is recommended`),
     );
   }
