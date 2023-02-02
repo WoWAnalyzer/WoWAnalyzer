@@ -243,8 +243,8 @@ class ShaohaosLessons extends Analyzer {
                   </td>
                   <td>{this.applyCount.get(SPELLS.LESSON_OF_DOUBT_BUFF.id)!}</td>
                   <td>{formatDuration(this.durationCount.get(SPELLS.LESSON_OF_DOUBT_BUFF.id)!)}</td>
-                  <td>{formatNumber(this.doubtHealing)}</td>
                   <td>{formatNumber(this.doubtDamage)}</td>
+                  <td>{formatNumber(this.doubtHealing)}</td>
                 </tr>
                 <tr key="fear">
                   <td>
