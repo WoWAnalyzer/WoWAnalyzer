@@ -73,10 +73,10 @@ class Abilities extends CoreAbilities {
 
       // Cooldowns
       {
-        spell: TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id,
-        buffSpellId: TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id,
+        spell: SPELLS.INCARNATION_CHOSEN_OF_ELUNE.id,
+        buffSpellId: SPELLS.INCARNATION_CHOSEN_OF_ELUNE.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
+        cooldown: combatant.hasTalent(TALENTS_DRUID.ORBITAL_STRIKE_TALENT) ? 120 : 180,
         enabled: combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT),
         castEfficiency: {
           suggestion: true,
@@ -88,8 +88,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CELESTIAL_ALIGNMENT.id,
         buffSpellId: SPELLS.CELESTIAL_ALIGNMENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
-        enabled: !combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT),
+        cooldown: combatant.hasTalent(TALENTS_DRUID.ORBITAL_STRIKE_TALENT) ? 120 : 180,
+        enabled:
+          combatant.hasTalent(TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT) &&
+          !combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.8,
