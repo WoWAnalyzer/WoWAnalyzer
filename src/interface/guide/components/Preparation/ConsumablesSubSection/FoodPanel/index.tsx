@@ -1,17 +1,19 @@
 import Spell from 'common/SPELLS/Spell';
 import { useAnalyzer, useInfo } from 'interface/guide/index';
-import FoodChecker from 'parser/retail/modules/items/FoodChecker';
+import FoodChecker from 'parser/shared/modules/items/FoodChecker';
 import { maybeGetSpell } from 'common/SPELLS';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface/index';
 import { PanelHeader, PerformanceRoundedPanel } from 'interface/guide/components/GuideDivs';
 import Recommendations from 'interface/guide/components/Preparation/ConsumablesSubSection/Recommendations';
 import Soup from 'interface/icons/Soup';
+import Expansion from 'game/Expansion';
 
 interface Props {
   recommendedFoods?: Spell[];
+  expansion?: Expansion;
 }
-const FoodPanel = ({ recommendedFoods }: Props) => {
+const FoodPanel = ({ recommendedFoods, expansion }: Props) => {
   const foodChecker = useAnalyzer(FoodChecker);
   const info = useInfo();
   if (!foodChecker || !info) {
@@ -20,7 +22,7 @@ const FoodPanel = ({ recommendedFoods }: Props) => {
 
   const recommendedFoodIds = recommendedFoods?.map((food) => food.id);
   const foodBuffId = foodChecker.foodBuffId;
-  const foodBuff = maybeGetSpell(foodBuffId);
+  const foodBuff = maybeGetSpell(foodBuffId, expansion);
   const showCurrentFoodBuff = foodBuff ? (
     <>
       : <SpellLink id={foodBuff} />
