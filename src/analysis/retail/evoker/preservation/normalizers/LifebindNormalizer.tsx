@@ -23,7 +23,7 @@ const EVENT_ORDERS: EventOrder[] = [
 ];
 
 /**
- * Occasionally HoT heal has same timestamp but happens before the applybuff event, which causes issues when attempting to attribute the heal.
+ * Occasionally Lifebind heal has same timestamp but happens before the applybuff event, which causes issues when attempting to attribute the heal.
  * This normalizes the heal to always be after the applybuff
  */
 class LifebindNormalizer extends EventOrderNormalizer {
