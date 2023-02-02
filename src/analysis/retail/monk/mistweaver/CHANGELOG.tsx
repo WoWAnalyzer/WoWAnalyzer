@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 2, 1), <>Fixed UI bug with <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT.id}/> suggestion (again).</>, Trevor),
   change(date(2023, 1, 31), <>Fixed UI bug with <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT.id}/> suggestion.</>, Vohrr),
   change(date(2023, 1, 28), <>Add average healing per cast to <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id}/> tooltip.</>, Vohrr),
   change(date(2023, 1, 27), <>Add table to <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT}/> module</>, Trevor),
