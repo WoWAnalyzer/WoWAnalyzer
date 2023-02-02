@@ -37,7 +37,6 @@ import Lenience from './modules/spells/Lenience';
 import Penance from './modules/spells/Penance';
 import Schism from './modules/spells/Schism';
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
-import AtonementSuccessiveDamageNormalizer from './normalizers/AtonementSuccessiveDamage';
 import ManifestedTwilightNormalizer from './normalizers/ManifestedTwilightNormalizer';
 import PowerWordRadianceNormalizer from './normalizers/PowerWordRadianceNormalizer';
 import HarshDiscipline from './modules/spells/HarshDiscipline';
@@ -66,7 +65,6 @@ import AbyssalReverie from './modules/spells/AbyssalReverie';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizers
-    atonementSuccessiveDamage: AtonementSuccessiveDamageNormalizer,
     shadowfiendNormalizer: ShadowfiendNormalizer,
     powerWordRadianceNormalizer: PowerWordRadianceNormalizer,
     manifestedTwilightNormalizer: ManifestedTwilightNormalizer,
