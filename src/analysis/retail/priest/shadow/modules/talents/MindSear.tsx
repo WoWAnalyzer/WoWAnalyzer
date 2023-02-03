@@ -5,25 +5,34 @@ import TALENTS from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { ApplyDebuffEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Enemies from 'parser/shared/modules/Enemies';
 
 class MindSear extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
+    enemies: Enemies,
   };
+  protected enemies!: Enemies;
   protected abilityTracker!: AbilityTracker;
 
   damage = 0;
-  totalTargetsHit = 0;
+  hits = 0;
+  ticks = 0;
+  id = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.MIND_SEAR_TALENT);
+    this.addEventListener(
+      Events.applydebuff.by(SELECTED_PLAYER).spell(TALENTS.MIND_SEAR_TALENT),
+      this.onBuff,
+    );
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_SEAR_TALENT_DAMAGE),
       this.onDamage,
@@ -31,14 +40,26 @@ class MindSear extends Analyzer {
   }
 
   get averageTargetsHit() {
-    return (
-      this.totalTargetsHit / this.abilityTracker.getAbility(TALENTS.MIND_SEAR_TALENT.id).casts || 0
-    );
+    return this.hits / this.ticks || 0;
+  }
+
+  //Every Mind Sear cast can be one to four damage events per target.
+  //But only the main target recieves the debuff.
+  //By counting the damage events done to the debuffed target we can calculate the average number of targets hit per tick, instead of per cast.
+
+  onBuff(event: ApplyDebuffEvent) {
+    this.id = event.targetID;
   }
 
   onDamage(event: DamageEvent) {
-    this.totalTargetsHit += 1;
+    this.hits += 1;
     this.damage += event.amount + (event.absorbed || 0);
+
+    const checkid = event.targetID;
+
+    if (this.id === checkid) {
+      this.ticks += 1;
+    }
   }
 
   get suggestionThresholds() {

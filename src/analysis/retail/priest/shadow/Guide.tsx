@@ -12,13 +12,13 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Core">
         <Section title="Insanity">
           <ResourceSubsection.ResourceSubsection modules={modules} events={events} info={info} />{' '}
-          {/* TODO: Get Insanity Graph working*/}
           {modules.dotUptimes.guideSubsectionDP}
+          {/*modules.mindSear.guideSubsection*/}
         </Section>
         <Section title="DoTs">{modules.dotUptimes.guideSubsection}</Section>
 
         <Section title="Spells">
-          {/* TODO: Fix SW:D efficency*/}
+          {/* TODO: Fix SW:D and VB efficency*/}
           <CooldownGraphSubsection.CoreCooldownsGraph />
           {/* TODO: Add Active Time graph*/}
           <CastingSubsection.CastingSubsection modules={modules} events={events} info={info} />
