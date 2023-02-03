@@ -38,7 +38,6 @@ import AlwaysBeCasting from './modules/core/AlwaysBeCasting';
 import FontOfMagic from './modules/talents/FontOfMagic';
 import EmeraldCommunion from './modules/talents/EmeraldCommunion';
 import SparkOfInsight from './modules/talents/SparkOfInsight';
-import LifebindNormalizer from './normalizers/LifebindNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -46,7 +45,6 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
 
     // Normalizer
-    lifebindNormalizer: LifebindNormalizer,
     castLinkNormalizer: CastLinkNormalizer,
     hotApplicationNormalizer: HotApplicationNormalizer,
     hotRemovalNormalizer: HotRemovalNormalizer,
