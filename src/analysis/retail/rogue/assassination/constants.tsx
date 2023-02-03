@@ -119,11 +119,26 @@ export const FINISHERS: Spell[] = [
   SPELLS.KIDNEY_SHOT,
 ];
 
+// Adjust for possible log latency
+const ANIMACHARGED_FINISHER_BUFFER = 200;
+
 export const isAnimachargedFinisherCast = (c: Combatant, event: CastEvent): boolean => {
   const cpsSpent = getResourceSpent(event, RESOURCE_TYPES.COMBO_POINTS);
-  const hasAnimacharged2CP = c.hasBuff(SPELLS.ANIMACHARGED_CP2.id, event.timestamp);
-  const hasAnimacharged3CP = c.hasBuff(SPELLS.ANIMACHARGED_CP3.id, event.timestamp);
-  const hasAnimacharged4CP = c.hasBuff(SPELLS.ANIMACHARGED_CP4.id, event.timestamp);
+  const hasAnimacharged2CP = c.hasBuff(
+    SPELLS.ANIMACHARGED_CP2.id,
+    event.timestamp,
+    ANIMACHARGED_FINISHER_BUFFER,
+  );
+  const hasAnimacharged3CP = c.hasBuff(
+    SPELLS.ANIMACHARGED_CP3.id,
+    event.timestamp,
+    ANIMACHARGED_FINISHER_BUFFER,
+  );
+  const hasAnimacharged4CP = c.hasBuff(
+    SPELLS.ANIMACHARGED_CP4.id,
+    event.timestamp,
+    ANIMACHARGED_FINISHER_BUFFER,
+  );
 
   if (cpsSpent === 2 && hasAnimacharged2CP) {
     return true;
