@@ -16,6 +16,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.swiftmend.guideSubsection}
         {modules.lifebloom.guideSubsection}
       </Section>
+      <Section title="Procs">{modules.omenOfClarity.guideSubsection}</Section>
       <Section title="Healing Cooldowns">
         <HotGraphSubsection modules={modules} events={events} info={info} />
         <PreparationSection expansion={Expansion.WrathOfTheLichKing} />

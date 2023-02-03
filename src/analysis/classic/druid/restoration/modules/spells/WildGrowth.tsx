@@ -14,6 +14,7 @@ import { getHeals } from 'analysis/classic/druid/restoration/modules/normalizers
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import * as SPELL_EFFECTS from '../SPELL_EFFECTS';
 
 /** Number of targets WG must effectively heal in order to be efficient */
 const RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD = 3;
@@ -110,18 +111,21 @@ class WildGrowth extends Analyzer {
     const effectiveHits = hits.filter((wg) => wg.total * OVERHEAL_THRESHOLD > wg.overheal).length;
     this.totalEffectiveHits += effectiveHits;
 
+    let value = QualitativePerformance.Good;
+
     if (effectiveHits < RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD) {
       this.ineffectiveCasts += 1;
       if (hits.length - effectiveHits >= 2) {
         this.tooMuchOverhealCasts += 1;
+        value = QualitativePerformance.Ok;
       }
       if (hits.length < RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD) {
         this.tooFewHitsCasts += 1;
+        value = QualitativePerformance.Fail;
       }
     }
 
     // add cast perf entry
-    const value = effectiveHits >= 3 ? QualitativePerformance.Good : QualitativePerformance.Fail;
     const tooltip = (
       <>
         @ <strong>{this.owner.formatTimestamp(this.recentWgTimestamp)}</strong>, Hits:{' '}
@@ -135,10 +139,6 @@ class WildGrowth extends Analyzer {
     return this.totalEffectiveHits / this.totalCasts || 0;
   }
 
-  get actualRejuvCasts() {
-    return this.abilityTracker.getAbility(SPELLS.REJUVENATION.id).casts || 0;
-  }
-
   /** Guide subsection describing the proper usage of Wild Growth */
   get guideSubsection(): JSX.Element {
     const explanation = (
@@ -148,8 +148,10 @@ class WildGrowth extends Analyzer {
         </b>{' '}
         is your best healing spell when multiple raiders are injured. It quickly heals a lot of
         damage, but has a high mana cost. Use Wild Growth over Rejuvenation if there are at least 3
-        injured targets. Remember that only allies within 30 yds of the primary target can be hit -
+        injured targets. Remember that only allies within 15 yds of the primary target can be hit -
         don't cast this on an isolated player!
+        <br />
+        Wild Growth can proc <SpellLink id={SPELL_EFFECTS.REVITALIZE_MANA} />
       </p>
     );
 
@@ -158,9 +160,10 @@ class WildGrowth extends Analyzer {
         <strong>Wild Growth casts</strong>
         <small>
           {' '}
-          - Green is a good cast, Red was effective on fewer than three targets. A hit is considered
-          "ineffective" if over the first {(OVERHEAL_BUFFER / 1000).toFixed(0)} seconds it did more
-          than {formatPercentage(OVERHEAL_THRESHOLD, 0)}% overhealing. Mouseover boxes for details.
+          - Green is a good cast, Yellow hit three targets or more, but was mostly ineffective for
+          healing, Red was effective on fewer than three targets. A hit is considered "ineffective"
+          if over the first {(OVERHEAL_BUFFER / 1000).toFixed(0)} seconds it did more than{' '}
+          {formatPercentage(OVERHEAL_THRESHOLD, 0)}% overhealing. Mouseover boxes for details.
         </small>
         <PerformanceBoxRow values={this.castEntries} />
       </div>

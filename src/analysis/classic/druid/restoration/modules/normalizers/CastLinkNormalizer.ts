@@ -25,6 +25,7 @@ export const CAUSED_BLOOM = 'CausedBloom';
 export const CAUSED_TICK = 'CausedTick';
 export const REGEN_FROM_LIFEBLOOM = 'RegenFromLifebloom';
 export const CAUSED_REGEN = 'CausedRegen';
+export const FROM_CLEARCAST = 'FromClearcast';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -108,6 +109,23 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
   },
+  {
+    linkRelation: FROM_CLEARCAST,
+    linkingEventId: SPELL_EFFECTS.CLEARCASTING,
+    linkingEventType: EventType.RemoveBuff,
+    referencedEventId: [
+      SPELLS.REGROWTH.id,
+      SPELLS.REJUVENATION.id,
+      SPELLS.WILD_GROWTH.id,
+      SPELLS.SWIFTMEND.id,
+      SPELLS.LIFEBLOOM.id,
+      SPELLS.TRANQUILITY.id,
+      SPELLS.NOURISH.id,
+      SPELLS.HEALING_TOUCH.id,
+    ],
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+  },
 ];
 
 /**
@@ -171,6 +189,12 @@ export function getTranquilityTicks(event: CastEvent): AnyEvent[] {
 export function getBloomCausingRegen(event: ResourceChangeEvent): RemoveBuffEvent | undefined {
   return GetRelatedEvents(event, REGEN_FROM_LIFEBLOOM)
     .filter((e): e is RemoveBuffEvent => e.type === EventType.RemoveBuff)
+    .pop();
+}
+
+export function getClearcastConsumer(event: RemoveBuffEvent): CastEvent | undefined {
+  return GetRelatedEvents(event, FROM_CLEARCAST)
+    .filter((e): e is CastEvent => e.type === EventType.Cast)
     .pop();
 }
 
