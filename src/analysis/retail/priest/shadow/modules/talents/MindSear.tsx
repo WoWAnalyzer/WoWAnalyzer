@@ -5,7 +5,7 @@ import TALENTS from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyDebuffEvent, DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -24,18 +24,20 @@ class MindSear extends Analyzer {
   damage = 0;
   hits = 0;
   ticks = 0;
-  id = 0;
+  time = 0;
+  checkTime = 0;
+  casts = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.MIND_SEAR_TALENT);
     this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(TALENTS.MIND_SEAR_TALENT),
-      this.onBuff,
-    );
-    this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_SEAR_TALENT_DAMAGE),
       this.onDamage,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.MIND_SEAR_TALENT),
+      this.onCast,
     );
   }
 
@@ -43,23 +45,27 @@ class MindSear extends Analyzer {
     return this.hits / this.ticks || 0;
   }
 
-  //Every Mind Sear cast can be one to four damage events per target.
-  //But only the main target recieves the debuff.
-  //By counting the damage events done to the debuffed target we can calculate the average number of targets hit per tick, instead of per cast.
-
-  onBuff(event: ApplyDebuffEvent) {
-    this.id = event.targetID;
+  onCast() {
+    this.casts += 1;
+    //console.log("Cast");
   }
+
+  //Every Mind Sear cast can be one to four damage events per target.
+  //By counting the number of unique timestamps, we can get the number of damage events.
+  //By counting the damage events done we can calculate the average number of targets hit per tick, instead of per cast.
 
   onDamage(event: DamageEvent) {
     this.hits += 1;
     this.damage += event.amount + (event.absorbed || 0);
 
-    const checkid = event.targetID;
-
-    if (this.id === checkid) {
+    this.checkTime = event.timestamp;
+    const timeDiff = Math.abs(this.time - this.checkTime);
+    // Sometimes there can be a slight difference in timestamp even for the same ticks. This gives a plenty of wiggle room while never risking catching the next set.
+    if (timeDiff > 100) {
       this.ticks += 1;
     }
+
+    this.time = this.checkTime;
   }
 
   get suggestionThresholds() {
@@ -82,8 +88,7 @@ class MindSear extends Analyzer {
           <SpellLink id={TALENTS.MIND_SEAR_TALENT.id} />. Using{' '}
           <SpellLink id={TALENTS.MIND_SEAR_TALENT.id} /> below {formatNumber(recommended)} targets
           is not worth it and you will get more damage value from your insanity with{' '}
-          <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} />. If you are not getting enough hits
-          or casts from this talent, you will likely benefit more from a different one.
+          <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} />.
         </>,
       )
         .icon(TALENTS.MIND_SEAR_TALENT.icon)
@@ -103,7 +108,7 @@ class MindSear extends Analyzer {
         <Statistic
           category={STATISTIC_CATEGORY.TALENTS}
           size="flexible"
-          tooltip={`Average targets hit: ${formatNumber(this.averageTargetsHit)}`}
+          tooltip={`Average targets hit: ${this.averageTargetsHit.toFixed(1)}`}
         >
           <BoringSpellValueText spellId={TALENTS.MIND_SEAR_TALENT.id}>
             <>
