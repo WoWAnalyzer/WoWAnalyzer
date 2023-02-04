@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 2, 7), <>Updated spell values for Feb 7 tuning</>, Trevor),
   change(date(2023, 2, 1), <>Fixed UI bug with <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT.id}/> suggestion (again).</>, Trevor),
   change(date(2023, 2, 1), <><SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT.id}/> formatting fix.</>, Vohrr),
   change(date(2023, 1, 31), <>Fixed UI bug with <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT.id}/> suggestion.</>, Vohrr),
