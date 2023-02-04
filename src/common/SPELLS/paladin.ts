@@ -391,11 +391,6 @@ const spells = spellIndexableList({
     name: 'Zeal',
     icon: 'spell_holy_sealofblood',
   },
-  //   EXECUTION_SENTENCE_DEBUFF: {
-  //     id: 343257,
-  //     name: 'Execution Sentence',
-  //     icon: 'spell_paladin_executionsentence',
-  //   },
   EXECUTION_SENTENCE_TALENT: {
     id: 343257,
     name: 'Execution Sentence',
