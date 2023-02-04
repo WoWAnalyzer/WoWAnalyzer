@@ -7,7 +7,7 @@ import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
   contributors: [Juko8, Skeletor],
-  expansion: Expansion.Shadowlands,
+  expansion: Expansion.Dragonflight,
   patchCompatibility: null,
   isPartial: true,
   description: (
@@ -48,10 +48,10 @@ const config: Config = {
 
   spec: SPECS.RETRIBUTION_PALADIN,
   changelog: CHANGELOG,
-  // parser: () =>
-  //   import('./CombatLogParser' /* webpackChunkName: "RetributionPaladin" */).then(
-  //     (exports) => exports.default,
-  //   ),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "RetributionPaladin" */).then(
+      (exports) => exports.default,
+    ),
   path: __dirname,
 };
 

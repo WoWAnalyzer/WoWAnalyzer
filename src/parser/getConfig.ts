@@ -13,6 +13,7 @@ export default function getConfig(
   combatant?: CombatantInfoEvent,
 ) {
   const expansionConfigs = AVAILABLE_CONFIGS.filter((config) => config.expansion === expansion);
+  console.log({ expansionConfigs });
   let config = specId !== 0 && expansionConfigs.find((config) => config.spec.id === specId);
   // Classic
   if (!config) {

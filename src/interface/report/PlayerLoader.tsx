@@ -286,6 +286,9 @@ const PlayerLoader = ({ children }: Props) => {
       combatant,
     );
   const build = combatant && getBuild(config, combatant);
+
+  console.log('este', config);
+
   const missingBuild = config?.builds && !build;
   if (!player || hasDuplicatePlayers || !combatant || !config || missingBuild || combatant.error) {
     if (player) {
