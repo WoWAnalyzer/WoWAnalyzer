@@ -8,7 +8,7 @@ import CHANGELOG from './CHANGELOG';
 const config: Config = {
   contributors: [Klamuz, Juko8, Skeletor],
   expansion: Expansion.Dragonflight,
-  patchCompatibility: null,
+  patchCompatibility: '10.0.5',
   isPartial: true,
   description: (
     <>
