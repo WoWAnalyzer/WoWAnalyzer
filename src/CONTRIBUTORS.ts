@@ -2090,3 +2090,16 @@ export const Durpn: Contributor = {
     },
   ],
 };
+export const Klamuz: Contributor = {
+  nickname: 'Klamuz',
+  github: 'seagomezar',
+  discord: 'sebasgojs#1846',
+  avatar: avatar('klamuz-avatar.png'),
+  mains: [
+    {
+      name: 'Klamuz',
+      spec: SPECS.RETRIBUTION_PALADIN,
+      link: 'https://www.warcraftlogs.com/character/us/ragnaros/klamuz',
+    },
+  ],
+};

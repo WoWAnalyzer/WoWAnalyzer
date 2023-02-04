@@ -1,4 +1,4 @@
-import { Juko8, Skeletor } from 'CONTRIBUTORS';
+import { Juko8, Skeletor, Klamuz } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import Config from 'parser/Config';
@@ -6,7 +6,7 @@ import Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [Juko8, Skeletor],
+  contributors: [Klamuz, Juko8, Skeletor],
   expansion: Expansion.Dragonflight,
   patchCompatibility: null,
   isPartial: true,
