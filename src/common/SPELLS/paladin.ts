@@ -36,6 +36,11 @@ const spells = spellIndexableList({
     icon: 'spell_holy_righteousfury',
     manaCost: 300,
   },
+  DIVINE_STEED: {
+    id: 190784,
+    name: 'Divine Steed',
+    icon: 'ability_paladin_divinesteed',
+  },
   DIVINE_STEED_BUFF: {
     id: 221883,
     name: 'Divine Steed',
@@ -291,6 +296,31 @@ const spells = spellIndexableList({
   },
 
   // Retribution Paladin:
+  BLADE_OF_WRATH_TALENT: {
+    id: 231832,
+    name: 'Blade of Wrath',
+    icon: 'ability_paladin_bladeofjustice',
+  },
+  BLADE_OF_JUSTICE: {
+    id: 184575,
+    name: 'Blade of Justice',
+    icon: 'ability_paladin_bladeofjustice',
+  },
+  SHIELD_OF_VENGEANCE: {
+    id: 184662,
+    name: 'Shield of Vengeance',
+    icon: 'ability_paladin_shieldofthetemplar',
+  },
+  HAMMER_OF_WRATH: {
+    id: 24275,
+    name: 'Hammer of Wrath',
+    icon: 'spell_paladin_hammerofwrath',
+  },
+  RIGHTEOUS_VERDICT_TALENT: {
+    id: 267610,
+    name: 'Righteous Verdict',
+    icon: 'spell_paladin_templarsverdict',
+  },
   JUDGMENT_DEBUFF: {
     id: 197277,
     name: 'Judgment',
@@ -316,6 +346,11 @@ const spells = spellIndexableList({
     name: 'Divine Storm',
     icon: 'ability_paladin_divinestorm',
   },
+  WAKE_OF_ASHES: {
+    id: 255937,
+    name: 'Wake of Ashes',
+    icon: 'inv_sword_2h_artifactashbringerfire_d_03',
+  },
   DIVINE_PURPOSE_BUFF: {
     id: 223819,
     name: 'Divine Purpose',
@@ -336,6 +371,11 @@ const spells = spellIndexableList({
     name: 'Blade of Wrath',
     icon: 'ability_paladin_bladeofjusticeblue',
   },
+  CRUSADE_TALENT: {
+    id: 231895,
+    name: 'Crusade',
+    icon: 'ability_paladin_sanctifiedwrath',
+  },
   FIRES_OF_JUSTICE_BUFF: {
     id: 209785,
     name: 'Fires of Justice',
@@ -351,7 +391,7 @@ const spells = spellIndexableList({
     name: 'Zeal',
     icon: 'spell_holy_sealofblood',
   },
-  EXECUTION_SENTENCE_DEBUFF: {
+  EXECUTION_SENTENCE_TALENT: {
     id: 343257,
     name: 'Execution Sentence',
     icon: 'spell_paladin_executionsentence',
@@ -365,6 +405,66 @@ const spells = spellIndexableList({
     id: 326733,
     name: 'Empyrean Power',
     icon: 'ability_paladin_sheathoflight',
+  },
+  HAND_OF_HINDRANCE_TALENT: {
+    id: 183218,
+    name: 'Hand of Hindrance',
+    icon: 'ability_paladin_handofhindrance',
+  },
+  TURN_EVIL_TALENT: {
+    id: 10326,
+    name: 'Turn Evil',
+    icon: 'ability_paladin_turnevil',
+  },
+  SERAPHIM_TALENT: {
+    id: 152262,
+    name: 'Seraphim',
+    icon: 'ability_paladin_seraphim',
+  },
+  REBUKE_TALENT: {
+    id: 96231,
+    name: 'Rebuke',
+    icon: 'spell_holy_rebuke',
+  },
+  BLESSING_OF_PROTECTION_TALENT: {
+    id: 1022,
+    name: 'Blessing of Protection',
+    icon: 'spell_holy_sealofprotection',
+  },
+  REPENTANCE_TALENT: {
+    id: 20066,
+    name: 'Repentance',
+    icon: 'spell_holy_prayerofhealing',
+  },
+  LAY_ON_HANDS: {
+    id: 633,
+    name: 'Lay on Hands',
+    icon: 'spell_holy_layonhands',
+  },
+  BLESSING_OF_FREEDOM_TALENT: {
+    id: 1044,
+    name: 'Blessing of Freedom',
+    icon: 'spell_holy_sealofvalor',
+  },
+  EYE_FOR_AN_EYE_TALENT: {
+    id: 205191,
+    name: 'Eye for an Eye',
+    icon: 'spell_holy_weaponmastery',
+  },
+  BLINDING_LIGHT_TALENT: {
+    id: 115750,
+    name: 'Blinding Light',
+    icon: 'ability_paladin_blindinglight',
+  },
+  ART_OF_WAR: {
+    id: 267344,
+    name: 'Art of War',
+    icon: 'ability_paladin_artofwar',
+  },
+  JUSTICARS_VENGEANCE_TALENT: {
+    id: 215661,
+    name: "Justicar's Vengeance",
+    icon: 'spell_holy_retributionaura',
   },
   FINAL_VERDICT_RESET: {
     // TODO: Make this actually correct, I could not find any logs with the ability

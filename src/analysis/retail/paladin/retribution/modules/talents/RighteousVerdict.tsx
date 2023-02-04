@@ -8,6 +8,7 @@ import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import TALENTS from 'common/TALENTS/paladin';
 
 const RIGHTEOUS_VERDICT_MODIFIER = 0.15;
 
@@ -18,7 +19,7 @@ class RighteousVerdict extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.RIGHTEOUS_VERDICT_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.RIGHTEOUS_VERDICT_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TEMPLARS_VERDICT),
       this.onCast,
