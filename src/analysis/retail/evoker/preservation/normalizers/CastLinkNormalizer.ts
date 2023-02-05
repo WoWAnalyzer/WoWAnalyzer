@@ -486,48 +486,43 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: LIFEBIND,
-    reverseLinkRelation: LIFEBIND,
-    linkingEventId: SPELLS.LIFEBIND_BUFF.id,
-    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: SPELLS.LIFEBIND_HEAL.id,
-    referencedEventType: EventType.Heal,
-    forwardBufferMs: LIFEBIND_BUFFER,
+    linkingEventId: SPELLS.LIFEBIND_HEAL.id,
+    linkingEventType: EventType.Heal,
+    referencedEventId: SPELLS.LIFEBIND_BUFF.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    backwardBufferMs: LIFEBIND_BUFFER,
   },
   {
     linkRelation: LIFEBIND_APPLY,
     reverseLinkRelation: LIFEBIND_APPLY,
-    linkingEventId: SPELLS.VERDANT_EMBRACE_HEAL.id,
-    linkingEventType: EventType.Heal,
-    referencedEventId: SPELLS.LIFEBIND_BUFF.id,
-    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    linkingEventId: SPELLS.LIFEBIND_BUFF.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: SPELLS.VERDANT_EMBRACE_HEAL.id,
+    referencedEventType: EventType.Heal,
+    backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
     additionalCondition(linkingEvent, referencedEvent) {
       // ve applies lifebind to player and target but there is no ve heal on player
-      const applyEvent = referencedEvent as ApplyBuffEvent;
+      const applyEvent = linkingEvent as ApplyBuffEvent;
       return (
-        applyEvent.targetID === (linkingEvent as HealEvent).targetID ||
+        applyEvent.targetID === (referencedEvent as HealEvent).targetID ||
         applyEvent.targetID === applyEvent.sourceID
       );
     },
   },
   {
     linkRelation: LIFEBIND_HEAL,
-    reverseLinkRelation: LIFEBIND_HEAL,
-    linkingEventId: DUPLICATION_SPELLS,
+    linkingEventId: SPELLS.LIFEBIND_HEAL.id,
     linkingEventType: EventType.Heal,
-    referencedEventId: SPELLS.LIFEBIND_HEAL.id,
+    referencedEventId: DUPLICATION_SPELLS,
     referencedEventType: EventType.Heal,
     anyTarget: true,
-    forwardBufferMs: 150,
+    maximumLinks: 1,
+    backwardBufferMs: 50,
+    forwardBufferMs: 50,
     additionalCondition(linkingEvent, referencedEvent) {
-      const linkHeal = linkingEvent as HealEvent;
-      const refHeal = referencedEvent as HealEvent;
-      return (
-        !_hasLifebindEventForTarget(linkHeal, refHeal.targetID) &&
-        HasRelatedEvent(referencedEvent, LIFEBIND) &&
-        !HasRelatedEvent(referencedEvent, LIFEBIND_HEAL)
-      ); // make sure the heal is on someone with lifebind buff
+      return HasRelatedEvent(linkingEvent, LIFEBIND); // make sure the heal is on someone with lifebind buff
     },
   },
   {
@@ -566,13 +561,6 @@ class CastLinkNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, EVENT_LINKS);
   }
-}
-
-function _hasLifebindEventForTarget(event: HealEvent, targetID: number): boolean {
-  const lifebindEvents = GetRelatedEvents(event, LIFEBIND_HEAL);
-  return lifebindEvents.some((ev) => {
-    return (ev as HealEvent).targetID === targetID;
-  });
 }
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
