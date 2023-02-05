@@ -1,5 +1,4 @@
-import SPELLS from 'common/SPELLS/classic';
-import * as SPELL_EFFECTS from '../SPELL_EFFECTS';
+import SPELLS from 'common/SPELLS/classic/druid';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
   AbilityEvent,
@@ -82,7 +81,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: FROM_EXPIRING_LIFEBLOOM,
     reverseLinkRelation: CAUSED_BLOOM,
-    linkingEventId: SPELL_EFFECTS.LIFEBLOOM_BLOOM_HEAL,
+    linkingEventId: SPELLS.LIFEBLOOM_HEAL.id,
     linkingEventType: EventType.Heal,
     referencedEventId: [SPELLS.LIFEBLOOM.id],
     referencedEventType: [EventType.RefreshBuff, EventType.RemoveBuff],
@@ -104,14 +103,14 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: REGEN_FROM_LIFEBLOOM,
     linkingEventId: SPELLS.LIFEBLOOM.id,
     linkingEventType: EventType.RemoveBuff,
-    referencedEventId: SPELL_EFFECTS.LIFEBLOOM_BLOOM_REGEN,
+    referencedEventId: SPELLS.LIFEBLOOM_REGEN.id,
     referencedEventType: EventType.ResourceChange,
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
   },
   {
     linkRelation: FROM_CLEARCAST,
-    linkingEventId: SPELL_EFFECTS.CLEARCASTING,
+    linkingEventId: SPELLS.CLEARCASTING.id,
     linkingEventType: EventType.RemoveBuff,
     referencedEventId: [
       SPELLS.REGROWTH.id,

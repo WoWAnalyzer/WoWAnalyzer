@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/classic';
+import SPELLS from 'common/SPELLS/classic/druid';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -21,7 +21,6 @@ import HotTrackerRestoDruid from 'analysis/classic/druid/restoration/modules/cor
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
-import * as SPELL_EFFECTS from '../SPELL_EFFECTS';
 
 const debug = false;
 
@@ -180,7 +179,7 @@ class Rejuvenation extends Analyzer {
         high-overheal Rejuvs are unavoidable due to heal sniping, but if a large proportion of them
         are you might be casting too much.
         <br />
-        Rejuvenation can proc <SpellLink id={SPELL_EFFECTS.REVITALIZE_MANA} />
+        Rejuvenation can proc <SpellLink id={SPELLS.REVITALIZE_MANA} />
       </p>
     );
 

@@ -1,5 +1,5 @@
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS/classic';
+import SPELLS from 'common/SPELLS/classic/druid';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AnyEvent, CastEvent, EventType, HealEvent } from 'parser/core/Events';
@@ -14,7 +14,6 @@ import { getHeals } from 'analysis/classic/druid/restoration/modules/normalizers
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import * as SPELL_EFFECTS from '../SPELL_EFFECTS';
 
 /** Number of targets WG must effectively heal in order to be efficient */
 const RECOMMENDED_EFFECTIVE_TARGETS_THRESHOLD = 3;
@@ -151,7 +150,7 @@ class WildGrowth extends Analyzer {
         injured targets. Remember that only allies within 15 yds of the primary target can be hit -
         don't cast this on an isolated player!
         <br />
-        Wild Growth can proc <SpellLink id={SPELL_EFFECTS.REVITALIZE_MANA} />
+        Wild Growth can proc <SpellLink id={SPELLS.REVITALIZE_MANA} />
       </p>
     );
 

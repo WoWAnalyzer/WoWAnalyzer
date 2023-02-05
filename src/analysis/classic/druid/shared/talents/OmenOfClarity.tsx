@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/classic';
+import SPELLS from 'common/SPELLS/classic/druid';
 import { SpellIcon, SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -8,7 +8,6 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../restoration/Guide';
 import { getClearcastConsumer } from '../../restoration/modules/normalizers/CastLinkNormalizer';
-import * as SPELL_EFFECTS from '../../restoration/modules/SPELL_EFFECTS';
 
 /**
  * OmenOfClarity procs Clearcasting
@@ -29,11 +28,11 @@ class OmenOfClarity extends Analyzer {
     }
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell({ id: SPELL_EFFECTS.CLEARCASTING }),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING),
       this.onClearcastApply,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell({ id: SPELL_EFFECTS.CLEARCASTING }),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING),
       this.onClearcast,
     );
   }
@@ -62,7 +61,7 @@ class OmenOfClarity extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={SPELL_EFFECTS.CLEARCASTING} />
+          <SpellLink id={SPELLS.CLEARCASTING} />
         </b>{' '}
         procs reduce the cost of your next spell by 100%. It should ideally be used on high cost
         abilities.
@@ -94,17 +93,6 @@ class OmenOfClarity extends Analyzer {
       <div>
         @ {this.owner.formatTimestamp(event.timestamp)} &mdash;{' '}
         <SpellLink id={event.ability.guid} /> ({(delay / 1000).toFixed(1)}sec hesitation)
-        {/*         <SpellLink
-            key={`${event.ability.guid}-${event.timestamp}-${i}`}
-            id={event.ability.guid}
-            icon={false}
-        >
-            <Icon
-            icon={event.ability.abilityIcon}
-            alt={event.ability.name}
-            style={{ height: 23, marginRight: 4 }}
-            />
-        </SpellLink> */}
       </div>
     );
   }
@@ -118,7 +106,7 @@ class OmenOfClarity extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellIcon id={SPELL_EFFECTS.CLEARCASTING} /> Omen of Clarity
+              <SpellIcon id={SPELLS.CLEARCASTING} /> Omen of Clarity
             </>
           }
         >
