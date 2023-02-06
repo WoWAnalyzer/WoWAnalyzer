@@ -24,7 +24,7 @@ const PreparationSection = ({
 }: Props) => (
   <Section title="Preparation">
     <EnchantmentSubSection recommendedEnchantments={recommendedEnchantments} />
-    {expansion !== Expansion.WrathOfTheLichKing && (
+    {isRetailExpansion(expansion) && (
       <EnhancementSubSection
         recommendedLegEnhancements={recommendedLegEnhancements}
         recommendedWeaponEnhancements={recommendedWeaponEnhancements}
