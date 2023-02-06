@@ -8,6 +8,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TALENTS from 'common/TALENTS/paladin';
 
 import { EMPYREAN_POWER_CHANCE } from '../../constants';
 
@@ -31,7 +32,7 @@ class EmpyreanPower extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.EMPYREAN_POWER_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.EMPYREAN_POWER_TALENT);
 
     if (!this.active) {
       return;
@@ -42,7 +43,7 @@ class EmpyreanPower extends Analyzer {
       this.castCounter,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_STORM),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_STORM_DAMAGE),
       this.divineStormDamage,
     );
     this.addEventListener(
@@ -101,7 +102,7 @@ class EmpyreanPower extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.EMPYREAN_POWER_TALENT.id}>
+        <BoringSpellValueText spellId={SPELLS.EMPYREAN_POWER_TALENT_BUFF.id}>
           <ItemDamageDone amount={this.damageDone} />
         </BoringSpellValueText>
         {plotOneVariableBinomChart(this.procsGained, this.totalChances, this.procProbabilities)}

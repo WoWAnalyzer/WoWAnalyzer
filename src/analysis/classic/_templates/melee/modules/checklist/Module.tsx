@@ -1,24 +1,37 @@
+// Core
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
+import Component from './Component';
+// Shared
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
+import CombatPotionChecker from 'parser/classic/modules/items/CombatPotionChecker';
 import PreparationRuleAnalyzer from 'parser/classic/modules/features/Checklist/PreparationRuleAnalyzer';
-
+// Features
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
-import Component from './Component';
+// Spells
+// import SpellName from './modules/spells';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
     ...BaseChecklist.dependencies,
-    combatants: Combatants,
+    // Shared
     castEfficiency: CastEfficiency,
-    alwaysBeCasting: AlwaysBeCasting,
+    combatants: Combatants,
+    combatPotionChecker: CombatPotionChecker,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
+    // Features
+    alwaysBeCasting: AlwaysBeCasting,
+    // Spells
   };
 
-  protected combatants!: Combatants;
+  // Shared
   protected castEfficiency!: CastEfficiency;
+  protected combatants!: Combatants;
+  protected combatPotionChecker!: CombatPotionChecker;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  // Features
   protected alwaysBeCasting!: AlwaysBeCasting;
+  // Spells
 
   render() {
     return (
@@ -27,8 +40,9 @@ class Checklist extends BaseChecklist {
         castEfficiency={this.castEfficiency}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
-
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
+          // Spells
+          // spellName: this.spellName.uptimeSuggestionThresholds,
         }}
       />
     );

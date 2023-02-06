@@ -8,6 +8,7 @@ import Events, { CastEvent, ApplyBuffStackEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
+import TALENTS from 'common/TALENTS/paladin';
 
 const CAST_BUFFER = 500;
 
@@ -24,7 +25,7 @@ class Crusade extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.CRUSADE_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.CRUSADE_TALENT);
     if (!this.active) {
       return;
     }
@@ -85,7 +86,7 @@ class Crusade extends Analyzer {
         <>
           You want to build stacks of <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon /> as quickly as
           possible. Make sure you are using <SpellLink id={SPELLS.TEMPLARS_VERDICT.id} icon /> or{' '}
-          <SpellLink id={SPELLS.DIVINE_STORM.id} icon /> immediately after casting{' '}
+          <SpellLink id={SPELLS.DIVINE_STORM_DAMAGE.id} icon /> immediately after casting{' '}
           <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon />.
         </>,
       )

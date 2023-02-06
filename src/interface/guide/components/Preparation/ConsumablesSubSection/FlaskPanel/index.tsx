@@ -1,17 +1,19 @@
 import { useAnalyzer, useInfo } from 'interface/guide/index';
 import { PanelHeader, PerformanceRoundedPanel } from 'interface/guide/components/GuideDivs';
-import FlaskChecker from 'parser/retail/modules/items/FlaskChecker';
+import FlaskChecker from 'parser/shared/modules/items/FlaskChecker';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { maybeGetSpell } from 'common/SPELLS';
 import { SpellLink } from 'interface/index';
 import Spell from 'common/SPELLS/Spell';
 import Recommendations from 'interface/guide/components/Preparation/ConsumablesSubSection/Recommendations';
 import Flask from 'interface/icons/Flask';
+import Expansion from 'game/Expansion';
 
 interface Props {
   recommendedFlasks?: Spell[];
+  expansion?: Expansion;
 }
-const FlaskPanel = ({ recommendedFlasks }: Props) => {
+const FlaskPanel = ({ recommendedFlasks, expansion }: Props) => {
   const flaskChecker = useAnalyzer(FlaskChecker);
   const info = useInfo();
   if (!flaskChecker || !info) {
@@ -22,7 +24,7 @@ const FlaskPanel = ({ recommendedFlasks }: Props) => {
   const hadFlaskUp = flaskChecker.startFightWithFlaskUp;
   const hadStrongFlask = flaskChecker.strongFlaskUsed;
   const flaskBuffId = flaskChecker.flaskBuffId;
-  const flaskBuff = maybeGetSpell(flaskBuffId);
+  const flaskBuff = maybeGetSpell(flaskBuffId, expansion);
   const showCurrentFlaskBuff = flaskBuff ? (
     <>
       : <SpellLink id={flaskBuff} />

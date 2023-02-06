@@ -97,13 +97,23 @@ export default class Envenom extends Analyzer {
           {formatDurationMillisMinSec(timeLeftOnRupture)} left on <SpellLink id={SPELLS.RUPTURE} />.
         </div>
       );
-    } else if (timeLeftOnRupture > 0) {
+    } else if (timeLeftOnRupture > 1000) {
       ruptureDetails = (
         <div>
           You cast <SpellLink id={SPELLS.ENVENOM} /> with{' '}
           {formatDurationMillisMinSec(timeLeftOnRupture)} left on <SpellLink id={SPELLS.RUPTURE} />.
           Try not to cast <SpellLink id={SPELLS.ENVENOM} /> with less than{' '}
           {formatDurationMillisMinSec(MIN_ACCEPTABLE_TIME_LEFT_ON_RUPTURE_MS)} left on{' '}
+          <SpellLink id={SPELLS.RUPTURE} />, as it may cause you to miss pandemic-ing{' '}
+          <SpellLink id={SPELLS.RUPTURE} />.
+        </div>
+      );
+    } else if (timeLeftOnRupture > 0) {
+      ruptureDetails = (
+        <div>
+          You cast <SpellLink id={SPELLS.ENVENOM} /> with less than 1s left on{' '}
+          <SpellLink id={SPELLS.RUPTURE} />. Try not to cast <SpellLink id={SPELLS.ENVENOM} /> with
+          less than {formatDurationMillisMinSec(MIN_ACCEPTABLE_TIME_LEFT_ON_RUPTURE_MS)} left on{' '}
           <SpellLink id={SPELLS.RUPTURE} />, as it may cause you to miss pandemic-ing{' '}
           <SpellLink id={SPELLS.RUPTURE} />.
         </div>

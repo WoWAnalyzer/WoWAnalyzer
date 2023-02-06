@@ -8,6 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TIERS } from 'game/TIERS';
+import TALENTS from 'common/TALENTS/paladin';
 
 class ArtOfWarProbability extends Analyzer {
   hasTier = false;
@@ -20,7 +21,7 @@ class ArtOfWarProbability extends Analyzer {
 
   constructor(args: Options) {
     super(args);
-    this.chance = this.selectedCombatant.hasTalent(SPELLS.BLADE_OF_WRATH_TALENT) ? 0.24 : 0.12;
+    this.chance = this.selectedCombatant.hasTalent(TALENTS.BLADE_OF_WRATH_TALENT) ? 0.24 : 0.12;
 
     this.hasTier = this.selectedCombatant.has4PieceByTier(TIERS.T28);
 
