@@ -28,6 +28,7 @@ import WARRIOR from './warrior';
 // Other
 import Engineering from './engineering';
 import Racials from './racials';
+import Raids from './raids';
 import Tailoring from './tailoring';
 import Food from './food';
 import Alchemy from './alchemy';
@@ -44,6 +45,7 @@ const ABILITIES = {
   ...WARRIOR,
   ...Engineering,
   ...Racials,
+  ...Raids,
   ...Tailoring,
   ...Food,
   ...Alchemy,
