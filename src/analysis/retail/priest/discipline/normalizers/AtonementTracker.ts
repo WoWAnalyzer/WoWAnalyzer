@@ -10,7 +10,7 @@ import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer'
 import SPELLS from 'common/SPELLS';
 import { ATONEMENT_DAMAGE_IDS } from '../constants';
 
-const BUFFER_MS = 1000;
+const BUFFER_MS = 500;
 const ATONEMENT_DAMAGE_EVENT = 'AtonementDamageEvent';
 const ATONEMENT_HEAL_EVENT = 'AtonementHealEvent';
 
@@ -62,4 +62,7 @@ export function getHealEvents(event: DamageEvent) {
   return GetRelatedEvents(event, ATONEMENT_HEAL_EVENT) as HealEvent[];
 }
 
+export function getAtonementHealEvents(event: DamageEvent) {
+  return GetRelatedEvents(event, ATONEMENT_HEAL_EVENT) as HealEvent[];
+}
 export default AtonementNormalizer;
