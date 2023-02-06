@@ -61,7 +61,7 @@ const PERIODIC_DAMAGE: SpellInfo[] = [
   TALENTS.FERAL_FRENZY_TALENT,
   SPELLS.FERAL_FRENZY_DEBUFF,
   TALENTS.PRIMAL_WRATH_TALENT,
-  SPELLS.FURY_OF_ELUNE_DAMAGE_4P,
+  SPELLS.FURY_OF_ELUNE_DAMAGE_SUNDERED_FIRMAMENT,
   // deliberately doesn't include Adaptive Swarm itself to avoid double count
 ];
 
