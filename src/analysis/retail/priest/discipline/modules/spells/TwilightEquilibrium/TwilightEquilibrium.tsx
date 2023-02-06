@@ -2,9 +2,11 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
+  Ability,
   ApplyDebuffEvent,
   CastEvent,
   DamageEvent,
+  HealEvent,
   RefreshDebuffEvent,
 } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -12,29 +14,37 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
-import { HOLY_DAMAGE_SPELLS, SHADOW_DAMAGE_SPELLS } from '../../constants';
 import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
+import { getDamageEvent, hasAtonementDamageEvent } from '../../../normalizers/AtonementTracker';
+import { getCastAbility } from '../../../normalizers/DamageCastLink';
+import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
+import TeSourceDonut from './TeSourceDonut';
 
 const TE_INCREASE = 0.15;
+
+interface DirtyCastEvent extends CastEvent {
+  buffedByTe?: boolean;
+}
 
 class TwilightEquilibrium extends Analyzer {
   healing = 0;
   damage = 0;
+  testHealing = 0;
   ptwTargets: Set<string> = new Set<string>();
+  healingMap: Map<number, number> = new Map();
+  abilityMap: Map<number, Ability> = new Map();
+
   constructor(options: Options) {
     super(options);
 
-    this.active = false;
-    // this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.TWILIGHT_EQUILIBRIUM_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.TWILIGHT_EQUILIBRIUM_TALENT);
 
     if (!this.active) {
       return;
     }
 
-    this.addEventListener(AtonementAnalyzer.atonementEventFilter, this.onAtone);
     this.addEventListener(
       Events.applydebuff.by(SELECTED_PLAYER).spell([SPELLS.PURGE_THE_WICKED_TALENT]),
       this.onPTWApply,
@@ -44,6 +54,12 @@ class TwilightEquilibrium extends Analyzer {
       Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.PURGE_THE_WICKED_BUFF),
       this.onPTWApply,
     );
+    this.addEventListener(
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.ATONEMENT_HEAL_CRIT, SPELLS.ATONEMENT_HEAL_NON_CRIT]),
+      this.onHeal,
+    );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PURGE_THE_WICKED_BUFF),
@@ -51,52 +67,66 @@ class TwilightEquilibrium extends Analyzer {
     );
   }
 
-  onAtone(event: AtonementAnalyzerEvent) {
-    const { damageEvent, healEvent } = event;
+  onHeal(event: HealEvent) {
+    if (!hasAtonementDamageEvent(event)) {
+      return;
+    }
+
+    const damageEvent = getDamageEvent(event);
 
     if (damageEvent?.ability.guid === SPELLS.PURGE_THE_WICKED_BUFF.id) {
       if (this.ptwTargets.has(encodeEventTargetString(damageEvent) || '')) {
-        this.healing += calculateEffectiveHealing(healEvent, TE_INCREASE);
+        const increase = calculateEffectiveHealing(event, TE_INCREASE);
+        this.healing += increase;
+        this.attributeToMap(increase, damageEvent);
+        return;
       }
     }
 
-    if (HOLY_DAMAGE_SPELLS.includes(damageEvent?.ability.guid ?? -1)) {
-      this.handleHolyHeal(event);
-    }
-
-    if (SHADOW_DAMAGE_SPELLS.includes(damageEvent?.ability.guid ?? -1)) {
-      this.handleShadowHeal(event);
-    }
-  }
-
-  handleHolyHeal(event: AtonementAnalyzerEvent) {
-    const { healEvent } = event;
-    if (this.selectedCombatant.hasBuff(SPELLS.TWILIGHT_EQUILIBRIUM_HOLY_BUFF.id)) {
-      this.healing += calculateEffectiveHealing(healEvent, TE_INCREASE);
-    }
-  }
-
-  handleShadowHeal(event: AtonementAnalyzerEvent) {
-    const { healEvent } = event;
-    if (this.selectedCombatant.hasBuff(SPELLS.TWILIGHT_EQUILIBRIUM_SHADOW_BUFF.id)) {
-      this.healing += calculateEffectiveHealing(healEvent, TE_INCREASE);
+    if (this.checkDamageEvent(damageEvent)) {
+      if (damageEvent.ability.guid === TALENTS_PRIEST.SCHISM_TALENT.id) {
+        console.log(calculateEffectiveHealing(event, TE_INCREASE), event);
+      }
+      const increase = calculateEffectiveHealing(event, TE_INCREASE);
+      this.healing += increase;
+      this.attributeToMap(increase, damageEvent);
     }
   }
 
   onDamage(event: DamageEvent) {
-    if (
-      HOLY_DAMAGE_SPELLS.includes(event?.ability.guid ?? -1) &&
-      this.selectedCombatant.hasBuff(SPELLS.TWILIGHT_EQUILIBRIUM_HOLY_BUFF.id)
-    ) {
+    if (this.checkDamageEvent(event)) {
       this.damage += calculateEffectiveDamage(event, TE_INCREASE);
+    }
+  }
+
+  checkDamageEvent(event: DamageEvent) {
+    const castEvent = getCastAbility(event) as DirtyCastEvent;
+    if (!castEvent) {
+      return;
     }
 
-    if (
-      SHADOW_DAMAGE_SPELLS.includes(event?.ability.guid ?? -1) &&
-      this.selectedCombatant.hasBuff(SPELLS.TWILIGHT_EQUILIBRIUM_SHADOW_BUFF.id)
+    const eventSchool = event.ability.type;
+    let check = false;
+    if (eventSchool === MAGIC_SCHOOLS.ids.SHADOW) {
+      check = this.selectedCombatant.hasBuff(
+        SPELLS.TWILIGHT_EQUILIBRIUM_SHADOW_BUFF.id,
+        castEvent?.timestamp,
+      );
+    } else if (
+      eventSchool === MAGIC_SCHOOLS.ids.HOLY ||
+      eventSchool === MAGIC_SCHOOLS.ids.RADIANT
     ) {
-      this.damage += calculateEffectiveDamage(event, TE_INCREASE);
+      check = this.selectedCombatant.hasBuff(
+        SPELLS.TWILIGHT_EQUILIBRIUM_HOLY_BUFF.id,
+        castEvent?.timestamp,
+      );
     }
+
+    if (check) {
+      castEvent.buffedByTe = true;
+      return true;
+    }
+    return false;
   }
 
   onPTWApply(event: CastEvent | RefreshDebuffEvent | ApplyDebuffEvent) {
@@ -114,6 +144,20 @@ class TwilightEquilibrium extends Analyzer {
     }
   }
 
+  private attributeToMap(amount: number, sourceEvent?: DamageEvent) {
+    if (!sourceEvent) {
+      return;
+    }
+    const { ability } = sourceEvent;
+
+    // Set ability in map
+    this.abilityMap.set(ability.guid, ability);
+
+    // Attribute healing
+    const currentValue = this.healingMap.get(ability.guid) || 0;
+    this.healingMap.set(ability.guid, currentValue + amount);
+  }
+
   statistic() {
     return (
       <Statistic
@@ -126,6 +170,7 @@ class TwilightEquilibrium extends Analyzer {
             <ItemHealingDone amount={this.healing} /> <br />
             <ItemDamageDone amount={this.damage} />
           </BoringSpellValueText>
+          <TeSourceDonut abilityMap={this.abilityMap} healingMap={this.healingMap} />
         </>
       </Statistic>
     );
