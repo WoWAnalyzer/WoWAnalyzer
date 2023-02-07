@@ -60,6 +60,7 @@ class Haste extends Analyzer {
     [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15,
     [TALENTS_DEATH_KNIGHT.UNHOLY_ASSAULT_TALENT.id]: 0.3,
     [SPELLS.T29_GHOULISH_INFUSION.id]: 0.08,
+    [SPELLS.UNHOLY_GROUND_HASTE_BUFF.id]: 0.05,
     //endregion
 
     //region Druid Haste Buffs
