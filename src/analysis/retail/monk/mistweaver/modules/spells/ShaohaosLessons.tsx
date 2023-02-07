@@ -29,7 +29,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const DESPAIR_CRIT_INCREASE = 0.3;
-const DOUBT_INCREASE = 0.35;
+const DOUBT_INCREASE = 0.4;
 const FEAR_HASTE_INCREASE = 0.25;
 const FEAR_MITIGATION_PERCENT = 0.15;
 
