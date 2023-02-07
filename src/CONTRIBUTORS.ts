@@ -347,6 +347,10 @@ export const Hartra344: Contributor = {
     },
   ],
 };
+export const ap2355: Contributor = {
+  nickname: 'Aulzahr',
+  github: 'ap2355',
+};
 export const strel: Contributor = {
   nickname: 'strel',
   github: 'unknown',
@@ -2083,6 +2087,19 @@ export const Durpn: Contributor = {
       name: 'Durpn',
       spec: SPECS.WINDWALKER_MONK,
       link: 'https://worldofwarcraft.com/en-us/character/us/tichondrius/durpn',
+    },
+  ],
+};
+export const Klamuz: Contributor = {
+  nickname: 'Klamuz',
+  github: 'seagomezar',
+  discord: 'sebasgojs#1846',
+  avatar: avatar('klamuz-avatar.png'),
+  mains: [
+    {
+      name: 'Klamuz',
+      spec: SPECS.RETRIBUTION_PALADIN,
+      link: 'https://www.warcraftlogs.com/character/us/ragnaros/klamuz',
     },
   ],
 };

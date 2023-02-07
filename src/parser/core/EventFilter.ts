@@ -7,7 +7,7 @@ const VALID_BY_FLAGS = SELECTED_PLAYER | SELECTED_PLAYER_PET;
 export type SpellInfo = {
   id: number;
 };
-export type SpellFilter<T extends SpellInfo = SpellInfo> = T | T[];
+export type SpellFilter<T extends SpellInfo = SpellInfo> = T | readonly T[];
 
 class EventFilter<T extends EventType> {
   eventType: T;

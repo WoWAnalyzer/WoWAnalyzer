@@ -76,9 +76,15 @@ class Haste extends Analyzer {
     [SPELLS.STEADY_FOCUS_BUFF.id]: 0.07,
     //endregion
 
+    //region Paladin
+    [SPELLS.RELENTLESS_INQUISITOR_TALENT_BUFF.id]: {
+      hastePerStack: 0.01,
+    },
+
     //region Priest
     [TALENTS_PRIEST.POWER_INFUSION_TALENT.id]: 0.25,
     [SPELLS.BORROWED_TIME_BUFF.id]: 0.08,
+    [SPELLS.SHADOW_PRIEST_TIER_29_4_SET_BUFF.id]: 0.04,
     //endregion
 
     //region Mage
@@ -89,6 +95,7 @@ class Haste extends Analyzer {
     //region Monk
     [SPELLS.INVOKERS_DELIGHT_BUFF.id]: 0.33,
     [SPELLS.SECRET_INFUSION_HASTE_BUFF.id]: 0, // manually set in monk files
+    [SPELLS.LESSON_OF_FEAR_BUFF.id]: 0.25,
     //endregion
 
     //region Shaman

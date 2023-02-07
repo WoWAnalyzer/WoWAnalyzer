@@ -7,7 +7,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   SPELLS.LIGHT_OF_DAWN_HEAL.id,
   SPELLS.FLASH_OF_LIGHT.id,
   SPELLS.JUDGMENT_OF_LIGHT_HEAL.id,
-  SPELLS.LIGHT_OF_THE_MARTYR.id,
+  TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id,
   SPELLS.LIGHTS_HAMMER_HEAL.id,
   SPELLS.HOLY_PRISM_HEAL.id,
   SPELLS.HOLY_PRISM_HEAL_DIRECT.id,
@@ -28,7 +28,7 @@ export const ABILITIES_AFFECTED_BY_MASTERY = [
   SPELLS.HOLY_SHOCK_HEAL.id,
   SPELLS.LIGHT_OF_DAWN_HEAL.id,
   SPELLS.FLASH_OF_LIGHT.id,
-  SPELLS.LIGHT_OF_THE_MARTYR.id,
+  TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id,
   SPELLS.HOLY_PRISM_HEAL.id,
   SPELLS.HOLY_PRISM_HEAL_DIRECT.id,
   SPELLS.LIGHTS_HAMMER_HEAL.id,
@@ -50,27 +50,37 @@ export const BEACON_TRANSFERING_ABILITIES = {
   [SPELLS.AVENGING_CRUSADER_HEAL_CRIT.id]: 1,
   [SPELLS.GLIMMER_OF_LIGHT_HEAL_TALENT.id]: 0.5,
   [SPELLS.WORD_OF_GLORY.id]: 1,
-  [SPELLS.LIGHT_OF_THE_MARTYR.id]: (player: Combatant) =>
+  [TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id]: (player: Combatant) =>
     player.hasBuff(SPELLS.MARAADS_DYING_BREATH_BUFF.id) ? 1 : undefined,
   [TALENTS.HOLY_LIGHT_TALENT.id]: 1,
   [TALENTS.BESTOW_FAITH_TALENT.id]: 1,
+  [SPELLS.GOLDEN_PATH_HEAL_TALENT.id]: 1,
 };
 
 export function getBeaconSpellFactor(spellID: number, player: Combatant): number | undefined {
-  const spell = BEACON_TRANSFERING_ABILITIES[spellID];
-  if (!spell) {
+  const factor = BEACON_TRANSFERING_ABILITIES[spellID];
+  if (!factor) {
     return undefined;
   }
 
-  if (typeof spell === 'function') {
-    return spell(player);
+  if (typeof factor === 'function') {
+    return factor(player);
   }
 
-  return spell;
+  return factor;
 }
 
-export const BEACON_TYPES = {
-  BEACON_OF_FATH: TALENTS.BEACON_OF_FAITH_TALENT.id,
-  GLIMMER_OF_LIGHT_TALENT: SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id,
-  BEACON_OF_VIRTUE: TALENTS.BEACON_OF_VIRTUE_TALENT.id,
-};
+export const enum BEACON_TYPE {
+  BEACON_OF_LIGHT,
+  BEACON_OF_FAITH,
+  BEACON_OF_VIRTUE,
+}
+
+export const BEACON_SPELL_IDS: Record<BEACON_TYPE, readonly number[]> = {
+  [BEACON_TYPE.BEACON_OF_LIGHT]: [SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id],
+  [BEACON_TYPE.BEACON_OF_FAITH]: [
+    SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id,
+    TALENTS.BEACON_OF_FAITH_TALENT.id,
+  ],
+  [BEACON_TYPE.BEACON_OF_VIRTUE]: [TALENTS.BEACON_OF_VIRTUE_TALENT.id],
+} as const;

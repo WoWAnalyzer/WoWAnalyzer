@@ -51,7 +51,7 @@ export const getArmorCoefficient = (fight: WCLFight) =>
 
 const clamp = (actual: number, min: number, max: number) => Math.min(max, Math.max(min, actual));
 
-const debug = true;
+const debug = false;
 
 interface GetArmorMitigationParams {
   armor: number;

@@ -37,7 +37,6 @@ import Lenience from './modules/spells/Lenience';
 import Penance from './modules/spells/Penance';
 import Schism from './modules/spells/Schism';
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
-import AtonementSuccessiveDamageNormalizer from './normalizers/AtonementSuccessiveDamage';
 import ManifestedTwilightNormalizer from './normalizers/ManifestedTwilightNormalizer';
 import PowerWordRadianceNormalizer from './normalizers/PowerWordRadianceNormalizer';
 import HarshDiscipline from './modules/spells/HarshDiscipline';
@@ -47,14 +46,13 @@ import Expiation from './modules/spells/Expiation';
 import PowerWordShield from './modules/spells/PowerWordShield';
 import AegisOfWrath from './modules/spells/AegisOfWrath';
 import CrystallineReflection from './modules/spells/CrystallineReflection';
-import StolenPsyche from './modules/spells/StolenPsyche';
 import PainAndSuffering from './modules/spells/PainAndSuffering';
 import ThroesOfPain from './modules/spells/ThroesOfPain';
 import MaliciousIntent from './modules/spells/MaliciousIntent';
 import PowerWordRadiance from './modules/spells/PowerWordRadiance';
 import EvangelismAnalysis from './modules/guide/EvangelismAnalysis';
 import Guide from './Guide';
-import BlazeOfLight from './modules/spells/BlazeOfLight';
+import BlazeOfLight from './modules/spells/BlazeOfLight/BlazeOfLight';
 import SelfAtonementAnalyzer from './modules/guide/SelfAtonementAnalysis';
 import ProtectiveLight from '../shared/ProtectiveLight';
 import ResplendentLight from './modules/spells/ResplendentLight';
@@ -62,11 +60,11 @@ import TwilightEquilibrium from './modules/spells/TwilightEquilibrium';
 import RaptureAnalysis from './modules/guide/RaptureAnalysis';
 import AtonementNormalizer from './normalizers/AtonementTracker';
 import ShadowCovenant from './modules/spells/ShadowCovenant/ShadowCovenant';
+import AbyssalReverie from './modules/spells/AbyssalReverie';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizers
-    atonementSuccessiveDamage: AtonementSuccessiveDamageNormalizer,
     shadowfiendNormalizer: ShadowfiendNormalizer,
     powerWordRadianceNormalizer: PowerWordRadianceNormalizer,
     manifestedTwilightNormalizer: ManifestedTwilightNormalizer,
@@ -122,7 +120,6 @@ class CombatLogParser extends CoreCombatLogParser {
     indemnity: Indemnity,
     expiation: Expiation,
     powerWordShield: PowerWordShield,
-    stolenPsyche: StolenPsyche,
     twilightEqilibrium: TwilightEquilibrium,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
     painAndSuffering: PainAndSuffering,
@@ -134,6 +131,7 @@ class CombatLogParser extends CoreCombatLogParser {
     protectiveLight: ProtectiveLight,
     resplendentLight: ResplendentLight,
     raptureAnalysis: RaptureAnalysis,
+    abyssalReverie: AbyssalReverie,
   };
   static guide = Guide;
 }

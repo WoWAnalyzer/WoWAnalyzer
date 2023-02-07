@@ -6,6 +6,18 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 2, 1), <>Fixed UI bug with <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT.id}/> suggestion (again).</>, Trevor),
+  change(date(2023, 2, 1), <><SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT.id}/> formatting fix.</>, Vohrr),
+  change(date(2023, 1, 31), <>Fixed UI bug with <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT.id}/> suggestion.</>, Vohrr),
+  change(date(2023, 1, 28), <>Add average healing per cast to <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id}/> tooltip.</>, Vohrr),
+  change(date(2023, 1, 27), <>Add table to <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT}/> module</>, Trevor),
+  change(date(2023, 1, 27), <>Add <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT}/> to checklist</>, Trevor),
+  change(date(2023, 1 , 26), <>Added average <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id}/> hits per cast of <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id}/>.</>, Vohrr),
+  change(date(2023, 1, 26), <>Update breakdown for <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT.id}/>.</>, Vohrr),
+  change(date(2023, 1, 25), <>Add <SpellLink id={TALENTS_MONK.VEIL_OF_PRIDE_TALENT}/> module</>, Trevor),
+  change(date(2023, 1, 25), <>Fixed but with <SpellLink id={TALENTS_MONK.MIST_WRAP_TALENT.id}/> module.</>, Vohrr),
+  change(date(2023, 1, 25), <>Reworked <SpellLink id={TALENTS_MONK.MIST_WRAP_TALENT.id}/> module to show all healing contribution and not just from <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id}/>. </>, Vohrr),
+  change(date(2023, 1, 24), <>Add <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT}/> module</>, Trevor),
   change(date(2023, 1, 24), <>Updated <SpellLink id={SPELLS.GUSTS_OF_MISTS}/> breakdown to include <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT}/> and improved accuracy.</>, Vohrr),
   change(date(2023, 1, 24), <>Removed Bonedust Brew modules and references for Mistweaver for 10.0.5</>, Vohrr),
   change(date(2023, 1, 16), <>Add <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT}/> module and update extension logic for <SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT}/></>, Trevor),

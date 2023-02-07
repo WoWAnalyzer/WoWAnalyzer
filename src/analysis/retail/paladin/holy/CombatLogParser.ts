@@ -6,6 +6,7 @@ import {
   HolyPowerDetails,
   DivineToll,
   HolyPowerPerMinute,
+  DuskAndDawn,
 } from 'analysis/retail/paladin/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
@@ -44,6 +45,7 @@ import JudgmentOfLight from './modules/talents/JudgmentOfLight';
 import RuleOfLaw from './modules/talents/RuleOfLaw';
 import BeaconOfVirtueNormalizer from './normalizers/BeaconOfVirtue';
 import LightOfDawnNormalizer from './normalizers/LightOfDawn';
+import { BlessingOfTheSeasons } from './modules/talents/BlessingOfTheSeasons';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -97,13 +99,13 @@ class CombatLogParser extends CoreCombatLogParser {
     MaraadsOverheal: MaraadsOverheal,
     divineToll: DivineToll,
     UntemperedDedication: UntemperedDedication,
+    duskAndDawn: DuskAndDawn,
+    blessingOfTheSeasons: BlessingOfTheSeasons,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
     holyPowerPerMinute: HolyPowerPerMinute,
-
-    //-- shadowlands section --//
 
     // Tier Sets
     // TODO: Add Tier 29

@@ -102,18 +102,6 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
           />
         )}
 
-        {combatant.hasTalent(TALENTS_HUNTER.DEADEYE_TALENT) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={SPELLS.AIMED_SHOT.id} /> recharge efficiency from{' '}
-                <SpellLink id={TALENTS_HUNTER.DEADEYE_TALENT.id} />
-              </>
-            }
-            thresholds={thresholds.deadEyeThresholds}
-          />
-        )}
-
         {combatant.hasTalent(TALENTS_HUNTER.LETHAL_SHOTS_TALENT) && (
           <Requirement
             name={

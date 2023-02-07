@@ -1,45 +1,65 @@
-import { EnergyCapTracker } from 'analysis/retail/rogue/shared';
+import { EnergyCapTracker, EnergyTracker } from 'analysis/retail/rogue/shared';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 
-const BASE_ENERGY_REGEN = 10;
 const BURIED_TREASURE_REGEN = 4;
 const ADRENALINE_RUSH_REGEN_MULTIPLIER = 1.6;
 
-const ADRENALINE_RUSH_MAX_ADDITION = 50;
-
 class OutlawEnergyCapTracker extends EnergyCapTracker {
   static buffsChangeMax = [TALENTS.ADRENALINE_RUSH_TALENT.id];
-  static buffsChangeRegen = [TALENTS.ADRENALINE_RUSH_TALENT.id, SPELLS.BURIED_TREASURE.id];
+  static buffsChangeRegen = [TALENTS.ADRENALINE_RUSH_TALENT, SPELLS.BURIED_TREASURE];
 
-  getBaseRegenRate(): number {
-    let regenRate = BASE_ENERGY_REGEN;
-    if (this.combatantHasBuffActive(SPELLS.BURIED_TREASURE.id)) {
-      // Buried Treasure buff adds 4 energy per second, before any multipliers
-      regenRate += BURIED_TREASURE_REGEN;
-    }
+  static dependencies = {
+    ...EnergyCapTracker.dependencies,
+  };
 
-    return regenRate;
+  protected energyTracker!: EnergyTracker;
+
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(OutlawEnergyCapTracker.buffsChangeRegen),
+      this.onRegenRateBuffsUpdate,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(OutlawEnergyCapTracker.buffsChangeRegen),
+      this.onRegenRateBuffsUpdate,
+    );
   }
 
-  naturalRegenRate(): number {
-    let regen = super.naturalRegenRate();
-
-    if (this.combatantHasBuffActive(TALENTS.ADRENALINE_RUSH_TALENT.id)) {
-      regen *= ADRENALINE_RUSH_REGEN_MULTIPLIER;
+  combatantHasBuffActive(buffId: number, pTimestamp: number | null = null) {
+    if (!buffId || isNaN(buffId)) {
+      throw new Error(
+        `combatantHasBuffActive called without required parameter. buffId: ${buffId}`,
+      );
     }
-
-    return regen;
+    const timestamp = pTimestamp ?? this.owner.currentTimestamp;
+    const buffHistory = this.selectedCombatant.getBuffHistory(buffId);
+    return Boolean(
+      buffHistory.find((buff) => buff.start <= timestamp && (!buff.end || buff.end > timestamp)),
+    );
   }
 
-  currentMaxResource(): number {
-    let max = super.currentMaxResource();
-    if (this.combatantHasBuffActive(TALENTS.ADRENALINE_RUSH_TALENT.id)) {
-      max += ADRENALINE_RUSH_MAX_ADDITION;
-    }
-
-    // What should be x.5 becomes x in-game.
-    return Math.floor(max);
+  private onRegenRateBuffsUpdate(event: ApplyBuffEvent | RemoveBuffEvent) {
+    const buriedTreasureRegenBase = this.combatantHasBuffActive(
+      SPELLS.BURIED_TREASURE.id,
+      event.timestamp,
+    )
+      ? BURIED_TREASURE_REGEN
+      : 0;
+    const adrenalineRushRegenRate = this.combatantHasBuffActive(
+      TALENTS.ADRENALINE_RUSH_TALENT.id,
+      event.timestamp,
+    )
+      ? ADRENALINE_RUSH_REGEN_MULTIPLIER
+      : 1;
+    this.energyTracker.triggerRateChange(
+      (this.energyTracker.baseRegen + buriedTreasureRegenBase) *
+        this.energyTracker.vigorRegen *
+        adrenalineRushRegenRate,
+    );
   }
 }
 

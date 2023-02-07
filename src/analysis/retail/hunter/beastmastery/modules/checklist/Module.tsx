@@ -6,7 +6,7 @@ import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
 import { apl, check as aplCheck } from '../apl/AplCheck';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
-import BasicAttacks from '../pets/basicAttacksTracker';
+import BasicAttacks from '../pets/BasicAttacksTracker';
 import BeastMasteryFocusCapTracker from '../resources/BeastMasteryFocusCapTracker';
 import BarbedShot from '../talents/BarbedShot';
 import BeastCleave from '../talents/BeastCleave';

@@ -13,7 +13,7 @@ import {
   PERFECT_TIME_AT_FURY_CAP,
 } from './modules/resourcetracker/FuryTracker';
 import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
-import CooldownUsage from 'analysis/retail/demonhunter/shared/guide/MajorCooldowns/CooldownUsage';
+import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (

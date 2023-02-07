@@ -46,17 +46,18 @@ class Checklist extends BaseChecklist {
 
           fillerFlashOfLight: this.fillerFlashOfLight.suggestionThresholds,
           masteryEffectiveness: this.masteryEffectiveness.suggestionThresholds,
-          nonHealingTimeSuggestionThresholds: this.alwaysBeCasting
-            .nonHealingTimeSuggestionThresholds,
+          nonHealingTimeSuggestionThresholds:
+            this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           directBeaconHealing: this.directBeaconHealing.suggestionThresholds,
-          beaconUptimeBoL: this.beaconUptime.suggestionThresholdsBoL,
+          beaconUptimeBoL: this.beaconUptime.suggestionThresholdsBoLPrepull,
           beaconUptimeBoLUptime: this.beaconUptime.suggestionThresholdsBoLUptime,
-          beaconUptimeBoF: this.beaconUptime.suggestionThresholdsBoF,
+          beaconUptimeBoF: this.beaconUptime.suggestionThresholdsBoFPrepull,
           beaconUptimeBoFUptime: this.beaconUptime.suggestionThresholdsBoFUptime,
+          beaconUptimeBoVUptime: this.beaconUptime.suggestionThresholdsBoVUptime,
           fillerLightOfTheMartyrsCpm: this.fillerLightOfTheMartyrs.cpmSuggestionThresholds,
-          fillerLightOfTheMartyrsInefficientCpm: this.fillerLightOfTheMartyrs
-            .inefficientCpmSuggestionThresholds,
+          fillerLightOfTheMartyrsInefficientCpm:
+            this.fillerLightOfTheMartyrs.inefficientCpmSuggestionThresholds,
         }}
       />
     );

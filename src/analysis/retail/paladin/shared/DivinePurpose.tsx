@@ -1,7 +1,6 @@
 import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
-import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -17,29 +16,12 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { DIVINE_PURPOSE_CHANCE } from './constants';
-
-const HEALING_HOLY_POWER_SPELLS: Spell[] = [
-  SPELLS.WORD_OF_GLORY,
-  SPELLS.LIGHT_OF_DAWN_HEAL,
-  TALENTS.LIGHT_OF_DAWN_TALENT,
-];
-const DAMAGE_HOLY_POWER_SPELLS: Spell[] = [
-  SPELLS.SHIELD_OF_THE_RIGHTEOUS,
-  SPELLS.TEMPLARS_VERDICT,
-  SPELLS.TEMPLARS_VERDICT_DAMAGE,
-  SPELLS.DIVINE_STORM_DAMAGE,
-  SPELLS.FINAL_VERDICT_FINISHER,
-  TALENTS.DIVINE_STORM_TALENT,
-  TALENTS.JUSTICARS_VENGEANCE_TALENT,
-  TALENTS.EXECUTION_SENTENCE_TALENT,
-];
-const BUFF_HOLY_POWER_SPELLS: Spell[] = [TALENTS.SERAPHIM_TALENT];
-const ALL_HOLY_POWER_SPELLS: Spell[] = [
-  ...HEALING_HOLY_POWER_SPELLS,
-  ...DAMAGE_HOLY_POWER_SPELLS,
-  ...BUFF_HOLY_POWER_SPELLS,
-];
+import {
+  ALL_HOLY_POWER_SPENDERS,
+  DAMAGE_HOLY_POWER_SPENDERS,
+  DIVINE_PURPOSE_CHANCE,
+  HEALING_HOLY_POWER_SPENDERS,
+} from './constants';
 
 const BUFF_TIME: number = 12000 * 0.95; //add buffer since log events lmao
 const TRACK_BUFFER = 500;
@@ -70,15 +52,15 @@ class DivinePurpose extends Analyzer {
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(ALL_HOLY_POWER_SPELLS),
+      Events.cast.by(SELECTED_PLAYER).spell(ALL_HOLY_POWER_SPENDERS),
       this.castCounter,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(DAMAGE_HOLY_POWER_SPELLS),
+      Events.damage.by(SELECTED_PLAYER).spell(DAMAGE_HOLY_POWER_SPENDERS),
       this.holyPowerDamage,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(HEALING_HOLY_POWER_SPELLS),
+      Events.heal.by(SELECTED_PLAYER).spell(HEALING_HOLY_POWER_SPENDERS),
       this.holyPowerHeal,
     );
     this.addEventListener(
