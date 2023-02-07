@@ -4,7 +4,7 @@ import Spell, { Enchant } from 'common/SPELLS/Spell';
 import EnchantmentSubSection from './EnchantmentSubSection';
 import ConsumablesSubSection from './ConsumablesSubSection';
 import EnhancementSubSection from 'interface/guide/components/Preparation/EnhancementSubSection';
-import Expansion from 'game/Expansion';
+import Expansion, { isRetailExpansion } from 'game/Expansion';
 
 interface Props {
   recommendedEnchantments?: Record<number, Enchant[]>;
@@ -24,12 +24,13 @@ const PreparationSection = ({
 }: Props) => (
   <Section title="Preparation">
     <EnchantmentSubSection recommendedEnchantments={recommendedEnchantments} />
-    {isRetailExpansion(expansion) && (
-      <EnhancementSubSection
-        recommendedLegEnhancements={recommendedLegEnhancements}
-        recommendedWeaponEnhancements={recommendedWeaponEnhancements}
-      />
-    )}
+    {!expansion ||
+      (isRetailExpansion(expansion) && (
+        <EnhancementSubSection
+          recommendedLegEnhancements={recommendedLegEnhancements}
+          recommendedWeaponEnhancements={recommendedWeaponEnhancements}
+        />
+      ))}
     <ConsumablesSubSection
       recommendedFlasks={recommendedFlasks}
       recommendedFoods={recommendedFoods}
