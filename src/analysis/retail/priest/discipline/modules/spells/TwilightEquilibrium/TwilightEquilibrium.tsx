@@ -84,9 +84,6 @@ class TwilightEquilibrium extends Analyzer {
     }
 
     if (this.checkDamageEvent(damageEvent)) {
-      if (damageEvent.ability.guid === TALENTS_PRIEST.SCHISM_TALENT.id) {
-        console.log(calculateEffectiveHealing(event, TE_INCREASE), event);
-      }
       const increase = calculateEffectiveHealing(event, TE_INCREASE);
       this.healing += increase;
       this.attributeToMap(increase, damageEvent);
