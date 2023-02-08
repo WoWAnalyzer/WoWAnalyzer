@@ -374,7 +374,7 @@
   "guide.priest.shadow.sections.longcooldowns.graph": "<0>Major Cooldowns</0> - this graph shows when you used your cooldowns and how long you waited to use them again. You should use these cooldowns together to maximize the damage they can deal.",
   "guide.priest.shadow.sections.resources.insanity.chart": "You wasted <0>{0} ({1}%)</0> of your Insanity. The chart below shows your Insanity over the course of the encounter.",
   "guide.priest.shadow.sections.resources.insanity.summary": "You should avoid capping insanity by using <0/> or <1/> on three or more targets.",
-  "guide.priest.shadow.sections.shortcooldowns.graph": "<0>Short Cooldowns</0> - this graph shows when you used your cooldowns and how long you waited to use them again. Try to use these spells on cooldown.<1/>TODO: Fix missing casts that occurred before encounter start. (common when opening with Shadow Crash.)",
+  "guide.priest.shadow.sections.shortcooldowns.graph": "<0>Short Cooldowns</0> - this graph shows when you used your cooldowns and how long you waited to use them again. Try to use these spells on cooldown.",
   "guide.rogue.assassination.sections.cooldowns.exsanguinate.explanation": "<0><1/></0> is a powerful cooldown that improves the damage of any existing bleeds on the target. Always use it when you have existing bleeds on the target.{0}",
   "guide.rogue.assassination.sections.cooldowns.graph": "<0>Cooldown Graph</0> - this graph shows when you used your cooldowns and how long you waited to use them again. Grey segments show when the spell was available, yellow segments show when the spell was cooling down. Red segments highlight times when you could have fit a whole extra use of the cooldown.",
   "guide.rogue.assassination.sections.cooldowns.title": "Cooldowns",
