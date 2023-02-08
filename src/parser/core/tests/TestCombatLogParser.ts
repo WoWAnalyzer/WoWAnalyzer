@@ -5,10 +5,15 @@ import Report from 'parser/core/Report';
 import { PlayerInfo } from 'parser/core/Player';
 import Fight from 'parser/core/Fight';
 import { AnyEvent, CombatantInfoEvent } from 'parser/core/Events';
-import CharacterProfile from 'parser/core/CharacterProfile';
-import { PetInfo } from 'parser/core/Pet';
 import Combatant from 'parser/core/Combatant';
 import TestCombatant from 'parser/core/tests/TestCombatant';
+import {
+  DEFAULT_CHARACTER_PROFILE,
+  DEFAULT_CONFIG,
+  DEFAULT_FIGHT,
+  DEFAULT_PLAYER_INFO,
+  DEFAULT_REPORT,
+} from 'parser/core/tests/constants';
 
 class TestCombatLogParser extends CombatLogParser {
   static defaultModules = {};
@@ -33,25 +38,19 @@ class TestCombatLogParser extends CombatLogParser {
   }
 
   constructor(
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    config: Config = {} as Config,
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    report: Report = { friendlies: [] as PlayerInfo[], friendlyPets: [] as PetInfo[] } as Report,
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    selectedPlayer: PlayerInfo = { id: 1 } as PlayerInfo,
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    selectedFight: Fight = { start_time: 0, offset_time: 0, filtered: false } as Fight,
+    config: Config = DEFAULT_CONFIG,
+    report: Report = DEFAULT_REPORT,
+    selectedPlayer: PlayerInfo = DEFAULT_PLAYER_INFO,
+    selectedFight: Fight = DEFAULT_FIGHT,
     combatantInfoEvents: CombatantInfoEvent[] = [],
   ) {
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     super(
       config,
       report,
       selectedPlayer,
       selectedFight,
       combatantInfoEvents,
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      {} as CharacterProfile,
+      DEFAULT_CHARACTER_PROFILE,
       undefined,
     );
   }
