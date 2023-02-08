@@ -48,6 +48,7 @@
     "@sentry/browser": "^7.28.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12",
+    "@types/decompress": "^4.2.4",
     "@types/jest": "^27.5.2",
     "@types/node": "^18.11.18",
     "@types/react": "^17.0.37",
