@@ -18,7 +18,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <Section title="DoTs">{modules.dotUptimes.guideSubsection}</Section>
 
         <Section title="Spells">
-          {/* TODO: Fix SW:D and VB efficency*/}
+          {/* TODO: Fix SW:D efficency*/}
+          {/* TODO: Double check Void Bolt efficency*/}
           <CooldownGraphSubsection.CoreCooldownsGraph />
           {/* TODO: Add Active Time graph*/}
           <CastingSubsection.CastingSubsection modules={modules} events={events} info={info} />
