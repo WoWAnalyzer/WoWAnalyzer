@@ -20,13 +20,13 @@ type SpellCooldown = {
 
 const coreCooldowns: SpellCooldown[] = [
   { spell: SPELLS.MIND_BLAST },
-  { spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
+  //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
 ];
 
 const coreCooldownsVB: SpellCooldown[] = [
   { spell: SPELLS.MIND_BLAST },
   { spell: SPELLS.VOID_BOLT },
-  { spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
+  //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
 ];
 
 const shortCooldowns: Cooldown[] = [
@@ -47,14 +47,12 @@ const longCooldowns: Cooldown[] = [
 const CoreCooldownsGraph = () => {
   let coreCooldown = coreCooldowns;
   let message = (
-    <Trans id="guide.priest.shadow.sections.corecooldowns.graph">
+    <Trans id="guide.priest.shadow.sections.corecooldowns.graphNOVB">
       <strong>Core Spells</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
       should be keept on cooldown as much as possible. The same is true for{' '}
       <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> only during execute. These spells
       should also both be used when <SpellLink id={TALENTS.MINDBENDER_SHADOW_TALENT.id} /> is active
       with <SpellLink id={TALENTS.INESCAPABLE_TORMENT_TALENT.id} /> talented.
-      <br />
-      TODO: Efficency for SW:D should only be for the execute phase. <br />
     </Trans>
   );
 
@@ -71,8 +69,6 @@ const CoreCooldownsGraph = () => {
         <br />
         During <SpellLink id={SPELLS.VOIDFORM.id} /> you gain access to{' '}
         <SpellLink id={SPELLS.VOID_BOLT.id} />, a powerful spell that should be cast when available.
-        <br />
-        TODO: Efficency for SW:D should only be for the execute phase. <br />
       </Trans>
     );
   }
