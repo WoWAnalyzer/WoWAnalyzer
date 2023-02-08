@@ -62,7 +62,7 @@ const CoreCooldownsGraph = () => {
   if (info!.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT)) {
     coreCooldown = coreCooldownsVB;
     message = (
-      <Trans id="guide.priest.shadow.sections.corecooldowns.graph">
+      <Trans id="guide.priest.shadow.sections.corecooldowns.graphVB">
         <strong>Core Spells</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
         should be keept on cooldown as much as possible. The same is true for{' '}
         <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> only during execute. These spells
