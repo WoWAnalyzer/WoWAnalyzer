@@ -43,7 +43,7 @@ const AtonementHealingBreakdown = ({
           Object.keys(bySource)
             .sort((a, b) => bySource[b].healing.effective - bySource[a].healing.effective)
             .map((spellId) => {
-              const { ability, healing, bolts } = bySource[spellId];
+              const { ability, healing } = bySource[spellId];
 
               const currentTotal = absolute ? total : totalAtonement.effective;
               const reason = getReason(spellId);
@@ -76,40 +76,6 @@ const AtonementHealingBreakdown = ({
                       {formatPercentage(healing.overheal / healing.raw)} %
                     </td>
                   </tr>
-
-                  {bolts &&
-                    bolts.map((value: any, index: number) => {
-                      if (!value) {
-                        return null;
-                      }
-
-                      return (
-                        <tr key={index}>
-                          <td style={{ width: '30%', paddingLeft: 50 }}>
-                            <SpellLink id={ability.guid} icon={false}>
-                              <Icon icon={ability.abilityIcon} /> {ability.name} bolt {index + 1}
-                            </SpellLink>
-                          </td>
-                          <td style={{ paddingRight: 5, textAlign: 'right', whiteSpace: 'nowrap' }}>
-                            {formatPercentage(value.effective / currentTotal)} %
-                          </td>
-                          <td style={{ width: '70%', paddingLeft: 50 }}>
-                            <div
-                              className="performance-bar"
-                              style={{ width: `${(value.effective / healing.effective) * 100}%` }}
-                            />
-                          </td>
-                          <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
-                            <TooltipElement content={`Total: ${formatNumber(value.effective)}`}>
-                              {formatNumber((value.effective / fightDuration) * 1000)} HPS
-                            </TooltipElement>
-                          </td>
-                          <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
-                            {formatPercentage(value.overheal / healing.raw)} %
-                          </td>
-                        </tr>
-                      );
-                    })}
                 </>
               );
             })}

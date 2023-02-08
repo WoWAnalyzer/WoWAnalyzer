@@ -59,7 +59,9 @@ class DireCommand extends Analyzer {
         this.selectedCombatant.getTalentRank(TALENTS.DIRE_FRENZY_TALENT)
       ];
     this.addEventListener(
-      Events.summon.by(SELECTED_PLAYER).spell(SPELLS.DIRE_BEAST_SUMMON),
+      Events.summon
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.DIRE_BEAST_SUMMON, SPELLS.DIRE_BEAST_GLYPHED]),
       this.direBeastSummon,
     );
     this.addEventListener(

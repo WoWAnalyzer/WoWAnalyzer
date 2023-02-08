@@ -1,4 +1,3 @@
-import { IsPenanceDamageEvent } from 'analysis/retail/priest/discipline/modules/spells/Helper';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -6,33 +5,22 @@ import Events, { Ability, AbsorbedEvent, DamageEvent, HealEvent } from 'parser/c
 import HealingValue from 'parser/shared/modules/HealingValue';
 import Panel from 'parser/ui/Panel';
 
-import isAtonement from '../core/isAtonement';
-import Penance from '../spells/Penance';
-import AtonementDamageSource from './AtonementDamageSource';
 import AtonementHealingBreakdown from './AtonementHealingBreakdown';
+import { getDamageEvent, hasAtonementDamageEvent } from '../../normalizers/AtonementTracker';
 
 class AtonementHealingDone extends Analyzer {
-  static dependencies = {
-    atonementDamageSource: AtonementDamageSource,
-    penance: Penance,
-  };
   total = 0;
-  _lastPenanceBoltNumber = 0;
   bySource: Record<
     string,
     {
       ability: Ability;
       healing: HealingValue;
-      bolts?: HealingValue[];
     }
   > = {};
-  protected atonementDamageSource!: AtonementDamageSource;
-  protected penance!: Penance;
 
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorb);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PENANCE), this.onDamage);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
   }
 
@@ -46,23 +34,17 @@ class AtonementHealingDone extends Analyzer {
     this.total += event.amount || 0;
   }
 
-  onDamage(event: DamageEvent) {
-    if (IsPenanceDamageEvent(event)) {
-      this._lastPenanceBoltNumber = event.penanceBoltNumber;
-    }
-  }
-
   onHeal(event: HealEvent) {
     this.total += event.amount || 0;
     this.total += event.absorbed || 0;
 
-    if (!isAtonement(event)) {
+    if (!hasAtonementDamageEvent(event)) {
       return;
     }
 
-    const sourceEvent = this.atonementDamageSource.event;
-    if (sourceEvent) {
-      this._addHealing(sourceEvent, event.amount, event.absorbed, event.overheal);
+    const damageEvent = getDamageEvent(event);
+    if (damageEvent) {
+      this._addHealing(damageEvent, event.amount, event.absorbed, event.overheal);
     }
   }
 
@@ -78,22 +60,6 @@ class AtonementHealingDone extends Analyzer {
       absorbed,
       overheal,
     );
-
-    if (spellId === SPELLS.PENANCE.id) {
-      const source = this.bySource[SPELLS.PENANCE.id];
-      if (!source.bolts) {
-        source.bolts = [];
-      }
-
-      if (!source.bolts[this._lastPenanceBoltNumber]) {
-        source.bolts[this._lastPenanceBoltNumber] = new HealingValue();
-      }
-      source.bolts[this._lastPenanceBoltNumber] = source.bolts[this._lastPenanceBoltNumber].add(
-        amount,
-        absorbed,
-        overheal,
-      );
-    }
   }
 
   statistic() {

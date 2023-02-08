@@ -6,6 +6,7 @@ const MAGIC_SCHOOLS: {
     1: 'Physical',
     2: 'Holy',
     4: 'Fire',
+    6: 'Radiant',
     8: 'Nature',
     16: 'Frost',
     28: 'Elemental',
@@ -16,6 +17,7 @@ const MAGIC_SCHOOLS: {
     40: 'Plague',
     48: 'Shadowfrost',
     64: 'Arcane',
+    72: 'Astral',
     96: 'Spellshadow',
     100: 'Special',
     124: 'Chaos',
@@ -25,10 +27,12 @@ const MAGIC_SCHOOLS: {
     PHYSICAL: 1,
     HOLY: 2,
     FIRE: 4,
+    RADIANT: 6,
     NATURE: 8,
     FROST: 16,
     SHADOW: 32,
     ARCANE: 64,
+    ASTRAL: 72,
   },
 };
 

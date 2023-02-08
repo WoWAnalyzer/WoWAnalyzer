@@ -11,30 +11,36 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 export const HIGH_TOLERANCE_HASTE = {
-  [SPELLS.LIGHT_STAGGER_DEBUFF.id]: 0.08,
-  [SPELLS.MODERATE_STAGGER_DEBUFF.id]: 0.12,
-  [SPELLS.HEAVY_STAGGER_DEBUFF.id]: 0.15,
+  [SPELLS.LIGHT_STAGGER_DEBUFF.id]: 0.05,
+  [SPELLS.MODERATE_STAGGER_DEBUFF.id]: 0.07,
+  [SPELLS.HEAVY_STAGGER_DEBUFF.id]: 0.1,
 };
 
-function hasHighTolerance(combatant: Combatant) {
-  return combatant.hasTalent(talents.HIGH_TOLERANCE_TALENT);
-}
-
 function hasteFnGenerator(value: number) {
-  return { haste: (combatant: Combatant) => (hasHighTolerance(combatant) ? value : 0.0) };
+  return {
+    haste: (combatant: Combatant) =>
+      (combatant.getTalentRank(talents.HIGH_TOLERANCE_TALENT) /
+        talents.HIGH_TOLERANCE_TALENT.maxRanks) *
+      value,
+  };
 }
 
 export const HIGH_TOLERANCE_HASTE_FNS = {
-  [SPELLS.LIGHT_STAGGER_DEBUFF.id]: hasteFnGenerator(0.08),
-  [SPELLS.MODERATE_STAGGER_DEBUFF.id]: hasteFnGenerator(0.12),
-  [SPELLS.HEAVY_STAGGER_DEBUFF.id]: hasteFnGenerator(0.15),
+  [SPELLS.LIGHT_STAGGER_DEBUFF.id]: hasteFnGenerator(0.05),
+  [SPELLS.MODERATE_STAGGER_DEBUFF.id]: hasteFnGenerator(0.07),
+  [SPELLS.HEAVY_STAGGER_DEBUFF.id]: hasteFnGenerator(0.1),
 };
 
 class HighTolerance extends Analyzer {
+  protected ranks = 0;
   get meanHaste() {
     return (
       Object.keys(HIGH_TOLERANCE_HASTE)
-        .map((key) => this.staggerDurations[Number(key)] * HIGH_TOLERANCE_HASTE[Number(key)])
+        .map(
+          (key) =>
+            (this.staggerDurations[Number(key)] * HIGH_TOLERANCE_HASTE[Number(key)] * this.ranks) /
+            talents.HIGH_TOLERANCE_TALENT.maxRanks,
+        )
         .reduce((prev, cur) => prev + cur, 0) / this.owner.fightDuration
     );
   }
@@ -67,7 +73,8 @@ class HighTolerance extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = hasHighTolerance(this.selectedCombatant);
+    this.ranks = this.selectedCombatant.getTalentRank(talents.HIGH_TOLERANCE_TALENT);
+    this.active = this.ranks > 0;
     this.addEventListener(Events.applydebuff.to(SELECTED_PLAYER), this.onApplyDebuff);
     this.addEventListener(Events.removedebuff.to(SELECTED_PLAYER), this.onRemoveDebuff);
     this.addEventListener(Events.fightend, this.onFightend);

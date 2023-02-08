@@ -1,9 +1,10 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { ItemLink } from 'interface';
+import BaseFoodChecker from 'parser/shared/modules/items/FoodChecker';
 
 const FISH_FEAST = 43015; // https://www.wowhead.com/wotlk/item=43015/fish-feast
 const DRAGONFIN_FILET = 43000; // https://www.wowhead.com/wotlk/item=43000/dragonfin-filet
@@ -94,6 +95,7 @@ const FOOD_MAPPINGS: { [spellId: number]: FoodInfo } = {
   // 40 Haste Rating and 40 Stamina
   57331: { itemId: VERY_BURNT_WORG },
   57344: { itemId: IMPERIAL_MANTA_STEAK },
+  57332: { itemId: IMPERIAL_MANTA_STEAK },
   // 30 Haste Rating and 40 Stamina
   57101: { itemId: BAKED_MANTA_RAY, recommendedFood: [VERY_BURNT_WORG, IMPERIAL_MANTA_STEAK] },
   // 30 Haste Rating and 30 Stamina
@@ -169,10 +171,8 @@ const DebugText = () => {
   );
 };
 
-class FoodChecker extends Analyzer {
-  midTierFoodUp = false;
-  higherFoodUp = false;
-  activeFoodSpellId?: number;
+class FoodChecker extends BaseFoodChecker {
+  foodBuffId?: number;
   recommendedHigherTierFoods?: number[];
 
   constructor(options: Options) {
@@ -185,7 +185,7 @@ class FoodChecker extends Analyzer {
 
     if (event.prepull) {
       if (FOOD_MAPPINGS[spellId]) {
-        this.activeFoodSpellId = spellId;
+        this.foodBuffId = spellId;
         // There is valid food, but is it the best food?
         if (!FOOD_MAPPINGS[spellId].recommendedFood) {
           this.higherFoodUp = true;
@@ -242,10 +242,10 @@ class FoodChecker extends Analyzer {
           </>
           {this.recommendedHigherTierFoods &&
             this.recommendedHigherTierFoods.length > 0 &&
-            this.activeFoodSpellId && (
+            this.foodBuffId && (
               <>
-                Instead of using <ItemLink id={FOOD_MAPPINGS[this.activeFoodSpellId].itemId} />, try
-                one of these: <RecommendedFoodList spellId={this.activeFoodSpellId} />
+                Instead of using <ItemLink id={FOOD_MAPPINGS[this.foodBuffId].itemId} />, try one of
+                these: <RecommendedFoodList spellId={this.foodBuffId} />
               </>
             )}
         </>

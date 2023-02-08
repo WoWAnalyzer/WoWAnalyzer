@@ -185,7 +185,6 @@ class Abilities extends CoreAbilities {
       {
         spell: talents.GLACIAL_ADVANCE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => 6 / (1 + haste),
         gcd: {
           base: 1500,
         },

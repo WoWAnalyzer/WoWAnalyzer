@@ -1,4 +1,4 @@
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import HIT_TYPES from 'game/HIT_TYPES';
@@ -11,7 +11,14 @@ import {
   calculateEffectiveHealing,
   calculateEffectiveHealingFromCritIncrease,
 } from 'parser/core/EventCalculateLib';
-import Events, { CastEvent, DamageEvent, EventType, HealEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  DamageEvent,
+  EventType,
+  HealEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -22,9 +29,16 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const DESPAIR_CRIT_INCREASE = 0.3;
-const DOUBT_INCREASE = 0.35;
+const DOUBT_INCREASE = 0.4;
 const FEAR_HASTE_INCREASE = 0.25;
 const FEAR_MITIGATION_PERCENT = 0.15;
+
+const BUFFS = [
+  SPELLS.LESSON_OF_ANGER_BUFF,
+  SPELLS.LESSON_OF_DESPAIR_BUFF,
+  SPELLS.LESSON_OF_DOUBT_BUFF,
+  SPELLS.LESSON_OF_FEAR_BUFF,
+];
 
 class ShaohaosLessons extends Analyzer {
   static dependencies = {
@@ -32,16 +46,33 @@ class ShaohaosLessons extends Analyzer {
   };
   angerDamage: number = 0;
   angerHealing: number = 0;
+  applyCount: Map<number, number> = new Map<number, number>(
+    BUFFS.map((spell) => {
+      return [spell.id, 0];
+    }),
+  );
+  curHpPercent: number = 0;
+  durationCount: Map<number, number> = new Map<number, number>(
+    BUFFS.map((spell) => {
+      return [spell.id, 0];
+    }),
+  );
   despairDamage: number = 0;
   despairHealing: number = 0;
   doubtDamage: number = 0;
   doubtHealing: number = 0;
-  curHpPercent: number = 0;
   fearMitigated: number = 0;
+  lastApplyTime: Map<number, number> = new Map<number, number>(
+    BUFFS.map((spell) => {
+      return [spell.id, 0];
+    }),
+  );
   protected statTracker!: StatTracker;
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(BUFFS), this.onApply);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(BUFFS), this.onRemove);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LESSON_OF_ANGER_HEAL),
       this.handleHealAnger,
@@ -57,6 +88,18 @@ class ShaohaosLessons extends Analyzer {
     this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.healTaken);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.damageTaken);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.handleCast);
+  }
+
+  onApply(event: ApplyBuffEvent) {
+    const buffId = event.ability.guid;
+    this.lastApplyTime.set(buffId, event.timestamp);
+    this.applyCount.set(buffId, this.applyCount.get(buffId)! + 1);
+  }
+
+  onRemove(event: RemoveBuffEvent) {
+    const buffId = event.ability.guid;
+    const duration = event.timestamp - this.lastApplyTime.get(buffId)!;
+    this.durationCount.set(buffId, this.durationCount.get(buffId)! + duration);
   }
 
   handleCast(event: CastEvent) {
@@ -161,24 +204,59 @@ class ShaohaosLessons extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <ul>
-              <li>
-                Note: Lesson of Fear's (haste) increase is not included in HPS as a haste buff
-                cannot be directly attributed to a healing increase
-              </li>
-            </ul>
-            Healing:
-            <ul>
-              <li>Anger: {formatNumber(this.angerHealing)}</li>
-              <li>Despair: {formatNumber(this.despairHealing)}</li>
-              <li>Doubt: {formatNumber(this.doubtHealing)}</li>
-            </ul>
-            Damage:
-            <ul>
-              <li>Anger: {formatNumber(this.angerDamage)}</li>
-              <li>Despair: {formatNumber(this.despairDamage)}</li>
-              <li>Doubt: {formatNumber(this.doubtDamage)}</li>
-            </ul>
+            Note: Haste increase from <SpellLink id={SPELLS.LESSON_OF_FEAR_BUFF} /> is not included
+            in HPS/DPS as a haste buff cannot be directly attributed to a healing/damage increase
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Buff</th>
+                  <th>Count</th>
+                  <th>Duration</th>
+                  <th>Damage</th>
+                  <th>Healing</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr key="anger">
+                  <td>
+                    <SpellLink id={SPELLS.LESSON_OF_ANGER_BUFF} />
+                  </td>
+                  <td>{this.applyCount.get(SPELLS.LESSON_OF_ANGER_BUFF.id)!}</td>
+                  <td>{formatDuration(this.durationCount.get(SPELLS.LESSON_OF_ANGER_BUFF.id)!)}</td>
+                  <td>{formatNumber(this.angerDamage)}</td>
+                  <td>{formatNumber(this.angerHealing)}</td>
+                </tr>
+                <tr key="despair">
+                  <td>
+                    <SpellLink id={SPELLS.LESSON_OF_DESPAIR_BUFF} />
+                  </td>
+                  <td>{this.applyCount.get(SPELLS.LESSON_OF_DESPAIR_BUFF.id)!}</td>
+                  <td>
+                    {formatDuration(this.durationCount.get(SPELLS.LESSON_OF_DESPAIR_BUFF.id)!)}
+                  </td>
+                  <td>{formatNumber(this.despairDamage)}</td>
+                  <td>{formatNumber(this.despairHealing)}</td>
+                </tr>
+                <tr key="doubt">
+                  <td>
+                    <SpellLink id={SPELLS.LESSON_OF_DOUBT_BUFF} />
+                  </td>
+                  <td>{this.applyCount.get(SPELLS.LESSON_OF_DOUBT_BUFF.id)!}</td>
+                  <td>{formatDuration(this.durationCount.get(SPELLS.LESSON_OF_DOUBT_BUFF.id)!)}</td>
+                  <td>{formatNumber(this.doubtDamage)}</td>
+                  <td>{formatNumber(this.doubtHealing)}</td>
+                </tr>
+                <tr key="fear">
+                  <td>
+                    <SpellLink id={SPELLS.LESSON_OF_FEAR_BUFF} />
+                  </td>
+                  <td>{this.applyCount.get(SPELLS.LESSON_OF_FEAR_BUFF.id)!}</td>
+                  <td>{formatDuration(this.durationCount.get(SPELLS.LESSON_OF_FEAR_BUFF.id)!)}</td>
+                  <td>N/A</td>
+                  <td>N/A</td>
+                </tr>
+              </tbody>
+            </table>
           </>
         }
       >

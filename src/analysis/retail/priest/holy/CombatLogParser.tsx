@@ -110,6 +110,7 @@ class CombatLogParser extends CoreCombatLogParser {
     SurgeOfLight: Talents.Classwide.SurgeOfLight,
     PrayerCircle: Talents.MiddleRow.PrayerCircle,
     SanctifiedPrayers: Talents.TopRow.SanctifiedPrayers,
+    PrayerfulLitany: Talents.MiddleRow.PrayerfulLitany,
 
     Halo: Talents.Classwide.Halo,
     Benediction: Talents.MiddleRow.Benediction,

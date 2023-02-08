@@ -163,11 +163,6 @@ const spells = spellIndexableList({
     name: 'Frenzied Regeneration',
     icon: 'ability_bullrush',
   },
-  RATTLED_STARS: {
-    id: 393955,
-    name: 'Rattled Stars',
-    icon: 'spell_arcane_arcane01',
-  },
   INCARNATION_CHOSEN_OF_ELUNE: {
     id: 102560,
     name: 'Incarnation: Chosen of Elune',
@@ -443,7 +438,7 @@ const spells = spellIndexableList({
   //Tier 29 Balance set bonus proc
   TOUCH_THE_COSMOS: {
     id: 394414,
-    name: 'Touch the Cosmos',
+    name: 'Touch the Cosmos - T29 4P',
     icon: 'ability_bossgorefiend_touchofdoom',
   },
   RENEWING_BLOOM: {
@@ -808,6 +803,12 @@ const spells = spellIndexableList({
     name: 'Waning Twilight',
     icon: 'spell_shadow_twilight',
   },
+  GATHERING_STARSTUFF: {
+    // Buff from dragonflight T29 2p
+    id: 394412,
+    name: 'Gathering Starstuff - T29 2P',
+    icon: 'spell_nature_wrathv2',
+  },
   BALANCE_OF_ALL_THINGS_LUNAR: {
     id: 394050,
     name: 'Balance of All Things',
@@ -817,6 +818,26 @@ const spells = spellIndexableList({
     id: 394049,
     name: 'Balance of All Things',
     icon: 'ability_druid_earthandsky',
+  },
+  FRIEND_OF_THE_FAE: {
+    id: 394083,
+    name: 'Friend of the Fae',
+    icon: 'inv_elemental_primal_mana',
+  },
+  RATTLED_STARS: {
+    id: 393955,
+    name: 'Rattled Stars',
+    icon: 'spell_arcane_arcane01',
+  },
+  STARWEAVERS_WARP: {
+    id: 393942,
+    name: "Starweaver's Warp",
+    icon: 'ability_druid_stellarflare',
+  },
+  STARWEAVERS_WEFT: {
+    id: 393944,
+    name: "Starweaver's Weft",
+    icon: 'spell_arcane_invocation',
   },
 
   /////////////////////////////////////////////////////////////////////////////

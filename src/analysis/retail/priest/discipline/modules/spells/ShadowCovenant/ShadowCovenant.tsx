@@ -26,6 +26,7 @@ const SHADOW_BUFFED_HEALS = [
 class ShadowCovenant extends Analyzer {
   bonus = 0;
 
+  hasPtw = false;
   damage = 0;
   healing = 0;
   healingMap: Map<number, number> = new Map();
@@ -49,6 +50,8 @@ class ShadowCovenant extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(TALENTS_PRIEST.SHADOW_COVENANT_TALENT),
       this.onHeal,
     );
+
+    this.hasPtw = this.selectedCombatant.hasTalent(TALENTS_PRIEST.PURGE_THE_WICKED_TALENT);
   }
 
   onAtoneHeal(event: HealEvent) {
@@ -56,6 +59,11 @@ class ShadowCovenant extends Analyzer {
       return;
     }
     const damageEvent = getDamageEvent(event);
+
+    // Shadow covenant only buffs expiation if you aren't talented into PTW
+    if (damageEvent.ability.guid === SPELLS.EXPIATION_DAMAGE.id && this.hasPtw) {
+      return;
+    }
 
     if (
       !this.selectedCombatant.hasBuff(SPELLS.SHADOW_COVENANT_BUFF.id) ||
@@ -110,6 +118,11 @@ class ShadowCovenant extends Analyzer {
       // no pets here
       event.ability.guid === -MAGIC_SCHOOLS.ids.SHADOW
     ) {
+      return;
+    }
+
+    // Shadow covenant only buffs expiation if you aren't talented into PTW
+    if (event.ability.guid === SPELLS.EXPIATION_DAMAGE.id && this.hasPtw) {
       return;
     }
 

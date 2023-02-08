@@ -110,7 +110,6 @@ const spells = spellIndexableList({
     name: 'Shiv',
     icon: 'inv_throwingknife_04',
   },
-
   SEPSIS_FINAL_DMG: {
     id: 394026,
     name: 'Sepsis',
@@ -120,6 +119,21 @@ const spells = spellIndexableList({
     id: 375939,
     name: 'Sepsis',
     icon: 'ability_ardenweald_rogue',
+  },
+  ANIMACHARGED_CP2: {
+    id: 323558,
+    name: 'Echoing Reprimand',
+    icon: 'ability_bastion_rogue',
+  },
+  ANIMACHARGED_CP3: {
+    id: 323559,
+    name: 'Echoing Reprimand',
+    icon: 'ability_bastion_rogue',
+  },
+  ANIMACHARGED_CP4: {
+    id: 323560,
+    name: 'Echoing Reprimand',
+    icon: 'ability_bastion_rogue',
   },
   // Subtlety spells
   // Combo point generating damage ability
@@ -426,6 +440,11 @@ const spells = spellIndexableList({
     id: 245389,
     name: 'Toxic Blade',
     icon: 'inv_weapon_shortblade_62',
+  },
+  IMPROVED_GARROTE_BUFF: {
+    id: 392403,
+    name: 'Improved Garrote',
+    icon: 'ability_rogue_garrote',
   },
 
   // Sets

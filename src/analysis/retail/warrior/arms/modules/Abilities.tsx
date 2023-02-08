@@ -118,8 +118,19 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.SWEEPING_STRIKES.id,
       },
       {
+        spell: TALENTS.THUNDEROUS_ROAR_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        cooldown: 90 - (combatant.hasTalent(TALENTS.UPROAR_TALENT) ? 30 : 0),
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.THUNDEROUS_ROAR_TALENT),
+      },
+      {
         spell: SPELLS.WHIRLWIND.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        cooldown: (haste: number) =>
+          combatant.hasTalent(TALENTS.STORM_OF_SWORDS_ARMS_TALENT) ? 14 / (1 + haste) : 0,
         gcd: {
           base: 1500,
         },
@@ -138,19 +149,19 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.BLADESTORM_TALENT),
         buffSpellId: SPELLS.BLADESTORM.id,
       },
-      //{ //-- is missing in the TALENTS section for warriors. needs to be added.
-      //  spell: SPELLS.SPEAR_OF_BASTION.id,
-      //  category: SPELL_CATEGORY.ROTATIONAL_AOE,
-      //  cooldown: 60,
-      //  gcd: {
-      //    base: 1500,
-      //  },
-      //  castEfficiency: {
-      //    suggestion: true,
-      //    recommendedEfficiency: 0.7,
-      //  },
-      //  enabled: combatant.hasTalent(TALENTS.SPEAR_OF_BASTION_TALENT),
-      //},
+      {
+        spell: TALENTS.SPEAR_OF_BASTION_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        cooldown: 90,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.7,
+        },
+        enabled: combatant.hasTalent(TALENTS.SPEAR_OF_BASTION_TALENT),
+      },
       {
         spell: SPELLS.THUNDER_CLAP.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
@@ -196,7 +207,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 3,
         gcd: null,
-        enabled: combatant.hasTalent(TALENTS.DEFENSIVE_STANCE_TALENT),
         buffSpellId: TALENTS.DEFENSIVE_STANCE_TALENT.id,
       },
       {
@@ -223,12 +233,13 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.SPELL_REFLECTION_TALENT),
         buffSpellId: SPELLS.SPELL_REFLECTION.id,
       },
-      //{ NOTE: enable later with TALENT check in 10.0.5
-      //  spell: SPELLS.IGNORE_PAIN.id,
-      //  category: SPELL_CATEGORY.DEFENSIVE,
-      //  buffSpellId: SPELLS.IGNORE_PAIN.id,
-      //  gcd: null,
-      //},
+      {
+        spell: SPELLS.IGNORE_PAIN.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        buffSpellId: SPELLS.IGNORE_PAIN.id,
+        gcd: null,
+        enabled: combatant.hasTalent(TALENTS.IGNORE_PAIN_TALENT),
+      },
       {
         spell: SPELLS.RALLYING_CRY.id,
         category: SPELL_CATEGORY.DEFENSIVE,
