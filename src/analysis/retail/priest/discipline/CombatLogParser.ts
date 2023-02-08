@@ -37,8 +37,6 @@ import Lenience from './modules/spells/Lenience';
 import Penance from './modules/spells/Penance';
 import Schism from './modules/spells/Schism';
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
-import AtonementSuccessiveDamageNormalizer from './normalizers/AtonementSuccessiveDamage';
-import ManifestedTwilightNormalizer from './normalizers/ManifestedTwilightNormalizer';
 import PowerWordRadianceNormalizer from './normalizers/PowerWordRadianceNormalizer';
 import HarshDiscipline from './modules/spells/HarshDiscipline';
 import EnduringLuminescense from './modules/spells/EnduringLuminescence';
@@ -57,19 +55,21 @@ import BlazeOfLight from './modules/spells/BlazeOfLight/BlazeOfLight';
 import SelfAtonementAnalyzer from './modules/guide/SelfAtonementAnalysis';
 import ProtectiveLight from '../shared/ProtectiveLight';
 import ResplendentLight from './modules/spells/ResplendentLight';
-import TwilightEquilibrium from './modules/spells/TwilightEquilibrium';
+import TwilightEquilibrium from './modules/spells/TwilightEquilibrium/TwilightEquilibrium';
 import RaptureAnalysis from './modules/guide/RaptureAnalysis';
 import AtonementNormalizer from './normalizers/AtonementTracker';
 import ShadowCovenant from './modules/spells/ShadowCovenant/ShadowCovenant';
 import AbyssalReverie from './modules/spells/AbyssalReverie';
+import TwilightEquilibriumNormalizer from './normalizers/TwilightEquilibriumNormalizer';
+import DamageCastLink from './normalizers/DamageCastLink';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizers
-    atonementSuccessiveDamage: AtonementSuccessiveDamageNormalizer,
+    damageCastLink: DamageCastLink,
     shadowfiendNormalizer: ShadowfiendNormalizer,
     powerWordRadianceNormalizer: PowerWordRadianceNormalizer,
-    manifestedTwilightNormalizer: ManifestedTwilightNormalizer,
+    twilightEquilibriumNormalizer: TwilightEquilibriumNormalizer,
     atonementNormalizer: AtonementNormalizer,
 
     spellUsable: SpellUsable,

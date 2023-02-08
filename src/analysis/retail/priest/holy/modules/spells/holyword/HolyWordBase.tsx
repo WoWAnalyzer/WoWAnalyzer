@@ -15,8 +15,6 @@ class HolyWordBase extends Analyzer {
   apparatusReduction =
     HARMONIOUS_APPARATUS_REDUCTION_PER_RANK *
     this.selectedCombatant.getTalentRank(TALENTS.HARMONIOUS_APPARATUS_TALENT);
-  //Currently on the beta both apparatus and light of the naaru are bugged but this is written as if tooltips are correct
-  //If bugs stay/tooltips change this needs to be updated
   remainingCooldown = 0;
   serendipityProccers: {
     [spellID: string]: {

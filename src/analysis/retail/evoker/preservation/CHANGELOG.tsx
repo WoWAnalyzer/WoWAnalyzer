@@ -5,6 +5,7 @@ import { Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 2, 3), <>Change <SpellLink id={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT}/> module to only count missing <SpellLink id={TALENTS_EVOKER.LIFEBIND_TALENT}/> on targets you have healed recently</>, Trevor),
   change(date(2023, 1, 30), <>Fix mana cost for <SpellLink id={TALENTS_EVOKER.ECHO_TALENT}/></>, Trevor),
   change(date(2023, 1, 29), <>Fix <SpellLink id={TALENTS_EVOKER.SPARK_OF_INSIGHT_TALENT}/> module</>, Trevor),
   change(date(2023, 1, 29), <>Fix degraded experience</>, Trevor),

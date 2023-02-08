@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_PALADIN } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -8,6 +9,7 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PropTypes from 'prop-types';
 
 const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) => {
+  console.log(castEfficiency);
   const AbilityRequirement = (props) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
@@ -57,9 +59,9 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
             like{' '}
             <SpellLink
               id={
-                combatant.hasTalent(SPELLS.CRUSADE_TALENT)
-                  ? SPELLS.CRUSADE_TALENT.id
-                  : SPELLS.AVENGING_WRATH.id
+                combatant.hasTalent(TALENTS_PALADIN.CRUSADE_TALENT)
+                  ? TALENTS_PALADIN.CRUSADE_TALENT.id
+                  : TALENTS_PALADIN.AVENGING_WRATH_TALENT.id
               }
               icon
             />{' '}
@@ -67,23 +69,23 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
           </>
         }
       >
-        {combatant.hasTalent(SPELLS.CRUSADE_TALENT) && (
-          <AbilityRequirement spell={SPELLS.CRUSADE_TALENT.id} />
+        {combatant.hasTalent(TALENTS_PALADIN.CRUSADE_TALENT) && (
+          <AbilityRequirement spell={TALENTS_PALADIN.CRUSADE_TALENT.id} />
         )}
-        {!combatant.hasTalent(SPELLS.CRUSADE_TALENT) && (
-          <AbilityRequirement spell={SPELLS.AVENGING_WRATH.id} />
+        {combatant.hasTalent(TALENTS_PALADIN.AVENGING_WRATH_MIGHT_TALENT) && (
+          <AbilityRequirement spell={TALENTS_PALADIN.AVENGING_WRATH_MIGHT_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.WAKE_OF_ASHES) && (
-          <AbilityRequirement spell={SPELLS.WAKE_OF_ASHES.id} />
+        {combatant.hasTalent(TALENTS_PALADIN.WAKE_OF_ASHES_TALENT) && (
+          <AbilityRequirement spell={TALENTS_PALADIN.WAKE_OF_ASHES_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.EXECUTION_SENTENCE_TALENT) && (
-          <AbilityRequirement spell={SPELLS.EXECUTION_SENTENCE_TALENT.id} />
+        {combatant.hasTalent(TALENTS_PALADIN.EXECUTION_SENTENCE_TALENT) && (
+          <AbilityRequirement spell={TALENTS_PALADIN.EXECUTION_SENTENCE_TALENT.id} />
         )}
-        {combatant.hasTalent(SPELLS.CRUSADE_TALENT) && (
+        {combatant.hasTalent(TALENTS_PALADIN.CRUSADE_TALENT) && (
           <Requirement
             name={
               <>
-                Good first global with <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon />
+                Good first global with <SpellLink id={TALENTS_PALADIN.CRUSADE_TALENT.id} icon />
               </>
             }
             thresholds={thresholds.crusade}
@@ -116,7 +118,7 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
           }
           thresholds={thresholds.judgment}
         />
-        {combatant.hasTalent(SPELLS.RIGHTEOUS_VERDICT_TALENT) && (
+        {combatant.hasTalent(TALENTS_PALADIN.RIGHTEOUS_VERDICT_TALENT) && (
           <Requirement
             name={
               <>

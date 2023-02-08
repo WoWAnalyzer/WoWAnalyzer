@@ -6,6 +6,8 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 2, 6), <><SpellLink id={TALENTS_PRIEST.TWILIGHT_EQUILIBRIUM_TALENT.id}/> re enabled.</>, Hana),
+  change(date(2023, 2, 2), <><SpellLink id={TALENTS_PRIEST.ATONEMENT_TALENT.id}/> graph updated.</>, Hana),
   change(date(2023, 1, 29), <><SpellLink id={TALENTS_PRIEST.ABYSSAL_REVERIE_TALENT.id}/> module added.</>, Hana),
   change(date(2023, 1, 28), <><SpellLink id={TALENTS_PRIEST.EXPIATION_TALENT.id}/> bugfix.</>, Hana),
   change(date(2023, 1, 27), <><SpellLink id={TALENTS_PRIEST.BLAZE_OF_LIGHT_TALENT.id}/> module no longer uses Atonement event.</>, Hana),
