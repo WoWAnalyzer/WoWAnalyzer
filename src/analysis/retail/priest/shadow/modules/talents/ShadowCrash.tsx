@@ -54,7 +54,7 @@ class ShadowCrash extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={`Average targets hit: ${formatNumber(this.averageTargetsHit)}`}
+        tooltip={`Average targets hit: ${this.averageTargetsHit.toFixed(1)}`}
       >
         <BoringSpellValueText spellId={TALENTS.SHADOW_CRASH_TALENT.id}>
           <>

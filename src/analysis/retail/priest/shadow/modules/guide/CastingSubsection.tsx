@@ -24,8 +24,6 @@ function CastingSubsection({ modules }: GuideProps<typeof CombatLogParser>) {
       <PerformanceStrong performance={modules.cancelledCasts.CancelledPerformance}>
         {formatPercentage(modules.cancelledCasts.Canceled, 1)}%
       </PerformanceStrong>{' '}
-      <br />
-      TODO ACTIVE TIME GRAPH
     </SubSection>
   );
 }

@@ -95,7 +95,7 @@ class CombatLogParser extends MainCombatLogParser {
     inescapableTorment: InescapableTorment,
     darkVoid: DarkVoid,
     auspiciousSpirits: AuspiciousSpirits,
-    mindsear: MindSear,
+    mindSear: MindSear,
     mindDevourer: MindDevourer,
     surgeOfDarkness: SurgeOfDarkness,
     deathspeaker: Deathspeaker,

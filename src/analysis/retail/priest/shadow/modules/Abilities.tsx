@@ -95,6 +95,19 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.DARK_VOID_TALENT),
       },
       {
+        spell: TALENTS.DAMNATION_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 60 - combatant.getTalentRank(TALENTS.MALEDICTION_TALENT) * 15,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.8,
+        },
+        enabled: combatant.hasTalent(TALENTS.DAMNATION_TALENT),
+      },
+      {
         spell: TALENTS.MINDGAMES_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 45,
@@ -135,15 +148,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-      },
-      {
-        spell: TALENTS.DAMNATION_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 60 - combatant.getTalentRank(TALENTS.MALEDICTION_TALENT) * 15,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.DAMNATION_TALENT),
       },
       {
         spell: TALENTS.HALO_SHADOW_TALENT.id,
@@ -191,7 +195,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.75,
+          recommendedEfficiency: 0.9,
         },
         enabled: combatant.hasTalent(TALENTS.VOID_TORRENT_TALENT),
         damageSpellIds: [TALENTS.VOID_TORRENT_TALENT.id],
@@ -223,7 +227,7 @@ class Abilities extends CoreAbilities {
         enabled: !combatant.hasTalent(TALENTS.MINDBENDER_SHADOW_TALENT),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.8,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -233,7 +237,7 @@ class Abilities extends CoreAbilities {
         gcd: null,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.8,
+          recommendedEfficiency: 0.95,
         },
         enabled: combatant.hasTalent(TALENTS.POWER_INFUSION_TALENT),
       },
@@ -263,9 +267,7 @@ class Abilities extends CoreAbilities {
         isDefensive: true,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 120 - (combatant.hasTalent(TALENTS.SANLAYN_TALENT) ? 45 : 0),
-        gcd: {
-          base: 1500,
-        },
+        gcd: null,
         enabled: combatant.hasTalent(TALENTS.VAMPIRIC_EMBRACE_TALENT),
       },
       {
