@@ -4,13 +4,14 @@ import { t, Trans } from '@lingui/macro';
 import EnergyCapWaste from 'analysis/retail/rogue/shared/guide/EnergyCapWaste';
 import TALENTS from 'common/TALENTS/rogue';
 import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
-import { SpellLink } from 'interface';
+import { ResourceLink, SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
+import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import CombatLogParser from './CombatLogParser';
 import CooldownGraphSubsection from './guide/CooldownGraphSubsection';
-import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -42,9 +43,12 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
       >
         <p>
           <Trans id="guide.rogue.assassination.sections.resources.energy.summary">
-            Your primary resource is Energy. Typically, ability use will be limited by energy, not
-            time. Avoid capping energy - lost energy regeneration is lost DPS. It will occasionally
-            be impossible to avoid capping energy - like while handling mechanics or during
+            Your primary resource is <ResourceLink id={RESOURCE_TYPES.ENERGY.id} />. Typically,
+            ability use will be limited by <ResourceLink id={RESOURCE_TYPES.ENERGY.id} />, not time.
+            Avoid capping <ResourceLink id={RESOURCE_TYPES.ENERGY.id} /> - lost{' '}
+            <ResourceLink id={RESOURCE_TYPES.ENERGY.id} /> regeneration is lost DPS. It will
+            occasionally be impossible to avoid capping{' '}
+            <ResourceLink id={RESOURCE_TYPES.ENERGY.id} /> - like while handling mechanics or during
             intermission phases.
           </Trans>
         </p>
@@ -65,8 +69,9 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
       >
         <p>
           <Trans id="guide.rogue.assassination.sections.resources.comboPoints.summary">
-            Most of your abilities either <strong>build</strong> or <strong>spend</strong> Combo
-            Points. Never use a builder at max CPs, and always wait until max CPs to use a spender.
+            Most of your abilities either <strong>build</strong> or <strong>spend</strong>{' '}
+            <ResourceLink id={RESOURCE_TYPES.COMBO_POINTS.id} />. Never use a builder at max CPs,
+            and always wait until max CPs to use a spender.
           </Trans>
         </p>
         <SideBySidePanels>

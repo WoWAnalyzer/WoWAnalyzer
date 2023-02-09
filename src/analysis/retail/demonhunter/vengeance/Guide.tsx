@@ -1,7 +1,7 @@
 import { GuideProps, Section, SubSection, useInfo } from 'interface/guide';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import SPELLS from 'common/SPELLS/demonhunter';
-import { AlertWarning, SpellLink } from 'interface';
+import { AlertWarning, ResourceLink, SpellLink } from 'interface';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import ImmolationAuraVengeanceGuideSection from 'analysis/retail/demonhunter/shared/modules/spells/ImmolationAura/VengeanceGuideSection';
 import { t, Trans } from '@lingui/macro';
@@ -23,6 +23,7 @@ import {
   OK_TIME_AT_FURY_CAP,
   PERFECT_TIME_AT_FURY_CAP,
 } from './modules/resourcetracker/FuryTracker';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -56,8 +57,9 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
       >
         <p>
           <Trans id="guide.demonhunter.vengeance.sections.resources.fury.summary">
-            Vengeance's primary resource is Fury. Typically, ability use will be limited by Fury,
-            not time. You should avoid capping Fury - lost Fury generation is lost DPS.
+            Vengeance's primary resource is <ResourceLink id={RESOURCE_TYPES.FURY.id} />. You should
+            avoid capping <ResourceLink id={RESOURCE_TYPES.FURY.id} /> - lost{' '}
+            <ResourceLink id={RESOURCE_TYPES.FURY.id} /> generation is lost DPS.
           </Trans>
         </p>
         <FuryCapWaste

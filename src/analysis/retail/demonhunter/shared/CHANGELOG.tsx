@@ -3,9 +3,12 @@ import SpellLink from 'interface/SpellLink';
 import TALENTS from 'common/TALENTS/demonhunter';
 import { ToppleTheNun } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS/demonhunter';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { ResourceLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2023, 2, 8), <>Improve <ResourceLink id={RESOURCE_TYPES.FURY.id} /> waste display in Guide.</>, ToppleTheNun),
   change(date(2023, 1, 25), 'Bump support to 10.0.5.', ToppleTheNun),
   change(date(2023, 1, 7), 'Add wasted Fury to Resource Usage section of Guide.', ToppleTheNun),
   change(date(2022, 12, 30), 'Wrap performance box rows in cast breakdowns.', ToppleTheNun),
