@@ -59,7 +59,7 @@ class EmeraldCommunion extends Analyzer {
     return (
       this.percentCovered.reduce((prev, cur) => {
         return cur + prev;
-      }) / this.percentCovered.length
+      }, 0) / this.percentCovered.length
     );
   }
 
