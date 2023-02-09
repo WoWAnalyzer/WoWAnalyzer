@@ -61,7 +61,7 @@ class MindSear extends Analyzer {
     this._trackNewCast(event);
   }
 
-  _trackNewCast(event: CastEvent) {
+  private _trackNewCast(event: CastEvent) {
     this.recentTicks = 0;
     this.recentHits = 0;
     this.recentMSTimestamp = event.timestamp;
@@ -88,7 +88,7 @@ class MindSear extends Analyzer {
     this.time = this.checkTime;
   }
 
-  _tallyLastCast() {
+  private _tallyLastCast() {
     this.totalCasts += 1;
     if (this.totalCasts === 1) {
       return; // there is no last cast
