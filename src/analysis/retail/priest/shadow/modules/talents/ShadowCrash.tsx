@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import Insanity from 'interface/icons/Insanity';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { Ability, DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
+import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -25,23 +25,12 @@ class ShadowCrash extends Analyzer {
   insanityGained = 0;
   totalTargetsHit = 0;
 
-  abilitySC: Ability = {
-    name: 'Shadow Crash',
-    guid: TALENTS.SHADOW_CRASH_TALENT.id,
-    type: 32,
-    abilityIcon: 'spell_shadow_shadowfury.jpg',
-  };
-
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_CRASH_TALENT_DAMAGE),
       this.onDamage,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_CRASH_TALENT),
-      this.onCast,
     );
     this.addEventListener(
       Events.resourcechange.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_CRASH_TALENT),
@@ -53,10 +42,6 @@ class ShadowCrash extends Analyzer {
     return (
       this.totalTargetsHit / this.abilityTracker.getAbility(TALENTS.SHADOW_CRASH_TALENT.id).casts
     );
-  }
-
-  onCast() {
-    this.cast += 1;
   }
 
   onDamage(event: DamageEvent) {
