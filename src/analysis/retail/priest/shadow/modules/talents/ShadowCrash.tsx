@@ -17,7 +17,6 @@ class ShadowCrash extends Analyzer {
   };
   protected abilityTracker!: AbilityTracker;
 
-  cast = 0;
   damage = 0;
   insanityGained = 0;
   totalTargetsHit = 0;
