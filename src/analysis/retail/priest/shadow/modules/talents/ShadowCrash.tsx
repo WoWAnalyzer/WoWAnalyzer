@@ -15,11 +15,11 @@ class ShadowCrash extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
+  protected abilityTracker!: AbilityTracker;
 
   damage = 0;
   insanityGained = 0;
   totalTargetsHit = 0;
-  protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {
     super(options);

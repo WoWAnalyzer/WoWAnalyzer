@@ -80,6 +80,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.8,
         },
         enabled: combatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT),
+        damageSpellIds: [SPELLS.SHADOW_CRASH_TALENT_DAMAGE.id],
       },
       {
         spell: TALENTS.DARK_VOID_TALENT.id,
