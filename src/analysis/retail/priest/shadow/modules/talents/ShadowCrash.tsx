@@ -5,7 +5,6 @@ import TALENTS from 'common/TALENTS/priest';
 import Insanity from 'interface/icons/Insanity';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
-import EventEmitter from 'parser/core/modules/EventEmitter';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
@@ -15,10 +14,8 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 class ShadowCrash extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    eventEmitter: EventEmitter,
   };
   protected abilityTracker!: AbilityTracker;
-  protected eventEmitter!: EventEmitter;
 
   cast = 0;
   damage = 0;
