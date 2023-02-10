@@ -27,7 +27,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </Section>
 
       <Section title="Cooldowns">
-        {/* TODO: fix precast shadow crash*/}
         <CooldownGraphSubsection.ShortCooldownsGraph />
         <CooldownGraphSubsection.LongCooldownsGraph />
       </Section>
