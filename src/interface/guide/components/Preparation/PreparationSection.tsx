@@ -20,17 +20,16 @@ const PreparationSection = ({
   recommendedFoods,
   recommendedWeaponEnhancements,
   recommendedLegEnhancements,
-  expansion,
+  expansion = Expansion.Dragonflight,
 }: Props) => (
   <Section title="Preparation">
     <EnchantmentSubSection recommendedEnchantments={recommendedEnchantments} />
-    {!expansion ||
-      (isRetailExpansion(expansion) && (
-        <EnhancementSubSection
-          recommendedLegEnhancements={recommendedLegEnhancements}
-          recommendedWeaponEnhancements={recommendedWeaponEnhancements}
-        />
-      ))}
+    {isRetailExpansion(expansion) && (
+      <EnhancementSubSection
+        recommendedLegEnhancements={recommendedLegEnhancements}
+        recommendedWeaponEnhancements={recommendedWeaponEnhancements}
+      />
+    )}
     <ConsumablesSubSection
       recommendedFlasks={recommendedFlasks}
       recommendedFoods={recommendedFoods}
