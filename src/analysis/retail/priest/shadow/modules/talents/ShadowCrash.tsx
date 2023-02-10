@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import Insanity from 'interface/icons/Insanity';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { Ability, DamageEvent, ResourceChangeEvent, EventType } from 'parser/core/Events';
+import Events, { Ability, DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -60,23 +60,6 @@ class ShadowCrash extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    // If the damage occurs before the first cast
-    // Then we fabricate a cast of shadowcrash.
-    // Shadow Crash always takes 1.5 seconds to deal damage after the cast
-    if (this.cast === 0) {
-      this.eventEmitter.fabricateEvent(
-        {
-          type: EventType.Cast,
-          ability: this.abilitySC,
-          timestamp: event.timestamp - 1500,
-          sourceID: event.sourceID,
-          targetID: event.targetID,
-          __fabricated: true,
-        },
-        event,
-      );
-      this.cast += 1;
-    }
     this.totalTargetsHit += 1;
     this.damage += event.amount + (event.absorbed || 0);
   }
