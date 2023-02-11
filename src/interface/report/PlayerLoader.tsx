@@ -282,10 +282,11 @@ const PlayerLoader = ({ children }: Props) => {
     getConfig(
       wclGameVersionToExpansion(selectedReport.gameVersion),
       combatant.specID,
-      player.type,
-      player.icon,
+      player,
+      combatant,
     );
   const build = combatant && getBuild(config, combatant);
+
   const missingBuild = config?.builds && !build;
   if (!player || hasDuplicatePlayers || !combatant || !config || missingBuild || combatant.error) {
     if (player) {

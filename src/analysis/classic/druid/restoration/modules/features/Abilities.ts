@@ -77,6 +77,11 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1500 },
       },
+      {
+        spell: [SPELLS.CYCLONE.id],
+        category: SPELL_CATEGORY.DEFENSIVE,
+        gcd: { base: 1500 },
+      },
       // Other spells (not apart of the normal rotation)
 
       // Utility

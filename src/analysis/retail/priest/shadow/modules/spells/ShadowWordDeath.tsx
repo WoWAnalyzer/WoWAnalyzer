@@ -36,8 +36,8 @@ class ShadowWordDeath extends ExecuteHelper {
         base: 1500,
       },
       castEfficiency: {
-        suggestion: true,
-        recommendedEfficiency: 0.8,
+        suggestion: false,
+        recommendedEfficiency: 0.0,
         maxCasts: () => this.maxCasts,
       },
     });

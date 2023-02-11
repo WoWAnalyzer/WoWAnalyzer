@@ -1,9 +1,6 @@
 import SHADOWLANDS_SPELLS from 'common/SPELLS/shadowlands/others';
 import SPELLS from 'common/SPELLS/dragonflight/food';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent } from 'parser/core/Events';
-import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import BaseFoodChecker from 'parser/shared/modules/items/FoodChecker';
 
 const LOWER_FOOD_IDS: number[] = [
   // Shadowlands Food
@@ -51,63 +48,17 @@ const HIGHER_FOOD_IDS: number[] = [
   SPELLS.FATED_FORTUNE_COOKIE.id,
 ].filter((id) => id !== 0);
 
-class FoodChecker extends Analyzer {
-  lowerFoodUp = false;
-  midTierFoodUp = false;
-  higherFoodUp = false;
-  foodBuffId?: number;
-
-  constructor(options: Options) {
-    super(options);
-    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this.onApplybuff.bind(this));
+class FoodChecker extends BaseFoodChecker {
+  get lowerFoodIds(): number[] {
+    return LOWER_FOOD_IDS;
   }
 
-  onApplybuff(event: ApplyBuffEvent) {
-    const spellId = event.ability.guid;
-    if (event.prepull) {
-      if (LOWER_FOOD_IDS.includes(spellId)) {
-        this.lowerFoodUp = true;
-        this.foodBuffId = spellId;
-      }
-      if (HIGHER_FOOD_IDS.includes(spellId)) {
-        this.higherFoodUp = true;
-        this.foodBuffId = spellId;
-      }
-      if (MID_TIER_FOOD_IDS.includes(spellId)) {
-        this.midTierFoodUp = true;
-        this.foodBuffId = spellId;
-      }
-    }
-  }
-  get higherFoodSuggestionThresholds() {
-    return {
-      actual: this.higherFoodUp,
-      isEqual: false,
-      style: ThresholdStyle.BOOLEAN,
-    };
-  }
-  get isPresentFoodSuggestionThresholds() {
-    return {
-      actual: this.higherFoodUp || this.lowerFoodUp || this.midTierFoodUp,
-      isEqual: false,
-      style: ThresholdStyle.BOOLEAN,
-    };
+  get midFoodIds(): number[] {
+    return MID_TIER_FOOD_IDS;
   }
 
-  suggestions(when: When) {
-    let importance = SUGGESTION_IMPORTANCE.MINOR;
-    let suggestionText =
-      'You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.';
-    if (!this.higherFoodUp && (this.lowerFoodUp || this.midTierFoodUp)) {
-      suggestionText =
-        'You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.';
-    }
-    if (!this.higherFoodUp && !this.lowerFoodUp && !this.midTierFoodUp) {
-      importance = SUGGESTION_IMPORTANCE.MAJOR;
-    }
-    when(this.higherFoodSuggestionThresholds).addSuggestion((suggest) =>
-      suggest(suggestionText).icon(SPELLS.FATED_FORTUNE_COOKIE.icon).staticImportance(importance),
-    );
+  get highFoodIds(): number[] {
+    return HIGHER_FOOD_IDS;
   }
 }
 export default FoodChecker;

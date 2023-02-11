@@ -131,7 +131,7 @@ class EssenceFontCancelled extends Analyzer {
         .icon(TALENTS_MONK.ESSENCE_FONT_TALENT.icon)
         .actual(
           `${this.numCancelled} ${t({
-            id: 'monk.mistweaver.suggestions.essenceFont.cancelledCasts',
+            id: `monk.mistweaver.suggestions.essenceFont.cancelledCasts`,
             message: ` cancelled casts`,
           })}`,
         )

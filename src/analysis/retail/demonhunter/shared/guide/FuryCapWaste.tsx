@@ -1,7 +1,9 @@
 import { Trans } from '@lingui/macro';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { formatNumber } from 'common/format';
-import PerformancePercentage from 'analysis/retail/demonhunter/shared/guide/PerformancePercentage';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { ResourceLink } from 'interface';
+
+import PerformancePercentage from './PerformancePercentage';
 
 interface Props {
   percentAtCap: number;
@@ -19,21 +21,20 @@ const FuryCapWaste = ({
   okTimeAtFuryCap,
   wasted,
 }: Props) => {
-  const furyWastedFormatted = formatNumber(wasted);
-
   return (
     <p>
       <Trans id="guide.demonhunter.sections.resources.fury.chart">
-        The chart below shows your Fury over the course of the encounter. You spent{' '}
+        The chart below shows your <ResourceLink id={RESOURCE_TYPES.FURY.id} /> over the course of
+        the encounter. You wasted{' '}
         <PerformancePercentage
           performance={percentAtCapPerformance}
           perfectPercentage={perfectTimeAtFuryCap}
           goodPercentage={goodTimeAtFuryCap}
           okPercentage={okTimeAtFuryCap}
-          value={percentAtCap}
+          percentage={percentAtCap}
+          flatAmount={wasted}
         />{' '}
-        of the encounter capped on Fury, leading to{' '}
-        <strong>{furyWastedFormatted} wasted Fury</strong>.
+        of your <ResourceLink id={RESOURCE_TYPES.FURY.id} />.
       </Trans>
     </p>
   );

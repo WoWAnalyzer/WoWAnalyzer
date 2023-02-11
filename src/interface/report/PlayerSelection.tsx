@@ -74,8 +74,8 @@ const PlayerSelection = ({ report, combatants, makeUrl }: Props) => (
           config={getConfig(
             wclGameVersionToExpansion(report.gameVersion),
             player.combatant.specID,
-            player.type,
-            player.icon,
+            player,
+            player.combatant,
           )}
         />
       ))}

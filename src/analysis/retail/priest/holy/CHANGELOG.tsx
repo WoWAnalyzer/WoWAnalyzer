@@ -6,6 +6,11 @@ import { SpellLink } from 'interface';
 export default [
   change(
     date(2023, 1, 24),
+    <>Updated for patch 10.0.5.</>,
+    Squided
+  ),
+  change(
+    date(2023, 1, 24),
     <>Added support for <SpellLink id={TALENTS_PRIEST.PRAYERFUL_LITANY_TALENT.id}/>. </>,
     Squided
   ),

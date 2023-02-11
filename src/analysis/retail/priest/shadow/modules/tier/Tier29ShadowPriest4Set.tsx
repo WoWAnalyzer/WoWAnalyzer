@@ -64,9 +64,7 @@ class ShadowPriestTierSet extends Analyzer {
     return (
       <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
         <BoringSpellValueText spellId={SPELLS.SHADOW_PRIEST_TIER_29_4_SET_BUFF.id}>
-          <>
-            <UptimeIcon /> {uptimePercent}% <small>uptime</small>
-          </>
+          <UptimeIcon /> {uptimePercent}% <small>uptime</small>
         </BoringSpellValueText>
       </Statistic>
     );

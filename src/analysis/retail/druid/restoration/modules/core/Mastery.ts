@@ -13,6 +13,7 @@ import {
   ABILITIES_AFFECTED_BY_HEALING_INCREASES,
   MASTERY_STACK_BUFF_IDS,
 } from 'analysis/retail/druid/restoration/constants';
+import { specMasteryCoefficient } from 'game/SPECS';
 
 const DEBUG = false;
 
@@ -281,7 +282,7 @@ class Mastery extends Analyzer {
         this.statTracker.ratingNeededForNextPercentage(
           this.statTracker.currentMasteryRating,
           this.statTracker.statBaselineRatingPerPercent[STAT.MASTERY],
-          this.selectedCombatant.spec?.masteryCoefficient,
+          specMasteryCoefficient(this.selectedCombatant.spec),
         );
       return buffBonus / healMasteryMult;
     };

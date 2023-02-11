@@ -10,7 +10,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Enemies from 'parser/shared/modules/Enemies';
 
-const DAMAGE_INCREASE_PER_RANK = [0, 0.25, 0.5];
+const DAMAGE_INCREASE = 0.25;
 
 //Example log: /report/VXr2kgALF3Rj6Q4M/11-Mythic+Anduin+Wrynn+-+Kill+(5:12)/Litena/standard/statistics
 class SearingLight extends Analyzer {
@@ -19,7 +19,6 @@ class SearingLight extends Analyzer {
   };
   protected enemies!: Enemies;
 
-  damageBonus = 0;
   damageFromTalent = 0;
 
   constructor(options: Options) {
@@ -28,16 +27,24 @@ class SearingLight extends Analyzer {
       this.active = false;
       return;
     }
-    this.damageBonus =
-      DAMAGE_INCREASE_PER_RANK[this.selectedCombatant.getTalentRank(TALENTS.SEARING_LIGHT_TALENT)];
-
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SMITE), this.onSmite);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.HOLY_NOVA_TALENT),
+      this.onHolyNova,
+    );
   }
 
   onSmite(event: DamageEvent) {
     const target = this.enemies.getEntity(event);
     if (target !== null && target.hasBuff(SPELLS.HOLY_FIRE.id)) {
-      this.damageFromTalent += calculateEffectiveDamage(event, this.damageBonus);
+      this.damageFromTalent += calculateEffectiveDamage(event, DAMAGE_INCREASE);
+    }
+  }
+
+  onHolyNova(event: DamageEvent) {
+    const target = this.enemies.getEntity(event);
+    if (target !== null && target.hasBuff(SPELLS.HOLY_FIRE.id)) {
+      this.damageFromTalent += calculateEffectiveDamage(event, DAMAGE_INCREASE);
     }
   }
 

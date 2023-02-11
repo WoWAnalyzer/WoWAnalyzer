@@ -20,8 +20,10 @@ interface Props {
   selectedTab: string;
 }
 
+const debug = false;
+
 const NavigationBar = ({ makeTabUrl, tabs, selectedTab }: Props) => {
-  console.log(tabs, ' ------------ tabs --------------');
+  debug && console.log(tabs, ' ------------ tabs --------------');
   const pages = [
     {
       icon: ChecklistIcon,

@@ -15,11 +15,11 @@ class ShadowCrash extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
+  protected abilityTracker!: AbilityTracker;
 
   damage = 0;
   insanityGained = 0;
   totalTargetsHit = 0;
-  protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {
     super(options);
@@ -54,7 +54,7 @@ class ShadowCrash extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={`Average targets hit: ${formatNumber(this.averageTargetsHit)}`}
+        tooltip={`Average targets hit: ${this.averageTargetsHit.toFixed(1)}`}
       >
         <BoringSpellValueText spellId={TALENTS.SHADOW_CRASH_TALENT.id}>
           <>

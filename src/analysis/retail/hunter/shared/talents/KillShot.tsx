@@ -1,3 +1,5 @@
+import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/hunter';
 import SPECS from 'game/SPECS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -16,7 +18,7 @@ import { KILL_SHOT_EXECUTE_RANGE } from '../constants';
 class KillShot extends ExecuteHelper {
   static executeSources = SELECTED_PLAYER;
   static lowerThreshold = KILL_SHOT_EXECUTE_RANGE;
-  static singleExecuteEnablers = [TALENTS.HUNTERS_PREY_TALENT];
+  static singleExecuteEnablers: Spell[] = [TALENTS.HUNTERS_PREY_TALENT, SPELLS.DEATHBLOW_BUFF];
   static modifiesDamage = false;
 
   static dependencies = {

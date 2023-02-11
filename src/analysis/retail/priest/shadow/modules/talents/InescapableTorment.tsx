@@ -32,9 +32,8 @@ class InescapableTorment extends Analyzer {
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
         <BoringSpellValueText spellId={TALENTS.INESCAPABLE_TORMENT_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
-          <>
-            <UptimeIcon /> {this.time}s <small>of mindbender extension</small>
-          </>
+          <br />
+          <UptimeIcon /> {this.time}s <small>of mindbender extension</small>
         </BoringSpellValueText>
       </Statistic>
     );

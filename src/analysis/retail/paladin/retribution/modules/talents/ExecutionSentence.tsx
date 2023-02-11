@@ -7,6 +7,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import TALENTS from 'common/TALENTS/paladin';
 
 class ExecutionSentence extends Analyzer {
   static dependencies = {
@@ -18,7 +19,7 @@ class ExecutionSentence extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.EXECUTION_SENTENCE_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.EXECUTION_SENTENCE_TALENT);
 
     // event listeners
   }

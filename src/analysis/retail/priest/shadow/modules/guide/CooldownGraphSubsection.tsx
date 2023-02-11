@@ -23,6 +23,12 @@ const coreCooldowns: SpellCooldown[] = [
   //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
 ];
 
+const coreCooldownsVB: SpellCooldown[] = [
+  { spell: SPELLS.MIND_BLAST },
+  { spell: SPELLS.VOID_BOLT },
+  //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
+];
+
 const shortCooldowns: Cooldown[] = [
   { talent: TALENTS.SHADOW_CRASH_TALENT },
   { talent: TALENTS.VOID_TORRENT_TALENT },
@@ -39,17 +45,35 @@ const longCooldowns: Cooldown[] = [
 ];
 
 const CoreCooldownsGraph = () => {
-  const message = (
-    <Trans id="guide.priest.shadow.sections.corecooldowns.graph">
-      <strong>Core Graph</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
+  let coreCooldown = coreCooldowns;
+  let message = (
+    <Trans id="guide.priest.shadow.sections.corecooldowns.graphNOVB">
+      <strong>Core Spells</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
       should be keept on cooldown as much as possible. The same is true for{' '}
-      <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> during execute. These spells should
-      also both be used when Mindbender is active with Inescapable Torment talented.
-      <br />
-      TODO: Add execute phase SW:D. <br />
+      <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> only during execute. These spells
+      should also both be used when <SpellLink id={TALENTS.MINDBENDER_SHADOW_TALENT.id} /> is active
+      with <SpellLink id={TALENTS.INESCAPABLE_TORMENT_TALENT.id} /> talented.
     </Trans>
   );
-  return CoreCooldownGraphSubsection(coreCooldowns, message);
+
+  const info = useInfo();
+  if (info!.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT)) {
+    coreCooldown = coreCooldownsVB;
+    message = (
+      <Trans id="guide.priest.shadow.sections.corecooldowns.graphVB">
+        <strong>Core Spells</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
+        should be keept on cooldown as much as possible. The same is true for{' '}
+        <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> only during execute. These spells
+        should also both be used when <SpellLink id={TALENTS.MINDBENDER_SHADOW_TALENT.id} /> is
+        active with <SpellLink id={TALENTS.INESCAPABLE_TORMENT_TALENT.id} /> talented.
+        <br />
+        During <SpellLink id={SPELLS.VOIDFORM.id} /> you gain access to{' '}
+        <SpellLink id={SPELLS.VOID_BOLT.id} />, a powerful spell that should be cast when available.
+      </Trans>
+    );
+  }
+
+  return CoreCooldownGraphSubsection(coreCooldown, message);
 };
 
 const ShortCooldownsGraph = () => {
@@ -57,9 +81,6 @@ const ShortCooldownsGraph = () => {
     <Trans id="guide.priest.shadow.sections.shortcooldowns.graph">
       <strong>Short Cooldowns</strong> - this graph shows when you used your cooldowns and how long
       you waited to use them again. Try to use these spells on cooldown.
-      <br />
-      TODO: Fix missing casts that occurred before encounter start. (common when opening with Shadow
-      Crash.)
     </Trans>
   );
   return CooldownGraphSubsection(shortCooldowns, message);
@@ -69,8 +90,8 @@ const LongCooldownsGraph = () => {
   const message = (
     <Trans id="guide.priest.shadow.sections.longcooldowns.graph">
       <strong>Major Cooldowns</strong> - this graph shows when you used your cooldowns and how long
-      you waited to use them again. You should use these cooldowns together to maximize the damage
-      they can deal.
+      you waited to use them again. You should use these cooldowns together when possible to
+      maximize the damage they can deal.
     </Trans>
   );
   return CooldownGraphSubsection(longCooldowns, message);
@@ -107,6 +128,7 @@ const CooldownGraphSubsection = (cooldownsToCheck: Cooldown[], message: JSX.Elem
           spellId={cooldownCheck.talent.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           minimizeIcons={hasTooManyCasts}
+          useThresholds
         />
       ))}
     </SubSection>
@@ -134,7 +156,7 @@ const CoreCooldownGraphSubsection = (cooldownsToCheck: SpellCooldown[], message:
         <CastEfficiencyBar
           key={cooldownCheck.spell.id}
           spellId={cooldownCheck.spell.id}
-          gapHighlightMode={GapHighlight.FullCooldown}
+          gapHighlightMode={GapHighlight.None}
           minimizeIcons={hasTooManyCasts}
         />
       ))}
