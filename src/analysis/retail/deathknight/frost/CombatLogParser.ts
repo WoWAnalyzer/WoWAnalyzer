@@ -1,6 +1,10 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
-import { RuneDetails, RuneOfHysteria, RuneOfTheFallenCrusader } from 'analysis/retail/deathknight/shared/';
+import {
+  RuneDetails,
+  RuneOfHysteria,
+  RuneOfTheFallenCrusader,
+} from 'analysis/retail/deathknight/shared/';
 import Guide from './Guide';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -20,7 +24,6 @@ import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
 import BreathOfSindragosa from './modules/talents/BreathOfSindragosa';
 import Frostscythe from './modules/talents/Frostscythe';
 import GatheringStorm from './modules/talents/GatheringStorm';
-import Obliteration from './modules/talents/Obliteration';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -50,7 +53,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //talents
     gatheringStorm: GatheringStorm,
     frostscythe: Frostscythe,
-    obliteration: Obliteration,
 
     // Runes
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,

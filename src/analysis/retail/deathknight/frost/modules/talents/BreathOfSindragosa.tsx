@@ -2,6 +2,7 @@ import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffEvent, FightEndEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
@@ -55,6 +56,7 @@ class BreathOfSindragosa extends Analyzer {
     if (this.breathActive) {
       this.casts -= 1;
     }
+    this.totalDuration += event.timestamp - this.beginTimestamp;
   }
 
   suggestions(when: When) {
@@ -108,11 +110,11 @@ class BreathOfSindragosa extends Analyzer {
   statistic() {
     return (
       <Statistic
-        tooltip={`You cast Breath of Sindragosa ${this.casts} times for a combined total of ${(
-          this.totalDuration / 1000
-        ).toFixed(1)} seconds.  ${this.badCasts} casts were under 25 seconds.  ${
-          this.tickingOnFinishedString
-        }`}
+        tooltip={`You started a new Breath of Sindragosa ${
+          this.casts
+        } times for a combined total of ${(this.totalDuration / 1000).toFixed(1)} seconds.  ${
+          this.badCasts
+        } casts were under 25 seconds.  ${this.tickingOnFinishedString}`}
         position={STATISTIC_ORDER.CORE(60)}
         size="flexible"
       >
@@ -123,6 +125,34 @@ class BreathOfSindragosa extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={talents.BREATH_OF_SINDRAGOSA_TALENT.id} />
+        </b>{' '}
+        is your most significant source of damage. Your goal is to maximize the duration of it by
+        playing around mechanics and maximizing your rp generation.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <strong>GCDs in Pillar of Frost</strong>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data);
+  }
+
+  get guideCastBreakdown() {
+    const explanation = <p>1 erw, horn?</p>;
+
+    const data = <div>data here</div>;
+
+    return explanationAndDataSubsection(explanation, data);
   }
 }
 
