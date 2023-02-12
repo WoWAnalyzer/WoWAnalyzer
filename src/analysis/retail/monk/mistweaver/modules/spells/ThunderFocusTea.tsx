@@ -16,11 +16,14 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 const debug = false;
 
 //TODO clean up and make easier to add triggers
 class ThunderFocusTea extends Analyzer {
+  castEntries: BoxRowEntry[] = [];
   castsTftRsk: number = 0;
   castsTftViv: number = 0;
   castsTftEnm: number = 0;
@@ -129,11 +132,28 @@ class ThunderFocusTea extends Analyzer {
       this.castsUnderTft += 1;
       this.castsTftEF += 1;
       debug && console.log('REM EF Check ', event.timestamp);
+    } else {
+      return;
     }
-
+    let tooltip = null;
+    let value = null;
     if (this.correctSpells.includes(spellId)) {
+      value = QualitativePerformance.Good;
+      tooltip = (
+        <>
+          Correct cast: buffed <SpellLink id={spellId} />
+        </>
+      );
       this.correctCasts += 1;
+    } else {
+      value = QualitativePerformance.Fail;
+      tooltip = (
+        <>
+          Incorrect cast: buffed <SpellLink id={spellId} />
+        </>
+      );
     }
+    this.castEntries.push({ value, tooltip });
   }
 
   renderCastRatioChart() {
@@ -193,14 +213,20 @@ class ThunderFocusTea extends Analyzer {
         ), otherwise use it on <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />
       </p>
     );
-
     const data = (
       <div>
         <RoundedPanel>
           <strong>
             <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} /> cast efficiency
           </strong>
-          {this.subStatistic()}
+          <div>
+            {this.subStatistic()} <br />
+            <small>
+              Green indicates a correct <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />{' '}
+              cast, while red indicates a bad cast.
+            </small>
+            <PerformanceBoxRow values={this.castEntries} />
+          </div>
         </RoundedPanel>
       </div>
     );
