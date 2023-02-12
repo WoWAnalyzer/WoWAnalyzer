@@ -54,7 +54,7 @@ class AstralPowerDetails extends Analyzer {
       url: 'astral-power-usage',
       render: () => (
         <Panel>
-          <ResourceBreakdown tracker={this.astralPowerTracker} showSpenders />
+          <ResourceBreakdown tracker={this.astralPowerTracker} showSpenders scaleFactor={0.1} />
         </Panel>
       ),
     };
