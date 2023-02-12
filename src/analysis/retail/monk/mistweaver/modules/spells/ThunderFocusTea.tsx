@@ -11,6 +11,11 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import Haste from 'parser/shared/modules/Haste';
 import { SPELL_COLORS } from '../../constants';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 const debug = false;
 
@@ -166,6 +171,52 @@ class ThunderFocusTea extends Analyzer {
     ];
 
     return <DonutChart items={items} />;
+  }
+
+  /** Guide subsection describing the proper usage of Lifebloom */
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} />
+        </b>{' '}
+        is an important spell used to empower other abilities. It should be used on cooldown at all
+        times and the spell that you use it on depends on your talent selection. If you have{' '}
+        <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT} />, then you should always use{' '}
+        <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} /> on{' '}
+        <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> (with high{' '}
+        <SpellLink id={TALENTS_MONK.UPWELLING_TALENT.id} /> stacks) or{' '}
+        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />. If you do not have{' '}
+        <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT.id} />, then always use it on{' '}
+        <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> (with{' '}
+        <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id} />
+        ), otherwise use it on <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} /> cast efficiency
+          </strong>
+          {this.subStatistic()}
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  /** Guide subsection describing the proper usage of Rejuvenation */
+  subStatistic() {
+    return (
+      <CastEfficiencyBar
+        spellId={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        minimizeIcons
+      />
+    );
   }
 
   suggestions(when: When) {

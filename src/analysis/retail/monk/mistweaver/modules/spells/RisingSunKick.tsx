@@ -1,8 +1,14 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
+import { SpellLink } from 'interface';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 class RisingSunKick extends Analyzer {
   static dependencies = {
@@ -44,6 +50,45 @@ class RisingSunKick extends Analyzer {
 
   blackoutKickCast(event: CastEvent) {
     this.lastBOK = event.timestamp;
+  }
+
+  /** Guide subsection describing the proper usage of Lifebloom */
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />
+        </b>{' '}
+        is one of your primary damaging spells and also an important healing spell due to{' '}
+        <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT} />. Using it as much as possible is
+        essential for maintaining high counts of{' '}
+        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> cast efficiency
+          </strong>
+          {this.guideSubStatistic()}
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  /** Guide subsection describing the proper usage of Rejuvenation */
+  guideSubStatistic() {
+    return (
+      <CastEfficiencyBar
+        spellId={TALENTS_MONK.RISING_SUN_KICK_TALENT.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        minimizeIcons
+      />
+    );
   }
 
   subStatistic() {
