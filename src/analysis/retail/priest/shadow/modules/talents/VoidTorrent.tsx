@@ -16,6 +16,8 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
 import {
   MS_BUFFER,
@@ -32,6 +34,7 @@ class VoidTorrent extends Analyzer {
   _previousVoidTorrentCast: any;
   damage = 0;
   totalChannelingTime = 0;
+  totalWastedTime = 0;
   insanityGained = 0;
 
   constructor(options: Options) {
@@ -127,6 +130,8 @@ class VoidTorrent extends Analyzer {
         : 0;
     this.totalChannelingTime += VOID_TORRENT_MAX_TIME - wastedTime;
 
+    this.totalWastedTime += wastedTime;
+
     this._voidTorrents[this._previousVoidTorrentCast.timestamp] = {
       ...this._voidTorrents[this._previousVoidTorrentCast.timestamp],
       wastedTime,
@@ -174,9 +179,9 @@ class VoidTorrent extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            {formatSeconds(this.timeWasted)} seconds wasted by cancelling the channel early. <br />
-            {formatNumber(this.insanityWasted)} insanity wasted by cancelling the channel early.{' '}
+            {formatSeconds(this.timeWasted)} seconds wasted by cancelling the channel early.
             <br />
+            {formatNumber(this.insanityWasted)} insanity wasted by cancelling the channel early.{' '}
             <br />
             {formatNumber(this.insanityOvercapped)} insanity wasted by overcapping sanity.
           </>
@@ -190,6 +195,50 @@ class VoidTorrent extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const channelTime = {
+      count: formatSeconds(this.totalChannelingTime / 1000),
+      label: 'Cast Time',
+    };
+
+    const wastedTime = {
+      count: formatSeconds(this.totalWastedTime / 1000),
+      label: 'Lost Time',
+    };
+
+    const insanityGained = {
+      count: Math.round(this.insanityGained),
+      label: 'Gained Insanity',
+    };
+
+    const insanityWasted = {
+      count: Math.round(this.insanityOvercapped),
+      label: 'Wasted Insanity',
+    };
+
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS.VOID_TORRENT_TALENT.id} />
+        </b>{' '}
+        is a powerful cooldown
+        <br />
+        You should cast this spell as often as you can, without wasting insanity. When you use this
+        spell, it should be fully channeled.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <strong>Time lost</strong>
+        <GradiatedPerformanceBar good={channelTime} bad={wastedTime} />
+        <strong>Insanity Wasted</strong>
+        <GradiatedPerformanceBar good={insanityGained} bad={insanityWasted} />
+      </div>
+    );
+    return explanationAndDataSubsection(explanation, data, 50);
   }
 }
 
