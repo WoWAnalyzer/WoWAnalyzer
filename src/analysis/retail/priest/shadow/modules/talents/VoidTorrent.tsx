@@ -215,7 +215,7 @@ class VoidTorrent extends Analyzer {
 
     const insanityWasted = {
       count: Math.round(this.insanityOvercapped),
-      label: 'Wasted Insanity',
+      label: 'Overcapped Insanity',
     };
 
     const explanation = (
