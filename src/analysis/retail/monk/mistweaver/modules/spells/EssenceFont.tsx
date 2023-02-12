@@ -11,6 +11,11 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { formatNumber } from 'common/format';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 class EssenceFont extends Analyzer {
   static dependencies = {
@@ -152,6 +157,47 @@ class EssenceFont extends Analyzer {
     } else {
       return <></>;
     }
+  }
+
+  /** Guide subsection describing the proper usage of Lifebloom */
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} />
+        </b>{' '}
+        is your core AoE heal and used to activate{' '}
+        <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} />. You should aim to avoid cancelling
+        it at all costs and you should only use it with{' '}
+        <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> (if talented into{' '}
+        <SpellLink id={TALENTS_MONK.UPWELLING_TALENT} />) and on CD otherwise.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> cast efficiency
+          </strong>
+          {this.subStatistic()}
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  /** Guide subsection describing the proper usage of Rejuvenation */
+  subStatistic() {
+    return (
+      <CastEfficiencyBar
+        spellId={TALENTS_MONK.ESSENCE_FONT_TALENT.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        minimizeIcons
+        useThresholds
+      />
+    );
   }
 
   statistic() {
