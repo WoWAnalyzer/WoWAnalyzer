@@ -3,20 +3,30 @@ import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  DamageEvent,
+  HealEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
+import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 
 import { SPELL_COLORS } from '../../constants';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 class AncientTeachingsoftheMonastery extends Analyzer {
   damageSpellToHealing: Map<number, number> = new Map();
-
   lastDamageSpellID: number = 0;
+  uptimeWindows: OpenTimePeriod[] = [];
 
   /**
    * After you cast Essence Font, Tiger Palm, Blackout Kick, and Rising Sun Kick heal an injured ally within 20 yards for 250% of the damage done. Lasts 15s.
@@ -44,6 +54,14 @@ class AncientTeachingsoftheMonastery extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ATOTM_CRIT_HEAL),
       this.calculateEffectiveHealing,
     );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ATOTM_BUFF),
+      this.onApply,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ATOTM_BUFF),
+      this.onRemove,
+    );
   }
 
   lastDamageEvent(event: DamageEvent) {
@@ -60,6 +78,47 @@ class AncientTeachingsoftheMonastery extends Analyzer {
     const heal = (event.amount || 0) + (event.absorbed || 0);
     const oldHealingTotal = this.damageSpellToHealing.get(this.lastDamageSpellID) || 0;
     this.damageSpellToHealing.set(this.lastDamageSpellID, heal + oldHealingTotal);
+  }
+
+  onApply(event: ApplyBuffEvent) {
+    this.uptimeWindows.push({
+      start: event.timestamp,
+    });
+  }
+
+  onRemove(event: RemoveBuffEvent) {
+    this.uptimeWindows.at(-1)!.end = event.timestamp;
+  }
+
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <>
+        Try to maintain your <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> buff at all
+        times by casting <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> or{' '}
+        <SpellLink id={TALENTS_MONK.FAELINE_STOMP_TALENT} />
+      </>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> uptime
+          </strong>
+          {this.subStatistic()}
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  subStatistic() {
+    return uptimeBarSubStatistic(this.owner.fight, {
+      spells: [TALENTS_MONK.ANCIENT_TEACHINGS_TALENT],
+      uptimes: mergeTimePeriods(this.uptimeWindows, this.owner.currentTimestamp),
+      color: SPELL_COLORS.RISING_SUN_KICK,
+    });
   }
 
   renderDonutChart() {

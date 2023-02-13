@@ -88,7 +88,9 @@ class RenewingMist extends Analyzer {
           <strong>
             <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> cast efficiency
           </strong>
-          {this.subStatistic()}
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            {this.subStatistic()}
+          </div>
         </RoundedPanel>
       </div>
     );

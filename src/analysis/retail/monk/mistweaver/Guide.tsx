@@ -20,15 +20,18 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.thunderFocusTea.guideSubsection}
         <HotGraphSubsection modules={modules} events={events} info={info} />
       </Section>
-      <Section title="Short cooldowns">
+      <Section title="Short cooldowns, buffs, and procs">
         {modules.essenceFont.guideSubsection}
         {modules.chiBurst.guideSubsection}
+        {modules.ancientTeachingsoftheMonastery.guideSubsection}
       </Section>
       <Section title="Healing Cooldowns">
         <CooldownGraphSubsection modules={modules} events={events} info={info} />
         {info.combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)
           ? modules.invokeChiJi.guideCastBreakdown
           : modules.invokeYulon.guideCastBreakdown}
+        {info.combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) &&
+          modules.manaTea.guideCastBreakdown}
       </Section>
       <PreparationSection />
     </>
@@ -67,6 +70,13 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
         gapHighlightMode={GapHighlight.FullCooldown}
         useThresholds
       />
+      {info.combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) && (
+        <CastEfficiencyBar
+          spellId={TALENTS_MONK.MANA_TEA_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
+      )}
     </SubSection>
   );
 }
