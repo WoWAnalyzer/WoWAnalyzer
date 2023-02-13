@@ -52,6 +52,8 @@ class InvokeYulon extends BaseCelestialAnalyzer {
       timestamp: event.timestamp,
       infusionDuration: 0,
       lessonsDuration: 0,
+      totalEnvB: 0,
+      totalEnvM: 0,
     });
   }
 

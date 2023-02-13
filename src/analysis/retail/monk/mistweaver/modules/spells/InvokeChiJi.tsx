@@ -41,9 +41,6 @@ interface ChijiCastTracker extends BaseCelestialTracker {
   totmStacks: number; // number of stacks of TOTM prior to casting Chiji
   overcappedTotmStacks: number;
   overcappedChijiStacks: number;
-  timestamp: number;
-  infusionDuration: number; // number of seconds of chiji where you have SI buff
-  lessonsDuration: number; // if Lessons talented, number of seconds of chiji where you have lessons buff
 }
 
 class InvokeChiJi extends BaseCelestialAnalyzer {
@@ -141,6 +138,8 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
       lessonsDuration: 0,
       infusionDuration: 0,
       recastEf: false,
+      totalEnvB: 0,
+      totalEnvM: 0,
     });
   }
 

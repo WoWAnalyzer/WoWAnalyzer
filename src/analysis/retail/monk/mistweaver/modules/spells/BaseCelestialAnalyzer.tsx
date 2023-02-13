@@ -2,7 +2,14 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import { CooldownExpandableItem } from 'interface/guide/components/CooldownExpandable';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RemoveBuffEvent, DeathEvent, CastEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  RemoveBuffEvent,
+  DeathEvent,
+  CastEvent,
+  SummonEvent,
+  RefreshBuffEvent,
+} from 'parser/core/Events';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SECRET_INFUSION_BUFFS, LESSONS_BUFFS } from '../../constants';
 import EssenceFont from './EssenceFont';
@@ -13,6 +20,8 @@ export interface BaseCelestialTracker {
   lessonsDuration: number;
   infusionDuration: number;
   timestamp: number;
+  totalEnvM: number;
+  totalEnvB: number;
 }
 
 class BaseCelestialAnalyzer extends Analyzer {
@@ -27,10 +36,7 @@ class BaseCelestialAnalyzer extends Analyzer {
   goodLessonDuration: number = 0; // how long lesson should last during celestial
   constructor(options: Options) {
     super(options);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT),
-      this.onCast,
-    );
+    this.addEventListener(Events.summon.to(SELECTED_PLAYER_PET), this.onSummon);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SECRET_INFUSION_BUFFS),
       this.applySi,
@@ -53,13 +59,25 @@ class BaseCelestialAnalyzer extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_YULON_BUFF),
       this.handleCelestialDeath,
     );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
+      this.onEnvmCast,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH_HEAL),
+      this.onEnvbApply,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH_HEAL),
+      this.onEnvbApply,
+    );
     this.goodSiDuration = 10000;
     this.goodLessonDuration =
       12000 *
       (2 - this.selectedCombatant.getTalentRank(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT));
   }
 
-  onCast(event: CastEvent) {
+  onSummon(event: SummonEvent) {
     this.celestialActive = true;
     SECRET_INFUSION_BUFFS.forEach((spell) => {
       if (this.selectedCombatant.hasBuff(spell.id)) {
@@ -71,6 +89,17 @@ class BaseCelestialAnalyzer extends Analyzer {
         this.lessonsApplyTime = event.timestamp;
       }
     });
+  }
+
+  onEnvmCast(event: CastEvent) {
+    if (!this.celestialActive) {
+      return;
+    }
+    this.castTrackers.at(-1)!.totalEnvM += 1;
+  }
+
+  onEnvbApply(event: ApplyBuffEvent | RefreshBuffEvent) {
+    this.castTrackers.at(-1)!.totalEnvB += 1;
   }
 
   applySi(event: ApplyBuffEvent) {
@@ -98,9 +127,25 @@ class BaseCelestialAnalyzer extends Analyzer {
   getCooldownExpandableItems(
     cast: BaseCelestialTracker,
   ): [QualitativePerformance[], CooldownExpandableItem[]] {
-    const allPerfs: QualitativePerformance[] = [];
-
+    let envbPerf = QualitativePerformance.Good;
+    const avgBreathsPerCast = cast.totalEnvB / cast.totalEnvM;
+    if (avgBreathsPerCast < 4) {
+      envbPerf = QualitativePerformance.Ok;
+    } else if (avgBreathsPerCast < 3) {
+      envbPerf = QualitativePerformance.Fail;
+    }
+    const allPerfs: QualitativePerformance[] = [envbPerf];
     const checklistItems: CooldownExpandableItem[] = [];
+    checklistItems.push({
+      label: (
+        <>
+          Average <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} /> per{' '}
+          <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> cast
+        </>
+      ),
+      result: <PerformanceMark perf={envbPerf} />,
+      details: <>{avgBreathsPerCast.toFixed(1)} avg per cast</>,
+    });
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT)) {
       let siPerf = QualitativePerformance.Good;
       if (cast.infusionDuration! < this.goodSiDuration - 4000) {
