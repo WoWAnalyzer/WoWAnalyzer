@@ -5,10 +5,12 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 class EssenceFontTargetsHit extends Analyzer {
   efCasts: number = 0;
   targetsEF: number = 0;
+  hitsBeforeCast: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -33,6 +35,17 @@ class EssenceFontTargetsHit extends Analyzer {
     }
 
     this.targetsEF += 1;
+  }
+
+  getPerformance(targetsHit: number) {
+    if (targetsHit < 12) {
+      return QualitativePerformance.Fail;
+    } else if (targetsHit < 14) {
+      return QualitativePerformance.Ok;
+    } else if (targetsHit < 17) {
+      return QualitativePerformance.Good;
+    }
+    return QualitativePerformance.Perfect;
   }
 
   get avgTargetsHitPerEF() {

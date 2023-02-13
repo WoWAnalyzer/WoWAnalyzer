@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent } from 'parser/core/Events';
+import Events, { EndChannelEvent, HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -16,12 +16,23 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import EssenceFontTargetsHit from './EssenceFontTargetsHit';
+import EssenceFontCancelled from './EssenceFontCancelled';
+import EssenceFontUniqueTargets from './EssenceFontUniqueTargets';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 class EssenceFont extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    efTargetsHit: EssenceFontTargetsHit,
+    efCancelled: EssenceFontCancelled,
+    efUnique: EssenceFontUniqueTargets,
   };
   protected combatants!: Combatants;
+  protected efCancelled!: EssenceFontCancelled;
+  protected efTargetsHit!: EssenceFontTargetsHit;
+  protected efUnique!: EssenceFontUniqueTargets;
 
   boltHealing: number = 0;
   boltOverhealing: number = 0;
@@ -31,6 +42,7 @@ class EssenceFont extends Analyzer {
   gomOverhealing: number = 0;
   gomEFHits: number = 0;
   gomEFEvent: boolean = false;
+  castEntries: BoxRowEntry[] = [];
   chijiActive: boolean = false;
   chijiGomHealing: number = 0;
   chijiGomOverhealing: number = 0;
@@ -51,6 +63,10 @@ class EssenceFont extends Analyzer {
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
       this.gustHealing,
+    );
+    this.addEventListener(
+      Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
+      this.handleEndChannel,
     );
     if (this.chijiActive) {
       this.addEventListener(
@@ -159,6 +175,33 @@ class EssenceFont extends Analyzer {
     }
   }
 
+  handleEndChannel(event: EndChannelEvent) {
+    const totalHit = this.efCancelled.numBoltHits;
+    const cancelled = this.efCancelled.handleEndChannel(event);
+
+    let tooltip = null;
+    let value = QualitativePerformance.Perfect;
+    if (cancelled) {
+      value = QualitativePerformance.Fail;
+      tooltip = (
+        <>
+          Cast @ {this.owner.formatTimestamp(this.efCancelled.lastEf!.timestamp)}: You cancelled{' '}
+          <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> early and only had {totalHit} out
+          of {this.efCancelled.expectedNumBolts} possible bolts hit
+        </>
+      );
+    } else {
+      value = this.efTargetsHit.getPerformance(totalHit);
+      tooltip = (
+        <>
+          Cast @ {this.owner.formatTimestamp(this.efCancelled.lastEf!.timestamp)}: You hit{' '}
+          {totalHit} out of {this.efCancelled.expectedNumBolts} possible bolts
+        </>
+      );
+    }
+    this.castEntries.push({ value, tooltip });
+  }
+
   /** Guide subsection describing the proper usage of Lifebloom */
   get guideSubsection(): JSX.Element {
     const explanation = (
@@ -180,7 +223,8 @@ class EssenceFont extends Analyzer {
           <strong>
             <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> cast efficiency
           </strong>
-          {this.subStatistic()}
+          {this.efficSubStatistic()} <br />
+          {this.castUsageStatistic()}
         </RoundedPanel>
       </div>
     );
@@ -189,7 +233,7 @@ class EssenceFont extends Analyzer {
   }
 
   /** Guide subsection describing the proper usage of Rejuvenation */
-  subStatistic() {
+  efficSubStatistic() {
     return (
       <CastEfficiencyBar
         spellId={TALENTS_MONK.ESSENCE_FONT_TALENT.id}
@@ -198,6 +242,10 @@ class EssenceFont extends Analyzer {
         useThresholds
       />
     );
+  }
+
+  castUsageStatistic() {
+    return <PerformanceBoxRow values={this.castEntries} />;
   }
 
   statistic() {

@@ -3,9 +3,10 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
+  ApplyBuffEvent,
   CastEvent,
   EndChannelEvent,
-  HealEvent,
+  RefreshBuffEvent,
   UpdateSpellUsableEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -31,15 +32,15 @@ class EssenceFontCancelled extends Analyzer {
       this.castEssenceFont,
     );
     this.addEventListener(
-      Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
-      this.handleEndChannel,
-    );
-    this.addEventListener(
       Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
       this.onEndCooldown,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
+      this.onApply,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
       this.onApply,
     );
     this.hasUpwelling = this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT);
@@ -47,6 +48,7 @@ class EssenceFontCancelled extends Analyzer {
 
   castEssenceFont(event: CastEvent) {
     this.expectedNumBolts = this.getExpectedApplies(event);
+    this.numBoltHits = 0;
     debug &&
       console.log(
         `Number of expected bolts is ${
@@ -56,11 +58,7 @@ class EssenceFontCancelled extends Analyzer {
     this.lastEf = event;
   }
 
-  onApply(event: HealEvent) {
-    // only want ef bolt heals
-    if (event.tick) {
-      return;
-    }
+  onApply(event: ApplyBuffEvent | RefreshBuffEvent) {
     this.numBoltHits += 1;
   }
 
@@ -83,7 +81,9 @@ class EssenceFontCancelled extends Analyzer {
     );
   }
 
+  // return true if cancelled, else return false
   handleEndChannel(event: EndChannelEvent) {
+    let cancelled = false;
     if (this.numBoltHits < this.expectedNumBolts - BOLT_BUFFER) {
       debug &&
         console.log(
@@ -94,6 +94,7 @@ class EssenceFontCancelled extends Analyzer {
           }`,
         );
       this.numCancelled += 1;
+      cancelled = true;
       if (this.lastEf != null) {
         this.lastEf.meta = this.lastEf.meta || {};
         this.lastEf.meta.isInefficientCast = true;
@@ -108,7 +109,7 @@ class EssenceFontCancelled extends Analyzer {
       debug &&
         console.log(`Didn't cancel EF ending at ${this.owner.formatTimestamp(event.timestamp)}`);
     }
-    this.numBoltHits = 0;
+    return cancelled;
   }
 
   get suggestionThresholds() {
