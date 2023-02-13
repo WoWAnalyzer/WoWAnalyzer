@@ -39,7 +39,7 @@ class VivaciousVivification extends Analyzer {
     // every refresh is a wasted buff application and the CD restarts. ignore refreshes during cooldown windows
     if (
       this.renewingMist.currentRenewingMists >= this.vivify.estimatedAverageReMs &&
-      !this.invokeChiji.chijiActive &&
+      !this.invokeChiji.celestialActive &&
       !this.selectedCombatant.hasBuff(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id)
     ) {
       this.wastedApplications += 1;

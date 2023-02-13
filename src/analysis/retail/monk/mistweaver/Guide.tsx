@@ -26,7 +26,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </Section>
       <Section title="Healing Cooldowns">
         <CooldownGraphSubsection modules={modules} events={events} info={info} />
-        {modules.invokeChiJi.guideCastBreakdown}
+        {info.combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)
+          ? modules.invokeChiJi.guideCastBreakdown
+          : modules.invokeYulon.guideCastBreakdown}
       </Section>
       <PreparationSection />
     </>

@@ -291,6 +291,11 @@ const spells = spellIndexableList({
     name: 'Invoke Chi-Ji, the Red Crane',
     icon: 'monk_stance_redcrane',
   },
+  INVOKE_YULON_BUFF: {
+    id: 322118,
+    name: "Invoke Yu'lon, the Jade Serpent",
+    icon: 'ability_monk_dragonkick',
+  },
   GUST_OF_MISTS_CHIJI: {
     id: 343819,
     name: 'Gust of Mists',

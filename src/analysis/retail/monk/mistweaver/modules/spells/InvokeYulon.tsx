@@ -2,16 +2,22 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
-import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { HealEvent } from 'parser/core/Events';
+import CooldownExpandable, {
+  CooldownExpandableItem,
+} from 'interface/guide/components/CooldownExpandable';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import { getLowestPerf } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BaseCelestialAnalyzer from './BaseCelestialAnalyzer';
 
-class InvokeYulon extends Analyzer {
+class InvokeYulon extends BaseCelestialAnalyzer {
   soothHealing: number = 0;
   envelopHealing: number = 0;
 
@@ -35,6 +41,18 @@ class InvokeYulon extends Analyzer {
       Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_BREATH),
       this.handleSoothingBreath,
     );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT),
+      this.onCast,
+    );
+  }
+
+  onCast(event: CastEvent) {
+    this.castTrackers.push({
+      timestamp: event.timestamp,
+      infusionDuration: 0,
+      lessonsDuration: 0,
+    });
   }
 
   handleEnvelopingBreath(event: HealEvent) {
@@ -54,6 +72,46 @@ class InvokeYulon extends Analyzer {
         )} %`}
       />
     );
+  }
+
+  get guideCastBreakdown() {
+    const explanation = (
+      <p>
+        <strong>
+          <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id} />
+        </strong>{' '}
+      </p>
+    );
+
+    const data = (
+      <div>
+        <strong>Per-Cast Breakdown</strong>
+        <small> - click to expand</small>
+        {this.castTrackers.map((cast, ix) => {
+          const header = (
+            <>
+              @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
+              <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id} />
+            </>
+          );
+          const superList = super.getCooldownExpandableItems(cast);
+          const allPerfs = superList[0];
+
+          const checklistItems: CooldownExpandableItem[] = superList[1];
+          const lowestPerf = getLowestPerf(allPerfs);
+          return (
+            <CooldownExpandable
+              header={header}
+              checklistItems={checklistItems}
+              perf={lowestPerf}
+              key={ix}
+            />
+          );
+        })}
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data);
   }
 
   statistic() {
