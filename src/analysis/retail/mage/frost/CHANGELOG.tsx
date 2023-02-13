@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import { Sharrq } from 'CONTRIBUTORS';
 
 export default [
+	change(date(2023, 2, 12), <>Bumped support up to 10.0.5 and fixed an issue that could cause every <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT} /> cast to count as overlapped.</>, Sharrq),
 	change(date(2023, 1, 14), `Added a link to Toegrinder's Mage Hub guide on the About page. Removed link to Icy Veins and Altered Time forums.`, Sharrq),
 	change(date(2023, 1, 14), `Upgraded Frost Mage support to 10.0.2 and marked as Supported. Also removed Dambroda from spec maintainers.`, Sharrq),
 	change(date(2023, 1, 14), `Reviewed all Suggestions, Tooltips, and Checklist items to ensure the wording is accurate for Dragonflight`, Sharrq),
