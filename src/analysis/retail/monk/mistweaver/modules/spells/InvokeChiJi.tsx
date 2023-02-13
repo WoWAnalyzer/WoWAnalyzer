@@ -2,21 +2,32 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
+import { PerformanceMark } from 'interface/guide';
+import CooldownExpandable, {
+  CooldownExpandableItem,
+} from 'interface/guide/components/CooldownExpandable';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
+  ApplyBuffEvent,
   CastEvent,
   DamageEvent,
   DeathEvent,
   EndChannelEvent,
   GlobalCooldownEvent,
   HealEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
 } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { LESSONS_BUFFS, SECRET_INFUSION_BUFFS } from '../../constants';
+import EssenceFont from './EssenceFont';
 
 /**
  * Blackout Kick, Totm BoKs, Rising Sun Kick and Spinning Crane Kick generate stacks of Invoke Chi-Ji, the Red Crane, which reduce the cast time and mana
@@ -25,9 +36,28 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
  * Casting Enveloping Mist while Chiji is active applies Enveloping Breath on up to 6 nearby allies within 10 yards.
  */
 const MAX_STACKS = 3;
+const MIN_EF_HOTS_BEFORE_CAST = 12;
+const MIN_SI_DURATION = 8000;
+let MIN_LESSON_DURATION = 22000;
+
+interface ChijiCast {
+  recastEf: boolean; // true if player recast ef during chiji
+  numEfHots: number; // number of ef hots on raid prior to casting chiji
+  totmStacks: number; // number of stacks of TOTM prior to casting Chiji
+  overcappedTotmStacks: number;
+  overcappedChijiStacks: number;
+  timestamp: number;
+  infusionDuration: number; // number of seconds of chiji where you have SI buff
+  lessonsDuration: number; // if Lessons talented, number of seconds of chiji where you have lessons buff
+}
 
 class InvokeChiJi extends Analyzer {
+  static dependencies = {
+    ef: EssenceFont,
+  };
+  protected ef!: EssenceFont;
   chijiActive: boolean = false;
+  chijiCasts: ChijiCast[] = [];
   //healing breakdown vars
   gustHealing: number = 0;
   envelopHealing: number = 0;
@@ -44,6 +74,8 @@ class InvokeChiJi extends Analyzer {
   lastGlobal: number = 0;
   efGcd: number = 0;
   checkForSckDamage: number = -1;
+  siApplyTime: number = -1;
+  lessonsApplyTime: number = -1;
 
   get totalHealing() {
     return this.gustHealing + this.envelopHealing;
@@ -94,6 +126,36 @@ class InvokeChiJi extends Analyzer {
       Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
       this.handleEssenceFontEnd,
     );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RISING_SUN_KICK_TALENT),
+      this.onRSK,
+    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK), this.onBOK);
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TEACHINGS_OF_THE_MONASTERY),
+      this.onTotmRefresh,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SECRET_INFUSION_BUFFS),
+      this.applySi,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(LESSONS_BUFFS),
+      this.applyLessons,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SECRET_INFUSION_BUFFS),
+      this.removeSi,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(LESSONS_BUFFS),
+      this.removeLessons,
+    );
+    this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.removeLessons);
+    this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.removeSi);
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT)) {
+      MIN_LESSON_DURATION = 10;
+    }
   }
 
   //missed gcd mangement
@@ -102,10 +164,95 @@ class InvokeChiJi extends Analyzer {
     this.chijiStart = this.lastGlobal = event.timestamp;
     this.chijiGlobals += 1;
     this.chijiUses += 1;
+    SECRET_INFUSION_BUFFS.forEach((spell) => {
+      if (this.selectedCombatant.hasBuff(spell.id)) {
+        this.siApplyTime = event.timestamp;
+      }
+    });
+    LESSONS_BUFFS.forEach((spell) => {
+      if (this.selectedCombatant.hasBuff(spell.id)) {
+        this.lessonsApplyTime = event.timestamp;
+      }
+    });
+    this.chijiCasts.push({
+      timestamp: event.timestamp,
+      totmStacks: this.selectedCombatant.getBuffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY.id),
+      numEfHots: this.ef.curBuffs,
+      overcappedChijiStacks: 0,
+      overcappedTotmStacks: 0,
+      lessonsDuration: 0,
+      infusionDuration: 0,
+      recastEf: false,
+    });
   }
 
   handleChijiDeath(event: DeathEvent) {
     this.chijiActive = false;
+    const hasInfusion = SECRET_INFUSION_BUFFS.some((spell) => {
+      return this.selectedCombatant.hasBuff(spell.id);
+    });
+    const hasLesson = LESSONS_BUFFS.some((spell) => {
+      return this.selectedCombatant.hasBuff(spell.id);
+    });
+    if (hasInfusion) {
+      this.chijiCasts.at(-1)!.infusionDuration = Math.min(
+        event.timestamp - this.siApplyTime,
+        event.timestamp - this.chijiCasts.at(-1)!.timestamp,
+      );
+    }
+    if (hasLesson) {
+      this.chijiCasts.at(-1)!.lessonsDuration = Math.min(
+        event.timestamp - this.lessonsApplyTime,
+        event.timestamp - this.chijiCasts.at(-1)!.timestamp,
+      );
+    }
+  }
+
+  applySi(event: ApplyBuffEvent) {
+    this.siApplyTime = event.timestamp;
+  }
+
+  applyLessons(event: ApplyBuffEvent) {
+    this.lessonsApplyTime = event.timestamp;
+  }
+
+  removeSi(event: RemoveBuffEvent | DeathEvent) {
+    if (!this.chijiActive) {
+      return;
+    }
+    this.chijiCasts.at(-1)!.infusionDuration = event.timestamp - this.siApplyTime;
+  }
+
+  removeLessons(event: RemoveBuffEvent | DeathEvent) {
+    if (!this.chijiActive) {
+      return;
+    }
+    this.chijiCasts.at(-1)!.lessonsDuration = event.timestamp - this.siApplyTime;
+  }
+
+  onRSK(event: CastEvent) {
+    if (!this.chijiActive) {
+      return;
+    }
+    if (this.selectedCombatant.getBuffStacks(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id) === 3) {
+      this.chijiCasts.at(-1)!.overcappedChijiStacks += 1;
+    }
+  }
+
+  onBOK(event: CastEvent) {
+    if (!this.chijiActive) {
+      return;
+    }
+    if (this.selectedCombatant.getBuffStacks(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id) === 3) {
+      this.chijiCasts.at(-1)!.overcappedChijiStacks +=
+        1 + this.selectedCombatant.getBuffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY.id);
+    }
+  }
+
+  onTotmRefresh(event: RefreshBuffEvent) {
+    if (this.chijiActive) {
+      this.chijiCasts.at(-1)!.overcappedTotmStacks += 1;
+    }
   }
 
   handleGlobal(event: GlobalCooldownEvent) {
@@ -127,6 +274,7 @@ class InvokeChiJi extends Analyzer {
 
   handleEssenceFontEnd(event: EndChannelEvent) {
     if (this.chijiActive) {
+      this.chijiCasts.at(-1)!.recastEf = true;
       if (event.duration > this.efGcd) {
         this.lastGlobal = event.timestamp - this.efGcd;
       } else {
@@ -196,6 +344,154 @@ class InvokeChiJi extends Analyzer {
         )} %`}
       />
     );
+  }
+
+  get guideCastBreakdown() {
+    const explanation = (
+      <p>
+        <strong>
+          <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} />
+        </strong>{' '}
+      </p>
+    );
+
+    const data = (
+      <div>
+        <strong>Per-Cast Breakdown</strong>
+        <small> - click to expand</small>
+        {this.chijiCasts.map((cast, ix) => {
+          const header = (
+            <>
+              @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
+              <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} />
+            </>
+          );
+
+          let totmPerf = QualitativePerformance.Good;
+          if (cast.totmStacks < 2) {
+            totmPerf = QualitativePerformance.Fail;
+          } else if (cast.totmStacks < 3) {
+            totmPerf = QualitativePerformance.Ok;
+          }
+          let efPerf = QualitativePerformance.Good;
+          if (cast.numEfHots < MIN_EF_HOTS_BEFORE_CAST - 4) {
+            efPerf = QualitativePerformance.Fail;
+          } else if (cast.numEfHots < MIN_EF_HOTS_BEFORE_CAST - 2) {
+            efPerf = QualitativePerformance.Ok;
+          }
+          const totmRefreshPerf =
+            cast.overcappedTotmStacks > 0
+              ? QualitativePerformance.Fail
+              : QualitativePerformance.Good;
+          const chijiRefreshPerf =
+            cast.overcappedChijiStacks > 0
+              ? QualitativePerformance.Fail
+              : QualitativePerformance.Good;
+
+          const allPerfs = [totmPerf, efPerf, totmRefreshPerf, chijiRefreshPerf];
+
+          const checklistItems: CooldownExpandableItem[] = [];
+          if (this.selectedCombatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT)) {
+            let siPerf = QualitativePerformance.Good;
+            if (cast.infusionDuration! < MIN_SI_DURATION - 4000) {
+              siPerf = QualitativePerformance.Fail;
+            } else if (cast.infusionDuration! < MIN_SI_DURATION - 2000) {
+              siPerf = QualitativePerformance.Ok;
+            }
+            allPerfs.push(siPerf);
+            checklistItems.push({
+              label: (
+                <>
+                  <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT} /> uptime
+                </>
+              ),
+              result: <PerformanceMark perf={siPerf} />,
+              details: <>{(cast.infusionDuration! / 1000).toFixed(2)}s</>,
+            });
+          }
+          if (this.selectedCombatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT)) {
+            let lessonPerf = QualitativePerformance.Good;
+            if (cast.lessonsDuration! < MIN_LESSON_DURATION / 3) {
+              lessonPerf = QualitativePerformance.Fail;
+            } else if (cast.lessonsDuration! < MIN_LESSON_DURATION * (2 / 3)) {
+              lessonPerf = QualitativePerformance.Ok;
+            }
+            allPerfs.push(lessonPerf);
+            checklistItems.push({
+              label: (
+                <>
+                  <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} /> uptime
+                </>
+              ),
+              result: <PerformanceMark perf={lessonPerf} />,
+              details: <>{(cast.lessonsDuration! / 1000).toFixed(2)}s</>,
+            });
+          }
+          if (this.selectedCombatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT)) {
+            const recastPerf = cast.recastEf
+              ? QualitativePerformance.Good
+              : QualitativePerformance.Fail;
+            checklistItems.push({
+              label: (
+                <>
+                  Recast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> during celestial
+                </>
+              ),
+              result: <PerformanceMark perf={recastPerf} />,
+            });
+            allPerfs.push(recastPerf);
+          }
+          checklistItems.push({
+            label: (
+              <>
+                Maximum <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks on
+                cast
+              </>
+            ),
+            result: <PerformanceMark perf={totmPerf} />,
+            details: <>{cast.totmStacks} stacks</>,
+          });
+          checklistItems.push({
+            label: (
+              <>
+                Sufficient <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> HoTs on cast
+              </>
+            ),
+            result: <PerformanceMark perf={efPerf} />,
+            details: <>{cast.numEfHots} HoTs</>,
+          });
+          checklistItems.push({
+            label: (
+              <>
+                Wasted <SpellLink id={SPELLS.TEACHINGS_OF_THE_MONASTERY} /> stacks during Chi-ji
+              </>
+            ),
+            result: <PerformanceMark perf={totmRefreshPerf} />,
+            details: <>{cast.overcappedTotmStacks} wasted stacks</>,
+          });
+          checklistItems.push({
+            label: (
+              <>
+                Wasted <SpellLink id={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> stacks
+              </>
+            ),
+            result: <PerformanceMark perf={chijiRefreshPerf} />,
+            details: <>{cast.overcappedChijiStacks} wasted stacks</>,
+          });
+          const lowestPerf = getLowestPerf(allPerfs);
+          return (
+            <CooldownExpandable
+              header={header}
+              checklistItems={checklistItems}
+              perf={lowestPerf}
+              key={ix}
+            />
+          );
+        })}
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data);
   }
 
   statistic() {

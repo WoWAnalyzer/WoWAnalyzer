@@ -107,8 +107,23 @@ const spells = spellIndexableList({
     name: 'Essence Font',
     icon: 'ability_monk_essencefont',
   },
+  SECRET_INFUSION_CRIT_BUFF: {
+    id: 388498,
+    name: 'Secret infusion',
+    icon: 'ability_monk_chibrew',
+  },
   SECRET_INFUSION_HASTE_BUFF: {
     id: 388497,
+    name: 'Secret infusion',
+    icon: 'ability_monk_chibrew',
+  },
+  SECRET_INFUSION_MASTERY_BUFF: {
+    id: 388499,
+    name: 'Secret infusion',
+    icon: 'ability_monk_chibrew',
+  },
+  SECRET_INFUSION_VERS_BUFF: {
+    id: 388500,
     name: 'Secret infusion',
     icon: 'ability_monk_chibrew',
   },

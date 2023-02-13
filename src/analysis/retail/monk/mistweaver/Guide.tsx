@@ -26,6 +26,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </Section>
       <Section title="Healing Cooldowns">
         <CooldownGraphSubsection modules={modules} events={events} info={info} />
+        {modules.invokeChiJi.guideCastBreakdown}
       </Section>
       <PreparationSection />
     </>

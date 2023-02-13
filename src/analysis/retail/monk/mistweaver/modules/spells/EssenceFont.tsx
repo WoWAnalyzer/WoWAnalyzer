@@ -2,7 +2,12 @@ import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EndChannelEvent, HealEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  EndChannelEvent,
+  HealEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -36,6 +41,7 @@ class EssenceFont extends Analyzer {
 
   boltHealing: number = 0;
   boltOverhealing: number = 0;
+  curBuffs: number = 0;
   hotHealing: number = 0;
   hotOverhealing: number = 0;
   gomHealing: number = 0;
@@ -59,6 +65,14 @@ class EssenceFont extends Analyzer {
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
       this.handleEssenceFontHealing,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
+      this.onApply,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
+      this.onRemove,
     );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
@@ -200,6 +214,14 @@ class EssenceFont extends Analyzer {
       );
     }
     this.castEntries.push({ value, tooltip });
+  }
+
+  onApply(event: ApplyBuffEvent) {
+    this.curBuffs += 1;
+  }
+
+  onRemove(event: RemoveBuffEvent) {
+    this.curBuffs -= 1;
   }
 
   /** Guide subsection describing the proper usage of EF */
