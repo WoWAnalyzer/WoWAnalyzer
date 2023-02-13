@@ -64,7 +64,7 @@ class RenewingMist extends Analyzer {
     this.healingHits += 1;
   }
 
-  /** Guide subsection describing the proper usage of Lifebloom */
+  /** Guide subsection describing the proper usage of ReM */
   get guideSubsection(): JSX.Element {
     const explanation = (
       <p>

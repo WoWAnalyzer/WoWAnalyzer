@@ -202,7 +202,7 @@ class EssenceFont extends Analyzer {
     this.castEntries.push({ value, tooltip });
   }
 
-  /** Guide subsection describing the proper usage of Lifebloom */
+  /** Guide subsection describing the proper usage of EF */
   get guideSubsection(): JSX.Element {
     const explanation = (
       <p>

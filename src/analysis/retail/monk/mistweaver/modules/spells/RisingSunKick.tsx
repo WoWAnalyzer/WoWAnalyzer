@@ -52,7 +52,7 @@ class RisingSunKick extends Analyzer {
     this.lastBOK = event.timestamp;
   }
 
-  /** Guide subsection describing the proper usage of Lifebloom */
+  /** Guide subsection describing the proper usage of RSK */
   get guideSubsection(): JSX.Element {
     const explanation = (
       <p>

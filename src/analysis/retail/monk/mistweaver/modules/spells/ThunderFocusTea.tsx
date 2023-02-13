@@ -193,7 +193,7 @@ class ThunderFocusTea extends Analyzer {
     return <DonutChart items={items} />;
   }
 
-  /** Guide subsection describing the proper usage of Lifebloom */
+  /** Guide subsection describing the proper usage of TFT */
   get guideSubsection(): JSX.Element {
     const explanation = (
       <p>
