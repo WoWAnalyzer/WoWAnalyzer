@@ -59,9 +59,10 @@ class RisingSunKick extends Analyzer {
         <b>
           <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />
         </b>{' '}
-        is one of your primary damaging spells and also an important healing spell due to{' '}
-        <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT} />. Using it as much as possible is
-        essential for maintaining high counts of{' '}
+        is one of your primary damaging spells but is also the 2nd highest priority healing spell{' '}
+        {'(behind '} <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
+        {') '}due to its synergy with <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT} />. Using it
+        as much as possible is essential for maintaining high counts of{' '}
         <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
       </p>
     );
@@ -87,6 +88,7 @@ class RisingSunKick extends Analyzer {
         spellId={TALENTS_MONK.RISING_SUN_KICK_TALENT.id}
         gapHighlightMode={GapHighlight.FullCooldown}
         minimizeIcons
+        slimLines
       />
     );
   }

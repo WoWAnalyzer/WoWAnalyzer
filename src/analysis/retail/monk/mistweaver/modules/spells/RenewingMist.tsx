@@ -77,7 +77,8 @@ class RenewingMist extends Analyzer {
         pandemic if there are no players to jump to in range. Using{' '}
         <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> as much as possible is extremely
         important due to its synergy with <SpellLink id={SPELLS.VIVIFY} />,{' '}
-        <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT} />, and{' '}
+        <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT} />,{' '}
+        <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT} />, and{' '}
         <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT} />
       </p>
     );
@@ -103,6 +104,7 @@ class RenewingMist extends Analyzer {
         spellId={TALENTS_MONK.RENEWING_MIST_TALENT.id}
         gapHighlightMode={GapHighlight.FullCooldown}
         minimizeIcons
+        slimLines
       />
     );
   }

@@ -223,7 +223,7 @@ class ThunderFocusTea extends Analyzer {
             {this.subStatistic()} <br />
             <small>
               Green indicates a correct <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />{' '}
-              cast, while red indicates a bad cast.
+              cast, while red indicates an incorrect cast.
             </small>
             <PerformanceBoxRow values={this.castEntries} />
           </div>
