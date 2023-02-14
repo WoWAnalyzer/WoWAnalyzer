@@ -26,6 +26,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.essenceFont.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT) &&
           modules.chiBurst.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT) &&
+          modules.vivaciousVivification.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT) &&
           modules.ancientTeachingsoftheMonastery.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT) && (
