@@ -286,7 +286,7 @@ class BaseCelestialAnalyzer extends Analyzer {
           </>
         ),
         result: <PerformanceMark perf={siPerf} />,
-        details: <>{(cast.infusionDuration! / 1000).toFixed(2)}s</>,
+        details: <>{Math.round(cast.infusionDuration! / 1000)}s</>,
       });
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT)) {
@@ -304,7 +304,7 @@ class BaseCelestialAnalyzer extends Analyzer {
           </>
         ),
         result: <PerformanceMark perf={lessonPerf} />,
-        details: <>{(cast.lessonsDuration! / 1000).toFixed(2)}s</>,
+        details: <>{Math.round(cast.lessonsDuration! / 1000)}s</>,
       });
     }
     return [allPerfs, checklistItems];
