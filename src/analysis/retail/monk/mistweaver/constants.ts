@@ -32,6 +32,7 @@ export const LIFE_COCOON_HEALING_BOOST = 0.5;
 export const TEACHINGS_OF_THE_MONASTERY_DURATION = 20000;
 
 // Talent Constants
+export const MAX_CHIJI_STACKS = 3;
 export const LIFECYCLES_MANA_REDUCTION_PERCENT = 0.25;
 export const MANA_TEA_DURATION = 10000;
 export const JADE_BOND_INC = 0.4;

@@ -16,17 +16,19 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BaseCelestialAnalyzer from './BaseCelestialAnalyzer';
+import EssenceFont from './EssenceFont';
 
 class InvokeYulon extends BaseCelestialAnalyzer {
   soothHealing: number = 0;
   envelopHealing: number = 0;
+  protected ef!: EssenceFont;
 
   get totalHealing() {
     return this.soothHealing + this.envelopHealing;
   }
 
   constructor(options: Options) {
-    super(options);
+    super(options, 4 /* idealEnvmCasts */);
     this.active = this.selectedCombatant.hasTalent(
       TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT,
     );
@@ -54,6 +56,11 @@ class InvokeYulon extends BaseCelestialAnalyzer {
       lessonsDuration: 0,
       totalEnvB: 0,
       totalEnvM: 0,
+      averageHaste: 0,
+      totmStacks: this.selectedCombatant.getBuffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY.id),
+      numEfHots: this.ef.curBuffs,
+      recastEf: false,
+      deathTimestamp: 0,
     });
   }
 
@@ -98,8 +105,10 @@ class InvokeYulon extends BaseCelestialAnalyzer {
           );
           const superList = super.getCooldownExpandableItems(cast);
           const allPerfs = superList[0];
-
           const checklistItems: CooldownExpandableItem[] = superList[1];
+          const rval = this.getEfRefreshPerfAndItem(cast);
+          allPerfs.push(rval[0]);
+          checklistItems.push(rval[1]);
           const lowestPerf = getLowestPerf(allPerfs);
           return (
             <CooldownExpandable

@@ -9,32 +9,49 @@ import Events, {
   CastEvent,
   SummonEvent,
   RefreshBuffEvent,
+  HealEvent,
+  DamageEvent,
+  EndChannelEvent,
 } from 'parser/core/Events';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SECRET_INFUSION_BUFFS, LESSONS_BUFFS } from '../../constants';
 import EssenceFont from './EssenceFont';
 import { PerformanceMark } from 'interface/guide';
 import SPELLS from 'common/SPELLS';
+import { formatNumber } from 'common/format';
+import Haste from 'parser/shared/modules/Haste';
 
 export interface BaseCelestialTracker {
-  lessonsDuration: number;
-  infusionDuration: number;
-  timestamp: number;
-  totalEnvM: number;
-  totalEnvB: number;
+  lessonsDuration: number; // ms with Lessons buff
+  infusionDuration: number; // ms with Secret Infusion buff
+  timestamp: number; // timestamp of celestial cast
+  totalEnvM: number; // total envb applications
+  totalEnvB: number; // total envm casts
+  averageHaste: number; // average haste during celestial
+  numEfHots: number; // number of ef hots on raid prior to casting chiji
+  totmStacks: number; // number of stacks of TOTM prior to casting Chiji
+  recastEf: boolean; // whether player recast ef during celestial
+  deathTimestamp: number; // when pet died
 }
+
+const ENVM_HASTE_FACTOR = 0.55; // this factor determines how harsh to be for ideal envm casts
 
 class BaseCelestialAnalyzer extends Analyzer {
   static dependencies = {
     ef: EssenceFont,
+    haste: Haste,
   };
+  protected haste!: Haste;
   siApplyTime: number = -1;
   lessonsApplyTime: number = -1;
   celestialActive: boolean = false;
   castTrackers: BaseCelestialTracker[] = [];
+  hasteDataPoints: number[] = []; // use this to estimate average haste during celestial
   goodSiDuration: number = 0; // how long SI should last during celestial
   goodLessonDuration: number = 0; // how long lesson should last during celestial
-  constructor(options: Options) {
+  idealEnvmCastsUnhasted: number = 0;
+  minEfHotsBeforeCast: number = 0;
+  constructor(options: Options, idealEnvmCastsUnhasted: number) {
     super(options);
     this.addEventListener(Events.summon.to(SELECTED_PLAYER_PET), this.onSummon);
     this.addEventListener(
@@ -71,6 +88,20 @@ class BaseCelestialAnalyzer extends Analyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH_HEAL),
       this.onEnvbApply,
     );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH_HEAL),
+      this.onEnvbApply,
+    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onAction);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onAction);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onAction);
+    this.addEventListener(
+      Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
+      this.handleEfEnd,
+    );
+    this.idealEnvmCastsUnhasted = idealEnvmCastsUnhasted;
+    this.minEfHotsBeforeCast =
+      10 + 6 * this.selectedCombatant.getTalentRank(TALENTS_MONK.UPWELLING_TALENT);
     this.goodSiDuration = 10000;
     this.goodLessonDuration =
       12000 *
@@ -79,6 +110,7 @@ class BaseCelestialAnalyzer extends Analyzer {
 
   onSummon(event: SummonEvent) {
     this.celestialActive = true;
+    this.hasteDataPoints = [];
     SECRET_INFUSION_BUFFS.forEach((spell) => {
       if (this.selectedCombatant.hasBuff(spell.id)) {
         this.siApplyTime = event.timestamp;
@@ -89,6 +121,27 @@ class BaseCelestialAnalyzer extends Analyzer {
         this.lessonsApplyTime = event.timestamp;
       }
     });
+  }
+
+  onAction(event: HealEvent | CastEvent | DamageEvent) {
+    this.hasteDataPoints.push(this.haste.current);
+  }
+
+  getEfRefreshPerfAndItem(
+    cast: BaseCelestialTracker,
+  ): [QualitativePerformance, CooldownExpandableItem] {
+    const recastPerf = cast.recastEf ? QualitativePerformance.Good : QualitativePerformance.Fail;
+    return [
+      recastPerf,
+      {
+        label: (
+          <>
+            Recast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> during celestial
+          </>
+        ),
+        result: <PerformanceMark perf={recastPerf} />,
+      },
+    ];
   }
 
   onEnvmCast(event: CastEvent) {
@@ -117,16 +170,41 @@ class BaseCelestialAnalyzer extends Analyzer {
     this.castTrackers.at(-1)!.infusionDuration = event.timestamp - this.siApplyTime;
   }
 
-  removeLessons(event: RemoveBuffEvent | DeathEvent) {
+  removeLessons(event: RemoveBuffEvent) {
+    if (
+      this.castTrackers.length === 0 ||
+      this.castTrackers.at(-1)!.lessonsDuration > 0 ||
+      (this.castTrackers.at(-1)!.deathTimestamp > 0 &&
+        this.castTrackers.at(-1)!.deathTimestamp < this.lessonsApplyTime)
+    ) {
+      return;
+    }
+    if (this.lessonsApplyTime < event.timestamp) {
+      this.castTrackers.at(-1)!.lessonsDuration = this.celestialActive
+        ? event.timestamp - this.castTrackers.at(-1)!.timestamp
+        : this.castTrackers.at(-1)!.deathTimestamp - this.castTrackers.at(-1)!.timestamp;
+    } else {
+      this.castTrackers.at(-1)!.lessonsDuration = this.celestialActive
+        ? event.timestamp - this.lessonsApplyTime
+        : this.castTrackers.at(-1)!.deathTimestamp - this.lessonsApplyTime;
+    }
+  }
+
+  getExpectedEnvmCasts(avgHaste: number) {
+    return this.idealEnvmCastsUnhasted * (1 + avgHaste * ENVM_HASTE_FACTOR); // arbitrary formula
+  }
+
+  handleEfEnd(event: EndChannelEvent) {
     if (!this.celestialActive) {
       return;
     }
-    this.castTrackers.at(-1)!.lessonsDuration = event.timestamp - this.siApplyTime;
+    this.castTrackers.at(-1)!.recastEf = true;
   }
 
   getCooldownExpandableItems(
     cast: BaseCelestialTracker,
   ): [QualitativePerformance[], CooldownExpandableItem[]] {
+    const checklistItems: CooldownExpandableItem[] = [];
     let envbPerf = QualitativePerformance.Good;
     const avgBreathsPerCast = cast.totalEnvB / cast.totalEnvM;
     if (avgBreathsPerCast < 4) {
@@ -134,8 +212,6 @@ class BaseCelestialAnalyzer extends Analyzer {
     } else if (avgBreathsPerCast < 3) {
       envbPerf = QualitativePerformance.Fail;
     }
-    const allPerfs: QualitativePerformance[] = [envbPerf];
-    const checklistItems: CooldownExpandableItem[] = [];
     checklistItems.push({
       label: (
         <>
@@ -146,6 +222,55 @@ class BaseCelestialAnalyzer extends Analyzer {
       result: <PerformanceMark perf={envbPerf} />,
       details: <>{avgBreathsPerCast.toFixed(1)} avg per cast</>,
     });
+    let totmPerf = QualitativePerformance.Good;
+    if (cast.totmStacks < 2) {
+      totmPerf = QualitativePerformance.Fail;
+    } else if (cast.totmStacks < 3) {
+      totmPerf = QualitativePerformance.Ok;
+    }
+    checklistItems.push({
+      label: (
+        <>
+          Maximum <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks on cast
+        </>
+      ),
+      result: <PerformanceMark perf={totmPerf} />,
+      details: <>{cast.totmStacks} stacks</>,
+    });
+    let envmPerf = QualitativePerformance.Good;
+    const idealEnvm = this.getExpectedEnvmCasts(cast.averageHaste);
+    if (cast.totalEnvM < idealEnvm - 1) {
+      envmPerf = QualitativePerformance.Ok;
+    } else if (cast.totalEnvM < idealEnvm - 2) {
+      envmPerf = QualitativePerformance.Fail;
+    }
+    checklistItems.push({
+      label: (
+        <>
+          Sufficient # of <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> casts
+        </>
+      ),
+      result: <PerformanceMark perf={envmPerf} />,
+      details: <>{formatNumber(cast.totalEnvM)} casts</>,
+    });
+
+    let efPerf = QualitativePerformance.Good;
+    if (cast.numEfHots < Math.floor(this.minEfHotsBeforeCast * 0.75)) {
+      efPerf = QualitativePerformance.Fail;
+    } else if (cast.numEfHots < Math.floor(this.minEfHotsBeforeCast * 0.9)) {
+      efPerf = QualitativePerformance.Ok;
+    }
+    checklistItems.push({
+      label: (
+        <>
+          Sufficient <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> HoTs on cast
+        </>
+      ),
+      result: <PerformanceMark perf={efPerf} />,
+      details: <>{cast.numEfHots} HoTs</>,
+    });
+    const allPerfs: QualitativePerformance[] = [envbPerf, efPerf, totmPerf, envmPerf];
+
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT)) {
       let siPerf = QualitativePerformance.Good;
       if (cast.infusionDuration! < this.goodSiDuration - 4000) {
@@ -185,8 +310,18 @@ class BaseCelestialAnalyzer extends Analyzer {
     return [allPerfs, checklistItems];
   }
 
+  get curAverageHaste() {
+    return (
+      this.hasteDataPoints.reduce((accum, cur) => {
+        return accum + cur;
+      }, 0) / this.hasteDataPoints.length
+    );
+  }
+
   handleCelestialDeath(event: DeathEvent | RemoveBuffEvent) {
     this.celestialActive = false;
+    this.castTrackers.at(-1)!.averageHaste = this.curAverageHaste;
+    this.castTrackers.at(-1)!.deathTimestamp = event.timestamp;
     const hasInfusion = SECRET_INFUSION_BUFFS.some((spell) => {
       return this.selectedCombatant.hasBuff(spell.id);
     });
