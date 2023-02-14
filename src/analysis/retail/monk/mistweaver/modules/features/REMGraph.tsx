@@ -7,6 +7,7 @@ import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import Panel from 'parser/ui/Panel';
 import { VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
+import { SPELL_COLORS } from '../../constants';
 
 type SpellTracker = {
   timestamp: number;
@@ -16,6 +17,7 @@ type SpellTracker = {
 class REMGraph extends Analyzer {
   remChanges: SpellTracker[] = [];
   vivifyCasts: SpellTracker[] = [];
+  instantVivifyCasts: SpellTracker[] = [];
   rskCasts: SpellTracker[] = [];
 
   currentRems: number = 0;
@@ -39,10 +41,17 @@ class REMGraph extends Analyzer {
   }
 
   vivifyCast(event: CastEvent) {
-    this.vivifyCasts.push({
-      timestamp: event.timestamp,
-      remCount: this.currentRems,
-    });
+    if (this.selectedCombatant.hasBuff(SPELLS.VIVIFICATION_BUFF.id)) {
+      this.instantVivifyCasts.push({
+        timestamp: event.timestamp,
+        remCount: this.currentRems,
+      });
+    } else {
+      this.vivifyCasts.push({
+        timestamp: event.timestamp,
+        remCount: this.currentRems,
+      });
+    }
   }
 
   rskCast(event: CastEvent) {
@@ -90,7 +99,7 @@ class REMGraph extends Analyzer {
       scale: {
         nice: false,
       },
-      title: null,
+      title: 'Time',
     };
 
     const spec: VisualizationSpec = {
@@ -116,6 +125,7 @@ class REMGraph extends Analyzer {
             format: '.3~s',
           },
         ],
+        color: { value: 'black' },
       },
       layer: [
         {
@@ -132,13 +142,13 @@ class REMGraph extends Analyzer {
             y: {
               field: 'remCount',
               type: 'quantitative' as const,
-              title: null,
+              title: 'Count',
               axis: {
                 grid: false,
                 format: '~s',
               },
             },
-            color: { datum: 'Renewing Mist' },
+            color: { value: 'rgba(45, 155, 120, .15)' },
           },
         },
 
@@ -149,7 +159,6 @@ class REMGraph extends Analyzer {
           mark: {
             type: 'point' as const,
             shape: 'circle',
-            color: '#C202C2', // Magenta
             filled: true,
             size: 70,
           },
@@ -164,7 +173,7 @@ class REMGraph extends Analyzer {
             y: {
               field: 'remCount',
               type: 'quantitative' as const,
-              title: null,
+              title: 'Count',
             },
             color: { datum: 'Vivify cast' },
           },
@@ -172,12 +181,41 @@ class REMGraph extends Analyzer {
 
         {
           data: {
-            name: 'rskCasts',
+            name: 'instantVivifyCasts',
+          },
+          mark: {
+            type: 'point' as const,
+            shape: 'circle',
+            filled: true,
+            size: 70,
+            fillOpacity: 1,
+          },
+          transform: [
+            {
+              calculate: `datum.timestamp - ${this.owner.fight.start_time}`,
+              as: 'timestamp_shifted',
+            },
+          ],
+          encoding: {
+            x: xAxis,
+            y: {
+              field: 'remCount',
+              type: 'quantitative' as const,
+              title: 'Count',
+            },
+            color: {
+              datum: 'Instant Vivify',
+            },
+          },
+        },
+
+        {
+          data: {
+            name: 'rskCast',
           },
           mark: {
             type: 'point' as const,
             shape: 'triangle-down',
-            color: '#FCA000', // orange
             filled: true,
             size: 70,
           },
@@ -192,12 +230,22 @@ class REMGraph extends Analyzer {
             y: {
               field: 'remCount',
               type: 'quantitative' as const,
-              title: null,
+              title: 'Count',
             },
-            color: { datum: 'Rising Sun Kick cast' },
+            color: { datum: 'Rising Sun Kick', value: SPELL_COLORS.RISING_SUN_KICK },
           },
         },
       ],
+      config: {
+        axis: {
+          titleFontWeight: 'normal',
+          titleFontSize: 14,
+        },
+        axisY: {
+          titleAngle: 360,
+          titlePadding: 25,
+        },
+      },
     };
 
     return (
@@ -215,7 +263,8 @@ class REMGraph extends Analyzer {
               data={{
                 remChanges: this.remChanges,
                 vivifyCasts: this.vivifyCasts,
-                rskCasts: this.rskCasts,
+                instantVivifyCasts: this.instantVivifyCasts,
+                rskCast: this.rskCasts,
               }}
               width={width}
               height={height}

@@ -79,6 +79,8 @@ import MistWrap from './modules/spells/MistWrap';
 import ShaohaosLessons from './modules/spells/ShaohaosLessons';
 import VeilOfPride from './modules/spells/VeilOfPride';
 import Guide from './Guide';
+import SheilunsGiftCloudTracker from './modules/spells/SheilunsGiftCloudTracker';
+import SheilunsGiftCloudGraph from './modules/spells/SheilunsGiftCloudGraph';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -112,6 +114,10 @@ class CombatLogParser extends CoreCombatLogParser {
     averageTimeBetweenRSKSs: AverageTimeBetweenRSKSs,
     remGraph: REMGraph,
     talentHealingStatistic: TalentHealingStatistic,
+
+    // Guide helpers
+    sheilunsGiftCloudTracker: SheilunsGiftCloudTracker,
+    sheilunsGiftCloudGraph: SheilunsGiftCloudGraph,
 
     // Base Spells
     spinningCraneKick: SpinningCraneKick,

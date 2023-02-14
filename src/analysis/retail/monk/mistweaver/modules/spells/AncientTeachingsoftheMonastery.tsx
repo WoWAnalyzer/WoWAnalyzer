@@ -93,9 +93,15 @@ class AncientTeachingsoftheMonastery extends Analyzer {
   get guideSubsection(): JSX.Element {
     const explanation = (
       <>
-        Try to maintain your <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> buff at all
-        times by casting <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> or{' '}
-        <SpellLink id={TALENTS_MONK.FAELINE_STOMP_TALENT} />
+        <strong>
+          <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} />
+        </strong>{' '}
+        is a powerful buff that enables you to do consistent healing while doing damage, a core
+        identity of Mistweaver Monk. Try to maintain your buff at all times by casting{' '}
+        <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> or{' '}
+        <SpellLink id={TALENTS_MONK.FAELINE_STOMP_TALENT} /> between usages of{' '}
+        <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> when talented into{' '}
+        <SpellLink id={TALENTS_MONK.UPWELLING_TALENT} />.
       </>
     );
 
