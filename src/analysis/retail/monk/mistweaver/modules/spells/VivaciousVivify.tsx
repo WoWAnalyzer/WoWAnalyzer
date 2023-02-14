@@ -49,10 +49,6 @@ class VivaciousVivification extends Analyzer {
       this.onRemRemove,
     );
     this.addEventListener(
-      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.VIVIFICATION_BUFF),
-      this.onBuffApply,
-    );
-    this.addEventListener(
       Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.VIVIFICATION_BUFF),
       this.onBuffRemove,
     );
@@ -66,6 +62,7 @@ class VivaciousVivification extends Analyzer {
     // every refresh is a wasted buff application and the CD restarts. ignore refreshes during cooldown windows
     if (this.areWasting) {
       this.wastedApplications += 1;
+      this.unwastedUptimes.at(-1)!.end = event.timestamp;
     }
   }
 
@@ -89,12 +86,6 @@ class VivaciousVivification extends Analyzer {
         start: event.timestamp,
         end: -1,
       });
-    }
-  }
-
-  onBuffApply(event: ApplyBuffEvent) {
-    if (this.unwastedUptimes.at(-1)!.end < 0 && this.areWasting) {
-      this.unwastedUptimes.at(-1)!.end = event.timestamp;
     }
   }
 
@@ -132,6 +123,12 @@ class VivaciousVivification extends Analyzer {
       </p>
     );
     this.unwastedUptimes.at(-1)!.end = this.owner.fight.end_time;
+    const styleObj = {
+      fontSize: 20,
+    };
+    const styleObjInner = {
+      fontSize: 15,
+    };
     const data = (
       <div>
         <RoundedPanel>
@@ -156,6 +153,10 @@ class VivaciousVivification extends Analyzer {
             undefined,
             'utilization',
           )}
+          <div style={styleObj}>
+            <b>{this.wastedApplications}</b>{' '}
+            <small style={styleObjInner}>wasted applications</small>
+          </div>
         </RoundedPanel>
       </div>
     );
