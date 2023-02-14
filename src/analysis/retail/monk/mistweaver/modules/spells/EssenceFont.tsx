@@ -191,7 +191,7 @@ class EssenceFont extends Analyzer {
         </>
       );
     } else {
-      value = this.efTargetsHit.getPerformance(totalHit);
+      value = this.efCancelled.getPerformance(totalHit);
       tooltip = (
         <>
           Cast @ {this.owner.formatTimestamp(this.efCancelled.lastEf!.timestamp)}: You hit{' '}
