@@ -102,10 +102,10 @@ class BaseCelestialAnalyzer extends Analyzer {
     this.idealEnvmCastsUnhasted = idealEnvmCastsUnhasted;
     this.minEfHotsBeforeCast =
       10 + 6 * this.selectedCombatant.getTalentRank(TALENTS_MONK.UPWELLING_TALENT);
-    this.goodSiDuration = 10000;
+    this.goodSiDuration = 10000; // base si duration
     this.goodLessonDuration =
       12000 *
-      (2 - this.selectedCombatant.getTalentRank(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT));
+      (2 - this.selectedCombatant.getTalentRank(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT)); // equal to celestial duration
   }
 
   onSummon(event: SummonEvent) {
@@ -179,19 +179,27 @@ class BaseCelestialAnalyzer extends Analyzer {
     ) {
       return;
     }
+    /**
+     * 4 cases
+     *       | SUMMON |  duration  | DEATH |
+     * 1) App             Remove
+     * 2) App                                Remove
+     * 3)               App Remove
+     * 4)                 App                Remove
+     */
     if (this.lessonsApplyTime < event.timestamp) {
       this.castTrackers.at(-1)!.lessonsDuration = this.celestialActive
-        ? event.timestamp - this.castTrackers.at(-1)!.timestamp
-        : this.castTrackers.at(-1)!.deathTimestamp - this.castTrackers.at(-1)!.timestamp;
+        ? event.timestamp - this.castTrackers.at(-1)!.timestamp // case 1
+        : this.castTrackers.at(-1)!.deathTimestamp - this.castTrackers.at(-1)!.timestamp; // case 2
     } else {
       this.castTrackers.at(-1)!.lessonsDuration = this.celestialActive
-        ? event.timestamp - this.lessonsApplyTime
-        : this.castTrackers.at(-1)!.deathTimestamp - this.lessonsApplyTime;
+        ? event.timestamp - this.lessonsApplyTime // case 3
+        : this.castTrackers.at(-1)!.deathTimestamp - this.lessonsApplyTime; // case 4
     }
   }
 
   getExpectedEnvmCasts(avgHaste: number) {
-    return this.idealEnvmCastsUnhasted * (1 + avgHaste * ENVM_HASTE_FACTOR); // arbitrary formula
+    return this.idealEnvmCastsUnhasted * (1 + avgHaste * ENVM_HASTE_FACTOR);
   }
 
   handleEfEnd(event: EndChannelEvent) {
