@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
-import { TALENTS_DRUID } from 'common/TALENTS';
 
 class Buffs extends CoreAuras {
   auras() {
@@ -13,7 +12,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id,
+        spellId: SPELLS.INCARNATION_CHOSEN_OF_ELUNE.id,
         timelineHighlight: true,
       },
       {

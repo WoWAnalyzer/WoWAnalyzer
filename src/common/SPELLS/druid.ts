@@ -791,11 +791,17 @@ const spells = spellIndexableList({
     name: 'Fury of Elune',
     icon: 'ability_druid_dreamstate',
   },
-  FURY_OF_ELUNE_DAMAGE_4P: {
-    // damage from Fury of Elune procced by the Shadowlands tier 4p
-    id: 365640,
-    name: 'Fury of Elune',
+  FURY_OF_ELUNE_DAMAGE_SUNDERED_FIRMAMENT: {
+    // damage from Fury of Elune procced by the talent Sundered Firmament
+    id: 394111,
+    name: 'Fury of Elune - Sundered Firmament',
     icon: 'ability_druid_dreamstate',
+  },
+  SUNDERED_FIRMAMENT_RESOURCE: {
+    // AP generated from Fury of Elune procced by the talent Sundered Firmament
+    id: 394108,
+    name: 'Sundered Firmament',
+    icon: 'spell_druid_equinox',
   },
   WANING_TWILIGHT: {
     // Debuff on enemy when druid has waning twilight talent and 3 periodic effects on enemy.
