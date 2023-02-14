@@ -138,6 +138,7 @@ class REMGraph extends Analyzer {
                 format: '~s',
               },
             },
+            color: { datum: 'Renewing Mist' },
           },
         },
 
@@ -165,6 +166,7 @@ class REMGraph extends Analyzer {
               type: 'quantitative' as const,
               title: null,
             },
+            color: { datum: 'Vivify cast' },
           },
         },
 
@@ -192,6 +194,7 @@ class REMGraph extends Analyzer {
               type: 'quantitative' as const,
               title: null,
             },
+            color: { datum: 'Rising Sun Kick cast' },
           },
         },
       ],

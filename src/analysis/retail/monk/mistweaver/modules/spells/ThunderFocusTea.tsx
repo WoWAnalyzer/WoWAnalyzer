@@ -11,11 +11,19 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import Haste from 'parser/shared/modules/Haste';
 import { SPELL_COLORS } from '../../constants';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 const debug = false;
 
 //TODO clean up and make easier to add triggers
 class ThunderFocusTea extends Analyzer {
+  castEntries: BoxRowEntry[] = [];
   castsTftRsk: number = 0;
   castsTftViv: number = 0;
   castsTftEnm: number = 0;
@@ -124,11 +132,28 @@ class ThunderFocusTea extends Analyzer {
       this.castsUnderTft += 1;
       this.castsTftEF += 1;
       debug && console.log('REM EF Check ', event.timestamp);
+    } else {
+      return;
     }
-
+    let tooltip = null;
+    let value = null;
     if (this.correctSpells.includes(spellId)) {
+      value = QualitativePerformance.Good;
+      tooltip = (
+        <>
+          Correct cast: buffed <SpellLink id={spellId} />
+        </>
+      );
       this.correctCasts += 1;
+    } else {
+      value = QualitativePerformance.Fail;
+      tooltip = (
+        <>
+          Incorrect cast: buffed <SpellLink id={spellId} />
+        </>
+      );
     }
+    this.castEntries.push({ value, tooltip });
   }
 
   renderCastRatioChart() {
@@ -166,6 +191,58 @@ class ThunderFocusTea extends Analyzer {
     ];
 
     return <DonutChart items={items} />;
+  }
+
+  /** Guide subsection describing the proper usage of TFT */
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} />
+        </b>{' '}
+        is an important spell used to empower other abilities. It should be used on cooldown at all
+        times and the spell that you use it on depends on your talent selection. If you have{' '}
+        <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT} />, then you should always use{' '}
+        <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} /> on{' '}
+        <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> (with high{' '}
+        <SpellLink id={TALENTS_MONK.UPWELLING_TALENT.id} /> stacks) or{' '}
+        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />. If you do not have{' '}
+        <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT.id} />, then always use it on{' '}
+        <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> (with{' '}
+        <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id} />
+        ), otherwise use it on <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />
+      </p>
+    );
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} /> cast efficiency
+          </strong>
+          <div>
+            {this.subStatistic()} <br />
+            <small>
+              Green indicates a correct <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />{' '}
+              cast, while red indicates an incorrect cast.
+            </small>
+            <PerformanceBoxRow values={this.castEntries} />
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  /** Guide subsection describing the proper usage of Rejuvenation */
+  subStatistic() {
+    return (
+      <CastEfficiencyBar
+        spellId={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        minimizeIcons
+      />
+    );
   }
 
   suggestions(when: When) {

@@ -13,16 +13,19 @@ import { formatPercentage } from 'common/format';
  * @param minimizeIcons see {@link CooldownBar} props
  * @param useThresholds iff true, the cast efficiency percentage will be color coded by performance
  *    using the abilities efficiency requirements.
+ * @param slimLines iff true, then cast lines will be skinnier. Very useful for high CPM abilities!
  */
 export default function CastEfficiencyBar({
   spellId,
   gapHighlightMode,
   minimizeIcons,
   useThresholds,
+  slimLines,
 }: {
   spellId: number;
   gapHighlightMode: GapHighlight;
   minimizeIcons?: boolean;
+  slimLines?: boolean;
   useThresholds?: boolean;
 }): JSX.Element {
   const castEffic = useAnalyzer(CastEfficiency)?.getCastEfficiencyForSpellId(spellId);
@@ -70,6 +73,7 @@ export default function CastEfficiencyBar({
         spellId={spellId}
         gapHighlightMode={gapHighlightMode}
         minimizeIcons={minimizeIcons}
+        slimLines={slimLines}
       />
     </CooldownUtilBarContainer>
   );
