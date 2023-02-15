@@ -107,8 +107,23 @@ const spells = spellIndexableList({
     name: 'Essence Font',
     icon: 'ability_monk_essencefont',
   },
+  SECRET_INFUSION_CRIT_BUFF: {
+    id: 388498,
+    name: 'Secret infusion',
+    icon: 'ability_monk_chibrew',
+  },
   SECRET_INFUSION_HASTE_BUFF: {
     id: 388497,
+    name: 'Secret infusion',
+    icon: 'ability_monk_chibrew',
+  },
+  SECRET_INFUSION_MASTERY_BUFF: {
+    id: 388499,
+    name: 'Secret infusion',
+    icon: 'ability_monk_chibrew',
+  },
+  SECRET_INFUSION_VERS_BUFF: {
+    id: 388500,
     name: 'Secret infusion',
     icon: 'ability_monk_chibrew',
   },
@@ -275,6 +290,11 @@ const spells = spellIndexableList({
     id: 343820,
     name: 'Invoke Chi-Ji, the Red Crane',
     icon: 'monk_stance_redcrane',
+  },
+  INVOKE_YULON_BUFF: {
+    id: 322118,
+    name: "Invoke Yu'lon, the Jade Serpent",
+    icon: 'ability_monk_dragonkick',
   },
   GUST_OF_MISTS_CHIJI: {
     id: 343819,
