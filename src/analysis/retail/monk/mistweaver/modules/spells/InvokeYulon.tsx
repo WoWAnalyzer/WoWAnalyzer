@@ -28,7 +28,7 @@ class InvokeYulon extends BaseCelestialAnalyzer {
   }
 
   constructor(options: Options) {
-    super(options, 4 /* idealEnvmCastsUnhastedForGift */);
+    super(options);
     this.active = this.selectedCombatant.hasTalent(
       TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT,
     );

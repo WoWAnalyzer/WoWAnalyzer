@@ -35,6 +35,8 @@ export interface BaseCelestialTracker {
 }
 
 const ENVM_HASTE_FACTOR = 0.55; // this factor determines how harsh to be for ideal envm casts
+const CHIJI_GIFT_ENVMS = 2.5;
+const YULON_GIFT_ENVMS = 4;
 
 class BaseCelestialAnalyzer extends Analyzer {
   static dependencies = {
@@ -51,8 +53,11 @@ class BaseCelestialAnalyzer extends Analyzer {
   goodLessonDuration: number = 0; // how long lesson should last during celestial
   idealEnvmCastsUnhasted: number = 0;
   minEfHotsBeforeCast: number = 0;
-  constructor(options: Options, idealEnvmCastsUnhastedForGift: number) {
+  constructor(options: Options) {
     super(options);
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT);
     this.addEventListener(Events.summon.to(SELECTED_PLAYER_PET), this.onSummon);
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SECRET_INFUSION_BUFFS),
@@ -95,6 +100,11 @@ class BaseCelestialAnalyzer extends Analyzer {
       Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
       this.handleEfEnd,
     );
+    const idealEnvmCastsUnhastedForGift = this.selectedCombatant.hasTalent(
+      TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT,
+    )
+      ? CHIJI_GIFT_ENVMS
+      : YULON_GIFT_ENVMS;
     this.idealEnvmCastsUnhasted =
       idealEnvmCastsUnhastedForGift *
       (1 + this.selectedCombatant.getTalentRank(TALENTS_MONK.JADE_BOND_TALENT));
