@@ -26,6 +26,9 @@ interface ManaTeaTracker {
   manaSaved: number;
   totalVivifyCleaves: number;
   numVivifyCasts: number;
+  castEf: boolean;
+  overhealing: number;
+  healing: number;
 }
 
 class ManaTea extends Analyzer {
@@ -65,6 +68,10 @@ class ManaTea extends Analyzer {
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.onVivHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.onVivCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
+      this.onEfCast,
+    );
   }
 
   applyBuff(event: ApplyBuffEvent) {
@@ -74,13 +81,25 @@ class ManaTea extends Analyzer {
       totalVivifyCleaves: 0,
       numVivifyCasts: 0,
       manaSaved: 0,
+      castEf: false,
+      healing: 0,
+      overhealing: 0,
     });
+  }
+
+  onEfCast(event: CastEvent) {
+    if (!this.selectedCombatant.hasBuff(TALENTS_MONK.MANA_TEA_TALENT.id)) {
+      return;
+    }
+    this.castTrackers.at(-1)!.castEf = true;
   }
 
   heal(event: HealEvent) {
     if (this.selectedCombatant.hasBuff(TALENTS_MONK.MANA_TEA_TALENT.id)) {
       //if this is in a mana tea window
       this.effectiveHealing += (event.amount || 0) + (event.absorbed || 0);
+      this.castTrackers.at(-1)!.healing += (event.amount || 0) + (event.absorbed || 0);
+      this.castTrackers.at(-1)!.overhealing += event.overheal || 0;
       this.overhealing += event.overheal || 0;
     }
   }
@@ -204,12 +223,34 @@ class ManaTea extends Analyzer {
     );
   }
 
+  getCastOverhealingPercent(cast: ManaTeaTracker) {
+    return cast.overhealing / (cast.overhealing + cast.healing);
+  }
+
   get guideCastBreakdown() {
     const explanation = (
       <p>
         <strong>
           <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} />
         </strong>{' '}
+        is a powerful buff that can save a large amount of mana. Aim to use{' '}
+        <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} /> in the following ways
+        <ul>
+          <li>
+            If you have at least 8 <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> HoTs out on
+            the raid and the raid is taking significant damage, then use{' '}
+            <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} /> and spam{' '}
+            <SpellLink id={SPELLS.VIVIFY} />
+          </li>
+          <li>
+            If talented into <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />,
+            use <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} /> during your celestial and spam
+            <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} />
+          </li>
+        </ul>
+        Regardless of how you choose to use <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} />, make
+        sure to cast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> and use it at a time where
+        your spells will not have significant overhealing.
       </p>
     );
 
@@ -240,7 +281,33 @@ class ManaTea extends Analyzer {
             result: <PerformanceMark perf={manaPerf} />,
             details: <>{formatNumber(cast.manaSaved)} mana saved</>,
           });
-          const allPerfs = [manaPerf];
+          const efPerf = cast.castEf ? QualitativePerformance.Good : QualitativePerformance.Fail;
+          checklistItems.push({
+            label: (
+              <>
+                Cast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> during{' '}
+                <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} />
+              </>
+            ),
+            result: <PerformanceMark perf={efPerf} />,
+          });
+          const overhealingPercent = this.getCastOverhealingPercent(cast);
+          let overhealingPerf = QualitativePerformance.Good;
+          if (overhealingPercent > 0.65) {
+            overhealingPerf = QualitativePerformance.Fail;
+          } else if (overhealingPercent > 0.55) {
+            overhealingPerf = QualitativePerformance.Ok;
+          }
+          checklistItems.push({
+            label: (
+              <>
+                Overhealing during <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} />
+              </>
+            ),
+            result: <PerformanceMark perf={overhealingPerf} />,
+            details: <>{formatPercentage(overhealingPercent)}%</>,
+          });
+          const allPerfs = [manaPerf, overhealingPerf, efPerf];
           if (cast.numVivifyCasts > 0) {
             const avgCleaves = cast.totalVivifyCleaves / cast.numVivifyCasts;
             let vivCleavePerf = QualitativePerformance.Good;

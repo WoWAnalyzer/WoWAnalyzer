@@ -20,10 +20,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS_MONK.RISING_SUN_KICK_TALENT) &&
           modules.risingSunKick.guideSubsection}
         {modules.thunderFocusTea.guideSubsection}
+        {modules.essenceFont.guideSubsection}
         <HotGraphSubsection modules={modules} events={events} info={info} />
       </Section>
       <Section title="Short cooldowns, buffs, and procs">
-        {modules.essenceFont.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT) &&
           modules.chiBurst.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT) &&
@@ -33,14 +33,14 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT) && (
           <SheilunsGraph modules={modules} events={events} info={info} />
         )}
+        {info.combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) &&
+          modules.manaTea.guideCastBreakdown}
       </Section>
       <Section title="Healing Cooldowns">
         <CooldownGraphSubsection modules={modules} events={events} info={info} />
         {info.combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)
           ? modules.invokeChiJi.guideCastBreakdown
           : modules.invokeYulon.guideCastBreakdown}
-        {info.combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) &&
-          modules.manaTea.guideCastBreakdown}
       </Section>
       <PreparationSection />
     </>
