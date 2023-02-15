@@ -5,7 +5,7 @@ import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { Uptime } from 'parser/ui/UptimeBar';
 import { SPELL_COLORS } from '../../constants';
@@ -41,10 +41,6 @@ class VivaciousVivification extends Analyzer {
       this.onRefresh,
     );
     this.addEventListener(
-      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
-      this.onRemApply,
-    );
-    this.addEventListener(
       Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
       this.onRemRemove,
     );
@@ -58,29 +54,23 @@ class VivaciousVivification extends Analyzer {
     });
   }
 
+  get areWasting() {
+    return (
+      this.renewingMist.currentRenewingMists >= this.vivify.estimatedAverageReMs &&
+      this.selectedCombatant.hasBuff(SPELLS.VIVIFICATION_BUFF.id) &&
+      !this.baseCelestial.celestialActive
+    );
+  }
+
+  // We start wasting if the buff refreshes, not in celestial, and sufficient rems active
   onRefresh(event: RefreshBuffEvent) {
-    // every refresh is a wasted buff application and the CD restarts. ignore refreshes during cooldown windows
     if (this.areWasting) {
       this.wastedApplications += 1;
       this.unwastedUptimes.at(-1)!.end = event.timestamp;
     }
   }
 
-  get areWasting() {
-    return (
-      this.renewingMist.currentRenewingMists >= this.vivify.estimatedAverageReMs &&
-      this.selectedCombatant.hasBuff(SPELLS.VIVIFICATION_BUFF.id) &&
-      !this.baseCelestial.celestialActive &&
-      !this.selectedCombatant.hasBuff(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id)
-    );
-  }
-
-  onRemApply(event: ApplyBuffEvent) {
-    if (this.unwastedUptimes.at(-1)!.end > 0 && this.areWasting) {
-      this.unwastedUptimes.at(-1)!.end = event.timestamp;
-    }
-  }
-
+  //We stop wasting if our ReM count becomes too low or if we consume the buff
   onRemRemove(event: RemoveBuffEvent) {
     if (this.unwastedUptimes.at(-1)!.end > 0 && !this.areWasting) {
       this.unwastedUptimes.push({
