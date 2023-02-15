@@ -57,6 +57,12 @@ export const Dummy: Contributor = {
   twitter: '@Dummy',
   avatar: avatar('zerotorescue-avatar.jpg'),
 };
+export const Pilsung: Contributor = {
+    nickname: 'Pilsung',
+    github: 'Ac1dBomb',
+    discord: 'Pilsung#5366',
+    avatar: require('.pilsung-avatar.jpg'),
+};
 export const Zerotorescue: Contributor = {
   nickname: 'Zerotorescue',
   github: 'MartijnHols',
