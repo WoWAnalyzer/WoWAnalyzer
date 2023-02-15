@@ -2107,5 +2107,10 @@ export const Klamuz: Contributor = {
       spec: SPECS.RETRIBUTION_PALADIN,
       link: 'https://www.warcraftlogs.com/character/us/ragnaros/klamuz',
     },
+export const Pilsung: Contributor = {
+    nickname: 'Pilsung',
+    github: 'Ac1dBomb',
+    discord: 'Pilsung#5366',
+    avatar: avatar('pilsung-avatar.jpg'),
   ],
 };
