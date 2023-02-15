@@ -11,6 +11,8 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
 class TwinsOfTheSunPriestess extends Analyzer {
   // More could probably be done with this to analyze what the person you used it on did.
@@ -88,6 +90,38 @@ class TwinsOfTheSunPriestess extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const allyPI = {
+      count: this.goodCasts,
+      label: 'Ally Casts',
+    };
+
+    const selfPI = {
+      count: this.badCasts,
+      label: 'Self Casts',
+    };
+
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT.id} />
+        </b>{' '}
+        gives you <SpellLink id={TALENTS.POWER_INFUSION_TALENT.id} /> when used on an ally.
+        <br />
+        When taking this talent, make sure to always use it on an ally. By using it on yourself, you
+        lose out on a free <SpellLink id={TALENTS.POWER_INFUSION_TALENT.id} /> for a raid member.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <strong>Power Infusion Casts</strong>
+        <GradiatedPerformanceBar good={allyPI} bad={selfPI} />
+      </div>
+    );
+    return explanationAndDataSubsection(explanation, data, 50);
   }
 }
 

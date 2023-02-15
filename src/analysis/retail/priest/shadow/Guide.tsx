@@ -38,6 +38,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           <CooldownGraphSubsection.LongCooldownsGraph />
           {info.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT) &&
             modules.voidform.guideSubsection}
+          {info.combatant.hasTalent(TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT) &&
+            modules.twinsOfTheSunPriestess.guideSubsection}
         </Section>
       </Section>
 
