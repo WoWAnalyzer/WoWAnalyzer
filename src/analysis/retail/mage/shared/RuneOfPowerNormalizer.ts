@@ -1,76 +1,32 @@
 import SPELLS from 'common/SPELLS';
-import { AnyEvent, EventType } from 'parser/core/Events';
-import EventsNormalizer from 'parser/core/EventsNormalizer';
+import TALENTS from 'common/TALENTS/mage';
+import EventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
+import { EventType } from 'parser/core/Events';
+import { Options } from 'parser/core/Module';
 
-class RuneOfPowerNormalizer extends EventsNormalizer {
-  normalize(events: AnyEvent[]) {
-    const fixedEvents: AnyEvent[] = [];
-    events.forEach((event, eventIndex) => {
-      fixedEvents.push(event);
+const EVENT_ORDERS: EventOrder[] = [
+  {
+    beforeEventId: [
+      SPELLS.RUNE_OF_POWER_BUFF.id,
+      TALENTS.RUNE_OF_POWER_TALENT.id,
+      TALENTS.COMBUSTION_TALENT.id,
+      TALENTS.ARCANE_SURGE_TALENT.id,
+      TALENTS.ICY_VEINS_TALENT.id,
+    ],
+    beforeEventType: EventType.Cast,
+    afterEventId: [SPELLS.RUNE_OF_POWER_BUFF.id, TALENTS.RUNE_OF_POWER_TALENT.id],
+    afterEventType: [EventType.ApplyBuff, EventType.RemoveBuff, EventType.RefreshBuff],
+    bufferMs: 50,
+    anyTarget: true,
+  },
+];
 
-      if (
-        event.type === EventType.RemoveBuff &&
-        event.ability.guid === SPELLS.RUNE_OF_POWER_BUFF.id
-      ) {
-        const castTimestamp = event.timestamp;
-        for (
-          let previousEventIndex = eventIndex;
-          previousEventIndex >= 0;
-          previousEventIndex -= 1
-        ) {
-          const previousEvent = fixedEvents[previousEventIndex];
-          if (previousEvent && castTimestamp - previousEvent.timestamp > 100) {
-            break;
-          }
-          if (
-            previousEvent &&
-            (previousEvent.type === EventType.ApplyBuff || previousEvent.type === EventType.Cast) &&
-            previousEvent.ability.guid === SPELLS.RUNE_OF_POWER_BUFF.id
-          ) {
-            fixedEvents.splice(previousEventIndex, 1);
-            previousEvent.__reordered = true;
-          }
-          if (
-            previousEvent &&
-            previousEvent.type === EventType.RemoveBuff &&
-            previousEvent.timestamp !== castTimestamp &&
-            previousEvent.ability.guid === SPELLS.RUNE_OF_POWER_BUFF.id
-          ) {
-            fixedEvents.splice(previousEventIndex, 1);
-            previousEvent.__reordered = true;
-          }
-        }
-      } else if (
-        event.type === EventType.Cast &&
-        event.ability.guid === SPELLS.RUNE_OF_POWER_BUFF.id
-      ) {
-        const castTimestamp = event.timestamp;
-
-        for (
-          let previousEventIndex = eventIndex;
-          previousEventIndex >= 0;
-          previousEventIndex -= 1
-        ) {
-          const previousEvent = fixedEvents[previousEventIndex];
-          if (previousEvent && castTimestamp - previousEvent.timestamp > 50) {
-            break;
-          }
-          if (
-            previousEvent &&
-            previousEvent.type === EventType.ApplyBuff &&
-            previousEvent.ability.guid === SPELLS.RUNE_OF_POWER_BUFF.id &&
-            previousEvent.sourceID === event.sourceID
-          ) {
-            fixedEvents.splice(previousEventIndex, 1);
-            fixedEvents.push(previousEvent);
-            previousEvent.__reordered = true;
-            break;
-          }
-        }
-      }
-    });
-
-    return fixedEvents;
+/**
+ * Ensures that the  ApplyBuff, RefreshBuff, and RemoveBuff events are not occuring before the pyroblast events... so the buff doesnt get applied, removed, or refreshed before the pyroblast actually casts
+ */
+class RuneOfPowerNormalizer extends EventOrderNormalizer {
+  constructor(options: Options) {
+    super(options, EVENT_ORDERS);
   }
 }
 

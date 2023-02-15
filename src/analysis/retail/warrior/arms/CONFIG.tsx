@@ -46,8 +46,7 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport:
-    'report/B9MWAXq3hFc2znHD/8-Mythic+Terros+-+Kill+(5:28)/Shakeywar/standard',
+  exampleReport: 'report/B9MWAXq3hFc2znHD/8-Mythic+Terros+-+Kill+(5:28)/Shakeywar/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

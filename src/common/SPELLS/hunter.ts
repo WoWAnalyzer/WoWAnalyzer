@@ -28,6 +28,11 @@ const spells = spellIndexableList({
     name: 'Dire Beast',
     icon: 'ability_hunter_sickem',
   },
+  DIRE_BEAST_GLYPHED: {
+    id: 219199,
+    name: 'Dire Beast',
+    icon: 'ability_hunter_sickem',
+  },
   DIRE_PACK_BUFF: {
     id: 378747,
     name: 'Dire Pack',

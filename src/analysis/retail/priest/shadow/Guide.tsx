@@ -12,13 +12,16 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Core">
         <Section title="Insanity">
           <ResourceSubsection.ResourceSubsection modules={modules} events={events} info={info} />{' '}
-          {/* TODO: Get Insanity Graph working*/}
           {modules.dotUptimes.guideSubsectionDP}
+          {modules.mindSear.guideSubsection}
         </Section>
         <Section title="DoTs">{modules.dotUptimes.guideSubsection}</Section>
 
         <Section title="Spells">
+          {/* TODO: Fix SW:D efficency and add SW:D*/}
+          {/* TODO: Double check Void Bolt efficency*/}
           <CooldownGraphSubsection.CoreCooldownsGraph />
+          {/* TODO: Add Active Time graph*/}
           <CastingSubsection.CastingSubsection modules={modules} events={events} info={info} />
         </Section>
       </Section>
@@ -33,7 +36,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.shadowyInsight.guideSubsection}
         {info.combatant.hasTalent(TALENTS.MIND_DEVOURER_TALENT) &&
           modules.mindDevourer.guideSubsection}
-        {/*Mind Flay Insanity may not need total procs gained, maybe should be edited*/}
         {info.combatant.hasTalent(TALENTS.MIND_FLAY_INSANITY_TALENT) &&
           modules.mindFlayInsanity.guideSubsection}
         {info.combatant.hasTalent(TALENTS.SURGE_OF_DARKNESS_TALENT) &&

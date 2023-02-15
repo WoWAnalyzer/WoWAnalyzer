@@ -286,6 +286,11 @@ const spells = spellIndexableList({
     name: 'Seal of Wisdom',
     icon: 'spell_holy_righteousnessaura',
   },
+  SEARING_LIGHT: {
+    id: 65120,
+    name: 'Searing Light',
+    icon: 'ability_paladin_infusionoflight',
+  },
   SENSE_UNDEAD: {
     id: 5502,
     name: 'Sense Undead',
@@ -340,7 +345,11 @@ const spells = spellIndexableList({
     icon: 'spell_holy_searinglight',
     lowRanks: [48824, 33072, 27174, 20930, 20929, 20473],
   },
-
+  JUDGEMENTS_OF_THE_PURE: {
+    id: 54153,
+    name: 'Judgements of the Pure',
+    icon: 'ability_paladin_judgementofthepure',
+  },
   // Protection
   AVENGERS_SHIELD: {
     id: 48827,

@@ -450,6 +450,12 @@ const spells = spellIndexableList({
     icon: 'spell_shadow_deathanddecay',
   },
 
+  UNHOLY_GROUND_HASTE_BUFF: {
+    id: 374271,
+    name: 'Unholy Ground',
+    icon: 'ability_deathknight_desecratedground',
+  },
+
   DEATH_STRIKE_HEAL: {
     id: 45470,
     name: 'Death Strike',

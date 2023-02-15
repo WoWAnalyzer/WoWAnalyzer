@@ -1,7 +1,9 @@
 import { Trans } from '@lingui/macro';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { formatNumber } from 'common/format';
-import PerformancePercentage from 'analysis/retail/demonhunter/shared/guide/PerformancePercentage';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { ResourceLink } from 'interface';
+
+import PerformancePercentage from './PerformancePercentage';
 
 const percentAtCapPerformance = ({
   percentAtCap,
@@ -35,7 +37,6 @@ const EnergyCapWaste = ({
   okTimeAtCap,
   wasted,
 }: Props) => {
-  const wastedFormatted = formatNumber(wasted);
   const performance = percentAtCapPerformance({
     percentAtCap,
     perfectTimeAtCap,
@@ -47,16 +48,17 @@ const EnergyCapWaste = ({
   return (
     <p>
       <Trans id="guide.rogue.sections.resources.energy.chart">
-        The chart below shows your Energy over the course of the encounter. You spent{' '}
+        The chart below shows your <ResourceLink id={RESOURCE_TYPES.ENERGY.id} /> over the course of
+        the encounter. You wasted{' '}
         <PerformancePercentage
           performance={performance}
           perfectPercentage={perfectTimeAtCap}
           goodPercentage={goodTimeAtCap}
           okPercentage={okTimeAtCap}
-          value={percentAtCap}
+          percentage={percentAtCap}
+          flatAmount={wasted}
         />{' '}
-        of the encounter capped on Energy, leading to{' '}
-        <strong>{wastedFormatted} wasted Energy</strong>.
+        of your <ResourceLink id={RESOURCE_TYPES.ENERGY.id} />.
       </Trans>
     </p>
   );
