@@ -5,7 +5,7 @@ import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { Uptime } from 'parser/ui/UptimeBar';
 import { SPELL_COLORS } from '../../constants';
@@ -28,7 +28,7 @@ class VivaciousVivification extends Analyzer {
   totalCasts: number = 0;
   totalHealed: number = 0;
   wastedApplications: number = 0;
-  unwastedUptimes: Uptime[] = []; // a wasted window is when we have buff and good rem count
+  unusableUptimes: Uptime[] = []; // a wasted window is when we have buff and good rem count
 
   constructor(options: Options) {
     super(options);
@@ -41,6 +41,10 @@ class VivaciousVivification extends Analyzer {
       this.onRefresh,
     );
     this.addEventListener(
+      Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.VIVIFICATION_BUFF),
+      this.onBuffApply,
+    );
+    this.addEventListener(
       Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
       this.onRemRemove,
     );
@@ -48,13 +52,13 @@ class VivaciousVivification extends Analyzer {
       Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.VIVIFICATION_BUFF),
       this.onBuffRemove,
     );
-    this.unwastedUptimes.push({
+    this.unusableUptimes.push({
       start: this.owner.fight.start_time,
       end: -1,
     });
   }
 
-  get areWasting() {
+  get isUsable() {
     return (
       this.renewingMist.currentRenewingMists >= this.vivify.estimatedAverageReMs &&
       this.selectedCombatant.hasBuff(SPELLS.VIVIFICATION_BUFF.id) &&
@@ -62,30 +66,46 @@ class VivaciousVivification extends Analyzer {
     );
   }
 
-  // We start wasting if the buff refreshes, not in celestial, and sufficient rems active
+  get inUsablePeriod() {
+    return this.unusableUptimes.at(-1)!.end > 0;
+  }
+
+  endUsablePeriod(timestamp: number) {
+    this.unusableUptimes.push({
+      start: timestamp,
+      end: -1,
+    });
+  }
+
+  startUsablePeriod(timestamp: number) {
+    this.unusableUptimes.at(-1)!.end = timestamp;
+  }
+
+  // We waste a buff if the buff refreshes, not in celestial, and sufficient rems active
   onRefresh(event: RefreshBuffEvent) {
-    if (this.areWasting) {
+    if (this.isUsable) {
       this.wastedApplications += 1;
-      this.unwastedUptimes.at(-1)!.end = event.timestamp;
     }
   }
 
-  //We stop wasting if our ReM count becomes too low or if we consume the buff
+  // when we gain buff, have sufficient rems, and not in celestial then we start usable period
+  onBuffApply(event: ApplyBuffEvent) {
+    if (!this.inUsablePeriod && this.isUsable) {
+      this.startUsablePeriod(event.timestamp);
+    }
+  }
+
+  //We enter unusable period if our ReM count becomes too low or if we consume the buff
   onRemRemove(event: RemoveBuffEvent) {
-    if (this.unwastedUptimes.at(-1)!.end > 0 && !this.areWasting) {
-      this.unwastedUptimes.push({
-        start: event.timestamp,
-        end: -1,
-      });
+    if (this.inUsablePeriod && !this.isUsable) {
+      this.endUsablePeriod(event.timestamp);
     }
   }
 
+  // if we consume buff and we were in usable period, then end usable period
   onBuffRemove(event: RemoveBuffEvent) {
-    if (this.unwastedUptimes.at(-1)!.end > 0) {
-      this.unwastedUptimes.push({
-        start: event.timestamp,
-        end: -1,
-      });
+    if (this.inUsablePeriod) {
+      this.endUsablePeriod(event.timestamp);
     }
   }
 
@@ -113,7 +133,7 @@ class VivaciousVivification extends Analyzer {
         HoTs out
       </p>
     );
-    this.unwastedUptimes.at(-1)!.end = this.owner.fight.end_time;
+    this.unusableUptimes.at(-1)!.end = this.owner.fight.end_time;
     const styleObj = {
       fontSize: 20,
     };
@@ -136,7 +156,7 @@ class VivaciousVivification extends Analyzer {
             this.owner.fight,
             {
               spells: [SPELLS.VIVIFICATION_BUFF],
-              uptimes: this.unwastedUptimes,
+              uptimes: this.unusableUptimes,
               color: SPELL_COLORS.VIVIFY,
             },
             undefined,
