@@ -78,6 +78,7 @@ import SheilunsGift from './modules/spells/SheilunsGift';
 import MistWrap from './modules/spells/MistWrap';
 import ShaohaosLessons from './modules/spells/ShaohaosLessons';
 import VeilOfPride from './modules/spells/VeilOfPride';
+import Guide from './Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -175,6 +176,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hpmDetails: MistweaverHealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
   };
+  static guide = Guide;
 }
 
 export default CombatLogParser;

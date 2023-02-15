@@ -13,6 +13,7 @@ class EssenceFontUniqueTargets extends Analyzer {
   efCasts: number = 0;
   uniqueHits: number = 0;
   totalHits: number = 0;
+  uniqueHitsBeforeCast: number = 0;
   currentHits: Set<string> = new Set<string>();
 
   constructor(options: Options) {

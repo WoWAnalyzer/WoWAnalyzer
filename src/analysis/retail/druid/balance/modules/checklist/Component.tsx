@@ -154,13 +154,8 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: any) =
         frequently as possible throughout a fight. A cooldown should be held on to only if a priority
         DPS phase is coming soon. Holding cooldowns too long will hurt your DPS."
     >
-      {combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT) ? (
-        <AbilityRequirement spell={TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id} />
-      ) : (
-        <AbilityRequirement spell={SPELLS.CELESTIAL_ALIGNMENT.id} />
-      )}
       {combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT) && (
-        <AbilityRequirement spell={TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id} />
+        <AbilityRequirement spell={SPELLS.INCARNATION_CHOSEN_OF_ELUNE.id} />
       )}
       {!combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT) &&
         combatant.hasTalent(TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT) && (

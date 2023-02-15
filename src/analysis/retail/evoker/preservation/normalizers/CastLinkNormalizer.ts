@@ -431,9 +431,9 @@ const EVENT_LINKS: EventLink[] = [
   // link dream breath applications together
   {
     linkRelation: BUFF_GROUPING,
-    linkingEventId: SPELLS.DREAM_BREATH.id,
+    linkingEventId: [SPELLS.DREAM_BREATH.id, SPELLS.DREAM_BREATH_FONT.id],
     linkingEventType: EventType.ApplyBuff,
-    referencedEventId: SPELLS.DREAM_BREATH.id,
+    referencedEventId: [SPELLS.DREAM_BREATH.id, SPELLS.DREAM_BREATH_FONT.id],
     referencedEventType: EventType.ApplyBuff,
     anyTarget: true,
     backwardBufferMs: CAST_BUFFER_MS,

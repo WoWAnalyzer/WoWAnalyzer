@@ -3,42 +3,31 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 const debug = false;
 
 class ChiBurst extends Analyzer {
-  get avgTargetsHitPerCB() {
-    return this.targetsChiBurst / this.castChiBurst || 0;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.avgTargetsHitPerCB,
-      isLessThan: {
-        minor: this.raidSize * 0.3,
-        average: this.raidSize * 0.25,
-        major: this.raidSize * 0.2,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
   static dependencies = {
     combatants: Combatants,
   };
+  protected combatants!: Combatants;
+
   castChiBurst = 0;
   healing = 0;
   targetsChiBurst = 0;
-  raidSize = 0;
 
-  constructor(...options) {
-    super(...options);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT);
-    this.raidSize = Object.keys(this.combatants.players).length;
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.CHI_BURST_TALENT),
       this.onCast,
@@ -50,11 +39,11 @@ class ChiBurst extends Analyzer {
     this.addEventListener(Events.fightend, this.onFightend);
   }
 
-  onCast(event) {
+  onCast(event: CastEvent) {
     this.castChiBurst += 1;
   }
 
-  onHeal(event) {
+  onHeal(event: HealEvent) {
     const targetId = event.targetID;
 
     if (!this.combatants.players[targetId]) {
@@ -64,7 +53,64 @@ class ChiBurst extends Analyzer {
     this.targetsChiBurst += 1;
   }
 
-  suggestions(when) {
+  get avgTargetsHitPerCB() {
+    return this.targetsChiBurst / this.castChiBurst || 0;
+  }
+
+  get percentOfRaidHitByCB() {
+    return this.avgTargetsHitPerCB / this.combatants.playerCount;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.percentOfRaidHitByCB,
+      isLessThan: {
+        minor: 0.3,
+        average: 0.25,
+        major: 0.2,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS_MONK.CHI_BURST_TALENT.id} />
+        </b>{' '}
+        is a filler spell that does consistent healing for 1 GCD and 0 mana, making it a very good
+        button to press all around.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS_MONK.CHI_BURST_TALENT} /> cast efficiency
+          </strong>
+          {this.subStatistic()}
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  /** Guide subsection describing the proper usage of Rejuvenation */
+  subStatistic() {
+    return (
+      <CastEfficiencyBar
+        spellId={TALENTS_MONK.CHI_BURST_TALENT.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        minimizeIcons
+        useThresholds
+      />
+    );
+  }
+
+  suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
@@ -78,7 +124,7 @@ class ChiBurst extends Analyzer {
           `${this.avgTargetsHitPerCB.toFixed(2)} ${t({
             id: 'monk.mistweaver.suggestions.chiBurst.targetsHit',
             message: `targets hit per Chi Burst cast - `,
-          })}${formatPercentage(this.avgTargetsHitPerCB / this.raidSize)}${t({
+          })}${formatPercentage(this.percentOfRaidHitByCB)}${t({
             id: 'monk.mistweaver.suggestions.chiBurst.targetsHitPartTwo',
             message: `% of raid hit`,
           })}`,

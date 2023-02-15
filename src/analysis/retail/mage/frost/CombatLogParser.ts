@@ -6,6 +6,7 @@ import {
   GroundingSurge,
   MirrorImage,
   RuneOfPower,
+  RuneOfPowerNormalizer,
   ShiftingPower,
   TempestBarrier,
   MasterOfTime,
@@ -51,6 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizers
     cometStormLinkNormalizer: CometStormLinkNormalizer,
+    runeOfPowerNormalizer: RuneOfPowerNormalizer,
 
     //Core
     abilities: Abilities,

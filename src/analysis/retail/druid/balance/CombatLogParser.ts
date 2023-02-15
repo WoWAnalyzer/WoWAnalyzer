@@ -30,6 +30,7 @@ import RattleTheStars from './modules/spells/RattleTheStars';
 import TouchTheCosmos from './modules/spells/TouchTheCosmos';
 import Starweaver from './modules/spells/Starweaver';
 import FriendOfTheFae from './modules/spells/FriendOfTheFae';
+import SunderedFirmament from './modules/spells/SunderedFirmament';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -66,6 +67,7 @@ class CombatLogParser extends MainCombatLogParser {
     rattleTheStars: RattleTheStars,
     starweaver: Starweaver,
     firendOfTheFae: FriendOfTheFae,
+    sunderedFirmament: SunderedFirmament,
     //Tier set
     gatheringStarstuff: GatheringStarstuff,
     touchTheCosmos: TouchTheCosmos,
