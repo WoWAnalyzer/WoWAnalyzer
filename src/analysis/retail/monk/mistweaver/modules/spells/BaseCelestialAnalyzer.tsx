@@ -25,8 +25,8 @@ export interface BaseCelestialTracker {
   lessonsDuration: number; // ms with Lessons buff
   infusionDuration: number; // ms with Secret Infusion buff
   timestamp: number; // timestamp of celestial cast
-  totalEnvM: number; // total envb applications
-  totalEnvB: number; // total envm casts
+  totalEnvM: number; // total envm casts
+  totalEnvB: number; // total envb applications
   averageHaste: number; // average haste during celestial
   numEfHots: number; // number of ef hots on raid prior to casting chiji
   totmStacks: number; // number of stacks of TOTM prior to casting Chiji
@@ -51,7 +51,7 @@ class BaseCelestialAnalyzer extends Analyzer {
   goodLessonDuration: number = 0; // how long lesson should last during celestial
   idealEnvmCastsUnhasted: number = 0;
   minEfHotsBeforeCast: number = 0;
-  constructor(options: Options, idealEnvmCastsUnhasted: number) {
+  constructor(options: Options, idealEnvmCastsUnhastedForGift: number) {
     super(options);
     this.addEventListener(Events.summon.to(SELECTED_PLAYER_PET), this.onSummon);
     this.addEventListener(
@@ -88,10 +88,6 @@ class BaseCelestialAnalyzer extends Analyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH_HEAL),
       this.onEnvbApply,
     );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH_HEAL),
-      this.onEnvbApply,
-    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onAction);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onAction);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onAction);
@@ -99,13 +95,17 @@ class BaseCelestialAnalyzer extends Analyzer {
       Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
       this.handleEfEnd,
     );
-    this.idealEnvmCastsUnhasted = idealEnvmCastsUnhasted;
+    this.idealEnvmCastsUnhasted =
+      idealEnvmCastsUnhastedForGift *
+      (1 + this.selectedCombatant.getTalentRank(TALENTS_MONK.JADE_BOND_TALENT));
     this.minEfHotsBeforeCast =
       10 + 6 * this.selectedCombatant.getTalentRank(TALENTS_MONK.UPWELLING_TALENT);
     this.goodSiDuration = 10000; // base si duration
-    this.goodLessonDuration =
-      12000 *
-      (2 - this.selectedCombatant.getTalentRank(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT)); // equal to celestial duration
+    this.goodLessonDuration = this.selectedCombatant.hasTalent(
+      TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT,
+    )
+      ? 12000
+      : 25000;
   }
 
   onSummon(event: SummonEvent) {
@@ -156,10 +156,16 @@ class BaseCelestialAnalyzer extends Analyzer {
   }
 
   applySi(event: ApplyBuffEvent) {
+    if (!this.celestialActive) {
+      return;
+    }
     this.siApplyTime = event.timestamp;
   }
 
   applyLessons(event: ApplyBuffEvent) {
+    if (!this.celestialActive) {
+      return;
+    }
     this.lessonsApplyTime = event.timestamp;
   }
 
@@ -230,21 +236,6 @@ class BaseCelestialAnalyzer extends Analyzer {
       result: <PerformanceMark perf={envbPerf} />,
       details: <>{avgBreathsPerCast.toFixed(1)} avg per cast</>,
     });
-    let totmPerf = QualitativePerformance.Good;
-    if (cast.totmStacks < 2) {
-      totmPerf = QualitativePerformance.Fail;
-    } else if (cast.totmStacks < 3) {
-      totmPerf = QualitativePerformance.Ok;
-    }
-    checklistItems.push({
-      label: (
-        <>
-          Maximum <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks on cast
-        </>
-      ),
-      result: <PerformanceMark perf={totmPerf} />,
-      details: <>{cast.totmStacks} stacks</>,
-    });
     let envmPerf = QualitativePerformance.Good;
     const idealEnvm = this.getExpectedEnvmCasts(cast.averageHaste);
     if (cast.totalEnvM < idealEnvm - 1) {
@@ -277,7 +268,7 @@ class BaseCelestialAnalyzer extends Analyzer {
       result: <PerformanceMark perf={efPerf} />,
       details: <>{cast.numEfHots} HoTs</>,
     });
-    const allPerfs: QualitativePerformance[] = [envbPerf, efPerf, totmPerf, envmPerf];
+    const allPerfs: QualitativePerformance[] = [envbPerf, efPerf, envmPerf];
 
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT)) {
       let siPerf = QualitativePerformance.Good;
