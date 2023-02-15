@@ -14,13 +14,13 @@ import {
   ToppleTheNun,
   Trevor,
   Vireve,
+  Pilsung,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
-  change(date(2023, 2, 9), <>Add <ItemLink id={ITEMS.POTION_OF_SHOCKING_DISCLOSURE_R3.id} /> to combat potion list.</>, ToppleTheNun),
-  change(date(2023, 2, 6), 'Rewrite test utilities in TypeScript.', ToppleTheNun),
+  change(date(2022, 2, 15), 'added classic warrior spells', Pilsung),
   change(date(2023, 2, 3), 'Remove old Classic Spec data for unsupported specs.', jazminite),
   change(date(2023, 1, 31), 'Add raid specific haste buffs for Classic WotLK (Ulduar).', jazminite),
   change(date(2023, 1, 30), 'Lookup Classic spec by talent tree IF the icon is generic. Generic icons occur when the player changes talents during raid.', jazminite),
@@ -172,4 +172,5 @@ export default [
   change(date(2022, 9, 8), 'Add support for Dragonflight talent detection.', emallson),
   change(date(2022, 9, 7), 'Added the beginnings of a Shared Code system to make spec maintenance easier.', Sharrq),
   change(date(2022, 8, 28), 'Add capability of auto-generating talents for Dragonflight based on gamedata', Putro),
+
 ];
