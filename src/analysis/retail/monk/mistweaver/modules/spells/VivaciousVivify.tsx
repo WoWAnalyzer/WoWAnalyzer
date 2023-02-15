@@ -10,18 +10,18 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { Uptime } from 'parser/ui/UptimeBar';
 import { SPELL_COLORS } from '../../constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
-import InvokeChiJi from './InvokeChiJi';
 import RenewingMist from './RenewingMist';
 import Vivify from './Vivify';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
+import BaseCelestialAnalyzer from './BaseCelestialAnalyzer';
 
 class VivaciousVivification extends Analyzer {
   static dependencies = {
     vivify: Vivify,
     renewingMist: RenewingMist,
-    invokeChiji: InvokeChiJi,
+    baseCelestial: BaseCelestialAnalyzer,
   };
-  protected invokeChiji!: InvokeChiJi;
+  protected baseCelestial!: BaseCelestialAnalyzer;
   protected renewingMist!: RenewingMist;
   protected vivify!: Vivify;
   currentRenewingMists: number = 0;
@@ -69,7 +69,8 @@ class VivaciousVivification extends Analyzer {
   get areWasting() {
     return (
       this.renewingMist.currentRenewingMists >= this.vivify.estimatedAverageReMs &&
-      !this.invokeChiji.celestialActive &&
+      this.selectedCombatant.hasBuff(SPELLS.VIVIFICATION_BUFF.id) &&
+      !this.baseCelestial.celestialActive &&
       !this.selectedCombatant.hasBuff(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id)
     );
   }
@@ -90,7 +91,7 @@ class VivaciousVivification extends Analyzer {
   }
 
   onBuffRemove(event: RemoveBuffEvent) {
-    if (this.unwastedUptimes.at(-1)!.end > 0 && !this.areWasting) {
+    if (this.unwastedUptimes.at(-1)!.end > 0) {
       this.unwastedUptimes.push({
         start: event.timestamp,
         end: -1,
