@@ -27,6 +27,8 @@ import { MAX_CHIJI_STACKS } from '../../constants';
 import BaseCelestialAnalyzer, { BaseCelestialTracker } from './BaseCelestialAnalyzer';
 import EssenceFont from './EssenceFont';
 
+const debug = false;
+
 /**
  * Blackout Kick, Totm BoKs, Rising Sun Kick and Spinning Crane Kick generate stacks of Invoke Chi-Ji, the Red Crane, which reduce the cast time and mana
  * cost of Enveloping Mist by 33% per stack, up to 3 stacks.
@@ -155,7 +157,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
       this.selectedCombatant.getBuffStacks(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id) ===
       MAX_CHIJI_STACKS
     ) {
-      console.log('wasted chiji stack at ', this.owner.formatTimestamp(event.timestamp));
+      debug && console.log('wasted chiji stack at ', this.owner.formatTimestamp(event.timestamp));
       this.castTrackers.at(-1)!.overcappedChijiStacks += 1;
     }
   }
@@ -164,6 +166,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
     if (!this.celestialActive) {
       return;
     }
+    // the first cast of BoK in the window should overcap (intentionally). ignore it
     if (!this.castBokInWindow) {
       this.castBokInWindow = true;
       return;
@@ -175,7 +178,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
         stacksGained >
       MAX_CHIJI_STACKS
     ) {
-      console.log('wasted chiji stack at ', this.owner.formatTimestamp(event.timestamp));
+      debug && console.log('wasted chiji stack at ', this.owner.formatTimestamp(event.timestamp));
       this.castTrackers.at(-1)!.overcappedChijiStacks +=
         this.selectedCombatant.getBuffStacks(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id) +
         stacksGained -
@@ -189,13 +192,13 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
     }
     if (this.selectedCombatant.getBuffStacks(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id) === 3) {
       this.castTrackers.at(-1)!.overcappedChijiStacks += 1;
-      console.log('wasted chiji stack at ', this.owner.formatTimestamp(event.timestamp));
+      debug && console.log('wasted chiji stack at ', this.owner.formatTimestamp(event.timestamp));
     }
   }
 
   onTotmRefresh(event: RefreshBuffEvent) {
     if (this.celestialActive) {
-      console.log('wasted stack at ', this.owner.formatTimestamp(event.timestamp));
+      debug && console.log('wasted totm stack at ', this.owner.formatTimestamp(event.timestamp));
       this.castTrackers.at(-1)!.overcappedTotmStacks += 1;
     }
   }
